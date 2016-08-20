@@ -27,9 +27,9 @@ class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
 public:
     FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
                       const IFormFactor& meso_form_factor);
-    virtual ~FormFactorCrystal();
+    ~FormFactorCrystal() final;
 
-    FormFactorCrystal* clone() const {
+    FormFactorCrystal* clone() const final {
         return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor); }
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }

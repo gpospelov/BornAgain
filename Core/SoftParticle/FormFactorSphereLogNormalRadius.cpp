@@ -46,11 +46,6 @@ FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
     delete mp_distribution;
 }
 
-double FormFactorSphereLogNormalRadius::getRadialExtension() const
-{
-    return m_mean;
-}
-
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const
 {
     if (m_form_factors.size()<1)

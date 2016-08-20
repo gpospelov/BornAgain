@@ -27,16 +27,14 @@ public:
     FormFactorSphereGaussianRadius(double mean, double sigma);
     virtual ~FormFactorSphereGaussianRadius();
 
-    FormFactorSphereGaussianRadius* clone() const;
+    FormFactorSphereGaussianRadius* clone() const final {
+        return new FormFactorSphereGaussianRadius(m_mean, m_sigma); }
 
-    void accept(ISampleVisitor* visitor) const final;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    double getRadialExtension() const final;
+    double getRadialExtension() const final { return m_mean; }
 
     complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual void init_parameters();
 
 private:
     double calculateMeanR3() const;

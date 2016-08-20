@@ -43,25 +43,18 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t) const
 
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
-    // construct reciprocal vector
+    // retrieve reciprocal lattice vectors within reasonable radius
     cvector_t q = wavevectors.getQ();
-    cvector_t k_zero;
-    // calculate the used radius in function of the reciprocal lattice scale
     double radius = 2.1 * m_max_rec_length;
-
-    // retrieve nearest reciprocal lattice vectors
-    m_lattice.computeReciprocalLatticeVectorsWithinRadius(q.real(), radius);
-    const KVectorContainer& rec_vectors = m_lattice.getKVectorContainer();
+    std::vector<kvector_t> rec_vectors =
+        m_lattice.reciprocalLatticeVectorsWithinRadius(q.real(), radius);
 
     // perform convolution on these lattice vectors
     complex_t result(0.0, 0.0);
     for (const auto& rec: rec_vectors) {
-        cvector_t q_i = rec.complex();
-        cvector_t min_q_i= -q_i;
-        cvector_t q_i_min_q = q_i - q;
-        WavevectorInfo basis_wavevectors(k_zero, min_q_i, wavevectors.getWavelength());
+        WavevectorInfo basis_wavevectors(kvector_t(), -rec, wavevectors.getWavelength());
         complex_t basis_factor = mp_basis_form_factor->evaluate(basis_wavevectors);
-        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q, wavevectors.getWavelength());
+        WavevectorInfo meso_wavevectors(cvector_t(), rec.complex()-q, wavevectors.getWavelength());
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }
@@ -73,25 +66,18 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 
 Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    // construct reciprocal vector
+    // retrieve reciprocal lattice vectors within reasonable radius
     cvector_t q = wavevectors.getQ();
-    cvector_t k_zero;
-    // calculate the used radius in function of the reciprocal lattice scale
     double radius = 2.1 * m_max_rec_length;
-
-    // retrieve nearest reciprocal lattice vectors
-    m_lattice.computeReciprocalLatticeVectorsWithinRadius(q.real(), radius);
-    const KVectorContainer& rec_vectors = m_lattice.getKVectorContainer();
+    std::vector<kvector_t> rec_vectors =
+        m_lattice.reciprocalLatticeVectorsWithinRadius(q.real(), radius);
 
     // perform convolution on these lattice vectors
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (const auto& rec: rec_vectors) {
-        cvector_t q_i = rec.complex();
-        cvector_t min_q_i= -q_i;
-        cvector_t q_i_min_q = q_i - q;
-        WavevectorInfo basis_wavevectors(k_zero, min_q_i, wavevectors.getWavelength());
+        WavevectorInfo basis_wavevectors(kvector_t(), -rec, wavevectors.getWavelength());
         Eigen::Matrix2cd basis_factor = mp_basis_form_factor->evaluatePol(basis_wavevectors);
-        WavevectorInfo meso_wavevectors(k_zero, q_i_min_q, wavevectors.getWavelength());
+        WavevectorInfo meso_wavevectors(cvector_t(), rec.complex()-q, wavevectors.getWavelength());
         complex_t meso_factor = mp_meso_form_factor->evaluate(meso_wavevectors);
         result += basis_factor * meso_factor;
     }

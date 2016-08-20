@@ -19780,16 +19780,9 @@ class Lattice(_object):
         return _libBornAgainCore.Lattice_getNearestReciprocalLatticeVectorCoordinates(self, vector_in)
 
 
-    def computeReciprocalLatticeVectorsWithinRadius(self, input_vector, radius):
-        """
-        computeReciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius)
-
-        void Lattice::computeReciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
-
-        Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
-
-        """
-        return _libBornAgainCore.Lattice_computeReciprocalLatticeVectorsWithinRadius(self, input_vector, radius)
+    def reciprocalLatticeVectorsWithinRadius(self, input_vector, radius):
+        """reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius) -> vector_kvector_t"""
+        return _libBornAgainCore.Lattice_reciprocalLatticeVectorsWithinRadius(self, input_vector, radius)
 
 
     def setSelectionRule(self, p_selection_rule):
@@ -19819,16 +19812,6 @@ class Lattice(_object):
     if _newclass:
         createTrigonalLattice = staticmethod(createTrigonalLattice)
     __swig_getmethods__["createTrigonalLattice"] = lambda x: createTrigonalLattice
-
-    def getKVectorContainer(self):
-        """
-        getKVectorContainer(Lattice self) -> KVectorContainer const &
-
-        const KVectorContainer& Lattice::getKVectorContainer() const 
-
-        """
-        return _libBornAgainCore.Lattice_getKVectorContainer(self)
-
 Lattice_swigregister = _libBornAgainCore.Lattice_swigregister
 Lattice_swigregister(Lattice)
 

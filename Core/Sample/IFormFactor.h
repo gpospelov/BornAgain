@@ -24,7 +24,10 @@ class IMaterial;
 class ILayerRTCoefficients;
 class WavevectorInfo;
 
-//! The basic interface for form factors.
+//! Pure virtual base class for all form factors.
+//! The actual form factor is returned by the complex valued function IFormFactor::evaluate,
+//! which depends on the incoming and outgoing wave vectors ki and kf.
+//! If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ IFormFactor : public ISample
@@ -32,18 +35,14 @@ class BA_CORE_API_ IFormFactor : public ISample
 public:
     IFormFactor() {}
     virtual ~IFormFactor();
-
     virtual IFormFactor* clone() const=0;
-
-    //! @{ \internal
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
-    //! @}
+    virtual void accept(ISampleVisitor* visitor) const =0;
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) {}
 
     //! Returns scattering amplitude for complex wavevector bin
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const =0;
 
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
@@ -55,7 +54,7 @@ public:
 
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
-    virtual double getRadialExtension() const=0;
+    virtual double getRadialExtension() const =0;
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}

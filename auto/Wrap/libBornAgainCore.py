@@ -3647,7 +3647,7 @@ class ISample(ICloneable, IParameterized):
     """
 
 
-    Interface for sample components and properties related to scattering.Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name "ISample" suggests.
+    Interface for sample components and properties related to scattering. Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name "ISample" suggests.
 
     C++ includes: ISample.h
 
@@ -3789,7 +3789,7 @@ class ISample(ICloneable, IParameterized):
 
 
 
-        Interface for sample components and properties related to scattering.Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name "ISample" suggests.
+        Interface for sample components and properties related to scattering. Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name "ISample" suggests.
 
         C++ includes: ISample.h
 

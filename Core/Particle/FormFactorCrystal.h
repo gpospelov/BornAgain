@@ -22,7 +22,7 @@
 //! The formfactor of a MesoCrystal.
 //! @ingroup formfactors
 
-class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
+class BA_CORE_API_ FormFactorCrystal : public IFormFactor
 {
 public:
     FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
@@ -39,10 +39,8 @@ public:
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 #ifndef SWIG
-    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
 #endif
-
-    virtual complex_t evaluate_for_q(const cvector_t q) const; //!< Throws do-not-call
 
 private:
     void calculateLargestReciprocalDistance();

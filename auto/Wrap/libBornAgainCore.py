@@ -11339,7 +11339,7 @@ class FormFactorCone6(FormFactorPolyhedron):
 FormFactorCone6_swigregister = _libBornAgainCore.FormFactorCone6_swigregister
 FormFactorCone6_swigregister(FormFactorCone6)
 
-class FormFactorCrystal(IFormFactorBorn):
+class FormFactorCrystal(IFormFactor):
     """
 
 
@@ -11349,11 +11349,11 @@ class FormFactorCrystal(IFormFactorBorn):
 
     """
     __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [IFormFactor]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorCrystal, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
+    for _s in [IFormFactor]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorCrystal, name)
     __repr__ = _swig_repr
@@ -11431,24 +11431,6 @@ class FormFactorCrystal(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorCrystal_evaluate(self, wavevectors)
-
-
-    def evaluate_for_q(self, q):
-        """
-        evaluate_for_q(FormFactorCrystal self, cvector_t q) -> complex_t
-
-        complex_t FormFactorCrystal::evaluate_for_q(const cvector_t q) const
-
-        evaluate scattering amplitude for complex wavevector
-
-        Parameters:
-        -----------
-
-        q: 
-        wavevector transfer q=k_i-k_f 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_evaluate_for_q(self, q)
 
 FormFactorCrystal_swigregister = _libBornAgainCore.FormFactorCrystal_swigregister
 FormFactorCrystal_swigregister(FormFactorCrystal)

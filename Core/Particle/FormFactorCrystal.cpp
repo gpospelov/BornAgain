@@ -35,12 +35,6 @@ FormFactorCrystal::~FormFactorCrystal()
     delete mp_meso_form_factor;
 }
 
-complex_t FormFactorCrystal::evaluate_for_q(const cvector_t) const
-{
-    throw Exceptions::LogicErrorException(
-        "Bug: evaluate_for_q() should never be called explicitly for FormFactorCrystal");
-}
-
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
     // retrieve reciprocal lattice vectors within reasonable radius

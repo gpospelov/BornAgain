@@ -36,17 +36,16 @@ public:
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getVolume() const final;
+    double getRadialExtension() const final; //!< throws makes-no-sense exception
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const final;
-
-    double getRadialExtension() const final; //!< throws makes-no-sense exception
 
 #ifndef SWIG
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
 #endif
 
 private:
-    complex_t getPositionsFactor(const cvector_t q) const;
+    complex_t getPositionsFactor(const WavevectorInfo& wavevectors) const;
     std::vector<kvector_t> m_positions;
 };
 

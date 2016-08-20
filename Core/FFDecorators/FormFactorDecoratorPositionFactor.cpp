@@ -19,30 +19,27 @@
 #include "WavevectorInfo.h"
 
 FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
-    const IFormFactor& form_factor, kvector_t position)
+    const IFormFactor& form_factor, const kvector_t& position)
     : IFormFactorDecorator(form_factor), m_position(position)
 {
     setName(BornAgain::FormFactorDecoratorPositionFactorType);
 }
 
 complex_t FormFactorDecoratorPositionFactor::evaluate(
-        const WavevectorInfo& wavevectors) const
+    const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = wavevectors.getQ();
-    complex_t pos_factor = getPositionFactor(q);
-    return pos_factor * mp_form_factor->evaluate(wavevectors);
+    return getPositionFactor(wavevectors) * mp_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
         const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = wavevectors.getQ();
-    complex_t pos_factor = getPositionFactor(q);
-    return pos_factor * mp_form_factor->evaluatePol(wavevectors);
+    return getPositionFactor(wavevectors) * mp_form_factor->evaluatePol(wavevectors);
 }
 
-complex_t FormFactorDecoratorPositionFactor::getPositionFactor(const cvector_t q) const
+complex_t FormFactorDecoratorPositionFactor::getPositionFactor(
+    const WavevectorInfo& wavevectors) const
 {
-    complex_t qr = q.x() * m_position.x() + q.y() * m_position.y() + q.z() * m_position.z();
-    return exp_I(qr);
+    cvector_t q = wavevectors.getQ();
+    return exp_I( m_position.dot(q) );
 }

@@ -42,7 +42,6 @@ public:
     //! Sets the ambient material
     void setAmbientMaterial(const IMaterial& material);
 
-    //! Retrieves the refractive index of the ambient material
     complex_t getAmbientRefractiveIndex() const;
 
 #ifndef SWIG

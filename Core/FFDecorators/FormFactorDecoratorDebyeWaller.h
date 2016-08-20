@@ -37,7 +37,7 @@ public:
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 
 private:
     double m_h_dw_factor; //!< the Debye-Waller factor in the z-direction

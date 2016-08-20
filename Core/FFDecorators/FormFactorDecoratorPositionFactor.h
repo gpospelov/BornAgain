@@ -25,7 +25,7 @@
 class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorPositionFactor(const IFormFactor& form_factor, kvector_t position);
+    FormFactorDecoratorPositionFactor(const IFormFactor& form_factor, const kvector_t& position);
 
     FormFactorDecoratorPositionFactor* clone() const final{
         return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position); }
@@ -39,7 +39,7 @@ public:
 #endif
 
 private:
-    complex_t getPositionFactor(const cvector_t q) const;
+    complex_t getPositionFactor(const WavevectorInfo& wavevectors) const;
 
     kvector_t m_position;
 };

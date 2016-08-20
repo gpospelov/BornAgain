@@ -37,33 +37,29 @@ double FormFactorDecoratorMultiPositionFactor::getVolume() const
     return nbr_particles * IFormFactorDecorator::getVolume();
 }
 
-complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
-{
-    cvector_t q = wavevectors.getQ();
-    return getPositionsFactor(q) * mp_form_factor->evaluate(wavevectors);
-}
-
 double FormFactorDecoratorMultiPositionFactor::getRadialExtension() const
 {
     throw std::runtime_error(
         "Bug: Senseless call to FormFactorDecoratorMultiPositionFactor::getRadialExtension()");
 }
 
+complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
+{
+    return getPositionsFactor(wavevectors) * mp_form_factor->evaluate(wavevectors);
+}
+
 Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(
         const WavevectorInfo& wavevectors) const
 {
-    cvector_t q = wavevectors.getQ();
-    Eigen::Matrix2cd ff = mp_form_factor->evaluatePol(wavevectors);
-    return getPositionsFactor(q) * ff;
+    return getPositionsFactor(wavevectors) * mp_form_factor->evaluatePol(wavevectors);
 }
 
-complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(const cvector_t q) const
+complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(
+    const WavevectorInfo& wavevectors) const
 {
+    cvector_t q = wavevectors.getQ();
     complex_t result;
-    for (size_t i = 0; i < m_positions.size(); ++i) {
-        complex_t qr = q.x() * m_positions[i].x() + q.y() * m_positions[i].y()
-                       + q.z() * m_positions[i].z();
-        result += exp_I(qr);
-    }
+    for (const kvector_t& pos: m_positions)
+        result += exp_I( pos.dot(q) );
     return result;
 }

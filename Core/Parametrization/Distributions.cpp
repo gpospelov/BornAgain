@@ -16,8 +16,9 @@
 #include "Distributions.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "MathFunctions.h"
 #include "Pi.h"
+#include <cmath>
+#include <sstream>
 
 using namespace BornAgain;
 

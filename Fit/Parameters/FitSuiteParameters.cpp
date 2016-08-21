@@ -15,12 +15,12 @@
 
 #include "FitSuiteParameters.h"
 #include "FitParameter.h"
-#include <stdexcept>
 #include "Logger.h"
-#include "Numeric.h"
+#include <algorithm>
 #include <cmath>
 #include <iostream>
-
+#include <limits>
+#include <stdexcept>
 
 FitSuiteParameters::~FitSuiteParameters()
 {
@@ -57,7 +57,7 @@ FitParameter* FitSuiteParameters::getFitParameter(const std::string& name)
 //! Sets values for all defined parameters
 void FitSuiteParameters::setValues(const double* pars_values)
 {
-    if( !valuesAreDifferent(pars_values) ) {
+    if( !valuesDifferFrom(pars_values, 1.) ) {
         msglog(MSG::WARNING) << "FitSuiteParameters::setValues() -> Warning! "
                                 "Small or absent change in parameter values.";
         for(size_t i_par=0; i_par<m_parameters.size(); ++i_par) {
@@ -156,15 +156,38 @@ size_t FitSuiteParameters::numberOfFreeFitParameters() const
     return result;
 }
 
-bool FitSuiteParameters::valuesAreDifferent(
-    const double* pars_values, double tolerance_factor) const
+//! Returns true if parameters already have the given values.
+bool FitSuiteParameters::valuesDifferFrom(const double* pars_values, double tol) const
 {
-    size_t index(0);
-    for (auto par: m_parameters) {
-        if( !Numeric::areAlmostEqual(pars_values[index++], par->getValue(), tolerance_factor ))
+    for (size_t i=0; i<m_parameters.size(); ++i)
+        if (numbersDiffer(m_parameters[i]->getValue(), pars_values[i], tol))
             return true;
-    }
     return false;
+}
+double get_relative_difference(double a, double b)
+{
+    constexpr double eps = std::numeric_limits<double>::epsilon();
+    // return 0.0 if relative error smaller than epsilon
+    if (std::abs(a-b) <= eps*std::abs(b))
+        return 0.0;
+    // for small numbers, divide by epsilon (to avoid catastrophic cancellation)
+    if (std::abs(b) <= eps)
+        return std::abs(a-b)/eps;
+    return std::abs((a-b)/b);
+}
+
+bool FitSuiteParameters::numbersDiffer(double a, double b, double tol) const
+{
+    constexpr double eps = std::numeric_limits<double>::epsilon();
+    return get_relative_difference(a,b) >= tol * eps;
+    /*
+    if (tol<1)
+        throw std::runtime_error("Bug: FitSuiteParameters::numbersDiffer not intended for tol<1");
+    return std::abs(b)<=eps && std::abs(a-b) <= tolerance * eps * eps ) ||
+        std::abs(a-b) <= eps * std::abs(b);
+    */
+
+// std::abs(a-b) <= tol * eps * std::max(eps, std::abs(b));
 }
 
 void FitSuiteParameters::printFitParameters() const

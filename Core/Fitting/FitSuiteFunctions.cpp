@@ -46,7 +46,7 @@ double FitSuiteGradientFunction::evaluate(
 
     bool parameters_changed(true);
     if(m_ncalls_total != 0)
-        parameters_changed = m_kernel->getFitParameters()->valuesAreDifferent(pars, 2);
+        parameters_changed = m_kernel->getFitParameters()->valuesDifferFrom(pars, 2.);
 
     verify_arrays();
     verify_minimizer_logic(parameters_changed, (int)index);

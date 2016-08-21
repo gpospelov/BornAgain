@@ -21314,133 +21314,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_valuesAreDifferent__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  double *arg2 = (double *) 0 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:FitSuiteParameters_valuesAreDifferent",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_valuesAreDifferent" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_double, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_valuesAreDifferent" "', argument " "2"" of type '" "double const *""'"); 
-  }
-  arg2 = reinterpret_cast< double * >(argp2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FitSuiteParameters_valuesAreDifferent" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (bool)((FitSuiteParameters const *)arg1)->valuesAreDifferent((double const *)arg2,arg3);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_valuesAreDifferent__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  double *arg2 = (double *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_valuesAreDifferent",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_valuesAreDifferent" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_double, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_valuesAreDifferent" "', argument " "2"" of type '" "double const *""'"); 
-  }
-  arg2 = reinterpret_cast< double * >(argp2);
-  result = (bool)((FitSuiteParameters const *)arg1)->valuesAreDifferent((double const *)arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_valuesAreDifferent(PyObject *self, PyObject *args) {
-  int argc;
-  PyObject *argv[4] = {
-    0
-  };
-  int ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? (int)PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_FitSuiteParameters_valuesAreDifferent__SWIG_1(self, args);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          return _wrap_FitSuiteParameters_valuesAreDifferent__SWIG_0(self, args);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters_valuesAreDifferent'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    FitSuiteParameters::valuesAreDifferent(double const *,double) const\n"
-    "    FitSuiteParameters::valuesAreDifferent(double const *) const\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_FitSuiteParameters_printFitParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
@@ -21546,6 +21419,46 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_setFixed(PyObject *SWIGUNUSEDPARM(
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitSuiteParameters_valuesDifferFrom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  double *arg2 = (double *) 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:FitSuiteParameters_valuesDifferFrom",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "2"" of type '" "double const *""'"); 
+  }
+  arg2 = reinterpret_cast< double * >(argp2);
+  ecode3 = SWIG_AsVal_double(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (bool)((FitSuiteParameters const *)arg1)->valuesDifferFrom((double const *)arg2,arg3);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -23911,15 +23824,6 @@ static PyMethodDef SwigMethods[] = {
 		"Returns number of free parameters. \n"
 		"\n"
 		""},
-	 { (char *)"FitSuiteParameters_valuesAreDifferent", _wrap_FitSuiteParameters_valuesAreDifferent, METH_VARARGS, (char *)"\n"
-		"valuesAreDifferent(double const * pars_valuers, double tolerance_factor=1.0) -> bool\n"
-		"FitSuiteParameters_valuesAreDifferent(FitSuiteParameters self, double const * pars_valuers) -> bool\n"
-		"\n"
-		"bool FitSuiteParameters::valuesAreDifferent(const double *pars_valuers, double tolerance_factor=1.0) const\n"
-		"\n"
-		"Returns true if parameters already have the given values. \n"
-		"\n"
-		""},
 	 { (char *)"FitSuiteParameters_printFitParameters", _wrap_FitSuiteParameters_printFitParameters, METH_VARARGS, (char *)"\n"
 		"FitSuiteParameters_printFitParameters(FitSuiteParameters self)\n"
 		"\n"
@@ -23952,6 +23856,7 @@ static PyMethodDef SwigMethods[] = {
 		"Set fixed flag for parameters from the list. \n"
 		"\n"
 		""},
+	 { (char *)"FitSuiteParameters_valuesDifferFrom", _wrap_FitSuiteParameters_valuesDifferFrom, METH_VARARGS, (char *)"FitSuiteParameters_valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool"},
 	 { (char *)"FitSuiteParameters___getitem__", _wrap_FitSuiteParameters___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> FitParameter\n"
 		"FitSuiteParameters___getitem__(FitSuiteParameters self, size_t index) -> FitParameter\n"

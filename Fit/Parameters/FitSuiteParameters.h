@@ -81,9 +81,6 @@ class BA_CORE_API_ FitSuiteParameters
     //! Returns number of free parameters.
     size_t numberOfFreeFitParameters() const;
 
-    //! Returns true if parameters already have the given values.
-    bool valuesAreDifferent(const double* pars_valuers, double tolerance_factor=1.0) const;
-
     //! Print defined parameters.
     void printFitParameters() const;
 
@@ -96,8 +93,12 @@ class BA_CORE_API_ FitSuiteParameters
     //! Set fixed flag for parameters from the list.
     void setFixed(const std::vector<std::string>& pars, bool is_fixed);
 
- private:
+    bool valuesDifferFrom(const double* par_values, double tolerance) const;
+
+private:
     size_t check_index(size_t index) const;
+    bool numbersDiffer(double a, double b, double tol) const;
+
     std::vector<FitParameter*> m_parameters; //!< collection of fit parameters
 };
 

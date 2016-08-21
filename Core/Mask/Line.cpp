@@ -17,6 +17,7 @@
 #include "Bin.h"
 #include "Macros.h"
 #include "Numeric.h"
+#include <limits>
 GCC_DIAG_OFF(unused-parameter)
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
@@ -42,7 +43,7 @@ bool Line::contains(double x, double y) const
 
     double d = distance(p, line);
 
-    return d<Numeric::double_epsilon;
+    return d<std::numeric_limits<double>::epsilon();
 }
 
 // Calculates if line crosses the box made out of our bins.

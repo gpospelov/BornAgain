@@ -18,7 +18,6 @@
 #include "Exceptions.h"
 #include "ISampleVisitor.h"
 #include "IntegratorReal.h"
-#include "Numeric.h"
 #include "ParameterPool.h"
 #include "Pi.h"
 #include "RealParameter.h"
@@ -202,7 +201,7 @@ double InterferenceFunction2DParaCrystal::interference1D(
     if (n<1) {
         result = ((1.0 + fp)/(1.0 - fp)).real();
     } else {
-        if (std::norm(1.0-fp) < Numeric::double_epsilon )
+        if (std::norm(1.0-fp) < std::numeric_limits<double>::epsilon() )
             result = nd;
         // for (1-fp)*nd small, take the series expansion to second order in nd*(1-fp)
         else if (std::abs(1.0-fp)*nd < 2e-4) {

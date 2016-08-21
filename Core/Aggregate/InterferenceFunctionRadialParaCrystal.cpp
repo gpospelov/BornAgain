@@ -17,7 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "ISampleVisitor.h"
-#include "Numeric.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <limits>
@@ -83,7 +82,7 @@ double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
     if (n<1) {
         result = ((1.0 + fp)/(1.0 - fp)).real();
     } else {
-        if (std::norm(1.0-fp) < Numeric::double_epsilon ) {
+        if (std::norm(1.0-fp) < std::numeric_limits<double>::epsilon() ) {
             result = nd;
         }
         // for (1-fp)*nd small, take the series expansion to second order in nd*(1-fp)

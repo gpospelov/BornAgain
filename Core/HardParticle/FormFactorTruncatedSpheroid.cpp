@@ -17,9 +17,9 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
 FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
     double radius, double height, double height_flattening)
@@ -68,10 +68,8 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
     double fp = m_height_flattening;
     m_q = q;
 
-    if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
+    if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
         return Pi::PI*R*H*H/fp*(1.-H/(3.*fp*R));
-    } else {
-        complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
-        return Pi::PI2 * z_part *mP_integrator->integrate(fp*R-H,fp*R );
-    }
+    complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
+    return Pi::PI2 * z_part *mP_integrator->integrate(fp*R-H,fp*R );
 }

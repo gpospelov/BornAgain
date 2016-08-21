@@ -17,10 +17,10 @@
 #include "BornAgainNamespace.h"
 #include "IntegratorReal.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "ParameterPool.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
 IFTDistribution2D::IFTDistribution2D(
     double coherence_length_x, double coherence_length_y, double gamma, double delta)
@@ -100,7 +100,7 @@ FTDistribution2DCone::FTDistribution2DCone(
 double FTDistribution2DCone::evaluate(double qx, double qy) const
 {
     double scaled_q = std::sqrt(sumsq(qx,qy));
-    if (scaled_q<Numeric::double_epsilon)
+    if (scaled_q<std::numeric_limits<double>::epsilon())
         return 1.0 - 3.0*scaled_q*scaled_q/40.0;
     auto integrator = make_integrator_real(this, &FTDistribution2DCone::coneIntegrand2);
     double integral = integrator->integrate(0.0, scaled_q);

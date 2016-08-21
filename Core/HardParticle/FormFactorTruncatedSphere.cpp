@@ -18,11 +18,11 @@
 #include "Exceptions.h"
 #include "Limits.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
-using namespace  BornAgain;
+using namespace BornAgain;
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
     : m_radius(radius), m_height(height)
@@ -63,7 +63,7 @@ complex_t FormFactorTruncatedSphere::Integrand(double Z) const
 complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const
 {
     m_q = q;
-    if ( std::abs(q.mag()) < Numeric::double_epsilon) {
+    if ( std::abs(q.mag()) < std::numeric_limits<double>::epsilon()) {
         double HdivR = m_height/m_radius;
         return Pi::PI/3.*m_radius*m_radius*m_radius
                 *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));

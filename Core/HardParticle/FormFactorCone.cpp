@@ -17,9 +17,9 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
 //! @param radius of circular base
 //! @param height of frustum
@@ -58,7 +58,7 @@ complex_t FormFactorCone::Integrand(double Z) const
 complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
 {
     m_q = q;
-    if ( std::abs(m_q.mag()) < Numeric::double_epsilon) {
+    if ( std::abs(m_q.mag()) < std::numeric_limits<double>::epsilon()) {
         double R = m_radius;
         double H = m_height;
         double tga = std::tan(m_alpha);

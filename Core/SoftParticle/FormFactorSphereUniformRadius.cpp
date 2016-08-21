@@ -16,9 +16,9 @@
 #include "FormFactorSphereUniformRadius.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "Numeric.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
         double full_width)
@@ -40,13 +40,13 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
     double W = m_full_width;
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double q_r = std::sqrt(q2);
-    if (q_r*R < Numeric::double_epsilon)
+    if (q_r*R < std::numeric_limits<double>::epsilon())
         return (4.0*Pi::PI*R*R*R + Pi::PI*R*W*W)/3.0;
     double qR = q_r*R;
     double qW = q_r*W;
     double nominator = 4*Pi::PI*( 4*std::sin(qR)*std::sin(qW/2.0)
-                                     - qW*std::cos(qW/2.0)*std::sin(qR)
-                                     - 2.0*qR*std::cos(qR)*std::sin(qW/2.0) );
+                                  - qW*std::cos(qW/2.0)*std::sin(qR)
+                                  - 2.0*qR*std::cos(qR)*std::sin(qW/2.0) );
     return nominator/(q2*q2*W);
 }
 

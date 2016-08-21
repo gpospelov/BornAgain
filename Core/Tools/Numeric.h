@@ -23,12 +23,8 @@
 
 namespace Numeric {
 
-static const double double_epsilon = std::numeric_limits<double>::epsilon();
-
-//! compare two doubles
 bool BA_CORE_API_ areAlmostEqual(double a, double b, double tolerance_factor=1.0);
 
-//! calculates safe relative difference |(a-b)/b|
 double BA_CORE_API_ get_relative_difference(double a, double b);
 
 } // Numeric namespace

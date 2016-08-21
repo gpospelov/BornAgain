@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "Pi.h"
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_sf_erf.h>
@@ -23,6 +22,7 @@
 #include <fftw3.h>
 #include <chrono>
 #include <cstring>
+#include <limits>
 #include <random>
 #include <stdexcept> // need overlooked by g++ 5.4
 
@@ -75,7 +75,7 @@ complex_t MathFunctions::sinc(const complex_t z)  // Sin(x)/x
 
 complex_t MathFunctions::tanhc(const complex_t z)  // tanh(x)/x
 {
-    if(std::abs(z)<Numeric::double_epsilon)
+    if(std::abs(z)<std::numeric_limits<double>::epsilon())
         return 1.0;
     return std::tanh(z)/z;
 }
@@ -84,7 +84,7 @@ complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+
 {
     if (N==0)
         return 1.0;
-    if(std::abs(z)<Numeric::double_epsilon)
+    if(std::abs(z)<std::numeric_limits<double>::epsilon())
         return N+1.0;
     return exp_I(N/2.0*z)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
 }

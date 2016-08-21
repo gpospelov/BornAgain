@@ -114,6 +114,8 @@ public:
     //! returns layer index corresponding to given global z coordinate
     size_t zToLayerIndex(double z_value);
 
+    bool containsMagneticMaterial() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

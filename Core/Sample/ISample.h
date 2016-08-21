@@ -60,9 +60,6 @@ public:
     //! Returns set of unique materials contained in this ISample.
     std::vector<const IMaterial*> containedMaterials() const;
 
-    //! Indicates if this ISample object contains any material with magnetic properties.
-    bool containsMagneticMaterial() const;
-
     //! Returns a vector of children.
     virtual std::vector<const ISample*> getChildren() const { return {}; }
 

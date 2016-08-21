@@ -15,8 +15,8 @@
 
 #include "ISample.h"
 #include "Exceptions.h"
-#include "IMaterial.h"
 #include "ParameterPool.h"
+#include <sstream>
 
 ISample* ISample::cloneInvertB() const
 {
@@ -44,18 +44,4 @@ std::vector<const IMaterial*> ISample::containedMaterials() const
         for( const IMaterial* material: child->containedMaterials() )
             result.push_back( material );
     return result;
-}
-
-bool ISample::containsMagneticMaterial() const
-{
-    if( const IMaterial* material = getMaterial() )
-        if( material->isMagneticMaterial() )
-            return true;
-    if( const IMaterial* material = getAmbientMaterial() )
-        if( material->isMagneticMaterial() )
-            return true;
-    for( const ISample* child: getChildren() )
-        if( child->containsMagneticMaterial() )
-            return true;
-    return false;
 }

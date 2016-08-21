@@ -220,6 +220,14 @@ int MultiLayer::getIndexOfLayer(const Layer* layer) const
     return -1;
 }
 
+bool MultiLayer::containsMagneticMaterial() const
+{
+    for (const IMaterial* mat: containedMaterials())
+        if (mat->isMagneticMaterial())
+            return true;
+    return false;
+}
+
 void MultiLayer::print(std::ostream& ostr) const
 {
     ostr << "MultiLayer:" << getName() << "<" << this << "> : {\n";

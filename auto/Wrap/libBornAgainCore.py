@@ -3755,18 +3755,6 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_containedMaterials(self)
 
 
-    def containsMagneticMaterial(self):
-        """
-        containsMagneticMaterial(ISample self) -> bool
-
-        bool ISample::containsMagneticMaterial() const
-
-        Indicates if this  ISample object contains any material with magnetic properties. 
-
-        """
-        return _libBornAgainCore.ISample_containsMagneticMaterial(self)
-
-
     def getChildren(self):
         """
         getChildren(ISample self) -> swig_dummy_type_const_isample_vector
@@ -21048,6 +21036,18 @@ class MultiLayer(ICompositeSample):
 
         """
         return _libBornAgainCore.MultiLayer_zToLayerIndex(self, z_value)
+
+
+    def containsMagneticMaterial(self):
+        """
+        containsMagneticMaterial(MultiLayer self) -> bool
+
+        bool ISample::containsMagneticMaterial() const
+
+        Indicates if this  ISample object contains any material with magnetic properties. 
+
+        """
+        return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
 
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)

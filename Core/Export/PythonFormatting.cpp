@@ -25,6 +25,7 @@
 #include "Line.h"
 #include "Macros.h"
 #include "MultiLayer.h"
+#include "Numeric.h"
 #include "ParameterPool.h"
 #include "Polygon.h"
 #include "ExportToPython.h"

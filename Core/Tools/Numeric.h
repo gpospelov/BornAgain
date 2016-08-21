@@ -23,10 +23,7 @@
 
 namespace Numeric {
 
-    // TODO move initialization (and #include <limits>) to .cpp
 static const double double_epsilon = std::numeric_limits<double>::epsilon();
-
-static const double double_min = std::numeric_limits<double>::min();
 
 //! compare two doubles
 bool BA_CORE_API_ areAlmostEqual(double a, double b, double tolerance_factor=1.0);

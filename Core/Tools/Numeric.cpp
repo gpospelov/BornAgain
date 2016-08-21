@@ -27,7 +27,6 @@ bool areAlmostEqual(double a, double b, double tolerance)
 {
     constexpr double eps = std::numeric_limits<double>::epsilon();
     return std::abs(a-b) <= eps * std::max( tolerance*eps, std::max(1., tolerance)*std::abs(b) );
-//    return get_relative_difference(a, b) < tolerance_factor*double_epsilon;
 }
 
 //! calculates safe relative difference |(a-b)/b|

@@ -15,23 +15,21 @@
 
 #include "FormFactorGauss.h"
 #include "BornAgainNamespace.h"
-#include "Numeric.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
 FormFactorGauss::FormFactorGauss(double volume)
-{
-    m_height = std::pow(volume, 1.0/3.0);
-    m_width = m_height;
-    initialize();
-}
+    : FormFactorGauss( std::pow(volume, 1.0/3.0), std::pow(volume, 1.0/3.0) ) {}
 
 FormFactorGauss::FormFactorGauss(double width, double height)
 {
     m_width = width;
     m_height = height;
-    initialize();
-}
+    setName(BornAgain::FFGaussType);
+    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    m_max_ql = std::sqrt(-4 * Pi::PI * std::log(std::numeric_limits<double>::min()) / 3);}
 
 complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
 {
@@ -48,12 +46,4 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
 
     return exp_I(qzHdiv2) * m_height * m_width * m_width *
         std::exp(-(qxr*qxr + qyr*qyr + qzh*qzh) / 4.0 / Pi::PI);
-}
-
-void FormFactorGauss::initialize()
-{
-    setName(BornAgain::FFGaussType);
-    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    m_max_ql = std::sqrt(-4 * Pi::PI * std::log(Numeric::double_min) / 3.0);
 }

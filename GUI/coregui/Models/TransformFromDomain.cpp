@@ -40,6 +40,7 @@
 #include "Line.h"
 #include "MaskItems.h"
 #include "ModelPath.h"
+#include "Numeric.h"
 #include "ParameterPattern.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
@@ -51,6 +52,7 @@
 #include "Units.h"
 #include "VectorItem.h"
 #include <QDebug>
+#include <limits>
 
 using namespace BornAgain;
 

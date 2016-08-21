@@ -19,11 +19,11 @@ def sinc(x):
 class CustomFormFactor(ba.IFormFactorBorn):
     """
     A custom defined form factor.
-    The particle is a prism of height H, with a base in form of a Greek cross ("plus" sign)
-    with side length L.
+    The particle is a prism of height H,
+    with a base in form of a Greek cross ("plus" sign) with side length L.
     """
     def __init__(self, L, H):
-        ba.IFormFactorBorn.__init__(self) #super(ba.IFormFactorBorn,self).__init__()
+        ba.IFormFactorBorn.__init__(self)
         # parameters describing the form factor
         self.L = L
         self.H = H

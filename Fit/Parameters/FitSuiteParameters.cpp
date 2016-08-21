@@ -148,10 +148,11 @@ const FitParameter* FitSuiteParameters::operator[](size_t index) const
 }
 
 size_t FitSuiteParameters::numberOfFreeFitParameters() const
+// TODO: cover by test
 {
     size_t result(0);
     for (auto par: m_parameters)
-        if (par->isFixed())
+        if (!par->isFixed())
             result++;
     return result;
 }
@@ -164,30 +165,14 @@ bool FitSuiteParameters::valuesDifferFrom(const double* pars_values, double tol)
             return true;
     return false;
 }
-double get_relative_difference(double a, double b)
-{
-    constexpr double eps = std::numeric_limits<double>::epsilon();
-    // return 0.0 if relative error smaller than epsilon
-    if (std::abs(a-b) <= eps*std::abs(b))
-        return 0.0;
-    // for small numbers, divide by epsilon (to avoid catastrophic cancellation)
-    if (std::abs(b) <= eps)
-        return std::abs(a-b)/eps;
-    return std::abs((a-b)/b);
-}
 
 bool FitSuiteParameters::numbersDiffer(double a, double b, double tol) const
 {
     constexpr double eps = std::numeric_limits<double>::epsilon();
-    return get_relative_difference(a,b) >= tol * eps;
-    /*
     if (tol<1)
         throw std::runtime_error("Bug: FitSuiteParameters::numbersDiffer not intended for tol<1");
-    return std::abs(b)<=eps && std::abs(a-b) <= tolerance * eps * eps ) ||
-        std::abs(a-b) <= eps * std::abs(b);
-    */
-
-// std::abs(a-b) <= tol * eps * std::max(eps, std::abs(b));
+    return ( std::abs(b)<=eps && std::abs(a-b) > tol * eps * eps ) ||
+        std::abs(a-b) > eps * std::abs(b);
 }
 
 void FitSuiteParameters::printFitParameters() const

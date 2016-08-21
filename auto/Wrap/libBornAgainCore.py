@@ -19598,16 +19598,16 @@ class Lattice(_object):
     __swig_destroy__ = _libBornAgainCore.delete_Lattice
     __del__ = lambda self: None
 
-    def createTransformedLattice(self, rotation):
+    def createTransformedLattice(self, transform):
         """
-        createTransformedLattice(Lattice self, IRotation rotation) -> Lattice
+        createTransformedLattice(Lattice self, Geometry::Transform3D const & transform) -> Lattice
 
         Lattice Lattice::createTransformedLattice(const IRotation &rotation) const
 
         Create transformed lattice. 
 
         """
-        return _libBornAgainCore.Lattice_createTransformedLattice(self, rotation)
+        return _libBornAgainCore.Lattice_createTransformedLattice(self, transform)
 
 
     def initialize(self):

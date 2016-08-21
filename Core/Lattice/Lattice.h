@@ -17,9 +17,11 @@
 #define LATTICE_H
 
 #include "FastVector.h"
-#include "Rotations.h"
 
 class ISelectionRule;
+namespace Geometry {
+    class Transform3D;
+}
 
 //! A lattice with three basis vectors.
 //! @ingroup samples
@@ -33,7 +35,7 @@ public:
     ~Lattice();
 
     //! Create transformed lattice
-    Lattice createTransformedLattice(const IRotation& rotation) const;
+    Lattice createTransformedLattice(const Geometry::Transform3D& transform) const;
 
     //! Initializes cached data
     void initialize() const;

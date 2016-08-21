@@ -62,7 +62,7 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
 Lattice Crystal::getTransformedLattice(const IRotation* p_rotation) const
 {
     if (p_rotation)
-        return m_lattice.createTransformedLattice(*p_rotation);
+        return m_lattice.createTransformedLattice(p_rotation->getTransform3D());
     else
         return m_lattice;
 }

@@ -171,8 +171,7 @@ bool FitSuiteParameters::numbersDiffer(double a, double b, double tol) const
     constexpr double eps = std::numeric_limits<double>::epsilon();
     if (tol<1)
         throw std::runtime_error("Bug: FitSuiteParameters::numbersDiffer not intended for tol<1");
-    return ( std::abs(b)<=eps && std::abs(a-b) > tol * eps * eps ) ||
-        std::abs(a-b) > eps * std::abs(b);
+    return std::abs(a-b) > eps * std::max( tol*eps, std::abs(b) );
 }
 
 void FitSuiteParameters::printFitParameters() const

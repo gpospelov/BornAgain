@@ -14,16 +14,20 @@
 // ************************************************************************** //
 
 #include "Numeric.h"
+#include <algorithm>
 #include <cmath>
+#include <limits>
 
 //! Floating-point epsilon, tolerances, almost-equal.
 
 namespace Numeric {
 
-//! compare two doubles
-bool areAlmostEqual(double a, double b, double tolerance_factor)
+//! Returns true if two doubles agree within epsilon*tolerance
+bool areAlmostEqual(double a, double b, double tolerance)
 {
-    return get_relative_difference(a, b) < tolerance_factor*double_epsilon;
+    constexpr double eps = std::numeric_limits<double>::epsilon();
+    return std::abs(a-b) <= eps * std::max( tolerance*eps, std::max(1., tolerance)*std::abs(b) );
+//    return get_relative_difference(a, b) < tolerance_factor*double_epsilon;
 }
 
 //! calculates safe relative difference |(a-b)/b|

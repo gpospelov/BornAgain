@@ -3655,7 +3655,11 @@ class ISample(ICloneable, IParameterized):
     """
 
 
-    Interface for sample components and properties related to scattering. Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name "ISample" suggests.
+    Pure virtual base class for sample components and properties related to scattering.
+
+    Inherited by  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is much more basic and abstract than the name "ISample" suggests.
+
+    Since  ICompositeSample contains a vector of  ISample's, we provide here some machinery for iterating through a tree (getMaterial, containedMaterials, containedSubclasses, ..). The functions getChildren and size, completely trivial here, become meaningful through their overloads in  ICompositeSample.
 
     C++ includes: ISample.h
 
@@ -3785,7 +3789,11 @@ class ISample(ICloneable, IParameterized):
 
 
 
-        Interface for sample components and properties related to scattering. Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name "ISample" suggests.
+        Pure virtual base class for sample components and properties related to scattering.
+
+        Inherited by  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is much more basic and abstract than the name "ISample" suggests.
+
+        Since  ICompositeSample contains a vector of  ISample's, we provide here some machinery for iterating through a tree (getMaterial, containedMaterials, containedSubclasses, ..). The functions getChildren and size, completely trivial here, become meaningful through their overloads in  ICompositeSample.
 
         C++ includes: ISample.h
 
@@ -6821,6 +6829,8 @@ class ICompositeSample(ISample):
 
     Pure virtual base class for tree-like composite samples.
 
+    Inherited by  IAbstractParticle, IClusteredParticle,  ILayout, ILayer, IMultiLayer.
+
     C++ includes: ICompositeSample.h
 
     """
@@ -6843,7 +6853,7 @@ class ICompositeSample(ISample):
         """
         clone(ICompositeSample self) -> ICompositeSample
 
-        ICompositeSample* ICompositeSample::clone() const =0
+        virtual ICompositeSample* ICompositeSample::clone() const =0
 
         Returns a clone of this  ISample object. 
 
@@ -6855,7 +6865,7 @@ class ICompositeSample(ISample):
         """
         accept(ICompositeSample self, ISampleVisitor visitor)
 
-        virtual void ICompositeSample::accept(ISampleVisitor *visitor) const
+        virtual void ICompositeSample::accept(ISampleVisitor *visitor) const =0
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -6893,7 +6903,7 @@ class ICompositeSample(ISample):
         """
         getChildren(ICompositeSample self) -> swig_dummy_type_const_isample_vector
 
-        std::vector< const ISample * > ICompositeSample::getChildren() const
+        std::vector< const ISample * > ICompositeSample::getChildren() const final
 
         Returns a vector of children (const). 
 
@@ -6905,7 +6915,7 @@ class ICompositeSample(ISample):
         """
         size(ICompositeSample self) -> size_t
 
-        virtual size_t ICompositeSample::size() const
+        size_t ICompositeSample::size() const final
 
         Returns number of children. 
 
@@ -9761,7 +9771,7 @@ class IFormFactor(ISample):
 
     The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
 
-    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBAPol.
+    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBAPol,  FormFactorCrystal.
 
     C++ includes: IFormFactor.h
 
@@ -10105,7 +10115,7 @@ class IFormFactorBorn(IFormFactor):
 
     Base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
-    NOTE: These class should be pure virtual; the functions evaluate and evaluatePol should be declared final; the functions clone, accept, evaluate_for_q, getRadialExtension should be =0 instead of having trivial implementations. HOWEVER, this does conflict with inclusion of this class in Wrap/swig/directors.i, which in turn is necessary for CustomFormFactor.py to work.
+    NOTE: These class should be pure virtual; the functions evaluate and evaluatePol should be declared final; the functions clone, accept, evaluate_for_q, getRadialExtension should be =0 instead of having trivial implementations. HOWEVER, this seems to conflict with the inclusion of this class in Wrap/swig/directors.i, which in turn seems to be necessary for CustomFormFactor.py to work.
 
     C++ includes: IFormFactorBorn.h
 
@@ -19590,7 +19600,7 @@ class Lattice(_object):
         """
         createTransformedLattice(Lattice self, Geometry::Transform3D const & transform) -> Lattice
 
-        Lattice Lattice::createTransformedLattice(const IRotation &rotation) const
+        Lattice Lattice::createTransformedLattice(const Geometry::Transform3D &transform) const
 
         Create transformed lattice. 
 
@@ -21042,9 +21052,7 @@ class MultiLayer(ICompositeSample):
         """
         containsMagneticMaterial(MultiLayer self) -> bool
 
-        bool ISample::containsMagneticMaterial() const
-
-        Indicates if this  ISample object contains any material with magnetic properties. 
+        bool MultiLayer::containsMagneticMaterial() const 
 
         """
         return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)

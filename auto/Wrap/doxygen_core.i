@@ -5693,6 +5693,8 @@ Composes transformation with existing one.
 
 Pure virtual base class for tree-like composite samples.
 
+Inherited by  IAbstractParticle, IClusteredParticle,  ILayout, ILayer, IMultiLayer.
+
 C++ includes: ICompositeSample.h
 ";
 
@@ -5702,12 +5704,12 @@ C++ includes: ICompositeSample.h
 %feature("docstring")  ICompositeSample::~ICompositeSample "ICompositeSample::~ICompositeSample()
 ";
 
-%feature("docstring")  ICompositeSample::clone "ICompositeSample* ICompositeSample::clone() const =0
+%feature("docstring")  ICompositeSample::clone "virtual ICompositeSample* ICompositeSample::clone() const =0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ICompositeSample::accept "virtual void ICompositeSample::accept(ISampleVisitor *visitor) const
+%feature("docstring")  ICompositeSample::accept "virtual void ICompositeSample::accept(ISampleVisitor *visitor) const =0
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -5724,12 +5726,12 @@ Removes registered child from the container.
 remove registered child from the container 
 ";
 
-%feature("docstring")  ICompositeSample::getChildren "std::vector< const ISample * > ICompositeSample::getChildren() const
+%feature("docstring")  ICompositeSample::getChildren "std::vector< const ISample * > ICompositeSample::getChildren() const final
 
 Returns a vector of children (const). 
 ";
 
-%feature("docstring")  ICompositeSample::size "virtual size_t ICompositeSample::size() const
+%feature("docstring")  ICompositeSample::size "size_t ICompositeSample::size() const final
 
 Returns number of children. 
 ";
@@ -6113,7 +6115,7 @@ Pure virtual base class for all form factors.
 
 The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
 
-Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBAPol.
+Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBAPol,  FormFactorCrystal.
 
 C++ includes: IFormFactor.h
 ";
@@ -6170,7 +6172,7 @@ Sets reflection/transmission info.
 
 Base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
-NOTE: These class should be pure virtual; the functions evaluate and evaluatePol should be declared final; the functions clone, accept, evaluate_for_q, getRadialExtension should be =0 instead of having trivial implementations. HOWEVER, this does conflict with inclusion of this class in Wrap/swig/directors.i, which in turn is necessary for CustomFormFactor.py to work.
+NOTE: These class should be pure virtual; the functions evaluate and evaluatePol should be declared final; the functions clone, accept, evaluate_for_q, getRadialExtension should be =0 instead of having trivial implementations. HOWEVER, this seems to conflict with the inclusion of this class in Wrap/swig/directors.i, which in turn seems to be necessary for CustomFormFactor.py to work.
 
 C++ includes: IFormFactorBorn.h
 ";
@@ -7964,7 +7966,11 @@ Calls the  ISampleVisitor's visit method.
 // File: classISample.xml
 %feature("docstring") ISample "
 
-Interface for sample components and properties related to scattering. Pure virtual base class of  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is somewhat more abstract than the name \"ISample\" suggests.
+Pure virtual base class for sample components and properties related to scattering.
+
+Inherited by  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is much more basic and abstract than the name \"ISample\" suggests.
+
+Since  ICompositeSample contains a vector of  ISample's, we provide here some machinery for iterating through a tree (getMaterial, containedMaterials, containedSubclasses, ..). The functions getChildren and size, completely trivial here, become meaningful through their overloads in  ICompositeSample.
 
 C++ includes: ISample.h
 ";
@@ -8002,11 +8008,6 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  ISample::containedMaterials "std::vector< const IMaterial * > ISample::containedMaterials() const
 
 Returns set of unique materials contained in this  ISample. 
-";
-
-%feature("docstring")  ISample::containsMagneticMaterial "bool ISample::containsMagneticMaterial() const
-
-Indicates if this  ISample object contains any material with magnetic properties. 
 ";
 
 %feature("docstring")  ISample::getChildren "virtual std::vector<const ISample*> ISample::getChildren() const
@@ -8645,7 +8646,7 @@ C++ includes: Lattice.h
 %feature("docstring")  Lattice::~Lattice "Lattice::~Lattice()
 ";
 
-%feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const IRotation &rotation) const
+%feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const Geometry::Transform3D &transform) const
 
 Create transformed lattice. 
 ";
@@ -9623,6 +9624,9 @@ returns true if contains magnetic materials and matrix calculations are required
 %feature("docstring")  MultiLayer::zToLayerIndex "size_t MultiLayer::zToLayerIndex(double z_value)
 
 returns layer index corresponding to given global z coordinate 
+";
+
+%feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const 
 ";
 
 
@@ -12764,34 +12768,34 @@ C++ includes: Utils.h
 ";
 
 
-// File: classUtils_1_1StringUsageMap.xml
-%feature("docstring") Utils::StringUsageMap "
+// File: classStringUsageMap.xml
+%feature("docstring") StringUsageMap "
 
 Control how often a string is used.
 
-C++ includes: Utils.h
+C++ includes: StringUsageMap.h
 ";
 
-%feature("docstring")  Utils::StringUsageMap::StringUsageMap "Utils::StringUsageMap::StringUsageMap()
+%feature("docstring")  StringUsageMap::StringUsageMap "StringUsageMap::StringUsageMap()
 ";
 
-%feature("docstring")  Utils::StringUsageMap::~StringUsageMap "Utils::StringUsageMap::~StringUsageMap()
+%feature("docstring")  StringUsageMap::~StringUsageMap "StringUsageMap::~StringUsageMap()
 ";
 
-%feature("docstring")  Utils::StringUsageMap::add "void Utils::StringUsageMap::add(std::string name)
+%feature("docstring")  StringUsageMap::add "void StringUsageMap::add(const std::string &name)
 
 Adds string to the map, or increments usage counter. 
 ";
 
-%feature("docstring")  Utils::StringUsageMap::begin "iterator_t Utils::StringUsageMap::begin()
+%feature("docstring")  StringUsageMap::begin "iterator_t StringUsageMap::begin()
 
 access to the map of strings 
 ";
 
-%feature("docstring")  Utils::StringUsageMap::end "iterator_t Utils::StringUsageMap::end()
+%feature("docstring")  StringUsageMap::end "iterator_t StringUsageMap::end()
 ";
 
-%feature("docstring")  Utils::StringUsageMap::get_current "std::string Utils::StringUsageMap::get_current() const
+%feature("docstring")  StringUsageMap::get_current "std::string StringUsageMap::get_current() const
 
 Returns current string. 
 ";
@@ -13134,13 +13138,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D295.xml
+// File: namespace_0D296.xml
 
 
-// File: namespace_0D368.xml
+// File: namespace_0D369.xml
 
 
-// File: namespace_0D434.xml
+// File: namespace_0D435.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13304,6 +13308,18 @@ convolution of two real vectors of equal size
 ";
 
 %feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+";
+
+
+// File: namespaceNumeric.xml
+%feature("docstring")  Numeric::areAlmostEqual "bool BA_CORE_API_ Numeric::areAlmostEqual(double a, double b, double tolerance)
+
+Returns true if two doubles agree within epsilon*tolerance. 
+";
+
+%feature("docstring")  Numeric::get_relative_difference "double BA_CORE_API_ Numeric::get_relative_difference(double a, double b)
+
+Returns the safe relative difference, which is |(a-b)/b| except in special cases. 
 ";
 
 
@@ -13688,6 +13704,9 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: ICloneable_8h.xml
+
+
+// File: INamed_8h.xml
 
 
 // File: IShareable_8h.xml
@@ -14556,9 +14575,6 @@ Set all element intensities to given value.
 // File: Distributions_8h.xml
 
 
-// File: INamed_8h.xml
-
-
 // File: IParameterized_8cpp.xml
 
 
@@ -14737,6 +14753,9 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: SampleTreeIterator_8h.xml
+
+
+// File: StringUsageMap_8h.xml
 
 
 // File: DecoratedLayerDWBASimulation_8cpp.xml
@@ -15035,6 +15054,12 @@ David N. Williams
 
 
 // File: MathFunctions_8h.xml
+
+
+// File: Numeric_8cpp.xml
+
+
+// File: Numeric_8h.xml
 
 
 // File: Precomputed_8cpp.xml

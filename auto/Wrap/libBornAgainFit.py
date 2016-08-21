@@ -2374,7 +2374,14 @@ class FitSuiteParameters(_object):
 
 
     def valuesDifferFrom(self, par_values, tolerance):
-        """valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool"""
+        """
+        valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool
+
+        bool FitSuiteParameters::valuesDifferFrom(const double *par_values, double tolerance) const
+
+        Returns true if parameters already have the given values. 
+
+        """
         return _libBornAgainFit.FitSuiteParameters_valuesDifferFrom(self, par_values, tolerance)
 
 

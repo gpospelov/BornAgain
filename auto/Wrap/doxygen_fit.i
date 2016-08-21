@@ -307,11 +307,6 @@ Returns end of container.
 Returns number of free parameters. 
 ";
 
-%feature("docstring")  FitSuiteParameters::valuesAreDifferent "bool FitSuiteParameters::valuesAreDifferent(const double *pars_valuers, double tolerance_factor=1.0) const
-
-Returns true if parameters already have the given values. 
-";
-
 %feature("docstring")  FitSuiteParameters::printFitParameters "void FitSuiteParameters::printFitParameters() const
 
 Print defined parameters. 
@@ -330,6 +325,11 @@ Release all parameters.
 %feature("docstring")  FitSuiteParameters::setFixed "void FitSuiteParameters::setFixed(const std::vector< std::string > &pars, bool is_fixed)
 
 Set fixed flag for parameters from the list. 
+";
+
+%feature("docstring")  FitSuiteParameters::valuesDifferFrom "bool FitSuiteParameters::valuesDifferFrom(const double *par_values, double tolerance) const
+
+Returns true if parameters already have the given values. 
 ";
 
 
@@ -1165,18 +1165,6 @@ return minimizer options
 ";
 
 
-// File: namespaceNumeric.xml
-%feature("docstring")  Numeric::areAlmostEqual "bool BA_CORE_API_ Numeric::areAlmostEqual(double a, double b, double tolerance_factor)
-
-compare two doubles 
-";
-
-%feature("docstring")  Numeric::get_relative_difference "double BA_CORE_API_ Numeric::get_relative_difference(double a, double b)
-
-calculates safe relative difference |(a-b)/b| 
-";
-
-
 // File: namespaceStringUtils.xml
 %feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
 
@@ -1313,12 +1301,6 @@ Returns string right-padded with blanks.
 
 
 // File: Logger_8h.xml
-
-
-// File: Numeric_8cpp.xml
-
-
-// File: Numeric_8h.xml
 
 
 // File: StringUtils_8cpp.xml

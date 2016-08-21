@@ -23856,7 +23856,14 @@ static PyMethodDef SwigMethods[] = {
 		"Set fixed flag for parameters from the list. \n"
 		"\n"
 		""},
-	 { (char *)"FitSuiteParameters_valuesDifferFrom", _wrap_FitSuiteParameters_valuesDifferFrom, METH_VARARGS, (char *)"FitSuiteParameters_valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool"},
+	 { (char *)"FitSuiteParameters_valuesDifferFrom", _wrap_FitSuiteParameters_valuesDifferFrom, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool\n"
+		"\n"
+		"bool FitSuiteParameters::valuesDifferFrom(const double *par_values, double tolerance) const\n"
+		"\n"
+		"Returns true if parameters already have the given values. \n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteParameters___getitem__", _wrap_FitSuiteParameters___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> FitParameter\n"
 		"FitSuiteParameters___getitem__(FitSuiteParameters self, size_t index) -> FitParameter\n"

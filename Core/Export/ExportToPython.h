@@ -16,10 +16,12 @@
 #ifndef EXPORTTOPYTHON_H
 #define EXPORTTOPYTHON_H
 
-#include "ISampleVisitor.h"
+#include "WinDllMacros.h"
 #include <string>
 
 class GISASSimulation;
+class IParticle;
+class MultiLayer;
 class SampleLabelHandler;
 
 //! Write a Python script that allows to run the current simulation.

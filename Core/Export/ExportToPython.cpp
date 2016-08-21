@@ -17,11 +17,9 @@
 #include "Beam.h"
 #include "ConvolutionDetectorResolution.h"
 #include "Crystal.h"
-#include "IFormFactor.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
-#include "LayerRoughness.h"
 #include "Materials.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
@@ -37,6 +35,9 @@
 #include "Utils.h"
 #include <iomanip>
 #include <set>
+
+class IFormFactor;
+class LayerRoughness;
 
 using namespace PythonFormatting;
 

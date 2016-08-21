@@ -20,8 +20,5 @@ FormFactorInfo::~FormFactorInfo() { delete mp_ff; }
 
 FormFactorInfo* FormFactorInfo::clone() const
 {
-    FormFactorInfo* p_result = new FormFactorInfo();
-    p_result->m_abundance = m_abundance;
-    p_result->mp_ff = mp_ff->clone();
-    return p_result;
+    return new FormFactorInfo(mp_ff->clone(), m_abundance);
 }

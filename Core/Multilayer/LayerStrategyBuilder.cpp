@@ -91,11 +91,9 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     double total_abundance = mP_layer->getTotalAbundance();
     if (total_abundance<=0.0)
         total_abundance = 1.0;
-    SafePointerVector<const IParticle> iparticles = p_layout->getParticles();
-    size_t number_of_particles = iparticles.size();
-    for (size_t i = 0; i<number_of_particles; ++i) {
+    for (const IParticle* particle: p_layout->getParticles()) {
         FormFactorInfo* p_ff_info;
-        p_ff_info = createFormFactorInfo(iparticles[i], p_layer_material);
+        p_ff_info = createFormFactorInfo(particle, p_layer_material);
         p_ff_info->m_abundance /= total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }
@@ -116,7 +114,6 @@ void LayerStrategyBuilder::collectInterferenceFunction()
 FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
-    FormFactorInfo* p_result = new FormFactorInfo;
     const std::unique_ptr<IParticle> P_particle_clone(particle->clone());
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
@@ -131,8 +128,6 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
             p_ff_framework = new FormFactorDWBA(*P_ff_particle);
     } else
         p_ff_framework = P_ff_particle->clone();
-    p_result->mp_ff = p_ff_framework;
-    // Other info (abundance)
-    p_result->m_abundance = particle->getAbundance();
-    return p_result;
+
+    return new FormFactorInfo(p_ff_framework, particle->getAbundance());
 }

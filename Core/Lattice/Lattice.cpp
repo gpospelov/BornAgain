@@ -16,6 +16,7 @@
 #include "Lattice.h"
 #include "ISelectionRule.h"
 #include "Pi.h"
+#include "Transform3D.h"
 #include <gsl/gsl_linalg.h>
 
 Lattice::Lattice()
@@ -54,9 +55,8 @@ Lattice::~Lattice()
     delete mp_selection_rule;
 }
 
-Lattice Lattice::createTransformedLattice(const IRotation& rotation) const
+Lattice Lattice::createTransformedLattice(const Geometry::Transform3D& transform) const
 {
-    Geometry::Transform3D transform = rotation.getTransform3D();
     kvector_t a1 = transform.transformed(m_a1);
     kvector_t a2 = transform.transformed(m_a2);
     kvector_t a3 = transform.transformed(m_a3);

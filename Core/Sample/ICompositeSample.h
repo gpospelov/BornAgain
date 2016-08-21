@@ -21,6 +21,9 @@
 class ISampleVisitor;
 
 //! Pure virtual base class for tree-like composite samples.
+//!
+//! Inherited by IAbstractParticle, IClusteredParticle, ILayout, ILayer, IMultiLayer.
+//!
 //! @ingroup samples_internal
 
 class BA_CORE_API_ ICompositeSample : public ISample
@@ -29,15 +32,15 @@ public:
     ICompositeSample() {}
     virtual ~ICompositeSample();
 
-    ICompositeSample* clone() const = 0;
+    virtual ICompositeSample* clone() const =0;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const =0;
 
     //! Registers child in the container.
-    virtual void registerChild(ISample* sample);
+    void registerChild(ISample* sample);
 
     //! Removes registered child from the container
-    virtual void deregisterChild(ISample* sample);
+    void deregisterChild(ISample* sample);
 
     //! Returns child pointer by index (with range checking)
     ISample* operator[](size_t index);
@@ -46,10 +49,10 @@ public:
     const ISample* operator[](size_t index) const;
 
     //! Returns a vector of children (const).
-    virtual std::vector<const ISample*> getChildren() const;
+    std::vector<const ISample*> getChildren() const final;
 
     //! Returns number of children.
-    virtual size_t size() const { return m_samples.size(); }
+    size_t size() const final { return m_samples.size(); }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,

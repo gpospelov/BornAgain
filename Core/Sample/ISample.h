@@ -24,9 +24,16 @@
 class IMaterial;
 class ISampleVisitor;
 
-//! Interface for sample components and properties related to scattering.
-//!   Pure virtual base class of ICompositeSample, IFormFactor, IInterferenceFunction,
-//!   IRoughness, IRotation. So it is somewhat more abstract than the name "ISample" suggests.
+//! Pure virtual base class for sample components and properties related to scattering.
+//!
+//! Inherited by ICompositeSample, IFormFactor, IInterferenceFunction, IRoughness, IRotation.
+//! So it is much more basic and abstract than the name "ISample" suggests.
+//!
+//! Since ICompositeSample contains a vector of ISample's, we provide here some machinery
+//! for iterating through a tree (getMaterial, containedMaterials, containedSubclasses, ..).
+//! The functions getChildren and size, completely trivial here, become meaningful
+//! through their overloads in ICompositeSample.
+//!
 //! @ingroup samples_internal
 
 class BA_CORE_API_ ISample : public ICloneable, public IParameterized

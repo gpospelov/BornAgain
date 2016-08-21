@@ -15,7 +15,7 @@
 
 #include "ICompositeSample.h"
 #include "Exceptions.h"
-#include "Utils.h"
+#include "StringUsageMap.h"
 #include <algorithm>
 
 ICompositeSample::~ICompositeSample() {}
@@ -70,13 +70,13 @@ std::string ICompositeSample::addParametersToExternalPool(std::string path,
 
     // We need a mechanism to handle cases with multiple children with the same name.
     // First run through all direct children and save their names
-    Utils::StringUsageMap strUsageMap;
+    StringUsageMap strUsageMap;
     for (size_t i = 0; i < m_samples.size(); ++i)
         strUsageMap.add(new_path + m_samples[i]->getName()); // saving child names
 
     // Now run through the direct children again and assign a copy number for
     // all children with the same name
-    Utils::StringUsageMap strUsageMap2;
+    StringUsageMap strUsageMap2;
     for (size_t i = 0; i < m_samples.size(); ++i) {
         std::string child_name = new_path + m_samples[i]->getName();
         strUsageMap2.add(child_name);

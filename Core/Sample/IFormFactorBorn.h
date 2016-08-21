@@ -28,8 +28,8 @@
 //! the functions evaluate and evaluatePol should be declared final;
 //! the functions clone, accept, evaluate_for_q, getRadialExtension should be =0
 //! instead of having trivial implementations.
-//! HOWEVER, this does conflict with inclusion of this class in Wrap/swig/directors.i,
-//! which in turn is necessary for CustomFormFactor.py to work.
+//! HOWEVER, this seems to conflict with the inclusion of this class in Wrap/swig/directors.i,
+//! which in turn seems to be necessary for CustomFormFactor.py to work.
 //!
 //! @ingroup formfactors_internal
 

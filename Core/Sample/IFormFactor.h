@@ -31,7 +31,7 @@ class WavevectorInfo;
 //! If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
 //!
 //! Other children besides IBornFormFactor are IFormFactorDecorator, FormFactorWeighted,
-//! FormFactorDWBAPol.
+//! FormFactorDWBAPol, FormFactorCrystal.
 
 //! @ingroup formfactors_internal
 

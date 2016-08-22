@@ -33,7 +33,7 @@
 #include <iterator>
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(const MultiLayer* p_multi_layer)
-  : mp_roughness_dwba_simulation(0)
+    : mp_roughness_dwba_simulation(nullptr)
 {
     mp_multi_layer = p_multi_layer->clone();
 }

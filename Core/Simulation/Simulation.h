@@ -123,9 +123,6 @@ protected:
                    std::vector<SimulationElement>::iterator end_it) const;
 #endif
 
-    //! Verify existence of the DWBASimulation object
-    void verifyDWBASimulation(DWBASimulation* dwbaSimulation);
-
     //! Returns the start iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
 

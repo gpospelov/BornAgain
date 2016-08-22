@@ -18,7 +18,7 @@
 #include "LayerSpecularInfo.h"
 
 LayerDWBASimulation::LayerDWBASimulation(const Layer* p_layer)
-    : mp_specular_info(0)
+    : mp_specular_info(nullptr)
 {
     mp_layer = p_layer->clone();
 }

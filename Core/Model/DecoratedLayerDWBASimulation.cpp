@@ -75,12 +75,10 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         size_t n_layers = mp_layer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0)
             continue;
-        // each ffdwba: 1 call to getOutCoeffs
+        // each ffdwba: one call to getOutCoeffs
         if (polarization_present)
-            // matrix dwba calculation
             it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
         else
-            // scalar dwba calculation
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
     }
     m_progress.finished();

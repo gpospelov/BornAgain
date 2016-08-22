@@ -191,7 +191,6 @@ void Simulation::runSingleSimulation()
         // Single thread.
         std::unique_ptr<DWBASimulation> P_dwba_simulation(
             new MultiLayerDWBASimulation(mP_sample.get()));
-        verifyDWBASimulation(P_dwba_simulation.get());
         P_dwba_simulation->init(m_options, *this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
@@ -222,7 +221,6 @@ void Simulation::runSingleSimulation()
             // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
             DWBASimulation* p_dwba_simulation = new MultiLayerDWBASimulation(mP_sample.get());
 
-            verifyDWBASimulation(p_dwba_simulation);
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
@@ -284,16 +282,6 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress)
     if (m_progress) {
         dwba_progress->setCallback( [&] (int n) {return m_progress->update(n);} );
     }
-}
-
-void Simulation::verifyDWBASimulation(DWBASimulation* dwbaSimulation)
-{
-    if (!dwbaSimulation)
-        throw Exceptions::RuntimeErrorException(
-            "Simulation::runSimulation() -> Can't create the simulation for given sample."
-            "It should be either the MultiLayer with more than one layer (with or without "
-            "particles),"
-            "or MultiLayer with single Layer containing particles.");
 }
 
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)

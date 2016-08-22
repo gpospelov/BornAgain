@@ -21,7 +21,8 @@
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-Layer::Layer() : mp_material(nullptr), m_thickness(0)
+Layer::Layer()
+    : mp_material(nullptr), m_thickness(0)
 {
     initialize();
 }
@@ -36,7 +37,7 @@ Layer::Layer(const IMaterial& material, double thickness)
 Layer::Layer(const Layer& other) : ICompositeSample()
 {
     m_thickness = other.m_thickness;
-    mp_material = 0;
+    mp_material = nullptr;
     if (other.mp_material)
         mp_material = other.mp_material->clone();
     for (size_t i=0; i<other.getNumberOfLayouts();++i)

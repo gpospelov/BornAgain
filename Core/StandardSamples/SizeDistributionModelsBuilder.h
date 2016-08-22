@@ -19,8 +19,8 @@
 #include "IMultiLayerBuilder.h"
 
 //! Creates the sample demonstrating size distribution model in decoupling approximation.
-//! @ingroup standard_samples
 //! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
+//! @ingroup standard_samples
 
 class BA_CORE_API_ SizeDistributionDAModelBuilder : public IMultiLayerBuilder
 {
@@ -29,10 +29,9 @@ public:
     MultiLayer* buildSample() const;
 };
 
-//! @ingroup standard_samples
-//! @brief Creates the sample demonstrating size distribution model in local monodisperse
-//! approximation.
+//! Creates the sample demonstrating size distribution model in local monodisperse approximation.
 //! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
+//! @ingroup standard_samples
 
 class BA_CORE_API_ SizeDistributionLMAModelBuilder : public IMultiLayerBuilder
 {
@@ -42,8 +41,8 @@ public:
 };
 
 //! Creates the sample demonstrating size distribution model in size space coupling approximation.
-//! @ingroup standard_samples
 //! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
+//! @ingroup standard_samples
 
 class BA_CORE_API_ SizeDistributionSSCAModelBuilder : public IMultiLayerBuilder
 {

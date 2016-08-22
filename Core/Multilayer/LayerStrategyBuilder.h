@@ -28,7 +28,7 @@ class Layer;
 class LayerSpecularInfo;
 class MultiLayer;
 
-//! Methods to generate a simulation strategy for decorated Layer SimulationParameters.
+//! Methods to generate a simulation strategy for DecoratedLayerDWBASimulation.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ LayerStrategyBuilder

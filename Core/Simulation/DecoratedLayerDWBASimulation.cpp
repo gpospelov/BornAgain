@@ -68,16 +68,13 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
 
     bool polarization_present = checkPolarizationPresent();
 
-    std::vector<SimulationElement>::iterator it = m_begin_it;
-    while (it != m_end_it) {
+    for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
         if (!m_progress.update())
             break;
         double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_layer->getNumberOfLayers();
-        if (n_layers > 1 && alpha_f < 0) {
-            ++it;
+        if (n_layers > 1 && alpha_f < 0)
             continue;
-        }
         // each ffdwba: 1 call to getOutCoeffs
         if (polarization_present)
             // matrix dwba calculation
@@ -85,7 +82,6 @@ void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
         else
             // scalar dwba calculation
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
-        ++it;
     }
     m_progress.finished();
 }

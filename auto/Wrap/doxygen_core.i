@@ -3442,7 +3442,7 @@ Information about particle position and abundance.
 C++ includes: FormFactorInfo.h
 ";
 
-%feature("docstring")  FormFactorInfo::FormFactorInfo "FormFactorInfo::FormFactorInfo()
+%feature("docstring")  FormFactorInfo::FormFactorInfo "FormFactorInfo::FormFactorInfo(IFormFactor *ff, double abundance)
 ";
 
 %feature("docstring")  FormFactorInfo::~FormFactorInfo "FormFactorInfo::~FormFactorInfo()
@@ -13764,24 +13764,6 @@ global helper function for comparison of axes
 // File: VariableBinAxis_8h.xml
 
 
-// File: ExportToPython_8cpp.xml
-
-
-// File: ExportToPython_8h.xml
-
-
-// File: PythonFormatting_8cpp.xml
-
-
-// File: PythonFormatting_8h.xml
-
-
-// File: SampleLabelHandler_8cpp.xml
-
-
-// File: SampleLabelHandler_8h.xml
-
-
 // File: FormFactorDecoratorDebyeWaller_8cpp.xml
 
 
@@ -13819,6 +13801,24 @@ global helper function for comparison of axes
 
 
 // File: IFormFactorDecorator_8h.xml
+
+
+// File: ExportToPython_8cpp.xml
+
+
+// File: ExportToPython_8h.xml
+
+
+// File: PythonFormatting_8cpp.xml
+
+
+// File: PythonFormatting_8h.xml
+
+
+// File: SampleLabelHandler_8cpp.xml
+
+
+// File: SampleLabelHandler_8h.xml
 
 
 // File: FitKernel_8cpp.xml
@@ -15113,10 +15113,10 @@ David N. Williams
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
+// File: dir_e5c18127747cd9d7214e02067b529d74.xml
+
+
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml
-
-
-// File: dir_bf9305b59ff90d350d733ebceacfed28.xml
 
 
 // File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
@@ -15149,7 +15149,7 @@ David N. Williams
 // File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
 
 
-// File: dir_a3eed303c38754514b4d9174b7e731d6.xml
+// File: dir_6babb1605c026604526d064f820d612b.xml
 
 
 // File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml

@@ -18,14 +18,15 @@
 
 #include "Complex.h"
 #include "EigenCore.h"
-#include "IParameterized.h"
+#include "Vectors3D.h"
 #include "IPixelMap.h"
 #include <memory>
 #include <vector>
 
-//! @class SimulationElement
+class IPixelMap;
+
+//! Data stucture containing both input and output of a single detector cell.
 //! @ingroup simulation
-//! @brief Data stucture containing both input and output of a single detector cell.
 
 class BA_CORE_API_ SimulationElement
 {

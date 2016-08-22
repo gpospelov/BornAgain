@@ -17,6 +17,7 @@
 #include "Beam.h"
 #include "IDetectorResolution.h"
 #include "InfinitePlane.h"
+#include "IPixelMap.h"
 #include "Logger.h"
 #include "SimulationElement.h"
 

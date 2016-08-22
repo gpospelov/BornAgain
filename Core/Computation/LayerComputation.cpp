@@ -44,10 +44,3 @@ void LayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
         mp_specular_info = specular_info.clone();
     }
 }
-
-Bin1DCVector LayerComputation::getKfBin(
-    double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin) const
-{
-    Bin1DCVector k_f_bin(wavelength, alpha_bin, phi_bin);
-    return k_f_bin;
-}

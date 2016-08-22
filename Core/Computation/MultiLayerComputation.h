@@ -20,7 +20,7 @@
 #include "Complex.h"
 #include <map>
 
-class LayerComputation;
+class DecoratedLayerComputation;
 class MultiLayer;
 class MultiLayerRoughnessComputation;
 
@@ -49,7 +49,7 @@ protected:
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
 
-    std::map<size_t, SafePointerVector<LayerComputation>> m_layer_dwba_simulations_map;
+    std::map<size_t, SafePointerVector<DecoratedLayerComputation>> m_layer_dwba_simulations_map;
     MultiLayer* mp_multi_layer;
     MultiLayerRoughnessComputation* mp_roughness_dwba_simulation;
 };

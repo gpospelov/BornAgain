@@ -16,26 +16,33 @@
 #ifndef DECORATEDLAYERCOMPUTATION_H
 #define DECORATEDLAYERCOMPUTATION_H
 
-#include "LayerComputation.h"
+#include "Computation.h"
 
 class IInterferenceFunctionStrategy;
+class Layer;
+class LayerSpecularInfo;
 
 //! Computes the scattering contribution from one layer with particles in/on it.
 //! Controlled by MultiLayerComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecoratedLayerComputation : public LayerComputation
+class BA_CORE_API_ DecoratedLayerComputation : public Computation
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
     ~DecoratedLayerComputation() final;
+    DecoratedLayerComputation* clone() const final;
 
     void run() final;
+    void setSpecularInfo(const LayerSpecularInfo& specular_info);
 
 private:
     void runProtected() final;
     IInterferenceFunctionStrategy* createAndInitStrategy() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy* p_strategy);
+
+    Layer* mp_layer;
+    LayerSpecularInfo* mp_specular_info;
     size_t m_layout_index;
 };
 

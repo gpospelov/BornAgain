@@ -16,17 +16,29 @@
 #include "DecoratedLayerComputation.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "Layer.h"
+#include "LayerSpecularInfo.h"
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
 #include "SimulationElement.h"
 
-DecoratedLayerComputation::DecoratedLayerComputation(
-    const Layer* p_layer, size_t layout_index)
-    : LayerComputation(p_layer), m_layout_index(layout_index)
-{}
+DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_t layout_index)
+    : mp_specular_info(nullptr), m_layout_index(layout_index)
+{
+    mp_layer = p_layer->clone();
+}
 
 DecoratedLayerComputation::~DecoratedLayerComputation()
-{}
+{
+    delete mp_layer;
+    delete mp_specular_info;
+}
+
+DecoratedLayerComputation* DecoratedLayerComputation::clone() const
+{
+    throw Exceptions::NotImplementedException(
+        "Bug: unexpected call to DecoratedLayerComputation::clone(); "
+        "functionality not yet implemented");
+}
 
 void DecoratedLayerComputation::run()
 {
@@ -82,4 +94,12 @@ void DecoratedLayerComputation::calculateCoherentIntensity(
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
     }
     m_progress.finished();
+}
+
+void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
+{
+    if (mp_specular_info != &specular_info) {
+        delete mp_specular_info;
+        mp_specular_info = specular_info.clone();
+    }
 }

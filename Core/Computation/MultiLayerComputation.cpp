@@ -17,7 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "DecoratedLayerComputation.h"
 #include "Layer.h"
-#include "LayerComputation.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "LayerSpecularInfo.h"
@@ -62,11 +61,12 @@ void MultiLayerComputation::init(
 
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         for (size_t j=0; j<mp_multi_layer->getLayer(i)->getNumberOfLayouts(); ++j) {
-            LayerComputation* p_layer_dwba_sim =
+            auto* p_layer_dwba_sim =
                 new DecoratedLayerComputation(mp_multi_layer->getLayer(i), j);
             if (p_layer_dwba_sim) {
                 if (m_layer_dwba_simulations_map.find(i) == m_layer_dwba_simulations_map.end())
-                    m_layer_dwba_simulations_map[i] = SafePointerVector<LayerComputation>();
+                    m_layer_dwba_simulations_map[i] =
+                        SafePointerVector<DecoratedLayerComputation>();
                 m_layer_dwba_simulations_map[i].push_back(p_layer_dwba_sim);
             }
         }
@@ -113,7 +113,7 @@ void MultiLayerComputation::runProtected()
     for (auto it=m_layer_dwba_simulations_map.begin(); it!=m_layer_dwba_simulations_map.end(); ++it)
     {
         for (size_t i=0; i<it->second.size(); ++i) {
-            LayerComputation* p_layer_dwba_sim = it->second[i];
+            DecoratedLayerComputation* p_layer_dwba_sim = it->second[i];
             p_layer_dwba_sim->init(
                 m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
             p_layer_dwba_sim->run();
@@ -144,7 +144,7 @@ void MultiLayerComputation::collectRTCoefficientsScalar()
         auto pos = m_layer_dwba_simulations_map.find(i_layer);
         if (pos != m_layer_dwba_simulations_map.end() ) {
             for (size_t i=0; i<pos->second.size();++i) {
-                LayerComputation* p_layer_dwba_sim = pos->second[i];
+                DecoratedLayerComputation* p_layer_dwba_sim = pos->second[i];
                 p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
             }
         }
@@ -168,7 +168,7 @@ void MultiLayerComputation::collectRTCoefficientsMatrix()
         auto pos = m_layer_dwba_simulations_map.find(i_layer);
         if (pos != m_layer_dwba_simulations_map.end() ) {
             for (size_t i=0; i<pos->second.size();++i) {
-                LayerComputation* p_layer_dwba_sim = pos->second[i];
+                DecoratedLayerComputation* p_layer_dwba_sim = pos->second[i];
                 p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
             }
         }

@@ -17,6 +17,7 @@
 #include "Beam.h"
 #include "ConvolutionDetectorResolution.h"
 #include "Crystal.h"
+#include "Distributions.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
@@ -283,8 +284,9 @@ std::string ExportToPython::defineParticleDistributions() const
         std::stringstream s_distr;
         s_distr << "distr_" << index;
 
-        result << indent() << s_distr.str() << " = ba."
-               << getRepresentation(par_distr.getDistribution()) << "\n";
+        result << indent() << s_distr.str()
+               << " = ba." << par_distr.getDistribution()->getName() << "("
+               << argumentList(par_distr.getDistribution()) << ")\n";
 
         // building parameter distribution
         std::stringstream s_par_distr;
@@ -358,11 +360,10 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
             const IFTDecayFunction1D* pdf = oneDLattice->getDecayFunction();
 
-            if (pdf->getOmega() != 0.0) {
+            if (pdf->getOmega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                       << "(" << argumentList(pdf) << ")\n";
-                result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
-            }
+                       << "(" << argumentList(pdf) << ")\n"
+                       << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         }
 
         else if (const auto* oneDParaCrystal
@@ -381,12 +382,11 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
             const IFTDistribution1D* pdf = oneDParaCrystal->getProbabilityDistribution();
 
-            if (pdf->getOmega() != 0.0) {
+            if (pdf->getOmega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                       << "(" << argumentList(pdf) << ")\n";
-                result << indent() << it->second << ".setProbabilityDistribution(" << it->second
+                       << "(" << argumentList(pdf) << ")\n"
+                       << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
-            }
         }
 
         else if (const auto* twoDLattice
@@ -401,8 +401,8 @@ std::string ExportToPython::defineInterferenceFunctions() const
             const IFTDecayFunction2D* pdf = twoDLattice->getDecayFunction();
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
-                   << "(" << argumentList(pdf) << ")\n";
-            result << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
+                   << "(" << argumentList(pdf) << ")\n"
+                   << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         }
 
         else if (const auto* twoDParaCrystal
@@ -444,11 +444,10 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << ", "
                        << printNm(twoDParaCrystal->getDampingLength()) << ")\n";
 
-                if (domainSize[0] != 0 || domainSize[1] != 0) {
+                if (domainSize[0] != 0 || domainSize[1] != 0)
                     result << indent() << it->second << ".setDomainSizes("
                            << printNm(domainSize[0]) << ", "
                            << printNm(domainSize[1]) << ")\n";
-                }
 
                 if (twoDParaCrystal->getIntegrationOverXi() == true)
                     result << indent() << it->second << ".setIntegrationOverXi(True)\n";
@@ -470,13 +469,10 @@ std::string ExportToPython::defineInterferenceFunctions() const
                    << "_pdf_1, " << it->second << "_pdf_2)\n";
         }
 
-        else {
-            std::ostringstream interferenceException;
-            interferenceException << "\n" << interference->getName() << " :: Not Casted To Any "
-                                  << "Interference Function\n";
-            throw Exceptions::NotImplementedException(interferenceException.str());
-        }
-
+        else
+            throw Exceptions::NotImplementedException(
+                "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
+                "IInterferenceFunction " + interference->getName());
     }
     return result.str();
 }
@@ -732,8 +728,9 @@ std::string ExportToPython::defineParameterDistributions(const GISASSimulation* 
         double sigma_factor = distributions[i].getSigmaFactor();
         const IDistribution1D* p_distr = distributions[i].getDistribution();
         result << indent() << "distribution_" << i+1 << " = ba."
-               << getRepresentation(p_distr) << "\n";
-        result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
+               << std::setprecision(12) << p_distr->getName() << "("
+               << argumentList(p_distr) << ")\n"
+               << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
                << "distribution_" << i+1 << ", " << nbr_samples << ", "
                << printDouble(sigma_factor) << ")\n";
     }
@@ -752,7 +749,7 @@ std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
         for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
-            result << getRepresentation(indent(), shape, mask_value);
+            result << representShape2D(indent(), shape, mask_value);
         }
         result << "\n";
     }

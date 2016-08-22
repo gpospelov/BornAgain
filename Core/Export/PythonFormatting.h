@@ -30,8 +30,7 @@ class RealParameter;
 namespace PythonFormatting {
     BA_CORE_API_ std::string simulationToPython(GISASSimulation* simulation);
 
-    BA_CORE_API_ std::string getRepresentation(const IDistribution1D* distribution);
-    BA_CORE_API_ std::string getRepresentation(
+    BA_CORE_API_ std::string representShape2D(
         const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value);
     BA_CORE_API_ std::string printBool(double value);
     BA_CORE_API_ std::string printDouble(double input);

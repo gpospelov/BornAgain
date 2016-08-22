@@ -2,7 +2,7 @@
 # Plots intensity data difference stored in BornAgain "*.int" or "*.int.gz" format
 # Usage: python plot_intensity_data.py intensity_reference.int.gz intensity_other.int.gz
 
-import matplotlib, numpy
+import matplotlib, numpy, sys
 from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm

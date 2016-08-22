@@ -16,7 +16,8 @@
 #ifndef DWBASIMULATION_H
 #define DWBASIMULATION_H
 
-#include "ISimulation.h"
+#include "ICloneable.h"
+#include "ComputationOutcome.h"
 #include "OutputData.h"
 #include "ProgressHandlerDWBA.h"
 #include "Simulation.h"
@@ -30,7 +31,7 @@ class SimulationElement;
 //! Controlled by class Simulation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DWBASimulation : public ISimulation
+class BA_CORE_API_ DWBASimulation : public ComputationOutcome, public ICloneable
 {
 public:
     DWBASimulation();

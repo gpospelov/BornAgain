@@ -2,6 +2,7 @@
 #define DWBASIMULATIONTEST_H
 
 #include "DWBASimulation.h"
+#include "GISASSimulation.h"
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "SimulationElement.h"

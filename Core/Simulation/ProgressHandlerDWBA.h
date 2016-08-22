@@ -18,10 +18,10 @@
 
 #include "ProgressHandler.h"
 
-//! @class DWBAProgressHandler
+//! Holds number of items processed by DWBASimulation,
+//! and informs Simulation every time n items have been processed.
 //! @ingroup algorithms_internal
-//! @brief Holds number of items processed by DWBASimulation and informs Simulation
-//! every n'th processed item.
+
 class ProgressHandlerDWBA
 {
 public:

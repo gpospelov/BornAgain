@@ -25,17 +25,19 @@ DWBASimulation::~DWBASimulation()
     delete mp_simulation;
 }
 
-void DWBASimulation::init(const Simulation& simulation,
-                          std::vector<SimulationElement>::iterator begin_it,
-                          std::vector<SimulationElement>::iterator end_it)
+void DWBASimulation::init(
+    const SimulationOptions& options,
+    const Simulation& simulation,
+    std::vector<SimulationElement>::iterator begin_it,
+    std::vector<SimulationElement>::iterator end_it)
 {
+    m_sim_options = options;
     if (mp_simulation != &simulation) {
         delete mp_simulation;
         mp_simulation = simulation.clone();
     }
     m_begin_it = begin_it;
     m_end_it = end_it;
-    m_sim_options = simulation.getOptions();
 
     // initialising call backs
     mp_simulation->initProgressHandlerDWBA(&m_progress);

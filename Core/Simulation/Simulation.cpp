@@ -19,7 +19,7 @@
 #include "MultiLayer.h"
 #include "MultiLayerDWBASimulation.h"
 #include "Logger.h"
-#include "OMPISimulation.h"
+// unused #include "OMPISimulation.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "SimulationElement.h"
@@ -98,11 +98,13 @@ void Simulation::runSimulation()
     transferResultsToIntensityMap();
 }
 
+/* currently unused
 void Simulation::runOMPISimulation()
 {
     OMPISimulation ompi;
     ompi.runSimulation(this);
 }
+*/
 
 //! The MultiLayer object will not be owned by the Simulation object
 void Simulation::setSample(const MultiLayer& sample)
@@ -117,7 +119,7 @@ void Simulation::setSampleBuilder(std::shared_ptr<class IMultiLayerBuilder> p_sa
                                    "Error! Attempt to set null sample builder.");
 
     mp_sample_builder = p_sample_builder;
-    mP_sample.reset(0);
+    mP_sample.reset(nullptr);
 }
 
 std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool* external_pool,
@@ -190,7 +192,7 @@ void Simulation::runSingleSimulation()
         std::unique_ptr<DWBASimulation> P_dwba_simulation(
             new MultiLayerDWBASimulation(mP_sample.get()));
         verifyDWBASimulation(P_dwba_simulation.get());
-        P_dwba_simulation->init(*this, batch_start, batch_end);
+        P_dwba_simulation->init(m_options, *this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
             std::string message = P_dwba_simulation->getRunMessage();
@@ -229,7 +231,7 @@ void Simulation::runSingleSimulation()
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
-            p_dwba_simulation->init(*this, begin_it, end_it);
+            p_dwba_simulation->init(m_options, *this, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
         }
 

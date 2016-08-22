@@ -18,6 +18,7 @@
 #include "ConvolutionDetectorResolution.h"
 #include "Crystal.h"
 #include "Distributions.h"
+#include "GISASSimulation.h"
 #include "IFormFactor.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"

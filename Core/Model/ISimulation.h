@@ -22,6 +22,7 @@
 
 //! Pure virtual base class, encapsulating most simulations
 //! (but not those of type Simulation or SpecularSimulation).
+//! Currently, the only child is DWBASimulations, which is the base for some more classes.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ ISimulation : ICloneable

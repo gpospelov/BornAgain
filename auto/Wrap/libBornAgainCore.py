@@ -14774,18 +14774,6 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_runSimulation(self)
 
 
-    def runOMPISimulation(self):
-        """
-        runOMPISimulation(Simulation self)
-
-        void Simulation::runOMPISimulation()
-
-        Run an OpenMPI simulation. 
-
-        """
-        return _libBornAgainCore.Simulation_runOMPISimulation(self)
-
-
     def setSample(self, sample):
         """
         setSample(Simulation self, MultiLayer sample)

@@ -51,12 +51,15 @@ MultiLayerDWBASimulation* MultiLayerDWBASimulation::clone() const
         "functionality not yet implemented");
 }
 
-void MultiLayerDWBASimulation::init(const Simulation& simulation,
-                                    std::vector<SimulationElement>::iterator begin_it,
-                                    std::vector<SimulationElement>::iterator end_it)
+void MultiLayerDWBASimulation::init(
+    const SimulationOptions& options,
+    const Simulation& simulation,
+    std::vector<SimulationElement>::iterator begin_it,
+    std::vector<SimulationElement>::iterator end_it)
 {
     msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::init()";
-    DWBASimulation::init(simulation, begin_it, end_it);
+    DWBASimulation::init(options, simulation, begin_it, end_it);
+
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         for (size_t j=0; j<mp_multi_layer->getLayer(i)->getNumberOfLayouts(); ++j) {
             LayerDWBASimulation* p_layer_dwba_sim =
@@ -112,7 +115,8 @@ void MultiLayerDWBASimulation::runProtected()
     {
         for (size_t i=0; i<it->second.size(); ++i) {
             LayerDWBASimulation* p_layer_dwba_sim = it->second[i];
-            p_layer_dwba_sim->init(*mp_simulation, layer_elements.begin(), layer_elements.end());
+            p_layer_dwba_sim->init(
+                m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
             p_layer_dwba_sim->run();
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }
@@ -120,8 +124,8 @@ void MultiLayerDWBASimulation::runProtected()
 
     if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_dwba_simulation) {
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> roughness";
-        mp_roughness_dwba_simulation->init(*mp_simulation, layer_elements.begin(),
-                                           layer_elements.end());
+        mp_roughness_dwba_simulation->init(
+            m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
         mp_roughness_dwba_simulation->run();
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }

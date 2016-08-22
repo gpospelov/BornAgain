@@ -47,7 +47,7 @@ public:
     void runSimulation();
 
     //! Run an OpenMPI simulation
-    void runOMPISimulation();
+    //unused void runOMPISimulation();
 
     //! Sets the sample to be tested
     void setSample(const MultiLayer& sample);
@@ -90,7 +90,7 @@ public:
     void initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress);
 #endif
 
-    friend class OMPISimulation;
+    //unused friend class OMPISimulation;
 
     void setOptions(const SimulationOptions& options) { m_options = options; }
     const SimulationOptions& getOptions() const { return m_options; }

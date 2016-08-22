@@ -17,8 +17,13 @@
 #define DWBASIMULATION_H
 
 #include "ISimulation.h"
-#include "GISASSimulation.h"
+#include "OutputData.h"
 #include "ProgressHandlerDWBA.h"
+#include "Simulation.h"
+#include "SimulationOptions.h"
+#include <vector>
+
+class SimulationElement;
 
 //! Base class for different simulations, using DWBA.
 //! @ingroup algorithms_internal
@@ -33,9 +38,11 @@ public:
     virtual void run() {}
 
     //! Initializes the simulation with the parameters from simulation
-    virtual void init(const Simulation& simulation,
-                      std::vector<SimulationElement>::iterator begin_it,
-                      std::vector<SimulationElement>::iterator end_it);
+    virtual void init(
+        const SimulationOptions& options,
+        const Simulation& simulation,
+        std::vector<SimulationElement>::iterator begin_it,
+        std::vector<SimulationElement>::iterator end_it);
 
     //! Returns output data containing calculated intensity.
     const OutputData<double>& getDWBAIntensity() const { return m_dwba_intensity; }

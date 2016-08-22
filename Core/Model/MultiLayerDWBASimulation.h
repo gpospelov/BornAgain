@@ -34,9 +34,11 @@ public:
     ~MultiLayerDWBASimulation() final;
     MultiLayerDWBASimulation* clone() const final;
 
-    void init(const Simulation& simulation,
-              std::vector<SimulationElement>::iterator begin_it,
-              std::vector<SimulationElement>::iterator end_it) final;
+    void init(
+        const SimulationOptions& options,
+        const Simulation& simulation,
+        std::vector<SimulationElement>::iterator begin_it,
+        std::vector<SimulationElement>::iterator end_it) final;
 
     void run() final;
 

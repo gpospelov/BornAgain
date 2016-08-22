@@ -101,7 +101,6 @@ void MultiLayerComputation::run()
 void MultiLayerComputation::runProtected()
 {
     msglog(MSG::DEBUG2) << "MultiLayerComputation::runProtected()";
-    m_dwba_intensity.setAllTo(0.0);
 
     if (mp_multi_layer->requiresMatrixRTCoefficients())
         collectRTCoefficientsMatrix();

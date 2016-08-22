@@ -58,7 +58,6 @@ protected:
     //! Iterators that defines the sequence of elements that this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
-    mutable OutputData<double> m_dwba_intensity;
     SimulationOptions m_sim_options;
     Simulation* mp_simulation;
 

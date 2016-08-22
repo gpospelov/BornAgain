@@ -20,7 +20,8 @@
 
 class IInterferenceFunctionStrategy;
 
-//! Calculates scattering cross sections in DWBA for one layer with particles in/on it.
+//! Computes the scattering contribution from one layer with particles in/on it.
+//! Controlled by MultiLayerDWBASimulation.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ DecoratedLayerDWBASimulation : public LayerDWBASimulation

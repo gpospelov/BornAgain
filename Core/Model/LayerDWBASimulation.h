@@ -22,6 +22,7 @@ class Layer;
 class LayerSpecularInfo;
 
 //! Pure virtual base class for DWBA simulations in a layer.
+//! Sole child is DecoratedLayerDWBASimulation.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ LayerDWBASimulation : public DWBASimulation

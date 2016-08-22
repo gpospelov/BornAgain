@@ -25,7 +25,9 @@
 
 class SimulationElement;
 
-//! Base class for different simulations, using DWBA.
+//! Base class for DWBA computation MultiLayerDWBASimulation, and for sub-computations
+//! MultiLayerRoughnessDWBASimulation and DecoratedLayerDWBASimulation (via LayerDWBASimulation).
+//! Controlled by class Simulation.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ DWBASimulation : public ISimulation

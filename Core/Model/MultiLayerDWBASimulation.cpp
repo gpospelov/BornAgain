@@ -143,7 +143,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 
         // layer DWBA simulation
         auto pos = m_layer_dwba_simulations_map.find(i_layer);
-        if(pos != m_layer_dwba_simulations_map.end() ) {
+        if (pos != m_layer_dwba_simulations_map.end() ) {
             for (size_t i=0; i<pos->second.size();++i) {
                 LayerDWBASimulation* p_layer_dwba_sim = pos->second[i];
                 p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
@@ -151,7 +151,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
         }
 
         // layer roughness DWBA
-        if(mp_roughness_dwba_simulation)
+        if (mp_roughness_dwba_simulation)
             mp_roughness_dwba_simulation->setSpecularInfo(i_layer, layer_coeff_map);
     } // i_layer
 }

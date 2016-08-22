@@ -22,9 +22,9 @@
 class LayerSpecularInfo;
 class MultiLayer;
 
-//! @class MultiLayerRoughnessDWBASimulation
+//! Computes the diffuse reflection from the rough interfaces of a multilayer.
+//! Controlled by MultiLayerDWBASimulation.
 //! @ingroup algorithms_internal
-//! @brief Calculation of diffuse reflection from multilayer with rough interfaces
 
 class BA_CORE_API_ MultiLayerRoughnessDWBASimulation : public DWBASimulation
 {

@@ -75,12 +75,10 @@ void MultiLayerRoughnessDWBASimulation::run()
 
 void MultiLayerRoughnessDWBASimulation::runProtected()
 {
-    std::vector<SimulationElement>::iterator it = m_begin_it;
-    while ( it != m_end_it )
-    {
-        if( !m_progress.update()) break;
+    for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
+        if( !m_progress.update())
+            break;
         it->setIntensity(evaluate(*it));
-        ++it;
     }
     m_progress.finished();
 }
@@ -98,22 +96,20 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_
     std::vector<complex_t > sterm;
     sterm.resize( mp_multi_layer->getNumberOfLayers()-1 );
 
-    for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
+    for (size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);
         sterm[i] = get_sum8terms(i, sim_element);
     }
 
-    for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
+    for (size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         const LayerRoughness *rough =
             mp_multi_layer->getLayerBottomInterface(i)->getRoughness();
-        if(rough) {
-            autocorr += std::norm( rterm[i] ) * std::norm( sterm[i] ) *
-                rough->getSpectralFun(q);
-        }
+        if(rough)
+            autocorr += std::norm( rterm[i] ) * std::norm( sterm[i] ) * rough->getSpectralFun(q);
     }
 
     // cross correlation between layers
-    if( mp_multi_layer->getCrossCorrLength() != 0.0 ) {
+    if (mp_multi_layer->getCrossCorrLength() != 0.0) {
         for(size_t j=0; j<mp_multi_layer->getNumberOfLayers()-1; j++){
             for(size_t k=0; k<mp_multi_layer->getNumberOfLayers()-1; k++) {
                 if(j==k) continue;
@@ -167,10 +163,9 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(
     complex_t qz4_minus = - qz1_minus;
 
     double sigma(0.0);
-    if (const LayerRoughness *roughness
-        = mp_multi_layer->getLayerBottomInterface(ilayer)->getRoughness()) {
+    if (const LayerRoughness* roughness
+        = mp_multi_layer->getLayerBottomInterface(ilayer)->getRoughness())
         sigma = roughness->getSigma();
-    }
     complex_t term1 = T_in_plus * T_out_plus * h_plus(qz1_plus*sigma);
     complex_t term2 = T_in_plus * R_out_plus * h_plus(qz2_plus*sigma);
     complex_t term3 = R_in_plus * T_out_plus * h_plus(qz3_plus*sigma);

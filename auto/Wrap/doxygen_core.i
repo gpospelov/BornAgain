@@ -13472,12 +13472,9 @@ Parse double values from string to vector of double.
 
 
 // File: namespacePythonFormatting.xml
-%feature("docstring")  PythonFormatting::getRepresentation "BA_CORE_API_ std::string PythonFormatting::getRepresentation(const IDistribution1D *distribution)
+%feature("docstring")  PythonFormatting::representShape2D "BA_CORE_API_ std::string PythonFormatting::representShape2D(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 
 Returns fixed Python code snippet that defines the function \"runSimulation\". 
-";
-
-%feature("docstring")  PythonFormatting::getRepresentation "BA_CORE_API_ std::string PythonFormatting::getRepresentation(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
 ";
 
 %feature("docstring")  PythonFormatting::printBool "BA_CORE_API_ std::string PythonFormatting::printBool(double value)
@@ -13755,6 +13752,33 @@ Returns exp(I*z), where I is the imaginary unit.
 %feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
 
 global helper function for comparison of axes 
+";
+
+
+// File: IPixelMap_8h.xml
+
+
+// File: SimulationElement_8cpp.xml
+%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
+
+Add element vector to element vector with weight. 
+";
+
+%feature("docstring")  setAllElementIntensities "void setAllElementIntensities(std::vector< SimulationElement >::iterator first, std::vector< SimulationElement >::iterator last, double intensity)
+
+Set all element intensities to given value. 
+";
+
+
+// File: SimulationElement_8h.xml
+%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
+
+Add element vector to element vector with weight. 
+";
+
+%feature("docstring")  setAllElementIntensities "void setAllElementIntensities(std::vector< SimulationElement >::iterator first, std::vector< SimulationElement >::iterator last, double intensity)
+
+Set all element intensities to given value. 
 ";
 
 
@@ -14258,9 +14282,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: IntensityDataFunctions_8h.xml
 
 
-// File: IPixelMap_8h.xml
-
-
 // File: IResolutionFunction2D_8h.xml
 
 
@@ -14317,30 +14338,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: ResolutionFunction2DGaussian_8h.xml
-
-
-// File: SimulationElement_8cpp.xml
-%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
-
-Add element vector to element vector with weight. 
-";
-
-%feature("docstring")  setAllElementIntensities "void setAllElementIntensities(std::vector< SimulationElement >::iterator first, std::vector< SimulationElement >::iterator last, double intensity)
-
-Set all element intensities to given value. 
-";
-
-
-// File: SimulationElement_8h.xml
-%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
-
-Add element vector to element vector with weight. 
-";
-
-%feature("docstring")  setAllElementIntensities "void setAllElementIntensities(std::vector< SimulationElement >::iterator first, std::vector< SimulationElement >::iterator last, double intensity)
-
-Set all element intensities to given value. 
-";
 
 
 // File: SphericalDetector_8cpp.xml

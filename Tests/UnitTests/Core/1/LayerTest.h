@@ -24,9 +24,8 @@ TEST_F(LayerTest, LayerInitialState)
     EXPECT_EQ(complex_t(1.0, 0.0), layer.getRefractiveIndex());
     EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", layer.getName());
-    EXPECT_EQ(nullptr, layer.createDWBASimulation());
 
-    Layer *new_layer = layer.clone();
+    Layer* new_layer = layer.clone();
     EXPECT_EQ(nullptr, new_layer->getMaterial());
     EXPECT_EQ(nullptr, new_layer->getLayout(0));
     EXPECT_EQ(0, new_layer->getThickness());
@@ -34,7 +33,6 @@ TEST_F(LayerTest, LayerInitialState)
     EXPECT_EQ(complex_t(1.0, 0.0), new_layer->getRefractiveIndex());
     EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", new_layer->getName());
-    EXPECT_EQ(nullptr, new_layer->createDWBASimulation());
 
     delete new_layer;
 }
@@ -52,7 +50,6 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(complex_t(1,0), layer.getRefractiveIndex());
     EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", layer.getName());
-    EXPECT_EQ(nullptr, layer.createDWBASimulation());
 
     layer.setThickness(20.0);
     EXPECT_EQ(20, layer.getThickness());
@@ -61,7 +58,7 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ("Layer", layer.getName());
     EXPECT_EQ(complex_t(1,0.5), layer.getRefractiveIndex());
 
-    Layer *new_layer = layer.clone();
+    Layer* new_layer = layer.clone();
     EXPECT_EQ(something.getName(), new_layer->getMaterial()->getName());
     EXPECT_EQ(nullptr, new_layer->getLayout(0));
     EXPECT_EQ(20, new_layer->getThickness());
@@ -69,7 +66,6 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(complex_t(1,0.5), new_layer->getRefractiveIndex());
     EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ("Layer", new_layer->getName());
-    EXPECT_EQ(nullptr, new_layer->createDWBASimulation());
     delete new_layer;
 }
 
@@ -77,7 +73,7 @@ TEST_F(LayerTest, LayerGetAndSet)
 TEST_F(LayerTest, LayerAndDecoration)
 {
     HomogeneousMaterial air("air",0,0);
-    ParticleLayout *p_layout1 = new ParticleLayout();
+    ParticleLayout* p_layout1 = new ParticleLayout();
 
     Layer layer(air, 10*Units::nanometer);
     layer.addLayout(*p_layout1);
@@ -88,6 +84,5 @@ TEST_F(LayerTest, LayerAndDecoration)
     layer.addLayout(layout2);
     EXPECT_EQ("ParticleLayout", layer.getLayout(1)->getName());
 }
-
 
 #endif // LAYERTEST_H

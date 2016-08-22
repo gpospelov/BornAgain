@@ -16,18 +16,16 @@
 #ifndef ROTATEDPYRAMIDSBUILDER_H
 #define ROTATEDPYRAMIDSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
-//! @class RotatedPyramidsBuilder
+//! Builds sample: Pyramids, rotated pyramids on top of substrate (IsGISAXS example #9)
 //! @ingroup standard_samples
-//! @brief Builds sample:  Pyramids, rotated pyramids on top of substrate
-//!(IsGISAXS example #9)
 
-class BA_CORE_API_ RotatedPyramidsBuilder : public ISampleBuilder
+class BA_CORE_API_ RotatedPyramidsBuilder : public IMultiLayerBuilder
 {
 public:
     RotatedPyramidsBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -38,6 +36,5 @@ private:
     double m_alpha;
     double m_zangle;
 };
-
 
 #endif // ROTATEDPYRAMIDSBUILDER_H

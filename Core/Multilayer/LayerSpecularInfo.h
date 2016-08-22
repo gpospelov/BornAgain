@@ -21,37 +21,33 @@
 
 class ISpecularInfoMap;
 class ILayerRTCoefficients;
+class SimulationElement;
 
-//! @class LayerSpecularInfo
+//! Holds the amplitude information of the radiation wavefunction in a specific layer
+//! for different incoming (outgoing) angles of the beam in the top layer
+//! (these amplitudes correspond to the specular part of the neutron wavefunction).
 //! @ingroup algorithms_internal
-//! @brief Holds the amplitude information of the neutron
-//! wavefunction in a specific layer for different incoming (outgoing) angles of
-//! the neutron beam in the top layer (these amplitudes correspond to the
-//! specular part of the neutron wavefunction)
 
 class BA_CORE_API_ LayerSpecularInfo : public ICloneable
 {
 public:
     LayerSpecularInfo();
-    virtual ~LayerSpecularInfo();
+    ~LayerSpecularInfo() final;
 
-    virtual LayerSpecularInfo* clone() const;
+    LayerSpecularInfo* clone() const final;
 
     //! Adds the amplitude coefficients for the (time-reversed) outgoing
     //! wavevector with the given angles
     void addRTCoefficients(ISpecularInfoMap* rt_coefficient_map);
 
-    //! Retrieves the amplitude coefficients for the (time-reversed) outgoing
-    //! wavevector with the given angles
-    const ILayerRTCoefficients* getOutCoefficients(
-        double alpha_f, double phi_f, double wavelength) const;
+    //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
+    const ILayerRTCoefficients* getOutCoefficients(const SimulationElement& sim_element) const;
 
-    //! Retrieves the amplitude coefficients for the incoming wavevector
-    const ILayerRTCoefficients* getInCoefficients(
-        double alpha_i, double phi_i, double wavelength) const;
+    //! Retrieves the amplitude coefficients for an incoming wavevector.
+    const ILayerRTCoefficients* getInCoefficients(const SimulationElement& sim_element) const;
+
 private:
     std::unique_ptr<ISpecularInfoMap> mP_coeff_map;
 };
-
 
 #endif // LAYERSPECULARINFO_H

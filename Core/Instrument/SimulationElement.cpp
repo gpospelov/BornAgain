@@ -37,7 +37,7 @@ SimulationElement::SimulationElement(const SimulationElement &other)
 
 SimulationElement::~SimulationElement() {}
 
-SimulationElement &SimulationElement::operator=(const SimulationElement &other)
+SimulationElement& SimulationElement::operator=(const SimulationElement &other)
 {
     if (this != &other) {
         SimulationElement tmp(other);

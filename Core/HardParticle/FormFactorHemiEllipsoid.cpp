@@ -16,9 +16,9 @@
 #include "FormFactorHemiEllipsoid.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
 //! @param radius_x half length of one horizontal main axes
 //! @param radius_y half length of the other horizontal main axes
@@ -64,9 +64,7 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
      double W = m_radius_y;
      double H = m_height;
 
-     if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
+     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
          return Pi::PI2*R*W*H/3.;
-     } else {
-         return Pi::PI2*mP_integrator->integrate(0.,H );
-     }
+     return Pi::PI2*mP_integrator->integrate(0.,H );
 }

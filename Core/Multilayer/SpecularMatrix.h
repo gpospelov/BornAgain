@@ -16,17 +16,15 @@
 #ifndef SPECULARMATRIX_H
 #define SPECULARMATRIX_H
 
-#include "ISimulation.h"
 #include "ScalarRTCoefficients.h"
 #include "Vectors3D.h"
 #include <vector>
 
-//! @class SpecularMatrix
+//! Implements method 'execute' to compute refraction angles and transmission/reflection
+//! coefficients for coherent wave propagation in a multilayer.
 //! @ingroup algorithms_internal
-//! @brief Implements method 'execute' to compute refraction angles and transmission/reflection
-//! coefficients for coherent wave propagation in a multilayer
 
-class BA_CORE_API_ SpecularMatrix : public ISimulation
+class BA_CORE_API_ SpecularMatrix
 {
 public:
     //! Layer coefficients describing refraction and transmission/reflection.

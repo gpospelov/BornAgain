@@ -16,9 +16,9 @@
 #include "FormFactorFullSpheroid.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
 //! @param radius of the two equal axes
 //! @param height total height of the spheroid, i.e. twice the radius of the third axis
@@ -51,10 +51,8 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
     double R = m_radius;
     m_q = q;
 
-    if (std::abs(m_q.mag()) <= Numeric::double_epsilon) {
+    if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
         return Pi::PI2*R*R*H/3.;
-    } else {
-        complex_t qzH_half = H/2*q.z();
-        return 4 * Pi::PI * mP_integrator->integrate(0.0, H/2.0) * exp_I(qzH_half);
-    }
+    complex_t qzH_half = H/2*q.z();
+    return 4 * Pi::PI * mP_integrator->integrate(0.0, H/2.0) * exp_I(qzH_half);
 }

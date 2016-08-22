@@ -1,11 +1,11 @@
 namespace Geometry {
     %extend BasicVector3D<double> {
         BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const {
-            return *($self)+rhs; }
+            return *($self) + rhs; }
         BasicVector3D<double> __mul__(double c) const {
-            return *($self)*c; }
+            return c * *($self); }
         BasicVector3D<double> __rmul__(double c) const {
-            return *($self)*c; }
+            return *($self) * c; }
     };
 }
 
@@ -26,7 +26,7 @@ namespace Geometry {
     double __getitem__(unsigned int i) { return (*($self))[i]; }
 };
 
-%extend ISampleBuilder {
+%extend IMultiLayerBuilder {
     virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
         return &((*($self)).registerParameter(name, (double*)parpointer)); }
 

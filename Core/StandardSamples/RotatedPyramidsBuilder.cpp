@@ -40,7 +40,7 @@ void RotatedPyramidsBuilder::init_parameters()
     registerParameter("zangle", &m_zangle).setUnit("rad");
 }
 
-ISample* RotatedPyramidsBuilder::buildSample() const
+MultiLayer* RotatedPyramidsBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

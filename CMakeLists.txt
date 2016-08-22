@@ -35,7 +35,7 @@ option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
 option(AUTOGENERATE "Regenerate directory auto (Py docs, Py wrappers, man page)" OFF)
 option(ZERO_TOLERANCE "Terminate compilation on warnings" OFF)
 option(UNITTESTS "Don't skip unit tests" ON)
-option(BORNAGAIN_COVERAGE "Build with coverage information" OFF)
+option(BORNAGAIN_COVERAGE "Build with test coverage information" OFF)
 option(BORNAGAIN_DEBUG_OPTIMIZATION "Build with debug optimization (gcc only)" OFF)
 
 if(AUTOGENERATE)
@@ -90,7 +90,7 @@ if(BORNAGAIN_GUI)
         add_subdirectory(Tests/UnitTests/GUI)
     endif()
 endif()
-add_subdirectory(Tests/Functional)  # functional tests (ctest)
+add_subdirectory(Tests/Functional) # functional tests (ctest)
 
 add_subdirectory(cmake/bornagain) # trick to print an after-install message
 

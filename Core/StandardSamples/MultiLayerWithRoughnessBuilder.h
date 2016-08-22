@@ -16,7 +16,7 @@
 #ifndef MULTILAYERWITHROUGHNESSBUILDER_H
 #define MULTILAYERWITHROUGHNESSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 
@@ -24,11 +24,11 @@ class ISample;
 //! @ingroup standard_samples
 //! @brief Builds sample: layers with correlated roughness
 
-class BA_CORE_API_ MultiLayerWithRoughnessBuilder : public ISampleBuilder
+class BA_CORE_API_ MultiLayerWithRoughnessBuilder : public IMultiLayerBuilder
 {
 public:
     MultiLayerWithRoughnessBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

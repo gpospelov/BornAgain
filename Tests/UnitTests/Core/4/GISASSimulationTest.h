@@ -4,28 +4,18 @@
 #include "GISASSimulation.h"
 #include "OutputData.h"
 #include "Beam.h"
-#include "MultiLayer.h"
-#include "ISampleBuilder.h"
+#include "Layer.h"
+#include "IMultiLayerBuilder.h"
 #include "BornAgainNamespace.h"
 #include "Layer.h"
 #include <memory>
 #include <cmath>
-
 
 class GISASSimulationTest : public ::testing::Test
 {
  protected:
     GISASSimulationTest();
     virtual ~GISASSimulationTest();
-
-    class SampleBuilder : public ISampleBuilder
-    {
-    public:
-        virtual ISample *buildSample() const { return new Layer(); }
-    };
-
-    std::shared_ptr<class ISampleBuilder> sample_builder;
-
     GISASSimulation emptySimulation;
     GISASSimulation constructedSimulation;
     OutputData<double> test_data;
@@ -33,7 +23,6 @@ class GISASSimulationTest : public ::testing::Test
 
 
 GISASSimulationTest::GISASSimulationTest()
-    : sample_builder(new SampleBuilder)
 {
     test_data.addAxis(BornAgain::PHI_AXIS_NAME, 10, 0., 10.);
     test_data.addAxis("theta_f", 20, 0., 20.);
@@ -51,7 +40,6 @@ TEST_F(GISASSimulationTest, SimulationInitialState)
     EXPECT_EQ( size_t(1), emptySimulation.getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(0), emptySimulation.getOutputData()->getRank());
     EXPECT_TRUE(emptySimulation.getOutputData()->getRank() == emptySimulation.getInstrument().getDetectorDimension() );
-    EXPECT_EQ(nullptr, emptySimulation.getSampleBuilder().get());
 }
 
 
@@ -66,17 +54,7 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
     Layer layer;
     ml.addLayer(layer);
     constructedSimulation.setSample(ml);
-    EXPECT_EQ( size_t(1), dynamic_cast<MultiLayer *>(constructedSimulation.getSample())->getNumberOfLayers());
-    constructedSimulation.setSampleBuilder(sample_builder);
-    EXPECT_EQ( nullptr, constructedSimulation.getSample());
-    EXPECT_EQ( sample_builder.get(), constructedSimulation.getSampleBuilder().get());
-
-    constructedSimulation.prepareSimulation();
-
-    EXPECT_TRUE( nullptr == constructedSimulation.getSample());
-    std::unique_ptr<ISample> sample(constructedSimulation.getSampleBuilder()->buildSample());
-    EXPECT_EQ( std::string("Layer"), sample->getName());
-    EXPECT_EQ( dynamic_cast<Layer *>(sample.get())->getThickness(), 0.);
+    EXPECT_EQ( size_t(1), dynamic_cast<MultiLayer*>(constructedSimulation.getSample())->getNumberOfLayers());
 }
 
 TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
@@ -96,7 +74,6 @@ TEST_F(GISASSimulationTest, SimulationClone)
     GISASSimulation *originalSimulation = new GISASSimulation();
     originalSimulation->setBeamIntensity(10);
     originalSimulation->setDetectorParameters(test_data);
-    originalSimulation->setSampleBuilder(sample_builder);
     GISASSimulation *clonedSimulation = originalSimulation->clone();
     delete originalSimulation;
 

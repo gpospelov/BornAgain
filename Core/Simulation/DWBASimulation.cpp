@@ -14,12 +14,11 @@
 // ************************************************************************** //
 
 #include "DWBASimulation.h"
-#include "ISample.h"
+#include "MultiLayer.h"
 
 DWBASimulation::DWBASimulation()
     : mp_simulation(nullptr)
-{
-}
+{}
 
 DWBASimulation::~DWBASimulation()
 {
@@ -42,9 +41,9 @@ void DWBASimulation::init(const Simulation& simulation,
     mp_simulation->initProgressHandlerDWBA(&m_progress);
 }
 
-DWBASimulation *DWBASimulation::clone() const
+DWBASimulation* DWBASimulation::clone() const
 {
-    DWBASimulation *p_result = new DWBASimulation();
+    DWBASimulation* p_result = new DWBASimulation();
     p_result->m_dwba_intensity.copyFrom(m_dwba_intensity);
     p_result->m_progress.setCallback(m_progress.getCallback());
     if (mp_simulation)
@@ -57,7 +56,7 @@ bool DWBASimulation::checkPolarizationPresent() const
     if (!mp_simulation)
         throw Exceptions::ClassInitializationException("DWBASimulation::"
                 "checkPolarizationPresent(): simulation not initialized");
-    ISample *p_sample = mp_simulation->getSample();
+    MultiLayer* p_sample = mp_simulation->getSample();
     if (!p_sample)
         throw Exceptions::ClassInitializationException("DWBASimulation::"
                 "checkPolarizationPresent(): sample not initialized");

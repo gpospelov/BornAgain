@@ -27,13 +27,12 @@ static const double PI2 = 6.28318530717958647692528676655900577;
 
 namespace Geometry {
 
-//! @class BasicVector3D
+//! Three-dimensional vector template, for use with integer, double, or complex components.
 //! @ingroup tools_internal
-//! @brief Three-dimensional vector template, for use with integer, double, or complex components.
 
 template<class T>
 class BasicVector3D {
-protected:
+private:
     T v_[3];
 
 public:
@@ -138,6 +137,9 @@ public:
 
     //! Returns this, trivially converted to complex type.
     BasicVector3D<std::complex<double>> complex() const;
+
+    //! Returns real parts.
+    BasicVector3D<double> real() const;
 
     // -------------------------------------------------------------------------
     // Functions of this and another vector
@@ -306,11 +308,9 @@ template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 
-//! \todo Replace by member function complex()
-BA_CORE_API_ BasicVector3D<std::complex<double>> toComplexVector(
-        const BasicVector3D<double>& real_vector);
-
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
+
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<std::complex<double>>::real() const;
 
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
     BasicVector3D<std::complex<double>>::unit() const;

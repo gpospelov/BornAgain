@@ -24,12 +24,11 @@
 
 class IAxis;
 class ISample;
-class ISampleBuilder;
+class IMultiLayerBuilder;
 class MultiLayer;
 
-//! @class SpecularSimulation
+//! Main class to run a specular simulation.
 //! @ingroup simulation
-//! @brief Main class to run a specular simulation.
 
 class BA_CORE_API_ SpecularSimulation : public ICloneable, public IParameterized
 {
@@ -39,7 +38,7 @@ public:
 
     SpecularSimulation();
     SpecularSimulation(const ISample& sample);
-    SpecularSimulation(std::shared_ptr<ISampleBuilder> sample_builder);
+    SpecularSimulation(std::shared_ptr<IMultiLayerBuilder> sample_builder);
     virtual ~SpecularSimulation();
 
     SpecularSimulation* clone() const;
@@ -54,10 +53,10 @@ public:
     ISample* getSample() const { return m_sample; }
 
     //! Sets the sample builder
-    void setSampleBuilder(std::shared_ptr<ISampleBuilder> sample_builder);
+    void setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder);
 
     //! return sample builder
-    std::shared_ptr<ISampleBuilder> getSampleBuilder() const { return m_sample_builder; }
+    std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return m_sample_builder; }
 
     //! Sets beam parameters with alpha_i of the beam defined in the range
     void setBeamParameters(double lambda, const IAxis& alpha_axis);
@@ -111,7 +110,7 @@ protected:
     void updateCoefficientDataAxes();
 
     ISample* m_sample;
-    std::shared_ptr<ISampleBuilder> m_sample_builder;
+    std::shared_ptr<IMultiLayerBuilder> m_sample_builder;
     IAxis* m_alpha_i_axis;
     IAxis* m_z_axis;
     double m_lambda;

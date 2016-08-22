@@ -14,24 +14,25 @@
 // ************************************************************************** //
 
 #include "LayerStrategyBuilder.h"
+#include "Exceptions.h"
 #include "FormFactorInfo.h"
-#include "FormFactorTools.h"
-#include "IFormFactor.h"
+#include "FormFactorDWBA.h"
+#include "FormFactorDWBAPol.h"
 #include "ILayout.h"
 #include "IParticle.h"
 #include "InterferenceFunctionStrategies.h"
 #include "InterferenceFunctions.h"
+#include "MultiLayer.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
-#include "Simulation.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer& decorated_layer, const Simulation& simulation,
+    const Layer& decorated_layer, const MultiLayer& sample,
     const SimulationOptions& sim_params, size_t layout_index)
     : m_sim_params{sim_params}, mP_specular_info{nullptr}, m_layout_index{layout_index}
 {
     mP_layer.reset(decorated_layer.clone());
-    mP_simulation.reset(simulation.clone());
+    mP_sample.reset(sample.clone());
     assert(mP_layer->getNumberOfLayouts() > 0);
 }
 
@@ -46,7 +47,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
     collectFormFactorInfos();
     collectInterferenceFunction();
-    IInterferenceFunctionStrategy* p_result(0);
+    IInterferenceFunctionStrategy* p_result(nullptr);
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
     {
     case ILayout::DA:
@@ -78,7 +79,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 
 bool LayerStrategyBuilder::requiresMatrixFFs() const
 {
-    return mP_simulation->getSample()->containsMagneticMaterial();
+    return mP_sample->containsMagneticMaterial();
 }
 
 void LayerStrategyBuilder::collectFormFactorInfos()
@@ -90,11 +91,9 @@ void LayerStrategyBuilder::collectFormFactorInfos()
     double total_abundance = mP_layer->getTotalAbundance();
     if (total_abundance<=0.0)
         total_abundance = 1.0;
-    SafePointerVector<const IParticle> iparticles = p_layout->getParticles();
-    size_t number_of_particles = iparticles.size();
-    for (size_t i = 0; i<number_of_particles; ++i) {
+    for (const IParticle* particle: p_layout->getParticles()) {
         FormFactorInfo* p_ff_info;
-        p_ff_info = createFormFactorInfo(iparticles[i], p_layer_material);
+        p_ff_info = createFormFactorInfo(particle, p_layer_material);
         p_ff_info->m_abundance /= total_abundance;
         m_ff_infos.push_back(p_ff_info);
     }
@@ -115,7 +114,6 @@ void LayerStrategyBuilder::collectInterferenceFunction()
 FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
-    FormFactorInfo* p_result = new FormFactorInfo;
     const std::unique_ptr<IParticle> P_particle_clone(particle->clone());
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
@@ -125,14 +123,11 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
     size_t n_layers = mP_layer->getNumberOfLayers();
     if (n_layers>1) {
         if (requiresMatrixFFs())
-            p_ff_framework = FormFactorTools::createDWBAMatrixFormFactor(*P_ff_particle);
+            p_ff_framework = new FormFactorDWBAPol(*P_ff_particle);
         else
-            p_ff_framework = FormFactorTools::createDWBAScalarFormFactor(*P_ff_particle);
-    } else {
+            p_ff_framework = new FormFactorDWBA(*P_ff_particle);
+    } else
         p_ff_framework = P_ff_particle->clone();
-    }
-    p_result->mp_ff = p_ff_framework;
-    // Other info (abundance)
-    p_result->m_abundance = particle->getAbundance();
-    return p_result;
+
+    return new FormFactorInfo(p_ff_framework, particle->getAbundance());
 }

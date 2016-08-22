@@ -11,7 +11,7 @@ phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
 
-def get_sample(lattice_rotation_angle=45.0*deg):
+def get_sample(lattice_rotation_angle):
     """
     Returns a sample with a grating on a substrate,
     modelled by very long boxes forming a 1D lattice with Cauchy correlations.
@@ -65,7 +65,7 @@ def simulate():
     """
     Runs simulation and returns intensity map.
     """
-    sample = get_sample(lattice_rotation_angle=45.0*deg)
+    sample = get_sample(lattice_rotation_angle=45*deg)
     simulation = get_simulation(monte_carlo_integration=True)
     simulation.setSample(sample)
     simulation.runSimulation()

@@ -106,9 +106,9 @@ def createRealData(simulation):
 # Sample builder to build mixture of cylinders and prisms on top of substrate
 # 5 parameters
 # ----------------------------------------------------------------------------
-class MySampleBuilder(ISampleBuilder):
+class MySampleBuilder(IMultiLayerBuilder):
     def __init__(self):
-        ISampleBuilder.__init__(self)
+        IMultiLayerBuilder.__init__(self)
         print("MySampleBuilder ctor")
         self.sample = None
         # parameters describing the sample

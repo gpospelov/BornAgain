@@ -16,7 +16,7 @@
 #ifndef CYLINDERSANDPRISMSBUILDER_H
 #define CYLINDERSANDPRISMSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 
@@ -25,11 +25,11 @@ class ISample;
 //! @brief Builds sample: mixture of cylinders and prisms without interference
 //! (IsGISAXS example #1)
 
-class BA_CORE_API_ CylindersAndPrismsBuilder : public ISampleBuilder
+class BA_CORE_API_ CylindersAndPrismsBuilder : public IMultiLayerBuilder
 {
 public:
     CylindersAndPrismsBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

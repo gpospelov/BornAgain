@@ -23,11 +23,13 @@ IMaterial *IMaterial::clone() const
         "IMaterial is an interface and should not be cloned!");
 }
 
+/*
 const IMaterial *IMaterial::createTransformedMaterial(const IRotation&) const
 {
     throw Exceptions::NotImplementedException(
         "IMaterial is an interface and should not be created!");
 }
+*/
 
 Eigen::Matrix2cd IMaterial::getScatteringMatrix(double k_mag2) const
 {

@@ -4,6 +4,10 @@ Utilities to plot form factors of particles in Born approximation
 import numpy
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+rc('text', usetex=True)
+
 import bornagain as ba
 from bornagain import nanometer, degree, angstrom, deg2rad
 
@@ -16,7 +20,7 @@ class BinRange:
 
     def central_index(self):
         return int((0.-self.vmin)/(self.vmax-self.vmin)*self.n)
-        
+
 
 class Detector:
     def __init__(self, bins_per_dimension, phi_min, phi_max, alpha_min, alpha_max):
@@ -35,7 +39,8 @@ class Result:
 
 
 def make_plot(results, det, name, nrow=1):
-    """Make a plot consisting of one detector image for each Result in results,
+    """
+    Make a plot consisting of one detector image for each Result in results,
     plus one common color scale.
 
     :param results: List of simulation results

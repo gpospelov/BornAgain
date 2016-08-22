@@ -19,33 +19,28 @@
 #include "IFormFactorBorn.h"
 #include "Lattice.h"
 
-//! @class FormFactorCrystal
+//! The formfactor of a MesoCrystal.
 //! @ingroup formfactors
-//! @brief The formfactor of a MesoCrystal
 
-class BA_CORE_API_ FormFactorCrystal : public IFormFactorBorn
+class BA_CORE_API_ FormFactorCrystal : public IFormFactor
 {
 public:
     FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
                       const IFormFactor& meso_form_factor);
+    ~FormFactorCrystal() final;
 
-    virtual ~FormFactorCrystal();
-
-    FormFactorCrystal* clone() const;
+    FormFactorCrystal* clone() const final {
+        return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor); }
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    double getVolume() const final;
-
-    double getRadialExtension() const final;
+    double getVolume() const final { return mp_meso_form_factor->getVolume(); }
+    double getRadialExtension() const final { return mp_meso_form_factor->getRadialExtension(); }
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const final;
-
 #ifndef SWIG
-    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
 #endif
-
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
 
 private:
     void calculateLargestReciprocalDistance();

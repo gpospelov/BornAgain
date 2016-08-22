@@ -61,7 +61,7 @@ MultiLayer* BoxCompositionBuilder::createMultiLayer(const ParticleComposition &c
 
 // --- BoxCompositionRotateXBuilder ---
 
-ISample* BoxCompositionRotateXBuilder::buildSample() const
+MultiLayer* BoxCompositionRotateXBuilder::buildSample() const
 {
     Particle box(*m_particleMaterial, FormFactorBox(m_length/2.0, m_width, m_height));
     ParticleComposition composition;
@@ -74,7 +74,7 @@ ISample* BoxCompositionRotateXBuilder::buildSample() const
 
 // --- BoxCompositionRotateYBuilder ---
 
-ISample* BoxCompositionRotateYBuilder::buildSample() const
+MultiLayer* BoxCompositionRotateYBuilder::buildSample() const
 {
     Particle box(*m_particleMaterial, FormFactorBox(m_length/2.0, m_width, m_height));
     ParticleComposition composition;
@@ -87,7 +87,7 @@ ISample* BoxCompositionRotateYBuilder::buildSample() const
 
 // --- BoxCompositionRotateZBuilder ---
 
-ISample* BoxCompositionRotateZBuilder::buildSample() const
+MultiLayer* BoxCompositionRotateZBuilder::buildSample() const
 {
     Particle box(*m_particleMaterial, FormFactorBox(m_length/2.0, m_width, m_height));
     ParticleComposition composition;
@@ -100,7 +100,7 @@ ISample* BoxCompositionRotateZBuilder::buildSample() const
 
 // --- BoxCompositionRotateZandYBuilder ---
 
-ISample* BoxCompositionRotateZandYBuilder::buildSample() const
+MultiLayer* BoxCompositionRotateZandYBuilder::buildSample() const
 {
     Particle box(*m_particleMaterial, FormFactorBox(m_length/2.0, m_width, m_height));
     ParticleComposition composition;
@@ -115,7 +115,7 @@ ISample* BoxCompositionRotateZandYBuilder::buildSample() const
 // --- BoxStackCompositionBuilder ---
 
 // Composition of two boxes which gives you the box (10,20,50) with reference point as usual.
-ISample* BoxStackCompositionBuilder::buildSample() const
+MultiLayer* BoxStackCompositionBuilder::buildSample() const
 {
     ParticleComposition composition;
 

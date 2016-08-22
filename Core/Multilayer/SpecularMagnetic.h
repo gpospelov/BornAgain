@@ -16,17 +16,15 @@
 #ifndef SPECULARMAGNETIC_H
 #define SPECULARMAGNETIC_H
 
-#include "ISimulation.h"
 #include "MatrixRTCoefficients.h"
 #include "Vectors3D.h"
 #include <vector>
 
-//! @class SpecularMagnetic
+//! Implements the matrix formalism for the calculation of wave amplitudes of
+//! the coherent wave solution in a multilayer with magnetization.
 //! @ingroup algorithms_internal
-//! @brief Implements the matrix formalism for the calculation of wave amplitudes of
-//! the coherent wave solution in a multilayer with magnetization
 
-class BA_CORE_API_ SpecularMagnetic : public ISimulation
+class BA_CORE_API_ SpecularMagnetic
 {
 public:
     //! Layer coefficients describing refraction and reflection/transmission.

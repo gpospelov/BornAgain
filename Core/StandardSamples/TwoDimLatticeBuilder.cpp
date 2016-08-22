@@ -28,9 +28,9 @@
 // -----------------------------------------------------------------------------
 // lattice #1:
 // -----------------------------------------------------------------------------
-ISample *SquareLatticeBuilder::buildSample() const
+MultiLayer* SquareLatticeBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -65,9 +65,9 @@ ISample *SquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #2: centered
 // -----------------------------------------------------------------------------
-ISample *CenteredSquareLatticeBuilder::buildSample() const
+MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -107,9 +107,9 @@ ISample *CenteredSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #3: rotated
 // -----------------------------------------------------------------------------
-ISample *RotatedSquareLatticeBuilder::buildSample() const
+MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);

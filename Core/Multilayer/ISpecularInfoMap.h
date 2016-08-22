@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/ISpecularInfoMap.h
-//! @brief     Defines interface ISpecularInfoMap.
+//! @brief     Defines and implements interface ISpecularInfoMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,31 +16,31 @@
 #ifndef ISPECULARINFOMAP_H
 #define ISPECULARINFOMAP_H
 
-#include "ILayerRTCoefficients.h"
+#include "WinDllMacros.h"
 
-//! @class ISpecularInfoMap
+class ILayerRTCoefficients;
+class SimulationElement;
+
+//! Interface class providing access to the reflection and transmittion coefficients.
 //! @ingroup algorithms_internal
-//! @brief Interface class providing access to the reflection and transmittion coefficients
 
 class BA_CORE_API_ ISpecularInfoMap
 {
 public:
     ISpecularInfoMap() {}
+    ISpecularInfoMap(const ISpecularInfoMap& other) = delete;
     virtual ~ISpecularInfoMap() {}
+    ISpecularInfoMap& operator=(const ISpecularInfoMap &other) = delete;
 
-    virtual ISpecularInfoMap* clone() const=0;
+    virtual ISpecularInfoMap* clone() const =0;
 
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ILayerRTCoefficients* getOutCoefficients(
-        double alpha_f, double phi_f, double wavelength) const=0;
+        const SimulationElement& sim_element) const =0;
 
     //! Retrieves the amplitude coefficients for the given angles
     virtual const ILayerRTCoefficients* getInCoefficients(
-        double alpha_i, double phi_i, double wavelength) const=0;
-private:
-    // Prevent copy construction and assignment of derived classes
-    ISpecularInfoMap(const ISpecularInfoMap& other);
-    ISpecularInfoMap& operator=(const ISpecularInfoMap &other);
+        const SimulationElement& sim_element) const =0;
 };
 
 #endif // ISPECULARINFOMAP_H

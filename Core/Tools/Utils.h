@@ -17,15 +17,13 @@
 #define UTILS_H
 
 #include "WinDllMacros.h"
-#include <map>
 #include <string>
 #include <vector>
 
 namespace Utils {
 
-//! @class String
+//! Collection of utilities for std::string.
 //! @ingroup tools_internal
-//! @brief Collection of utilities for std::string.
 
 class BA_CORE_API_ String
 {
@@ -41,43 +39,6 @@ public:
     static std::string join(const std::vector<std::string>& joinable, const std::string& joint);
 };
 
-
-//! @class StringUsageMap
-//! @ingroup tools_internal
-//! @brief Control how often a string is used.
-
-class BA_CORE_API_ StringUsageMap
-{
-public:
-    typedef std::map<std::string, int> nstringmap_t;
-    typedef nstringmap_t::iterator iterator_t;
-
-    StringUsageMap(){}
-    ~StringUsageMap(){}
-
-    //! Adds string to the map, or increments usage counter
-    void add(std::string name)
-    {
-        m_current_string = name;
-        iterator_t it = m_nstringmap.find(name);
-        if (it != m_nstringmap.end() )
-            (*it).second++;
-        else
-            m_nstringmap.insert(nstringmap_t::value_type(name,1));
-    }
-
-    //! access to the map of strings
-    iterator_t begin() { return m_nstringmap.begin(); }
-    iterator_t end() { return m_nstringmap.end(); }
-    int& operator[](std::string name) { return m_nstringmap[name]; }
-
-    //! Returns current string
-    std::string get_current() const { return m_current_string; }
-
-private:
-    std::string m_current_string;
-    nstringmap_t m_nstringmap;
-};
 
 class BA_CORE_API_ System
 {

@@ -16,7 +16,7 @@
 #ifndef CYLINDERSBUILDER_H
 #define CYLINDERSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 
@@ -24,11 +24,11 @@ class ISample;
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I)
 
-class BA_CORE_API_ CylindersInDWBABuilder : public ISampleBuilder
+class BA_CORE_API_ CylindersInDWBABuilder : public IMultiLayerBuilder
 {
 public:
     CylindersInDWBABuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -42,11 +42,11 @@ private:
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II)
 
-class BA_CORE_API_ CylindersInBABuilder : public ISampleBuilder
+class BA_CORE_API_ CylindersInBABuilder : public IMultiLayerBuilder
 {
 public:
     CylindersInBABuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -60,11 +60,11 @@ private:
 //! @ingroup standard_samples
 //! @brief Builds sample with large cylinders for MC integration tests
 
-class BA_CORE_API_ LargeCylindersInDWBABuilder : public ISampleBuilder
+class BA_CORE_API_ LargeCylindersInDWBABuilder : public IMultiLayerBuilder
 {
 public:
     LargeCylindersInDWBABuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

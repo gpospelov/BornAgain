@@ -16,7 +16,7 @@
 
 #include "GUIExamplesFactory.h"
 #include "GUIObjectBuilder.h"
-#include "ISample.h"
+#include "MultiLayer.h"
 #include "SampleBuilderFactory.h"
 #include <memory>
 

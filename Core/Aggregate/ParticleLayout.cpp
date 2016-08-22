@@ -14,13 +14,13 @@
 // ************************************************************************** //
 
 #include "ParticleLayout.h"
+#include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "IInterferenceFunction.h"
 #include "ISampleVisitor.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "RealParameter.h"
-#include "SizeSpacingCorrelationApproximationStrategy.h"
 #include <iomanip>
 
 ParticleLayout::ParticleLayout()

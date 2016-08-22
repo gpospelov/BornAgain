@@ -19,15 +19,13 @@
 #include "ICompositeSample.h"
 #include "Vectors3D.h"
 
-class GISASSimulation;
 class Layer;
 class LayerInterface;
 class LayerRoughness;
 
-//! @class MultiLayer
+//! Our sample model: a stack of layers one below the other.
 //! @ingroup samples
-//! @brief Stack of layers one below the other
-//!
+
 //! Example of system of 4 layers (3 interfaces):
 //!
 //!  ambience    layer #0        z=getLayerBottomZ(0)=0.0
@@ -47,13 +45,9 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
-    //! Returns textual representation of *this and its descendants.
     virtual std::string to_str(int indent=0) const;
 
-    //! Returns number of layers in multilayer
     size_t getNumberOfLayers() const { return m_layers.size(); }
-
-    //! Returns number of interfaces in multilayer
     size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer, overrides from ISample
@@ -111,10 +105,6 @@ public:
     friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m) {
         m.print(ostr); return ostr; }
 
-    //! look for the presence of DWBA terms (e.g. included particles)
-    //! and return ISimulation if needed
-    virtual DWBASimulation* createDWBASimulation() const;
-
     //! returns layer index
     int getIndexOfLayer(const Layer* layer) const;
 
@@ -123,6 +113,8 @@ public:
 
     //! returns layer index corresponding to given global z coordinate
     size_t zToLayerIndex(double z_value);
+
+    bool containsMagneticMaterial() const;
 
 protected:
     //! Registers some class members for later access via parameter pool

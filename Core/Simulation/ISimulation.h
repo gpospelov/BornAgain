@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/ISimulation.h
-//! @brief     Defines interface class ISimulation.
+//! @brief     Defines the interface class ISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,31 +17,30 @@
 #define ISIMULATION_H
 
 #include "ICloneable.h"
+#include "WinDllMacros.h"
 #include <string>
 
-//! @class ISimulation
+//! Pure virtual base class, encapsulating most simulations
+//! (but not those of type Simulation or SpecularSimulation).
 //! @ingroup algorithms_internal
-//! @brief Interface class, encapsulating different simulations.
 
-class BA_CORE_API_  ISimulation : public ICloneable
+class BA_CORE_API_ ISimulation : ICloneable
 {
 public:
     enum ESimulationStatus { IDLE, RUNNING, COMPLETED, FAILED };
 
     ISimulation() : m_status(IDLE) {}
-
     virtual ~ISimulation() {}
+    virtual ISimulation* clone() const;
 
-    ISimulation* clone() const;
-
-    virtual void run() {}
+    virtual void run() =0;
 
     bool isCompleted() const { return m_status == COMPLETED; }
 
     std::string getRunMessage() const { return m_run_message; }
 
 protected:
-    virtual void runProtected() {}
+    virtual void runProtected() =0;
 
     void setStatus(ESimulationStatus status) { m_status = status; }
 

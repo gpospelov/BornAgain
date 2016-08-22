@@ -42,7 +42,7 @@ void MagneticParticleZeroFieldBuilder::init_parameters()
     registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
 }
 
-ISample* MagneticParticleZeroFieldBuilder::buildSample() const
+MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -83,7 +83,7 @@ void MagneticCylindersBuilder::init_parameters()
     registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
 }
 
-ISample* MagneticCylindersBuilder::buildSample() const
+MultiLayer* MagneticCylindersBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

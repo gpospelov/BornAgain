@@ -20,7 +20,6 @@
 #include "Complex.h"
 #include "SafePointerVector.h"
 
-class LayerDWBASimulation;
 class ILayout;
 class IMaterial;
 class ISampleVisitor;
@@ -83,9 +82,6 @@ public:
 
     //! Returns true if decoration is present
     virtual bool hasDWBASimulation() const { return m_layouts.size()>0; }
-
-    //! creates and returns a LayerDWBASimulation for the given layout
-    LayerDWBASimulation* createLayoutSimulation(size_t layout_index) const;
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
 

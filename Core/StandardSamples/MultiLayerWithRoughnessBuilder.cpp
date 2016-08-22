@@ -44,7 +44,7 @@ void MultiLayerWithRoughnessBuilder::init_parameters()
 }
 
 
-ISample* MultiLayerWithRoughnessBuilder::buildSample() const
+MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
     HomogeneousMaterial air_material("Air", 0., 0.);

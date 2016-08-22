@@ -26,7 +26,7 @@ class BA_CORE_API_ FormFactorSphereUniformRadius : public IFormFactorBorn
 public:
     FormFactorSphereUniformRadius(double mean, double full_width);
 
-    FormFactorSphereUniformRadius* clone() const {
+    FormFactorSphereUniformRadius* clone() const final {
         return new FormFactorSphereUniformRadius(m_mean, m_full_width); }
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 

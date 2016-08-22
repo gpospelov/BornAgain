@@ -105,7 +105,6 @@ public:
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *p_visitor) const;
-    virtual DWBASimulation *createDWBASimulation() const;
     virtual std::string to_str(int indent = 0) const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
@@ -141,7 +140,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[13];
+    mutable swig::SwigVar_PyObject vtable[12];
 #endif
 
 };
@@ -233,11 +232,11 @@ private:
 };
 
 
-class SwigDirector_ISampleBuilder : public ISampleBuilder, public Swig::Director {
+class SwigDirector_IMultiLayerBuilder : public IMultiLayerBuilder, public Swig::Director {
 
 public:
-    SwigDirector_ISampleBuilder(PyObject *self);
-    virtual ~SwigDirector_ISampleBuilder();
+    SwigDirector_IMultiLayerBuilder(PyObject *self);
+    virtual ~SwigDirector_IMultiLayerBuilder();
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
@@ -247,7 +246,7 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual ISample *buildSample() const;
+    virtual MultiLayer *buildSample() const;
 
 /* Internal director utilities */
 public:
@@ -269,7 +268,7 @@ private:
         swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
         method = PyObject_GetAttr(swig_get_self(), name);
         if (!method) {
-          std::string msg = "Method in class ISampleBuilder doesn't exist, undefined ";
+          std::string msg = "Method in class IMultiLayerBuilder doesn't exist, undefined ";
           msg += method_name;
           Swig::DirectorMethodException::raise(msg.c_str());
         }
@@ -302,7 +301,6 @@ public:
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
-    virtual DWBASimulation *createDWBASimulation() const;
     virtual std::string to_str(int indent = 0) const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
@@ -343,7 +341,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[17];
 #endif
 
 };
@@ -367,7 +365,6 @@ public:
     }
     virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
-    virtual DWBASimulation *createDWBASimulation() const;
     virtual std::string to_str(int indent = 0) const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
@@ -379,10 +376,6 @@ public:
     virtual double getRadialExtension() const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
     virtual complex_t evaluate_for_q(cvector_t const q) const;
-    virtual bool check_initialization() const;
-    virtual bool check_initializationSwigPublic() const {
-      return IFormFactorBorn::check_initialization();
-    }
 
 /* Internal director utilities */
 public:
@@ -413,7 +406,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[20];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };

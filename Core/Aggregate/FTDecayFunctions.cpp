@@ -116,7 +116,7 @@ FTDecayFunction1DCosine::FTDecayFunction1DCosine(double omega)
 double FTDecayFunction1DCosine::evaluate(double q) const
 {
     double qw = std::abs(q*m_omega);
-    if (std::abs(qw/Pi::PI-1.0) < Numeric::double_epsilon) {
+    if (std::abs(qw/Pi::PI-1.0) < std::numeric_limits<double>::epsilon()) {
         return m_omega/2.0;
     }
     else {

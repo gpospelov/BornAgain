@@ -15,9 +15,10 @@
 
 #include "LayerDWBASimulation.h"
 #include "Layer.h"
+#include "LayerSpecularInfo.h"
 
 LayerDWBASimulation::LayerDWBASimulation(const Layer* p_layer)
-: mp_specular_info(0)
+    : mp_specular_info(0)
 {
     mp_layer = p_layer->clone();
 }
@@ -26,6 +27,22 @@ LayerDWBASimulation::~LayerDWBASimulation()
 {
     delete mp_layer;
     delete mp_specular_info;
+}
+
+LayerDWBASimulation* LayerDWBASimulation::clone() const
+{
+    throw Exceptions::NotImplementedException(
+        "Bug: unexpected call to LayerDWBASimulation::clone(); "
+        "functionality not yet implemented");
+}
+
+
+void LayerDWBASimulation::setSpecularInfo(const LayerSpecularInfo& specular_info)
+{
+    if (mp_specular_info != &specular_info) {
+        delete mp_specular_info;
+        mp_specular_info = specular_info.clone();
+    }
 }
 
 Bin1DCVector LayerDWBASimulation::getKfBin(

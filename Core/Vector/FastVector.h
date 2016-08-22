@@ -20,9 +20,8 @@
 #include <iostream>
 #include <vector>
 
-//! @class KVectorContainer
+//! A vector of kvector_t's with optimized location/deallocation.
 //! @ingroup tools_internal
-//! @brief A vector of kvector_t's with optimized location/deallocation.
 
 class KVectorContainer {
 public:

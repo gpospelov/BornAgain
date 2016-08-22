@@ -27,13 +27,12 @@ public:
     FormFactorGauss(double volume);
     FormFactorGauss(double width, double height);
 
-    FormFactorGauss* clone() const { return new FormFactorGauss(m_width, m_height); }
+    FormFactorGauss* clone() const final { return new FormFactorGauss(m_width, m_height); }
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getWidth() const { return m_width; }
     double getHeight() const { return m_height; }
 
-    //! Returns width
     double getRadialExtension() const final { return m_width; }
 
     complex_t evaluate_for_q(const cvector_t q) const final;

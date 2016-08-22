@@ -17,19 +17,19 @@
 #define SAMPLEBUILDERFACTORY_H
 
 #include "IFactory.h"
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
-class ISample;
+class MultiLayer;
 
 //! @class SampleBuilderFactory
 //! @ingroup standard_samples
 //! @brief Factory to create standard pre-defined samples
 
-class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
+class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, IMultiLayerBuilder>
 {
 public:
     SampleBuilderFactory();
-    ISample* createSample(const std::string& name);
+    MultiLayer* createSample(const std::string& name);
 };
 
 #endif // SAMPLEBUILDERFACTORY_H

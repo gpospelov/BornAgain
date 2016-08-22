@@ -24,9 +24,8 @@ FormFactorWeighted::FormFactorWeighted()
 
 FormFactorWeighted::~FormFactorWeighted()
 {
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
+    for (size_t index=0; index<m_form_factors.size(); ++index)
         delete m_form_factors[index];
-    }
 }
 
 FormFactorWeighted* FormFactorWeighted::clone() const
@@ -35,11 +34,6 @@ FormFactorWeighted* FormFactorWeighted::clone() const
     for (size_t index=0; index<m_form_factors.size(); ++index)
         result->addFormFactor(*m_form_factors[index], m_weights[index]);
     return result;
-}
-
-void FormFactorWeighted::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 double FormFactorWeighted::getRadialExtension() const

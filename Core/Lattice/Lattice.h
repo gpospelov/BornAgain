@@ -17,13 +17,14 @@
 #define LATTICE_H
 
 #include "FastVector.h"
-#include "Rotations.h"
 
 class ISelectionRule;
+namespace Geometry {
+    class Transform3D;
+}
 
-//! @class Lattice
+//! A lattice with three basis vectors.
 //! @ingroup samples
-//! @brief A lattice with three basis vectors.
 
 class BA_CORE_API_ Lattice
 {
@@ -34,7 +35,7 @@ public:
     ~Lattice();
 
     //! Create transformed lattice
-    Lattice createTransformedLattice(const IRotation& rotation) const;
+    Lattice createTransformedLattice(const Geometry::Transform3D& transform) const;
 
     //! Initializes cached data
     void initialize() const;
@@ -61,8 +62,8 @@ public:
     ivector_t getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const;
 
     //! Computes a list of reciprocal lattice vectors within a specified distance of a given vector
-    void computeReciprocalLatticeVectorsWithinRadius(
-            const kvector_t input_vector, double radius) const;
+    std::vector<kvector_t> reciprocalLatticeVectorsWithinRadius(
+        const kvector_t input_vector, double radius) const;
 
     //! Sets a selection rule for the reciprocal vectors
     void setSelectionRule(const ISelectionRule& p_selection_rule);
@@ -71,14 +72,13 @@ public:
 
     static Lattice createTrigonalLattice(double a, double c);
 
-    const KVectorContainer& getKVectorContainer() const { return m_kvector_container; }
 private:
     Lattice& operator=(const Lattice& lattice);
 
-    void computeVectorsWithinRadius(const kvector_t input_vector,
-            const ivector_t& nearest_coords, double radius,
-            const kvector_t v1, const kvector_t v2, const kvector_t v3,
-            const kvector_t rec1, const kvector_t rec2, const kvector_t rec3) const;
+    std::vector<kvector_t> vectorsWithinRadius(
+        const kvector_t input_vector, const ivector_t& nearest_coords, double radius,
+        const kvector_t v1, const kvector_t v2, const kvector_t v3,
+        const kvector_t rec1, const kvector_t rec2, const kvector_t rec3) const;
 
     void computeReciprocalVectors() const;
     static void computeInverseVectors(
@@ -89,7 +89,6 @@ private:
     mutable kvector_t m_b1, m_b2, m_b3; //!< Cache of basis vectors in reciprocal space
     //! Boolean indicating if the reciprocal vectors are already initialized in the cache
     mutable bool m_cache_ok, m_is_zero;
-    mutable KVectorContainer m_kvector_container;
 };
 
 #endif // LATTICE_H

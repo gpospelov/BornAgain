@@ -67,7 +67,7 @@ void MesoCrystalBuilder::init_parameters()
 
 
 // create mesocrystal
-ISample* MesoCrystalBuilder::buildSample() const
+MultiLayer* MesoCrystalBuilder::buildSample() const
 {
     // create mesocrystal
     double surface_density = m_surface_filling_ratio/Pi::PI/m_meso_radius/m_meso_radius;

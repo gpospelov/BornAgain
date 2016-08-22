@@ -39,7 +39,7 @@ const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 GISASSimulation* StandardSimulations::PolarizedDWBAMagCylinders2()
 {
     SampleBuilderFactory factory;
-    std::shared_ptr<ISampleBuilder> builder(factory.createItem("MagneticCylindersBuilder"));
+    std::shared_ptr<IMultiLayerBuilder> builder(factory.createItem("MagneticCylindersBuilder"));
 
     GISASSimulation* result = new GISASSimulation();
 

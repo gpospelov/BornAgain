@@ -14,16 +14,17 @@
 // ************************************************************************** //
 
 #include "PythonFormatting.h"
-#include "Distributions.h"
 #include "Ellipse.h"
 #include "GISASSimulation.h"
 #include "IInterferenceFunction.h"
 #include "IShape2D.h"
 #include "InfinitePlane.h"
 #include "IParameterized.h"
+#include "IMultiLayerBuilder.h"
 #include "Line.h"
 #include "Macros.h"
 #include "MultiLayer.h"
+#include "Numeric.h"
 #include "ParameterPool.h"
 #include "Polygon.h"
 #include "ExportToPython.h"
@@ -57,49 +58,7 @@ namespace PythonFormatting {
 
 //! Returns fixed Python code snippet that defines the function "runSimulation".
 
-std::string getRepresentation(const IDistribution1D* distribution)
-{
-     std::ostringstream result;
-     result << std::setprecision(12);
-
-     if     (const DistributionGate* d =
-             dynamic_cast<const DistributionGate*>(distribution)) {
-        result << "DistributionGate("
-               << printDouble(d->getMin()) << ", "
-               << printDouble(d->getMax()) << ")";
-     }
-     else if(const DistributionLorentz* d =
-             dynamic_cast<const DistributionLorentz*>(distribution)) {
-         result << "DistributionLorentz("
-                << printDouble(d->getMean()) << ", "
-                << printDouble(d->getHWHM()) << ")";
-     }
-     else if(const DistributionGaussian* d =
-             dynamic_cast<const DistributionGaussian*>(distribution)) {
-         result << "DistributionGaussian("
-                << printDouble(d->getMean()) << ", "
-                << printDouble(d->getStdDev()) << ")";
-     }
-     else if(const DistributionLogNormal* d =
-             dynamic_cast<const DistributionLogNormal*>(distribution)) {
-         result << "DistributionLogNormal("
-                << printDouble(d->getMedian()) << ", "
-                << printDouble(d->getScalePar()) << ")";
-     }
-     else if(const DistributionCosine* d =
-             dynamic_cast<const DistributionCosine*>(distribution)) {
-         result << "DistributionCosine("
-                << printDouble(d->getMean()) << ", "
-                << printDouble(d->getSigma()) << ")";
-     }
-     else
-         throw Exceptions::RuntimeErrorException(
-            "getRepresentation(const IDistribution1D* distribution) "
-            "-> Error. Unknown distribution type");
-     return result.str();
-}
-
-std::string getRepresentation(
+std::string representShape2D(
     const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value)
 {
     std::ostringstream result;
@@ -159,7 +118,7 @@ std::string getRepresentation(
 
     } else
         throw Exceptions::RuntimeErrorException(
-            "getRepresentation(const IShape2D*) -> Error. Unknown shape");
+            "representShape2D(const IShape2D*) -> Error. Unknown shape");
 
     return result.str();
 }

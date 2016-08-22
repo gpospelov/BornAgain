@@ -33,24 +33,9 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, doub
     registerParameter(BornAgain::SigmaRadius, &m_sigma).setUnit("nm").setNonnegative();
 }
 
-FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
-{
-    return new FormFactorSphereGaussianRadius(m_mean, m_sigma);
-}
-
 FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
 {
     delete p_ff_sphere;
-}
-
-void FormFactorSphereGaussianRadius::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
-double FormFactorSphereGaussianRadius::getRadialExtension() const
-{
-    return m_mean;
 }
 
 complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const
@@ -63,8 +48,4 @@ complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) cons
 double FormFactorSphereGaussianRadius::calculateMeanR3() const
 {
     return std::pow(m_mean*(m_mean*m_mean+3.0*m_sigma*m_sigma),1.0/3.0);
-}
-
-void FormFactorSphereGaussianRadius::init_parameters()
-{
 }

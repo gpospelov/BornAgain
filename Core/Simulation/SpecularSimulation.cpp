@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "SpecularMatrix.h"
 #include <memory>
@@ -33,7 +33,7 @@ SpecularSimulation::SpecularSimulation(const ISample &sample)
     init_parameters();
 }
 
-SpecularSimulation::SpecularSimulation(std::shared_ptr<ISampleBuilder> sample_builder)
+SpecularSimulation::SpecularSimulation(std::shared_ptr<IMultiLayerBuilder> sample_builder)
     : IParameterized("SpecularSimulation"), m_sample(0), m_sample_builder(sample_builder),
       m_alpha_i_axis(0), m_z_axis(0), m_lambda(0.0)
 {
@@ -73,7 +73,7 @@ void SpecularSimulation::setSample(const ISample &sample)
     m_sample = sample.clone();
 }
 
-void SpecularSimulation::setSampleBuilder(std::shared_ptr<ISampleBuilder> sample_builder)
+void SpecularSimulation::setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder)
 {
     if (!sample_builder)
         throw Exceptions::NullPointerException("SpecularSimulation::setSampleBuilder() -> "
@@ -201,7 +201,7 @@ void SpecularSimulation::updateSample()
     if (m_sample_builder) {
         ISample *new_sample = m_sample_builder->buildSample();
         std::string builder_type = typeid(*m_sample_builder).name();
-        if (builder_type.find("ISampleBuilder_wrapper") != std::string::npos) {
+        if (builder_type.find("IMultiLayerBuilder_wrapper") != std::string::npos) {
             setSample(*new_sample);
         } else {
             delete m_sample;

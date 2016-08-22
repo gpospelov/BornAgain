@@ -2,8 +2,11 @@
 # Plots intensity data stored in BornAgain "*.int" or "*.int.gz" format
 # Usage: python plot_intensity_data.py intensity_file.int.gz
 
-import matplotlib, numpy
+import matplotlib, numpy, sys
 from matplotlib import pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+rc('text', usetex=True)
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 

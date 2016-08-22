@@ -15,7 +15,9 @@
 
 #include "Simulation.h"
 #include "DWBASimulation.h"
-#include "ISample.h"
+#include "IMultiLayerBuilder.h"
+#include "MultiLayer.h"
+#include "MultiLayerDWBASimulation.h"
 #include "Logger.h"
 #include "OMPISimulation.h"
 #include "ParameterPool.h"
@@ -32,14 +34,14 @@ Simulation::Simulation()
 
 Simulation::~Simulation() {} // forward class declaration prevents move to .h
 
-Simulation::Simulation(const ISample& p_sample)
+Simulation::Simulation(const MultiLayer& p_sample)
     : IParameterized("Simulation")
 {
     mP_sample.reset(p_sample.clone());
     init_parameters();
 }
 
-Simulation::Simulation(std::shared_ptr<ISampleBuilder> p_sample_builder)
+Simulation::Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : IParameterized("Simulation"), mp_sample_builder(p_sample_builder)
 {
     init_parameters();
@@ -102,13 +104,13 @@ void Simulation::runOMPISimulation()
     ompi.runSimulation(this);
 }
 
-//! The ISample object will not be owned by the Simulation object
-void Simulation::setSample(const ISample& sample)
+//! The MultiLayer object will not be owned by the Simulation object
+void Simulation::setSample(const MultiLayer& sample)
 {
     mP_sample.reset(sample.clone());
 }
 
-void Simulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> p_sample_builder)
+void Simulation::setSampleBuilder(std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
 {
     if (!p_sample_builder)
         throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "
@@ -118,7 +120,7 @@ void Simulation::setSampleBuilder(std::shared_ptr<class ISampleBuilder> p_sample
     mP_sample.reset(0);
 }
 
-std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool,
+std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool* external_pool,
                                                     int copy_number) const
 {
     // add own parameters
@@ -157,9 +159,9 @@ const DistributionHandler& Simulation::getDistributionHandler() const
 void Simulation::updateSample()
 {
     if (mp_sample_builder) {
-        ISample *p_new_sample = mp_sample_builder->buildSample();
+        MultiLayer* p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
-        if (builder_type.find("ISampleBuilder_wrapper") != std::string::npos) {
+        if (builder_type.find("IMultiLayerBuilder_wrapper") != std::string::npos) {
             msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
                                    "OMG, some body has called me from python, what an idea... ";
             setSample(*p_new_sample);
@@ -185,7 +187,8 @@ void Simulation::runSingleSimulation()
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
-        std::unique_ptr<DWBASimulation> P_dwba_simulation(mP_sample->createDWBASimulation());
+        std::unique_ptr<DWBASimulation> P_dwba_simulation(
+            new MultiLayerDWBASimulation(mP_sample.get()));
         verifyDWBASimulation(P_dwba_simulation.get());
         P_dwba_simulation->init(*this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
@@ -212,31 +215,31 @@ void Simulation::runSingleSimulation()
         if (total_batch_elements % m_options.getNumberOfThreads()) ++element_thread_step;
 
         for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
-            if (i_thread*element_thread_step >= total_batch_elements) break;
-            DWBASimulation *p_dwba_simulation = mP_sample->createDWBASimulation();
+            if (i_thread*element_thread_step >= total_batch_elements)
+                break;
+            // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
+            DWBASimulation* p_dwba_simulation = new MultiLayerDWBASimulation(mP_sample.get());
+
             verifyDWBASimulation(p_dwba_simulation);
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
-            int end_thread_index = (i_thread + 1)*element_thread_step;
-            if (end_thread_index >= total_batch_elements) {
+            int end_thread_index = (i_thread+1) * element_thread_step;
+            if (end_thread_index >= total_batch_elements)
                 end_it = batch_end;
-            } else {
+            else
                 end_it = batch_start + end_thread_index;
-            }
             p_dwba_simulation->init(*this, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
         }
 
         // Run simulations in n threads.
-        for (auto it = simulations.begin(); it != simulations.end(); ++it) {
+        for (auto it = simulations.begin(); it != simulations.end(); ++it)
             threads.push_back(new std::thread([] (DWBASimulation* p_sim) {p_sim->run();} , *it));
-        }
 
         // Wait for threads to complete.
-        for (size_t i = 0; i < threads.size(); ++i) {
+        for (size_t i = 0; i < threads.size(); ++i)
             threads[i]->join();
-        }
 
         // Merge simulated data.
         bool isSuccess(true);
@@ -271,7 +274,7 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
     }
 }
 
-void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
+void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress)
 {
     // if we have external ProgressHandler (which is normally coming from GUI),
     // then we will create special callbacks for every DWBASimulation.
@@ -281,7 +284,7 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
     }
 }
 
-void Simulation::verifyDWBASimulation(DWBASimulation *dwbaSimulation)
+void Simulation::verifyDWBASimulation(DWBASimulation* dwbaSimulation)
 {
     if (!dwbaSimulation)
         throw Exceptions::RuntimeErrorException(
@@ -296,8 +299,10 @@ std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
     int total_size = m_sim_elements.size();
     int size_per_batch = total_size/n_batches;
-    if (total_size%n_batches) ++size_per_batch;
-    if (current_batch*size_per_batch >= total_size) return m_sim_elements.end();
+    if (total_size%n_batches)
+        ++size_per_batch;
+    if (current_batch*size_per_batch >= total_size)
+        return m_sim_elements.end();
     return m_sim_elements.begin() + current_batch*size_per_batch;
 }
 

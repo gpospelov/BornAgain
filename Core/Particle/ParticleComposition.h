@@ -20,9 +20,8 @@
 
 class IMaterial;
 
-//! @class ParticleComposition
+//! A composition of particles at fixed positions
 //! @ingroup samples
-//! @brief A composition of particles at fixed positions
 
 class BA_CORE_API_ ParticleComposition : public IParticle
 {
@@ -33,13 +32,12 @@ public:
     ParticleComposition(const IParticle& particle, std::vector<kvector_t > positions);
 
     virtual ~ParticleComposition();
-    virtual ParticleComposition *clone() const;
+    virtual ParticleComposition* clone() const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual ParticleComposition *cloneInvertB() const;
+    virtual ParticleComposition* cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     void addParticle(const IParticle& particle);
     void addParticle(const IParticle& particle, kvector_t  position);
@@ -49,28 +47,27 @@ public:
     virtual const IMaterial* getAmbientMaterial() const;
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor *createTransformedFormFactor(const IRotation* p_rotation,
+    virtual IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
                                                      kvector_t translation) const;
 
     //! Returns number of different particles
-    size_t getNbrParticles() const;
+    size_t getNbrParticles() const { return m_particles.size(); }
 
     //! Returns particle with given index
-    const IParticle *getParticle(size_t index) const;
+    const IParticle* getParticle(size_t index) const;
 
     kvector_t getParticlePosition(size_t index) const;
 
 private:
-    //! Checks index
     size_t check_index(size_t index) const;
 
     //! Returns true if particle's type is suitable for adding
     void checkParticleType(const IParticle& p_particle);
 
     //! For internal use in cloneInvertB():
-    void addParticlePointer(IParticle *p_particle);
+    void addParticlePointer(IParticle* p_particle);
 
-    std::vector<IParticle *> m_particles;
+    std::vector<IParticle*> m_particles;
     void initialize();
 };
 

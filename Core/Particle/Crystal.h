@@ -21,11 +21,9 @@
 #include "Particle.h"
 #include "ParticleComposition.h"
 
-
-//! @class Crystal
-//! @ingroup samples
-//! @brief A crystal structure with a ParticleComposition as a basis.
+//! A crystal structure with a ParticleComposition as a basis.
 //!   Used in MesoCrystal, where it is given an outer shape.
+//! @ingroup samples
 
 class BA_CORE_API_ Crystal : public IClusteredParticles
 {
@@ -38,7 +36,7 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual Crystal* cloneInvertB() const;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     virtual void setAmbientMaterial(const IMaterial& material) {
         mp_lattice_basis->setAmbientMaterial(material); }

@@ -28,15 +28,15 @@ class BA_CORE_API_ FormFactorSphereLogNormalRadius : public IFormFactorBorn
 {
 public:
     FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples);
-    virtual ~FormFactorSphereLogNormalRadius();
+    ~FormFactorSphereLogNormalRadius() final;
 
-    virtual FormFactorSphereLogNormalRadius* clone() const {
+    FormFactorSphereLogNormalRadius* clone() const final {
         return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples); }
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    virtual double getRadialExtension() const;
+    double getRadialExtension() const final { return m_mean; }
 
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
+    complex_t evaluate_for_q(const cvector_t q) const final;
 
 private:
     double m_mean;

@@ -16,7 +16,7 @@
 #ifndef MAGNETICPARTICLESBUILDER_H
 #define MAGNETICPARTICLESBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 
@@ -24,11 +24,11 @@ class ISample;
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with magnetic material and zero magnetic field.
 
-class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public ISampleBuilder
+class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticParticleZeroFieldBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -42,11 +42,11 @@ private:
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with magnetic material and non-zero magnetic field.
 
-class BA_CORE_API_ MagneticCylindersBuilder : public ISampleBuilder
+class BA_CORE_API_ MagneticCylindersBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticCylindersBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

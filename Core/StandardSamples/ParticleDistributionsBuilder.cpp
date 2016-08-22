@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleDistributionsBuilder.h"
+#include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
@@ -43,9 +44,9 @@ void CylindersWithSizeDistributionBuilder::init_parameters()
 }
 
 
-ISample *CylindersWithSizeDistributionBuilder::buildSample() const
+MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
@@ -102,9 +103,9 @@ void TwoTypesCylindersDistributionBuilder::init_parameters()
 }
 
 
-ISample *TwoTypesCylindersDistributionBuilder::buildSample() const
+MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);

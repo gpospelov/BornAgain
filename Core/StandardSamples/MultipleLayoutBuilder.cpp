@@ -43,7 +43,7 @@ void MultipleLayoutBuilder::init_parameters()
     registerParameter("cylinder_weight", &m_cylinder_weight).setUnit("nm").setNonnegative();
 }
 
-ISample* MultipleLayoutBuilder::buildSample() const
+MultiLayer* MultipleLayoutBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

@@ -14,15 +14,14 @@
 // ************************************************************************** //
 
 #include "Limits.h"
-#include "Numeric.h"
 #include <iomanip>
 #include <iostream>
-
+#include <limits>
 
 //! Creates an object which can have only positive values (>0., zero is not included)
 Limits Limits::positive()
 {
-    return lowerLimited(Numeric::double_min);
+    return lowerLimited(std::numeric_limits<double>::min());
 }
 
 //! Prints class

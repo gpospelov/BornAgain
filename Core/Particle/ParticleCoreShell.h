@@ -36,7 +36,7 @@ public:
     virtual ParticleCoreShell* cloneInvertB() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientMaterial(const IMaterial& material);
@@ -47,10 +47,10 @@ public:
                                                      kvector_t translation) const;
 
     //! Returns the core particle
-    const Particle* getCoreParticle() const;
+    const Particle* getCoreParticle() const { return mp_core; }
 
     //! Returns the shell particle
-    const Particle* getShellParticle() const;
+    const Particle* getShellParticle() const { return mp_shell; }
 
 protected:
     void addAndRegisterCore(const Particle &core, kvector_t relative_core_position);

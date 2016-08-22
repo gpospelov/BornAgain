@@ -17,10 +17,10 @@
 #include "BornAgainNamespace.h"
 #include "IntegratorReal.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
 #include "ParameterPool.h"
 #include "Pi.h"
 #include "RealParameter.h"
+#include <limits>
 
 void IFTDistribution1D::print(std::ostream& ostr) const
 {
@@ -94,7 +94,7 @@ FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 double FTDistribution1DCosine::evaluate(double q) const
 {
     double qw = std::abs(q*m_omega);
-    if (std::abs(qw/Pi::PI-1.0) < Numeric::double_epsilon)
+    if (std::abs(qw/Pi::PI-1.0) < std::numeric_limits<double>::epsilon())
         return 0.5;
     return MathFunctions::sinc(qw)/(1.0-qw*qw/Pi::PI/Pi::PI);
 }

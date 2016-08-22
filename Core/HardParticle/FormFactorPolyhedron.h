@@ -37,7 +37,7 @@ public:
 
 class PolyhedralEdge {
 public:
-    PolyhedralEdge( const kvector_t _Vlow, const kvector_t _Vhig );
+    PolyhedralEdge(const kvector_t _Vlow, const kvector_t _Vhig);
 
     kvector_t E() const { return m_E; }
     kvector_t R() const { return m_R; }
@@ -56,9 +56,9 @@ private:
 
 class PolyhedralFace {
 public:
-    static double diameter( const std::vector<kvector_t>& V );
+    static double diameter(const std::vector<kvector_t>& V);
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    static void setLimits( double _qpa, int _n );
+    static void setLimits(double _qpa, int _n);
 #endif
 
     PolyhedralFace( const std::vector<kvector_t>& _V=std::vector<kvector_t>(), bool _sym_S2=false );
@@ -68,11 +68,11 @@ public:
     double pyramidalVolume() const { return m_rperp*m_area/3; }
     double radius3d() const { return m_radius_3d; }
     //! Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]
-    complex_t normalProjectionConj( cvector_t q ) const { return q.dot(m_normal); }
-    complex_t ff_n( int m, const cvector_t q ) const;
-    complex_t ff( const cvector_t q, const bool sym_Ci ) const;
-    complex_t ff_2D( const cvector_t qpa ) const;
-    void assert_Ci( const PolyhedralFace& other ) const;
+    complex_t normalProjectionConj( cvector_t q) const { return q.dot(m_normal); }
+    complex_t ff_n(int m, const cvector_t q) const;
+    complex_t ff(const cvector_t q, const bool sym_Ci) const;
+    complex_t ff_2D(const cvector_t qpa) const;
+    void assert_Ci(const PolyhedralFace& other) const;
 
 private:
     static double qpa_limit_series; //!< determines when use power series
@@ -87,9 +87,9 @@ private:
     double m_radius_3d; //!< radius of enclosing sphere
     kvector_t m_center; //!< center of mass
 
-    void decompose_q( const cvector_t q, complex_t& qperp, cvector_t& qpa ) const;
-    complex_t ff_n_core( int m, const cvector_t qpa, complex_t qperp ) const;
-    complex_t edge_sum_ff( cvector_t q, cvector_t qpa, bool sym_Ci ) const;
+    void decompose_q(const cvector_t q, complex_t& qperp, cvector_t& qpa) const;
+    complex_t ff_n_core(int m, const cvector_t qpa, complex_t qperp) const;
+    complex_t edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) const;
     complex_t expansion(
         complex_t fac_even, complex_t fac_odd, cvector_t qpa, double abslevel ) const;
 };
@@ -106,8 +106,8 @@ public:
     FormFactorPolyhedron() {}
 
     virtual void onChange() = 0;
-    complex_t evaluate_for_q(const cvector_t q ) const final;
-    complex_t evaluate_centered( const cvector_t q ) const;
+    complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_centered(const cvector_t q) const;
 
     double getVolume() const final { return m_volume; }
     double getRadialExtension() const final { return m_radius; }
@@ -117,8 +117,8 @@ protected:
     double m_z_origin;
     bool m_sym_Ci; //!< if true, then faces obtainable by inversion are not provided
 
-    void setPolyhedron( const PolyhedralTopology& topology, double z_origin,
-                        const std::vector<kvector_t>& vertices );
+    void setPolyhedron(const PolyhedralTopology& topology, double z_origin,
+                       const std::vector<kvector_t>& vertices);
 
 private:
     static double q_limit_series; //!< determines when to use power series
@@ -134,9 +134,9 @@ private:
 
 class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
-    FormFactorPolygonalPrism( const double height ) : m_height(height) {}
+    FormFactorPolygonalPrism(const double height) : m_height(height) {}
 
-    complex_t evaluate_for_q(const cvector_t q ) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
     double getVolume() const;
     double getHeight() const { return m_height; }
     double getRadialExtension() const final { return std::sqrt(m_base->area()); }
@@ -154,7 +154,7 @@ class FormFactorPolygonalSurface : public IFormFactorBorn {
 public:
     FormFactorPolygonalSurface() {}
 
-    complex_t evaluate_for_q(const cvector_t q ) const final;
+    complex_t evaluate_for_q(const cvector_t q) const final;
     double getVolume() const { return 0; }
     double getRadialExtension() const final { return std::sqrt(m_base->area()); }
 

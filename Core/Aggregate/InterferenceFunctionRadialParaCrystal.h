@@ -32,7 +32,6 @@ public:
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Returns textual representation of *this and its descendants.
     std::string to_str(int indent=0) const final;
 
     void setKappa(double kappa) { m_kappa = kappa; }
@@ -53,6 +52,8 @@ public:
     double getDampingLength() const { return m_damping_length; }
 
 private:
+    void init_parameters();
+
     double m_peak_distance; //!< the distance to the first neighbor peak
     double m_damping_length; //!< damping length of paracrystal
     //! Fourier transformed probability distribution of the nearest particle
@@ -60,9 +61,6 @@ private:
     bool m_use_damping_length;
     double m_kappa; //!< Size-spacing coupling parameter
     double m_domain_size; //!< Size of coherence domain
-
-    //! Registers some class members for later access via parameter pool
-    void init_parameters();
 };
 
 #endif // INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H

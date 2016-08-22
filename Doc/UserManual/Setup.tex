@@ -13,6 +13,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage{ifdraft}
+
 \let\angstrom=\AA
 
 %-------------------------------------------------------------------------------
@@ -23,12 +25,13 @@
 \textwidth=410pt
 \hoffset=210mm % width of A4
 \advance\hoffset by -1\textwidth
-\hoffset=0.5\hoffset
+\ifdraft{\hoffset=0.\hoffset}{\hoffset=0.5\hoffset}
 \advance\hoffset by -1in
 % Now a slight assymmetry to leave more blank on the side of the fold
-\evensidemargin=0pt
-\oddsidemargin=5pt
-\advance\evensidemargin by -1\oddsidemargin
+\ifdraft{}{
+  \evensidemargin=0pt
+  \oddsidemargin=5pt
+  \advance\evensidemargin by -1\oddsidemargin}
 
 \def\myparindent{5ex}
 \setlength{\parindent}{\myparindent} % workaround, for colorboxes
@@ -141,8 +144,27 @@
 %  Index, List of Symbols
 %-------------------------------------------------------------------------------
 
+\ifdraft{\usepackage{showidx}}{}
 \usepackage{imakeidx}
 \makeindex
+
+\makeatletter
+% patch showidx
+\def\@showidx#1{%
+  \insert\indexbox{\tiny
+    \hsize2\marginparwidth
+    \hangindent\marginparsep \parindent\z@
+    \everypar{}\let\par\@@par \parfillskip\@flushglue
+    \lineskip\normallineskip
+    \baselineskip .8\normalbaselineskip\sloppy
+    \raggedright \leavevmode
+    \vrule \@height .7\normalbaselineskip \@width \z@\relax
+        #1\relax
+    \vrule \@height \z@ \@depth .3\normalbaselineskip \@width \z@}}
+\def\@mkidx{\smash{\hbox{\raise3cm\vbox to \z@{\hbox{\@rightidx\box\indexbox}\vss}}}}
+\def\@rightidx{\hskip\columnwidth \hskip\marginparsep}
+\makeatother
+
 
 \usepackage[refpage]{nomencl}
 \makenomenclature
@@ -198,7 +220,6 @@
 %  Highlighting
 %-------------------------------------------------------------------------------
 
-\usepackage{ifdraft}
 \usepackage{mdframed}
 \input FixMdframed % bug fix to prevent erroneous page breaks
 % doesnt work:
@@ -268,3 +289,21 @@
 \ifdraft{\usepackage[right]{showlabels}}{}
 
 \usepackage{cleveref}
+
+\crefformat{equation}{(#2#1#3)}
+\Crefformat{equation}{Equation~(#2#1#3)}
+
+\crefformat{chapter}{Chapter~#2#1#3}
+\Crefformat{chapter}{Chapter~#2#1#3}
+
+\crefformat{section}{Sec.~#2#1#3}
+\Crefformat{section}{Section~#2#1#3}
+
+\crefformat{subsection}{Sec.~#2#1#3}
+\Crefformat{subsection}{Section~#2#1#3}
+
+\crefformat{subsubsection}{Sec.~#2#1#3}
+\Crefformat{subsubsection}{Section~#2#1#3}
+
+\crefformat{figure}{Fig.~#2#1#3}
+\Crefformat{figure}{Figure~#2#1#3}

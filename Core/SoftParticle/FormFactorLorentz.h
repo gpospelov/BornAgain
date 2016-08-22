@@ -27,7 +27,7 @@ public:
     FormFactorLorentz(double volume);
     FormFactorLorentz(double width, double height);
 
-    FormFactorLorentz* clone() const { return new FormFactorLorentz(m_width, m_height); }
+    FormFactorLorentz* clone() const final { return new FormFactorLorentz(m_width, m_height); }
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     double getWidth() const { return m_width; }

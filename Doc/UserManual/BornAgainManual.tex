@@ -26,8 +26,12 @@
 %\includeonly{Introduction,Conventions,OnlineDocs,ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness,Experiment}
 %\includeonly{FormFactors}
 
-\documentclass[a4paper,11pt,twoside,fleqn]{report}\usepackage[final]{graphicx}
+%\documentclass[a4paper,11pt,twoside,fleqn]{report}\usepackage[final]{graphicx}
+\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[final]{graphicx}
 %\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[draft]{graphicx}
+
+\def\authors{Jan Burle, Céline Durniak, Jonathan M.\ Fisher, Marina Ganeva, Gennady Pospelov,
+Walter Van Herck, Joachim Wuttke}
 
 \input{Setup}
 
@@ -48,10 +52,9 @@
 \include{Multilayers}
 \include{polMultilayers}
 \include{Assemblies}
-\include{Domains}
-\include{Roughness}
-\include{Experiment}
-\include{Usage}
+%void \include{Domains}
+%void \include{Roughness}
+%void \include{Experiment}
 
 \appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \include{Proofs}

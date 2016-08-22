@@ -17,31 +17,31 @@
 #define MATRIXSPECULARINFOMAP_H
 
 #include "ISpecularInfoMap.h"
-#include "MatrixRTCoefficients.h"
 #include <memory>
 
+class ILayerRTCoefficients;
 class MultiLayer;
+class SimulationElement;
 
-//! @class MatrixSpecularInfoMap
+//! Implementation of ISpecularInfoMap for matrix valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
-//! @brief Implementation of ISpecularInfoMap for matrix valued reflection/
-//! transmission coefficients
 
 class BA_CORE_API_ MatrixSpecularInfoMap : public ISpecularInfoMap
 {
 public:
     MatrixSpecularInfoMap(const MultiLayer* multilayer, int layer);
-    virtual ~MatrixSpecularInfoMap() {}
+    ~MatrixSpecularInfoMap() final {}
 
-    virtual MatrixSpecularInfoMap* clone() const;
-
-    //! Retrieves the amplitude coefficients for the given angles
-    virtual const MatrixRTCoefficients* getOutCoefficients(
-        double alpha_f, double phi_f, double wavelength) const;
+    MatrixSpecularInfoMap* clone() const final;
 
     //! Retrieves the amplitude coefficients for the given angles
-    virtual const MatrixRTCoefficients* getInCoefficients(
-        double alpha_i, double phi_i, double wavelength) const;
+    const ILayerRTCoefficients* getOutCoefficients(
+        const SimulationElement& sim_element) const final;
+
+    //! Retrieves the amplitude coefficients for the given angles
+    const ILayerRTCoefficients* getInCoefficients(
+        const SimulationElement& sim_element) const final;
+
 private:
     std::unique_ptr<MultiLayer> mP_multilayer;
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;

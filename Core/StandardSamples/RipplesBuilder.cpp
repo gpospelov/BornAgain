@@ -44,7 +44,7 @@ void CosineRippleBuilder::init_parameters()
     registerParameter("interf_width", &m_interf_width).setUnit("nm").setNonnegative();
 }
 
-ISample* CosineRippleBuilder::buildSample() const
+MultiLayer* CosineRippleBuilder::buildSample() const
 {
     MultiLayer* p_multi_layer = new MultiLayer();
 
@@ -98,7 +98,7 @@ void TriangularRippleBuilder::init_parameters()
     registerParameter("interf_width", &m_interf_width).setUnit("nm").setNonnegative();
 }
 
-ISample* TriangularRippleBuilder::buildSample() const
+MultiLayer* TriangularRippleBuilder::buildSample() const
 {
     MultiLayer* p_multi_layer = new MultiLayer();
 

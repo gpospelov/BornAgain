@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "Particle.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "Materials.h"
-
 
 Particle::Particle()
 {
@@ -82,11 +82,6 @@ Particle* Particle::cloneInvertB() const
     return p_result;
 }
 
-void Particle::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 std::string Particle::to_str(int indent) const
 {
     std::stringstream ss;
@@ -111,27 +106,23 @@ IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
     const std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
     kvector_t total_position = getComposedTranslation(p_rotation, translation);
     std::unique_ptr<IFormFactor> P_temp_ff1;
-    if (P_total_rotation) {
+    if (P_total_rotation)
         P_temp_ff1.reset(new FormFactorDecoratorRotation(*mP_form_factor, *P_total_rotation));
-    } else {
+    else
         P_temp_ff1.reset(mP_form_factor->clone());
-    }
     std::unique_ptr<IFormFactor> P_temp_ff2;
-    if (total_position != kvector_t()) {
+    if (total_position != kvector_t())
         P_temp_ff2.reset(new FormFactorDecoratorPositionFactor(*P_temp_ff1, total_position));
-    } else {
+    else
         P_temp_ff2.swap(P_temp_ff1);
-    }
-    FormFactorDecoratorMaterial* p_ff
-        = new FormFactorDecoratorMaterial(*P_temp_ff2);
+    FormFactorDecoratorMaterial* p_ff = new FormFactorDecoratorMaterial(*P_temp_ff2);
     if (mP_material) {
         if (mP_rotation) {
             const std::unique_ptr<const IMaterial> P_transformed_material(
-                        mP_material->createTransformedMaterial(*P_total_rotation));
+                mP_material->createTransformedMaterial(P_total_rotation->getTransform3D()));
             p_ff->setMaterial(*P_transformed_material);
-        } else {
+        } else
             p_ff->setMaterial(*mP_material);
-        }
     }
     if (mP_ambient_material)
         p_ff->setAmbientMaterial(*mP_ambient_material);

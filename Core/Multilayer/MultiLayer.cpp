@@ -15,11 +15,11 @@
 
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "Logger.h"
 #include "Materials.h"
-#include "MultiLayerDWBASimulation.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
@@ -48,10 +48,12 @@ void MultiLayer::init_parameters()
 
 void MultiLayer::clear() // TODO: understand need
 {
-    for(size_t i=0; i<m_layers.size(); i++) delete m_layers[i];
+    for(size_t i=0; i<m_layers.size(); i++)
+        delete m_layers[i];
     m_layers.clear();
 
-    for(size_t i=0; i<m_interfaces.size(); i++) delete m_interfaces[i];
+    for(size_t i=0; i<m_interfaces.size(); i++)
+        delete m_interfaces[i];
     m_interfaces.clear();
 
     m_layers_z.clear();
@@ -66,22 +68,19 @@ MultiLayer* MultiLayer::clone() const
     newMultiLayer->m_layers_z = m_layers_z;
 
     std::vector<Layer*> layer_buffer;
-    for(size_t i=0; i<m_layers.size(); i++) {
+    for(size_t i=0; i<m_layers.size(); i++)
         layer_buffer.push_back(m_layers[i]->clone() );
-    }
 
     for(size_t i=0; i<m_interfaces.size(); i++) {
         const Layer* topLayer = layer_buffer[i];
         const Layer* bottomLayer = layer_buffer[i+1];
 
         LayerInterface* newInterface(0);
-        if(m_interfaces[i]->getRoughness()) {
+        if(m_interfaces[i]->getRoughness())
             newInterface = LayerInterface::createRoughInterface(topLayer,
                     bottomLayer, *m_interfaces[i]->getRoughness() );
-        } else {
-            newInterface = LayerInterface::createSmoothInterface(topLayer,
-                    bottomLayer );
-        }
+        else
+            newInterface = LayerInterface::createSmoothInterface(topLayer, bottomLayer );
         newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
         newMultiLayer->addAndRegisterInterface( newInterface );
     }
@@ -213,17 +212,20 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
             m_layers[ check_layer_index(il) ]->getThickness() );
 }
 
-DWBASimulation* MultiLayer::createDWBASimulation() const
-{
-    return new MultiLayerDWBASimulation(this);
-}
-
 int MultiLayer::getIndexOfLayer(const Layer* layer) const
 {
     for (size_t i=0; i<getNumberOfLayers(); ++i)
         if (layer == m_layers[i])
             return i;
     return -1;
+}
+
+bool MultiLayer::containsMagneticMaterial() const
+{
+    for (const IMaterial* mat: containedMaterials())
+        if (mat->isMagneticMaterial())
+            return true;
+    return false;
 }
 
 void MultiLayer::print(std::ostream& ostr) const

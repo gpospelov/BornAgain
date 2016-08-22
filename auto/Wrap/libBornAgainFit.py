@@ -2325,19 +2325,6 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_numberOfFreeFitParameters(self)
 
 
-    def valuesAreDifferent(self, pars_valuers, tolerance_factor=1.0):
-        """
-        valuesAreDifferent(FitSuiteParameters self, double const * pars_valuers, double tolerance_factor=1.0) -> bool
-        valuesAreDifferent(FitSuiteParameters self, double const * pars_valuers) -> bool
-
-        bool FitSuiteParameters::valuesAreDifferent(const double *pars_valuers, double tolerance_factor=1.0) const
-
-        Returns true if parameters already have the given values. 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_valuesAreDifferent(self, pars_valuers, tolerance_factor)
-
-
     def printFitParameters(self):
         """
         printFitParameters(FitSuiteParameters self)
@@ -2384,6 +2371,18 @@ class FitSuiteParameters(_object):
 
         """
         return _libBornAgainFit.FitSuiteParameters_setFixed(self, pars, is_fixed)
+
+
+    def valuesDifferFrom(self, par_values, tolerance):
+        """
+        valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool
+
+        bool FitSuiteParameters::valuesDifferFrom(const double *par_values, double tolerance) const
+
+        Returns true if parameters already have the given values. 
+
+        """
+        return _libBornAgainFit.FitSuiteParameters_valuesDifferFrom(self, par_values, tolerance)
 
 
     def __getitem__(self, *args):

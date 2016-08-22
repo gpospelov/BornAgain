@@ -18,9 +18,8 @@
 
 #include "Vectors3D.h"
 
-//! @class IPixelMap
+//! Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 //! @ingroup simulation
-//! @brief Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 
 class IPixelMap
 {

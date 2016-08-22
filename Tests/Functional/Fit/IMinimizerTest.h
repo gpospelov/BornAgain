@@ -21,7 +21,7 @@
 #include <memory>
 
 class FitSuite;
-class ISample;
+class MultiLayer;
 class GISASSimulation;
 
 //! @class IMinimizerTest
@@ -32,7 +32,7 @@ class IMinimizerTest : public IFunctionalTest
 {
 public:
     IMinimizerTest(const std::string &minimizer_name,
-                             const std::string &minimizer_algorithm = std::string());
+                   const std::string &minimizer_algorithm = std::string());
     virtual ~IMinimizerTest(){}
 
     bool runTest() final;
@@ -51,7 +51,7 @@ public:
 
 protected:
     virtual std::unique_ptr<FitSuite> createFitSuite();
-    virtual std::unique_ptr<ISample> createSample();
+    virtual std::unique_ptr<MultiLayer> createSample();
     virtual std::unique_ptr<GISASSimulation> createSimulation();
     virtual std::unique_ptr<OutputData<double>> createOutputData(const GISASSimulation* simulation);
 

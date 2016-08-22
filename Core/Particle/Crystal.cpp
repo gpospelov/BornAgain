@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Crystal.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 
@@ -44,11 +45,6 @@ Crystal* Crystal::cloneInvertB() const
     return p_new;
 }
 
-void Crystal::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
                                             const IRotation* p_rotation,
                                             kvector_t translation) const
@@ -58,19 +54,17 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
         mp_lattice_basis->createTransformedFormFactor(p_rotation, translation));
     const std::unique_ptr<FormFactorCrystal> P_ff_crystal(
         new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));
-    if (m_dw_factor > 0.0) {
+    if (m_dw_factor > 0.0)
         return new FormFactorDecoratorDebyeWaller(*P_ff_crystal, m_dw_factor);
-    }
     return P_ff_crystal->clone();
 }
 
 Lattice Crystal::getTransformedLattice(const IRotation* p_rotation) const
 {
-    if (p_rotation) {
-        return m_lattice.createTransformedLattice(*p_rotation);
-    } else {
+    if (p_rotation)
+        return m_lattice.createTransformedLattice(p_rotation->getTransform3D());
+    else
         return m_lattice;
-    }
 }
 
 Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)

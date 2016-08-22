@@ -16,7 +16,7 @@
 #ifndef BOXCOMPOSITIONBUILDER_H
 #define BOXCOMPOSITIONBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 class ISample;
 class HomogeneousMaterial;
@@ -28,7 +28,7 @@ class ParticleComposition;
 //! @brief Parent class to test all kind of compositions made out of boxes.
 //! Reproduces Python functional test transform_BoxComposition.py
 
-class BA_CORE_API_ BoxCompositionBuilder : public ISampleBuilder
+class BA_CORE_API_ BoxCompositionBuilder : public IMultiLayerBuilder
 {
 public:
     BoxCompositionBuilder();
@@ -51,7 +51,7 @@ class BA_CORE_API_ BoxCompositionRotateXBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateXBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 //! @class BoxCompositionRotateYBuilder
@@ -62,7 +62,7 @@ class BA_CORE_API_ BoxCompositionRotateYBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateYBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 //! @class BoxCompositionRotateZBuilder
@@ -73,7 +73,7 @@ class BA_CORE_API_ BoxCompositionRotateZBuilder : public BoxCompositionBuilder
 {
 public:
     BoxCompositionRotateZBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 //! @class BoxCompositionRotateZandYBuilder
@@ -84,7 +84,7 @@ class BA_CORE_API_ BoxCompositionRotateZandYBuilder : public BoxCompositionBuild
 {
 public:
     BoxCompositionRotateZandYBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 //! @class BoxStackCompositionBuilder
@@ -95,7 +95,7 @@ class BA_CORE_API_ BoxStackCompositionBuilder : public BoxCompositionBuilder
 {
 public:
     BoxStackCompositionBuilder(){}
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 #endif // BOXCOMPOSITIONBUILDER_H

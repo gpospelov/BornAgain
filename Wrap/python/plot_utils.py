@@ -25,6 +25,9 @@ def standardIntensityPlot(result):
     import matplotlib
     import sys
     from matplotlib import pyplot as plt
+    from matplotlib import rc
+    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+    rc('text', usetex=True)
     im = plt.imshow(
         result.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),

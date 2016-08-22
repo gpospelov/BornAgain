@@ -15,7 +15,6 @@
 
 #include "LayerRoughness.h"
 #include "BornAgainNamespace.h"
-#include "ISampleVisitor.h"
 #include "Pi.h"
 #include "RealParameter.h"
 

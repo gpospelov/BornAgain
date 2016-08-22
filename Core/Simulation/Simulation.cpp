@@ -14,38 +14,32 @@
 // ************************************************************************** //
 
 #include "Simulation.h"
-#include "DWBASimulation.h"
+#include "Computation.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "MultiLayerDWBASimulation.h"
+#include "MultiLayerComputation.h"
 #include "Logger.h"
-#include "OMPISimulation.h"
+// unused #include "OMPISimulation.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "SimulationElement.h"
+#include "Utils.h"
 #include <gsl/gsl_errno.h>
 #include <thread>
 
 Simulation::Simulation()
-    : IParameterized("Simulation")
-{
-    init_parameters();
-}
+{}
 
 Simulation::~Simulation() {} // forward class declaration prevents move to .h
 
 Simulation::Simulation(const MultiLayer& p_sample)
-    : IParameterized("Simulation")
 {
     mP_sample.reset(p_sample.clone());
-    init_parameters();
 }
 
 Simulation::Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder)
-{
-    init_parameters();
-}
+    : mp_sample_builder(p_sample_builder)
+{}
 
 Simulation::Simulation(const Simulation& other)
     : ICloneable()
@@ -57,7 +51,6 @@ Simulation::Simulation(const Simulation& other)
 {
     if (other.mP_sample)
         mP_sample.reset(other.mP_sample->clone());
-    init_parameters();
 }
 
 void Simulation::prepareSimulation()
@@ -98,11 +91,13 @@ void Simulation::runSimulation()
     transferResultsToIntensityMap();
 }
 
+/* currently unused
 void Simulation::runOMPISimulation()
 {
     OMPISimulation ompi;
     ompi.runSimulation(this);
 }
+*/
 
 //! The MultiLayer object will not be owned by the Simulation object
 void Simulation::setSample(const MultiLayer& sample)
@@ -117,7 +112,7 @@ void Simulation::setSampleBuilder(std::shared_ptr<class IMultiLayerBuilder> p_sa
                                    "Error! Attempt to set null sample builder.");
 
     mp_sample_builder = p_sample_builder;
-    mP_sample.reset(0);
+    mP_sample.reset(nullptr);
 }
 
 std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool* external_pool,
@@ -187,10 +182,9 @@ void Simulation::runSingleSimulation()
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
-        std::unique_ptr<DWBASimulation> P_dwba_simulation(
-            new MultiLayerDWBASimulation(mP_sample.get()));
-        verifyDWBASimulation(P_dwba_simulation.get());
-        P_dwba_simulation->init(*this, batch_start, batch_end);
+        std::unique_ptr<Computation> P_dwba_simulation(
+            new MultiLayerComputation(mP_sample.get()));
+        P_dwba_simulation->init(m_options, *this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
             std::string message = P_dwba_simulation->getRunMessage();
@@ -207,7 +201,7 @@ void Simulation::runSingleSimulation()
                            << ", current_batch = " << m_options.getCurrentBatch();
 
         std::vector<std::thread*> threads;
-        std::vector<DWBASimulation*> simulations;
+        std::vector<Computation*> simulations;
 
         // Initialize n simulations.
         int total_batch_elements = batch_end - batch_start;
@@ -218,9 +212,8 @@ void Simulation::runSingleSimulation()
             if (i_thread*element_thread_step >= total_batch_elements)
                 break;
             // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
-            DWBASimulation* p_dwba_simulation = new MultiLayerDWBASimulation(mP_sample.get());
+            Computation* p_dwba_simulation = new MultiLayerComputation(mP_sample.get());
 
-            verifyDWBASimulation(p_dwba_simulation);
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
@@ -229,43 +222,43 @@ void Simulation::runSingleSimulation()
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
-            p_dwba_simulation->init(*this, begin_it, end_it);
+            p_dwba_simulation->init(m_options, *this, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
         }
 
         // Run simulations in n threads.
         for (auto it = simulations.begin(); it != simulations.end(); ++it)
-            threads.push_back(new std::thread([] (DWBASimulation* p_sim) {p_sim->run();} , *it));
+            threads.push_back(new std::thread([] (Computation* p_sim) {p_sim->run();} , *it));
 
         // Wait for threads to complete.
-        for (size_t i = 0; i < threads.size(); ++i)
-            threads[i]->join();
-
-        // Merge simulated data.
-        bool isSuccess(true);
-        std::string failure_message;
-        for (size_t i = 0; i < simulations.size(); ++i) {
-            if (!simulations[i]->isCompleted()) {
-                isSuccess = false;
-                failure_message = simulations[i]->getRunMessage();
-            }
-            delete simulations[i];
-            delete threads[i];
+        for (auto thread: threads) {
+            thread->join();
+            delete thread;
         }
-        if (!isSuccess)
+
+        // Check successful completion.
+        std::vector<std::string> failure_messages;
+        for (auto sim: simulations) {
+            if (!sim->isCompleted())
+                failure_messages.push_back(sim->getRunMessage());
+            delete sim;
+        }
+        if (failure_messages.size())
             throw Exceptions::RuntimeErrorException(
-                "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
-                "with the following error message.\n" + failure_message);
+                "Simulation::runSingleSimulation() -> "
+                "At least one simulation thread has terminated unexpectedly.\n"
+                "Messages: " + Utils::String::join(failure_messages, " --- "));
     }
     normalize(batch_start, batch_end);
 }
 
+//! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
 void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
                            std::vector<SimulationElement>::iterator end_it) const
 {
     double beam_intensity = getBeamIntensity();
-    // no normalization when beam intensity is zero:
-    if (beam_intensity==0.0) return;
+    if (beam_intensity==0.0)
+        return; // no normalization when beam intensity is zero
     for(auto it=begin_it; it!=end_it; ++it) {
         double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
         if (sin_alpha_i==0.0) sin_alpha_i = 1.0;
@@ -277,21 +270,11 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
 void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress)
 {
     // if we have external ProgressHandler (which is normally coming from GUI),
-    // then we will create special callbacks for every DWBASimulation.
-    // These callback will be used to report DWBASimulation progress to the Simulation.
+    // then we will create special callbacks for every Computation.
+    // These callback will be used to report Computation progress to the Simulation.
     if (m_progress) {
         dwba_progress->setCallback( [&] (int n) {return m_progress->update(n);} );
     }
-}
-
-void Simulation::verifyDWBASimulation(DWBASimulation* dwbaSimulation)
-{
-    if (!dwbaSimulation)
-        throw Exceptions::RuntimeErrorException(
-            "Simulation::runSimulation() -> Can't create the simulation for given sample."
-            "It should be either the MultiLayer with more than one layer (with or without "
-            "particles),"
-            "or MultiLayer with single Layer containing particles.");
 }
 
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)

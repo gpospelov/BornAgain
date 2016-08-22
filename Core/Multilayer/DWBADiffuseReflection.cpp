@@ -16,6 +16,7 @@
 #include "DWBADiffuseReflection.h"
 #include "Layer.h"
 #include "LayerInterface.h"
+#include "LayerRoughness.h"
 #include "MultiLayer.h"
 #include "Pi.h"
 
@@ -32,14 +33,11 @@ void DWBADiffuseReflection::execute(
 {
     setSample(sample);
     setKvectors(ki, kf);
-
     diffuse_autocorr();
-
-    if( m_sample->getCrossCorrLength() != 0) {
+    if( m_sample->getCrossCorrLength() != 0)
         diffuse_crosscorr();
-    } else {
+    else
         m_diffuse_crosscorr = 0;
-    }
 }
 
 void DWBADiffuseReflection::setKvectors(const kvector_t ki, const kvector_t kf)
@@ -58,10 +56,9 @@ void DWBADiffuseReflection::setKvectors(const kvector_t ki, const kvector_t kf)
 void DWBADiffuseReflection::diffuse_autocorr()
 {
     double autocorr(0);
-    for(size_t i=0; i<m_sample->getNumberOfLayers()-1; i++){
+    for(size_t i=0; i<m_sample->getNumberOfLayers()-1; i++)
         autocorr += std::norm( get_refractive_term(i)) * std::norm(get_sum4terms(i) ) *
             m_sample->getLayerBottomInterface(i)->getRoughness()->getSpectralFun(m_q);
-    }
     m_diffuse_autocorr = autocorr*m_ki.mag2()/16./Pi::PI;
 }
 

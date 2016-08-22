@@ -22,7 +22,6 @@
 #include <vector>
 
 class IMaterial;
-class ISampleVisitor;
 
 //! Pure virtual base class for sample components and properties related to scattering.
 //!

@@ -22,7 +22,7 @@
 #include "SimulationOptions.h"
 
 template<class T> class OutputData;
-class DWBASimulation;
+class Computation;
 class MultiLayer;
 class IMultiLayerBuilder;
 class ProgressHandlerDWBA;
@@ -47,7 +47,7 @@ public:
     void runSimulation();
 
     //! Run an OpenMPI simulation
-    void runOMPISimulation();
+    //unused void runOMPISimulation();
 
     //! Sets the sample to be tested
     void setSample(const MultiLayer& sample);
@@ -90,7 +90,7 @@ public:
     void initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress);
 #endif
 
-    friend class OMPISimulation;
+    //unused friend class OMPISimulation;
 
     void setOptions(const SimulationOptions& options) { m_options = options; }
     const SimulationOptions& getOptions() const { return m_options; }
@@ -98,8 +98,6 @@ public:
 
 protected:
     Simulation(const Simulation& other);
-    //! Registers some class members for later access via parameter pool
-    void init_parameters() {}
 
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector()=0;
@@ -108,7 +106,6 @@ protected:
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap()=0;
 
-    //! Returns the intensity of the beam
     virtual double getBeamIntensity() const=0;
 
     //! Update the sample by calling the sample builder, if present
@@ -118,13 +115,9 @@ protected:
     void runSingleSimulation();
 
 #ifndef SWIG
-    //! Normalize the detector counts
     void normalize(std::vector<SimulationElement>::iterator begin_it,
                    std::vector<SimulationElement>::iterator end_it) const;
 #endif
-
-    //! Verify existence of the DWBASimulation object
-    void verifyDWBASimulation(DWBASimulation* dwbaSimulation);
 
     //! Returns the start iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);

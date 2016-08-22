@@ -1,13 +1,13 @@
 #ifndef GISASSIMULATIONTEST_H
 #define GISASSIMULATIONTEST_H
 
-#include "GISASSimulation.h"
-#include "OutputData.h"
 #include "Beam.h"
-#include "Layer.h"
-#include "IMultiLayerBuilder.h"
 #include "BornAgainNamespace.h"
+#include "GISASSimulation.h"
+#include "IMultiLayerBuilder.h"
 #include "Layer.h"
+#include "MultiLayer.h"
+#include "OutputData.h"
 #include <memory>
 #include <cmath>
 

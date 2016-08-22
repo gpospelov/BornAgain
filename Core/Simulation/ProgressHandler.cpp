@@ -36,9 +36,9 @@ void ProgressHandler::reset()
 }
 
 
-//! Collects number of items processed by different DWBASimulation's.
+//! Collects number of items processed by different Computation's.
 //! Calculates general progress and inform GUI if progress has changed.
-//! Return flag is obtained from GUI and transferred to DWBASimulation to ask
+//! Return flag is obtained from GUI and transferred to Computation to ask
 //! them to stop calculations.
 bool ProgressHandler::update(int n)
 {
@@ -61,7 +61,7 @@ bool ProgressHandler::update(int n)
     return continue_calculations;
 }
 
-//! Initialize ProgressHandler, estimates number of items to be calculated by DWBASimulation's.
+//! Initialize ProgressHandler, estimates number of items to be calculated by Computation's.
 void ProgressHandler::init(Simulation* simulation, int param_combinations)
 {
     m_nitems = 0;

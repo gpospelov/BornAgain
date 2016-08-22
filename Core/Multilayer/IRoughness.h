@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/IRoughness.h
-//! @brief     Defines interface class IRoughness.
+//! @brief     Defines and implements interface class IRoughness.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,16 +18,15 @@
 
 #include "ISample.h"
 
-//! @class IRoughness
+//! Interface to equip an interface with a roughness.
 //! @ingroup samples_internal
-//! @brief Interface to equip an interface with a roughness.
 
 class BA_CORE_API_ IRoughness : public ISample
 {
 public:
     IRoughness() {}
     virtual ~IRoughness() {}
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 };
 
 #endif // IROUGHNESS_H

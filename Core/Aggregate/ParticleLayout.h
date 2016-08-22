@@ -23,7 +23,6 @@
 class IAbstractParticle;
 class IInterferenceFunction;
 class IParticle;
-class ISampleVisitor;
 
 //! Decorator class that adds particles to ISample objects.
 //! @ingroup samples

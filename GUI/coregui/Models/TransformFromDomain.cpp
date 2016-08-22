@@ -36,6 +36,7 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerItem.h"
+#include "LayerRoughness.h"
 #include "LayerRoughnessItems.h"
 #include "Line.h"
 #include "MaskItems.h"

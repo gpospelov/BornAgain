@@ -17,17 +17,18 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "ILayout.h"
-#include "ISampleVisitor.h"
 #include "Materials.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-Layer::Layer() : m_thickness(0), mp_material(0)
+Layer::Layer()
+    : mp_material(nullptr), m_thickness(0)
 {
     initialize();
 }
 
-Layer::Layer(const IMaterial& material, double thickness) : m_thickness(thickness), mp_material(0)
+Layer::Layer(const IMaterial& material, double thickness)
+    : mp_material(nullptr), m_thickness(thickness)
 {
     setMaterial(material);
     initialize();
@@ -36,7 +37,7 @@ Layer::Layer(const IMaterial& material, double thickness) : m_thickness(thicknes
 Layer::Layer(const Layer& other) : ICompositeSample()
 {
     m_thickness = other.m_thickness;
-    mp_material = 0;
+    mp_material = nullptr;
     if (other.mp_material)
         mp_material = other.mp_material->clone();
     for (size_t i=0; i<other.getNumberOfLayouts();++i)
@@ -52,11 +53,10 @@ Layer::~Layer()
 
 Layer* Layer::cloneInvertB() const
 {
-    Layer* p_clone = new Layer();
-    p_clone->mp_material = Materials::createInvertedMaterial(this->mp_material);
+    Layer* p_clone = new Layer(
+        *Materials::createInvertedMaterial(this->mp_material), this->m_thickness);
     for (size_t i=0; i<getNumberOfLayouts(); ++i)
         p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
-    p_clone->m_thickness = this->m_thickness;
     p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
@@ -86,12 +86,6 @@ void Layer::setMaterial(const IMaterial& material)
 {
     delete mp_material;
     mp_material = material.clone();
-}
-
-void Layer::setMaterialAndThickness(const IMaterial& material, double thickness)
-{
-    setMaterial(material);
-    setThickness(thickness);
 }
 
 complex_t Layer::getRefractiveIndex() const

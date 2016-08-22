@@ -27,7 +27,7 @@ class Simulation;
 //! @brief Provides the functionality to calculate the progress of running simulation
 //! and report it to GUI.
 //!
-//! Thread safe to be used from DWBASimulation
+//! Thread safe to be used from Computation
 class BA_CORE_API_ ProgressHandler
 {
 public:
@@ -57,7 +57,7 @@ private:
     long m_current_progress;
 };
 
-// Shared pointer is needed because multiple DWBASimulation threads will contain a
+// Shared pointer is needed because multiple Computation threads will contain a
 // local clone of Simulation, which contains the original ProgressHandler
 typedef std::shared_ptr<class ProgressHandler> ProgressHandler_t;
 

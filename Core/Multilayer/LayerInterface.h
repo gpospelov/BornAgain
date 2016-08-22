@@ -17,12 +17,10 @@
 #define LAYERINTERFACE_H
 
 #include "ICompositeSample.h"
-#include "LayerRoughness.h"
+class LayerRoughness;
 
-
-//! @class LayerInterface
+//! Interface between two layers, possibly with roughness.
 //! @ingroup samples_internal
-//! @brief Interface between two layers, possibly with roughness.
 
 class BA_CORE_API_ LayerInterface : public ICompositeSample
 {

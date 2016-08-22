@@ -34,15 +34,15 @@ public:
     GISASSimulation(const MultiLayer& p_sample);
     GISASSimulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
 
-    virtual ~GISASSimulation() {}
+    ~GISASSimulation() final {}
 
     GISASSimulation* clone() const { return new GISASSimulation(*this); }
 
     //! Put into a clean state for running a simulation
-    virtual void prepareSimulation();
+    void prepareSimulation() final;
 
     //! Gets the number of elements this simulation needs to calculate
-    virtual int getNumberOfSimulationElements() const;
+    int getNumberOfSimulationElements() const final;
 
     //! Returns detector intensity map (no detector resolution)
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
@@ -113,34 +113,30 @@ public:
     void maskAll();
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
+                                            int copy_number = -1) const final;
 
-protected:
+private:
     GISASSimulation(const GISASSimulation& other);
 
-    //! Registers some class members for later access via parameter pool
-    void init_parameters() {}
-
     //! Initializes the vector of Simulation elements
-    virtual void initSimulationElementVector();
+    void initSimulationElementVector() final;
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
-    virtual void transferResultsToIntensityMap();
+    void transferResultsToIntensityMap() final;
 
     //! Returns the intensity of the beam
-    virtual double getBeamIntensity() const;
+    double getBeamIntensity() const final;
 
     //! Default implementation only adds the detector axes
     void updateIntensityMap();
 
+    void initialize();
+
     // extra components describing a GISAS experiment and its simulation:
     Instrument m_instrument;
     OutputData<double> m_intensity_map;
-
-private:
-    void initialize();
 };
 
 #endif // GISASSIMULATION_H

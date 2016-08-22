@@ -6951,7 +6951,7 @@ class IClusteredParticles(ICompositeSample):
         """
         clone(IClusteredParticles self) -> IClusteredParticles
 
-        IClusteredParticles* IClusteredParticles::clone() const =0
+        virtual IClusteredParticles* IClusteredParticles::clone() const =0
 
         Returns a clone of this  ISample object. 
 
@@ -7009,7 +7009,7 @@ class IClusteredParticles(ICompositeSample):
         """
         createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
 
-        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
+        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 
@@ -7059,7 +7059,7 @@ class Crystal(IClusteredParticles):
         """
         clone(Crystal self) -> Crystal
 
-        Crystal * Crystal::clone() const
+        Crystal * Crystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -7071,7 +7071,7 @@ class Crystal(IClusteredParticles):
         """
         cloneInvertB(Crystal self) -> Crystal
 
-        Crystal * Crystal::cloneInvertB() const
+        Crystal * Crystal::cloneInvertB() const final
 
         Returns a clone with inverted magnetic fields. 
 
@@ -7083,7 +7083,7 @@ class Crystal(IClusteredParticles):
         """
         accept(Crystal self, ISampleVisitor visitor)
 
-        virtual void Crystal::accept(ISampleVisitor *visitor) const
+        void Crystal::accept(ISampleVisitor *visitor) const final
 
         calls the  ISampleVisitor's visit method 
 
@@ -7095,7 +7095,7 @@ class Crystal(IClusteredParticles):
         """
         setAmbientMaterial(Crystal self, IMaterial material)
 
-        virtual void Crystal::setAmbientMaterial(const IMaterial &material)
+        void Crystal::setAmbientMaterial(const IMaterial &material) final
 
         """
         return _libBornAgainCore.Crystal_setAmbientMaterial(self, material)
@@ -7105,7 +7105,7 @@ class Crystal(IClusteredParticles):
         """
         getAmbientMaterial(Crystal self) -> IMaterial
 
-        virtual const IMaterial* Crystal::getAmbientMaterial() const
+        const IMaterial * Crystal::getAmbientMaterial() const final
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -7117,7 +7117,7 @@ class Crystal(IClusteredParticles):
         """
         createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
 
-        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
+        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 
@@ -14774,27 +14774,17 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_runSimulation(self)
 
 
-    def runOMPISimulation(self):
-        """
-        runOMPISimulation(Simulation self)
-
-        void Simulation::runOMPISimulation()
-
-        Run an OpenMPI simulation. 
-
-        """
-        return _libBornAgainCore.Simulation_runOMPISimulation(self)
-
-
     def setSample(self, sample):
         """
         setSample(Simulation self, MultiLayer sample)
 
         void Simulation::setSample(const MultiLayer &sample)
 
-        Sets the sample to be tested.
+        Run an OpenMPI simulation.
 
-        The  MultiLayer object will not be owned by the  Simulation object. 
+        The  MultiLayer object will not be owned by the  Simulation object.
+
+        Sets the sample to be tested 
 
         """
         return _libBornAgainCore.Simulation_setSample(self, sample)
@@ -15120,7 +15110,7 @@ class GISASSimulation(Simulation):
         """
         prepareSimulation(GISASSimulation self)
 
-        void GISASSimulation::prepareSimulation()
+        void GISASSimulation::prepareSimulation() final
 
         Put into a clean state for running a simulation. 
 
@@ -15132,7 +15122,7 @@ class GISASSimulation(Simulation):
         """
         getNumberOfSimulationElements(GISASSimulation self) -> int
 
-        int GISASSimulation::getNumberOfSimulationElements() const
+        int GISASSimulation::getNumberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -16835,7 +16825,7 @@ class IInterferenceFunction(ISample):
     """
 
 
-    Interface to interference functions.
+    Pure virtual base class of interference functions.
 
     C++ includes: IInterferenceFunction.h
 
@@ -16855,18 +16845,6 @@ class IInterferenceFunction(ISample):
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     __del__ = lambda self: None
 
-    def evaluate(self, q):
-        """
-        evaluate(IInterferenceFunction self, kvector_t q) -> double
-
-        virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
-
-
     def clone(self):
         """
         clone(IInterferenceFunction self) -> IInterferenceFunction
@@ -16883,12 +16861,24 @@ class IInterferenceFunction(ISample):
         """
         accept(IInterferenceFunction self, ISampleVisitor visitor)
 
-        void IInterferenceFunction::accept(ISampleVisitor *visitor) const
+        virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const =0
 
-        Calls ISampleVisitor::visit. 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.IInterferenceFunction_accept(self, visitor)
+
+
+    def evaluate(self, q):
+        """
+        evaluate(IInterferenceFunction self, kvector_t q) -> double
+
+        virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
 
 
     def getKappa(self):
@@ -17107,7 +17097,9 @@ class IAbstractParticle(ICompositeSample):
 
     Interface for a generic particle.
 
-    C++ includes: IParticle.h
+    Inherited by  IParticle and  ParticleDistribution.
+
+    C++ includes: IAbstractParticle.h
 
     """
     __swig_setmethods__ = {}
@@ -17155,7 +17147,7 @@ class IAbstractParticle(ICompositeSample):
 
         virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const
 
-        calls the  ISampleVisitor's visit method 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
@@ -17165,7 +17157,7 @@ class IAbstractParticle(ICompositeSample):
         """
         setAmbientMaterial(IAbstractParticle self, IMaterial arg2)
 
-        virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)
+        virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)=0
 
         Sets the refractive index of the ambient material (which influences its scattering power) 
 
@@ -17177,9 +17169,7 @@ class IAbstractParticle(ICompositeSample):
         """
         getAbundance(IAbstractParticle self) -> double
 
-        double IAbstractParticle::getAbundance() const
-
-        Returns abundance. 
+        double IAbstractParticle::getAbundance() const 
 
         """
         return _libBornAgainCore.IAbstractParticle_getAbundance(self)
@@ -17191,8 +17181,6 @@ class IAbstractParticle(ICompositeSample):
 
         void IAbstractParticle::setAbundance(double abundance)
 
-        Sets abundance. 
-
         """
         return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
 
@@ -17203,7 +17191,7 @@ class IAbstractParticle(ICompositeSample):
 
         virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
 
-        Returns particle's material. 
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.IAbstractParticle_getAmbientMaterial(self)
@@ -17215,7 +17203,9 @@ class IParticle(IAbstractParticle):
     """
 
 
-    Interface for a real particle (one that has position/rotation and form factor)
+    Interface for a real particle (one that has position/rotation and form factor).
+
+    Inherited by  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal.
 
     C++ includes: IParticle.h
 
@@ -17263,7 +17253,7 @@ class IParticle(IAbstractParticle):
         """
         accept(IParticle self, ISampleVisitor visitor)
 
-        virtual void IParticle::accept(class ISampleVisitor *visitor) const
+        virtual void IParticle::accept(ISampleVisitor *visitor) const
 
         calls the  ISampleVisitor's visit method 
 
@@ -17490,7 +17480,7 @@ class IRotation(ISample):
         """
         accept(IRotation self, ISampleVisitor visitor)
 
-        void IRotation::accept(class ISampleVisitor *visitor) const
+        void IRotation::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -17604,7 +17594,7 @@ class RotationX(IRotation):
         """
         accept(RotationX self, ISampleVisitor visitor)
 
-        void RotationX::accept(class ISampleVisitor *visitor) const
+        void RotationX::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -17703,7 +17693,7 @@ class RotationY(IRotation):
         """
         accept(RotationY self, ISampleVisitor visitor)
 
-        void RotationY::accept(class ISampleVisitor *visitor) const
+        void RotationY::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -17803,7 +17793,7 @@ class RotationZ(IRotation):
         """
         accept(RotationZ self, ISampleVisitor visitor)
 
-        void RotationZ::accept(class ISampleVisitor *visitor) const
+        void RotationZ::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -17902,7 +17892,7 @@ class RotationEuler(IRotation):
         """
         accept(RotationEuler self, ISampleVisitor visitor)
 
-        void RotationEuler::accept(class ISampleVisitor *visitor) const
+        void RotationEuler::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -18552,7 +18542,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
 
         void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const final
 
-        Calls ISampleVisitor::visit. 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_accept(self, visitor)
@@ -18653,7 +18643,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const final
 
-        Calls ISampleVisitor::visit. 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
@@ -18848,7 +18838,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const final
 
-        Calls ISampleVisitor::visit. 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_accept(self, visitor)
@@ -19018,7 +19008,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const final
 
-        Calls ISampleVisitor::visit. 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
@@ -19259,7 +19249,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
 
         void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const final
 
-        Calls ISampleVisitor::visit. 
+        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
@@ -19866,7 +19856,7 @@ class Layer(ICompositeSample):
     """
 
 
-    A layer with thickness and material.
+    A layer, with thickness (in nanometer) and material.
 
     C++ includes: Layer.h
 
@@ -19888,8 +19878,6 @@ class Layer(ICompositeSample):
         __init__(Layer self, IMaterial material) -> Layer
 
         Layer::Layer(const IMaterial &material, double thickness=0)
-
-        Constructs layer made of  material with  thickness in nanometers and decoration. 
 
         """
         this = _libBornAgainCore.new_Layer(*args)
@@ -19916,7 +19904,7 @@ class Layer(ICompositeSample):
         """
         cloneInvertB(Layer self) -> Layer
 
-        Layer * Layer::cloneInvertB() const
+        Layer * Layer::cloneInvertB() const final
 
         Returns a clone with inverted magnetic fields. 
 
@@ -19928,7 +19916,7 @@ class Layer(ICompositeSample):
         """
         accept(Layer self, ISampleVisitor visitor)
 
-        void Layer::accept(class ISampleVisitor *visitor) const final
+        void Layer::accept(ISampleVisitor *visitor) const final
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -19941,9 +19929,9 @@ class Layer(ICompositeSample):
         to_str(Layer self, int indent=0) -> std::string
         to_str(Layer self) -> std::string
 
-        std::string Layer::to_str(int indent=0) const
+        std::string Layer::to_str(int indent=0) const final
 
-        Returns textual representation of *this and its descendants. 
+        Returns textual representation of this and its descendants. 
 
         """
         return _libBornAgainCore.Layer_to_str(self, indent)
@@ -19965,9 +19953,7 @@ class Layer(ICompositeSample):
         """
         getThickness(Layer self) -> double
 
-        virtual double Layer::getThickness() const
-
-        Returns layer thickness in nanometers. 
+        double Layer::getThickness() const 
 
         """
         return _libBornAgainCore.Layer_getThickness(self)
@@ -19985,25 +19971,13 @@ class Layer(ICompositeSample):
         return _libBornAgainCore.Layer_setMaterial(self, material)
 
 
-    def setMaterialAndThickness(self, material, thickness):
-        """
-        setMaterialAndThickness(Layer self, IMaterial material, double thickness)
-
-        void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
-
-        Sets  material and  thickness. 
-
-        """
-        return _libBornAgainCore.Layer_setMaterialAndThickness(self, material, thickness)
-
-
     def getMaterial(self):
         """
         getMaterial(Layer self) -> IMaterial
 
-        const IMaterial* Layer::getMaterial() const final
+        const IMaterial* Layer::getMaterial() const
 
-        Returns layer's material. 
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.Layer_getMaterial(self)
@@ -20013,9 +19987,7 @@ class Layer(ICompositeSample):
         """
         getRefractiveIndex(Layer self) -> complex_t
 
-        complex_t Layer::getRefractiveIndex() const
-
-        Returns refractive index of the layer's material. 
+        complex_t Layer::getRefractiveIndex() const 
 
         """
         return _libBornAgainCore.Layer_getRefractiveIndex(self)
@@ -20027,7 +19999,7 @@ class Layer(ICompositeSample):
 
         complex_t Layer::getRefractiveIndex2() const
 
-        Returns squared refractive index of the layer's material. 
+        squared refractive index 
 
         """
         return _libBornAgainCore.Layer_getRefractiveIndex2(self)
@@ -20039,8 +20011,6 @@ class Layer(ICompositeSample):
 
         void Layer::addLayout(const ILayout &decoration)
 
-        sets particle layout 
-
         """
         return _libBornAgainCore.Layer_addLayout(self, decoration)
 
@@ -20049,9 +20019,7 @@ class Layer(ICompositeSample):
         """
         getNumberOfLayouts(Layer self) -> size_t
 
-        size_t Layer::getNumberOfLayouts() const
-
-        gets number of layouts present 
+        size_t Layer::getNumberOfLayouts() const 
 
         """
         return _libBornAgainCore.Layer_getNumberOfLayouts(self)
@@ -20061,24 +20029,15 @@ class Layer(ICompositeSample):
         """
         getLayout(Layer self, size_t i) -> ILayout
 
-        const ILayout * Layer::getLayout(size_t i) const
-
-        returns particle decoration 
+        const ILayout * Layer::getLayout(size_t i) const 
 
         """
         return _libBornAgainCore.Layer_getLayout(self, i)
 
 
-    def hasDWBASimulation(self):
-        """
-        hasDWBASimulation(Layer self) -> bool
-
-        virtual bool Layer::hasDWBASimulation() const
-
-        Returns true if decoration is present. 
-
-        """
-        return _libBornAgainCore.Layer_hasDWBASimulation(self)
+    def hasComputation(self):
+        """hasComputation(Layer self) -> bool"""
+        return _libBornAgainCore.Layer_hasComputation(self)
 
 
     def getTotalParticleSurfaceDensity(self, layout_index):
@@ -20151,7 +20110,7 @@ class IRoughness(ISample):
         """
         accept(IRoughness self, ISampleVisitor visitor)
 
-        void IRoughness::accept(ISampleVisitor *visitor) const
+        virtual void IRoughness::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -20621,7 +20580,7 @@ class MesoCrystal(IParticle):
 
         const IMaterial * MesoCrystal::getAmbientMaterial() const
 
-        Returns particle's material. 
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.MesoCrystal_getAmbientMaterial(self)
@@ -21110,7 +21069,7 @@ class OffSpecSimulation(Simulation):
         """
         prepareSimulation(OffSpecSimulation self)
 
-        void OffSpecSimulation::prepareSimulation()
+        void OffSpecSimulation::prepareSimulation() final
 
         Put into a clean state for running a simulation. 
 
@@ -21122,7 +21081,7 @@ class OffSpecSimulation(Simulation):
         """
         getNumberOfSimulationElements(OffSpecSimulation self) -> int
 
-        int OffSpecSimulation::getNumberOfSimulationElements() const
+        int OffSpecSimulation::getNumberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -22379,7 +22338,7 @@ class Particle(IParticle):
 
         const IMaterial* Particle::getAmbientMaterial() const final
 
-        Returns particle's material. 
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.Particle_getAmbientMaterial(self)
@@ -22565,7 +22524,7 @@ class ParticleComposition(IParticle):
 
         const IMaterial * ParticleComposition::getAmbientMaterial() const
 
-        Returns particle's material. 
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.ParticleComposition_getAmbientMaterial(self)
@@ -22708,7 +22667,7 @@ class ParticleCoreShell(IParticle):
 
         const IMaterial * ParticleCoreShell::getAmbientMaterial() const
 
-        Returns particle's material. 
+        Returns nullptr, unless overwritten to return a specific material. 
 
         """
         return _libBornAgainCore.ParticleCoreShell_getAmbientMaterial(self)
@@ -22756,7 +22715,7 @@ class ParticleDistribution(IAbstractParticle):
     """
 
 
-    A particle with a form factor and refractive index.
+    A particle with a form factor and refractive index  ParticleDistribution.
 
     C++ includes: ParticleDistribution.h
 

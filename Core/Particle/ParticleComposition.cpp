@@ -16,7 +16,7 @@
 #include "ParticleComposition.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "FormFactors.h"
+#include "FormFactorWeighted.h"
 #include "Materials.h"
 #include "ParticleDistribution.h"
 
@@ -153,10 +153,9 @@ size_t ParticleComposition::check_index(size_t index) const
 void ParticleComposition::checkParticleType(const IParticle &p_particle)
 {
     const ParticleDistribution* p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
-    if (p_distr) {
+    if (p_distr)
         throw Exceptions::ClassInitializationException("ParticleComposition::checkParticleType: "
                                                        "cannot add ParticleDistribution!");
-    }
 }
 
 void ParticleComposition::addParticlePointer(IParticle* p_particle)

@@ -16,69 +16,36 @@
 #ifndef IPARTICLE_H
 #define IPARTICLE_H
 
-#include "ICompositeSample.h"
+#include "IAbstractParticle.h"
 #include "Rotations.h"
 #include "Vectors3D.h"
 #include <memory>
 
-class IMaterial;
-class ISampleVisitor;
 
-//! @class IAbstractParticle
+//! Interface for a real particle (one that has position/rotation and form factor).
+//!
+//! Inherited by Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
+
 //! @ingroup samples
-//! @brief Interface for a generic particle
-
-class BA_CORE_API_ IAbstractParticle : public ICompositeSample
-{
-public:
-    IAbstractParticle() : m_abundance(1.0) {}
-    virtual ~IAbstractParticle() {}
-    virtual IAbstractParticle* clone() const = 0;
-
-    //! Returns a clone with inverted magnetic fields
-    virtual IAbstractParticle* cloneInvertB() const = 0;
-
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
-
-    //! Sets the refractive index of the ambient material (which influences its scattering power)
-    virtual void setAmbientMaterial(const IMaterial&) {}
-
-    //! Returns abundance.
-    double getAbundance() const { return m_abundance; }
-
-    //! Sets abundance.
-    void setAbundance(double abundance) { m_abundance = abundance; }
-
-    //! Returns particle's material.
-    virtual const IMaterial* getAmbientMaterial() const = 0;
-
-protected:
-    double m_abundance;
-};
-
-//! @class IParticle
-//! @ingroup samples
-//! @brief Interface for a real particle (one that has position/rotation and form factor)
 
 class BA_CORE_API_ IParticle : public IAbstractParticle
 {
 public:
     virtual ~IParticle() {}
-    virtual IParticle* clone() const = 0;
+    virtual IParticle* clone() const =0;
 
     //! Returns a clone with inverted magnetic fields
-    virtual IParticle* cloneInvertB() const = 0;
+    virtual IParticle* cloneInvertB() const =0;
 
     //! calls the ISampleVisitor's visit method
-    virtual void accept(class ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Create a form factor for this particle
     IFormFactor* createFormFactor() const;
 
     //! Create a form factor for this particle with an extra scattering factor
     virtual IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const = 0;
+        const IRotation* p_rotation, kvector_t translation) const =0;
 
     //! Returns particle position.
     kvector_t getPosition() const { return m_position; }

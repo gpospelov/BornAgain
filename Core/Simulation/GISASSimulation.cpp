@@ -225,5 +225,4 @@ void GISASSimulation::updateIntensityMap()
 void GISASSimulation::initialize()
 {
     setName(BornAgain::GISASSimulationType);
-    init_parameters();
 }

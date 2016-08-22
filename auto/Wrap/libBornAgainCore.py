@@ -14780,9 +14780,11 @@ class Simulation(ICloneable, IParameterized):
 
         void Simulation::setSample(const MultiLayer &sample)
 
-        Sets the sample to be tested.
+        Run an OpenMPI simulation.
 
-        The  MultiLayer object will not be owned by the  Simulation object. 
+        The  MultiLayer object will not be owned by the  Simulation object.
+
+        Sets the sample to be tested 
 
         """
         return _libBornAgainCore.Simulation_setSample(self, sample)
@@ -15108,7 +15110,7 @@ class GISASSimulation(Simulation):
         """
         prepareSimulation(GISASSimulation self)
 
-        void GISASSimulation::prepareSimulation()
+        void GISASSimulation::prepareSimulation() final
 
         Put into a clean state for running a simulation. 
 
@@ -15120,7 +15122,7 @@ class GISASSimulation(Simulation):
         """
         getNumberOfSimulationElements(GISASSimulation self) -> int
 
-        int GISASSimulation::getNumberOfSimulationElements() const
+        int GISASSimulation::getNumberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -19877,8 +19879,6 @@ class Layer(ICompositeSample):
 
         Layer::Layer(const IMaterial &material, double thickness=0)
 
-        Constructs layer made of  material with  thickness in nanometers and decoration. 
-
         """
         this = _libBornAgainCore.new_Layer(*args)
         try:
@@ -21076,7 +21076,7 @@ class OffSpecSimulation(Simulation):
         """
         prepareSimulation(OffSpecSimulation self)
 
-        void OffSpecSimulation::prepareSimulation()
+        void OffSpecSimulation::prepareSimulation() final
 
         Put into a clean state for running a simulation. 
 
@@ -21088,7 +21088,7 @@ class OffSpecSimulation(Simulation):
         """
         getNumberOfSimulationElements(OffSpecSimulation self) -> int
 
-        int OffSpecSimulation::getNumberOfSimulationElements() const
+        int OffSpecSimulation::getNumberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 

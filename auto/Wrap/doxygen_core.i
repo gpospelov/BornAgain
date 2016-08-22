@@ -963,7 +963,7 @@ C++ includes: ParticleDistributionsBuilder.h
 // File: classDecoratedLayerDWBASimulation.xml
 %feature("docstring") DecoratedLayerDWBASimulation "
 
-Calculates scattering cross sections in DWBA for one layer with particles in/on it.
+Computes the scattering contribution from one layer with particles in/on it. Controlled by  MultiLayerDWBASimulation.
 
 C++ includes: DecoratedLayerDWBASimulation.h
 ";
@@ -1388,19 +1388,10 @@ C++ includes: DWBADiffuseReflection.h
 ";
 
 
-// File: classDWBAProgressHandler.xml
-%feature("docstring") DWBAProgressHandler "
-
-Holds number of items processed by  DWBASimulation and informs  Simulation every n'th processed item.
-
-C++ includes: ProgressHandlerDWBA.h
-";
-
-
 // File: classDWBASimulation.xml
 %feature("docstring") DWBASimulation "
 
-Base class for different simulations, using DWBA.
+Base class for DWBA computation  MultiLayerDWBASimulation, and for sub-computations  MultiLayerRoughnessDWBASimulation and  DecoratedLayerDWBASimulation (via  LayerDWBASimulation). Controlled by class  Simulation.
 
 C++ includes: DWBASimulation.h
 ";
@@ -1417,7 +1408,7 @@ C++ includes: DWBASimulation.h
 %feature("docstring")  DWBASimulation::run "virtual void DWBASimulation::run()
 ";
 
-%feature("docstring")  DWBASimulation::init "void DWBASimulation::init(const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
+%feature("docstring")  DWBASimulation::init "void DWBASimulation::init(const SimulationOptions &options, const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
 
 Initializes the simulation with the parameters from simulation. 
 ";
@@ -4912,18 +4903,18 @@ C++ includes: GISASSimulation.h
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
 ";
 
-%feature("docstring")  GISASSimulation::~GISASSimulation "virtual GISASSimulation::~GISASSimulation()
+%feature("docstring")  GISASSimulation::~GISASSimulation "GISASSimulation::~GISASSimulation() final
 ";
 
 %feature("docstring")  GISASSimulation::clone "GISASSimulation* GISASSimulation::clone() const 
 ";
 
-%feature("docstring")  GISASSimulation::prepareSimulation "void GISASSimulation::prepareSimulation()
+%feature("docstring")  GISASSimulation::prepareSimulation "void GISASSimulation::prepareSimulation() final
 
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  GISASSimulation::getNumberOfSimulationElements "int GISASSimulation::getNumberOfSimulationElements() const
+%feature("docstring")  GISASSimulation::getNumberOfSimulationElements "int GISASSimulation::getNumberOfSimulationElements() const final
 
 Gets the number of elements this simulation needs to calculate. 
 ";
@@ -5049,7 +5040,7 @@ The value of mask
 Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
 ";
 
-%feature("docstring")  GISASSimulation::addParametersToExternalPool "std::string GISASSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  GISASSimulation::addParametersToExternalPool "std::string GISASSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -8382,7 +8373,7 @@ C++ includes: IShareable.h
 // File: classISimulation.xml
 %feature("docstring") ISimulation "
 
-Pure virtual base class, encapsulating most simulations (but not those of type  Simulation or  SpecularSimulation).
+Pure virtual base class, encapsulating most simulations (but not those of type  Simulation or  SpecularSimulation). Currently, the only child is DWBASimulations, which is the base for some more classes.
 
 C++ includes: ISimulation.h
 ";
@@ -8393,7 +8384,7 @@ C++ includes: ISimulation.h
 %feature("docstring")  ISimulation::~ISimulation "virtual ISimulation::~ISimulation()
 ";
 
-%feature("docstring")  ISimulation::clone "ISimulation * ISimulation::clone() const 
+%feature("docstring")  ISimulation::clone "virtual ISimulation* ISimulation::clone() const =0
 ";
 
 %feature("docstring")  ISimulation::run "virtual void ISimulation::run()=0
@@ -8765,13 +8756,9 @@ C++ includes: Layer.h
 ";
 
 %feature("docstring")  Layer::Layer "Layer::Layer()
-
-Constructs empty layer. 
 ";
 
 %feature("docstring")  Layer::Layer "Layer::Layer(const IMaterial &material, double thickness=0)
-
-Constructs layer made of  material with  thickness in nanometers and decoration. 
 ";
 
 %feature("docstring")  Layer::~Layer "Layer::~Layer() final
@@ -8808,9 +8795,6 @@ Sets layer thickness in nanometers.
 %feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const IMaterial &material)
 
 Sets  material of the layer. 
-";
-
-%feature("docstring")  Layer::setMaterialAndThickness "void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
 ";
 
 %feature("docstring")  Layer::getMaterial "const IMaterial* Layer::getMaterial() const
@@ -8856,7 +8840,7 @@ Returns true if decoration is present.
 // File: classLayerDWBASimulation.xml
 %feature("docstring") LayerDWBASimulation "
 
-Pure virtual base class for DWBA simulations in a layer.
+Pure virtual base class for DWBA simulations in a layer. Sole child is  DecoratedLayerDWBASimulation.
 
 C++ includes: LayerDWBASimulation.h
 ";
@@ -9041,7 +9025,7 @@ Retrieves the amplitude coefficients for an incoming wavevector.
 // File: classLayerStrategyBuilder.xml
 %feature("docstring") LayerStrategyBuilder "
 
-Methods to generate a simulation strategy for decorated  Layer SimulationParameters.
+Methods to generate a simulation strategy for  DecoratedLayerDWBASimulation.
 
 C++ includes: LayerStrategyBuilder.h
 ";
@@ -9635,7 +9619,7 @@ C++ includes: MultiLayerDWBASimulation.h
 %feature("docstring")  MultiLayerDWBASimulation::clone "MultiLayerDWBASimulation * MultiLayerDWBASimulation::clone() const final
 ";
 
-%feature("docstring")  MultiLayerDWBASimulation::init "void MultiLayerDWBASimulation::init(const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it) final
+%feature("docstring")  MultiLayerDWBASimulation::init "void MultiLayerDWBASimulation::init(const SimulationOptions &options, const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it) final
 
 Initializes the simulation with the parameters from simulation. 
 ";
@@ -9647,7 +9631,7 @@ Initializes the simulation with the parameters from simulation.
 // File: classMultiLayerRoughnessDWBASimulation.xml
 %feature("docstring") MultiLayerRoughnessDWBASimulation "
 
-Calculation of diffuse reflection from multilayer with rough interfaces.
+Computes the diffuse reflection from the rough interfaces of a multilayer. Controlled by  MultiLayerDWBASimulation.
 
 C++ includes: MultiLayerRoughnessDWBASimulation.h
 ";
@@ -9734,18 +9718,18 @@ C++ includes: OffSpecSimulation.h
 %feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class IMultiLayerBuilder > p_sample_builder)
 ";
 
-%feature("docstring")  OffSpecSimulation::~OffSpecSimulation "virtual OffSpecSimulation::~OffSpecSimulation()
+%feature("docstring")  OffSpecSimulation::~OffSpecSimulation "OffSpecSimulation::~OffSpecSimulation() final
 ";
 
 %feature("docstring")  OffSpecSimulation::clone "OffSpecSimulation* OffSpecSimulation::clone() const 
 ";
 
-%feature("docstring")  OffSpecSimulation::prepareSimulation "void OffSpecSimulation::prepareSimulation()
+%feature("docstring")  OffSpecSimulation::prepareSimulation "void OffSpecSimulation::prepareSimulation() final
 
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  OffSpecSimulation::getNumberOfSimulationElements "int OffSpecSimulation::getNumberOfSimulationElements() const
+%feature("docstring")  OffSpecSimulation::getNumberOfSimulationElements "int OffSpecSimulation::getNumberOfSimulationElements() const final
 
 Gets the number of elements this simulation needs to calculate. 
 ";
@@ -9815,16 +9799,9 @@ Removes detector resolution function.
 Sets the polarization analyzer characteristics of the detector. 
 ";
 
-%feature("docstring")  OffSpecSimulation::addParametersToExternalPool "std::string OffSpecSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  OffSpecSimulation::addParametersToExternalPool "std::string OffSpecSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
-";
-
-
-// File: classOMPISimulation.xml
-%feature("docstring") OMPISimulation "";
-
-%feature("docstring")  OMPISimulation::runSimulation "void OMPISimulation::runSimulation(Simulation *simulation)
 ";
 
 
@@ -11174,7 +11151,12 @@ Initialize  ProgressHandler, estimates number of items to be calculated by  DWBA
 
 
 // File: classProgressHandlerDWBA.xml
-%feature("docstring") ProgressHandlerDWBA "";
+%feature("docstring") ProgressHandlerDWBA "
+
+Holds number of items processed by  DWBASimulation, and informs  Simulation every time n items have been processed.
+
+C++ includes: ProgressHandlerDWBA.h
+";
 
 %feature("docstring")  ProgressHandlerDWBA::ProgressHandlerDWBA "ProgressHandlerDWBA::ProgressHandlerDWBA()
 ";
@@ -12108,16 +12090,13 @@ Run a simulation, possibly averaged over parameter distributions.
 Run simulation with possible averaging over parameter distributions. 
 ";
 
-%feature("docstring")  Simulation::runOMPISimulation "void Simulation::runOMPISimulation()
-
-Run an OpenMPI simulation. 
-";
-
 %feature("docstring")  Simulation::setSample "void Simulation::setSample(const MultiLayer &sample)
 
-Sets the sample to be tested.
+Run an OpenMPI simulation.
 
-The  MultiLayer object will not be owned by the  Simulation object. 
+The  MultiLayer object will not be owned by the  Simulation object.
+
+Sets the sample to be tested 
 ";
 
 %feature("docstring")  Simulation::getSample "MultiLayer* Simulation::getSample() const
@@ -12358,9 +12337,7 @@ Sets the batch and thread information to be used.
 // File: classSizeDistributionDAModelBuilder.xml
 %feature("docstring") SizeDistributionDAModelBuilder "
 
-Creates the sample demonstrating size distribution model in decoupling approximation.
-
-Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
+Creates the sample demonstrating size distribution model in decoupling approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -12375,7 +12352,7 @@ C++ includes: SizeDistributionModelsBuilder.h
 // File: classSizeDistributionLMAModelBuilder.xml
 %feature("docstring") SizeDistributionLMAModelBuilder "
 
-Creates the sample demonstrating size distribution model in local monodisperse approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py.
+Creates the sample demonstrating size distribution model in local monodisperse approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -12390,9 +12367,7 @@ C++ includes: SizeDistributionModelsBuilder.h
 // File: classSizeDistributionSSCAModelBuilder.xml
 %feature("docstring") SizeDistributionSSCAModelBuilder "
 
-Creates the sample demonstrating size distribution model in size space coupling approximation.
-
-Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
+Creates the sample demonstrating size distribution model in size space coupling approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -13126,13 +13101,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D295.xml
+// File: namespace_0D266.xml
 
 
-// File: namespace_0D368.xml
+// File: namespace_0D306.xml
 
 
-// File: namespace_0D433.xml
+// File: namespace_0D430.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14418,6 +14393,39 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: Materials_8h.xml
 
 
+// File: DecoratedLayerDWBASimulation_8cpp.xml
+
+
+// File: DecoratedLayerDWBASimulation_8h.xml
+
+
+// File: DWBASimulation_8cpp.xml
+
+
+// File: DWBASimulation_8h.xml
+
+
+// File: ISimulation_8h.xml
+
+
+// File: LayerDWBASimulation_8cpp.xml
+
+
+// File: LayerDWBASimulation_8h.xml
+
+
+// File: MultiLayerDWBASimulation_8cpp.xml
+
+
+// File: MultiLayerDWBASimulation_8h.xml
+
+
+// File: MultiLayerRoughnessDWBASimulation_8cpp.xml
+
+
+// File: MultiLayerRoughnessDWBASimulation_8h.xml
+
+
 // File: DecouplingApproximationStrategy_8cpp.xml
 
 
@@ -14740,58 +14748,16 @@ Returns concatenated rotation (first right, then left).
 // File: StringUsageMap_8h.xml
 
 
-// File: DecoratedLayerDWBASimulation_8cpp.xml
-
-
-// File: DecoratedLayerDWBASimulation_8h.xml
-
-
-// File: DWBASimulation_8cpp.xml
-
-
-// File: DWBASimulation_8h.xml
-
-
 // File: GISASSimulation_8cpp.xml
 
 
 // File: GISASSimulation_8h.xml
 
 
-// File: ISimulation_8cpp.xml
-
-
-// File: ISimulation_8h.xml
-
-
-// File: LayerDWBASimulation_8cpp.xml
-
-
-// File: LayerDWBASimulation_8h.xml
-
-
-// File: MultiLayerDWBASimulation_8cpp.xml
-
-
-// File: MultiLayerDWBASimulation_8h.xml
-
-
-// File: MultiLayerRoughnessDWBASimulation_8cpp.xml
-
-
-// File: MultiLayerRoughnessDWBASimulation_8h.xml
-
-
 // File: OffSpecSimulation_8cpp.xml
 
 
 // File: OffSpecSimulation_8h.xml
-
-
-// File: OMPISimulation_8cpp.xml
-
-
-// File: OMPISimulation_8h.xml
 
 
 // File: ProgressHandler_8cpp.xml
@@ -15120,6 +15086,9 @@ David N. Williams
 
 
 // File: dir_0bf70e747e161ad6105733dd3b116e64.xml
+
+
+// File: dir_64d3775286abea4bac90524f9566de97.xml
 
 
 // File: dir_c21740227f50b02f28bdacfb625f042a.xml

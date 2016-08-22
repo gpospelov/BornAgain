@@ -98,8 +98,6 @@ public:
 
 protected:
     Simulation(const Simulation& other);
-    //! Registers some class members for later access via parameter pool
-    void init_parameters() {}
 
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector()=0;
@@ -108,7 +106,6 @@ protected:
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap()=0;
 
-    //! Returns the intensity of the beam
     virtual double getBeamIntensity() const=0;
 
     //! Update the sample by calling the sample builder, if present
@@ -118,7 +115,6 @@ protected:
     void runSingleSimulation();
 
 #ifndef SWIG
-    //! Normalize the detector counts
     void normalize(std::vector<SimulationElement>::iterator begin_it,
                    std::vector<SimulationElement>::iterator end_it) const;
 #endif

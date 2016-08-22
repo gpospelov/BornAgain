@@ -159,8 +159,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
 void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
 {
     // run through layers and add DWBA from each layer
-    for(size_t i_layer=0;
-        i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
+    for(size_t i_layer=0; i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
         msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runMagnetic() -> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
         MatrixSpecularInfoMap* p_coeff_map = new MatrixSpecularInfoMap(mp_multi_layer, i_layer);

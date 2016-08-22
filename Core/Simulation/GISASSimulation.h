@@ -119,9 +119,6 @@ public:
 private:
     GISASSimulation(const GISASSimulation& other);
 
-    //! Registers some class members for later access via parameter pool
-    void init_parameters() {}
-
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() final;
 

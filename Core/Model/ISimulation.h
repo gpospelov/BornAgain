@@ -20,8 +20,8 @@
 #include "WinDllMacros.h"
 #include <string>
 
-//! Pure virtual base class, encapsulating most simulations
-//! (but not those of type Simulation or SpecularSimulation).
+//! Completion status of a numeric computation.
+//! Pure virtual base class for our model evaluation routines.
 //! Currently, the only child is DWBASimulations, which is the base for some more classes.
 //! @ingroup algorithms_internal
 

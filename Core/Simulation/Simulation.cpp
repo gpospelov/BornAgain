@@ -23,29 +23,23 @@
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "SimulationElement.h"
+#include "Utils.h"
 #include <gsl/gsl_errno.h>
 #include <thread>
 
 Simulation::Simulation()
-    : IParameterized("Simulation")
-{
-    init_parameters();
-}
+{}
 
 Simulation::~Simulation() {} // forward class declaration prevents move to .h
 
 Simulation::Simulation(const MultiLayer& p_sample)
-    : IParameterized("Simulation")
 {
     mP_sample.reset(p_sample.clone());
-    init_parameters();
 }
 
 Simulation::Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : IParameterized("Simulation"), mp_sample_builder(p_sample_builder)
-{
-    init_parameters();
-}
+    : mp_sample_builder(p_sample_builder)
+{}
 
 Simulation::Simulation(const Simulation& other)
     : ICloneable()
@@ -57,7 +51,6 @@ Simulation::Simulation(const Simulation& other)
 {
     if (other.mP_sample)
         mP_sample.reset(other.mP_sample->clone());
-    init_parameters();
 }
 
 void Simulation::prepareSimulation()
@@ -238,34 +231,34 @@ void Simulation::runSingleSimulation()
             threads.push_back(new std::thread([] (DWBASimulation* p_sim) {p_sim->run();} , *it));
 
         // Wait for threads to complete.
-        for (size_t i = 0; i < threads.size(); ++i)
-            threads[i]->join();
-
-        // Merge simulated data.
-        bool isSuccess(true);
-        std::string failure_message;
-        for (size_t i = 0; i < simulations.size(); ++i) {
-            if (!simulations[i]->isCompleted()) {
-                isSuccess = false;
-                failure_message = simulations[i]->getRunMessage();
-            }
-            delete simulations[i];
-            delete threads[i];
+        for (auto thread: threads) {
+            thread->join();
+            delete thread;
         }
-        if (!isSuccess)
+
+        // Check successful completion.
+        std::vector<std::string> failure_messages;
+        for (auto sim: simulations) {
+            if (!sim->isCompleted())
+                failure_messages.push_back(sim->getRunMessage());
+            delete sim;
+        }
+        if (failure_messages.size())
             throw Exceptions::RuntimeErrorException(
-                "Simulation::runSingleSimulation() -> Simulation has terminated unexpectedly "
-                "with the following error message.\n" + failure_message);
+                "Simulation::runSingleSimulation() -> "
+                "At least one simulation thread has terminated unexpectedly.\n"
+                "Messages: " + Utils::String::join(failure_messages, " --- "));
     }
     normalize(batch_start, batch_end);
 }
 
+//! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
 void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
                            std::vector<SimulationElement>::iterator end_it) const
 {
     double beam_intensity = getBeamIntensity();
-    // no normalization when beam intensity is zero:
-    if (beam_intensity==0.0) return;
+    if (beam_intensity==0.0)
+        return; // no normalization when beam intensity is zero
     for(auto it=begin_it; it!=end_it; ++it) {
         double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
         if (sin_alpha_i==0.0) sin_alpha_i = 1.0;

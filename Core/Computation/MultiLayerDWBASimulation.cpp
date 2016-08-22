@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/MultiLayerDWBASimulation.cpp
+//! @file      Core/Computation/MultiLayerDWBASimulation.cpp
 //! @brief     Implements class MultiLayerDWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -83,14 +83,14 @@ void MultiLayerDWBASimulation::init(
 
 void MultiLayerDWBASimulation::run()
 {
-    setStatus(RUNNING);
+    m_outcome.setRunning();
     try {
         runProtected();
-        setStatus(COMPLETED);
+        m_outcome.setCompleted();
     }
     catch(const std::exception &ex) {
-        setRunMessage(std::string(ex.what()));
-        setStatus(FAILED);
+        m_outcome.setRunMessage(std::string(ex.what()));
+        m_outcome.setFailed();
     }
 }
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/DecoratedLayerDWBASimulation.cpp
+//! @file      Core/Computation/DecoratedLayerDWBASimulation.cpp
 //! @brief     Implements class DecoratedLayerDWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -30,13 +30,13 @@ DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
 
 void DecoratedLayerDWBASimulation::run()
 {
-    setStatus(RUNNING);
+    m_outcome.setRunning();
     try {
         runProtected();
-        setStatus(COMPLETED);
+        m_outcome.setCompleted();
     } catch (const std::exception& ex) {
-        setRunMessage(std::string(ex.what()));
-        setStatus(FAILED);
+        m_outcome.setRunMessage(std::string(ex.what()));
+        m_outcome.setFailed();
         throw Exceptions::RuntimeErrorException(
             "DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n" + getRunMessage());
     }

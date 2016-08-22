@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/DWBASimulation.cpp
+//! @file      Core/Computation/DWBASimulation.cpp
 //! @brief     Implements class DWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org

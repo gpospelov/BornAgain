@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/ComputationOutcome.h
+//! @file      Core/Computation/ComputationOutcome.h
 //! @brief     Defines and implements interface class ComputationOutcome.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -27,18 +27,19 @@
 class BA_CORE_API_ ComputationOutcome
 {
 public:
-    enum ESimulationStatus { IDLE, RUNNING, COMPLETED, FAILED };
-
     ComputationOutcome() : m_status(IDLE) {}
 
     bool isCompleted() const { return m_status == COMPLETED; }
     std::string getRunMessage() const { return m_run_message; }
 
-protected:
-    void setStatus(ESimulationStatus status) { m_status = status; }
+    void setRunning()   { m_status = RUNNING; }
+    void setCompleted() { m_status = COMPLETED; }
+    void setFailed()    { m_status = FAILED; }
     void setRunMessage(const std::string& message) { m_run_message = message; }
 
 private:
+    enum ESimulationStatus { IDLE, RUNNING, COMPLETED, FAILED };
+
     ESimulationStatus m_status;
     std::string m_run_message;
 };

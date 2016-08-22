@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/DWBASimulation.h
+//! @file      Core/Computation/DWBASimulation.h
 //! @brief     Defines class DWBASimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -31,7 +31,7 @@ class SimulationElement;
 //! Controlled by class Simulation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DWBASimulation : public ComputationOutcome, public ICloneable
+class BA_CORE_API_ DWBASimulation : public ICloneable
 {
 public:
     DWBASimulation();
@@ -50,6 +50,9 @@ public:
     //! Returns output data containing calculated intensity.
     const OutputData<double>& getDWBAIntensity() const { return m_dwba_intensity; }
 
+    bool isCompleted() const { return m_outcome.isCompleted(); }
+    std::string getRunMessage() const { return m_outcome.getRunMessage(); }
+
 protected:
     virtual void runProtected() {}
 
@@ -63,6 +66,7 @@ protected:
     SimulationOptions m_sim_options;
     Simulation* mp_simulation;
 
+    ComputationOutcome m_outcome;
     ProgressHandlerDWBA m_progress;
 };
 

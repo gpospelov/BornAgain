@@ -16,9 +16,10 @@
 #include "ParticleDistribution.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "RealParameter.h"
+#include "IParticle.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
+#include "RealParameter.h"
 #include <map>
 
 ParticleDistribution::ParticleDistribution(const IParticle& prototype,

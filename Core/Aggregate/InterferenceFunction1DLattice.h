@@ -19,7 +19,6 @@
 #include "IInterferenceFunction.h"
 #include "Lattice1DParameters.h"
 
-class ISampleVisitor;
 class IFTDecayFunction1D;
 
 //! Interference function of 1D lattice.

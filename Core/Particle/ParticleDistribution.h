@@ -16,12 +16,14 @@
 #ifndef PARTICLEDISTRIBUTION_H
 #define PARTICLEDISTRIBUTION_H
 
-#include "IParticle.h"
+#include "IAbstractParticle.h"
 #include "ParameterDistribution.h"
 
-//! @class ParticleDistribution
-//! @ingroup samples
+class IParticle;
+
 //! @brief A particle with a form factor and refractive index
+//! ParticleDistribution
+//! @ingroup samples
 
 class BA_CORE_API_ ParticleDistribution : public IAbstractParticle
 {

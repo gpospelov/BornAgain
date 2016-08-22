@@ -18,8 +18,6 @@
 
 #include "ISample.h"
 
-class ISampleVisitor;
-
 //! Pure virtual base class for tree-like composite samples.
 //!
 //! Inherited by IAbstractParticle, IClusteredParticle, ILayout, ILayer, IMultiLayer.

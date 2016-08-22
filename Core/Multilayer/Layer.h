@@ -22,11 +22,9 @@
 
 class ILayout;
 class IMaterial;
-class ISampleVisitor;
 
-//! @class Layer
+//! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
-//! @brief A layer with thickness and material
 
 class BA_CORE_API_ Layer : public ICompositeSample
 {
@@ -37,51 +35,31 @@ public:
     //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
     Layer(const IMaterial& material, double thickness = 0);
 
-    virtual ~Layer();
+    ~Layer() final;
 
     Layer* clone() const final { return new Layer(*this); }
+    Layer* cloneInvertB() const final;
 
-    //! Returns a clone with inverted magnetic fields
-    virtual Layer* cloneInvertB() const;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Calls the ISampleVisitor's visit method
-    void accept(class ISampleVisitor* visitor) const final { visitor->visit(this); }
+    std::string to_str(int indent=0) const final;
 
-    //! Returns textual representation of *this and its descendants.
-    virtual std::string to_str(int indent=0) const;
+    void setThickness(double thickness);
+    double getThickness() const { return m_thickness; }
 
-    //! Sets layer thickness in nanometers.
-    virtual void setThickness(double thickness);
+    void setMaterial(const IMaterial& material);
+    void setMaterialAndThickness(const IMaterial& material, double thickness);
+    const IMaterial* getMaterial() const { return mp_material; }
 
-    //! Returns layer thickness in nanometers.
-    virtual double getThickness() const { return m_thickness; }
+    complex_t getRefractiveIndex() const;
+    complex_t getRefractiveIndex2() const; //!< squared refractive index
 
-    //! Sets _material_ of the layer.
-    virtual void setMaterial(const IMaterial& material);
-
-    //! Sets _material_ and _thickness_.
-    virtual void setMaterialAndThickness(const IMaterial& material, double thickness);
-
-    //! Returns layer's material.
-    const IMaterial* getMaterial() const final { return mp_material; }
-
-    //! Returns refractive index of the layer's material.
-    virtual complex_t getRefractiveIndex() const;
-
-    //! Returns squared refractive index of the layer's material.
-    complex_t getRefractiveIndex2() const;
-
-    //! sets particle layout
-    virtual void addLayout(const ILayout& decoration);
-
-    //! gets number of layouts present
+    void addLayout(const ILayout& decoration);
     size_t getNumberOfLayouts() const { return m_layouts.size(); }
-
-    //! returns particle decoration
-    virtual const ILayout* getLayout(size_t i) const;
+    const ILayout* getLayout(size_t i) const;
 
     //! Returns true if decoration is present
-    virtual bool hasDWBASimulation() const { return m_layouts.size()>0; }
+    bool hasDWBASimulation() const { return m_layouts.size()>0; }
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
 
@@ -90,7 +68,7 @@ public:
     void setNumberOfLayers(size_t n_layers) { mn_layers = n_layers; }
     size_t getNumberOfLayers() const { return mn_layers; }
 
-protected:
+private:
     Layer(const Layer& other);
 
     void init_parameters();
@@ -98,14 +76,13 @@ protected:
     void print(std::ostream& ostr) const;
 
     //! adds particle layout (separate pointer version due to python-bindings)
-    virtual void addLayoutPtr(class ILayout* layout);
+    void addLayoutPtr(ILayout* layout);
 
     double m_thickness;       //!< layer thickness in nanometers
     IMaterial* mp_material;   //!< pointer to the material
     SafePointerVector<class ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
 
-private:
     void initialize();
 };
 

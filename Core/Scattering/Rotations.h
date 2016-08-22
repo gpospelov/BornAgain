@@ -38,7 +38,7 @@ public:
     virtual IRotation* createInverse() const=0;
 
     //! Calls the ISampleVisitor's visit method
-    void accept(class ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns transformation.
     virtual Geometry::Transform3D getTransform3D() const=0;
@@ -58,7 +58,7 @@ public:
     RotationX* cloneInvertB() const { return clone(); }
     RotationX* createInverse() const { return new RotationX(-m_angle); }
 
-    void accept(class ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     double getAngle() const { return m_angle; }
 
@@ -77,7 +77,7 @@ public:
     RotationY* cloneInvertB() const { return clone(); }
     RotationY* createInverse() const { return new RotationY(-m_angle); }
 
-    void accept(class ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     double getAngle() const { return m_angle; }
 
@@ -96,7 +96,7 @@ public:
     RotationZ* cloneInvertB() const { return clone(); }
     RotationZ* createInverse() const { return new RotationZ(-m_angle); }
 
-    void accept(class ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     double getAngle() const { return m_angle; }
 
@@ -115,7 +115,7 @@ public:
     RotationEuler* cloneInvertB() const { return clone(); }
     IRotation* createInverse() const;
 
-    void accept(class ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     double getAlpha() const { return m_alpha; }
     double getBeta() const { return m_beta; }

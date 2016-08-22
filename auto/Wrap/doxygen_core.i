@@ -5424,7 +5424,9 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 
 Interface for a generic particle.
 
-C++ includes: IParticle.h
+Inherited by  IParticle and  ParticleDistribution.
+
+C++ includes: IAbstractParticle.h
 ";
 
 %feature("docstring")  IAbstractParticle::IAbstractParticle "IAbstractParticle::IAbstractParticle()
@@ -5445,27 +5447,23 @@ Returns a clone with inverted magnetic fields.
 
 %feature("docstring")  IAbstractParticle::accept "virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const
 
-calls the  ISampleVisitor's visit method 
+Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)
+%feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)=0
 
 Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
 
-%feature("docstring")  IAbstractParticle::getAbundance "double IAbstractParticle::getAbundance() const
-
-Returns abundance. 
+%feature("docstring")  IAbstractParticle::getAbundance "double IAbstractParticle::getAbundance() const 
 ";
 
 %feature("docstring")  IAbstractParticle::setAbundance "void IAbstractParticle::setAbundance(double abundance)
-
-Sets abundance. 
 ";
 
 %feature("docstring")  IAbstractParticle::getAmbientMaterial "virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 
@@ -6726,17 +6724,12 @@ C++ includes: IIntensityNormalizer.h
 // File: classIInterferenceFunction.xml
 %feature("docstring") IInterferenceFunction "
 
-Interface to interference functions.
+Pure virtual base class of interference functions.
 
 C++ includes: IInterferenceFunction.h
 ";
 
-%feature("docstring")  IInterferenceFunction::~IInterferenceFunction "IInterferenceFunction::~IInterferenceFunction()
-";
-
-%feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+%feature("docstring")  IInterferenceFunction::~IInterferenceFunction "virtual IInterferenceFunction::~IInterferenceFunction()
 ";
 
 %feature("docstring")  IInterferenceFunction::clone "virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
@@ -6744,9 +6737,14 @@ Evaluates the interference function for a given wavevector transfer (only the re
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IInterferenceFunction::accept "void IInterferenceFunction::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IInterferenceFunction::accept "virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const =0
 
-Calls ISampleVisitor::visit. 
+Calls the  ISampleVisitor's visit method. 
+";
+
+%feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+
+Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
 %feature("docstring")  IInterferenceFunction::getKappa "virtual double IInterferenceFunction::getKappa() const
@@ -7380,7 +7378,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const final
 
-Calls ISampleVisitor::visit. 
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::setDecayFunction "void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &pdf)
@@ -7434,7 +7432,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const final
 
-Calls ISampleVisitor::visit. 
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::setDecayFunction "void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
@@ -7501,7 +7499,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const final
 
-Calls ISampleVisitor::visit. 
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::to_str "std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const final
@@ -7591,7 +7589,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const final
 
-Calls ISampleVisitor::visit. 
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t) const final
@@ -7618,7 +7616,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const final
 
-Calls ISampleVisitor::visit. 
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::to_str "std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const final
@@ -7785,7 +7783,9 @@ Copies local parameters to external_pool, under name \"path/<name>copy_number/\"
 // File: classIParticle.xml
 %feature("docstring") IParticle "
 
-Interface for a real particle (one that has position/rotation and form factor)
+Interface for a real particle (one that has position/rotation and form factor).
+
+Inherited by  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal.
 
 C++ includes: IParticle.h
 ";
@@ -7803,7 +7803,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  IParticle::accept "virtual void IParticle::accept(class ISampleVisitor *visitor) const
+%feature("docstring")  IParticle::accept "virtual void IParticle::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
@@ -7927,7 +7927,7 @@ Returns a clone with inverted magnetic fields.
 Returns a new  IRotation object that is the current object's inverse. 
 ";
 
-%feature("docstring")  IRotation::accept "void IRotation::accept(class ISampleVisitor *visitor) const
+%feature("docstring")  IRotation::accept "void IRotation::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -8759,7 +8759,7 @@ C++ includes: Lattice2DParameters.h
 // File: classLayer.xml
 %feature("docstring") Layer "
 
-A layer with thickness and material.
+A layer, with thickness (in nanometer) and material.
 
 C++ includes: Layer.h
 ";
@@ -8774,7 +8774,7 @@ Constructs empty layer.
 Constructs layer made of  material with  thickness in nanometers and decoration. 
 ";
 
-%feature("docstring")  Layer::~Layer "Layer::~Layer()
+%feature("docstring")  Layer::~Layer "Layer::~Layer() final
 ";
 
 %feature("docstring")  Layer::clone "Layer* Layer::clone() const final
@@ -8782,19 +8782,19 @@ Constructs layer made of  material with  thickness in nanometers and decoration.
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const
+%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const final
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Layer::accept "void Layer::accept(class ISampleVisitor *visitor) const final
+%feature("docstring")  Layer::accept "void Layer::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  Layer::to_str "std::string Layer::to_str(int indent=0) const
+%feature("docstring")  Layer::to_str "std::string Layer::to_str(int indent=0) const final
 
-Returns textual representation of *this and its descendants. 
+Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  Layer::setThickness "void Layer::setThickness(double thickness)
@@ -8802,9 +8802,7 @@ Returns textual representation of *this and its descendants.
 Sets layer thickness in nanometers. 
 ";
 
-%feature("docstring")  Layer::getThickness "virtual double Layer::getThickness() const
-
-Returns layer thickness in nanometers. 
+%feature("docstring")  Layer::getThickness "double Layer::getThickness() const 
 ";
 
 %feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const IMaterial &material)
@@ -8813,41 +8811,31 @@ Sets  material of the layer.
 ";
 
 %feature("docstring")  Layer::setMaterialAndThickness "void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
-
-Sets  material and  thickness. 
 ";
 
-%feature("docstring")  Layer::getMaterial "const IMaterial* Layer::getMaterial() const final
+%feature("docstring")  Layer::getMaterial "const IMaterial* Layer::getMaterial() const
 
-Returns layer's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  Layer::getRefractiveIndex "complex_t Layer::getRefractiveIndex() const
-
-Returns refractive index of the layer's material. 
+%feature("docstring")  Layer::getRefractiveIndex "complex_t Layer::getRefractiveIndex() const 
 ";
 
 %feature("docstring")  Layer::getRefractiveIndex2 "complex_t Layer::getRefractiveIndex2() const
 
-Returns squared refractive index of the layer's material. 
+squared refractive index 
 ";
 
 %feature("docstring")  Layer::addLayout "void Layer::addLayout(const ILayout &decoration)
-
-sets particle layout 
 ";
 
-%feature("docstring")  Layer::getNumberOfLayouts "size_t Layer::getNumberOfLayouts() const
-
-gets number of layouts present 
+%feature("docstring")  Layer::getNumberOfLayouts "size_t Layer::getNumberOfLayouts() const 
 ";
 
-%feature("docstring")  Layer::getLayout "const ILayout * Layer::getLayout(size_t i) const
-
-returns particle decoration 
+%feature("docstring")  Layer::getLayout "const ILayout * Layer::getLayout(size_t i) const 
 ";
 
-%feature("docstring")  Layer::hasDWBASimulation "virtual bool Layer::hasDWBASimulation() const
+%feature("docstring")  Layer::hasDWBASimulation "bool Layer::hasDWBASimulation() const
 
 Returns true if decoration is present. 
 ";
@@ -9462,7 +9450,7 @@ Sets the refractive index of the ambient material (which influences its scatteri
 
 %feature("docstring")  MesoCrystal::getAmbientMaterial "const IMaterial * MesoCrystal::getAmbientMaterial() const
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  MesoCrystal::createTransformedFormFactor "IFormFactor * MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -10576,7 +10564,7 @@ Sets the refractive index of the ambient material (which influences its scatteri
 
 %feature("docstring")  Particle::getAmbientMaterial "const IMaterial* Particle::getAmbientMaterial() const final
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  Particle::createTransformedFormFactor "IFormFactor * Particle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -10656,7 +10644,7 @@ Sets the refractive index of the ambient material (which influences its scatteri
 
 %feature("docstring")  ParticleComposition::getAmbientMaterial "const IMaterial * ParticleComposition::getAmbientMaterial() const
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  ParticleComposition::createTransformedFormFactor "IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -10729,7 +10717,7 @@ Sets the refractive index of the ambient material (which influences its scatteri
 
 %feature("docstring")  ParticleCoreShell::getAmbientMaterial "const IMaterial * ParticleCoreShell::getAmbientMaterial() const
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  ParticleCoreShell::createTransformedFormFactor "IFormFactor * ParticleCoreShell::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -10751,7 +10739,7 @@ Returns the shell particle.
 // File: classParticleDistribution.xml
 %feature("docstring") ParticleDistribution "
 
-A particle with a form factor and refractive index.
+A particle with a form factor and refractive index  ParticleDistribution.
 
 C++ includes: ParticleDistribution.h
 ";
@@ -11571,7 +11559,7 @@ Returns a clone with inverted magnetic fields.
 Returns a new  IRotation object that is the current object's inverse. 
 ";
 
-%feature("docstring")  RotationEuler::accept "void RotationEuler::accept(class ISampleVisitor *visitor) const
+%feature("docstring")  RotationEuler::accept "void RotationEuler::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -11612,7 +11600,7 @@ Returns a clone with inverted magnetic fields.
 Returns a new  IRotation object that is the current object's inverse. 
 ";
 
-%feature("docstring")  RotationX::accept "void RotationX::accept(class ISampleVisitor *visitor) const
+%feature("docstring")  RotationX::accept "void RotationX::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -11647,7 +11635,7 @@ Returns a clone with inverted magnetic fields.
 Returns a new  IRotation object that is the current object's inverse. 
 ";
 
-%feature("docstring")  RotationY::accept "void RotationY::accept(class ISampleVisitor *visitor) const
+%feature("docstring")  RotationY::accept "void RotationY::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -11682,7 +11670,7 @@ Returns a clone with inverted magnetic fields.
 Returns a new  IRotation object that is the current object's inverse. 
 ";
 
-%feature("docstring")  RotationZ::accept "void RotationZ::accept(class ISampleVisitor *visitor) const
+%feature("docstring")  RotationZ::accept "void RotationZ::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -13138,7 +13126,7 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D296.xml
+// File: namespace_0D295.xml
 
 
 // File: namespace_0D368.xml
@@ -13629,9 +13617,6 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: FTDistributions2D_8h.xml
-
-
-// File: IInterferenceFunction_8cpp.xml
 
 
 // File: IInterferenceFunction_8h.xml
@@ -14639,6 +14624,9 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: FormFactorWeighted_8h.xml
+
+
+// File: IAbstractParticle_8h.xml
 
 
 // File: IClusteredParticles_8h.xml

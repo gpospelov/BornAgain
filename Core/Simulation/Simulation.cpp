@@ -17,7 +17,7 @@
 #include "Computation.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "MultiLayerComputation.h"
+#include "MainComputation.h"
 #include "Logger.h"
 // unused #include "OMPISimulation.h"
 #include "ParameterPool.h"
@@ -183,7 +183,7 @@ void Simulation::runSingleSimulation()
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
         std::unique_ptr<Computation> P_dwba_simulation(
-            new MultiLayerComputation(mP_sample.get()));
+            new MainComputation(mP_sample.get()));
         P_dwba_simulation->init(m_options, *this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
@@ -212,7 +212,7 @@ void Simulation::runSingleSimulation()
             if (i_thread*element_thread_step >= total_batch_elements)
                 break;
             // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
-            Computation* p_dwba_simulation = new MultiLayerComputation(mP_sample.get());
+            Computation* p_dwba_simulation = new MainComputation(mP_sample.get());
 
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;

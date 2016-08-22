@@ -25,15 +25,6 @@ Computation::~Computation()
     delete mp_simulation;
 }
 
-Computation* Computation::clone() const
-{
-    Computation* p_result = new Computation();
-    p_result->m_progress.setCallback(m_progress.getCallback());
-    if (mp_simulation)
-        p_result->mp_simulation = mp_simulation->clone();
-    return p_result;
-}
-
 void Computation::init(
     const SimulationOptions& options,
     const Simulation& simulation,

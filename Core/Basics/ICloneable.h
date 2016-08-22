@@ -16,29 +16,21 @@
 #ifndef ICLONEABLE_H
 #define ICLONEABLE_H
 
+#include "INoncopyable.h"
 #include "WinDllMacros.h"
 
-//! @class ICloneable
+//! Mix-in for objects that must not be copied, except by cloning.
 //! @ingroup tools_internal
-//! @brief Interface for objects that must not be copied, except by cloning.
 //!
-//! This virtual base class disables the copy constructor and the operator=
+//! The base class INoncopyable disables the copy constructor and the operator=
 //! in all its child classes.
-//! Child classes should provide clone().
+//! Child classes of ICloneable should provide clone().
 
-class BA_CORE_API_ ICloneable
+class BA_CORE_API_ ICloneable : public INoncopyable
 {
 public:
-    ICloneable(){}
-    ICloneable(const ICloneable&) = delete;
-    virtual ~ICloneable() {}
-
-    ICloneable& operator=(const ICloneable&) = delete;
-
     virtual ICloneable* clone() const = 0;
-
-    //! Used for Python overriding of clone
-    virtual void transferToCPP() {}
+    virtual void transferToCPP() {} //!< Used for Python overriding of clone
 };
 
 #endif // ICLONEABLE_H

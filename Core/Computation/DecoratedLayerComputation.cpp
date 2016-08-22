@@ -33,13 +33,6 @@ DecoratedLayerComputation::~DecoratedLayerComputation()
     delete mp_specular_info;
 }
 
-DecoratedLayerComputation* DecoratedLayerComputation::clone() const
-{
-    throw Exceptions::NotImplementedException(
-        "Bug: unexpected call to DecoratedLayerComputation::clone(); "
-        "functionality not yet implemented");
-}
-
 void DecoratedLayerComputation::run()
 {
     m_outcome.setRunning();

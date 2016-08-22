@@ -23,7 +23,7 @@ class Layer;
 class LayerSpecularInfo;
 
 //! Computes the scattering contribution from one layer with particles in/on it.
-//! Controlled by MultiLayerComputation.
+//! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ DecoratedLayerComputation : public Computation
@@ -31,7 +31,6 @@ class BA_CORE_API_ DecoratedLayerComputation : public Computation
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
     ~DecoratedLayerComputation() final;
-    DecoratedLayerComputation* clone() const final;
 
     void run() final;
     void setSpecularInfo(const LayerSpecularInfo& specular_info);

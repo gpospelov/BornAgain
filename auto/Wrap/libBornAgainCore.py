@@ -1462,7 +1462,32 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
 
     """
     return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
-class ICloneable(_object):
+class INoncopyable(_object):
+    """Proxy of C++ INoncopyable class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, INoncopyable, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, INoncopyable, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(INoncopyable self) -> INoncopyable"""
+        this = _libBornAgainCore.new_INoncopyable()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_INoncopyable
+    __del__ = lambda self: None
+INoncopyable_swigregister = _libBornAgainCore.INoncopyable_swigregister
+INoncopyable_swigregister(INoncopyable)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
+PI2 = cvar.PI2
+
+class ICloneable(INoncopyable):
     """
 
 
@@ -1474,15 +1499,17 @@ class ICloneable(_object):
 
     """
     __swig_setmethods__ = {}
+    for _s in [INoncopyable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ICloneable, name, value)
     __swig_getmethods__ = {}
+    for _s in [INoncopyable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ICloneable, name)
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -1505,13 +1532,10 @@ class ICloneable(_object):
         """
         return self.__disown__()
 
+    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
+    __del__ = lambda self: None
 ICloneable_swigregister = _libBornAgainCore.ICloneable_swigregister
 ICloneable_swigregister(ICloneable)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-PI2 = cvar.PI2
 
 class INamed(_object):
     """

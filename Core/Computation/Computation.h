@@ -16,7 +16,7 @@
 #ifndef COMPUTATION_H
 #define COMPUTATION_H
 
-#include "ICloneable.h"
+#include "INoncopyable.h"
 #include "ComputationOutcome.h"
 #include "ProgressHandlerDWBA.h"
 #include "Simulation.h"
@@ -25,17 +25,16 @@
 
 class SimulationElement;
 
-//! Base class for DWBA computation MultiLayerComputation, and for sub-computations
-//! MultiLayerRoughnessComputation and DecoratedLayerComputation (via LayerComputation).
+//! Base class for DWBA computation MainComputation, and for sub-computations
+//! RoughMultiLayerComputation and DecoratedLayerComputation (via LayerComputation).
 //! Controlled by class Simulation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ Computation : public ICloneable
+class BA_CORE_API_ Computation : public INoncopyable
 {
 public:
     Computation();
     virtual ~Computation();
-    virtual Computation* clone() const;
 
     virtual void run() {}
 

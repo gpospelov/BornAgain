@@ -29,10 +29,7 @@ class IMaterial;
 class BA_CORE_API_ Layer : public ICompositeSample
 {
 public:
-    //! Constructs empty layer.
     Layer();
-
-    //! Constructs layer made of _material_ with _thickness_ in nanometers and decoration
     Layer(const IMaterial& material, double thickness = 0);
 
     ~Layer() final;
@@ -48,7 +45,6 @@ public:
     double getThickness() const { return m_thickness; }
 
     void setMaterial(const IMaterial& material);
-    void setMaterialAndThickness(const IMaterial& material, double thickness);
     const IMaterial* getMaterial() const { return mp_material; }
 
     complex_t getRefractiveIndex() const;
@@ -78,8 +74,8 @@ private:
     //! adds particle layout (separate pointer version due to python-bindings)
     void addLayoutPtr(ILayout* layout);
 
-    double m_thickness;       //!< layer thickness in nanometers
     IMaterial* mp_material;   //!< pointer to the material
+    double m_thickness;       //!< layer thickness in nanometers
     SafePointerVector<class ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
 

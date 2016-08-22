@@ -38,7 +38,7 @@ void MultiLayerWithRoughnessBuilder::init_parameters()
     registerParameter("thicknessA", &m_thicknessA).setUnit("nm").setNonnegative();
     registerParameter("thicknessB", &m_thicknessB).setUnit("nm").setNonnegative();
     registerParameter("sigma", &m_sigma).setUnit("nm").setNonnegative();
-    registerParameter  ("hurst", &m_hurst);
+    registerParameter("hurst", &m_hurst);
     registerParameter("latteralCorrLength", &m_latteralCorrLength).setUnit("nm").setNonnegative();
     registerParameter("crossCorrLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
 }
@@ -52,14 +52,10 @@ MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
     HomogeneousMaterial part_a_material("PartA", 5e-6, 0.0);
     HomogeneousMaterial part_b_material("PartB", 10e-6, 0.0);
 
-    Layer air_layer;
-    air_layer.setMaterialAndThickness(air_material, 0);
-	Layer partA_layer;
-    partA_layer.setMaterialAndThickness(part_a_material, m_thicknessA);
-	Layer partB_layer;
-    partB_layer.setMaterialAndThickness(part_b_material, m_thicknessB);
-    Layer substrate_layer;
-    substrate_layer.setMaterialAndThickness(substrate_material, 0);
+    Layer air_layer(air_material, 0);
+    Layer partA_layer(part_a_material, m_thicknessA);
+    Layer partB_layer(part_b_material, m_thicknessB);
+    Layer substrate_layer(substrate_material, 0);
 
     LayerRoughness roughness(m_sigma, m_hurst, m_latteralCorrLength);
 

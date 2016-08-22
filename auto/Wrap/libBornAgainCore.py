@@ -6691,7 +6691,7 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, Layer arg2)
         visit(ISampleVisitor self, LayerInterface const * arg2)
         visit(ISampleVisitor self, MultiLayer arg2)
-        visit(ISampleVisitor self, IAbstractParticle const * arg2)
+        visit(ISampleVisitor self, IAbstractParticle arg2)
         visit(ISampleVisitor self, IParticle arg2)
         visit(ISampleVisitor self, Particle arg2)
         visit(ISampleVisitor self, ParticleDistribution arg2)
@@ -16993,7 +16993,7 @@ class ILayout(ICompositeSample):
 
     def getParticle(self, index):
         """
-        getParticle(ILayout self, size_t index) -> IAbstractParticle const *
+        getParticle(ILayout self, size_t index) -> IAbstractParticle
 
         virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
 
@@ -17101,7 +17101,115 @@ class ILayout(ICompositeSample):
 ILayout_swigregister = _libBornAgainCore.ILayout_swigregister
 ILayout_swigregister(ILayout)
 
-class IParticle(_object):
+class IAbstractParticle(ICompositeSample):
+    """
+
+
+    Interface for a generic particle.
+
+    Inherited by  IParticle and  ParticleDistribution.
+
+    C++ includes: IAbstractParticle.h
+
+    """
+    __swig_setmethods__ = {}
+    for _s in [ICompositeSample]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IAbstractParticle, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ICompositeSample]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IAbstractParticle, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IAbstractParticle
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IAbstractParticle self) -> IAbstractParticle
+
+        virtual IAbstractParticle* IAbstractParticle::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_clone(self)
+
+
+    def cloneInvertB(self):
+        """
+        cloneInvertB(IAbstractParticle self) -> IAbstractParticle
+
+        virtual IAbstractParticle* IAbstractParticle::cloneInvertB() const =0
+
+        Returns a clone with inverted magnetic fields. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_cloneInvertB(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(IAbstractParticle self, ISampleVisitor visitor)
+
+        virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const
+
+        Calls the  ISampleVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
+
+
+    def setAmbientMaterial(self, arg2):
+        """
+        setAmbientMaterial(IAbstractParticle self, IMaterial arg2)
+
+        virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)=0
+
+        Sets the refractive index of the ambient material (which influences its scattering power) 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_setAmbientMaterial(self, arg2)
+
+
+    def getAbundance(self):
+        """
+        getAbundance(IAbstractParticle self) -> double
+
+        double IAbstractParticle::getAbundance() const 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_getAbundance(self)
+
+
+    def setAbundance(self, abundance):
+        """
+        setAbundance(IAbstractParticle self, double abundance)
+
+        void IAbstractParticle::setAbundance(double abundance)
+
+        """
+        return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
+
+
+    def getAmbientMaterial(self):
+        """
+        getAmbientMaterial(IAbstractParticle self) -> IMaterial
+
+        virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
+
+        Returns nullptr, unless overwritten to return a specific material. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_getAmbientMaterial(self)
+
+IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
+IAbstractParticle_swigregister(IAbstractParticle)
+
+class IParticle(IAbstractParticle):
     """
 
 
@@ -17113,8 +17221,12 @@ class IParticle(_object):
 
     """
     __swig_setmethods__ = {}
+    for _s in [IAbstractParticle]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IParticle, name, value)
     __swig_getmethods__ = {}
+    for _s in [IAbstractParticle]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IParticle, name)
 
     def __init__(self, *args, **kwargs):
@@ -19871,16 +19983,6 @@ class Layer(ICompositeSample):
         return _libBornAgainCore.Layer_setMaterial(self, material)
 
 
-    def setMaterialAndThickness(self, material, thickness):
-        """
-        setMaterialAndThickness(Layer self, IMaterial material, double thickness)
-
-        void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
-
-        """
-        return _libBornAgainCore.Layer_setMaterialAndThickness(self, material, thickness)
-
-
     def getMaterial(self):
         """
         getMaterial(Layer self) -> IMaterial
@@ -22628,7 +22730,7 @@ class ParticleCoreShell(IParticle):
 ParticleCoreShell_swigregister = _libBornAgainCore.ParticleCoreShell_swigregister
 ParticleCoreShell_swigregister(ParticleCoreShell)
 
-class ParticleDistribution(_object):
+class ParticleDistribution(IAbstractParticle):
     """
 
 
@@ -22638,8 +22740,12 @@ class ParticleDistribution(_object):
 
     """
     __swig_setmethods__ = {}
+    for _s in [IAbstractParticle]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ParticleDistribution, name, value)
     __swig_getmethods__ = {}
+    for _s in [IAbstractParticle]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ParticleDistribution, name)
     __repr__ = _swig_repr
 
@@ -22803,8 +22909,8 @@ class ParticleLayout(ILayout):
     def __init__(self, *args):
         """
         __init__(ParticleLayout self) -> ParticleLayout
-        __init__(ParticleLayout self, IAbstractParticle const & particle) -> ParticleLayout
-        __init__(ParticleLayout self, IAbstractParticle const & particle, double abundance) -> ParticleLayout
+        __init__(ParticleLayout self, IAbstractParticle particle) -> ParticleLayout
+        __init__(ParticleLayout self, IAbstractParticle particle, double abundance) -> ParticleLayout
 
         ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
 
@@ -22855,8 +22961,8 @@ class ParticleLayout(ILayout):
 
     def addParticle(self, *args):
         """
-        addParticle(ParticleLayout self, IAbstractParticle const & particle)
-        addParticle(ParticleLayout self, IAbstractParticle const & particle, double abundance)
+        addParticle(ParticleLayout self, IAbstractParticle particle)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance)
         addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position)
         addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position, IRotation rotation)
 
@@ -22897,7 +23003,7 @@ class ParticleLayout(ILayout):
 
     def getParticle(self, index):
         """
-        getParticle(ParticleLayout self, size_t index) -> IAbstractParticle const *
+        getParticle(ParticleLayout self, size_t index) -> IAbstractParticle
 
         const IAbstractParticle * ParticleLayout::getParticle(size_t index) const final
 

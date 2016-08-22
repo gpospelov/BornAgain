@@ -21,12 +21,13 @@
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-Layer::Layer() : m_thickness(0), mp_material(0)
+Layer::Layer() : mp_material(nullptr), m_thickness(0)
 {
     initialize();
 }
 
-Layer::Layer(const IMaterial& material, double thickness) : m_thickness(thickness), mp_material(0)
+Layer::Layer(const IMaterial& material, double thickness)
+    : mp_material(nullptr), m_thickness(thickness)
 {
     setMaterial(material);
     initialize();
@@ -85,12 +86,6 @@ void Layer::setMaterial(const IMaterial& material)
 {
     delete mp_material;
     mp_material = material.clone();
-}
-
-void Layer::setMaterialAndThickness(const IMaterial& material, double thickness)
-{
-    setMaterial(material);
-    setThickness(thickness);
 }
 
 complex_t Layer::getRefractiveIndex() const

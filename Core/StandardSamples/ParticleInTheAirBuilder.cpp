@@ -33,8 +33,7 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
+    Layer air_layer(air_material);
 
     Particle particle(particle_material, *form_factor);
     ParticleLayout particle_layout(particle);

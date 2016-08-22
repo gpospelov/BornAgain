@@ -62,7 +62,8 @@ BA_CORE_API_ QString intensityDataFileName(RealDataItem *realDataItem);
 
 BA_CORE_API_ QString fileDir(const QString &fileName);
 
-BA_CORE_API_ bool parseVersion(const QString &version, int &major_num, int &minor_num, int &patch_num);
+BA_CORE_API_ bool parseVersion(
+    const QString &version, int &major_num, int &minor_num, int &patch_num);
 
 BA_CORE_API_ bool isVersionMatchMinimal(const QString &version, const QString &minimal_version);
 

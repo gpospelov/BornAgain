@@ -16,6 +16,7 @@
 #include "LayerInterface.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "LayerRoughness.h"
 #include "Logger.h"
 
 LayerInterface::LayerInterface()

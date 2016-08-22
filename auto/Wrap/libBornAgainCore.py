@@ -20151,7 +20151,7 @@ class IRoughness(ISample):
         """
         accept(IRoughness self, ISampleVisitor visitor)
 
-        void IRoughness::accept(ISampleVisitor *visitor) const
+        virtual void IRoughness::accept(ISampleVisitor *visitor) const
 
         Calls the  ISampleVisitor's visit method. 
 

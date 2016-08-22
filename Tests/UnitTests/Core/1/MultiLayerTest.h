@@ -10,6 +10,7 @@
 #include "ParticleLayout.h"
 #include "Layer.h"
 #include "LayerInterface.h"
+#include "LayerRoughness.h"
 
 class MultiLayerTest : public ::testing::Test
 {

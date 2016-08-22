@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
+#include "LayerRoughness.h"
 #include "Logger.h"
 #include "Materials.h"
 #include "ParameterPool.h"

@@ -15,7 +15,7 @@
 
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
-#include "FormFactors.h"
+#include "FormFactorWeighted.h"
 #include "Materials.h"
 #include "Particle.h"
 

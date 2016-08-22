@@ -7957,7 +7957,7 @@ C++ includes: IRoughness.h
 %feature("docstring")  IRoughness::~IRoughness "virtual IRoughness::~IRoughness()
 ";
 
-%feature("docstring")  IRoughness::accept "void IRoughness::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IRoughness::accept "virtual void IRoughness::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -13138,13 +13138,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D296.xml
+// File: namespace_0D295.xml
 
 
-// File: namespace_0D369.xml
+// File: namespace_0D368.xml
 
 
-// File: namespace_0D435.xml
+// File: namespace_0D434.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -14467,9 +14467,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: InterferenceFunctionStrategies_8h.xml
-
-
-// File: IRoughness_8cpp.xml
 
 
 // File: IRoughness_8h.xml

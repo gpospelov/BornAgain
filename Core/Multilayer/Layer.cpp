@@ -17,7 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "ILayout.h"
-#include "ISampleVisitor.h"
 #include "Materials.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"

@@ -21,6 +21,7 @@
 #include "InterferenceFunctions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
+#include "LayerRoughness.h"
 #include "Materials.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"

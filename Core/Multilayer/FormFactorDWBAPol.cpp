@@ -16,7 +16,6 @@
 #include "FormFactorDWBAPol.h"
 #include "BornAgainNamespace.h"
 #include "ILayerRTCoefficients.h"
-#include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
 
 FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)

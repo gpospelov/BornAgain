@@ -16,6 +16,7 @@
 #include "SpecularMatrix.h"
 #include "Layer.h"
 #include "LayerInterface.h"
+#include "LayerRoughness.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
 #include "Pi.h"

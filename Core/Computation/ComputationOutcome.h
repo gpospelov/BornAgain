@@ -21,7 +21,7 @@
 
 //! Completion status (flag and text) of a numeric computation.
 //! Pure virtual base class for our model evaluation routines.
-//! Currently, the only child is DWBASimulations, which is the base for some more classes.
+//! Currently, the only child is Computations, which is the base for some more classes.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ ComputationOutcome

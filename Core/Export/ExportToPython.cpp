@@ -27,7 +27,7 @@
 #include "Materials.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "MultiLayerDWBASimulation.h"
+#include "MultiLayerComputation.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleCoreShell.h"

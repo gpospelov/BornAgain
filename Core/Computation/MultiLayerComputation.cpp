@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/MultiLayerDWBASimulation.cpp
-//! @brief     Implements class MultiLayerDWBASimulation.
+//! @file      Core/Computation/MultiLayerComputation.cpp
+//! @brief     Implements class MultiLayerComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,18 +13,18 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayerDWBASimulation.h"
+#include "MultiLayerComputation.h"
 #include "BornAgainNamespace.h"
-#include "DecoratedLayerDWBASimulation.h"
+#include "DecoratedLayerComputation.h"
 #include "Layer.h"
-#include "LayerDWBASimulation.h"
+#include "LayerComputation.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "LayerSpecularInfo.h"
 #include "Logger.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
-#include "MultiLayerRoughnessDWBASimulation.h"
+#include "MultiLayerRoughnessComputation.h"
 #include "ScalarSpecularInfoMap.h"
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
@@ -32,41 +32,41 @@
 
 #include <iterator>
 
-MultiLayerDWBASimulation::MultiLayerDWBASimulation(const MultiLayer* p_multi_layer)
+MultiLayerComputation::MultiLayerComputation(const MultiLayer* p_multi_layer)
     : mp_roughness_dwba_simulation(nullptr)
 {
     mp_multi_layer = p_multi_layer->clone();
 }
 
-MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
+MultiLayerComputation::~MultiLayerComputation()
 {
     delete mp_multi_layer;
     delete mp_roughness_dwba_simulation;
 }
 
-MultiLayerDWBASimulation* MultiLayerDWBASimulation::clone() const
+MultiLayerComputation* MultiLayerComputation::clone() const
 {
     throw Exceptions::NotImplementedException(
-        "Bug: unexpected call to MultiLayerDWBASimulation::clone(); "
+        "Bug: unexpected call to MultiLayerComputation::clone(); "
         "functionality not yet implemented");
 }
 
-void MultiLayerDWBASimulation::init(
+void MultiLayerComputation::init(
     const SimulationOptions& options,
     const Simulation& simulation,
     std::vector<SimulationElement>::iterator begin_it,
     std::vector<SimulationElement>::iterator end_it)
 {
-    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::init()";
-    DWBASimulation::init(options, simulation, begin_it, end_it);
+    msglog(MSG::DEBUG2) << "MultiLayerComputation::init()";
+    Computation::init(options, simulation, begin_it, end_it);
 
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         for (size_t j=0; j<mp_multi_layer->getLayer(i)->getNumberOfLayouts(); ++j) {
-            LayerDWBASimulation* p_layer_dwba_sim =
-                new DecoratedLayerDWBASimulation(mp_multi_layer->getLayer(i), j);
+            LayerComputation* p_layer_dwba_sim =
+                new DecoratedLayerComputation(mp_multi_layer->getLayer(i), j);
             if (p_layer_dwba_sim) {
                 if (m_layer_dwba_simulations_map.find(i) == m_layer_dwba_simulations_map.end())
-                    m_layer_dwba_simulations_map[i] = SafePointerVector<LayerDWBASimulation>();
+                    m_layer_dwba_simulations_map[i] = SafePointerVector<LayerComputation>();
                 m_layer_dwba_simulations_map[i].push_back(p_layer_dwba_sim);
             }
         }
@@ -75,13 +75,13 @@ void MultiLayerDWBASimulation::init(
     // scattering from rough surfaces in DWBA
     for (size_t i=0; i<mp_multi_layer->getNumberOfInterfaces(); ++i) {
         if(mp_multi_layer->getLayerInterface(i)->getRoughness() ) {
-            mp_roughness_dwba_simulation = new MultiLayerRoughnessDWBASimulation(mp_multi_layer);
+            mp_roughness_dwba_simulation = new MultiLayerRoughnessComputation(mp_multi_layer);
             break;
         }
     }
 }
 
-void MultiLayerDWBASimulation::run()
+void MultiLayerComputation::run()
 {
     m_outcome.setRunning();
     try {
@@ -98,9 +98,9 @@ void MultiLayerDWBASimulation::run()
 // For nanoparticles: rho * (scattering cross-section/scattering particle)
 // For roughness: (scattering cross-section of area S)/S
 // This allows them to be added and normalized together to the beam afterwards
-void MultiLayerDWBASimulation::runProtected()
+void MultiLayerComputation::runProtected()
 {
-    msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runProtected()";
+    msglog(MSG::DEBUG2) << "MultiLayerComputation::runProtected()";
     m_dwba_intensity.setAllTo(0.0);
 
     if (mp_multi_layer->requiresMatrixRTCoefficients())
@@ -114,7 +114,7 @@ void MultiLayerDWBASimulation::runProtected()
     for (auto it=m_layer_dwba_simulations_map.begin(); it!=m_layer_dwba_simulations_map.end(); ++it)
     {
         for (size_t i=0; i<it->second.size(); ++i) {
-            LayerDWBASimulation* p_layer_dwba_sim = it->second[i];
+            LayerComputation* p_layer_dwba_sim = it->second[i];
             p_layer_dwba_sim->init(
                 m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
             p_layer_dwba_sim->run();
@@ -123,7 +123,7 @@ void MultiLayerDWBASimulation::runProtected()
     }
 
     if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_dwba_simulation) {
-        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> roughness";
+        msglog(MSG::DEBUG2) << "MultiLayerComputation::run() -> roughness";
         mp_roughness_dwba_simulation->init(
             m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
         mp_roughness_dwba_simulation->run();
@@ -131,12 +131,12 @@ void MultiLayerDWBASimulation::runProtected()
     }
 }
 
-void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
+void MultiLayerComputation::collectRTCoefficientsScalar()
 {
     // run through layers and construct T,R functions
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::run() -> Layer " << i_layer;
+        msglog(MSG::DEBUG2) << "MultiLayerComputation::run() -> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
         ScalarSpecularInfoMap* p_coeff_map = new ScalarSpecularInfoMap(mp_multi_layer, i_layer);
         layer_coeff_map.addRTCoefficients(p_coeff_map);
@@ -145,7 +145,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
         auto pos = m_layer_dwba_simulations_map.find(i_layer);
         if (pos != m_layer_dwba_simulations_map.end() ) {
             for (size_t i=0; i<pos->second.size();++i) {
-                LayerDWBASimulation* p_layer_dwba_sim = pos->second[i];
+                LayerComputation* p_layer_dwba_sim = pos->second[i];
                 p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
             }
         }
@@ -156,11 +156,11 @@ void MultiLayerDWBASimulation::collectRTCoefficientsScalar()
     } // i_layer
 }
 
-void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
+void MultiLayerComputation::collectRTCoefficientsMatrix()
 {
     // run through layers and add DWBA from each layer
     for(size_t i_layer=0; i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-        msglog(MSG::DEBUG2) << "MultiLayerDWBASimulation::runMagnetic() -> Layer " << i_layer;
+        msglog(MSG::DEBUG2) << "MultiLayerComputation::runMagnetic() -> Layer " << i_layer;
         LayerSpecularInfo layer_coeff_map;
         MatrixSpecularInfoMap* p_coeff_map = new MatrixSpecularInfoMap(mp_multi_layer, i_layer);
         layer_coeff_map.addRTCoefficients(p_coeff_map);
@@ -169,7 +169,7 @@ void MultiLayerDWBASimulation::collectRTCoefficientsMatrix()
         auto pos = m_layer_dwba_simulations_map.find(i_layer);
         if (pos != m_layer_dwba_simulations_map.end() ) {
             for (size_t i=0; i<pos->second.size();++i) {
-                LayerDWBASimulation* p_layer_dwba_sim = pos->second[i];
+                LayerComputation* p_layer_dwba_sim = pos->second[i];
                 p_layer_dwba_sim->setSpecularInfo(layer_coeff_map);
             }
         }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/LayerDWBASimulation.cpp
-//! @brief     Implements class LayerDWBASimulation.
+//! @file      Core/Computation/LayerComputation.cpp
+//! @brief     Implements class LayerComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,31 +13,31 @@
 //
 // ************************************************************************** //
 
-#include "LayerDWBASimulation.h"
+#include "LayerComputation.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 
-LayerDWBASimulation::LayerDWBASimulation(const Layer* p_layer)
+LayerComputation::LayerComputation(const Layer* p_layer)
     : mp_specular_info(nullptr)
 {
     mp_layer = p_layer->clone();
 }
 
-LayerDWBASimulation::~LayerDWBASimulation()
+LayerComputation::~LayerComputation()
 {
     delete mp_layer;
     delete mp_specular_info;
 }
 
-LayerDWBASimulation* LayerDWBASimulation::clone() const
+LayerComputation* LayerComputation::clone() const
 {
     throw Exceptions::NotImplementedException(
-        "Bug: unexpected call to LayerDWBASimulation::clone(); "
+        "Bug: unexpected call to LayerComputation::clone(); "
         "functionality not yet implemented");
 }
 
 
-void LayerDWBASimulation::setSpecularInfo(const LayerSpecularInfo& specular_info)
+void LayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
     if (mp_specular_info != &specular_info) {
         delete mp_specular_info;
@@ -45,7 +45,7 @@ void LayerDWBASimulation::setSpecularInfo(const LayerSpecularInfo& specular_info
     }
 }
 
-Bin1DCVector LayerDWBASimulation::getKfBin(
+Bin1DCVector LayerComputation::getKfBin(
     double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin) const
 {
     Bin1DCVector k_f_bin(wavelength, alpha_bin, phi_bin);

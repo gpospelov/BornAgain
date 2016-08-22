@@ -14,10 +14,10 @@
 // ************************************************************************** //
 
 #include "Simulation.h"
-#include "DWBASimulation.h"
+#include "Computation.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "MultiLayerDWBASimulation.h"
+#include "MultiLayerComputation.h"
 #include "Logger.h"
 // unused #include "OMPISimulation.h"
 #include "ParameterPool.h"
@@ -182,8 +182,8 @@ void Simulation::runSingleSimulation()
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
-        std::unique_ptr<DWBASimulation> P_dwba_simulation(
-            new MultiLayerDWBASimulation(mP_sample.get()));
+        std::unique_ptr<Computation> P_dwba_simulation(
+            new MultiLayerComputation(mP_sample.get()));
         P_dwba_simulation->init(m_options, *this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
@@ -201,7 +201,7 @@ void Simulation::runSingleSimulation()
                            << ", current_batch = " << m_options.getCurrentBatch();
 
         std::vector<std::thread*> threads;
-        std::vector<DWBASimulation*> simulations;
+        std::vector<Computation*> simulations;
 
         // Initialize n simulations.
         int total_batch_elements = batch_end - batch_start;
@@ -212,7 +212,7 @@ void Simulation::runSingleSimulation()
             if (i_thread*element_thread_step >= total_batch_elements)
                 break;
             // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
-            DWBASimulation* p_dwba_simulation = new MultiLayerDWBASimulation(mP_sample.get());
+            Computation* p_dwba_simulation = new MultiLayerComputation(mP_sample.get());
 
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
@@ -228,7 +228,7 @@ void Simulation::runSingleSimulation()
 
         // Run simulations in n threads.
         for (auto it = simulations.begin(); it != simulations.end(); ++it)
-            threads.push_back(new std::thread([] (DWBASimulation* p_sim) {p_sim->run();} , *it));
+            threads.push_back(new std::thread([] (Computation* p_sim) {p_sim->run();} , *it));
 
         // Wait for threads to complete.
         for (auto thread: threads) {
@@ -270,8 +270,8 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
 void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress)
 {
     // if we have external ProgressHandler (which is normally coming from GUI),
-    // then we will create special callbacks for every DWBASimulation.
-    // These callback will be used to report DWBASimulation progress to the Simulation.
+    // then we will create special callbacks for every Computation.
+    // These callback will be used to report Computation progress to the Simulation.
     if (m_progress) {
         dwba_progress->setCallback( [&] (int n) {return m_progress->update(n);} );
     }

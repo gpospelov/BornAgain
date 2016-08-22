@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DWBASimulation.h
-//! @brief     Defines class DWBASimulation.
+//! @file      Core/Computation/Computation.h
+//! @brief     Defines class Computation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DWBASIMULATION_H
-#define DWBASIMULATION_H
+#ifndef COMPUTATION_H
+#define COMPUTATION_H
 
 #include "ICloneable.h"
 #include "ComputationOutcome.h"
@@ -26,17 +26,17 @@
 
 class SimulationElement;
 
-//! Base class for DWBA computation MultiLayerDWBASimulation, and for sub-computations
-//! MultiLayerRoughnessDWBASimulation and DecoratedLayerDWBASimulation (via LayerDWBASimulation).
+//! Base class for DWBA computation MultiLayerComputation, and for sub-computations
+//! MultiLayerRoughnessComputation and DecoratedLayerComputation (via LayerComputation).
 //! Controlled by class Simulation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DWBASimulation : public ICloneable
+class BA_CORE_API_ Computation : public ICloneable
 {
 public:
-    DWBASimulation();
-    virtual ~DWBASimulation();
-    virtual DWBASimulation* clone() const;
+    Computation();
+    virtual ~Computation();
+    virtual Computation* clone() const;
 
     virtual void run() {}
 
@@ -70,4 +70,4 @@ protected:
     ProgressHandlerDWBA m_progress;
 };
 
-#endif // DWBASIMULATION_H
+#endif // COMPUTATION_H

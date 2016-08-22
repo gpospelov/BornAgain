@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/LayerDWBASimulation.h
-//! @brief     Defines class LayerDWBASimulation.
+//! @file      Core/Computation/LayerComputation.h
+//! @brief     Defines class LayerComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,24 +13,24 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERDWBASIMULATION_H
-#define LAYERDWBASIMULATION_H
+#ifndef LAYERCOMPUTATION_H
+#define LAYERCOMPUTATION_H
 
-#include "DWBASimulation.h"
+#include "Computation.h"
 
 class Layer;
 class LayerSpecularInfo;
 
 //! Pure virtual base class for DWBA simulations in a layer.
-//! Sole child is DecoratedLayerDWBASimulation.
+//! Sole child is DecoratedLayerComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ LayerDWBASimulation : public DWBASimulation
+class BA_CORE_API_ LayerComputation : public Computation
 {
 public:
-    LayerDWBASimulation(const Layer* p_layer);
-    virtual ~LayerDWBASimulation();
-    LayerDWBASimulation* clone() const;
+    LayerComputation(const Layer* p_layer);
+    virtual ~LayerComputation();
+    LayerComputation* clone() const;
 
     void run() =0;
 
@@ -43,4 +43,4 @@ protected:
     LayerSpecularInfo* mp_specular_info;
 };
 
-#endif // LAYERDWBASIMULATION_H
+#endif // LAYERCOMPUTATION_H

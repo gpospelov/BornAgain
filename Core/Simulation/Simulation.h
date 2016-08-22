@@ -22,7 +22,7 @@
 #include "SimulationOptions.h"
 
 template<class T> class OutputData;
-class DWBASimulation;
+class Computation;
 class MultiLayer;
 class IMultiLayerBuilder;
 class ProgressHandlerDWBA;

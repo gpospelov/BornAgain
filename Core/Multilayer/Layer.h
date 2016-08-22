@@ -55,7 +55,7 @@ public:
     const ILayout* getLayout(size_t i) const;
 
     //! Returns true if decoration is present
-    bool hasDWBASimulation() const { return m_layouts.size()>0; }
+    bool hasComputation() const { return m_layouts.size()>0; }
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
 

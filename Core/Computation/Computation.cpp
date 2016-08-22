@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DWBASimulation.cpp
-//! @brief     Implements class DWBASimulation.
+//! @file      Core/Computation/Computation.cpp
+//! @brief     Implements class Computation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,21 +13,21 @@
 //
 // ************************************************************************** //
 
-#include "DWBASimulation.h"
+#include "Computation.h"
 #include "MultiLayer.h"
 
-DWBASimulation::DWBASimulation()
+Computation::Computation()
     : mp_simulation(nullptr)
 {}
 
-DWBASimulation::~DWBASimulation()
+Computation::~Computation()
 {
     delete mp_simulation;
 }
 
-DWBASimulation* DWBASimulation::clone() const
+Computation* Computation::clone() const
 {
-    DWBASimulation* p_result = new DWBASimulation();
+    Computation* p_result = new Computation();
     p_result->m_dwba_intensity.copyFrom(m_dwba_intensity);
     p_result->m_progress.setCallback(m_progress.getCallback());
     if (mp_simulation)
@@ -35,7 +35,7 @@ DWBASimulation* DWBASimulation::clone() const
     return p_result;
 }
 
-void DWBASimulation::init(
+void Computation::init(
     const SimulationOptions& options,
     const Simulation& simulation,
     std::vector<SimulationElement>::iterator begin_it,
@@ -53,14 +53,14 @@ void DWBASimulation::init(
     mp_simulation->initProgressHandlerDWBA(&m_progress);
 }
 
-bool DWBASimulation::checkPolarizationPresent() const
+bool Computation::checkPolarizationPresent() const
 {
     if (!mp_simulation)
-        throw Exceptions::ClassInitializationException("DWBASimulation::"
+        throw Exceptions::ClassInitializationException("Computation::"
                 "checkPolarizationPresent(): simulation not initialized");
     MultiLayer* p_sample = mp_simulation->getSample();
     if (!p_sample)
-        throw Exceptions::ClassInitializationException("DWBASimulation::"
+        throw Exceptions::ClassInitializationException("Computation::"
                 "checkPolarizationPresent(): sample not initialized");
     return p_sample->containsMagneticMaterial();
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/MultiLayerRoughnessDWBASimulation.h
-//! @brief     Defines class MultiLayerRoughnessDWBASimulation.
+//! @file      Core/Computation/MultiLayerRoughnessComputation.h
+//! @brief     Defines class MultiLayerRoughnessComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,25 +13,25 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERROUGHNESSDWBASIMULATION_H
-#define MULTILAYERROUGHNESSDWBASIMULATION_H
+#ifndef MULTILAYERROUGHNESSCOMPUTATION_H
+#define MULTILAYERROUGHNESSCOMPUTATION_H
 
-#include "DWBASimulation.h"
+#include "Computation.h"
 #include "Complex.h"
 
 class LayerSpecularInfo;
 class MultiLayer;
 
 //! Computes the diffuse reflection from the rough interfaces of a multilayer.
-//! Controlled by MultiLayerDWBASimulation.
+//! Controlled by MultiLayerComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MultiLayerRoughnessDWBASimulation : public DWBASimulation
+class BA_CORE_API_ MultiLayerRoughnessComputation : public Computation
 {
 public:
-    MultiLayerRoughnessDWBASimulation(const MultiLayer* p_multi_layer);
-    ~MultiLayerRoughnessDWBASimulation() final;
-    MultiLayerRoughnessDWBASimulation* clone() const final;
+    MultiLayerRoughnessComputation(const MultiLayer* p_multi_layer);
+    ~MultiLayerRoughnessComputation() final;
+    MultiLayerRoughnessComputation* clone() const final;
 
     void run() final;
 
@@ -51,4 +51,4 @@ protected:
     std::vector<LayerSpecularInfo*> mp_specular_info_vector;
 };
 
-#endif // MULTILAYERROUGHNESSDWBASIMULATION_H
+#endif // MULTILAYERROUGHNESSCOMPUTATION_H

@@ -18,7 +18,7 @@
 
 #include "ProgressHandler.h"
 
-//! Holds number of items processed by DWBASimulation,
+//! Holds number of items processed by Computation,
 //! and informs Simulation every time n items have been processed.
 //! @ingroup algorithms_internal
 

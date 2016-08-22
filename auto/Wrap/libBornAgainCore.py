@@ -20035,16 +20035,9 @@ class Layer(ICompositeSample):
         return _libBornAgainCore.Layer_getLayout(self, i)
 
 
-    def hasDWBASimulation(self):
-        """
-        hasDWBASimulation(Layer self) -> bool
-
-        bool Layer::hasDWBASimulation() const
-
-        Returns true if decoration is present. 
-
-        """
-        return _libBornAgainCore.Layer_hasDWBASimulation(self)
+    def hasComputation(self):
+        """hasComputation(Layer self) -> bool"""
+        return _libBornAgainCore.Layer_hasComputation(self)
 
 
     def getTotalParticleSurfaceDensity(self, layout_index):

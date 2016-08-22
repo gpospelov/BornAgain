@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/MultiLayerDWBASimulation.h
-//! @brief     Defines class MultiLayerDWBASimulation.
+//! @file      Core/Computation/MultiLayerComputation.h
+//! @brief     Defines class MultiLayerComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,26 +13,26 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERDWBASIMULATION_H
-#define MULTILAYERDWBASIMULATION_H
+#ifndef MULTILAYERCOMPUTATION_H
+#define MULTILAYERCOMPUTATION_H
 
-#include "DWBASimulation.h"
+#include "Computation.h"
 #include "Complex.h"
 #include <map>
 
-class LayerDWBASimulation;
+class LayerComputation;
 class MultiLayer;
-class MultiLayerRoughnessDWBASimulation;
+class MultiLayerRoughnessComputation;
 
 //! Performs a DWBA calculation with given sample and simulation parameters
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MultiLayerDWBASimulation : public DWBASimulation
+class BA_CORE_API_ MultiLayerComputation : public Computation
 {
 public:
-    MultiLayerDWBASimulation(const MultiLayer* p_multi_layer);
-    ~MultiLayerDWBASimulation() final;
-    MultiLayerDWBASimulation* clone() const final;
+    MultiLayerComputation(const MultiLayer* p_multi_layer);
+    ~MultiLayerComputation() final;
+    MultiLayerComputation* clone() const final;
 
     void init(
         const SimulationOptions& options,
@@ -49,9 +49,9 @@ protected:
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
 
-    std::map<size_t, SafePointerVector<LayerDWBASimulation>> m_layer_dwba_simulations_map;
+    std::map<size_t, SafePointerVector<LayerComputation>> m_layer_dwba_simulations_map;
     MultiLayer* mp_multi_layer;
-    MultiLayerRoughnessDWBASimulation* mp_roughness_dwba_simulation;
+    MultiLayerRoughnessComputation* mp_roughness_dwba_simulation;
 };
 
-#endif // MULTILAYERDWBASIMULATION_H
+#endif // MULTILAYERCOMPUTATION_H

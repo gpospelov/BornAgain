@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/MultiLayerRoughnessDWBASimulation.cpp
-//! @brief     Implements class MultiLayerRoughnessDWBASimulation.
+//! @file      Core/Computation/MultiLayerRoughnessComputation.cpp
+//! @brief     Implements class MultiLayerRoughnessComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayerRoughnessDWBASimulation.h"
+#include "MultiLayerRoughnessComputation.h"
 #include "ILayerRTCoefficients.h"
 #include "Faddeeva.hh"
 #include "Layer.h"
@@ -38,14 +38,14 @@ namespace {
     }
 }
 
-MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
+MultiLayerRoughnessComputation::MultiLayerRoughnessComputation(
     const MultiLayer *p_multi_layer)
 {
     mp_multi_layer = p_multi_layer->clone();
     mp_specular_info_vector.resize(mp_multi_layer->getNumberOfLayers(), 0);
 }
 
-MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
+MultiLayerRoughnessComputation::~MultiLayerRoughnessComputation()
 {
     for(size_t i=0; i<mp_specular_info_vector.size(); ++i)
         delete mp_specular_info_vector[i];
@@ -53,14 +53,14 @@ MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
     delete mp_multi_layer;
 }
 
-MultiLayerRoughnessDWBASimulation* MultiLayerRoughnessDWBASimulation::clone() const
+MultiLayerRoughnessComputation* MultiLayerRoughnessComputation::clone() const
 {
     throw Exceptions::NotImplementedException(
-        "Bug: unexpected call to MultiLayerRoughnessDWBASimulation::clone(); "
+        "Bug: unexpected call to MultiLayerRoughnessComputation::clone(); "
         "functionality not yet implemented");
 }
 
-void MultiLayerRoughnessDWBASimulation::run()
+void MultiLayerRoughnessComputation::run()
 {
     m_outcome.setRunning();
     try {
@@ -73,7 +73,7 @@ void MultiLayerRoughnessDWBASimulation::run()
     }
 }
 
-void MultiLayerRoughnessDWBASimulation::runProtected()
+void MultiLayerRoughnessComputation::runProtected()
 {
     for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
         if( !m_progress.update())
@@ -83,7 +83,7 @@ void MultiLayerRoughnessDWBASimulation::runProtected()
     m_progress.finished();
 }
 
-double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_element)
+double MultiLayerRoughnessComputation::evaluate(const SimulationElement& sim_element)
 {
     if (sim_element.getAlphaMean()<0.0) return 0.0;
     kvector_t q = sim_element.getMeanQ();
@@ -124,13 +124,13 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement& sim_
     return (autocorr+crosscorr.real())*Pi::PI/4./wavelength/wavelength;
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer) const
+complex_t MultiLayerRoughnessComputation::get_refractive_term(size_t ilayer) const
 {
     return mp_multi_layer->getLayer(ilayer  )->getRefractiveIndex2() -
            mp_multi_layer->getLayer(ilayer+1)->getRefractiveIndex2();
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(
+complex_t MultiLayerRoughnessComputation::get_sum8terms(
     size_t ilayer, const SimulationElement& sim_element)
 {
     const std::unique_ptr<const ILayerRTCoefficients> P_in_plus(
@@ -182,7 +182,7 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum8terms(
     return term1 + term2 + term3 + term4 + term5 + term6 + term7 + term8;
 }
 
-void MultiLayerRoughnessDWBASimulation::setSpecularInfo(size_t i_layer,
+void MultiLayerRoughnessComputation::setSpecularInfo(size_t i_layer,
         const LayerSpecularInfo& specular_info)
 {
     delete mp_specular_info_vector[i_layer];

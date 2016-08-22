@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DecoratedLayerDWBASimulation.cpp
-//! @brief     Implements class DecoratedLayerDWBASimulation.
+//! @file      Core/Computation/DecoratedLayerComputation.cpp
+//! @brief     Implements class DecoratedLayerComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,22 +13,22 @@
 //
 // ************************************************************************** //
 
-#include "DecoratedLayerDWBASimulation.h"
+#include "DecoratedLayerComputation.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "Layer.h"
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
 #include "SimulationElement.h"
 
-DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(
+DecoratedLayerComputation::DecoratedLayerComputation(
     const Layer* p_layer, size_t layout_index)
-    : LayerDWBASimulation(p_layer), m_layout_index(layout_index)
+    : LayerComputation(p_layer), m_layout_index(layout_index)
 {}
 
-DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
+DecoratedLayerComputation::~DecoratedLayerComputation()
 {}
 
-void DecoratedLayerDWBASimulation::run()
+void DecoratedLayerComputation::run()
 {
     m_outcome.setRunning();
     try {
@@ -38,19 +38,19 @@ void DecoratedLayerDWBASimulation::run()
         m_outcome.setRunMessage(std::string(ex.what()));
         m_outcome.setFailed();
         throw Exceptions::RuntimeErrorException(
-            "DecoratedLayerDWBASimulation::run() -> Exception was caught \n\n" + getRunMessage());
+            "DecoratedLayerComputation::run() -> Exception was caught \n\n" + getRunMessage());
     }
 }
 
-void DecoratedLayerDWBASimulation::runProtected()
+void DecoratedLayerComputation::runProtected()
 {
-    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::runProtected()";
+    msglog(MSG::DEBUG2) << "LayerDecoratorComputation::runProtected()";
     const std::unique_ptr<const IInterferenceFunctionStrategy> P_strategy(createAndInitStrategy());
 
     calculateCoherentIntensity(P_strategy.get());
 }
 
-IInterferenceFunctionStrategy* DecoratedLayerDWBASimulation::createAndInitStrategy() const
+IInterferenceFunctionStrategy* DecoratedLayerComputation::createAndInitStrategy() const
 {
     LayerStrategyBuilder builder(*mp_layer, *mp_simulation->getSample(),
                                  m_sim_options, m_layout_index);
@@ -60,10 +60,10 @@ IInterferenceFunctionStrategy* DecoratedLayerDWBASimulation::createAndInitStrate
     return p_strategy;
 }
 
-void DecoratedLayerDWBASimulation::calculateCoherentIntensity(
+void DecoratedLayerComputation::calculateCoherentIntensity(
     const IInterferenceFunctionStrategy* p_strategy)
 {
-    msglog(MSG::DEBUG2) << "LayerDecoratorDWBASimulation::calculateCoh...()";
+    msglog(MSG::DEBUG2) << "LayerDecoratorComputation::calculateCoh...()";
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     bool polarization_present = checkPolarizationPresent();

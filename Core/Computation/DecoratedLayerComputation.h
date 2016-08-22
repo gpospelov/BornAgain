@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DecoratedLayerDWBASimulation.h
-//! @brief     Defines class DecoratedLayerDWBASimulation.
+//! @file      Core/Computation/DecoratedLayerComputation.h
+//! @brief     Defines class DecoratedLayerComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,22 +13,22 @@
 //
 // ************************************************************************** //
 
-#ifndef DECORATEDLAYERDWBASIMULATION_H
-#define DECORATEDLAYERDWBASIMULATION_H
+#ifndef DECORATEDLAYERCOMPUTATION_H
+#define DECORATEDLAYERCOMPUTATION_H
 
-#include "LayerDWBASimulation.h"
+#include "LayerComputation.h"
 
 class IInterferenceFunctionStrategy;
 
 //! Computes the scattering contribution from one layer with particles in/on it.
-//! Controlled by MultiLayerDWBASimulation.
+//! Controlled by MultiLayerComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecoratedLayerDWBASimulation : public LayerDWBASimulation
+class BA_CORE_API_ DecoratedLayerComputation : public LayerComputation
 {
 public:
-    DecoratedLayerDWBASimulation(const Layer* p_layer, size_t layout_index=0);
-    ~DecoratedLayerDWBASimulation() final;
+    DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
+    ~DecoratedLayerComputation() final;
 
     void run() final;
 
@@ -39,4 +39,4 @@ private:
     size_t m_layout_index;
 };
 
-#endif // DECORATEDLAYERDWBASIMULATION_H
+#endif // DECORATEDLAYERCOMPUTATION_H

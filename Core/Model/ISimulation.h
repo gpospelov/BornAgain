@@ -32,7 +32,7 @@ public:
 
     ISimulation() : m_status(IDLE) {}
     virtual ~ISimulation() {}
-    virtual ISimulation* clone() const;
+    virtual ISimulation* clone() const =0;
 
     virtual void run() =0;
 

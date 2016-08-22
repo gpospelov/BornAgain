@@ -18,7 +18,6 @@
 
 #include "ICloneable.h"
 #include "ComputationOutcome.h"
-#include "OutputData.h"
 #include "ProgressHandlerDWBA.h"
 #include "Simulation.h"
 #include "SimulationOptions.h"
@@ -46,9 +45,6 @@ public:
         const Simulation& simulation,
         std::vector<SimulationElement>::iterator begin_it,
         std::vector<SimulationElement>::iterator end_it);
-
-    //! Returns output data containing calculated intensity.
-    const OutputData<double>& getDWBAIntensity() const { return m_dwba_intensity; }
 
     bool isCompleted() const { return m_outcome.isCompleted(); }
     std::string getRunMessage() const { return m_outcome.getRunMessage(); }

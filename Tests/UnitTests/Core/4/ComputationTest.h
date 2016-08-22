@@ -1,17 +1,17 @@
 #ifndef DWBASIMULATIONTEST_H
 #define DWBASIMULATIONTEST_H
 
-#include "DWBASimulation.h"
+#include "Computation.h"
 #include "GISASSimulation.h"
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "SimulationElement.h"
 
-class DWBASimulationTest : public ::testing::Test
+class ComputationTest : public ::testing::Test
 {
  protected:
-    DWBASimulationTest();
-    virtual ~DWBASimulationTest(){}
+    ComputationTest();
+    virtual ~ComputationTest(){}
 
     GISASSimulation m_sim;
     OutputData<double> m_data;
@@ -19,7 +19,7 @@ class DWBASimulationTest : public ::testing::Test
 };
 
 
-DWBASimulationTest::DWBASimulationTest()
+ComputationTest::ComputationTest()
 {
     m_data.addAxis("x", 10, 0., 9.);
     m_data.addAxis("y", 5, 0., 4.);
@@ -30,17 +30,10 @@ DWBASimulationTest::DWBASimulationTest()
 }
 
 
-TEST_F(DWBASimulationTest, InitialState)
-{
-    DWBASimulation dwbasim;
-    EXPECT_EQ( size_t(1), dwbasim.getDWBAIntensity().getAllocatedSize());
-}
-
-
-//TEST_F(DWBASimulationTest, InitialWithSimulation)
+//TEST_F(ComputationTest, InitialWithSimulation)
 //{
 
-//    DWBASimulation dwbasim;
+//    Computation dwbasim;
 //    dwbasim.init(m_sim, m_sim_elements.begin(), m_sim_elements.end());
 //    EXPECT_EQ(m_data.getAllocatedSize(), dwbasim.getDWBAIntensity().getAllocatedSize());
 //    EXPECT_EQ(dwbasim.getDWBAIntensity().totalSum(), 0.0);
@@ -50,13 +43,13 @@ TEST_F(DWBASimulationTest, InitialState)
 //}
 
 
-//TEST_F(DWBASimulationTest, ThreadIterator)
+//TEST_F(ComputationTest, ThreadIterator)
 //{
-//    DWBASimulation dwbasim;
+//    Computation dwbasim;
 //    dwbasim.init(m_sim, m_sim_elements.begin(), m_sim_elements.end());
 
 //    int index(0);
-//    for(DWBASimulation::iterator it = dwbasim.begin(); it!=dwbasim.end(); ++it) {
+//    for(Computation::iterator it = dwbasim.begin(); it!=dwbasim.end(); ++it) {
 //        (*it) = double(index++);
 //    }
 
@@ -67,14 +60,14 @@ TEST_F(DWBASimulationTest, InitialState)
 //        index = istart[i_thread];
 //        thread_info.current_thread = i_thread;
 //        dwbasim.setThreadInfo(thread_info);
-//        for(DWBASimulation::iterator it = dwbasim.begin(); it!=dwbasim.end(); ++it) {
+//        for(Computation::iterator it = dwbasim.begin(); it!=dwbasim.end(); ++it) {
 //            EXPECT_EQ((*it), (double)index++);
 //        }
 //    }
 
 //}
 
-//TEST_F(DWBASimulationTest, MaskedThreadIterator)
+//TEST_F(ComputationTest, MaskedThreadIterator)
 //{
 //    int index(0);
 //    for(OutputData<double>::iterator it = m_data.begin(); it!=m_data.end(); ++it) {
@@ -86,7 +79,7 @@ TEST_F(DWBASimulationTest, InitialState)
 
 //    m_sim.setDetectorParameters(m_data);
 
-//    DWBASimulation dwbasim;
+//    Computation dwbasim;
 //    dwbasim.init(m_sim, m_sim_elements.begin(), m_sim_elements.end());
 
 //    dwbasim.addDWBAIntensity(m_data);
@@ -105,7 +98,7 @@ TEST_F(DWBASimulationTest, InitialState)
 //        int index = 0;
 //        thread_info.current_thread = i_thread;
 //        dwbasim.setThreadInfo(thread_info);
-//        for(DWBASimulation::iterator it = dwbasim.begin(); it!=dwbasim.end(); ++it) {
+//        for(Computation::iterator it = dwbasim.begin(); it!=dwbasim.end(); ++it) {
 //            EXPECT_EQ((*it), values[i_thread][index++]);
 //        }
 //    }

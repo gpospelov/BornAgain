@@ -52,11 +52,10 @@ Layer::~Layer()
 
 Layer* Layer::cloneInvertB() const
 {
-    Layer* p_clone = new Layer();
-    p_clone->mp_material = Materials::createInvertedMaterial(this->mp_material);
+    Layer* p_clone = new Layer(
+        *Materials::createInvertedMaterial(this->mp_material), this->m_thickness);
     for (size_t i=0; i<getNumberOfLayouts(); ++i)
         p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
-    p_clone->m_thickness = this->m_thickness;
     p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;

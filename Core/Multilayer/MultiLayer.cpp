@@ -198,6 +198,9 @@ double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_
     return corr;
 }
 
+// Currently unused, except in a trivial test.
+// TODO: integrate this into an onChange() mechanism.
+
 void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
 {
     if (thickness < 0.)
@@ -260,9 +263,8 @@ void MultiLayer::addAndRegisterInterface(LayerInterface* child)
 void MultiLayer::setNLayersInLayers() const
 {
     size_t n_layers = getNumberOfLayers();
-    for (size_t i=0; i<getNumberOfLayers(); ++i) {
+    for (size_t i=0; i<getNumberOfLayers(); ++i)
         m_layers[i]->setNumberOfLayers(n_layers);
-    }
 }
 
 size_t MultiLayer::check_layer_index(size_t i_layer) const
@@ -281,10 +283,9 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
 
 bool MultiLayer::requiresMatrixRTCoefficients() const
 {
-    for (auto layer: m_layers) {
+    for (auto layer: m_layers)
         if (!(layer->getMaterial()->isScalarMaterial()))
             return true;
-    }
     return false;
 }
 

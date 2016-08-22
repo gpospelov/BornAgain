@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "Simulation.h"
-#include "Computation.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "MainComputation.h"
@@ -153,16 +152,16 @@ const DistributionHandler& Simulation::getDistributionHandler() const
 
 void Simulation::updateSample()
 {
-    if (mp_sample_builder) {
-        MultiLayer* p_new_sample = mp_sample_builder->buildSample();
-        std::string builder_type = typeid(*mp_sample_builder).name();
-        if (builder_type.find("IMultiLayerBuilder_wrapper") != std::string::npos) {
-            msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
-                                   "OMG, some body has called me from python, what an idea... ";
-            setSample(*p_new_sample);
-        } else {
-            mP_sample.reset(p_new_sample);
-        }
+    if (!mp_sample_builder)
+        return;
+    MultiLayer* p_new_sample = mp_sample_builder->buildSample();
+    std::string builder_type = typeid(*mp_sample_builder).name();
+    if (builder_type.find("IMultiLayerBuilder_wrapper") != std::string::npos) {
+        msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
+            "OMG, some body has called me from python, what an idea... ";
+        setSample(*p_new_sample);
+    } else {
+        mP_sample.reset(p_new_sample);
     }
 }
 
@@ -182,7 +181,7 @@ void Simulation::runSingleSimulation()
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
-        std::unique_ptr<Computation> P_dwba_simulation(
+        std::unique_ptr<MainComputation> P_dwba_simulation(
             new MainComputation(mP_sample.get()));
         P_dwba_simulation->init(m_options, *this, batch_start, batch_end);
         P_dwba_simulation->run(); // the work is done here
@@ -201,7 +200,7 @@ void Simulation::runSingleSimulation()
                            << ", current_batch = " << m_options.getCurrentBatch();
 
         std::vector<std::thread*> threads;
-        std::vector<Computation*> simulations;
+        std::vector<MainComputation*> simulations;
 
         // Initialize n simulations.
         int total_batch_elements = batch_end - batch_start;
@@ -212,7 +211,7 @@ void Simulation::runSingleSimulation()
             if (i_thread*element_thread_step >= total_batch_elements)
                 break;
             // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
-            Computation* p_dwba_simulation = new MainComputation(mP_sample.get());
+            MainComputation* p_dwba_simulation = new MainComputation(mP_sample.get());
 
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
@@ -228,7 +227,7 @@ void Simulation::runSingleSimulation()
 
         // Run simulations in n threads.
         for (auto it = simulations.begin(); it != simulations.end(); ++it)
-            threads.push_back(new std::thread([] (Computation* p_sim) {p_sim->run();} , *it));
+            threads.push_back(new std::thread([] (MainComputation* p_sim) {p_sim->run();} , *it));
 
         // Wait for threads to complete.
         for (auto thread: threads) {
@@ -272,9 +271,8 @@ void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress)
     // if we have external ProgressHandler (which is normally coming from GUI),
     // then we will create special callbacks for every Computation.
     // These callback will be used to report Computation progress to the Simulation.
-    if (m_progress) {
+    if (m_progress)
         dwba_progress->setCallback( [&] (int n) {return m_progress->update(n);} );
-    }
 }
 
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)
@@ -294,9 +292,11 @@ std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, 
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
     int total_size = m_sim_elements.size();
     int size_per_batch = total_size/n_batches;
-    if (total_size%n_batches) ++size_per_batch;
+    if (total_size%n_batches)
+        ++size_per_batch;
     int end_index = (current_batch + 1)*size_per_batch;
-    if (end_index >= total_size) return m_sim_elements.end();
+    if (end_index >= total_size)
+        return m_sim_elements.end();
     return m_sim_elements.begin() + end_index;
 }
 

@@ -41,6 +41,9 @@ public:
 
     void run() final;
 
+    bool isCompleted() const { return m_outcome.isCompleted(); }
+    std::string getRunMessage() const { return m_outcome.getRunMessage(); }
+
 protected:
     void runProtected() final;
 

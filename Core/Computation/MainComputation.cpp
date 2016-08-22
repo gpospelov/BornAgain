@@ -98,7 +98,7 @@ void MainComputation::runProtected()
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     for (auto& layer_comp: m_layer_computation) {
-        for (auto* comp: layer_comp) {
+        for (DecoratedLayerComputation* comp: layer_comp) {
             comp->init(m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
             comp->run();
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
@@ -123,7 +123,7 @@ void MainComputation::collectRTCoefficientsScalar()
         layer_coeff_map.addRTCoefficients(new ScalarSpecularInfoMap(mp_multi_layer, i));
 
         // layer DWBA simulation
-        for(auto* comp: m_layer_computation[i])
+        for(DecoratedLayerComputation* comp: m_layer_computation[i])
             comp->setSpecularInfo(layer_coeff_map);
 
         // layer roughness DWBA
@@ -141,7 +141,7 @@ void MainComputation::collectRTCoefficientsMatrix()
         layer_coeff_map.addRTCoefficients(new MatrixSpecularInfoMap(mp_multi_layer, i));
 
         // layer DWBA simulation
-        for(auto* comp: m_layer_computation[i])
+        for(DecoratedLayerComputation* comp: m_layer_computation[i])
             comp->setSpecularInfo(layer_coeff_map);
     }
 }

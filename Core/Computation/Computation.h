@@ -19,10 +19,10 @@
 #include "INoncopyable.h"
 #include "ComputationOutcome.h"
 #include "ProgressHandlerDWBA.h"
-#include "Simulation.h"
 #include "SimulationOptions.h"
 #include <vector>
 
+class Simulation;
 class SimulationElement;
 
 //! Base class for DWBA computation MainComputation, and for sub-computations
@@ -44,9 +44,6 @@ public:
         const Simulation& simulation,
         std::vector<SimulationElement>::iterator begin_it,
         std::vector<SimulationElement>::iterator end_it);
-
-    bool isCompleted() const { return m_outcome.isCompleted(); }
-    std::string getRunMessage() const { return m_outcome.getRunMessage(); }
 
 protected:
     virtual void runProtected() {}

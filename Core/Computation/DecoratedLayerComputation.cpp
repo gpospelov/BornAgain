@@ -14,11 +14,13 @@
 // ************************************************************************** //
 
 #include "DecoratedLayerComputation.h"
+#include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
+#include "Simulation.h"
 #include "SimulationElement.h"
 
 DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_t layout_index)
@@ -35,24 +37,16 @@ DecoratedLayerComputation::~DecoratedLayerComputation()
 
 void DecoratedLayerComputation::run()
 {
-    m_outcome.setRunning();
     try {
-        runProtected();
-        m_outcome.setCompleted();
+        msglog(MSG::DEBUG2) << "LayerDecoratorComputation::runProtected()";
+        const std::unique_ptr<const IInterferenceFunctionStrategy>
+            P_strategy(createAndInitStrategy());
+        calculateCoherentIntensity(P_strategy.get());
     } catch (const std::exception& ex) {
-        m_outcome.setRunMessage(std::string(ex.what()));
-        m_outcome.setFailed();
         throw Exceptions::RuntimeErrorException(
-            "DecoratedLayerComputation::run() -> Exception was caught \n\n" + getRunMessage());
+            "DecoratedLayerComputation::run() -> Exception was caught \n\n" +
+            std::string(ex.what()));
     }
-}
-
-void DecoratedLayerComputation::runProtected()
-{
-    msglog(MSG::DEBUG2) << "LayerDecoratorComputation::runProtected()";
-    const std::unique_ptr<const IInterferenceFunctionStrategy> P_strategy(createAndInitStrategy());
-
-    calculateCoherentIntensity(P_strategy.get());
 }
 
 IInterferenceFunctionStrategy* DecoratedLayerComputation::createAndInitStrategy() const

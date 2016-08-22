@@ -15,6 +15,7 @@
 
 #include "Computation.h"
 #include "MultiLayer.h"
+#include "Simulation.h"
 
 Computation::Computation()
     : mp_simulation(nullptr)

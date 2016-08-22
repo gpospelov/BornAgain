@@ -36,7 +36,6 @@ public:
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
 
 private:
-    void runProtected() final;
     IInterferenceFunctionStrategy* createAndInitStrategy() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy* p_strategy);
 

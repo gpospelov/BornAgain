@@ -6951,7 +6951,7 @@ class IClusteredParticles(ICompositeSample):
         """
         clone(IClusteredParticles self) -> IClusteredParticles
 
-        IClusteredParticles* IClusteredParticles::clone() const =0
+        virtual IClusteredParticles* IClusteredParticles::clone() const =0
 
         Returns a clone of this  ISample object. 
 
@@ -7009,7 +7009,7 @@ class IClusteredParticles(ICompositeSample):
         """
         createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
 
-        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
+        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 
@@ -7059,7 +7059,7 @@ class Crystal(IClusteredParticles):
         """
         clone(Crystal self) -> Crystal
 
-        Crystal * Crystal::clone() const
+        Crystal * Crystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -7071,7 +7071,7 @@ class Crystal(IClusteredParticles):
         """
         cloneInvertB(Crystal self) -> Crystal
 
-        Crystal * Crystal::cloneInvertB() const
+        Crystal * Crystal::cloneInvertB() const final
 
         Returns a clone with inverted magnetic fields. 
 
@@ -7083,7 +7083,7 @@ class Crystal(IClusteredParticles):
         """
         accept(Crystal self, ISampleVisitor visitor)
 
-        virtual void Crystal::accept(ISampleVisitor *visitor) const
+        void Crystal::accept(ISampleVisitor *visitor) const final
 
         calls the  ISampleVisitor's visit method 
 
@@ -7095,7 +7095,7 @@ class Crystal(IClusteredParticles):
         """
         setAmbientMaterial(Crystal self, IMaterial material)
 
-        virtual void Crystal::setAmbientMaterial(const IMaterial &material)
+        void Crystal::setAmbientMaterial(const IMaterial &material) final
 
         """
         return _libBornAgainCore.Crystal_setAmbientMaterial(self, material)
@@ -7105,7 +7105,7 @@ class Crystal(IClusteredParticles):
         """
         getAmbientMaterial(Crystal self) -> IMaterial
 
-        virtual const IMaterial* Crystal::getAmbientMaterial() const
+        const IMaterial * Crystal::getAmbientMaterial() const final
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -7117,7 +7117,7 @@ class Crystal(IClusteredParticles):
         """
         createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
 
-        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
+        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 

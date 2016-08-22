@@ -17,6 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorDecoratorDebyeWaller.h"
+#include "Particle.h"
+#include "ParticleComposition.h"
 
 Crystal::Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
@@ -45,9 +47,19 @@ Crystal* Crystal::cloneInvertB() const
     return p_new;
 }
 
+void Crystal::setAmbientMaterial(const IMaterial& material)
+{
+    mp_lattice_basis->setAmbientMaterial(material);
+}
+
+const IMaterial* Crystal::getAmbientMaterial() const
+{
+    return mp_lattice_basis->getAmbientMaterial();
+}
+
 IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
                                             const IRotation* p_rotation,
-                                            kvector_t translation) const
+                                            const kvector_t& translation) const
 {
     Lattice transformed_lattice = getTransformedLattice(p_rotation);
     const std::unique_ptr<IFormFactor> P_basis_ff(

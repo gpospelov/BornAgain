@@ -18,8 +18,10 @@
 
 #include "IClusteredParticles.h"
 #include "Lattice.h"
-#include "Particle.h"
-#include "ParticleComposition.h"
+#include "Vectors3D.h"
+
+class Particle;
+class ParticleComposition;
 
 //! A crystal structure with a ParticleComposition as a basis.
 //!   Used in MesoCrystal, where it is given an outer shape.
@@ -31,22 +33,17 @@ public:
     Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice);
     virtual ~Crystal();
 
-    virtual Crystal* clone() const;
+    Crystal* clone() const final;
+    Crystal* cloneInvertB() const final;
 
-    //! Returns a clone with inverted magnetic fields
-    virtual Crystal* cloneInvertB() const;
+    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
-
-    virtual void setAmbientMaterial(const IMaterial& material) {
-        mp_lattice_basis->setAmbientMaterial(material); }
-
-    virtual const IMaterial* getAmbientMaterial() const {
-        return mp_lattice_basis->getAmbientMaterial(); }
+    void setAmbientMaterial(const IMaterial& material) final;
+    const IMaterial* getAmbientMaterial() const final;
 
     virtual IFormFactor* createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
-        const IRotation* p_rotation, kvector_t translation) const;
+        const IRotation* p_rotation, const kvector_t& translation) const;
 
     Lattice getTransformedLattice(const IRotation* p_rotation) const;
 

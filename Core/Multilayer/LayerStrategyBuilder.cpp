@@ -20,11 +20,12 @@
 #include "FormFactorDWBAPol.h"
 #include "ILayout.h"
 #include "IParticle.h"
-#include "InterferenceFunctionStrategies.h"
-#include "InterferenceFunctions.h"
+#include "InterferenceFunctionNone.h"
 #include "MultiLayer.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
+#include "DecouplingApproximationStrategy.h"
+#include "SizeSpacingCorrelationApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
     const Layer& decorated_layer, const MultiLayer& sample,

@@ -742,30 +742,30 @@ C++ includes: Crystal.h
 %feature("docstring")  Crystal::~Crystal "Crystal::~Crystal()
 ";
 
-%feature("docstring")  Crystal::clone "Crystal * Crystal::clone() const
+%feature("docstring")  Crystal::clone "Crystal * Crystal::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Crystal::cloneInvertB "Crystal * Crystal::cloneInvertB() const
+%feature("docstring")  Crystal::cloneInvertB "Crystal * Crystal::cloneInvertB() const final
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Crystal::accept "virtual void Crystal::accept(ISampleVisitor *visitor) const
+%feature("docstring")  Crystal::accept "void Crystal::accept(ISampleVisitor *visitor) const final
 
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  Crystal::setAmbientMaterial "virtual void Crystal::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  Crystal::setAmbientMaterial "void Crystal::setAmbientMaterial(const IMaterial &material) final
 ";
 
-%feature("docstring")  Crystal::getAmbientMaterial "virtual const IMaterial* Crystal::getAmbientMaterial() const
+%feature("docstring")  Crystal::getAmbientMaterial "const IMaterial * Crystal::getAmbientMaterial() const final
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
+%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
@@ -5654,7 +5654,7 @@ C++ includes: IClusteredParticles.h
 %feature("docstring")  IClusteredParticles::IClusteredParticles "IClusteredParticles::IClusteredParticles()
 ";
 
-%feature("docstring")  IClusteredParticles::clone "IClusteredParticles* IClusteredParticles::clone() const =0
+%feature("docstring")  IClusteredParticles::clone "virtual IClusteredParticles* IClusteredParticles::clone() const =0
 
 Returns a clone of this  ISample object. 
 ";
@@ -5677,7 +5677,7 @@ calls the  ISampleVisitor's visit method
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
+%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
@@ -13138,13 +13138,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D295.xml
+// File: namespace_0D296.xml
 
 
 // File: namespace_0D368.xml
 
 
-// File: namespace_0D434.xml
+// File: namespace_0D433.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13670,9 +13670,6 @@ enables exception throw in the case of NaN, Inf
 // File: InterferenceFunctionRadialParaCrystal_8h.xml
 
 
-// File: InterferenceFunctions_8h.xml
-
-
 // File: ParticleLayout_8cpp.xml
 
 
@@ -14115,7 +14112,16 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: FormFactorTruncatedSpheroid_8h.xml
 
 
+// File: FormFactors_8h.xml
+
+
 // File: HardParticles_8h.xml
+
+
+// File: InterferenceFunctions_8h.xml
+
+
+// File: SoftParticles_8h.xml
 
 
 // File: boost__streams_8h.xml
@@ -14466,9 +14472,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: IMultiLayerBuilder_8h.xml
 
 
-// File: InterferenceFunctionStrategies_8h.xml
-
-
 // File: IRoughness_8h.xml
 
 
@@ -14630,9 +14633,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: FormFactorCrystal_8h.xml
-
-
-// File: FormFactors_8h.xml
 
 
 // File: FormFactorWeighted_8cpp.xml
@@ -14858,9 +14858,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: FormFactorSphereUniformRadius_8h.xml
-
-
-// File: SoftParticles_8h.xml
 
 
 // File: BoxCompositionBuilder_8cpp.xml
@@ -15117,6 +15114,9 @@ David N. Williams
 
 
 // File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
+
+
+// File: dir_bba2f750d4e23960d0d8972c148b8e3f.xml
 
 
 // File: dir_d7044b5fc4daccc5700de9f07da81a11.xml

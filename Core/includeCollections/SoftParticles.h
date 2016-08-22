@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/InterferenceFunctionStrategies.h
-//! @brief     Includes several files named *Strategy.h
+//! @file      Core/includeCollections/SoftParticles.h
+//! @brief     Includes all soft-particle form-factor definitions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,10 +13,14 @@
 //
 // ************************************************************************** //
 
-#ifndef INTERFERENCEFUNCTIONSTRATEGIES_H
-#define INTERFERENCEFUNCTIONSTRATEGIES_H
+#ifndef SOFTPARTICLES_H
+#define SOFTPARTICLES_H
 
-#include "DecouplingApproximationStrategy.h"
-#include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "SoftParticles.h"
+#include "FormFactorGauss.h"
+#include "FormFactorLorentz.h"
+#include "FormFactorSphereGaussianRadius.h"
+#include "FormFactorSphereLogNormalRadius.h"
+#include "FormFactorSphereUniformRadius.h"
 
-#endif // INTERFERENCEFUNCTIONSTRATEGIES_H
+#endif // SOFTPARTICLES_H

@@ -36,6 +36,7 @@
 #include "MaterialUtils.h"
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
+#include "ParticleComposition.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"

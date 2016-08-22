@@ -25,6 +25,16 @@ DWBASimulation::~DWBASimulation()
     delete mp_simulation;
 }
 
+DWBASimulation* DWBASimulation::clone() const
+{
+    DWBASimulation* p_result = new DWBASimulation();
+    p_result->m_dwba_intensity.copyFrom(m_dwba_intensity);
+    p_result->m_progress.setCallback(m_progress.getCallback());
+    if (mp_simulation)
+        p_result->mp_simulation = mp_simulation->clone();
+    return p_result;
+}
+
 void DWBASimulation::init(
     const SimulationOptions& options,
     const Simulation& simulation,
@@ -41,16 +51,6 @@ void DWBASimulation::init(
 
     // initialising call backs
     mp_simulation->initProgressHandlerDWBA(&m_progress);
-}
-
-DWBASimulation* DWBASimulation::clone() const
-{
-    DWBASimulation* p_result = new DWBASimulation();
-    p_result->m_dwba_intensity.copyFrom(m_dwba_intensity);
-    p_result->m_progress.setCallback(m_progress.getCallback());
-    if (mp_simulation)
-        p_result->mp_simulation = mp_simulation->clone();
-    return p_result;
 }
 
 bool DWBASimulation::checkPolarizationPresent() const

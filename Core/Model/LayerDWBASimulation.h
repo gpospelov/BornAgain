@@ -38,6 +38,7 @@ public:
 
 protected:
     Bin1DCVector getKfBin(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin) const;
+
     Layer* mp_layer;
     LayerSpecularInfo* mp_specular_info;
 };

@@ -30,15 +30,15 @@ public:
     OffSpecSimulation();
     OffSpecSimulation(const MultiLayer& p_sample);
     OffSpecSimulation(std::shared_ptr<class IMultiLayerBuilder> p_sample_builder);
-    virtual ~OffSpecSimulation() {}
+    ~OffSpecSimulation() final {}
 
     OffSpecSimulation* clone() const { return new OffSpecSimulation(*this); }
 
     //! Put into a clean state for running a simulation
-    virtual void prepareSimulation();
+    void prepareSimulation() final;
 
     //! Gets the number of elements this simulation needs to calculate
-    virtual int getNumberOfSimulationElements() const;
+    int getNumberOfSimulationElements() const final;
 
     //! Returns detector intensity map
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }
@@ -84,34 +84,28 @@ public:
                                double total_transmission = 1.0);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
+                                            int copy_number = -1) const final;
 
-protected:
+private:
     OffSpecSimulation(const OffSpecSimulation& other);
 
     //! Registers some class members for later access via parameter pool
     void init_parameters() {}
 
     //! Initializes the vector of Simulation elements
-    virtual void initSimulationElementVector();
+    void initSimulationElementVector() final;
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
-    virtual void transferResultsToIntensityMap();
+    void transferResultsToIntensityMap() final;
 
     //! Returns the intensity of the beam
-    virtual double getBeamIntensity() const;
+    double getBeamIntensity() const final;
 
     //! Default implementation only adds the detector axes
     void updateIntensityMap();
 
-    // components describing an off-specular experiment and its simulation:
-    Instrument m_instrument;
-    IAxis* mp_alpha_i_axis;
-    OutputData<double> m_intensity_map;
-
-private:
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)
     void transferDetectorImage(int index);
@@ -120,6 +114,11 @@ private:
     void checkInitialization() const;
 
     void initialize();
+
+    // components describing an off-specular experiment and its simulation:
+    Instrument m_instrument;
+    IAxis* mp_alpha_i_axis;
+    OutputData<double> m_intensity_map;
 };
 
 #endif // OFFSPECSIMULATION_H

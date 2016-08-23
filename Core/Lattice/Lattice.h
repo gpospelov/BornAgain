@@ -16,7 +16,8 @@
 #ifndef LATTICE_H
 #define LATTICE_H
 
-#include "FastVector.h"
+#include "Vectors3D.h"
+#include <vector>
 
 class ISelectionRule;
 class Transform3D;

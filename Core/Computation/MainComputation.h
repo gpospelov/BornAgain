@@ -37,8 +37,8 @@ public:
     void init(
         const SimulationOptions& options,
         const Simulation& simulation,
-        std::vector<SimulationElement>::iterator begin_it,
-        std::vector<SimulationElement>::iterator end_it) final;
+        const std::vector<SimulationElement>::iterator& begin_it,
+        const std::vector<SimulationElement>::iterator& end_it) final;
 
     void run() final;
 

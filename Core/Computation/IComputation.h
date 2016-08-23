@@ -41,8 +41,8 @@ public:
     virtual void init(
         const SimulationOptions& options,
         const Simulation& simulation,
-        std::vector<SimulationElement>::iterator begin_it,
-        std::vector<SimulationElement>::iterator end_it);
+        const std::vector<SimulationElement>::iterator& begin_it,
+        const std::vector<SimulationElement>::iterator& end_it);
 
 protected:
     virtual void runProtected() {}

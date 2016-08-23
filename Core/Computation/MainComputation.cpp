@@ -48,8 +48,8 @@ MainComputation::~MainComputation()
 void MainComputation::init(
     const SimulationOptions& options,
     const Simulation& simulation,
-    std::vector<SimulationElement>::iterator begin_it,
-    std::vector<SimulationElement>::iterator end_it)
+    const std::vector<SimulationElement>::iterator& begin_it,
+    const std::vector<SimulationElement>::iterator& end_it)
 {
     msglog(MSG::DEBUG2) << "MainComputation::init()";
     IComputation::init(options, simulation, begin_it, end_it);

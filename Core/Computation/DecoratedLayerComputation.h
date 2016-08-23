@@ -41,8 +41,8 @@ public:
     void eval(const SimulationOptions& options,
               bool polarized,
               const MultiLayer& sample,
-              std::vector<SimulationElement>::iterator begin_it,
-              std::vector<SimulationElement>::iterator end_it);
+              const std::vector<SimulationElement>::iterator& begin_it,
+              const std::vector<SimulationElement>::iterator& end_it);
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
 
 private:

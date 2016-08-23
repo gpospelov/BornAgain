@@ -37,8 +37,8 @@ void DecoratedLayerComputation::eval(
     const SimulationOptions& options,
     bool polarized,
     const MultiLayer& sample,
-    std::vector<SimulationElement>::iterator begin_it,
-    std::vector<SimulationElement>::iterator end_it)
+    const std::vector<SimulationElement>::iterator& begin_it,
+    const std::vector<SimulationElement>::iterator& end_it)
 {
     LayerStrategyBuilder builder(*mp_layer, sample, options, m_layout_index);
     assert(mp_specular_info);

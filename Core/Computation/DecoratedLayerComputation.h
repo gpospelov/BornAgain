@@ -16,7 +16,7 @@
 #ifndef DECORATEDLAYERCOMPUTATION_H
 #define DECORATEDLAYERCOMPUTATION_H
 
-#include "Computation.h"
+#include "IComputation.h"
 
 class IInterferenceFunctionStrategy;
 class Layer;
@@ -26,7 +26,7 @@ class LayerSpecularInfo;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecoratedLayerComputation : public Computation
+class BA_CORE_API_ DecoratedLayerComputation : public IComputation
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);

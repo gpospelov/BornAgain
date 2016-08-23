@@ -16,7 +16,8 @@
 #ifndef MULTILAYERCOMPUTATION_H
 #define MULTILAYERCOMPUTATION_H
 
-#include "Computation.h"
+#include "IComputation.h"
+#include "ComputationOutcome.h"
 #include "Complex.h"
 #include <map>
 
@@ -27,7 +28,7 @@ class RoughMultiLayerComputation;
 //! Performs a DWBA calculation with given sample and simulation parameters
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MainComputation : public Computation
+class BA_CORE_API_ MainComputation : public IComputation
 {
 public:
     MainComputation(const MultiLayer* p_multi_layer);
@@ -44,7 +45,7 @@ public:
     bool isCompleted() const { return m_outcome.isCompleted(); }
     std::string getRunMessage() const { return m_outcome.getRunMessage(); }
 
-protected:
+private:
     void runProtected() final;
 
     //! calculates intensity map for samples with magnetization
@@ -54,6 +55,7 @@ protected:
     std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
     MultiLayer* mp_multi_layer;
     RoughMultiLayerComputation* mp_roughness_computation;
+    ComputationOutcome m_outcome;
 };
 
 #endif // MULTILAYERCOMPUTATION_H

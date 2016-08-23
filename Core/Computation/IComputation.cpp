@@ -2,31 +2,31 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/Computation.cpp
-//! @brief     Implements class Computation.
+//! @file      Core/IComputation/IComputation.cpp
+//! @brief     Implements class IComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   Scientific IComputing Group at MLZ Garching
 //! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
-#include "Computation.h"
+#include "IComputation.h"
 #include "MultiLayer.h"
 #include "Simulation.h"
 
-Computation::Computation()
+IComputation::IComputation()
     : mp_simulation(nullptr)
 {}
 
-Computation::~Computation()
+IComputation::~IComputation()
 {
     delete mp_simulation;
 }
 
-void Computation::init(
+void IComputation::init(
     const SimulationOptions& options,
     const Simulation& simulation,
     std::vector<SimulationElement>::iterator begin_it,
@@ -44,14 +44,14 @@ void Computation::init(
     mp_simulation->initProgressHandlerDWBA(&m_progress);
 }
 
-bool Computation::checkPolarizationPresent() const
+bool IComputation::checkPolarizationPresent() const
 {
     if (!mp_simulation)
-        throw Exceptions::ClassInitializationException("Computation::"
+        throw Exceptions::ClassInitializationException("IComputation::"
                 "checkPolarizationPresent(): simulation not initialized");
     MultiLayer* p_sample = mp_simulation->getSample();
     if (!p_sample)
-        throw Exceptions::ClassInitializationException("Computation::"
+        throw Exceptions::ClassInitializationException("IComputation::"
                 "checkPolarizationPresent(): sample not initialized");
     return p_sample->containsMagneticMaterial();
 }

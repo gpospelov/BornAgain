@@ -55,25 +55,18 @@ RoughMultiLayerComputation::~RoughMultiLayerComputation()
 
 void RoughMultiLayerComputation::run()
 {
-    m_outcome.setRunning();
     try {
-        runProtected();
-        m_outcome.setCompleted();
+        for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
+            if( !m_progress.update())
+                break;
+            it->setIntensity(evaluate(*it));
+        }
+        m_progress.finished();
+    } catch (const std::exception& ex) {
+        throw Exceptions::RuntimeErrorException(
+            "RoughMultiLayerComputation::run() -> Exception was caught:\n" +
+            std::string(ex.what()));
     }
-    catch(const std::exception &ex) {
-        m_outcome.setRunMessage(std::string(ex.what()));
-        m_outcome.setFailed();
-    }
-}
-
-void RoughMultiLayerComputation::runProtected()
-{
-    for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
-        if( !m_progress.update())
-            break;
-        it->setIntensity(evaluate(*it));
-    }
-    m_progress.finished();
 }
 
 double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element)
@@ -84,17 +77,15 @@ double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element
     double autocorr(0.0);
     complex_t crosscorr(0.0, 0.0);
 
-    std::vector<complex_t > rterm;
-    rterm.resize( mp_multi_layer->getNumberOfLayers()-1 );
-    std::vector<complex_t > sterm;
-    sterm.resize( mp_multi_layer->getNumberOfLayers()-1 );
+    std::vector<complex_t > rterm( mp_multi_layer->getNumberOfLayers()-1 );
+    std::vector<complex_t > sterm( mp_multi_layer->getNumberOfLayers()-1 );
 
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);
         sterm[i] = get_sum8terms(i, sim_element);
     }
 
-    for (size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
+    for (size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++) {
         const LayerRoughness *rough =
             mp_multi_layer->getLayerBottomInterface(i)->getRoughness();
         if(rough)

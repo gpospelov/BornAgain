@@ -44,7 +44,7 @@ void DecoratedLayerComputation::run()
         calculateCoherentIntensity(P_strategy.get());
     } catch (const std::exception& ex) {
         throw Exceptions::RuntimeErrorException(
-            "DecoratedLayerComputation::run() -> Exception was caught \n\n" +
+            "DecoratedLayerComputation::run() -> Exception was caught:\n" +
             std::string(ex.what()));
     }
 }

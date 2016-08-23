@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/Computation.h
-//! @brief     Defines class Computation.
+//! @file      Core/Computation/IComputation.h
+//! @brief     Defines class IComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,11 +13,10 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPUTATION_H
-#define COMPUTATION_H
+#ifndef ICOMPUTATION_H
+#define ICOMPUTATION_H
 
 #include "INoncopyable.h"
-#include "ComputationOutcome.h"
 #include "ProgressHandlerDWBA.h"
 #include "SimulationOptions.h"
 #include <vector>
@@ -30,11 +29,11 @@ class SimulationElement;
 //! Controlled by class Simulation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ Computation : public INoncopyable
+class BA_CORE_API_ IComputation : public INoncopyable
 {
 public:
-    Computation();
-    virtual ~Computation();
+    IComputation();
+    virtual ~IComputation();
 
     virtual void run() {}
 
@@ -57,8 +56,7 @@ protected:
     SimulationOptions m_sim_options;
     Simulation* mp_simulation;
 
-    ComputationOutcome m_outcome;
     ProgressHandlerDWBA m_progress;
 };
 
-#endif // COMPUTATION_H
+#endif // ICOMPUTATION_H

@@ -51,7 +51,7 @@ void MainComputation::init(
     std::vector<SimulationElement>::iterator end_it)
 {
     msglog(MSG::DEBUG2) << "MainComputation::init()";
-    Computation::init(options, simulation, begin_it, end_it);
+    IComputation::init(options, simulation, begin_it, end_it);
 
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         m_layer_computation.push_back({});

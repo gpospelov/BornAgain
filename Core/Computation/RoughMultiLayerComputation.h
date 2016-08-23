@@ -16,7 +16,7 @@
 #ifndef MULTILAYERROUGHNESSCOMPUTATION_H
 #define MULTILAYERROUGHNESSCOMPUTATION_H
 
-#include "Computation.h"
+#include "IComputation.h"
 #include "Complex.h"
 
 class LayerSpecularInfo;
@@ -26,7 +26,7 @@ class MultiLayer;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ RoughMultiLayerComputation : public Computation
+class BA_CORE_API_ RoughMultiLayerComputation : public IComputation
 {
 public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer);
@@ -41,8 +41,6 @@ public:
     double evaluate(const SimulationElement& sim_element);
 
 protected:
-    void runProtected() final;
-
     complex_t get_refractive_term(size_t ilayer) const;
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);
 

@@ -55,18 +55,12 @@ RoughMultiLayerComputation::~RoughMultiLayerComputation()
 
 void RoughMultiLayerComputation::run()
 {
-    try {
-        for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
-            if( !m_progress.update())
-                break;
-            it->setIntensity(evaluate(*it));
-        }
-        m_progress.finished();
-    } catch (const std::exception& ex) {
-        throw Exceptions::RuntimeErrorException(
-            "RoughMultiLayerComputation::run() -> Exception was caught:\n" +
-            std::string(ex.what()));
+    for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
+        if( !m_progress.update())
+            break;
+        it->setIntensity(evaluate(*it));
     }
+    m_progress.finished();
 }
 
 double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element)

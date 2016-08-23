@@ -74,8 +74,7 @@ void MainComputation::run()
     try {
         runProtected();
         m_outcome.setCompleted();
-    }
-    catch(const std::exception &ex) {
+    } catch(const std::exception &ex) {
         m_outcome.setRunMessage(std::string(ex.what()));
         m_outcome.setFailed();
     }

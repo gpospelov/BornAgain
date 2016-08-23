@@ -38,16 +38,9 @@ DecoratedLayerComputation::~DecoratedLayerComputation()
 
 void DecoratedLayerComputation::run()
 {
-    try {
-        msglog(MSG::DEBUG2) << "LayerDecoratorComputation::runProtected()";
-        const std::unique_ptr<const IInterferenceFunctionStrategy>
-            P_strategy(createAndInitStrategy());
-        calculateCoherentIntensity(P_strategy.get());
-    } catch (const std::exception& ex) {
-        throw Exceptions::RuntimeErrorException(
-            "DecoratedLayerComputation::run() -> Exception was caught:\n" +
-            std::string(ex.what()));
-    }
+    const std::unique_ptr<const IInterferenceFunctionStrategy>
+        P_strategy(createAndInitStrategy());
+    calculateCoherentIntensity(P_strategy.get());
 }
 
 IInterferenceFunctionStrategy* DecoratedLayerComputation::createAndInitStrategy() const

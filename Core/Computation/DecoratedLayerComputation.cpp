@@ -39,26 +39,8 @@ DecoratedLayerComputation::~DecoratedLayerComputation()
 void DecoratedLayerComputation::run()
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy>
-        P_strategy(createAndInitStrategy());
-    calculateCoherentIntensity(P_strategy.get());
-}
-
-IInterferenceFunctionStrategy* DecoratedLayerComputation::createAndInitStrategy() const
-{
-    LayerStrategyBuilder builder(*mp_layer, *mp_simulation->getSample(),
-                                 m_sim_options, m_layout_index);
-    assert(mp_specular_info);
-    builder.setRTInfo(*mp_specular_info);
-    IInterferenceFunctionStrategy* p_strategy = builder.createStrategy();
-    return p_strategy;
-}
-
-void DecoratedLayerComputation::calculateCoherentIntensity(
-    const IInterferenceFunctionStrategy* p_strategy)
-{
-    msglog(MSG::DEBUG2) << "LayerDecoratorComputation::calculateCoh...()";
+        p_strategy(createAndInitStrategy());
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
-
     bool polarization_present = mp_simulation->getSample()->containsMagneticMaterial();
 
     for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
@@ -75,6 +57,16 @@ void DecoratedLayerComputation::calculateCoherentIntensity(
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
     }
     m_progress.finished();
+}
+
+IInterferenceFunctionStrategy* DecoratedLayerComputation::createAndInitStrategy() const
+{
+    LayerStrategyBuilder builder(*mp_layer, *mp_simulation->getSample(),
+                                 m_sim_options, m_layout_index);
+    assert(mp_specular_info);
+    builder.setRTInfo(*mp_specular_info);
+    IInterferenceFunctionStrategy* p_strategy = builder.createStrategy();
+    return p_strategy;
 }
 
 void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)

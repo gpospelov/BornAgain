@@ -37,7 +37,6 @@ public:
 
 private:
     IInterferenceFunctionStrategy* createAndInitStrategy() const;
-    void calculateCoherentIntensity(const IInterferenceFunctionStrategy* p_strategy);
 
     Layer* mp_layer;
     LayerSpecularInfo* mp_specular_info;

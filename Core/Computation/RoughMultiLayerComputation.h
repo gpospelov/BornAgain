@@ -17,6 +17,7 @@
 #define MULTILAYERROUGHNESSCOMPUTATION_H
 
 #include "Complex.h"
+#include "INoncopyable.h"
 #include "WinDllMacros.h"
 #include <vector>
 
@@ -28,7 +29,7 @@ class SimulationElement;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ RoughMultiLayerComputation
+class BA_CORE_API_ RoughMultiLayerComputation : public INoncopyable
 {
 public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer);

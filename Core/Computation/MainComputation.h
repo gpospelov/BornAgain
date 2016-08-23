@@ -18,6 +18,7 @@
 
 #include "ComputationOutcome.h"
 #include "Complex.h"
+#include "INoncopyable.h"
 #include "ProgressHandlerDWBA.h"
 #include "SimulationOptions.h"
 #include <vector>
@@ -31,7 +32,7 @@ class SimulationElement;
 //! Performs a DWBA calculation with given sample and simulation parameters
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MainComputation
+class BA_CORE_API_ MainComputation : public INoncopyable
 {
 public:
     MainComputation(

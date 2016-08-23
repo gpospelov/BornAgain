@@ -16,6 +16,7 @@
 #ifndef DECORATEDLAYERCOMPUTATION_H
 #define DECORATEDLAYERCOMPUTATION_H
 
+#include "INoncopyable.h"
 #include "WinDllMacros.h"
 #include <vector>
 
@@ -32,7 +33,7 @@ class SimulationOptions;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecoratedLayerComputation
+class BA_CORE_API_ DecoratedLayerComputation : public INoncopyable
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);

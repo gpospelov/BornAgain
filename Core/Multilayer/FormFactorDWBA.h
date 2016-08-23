@@ -42,8 +42,6 @@ public:
     friend class TestPolarizedDWBATerms;
 
 private:
-    void calculateTerms(const WavevectorInfo& wavevectors) const;
-
     const ILayerRTCoefficients* mp_in_coeffs;  //!< not owned by this
     const ILayerRTCoefficients* mp_out_coeffs; //!< not owned by this
 };

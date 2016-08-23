@@ -54,8 +54,6 @@ public:
     friend class TestPolarizedDWBATerms;
 
 protected:
-    void calculateTerms(const WavevectorInfo& wavevectors) const;
-
     //! The matrix form factor for BA
     IFormFactor* mp_form_factor;
 

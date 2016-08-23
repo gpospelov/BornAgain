@@ -28,7 +28,7 @@
 class BA_CORE_API_ IRotation : public ISample
 {
 public:
-    static IRotation* createRotation(const Geometry::Transform3D& transform);
+    static IRotation* createRotation(const Transform3D& transform);
     virtual ~IRotation() {}
 
     virtual IRotation* clone() const=0;
@@ -41,7 +41,7 @@ public:
     void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns transformation.
-    virtual Geometry::Transform3D getTransform3D() const=0;
+    virtual Transform3D getTransform3D() const=0;
 
     //! Returns true if roation matrix is identity matrix (no rotations)
     virtual bool isIdentity() const;
@@ -61,7 +61,7 @@ public:
 
     double getAngle() const { return m_angle; }
 
-    Geometry::Transform3D getTransform3D() const;
+    Transform3D getTransform3D() const;
 
 protected:
     double m_angle;
@@ -79,7 +79,7 @@ public:
 
     double getAngle() const { return m_angle; }
 
-    Geometry::Transform3D getTransform3D() const;
+    Transform3D getTransform3D() const;
 
 protected:
     double m_angle;
@@ -97,7 +97,7 @@ public:
 
     double getAngle() const { return m_angle; }
 
-    Geometry::Transform3D getTransform3D() const;
+    Transform3D getTransform3D() const;
 
 protected:
     double m_angle;
@@ -117,7 +117,7 @@ public:
     double getBeta() const { return m_beta; }
     double getGamma() const { return m_gamma; }
 
-    Geometry::Transform3D getTransform3D() const;
+    Transform3D getTransform3D() const;
 
 protected:
     double m_alpha, m_beta, m_gamma;

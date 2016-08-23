@@ -36,7 +36,7 @@ public:
     complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 
 protected:
-    Geometry::Transform3D m_transform;
+    Transform3D m_transform;
 };
 
 #endif // FORMFACTORDECORATORROTATION_H

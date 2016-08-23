@@ -247,10 +247,10 @@
 %include "IParameterized.h"
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
-%template(kvector_t) Geometry::BasicVector3D<double>;
-%template(vector_kvector_t) std::vector<Geometry::BasicVector3D<double>>;
-%template(cvector_t) Geometry::BasicVector3D<std::complex<double>>;
-%template(vector_cvector_t) std::vector<Geometry::BasicVector3D<std::complex<double>>>;
+%template(kvector_t) BasicVector3D<double>;
+%template(vector_kvector_t) std::vector<BasicVector3D<double>>;
+%template(cvector_t) BasicVector3D<std::complex<double>>;
+%template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
 
 %include "Complex.h"
 %include "Units.h"

@@ -20,8 +20,6 @@
 #include "Complex.h"
 #include "EigenCore.h"
 
-namespace Geometry {
-
 //! @class Transform3D
 //! @ingroup tools_internal
 //! @brief Vector transformations in three dimensions.
@@ -105,7 +103,5 @@ private:
     bool isYRotation() const;
     bool isZRotation() const;
 };
-
-}// namespace Geometry
 
 #endif // TRANSFORM3D_H

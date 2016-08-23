@@ -21,9 +21,7 @@
 #include "Vectors3D.h"
 #include "EigenCore.h"
 
-namespace Geometry {
 class Transform3D;
-}
 
 //! Interface to a named material.
 //! @ingroup materials_internal
@@ -62,7 +60,7 @@ public:
 
     //! Create a new material that is transformed with respect to this one
     virtual const IMaterial* createTransformedMaterial(
-        const Geometry::Transform3D& transform) const =0;
+        const Transform3D& transform) const =0;
 
     bool operator==(const IMaterial& other) const;
 

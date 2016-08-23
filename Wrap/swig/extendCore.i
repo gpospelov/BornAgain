@@ -1,13 +1,11 @@
-namespace Geometry {
-    %extend BasicVector3D<double> {
-        BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const {
-            return *($self) + rhs; }
-        BasicVector3D<double> __mul__(double c) const {
-            return c * *($self); }
-        BasicVector3D<double> __rmul__(double c) const {
-            return *($self) * c; }
-    };
-}
+%extend BasicVector3D<double> {
+    BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const {
+        return *($self) + rhs; }
+    BasicVector3D<double> __mul__(double c) const {
+        return c * *($self); }
+    BasicVector3D<double> __rmul__(double c) const {
+        return *($self) * c; }
+ };
 
 %extend OutputData<double> {
     double __getitem__(unsigned int i) { return (*($self))[i]; }

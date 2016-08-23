@@ -58,7 +58,7 @@ public:
 
     //! Create a new material that is transformed with respect to this one
     virtual const IMaterial* createTransformedMaterial(
-        const Geometry::Transform3D& transform) const;
+        const Transform3D& transform) const;
 
 protected:
     virtual void print(std::ostream &ostr) const {

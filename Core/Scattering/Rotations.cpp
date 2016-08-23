@@ -18,19 +18,19 @@
 #include "ISampleVisitor.h"
 #include "RealParameter.h"
 
-IRotation* IRotation::createRotation(const Geometry::Transform3D& transform)
+IRotation* IRotation::createRotation(const Transform3D& transform)
 {
     double alpha, beta, gamma;
     transform.calculateEulerAngles(&alpha, &beta, &gamma);
-    Geometry::Transform3D::ERotationType rot_type = transform.getRotationType();
+    Transform3D::ERotationType rot_type = transform.getRotationType();
     switch (rot_type) {
-    case Geometry::Transform3D::XAXIS:
+    case Transform3D::XAXIS:
         if (alpha>0.0) beta = -beta;
         return new RotationX(beta);
-    case Geometry::Transform3D::YAXIS:
+    case Transform3D::YAXIS:
         if (alpha>0.0 && alpha<3.14) beta = -beta;
         return new RotationY(beta);
-    case Geometry::Transform3D::ZAXIS:
+    case Transform3D::ZAXIS:
         return new RotationZ(alpha);
     default:
         return new RotationEuler(alpha, beta, gamma);
@@ -46,8 +46,8 @@ bool IRotation::isIdentity() const
 
 IRotation* CreateProduct(const IRotation& left, const IRotation& right)
 {
-    Geometry::Transform3D tr_left = left.getTransform3D();
-    Geometry::Transform3D tr_right = right.getTransform3D();
+    Transform3D tr_left = left.getTransform3D();
+    Transform3D tr_right = right.getTransform3D();
     IRotation *p_result = IRotation::createRotation(tr_left*tr_right);
     return p_result;
 }
@@ -61,9 +61,9 @@ RotationX::RotationX(double angle)
     registerParameter(BornAgain::Angle, &m_angle).setUnit("rad");
 }
 
-Geometry::Transform3D RotationX::getTransform3D() const
+Transform3D RotationX::getTransform3D() const
 {
-    return Geometry::Transform3D::createRotateX(m_angle);
+    return Transform3D::createRotateX(m_angle);
 }
 
 // --- RotationY --------------------------------------------------------------
@@ -75,9 +75,9 @@ RotationY::RotationY(double angle)
     registerParameter(BornAgain::Angle, &m_angle).setUnit("rad");
 }
 
-Geometry::Transform3D RotationY::getTransform3D() const
+Transform3D RotationY::getTransform3D() const
 {
-    return Geometry::Transform3D::createRotateY(m_angle);
+    return Transform3D::createRotateY(m_angle);
 }
 
 // --- RotationZ --------------------------------------------------------------
@@ -89,9 +89,9 @@ RotationZ::RotationZ(double angle)
     registerParameter(BornAgain::Angle, &m_angle).setUnit("rad");
 }
 
-Geometry::Transform3D RotationZ::getTransform3D() const
+Transform3D RotationZ::getTransform3D() const
 {
-    return Geometry::Transform3D::createRotateZ(m_angle);
+    return Transform3D::createRotateZ(m_angle);
 }
 
 // --- RotationEuler ----------------------------------------------------------
@@ -107,11 +107,11 @@ RotationEuler::RotationEuler(double alpha, double beta, double gamma)
 
 IRotation* RotationEuler::createInverse() const
 {
-    Geometry::Transform3D inverse_transform(getTransform3D().getInverse());
+    Transform3D inverse_transform(getTransform3D().getInverse());
     return createRotation(inverse_transform);
 }
 
-Geometry::Transform3D RotationEuler::getTransform3D() const
+Transform3D RotationEuler::getTransform3D() const
 {
-    return Geometry::Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma);
+    return Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma);
 }

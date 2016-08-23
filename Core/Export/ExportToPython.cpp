@@ -810,20 +810,20 @@ void ExportToPython::setRotationInformation(
         double alpha, beta, gamma;
         p_particle->getRotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
         switch (p_particle->getRotation()->getTransform3D().getRotationType()) {
-        case Geometry::Transform3D::EULER:
+        case Transform3D::EULER:
             result << indent() << name << "_rotation = ba.RotationEuler("
                    << printDegrees(alpha) << ", " << printDegrees(beta)
                    << ", " << printDegrees(gamma) << ")\n";
             break;
-        case Geometry::Transform3D::XAXIS:
+        case Transform3D::XAXIS:
             result << indent() << name << "_rotation = ba.RotationX("
                    << printDegrees(beta) << ")\n";
             break;
-        case Geometry::Transform3D::YAXIS:
+        case Transform3D::YAXIS:
             result << indent() << name << "_rotation = ba.RotationY("
                    << printDegrees(gamma) << ")\n";
             break;
-        case Geometry::Transform3D::ZAXIS:
+        case Transform3D::ZAXIS:
             result << indent() << name << "_rotation = ba.RotationZ("
                    << printDegrees(alpha) << ")\n";
             break;

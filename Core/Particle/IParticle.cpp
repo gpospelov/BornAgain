@@ -73,7 +73,7 @@ kvector_t IParticle::getComposedTranslation(
     const IRotation* p_rotation, kvector_t translation) const
 {
     if (p_rotation) {
-        Geometry::Transform3D transform = p_rotation->getTransform3D();
+        Transform3D transform = p_rotation->getTransform3D();
         return translation + transform.transformed(m_position);
     } else {
         return translation + m_position;

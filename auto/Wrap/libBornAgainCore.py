@@ -1453,14 +1453,7 @@ def GetVersionNumber():
     return _libBornAgainCore.GetVersionNumber()
 
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
-    """
-    vecOfLambdaAlphaPhi(double const _lambda, double const _alpha, double const _phi) -> kvector_t
-
-    BA_CORE_API_ BasicVector3D< double > Geometry::vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
-
-    Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-
-    """
+    """vecOfLambdaAlphaPhi(double const _lambda, double const _alpha, double const _phi) -> kvector_t"""
     return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
 class INoncopyable(_object):
     """
@@ -1725,14 +1718,7 @@ IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
 
 class kvector_t(_object):
-    """
-
-
-    Three-dimensional vector template, for use with integer, double, or complex components.
-
-    C++ includes: BasicVector3D.h
-
-    """
+    """Proxy of C++ BasicVector3D<(double)> class"""
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, kvector_t, name, value)
     __swig_getmethods__ = {}
@@ -1741,13 +1727,8 @@ class kvector_t(_object):
 
     def __init__(self, *args):
         """
-        __init__(Geometry::BasicVector3D<(double)> self) -> kvector_t
-        __init__(Geometry::BasicVector3D<(double)> self, double const x1, double const y1, double const z1) -> kvector_t
-
-        Geometry::BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
-
-        Constructor from cartesian components. 
-
+        __init__(BasicVector3D<(double)> self) -> kvector_t
+        __init__(BasicVector3D<(double)> self, double const x1, double const y1, double const z1) -> kvector_t
         """
         this = _libBornAgainCore.new_kvector_t(*args)
         try:
@@ -1756,86 +1737,37 @@ class kvector_t(_object):
             self.this = this
 
     def x(self):
-        """
-        x(kvector_t self) -> double
-
-        T Geometry::BasicVector3D< T >::x() const
-
-        Returns x-component in cartesian coordinate system. 
-
-        """
+        """x(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_x(self)
 
 
     def y(self):
-        """
-        y(kvector_t self) -> double
-
-        T Geometry::BasicVector3D< T >::y() const
-
-        Returns y-component in cartesian coordinate system. 
-
-        """
+        """y(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_y(self)
 
 
     def z(self):
-        """
-        z(kvector_t self) -> double
-
-        T Geometry::BasicVector3D< T >::z() const
-
-        Returns z-component in cartesian coordinate system. 
-
-        """
+        """z(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_z(self)
 
 
     def setX(self, a):
-        """
-        setX(kvector_t self, double const & a)
-
-        void Geometry::BasicVector3D< T >::setX(const T &a)
-
-        Sets x-component in cartesian coordinate system. 
-
-        """
+        """setX(kvector_t self, double const & a)"""
         return _libBornAgainCore.kvector_t_setX(self, a)
 
 
     def setY(self, a):
-        """
-        setY(kvector_t self, double const & a)
-
-        void Geometry::BasicVector3D< T >::setY(const T &a)
-
-        Sets y-component in cartesian coordinate system. 
-
-        """
+        """setY(kvector_t self, double const & a)"""
         return _libBornAgainCore.kvector_t_setY(self, a)
 
 
     def setZ(self, a):
-        """
-        setZ(kvector_t self, double const & a)
-
-        void Geometry::BasicVector3D< T >::setZ(const T &a)
-
-        Sets z-component in cartesian coordinate system. 
-
-        """
+        """setZ(kvector_t self, double const & a)"""
         return _libBornAgainCore.kvector_t_setZ(self, a)
 
 
     def setXYZ(self, x1, y1, z1):
-        """
-        setXYZ(kvector_t self, double const & x1, double const & y1, double const & z1)
-
-        void Geometry::BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
-
-        Sets components in cartesian coordinate system. 
-
-        """
+        """setXYZ(kvector_t self, double const & x1, double const & y1, double const & z1)"""
         return _libBornAgainCore.kvector_t_setXYZ(self, x1, y1, z1)
 
 
@@ -1850,158 +1782,72 @@ class kvector_t(_object):
 
 
     def conj(self):
-        """
-        conj(kvector_t self) -> kvector_t
-
-        BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::conj() const
-
-        """
+        """conj(kvector_t self) -> kvector_t"""
         return _libBornAgainCore.kvector_t_conj(self)
 
 
     def mag2(self):
-        """
-        mag2(kvector_t self) -> double
-
-        double Geometry::BasicVector3D< T >::mag2() const
-
-        Returns squared magnitude squared of the vector. 
-
-        """
+        """mag2(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_mag2(self)
 
 
     def mag(self):
-        """
-        mag(kvector_t self) -> double
-
-        double Geometry::BasicVector3D< T >::mag() const
-
-        Returns magnitude of the vector. 
-
-        """
+        """mag(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_mag(self)
 
 
     def magxy2(self):
-        """
-        magxy2(kvector_t self) -> double
-
-        double Geometry::BasicVector3D< T >::magxy2() const
-
-        Returns squared distance from z axis. 
-
-        """
+        """magxy2(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_magxy2(self)
 
 
     def magxy(self):
-        """
-        magxy(kvector_t self) -> double
-
-        double Geometry::BasicVector3D< T >::magxy() const
-
-        Returns distance from z axis. 
-
-        """
+        """magxy(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_magxy(self)
 
 
     def phi(self):
-        """
-        phi(kvector_t self) -> double
-
-        BA_CORE_API_ double Geometry::BasicVector3D< double >::phi() const
-
-        """
+        """phi(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_phi(self)
 
 
     def theta(self):
-        """
-        theta(kvector_t self) -> double
-
-        BA_CORE_API_ double Geometry::BasicVector3D< double >::theta() const
-
-        """
+        """theta(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_theta(self)
 
 
     def cosTheta(self):
-        """
-        cosTheta(kvector_t self) -> double
-
-        double Geometry::BasicVector3D< double >::cosTheta() const
-
-        Returns cosine of polar angle. 
-
-        """
+        """cosTheta(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_cosTheta(self)
 
 
     def sin2Theta(self):
-        """
-        sin2Theta(kvector_t self) -> double
-
-        double Geometry::BasicVector3D< double >::sin2Theta() const
-
-        Returns squared sine of polar angle. 
-
-        """
+        """sin2Theta(kvector_t self) -> double"""
         return _libBornAgainCore.kvector_t_sin2Theta(self)
 
 
     def unit(self):
-        """
-        unit(kvector_t self) -> kvector_t
-
-        BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
-
-        """
+        """unit(kvector_t self) -> kvector_t"""
         return _libBornAgainCore.kvector_t_unit(self)
 
 
     def complex(self):
-        """
-        complex(kvector_t self) -> cvector_t
-
-        BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
-
-        """
+        """complex(kvector_t self) -> cvector_t"""
         return _libBornAgainCore.kvector_t_complex(self)
 
 
     def real(self):
-        """
-        real(kvector_t self) -> kvector_t
-
-        BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< std::complex< double > >::real() const
-
-        """
+        """real(kvector_t self) -> kvector_t"""
         return _libBornAgainCore.kvector_t_real(self)
 
 
     def angle(self, v):
-        """
-        angle(kvector_t self, kvector_t v) -> double
-
-        double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
-
-        Returns angle with respect to another vector. 
-
-        """
+        """angle(kvector_t self, kvector_t v) -> double"""
         return _libBornAgainCore.kvector_t_angle(self, v)
 
 
     def project(self, v):
-        """
-        project(kvector_t self, kvector_t v) -> kvector_t
-
-        BasicVector3D<T> Geometry::BasicVector3D< T >::project(const BasicVector3D< T > &v) const
-
-        Returns projection of this onto other vector: (this*v)*v/|v|^2. 
-
-        """
+        """project(kvector_t self, kvector_t v) -> kvector_t"""
         return _libBornAgainCore.kvector_t_project(self, v)
 
 
@@ -2025,7 +1871,7 @@ kvector_t_swigregister = _libBornAgainCore.kvector_t_swigregister
 kvector_t_swigregister(kvector_t)
 
 class vector_kvector_t(_object):
-    """Proxy of C++ std::vector<(Geometry::BasicVector3D<(double)>)> class"""
+    """Proxy of C++ std::vector<(BasicVector3D<(double)>)> class"""
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, vector_kvector_t, name, value)
     __swig_getmethods__ = {}
@@ -2050,7 +1896,7 @@ class vector_kvector_t(_object):
 
 
     def __len__(self):
-        """__len__(vector_kvector_t self) -> std::vector< Geometry::BasicVector3D< double > >::size_type"""
+        """__len__(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
         return _libBornAgainCore.vector_kvector_t___len__(self)
 
 
@@ -2060,26 +1906,26 @@ class vector_kvector_t(_object):
 
 
     def __getslice__(self, i, j):
-        """__getslice__(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::difference_type i, std::vector< Geometry::BasicVector3D< double > >::difference_type j) -> vector_kvector_t"""
+        """__getslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j) -> vector_kvector_t"""
         return _libBornAgainCore.vector_kvector_t___getslice__(self, i, j)
 
 
     def __setslice__(self, *args):
         """
-        __setslice__(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::difference_type i, std::vector< Geometry::BasicVector3D< double > >::difference_type j, vector_kvector_t v)
-        __setslice__(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::difference_type i, std::vector< Geometry::BasicVector3D< double > >::difference_type j)
+        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j, vector_kvector_t v)
+        __setslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)
         """
         return _libBornAgainCore.vector_kvector_t___setslice__(self, *args)
 
 
     def __delslice__(self, i, j):
-        """__delslice__(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::difference_type i, std::vector< Geometry::BasicVector3D< double > >::difference_type j)"""
+        """__delslice__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, std::vector< BasicVector3D< double > >::difference_type j)"""
         return _libBornAgainCore.vector_kvector_t___delslice__(self, i, j)
 
 
     def __delitem__(self, *args):
         """
-        __delitem__(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::difference_type i)
+        __delitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i)
         __delitem__(vector_kvector_t self, PySliceObject * slice)
         """
         return _libBornAgainCore.vector_kvector_t___delitem__(self, *args)
@@ -2088,7 +1934,7 @@ class vector_kvector_t(_object):
     def __getitem__(self, *args):
         """
         __getitem__(vector_kvector_t self, PySliceObject * slice) -> vector_kvector_t
-        __getitem__(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::difference_type i) -> kvector_t
+        __getitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i) -> kvector_t
         """
         return _libBornAgainCore.vector_kvector_t___getitem__(self, *args)
 
@@ -2097,7 +1943,7 @@ class vector_kvector_t(_object):
         """
         __setitem__(vector_kvector_t self, PySliceObject * slice, vector_kvector_t v)
         __setitem__(vector_kvector_t self, PySliceObject * slice)
-        __setitem__(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::difference_type i, kvector_t x)
+        __setitem__(vector_kvector_t self, std::vector< BasicVector3D< double > >::difference_type i, kvector_t x)
         """
         return _libBornAgainCore.vector_kvector_t___setitem__(self, *args)
 
@@ -2113,7 +1959,7 @@ class vector_kvector_t(_object):
 
 
     def size(self):
-        """size(vector_kvector_t self) -> std::vector< Geometry::BasicVector3D< double > >::size_type"""
+        """size(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
         return _libBornAgainCore.vector_kvector_t_size(self)
 
 
@@ -2128,27 +1974,27 @@ class vector_kvector_t(_object):
 
 
     def get_allocator(self):
-        """get_allocator(vector_kvector_t self) -> std::vector< Geometry::BasicVector3D< double > >::allocator_type"""
+        """get_allocator(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::allocator_type"""
         return _libBornAgainCore.vector_kvector_t_get_allocator(self)
 
 
     def begin(self):
-        """begin(vector_kvector_t self) -> std::vector< Geometry::BasicVector3D< double > >::iterator"""
+        """begin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
         return _libBornAgainCore.vector_kvector_t_begin(self)
 
 
     def end(self):
-        """end(vector_kvector_t self) -> std::vector< Geometry::BasicVector3D< double > >::iterator"""
+        """end(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::iterator"""
         return _libBornAgainCore.vector_kvector_t_end(self)
 
 
     def rbegin(self):
-        """rbegin(vector_kvector_t self) -> std::vector< Geometry::BasicVector3D< double > >::reverse_iterator"""
+        """rbegin(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
         return _libBornAgainCore.vector_kvector_t_rbegin(self)
 
 
     def rend(self):
-        """rend(vector_kvector_t self) -> std::vector< Geometry::BasicVector3D< double > >::reverse_iterator"""
+        """rend(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::reverse_iterator"""
         return _libBornAgainCore.vector_kvector_t_rend(self)
 
 
@@ -2159,18 +2005,18 @@ class vector_kvector_t(_object):
 
     def erase(self, *args):
         """
-        erase(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::iterator pos) -> std::vector< Geometry::BasicVector3D< double > >::iterator
-        erase(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::iterator first, std::vector< Geometry::BasicVector3D< double > >::iterator last) -> std::vector< Geometry::BasicVector3D< double > >::iterator
+        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos) -> std::vector< BasicVector3D< double > >::iterator
+        erase(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator first, std::vector< BasicVector3D< double > >::iterator last) -> std::vector< BasicVector3D< double > >::iterator
         """
         return _libBornAgainCore.vector_kvector_t_erase(self, *args)
 
 
     def __init__(self, *args):
         """
-        __init__(std::vector<(Geometry::BasicVector3D<(double)>)> self) -> vector_kvector_t
-        __init__(std::vector<(Geometry::BasicVector3D<(double)>)> self, vector_kvector_t arg2) -> vector_kvector_t
-        __init__(std::vector<(Geometry::BasicVector3D<(double)>)> self, std::vector< Geometry::BasicVector3D< double > >::size_type size) -> vector_kvector_t
-        __init__(std::vector<(Geometry::BasicVector3D<(double)>)> self, std::vector< Geometry::BasicVector3D< double > >::size_type size, kvector_t value) -> vector_kvector_t
+        __init__(std::vector<(BasicVector3D<(double)>)> self) -> vector_kvector_t
+        __init__(std::vector<(BasicVector3D<(double)>)> self, vector_kvector_t arg2) -> vector_kvector_t
+        __init__(std::vector<(BasicVector3D<(double)>)> self, std::vector< BasicVector3D< double > >::size_type size) -> vector_kvector_t
+        __init__(std::vector<(BasicVector3D<(double)>)> self, std::vector< BasicVector3D< double > >::size_type size, kvector_t value) -> vector_kvector_t
         """
         this = _libBornAgainCore.new_vector_kvector_t(*args)
         try:
@@ -2194,33 +2040,33 @@ class vector_kvector_t(_object):
 
 
     def assign(self, n, x):
-        """assign(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::size_type n, kvector_t x)"""
+        """assign(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)"""
         return _libBornAgainCore.vector_kvector_t_assign(self, n, x)
 
 
     def resize(self, *args):
         """
-        resize(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::size_type new_size)
-        resize(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::size_type new_size, kvector_t x)
+        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size)
+        resize(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type new_size, kvector_t x)
         """
         return _libBornAgainCore.vector_kvector_t_resize(self, *args)
 
 
     def insert(self, *args):
         """
-        insert(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::iterator pos, kvector_t x) -> std::vector< Geometry::BasicVector3D< double > >::iterator
-        insert(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::iterator pos, std::vector< Geometry::BasicVector3D< double > >::size_type n, kvector_t x)
+        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, kvector_t x) -> std::vector< BasicVector3D< double > >::iterator
+        insert(vector_kvector_t self, std::vector< BasicVector3D< double > >::iterator pos, std::vector< BasicVector3D< double > >::size_type n, kvector_t x)
         """
         return _libBornAgainCore.vector_kvector_t_insert(self, *args)
 
 
     def reserve(self, n):
-        """reserve(vector_kvector_t self, std::vector< Geometry::BasicVector3D< double > >::size_type n)"""
+        """reserve(vector_kvector_t self, std::vector< BasicVector3D< double > >::size_type n)"""
         return _libBornAgainCore.vector_kvector_t_reserve(self, n)
 
 
     def capacity(self):
-        """capacity(vector_kvector_t self) -> std::vector< Geometry::BasicVector3D< double > >::size_type"""
+        """capacity(vector_kvector_t self) -> std::vector< BasicVector3D< double > >::size_type"""
         return _libBornAgainCore.vector_kvector_t_capacity(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_vector_kvector_t
@@ -2229,14 +2075,7 @@ vector_kvector_t_swigregister = _libBornAgainCore.vector_kvector_t_swigregister
 vector_kvector_t_swigregister(vector_kvector_t)
 
 class cvector_t(_object):
-    """
-
-
-    Three-dimensional vector template, for use with integer, double, or complex components.
-
-    C++ includes: BasicVector3D.h
-
-    """
+    """Proxy of C++ BasicVector3D<(std::complex<(double)>)> class"""
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, cvector_t, name, value)
     __swig_getmethods__ = {}
@@ -2245,13 +2084,8 @@ class cvector_t(_object):
 
     def __init__(self, *args):
         """
-        __init__(Geometry::BasicVector3D<(std::complex<(double)>)> self) -> cvector_t
-        __init__(Geometry::BasicVector3D<(std::complex<(double)>)> self, std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t
-
-        Geometry::BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
-
-        Constructor from cartesian components. 
-
+        __init__(BasicVector3D<(std::complex<(double)>)> self) -> cvector_t
+        __init__(BasicVector3D<(std::complex<(double)>)> self, std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t
         """
         this = _libBornAgainCore.new_cvector_t(*args)
         try:
@@ -2260,86 +2094,37 @@ class cvector_t(_object):
             self.this = this
 
     def x(self):
-        """
-        x(cvector_t self) -> std::complex< double >
-
-        T Geometry::BasicVector3D< T >::x() const
-
-        Returns x-component in cartesian coordinate system. 
-
-        """
+        """x(cvector_t self) -> std::complex< double >"""
         return _libBornAgainCore.cvector_t_x(self)
 
 
     def y(self):
-        """
-        y(cvector_t self) -> std::complex< double >
-
-        T Geometry::BasicVector3D< T >::y() const
-
-        Returns y-component in cartesian coordinate system. 
-
-        """
+        """y(cvector_t self) -> std::complex< double >"""
         return _libBornAgainCore.cvector_t_y(self)
 
 
     def z(self):
-        """
-        z(cvector_t self) -> std::complex< double >
-
-        T Geometry::BasicVector3D< T >::z() const
-
-        Returns z-component in cartesian coordinate system. 
-
-        """
+        """z(cvector_t self) -> std::complex< double >"""
         return _libBornAgainCore.cvector_t_z(self)
 
 
     def setX(self, a):
-        """
-        setX(cvector_t self, std::complex< double > const & a)
-
-        void Geometry::BasicVector3D< T >::setX(const T &a)
-
-        Sets x-component in cartesian coordinate system. 
-
-        """
+        """setX(cvector_t self, std::complex< double > const & a)"""
         return _libBornAgainCore.cvector_t_setX(self, a)
 
 
     def setY(self, a):
-        """
-        setY(cvector_t self, std::complex< double > const & a)
-
-        void Geometry::BasicVector3D< T >::setY(const T &a)
-
-        Sets y-component in cartesian coordinate system. 
-
-        """
+        """setY(cvector_t self, std::complex< double > const & a)"""
         return _libBornAgainCore.cvector_t_setY(self, a)
 
 
     def setZ(self, a):
-        """
-        setZ(cvector_t self, std::complex< double > const & a)
-
-        void Geometry::BasicVector3D< T >::setZ(const T &a)
-
-        Sets z-component in cartesian coordinate system. 
-
-        """
+        """setZ(cvector_t self, std::complex< double > const & a)"""
         return _libBornAgainCore.cvector_t_setZ(self, a)
 
 
     def setXYZ(self, x1, y1, z1):
-        """
-        setXYZ(cvector_t self, std::complex< double > const & x1, std::complex< double > const & y1, std::complex< double > const & z1)
-
-        void Geometry::BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
-
-        Sets components in cartesian coordinate system. 
-
-        """
+        """setXYZ(cvector_t self, std::complex< double > const & x1, std::complex< double > const & y1, std::complex< double > const & z1)"""
         return _libBornAgainCore.cvector_t_setXYZ(self, x1, y1, z1)
 
 
@@ -2354,92 +2139,42 @@ class cvector_t(_object):
 
 
     def conj(self):
-        """
-        conj(cvector_t self) -> cvector_t
-
-        BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::conj() const
-
-        """
+        """conj(cvector_t self) -> cvector_t"""
         return _libBornAgainCore.cvector_t_conj(self)
 
 
     def mag2(self):
-        """
-        mag2(cvector_t self) -> double
-
-        double Geometry::BasicVector3D< T >::mag2() const
-
-        Returns squared magnitude squared of the vector. 
-
-        """
+        """mag2(cvector_t self) -> double"""
         return _libBornAgainCore.cvector_t_mag2(self)
 
 
     def mag(self):
-        """
-        mag(cvector_t self) -> double
-
-        double Geometry::BasicVector3D< T >::mag() const
-
-        Returns magnitude of the vector. 
-
-        """
+        """mag(cvector_t self) -> double"""
         return _libBornAgainCore.cvector_t_mag(self)
 
 
     def magxy2(self):
-        """
-        magxy2(cvector_t self) -> double
-
-        double Geometry::BasicVector3D< T >::magxy2() const
-
-        Returns squared distance from z axis. 
-
-        """
+        """magxy2(cvector_t self) -> double"""
         return _libBornAgainCore.cvector_t_magxy2(self)
 
 
     def magxy(self):
-        """
-        magxy(cvector_t self) -> double
-
-        double Geometry::BasicVector3D< T >::magxy() const
-
-        Returns distance from z axis. 
-
-        """
+        """magxy(cvector_t self) -> double"""
         return _libBornAgainCore.cvector_t_magxy(self)
 
 
     def unit(self):
-        """
-        unit(cvector_t self) -> cvector_t
-
-        BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
-
-        """
+        """unit(cvector_t self) -> cvector_t"""
         return _libBornAgainCore.cvector_t_unit(self)
 
 
     def real(self):
-        """
-        real(cvector_t self) -> kvector_t
-
-        BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< std::complex< double > >::real() const
-
-        """
+        """real(cvector_t self) -> kvector_t"""
         return _libBornAgainCore.cvector_t_real(self)
 
 
     def project(self, v):
-        """
-        project(cvector_t self, cvector_t v) -> cvector_t
-
-        BasicVector3D<T> Geometry::BasicVector3D< T >::project(const BasicVector3D< T > &v) const
-
-        Returns projection of this onto other vector: (this*v)*v/|v|^2. 
-
-        """
+        """project(cvector_t self, cvector_t v) -> cvector_t"""
         return _libBornAgainCore.cvector_t_project(self, v)
 
     __swig_destroy__ = _libBornAgainCore.delete_cvector_t
@@ -2448,7 +2183,7 @@ cvector_t_swigregister = _libBornAgainCore.cvector_t_swigregister
 cvector_t_swigregister(cvector_t)
 
 class vector_cvector_t(_object):
-    """Proxy of C++ std::vector<(Geometry::BasicVector3D<(std::complex<(double)>)>)> class"""
+    """Proxy of C++ std::vector<(BasicVector3D<(std::complex<(double)>)>)> class"""
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, vector_cvector_t, name, value)
     __swig_getmethods__ = {}
@@ -2473,7 +2208,7 @@ class vector_cvector_t(_object):
 
 
     def __len__(self):
-        """__len__(vector_cvector_t self) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type"""
+        """__len__(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
         return _libBornAgainCore.vector_cvector_t___len__(self)
 
 
@@ -2483,26 +2218,26 @@ class vector_cvector_t(_object):
 
 
     def __getslice__(self, i, j):
-        """__getslice__(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type i, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type j) -> vector_cvector_t"""
+        """__getslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j) -> vector_cvector_t"""
         return _libBornAgainCore.vector_cvector_t___getslice__(self, i, j)
 
 
     def __setslice__(self, *args):
         """
-        __setslice__(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type i, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type j, vector_cvector_t v)
-        __setslice__(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type i, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type j)
+        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j, vector_cvector_t v)
+        __setslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)
         """
         return _libBornAgainCore.vector_cvector_t___setslice__(self, *args)
 
 
     def __delslice__(self, i, j):
-        """__delslice__(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type i, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type j)"""
+        """__delslice__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, std::vector< BasicVector3D< std::complex< double > > >::difference_type j)"""
         return _libBornAgainCore.vector_cvector_t___delslice__(self, i, j)
 
 
     def __delitem__(self, *args):
         """
-        __delitem__(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type i)
+        __delitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i)
         __delitem__(vector_cvector_t self, PySliceObject * slice)
         """
         return _libBornAgainCore.vector_cvector_t___delitem__(self, *args)
@@ -2511,7 +2246,7 @@ class vector_cvector_t(_object):
     def __getitem__(self, *args):
         """
         __getitem__(vector_cvector_t self, PySliceObject * slice) -> vector_cvector_t
-        __getitem__(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type i) -> cvector_t
+        __getitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i) -> cvector_t
         """
         return _libBornAgainCore.vector_cvector_t___getitem__(self, *args)
 
@@ -2520,7 +2255,7 @@ class vector_cvector_t(_object):
         """
         __setitem__(vector_cvector_t self, PySliceObject * slice, vector_cvector_t v)
         __setitem__(vector_cvector_t self, PySliceObject * slice)
-        __setitem__(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::difference_type i, cvector_t x)
+        __setitem__(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::difference_type i, cvector_t x)
         """
         return _libBornAgainCore.vector_cvector_t___setitem__(self, *args)
 
@@ -2536,7 +2271,7 @@ class vector_cvector_t(_object):
 
 
     def size(self):
-        """size(vector_cvector_t self) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type"""
+        """size(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
         return _libBornAgainCore.vector_cvector_t_size(self)
 
 
@@ -2551,27 +2286,27 @@ class vector_cvector_t(_object):
 
 
     def get_allocator(self):
-        """get_allocator(vector_cvector_t self) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::allocator_type"""
+        """get_allocator(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::allocator_type"""
         return _libBornAgainCore.vector_cvector_t_get_allocator(self)
 
 
     def begin(self):
-        """begin(vector_cvector_t self) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator"""
+        """begin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
         return _libBornAgainCore.vector_cvector_t_begin(self)
 
 
     def end(self):
-        """end(vector_cvector_t self) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator"""
+        """end(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::iterator"""
         return _libBornAgainCore.vector_cvector_t_end(self)
 
 
     def rbegin(self):
-        """rbegin(vector_cvector_t self) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::reverse_iterator"""
+        """rbegin(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
         return _libBornAgainCore.vector_cvector_t_rbegin(self)
 
 
     def rend(self):
-        """rend(vector_cvector_t self) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::reverse_iterator"""
+        """rend(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::reverse_iterator"""
         return _libBornAgainCore.vector_cvector_t_rend(self)
 
 
@@ -2582,18 +2317,18 @@ class vector_cvector_t(_object):
 
     def erase(self, *args):
         """
-        erase(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator pos) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator
-        erase(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator first, std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator last) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator
+        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        erase(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator first, std::vector< BasicVector3D< std::complex< double > > >::iterator last) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
         """
         return _libBornAgainCore.vector_cvector_t_erase(self, *args)
 
 
     def __init__(self, *args):
         """
-        __init__(std::vector<(Geometry::BasicVector3D<(std::complex<(double)>)>)> self) -> vector_cvector_t
-        __init__(std::vector<(Geometry::BasicVector3D<(std::complex<(double)>)>)> self, vector_cvector_t arg2) -> vector_cvector_t
-        __init__(std::vector<(Geometry::BasicVector3D<(std::complex<(double)>)>)> self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type size) -> vector_cvector_t
-        __init__(std::vector<(Geometry::BasicVector3D<(std::complex<(double)>)>)> self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type size, cvector_t value) -> vector_cvector_t
+        __init__(std::vector<(BasicVector3D<(std::complex<(double)>)>)> self) -> vector_cvector_t
+        __init__(std::vector<(BasicVector3D<(std::complex<(double)>)>)> self, vector_cvector_t arg2) -> vector_cvector_t
+        __init__(std::vector<(BasicVector3D<(std::complex<(double)>)>)> self, std::vector< BasicVector3D< std::complex< double > > >::size_type size) -> vector_cvector_t
+        __init__(std::vector<(BasicVector3D<(std::complex<(double)>)>)> self, std::vector< BasicVector3D< std::complex< double > > >::size_type size, cvector_t value) -> vector_cvector_t
         """
         this = _libBornAgainCore.new_vector_cvector_t(*args)
         try:
@@ -2617,33 +2352,33 @@ class vector_cvector_t(_object):
 
 
     def assign(self, n, x):
-        """assign(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)"""
+        """assign(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)"""
         return _libBornAgainCore.vector_cvector_t_assign(self, n, x)
 
 
     def resize(self, *args):
         """
-        resize(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type new_size)
-        resize(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type new_size, cvector_t x)
+        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size)
+        resize(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type new_size, cvector_t x)
         """
         return _libBornAgainCore.vector_cvector_t_resize(self, *args)
 
 
     def insert(self, *args):
         """
-        insert(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator pos, cvector_t x) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator
-        insert(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::iterator pos, std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)
+        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, cvector_t x) -> std::vector< BasicVector3D< std::complex< double > > >::iterator
+        insert(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::iterator pos, std::vector< BasicVector3D< std::complex< double > > >::size_type n, cvector_t x)
         """
         return _libBornAgainCore.vector_cvector_t_insert(self, *args)
 
 
     def reserve(self, n):
-        """reserve(vector_cvector_t self, std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type n)"""
+        """reserve(vector_cvector_t self, std::vector< BasicVector3D< std::complex< double > > >::size_type n)"""
         return _libBornAgainCore.vector_cvector_t_reserve(self, n)
 
 
     def capacity(self):
-        """capacity(vector_cvector_t self) -> std::vector< Geometry::BasicVector3D< std::complex< double > > >::size_type"""
+        """capacity(vector_cvector_t self) -> std::vector< BasicVector3D< std::complex< double > > >::size_type"""
         return _libBornAgainCore.vector_cvector_t_capacity(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_vector_cvector_t
@@ -16319,7 +16054,7 @@ class IMaterial(INamed):
 
     def createTransformedMaterial(self, transform):
         """
-        createTransformedMaterial(IMaterial self, Geometry::Transform3D const & transform) -> IMaterial
+        createTransformedMaterial(IMaterial self, Transform3D const & transform) -> IMaterial
 
         virtual const IMaterial* IMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const =0
 
@@ -16405,7 +16140,7 @@ class HomogeneousMaterial(IMaterial):
 
     def createTransformedMaterial(self, arg2):
         """
-        createTransformedMaterial(HomogeneousMaterial self, Geometry::Transform3D const & arg2) -> IMaterial
+        createTransformedMaterial(HomogeneousMaterial self, Transform3D const & arg2) -> IMaterial
 
         virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Geometry::Transform3D &) const
 
@@ -16502,7 +16237,7 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
 
     def createTransformedMaterial(self, transform):
         """
-        createTransformedMaterial(HomogeneousMagneticMaterial self, Geometry::Transform3D const & transform) -> IMaterial
+        createTransformedMaterial(HomogeneousMagneticMaterial self, Transform3D const & transform) -> IMaterial
 
         const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const
 
@@ -17468,7 +17203,7 @@ class IRotation(ISample):
     __repr__ = _swig_repr
 
     def createRotation(transform):
-        """createRotation(Geometry::Transform3D const & transform) -> IRotation"""
+        """createRotation(Transform3D const & transform) -> IRotation"""
         return _libBornAgainCore.IRotation_createRotation(transform)
 
     if _newclass:
@@ -17527,7 +17262,7 @@ class IRotation(ISample):
 
     def getTransform3D(self):
         """
-        getTransform3D(IRotation self) -> Geometry::Transform3D
+        getTransform3D(IRotation self) -> Transform3D
 
         virtual Geometry::Transform3D IRotation::getTransform3D() const =0
 
@@ -17552,7 +17287,7 @@ IRotation_swigregister = _libBornAgainCore.IRotation_swigregister
 IRotation_swigregister(IRotation)
 
 def IRotation_createRotation(transform):
-    """IRotation_createRotation(Geometry::Transform3D const & transform) -> IRotation"""
+    """IRotation_createRotation(Transform3D const & transform) -> IRotation"""
     return _libBornAgainCore.IRotation_createRotation(transform)
 
 
@@ -17639,7 +17374,7 @@ class RotationX(IRotation):
 
     def getTransform3D(self):
         """
-        getTransform3D(RotationX self) -> Geometry::Transform3D
+        getTransform3D(RotationX self) -> Transform3D
 
         Geometry::Transform3D RotationX::getTransform3D() const
 
@@ -17726,7 +17461,7 @@ class RotationY(IRotation):
 
     def getTransform3D(self):
         """
-        getTransform3D(RotationY self) -> Geometry::Transform3D
+        getTransform3D(RotationY self) -> Transform3D
 
         Geometry::Transform3D RotationY::getTransform3D() const
 
@@ -17814,7 +17549,7 @@ class RotationZ(IRotation):
 
     def getTransform3D(self):
         """
-        getTransform3D(RotationZ self) -> Geometry::Transform3D
+        getTransform3D(RotationZ self) -> Transform3D
 
         Geometry::Transform3D RotationZ::getTransform3D() const
 
@@ -17921,7 +17656,7 @@ class RotationEuler(IRotation):
 
     def getTransform3D(self):
         """
-        getTransform3D(RotationEuler self) -> Geometry::Transform3D
+        getTransform3D(RotationEuler self) -> Transform3D
 
         Geometry::Transform3D RotationEuler::getTransform3D() const
 
@@ -19577,7 +19312,7 @@ class Lattice(_object):
 
     def createTransformedLattice(self, transform):
         """
-        createTransformedLattice(Lattice self, Geometry::Transform3D const & transform) -> Lattice
+        createTransformedLattice(Lattice self, Transform3D const & transform) -> Lattice
 
         Lattice Lattice::createTransformedLattice(const Geometry::Transform3D &transform) const
 

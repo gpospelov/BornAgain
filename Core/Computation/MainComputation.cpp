@@ -108,9 +108,7 @@ void MainComputation::runProtected()
 
     if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
         msglog(MSG::DEBUG2) << "MainComputation::run() -> roughness";
-        mp_roughness_computation->init(
-            m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
-        mp_roughness_computation->run();
+        mp_roughness_computation->eval(layer_elements.begin(), layer_elements.end());
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 }

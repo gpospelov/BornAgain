@@ -38,11 +38,10 @@ namespace {
     }
 }
 
-RoughMultiLayerComputation::RoughMultiLayerComputation(
-    const MultiLayer *p_multi_layer)
+RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
+    : mp_multi_layer(p_multi_layer)
 {
-    mp_multi_layer = p_multi_layer->clone();
-    mp_specular_info_vector.resize(mp_multi_layer->getNumberOfLayers(), 0);
+    mp_specular_info_vector.resize(p_multi_layer->getNumberOfLayers(), 0);
 }
 
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
@@ -53,19 +52,18 @@ RoughMultiLayerComputation::~RoughMultiLayerComputation()
     delete mp_multi_layer;
 }
 
-void RoughMultiLayerComputation::run()
+void RoughMultiLayerComputation::eval(
+    const std::vector<SimulationElement>::iterator& begin_it,
+    const std::vector<SimulationElement>::iterator& end_it)
 {
-    for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
-        if( !m_progress.update())
-            break;
+    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it)
         it->setIntensity(evaluate(*it));
-    }
-    m_progress.finished();
 }
 
 double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element)
 {
-    if (sim_element.getAlphaMean()<0.0) return 0.0;
+    if (sim_element.getAlphaMean()<0.0)
+        return 0.0;
     kvector_t q = sim_element.getMeanQ();
     double wavelength = sim_element.getWavelength();
     double autocorr(0.0);

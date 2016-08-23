@@ -32,8 +32,8 @@ public:
     virtual ~IRotation() {}
 
     virtual IRotation* clone() const=0;
-    //! Returns a clone with inverted magnetic fields
-    virtual IRotation* cloneInvertB() const=0;
+    IRotation* cloneInvertB() const final { return clone(); }
+
     //! Returns a new IRotation object that is the current object's inverse
     virtual IRotation* createInverse() const=0;
 
@@ -55,7 +55,6 @@ public:
     RotationX(double angle);
 
     RotationX* clone() const { return new RotationX(m_angle); }
-    RotationX* cloneInvertB() const { return clone(); }
     RotationX* createInverse() const { return new RotationX(-m_angle); }
 
     void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
@@ -74,7 +73,6 @@ public:
     RotationY(double angle);
 
     RotationY* clone() const { return new RotationY(m_angle); }
-    RotationY* cloneInvertB() const { return clone(); }
     RotationY* createInverse() const { return new RotationY(-m_angle); }
 
     void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
@@ -93,7 +91,6 @@ public:
     RotationZ(double angle = 0.0);
 
     RotationZ* clone() const { return new RotationZ(m_angle); }
-    RotationZ* cloneInvertB() const { return clone(); }
     RotationZ* createInverse() const { return new RotationZ(-m_angle); }
 
     void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
@@ -112,7 +109,6 @@ public:
     RotationEuler(double alpha, double beta, double gamma);
 
     RotationEuler* clone() const { return new RotationEuler(m_alpha, m_beta, m_gamma); }
-    RotationEuler* cloneInvertB() const { return clone(); }
     IRotation* createInverse() const;
 
     void accept(ISampleVisitor* visitor) const { visitor->visit(this); }

@@ -17603,18 +17603,6 @@ class RotationX(IRotation):
         return _libBornAgainCore.RotationX_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(RotationX self) -> RotationX
-
-        RotationX* RotationX::cloneInvertB() const
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.RotationX_cloneInvertB(self)
-
-
     def createInverse(self):
         """
         createInverse(RotationX self) -> RotationX
@@ -17700,18 +17688,6 @@ class RotationY(IRotation):
 
         """
         return _libBornAgainCore.RotationY_clone(self)
-
-
-    def cloneInvertB(self):
-        """
-        cloneInvertB(RotationY self) -> RotationY
-
-        RotationY* RotationY::cloneInvertB() const
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.RotationY_cloneInvertB(self)
 
 
     def createInverse(self):
@@ -17802,18 +17778,6 @@ class RotationZ(IRotation):
         return _libBornAgainCore.RotationZ_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(RotationZ self) -> RotationZ
-
-        RotationZ* RotationZ::cloneInvertB() const
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.RotationZ_cloneInvertB(self)
-
-
     def createInverse(self):
         """
         createInverse(RotationZ self) -> RotationZ
@@ -17899,18 +17863,6 @@ class RotationEuler(IRotation):
 
         """
         return _libBornAgainCore.RotationEuler_clone(self)
-
-
-    def cloneInvertB(self):
-        """
-        cloneInvertB(RotationEuler self) -> RotationEuler
-
-        RotationEuler* RotationEuler::cloneInvertB() const
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.RotationEuler_cloneInvertB(self)
 
 
     def createInverse(self):

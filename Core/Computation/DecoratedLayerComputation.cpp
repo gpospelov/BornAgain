@@ -24,10 +24,8 @@
 #include "SimulationElement.h"
 
 DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_t layout_index)
-    : mp_specular_info(nullptr), m_layout_index(layout_index)
-{
-    mp_layer = p_layer->clone();
-}
+    : mp_layer(p_layer), mp_specular_info(nullptr), m_layout_index(layout_index)
+{}
 
 DecoratedLayerComputation::~DecoratedLayerComputation()
 {
@@ -36,20 +34,19 @@ DecoratedLayerComputation::~DecoratedLayerComputation()
 }
 
 void DecoratedLayerComputation::eval(
+    const SimulationOptions& options,
     bool polarized,
     const MultiLayer& sample,
     std::vector<SimulationElement>::iterator begin_it,
     std::vector<SimulationElement>::iterator end_it)
 {
-    LayerStrategyBuilder builder(*mp_layer, sample, m_sim_options, m_layout_index);
+    LayerStrategyBuilder builder(*mp_layer, sample, options, m_layout_index);
     assert(mp_specular_info);
     builder.setRTInfo(*mp_specular_info);
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy(builder.createStrategy());
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
-        if (!m_progress.update())
-            break;
         double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_layer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0)
@@ -60,7 +57,6 @@ void DecoratedLayerComputation::eval(
         else
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
     }
-    m_progress.finished();
 }
 
 void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)

@@ -100,8 +100,7 @@ void MainComputation::runProtected()
     bool polarized = mp_simulation->getSample()->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
         for (DecoratedLayerComputation* comp: layer_comp) {
-            comp->init(m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
-            comp->eval(polarized, *mp_simulation->getSample(),
+            comp->eval(m_sim_options, polarized, *mp_simulation->getSample(),
                        layer_elements.begin(), layer_elements.end());
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }

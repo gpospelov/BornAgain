@@ -20,6 +20,7 @@
 #include "LayerSpecularInfo.h"
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
+#include "MultiLayer.h"
 #include "Simulation.h"
 #include "SimulationElement.h"
 
@@ -65,7 +66,7 @@ void DecoratedLayerComputation::calculateCoherentIntensity(
     msglog(MSG::DEBUG2) << "LayerDecoratorComputation::calculateCoh...()";
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
-    bool polarization_present = checkPolarizationPresent();
+    bool polarization_present = mp_simulation->getSample()->containsMagneticMaterial();
 
     for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
         if (!m_progress.update())

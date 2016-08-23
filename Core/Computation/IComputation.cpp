@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "IComputation.h"
-#include "MultiLayer.h"
 #include "Simulation.h"
 
 IComputation::IComputation()
@@ -42,16 +41,4 @@ void IComputation::init(
 
     // initialising call backs
     mp_simulation->initProgressHandlerDWBA(&m_progress);
-}
-
-bool IComputation::checkPolarizationPresent() const
-{
-    if (!mp_simulation)
-        throw Exceptions::ClassInitializationException("IComputation::"
-                "checkPolarizationPresent(): simulation not initialized");
-    MultiLayer* p_sample = mp_simulation->getSample();
-    if (!p_sample)
-        throw Exceptions::ClassInitializationException("IComputation::"
-                "checkPolarizationPresent(): sample not initialized");
-    return p_sample->containsMagneticMaterial();
 }

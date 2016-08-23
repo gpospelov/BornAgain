@@ -20747,6 +20747,11 @@ class MultiLayer(ICompositeSample):
         """
         return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
 
+
+    def hasRoughness(self):
+        """hasRoughness(MultiLayer self) -> bool"""
+        return _libBornAgainCore.MultiLayer_hasRoughness(self)
+
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 

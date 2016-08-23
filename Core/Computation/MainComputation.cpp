@@ -59,12 +59,8 @@ MainComputation::MainComputation(
                 new DecoratedLayerComputation(mp_multi_layer->getLayer(i), j));
     }
     // scattering from rough surfaces in DWBA
-    for (size_t i=0; i<mp_multi_layer->getNumberOfInterfaces(); ++i) {
-        if(mp_multi_layer->getLayerInterface(i)->getRoughness() ) {
-            mp_roughness_computation = new RoughMultiLayerComputation(mp_multi_layer);
-            break;
-        }
-    }
+    if (mp_multi_layer->hasRoughness())
+        mp_roughness_computation = new RoughMultiLayerComputation(mp_multi_layer);
 }
 
 MainComputation::~MainComputation()
@@ -72,6 +68,9 @@ MainComputation::~MainComputation()
     delete mp_simulation;
     delete mp_multi_layer;
     delete mp_roughness_computation;
+    for (auto& layer_comp: m_layer_computation)
+        for (DecoratedLayerComputation* comp: layer_comp)
+            delete comp;
 }
 
 void MainComputation::run()

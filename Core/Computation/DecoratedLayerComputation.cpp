@@ -29,7 +29,6 @@ DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_
 
 DecoratedLayerComputation::~DecoratedLayerComputation()
 {
-    delete mp_layer;
     delete mp_specular_info;
 }
 

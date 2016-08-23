@@ -232,6 +232,14 @@ bool MultiLayer::containsMagneticMaterial() const
     return false;
 }
 
+bool MultiLayer::hasRoughness() const
+{
+    for (const LayerInterface* face: m_interfaces)
+        if (face->getRoughness())
+            return true;
+    return false;
+}
+
 void MultiLayer::print(std::ostream& ostr) const
 {
     ostr << "MultiLayer:" << getName() << "<" << this << "> : {\n";

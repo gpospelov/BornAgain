@@ -54,7 +54,7 @@ Beam &Beam::operator=(const Beam &other)
 
 kvector_t Beam::getCentralK() const
 {
-    return Geometry::vecOfLambdaAlphaPhi(m_wavelength, -m_alpha, m_phi);
+    return vecOfLambdaAlphaPhi(m_wavelength, -m_alpha, m_phi);
 }
 
 void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)

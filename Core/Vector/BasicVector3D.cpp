@@ -18,8 +18,6 @@
 
 typedef std::complex<double> complex_t;
 
-namespace Geometry {
-
 // -----------------------------------------------------------------------------
 // Functions of this (with no further argument)
 // -----------------------------------------------------------------------------
@@ -136,5 +134,3 @@ BasicVector3D<double> vecOfLambdaAlphaPhi(
         -k*std::cos(_alpha) * std::sin(_phi),
         k*std::sin(_alpha) );
 }
-
-}  // namespace Geometry

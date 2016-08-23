@@ -14,40 +14,40 @@
 // ************************************************************************** //
 
 #include "DecoratedLayerComputation.h"
+#include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "Layer.h"
+#include "LayerSpecularInfo.h"
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
+#include "MultiLayer.h"
+#include "Simulation.h"
 #include "SimulationElement.h"
 
-DecoratedLayerComputation::DecoratedLayerComputation(
-    const Layer* p_layer, size_t layout_index)
-    : LayerComputation(p_layer), m_layout_index(layout_index)
-{}
+DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_t layout_index)
+    : mp_specular_info(nullptr), m_layout_index(layout_index)
+{
+    mp_layer = p_layer->clone();
+}
 
 DecoratedLayerComputation::~DecoratedLayerComputation()
-{}
+{
+    delete mp_layer;
+    delete mp_specular_info;
+}
 
 void DecoratedLayerComputation::run()
 {
-    m_outcome.setRunning();
     try {
-        runProtected();
-        m_outcome.setCompleted();
+        msglog(MSG::DEBUG2) << "LayerDecoratorComputation::runProtected()";
+        const std::unique_ptr<const IInterferenceFunctionStrategy>
+            P_strategy(createAndInitStrategy());
+        calculateCoherentIntensity(P_strategy.get());
     } catch (const std::exception& ex) {
-        m_outcome.setRunMessage(std::string(ex.what()));
-        m_outcome.setFailed();
         throw Exceptions::RuntimeErrorException(
-            "DecoratedLayerComputation::run() -> Exception was caught \n\n" + getRunMessage());
+            "DecoratedLayerComputation::run() -> Exception was caught:\n" +
+            std::string(ex.what()));
     }
-}
-
-void DecoratedLayerComputation::runProtected()
-{
-    msglog(MSG::DEBUG2) << "LayerDecoratorComputation::runProtected()";
-    const std::unique_ptr<const IInterferenceFunctionStrategy> P_strategy(createAndInitStrategy());
-
-    calculateCoherentIntensity(P_strategy.get());
 }
 
 IInterferenceFunctionStrategy* DecoratedLayerComputation::createAndInitStrategy() const
@@ -66,7 +66,7 @@ void DecoratedLayerComputation::calculateCoherentIntensity(
     msglog(MSG::DEBUG2) << "LayerDecoratorComputation::calculateCoh...()";
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
-    bool polarization_present = checkPolarizationPresent();
+    bool polarization_present = mp_simulation->getSample()->containsMagneticMaterial();
 
     for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
         if (!m_progress.update())
@@ -82,4 +82,12 @@ void DecoratedLayerComputation::calculateCoherentIntensity(
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
     }
     m_progress.finished();
+}
+
+void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
+{
+    if (mp_specular_info != &specular_info) {
+        delete mp_specular_info;
+        mp_specular_info = specular_info.clone();
+    }
 }

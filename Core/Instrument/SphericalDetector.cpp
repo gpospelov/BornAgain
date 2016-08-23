@@ -222,7 +222,7 @@ kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
 {
     double phi = m_phi + x*m_dphi;
     double alpha = m_alpha + y*m_dalpha;
-    return Geometry::vecOfLambdaAlphaPhi(wavelength, alpha, phi);
+    return vecOfLambdaAlphaPhi(wavelength, alpha, phi);
 }
 
 double AngularPixelMap::getIntegrationFactor(double /* x */, double y) const

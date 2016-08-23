@@ -17,24 +17,24 @@
 #include <Eigen/LU>
 
 
-Geometry::Transform3D::Transform3D()
+Transform3D::Transform3D()
 {
     m_matrix.setIdentity();
     m_inverse_matrix.setIdentity();
 }
 
-Geometry::Transform3D::Transform3D(const Transform3D& other)
+Transform3D::Transform3D(const Transform3D& other)
 : m_matrix(other.m_matrix)
 , m_inverse_matrix(other.m_inverse_matrix)
 {
 }
 
-Geometry::Transform3D Geometry::Transform3D::createIdentity()
+Transform3D Transform3D::createIdentity()
 {
-    return Geometry::Transform3D();
+    return Transform3D();
 }
 
-Geometry::Transform3D Geometry::Transform3D::createRotateX(double phi)
+Transform3D Transform3D::createRotateX(double phi)
 {
     double cosine = std::cos(phi);
     double sine = std::sin(phi);
@@ -47,7 +47,7 @@ Geometry::Transform3D Geometry::Transform3D::createRotateX(double phi)
     return Transform3D(matrix);
 }
 
-Geometry::Transform3D Geometry::Transform3D::createRotateY(double phi)
+Transform3D Transform3D::createRotateY(double phi)
 {
     double cosine = std::cos(phi);
     double sine = std::sin(phi);
@@ -60,7 +60,7 @@ Geometry::Transform3D Geometry::Transform3D::createRotateY(double phi)
     return Transform3D(matrix);
 }
 
-Geometry::Transform3D Geometry::Transform3D::createRotateZ(double phi)
+Transform3D Transform3D::createRotateZ(double phi)
 {
     double cosine = std::cos(phi);
     double sine = std::sin(phi);
@@ -73,7 +73,7 @@ Geometry::Transform3D Geometry::Transform3D::createRotateZ(double phi)
     return Transform3D(matrix);
 }
 
-Geometry::Transform3D Geometry::Transform3D::createRotateEuler(
+Transform3D Transform3D::createRotateEuler(
     double alpha, double beta, double gamma)
 {
     Transform3D zrot = createRotateZ(alpha);
@@ -82,7 +82,7 @@ Geometry::Transform3D Geometry::Transform3D::createRotateEuler(
     return zrot2*xrot*zrot;
 }
 
-void Geometry::Transform3D::calculateEulerAngles(
+void Transform3D::calculateEulerAngles(
     double *p_alpha, double *p_beta, double *p_gamma) const
 {
     // First check if second angle is zero or pi
@@ -97,31 +97,31 @@ void Geometry::Transform3D::calculateEulerAngles(
     }
 }
 
-Geometry::Transform3D Geometry::Transform3D::getInverse() const
+Transform3D Transform3D::getInverse() const
 {
     Transform3D result(m_inverse_matrix);
     return result;
 }
 
-Geometry::BasicVector3D<double> Geometry::Transform3D::transformed(
+BasicVector3D<double> Transform3D::transformed(
         const BasicVector3D<double>& v) const
 {
     double x = m_matrix(0,0)*v.x() + m_matrix(0,1)*v.y() + m_matrix(0,2)*v.z();
     double y = m_matrix(1,0)*v.x() + m_matrix(1,1)*v.y() + m_matrix(1,2)*v.z();
     double z = m_matrix(2,0)*v.x() + m_matrix(2,1)*v.y() + m_matrix(2,2)*v.z();
-    return Geometry::BasicVector3D<double>(x, y, z);
+    return BasicVector3D<double>(x, y, z);
 }
 
-Geometry::BasicVector3D<complex_t> Geometry::Transform3D::transformed(
+BasicVector3D<complex_t> Transform3D::transformed(
         const BasicVector3D<complex_t>& v) const
 {
     complex_t x = m_matrix(0,0)*v.x() + m_matrix(0,1)*v.y() + m_matrix(0,2)*v.z();
     complex_t y = m_matrix(1,0)*v.x() + m_matrix(1,1)*v.y() + m_matrix(1,2)*v.z();
     complex_t z = m_matrix(2,0)*v.x() + m_matrix(2,1)*v.y() + m_matrix(2,2)*v.z();
-    return Geometry::BasicVector3D<complex_t>(x, y, z);
+    return BasicVector3D<complex_t>(x, y, z);
 }
 
-Geometry::BasicVector3D<double> Geometry::Transform3D::transformedInverse(
+BasicVector3D<double> Transform3D::transformedInverse(
         const BasicVector3D<double>& v) const
 {
     double x = m_inverse_matrix(0,0)*v.x() + m_inverse_matrix(0,1)*v.y()
@@ -130,10 +130,10 @@ Geometry::BasicVector3D<double> Geometry::Transform3D::transformedInverse(
             + m_inverse_matrix(1,2)*v.z();
     double z = m_inverse_matrix(2,0)*v.x() + m_inverse_matrix(2,1)*v.y()
             + m_inverse_matrix(2,2)*v.z();
-    return Geometry::BasicVector3D<double>(x, y, z);
+    return BasicVector3D<double>(x, y, z);
 }
 
-Geometry::BasicVector3D<complex_t> Geometry::Transform3D::transformedInverse(
+BasicVector3D<complex_t> Transform3D::transformedInverse(
         const BasicVector3D<complex_t>& v) const
 {
     complex_t x = m_inverse_matrix(0,0)*v.x() + m_inverse_matrix(0,1)*v.y()
@@ -142,27 +142,27 @@ Geometry::BasicVector3D<complex_t> Geometry::Transform3D::transformedInverse(
             + m_inverse_matrix(1,2)*v.z();
     complex_t z = m_inverse_matrix(2,0)*v.x() + m_inverse_matrix(2,1)*v.y()
             + m_inverse_matrix(2,2)*v.z();
-    return Geometry::BasicVector3D<complex_t>(x, y, z);
+    return BasicVector3D<complex_t>(x, y, z);
 }
 
-Geometry::Transform3D* Geometry::Transform3D::clone() const
+Transform3D* Transform3D::clone() const
 {
-    return new Geometry::Transform3D(m_matrix);
+    return new Transform3D(m_matrix);
 }
 
-Geometry::Transform3D Geometry::Transform3D::operator*(
+Transform3D Transform3D::operator*(
         const Transform3D& other) const
 {
     Eigen::Matrix3d product_matrix = this->m_matrix * other.m_matrix;
-    return Geometry::Transform3D(product_matrix);
+    return Transform3D(product_matrix);
 }
 
-bool Geometry::Transform3D::operator==(const Geometry::Transform3D &other) const
+bool Transform3D::operator==(const Transform3D &other) const
 {
     return this->m_matrix == other.m_matrix;
 }
 
-Geometry::Transform3D::ERotationType Geometry::Transform3D::getRotationType()
+Transform3D::ERotationType Transform3D::getRotationType()
         const
 {
     if (isXRotation()) return XAXIS;
@@ -171,25 +171,25 @@ Geometry::Transform3D::ERotationType Geometry::Transform3D::getRotationType()
     return EULER;
 }
 
-bool Geometry::Transform3D::isIdentity() const
+bool Transform3D::isIdentity() const
 {
     double alpha, beta, gamma;
     calculateEulerAngles(&alpha, &beta, &gamma);
     return (alpha==0.0 && beta==0.0 && gamma==0.0);
 }
 
-void Geometry::Transform3D::print(std::ostream& ostr) const
+void Transform3D::print(std::ostream& ostr) const
 {
     ostr << "Transform3D: " << m_matrix;
 }
 
-Geometry::Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
+Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
 : m_matrix(matrix)
 {
     m_inverse_matrix = m_matrix.inverse();
 }
 
-bool Geometry::Transform3D::isXRotation() const
+bool Transform3D::isXRotation() const
 {
     if (m_matrix(0,0) != 1.0) return false;
     if (m_matrix(0,1) != 0.0) return false;
@@ -199,7 +199,7 @@ bool Geometry::Transform3D::isXRotation() const
     return true;
 }
 
-bool Geometry::Transform3D::isYRotation() const
+bool Transform3D::isYRotation() const
 {
     if (m_matrix(1,1) != 1.0) return false;
     if (m_matrix(0,1) != 0.0) return false;
@@ -209,7 +209,7 @@ bool Geometry::Transform3D::isYRotation() const
     return true;
 }
 
-bool Geometry::Transform3D::isZRotation() const
+bool Transform3D::isZRotation() const
 {
     if (m_matrix(2,2) != 1.0) return false;
     if (m_matrix(0,2) != 0.0) return false;

@@ -494,21 +494,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -557,6 +557,36 @@ clone method
 %feature("docstring") Exceptions::ClassInitializationException "";
 
 %feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
+";
+
+
+// File: classComputationOutcome.xml
+%feature("docstring") ComputationOutcome "
+
+Completion status (flag and text) of a numeric computation. Pure virtual base class for our model evaluation routines. Currently, the only child is Computations, which is the base for some more classes.
+
+C++ includes: ComputationOutcome.h
+";
+
+%feature("docstring")  ComputationOutcome::ComputationOutcome "ComputationOutcome::ComputationOutcome()
+";
+
+%feature("docstring")  ComputationOutcome::isCompleted "bool ComputationOutcome::isCompleted() const 
+";
+
+%feature("docstring")  ComputationOutcome::getRunMessage "std::string ComputationOutcome::getRunMessage() const 
+";
+
+%feature("docstring")  ComputationOutcome::setRunning "void ComputationOutcome::setRunning()
+";
+
+%feature("docstring")  ComputationOutcome::setCompleted "void ComputationOutcome::setCompleted()
+";
+
+%feature("docstring")  ComputationOutcome::setFailed "void ComputationOutcome::setFailed()
+";
+
+%feature("docstring")  ComputationOutcome::setRunMessage "void ComputationOutcome::setRunMessage(const std::string &message)
 ";
 
 
@@ -960,21 +990,24 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classDecoratedLayerDWBASimulation.xml
-%feature("docstring") DecoratedLayerDWBASimulation "
+// File: classDecoratedLayerComputation.xml
+%feature("docstring") DecoratedLayerComputation "
 
-Computes the scattering contribution from one layer with particles in/on it. Controlled by  MultiLayerDWBASimulation.
+Computes the scattering contribution from one layer with particles in/on it. Controlled by  MainComputation.
 
-C++ includes: DecoratedLayerDWBASimulation.h
+C++ includes: DecoratedLayerComputation.h
 ";
 
-%feature("docstring")  DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation "DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(const Layer *p_layer, size_t layout_index=0)
+%feature("docstring")  DecoratedLayerComputation::DecoratedLayerComputation "DecoratedLayerComputation::DecoratedLayerComputation(const Layer *p_layer, size_t layout_index=0)
 ";
 
-%feature("docstring")  DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation "DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation() final
+%feature("docstring")  DecoratedLayerComputation::~DecoratedLayerComputation "DecoratedLayerComputation::~DecoratedLayerComputation() final
 ";
 
-%feature("docstring")  DecoratedLayerDWBASimulation::run "void DecoratedLayerDWBASimulation::run() final
+%feature("docstring")  DecoratedLayerComputation::run "void DecoratedLayerComputation::run() final
+";
+
+%feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
 ";
 
 
@@ -1385,37 +1418,6 @@ C++ includes: DWBADiffuseReflection.h
 ";
 
 %feature("docstring")  DWBADiffuseReflection::setKvectors "void DWBADiffuseReflection::setKvectors(const kvector_t ki, const kvector_t kf)
-";
-
-
-// File: classDWBASimulation.xml
-%feature("docstring") DWBASimulation "
-
-Base class for DWBA computation  MultiLayerDWBASimulation, and for sub-computations  MultiLayerRoughnessDWBASimulation and  DecoratedLayerDWBASimulation (via  LayerDWBASimulation). Controlled by class  Simulation.
-
-C++ includes: DWBASimulation.h
-";
-
-%feature("docstring")  DWBASimulation::DWBASimulation "DWBASimulation::DWBASimulation()
-";
-
-%feature("docstring")  DWBASimulation::~DWBASimulation "DWBASimulation::~DWBASimulation()
-";
-
-%feature("docstring")  DWBASimulation::clone "DWBASimulation * DWBASimulation::clone() const 
-";
-
-%feature("docstring")  DWBASimulation::run "virtual void DWBASimulation::run()
-";
-
-%feature("docstring")  DWBASimulation::init "void DWBASimulation::init(const SimulationOptions &options, const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
-
-Initializes the simulation with the parameters from simulation. 
-";
-
-%feature("docstring")  DWBASimulation::getDWBAIntensity "const OutputData<double>& DWBASimulation::getDWBAIntensity() const
-
-Returns output data containing calculated intensity. 
 ";
 
 
@@ -2943,50 +2945,6 @@ Returns scattering amplitude for matrix interactions.
 ";
 
 
-// File: classFormFactorDecoratorMultiPositionFactor.xml
-%feature("docstring") FormFactorDecoratorMultiPositionFactor "
-
-The formfactor for the same particle at different fixed positions.
-
-If several particle components are at the same position, use  FormFactorWeighted.
-
-C++ includes: FormFactorDecoratorMultiPositionFactor.h
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor "FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor, const std::vector< kvector_t > &positions)
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::clone "FormFactorDecoratorMultiPositionFactor * FormFactorDecoratorMultiPositionFactor::clone() const final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::accept "void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const final
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::getVolume "double FormFactorDecoratorMultiPositionFactor::getVolume() const final
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::getRadialExtension "double FormFactorDecoratorMultiPositionFactor::getRadialExtension() const final
-
-throws makes-no-sense exception 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluate "complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo &wavevectors) const final
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const final
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
 // File: classFormFactorDecoratorPositionFactor.xml
 %feature("docstring") FormFactorDecoratorPositionFactor "
 
@@ -4474,7 +4432,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
 
 Coherent sum of different scalar  IFormFactor's with different weights, at the same position.
 
-Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, use  FormFactorDecoratorMultiPositionFactor instead.
+Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, use FormFactorDecoratorMultiPositionFactor instead.
 
 C++ includes: FormFactorWeighted.h
 ";
@@ -5607,20 +5565,11 @@ Sets data rescaler.
 // File: classICloneable.xml
 %feature("docstring") ICloneable "
 
-Interface for objects that must not be copied, except by cloning.
+Mix-in for objects that must not be copied, except by cloning.
 
-This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
+The base class  INoncopyable disables the copy constructor and the operator= in all its child classes. Child classes of  ICloneable should provide clone().
 
 C++ includes: ICloneable.h
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
-";
-
-%feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()
 ";
 
 %feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
@@ -5728,6 +5677,29 @@ Returns number of children.
 %feature("docstring")  ICompositeSample::addParametersToExternalPool "std::string ICompositeSample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
+";
+
+
+// File: classIComputation.xml
+%feature("docstring") IComputation "
+
+Base class for DWBA computation  MainComputation, and for sub-computations  RoughMultiLayerComputation and  DecoratedLayerComputation (via LayerComputation). Controlled by class  Simulation.
+
+C++ includes: IComputation.h
+";
+
+%feature("docstring")  IComputation::IComputation "IComputation::IComputation()
+";
+
+%feature("docstring")  IComputation::~IComputation "IComputation::~IComputation()
+";
+
+%feature("docstring")  IComputation::run "virtual void IComputation::run()
+";
+
+%feature("docstring")  IComputation::init "void IComputation::init(const SimulationOptions &options, const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
+
+Initializes the simulation with the parameters from simulation. 
 ";
 
 
@@ -7038,6 +7010,26 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
+// File: classINoncopyable.xml
+%feature("docstring") INoncopyable "
+
+Mix-in for objects that must not be copied.
+
+This virtual base class disables the copy constructor and the operator= in all its child classes.
+
+C++ includes: INoncopyable.h
+";
+
+%feature("docstring")  INoncopyable::INoncopyable "INoncopyable::INoncopyable()
+";
+
+%feature("docstring")  INoncopyable::~INoncopyable "virtual INoncopyable::~INoncopyable()
+";
+
+%feature("docstring")  INoncopyable::INoncopyable "INoncopyable::INoncopyable(const INoncopyable &)=delete
+";
+
+
 // File: classInstrument.xml
 %feature("docstring") Instrument "
 
@@ -8214,9 +8206,6 @@ C++ includes: ISampleVisitor.h
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMaterial *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
-";
-
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorPositionFactor *)
 ";
 
@@ -8367,33 +8356,6 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 Dummy interface used to construct INamedShared and IParameterizedShared.
 
 C++ includes: IShareable.h
-";
-
-
-// File: classISimulation.xml
-%feature("docstring") ISimulation "
-
-Pure virtual base class, encapsulating most simulations (but not those of type  Simulation or  SpecularSimulation). Currently, the only child is DWBASimulations, which is the base for some more classes.
-
-C++ includes: ISimulation.h
-";
-
-%feature("docstring")  ISimulation::ISimulation "ISimulation::ISimulation()
-";
-
-%feature("docstring")  ISimulation::~ISimulation "virtual ISimulation::~ISimulation()
-";
-
-%feature("docstring")  ISimulation::clone "virtual ISimulation* ISimulation::clone() const =0
-";
-
-%feature("docstring")  ISimulation::run "virtual void ISimulation::run()=0
-";
-
-%feature("docstring")  ISimulation::isCompleted "bool ISimulation::isCompleted() const 
-";
-
-%feature("docstring")  ISimulation::getRunMessage "std::string ISimulation::getRunMessage() const 
 ";
 
 
@@ -8819,7 +8781,7 @@ squared refractive index
 %feature("docstring")  Layer::getLayout "const ILayout * Layer::getLayout(size_t i) const 
 ";
 
-%feature("docstring")  Layer::hasDWBASimulation "bool Layer::hasDWBASimulation() const
+%feature("docstring")  Layer::hasComputation "bool Layer::hasComputation() const
 
 Returns true if decoration is present. 
 ";
@@ -8834,30 +8796,6 @@ Returns true if decoration is present.
 ";
 
 %feature("docstring")  Layer::getNumberOfLayers "size_t Layer::getNumberOfLayers() const 
-";
-
-
-// File: classLayerDWBASimulation.xml
-%feature("docstring") LayerDWBASimulation "
-
-Pure virtual base class for DWBA simulations in a layer. Sole child is  DecoratedLayerDWBASimulation.
-
-C++ includes: LayerDWBASimulation.h
-";
-
-%feature("docstring")  LayerDWBASimulation::LayerDWBASimulation "LayerDWBASimulation::LayerDWBASimulation(const Layer *p_layer)
-";
-
-%feature("docstring")  LayerDWBASimulation::~LayerDWBASimulation "LayerDWBASimulation::~LayerDWBASimulation()
-";
-
-%feature("docstring")  LayerDWBASimulation::clone "LayerDWBASimulation * LayerDWBASimulation::clone() const 
-";
-
-%feature("docstring")  LayerDWBASimulation::run "void LayerDWBASimulation::run()=0
-";
-
-%feature("docstring")  LayerDWBASimulation::setSpecularInfo "void LayerDWBASimulation::setSpecularInfo(const LayerSpecularInfo &specular_info)
 ";
 
 
@@ -9025,7 +8963,7 @@ Retrieves the amplitude coefficients for an incoming wavevector.
 // File: classLayerStrategyBuilder.xml
 %feature("docstring") LayerStrategyBuilder "
 
-Methods to generate a simulation strategy for  DecoratedLayerDWBASimulation.
+Methods to generate a simulation strategy for  DecoratedLayerComputation.
 
 C++ includes: LayerStrategyBuilder.h
 ";
@@ -9169,6 +9107,35 @@ C++ includes: MagneticParticlesBuilder.h
 ";
 
 %feature("docstring")  MagneticParticleZeroFieldBuilder::buildSample "MultiLayer * MagneticParticleZeroFieldBuilder::buildSample() const 
+";
+
+
+// File: classMainComputation.xml
+%feature("docstring") MainComputation "
+
+Performs a DWBA calculation with given sample and simulation parameters
+
+C++ includes: MainComputation.h
+";
+
+%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer *p_multi_layer)
+";
+
+%feature("docstring")  MainComputation::~MainComputation "MainComputation::~MainComputation() final
+";
+
+%feature("docstring")  MainComputation::init "void MainComputation::init(const SimulationOptions &options, const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it) final
+
+Initializes the simulation with the parameters from simulation. 
+";
+
+%feature("docstring")  MainComputation::run "void MainComputation::run() final
+";
+
+%feature("docstring")  MainComputation::isCompleted "bool MainComputation::isCompleted() const 
+";
+
+%feature("docstring")  MainComputation::getRunMessage "std::string MainComputation::getRunMessage() const 
 ";
 
 
@@ -9599,61 +9566,6 @@ returns layer index corresponding to given global z coordinate
 ";
 
 %feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const 
-";
-
-
-// File: classMultiLayerDWBASimulation.xml
-%feature("docstring") MultiLayerDWBASimulation "
-
-Performs a DWBA calculation with given sample and simulation parameters
-
-C++ includes: MultiLayerDWBASimulation.h
-";
-
-%feature("docstring")  MultiLayerDWBASimulation::MultiLayerDWBASimulation "MultiLayerDWBASimulation::MultiLayerDWBASimulation(const MultiLayer *p_multi_layer)
-";
-
-%feature("docstring")  MultiLayerDWBASimulation::~MultiLayerDWBASimulation "MultiLayerDWBASimulation::~MultiLayerDWBASimulation() final
-";
-
-%feature("docstring")  MultiLayerDWBASimulation::clone "MultiLayerDWBASimulation * MultiLayerDWBASimulation::clone() const final
-";
-
-%feature("docstring")  MultiLayerDWBASimulation::init "void MultiLayerDWBASimulation::init(const SimulationOptions &options, const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it) final
-
-Initializes the simulation with the parameters from simulation. 
-";
-
-%feature("docstring")  MultiLayerDWBASimulation::run "void MultiLayerDWBASimulation::run() final
-";
-
-
-// File: classMultiLayerRoughnessDWBASimulation.xml
-%feature("docstring") MultiLayerRoughnessDWBASimulation "
-
-Computes the diffuse reflection from the rough interfaces of a multilayer. Controlled by  MultiLayerDWBASimulation.
-
-C++ includes: MultiLayerRoughnessDWBASimulation.h
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(const MultiLayer *p_multi_layer)
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation() final
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::clone "MultiLayerRoughnessDWBASimulation * MultiLayerRoughnessDWBASimulation::clone() const final
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::run "void MultiLayerRoughnessDWBASimulation::run() final
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::setSpecularInfo "void MultiLayerRoughnessDWBASimulation::setSpecularInfo(size_t i_layer, const LayerSpecularInfo &specular_info)
-
-Sets magnetic reflection/transmission info for specific layer. 
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::evaluate "double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement &sim_element)
 ";
 
 
@@ -11116,7 +11028,7 @@ C++ includes: Precomputed.h
 
 Provides the functionality to calculate the progress of running simulation and report it to GUI.
 
-Thread safe to be used from  DWBASimulation
+Thread safe to be used from Computation
 
 C++ includes: ProgressHandler.h
 ";
@@ -11129,7 +11041,7 @@ C++ includes: ProgressHandler.h
 
 %feature("docstring")  ProgressHandler::update "bool ProgressHandler::update(int n)
 
-Collects number of items processed by different  DWBASimulation's. Calculates general progress and inform GUI if progress has changed. Return flag is obtained from GUI and transferred to  DWBASimulation to ask them to stop calculations. 
+Collects number of items processed by different Computation's. Calculates general progress and inform GUI if progress has changed. Return flag is obtained from GUI and transferred to Computation to ask them to stop calculations. 
 ";
 
 %feature("docstring")  ProgressHandler::setNmaxItems "void ProgressHandler::setNmaxItems(long max)
@@ -11143,7 +11055,7 @@ Collects number of items processed by different  DWBASimulation's. Calculates ge
 
 %feature("docstring")  ProgressHandler::init "void ProgressHandler::init(Simulation *simulation, int param_combinations=1)
 
-Initialize  ProgressHandler, estimates number of items to be calculated by  DWBASimulation's. 
+Initialize  ProgressHandler, estimates number of items to be calculated by Computation's. 
 ";
 
 %feature("docstring")  ProgressHandler::reset "void ProgressHandler::reset()
@@ -11153,7 +11065,7 @@ Initialize  ProgressHandler, estimates number of items to be calculated by  DWBA
 // File: classProgressHandlerDWBA.xml
 %feature("docstring") ProgressHandlerDWBA "
 
-Holds number of items processed by  DWBASimulation, and informs  Simulation every time n items have been processed.
+Holds number of items processed by Computation, and informs  Simulation every time n items have been processed.
 
 C++ includes: ProgressHandlerDWBA.h
 ";
@@ -11663,6 +11575,32 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  RotationZ::getTransform3D "Geometry::Transform3D RotationZ::getTransform3D() const
 
 Returns transformation. 
+";
+
+
+// File: classRoughMultiLayerComputation.xml
+%feature("docstring") RoughMultiLayerComputation "
+
+Computes the diffuse reflection from the rough interfaces of a multilayer. Controlled by  MainComputation.
+
+C++ includes: RoughMultiLayerComputation.h
+";
+
+%feature("docstring")  RoughMultiLayerComputation::RoughMultiLayerComputation "RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
+";
+
+%feature("docstring")  RoughMultiLayerComputation::~RoughMultiLayerComputation "RoughMultiLayerComputation::~RoughMultiLayerComputation() final
+";
+
+%feature("docstring")  RoughMultiLayerComputation::run "void RoughMultiLayerComputation::run() final
+";
+
+%feature("docstring")  RoughMultiLayerComputation::setSpecularInfo "void RoughMultiLayerComputation::setSpecularInfo(size_t i_layer, const LayerSpecularInfo &specular_info)
+
+Sets magnetic reflection/transmission info for specific layer. 
+";
+
+%feature("docstring")  RoughMultiLayerComputation::evaluate "double RoughMultiLayerComputation::evaluate(const SimulationElement &sim_element)
 ";
 
 
@@ -13101,13 +13039,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D266.xml
+// File: namespace_0D302.xml
 
 
-// File: namespace_0D306.xml
+// File: namespace_0D426.xml
 
 
-// File: namespace_0D430.xml
+// File: namespace_0D55.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13663,6 +13601,9 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: INamed_8h.xml
 
 
+// File: INoncopyable_8h.xml
+
+
 // File: IShareable_8h.xml
 
 
@@ -13673,9 +13614,6 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: Pi_8h.xml
-
-
-// File: SafePointerVector_8h.xml
 
 
 // File: Bin_8cpp.xml
@@ -13745,6 +13683,33 @@ Set all element intensities to given value.
 // File: VariableBinAxis_8h.xml
 
 
+// File: ComputationOutcome_8h.xml
+
+
+// File: DecoratedLayerComputation_8cpp.xml
+
+
+// File: DecoratedLayerComputation_8h.xml
+
+
+// File: IComputation_8cpp.xml
+
+
+// File: IComputation_8h.xml
+
+
+// File: MainComputation_8cpp.xml
+
+
+// File: MainComputation_8h.xml
+
+
+// File: RoughMultiLayerComputation_8cpp.xml
+
+
+// File: RoughMultiLayerComputation_8h.xml
+
+
 // File: FormFactorDecoratorDebyeWaller_8cpp.xml
 
 
@@ -13761,12 +13726,6 @@ Set all element intensities to given value.
 
 
 // File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8h.xml
 
 
 // File: FormFactorDecoratorPositionFactor_8cpp.xml
@@ -14393,39 +14352,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: Materials_8h.xml
 
 
-// File: DecoratedLayerDWBASimulation_8cpp.xml
-
-
-// File: DecoratedLayerDWBASimulation_8h.xml
-
-
-// File: DWBASimulation_8cpp.xml
-
-
-// File: DWBASimulation_8h.xml
-
-
-// File: ISimulation_8h.xml
-
-
-// File: LayerDWBASimulation_8cpp.xml
-
-
-// File: LayerDWBASimulation_8h.xml
-
-
-// File: MultiLayerDWBASimulation_8cpp.xml
-
-
-// File: MultiLayerDWBASimulation_8h.xml
-
-
-// File: MultiLayerRoughnessDWBASimulation_8cpp.xml
-
-
-// File: MultiLayerRoughnessDWBASimulation_8h.xml
-
-
 // File: DecouplingApproximationStrategy_8cpp.xml
 
 
@@ -15013,6 +14939,9 @@ David N. Williams
 // File: Precomputed_8h.xml
 
 
+// File: SafePointerVector_8h.xml
+
+
 // File: Utils_8cpp.xml
 
 
@@ -15055,6 +14984,9 @@ David N. Williams
 // File: dir_629bf8536959f2975d8caec326cd60c0.xml
 
 
+// File: dir_7de90f35ae2a2c7b4fa95823d333cc96.xml
+
+
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
@@ -15086,9 +15018,6 @@ David N. Williams
 
 
 // File: dir_0bf70e747e161ad6105733dd3b116e64.xml
-
-
-// File: dir_64d3775286abea4bac90524f9566de97.xml
 
 
 // File: dir_c21740227f50b02f28bdacfb625f042a.xml

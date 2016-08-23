@@ -25,8 +25,6 @@
 
 static const double PI2 = 6.28318530717958647692528676655900577;
 
-namespace Geometry {
-
 //! Three-dimensional vector template, for use with integer, double, or complex components.
 //! @ingroup tools_internal
 
@@ -314,7 +312,5 @@ template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<std::complex<double>
 
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
     BasicVector3D<std::complex<double>>::unit() const;
-
-}  // namespace Geometry
 
 #endif // BASICVECTOR3D_H

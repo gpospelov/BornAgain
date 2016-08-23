@@ -54,7 +54,7 @@ public:
 #endif
 
     //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial* createTransformedMaterial(const Geometry::Transform3D&) const {
+    virtual const IMaterial* createTransformedMaterial(const Transform3D&) const {
         return new HomogeneousMaterial(getName(), getRefractiveIndex()); }
 
 protected:

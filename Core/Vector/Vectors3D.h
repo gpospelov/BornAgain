@@ -18,8 +18,8 @@
 
 #include "BasicVector3D.h"
 
-typedef Geometry::BasicVector3D<int> ivector_t;
-typedef Geometry::BasicVector3D<double> kvector_t;
-typedef Geometry::BasicVector3D<std::complex<double>> cvector_t;
+typedef BasicVector3D<int> ivector_t;
+typedef BasicVector3D<double> kvector_t;
+typedef BasicVector3D<std::complex<double>> cvector_t;
 
 #endif // VECTORS3D_H

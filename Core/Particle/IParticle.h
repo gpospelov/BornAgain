@@ -43,7 +43,7 @@ public:
     //! Create a form factor for this particle
     IFormFactor* createFormFactor() const;
 
-    //! Create a form factor for this particle with an extra scattering factor
+    //! Create a form factor for this particle with an extra transformation
     virtual IFormFactor* createTransformedFormFactor(
         const IRotation* p_rotation, kvector_t translation) const =0;
 

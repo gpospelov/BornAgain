@@ -28,7 +28,7 @@ class RoughMultiLayerComputation;
 //! Performs a DWBA calculation with given sample and simulation parameters
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MainComputation : public IComputation
+class BA_CORE_API_ MainComputation
 {
 public:
     MainComputation(
@@ -37,19 +37,27 @@ public:
         const Simulation& simulation,
         const std::vector<SimulationElement>::iterator& begin_it,
         const std::vector<SimulationElement>::iterator& end_it);
-    ~MainComputation() final;
+    ~MainComputation();
 
-    void run() final;
+    void run();
 
     bool isCompleted() const { return m_outcome.isCompleted(); }
     std::string getRunMessage() const { return m_outcome.getRunMessage(); }
 
 private:
-    void runProtected() final;
+    void runProtected();
 
     //! calculates intensity map for samples with magnetization
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
+
+    //! Iterators that defines the sequence of elements that this simulation will work on
+    std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
+
+    Simulation* mp_simulation;
+    SimulationOptions m_sim_options;
+
+    ProgressHandlerDWBA m_progress;
 
     std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
     MultiLayer* mp_multi_layer;

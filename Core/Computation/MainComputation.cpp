@@ -33,18 +33,26 @@
 #include <algorithm>
 #include <iterator>
 
+#include <iostream>
+
 MainComputation::MainComputation(
     const MultiLayer* p_multi_layer,
     const SimulationOptions& options,
     const Simulation& simulation,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
-    : mp_roughness_computation(nullptr)
+    : mp_simulation(simulation.clone())
+    , m_sim_options(options)
+    , mp_roughness_computation(nullptr)
 {
     mp_multi_layer = p_multi_layer->clone();
 
     msglog(MSG::DEBUG2) << "MainComputation::init()";
-    IComputation::init(options, simulation, begin_it, end_it);
+    m_begin_it = begin_it;
+    m_end_it = end_it;
+
+    // initialising call backs
+    mp_simulation->initProgressHandlerDWBA(&m_progress);
 
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         m_layer_computation.push_back({});
@@ -63,8 +71,13 @@ MainComputation::MainComputation(
 
 MainComputation::~MainComputation()
 {
+    std::cout << "DEBUG1\n";
+    delete mp_simulation;
+    std::cout << "DEBUG2\n";
     delete mp_multi_layer;
+    std::cout << "DEBUG3\n";
     delete mp_roughness_computation;
+    std::cout << "DEBUG4\n";
 }
 
 void MainComputation::run()

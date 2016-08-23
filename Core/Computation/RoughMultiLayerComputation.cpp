@@ -48,8 +48,6 @@ RoughMultiLayerComputation::~RoughMultiLayerComputation()
 {
     for(size_t i=0; i<mp_specular_info_vector.size(); ++i)
         delete mp_specular_info_vector[i];
-
-    delete mp_multi_layer;
 }
 
 void RoughMultiLayerComputation::eval(

@@ -16,14 +16,17 @@
 #ifndef MULTILAYERCOMPUTATION_H
 #define MULTILAYERCOMPUTATION_H
 
-#include "IComputation.h"
 #include "ComputationOutcome.h"
 #include "Complex.h"
-#include <map>
+#include "ProgressHandlerDWBA.h"
+#include "SimulationOptions.h"
+#include <vector>
 
 class DecoratedLayerComputation;
 class MultiLayer;
 class RoughMultiLayerComputation;
+class Simulation;
+class SimulationElement;
 
 //! Performs a DWBA calculation with given sample and simulation parameters
 //! @ingroup algorithms_internal

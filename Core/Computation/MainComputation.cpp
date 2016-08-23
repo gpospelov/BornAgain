@@ -33,8 +33,6 @@
 #include <algorithm>
 #include <iterator>
 
-#include <iostream>
-
 MainComputation::MainComputation(
     const MultiLayer* p_multi_layer,
     const SimulationOptions& options,
@@ -71,13 +69,9 @@ MainComputation::MainComputation(
 
 MainComputation::~MainComputation()
 {
-    std::cout << "DEBUG1\n";
     delete mp_simulation;
-    std::cout << "DEBUG2\n";
     delete mp_multi_layer;
-    std::cout << "DEBUG3\n";
     delete mp_roughness_computation;
-    std::cout << "DEBUG4\n";
 }
 
 void MainComputation::run()

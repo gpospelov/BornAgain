@@ -21,6 +21,7 @@
 class IInterferenceFunctionStrategy;
 class Layer;
 class LayerSpecularInfo;
+class MultiLayer;
 
 //! Computes the scattering contribution from one layer with particles in/on it.
 //! Controlled by MainComputation.
@@ -32,12 +33,13 @@ public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
     ~DecoratedLayerComputation() final;
 
-    void run() final;
+    void eval(bool polarized,
+              const MultiLayer& sample,
+              std::vector<SimulationElement>::iterator begin_it,
+              std::vector<SimulationElement>::iterator end_it);
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
 
 private:
-    IInterferenceFunctionStrategy* createAndInitStrategy() const;
-
     Layer* mp_layer;
     LayerSpecularInfo* mp_specular_info;
     size_t m_layout_index;

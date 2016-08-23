@@ -21,7 +21,6 @@
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
 #include "MultiLayer.h"
-#include "Simulation.h"
 #include "SimulationElement.h"
 
 DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_t layout_index)
@@ -36,14 +35,19 @@ DecoratedLayerComputation::~DecoratedLayerComputation()
     delete mp_specular_info;
 }
 
-void DecoratedLayerComputation::run()
+void DecoratedLayerComputation::eval(
+    bool polarized,
+    const MultiLayer& sample,
+    std::vector<SimulationElement>::iterator begin_it,
+    std::vector<SimulationElement>::iterator end_it)
 {
-    const std::unique_ptr<const IInterferenceFunctionStrategy>
-        p_strategy(createAndInitStrategy());
+    LayerStrategyBuilder builder(*mp_layer, sample, m_sim_options, m_layout_index);
+    assert(mp_specular_info);
+    builder.setRTInfo(*mp_specular_info);
+    const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy(builder.createStrategy());
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
-    bool polarization_present = mp_simulation->getSample()->containsMagneticMaterial();
 
-    for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
+    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!m_progress.update())
             break;
         double alpha_f = it->getAlphaMean();
@@ -51,22 +55,12 @@ void DecoratedLayerComputation::run()
         if (n_layers > 1 && alpha_f < 0)
             continue;
         // each ffdwba: one call to getOutCoeffs
-        if (polarization_present)
+        if (polarized)
             it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
         else
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
     }
     m_progress.finished();
-}
-
-IInterferenceFunctionStrategy* DecoratedLayerComputation::createAndInitStrategy() const
-{
-    LayerStrategyBuilder builder(*mp_layer, *mp_simulation->getSample(),
-                                 m_sim_options, m_layout_index);
-    assert(mp_specular_info);
-    builder.setRTInfo(*mp_specular_info);
-    IInterferenceFunctionStrategy* p_strategy = builder.createStrategy();
-    return p_strategy;
 }
 
 void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)

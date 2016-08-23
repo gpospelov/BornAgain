@@ -25,6 +25,7 @@
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
 #include "ScalarSpecularInfoMap.h"
+#include "Simulation.h"
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 #include "SpecularMatrix.h"
@@ -96,10 +97,12 @@ void MainComputation::runProtected()
     // run through layers and run layer simulations
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
+    bool polarized = mp_simulation->getSample()->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
         for (DecoratedLayerComputation* comp: layer_comp) {
             comp->init(m_sim_options, *mp_simulation, layer_elements.begin(), layer_elements.end());
-            comp->run();
+            comp->eval(polarized, *mp_simulation->getSample(),
+                       layer_elements.begin(), layer_elements.end());
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }
     }

@@ -33,24 +33,16 @@
 #include <algorithm>
 #include <iterator>
 
-MainComputation::MainComputation(const MultiLayer* p_multi_layer)
-    : mp_roughness_computation(nullptr)
-{
-    mp_multi_layer = p_multi_layer->clone();
-}
-
-MainComputation::~MainComputation()
-{
-    delete mp_multi_layer;
-    delete mp_roughness_computation;
-}
-
-void MainComputation::init(
+MainComputation::MainComputation(
+    const MultiLayer* p_multi_layer,
     const SimulationOptions& options,
     const Simulation& simulation,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
+    : mp_roughness_computation(nullptr)
 {
+    mp_multi_layer = p_multi_layer->clone();
+
     msglog(MSG::DEBUG2) << "MainComputation::init()";
     IComputation::init(options, simulation, begin_it, end_it);
 
@@ -67,6 +59,12 @@ void MainComputation::init(
             break;
         }
     }
+}
+
+MainComputation::~MainComputation()
+{
+    delete mp_multi_layer;
+    delete mp_roughness_computation;
 }
 
 void MainComputation::run()

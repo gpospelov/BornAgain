@@ -182,8 +182,7 @@ void Simulation::runSingleSimulation()
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
         std::unique_ptr<MainComputation> P_dwba_simulation(
-            new MainComputation(mP_sample.get()));
-        P_dwba_simulation->init(m_options, *this, batch_start, batch_end);
+            new MainComputation(mP_sample.get(), m_options, *this, batch_start, batch_end));
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
             std::string message = P_dwba_simulation->getRunMessage();
@@ -211,8 +210,6 @@ void Simulation::runSingleSimulation()
             if (i_thread*element_thread_step >= total_batch_elements)
                 break;
             // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
-            MainComputation* p_dwba_simulation = new MainComputation(mP_sample.get());
-
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
@@ -221,7 +218,8 @@ void Simulation::runSingleSimulation()
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
-            p_dwba_simulation->init(m_options, *this, begin_it, end_it);
+            MainComputation* p_dwba_simulation = new MainComputation(
+                mP_sample.get(), m_options, *this, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
         }
 

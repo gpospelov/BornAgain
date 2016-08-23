@@ -31,14 +31,13 @@ class RoughMultiLayerComputation;
 class BA_CORE_API_ MainComputation : public IComputation
 {
 public:
-    MainComputation(const MultiLayer* p_multi_layer);
-    ~MainComputation() final;
-
-    void init(
+    MainComputation(
+        const MultiLayer* p_multi_layer,
         const SimulationOptions& options,
         const Simulation& simulation,
         const std::vector<SimulationElement>::iterator& begin_it,
-        const std::vector<SimulationElement>::iterator& end_it) final;
+        const std::vector<SimulationElement>::iterator& end_it);
+    ~MainComputation() final;
 
     void run() final;
 

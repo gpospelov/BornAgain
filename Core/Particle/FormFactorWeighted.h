@@ -21,8 +21,8 @@
 //! Coherent sum of different scalar IFormFactor's with different weights, at the same position.
 //!
 //! Used by ParticleComposition and ParticleCoreShell.
-//! If particles are at different positions, use FormFactorDecoratorMultiPositionFactor instead.
-//!
+//! If particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor
+//! (restore from commit 0500a26de76).
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ FormFactorWeighted : public IFormFactor

@@ -365,13 +365,6 @@ void ISampleVisitor::visit(const FormFactorDecoratorMaterial*)
         "ISampleVisitor::visit(const FormFactorDecoratorMaterial*) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const FormFactorDecoratorMultiPositionFactor*)
-{
-    throw Exceptions::NotImplementedException("ISampleVisitor::visit(const "
-                                  "FormFactorDecoratorMultiPositionFactor*) -> Error. Not "
-                                  "implemented.");
-}
-
 void ISampleVisitor::visit(const FormFactorDecoratorPositionFactor*)
 {
     throw Exceptions::NotImplementedException(

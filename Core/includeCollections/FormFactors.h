@@ -19,7 +19,6 @@
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorDecoratorFactor.h"
 #include "FormFactorDecoratorMaterial.h"
-#include "FormFactorDecoratorMultiPositionFactor.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorRotation.h"
 #include "FormFactorWeighted.h"

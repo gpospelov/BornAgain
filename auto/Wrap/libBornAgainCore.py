@@ -1463,7 +1463,16 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     """
     return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
 class INoncopyable(_object):
-    """Proxy of C++ INoncopyable class"""
+    """
+
+
+    Mix-in for objects that must not be copied.
+
+    This virtual base class disables the copy constructor and the operator= in all its child classes.
+
+    C++ includes: INoncopyable.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, INoncopyable, name, value)
     __swig_getmethods__ = {}
@@ -1471,7 +1480,12 @@ class INoncopyable(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(INoncopyable self) -> INoncopyable"""
+        """
+        __init__(INoncopyable self) -> INoncopyable
+
+        INoncopyable::INoncopyable(const INoncopyable &)=delete
+
+        """
         this = _libBornAgainCore.new_INoncopyable()
         try:
             self.this.append(this)
@@ -1491,9 +1505,9 @@ class ICloneable(INoncopyable):
     """
 
 
-    Interface for objects that must not be copied, except by cloning.
+    Mix-in for objects that must not be copied, except by cloning.
 
-    This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
+    The base class  INoncopyable disables the copy constructor and the operator= in all its child classes. Child classes of  ICloneable should provide clone().
 
     C++ includes: ICloneable.h
 
@@ -6760,7 +6774,6 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, FormFactorDecoratorDebyeWaller arg2)
         visit(ISampleVisitor self, FormFactorDecoratorFactor const * arg2)
         visit(ISampleVisitor self, FormFactorDecoratorMaterial const * arg2)
-        visit(ISampleVisitor self, FormFactorDecoratorMultiPositionFactor const * arg2)
         visit(ISampleVisitor self, FormFactorDecoratorPositionFactor const * arg2)
         visit(ISampleVisitor self, FormFactorDecoratorRotation const * arg2)
         visit(ISampleVisitor self, IInterferenceFunction arg2)
@@ -14635,7 +14648,7 @@ class FormFactorWeighted(IFormFactor):
 
     Coherent sum of different scalar  IFormFactor's with different weights, at the same position.
 
-    Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, use  FormFactorDecoratorMultiPositionFactor instead.
+    Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, use FormFactorDecoratorMultiPositionFactor instead.
 
     C++ includes: FormFactorWeighted.h
 
@@ -20060,7 +20073,14 @@ class Layer(ICompositeSample):
 
 
     def hasComputation(self):
-        """hasComputation(Layer self) -> bool"""
+        """
+        hasComputation(Layer self) -> bool
+
+        bool Layer::hasComputation() const
+
+        Returns true if decoration is present. 
+
+        """
         return _libBornAgainCore.Layer_hasComputation(self)
 
 

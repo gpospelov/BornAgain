@@ -61,7 +61,7 @@ void Simulation::setTerminalProgressMonitor()
                 std::cout << std::setprecision(2)
                           << "... " << percentage_done << "%\r" << std::flush;
             else // wipe out
-                std::cout << "        " << "%\r" << std::flush;
+                std::cout << "         " << "%\n" << std::flush;
             return true;
         } );
 }

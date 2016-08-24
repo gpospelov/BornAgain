@@ -139,9 +139,9 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(
-        "*/Cylinder/Radius", 6.*nm, ba.Limits.limited(4., 8.))
+        "*/Cylinder/Radius", 6.*nm, ba.RealLimits.limited(4., 8.))
     fit_suite.addFitParameter(
-        "*/Cylinder/Height", 9.*nm, ba.Limits.limited(8., 12.))
+        "*/Cylinder/Height", 9.*nm, ba.RealLimits.limited(8., 12.))
 
     # running fit
     fit_suite.runFit()

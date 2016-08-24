@@ -36,18 +36,16 @@ PyPersistenceTest::PyPersistenceTest(
 //! Runs a Python script, and returns true if the output of the script agrees with reference data.
 bool PyPersistenceTest::runTest()
 {
-    std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
-    std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
-
     // Remove old output
     for (const std::string& fname:
-             FileSystem::reglob(PYPERSIST_OUT_DIR, getName()+"\\.\\w+\\.\\w+")) {
+             FileSystem::reglob(PYPERSIST_OUT_DIR, getName()+"\\.\\w+\\..+")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old output " << fname.c_str() << "\n";
     }
 
     // Run Python script
     std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName()+".py");
+    std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
     if (!runPython(pyscript_filename + " " + dat_stem))
         return false;
 
@@ -58,12 +56,15 @@ bool PyPersistenceTest::runTest()
         std::cerr << "There is no test output of form " << dat_stem << ".*.*\n";
         return false;
     }
+    // Compare the keys in the file names
     if (!compareFileMaps(dat, ref))
         return false;
 
     // Compare files one by one
     for (auto const& it: dat)
-        if (!compareFilePair( it.second, ref[it.first] ) )
+        if (!compareFilePair(
+                FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, it.second),
+                FileSystem::GetJoinPath(PYPERSIST_REF_DIR, ref[it.first])))
             return false;
     return true;
 }
@@ -74,10 +75,10 @@ std::map<const std::string, const std::string>
 PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
 {
     std::map<const std::string, const std::string> ret;
-    for (const std::string& fpath: FileSystem::reglob(dir, stem+"\\.\\w+\\.\\w+")) {
+    for (const std::string& fname: FileSystem::reglob(dir, stem+"\\.\\w+\\..+")) {
         std::vector<std::string> fname_segments =
-            Utils::String::split(FileSystem::filename(fpath), ".");
-        ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
+            Utils::String::split(FileSystem::filename(fname), ".");
+        ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fname));
     }
     return ret;
 }

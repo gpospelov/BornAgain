@@ -70,8 +70,8 @@ std::string FileSystem::filename(const std::string& path)
 std::vector<std::string> FileSystem::reglob(const std::string& dir, const std::string& pattern)
 {
     std::vector<std::string> ret;
-    for (const std::string& fname: filesInDirectory(dir)) {
-        ret.push_back(fname);
-    }
+    for (const std::string& fname: filesInDirectory(dir))
+        if (std::regex_match(fname, std::regex(pattern)))
+            ret.push_back(fname);
     return ret;
 }

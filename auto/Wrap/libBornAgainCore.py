@@ -1453,7 +1453,14 @@ def GetVersionNumber():
     return _libBornAgainCore.GetVersionNumber()
 
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
-    """vecOfLambdaAlphaPhi(double const _lambda, double const _alpha, double const _phi) -> kvector_t"""
+    """
+    vecOfLambdaAlphaPhi(double const _lambda, double const _alpha, double const _phi) -> kvector_t
+
+    BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+
+    Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+
+    """
     return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
 class INoncopyable(_object):
     """
@@ -1718,7 +1725,14 @@ IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
 
 class kvector_t(_object):
-    """Proxy of C++ BasicVector3D<(double)> class"""
+    """
+
+
+    Three-dimensional vector template, for use with integer, double, or complex components.
+
+    C++ includes: BasicVector3D.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, kvector_t, name, value)
     __swig_getmethods__ = {}
@@ -1729,6 +1743,11 @@ class kvector_t(_object):
         """
         __init__(BasicVector3D<(double)> self) -> kvector_t
         __init__(BasicVector3D<(double)> self, double const x1, double const y1, double const z1) -> kvector_t
+
+        BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
+
+        Constructor from cartesian components. 
+
         """
         this = _libBornAgainCore.new_kvector_t(*args)
         try:
@@ -1737,37 +1756,86 @@ class kvector_t(_object):
             self.this = this
 
     def x(self):
-        """x(kvector_t self) -> double"""
+        """
+        x(kvector_t self) -> double
+
+        T BasicVector3D< T >::x() const
+
+        Returns x-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.kvector_t_x(self)
 
 
     def y(self):
-        """y(kvector_t self) -> double"""
+        """
+        y(kvector_t self) -> double
+
+        T BasicVector3D< T >::y() const
+
+        Returns y-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.kvector_t_y(self)
 
 
     def z(self):
-        """z(kvector_t self) -> double"""
+        """
+        z(kvector_t self) -> double
+
+        T BasicVector3D< T >::z() const
+
+        Returns z-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.kvector_t_z(self)
 
 
     def setX(self, a):
-        """setX(kvector_t self, double const & a)"""
+        """
+        setX(kvector_t self, double const & a)
+
+        void BasicVector3D< T >::setX(const T &a)
+
+        Sets x-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.kvector_t_setX(self, a)
 
 
     def setY(self, a):
-        """setY(kvector_t self, double const & a)"""
+        """
+        setY(kvector_t self, double const & a)
+
+        void BasicVector3D< T >::setY(const T &a)
+
+        Sets y-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.kvector_t_setY(self, a)
 
 
     def setZ(self, a):
-        """setZ(kvector_t self, double const & a)"""
+        """
+        setZ(kvector_t self, double const & a)
+
+        void BasicVector3D< T >::setZ(const T &a)
+
+        Sets z-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.kvector_t_setZ(self, a)
 
 
     def setXYZ(self, x1, y1, z1):
-        """setXYZ(kvector_t self, double const & x1, double const & y1, double const & z1)"""
+        """
+        setXYZ(kvector_t self, double const & x1, double const & y1, double const & z1)
+
+        void BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
+
+        Sets components in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.kvector_t_setXYZ(self, x1, y1, z1)
 
 
@@ -1782,72 +1850,168 @@ class kvector_t(_object):
 
 
     def conj(self):
-        """conj(kvector_t self) -> kvector_t"""
+        """
+        conj(kvector_t self) -> kvector_t
+
+        BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
+
+        Returns complex conjugate vector. 
+
+        """
         return _libBornAgainCore.kvector_t_conj(self)
 
 
     def mag2(self):
-        """mag2(kvector_t self) -> double"""
+        """
+        mag2(kvector_t self) -> double
+
+        double BasicVector3D< T >::mag2() const
+
+        Returns squared magnitude squared of the vector. 
+
+        """
         return _libBornAgainCore.kvector_t_mag2(self)
 
 
     def mag(self):
-        """mag(kvector_t self) -> double"""
+        """
+        mag(kvector_t self) -> double
+
+        double BasicVector3D< T >::mag() const
+
+        Returns magnitude of the vector. 
+
+        """
         return _libBornAgainCore.kvector_t_mag(self)
 
 
     def magxy2(self):
-        """magxy2(kvector_t self) -> double"""
+        """
+        magxy2(kvector_t self) -> double
+
+        double BasicVector3D< T >::magxy2() const
+
+        Returns squared distance from z axis. 
+
+        """
         return _libBornAgainCore.kvector_t_magxy2(self)
 
 
     def magxy(self):
-        """magxy(kvector_t self) -> double"""
+        """
+        magxy(kvector_t self) -> double
+
+        double BasicVector3D< T >::magxy() const
+
+        Returns distance from z axis. 
+
+        """
         return _libBornAgainCore.kvector_t_magxy(self)
 
 
     def phi(self):
-        """phi(kvector_t self) -> double"""
+        """
+        phi(kvector_t self) -> double
+
+        double BasicVector3D< T >::phi() const
+
+        Returns azimuth angle. 
+
+        """
         return _libBornAgainCore.kvector_t_phi(self)
 
 
     def theta(self):
-        """theta(kvector_t self) -> double"""
+        """
+        theta(kvector_t self) -> double
+
+        double BasicVector3D< T >::theta() const
+
+        Returns polar angle. 
+
+        """
         return _libBornAgainCore.kvector_t_theta(self)
 
 
     def cosTheta(self):
-        """cosTheta(kvector_t self) -> double"""
+        """
+        cosTheta(kvector_t self) -> double
+
+        double BasicVector3D< T >::cosTheta() const
+
+        Returns cosine of polar angle. 
+
+        """
         return _libBornAgainCore.kvector_t_cosTheta(self)
 
 
     def sin2Theta(self):
-        """sin2Theta(kvector_t self) -> double"""
+        """
+        sin2Theta(kvector_t self) -> double
+
+        double BasicVector3D< T >::sin2Theta() const
+
+        Returns squared sine of polar angle. 
+
+        """
         return _libBornAgainCore.kvector_t_sin2Theta(self)
 
 
     def unit(self):
-        """unit(kvector_t self) -> kvector_t"""
+        """
+        unit(kvector_t self) -> kvector_t
+
+        BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
+
+        """
         return _libBornAgainCore.kvector_t_unit(self)
 
 
     def complex(self):
-        """complex(kvector_t self) -> cvector_t"""
+        """
+        complex(kvector_t self) -> cvector_t
+
+        BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
+
+        Returns this, trivially converted to complex type. 
+
+        """
         return _libBornAgainCore.kvector_t_complex(self)
 
 
     def real(self):
-        """real(kvector_t self) -> kvector_t"""
+        """
+        real(kvector_t self) -> kvector_t
+
+        BasicVector3D< double > BasicVector3D< complex_t >::real() const
+
+        Returns real parts. 
+
+        """
         return _libBornAgainCore.kvector_t_real(self)
 
 
     def angle(self, v):
-        """angle(kvector_t self, kvector_t v) -> double"""
+        """
+        angle(kvector_t self, kvector_t v) -> double
+
+        double BasicVector3D< T >::angle(const BasicVector3D< T > &v) const
+
+        Returns angle with respect to another vector. 
+
+        """
         return _libBornAgainCore.kvector_t_angle(self, v)
 
 
     def project(self, v):
-        """project(kvector_t self, kvector_t v) -> kvector_t"""
+        """
+        project(kvector_t self, kvector_t v) -> kvector_t
+
+        BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
+
+        Returns projection of this onto other vector: (this*v)*v/|v|^2. 
+
+        """
         return _libBornAgainCore.kvector_t_project(self, v)
 
 
@@ -2075,7 +2239,14 @@ vector_kvector_t_swigregister = _libBornAgainCore.vector_kvector_t_swigregister
 vector_kvector_t_swigregister(vector_kvector_t)
 
 class cvector_t(_object):
-    """Proxy of C++ BasicVector3D<(std::complex<(double)>)> class"""
+    """
+
+
+    Three-dimensional vector template, for use with integer, double, or complex components.
+
+    C++ includes: BasicVector3D.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, cvector_t, name, value)
     __swig_getmethods__ = {}
@@ -2086,6 +2257,11 @@ class cvector_t(_object):
         """
         __init__(BasicVector3D<(std::complex<(double)>)> self) -> cvector_t
         __init__(BasicVector3D<(std::complex<(double)>)> self, std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t
+
+        BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
+
+        Constructor from cartesian components. 
+
         """
         this = _libBornAgainCore.new_cvector_t(*args)
         try:
@@ -2094,37 +2270,86 @@ class cvector_t(_object):
             self.this = this
 
     def x(self):
-        """x(cvector_t self) -> std::complex< double >"""
+        """
+        x(cvector_t self) -> std::complex< double >
+
+        T BasicVector3D< T >::x() const
+
+        Returns x-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.cvector_t_x(self)
 
 
     def y(self):
-        """y(cvector_t self) -> std::complex< double >"""
+        """
+        y(cvector_t self) -> std::complex< double >
+
+        T BasicVector3D< T >::y() const
+
+        Returns y-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.cvector_t_y(self)
 
 
     def z(self):
-        """z(cvector_t self) -> std::complex< double >"""
+        """
+        z(cvector_t self) -> std::complex< double >
+
+        T BasicVector3D< T >::z() const
+
+        Returns z-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.cvector_t_z(self)
 
 
     def setX(self, a):
-        """setX(cvector_t self, std::complex< double > const & a)"""
+        """
+        setX(cvector_t self, std::complex< double > const & a)
+
+        void BasicVector3D< T >::setX(const T &a)
+
+        Sets x-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.cvector_t_setX(self, a)
 
 
     def setY(self, a):
-        """setY(cvector_t self, std::complex< double > const & a)"""
+        """
+        setY(cvector_t self, std::complex< double > const & a)
+
+        void BasicVector3D< T >::setY(const T &a)
+
+        Sets y-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.cvector_t_setY(self, a)
 
 
     def setZ(self, a):
-        """setZ(cvector_t self, std::complex< double > const & a)"""
+        """
+        setZ(cvector_t self, std::complex< double > const & a)
+
+        void BasicVector3D< T >::setZ(const T &a)
+
+        Sets z-component in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.cvector_t_setZ(self, a)
 
 
     def setXYZ(self, x1, y1, z1):
-        """setXYZ(cvector_t self, std::complex< double > const & x1, std::complex< double > const & y1, std::complex< double > const & z1)"""
+        """
+        setXYZ(cvector_t self, std::complex< double > const & x1, std::complex< double > const & y1, std::complex< double > const & z1)
+
+        void BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
+
+        Sets components in cartesian coordinate system. 
+
+        """
         return _libBornAgainCore.cvector_t_setXYZ(self, x1, y1, z1)
 
 
@@ -2139,42 +2364,96 @@ class cvector_t(_object):
 
 
     def conj(self):
-        """conj(cvector_t self) -> cvector_t"""
+        """
+        conj(cvector_t self) -> cvector_t
+
+        BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
+
+        Returns complex conjugate vector. 
+
+        """
         return _libBornAgainCore.cvector_t_conj(self)
 
 
     def mag2(self):
-        """mag2(cvector_t self) -> double"""
+        """
+        mag2(cvector_t self) -> double
+
+        double BasicVector3D< T >::mag2() const
+
+        Returns squared magnitude squared of the vector. 
+
+        """
         return _libBornAgainCore.cvector_t_mag2(self)
 
 
     def mag(self):
-        """mag(cvector_t self) -> double"""
+        """
+        mag(cvector_t self) -> double
+
+        double BasicVector3D< T >::mag() const
+
+        Returns magnitude of the vector. 
+
+        """
         return _libBornAgainCore.cvector_t_mag(self)
 
 
     def magxy2(self):
-        """magxy2(cvector_t self) -> double"""
+        """
+        magxy2(cvector_t self) -> double
+
+        double BasicVector3D< T >::magxy2() const
+
+        Returns squared distance from z axis. 
+
+        """
         return _libBornAgainCore.cvector_t_magxy2(self)
 
 
     def magxy(self):
-        """magxy(cvector_t self) -> double"""
+        """
+        magxy(cvector_t self) -> double
+
+        double BasicVector3D< T >::magxy() const
+
+        Returns distance from z axis. 
+
+        """
         return _libBornAgainCore.cvector_t_magxy(self)
 
 
     def unit(self):
-        """unit(cvector_t self) -> cvector_t"""
+        """
+        unit(cvector_t self) -> cvector_t
+
+        BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
+
+        """
         return _libBornAgainCore.cvector_t_unit(self)
 
 
     def real(self):
-        """real(cvector_t self) -> kvector_t"""
+        """
+        real(cvector_t self) -> kvector_t
+
+        BasicVector3D< double > BasicVector3D< complex_t >::real() const
+
+        Returns real parts. 
+
+        """
         return _libBornAgainCore.cvector_t_real(self)
 
 
     def project(self, v):
-        """project(cvector_t self, cvector_t v) -> cvector_t"""
+        """
+        project(cvector_t self, cvector_t v) -> cvector_t
+
+        BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
+
+        Returns projection of this onto other vector: (this*v)*v/|v|^2. 
+
+        """
         return _libBornAgainCore.cvector_t_project(self, v)
 
     __swig_destroy__ = _libBornAgainCore.delete_cvector_t
@@ -10352,7 +10631,7 @@ class PolyhedralFace(_object):
 
         complex_t PolyhedralFace::normalProjectionConj(cvector_t q) const
 
-        Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]. 
+        Returns conj(q)*normal [ BasicVector3D::dot is antilinear in 'this' argument]. 
 
         """
         return _libBornAgainCore.PolyhedralFace_normalProjectionConj(self, q)
@@ -14383,7 +14662,7 @@ class FormFactorWeighted(IFormFactor):
 
     Coherent sum of different scalar  IFormFactor's with different weights, at the same position.
 
-    Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, use FormFactorDecoratorMultiPositionFactor instead.
+    Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
     C++ includes: FormFactorWeighted.h
 
@@ -14652,7 +14931,7 @@ class Simulation(ICloneable, IParameterized):
         """
         setProgressHandler(Simulation self, ProgressHandler * progress)
 
-        void Simulation::setProgressHandler(ProgressHandler_t progress)
+        void Simulation::setProgressHandler(ProgressHandler *progress)
 
         sets progress handler (used by GUI) 
 
@@ -16068,7 +16347,7 @@ class IMaterial(INamed):
         """
         createTransformedMaterial(IMaterial self, Transform3D const & transform) -> IMaterial
 
-        virtual const IMaterial* IMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const =0
+        virtual const IMaterial* IMaterial::createTransformedMaterial(const Transform3D &transform) const =0
 
         Create a new material that is transformed with respect to this one. 
 
@@ -16154,7 +16433,7 @@ class HomogeneousMaterial(IMaterial):
         """
         createTransformedMaterial(HomogeneousMaterial self, Transform3D const & arg2) -> IMaterial
 
-        virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Geometry::Transform3D &) const
+        virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Transform3D &) const
 
         Create a new material that is transformed with respect to this one. 
 
@@ -16251,7 +16530,7 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
         """
         createTransformedMaterial(HomogeneousMagneticMaterial self, Transform3D const & transform) -> IMaterial
 
-        const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const
+        const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Transform3D &transform) const
 
         Create a new material that is transformed with respect to this one. 
 
@@ -17240,7 +17519,7 @@ class IRotation(ISample):
         """
         cloneInvertB(IRotation self) -> IRotation
 
-        virtual IRotation* IRotation::cloneInvertB() const =0
+        IRotation* IRotation::cloneInvertB() const final
 
         Returns a clone with inverted magnetic fields. 
 
@@ -17276,7 +17555,7 @@ class IRotation(ISample):
         """
         getTransform3D(IRotation self) -> Transform3D
 
-        virtual Geometry::Transform3D IRotation::getTransform3D() const =0
+        virtual Transform3D IRotation::getTransform3D() const =0
 
         Returns transformation. 
 
@@ -17388,7 +17667,7 @@ class RotationX(IRotation):
         """
         getTransform3D(RotationX self) -> Transform3D
 
-        Geometry::Transform3D RotationX::getTransform3D() const
+        Transform3D RotationX::getTransform3D() const
 
         Returns transformation. 
 
@@ -17475,7 +17754,7 @@ class RotationY(IRotation):
         """
         getTransform3D(RotationY self) -> Transform3D
 
-        Geometry::Transform3D RotationY::getTransform3D() const
+        Transform3D RotationY::getTransform3D() const
 
         Returns transformation. 
 
@@ -17563,7 +17842,7 @@ class RotationZ(IRotation):
         """
         getTransform3D(RotationZ self) -> Transform3D
 
-        Geometry::Transform3D RotationZ::getTransform3D() const
+        Transform3D RotationZ::getTransform3D() const
 
         Returns transformation. 
 
@@ -17670,7 +17949,7 @@ class RotationEuler(IRotation):
         """
         getTransform3D(RotationEuler self) -> Transform3D
 
-        Geometry::Transform3D RotationEuler::getTransform3D() const
+        Transform3D RotationEuler::getTransform3D() const
 
         Returns transformation. 
 
@@ -19326,7 +19605,7 @@ class Lattice(_object):
         """
         createTransformedLattice(Lattice self, Transform3D const & transform) -> Lattice
 
-        Lattice Lattice::createTransformedLattice(const Geometry::Transform3D &transform) const
+        Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
 
         Create transformed lattice. 
 
@@ -20761,12 +21040,22 @@ class MultiLayer(ICompositeSample):
 
 
     def hasRoughness(self):
-        """hasRoughness(MultiLayer self) -> bool"""
+        """
+        hasRoughness(MultiLayer self) -> bool
+
+        bool MultiLayer::hasRoughness() const 
+
+        """
         return _libBornAgainCore.MultiLayer_hasRoughness(self)
 
 
     def totalNofLayouts(self):
-        """totalNofLayouts(MultiLayer self) -> size_t"""
+        """
+        totalNofLayouts(MultiLayer self) -> size_t
+
+        size_t MultiLayer::totalNofLayouts() const 
+
+        """
         return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
 
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister

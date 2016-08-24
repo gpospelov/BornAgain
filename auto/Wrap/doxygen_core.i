@@ -44,238 +44,174 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 
-// File: classGeometry_1_1BasicVector3D.xml
-%feature("docstring") Geometry::BasicVector3D "
+// File: classBasicVector3D.xml
+%feature("docstring") BasicVector3D "
 
 Three-dimensional vector template, for use with integer, double, or complex components.
 
 C++ includes: BasicVector3D.h
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::BasicVector3D "Geometry::BasicVector3D< T >::BasicVector3D()
+%feature("docstring")  BasicVector3D::BasicVector3D "BasicVector3D< T >::BasicVector3D()
 
 Default constructor. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::BasicVector3D "Geometry::BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
+%feature("docstring")  BasicVector3D::BasicVector3D "BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
 
 Constructor from cartesian components. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::x "T Geometry::BasicVector3D< T >::x() const
+%feature("docstring")  BasicVector3D::x "T BasicVector3D< T >::x() const
 
 Returns x-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::y "T Geometry::BasicVector3D< T >::y() const
+%feature("docstring")  BasicVector3D::y "T BasicVector3D< T >::y() const
 
 Returns y-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::z "T Geometry::BasicVector3D< T >::z() const
+%feature("docstring")  BasicVector3D::z "T BasicVector3D< T >::z() const
 
 Returns z-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::setX "void Geometry::BasicVector3D< T >::setX(const T &a)
+%feature("docstring")  BasicVector3D::setX "void BasicVector3D< T >::setX(const T &a)
 
 Sets x-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::setY "void Geometry::BasicVector3D< T >::setY(const T &a)
+%feature("docstring")  BasicVector3D::setY "void BasicVector3D< T >::setY(const T &a)
 
 Sets y-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::setZ "void Geometry::BasicVector3D< T >::setZ(const T &a)
+%feature("docstring")  BasicVector3D::setZ "void BasicVector3D< T >::setZ(const T &a)
 
 Sets z-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::setXYZ "void Geometry::BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
+%feature("docstring")  BasicVector3D::setXYZ "void BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
 
 Sets components in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D<T> Geometry::BasicVector3D< T >::conj() const
+%feature("docstring")  BasicVector3D::conj "BasicVector3D<T> BasicVector3D< T >::conj() const
 
 Returns complex conjugate vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::mag2 "double Geometry::BasicVector3D< T >::mag2() const
+%feature("docstring")  BasicVector3D::mag2 "double BasicVector3D< T >::mag2() const
 
 Returns squared magnitude squared of the vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::mag "double Geometry::BasicVector3D< T >::mag() const
+%feature("docstring")  BasicVector3D::mag "double BasicVector3D< T >::mag() const
 
 Returns magnitude of the vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::magxy2 "double Geometry::BasicVector3D< T >::magxy2() const
+%feature("docstring")  BasicVector3D::magxy2 "double BasicVector3D< T >::magxy2() const
 
 Returns squared distance from z axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::magxy "double Geometry::BasicVector3D< T >::magxy() const
+%feature("docstring")  BasicVector3D::magxy "double BasicVector3D< T >::magxy() const
 
 Returns distance from z axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< T >::phi() const
+%feature("docstring")  BasicVector3D::phi "double BasicVector3D< T >::phi() const
 
 Returns azimuth angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< T >::theta() const
+%feature("docstring")  BasicVector3D::theta "double BasicVector3D< T >::theta() const
 
 Returns polar angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< T >::cosTheta() const
+%feature("docstring")  BasicVector3D::cosTheta "double BasicVector3D< T >::cosTheta() const
 
 Returns cosine of polar angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< T >::sin2Theta() const
+%feature("docstring")  BasicVector3D::sin2Theta "double BasicVector3D< T >::sin2Theta() const
 
 Returns squared sine of polar angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D<T> Geometry::BasicVector3D< T >::unit() const
+%feature("docstring")  BasicVector3D::unit "BasicVector3D<T> BasicVector3D< T >::unit() const
 
 Returns unit vector in direction of this. Throws for null vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D<std::complex<double> > Geometry::BasicVector3D< T >::complex() const
+%feature("docstring")  BasicVector3D::complex "BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
 
 Returns this, trivially converted to complex type. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::real "BasicVector3D<double> Geometry::BasicVector3D< T >::real() const
+%feature("docstring")  BasicVector3D::real "BasicVector3D<double> BasicVector3D< T >::real() const
 
 Returns real parts. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::dot "auto Geometry::BasicVector3D< T >::dot(const BasicVector3D< U > &v) const -> decltype(this->x()*v.x())
+%feature("docstring")  BasicVector3D::dot "auto BasicVector3D< T >::dot(const BasicVector3D< U > &v) const -> decltype(this->x()*v.x())
 
 Returns dot product of vectors (antilinear in the first [=self] argument).
 
 Returns dot product of (complex) vectors (antilinear in the first [=self] argument). 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::cross "auto Geometry::BasicVector3D< T >::cross(const BasicVector3D< U > &v) const -> BasicVector3D< decltype(this->x()*v.x())>
+%feature("docstring")  BasicVector3D::cross "auto BasicVector3D< T >::cross(const BasicVector3D< U > &v) const -> BasicVector3D< decltype(this->x()*v.x())>
 
 Returns cross product of vectors (linear in both arguments).
 
 Returns cross product of (complex) vectors. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< T >::angle(const BasicVector3D< T > &v) const
+%feature("docstring")  BasicVector3D::angle "double BasicVector3D< T >::angle(const BasicVector3D< T > &v) const
 
 Returns angle with respect to another vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::project "BasicVector3D<T> Geometry::BasicVector3D< T >::project(const BasicVector3D< T > &v) const
+%feature("docstring")  BasicVector3D::project "BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
 
 Returns projection of this onto other vector: (this*v)*v/|v|^2. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::rotatedX "BasicVector3D<T> Geometry::BasicVector3D< T >::rotatedX(double a) const
+%feature("docstring")  BasicVector3D::rotatedX "BasicVector3D<T> BasicVector3D< T >::rotatedX(double a) const
 
 Returns result of rotation around x-axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::rotatedY "BasicVector3D<T> Geometry::BasicVector3D< T >::rotatedY(double a) const
+%feature("docstring")  BasicVector3D::rotatedY "BasicVector3D<T> BasicVector3D< T >::rotatedY(double a) const
 
 Returns result of rotation around y-axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::rotatedZ "BasicVector3D<T> Geometry::BasicVector3D< T >::rotatedZ(double a) const
+%feature("docstring")  BasicVector3D::rotatedZ "BasicVector3D<T> BasicVector3D< T >::rotatedZ(double a) const
 
 Returns result of rotation around z-axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::rotated "BasicVector3D<T> Geometry::BasicVector3D< T >::rotated(double a, const BasicVector3D< T > &v) const
+%feature("docstring")  BasicVector3D::rotated "BasicVector3D<T> BasicVector3D< T >::rotated(double a, const BasicVector3D< T > &v) const
 
 Returns result of rotation around the axis specified by another vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
+%feature("docstring")  BasicVector3D::conj "BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
 
 Returns complex conjugate vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::conj() const
-
-Returns complex conjugate vector. 
-";
-
-%feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< double >::phi() const
-
-Returns azimuth angle. 
-";
-
-%feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< double >::theta() const
-
-Returns polar angle. 
-";
-
-%feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< double >::cosTheta() const
-
-Returns cosine of polar angle. 
-";
-
-%feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< double >::sin2Theta() const
-
-Returns squared sine of polar angle. 
-";
-
-%feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< complex_t > Geometry::BasicVector3D< double >::complex() const
-
-Returns this, trivially converted to complex type. 
-";
-
-%feature("docstring")  Geometry::BasicVector3D::real "BasicVector3D< double > Geometry::BasicVector3D< complex_t >::real() const
+%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< complex_t >::real() const
 
 Returns real parts. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::real "BasicVector3D< double > Geometry::BasicVector3D< double >::real() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< double > Geometry::BasicVector3D< double >::unit() const
-
-Returns unit vector in direction of this. Throws for null vector. 
-";
-
-%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::unit() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
-
-Returns angle with respect to another vector. 
-";
-
-%feature("docstring")  Geometry::BasicVector3D::conj "BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::conj "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::conj() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::phi "BA_CORE_API_ double Geometry::BasicVector3D< double >::phi() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::theta "BA_CORE_API_ double Geometry::BasicVector3D< double >::theta() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::complex "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::real "BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< std::complex< double > >::real() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::unit "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::unit() const
+%feature("docstring")  BasicVector3D::unit "BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
 ";
 
 
@@ -1001,10 +937,10 @@ C++ includes: DecoratedLayerComputation.h
 %feature("docstring")  DecoratedLayerComputation::DecoratedLayerComputation "DecoratedLayerComputation::DecoratedLayerComputation(const Layer *p_layer, size_t layout_index=0)
 ";
 
-%feature("docstring")  DecoratedLayerComputation::~DecoratedLayerComputation "DecoratedLayerComputation::~DecoratedLayerComputation() final
+%feature("docstring")  DecoratedLayerComputation::~DecoratedLayerComputation "DecoratedLayerComputation::~DecoratedLayerComputation()
 ";
 
-%feature("docstring")  DecoratedLayerComputation::run "void DecoratedLayerComputation::run() final
+%feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, bool polarized, const MultiLayer &sample, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
 ";
 
 %feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
@@ -4432,7 +4368,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
 
 Coherent sum of different scalar  IFormFactor's with different weights, at the same position.
 
-Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, use FormFactorDecoratorMultiPositionFactor instead.
+Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
 C++ includes: FormFactorWeighted.h
 ";
@@ -5287,7 +5223,7 @@ Indicates that the material is not scalar. This means that different polarizatio
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::createTransformedMaterial "const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const
+%feature("docstring")  HomogeneousMagneticMaterial::createTransformedMaterial "const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Transform3D &transform) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -5328,7 +5264,7 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Geometry::Transform3D &) const
+%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Transform3D &) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -5677,29 +5613,6 @@ Returns number of children.
 %feature("docstring")  ICompositeSample::addParametersToExternalPool "std::string ICompositeSample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
-";
-
-
-// File: classIComputation.xml
-%feature("docstring") IComputation "
-
-Base class for DWBA computation  MainComputation, and for sub-computations  RoughMultiLayerComputation and  DecoratedLayerComputation (via LayerComputation). Controlled by class  Simulation.
-
-C++ includes: IComputation.h
-";
-
-%feature("docstring")  IComputation::IComputation "IComputation::IComputation()
-";
-
-%feature("docstring")  IComputation::~IComputation "IComputation::~IComputation()
-";
-
-%feature("docstring")  IComputation::run "virtual void IComputation::run()
-";
-
-%feature("docstring")  IComputation::init "void IComputation::init(const SimulationOptions &options, const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
-
-Initializes the simulation with the parameters from simulation. 
 ";
 
 
@@ -6931,7 +6844,7 @@ Get the effective scattering matrix from the refractive index and a given waveve
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  IMaterial::createTransformedMaterial "virtual const IMaterial* IMaterial::createTransformedMaterial(const Geometry::Transform3D &transform) const =0
+%feature("docstring")  IMaterial::createTransformedMaterial "virtual const IMaterial* IMaterial::createTransformedMaterial(const Transform3D &transform) const =0
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -7900,7 +7813,7 @@ C++ includes: Rotations.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IRotation::cloneInvertB "virtual IRotation* IRotation::cloneInvertB() const =0
+%feature("docstring")  IRotation::cloneInvertB "IRotation* IRotation::cloneInvertB() const final
 
 Returns a clone with inverted magnetic fields. 
 ";
@@ -7915,7 +7828,7 @@ Returns a new  IRotation object that is the current object's inverse.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  IRotation::getTransform3D "virtual Geometry::Transform3D IRotation::getTransform3D() const =0
+%feature("docstring")  IRotation::getTransform3D "virtual Transform3D IRotation::getTransform3D() const =0
 
 Returns transformation. 
 ";
@@ -8491,36 +8404,6 @@ C++ includes: SampleTreeIterator.h
 ";
 
 
-// File: classKVectorContainer.xml
-%feature("docstring") KVectorContainer "
-
-A vector of kvector_t's with optimized location/deallocation.
-
-C++ includes: FastVector.h
-";
-
-%feature("docstring")  KVectorContainer::KVectorContainer "KVectorContainer::KVectorContainer(int buff_size=3)
-";
-
-%feature("docstring")  KVectorContainer::push_back "void KVectorContainer::push_back(const kvector_t k)
-";
-
-%feature("docstring")  KVectorContainer::clear "void KVectorContainer::clear()
-";
-
-%feature("docstring")  KVectorContainer::size "size_t KVectorContainer::size()
-";
-
-%feature("docstring")  KVectorContainer::print "void KVectorContainer::print()
-";
-
-%feature("docstring")  KVectorContainer::begin "const_iterator KVectorContainer::begin() const 
-";
-
-%feature("docstring")  KVectorContainer::end "const_iterator KVectorContainer::end() const 
-";
-
-
 // File: classLabelMap.xml
 %feature("docstring") LabelMap "";
 
@@ -8599,7 +8482,7 @@ C++ includes: Lattice.h
 %feature("docstring")  Lattice::~Lattice "Lattice::~Lattice()
 ";
 
-%feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const Geometry::Transform3D &transform) const
+%feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
 
 Create transformed lattice. 
 ";
@@ -9118,18 +9001,13 @@ Performs a DWBA calculation with given sample and simulation parameters
 C++ includes: MainComputation.h
 ";
 
-%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer *p_multi_layer)
+%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer *p_multi_layer, const SimulationOptions &options, ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
 ";
 
-%feature("docstring")  MainComputation::~MainComputation "MainComputation::~MainComputation() final
+%feature("docstring")  MainComputation::~MainComputation "MainComputation::~MainComputation()
 ";
 
-%feature("docstring")  MainComputation::init "void MainComputation::init(const SimulationOptions &options, const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it) final
-
-Initializes the simulation with the parameters from simulation. 
-";
-
-%feature("docstring")  MainComputation::run "void MainComputation::run() final
+%feature("docstring")  MainComputation::run "void MainComputation::run()
 ";
 
 %feature("docstring")  MainComputation::isCompleted "bool MainComputation::isCompleted() const 
@@ -9566,6 +9444,12 @@ returns layer index corresponding to given global z coordinate
 ";
 
 %feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const 
+";
+
+%feature("docstring")  MultiLayer::hasRoughness "bool MultiLayer::hasRoughness() const 
+";
+
+%feature("docstring")  MultiLayer::totalNofLayouts "size_t MultiLayer::totalNofLayouts() const 
 ";
 
 
@@ -10981,7 +10865,7 @@ true if face has a perpedicular two-fold symmetry axis
 
 %feature("docstring")  PolyhedralFace::normalProjectionConj "complex_t PolyhedralFace::normalProjectionConj(cvector_t q) const
 
-Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]. 
+Returns conj(q)*normal [ BasicVector3D::dot is antilinear in 'this' argument]. 
 ";
 
 %feature("docstring")  PolyhedralFace::ff_n "complex_t PolyhedralFace::ff_n(int m, const cvector_t q) const
@@ -11028,7 +10912,7 @@ C++ includes: Precomputed.h
 
 Provides the functionality to calculate the progress of running simulation and report it to GUI.
 
-Thread safe to be used from Computation
+Thread safe to be used from Computation.
 
 C++ includes: ProgressHandler.h
 ";
@@ -11039,26 +10923,12 @@ C++ includes: ProgressHandler.h
 %feature("docstring")  ProgressHandler::setCallback "void ProgressHandler::setCallback(ProgressHandler::Callback_t callback)
 ";
 
-%feature("docstring")  ProgressHandler::update "bool ProgressHandler::update(int n)
-
-Collects number of items processed by different Computation's. Calculates general progress and inform GUI if progress has changed. Return flag is obtained from GUI and transferred to Computation to ask them to stop calculations. 
+%feature("docstring")  ProgressHandler::setExpectedNTicks "void ProgressHandler::setExpectedNTicks(size_t n)
 ";
 
-%feature("docstring")  ProgressHandler::setNmaxItems "void ProgressHandler::setNmaxItems(long max)
-";
+%feature("docstring")  ProgressHandler::update "bool ProgressHandler::update(size_t ticks_done)
 
-%feature("docstring")  ProgressHandler::getProgress "long ProgressHandler::getProgress() const 
-";
-
-%feature("docstring")  ProgressHandler::getNitems "long ProgressHandler::getNitems() const 
-";
-
-%feature("docstring")  ProgressHandler::init "void ProgressHandler::init(Simulation *simulation, int param_combinations=1)
-
-Initialize  ProgressHandler, estimates number of items to be calculated by Computation's. 
-";
-
-%feature("docstring")  ProgressHandler::reset "void ProgressHandler::reset()
+Collects number of ticks processed by different Computation's. Calculates general progress and inform GUI if progress has changed. Return flag is obtained from GUI and transferred to Computation to ask them to stop calculations. 
 ";
 
 
@@ -11443,11 +11313,6 @@ C++ includes: TwoDimLatticeBuilder.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  RotationEuler::cloneInvertB "RotationEuler* RotationEuler::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  RotationEuler::createInverse "IRotation * RotationEuler::createInverse() const
 
 Returns a new  IRotation object that is the current object's inverse. 
@@ -11467,7 +11332,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  RotationEuler::getGamma "double RotationEuler::getGamma() const 
 ";
 
-%feature("docstring")  RotationEuler::getTransform3D "Geometry::Transform3D RotationEuler::getTransform3D() const
+%feature("docstring")  RotationEuler::getTransform3D "Transform3D RotationEuler::getTransform3D() const
 
 Returns transformation. 
 ";
@@ -11484,11 +11349,6 @@ Returns transformation.
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  RotationX::cloneInvertB "RotationX* RotationX::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  RotationX::createInverse "RotationX* RotationX::createInverse() const
 
 Returns a new  IRotation object that is the current object's inverse. 
@@ -11502,7 +11362,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  RotationX::getAngle "double RotationX::getAngle() const 
 ";
 
-%feature("docstring")  RotationX::getTransform3D "Geometry::Transform3D RotationX::getTransform3D() const
+%feature("docstring")  RotationX::getTransform3D "Transform3D RotationX::getTransform3D() const
 
 Returns transformation. 
 ";
@@ -11519,11 +11379,6 @@ Returns transformation.
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  RotationY::cloneInvertB "RotationY* RotationY::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  RotationY::createInverse "RotationY* RotationY::createInverse() const
 
 Returns a new  IRotation object that is the current object's inverse. 
@@ -11537,7 +11392,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  RotationY::getAngle "double RotationY::getAngle() const 
 ";
 
-%feature("docstring")  RotationY::getTransform3D "Geometry::Transform3D RotationY::getTransform3D() const
+%feature("docstring")  RotationY::getTransform3D "Transform3D RotationY::getTransform3D() const
 
 Returns transformation. 
 ";
@@ -11554,11 +11409,6 @@ Returns transformation.
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  RotationZ::cloneInvertB "RotationZ* RotationZ::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  RotationZ::createInverse "RotationZ* RotationZ::createInverse() const
 
 Returns a new  IRotation object that is the current object's inverse. 
@@ -11572,7 +11422,7 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  RotationZ::getAngle "double RotationZ::getAngle() const 
 ";
 
-%feature("docstring")  RotationZ::getTransform3D "Geometry::Transform3D RotationZ::getTransform3D() const
+%feature("docstring")  RotationZ::getTransform3D "Transform3D RotationZ::getTransform3D() const
 
 Returns transformation. 
 ";
@@ -11589,10 +11439,10 @@ C++ includes: RoughMultiLayerComputation.h
 %feature("docstring")  RoughMultiLayerComputation::RoughMultiLayerComputation "RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
 ";
 
-%feature("docstring")  RoughMultiLayerComputation::~RoughMultiLayerComputation "RoughMultiLayerComputation::~RoughMultiLayerComputation() final
+%feature("docstring")  RoughMultiLayerComputation::~RoughMultiLayerComputation "RoughMultiLayerComputation::~RoughMultiLayerComputation()
 ";
 
-%feature("docstring")  RoughMultiLayerComputation::run "void RoughMultiLayerComputation::run() final
+%feature("docstring")  RoughMultiLayerComputation::eval "void RoughMultiLayerComputation::eval(const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
 ";
 
 %feature("docstring")  RoughMultiLayerComputation::setSpecularInfo "void RoughMultiLayerComputation::setSpecularInfo(size_t i_layer, const LayerSpecularInfo &specular_info)
@@ -12080,14 +11930,9 @@ add a sampled parameter distribution
 %feature("docstring")  Simulation::getDistributionHandler "const DistributionHandler & Simulation::getDistributionHandler() const 
 ";
 
-%feature("docstring")  Simulation::setProgressHandler "void Simulation::setProgressHandler(ProgressHandler_t progress)
+%feature("docstring")  Simulation::setProgressHandler "void Simulation::setProgressHandler(ProgressHandler *progress)
 
 sets progress handler (used by GUI) 
-";
-
-%feature("docstring")  Simulation::initProgressHandlerDWBA "void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA *dwba_progress)
-
-initializes DWBA progress handler 
 ";
 
 %feature("docstring")  Simulation::setOptions "void Simulation::setOptions(const SimulationOptions &options)
@@ -12745,75 +12590,75 @@ C++ includes: TRange.h
 ";
 
 
-// File: classGeometry_1_1Transform3D.xml
-%feature("docstring") Geometry::Transform3D "
+// File: classTransform3D.xml
+%feature("docstring") Transform3D "
 
 Vector transformations in three dimensions.
 
 C++ includes: Transform3D.h
 ";
 
-%feature("docstring")  Geometry::Transform3D::Transform3D "Geometry::Transform3D::Transform3D()
+%feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D()
 
 Constructs unit transformation. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::Transform3D "Geometry::Transform3D::Transform3D(const Transform3D &other)
+%feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D(const Transform3D &other)
 
 Copy constructor. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::~Transform3D "Geometry::Transform3D::~Transform3D()
+%feature("docstring")  Transform3D::~Transform3D "Transform3D::~Transform3D()
 
 Destructor. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::clone "Geometry::Transform3D * Geometry::Transform3D::clone() const
+%feature("docstring")  Transform3D::clone "Transform3D * Transform3D::clone() const
 
 Clones the transformation. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::calculateEulerAngles "void Geometry::Transform3D::calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const
+%feature("docstring")  Transform3D::calculateEulerAngles "void Transform3D::calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const
 
 Calculates the Euler angles corresponding to the rotation. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::getInverse "Geometry::Transform3D Geometry::Transform3D::getInverse() const
+%feature("docstring")  Transform3D::getInverse "Transform3D Transform3D::getInverse() const
 
 Returns the inverse transformation. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::transformed "Geometry::BasicVector3D< double > Geometry::Transform3D::transformed(const BasicVector3D< double > &v) const
+%feature("docstring")  Transform3D::transformed "BasicVector3D< double > Transform3D::transformed(const BasicVector3D< double > &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::transformed "Geometry::BasicVector3D< complex_t > Geometry::Transform3D::transformed(const BasicVector3D< complex_t > &v) const
+%feature("docstring")  Transform3D::transformed "BasicVector3D< complex_t > Transform3D::transformed(const BasicVector3D< complex_t > &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::transformedInverse "Geometry::BasicVector3D< double > Geometry::Transform3D::transformedInverse(const BasicVector3D< double > &v) const
+%feature("docstring")  Transform3D::transformedInverse "BasicVector3D< double > Transform3D::transformedInverse(const BasicVector3D< double > &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::transformedInverse "Geometry::BasicVector3D< complex_t > Geometry::Transform3D::transformedInverse(const BasicVector3D< complex_t > &v) const
+%feature("docstring")  Transform3D::transformedInverse "BasicVector3D< complex_t > Transform3D::transformedInverse(const BasicVector3D< complex_t > &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::getRotationType "Geometry::Transform3D::ERotationType Geometry::Transform3D::getRotationType() const
+%feature("docstring")  Transform3D::getRotationType "Transform3D::ERotationType Transform3D::getRotationType() const
 
 Retrieve the rotation type (general, around x, y or z-axis) 
 ";
 
-%feature("docstring")  Geometry::Transform3D::isIdentity "bool Geometry::Transform3D::isIdentity() const
+%feature("docstring")  Transform3D::isIdentity "bool Transform3D::isIdentity() const
 
 Determine if the transformation is trivial (identity) 
 ";
 
-%feature("docstring")  Geometry::Transform3D::print "void Geometry::Transform3D::print(std::ostream &ostr) const 
+%feature("docstring")  Transform3D::print "void Transform3D::print(std::ostream &ostr) const 
 ";
 
 
@@ -13039,13 +12884,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D302.xml
+// File: namespace_0D304.xml
 
 
-// File: namespace_0D426.xml
+// File: namespace_0D424.xml
 
 
-// File: namespace_0D55.xml
+// File: namespace_0D57.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13090,10 +12935,6 @@ Returns file names that agree with glob pattern.
 
 
 // File: namespaceGeometry.xml
-%feature("docstring")  Geometry::vecOfLambdaAlphaPhi "BA_CORE_API_ BasicVector3D< double > Geometry::vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
-
-Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-";
 
 
 // File: namespaceMaterials.xml
@@ -13692,16 +13533,22 @@ Set all element intensities to given value.
 // File: DecoratedLayerComputation_8h.xml
 
 
-// File: IComputation_8cpp.xml
-
-
-// File: IComputation_8h.xml
-
-
 // File: MainComputation_8cpp.xml
 
 
 // File: MainComputation_8h.xml
+
+
+// File: ProgressHandler_8cpp.xml
+
+
+// File: ProgressHandler_8h.xml
+
+
+// File: ProgressHandlerDWBA_8cpp.xml
+
+
+// File: ProgressHandlerDWBA_8h.xml
 
 
 // File: RoughMultiLayerComputation_8cpp.xml
@@ -14686,18 +14533,6 @@ Returns concatenated rotation (first right, then left).
 // File: OffSpecSimulation_8h.xml
 
 
-// File: ProgressHandler_8cpp.xml
-
-
-// File: ProgressHandler_8h.xml
-
-
-// File: ProgressHandlerDWBA_8cpp.xml
-
-
-// File: ProgressHandlerDWBA_8h.xml
-
-
 // File: Simulation_8cpp.xml
 
 
@@ -14952,15 +14787,20 @@ David N. Williams
 
 
 // File: BasicVector3D_8cpp.xml
+%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+
+Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+";
 
 
 // File: BasicVector3D_8h.xml
+%feature("docstring")  vecOfLambdaAlphaPhi "BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+
+Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+";
 
 
 // File: EigenCore_8h.xml
-
-
-// File: FastVector_8h.xml
 
 
 // File: Transform3D_8cpp.xml
@@ -15002,7 +14842,7 @@ David N. Williams
 // File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
 
 
-// File: dir_bba2f750d4e23960d0d8972c148b8e3f.xml
+// File: dir_72a38c5b455c03a72881c3c65e21783d.xml
 
 
 // File: dir_d7044b5fc4daccc5700de9f07da81a11.xml

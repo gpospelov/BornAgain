@@ -25,7 +25,6 @@ template<class T> class OutputData;
 class Computation;
 class MultiLayer;
 class IMultiLayerBuilder;
-class ProgressHandlerDWBA;
 
 //! Main class to run the simulation, base class for OffSpecularSimulation and GISASSimulation.
 //! @ingroup simulation
@@ -82,13 +81,8 @@ public:
 
     const DistributionHandler& getDistributionHandler() const;
 
-#ifndef SWIG
     //! sets progress handler (used by GUI)
     void setProgressHandler(ProgressHandler* progress) { m_progress = progress; }
-
-    //! initializes DWBA progress handler
-    void initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress);
-#endif
 
     //unused friend class OMPISimulation;
 

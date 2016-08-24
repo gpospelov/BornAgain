@@ -186,7 +186,7 @@ void Simulation::runSingleSimulation()
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
         std::unique_ptr<MainComputation> P_dwba_simulation(
-            new MainComputation(mP_sample.get(), m_options, *this, batch_start, batch_end));
+            new MainComputation(mP_sample.get(), m_options, m_progress, batch_start, batch_end));
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
             std::string message = P_dwba_simulation->getRunMessage();
@@ -223,7 +223,7 @@ void Simulation::runSingleSimulation()
             else
                 end_it = batch_start + end_thread_index;
             MainComputation* p_dwba_simulation = new MainComputation(
-                mP_sample.get(), m_options, *this, begin_it, end_it);
+                mP_sample.get(), m_options, m_progress, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
         }
 
@@ -266,15 +266,6 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
         double solid_angle = it->getSolidAngle();
         it->setIntensity(it->getIntensity()*beam_intensity*solid_angle/sin_alpha_i);
     }
-}
-
-void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress)
-{
-    // if we have external ProgressHandler (which is normally coming from GUI),
-    // then we will create special callbacks for every Computation.
-    // These callback will be used to report Computation progress to the Simulation.
-    if (m_progress)
-        dwba_progress->setCallback( [&] (int n) {return m_progress->update(n);} );
 }
 
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)

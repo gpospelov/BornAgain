@@ -14648,6 +14648,18 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getDistributionHandler(self)
 
 
+    def setProgressHandler(self, progress):
+        """
+        setProgressHandler(Simulation self, ProgressHandler * progress)
+
+        void Simulation::setProgressHandler(ProgressHandler_t progress)
+
+        sets progress handler (used by GUI) 
+
+        """
+        return _libBornAgainCore.Simulation_setProgressHandler(self, progress)
+
+
     def setOptions(self, options):
         """
         setOptions(Simulation self, SimulationOptions options)

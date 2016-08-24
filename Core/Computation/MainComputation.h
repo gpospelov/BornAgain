@@ -26,7 +26,7 @@
 class DecoratedLayerComputation;
 class MultiLayer;
 class RoughMultiLayerComputation;
-class Simulation;
+class ProgressHandler;
 class SimulationElement;
 
 //! Performs a DWBA calculation with given sample and simulation parameters
@@ -38,7 +38,7 @@ public:
     MainComputation(
         const MultiLayer* p_multi_layer,
         const SimulationOptions& options,
-        Simulation& simulation,
+        ProgressHandler* progress,
         const std::vector<SimulationElement>::iterator& begin_it,
         const std::vector<SimulationElement>::iterator& end_it);
     ~MainComputation();

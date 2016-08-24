@@ -25,7 +25,8 @@
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
 #include "ScalarSpecularInfoMap.h"
-#include "Simulation.h"
+#include "ProgressHandler.h"
+#include "ProgressHandlerDWBA.h"
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 #include "SpecularMatrix.h"
@@ -36,7 +37,7 @@
 MainComputation::MainComputation(
     const MultiLayer* p_multi_layer,
     const SimulationOptions& options,
-    Simulation& simulation,
+    ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
     : m_sim_options(options)
@@ -49,7 +50,8 @@ MainComputation::MainComputation(
     m_end_it = end_it;
 
     // initialising call backs
-    simulation.initProgressHandlerDWBA(&m_progress);
+    if (progress)
+        m_progress.setCallback( [&] (int n) {return progress->update(n);} );
 
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         m_layer_computation.push_back({});

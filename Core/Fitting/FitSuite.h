@@ -17,7 +17,7 @@
 #define FITSUITE_H
 
 #include "Attributes.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "IObserver.h"
 #include "OutputData.h"
 
@@ -61,7 +61,7 @@ public:
     //! @param attlim Limits attribute
     //! @param step Initial parameter's step (some minimizers don't use it)
     void addFitParameter(const std::string& name, double value,
-                         const Limits& lim=Limits::limitless(),
+                         const RealLimits& lim=RealLimits::limitless(),
                          const Attributes& attr=Attributes::free(), double step = 0.0);
 
     //! Sets minimizer with given name and algorithm type

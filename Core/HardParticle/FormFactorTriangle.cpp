@@ -15,7 +15,7 @@
 
 #include "FormFactorTriangle.h"
 #include "BornAgainNamespace.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "RealParameter.h"
 
 FormFactorTriangle::FormFactorTriangle(const double base_edge)

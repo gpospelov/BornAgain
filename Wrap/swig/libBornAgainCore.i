@@ -237,7 +237,7 @@
 // Note that the order matters, as base classes must be included before derived classes.
 
 %import(module="libBornAgainFit") "Attributes.h"
-%import(module="libBornAgainFit") "Limits.h"
+%import(module="libBornAgainFit") "RealLimits.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"

@@ -15,7 +15,7 @@
 
 #include "FormFactorSphereGaussianRadius.h"
 #include "BornAgainNamespace.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "RealParameter.h"
 
 using namespace BornAgain;

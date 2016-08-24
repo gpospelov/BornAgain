@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Parameters/Limits.h
-//! @brief     Defines class Limits.
+//! @file      Fit/Parameters/RealLimits.h
+//! @brief     Defines class RealLimits.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,19 +13,19 @@
 //
 // ************************************************************************** //
 
-#ifndef LIMITS_H
-#define LIMITS_H
+#ifndef REALLIMITS_H
+#define REALLIMITS_H
 
 #include "WinDllMacros.h"
 #include <ostream>
 
-//! Limits for a fit parameter.
+//! Limits for a real fit parameter.
 //! @ingroup fitting
 
-class BA_CORE_API_ Limits
+class BA_CORE_API_ RealLimits
 {
  public:
-    Limits()
+    RealLimits()
         : m_has_lower_limit(false), m_has_upper_limit(false),
         m_lower_limit(0.), m_upper_limit(0.) {}
 
@@ -69,33 +69,33 @@ class BA_CORE_API_ Limits
     // static creation methods
 
     //! Creates an object bounded from the left
-    static Limits lowerLimited(double bound_value) { return Limits(true, false, bound_value, 0.); }
+    static RealLimits lowerLimited(double bound_value) { return RealLimits(true, false, bound_value, 0.); }
 
     //! Creates an object which can have only positive values (>0., zero is not included)
-    static Limits positive();
+    static RealLimits positive();
 
     //! Creates an object which can have only positive values with 0. included
-    static Limits nonnegative() { return lowerLimited(0.); }
+    static RealLimits nonnegative() { return lowerLimited(0.); }
 
     //! Creates an object bounded from the right
-    static Limits upperLimited(double bound_value) { return Limits(false, true, 0., bound_value); }
+    static RealLimits upperLimited(double bound_value) { return RealLimits(false, true, 0., bound_value); }
 
     //! Creates an object bounded from the left and right
-    static Limits limited(double left_bound_value, double right_bound_value) {
-        return Limits(true, true, left_bound_value, right_bound_value); }
+    static RealLimits limited(double left_bound_value, double right_bound_value) {
+        return RealLimits(true, true, left_bound_value, right_bound_value); }
 
     //! Creates an object withoud bounds (default)
-    static Limits limitless() { return Limits(); }
+    static RealLimits limitless() { return RealLimits(); }
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const Limits& m)
+    friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m)
     { m.print(ostr); return ostr; }
 
-    bool operator==(const Limits &other) const;
-    bool operator!=(const Limits &other) const { return !(*this == other); }
+    bool operator==(const RealLimits &other) const;
+    bool operator!=(const RealLimits &other) const { return !(*this == other); }
 
  protected:
-    Limits(bool has_lower_limit, bool has_upper_limit, double lower_limit, double upper_limit)
+    RealLimits(bool has_lower_limit, bool has_upper_limit, double lower_limit, double upper_limit)
         : m_has_lower_limit(has_lower_limit)
         , m_has_upper_limit(has_upper_limit)
         , m_lower_limit(lower_limit)
@@ -109,4 +109,4 @@ class BA_CORE_API_ Limits
     void print(std::ostream& ostr) const;
 };
 
-#endif // LIMITS_H
+#endif // REALLIMITS_H

@@ -66,13 +66,13 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
                 sigma_factor = distributionItem->getItemValue(
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
-            Limits limits;
+            RealLimits limits;
             SessionItem *distributionNoneValueItem =
                     getGroupItem(P_DISTRIBUTION,Constants::DistributionNoneType)->getItem(DistributionNoneItem::P_VALUE);
             if (modelType() == Constants::BeamWavelengthType) {
                 limits = distributionNoneValueItem->limits();
             } else {
-                Limits orig = distributionNoneValueItem->limits();
+                RealLimits orig = distributionNoneValueItem->limits();
                 if (orig.hasLowerLimit())
                     limits.setLowerLimit(Units::deg2rad(orig.getLowerLimit()));
                 if (orig.hasUpperLimit())

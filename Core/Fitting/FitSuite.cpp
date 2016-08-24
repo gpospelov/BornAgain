@@ -39,7 +39,7 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
     m_kernel->addSimulationAndRealData(simulation, *data, weight);
 }
 
-void FitSuite::addFitParameter(const std::string& name, double value, const Limits& lim,
+void FitSuite::addFitParameter(const std::string& name, double value, const RealLimits& lim,
                                const Attributes& attr, double step)
 {
     m_kernel->addFitParameter(name, value, lim, attr, step);

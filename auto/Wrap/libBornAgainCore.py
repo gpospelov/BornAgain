@@ -5734,9 +5734,9 @@ class FitSuite(IObservable):
 
     def addFitParameter(self, *args):
         """
-        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim, Attributes attr, double step=0.0)
-        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim, Attributes attr)
-        addFitParameter(FitSuite self, std::string const & name, double value, Limits lim)
+        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim, Attributes attr, double step=0.0)
+        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim, Attributes attr)
+        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim)
         addFitParameter(FitSuite self, std::string const & name, double value)
 
         void FitSuite::addFitParameter(const std::string &name, double value, const Limits &lim=Limits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
@@ -7258,7 +7258,7 @@ class IDistribution1D(IParameterized):
 
     def generateSamples(self, *args):
         """
-        generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0, Limits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
+        generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         generateSamples(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
@@ -7273,7 +7273,7 @@ class IDistribution1D(IParameterized):
 
     def generateValueList(self, *args):
         """
-        generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
+        generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
         virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const =0
@@ -7446,7 +7446,7 @@ class DistributionGate(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
+        generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
         std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
@@ -7554,7 +7554,7 @@ class DistributionLorentz(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
+        generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
         std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
@@ -7664,7 +7664,7 @@ class DistributionGaussian(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
+        generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
         std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
@@ -7786,7 +7786,7 @@ class DistributionLogNormal(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
+        generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
         std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
@@ -7896,7 +7896,7 @@ class DistributionCosine(IDistribution1D):
 
     def generateValueList(self, *args):
         """
-        generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor, Limits limits) -> vdouble1d_t
+        generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
         std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
@@ -14904,7 +14904,7 @@ class Simulation(ICloneable, IParameterized):
 
     def addParameterDistribution(self, *args):
         """
-        addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, Limits limits)
+        addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits)
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0)
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples)
         addParameterDistribution(Simulation self, ParameterDistribution par_distr)
@@ -21967,7 +21967,7 @@ class ParameterDistribution(IParameterized):
 
     def __init__(self, *args):
         """
-        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, Limits limits) -> ParameterDistribution
+        __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples) -> ParameterDistribution
         __init__(ParameterDistribution self, std::string const & par_name, IDistribution1D distribution, size_t nbr_samples, double xmin, double xmax) -> ParameterDistribution
@@ -22066,7 +22066,7 @@ class ParameterDistribution(IParameterized):
 
     def getLimits(self):
         """
-        getLimits(ParameterDistribution self) -> Limits
+        getLimits(ParameterDistribution self) -> RealLimits
 
         Limits ParameterDistribution::getLimits() const 
 
@@ -23219,8 +23219,8 @@ class RealParameter(INamed):
 
     def __init__(self, *args):
         """
-        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, Limits limits, Attributes attr) -> RealParameter
-        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, Limits limits) -> RealParameter
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, RealLimits limits, Attributes attr) -> RealParameter
+        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, RealLimits limits) -> RealParameter
         __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par) -> RealParameter
         __init__(RealParameter self, RealParameter other) -> RealParameter
         __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
@@ -23307,7 +23307,7 @@ class RealParameter(INamed):
 
     def setLimits(self, limits):
         """
-        setLimits(RealParameter self, Limits limits) -> RealParameter
+        setLimits(RealParameter self, RealLimits limits) -> RealParameter
 
         RealParameter& RealParameter::setLimits(const Limits &limits)
 
@@ -23317,7 +23317,7 @@ class RealParameter(INamed):
 
     def getLimits(self):
         """
-        getLimits(RealParameter self) -> Limits
+        getLimits(RealParameter self) -> RealLimits
 
         Limits RealParameter::getLimits() const 
 

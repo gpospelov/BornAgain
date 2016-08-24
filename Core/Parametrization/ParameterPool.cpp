@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ParameterPool.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "RealParameter.h"
 #include <stdexcept>
 #include "StringUtils.h"

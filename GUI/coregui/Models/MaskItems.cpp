@@ -60,10 +60,10 @@ RectangleItem::RectangleItem()
     : MaskItem(Constants::RectangleMaskType)
 {
     setItemName(Constants::RectangleMaskType);
-    addProperty(P_XLOW, 0.0)->setLimits(Limits::limitless());
-    addProperty(P_YLOW, 0.0)->setLimits(Limits::limitless());
-    addProperty(P_XUP, 0.0)->setLimits(Limits::limitless());
-    addProperty(P_YUP, 0.0)->setLimits(Limits::limitless());
+    addProperty(P_XLOW, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_YLOW, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_XUP, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_YUP, 0.0)->setLimits(RealLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> RectangleItem::createShape(double scale) const
@@ -83,8 +83,8 @@ PolygonPointItem::PolygonPointItem()
     : SessionItem(Constants::PolygonPointType)
 {
     setItemName(Constants::PolygonPointType);
-    addProperty(P_POSX, 0.0)->setLimits(Limits::limitless());
-    addProperty(P_POSY, 0.0)->setLimits(Limits::limitless());
+    addProperty(P_POSX, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_POSY, 0.0)->setLimits(RealLimits::limitless());
 }
 
 /* ------------------------------------------------------------------------- */
@@ -118,7 +118,7 @@ VerticalLineItem::VerticalLineItem()
     : MaskItem(Constants::VerticalLineMaskType)
 {
     setItemName(Constants::VerticalLineMaskType);
-    addProperty(P_POSX, 0.0)->setLimits(Limits::limitless());
+    addProperty(P_POSX, 0.0)->setLimits(RealLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> VerticalLineItem::createShape(double scale) const
@@ -134,7 +134,7 @@ HorizontalLineItem::HorizontalLineItem()
     : MaskItem(Constants::HorizontalLineMaskType)
 {
     setItemName(Constants::HorizontalLineMaskType);
-    addProperty(P_POSY, 0.0)->setLimits(Limits::limitless());
+    addProperty(P_POSY, 0.0)->setLimits(RealLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> HorizontalLineItem::createShape(double scale) const
@@ -155,11 +155,11 @@ EllipseItem::EllipseItem()
     : MaskItem(Constants::EllipseMaskType)
 {
     setItemName(Constants::EllipseMaskType);
-    addProperty(P_XCENTER, 0.0)->setLimits(Limits::limitless());
-    addProperty(P_YCENTER, 0.0)->setLimits(Limits::limitless());
+    addProperty(P_XCENTER, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_YCENTER, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_XRADIUS, 0.0);
     addProperty(P_YRADIUS, 0.0);
-    addProperty(P_ANGLE, 0.0)->setLimits(Limits::limitless());
+    addProperty(P_ANGLE, 0.0)->setLimits(RealLimits::limitless());
 }
 
 std::unique_ptr<Geometry::IShape2D> EllipseItem::createShape(double scale) const

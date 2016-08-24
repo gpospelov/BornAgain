@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-class Limits;
+class RealLimits;
 class RealParameter;
 
 //! Holds a map of pointers to parameters.

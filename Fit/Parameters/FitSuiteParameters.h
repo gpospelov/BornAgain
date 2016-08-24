@@ -20,7 +20,7 @@
 #include <vector>
 #include <string>
 
-class Limits;
+class RealLimits;
 class FitParameter;
 class ParameterPool;
 

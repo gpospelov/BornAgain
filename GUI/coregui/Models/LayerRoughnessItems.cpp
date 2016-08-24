@@ -30,7 +30,7 @@ LayerBasicRoughnessItem::LayerBasicRoughnessItem()
     : SessionItem(Constants::LayerBasicRoughnessType)
 {
     addProperty(P_SIGMA, 1.0);
-    addProperty(P_HURST, 0.3)->setLimits(Limits::limited(0.0, 1.0));
+    addProperty(P_HURST, 0.3)->setLimits(RealLimits::limited(0.0, 1.0));
     getItem(P_HURST)->setDecimals(3);
     addProperty(P_LATERAL_CORR_LENGTH, 5.0);
 }

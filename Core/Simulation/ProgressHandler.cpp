@@ -17,7 +17,6 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "MultiLayer.h"
-#include "Simulation.h"
 #include <mutex>
 
 ProgressHandler::ProgressHandler()
@@ -60,33 +59,21 @@ bool ProgressHandler::update(int items_done)
 }
 
 //! Initialize ProgressHandler, estimates number of items to be calculated by Computation's.
-void ProgressHandler::init(Simulation* simulation, int param_combinations)
+void ProgressHandler::init(const MultiLayer* sample, int combinations)
 {
     m_nitems = 0;
-    m_percentage_done = 0;
+    m_percentage_done = 0.;
     m_nitems_max = 0;
 
-    MultiLayer* multilayer = dynamic_cast<MultiLayer*>(simulation->getSample());
-
-    double number_of_rounds_factor(0.0);
+    int number_of_rounds_factor(0);
     int nlayouts(0);
-    for (size_t i_layer=0; i_layer<multilayer->getNumberOfLayers(); ++i_layer)
-        nlayouts += multilayer->getLayer(i_layer)->getNumberOfLayouts();
+    for (size_t i_layer=0; i_layer<sample->getNumberOfLayers(); ++i_layer)
+        nlayouts += sample->getLayer(i_layer)->getNumberOfLayouts();
     if (nlayouts > 0)
-        number_of_rounds_factor += 1.0;
-
-    // Analyzing sample for additional factors which will slow done the simulation
-    int nroughness(0);
-    if (multilayer) {
-        for (size_t i=0; i<multilayer->getNumberOfInterfaces(); ++i) {
-            if(multilayer->getLayerInterface(i)->getRoughness() )
-                nroughness++;
-        }
-    }
-    if (nroughness>0)
-        number_of_rounds_factor += 1.0;
+        number_of_rounds_factor += 1;
+    if (sample->hasRoughness())
+        number_of_rounds_factor += 1;
 
     // Simplified estimation of total number of items in DWBA simulation
-    m_nitems_max = number_of_rounds_factor * param_combinations *
-        simulation->getNumberOfSimulationElements();
+    m_nitems_max = number_of_rounds_factor * combinations;
 }

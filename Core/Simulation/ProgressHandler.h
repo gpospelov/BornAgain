@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <functional>
 
-class Simulation;
+class MultiLayer;
 
 //! Provides the functionality to calculate the progress of running simulation and report it to GUI.
 //!
@@ -35,7 +35,7 @@ public:
 
     ProgressHandler();
 
-    void init(Simulation* simulation, int param_combinations = 1);
+    void init(const MultiLayer* sample, int combinations);
     void reset();
 
     void setCallback(ProgressHandler::Callback_t callback) { m_callback = callback; }

@@ -63,12 +63,13 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
 
 double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_element) const
 {
-    if (m_options.isIntegrate())
+    if (m_options.isIntegrate()) // TODO: consider testing solid angle as in scalar case
         return MCIntegratedEvaluatePol(sim_element);
-    calculateFormFactorLists(sim_element);
+    calculateFormFactorListPol(sim_element);
     return evaluateForMatrixList(sim_element, m_ff_pol);
 }
 
+//! Precomputes scalar form factors.
 void IInterferenceFunctionStrategy::calculateFormFactorList(
         const SimulationElement& sim_element) const
 {
@@ -89,7 +90,8 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     }
 }
 
-void IInterferenceFunctionStrategy::calculateFormFactorLists(
+//! Precomputes matrix form factors.
+void IInterferenceFunctionStrategy::calculateFormFactorListPol(
         const SimulationElement &sim_element) const
 {
     clearFormFactorLists();
@@ -134,7 +136,7 @@ double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
-    double* fractions, size_t /* dim */, void* params) const
+    double* fractions, size_t, void* params) const
 {
     double par0 = fractions[0];
     double par1 = fractions[1];
@@ -147,7 +149,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
-    double* fractions, size_t /* dim */, void* params) const
+    double* fractions, size_t, void* params) const
 {
     double par0 = fractions[0];
     double par1 = fractions[1];

@@ -1,4 +1,4 @@
-# Find libyaml-cpp with API version 0.5
+﻿# Find libyaml-cpp with API version 0.5
 #
 # Usage:
 #   find_package(YamlCpp05 [REQUIRED] [QUIET])
@@ -83,7 +83,7 @@ endif()
 
 # try to compile, link, and run a test program
 unset(YAMLCPP_RUNS CACHE)
-set(CMAKE_REQUIRED_LIBRARIES yaml-cpp)
+set(CMAKE_REQUIRED_LIBRARIES ${YAMLCPP_LIBRARY}) 
 check_cxx_source_runs("#include \"yaml-cpp/yaml.h\"\n#include <assert.h>\nint main() {\n    YAML::Node node = YAML::Load(\"[1, 2, 3]\");\n    assert(node.IsSequence());\n}" YAMLCPP_RUNS)
 if(${YAMLCPP_RUNS})
 else()

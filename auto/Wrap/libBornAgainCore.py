@@ -20752,6 +20752,11 @@ class MultiLayer(ICompositeSample):
         """hasRoughness(MultiLayer self) -> bool"""
         return _libBornAgainCore.MultiLayer_hasRoughness(self)
 
+
+    def totalNofLayouts(self):
+        """totalNofLayouts(MultiLayer self) -> size_t"""
+        return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
+
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 

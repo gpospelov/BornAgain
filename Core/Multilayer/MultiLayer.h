@@ -118,6 +118,8 @@ public:
 
     bool hasRoughness() const;
 
+    size_t totalNofLayouts() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

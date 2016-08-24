@@ -240,6 +240,14 @@ bool MultiLayer::hasRoughness() const
     return false;
 }
 
+size_t MultiLayer::totalNofLayouts() const
+{
+    size_t ret = 0;
+    for (const Layer* layer: m_layers)
+        ret += layer->getNumberOfLayouts();
+    return ret;
+}
+
 void MultiLayer::print(std::ostream& ostr) const
 {
     ostr << "MultiLayer:" << getName() << "<" << this << "> : {\n";

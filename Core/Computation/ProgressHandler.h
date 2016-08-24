@@ -31,22 +31,19 @@ class MultiLayer;
 class BA_CORE_API_ ProgressHandler : public INoncopyable
 {
 public:
-    typedef std::function<bool(int)> Callback_t;
+    typedef std::function<bool(size_t)> Callback_t;
 
     ProgressHandler();
 
-    void init(const MultiLayer* sample, int combinations);
-    void reset();
-
     void setCallback(ProgressHandler::Callback_t callback) { m_callback = callback; }
-    void setNmaxItems(long max) { m_nitems_max = max; }
+    void setExpectedNTicks(size_t n) { m_expected_nticks = n; }
 
-    bool update(int items_done);
+    bool update(size_t ticks_done);
 
 private:
     ProgressHandler::Callback_t m_callback;
-    long m_nitems;
-    long m_nitems_max;
+    size_t m_completed_nticks;
+    size_t m_expected_nticks;
     int m_percentage_done;
 };
 

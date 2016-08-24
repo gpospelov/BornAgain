@@ -20,26 +20,17 @@
 #include <mutex>
 
 ProgressHandler::ProgressHandler()
-    : m_nitems(0)
-    , m_nitems_max(0)
+    : m_callback(nullptr)
+    , m_completed_nticks(0)
+    , m_expected_nticks(0)
     , m_percentage_done(0)
-{
-}
+{}
 
-void ProgressHandler::reset()
-{
-    m_nitems = 0;
-    m_nitems_max = 0;
-    m_percentage_done = 0;
-    m_callback = nullptr;
-}
-
-
-//! Collects number of items processed by different Computation's.
+//! Collects number of ticks processed by different Computation's.
 //! Calculates general progress and inform GUI if progress has changed.
 //! Return flag is obtained from GUI and transferred to Computation to ask
 //! them to stop calculations.
-bool ProgressHandler::update(int items_done)
+bool ProgressHandler::update(size_t ticks_done)
 {
     static std::mutex single_mutex;
     std::unique_lock<std::mutex> single_lock( single_mutex );
@@ -47,33 +38,13 @@ bool ProgressHandler::update(int items_done)
     // this flag is to inform Simulation that GUI wants it to be terminated
     bool continue_calculations(true);
 
-    m_nitems += items_done;
+    m_completed_nticks += ticks_done;
 
-    m_percentage_done = int(100.*m_nitems/m_nitems_max);
-    //std::cout << "ProgressHandler::update done" << items_done << " of " << m_nitems_max
+    m_percentage_done = int(100.*m_completed_nticks/m_expected_nticks);
+    //std::cout << "ProgressHandler::update done" << ticks_done << " of " << m_expected_nticks
     //         << " => progress:" << progress << std::endl;
     if(m_callback)
         continue_calculations = m_callback(m_percentage_done); // report to gui
 
     return continue_calculations;
-}
-
-//! Initialize ProgressHandler, estimates number of items to be calculated by Computation's.
-void ProgressHandler::init(const MultiLayer* sample, int combinations)
-{
-    m_nitems = 0;
-    m_percentage_done = 0.;
-    m_nitems_max = 0;
-
-    int number_of_rounds_factor(0);
-    int nlayouts(0);
-    for (size_t i_layer=0; i_layer<sample->getNumberOfLayers(); ++i_layer)
-        nlayouts += sample->getLayer(i_layer)->getNumberOfLayouts();
-    if (nlayouts > 0)
-        number_of_rounds_factor += 1;
-    if (sample->hasRoughness())
-        number_of_rounds_factor += 1;
-
-    // Simplified estimation of total number of items in DWBA simulation
-    m_nitems_max = number_of_rounds_factor * combinations;
 }

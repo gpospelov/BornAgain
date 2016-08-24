@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERCOMPUTATION_H
-#define MULTILAYERCOMPUTATION_H
+#ifndef MAINCOMPUTATION_H
+#define MAINCOMPUTATION_H
 
 #include "ComputationOutcome.h"
 #include "Complex.h"
@@ -68,4 +68,4 @@ private:
     ComputationOutcome m_outcome;
 };
 
-#endif // MULTILAYERCOMPUTATION_H
+#endif // MAINCOMPUTATION_H

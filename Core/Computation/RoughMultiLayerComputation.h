@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERROUGHNESSCOMPUTATION_H
-#define MULTILAYERROUGHNESSCOMPUTATION_H
+#ifndef ROUGHMULTILAYERCOMPUTATION_H
+#define ROUGHMULTILAYERCOMPUTATION_H
 
 #include "Complex.h"
 #include "INoncopyable.h"
@@ -53,4 +53,4 @@ private:
     std::vector<LayerSpecularInfo*> mp_specular_info_vector;
 };
 
-#endif // MULTILAYERROUGHNESSCOMPUTATION_H
+#endif // ROUGHMULTILAYERCOMPUTATION_H

@@ -37,15 +37,13 @@ public:
 
     ProgressHandler() : m_inform(nullptr), m_expected_nticks(0), m_completed_nticks(0) {}
     ProgressHandler(const ProgressHandler& other)
-        : m_inform(nullptr) // not clear whether we want to copy subscriptions
+        : m_inform(other.m_inform) // not clear whether we want multiple copies of this
         , m_expected_nticks(other.m_expected_nticks)
         , m_completed_nticks(other.m_completed_nticks) {}
     void subscribe(ProgressHandler::Callback_t callback);
     void reset() { m_completed_nticks = 0; }
     void setExpectedNTicks(size_t n) { m_expected_nticks = n; }
     bool incrementDone(size_t ticks_done);
-
-    int  percentage_done() const { return 100.*m_completed_nticks/m_expected_nticks; }
 
 private:
     Callback_t m_inform;

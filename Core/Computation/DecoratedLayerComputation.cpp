@@ -21,6 +21,7 @@
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
 #include "MultiLayer.h"
+#include "ProgressHandler.h"
 #include "SimulationElement.h"
 
 DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_t layout_index)
@@ -34,6 +35,7 @@ DecoratedLayerComputation::~DecoratedLayerComputation()
 
 void DecoratedLayerComputation::eval(
     const SimulationOptions& options,
+    ProgressHandler* progress,
     bool polarized,
     const MultiLayer& sample,
     const std::vector<SimulationElement>::iterator& begin_it,
@@ -55,6 +57,7 @@ void DecoratedLayerComputation::eval(
             it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
         else
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
+        progress->incrementDone(1);
     }
 }
 

@@ -19,6 +19,7 @@
 #include "MultiLayer.h"
 #include <mutex>
 #include <stdexcept>
+#include <iostream> // DEBUG
 
 void ProgressHandler::subscribe(ProgressHandler::Callback_t inform)
 {
@@ -35,6 +36,7 @@ void ProgressHandler::subscribe(ProgressHandler::Callback_t inform)
 //! value of that flag to request the owner to terminate.
 bool ProgressHandler::incrementDone(size_t ticks_done)
 {
+    static int last_reported_percentage = -1;
     static std::mutex single_mutex;
     std::unique_lock<std::mutex> single_lock( single_mutex );
 
@@ -42,7 +44,12 @@ bool ProgressHandler::incrementDone(size_t ticks_done)
     if (m_completed_nticks > m_expected_nticks)
         m_expected_nticks = m_completed_nticks+1;
 
-    if(!m_inform)
+    int percentage_done = (int) (100.*m_completed_nticks/m_expected_nticks);
+    // fractional part is discarded, which is fine here:
+    // the value 100 is only returned if everything is done
+
+    if(!m_inform || percentage_done==last_reported_percentage)
         return true;
-    return m_inform(percentage_done()); // report to subscriber, and get continuation flag
+    last_reported_percentage = percentage_done;
+    return m_inform(percentage_done); // report to subscriber, and get continuation flag
 }

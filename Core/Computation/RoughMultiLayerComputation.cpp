@@ -21,8 +21,9 @@
 #include "LayerRoughness.h"
 #include "LayerSpecularInfo.h"
 #include "MultiLayer.h"
-#include "SimulationElement.h"
 #include "Pi.h"
+#include "ProgressHandler.h"
+#include "SimulationElement.h"
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
@@ -51,11 +52,14 @@ RoughMultiLayerComputation::~RoughMultiLayerComputation()
 }
 
 void RoughMultiLayerComputation::eval(
+    ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
 {
-    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it)
+    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         it->setIntensity(evaluate(*it));
+        progress->incrementDone(1);
+    }
 }
 
 double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element)

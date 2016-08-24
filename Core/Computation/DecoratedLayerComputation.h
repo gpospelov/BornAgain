@@ -26,6 +26,7 @@ class IInterferenceFunctionStrategy;
 class Layer;
 class LayerSpecularInfo;
 class MultiLayer;
+class ProgressHandler;
 class SimulationElement;
 class SimulationOptions;
 
@@ -40,6 +41,7 @@ public:
     ~DecoratedLayerComputation();
 
     void eval(const SimulationOptions& options,
+              ProgressHandler* progress,
               bool polarized,
               const MultiLayer& sample,
               const std::vector<SimulationElement>::iterator& begin_it,

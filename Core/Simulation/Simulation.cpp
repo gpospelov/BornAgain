@@ -57,7 +57,11 @@ Simulation::Simulation(const Simulation& other)
 void Simulation::setTerminalProgressMonitor()
 {
     m_progress.subscribe( [] (int percentage_done) -> bool {
-            std::cout << "... " << std::setprecision(2) << percentage_done << "%\r";
+            if (percentage_done<100)
+                std::cout << std::setprecision(2)
+                          << "... " << percentage_done << "%\r" << std::flush;
+            else // wipe out
+                std::cout << "        " << "%\r" << std::flush;
             return true;
         } );
 }
@@ -220,7 +224,8 @@ void Simulation::runSingleSimulation()
         // Initialize n simulations.
         int total_batch_elements = batch_end - batch_start;
         int element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
-        if (total_batch_elements % m_options.getNumberOfThreads()) ++element_thread_step;
+        if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
+            ++element_thread_step;
 
         for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
             if (i_thread*element_thread_step >= total_batch_elements)

@@ -34,7 +34,7 @@ protected:
     void drawContents(QPainter *painter);
 private:
     int m_width, m_height;
-    int m_progress;
+    int m_percentage_done;
 
 };
 

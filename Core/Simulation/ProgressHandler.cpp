@@ -23,7 +23,7 @@
 ProgressHandler::ProgressHandler()
     : m_nitems(0)
     , m_nitems_max(0)
-    , m_current_progress(0)
+    , m_percentage_done(0)
 {
 }
 
@@ -31,7 +31,7 @@ void ProgressHandler::reset()
 {
     m_nitems = 0;
     m_nitems_max = 0;
-    m_current_progress = 0;
+    m_percentage_done = 0;
     m_callback = nullptr;
 }
 
@@ -40,7 +40,7 @@ void ProgressHandler::reset()
 //! Calculates general progress and inform GUI if progress has changed.
 //! Return flag is obtained from GUI and transferred to Computation to ask
 //! them to stop calculations.
-bool ProgressHandler::update(int n)
+bool ProgressHandler::update(int items_done)
 {
     static std::mutex single_mutex;
     std::unique_lock<std::mutex> single_lock( single_mutex );
@@ -48,15 +48,13 @@ bool ProgressHandler::update(int n)
     // this flag is to inform Simulation that GUI wants it to be terminated
     bool continue_calculations(true);
 
-    m_nitems += n;
+    m_nitems += items_done;
 
-    int progress = int(100.*m_nitems/m_nitems_max); // in percents
-    //std::cout << "ProgressHandler::update n:" << n << " m_nitems:" << m_nitems <<
-    //         " m_nitems_max:" << m_nitems_max << " progress:" << progress << std::endl;
-    if(progress != m_current_progress)
-        m_current_progress = progress;
+    m_percentage_done = int(100.*m_nitems/m_nitems_max);
+    //std::cout << "ProgressHandler::update done" << items_done << " of " << m_nitems_max
+    //         << " => progress:" << progress << std::endl;
     if(m_callback)
-        continue_calculations = m_callback(m_current_progress); // report to gui
+        continue_calculations = m_callback(m_percentage_done); // report to gui
 
     return continue_calculations;
 }
@@ -65,16 +63,15 @@ bool ProgressHandler::update(int n)
 void ProgressHandler::init(Simulation* simulation, int param_combinations)
 {
     m_nitems = 0;
-    m_current_progress = 0;
+    m_percentage_done = 0;
     m_nitems_max = 0;
 
     MultiLayer* multilayer = dynamic_cast<MultiLayer*>(simulation->getSample());
 
     double number_of_rounds_factor(0.0);
     int nlayouts(0);
-    for (size_t i_layer=0; i_layer<multilayer->getNumberOfLayers(); ++i_layer) {
+    for (size_t i_layer=0; i_layer<multilayer->getNumberOfLayers(); ++i_layer)
         nlayouts += multilayer->getLayer(i_layer)->getNumberOfLayouts();
-    }
     if (nlayouts > 0)
         number_of_rounds_factor += 1.0;
 

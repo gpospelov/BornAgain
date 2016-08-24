@@ -16,45 +16,39 @@
 #ifndef PROGRESSHANDLER_H
 #define PROGRESSHANDLER_H
 
+#include "INoncopyable.h"
 #include "WinDllMacros.h"
 #include <functional>
 #include <memory>
 
 class Simulation;
 
-//! @class ProgressHandler
-//! @ingroup algorithms_internal
-//! @brief Provides the functionality to calculate the progress of running simulation
-//! and report it to GUI.
+//! Provides the functionality to calculate the progress of running simulation and report it to GUI.
 //!
-//! Thread safe to be used from Computation
-class BA_CORE_API_ ProgressHandler
+//! Thread safe to be used from Computation.
+//!
+//! @ingroup algorithms_internal
+
+class BA_CORE_API_ ProgressHandler : public INoncopyable
 {
 public:
     typedef std::function<bool(int)> Callback_t;
 
     ProgressHandler();
 
+    void init(Simulation* simulation, int param_combinations = 1);
+    void reset();
+
     void setCallback(ProgressHandler::Callback_t callback) { m_callback = callback; }
-
-    bool update(int n);
-
     void setNmaxItems(long max) { m_nitems_max = max; }
 
-    long getProgress() const { return m_current_progress; }
-    long getNitems() const { return m_nitems; }
+    bool update(int items_done);
 
-    void init(Simulation *simulation, int param_combinations = 1);
-
-    void reset();
 private:
-    ProgressHandler(const ProgressHandler& );
-    ProgressHandler& operator=(const ProgressHandler& );
-
     ProgressHandler::Callback_t m_callback;
     long m_nitems;
     long m_nitems_max;
-    long m_current_progress;
+    int m_percentage_done;
 };
 
 // Shared pointer is needed because multiple Computation threads will contain a

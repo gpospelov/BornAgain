@@ -23,7 +23,7 @@
 JobWorker::JobWorker(QString identifier, GISASSimulation *simulation)
     : m_identifier(identifier)
     , m_simulation(simulation)
-    , m_progress(0)
+    , m_percentage_done(0)
     , m_job_status(Constants::STATUS_IDLE)
     , m_terminate_request_flag(false)
     , m_simulation_duration(0)
@@ -35,7 +35,7 @@ int JobWorker::getProgress() const
 {
     // sometimes simulation underestimate the number of iterations required
     // and progress can be greater than 100
-    return m_progress < 100 ? m_progress : 100;
+    return m_percentage_done < 100 ? m_percentage_done : 100;
 }
 
 void JobWorker::start()
@@ -47,8 +47,8 @@ void JobWorker::start()
 
     if(m_simulation) {
         ProgressHandler_t progressHandler(new ProgressHandler());
-        ProgressHandler::Callback_t callback = [this] (int n) {
-            return simulationProgressCallback(n);
+        ProgressHandler::Callback_t callback = [this] (int percentage_done) {
+            return simulationProgressCallback(percentage_done);
         };
         progressHandler->setCallback(callback);
         m_simulation->setProgressHandler(progressHandler);
@@ -68,7 +68,7 @@ void JobWorker::start()
         catch(const std::exception &ex)
         {
             m_job_status = Constants::STATUS_FAILED;
-            m_progress=100;
+            m_percentage_done = 100;
             m_failure_message = QString(
                         "JobRunner::start() -> Simulation failed with exception throw:\n\n");
 
@@ -77,7 +77,7 @@ void JobWorker::start()
 
     } else {
         m_job_status = Constants::STATUS_FAILED;
-        m_progress=100;
+        m_percentage_done = 100;
         m_failure_message = QString("JobRunner::start() -> Error. Simulation doesn't exist.");
     }
     emit progressUpdate();
@@ -85,10 +85,10 @@ void JobWorker::start()
 }
 
 //! function which is called by the simulation to report its progress
-bool JobWorker::simulationProgressCallback(int progress)
+bool JobWorker::simulationProgressCallback(int percentage_done)
 {
-    if(progress >= m_progress) {
-        m_progress = progress;
+    if (percentage_done > m_percentage_done) {
+        m_percentage_done = percentage_done;
         emit progressUpdate();
     }
 

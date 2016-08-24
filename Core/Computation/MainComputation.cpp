@@ -101,7 +101,7 @@ void MainComputation::runProtected()
     // run through layers and run layer simulations
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
-    bool polarized = mp_simulation->getSample()->containsMagneticMaterial();
+    bool polarized = mp_multi_layer->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
         for (DecoratedLayerComputation* comp: layer_comp) {
             comp->eval(m_sim_options, polarized, *mp_simulation->getSample(),

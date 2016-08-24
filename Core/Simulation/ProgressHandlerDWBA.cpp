@@ -19,9 +19,7 @@ ProgressHandlerDWBA::ProgressHandlerDWBA()
     : m_nitems(0)
     , m_nitems_total(0)
     , m_report_every_nth(100)
-{
-
-}
+{}
 
 
 //! Method increments number of items processed.
@@ -30,9 +28,8 @@ ProgressHandlerDWBA::ProgressHandlerDWBA()
 bool ProgressHandlerDWBA::update()
 {
     bool continue_calculations(true);
-    if(!m_callback) {
+    if(!m_callback)
         return continue_calculations;
-    }
 
     m_nitems_total++;
     m_nitems++;

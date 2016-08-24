@@ -58,7 +58,7 @@ public slots:
 private:
     QString m_identifier;
     GISASSimulation *m_simulation;
-    int m_progress;
+    int m_percentage_done;
     QString m_job_status;
     bool m_terminate_request_flag;
     QString m_failure_message;

@@ -7,7 +7,7 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-detector_distance = 2000.0  # in mm
+detector_distance = 500.0  # in mm
 pilatus_pixel_size = 0.172  # in mm
 pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
 
@@ -22,8 +22,9 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
+    edge = 40*nm
+    ff = ba.FormFactorBox(edge, edge, edge)
+    cylinder = ba.Particle(m_particle, ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
 
@@ -69,7 +70,7 @@ def get_simulation():
     Return a GISAXS simulation with defined beam
     """
     simulation = ba.GISASSimulation()
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setBeamParameters(10*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -79,6 +80,9 @@ def plot(result):
     """
     import matplotlib
     from matplotlib import pyplot as plt
+    from matplotlib import rc
+    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+    rc('text', usetex=True)
     fig = plt.figure(figsize=(13.6, 5.12))
 
     result_sph  = result['spherical']

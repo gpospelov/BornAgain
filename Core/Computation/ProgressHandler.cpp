@@ -18,33 +18,31 @@
 #include "LayerInterface.h"
 #include "MultiLayer.h"
 #include <mutex>
+#include <stdexcept>
 
-ProgressHandler::ProgressHandler()
-    : m_callback(nullptr)
-    , m_completed_nticks(0)
-    , m_expected_nticks(0)
-    , m_percentage_done(0)
-{}
+void ProgressHandler::subscribe(ProgressHandler::Callback_t inform)
+{
+    if (m_inform)
+        throw std::runtime_error("Invalid call of ProgressHandler::subscribe: "
+                                 "currently, no more than one subscriber is allowed");
+    m_inform = inform;
+}
 
-//! Collects number of ticks processed by different Computation's.
-//! Calculates general progress and inform GUI if progress has changed.
-//! Return flag is obtained from GUI and transferred to Computation to ask
-//! them to stop calculations.
-bool ProgressHandler::update(size_t ticks_done)
+//! Increments number of completed computation steps (ticks).
+//! Performs callback (method m_inform) to inform the subscriber about
+//! the state of the computation and to obtain as return value a flag
+//! that indicates whether to continue the computation. Returns the
+//! value of that flag to request the owner to terminate.
+bool ProgressHandler::incrementDone(size_t ticks_done)
 {
     static std::mutex single_mutex;
     std::unique_lock<std::mutex> single_lock( single_mutex );
 
-    // this flag is to inform Simulation that GUI wants it to be terminated
-    bool continue_calculations(true);
-
     m_completed_nticks += ticks_done;
+    if (m_completed_nticks > m_expected_nticks)
+        m_expected_nticks = m_completed_nticks+1;
 
-    m_percentage_done = int(100.*m_completed_nticks/m_expected_nticks);
-    //std::cout << "ProgressHandler::update done" << ticks_done << " of " << m_expected_nticks
-    //         << " => progress:" << progress << std::endl;
-    if(m_callback)
-        continue_calculations = m_callback(m_percentage_done); // report to gui
-
-    return continue_calculations;
+    if(!m_inform)
+        return true;
+    return m_inform(percentage_done()); // report to subscriber, and get continuation flag
 }

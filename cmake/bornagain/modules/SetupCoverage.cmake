@@ -8,6 +8,7 @@
 
 set(coverage_ignore_dirs "'/usr/*'")
 list(APPEND coverage_ignore_dirs "'*/auto/*'")
+list(APPEND coverage_ignore_dirs "'*/Tests/*'")
 list(APPEND coverage_ignore_dirs "'*/ThirdParty/*'")
 list(APPEND coverage_ignore_dirs "'*/build/*'")
 list(APPEND coverage_ignore_dirs "'*/GUI/externals/*'")

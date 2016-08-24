@@ -81,14 +81,13 @@ public:
 
     const DistributionHandler& getDistributionHandler() const;
 
-    //! sets progress handler (used by GUI)
-    void setProgressHandler(ProgressHandler* progress) { m_progress = progress; }
-
     //unused friend class OMPISimulation;
 
     void setOptions(const SimulationOptions& options) { m_options = options; }
     const SimulationOptions& getOptions() const { return m_options; }
     SimulationOptions& getOptions() { return m_options; }
+
+    ProgressHandler& progressHandler() { return m_progress; }
 
 protected:
     Simulation(const Simulation& other);
@@ -123,7 +122,7 @@ protected:
     std::shared_ptr<IMultiLayerBuilder> mp_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
-    ProgressHandler* m_progress;
+    ProgressHandler m_progress;
     std::vector<SimulationElement> m_sim_elements;
 
 private:

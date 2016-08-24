@@ -14927,18 +14927,6 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getDistributionHandler(self)
 
 
-    def setProgressHandler(self, progress):
-        """
-        setProgressHandler(Simulation self, ProgressHandler * progress)
-
-        void Simulation::setProgressHandler(ProgressHandler *progress)
-
-        sets progress handler (used by GUI) 
-
-        """
-        return _libBornAgainCore.Simulation_setProgressHandler(self, progress)
-
-
     def setOptions(self, options):
         """
         setOptions(Simulation self, SimulationOptions options)
@@ -14958,6 +14946,11 @@ class Simulation(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.Simulation_getOptions(self, *args)
+
+
+    def progressHandler(self):
+        """progressHandler(Simulation self) -> ProgressHandler &"""
+        return _libBornAgainCore.Simulation_progressHandler(self)
 
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
@@ -19586,7 +19579,6 @@ class Lattice(_object):
 
     def __init__(self, *args):
         """
-        __init__(Lattice self) -> Lattice
         __init__(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3) -> Lattice
         __init__(Lattice self, Lattice lattice) -> Lattice
 

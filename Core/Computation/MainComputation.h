@@ -19,7 +19,6 @@
 #include "ComputationOutcome.h"
 #include "Complex.h"
 #include "INoncopyable.h"
-#include "ProgressHandlerDWBA.h"
 #include "SimulationOptions.h"
 #include <vector>
 
@@ -29,7 +28,11 @@ class RoughMultiLayerComputation;
 class ProgressHandler;
 class SimulationElement;
 
-//! Performs a DWBA calculation with given sample and simulation parameters
+//! Performs a single-threaded DWBA computation with given sample and simulation parameters,
+//! for a given span of detector bins.
+//!
+//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//!
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ MainComputation : public INoncopyable
@@ -38,7 +41,7 @@ public:
     MainComputation(
         const MultiLayer* p_multi_layer,
         const SimulationOptions& options,
-        ProgressHandler* progress,
+        ProgressHandler& progress,
         const std::vector<SimulationElement>::iterator& begin_it,
         const std::vector<SimulationElement>::iterator& end_it);
     ~MainComputation();
@@ -55,16 +58,15 @@ private:
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
 
-    //! Iterators that defines the sequence of elements that this simulation will work on
+    MultiLayer* mp_multi_layer;
+    SimulationOptions m_sim_options;
+    ProgressHandler* m_progress;
+    //! these iterators define the span of detector bins this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
-    SimulationOptions m_sim_options;
-
-    ProgressHandlerDWBA m_progress;
-
-    std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
-    MultiLayer* mp_multi_layer;
     RoughMultiLayerComputation* mp_roughness_computation;
+    std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
+
     ComputationOutcome m_outcome;
 };
 

@@ -21,9 +21,8 @@
 #include <map>
 #include <string>
 
-//! @class IReferencedTest
+//! Base class for tests that compare results with reference data.
 //! @ingroup standard_samples
-//! @brief Base class for tests that compare results with reference data.
 
 class IReferencedTest : public IFunctionalTest
 {
@@ -33,7 +32,7 @@ public:
         : IFunctionalTest(name, description), m_threshold(threshold) {}
     virtual ~IReferencedTest() {}
 
-    bool runTest() = 0;
+    bool runTest() =0;
 
 protected:
     double m_threshold;

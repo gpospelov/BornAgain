@@ -157,6 +157,6 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
     SimulationElement* pars = static_cast<SimulationElement*>(params);
 
     SimulationElement sim_element(*pars, par0, par1);
-    calculateFormFactorLists(sim_element);
+    calculateFormFactorListPol(sim_element);
     return pars->getIntegrationFactor(par0, par1) * evaluateForMatrixList(sim_element, m_ff_pol);
 }

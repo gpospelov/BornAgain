@@ -26,7 +26,6 @@
 #include "RoughMultiLayerComputation.h"
 #include "ScalarSpecularInfoMap.h"
 #include "ProgressHandler.h"
-#include "ProgressHandlerDWBA.h"
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 #include "SpecularMatrix.h"
@@ -37,10 +36,11 @@
 MainComputation::MainComputation(
     const MultiLayer* p_multi_layer,
     const SimulationOptions& options,
-    ProgressHandler* progress,
+    ProgressHandler& progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
     : m_sim_options(options)
+    , m_progress(&progress)
     , mp_roughness_computation(nullptr)
 {
     mp_multi_layer = p_multi_layer->clone();
@@ -48,10 +48,6 @@ MainComputation::MainComputation(
     msglog(MSG::DEBUG2) << "MainComputation::init()";
     m_begin_it = begin_it;
     m_end_it = end_it;
-
-    // initialising call backs
-    if (progress)
-        m_progress.setCallback( [&] (int n) {return progress->update(n);} );
 
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         m_layer_computation.push_back({});
@@ -115,6 +111,7 @@ void MainComputation::runProtected()
         mp_roughness_computation->eval(layer_elements.begin(), layer_elements.end());
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
+    m_progress->incrementDone(1);
 }
 
 void MainComputation::collectRTCoefficientsScalar()

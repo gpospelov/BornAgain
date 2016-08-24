@@ -21,8 +21,9 @@ class PyExportStandardTest : public IStandardTest
 {
 public:
     PyExportStandardTest() : IStandardTest("PyExport") {}
-    IFunctionalTest* getTest() const { return new PyExportTest(
-            getName(), getTestDescription(), getSimulation(), getTestThreshold()); }
+    std::unique_ptr<IFunctionalTest> getTest() const { return std::unique_ptr<IFunctionalTest>
+            (new PyExportTest(
+                getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
 };
 
 //! Runs PyExportTest on a standard simulation indicated by argv[1].

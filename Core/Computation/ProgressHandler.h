@@ -22,29 +22,35 @@
 
 class MultiLayer;
 
-//! Provides the functionality to calculate the progress of running simulation and report it to GUI.
-//!
-//! Thread safe to be used from Computation.
+//! Maintains information about progress of a computation.
+//! Owner is the computation, which periodically calls the thread-safe function incrementDone(..).
+//! An application (GUI or script) may subscribe(..) to be informed about progress.
+//! It is then periodically called back by inform(..).
+//! The return value of inform(..) can be used to request termination of the computation.
 //!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ProgressHandler : public INoncopyable
+class BA_CORE_API_ ProgressHandler
 {
 public:
     typedef std::function<bool(size_t)> Callback_t;
 
-    ProgressHandler();
-
-    void setCallback(ProgressHandler::Callback_t callback) { m_callback = callback; }
+    ProgressHandler() : m_inform(nullptr), m_expected_nticks(0), m_completed_nticks(0) {}
+    ProgressHandler(const ProgressHandler& other)
+        : m_inform(nullptr) // not clear whether we want to copy subscriptions
+        , m_expected_nticks(other.m_expected_nticks)
+        , m_completed_nticks(other.m_completed_nticks) {}
+    void subscribe(ProgressHandler::Callback_t callback);
+    void reset() { m_completed_nticks = 0; }
     void setExpectedNTicks(size_t n) { m_expected_nticks = n; }
+    bool incrementDone(size_t ticks_done);
 
-    bool update(size_t ticks_done);
+    int  percentage_done() const { return 100.*m_completed_nticks/m_expected_nticks; }
 
 private:
-    ProgressHandler::Callback_t m_callback;
-    size_t m_completed_nticks;
+    ProgressHandler::Callback_t m_inform;
     size_t m_expected_nticks;
-    int m_percentage_done;
+    size_t m_completed_nticks;
 };
 
 #endif // PROGRESSHANDLER_H

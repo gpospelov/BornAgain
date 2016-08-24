@@ -27,7 +27,6 @@
 #include <thread>
 
 Simulation::Simulation()
-    : m_progress(nullptr)
 {}
 
 Simulation::~Simulation() {} // forward class declaration prevents move to .h
@@ -61,15 +60,18 @@ void Simulation::prepareSimulation()
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
+    updateSample();
+    if (!mP_sample)
+        throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
+
     prepareSimulation();
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
-    if (m_progress) {
-        int prefac = ( mP_sample->totalNofLayouts()>0 ? 1 : 0 )
-            + ( mP_sample->hasRoughness() ? 1 : 0 );
-        m_progress->setExpectedNTicks(prefac*param_combinations*getNumberOfSimulationElements());
-    }
+    m_progress.reset();
+    int prefac = ( mP_sample->totalNofLayouts()>0 ? 1 : 0 )
+        + ( mP_sample->hasRoughness() ? 1 : 0 );
+    m_progress.setExpectedNTicks(prefac*param_combinations*getNumberOfSimulationElements());
 
     // no averaging needed:
     if (param_combinations == 1) {

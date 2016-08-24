@@ -34,9 +34,9 @@ public:
     QString getIdentifier() const { return m_identifier; }
     void setIdentifier(QString identifier) { m_identifier = identifier; }
 
-    int getProgress() const;
+    int getProgress() const { return m_percentage_done; }
 
-    bool simulationProgressCallback(int);
+    bool calledbackByProgressHandler(int);
 
     bool isTerminated() { return m_terminate_request_flag; }
 

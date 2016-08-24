@@ -32,13 +32,6 @@ JobWorker::JobWorker(QString identifier, GISASSimulation *simulation)
 
 }
 
-int JobWorker::getProgress() const
-{
-    // sometimes simulation underestimate the number of iterations required
-    // and progress can be greater than 100
-    return m_percentage_done < 100 ? m_percentage_done : 100;
-}
-
 void JobWorker::start()
 {
     qDebug() << "JobRunner::start() " << m_simulation;
@@ -47,11 +40,9 @@ void JobWorker::start()
     emit started();
 
     if(m_simulation) {
-        std::unique_ptr<ProgressHandler> progressHandler(new ProgressHandler());
-        ProgressHandler::Callback_t callback = [this] (int percentage_done) {
-            return simulationProgressCallback(percentage_done); };
-        progressHandler->setCallback(callback);
-        m_simulation->setProgressHandler(progressHandler.get());
+        m_simulation->progressHandler().subscribe(
+            [this] (int percentage_done) {
+                return calledbackByProgressHandler(percentage_done); } );
 
         m_job_status = Constants::STATUS_RUNNING;
 
@@ -84,8 +75,9 @@ void JobWorker::start()
     emit finished();
 }
 
-//! function which is called by the simulation to report its progress
-bool JobWorker::simulationProgressCallback(int percentage_done)
+//! Informs us about progress of the simulation. Returns true if we want to continue the simulation.
+//! To be registered as callback function via ProgressHandler::subscribe().
+bool JobWorker::calledbackByProgressHandler(int percentage_done)
 {
     if (percentage_done > m_percentage_done) {
         m_percentage_done = percentage_done;

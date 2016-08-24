@@ -21,9 +21,9 @@ include(CheckCXXSourceRuns)
 
 # find the yaml-cpp include directory
 if(WIN32)
-    find_path(YAMLCPP_INCLUDE_DIR yaml.h PATHS ${CMAKE_INCLUDE_PATH}/yaml-cpp NO_SYSTEM_ENVIRONMENT_PATH)
+    find_path(YAMLCPP_INCLUDE_DIR_TMP yaml.h PATHS ${CMAKE_INCLUDE_PATH}/yaml-cpp NO_SYSTEM_ENVIRONMENT_PATH)
 else()
-    find_path(YAMLCPP_INCLUDE_DIR yaml.h
+    find_path(YAMLCPP_INCLUDE_DIR_TMP yaml.h
         PATH_SUFFIXES include yaml-cpp/include yaml-cpp
         PATHS
         ${YAMLCPP_INCLUDE_LOC}
@@ -37,7 +37,7 @@ else()
         /opt/
         )
 endif()
-
+get_filename_component(YAMLCPP_INCLUDE_DIR ${YAMLCPP_INCLUDE_DIR_TMP} DIRECTORY)
 message(STATUS "yaml-cpp include dir: ${YAMLCPP_INCLUDE_DIR}")
 
 if(WIN32)

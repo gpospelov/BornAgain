@@ -112,7 +112,7 @@ bool PyPersistenceTest::compareFilePair(
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
     const std::string extension = Utils::String::split(FileSystem::filename(dat_fpath), ".")[2];
-    if      ( extension=="int" )
+    if ( extension=="int" )
         return compareIntensityPair( dat_fpath, ref_fpath );
     if ( extension=="yaml" )
         return compareYamlPair( dat_fpath, ref_fpath );

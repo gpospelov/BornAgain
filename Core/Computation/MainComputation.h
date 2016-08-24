@@ -38,7 +38,7 @@ public:
     MainComputation(
         const MultiLayer* p_multi_layer,
         const SimulationOptions& options,
-        const Simulation& simulation,
+        Simulation& simulation,
         const std::vector<SimulationElement>::iterator& begin_it,
         const std::vector<SimulationElement>::iterator& end_it);
     ~MainComputation();
@@ -58,7 +58,6 @@ private:
     //! Iterators that defines the sequence of elements that this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
-    Simulation* mp_simulation;
     SimulationOptions m_sim_options;
 
     ProgressHandlerDWBA m_progress;

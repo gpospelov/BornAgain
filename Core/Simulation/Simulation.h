@@ -84,7 +84,7 @@ public:
 
 #ifndef SWIG
     //! sets progress handler (used by GUI)
-    void setProgressHandler(ProgressHandler_t progress) { m_progress = progress; }
+    void setProgressHandler(ProgressHandler* progress) { m_progress = progress; }
 
     //! initializes DWBA progress handler
     void initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress);
@@ -129,7 +129,7 @@ protected:
     std::shared_ptr<IMultiLayerBuilder> mp_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
-    ProgressHandler_t m_progress;
+    ProgressHandler* m_progress;
     std::vector<SimulationElement> m_sim_elements;
 
 private:

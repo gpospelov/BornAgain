@@ -36,11 +36,10 @@
 MainComputation::MainComputation(
     const MultiLayer* p_multi_layer,
     const SimulationOptions& options,
-    const Simulation& simulation,
+    Simulation& simulation,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
-    : mp_simulation(simulation.clone())
-    , m_sim_options(options)
+    : m_sim_options(options)
     , mp_roughness_computation(nullptr)
 {
     mp_multi_layer = p_multi_layer->clone();
@@ -50,7 +49,7 @@ MainComputation::MainComputation(
     m_end_it = end_it;
 
     // initialising call backs
-    mp_simulation->initProgressHandlerDWBA(&m_progress);
+    simulation.initProgressHandlerDWBA(&m_progress);
 
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         m_layer_computation.push_back({});
@@ -65,7 +64,6 @@ MainComputation::MainComputation(
 
 MainComputation::~MainComputation()
 {
-    delete mp_simulation;
     delete mp_multi_layer;
     delete mp_roughness_computation;
     for (auto& layer_comp: m_layer_computation)
@@ -104,7 +102,7 @@ void MainComputation::runProtected()
     bool polarized = mp_multi_layer->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
         for (DecoratedLayerComputation* comp: layer_comp) {
-            comp->eval(m_sim_options, polarized, *mp_simulation->getSample(),
+            comp->eval(m_sim_options, polarized, *mp_multi_layer,
                        layer_elements.begin(), layer_elements.end());
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }

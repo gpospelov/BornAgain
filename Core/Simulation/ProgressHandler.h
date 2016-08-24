@@ -19,7 +19,6 @@
 #include "INoncopyable.h"
 #include "WinDllMacros.h"
 #include <functional>
-#include <memory>
 
 class Simulation;
 
@@ -50,9 +49,5 @@ private:
     long m_nitems_max;
     int m_percentage_done;
 };
-
-// Shared pointer is needed because multiple Computation threads will contain a
-// local clone of Simulation, which contains the original ProgressHandler
-typedef std::shared_ptr<class ProgressHandler> ProgressHandler_t;
 
 #endif // PROGRESSHANDLER_H

@@ -19,6 +19,7 @@
 #include "item_constants.h"
 #include <QDateTime>
 #include <QDebug>
+#include <memory>
 
 JobWorker::JobWorker(QString identifier, GISASSimulation *simulation)
     : m_identifier(identifier)
@@ -46,12 +47,11 @@ void JobWorker::start()
     emit started();
 
     if(m_simulation) {
-        ProgressHandler_t progressHandler(new ProgressHandler());
+        std::unique_ptr<ProgressHandler> progressHandler(new ProgressHandler());
         ProgressHandler::Callback_t callback = [this] (int percentage_done) {
-            return simulationProgressCallback(percentage_done);
-        };
+            return simulationProgressCallback(percentage_done); };
         progressHandler->setCallback(callback);
-        m_simulation->setProgressHandler(progressHandler);
+        m_simulation->setProgressHandler(progressHandler.get());
 
         m_job_status = Constants::STATUS_RUNNING;
 

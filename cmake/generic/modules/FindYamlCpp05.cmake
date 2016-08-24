@@ -20,19 +20,23 @@ include(CheckIncludeFileCXX)
 include(CheckCXXSourceRuns)
 
 # find the yaml-cpp include directory
-find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
-    PATH_SUFFIXES include yaml-cpp/include yaml-cpp
-    PATHS
-    ${YAMLCPP_INCLUDE_LOC}
-    ~/Library/Frameworks/
-    /Library/Frameworks/
-    /usr/local/
-    /usr/
-    /sw/ # Fink
-    /opt/local/ # DarwinPorts
-    /opt/csw/ # Blastwave
-    /opt/
-    )
+if(WIN32)
+    find_path(YAMLCPP_INCLUDE_DIR yaml.h PATHS ${CMAKE_INCLUDE_PATH}/yaml-cpp NO_SYSTEM_ENVIRONMENT_PATH)
+else()
+    find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
+        PATH_SUFFIXES include yaml-cpp/include yaml-cpp
+        PATHS
+        ${YAMLCPP_INCLUDE_LOC}
+        ~/Library/Frameworks/
+        /Library/Frameworks/
+        /usr/local/
+        /usr/
+        /sw/ # Fink
+        /opt/local/ # DarwinPorts
+        /opt/csw/ # Blastwave
+        /opt/
+        )
+endif()
 
 set(CMAKE_REQUIRED_INCLUDES ${YAMLCPP_INCLUDE_DIR})
 set(CMAKE_REQUIRED_QUIET True)
@@ -58,20 +62,24 @@ if(YAMLCPP_STATIC_LIBRARY)
 endif()
 
 # find the yaml-cpp library
-find_library(YAMLCPP_LIBRARY
-    NAMES ${YAMLCPP_STATIC} yaml-cpp
-    PATH_SUFFIXES lib64 lib
-    PATHS
-    ${YAMLCPP_LIBRARY_LOC}
-    ~/Library/Frameworks
-    /Library/Frameworks
-    /usr/local
-    /usr
-    /sw
-    /opt/local
-    /opt/csw
-    /opt
-    )
+if(WIN32)
+    find_library(YAMLCPP_LIBRARY NAMES yaml-cpp)
+else()
+    find_library(YAMLCPP_LIBRARY
+        NAMES ${YAMLCPP_STATIC} yaml-cpp
+        PATH_SUFFIXES lib64 lib
+        PATHS
+        ${YAMLCPP_LIBRARY_LOC}
+        ~/Library/Frameworks
+        /Library/Frameworks
+        /usr/local
+        /usr
+        /sw
+        /opt/local
+        /opt/csw
+        /opt
+        )
+endif()
 
 # try to compile, link, and run a test program
 unset(YAMLCPP_RUNS CACHE)

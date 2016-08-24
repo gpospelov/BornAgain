@@ -25,6 +25,8 @@
 #include "Utils.h"
 #include <gsl/gsl_errno.h>
 #include <thread>
+#include <iomanip>
+#include <iostream>
 
 Simulation::Simulation()
 {}
@@ -50,6 +52,14 @@ Simulation::Simulation(const Simulation& other)
 {
     if (other.mP_sample)
         mP_sample.reset(other.mP_sample->clone());
+}
+
+void Simulation::setTerminalProgressMonitor()
+{
+    m_progress.subscribe( [] (int percentage_done) -> bool {
+            std::cout << "... " << std::setprecision(2) << percentage_done << "%\r";
+            return true;
+        } );
 }
 
 void Simulation::prepareSimulation()

@@ -48,9 +48,10 @@ public:
     int  percentage_done() const { return 100.*m_completed_nticks/m_expected_nticks; }
 
 private:
-    ProgressHandler::Callback_t m_inform;
+    Callback_t m_inform;
     size_t m_expected_nticks;
     size_t m_completed_nticks;
+    bool defaultMonitorExec(int);
 };
 
 #endif // PROGRESSHANDLER_H

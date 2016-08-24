@@ -14948,9 +14948,24 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getOptions(self, *args)
 
 
-    def progressHandler(self):
-        """progressHandler(Simulation self) -> ProgressHandler &"""
-        return _libBornAgainCore.Simulation_progressHandler(self)
+    def subscribe(self, inform):
+        """
+        subscribe(Simulation self, ProgressHandler::Callback_t inform)
+
+        void Simulation::subscribe(ProgressHandler::Callback_t inform)
+
+        """
+        return _libBornAgainCore.Simulation_subscribe(self, inform)
+
+
+    def setTerminalProgressMonitor(self):
+        """
+        setTerminalProgressMonitor(Simulation self)
+
+        void Simulation::setTerminalProgressMonitor()
+
+        """
+        return _libBornAgainCore.Simulation_setTerminalProgressMonitor(self)
 
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)

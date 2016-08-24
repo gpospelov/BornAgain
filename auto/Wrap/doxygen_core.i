@@ -8275,7 +8275,7 @@ C++ includes: IShareable.h
 // File: classISingleton.xml
 %feature("docstring") ISingleton "
 
-Singleton pattern.
+Base class for singletons.
 
 C++ includes: ISingleton.h
 ";
@@ -8470,7 +8470,7 @@ A lattice with three basis vectors.
 C++ includes: Lattice.h
 ";
 
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice()
+%feature("docstring")  Lattice::Lattice "Lattice::Lattice()=delete
 ";
 
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
@@ -8996,12 +8996,14 @@ C++ includes: MagneticParticlesBuilder.h
 // File: classMainComputation.xml
 %feature("docstring") MainComputation "
 
-Performs a DWBA calculation with given sample and simulation parameters
+Performs a single-threaded DWBA computation with given sample and simulation parameters, for a given span of detector bins.
+
+Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
 
 C++ includes: MainComputation.h
 ";
 
-%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer *p_multi_layer, const SimulationOptions &options, ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer *p_multi_layer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
 ";
 
 %feature("docstring")  MainComputation::~MainComputation "MainComputation::~MainComputation()
@@ -10910,9 +10912,7 @@ C++ includes: Precomputed.h
 // File: classProgressHandler.xml
 %feature("docstring") ProgressHandler "
 
-Provides the functionality to calculate the progress of running simulation and report it to GUI.
-
-Thread safe to be used from Computation.
+Maintains information about progress of a computation. Owner is the computation, which periodically calls the thread-safe function incrementDone(..). An application (GUI or script) may subscribe(..) to be informed about progress. It is then periodically called back by inform(..). The return value of inform(..) can be used to request termination of the computation.
 
 C++ includes: ProgressHandler.h
 ";
@@ -10920,43 +10920,24 @@ C++ includes: ProgressHandler.h
 %feature("docstring")  ProgressHandler::ProgressHandler "ProgressHandler::ProgressHandler()
 ";
 
-%feature("docstring")  ProgressHandler::setCallback "void ProgressHandler::setCallback(ProgressHandler::Callback_t callback)
+%feature("docstring")  ProgressHandler::ProgressHandler "ProgressHandler::ProgressHandler(const ProgressHandler &other)
+";
+
+%feature("docstring")  ProgressHandler::subscribe "void ProgressHandler::subscribe(ProgressHandler::Callback_t callback)
+";
+
+%feature("docstring")  ProgressHandler::reset "void ProgressHandler::reset()
 ";
 
 %feature("docstring")  ProgressHandler::setExpectedNTicks "void ProgressHandler::setExpectedNTicks(size_t n)
 ";
 
-%feature("docstring")  ProgressHandler::update "bool ProgressHandler::update(size_t ticks_done)
+%feature("docstring")  ProgressHandler::incrementDone "bool ProgressHandler::incrementDone(size_t ticks_done)
 
-Collects number of ticks processed by different Computation's. Calculates general progress and inform GUI if progress has changed. Return flag is obtained from GUI and transferred to Computation to ask them to stop calculations. 
+Increments number of completed computation steps (ticks). Performs callback (method m_inform) to inform the subscriber about the state of the computation and to obtain as return value a flag that indicates whether to continue the computation. Returns the value of that flag to request the owner to terminate. 
 ";
 
-
-// File: classProgressHandlerDWBA.xml
-%feature("docstring") ProgressHandlerDWBA "
-
-Holds number of items processed by Computation, and informs  Simulation every time n items have been processed.
-
-C++ includes: ProgressHandlerDWBA.h
-";
-
-%feature("docstring")  ProgressHandlerDWBA::ProgressHandlerDWBA "ProgressHandlerDWBA::ProgressHandlerDWBA()
-";
-
-%feature("docstring")  ProgressHandlerDWBA::setCallback "void ProgressHandlerDWBA::setCallback(ProgressHandler::Callback_t callback)
-";
-
-%feature("docstring")  ProgressHandlerDWBA::getCallback "ProgressHandler::Callback_t ProgressHandlerDWBA::getCallback() const 
-";
-
-%feature("docstring")  ProgressHandlerDWBA::update "bool ProgressHandlerDWBA::update()
-
-Method increments number of items processed. Every n'th processed item the  Simulation is informed via thread safe callback. Return flag false is used to inform DWBSimulation to interrupt calculations. 
-";
-
-%feature("docstring")  ProgressHandlerDWBA::finished "bool ProgressHandlerDWBA::finished()
-
-finalize report to the simulation 
+%feature("docstring")  ProgressHandler::percentage_done "int ProgressHandler::percentage_done() const 
 ";
 
 
@@ -11930,11 +11911,6 @@ add a sampled parameter distribution
 %feature("docstring")  Simulation::getDistributionHandler "const DistributionHandler & Simulation::getDistributionHandler() const 
 ";
 
-%feature("docstring")  Simulation::setProgressHandler "void Simulation::setProgressHandler(ProgressHandler *progress)
-
-sets progress handler (used by GUI) 
-";
-
 %feature("docstring")  Simulation::setOptions "void Simulation::setOptions(const SimulationOptions &options)
 ";
 
@@ -11942,6 +11918,12 @@ sets progress handler (used by GUI)
 ";
 
 %feature("docstring")  Simulation::getOptions "SimulationOptions& Simulation::getOptions()
+";
+
+%feature("docstring")  Simulation::subscribe "void Simulation::subscribe(ProgressHandler::Callback_t inform)
+";
+
+%feature("docstring")  Simulation::setTerminalProgressMonitor "void Simulation::setTerminalProgressMonitor()
 ";
 
 
@@ -12884,13 +12866,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D304.xml
+// File: namespace_0D302.xml
 
 
-// File: namespace_0D424.xml
+// File: namespace_0D422.xml
 
 
-// File: namespace_0D57.xml
+// File: namespace_0D55.xml
 
 
 // File: namespaceboost_1_1geometry.xml
@@ -13543,12 +13525,6 @@ Set all element intensities to given value.
 
 
 // File: ProgressHandler_8h.xml
-
-
-// File: ProgressHandlerDWBA_8cpp.xml
-
-
-// File: ProgressHandlerDWBA_8h.xml
 
 
 // File: RoughMultiLayerComputation_8cpp.xml

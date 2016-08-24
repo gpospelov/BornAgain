@@ -40,9 +40,9 @@ void JobWorker::start()
     emit started();
 
     if(m_simulation) {
-        m_simulation->progressHandler().subscribe(
+        m_simulation->subscribe(
             [this] (int percentage_done) {
-                return calledbackByProgressHandler(percentage_done); } );
+                return simulationInformsUs(percentage_done); } );
 
         m_job_status = Constants::STATUS_RUNNING;
 
@@ -77,7 +77,7 @@ void JobWorker::start()
 
 //! Informs us about progress of the simulation. Returns true if we want to continue the simulation.
 //! To be registered as callback function via ProgressHandler::subscribe().
-bool JobWorker::calledbackByProgressHandler(int percentage_done)
+bool JobWorker::simulationInformsUs(int percentage_done)
 {
     if (percentage_done > m_percentage_done) {
         m_percentage_done = percentage_done;

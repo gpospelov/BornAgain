@@ -68,6 +68,7 @@ def simulate():
     sample = get_sample(lattice_rotation_angle=45*deg)
     simulation = get_simulation(monte_carlo_integration=True)
     simulation.setSample(sample)
+    simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
     result = simulation.getIntensityData()
     return result

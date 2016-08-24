@@ -36,7 +36,7 @@ public:
 
     int getProgress() const { return m_percentage_done; }
 
-    bool calledbackByProgressHandler(int);
+    bool simulationInformsUs(int);
 
     bool isTerminated() { return m_terminate_request_flag; }
 

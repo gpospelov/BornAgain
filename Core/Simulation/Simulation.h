@@ -87,7 +87,8 @@ public:
     const SimulationOptions& getOptions() const { return m_options; }
     SimulationOptions& getOptions() { return m_options; }
 
-    ProgressHandler& progressHandler() { return m_progress; }
+    void subscribe(ProgressHandler::Callback_t inform) { m_progress.subscribe(inform); }
+    void setTerminalProgressMonitor();
 
 protected:
     Simulation(const Simulation& other);

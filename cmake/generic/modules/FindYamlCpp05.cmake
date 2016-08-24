@@ -40,19 +40,23 @@ endif()
 
 message(STATUS "yaml-cpp include dir: ${YAMLCPP_INCLUDE_DIR}")
 
-set(CMAKE_REQUIRED_INCLUDES ${YAMLCPP_INCLUDE_DIR})
+if(WIN32)
+    set(CMAKE_REQUIRED_INCLUDES ${CMAKE_INCLUDE_PATH})
+else()
+    set(CMAKE_REQUIRED_INCLUDES ${YAMLCPP_INCLUDE_DIR})
+endif()
 set(CMAKE_REQUIRED_QUIET True)
 
 # first look for outdated yaml-cpp0.3 include files
 unset(YAMLCPP_FOUND_03 CACHE)
-CHECK_INCLUDE_FILE_CXX("aliasmanager.h" YAMLCPP_FOUND_03)
+CHECK_INCLUDE_FILE_CXX("yaml-cpp/aliasmanager.h" YAMLCPP_FOUND_03)
 if(${YAMLCPP_FOUND_03})
     message(WARNING "Found include file for libyaml-cpp0.3. Most probably this precludes libyaml-cpp0.5 from being properly installed")
 endif()
 
 # now look for needed yaml-cpp0.5 include files
 unset(YAMLCPP_FOUND_05 CACHE)
-CHECK_INCLUDE_FILE_CXX("node/detail/iterator_fwd.h" YAMLCPP_FOUND_05)
+CHECK_INCLUDE_FILE_CXX("yaml-cpp/node/detail/iterator_fwd.h" YAMLCPP_FOUND_05)
 if(${YAMLCPP_FOUND_05})
 else()
     message(FATAL_ERROR "Include file for libyaml-cpp0.5 not found")

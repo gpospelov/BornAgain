@@ -65,6 +65,7 @@ def simulate(condi):
                         default_cylinder_height*scale)
     simulation = get_simulation(integration_flag)
     simulation.setSample(sample)
+    simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
     return simulation.getIntensityData()
 
@@ -111,6 +112,9 @@ if __name__ == '__main__':
     if arg == "-p":
         import matplotlib
         from matplotlib import pyplot as plt
+        from matplotlib import rc
+        rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+        rc('text', usetex=True)
         plt.figure(figsize=(12.80, 10.24))
         for nplot in range(len(conditions)):
             condi = conditions[nplot]

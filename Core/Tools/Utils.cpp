@@ -17,7 +17,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <thread>
-#include <glob.h>
 
 #ifdef DEBUG_FPE
 #ifdef Q_OS_MAC
@@ -64,7 +63,6 @@ std::string Utils::System::getCurrentDateAndTime()
     ptime todayUtc(day_clock::universal_day(), second_clock::universal_time().time_of_day());
     return to_simple_string(todayUtc);
 }
-
 
 //! enables exception throw in the case of NaN, Inf
 void Utils::EnableFloatingPointExceptions()

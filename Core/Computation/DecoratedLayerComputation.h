@@ -16,30 +16,40 @@
 #ifndef DECORATEDLAYERCOMPUTATION_H
 #define DECORATEDLAYERCOMPUTATION_H
 
-#include "IComputation.h"
+#include "INoncopyable.h"
+#include "WinDllMacros.h"
+#include <vector>
+
+using std::size_t;
 
 class IInterferenceFunctionStrategy;
 class Layer;
 class LayerSpecularInfo;
+class MultiLayer;
+class ProgressHandler;
+class SimulationElement;
+class SimulationOptions;
 
 //! Computes the scattering contribution from one layer with particles in/on it.
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecoratedLayerComputation : public IComputation
+class BA_CORE_API_ DecoratedLayerComputation : public INoncopyable
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
-    ~DecoratedLayerComputation() final;
+    ~DecoratedLayerComputation();
 
-    void run() final;
+    void eval(const SimulationOptions& options,
+              ProgressHandler* progress,
+              bool polarized,
+              const MultiLayer& sample,
+              const std::vector<SimulationElement>::iterator& begin_it,
+              const std::vector<SimulationElement>::iterator& end_it);
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
 
 private:
-    IInterferenceFunctionStrategy* createAndInitStrategy() const;
-    void calculateCoherentIntensity(const IInterferenceFunctionStrategy* p_strategy);
-
-    Layer* mp_layer;
+    const Layer* mp_layer;
     LayerSpecularInfo* mp_specular_info;
     size_t m_layout_index;
 };

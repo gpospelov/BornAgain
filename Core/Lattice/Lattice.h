@@ -16,7 +16,8 @@
 #ifndef LATTICE_H
 #define LATTICE_H
 
-#include "FastVector.h"
+#include "Vectors3D.h"
+#include <vector>
 
 class ISelectionRule;
 class Transform3D;
@@ -27,7 +28,7 @@ class Transform3D;
 class BA_CORE_API_ Lattice
 {
 public:
-    Lattice();
+    Lattice() =delete;
     Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3);
     Lattice(const Lattice& lattice);
     ~Lattice();
@@ -86,7 +87,7 @@ private:
     kvector_t m_a1, m_a2, m_a3; //!< Basis vectors in real space
     mutable kvector_t m_b1, m_b2, m_b3; //!< Cache of basis vectors in reciprocal space
     //! Boolean indicating if the reciprocal vectors are already initialized in the cache
-    mutable bool m_cache_ok, m_is_zero;
+    mutable bool m_cache_ok;
 };
 
 #endif // LATTICE_H

@@ -13,49 +13,61 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERCOMPUTATION_H
-#define MULTILAYERCOMPUTATION_H
+#ifndef MAINCOMPUTATION_H
+#define MAINCOMPUTATION_H
 
-#include "IComputation.h"
 #include "ComputationOutcome.h"
 #include "Complex.h"
-#include <map>
+#include "INoncopyable.h"
+#include "SimulationOptions.h"
+#include <vector>
 
 class DecoratedLayerComputation;
 class MultiLayer;
 class RoughMultiLayerComputation;
+class ProgressHandler;
+class SimulationElement;
 
-//! Performs a DWBA calculation with given sample and simulation parameters
+//! Performs a single-threaded DWBA computation with given sample and simulation parameters,
+//! for a given span of detector bins.
+//!
+//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MainComputation : public IComputation
+class BA_CORE_API_ MainComputation : public INoncopyable
 {
 public:
-    MainComputation(const MultiLayer* p_multi_layer);
-    ~MainComputation() final;
-
-    void init(
+    MainComputation(
+        const MultiLayer* p_multi_layer,
         const SimulationOptions& options,
-        const Simulation& simulation,
-        std::vector<SimulationElement>::iterator begin_it,
-        std::vector<SimulationElement>::iterator end_it) final;
+        ProgressHandler& progress,
+        const std::vector<SimulationElement>::iterator& begin_it,
+        const std::vector<SimulationElement>::iterator& end_it);
+    ~MainComputation();
 
-    void run() final;
+    void run();
 
     bool isCompleted() const { return m_outcome.isCompleted(); }
     std::string getRunMessage() const { return m_outcome.getRunMessage(); }
 
 private:
-    void runProtected() final;
+    void runProtected();
 
     //! calculates intensity map for samples with magnetization
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
 
-    std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
     MultiLayer* mp_multi_layer;
+    SimulationOptions m_sim_options;
+    ProgressHandler* m_progress;
+    //! these iterators define the span of detector bins this simulation will work on
+    std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
+
     RoughMultiLayerComputation* mp_roughness_computation;
+    std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
+
     ComputationOutcome m_outcome;
 };
 
-#endif // MULTILAYERCOMPUTATION_H
+#endif // MAINCOMPUTATION_H

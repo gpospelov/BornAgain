@@ -17,7 +17,8 @@
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
 #include <cassert>
-#include <glob.h>
+#include <regex>
+#include <stdexcept>
 
 //! Returns file extension.
 
@@ -26,14 +27,29 @@ std::string FileSystem::GetFileExtension(const std::string& name)
     return boost::filesystem::extension(name.c_str());
 }
 
-
-bool FileSystem::CreateDirectory(const std::string &dir_name)
+bool FileSystem::CreateDirectory(const std::string& dir_name)
 {
     assert(dir_name!="");
     return boost::filesystem::create_directory(dir_name);
 }
 
-std::string FileSystem::GetJoinPath(const std::string &spath1, const std::string &spath2)
+    //! Returns filenames of files in directory
+std::vector<std::string> FileSystem::filesInDirectory(const std::string& dir_name)
+{
+    std::vector<std::string> ret;
+    if (!boost::filesystem::exists(dir_name))
+        throw std::runtime_error("FileSystem::filesInDirectory '" + dir_name + "' does not exist");
+    boost::filesystem::directory_iterator end_it; // default construction yields past-the-end
+    for ( boost::filesystem::directory_iterator it( dir_name );
+          it != boost::filesystem::directory_iterator(); ++it ) {
+        if( !boost::filesystem::is_regular_file( it->status() ) )
+            continue;
+        ret.push_back( it->path().filename().string() );
+    }
+    return ret;
+}
+
+std::string FileSystem::GetJoinPath(const std::string& spath1, const std::string& spath2)
 {
     assert(spath1!="");
     assert(spath2!="");
@@ -50,14 +66,12 @@ std::string FileSystem::filename(const std::string& path)
     return boost::filesystem::path(path).filename().string();
 }
 
-//! Returns file names that agree with glob pattern.
-std::vector<std::string> FileSystem::glob(const std::string& pattern)
+//! Returns file names that agree with a regex glob pattern.
+std::vector<std::string> FileSystem::reglob(const std::string& dir, const std::string& pattern)
 {
-    glob_t glob_result;
-    ::glob(pattern.c_str(), GLOB_TILDE, NULL, &glob_result);
     std::vector<std::string> ret;
-    for(unsigned int i=0; i<glob_result.gl_pathc; ++i)
-        ret.push_back(std::string(glob_result.gl_pathv[i]));
-    globfree(&glob_result);
+    for (const std::string& fname: filesInDirectory(dir))
+        if (std::regex_match(fname, std::regex(pattern)))
+            ret.push_back(fname);
     return ret;
 }

@@ -21,8 +21,9 @@
 #include "LayerRoughness.h"
 #include "LayerSpecularInfo.h"
 #include "MultiLayer.h"
-#include "SimulationElement.h"
 #include "Pi.h"
+#include "ProgressHandler.h"
+#include "SimulationElement.h"
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
@@ -38,40 +39,33 @@ namespace {
     }
 }
 
-RoughMultiLayerComputation::RoughMultiLayerComputation(
-    const MultiLayer *p_multi_layer)
+RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
+    : mp_multi_layer(p_multi_layer)
 {
-    mp_multi_layer = p_multi_layer->clone();
-    mp_specular_info_vector.resize(mp_multi_layer->getNumberOfLayers(), 0);
+    mp_specular_info_vector.resize(p_multi_layer->getNumberOfLayers(), 0);
 }
 
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
 {
     for(size_t i=0; i<mp_specular_info_vector.size(); ++i)
         delete mp_specular_info_vector[i];
-
-    delete mp_multi_layer;
 }
 
-void RoughMultiLayerComputation::run()
+void RoughMultiLayerComputation::eval(
+    ProgressHandler* progress,
+    const std::vector<SimulationElement>::iterator& begin_it,
+    const std::vector<SimulationElement>::iterator& end_it)
 {
-    try {
-        for (std::vector<SimulationElement>::iterator it = m_begin_it; it != m_end_it; ++it) {
-            if( !m_progress.update())
-                break;
-            it->setIntensity(evaluate(*it));
-        }
-        m_progress.finished();
-    } catch (const std::exception& ex) {
-        throw Exceptions::RuntimeErrorException(
-            "RoughMultiLayerComputation::run() -> Exception was caught:\n" +
-            std::string(ex.what()));
+    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
+        it->setIntensity(evaluate(*it));
+        progress->incrementDone(1);
     }
 }
 
 double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element)
 {
-    if (sim_element.getAlphaMean()<0.0) return 0.0;
+    if (sim_element.getAlphaMean()<0.0)
+        return 0.0;
     kvector_t q = sim_element.getMeanQ();
     double wavelength = sim_element.getWavelength();
     double autocorr(0.0);

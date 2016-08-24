@@ -17,14 +17,15 @@
 #define ISTANDARDTEST_H
 
 #include "INamed.h"
+#include <memory>
 
 class GISASSimulation;
 class IFunctionalTest;
 class SimulationInfo;
 class IParameterized;
 
+//! Base class for Core/PyCore/GUI tests that involve standard simulations.
 //! @class IStandardTest
-//! @brief Base class for Core/PyCore/GUI tests that involve standard simulations.
 
 //! For Foo in {Core, PyCore, GUI}, the functional test mechanism is as follows:
 //!
@@ -60,7 +61,8 @@ public:
 
     bool execute(int argc, char** argv);
 
-    virtual IFunctionalTest* getTest() const = 0; //!< overloaded in (Core|Py|GUI)Suite.cpp
+    //! Returns a specific standard functional test kernel like CoreTest, PyExportTest, GUITest.
+    virtual std::unique_ptr<IFunctionalTest> getTest() const = 0;
 
 protected:
     virtual GISASSimulation* getSimulation() const;

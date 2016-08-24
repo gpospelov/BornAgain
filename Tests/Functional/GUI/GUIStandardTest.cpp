@@ -22,8 +22,8 @@ class GUIStandardTest : public IStandardTest
 {
 public:
     GUIStandardTest() : IStandardTest("GUIStandardTest") {}
-    IFunctionalTest* getTest() const { return new GUITest(
-            getName(), getTestDescription(), getSimulation(), getTestThreshold()); }
+    std::unique_ptr<IFunctionalTest> getTest() const { return std::unique_ptr<IFunctionalTest>
+            (new GUITest(getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
 };
 
 //! Runs GUITest on a standard simulation indicated by argv[1].

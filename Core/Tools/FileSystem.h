@@ -30,14 +30,17 @@ namespace FileSystem {
     //! creates directory in current directory
     bool CreateDirectory(const std::string& dir_name);
 
+    //! Returns filenames of files in directory
+    std::vector<std::string> filesInDirectory(const std::string &dir_name);
+
     //! join paths together
     std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
 
     //! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
     std::string filename(const std::string& path);
 
-    //! Returns file names that agree with glob pattern.
-    std::vector<std::string> glob(const std::string& pattern);
+    //! Returns file names that agree with a regex glob pattern.
+    std::vector<std::string> reglob(const std::string& dir, const std::string& pattern);
 
 } // namespace FileSystem
 

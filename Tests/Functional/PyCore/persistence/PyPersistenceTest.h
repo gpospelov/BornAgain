@@ -41,7 +41,8 @@ public:
 private:
     std::string m_directory;
 
-    static std::map<const std::string, const std::string> glob2map(const std::string& pattern);
+    static std::map<const std::string, const std::string>
+        glob2map(const std::string& dir, const std::string& stem);
 
     bool compareFileMaps(
         const std::map<const std::string, const std::string>& dat,

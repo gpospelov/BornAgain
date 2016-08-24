@@ -34,9 +34,9 @@ public:
     QString getIdentifier() const { return m_identifier; }
     void setIdentifier(QString identifier) { m_identifier = identifier; }
 
-    int getProgress() const;
+    int getProgress() const { return m_percentage_done; }
 
-    bool simulationProgressCallback(int);
+    bool simulationInformsUs(int);
 
     bool isTerminated() { return m_terminate_request_flag; }
 
@@ -58,7 +58,7 @@ public slots:
 private:
     QString m_identifier;
     GISASSimulation *m_simulation;
-    int m_progress;
+    int m_percentage_done;
     QString m_job_status;
     bool m_terminate_request_flag;
     QString m_failure_message;

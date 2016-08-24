@@ -64,7 +64,7 @@ void FormFactorAnisoPyramid::onChange()
         ostr << " width:" << m_width;
         ostr << " height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
-        ostr << "Check for 'height <= (length,width)*tan(alpha)' failed.";
+        ostr << "Check for '2*height <= (length,width)*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
 

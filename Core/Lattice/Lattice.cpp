@@ -19,21 +19,12 @@
 #include "Transform3D.h"
 #include <gsl/gsl_linalg.h>
 
-Lattice::Lattice()
-: mp_selection_rule(0)
-, m_cache_ok(false)
-, m_is_zero(true)
-{
-    initialize();
-}
-
 Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 : mp_selection_rule(0)
 , m_a1(a1)
 , m_a2(a2)
 , m_a3(a3)
 , m_cache_ok(false)
-, m_is_zero(false)
 {
     initialize();
 }
@@ -44,7 +35,6 @@ Lattice::Lattice(const Lattice& lattice)
 , m_a2(lattice.m_a2)
 , m_a3(lattice.m_a3)
 , m_cache_ok(false)
-, m_is_zero(false)
 {
     initialize();
     if( lattice.mp_selection_rule ) setSelectionRule(*lattice.mp_selection_rule);

@@ -72,11 +72,9 @@ protected:
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
-    //! Constructs one list of evaluated form factors to be used in subsequent calculations
     void calculateFormFactorList(const SimulationElement& sim_element) const;
 
-    //! Constructs lists of evaluated form factors to be used in subsequent calculations
-    void calculateFormFactorLists(const SimulationElement& sim_element) const;
+    void calculateFormFactorListPol(const SimulationElement& sim_element) const;
 
     //! Clears the cached form factor lists
     void clearFormFactorLists() const;

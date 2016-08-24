@@ -18,42 +18,40 @@
 
 #include <iostream>
 #include <mutex>
-#include <stdexcept> // need overlooked by g++ 5.4
+#include <stdexcept>
 
-//! @class ISingleton
+//! Base class for singletons.
 //! @ingroup tools_internal
-//! @brief Singleton pattern.
 
 template <class T>
 class ISingleton
 {
 public:
-    static T& instance()
-    {
+    static T& instance() {
         static std::mutex single_mutex;
         std::unique_lock<std::mutex> single_lock( single_mutex );
         if( !m_instance) {
             if( m_destroyed )
-                throw std::runtime_error("Bug in ISingleton: object was destructed!");
+                // In BornAgain, an ISingleton is deleted when and only when the application
+                // terminates. Therefore there is no point in re-creating a deleted ISingleton.
+                // To be 110% sure, we explicitly forbid re-creation.
+                throw std::runtime_error("Invalid attempt to re-create a deleted ISingleton");
             static T theInstance;
             m_instance = &theInstance;
         }
-        return *m_instance;
-    }
+        return *m_instance; }
 
 protected:
     ISingleton(){}
-    virtual ~ISingleton()
-    {
+    virtual ~ISingleton() {
         m_instance = nullptr;
-        m_destroyed = true;
-    }
+        m_destroyed = true; }
 
 private:
     ISingleton(const ISingleton&) = delete;
     ISingleton& operator=(const ISingleton&) = delete;
     static T* m_instance;
-    static bool m_destroyed;
+    static bool m_destroyed; //!< to detect re-creation
 };
 
 // for templated classes, initializations go into the .h file:

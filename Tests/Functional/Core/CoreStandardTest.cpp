@@ -21,8 +21,8 @@ class CoreStandardTest : public IStandardTest
 {
 public:
     CoreStandardTest() : IStandardTest("CoreStandardTest") {}
-    IFunctionalTest* getTest() const { return new CoreTest(
-            getName(), getTestDescription(), getSimulation(), getTestThreshold() ); }
+    std::unique_ptr<IFunctionalTest> getTest() const { return std::unique_ptr<IFunctionalTest>
+            (new CoreTest(getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
 };
 
 //! Runs CoreTest on a standard simulation indicated by argv[1].

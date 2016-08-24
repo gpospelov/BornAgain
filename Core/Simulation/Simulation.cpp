@@ -25,6 +25,8 @@
 #include "Utils.h"
 #include <gsl/gsl_errno.h>
 #include <thread>
+#include <iomanip>
+#include <iostream>
 
 Simulation::Simulation()
 {}
@@ -52,6 +54,18 @@ Simulation::Simulation(const Simulation& other)
         mP_sample.reset(other.mP_sample->clone());
 }
 
+void Simulation::setTerminalProgressMonitor()
+{
+    m_progress.subscribe( [] (int percentage_done) -> bool {
+            if (percentage_done<100)
+                std::cout << std::setprecision(2)
+                          << "... " << percentage_done << "%\r" << std::flush;
+            else // wipe out
+                std::cout << "        \n" << std::flush;
+            return true;
+        } );
+}
+
 void Simulation::prepareSimulation()
 {
     gsl_set_error_handler_off();
@@ -60,12 +74,18 @@ void Simulation::prepareSimulation()
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
+    updateSample();
+    if (!mP_sample)
+        throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
+
     prepareSimulation();
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
-    if (m_progress)
-        m_progress->init(this, param_combinations);
+    m_progress.reset();
+    int prefac = ( mP_sample->totalNofLayouts()>0 ? 1 : 0 )
+        + ( mP_sample->hasRoughness() ? 1 : 0 );
+    m_progress.setExpectedNTicks(prefac*param_combinations*getNumberOfSimulationElements());
 
     // no averaging needed:
     if (param_combinations == 1) {
@@ -182,8 +202,7 @@ void Simulation::runSingleSimulation()
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
         std::unique_ptr<MainComputation> P_dwba_simulation(
-            new MainComputation(mP_sample.get()));
-        P_dwba_simulation->init(m_options, *this, batch_start, batch_end);
+            new MainComputation(mP_sample.get(), m_options, m_progress, batch_start, batch_end));
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
             std::string message = P_dwba_simulation->getRunMessage();
@@ -205,14 +224,13 @@ void Simulation::runSingleSimulation()
         // Initialize n simulations.
         int total_batch_elements = batch_end - batch_start;
         int element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
-        if (total_batch_elements % m_options.getNumberOfThreads()) ++element_thread_step;
+        if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
+            ++element_thread_step;
 
         for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
             if (i_thread*element_thread_step >= total_batch_elements)
                 break;
             // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
-            MainComputation* p_dwba_simulation = new MainComputation(mP_sample.get());
-
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
@@ -221,7 +239,8 @@ void Simulation::runSingleSimulation()
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
-            p_dwba_simulation->init(m_options, *this, begin_it, end_it);
+            MainComputation* p_dwba_simulation = new MainComputation(
+                mP_sample.get(), m_options, m_progress, begin_it, end_it);
             simulations.push_back(p_dwba_simulation);
         }
 
@@ -264,15 +283,6 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
         double solid_angle = it->getSolidAngle();
         it->setIntensity(it->getIntensity()*beam_intensity*solid_angle/sin_alpha_i);
     }
-}
-
-void Simulation::initProgressHandlerDWBA(ProgressHandlerDWBA* dwba_progress)
-{
-    // if we have external ProgressHandler (which is normally coming from GUI),
-    // then we will create special callbacks for every Computation.
-    // These callback will be used to report Computation progress to the Simulation.
-    if (m_progress)
-        dwba_progress->setCallback( [&] (int n) {return m_progress->update(n);} );
 }
 
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)

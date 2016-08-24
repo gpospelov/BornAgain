@@ -47,8 +47,7 @@ bool IStandardTest::execute(int argc, char** argv) {
 bool IStandardTest::execute_onetest()
 {
     setName( m_info->m_test_name );
-    IFunctionalTest* test( getTest() );
-    return test->runTest();
+    return getTest()->runTest();
 }
 
 //! Runs all available subtests, and returns true if all succeed
@@ -73,13 +72,10 @@ bool IStandardTest::execute_subtests()
     for (size_t i = 0; i < n_subtests; ++i) {
         setName( m_info->m_test_name + "_" + subtest_names[i] );
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
-        IFunctionalTest* subtest( getTest() );
         std::cout << "IStandardTest::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
-        if(!subtest->runTest()) {
+        if(!getTest()->runTest())
             ++number_of_failed_tests;
-            delete subtest;
-        }
     }
     delete subtest_registry;
 
@@ -99,13 +95,12 @@ double IStandardTest::getTestThreshold() const { return m_info->m_threshold; }
 
 GISASSimulation* IStandardTest::getSimulation() const
 {
-    SimulationFactory sim_registry;
-    GISASSimulation* result = sim_registry.createItem(m_info->m_simulation_name);
-    SampleBuilderFactory sample_factory;
     std::shared_ptr<IMultiLayerBuilder> sample_builder(
-        sample_factory.createItem(m_info->m_sample_builder_name) );
+        SampleBuilderFactory().createItem(m_info->m_sample_builder_name) );
     if(m_subtest_item)
         sample_builder->set_subtest(m_subtest_item);
+
+    GISASSimulation* result = SimulationFactory().createItem(m_info->m_simulation_name);
     result->setSampleBuilder(sample_builder);
     return result;
 }

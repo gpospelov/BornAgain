@@ -19,11 +19,11 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
+    cylinder_ff = ba.FormFactorCylinder(4*nm, 5*nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
 
     interference = ba.InterferenceFunction2DParaCrystal.createSquare(
-        20.0*nm, 0.0, 20.0*micrometer, 20.0*micrometer)
+        10.0*nm, 0.0, 20.0*micrometer, 20.0*micrometer)
     pdf = ba.FTDistribution2DCauchy(1.0*nm, 1.0*nm)
     interference.setProbabilityDistributions(pdf, pdf)
 
@@ -48,8 +48,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
-                                     200, alpha_min*deg, alpha_max*deg)
+    # coarse grid because this simulation takes rather long
+    simulation.setDetectorParameters(80, phi_min*deg, phi_max*deg,
+                                     80, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
@@ -61,6 +62,7 @@ def simulate():
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
+    simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
     return simulation.getIntensityData()
 

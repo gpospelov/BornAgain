@@ -36,33 +36,35 @@ PyPersistenceTest::PyPersistenceTest(
 //! Runs a Python script, and returns true if the output of the script agrees with reference data.
 bool PyPersistenceTest::runTest()
 {
-    std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
-    std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
-
     // Remove old output
-    for (const std::string& fname: FileSystem::glob(dat_stem+".*.*")) {
+    for (const std::string& fname:
+             FileSystem::reglob(PYPERSIST_OUT_DIR, getName()+"\\.\\w+\\..+")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old output " << fname.c_str() << "\n";
     }
 
     // Run Python script
     std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName()+".py");
+    std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
     if (!runPython(pyscript_filename + " " + dat_stem))
         return false;
 
     // Retrieve new output and reference files
-    std::map<const std::string, const std::string> dat = glob2map(dat_stem);
-    std::map<const std::string, const std::string> ref = glob2map(ref_stem);
+    std::map<const std::string, const std::string> dat = glob2map(PYPERSIST_OUT_DIR, getName());
+    std::map<const std::string, const std::string> ref = glob2map(PYPERSIST_REF_DIR, getName());
     if (dat.size()==0) {
         std::cerr << "There is no test output of form " << dat_stem << ".*.*\n";
         return false;
     }
+    // Compare the keys in the file names
     if (!compareFileMaps(dat, ref))
         return false;
 
     // Compare files one by one
     for (auto const& it: dat)
-        if (!compareFilePair( it.second, ref[it.first] ) )
+        if (!compareFilePair(
+                FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, it.second),
+                FileSystem::GetJoinPath(PYPERSIST_REF_DIR, ref[it.first])))
             return false;
     return true;
 }
@@ -70,13 +72,13 @@ bool PyPersistenceTest::runTest()
 //! Globs for files of form *.<key1>.<key2>[.*], and returns a map with keys of the form
 //! <key1>.<key2>, and values containing full file paths.
 std::map<const std::string, const std::string>
-PyPersistenceTest::glob2map(const std::string& stem)
+PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
 {
     std::map<const std::string, const std::string> ret;
-    for (const std::string& fpath: FileSystem::glob(stem+".*.*")) {
+    for (const std::string& fname: FileSystem::reglob(dir, stem+"\\.\\w+\\..+")) {
         std::vector<std::string> fname_segments =
-            Utils::String::split(FileSystem::filename(fpath), ".");
-        ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));
+            Utils::String::split(FileSystem::filename(fname), ".");
+        ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fname));
     }
     return ret;
 }
@@ -112,7 +114,7 @@ bool PyPersistenceTest::compareFilePair(
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
     const std::string extension = Utils::String::split(FileSystem::filename(dat_fpath), ".")[2];
-    if      ( extension=="int" )
+    if ( extension=="int" )
         return compareIntensityPair( dat_fpath, ref_fpath );
     if ( extension=="yaml" )
         return compareYamlPair( dat_fpath, ref_fpath );

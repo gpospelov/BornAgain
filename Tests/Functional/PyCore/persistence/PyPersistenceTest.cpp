@@ -40,7 +40,8 @@ bool PyPersistenceTest::runTest()
     std::string ref_stem = FileSystem::GetJoinPath(PYPERSIST_REF_DIR, getName());
 
     // Remove old output
-    for (const std::string& fname: FileSystem::glob(dat_stem+".*.*")) {
+    for (const std::string& fname:
+             FileSystem::reglob(PYPERSIST_OUT_DIR, getName()+"\\.\\w+\\.\\w+")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old output " << fname.c_str() << "\n";
     }
@@ -51,8 +52,8 @@ bool PyPersistenceTest::runTest()
         return false;
 
     // Retrieve new output and reference files
-    std::map<const std::string, const std::string> dat = glob2map(dat_stem);
-    std::map<const std::string, const std::string> ref = glob2map(ref_stem);
+    std::map<const std::string, const std::string> dat = glob2map(PYPERSIST_OUT_DIR, getName());
+    std::map<const std::string, const std::string> ref = glob2map(PYPERSIST_REF_DIR, getName());
     if (dat.size()==0) {
         std::cerr << "There is no test output of form " << dat_stem << ".*.*\n";
         return false;
@@ -70,10 +71,10 @@ bool PyPersistenceTest::runTest()
 //! Globs for files of form *.<key1>.<key2>[.*], and returns a map with keys of the form
 //! <key1>.<key2>, and values containing full file paths.
 std::map<const std::string, const std::string>
-PyPersistenceTest::glob2map(const std::string& stem)
+PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
 {
     std::map<const std::string, const std::string> ret;
-    for (const std::string& fpath: FileSystem::glob(stem+".*.*")) {
+    for (const std::string& fpath: FileSystem::reglob(dir, stem+"\\.\\w+\\.\\w+")) {
         std::vector<std::string> fname_segments =
             Utils::String::split(FileSystem::filename(fpath), ".");
         ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fpath));

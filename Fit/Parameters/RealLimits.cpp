@@ -13,19 +13,19 @@
 //
 // ************************************************************************** //
 
-#include "Limits.h"
+#include "RealLimits.h"
 #include <iomanip>
 #include <iostream>
 #include <limits>
 
 //! Creates an object which can have only positive values (>0., zero is not included)
-Limits Limits::positive()
+RealLimits RealLimits::positive()
 {
     return lowerLimited(std::numeric_limits<double>::min());
 }
 
 //! Prints class
-void Limits::print(std::ostream& ostr) const
+void RealLimits::print(std::ostream& ostr) const
 {
     if      (!hasLowerLimit() && !hasUpperLimit())
         ostr << "unlimited";
@@ -38,14 +38,14 @@ void Limits::print(std::ostream& ostr) const
             std::fixed <<std::setprecision(2) << m_upper_limit << ")";
 }
 
-bool Limits::isInRange(double value) const
+bool RealLimits::isInRange(double value) const
 {
     if(hasLowerLimit() && value < m_lower_limit) return false;
     if(hasUpperLimit() && value >= m_upper_limit) return false;
     return true;
 }
 
-bool Limits::operator==(const Limits& other) const
+bool RealLimits::operator==(const RealLimits& other) const
 {
     return (m_has_lower_limit == other.m_has_lower_limit) &&
             (m_has_upper_limit == other.m_has_upper_limit) &&

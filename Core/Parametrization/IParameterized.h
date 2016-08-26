@@ -18,7 +18,7 @@
 
 #include "INamed.h"
 
-class Limits;
+class RealLimits;
 class ParameterPool;
 class RealParameter;
 

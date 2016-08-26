@@ -17,7 +17,7 @@
 #define PARAMETERDISTRIBUTION_H
 
 #include "IParameterized.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "ParameterSample.h"
 #include <memory>
 #include <vector>
@@ -30,7 +30,7 @@ public:
     ParameterDistribution(const std::string& par_name,
                           const IDistribution1D& distribution,
                           size_t nbr_samples, double sigma_factor=0.0,
-                          const Limits& limits = Limits());
+                          const RealLimits& limits = RealLimits());
 
     ParameterDistribution(const std::string& par_name,
                           const IDistribution1D& distribution,
@@ -61,7 +61,7 @@ public:
     //! get list of linked parameter names
     std::vector<std::string> getLinkedParameterNames() const { return m_linked_par_names; }
 
-    Limits getLimits() const { return m_limits; }
+    RealLimits getLimits() const { return m_limits; }
 
     double getMinValue() const { return m_xmin; }
     double getMaxValue() const { return m_xmax; }
@@ -72,7 +72,7 @@ private:
     size_t m_nbr_samples;
     double m_sigma_factor;
     std::vector<std::string> m_linked_par_names;
-    Limits m_limits;
+    RealLimits m_limits;
     double m_xmin;
     double m_xmax;
 };

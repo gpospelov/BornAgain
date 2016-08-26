@@ -16,7 +16,7 @@
 #include "FormFactorLongRipple1Gauss.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "MathFunctions.h"
 #include "Pi.h"
 #include "RealParameter.h"

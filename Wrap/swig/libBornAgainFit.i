@@ -77,7 +77,7 @@ import_array();
 // Note that the order matters, as base classes must be included before derived classes.
 
 %include "Attributes.h"
-%include "Limits.h"
+%include "RealLimits.h"
 
 %include "Configurable.h"
 %include "IMinimizer.h"

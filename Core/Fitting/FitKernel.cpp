@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitKernel.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "FitParameter.h"
 #include "FitParameterLinked.h"
 #include "Logger.h"
@@ -58,11 +58,11 @@ void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
 //! Adds fit parameter, step is calculated from initial parameter value
 void FitKernel::addFitParameter(const std::string& name, double value)
 {
-    addFitParameter(name, value, Limits::limitless(), Attributes::free());
+    addFitParameter(name, value, RealLimits::limitless(), Attributes::free());
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-void FitKernel::addFitParameter(const std::string& name, double value, const Limits& lim,
+void FitKernel::addFitParameter(const std::string& name, double value, const RealLimits& lim,
                                 const Attributes& attr, double step, double error)
 {
     if(step <=0.0)

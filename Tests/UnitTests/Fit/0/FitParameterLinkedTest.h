@@ -32,7 +32,7 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedInitial)
 
 TEST_F(FitParameterLinkedTest, FitParameterLinkedWithValue)
 {
-    Limits limits = Limits::limited(-10.0, 2.0);
+    RealLimits limits = RealLimits::limited(-10.0, 2.0);
 
     FitParameterLinked fitParameter("FitPL", 2.0, 0.2, limits, Attributes::free(), 0.01);
 

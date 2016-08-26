@@ -17,19 +17,19 @@
 #define FITPARAMETER_H
 
 #include "Attributes.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include <string>
 
 //! Fittable parameter with value, error, step, limits, and fixed flag.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitParameter : public Limits, public Attributes
+class BA_CORE_API_ FitParameter : public RealLimits, public Attributes
 {
  public:
     FitParameter();
     FitParameter(
         const std::string& name, double value, double step=0.0,
-        const Limits& limits=Limits::limitless(), const Attributes& attr=Attributes::free(),
+        const RealLimits& limits=RealLimits::limitless(), const Attributes& attr=Attributes::free(),
         double error=0.0);
     virtual ~FitParameter() {}
 

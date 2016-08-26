@@ -36,9 +36,6 @@ public:
     double getAverage() const { return m_average; }
     double getRMS() const;
 
-    friend bool operator< (const CumulativeValue& lhs, const CumulativeValue& rhs);
-    friend bool operator> (const CumulativeValue& lhs, const CumulativeValue& rhs);
-
 private:
     int m_n_entries;
     double m_sum;
@@ -46,5 +43,9 @@ private:
     double m_rms2; //sum[ (x-x_aver)^2]/nentries
     double m_sum_of_weights;
 };
+
+BA_CORE_API_ bool operator< (const CumulativeValue& lhs, const CumulativeValue& rhs);
+BA_CORE_API_ bool operator> (const CumulativeValue& lhs, const CumulativeValue& rhs);
+
 
 #endif // CUMULATIVEVALUE_H

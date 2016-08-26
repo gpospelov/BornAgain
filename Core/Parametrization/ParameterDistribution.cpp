@@ -19,7 +19,7 @@
 
 ParameterDistribution::ParameterDistribution(const std::string &par_name,
     const IDistribution1D &distribution, size_t nbr_samples,
-    double sigma_factor, const Limits &limits)
+    double sigma_factor, const RealLimits &limits)
     : IParameterized("ParameterDistribution")
     , m_name(par_name)
     , m_nbr_samples(nbr_samples)

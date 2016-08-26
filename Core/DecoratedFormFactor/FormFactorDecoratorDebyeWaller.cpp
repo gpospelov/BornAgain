@@ -29,6 +29,16 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
     registerParameter(BornAgain::RadiusDWFactor, &m_r_dw_factor).setPositive();
 }
 
+FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
+	const IFormFactor & form_factor, double dw_factor)
+	: IFormFactorDecorator(form_factor),
+	m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
+{
+	setName(BornAgain::FormFactorDecoratorDebyeWallerType);
+	registerParameter(BornAgain::HeightDWFactor, &m_h_dw_factor).setPositive();
+	registerParameter(BornAgain::RadiusDWFactor, &m_r_dw_factor).setPositive();
+}
+
 complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevectors) const
 {
     cvector_t q = wavevectors.getQ();

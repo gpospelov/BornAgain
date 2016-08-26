@@ -163,11 +163,11 @@ def run_fitting():
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(
-        "*/HemiEllipsoid/RadiusX", 4.*nm, ba.Limits.limited(2., 10.))
+        "*/HemiEllipsoid/RadiusX", 4.*nm, ba.RealLimits.limited(2., 10.))
     fit_suite.addFitParameter(
-        "*/HemiEllipsoid/RadiusY", 6.*nm, ba.Limits.fixed())
+        "*/HemiEllipsoid/RadiusY", 6.*nm, ba.RealLimits.fixed())
     fit_suite.addFitParameter(
-        "*/HemiEllipsoid/Height", 4.*nm, ba.Limits.limited(2., 10.))
+        "*/HemiEllipsoid/Height", 4.*nm, ba.RealLimits.limited(2., 10.))
 
     # running fit
     fit_suite.runFit()

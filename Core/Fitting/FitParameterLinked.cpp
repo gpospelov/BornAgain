@@ -19,7 +19,7 @@
 #include "RealParameter.h"
 
 FitParameterLinked::FitParameterLinked(
-    const std::string& name, double value, double step, const Limits& lim,
+    const std::string& name, double value, double step, const RealLimits& lim,
     const Attributes& attr, double error)
     : FitParameter(name, value, step, lim, attr, error)
 {}

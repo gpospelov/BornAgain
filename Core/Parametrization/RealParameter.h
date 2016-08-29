@@ -71,7 +71,6 @@ public:
     std::string unit() const { return m_unit.getName(); }
 
 protected:
-    std::string m_name;
     ParameterPool* m_parent; //!< "owns" this parameter
     volatile double* m_data;
     Unit m_unit;

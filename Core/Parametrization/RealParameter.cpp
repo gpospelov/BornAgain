@@ -49,7 +49,8 @@ RealParameter::RealParameter(const std::string& name, const RealParameter& other
 
 RealParameter* RealParameter::clone(const std::string& new_name) const
 {
-    auto* ret = new RealParameter( new_name!="" ? new_name : m_name, m_parent, m_data, m_limits );
+    auto* ret = new RealParameter(
+        new_name!="" ? new_name : getName(), m_parent, m_data, m_limits );
     ret->setUnit(unit());
     return ret;
 }

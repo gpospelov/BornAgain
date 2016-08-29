@@ -73,7 +73,8 @@ void IParameterized::printParameters()
 
 RealParameter& IParameterized::registerParameter(const std::string& name, double* data)
 {
-    return m_pool->addParameter( new RealParameter( name, m_pool, data ) );
+    return m_pool->addParameter( new RealParameter( name, data, m_pool->getName(),
+                                                    [&]()->void{ onChange(); } ) );
 }
 
 void IParameterized::setParameterValue(const std::string& name, double value)

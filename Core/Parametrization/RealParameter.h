@@ -32,11 +32,12 @@ class BA_CORE_API_ RealParameter : public IParameter<double> {
 public:
     RealParameter() =delete;
     RealParameter(
-        const std::string& name, ParameterPool* parent,
-        volatile double* par, const RealLimits& limits=RealLimits::limitless(),
-        const Attributes& attr=Attributes::free());
-    RealParameter(const RealParameter& other);
+        const std::string& name, volatile double* par,
+        const std::string& parent_name, const std::function<void()>& onChange,
+        const RealLimits& limits=RealLimits::limitless(), const Attributes& attr=Attributes::free());
     RealParameter(const std::string& name, const RealParameter& other);
+    RealParameter(const RealParameter& other)
+        : RealParameter( other.getName(), other ) {}
 
     RealParameter* clone( const std::string& new_name="" ) const;
 
@@ -61,9 +62,9 @@ public:
     std::string unit() const { return m_unit.getName(); }
 
 protected:
-    Unit m_unit;
     RealLimits m_limits;
     Attributes m_attr;
+    Unit m_unit;
 };
 
 #endif // REALPARAMETER_H

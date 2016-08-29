@@ -17,7 +17,7 @@
 #define IPARAMETER_H
 
 #include "INamed.h"
-#include "ParameterPool.h"
+#include <functional>
 #include <string>
 
 //! Pure virtual base class for parameter wrapper classes RealParameter, ObjectParameter.
@@ -29,12 +29,13 @@ template<class T>
 class BA_CORE_API_ IParameter : public INamed {
 public:
     IParameter() =delete;
-    IParameter(const std::string& name, ParameterPool* parent, volatile T* data)
-        : INamed(name), m_parent(parent), m_data(data) {}
-    IParameter(const IParameter& other)
-        : IParameter(other.getName(), other.m_parent, other.m_data) {} // needed ??
+    IParameter(const std::string& name, volatile T* data, const std::string& parent_name,
+               const std::function<void()>& onChange)
+        : INamed(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange) {}
     IParameter(const std::string& name, const IParameter& other)
-        : IParameter(name, other.m_parent, other.m_data) {} // needed ??
+        : IParameter(name, other.m_data, other.m_parent_name, other.m_onChange) {} // needed ??
+    IParameter(const IParameter& other)
+        : IParameter(other.getName(), other) {} // needed ??
 
     virtual IParameter* clone( const std::string& new_name="" ) const =0;
 
@@ -52,11 +53,12 @@ public:
     bool operator!=(const IParameter &other) const { return !(*this == other); }
 
 protected:
-    ParameterPool* m_parent; //!< "owns" this parameter
     volatile T* m_data;
+    std::string m_parent_name;
+    std::function<void()> m_onChange;
 
     //! For use in error messages
-    std::string fullName() { return m_parent->getName() + "/" + getName(); }
+    std::string fullName() { return m_parent_name + "/" + getName(); }
 };
 
 #endif // IPARAMETER_H

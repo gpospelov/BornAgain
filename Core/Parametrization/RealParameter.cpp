@@ -17,9 +17,11 @@
 #include <stdexcept>
 #include <sstream>
 
-RealParameter::RealParameter(const std::string& name, ParameterPool* parent,
-                             volatile double* par, const RealLimits& limits, const Attributes& attr)
-    : IParameter<double>(name, parent, par)
+RealParameter::RealParameter(
+    const std::string& name, volatile double* par,
+    const std::string& parent_name, const std::function<void()>& onChange,
+    const RealLimits& limits, const Attributes& attr)
+    : IParameter<double>(name, par, parent_name, onChange)
     , m_limits(limits)
     , m_attr(attr)
 {
@@ -31,15 +33,11 @@ RealParameter::RealParameter(const std::string& name, ParameterPool* parent,
     }
 }
 
-RealParameter::RealParameter(const RealParameter& other )
-    : RealParameter( other.getName(), other.m_parent, other.m_data, other.m_limits )
-{
-    setUnit(other.unit());
-}
-
 //! This constructor takes copies 'other' except for the name.
 RealParameter::RealParameter(const std::string& name, const RealParameter& other)
-    : RealParameter( name, other.m_parent, other.m_data, other.m_limits )
+    : IParameter<double>( name, other )
+    , m_limits(other.m_limits)
+    , m_attr(other.m_attr)
 {
     setUnit(other.unit());
 }
@@ -47,7 +45,7 @@ RealParameter::RealParameter(const std::string& name, const RealParameter& other
 RealParameter* RealParameter::clone(const std::string& new_name) const
 {
     auto* ret = new RealParameter(
-        new_name!="" ? new_name : getName(), m_parent, m_data, m_limits );
+        new_name!="" ? new_name : getName(), m_data, m_parent_name, m_onChange, m_limits );
     ret->setUnit(unit());
     return ret;
 }
@@ -69,7 +67,7 @@ void RealParameter::setValue(double value)
     if(m_attr.isFixed())
         throw std::runtime_error("Parameter "+fullName()+" is fixed");
     *m_data = value;
-    m_parent->onChange();
+    m_onChange();
 }
 
 RealParameter& RealParameter::setLimited(double lower, double upper)

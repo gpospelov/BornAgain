@@ -23271,11 +23271,11 @@ class RealParameter(IParameterReal):
 
     def __init__(self, *args):
         """
-        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, RealLimits limits, Attributes attr) -> RealParameter
-        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par, RealLimits limits) -> RealParameter
-        __init__(RealParameter self, std::string const & name, ParameterPool parent, double volatile * par) -> RealParameter
-        __init__(RealParameter self, RealParameter other) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits, Attributes attr) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
         __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
+        __init__(RealParameter self, RealParameter other) -> RealParameter
 
         RealParameter::RealParameter(const std::string &name, const RealParameter &other)
 

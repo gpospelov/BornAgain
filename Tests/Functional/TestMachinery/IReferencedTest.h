@@ -24,7 +24,7 @@
 //! Base class for tests that compare results with reference data.
 //! @ingroup standard_samples
 
-class IReferencedTest : public IFunctionalTest
+class BA_CORE_API_ IReferencedTest : public IFunctionalTest
 {
 public:
     IReferencedTest();

@@ -30,7 +30,7 @@ DistributionHandler::~DistributionHandler()
 
 void DistributionHandler::addParameterDistribution(
     const std::string& param_name, const IDistribution1D& distribution,
-    size_t nbr_samples, double sigma_factor, const Limits& limits)
+    size_t nbr_samples, double sigma_factor, const RealLimits& limits)
 {
     if (nbr_samples > 0) {
         ParameterDistribution par_distr(

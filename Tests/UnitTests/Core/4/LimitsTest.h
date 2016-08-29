@@ -1,7 +1,7 @@
 #ifndef LIMITSTEST_H
 #define LIMITSTEST_H
 
-#include "Limits.h"
+#include "RealLimits.h"
 #include <limits>
 
 
@@ -16,7 +16,7 @@ class LimitsTest : public ::testing::Test
 
 TEST_F(LimitsTest, LimitsInitial)
 {
-    Limits limits;
+    RealLimits limits;
 
     EXPECT_FALSE(limits.hasLowerLimit());
     EXPECT_FALSE(limits.hasUpperLimit());
@@ -25,7 +25,7 @@ TEST_F(LimitsTest, LimitsInitial)
 
 TEST_F(LimitsTest, LimitsSetLimit)
 {
-    Limits limits;
+    RealLimits limits;
 
     //set limit [-1.0, 10.0[
     limits.setLimits(-1.0,10.0);
@@ -97,7 +97,7 @@ TEST_F(LimitsTest, LimitsSetLimit)
 
 TEST_F(LimitsTest, LimitsLowerLimited)
 {
-    Limits limits = Limits::lowerLimited(5.0);
+    RealLimits limits = RealLimits::lowerLimited(5.0);
     EXPECT_TRUE(limits.hasLowerLimit());
     EXPECT_FALSE(limits.hasUpperLimit());
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
@@ -108,7 +108,7 @@ TEST_F(LimitsTest, LimitsLowerLimited)
 
 TEST_F(LimitsTest, LimitsUpperLimited)
 {
-    Limits limits = Limits::upperLimited(5.0);
+    RealLimits limits = RealLimits::upperLimited(5.0);
     EXPECT_FALSE(limits.hasLowerLimit());
     EXPECT_TRUE(limits.hasUpperLimit());
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
@@ -119,7 +119,7 @@ TEST_F(LimitsTest, LimitsUpperLimited)
 
 TEST_F(LimitsTest, LimitsLimited)
 {
-    Limits limits = Limits::limited(-10.0, 2.0);
+    RealLimits limits = RealLimits::limited(-10.0, 2.0);
     EXPECT_TRUE(limits.hasLowerLimit());
     EXPECT_TRUE(limits.hasUpperLimit());
     EXPECT_TRUE(limits.hasLowerAndUpperLimits());
@@ -130,7 +130,7 @@ TEST_F(LimitsTest, LimitsLimited)
 
 TEST_F(LimitsTest, LimitsLimitless)
 {
-    Limits limits = Limits::limitless();
+    RealLimits limits = RealLimits::limitless();
 
     EXPECT_FALSE(limits.hasLowerLimit());
     EXPECT_FALSE(limits.hasUpperLimit());
@@ -139,35 +139,35 @@ TEST_F(LimitsTest, LimitsLimitless)
 
 TEST_F(LimitsTest, ComparisonOperators)
 {
-    Limits lim1 = Limits::limited(1.0, 2.0);
-    Limits lim2 = Limits::limited(1.0, 2.0);
+    RealLimits lim1 = RealLimits::limited(1.0, 2.0);
+    RealLimits lim2 = RealLimits::limited(1.0, 2.0);
     EXPECT_TRUE(lim1 == lim2);
     EXPECT_FALSE(lim1 != lim2);
 
-    Limits lim3 = Limits::limitless();
-    Limits lim4 = Limits::limitless();
+    RealLimits lim3 = RealLimits::limitless();
+    RealLimits lim4 = RealLimits::limitless();
     EXPECT_TRUE(lim3 == lim4);
     EXPECT_FALSE(lim3 != lim4);
 
-    Limits lim5 = Limits::lowerLimited(1.0);
-    Limits lim6 = Limits::lowerLimited(1.0);
+    RealLimits lim5 = RealLimits::lowerLimited(1.0);
+    RealLimits lim6 = RealLimits::lowerLimited(1.0);
     EXPECT_TRUE(lim5 == lim6);
     EXPECT_FALSE(lim5 != lim6);
 
-    Limits lim7 = Limits::upperLimited(1.0);
-    Limits lim8 = Limits::upperLimited(1.0);
+    RealLimits lim7 = RealLimits::upperLimited(1.0);
+    RealLimits lim8 = RealLimits::upperLimited(1.0);
     EXPECT_TRUE(lim7 == lim8);
     EXPECT_FALSE(lim7 != lim8);
 }
 
 TEST_F(LimitsTest, CopyConstructor)
 {
-    Limits lim1 = Limits::limited(1.0, 2.0);
-    Limits lim2 = lim1;
+    RealLimits lim1 = RealLimits::limited(1.0, 2.0);
+    RealLimits lim2 = lim1;
     EXPECT_TRUE(lim1 == lim2);
     EXPECT_FALSE(lim1 != lim2);
 
-    Limits lim3(lim1);
+    RealLimits lim3(lim1);
     EXPECT_TRUE(lim1 == lim3);
     EXPECT_FALSE(lim1 != lim3);
 }

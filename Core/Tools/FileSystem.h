@@ -25,22 +25,22 @@
 namespace FileSystem {
 
     //! Returns file extension
-    std::string GetFileExtension(const std::string& name);
+	BA_CORE_API_ std::string GetFileExtension(const std::string& name);
 
     //! creates directory in current directory
-    bool CreateDirectory(const std::string& dir_name);
+	BA_CORE_API_ bool CreateDirectory(const std::string& dir_name);
 
     //! Returns filenames of files in directory
-    std::vector<std::string> filesInDirectory(const std::string &dir_name);
+	BA_CORE_API_ std::vector<std::string> filesInDirectory(const std::string &dir_name);
 
     //! join paths together
-    std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
+	BA_CORE_API_ std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
 
     //! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
-    std::string filename(const std::string& path);
+	BA_CORE_API_ std::string filename(const std::string& path);
 
     //! Returns file names that agree with a regex glob pattern.
-    std::vector<std::string> reglob(const std::string& dir, const std::string& pattern);
+	BA_CORE_API_ std::vector<std::string> reglob(const std::string& dir, const std::string& pattern);
 
 } // namespace FileSystem
 

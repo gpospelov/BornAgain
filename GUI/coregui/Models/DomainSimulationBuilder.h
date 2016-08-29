@@ -17,6 +17,7 @@
 #ifndef DOMAINSIMULATIONBUILDER_H
 #define DOMAINSIMULATIONBUILDER_H
 
+#include "WinDllMacros.h"
 
 class GISASSimulation;
 class MultiLayerItem;
@@ -25,7 +26,7 @@ class SimulationOptionsItem;
 
 //! The DomainSimulationBuilder class builds the domain simulation
 //! from instrument and sample models.
-class DomainSimulationBuilder
+class BA_CORE_API_ DomainSimulationBuilder
 {
 public:
     static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem,

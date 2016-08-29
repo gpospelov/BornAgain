@@ -17,13 +17,13 @@
 #ifndef SESSIONITEM_H
 #define SESSIONITEM_H
 
-#include "Limits.h"
+#include "RealLimits.h"
 #include "ModelMapper.h"
 #include "item_constants.h"
 #include <QStringList>
 #include <memory>
 
-Q_DECLARE_METATYPE(Limits)
+Q_DECLARE_METATYPE(RealLimits)
 
 class SessionItemData;
 
@@ -123,8 +123,8 @@ public:
     bool isEnabled() const;
     bool isEditable() const;
 
-    Limits limits() const;
-    void setLimits(const Limits &value);
+    RealLimits limits() const;
+    void setLimits(const RealLimits &value);
 
     int decimals() const;
     void setDecimals(int n);

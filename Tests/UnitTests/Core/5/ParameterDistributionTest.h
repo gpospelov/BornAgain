@@ -33,15 +33,15 @@ TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
     EXPECT_EQ(name, pardistr.getMainParameterName());
     EXPECT_EQ(size_t(1), pardistr.getNbrSamples());
     EXPECT_EQ(0.0, pardistr.getSigmaFactor());
-    EXPECT_EQ(Limits(), pardistr.getLimits());
+    EXPECT_EQ(RealLimits(), pardistr.getLimits());
     EXPECT_EQ(pardistr.getLinkedParameterNames().size(), size_t(0));
     EXPECT_EQ(1.0, pardistr.getMinValue());
     EXPECT_EQ(-1.0, pardistr.getMaxValue());
 
-    ParameterDistribution pardistr2(name, distribution, 5, 2.0, Limits::limited(1.0, 2.0));
+    ParameterDistribution pardistr2(name, distribution, 5, 2.0, RealLimits::limited(1.0, 2.0));
     EXPECT_EQ(size_t(5), pardistr2.getNbrSamples());
     EXPECT_EQ(2.0, pardistr2.getSigmaFactor());
-    EXPECT_EQ(Limits::limited(1.0, 2.0), pardistr2.getLimits());
+    EXPECT_EQ(RealLimits::limited(1.0, 2.0), pardistr2.getLimits());
 
     // xmin, xmax constructor
     ParameterDistribution pardistr3(name, distribution, 5, 1.0, 2.0);
@@ -52,7 +52,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
     EXPECT_EQ(name, pardistr3.getMainParameterName());
     EXPECT_EQ(size_t(5), pardistr3.getNbrSamples());
     EXPECT_EQ(0.0, pardistr3.getSigmaFactor());
-    EXPECT_EQ(Limits(), pardistr3.getLimits());
+    EXPECT_EQ(RealLimits(), pardistr3.getLimits());
     EXPECT_EQ(pardistr3.getLinkedParameterNames().size(), size_t(0));
 }
 
@@ -60,7 +60,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionCopyConstructor)
 {
     DistributionGate distribution(1.0, 2.0);
     std::string name = "MainParameterName";
-    ParameterDistribution pardistr(name, distribution, 5, 2.0, Limits::limited(1.0, 2.0));
+    ParameterDistribution pardistr(name, distribution, 5, 2.0, RealLimits::limited(1.0, 2.0));
     pardistr.linkParameter("link1").linkParameter("link2");
 
     ParameterDistribution pcopy(pardistr);
@@ -84,7 +84,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionAssignment)
 {
     DistributionGate distribution(1.0, 2.0);
     std::string name = "MainParameterName";
-    ParameterDistribution pardistr(name, distribution, 5, 2.0, Limits::limited(1.0, 2.0));
+    ParameterDistribution pardistr(name, distribution, 5, 2.0, RealLimits::limited(1.0, 2.0));
     pardistr.linkParameter("link1").linkParameter("link2");
 
     ParameterDistribution pcopy = pardistr;
@@ -123,7 +123,7 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
     EXPECT_EQ(sample_values[2].value, mean+sigma_factor*sigma);
 
     // with Limits
-    ParameterDistribution pardistr2(name, distribution, nbr_samples, sigma_factor, Limits::lowerLimited(mean));
+    ParameterDistribution pardistr2(name, distribution, nbr_samples, sigma_factor, RealLimits::lowerLimited(mean));
     sample_values = pardistr2.generateSamples();
     EXPECT_EQ(sample_values.size(), size_t(3));
     EXPECT_EQ(sample_values[0].value, mean);

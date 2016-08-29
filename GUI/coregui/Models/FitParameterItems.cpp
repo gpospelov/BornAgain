@@ -88,7 +88,7 @@ FitParameterItem::FitParameterItem()
 
 //! Inits P_MIN and P_MAX taking into account current value and external limits
 
-void FitParameterItem::initMinMaxValues(const Limits &limits)
+void FitParameterItem::initMinMaxValues(const RealLimits &limits)
 {
     double value = getItemValue(P_START_VALUE).toDouble();
 
@@ -112,18 +112,18 @@ void FitParameterItem::initMinMaxValues(const Limits &limits)
 
 //! Constructs Limits correspodning to current GUI settings.
 
-Limits FitParameterItem::getLimits()
+RealLimits FitParameterItem::getLimits()
 {
     if(isLimited())
-        return Limits::limited(getItemValue(P_MIN).toDouble(), getItemValue(P_MAX).toDouble());
+        return RealLimits::limited(getItemValue(P_MIN).toDouble(), getItemValue(P_MAX).toDouble());
 
     if(isLowerLimited())
-        return Limits::lowerLimited(getItemValue(P_MIN).toDouble());
+        return RealLimits::lowerLimited(getItemValue(P_MIN).toDouble());
 
     if(isUpperLimited())
-        return Limits::upperLimited(getItemValue(P_MAX).toDouble());
+        return RealLimits::upperLimited(getItemValue(P_MAX).toDouble());
 
-    return Limits::limitless();
+    return RealLimits::limitless();
 }
 
 //! Enables/disables min, max properties on FitParameterItem's type

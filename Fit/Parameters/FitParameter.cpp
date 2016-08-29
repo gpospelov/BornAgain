@@ -20,9 +20,9 @@ FitParameter::FitParameter() : m_value(0), m_step(0), m_error(0)
 {}
 
 FitParameter::FitParameter(
-    const std::string& name, double value, double step, const Limits& limits,
+    const std::string& name, double value, double step, const RealLimits& limits,
     const Attributes& attr, double error)
-    : Limits(limits)
+    : RealLimits(limits)
     , Attributes(attr)
     , m_name(name)
     , m_value(value)
@@ -38,5 +38,5 @@ void FitParameter::print(std::ostream& ostr) const
     ostr << adjusted_name << std::scientific << std::setprecision(8) << m_value << "  ";
     Attributes::print(ostr);
     ostr << " ";
-    Limits::print(ostr);
+    RealLimits::print(ostr);
 }

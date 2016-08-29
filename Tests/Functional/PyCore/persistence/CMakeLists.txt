@@ -1,5 +1,5 @@
 ############################################################################
-# Tests/Functional/PyCore/presistence/CMakeLists.txt
+# Tests/Functional/PyCore/persistence/CMakeLists.txt
 ############################################################################
 
 set(PYPERSIST_REF_DIR ${REFERENCE_DIR}/PyPersist)
@@ -15,15 +15,17 @@ file(GLOB PY_EXAMPLES
     "${PY_EXAMPLES_DIR}/fitting/ex02*/FitCylindersPrisms_detailed.py"
     )
 
-# for some reason these flags doesn't propagated here by SetUpWindows.cmake
+# for some reason these flags aren't propagated here by SetUpWindows.cmake
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
+	add_definitions(-DYAML_CPP_DLL)
 endif()
 
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
+    ${YAMLCPP_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/Core/Simulation
     ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
 )

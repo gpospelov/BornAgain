@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IParameterized.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <iostream>

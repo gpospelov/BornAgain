@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "GUIHelpers.h"
 #include "BAVersion.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
@@ -22,8 +23,6 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QPushButton>
-
-namespace GUIHelpers {
 
 namespace {
 QMap<QString, QString> initializeCharacterMap()
@@ -40,8 +39,9 @@ QMap<QString, QString> initializeCharacterMap()
 }
 
 const QMap<QString, QString> invalidCharacterMap = initializeCharacterMap();
+}  // Anonymous namespace
 
-}
+namespace GUIHelpers {
 
 void information(QWidget *parent, const QString &title, const QString &text, const QString &detailedText)
 {

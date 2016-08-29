@@ -42,7 +42,7 @@ TEST_F(FitParameterTest, FitParameterSetValue)
 
 TEST_F(FitParameterTest, FitParameterWithValue)
 {
-    Limits limits = Limits::limited(-10.0, 2.0);
+    RealLimits limits = RealLimits::limited(-10.0, 2.0);
 
     FitParameter fitParameter("FitP", 2.0, 0.2, limits, Attributes::free(), 0.01);
 

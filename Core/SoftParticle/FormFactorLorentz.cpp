@@ -15,7 +15,7 @@
 
 #include "FormFactorLorentz.h"
 #include "BornAgainNamespace.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "Pi.h"
 #include "RealParameter.h"
 

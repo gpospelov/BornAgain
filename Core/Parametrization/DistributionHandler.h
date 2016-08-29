@@ -33,7 +33,7 @@ public:
     void addParameterDistribution(const std::string &param_name,
             const IDistribution1D &distribution, size_t nbr_samples,
             double sigma_factor=0.0,
-            const Limits &limits=Limits());
+            const RealLimits &limits=RealLimits());
 
     void addParameterDistribution(const ParameterDistribution &par_distr);
 

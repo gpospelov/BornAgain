@@ -29,8 +29,7 @@ public:
                                    double dw_r_factor);
 
     //! Isotropic Debye-Waller factor.
-    FormFactorDecoratorDebyeWaller(const IFormFactor& form_factor, double dw_factor)
-        : FormFactorDecoratorDebyeWaller(form_factor, dw_factor, dw_factor) {}
+	FormFactorDecoratorDebyeWaller(const IFormFactor& form_factor, double dw_factor);
 
     FormFactorDecoratorDebyeWaller* clone() const final {
         return new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor); }

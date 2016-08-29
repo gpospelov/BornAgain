@@ -18,7 +18,7 @@
 
 #include "INamed.h"
 #include "Attributes.h"
-#include "Limits.h"
+#include "RealLimits.h"
 #include "Unit.h"
 #include <string>
 
@@ -32,7 +32,7 @@ class BA_CORE_API_ RealParameter : public INamed {
 public:
     explicit RealParameter(
         const std::string& name, ParameterPool* parent,
-        volatile double* par, const Limits& limits=Limits::limitless(),
+        volatile double* par, const RealLimits& limits=RealLimits::limitless(),
         const Attributes& attr=Attributes::free());
     RealParameter(const RealParameter& other);
     RealParameter(const std::string& name, const RealParameter& other);
@@ -57,8 +57,8 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const RealParameter& p) {
         ostr << p.m_data; return ostr; }
 
-    RealParameter& setLimits(const Limits& limits) { m_limits = limits; return *this; }
-    Limits getLimits() const { return m_limits; }
+    RealParameter& setLimits(const RealLimits& limits) { m_limits = limits; return *this; }
+    RealLimits getLimits() const { return m_limits; }
 
     RealParameter& setLimited(double lower, double upper);
     RealParameter& setPositive();
@@ -74,7 +74,7 @@ protected:
     ParameterPool* m_parent; //!< "owns" this parameter
     volatile double* m_data;
     Unit m_unit;
-    Limits m_limits;
+    RealLimits m_limits;
     Attributes m_attr;
     std::string fullName(); //!< For use in error messages
 };

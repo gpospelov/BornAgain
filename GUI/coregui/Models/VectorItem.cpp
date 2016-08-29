@@ -23,9 +23,9 @@ const QString VectorItem::P_Z = "Z";
 VectorItem::VectorItem()
     : SessionItem(Constants::VectorType)
 {
-    addProperty(P_X, 0.0)->setLimits(Limits::limitless());
-    addProperty(P_Y, 0.0)->setLimits(Limits::limitless());
-    addProperty(P_Z, 0.0)->setLimits(Limits::limitless());
+    addProperty(P_X, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_Y, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_Z, 0.0)->setLimits(RealLimits::limitless());
 
     mapper()->setOnPropertyChange(
         [this](const QString &){

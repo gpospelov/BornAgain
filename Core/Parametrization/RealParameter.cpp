@@ -19,7 +19,7 @@
 #include <sstream>
 
 RealParameter::RealParameter(const std::string& name, ParameterPool* parent,
-                             volatile double* par, const Limits& limits, const Attributes& attr)
+                             volatile double* par, const RealLimits& limits, const Attributes& attr)
     : INamed(name)
     , m_parent(parent)
     , m_data(par)
@@ -83,19 +83,19 @@ void RealParameter::setValue(double value)
 
 RealParameter& RealParameter::setLimited(double lower, double upper)
 {
-    setLimits( Limits::limited(lower, upper) );
+    setLimits( RealLimits::limited(lower, upper) );
     return *this;
 }
 
 RealParameter& RealParameter::setPositive()
 {
-    setLimits( Limits::positive() );
+    setLimits( RealLimits::positive() );
     return *this;
 }
 
 RealParameter& RealParameter::setNonnegative()
 {
-    setLimits( Limits::nonnegative() );
+    setLimits( RealLimits::nonnegative() );
     return *this;
 }
 

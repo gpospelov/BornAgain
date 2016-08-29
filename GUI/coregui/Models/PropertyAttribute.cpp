@@ -19,7 +19,7 @@
 #include "tooltipdatabase.h"
 
 PropertyAttribute::PropertyAttribute(PropertyAttribute::Appearance appearance,
-                                     const Limits &limits, int decimals, const QString &label,
+                                     const RealLimits &limits, int decimals, const QString &label,
                                      const QString &tooltip)
     : m_appearance(appearance)
     , m_limits(limits)
@@ -30,7 +30,7 @@ PropertyAttribute::PropertyAttribute(PropertyAttribute::Appearance appearance,
 
 }
 
-PropertyAttribute::PropertyAttribute(const Limits &limits, int decimals)
+PropertyAttribute::PropertyAttribute(const RealLimits &limits, int decimals)
     : m_appearance(VISIBLE)
     , m_limits(limits)
     , m_decimals(decimals)
@@ -40,7 +40,7 @@ PropertyAttribute::PropertyAttribute(const Limits &limits, int decimals)
 
 PropertyAttribute PropertyAttribute::labeled(const QString &label)
 {
-    return PropertyAttribute(VISIBLE, Limits::lowerLimited(0.0), 2, label);
+    return PropertyAttribute(VISIBLE, RealLimits::lowerLimited(0.0), 2, label);
 }
 
 PropertyAttribute::Appearance PropertyAttribute::getAppearance() const
@@ -53,12 +53,12 @@ void PropertyAttribute::setAppearance(PropertyAttribute::Appearance appearance)
     m_appearance = appearance;
 }
 
-Limits PropertyAttribute::getLimits() const
+RealLimits PropertyAttribute::getLimits() const
 {
     return m_limits;
 }
 
-PropertyAttribute& PropertyAttribute::setLimits(const Limits &limits)
+PropertyAttribute& PropertyAttribute::setLimits(const RealLimits &limits)
 {
     m_limits = limits;
     return *this;
@@ -66,25 +66,25 @@ PropertyAttribute& PropertyAttribute::setLimits(const Limits &limits)
 
 PropertyAttribute &PropertyAttribute::lowerLimited(double value)
 {
-    m_limits = Limits::lowerLimited(value);
+    m_limits = RealLimits::lowerLimited(value);
     return *this;
 }
 
 PropertyAttribute &PropertyAttribute::upperLimited(double value)
 {
-    m_limits = Limits::upperLimited(value);
+    m_limits = RealLimits::upperLimited(value);
     return *this;
 }
 
 PropertyAttribute &PropertyAttribute::limited(double left_bound_value, double right_bound_value)
 {
-    m_limits = Limits::limited(left_bound_value, right_bound_value);
+    m_limits = RealLimits::limited(left_bound_value, right_bound_value);
     return *this;
 }
 
 PropertyAttribute &PropertyAttribute::limitless()
 {
-    m_limits = Limits::limitless();
+    m_limits = RealLimits::limitless();
     return *this;
 }
 

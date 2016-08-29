@@ -17270,14 +17270,14 @@ class IAbstractParticle(ICompositeSample):
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
 
-class IParameterReal(INamed):
+class IParameterReal(INamed, INoncopyable):
     """Proxy of C++ IParameter<(double)> class"""
     __swig_setmethods__ = {}
-    for _s in [INamed]:
+    for _s in [INamed, INoncopyable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterReal, name, value)
     __swig_getmethods__ = {}
-    for _s in [INamed]:
+    for _s in [INamed, INoncopyable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IParameterReal, name)
 
@@ -23274,8 +23274,6 @@ class RealParameter(IParameterReal):
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits, Attributes attr) -> RealParameter
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
-        __init__(RealParameter self, std::string const & name, RealParameter other) -> RealParameter
-        __init__(RealParameter self, RealParameter other) -> RealParameter
 
         RealParameter::RealParameter(const std::string &name, const RealParameter &other)
 

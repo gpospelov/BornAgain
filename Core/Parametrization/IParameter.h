@@ -16,6 +16,7 @@
 #ifndef IPARAMETER_H
 #define IPARAMETER_H
 
+#include "INoncopyable.h"
 #include "INamed.h"
 #include <functional>
 #include <string>
@@ -26,16 +27,12 @@
 //! @ingroup tools_internal
 
 template<class T>
-class BA_CORE_API_ IParameter : public INamed {
+class BA_CORE_API_ IParameter : public INamed, public INoncopyable {
 public:
     IParameter() =delete;
     IParameter(const std::string& name, volatile T* data, const std::string& parent_name,
                const std::function<void()>& onChange)
         : INamed(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange) {}
-    IParameter(const std::string& name, const IParameter& other)
-        : IParameter(name, other.m_data, other.m_parent_name, other.m_onChange) {} // needed ??
-    IParameter(const IParameter& other)
-        : IParameter(other.getName(), other) {} // needed ??
 
     virtual IParameter* clone( const std::string& new_name="" ) const =0;
 

@@ -30,14 +30,11 @@ class ParameterPool;
 
 class BA_CORE_API_ RealParameter : public IParameter<double> {
 public:
-    RealParameter() =delete;
     RealParameter(
         const std::string& name, volatile double* par,
         const std::string& parent_name, const std::function<void()>& onChange,
-        const RealLimits& limits=RealLimits::limitless(), const Attributes& attr=Attributes::free());
-    RealParameter(const std::string& name, const RealParameter& other);
-    RealParameter(const RealParameter& other)
-        : RealParameter( other.getName(), other ) {}
+        const RealLimits& limits=RealLimits::limitless(),
+        const Attributes& attr=Attributes::free());
 
     RealParameter* clone( const std::string& new_name="" ) const;
 

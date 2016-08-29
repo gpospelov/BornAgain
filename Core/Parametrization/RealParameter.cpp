@@ -33,15 +33,6 @@ RealParameter::RealParameter(
     }
 }
 
-//! This constructor takes copies 'other' except for the name.
-RealParameter::RealParameter(const std::string& name, const RealParameter& other)
-    : IParameter<double>( name, other )
-    , m_limits(other.m_limits)
-    , m_attr(other.m_attr)
-{
-    setUnit(other.unit());
-}
-
 RealParameter* RealParameter::clone(const std::string& new_name) const
 {
     auto* ret = new RealParameter(

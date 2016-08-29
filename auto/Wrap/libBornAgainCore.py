@@ -17270,6 +17270,58 @@ class IAbstractParticle(ICompositeSample):
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
 
+class IParameterReal(INamed):
+    """Proxy of C++ IParameter<(double)> class"""
+    __swig_setmethods__ = {}
+    for _s in [INamed]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterReal, name, value)
+    __swig_getmethods__ = {}
+    for _s in [INamed]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IParameterReal, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def clone(self, *args):
+        """
+        clone(IParameterReal self, std::string const & new_name) -> IParameterReal
+        clone(IParameterReal self) -> IParameterReal
+        """
+        return _libBornAgainCore.IParameterReal_clone(self, *args)
+
+
+    def isNull(self):
+        """isNull(IParameterReal self) -> bool"""
+        return _libBornAgainCore.IParameterReal_isNull(self)
+
+
+    def getData(self):
+        """getData(IParameterReal self) -> double volatile &"""
+        return _libBornAgainCore.IParameterReal_getData(self)
+
+
+    def setData(self, data):
+        """setData(IParameterReal self, double volatile & data)"""
+        return _libBornAgainCore.IParameterReal_setData(self, data)
+
+
+    def __eq__(self, other):
+        """__eq__(IParameterReal self, IParameterReal other) -> bool"""
+        return _libBornAgainCore.IParameterReal___eq__(self, other)
+
+
+    def __ne__(self, other):
+        """__ne__(IParameterReal self, IParameterReal other) -> bool"""
+        return _libBornAgainCore.IParameterReal___ne__(self, other)
+
+    __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
+    __del__ = lambda self: None
+IParameterReal_swigregister = _libBornAgainCore.IParameterReal_swigregister
+IParameterReal_swigregister(IParameterReal)
+
 class IParticle(IAbstractParticle):
     """
 
@@ -23198,7 +23250,7 @@ class Polygon(IShape2D):
 Polygon_swigregister = _libBornAgainCore.Polygon_swigregister
 Polygon_swigregister(Polygon)
 
-class RealParameter(INamed):
+class RealParameter(IParameterReal):
     """
 
 
@@ -23208,11 +23260,11 @@ class RealParameter(INamed):
 
     """
     __swig_setmethods__ = {}
-    for _s in [INamed]:
+    for _s in [IParameterReal]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, RealParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [INamed]:
+    for _s in [IParameterReal]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, RealParameter, name)
     __repr__ = _swig_repr
@@ -23271,40 +23323,6 @@ class RealParameter(INamed):
         return _libBornAgainCore.RealParameter_getValue(self)
 
 
-    def setUnit(self, name):
-        """
-        setUnit(RealParameter self, std::string const & name) -> RealParameter
-
-        RealParameter& RealParameter::setUnit(const std::string &name)
-
-        """
-        return _libBornAgainCore.RealParameter_setUnit(self, name)
-
-
-    def isNull(self):
-        """
-        isNull(RealParameter self) -> bool
-
-        bool RealParameter::isNull() const
-
-        Returns true if wrapped parameter was not initialized with proper real value. 
-
-        """
-        return _libBornAgainCore.RealParameter_isNull(self)
-
-
-    def checkNull(self):
-        """
-        checkNull(RealParameter self)
-
-        void RealParameter::checkNull() const
-
-        throw exception if parameter was not initialized with proper value 
-
-        """
-        return _libBornAgainCore.RealParameter_checkNull(self)
-
-
     def setLimits(self, limits):
         """
         setLimits(RealParameter self, RealLimits limits) -> RealParameter
@@ -23360,9 +23378,14 @@ class RealParameter(INamed):
         return _libBornAgainCore.RealParameter___eq__(self, other)
 
 
-    def __ne__(self, other):
-        """__ne__(RealParameter self, RealParameter other) -> bool"""
-        return _libBornAgainCore.RealParameter___ne__(self, other)
+    def setUnit(self, name):
+        """
+        setUnit(RealParameter self, std::string const & name) -> RealParameter
+
+        RealParameter& RealParameter::setUnit(const std::string &name)
+
+        """
+        return _libBornAgainCore.RealParameter_setUnit(self, name)
 
 
     def unit(self):

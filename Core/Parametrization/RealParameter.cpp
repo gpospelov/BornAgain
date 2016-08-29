@@ -15,14 +15,11 @@
 
 #include "RealParameter.h"
 #include <stdexcept>
-#include "ParameterPool.h"
 #include <sstream>
 
 RealParameter::RealParameter(const std::string& name, ParameterPool* parent,
                              volatile double* par, const RealLimits& limits, const Attributes& attr)
-    : INamed(name)
-    , m_parent(parent)
-    , m_data(par)
+    : IParameter<double>(name, parent, par)
     , m_limits(limits)
     , m_attr(attr)
 {
@@ -56,17 +53,11 @@ RealParameter* RealParameter::clone(const std::string& new_name) const
 }
 
 
-//! throw exception if parameter was not initialized with proper value
-void RealParameter::checkNull() const
-{
-    if(isNull())
-        throw std::runtime_error(
-            "Bug in RealParameter::getValue() -> Attempt to access uninitialised pointer.");
-}
-
 void RealParameter::setValue(double value)
 {
-    checkNull();
+    if(!m_data)
+        throw std::runtime_error(
+            "Bug in RealParameter::getValue() -> Attempt to access uninitialised pointer.");
     if(value == *m_data)
         return; // nothing to do
     if(!m_limits.isInRange(value)) {
@@ -97,9 +88,4 @@ RealParameter& RealParameter::setNonnegative()
 {
     setLimits( RealLimits::nonnegative() );
     return *this;
-}
-
-std::string RealParameter::fullName()
-{
-    return m_parent->getName() + "/" + getName();
 }

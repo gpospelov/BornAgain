@@ -1517,7 +1517,14 @@ def Attributes_free():
     return _libBornAgainFit.Attributes_free()
 
 class RealLimits(_object):
-    """Proxy of C++ RealLimits class"""
+    """
+
+
+    Limits for a real fit parameter.
+
+    C++ includes: RealLimits.h
+
+    """
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, RealLimits, name, value)
     __swig_getmethods__ = {}
@@ -1525,7 +1532,12 @@ class RealLimits(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(RealLimits self) -> RealLimits"""
+        """
+        __init__(RealLimits self) -> RealLimits
+
+        RealLimits::RealLimits()
+
+        """
         this = _libBornAgainFit.new_RealLimits()
         try:
             self.this.append(this)
@@ -1533,62 +1545,146 @@ class RealLimits(_object):
             self.this = this
 
     def hasLowerLimit(self):
-        """hasLowerLimit(RealLimits self) -> bool"""
+        """
+        hasLowerLimit(RealLimits self) -> bool
+
+        bool RealLimits::hasLowerLimit() const
+
+        if has lower limit 
+
+        """
         return _libBornAgainFit.RealLimits_hasLowerLimit(self)
 
 
     def getLowerLimit(self):
-        """getLowerLimit(RealLimits self) -> double"""
+        """
+        getLowerLimit(RealLimits self) -> double
+
+        double RealLimits::getLowerLimit() const
+
+        Returns lower limit. 
+
+        """
         return _libBornAgainFit.RealLimits_getLowerLimit(self)
 
 
     def setLowerLimit(self, value):
-        """setLowerLimit(RealLimits self, double value)"""
+        """
+        setLowerLimit(RealLimits self, double value)
+
+        void RealLimits::setLowerLimit(double value)
+
+        Sets lower limit. 
+
+        """
         return _libBornAgainFit.RealLimits_setLowerLimit(self, value)
 
 
     def removeLowerLimit(self):
-        """removeLowerLimit(RealLimits self)"""
+        """
+        removeLowerLimit(RealLimits self)
+
+        void RealLimits::removeLowerLimit()
+
+        remove lower limit 
+
+        """
         return _libBornAgainFit.RealLimits_removeLowerLimit(self)
 
 
     def hasUpperLimit(self):
-        """hasUpperLimit(RealLimits self) -> bool"""
+        """
+        hasUpperLimit(RealLimits self) -> bool
+
+        bool RealLimits::hasUpperLimit() const
+
+        if has upper limit 
+
+        """
         return _libBornAgainFit.RealLimits_hasUpperLimit(self)
 
 
     def getUpperLimit(self):
-        """getUpperLimit(RealLimits self) -> double"""
+        """
+        getUpperLimit(RealLimits self) -> double
+
+        double RealLimits::getUpperLimit() const
+
+        Returns upper limit. 
+
+        """
         return _libBornAgainFit.RealLimits_getUpperLimit(self)
 
 
     def setUpperLimit(self, value):
-        """setUpperLimit(RealLimits self, double value)"""
+        """
+        setUpperLimit(RealLimits self, double value)
+
+        void RealLimits::setUpperLimit(double value)
+
+        Sets upper limit. 
+
+        """
         return _libBornAgainFit.RealLimits_setUpperLimit(self, value)
 
 
     def removeUpperLimit(self):
-        """removeUpperLimit(RealLimits self)"""
+        """
+        removeUpperLimit(RealLimits self)
+
+        void RealLimits::removeUpperLimit()
+
+        remove upper limit 
+
+        """
         return _libBornAgainFit.RealLimits_removeUpperLimit(self)
 
 
     def hasLowerAndUpperLimits(self):
-        """hasLowerAndUpperLimits(RealLimits self) -> bool"""
+        """
+        hasLowerAndUpperLimits(RealLimits self) -> bool
+
+        bool RealLimits::hasLowerAndUpperLimits() const
+
+        if has lower and upper limit 
+
+        """
         return _libBornAgainFit.RealLimits_hasLowerAndUpperLimits(self)
 
 
     def setLimits(self, xmin, xmax):
-        """setLimits(RealLimits self, double xmin, double xmax)"""
+        """
+        setLimits(RealLimits self, double xmin, double xmax)
+
+        void RealLimits::setLimits(double xmin, double xmax)
+
+        Sets lower and upper limits. 
+
+        """
         return _libBornAgainFit.RealLimits_setLimits(self, xmin, xmax)
 
 
     def removeLimits(self):
-        """removeLimits(RealLimits self)"""
+        """
+        removeLimits(RealLimits self)
+
+        void RealLimits::removeLimits()
+
+        remove limits 
+
+        """
         return _libBornAgainFit.RealLimits_removeLimits(self)
 
 
     def isInRange(self, value):
-        """isInRange(RealLimits self, double value) -> bool"""
+        """
+        isInRange(RealLimits self, double value) -> bool
+
+        bool RealLimits::isInRange(double value) const
+
+        returns true if proposed value is in limits range 
+
+        """
         return _libBornAgainFit.RealLimits_isInRange(self, value)
 
 
@@ -1976,7 +2072,7 @@ class FitParameter(RealLimits, Attributes):
         __init__(FitParameter self, std::string const & name, double value, double step=0.0) -> FitParameter
         __init__(FitParameter self, std::string const & name, double value) -> FitParameter
 
-        FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
+        FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
 
         """
         this = _libBornAgainFit.new_FitParameter(*args)

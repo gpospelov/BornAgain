@@ -1,0 +1,62 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Parametrization/IParameter.h
+//! @brief     Defines class IParameter.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#ifndef IPARAMETER_H
+#define IPARAMETER_H
+
+#include "INamed.h"
+#include "ParameterPool.h"
+#include <string>
+
+//! Pure virtual base class for parameter wrapper classes RealParameter, ObjectParameter.
+//! It's templated on the data type of the wrapped parameter.
+//! @class IParameter
+//! @ingroup tools_internal
+
+template<class T>
+class BA_CORE_API_ IParameter : public INamed {
+public:
+    IParameter() =delete;
+    IParameter(const std::string& name, ParameterPool* parent, volatile T* data)
+        : INamed(name), m_parent(parent), m_data(data) {}
+    IParameter(const IParameter& other)
+        : IParameter(other.getName(), other.m_parent, other.m_data) {} // needed ??
+    IParameter(const std::string& name, const IParameter& other)
+        : IParameter(name, other.m_parent, other.m_data) {} // needed ??
+
+    virtual IParameter* clone( const std::string& new_name="" ) const =0;
+
+    //! Returns true if wrapped parameter was not initialized with proper real value
+    virtual bool isNull() const { return m_data ? false : true; }
+
+    volatile T& getData() const { return *m_data; }
+    void setData(volatile T& data) { m_data = &data; }
+
+    //! Prints the parameter's address to an output stream
+    friend std::ostream& operator<<(std::ostream& ostr, const IParameter& p) {
+        ostr << p.m_data; return ostr; }
+
+    bool operator==(const IParameter &other) const { return m_data == other.m_data; }
+    bool operator!=(const IParameter &other) const { return !(*this == other); }
+
+protected:
+    ParameterPool* m_parent; //!< "owns" this parameter
+    volatile T* m_data;
+
+    //! For use in error messages
+    std::string fullName() { return m_parent->getName() + "/" + getName(); }
+};
+
+#endif // IPARAMETER_H

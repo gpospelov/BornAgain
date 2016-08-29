@@ -23389,19 +23389,108 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Attributes___ne__", _wrap_Attributes___ne__, METH_VARARGS, (char *)"Attributes___ne__(Attributes self, Attributes other) -> bool"},
 	 { (char *)"delete_Attributes", _wrap_delete_Attributes, METH_VARARGS, (char *)"delete_Attributes(Attributes self)"},
 	 { (char *)"Attributes_swigregister", Attributes_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_RealLimits", _wrap_new_RealLimits, METH_VARARGS, (char *)"new_RealLimits() -> RealLimits"},
-	 { (char *)"RealLimits_hasLowerLimit", _wrap_RealLimits_hasLowerLimit, METH_VARARGS, (char *)"RealLimits_hasLowerLimit(RealLimits self) -> bool"},
-	 { (char *)"RealLimits_getLowerLimit", _wrap_RealLimits_getLowerLimit, METH_VARARGS, (char *)"RealLimits_getLowerLimit(RealLimits self) -> double"},
-	 { (char *)"RealLimits_setLowerLimit", _wrap_RealLimits_setLowerLimit, METH_VARARGS, (char *)"RealLimits_setLowerLimit(RealLimits self, double value)"},
-	 { (char *)"RealLimits_removeLowerLimit", _wrap_RealLimits_removeLowerLimit, METH_VARARGS, (char *)"RealLimits_removeLowerLimit(RealLimits self)"},
-	 { (char *)"RealLimits_hasUpperLimit", _wrap_RealLimits_hasUpperLimit, METH_VARARGS, (char *)"RealLimits_hasUpperLimit(RealLimits self) -> bool"},
-	 { (char *)"RealLimits_getUpperLimit", _wrap_RealLimits_getUpperLimit, METH_VARARGS, (char *)"RealLimits_getUpperLimit(RealLimits self) -> double"},
-	 { (char *)"RealLimits_setUpperLimit", _wrap_RealLimits_setUpperLimit, METH_VARARGS, (char *)"RealLimits_setUpperLimit(RealLimits self, double value)"},
-	 { (char *)"RealLimits_removeUpperLimit", _wrap_RealLimits_removeUpperLimit, METH_VARARGS, (char *)"RealLimits_removeUpperLimit(RealLimits self)"},
-	 { (char *)"RealLimits_hasLowerAndUpperLimits", _wrap_RealLimits_hasLowerAndUpperLimits, METH_VARARGS, (char *)"RealLimits_hasLowerAndUpperLimits(RealLimits self) -> bool"},
-	 { (char *)"RealLimits_setLimits", _wrap_RealLimits_setLimits, METH_VARARGS, (char *)"RealLimits_setLimits(RealLimits self, double xmin, double xmax)"},
-	 { (char *)"RealLimits_removeLimits", _wrap_RealLimits_removeLimits, METH_VARARGS, (char *)"RealLimits_removeLimits(RealLimits self)"},
-	 { (char *)"RealLimits_isInRange", _wrap_RealLimits_isInRange, METH_VARARGS, (char *)"RealLimits_isInRange(RealLimits self, double value) -> bool"},
+	 { (char *)"new_RealLimits", _wrap_new_RealLimits, METH_VARARGS, (char *)"\n"
+		"new_RealLimits() -> RealLimits\n"
+		"\n"
+		"RealLimits::RealLimits()\n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_hasLowerLimit", _wrap_RealLimits_hasLowerLimit, METH_VARARGS, (char *)"\n"
+		"RealLimits_hasLowerLimit(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::hasLowerLimit() const\n"
+		"\n"
+		"if has lower limit \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_getLowerLimit", _wrap_RealLimits_getLowerLimit, METH_VARARGS, (char *)"\n"
+		"RealLimits_getLowerLimit(RealLimits self) -> double\n"
+		"\n"
+		"double RealLimits::getLowerLimit() const\n"
+		"\n"
+		"Returns lower limit. \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_setLowerLimit", _wrap_RealLimits_setLowerLimit, METH_VARARGS, (char *)"\n"
+		"RealLimits_setLowerLimit(RealLimits self, double value)\n"
+		"\n"
+		"void RealLimits::setLowerLimit(double value)\n"
+		"\n"
+		"Sets lower limit. \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_removeLowerLimit", _wrap_RealLimits_removeLowerLimit, METH_VARARGS, (char *)"\n"
+		"RealLimits_removeLowerLimit(RealLimits self)\n"
+		"\n"
+		"void RealLimits::removeLowerLimit()\n"
+		"\n"
+		"remove lower limit \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_hasUpperLimit", _wrap_RealLimits_hasUpperLimit, METH_VARARGS, (char *)"\n"
+		"RealLimits_hasUpperLimit(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::hasUpperLimit() const\n"
+		"\n"
+		"if has upper limit \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_getUpperLimit", _wrap_RealLimits_getUpperLimit, METH_VARARGS, (char *)"\n"
+		"RealLimits_getUpperLimit(RealLimits self) -> double\n"
+		"\n"
+		"double RealLimits::getUpperLimit() const\n"
+		"\n"
+		"Returns upper limit. \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_setUpperLimit", _wrap_RealLimits_setUpperLimit, METH_VARARGS, (char *)"\n"
+		"RealLimits_setUpperLimit(RealLimits self, double value)\n"
+		"\n"
+		"void RealLimits::setUpperLimit(double value)\n"
+		"\n"
+		"Sets upper limit. \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_removeUpperLimit", _wrap_RealLimits_removeUpperLimit, METH_VARARGS, (char *)"\n"
+		"RealLimits_removeUpperLimit(RealLimits self)\n"
+		"\n"
+		"void RealLimits::removeUpperLimit()\n"
+		"\n"
+		"remove upper limit \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_hasLowerAndUpperLimits", _wrap_RealLimits_hasLowerAndUpperLimits, METH_VARARGS, (char *)"\n"
+		"RealLimits_hasLowerAndUpperLimits(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::hasLowerAndUpperLimits() const\n"
+		"\n"
+		"if has lower and upper limit \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_setLimits", _wrap_RealLimits_setLimits, METH_VARARGS, (char *)"\n"
+		"RealLimits_setLimits(RealLimits self, double xmin, double xmax)\n"
+		"\n"
+		"void RealLimits::setLimits(double xmin, double xmax)\n"
+		"\n"
+		"Sets lower and upper limits. \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_removeLimits", _wrap_RealLimits_removeLimits, METH_VARARGS, (char *)"\n"
+		"RealLimits_removeLimits(RealLimits self)\n"
+		"\n"
+		"void RealLimits::removeLimits()\n"
+		"\n"
+		"remove limits \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_isInRange", _wrap_RealLimits_isInRange, METH_VARARGS, (char *)"\n"
+		"RealLimits_isInRange(RealLimits self, double value) -> bool\n"
+		"\n"
+		"bool RealLimits::isInRange(double value) const\n"
+		"\n"
+		"returns true if proposed value is in limits range \n"
+		"\n"
+		""},
 	 { (char *)"RealLimits_lowerLimited", _wrap_RealLimits_lowerLimited, METH_VARARGS, (char *)"RealLimits_lowerLimited(double bound_value) -> RealLimits"},
 	 { (char *)"RealLimits_positive", _wrap_RealLimits_positive, METH_VARARGS, (char *)"RealLimits_positive() -> RealLimits"},
 	 { (char *)"RealLimits_nonnegative", _wrap_RealLimits_nonnegative, METH_VARARGS, (char *)"RealLimits_nonnegative() -> RealLimits"},
@@ -23579,7 +23668,7 @@ static PyMethodDef SwigMethods[] = {
 		"FitParameter(std::string const & name, double value, double step=0.0)\n"
 		"new_FitParameter(std::string const & name, double value) -> FitParameter\n"
 		"\n"
-		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)\n"
+		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)\n"
 		"\n"
 		""},
 	 { (char *)"delete_FitParameter", _wrap_delete_FitParameter, METH_VARARGS, (char *)"\n"

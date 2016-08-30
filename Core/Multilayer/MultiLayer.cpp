@@ -19,10 +19,10 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "Logger.h"
 #include "Materials.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include <iomanip>
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
@@ -146,6 +146,7 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
 {
     Layer* p_new_layer = layer.clone();
     if (getNumberOfLayers()) {
+        // not the top layer
         const Layer* p_last_layer = m_layers.back();
         LayerInterface* interface(0);
         if(roughness.getSigma() != 0.0)
@@ -153,18 +154,16 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
         else
             interface = LayerInterface::createSmoothInterface(p_last_layer, p_new_layer);
         addAndRegisterInterface(interface);
-        addAndRegisterLayer(p_new_layer);
         m_layers_z.push_back(m_layers_z.back() - layer.getThickness() );
-        return;
     } else {
-        if(p_new_layer->getThickness() != 0.0) {
-            msglog(MSG::WARNING) << "MultiLayer::addLayer() -> Attempt to add top layer with "
-                << "thickness defined. The layer is semi-infinite. Thickness will be ignored.";
-            p_new_layer->setThickness(0.0);
-        }
+        // the top layer
+        if (p_new_layer->getThickness() != 0.0)
+            throw std::runtime_error(
+                "Invalid call to MultiLayer::addLayer(): the semi-infinite top layer "
+                "must have a pro forma thickness of 0");
+        m_layers_z.push_back(0.0);
     }
     addAndRegisterLayer(p_new_layer);
-    m_layers_z.push_back(0.0);
 }
 
 //! Adds layer with default (zero) roughness

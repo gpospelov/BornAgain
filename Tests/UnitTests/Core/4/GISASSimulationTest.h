@@ -42,14 +42,12 @@ TEST_F(GISASSimulationTest, SimulationInitialState)
     EXPECT_TRUE(emptySimulation.getOutputData()->getRank() == emptySimulation.getInstrument().getDetectorDimension() );
 }
 
-
 TEST_F(GISASSimulationTest, SimulationConstruction)
 {
     EXPECT_FALSE( constructedSimulation.getOutputData()->hasSameShape(test_data));
     constructedSimulation.setDetectorParameters(test_data);
     EXPECT_TRUE( constructedSimulation.getOutputData()->hasSameShape(test_data));
     EXPECT_EQ( constructedSimulation.getOutputData()->totalSum(), 0.);
-
     MultiLayer ml;
     Layer layer;
     ml.addLayer(layer);

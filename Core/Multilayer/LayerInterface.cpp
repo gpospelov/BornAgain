@@ -20,9 +20,9 @@
 #include "Logger.h"
 
 LayerInterface::LayerInterface()
-: m_roughness(0)
-, m_LayerTop(0)
-, m_LayerBottom(0)
+    : m_roughness(0)
+    , m_LayerTop(0)
+    , m_LayerBottom(0)
 {
     setName(BornAgain::LayerInterfaceType);
 }
@@ -35,11 +35,6 @@ LayerInterface::~LayerInterface()
 LayerInterface* LayerInterface::clone() const
 {
     throw Exceptions::NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
-}
-
-void LayerInterface::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
 }
 
 LayerInterface* LayerInterface::createSmoothInterface(
@@ -68,7 +63,6 @@ void LayerInterface::setRoughness(const LayerRoughness& roughness)
             "Info. Roughness already assigned to given interface, removing it ";
         deregisterChild(m_roughness);
         delete m_roughness;
-        m_roughness=0;
     }
     //m_roughness = new LayerRoughness(roughness);
     m_roughness = roughness.clone();

@@ -27,12 +27,8 @@ IFormFactor* IParticle::createFormFactor() const
 
 void IParticle::setRotation(const IRotation& rotation)
 {
-    if (!mP_rotation) {
-        mP_rotation.reset(rotation.clone());
-        registerChild(mP_rotation.get());
-        return;
-    }
-    deregisterChild(mP_rotation.get());
+    if (mP_rotation)
+        deregisterChild(mP_rotation.get());
     mP_rotation.reset(rotation.clone());
     registerChild(mP_rotation.get());
 }

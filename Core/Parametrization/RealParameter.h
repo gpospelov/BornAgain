@@ -24,8 +24,9 @@
 
 class ParameterPool;
 
-//! Wrapper to real parameter for remote access to its value and callback abilities
-//! @class RealParameter
+//! Wraps a parameter of type double.
+//! In addition to name and on-change callback held by the parent class IParameter,
+//! this class holds Limits, Attributes (currently only fixed or not), and a Unit.
 //! @ingroup tools_internal
 
 class BA_CORE_API_ RealParameter : public IParameter<double> {

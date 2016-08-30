@@ -53,7 +53,8 @@ public:
     RealParameter& setNonnegative();
 
     bool operator==(const RealParameter& other) const {
-        return (m_limits == other.m_limits) &&
+        return m_limits == other.m_limits &&
+        m_attr == other.m_attr &&
         *static_cast<const IParameter*>(this)==*static_cast<const IParameter*>(&other); }
 
     RealParameter& setUnit(const std::string& name) { m_unit.setUnit(name); return *this; }

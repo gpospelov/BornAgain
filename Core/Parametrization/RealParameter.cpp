@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "RealParameter.h"
-#include <stdexcept>
 #include <sstream>
 
 RealParameter::RealParameter(
@@ -25,9 +24,9 @@ RealParameter::RealParameter(
     , m_limits(limits)
     , m_attr(attr)
 {
-    if(par && !m_limits.isInRange(getValue())) {
+    if(!m_limits.isInRange(getValue())) {
         std::ostringstream message;
-        message << "Parameter " << fullName() << " has invalid initial value " << getValue()
+        message << "Cannot initialize parameter " << fullName() << " with value " << getValue()
                 << ": out of bounds [" << limits << "]\n";
         throw std::runtime_error(message.str());
     }
@@ -41,17 +40,13 @@ RealParameter* RealParameter::clone(const std::string& new_name) const
     return ret;
 }
 
-
 void RealParameter::setValue(double value)
 {
-    if(!m_data)
-        throw std::runtime_error(
-            "Bug in RealParameter::getValue() -> Attempt to access uninitialised pointer.");
     if(value == *m_data)
         return; // nothing to do
     if(!m_limits.isInRange(value)) {
         std::ostringstream message;
-        message << "Parameter " << fullName() << " has invalid value " << getValue()
+        message << "Cannot set parameter " << fullName() << " to value " << value
                 << ": out of bounds [" << m_limits << "]\n";
         throw std::runtime_error(message.str());
     }

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Parametrization/IParameter.h
-//! @brief     Defines class IParameter.
+//! @brief     Defines and implements pure virtual base class IParameter<T>.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,6 +19,7 @@
 #include "INoncopyable.h"
 #include "INamed.h"
 #include <functional>
+#include <stdexcept>
 #include <string>
 
 //! Pure virtual base class for parameter wrapper classes RealParameter, ComponentParameter.
@@ -34,7 +35,10 @@ public:
     IParameter() =delete;
     IParameter(const std::string& name, volatile T* data, const std::string& parent_name,
                const std::function<void()>& onChange)
-        : INamed(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange) {}
+        : INamed(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange) {
+            if(!m_data)
+                throw std::runtime_error(
+                    "Bug: attempt to construct an IParameter with null data pointer"); }
 
     virtual IParameter* clone( const std::string& new_name="" ) const =0;
 
@@ -42,7 +46,7 @@ public:
     virtual bool isNull() const { return m_data ? false : true; }
 
     volatile T& getData() const { return *m_data; }
-    void setData(volatile T& data) { m_data = &data; }
+    void setData(volatile T& data) { m_data = &data; m_onChange(); }
 
     //! Prints the parameter's address to an output stream
     friend std::ostream& operator<<(std::ostream& ostr, const IParameter& p) {

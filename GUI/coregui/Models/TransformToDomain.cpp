@@ -200,7 +200,7 @@ TransformToDomain::createInterferenceFunction(const SessionItem& item)
             length_1 = latticeItem->getItemValue(
                                         HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            alpha_lattice = 2 * M_PI / 3.0;
+            alpha_lattice = M_TWOPI / 3.0;
         } else {
             throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
         }
@@ -271,7 +271,7 @@ TransformToDomain::createInterferenceFunction(const SessionItem& item)
             length_1 = latticeItem->getItemValue(
                                         HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
-            angle = 2 * M_PI / 3.0;
+            angle = M_TWOPI / 3.0;
         } else {
             throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
         }

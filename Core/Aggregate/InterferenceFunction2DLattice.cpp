@@ -74,7 +74,7 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
     Lattice2DParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
     lattice_params.m_length_2 = lattice_length;
-    lattice_params.m_angle = 2.0 * M_PI / 3.0;
+    lattice_params.m_angle = M_TWOPI / 3.0;
     lattice_params.m_xi = xi;
     return new InterferenceFunction2DLattice(lattice_params);
 }

@@ -107,7 +107,7 @@ TEST_F(FormFactorBasicTest, HemiEllipsoid)
     double radius_b = 7.;
     double height = 5.;
 
-    double volume = 2.*M_PI*radius_a*radius_b*height/3.;
+    double volume = M_TWOPI*radius_a*radius_b*height/3.;
 
     FormFactorHemiEllipsoid hemiellipsoid(radius_a, radius_b, height);
 

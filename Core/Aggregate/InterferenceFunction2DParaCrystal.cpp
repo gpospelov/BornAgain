@@ -140,7 +140,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexa
     double peak_distance, double damping_length, double domain_size_1, double domain_size_2)
 {
     auto p_new = new InterferenceFunction2DParaCrystal(
-        peak_distance, peak_distance, 2.0*M_PI/3.0, 0.0, damping_length);
+        peak_distance, peak_distance, M_TWOPI/3.0, 0.0, damping_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;

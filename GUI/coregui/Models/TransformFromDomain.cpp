@@ -201,7 +201,7 @@ bool TransformFromDomain::isSquareLattice(double length1, double length2, double
 
 bool TransformFromDomain::isHexagonalLattice(double length1, double length2, double angle)
 {
-    return length1 == length2 && Numeric::areAlmostEqual(angle, 2*M_PI / 3.0);
+    return length1 == length2 && Numeric::areAlmostEqual(angle, M_TWOPI / 3.0);
 }
 
 void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimulation& simulation)

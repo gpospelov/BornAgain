@@ -81,7 +81,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[4];
+    mutable swig::SwigVar_PyObject vtable[2];
 #endif
 
 };
@@ -140,7 +140,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[14];
+    mutable swig::SwigVar_PyObject vtable[12];
 #endif
 
 };
@@ -277,7 +277,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[5];
+    mutable swig::SwigVar_PyObject vtable[3];
 #endif
 
 };
@@ -341,7 +341,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[19];
+    mutable swig::SwigVar_PyObject vtable[17];
 #endif
 
 };
@@ -406,7 +406,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[20];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };

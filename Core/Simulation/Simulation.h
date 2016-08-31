@@ -51,6 +51,17 @@ public:
     const Instrument& getInstrument() const { return m_instrument; }
     Instrument& getInstrument() { return m_instrument; }
 
+    void setBeamIntensity(double intensity);
+    double getBeamIntensity() const;
+
+    void setBeamPolarization(const kvector_t bloch_vector);
+
+    void setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function);
+    void removeDetectorResolutionFunction();
+
+    void setAnalyzerProperties(const kvector_t direction, double efficiency,
+                               double total_transmission = 1.0);
+
     void setSample(const MultiLayer& sample);
     MultiLayer* getSample() const { return mP_sample.get(); }
 
@@ -88,8 +99,6 @@ protected:
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap() =0;
-
-    virtual double getBeamIntensity() const =0;
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();

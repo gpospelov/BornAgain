@@ -69,8 +69,8 @@ Histogram2D* OffSpecSimulation::getIntensityData() const
     return new Histogram2D(*data);
 }
 
-void OffSpecSimulation::setBeamParameters(
-        double lambda, const IAxis& alpha_axis, double phi_i) {
+void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
+{
     delete mp_alpha_i_axis;
     mp_alpha_i_axis = alpha_axis.clone();
     if (alpha_axis.getSize()<1)
@@ -80,16 +80,6 @@ void OffSpecSimulation::setBeamParameters(
     double alpha_start = alpha_axis[0];
     m_instrument.setBeamParameters(lambda, alpha_start, phi_i);
     updateIntensityMap();
-}
-
-void OffSpecSimulation::setBeamIntensity(double intensity)
-{
-    m_instrument.setBeamIntensity(intensity);
-}
-
-void OffSpecSimulation::setBeamPolarization(const kvector_t bloch_vector)
-{
-    m_instrument.setBeamPolarization(bloch_vector);
 }
 
 void OffSpecSimulation::setDetectorParameters(const OutputData<double>& output_data)
@@ -103,23 +93,6 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
 {
     m_instrument.setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
-}
-
-void OffSpecSimulation::setDetectorResolutionFunction(
-        const IResolutionFunction2D& resolution_function)
-{
-    m_instrument.setDetectorResolutionFunction(resolution_function);
-}
-
-void OffSpecSimulation::removeDetectorResolutionFunction()
-{
-    m_instrument.setDetectorResolutionFunction(0);
-}
-
-void OffSpecSimulation::setAnalyzerProperties(
-    const kvector_t direction, double efficiency, double total_transmission)
-{
-    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
 std::string OffSpecSimulation::addParametersToExternalPool(
@@ -171,11 +144,6 @@ void OffSpecSimulation::transferResultsToIntensityMap()
             "intensity map size does not conform to number of calculated intensities");
     for (size_t i=0; i<mp_alpha_i_axis->getSize(); ++i)
         transferDetectorImage(i);
-}
-
-double OffSpecSimulation::getBeamIntensity() const
-{
-    return m_instrument.getBeamIntensity();
 }
 
 void OffSpecSimulation::updateIntensityMap()

@@ -68,6 +68,39 @@ void Simulation::setTerminalProgressMonitor()
         } );
 }
 
+void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
+{
+    m_instrument.setDetectorResolutionFunction(resolution_function);
+}
+
+void Simulation::removeDetectorResolutionFunction()
+{
+    m_instrument.setDetectorResolutionFunction(nullptr);
+}
+
+//! Sets the polarization analyzer characteristics of the detector
+void Simulation::setAnalyzerProperties(
+    const kvector_t direction, double efficiency, double total_transmission)
+{
+    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
+}
+
+void Simulation::setBeamIntensity(double intensity)
+{
+    m_instrument.setBeamIntensity(intensity);
+}
+
+double Simulation::getBeamIntensity() const
+{
+    return m_instrument.getBeamIntensity();
+}
+
+//! Sets the beam polarization according to the given Bloch vector
+void Simulation::setBeamPolarization(const kvector_t bloch_vector)
+{
+    m_instrument.setBeamPolarization(bloch_vector);
+}
+
 void Simulation::prepareSimulation()
 {
     gsl_set_error_handler_off();
@@ -148,9 +181,9 @@ std::string Simulation::addSimulationParametersToExternalPool(
     std::string new_path = path;
 
     if (mp_sample_builder) {
-        mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
+        new_path = mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
     } else if (mP_sample) {
-        mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
+        new_path = mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
 
     return new_path;

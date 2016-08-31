@@ -84,16 +84,6 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
     m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
-void GISASSimulation::setBeamIntensity(double intensity)
-{
-    m_instrument.setBeamIntensity(intensity);
-}
-
-void GISASSimulation::setBeamPolarization(const kvector_t bloch_vector)
-{
-    m_instrument.setBeamPolarization(bloch_vector);
-}
-
 void GISASSimulation::setDetector(const IDetector2D& detector)
 {
     m_instrument.setDetector(detector);
@@ -111,7 +101,7 @@ void GISASSimulation::setDetectorParameters(const OutputData<double>& output_dat
 
 void GISASSimulation::setDetectorParameters(const IHistogram& histogram)
 {
-    const std::unique_ptr<OutputData<double> > data(histogram.createOutputData());
+    const std::unique_ptr<OutputData<double>> data(histogram.createOutputData());
     setDetectorParameters(*data);
 }
 
@@ -120,23 +110,6 @@ void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double
 {
     m_instrument.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
     updateIntensityMap();
-}
-
-void GISASSimulation::setDetectorResolutionFunction(
-    const IResolutionFunction2D& resolution_function)
-{
-    m_instrument.setDetectorResolutionFunction(resolution_function);
-}
-
-void GISASSimulation::removeDetectorResolutionFunction()
-{
-    m_instrument.setDetectorResolutionFunction(0);
-}
-
-void GISASSimulation::setAnalyzerProperties(
-    const kvector_t direction, double efficiency, double total_transmission)
-{
-    m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
 std::string GISASSimulation::addParametersToExternalPool(
@@ -189,11 +162,6 @@ void GISASSimulation::transferResultsToIntensityMap()
         if(m_instrument.getDetector()->isMasked(index)) continue;
         m_intensity_map[index] = m_sim_elements[element_index++].getIntensity();
     }
-}
-
-double GISASSimulation::getBeamIntensity() const
-{
-    return m_instrument.getBeamIntensity();
 }
 
 void GISASSimulation::updateIntensityMap()

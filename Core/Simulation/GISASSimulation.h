@@ -58,12 +58,6 @@ public:
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
-    //! Sets beam intensity from here (forwarded to Instrument)
-    void setBeamIntensity(double intensity);
-
-    //! Sets the beam polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t bloch_vector);
-
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
 
@@ -80,16 +74,6 @@ public:
     //! @param alpha_max upper edge of last alpha-bin
     void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
                                size_t n_alpha, double alpha_min, double alpha_max);
-
-    //! Define resolution function for detector
-    void setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function);
-
-    //! Removes detector resolution function
-    void removeDetectorResolutionFunction();
-
-    //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission=1.0);
 
     //! removes all masks from the detector
     void removeMasks();
@@ -117,9 +101,6 @@ private:
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     void transferResultsToIntensityMap() final;
-
-    //! Returns the intensity of the beam
-    double getBeamIntensity() const final;
 
     //! Default implementation only adds the detector axes
     void updateIntensityMap() final;

@@ -53,28 +53,12 @@ public:
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i);
 
-    //! Sets beam intensity from here (forwarded to Instrument)
-    void setBeamIntensity(double intensity);
-
-    //! Sets the beam polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t bloch_vector);
-
     //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double>& output_data);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);
-
-    //! Define resolution function for detector
-    void setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function);
-
-    //! Removes detector resolution function
-    void removeDetectorResolutionFunction();
-
-    //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission = 1.0);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     std::string addParametersToExternalPool(
@@ -89,9 +73,6 @@ private:
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     void transferResultsToIntensityMap() final;
-
-    //! Returns the intensity of the beam
-    double getBeamIntensity() const final;
 
     //! Default implementation only adds the detector axes
     void updateIntensityMap() final;

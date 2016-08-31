@@ -16,7 +16,7 @@
 #include "FormFactorCylinder.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
@@ -35,7 +35,7 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
     complex_t qzH_half = q.z() * H / 2.0;
     complex_t z_part = H * MathFunctions::sinc(qzH_half) * exp_I(qzH_half);
     complex_t qxy = std::sqrt(q.x() * q.x() + q.y() * q.y());
-    complex_t radial_part = Pi::PI2 * R * R * MathFunctions::Bessel_J1c(qxy * R);
+    complex_t radial_part = M_TWOPI * R * R * MathFunctions::Bessel_J1c(qxy * R);
     complex_t result = radial_part * z_part;
 
     return result;

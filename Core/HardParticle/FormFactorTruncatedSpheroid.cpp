@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
 
@@ -69,7 +69,7 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
     m_q = q;
 
     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
-        return Pi::PI*R*H*H/fp*(1.-H/(3.*fp*R));
+        return M_PI*R*H*H/fp*(1.-H/(3.*fp*R));
     complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
-    return Pi::PI2 * z_part *mP_integrator->integrate(fp*R-H,fp*R );
+    return M_TWOPI * z_part *mP_integrator->integrate(fp*R-H,fp*R );
 }

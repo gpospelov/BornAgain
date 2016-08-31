@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "Pi.h"
+#include "MathConstants.h"
 #include "BornAgainNamespace.h"
 #include "HardParticles.h"
 #include "qLoopedTest.h"
@@ -65,7 +65,7 @@ TEST_P(FFSpecializationTest, Pyramid3AsPrism)
     if( skip_q( 1e-99, 5e3 ) )
         return;
     double L=1.8, H=.3;
-    FormFactorTetrahedron p0(L, H, Pi::PI/2);
+    FormFactorTetrahedron p0(L, H, M_PI/2);
     FormFactorPrism3 p1(L, H);
     test_ff_eq( &p0, &p1, eps_polyh );
 }
@@ -75,7 +75,7 @@ TEST_P(FFSpecializationTest, PyramidAsBox)
     if( skip_q( 1e-99, 5e2 ) )
         return;
     double L=1.8, H=.3;
-    FormFactorPyramid p0(L, H, Pi::PI/2);
+    FormFactorPyramid p0(L, H, M_PI/2);
     FormFactorBox p1(L, L, H);
     test_ff_eq( &p0, &p1, eps_polyh );
 }
@@ -85,7 +85,7 @@ TEST_P(FFSpecializationTest, Cone6AsPrism)
     if( skip_q( 1e-99, 5e2 ) )
         return;
     double L=.8, H=1.13;
-    FormFactorCone6 p0(L, H, Pi::PI/2);
+    FormFactorCone6 p0(L, H, M_PI/2);
     FormFactorPrism6 p1(L, H);
     test_ff_eq( &p0, &p1, eps_polyh );
 }

@@ -6,7 +6,7 @@
 #include "MatrixRTCoefficients.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "SimulationElement.h"
 #include <memory>
 
@@ -37,7 +37,7 @@ MatrixSpecularInfoMapTest::MatrixSpecularInfoMapTest()
 TEST_F(MatrixSpecularInfoMapTest, getCoefficients)
 {
     MatrixSpecularInfoMap map(mp_multilayer, 0);
-    SimulationElement sim_element(Pi::PI2, 1.0, 1.0, nullptr);
+    SimulationElement sim_element(M_TWOPI, 1.0, 1.0, nullptr);
     std::unique_ptr<const MatrixRTCoefficients> P_rt_coeffs(
                 (MatrixRTCoefficients*) map.getOutCoefficients(sim_element));
     complex_t R0 = complex_t(0.1750375, -0.0222467);

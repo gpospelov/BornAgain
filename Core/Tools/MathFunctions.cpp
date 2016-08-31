@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MathFunctions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_sf_erf.h>
 #include <gsl/gsl_sf_expint.h>
@@ -32,7 +32,7 @@
 
 double MathFunctions::StandardNormal(double x)
 {
-    return std::exp(-x * x / 2.0) / std::sqrt(Pi::PI2);
+    return std::exp(-x * x / 2.0) / std::sqrt(M_TWOPI);
 }
 
 double MathFunctions::Gaussian(double x, double average, double std_dev)
@@ -49,7 +49,7 @@ double MathFunctions::IntegratedGaussian(double x, double average, double std_de
 
 double MathFunctions::cot(double x)
 {
-    return tan(Pi::PID2-x);
+    return tan(M_PI_2-x);
 }
 
 double MathFunctions::Si(double x)  // int_0^x du Sin(u)/u
@@ -59,7 +59,7 @@ double MathFunctions::Si(double x)  // int_0^x du Sin(u)/u
 
 double MathFunctions::sinc(double x)  // Sin(x)/x
 {
-    return gsl_sf_sinc(x/Pi::PI);
+    return gsl_sf_sinc(x/M_PI);
 }
 
 complex_t MathFunctions::sinc(const complex_t z)  // Sin(x)/x
@@ -188,7 +188,7 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
             kz = 10; //   "      "     "  12
         else
             kz = 12; //   "      "     "  14
-        complex_t ct1 = z1 - Pi::PID4;
+        complex_t ct1 = z1 - M_PI_4;
         complex_t cp0 = 1.0;
         complex_t cq0 = -0.125;
         const complex_t z1m2 = 1. / (z1*z1); // faster than std::pow(z1, -2.0) ??
@@ -260,7 +260,7 @@ complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
             cq1 += b1[k] * ptmp; // division by z1 postponed to final sum
             ptmp *= z1m2;
         }
-        const complex_t ct2 = z1 - 0.75 * Pi::PI;
+        const complex_t ct2 = z1 - 0.75 * M_PI;
         cj1 = std::sqrt(M_2_PI / z1) * (cp1 * std::cos(ct2) - cq1/z1 * std::sin(ct2));
     }
     if (std::real(z) < 0.0)

@@ -17,7 +17,7 @@
 #define FTDECAYFUNCTIONS_H
 
 #include "IParameterized.h"
-#include "Pi.h"
+#include "MathConstants.h"
 
 
 //! Interface for a one-dimensional decay function,
@@ -104,7 +104,7 @@ class BA_CORE_API_ IFTDecayFunction2D : public IParameterized
 {
 public:
     IFTDecayFunction2D(double decay_length_x, double decay_length_y,
-                       double gamma=0, double delta=Pi::PID2);
+                       double gamma=0, double delta=M_PI_2);
     virtual IFTDecayFunction2D* clone() const=0;
 
     //! set angle between first lattice vector and X-axis of distribution (both in direct space)
@@ -150,7 +150,7 @@ class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
     FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y,
-                            double gamma=0, double delta=Pi::PID2);
+                            double gamma=0, double delta=M_PI_2);
     virtual FTDecayFunction2DCauchy* clone() const {
         return new FTDecayFunction2DCauchy(m_omega_x, m_omega_y, m_gamma, m_delta); }
 
@@ -166,7 +166,7 @@ class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
     FTDecayFunction2DGauss(double decay_length_x, double decay_length_y,
-                           double gamma=0, double delta=Pi::PID2);
+                           double gamma=0, double delta=M_PI_2);
     virtual FTDecayFunction2DGauss* clone() const {
         return new FTDecayFunction2DGauss(m_omega_x, m_omega_y, m_gamma, m_delta); }
 
@@ -180,7 +180,7 @@ class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:
     FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta,
-                           double gamma=0, double delta=Pi::PID2);
+                           double gamma=0, double delta=M_PI_2);
     virtual FTDecayFunction2DVoigt* clone() const {
         return new FTDecayFunction2DVoigt(m_omega_x, m_omega_y, m_eta, m_gamma, m_delta); }
 

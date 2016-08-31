@@ -18,7 +18,7 @@
 #include "Exceptions.h"
 #include "RealLimits.h"
 #include "MathFunctions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 
 static complex_t I(0.,1.);
@@ -63,22 +63,22 @@ complex_t FormFactorRipple1::Integrand(double u) const
 //! Complex formfactor.
 complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
 {
-    complex_t factor = m_length*MathFunctions::sinc(q.x()*m_length*0.5)*m_width/Pi::PI;
+    complex_t factor = m_length*MathFunctions::sinc(q.x()*m_length*0.5)*m_width/M_PI;
 
     // analytical expressions for some particular cases
     if ( q.z()==0. ) {
         if( q.y()==0. )
-            return factor*Pi::PID2*m_height;
-        complex_t aaa = q.y()*m_width/(Pi::PI2);
+            return factor*M_PI_2*m_height;
+        complex_t aaa = q.y()*m_width/(M_TWOPI);
         complex_t aaa2 = aaa*aaa;
         if ( aaa2==1. )
-            return factor*Pi::PID4*m_height;
-        return factor*Pi::PID2*m_height*MathFunctions::sinc(q.y()*m_width*0.5)/(1.0-aaa2);
+            return factor*M_PI_4*m_height;
+        return factor*M_PI_2*m_height*MathFunctions::sinc(q.y()*m_width*0.5)/(1.0-aaa2);
     }
 
     // numerical integration otherwise
-    m_ay = q.y() * m_width / Pi::PI2;
+    m_ay = q.y() * m_width / M_TWOPI;
     m_az = I * q.z() * (m_height/2);
-    complex_t integral = mP_integrator->integrate(0, Pi::PI);
+    complex_t integral = mP_integrator->integrate(0, M_PI);
     return factor * integral * exp(m_az) * (m_height/2);
 }

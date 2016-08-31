@@ -17,7 +17,7 @@
 #include "HorizontalSlicePlot.h"
 #include "AxesItems.h"
 #include "IntensityDataItem.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "qcustomplot.h"
 #include <QVBoxLayout>
 

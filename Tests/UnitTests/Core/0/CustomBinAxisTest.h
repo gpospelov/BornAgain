@@ -3,7 +3,7 @@
 
 #include "CustomBinAxis.h"
 #include "OutputDataIOHelper.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include <vector>
 
 class CusomBinAxisTest: public ::testing::Test

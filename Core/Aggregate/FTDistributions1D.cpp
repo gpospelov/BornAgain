@@ -18,7 +18,7 @@
 #include "IntegratorReal.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
 
@@ -94,9 +94,9 @@ FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 double FTDistribution1DCosine::evaluate(double q) const
 {
     double qw = std::abs(q*m_omega);
-    if (std::abs(qw/Pi::PI-1.0) < std::numeric_limits<double>::epsilon())
+    if (std::abs(qw/M_PI-1.0) < std::numeric_limits<double>::epsilon())
         return 0.5;
-    return MathFunctions::sinc(qw)/(1.0-qw*qw/Pi::PI/Pi::PI);
+    return MathFunctions::sinc(qw)/(1.0-qw*qw/M_PI/M_PI);
 }
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)

@@ -16,7 +16,7 @@
 #include "FormFactorHemiEllipsoid.h"
 #include "BornAgainNamespace.h"
 #include "MathFunctions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
 
@@ -65,6 +65,6 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
      double H = m_height;
 
      if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
-         return Pi::PI2*R*W*H/3.;
-     return Pi::PI2*mP_integrator->integrate(0.,H );
+         return M_TWOPI*R*W*H/3.;
+     return M_TWOPI*mP_integrator->integrate(0.,H );
 }

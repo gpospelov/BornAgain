@@ -18,7 +18,7 @@
 #include "Exceptions.h"
 #include "RealLimits.h"
 #include "MathFunctions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 
 FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double width, double height)
@@ -56,27 +56,27 @@ double FormFactorLongRipple1Gauss::getRadialExtension() const
 complex_t FormFactorLongRipple1Gauss::Integrand(double Z) const
 {
     complex_t aa = std::acos(2.0*Z/m_height - 1.0);
-    return exp_I(m_q.z()*Z)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(Pi::PI2));
+    return exp_I(m_q.z()*Z)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(M_TWOPI));
 }
 
 //! Complex formfactor.
 complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
 {
     m_q = q;
-//    complex_t factor = m_length*MathFunctions::sinc(m_q.x()*m_length*0.5)*m_width/Pi::PI;
+//    complex_t factor = m_length*MathFunctions::sinc(m_q.x()*m_length*0.5)*m_width/M_PI;
     complex_t qxL2 = std::pow(m_length * q.x(), 2) / 2.0;
-    complex_t factor = m_length*std::exp(-qxL2)*m_width/Pi::PI;
+    complex_t factor = m_length*std::exp(-qxL2)*m_width/M_PI;
 
-    complex_t aaa = m_q.y()*m_width/(Pi::PI2);
+    complex_t aaa = m_q.y()*m_width/(M_TWOPI);
     complex_t aaa2 = aaa*aaa;
 
     // analytical expressions for some particular cases
     if (0.0==m_q.y() && 0.0==m_q.z())
-        return factor*Pi::PID2*m_height;
+        return factor*M_PI_2*m_height;
     else if (0.0==m_q.z() && 1.0 == aaa2)
-        return factor*Pi::PID4*m_height;
+        return factor*M_PI_4*m_height;
     else if (0.0==m_q.z())
-        return factor*Pi::PID2*m_height*MathFunctions::sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
+        return factor*M_PI_2*m_height*MathFunctions::sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
 
     // numerical integration otherwise
     complex_t integral = mP_integrator->integrate(0, m_height);

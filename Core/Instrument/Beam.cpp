@@ -18,7 +18,7 @@
 #include "Complex.h"
 #include "Exceptions.h"
 #include "RealParameter.h"
-#include "Pi.h"
+#include "MathConstants.h"
 
 Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(0.0)
 {
@@ -39,8 +39,8 @@ void Beam::init_parameters()
 {
     registerParameter(BornAgain::Intensity, &m_intensity).setNonnegative();
     registerParameter(BornAgain::Wavelength, &m_wavelength).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad").setLimited(0, Pi::PID2);
-    registerParameter(BornAgain::Phi,   &m_phi  ).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
+    registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad").setLimited(0, M_PI_2);
+    registerParameter(BornAgain::Phi,   &m_phi  ).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
 }
 
 Beam &Beam::operator=(const Beam &other)

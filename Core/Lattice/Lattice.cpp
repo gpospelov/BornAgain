@@ -15,7 +15,7 @@
 
 #include "Lattice.h"
 #include "ISelectionRule.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "Transform3D.h"
 #include <gsl/gsl_linalg.h>
 
@@ -80,9 +80,9 @@ void Lattice::getReciprocalLatticeBasis(kvector_t b1, kvector_t b2,
 
 ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 {
-    double a1_coord = vector_in.dot(m_b1)/Pi::PI2;
-    double a2_coord = vector_in.dot(m_b2)/Pi::PI2;
-    double a3_coord = vector_in.dot(m_b3)/Pi::PI2;
+    double a1_coord = vector_in.dot(m_b1)/M_TWOPI;
+    double a2_coord = vector_in.dot(m_b2)/M_TWOPI;
+    double a3_coord = vector_in.dot(m_b3)/M_TWOPI;
     int c1 = (int)std::floor(a1_coord + 0.5);
     int c2 = (int)std::floor(a2_coord + 0.5);
     int c3 = (int)std::floor(a3_coord + 0.5);
@@ -91,9 +91,9 @@ ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in)
 
 ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 {
-    double b1_coord = vector_in.dot(m_a1)/Pi::PI2;
-    double b2_coord = vector_in.dot(m_a2)/Pi::PI2;
-    double b3_coord = vector_in.dot(m_a3)/Pi::PI2;
+    double b1_coord = vector_in.dot(m_a1)/M_TWOPI;
+    double b2_coord = vector_in.dot(m_a2)/M_TWOPI;
+    double b3_coord = vector_in.dot(m_a3)/M_TWOPI;
     int c1 = (int)std::floor(b1_coord + 0.5);
     int c2 = (int)std::floor(b2_coord + 0.5);
     int c3 = (int)std::floor(b3_coord + 0.5);
@@ -132,9 +132,9 @@ void Lattice::computeReciprocalVectors() const
     kvector_t a23 = m_a2.cross(m_a3);
     kvector_t a31 = m_a3.cross(m_a1);
     kvector_t a12 = m_a1.cross(m_a2);
-    m_b1 = Pi::PI2/m_a1.dot(a23)*a23;
-    m_b2 = Pi::PI2/m_a2.dot(a31)*a31;
-    m_b3 = Pi::PI2/m_a3.dot(a12)*a12;
+    m_b1 = M_TWOPI/m_a1.dot(a23)*a23;
+    m_b2 = M_TWOPI/m_a2.dot(a31)*a31;
+    m_b3 = M_TWOPI/m_a3.dot(a12)*a12;
 }
 
 std::vector<kvector_t> Lattice::vectorsWithinRadius(
@@ -142,9 +142,9 @@ std::vector<kvector_t> Lattice::vectorsWithinRadius(
     const kvector_t v1, const kvector_t v2, const kvector_t v3,
     const kvector_t rec1, const kvector_t rec2, const kvector_t rec3) const
 {
-    int max_X = (int)std::floor( rec1.mag()*radius/Pi::PI2 );
-    int max_Y = (int)std::floor( rec2.mag()*radius/Pi::PI2 );
-    int max_Z = (int)std::floor( rec3.mag()*radius/Pi::PI2 );
+    int max_X = (int)std::floor( rec1.mag()*radius/M_TWOPI );
+    int max_Y = (int)std::floor( rec2.mag()*radius/M_TWOPI );
+    int max_Z = (int)std::floor( rec3.mag()*radius/M_TWOPI );
 
     std::vector<kvector_t> ret;
     for (int index_X = -max_X; index_X <= max_X; ++index_X) {

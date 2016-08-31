@@ -18,7 +18,7 @@
 #include "Exceptions.h"
 #include "FTDecayFunctions.h"
 #include "ISampleVisitor.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 
 //! @param length: Lattice length
@@ -55,7 +55,7 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& p
         mp_pdf = pdf.clone();
     }
     double omega = mp_pdf->getOmega();
-    double qa_max = (m_lattice_params.m_length / Pi::PI2) * nmax / omega;
+    double qa_max = (m_lattice_params.m_length / M_TWOPI) * nmax / omega;
     m_na = (int)(std::abs(qa_max) + 0.5);
 }
 
@@ -70,7 +70,7 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
     double qx_frac;
     double xi = m_lattice_params.m_xi;
     double a = m_lattice_params.m_length;
-    double a_rec = Pi::PI2 / a;
+    double a_rec = M_TWOPI / a;
 
     // rotate the q vector to xi angle
     // so that qx_prime is along the a axis of lattice

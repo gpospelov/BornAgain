@@ -18,7 +18,7 @@
 #include "Exceptions.h"
 #include "RealLimits.h"
 #include "MathFunctions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
 
@@ -65,10 +65,10 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const
     m_q = q;
     if ( std::abs(q.mag()) < std::numeric_limits<double>::epsilon()) {
         double HdivR = m_height/m_radius;
-        return Pi::PI/3.*m_radius*m_radius*m_radius
+        return M_PI/3.*m_radius*m_radius*m_radius
                 *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
     }
     // else
     complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius);
-    return Pi::PI2 * integral * exp_I(q.z()*(m_height-m_radius));
+    return M_TWOPI * integral * exp_I(q.z()*(m_height-m_radius));
 }

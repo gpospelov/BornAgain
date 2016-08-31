@@ -109,14 +109,14 @@ TEST_F(KVectorTest, BasicTransformation)
 
     // rotation via transformation
     a = kvector_t(std::sqrt(3.)/2., 2., 0.5);
-    Transform3D m2 = Transform3D::createRotateY(Pi::PI/6.);
+    Transform3D m2 = Transform3D::createRotateY(M_PI/6.);
     v = m2.transformed(a);
     ASSERT_NEAR(      v.x(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.y(), 2.0 );
     ASSERT_NEAR(      v.z(), 0.0, epsilon );
 
     a = kvector_t(0.5, std::sqrt(3.)/2., 2.);
-    Transform3D m3 = Transform3D::createRotateZ(Pi::PI/6.);
+    Transform3D m3 = Transform3D::createRotateZ(M_PI/6.);
     v = m3.transformed(a);
     ASSERT_NEAR(      v.x(), 0.0, epsilon );
     ASSERT_NEAR(      v.y(), 1.0, epsilon );

@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "Pi.h"
+#include "MathConstants.h"
 #include "BornAgainNamespace.h"
 #include "IFormFactorBorn.h"
 #include "HardParticles.h"
@@ -107,7 +107,7 @@ TEST_F(FormFactorBasicTest, HemiEllipsoid)
     double radius_b = 7.;
     double height = 5.;
 
-    double volume = 2.*Pi::PI*radius_a*radius_b*height/3.;
+    double volume = M_TWOPI*radius_a*radius_b*height/3.;
 
     FormFactorHemiEllipsoid hemiellipsoid(radius_a, radius_b, height);
 
@@ -145,7 +145,7 @@ TEST_F(FormFactorBasicTest, Cone)
     double alpha = 0.8;
     double tga = std::tan(alpha);
     double HdivRtga = height/tga/radius;
-    double volume = Pi::PI/3.*tga*radius*radius*radius*
+    double volume = M_PI/3.*tga*radius*radius*radius*
             (1. - (1.- HdivRtga)*(1.- HdivRtga)*(1.- HdivRtga));
 
     FormFactorCone cone(radius, height, alpha);
@@ -210,7 +210,7 @@ TEST_F(FormFactorBasicTest, Cylinder)
 {
     double radius = 3.;
     double height = 5.;
-    double volume = Pi::PI*radius*radius*height;
+    double volume = M_PI*radius*radius*height;
 
     FormFactorCylinder cylinder(radius,height);
 
@@ -240,7 +240,7 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
     double radius_a = 3.;
     double radius_b = 5.;
     double height = 4;
-    double volume = Pi::PI*radius_a*radius_b*height;
+    double volume = M_PI*radius_a*radius_b*height;
 
     FormFactorEllipsoidalCylinder ellipscyl(radius_a, radius_b, height);
 
@@ -256,7 +256,7 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
 TEST_F(FormFactorBasicTest, FullSphere)
 {
     double radius = 5.;
-    double volume = 4./3.*Pi::PI*radius*radius*radius;
+    double volume = 4./3.*M_PI*radius*radius*radius;
 
     FormFactorFullSphere fullsphere(radius);
     EXPECT_EQ(BornAgain::FFFullSphereType, fullsphere.getName());
@@ -270,7 +270,7 @@ TEST_F(FormFactorBasicTest, FullSpheroid)
 {
     double radius = 3.;
     double height = 5.;
-    double volume = 2./3.*Pi::PI*radius*radius*height;
+    double volume = 2./3.*M_PI*radius*radius*height;
 
     FormFactorFullSpheroid fullspheroid(radius,height);
 
@@ -354,7 +354,7 @@ TEST_F(FormFactorBasicTest, TruncatedSphere)
     double radius = 5.;
     double height = 3.;
     double HdivR = height/radius;
-    double volume = Pi::PI/3.*radius*radius*radius*
+    double volume = M_PI/3.*radius*radius*radius*
             (3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
 
     FormFactorTruncatedSphere trsphere(radius, height);
@@ -371,7 +371,7 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
     double radius = 3.;
     double height = 5.;
     double flattening = 1.5;
-    double volume = Pi::PI*radius*height*height/flattening*
+    double volume = M_PI*radius*height*height/flattening*
             (1.-height/(3.*flattening*radius));
 
     FormFactorTruncatedSpheroid trspheroid(radius, height, flattening);

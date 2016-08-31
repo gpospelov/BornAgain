@@ -4,7 +4,7 @@
 #include "HardParticles.h"
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "HomogeneousMaterial.h"
 #include "Particle.h"
 #include "Rotations.h"

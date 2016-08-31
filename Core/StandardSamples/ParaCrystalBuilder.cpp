@@ -235,7 +235,7 @@ MultiLayer* IsGISAXS08BBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DParaCrystal interference_function(
-        10.0 * Units::nanometer, 10.0 * Units::nanometer, Pi::PI / 2.0, 0.0, 0.0);
+        10.0 * Units::nanometer, 10.0 * Units::nanometer, M_PI / 2.0, 0.0, 0.0);
     interference_function.setDomainSizes(20.0*Units::micrometer,
             20.0*Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Basics/Pi.h
-//! @brief     Defines PI and related mathematical constants.
+//! @file      Core/Basics/MathConstants.h
+//! @brief     Defines M_PI and some more mathematical constants.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PI_H
-#define PI_H
+#ifndef MATHCONSTANTS_H
+#define MATHCONSTANTS_H
 
 // undefine macros that may or may not be defined, depending on compiler settings
 #undef M_E
@@ -49,4 +49,4 @@
 // additionally, we find convenient:
 #define M_TWOPI        6.28318530717958647693
 
-#endif // PI_H
+#endif // MATHCONSTANTS_H

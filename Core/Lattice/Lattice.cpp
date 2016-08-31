@@ -15,7 +15,7 @@
 
 #include "Lattice.h"
 #include "ISelectionRule.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "Transform3D.h"
 #include <gsl/gsl_linalg.h>
 

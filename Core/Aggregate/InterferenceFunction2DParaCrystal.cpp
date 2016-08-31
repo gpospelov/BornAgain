@@ -19,7 +19,7 @@
 #include "ISampleVisitor.h"
 #include "IntegratorReal.h"
 #include "ParameterPool.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
 

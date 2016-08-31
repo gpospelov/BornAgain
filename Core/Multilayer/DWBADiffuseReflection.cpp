@@ -18,7 +18,7 @@
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
-#include "Pi.h"
+#include "MathConstants.h"
 
 DWBADiffuseReflection::DWBADiffuseReflection()
     : m_sample(0)

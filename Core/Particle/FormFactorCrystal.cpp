@@ -16,7 +16,7 @@
 #include "FormFactorCrystal.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "WavevectorInfo.h"
 
 FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,

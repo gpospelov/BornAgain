@@ -19,7 +19,7 @@
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
 #include "LayerSpecularInfo.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"

@@ -18,7 +18,7 @@
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
 #include "SimulationElement.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "Units.h"
 
 RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)

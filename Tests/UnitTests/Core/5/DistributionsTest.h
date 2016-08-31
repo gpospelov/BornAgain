@@ -1,7 +1,7 @@
 #ifndef DISTRIBUTIONSTEST_H
 #define DISTRIBUTIONSTEST_H
 
-#include "Pi.h"
+#include "MathConstants.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "Exceptions.h"

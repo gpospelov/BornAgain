@@ -17,7 +17,7 @@
 #define FTDECAYFUNCTIONS_H
 
 #include "IParameterized.h"
-#include "Pi.h"
+#include "MathConstants.h"
 
 
 //! Interface for a one-dimensional decay function,

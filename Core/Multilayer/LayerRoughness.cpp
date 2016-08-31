@@ -15,7 +15,7 @@
 
 #include "LayerRoughness.h"
 #include "BornAgainNamespace.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 
 LayerRoughness::LayerRoughness()

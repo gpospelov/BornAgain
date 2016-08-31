@@ -18,7 +18,7 @@
 #include "Exceptions.h"
 #include "RealLimits.h"
 #include "MathFunctions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 
 FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double width, double height)

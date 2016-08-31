@@ -4,7 +4,7 @@
 #include "MultiLayer.h"
 #include "HomogeneousMaterial.h"
 #include "Layer.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "ScalarRTCoefficients.h"
 #include "ScalarSpecularInfoMap.h"
 #include "SimulationElement.h"

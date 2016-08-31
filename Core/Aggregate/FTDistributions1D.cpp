@@ -18,7 +18,7 @@
 #include "IntegratorReal.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
 

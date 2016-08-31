@@ -17,7 +17,7 @@
 #define FTDISTRIBUTIONS2D_H
 
 #include "IParameterized.h"
-#include "Pi.h"
+#include "MathConstants.h"
 
 
 //! Interface for two-dimensional distributions in Fourier space.

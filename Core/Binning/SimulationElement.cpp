@@ -15,7 +15,7 @@
 
 #include "SimulationElement.h"
 #include "IPixelMap.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include <vector>
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,

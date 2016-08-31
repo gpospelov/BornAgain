@@ -18,7 +18,7 @@
 #include "Complex.h"
 #include "Exceptions.h"
 #include "RealParameter.h"
-#include "Pi.h"
+#include "MathConstants.h"
 
 Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(0.0)
 {

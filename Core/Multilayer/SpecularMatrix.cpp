@@ -19,7 +19,7 @@
 #include "LayerRoughness.h"
 #include "MathFunctions.h"
 #include "MultiLayer.h"
-#include "Pi.h"
+#include "MathConstants.h"
 
 namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);

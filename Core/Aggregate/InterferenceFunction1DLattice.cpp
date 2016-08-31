@@ -18,7 +18,7 @@
 #include "Exceptions.h"
 #include "FTDecayFunctions.h"
 #include "ISampleVisitor.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 
 //! @param length: Lattice length

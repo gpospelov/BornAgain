@@ -4,7 +4,7 @@
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
 #include "BornAgainNamespace.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include <memory>
 
 using namespace BornAgain;

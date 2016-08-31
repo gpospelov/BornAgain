@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "IMaterial.h"
 #include "ISampleVisitor.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)

@@ -16,7 +16,7 @@
 #include "Distributions.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include <cmath>
 #include <sstream>
 

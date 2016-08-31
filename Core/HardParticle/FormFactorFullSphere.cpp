@@ -15,7 +15,7 @@
 
 #include "FormFactorFullSphere.h"
 #include "BornAgainNamespace.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)

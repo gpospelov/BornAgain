@@ -3,7 +3,7 @@
 
 #include "Beam.h"
 #include "BornAgainNamespace.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "ParameterPool.h"
 
 #include <memory>

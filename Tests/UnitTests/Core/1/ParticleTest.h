@@ -3,7 +3,7 @@
 
 #include "Particle.h"
 #include "BornAgainNamespace.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "HomogeneousMaterial.h"
 #include "FormFactorFullSphere.h"
 

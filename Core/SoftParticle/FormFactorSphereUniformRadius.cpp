@@ -16,7 +16,7 @@
 #include "FormFactorSphereUniformRadius.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
 

@@ -15,7 +15,7 @@
 
 #include "FormFactorGauss.h"
 #include "BornAgainNamespace.h"
-#include "Pi.h"
+#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
 

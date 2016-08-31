@@ -1,7 +1,7 @@
 #ifndef INSTRUMENTTEST_H
 #define INSTRUMENTTEST_H
 
-#include "Pi.h"
+#include "MathConstants.h"
 #include "Instrument.h"
 #include "BornAgainNamespace.h"
 

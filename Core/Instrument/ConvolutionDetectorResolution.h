@@ -42,10 +42,9 @@ public:
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
     //! Adds parameters from local pool to external pool and recursively call children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool,
-                                                    int copy_number = -1) const;
+    virtual std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool *external_pool, int copy_number = -1) const;
 
-    //! clone object
     virtual ConvolutionDetectorResolution *clone() const;
 
     const IResolutionFunction2D *getResolutionFunction2D() const;

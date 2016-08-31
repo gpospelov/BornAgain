@@ -70,7 +70,7 @@ void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 }
 
 std::string Instrument::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path = IParameterized::addParametersToExternalPool(

@@ -60,8 +60,8 @@ public:
     void setDirectBeamPosition(double u0, double v0);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    virtual std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
     double getWidth() const;
     double getHeight() const;

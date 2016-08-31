@@ -128,16 +128,15 @@ IPixelMap *RectangularDetector::createPixelMap(size_t index) const
 }
 
 std::string RectangularDetector::addParametersToExternalPool(
-    std::string path, ParameterPool *external_pool, int copy_number) const
+    const std::string& path, ParameterPool *external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path
         = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
     // add parameters of the resolution function
-    if (mP_detector_resolution) {
+    if (mP_detector_resolution)
         mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
-    }
     return new_path;
 }
 
@@ -203,8 +202,8 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-OutputData<double> *RectangularDetector::createDetectorMap(const Beam& beam,
-                                                           IDetector2D::EAxesUnits units_type) const
+OutputData<double> *RectangularDetector::createDetectorMap(
+    const Beam& beam, IDetector2D::EAxesUnits units_type) const
 {
     if (getDimension() != 2)
         return 0;

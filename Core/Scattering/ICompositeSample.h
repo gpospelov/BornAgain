@@ -53,8 +53,8 @@ public:
     size_t size() const final { return m_samples.size(); }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    virtual std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
 private:
     //! Check child index

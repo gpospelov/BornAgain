@@ -111,7 +111,7 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 }
 
 std::string InterferenceFunction2DLattice::addParametersToExternalPool(
-        std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string  new_path = IParameterized::addParametersToExternalPool(

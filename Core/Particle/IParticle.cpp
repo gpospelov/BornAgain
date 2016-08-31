@@ -18,8 +18,6 @@
 #include "FormFactorDecoratorPositionFactor.h"
 #include "RealParameter.h"
 
-using namespace BornAgain;
-
 IFormFactor* IParticle::createFormFactor() const
 {
     return createTransformedFormFactor(nullptr, kvector_t());
@@ -78,9 +76,9 @@ kvector_t IParticle::getComposedTranslation(
 
 void IParticle::registerPosition()
 {
-    registerParameter(PositionX, &m_position[0]).setUnit("nm");
-    registerParameter(PositionY, &m_position[1]).setUnit("nm");
-    registerParameter(PositionZ, &m_position[2]).setUnit("nm");
+    registerParameter(BornAgain::PositionX, &m_position[0]).setUnit("nm");
+    registerParameter(BornAgain::PositionY, &m_position[1]).setUnit("nm");
+    registerParameter(BornAgain::PositionZ, &m_position[2]).setUnit("nm");
 }
 
 const IRotation* IParticle::getRotation() const

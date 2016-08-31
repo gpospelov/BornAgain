@@ -119,8 +119,8 @@ void OffSpecSimulation::setAnalyzerProperties(
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-std::string OffSpecSimulation::addParametersToExternalPool(std::string path,
-        ParameterPool* external_pool, int copy_number) const
+std::string OffSpecSimulation::addParametersToExternalPool(
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path = IParameterized::addParametersToExternalPool(

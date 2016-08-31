@@ -31,12 +31,11 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
 }
 
 FitObject::~FitObject()
-{
-}
+{}
 
 //! Adds parameters from local pool to external pool
 std::string FitObject::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path = IParameterized::addParametersToExternalPool(

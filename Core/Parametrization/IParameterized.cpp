@@ -50,8 +50,9 @@ ParameterPool* IParameterized::createParameterTree()
 //! Copies local parameters to external_pool, under name "path/<name>copy_number/"
 
 std::string IParameterized::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& _path, ParameterPool* external_pool, int copy_number) const
 {
+    std::string path = _path;
     if( path[path.length()-1] != '/' )
         path += "/";
     std::ostringstream osCopyNumber;
@@ -73,8 +74,8 @@ void IParameterized::printParameters()
 
 RealParameter& IParameterized::registerParameter(const std::string& name, double* data)
 {
-    return m_pool->addParameter( new RealParameter( name, data, m_pool->getName(),
-                                                    [&]()->void{ onChange(); } ) );
+    return m_pool->addParameter(
+        new RealParameter( name, data, m_pool->getName(), [&]()->void{ onChange(); } ));
 }
 
 void IParameterized::setParameterValue(const std::string& name, double value)

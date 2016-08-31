@@ -45,8 +45,8 @@ public:
     Lattice2DParameters getLatticeParameters() const { return m_lattice_params; }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                            int copy_number = -1) const final;
+    std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
 
     //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;

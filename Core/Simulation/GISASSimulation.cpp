@@ -140,24 +140,19 @@ void GISASSimulation::setAnalyzerProperties(
 }
 
 std::string GISASSimulation::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
-    std::string  new_path =
-        IParameterized::addParametersToExternalPool(
+    std::string new_path = IParameterized::addParametersToExternalPool(
             path, external_pool, copy_number);
 
     // add parameters of the instrument
     m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
-    if (mp_sample_builder) {
-       // add parameters of the sample builder
-        mp_sample_builder->addParametersToExternalPool(
-            new_path, external_pool, -1);
-    } else if (mP_sample) {
-        // add parameters of the existing sample
+    if (mp_sample_builder) // add parameters of the sample builder
+        mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
+    else if (mP_sample) // add parameters of the existing sample
         mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
-    }
 
     return new_path;
 }

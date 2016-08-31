@@ -1708,6 +1708,21 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(IParameterized self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(IParameterized self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children.
+
+        Copies local parameters to external_pool, under name "path/<name>copy_number/". 
+
+        """
+        return _libBornAgainCore.IParameterized_addParametersToExternalPool(self, path, external_pool, copy_number)
+
+
     def onChange(self):
         """onChange(IParameterized self)"""
         return _libBornAgainCore.IParameterized_onChange(self)
@@ -5471,7 +5486,7 @@ class ChiSquaredModule(IChiSquaredModule):
 ChiSquaredModule_swigregister = _libBornAgainCore.ChiSquaredModule_swigregister
 ChiSquaredModule_swigregister(ChiSquaredModule)
 
-class FitObject(IParameterized):
+class FitObject(IParameterized, INoncopyable):
     """
 
 
@@ -5481,11 +5496,11 @@ class FitObject(IParameterized):
 
     """
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [IParameterized, INoncopyable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitObject, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [IParameterized, INoncopyable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
@@ -5607,6 +5622,21 @@ class FitObject(IParameterized):
 
         """
         return _libBornAgainCore.FitObject_getChiSquaredMap(self, first, last)
+
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(FitObject self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(FitObject self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string FitObject::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children.
+
+        Adds parameters from local pool to external pool. 
+
+        """
+        return _libBornAgainCore.FitObject_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)
@@ -6107,7 +6137,7 @@ class FitSuite(IObservable):
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
-class FitSuiteObjects(IParameterized):
+class FitSuiteObjects(IParameterized, INoncopyable):
     """
 
 
@@ -6117,11 +6147,11 @@ class FitSuiteObjects(IParameterized):
 
     """
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [IParameterized, INoncopyable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuiteObjects, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [IParameterized, INoncopyable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitSuiteObjects, name)
     __repr__ = _swig_repr
@@ -6291,6 +6321,21 @@ class FitSuiteObjects(IParameterized):
 
         """
         return _libBornAgainCore.FitSuiteObjects_getResidualValue(self, global_index)
+
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(FitSuiteObjects self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(FitSuiteObjects self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string FitSuiteObjects::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and call recursion over direct children.
+
+        Adds parameters from local pool to external pool. 
+
+        """
+        return _libBornAgainCore.FitSuiteObjects_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 
     def setNfreeParameters(self, nfree_parameters):
@@ -6972,6 +7017,19 @@ class ICompositeSample(ISample):
 
         """
         return _libBornAgainCore.ICompositeSample_size(self)
+
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(ICompositeSample self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(ICompositeSample self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string ICompositeSample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
+        """
+        return _libBornAgainCore.ICompositeSample_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 ICompositeSample_swigregister = _libBornAgainCore.ICompositeSample_swigregister
 ICompositeSample_swigregister(ICompositeSample)
@@ -14902,6 +14960,19 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getDetectorIntensity(self, *args)
 
 
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(Simulation self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(Simulation self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local to external pool, and call recursion over direct children. 
+
+        """
+        return _libBornAgainCore.Simulation_addParametersToExternalPool(self, path, external_pool, copy_number)
+
+
     def addParameterDistribution(self, *args):
         """
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits)
@@ -15426,6 +15497,19 @@ class GISASSimulation(Simulation):
 
         """
         return _libBornAgainCore.GISASSimulation_maskAll(self)
+
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(GISASSimulation self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(GISASSimulation self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string GISASSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
+        """
+        return _libBornAgainCore.GISASSimulation_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
 GISASSimulation_swigregister(GISASSimulation)
@@ -16804,6 +16888,19 @@ class IDetector2D(IParameterized):
 
         """
         return _libBornAgainCore.IDetector2D_hasMasks(self)
+
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(IDetector2D self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(IDetector2D self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string IDetector2D::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
+        """
+        return _libBornAgainCore.IDetector2D_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 
     def createDetectorMap(self, arg2, arg3):
@@ -18364,6 +18461,19 @@ class Instrument(IParameterized):
         return _libBornAgainCore.Instrument_getDetectorIntensity(self, *args)
 
 
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(Instrument self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(Instrument self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string Instrument::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
+        """
+        return _libBornAgainCore.Instrument_addParametersToExternalPool(self, path, external_pool, copy_number)
+
+
     def initDetector(self):
         """
         initDetector(Instrument self)
@@ -18983,6 +19093,19 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DLattice_getLatticeParameters(self)
 
 
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(InterferenceFunction2DLattice self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(InterferenceFunction2DLattice self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string InterferenceFunction2DLattice::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_addParametersToExternalPool(self, path, external_pool, copy_number)
+
+
     def getParticleDensity(self):
         """
         getParticleDensity(InterferenceFunction2DLattice self) -> double
@@ -19242,6 +19365,21 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getLatticeParameters(self)
 
 
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(InterferenceFunction2DParaCrystal self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(InterferenceFunction2DParaCrystal self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
+
+        Adds parameters from local pool to external pool and recursively calls its direct children.
+
+        Copies local parameters to external_pool, under name "path/<name>copy_number/". 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_addParametersToExternalPool(self, path, external_pool, copy_number)
+
+
     def getParticleDensity(self):
         """
         getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
@@ -19463,6 +19601,19 @@ class SphericalDetector(IDetector2D):
 
     __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
     __del__ = lambda self: None
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(SphericalDetector self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(SphericalDetector self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string SphericalDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
+        """
+        return _libBornAgainCore.SphericalDetector_addParametersToExternalPool(self, path, external_pool, copy_number)
+
 
     def createDetectorMap(self, beam, units_type):
         """
@@ -21335,6 +21486,19 @@ class OffSpecSimulation(Simulation):
 
         """
         return _libBornAgainCore.OffSpecSimulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(OffSpecSimulation self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(OffSpecSimulation self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string OffSpecSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)
@@ -23637,6 +23801,19 @@ class RectangularDetector(IDetector2D):
 
         """
         return _libBornAgainCore.RectangularDetector_setDirectBeamPosition(self, u0, v0)
+
+
+    def addParametersToExternalPool(self, path, external_pool, copy_number=-1):
+        """
+        addParametersToExternalPool(RectangularDetector self, std::string const & path, ParameterPool external_pool, int copy_number=-1) -> std::string
+        addParametersToExternalPool(RectangularDetector self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string RectangularDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+
+        Adds parameters from local pool to external pool and recursively calls its direct children. 
+
+        """
+        return _libBornAgainCore.RectangularDetector_addParametersToExternalPool(self, path, external_pool, copy_number)
 
 
     def getWidth(self):

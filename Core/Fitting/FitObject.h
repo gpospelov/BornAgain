@@ -24,11 +24,10 @@ class FitElement;
 class GISASSimulation;
 class IIntensityNormalizer;
 
-//! @class FitObject
+//! Holds simulation description and real data to run the fit.
 //! @ingroup fitting_internal
-//! @brief Holds simulation description and real data to run the fit.
 
-class BA_CORE_API_ FitObject : public IParameterized
+class BA_CORE_API_ FitObject : public IParameterized, public INoncopyable
 {
 public:
     //! FitObject constructor
@@ -64,8 +63,8 @@ public:
                                          std::vector<FitElement>::const_iterator last) const;
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    virtual std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -76,9 +75,6 @@ private:
     bool same_dimensions_dataset() const;
     bool is_possible_to_adjust_simulation() const;
     std::string get_error_message() const;
-
-    FitObject(const FitObject& );
-    FitObject& operator=(const FitObject& );
 
     std::unique_ptr<GISASSimulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;

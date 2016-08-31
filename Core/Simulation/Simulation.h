@@ -68,8 +68,8 @@ public:
         IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const=0;
 
     //! Adds parameters from local to external pool, and call recursion over direct children
-    std::string addParametersToExternalPool(
-        std::string path, ParameterPool* external_pool, int copy_number=-1) const;
+    virtual std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number=-1) const;
 
     //! add a sampled parameter distribution
     void addParameterDistribution(

@@ -76,16 +76,14 @@ void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 
 void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
-    if (!p_intensity_map) {
+    if (!p_intensity_map)
         throw Exceptions::NullPointerException("IDetector2D::applyDetectorResolution() -> "
                                    "Error! Null pointer to intensity map");
-    }
-    if (mP_detector_resolution) {
+    if (mP_detector_resolution)
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
-    } else {
+    else
         msglog(MSG::WARNING) << "IDetector2D::applyDetectorResolution() -> "
                                 "No detector resolution function found";
-    }
 }
 
 void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency,
@@ -99,7 +97,7 @@ void IDetector2D::setAnalyzerProperties(const kvector_t direction, double effici
 
 
 std::string IDetector2D::addParametersToExternalPool(
-    std::string path, ParameterPool *external_pool, int copy_number) const
+    const std::string& path, ParameterPool *external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path

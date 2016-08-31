@@ -103,7 +103,7 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
 }
 
 std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string  new_path = IParameterized::addParametersToExternalPool(
@@ -211,11 +211,10 @@ double InterferenceFunction2DParaCrystal::interference1D(
         } else {
             complex_t tmp;
             if (std::abs(fp)==0.0
-             || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {
-                            tmp = 0.0;
-                        } else {
-                            tmp = std::pow(fp,n);
-                        }
+             || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min()))
+                tmp = 0.0;
+            else
+                tmp = std::pow(fp,n);
             complex_t intermediate = fp/(1.0-fp) - fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp);
             result = 1.0 + 2.0*intermediate.real();
         }
@@ -236,9 +235,8 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
     double amplitude = m_pdfs[index]->evaluate(qp1, qp2);
     complex_t result = phase*amplitude;
-    if (m_use_damping_length) {
+    if (m_use_damping_length)
         result *= std::exp(-length/m_damping_length);
-    }
     return result;
 }
 

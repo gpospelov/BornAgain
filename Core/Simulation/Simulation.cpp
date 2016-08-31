@@ -134,8 +134,8 @@ void Simulation::setSampleBuilder(std::shared_ptr<class IMultiLayerBuilder> p_sa
     mP_sample.reset(nullptr);
 }
 
-std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number) const
+std::string Simulation::addParametersToExternalPool(
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path

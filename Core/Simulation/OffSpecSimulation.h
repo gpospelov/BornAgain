@@ -84,8 +84,8 @@ public:
                                double total_transmission = 1.0);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                            int copy_number = -1) const final;
+    std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
 
 private:
     OffSpecSimulation(const OffSpecSimulation& other);

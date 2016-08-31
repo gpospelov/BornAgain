@@ -18,7 +18,6 @@
 #include "MultiLayer.h"
 #include "MainComputation.h"
 #include "Logger.h"
-// unused #include "OMPISimulation.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "SimulationElement.h"
@@ -30,8 +29,6 @@
 
 Simulation::Simulation()
 {}
-
-Simulation::~Simulation() {} // forward class declaration prevents move to .h
 
 Simulation::Simulation(const MultiLayer& p_sample)
 {
@@ -49,10 +46,15 @@ Simulation::Simulation(const Simulation& other)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
+    , m_instrument(other.m_instrument)
+    , m_intensity_map()
 {
     if (other.mP_sample)
         mP_sample.reset(other.mP_sample->clone());
+    m_intensity_map.copyFrom(other.m_intensity_map);
 }
+
+Simulation::~Simulation() {} // forward class declaration prevents move to .h
 
 void Simulation::setTerminalProgressMonitor()
 {
@@ -118,6 +120,12 @@ void Simulation::runOMPISimulation()
 }
 */
 
+void Simulation::setInstrument(const Instrument& instrument)
+{
+    m_instrument = instrument;
+    updateIntensityMap();
+}
+
 //! The MultiLayer object will not be owned by the Simulation object
 void Simulation::setSample(const MultiLayer& sample)
 {
@@ -134,18 +142,14 @@ void Simulation::setSampleBuilder(std::shared_ptr<class IMultiLayerBuilder> p_sa
     mP_sample.reset(nullptr);
 }
 
-std::string Simulation::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
+std::string Simulation::addSimulationParametersToExternalPool(
+    const std::string& path, ParameterPool* external_pool) const
 {
-    // add own parameters
-    std::string new_path
-        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    std::string new_path = path;
 
     if (mp_sample_builder) {
-        // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
     } else if (mP_sample) {
-        // add parameters of directly the sample
         mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
 
@@ -156,18 +160,13 @@ void Simulation::addParameterDistribution(const std::string& param_name,
                                           const IDistribution1D& distribution, size_t nbr_samples,
                                           double sigma_factor, const RealLimits& limits)
 {
-    m_distribution_handler.addParameterDistribution(param_name, distribution, nbr_samples,
-                                                    sigma_factor, limits);
+    m_distribution_handler.addParameterDistribution(
+        param_name, distribution, nbr_samples, sigma_factor, limits);
 }
 
 void Simulation::addParameterDistribution(const ParameterDistribution& par_distr)
 {
     m_distribution_handler.addParameterDistribution(par_distr);
-}
-
-const DistributionHandler& Simulation::getDistributionHandler() const
-{
-    return m_distribution_handler;
 }
 
 void Simulation::updateSample()
@@ -185,8 +184,8 @@ void Simulation::updateSample()
     }
 }
 
-//! Run single simulation with fixed parameter values.
-//! Also manage threads.
+//! Runs a single simulation with fixed parameter values.
+//! If desired, the simulation is run in several threads.
 void Simulation::runSingleSimulation()
 {
     updateSample();

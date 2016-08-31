@@ -55,12 +55,11 @@ std::string IParameterized::addParametersToExternalPool(
     std::string path = _path;
     if( path[path.length()-1] != '/' )
         path += "/";
-    std::ostringstream osCopyNumber;
+    path += getName();
     if(copy_number >=0)
-        osCopyNumber << copy_number;
-    path += getName() + osCopyNumber.str() + "/";
+        path += std::to_string(copy_number);
+    path += "/";
 
-    // copy local parameter to external pool
     m_pool->copyToExternalPool(path, external_pool);
 
     return path;

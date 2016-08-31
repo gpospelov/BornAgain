@@ -14825,6 +14825,19 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_runSimulation(self)
 
 
+    def setInstrument(self, instrument):
+        """setInstrument(Simulation self, Instrument instrument)"""
+        return _libBornAgainCore.Simulation_setInstrument(self, instrument)
+
+
+    def getInstrument(self, *args):
+        """
+        getInstrument(Simulation self) -> Instrument
+        getInstrument(Simulation self) -> Instrument
+        """
+        return _libBornAgainCore.Simulation_getInstrument(self, *args)
+
+
     def setSample(self, sample):
         """
         setSample(Simulation self, MultiLayer sample)
@@ -14900,6 +14913,11 @@ class Simulation(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.Simulation_getDetectorIntensity(self, *args)
+
+
+    def addSimulationParametersToExternalPool(self, path, external_pool):
+        """addSimulationParametersToExternalPool(Simulation self, std::string const & path, ParameterPool external_pool) -> std::string"""
+        return _libBornAgainCore.Simulation_addSimulationParametersToExternalPool(self, path, external_pool)
 
 
     def addParameterDistribution(self, *args):
@@ -15237,29 +15255,6 @@ class GISASSimulation(Simulation):
 
         """
         return _libBornAgainCore.GISASSimulation_getIntensityData(self, *args)
-
-
-    def setInstrument(self, instrument):
-        """
-        setInstrument(GISASSimulation self, Instrument instrument)
-
-        void GISASSimulation::setInstrument(const Instrument &instrument)
-
-        Sets the instrument containing beam and detector information. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setInstrument(self, instrument)
-
-
-    def getInstrument(self, *args):
-        """
-        getInstrument(GISASSimulation self) -> Instrument
-        getInstrument(GISASSimulation self) -> Instrument
-
-        Instrument& GISASSimulation::getInstrument()
-
-        """
-        return _libBornAgainCore.GISASSimulation_getInstrument(self, *args)
 
 
     def setBeamParameters(self, wavelength, alpha_i, phi_i):
@@ -21225,30 +21220,6 @@ class OffSpecSimulation(Simulation):
 
         """
         return _libBornAgainCore.OffSpecSimulation_getIntensityData(self)
-
-
-    def setInstrument(self, instrument):
-        """
-        setInstrument(OffSpecSimulation self, Instrument instrument)
-
-        void OffSpecSimulation::setInstrument(const Instrument &instrument)
-
-        Sets the instrument containing beam and detector information. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_setInstrument(self, instrument)
-
-
-    def getInstrument(self):
-        """
-        getInstrument(OffSpecSimulation self) -> Instrument
-
-        const Instrument& OffSpecSimulation::getInstrument() const
-
-        Returns the instrument containing beam and detector information. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_getInstrument(self)
 
 
     def setBeamParameters(self, arg2, alpha_axis, phi_i):

@@ -16,7 +16,7 @@
 #include <map>
 #include <string>
 
-//! Control how often a string is used.
+//! Counts how often a string is used.
 //! @ingroup tools_internal
 
 class BA_CORE_API_ StringUsageMap
@@ -34,9 +34,9 @@ public:
         m_current_string = name;
         iterator_t it = m_nstringmap.find(name);
         if (it != m_nstringmap.end() )
-            (*it).second++;
+            it->second++;
         else
-            m_nstringmap.insert(nstringmap_t::value_type(name,1));
+            m_nstringmap.insert(make_pair(name,1));
     }
 
     //! access to the map of strings

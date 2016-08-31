@@ -17,7 +17,6 @@
 #define GISASSIMULATION_H
 
 #include "Simulation.h"
-#include "Instrument.h"
 
 class MultiLayer;
 class IMultiLayerBuilder;
@@ -55,13 +54,6 @@ public:
     //! of 2D histogram.
     Histogram2D* getIntensityData(
         IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
-
-    //! Sets the instrument containing beam and detector information
-    void setInstrument(const Instrument& instrument);
-
-    //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const { return m_instrument; }
-    Instrument& getInstrument() { return m_instrument; }
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
@@ -130,13 +122,9 @@ private:
     double getBeamIntensity() const final;
 
     //! Default implementation only adds the detector axes
-    void updateIntensityMap();
+    void updateIntensityMap() final;
 
     void initialize();
-
-    // extra components describing a GISAS experiment and its simulation:
-    Instrument m_instrument;
-    OutputData<double> m_intensity_map;
 };
 
 #endif // GISASSIMULATION_H

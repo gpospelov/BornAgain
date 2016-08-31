@@ -52,11 +52,9 @@ std::string FitObject::addParametersToExternalPool(
 void FitObject::init_dataset()
 {
     if(!same_dimensions_dataset()) {
-        if(m_adjust_detector_to_data && is_possible_to_adjust_simulation()) {
-            m_simulation->setDetectorParameters(*m_real_data);
-        } else {
+        if(!(m_adjust_detector_to_data && is_possible_to_adjust_simulation()))
             throw Exceptions::LogicErrorException(get_error_message());
-        }
+        m_simulation->setDetectorParameters(*m_real_data);
     }
     m_chi2_data->copyShapeFrom(*m_real_data);
 }

@@ -5739,7 +5739,7 @@ class FitSuite(IObservable):
         addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim)
         addFitParameter(FitSuite self, std::string const & name, double value)
 
-        void FitSuite::addFitParameter(const std::string &name, double value, const Limits &lim=Limits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
+        void FitSuite::addFitParameter(const std::string &name, double value, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
 
         Adds fit parameter
 
@@ -6111,7 +6111,7 @@ class FitSuiteObjects(IParameterized, INoncopyable):
     """
 
 
-    The class containing vector of  FitObject (simulation and real data) to fit.
+    Holds vector of  FitObject's (simulation and real data) to fit
 
     C++ includes: FitSuiteObjects.h
 
@@ -7276,7 +7276,7 @@ class IDistribution1D(IParameterized):
         generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const =0
+        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
 
         generate list of sample values
 
@@ -7449,7 +7449,7 @@ class DistributionGate(IDistribution1D):
         generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+        std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
         Returns list of sample values. 
 
@@ -7557,7 +7557,7 @@ class DistributionLorentz(IDistribution1D):
         generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+        std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
         generate list of sample values 
 
@@ -7667,7 +7667,7 @@ class DistributionGaussian(IDistribution1D):
         generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+        std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
         generate list of sample values 
 
@@ -7789,7 +7789,7 @@ class DistributionLogNormal(IDistribution1D):
         generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+        std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
         generate list of sample values 
 
@@ -7899,7 +7899,7 @@ class DistributionCosine(IDistribution1D):
         generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+        std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
         generate list of sample values 
 
@@ -14769,7 +14769,7 @@ class Simulation(ICloneable, IParameterized):
     """
 
 
-    Main class to run the simulation, base class for OffSpecularSimulation and  GISASSimulation.
+    Pure virtual base class of OffSpecularSimulation and  GISASSimulation, holds common infrastructure to run a simulation.
 
     C++ includes: Simulation.h
 
@@ -14826,7 +14826,12 @@ class Simulation(ICloneable, IParameterized):
 
 
     def setInstrument(self, instrument):
-        """setInstrument(Simulation self, Instrument instrument)"""
+        """
+        setInstrument(Simulation self, Instrument instrument)
+
+        void Simulation::setInstrument(const Instrument &instrument)
+
+        """
         return _libBornAgainCore.Simulation_setInstrument(self, instrument)
 
 
@@ -14834,6 +14839,9 @@ class Simulation(ICloneable, IParameterized):
         """
         getInstrument(Simulation self) -> Instrument
         getInstrument(Simulation self) -> Instrument
+
+        Instrument& Simulation::getInstrument()
+
         """
         return _libBornAgainCore.Simulation_getInstrument(self, *args)
 
@@ -14844,11 +14852,7 @@ class Simulation(ICloneable, IParameterized):
 
         void Simulation::setSample(const MultiLayer &sample)
 
-        Run an OpenMPI simulation.
-
-        The  MultiLayer object will not be owned by the  Simulation object.
-
-        Sets the sample to be tested 
+        The  MultiLayer object will not be owned by the  Simulation object. 
 
         """
         return _libBornAgainCore.Simulation_setSample(self, sample)
@@ -14858,9 +14862,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getSample(Simulation self) -> MultiLayer
 
-        MultiLayer* Simulation::getSample() const
-
-        Returns the sample. 
+        MultiLayer* Simulation::getSample() const 
 
         """
         return _libBornAgainCore.Simulation_getSample(self)
@@ -14872,8 +14874,6 @@ class Simulation(ICloneable, IParameterized):
 
         void Simulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
-        Sets the sample builder. 
-
         """
         return _libBornAgainCore.Simulation_setSampleBuilder(self, sample_builder)
 
@@ -14882,9 +14882,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getSampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
-        std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const
-
-        return sample builder 
+        std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const 
 
         """
         return _libBornAgainCore.Simulation_getSampleBuilder(self)
@@ -14895,8 +14893,6 @@ class Simulation(ICloneable, IParameterized):
         getNumberOfSimulationElements(Simulation self) -> int
 
         virtual int Simulation::getNumberOfSimulationElements() const =0
-
-        Gets the number of elements this simulation needs to calculate. 
 
         """
         return _libBornAgainCore.Simulation_getNumberOfSimulationElements(self)
@@ -14916,7 +14912,14 @@ class Simulation(ICloneable, IParameterized):
 
 
     def addSimulationParametersToExternalPool(self, path, external_pool):
-        """addSimulationParametersToExternalPool(Simulation self, std::string const & path, ParameterPool external_pool) -> std::string"""
+        """
+        addSimulationParametersToExternalPool(Simulation self, std::string const & path, ParameterPool external_pool) -> std::string
+
+        std::string Simulation::addSimulationParametersToExternalPool(const std::string &path, ParameterPool *external_pool) const
+
+        Adds parameters defined in this class the to external pool. 
+
+        """
         return _libBornAgainCore.Simulation_addSimulationParametersToExternalPool(self, path, external_pool)
 
 
@@ -14929,8 +14932,6 @@ class Simulation(ICloneable, IParameterized):
 
         void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
 
-        add a sampled parameter distribution 
-
         """
         return _libBornAgainCore.Simulation_addParameterDistribution(self, *args)
 
@@ -14939,7 +14940,7 @@ class Simulation(ICloneable, IParameterized):
         """
         getDistributionHandler(Simulation self) -> DistributionHandler const &
 
-        const DistributionHandler & Simulation::getDistributionHandler() const 
+        const DistributionHandler& Simulation::getDistributionHandler() const 
 
         """
         return _libBornAgainCore.Simulation_getDistributionHandler(self)
@@ -17266,7 +17267,14 @@ IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregiste
 IAbstractParticle_swigregister(IAbstractParticle)
 
 class IParameterReal(INamed, INoncopyable):
-    """Proxy of C++ IParameter<(double)> class"""
+    """
+
+
+    Pure virtual base class for parameter wrapper classes  RealParameter,  ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
+
+    C++ includes: IParameter.h
+
+    """
     __swig_setmethods__ = {}
     for _s in [INamed, INoncopyable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
@@ -17284,22 +17292,42 @@ class IParameterReal(INamed, INoncopyable):
         """
         clone(IParameterReal self, std::string const & new_name) -> IParameterReal
         clone(IParameterReal self) -> IParameterReal
+
+        virtual IParameter* IParameter< T >::clone(const std::string &new_name="") const =0
+
         """
         return _libBornAgainCore.IParameterReal_clone(self, *args)
 
 
     def isNull(self):
-        """isNull(IParameterReal self) -> bool"""
+        """
+        isNull(IParameterReal self) -> bool
+
+        virtual bool IParameter< T >::isNull() const
+
+        Returns true if wrapped parameter was not initialized with proper real value. 
+
+        """
         return _libBornAgainCore.IParameterReal_isNull(self)
 
 
     def getData(self):
-        """getData(IParameterReal self) -> double volatile &"""
+        """
+        getData(IParameterReal self) -> double volatile &
+
+        volatile T& IParameter< T >::getData() const 
+
+        """
         return _libBornAgainCore.IParameterReal_getData(self)
 
 
     def setData(self, data):
-        """setData(IParameterReal self, double volatile & data)"""
+        """
+        setData(IParameterReal self, double volatile & data)
+
+        void IParameter< T >::setData(volatile T &data)
+
+        """
         return _libBornAgainCore.IParameterReal_setData(self, data)
 
 
@@ -19417,7 +19445,7 @@ class SphericalDetector(IDetector2D):
     """
 
 
-    A spherical detector with axes and resolution function.
+    A spherical detector with axes and resolution function.  SphericalDetector
 
     C++ includes: SphericalDetector.h
 
@@ -22091,7 +22119,7 @@ class ParameterDistribution(IParameterized):
         """
         getLimits(ParameterDistribution self) -> RealLimits
 
-        Limits ParameterDistribution::getLimits() const 
+        RealLimits ParameterDistribution::getLimits() const 
 
         """
         return _libBornAgainCore.ParameterDistribution_getLimits(self)
@@ -23225,7 +23253,7 @@ class RealParameter(IParameterReal):
     """
 
 
-    Wrapper to real parameter for remote access to its value and callback abilities
+    Wraps a parameter of type double. In addition to name and on-change callback held by the parent class  IParameter, this class holds Limits, Attributes (currently only fixed or not), and a  Unit.
 
     C++ includes: RealParameter.h
 
@@ -23246,9 +23274,7 @@ class RealParameter(IParameterReal):
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
 
-        RealParameter::RealParameter(const std::string &name, const RealParameter &other)
-
-        This constructor takes copies 'other' except for the name. 
+        RealParameter::RealParameter(const std::string &name, volatile double *par, const std::string &parent_name, const std::function< void()> &onChange, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 
         """
         this = _libBornAgainCore.new_RealParameter(*args)
@@ -23296,7 +23322,7 @@ class RealParameter(IParameterReal):
         """
         setLimits(RealParameter self, RealLimits limits) -> RealParameter
 
-        RealParameter& RealParameter::setLimits(const Limits &limits)
+        RealParameter& RealParameter::setLimits(const RealLimits &limits)
 
         """
         return _libBornAgainCore.RealParameter_setLimits(self, limits)
@@ -23306,7 +23332,7 @@ class RealParameter(IParameterReal):
         """
         getLimits(RealParameter self) -> RealLimits
 
-        Limits RealParameter::getLimits() const 
+        RealLimits RealParameter::getLimits() const 
 
         """
         return _libBornAgainCore.RealParameter_getLimits(self)

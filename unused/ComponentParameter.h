@@ -26,7 +26,7 @@
 class BA_CORE_API_ ComponentParameter : public IParameter<ISample> {
 public:
     ComponentParameter(
-        const std::string& name, ISample* par,
+        const std::string& name, volatile ISample* par,
         const std::string& parent_name, const std::function<void()>& onChange)
     : IParameter<ISample>(name, par, parent_name, onChange) {}
 
@@ -34,7 +34,7 @@ public:
         return new ComponentParameter(
             new_name=="" ? getName() : new_name, m_data, m_parent_name, m_onChange); }
 
-    bool operator==(const Componentparameter& other) const {
+    bool operator==(const ComponentParameter& other) const {
         return *static_cast<const IParameter*>(this)==*static_cast<const IParameter*>(&other); }
 
 protected:

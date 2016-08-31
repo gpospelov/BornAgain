@@ -56,7 +56,7 @@ class IParameterized;
 class BA_CORE_API_ IStandardTest : public INamed
 {
 public:
-    IStandardTest(const std::string& name) : INamed(name) {}
+IStandardTest(const std::string& name) : INamed(name), m_subtest_item(nullptr) {}
     virtual ~IStandardTest() {}
 
     bool execute(int argc, char** argv);

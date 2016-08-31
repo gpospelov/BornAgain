@@ -21,22 +21,31 @@
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
-    : mp_alpha_i_axis(0)
+    : mp_alpha_i_axis(nullptr)
 {
     initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample)
     : Simulation(p_sample)
-    , mp_alpha_i_axis(0)
+    , mp_alpha_i_axis(nullptr)
 {
     initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
-    , mp_alpha_i_axis(0)
+    , mp_alpha_i_axis(nullptr)
 {
+    initialize();
+}
+
+OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
+    : Simulation(other)
+    , mp_alpha_i_axis(nullptr)
+{
+    if(other.mp_alpha_i_axis)
+        mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
     initialize();
 }
 
@@ -58,12 +67,6 @@ Histogram2D* OffSpecSimulation::getIntensityData() const
 {
     const std::unique_ptr<OutputData<double> > data(getDetectorIntensity());
     return new Histogram2D(*data);
-}
-
-void OffSpecSimulation::setInstrument(const Instrument& instrument)
-{
-    m_instrument = instrument;
-    updateIntensityMap();
 }
 
 void OffSpecSimulation::setBeamParameters(
@@ -119,8 +122,8 @@ void OffSpecSimulation::setAnalyzerProperties(
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-std::string OffSpecSimulation::addParametersToExternalPool(std::string path,
-        ParameterPool* external_pool, int copy_number) const
+std::string OffSpecSimulation::addParametersToExternalPool(
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path = IParameterized::addParametersToExternalPool(
@@ -129,30 +132,12 @@ std::string OffSpecSimulation::addParametersToExternalPool(std::string path,
     // add parameters of the instrument
     m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
-    if (mp_sample_builder) {
-       // add parameters of the sample builder
-        mp_sample_builder->addParametersToExternalPool(
-            new_path, external_pool, -1);
-    } else if (mP_sample) {
-        // add parameters of the existing sample
-        mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
-    }
+    new_path = addSimulationParametersToExternalPool(new_path, external_pool);
+
     return new_path;
 }
 
 // *** protected ***
-
-OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
-    : Simulation(other)
-    , m_instrument(other.m_instrument)
-    , mp_alpha_i_axis(0)
-    , m_intensity_map()
-{
-    if(other.mp_alpha_i_axis) mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
-    m_intensity_map.copyFrom(other.m_intensity_map);
-
-    initialize();
-}
 
 void OffSpecSimulation::initSimulationElementVector()
 {

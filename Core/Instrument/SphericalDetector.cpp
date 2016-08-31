@@ -56,16 +56,15 @@ SphericalDetector* SphericalDetector::clone() const
 }
 
 std::string SphericalDetector::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path
         = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
     // add parameters of the resolution function
-    if (mP_detector_resolution) {
+    if (mP_detector_resolution)
         mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
-    }
     return new_path;
 }
 
@@ -103,9 +102,8 @@ OutputData<double>* SphericalDetector::createDetectorMap(const Beam& beam,
 
     double xmin(aX.getMin()), xmax(aX.getMax()), ymin(aY.getMin()), ymax(aY.getMax());
 
-    if (units_type == MM) {
+    if (units_type == MM)
         return 0;
-    }
 
     else if (units_type == NBINS) {
         xmin = 0.0;
@@ -163,21 +161,19 @@ IPixelMap* SphericalDetector::createPixelMap(size_t index) const
 void SphericalDetector::print(std::ostream& ostr) const
 {
     ostr << "SphericalDetector: '" << getName() << "' " << getParameterPool();
-    for (size_t i = 0; i < m_axes.size(); ++i) {
+    for (size_t i = 0; i < m_axes.size(); ++i)
         ostr << "    IAxis:" << *m_axes[i] << std::endl;
-    }
 }
 
 IAxis* SphericalDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
-    if (max <= min) {
+    if (max <= min)
         throw Exceptions::LogicErrorException(
             "SphericalDetector::createAxis() -> Error! max <= min");
-    }
-    if (n_bins == 0) {
+    if (n_bins == 0)
         throw Exceptions::LogicErrorException(
             "SphericalDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    }    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
+    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
 }
 
 std::string SphericalDetector::getAxisName(size_t index) const

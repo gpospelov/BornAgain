@@ -29,8 +29,7 @@ public:
 
     LayerInterface *clone() const;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Creates smooth interface between two layers
     static LayerInterface* createSmoothInterface(const Layer *p_layer_top,

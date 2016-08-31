@@ -16,7 +16,7 @@
 #ifndef REALPARAMETER_H
 #define REALPARAMETER_H
 
-#include "INamed.h"
+#include "IParameter.h"
 #include "Attributes.h"
 #include "RealLimits.h"
 #include "Unit.h"
@@ -24,18 +24,18 @@
 
 class ParameterPool;
 
-//! Wrapper to real parameter for remote access to its value and callback abilities
-//! @class RealParameter
+//! Wraps a parameter of type double.
+//! In addition to name and on-change callback held by the parent class IParameter,
+//! this class holds Limits, Attributes (currently only fixed or not), and a Unit.
 //! @ingroup tools_internal
 
-class BA_CORE_API_ RealParameter : public INamed {
+class BA_CORE_API_ RealParameter : public IParameter<double> {
 public:
-    explicit RealParameter(
-        const std::string& name, ParameterPool* parent,
-        volatile double* par, const RealLimits& limits=RealLimits::limitless(),
+    RealParameter(
+        const std::string& name, volatile double* par,
+        const std::string& parent_name, const std::function<void()>& onChange,
+        const RealLimits& limits=RealLimits::limitless(),
         const Attributes& attr=Attributes::free());
-    RealParameter(const RealParameter& other);
-    RealParameter(const std::string& name, const RealParameter& other);
 
     RealParameter* clone( const std::string& new_name="" ) const;
 
@@ -43,19 +43,7 @@ public:
     void setValue(double value);
 
     //! Returns value of wrapped parameter
-    double getValue() const { checkNull(); return *m_data; }
-
-    RealParameter& setUnit(const std::string& name) { m_unit.setUnit(name); return *this; }
-
-    //! Returns true if wrapped parameter was not initialized with proper real value
-    bool isNull() const { return m_data ? false : true; }
-
-    //! throw exception if parameter was not initialized with proper value
-    void checkNull() const;
-
-    //! Prints the parameter's address to an output stream
-    friend std::ostream& operator<<(std::ostream& ostr, const RealParameter& p) {
-        ostr << p.m_data; return ostr; }
+    double getValue() const { return *m_data; }
 
     RealParameter& setLimits(const RealLimits& limits) { m_limits = limits; return *this; }
     RealLimits getLimits() const { return m_limits; }
@@ -64,19 +52,18 @@ public:
     RealParameter& setPositive();
     RealParameter& setNonnegative();
 
-    bool operator==(const RealParameter &other) const {
-        return (m_limits == other.m_limits) && (m_data == other.m_data); }
-    bool operator!=(const RealParameter &other) const { return !(*this == other); }
+    bool operator==(const RealParameter& other) const {
+        return m_limits == other.m_limits &&
+        m_attr == other.m_attr &&
+        *static_cast<const IParameter*>(this)==*static_cast<const IParameter*>(&other); }
 
+    RealParameter& setUnit(const std::string& name) { m_unit.setUnit(name); return *this; }
     std::string unit() const { return m_unit.getName(); }
 
 protected:
-    ParameterPool* m_parent; //!< "owns" this parameter
-    volatile double* m_data;
-    Unit m_unit;
     RealLimits m_limits;
     Attributes m_attr;
-    std::string fullName(); //!< For use in error messages
+    Unit m_unit;
 };
 
 #endif // REALPARAMETER_H

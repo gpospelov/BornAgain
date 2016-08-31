@@ -109,7 +109,7 @@ double FitSuiteObjects::getResidualValue(size_t global_index)
 
 //! Adds parameters from local pool to external pool
 std::string FitSuiteObjects::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     // top object in our chain, and its without parameters, lets not include its name in path

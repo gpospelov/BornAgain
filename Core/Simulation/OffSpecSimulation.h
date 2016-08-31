@@ -17,7 +17,6 @@
 #define OFFSPECSIMULATION_H
 
 #include "Simulation.h"
-#include "Instrument.h"
 
 class Histogram2D;
 
@@ -51,12 +50,6 @@ public:
     //! Returns clone of the detector intensity map in the form of 2D histogram.
     Histogram2D* getIntensityData() const;
 
-    //! Sets the instrument containing beam and detector information
-    void setInstrument(const Instrument& instrument);
-
-    //! Returns the instrument containing beam and detector information
-    const Instrument& getInstrument() const { return m_instrument; }
-
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i);
 
@@ -84,8 +77,8 @@ public:
                                double total_transmission = 1.0);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                            int copy_number = -1) const final;
+    std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
 
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
@@ -101,7 +94,7 @@ private:
     double getBeamIntensity() const final;
 
     //! Default implementation only adds the detector axes
-    void updateIntensityMap();
+    void updateIntensityMap() final;
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)
@@ -112,10 +105,7 @@ private:
 
     void initialize();
 
-    // components describing an off-specular experiment and its simulation:
-    Instrument m_instrument;
     IAxis* mp_alpha_i_axis;
-    OutputData<double> m_intensity_map;
 };
 
 #endif // OFFSPECSIMULATION_H

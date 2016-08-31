@@ -361,6 +361,8 @@
 %include "IInterferenceFunction.h"
 %include "ILayout.h"
 %include "IAbstractParticle.h"
+%include "IParameter.h" // needed?
+%template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
 %include "IParticle.h"
 %include "IResolutionFunction2D.h"
 %include "Rotations.h"

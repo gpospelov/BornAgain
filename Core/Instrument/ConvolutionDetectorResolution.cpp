@@ -90,16 +90,15 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
 }
 
 std::string ConvolutionDetectorResolution::addParametersToExternalPool(
-        std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path =
         IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
     // add parameters of the 2D resolution function
-    if (mp_res_function_2d) {
+    if (mp_res_function_2d)
         mp_res_function_2d->addParametersToExternalPool(new_path, external_pool, -1);
-    }
 
     return new_path;
 }

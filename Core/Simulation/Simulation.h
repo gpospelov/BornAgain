@@ -18,6 +18,7 @@
 
 #include "DistributionHandler.h"
 #include "IDetector2D.h"
+#include "Instrument.h"
 #include "ProgressHandler.h"
 #include "SimulationOptions.h"
 
@@ -26,7 +27,8 @@ class Computation;
 class MultiLayer;
 class IMultiLayerBuilder;
 
-//! Main class to run the simulation, base class for OffSpecularSimulation and GISASSimulation.
+//! Pure virtual base class of OffSpecularSimulation and GISASSimulation,
+//! holds common infrastructure to run a simulation.
 //! @ingroup simulation
 
 class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
@@ -37,7 +39,7 @@ public:
     Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
     virtual ~Simulation();
 
-    virtual Simulation* clone() const=0;
+    virtual Simulation* clone() const =0;
 
     //! Put into a clean state for running a simulation
     virtual void prepareSimulation();
@@ -45,43 +47,31 @@ public:
     //! Run a simulation, possibly averaged over parameter distributions
     void runSimulation();
 
-    //! Run an OpenMPI simulation
-    //unused void runOMPISimulation();
+    void setInstrument(const Instrument& instrument);
+    const Instrument& getInstrument() const { return m_instrument; }
+    Instrument& getInstrument() { return m_instrument; }
 
-    //! Sets the sample to be tested
     void setSample(const MultiLayer& sample);
-
-    //! Returns the sample
     MultiLayer* getSample() const { return mP_sample.get(); }
 
-    //! Sets the sample builder
     void setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder);
-
-    //! return sample builder
     std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mp_sample_builder; }
 
-    //! Gets the number of elements this simulation needs to calculate
     virtual int getNumberOfSimulationElements() const=0;
 
     //! Clone simulated intensity map
     virtual OutputData<double>* getDetectorIntensity(
         IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const=0;
 
-    //! Adds parameters from local to external pool, and call recursion over direct children
-    std::string addParametersToExternalPool(
-        std::string path, ParameterPool* external_pool, int copy_number=-1) const;
+    //! Adds parameters defined in this class the to external pool.
+    std::string addSimulationParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool) const;
 
-    //! add a sampled parameter distribution
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
         double sigma_factor=0.0, const RealLimits& limits = RealLimits());
-
-    //! add a sampled parameter distribution
     void addParameterDistribution(const ParameterDistribution& par_distr);
-
-    const DistributionHandler& getDistributionHandler() const;
-
-    //unused friend class OMPISimulation;
+    const DistributionHandler& getDistributionHandler() const { return m_distribution_handler; }
 
     void setOptions(const SimulationOptions& options) { m_options = options; }
     const SimulationOptions& getOptions() const { return m_options; }
@@ -93,20 +83,20 @@ public:
 protected:
     Simulation(const Simulation& other);
 
-    //! Initializes the vector of Simulation elements
-    virtual void initSimulationElementVector()=0;
+    virtual void initSimulationElementVector() =0;
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
-    virtual void transferResultsToIntensityMap()=0;
+    virtual void transferResultsToIntensityMap() =0;
 
-    virtual double getBeamIntensity() const=0;
+    virtual double getBeamIntensity() const =0;
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    //! Run a single simulation with the current parameter settings
     void runSingleSimulation();
+
+    virtual void updateIntensityMap() =0;
 
 #ifndef SWIG
     void normalize(std::vector<SimulationElement>::iterator begin_it,
@@ -125,6 +115,8 @@ protected:
     DistributionHandler m_distribution_handler;
     ProgressHandler m_progress;
     std::vector<SimulationElement> m_sim_elements;
+    Instrument m_instrument;
+    OutputData<double> m_intensity_map;
 
 private:
     void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);

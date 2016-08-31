@@ -84,13 +84,12 @@ public:
         return m_map[key];
     }
 
-    size_t erase(const Key& key) {
+    void erase(const Key& key) {
         if(m_map.find(key) == m_map.end())
-            return 0;
+            return;
         iterator it = m_map[key];
         m_list.erase(it);
         m_map.erase(key);
-        return 1;
     }
 
     const std::string& value(const Key& key) {

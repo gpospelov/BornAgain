@@ -496,6 +496,21 @@ clone method
 ";
 
 
+// File: classComponentParameter.xml
+%feature("docstring") ComponentParameter "
+
+Wraps a parameter of type  ISample.
+
+C++ includes: ComponentParameter.h
+";
+
+%feature("docstring")  ComponentParameter::ComponentParameter "ComponentParameter::ComponentParameter(const std::string &name, volatile ISample *par, const std::string &parent_name, const std::function< void()> &onChange)
+";
+
+%feature("docstring")  ComponentParameter::clone "ComponentParameter* ComponentParameter::clone(const std::string &new_name=\"\") const 
+";
+
+
 // File: classComputationOutcome.xml
 %feature("docstring") ComputationOutcome "
 
@@ -599,7 +614,7 @@ Constructor taking a 2 dimensional resolution function as argument.
 Convolve given intensities with the encapsulated resolution. 
 ";
 
-%feature("docstring")  ConvolutionDetectorResolution::addParametersToExternalPool "std::string ConvolutionDetectorResolution::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  ConvolutionDetectorResolution::addParametersToExternalPool "std::string ConvolutionDetectorResolution::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively call children. 
 ";
@@ -1069,7 +1084,7 @@ Returns the mean of the distribution.
 Returns the sigma parameter of the distribution. 
 ";
 
-%feature("docstring")  DistributionCosine::generateValueList "std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+%feature("docstring")  DistributionCosine::generateValueList "std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 generate list of sample values 
 ";
@@ -1122,7 +1137,7 @@ Returns the minimum value of the distribution.
 Returns the maximum value of the distribution. 
 ";
 
-%feature("docstring")  DistributionGate::generateValueList "std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+%feature("docstring")  DistributionGate::generateValueList "std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 Returns list of sample values. 
 ";
@@ -1170,7 +1185,7 @@ Returns the mean of the distribution.
 Returns the standard deviation. 
 ";
 
-%feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+%feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 generate list of sample values 
 ";
@@ -1195,7 +1210,7 @@ C++ includes: DistributionHandler.h
 %feature("docstring")  DistributionHandler::~DistributionHandler "DistributionHandler::~DistributionHandler()
 ";
 
-%feature("docstring")  DistributionHandler::addParameterDistribution "void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const Limits &limits=Limits())
+%feature("docstring")  DistributionHandler::addParameterDistribution "void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
 
 add a sampled parameter distribution 
 ";
@@ -1259,7 +1274,7 @@ Returns the median of the distribution.
 Returns the scale parameter of the distribution. 
 ";
 
-%feature("docstring")  DistributionLogNormal::generateValueList "std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+%feature("docstring")  DistributionLogNormal::generateValueList "std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 generate list of sample values 
 ";
@@ -1305,7 +1320,7 @@ Returns the mean of the distribution.
 Returns the half width at half maximum. 
 ";
 
-%feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const
+%feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 generate list of sample values 
 ";
@@ -1537,7 +1552,7 @@ Adds fit parameter.
 Adds fit parameter, step is calculated from initial parameter value. 
 ";
 
-%feature("docstring")  FitKernel::addFitParameter "void FitKernel::addFitParameter(const std::string &name, double value, const Limits &lim, const Attributes &attr, double step=0.0, double error=0.0)
+%feature("docstring")  FitKernel::addFitParameter "void FitKernel::addFitParameter(const std::string &name, double value, const RealLimits &lim, const Attributes &attr, double step=0.0, double error=0.0)
 
 Adds fit parameter.
 
@@ -1701,7 +1716,7 @@ Runs simulation and put results (the real and simulated intensities) into extern
 Creates ChiSquared map from external vector. 
 ";
 
-%feature("docstring")  FitObject::addParametersToExternalPool "std::string FitObject::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  FitObject::addParametersToExternalPool "std::string FitObject::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children.
 
@@ -1747,7 +1762,7 @@ C++ includes: FitParameterLinked.h
 %feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked()
 ";
 
-%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const Limits &lim=Limits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
+%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
 ";
 
 %feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
@@ -1951,7 +1966,7 @@ Assigns pair of (simulation, real data) for fitting. More than one pair can be a
 Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
 ";
 
-%feature("docstring")  FitSuite::addFitParameter "void FitSuite::addFitParameter(const std::string &name, double value, const Limits &lim=Limits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
+%feature("docstring")  FitSuite::addFitParameter "void FitSuite::addFitParameter(const std::string &name, double value, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
 
 Adds fit parameter
 
@@ -2197,7 +2212,7 @@ evaluate residual and derivative for given data element
 // File: classFitSuiteObjects.xml
 %feature("docstring") FitSuiteObjects "
 
-The class containing vector of  FitObject (simulation and real data) to fit.
+Holds vector of  FitObject's (simulation and real data) to fit
 
 C++ includes: FitSuiteObjects.h
 ";
@@ -2286,7 +2301,7 @@ global_index:
 index accross all element in  FitElement vector 
 ";
 
-%feature("docstring")  FitSuiteObjects::addParametersToExternalPool "std::string FitSuiteObjects::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  FitSuiteObjects::addParametersToExternalPool "std::string FitSuiteObjects::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and call recursion over direct children.
 
@@ -4828,19 +4843,6 @@ Returns clone of the detector intensity map with detector resolution applied.
 Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. 
 ";
 
-%feature("docstring")  GISASSimulation::setInstrument "void GISASSimulation::setInstrument(const Instrument &instrument)
-
-Sets the instrument containing beam and detector information. 
-";
-
-%feature("docstring")  GISASSimulation::getInstrument "const Instrument& GISASSimulation::getInstrument() const
-
-Returns the instrument containing beam and detector information. 
-";
-
-%feature("docstring")  GISASSimulation::getInstrument "Instrument& GISASSimulation::getInstrument()
-";
-
 %feature("docstring")  GISASSimulation::setBeamParameters "void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 
 Sets beam parameters from here (forwarded to  Instrument) 
@@ -4934,7 +4936,7 @@ The value of mask
 Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
 ";
 
-%feature("docstring")  GISASSimulation::addParametersToExternalPool "std::string GISASSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
+%feature("docstring")  GISASSimulation::addParametersToExternalPool "std::string GISASSimulation::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -5610,7 +5612,7 @@ Returns a vector of children (const).
 Returns number of children. 
 ";
 
-%feature("docstring")  ICompositeSample::addParametersToExternalPool "std::string ICompositeSample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  ICompositeSample::addParametersToExternalPool "std::string ICompositeSample::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -5743,7 +5745,7 @@ Create a vector of  SimulationElement objects according to the detector and its 
 create single simulation element 
 ";
 
-%feature("docstring")  IDetector2D::addParametersToExternalPool "std::string IDetector2D::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  IDetector2D::addParametersToExternalPool "std::string IDetector2D::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -5816,7 +5818,7 @@ get the probability density for value x
 get the mean of the distribution 
 ";
 
-%feature("docstring")  IDistribution1D::generateSamples "std::vector< ParameterSample > IDistribution1D::generateSamples(size_t nbr_samples, double sigma_factor=0.0, const Limits &limits=Limits()) const
+%feature("docstring")  IDistribution1D::generateSamples "std::vector< ParameterSample > IDistribution1D::generateSamples(size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits()) const
 
 generate list of sampled values with their weight xmin, xmax for sample generations are deduced from sigma_factor and possible limits 
 ";
@@ -5826,7 +5828,7 @@ generate list of sampled values with their weight xmin, xmax for sample generati
 generate list of sampled values with their weight within given xmin, xmax 
 ";
 
-%feature("docstring")  IDistribution1D::generateValueList "virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const Limits &limits=Limits()) const =0
+%feature("docstring")  IDistribution1D::generateValueList "virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
 
 generate list of sample values
 
@@ -7058,7 +7060,7 @@ Returns clone of the intensity map with detector resolution applied, axes of map
 Create a vector of  SimulationElement objects according to the beam, detector and its mask. 
 ";
 
-%feature("docstring")  Instrument::addParametersToExternalPool "std::string Instrument::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  Instrument::addParametersToExternalPool "std::string Instrument::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -7345,7 +7347,7 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DLattice::getLatticeParameters "Lattice2DParameters InterferenceFunction2DLattice::getLatticeParameters() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::addParametersToExternalPool "std::string InterferenceFunction2DLattice::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
+%feature("docstring")  InterferenceFunction2DLattice::addParametersToExternalPool "std::string InterferenceFunction2DLattice::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -7454,7 +7456,7 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DParaCrystal::getLatticeParameters "Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::addParametersToExternalPool "std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
+%feature("docstring")  InterferenceFunction2DParaCrystal::addParametersToExternalPool "std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children.
 
@@ -7627,6 +7629,35 @@ C++ includes: OutputDataWriteStrategy.h
 ";
 
 
+// File: classIParameter.xml
+%feature("docstring") IParameter "
+
+Pure virtual base class for parameter wrapper classes  RealParameter,  ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
+
+C++ includes: IParameter.h
+";
+
+%feature("docstring")  IParameter::IParameter "IParameter< T >::IParameter()=delete
+";
+
+%feature("docstring")  IParameter::IParameter "IParameter< T >::IParameter(const std::string &name, volatile T *data, const std::string &parent_name, const std::function< void()> &onChange)
+";
+
+%feature("docstring")  IParameter::clone "virtual IParameter* IParameter< T >::clone(const std::string &new_name=\"\") const =0
+";
+
+%feature("docstring")  IParameter::isNull "virtual bool IParameter< T >::isNull() const
+
+Returns true if wrapped parameter was not initialized with proper real value. 
+";
+
+%feature("docstring")  IParameter::getData "volatile T& IParameter< T >::getData() const 
+";
+
+%feature("docstring")  IParameter::setData "void IParameter< T >::setData(volatile T &data)
+";
+
+
 // File: classIParameterized.xml
 %feature("docstring") IParameterized "
 
@@ -7668,7 +7699,7 @@ Creates new parameter pool, with all local parameters and those of its children.
 Returns parameter with given 'name'. 
 ";
 
-%feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children.
 
@@ -8440,7 +8471,7 @@ C++ includes: SampleTreeIterator.h
 %feature("docstring")  LabelMap::find "iterator LabelMap< Key >::find(const Key &key)
 ";
 
-%feature("docstring")  LabelMap::erase "size_t LabelMap< Key >::erase(const Key &key)
+%feature("docstring")  LabelMap::erase "void LabelMap< Key >::erase(const Key &key)
 ";
 
 %feature("docstring")  LabelMap::value "const std::string& LabelMap< Key >::value(const Key &key)
@@ -8698,9 +8729,9 @@ C++ includes: LayerInterface.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  LayerInterface::accept "void LayerInterface::accept(ISampleVisitor *visitor) const
+%feature("docstring")  LayerInterface::accept "virtual void LayerInterface::accept(ISampleVisitor *visitor) const
 
-calls the  ISampleVisitor's visit method 
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  LayerInterface::setLayerTop "void LayerInterface::setLayerTop(const Layer *p_layer_top)
@@ -9547,16 +9578,6 @@ Returns clone of the detector intensity map.
 Returns clone of the detector intensity map in the form of 2D histogram. 
 ";
 
-%feature("docstring")  OffSpecSimulation::setInstrument "void OffSpecSimulation::setInstrument(const Instrument &instrument)
-
-Sets the instrument containing beam and detector information. 
-";
-
-%feature("docstring")  OffSpecSimulation::getInstrument "const Instrument& OffSpecSimulation::getInstrument() const
-
-Returns the instrument containing beam and detector information. 
-";
-
 %feature("docstring")  OffSpecSimulation::setBeamParameters "void OffSpecSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i)
 
 Sets beam parameters from here (forwarded to  Instrument) 
@@ -9597,7 +9618,7 @@ Removes detector resolution function.
 Sets the polarization analyzer characteristics of the detector. 
 ";
 
-%feature("docstring")  OffSpecSimulation::addParametersToExternalPool "std::string OffSpecSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const final
+%feature("docstring")  OffSpecSimulation::addParametersToExternalPool "std::string OffSpecSimulation::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -10116,7 +10137,7 @@ Sets concrete writing strategy.
 // File: classParameterDistribution.xml
 %feature("docstring") ParameterDistribution "";
 
-%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const Limits &limits=Limits())
+%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
 ";
 
 %feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double xmin, double xmax)
@@ -10159,7 +10180,7 @@ generate list of sampled values with their weight
 get list of linked parameter names 
 ";
 
-%feature("docstring")  ParameterDistribution::getLimits "Limits ParameterDistribution::getLimits() const 
+%feature("docstring")  ParameterDistribution::getLimits "RealLimits ParameterDistribution::getLimits() const 
 ";
 
 %feature("docstring")  ParameterDistribution::getMinValue "double ParameterDistribution::getMinValue() const 
@@ -10956,20 +10977,12 @@ C++ includes: ParaCrystalBuilder.h
 // File: classRealParameter.xml
 %feature("docstring") RealParameter "
 
-Wrapper to real parameter for remote access to its value and callback abilities
+Wraps a parameter of type double. In addition to name and on-change callback held by the parent class  IParameter, this class holds Limits, Attributes (currently only fixed or not), and a  Unit.
 
 C++ includes: RealParameter.h
 ";
 
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, ParameterPool *parent, volatile double *par, const Limits &limits=Limits::limitless(), const Attributes &attr=Attributes::free())
-";
-
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const RealParameter &other)
-";
-
-%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, const RealParameter &other)
-
-This constructor takes copies 'other' except for the name. 
+%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, volatile double *par, const std::string &parent_name, const std::function< void()> &onChange, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 ";
 
 %feature("docstring")  RealParameter::clone "RealParameter * RealParameter::clone(const std::string &new_name=\"\") const 
@@ -10985,23 +10998,10 @@ Sets value of wrapped parameter and emit signal.
 Returns value of wrapped parameter. 
 ";
 
-%feature("docstring")  RealParameter::setUnit "RealParameter& RealParameter::setUnit(const std::string &name)
+%feature("docstring")  RealParameter::setLimits "RealParameter& RealParameter::setLimits(const RealLimits &limits)
 ";
 
-%feature("docstring")  RealParameter::isNull "bool RealParameter::isNull() const
-
-Returns true if wrapped parameter was not initialized with proper real value. 
-";
-
-%feature("docstring")  RealParameter::checkNull "void RealParameter::checkNull() const
-
-throw exception if parameter was not initialized with proper value 
-";
-
-%feature("docstring")  RealParameter::setLimits "RealParameter& RealParameter::setLimits(const Limits &limits)
-";
-
-%feature("docstring")  RealParameter::getLimits "Limits RealParameter::getLimits() const 
+%feature("docstring")  RealParameter::getLimits "RealLimits RealParameter::getLimits() const 
 ";
 
 %feature("docstring")  RealParameter::setLimited "RealParameter & RealParameter::setLimited(double lower, double upper)
@@ -11011,6 +11011,9 @@ throw exception if parameter was not initialized with proper value
 ";
 
 %feature("docstring")  RealParameter::setNonnegative "RealParameter & RealParameter::setNonnegative()
+";
+
+%feature("docstring")  RealParameter::setUnit "RealParameter& RealParameter::setUnit(const std::string &name)
 ";
 
 %feature("docstring")  RealParameter::unit "std::string RealParameter::unit() const 
@@ -11129,7 +11132,7 @@ Inits detector with the beam settings.
 %feature("docstring")  RectangularDetector::setDirectBeamPosition "void RectangularDetector::setDirectBeamPosition(double u0, double v0)
 ";
 
-%feature("docstring")  RectangularDetector::addParametersToExternalPool "std::string RectangularDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  RectangularDetector::addParametersToExternalPool "std::string RectangularDetector::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -11824,7 +11827,7 @@ C++ includes: ISelectionRule.h
 // File: classSimulation.xml
 %feature("docstring") Simulation "
 
-Main class to run the simulation, base class for OffSpecularSimulation and  GISASSimulation.
+Pure virtual base class of OffSpecularSimulation and  GISASSimulation, holds common infrastructure to run a simulation.
 
 C++ includes: Simulation.h
 ";
@@ -11856,33 +11859,30 @@ Run a simulation, possibly averaged over parameter distributions.
 Run simulation with possible averaging over parameter distributions. 
 ";
 
-%feature("docstring")  Simulation::setSample "void Simulation::setSample(const MultiLayer &sample)
-
-Run an OpenMPI simulation.
-
-The  MultiLayer object will not be owned by the  Simulation object.
-
-Sets the sample to be tested 
+%feature("docstring")  Simulation::setInstrument "void Simulation::setInstrument(const Instrument &instrument)
 ";
 
-%feature("docstring")  Simulation::getSample "MultiLayer* Simulation::getSample() const
+%feature("docstring")  Simulation::getInstrument "const Instrument& Simulation::getInstrument() const 
+";
 
-Returns the sample. 
+%feature("docstring")  Simulation::getInstrument "Instrument& Simulation::getInstrument()
+";
+
+%feature("docstring")  Simulation::setSample "void Simulation::setSample(const MultiLayer &sample)
+
+The  MultiLayer object will not be owned by the  Simulation object. 
+";
+
+%feature("docstring")  Simulation::getSample "MultiLayer* Simulation::getSample() const 
 ";
 
 %feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
-
-Sets the sample builder. 
 ";
 
-%feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const
-
-return sample builder 
+%feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const 
 ";
 
 %feature("docstring")  Simulation::getNumberOfSimulationElements "virtual int Simulation::getNumberOfSimulationElements() const =0
-
-Gets the number of elements this simulation needs to calculate. 
 ";
 
 %feature("docstring")  Simulation::getDetectorIntensity "virtual OutputData<double>* Simulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const =0
@@ -11890,22 +11890,18 @@ Gets the number of elements this simulation needs to calculate.
 Clone simulated intensity map. 
 ";
 
-%feature("docstring")  Simulation::addParametersToExternalPool "std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  Simulation::addSimulationParametersToExternalPool "std::string Simulation::addSimulationParametersToExternalPool(const std::string &path, ParameterPool *external_pool) const
 
-Adds parameters from local to external pool, and call recursion over direct children. 
+Adds parameters defined in this class the to external pool. 
 ";
 
-%feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const Limits &limits=Limits())
-
-add a sampled parameter distribution 
+%feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
 ";
 
 %feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
-
-add a sampled parameter distribution 
 ";
 
-%feature("docstring")  Simulation::getDistributionHandler "const DistributionHandler & Simulation::getDistributionHandler() const 
+%feature("docstring")  Simulation::getDistributionHandler "const DistributionHandler& Simulation::getDistributionHandler() const 
 ";
 
 %feature("docstring")  Simulation::setOptions "void Simulation::setOptions(const SimulationOptions &options)
@@ -12275,7 +12271,7 @@ Put into a clean state for running a simulation.
 // File: classSphericalDetector.xml
 %feature("docstring") SphericalDetector "
 
-A spherical detector with axes and resolution function.
+A spherical detector with axes and resolution function.  SphericalDetector
 
 C++ includes: SphericalDetector.h
 ";
@@ -12318,7 +12314,7 @@ upper edge of last alpha-bin
 %feature("docstring")  SphericalDetector::~SphericalDetector "virtual SphericalDetector::~SphericalDetector()
 ";
 
-%feature("docstring")  SphericalDetector::addParametersToExternalPool "std::string SphericalDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  SphericalDetector::addParametersToExternalPool "std::string SphericalDetector::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -12496,7 +12492,7 @@ C++ includes: Utils.h
 // File: classStringUsageMap.xml
 %feature("docstring") StringUsageMap "
 
-Control how often a string is used.
+Counts how often a string is used.
 
 C++ includes: StringUsageMap.h
 ";
@@ -12866,7 +12862,7 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D302.xml
 
 
-// File: namespace_0D422.xml
+// File: namespace_0D425.xml
 
 
 // File: namespace_0D55.xml
@@ -14304,6 +14300,12 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: SpecularMatrix_8h.xml
 
 
+// File: ComponentParameter_8cpp.xml
+
+
+// File: ComponentParameter_8h.xml
+
+
 // File: DistributionHandler_8cpp.xml
 
 
@@ -14314,6 +14316,9 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: Distributions_8h.xml
+
+
+// File: IParameter_8h.xml
 
 
 // File: IParameterized_8cpp.xml

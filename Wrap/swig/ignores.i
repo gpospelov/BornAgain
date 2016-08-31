@@ -43,10 +43,10 @@
 // need this to play nicely with ctypes
 //%ignore IMultiLayerBuilder::registerParameter(const std::string&, double*, const Limits&);
 //%ignore IMultiLayerBuilder::registerParameter(const std::string&, double*);
-%ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool*, int) const;
-%ignore IParameterized::addParametersToExternalPool(std::string, ParameterPool*) const;
-%ignore IMultiLayerBuilder::addParametersToExternalPool(std::string, ParameterPool*, int) const;
-%ignore IMultiLayerBuilder::addParametersToExternalPool(std::string, ParameterPool*) const;
+%ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
+%ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*) const;
+%ignore IMultiLayerBuilder::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
+%ignore IMultiLayerBuilder::addParametersToExternalPool(const std::string&, ParameterPool*) const;
 
 // ignored to avoid error (todo: check whether this is really necessary)
 %ignore Crystal::getTransformedLattice(const IRotation*) const;

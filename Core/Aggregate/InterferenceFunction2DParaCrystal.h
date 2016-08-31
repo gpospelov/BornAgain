@@ -67,8 +67,8 @@ public:
 
     Lattice2DParameters getLatticeParameters() const { return m_lattice_params; }
 
-    std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                            int copy_number = -1) const final;
+    std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
 
     double getParticleDensity() const final;
 

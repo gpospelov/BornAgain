@@ -20,11 +20,10 @@
 
 class IChiSquaredModule;
 
-//! @class FitSuiteObjects
+//! Holds vector of FitObject's (simulation and real data) to fit
 //! @ingroup fitting_internal
-//! @brief The class containing vector of FitObject (simulation and real data) to fit
 
-class BA_CORE_API_ FitSuiteObjects : public IParameterized
+class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
 {
  public:
     typedef SafePointerVector<FitObject> FitObjects_t;
@@ -69,7 +68,7 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
 
     //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(
-        std::string path, ParameterPool* external_pool, int copy_number=-1) const;
+        const std::string& path, ParameterPool* external_pool, int copy_number=-1) const;
 
     void setNfreeParameters(int nfree_parameters) { m_nfree_parameters = nfree_parameters; }
 
@@ -83,10 +82,6 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized
     double calculateChiSquaredValue();
 
  private:
-    //! disabled copy constructor and assignment operator
-    FitSuiteObjects& operator=(const FitSuiteObjects&);
-    FitSuiteObjects(const FitSuiteObjects&);
-
     inline size_t check_index(size_t index) const;
 
     FitObjects_t m_fit_objects;

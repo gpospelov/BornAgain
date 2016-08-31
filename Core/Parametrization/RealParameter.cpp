@@ -14,71 +14,46 @@
 // ************************************************************************** //
 
 #include "RealParameter.h"
-#include <stdexcept>
-#include "ParameterPool.h"
 #include <sstream>
 
-RealParameter::RealParameter(const std::string& name, ParameterPool* parent,
-                             volatile double* par, const RealLimits& limits, const Attributes& attr)
-    : INamed(name)
-    , m_parent(parent)
-    , m_data(par)
+RealParameter::RealParameter(
+    const std::string& name, volatile double* par,
+    const std::string& parent_name, const std::function<void()>& onChange,
+    const RealLimits& limits, const Attributes& attr)
+    : IParameter<double>(name, par, parent_name, onChange)
     , m_limits(limits)
     , m_attr(attr)
 {
-    if(par && !m_limits.isInRange(getValue())) {
+    if(!m_limits.isInRange(getValue())) {
         std::ostringstream message;
-        message << "Parameter " << fullName() << " has invalid initial value " << getValue()
+        message << "Cannot initialize parameter " << fullName() << " with value " << getValue()
                 << ": out of bounds [" << limits << "]\n";
         throw std::runtime_error(message.str());
     }
 }
 
-RealParameter::RealParameter(const RealParameter& other )
-    : RealParameter( other.getName(), other.m_parent, other.m_data, other.m_limits )
-{
-    setUnit(other.unit());
-}
-
-//! This constructor takes copies 'other' except for the name.
-RealParameter::RealParameter(const std::string& name, const RealParameter& other)
-    : RealParameter( name, other.m_parent, other.m_data, other.m_limits )
-{
-    setUnit(other.unit());
-}
-
 RealParameter* RealParameter::clone(const std::string& new_name) const
 {
     auto* ret = new RealParameter(
-        new_name!="" ? new_name : getName(), m_parent, m_data, m_limits );
+        new_name!="" ? new_name : getName(), m_data, m_parent_name, m_onChange, m_limits );
     ret->setUnit(unit());
     return ret;
 }
 
-
-//! throw exception if parameter was not initialized with proper value
-void RealParameter::checkNull() const
-{
-    if(isNull())
-        throw std::runtime_error(
-            "Bug in RealParameter::getValue() -> Attempt to access uninitialised pointer.");
-}
-
 void RealParameter::setValue(double value)
 {
-    checkNull();
     if(value == *m_data)
         return; // nothing to do
     if(!m_limits.isInRange(value)) {
         std::ostringstream message;
-        message << "Parameter " << fullName() << " has invalid value " << getValue()
+        message << "Cannot set parameter " << fullName() << " to value " << value
                 << ": out of bounds [" << m_limits << "]\n";
         throw std::runtime_error(message.str());
     }
     if(m_attr.isFixed())
         throw std::runtime_error("Parameter "+fullName()+" is fixed");
     *m_data = value;
-    m_parent->onChange();
+    m_onChange();
 }
 
 RealParameter& RealParameter::setLimited(double lower, double upper)
@@ -97,9 +72,4 @@ RealParameter& RealParameter::setNonnegative()
 {
     setLimits( RealLimits::nonnegative() );
     return *this;
-}
-
-std::string RealParameter::fullName()
-{
-    return m_parent->getName() + "/" + getName();
 }

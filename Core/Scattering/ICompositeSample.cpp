@@ -61,9 +61,8 @@ std::vector<const ISample*> ICompositeSample::getChildren() const
     return result;
 }
 
-std::string ICompositeSample::addParametersToExternalPool(std::string path,
-                                                          ParameterPool* external_pool,
-                                                          int copy_number) const
+std::string ICompositeSample::addParametersToExternalPool(
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     std::string new_path
         = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);

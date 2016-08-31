@@ -31,12 +31,11 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
 }
 
 FitObject::~FitObject()
-{
-}
+{}
 
 //! Adds parameters from local pool to external pool
 std::string FitObject::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
     std::string new_path = IParameterized::addParametersToExternalPool(
@@ -53,11 +52,9 @@ std::string FitObject::addParametersToExternalPool(
 void FitObject::init_dataset()
 {
     if(!same_dimensions_dataset()) {
-        if(m_adjust_detector_to_data && is_possible_to_adjust_simulation()) {
-            m_simulation->setDetectorParameters(*m_real_data);
-        } else {
+        if(!(m_adjust_detector_to_data && is_possible_to_adjust_simulation()))
             throw Exceptions::LogicErrorException(get_error_message());
-        }
+        m_simulation->setDetectorParameters(*m_real_data);
     }
     m_chi2_data->copyShapeFrom(*m_real_data);
 }

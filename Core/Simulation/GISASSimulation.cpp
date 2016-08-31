@@ -37,6 +37,12 @@ GISASSimulation::GISASSimulation(std::shared_ptr<IMultiLayerBuilder> p_sample_bu
     initialize();
 }
 
+GISASSimulation::GISASSimulation(const GISASSimulation& other)
+    : Simulation(other)
+{
+    initialize();
+}
+
 void GISASSimulation::prepareSimulation()
 {
     if (m_instrument.getDetectorDimension() != 2)
@@ -68,12 +74,6 @@ Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_typ
 {
     const std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));
     return new Histogram2D(*data);
-}
-
-void GISASSimulation::setInstrument(const Instrument& instrument)
-{
-    m_instrument = instrument;
-    updateIntensityMap();
 }
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
@@ -140,24 +140,16 @@ void GISASSimulation::setAnalyzerProperties(
 }
 
 std::string GISASSimulation::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+    const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
-    std::string  new_path =
-        IParameterized::addParametersToExternalPool(
+    std::string new_path = IParameterized::addParametersToExternalPool(
             path, external_pool, copy_number);
 
     // add parameters of the instrument
     m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
-    if (mp_sample_builder) {
-       // add parameters of the sample builder
-        mp_sample_builder->addParametersToExternalPool(
-            new_path, external_pool, -1);
-    } else if (mP_sample) {
-        // add parameters of the existing sample
-        mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
-    }
+    new_path = addSimulationParametersToExternalPool(new_path, external_pool);
 
     return new_path;
 }
@@ -178,15 +170,6 @@ void GISASSimulation::maskAll()
 }
 
 // *** protected ***
-
-GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation(other)
-    , m_instrument(other.m_instrument)
-    , m_intensity_map()
-{
-    m_intensity_map.copyFrom(other.m_intensity_map);
-    initialize();
-}
 
 void GISASSimulation::initSimulationElementVector()
 {

@@ -193,7 +193,7 @@ C++ includes: FitParameter.h
 %feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter()
 ";
 
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const Limits &limits=Limits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
+%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
 ";
 
 %feature("docstring")  FitParameter::~FitParameter "virtual FitParameter::~FitParameter()
@@ -450,78 +450,6 @@ C++ includes: MinimizerLibrary.h
 ";
 
 %feature("docstring")  MinimizerLibrary::InfoItem::getDescription "std::string MinimizerLibrary::InfoItem::getDescription() const 
-";
-
-
-// File: classLimits.xml
-%feature("docstring") Limits "
-
-Limits for a fit parameter.
-
-C++ includes: Limits.h
-";
-
-%feature("docstring")  Limits::Limits "Limits::Limits()
-";
-
-%feature("docstring")  Limits::hasLowerLimit "bool Limits::hasLowerLimit() const
-
-if has lower limit 
-";
-
-%feature("docstring")  Limits::getLowerLimit "double Limits::getLowerLimit() const
-
-Returns lower limit. 
-";
-
-%feature("docstring")  Limits::setLowerLimit "void Limits::setLowerLimit(double value)
-
-Sets lower limit. 
-";
-
-%feature("docstring")  Limits::removeLowerLimit "void Limits::removeLowerLimit()
-
-remove lower limit 
-";
-
-%feature("docstring")  Limits::hasUpperLimit "bool Limits::hasUpperLimit() const
-
-if has upper limit 
-";
-
-%feature("docstring")  Limits::getUpperLimit "double Limits::getUpperLimit() const
-
-Returns upper limit. 
-";
-
-%feature("docstring")  Limits::setUpperLimit "void Limits::setUpperLimit(double value)
-
-Sets upper limit. 
-";
-
-%feature("docstring")  Limits::removeUpperLimit "void Limits::removeUpperLimit()
-
-remove upper limit 
-";
-
-%feature("docstring")  Limits::hasLowerAndUpperLimits "bool Limits::hasLowerAndUpperLimits() const
-
-if has lower and upper limit 
-";
-
-%feature("docstring")  Limits::setLimits "void Limits::setLimits(double xmin, double xmax)
-
-Sets lower and upper limits. 
-";
-
-%feature("docstring")  Limits::removeLimits "void Limits::removeLimits()
-
-remove limits 
-";
-
-%feature("docstring")  Limits::isInRange "bool Limits::isInRange(double value) const
-
-returns true if proposed value is in limits range 
 ";
 
 
@@ -807,6 +735,78 @@ Sets minimizer internal print level. Default value is 0 (silent).
 ";
 
 %feature("docstring")  Minuit2Minimizer::printLevel "int Minuit2Minimizer::printLevel() const 
+";
+
+
+// File: classRealLimits.xml
+%feature("docstring") RealLimits "
+
+Limits for a real fit parameter.
+
+C++ includes: RealLimits.h
+";
+
+%feature("docstring")  RealLimits::RealLimits "RealLimits::RealLimits()
+";
+
+%feature("docstring")  RealLimits::hasLowerLimit "bool RealLimits::hasLowerLimit() const
+
+if has lower limit 
+";
+
+%feature("docstring")  RealLimits::getLowerLimit "double RealLimits::getLowerLimit() const
+
+Returns lower limit. 
+";
+
+%feature("docstring")  RealLimits::setLowerLimit "void RealLimits::setLowerLimit(double value)
+
+Sets lower limit. 
+";
+
+%feature("docstring")  RealLimits::removeLowerLimit "void RealLimits::removeLowerLimit()
+
+remove lower limit 
+";
+
+%feature("docstring")  RealLimits::hasUpperLimit "bool RealLimits::hasUpperLimit() const
+
+if has upper limit 
+";
+
+%feature("docstring")  RealLimits::getUpperLimit "double RealLimits::getUpperLimit() const
+
+Returns upper limit. 
+";
+
+%feature("docstring")  RealLimits::setUpperLimit "void RealLimits::setUpperLimit(double value)
+
+Sets upper limit. 
+";
+
+%feature("docstring")  RealLimits::removeUpperLimit "void RealLimits::removeUpperLimit()
+
+remove upper limit 
+";
+
+%feature("docstring")  RealLimits::hasLowerAndUpperLimits "bool RealLimits::hasLowerAndUpperLimits() const
+
+if has lower and upper limit 
+";
+
+%feature("docstring")  RealLimits::setLimits "void RealLimits::setLimits(double xmin, double xmax)
+
+Sets lower and upper limits. 
+";
+
+%feature("docstring")  RealLimits::removeLimits "void RealLimits::removeLimits()
+
+remove limits 
+";
+
+%feature("docstring")  RealLimits::isInRange "bool RealLimits::isInRange(double value) const
+
+returns true if proposed value is in limits range 
 ";
 
 
@@ -1246,10 +1246,10 @@ Returns string right-padded with blanks.
 // File: FitSuiteParameters_8h.xml
 
 
-// File: Limits_8cpp.xml
+// File: RealLimits_8cpp.xml
 
 
-// File: Limits_8h.xml
+// File: RealLimits_8h.xml
 
 
 // File: ROOTGeneticMinimizer_8cpp.xml

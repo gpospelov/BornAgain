@@ -118,8 +118,8 @@ public:
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool* external_pool,
-                                                    int copy_number = -1) const;
+    virtual std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
     //! Returns detector map in given axes units
     virtual OutputData<double>* createDetectorMap(const Beam&, EAxesUnits) const;
@@ -129,7 +129,6 @@ public:
 
     //! return default axes units
     virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
-
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index

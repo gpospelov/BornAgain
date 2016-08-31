@@ -60,10 +60,10 @@ TEST_F(LabelMapTest, LabelMapErase)
 
     EXPECT_EQ(size_t(3), omap.size());
 
-    EXPECT_EQ(omap.erase("ddd"), size_t(0));
+    omap.erase("ddd");
     EXPECT_EQ(size_t(3), omap.size());
 
-    EXPECT_EQ(omap.erase("bbb"), size_t(1));
+    omap.erase("bbb");
     EXPECT_EQ(size_t(2), omap.size());
 
     keys = {"ccc", "aaa"};
@@ -75,8 +75,8 @@ TEST_F(LabelMapTest, LabelMapErase)
         npos++;
     }
 
-    EXPECT_EQ(omap.erase("ccc"), size_t(1));
-    EXPECT_EQ(omap.erase("aaa"), size_t(1));
+    omap.erase("ccc");
+    omap.erase("aaa");
     EXPECT_EQ(size_t(0), omap.size());
 
     omap.insert("ddd", "99.0");

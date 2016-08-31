@@ -44,7 +44,7 @@ double FormFactorLorentz::getRadialExtension() const
 
 complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
 {
-    static const double sigma2 = 4.0*std::pow(Pi::PI, 2.0/3.0);
+    static const double sigma2 = 4.0*std::pow(M_PI, 2.0/3.0);
     double R = m_width;
     double H = m_height;
 

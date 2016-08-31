@@ -19,7 +19,7 @@ protected:
 
 TEST_F(BeamTest, BeamInitialState)
 {
-    EXPECT_DOUBLE_EQ(2.0 * Pi::PI, m_empty_beam.getCentralK()[0]);
+    EXPECT_DOUBLE_EQ(2.0 * M_PI, m_empty_beam.getCentralK()[0]);
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[1]);
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[2]);
     EXPECT_EQ(0.0, m_empty_beam.getIntensity());

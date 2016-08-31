@@ -63,7 +63,7 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(
     Lattice2DParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
     lattice_params.m_length_2 = lattice_length;
-    lattice_params.m_angle = Pi::PI / 2.0;
+    lattice_params.m_angle = M_PI / 2.0;
     lattice_params.m_xi = xi;
     return new InterferenceFunction2DLattice(lattice_params);
 }
@@ -74,7 +74,7 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
     Lattice2DParameters lattice_params;
     lattice_params.m_length_1 = lattice_length;
     lattice_params.m_length_2 = lattice_length;
-    lattice_params.m_angle = 2.0 * Pi::PI / 3.0;
+    lattice_params.m_angle = 2.0 * M_PI / 3.0;
     lattice_params.m_xi = xi;
     return new InterferenceFunction2DLattice(lattice_params);
 }
@@ -158,9 +158,9 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
     double b = m_lattice_params.m_length_2;
     double xi = m_lattice_params.m_xi;
     double xialpha = xi + m_lattice_params.m_angle;
-    int qa_int = boost::math::iround(a * (qx * std::cos(xi) + qy * std::sin(xi)) / Pi::PI2);
+    int qa_int = boost::math::iround(a * (qx * std::cos(xi) + qy * std::sin(xi)) / M_TWOPI);
     int qb_int
-        = boost::math::iround(b * (qx * std::cos(xialpha) + qy * std::sin(xialpha)) / Pi::PI2);
+        = boost::math::iround(b * (qx * std::cos(xialpha) + qy * std::sin(xialpha)) / M_TWOPI);
     qx_frac = qx - qa_int * m_asx - qb_int * m_bsx;
     qy_frac = qy - qa_int * m_asy - qb_int * m_bsy;
 }
@@ -190,8 +190,8 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
             "initialize_rec_vectors() -> Error! Zero parameters"
             " m_lattice_params.m_length1 or m_lattice_params.m_length_2");
     double sinalpha = std::sin(m_lattice_params.m_angle);
-    double ainv = Pi::PI2 / m_lattice_params.m_length_1 / sinalpha;
-    double binv = Pi::PI2 / m_lattice_params.m_length_2 / sinalpha;
+    double ainv = M_TWOPI / m_lattice_params.m_length_1 / sinalpha;
+    double binv = M_TWOPI / m_lattice_params.m_length_2 / sinalpha;
     double xi = m_lattice_params.m_xi;
     double xialpha = xi + m_lattice_params.m_angle;
     m_asx = +ainv * std::sin(xialpha);

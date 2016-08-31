@@ -94,7 +94,7 @@ void SimulationElement::initPolarization()
 
 double SimulationElement::getAlpha(double x, double y) const
 {
-    return Pi::PID2 - getK(x,y).theta();
+    return M_PI_2 - getK(x,y).theta();
 }
 
 double SimulationElement::getPhi(double x, double y) const

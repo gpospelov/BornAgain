@@ -182,12 +182,12 @@ std::string printDegrees(double input)
 
 bool isSquare(double length1, double length2, double angle)
 {
-    return length1==length2 && Numeric::areAlmostEqual(angle, Pi::PID2);
+    return length1==length2 && Numeric::areAlmostEqual(angle, M_PI_2);
 }
 
 bool isHexagonal(double length1, double length2, double angle)
 {
-    return length1==length2 && Numeric::areAlmostEqual(angle, Pi::PI2/3.0);
+    return length1==length2 && Numeric::areAlmostEqual(angle, M_TWOPI/3.0);
 }
 
 std::string printKvector(const kvector_t value)

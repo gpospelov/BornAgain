@@ -29,7 +29,7 @@ FormFactorGauss::FormFactorGauss(double width, double height)
     setName(BornAgain::FFGaussType);
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    m_max_ql = std::sqrt(-4 * Pi::PI * std::log(std::numeric_limits<double>::min()) / 3);}
+    m_max_ql = std::sqrt(-4 * M_PI * std::log(std::numeric_limits<double>::min()) / 3);}
 
 complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
 {
@@ -45,5 +45,5 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
         return 0.0;
 
     return exp_I(qzHdiv2) * m_height * m_width * m_width *
-        std::exp(-(qxr*qxr + qyr*qyr + qzh*qzh) / 4.0 / Pi::PI);
+        std::exp(-(qxr*qxr + qyr*qyr + qzh*qzh) / 4.0 / M_PI);
 }

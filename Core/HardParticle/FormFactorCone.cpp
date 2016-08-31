@@ -42,7 +42,7 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     }
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., Pi::PID2);
+    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
 
     mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);
 }
@@ -64,10 +64,10 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
         double tga = std::tan(m_alpha);
         double HdivRtga = H/tga/R; // TODO preclude division by zero WAITING fuller refactoring
 
-        return  Pi::PI/3.0*tga*R*R*R*
+        return  M_PI/3.0*tga*R*R*R*
                 (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
     } else {
         complex_t integral = mP_integrator->integrate(0., m_height);
-        return Pi::PI2*integral;
+        return M_TWOPI*integral;
     }
 }

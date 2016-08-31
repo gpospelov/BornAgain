@@ -36,13 +36,13 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis = { 0, 1 };
 #endif
-        ret = 4*Pi::PI/3*pow(R,3) * ( 1. - 0.1*pow(qR,2) );
+        ret = 4*M_PI/3*pow(R,3) * ( 1. - 0.1*pow(qR,2) );
     }
     else {
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis = { 0, 0 };
 #endif
-        ret = 4*Pi::PI*pow(q1,-3)*(sin(qR) - qR*cos(qR));
+        ret = 4*M_PI*pow(q1,-3)*(sin(qR) - qR*cos(qR));
     }
 
     return exp_I(q.z()*R) * ret;

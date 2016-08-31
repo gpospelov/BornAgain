@@ -36,8 +36,8 @@ void IFTDistribution2D::init_parameters()
         setUnit("nm").setNonnegative();
     registerParameter(BornAgain::CoherenceLengthY, &m_coherence_length_y).
         setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
-    registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, Pi::PI);
+    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+    registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, M_PI);
 }
 
 void IFTDistribution2D::print(std::ostream& ostr) const
@@ -123,8 +123,8 @@ FTDistribution2DVoigt::FTDistribution2DVoigt(
     registerParameter(BornAgain::CoherenceLengthY, &m_coherence_length_y).
         setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Eta, &m_eta);
-    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-Pi::PID2, Pi::PID2);
-    registerParameter("Delta", &m_delta).setUnit("rad").setLimited(0, Pi::PI);
+    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+    registerParameter("Delta", &m_delta).setUnit("rad").setLimited(0, M_PI);
 }
 
 double FTDistribution2DVoigt::evaluate(double qx, double qy) const

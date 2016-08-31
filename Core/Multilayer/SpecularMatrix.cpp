@@ -111,7 +111,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
             if(sigma > 0.0) {
                 // since there is a roughness, compute one diagonal matrix element p00;
                 // the other element is p11 = 1/p00.
-                double sigeff = std::pow(Pi::PID2, 1.5)*sigma*k.mag();
+                double sigeff = std::pow(M_PI_2, 1.5)*sigma*k.mag();
                 roughness_factor = sqrt(
                             MathFunctions::tanhc(sigeff*coeff[i+1].lambda) /
                             MathFunctions::tanhc(sigeff*coeff[i  ].lambda) );

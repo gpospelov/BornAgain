@@ -99,7 +99,7 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(m_lattice_params.m_xi);
-    return mP_integrator->integrate(0.0, Pi::PI2)/Pi::PI2;
+    return mP_integrator->integrate(0.0, M_TWOPI)/M_TWOPI;
 }
 
 std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(
@@ -130,7 +130,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSqua
 {
     InterferenceFunction2DParaCrystal* p_new =
             new InterferenceFunction2DParaCrystal(peak_distance, peak_distance,
-                    Pi::PID2, 0.0, damping_length);
+                    M_PI_2, 0.0, damping_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;
@@ -140,7 +140,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexa
     double peak_distance, double damping_length, double domain_size_1, double domain_size_2)
 {
     auto p_new = new InterferenceFunction2DParaCrystal(
-        peak_distance, peak_distance, 2.0*Pi::PI/3.0, 0.0, damping_length);
+        peak_distance, peak_distance, 2.0*M_PI/3.0, 0.0, damping_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;

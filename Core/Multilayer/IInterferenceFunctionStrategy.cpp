@@ -76,7 +76,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
     clearFormFactorLists();
 
     double wavelength = sim_element.getWavelength();
-    double wavevector_scattering_factor = Pi::PI/wavelength/wavelength;
+    double wavevector_scattering_factor = M_PI/wavelength/wavelength;
     WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
@@ -97,7 +97,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorListPol(
     clearFormFactorLists();
 
     double wavelength = sim_element.getWavelength();
-    double wavevector_scattering_factor = Pi::PI/wavelength/wavelength;
+    double wavevector_scattering_factor = M_PI/wavelength/wavelength;
     WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(

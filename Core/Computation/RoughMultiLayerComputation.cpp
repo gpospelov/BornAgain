@@ -99,7 +99,7 @@ double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element
     }
 
     //! @TODO clarify complex vs double
-    return (autocorr+crosscorr.real())*Pi::PI/4./wavelength/wavelength;
+    return (autocorr+crosscorr.real())*M_PI/4./wavelength/wavelength;
 }
 
 complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer) const

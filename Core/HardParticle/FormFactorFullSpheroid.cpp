@@ -52,7 +52,7 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
     m_q = q;
 
     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
-        return Pi::PI2*R*R*H/3.;
+        return M_TWOPI*R*R*H/3.;
     complex_t qzH_half = H/2*q.z();
-    return 4 * Pi::PI * mP_integrator->integrate(0.0, H/2.0) * exp_I(qzH_half);
+    return 4 * M_PI * mP_integrator->integrate(0.0, H/2.0) * exp_I(qzH_half);
 }

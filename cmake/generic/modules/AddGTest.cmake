@@ -26,7 +26,7 @@ MACRO(ADD_GTEST project subdir libs stage)
     target_link_libraries(${TEST_NAME} gtest ${libs})
     if    (${stage} EQUAL 0)
         # Execute test just after compilation
-        add_custom_command(TARGET ${TEST_NAME} POST_BUILD COMMAND ${EXE})
+        add_custom_target(${TEST_NAME}_run ALL DEPENDS ${TEST_NAME} COMMAND ${EXE})
     elseif(${stage} EQUAL 1)
         # Put test under control of CTest
         add_test(${TEST_NAME} ${EXE})

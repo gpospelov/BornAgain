@@ -191,7 +191,7 @@ bool PyPersistenceTest::compareYamlNode(const YAML::Node& dat, const YAML::Node&
             double d = dat.as<double>();
             double r = ref.as<double>();
             const double tol = 1e-1;
-            if (abs(d-r)>(abs(d)+abs(r))*tol) {
+            if (std::abs(d-r)>(std::abs(d)+std::abs(r))*tol) {
                 std::cerr << "numbers differ: " << dat << " vs " << ref << "\n";
                 return false;
             }

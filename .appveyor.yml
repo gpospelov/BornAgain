@@ -4,12 +4,12 @@ matrix:
   fast_finish: true
 
 platform:
-- x86
+- x64
 
 # http://www.appveyor.com/docs/installed-software
 environment:
   QTDIR: "C:\\Qt\\5.7\\msvc2015"
-  PATH: "%PATH%;C:\\Qt\\5.7\\msvc2015\\bin;C:\\opt\\local_x86\\lib"
+  PATH: "%PATH%;C:\\Qt\\5.7\\msvc2015\\bin;C:\\opt\\local_x64\\lib"
 
 build:
   parallel: true
@@ -17,13 +17,13 @@ build:
 before_build:
 - python -m pip install numpy
 - python -m pip install pyyaml
-- C:\cygwin\bin\wget -q http://apps.jcns.fz-juelich.de/redmine/attachments/download/278/local_x86.zip -O %temp%\local_x86.zip
-- 7z x %temp%\local_x86.zip -oC:\opt > null
+- C:\cygwin\bin\wget -q http://apps.jcns.fz-juelich.de/redmine/attachments/download/279/local_x64.zip -O %temp%\local_x64.zip
+- 7z x %temp%\local_x64.zip -oC:\opt > null
 
 build_script:
 - mkdir build
 - cd build
-- cmake -G "Visual Studio 14 2015" -DCMAKE_INCLUDE_PATH=C:/opt/local_x86/include -DCMAKE_LIBRARY_PATH=C:/opt/local_x86/lib ..
+- cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INCLUDE_PATH=C:/opt/local_x64/include -DCMAKE_LIBRARY_PATH=C:/opt/local_x64/lib ..
 - cmake --build . --config Release
 
 test_script:

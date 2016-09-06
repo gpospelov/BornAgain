@@ -1,4 +1,4 @@
-FROM scgmlz/bornagain-dev:wily
+FROM scgmlz/bornagain-dev:xenial
 
 ADD . /source
 WORKDIR /source

@@ -17,7 +17,7 @@
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
 #include <cassert>
-#include <regex>
+#include <boost/regex.hpp>
 #include <stdexcept>
 
 //! Returns file extension.
@@ -71,7 +71,7 @@ std::vector<std::string> FileSystem::reglob(const std::string& dir, const std::s
 {
     std::vector<std::string> ret;
     for (const std::string& fname: filesInDirectory(dir))
-        if (std::regex_match(fname, std::regex(pattern)))
+        if (boost::regex_match(fname, boost::regex(pattern)))
             ret.push_back(fname);
     return ret;
 }

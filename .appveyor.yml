@@ -8,8 +8,8 @@ platform:
 
 # http://www.appveyor.com/docs/installed-software
 environment:
-  QTDIR: "C:\\Qt\\5.7\\msvc2015"
-  PATH: "C:\\Qt\\5.7\\msvc2015\\bin;C:\\opt\\local_x64\\lib;C:\\Python27-x64;%PATH%"
+  QTDIR: "C:\\Qt\\5.7\\msvc2015_64"
+  PATH: "C:\\Qt\\5.7\\msvc2015_64\\bin;C:\\opt\\local_x64\\lib;C:\\Python27-x64;%PATH%"
 
 build:
   parallel: true

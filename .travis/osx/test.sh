@@ -1,2 +1,4 @@
 cd build
-make check
+make check && exit 0
+cat ./Testing/Temporary/*.log
+exit 1

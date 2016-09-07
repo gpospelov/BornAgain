@@ -1,15 +1,26 @@
 language: cpp
+sudo: required
 
-env:
-- BUILD_TYPE=Release
+#services:
+#- docker
+
+ 
+#env:
+#- BUILD_TYPE=Debug
+#- BUILD_TYPE=Release
 
 matrix:
   include:
-  - os: linux
-    dist: trusty
-    sudo: required
-  - os: osx
-    osx_image: xcode7.3
+    - os: linux
+      services: docker
+    - os: osx
+      osx_image: xcode7.3
+
+#os:
+#- linux
+#- osx
+#  osx_image: xcode7.3
+
 
 before_install:
 - chmod +x .travis/*/*.sh

@@ -5,9 +5,8 @@ sudo: required
 #- docker
 
  
-#env:
-#- BUILD_TYPE=Debug
-#- BUILD_TYPE=Release
+env:
+- BUILD_TYPE=Release
 
 matrix:
   include:
@@ -15,11 +14,6 @@ matrix:
       services: docker
     - os: osx
       osx_image: xcode7.3
-
-#os:
-#- linux
-#- osx
-#  osx_image: xcode7.3
 
 
 before_install:

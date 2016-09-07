@@ -16,7 +16,9 @@
 \newpage
 \chapter{The three interfaces of \BornAgain}  \label{sec:API3}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architectural overview}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The overall architecture of \BornAgain\ is outlined in \cref{Farch1}.
 The core of \BornAgain\
@@ -69,14 +71,50 @@ from user-written stand-alone applications in the programming languages C$++$ or
 These different approaches are briefly outlined below.
 The Python interface is then described at length in the next chapters.
 
-\section{Using BornAgain from its Graphical User Interface}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Using \BornAgain\ from its Graphical User Interface}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Graphical User Interface|(}
 \index{bornagain@\Code{bornagain}|see {Graphical User Interface}}
+\index{Exectutable!bornagain@\Code{bornagain}|see {Graphical User Interface}}
+\index{Binary|see {Executable}}
+%\index{Project name!BornAgain@\BornAgain}
+
+The project \BornAgain\ comes with a stand-alone application called \Code{bornagain}
+that provides a Graphical User Interface (GUI).
+Note that we distinguish between the GUI executable \Code{bornagain},
+the underlying library \Code{libBornAgainCore}, and the project \BornAgain\ at large.
+
+The GUI allows users to quickly setup a simulation, to visualize simulated
+detector images, to compare with experimental images, and to run fits.
+It provides comfortable access to much, but not all the functionality
+of \Code{libBornAgainCore}.
+Depending on application fields,
+users may sooner or later reach the limits of current GUI support.
+Other users may have repetitive tasks that are cumbersome under a GUI.
+In such cases, users can export their sample and instrument models from
+the GUI as a Python script,
+and continue work by directly editing the Python code.
+\index{Export!Python from GUI}
+
+\Link{Documentation of the GUI is available online:\\
+      \url{http://www.bornagainproject.org/documentation/usage/gui}}
 \index{Graphical User Interface|)}
 
-\section{Using BornAgain from application programs}
-\index{C++!using BornAgain from|(}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Using \BornAgain\ from Python}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Python!using BornAgain from|(}
+
+\BornAgain\ simulations and fits can be set up and run from Python scripts
+or from a Python command line.
+
+\index{Python!using BornAgain from|)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Using \BornAgain\ from C++}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{C++!using BornAgain from|(}
 
 The library \Code{libBornAgainCore}
 \index{libBornAgainCore@\Code{libBornAgainCore}}%
@@ -85,4 +123,3 @@ is written in the programming languages C++,
 and therefore natively supports usage from application programs written in C++.
 
 \index{C++!using BornAgain from|)}
-\index{Python!using BornAgain from|)}

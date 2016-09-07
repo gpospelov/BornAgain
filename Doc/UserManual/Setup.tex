@@ -253,21 +253,24 @@
 \def\mdbreakoff{\makeatletter\booltrue{mdf@nobreak}\makeatother}
 \def\mdbreakon{\makeatletter\boolfalse{mdf@nobreak}\makeatother}
 
-\def\marginSymbolLarge#1#2{\ifdraft{\textbf{#2~~~~}}{\raisebox{-3ex}%
-{\includegraphics[width=3em]{#1}\hspace{10pt}}}}
+\def\marginSymbolLarge#1#2{\raisebox{-3ex}{\includegraphics[width=3em]{#1}\hspace{10pt}}}
 
 \defineBox{boxWork}{boxxWork}{magenta!40}{magenta}
   {\marginSymbolLarge{fig/icons/Arbeiten.png}{TODO}}
 \defineBox{boxWarn}{boxxWarn}{magenta!40}{magenta}
   {\marginSymbolLarge{fig/icons/Achtung.png}{WARN}}
 \defineBox{boxNote}{boxxNote}{yellow!33}{yellow}{{}}
-\defineBox{boxTuto}{boxxTuto}{blue!20}{blue}{{}}
+\defineBox{boxTuto}{boxxTuto}{blue!25}{red}
+  {\marginSymbolLarge{fig/icons/Arbeiten.png}{TODO}}
 \defineBox{boxEmph}{boxxEmph}{green!20}{green}{{}}
+\defineBox{boxLink}{boxxLink}{blue!25}{blue}
+  {\marginSymbolLarge{fig/icons/Weblink.png}{LINK}}
 
 \def\Warn#1{\begin{boxWarn}#1\end{boxWarn}}
 \def\Work#1{\begin{boxWork}#1\end{boxWork}}
 \def\Note#1{\begin{boxNote}#1\end{boxNote}}
 \def\Tuto#1{\begin{boxTuto}#1\end{boxTuto}}
+\def\Link#1{\begin{boxLink}#1\end{boxLink}}
 \def\Emph#1{\begin{boxEmph}#1\end{boxEmph}}
 \def\Emphc#1{\begin{boxEmph}#1\vskip -5pt\end{boxEmph}}
 

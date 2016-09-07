@@ -1,3 +1,13 @@
+## BornAgain project at GitHub
+
+BornAgain is a software to simulate and fit neutron and x-ray scattering at grazing incidence
+(GISANS and GISAXS), using distorted-wave Born approximation (DWBA).
+
+#### Homepage
+http://bornagainproject.org
+
+#### License
+GNU General Public License v3 or higher (see COPYING)
 
 ## CI Status
 

@@ -3,6 +3,5 @@
 #include "FitParameterTest.h"
 #include "FitParameterLinkedTest.h"
 #include "FitObjectTest.h"
-#include "MinimizerOptionsTest.h"
-#include "MinimizerOptionTest.h"
-#include "ConfigurableTest.h"
+#include "OptionContainerTest.h"
+#include "MultiOptionTest.h"

@@ -1973,8 +1973,8 @@ class IMinimizer(Configurable):
 
     def getOptions(self, *args):
         """
-        getOptions(IMinimizer self) -> MinimizerOptions
-        getOptions(IMinimizer self) -> MinimizerOptions
+        getOptions(IMinimizer self) -> ObsoleteMinimizerOptions
+        getOptions(IMinimizer self) -> ObsoleteMinimizerOptions
 
         virtual const MinimizerOptions* IMinimizer::getOptions() const 
 
@@ -1984,7 +1984,7 @@ class IMinimizer(Configurable):
 
     def setOptions(self, arg2):
         """
-        setOptions(IMinimizer self, MinimizerOptions arg2)
+        setOptions(IMinimizer self, ObsoleteMinimizerOptions arg2)
 
         virtual void IMinimizer::setOptions(const MinimizerOptions &)
 
@@ -2395,235 +2395,122 @@ class FitSuiteParameters(_object):
 FitSuiteParameters_swigregister = _libBornAgainFit.FitSuiteParameters_swigregister
 FitSuiteParameters_swigregister(FitSuiteParameters)
 
-class MinimizerOptions(_object):
-    """
-
-
-    The MinimizerOptions class contains options for minimization algorithms.
-
-    It allows to set values only if they have been already registered.
-
-    C++ includes: MinimizerOptions.h
-
-    """
+class ObsoleteMinimizerOptions(_object):
+    """Proxy of C++ ObsoleteMinimizerOptions class"""
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, MinimizerOptions, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ObsoleteMinimizerOptions, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, MinimizerOptions, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, ObsoleteMinimizerOptions, name)
     __repr__ = _swig_repr
 
     def __init__(self):
-        """
-        __init__(MinimizerOptions self) -> MinimizerOptions
-
-        MinimizerOptions::MinimizerOptions()
-
-        """
-        this = _libBornAgainFit.new_MinimizerOptions()
+        """__init__(ObsoleteMinimizerOptions self) -> ObsoleteMinimizerOptions"""
+        this = _libBornAgainFit.new_ObsoleteMinimizerOptions()
         try:
             self.this.append(this)
         except:
             self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_MinimizerOptions
+    __swig_destroy__ = _libBornAgainFit.delete_ObsoleteMinimizerOptions
     __del__ = lambda self: None
 
     def getTolerance(self):
-        """
-        getTolerance(MinimizerOptions self) -> double
-
-        double MinimizerOptions::getTolerance() const
-
-        return minimizer tolerance 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_getTolerance(self)
+        """getTolerance(ObsoleteMinimizerOptions self) -> double"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getTolerance(self)
 
 
     def setTolerance(self, tolerance):
-        """
-        setTolerance(MinimizerOptions self, double tolerance)
-
-        void MinimizerOptions::setTolerance(double tolerance)
-
-        set minimizer tolerance 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_setTolerance(self, tolerance)
+        """setTolerance(ObsoleteMinimizerOptions self, double tolerance)"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_setTolerance(self, tolerance)
 
 
     def getPrecision(self):
-        """
-        getPrecision(MinimizerOptions self) -> double
-
-        double MinimizerOptions::getPrecision() const
-
-        return minimizer precision 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_getPrecision(self)
+        """getPrecision(ObsoleteMinimizerOptions self) -> double"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getPrecision(self)
 
 
     def setPrecision(self, precision):
-        """
-        setPrecision(MinimizerOptions self, double precision)
-
-        void MinimizerOptions::setPrecision(double precision)
-
-        set minimizer precision 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_setPrecision(self, precision)
+        """setPrecision(ObsoleteMinimizerOptions self, double precision)"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_setPrecision(self, precision)
 
 
     def getMaxIterations(self):
-        """
-        getMaxIterations(MinimizerOptions self) -> int
-
-        int MinimizerOptions::getMaxIterations() const
-
-        return maximum number of allowed iterations 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_getMaxIterations(self)
+        """getMaxIterations(ObsoleteMinimizerOptions self) -> int"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getMaxIterations(self)
 
 
     def setMaxIterations(self, max_iterations):
-        """
-        setMaxIterations(MinimizerOptions self, int max_iterations)
-
-        void MinimizerOptions::setMaxIterations(int max_iterations)
-
-        set maximum number of allowed iterations 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_setMaxIterations(self, max_iterations)
+        """setMaxIterations(ObsoleteMinimizerOptions self, int max_iterations)"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_setMaxIterations(self, max_iterations)
 
 
     def getMaxFunctionCalls(self):
-        """
-        getMaxFunctionCalls(MinimizerOptions self) -> int
-
-        int MinimizerOptions::getMaxFunctionCalls() const
-
-        return maximum number of allowed function calls 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_getMaxFunctionCalls(self)
+        """getMaxFunctionCalls(ObsoleteMinimizerOptions self) -> int"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getMaxFunctionCalls(self)
 
 
     def setMaxFunctionCalls(self, max_function_calls):
-        """
-        setMaxFunctionCalls(MinimizerOptions self, int max_function_calls)
-
-        void MinimizerOptions::setMaxFunctionCalls(int max_function_calls)
-
-        set maximum number of allowed function calls 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_setMaxFunctionCalls(self, max_function_calls)
+        """setMaxFunctionCalls(ObsoleteMinimizerOptions self, int max_function_calls)"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_setMaxFunctionCalls(self, max_function_calls)
 
 
     def getPrintLevel(self):
-        """
-        getPrintLevel(MinimizerOptions self) -> int
-
-        int MinimizerOptions::getPrintLevel() const
-
-        return internal print level of the minimizer 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_getPrintLevel(self)
+        """getPrintLevel(ObsoleteMinimizerOptions self) -> int"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getPrintLevel(self)
 
 
     def setPrintLevel(self, print_level):
-        """
-        setPrintLevel(MinimizerOptions self, int print_level)
-
-        void MinimizerOptions::setPrintLevel(int print_level)
-
-        set internal print level of the minimizer 
-
-        """
-        return _libBornAgainFit.MinimizerOptions_setPrintLevel(self, print_level)
+        """setPrintLevel(ObsoleteMinimizerOptions self, int print_level)"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_setPrintLevel(self, print_level)
 
 
     def setValue(self, *args):
         """
-        setValue(MinimizerOptions self, std::string const & name, double val)
-        setValue(MinimizerOptions self, std::string const & name, int val)
-        setValue(MinimizerOptions self, std::string const & name, std::string const & val)
-
-        void MinimizerOptions::setValue(const std::string &name, const std::string &val)
-
+        setValue(ObsoleteMinimizerOptions self, std::string const & name, double val)
+        setValue(ObsoleteMinimizerOptions self, std::string const & name, int val)
+        setValue(ObsoleteMinimizerOptions self, std::string const & name, std::string const & val)
         """
-        return _libBornAgainFit.MinimizerOptions_setValue(self, *args)
+        return _libBornAgainFit.ObsoleteMinimizerOptions_setValue(self, *args)
 
 
     def getValue(self, *args):
         """
-        getValue(MinimizerOptions self, std::string const & name, int & val)
-        getValue(MinimizerOptions self, std::string const & name, double & val)
-        getValue(MinimizerOptions self, std::string const & name, std::string & val)
-
-        void MinimizerOptions::getValue(const std::string &name, std::string &val)
-
+        getValue(ObsoleteMinimizerOptions self, std::string const & name, int & val)
+        getValue(ObsoleteMinimizerOptions self, std::string const & name, double & val)
+        getValue(ObsoleteMinimizerOptions self, std::string const & name, std::string & val)
         """
-        return _libBornAgainFit.MinimizerOptions_getValue(self, *args)
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getValue(self, *args)
 
 
     def addValue(self, *args):
         """
-        addValue(MinimizerOptions self, std::string const & name, double val)
-        addValue(MinimizerOptions self, std::string const & name, int val)
-        addValue(MinimizerOptions self, std::string const & name, std::string const & val)
-
-        void MinimizerOptions::addValue(const std::string &name, const std::string &val)
-
+        addValue(ObsoleteMinimizerOptions self, std::string const & name, double val)
+        addValue(ObsoleteMinimizerOptions self, std::string const & name, int val)
+        addValue(ObsoleteMinimizerOptions self, std::string const & name, std::string const & val)
         """
-        return _libBornAgainFit.MinimizerOptions_addValue(self, *args)
+        return _libBornAgainFit.ObsoleteMinimizerOptions_addValue(self, *args)
 
 
     def getIntValue(self, name):
-        """
-        getIntValue(MinimizerOptions self, std::string const & name) -> int
-
-        int MinimizerOptions::getIntValue(const std::string &name)
-
-        """
-        return _libBornAgainFit.MinimizerOptions_getIntValue(self, name)
+        """getIntValue(ObsoleteMinimizerOptions self, std::string const & name) -> int"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getIntValue(self, name)
 
 
     def getRealValue(self, name):
-        """
-        getRealValue(MinimizerOptions self, std::string const & name) -> double
-
-        double MinimizerOptions::getRealValue(const std::string &name)
-
-        """
-        return _libBornAgainFit.MinimizerOptions_getRealValue(self, name)
+        """getRealValue(ObsoleteMinimizerOptions self, std::string const & name) -> double"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getRealValue(self, name)
 
 
     def getNamedValue(self, name):
-        """
-        getNamedValue(MinimizerOptions self, std::string const & name) -> std::string
-
-        std::string MinimizerOptions::getNamedValue(const std::string &name)
-
-        """
-        return _libBornAgainFit.MinimizerOptions_getNamedValue(self, name)
+        """getNamedValue(ObsoleteMinimizerOptions self, std::string const & name) -> std::string"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions_getNamedValue(self, name)
 
 
     def _print(self):
-        """
-        _print(MinimizerOptions self)
+        """_print(ObsoleteMinimizerOptions self)"""
+        return _libBornAgainFit.ObsoleteMinimizerOptions__print(self)
 
-        void MinimizerOptions::print() const 
-
-        """
-        return _libBornAgainFit.MinimizerOptions__print(self)
-
-MinimizerOptions_swigregister = _libBornAgainFit.MinimizerOptions_swigregister
-MinimizerOptions_swigregister(MinimizerOptions)
+ObsoleteMinimizerOptions_swigregister = _libBornAgainFit.ObsoleteMinimizerOptions_swigregister
+ObsoleteMinimizerOptions_swigregister(ObsoleteMinimizerOptions)
 
 class MinimizerFactory(_object):
     """

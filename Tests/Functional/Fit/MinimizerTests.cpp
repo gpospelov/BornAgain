@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MinimizerTests.h"
-#include "MinimizerOptions.h"
+#include "ObsoleteMinimizerOptions.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
 

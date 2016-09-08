@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Minimizer/MinimizerOptions.cpp
-//! @brief     Implement class MinimizerOptions.
+//! @brief     Implements class MinimizerOptions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,21 +14,14 @@
 // ************************************************************************** //
 
 #include "MinimizerOptions.h"
+#include <sstream>
 
-MinimizerOptions::MinimizerOptions()
-    : m_tolerance(0.01)
-    , m_precision(-1)
-    , m_max_iterations(0)
-    , m_max_function_calls(0)
-    , m_print_level(0)
+std::string MinimizerOptions::toOptionString(const std::string &delimeter) const
 {
+    std::ostringstream result;
+    for(auto option: m_options) {
+        result << option->name() << std::string("=") << option->value() << delimeter;
+    }
+    return result.str();
 }
 
-void MinimizerOptions::print_common(std::ostream & os) const
-{
-    os << std::setw(24) << std::left << "Tolerance " << " : " << std::setw(15) << m_tolerance << std::endl;
-    os << std::setw(24) << std::left << "Precision " << " : " << std::setw(15) << m_precision << std::endl;
-    os << std::setw(24) << std::left << "MaxIterations " << " : " << std::setw(15) << m_max_iterations << std::endl;
-    os << std::setw(24) << std::left << "MaxFunctionCalls " << " : " << std::setw(15) << m_max_function_calls << std::endl;
-    os << std::setw(24) << std::left << "PrintLevel " << " : " << std::setw(15) << m_print_level << std::endl;
-}

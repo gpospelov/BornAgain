@@ -23,7 +23,7 @@
 
 class FitParameter;
 class FitSuiteParameters;
-class MinimizerOptions;
+class ObsoleteMinimizerOptions;
 
 //! Common interface for all kind minimizers.
 //! @ingroup fitting_internal
@@ -78,11 +78,11 @@ class BA_CORE_API_ IMinimizer : public Configurable
     virtual size_t getNCalls() const { return 0; }
 
     //! return minimizer options
-    virtual MinimizerOptions* getOptions() { return nullptr; }
-    virtual const MinimizerOptions* getOptions() const { return nullptr; }
+    virtual ObsoleteMinimizerOptions* getOptions() { return nullptr; }
+    virtual const ObsoleteMinimizerOptions* getOptions() const { return nullptr; }
 
     //! set minimizer options
-    virtual void setOptions(const MinimizerOptions&) {}
+    virtual void setOptions(const ObsoleteMinimizerOptions&) {}
 
     //! set minimizer option string
     virtual void setOptionString(const std::string&) {}

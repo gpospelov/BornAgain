@@ -136,12 +136,12 @@ size_t ROOTMinimizer::getNCalls() const
     return m_root_minimizer->NCalls();
 }
 
-MinimizerOptions* ROOTMinimizer::getOptions() { return &m_options; }
+ObsoleteMinimizerOptions* ROOTMinimizer::getOptions() { return &m_options; }
 
-const MinimizerOptions* ROOTMinimizer::getOptions() const { return &m_options; }
+const ObsoleteMinimizerOptions* ROOTMinimizer::getOptions() const { return &m_options; }
 
 
-void ROOTMinimizer::setOptions(const MinimizerOptions &options)
+void ROOTMinimizer::setOptions(const ObsoleteMinimizerOptions &options)
 {
     m_options = options;
     propagateOptions();

@@ -17,7 +17,7 @@
 #include "FitKernel.h"
 #include "IMinimizer.h"
 #include "MinimizerFactory.h"
-#include "MinimizerOptions.h"
+#include "ObsoleteMinimizerOptions.h"
 
 FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
     : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(nullptr)
@@ -74,7 +74,7 @@ void FitStrategyAdjustMinimizer::execute()
     //m_fit_suite->printResults();
 }
 
-MinimizerOptions* FitStrategyAdjustMinimizer::getMinimizerOptions()
+ObsoleteMinimizerOptions* FitStrategyAdjustMinimizer::getMinimizerOptions()
 {
     if(!m_minimizer)
         return nullptr;

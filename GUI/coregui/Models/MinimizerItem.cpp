@@ -17,7 +17,7 @@
 #include "MinimizerItem.h"
 #include "MinimizerFactory.h"
 #include "MinimizerItemCatalogue.h"
-#include "MinimizerOptions.h"
+#include "ObsoleteMinimizerOptions.h"
 #include <QDebug>
 
 // ----------------------------------------------------------------------------

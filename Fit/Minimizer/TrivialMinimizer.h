@@ -48,8 +48,8 @@ class BA_CORE_API_ TrivialMinimizer : public IMinimizer
     std::string getMinimizerName() const final { return "Test"; }
     std::string getAlgorithmName() const final { return ""; }
 
-    MinimizerOptions* getOptions() final { return nullptr; }
-    const MinimizerOptions* getOptions() const final { return nullptr; }
+    ObsoleteMinimizerOptions* getOptions() final { return nullptr; }
+    const ObsoleteMinimizerOptions* getOptions() const final { return nullptr; }
 
  private:
     double m_min_value;

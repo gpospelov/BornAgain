@@ -16,4 +16,6 @@ if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})
 endif()
 
-ADD_GTEST(Fit "0" BornAgainCore 0)
+set(libs BornAgainCore BornAgainFit)
+ADD_GTEST(Fit "0" "${libs}" 0)
+

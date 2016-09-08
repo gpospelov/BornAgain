@@ -18,7 +18,7 @@
 #include "GISASSimulation.h"
 #include "MultiLayer.h"
 #include "MinimizerFactory.h"
-#include "MinimizerOptions.h"
+#include "ObsoleteMinimizerOptions.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
 #include "Units.h"

@@ -3421,7 +3421,7 @@ namespace Swig {
 #define SWIGTYPE_p_FitSuiteParameters swig_types[3]
 #define SWIGTYPE_p_IMinimizer swig_types[4]
 #define SWIGTYPE_p_MinimizerFactory swig_types[5]
-#define SWIGTYPE_p_MinimizerOptions swig_types[6]
+#define SWIGTYPE_p_ObsoleteMinimizerOptions swig_types[6]
 #define SWIGTYPE_p_RealLimits swig_types[7]
 #define SWIGTYPE_p_allocator_type swig_types[8]
 #define SWIGTYPE_p_char swig_types[9]
@@ -5579,7 +5579,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig/3.0.7/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -6013,7 +6013,7 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
 #include "MinimizerFactory.h"
-#include "MinimizerOptions.h"
+#include "ObsoleteMinimizerOptions.h"
 
 
 SWIGINTERN int
@@ -19790,7 +19790,7 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_0(PyObject *SWIGUNUSEDPAR
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  MinimizerOptions *result = 0 ;
+  ObsoleteMinimizerOptions *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getOptions",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -19798,8 +19798,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_0(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getOptions" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (MinimizerOptions *)(arg1)->getOptions();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  result = (ObsoleteMinimizerOptions *)(arg1)->getOptions();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -19812,7 +19812,7 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_1(PyObject *SWIGUNUSEDPAR
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  MinimizerOptions *result = 0 ;
+  ObsoleteMinimizerOptions *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getOptions",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
@@ -19820,8 +19820,8 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getOptions__SWIG_1(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getOptions" "', argument " "1"" of type '" "IMinimizer const *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = (MinimizerOptions *)((IMinimizer const *)arg1)->getOptions();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  result = (ObsoleteMinimizerOptions *)((IMinimizer const *)arg1)->getOptions();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -19871,7 +19871,7 @@ fail:
 SWIGINTERN PyObject *_wrap_IMinimizer_setOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
-  MinimizerOptions *arg2 = 0 ;
+  ObsoleteMinimizerOptions *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -19885,15 +19885,15 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setOptions(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setOptions" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_MinimizerOptions,  0  | 0);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_ObsoleteMinimizerOptions,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "MinimizerOptions const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "ObsoleteMinimizerOptions const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "MinimizerOptions const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setOptions" "', argument " "2"" of type '" "ObsoleteMinimizerOptions const &""'"); 
   }
-  arg2 = reinterpret_cast< MinimizerOptions * >(argp2);
-  (arg1)->setOptions((MinimizerOptions const &)*arg2);
+  arg2 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp2);
+  (arg1)->setOptions((ObsoleteMinimizerOptions const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21584,32 +21584,32 @@ SWIGINTERN PyObject *FitSuiteParameters_swigregister(PyObject *SWIGUNUSEDPARM(se
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_MinimizerOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_ObsoleteMinimizerOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *result = 0 ;
+  ObsoleteMinimizerOptions *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_MinimizerOptions")) SWIG_fail;
-  result = (MinimizerOptions *)new MinimizerOptions();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerOptions, SWIG_POINTER_NEW |  0 );
+  if (!PyArg_ParseTuple(args,(char *)":new_ObsoleteMinimizerOptions")) SWIG_fail;
+  result = (ObsoleteMinimizerOptions *)new ObsoleteMinimizerOptions();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ObsoleteMinimizerOptions, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_MinimizerOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_ObsoleteMinimizerOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_MinimizerOptions",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, SWIG_POINTER_DISOWN |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_ObsoleteMinimizerOptions",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MinimizerOptions" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ObsoleteMinimizerOptions" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -21618,21 +21618,21 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getTolerance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getTolerance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerOptions_getTolerance",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:ObsoleteMinimizerOptions_getTolerance",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getTolerance" "', argument " "1"" of type '" "MinimizerOptions const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getTolerance" "', argument " "1"" of type '" "ObsoleteMinimizerOptions const *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
-  result = (double)((MinimizerOptions const *)arg1)->getTolerance();
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
+  result = (double)((ObsoleteMinimizerOptions const *)arg1)->getTolerance();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -21640,9 +21640,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setTolerance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setTolerance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   double arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -21651,15 +21651,15 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setTolerance(PyObject *SWIGUNUSEDPAR
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerOptions_setTolerance",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:ObsoleteMinimizerOptions_setTolerance",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_setTolerance" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_setTolerance" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   ecode2 = SWIG_AsVal_double(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerOptions_setTolerance" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ObsoleteMinimizerOptions_setTolerance" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
   (arg1)->setTolerance(arg2);
@@ -21670,21 +21670,21 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getPrecision(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getPrecision(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerOptions_getPrecision",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:ObsoleteMinimizerOptions_getPrecision",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getPrecision" "', argument " "1"" of type '" "MinimizerOptions const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getPrecision" "', argument " "1"" of type '" "ObsoleteMinimizerOptions const *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
-  result = (double)((MinimizerOptions const *)arg1)->getPrecision();
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
+  result = (double)((ObsoleteMinimizerOptions const *)arg1)->getPrecision();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -21692,9 +21692,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setPrecision(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setPrecision(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   double arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -21703,15 +21703,15 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setPrecision(PyObject *SWIGUNUSEDPAR
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerOptions_setPrecision",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:ObsoleteMinimizerOptions_setPrecision",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_setPrecision" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_setPrecision" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   ecode2 = SWIG_AsVal_double(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerOptions_setPrecision" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ObsoleteMinimizerOptions_setPrecision" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
   (arg1)->setPrecision(arg2);
@@ -21722,21 +21722,21 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getMaxIterations(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getMaxIterations(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   int result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerOptions_getMaxIterations",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:ObsoleteMinimizerOptions_getMaxIterations",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getMaxIterations" "', argument " "1"" of type '" "MinimizerOptions const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getMaxIterations" "', argument " "1"" of type '" "ObsoleteMinimizerOptions const *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
-  result = (int)((MinimizerOptions const *)arg1)->getMaxIterations();
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
+  result = (int)((ObsoleteMinimizerOptions const *)arg1)->getMaxIterations();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -21744,9 +21744,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setMaxIterations(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setMaxIterations(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   int arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -21755,15 +21755,15 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setMaxIterations(PyObject *SWIGUNUSE
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerOptions_setMaxIterations",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:ObsoleteMinimizerOptions_setMaxIterations",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_setMaxIterations" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_setMaxIterations" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerOptions_setMaxIterations" "', argument " "2"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ObsoleteMinimizerOptions_setMaxIterations" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
   (arg1)->setMaxIterations(arg2);
@@ -21774,21 +21774,21 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getMaxFunctionCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getMaxFunctionCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   int result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerOptions_getMaxFunctionCalls",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:ObsoleteMinimizerOptions_getMaxFunctionCalls",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getMaxFunctionCalls" "', argument " "1"" of type '" "MinimizerOptions const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getMaxFunctionCalls" "', argument " "1"" of type '" "ObsoleteMinimizerOptions const *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
-  result = (int)((MinimizerOptions const *)arg1)->getMaxFunctionCalls();
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
+  result = (int)((ObsoleteMinimizerOptions const *)arg1)->getMaxFunctionCalls();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -21796,9 +21796,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setMaxFunctionCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setMaxFunctionCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   int arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -21807,15 +21807,15 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setMaxFunctionCalls(PyObject *SWIGUN
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerOptions_setMaxFunctionCalls",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:ObsoleteMinimizerOptions_setMaxFunctionCalls",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_setMaxFunctionCalls" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_setMaxFunctionCalls" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerOptions_setMaxFunctionCalls" "', argument " "2"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ObsoleteMinimizerOptions_setMaxFunctionCalls" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
   (arg1)->setMaxFunctionCalls(arg2);
@@ -21826,21 +21826,21 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getPrintLevel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getPrintLevel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   int result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerOptions_getPrintLevel",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:ObsoleteMinimizerOptions_getPrintLevel",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getPrintLevel" "', argument " "1"" of type '" "MinimizerOptions const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getPrintLevel" "', argument " "1"" of type '" "ObsoleteMinimizerOptions const *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
-  result = (int)((MinimizerOptions const *)arg1)->getPrintLevel();
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
+  result = (int)((ObsoleteMinimizerOptions const *)arg1)->getPrintLevel();
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -21848,9 +21848,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setPrintLevel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setPrintLevel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   int arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -21859,15 +21859,15 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setPrintLevel(PyObject *SWIGUNUSEDPA
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerOptions_setPrintLevel",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:ObsoleteMinimizerOptions_setPrintLevel",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_setPrintLevel" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_setPrintLevel" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerOptions_setPrintLevel" "', argument " "2"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ObsoleteMinimizerOptions_setPrintLevel" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
   (arg1)->setPrintLevel(arg2);
@@ -21878,9 +21878,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setValue__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   double arg3 ;
   void *argp1 = 0 ;
@@ -21892,26 +21892,26 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue__SWIG_0(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_setValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_setValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_setValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
   ecode3 = SWIG_AsVal_double(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MinimizerOptions_setValue" "', argument " "3"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
   (arg1)->setValue((std::string const &)*arg2,arg3);
@@ -21924,9 +21924,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setValue__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   int arg3 ;
   void *argp1 = 0 ;
@@ -21938,26 +21938,26 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue__SWIG_1(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_setValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_setValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_setValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
   ecode3 = SWIG_AsVal_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MinimizerOptions_setValue" "', argument " "3"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = static_cast< int >(val3);
   (arg1)->setValue((std::string const &)*arg2,arg3);
@@ -21970,9 +21970,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setValue__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   std::string *arg3 = 0 ;
   void *argp1 = 0 ;
@@ -21983,20 +21983,20 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue__SWIG_2(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_setValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_setValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_setValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
@@ -22004,10 +22004,10 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue__SWIG_2(PyObject *SWIGUNUSE
     std::string *ptr = (std::string *)0;
     res3 = SWIG_AsPtr_std_string(obj2, &ptr);
     if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "MinimizerOptions_setValue" "', argument " "3"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "3"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_setValue" "', argument " "3"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_setValue" "', argument " "3"" of type '" "std::string const &""'"); 
     }
     arg3 = ptr;
   }
@@ -22023,7 +22023,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_setValue(PyObject *self, PyObject *args) {
   int argc;
   PyObject *argv[4] = {
     0
@@ -22038,7 +22038,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22049,7 +22049,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue(PyObject *self, PyObject *a
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_MinimizerOptions_setValue__SWIG_1(self, args);
+          return _wrap_ObsoleteMinimizerOptions_setValue__SWIG_1(self, args);
         }
       }
     }
@@ -22057,7 +22057,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22068,7 +22068,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue(PyObject *self, PyObject *a
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_MinimizerOptions_setValue__SWIG_0(self, args);
+          return _wrap_ObsoleteMinimizerOptions_setValue__SWIG_0(self, args);
         }
       }
     }
@@ -22076,7 +22076,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22085,25 +22085,25 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_setValue(PyObject *self, PyObject *a
         int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_MinimizerOptions_setValue__SWIG_2(self, args);
+          return _wrap_ObsoleteMinimizerOptions_setValue__SWIG_2(self, args);
         }
       }
     }
   }
   
 fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'MinimizerOptions_setValue'.\n"
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ObsoleteMinimizerOptions_setValue'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    MinimizerOptions::setValue(std::string const &,double)\n"
-    "    MinimizerOptions::setValue(std::string const &,int)\n"
-    "    MinimizerOptions::setValue(std::string const &,std::string const &)\n");
+    "    ObsoleteMinimizerOptions::setValue(std::string const &,double)\n"
+    "    ObsoleteMinimizerOptions::setValue(std::string const &,int)\n"
+    "    ObsoleteMinimizerOptions::setValue(std::string const &,std::string const &)\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getValue__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   int *arg3 = 0 ;
   void *argp1 = 0 ;
@@ -22115,29 +22115,29 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue__SWIG_0(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_getValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_getValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
   res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_int,  0 );
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "MinimizerOptions_getValue" "', argument " "3"" of type '" "int &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "3"" of type '" "int &""'"); 
   }
   if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getValue" "', argument " "3"" of type '" "int &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "3"" of type '" "int &""'"); 
   }
   arg3 = reinterpret_cast< int * >(argp3);
   (arg1)->getValue((std::string const &)*arg2,*arg3);
@@ -22150,9 +22150,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getValue__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   double *arg3 = 0 ;
   void *argp1 = 0 ;
@@ -22164,29 +22164,29 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue__SWIG_1(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_getValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_getValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
   res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_double,  0 );
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "MinimizerOptions_getValue" "', argument " "3"" of type '" "double &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "3"" of type '" "double &""'"); 
   }
   if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getValue" "', argument " "3"" of type '" "double &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "3"" of type '" "double &""'"); 
   }
   arg3 = reinterpret_cast< double * >(argp3);
   (arg1)->getValue((std::string const &)*arg2,*arg3);
@@ -22199,9 +22199,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getValue__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   std::string *arg3 = 0 ;
   void *argp1 = 0 ;
@@ -22213,29 +22213,29 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue__SWIG_2(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_getValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_getValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
   res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_std__string,  0 );
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "MinimizerOptions_getValue" "', argument " "3"" of type '" "std::string &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "3"" of type '" "std::string &""'"); 
   }
   if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getValue" "', argument " "3"" of type '" "std::string &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getValue" "', argument " "3"" of type '" "std::string &""'"); 
   }
   arg3 = reinterpret_cast< std::string * >(argp3);
   (arg1)->getValue((std::string const &)*arg2,*arg3);
@@ -22248,7 +22248,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getValue(PyObject *self, PyObject *args) {
   int argc;
   PyObject *argv[4] = {
     0
@@ -22263,7 +22263,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22273,7 +22273,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue(PyObject *self, PyObject *a
         int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_int, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_MinimizerOptions_getValue__SWIG_0(self, args);
+          return _wrap_ObsoleteMinimizerOptions_getValue__SWIG_0(self, args);
         }
       }
     }
@@ -22281,7 +22281,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22291,7 +22291,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue(PyObject *self, PyObject *a
         int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_MinimizerOptions_getValue__SWIG_1(self, args);
+          return _wrap_ObsoleteMinimizerOptions_getValue__SWIG_1(self, args);
         }
       }
     }
@@ -22299,7 +22299,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22309,25 +22309,25 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getValue(PyObject *self, PyObject *a
         int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_std__string, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_MinimizerOptions_getValue__SWIG_2(self, args);
+          return _wrap_ObsoleteMinimizerOptions_getValue__SWIG_2(self, args);
         }
       }
     }
   }
   
 fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'MinimizerOptions_getValue'.\n"
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ObsoleteMinimizerOptions_getValue'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    MinimizerOptions::getValue(std::string const &,int &)\n"
-    "    MinimizerOptions::getValue(std::string const &,double &)\n"
-    "    MinimizerOptions::getValue(std::string const &,std::string &)\n");
+    "    ObsoleteMinimizerOptions::getValue(std::string const &,int &)\n"
+    "    ObsoleteMinimizerOptions::getValue(std::string const &,double &)\n"
+    "    ObsoleteMinimizerOptions::getValue(std::string const &,std::string &)\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_addValue__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   double arg3 ;
   void *argp1 = 0 ;
@@ -22339,26 +22339,26 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue__SWIG_0(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_addValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_addValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_addValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
   ecode3 = SWIG_AsVal_double(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MinimizerOptions_addValue" "', argument " "3"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
   (arg1)->addValue((std::string const &)*arg2,arg3);
@@ -22371,9 +22371,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_addValue__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   int arg3 ;
   void *argp1 = 0 ;
@@ -22385,26 +22385,26 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue__SWIG_1(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_addValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_addValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_addValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
   ecode3 = SWIG_AsVal_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MinimizerOptions_addValue" "', argument " "3"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = static_cast< int >(val3);
   (arg1)->addValue((std::string const &)*arg2,arg3);
@@ -22417,9 +22417,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_addValue__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   std::string *arg3 = 0 ;
   void *argp1 = 0 ;
@@ -22430,20 +22430,20 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue__SWIG_2(PyObject *SWIGUNUSE
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:MinimizerOptions_addValue",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:ObsoleteMinimizerOptions_addValue",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_addValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
@@ -22451,10 +22451,10 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue__SWIG_2(PyObject *SWIGUNUSE
     std::string *ptr = (std::string *)0;
     res3 = SWIG_AsPtr_std_string(obj2, &ptr);
     if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "MinimizerOptions_addValue" "', argument " "3"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "3"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_addValue" "', argument " "3"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_addValue" "', argument " "3"" of type '" "std::string const &""'"); 
     }
     arg3 = ptr;
   }
@@ -22470,7 +22470,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_addValue(PyObject *self, PyObject *args) {
   int argc;
   PyObject *argv[4] = {
     0
@@ -22485,7 +22485,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22496,7 +22496,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue(PyObject *self, PyObject *a
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_MinimizerOptions_addValue__SWIG_1(self, args);
+          return _wrap_ObsoleteMinimizerOptions_addValue__SWIG_1(self, args);
         }
       }
     }
@@ -22504,7 +22504,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22515,7 +22515,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue(PyObject *self, PyObject *a
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_MinimizerOptions_addValue__SWIG_0(self, args);
+          return _wrap_ObsoleteMinimizerOptions_addValue__SWIG_0(self, args);
         }
       }
     }
@@ -22523,7 +22523,7 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue(PyObject *self, PyObject *a
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_MinimizerOptions, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ObsoleteMinimizerOptions, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
@@ -22532,25 +22532,25 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_addValue(PyObject *self, PyObject *a
         int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_MinimizerOptions_addValue__SWIG_2(self, args);
+          return _wrap_ObsoleteMinimizerOptions_addValue__SWIG_2(self, args);
         }
       }
     }
   }
   
 fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'MinimizerOptions_addValue'.\n"
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ObsoleteMinimizerOptions_addValue'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    MinimizerOptions::addValue(std::string const &,double)\n"
-    "    MinimizerOptions::addValue(std::string const &,int)\n"
-    "    MinimizerOptions::addValue(std::string const &,std::string const &)\n");
+    "    ObsoleteMinimizerOptions::addValue(std::string const &,double)\n"
+    "    ObsoleteMinimizerOptions::addValue(std::string const &,int)\n"
+    "    ObsoleteMinimizerOptions::addValue(std::string const &,std::string const &)\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getIntValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getIntValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -22559,20 +22559,20 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getIntValue(PyObject *SWIGUNUSEDPARM
   PyObject * obj1 = 0 ;
   int result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerOptions_getIntValue",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:ObsoleteMinimizerOptions_getIntValue",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getIntValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getIntValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_getIntValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_getIntValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getIntValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getIntValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
@@ -22586,9 +22586,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getRealValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getRealValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -22597,20 +22597,20 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getRealValue(PyObject *SWIGUNUSEDPAR
   PyObject * obj1 = 0 ;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerOptions_getRealValue",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:ObsoleteMinimizerOptions_getRealValue",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getRealValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getRealValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_getRealValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_getRealValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getRealValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getRealValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
@@ -22624,9 +22624,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions_getNamedValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions_getNamedValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -22635,20 +22635,20 @@ SWIGINTERN PyObject *_wrap_MinimizerOptions_getNamedValue(PyObject *SWIGUNUSEDPA
   PyObject * obj1 = 0 ;
   std::string result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerOptions_getNamedValue",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:ObsoleteMinimizerOptions_getNamedValue",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions_getNamedValue" "', argument " "1"" of type '" "MinimizerOptions *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions_getNamedValue" "', argument " "1"" of type '" "ObsoleteMinimizerOptions *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerOptions_getNamedValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ObsoleteMinimizerOptions_getNamedValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerOptions_getNamedValue" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ObsoleteMinimizerOptions_getNamedValue" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
@@ -22662,20 +22662,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MinimizerOptions__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ObsoleteMinimizerOptions__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  MinimizerOptions *arg1 = (MinimizerOptions *) 0 ;
+  ObsoleteMinimizerOptions *arg1 = (ObsoleteMinimizerOptions *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerOptions__print",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerOptions, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:ObsoleteMinimizerOptions__print",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ObsoleteMinimizerOptions, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerOptions__print" "', argument " "1"" of type '" "MinimizerOptions const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ObsoleteMinimizerOptions__print" "', argument " "1"" of type '" "ObsoleteMinimizerOptions const *""'"); 
   }
-  arg1 = reinterpret_cast< MinimizerOptions * >(argp1);
-  ((MinimizerOptions const *)arg1)->print();
+  arg1 = reinterpret_cast< ObsoleteMinimizerOptions * >(argp1);
+  ((ObsoleteMinimizerOptions const *)arg1)->print();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -22683,10 +22683,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *MinimizerOptions_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *ObsoleteMinimizerOptions_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_MinimizerOptions, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_ObsoleteMinimizerOptions, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -23613,14 +23613,14 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"IMinimizer_getOptions", _wrap_IMinimizer_getOptions, METH_VARARGS, (char *)"\n"
-		"getOptions() -> MinimizerOptions\n"
-		"IMinimizer_getOptions(IMinimizer self) -> MinimizerOptions\n"
+		"getOptions() -> ObsoleteMinimizerOptions\n"
+		"IMinimizer_getOptions(IMinimizer self) -> ObsoleteMinimizerOptions\n"
 		"\n"
 		"virtual const MinimizerOptions* IMinimizer::getOptions() const \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_setOptions", _wrap_IMinimizer_setOptions, METH_VARARGS, (char *)"\n"
-		"IMinimizer_setOptions(IMinimizer self, MinimizerOptions arg3)\n"
+		"IMinimizer_setOptions(IMinimizer self, ObsoleteMinimizerOptions arg3)\n"
 		"\n"
 		"virtual void IMinimizer::setOptions(const MinimizerOptions &)\n"
 		"\n"
@@ -23869,147 +23869,38 @@ static PyMethodDef SwigMethods[] = {
 		"FitSuiteParameters___getitem__(FitSuiteParameters self, size_t index) -> FitParameter\n"
 		""},
 	 { (char *)"FitSuiteParameters_swigregister", FitSuiteParameters_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_MinimizerOptions", _wrap_new_MinimizerOptions, METH_VARARGS, (char *)"\n"
-		"new_MinimizerOptions() -> MinimizerOptions\n"
-		"\n"
-		"MinimizerOptions::MinimizerOptions()\n"
-		"\n"
-		""},
-	 { (char *)"delete_MinimizerOptions", _wrap_delete_MinimizerOptions, METH_VARARGS, (char *)"\n"
-		"delete_MinimizerOptions(MinimizerOptions self)\n"
-		"\n"
-		"MinimizerOptions::~MinimizerOptions()\n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_getTolerance", _wrap_MinimizerOptions_getTolerance, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_getTolerance(MinimizerOptions self) -> double\n"
-		"\n"
-		"double MinimizerOptions::getTolerance() const\n"
-		"\n"
-		"return minimizer tolerance \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_setTolerance", _wrap_MinimizerOptions_setTolerance, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_setTolerance(MinimizerOptions self, double tolerance)\n"
-		"\n"
-		"void MinimizerOptions::setTolerance(double tolerance)\n"
-		"\n"
-		"set minimizer tolerance \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_getPrecision", _wrap_MinimizerOptions_getPrecision, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_getPrecision(MinimizerOptions self) -> double\n"
-		"\n"
-		"double MinimizerOptions::getPrecision() const\n"
-		"\n"
-		"return minimizer precision \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_setPrecision", _wrap_MinimizerOptions_setPrecision, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_setPrecision(MinimizerOptions self, double precision)\n"
-		"\n"
-		"void MinimizerOptions::setPrecision(double precision)\n"
-		"\n"
-		"set minimizer precision \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_getMaxIterations", _wrap_MinimizerOptions_getMaxIterations, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_getMaxIterations(MinimizerOptions self) -> int\n"
-		"\n"
-		"int MinimizerOptions::getMaxIterations() const\n"
-		"\n"
-		"return maximum number of allowed iterations \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_setMaxIterations", _wrap_MinimizerOptions_setMaxIterations, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_setMaxIterations(MinimizerOptions self, int max_iterations)\n"
-		"\n"
-		"void MinimizerOptions::setMaxIterations(int max_iterations)\n"
-		"\n"
-		"set maximum number of allowed iterations \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_getMaxFunctionCalls", _wrap_MinimizerOptions_getMaxFunctionCalls, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_getMaxFunctionCalls(MinimizerOptions self) -> int\n"
-		"\n"
-		"int MinimizerOptions::getMaxFunctionCalls() const\n"
-		"\n"
-		"return maximum number of allowed function calls \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_setMaxFunctionCalls", _wrap_MinimizerOptions_setMaxFunctionCalls, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_setMaxFunctionCalls(MinimizerOptions self, int max_function_calls)\n"
-		"\n"
-		"void MinimizerOptions::setMaxFunctionCalls(int max_function_calls)\n"
-		"\n"
-		"set maximum number of allowed function calls \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_getPrintLevel", _wrap_MinimizerOptions_getPrintLevel, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_getPrintLevel(MinimizerOptions self) -> int\n"
-		"\n"
-		"int MinimizerOptions::getPrintLevel() const\n"
-		"\n"
-		"return internal print level of the minimizer \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_setPrintLevel", _wrap_MinimizerOptions_setPrintLevel, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_setPrintLevel(MinimizerOptions self, int print_level)\n"
-		"\n"
-		"void MinimizerOptions::setPrintLevel(int print_level)\n"
-		"\n"
-		"set internal print level of the minimizer \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_setValue", _wrap_MinimizerOptions_setValue, METH_VARARGS, (char *)"\n"
+	 { (char *)"new_ObsoleteMinimizerOptions", _wrap_new_ObsoleteMinimizerOptions, METH_VARARGS, (char *)"new_ObsoleteMinimizerOptions() -> ObsoleteMinimizerOptions"},
+	 { (char *)"delete_ObsoleteMinimizerOptions", _wrap_delete_ObsoleteMinimizerOptions, METH_VARARGS, (char *)"delete_ObsoleteMinimizerOptions(ObsoleteMinimizerOptions self)"},
+	 { (char *)"ObsoleteMinimizerOptions_getTolerance", _wrap_ObsoleteMinimizerOptions_getTolerance, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_getTolerance(ObsoleteMinimizerOptions self) -> double"},
+	 { (char *)"ObsoleteMinimizerOptions_setTolerance", _wrap_ObsoleteMinimizerOptions_setTolerance, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_setTolerance(ObsoleteMinimizerOptions self, double tolerance)"},
+	 { (char *)"ObsoleteMinimizerOptions_getPrecision", _wrap_ObsoleteMinimizerOptions_getPrecision, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_getPrecision(ObsoleteMinimizerOptions self) -> double"},
+	 { (char *)"ObsoleteMinimizerOptions_setPrecision", _wrap_ObsoleteMinimizerOptions_setPrecision, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_setPrecision(ObsoleteMinimizerOptions self, double precision)"},
+	 { (char *)"ObsoleteMinimizerOptions_getMaxIterations", _wrap_ObsoleteMinimizerOptions_getMaxIterations, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_getMaxIterations(ObsoleteMinimizerOptions self) -> int"},
+	 { (char *)"ObsoleteMinimizerOptions_setMaxIterations", _wrap_ObsoleteMinimizerOptions_setMaxIterations, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_setMaxIterations(ObsoleteMinimizerOptions self, int max_iterations)"},
+	 { (char *)"ObsoleteMinimizerOptions_getMaxFunctionCalls", _wrap_ObsoleteMinimizerOptions_getMaxFunctionCalls, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_getMaxFunctionCalls(ObsoleteMinimizerOptions self) -> int"},
+	 { (char *)"ObsoleteMinimizerOptions_setMaxFunctionCalls", _wrap_ObsoleteMinimizerOptions_setMaxFunctionCalls, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_setMaxFunctionCalls(ObsoleteMinimizerOptions self, int max_function_calls)"},
+	 { (char *)"ObsoleteMinimizerOptions_getPrintLevel", _wrap_ObsoleteMinimizerOptions_getPrintLevel, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_getPrintLevel(ObsoleteMinimizerOptions self) -> int"},
+	 { (char *)"ObsoleteMinimizerOptions_setPrintLevel", _wrap_ObsoleteMinimizerOptions_setPrintLevel, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_setPrintLevel(ObsoleteMinimizerOptions self, int print_level)"},
+	 { (char *)"ObsoleteMinimizerOptions_setValue", _wrap_ObsoleteMinimizerOptions_setValue, METH_VARARGS, (char *)"\n"
 		"setValue(std::string const & name, double val)\n"
 		"setValue(std::string const & name, int val)\n"
-		"MinimizerOptions_setValue(MinimizerOptions self, std::string const & name, std::string const & val)\n"
-		"\n"
-		"void MinimizerOptions::setValue(const std::string &name, const std::string &val)\n"
-		"\n"
+		"ObsoleteMinimizerOptions_setValue(ObsoleteMinimizerOptions self, std::string const & name, std::string const & val)\n"
 		""},
-	 { (char *)"MinimizerOptions_getValue", _wrap_MinimizerOptions_getValue, METH_VARARGS, (char *)"\n"
+	 { (char *)"ObsoleteMinimizerOptions_getValue", _wrap_ObsoleteMinimizerOptions_getValue, METH_VARARGS, (char *)"\n"
 		"getValue(std::string const & name, int & val)\n"
 		"getValue(std::string const & name, double & val)\n"
-		"MinimizerOptions_getValue(MinimizerOptions self, std::string const & name, std::string & val)\n"
-		"\n"
-		"void MinimizerOptions::getValue(const std::string &name, std::string &val)\n"
-		"\n"
+		"ObsoleteMinimizerOptions_getValue(ObsoleteMinimizerOptions self, std::string const & name, std::string & val)\n"
 		""},
-	 { (char *)"MinimizerOptions_addValue", _wrap_MinimizerOptions_addValue, METH_VARARGS, (char *)"\n"
+	 { (char *)"ObsoleteMinimizerOptions_addValue", _wrap_ObsoleteMinimizerOptions_addValue, METH_VARARGS, (char *)"\n"
 		"addValue(std::string const & name, double val)\n"
 		"addValue(std::string const & name, int val)\n"
-		"MinimizerOptions_addValue(MinimizerOptions self, std::string const & name, std::string const & val)\n"
-		"\n"
-		"void MinimizerOptions::addValue(const std::string &name, const std::string &val)\n"
-		"\n"
+		"ObsoleteMinimizerOptions_addValue(ObsoleteMinimizerOptions self, std::string const & name, std::string const & val)\n"
 		""},
-	 { (char *)"MinimizerOptions_getIntValue", _wrap_MinimizerOptions_getIntValue, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_getIntValue(MinimizerOptions self, std::string const & name) -> int\n"
-		"\n"
-		"int MinimizerOptions::getIntValue(const std::string &name)\n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_getRealValue", _wrap_MinimizerOptions_getRealValue, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_getRealValue(MinimizerOptions self, std::string const & name) -> double\n"
-		"\n"
-		"double MinimizerOptions::getRealValue(const std::string &name)\n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_getNamedValue", _wrap_MinimizerOptions_getNamedValue, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions_getNamedValue(MinimizerOptions self, std::string const & name) -> std::string\n"
-		"\n"
-		"std::string MinimizerOptions::getNamedValue(const std::string &name)\n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions__print", _wrap_MinimizerOptions__print, METH_VARARGS, (char *)"\n"
-		"MinimizerOptions__print(MinimizerOptions self)\n"
-		"\n"
-		"void MinimizerOptions::print() const \n"
-		"\n"
-		""},
-	 { (char *)"MinimizerOptions_swigregister", MinimizerOptions_swigregister, METH_VARARGS, NULL},
+	 { (char *)"ObsoleteMinimizerOptions_getIntValue", _wrap_ObsoleteMinimizerOptions_getIntValue, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_getIntValue(ObsoleteMinimizerOptions self, std::string const & name) -> int"},
+	 { (char *)"ObsoleteMinimizerOptions_getRealValue", _wrap_ObsoleteMinimizerOptions_getRealValue, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_getRealValue(ObsoleteMinimizerOptions self, std::string const & name) -> double"},
+	 { (char *)"ObsoleteMinimizerOptions_getNamedValue", _wrap_ObsoleteMinimizerOptions_getNamedValue, METH_VARARGS, (char *)"ObsoleteMinimizerOptions_getNamedValue(ObsoleteMinimizerOptions self, std::string const & name) -> std::string"},
+	 { (char *)"ObsoleteMinimizerOptions__print", _wrap_ObsoleteMinimizerOptions__print, METH_VARARGS, (char *)"ObsoleteMinimizerOptions__print(ObsoleteMinimizerOptions self)"},
+	 { (char *)"ObsoleteMinimizerOptions_swigregister", ObsoleteMinimizerOptions_swigregister, METH_VARARGS, NULL},
 	 { (char *)"MinimizerFactory_printCatalogue", _wrap_MinimizerFactory_printCatalogue, METH_VARARGS, (char *)"MinimizerFactory_printCatalogue()"},
 	 { (char *)"MinimizerFactory_createMinimizer", _wrap_MinimizerFactory_createMinimizer, METH_VARARGS, (char *)"\n"
 		"createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer\n"
@@ -24050,7 +23941,7 @@ static swig_type_info _swigt__p_FitParameter = {"_p_FitParameter", "FitParameter
 static swig_type_info _swigt__p_FitSuiteParameters = {"_p_FitSuiteParameters", "FitSuiteParameters *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IMinimizer = {"_p_IMinimizer", "IMinimizer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "MinimizerFactory *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_MinimizerOptions = {"_p_MinimizerOptions", "MinimizerOptions *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ObsoleteMinimizerOptions = {"_p_ObsoleteMinimizerOptions", "ObsoleteMinimizerOptions *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -24102,7 +23993,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_FitSuiteParameters,
   &_swigt__p_IMinimizer,
   &_swigt__p_MinimizerFactory,
-  &_swigt__p_MinimizerOptions,
+  &_swigt__p_ObsoleteMinimizerOptions,
   &_swigt__p_RealLimits,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
@@ -24154,7 +24045,7 @@ static swig_cast_info _swigc__p_FitParameter[] = {  {&_swigt__p_FitParameter, 0,
 static swig_cast_info _swigc__p_FitSuiteParameters[] = {  {&_swigt__p_FitSuiteParameters, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFactory, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MinimizerOptions[] = {  {&_swigt__p_MinimizerOptions, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ObsoleteMinimizerOptions[] = {  {&_swigt__p_ObsoleteMinimizerOptions, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_FitParameter, _p_FitParameterTo_p_RealLimits, 0, 0},  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -24206,7 +24097,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_FitSuiteParameters,
   _swigc__p_IMinimizer,
   _swigc__p_MinimizerFactory,
-  _swigc__p_MinimizerOptions,
+  _swigc__p_ObsoleteMinimizerOptions,
   _swigc__p_RealLimits,
   _swigc__p_allocator_type,
   _swigc__p_char,

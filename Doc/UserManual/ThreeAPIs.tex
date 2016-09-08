@@ -106,10 +106,26 @@ and continue work by directly editing the Python code.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Python!using BornAgain from|(}
 
-\BornAgain\ simulations and fits can be set up and run from Python scripts
-or from a Python command line.
+\BornAgain\ simulations and fits can be set up and run from Python programs
+or from a Python command-line interpreter like \Code{IPython}.
+\index{IPython}
 \index{Command line!Python}
-For
+A short program in an interpreted language like Python is customarily called
+\index{Script!Python}
+\index{Python!script}
+a \E{script},
+and therefore in the following we will talk about \E{Python scripts}.
+Of course this does not preclude the possibility that such scripts evolve into
+complex programs, modules, or packages,
+and anything we say about scripts also applies to usage of \BornAgain\ in an
+interactive Python session.
+\index{Interactive!Python session}
+\index{Python!interactive use}
+
+Usage of \BornAgain\ in a Python script should start with the command
+\begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
+import bornagain as ba
+\end{lstlisting}
 
 \index{Python!using BornAgain from|)}
 

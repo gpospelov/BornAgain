@@ -116,16 +116,51 @@ A short program in an interpreted language like Python is customarily called
 a \E{script},
 and therefore in the following we will talk about \E{Python scripts}.
 Of course this does not preclude the possibility that such scripts evolve into
-complex programs, modules, or packages,
-and anything we say about scripts also applies to usage of \BornAgain\ in an
-interactive Python session.
-\index{Interactive!Python session}
-\index{Python!interactive use}
+complex programs, modules, or packages.
+And anything we say about scripts also applies to usage of \BornAgain\ in an
+interactive Python session.%
+\index{Interactive!Python session}%
+\index{Python!interactive use}%
 
 Usage of \BornAgain\ in a Python script should start with the command
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-import bornagain as ba
+import bornagain as ba @\label{import_as}\index{Import!\BornAgain\ to Python|(}@
 \end{lstlisting}
+This then allows calls to \BornAgain\ in commands like
+\begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
+    air = ba.HomogeneousMaterial("Air", 0.0, 0.0) @\label{constructor_beg}@
+    air_layer = ba.Layer(air)
+    sample = ba.MultiLayer() @\label{constructor_end}@
+    sample.addLayer(air_layer) @\label{class_func_call}@
+\end{lstlisting}
+The function calls in lines \ref{constructor_beg}--\ref{constructor_end}
+return new \E{objects}.
+\index{Object!constructor}
+These objects are instances of \E{classes} defined in \BornAgain.
+\index{Class!Instantiation}
+In the language of object-oriented programming,
+a Function that returns a new instance of a class is called a \E{constructor}.
+\index{Constructor}
+In Python, as in C++, a constructor names coincide with class names;
+so the constructor function \Code{Layer(material)} will return an
+object of class type \Code{Layer}.
+
+To prevent accidental use of class or constructor names,
+they are encapsulated in a \E{namespace}
+\index{Namespace}
+called \Code{bornagain}.
+The \Code{import} command in the above code line~\ref{import_as}
+makes this namespace available under the shortcut \Code{ba}.
+\index{Import!\BornAgain\ to Python|)}
+Note, however, that not all calls to \BornAgain\ require
+(and can be recognized by) the prefix \Code{ba}.
+The function call \Code{addLayer} in line~\ref{class_func_call}
+is defined inside the \BornAgain\ class \Code{MultiLayer}.
+The programmer is supposed to know that \Code{sample} is an instance of
+class \Code{MultiLayer}, which is part of \BornAgain.
+Therefore, there is no need (and no way) to adorn function calls like \Code{addLayer}
+with the namespace label \Code{ba}.
+
 
 \index{Python!using BornAgain from|)}
 

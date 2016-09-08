@@ -28,15 +28,15 @@
 // ************************************************************************** //
 
 //! Map of minimizer names holding list of defined algorithms for every minimizer.
-class MinimizerCatalogue {
+class ObsoleteMinimizerCatalogue {
 public:
     typedef std::map<std::string, std::vector<std::string>> catalogue_t;
     typedef catalogue_t::const_iterator const_iterator;
-    MinimizerCatalogue();
+    ObsoleteMinimizerCatalogue();
     const_iterator begin() const { return m_data.begin(); }
     const_iterator end() const { return m_data.end(); }
     bool isValid(const std::string& minimizer, const std::string& algorithm) const;
-    friend std::ostream& operator<<(std::ostream& ostr, const MinimizerCatalogue& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const ObsoleteMinimizerCatalogue& m) {
         m.print(ostr); return ostr; }
 private:
     void print(std::ostream& ostr) const;
@@ -44,7 +44,7 @@ private:
 };
 
 // Constructs map of minimizer names holding list of defined algorithms for every minimizer
-MinimizerCatalogue::MinimizerCatalogue()
+ObsoleteMinimizerCatalogue::ObsoleteMinimizerCatalogue()
 {
     // our minimizers
     m_data["Test"]        = {""};
@@ -59,9 +59,9 @@ MinimizerCatalogue::MinimizerCatalogue()
 }
 
 
-void MinimizerCatalogue::print(std::ostream& ostr) const
+void ObsoleteMinimizerCatalogue::print(std::ostream& ostr) const
 {
-    for(MinimizerCatalogue::const_iterator it=m_data.begin(); it!=m_data.end(); ++it) {
+    for(ObsoleteMinimizerCatalogue::const_iterator it=m_data.begin(); it!=m_data.end(); ++it) {
         ostr << std::setw(20) << std::left<< it->first << "  : ";
         for(size_t i=0; i<it->second.size(); ++i ) {
             ostr << it->second[i] << " ";
@@ -72,10 +72,10 @@ void MinimizerCatalogue::print(std::ostream& ostr) const
 }
 
 
-bool MinimizerCatalogue::isValid(const std::string& minimizer, const std::string& algorithm) const
+bool ObsoleteMinimizerCatalogue::isValid(const std::string& minimizer, const std::string& algorithm) const
 {
     // check minimizers names
-    MinimizerCatalogue::const_iterator it = m_data.find(minimizer);
+    ObsoleteMinimizerCatalogue::const_iterator it = m_data.find(minimizer);
     if(it != m_data.end() ) {
         // check minimizer's algorithm type
         for(size_t i=0; i<it->second.size(); ++i ) if(it->second[i] == algorithm ) return true;
@@ -87,7 +87,7 @@ bool MinimizerCatalogue::isValid(const std::string& minimizer, const std::string
 // class MinimizerFactory
 // ************************************************************************** //
 
-static MinimizerCatalogue catalogue;
+static ObsoleteMinimizerCatalogue catalogue;
 
 void MinimizerFactory::printCatalogue()
 {

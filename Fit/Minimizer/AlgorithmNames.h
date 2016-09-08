@@ -18,7 +18,7 @@
 
 #include <string>
 
-namespace MinimizerNames {
+namespace ObsoleteMinimizerNames {
 
 const std::string Minuit = "MinuitMinimizer";
 const std::string GSL = "GSLMinimizer";
@@ -26,7 +26,7 @@ const std::string Genetic = "GeneticMinimizer";
 
 } // namespace MinimizerNames
 
-namespace AlgorithmNames {
+namespace ObsoleteAlgorithmNames {
 
 const std::string Migrad = "Migrad";
 const std::string Simplex = "Simplex";

@@ -60,7 +60,7 @@ void MinimizerItemCatalogue::domainMinimizerNames(
     }
 
     else if(minimizerType == Constants::GSLMinimizerType) {
-        if(algorithmName.toStdString() != AlgorithmNames::LMA) {
+        if(algorithmName.toStdString() != ObsoleteAlgorithmNames::LMA) {
             domainName = std::string("GSLMultiMin");
             domainAlgo = algorithmName.toStdString();
         } else {

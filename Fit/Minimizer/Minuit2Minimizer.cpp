@@ -25,7 +25,7 @@ const std::string O_PRINTLEVEL = "PrintLevel";
 }
 
 Minuit2Minimizer::Minuit2Minimizer()
-    : BasicMinimizer(MinimizerNames::Minuit, AlgorithmNames::Migrad)
+    : BasicMinimizer(ObsoleteMinimizerNames::Minuit, ObsoleteAlgorithmNames::Migrad)
     , m_minuit2_minimizer(new BA_ROOT::Minuit2::Minuit2Minimizer("xxx"))
 {
     addOption(O_STRATEGY, 1,

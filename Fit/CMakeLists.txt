@@ -18,11 +18,8 @@ set(FIT_SOURCE_DIRS
 
 set(include_dirs ${BUILD_INC_DIR} ${CMAKE_SOURCE_DIR}/Wrap ${FIT_SOURCE_DIRS})
 
-file(GLOB fitkernel_source_files */*.cpp)
-file(GLOB fitkernel_include_files */*.h)
-
-set(source_files ${fitkernel_source_files})
-set(include_files ${fitkernel_include_files})
+file(GLOB source_files */*.cpp)
+file(GLOB include_files */*.h)
 
 if(BORNAGAIN_PYTHON)
 
@@ -96,7 +93,7 @@ if(WIN32)
 endif()
 
 # --- making library ---------
-add_library(${library_name} SHARED ${source_files})
+add_library(${library_name} SHARED ${include_files} ${source_files})
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 

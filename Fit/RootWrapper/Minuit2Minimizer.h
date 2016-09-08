@@ -17,8 +17,10 @@
 #define MINUIT2MINIMIZER_H
 
 #include "BasicMinimizer.h"
-#include "Minuit2/Minuit2Minimizer.h"
+#include "MinimizerConstants.h"
 #include <memory>
+
+namespace BA_ROOT { namespace Minuit2 { class Minuit2Minimizer; } }
 
 //! @class Minuit2Minimizer
 //! @ingroup fitting_internal
@@ -28,7 +30,7 @@
 class BA_CORE_API_ Minuit2Minimizer : public BasicMinimizer
 {
 public:
-    Minuit2Minimizer();
+    Minuit2Minimizer(const std::string &algorithmName = AlgorithmNames::Migrad);
     ~Minuit2Minimizer();
 
     //! Sets minimization strategy (0-low, 1-medium, 2-high minimization quality).
@@ -66,7 +68,15 @@ public:
     void setPrintLevel(int value);
     int printLevel() const;
 
+    //! Sets maximum number of objective function calls.
+    void setMaxFunctionCalls(int value);
+    int maxFunctionCalls() const;
+
+    std::string statusToString() const;
+    std::map<std::string, std::string> statusMap() const;
+
 protected:
+    bool isGradientBasedAgorithm();
     void propagateOptions();
     const root_minimizer_t* rootMinimizer() const;
 

@@ -1774,66 +1774,7 @@ def RealLimits_limitless():
     """RealLimits_limitless() -> RealLimits"""
     return _libBornAgainFit.RealLimits_limitless()
 
-class Configurable(_object):
-    """
-
-
-    A base class for storing (int,double,string) options.
-
-    C++ includes: Configurable.h
-
-    """
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Configurable, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Configurable, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(Configurable self) -> Configurable
-        __init__(Configurable self, Configurable other) -> Configurable
-
-        Configurable::Configurable(const Configurable &other)
-
-        Returns true if option with such name already exists. 
-
-        """
-        this = _libBornAgainFit.new_Configurable(*args)
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
-
-    def option(self, *args):
-        """
-        option(Configurable self, std::string const & optionName) -> Configurable::option_t
-        option(Configurable self, std::string const & optionName) -> Configurable::option_t const
-
-        const Configurable::option_t Configurable::option(const std::string &optionName) const 
-
-        """
-        return _libBornAgainFit.Configurable_option(self, *args)
-
-
-    def toOptionString(self, *args):
-        """
-        toOptionString(Configurable self, std::string const & delimeter) -> std::string
-        toOptionString(Configurable self) -> std::string
-
-        std::string Configurable::toOptionString(const std::string &delimeter=";") const
-
-        Returns string with all options using given delimeter. 
-
-        """
-        return _libBornAgainFit.Configurable_toOptionString(self, *args)
-
-    __swig_destroy__ = _libBornAgainFit.delete_Configurable
-    __del__ = lambda self: None
-Configurable_swigregister = _libBornAgainFit.Configurable_swigregister
-Configurable_swigregister(Configurable)
-
-class IMinimizer(Configurable):
+class IMinimizer(_object):
     """
 
 
@@ -1843,19 +1784,35 @@ class IMinimizer(Configurable):
 
     """
     __swig_setmethods__ = {}
-    for _s in [Configurable]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IMinimizer, name, value)
     __swig_getmethods__ = {}
-    for _s in [Configurable]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IMinimizer, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(IMinimizer self) -> IMinimizer
+
+        IMinimizer::IMinimizer()
+
+        """
+        this = _libBornAgainFit.new_IMinimizer()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_IMinimizer
     __del__ = lambda self: None
+
+    def minimizerName(self):
+        """minimizerName(IMinimizer self) -> std::string"""
+        return _libBornAgainFit.IMinimizer_minimizerName(self)
+
+
+    def algorithmName(self):
+        """algorithmName(IMinimizer self) -> std::string"""
+        return _libBornAgainFit.IMinimizer_algorithmName(self)
+
 
     def minimize(self):
         """
@@ -1867,6 +1824,11 @@ class IMinimizer(Configurable):
 
         """
         return _libBornAgainFit.IMinimizer_minimize(self)
+
+
+    def setParameter(self, index, par):
+        """setParameter(IMinimizer self, size_t index, FitParameter par)"""
+        return _libBornAgainFit.IMinimizer_setParameter(self, index, par)
 
 
     def setParameters(self, parameters):
@@ -1919,6 +1881,16 @@ class IMinimizer(Configurable):
         return _libBornAgainFit.IMinimizer_getNumberOfVariables(self)
 
 
+    def getMinValue(self):
+        """getMinValue(IMinimizer self) -> double"""
+        return _libBornAgainFit.IMinimizer_getMinValue(self)
+
+
+    def getValueOfVariableAtMinimum(self, index):
+        """getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double"""
+        return _libBornAgainFit.IMinimizer_getValueOfVariableAtMinimum(self, index)
+
+
     def getValueOfVariablesAtMinimum(self):
         """
         getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t
@@ -1933,6 +1905,11 @@ class IMinimizer(Configurable):
         return _libBornAgainFit.IMinimizer_getValueOfVariablesAtMinimum(self)
 
 
+    def getErrorOfVariable(self, index):
+        """getErrorOfVariable(IMinimizer self, size_t index) -> double"""
+        return _libBornAgainFit.IMinimizer_getErrorOfVariable(self, index)
+
+
     def getErrorOfVariables(self):
         """
         getErrorOfVariables(IMinimizer self) -> vdouble1d_t
@@ -1945,101 +1922,19 @@ class IMinimizer(Configurable):
         return _libBornAgainFit.IMinimizer_getErrorOfVariables(self)
 
 
-    def printResults(self):
-        """
-        printResults(IMinimizer self)
-
-        virtual void IMinimizer::printResults() const =0
-
-        clear resources (parameters) for consecutives minimizations
-
-        Prints fit results 
-
-        """
-        return _libBornAgainFit.IMinimizer_printResults(self)
+    def clear(self):
+        """clear(IMinimizer self)"""
+        return _libBornAgainFit.IMinimizer_clear(self)
 
 
-    def getNCalls(self):
-        """
-        getNCalls(IMinimizer self) -> size_t
-
-        virtual size_t IMinimizer::getNCalls() const
-
-        Returns number of calls of minimized function. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getNCalls(self)
+    def reportResults(self):
+        """reportResults(IMinimizer self) -> std::string"""
+        return _libBornAgainFit.IMinimizer_reportResults(self)
 
 
-    def getOptions(self, *args):
-        """
-        getOptions(IMinimizer self) -> ObsoleteMinimizerOptions
-        getOptions(IMinimizer self) -> ObsoleteMinimizerOptions
-
-        virtual const MinimizerOptions* IMinimizer::getOptions() const 
-
-        """
-        return _libBornAgainFit.IMinimizer_getOptions(self, *args)
-
-
-    def setOptions(self, arg2):
-        """
-        setOptions(IMinimizer self, ObsoleteMinimizerOptions arg2)
-
-        virtual void IMinimizer::setOptions(const MinimizerOptions &)
-
-        set minimizer options 
-
-        """
-        return _libBornAgainFit.IMinimizer_setOptions(self, arg2)
-
-
-    def setOptionString(self, arg2):
-        """
-        setOptionString(IMinimizer self, std::string const & arg2)
-
-        virtual void IMinimizer::setOptionString(const std::string &)
-
-        set minimizer option string 
-
-        """
-        return _libBornAgainFit.IMinimizer_setOptionString(self, arg2)
-
-
-    def isGradientBasedAgorithm(self):
-        """
-        isGradientBasedAgorithm(IMinimizer self) -> bool
-
-        virtual bool IMinimizer::isGradientBasedAgorithm()
-
-        Returns true if type of algorithm is Levenberg-Marquardt or similar. 
-
-        """
-        return _libBornAgainFit.IMinimizer_isGradientBasedAgorithm(self)
-
-
-    def getMinimizerName(self):
-        """
-        getMinimizerName(IMinimizer self) -> std::string
-
-        virtual std::string IMinimizer::getMinimizerName() const =0
-
-        return name of the minimizer 
-
-        """
-        return _libBornAgainFit.IMinimizer_getMinimizerName(self)
-
-
-    def getAlgorithmName(self):
-        """
-        getAlgorithmName(IMinimizer self) -> std::string
-
-        virtual std::string IMinimizer::getAlgorithmName() const =0
-
-        return name of the minimization algorithm 
-
-        """
-        return _libBornAgainFit.IMinimizer_getAlgorithmName(self)
+    def propagateResults(self, parameters):
+        """propagateResults(IMinimizer self, FitSuiteParameters parameters)"""
+        return _libBornAgainFit.IMinimizer_propagateResults(self, parameters)
 
 IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
 IMinimizer_swigregister(IMinimizer)
@@ -2209,16 +2104,17 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_addFitParameter(self, par)
 
 
-    def getFitParameters(self):
+    def getFitParameters(self, *args):
         """
-        getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > &
+        getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >
+        getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > const &
 
         std::vector<FitParameter*>& FitSuiteParameters::getFitParameters()
 
         Returns all parameters. 
 
         """
-        return _libBornAgainFit.FitSuiteParameters_getFitParameters(self)
+        return _libBornAgainFit.FitSuiteParameters_getFitParameters(self, *args)
 
 
     def getFitParameter(self, *args):
@@ -2535,11 +2431,19 @@ class MinimizerFactory(_object):
         printCatalogue = staticmethod(printCatalogue)
     __swig_getmethods__["printCatalogue"] = lambda x: printCatalogue
 
+    def catalogueToString():
+        """catalogueToString() -> std::string"""
+        return _libBornAgainFit.MinimizerFactory_catalogueToString()
+
+    if _newclass:
+        catalogueToString = staticmethod(catalogueToString)
+    __swig_getmethods__["catalogueToString"] = lambda x: catalogueToString
+
     def createMinimizer(*args):
         """
-        createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
-        createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
-        createMinimizer(std::string const & minimizer) -> IMinimizer
+        createMinimizer(std::string const & minimizerName, std::string const & algorithmType, std::string const & options) -> IMinimizer
+        createMinimizer(std::string const & minimizerName, std::string const & algorithmType) -> IMinimizer
+        createMinimizer(std::string const & minimizerName) -> IMinimizer
         createMinimizer(IMinimizer other) -> IMinimizer
         """
         return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
@@ -2547,6 +2451,14 @@ class MinimizerFactory(_object):
     if _newclass:
         createMinimizer = staticmethod(createMinimizer)
     __swig_getmethods__["createMinimizer"] = lambda x: createMinimizer
+
+    def catalogue():
+        """catalogue() -> MinimizerCatalogue const &"""
+        return _libBornAgainFit.MinimizerFactory_catalogue()
+
+    if _newclass:
+        catalogue = staticmethod(catalogue)
+    __swig_getmethods__["catalogue"] = lambda x: catalogue
 
     def __init__(self):
         """
@@ -2573,14 +2485,22 @@ def MinimizerFactory_printCatalogue():
     """MinimizerFactory_printCatalogue()"""
     return _libBornAgainFit.MinimizerFactory_printCatalogue()
 
+def MinimizerFactory_catalogueToString():
+    """MinimizerFactory_catalogueToString() -> std::string"""
+    return _libBornAgainFit.MinimizerFactory_catalogueToString()
+
 def MinimizerFactory_createMinimizer(*args):
     """
-    createMinimizer(std::string const & minimizer, std::string const & algorithm, std::string const & options) -> IMinimizer
-    createMinimizer(std::string const & minimizer, std::string const & algorithm) -> IMinimizer
-    createMinimizer(std::string const & minimizer) -> IMinimizer
+    createMinimizer(std::string const & minimizerName, std::string const & algorithmType, std::string const & options) -> IMinimizer
+    createMinimizer(std::string const & minimizerName, std::string const & algorithmType) -> IMinimizer
+    createMinimizer(std::string const & minimizerName) -> IMinimizer
     MinimizerFactory_createMinimizer(IMinimizer other) -> IMinimizer
     """
     return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
+
+def MinimizerFactory_catalogue():
+    """MinimizerFactory_catalogue() -> MinimizerCatalogue const &"""
+    return _libBornAgainFit.MinimizerFactory_catalogue()
 
 # This file is compatible with both classic and new-style classes.
 

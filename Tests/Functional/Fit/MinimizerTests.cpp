@@ -53,9 +53,10 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
     IMinimizer* minimizer =
         MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
 //    minimizer->getOptions().setValue("ntries", 10);
-    minimizer->getOptions()->setValue("niters_fixed_t", 5);
-    minimizer->getOptions()->setMaxIterations(10);
-    minimizer->getOptions()->setValue("t_min", 1.0);
+    // FIXME
+//    minimizer->getOptions()->setValue("niters_fixed_t", 5);
+//    minimizer->getOptions()->setMaxIterations(10);
+//    minimizer->getOptions()->setValue("t_min", 1.0);
     result->setMinimizer(minimizer);
     for (const auto& par: m_parameters)
         result->addFitParameter(
@@ -76,8 +77,9 @@ std::unique_ptr<FitSuite> GeneticTest::createFitSuite()
     result->initPrint(200);
     IMinimizer* minimizer =
         MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
-    minimizer->getOptions()->setMaxIterations(1);
-    minimizer->getOptions()->setValue("RandomSeed",1);
+    // FIXME
+//    minimizer->getOptions()->setMaxIterations(1);
+//    minimizer->getOptions()->setValue("RandomSeed",1);
     result->setMinimizer(minimizer);
     for (const auto& par: m_parameters)
         result->addFitParameter(

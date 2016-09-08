@@ -17,7 +17,7 @@
 #define IMINIMIZER_H
 
 #include "WinDllMacros.h"
-#include "Configurable.h"
+#include "OptionContainer.h"
 #include <functional>
 #include <vector>
 
@@ -25,10 +25,11 @@ class FitParameter;
 class FitSuiteParameters;
 class ObsoleteMinimizerOptions;
 
-//! Common interface for all kind minimizers.
+//! @class IMinimizer
 //! @ingroup fitting_internal
+//! @brief Common interface for all kind minimizer's
 
-class BA_CORE_API_ IMinimizer : public Configurable
+class BA_CORE_API_ IMinimizer
 {
  public:
     //! signature of chi squared function to minimize
@@ -37,64 +38,57 @@ class BA_CORE_API_ IMinimizer : public Configurable
     //! signature of gradient to minimize with access to single data element residuals
     typedef std::function<double(const double*, unsigned int, double*)> function_gradient_t;
 
-    IMinimizer() {}
-    virtual ~IMinimizer() {}
+    IMinimizer() { }
+    virtual ~IMinimizer() { }
+
+    //! return name of the minimizer
+    virtual std::string minimizerName() const;
+
+    //! return name of the minimization algorithm
+    virtual std::string algorithmName() const;
 
     //! run minimization
-    virtual void minimize() =0;
+    virtual void minimize();
 
     //! Sets internal minimizer parameter
-//    virtual void setParameter(size_t index, const FitParameter* par) =0;
+    virtual void setParameter(size_t index, const FitParameter* par);
 
     //! Sets internal minimizer parameters using external parameter list
-    virtual void setParameters(const FitSuiteParameters& parameters) =0;
+    virtual void setParameters(const FitSuiteParameters& parameters);
 
     //! Sets chi squared function to minimize
-    virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters) =0;
+    virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
 
     //! Sets gradient function to minimize
     virtual void setGradientFunction(
-        function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize) =0;
+        function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
     //! Returns number of variables to fit
-    virtual size_t getNumberOfVariables() const =0;
+    virtual size_t getNumberOfVariables() const;
 
     //! Returns minimum function value
-//    virtual double getMinValue() const =0;
+    virtual double getMinValue() const;
+
+    //! Returns value of the parameter at the minimum
+    virtual double getValueOfVariableAtMinimum(size_t index) const;
 
     //! Returns values of parameters at the minimum
-    virtual std::vector<double> getValueOfVariablesAtMinimum() const =0;
+    virtual std::vector<double > getValueOfVariablesAtMinimum() const;
+
+    //! Returns error of variable at minimum
+    virtual double getErrorOfVariable(size_t index) const;
 
     //! Returns errors of variables at minimum
-    virtual std::vector<double> getErrorOfVariables() const =0;
+    virtual std::vector<double >  getErrorOfVariables() const;
 
     //! clear resources (parameters) for consecutives minimizations
-//    virtual void clear() =0;
+    virtual void clear();
 
     //! Prints fit results
-    virtual void printResults() const =0;
+    virtual std::string reportResults() const;
 
-    //! Returns number of calls of minimized function
-    virtual size_t getNCalls() const { return 0; }
-
-    //! return minimizer options
-    virtual ObsoleteMinimizerOptions* getOptions() { return nullptr; }
-    virtual const ObsoleteMinimizerOptions* getOptions() const { return nullptr; }
-
-    //! set minimizer options
-    virtual void setOptions(const ObsoleteMinimizerOptions&) {}
-
-    //! set minimizer option string
-    virtual void setOptionString(const std::string&) {}
-
-    //! Returns true if type of algorithm is Levenberg-Marquardt or similar
-    virtual bool isGradientBasedAgorithm() { return false; }
-
-    //! return name of the minimizer
-    virtual std::string getMinimizerName() const =0;
-
-    //! return name of the minimization algorithm
-    virtual std::string getAlgorithmName() const =0;
+    //! Propagates results of minimization to fit parameter set
+    virtual void propagateResults(FitSuiteParameters& parameters);
 };
 
 #endif // IMINIMIZER_H

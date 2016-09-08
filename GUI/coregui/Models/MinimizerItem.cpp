@@ -18,6 +18,7 @@
 #include "MinimizerFactory.h"
 #include "MinimizerItemCatalogue.h"
 #include "ObsoleteMinimizerOptions.h"
+#include "IMinimizer.h"
 #include <QDebug>
 
 // ----------------------------------------------------------------------------
@@ -88,7 +89,7 @@ std::unique_ptr<IMinimizer> MinuitMinimizerItem::createMinimizer() const
              << QString::fromStdString(minimizerName) << QString::fromStdString(minimizerAlgo);
 
     std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
-    result->getOptions()->setMaxIterations(maxIterationCount());
+    //result->getOptions()->setMaxIterations(maxIterationCount());
 
     return result;
 }
@@ -121,7 +122,7 @@ std::unique_ptr<IMinimizer> GSLMinimizerItem::createMinimizer() const
              << QString::fromStdString(minimizerName) << QString::fromStdString(minimizerAlgo);
 
     std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
-    result->getOptions()->setMaxIterations(maxIterationCount());
+    //result->getOptions()->setMaxIterations(maxIterationCount());
 
     return result;
 }
@@ -157,7 +158,7 @@ std::unique_ptr<IMinimizer> GeneticMinimizerItem::createMinimizer() const
              << QString::fromStdString(minimizerName) << QString::fromStdString(minimizerAlgo);
 
     std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
-    result->getOptions()->setMaxIterations(maxIterationCount());
+    //result->getOptions()->setMaxIterations(maxIterationCount());
 
     return result;
 }

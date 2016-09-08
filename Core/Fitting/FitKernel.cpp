@@ -20,6 +20,7 @@
 #include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
+#include "IMinimizer.h"
 #include <stdexcept>
 
 FitKernel::FitKernel(const std::function<void()>& notifyObservers)
@@ -168,7 +169,8 @@ void FitKernel::printResults() const
               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
               << m_function_gradient.getNCallsGradient() << ","
               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
-    m_minimizer->printResults();
+    // FIXME
+    //m_minimizer->printResults();
 }
 
 double FitKernel::getRunTime() const

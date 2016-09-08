@@ -14,138 +14,67 @@
 // ************************************************************************** //
 
 #include "MinimizerFactory.h"
-// #include "ScanningMinimizer.h"
-#include "TrivialMinimizer.h"
-#include "ROOTGeneticMinimizer.h"
-#include "ROOTLMAMinimizer.h"
-#include "ROOTMinuit2Minimizer.h"
-#include "ROOTMultiMinMinimizer.h"
-#include "ROOTSimAnMinimizer.h"
+#include "TestMinimizer.h"
 #include "Minuit2Minimizer.h"
+#include "GSLLevenbergMarquardtMinimizer.h"
+#include "GSLMultiMinimizer.h"
+#include "SimAnMinimizer.h"
+#include "GeneticMinimizer.h"
+#include "MinimizerCatalogue.h"
+#include <sstream>
+#include <iostream>
 
-// ************************************************************************** //
-// auxiliary class MinimizerCatalogue
-// ************************************************************************** //
+MinimizerCatalogue MinimizerFactory::m_catalogue = MinimizerCatalogue();
 
-//! Map of minimizer names holding list of defined algorithms for every minimizer.
-class ObsoleteMinimizerCatalogue {
-public:
-    typedef std::map<std::string, std::vector<std::string>> catalogue_t;
-    typedef catalogue_t::const_iterator const_iterator;
-    ObsoleteMinimizerCatalogue();
-    const_iterator begin() const { return m_data.begin(); }
-    const_iterator end() const { return m_data.end(); }
-    bool isValid(const std::string& minimizer, const std::string& algorithm) const;
-    friend std::ostream& operator<<(std::ostream& ostr, const ObsoleteMinimizerCatalogue& m) {
-        m.print(ostr); return ostr; }
-private:
-    void print(std::ostream& ostr) const;
-    catalogue_t m_data;
-};
-
-// Constructs map of minimizer names holding list of defined algorithms for every minimizer
-ObsoleteMinimizerCatalogue::ObsoleteMinimizerCatalogue()
+IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
+                                              const std::string& algorithmType,
+                                              const std::string& options)
 {
-    // our minimizers
-    m_data["Test"]        = {""};
-    //m_data["Scan"]        = {""};
-    // ROOT minimizers
-    //m_data["Minuit"]      = {"Migrad", "Simplex", "Combined", "Scan"};
-    m_data["Minuit2"]     = {"Migrad", "Simplex", "Combined", "Scan", "Fumili"};
-    m_data["GSLMultiMin"] = {"ConjugateFR", "ConjugatePR", "BFGS", "BFGS2", "SteepestDescent"};
-    m_data["GSLLMA"]      = {""};
-    m_data["GSLSimAn"]    = {""};
-    m_data["Genetic"]     = {""}; // available only with ROOT libraries
-}
-
-
-void ObsoleteMinimizerCatalogue::print(std::ostream& ostr) const
-{
-    for(ObsoleteMinimizerCatalogue::const_iterator it=m_data.begin(); it!=m_data.end(); ++it) {
-        ostr << std::setw(20) << std::left<< it->first << "  : ";
-        for(size_t i=0; i<it->second.size(); ++i ) {
-            ostr << it->second[i] << " ";
-        }
-        ostr << std::endl;
-    }
-    ostr << std::endl;
-}
-
-
-bool ObsoleteMinimizerCatalogue::isValid(const std::string& minimizer, const std::string& algorithm) const
-{
-    // check minimizers names
-    ObsoleteMinimizerCatalogue::const_iterator it = m_data.find(minimizer);
-    if(it != m_data.end() ) {
-        // check minimizer's algorithm type
-        for(size_t i=0; i<it->second.size(); ++i ) if(it->second[i] == algorithm ) return true;
-    }
-    return false;
-}
-
-// ************************************************************************** //
-// class MinimizerFactory
-// ************************************************************************** //
-
-static ObsoleteMinimizerCatalogue catalogue;
-
-void MinimizerFactory::printCatalogue()
-{
-    std::cout << catalogue;
-}
-
-
-IMinimizer* MinimizerFactory::createMinimizer(
-    const std::string& minimizer, const std::string& algorithm, const std::string& options)
-{
-    if( !catalogue.isValid(minimizer, algorithm) ) {
-        std::ostringstream ostr;
-        ostr << "MinimizerFactory::MinimizerFactory() -> Error! Wrong minimizer name '" <<
-            minimizer << "' or algorithm '" << algorithm << "'" << std::endl;
-        ostr << "Possible names are:" << std::endl;
-        ostr << catalogue;
-        throw std::runtime_error(ostr.str());
-    }
-
     IMinimizer* result(0);
-    if( minimizer == "Test" ) {
-        result = new TrivialMinimizer();
-        /* temporarily disabled
-    } else if( minimizer == "Scan" ) {
-        result = new ScanningMinimizer();
-        */
 
-    } else if( minimizer == "Minuit2" ) {
-        result = new ROOTMinuit2Minimizer(minimizer, algorithm);
+    if(minimizerName == MinimizerNames::Minuit2) {
+        result = new Minuit2Minimizer(algorithmType);
+    }
 
-    } else if( minimizer == "GSLMultiMin" ) {
-        result = new ROOTMultiMinMinimizer(minimizer, algorithm);
+    else if(minimizerName == MinimizerNames::GSLLMA) {
+        result = new GSLLevenbergMarquardtMinimizer();
+    }
 
-    } else if( minimizer == "GSLLMA" ) {
-        result = new ROOTLMAMinimizer(minimizer, algorithm);
+    else if(minimizerName == MinimizerNames::GSLSimAn) {
+        result = new SimAnMinimizer();
+    }
 
-    } else if( minimizer == "GSLSimAn" ) {
-        result = new ROOTSimAnMinimizer(minimizer, algorithm);
+    else if(minimizerName == MinimizerNames::GSLMultiMin) {
+        result = new GSLMultiMinimizer(algorithmType);
+    }
 
-    } else if( minimizer == "Genetic" ) {
-        result = new ROOTGeneticMinimizer(minimizer, algorithm);
+    else if(minimizerName == MinimizerNames::Genetic) {
+        result = new GeneticMinimizer();
+    }
 
-    } else
-        throw std::runtime_error("MinimizerFactory::createMinimizer() -> Error! "
-                                              "Wrong minimizer name '"+minimizer+"'" );
+    if(!result) {
+        std::ostringstream ostr;
+        ostr << "MinimizerFactory::MinimizerFactory() -> Error! Can't create minimizer for given "
+                "collection name '" << minimizerName
+        << "' or algorithm '" << algorithmType << "'" << std::endl;
+        ostr << "Possible names are:" << std::endl;
 
-    if( !options.empty() ) {
-        try {
-            result->setOptionString(options);
-        } catch (std::runtime_error& e) {
-            std::cout << "MinimizerFactory::createMinimizer() -> Warning! " <<
-                "Minimizer doesn't have method implemented" << e.what() << std::endl;
-        }
+        ostr << m_catalogue.toString();
+        throw std::runtime_error(ostr.str());
     }
 
     return result;
 }
 
+void MinimizerFactory::printCatalogue()
+{
+    std::cout << catalogueToString() << std::endl;
+}
+
+std::string MinimizerFactory::catalogueToString()
+{
+    return m_catalogue.toString();
+}
 
 //! Create minimizer using existing one. Only minimizer type and minimizer settings are propagated.
 //! This method serves as a kind of 'shallow' clone for minimizer.
@@ -153,8 +82,13 @@ IMinimizer* MinimizerFactory::createMinimizer(
 //! ROOT minimizer internals.
 IMinimizer* MinimizerFactory::createMinimizer(const IMinimizer* other)
 {
-    IMinimizer *result = createMinimizer(other->getMinimizerName(), other->getAlgorithmName());
-    if(other->getOptions())
-        result->setOptions(*other->getOptions());
+    IMinimizer *result = createMinimizer(other->minimizerName(), other->algorithmName());
+//    if(other->getOptions())
+//        result->setOptions(*other->getOptions());
     return result;
+}
+
+const MinimizerCatalogue &MinimizerFactory::catalogue()
+{
+    return m_catalogue;
 }

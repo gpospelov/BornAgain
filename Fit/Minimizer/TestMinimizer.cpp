@@ -13,37 +13,60 @@
 //
 // ************************************************************************** //
 
-#include "TrivialMinimizer.h"
+#include "TestMinimizer.h"
 #include "FitParameter.h"
+#include "MinimizerConstants.h"
 #include <iostream>
+#include <sstream>
+
+std::string TestMinimizer::minimizerName() const
+{
+    return std::string(MinimizerNames::Test);
+}
 
 //! run minimization
-void TrivialMinimizer::minimize()
+void TestMinimizer::minimize()
 {
     m_min_value = m_fcn(&m_parameters.getValues()[0]);
 }
 
+//! Returns pointer to the parameters values at the minimum
+double TestMinimizer::getValueOfVariableAtMinimum(size_t index) const
+{
+    return m_parameters[index]->getValue();
+}
+
 //! Returns value of the parameter at the minimum
-std::vector<double > TrivialMinimizer::getValueOfVariablesAtMinimum() const
+std::vector<double > TestMinimizer::getValueOfVariablesAtMinimum() const
 {
     return m_parameters.getValues();
 }
 
-void TrivialMinimizer::setParameters(const FitSuiteParameters& parameters)
+void TestMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     m_parameters.clear();
     for(size_t i_par = 0; i_par<parameters.size(); ++i_par)
         m_parameters.addFitParameter(new FitParameter( *parameters[i_par] ) );
 }
 
-void TrivialMinimizer::printResults() const
+std::string TestMinimizer::reportResults() const
 {
-    std::cout << "TrivialMinimizer::printResult() "  << m_min_value << std::endl;
+    std::ostringstream result;
+    result << "TestMinimizer::printResult() -> Done. Objective function value = "
+           << m_min_value << std::endl;
+    return result.str();
 }
 
-std::vector<double> TrivialMinimizer::getErrorOfVariables() const
+std::vector<double> TestMinimizer::getErrorOfVariables() const
 {
     std::vector<double> result;
     result.resize(m_parameters.size());
     return result;
 }
+
+void TestMinimizer::propagateResults(FitSuiteParameters &)
+{
+
+}
+
+

@@ -41,6 +41,7 @@ class BA_CORE_API_ FitSuiteParameters
 
     //! Returns all parameters
     std::vector<FitParameter*>& getFitParameters() { return m_parameters; }
+    const std::vector<FitParameter*>& getFitParameters() const { return m_parameters; }
 
     //! Returns fit parameter with given name.
     const FitParameter* getFitParameter(const std::string& name) const;

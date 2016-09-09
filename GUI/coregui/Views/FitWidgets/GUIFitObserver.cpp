@@ -18,7 +18,7 @@
 #include "FitParameter.h"
 #include "FitProgressInfo.h"
 #include "FitSuite.h"
-#include "FitParameterSet.h"
+#include "FitSuiteParameters.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include <QDebug>

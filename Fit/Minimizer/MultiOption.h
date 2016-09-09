@@ -17,20 +17,20 @@
 #define MULTIOPTION_H
 
 #include "WinDllMacros.h"
-#include <variant.hpp>
-#include <variant_io.hpp>
+#include <boost/variant.hpp>
 #include <string>
 
 //! @class MultiOption
 //! @ingroup fitting_internal
 //! @brief The MultiOption class is intended to store a single option for minimization
 //! algorithm. Int, double, string values are available.
-//! Relies on https://github.com/mapbox/variant, will be switched to std::variant in C++-17.
+//! Relies on boost::variant, will be switched to std::variant in C++-17.
+//! (before was https://github.com/mapbox/variant).
 
 class BA_CORE_API_ MultiOption
 {
 public:
-    using variant_t = mapbox::util::variant<int, double, std::string>;
+    using variant_t = boost::variant<int, double, std::string>;
 
     explicit MultiOption(const std::string &name = std::string());
 
@@ -74,14 +74,14 @@ MultiOption::MultiOption(const std::string &name, const T &t, const std::string 
 template<typename T>
 T MultiOption::get() const
 {
-    return m_value.get<T>();
+    return boost::get<T>(m_value);
 }
 
 template<typename T>
 T MultiOption::getDefault() const
 {
-    return m_default_value.get<T>();
+    return boost::get<T>(m_default_value);
 }
 
-#endif // MINIMIZEROPTION_H
+#endif
 

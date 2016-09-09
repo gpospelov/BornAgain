@@ -41,7 +41,7 @@ MultiOption::variant_t& MultiOption::value()
     return m_value;
 }
 
-MultiOption::variant_t &MultiOption::defaultValue()
+MultiOption::variant_t& MultiOption::defaultValue()
 {
     return m_default_value;
 }

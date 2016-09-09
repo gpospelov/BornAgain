@@ -2,7 +2,6 @@
 #define MULTIOPTIONTEST_H
 
 #include "MultiOption.h"
-#include <variant.hpp>
 #include "gtest/gtest.h"
 #include <iostream>
 #include <string>
@@ -18,16 +17,19 @@ TEST_F(MultiOptionTest, Variant)
     MultiOption::variant_t v1(1);
 
     EXPECT_EQ(0, v1.which());
-    EXPECT_EQ(1, v1.get<int>());
+//    EXPECT_EQ(1, v1.get<int>());
+    EXPECT_EQ(1, boost::get<int>(v1));
 
     v1 = 2.0;
     EXPECT_EQ(1, v1.which());
-    EXPECT_EQ(2.0, v1.get<double>());
+    //EXPECT_EQ(2.0, v1.get<double>());
+    EXPECT_EQ(2.0, boost::get<double>(v1));
 
     const std::string text("xxx");
     v1 = text;
     EXPECT_EQ(2, v1.which());
-    EXPECT_EQ(text, v1.get<std::string>());
+//    EXPECT_EQ(text, v1.get<std::string>());
+    EXPECT_EQ(text, boost::get<std::string>(v1));
 }
 
 TEST_F(MultiOptionTest, Construction)
@@ -39,7 +41,6 @@ TEST_F(MultiOptionTest, Construction)
 
     EXPECT_EQ(name, opt.name());
     EXPECT_EQ(description, opt.description());
-    EXPECT_EQ(double_value, opt.value().get<double>());
     EXPECT_EQ(double_value, opt.get<double>());
     EXPECT_EQ(double_value, opt.getDefault<double>());
 
@@ -60,7 +61,6 @@ TEST_F(MultiOptionTest, Copying)
     MultiOption copy(opt);
     EXPECT_EQ(name, copy.name());
     EXPECT_EQ(description, copy.description());
-    EXPECT_EQ(double_value, copy.value().get<double>());
     EXPECT_EQ(double_value, copy.get<double>());
     EXPECT_EQ(double_value, copy.getDefault<double>());
 }
@@ -80,7 +80,6 @@ TEST_F(MultiOptionTest, Assignment)
 
     EXPECT_EQ(name, copy.name());
     EXPECT_EQ(description, copy.description());
-    EXPECT_EQ(double_value, copy.value().get<double>());
     EXPECT_EQ(double_value, copy.get<double>());
     EXPECT_EQ(double_value, copy.getDefault<double>());
 }

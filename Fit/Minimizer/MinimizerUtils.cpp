@@ -77,11 +77,3 @@ std::string MinimizerUtils::gslErrorDescription(int errorCode)
 
     return std::string("Unknown error");
 }
-
-bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
-{
-    constexpr double eps = std::numeric_limits<double>::epsilon();
-    if (tol<1)
-        throw std::runtime_error("MinimizerUtils::numbersDiffer() -> Error. not intended for tol<1");
-    return std::abs(a-b) > eps * std::max( tol*eps, std::abs(b) );
-}

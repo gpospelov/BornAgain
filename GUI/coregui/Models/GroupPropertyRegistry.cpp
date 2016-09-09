@@ -125,8 +125,11 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
 
     std::map<QString, QString> minimizers;
     minimizers[Constants::MinuitMinimizerType] = "Minuit2";
-    minimizers[Constants::GSLMinimizerType] = "GSL";
-    minimizers[Constants::GeneticMinimizerType] = "Genetics";
+    minimizers[Constants::GSLMultiMinimizerType] = "GSL MultiMin";
+    minimizers[Constants::GeneticMinimizerType] = "TMVA Genetic";
+    minimizers[Constants::GSLSimAnMinimizerType] = "GSL Simulated Annealing";
+    minimizers[Constants::GSLLMAMinimizerType] = "GSL Levenberg-Marquardt";
+    minimizers[Constants::TestMinimizerType] = "Test minimizer";
     result[Constants::MinimizerLibraryGroup] = minimizers;
 
     return result;

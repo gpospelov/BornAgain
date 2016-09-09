@@ -69,7 +69,16 @@ BA_CORE_API_ bool isVersionMatchMinimal(const QString &version, const QString &m
 
 BA_CORE_API_ QString currentDateTime();
 
-BA_CORE_API_ QStringList fromStdList(const std::list<std::string> &string_list);
+template<class T>
+BA_CORE_API_ QStringList fromStdStrings(const T &container)
+{
+    QStringList result;
+    for(std::string str : container) {
+        result.append(QString::fromStdString(str));
+    }
+    return result;
+}
+
 BA_CORE_API_ QVector<double> fromStdVector(const std::vector<double> &data);
 
 template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)

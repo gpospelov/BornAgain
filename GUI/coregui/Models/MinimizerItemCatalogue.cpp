@@ -15,60 +15,32 @@
 // ************************************************************************** //
 
 #include "MinimizerItemCatalogue.h"
-#include "AlgorithmNames.h"
+#include "MinimizerFactory.h"
 #include "GUIHelpers.h"
-#include "MinimizerItem.h"
-
-MinimizerLibrary::Catalogue MinimizerItemCatalogue::m_catalogue = MinimizerLibrary::Catalogue();
 
 //! Returns ComboProperty representing list of algorithms defined for given minimizerType.
 
-ComboProperty MinimizerItemCatalogue::getAlgorithmCombo(const QString& minimizerType)
+ComboProperty MinimizerItemCatalogue::algorithmCombo(const QString& minimizerType)
 {
-    ComboProperty result;
-
-    std::list<std::string> algos = m_catalogue.algorithmTypes(minimizerType.toStdString());
-    result << GUIHelpers::fromStdList(algos);
-
-    std::list<std::string> descr = m_catalogue.algorithmDescriptions(minimizerType.toStdString());
-    result.setToolTips(GUIHelpers::fromStdList(descr));
-
+    ComboProperty result = ComboProperty() << algorithmNames(minimizerType);
+    result.setToolTips(algorithmDescriptions(minimizerType));
     return result;
 }
 
+//! Returns list of algorithm names defined for given minimizer.
 
-//! !!! FIXME TODO WILL BE REFACTORED IN NEXT SPRINT (Sprint32)
-//! Class provides temporary(!) FIXME translation of GUI minimizer names to domain names.
-//! FIXME Will be refactored together with MinimizerFactory and MinimizerLibrary (in Sprint32).
-//! !!!
-
-void MinimizerItemCatalogue::domainMinimizerNames(
-    const MinimizerItem* minimizer, std::string& domainName, std::string& domainAlgo)
+QStringList MinimizerItemCatalogue::algorithmNames(const QString &minimizerType)
 {
-    domainName.clear();;
-    domainAlgo.clear();
+    std::vector<std::string> algos
+        = MinimizerFactory::catalogue().algorithmNames(minimizerType.toStdString());
+    return GUIHelpers::fromStdStrings(algos);
+}
 
-    QString minimizerType = minimizer->modelType();
+//! Returns list of algoritm descriptions defined for given minimizer.
 
-    ComboProperty combo = minimizer->getItemValue(MinimizerItem::P_ALGORITHMS)
-        .value<ComboProperty>();
-    QString algorithmName = combo.getValue();
-
-    if(minimizerType == Constants::MinuitMinimizerType) {
-        domainName = std::string("Minuit2");
-        domainAlgo = algorithmName.toStdString();
-    }
-
-    else if(minimizerType == Constants::GSLMinimizerType) {
-        if(algorithmName.toStdString() != ObsoleteAlgorithmNames::LMA) {
-            domainName = std::string("GSLMultiMin");
-            domainAlgo = algorithmName.toStdString();
-        } else {
-            domainName = std::string("GSLLMA");
-            domainAlgo = std::string("");
-        }
-    } else if(minimizerType == Constants::GeneticMinimizerType) {
-        domainName = std::string("Genetic");
-        domainAlgo = std::string("");
-    }
+QStringList MinimizerItemCatalogue::algorithmDescriptions(const QString &minimizerType)
+{
+    std::vector<std::string> descr
+        = MinimizerFactory::catalogue().algorithmDescriptions(minimizerType.toStdString());
+    return GUIHelpers::fromStdStrings(descr);
 }

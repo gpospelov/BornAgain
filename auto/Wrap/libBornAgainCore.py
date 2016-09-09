@@ -6030,6 +6030,11 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_printResults(self)
 
 
+    def reportResults(self):
+        """reportResults(FitSuite self) -> std::string"""
+        return _libBornAgainCore.FitSuite_reportResults(self)
+
+
     def getChi2(self):
         """
         getChi2(FitSuite self) -> double

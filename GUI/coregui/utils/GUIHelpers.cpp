@@ -214,14 +214,14 @@ QString currentDateTime()
     return QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");;
 }
 
-QStringList fromStdList(const std::list<std::string> &string_list)
-{
-    QStringList result;
-    for(std::string str : string_list) {
-        result.append(QString::fromStdString(str));
-    }
-    return result;
-}
+//QStringList fromStdList(const std::list<std::string> &string_list)
+//{
+//    QStringList result;
+//    for(std::string str : string_list) {
+//        result.append(QString::fromStdString(str));
+//    }
+//    return result;
+//}
 
 QVector<double> fromStdVector(const std::vector<double> &data)
 {

@@ -15,155 +15,199 @@
 // ************************************************************************** //
 
 #include "MinimizerItem.h"
-#include "MinimizerFactory.h"
 #include "MinimizerItemCatalogue.h"
-#include "ObsoleteMinimizerOptions.h"
-#include "IMinimizer.h"
-#include <QDebug>
+#include "MinimizerConstants.h"
+#include "Minuit2Minimizer.h"
+#include "GSLMultiMinimizer.h"
+#include "GeneticMinimizer.h"
+#include "GSLLevenbergMarquardtMinimizer.h"
+#include "SimAnMinimizer.h"
+#include "TestMinimizer.h"
 
 // ----------------------------------------------------------------------------
 
-const QString MinimizerItem::P_ALGORITHMS = "Algorithms";
-const QString MinimizerItem::P_MAX_ITERATION_COUNT = "Max number of iterations";
-const QString MinimizerItem::P_ERROR_DEFINITION = "Error definition";
-const QString MinimizerItem::P_MAX_TOLERANCE = "Max tolerance";
-const QString MinimizerItem::P_PRECISION = "Relative precision";
-
-MinimizerItem::MinimizerItem(const QString &model_type)
-    : SessionItem(model_type)
+MinimizerItem::MinimizerItem(const QString &model_type) : SessionItem(model_type)
 {
-}
-
-int MinimizerItem::maxIterationCount() const
-{
-    return getItemValue(P_MAX_ITERATION_COUNT).toInt();
 }
 
 // ----------------------------------------------------------------------------
 
-const QString MinimizerContainerItem::P_MINIMIZERS = "Library";
+const QString MinimizerContainerItem::P_MINIMIZERS = "Minimizer";
 
-MinimizerContainerItem::MinimizerContainerItem()
-    : MinimizerItem(Constants::MinimizerContainerType)
+MinimizerContainerItem::MinimizerContainerItem() : MinimizerItem(Constants::MinimizerContainerType)
 {
     addGroupProperty(P_MINIMIZERS, Constants::MinimizerLibraryGroup)
-            ->setToolTip(QStringLiteral("Minimizer library"));
+        ->setToolTip(QStringLiteral("Minimizer library"));
     setGroupProperty(P_MINIMIZERS, Constants::MinuitMinimizerType);
 }
 
 std::unique_ptr<IMinimizer> MinimizerContainerItem::createMinimizer() const
 {
-    auto minimizer = static_cast<MinimizerItem*>(getGroupItem(P_MINIMIZERS));
+    auto minimizer = static_cast<MinimizerItem *>(getGroupItem(P_MINIMIZERS));
     Q_ASSERT(minimizer);
     return minimizer->createMinimizer();
 }
 
 // ----------------------------------------------------------------------------
 
-MinuitMinimizerItem::MinuitMinimizerItem()
-    : MinimizerItem(Constants::MinuitMinimizerType)
+const QString MinuitMinimizerItem::P_ALGORITHMS = "Algorithms";
+const QString MinuitMinimizerItem::P_STRATEGY = QString::fromStdString(OptionNames::Strategy);
+const QString MinuitMinimizerItem::P_ERRORDEF = QString::fromStdString(OptionNames::ErrorDef);
+const QString MinuitMinimizerItem::P_TOLERANCE = QString::fromStdString(OptionNames::Tolerance);
+const QString MinuitMinimizerItem::P_PRECISION = QString::fromStdString(OptionNames::Precision);
+const QString MinuitMinimizerItem::P_MAXFUNCTIONCALLS
+    = QString::fromStdString(OptionNames::MaxFunctionCalls);
+
+MinuitMinimizerItem::MinuitMinimizerItem() : MinimizerItem(Constants::MinuitMinimizerType)
 {
-    addProperty(MinimizerItem::P_ALGORITHMS,
-        MinimizerItemCatalogue::getAlgorithmCombo(Constants::MinuitMinimizerType).getVariant());
+    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).getVariant());
 
-    addProperty(MinimizerItem::P_MAX_ITERATION_COUNT, 0)
-        ->setToolTip("Maximum number of allowed iterations (0 - let Minimizer to decide)");
+    addProperty(P_STRATEGY, 1)
+        ->setToolTip("Minimization strategy (0-low, 1-medium, 2-high quality)");
 
-//    addProperty(MinimizerItem::P_ERROR_DEFINITION, 1.0)
-//        ->setToolTip("Error definition (=1. for getting 1 sigma error for chi2 fits)");
+    addProperty(P_ERRORDEF, 1.0)
+        ->setToolTip("Error definition factor for parameter error calculation");
 
-//    addProperty(MinimizerItem::P_MAX_TOLERANCE, 0.01)
-//        ->setToolTip("Tolerance on the function value at the minimum.");
+    addProperty(P_TOLERANCE, 0.01)->setToolTip("Tolerance on the function value at the minimum");
 
-//    addProperty(MinimizerItem::P_PRECISION, -1.0)
-//        ->setToolTip("Relative floating point arithmetic precision (-1 - let Minimizer to decide.");
+    addProperty(P_PRECISION, -1.0)->setToolTip("Relative floating point arithmetic precision");
 
+    // Minimizer internal print level is working to std::cout and is not intercepted by GUI
+    //    addProperty(P_PRINTLEVEL, 0)->setToolTip("Minimizer internal print level");
+
+    addProperty(P_MAXFUNCTIONCALLS, 0)->setToolTip("Maximum number of function calls");
 }
 
 std::unique_ptr<IMinimizer> MinuitMinimizerItem::createMinimizer() const
 {
-    std::string minimizerName, minimizerAlgo;
-    MinimizerItemCatalogue::domainMinimizerNames(this, minimizerName, minimizerAlgo);
+    QString algorithmName = getItemValue(P_ALGORITHMS).value<ComboProperty>().getValue();
 
-    qDebug() << "MinuitMinimizerItem::createMinimizer()"
-             << QString::fromStdString(minimizerName) << QString::fromStdString(minimizerAlgo);
+    Minuit2Minimizer *domainMinimizer = new Minuit2Minimizer(algorithmName.toStdString());
+    domainMinimizer->setStrategy(getItemValue(P_STRATEGY).toInt());
+    domainMinimizer->setErrorDefinition(getItemValue(P_ERRORDEF).toDouble());
+    domainMinimizer->setTolerance(getItemValue(P_TOLERANCE).toDouble());
+    domainMinimizer->setPrecision(getItemValue(P_PRECISION).toDouble());
+    domainMinimizer->setMaxFunctionCalls(getItemValue(P_MAXFUNCTIONCALLS).toInt());
 
-    std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
-    //result->getOptions()->setMaxIterations(maxIterationCount());
-
-    return result;
+    return std::unique_ptr<IMinimizer>(domainMinimizer);
 }
 
 // ----------------------------------------------------------------------------
 
-// FIXME, TODO
-// P_MAX_TOLERANCE should be disabled for all GSL algorithms, except LMAAlgorithmType
+const QString GSLMultiMinimizerItem::P_ALGORITHMS = "Algorithms";
+const QString GSLMultiMinimizerItem::P_MAXITERATIONS
+    = QString::fromStdString(OptionNames::MaxIterations);
 
-GSLMinimizerItem::GSLMinimizerItem()
-    : MinimizerItem(Constants::GSLMinimizerType)
+GSLMultiMinimizerItem::GSLMultiMinimizerItem() : MinimizerItem(Constants::GSLMultiMinimizerType)
 {
-    addProperty(MinimizerItem::P_ALGORITHMS,
-        MinimizerItemCatalogue::getAlgorithmCombo(Constants::GSLMinimizerType).getVariant());
-
-    addProperty(MinimizerItem::P_MAX_ITERATION_COUNT, 0)
-        ->setToolTip("Maximum number of allowed iterations (0 - let Minimizer to decide)");
-
-//    addProperty(MinimizerItem::P_MAX_TOLERANCE, 0.01)
-//        ->setToolTip("Tolerance on the function value at the minimum.");
-
+    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).getVariant());
+    addProperty(P_MAXITERATIONS, 0)->setToolTip("Maximum number of iterations");
 }
 
-std::unique_ptr<IMinimizer> GSLMinimizerItem::createMinimizer() const
+std::unique_ptr<IMinimizer> GSLMultiMinimizerItem::createMinimizer() const
 {
-    std::string minimizerName, minimizerAlgo;
-    MinimizerItemCatalogue::domainMinimizerNames(this, minimizerName, minimizerAlgo);
+    QString algorithmName = getItemValue(P_ALGORITHMS).value<ComboProperty>().getValue();
 
-    qDebug() << "MinuitMinimizerItem::createMinimizer()"
-             << QString::fromStdString(minimizerName) << QString::fromStdString(minimizerAlgo);
-
-    std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
-    //result->getOptions()->setMaxIterations(maxIterationCount());
-
-    return result;
+    GSLMultiMinimizer *domainMinimizer = new GSLMultiMinimizer(algorithmName.toStdString());
+    domainMinimizer->setMaxIterations(getItemValue(P_MAXITERATIONS).toInt());
+    return std::unique_ptr<IMinimizer>(domainMinimizer);
 }
 
+// ----------------------------------------------------------------------------
 
-//pars.fPopSize = m_options.getIntValue("PopSize");
-//pars.fNsteps = m_options.getMaxIterations();
-//pars.fCycles = m_options.getIntValue("Cycles");
-//pars.fSC_steps = m_options.getIntValue("SC_steps");
-//pars.fSC_rate = m_options.getIntValue("SC_rate");
-//pars.fSC_factor = m_options.getRealValue("SC_factor");
-//pars.fConvCrit = 10.*m_options.getTolerance();
-//pars.fSeed = m_options.getIntValue("RandomSeed");
+const QString GeneticMinimizerItem::P_TOLERANCE = QString::fromStdString(OptionNames::Tolerance);
+const QString GeneticMinimizerItem::P_MAXITERATIONS
+    = QString::fromStdString(OptionNames::MaxIterations);
+const QString GeneticMinimizerItem::P_POPULATIONSIZE
+    = QString::fromStdString(OptionNames::PopulationSize);
+const QString GeneticMinimizerItem::P_RANDOMSEED = QString::fromStdString(OptionNames::RandomSeed);
 
-
-GeneticMinimizerItem::GeneticMinimizerItem()
-    : MinimizerItem(Constants::GeneticMinimizerType)
+GeneticMinimizerItem::GeneticMinimizerItem() : MinimizerItem(Constants::GeneticMinimizerType)
 {
-    addProperty(MinimizerItem::P_ALGORITHMS,
-        MinimizerItemCatalogue::getAlgorithmCombo(Constants::GeneticMinimizerType).getVariant());
-
-    addProperty(MinimizerItem::P_MAX_ITERATION_COUNT, 0)
-        ->setToolTip("Maximum number of allowed iterations (0 - let Minimizer to decide)");
-
+    addProperty(P_TOLERANCE, 0.01)->setToolTip("Tolerance on the function value at the minimum");
+    addProperty(P_MAXITERATIONS, 3)->setToolTip("Maximum number of iterations");
+    addProperty(P_POPULATIONSIZE, 300)->setToolTip("Population size");
+    addProperty(P_RANDOMSEED, 0)->setToolTip("Random seed");
 }
 
 std::unique_ptr<IMinimizer> GeneticMinimizerItem::createMinimizer() const
 {
-    std::string minimizerName, minimizerAlgo;
-    MinimizerItemCatalogue::domainMinimizerNames(this, minimizerName, minimizerAlgo);
-
-    qDebug() << "MinuitMinimizerItem::createMinimizer()"
-             << QString::fromStdString(minimizerName) << QString::fromStdString(minimizerAlgo);
-
-    std::unique_ptr<IMinimizer> result(MinimizerFactory::createMinimizer(minimizerName, minimizerAlgo));
-    //result->getOptions()->setMaxIterations(maxIterationCount());
-
-    return result;
+    GeneticMinimizer *domainMinimizer = new GeneticMinimizer();
+    domainMinimizer->setTolerance(getItemValue(P_TOLERANCE).toDouble());
+    domainMinimizer->setMaxIterations(getItemValue(P_MAXITERATIONS).toInt());
+    domainMinimizer->setPopulationSize(getItemValue(P_POPULATIONSIZE).toInt());
+    domainMinimizer->setRandomSeed(getItemValue(P_RANDOMSEED).toInt());
+    return std::unique_ptr<IMinimizer>(domainMinimizer);
 }
 
-//GeneticMinimizerItem::~GeneticMinimizerItem()
-//{
+// ----------------------------------------------------------------------------
 
-//}
+const QString SimAnMinimizerItem::P_MAXITERATIONS
+    = QString::fromStdString(OptionNames::MaxIterations);
+const QString SimAnMinimizerItem::P_ITERATIONSTEMP
+    = QString::fromStdString(OptionNames::IterationTemp);
+const QString SimAnMinimizerItem::P_STEPSIZE = QString::fromStdString(OptionNames::StepSize);
+const QString SimAnMinimizerItem::P_BOLTZMANN_K = QString::fromStdString(OptionNames::BoltzmannK);
+const QString SimAnMinimizerItem::P_BOLTZMANN_TINIT
+    = QString::fromStdString(OptionNames::BoltzmannInitT);
+const QString SimAnMinimizerItem::P_BOLTZMANN_MU = QString::fromStdString(OptionNames::BoltzmannMu);
+const QString SimAnMinimizerItem::P_BOLTZMANN_TMIN
+    = QString::fromStdString(OptionNames::BoltzmannTmin);
+
+SimAnMinimizerItem::SimAnMinimizerItem() : MinimizerItem(Constants::GSLSimAnMinimizerType)
+{
+    addProperty(P_MAXITERATIONS, 100)->setToolTip("Number of points to try for each step");
+    addProperty(P_ITERATIONSTEMP, 10)->setToolTip("Number of iterations at each temperature");
+    addProperty(P_STEPSIZE, 1.0)->setToolTip("Max step size used in random walk");
+    addProperty(P_BOLTZMANN_K, 1.0)->setToolTip("Boltzmann k");
+    addProperty(P_BOLTZMANN_TINIT, 50.0)->setToolTip("Boltzmann initial temperature");
+    addProperty(P_BOLTZMANN_MU, 1.05)->setToolTip("Boltzmann mu");
+    addProperty(P_BOLTZMANN_TMIN, 0.1)->setToolTip("Boltzmann minimal temperature");
+}
+
+std::unique_ptr<IMinimizer> SimAnMinimizerItem::createMinimizer() const
+{
+    SimAnMinimizer *domainMinimizer = new SimAnMinimizer();
+    domainMinimizer->setMaxIterations(getItemValue(P_MAXITERATIONS).toInt());
+    domainMinimizer->setIterationsAtEachTemp(getItemValue(P_ITERATIONSTEMP).toInt());
+    domainMinimizer->setStepSize(getItemValue(P_STEPSIZE).toDouble());
+    domainMinimizer->setBoltzmannK(getItemValue(P_BOLTZMANN_K).toDouble());
+    domainMinimizer->setBoltzmannInitialTemp(getItemValue(P_BOLTZMANN_TINIT).toDouble());
+    domainMinimizer->setBoltzmannMu(getItemValue(P_BOLTZMANN_MU).toDouble());
+    domainMinimizer->setBoltzmannMinTemp(getItemValue(P_BOLTZMANN_TMIN).toDouble());
+    return std::unique_ptr<IMinimizer>(domainMinimizer);
+}
+
+// ----------------------------------------------------------------------------
+
+const QString GSLLMAMinimizerItem::P_TOLERANCE = QString::fromStdString(OptionNames::Tolerance);
+const QString GSLLMAMinimizerItem::P_MAXITERATIONS
+    = QString::fromStdString(OptionNames::MaxIterations);
+
+GSLLMAMinimizerItem::GSLLMAMinimizerItem()
+    : MinimizerItem(Constants::GSLLMAMinimizerType)
+{
+    addProperty(P_TOLERANCE, 0.01)->setToolTip("Tolerance on the function value at the minimum");
+    addProperty(P_MAXITERATIONS, 0)->setToolTip("Maximum number of iterations");
+}
+
+std::unique_ptr<IMinimizer> GSLLMAMinimizerItem::createMinimizer() const
+{
+    GSLLevenbergMarquardtMinimizer *domainMinimizer = new GSLLevenbergMarquardtMinimizer();
+    domainMinimizer->setTolerance(getItemValue(P_TOLERANCE).toDouble());
+    domainMinimizer->setMaxIterations(getItemValue(P_MAXITERATIONS).toInt());
+    return std::unique_ptr<IMinimizer>(domainMinimizer);
+}
+
+// ----------------------------------------------------------------------------
+
+TestMinimizerItem::TestMinimizerItem()
+    : MinimizerItem(Constants::TestMinimizerType)
+{
+
+}
+
+std::unique_ptr<IMinimizer> TestMinimizerItem::createMinimizer() const
+{
+    return std::unique_ptr<IMinimizer>(new TestMinimizer());
+}

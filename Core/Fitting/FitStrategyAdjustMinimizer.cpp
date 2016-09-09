@@ -17,7 +17,6 @@
 #include "FitKernel.h"
 #include "IMinimizer.h"
 #include "MinimizerFactory.h"
-#include "ObsoleteMinimizerOptions.h"
 
 FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
     : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(nullptr)

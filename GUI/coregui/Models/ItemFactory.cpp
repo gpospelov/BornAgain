@@ -193,8 +193,11 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::MinimizerContainerType] = &createInstance<MinimizerContainerItem>;
     result[Constants::MinuitMinimizerType] = &createInstance<MinuitMinimizerItem>;
-    result[Constants::GSLMinimizerType] = &createInstance<GSLMinimizerItem>;
+    result[Constants::GSLMultiMinimizerType] = &createInstance<GSLMultiMinimizerItem>;
     result[Constants::GeneticMinimizerType] = &createInstance<GeneticMinimizerItem>;
+    result[Constants::GSLSimAnMinimizerType] = &createInstance<SimAnMinimizerItem>;
+    result[Constants::GSLLMAMinimizerType] = &createInstance<GSLLMAMinimizerItem>;
+    result[Constants::TestMinimizerType] = &createInstance<TestMinimizerItem>;
 
     return result;
 }

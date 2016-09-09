@@ -127,7 +127,7 @@ void SimulationDataSelectorWidget::updateViewElements()
 {
     Q_ASSERT(m_applicationModels);
     updateSelection(m_instrumentCombo, m_applicationModels->instrumentModel()->topItemNames());
-    updateSelection(m_sampleCombo, m_applicationModels->sampleModel()->topItemNames());
+    updateSelection(m_sampleCombo, m_applicationModels->sampleModel()->topItemNames(Constants::MultiLayerType));
     updateSelection(m_realDataCombo, m_applicationModels->realDataModel()->topItemNames(), true);
 }
 

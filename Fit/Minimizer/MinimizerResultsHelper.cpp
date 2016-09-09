@@ -55,33 +55,30 @@ std::string MinimizerResultsHelper::reportResults(const FitSuiteParameters *para
 
     result << "Npar Name        StartValue  Limits           FitValue  Error" << std::endl;
 
-    // FIXME
-//    int npar(0);
-//    for(const FitParameter *par : parameters->getFitParameters()) {
-//        result << boost::format("#%-2d  %-10s  %-6.4f      %-15s  %-6.4f    %5.4f \n")
-//                  % npar
-//                  % par->getName()
-//                  % par->getStartValue()
-//                  % par->limits().toString()
-//                  % par->getValue()
-//                  % par->getError();
+    int npar(0);
+    for(const FitParameter *par : parameters->getFitParameters()) {
+        result << boost::format("#%-2d  %-10s  %-6.4f      %-15s  %-6.4f    %5.4f \n")
+                  % npar
+                  % par->getName()
+                  % par->getStartValue()
+                  % par->limitsToString()
+                  % par->getValue()
+                  % par->getError();
+        ++npar;
+    }
 
-//        ++npar;
-//    }
+    FitSuiteParameters::corr_matrix_t matrix = parameters->correlationMatrix();
+    if(matrix.size()) {
+        result << section("Correlations");
+        for(size_t i=0; i<matrix.size(); ++i) {
+            result << boost::format("#%-2d       ") %i;
+            for(size_t j=0; j<matrix[i].size(); ++j) {
+                result << boost::format("%_7.4f    ") % matrix[i][j];
+            }
+            result << std::endl;
+        }
 
-    // FIXME !!!
-//    FitParameterSet::corr_matrix_t matrix = parameters->correlationMatrix();
-//    if(matrix.size()) {
-//        result << section("Correlations");
-//        for(size_t i=0; i<matrix.size(); ++i) {
-//            result << boost::format("#%-2d       ") %i;
-//            for(size_t j=0; j<matrix[i].size(); ++j) {
-//                result << boost::format("%_7.4f    ") % matrix[i][j];
-//            }
-//            result << std::endl;
-//        }
-
-//    }
+    }
 
     return result.str();
 

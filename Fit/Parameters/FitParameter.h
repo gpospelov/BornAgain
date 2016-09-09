@@ -35,6 +35,8 @@ class BA_CORE_API_ FitParameter : public RealLimits, public Attributes
 
     std::string getName() const { return m_name; }
 
+    virtual double getStartValue() const { return m_start_value; }
+
     virtual void setValue(double value) { m_value = value; }
     double getValue() const { return m_value; }
 
@@ -48,10 +50,13 @@ class BA_CORE_API_ FitParameter : public RealLimits, public Attributes
     friend std::ostream& operator<<(std::ostream& ostr, const FitParameter& m) {
         m.print(ostr); return ostr; }
 
+    std::string limitsToString() const;
+
  protected:
     void print(std::ostream& ostr) const;
 
     std::string m_name;
+    double m_start_value;
     double m_value;
     double m_step;
     double m_error;

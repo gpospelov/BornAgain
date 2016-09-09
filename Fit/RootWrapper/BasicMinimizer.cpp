@@ -179,17 +179,16 @@ void BasicMinimizer::propagateResults(FitSuiteParameters &parameters)
 
     // sets correlation matrix
     if(providesError()) {
-        assert(0);
-//        FitParameterSet::corr_matrix_t matrix;
-//        matrix.resize(fitParameterCount());
+        FitSuiteParameters::corr_matrix_t matrix;
+        matrix.resize(fitParameterCount());
 
-//        for(size_t i=0; i<(size_t)fitParameterCount(); ++i) {
-//            matrix[i].resize(fitParameterCount(), 0.0);
-//            for(size_t j=0; j<(size_t)fitParameterCount(); ++j) {
-//                matrix[i][j] = rootMinimizer()->Correlation(i,j);
-//            }
-//        }
-//        parameters.setCorrelationMatrix(matrix);
+        for(size_t i=0; i<(size_t)fitParameterCount(); ++i) {
+            matrix[i].resize(fitParameterCount(), 0.0);
+            for(size_t j=0; j<(size_t)fitParameterCount(); ++j) {
+                matrix[i][j] = rootMinimizer()->Correlation(i,j);
+            }
+        }
+        parameters.setCorrelationMatrix(matrix);
     }
 }
 

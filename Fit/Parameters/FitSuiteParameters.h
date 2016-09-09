@@ -30,6 +30,8 @@ class ParameterPool;
 class BA_CORE_API_ FitSuiteParameters
 {
  public:
+    typedef std::vector<std::vector<double>> corr_matrix_t;
+
     FitSuiteParameters() {}
     ~FitSuiteParameters();
 
@@ -96,11 +98,18 @@ class BA_CORE_API_ FitSuiteParameters
 
     bool valuesDifferFrom(const double* par_values, double tolerance) const;
 
+    std::string reportResults() const;
+
+    corr_matrix_t correlationMatrix() const { return m_corr_matrix; }
+
+    void setCorrelationMatrix(const corr_matrix_t &matrix) { m_corr_matrix = matrix;}
+
 private:
     size_t check_index(size_t index) const;
     bool numbersDiffer(double a, double b, double tol) const;
 
     std::vector<FitParameter*> m_parameters; //!< collection of fit parameters
+    corr_matrix_t m_corr_matrix; //!< correlation matrix
 };
 
 #endif // FITSUITEPARAMETERS_H

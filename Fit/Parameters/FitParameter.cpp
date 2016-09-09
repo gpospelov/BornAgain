@@ -15,8 +15,9 @@
 
 #include "FitParameter.h"
 #include <iomanip>
+#include <sstream>
 
-FitParameter::FitParameter() : m_value(0), m_step(0), m_error(0)
+FitParameter::FitParameter() : m_start_value(0), m_value(0), m_step(0), m_error(0)
 {}
 
 FitParameter::FitParameter(
@@ -25,10 +26,31 @@ FitParameter::FitParameter(
     : RealLimits(limits)
     , Attributes(attr)
     , m_name(name)
+    , m_start_value(value)
     , m_value(value)
     , m_step(step)
     , m_error(error)
 {}
+
+std::string FitParameter::limitsToString() const
+{
+    std::ostringstream result;
+
+    if(isFixed()) {
+        result << "fixed";
+    }else if(!hasLowerLimit() && !hasUpperLimit() ) {
+        result << "free";
+    } else if(hasLowerLimit() && !hasUpperLimit()) {
+        result << "lim("  << std::fixed <<std::setprecision(2) << m_lower_limit << ",)";
+    }else if(hasUpperLimit() && !hasLowerLimit()) {
+        result << "lim(," << std::fixed <<std::setprecision(2) << m_upper_limit << ",)";
+    }else if(hasLowerAndUpperLimits()) {
+        result << "lim(" << std::fixed <<std::setprecision(2) << m_lower_limit << "," <<
+            std::fixed <<std::setprecision(2) << m_upper_limit << ")";
+    }
+
+    return result.str();
+}
 
 void FitParameter::print(std::ostream& ostr) const
 {

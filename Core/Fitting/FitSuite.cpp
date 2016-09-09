@@ -167,7 +167,12 @@ size_t FitSuite::getCurrentStrategyIndex() const
 
 void FitSuite::printResults() const
 {
-    m_kernel->printResults();
+    std::cout <<reportResults() << std::endl;
+}
+
+std::string FitSuite::reportResults() const
+{
+    return m_kernel->reportResults();
 }
 
 double FitSuite::getChi2() const

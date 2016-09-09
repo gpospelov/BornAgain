@@ -16,6 +16,7 @@
 #include "FitSuiteParameters.h"
 #include "FitParameter.h"
 #include "Logger.h"
+#include "MinimizerResultsHelper.h"
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -164,6 +165,12 @@ bool FitSuiteParameters::valuesDifferFrom(const double* pars_values, double tol)
         if (numbersDiffer(m_parameters[i]->getValue(), pars_values[i], tol))
             return true;
     return false;
+}
+
+std::string FitSuiteParameters::reportResults() const
+{
+    MinimizerResultsHelper helper;
+    return helper.reportResults(this);
 }
 
 bool FitSuiteParameters::numbersDiffer(double a, double b, double tol) const

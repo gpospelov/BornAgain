@@ -92,8 +92,8 @@ class BA_CORE_API_ FitKernel
     //! Returns the number of current strategy
     size_t getCurrentStrategyIndex() const;
 
-    //! Prints fit results to stdout
-    void printResults() const;
+    //! Reports results of minimization in the form of multi-line string.
+    std::string reportResults() const;
 
     //! Returns current fit options
     FitOptions& getOptions() { return m_fit_options; }
@@ -118,7 +118,7 @@ private:
     FitSuiteObjects m_fit_objects;
     FitSuiteParameters m_fit_parameters;
     FitSuiteStrategies m_fit_strategies;
-    std::unique_ptr<class IMinimizer> m_minimizer;
+    std::unique_ptr<IMinimizer> m_minimizer;
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
     bool m_is_last_iteration;

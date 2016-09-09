@@ -40,7 +40,7 @@ class BA_CORE_API_ MinimizerCatalogue {
 public:
     MinimizerCatalogue();
 
-    std::string toString();
+    std::string toString() const;
 
     std::vector<std::string> algorithmNames(const std::string& minimizerName) const;
 

@@ -42,10 +42,9 @@ Genetic        | Default
 class BA_CORE_API_ MinimizerFactory
 {
  public:
-    static IMinimizer* createMinimizer(
-        const std::string& minimizerName,
+    static IMinimizer* createMinimizer(const std::string& minimizerName,
         const std::string& algorithmType="",
-        const std::string& options="" );
+        const std::string& ="");
 
     static void printCatalogue();
 
@@ -55,9 +54,6 @@ class BA_CORE_API_ MinimizerFactory
     static IMinimizer* createMinimizer(const IMinimizer* other);
 
     static const MinimizerCatalogue& catalogue();
-
-private:
-    static MinimizerCatalogue m_catalogue;
 };
 
 #endif // MINIMIZERFACTORY_H

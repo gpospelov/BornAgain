@@ -6009,6 +6009,7 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
+#include "MinimizerCatalogue.h"
 #include "MinimizerFactory.h"
 
 
@@ -21433,6 +21434,145 @@ SWIGINTERN PyObject *FitSuiteParameters_swigregister(PyObject *SWIGUNUSEDPARM(se
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_new_MinimizerCatalogue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerCatalogue *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_MinimizerCatalogue")) SWIG_fail;
+  result = (MinimizerCatalogue *)new MinimizerCatalogue();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerCatalogue, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerCatalogue_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerCatalogue *arg1 = (MinimizerCatalogue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerCatalogue_toString",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerCatalogue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerCatalogue_toString" "', argument " "1"" of type '" "MinimizerCatalogue const *""'"); 
+  }
+  arg1 = reinterpret_cast< MinimizerCatalogue * >(argp1);
+  result = ((MinimizerCatalogue const *)arg1)->toString();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerCatalogue_algorithmNames(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerCatalogue *arg1 = (MinimizerCatalogue *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  std::vector< std::string,std::allocator< std::string > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerCatalogue_algorithmNames",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerCatalogue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerCatalogue_algorithmNames" "', argument " "1"" of type '" "MinimizerCatalogue const *""'"); 
+  }
+  arg1 = reinterpret_cast< MinimizerCatalogue * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerCatalogue_algorithmNames" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerCatalogue_algorithmNames" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = ((MinimizerCatalogue const *)arg1)->algorithmNames((std::string const &)*arg2);
+  resultobj = swig::from(static_cast< std::vector<std::string,std::allocator< std::string > > >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerCatalogue_algorithmDescriptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerCatalogue *arg1 = (MinimizerCatalogue *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  std::vector< std::string,std::allocator< std::string > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerCatalogue_algorithmDescriptions",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerCatalogue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerCatalogue_algorithmDescriptions" "', argument " "1"" of type '" "MinimizerCatalogue const *""'"); 
+  }
+  arg1 = reinterpret_cast< MinimizerCatalogue * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerCatalogue_algorithmDescriptions" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerCatalogue_algorithmDescriptions" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = ((MinimizerCatalogue const *)arg1)->algorithmDescriptions((std::string const &)*arg2);
+  resultobj = swig::from(static_cast< std::vector<std::string,std::allocator< std::string > > >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_MinimizerCatalogue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerCatalogue *arg1 = (MinimizerCatalogue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_MinimizerCatalogue",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerCatalogue, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MinimizerCatalogue" "', argument " "1"" of type '" "MinimizerCatalogue *""'"); 
+  }
+  arg1 = reinterpret_cast< MinimizerCatalogue * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *MinimizerCatalogue_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_MinimizerCatalogue, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -22567,15 +22707,26 @@ static PyMethodDef SwigMethods[] = {
 		"FitSuiteParameters___getitem__(FitSuiteParameters self, size_t index) -> FitParameter\n"
 		""},
 	 { (char *)"FitSuiteParameters_swigregister", FitSuiteParameters_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_MinimizerCatalogue", _wrap_new_MinimizerCatalogue, METH_VARARGS, (char *)"\n"
+		"new_MinimizerCatalogue() -> MinimizerCatalogue\n"
+		"\n"
+		"MinimizerCatalogue::MinimizerCatalogue()\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerCatalogue_toString", _wrap_MinimizerCatalogue_toString, METH_VARARGS, (char *)"MinimizerCatalogue_toString(MinimizerCatalogue self) -> std::string"},
+	 { (char *)"MinimizerCatalogue_algorithmNames", _wrap_MinimizerCatalogue_algorithmNames, METH_VARARGS, (char *)"MinimizerCatalogue_algorithmNames(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t"},
+	 { (char *)"MinimizerCatalogue_algorithmDescriptions", _wrap_MinimizerCatalogue_algorithmDescriptions, METH_VARARGS, (char *)"MinimizerCatalogue_algorithmDescriptions(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t"},
+	 { (char *)"delete_MinimizerCatalogue", _wrap_delete_MinimizerCatalogue, METH_VARARGS, (char *)"delete_MinimizerCatalogue(MinimizerCatalogue self)"},
+	 { (char *)"MinimizerCatalogue_swigregister", MinimizerCatalogue_swigregister, METH_VARARGS, NULL},
 	 { (char *)"MinimizerFactory_printCatalogue", _wrap_MinimizerFactory_printCatalogue, METH_VARARGS, (char *)"MinimizerFactory_printCatalogue()"},
 	 { (char *)"MinimizerFactory_catalogueToString", _wrap_MinimizerFactory_catalogueToString, METH_VARARGS, (char *)"MinimizerFactory_catalogueToString() -> std::string"},
 	 { (char *)"MinimizerFactory_createMinimizer", _wrap_MinimizerFactory_createMinimizer, METH_VARARGS, (char *)"\n"
-		"createMinimizer(std::string const & minimizerName, std::string const & algorithmType, std::string const & options) -> IMinimizer\n"
+		"createMinimizer(std::string const & minimizerName, std::string const & algorithmType, std::string const & arg3) -> IMinimizer\n"
 		"createMinimizer(std::string const & minimizerName, std::string const & algorithmType) -> IMinimizer\n"
 		"createMinimizer(std::string const & minimizerName) -> IMinimizer\n"
 		"MinimizerFactory_createMinimizer(IMinimizer other) -> IMinimizer\n"
 		""},
-	 { (char *)"MinimizerFactory_catalogue", _wrap_MinimizerFactory_catalogue, METH_VARARGS, (char *)"MinimizerFactory_catalogue() -> MinimizerCatalogue const &"},
+	 { (char *)"MinimizerFactory_catalogue", _wrap_MinimizerFactory_catalogue, METH_VARARGS, (char *)"MinimizerFactory_catalogue() -> MinimizerCatalogue"},
 	 { (char *)"new_MinimizerFactory", _wrap_new_MinimizerFactory, METH_VARARGS, (char *)"\n"
 		"new_MinimizerFactory() -> MinimizerFactory\n"
 		"\n"

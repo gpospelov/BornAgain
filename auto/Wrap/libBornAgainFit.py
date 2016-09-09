@@ -2316,6 +2316,51 @@ class FitSuiteParameters(_object):
 FitSuiteParameters_swigregister = _libBornAgainFit.FitSuiteParameters_swigregister
 FitSuiteParameters_swigregister(FitSuiteParameters)
 
+class MinimizerCatalogue(_object):
+    """
+
+
+    Map of minimizer names holding list of defined algorithms for every minimizer. 
+
+    """
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, MinimizerCatalogue, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, MinimizerCatalogue, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(MinimizerCatalogue self) -> MinimizerCatalogue
+
+        MinimizerCatalogue::MinimizerCatalogue()
+
+        """
+        this = _libBornAgainFit.new_MinimizerCatalogue()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+
+    def toString(self):
+        """toString(MinimizerCatalogue self) -> std::string"""
+        return _libBornAgainFit.MinimizerCatalogue_toString(self)
+
+
+    def algorithmNames(self, minimizerName):
+        """algorithmNames(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t"""
+        return _libBornAgainFit.MinimizerCatalogue_algorithmNames(self, minimizerName)
+
+
+    def algorithmDescriptions(self, minimizerName):
+        """algorithmDescriptions(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t"""
+        return _libBornAgainFit.MinimizerCatalogue_algorithmDescriptions(self, minimizerName)
+
+    __swig_destroy__ = _libBornAgainFit.delete_MinimizerCatalogue
+    __del__ = lambda self: None
+MinimizerCatalogue_swigregister = _libBornAgainFit.MinimizerCatalogue_swigregister
+MinimizerCatalogue_swigregister(MinimizerCatalogue)
+
 class MinimizerFactory(_object):
     """
 
@@ -2349,7 +2394,7 @@ class MinimizerFactory(_object):
 
     def createMinimizer(*args):
         """
-        createMinimizer(std::string const & minimizerName, std::string const & algorithmType, std::string const & options) -> IMinimizer
+        createMinimizer(std::string const & minimizerName, std::string const & algorithmType, std::string const & arg3) -> IMinimizer
         createMinimizer(std::string const & minimizerName, std::string const & algorithmType) -> IMinimizer
         createMinimizer(std::string const & minimizerName) -> IMinimizer
         createMinimizer(IMinimizer other) -> IMinimizer
@@ -2361,7 +2406,7 @@ class MinimizerFactory(_object):
     __swig_getmethods__["createMinimizer"] = lambda x: createMinimizer
 
     def catalogue():
-        """catalogue() -> MinimizerCatalogue const &"""
+        """catalogue() -> MinimizerCatalogue"""
         return _libBornAgainFit.MinimizerFactory_catalogue()
 
     if _newclass:
@@ -2399,7 +2444,7 @@ def MinimizerFactory_catalogueToString():
 
 def MinimizerFactory_createMinimizer(*args):
     """
-    createMinimizer(std::string const & minimizerName, std::string const & algorithmType, std::string const & options) -> IMinimizer
+    createMinimizer(std::string const & minimizerName, std::string const & algorithmType, std::string const & arg3) -> IMinimizer
     createMinimizer(std::string const & minimizerName, std::string const & algorithmType) -> IMinimizer
     createMinimizer(std::string const & minimizerName) -> IMinimizer
     MinimizerFactory_createMinimizer(IMinimizer other) -> IMinimizer
@@ -2407,7 +2452,7 @@ def MinimizerFactory_createMinimizer(*args):
     return _libBornAgainFit.MinimizerFactory_createMinimizer(*args)
 
 def MinimizerFactory_catalogue():
-    """MinimizerFactory_catalogue() -> MinimizerCatalogue const &"""
+    """MinimizerFactory_catalogue() -> MinimizerCatalogue"""
     return _libBornAgainFit.MinimizerFactory_catalogue()
 
 # This file is compatible with both classic and new-style classes.

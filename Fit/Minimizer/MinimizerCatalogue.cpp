@@ -30,7 +30,7 @@ MinimizerCatalogue::MinimizerCatalogue()
 
 //! Returns multiline string representing catalogue content.
 
-std::string MinimizerCatalogue::toString()
+std::string MinimizerCatalogue::toString() const
 {
     const int text_width = 80;
     std::ostringstream result;

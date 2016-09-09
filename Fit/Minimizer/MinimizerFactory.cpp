@@ -24,11 +24,9 @@
 #include <sstream>
 #include <iostream>
 
-MinimizerCatalogue MinimizerFactory::m_catalogue = MinimizerCatalogue();
-
 IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
                                               const std::string& algorithmType,
-                                              const std::string& options)
+                                              const std::string& )
 {
     IMinimizer* result(0);
 
@@ -59,7 +57,7 @@ IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
         << "' or algorithm '" << algorithmType << "'" << std::endl;
         ostr << "Possible names are:" << std::endl;
 
-        ostr << m_catalogue.toString();
+        ostr << catalogue().toString();
         throw std::runtime_error(ostr.str());
     }
 
@@ -73,7 +71,7 @@ void MinimizerFactory::printCatalogue()
 
 std::string MinimizerFactory::catalogueToString()
 {
-    return m_catalogue.toString();
+    return catalogue().toString();
 }
 
 //! Create minimizer using existing one. Only minimizer type and minimizer settings are propagated.
@@ -88,7 +86,8 @@ IMinimizer* MinimizerFactory::createMinimizer(const IMinimizer* other)
     return result;
 }
 
-const MinimizerCatalogue &MinimizerFactory::catalogue()
+const MinimizerCatalogue& MinimizerFactory::catalogue()
 {
-    return m_catalogue;
+    static MinimizerCatalogue s_catalogue = MinimizerCatalogue();
+    return s_catalogue;
 }

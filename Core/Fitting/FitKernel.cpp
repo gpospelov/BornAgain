@@ -20,6 +20,7 @@
 #include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
+#include "IMinimizer.h"
 #include <stdexcept>
 
 FitKernel::FitKernel(const std::function<void()>& notifyObservers)
@@ -137,8 +138,8 @@ void FitKernel::minimize()
     } catch (int) {}
 
     // set found values to the parameters
-    m_fit_parameters.setValues(m_minimizer->getValueOfVariablesAtMinimum());
-    m_fit_parameters.setErrors(m_minimizer->getErrorOfVariables());
+    m_minimizer->propagateResults(m_fit_parameters);
+
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
@@ -156,19 +157,24 @@ size_t FitKernel::getCurrentStrategyIndex() const
     return m_fit_strategies.getCurrentStrategyIndex();
 }
 
-// results to stdout
-void FitKernel::printResults() const
+std::string FitKernel::reportResults() const
 {
-    std::cout << std::endl;
-    std::cout
-        << "--- FitSuite::printResults -----------------------------------------------------\n";
-    std::cout << " Chi2:" << std::scientific << std::setprecision(8)
-              << m_fit_objects.getChiSquaredValue()
-              << "    chi2.NCall:" << m_function_chi2.getNCalls()
-              << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
-              << m_function_gradient.getNCallsGradient() << ","
-              << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
-    m_minimizer->printResults();
+    std::ostringstream result;
+
+     result << std::endl;
+     result
+         << "--- FitSuite::printResults -----------------------------------------------------\n";
+     result << " Chi2:" << std::scientific << std::setprecision(8)
+               << m_fit_objects.getChiSquaredValue()
+               << "    chi2.NCall:" << m_function_chi2.getNCalls()
+               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
+               << m_function_gradient.getNCallsGradient() << ","
+               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
+
+     result << m_minimizer->reportResults();
+     result << m_fit_parameters.reportResults();
+
+     return result.str();
 }
 
 double FitKernel::getRunTime() const

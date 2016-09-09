@@ -64,8 +64,8 @@ import_array();
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
+#include "MinimizerCatalogue.h"
 #include "MinimizerFactory.h"
-#include "MinimizerOptions.h"
 %}
 
 // ownership
@@ -79,11 +79,10 @@ import_array();
 %include "Attributes.h"
 %include "RealLimits.h"
 
-%include "Configurable.h"
 %include "IMinimizer.h"
 %include "FitParameter.h"
 %include "FitSuiteParameters.h"
-%include "MinimizerOptions.h"
+%include "MinimizerCatalogue.h"
 %include "MinimizerFactory.h"
 
 %include "extendFit.i"

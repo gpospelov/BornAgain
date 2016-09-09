@@ -17,7 +17,6 @@
 #include "FitKernel.h"
 #include "IMinimizer.h"
 #include "MinimizerFactory.h"
-#include "MinimizerOptions.h"
 
 FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
     : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(nullptr)
@@ -74,19 +73,22 @@ void FitStrategyAdjustMinimizer::execute()
     //m_fit_suite->printResults();
 }
 
-MinimizerOptions* FitStrategyAdjustMinimizer::getMinimizerOptions()
+ObsoleteMinimizerOptions* FitStrategyAdjustMinimizer::getMinimizerOptions()
 {
-    if(!m_minimizer)
-        return nullptr;
-    return m_minimizer->getOptions();
+//    if(!m_minimizer)
+//        return nullptr;
+//    return m_minimizer->getOptions();
+    assert(0);
+    return nullptr;
 }
 
 void FitStrategyAdjustMinimizer::print(std::ostream &ostr) const
 {
+    assert(0);
     ostr << "FitStrategy/AdjustMinimizer: ";
-    if(m_minimizer) {
-        ostr << m_minimizer->getMinimizerName();
-        if(m_minimizer->getAlgorithmName().size())
-            ostr << "(" << m_minimizer->getAlgorithmName() << ")";
-    }
+//    if(m_minimizer) {
+//        ostr << m_minimizer->getMinimizerName();
+//        if(m_minimizer->getAlgorithmName().size())
+//            ostr << "(" << m_minimizer->getAlgorithmName() << ")";
+//    }
 }

@@ -138,7 +138,11 @@ public:
     //! Returns the number of current strategy
     size_t getCurrentStrategyIndex() const;
 
+    //! Prints results of the minimization to the standard output.
     void printResults() const;
+
+    //! Reports results of minimization in the form of multi-line string.
+    std::string reportResults() const;
 
     //! Returns minimum chi squared value found
     double getChi2() const;

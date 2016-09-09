@@ -14,9 +14,10 @@
 // ************************************************************************** //
 
 #include "MinimizerTests.h"
-#include "MinimizerOptions.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
+#include "SimAnMinimizer.h"
+#include "GeneticMinimizer.h"
 
 Minuit2MigradTest::Minuit2MigradTest()
     : IMinimizerTest("Minuit2", "Migrad")
@@ -50,12 +51,14 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
     setParameterTolerance(0.1);
     std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(200);
-    IMinimizer* minimizer =
-        MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
-//    minimizer->getOptions().setValue("ntries", 10);
-    minimizer->getOptions()->setValue("niters_fixed_t", 5);
-    minimizer->getOptions()->setMaxIterations(10);
-    minimizer->getOptions()->setValue("t_min", 1.0);
+
+    SimAnMinimizer *minimizer = dynamic_cast<SimAnMinimizer *>
+            (MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm));
+    assert(minimizer);
+    minimizer->setIterationsAtEachTemp(5);
+    minimizer->setMaxIterations(10);
+    minimizer->setBoltzmannMinTemp(1.0);
+
     result->setMinimizer(minimizer);
     for (const auto& par: m_parameters)
         result->addFitParameter(
@@ -74,10 +77,16 @@ std::unique_ptr<FitSuite> GeneticTest::createFitSuite()
     setParameterTolerance(0.1);
     std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(200);
-    IMinimizer* minimizer =
-        MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm);
-    minimizer->getOptions()->setMaxIterations(1);
-    minimizer->getOptions()->setValue("RandomSeed",1);
+
+    GeneticMinimizer *minimizer = dynamic_cast<GeneticMinimizer *>
+            (MinimizerFactory::createMinimizer(m_minimizer_name, m_minimizer_algorithm));
+    assert(minimizer);
+    minimizer->setMaxIterations(1);
+    minimizer->setRandomSeed(1);
+
+    // FIXME
+//    minimizer->getOptions()->setMaxIterations(1);
+//    minimizer->getOptions()->setValue("RandomSeed",1);
     result->setMinimizer(minimizer);
     for (const auto& par: m_parameters)
         result->addFitParameter(

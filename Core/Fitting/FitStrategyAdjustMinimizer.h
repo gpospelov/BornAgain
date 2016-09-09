@@ -19,7 +19,7 @@
 #include "IFitStrategy.h"
 
 class IMinimizer;
-class MinimizerOptions;
+class ObsoleteMinimizerOptions;
 
 //! @class FitStrategyAdjustMinimizer
 //! @ingroup fitting
@@ -47,7 +47,7 @@ public:
 
     virtual void execute();
 
-    virtual MinimizerOptions* getMinimizerOptions();
+    virtual ObsoleteMinimizerOptions* getMinimizerOptions();
 
 protected:
     virtual void print(std::ostream &ostr) const;

@@ -81,14 +81,8 @@ void GUIFitObserver::update(FitSuite *subject)
     }
 
 
-    if (subject->isLastIteration()) {
-        std::stringstream buffer;
-        std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
-        subject->printResults();
-        std::string text = buffer.str();
-        emit logInfoUpdate(QString::fromStdString(text));
-        std::cout.rdbuf(old);
-    }
+    if (subject->isLastIteration())
+        emit logInfoUpdate(QString::fromStdString(subject->reportResults()));
 
 }
 

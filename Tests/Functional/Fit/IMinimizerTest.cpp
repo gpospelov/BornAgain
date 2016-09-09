@@ -18,10 +18,10 @@
 #include "GISASSimulation.h"
 #include "MultiLayer.h"
 #include "MinimizerFactory.h"
-#include "MinimizerOptions.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
 #include "Units.h"
+#include "IMinimizer.h"
 #include <boost/format.hpp>
 #include <memory>
 
@@ -88,7 +88,6 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
     result->initPrint(10);
     IMinimizer* minimizer = MinimizerFactory::createMinimizer(
         m_minimizer_name, m_minimizer_algorithm);
-    minimizer->getOptions()->setMaxIterations(200);
     result->setMinimizer(minimizer);
     for (size_t i = 0; i < m_parameters.size(); ++i)
         result->addFitParameter(

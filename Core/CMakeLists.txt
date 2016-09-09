@@ -114,7 +114,7 @@ endif()
 
 
 # --- making library ---------
-add_library(${library_name} SHARED ${source_files})
+add_library(${library_name} SHARED ${include_files} ${source_files})
 
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)

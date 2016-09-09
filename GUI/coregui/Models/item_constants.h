@@ -157,9 +157,12 @@ const ModelType SimulationOptionsType = "SimulationOptions";
 const ModelType RealDataType = "RealData";
 
 const ModelType MinimizerContainerType = "MinimizerContainer";
-const ModelType MinuitMinimizerType = "MinuitMinimizer";
-const ModelType GSLMinimizerType = "GSLMinimizer";
-const ModelType GeneticMinimizerType = "GeneticMinimizer";
+const ModelType MinuitMinimizerType = "Minuit2";
+const ModelType GSLMultiMinimizerType = "GSLMultiMin";
+const ModelType GSLLMAMinimizerType = "GSLLMA";
+const ModelType GSLSimAnMinimizerType = "GSLSimAn";
+const ModelType GeneticMinimizerType = "Genetic";
+const ModelType TestMinimizerType = "Test";
 
 // --- Groups ------------------------------------------------------------------
 

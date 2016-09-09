@@ -69,15 +69,7 @@ BA_CORE_API_ bool isVersionMatchMinimal(const QString &version, const QString &m
 
 BA_CORE_API_ QString currentDateTime();
 
-template<class T>
-BA_CORE_API_ QStringList fromStdStrings(const T &container)
-{
-    QStringList result;
-    for(std::string str : container) {
-        result.append(QString::fromStdString(str));
-    }
-    return result;
-}
+BA_CORE_API_ QStringList fromStdStrings(const std::vector<std::string> &container);
 
 BA_CORE_API_ QVector<double> fromStdVector(const std::vector<double> &data);
 

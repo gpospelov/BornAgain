@@ -230,5 +230,14 @@ QVector<double> fromStdVector(const std::vector<double> &data)
     return result;
 }
 
+QStringList fromStdStrings(const std::vector<std::string> &container)
+{
+    QStringList result;
+    for(std::string str : container) {
+        result.append(QString::fromStdString(str));
+    }
+    return result;
+}
+
 
 } // namespace GUIHelpers

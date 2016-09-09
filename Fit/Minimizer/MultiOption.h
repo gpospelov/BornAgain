@@ -25,7 +25,7 @@
 //! @brief The MultiOption class is intended to store a single option for minimization
 //! algorithm. Int, double, string values are available.
 //! Relies on boost::variant, will be switched to std::variant in C++-17.
-//! (before was https://github.com/mapbox/variant).
+//! (before was https://github.com/mapbox/variant.
 
 class BA_CORE_API_ MultiOption
 {

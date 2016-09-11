@@ -80,11 +80,81 @@
 %  Sectioning
 %-------------------------------------------------------------------------------
 
-% Add rubber to white space around chapter header
 \makeatletter
+\def\@include#1 {% do not clear page !
+  %\clearpage
+  \if@filesw
+    \immediate\write\@mainaux{\string\@input{#1.aux}}%
+  \fi
+  \@tempswatrue
+  \if@partsw
+    \@tempswafalse
+    \edef\reserved@b{#1}%
+    \@for\reserved@a:=\@partlist\do
+      {\ifx\reserved@a\reserved@b\@tempswatrue\fi}%
+  \fi
+  \if@tempswa
+    \let\@auxout\@partaux
+    \if@filesw
+      \immediate\openout\@partaux #1.aux
+      \immediate\write\@partaux{\relax}%
+    \fi
+    \@input@{#1.tex}%
+    %\clearpage
+    \@writeckpt{#1}%
+    \if@filesw
+      \immediate\closeout\@partaux
+    \fi
+  \else
+    \deadcycles\z@
+    \@nameuse{cp@#1}%
+  \fi
+  \let\@auxout\@mainaux}
+
 \newif\ifnumberedchapter
 \def\@makechapterhead#1{\numberedchaptertrue\mychapterhead{#1}}
 \def\@makeschapterhead#1{\numberedchapterfalse\mychapterhead{#1}}
+
+\newif\iffirstchapterinpart
+\firstchapterinpartfalse
+\renewcommand\part{%
+  \clearpage\firstchapterinparttrue
+  \thispagestyle{plain}%
+  \if@twocolumn
+    \onecolumn
+    \@tempswatrue
+  \else
+    \@tempswafalse
+  \fi
+  \vspace*{50\p@ plus 10\p@ minus 10\p@}%
+  \secdef\@part\@spart}
+
+
+\def\@part[#1]#2{%
+    \ifnum \c@secnumdepth >-2\relax
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+    {\interlinepenalty \@M
+     \normalfont
+     \ifnum \c@secnumdepth >-2\relax
+       \parindent \z@ \Large\bfseries \partname\nobreakspace\thepart
+       \par
+       \vskip 20\p@
+     \fi
+     \parindent \z@ \huge \bfseries #2\par}
+    }
+
+\renewcommand\chapter{
+  \iffirstchapterinpart\else\clearpage\fi
+  \firstchapterinpartfalse
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
 
 \def\mychapterhead#1{%
   \vspace*{50\p@ plus 10\p@ minus 10\p@}%
@@ -108,6 +178,7 @@
     \vskip 40\p@ plus 8\p@ minus 8\p@
   }}
 
+% Index, Bibliography, ...
 \def\otherchapter#1{
   \clearpage
   \phantomsection

@@ -38,6 +38,7 @@ All this functionality is implemented in a library, \Code{libBornAgainCore}.
 \caption{Overall architecture of \BornAgain.
 \index{Architecture!applications and libraries}%
 Applications are shown as oval fields, libraries as rectangles.
+Black arrows indicate ``depends on''.
 Green fields designate software that is part of \BornAgain.
 Gray fields are external dependences
 (only two external libraries are explicitly shown;
@@ -128,11 +129,12 @@ Usage of \BornAgain\ in a Python script should start with the command
 import bornagain as ba @\label{import_as}\index{Import!\BornAgain\ to Python|(}@
 \end{lstlisting}
 This then allows calls to \BornAgain\ in commands like
+\pagebreak[2]
 \begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
-    air = ba.HomogeneousMaterial("Air", 0.0, 0.0) @\label{constructor_beg}@
-    air_layer = ba.Layer(air)
-    sample = ba.MultiLayer() @\label{constructor_end}@
-    sample.addLayer(air_layer) @\label{class_func_call}@
+air = ba.HomogeneousMaterial("Air", 0.0, 0.0) @\label{constructor_beg}@
+air_layer = ba.Layer(air)
+sample = ba.MultiLayer() @\label{constructor_end}@
+sample.addLayer(air_layer) @\label{class_func_call}@
 \end{lstlisting}
 The function calls in lines \ref{constructor_beg}--\ref{constructor_end}
 return new \E{objects}.
@@ -142,7 +144,7 @@ These objects are instances of \E{classes} defined in \BornAgain.
 In the language of object-oriented programming,
 a Function that returns a new instance of a class is called a \E{constructor}.
 \index{Constructor}
-In Python, as in C++, a constructor names coincide with class names;
+In Python, as in C++, constructor names coincide with class names;
 so the constructor function \Code{Layer(material)} will return an
 object of class type \Code{Layer}.
 
@@ -162,6 +164,55 @@ class \Code{MultiLayer}, which is part of \BornAgain.
 Therefore, there is no need (and no way) to adorn function calls like \Code{addLayer}
 with the namespace label \Code{ba}.
 
+\begin{figure}[tbh]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig/drawing/architecturePy.ps}
+\end{center}
+\caption{Overall architecture of \BornAgain.
+\index{Architecture!applications and libraries}%
+Applications are shown as oval fields, libraries as rectangles.
+Green fields designate software that is part of \BornAgain.
+Gray fields are external dependences
+(only two external libraries are explicitly shown;
+several more are listed in the online compilation instructions).
+Blue fields indicate stand-alone applications that use \BornAgain's
+two Application Programming Interfaces (the C$++$ API and the Python API).
+\index{C++!using BornAgain from}
+\index{Python!using BornAgain from}
+\index{Application Programming Interface}
+While such applications are to be written by users,
+some examples come with the \BornAgain\ source distribution,
+and are explained in the following Manual chapters.
+It is also possible to export a simulation setup from GUI as Python code.}
+\label{FarchPy}
+\end{figure}
+
+The entirety of classes and functions provided by \BornAgain\
+and exposed to Python forms the \E{BornAgain Python API}.
+An API (Application Programming Interface)
+\index{Application Programming Interface!Python}
+is a kind of protocol that tells a programmer how to use a library.
+In this perspective, the research scientist
+who uses Python to set up simulations or fits
+is seen as a \E{programmer} who writes an application program.
+This notwithstanding, he is still a \E{user}
+of the BornAgain Python library.
+The relation of this library to the underlaying C++ library is explained
+in \Cref{FarchiPy}.
+
+The remaining chapters of this \Cref{PUSE} of the BornAgain Manual
+contain tutorial examples how to use the BornAgain Python API.
+\index{Tutorial}
+\Cref{PREF} provides an incomplete reference.
+\index{Reference}
+For a full reference, see online API documentation at
+\url{bornagain.org/???}.
+This documentation is automatically generated from the source code
+(which for this purpose contains standardized comments in Doxygen format).
+\index{Doxygen}
+It is actually a documentation of the C++ API,
+but usually it is not difficult to infer the form of the corresponding Python
+function calls.
 
 \index{Python!using BornAgain from|)}
 
@@ -170,10 +221,13 @@ with the namespace label \Code{ba}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{C++!using BornAgain from|(}
 
+
 The library \Code{libBornAgainCore}
 \index{libBornAgainCore@\Code{libBornAgainCore}}%
 \index{C++!libBornAgainCore@{\Code{libBornAgainCore} written in}}%
 is written in the programming languages C++,
 and therefore natively supports usage from application programs written in C++.
+
+\index{Application Programming Interface!C++}
 
 \index{C++!using BornAgain from|)}

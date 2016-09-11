@@ -14846,6 +14846,39 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getInstrument(self, *args)
 
 
+    def setBeamIntensity(self, intensity):
+        """setBeamIntensity(Simulation self, double intensity)"""
+        return _libBornAgainCore.Simulation_setBeamIntensity(self, intensity)
+
+
+    def getBeamIntensity(self):
+        """getBeamIntensity(Simulation self) -> double"""
+        return _libBornAgainCore.Simulation_getBeamIntensity(self)
+
+
+    def setBeamPolarization(self, bloch_vector):
+        """setBeamPolarization(Simulation self, kvector_t bloch_vector)"""
+        return _libBornAgainCore.Simulation_setBeamPolarization(self, bloch_vector)
+
+
+    def setDetectorResolutionFunction(self, resolution_function):
+        """setDetectorResolutionFunction(Simulation self, IResolutionFunction2D resolution_function)"""
+        return _libBornAgainCore.Simulation_setDetectorResolutionFunction(self, resolution_function)
+
+
+    def removeDetectorResolutionFunction(self):
+        """removeDetectorResolutionFunction(Simulation self)"""
+        return _libBornAgainCore.Simulation_removeDetectorResolutionFunction(self)
+
+
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission=1.0):
+        """
+        setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission=1.0)
+        setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency)
+        """
+        return _libBornAgainCore.Simulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+
     def setSample(self, sample):
         """
         setSample(Simulation self, MultiLayer sample)
@@ -15270,30 +15303,6 @@ class GISASSimulation(Simulation):
         return _libBornAgainCore.GISASSimulation_setBeamParameters(self, wavelength, alpha_i, phi_i)
 
 
-    def setBeamIntensity(self, intensity):
-        """
-        setBeamIntensity(GISASSimulation self, double intensity)
-
-        void GISASSimulation::setBeamIntensity(double intensity)
-
-        Sets beam intensity from here (forwarded to  Instrument) 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setBeamIntensity(self, intensity)
-
-
-    def setBeamPolarization(self, bloch_vector):
-        """
-        setBeamPolarization(GISASSimulation self, kvector_t bloch_vector)
-
-        void GISASSimulation::setBeamPolarization(const kvector_t bloch_vector)
-
-        Sets the beam polarization according to the given Bloch vector. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setBeamPolarization(self, bloch_vector)
-
-
     def setDetector(self, detector):
         """
         setDetector(GISASSimulation self, IDetector2D detector)
@@ -15339,43 +15348,6 @@ class GISASSimulation(Simulation):
 
         """
         return _libBornAgainCore.GISASSimulation_setDetectorParameters(self, *args)
-
-
-    def setDetectorResolutionFunction(self, resolution_function):
-        """
-        setDetectorResolutionFunction(GISASSimulation self, IResolutionFunction2D resolution_function)
-
-        void GISASSimulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
-
-        Define resolution function for detector. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setDetectorResolutionFunction(self, resolution_function)
-
-
-    def removeDetectorResolutionFunction(self):
-        """
-        removeDetectorResolutionFunction(GISASSimulation self)
-
-        void GISASSimulation::removeDetectorResolutionFunction()
-
-        Removes detector resolution function. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_removeDetectorResolutionFunction(self)
-
-
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission=1.0):
-        """
-        setAnalyzerProperties(GISASSimulation self, kvector_t direction, double efficiency, double total_transmission=1.0)
-        setAnalyzerProperties(GISASSimulation self, kvector_t direction, double efficiency)
-
-        void GISASSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
-
-        Sets the polarization analyzer characteristics of the detector. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
 
 
     def removeMasks(self):
@@ -21262,30 +21234,6 @@ class OffSpecSimulation(Simulation):
         return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, arg2, alpha_axis, phi_i)
 
 
-    def setBeamIntensity(self, intensity):
-        """
-        setBeamIntensity(OffSpecSimulation self, double intensity)
-
-        void OffSpecSimulation::setBeamIntensity(double intensity)
-
-        Sets beam intensity from here (forwarded to  Instrument) 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_setBeamIntensity(self, intensity)
-
-
-    def setBeamPolarization(self, bloch_vector):
-        """
-        setBeamPolarization(OffSpecSimulation self, kvector_t bloch_vector)
-
-        void OffSpecSimulation::setBeamPolarization(const kvector_t bloch_vector)
-
-        Sets the beam polarization according to the given Bloch vector. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_setBeamPolarization(self, bloch_vector)
-
-
     def setDetectorParameters(self, *args):
         """
         setDetectorParameters(OffSpecSimulation self, IntensityData output_data)
@@ -21297,43 +21245,6 @@ class OffSpecSimulation(Simulation):
 
         """
         return _libBornAgainCore.OffSpecSimulation_setDetectorParameters(self, *args)
-
-
-    def setDetectorResolutionFunction(self, resolution_function):
-        """
-        setDetectorResolutionFunction(OffSpecSimulation self, IResolutionFunction2D resolution_function)
-
-        void OffSpecSimulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
-
-        Define resolution function for detector. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_setDetectorResolutionFunction(self, resolution_function)
-
-
-    def removeDetectorResolutionFunction(self):
-        """
-        removeDetectorResolutionFunction(OffSpecSimulation self)
-
-        void OffSpecSimulation::removeDetectorResolutionFunction()
-
-        Removes detector resolution function. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_removeDetectorResolutionFunction(self)
-
-
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission=1.0):
-        """
-        setAnalyzerProperties(OffSpecSimulation self, kvector_t direction, double efficiency, double total_transmission=1.0)
-        setAnalyzerProperties(OffSpecSimulation self, kvector_t direction, double efficiency)
-
-        void OffSpecSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
-
-        Sets the polarization analyzer characteristics of the detector. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)

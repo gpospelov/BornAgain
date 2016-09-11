@@ -1637,22 +1637,33 @@ WuGdict11a begin
 21 setown
 
 1 [] lset black
-/upline { np mv 0 2 rl st } def
+/upline { 270 .5 2 Pfeil } def % (arrow anchored at base) x y rot siz len
  2.5 7 upline
  9   7 upline
 15.5 7 upline
- 2   3 upline
- 7   3 upline
-12   3 upline
 
 0 18 5 7 {(libBornAgainCore)} greenbox
+
+gsave
 0 4 1 3 {(libBornAgainFit)}  greenbox
-5 9 1 3 {(libgsl)}  grisbox
-10 14 1 3 {(libfftw3)}  grisbox
-15 .5 17.3 {
-    2 { xym offset 0 0 np .18 0 360 arc
-        { .8 setgray fill } G .2 setgray 2 [] lset st } G
-} for
+ 2   3 upline
+4.5 0 offset
+0 3.8 1 3 {(libgsl)}  grisbox
+ 1.9   3 upline
+4.3 0 offset
+0 3.8 1 3 {(libfftw3)}  grisbox
+ 1.9   3 upline
+4.3 0 offset
+gsave
+0 1 offset
+1. .4 offset
+3 {
+  0 3.8 0 2 {(other libs)} grisbox
+  -.5 -.2 offset
+} repeat
+grestore
+ 2.4   3.4 270 .5 1.6 Pfeil
+grestore
 
 0 5 9 11 .4 {(BornAgain GUI)} greenoval
 6.5 11.5 9 11 .4 {(Python apps)} blueoval

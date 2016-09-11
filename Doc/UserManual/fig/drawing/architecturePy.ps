@@ -1,4 +1,7 @@
 %!PS-Adobe-1.0 EPSF-1.0
+%%BoundingBox:    19   214   567   804
+%%Comment: Bounding box extracted by bboxx
+%%+:       A program by Dov Grobgeld 2003
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  FRIDA: fast reliable interactive data analysis                           %%
@@ -1597,9 +1600,9 @@ end % WuGdict...
 
 WuGdict11a begin
 
-10 dup autolabel defsiz
+9 dup autolabel defsiz
 1 dup stdred
-0 -18 setnewpage newpage
+2 -21 setnewpage newpage
 
 /darkgreen { 13 133  13 setRGBcolor } def
 /litegreen {202 253 222 setRGBcolor } def
@@ -1618,7 +1621,7 @@ WuGdict11a begin
 
 /Greenbox{
     5 1 roll
-    { { litegreen fill } G darkgreen 2 [.3 .1] lset st } execRect3
+    { { liteGreen fill } G darkgreen 3 [.27 .12] lset st } execRect3
     black boxcenter 3 2 roll textCM
 } def
 
@@ -1638,32 +1641,71 @@ WuGdict11a begin
     { { litegreen fill } G darkgreen 2 [] lset st } execOval3
     black boxcenter 3 2 roll textCM
 } def
+/Greenoval{
+    6 1 roll
+    { { liteGreen fill } G darkgreen 2 [] lset st } execOval3
+    black boxcenter 3 2 roll textCM
+} def
 
 21 setown
 
 1 [] lset black
 /upline { 270 .5 2 Pfeil } def % (arrow anchored at base) x y rot siz len
- 9  11 upline
- 2   3 upline
- 7   3 upline
-
 
 4 14 3.5 7.5 {()} greenbox
 5 13 5   7 {()} Greenbox
 9 4.25 {(libBornAgainCore (C++))} textCM
 9 6    {(libBornAgainCore (exposed))} textCM
-15 18 5 7 {(matplotlib)} grisbox
-0 4 1 3 {(libBornAgainFit)}  greenbox
-5 9 1 3 {(libgsl)}  grisbox
-10 .5 12.3 {
-    2 { xym offset 0 0 np .18 0 360 arc
-        { .8 setgray fill } G .2 setgray 2 [] lset st } G
-} for
 
-0 13 offset
+gsave
+9 -.5 offset
+2.4 2.4 270 .5 1.6 Pfeil
+1. .4 offset
+3 {
+  0 3.8 0 2 {(other libs)} grisbox
+  -.5 -.2 offset
+} repeat
+grestore
+
+gsave 0 1 offset
+21 setobl
+-2 18 8 16 {()} greenbox
+5 13 11 13 .3 {(Core wrapper)} Greenoval
+-1 7 8.5 10.5 .3 {(Fit wrapper)} Greenoval
+11 17 13.5 15.5 .3 {(plot utils)} Greenoval
+{ 4 [] lset 9 6 270 .5 5 Pfeil } G
+9 16 270 .5 1.5 Pfeil
+-1 15 {(bornagain Python module)} textLT
+grestore
+
+gsave
+21 setobl
+15 19.4 5 7 {(matplotlib)} grisbox
+16 7 270 .5 7.5 Pfeil
+% Py -> matplotlib
+{ 11.5 19.3 offset
+0 0 np mv 5 0 rl
+6 -1 1 90 0 arcn st
+7 -12.3 270 .5 11.3 Pfeil
+} G
+grestore
+
+gsave
+-6 -5.5 offset
+12 7.5 270 .5 1.5 Pfeil
+4 14 3.5 7.5 {()} greenbox
+5 13 5   7 {()} Greenbox
+9 4.25 {(libBornAgainFit (C++))} textCM
+9 6    {(libBornAgainFit (exposed))} textCM
+{ 4 [] lset 9 7 270 .5 8 Pfeil } G
+grestore
+
+gsave
+21 setobl
+0 18 offset
 6.5 11.5 1 3 .4 {(Python apps)} blueoval
-8.5  11.5 0.5 1.5 .3 {(Examples)} greenoval
-
+8.5  12 0.5 1.5 .3 {(Examples)} greenoval
+grestore
 
 showpage
 end % WuGdict...

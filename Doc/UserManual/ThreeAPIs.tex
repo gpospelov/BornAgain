@@ -51,7 +51,9 @@ two Application Programming Interfaces (the C$++$ API and the Python API).
 While such applications are to be written by users,
 some examples come with the \BornAgain\ source distribution,
 and are explained in the following Manual chapters.
-It is also possible to export a simulation setup from GUI as Python code.}
+It is also possible to export a simulation setup from GUI as Python code.
+The binding of C++ to Python is highly simplified here.
+For a more accurate picture, see \Cref{FarchPy}.}
 \label{Farch1}
 \end{figure}
 
@@ -164,26 +166,18 @@ class \Code{MultiLayer}, which is part of \BornAgain.
 Therefore, there is no need (and no way) to adorn function calls like \Code{addLayer}
 with the namespace label \Code{ba}.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{fig/drawing/architecturePy.ps}
+\includegraphics[width=0.65\textwidth]{fig/drawing/architecturePy.ps}
 \end{center}
-\caption{Overall architecture of \BornAgain.
-\index{Architecture!applications and libraries}%
-Applications are shown as oval fields, libraries as rectangles.
-Green fields designate software that is part of \BornAgain.
-Gray fields are external dependences
-(only two external libraries are explicitly shown;
-several more are listed in the online compilation instructions).
-Blue fields indicate stand-alone applications that use \BornAgain's
-two Application Programming Interfaces (the C$++$ API and the Python API).
-\index{C++!using BornAgain from}
-\index{Python!using BornAgain from}
-\index{Application Programming Interface}
-While such applications are to be written by users,
-some examples come with the \BornAgain\ source distribution,
-and are explained in the following Manual chapters.
-It is also possible to export a simulation setup from GUI as Python code.}
+\caption{Relation between the BornAgain C++ libraries and the Python layer.
+\index{Architecture!Python binding}%
+Python code is indicated by \textsl{slanted font}.
+Colors as in \Cref{Farch1}.
+Bold arrows indicate automatic code generation, enacted by the software tool Swig.%
+\index{Swig}%
+\index{Python!Swig}%
+}
 \label{FarchPy}
 \end{figure}
 

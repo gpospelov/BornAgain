@@ -24,10 +24,8 @@ set(CORE_SOURCE_DIRS ${CORE_SOURCE_DIRS} ${EIGEN3_INCLUDE_DIR} PARENT_SCOPE)
 set(include_dirs
     ${BUILD_INC_DIR}
     ${CMAKE_SOURCE_DIR}/Wrap
-    ${CMAKE_SOURCE_DIR}/Fit/Utils
-    ${CMAKE_SOURCE_DIR}/Fit/Minimizer
-    ${CMAKE_SOURCE_DIR}/Fit/Parameters
     ${CORE_SOURCE_DIRS}
+    ${BornAgainFit_INCLUDE_DIRS}
     )
 
 include_directories(${include_dirs})

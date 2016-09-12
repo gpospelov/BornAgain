@@ -14,13 +14,13 @@
 // ************************************************************************** //
 
 #include "FitSuite.h"
-#include "FitKernel.h"
+#include "FitSuiteKernel.h"
 #include "FitSuitePrintObserver.h"
 #include "IHistogram.h"
 #include "MinimizerFactory.h"
 
 FitSuite::FitSuite()
-    : m_kernel(new FitKernel(std::bind(&FitSuite::notifyObservers, this)))
+    : m_kernel(new FitSuiteKernel(std::bind(&FitSuite::notifyObservers, this)))
 {}
 
 FitSuite::~FitSuite()

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitKernel.cpp
-//! @brief     Implements class FitKernel.
+//! @file      Core/Fitting/FitSuiteKernel.cpp
+//! @brief     Implements class FitSuiteKernel.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "FitKernel.h"
+#include "FitSuiteKernel.h"
 #include "RealLimits.h"
 #include "FitParameter.h"
 #include "FitParameterLinked.h"
@@ -23,7 +23,7 @@
 #include "IMinimizer.h"
 #include <stdexcept>
 
-FitKernel::FitKernel(const std::function<void()>& notifyObservers)
+FitSuiteKernel::FitSuiteKernel(const std::function<void()>& notifyObservers)
     : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
     , m_is_last_iteration(false)
     , m_is_interrupted(false)
@@ -34,13 +34,13 @@ FitKernel::FitKernel(const std::function<void()>& notifyObservers)
     m_fit_strategies.init(this);
 }
 
-FitKernel::~FitKernel()
+FitSuiteKernel::~FitSuiteKernel()
 {
     clear();
 }
 
 //! Clears all data.
-void FitKernel::clear()
+void FitSuiteKernel::clear()
 {
     m_fit_objects.clear();
     m_fit_parameters.clear();
@@ -50,20 +50,20 @@ void FitKernel::clear()
 }
 
 //! Adds pair of (simulation, real data) for consecutive simulation
-void FitKernel::addSimulationAndRealData(const GISASSimulation& simulation,
+void FitSuiteKernel::addSimulationAndRealData(const GISASSimulation& simulation,
                                          const OutputData<double>& real_data, double weight)
 {
     m_fit_objects.add(simulation, real_data, weight);
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-void FitKernel::addFitParameter(const std::string& name, double value)
+void FitSuiteKernel::addFitParameter(const std::string& name, double value)
 {
     addFitParameter(name, value, RealLimits::limitless(), Attributes::free());
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-void FitKernel::addFitParameter(const std::string& name, double value, const RealLimits& lim,
+void FitSuiteKernel::addFitParameter(const std::string& name, double value, const RealLimits& lim,
                                 const Attributes& attr, double step, double error)
 {
     if(step <=0.0)
@@ -76,12 +76,12 @@ void FitKernel::addFitParameter(const std::string& name, double value, const Rea
     m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
 }
 
-void FitKernel::addFitStrategy(const IFitStrategy& strategy)
+void FitSuiteKernel::addFitStrategy(const IFitStrategy& strategy)
 {
     m_fit_strategies.addStrategy(strategy.clone());
 }
 
-void FitKernel::setMinimizer(IMinimizer* minimizer)
+void FitSuiteKernel::setMinimizer(IMinimizer* minimizer)
 {
     if(!minimizer)
         throw std::runtime_error(
@@ -89,7 +89,7 @@ void FitKernel::setMinimizer(IMinimizer* minimizer)
     m_minimizer.reset(minimizer);
 }
 
-void FitKernel::runFit()
+void FitSuiteKernel::runFit()
 {
     m_start_time = boost::posix_time::microsec_clock::local_time();
 
@@ -111,7 +111,7 @@ void FitKernel::runFit()
     m_end_time =  boost::posix_time::microsec_clock::local_time();
 }
 
-void FitKernel::minimize()
+void FitSuiteKernel::minimize()
 {
     // initialize minimizer with fitting functions
     IMinimizer::function_chi2_t fun_chi2 =
@@ -144,7 +144,7 @@ void FitKernel::minimize()
 }
 
 // get current number of minimization function calls
-size_t FitKernel::getNCalls() const
+size_t FitSuiteKernel::getNCalls() const
 {
     //return m_minimizer->getNCalls();
     // I don't know which function Minimizer calls (chi2 or gradient)
@@ -152,12 +152,12 @@ size_t FitKernel::getNCalls() const
         m_function_chi2.getNCalls() : m_function_gradient.getNCalls();
 }
 
-size_t FitKernel::getCurrentStrategyIndex() const
+size_t FitSuiteKernel::getCurrentStrategyIndex() const
 {
     return m_fit_strategies.getCurrentStrategyIndex();
 }
 
-std::string FitKernel::reportResults() const
+std::string FitSuiteKernel::reportResults() const
 {
     std::ostringstream result;
 
@@ -177,13 +177,13 @@ std::string FitKernel::reportResults() const
      return result.str();
 }
 
-double FitKernel::getRunTime() const
+double FitSuiteKernel::getRunTime() const
 {
     boost::posix_time::time_duration diff = m_end_time - m_start_time;
     return diff.total_milliseconds()/1000.;
 }
 
-bool FitKernel::check_prerequisites() const
+bool FitSuiteKernel::check_prerequisites() const
 {
     if( !m_minimizer ) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No minimizer found.");
@@ -198,7 +198,7 @@ bool FitKernel::check_prerequisites() const
 }
 
 //! link FitMultiParameters with simulation parameters
-void FitKernel::link_fit_parameters()
+void FitSuiteKernel::link_fit_parameters()
 {
     const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
     for (auto par: m_fit_parameters.getFitParameters()) {

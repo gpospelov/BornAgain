@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitKernel.h
-//! @brief     Defines class FitKernel.
+//! @file      Core/Fitting/FitSuiteKernel.h
+//! @brief     Defines class FitSuiteKernel.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITKERNEL_H
-#define FITKERNEL_H
+#ifndef FITSUITEKERNEL_H
+#define FITSUITEKERNEL_H
 
 #include "FitOptions.h"
 #include "FitSuiteFunctions.h"
@@ -35,13 +35,13 @@ class IMinimizer;
 //! Fitting kernel for FitSuite.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitKernel
+class BA_CORE_API_ FitSuiteKernel
 {
  public:
-    FitKernel(const std::function<void()>& notifyObservers);
-    FitKernel& operator=(const FitKernel&) = delete;
-    FitKernel(const FitKernel&) = delete;
-    virtual ~FitKernel();
+    FitSuiteKernel(const std::function<void()>& notifyObservers);
+    FitSuiteKernel& operator=(const FitSuiteKernel&) = delete;
+    FitSuiteKernel(const FitSuiteKernel&) = delete;
+    virtual ~FitSuiteKernel();
 
     //! Resets most state variables, to get prepared for the next fit
     void clear();

@@ -4616,7 +4616,7 @@ class IFitStrategy(INamed):
 
     def init(self, fit_suite):
         """
-        init(IFitStrategy self, FitKernel * fit_suite)
+        init(IFitStrategy self, FitSuiteKernel * fit_suite)
 
         void IFitStrategy::init(FitKernel *fit_suite)
 

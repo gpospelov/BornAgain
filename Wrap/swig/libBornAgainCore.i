@@ -83,7 +83,7 @@
 #include "FTDecayFunctions.h"
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
-#include "FitKernel.h"
+#include "FitSuiteKernel.h"
 #include "FitObject.h"
 #include "FitOptions.h"
 #include "FitSuite.h"

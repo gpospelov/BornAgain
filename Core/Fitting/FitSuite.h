@@ -29,7 +29,7 @@ class FitSuiteObjects;
 class FitSuiteParameters;
 class FitSuiteStrategies;
 class FitOptions;
-class FitKernel;
+class FitSuiteKernel;
 
 //! @class FitSuite
 //! @ingroup fitting
@@ -162,7 +162,7 @@ public:
     const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
-    std::unique_ptr<FitKernel> m_kernel;
+    std::unique_ptr<FitSuiteKernel> m_kernel;
 };
 
 #endif // FITSUITE_H

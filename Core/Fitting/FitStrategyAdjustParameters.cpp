@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitStrategyAdjustParameters.h"
-#include "FitKernel.h"
+#include "FitSuiteKernel.h"
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
 #include "Logger.h"

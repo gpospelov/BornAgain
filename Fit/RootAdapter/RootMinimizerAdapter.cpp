@@ -19,6 +19,7 @@
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
 #include "MinimizerResultsHelper.h"
+#include "RootObjectiveFuncAdapter.h"
 
 
 RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo &minimizerInfo)
@@ -103,7 +104,7 @@ void RootMinimizerAdapter::setParameters(const FitSuiteParameters &parameters)
     if( (int)parameters.size() != fitParameterCount())  {
         std::ostringstream ostr;
         ostr << "BasicMinimizer::setParameters() -> Error! Unconsistency in fit parameter number: ";
-        ostr << "fitParameterCount = " << fitParameterCount();
+        ostr << "fitParameterCount = " << fitParameterCount() << ",";
         ostr << "parameters.size = " << parameters.size();
         throw std::runtime_error(ostr.str());
     }
@@ -119,6 +120,13 @@ void RootMinimizerAdapter::setGradientFunction(IMinimizer::function_gradient_t f
 {
     m_gradient_func.reset(new ROOTMinimizerGradientFunction(fun_gradient, nparameters, ndatasize));
     if( isGradientBasedAgorithm() ) rootMinimizer()->SetFunction(*m_gradient_func);
+}
+
+void RootMinimizerAdapter::setObjectiveFunction(std::function<double (const std::vector<double> &)> func, int ndim)
+{
+    m_obj_func.reset(new RootObjectiveFunctionAdapter);
+    m_obj_func->setFunction(func, ndim);
+    rootMinimizer()->SetFunction(*m_obj_func->rootChiSquaredFunction());
 }
 
 std::vector<double> RootMinimizerAdapter::getValueOfVariablesAtMinimum() const

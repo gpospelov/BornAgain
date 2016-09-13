@@ -49,8 +49,10 @@ public:
 
     void setObjectiveFunction(function_chi2_t func);
 
+    void minimize();
+
 private:
-    std::unique_ptr<FitKernelImp> m_kernel;
+    std::unique_ptr<FitKernelImp> m_impl;
 };
 
 #endif

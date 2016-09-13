@@ -43,6 +43,8 @@ public:
 
     void setObjectiveFunction(function_chi2_t func);
 
+    void minimize();
+
 private:
     FitSuiteParameters m_fit_parameters;
     std::unique_ptr<IMinimizer> m_minimizer;

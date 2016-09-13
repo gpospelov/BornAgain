@@ -40,3 +40,20 @@ void FitKernelImp::setObjectiveFunction(function_chi2_t func)
 {
     m_chi2_func = func;
 }
+
+void FitKernelImp::minimize()
+{
+    // order matters
+    m_minimizer->setObjectiveFunction(m_chi2_func, m_fit_parameters.size());
+    m_minimizer->setParameters(m_fit_parameters);
+
+    // minimize
+    try {
+        m_minimizer->minimize();
+    } catch (int) {}
+
+    // set found values to the parameters
+    m_minimizer->propagateResults(m_fit_parameters);
+
+
+}

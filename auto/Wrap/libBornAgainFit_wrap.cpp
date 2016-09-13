@@ -3482,27 +3482,28 @@ namespace Swig {
 #define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[25]
 #define SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t swig_types[26]
 #define SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[27]
-#define SWIGTYPE_p_std__invalid_argument swig_types[28]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[29]
-#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[30]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[31]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t swig_types[32]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[33]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[34]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[35]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[36]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[37]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[38]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[39]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[40]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[41]
-#define SWIGTYPE_p_unsigned_char swig_types[42]
-#define SWIGTYPE_p_unsigned_int swig_types[43]
-#define SWIGTYPE_p_unsigned_long_long swig_types[44]
-#define SWIGTYPE_p_unsigned_short swig_types[45]
-#define SWIGTYPE_p_value_type swig_types[46]
-static swig_type_info *swig_types[48];
-static swig_module_info swig_module = {swig_types, 47, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__functionT_double_fstd__vectorT_double_std__allocatorT_double_t_t_const_RF_t swig_types[28]
+#define SWIGTYPE_p_std__invalid_argument swig_types[29]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[30]
+#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[31]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[32]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t swig_types[33]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[34]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[35]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[36]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[37]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[38]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[39]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[40]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[41]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[42]
+#define SWIGTYPE_p_unsigned_char swig_types[43]
+#define SWIGTYPE_p_unsigned_int swig_types[44]
+#define SWIGTYPE_p_unsigned_long_long swig_types[45]
+#define SWIGTYPE_p_unsigned_short swig_types[46]
+#define SWIGTYPE_p_value_type swig_types[47]
+static swig_type_info *swig_types[49];
+static swig_module_info swig_module = {swig_types, 48, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -19540,6 +19541,53 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IMinimizer_setObjectiveFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  std::function< double (std::vector< double,std::allocator< double > > const &) > arg2 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setObjectiveFunction",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setObjectiveFunction" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__functionT_double_fstd__vectorT_double_std__allocatorT_double_t_t_const_RF_t,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setObjectiveFunction" "', argument " "2"" of type '" "std::function< double (std::vector< double,std::allocator< double > > const &) >""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setObjectiveFunction" "', argument " "2"" of type '" "std::function< double (std::vector< double,std::allocator< double > > const &) >""'");
+    } else {
+      std::function< double (std::vector< double,std::allocator< double > > const &) > * temp = reinterpret_cast< std::function< double (std::vector< double,std::allocator< double > > const &) > * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setObjectiveFunction" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  (arg1)->setObjectiveFunction(arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IMinimizer_getNumberOfVariables(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
@@ -22558,6 +22606,7 @@ static PyMethodDef SwigMethods[] = {
 		"Sets gradient function to minimize. \n"
 		"\n"
 		""},
+	 { (char *)"IMinimizer_setObjectiveFunction", _wrap_IMinimizer_setObjectiveFunction, METH_VARARGS, (char *)"IMinimizer_setObjectiveFunction(IMinimizer self, std::function< double (std::vector< double,std::allocator< double > > const &) > arg3, int arg4)"},
 	 { (char *)"IMinimizer_getNumberOfVariables", _wrap_IMinimizer_getNumberOfVariables, METH_VARARGS, (char *)"\n"
 		"IMinimizer_getNumberOfVariables(IMinimizer self) -> size_t\n"
 		"\n"
@@ -22878,6 +22927,7 @@ static swig_type_info _swigt__p_std__allocatorT_std__vectorT_double_std__allocat
 static swig_type_info _swigt__p_std__allocatorT_unsigned_long_t = {"_p_std__allocatorT_unsigned_long_t", "std::vector< unsigned long >::allocator_type *|std::allocator< unsigned long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__functionT_double_fdouble_const_pF_t = {"_p_std__functionT_double_fdouble_const_pF_t", "std::function< double (double const *) > *|IMinimizer::function_chi2_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t = {"_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t", "IMinimizer::function_gradient_t *|std::function< double (double const *,unsigned int,double *) > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__functionT_double_fstd__vectorT_double_std__allocatorT_double_t_t_const_RF_t = {"_p_std__functionT_double_fstd__vectorT_double_std__allocatorT_double_t_t_const_RF_t", "std::function< double (std::vector< double,std::allocator< double > > const &) > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IMultiLayerBuilder_t = {"_p_std__shared_ptrT_IMultiLayerBuilder_t", "std::shared_ptr< IMultiLayerBuilder > *", 0, 0, (void*)0, 0};
@@ -22927,6 +22977,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__allocatorT_unsigned_long_t,
   &_swigt__p_std__functionT_double_fdouble_const_pF_t,
   &_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
+  &_swigt__p_std__functionT_double_fstd__vectorT_double_std__allocatorT_double_t_t_const_RF_t,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
   &_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t,
@@ -22976,6 +23027,7 @@ static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_double_std__allocat
 static swig_cast_info _swigc__p_std__allocatorT_unsigned_long_t[] = {  {&_swigt__p_std__allocatorT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_pF_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__functionT_double_fstd__vectorT_double_std__allocatorT_double_t_t_const_RF_t[] = {  {&_swigt__p_std__functionT_double_fstd__vectorT_double_std__allocatorT_double_t_t_const_RF_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -23025,6 +23077,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__allocatorT_unsigned_long_t,
   _swigc__p_std__functionT_double_fdouble_const_pF_t,
   _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
+  _swigc__p_std__functionT_double_fstd__vectorT_double_std__allocatorT_double_t_t_const_RF_t,
   _swigc__p_std__invalid_argument,
   _swigc__p_std__shared_ptrT_IFitObserver_t,
   _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t,

@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BASICMINIMIZER_H
-#define BASICMINIMIZER_H
+#ifndef ROOTMINIMIZERADAPTER_H
+#define ROOTMINIMIZERADAPTER_H
 
 #include "IMinimizer.h"
 #include "MinimizerOptions.h"
@@ -24,6 +24,8 @@
 
 class ROOTMinimizerChiSquaredFunction;
 class ROOTMinimizerGradientFunction;
+class RootObjectiveFunctionAdapter;
+
 namespace BA_ROOT { namespace Math { class Minimizer; } }
 
 //! @class RootMinimizerAdapter
@@ -55,6 +57,9 @@ public:
     //! Sets gradient function to minimize
     virtual void setGradientFunction(
         function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
+
+    virtual void setObjectiveFunction(std::function<double(const std::vector<double>&)> func, int ndim);
+
 
     virtual std::vector<double> getValueOfVariablesAtMinimum() const;
     virtual std::vector<double> getErrorOfVariables() const;
@@ -98,6 +103,7 @@ protected:
 private:
     std::unique_ptr<ROOTMinimizerChiSquaredFunction> m_chi2_func;
     std::unique_ptr<ROOTMinimizerGradientFunction> m_gradient_func;
+    std::unique_ptr<RootObjectiveFunctionAdapter> m_obj_func;
 
     MinimizerOptions m_options;
     MinimizerInfo m_minimizerInfo;

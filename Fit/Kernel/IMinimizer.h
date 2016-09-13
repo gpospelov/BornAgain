@@ -63,6 +63,8 @@ class BA_CORE_API_ IMinimizer
     virtual void setGradientFunction(
         function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
+    virtual void setObjectiveFunction(std::function<double(const std::vector<double>&)>, int ){}
+
     //! Returns number of variables to fit
     virtual size_t getNumberOfVariables() const;
 

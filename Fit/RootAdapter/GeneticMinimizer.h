@@ -16,7 +16,7 @@
 #ifndef GENETICMINIMIZER_H
 #define GENETICMINIMIZER_H
 
-#include "BasicMinimizer.h"
+#include "RootMinimizerAdapter.h"
 
 namespace BA_ROOT { namespace Math { class GeneticMinimizer; } }
 
@@ -24,7 +24,7 @@ namespace BA_ROOT { namespace Math { class GeneticMinimizer; } }
 //! @ingroup fitting_internal
 //! @brief Wrapper for ROOT Genetic minimizer
 
-class BA_CORE_API_ GeneticMinimizer : public BasicMinimizer {
+class BA_CORE_API_ GeneticMinimizer : public RootMinimizerAdapter {
 public:
     GeneticMinimizer();
     ~GeneticMinimizer();

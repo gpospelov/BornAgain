@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MinimizerResultsHelper.h"
-#include "BasicMinimizer.h"
+#include "RootMinimizerAdapter.h"
 #include "FitSuiteParameters.h"
 #include "FitParameter.h"
 #include <boost/format.hpp>
@@ -35,7 +35,7 @@ std::string reportValue(const std::string &name, T value)
 }
 
 
-std::string MinimizerResultsHelper::reportResults(const BasicMinimizer *minimizer) const
+std::string MinimizerResultsHelper::reportResults(const RootMinimizerAdapter *minimizer) const
 {
     std::ostringstream result;
 
@@ -84,7 +84,7 @@ std::string MinimizerResultsHelper::reportResults(const FitSuiteParameters *para
 
 }
 
-std::string MinimizerResultsHelper::reportDescription(const BasicMinimizer *minimizer) const
+std::string MinimizerResultsHelper::reportDescription(const RootMinimizerAdapter *minimizer) const
 {
     std::ostringstream result;
     result << reportValue("MinimizerType", minimizer->minimizerName());
@@ -92,7 +92,7 @@ std::string MinimizerResultsHelper::reportDescription(const BasicMinimizer *mini
     return result.str();
 }
 
-std::string MinimizerResultsHelper::reportOption(const BasicMinimizer *minimizer) const
+std::string MinimizerResultsHelper::reportOption(const RootMinimizerAdapter *minimizer) const
 {
     if(minimizer->options().size() == 0)
         return std::string();
@@ -110,7 +110,7 @@ std::string MinimizerResultsHelper::reportOption(const BasicMinimizer *minimizer
     return result.str();
 }
 
-std::string MinimizerResultsHelper::reportStatus(const BasicMinimizer *minimizer) const
+std::string MinimizerResultsHelper::reportStatus(const RootMinimizerAdapter *minimizer) const
 {
     std::ostringstream result;
     result << section("Status");

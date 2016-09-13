@@ -45,7 +45,7 @@ std::map<int, std::string> covmatrixStatusDescription()
 }
 
 Minuit2Minimizer::Minuit2Minimizer(const std::string &algorithmName)
-    : BasicMinimizer(MinimizerInfo::buildMinuit2Info(algorithmName))
+    : RootMinimizerAdapter(MinimizerInfo::buildMinuit2Info(algorithmName))
     , m_minuit2_minimizer(new BA_ROOT::Minuit2::Minuit2Minimizer(algorithmName.c_str()))
 {
     addOption(OptionNames::Strategy, 1,
@@ -134,7 +134,7 @@ std::string Minuit2Minimizer::statusToString() const
 
 std::map<std::string, std::string> Minuit2Minimizer::statusMap() const
 {
-    auto result = BasicMinimizer::statusMap();
+    auto result = RootMinimizerAdapter::statusMap();
     result["Edm"] = to_string_scientific(rootMinimizer()->Edm());
     result["CovMatrixStatus"] = covmatrixStatusDescription()[rootMinimizer()->CovMatrixStatus()];
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
@@ -164,7 +164,7 @@ void Minuit2Minimizer::propagateOptions()
     m_minuit2_minimizer->SetMaxFunctionCalls(maxFunctionCalls());
 }
 
-const BasicMinimizer::root_minimizer_t *Minuit2Minimizer::rootMinimizer() const
+const RootMinimizerAdapter::root_minimizer_t *Minuit2Minimizer::rootMinimizer() const
 {
     return m_minuit2_minimizer.get();
 }

@@ -16,7 +16,7 @@
 #ifndef GSLMULTIMINIMIZER_H
 #define GSLMULTIMINIMIZER_H
 
-#include "BasicMinimizer.h"
+#include "RootMinimizerAdapter.h"
 #include "MinimizerConstants.h"
 
 namespace BA_ROOT { namespace Math { class GSLMinimizer; } }
@@ -25,7 +25,7 @@ namespace BA_ROOT { namespace Math { class GSLMinimizer; } }
 //! @ingroup fitting_internal
 //! @brief Wrapper for GSL multi minimizer (gradient descent based) family
 
-class BA_CORE_API_ GSLMultiMinimizer : public BasicMinimizer {
+class BA_CORE_API_ GSLMultiMinimizer : public RootMinimizerAdapter {
 public:
     explicit GSLMultiMinimizer(const std::string &algorithmName = AlgorithmNames::ConjugateFR);
     ~GSLMultiMinimizer();

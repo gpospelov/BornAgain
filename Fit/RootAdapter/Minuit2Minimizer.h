@@ -16,7 +16,7 @@
 #ifndef MINUIT2MINIMIZER_H
 #define MINUIT2MINIMIZER_H
 
-#include "BasicMinimizer.h"
+#include "RootMinimizerAdapter.h"
 #include "MinimizerConstants.h"
 #include <memory>
 
@@ -27,7 +27,7 @@ namespace BA_ROOT { namespace Minuit2 { class Minuit2Minimizer; } }
 //! @brief The Minuit2Minimizer class is a wrapper for ROOT Minuit2 minimizer
 //! See Minuit2 user manual https://root.cern.ch/root/htmldoc/guides/minuit2/Minuit2.pdf.
 
-class BA_CORE_API_ Minuit2Minimizer : public BasicMinimizer
+class BA_CORE_API_ Minuit2Minimizer : public RootMinimizerAdapter
 {
 public:
     Minuit2Minimizer(const std::string &algorithmName = AlgorithmNames::Migrad);

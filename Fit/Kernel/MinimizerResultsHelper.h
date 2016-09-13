@@ -21,7 +21,7 @@
 #include <sstream>
 #include <iomanip>
 
-class BasicMinimizer;
+class RootMinimizerAdapter;
 class FitSuiteParameters;
 
 //! @class MinimizerResultsHelper
@@ -34,15 +34,15 @@ public:
     MinimizerResultsHelper(){}
 
     //! Reports results of minimization in the form of multi-line string
-    std::string reportResults(const BasicMinimizer *minimizer) const;
+    std::string reportResults(const RootMinimizerAdapter *minimizer) const;
 
     //! Reports fit parameters settings and final results
     std::string reportResults(const FitSuiteParameters *parameters) const;
 
 private:
-    std::string reportDescription(const BasicMinimizer *minimizer) const;
-    std::string reportOption(const BasicMinimizer *minimizer) const;
-    std::string reportStatus(const BasicMinimizer *minimizer) const;
+    std::string reportDescription(const RootMinimizerAdapter *minimizer) const;
+    std::string reportOption(const RootMinimizerAdapter *minimizer) const;
+    std::string reportStatus(const RootMinimizerAdapter *minimizer) const;
     std::string section(const std::string &sectionName = std::string()) const;
 };
 

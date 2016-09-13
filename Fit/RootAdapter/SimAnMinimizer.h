@@ -16,7 +16,7 @@
 #ifndef SIMANMINIMIZER_H
 #define SIMANMINIMIZER_H
 
-#include "BasicMinimizer.h"
+#include "RootMinimizerAdapter.h"
 
 namespace BA_ROOT { namespace Math { class GSLSimAnMinimizer; } }
 
@@ -24,7 +24,7 @@ namespace BA_ROOT { namespace Math { class GSLSimAnMinimizer; } }
 //! @ingroup fitting_internal
 //! @brief Wrapper for ROOT GSL simmulated annealing minimizer
 
-class BA_CORE_API_ SimAnMinimizer : public BasicMinimizer {
+class BA_CORE_API_ SimAnMinimizer : public RootMinimizerAdapter {
 public:
     SimAnMinimizer();
     ~SimAnMinimizer();

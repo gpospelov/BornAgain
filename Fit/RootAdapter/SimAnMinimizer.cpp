@@ -23,7 +23,7 @@
 #pragma GCC diagnostic pop
 
 SimAnMinimizer::SimAnMinimizer()
-    : BasicMinimizer(MinimizerInfo::buildGSLSimAnInfo())
+    : RootMinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo())
     , m_siman_minimizer(new BA_ROOT::Math::GSLSimAnMinimizer())
 {
     addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
@@ -123,7 +123,7 @@ double SimAnMinimizer::boltzmannMinTemp() const
 
 std::map<std::string, std::string> SimAnMinimizer::statusMap() const
 {
-    auto result = BasicMinimizer::statusMap();
+    auto result = RootMinimizerAdapter::statusMap();
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;
 }
@@ -140,7 +140,7 @@ void SimAnMinimizer::propagateOptions()
     pars.t_min = boltzmannMinTemp();
 }
 
-const BasicMinimizer::root_minimizer_t *SimAnMinimizer::rootMinimizer() const
+const RootMinimizerAdapter::root_minimizer_t *SimAnMinimizer::rootMinimizer() const
 {
     return m_siman_minimizer.get();
 }

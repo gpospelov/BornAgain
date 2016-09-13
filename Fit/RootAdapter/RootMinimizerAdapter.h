@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/BasicMinimizer.h
-//! @brief     Declares class BasicMinimizer.
+//! @file      Fit/Minimizer/RootMinimizerAdapter.h
+//! @brief     Declares class RootMinimizerAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,22 +24,18 @@
 
 class ROOTMinimizerChiSquaredFunction;
 class ROOTMinimizerGradientFunction;
-namespace BA_ROOT {
-namespace Math {
-class Minimizer;
-}
-}
+namespace BA_ROOT { namespace Math { class Minimizer; } }
 
-//! @class BasicMinimizer
+//! @class RootMinimizerAdapter
 //! @ingroup fitting_internal
-//! @brief The BasicMinimizer class is a base for all minimizers
+//! @brief The RootMinimizerAdapter class adapts ROOT minimizer interface to our IMinimizer.
 
-class BA_CORE_API_ BasicMinimizer : public IMinimizer
+class BA_CORE_API_ RootMinimizerAdapter : public IMinimizer
 {
 public:
     typedef BA_ROOT::Math::Minimizer root_minimizer_t;
 
-    virtual ~BasicMinimizer();
+    virtual ~RootMinimizerAdapter();
 
     virtual void minimize();
 
@@ -81,7 +77,7 @@ public:
     virtual void propagateResults(FitSuiteParameters& parameters);
 
 protected:
-    BasicMinimizer(const MinimizerInfo &minimizerInfo);
+    RootMinimizerAdapter(const MinimizerInfo &minimizerInfo);
 
     virtual bool isGradientBasedAgorithm() { return false;}
     int fitParameterCount() const;
@@ -109,20 +105,20 @@ private:
 };
 
 template<class T>
-OptionContainer::option_t BasicMinimizer::addOption(const std::string &optionName, T value,
+OptionContainer::option_t RootMinimizerAdapter::addOption(const std::string &optionName, T value,
                    const std::string &description)
 {
     return m_options.addOption(optionName, value, description);
 }
 
 template<class T>
-void BasicMinimizer::setOptionValue(const std::string& optionName, T value)
+void RootMinimizerAdapter::setOptionValue(const std::string& optionName, T value)
 {
     m_options.setOptionValue(optionName, value);
 }
 
 template<class T>
-T BasicMinimizer::optionValue(const std::string &optionName) const
+T RootMinimizerAdapter::optionValue(const std::string &optionName) const
 {
     return m_options.optionValue<T>(optionName);
 }

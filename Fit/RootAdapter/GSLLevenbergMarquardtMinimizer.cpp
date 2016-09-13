@@ -36,7 +36,7 @@ std::map<int, std::string> covmatrixStatusDescription()
 }
 
 GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer()
-    : BasicMinimizer(MinimizerInfo::buildGSLLMAInfo())
+    : RootMinimizerAdapter(MinimizerInfo::buildGSLLMAInfo())
     , m_gsl_minimizer(new BA_ROOT::Math::GSLNLSMinimizer(2))
 {
     addOption(OptionNames::Tolerance, 0.01, "Tolerance on the function value at the minimum");
@@ -86,7 +86,7 @@ std::string GSLLevenbergMarquardtMinimizer::statusToString() const
 
 std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() const
 {
-    auto result = BasicMinimizer::statusMap();
+    auto result = RootMinimizerAdapter::statusMap();
     result["Edm"] = to_string_scientific(rootMinimizer()->Edm());
     result["CovMatrixStatus"] = covmatrixStatusDescription()[rootMinimizer()->CovMatrixStatus()];
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
@@ -100,7 +100,7 @@ void GSLLevenbergMarquardtMinimizer::propagateOptions()
     m_gsl_minimizer->SetMaxIterations(maxIterations());
 }
 
-const BasicMinimizer::root_minimizer_t *GSLLevenbergMarquardtMinimizer::rootMinimizer() const
+const RootMinimizerAdapter::root_minimizer_t *GSLLevenbergMarquardtMinimizer::rootMinimizer() const
 {
     return m_gsl_minimizer.get();
 }

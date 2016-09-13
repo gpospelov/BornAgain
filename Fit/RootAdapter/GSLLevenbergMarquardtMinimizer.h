@@ -16,7 +16,7 @@
 #ifndef GSLLEVENBERGMARQUARDTMINIMIZER_H
 #define GSLLEVENBERGMARQUARDTMINIMIZER_H
 
-#include "BasicMinimizer.h"
+#include "RootMinimizerAdapter.h"
 namespace BA_ROOT { namespace Math { class GSLNLSMinimizer; } }
 
 //! @class GSLLevenbergMarquardtMinimizer
@@ -24,7 +24,7 @@ namespace BA_ROOT { namespace Math { class GSLNLSMinimizer; } }
 //! @brief Wrapper for GSL Levenberg-Marquardt minimizer.
 //! http://www.gnu.org/software/gsl/manual/html_node/Nonlinear-Least_002dSquares-Fitting.html
 
-class BA_CORE_API_ GSLLevenbergMarquardtMinimizer : public BasicMinimizer {
+class BA_CORE_API_ GSLLevenbergMarquardtMinimizer : public RootMinimizerAdapter {
 public:
     GSLLevenbergMarquardtMinimizer();
     ~GSLLevenbergMarquardtMinimizer();

@@ -39,7 +39,7 @@ class BA_CORE_API_ FitSuiteParameters
     void clear();
 
     //! Adds fit parameter.
-    void addFitParameter(FitParameter* par) { m_parameters.push_back( par ); }
+    void addFitParameter(FitParameter* par);
 
     //! Returns all parameters
     std::vector<FitParameter*>& getFitParameters() { return m_parameters; }

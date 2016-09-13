@@ -35,6 +35,15 @@ void FitSuiteParameters::clear()
     m_parameters.clear();
 }
 
+void FitSuiteParameters::addFitParameter(FitParameter *par)
+{
+    if(getFitParameter(par->getName()))
+        throw std::runtime_error("FitSuiteParameters::addFitParameter() -> Error. Parameter with "
+                                 "the name '"+par->getName()+"' already exist.");
+
+    m_parameters.push_back(par);
+}
+
 //! Returns fit parameter with given name.
 const FitParameter* FitSuiteParameters::getFitParameter(const std::string& name) const
 {

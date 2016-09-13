@@ -13,6 +13,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def\PyImport#1{%
+\lstinputlisting[language=python,style=eclipseboxed,name=ex1,nolol]{../../Examples/python/#1}}
 
 \newpage
 \chapter{Using the Python API}  \label{sec:Usage}
@@ -511,3 +513,7 @@ The complete example described in this section can be found at
 \begin{lstlisting}[language=shell, style=commandline]
 ./Examples/python/fitting/ex001_SampleParametersIntro/SampleParametersIntro.py
 \end{lstlisting}
+
+\section{UNDER CONSTRUCTION}
+
+\PyImport{simulation/ex01_BasicParticles/AllFormFactorsAvailable.py}

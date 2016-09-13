@@ -33,7 +33,7 @@ All this functionality is implemented in a library, \Code{libBornAgainCore}.
 
 \begin{figure}[tbh]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{fig/drawing/architecture1.ps}
+\includegraphics[width=0.7\textwidth]{fig/drawing/architecture1.ps}
 \end{center}
 \caption{Overall architecture of \BornAgain.
 \index{Architecture!applications and libraries}%
@@ -109,6 +109,7 @@ and continue work by directly editing the Python code.
 \section{Using \BornAgain\ from Python}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Python!using BornAgain from|(}
+\index{Application Programming Interface!Python|(}
 
 \BornAgain\ simulations and fits can be set up and run from Python programs
 or from a Python command-line interpreter like \Code{IPython}.
@@ -150,6 +151,22 @@ In Python, as in C++, constructor names coincide with class names;
 so the constructor function \Code{Layer(material)} will return an
 object of class type \Code{Layer}.
 
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=0.72\textwidth]{fig/drawing/architecturePy.ps}
+\end{center}
+\caption{Relation between the BornAgain C++ libraries and the Python layer.
+\index{Architecture!Python binding}%
+Python code is indicated by \textsl{slanted font}.
+Colors as in \Cref{Farch1}.
+Bold arrows indicate ``depends on'' for code that is automatically generated
+by the software tool Swig.%
+\index{Swig}%
+\index{Python!Swig}%
+}
+\label{FarchPy}
+\end{figure}
+
 To prevent accidental use of class or constructor names,
 they are encapsulated in a \E{namespace}
 \index{Namespace}
@@ -166,21 +183,6 @@ class \Code{MultiLayer}, which is part of \BornAgain.
 Therefore, there is no need (and no way) to adorn function calls like \Code{addLayer}
 with the namespace label \Code{ba}.
 
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=0.65\textwidth]{fig/drawing/architecturePy.ps}
-\end{center}
-\caption{Relation between the BornAgain C++ libraries and the Python layer.
-\index{Architecture!Python binding}%
-Python code is indicated by \textsl{slanted font}.
-Colors as in \Cref{Farch1}.
-Bold arrows indicate automatic code generation, enacted by the software tool Swig.%
-\index{Swig}%
-\index{Python!Swig}%
-}
-\label{FarchPy}
-\end{figure}
-
 The entirety of classes and functions provided by \BornAgain\
 and exposed to Python forms the \E{BornAgain Python API}.
 An API (Application Programming Interface)
@@ -192,36 +194,56 @@ is seen as a \E{programmer} who writes an application program.
 This notwithstanding, he is still a \E{user}
 of the BornAgain Python library.
 The relation of this library to the underlaying C++ library is explained
-in \Cref{FarchiPy}.
+in \Cref{FarchPy}.
 
 The remaining chapters of this \Cref{PUSE} of the BornAgain Manual
 contain tutorial examples how to use the BornAgain Python API.
 \index{Tutorial}
 \Cref{PREF} provides an incomplete reference.
 \index{Reference}
-For a full reference, see online API documentation at
+For a full reference, see the online API documentation at
 \url{bornagain.org/???}.
 This documentation is automatically generated from the source code
 (which for this purpose contains standardized comments in Doxygen format).
-\index{Doxygen}
+\index{Doxygen!API reference}
+\index{Python!Doxygen API reference}
 It is actually a documentation of the C++ API,
 but usually it is not difficult to infer the form of the corresponding Python
 function calls.
 
+\index{Application Programming Interface!Python|)}
 \index{Python!using BornAgain from|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using \BornAgain\ from C++}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{C++!using BornAgain from|(}
+\index{Application Programming Interface!C++|(}
 
-
-The library \Code{libBornAgainCore}
+Alternatively, BornAgain can also be used from the programs written
+in the language~C++.
+Since BornAgain itself is written in C++,
+\index{C++!BornAgain written in}%
+the BornAgain C++ API natively consists of
+all classes and functions in \Code{libBornAgainCore} and \Code{libBornAgainFit},
 \index{libBornAgainCore@\Code{libBornAgainCore}}%
-\index{C++!libBornAgainCore@{\Code{libBornAgainCore} written in}}%
-is written in the programming languages C++,
-and therefore natively supports usage from application programs written in C++.
+\index{libBornAgainFit@\Code{libBornAgainFit}}%
+including internal ones that are not exposed to Python.
+It empowers application programmers to use BornAgain
+in ways we cannot foresee.
 
-\index{Application Programming Interface!C++}
+Normal GISAS users, however, will find that their simulation and fit tasks
+are well served by the Python API,
+that edit-and-rerun cycles are faster with Python than with a compiled language,
+and that there is no need to use BornAgain from C++.
+Therefore, we provide not much documentation for the C++ API,
+except for the automatically generated Doxygen reference at
+\url{bornagain.org/???} and
+\index{Doxygen!API reference}
+\index{C++!Doxygen API reference}
+for one basic example \url{Examples/cpp/CylindersAndPrisms}
+in the source distribution.
 
+
+\index{Application Programming Interface!C++|)}
 \index{C++!using BornAgain from|)}

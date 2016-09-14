@@ -10308,18 +10308,6 @@ class IFormFactorBorn(IFormFactor):
         return _libBornAgainCore.IFormFactorBorn_clone(self)
 
 
-    def accept(self, visitor):
-        """
-        accept(IFormFactorBorn self, ISampleVisitor visitor)
-
-        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
-
-        Calls the  ISampleVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IFormFactorBorn_accept(self, visitor)
-
-
     def evaluate(self, wavevectors):
         """
         evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
@@ -10342,18 +10330,6 @@ class IFormFactorBorn(IFormFactor):
 
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
-
-
-    def getRadialExtension(self):
-        """
-        getRadialExtension(IFormFactorBorn self) -> double
-
-        double IFormFactorBorn::getRadialExtension() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.IFormFactorBorn_getRadialExtension(self)
 
     def __disown__(self):
         self.this.disown()

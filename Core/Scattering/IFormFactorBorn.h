@@ -33,14 +33,11 @@ public:
     virtual ~IFormFactorBorn() {}
 
     virtual IFormFactorBorn* clone() const=0;
-    virtual void accept(ISampleVisitor* visitor) const=0;
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     virtual complex_t evaluate_for_q(const cvector_t q) const=0;
-
-    virtual double getRadialExtension() const=0;
 };
 
 #ifdef POLYHEDRAL_DIAGNOSTIC

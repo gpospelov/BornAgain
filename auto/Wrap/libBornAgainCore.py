@@ -6074,14 +6074,23 @@ class FitSuite(IObservable):
         """
         printResults(FitSuite self)
 
-        void FitSuite::printResults() const 
+        void FitSuite::printResults() const
+
+        Prints results of the minimization to the standard output. 
 
         """
         return _libBornAgainCore.FitSuite_printResults(self)
 
 
     def reportResults(self):
-        """reportResults(FitSuite self) -> std::string"""
+        """
+        reportResults(FitSuite self) -> std::string
+
+        std::string FitSuite::reportResults() const
+
+        Reports results of minimization in the form of multi-line string. 
+
+        """
         return _libBornAgainCore.FitSuite_reportResults(self)
 
 
@@ -6631,7 +6640,7 @@ class FitStrategyAdjustMinimizer(IFitStrategy):
         """
         getMinimizerOptions(FitStrategyAdjustMinimizer self) -> ObsoleteMinimizerOptions *
 
-        MinimizerOptions * FitStrategyAdjustMinimizer::getMinimizerOptions()
+        ObsoleteMinimizerOptions * FitStrategyAdjustMinimizer::getMinimizerOptions()
 
         """
         return _libBornAgainCore.FitStrategyAdjustMinimizer_getMinimizerOptions(self)
@@ -6842,7 +6851,6 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, FormFactorTruncatedSphere arg2)
         visit(ISampleVisitor self, FormFactorTruncatedSpheroid arg2)
         visit(ISampleVisitor self, FormFactorDWBA const * arg2)
-        visit(ISampleVisitor self, FormFactorDWBAPol const * arg2)
         visit(ISampleVisitor self, FormFactorWeighted arg2)
         visit(ISampleVisitor self, FormFactorDecoratorDebyeWaller arg2)
         visit(ISampleVisitor self, FormFactorDecoratorFactor const * arg2)
@@ -8720,7 +8728,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DCauchy
 
-        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DCauchy(*args)
@@ -8781,7 +8789,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DGauss
 
-        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DGauss(*args)
@@ -8842,7 +8850,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta) -> FTDecayFunction2DVoigt
 
-        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=Pi::PID2)
+        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DVoigt(*args)
@@ -9445,7 +9453,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCauchy
 
-        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DCauchy(*args)
@@ -9506,7 +9514,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGauss
 
-        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DGauss(*args)
@@ -9567,7 +9575,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGate
 
-        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DGate(*args)
@@ -9628,7 +9636,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCone
 
-        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DCone(*args)
@@ -9689,7 +9697,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta) -> FTDistribution2DVoigt
 
-        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DVoigt(*args)
@@ -10259,9 +10267,7 @@ class IFormFactorBorn(IFormFactor):
     """
 
 
-    Base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
-
-    NOTE: These class should be pure virtual; the functions evaluate and evaluatePol should be declared final; the functions clone, accept, evaluate_for_q, getRadialExtension should be =0 instead of having trivial implementations. HOWEVER, this seems to conflict with the inclusion of this class in Wrap/swig/directors.i, which in turn seems to be necessary for CustomFormFactor.py to work.
+    Pure virtual base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
     C++ includes: IFormFactorBorn.h
 
@@ -10300,7 +10306,7 @@ class IFormFactorBorn(IFormFactor):
         """
         clone(IFormFactorBorn self) -> IFormFactorBorn
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const
+        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
 
         Returns a clone of this  ISample object. 
 
@@ -10324,7 +10330,7 @@ class IFormFactorBorn(IFormFactor):
         """
         evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
 
-        complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
@@ -14944,27 +14950,54 @@ class Simulation(ICloneable, IParameterized):
 
 
     def setBeamIntensity(self, intensity):
-        """setBeamIntensity(Simulation self, double intensity)"""
+        """
+        setBeamIntensity(Simulation self, double intensity)
+
+        void Simulation::setBeamIntensity(double intensity)
+
+        """
         return _libBornAgainCore.Simulation_setBeamIntensity(self, intensity)
 
 
     def getBeamIntensity(self):
-        """getBeamIntensity(Simulation self) -> double"""
+        """
+        getBeamIntensity(Simulation self) -> double
+
+        double Simulation::getBeamIntensity() const 
+
+        """
         return _libBornAgainCore.Simulation_getBeamIntensity(self)
 
 
     def setBeamPolarization(self, bloch_vector):
-        """setBeamPolarization(Simulation self, kvector_t bloch_vector)"""
+        """
+        setBeamPolarization(Simulation self, kvector_t bloch_vector)
+
+        void Simulation::setBeamPolarization(const kvector_t bloch_vector)
+
+        Sets the beam polarization according to the given Bloch vector. 
+
+        """
         return _libBornAgainCore.Simulation_setBeamPolarization(self, bloch_vector)
 
 
     def setDetectorResolutionFunction(self, resolution_function):
-        """setDetectorResolutionFunction(Simulation self, IResolutionFunction2D resolution_function)"""
+        """
+        setDetectorResolutionFunction(Simulation self, IResolutionFunction2D resolution_function)
+
+        void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
+
+        """
         return _libBornAgainCore.Simulation_setDetectorResolutionFunction(self, resolution_function)
 
 
     def removeDetectorResolutionFunction(self):
-        """removeDetectorResolutionFunction(Simulation self)"""
+        """
+        removeDetectorResolutionFunction(Simulation self)
+
+        void Simulation::removeDetectorResolutionFunction()
+
+        """
         return _libBornAgainCore.Simulation_removeDetectorResolutionFunction(self)
 
 
@@ -14972,6 +15005,11 @@ class Simulation(ICloneable, IParameterized):
         """
         setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission=1.0)
         setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency)
+
+        void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
+
+        Sets the polarization analyzer characteristics of the detector. 
+
         """
         return _libBornAgainCore.Simulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
 
@@ -17352,7 +17390,7 @@ class IParameterReal(INamed, INoncopyable):
     """
 
 
-    Pure virtual base class for parameter wrapper classes  RealParameter,  ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
+    Pure virtual base class for parameter wrapper classes  RealParameter, ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
 
     C++ includes: IParameter.h
 

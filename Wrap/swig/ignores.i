@@ -41,8 +41,6 @@
 
 
 // need this to play nicely with ctypes
-//%ignore IMultiLayerBuilder::registerParameter(const std::string&, double*, const Limits&);
-//%ignore IMultiLayerBuilder::registerParameter(const std::string&, double*);
 %ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
 %ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*) const;
 %ignore IMultiLayerBuilder::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
@@ -54,3 +52,8 @@
 // taken from dev-tools/python-bindings/settings_fit.py
 %ignore FitSuite::setOptions(const FitOptions&);
 %ignore FitSuite::getOptions();
+
+
+// extra ignores for types and methods that shouldn't be visible in Python
+%ignore FormFactorDWBAPol;
+%ignore ISampleVisitor::visit(const FormFactorDWBAPol*);

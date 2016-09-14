@@ -1787,7 +1787,7 @@ class IMinimizer(_object):
     """
 
 
-    Common interface for all kind minimizers.
+    Common interface for all kind minimizer's.
 
     C++ includes: IMinimizer.h
 
@@ -1815,12 +1815,26 @@ class IMinimizer(_object):
     __del__ = lambda self: None
 
     def minimizerName(self):
-        """minimizerName(IMinimizer self) -> std::string"""
+        """
+        minimizerName(IMinimizer self) -> std::string
+
+        std::string IMinimizer::minimizerName() const
+
+        return name of the minimizer 
+
+        """
         return _libBornAgainFit.IMinimizer_minimizerName(self)
 
 
     def algorithmName(self):
-        """algorithmName(IMinimizer self) -> std::string"""
+        """
+        algorithmName(IMinimizer self) -> std::string
+
+        std::string IMinimizer::algorithmName() const
+
+        return name of the minimization algorithm 
+
+        """
         return _libBornAgainFit.IMinimizer_algorithmName(self)
 
 
@@ -1828,7 +1842,7 @@ class IMinimizer(_object):
         """
         minimize(IMinimizer self)
 
-        virtual void IMinimizer::minimize()=0
+        void IMinimizer::minimize()
 
         run minimization 
 
@@ -1837,7 +1851,14 @@ class IMinimizer(_object):
 
 
     def setParameter(self, index, par):
-        """setParameter(IMinimizer self, size_t index, FitParameter par)"""
+        """
+        setParameter(IMinimizer self, size_t index, FitParameter par)
+
+        void IMinimizer::setParameter(size_t index, const FitParameter *par)
+
+        Sets internal minimizer parameter. 
+
+        """
         return _libBornAgainFit.IMinimizer_setParameter(self, index, par)
 
 
@@ -1845,11 +1866,9 @@ class IMinimizer(_object):
         """
         setParameters(IMinimizer self, FitSuiteParameters parameters)
 
-        virtual void IMinimizer::setParameters(const FitSuiteParameters &parameters)=0
+        void IMinimizer::setParameters(const FitSuiteParameters &parameters)
 
-        Sets internal minimizer parameter.
-
-        Sets internal minimizer parameters using external parameter list 
+        Sets internal minimizer parameters using external parameter list. 
 
         """
         return _libBornAgainFit.IMinimizer_setParameters(self, parameters)
@@ -1859,7 +1878,7 @@ class IMinimizer(_object):
         """
         setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)
 
-        virtual void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)=0
+        void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
 
         Sets chi squared function to minimize. 
 
@@ -1871,7 +1890,7 @@ class IMinimizer(_object):
         """
         setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 
-        virtual void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)=0
+        void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 
         Sets gradient function to minimize. 
 
@@ -1883,7 +1902,7 @@ class IMinimizer(_object):
         """
         getNumberOfVariables(IMinimizer self) -> size_t
 
-        virtual size_t IMinimizer::getNumberOfVariables() const =0
+        size_t IMinimizer::getNumberOfVariables() const
 
         Returns number of variables to fit. 
 
@@ -1892,12 +1911,26 @@ class IMinimizer(_object):
 
 
     def getMinValue(self):
-        """getMinValue(IMinimizer self) -> double"""
+        """
+        getMinValue(IMinimizer self) -> double
+
+        double IMinimizer::getMinValue() const
+
+        Returns minimum function value. 
+
+        """
         return _libBornAgainFit.IMinimizer_getMinValue(self)
 
 
     def getValueOfVariableAtMinimum(self, index):
-        """getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double"""
+        """
+        getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double
+
+        double IMinimizer::getValueOfVariableAtMinimum(size_t index) const
+
+        Returns value of the parameter at the minimum. 
+
+        """
         return _libBornAgainFit.IMinimizer_getValueOfVariableAtMinimum(self, index)
 
 
@@ -1905,18 +1938,23 @@ class IMinimizer(_object):
         """
         getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t
 
-        virtual std::vector<double> IMinimizer::getValueOfVariablesAtMinimum() const =0
+        std::vector< double > IMinimizer::getValueOfVariablesAtMinimum() const
 
-        Returns minimum function value.
-
-        Returns values of parameters at the minimum 
+        Returns values of parameters at the minimum. 
 
         """
         return _libBornAgainFit.IMinimizer_getValueOfVariablesAtMinimum(self)
 
 
     def getErrorOfVariable(self, index):
-        """getErrorOfVariable(IMinimizer self, size_t index) -> double"""
+        """
+        getErrorOfVariable(IMinimizer self, size_t index) -> double
+
+        double IMinimizer::getErrorOfVariable(size_t index) const
+
+        Returns error of variable at minimum. 
+
+        """
         return _libBornAgainFit.IMinimizer_getErrorOfVariable(self, index)
 
 
@@ -1924,7 +1962,7 @@ class IMinimizer(_object):
         """
         getErrorOfVariables(IMinimizer self) -> vdouble1d_t
 
-        virtual std::vector<double> IMinimizer::getErrorOfVariables() const =0
+        std::vector< double > IMinimizer::getErrorOfVariables() const
 
         Returns errors of variables at minimum. 
 
@@ -1933,17 +1971,38 @@ class IMinimizer(_object):
 
 
     def clear(self):
-        """clear(IMinimizer self)"""
+        """
+        clear(IMinimizer self)
+
+        void IMinimizer::clear()
+
+        clear resources (parameters) for consecutives minimizations 
+
+        """
         return _libBornAgainFit.IMinimizer_clear(self)
 
 
     def reportResults(self):
-        """reportResults(IMinimizer self) -> std::string"""
+        """
+        reportResults(IMinimizer self) -> std::string
+
+        std::string IMinimizer::reportResults() const
+
+        Prints fit results. 
+
+        """
         return _libBornAgainFit.IMinimizer_reportResults(self)
 
 
     def propagateResults(self, parameters):
-        """propagateResults(IMinimizer self, FitSuiteParameters parameters)"""
+        """
+        propagateResults(IMinimizer self, FitSuiteParameters parameters)
+
+        void IMinimizer::propagateResults(FitSuiteParameters &parameters)
+
+        Propagates results of minimization to fit parameter set. 
+
+        """
         return _libBornAgainFit.IMinimizer_propagateResults(self, parameters)
 
 IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
@@ -2000,7 +2059,12 @@ class FitParameter(RealLimits, Attributes):
 
 
     def getStartValue(self):
-        """getStartValue(FitParameter self) -> double"""
+        """
+        getStartValue(FitParameter self) -> double
+
+        virtual double FitParameter::getStartValue() const 
+
+        """
         return _libBornAgainFit.FitParameter_getStartValue(self)
 
 
@@ -2065,7 +2129,12 @@ class FitParameter(RealLimits, Attributes):
 
 
     def limitsToString(self):
-        """limitsToString(FitParameter self) -> std::string"""
+        """
+        limitsToString(FitParameter self) -> std::string
+
+        std::string FitParameter::limitsToString() const 
+
+        """
         return _libBornAgainFit.FitParameter_limitsToString(self)
 
 FitParameter_swigregister = _libBornAgainFit.FitParameter_swigregister
@@ -2131,9 +2200,7 @@ class FitSuiteParameters(_object):
         getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >
         getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > const &
 
-        std::vector<FitParameter*>& FitSuiteParameters::getFitParameters()
-
-        Returns all parameters. 
+        const std::vector<FitParameter*>& FitSuiteParameters::getFitParameters() const 
 
         """
         return _libBornAgainFit.FitSuiteParameters_getFitParameters(self, *args)
@@ -2304,17 +2371,32 @@ class FitSuiteParameters(_object):
 
 
     def reportResults(self):
-        """reportResults(FitSuiteParameters self) -> std::string"""
+        """
+        reportResults(FitSuiteParameters self) -> std::string
+
+        std::string FitSuiteParameters::reportResults() const 
+
+        """
         return _libBornAgainFit.FitSuiteParameters_reportResults(self)
 
 
     def correlationMatrix(self):
-        """correlationMatrix(FitSuiteParameters self) -> vdouble2d_t"""
+        """
+        correlationMatrix(FitSuiteParameters self) -> vdouble2d_t
+
+        corr_matrix_t FitSuiteParameters::correlationMatrix() const 
+
+        """
         return _libBornAgainFit.FitSuiteParameters_correlationMatrix(self)
 
 
     def setCorrelationMatrix(self, matrix):
-        """setCorrelationMatrix(FitSuiteParameters self, vdouble2d_t matrix)"""
+        """
+        setCorrelationMatrix(FitSuiteParameters self, vdouble2d_t matrix)
+
+        void FitSuiteParameters::setCorrelationMatrix(const corr_matrix_t &matrix)
+
+        """
         return _libBornAgainFit.FitSuiteParameters_setCorrelationMatrix(self, matrix)
 
 
@@ -2332,7 +2414,9 @@ class MinimizerCatalogue(_object):
     """
 
 
-    Map of minimizer names holding list of defined algorithms for every minimizer. 
+    The  MinimizerCatalogue class contains information over all minimizers available.
+
+    C++ includes: MinimizerCatalogue.h
 
     """
 
@@ -2356,17 +2440,38 @@ class MinimizerCatalogue(_object):
             self.this = this
 
     def toString(self):
-        """toString(MinimizerCatalogue self) -> std::string"""
+        """
+        toString(MinimizerCatalogue self) -> std::string
+
+        std::string MinimizerCatalogue::toString() const
+
+        Returns multiline string representing catalogue content. 
+
+        """
         return _libBornAgainFit.MinimizerCatalogue_toString(self)
 
 
     def algorithmNames(self, minimizerName):
-        """algorithmNames(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t"""
+        """
+        algorithmNames(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t
+
+        std::vector< std::string > MinimizerCatalogue::algorithmNames(const std::string &minimizerName) const
+
+        Returns list of algorithms defined for the minimizer with a given name. 
+
+        """
         return _libBornAgainFit.MinimizerCatalogue_algorithmNames(self, minimizerName)
 
 
     def algorithmDescriptions(self, minimizerName):
-        """algorithmDescriptions(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t"""
+        """
+        algorithmDescriptions(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t
+
+        std::vector< std::string > MinimizerCatalogue::algorithmDescriptions(const std::string &minimizerName) const
+
+        Returns list of algorithm's descriptions for the minimizer with a given name . 
+
+        """
         return _libBornAgainFit.MinimizerCatalogue_algorithmDescriptions(self, minimizerName)
 
     __swig_destroy__ = _libBornAgainFit.delete_MinimizerCatalogue
@@ -2379,6 +2484,10 @@ class MinimizerFactory(_object):
 
 
     Factory to create minimizers.
+
+    Minimizer | Algorithms
+
+    Minuit2 | Migrad Simplex Combined Scan Fumili GSLMultiMin | SteepestDescent ConjugateFR ConjugatePR BFGS BFGS2 GSLLMA | Default GSLSimAn | Default Genetic | Default
 
     C++ includes: MinimizerFactory.h
 
@@ -2434,6 +2543,10 @@ class MinimizerFactory(_object):
 
 
         Factory to create minimizers.
+
+        Minimizer | Algorithms
+
+        Minuit2 | Migrad Simplex Combined Scan Fumili GSLMultiMin | SteepestDescent ConjugateFR ConjugatePR BFGS BFGS2 GSLLMA | Default GSLSimAn | Default Genetic | Default
 
         C++ includes: MinimizerFactory.h
 

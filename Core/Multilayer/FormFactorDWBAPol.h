@@ -26,7 +26,6 @@ class ILayerRTCoefficients;
 class BA_CORE_API_ FormFactorDWBAPol : public IFormFactor
 {
 public:
-    FormFactorDWBAPol() = delete;
     FormFactorDWBAPol(const IFormFactor& form_factor);
     virtual ~FormFactorDWBAPol();
 

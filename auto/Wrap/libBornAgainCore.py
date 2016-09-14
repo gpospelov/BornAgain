@@ -10911,20 +10911,10 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     for _s in [IFormFactorBorn]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolygonalPrism, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, height):
-        """
-        __init__(FormFactorPolygonalPrism self, double const height) -> FormFactorPolygonalPrism
-
-        FormFactorPolygonalPrism::FormFactorPolygonalPrism(const double height)
-
-        """
-        this = _libBornAgainCore.new_FormFactorPolygonalPrism(height)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def evaluate_for_q(self, q):
         """
@@ -10994,20 +10984,10 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
     for _s in [IFormFactorBorn]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolygonalSurface, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(FormFactorPolygonalSurface self) -> FormFactorPolygonalSurface
-
-        FormFactorPolygonalSurface::FormFactorPolygonalSurface()
-
-        """
-        this = _libBornAgainCore.new_FormFactorPolygonalSurface()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def evaluate_for_q(self, q):
         """

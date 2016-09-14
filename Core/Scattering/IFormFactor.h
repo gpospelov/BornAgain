@@ -41,13 +41,13 @@ public:
     IFormFactor() {}
     virtual ~IFormFactor();
     virtual IFormFactor* clone() const=0;
-    virtual void accept(ISampleVisitor* visitor) const =0;
+    virtual void accept(ISampleVisitor* visitor) const=0;
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) {}
 
     //! Returns scattering amplitude for complex wavevectors ki, kf.
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const =0;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
 
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions

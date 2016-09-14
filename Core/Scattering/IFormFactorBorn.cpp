@@ -22,15 +22,3 @@ complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {
     return evaluate_for_q(wavevectors.getQ());
 }
-
-complex_t IFormFactorBorn::evaluate_for_q(const cvector_t) const
-{
-    throw Exceptions::NotImplementedException(
-        "Bug: erroneous call of IFormFactorBorn::evaluate_for_q. ");
-}
-
-double IFormFactorBorn::getRadialExtension() const
-{
-    throw Exceptions::NotImplementedException(
-        "Bug: erroneous call of IFormFactorBorn::evaluate_for_q. ");
-}

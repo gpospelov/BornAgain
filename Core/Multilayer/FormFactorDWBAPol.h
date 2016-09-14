@@ -52,8 +52,8 @@ public:
 
     friend class TestPolarizedDWBATerms;
 
-protected:
-    //! The matrix form factor for BA
+private:
+    //! The form factor for BA
     IFormFactor* mp_form_factor;
 
     const ILayerRTCoefficients* mp_in_coeffs;

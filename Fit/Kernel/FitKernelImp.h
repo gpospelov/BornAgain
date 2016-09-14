@@ -17,7 +17,9 @@
 #define FITKERNELIMP_H
 
 #include "WinDllMacros.h"
+#include "KernelTypes.h"
 #include "FitSuiteParameters.h"
+#include "ObjectiveFunction.h"
 #include <memory>
 
 class IMinimizer;
@@ -30,8 +32,6 @@ class FitParameter;
 class BA_CORE_API_ FitKernelImp
 {
 public:
-    typedef std::function<double(const std::vector<double>&)> function_chi2_t;
-
     FitKernelImp();
     ~FitKernelImp();
 
@@ -41,14 +41,17 @@ public:
     //! Adds fit parameter
     void addFitParameter(FitParameter* par);
 
-    void setObjectiveFunction(function_chi2_t func);
+    void setObjectiveFunction(objective_function_t func);
 
     void minimize();
+
+    //! Reports results of minimization in the form of multi-line string.
+    std::string reportResults() const;
 
 private:
     FitSuiteParameters m_fit_parameters;
     std::unique_ptr<IMinimizer> m_minimizer;
-    function_chi2_t m_chi2_func;
+    ObjectiveFunction m_objective_function;
 };
 
 #endif

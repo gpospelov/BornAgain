@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/ObjectiveTestFunctions.h
-//! @brief     Declares set of ObjectiveTestFunctions.
+//! @file      Fit/Minimizer/KernelTypes.h
+//! @brief     Defines common types for fitting library.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,23 +13,13 @@
 //
 // ************************************************************************** //
 
-#ifndef OBJECTIVETESTFUNCTIONS_G
-#define OBJECTIVETESTFUNCTIONS_G
+#ifndef KERNELTYPES_H
+#define KERNELTYPES_H
 
-#include "WinDllMacros.h"
+#include <functional>
 #include <vector>
 
-//! @class StandaloneFitTest
-//! @ingroup standard_samples
-//! @brief Collection of objective functions for minimization library testing.
-//! Borrowed from StressFit test framework of http://root.cern.ch.
+typedef std::function<double(const std::vector<double>&)> objective_function_t;
 
-namespace TestFunctions
-{
-
-    BA_CORE_API_ double RosenBrock(const std::vector<double>& par);
-
-}
 
 #endif
-

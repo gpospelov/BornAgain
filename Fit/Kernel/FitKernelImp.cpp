@@ -15,6 +15,7 @@
 
 #include "FitKernelImp.h"
 #include "IMinimizer.h"
+#include <sstream>
 
 FitKernelImp::FitKernelImp()
 {
@@ -36,15 +37,17 @@ void FitKernelImp::addFitParameter(FitParameter *par)
     m_fit_parameters.addFitParameter(par);
 }
 
-void FitKernelImp::setObjectiveFunction(function_chi2_t func)
+void FitKernelImp::setObjectiveFunction(objective_function_t func)
 {
-    m_chi2_func = func;
+    m_objective_function.setObjectiveFunction(func);
 }
 
 void FitKernelImp::minimize()
 {
-    // order matters
-    m_minimizer->setObjectiveFunction(m_chi2_func, m_fit_parameters.size());
+    objective_function_t func =
+        [&](const std::vector<double> &pars) { return m_objective_function.evaluate(pars); };
+
+    m_minimizer->setObjectiveFunction(func);
     m_minimizer->setParameters(m_fit_parameters);
 
     // minimize
@@ -56,4 +59,25 @@ void FitKernelImp::minimize()
     m_minimizer->propagateResults(m_fit_parameters);
 
 
+}
+
+std::string FitKernelImp::reportResults() const
+{
+    std::ostringstream result;
+
+     result << std::endl;
+     result
+         << "--- FitSuite::printResults -----------------------------------------------------\n";
+     result << "functionCalls: " << m_objective_function.functionCalls() << "\n";
+//     result << " Chi2:" << std::scientific << std::setprecision(8)
+//               << m_fit_objects.getChiSquaredValue()
+//               << "    chi2.NCall:" << m_function_chi2.getNCalls()
+//               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
+//               << m_function_gradient.getNCallsGradient() << ","
+//               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
+
+     result << m_minimizer->reportResults();
+     result << m_fit_parameters.reportResults();
+
+     return result.str();
 }

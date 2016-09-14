@@ -16,21 +16,49 @@
 #include "RootObjectiveFuncAdapter.h"
 #include "ROOTMinimizerFunction.h"
 #include "IMinimizer.h"
+#include <stdexcept>
 
-void RootObjectiveFunctionAdapter::setFunction(func_t func, int ndims)
+RootObjectiveFunctionAdapter::RootObjectiveFunctionAdapter()
+    : m_nparameters(0)
 {
-    m_ndims = ndims;
-    m_func = func;
-    IMinimizer::function_chi2_t fun_chi2 =
+
+}
+
+void RootObjectiveFunctionAdapter::setFunction(objective_function_t func)
+{
+    m_objective_function = func;
+}
+
+void RootObjectiveFunctionAdapter::setNumberOfParameters(int nparameters)
+{
+    m_nparameters = nparameters;
+}
+
+//! Creates objective function suitable for ROOT minimizers
+
+const ROOTMinimizerChiSquaredFunction*
+    RootObjectiveFunctionAdapter::rootChiSquaredFunction()
+{
+    if(!m_objective_function)
+        throw std::runtime_error("RootObjectiveFunctionAdapter::rootChiSquaredFunction() -> Error. "
+                                 "Objective function is not set.");
+
+    if(m_nparameters <= 0)
+        throw std::runtime_error("RootObjectiveFunctionAdapter::rootChiSquaredFunction() -> Error. "
+                                 "Number of parameters must be >0");
+
+    root_evaluate_t fun_chi2 =
         [&] (const double* pars) {return evaluate(pars);};
 
-    m_root_chi_function.reset(new ROOTMinimizerChiSquaredFunction(fun_chi2, ndims));
+    m_root_chi_function.reset(new ROOTMinimizerChiSquaredFunction(fun_chi2, m_nparameters));
+
+    return m_root_chi_function.get();
 }
 
 double RootObjectiveFunctionAdapter::evaluate(const double *pars)
 {
     std::vector<double> vec;
-    vec.resize(m_ndims, 0.0);
-    std::copy(pars, pars+m_ndims, vec.begin());
-    return m_func(vec);
+    vec.resize(m_nparameters, 0.0);
+    std::copy(pars, pars+m_nparameters, vec.begin());
+    return m_objective_function(vec);
 }

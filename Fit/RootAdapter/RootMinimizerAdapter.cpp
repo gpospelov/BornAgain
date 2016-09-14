@@ -24,6 +24,7 @@
 
 RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo &minimizerInfo)
     :  m_minimizerInfo(minimizerInfo)
+    , m_obj_func(new RootObjectiveFunctionAdapter)
     , m_status(false)
 {
 
@@ -37,6 +38,9 @@ RootMinimizerAdapter::~RootMinimizerAdapter()
 void RootMinimizerAdapter::minimize()
 {
     propagateOptions();
+
+    rootMinimizer()->SetFunction(*m_obj_func->rootChiSquaredFunction());
+
     m_status = rootMinimizer()->Minimize();
 }
 
@@ -101,13 +105,15 @@ void RootMinimizerAdapter::setParameters(const FitSuiteParameters &parameters)
     for (auto par: parameters)
         setParameter(index++, par );
 
-    if( (int)parameters.size() != fitParameterCount())  {
-        std::ostringstream ostr;
-        ostr << "BasicMinimizer::setParameters() -> Error! Unconsistency in fit parameter number: ";
-        ostr << "fitParameterCount = " << fitParameterCount() << ",";
-        ostr << "parameters.size = " << parameters.size();
-        throw std::runtime_error(ostr.str());
-    }
+    m_obj_func->setNumberOfParameters(parameters.size());
+
+//    if( (int)parameters.size() != fitParameterCount())  {
+//        std::ostringstream ostr;
+//        ostr << "BasicMinimizer::setParameters() -> Error! Unconsistency in fit parameter number: ";
+//        ostr << "fitParameterCount = " << fitParameterCount() << ",";
+//        ostr << "parameters.size = " << parameters.size();
+//        throw std::runtime_error(ostr.str());
+//    }
 }
 
 void RootMinimizerAdapter::setChiSquaredFunction(IMinimizer::function_chi2_t fun_chi2, size_t nparameters)
@@ -122,11 +128,9 @@ void RootMinimizerAdapter::setGradientFunction(IMinimizer::function_gradient_t f
     if( isGradientBasedAgorithm() ) rootMinimizer()->SetFunction(*m_gradient_func);
 }
 
-void RootMinimizerAdapter::setObjectiveFunction(std::function<double (const std::vector<double> &)> func, int ndim)
+void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func)
 {
-    m_obj_func.reset(new RootObjectiveFunctionAdapter);
-    m_obj_func->setFunction(func, ndim);
-    rootMinimizer()->SetFunction(*m_obj_func->rootChiSquaredFunction());
+    m_obj_func->setFunction(func);
 }
 
 std::vector<double> RootMinimizerAdapter::getValueOfVariablesAtMinimum() const

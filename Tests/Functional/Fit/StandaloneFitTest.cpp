@@ -41,10 +41,10 @@ bool StandaloneFitTest::runTest()
     fitKernel->addFitParameter("par2", 1.0, RealLimits::limited(-5.0, 5.0), Attributes::free(), 0.01);
 
 
-    FitKernel::function_chi2_t func = ObjectiveFunctions::RosenBrock;
-
-    fitKernel->setObjectiveFunction(func);
+    fitKernel->setObjectiveFunction(TestFunctions::RosenBrock);
     fitKernel->minimize();
+
+    std::cout << fitKernel->reportResults() << std::endl;
 
     return true;
 }

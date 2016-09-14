@@ -17,6 +17,7 @@
 #define ROOTOBJECTIVEFUNCTIONADAPTER_H
 
 #include "WinDllMacros.h"
+#include "KernelTypes.h"
 #include <memory>
 #include <vector>
 
@@ -29,20 +30,23 @@ class ROOTMinimizerChiSquaredFunction;
 class BA_CORE_API_ RootObjectiveFunctionAdapter
 {
 public:
-    typedef std::function<double(const std::vector<double>&)> func_t;
+    typedef std::function<double(const double*)> root_evaluate_t;
 
-    void setFunction(func_t func, int ndims);
+    RootObjectiveFunctionAdapter();
 
+    void setFunction(objective_function_t func);
 
-    const ROOTMinimizerChiSquaredFunction  *rootChiSquaredFunction() const { return m_root_chi_function.get(); }
+    void setNumberOfParameters(int nparameters);
+
+    const ROOTMinimizerChiSquaredFunction* rootChiSquaredFunction();
 
 private:
     double evaluate(const double *pars);
 
-    func_t m_func;
+    objective_function_t m_objective_function;
 
     std::unique_ptr<ROOTMinimizerChiSquaredFunction> m_root_chi_function;
-    int m_ndims;
+    int m_nparameters;
 };
 
 #endif

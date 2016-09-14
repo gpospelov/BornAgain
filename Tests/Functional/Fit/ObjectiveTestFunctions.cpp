@@ -19,7 +19,7 @@
 
 //! RosenBrock function: F(x,y) = 100 (y-x^2)^2 + (1-x)^2
 
-double ObjectiveFunctions::RosenBrock(const std::vector<double> &par)
+double TestFunctions::RosenBrock(const std::vector<double> &par)
 {
     if(par.size() != 2)
         throw std::runtime_error("ObjectiveFunctions::RosenBrock() -> Error. Expected 2 input "

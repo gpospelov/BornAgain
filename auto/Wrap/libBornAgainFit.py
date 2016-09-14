@@ -1879,9 +1879,9 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_setGradientFunction(self, fun_gradient, nparameters, ndatasize)
 
 
-    def setObjectiveFunction(self, arg2, arg3):
-        """setObjectiveFunction(IMinimizer self, std::function< double (std::vector< double,std::allocator< double > > const &) > arg2, int arg3)"""
-        return _libBornAgainFit.IMinimizer_setObjectiveFunction(self, arg2, arg3)
+    def setObjectiveFunction(self, arg2):
+        """setObjectiveFunction(IMinimizer self, objective_function_t arg2)"""
+        return _libBornAgainFit.IMinimizer_setObjectiveFunction(self, arg2)
 
 
     def getNumberOfVariables(self):

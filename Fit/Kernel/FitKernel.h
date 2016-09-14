@@ -17,8 +17,8 @@
 #define FITKERNEL_H
 
 #include "WinDllMacros.h"
+#include "KernelTypes.h"
 #include <memory>
-#include <vector>
 
 class FitKernelImp;
 class RealLimits;
@@ -31,8 +31,6 @@ class Attributes;
 class BA_CORE_API_ FitKernel
 {
 public:
-    typedef std::function<double(const std::vector<double>&)> function_chi2_t;
-
     FitKernel();
     ~FitKernel();
 
@@ -47,9 +45,12 @@ public:
                          const RealLimits& lim, const Attributes& attr,
                          double step=0.0);
 
-    void setObjectiveFunction(function_chi2_t func);
+    void setObjectiveFunction(objective_function_t func);
 
     void minimize();
+
+    //! Reports results of minimization in the form of multi-line string.
+    std::string reportResults() const;
 
 private:
     std::unique_ptr<FitKernelImp> m_impl;

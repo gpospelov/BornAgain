@@ -42,7 +42,7 @@ void FitKernel::addFitParameter(const std::string &name, double value,
 
 }
 
-void FitKernel::setObjectiveFunction(function_chi2_t func)
+void FitKernel::setObjectiveFunction(objective_function_t func)
 {
     m_impl->setObjectiveFunction(func);
 }
@@ -50,4 +50,9 @@ void FitKernel::setObjectiveFunction(function_chi2_t func)
 void FitKernel::minimize()
 {
     m_impl->minimize();
+}
+
+std::string FitKernel::reportResults() const
+{
+    return m_impl->reportResults();
 }

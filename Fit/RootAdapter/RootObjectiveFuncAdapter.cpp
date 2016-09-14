@@ -34,7 +34,7 @@ void RootObjectiveFunctionAdapter::setNumberOfParameters(int nparameters)
     m_nparameters = nparameters;
 }
 
-//! Creates objective function suitable for ROOT minimizers
+//! Creates objective function suitable for ROOT minimizers.
 
 const ROOTMinimizerChiSquaredFunction*
     RootObjectiveFunctionAdapter::rootChiSquaredFunction()

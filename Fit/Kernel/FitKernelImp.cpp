@@ -57,8 +57,6 @@ void FitKernelImp::minimize()
 
     // set found values to the parameters
     m_minimizer->propagateResults(m_fit_parameters);
-
-
 }
 
 std::string FitKernelImp::reportResults() const

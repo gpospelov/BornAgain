@@ -39,7 +39,7 @@ void RootMinimizerAdapter::minimize()
 {
     propagateOptions();
 
-    rootMinimizer()->SetFunction(*m_obj_func->rootChiSquaredFunction());
+//    rootMinimizer()->SetFunction(*m_obj_func->rootChiSquaredFunction());
 
     m_status = rootMinimizer()->Minimize();
 }

@@ -118,6 +118,10 @@ void FitSuiteKernel::minimize()
         [&] (const double* pars) {return m_function_chi2.evaluate(pars);};
     m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
 
+//    objective_function_t fun_chi2 =
+//        [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
+//    m_minimizer->setObjectiveFunction( fun_chi2);
+
     IMinimizer::function_gradient_t fun_gradient =
         [&] (const double* pars, unsigned int index, double* gradients)
         {

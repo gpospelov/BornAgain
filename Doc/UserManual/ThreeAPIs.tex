@@ -1,0 +1,38 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2016
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\chapter{The three interfaces of \BornAgain}  \label{sec:API3}
+
+The core of \BornAgain\
+\index{Core|see {\Code{libBornAgainCore}}}
+For a given model,
+\BornAgain\ provides an efficient computation of the expected detector image.
+Furthermore \BornAgain\ comes with various minimizers that optimize model parameters
+to fit the simulated detector image to a given experimental image.
+
+All this functionality is implemented in a library, \Code{libBornAgainCore}.
+\index{libBornAgainCore@\Code{libBornAgainCore}}
+This library, in turn, depends on a number of other libraries,
+as indicated in \cref{Farchi}.
+One of these libraries, the minimizer wrapper \Code{libBornAgainFit}
+\index{libBornAgainFit@\Code{libBornAgainFit}}
+\index{Minimizers|see \Code{libBornAgainFit}}
+has been written specifically for use in \BornAgain,
+and for the time being is only distributed as part of \BornAgain,
+though in the future it may find applications in other contexts.
+The other library dependences of \Code{libBornAgainCore}
+are multi-purpose libraries that are easily available as open-source packages.
+\index{Dependences!libraries}

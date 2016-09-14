@@ -27,8 +27,8 @@
 %\includeonly{FormFactors}
 
 %\documentclass[a4paper,11pt,twoside,fleqn]{report}\usepackage[final]{graphicx}
-\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[final]{graphicx}
-%\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[draft]{graphicx}
+%\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[final]{graphicx}
+\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[draft]{graphicx}
 
 \def\authors{Jan Burle, Céline Durniak, Jonathan M.\ Fisher, Marina Ganeva, Gennady Pospelov,
 Walter Van Herck, Joachim Wuttke}
@@ -46,6 +46,7 @@ Walter Van Herck, Joachim Wuttke}
 \include{Introduction}
 
 \include{OnlineDocs}
+\part{Physics}\label{PPHYS}
 \include{SAS}
 \include{GisasFoundations}
 \include{PolarizedScattering}
@@ -56,9 +57,17 @@ Walter Van Herck, Joachim Wuttke}
 %void \include{Roughness}
 %void \include{Experiment}
 
+\part{Usage}\label{PUSE}
+\include{ThreeAPIs}
+\include{Usage}
+%\include{Fitting}
+%\include{IntensityData}
+
+\part{Reference}\label{PREF}
+\include{FormFactors}
+
 \appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \include{Proofs}
-\include{FormFactors}
 
 \otherchapter{Bibliography}
 \bibliographystyle{switch}

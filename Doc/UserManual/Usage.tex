@@ -13,6 +13,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def\PyImport#1{%
+\lstinputlisting[language=python,style=eclipseboxed,name=ex1,nolol]{../../Examples/python/#1}}
 
 \newpage
 \chapter{Using the Python API}  \label{sec:Usage}
@@ -63,7 +65,7 @@ In this example, we simulate the scattering from a mixture of
 cylindrical and prismatic nanoparticles without any interference
 between them. These particles are placed in air, on top
 of a substrate.\\ We are going to go through each step of the
-simulation. The \Python\ code snippet specific to each stage will be given at
+simulation. The Python code snippet specific to each stage will be given at
 the beginning of the description.
 More examples can be found at our project web site \url{http://www.bornagainproject.org/documentation/python_examples}
 
@@ -82,7 +84,7 @@ from bornagain import * @\label{import_ba}@
 \end{lstlisting}
 We start by importing different functions from external
 modules, for example \Code{NumPy} (lines~\ref{import_lib_beg}-\ref{import_lib_end}), which
-is a fundamental package for scientific computing with \Python\
+is a fundamental package for scientific computing with Python
 \cite{s:numpy}.  In particular, line~\ref{import_ba}
 imports the features of \BornAgain\ software.
 
@@ -356,7 +358,7 @@ of \cref{sec:Example1Python}.
 In \BornAgain\ a sample is described by a hierarchical tree of objects.
 For the multilayer created in the previous section this tree can be graphically
 represented as shown in \cref{fig:sample_tree}. Similar trees can
-be printed in a \Python\
+be printed in a Python
 session by running \Code{multi\_layer.printSampleTree()}
 
 \begin{figure}[p!]
@@ -511,3 +513,7 @@ The complete example described in this section can be found at
 \begin{lstlisting}[language=shell, style=commandline]
 ./Examples/python/fitting/ex001_SampleParametersIntro/SampleParametersIntro.py
 \end{lstlisting}
+
+\section{UNDER CONSTRUCTION}
+
+\PyImport{simulation/ex01_BasicParticles/AllFormFactorsAvailable.py}

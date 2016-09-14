@@ -57,3 +57,5 @@
 // extra ignores for types and methods that shouldn't be visible in Python
 %ignore FormFactorDWBAPol;
 %ignore ISampleVisitor::visit(const FormFactorDWBAPol*);
+%ignore FormFactorDWBA;
+%ignore ISampleVisitor::visit(const FormFactorDWBA*);

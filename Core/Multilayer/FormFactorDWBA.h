@@ -23,21 +23,21 @@ class ILayerRTCoefficients;
 //! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactorDecorator.
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ FormFactorDWBA: public IFormFactorDecorator
+class FormFactorDWBA final : public IFormFactorDecorator
 {
 public:
     FormFactorDWBA(const IFormFactor& form_factor);
-    ~FormFactorDWBA() final {}
+    ~FormFactorDWBA() {}
 
-    FormFactorDWBA* clone() const final;
+    FormFactorDWBA* clone() const;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     void setSpecularInfo (const ILayerRTCoefficients* p_in_coeffs,
                           const ILayerRTCoefficients* p_out_coeffs);
 
-    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
     friend class TestPolarizedDWBATerms;
 

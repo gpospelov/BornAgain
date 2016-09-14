@@ -6850,7 +6850,6 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, FormFactorTruncatedCube arg2)
         visit(ISampleVisitor self, FormFactorTruncatedSphere arg2)
         visit(ISampleVisitor self, FormFactorTruncatedSpheroid arg2)
-        visit(ISampleVisitor self, FormFactorDWBA const * arg2)
         visit(ISampleVisitor self, FormFactorWeighted arg2)
         visit(ISampleVisitor self, FormFactorDecoratorDebyeWaller arg2)
         visit(ISampleVisitor self, FormFactorDecoratorFactor const * arg2)

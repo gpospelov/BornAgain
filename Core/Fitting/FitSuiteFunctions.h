@@ -50,7 +50,8 @@ class BA_CORE_API_ FitSuiteChiSquaredFunction : public IFitSuiteFunction
     FitSuiteChiSquaredFunction() {}
     virtual ~FitSuiteChiSquaredFunction() {}
     //! evaluate method for chi2 value called directly from the minimizer
-    double evaluate(const double* pars);
+//    double evaluate(const double* pars);
+    double evaluate(const std::vector<double> &pars);
 };
 
 

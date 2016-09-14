@@ -79,3 +79,13 @@ std::string FitKernelImp::reportResults() const
 
      return result.str();
 }
+
+FitSuiteParameters *FitKernelImp::fitParameters()
+{
+    return &m_fit_parameters;
+}
+
+IMinimizer *FitKernelImp::minimizer()
+{
+    return m_minimizer.get();
+}

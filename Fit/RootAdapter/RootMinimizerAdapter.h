@@ -102,10 +102,10 @@ protected:
 private:
     std::unique_ptr<ROOTMinimizerChiSquaredFunction> m_chi2_func;
     std::unique_ptr<ROOTMinimizerGradientFunction> m_gradient_func;
-    std::unique_ptr<RootObjectiveFunctionAdapter> m_obj_func;
 
     MinimizerOptions m_options;
     MinimizerInfo m_minimizerInfo;
+    std::unique_ptr<RootObjectiveFunctionAdapter> m_obj_func;
     bool m_status;
 };
 

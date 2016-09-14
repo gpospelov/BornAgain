@@ -48,6 +48,10 @@ public:
     //! Reports results of minimization in the form of multi-line string.
     std::string reportResults() const;
 
+    FitSuiteParameters* fitParameters();
+
+     IMinimizer *minimizer() ;
+
 private:
     FitSuiteParameters m_fit_parameters;
     std::unique_ptr<IMinimizer> m_minimizer;

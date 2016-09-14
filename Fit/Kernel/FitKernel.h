@@ -23,6 +23,8 @@
 class FitKernelImp;
 class RealLimits;
 class Attributes;
+class FitSuiteParameters;
+class IMinimizer;
 
 //! @class FitKernel
 //! @ingroup fitting_internal
@@ -40,6 +42,9 @@ public:
     void setMinimizer(const std::string& minimizerName,
                       const std::string& algorithmName = std::string());
 
+    void setMinimizer(IMinimizer* minimizer);
+
+
     //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,
                          const RealLimits& lim, const Attributes& attr,
@@ -51,6 +56,10 @@ public:
 
     //! Reports results of minimization in the form of multi-line string.
     std::string reportResults() const;
+
+    FitSuiteParameters* fitParameters();
+
+    IMinimizer *minimizer();
 
 private:
     std::unique_ptr<FitKernelImp> m_impl;

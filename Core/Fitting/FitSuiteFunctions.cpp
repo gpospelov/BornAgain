@@ -20,7 +20,7 @@
 #include <stdexcept>
 
 //! evaluate chi squared value
-double FitSuiteChiSquaredFunction::evaluate(const double* pars)
+double FitSuiteChiSquaredFunction::evaluate(const std::vector<double> &pars)
 {
     assert(m_kernel != nullptr);
     if (m_kernel->isInterrupted())

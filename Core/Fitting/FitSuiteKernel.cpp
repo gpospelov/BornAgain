@@ -21,13 +21,15 @@
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
 #include "IMinimizer.h"
+#include "FitKernel.h"
 #include <stdexcept>
 
 FitSuiteKernel::FitSuiteKernel(const std::function<void()>& notifyObservers)
-    : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
-    , m_is_last_iteration(false)
+//    : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
+    : m_is_last_iteration(false)
     , m_is_interrupted(false)
     , m_notifyObservers(notifyObservers)
+    , m_new_kernel(new FitKernel)
 {
     m_function_chi2.init(this);
     m_function_gradient.init(this);
@@ -43,7 +45,7 @@ FitSuiteKernel::~FitSuiteKernel()
 void FitSuiteKernel::clear()
 {
     m_fit_objects.clear();
-    m_fit_parameters.clear();
+//    m_fit_parameters.clear();
     m_fit_strategies.clear();
     m_is_last_iteration = false;
     m_is_interrupted = false;
@@ -68,12 +70,13 @@ void FitSuiteKernel::addFitParameter(const std::string& name, double value, cons
 {
     if(step <=0.0)
         step = value * getOptions().getStepFactor();
-    for(auto par: m_fit_parameters.getFitParameters()) {
-        if( par->getName() == name )
-            throw std::runtime_error(
-                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
-    }
-    m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
+//    for(auto par: m_fit_parameters.getFitParameters()) {
+//        if( par->getName() == name )
+//            throw std::runtime_error(
+//                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
+//    }
+//    m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
+    m_new_kernel->fitParameters()->addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
 }
 
 void FitSuiteKernel::addFitStrategy(const IFitStrategy& strategy)
@@ -86,7 +89,13 @@ void FitSuiteKernel::setMinimizer(IMinimizer* minimizer)
     if(!minimizer)
         throw std::runtime_error(
             "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer");
-    m_minimizer.reset(minimizer);
+//    m_minimizer.reset(minimizer);
+    m_new_kernel->setMinimizer(minimizer);
+}
+
+IMinimizer *FitSuiteKernel::getMinimizer() {
+//    return m_minimizer.get();
+    return m_new_kernel->minimizer();
 }
 
 void FitSuiteKernel::runFit()
@@ -114,37 +123,44 @@ void FitSuiteKernel::runFit()
 void FitSuiteKernel::minimize()
 {
     // initialize minimizer with fitting functions
-    IMinimizer::function_chi2_t fun_chi2 =
-        [&] (const double* pars) {return m_function_chi2.evaluate(pars);};
-    m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
+//    IMinimizer::function_chi2_t fun_chi2 =
+//        [&] (const double* pars) {return m_function_chi2.evaluate(pars);};
+//    m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
 
-//    objective_function_t fun_chi2 =
-//        [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
-//    m_minimizer->setObjectiveFunction( fun_chi2);
+    objective_function_t fun_chi2 =
+        [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
+    m_new_kernel->setObjectiveFunction( fun_chi2);
 
-    IMinimizer::function_gradient_t fun_gradient =
-        [&] (const double* pars, unsigned int index, double* gradients)
-        {
-            return m_function_gradient.evaluate(pars, index, gradients);
-        };
-    m_minimizer->setGradientFunction(
-        fun_gradient, m_fit_parameters.size(), m_fit_objects.getSizeOfDataSet() );
+//    IMinimizer::function_gradient_t fun_gradient =
+//        [&] (const double* pars, unsigned int index, double* gradients)
+//        {
+//            return m_function_gradient.evaluate(pars, index, gradients);
+//        };
+//    m_minimizer->setGradientFunction(
+//        fun_gradient, m_fit_parameters.size(), m_fit_objects.getSizeOfDataSet() );
 
     // initialize minimizer's parameters with the list of local fit parameters
-    m_minimizer->setParameters(m_fit_parameters);
+//    m_minimizer->setParameters(m_fit_parameters);
 
     // setting number of free parameters for proper chi2 normalization
-    m_fit_objects.setNfreeParameters((int)m_fit_parameters.numberOfFreeFitParameters());
+//    m_fit_objects.setNfreeParameters((int)m_fit_parameters.numberOfFreeFitParameters());
+    m_fit_objects.setNfreeParameters((int)getFitParameters()->numberOfFreeFitParameters());
 
     // minimize
     try {
-        m_minimizer->minimize();
+//        m_minimizer->minimize();
+        m_new_kernel->minimize();
     } catch (int) {}
 
     // set found values to the parameters
-    m_minimizer->propagateResults(m_fit_parameters);
+//    m_minimizer->propagateResults(m_fit_parameters);
 
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
+}
+
+FitSuiteParameters *FitSuiteKernel::getFitParameters() {
+//    return &m_fit_parameters;
+    return m_new_kernel->fitParameters();
 }
 
 // get current number of minimization function calls
@@ -163,22 +179,23 @@ size_t FitSuiteKernel::getCurrentStrategyIndex() const
 
 std::string FitSuiteKernel::reportResults() const
 {
-    std::ostringstream result;
+//    std::ostringstream result;
 
-     result << std::endl;
-     result
-         << "--- FitSuite::printResults -----------------------------------------------------\n";
-     result << " Chi2:" << std::scientific << std::setprecision(8)
-               << m_fit_objects.getChiSquaredValue()
-               << "    chi2.NCall:" << m_function_chi2.getNCalls()
-               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
-               << m_function_gradient.getNCallsGradient() << ","
-               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
+//     result << std::endl;
+//     result
+//         << "--- FitSuite::printResults -----------------------------------------------------\n";
+//     result << " Chi2:" << std::scientific << std::setprecision(8)
+//               << m_fit_objects.getChiSquaredValue()
+//               << "    chi2.NCall:" << m_function_chi2.getNCalls()
+//               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
+//               << m_function_gradient.getNCallsGradient() << ","
+//               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
 
-     result << m_minimizer->reportResults();
-     result << m_fit_parameters.reportResults();
+//     result << m_minimizer->reportResults();
+//     result << m_fit_parameters.reportResults();
 
-     return result.str();
+//     return result.str();
+    return m_new_kernel->reportResults();
 }
 
 double FitSuiteKernel::getRunTime() const
@@ -189,12 +206,12 @@ double FitSuiteKernel::getRunTime() const
 
 bool FitSuiteKernel::check_prerequisites() const
 {
-    if( !m_minimizer ) throw Exceptions::LogicErrorException(
-        "FitSuite::check_prerequisites() -> Error! No minimizer found.");
+//    if( !m_minimizer ) throw Exceptions::LogicErrorException(
+//        "FitSuite::check_prerequisites() -> Error! No minimizer found.");
     if( !m_fit_objects.getNumberOfFitObjects() ) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
-    if( !m_fit_parameters.size() ) throw Exceptions::LogicErrorException(
-        "FitSuite::check_prerequisites() -> Error! No fit parameters defined");
+//    if( !m_fit_parameters.size() ) throw Exceptions::LogicErrorException(
+//        "FitSuite::check_prerequisites() -> Error! No fit parameters defined");
     if( m_fit_objects.getSizeOfDataSet() == 0) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No elements to fit. "
         "Looks like whole detector is masked.");
@@ -205,7 +222,7 @@ bool FitSuiteKernel::check_prerequisites() const
 void FitSuiteKernel::link_fit_parameters()
 {
     const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    for (auto par: m_fit_parameters.getFitParameters()) {
+    for (auto par: m_new_kernel->fitParameters()->getFitParameters()) {
         FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
         if( !linkedPar )
             throw std::runtime_error(
@@ -215,3 +232,17 @@ void FitSuiteKernel::link_fit_parameters()
     msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
     msglog(MSG::DEBUG2) << *pool;
 }
+
+//void FitSuiteKernel::link_fit_parameters()
+//{
+//    const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
+//    for (auto par: m_fit_parameters.getFitParameters()) {
+//        FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
+//        if( !linkedPar )
+//            throw std::runtime_error(
+//                "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
+//        linkedPar->addMatchedParametersFromPool(pool.get());
+//    }
+//    msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
+//    msglog(MSG::DEBUG2) << *pool;
+//}

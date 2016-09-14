@@ -21,7 +21,7 @@
 FitKernel::FitKernel()
     : m_impl(new FitKernelImp)
 {
-
+    setMinimizer("Minuit2", "Migrad");
 }
 
 FitKernel::~FitKernel()
@@ -32,6 +32,11 @@ FitKernel::~FitKernel()
 void FitKernel::setMinimizer(const std::string &minimizerName, const std::string &algorithmName)
 {
     m_impl->setMinimizer(MinimizerFactory::createMinimizer(minimizerName, algorithmName));
+}
+
+void FitKernel::setMinimizer(IMinimizer *minimizer)
+{
+    m_impl->setMinimizer(minimizer);
 }
 
 void FitKernel::addFitParameter(const std::string &name, double value,
@@ -55,4 +60,14 @@ void FitKernel::minimize()
 std::string FitKernel::reportResults() const
 {
     return m_impl->reportResults();
+}
+
+FitSuiteParameters *FitKernel::fitParameters()
+{
+    return m_impl->fitParameters();
+}
+
+ IMinimizer *FitKernel::minimizer()
+{
+    return m_impl->minimizer();
 }

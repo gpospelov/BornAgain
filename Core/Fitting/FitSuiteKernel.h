@@ -31,6 +31,7 @@ class Attributes;
 class RealLimits;
 class GISASSimulation;
 class IMinimizer;
+class FitKernel;
 
 //! Fitting kernel for FitSuite.
 //! @ingroup fitting_internal
@@ -65,7 +66,7 @@ class BA_CORE_API_ FitSuiteKernel
     void setMinimizer(IMinimizer* minimizer);
 
     //! Returns minimizer
-    IMinimizer* getMinimizer() { return m_minimizer.get(); }
+    IMinimizer* getMinimizer();
 
     //! Runs a fit, which may consist of several minimization rounds
     virtual void runFit();
@@ -78,7 +79,7 @@ class BA_CORE_API_ FitSuiteKernel
     const FitSuiteObjects* getFitObjects() const { return &m_fit_objects; }
 
     //! Returns reference to fit parameters
-    FitSuiteParameters* getFitParameters() { return &m_fit_parameters; }
+    FitSuiteParameters* getFitParameters();
 
     //! Returns reference to fit parameters
     FitSuiteStrategies* getFitStrategies() { return &m_fit_strategies; }
@@ -116,9 +117,9 @@ private:
 
     FitOptions m_fit_options;
     FitSuiteObjects m_fit_objects;
-    FitSuiteParameters m_fit_parameters;
+//    FitSuiteParameters m_fit_parameters;
     FitSuiteStrategies m_fit_strategies;
-    std::unique_ptr<IMinimizer> m_minimizer;
+//    std::unique_ptr<IMinimizer> m_minimizer;
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
     bool m_is_last_iteration;
@@ -128,6 +129,8 @@ private:
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_end_time;
     std::function<void()> m_notifyObservers;
+
+    std::unique_ptr<FitKernel> m_new_kernel;
 };
 
 #endif // FITKERNEL_H

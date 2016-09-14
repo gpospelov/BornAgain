@@ -22,3 +22,13 @@ complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {
     return evaluate_for_q(wavevectors.getQ());
 }
+
+Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const
+{
+    return evaluate_for_q_pol(wavevectors.getQ());
+}
+
+Eigen::Matrix2cd IFormFactorBorn::evaluate_for_q_pol(const cvector_t q) const
+{
+    return evaluate_for_q(q) * Eigen::Matrix2cd::Identity();
+}

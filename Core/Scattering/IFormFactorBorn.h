@@ -43,15 +43,12 @@ public:
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
-#ifndef SWIG
-    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
-#endif
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     virtual complex_t evaluate_for_q(const cvector_t q) const;
 
     virtual double getRadialExtension() const;
-    };
+};
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
 //! Information about the latest form factor evaluation. Not thread-safe.

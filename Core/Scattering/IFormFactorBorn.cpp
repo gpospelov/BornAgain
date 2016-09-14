@@ -23,11 +23,6 @@ complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
     return evaluate_for_q(wavevectors.getQ());
 }
 
-Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors) const
-{
-    return evaluate(wavevectors) * Eigen::Matrix2cd::Identity();
-}
-
 complex_t IFormFactorBorn::evaluate_for_q(const cvector_t) const
 {
     throw Exceptions::NotImplementedException(

@@ -32,14 +32,14 @@ class IMaterial;
 //! for iterating through a tree (getMaterial, containedMaterials, containedSubclasses, ..).
 //! The functions getChildren and size, completely trivial here, become meaningful
 //! through their overloads in ICompositeSample.
-//!
+
 //! @ingroup samples_internal
 
 class BA_CORE_API_ ISample : public ICloneable, public IParameterized
 {
 public:
     //! Returns a clone of this ISample object.
-    virtual ISample* clone() const=0;
+    ISample* clone() const override=0;
 
     //! Returns a clone with inverted magnetic fields.
     virtual ISample* cloneInvertB() const;

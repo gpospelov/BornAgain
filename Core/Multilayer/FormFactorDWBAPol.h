@@ -28,28 +28,28 @@ class FormFactorDWBAPol final : public IFormFactor
 {
 public:
     FormFactorDWBAPol(const IFormFactor& form_factor);
-    ~FormFactorDWBAPol();
+    ~FormFactorDWBAPol() override;
 
-    FormFactorDWBAPol* clone() const;
+    FormFactorDWBAPol* clone() const override;
 
-    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const override { visitor->visit(this); }
 
     //! Throws not-implemented exception
-    complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
     //! Calculates and returns a polarized form factor calculation in DWBA
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
     //! Returns the total volume of the particle of this form factor's shape
-    double getVolume() const { return mp_form_factor->getVolume(); }
+    double getVolume() const override { return mp_form_factor->getVolume(); }
 
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
-    double getRadialExtension() const { return mp_form_factor->getRadialExtension(); }
+    double getRadialExtension() const override { return mp_form_factor->getRadialExtension(); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
-                         const ILayerRTCoefficients* p_out_coeffs);
+                         const ILayerRTCoefficients* p_out_coeffs) override;
 
     friend class TestPolarizedDWBATerms;
 

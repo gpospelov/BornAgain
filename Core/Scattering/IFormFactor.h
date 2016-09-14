@@ -39,9 +39,9 @@ class BA_CORE_API_ IFormFactor : public ISample
 {
 public:
     IFormFactor() {}
-    virtual ~IFormFactor();
-    virtual IFormFactor* clone() const=0;
-    virtual void accept(ISampleVisitor* visitor) const=0;
+    ~IFormFactor() override;
+    IFormFactor* clone() const override=0;
+    void accept(ISampleVisitor* visitor) const override=0;
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) {}

@@ -19,10 +19,11 @@
 #include "WinDllMacros.h"
 
 //! Mix-in for objects that must not be copied.
-//! @ingroup tools_internal
 //!
 //! This virtual base class disables the copy constructor and the operator=
 //! in all its child classes.
+
+//! @ingroup tools_internal
 
 class BA_CORE_API_ INoncopyable
 {

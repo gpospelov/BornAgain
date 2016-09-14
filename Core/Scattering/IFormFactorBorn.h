@@ -31,11 +31,11 @@ class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
 public:
     IFormFactorBorn() {}
-    virtual ~IFormFactorBorn() {}
+    ~IFormFactorBorn() override {}
 
-    virtual IFormFactorBorn* clone() const=0;
+    IFormFactorBorn* clone() const override=0;
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     virtual complex_t evaluate_for_q(const cvector_t q) const=0;

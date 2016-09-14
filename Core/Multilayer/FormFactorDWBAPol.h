@@ -21,6 +21,7 @@
 class ILayerRTCoefficients;
 
 //! Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized IFormFactor.
+
 //! @ingroup formfactors_internal
 
 class FormFactorDWBAPol final : public IFormFactor

@@ -20,6 +20,7 @@
 #include "Vectors3D.h"
 
 //! Pure virtual base class for Born form factors.
+//!
 //! In contrast to the generic IFormFactor, a Born form factor does not depend
 //! on the incoming and outgoing wave vectors ki and kf, except through their
 //! difference, the scattering vector q=ki-kf.

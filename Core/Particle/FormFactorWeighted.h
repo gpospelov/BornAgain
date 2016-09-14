@@ -18,34 +18,35 @@
 
 #include "IFormFactor.h"
 
-//! Coherent sum of different scalar IFormFactor's with different weights, at the same position.
+//! Coherent sum of different scalar IFormFactor's with different weights.
 //!
 //! Used by ParticleComposition and ParticleCoreShell.
-//! If particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor
-//! (restore from commit 0500a26de76).
+//! If same particles are at different positions, then consider
+//! FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
+
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ FormFactorWeighted : public IFormFactor
+class BA_CORE_API_ FormFactorWeighted final : public IFormFactor
 {
 public:
     FormFactorWeighted();
-    ~FormFactorWeighted() final;
+    ~FormFactorWeighted();
 
-    FormFactorWeighted* clone() const final;
+    FormFactorWeighted* clone() const;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
-    double getRadialExtension() const final;
+    double getRadialExtension() const;
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 
-    void setAmbientMaterial(const IMaterial& material) final;
+    void setAmbientMaterial(const IMaterial& material);
 
-    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const;
 
 #ifndef SWIG
     //! Calculates and returns a polarized form factor calculation in DWBA
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 #endif
 
 protected:

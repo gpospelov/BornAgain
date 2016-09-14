@@ -29,14 +29,13 @@
 class BA_CORE_API_ IFormFactorDecorator : public IFormFactor
 {
 public:
-    IFormFactorDecorator() =delete;
     IFormFactorDecorator(const IFormFactor& form_factor) : mp_form_factor(form_factor.clone()) {}
     virtual ~IFormFactorDecorator() { delete mp_form_factor; }
-    virtual IFormFactorDecorator* clone() const =0;
-    virtual void accept(ISampleVisitor* visitor) const =0;
+    virtual IFormFactorDecorator* clone() const=0;
+    virtual void accept(ISampleVisitor* visitor) const=0;
 
     virtual void setAmbientMaterial(const IMaterial &material) {
-        mp_form_factor->setAmbientMaterial(material);  }
+        mp_form_factor->setAmbientMaterial(material); }
 
     virtual double getVolume() const {
         return mp_form_factor->getVolume(); }

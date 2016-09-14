@@ -16,32 +16,43 @@
 #ifndef FORMFACTORDWBA_H
 #define FORMFACTORDWBA_H
 
-#include "IFormFactorDecorator.h"
+#include "IFormFactor.h"
 
 class ILayerRTCoefficients;
 
-//! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactorDecorator.
+//! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactor.
 //! @ingroup formfactors_internal
 
-class FormFactorDWBA final : public IFormFactorDecorator
+class FormFactorDWBA final : public IFormFactor
 {
 public:
     FormFactorDWBA(const IFormFactor& form_factor);
-    ~FormFactorDWBA() {}
+    ~FormFactorDWBA();
 
     FormFactorDWBA* clone() const;
 
     void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
+    //! Calculates and returns a form factor calculation in DWBA
+    complex_t evaluate(const WavevectorInfo& wavevectors) const;
+
+    //! Returns the total volume of the particle of this form factor's shape
+    double getVolume() const { return mp_form_factor->getVolume(); }
+
+    //! Returns the (approximate in some cases) radial size of the particle of this
+    //! form factor's shape. This is used for SSCA calculations
+    double getRadialExtension() const { return mp_form_factor->getRadialExtension(); }
+
     //! Sets reflection/transmission info for scalar DWBA simulation
     void setSpecularInfo (const ILayerRTCoefficients* p_in_coeffs,
                           const ILayerRTCoefficients* p_out_coeffs);
 
-    complex_t evaluate(const WavevectorInfo& wavevectors) const;
-
     friend class TestPolarizedDWBATerms;
 
 private:
+    //! The form factor for BA
+    IFormFactor* mp_form_factor;
+
     const ILayerRTCoefficients* mp_in_coeffs;  //!< not owned by this
     const ILayerRTCoefficients* mp_out_coeffs; //!< not owned by this
 };

@@ -27,7 +27,7 @@ class FormFactorDWBAPol final : public IFormFactor
 {
 public:
     FormFactorDWBAPol(const IFormFactor& form_factor);
-    virtual ~FormFactorDWBAPol();
+    ~FormFactorDWBAPol();
 
     FormFactorDWBAPol* clone() const;
 
@@ -40,11 +40,11 @@ public:
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
 
     //! Returns the total volume of the particle of this form factor's shape
-    double getVolume() const final { return mp_form_factor->getVolume(); }
+    double getVolume() const { return mp_form_factor->getVolume(); }
 
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
-    double getRadialExtension() const final { return mp_form_factor->getRadialExtension(); }
+    double getRadialExtension() const { return mp_form_factor->getRadialExtension(); }
 
     //! Sets reflection/transmission info for scalar DWBA simulation
     void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
@@ -56,8 +56,8 @@ private:
     //! The form factor for BA
     IFormFactor* mp_form_factor;
 
-    const ILayerRTCoefficients* mp_in_coeffs;
-    const ILayerRTCoefficients* mp_out_coeffs;
+    const ILayerRTCoefficients* mp_in_coeffs;  //!< not owned by this
+    const ILayerRTCoefficients* mp_out_coeffs; //!< not owned by this
 };
 
 #endif // FORMFACTORDWBAPOL_H

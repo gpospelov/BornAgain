@@ -27,3 +27,8 @@ complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo& wavevectors)
 {
     return m_factor * mp_form_factor->evaluate(wavevectors);
 }
+
+Eigen::Matrix2cd FormFactorDecoratorFactor::evaluatePol(const WavevectorInfo &wavevectors) const
+{
+    return m_factor * mp_form_factor->evaluatePol(wavevectors);
+}

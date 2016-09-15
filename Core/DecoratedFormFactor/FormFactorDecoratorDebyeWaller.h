@@ -37,10 +37,14 @@ public:
     void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
+#ifndef SWIG
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
+#endif
 
 private:
     double m_h_dw_factor; //!< the Debye-Waller factor in the z-direction
     double m_r_dw_factor; //!< the Debye-Waller factor in the radial direction
+    double getDWFactor(const WavevectorInfo& wavevectors) const;
 };
 
 #endif // FORMFACTORDECORATORDEBYEWALLER_H

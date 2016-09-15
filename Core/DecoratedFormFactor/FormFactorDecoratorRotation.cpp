@@ -55,4 +55,3 @@ WavevectorInfo FormFactorDecoratorRotation::rotate_wavevectors(
     double wavelength = wavevectors.getWavelength();
     return WavevectorInfo(rotated_ki, rotated_kf, wavelength);
 }
-

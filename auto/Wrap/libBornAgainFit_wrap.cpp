@@ -3463,28 +3463,28 @@ namespace Swig {
 #define SWIGTYPE_p_RealLimits swig_types[6]
 #define SWIGTYPE_p_allocator_type swig_types[7]
 #define SWIGTYPE_p_char swig_types[8]
-#define SWIGTYPE_p_corr_matrix_t swig_types[9]
-#define SWIGTYPE_p_difference_type swig_types[10]
-#define SWIGTYPE_p_double swig_types[11]
-#define SWIGTYPE_p_gradient_function_t swig_types[12]
-#define SWIGTYPE_p_int swig_types[13]
-#define SWIGTYPE_p_long_long swig_types[14]
-#define SWIGTYPE_p_objective_function_t swig_types[15]
-#define SWIGTYPE_p_p_PyObject swig_types[16]
-#define SWIGTYPE_p_short swig_types[17]
-#define SWIGTYPE_p_signed_char swig_types[18]
-#define SWIGTYPE_p_size_type swig_types[19]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[20]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[21]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[22]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[23]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[24]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[25]
-#define SWIGTYPE_p_std__invalid_argument swig_types[26]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[27]
-#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[28]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[29]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t swig_types[30]
+#define SWIGTYPE_p_container_t swig_types[9]
+#define SWIGTYPE_p_corr_matrix_t swig_types[10]
+#define SWIGTYPE_p_difference_type swig_types[11]
+#define SWIGTYPE_p_double swig_types[12]
+#define SWIGTYPE_p_gradient_function_t swig_types[13]
+#define SWIGTYPE_p_int swig_types[14]
+#define SWIGTYPE_p_long_long swig_types[15]
+#define SWIGTYPE_p_objective_function_t swig_types[16]
+#define SWIGTYPE_p_p_PyObject swig_types[17]
+#define SWIGTYPE_p_short swig_types[18]
+#define SWIGTYPE_p_signed_char swig_types[19]
+#define SWIGTYPE_p_size_type swig_types[20]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[21]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[22]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[23]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[24]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[25]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[26]
+#define SWIGTYPE_p_std__invalid_argument swig_types[27]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[28]
+#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[29]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[30]
 #define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[31]
 #define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[32]
 #define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[33]
@@ -20475,90 +20475,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameters__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::vector< FitParameter *,std::allocator< FitParameter * > > *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_getFitParameters",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getFitParameters" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = (std::vector< FitParameter *,std::allocator< FitParameter * > > *) &(arg1)->getFitParameters();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameters__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::vector< FitParameter *,std::allocator< FitParameter * > > *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_getFitParameters",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getFitParameters" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = (std::vector< FitParameter *,std::allocator< FitParameter * > > *) &((FitSuiteParameters const *)arg1)->getFitParameters();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameters(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_FitSuiteParameters_getFitParameters__SWIG_0(self, args);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_FitSuiteParameters_getFitParameters__SWIG_1(self, args);
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters_getFitParameters'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    FitSuiteParameters::getFitParameters()\n"
-    "    FitSuiteParameters::getFitParameters() const\n");
-  return 0;
-}
-
-
 SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
@@ -20917,7 +20833,7 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_begin__SWIG_0(PyObject *SWIGUNUSED
   }
   arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
   result = (arg1)->begin();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new FitSuiteParameters::container_t::iterator(static_cast< const FitSuiteParameters::container_t::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20939,7 +20855,7 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_begin__SWIG_1(PyObject *SWIGUNUSED
   }
   arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
   result = ((FitSuiteParameters const *)arg1)->begin();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new FitSuiteParameters::container_t::const_iterator(static_cast< const FitSuiteParameters::container_t::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -21001,7 +20917,7 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_end__SWIG_0(PyObject *SWIGUNUSEDPA
   }
   arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
   result = (arg1)->end();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new FitSuiteParameters::container_t::iterator(static_cast< const FitSuiteParameters::container_t::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -21023,7 +20939,7 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_end__SWIG_1(PyObject *SWIGUNUSEDPA
   }
   arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
   result = ((FitSuiteParameters const *)arg1)->end();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new FitSuiteParameters::container_t::const_iterator(static_cast< const FitSuiteParameters::container_t::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -22589,15 +22505,6 @@ static PyMethodDef SwigMethods[] = {
 		"Adds fit parameter. \n"
 		"\n"
 		""},
-	 { (char *)"FitSuiteParameters_getFitParameters", _wrap_FitSuiteParameters_getFitParameters, METH_VARARGS, (char *)"\n"
-		"getFitParameters() -> std::vector< FitParameter *,std::allocator< FitParameter * > >\n"
-		"FitSuiteParameters_getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > const &\n"
-		"\n"
-		"std::vector<FitParameter*>& FitSuiteParameters::getFitParameters()\n"
-		"\n"
-		"Returns all parameters. \n"
-		"\n"
-		""},
 	 { (char *)"FitSuiteParameters_getFitParameter", _wrap_FitSuiteParameters_getFitParameter, METH_VARARGS, (char *)"\n"
 		"getFitParameter(std::string const & name) -> FitParameter\n"
 		"FitSuiteParameters_getFitParameter(FitSuiteParameters self, std::string const & name) -> FitParameter\n"
@@ -22645,15 +22552,15 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_begin", _wrap_FitSuiteParameters_begin, METH_VARARGS, (char *)"\n"
-		"begin() -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator\n"
-		"FitSuiteParameters_begin(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator\n"
+		"begin() -> FitSuiteParameters::container_t::iterator\n"
+		"FitSuiteParameters_begin(FitSuiteParameters self) -> FitSuiteParameters::container_t::const_iterator\n"
 		"\n"
 		"std::vector<FitParameter*>::const_iterator FitSuiteParameters::begin() const \n"
 		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_end", _wrap_FitSuiteParameters_end, METH_VARARGS, (char *)"\n"
-		"end() -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator\n"
-		"FitSuiteParameters_end(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator\n"
+		"end() -> FitSuiteParameters::container_t::iterator\n"
+		"FitSuiteParameters_end(FitSuiteParameters self) -> FitSuiteParameters::container_t::const_iterator\n"
 		"\n"
 		"std::vector<FitParameter*>::const_iterator FitSuiteParameters::end() const \n"
 		"\n"
@@ -22767,6 +22674,7 @@ static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "Mini
 static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_container_t = {"_p_container_t", "container_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_corr_matrix_t = {"_p_corr_matrix_t", "corr_matrix_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_double = {"_p_double", "double *", 0, 0, (void*)0, 0};
@@ -22788,9 +22696,8 @@ static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argume
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IMultiLayerBuilder_t = {"_p_std__shared_ptrT_IMultiLayerBuilder_t", "std::shared_ptr< IMultiLayerBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t", "std::vector< FitParameter *,std::allocator< FitParameter * > > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator", "std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator", "std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator", "FitSuiteParameters::container_t::const_iterator *|std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator", "FitSuiteParameters::container_t::iterator *|std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t = {"_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t", "std::vector< std::complex< double > > *|std::vector< std::complex< double >,std::allocator< std::complex< double > > > *", 0, 0, (void*)0, 0};
@@ -22814,6 +22721,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_RealLimits,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
+  &_swigt__p_container_t,
   &_swigt__p_corr_matrix_t,
   &_swigt__p_difference_type,
   &_swigt__p_double,
@@ -22835,7 +22743,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
   &_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t,
   &_swigt__p_std__shared_ptrT_IObserver_t,
-  &_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t,
   &_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator,
   &_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
@@ -22861,6 +22768,7 @@ static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFac
 static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_FitParameter, _p_FitParameterTo_p_RealLimits, 0, 0},  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_container_t[] = {  {&_swigt__p_container_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_corr_matrix_t[] = {  {&_swigt__p_corr_matrix_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_double[] = {  {&_swigt__p_double, 0, 0, 0},{0, 0, 0, 0}};
@@ -22882,7 +22790,6 @@ static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__in
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t[] = {  {&_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator[] = {  {&_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator[] = {  {&_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -22908,6 +22815,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_RealLimits,
   _swigc__p_allocator_type,
   _swigc__p_char,
+  _swigc__p_container_t,
   _swigc__p_corr_matrix_t,
   _swigc__p_difference_type,
   _swigc__p_double,
@@ -22929,7 +22837,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__shared_ptrT_IFitObserver_t,
   _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t,
   _swigc__p_std__shared_ptrT_IObserver_t,
-  _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t,
   _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator,
   _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,

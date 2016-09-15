@@ -30,6 +30,8 @@ BA_CORE_API_ std::map<int, std::string> gslErrorDescriptionMap();
 
 BA_CORE_API_ std::string gslErrorDescription(int errorCode);
 
+BA_CORE_API_ bool numbersDiffer(double a, double b, double tol);
+
 }
 
 #endif

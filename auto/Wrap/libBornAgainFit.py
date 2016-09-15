@@ -2109,19 +2109,6 @@ class FitSuiteParameters(_object):
         return _libBornAgainFit.FitSuiteParameters_addFitParameter(self, par)
 
 
-    def getFitParameters(self, *args):
-        """
-        getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >
-        getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > const &
-
-        std::vector<FitParameter*>& FitSuiteParameters::getFitParameters()
-
-        Returns all parameters. 
-
-        """
-        return _libBornAgainFit.FitSuiteParameters_getFitParameters(self, *args)
-
-
     def getFitParameter(self, *args):
         """
         getFitParameter(FitSuiteParameters self, std::string const & name) -> FitParameter
@@ -2194,8 +2181,8 @@ class FitSuiteParameters(_object):
 
     def begin(self, *args):
         """
-        begin(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator
-        begin(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator
+        begin(FitSuiteParameters self) -> FitSuiteParameters::container_t::iterator
+        begin(FitSuiteParameters self) -> FitSuiteParameters::container_t::const_iterator
 
         std::vector<FitParameter*>::const_iterator FitSuiteParameters::begin() const 
 
@@ -2205,8 +2192,8 @@ class FitSuiteParameters(_object):
 
     def end(self, *args):
         """
-        end(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator
-        end(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator
+        end(FitSuiteParameters self) -> FitSuiteParameters::container_t::iterator
+        end(FitSuiteParameters self) -> FitSuiteParameters::container_t::const_iterator
 
         std::vector<FitParameter*>::const_iterator FitSuiteParameters::end() const 
 

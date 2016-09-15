@@ -28,7 +28,7 @@ class IMinimizer;
 
 //! @class FitKernel
 //! @ingroup fitting_internal
-//! @brief Main class to setup and run the fitting.
+//! @brief Main class to setup and run the minimization.
 
 class BA_CORE_API_ FitKernel
 {
@@ -43,7 +43,6 @@ public:
                       const std::string& algorithmName = std::string());
 
     void setMinimizer(IMinimizer* minimizer);
-
 
     //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,
@@ -60,6 +59,7 @@ public:
     std::string reportResults() const;
 
     FitSuiteParameters* fitParameters();
+    const FitSuiteParameters* fitParameters() const;
 
     IMinimizer *minimizer();
 

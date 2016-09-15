@@ -70,10 +70,19 @@ std::map<int, std::string> MinimizerUtils::gslErrorDescriptionMap()
 
 std::string MinimizerUtils::gslErrorDescription(int errorCode)
 {
-    auto errorDescription = gslErrorDescriptionMap();
+    static std::map<int, std::string> errorDescription = gslErrorDescriptionMap();
+
     auto it = errorDescription.find(errorCode);
     if(it!=errorDescription.end())
         return it->second;
 
     return std::string("Unknown error");
+}
+
+bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
+{
+    constexpr double eps = std::numeric_limits<double>::epsilon();
+    if (tol<1)
+        throw std::runtime_error("MinimizerUtils::numbersDiffer() -> Error.Not intended for tol<1");
+    return std::abs(a-b) > eps * std::max( tol*eps, std::abs(b) );
 }

@@ -18,10 +18,15 @@
 #include "MinimizerFactory.h"
 #include "FitParameter.h"
 
+namespace {
+const std::string default_minimizer = "Minuit2";
+const std::string default_algorithm = "Minuit2";
+}
+
 FitKernel::FitKernel()
     : m_impl(new FitKernelImp)
 {
-    setMinimizer("Minuit2", "Migrad");
+    setMinimizer(default_minimizer, default_algorithm);
 }
 
 FitKernel::~FitKernel()
@@ -42,9 +47,7 @@ void FitKernel::setMinimizer(IMinimizer *minimizer)
 void FitKernel::addFitParameter(const std::string &name, double value,
                                 const RealLimits &lim, const Attributes &attr, double step)
 {
-
     m_impl->addFitParameter(new FitParameter(name, value, step, lim, attr));
-
 }
 
 void FitKernel::setObjectiveFunction(objective_function_t func)
@@ -68,6 +71,11 @@ std::string FitKernel::reportResults() const
 }
 
 FitSuiteParameters *FitKernel::fitParameters()
+{
+    return const_cast<FitSuiteParameters *>(static_cast<const FitKernel*>(this)->fitParameters());
+}
+
+const FitSuiteParameters *FitKernel::fitParameters() const
 {
     return m_impl->fitParameters();
 }

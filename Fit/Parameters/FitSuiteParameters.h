@@ -31,6 +31,7 @@ class BA_CORE_API_ FitSuiteParameters
 {
  public:
     typedef std::vector<std::vector<double>> corr_matrix_t;
+    typedef std::vector<FitParameter*> container_t;
 
     FitSuiteParameters() {}
     ~FitSuiteParameters();
@@ -40,10 +41,6 @@ class BA_CORE_API_ FitSuiteParameters
 
     //! Adds fit parameter.
     void addFitParameter(FitParameter* par);
-
-    //! Returns all parameters
-    std::vector<FitParameter*>& getFitParameters() { return m_parameters; }
-    const std::vector<FitParameter*>& getFitParameters() const { return m_parameters; }
 
     //! Returns fit parameter with given name.
     const FitParameter* getFitParameter(const std::string& name) const;
@@ -65,19 +62,17 @@ class BA_CORE_API_ FitSuiteParameters
     //! Returns number of parameters.
     size_t size() const { return m_parameters.size(); }
 
-    //! Returns begin of container.
-    std::vector<FitParameter*>::iterator begin() { return m_parameters.begin(); }
-    std::vector<FitParameter*>::const_iterator begin() const { return m_parameters.begin(); }
+    //! Container iterators
 
-    //! Returns end of container.
-    std::vector<FitParameter*>::iterator end() { return m_parameters.end(); }
-    std::vector<FitParameter*>::const_iterator end() const { return m_parameters.end(); }
+    container_t::iterator begin() { return m_parameters.begin(); }
+    container_t::const_iterator begin() const { return m_parameters.begin(); }
+    container_t::iterator end() { return m_parameters.end(); }
+    container_t::const_iterator end() const { return m_parameters.end(); }
 
     //! Indexed access to parameters.
+
     const FitParameter* operator[](size_t index) const;
     FitParameter* operator[](size_t index);
-
-    //! Access to parameters by parameter name.
     const FitParameter* operator[](std::string name) const;
     FitParameter* operator[](std::string name);
 
@@ -106,9 +101,7 @@ class BA_CORE_API_ FitSuiteParameters
 
 private:
     size_t check_index(size_t index) const;
-    bool numbersDiffer(double a, double b, double tol) const;
-
-    std::vector<FitParameter*> m_parameters; //!< collection of fit parameters
+    container_t m_parameters; //!< collection of fit parameters
     corr_matrix_t m_corr_matrix; //!< correlation matrix
 };
 

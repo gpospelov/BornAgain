@@ -56,7 +56,7 @@ std::string MinimizerResultsHelper::reportResults(const FitSuiteParameters *para
     result << "Npar Name        StartValue  Limits           FitValue  Error" << std::endl;
 
     int npar(0);
-    for(const FitParameter *par : parameters->getFitParameters()) {
+    for(const FitParameter *par : *parameters) {
         result << boost::format("#%-2d  %-10s  %-6.4f      %-15s  %-6.4f    %5.4f \n")
                   % npar
                   % par->getName()
@@ -81,7 +81,6 @@ std::string MinimizerResultsHelper::reportResults(const FitSuiteParameters *para
     }
 
     return result.str();
-
 }
 
 std::string MinimizerResultsHelper::reportDescription(const RootMinimizerAdapter *minimizer) const

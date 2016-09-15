@@ -223,7 +223,7 @@ bool FitSuiteKernel::check_prerequisites() const
 void FitSuiteKernel::link_fit_parameters()
 {
     const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    for (auto par: m_new_kernel->fitParameters()->getFitParameters()) {
+    for (auto par: *m_new_kernel->fitParameters()) {
         FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
         if( !linkedPar )
             throw std::runtime_error(

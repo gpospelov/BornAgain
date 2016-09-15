@@ -18,13 +18,20 @@
 
 ObjectiveFunction::ObjectiveFunction()
     : m_ncalls(0)
+    , m_ndatasize(0)
 {
 
 }
 
 void ObjectiveFunction::setObjectiveFunction(objective_function_t func)
 {
-    m_evaluate = func;
+    m_objective_function = func;
+}
+
+void ObjectiveFunction::setGradientFunction(gradient_function_t func, int ndatasize)
+{
+    m_gradient_function = func;
+    m_ndatasize = ndatasize;
 }
 
 //! Evaluates the value of the function for given vector of function parameters using
@@ -32,10 +39,28 @@ void ObjectiveFunction::setObjectiveFunction(objective_function_t func)
 
 double ObjectiveFunction::evaluate(const std::vector<double> &pars)
 {
-    if(!m_evaluate)
+    if(!m_objective_function)
         throw std::runtime_error("ObjectiveFunction::evaluate() -> Error. "
                                  "Objective function is not set");
 
     ++m_ncalls;
-    return m_evaluate(pars);
+    return m_objective_function(pars);
 }
+
+double ObjectiveFunction::evaluate_gradient(const double *par, int index, double *gradient)
+{
+    if(!m_gradient_function)
+        throw std::runtime_error("ObjectiveFunction::evaluate() -> Error. "
+                                 "Gradient function is not set");
+
+    return m_gradient_function(par, index, gradient);
+}
+
+//double ObjectiveFunction::evaluate_gradient(const std::vector<double> &pars, int index, std::vector<double> &gradient)
+//{
+//    if(!m_gradient_function)
+//        throw std::runtime_error("ObjectiveFunction::evaluate() -> Error. "
+//                                 "Gradient function is not set");
+
+//    return m_gradient_function(pars, index, gradient);
+//}

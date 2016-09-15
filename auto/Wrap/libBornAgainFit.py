@@ -1884,6 +1884,11 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_setObjectiveFunction(self, arg2)
 
 
+    def setGradientFunctionNew(self, arg2, arg3):
+        """setGradientFunctionNew(IMinimizer self, gradient_function_t arg2, int arg3)"""
+        return _libBornAgainFit.IMinimizer_setGradientFunctionNew(self, arg2, arg3)
+
+
     def getNumberOfVariables(self):
         """
         getNumberOfVariables(IMinimizer self) -> size_t

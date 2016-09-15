@@ -59,6 +59,7 @@ public:
         function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
     virtual void setObjectiveFunction(objective_function_t func);
+    virtual void setGradientFunctionNew(gradient_function_t func, int ndatasize);
 
     virtual std::vector<double> getValueOfVariablesAtMinimum() const;
     virtual std::vector<double> getErrorOfVariables() const;

@@ -43,6 +43,8 @@ public:
 
     void setObjectiveFunction(objective_function_t func);
 
+    void setGradientFunction(gradient_function_t func, int ndatasize);
+
     void minimize();
 
     //! Reports results of minimization in the form of multi-line string.

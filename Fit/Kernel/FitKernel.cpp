@@ -52,6 +52,11 @@ void FitKernel::setObjectiveFunction(objective_function_t func)
     m_impl->setObjectiveFunction(func);
 }
 
+void FitKernel::setGradientFunction(gradient_function_t func, int ndatasize)
+{
+    m_impl->setGradientFunction(func, ndatasize);
+}
+
 void FitKernel::minimize()
 {
     m_impl->minimize();

@@ -76,7 +76,8 @@ void FitSuiteKernel::addFitParameter(const std::string& name, double value, cons
 //                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
 //    }
 //    m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
-    m_new_kernel->fitParameters()->addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
+    m_new_kernel->fitParameters()->addFitParameter(
+                new FitParameterLinked(name, value, step, lim, attr, error));
 }
 
 void FitSuiteKernel::addFitStrategy(const IFitStrategy& strategy)
@@ -131,13 +132,13 @@ void FitSuiteKernel::minimize()
         [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
     m_new_kernel->setObjectiveFunction( fun_chi2);
 
-//    IMinimizer::function_gradient_t fun_gradient =
-//        [&] (const double* pars, unsigned int index, double* gradients)
-//        {
-//            return m_function_gradient.evaluate(pars, index, gradients);
-//        };
-//    m_minimizer->setGradientFunction(
-//        fun_gradient, m_fit_parameters.size(), m_fit_objects.getSizeOfDataSet() );
+    IMinimizer::function_gradient_t fun_gradient =
+        [&] (const double* pars, unsigned int index, double* gradients)
+        {
+            return m_function_gradient.evaluate(pars, index, gradients);
+        };
+    m_new_kernel->setGradientFunction(
+        fun_gradient, m_fit_objects.getSizeOfDataSet() );
 
     // initialize minimizer's parameters with the list of local fit parameters
 //    m_minimizer->setParameters(m_fit_parameters);

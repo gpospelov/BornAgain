@@ -32,14 +32,22 @@ public:
     ObjectiveFunction();
 
     void setObjectiveFunction(objective_function_t func);
+    void setGradientFunction(gradient_function_t func, int ndatasize);
 
     double evaluate(const std::vector<double>& pars);
 
+//    double evaluate_gradient(const std::vector<double>& pars, int index, std::vector<double> &gradient);
+    double evaluate_gradient(const double *par, int index, double *gradient);
+
     int functionCalls() const { return m_ncalls; }
 
+    int sizeOfData() const { return m_ndatasize; }
+
 private:
-    objective_function_t m_evaluate;
+    objective_function_t m_objective_function;
+    gradient_function_t m_gradient_function;
     int m_ncalls;
+    int m_ndatasize;
 };
 
 

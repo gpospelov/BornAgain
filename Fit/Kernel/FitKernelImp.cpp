@@ -42,12 +42,24 @@ void FitKernelImp::setObjectiveFunction(objective_function_t func)
     m_objective_function.setObjectiveFunction(func);
 }
 
+void FitKernelImp::setGradientFunction(gradient_function_t func, int ndatasize)
+{
+    m_objective_function.setGradientFunction(func, ndatasize);
+}
+
 void FitKernelImp::minimize()
 {
     objective_function_t func =
         [&](const std::vector<double> &pars) { return m_objective_function.evaluate(pars); };
-
     m_minimizer->setObjectiveFunction(func);
+
+    gradient_function_t gradient_func =
+        [&](const double *pars, unsigned int index, double *gradients)
+    {
+        return m_objective_function.evaluate_gradient(pars, index, gradients);
+    };
+    m_minimizer->setGradientFunctionNew(gradient_func, m_objective_function.sizeOfData());
+
     m_minimizer->setParameters(m_fit_parameters);
 
     // minimize

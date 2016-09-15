@@ -22,8 +22,6 @@
 #include <string>
 #include <memory>
 
-class ROOTMinimizerChiSquaredFunction;
-class ROOTMinimizerGradientFunction;
 class RootObjectiveFunctionAdapter;
 
 namespace BA_ROOT { namespace Math { class Minimizer; } }
@@ -51,17 +49,12 @@ public:
 
     virtual void setParameters(const FitSuiteParameters& parameters);
 
-    //! Sets chi squared function to minimize
-    virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
-
-    //! Sets gradient function to minimize
-    virtual void setGradientFunction(
-        function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
-
     virtual void setObjectiveFunction(objective_function_t func);
-    virtual void setGradientFunctionNew(gradient_function_t func, int ndatasize);
+
+    virtual void setGradientFunction(gradient_function_t func, int ndatasize);
 
     virtual std::vector<double> getValueOfVariablesAtMinimum() const;
+
     virtual std::vector<double> getErrorOfVariables() const;
 
     std::string reportResults() const;
@@ -86,7 +79,8 @@ protected:
 
     virtual bool isGradientBasedAgorithm() { return false;}
     int fitParameterCount() const;
-    virtual void propagateOptions(){}
+
+    virtual void propagateOptions() = 0;
     virtual const root_minimizer_t* rootMinimizer() const = 0;
     root_minimizer_t* rootMinimizer();
 
@@ -101,9 +95,6 @@ protected:
     T optionValue(const std::string &optionName) const;
 
 private:
-    std::unique_ptr<ROOTMinimizerChiSquaredFunction> m_chi2_func;
-    std::unique_ptr<ROOTMinimizerGradientFunction> m_gradient_func;
-
     MinimizerOptions m_options;
     MinimizerInfo m_minimizerInfo;
     std::unique_ptr<RootObjectiveFunctionAdapter> m_obj_func;

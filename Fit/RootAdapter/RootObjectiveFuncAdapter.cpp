@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "RootObjectiveFuncAdapter.h"
-#include "ROOTMinimizerFunction.h"
+#include "RootMinimizerFunctions.h"
 #include "IMinimizer.h"
 #include <stdexcept>
 
@@ -25,33 +25,34 @@ RootObjectiveFunctionAdapter::RootObjectiveFunctionAdapter()
 
 }
 
-void RootObjectiveFunctionAdapter::setFunction(objective_function_t func)
+//! Sets the function which will be used for finding objective function minimum value
+
+void RootObjectiveFunctionAdapter::setObjectiveCallback(objective_function_t func)
 {
-    m_objective_function = func;
+    m_objective_callback = func;
 }
 
-void RootObjectiveFunctionAdapter::setGradientFunction(gradient_function_t func, int ndatasize)
+//! Sets the function which will be used for gradient calculations.
+
+void RootObjectiveFunctionAdapter::setGradientCallback(gradient_function_t func, int ndatasize)
 {
-    m_gradient_function = func;
+    m_gradient_callback = func;
     m_ndatasize = ndatasize;
 }
+
+//! Sets number of fit parameters (needed to construct correct ROOT's functions).
 
 void RootObjectiveFunctionAdapter::setNumberOfParameters(int nparameters)
 {
     m_nparameters = nparameters;
 }
 
-//void RootObjectiveFunctionAdapter::setSizeOfData(int ndatasize)
-//{
-//    m_ndatasize = ndatasize;
-//}
+//! Creates and returns objective function suitable for ROOT minimizers.
 
-//! Creates objective function suitable for ROOT minimizers.
-
-const ROOTMinimizerChiSquaredFunction*
+const RootObjectiveFunction*
     RootObjectiveFunctionAdapter::rootChiSquaredFunction()
 {
-    if(!m_objective_function)
+    if(!m_objective_callback)
         throw std::runtime_error("RootObjectiveFunctionAdapter::rootChiSquaredFunction() -> Error. "
                                  "Objective function is not set.");
 
@@ -62,14 +63,16 @@ const ROOTMinimizerChiSquaredFunction*
     root_objective_t rootfun =
         [&] (const double* pars) {return evaluate(pars); };
 
-    m_root_chi_function.reset(new ROOTMinimizerChiSquaredFunction(rootfun, m_nparameters));
+    m_root_objective_function.reset(new RootObjectiveFunction(rootfun, m_nparameters));
 
-    return m_root_chi_function.get();
+    return m_root_objective_function.get();
 }
 
-const ROOTMinimizerGradientFunction *RootObjectiveFunctionAdapter::rootGradientFunction()
+//! Creates and returns gradient function suitable for ROOT minimizers.
+
+const RootGradientFunction *RootObjectiveFunctionAdapter::rootGradientFunction()
 {
-    if(!m_gradient_function)
+    if(!m_gradient_callback)
         throw std::runtime_error("RootObjectiveFunctionAdapter::rootGradientFunction() -> Error. "
                                  "Objective function is not set.");
 
@@ -85,25 +88,26 @@ const ROOTMinimizerGradientFunction *RootObjectiveFunctionAdapter::rootGradientF
         [&] (const double *pars, unsigned int index, double *gradients)
         {   return evaluate_gradient(pars, index, gradients); };
 
-    m_root_gradient_function.reset(new ROOTMinimizerGradientFunction(rootfun, m_nparameters, m_ndatasize));
+    m_root_gradient_function.reset(new RootGradientFunction(rootfun, m_nparameters,
+                                                                     m_ndatasize));
 
     return m_root_gradient_function.get();
 }
 
+//! Transfers call of root's pointer based objective function to our callback
+
 double RootObjectiveFunctionAdapter::evaluate(const double *pars)
 {
-    if(pars == nullptr) {
-        std::cout << "RootObjectiveFunctionAdapter::evaluate() -> Error. nullptr" << std::endl;
-//        throw std::runtime_error("RootObjectiveFunctionAdapter::evaluate() -> Error. nullptr");
-    }
-
     std::vector<double> vec;
     vec.resize(m_nparameters, 0.0);
     std::copy(pars, pars+m_nparameters, vec.begin());
-    return m_objective_function(vec);
+    return m_objective_callback(vec);
 }
 
-double RootObjectiveFunctionAdapter::evaluate_gradient(const double *pars, unsigned int index, double *gradients)
+//! Transfers call of root's pointer based gradient function to our callback
+
+double RootObjectiveFunctionAdapter::evaluate_gradient(const double *pars, unsigned int index,
+                                                       double *gradients)
 {
     std::vector<double> vec;
     vec.resize(m_nparameters, 0.0);
@@ -114,11 +118,10 @@ double RootObjectiveFunctionAdapter::evaluate_gradient(const double *pars, unsig
     if(gradients)
         vec_gradients.resize(m_nparameters);
 
-    double result = m_gradient_function(vec, index, vec_gradients);
+    double result = m_gradient_callback(vec, index, vec_gradients);
 
     if(gradients)
         for(int i=0; i<(int)m_nparameters; ++i) gradients[i] = vec_gradients[i];
 
     return result;
 }
-

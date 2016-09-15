@@ -18,8 +18,6 @@
 
 #include "WinDllMacros.h"
 #include "KernelTypes.h"
-#include <vector>
-#include <functional>
 
 //! @class ObjectiveFunction
 //! @ingroup fitting_internal
@@ -28,7 +26,6 @@
 class BA_CORE_API_ ObjectiveFunction
 {
 public:
-
     ObjectiveFunction();
 
     void setObjectiveFunction(objective_function_t func);
@@ -36,8 +33,8 @@ public:
 
     double evaluate(const std::vector<double>& pars);
 
-    double evaluate_gradient(const std::vector<double>& pars, int index, std::vector<double> &gradient);
-//    double evaluate_gradient(const double *par, int index, double *gradient);
+    double evaluate_gradient(const std::vector<double>& pars, int index,
+                             std::vector<double> &gradient);
 
     int functionCalls() const { return m_ncalls; }
 
@@ -49,7 +46,6 @@ private:
     int m_ncalls;
     int m_ndatasize;
 };
-
 
 #endif
 

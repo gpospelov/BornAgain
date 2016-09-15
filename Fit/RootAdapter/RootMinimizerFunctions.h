@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootWrapper/ROOTMinimizerFunction.h
-//! @brief     Defines classes ROOTMinimizerChiSquaredFunction and ROOTMinimizerGradientFunction
+//! @file      Fit/RootWrapper/RootMinimizerFunctions.h
+//! @brief     Defines classes RootObjectiveFunction and RootGradientFunction
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#ifndef ROOTMINIMIZERFUNCTION_H
-#define ROOTMINIMIZERFUNCTION_H
+#ifndef ROOTMINIMIZERFUNCTIONS_H
+#define ROOTMINIMIZERFUNCTIONS_H
 
-#include "IMinimizer.h"
+#include "KernelTypes.h"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -24,40 +24,35 @@
 #include "Math/FitMethodFunction.h"
 #pragma GCC diagnostic pop
 
-//! @class ROOTMinimizerChiSquaredFunction
+//! @class RootObjectiveFunction
 //! @ingroup fitting_internal
 //! @brief minimizer chi2 function
 
-class ROOTMinimizerChiSquaredFunction : public BA_ROOT::Math::Functor
+class RootObjectiveFunction : public BA_ROOT::Math::Functor
 {
  public:
-    ROOTMinimizerChiSquaredFunction(IMinimizer::function_chi2_t fcn, int ndims )
-        : BA_ROOT::Math::Functor(fcn, ndims), m_fcn(fcn) {}
-    virtual ~ROOTMinimizerChiSquaredFunction(){}
-    IMinimizer::function_chi2_t m_fcn;
+    RootObjectiveFunction(root_objective_t fcn, int ndims )
+        : BA_ROOT::Math::Functor(fcn, ndims) {}
 };
 
-
-//! @class ROOTMinimizerGradientFunction
+//! @class RootGradientFunction
 //! @ingroup fitting_internal
 //! @brief Minimizer function with access to single data element residuals.
 //! Required by Fumili, Fumili2 and GSLMultiMin minimizers
 
-class ROOTMinimizerGradientFunction : public BA_ROOT::Math::FitMethodFunction
+class RootGradientFunction : public BA_ROOT::Math::FitMethodFunction
 {
  public:
-    typedef BA_ROOT::Math::BasicFitMethodFunction<BA_ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
+    typedef BA_ROOT::Math::BasicFitMethodFunction<BA_ROOT::Math::IMultiGenFunction>::Type_t Type_t;
 
-    ROOTMinimizerGradientFunction(
-        IMinimizer::function_gradient_t fun_gradient, size_t npars, size_t ndatasize)
+    RootGradientFunction(root_gradient_t fun_gradient, size_t npars, size_t ndatasize)
         : BA_ROOT::Math::FitMethodFunction((int)npars, (int)ndatasize)
         , m_fun_gradient(fun_gradient) { }
 
-    virtual ~ROOTMinimizerGradientFunction(){}
-
     Type_t Type() const { return BA_ROOT::Math::FitMethodFunction::kLeastSquare; }
+
     BA_ROOT::Math::IMultiGenFunction* Clone() const {
-        return new ROOTMinimizerGradientFunction(m_fun_gradient, NDim(), NPoints()); }
+        return new RootGradientFunction(m_fun_gradient, NDim(), NPoints()); }
 
     //! evaluation of single data element residual
     double DataElement(const double* pars, unsigned int i_data, double* gradient = 0) const {
@@ -75,7 +70,7 @@ class ROOTMinimizerGradientFunction : public BA_ROOT::Math::FitMethodFunction
         return chi2/double(NPoints());
     }
 
-    IMinimizer::function_gradient_t m_fun_gradient;
+    root_gradient_t m_fun_gradient;
 };
 
-#endif // ROOTMINIMIZERFUNCTION_H
+#endif

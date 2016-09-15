@@ -68,7 +68,8 @@ class BA_CORE_API_ FitSuiteGradientFunction : public IFitSuiteFunction
     virtual ~FitSuiteGradientFunction() {}
     //! evaluate method for gradients and residuals called directly from the minimizer
 //    double evaluate(const double* pars, unsigned int index, double* gradients);
-    double evaluate(const std::vector<double> &pars, unsigned int index, std::vector<double>& gradients);
+    double evaluate(const std::vector<double> &pars, unsigned int index,
+                    std::vector<double>& gradients);
 
     virtual size_t getNCallsTotal() const { return m_ncalls_total; }
     virtual size_t getNCallsGradient() const { return m_ncalls_gradient; }

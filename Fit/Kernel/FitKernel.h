@@ -51,6 +51,7 @@ public:
                          double step=0.0);
 
     void setObjectiveFunction(objective_function_t func);
+
     void setGradientFunction(gradient_function_t func, int ndatasize);
 
     void minimize();

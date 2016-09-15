@@ -30,24 +30,9 @@ std::string IMinimizer::algorithmName() const
     return std::string();
 }
 
-void IMinimizer::setParameter(size_t /*index*/, const FitParameter* /*par*/)
-{
-    throw std::runtime_error("IMinimizer::setParameter() -> Not implemented.");
-}
-
 void IMinimizer::setParameters(const FitSuiteParameters & /*parameters*/)
 {
     throw std::runtime_error("IMinimizer::setParameters() -> Not implemented.");
-}
-
-void IMinimizer::setChiSquaredFunction(function_chi2_t /*fun_chi2*/, size_t /*nparameters*/)
-{
-    throw std::runtime_error("IMinimizer::setChiSquaredFunction() -> Not implemented.");
-}
-
-void IMinimizer::setGradientFunction(function_gradient_t /*fun_gradient*/, size_t /*nparameters*/, size_t /*ndatasize*/)
-{
-    throw std::runtime_error("IMinimizer::setGradientFunction() -> Not implemented.");
 }
 
 size_t IMinimizer::getNumberOfVariables() const
@@ -58,11 +43,6 @@ size_t IMinimizer::getNumberOfVariables() const
 double IMinimizer::getMinValue() const
 {
     throw std::runtime_error("IMinimizer::getMinValue() -> Not implemented.");
-}
-
-double IMinimizer::getValueOfVariableAtMinimum(size_t /*index*/) const
-{
-    throw std::runtime_error("IMinimizer::getValueOfVariableAtMinimum() -> Not implemented.");
 }
 
 std::vector<double > IMinimizer::getValueOfVariablesAtMinimum() const

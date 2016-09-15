@@ -1836,11 +1836,6 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_minimize(self)
 
 
-    def setParameter(self, index, par):
-        """setParameter(IMinimizer self, size_t index, FitParameter par)"""
-        return _libBornAgainFit.IMinimizer_setParameter(self, index, par)
-
-
     def setParameters(self, parameters):
         """
         setParameters(IMinimizer self, FitSuiteParameters parameters)
@@ -1855,38 +1850,21 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_setParameters(self, parameters)
 
 
-    def setChiSquaredFunction(self, fun_chi2, nparameters):
+    def setObjectiveFunction(self, arg2):
+        """setObjectiveFunction(IMinimizer self, objective_function_t arg2)"""
+        return _libBornAgainFit.IMinimizer_setObjectiveFunction(self, arg2)
+
+
+    def setGradientFunction(self, arg2, arg3):
         """
-        setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)
-
-        virtual void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)=0
-
-        Sets chi squared function to minimize. 
-
-        """
-        return _libBornAgainFit.IMinimizer_setChiSquaredFunction(self, fun_chi2, nparameters)
-
-
-    def setGradientFunction(self, fun_gradient, nparameters, ndatasize):
-        """
-        setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+        setGradientFunction(IMinimizer self, gradient_function_t arg2, int arg3)
 
         virtual void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)=0
 
         Sets gradient function to minimize. 
 
         """
-        return _libBornAgainFit.IMinimizer_setGradientFunction(self, fun_gradient, nparameters, ndatasize)
-
-
-    def setObjectiveFunction(self, arg2):
-        """setObjectiveFunction(IMinimizer self, objective_function_t arg2)"""
-        return _libBornAgainFit.IMinimizer_setObjectiveFunction(self, arg2)
-
-
-    def setGradientFunctionNew(self, arg2, arg3):
-        """setGradientFunctionNew(IMinimizer self, gradient_function_t arg2, int arg3)"""
-        return _libBornAgainFit.IMinimizer_setGradientFunctionNew(self, arg2, arg3)
+        return _libBornAgainFit.IMinimizer_setGradientFunction(self, arg2, arg3)
 
 
     def getNumberOfVariables(self):
@@ -1904,11 +1882,6 @@ class IMinimizer(_object):
     def getMinValue(self):
         """getMinValue(IMinimizer self) -> double"""
         return _libBornAgainFit.IMinimizer_getMinValue(self)
-
-
-    def getValueOfVariableAtMinimum(self, index):
-        """getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double"""
-        return _libBornAgainFit.IMinimizer_getValueOfVariableAtMinimum(self, index)
 
 
     def getValueOfVariablesAtMinimum(self):

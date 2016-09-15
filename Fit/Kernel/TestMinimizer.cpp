@@ -27,13 +27,7 @@ std::string TestMinimizer::minimizerName() const
 //! run minimization
 void TestMinimizer::minimize()
 {
-    m_min_value = m_fcn(&m_parameters.getValues()[0]);
-}
-
-//! Returns pointer to the parameters values at the minimum
-double TestMinimizer::getValueOfVariableAtMinimum(size_t index) const
-{
-    return m_parameters[index]->getValue();
+    m_min_value = m_fcn(m_parameters.getValues());
 }
 
 //! Returns value of the parameter at the minimum
@@ -47,6 +41,11 @@ void TestMinimizer::setParameters(const FitSuiteParameters& parameters)
     m_parameters.clear();
     for(size_t i_par = 0; i_par<parameters.size(); ++i_par)
         m_parameters.addFitParameter(new FitParameter( *parameters[i_par] ) );
+}
+
+void TestMinimizer::setObjectiveFunction(objective_function_t func)
+{
+    m_fcn = func;
 }
 
 std::string TestMinimizer::reportResults() const

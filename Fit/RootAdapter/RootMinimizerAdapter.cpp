@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "RootMinimizerAdapter.h"
-#include "ROOTMinimizerFunction.h"
+#include "RootMinimizerFunctions.h"
 #include "Math/Minimizer.h"
 #include "FitParameter.h"
 #include "FitSuiteParameters.h"
@@ -120,26 +120,14 @@ void RootMinimizerAdapter::setParameters(const FitSuiteParameters &parameters)
     }
 }
 
-void RootMinimizerAdapter::setChiSquaredFunction(IMinimizer::function_chi2_t fun_chi2, size_t nparameters)
-{
-    m_chi2_func.reset(new ROOTMinimizerChiSquaredFunction(fun_chi2, (int)nparameters));
-    if( !isGradientBasedAgorithm() ) rootMinimizer()->SetFunction(*m_chi2_func);
-}
-
-void RootMinimizerAdapter::setGradientFunction(IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
-{
-    m_gradient_func.reset(new ROOTMinimizerGradientFunction(fun_gradient, nparameters, ndatasize));
-    if( isGradientBasedAgorithm() ) rootMinimizer()->SetFunction(*m_gradient_func);
-}
-
 void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func)
 {
-    m_obj_func->setFunction(func);
+    m_obj_func->setObjectiveCallback(func);
 }
 
-void RootMinimizerAdapter::setGradientFunctionNew(gradient_function_t func, int ndatasize)
+void RootMinimizerAdapter::setGradientFunction(gradient_function_t func, int ndatasize)
 {
-    m_obj_func->setGradientFunction(func, ndatasize);
+    m_obj_func->setGradientCallback(func, ndatasize);
 }
 
 std::vector<double> RootMinimizerAdapter::getValueOfVariablesAtMinimum() const

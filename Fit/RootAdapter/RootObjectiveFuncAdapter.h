@@ -21,8 +21,8 @@
 #include <memory>
 #include <vector>
 
-class ROOTMinimizerChiSquaredFunction;
-class ROOTMinimizerGradientFunction;
+class RootObjectiveFunction;
+class RootGradientFunction;
 
 //! @class RootObjectiveFunctionAdapter
 //! @ingroup fitting_internal
@@ -31,31 +31,26 @@ class ROOTMinimizerGradientFunction;
 class BA_CORE_API_ RootObjectiveFunctionAdapter
 {
 public:
-    typedef std::function<double(const double*)> root_objective_t;
-    typedef std::function<double(const double*, unsigned int, double*)> root_gradient_t;
-
     RootObjectiveFunctionAdapter();
 
-    void setFunction(objective_function_t func);
-    void setGradientFunction(gradient_function_t func, int ndatasize);
+    void setObjectiveCallback(objective_function_t func);
+    void setGradientCallback(gradient_function_t func, int ndatasize);
 
     void setNumberOfParameters(int nparameters);
 
-//    void setSizeOfData(int ndatasize);
+    const RootObjectiveFunction *rootChiSquaredFunction();
 
-    const ROOTMinimizerChiSquaredFunction* rootChiSquaredFunction();
-
-    const ROOTMinimizerGradientFunction *rootGradientFunction();
+    const RootGradientFunction *rootGradientFunction();
 
 private:
     double evaluate(const double *pars);
     double evaluate_gradient(const double *pars, unsigned int index, double *gradients);
 
-    objective_function_t m_objective_function;
-    gradient_function_t m_gradient_function;
+    objective_function_t m_objective_callback;
+    gradient_function_t m_gradient_callback;
 
-    std::unique_ptr<ROOTMinimizerChiSquaredFunction> m_root_chi_function;
-    std::unique_ptr<ROOTMinimizerGradientFunction> m_root_gradient_function;
+    std::unique_ptr<RootObjectiveFunction> m_root_objective_function;
+    std::unique_ptr<RootGradientFunction> m_root_gradient_function;
 
     int m_nparameters;
     int m_ndatasize;

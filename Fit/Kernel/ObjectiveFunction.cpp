@@ -47,6 +47,9 @@ double ObjectiveFunction::evaluate(const std::vector<double> &pars)
     return m_objective_function(pars);
 }
 
+//! Evaluates residual and gradients of the function for given vector of function parameters
+//! and index of dataelement using callback mechanism.
+
 double ObjectiveFunction::evaluate_gradient(const std::vector<double>& pars, int index,
                                             std::vector<double> &gradient)
 {
@@ -54,14 +57,8 @@ double ObjectiveFunction::evaluate_gradient(const std::vector<double>& pars, int
         throw std::runtime_error("ObjectiveFunction::evaluate() -> Error. "
                                  "Gradient function is not set");
 
+    if(index == 0)
+        ++m_ncalls;
+
     return m_gradient_function(pars, index, gradient);
 }
-
-//double ObjectiveFunction::evaluate_gradient(const std::vector<double> &pars, int index, std::vector<double> &gradient)
-//{
-//    if(!m_gradient_function)
-//        throw std::runtime_error("ObjectiveFunction::evaluate() -> Error. "
-//                                 "Gradient function is not set");
-
-//    return m_gradient_function(pars, index, gradient);
-//}

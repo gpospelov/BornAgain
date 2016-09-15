@@ -58,7 +58,7 @@ void FitKernelImp::minimize()
     {
         return m_objective_function.evaluate_gradient(pars, index, gradients);
     };
-    m_minimizer->setGradientFunctionNew(gradient_func, m_objective_function.sizeOfData());
+    m_minimizer->setGradientFunction(gradient_func, m_objective_function.sizeOfData());
 
     m_minimizer->setParameters(m_fit_parameters);
 

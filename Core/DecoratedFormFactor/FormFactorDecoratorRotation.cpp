@@ -27,12 +27,9 @@ FormFactorDecoratorRotation::FormFactorDecoratorRotation(
     m_transform = rotation.getTransform3D();
 }
 
-// TODO: can we avoid the conversion from IRotation to Transform3D and back?
-
 FormFactorDecoratorRotation* FormFactorDecoratorRotation::clone() const
 {
-    std::unique_ptr<IRotation> P_rotation(IRotation::createRotation(m_transform));
-    return new FormFactorDecoratorRotation(*mp_form_factor, *P_rotation);
+    return new FormFactorDecoratorRotation(*mp_form_factor, m_transform);
 }
 
 complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo& wavevectors) const
@@ -45,6 +42,14 @@ Eigen::Matrix2cd FormFactorDecoratorRotation::evaluatePol(const WavevectorInfo &
 {
     WavevectorInfo rotated_wavevectors = rotate_wavevectors(wavevectors);
     return mp_form_factor->evaluatePol(rotated_wavevectors);
+}
+
+FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor,
+                                                         const Transform3D &transform)
+    : IFormFactorDecorator(form_factor)
+{
+    setName(BornAgain::FormFactorDecoratorRotationType);
+    m_transform = transform;
 }
 
 WavevectorInfo FormFactorDecoratorRotation::rotate_wavevectors(

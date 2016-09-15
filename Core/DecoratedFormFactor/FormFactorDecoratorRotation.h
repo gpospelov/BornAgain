@@ -40,6 +40,8 @@ public:
 
 private:
     Transform3D m_transform;
+    //! Private constructor for cloning.
+    FormFactorDecoratorRotation(const IFormFactor &form_factor, const Transform3D &transform);
     WavevectorInfo rotate_wavevectors(const WavevectorInfo& wavevectors) const;
 };
 

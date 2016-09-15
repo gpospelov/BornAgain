@@ -18,9 +18,8 @@
 
 #include "FormFactorFullSphere.h"
 #include "SafePointerVector.h"
+#include "Distributions.h"
 #include <memory>
-
-class DistributionLogNormal;
 
 //! A sphere with log normal radius distribution.
 //! @ingroup softParticle

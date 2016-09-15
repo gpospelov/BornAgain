@@ -25,13 +25,16 @@ class BA_CORE_API_ FormFactorPrism3 : public FormFactorPolygonalPrism
 public:
     FormFactorPrism3(const double base_edge, const double height);
 
-    virtual FormFactorPrism3 *clone() const { return new FormFactorPrism3(m_base_edge, m_height); }
-    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+    FormFactorPrism3 *clone() const override final {
+        return new FormFactorPrism3(m_base_edge, m_height); }
+    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
 
+protected:
+    void onChange() override final;
+
 private:
-    void onChange() final;
     double m_base_edge;
 };
 

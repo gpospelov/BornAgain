@@ -10798,18 +10798,6 @@ class FormFactorPolyhedron(IFormFactorBorn):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
-    def onChange(self):
-        """
-        onChange(FormFactorPolyhedron self)
-
-        virtual void FormFactorPolyhedron::onChange()=0
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.FormFactorPolyhedron_onChange(self)
-
-
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
@@ -11297,8 +11285,6 @@ class FormFactorCone(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCone
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -11377,6 +11363,8 @@ class FormFactorCone(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorCone_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCone
+    __del__ = lambda self: None
 FormFactorCone_swigregister = _libBornAgainCore.FormFactorCone_swigregister
 FormFactorCone_swigregister(FormFactorCone)
 
@@ -11728,8 +11716,6 @@ class FormFactorCylinder(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCylinder
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -11798,6 +11784,8 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorCylinder_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCylinder
+    __del__ = lambda self: None
 FormFactorCylinder_swigregister = _libBornAgainCore.FormFactorCylinder_swigregister
 FormFactorCylinder_swigregister(FormFactorCylinder)
 
@@ -12899,8 +12887,6 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple1Gauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -12979,6 +12965,8 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple1Gauss
+    __del__ = lambda self: None
 FormFactorLongRipple1Gauss_swigregister = _libBornAgainCore.FormFactorLongRipple1Gauss_swigregister
 FormFactorLongRipple1Gauss_swigregister(FormFactorLongRipple1Gauss)
 
@@ -13028,8 +13016,6 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple1Lorentz
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13108,6 +13094,8 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple1Lorentz
+    __del__ = lambda self: None
 FormFactorLongRipple1Lorentz_swigregister = _libBornAgainCore.FormFactorLongRipple1Lorentz_swigregister
 FormFactorLongRipple1Lorentz_swigregister(FormFactorLongRipple1Lorentz)
 
@@ -13160,8 +13148,6 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Gauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13250,6 +13236,8 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Gauss
+    __del__ = lambda self: None
 FormFactorLongRipple2Gauss_swigregister = _libBornAgainCore.FormFactorLongRipple2Gauss_swigregister
 FormFactorLongRipple2Gauss_swigregister(FormFactorLongRipple2Gauss)
 
@@ -13300,8 +13288,6 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Lorentz
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13390,6 +13376,8 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Lorentz
+    __del__ = lambda self: None
 FormFactorLongRipple2Lorentz_swigregister = _libBornAgainCore.FormFactorLongRipple2Lorentz_swigregister
 FormFactorLongRipple2Lorentz_swigregister(FormFactorLongRipple2Lorentz)
 
@@ -13790,8 +13778,6 @@ class FormFactorRipple1(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13870,6 +13856,8 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorRipple1_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1
+    __del__ = lambda self: None
 FormFactorRipple1_swigregister = _libBornAgainCore.FormFactorRipple1_swigregister
 FormFactorRipple1_swigregister(FormFactorRipple1)
 
@@ -13922,8 +13910,6 @@ class FormFactorRipple2(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14012,6 +13998,8 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorRipple2_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2
+    __del__ = lambda self: None
 FormFactorRipple2_swigregister = _libBornAgainCore.FormFactorRipple2_swigregister
 FormFactorRipple2_swigregister(FormFactorRipple2)
 
@@ -14047,8 +14035,6 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereGaussianRadius
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14097,6 +14083,8 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereGaussianRadius
+    __del__ = lambda self: None
 FormFactorSphereGaussianRadius_swigregister = _libBornAgainCore.FormFactorSphereGaussianRadius_swigregister
 FormFactorSphereGaussianRadius_swigregister(FormFactorSphereGaussianRadius)
 
@@ -14132,8 +14120,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereLogNormalRadius
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14182,6 +14168,8 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereLogNormalRadius
+    __del__ = lambda self: None
 FormFactorSphereLogNormalRadius_swigregister = _libBornAgainCore.FormFactorSphereLogNormalRadius_swigregister
 FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
 
@@ -14580,8 +14568,6 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSphere
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14638,6 +14624,20 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadialExtension(self)
 
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+
+        """
+        return _libBornAgainCore.FormFactorTruncatedSphere_evaluate_for_q(self, q)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSphere
+    __del__ = lambda self: None
 FormFactorTruncatedSphere_swigregister = _libBornAgainCore.FormFactorTruncatedSphere_swigregister
 FormFactorTruncatedSphere_swigregister(FormFactorTruncatedSphere)
 
@@ -14673,8 +14673,6 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSpheroid
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14753,6 +14751,8 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSpheroid
+    __del__ = lambda self: None
 FormFactorTruncatedSpheroid_swigregister = _libBornAgainCore.FormFactorTruncatedSpheroid_swigregister
 FormFactorTruncatedSpheroid_swigregister(FormFactorTruncatedSpheroid)
 

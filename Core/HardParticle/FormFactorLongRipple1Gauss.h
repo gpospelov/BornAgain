@@ -30,25 +30,22 @@ public:
     //! @param width of cosine cross section
     //! @param height of cosine cross section
     FormFactorLongRipple1Gauss(double length, double width, double height);
-    virtual ~FormFactorLongRipple1Gauss() {}
 
-    FormFactorLongRipple1Gauss* clone() const {
+    FormFactorLongRipple1Gauss* clone() const override final {
         return new FormFactorLongRipple1Gauss(m_length, m_width, m_height); }
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
     double getLength() const { return m_length; }
 
-    double getRadialExtension() const final;
+    double getRadialExtension() const override final;
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual bool check_initialization() const;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
     complex_t Integrand(double Z) const;
+    bool check_initialization() const;
 
     double m_length;
     double m_width;

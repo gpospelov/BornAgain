@@ -31,25 +31,23 @@ public:
     //! @param asymmetry length of triangular cross section
     FormFactorLongRipple2Gauss(double length, double width, double height, double asymmetry);
 
-    virtual ~FormFactorLongRipple2Gauss() {}
 
-    FormFactorLongRipple2Gauss* clone() const {
+    FormFactorLongRipple2Gauss* clone() const override final {
         return new FormFactorLongRipple2Gauss(m_length, m_width, m_height, m_d); }
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
     double getLength() const { return m_length; }
     double getAsymmetry() const { return m_d; }
 
-    double getRadialExtension() const final;
+    double getRadialExtension() const override final;
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual bool check_initialization() const;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
+    bool check_initialization() const;
+
     double m_width;
     double m_height;
     double m_length;

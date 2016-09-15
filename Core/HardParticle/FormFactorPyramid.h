@@ -26,17 +26,19 @@ class BA_CORE_API_ FormFactorPyramid : public FormFactorPolyhedron
 public:
     FormFactorPyramid(double base_edge, double height, double alpha);
 
-    FormFactorPyramid* clone() const final {
+    FormFactorPyramid* clone() const override final {
         return new FormFactorPyramid(m_base_edge, m_height, m_alpha); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getBaseEdge() const { return m_base_edge; }
     double getAlpha() const { return m_alpha; }
 
+protected:
+    void onChange() override final;
+
 private:
     static const PolyhedralTopology topology;
-    void onChange() final;
 
     double m_base_edge;
     double m_height;

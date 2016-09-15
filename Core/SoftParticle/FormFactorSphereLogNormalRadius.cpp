@@ -23,27 +23,21 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
     : m_mean(mean)
     , m_scale_param(scale_param)
     , m_n_samples(n_samples)
-    , mp_distribution(0)
 {
     setName(BornAgain::FormFactorSphereLogNormalRadiusType);
-    mp_distribution = new DistributionLogNormal(mean, scale_param);
+    mP_distribution.reset(new DistributionLogNormal(mean, scale_param));
     registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::ScaleParameter, &m_scale_param);
-    if (!mp_distribution) return;
+    if (!mP_distribution) return;
     // Init vectors:
     m_form_factors.clear();
     m_probabilities.clear();
-    std::vector<ParameterSample> samples = mp_distribution->generateSamples(m_n_samples);
+    std::vector<ParameterSample> samples = mP_distribution->generateSamples(m_n_samples);
     for (size_t i=0; i<samples.size(); ++i) {
         double radius = samples[i].value;
         m_form_factors.push_back(new FormFactorFullSphere(radius));
         m_probabilities.push_back(samples[i].weight);
     }
-}
-
-FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
-{
-    delete mp_distribution;
 }
 
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const

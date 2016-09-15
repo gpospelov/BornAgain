@@ -26,22 +26,20 @@ class BA_CORE_API_ FormFactorTruncatedSphere : public IFormFactorBorn
 {
 public:
     FormFactorTruncatedSphere(double radius, double height);
-    virtual ~FormFactorTruncatedSphere();
 
-    FormFactorTruncatedSphere *clone() const {
+    FormFactorTruncatedSphere *clone() const override final {
         return new FormFactorTruncatedSphere(m_radius, m_height); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const final { return m_radius; }
+    double getRadialExtension() const override final { return m_radius; }
 
-protected:
-    virtual bool check_initialization() const;
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
+    bool check_initialization() const;
     complex_t Integrand(double Z) const;
 
     double m_radius;

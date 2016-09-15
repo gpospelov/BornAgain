@@ -105,14 +105,20 @@ double RootObjectiveFunctionAdapter::evaluate(const double *pars)
 
 double RootObjectiveFunctionAdapter::evaluate_gradient(const double *pars, unsigned int index, double *gradients)
 {
-//    std::vector<double> vec;
-//    vec.resize(m_nparameters, 0.0);
-//    std::copy(pars, pars+m_nparameters, vec.begin());
+    std::vector<double> vec;
+    vec.resize(m_nparameters, 0.0);
+    std::copy(pars, pars+m_nparameters, vec.begin());
 
-//    std::vector<double> vec_gradients;
-//    if(gradients) {
-//        vec_gradients.re
-//    }
-    return m_gradient_function(pars, index, gradients);
+    std::vector<double> vec_gradients;
+
+    if(gradients)
+        vec_gradients.resize(m_nparameters);
+
+    double result = m_gradient_function(vec, index, vec_gradients);
+
+    if(gradients)
+        for(int i=0; i<(int)m_nparameters; ++i) gradients[i] = vec_gradients[i];
+
+    return result;
 }
 

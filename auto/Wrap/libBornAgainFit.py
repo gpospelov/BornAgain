@@ -2303,7 +2303,7 @@ class FitSuiteParameters(_object):
 
     def valuesDifferFrom(self, par_values, tolerance):
         """
-        valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool
+        valuesDifferFrom(FitSuiteParameters self, vdouble1d_t par_values, double tolerance) -> bool
 
         bool FitSuiteParameters::valuesDifferFrom(const double *par_values, double tolerance) const
 

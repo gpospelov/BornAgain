@@ -67,16 +67,16 @@ FitParameter* FitSuiteParameters::getFitParameter(const std::string& name)
 //! Sets values for all defined parameters
 void FitSuiteParameters::setValues(const double* pars_values)
 {
-    if( !valuesDifferFrom(pars_values, 1.) ) {
-        msglog(MSG::WARNING) << "FitSuiteParameters::setValues() -> Warning! "
-                                "Small or absent change in parameter values.";
-        for(size_t i_par=0; i_par<m_parameters.size(); ++i_par) {
-            msglog(MSG::DEBUG2) << "npar:"<< i_par << std::setprecision(10)
-                           << " current:" << m_parameters[i_par]->getValue()
-                           << " new: " << pars_values[i_par]
-                           << " diff:" << m_parameters[i_par]->getValue() -pars_values[i_par];
-        }
-    }
+//    if( !valuesDifferFrom(pars_values, 1.) ) {
+//        msglog(MSG::WARNING) << "FitSuiteParameters::setValues() -> Warning! "
+//                                "Small or absent change in parameter values.";
+//        for(size_t i_par=0; i_par<m_parameters.size(); ++i_par) {
+//            msglog(MSG::DEBUG2) << "npar:"<< i_par << std::setprecision(10)
+//                           << " current:" << m_parameters[i_par]->getValue()
+//                           << " new: " << pars_values[i_par]
+//                           << " diff:" << m_parameters[i_par]->getValue() -pars_values[i_par];
+//        }
+//    }
 
     size_t index(0);
     for (auto par: m_parameters) {
@@ -168,7 +168,7 @@ size_t FitSuiteParameters::numberOfFreeFitParameters() const
 }
 
 //! Returns true if parameters already have the given values.
-bool FitSuiteParameters::valuesDifferFrom(const double* pars_values, double tol) const
+bool FitSuiteParameters::valuesDifferFrom(const std::vector<double> &pars_values, double tol) const
 {
     for (size_t i=0; i<m_parameters.size(); ++i)
         if (numbersDiffer(m_parameters[i]->getValue(), pars_values[i], tol))

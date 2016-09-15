@@ -47,13 +47,14 @@ double ObjectiveFunction::evaluate(const std::vector<double> &pars)
     return m_objective_function(pars);
 }
 
-double ObjectiveFunction::evaluate_gradient(const double *par, int index, double *gradient)
+double ObjectiveFunction::evaluate_gradient(const std::vector<double>& pars, int index,
+                                            std::vector<double> &gradient)
 {
     if(!m_gradient_function)
         throw std::runtime_error("ObjectiveFunction::evaluate() -> Error. "
                                  "Gradient function is not set");
 
-    return m_gradient_function(par, index, gradient);
+    return m_gradient_function(pars, index, gradient);
 }
 
 //double ObjectiveFunction::evaluate_gradient(const std::vector<double> &pars, int index, std::vector<double> &gradient)

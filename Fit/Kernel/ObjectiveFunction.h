@@ -36,8 +36,8 @@ public:
 
     double evaluate(const std::vector<double>& pars);
 
-//    double evaluate_gradient(const std::vector<double>& pars, int index, std::vector<double> &gradient);
-    double evaluate_gradient(const double *par, int index, double *gradient);
+    double evaluate_gradient(const std::vector<double>& pars, int index, std::vector<double> &gradient);
+//    double evaluate_gradient(const double *par, int index, double *gradient);
 
     int functionCalls() const { return m_ncalls; }
 

@@ -96,7 +96,7 @@ class BA_CORE_API_ FitSuiteParameters
     //! Set fixed flag for parameters from the list.
     void setFixed(const std::vector<std::string>& pars, bool is_fixed);
 
-    bool valuesDifferFrom(const double* par_values, double tolerance) const;
+    bool valuesDifferFrom(const std::vector<double>& par_values, double tolerance) const;
 
     std::string reportResults() const;
 

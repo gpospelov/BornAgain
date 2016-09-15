@@ -21381,12 +21381,11 @@ fail:
 SWIGINTERN PyObject *_wrap_FitSuiteParameters_valuesDifferFrom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  double *arg2 = (double *) 0 ;
+  std::vector< double,std::allocator< double > > *arg2 = 0 ;
   double arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
   double val3 ;
   int ecode3 = 0 ;
   PyObject * obj0 = 0 ;
@@ -21400,20 +21399,28 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_valuesDifferFrom(PyObject *SWIGUNU
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
   }
   arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_double, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "2"" of type '" "double const *""'"); 
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res2 = swig::asptr(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg2 = ptr;
   }
-  arg2 = reinterpret_cast< double * >(argp2);
   ecode3 = SWIG_AsVal_double(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (bool)((FitSuiteParameters const *)arg1)->valuesDifferFrom((double const *)arg2,arg3);
+  result = (bool)((FitSuiteParameters const *)arg1)->valuesDifferFrom((std::vector< double,std::allocator< double > > const &)*arg2,arg3);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
@@ -22880,7 +22887,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_valuesDifferFrom", _wrap_FitSuiteParameters_valuesDifferFrom, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool\n"
+		"FitSuiteParameters_valuesDifferFrom(FitSuiteParameters self, vdouble1d_t par_values, double tolerance) -> bool\n"
 		"\n"
 		"bool FitSuiteParameters::valuesDifferFrom(const double *par_values, double tolerance) const\n"
 		"\n"

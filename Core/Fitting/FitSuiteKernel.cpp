@@ -132,8 +132,8 @@ void FitSuiteKernel::minimize()
         [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
     m_new_kernel->setObjectiveFunction( fun_chi2);
 
-    IMinimizer::function_gradient_t fun_gradient =
-        [&] (const double* pars, unsigned int index, double* gradients)
+    gradient_function_t fun_gradient =
+        [&] (const std::vector<double>& pars, int index, std::vector<double> &gradients)
         {
             return m_function_gradient.evaluate(pars, index, gradients);
         };

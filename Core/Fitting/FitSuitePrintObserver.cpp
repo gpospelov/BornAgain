@@ -15,7 +15,7 @@
 
 #include "FitSuitePrintObserver.h"
 #include "FitSuite.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "FitSuiteStrategies.h"
 
 
@@ -72,7 +72,7 @@ void FitSuitePrintObserver::printWallTime()
 
 void FitSuitePrintObserver::printParameters()
 {
-    m_fit_suite->getFitParameters()->printFitParameters();
+    std::cout << m_fit_suite->getFitParameters()->parametersToString() << std::endl;
 }
 
 void FitSuitePrintObserver::printFitResults()

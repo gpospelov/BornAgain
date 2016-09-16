@@ -30,7 +30,7 @@ std::string IMinimizer::algorithmName() const
     return std::string();
 }
 
-void IMinimizer::setParameters(const FitSuiteParameters & /*parameters*/)
+void IMinimizer::setParameters(const FitParameterSet & /*parameters*/)
 {
     throw std::runtime_error("IMinimizer::setParameters() -> Not implemented.");
 }
@@ -71,7 +71,7 @@ std::string IMinimizer::reportResults() const
 }
 
 
-void IMinimizer::propagateResults(FitSuiteParameters &/*parameters*/)
+void IMinimizer::propagateResults(FitParameterSet &/*parameters*/)
 {
     throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");
 

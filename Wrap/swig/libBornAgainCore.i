@@ -88,7 +88,7 @@
 #include "FitOptions.h"
 #include "FitSuite.h"
 #include "FitSuiteObjects.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "FixedBinAxis.h"
 #include "FormFactorAnisoPyramid.h"
 #include "FormFactorBox.h"

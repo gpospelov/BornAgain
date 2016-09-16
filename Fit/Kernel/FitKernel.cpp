@@ -70,12 +70,12 @@ std::string FitKernel::reportResults() const
     return m_impl->reportResults();
 }
 
-FitSuiteParameters *FitKernel::fitParameters()
+FitParameterSet *FitKernel::fitParameters()
 {
-    return const_cast<FitSuiteParameters *>(static_cast<const FitKernel*>(this)->fitParameters());
+    return const_cast<FitParameterSet *>(static_cast<const FitKernel*>(this)->fitParameters());
 }
 
-const FitSuiteParameters *FitKernel::fitParameters() const
+const FitParameterSet *FitKernel::fitParameters() const
 {
     return m_impl->fitParameters();
 }

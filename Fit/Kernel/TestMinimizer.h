@@ -17,7 +17,7 @@
 #define TESTMINIMIZER_H
 
 #include "IMinimizer.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 
 //! @class TestMinimizer
 //! @ingroup fitting_internal
@@ -33,7 +33,7 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
 
     void minimize();
 
-    void setParameters(const FitSuiteParameters &parameters);
+    void setParameters(const FitParameterSet &parameters);
 
     void setObjectiveFunction(objective_function_t func);
 
@@ -46,11 +46,11 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
     virtual std::vector<double >  getErrorOfVariables() const;
 
 protected:
-    virtual void propagateResults(FitSuiteParameters&);
+    virtual void propagateResults(FitParameterSet&);
 
  private:
     double m_min_value;
-    FitSuiteParameters m_parameters; //! minimizer parameters
+    FitParameterSet m_parameters; //! minimizer parameters
     objective_function_t m_fcn;
 };
 

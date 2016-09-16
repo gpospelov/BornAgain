@@ -18,7 +18,7 @@
 
 #include "WinDllMacros.h"
 #include "KernelTypes.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "ObjectiveFunction.h"
 #include <memory>
 
@@ -50,12 +50,12 @@ public:
     //! Reports results of minimization in the form of multi-line string.
     std::string reportResults() const;
 
-    FitSuiteParameters* fitParameters();
+    FitParameterSet* fitParameters();
 
      IMinimizer *minimizer() ;
 
 private:
-    FitSuiteParameters m_fit_parameters;
+    FitParameterSet m_fit_parameters;
     std::unique_ptr<IMinimizer> m_minimizer;
     ObjectiveFunction m_objective_function;
 };

@@ -6012,7 +6012,7 @@ class FitSuite(IObservable):
 
     def getFitParameters(self):
         """
-        getFitParameters(FitSuite self) -> FitSuiteParameters *
+        getFitParameters(FitSuite self) -> FitParameterSet *
 
         FitSuiteParameters * FitSuite::getFitParameters()
 

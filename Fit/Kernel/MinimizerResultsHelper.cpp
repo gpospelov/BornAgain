@@ -15,7 +15,7 @@
 
 #include "MinimizerResultsHelper.h"
 #include "RootMinimizerAdapter.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "FitParameter.h"
 #include <boost/format.hpp>
 
@@ -47,7 +47,7 @@ std::string MinimizerResultsHelper::reportResults(const RootMinimizerAdapter *mi
     return result.str();
 }
 
-std::string MinimizerResultsHelper::reportResults(const FitSuiteParameters *parameters) const
+std::string MinimizerResultsHelper::reportResults(const FitParameterSet *parameters) const
 {
     std::ostringstream result;
 
@@ -67,7 +67,7 @@ std::string MinimizerResultsHelper::reportResults(const FitSuiteParameters *para
         ++npar;
     }
 
-    FitSuiteParameters::corr_matrix_t matrix = parameters->correlationMatrix();
+    FitParameterSet::corr_matrix_t matrix = parameters->correlationMatrix();
     if(matrix.size()) {
         result << section("Correlations");
         for(size_t i=0; i<matrix.size(); ++i) {

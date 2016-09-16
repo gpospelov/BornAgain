@@ -21,7 +21,7 @@
 #include "KernelTypes.h"
 
 class FitParameter;
-class FitSuiteParameters;
+class FitParameterSet;
 
 //! @class IMinimizer
 //! @ingroup fitting_internal
@@ -43,7 +43,7 @@ class BA_CORE_API_ IMinimizer
     virtual void minimize();
 
     //! Sets internal minimizer parameters using external parameter list
-    virtual void setParameters(const FitSuiteParameters& parameters);
+    virtual void setParameters(const FitParameterSet& parameters);
 
     virtual void setObjectiveFunction(objective_function_t ){}
 
@@ -71,7 +71,7 @@ class BA_CORE_API_ IMinimizer
     virtual std::string reportResults() const;
 
     //! Propagates results of minimization to fit parameter set
-    virtual void propagateResults(FitSuiteParameters& parameters);
+    virtual void propagateResults(FitParameterSet& parameters);
 };
 
 #endif // IMINIMIZER_H

@@ -26,7 +26,7 @@ class IHistogram;
 class IChiSquaredModule;
 class IFitStrategy;
 class FitSuiteObjects;
-class FitSuiteParameters;
+class FitParameterSet;
 class FitSuiteStrategies;
 class FitOptions;
 class FitSuiteKernel;
@@ -124,7 +124,7 @@ public:
     FitSuiteObjects* getFitObjects();
 
     //! Returns reference to fit parameters
-    FitSuiteParameters* getFitParameters();
+    FitParameterSet* getFitParameters();
 
     //! Returns reference to fit parameters
     FitSuiteStrategies* getFitStrategies();

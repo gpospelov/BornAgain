@@ -145,7 +145,7 @@ void FitSuiteKernel::minimize()
 
     // setting number of free parameters for proper chi2 normalization
 //    m_fit_objects.setNfreeParameters((int)m_fit_parameters.numberOfFreeFitParameters());
-    m_fit_objects.setNfreeParameters((int)getFitParameters()->numberOfFreeFitParameters());
+    m_fit_objects.setNfreeParameters((int)getFitParameters()->freeFitParameterCount());
 
     // minimize
     try {
@@ -159,7 +159,7 @@ void FitSuiteKernel::minimize()
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
-FitSuiteParameters *FitSuiteKernel::getFitParameters() {
+FitParameterSet *FitSuiteKernel::getFitParameters() {
 //    return &m_fit_parameters;
     return m_new_kernel->fitParameters();
 }

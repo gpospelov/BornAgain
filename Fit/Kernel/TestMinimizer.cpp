@@ -27,16 +27,16 @@ std::string TestMinimizer::minimizerName() const
 //! run minimization
 void TestMinimizer::minimize()
 {
-    m_min_value = m_fcn(m_parameters.getValues());
+    m_min_value = m_fcn(m_parameters.values());
 }
 
 //! Returns value of the parameter at the minimum
 std::vector<double > TestMinimizer::getValueOfVariablesAtMinimum() const
 {
-    return m_parameters.getValues();
+    return m_parameters.values();
 }
 
-void TestMinimizer::setParameters(const FitSuiteParameters& parameters)
+void TestMinimizer::setParameters(const FitParameterSet& parameters)
 {
     m_parameters.clear();
     for(size_t i_par = 0; i_par<parameters.size(); ++i_par)
@@ -63,7 +63,7 @@ std::vector<double> TestMinimizer::getErrorOfVariables() const
     return result;
 }
 
-void TestMinimizer::propagateResults(FitSuiteParameters &)
+void TestMinimizer::propagateResults(FitParameterSet &)
 {
 
 }

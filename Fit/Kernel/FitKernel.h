@@ -23,7 +23,7 @@
 class FitKernelImp;
 class RealLimits;
 class Attributes;
-class FitSuiteParameters;
+class FitParameterSet;
 class IMinimizer;
 
 //! @class FitKernel
@@ -58,8 +58,8 @@ public:
     //! Reports results of minimization in the form of multi-line string.
     std::string reportResults() const;
 
-    FitSuiteParameters* fitParameters();
-    const FitSuiteParameters* fitParameters() const;
+    FitParameterSet* fitParameters();
+    const FitParameterSet* fitParameters() const;
 
     IMinimizer *minimizer();
 

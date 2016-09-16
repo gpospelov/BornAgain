@@ -92,7 +92,7 @@ std::string FitKernelImp::reportResults() const
      return result.str();
 }
 
-FitSuiteParameters *FitKernelImp::fitParameters()
+FitParameterSet *FitKernelImp::fitParameters()
 {
     return &m_fit_parameters;
 }

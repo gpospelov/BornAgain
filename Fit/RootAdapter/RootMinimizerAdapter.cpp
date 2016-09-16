@@ -17,7 +17,7 @@
 #include "RootMinimizerFunctions.h"
 #include "Math/Minimizer.h"
 #include "FitParameter.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "MinimizerResultsHelper.h"
 #include "RootObjectiveFuncAdapter.h"
 
@@ -96,7 +96,7 @@ void RootMinimizerAdapter::setParameter(size_t index, const FitParameter *par)
     }
 }
 
-void RootMinimizerAdapter::setParameters(const FitSuiteParameters &parameters)
+void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters)
 {
     m_obj_func->setNumberOfParameters(parameters.size());
 
@@ -180,7 +180,7 @@ std::map<std::string, std::string> RootMinimizerAdapter::statusMap() const
     return result;
 }
 
-void RootMinimizerAdapter::propagateResults(FitSuiteParameters &parameters)
+void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
 {
     // sets values and errors found
     parameters.setValues(getValueOfVariablesAtMinimum());
@@ -188,7 +188,7 @@ void RootMinimizerAdapter::propagateResults(FitSuiteParameters &parameters)
 
     // sets correlation matrix
     if(providesError()) {
-        FitSuiteParameters::corr_matrix_t matrix;
+        FitParameterSet::corr_matrix_t matrix;
         matrix.resize(fitParameterCount());
 
         for(size_t i=0; i<(size_t)fitParameterCount(); ++i) {

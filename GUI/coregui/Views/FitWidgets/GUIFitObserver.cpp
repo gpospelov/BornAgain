@@ -18,7 +18,7 @@
 #include "FitParameter.h"
 #include "FitProgressInfo.h"
 #include "FitSuite.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include <QDebug>
@@ -72,7 +72,7 @@ void GUIFitObserver::update(FitSuite *subject)
         FitProgressInfo info;
         info.m_chi2 = subject->getChi2();
         info.m_iteration_count = (int)subject->getNumberOfIterations();
-        info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->getValues());
+        info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->values());
         qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
         emit progressInfoUpdate(info);
 

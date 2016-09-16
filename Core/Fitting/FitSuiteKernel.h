@@ -19,7 +19,7 @@
 #include "FitOptions.h"
 #include "FitSuiteFunctions.h"
 #include "FitSuiteObjects.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "FitSuiteStrategies.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <functional>
@@ -79,7 +79,7 @@ class BA_CORE_API_ FitSuiteKernel
     const FitSuiteObjects* getFitObjects() const { return &m_fit_objects; }
 
     //! Returns reference to fit parameters
-    FitSuiteParameters* getFitParameters();
+    FitParameterSet* getFitParameters();
 
     //! Returns reference to fit parameters
     FitSuiteStrategies* getFitStrategies() { return &m_fit_strategies; }

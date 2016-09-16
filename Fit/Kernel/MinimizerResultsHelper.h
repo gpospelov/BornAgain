@@ -22,7 +22,7 @@
 #include <iomanip>
 
 class RootMinimizerAdapter;
-class FitSuiteParameters;
+class FitParameterSet;
 
 //! @class MinimizerResultsHelper
 //! @ingroup fitting_internal
@@ -37,7 +37,7 @@ public:
     std::string reportResults(const RootMinimizerAdapter *minimizer) const;
 
     //! Reports fit parameters settings and final results
-    std::string reportResults(const FitSuiteParameters *parameters) const;
+    std::string reportResults(const FitParameterSet *parameters) const;
 
 private:
     std::string reportDescription(const RootMinimizerAdapter *minimizer) const;

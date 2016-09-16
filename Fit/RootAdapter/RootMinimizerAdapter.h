@@ -47,7 +47,7 @@ public:
 
     virtual void setParameter(size_t index, const FitParameter *par);
 
-    virtual void setParameters(const FitSuiteParameters& parameters);
+    virtual void setParameters(const FitParameterSet& parameters);
 
     virtual void setObjectiveFunction(objective_function_t func);
 
@@ -72,7 +72,7 @@ public:
     virtual std::map<std::string, std::string> statusMap() const;
 
     //! Propagates results of minimization to fit parameter set
-    virtual void propagateResults(FitSuiteParameters& parameters);
+    virtual void propagateResults(FitParameterSet& parameters);
 
 protected:
     RootMinimizerAdapter(const MinimizerInfo &minimizerInfo);

@@ -140,7 +140,7 @@ FitSuiteObjects* FitSuite::getFitObjects()
     return m_kernel->getFitObjects();
 }
 
-FitSuiteParameters* FitSuite::getFitParameters()
+FitParameterSet* FitSuite::getFitParameters()
 {
     return m_kernel->getFitParameters();
 }

@@ -1,5 +1,5 @@
  // introduced because of FitCylindersAndPrisms example
-%extend FitSuiteParameters {
+%extend FitParameterSet {
     const FitParameter* __getitem__(std::string name) const
     {
         return (*($self))[name];

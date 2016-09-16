@@ -23,6 +23,7 @@
 #include <memory>
 
 class RootObjectiveFunctionAdapter;
+class FitParameter;
 
 namespace BA_ROOT { namespace Math { class Minimizer; } }
 
@@ -37,27 +38,21 @@ public:
 
     virtual ~RootMinimizerAdapter();
 
-    virtual void minimize();
+    virtual void minimize() override;
 
     //! Returns name of the minimizer.
-    std::string minimizerName() const;
+    std::string minimizerName() const override final;
 
     //! Returns name of the minimization algorithm.
-    std::string algorithmName() const;
+    std::string algorithmName() const override final;
 
-    virtual void setParameter(size_t index, const FitParameter *par);
+    void setParameters(const FitParameterSet& parameters) override final;
 
-    virtual void setParameters(const FitParameterSet& parameters);
+    void setObjectiveFunction(objective_function_t func) override final;
 
-    virtual void setObjectiveFunction(objective_function_t func);
+    void setGradientFunction(gradient_function_t func, int ndatasize) override final;
 
-    virtual void setGradientFunction(gradient_function_t func, int ndatasize);
-
-    virtual std::vector<double> getValueOfVariablesAtMinimum() const;
-
-    virtual std::vector<double> getErrorOfVariables() const;
-
-    std::string reportResults() const;
+    std::string reportResults() const override final;
 
     MinimizerOptions& options() { return m_options; }
     const MinimizerOptions& options() const { return m_options; }
@@ -66,19 +61,22 @@ public:
     virtual std::string statusToString() const;
 
     //! Returns true if minimizer provides error and error matrix
-    virtual bool providesError() const;
+    bool providesError() const;
 
     //! Returns map of string representing different minimizer statuses
     virtual std::map<std::string, std::string> statusMap() const;
 
     //! Propagates results of minimization to fit parameter set
-    virtual void propagateResults(FitParameterSet& parameters);
+    void propagateResults(FitParameterSet& parameters) override;
 
 protected:
     RootMinimizerAdapter(const MinimizerInfo &minimizerInfo);
 
     virtual bool isGradientBasedAgorithm() { return false;}
-    int fitParameterCount() const;
+    virtual void setParameter(size_t index, const FitParameter *par);
+    int fitDimension() const;
+    std::vector<double> parValuesAtMinimum() const;
+    std::vector<double> parErrorsAtMinimum() const;
 
     virtual void propagateOptions() = 0;
     virtual const root_minimizer_t* rootMinimizer() const = 0;

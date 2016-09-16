@@ -20,7 +20,7 @@
 
 namespace {
 const std::string default_minimizer = "Minuit2";
-const std::string default_algorithm = "Minuit2";
+const std::string default_algorithm = "Migrad";
 }
 
 FitKernel::FitKernel()
@@ -78,9 +78,4 @@ FitParameterSet *FitKernel::fitParameters()
 const FitParameterSet *FitKernel::fitParameters() const
 {
     return m_impl->fitParameters();
-}
-
- IMinimizer *FitKernel::minimizer()
-{
-    return m_impl->minimizer();
 }

@@ -14,9 +14,8 @@
 // ************************************************************************** //
 
 #include "TestMinimizer.h"
-#include "FitParameter.h"
 #include "MinimizerConstants.h"
-#include <iostream>
+#include "FitParameterSet.h"
 #include <sstream>
 
 std::string TestMinimizer::minimizerName() const
@@ -27,20 +26,12 @@ std::string TestMinimizer::minimizerName() const
 //! run minimization
 void TestMinimizer::minimize()
 {
-    m_min_value = m_fcn(m_parameters.values());
-}
-
-//! Returns value of the parameter at the minimum
-std::vector<double > TestMinimizer::getValueOfVariablesAtMinimum() const
-{
-    return m_parameters.values();
+    m_min_value = m_fcn(m_parameter_values);
 }
 
 void TestMinimizer::setParameters(const FitParameterSet& parameters)
 {
-    m_parameters.clear();
-    for(size_t i_par = 0; i_par<parameters.size(); ++i_par)
-        m_parameters.addFitParameter(new FitParameter( *parameters[i_par] ) );
+    m_parameter_values = parameters.values();
 }
 
 void TestMinimizer::setObjectiveFunction(objective_function_t func)
@@ -55,17 +46,3 @@ std::string TestMinimizer::reportResults() const
            << m_min_value << std::endl;
     return result.str();
 }
-
-std::vector<double> TestMinimizer::getErrorOfVariables() const
-{
-    std::vector<double> result;
-    result.resize(m_parameters.size());
-    return result;
-}
-
-void TestMinimizer::propagateResults(FitParameterSet &)
-{
-
-}
-
-

@@ -20,16 +20,18 @@
 #include "MinimizerFactory.h"
 #include "SampleBuilderFactory.h"
 #include "SimulationFactory.h"
+#include "FitParameterSet.h"
 #include "Units.h"
-#include "IMinimizer.h"
 #include <boost/format.hpp>
 #include <memory>
 
-IMinimizerTest::TestParameter::TestParameter(
-    const std::string& name, double real_value, double start_value)
-    : m_name(name), m_real_value(real_value), m_start_value(start_value), m_found_value(0.0)
-{
-}
+IMinimizerTest::TestParameter::TestParameter(const std::string &name,
+                                             double real_value,
+                                             double start_value)
+    : m_name(name)
+    , m_real_value(real_value)
+    , m_start_value(start_value)
+    , m_found_value(0.0) {}
 
 IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
                                const std::string& minimizer_algorithm)
@@ -64,7 +66,7 @@ bool IMinimizerTest::runTest()
     // run fit
     fitSuite->runFit();
 
-    std::vector<double> valuesAtMinimum = fitSuite->getMinimizer()->getValueOfVariablesAtMinimum();
+    std::vector<double> valuesAtMinimum = fitSuite->fitParameters()->values();
     for (size_t i = 0; i < m_parameters.size(); ++i)
         m_parameters[i].m_found_value = valuesAtMinimum[i];
 

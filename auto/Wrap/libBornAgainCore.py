@@ -5851,18 +5851,6 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_setMinimizer(self, *args)
 
 
-    def getMinimizer(self):
-        """
-        getMinimizer(FitSuite self) -> IMinimizer *
-
-        IMinimizer * FitSuite::getMinimizer()
-
-        Returns minimizer. 
-
-        """
-        return _libBornAgainCore.FitSuite_getMinimizer(self)
-
-
     def initPrint(self, print_every_nth):
         """
         initPrint(FitSuite self, int print_every_nth)
@@ -6010,16 +5998,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_getFitObjects(self)
 
 
-    def getFitParameters(self):
-        """
-        getFitParameters(FitSuite self) -> FitParameterSet *
-
-        FitSuiteParameters * FitSuite::getFitParameters()
-
-        Returns reference to fit parameters. 
-
-        """
-        return _libBornAgainCore.FitSuite_getFitParameters(self)
+    def fitParameters(self):
+        """fitParameters(FitSuite self) -> FitParameterSet *"""
+        return _libBornAgainCore.FitSuite_fitParameters(self)
 
 
     def getFitStrategies(self):

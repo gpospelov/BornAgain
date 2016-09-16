@@ -1884,37 +1884,6 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_getMinValue(self)
 
 
-    def getValueOfVariablesAtMinimum(self):
-        """
-        getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t
-
-        virtual std::vector<double> IMinimizer::getValueOfVariablesAtMinimum() const =0
-
-        Returns minimum function value.
-
-        Returns values of parameters at the minimum 
-
-        """
-        return _libBornAgainFit.IMinimizer_getValueOfVariablesAtMinimum(self)
-
-
-    def getErrorOfVariable(self, index):
-        """getErrorOfVariable(IMinimizer self, size_t index) -> double"""
-        return _libBornAgainFit.IMinimizer_getErrorOfVariable(self, index)
-
-
-    def getErrorOfVariables(self):
-        """
-        getErrorOfVariables(IMinimizer self) -> vdouble1d_t
-
-        virtual std::vector<double> IMinimizer::getErrorOfVariables() const =0
-
-        Returns errors of variables at minimum. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getErrorOfVariables(self)
-
-
     def clear(self):
         """clear(IMinimizer self)"""
         return _libBornAgainFit.IMinimizer_clear(self)

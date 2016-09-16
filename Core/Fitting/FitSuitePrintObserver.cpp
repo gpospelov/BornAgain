@@ -72,7 +72,7 @@ void FitSuitePrintObserver::printWallTime()
 
 void FitSuitePrintObserver::printParameters()
 {
-    std::cout << m_fit_suite->getFitParameters()->parametersToString() << std::endl;
+    std::cout << m_fit_suite->fitParameters()->parametersToString() << std::endl;
 }
 
 void FitSuitePrintObserver::printFitResults()

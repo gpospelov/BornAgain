@@ -61,8 +61,6 @@ public:
     FitParameterSet* fitParameters();
     const FitParameterSet* fitParameters() const;
 
-    IMinimizer *minimizer();
-
 private:
     std::unique_ptr<FitKernelImp> m_impl;
 };

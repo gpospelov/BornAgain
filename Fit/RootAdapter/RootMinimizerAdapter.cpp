@@ -51,6 +51,95 @@ std::string RootMinimizerAdapter::algorithmName() const
     return m_minimizerInfo.algorithmName();
 }
 
+void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters)
+{
+    m_obj_func->setNumberOfParameters(parameters.size());
+
+    // Genetic minimizer requires SetFunction before setParameters, others don't care
+    if( isGradientBasedAgorithm() ) {
+        rootMinimizer()->SetFunction(*m_obj_func->rootGradientFunction());
+    } else {
+        rootMinimizer()->SetFunction(*m_obj_func->rootChiSquaredFunction());
+    }
+
+    size_t index(0);
+    for (auto par: parameters)
+        setParameter(index++, par );
+
+    if( (int)parameters.size() != fitDimension())  {
+        std::ostringstream ostr;
+        ostr << "BasicMinimizer::setParameters() -> Error! Unconsistency in fit parameter number: ";
+        ostr << "fitParameterCount = " << fitDimension() << ",";
+        ostr << "parameters.size = " << parameters.size();
+        throw std::runtime_error(ostr.str());
+    }
+}
+
+void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func)
+{
+    m_obj_func->setObjectiveCallback(func);
+}
+
+void RootMinimizerAdapter::setGradientFunction(gradient_function_t func, int ndatasize)
+{
+    m_obj_func->setGradientCallback(func, ndatasize);
+}
+
+std::string RootMinimizerAdapter::reportResults() const
+{
+    MinimizerResultsHelper reporter;
+    return reporter.reportResults(this);
+}
+
+std::string RootMinimizerAdapter::statusToString() const
+{
+    return (m_status ? std::string("Minimum found") : std::string("Error in solving"));
+}
+
+bool RootMinimizerAdapter::providesError() const
+{
+    return rootMinimizer()->ProvidesError();
+}
+
+std::map<std::string, std::string> RootMinimizerAdapter::statusMap() const
+{
+    std::map<std::string, std::string> result;
+    result["Status"] = statusToString();
+
+    if(providesError()) {
+        result["ProvidesError"] = "Provides parameters error and error matrix";
+    } else {
+        result["ProvidesError"] = "Doesn't provide error calculation";
+    }
+
+    result["MinValue"] = to_string_scientific(rootMinimizer()->MinValue());
+
+    return result;
+}
+
+void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
+{
+    // sets values and errors found
+    parameters.setValues(parValuesAtMinimum());
+    parameters.setErrors(parErrorsAtMinimum());
+
+    // sets correlation matrix
+    if(providesError()) {
+        FitParameterSet::corr_matrix_t matrix;
+        matrix.resize(fitDimension());
+
+        for(size_t i=0; i<(size_t)fitDimension(); ++i) {
+            matrix[i].resize(fitDimension(), 0.0);
+            for(size_t j=0; j<(size_t)fitDimension(); ++j) {
+                matrix[i][j] = rootMinimizer()->Correlation(i,j);
+            }
+        }
+        parameters.setCorrelationMatrix(matrix);
+    }
+}
+
+//! Propagate fit parameter down to ROOT minimizer.
+
 void RootMinimizerAdapter::setParameter(size_t index, const FitParameter *par)
 {
     bool success;
@@ -96,120 +185,37 @@ void RootMinimizerAdapter::setParameter(size_t index, const FitParameter *par)
     }
 }
 
-void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters)
-{
-    m_obj_func->setNumberOfParameters(parameters.size());
-
-    // Genetic minimizer requires SetFunction before setParameters, others don't care
-    if( isGradientBasedAgorithm() ) {
-        rootMinimizer()->SetFunction(*m_obj_func->rootGradientFunction());
-    } else {
-        rootMinimizer()->SetFunction(*m_obj_func->rootChiSquaredFunction());
-    }
-
-    size_t index(0);
-    for (auto par: parameters)
-        setParameter(index++, par );
-
-    if( (int)parameters.size() != fitParameterCount())  {
-        std::ostringstream ostr;
-        ostr << "BasicMinimizer::setParameters() -> Error! Unconsistency in fit parameter number: ";
-        ostr << "fitParameterCount = " << fitParameterCount() << ",";
-        ostr << "parameters.size = " << parameters.size();
-        throw std::runtime_error(ostr.str());
-    }
-}
-
-void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func)
-{
-    m_obj_func->setObjectiveCallback(func);
-}
-
-void RootMinimizerAdapter::setGradientFunction(gradient_function_t func, int ndatasize)
-{
-    m_obj_func->setGradientCallback(func, ndatasize);
-}
-
-std::vector<double> RootMinimizerAdapter::getValueOfVariablesAtMinimum() const
-{
-    std::vector<double > result;
-    result.resize(fitParameterCount(), 0.0);
-    std::copy(rootMinimizer()->X(), rootMinimizer()->X()+fitParameterCount(), result.begin());
-    return result;
-}
-
-std::vector<double> RootMinimizerAdapter::getErrorOfVariables() const
-{
-    std::vector<double > result;
-    result.resize(fitParameterCount(), 0.0);
-    if(rootMinimizer()->Errors() != 0 ) {
-        std::copy(rootMinimizer()->Errors(), rootMinimizer()->Errors()+fitParameterCount(), result.begin());
-    }
-    return result;
-}
-
-std::string RootMinimizerAdapter::reportResults() const
-{
-    MinimizerResultsHelper reporter;
-    return reporter.reportResults(this);
-}
-
-std::string RootMinimizerAdapter::statusToString() const
-{
-    return (m_status ? std::string("Minimum found") : std::string("Error in solving"));
-}
-
-bool RootMinimizerAdapter::providesError() const
-{
-    return rootMinimizer()->ProvidesError();
-}
-
-std::map<std::string, std::string> RootMinimizerAdapter::statusMap() const
-{
-    std::map<std::string, std::string> result;
-    result["Status"] = statusToString();
-
-    if(providesError()) {
-        result["ProvidesError"] = "Provides parameters error and error matrix";
-    } else {
-        result["ProvidesError"] = "Doesn't provide error calculation";
-    }
-
-    result["MinValue"] = to_string_scientific(rootMinimizer()->MinValue());
-
-    return result;
-}
-
-void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
-{
-    // sets values and errors found
-    parameters.setValues(getValueOfVariablesAtMinimum());
-    parameters.setErrors(getErrorOfVariables());
-
-    // sets correlation matrix
-    if(providesError()) {
-        FitParameterSet::corr_matrix_t matrix;
-        matrix.resize(fitParameterCount());
-
-        for(size_t i=0; i<(size_t)fitParameterCount(); ++i) {
-            matrix[i].resize(fitParameterCount(), 0.0);
-            for(size_t j=0; j<(size_t)fitParameterCount(); ++j) {
-                matrix[i][j] = rootMinimizer()->Correlation(i,j);
-            }
-        }
-        parameters.setCorrelationMatrix(matrix);
-    }
-}
-
 //! Returns number of fit parameters defined (i.e. dimension of the function to be minimized).
 
-int RootMinimizerAdapter::fitParameterCount() const
+int RootMinimizerAdapter::fitDimension() const
 {
     return rootMinimizer()->NDim();
 }
 
-RootMinimizerAdapter::root_minimizer_t *RootMinimizerAdapter::rootMinimizer()
+//! Returns value of the variables at minimum.
+
+std::vector<double> RootMinimizerAdapter::parValuesAtMinimum() const
 {
-    return const_cast<root_minimizer_t *>(static_cast<const RootMinimizerAdapter*>(this)->rootMinimizer());
+    std::vector<double > result;
+    result.resize(fitDimension(), 0.0);
+    std::copy(rootMinimizer()->X(), rootMinimizer()->X()+fitDimension(), result.begin());
+    return result;
 }
 
+//! Returns errors of the variables at minimum.
+
+std::vector<double> RootMinimizerAdapter::parErrorsAtMinimum() const
+{
+    std::vector<double > result;
+    result.resize(fitDimension(), 0.0);
+    if(rootMinimizer()->Errors() != 0 ) {
+        std::copy(rootMinimizer()->Errors(), rootMinimizer()->Errors()+fitDimension(),
+                  result.begin());
+    }
+    return result;
+}
+
+RootMinimizerAdapter::root_minimizer_t *RootMinimizerAdapter::rootMinimizer() {
+    return const_cast<root_minimizer_t *>(
+        static_cast<const RootMinimizerAdapter *>(this)->rootMinimizer());
+}

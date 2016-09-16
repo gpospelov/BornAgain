@@ -45,21 +45,6 @@ double IMinimizer::getMinValue() const
     throw std::runtime_error("IMinimizer::getMinValue() -> Not implemented.");
 }
 
-std::vector<double > IMinimizer::getValueOfVariablesAtMinimum() const
-{
-    throw std::runtime_error("IMinimizer::getValueOfVariablesAtMinimum() -> Not implemented.");
-}
-
-double IMinimizer::getErrorOfVariable(size_t /*index*/) const
-{
-    throw std::runtime_error("IMinimizer::getErrorOfVariable() -> Not implemented.");
-}
-
-std::vector<double> IMinimizer::getErrorOfVariables() const
-{
-    throw std::runtime_error("IMinimizer::getErrorOfVariables() -> Not implemented.");
-}
-
 void IMinimizer::clear()
 {
     throw std::runtime_error("IMinimizer::clear() -> Not implemented.");

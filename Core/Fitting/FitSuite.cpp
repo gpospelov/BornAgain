@@ -68,11 +68,6 @@ void FitSuite::setMinimizer(IMinimizer* minimizer)
     m_kernel->setMinimizer(minimizer);
 }
 
-IMinimizer* FitSuite::getMinimizer()
-{
-    return m_kernel->getMinimizer();
-}
-
 void FitSuite::initPrint(int print_every_nth)
 {
     std::shared_ptr<FitSuitePrintObserver> observer(new FitSuitePrintObserver(print_every_nth));
@@ -81,17 +76,17 @@ void FitSuite::initPrint(int print_every_nth)
 
 void FitSuite::fixAllParameters()
 {
-    getFitParameters()->fixAll();
+    fitParameters()->fixAll();
 }
 
 void FitSuite::releaseAllParameters()
 {
-    getFitParameters()->releaseAll();
+    fitParameters()->releaseAll();
 }
 
 void FitSuite::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
 {
-    getFitParameters()->setFixed(pars, is_fixed);
+    fitParameters()->setFixed(pars, is_fixed);
 }
 
 void FitSuite::runFit()
@@ -140,7 +135,7 @@ FitSuiteObjects* FitSuite::getFitObjects()
     return m_kernel->getFitObjects();
 }
 
-FitParameterSet* FitSuite::getFitParameters()
+FitParameterSet* FitSuite::fitParameters()
 {
     return m_kernel->getFitParameters();
 }

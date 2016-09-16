@@ -17,10 +17,8 @@
 #define IMINIMIZER_H
 
 #include "WinDllMacros.h"
-#include "OptionContainer.h"
 #include "KernelTypes.h"
 
-class FitParameter;
 class FitParameterSet;
 
 //! @class IMinimizer
@@ -55,15 +53,6 @@ class BA_CORE_API_ IMinimizer
     //! Returns minimum function value
     virtual double getMinValue() const;
 
-    //! Returns values of parameters at the minimum
-    virtual std::vector<double > getValueOfVariablesAtMinimum() const;
-
-    //! Returns error of variable at minimum
-    virtual double getErrorOfVariable(size_t index) const;
-
-    //! Returns errors of variables at minimum
-    virtual std::vector<double >  getErrorOfVariables() const;
-
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear();
 
@@ -74,4 +63,4 @@ class BA_CORE_API_ IMinimizer
     virtual void propagateResults(FitParameterSet& parameters);
 };
 
-#endif // IMINIMIZER_H
+#endif

@@ -65,9 +65,6 @@ class BA_CORE_API_ FitSuiteKernel
     //! Sets minimizer
     void setMinimizer(IMinimizer* minimizer);
 
-    //! Returns minimizer
-    IMinimizer* getMinimizer();
-
     //! Runs a fit, which may consist of several minimization rounds
     virtual void runFit();
 
@@ -117,9 +114,7 @@ private:
 
     FitOptions m_fit_options;
     FitSuiteObjects m_fit_objects;
-//    FitSuiteParameters m_fit_parameters;
     FitSuiteStrategies m_fit_strategies;
-//    std::unique_ptr<IMinimizer> m_minimizer;
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
     bool m_is_last_iteration;

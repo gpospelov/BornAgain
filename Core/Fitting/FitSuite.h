@@ -30,6 +30,7 @@ class FitParameterSet;
 class FitSuiteStrategies;
 class FitOptions;
 class FitSuiteKernel;
+class IMinimizer;
 
 //! @class FitSuite
 //! @ingroup fitting
@@ -79,10 +80,7 @@ public:
     void addFitStrategy(const IFitStrategy& strategy);
 
     //! Sets minimizer
-    void setMinimizer(class IMinimizer* minimizer);
-
-    //! Returns minimizer
-    class IMinimizer* getMinimizer();
+    void setMinimizer(IMinimizer* minimizer);
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.
@@ -124,7 +122,7 @@ public:
     FitSuiteObjects* getFitObjects();
 
     //! Returns reference to fit parameters
-    FitParameterSet* getFitParameters();
+    FitParameterSet* fitParameters();
 
     //! Returns reference to fit parameters
     FitSuiteStrategies* getFitStrategies();

@@ -94,11 +94,6 @@ void FitSuiteKernel::setMinimizer(IMinimizer* minimizer)
     m_new_kernel->setMinimizer(minimizer);
 }
 
-IMinimizer *FitSuiteKernel::getMinimizer() {
-//    return m_minimizer.get();
-    return m_new_kernel->minimizer();
-}
-
 void FitSuiteKernel::runFit()
 {
     m_start_time = boost::posix_time::microsec_clock::local_time();

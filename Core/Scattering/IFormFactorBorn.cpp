@@ -23,19 +23,12 @@ complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
     return evaluate_for_q(wavevectors.getQ());
 }
 
-Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors) const
+Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const
 {
-    return evaluate(wavevectors) * Eigen::Matrix2cd::Identity();
+    return evaluate_for_q_pol(wavevectors.getQ());
 }
 
-complex_t IFormFactorBorn::evaluate_for_q(const cvector_t) const
+Eigen::Matrix2cd IFormFactorBorn::evaluate_for_q_pol(const cvector_t q) const
 {
-    throw Exceptions::NotImplementedException(
-        "Bug: erroneous call of IFormFactorBorn::evaluate_for_q. ");
-}
-
-double IFormFactorBorn::getRadialExtension() const
-{
-    throw Exceptions::NotImplementedException(
-        "Bug: erroneous call of IFormFactorBorn::evaluate_for_q. ");
+    return evaluate_for_q(q) * Eigen::Matrix2cd::Identity();
 }

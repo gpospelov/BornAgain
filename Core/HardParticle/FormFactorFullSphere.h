@@ -26,14 +26,15 @@ class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 public:
     FormFactorFullSphere(double radius);
 
-    FormFactorFullSphere* clone() const{ return new FormFactorFullSphere(m_radius); }
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    FormFactorFullSphere* clone() const override final {
+        return new FormFactorFullSphere(m_radius); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const final { return m_radius; }
+    double getRadialExtension() const override final { return m_radius; }
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
     double m_radius;

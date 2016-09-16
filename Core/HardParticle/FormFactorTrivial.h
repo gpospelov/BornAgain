@@ -26,13 +26,13 @@ class BA_CORE_API_ FormFactorTrivial : public IFormFactorBorn
 public:
     FormFactorTrivial();
 
-    FormFactorTrivial* clone() const { return new FormFactorTrivial(); }
+    FormFactorTrivial* clone() const override final { return new FormFactorTrivial(); }
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getRadialExtension() const final { return 0; }
+    double getRadialExtension() const override final { return 0; }
 
-    complex_t evaluate_for_q(const cvector_t) const final { return 1; }
+    complex_t evaluate_for_q(const cvector_t) const override final { return 1; }
 };
 
 #endif // FORMFACTORTRIVIAL_H

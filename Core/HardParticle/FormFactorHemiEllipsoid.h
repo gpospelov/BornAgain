@@ -29,17 +29,17 @@ public:
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
     virtual ~FormFactorHemiEllipsoid() {}
 
-    FormFactorHemiEllipsoid* clone() const {
+    FormFactorHemiEllipsoid* clone() const override final {
         return new FormFactorHemiEllipsoid(m_radius_x, m_radius_y, m_height); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadiusX() const { return m_radius_x; }
     double getRadiusY() const { return m_radius_y; }
 
-    double getRadialExtension() const final;
+    double getRadialExtension() const override final;
 
-    complex_t evaluate_for_q (const cvector_t q) const final;
+    complex_t evaluate_for_q (const cvector_t q) const override final;
 
 private:
     complex_t Integrand(double Z) const;

@@ -22521,31 +22521,50 @@ static PyMethodDef SwigMethods[] = {
 		"virtual IMinimizer::~IMinimizer()\n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_minimizerName", _wrap_IMinimizer_minimizerName, METH_VARARGS, (char *)"IMinimizer_minimizerName(IMinimizer self) -> std::string"},
-	 { (char *)"IMinimizer_algorithmName", _wrap_IMinimizer_algorithmName, METH_VARARGS, (char *)"IMinimizer_algorithmName(IMinimizer self) -> std::string"},
+	 { (char *)"IMinimizer_minimizerName", _wrap_IMinimizer_minimizerName, METH_VARARGS, (char *)"\n"
+		"IMinimizer_minimizerName(IMinimizer self) -> std::string\n"
+		"\n"
+		"std::string IMinimizer::minimizerName() const\n"
+		"\n"
+		"return name of the minimizer \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_algorithmName", _wrap_IMinimizer_algorithmName, METH_VARARGS, (char *)"\n"
+		"IMinimizer_algorithmName(IMinimizer self) -> std::string\n"
+		"\n"
+		"std::string IMinimizer::algorithmName() const\n"
+		"\n"
+		"return name of the minimization algorithm \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_minimize", _wrap_IMinimizer_minimize, METH_VARARGS, (char *)"\n"
 		"IMinimizer_minimize(IMinimizer self)\n"
 		"\n"
-		"virtual void IMinimizer::minimize()=0\n"
+		"void IMinimizer::minimize()\n"
 		"\n"
 		"run minimization \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_setParameter", _wrap_IMinimizer_setParameter, METH_VARARGS, (char *)"IMinimizer_setParameter(IMinimizer self, size_t index, FitParameter par)"},
+	 { (char *)"IMinimizer_setParameter", _wrap_IMinimizer_setParameter, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setParameter(IMinimizer self, size_t index, FitParameter par)\n"
+		"\n"
+		"void IMinimizer::setParameter(size_t index, const FitParameter *par)\n"
+		"\n"
+		"Sets internal minimizer parameter. \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_setParameters", _wrap_IMinimizer_setParameters, METH_VARARGS, (char *)"\n"
 		"IMinimizer_setParameters(IMinimizer self, FitSuiteParameters parameters)\n"
 		"\n"
-		"virtual void IMinimizer::setParameters(const FitSuiteParameters &parameters)=0\n"
+		"void IMinimizer::setParameters(const FitSuiteParameters &parameters)\n"
 		"\n"
-		"Sets internal minimizer parameter.\n"
-		"\n"
-		"Sets internal minimizer parameters using external parameter list \n"
+		"Sets internal minimizer parameters using external parameter list. \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_setChiSquaredFunction", _wrap_IMinimizer_setChiSquaredFunction, METH_VARARGS, (char *)"\n"
 		"IMinimizer_setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)\n"
 		"\n"
-		"virtual void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)=0\n"
+		"void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)\n"
 		"\n"
 		"Sets chi squared function to minimize. \n"
 		"\n"
@@ -22553,7 +22572,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_setGradientFunction", _wrap_IMinimizer_setGradientFunction, METH_VARARGS, (char *)"\n"
 		"IMinimizer_setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)\n"
 		"\n"
-		"virtual void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)=0\n"
+		"void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)\n"
 		"\n"
 		"Sets gradient function to minimize. \n"
 		"\n"
@@ -22561,35 +22580,75 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_getNumberOfVariables", _wrap_IMinimizer_getNumberOfVariables, METH_VARARGS, (char *)"\n"
 		"IMinimizer_getNumberOfVariables(IMinimizer self) -> size_t\n"
 		"\n"
-		"virtual size_t IMinimizer::getNumberOfVariables() const =0\n"
+		"size_t IMinimizer::getNumberOfVariables() const\n"
 		"\n"
 		"Returns number of variables to fit. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_getMinValue", _wrap_IMinimizer_getMinValue, METH_VARARGS, (char *)"IMinimizer_getMinValue(IMinimizer self) -> double"},
-	 { (char *)"IMinimizer_getValueOfVariableAtMinimum", _wrap_IMinimizer_getValueOfVariableAtMinimum, METH_VARARGS, (char *)"IMinimizer_getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double"},
+	 { (char *)"IMinimizer_getMinValue", _wrap_IMinimizer_getMinValue, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getMinValue(IMinimizer self) -> double\n"
+		"\n"
+		"double IMinimizer::getMinValue() const\n"
+		"\n"
+		"Returns minimum function value. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_getValueOfVariableAtMinimum", _wrap_IMinimizer_getValueOfVariableAtMinimum, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double\n"
+		"\n"
+		"double IMinimizer::getValueOfVariableAtMinimum(size_t index) const\n"
+		"\n"
+		"Returns value of the parameter at the minimum. \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_getValueOfVariablesAtMinimum", _wrap_IMinimizer_getValueOfVariablesAtMinimum, METH_VARARGS, (char *)"\n"
 		"IMinimizer_getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t\n"
 		"\n"
-		"virtual std::vector<double> IMinimizer::getValueOfVariablesAtMinimum() const =0\n"
+		"std::vector< double > IMinimizer::getValueOfVariablesAtMinimum() const\n"
 		"\n"
-		"Returns minimum function value.\n"
-		"\n"
-		"Returns values of parameters at the minimum \n"
+		"Returns values of parameters at the minimum. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_getErrorOfVariable", _wrap_IMinimizer_getErrorOfVariable, METH_VARARGS, (char *)"IMinimizer_getErrorOfVariable(IMinimizer self, size_t index) -> double"},
+	 { (char *)"IMinimizer_getErrorOfVariable", _wrap_IMinimizer_getErrorOfVariable, METH_VARARGS, (char *)"\n"
+		"IMinimizer_getErrorOfVariable(IMinimizer self, size_t index) -> double\n"
+		"\n"
+		"double IMinimizer::getErrorOfVariable(size_t index) const\n"
+		"\n"
+		"Returns error of variable at minimum. \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_getErrorOfVariables", _wrap_IMinimizer_getErrorOfVariables, METH_VARARGS, (char *)"\n"
 		"IMinimizer_getErrorOfVariables(IMinimizer self) -> vdouble1d_t\n"
 		"\n"
-		"virtual std::vector<double> IMinimizer::getErrorOfVariables() const =0\n"
+		"std::vector< double > IMinimizer::getErrorOfVariables() const\n"
 		"\n"
 		"Returns errors of variables at minimum. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"IMinimizer_clear(IMinimizer self)"},
-	 { (char *)"IMinimizer_reportResults", _wrap_IMinimizer_reportResults, METH_VARARGS, (char *)"IMinimizer_reportResults(IMinimizer self) -> std::string"},
-	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"IMinimizer_propagateResults(IMinimizer self, FitSuiteParameters parameters)"},
+	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"\n"
+		"IMinimizer_clear(IMinimizer self)\n"
+		"\n"
+		"void IMinimizer::clear()\n"
+		"\n"
+		"clear resources (parameters) for consecutives minimizations \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_reportResults", _wrap_IMinimizer_reportResults, METH_VARARGS, (char *)"\n"
+		"IMinimizer_reportResults(IMinimizer self) -> std::string\n"
+		"\n"
+		"std::string IMinimizer::reportResults() const\n"
+		"\n"
+		"Prints fit results. \n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"
+		"IMinimizer_propagateResults(IMinimizer self, FitSuiteParameters parameters)\n"
+		"\n"
+		"void IMinimizer::propagateResults(FitSuiteParameters &parameters)\n"
+		"\n"
+		"Propagates results of minimization to fit parameter set. \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_swigregister", IMinimizer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitParameter", _wrap_new_FitParameter, METH_VARARGS, (char *)"\n"
 		"FitParameter()\n"
@@ -22614,7 +22673,12 @@ static PyMethodDef SwigMethods[] = {
 		"std::string FitParameter::getName() const \n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_getStartValue", _wrap_FitParameter_getStartValue, METH_VARARGS, (char *)"FitParameter_getStartValue(FitParameter self) -> double"},
+	 { (char *)"FitParameter_getStartValue", _wrap_FitParameter_getStartValue, METH_VARARGS, (char *)"\n"
+		"FitParameter_getStartValue(FitParameter self) -> double\n"
+		"\n"
+		"virtual double FitParameter::getStartValue() const \n"
+		"\n"
+		""},
 	 { (char *)"FitParameter_setValue", _wrap_FitParameter_setValue, METH_VARARGS, (char *)"\n"
 		"FitParameter_setValue(FitParameter self, double value)\n"
 		"\n"
@@ -22651,7 +22715,12 @@ static PyMethodDef SwigMethods[] = {
 		"double FitParameter::getError() const \n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_limitsToString", _wrap_FitParameter_limitsToString, METH_VARARGS, (char *)"FitParameter_limitsToString(FitParameter self) -> std::string"},
+	 { (char *)"FitParameter_limitsToString", _wrap_FitParameter_limitsToString, METH_VARARGS, (char *)"\n"
+		"FitParameter_limitsToString(FitParameter self) -> std::string\n"
+		"\n"
+		"std::string FitParameter::limitsToString() const \n"
+		"\n"
+		""},
 	 { (char *)"FitParameter_swigregister", FitParameter_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitSuiteParameters", _wrap_new_FitSuiteParameters, METH_VARARGS, (char *)"\n"
 		"new_FitSuiteParameters() -> FitSuiteParameters\n"
@@ -22685,9 +22754,7 @@ static PyMethodDef SwigMethods[] = {
 		"getFitParameters() -> std::vector< FitParameter *,std::allocator< FitParameter * > >\n"
 		"FitSuiteParameters_getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > const &\n"
 		"\n"
-		"std::vector<FitParameter*>& FitSuiteParameters::getFitParameters()\n"
-		"\n"
-		"Returns all parameters. \n"
+		"const std::vector<FitParameter*>& FitSuiteParameters::getFitParameters() const \n"
 		"\n"
 		""},
 	 { (char *)"FitSuiteParameters_getFitParameter", _wrap_FitSuiteParameters_getFitParameter, METH_VARARGS, (char *)"\n"
@@ -22798,9 +22865,24 @@ static PyMethodDef SwigMethods[] = {
 		"Returns true if parameters already have the given values. \n"
 		"\n"
 		""},
-	 { (char *)"FitSuiteParameters_reportResults", _wrap_FitSuiteParameters_reportResults, METH_VARARGS, (char *)"FitSuiteParameters_reportResults(FitSuiteParameters self) -> std::string"},
-	 { (char *)"FitSuiteParameters_correlationMatrix", _wrap_FitSuiteParameters_correlationMatrix, METH_VARARGS, (char *)"FitSuiteParameters_correlationMatrix(FitSuiteParameters self) -> vdouble2d_t"},
-	 { (char *)"FitSuiteParameters_setCorrelationMatrix", _wrap_FitSuiteParameters_setCorrelationMatrix, METH_VARARGS, (char *)"FitSuiteParameters_setCorrelationMatrix(FitSuiteParameters self, vdouble2d_t matrix)"},
+	 { (char *)"FitSuiteParameters_reportResults", _wrap_FitSuiteParameters_reportResults, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_reportResults(FitSuiteParameters self) -> std::string\n"
+		"\n"
+		"std::string FitSuiteParameters::reportResults() const \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_correlationMatrix", _wrap_FitSuiteParameters_correlationMatrix, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_correlationMatrix(FitSuiteParameters self) -> vdouble2d_t\n"
+		"\n"
+		"corr_matrix_t FitSuiteParameters::correlationMatrix() const \n"
+		"\n"
+		""},
+	 { (char *)"FitSuiteParameters_setCorrelationMatrix", _wrap_FitSuiteParameters_setCorrelationMatrix, METH_VARARGS, (char *)"\n"
+		"FitSuiteParameters_setCorrelationMatrix(FitSuiteParameters self, vdouble2d_t matrix)\n"
+		"\n"
+		"void FitSuiteParameters::setCorrelationMatrix(const corr_matrix_t &matrix)\n"
+		"\n"
+		""},
 	 { (char *)"FitSuiteParameters___getitem__", _wrap_FitSuiteParameters___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> FitParameter\n"
 		"FitSuiteParameters___getitem__(FitSuiteParameters self, size_t index) -> FitParameter\n"
@@ -22812,9 +22894,30 @@ static PyMethodDef SwigMethods[] = {
 		"MinimizerCatalogue::MinimizerCatalogue()\n"
 		"\n"
 		""},
-	 { (char *)"MinimizerCatalogue_toString", _wrap_MinimizerCatalogue_toString, METH_VARARGS, (char *)"MinimizerCatalogue_toString(MinimizerCatalogue self) -> std::string"},
-	 { (char *)"MinimizerCatalogue_algorithmNames", _wrap_MinimizerCatalogue_algorithmNames, METH_VARARGS, (char *)"MinimizerCatalogue_algorithmNames(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t"},
-	 { (char *)"MinimizerCatalogue_algorithmDescriptions", _wrap_MinimizerCatalogue_algorithmDescriptions, METH_VARARGS, (char *)"MinimizerCatalogue_algorithmDescriptions(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t"},
+	 { (char *)"MinimizerCatalogue_toString", _wrap_MinimizerCatalogue_toString, METH_VARARGS, (char *)"\n"
+		"MinimizerCatalogue_toString(MinimizerCatalogue self) -> std::string\n"
+		"\n"
+		"std::string MinimizerCatalogue::toString() const\n"
+		"\n"
+		"Returns multiline string representing catalogue content. \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerCatalogue_algorithmNames", _wrap_MinimizerCatalogue_algorithmNames, METH_VARARGS, (char *)"\n"
+		"MinimizerCatalogue_algorithmNames(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t\n"
+		"\n"
+		"std::vector< std::string > MinimizerCatalogue::algorithmNames(const std::string &minimizerName) const\n"
+		"\n"
+		"Returns list of algorithms defined for the minimizer with a given name. \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerCatalogue_algorithmDescriptions", _wrap_MinimizerCatalogue_algorithmDescriptions, METH_VARARGS, (char *)"\n"
+		"MinimizerCatalogue_algorithmDescriptions(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t\n"
+		"\n"
+		"std::vector< std::string > MinimizerCatalogue::algorithmDescriptions(const std::string &minimizerName) const\n"
+		"\n"
+		"Returns list of algorithm's descriptions for the minimizer with a given name . \n"
+		"\n"
+		""},
 	 { (char *)"delete_MinimizerCatalogue", _wrap_delete_MinimizerCatalogue, METH_VARARGS, (char *)"delete_MinimizerCatalogue(MinimizerCatalogue self)"},
 	 { (char *)"MinimizerCatalogue_swigregister", MinimizerCatalogue_swigregister, METH_VARARGS, NULL},
 	 { (char *)"MinimizerFactory_printCatalogue", _wrap_MinimizerFactory_printCatalogue, METH_VARARGS, (char *)"MinimizerFactory_printCatalogue()"},
@@ -22832,6 +22935,10 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"\n"
 		"Factory to create minimizers.\n"
+		"\n"
+		"Minimizer | Algorithms\n"
+		"\n"
+		"Minuit2 | Migrad Simplex Combined Scan Fumili GSLMultiMin | SteepestDescent ConjugateFR ConjugatePR BFGS BFGS2 GSLLMA | Default GSLSimAn | Default Genetic | Default\n"
 		"\n"
 		"C++ includes: MinimizerFactory.h\n"
 		"\n"

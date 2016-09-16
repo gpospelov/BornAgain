@@ -27,15 +27,16 @@ public:
     FormFactorLorentz(double volume);
     FormFactorLorentz(double width, double height);
 
-    FormFactorLorentz* clone() const final { return new FormFactorLorentz(m_width, m_height); }
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    FormFactorLorentz* clone() const override final {
+        return new FormFactorLorentz(m_width, m_height); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     double getWidth() const { return m_width; }
     double getHeight() const { return m_height; }
 
-    double getRadialExtension() const final;
+    double getRadialExtension() const override final;
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
     double m_width;

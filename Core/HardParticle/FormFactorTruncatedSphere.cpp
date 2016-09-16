@@ -34,8 +34,6 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
 }
 
-FormFactorTruncatedSphere::~FormFactorTruncatedSphere() {}
-
 bool FormFactorTruncatedSphere::check_initialization() const
 {
     bool result(true);

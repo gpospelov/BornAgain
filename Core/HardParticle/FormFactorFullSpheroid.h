@@ -27,15 +27,16 @@ class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn
 public:
     FormFactorFullSpheroid(double radius, double height);
 
-    FormFactorFullSpheroid* clone() const { return new FormFactorFullSpheroid(m_radius, m_height); }
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    FormFactorFullSpheroid* clone() const override final {
+        return new FormFactorFullSpheroid(m_radius, m_height); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const final { return m_radius; }
+    double getRadialExtension() const override final { return m_radius; }
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
     complex_t Integrand(double Z) const;

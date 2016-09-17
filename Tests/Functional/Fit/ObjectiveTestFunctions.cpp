@@ -16,6 +16,7 @@
 #include "ObjectiveTestFunctions.h"
 #include <stdexcept>
 #include <iostream>
+#include <string>
 
 //! RosenBrock function: F(x,y) = 100 (y-x^2)^2 + (1-x)^2
 

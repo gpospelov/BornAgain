@@ -10,6 +10,7 @@ endforeach()
 
 set(tests
     "testfit_UsingBuilder.py"
+    "fitsuite_api.py"
 #    "testfit_GSLLMA.py"
 #    "testfit_GSLMultiMin.py"
 #    "testfit_GSLSimAn.py"

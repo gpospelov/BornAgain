@@ -47,22 +47,22 @@ size_t FitParameterSet::size() const
 
 //! Container iterators.
 
-FitParameterSet::container_t::iterator FitParameterSet::begin()
+FitParameterSet::iterator FitParameterSet::begin()
 {
     return m_parameters.begin();
 }
 
-FitParameterSet::container_t::const_iterator FitParameterSet::begin() const
+FitParameterSet::const_iterator FitParameterSet::begin() const
 {
     return m_parameters.begin();
 }
 
-FitParameterSet::container_t::iterator FitParameterSet::end()
+FitParameterSet::iterator FitParameterSet::end()
 {
     return m_parameters.end();
 }
 
-FitParameterSet::container_t::const_iterator FitParameterSet::end() const
+FitParameterSet::const_iterator FitParameterSet::end() const
 {
     return m_parameters.end();
 }

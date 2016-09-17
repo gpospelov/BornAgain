@@ -5,15 +5,11 @@
 
 from __future__ import print_function
 import sys
-import os
-import numpy
-import time
 import ctypes
 import math
 
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
-from libBornAgainCore import *
-from libBornAgainFit import *
+from bornagain import *
 
 # values we want to find
 cylinder_height = 5.0*nanometer
@@ -22,13 +18,11 @@ prism3_half_side = 5.0*nanometer
 prism3_height = 5.0*nanometer
 cylinder_ratio = 0.2
 
-# -----------------------------------------------------------------------------
-# run minimization using sample builder
-# -----------------------------------------------------------------------------
+
 def runTest():
-    #print "**********************************************************************"
-    #print "*  Starting  TestFit02                                               *"
-    #print "**********************************************************************"
+    """
+    run minimization using sample builder
+    """
 
     # setting sample builder to initial values
     sample_builder = MySampleBuilder()
@@ -68,7 +62,7 @@ def runTest():
     # analysing fit results
     initialParameters = [ cylinder_height, cylinder_radius,
                           prism3_half_side, prism3_height, cylinder_ratio]
-    results = fitSuite.getFitParameters().getValues()
+    results = fitSuite.fitParameters().values()
     threshold = 1.0e-02
     status = "OK"
     for i in range(0, len(initialParameters)):
@@ -80,8 +74,8 @@ def runTest():
 
 # create simulation
 def createSimulation():
-    simulation = GISASSimulation();
-    simulation.setDetectorParameters(50, 0.0*degree, 2.0*degree, 50 , 0.0*degree, 2.0*degree)
+    simulation = GISASSimulation()
+    simulation.setDetectorParameters(50, 0.0*degree, 2.0*degree, 50, 0.0*degree, 2.0*degree)
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     #simulation.setBeamIntensity(1e10);
     return simulation
@@ -89,7 +83,7 @@ def createSimulation():
 
 # generating "real" data by adding noise to the simulated data
 def createRealData(simulation):
-    simulation.runSimulation();
+    simulation.runSimulation()
     real_data = simulation.getIntensityData()
     noise_factor = 0.1
     for i in range(0, real_data.getTotalNumberOfBins()):
@@ -112,7 +106,7 @@ class MySampleBuilder(IMultiLayerBuilder):
         print("MySampleBuilder ctor")
         self.sample = None
         # parameters describing the sample
-        self.cylinder_height  = ctypes.c_double(5.0*nanometer)
+        self.cylinder_height = ctypes.c_double(5.0*nanometer)
         self.cylinder_radius = ctypes.c_double(5.0*nanometer)
         self.prism3_half_side = ctypes.c_double(5.0*nanometer)
         self.prism3_height = ctypes.c_double(5.0*nanometer)
@@ -126,7 +120,7 @@ class MySampleBuilder(IMultiLayerBuilder):
             setUnit("nm").setNonnegative()
         self.registerParameter("prism3_height", ctypes.addressof(self.prism3_height)).\
             setUnit("nm").setNonnegative()
-        self.registerParameter("cylinder_ratio", ctypes.addressof(self.cylinder_ratio) ).\
+        self.registerParameter("cylinder_ratio", ctypes.addressof(self.cylinder_ratio)).\
             setNonnegative()
 
     # constructs the sample for current values of parameters
@@ -134,12 +128,12 @@ class MySampleBuilder(IMultiLayerBuilder):
         multi_layer = MultiLayer()
         air_material = HomogeneousMaterial("Air", 0.0, 0.0)
         substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-        mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
+        mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
         air_layer = Layer(air_material)
         substrate_layer = Layer(substrate_material)
 
-        cylinder_ff = FormFactorCylinder( self.cylinder_height.value, self.cylinder_radius.value)
-        prism_ff = FormFactorPrism3( self.prism3_height.value, self.prism3_half_side.value)
+        cylinder_ff = FormFactorCylinder(self.cylinder_height.value, self.cylinder_radius.value)
+        prism_ff = FormFactorPrism3(self.prism3_height.value, self.prism3_half_side.value)
         cylinder = Particle(mParticle, cylinder_ff)
         prism = Particle(mParticle, prism_ff)
         interference = InterferenceFunctionNone()
@@ -155,10 +149,9 @@ class MySampleBuilder(IMultiLayerBuilder):
         self.sample = multi_layer
         return self.sample
 
-#-------------------------------------------------------------
-# main()
-#-------------------------------------------------------------
+
 if __name__ == '__main__':
-    name,description,status = runTest()
-    print(name,description,status)
-    if("FAILED" in status) : exit(1)
+    name, description, status = runTest()
+    print(name, description, status)
+    if "FAILED" in status:
+        exit(1)

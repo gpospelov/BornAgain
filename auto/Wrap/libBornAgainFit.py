@@ -2042,16 +2042,16 @@ class FitParameterSet(_object):
 
     def begin(self, *args):
         """
-        begin(FitParameterSet self) -> FitParameterSet::container_t::iterator
-        begin(FitParameterSet self) -> FitParameterSet::container_t::const_iterator
+        begin(FitParameterSet self) -> FitParameterSet::iterator
+        begin(FitParameterSet self) -> FitParameterSet::const_iterator
         """
         return _libBornAgainFit.FitParameterSet_begin(self, *args)
 
 
     def end(self, *args):
         """
-        end(FitParameterSet self) -> FitParameterSet::container_t::iterator
-        end(FitParameterSet self) -> FitParameterSet::container_t::const_iterator
+        end(FitParameterSet self) -> FitParameterSet::iterator
+        end(FitParameterSet self) -> FitParameterSet::const_iterator
         """
         return _libBornAgainFit.FitParameterSet_end(self, *args)
 
@@ -2148,6 +2148,10 @@ class FitParameterSet(_object):
         __getitem__(FitParameterSet self, size_t index) -> FitParameter
         """
         return _libBornAgainFit.FitParameterSet___getitem__(self, *args)
+
+
+    def __iter__(self):
+        return FitParameterSetIterator(self)
 
 FitParameterSet_swigregister = _libBornAgainFit.FitParameterSet_swigregister
 FitParameterSet_swigregister(FitParameterSet)
@@ -2292,6 +2296,20 @@ def MinimizerFactory_createMinimizer(*args):
 def MinimizerFactory_catalogue():
     """MinimizerFactory_catalogue() -> MinimizerCatalogue"""
     return _libBornAgainFit.MinimizerFactory_catalogue()
+
+
+class FitParameterSetIterator(object):
+
+    def __init__(self, fitParameters):
+        self.fitParameters = fitParameters
+        self.index = -1
+
+    def next(self):
+        self.index += 1
+        if self.index < self.fitParameters.size():
+            return self.fitParameters[self.index]
+        else:
+            raise StopIteration
 
 # This file is compatible with both classic and new-style classes.
 

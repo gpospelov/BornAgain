@@ -1,4 +1,23 @@
- // introduced because of FitCylindersAndPrisms example
+
+// FitParameterSet iterator
+
+%pythoncode %{
+class FitParameterSetIterator(object):
+
+    def __init__(self, fitParameters):
+        self.fitParameters = fitParameters
+        self.index = -1
+
+    def next(self):
+        self.index += 1
+        if self.index < self.fitParameters.size():
+            return self.fitParameters[self.index]
+        else:
+            raise StopIteration
+%}
+
+// FitParameterSet accessors
+
 %extend FitParameterSet {
     const FitParameter* __getitem__(std::string name) const
     {
@@ -8,4 +27,11 @@
     {
         return (*($self))[index];
     }
+
+%pythoncode {
+    def __iter__(self):
+        return FitParameterSetIterator(self)
+}
 };
+
+

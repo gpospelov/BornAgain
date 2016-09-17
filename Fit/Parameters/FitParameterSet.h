@@ -30,6 +30,8 @@ class BA_CORE_API_ FitParameterSet
 {
  public:
     typedef std::vector<FitParameter*> container_t;
+    typedef container_t::iterator iterator;
+    typedef container_t::const_iterator const_iterator;
     typedef std::vector<std::vector<double>> corr_matrix_t;
 
     FitParameterSet() {}
@@ -39,10 +41,10 @@ class BA_CORE_API_ FitParameterSet
 
     void clear();
     size_t size() const;
-    container_t::iterator begin();
-    container_t::const_iterator begin() const;
-    container_t::iterator end();
-    container_t::const_iterator end() const;
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
 
     /// adding fit parameters
 

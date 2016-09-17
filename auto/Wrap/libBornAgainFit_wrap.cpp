@@ -3463,43 +3463,45 @@ namespace Swig {
 #define SWIGTYPE_p_RealLimits swig_types[6]
 #define SWIGTYPE_p_allocator_type swig_types[7]
 #define SWIGTYPE_p_char swig_types[8]
-#define SWIGTYPE_p_container_t swig_types[9]
-#define SWIGTYPE_p_corr_matrix_t swig_types[10]
-#define SWIGTYPE_p_difference_type swig_types[11]
-#define SWIGTYPE_p_gradient_function_t swig_types[12]
-#define SWIGTYPE_p_int swig_types[13]
-#define SWIGTYPE_p_long_long swig_types[14]
-#define SWIGTYPE_p_objective_function_t swig_types[15]
-#define SWIGTYPE_p_p_PyObject swig_types[16]
-#define SWIGTYPE_p_short swig_types[17]
-#define SWIGTYPE_p_signed_char swig_types[18]
-#define SWIGTYPE_p_size_type swig_types[19]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[20]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[21]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[22]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[23]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[24]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[25]
-#define SWIGTYPE_p_std__invalid_argument swig_types[26]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[27]
-#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[28]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[29]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[30]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[31]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[32]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[33]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[34]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[35]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[36]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[37]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[38]
-#define SWIGTYPE_p_unsigned_char swig_types[39]
-#define SWIGTYPE_p_unsigned_int swig_types[40]
-#define SWIGTYPE_p_unsigned_long_long swig_types[41]
-#define SWIGTYPE_p_unsigned_short swig_types[42]
-#define SWIGTYPE_p_value_type swig_types[43]
-static swig_type_info *swig_types[45];
-static swig_module_info swig_module = {swig_types, 44, 0, 0, 0, 0};
+#define SWIGTYPE_p_const_iterator swig_types[9]
+#define SWIGTYPE_p_container_t swig_types[10]
+#define SWIGTYPE_p_corr_matrix_t swig_types[11]
+#define SWIGTYPE_p_difference_type swig_types[12]
+#define SWIGTYPE_p_gradient_function_t swig_types[13]
+#define SWIGTYPE_p_int swig_types[14]
+#define SWIGTYPE_p_iterator swig_types[15]
+#define SWIGTYPE_p_long_long swig_types[16]
+#define SWIGTYPE_p_objective_function_t swig_types[17]
+#define SWIGTYPE_p_p_PyObject swig_types[18]
+#define SWIGTYPE_p_short swig_types[19]
+#define SWIGTYPE_p_signed_char swig_types[20]
+#define SWIGTYPE_p_size_type swig_types[21]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[22]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[23]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[24]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[25]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[26]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[27]
+#define SWIGTYPE_p_std__invalid_argument swig_types[28]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[29]
+#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[30]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[31]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[32]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[33]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[34]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[35]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[36]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[37]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[38]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[39]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[40]
+#define SWIGTYPE_p_unsigned_char swig_types[41]
+#define SWIGTYPE_p_unsigned_int swig_types[42]
+#define SWIGTYPE_p_unsigned_long_long swig_types[43]
+#define SWIGTYPE_p_unsigned_short swig_types[44]
+#define SWIGTYPE_p_value_type swig_types[45]
+static swig_type_info *swig_types[47];
+static swig_module_info swig_module = {swig_types, 46, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -20384,7 +20386,7 @@ SWIGINTERN PyObject *_wrap_FitParameterSet_begin__SWIG_0(PyObject *SWIGUNUSEDPAR
   }
   arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   result = (arg1)->begin();
-  resultobj = SWIG_NewPointerObj((new FitParameterSet::container_t::iterator(static_cast< const FitParameterSet::container_t::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new FitParameterSet::iterator(static_cast< const FitParameterSet::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20406,7 +20408,7 @@ SWIGINTERN PyObject *_wrap_FitParameterSet_begin__SWIG_1(PyObject *SWIGUNUSEDPAR
   }
   arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   result = ((FitParameterSet const *)arg1)->begin();
-  resultobj = SWIG_NewPointerObj((new FitParameterSet::container_t::const_iterator(static_cast< const FitParameterSet::container_t::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new FitParameterSet::const_iterator(static_cast< const FitParameterSet::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20468,7 +20470,7 @@ SWIGINTERN PyObject *_wrap_FitParameterSet_end__SWIG_0(PyObject *SWIGUNUSEDPARM(
   }
   arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   result = (arg1)->end();
-  resultobj = SWIG_NewPointerObj((new FitParameterSet::container_t::iterator(static_cast< const FitParameterSet::container_t::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new FitParameterSet::iterator(static_cast< const FitParameterSet::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20490,7 +20492,7 @@ SWIGINTERN PyObject *_wrap_FitParameterSet_end__SWIG_1(PyObject *SWIGUNUSEDPARM(
   }
   arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   result = ((FitParameterSet const *)arg1)->end();
-  resultobj = SWIG_NewPointerObj((new FitParameterSet::container_t::const_iterator(static_cast< const FitParameterSet::container_t::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new FitParameterSet::const_iterator(static_cast< const FitParameterSet::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -22409,12 +22411,12 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitParameterSet_clear", _wrap_FitParameterSet_clear, METH_VARARGS, (char *)"FitParameterSet_clear(FitParameterSet self)"},
 	 { (char *)"FitParameterSet_size", _wrap_FitParameterSet_size, METH_VARARGS, (char *)"FitParameterSet_size(FitParameterSet self) -> size_t"},
 	 { (char *)"FitParameterSet_begin", _wrap_FitParameterSet_begin, METH_VARARGS, (char *)"\n"
-		"begin() -> FitParameterSet::container_t::iterator\n"
-		"FitParameterSet_begin(FitParameterSet self) -> FitParameterSet::container_t::const_iterator\n"
+		"begin() -> FitParameterSet::iterator\n"
+		"FitParameterSet_begin(FitParameterSet self) -> FitParameterSet::const_iterator\n"
 		""},
 	 { (char *)"FitParameterSet_end", _wrap_FitParameterSet_end, METH_VARARGS, (char *)"\n"
-		"end() -> FitParameterSet::container_t::iterator\n"
-		"FitParameterSet_end(FitParameterSet self) -> FitParameterSet::container_t::const_iterator\n"
+		"end() -> FitParameterSet::iterator\n"
+		"FitParameterSet_end(FitParameterSet self) -> FitParameterSet::const_iterator\n"
 		""},
 	 { (char *)"FitParameterSet_addFitParameter", _wrap_FitParameterSet_addFitParameter, METH_VARARGS, (char *)"FitParameterSet_addFitParameter(FitParameterSet self, FitParameter par)"},
 	 { (char *)"FitParameterSet_fitParameter", _wrap_FitParameterSet_fitParameter, METH_VARARGS, (char *)"\n"
@@ -22496,11 +22498,13 @@ static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "Mini
 static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_container_t = {"_p_container_t", "container_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_corr_matrix_t = {"_p_corr_matrix_t", "corr_matrix_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_gradient_function_t = {"_p_gradient_function_t", "gradient_function_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "intptr_t *|int *|int_least32_t *|int_fast32_t *|int32_t *|int_fast16_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_iterator = {"_p_iterator", "iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long_long = {"_p_long_long", "int_least64_t *|int_fast64_t *|int64_t *|long long *|intmax_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_objective_function_t = {"_p_objective_function_t", "objective_function_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_PyObject = {"_p_p_PyObject", "PyObject **", 0, 0, (void*)0, 0};
@@ -22517,8 +22521,8 @@ static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argume
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IMultiLayerBuilder_t = {"_p_std__shared_ptrT_IMultiLayerBuilder_t", "std::shared_ptr< IMultiLayerBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator", "FitParameterSet::container_t::const_iterator *|std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator", "FitParameterSet::container_t::iterator *|std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator", "FitParameterSet::const_iterator *|std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator", "FitParameterSet::iterator *|std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t = {"_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t", "std::vector< std::complex< double > > *|std::vector< std::complex< double >,std::allocator< std::complex< double > > > *", 0, 0, (void*)0, 0};
@@ -22542,11 +22546,13 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_RealLimits,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
+  &_swigt__p_const_iterator,
   &_swigt__p_container_t,
   &_swigt__p_corr_matrix_t,
   &_swigt__p_difference_type,
   &_swigt__p_gradient_function_t,
   &_swigt__p_int,
+  &_swigt__p_iterator,
   &_swigt__p_long_long,
   &_swigt__p_objective_function_t,
   &_swigt__p_p_PyObject,
@@ -22588,11 +22594,13 @@ static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFac
 static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_FitParameter, _p_FitParameterTo_p_RealLimits, 0, 0},  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_container_t[] = {  {&_swigt__p_container_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_corr_matrix_t[] = {  {&_swigt__p_corr_matrix_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_gradient_function_t[] = {  {&_swigt__p_gradient_function_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_iterator[] = {  {&_swigt__p_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_objective_function_t[] = {  {&_swigt__p_objective_function_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_PyObject[] = {  {&_swigt__p_p_PyObject, 0, 0, 0},{0, 0, 0, 0}};
@@ -22634,11 +22642,13 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_RealLimits,
   _swigc__p_allocator_type,
   _swigc__p_char,
+  _swigc__p_const_iterator,
   _swigc__p_container_t,
   _swigc__p_corr_matrix_t,
   _swigc__p_difference_type,
   _swigc__p_gradient_function_t,
   _swigc__p_int,
+  _swigc__p_iterator,
   _swigc__p_long_long,
   _swigc__p_objective_function_t,
   _swigc__p_p_PyObject,

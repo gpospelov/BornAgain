@@ -6060,14 +6060,23 @@ class FitSuite(IObservable):
         """
         printResults(FitSuite self)
 
-        void FitSuite::printResults() const 
+        void FitSuite::printResults() const
+
+        Prints results of the minimization to the standard output. 
 
         """
         return _libBornAgainCore.FitSuite_printResults(self)
 
 
     def reportResults(self):
-        """reportResults(FitSuite self) -> std::string"""
+        """
+        reportResults(FitSuite self) -> std::string
+
+        std::string FitSuite::reportResults() const
+
+        Reports results of minimization in the form of multi-line string. 
+
+        """
         return _libBornAgainCore.FitSuite_reportResults(self)
 
 
@@ -6617,7 +6626,7 @@ class FitStrategyAdjustMinimizer(IFitStrategy):
         """
         getMinimizerOptions(FitStrategyAdjustMinimizer self) -> ObsoleteMinimizerOptions *
 
-        MinimizerOptions * FitStrategyAdjustMinimizer::getMinimizerOptions()
+        ObsoleteMinimizerOptions * FitStrategyAdjustMinimizer::getMinimizerOptions()
 
         """
         return _libBornAgainCore.FitStrategyAdjustMinimizer_getMinimizerOptions(self)
@@ -6827,8 +6836,6 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, FormFactorTruncatedCube arg2)
         visit(ISampleVisitor self, FormFactorTruncatedSphere arg2)
         visit(ISampleVisitor self, FormFactorTruncatedSpheroid arg2)
-        visit(ISampleVisitor self, FormFactorDWBA const * arg2)
-        visit(ISampleVisitor self, FormFactorDWBAPol const * arg2)
         visit(ISampleVisitor self, FormFactorWeighted arg2)
         visit(ISampleVisitor self, FormFactorDecoratorDebyeWaller arg2)
         visit(ISampleVisitor self, FormFactorDecoratorFactor const * arg2)
@@ -8706,7 +8713,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DCauchy
 
-        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DCauchy(*args)
@@ -8767,7 +8774,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DGauss
 
-        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DGauss(*args)
@@ -8828,7 +8835,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta) -> FTDecayFunction2DVoigt
 
-        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=Pi::PID2)
+        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDecayFunction2DVoigt(*args)
@@ -9431,7 +9438,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCauchy
 
-        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DCauchy(*args)
@@ -9492,7 +9499,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGauss
 
-        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DGauss(*args)
@@ -9553,7 +9560,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGate
 
-        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DGate(*args)
@@ -9614,7 +9621,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCone
 
-        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DCone(*args)
@@ -9675,7 +9682,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta) -> FTDistribution2DVoigt
 
-        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=Pi::PID2)
+        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=M_PI_2)
 
         """
         this = _libBornAgainCore.new_FTDistribution2DVoigt(*args)
@@ -10245,9 +10252,7 @@ class IFormFactorBorn(IFormFactor):
     """
 
 
-    Base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
-
-    NOTE: These class should be pure virtual; the functions evaluate and evaluatePol should be declared final; the functions clone, accept, evaluate_for_q, getRadialExtension should be =0 instead of having trivial implementations. HOWEVER, this seems to conflict with the inclusion of this class in Wrap/swig/directors.i, which in turn seems to be necessary for CustomFormFactor.py to work.
+    Pure virtual base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
     C++ includes: IFormFactorBorn.h
 
@@ -10286,24 +10291,12 @@ class IFormFactorBorn(IFormFactor):
         """
         clone(IFormFactorBorn self) -> IFormFactorBorn
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const
+        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
 
         Returns a clone of this  ISample object. 
 
         """
         return _libBornAgainCore.IFormFactorBorn_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(IFormFactorBorn self, ISampleVisitor visitor)
-
-        virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
-
-        Calls the  ISampleVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IFormFactorBorn_accept(self, visitor)
 
 
     def evaluate(self, wavevectors):
@@ -10322,24 +10315,12 @@ class IFormFactorBorn(IFormFactor):
         """
         evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
 
-        complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
 
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
-
-
-    def getRadialExtension(self):
-        """
-        getRadialExtension(IFormFactorBorn self) -> double
-
-        double IFormFactorBorn::getRadialExtension() const
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.IFormFactorBorn_getRadialExtension(self)
 
     def __disown__(self):
         self.this.disown()
@@ -10803,18 +10784,6 @@ class FormFactorPolyhedron(IFormFactorBorn):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
-    def onChange(self):
-        """
-        onChange(FormFactorPolyhedron self)
-
-        virtual void FormFactorPolyhedron::onChange()=0
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.FormFactorPolyhedron_onChange(self)
-
-
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
@@ -10897,20 +10866,10 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     for _s in [IFormFactorBorn]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolygonalPrism, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, height):
-        """
-        __init__(FormFactorPolygonalPrism self, double const height) -> FormFactorPolygonalPrism
-
-        FormFactorPolygonalPrism::FormFactorPolygonalPrism(const double height)
-
-        """
-        this = _libBornAgainCore.new_FormFactorPolygonalPrism(height)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def evaluate_for_q(self, q):
         """
@@ -10980,20 +10939,10 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
     for _s in [IFormFactorBorn]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPolygonalSurface, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(FormFactorPolygonalSurface self) -> FormFactorPolygonalSurface
-
-        FormFactorPolygonalSurface::FormFactorPolygonalSurface()
-
-        """
-        this = _libBornAgainCore.new_FormFactorPolygonalSurface()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def evaluate_for_q(self, q):
         """
@@ -11322,8 +11271,6 @@ class FormFactorCone(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCone
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -11402,6 +11349,8 @@ class FormFactorCone(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorCone_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCone
+    __del__ = lambda self: None
 FormFactorCone_swigregister = _libBornAgainCore.FormFactorCone_swigregister
 FormFactorCone_swigregister(FormFactorCone)
 
@@ -11753,8 +11702,6 @@ class FormFactorCylinder(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCylinder
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -11823,6 +11770,8 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorCylinder_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorCylinder
+    __del__ = lambda self: None
 FormFactorCylinder_swigregister = _libBornAgainCore.FormFactorCylinder_swigregister
 FormFactorCylinder_swigregister(FormFactorCylinder)
 
@@ -12924,8 +12873,6 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple1Gauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13004,6 +12951,8 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple1Gauss
+    __del__ = lambda self: None
 FormFactorLongRipple1Gauss_swigregister = _libBornAgainCore.FormFactorLongRipple1Gauss_swigregister
 FormFactorLongRipple1Gauss_swigregister(FormFactorLongRipple1Gauss)
 
@@ -13053,8 +13002,6 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple1Lorentz
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13133,6 +13080,8 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple1Lorentz
+    __del__ = lambda self: None
 FormFactorLongRipple1Lorentz_swigregister = _libBornAgainCore.FormFactorLongRipple1Lorentz_swigregister
 FormFactorLongRipple1Lorentz_swigregister(FormFactorLongRipple1Lorentz)
 
@@ -13185,8 +13134,6 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Gauss
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13275,6 +13222,8 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Gauss
+    __del__ = lambda self: None
 FormFactorLongRipple2Gauss_swigregister = _libBornAgainCore.FormFactorLongRipple2Gauss_swigregister
 FormFactorLongRipple2Gauss_swigregister(FormFactorLongRipple2Gauss)
 
@@ -13325,8 +13274,6 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Lorentz
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13415,6 +13362,8 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongRipple2Lorentz
+    __del__ = lambda self: None
 FormFactorLongRipple2Lorentz_swigregister = _libBornAgainCore.FormFactorLongRipple2Lorentz_swigregister
 FormFactorLongRipple2Lorentz_swigregister(FormFactorLongRipple2Lorentz)
 
@@ -13815,8 +13764,6 @@ class FormFactorRipple1(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -13895,6 +13842,8 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorRipple1_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple1
+    __del__ = lambda self: None
 FormFactorRipple1_swigregister = _libBornAgainCore.FormFactorRipple1_swigregister
 FormFactorRipple1_swigregister(FormFactorRipple1)
 
@@ -13947,8 +13896,6 @@ class FormFactorRipple2(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14037,6 +13984,8 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorRipple2_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2
+    __del__ = lambda self: None
 FormFactorRipple2_swigregister = _libBornAgainCore.FormFactorRipple2_swigregister
 FormFactorRipple2_swigregister(FormFactorRipple2)
 
@@ -14072,8 +14021,6 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereGaussianRadius
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14122,6 +14069,8 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereGaussianRadius
+    __del__ = lambda self: None
 FormFactorSphereGaussianRadius_swigregister = _libBornAgainCore.FormFactorSphereGaussianRadius_swigregister
 FormFactorSphereGaussianRadius_swigregister(FormFactorSphereGaussianRadius)
 
@@ -14157,8 +14106,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereLogNormalRadius
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14207,6 +14154,8 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorSphereLogNormalRadius
+    __del__ = lambda self: None
 FormFactorSphereLogNormalRadius_swigregister = _libBornAgainCore.FormFactorSphereLogNormalRadius_swigregister
 FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
 
@@ -14605,8 +14554,6 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSphere
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14663,6 +14610,20 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadialExtension(self)
 
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+
+        """
+        return _libBornAgainCore.FormFactorTruncatedSphere_evaluate_for_q(self, q)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSphere
+    __del__ = lambda self: None
 FormFactorTruncatedSphere_swigregister = _libBornAgainCore.FormFactorTruncatedSphere_swigregister
 FormFactorTruncatedSphere_swigregister(FormFactorTruncatedSphere)
 
@@ -14698,8 +14659,6 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSpheroid
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -14778,6 +14737,8 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_evaluate_for_q(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTruncatedSpheroid
+    __del__ = lambda self: None
 FormFactorTruncatedSpheroid_swigregister = _libBornAgainCore.FormFactorTruncatedSpheroid_swigregister
 FormFactorTruncatedSpheroid_swigregister(FormFactorTruncatedSpheroid)
 
@@ -14974,27 +14935,54 @@ class Simulation(ICloneable, IParameterized):
 
 
     def setBeamIntensity(self, intensity):
-        """setBeamIntensity(Simulation self, double intensity)"""
+        """
+        setBeamIntensity(Simulation self, double intensity)
+
+        void Simulation::setBeamIntensity(double intensity)
+
+        """
         return _libBornAgainCore.Simulation_setBeamIntensity(self, intensity)
 
 
     def getBeamIntensity(self):
-        """getBeamIntensity(Simulation self) -> double"""
+        """
+        getBeamIntensity(Simulation self) -> double
+
+        double Simulation::getBeamIntensity() const 
+
+        """
         return _libBornAgainCore.Simulation_getBeamIntensity(self)
 
 
     def setBeamPolarization(self, bloch_vector):
-        """setBeamPolarization(Simulation self, kvector_t bloch_vector)"""
+        """
+        setBeamPolarization(Simulation self, kvector_t bloch_vector)
+
+        void Simulation::setBeamPolarization(const kvector_t bloch_vector)
+
+        Sets the beam polarization according to the given Bloch vector. 
+
+        """
         return _libBornAgainCore.Simulation_setBeamPolarization(self, bloch_vector)
 
 
     def setDetectorResolutionFunction(self, resolution_function):
-        """setDetectorResolutionFunction(Simulation self, IResolutionFunction2D resolution_function)"""
+        """
+        setDetectorResolutionFunction(Simulation self, IResolutionFunction2D resolution_function)
+
+        void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
+
+        """
         return _libBornAgainCore.Simulation_setDetectorResolutionFunction(self, resolution_function)
 
 
     def removeDetectorResolutionFunction(self):
-        """removeDetectorResolutionFunction(Simulation self)"""
+        """
+        removeDetectorResolutionFunction(Simulation self)
+
+        void Simulation::removeDetectorResolutionFunction()
+
+        """
         return _libBornAgainCore.Simulation_removeDetectorResolutionFunction(self)
 
 
@@ -15002,6 +14990,11 @@ class Simulation(ICloneable, IParameterized):
         """
         setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission=1.0)
         setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency)
+
+        void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
+
+        Sets the polarization analyzer characteristics of the detector. 
+
         """
         return _libBornAgainCore.Simulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
 
@@ -17382,7 +17375,7 @@ class IParameterReal(INamed, INoncopyable):
     """
 
 
-    Pure virtual base class for parameter wrapper classes  RealParameter,  ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
+    Pure virtual base class for parameter wrapper classes  RealParameter, ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
 
     C++ includes: IParameter.h
 

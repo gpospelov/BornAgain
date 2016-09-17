@@ -30,36 +30,6 @@ FormFactorRipple2::FormFactorRipple2(double length, double width, double height,
     registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
 }
 
-bool FormFactorRipple2::check_initialization() const
-{
-    bool result(true);
-    std::string message;
-    if(-1*m_width > 2.*m_d) {
-        result = false;
-        message = std::string("Check for '-1*width <= 2.*asymmetry' failed.");
-    }
-    if(m_width < 2.*m_d) {
-        result = false;
-        message = std::string("Check for 'width >= 2.*asymmetry' failed.");
-    }
-    if(m_height <=0) {
-        result = false;
-        message = std::string("Check for 'height > 0' failed.");
-    }
-
-    if(!result) {
-        std::ostringstream ostr;
-        ostr << "FormFactorRipple2() -> Error in class initialization with parameters ";
-        ostr << " width:" << m_width;
-        ostr << " height:" << m_height;
-        ostr << " length:" << m_length;
-        ostr << " asymmetry:" << m_d << "\n\n";
-        ostr << message;
-        throw Exceptions::ClassInitializationException(ostr.str());
-    }
-    return result;
-}
-
 double FormFactorRipple2::getRadialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
@@ -94,4 +64,34 @@ complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const
                  / (4.0 * Hqzdqy * Hqzdqy - q.y() * q.y() * m_width * m_width);
     }
     return factor * result;
+}
+
+bool FormFactorRipple2::check_initialization() const
+{
+    bool result(true);
+    std::string message;
+    if(-1*m_width > 2.*m_d) {
+        result = false;
+        message = std::string("Check for '-1*width <= 2.*asymmetry' failed.");
+    }
+    if(m_width < 2.*m_d) {
+        result = false;
+        message = std::string("Check for 'width >= 2.*asymmetry' failed.");
+    }
+    if(m_height <=0) {
+        result = false;
+        message = std::string("Check for 'height > 0' failed.");
+    }
+
+    if(!result) {
+        std::ostringstream ostr;
+        ostr << "FormFactorRipple2() -> Error in class initialization with parameters ";
+        ostr << " width:" << m_width;
+        ostr << " height:" << m_height;
+        ostr << " length:" << m_length;
+        ostr << " asymmetry:" << m_d << "\n\n";
+        ostr << message;
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    return result;
 }

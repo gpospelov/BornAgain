@@ -27,15 +27,14 @@ class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorat
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& form_factor, const kvector_t& position);
 
-    FormFactorDecoratorPositionFactor* clone() const final{
+    FormFactorDecoratorPositionFactor* clone() const override final {
         return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position); }
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
-    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
-
+    complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 #ifndef SWIG
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
 #endif
 
 private:

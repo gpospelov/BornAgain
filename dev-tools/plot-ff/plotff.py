@@ -11,7 +11,7 @@ from libBornAgainCore import *
 ff =  FormFactorPyramid(13*nanometer, 10.0*nanometer, 60*degree)
 
 
-# volume 
+# volume
 # I suggest, that the formfactor evaluated for q=0 gives the volume
 # please correct if not
 zero = cvector_t(0,0,0)
@@ -53,24 +53,24 @@ ROOT.gStyle.SetPadLeftMargin(0.18)
 ROOT.gStyle.SetPadBottomMargin(0.18)
 
 t = ROOT.TText()
-# create ROOT histograms 
+# create ROOT histograms
 hist = ROOT.TH2D("hist","Sphere:H=R",nqy,qymin,qymax, nqz, qzmin, qzmax)
 hist2 = ROOT.TH2D("hist2","Sphere:H=R",nqx,qxmin,qxmax, nqy, qymin, qymax)
 
 # and fill them with the values
 for i in range(nqy):
-	qy = qymin + i*stepqy
-	for j in range(nqz):
-		qz = qzmin + j*stepqz
-		k = cvector_t(0,qy,qz)
-		hist.Fill(qy,qz,(abs(ff.evaluate_for_q(k)))**2+1)
+    qy = qymin + i*stepqy
+    for j in range(nqz):
+        qz = qzmin + j*stepqz
+        k = cvector_t(0,qy,qz)
+        hist.Fill(qy,qz,(abs(ff.evaluate_for_q(k)))**2+1)
 
 for i in range(nqy):
-	qy = qymin + i*stepqy
-	for j in range(nqx):
-		qx = qxmin + j*stepqx
-		k = cvector_t(qx,qy,0)
-		hist2.Fill(qx,qy,(abs(ff.evaluate_for_q(k)))**2+1)
+    qy = qymin + i*stepqy
+    for j in range(nqx):
+        qx = qxmin + j*stepqx
+        k = cvector_t(qx,qy,0)
+        hist2.Fill(qx,qy,(abs(ff.evaluate_for_q(k)))**2+1)
 
 
 # create a ROOT canvas and put all plots on it

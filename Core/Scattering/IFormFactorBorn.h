@@ -19,39 +19,40 @@
 #include "IFormFactor.h"
 #include "Vectors3D.h"
 
-//! Base class for Born form factors.
+//! Pure virtual base class for Born form factors.
+//!
 //! In contrast to the generic IFormFactor, a Born form factor does not depend
 //! on the incoming and outgoing wave vectors ki and kf, except through their
 //! difference, the scattering vector q=ki-kf.
-//!
-//! NOTE: These class should be pure virtual;
-//! the functions evaluate and evaluatePol should be declared final;
-//! the functions clone, accept, evaluate_for_q, getRadialExtension should be =0
-//! instead of having trivial implementations.
-//! HOWEVER, this seems to conflict with the inclusion of this class in Wrap/swig/directors.i,
-//! which in turn seems to be necessary for CustomFormFactor.py to work.
-//!
+
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
 public:
     IFormFactorBorn() {}
-    virtual ~IFormFactorBorn() {}
+    ~IFormFactorBorn() override {}
 
-    virtual IFormFactorBorn* clone() const { return new IFormFactorBorn(); }
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    IFormFactorBorn* clone() const override=0;
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+
 #ifndef SWIG
-    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 #endif
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
-    virtual complex_t evaluate_for_q(const cvector_t q) const;
+    //! This method is public only for convenience of plotting form factors in Python.
+    virtual complex_t evaluate_for_q(const cvector_t q) const=0;
 
-    virtual double getRadialExtension() const;
-    };
+protected:
+#ifndef SWIG
+    //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f in case
+    //! of matrix interactions. Default implementation calls evaluate_for_q(q) and
+    //! multiplies with the unit matrix.
+    virtual Eigen::Matrix2cd  evaluate_for_q_pol(const cvector_t q) const;
+#endif
+};
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
 //! Information about the latest form factor evaluation. Not thread-safe.

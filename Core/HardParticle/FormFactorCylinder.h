@@ -25,17 +25,17 @@ class BA_CORE_API_ FormFactorCylinder : public IFormFactorBorn
 {
 public:
     FormFactorCylinder(double radius, double height);
-    virtual ~FormFactorCylinder() {}
 
-    FormFactorCylinder* clone() const { return new FormFactorCylinder(m_radius, m_height); }
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    FormFactorCylinder* clone() const override final {
+        return new FormFactorCylinder(m_radius, m_height); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const final { return m_radius; }
+    double getRadialExtension() const override final { return m_radius; }
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
     double m_radius;

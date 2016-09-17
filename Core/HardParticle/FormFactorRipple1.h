@@ -30,24 +30,22 @@ public:
     //! @param width of cosine cross section
     //! @param height of cosine cross section
     FormFactorRipple1(double length, double width, double height);
-    virtual ~FormFactorRipple1() {}
 
-    FormFactorRipple1* clone() const { return new FormFactorRipple1(m_length, m_width, m_height); }
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    FormFactorRipple1* clone() const override final {
+        return new FormFactorRipple1(m_length, m_width, m_height); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
 
-    double getRadialExtension() const final;
+    double getRadialExtension() const override final;
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
-
-protected:
-    virtual bool check_initialization() const;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
     complex_t Integrand(double u) const;
+    bool check_initialization() const;
 
     double m_length;
     double m_width;

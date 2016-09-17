@@ -27,19 +27,36 @@ FormFactorDecoratorRotation::FormFactorDecoratorRotation(
     m_transform = rotation.getTransform3D();
 }
 
-// TODO: can we avoid the conversion from IRotation to Transform3D and back?
-
 FormFactorDecoratorRotation* FormFactorDecoratorRotation::clone() const
 {
-    std::unique_ptr<IRotation> P_rotation(IRotation::createRotation(m_transform));
-    return new FormFactorDecoratorRotation(*mp_form_factor, *P_rotation);
+    return new FormFactorDecoratorRotation(*mp_form_factor, m_transform);
 }
 
 complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo& wavevectors) const
 {
+    WavevectorInfo rotated_wavevectors = rotate_wavevectors(wavevectors);
+    return mp_form_factor->evaluate(rotated_wavevectors);
+}
+
+Eigen::Matrix2cd FormFactorDecoratorRotation::evaluatePol(const WavevectorInfo &wavevectors) const
+{
+    WavevectorInfo rotated_wavevectors = rotate_wavevectors(wavevectors);
+    return mp_form_factor->evaluatePol(rotated_wavevectors);
+}
+
+FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor,
+                                                         const Transform3D &transform)
+    : IFormFactorDecorator(form_factor)
+{
+    setName(BornAgain::FormFactorDecoratorRotationType);
+    m_transform = transform;
+}
+
+WavevectorInfo FormFactorDecoratorRotation::rotate_wavevectors(
+        const WavevectorInfo& wavevectors) const
+{
     cvector_t rotated_ki = m_transform.transformedInverse(wavevectors.getKi());
     cvector_t rotated_kf = m_transform.transformedInverse(wavevectors.getKf());
     double wavelength = wavevectors.getWavelength();
-    WavevectorInfo rotated_wavevectors(rotated_ki, rotated_kf, wavelength);
-    return mp_form_factor->evaluate(rotated_wavevectors);
+    return WavevectorInfo(rotated_ki, rotated_kf, wavelength);
 }

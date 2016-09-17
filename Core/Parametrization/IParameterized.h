@@ -30,7 +30,7 @@ class BA_CORE_API_ IParameterized : public INamed
 public:
     IParameterized(const std::string& name="");
     IParameterized(const IParameterized& other);
-    virtual ~IParameterized();
+    ~IParameterized() override;
 
     IParameterized operator=(const IParameterized& other) = delete;
 

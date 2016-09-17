@@ -20,16 +20,17 @@
 #include "WinDllMacros.h"
 
 //! Mix-in for objects that must not be copied, except by cloning.
-//! @ingroup tools_internal
 //!
 //! The base class INoncopyable disables the copy constructor and the operator=
 //! in all its child classes.
 //! Child classes of ICloneable should provide clone().
 
+//! @ingroup tools_internal
+
 class BA_CORE_API_ ICloneable : public INoncopyable
 {
 public:
-    virtual ICloneable* clone() const = 0;
+    virtual ICloneable* clone() const=0;
     virtual void transferToCPP() {} //!< Used for Python overriding of clone
 };
 

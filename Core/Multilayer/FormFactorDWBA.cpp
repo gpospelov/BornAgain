@@ -19,25 +19,21 @@
 #include "WavevectorInfo.h"
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
-    : IFormFactorDecorator(form_factor)
+    : mp_form_factor(form_factor.clone())
     , mp_in_coeffs(0)
     , mp_out_coeffs(0)
 {
     setName(BornAgain::FormFactorDWBAType);
 }
 
+FormFactorDWBA::~FormFactorDWBA()
+{}
+
 FormFactorDWBA* FormFactorDWBA::clone() const
 {
     FormFactorDWBA* result = new FormFactorDWBA(*mp_form_factor);
     result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
     return result;
-}
-
-void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
-                                     const ILayerRTCoefficients* p_out_coeffs)
-{
-    mp_in_coeffs = p_in_coeffs;
-    mp_out_coeffs = p_out_coeffs;
 }
 
 complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
@@ -75,4 +71,11 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
     complex_t term_RSR = R_in * mp_form_factor->evaluate(k_RR) * R_out;
 
     return term_S + term_RS + term_SR + term_RSR;
+}
+
+void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
+                                     const ILayerRTCoefficients* p_out_coeffs)
+{
+    mp_in_coeffs = p_in_coeffs;
+    mp_out_coeffs = p_out_coeffs;
 }

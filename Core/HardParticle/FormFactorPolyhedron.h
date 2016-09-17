@@ -105,12 +105,11 @@ public:
 
     FormFactorPolyhedron() {}
 
-    virtual void onChange() = 0;
-    complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
     complex_t evaluate_centered(const cvector_t q) const;
 
-    double getVolume() const final { return m_volume; }
-    double getRadialExtension() const final { return m_radius; }
+    double getVolume() const override final { return m_volume; }
+    double getRadialExtension() const override final { return m_radius; }
     void assert_platonic() const;
 
 protected:
@@ -136,10 +135,10 @@ class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
     FormFactorPolygonalPrism(const double height) : m_height(height) {}
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
+    complex_t evaluate_for_q(const cvector_t q) const override final;
     double getVolume() const;
     double getHeight() const { return m_height; }
-    double getRadialExtension() const final { return std::sqrt(m_base->area()); }
+    double getRadialExtension() const override final { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;
@@ -154,9 +153,9 @@ class FormFactorPolygonalSurface : public IFormFactorBorn {
 public:
     FormFactorPolygonalSurface() {}
 
-    complex_t evaluate_for_q(const cvector_t q) const final;
-    double getVolume() const { return 0; }
-    double getRadialExtension() const final { return std::sqrt(m_base->area()); }
+    complex_t evaluate_for_q(const cvector_t q) const override final;
+    double getVolume() const override { return 0; }
+    double getRadialExtension() const override final { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;

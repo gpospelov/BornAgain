@@ -28,14 +28,17 @@ public:
     //! @param edge length
     FormFactorDodecahedron(double edge);
 
-    FormFactorDodecahedron *clone() const final { return new FormFactorDodecahedron(m_edge); }
-    void accept(ISampleVisitor *visitor) const final { visitor->visit(this); }
+    FormFactorDodecahedron *clone() const override final {
+        return new FormFactorDodecahedron(m_edge); }
+    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }
 
+protected:
+    void onChange() override final;
+
 private:
     static const PolyhedralTopology topology;
-    void onChange() final;
     double m_edge;
 };
 

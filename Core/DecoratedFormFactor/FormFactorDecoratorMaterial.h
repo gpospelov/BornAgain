@@ -30,23 +30,23 @@ class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorDecoratorFacto
 public:
     FormFactorDecoratorMaterial(const IFormFactor& form_factor);
 
-    ~FormFactorDecoratorMaterial() final;
+    ~FormFactorDecoratorMaterial() override final;
 
-    FormFactorDecoratorMaterial* clone() const final;
+    FormFactorDecoratorMaterial* clone() const override final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     //! Sets the material of the scatterer
     void setMaterial(const IMaterial& material);
 
     //! Sets the ambient material
-    void setAmbientMaterial(const IMaterial& material);
+    void setAmbientMaterial(const IMaterial& material) override;
 
     complex_t getAmbientRefractiveIndex() const;
 
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
 #endif
 
 private:

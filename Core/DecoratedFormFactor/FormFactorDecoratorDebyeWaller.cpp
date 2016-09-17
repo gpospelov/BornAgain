@@ -30,20 +30,33 @@ FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
 }
 
 FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
-	const IFormFactor & form_factor, double dw_factor)
-	: IFormFactorDecorator(form_factor),
-	m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
+    const IFormFactor & form_factor, double dw_factor)
+    : IFormFactorDecorator(form_factor),
+    m_h_dw_factor(dw_factor), m_r_dw_factor(dw_factor)
 {
-	setName(BornAgain::FormFactorDecoratorDebyeWallerType);
-	registerParameter(BornAgain::HeightDWFactor, &m_h_dw_factor).setPositive();
-	registerParameter(BornAgain::RadiusDWFactor, &m_r_dw_factor).setPositive();
+    setName(BornAgain::FormFactorDecoratorDebyeWallerType);
+    registerParameter(BornAgain::HeightDWFactor, &m_h_dw_factor).setPositive();
+    registerParameter(BornAgain::RadiusDWFactor, &m_r_dw_factor).setPositive();
 }
 
 complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo& wavevectors) const
+{
+    double dw = getDWFactor(wavevectors);
+    return dw * mp_form_factor->evaluate(wavevectors);
+}
+
+Eigen::Matrix2cd FormFactorDecoratorDebyeWaller::evaluatePol(
+        const WavevectorInfo &wavevectors) const
+{
+    double dw = getDWFactor(wavevectors);
+    return dw * mp_form_factor->evaluatePol(wavevectors);
+}
+
+double FormFactorDecoratorDebyeWaller::getDWFactor(const WavevectorInfo& wavevectors) const
 {
     cvector_t q = wavevectors.getQ();
     double qr2 = std::norm(q.x()) + std::norm(q.y());
     double qz2 = std::norm(q.z());
     double dw = std::exp(-qz2 * m_h_dw_factor - qr2 * m_r_dw_factor);
-    return dw * mp_form_factor->evaluate(wavevectors);
+    return dw;
 }

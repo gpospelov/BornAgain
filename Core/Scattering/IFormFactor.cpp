@@ -19,14 +19,12 @@
 
 IFormFactor::~IFormFactor() {}
 
-#ifndef SWIG
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
     // Throws to prevent unanticipated behaviour
     throw Exceptions::NotImplementedException(
         "IFormFactor::evaluatePol: is not implemented by default");
 }
-#endif
 
 double IFormFactor::getVolume() const
 {

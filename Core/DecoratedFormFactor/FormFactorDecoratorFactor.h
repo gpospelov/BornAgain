@@ -26,12 +26,15 @@ class BA_CORE_API_ FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorFactor(const IFormFactor& form_factor, const complex_t factor);
-    virtual FormFactorDecoratorFactor* clone() const {
+    FormFactorDecoratorFactor* clone() const override {
         return new FormFactorDecoratorFactor(*mp_form_factor, m_factor); }
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(ISampleVisitor* visitor) const override { visitor->visit(this); }
 
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+#ifndef SWIG
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
+#endif
 
 protected:
     complex_t m_factor;

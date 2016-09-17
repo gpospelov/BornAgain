@@ -4649,7 +4649,7 @@ class IFitStrategy(INamed):
 
     def init(self, fit_suite):
         """
-        init(IFitStrategy self, FitSuiteKernel * fit_suite)
+        init(IFitStrategy self, FitSuiteImp * fit_suite)
 
         void IFitStrategy::init(FitKernel *fit_suite)
 
@@ -5849,6 +5849,11 @@ class FitSuite(IObservable):
 
         """
         return _libBornAgainCore.FitSuite_setMinimizer(self, *args)
+
+
+    def minimizer(self):
+        """minimizer(FitSuite self) -> IMinimizer const *"""
+        return _libBornAgainCore.FitSuite_minimizer(self)
 
 
     def initPrint(self, print_every_nth):

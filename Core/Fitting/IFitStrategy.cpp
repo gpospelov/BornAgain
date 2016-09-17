@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IFitStrategy.h"
-#include "FitSuiteKernel.h"
+#include "FitSuiteImp.h"
 #include "Exceptions.h"
 
 IFitStrategy::IFitStrategy()
@@ -27,7 +27,7 @@ IFitStrategy::IFitStrategy(const std::string &name)
 {
 }
 
-void IFitStrategy::init(FitSuiteKernel* fit_suite)
+void IFitStrategy::init(FitSuiteImp* fit_suite)
 {
     m_kernel = fit_suite;
 }

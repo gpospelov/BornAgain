@@ -1836,6 +1836,11 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_minimize(self)
 
 
+    def clear(self):
+        """clear(IMinimizer self)"""
+        return _libBornAgainFit.IMinimizer_clear(self)
+
+
     def setParameters(self, parameters):
         """
         setParameters(IMinimizer self, FitParameterSet parameters)
@@ -1867,26 +1872,9 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_setGradientFunction(self, arg2, arg3)
 
 
-    def getNumberOfVariables(self):
-        """
-        getNumberOfVariables(IMinimizer self) -> size_t
-
-        virtual size_t IMinimizer::getNumberOfVariables() const =0
-
-        Returns number of variables to fit. 
-
-        """
-        return _libBornAgainFit.IMinimizer_getNumberOfVariables(self)
-
-
     def getMinValue(self):
         """getMinValue(IMinimizer self) -> double"""
         return _libBornAgainFit.IMinimizer_getMinValue(self)
-
-
-    def clear(self):
-        """clear(IMinimizer self)"""
-        return _libBornAgainFit.IMinimizer_clear(self)
 
 
     def reportResults(self):

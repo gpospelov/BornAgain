@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitSuiteFunctions.h"
-#include "FitSuiteKernel.h"
+#include "FitSuiteImp.h"
 #include "Logger.h"
 #include <cassert>
 #include <stdexcept>

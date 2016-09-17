@@ -127,13 +127,13 @@ class DrawObserver(ba.IFitObserver):
         plt.axis('off')
         plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
                  format(fit_suite.getNumberOfIterations(),
-                        fit_suite.getMinimizer().getMinimizerName()))
+                        fit_suite.minimizer().minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1,
-                     '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(),
-                                                 fitpars[i].getValue()))
+        # fitpars = fit_suite.getFitParameters()
+        # for i in range(0, fitpars.size()):
+        #     plt.text(0.01, 0.55 - i*0.1,
+        #              '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(),
+        #                                          fitpars[i].getValue()))
         plt.draw()
         plt.pause(0.01)
 
@@ -175,7 +175,8 @@ def create_fit():
 
 
 if __name__ == '__main__':
-    arg = ba.getFilenameOrPlotflag()
+    #arg = ba.getFilenameOrPlotflag()
+    arg = '-p'
     fit_suite = create_fit()
     if arg == "-p":
         draw_observer = DrawObserver(draw_every_nth=10)

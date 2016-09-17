@@ -40,6 +40,9 @@ class BA_CORE_API_ IMinimizer
     //! run minimization
     virtual void minimize();
 
+    //! clear resources (parameters) for consecutives minimizations
+    virtual void clear();
+
     //! Sets internal minimizer parameters using external parameter list
     virtual void setParameters(const FitParameterSet& parameters);
 
@@ -47,14 +50,8 @@ class BA_CORE_API_ IMinimizer
 
     virtual void setGradientFunction(gradient_function_t, int ){}
 
-    //! Returns number of variables to fit
-    virtual size_t getNumberOfVariables() const;
-
     //! Returns minimum function value
     virtual double getMinValue() const;
-
-    //! clear resources (parameters) for consecutives minimizations
-    virtual void clear();
 
     //! Prints fit results
     virtual std::string reportResults() const;

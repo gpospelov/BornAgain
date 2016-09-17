@@ -44,6 +44,10 @@ public:
 
     void setMinimizer(IMinimizer* minimizer);
 
+    //! Returns minimizer.
+    const IMinimizer *minimizer() const;
+
+
     //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,
                          const RealLimits& lim, const Attributes& attr,

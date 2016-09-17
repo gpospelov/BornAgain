@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitSuiteKernel.h
-//! @brief     Defines class FitSuiteKernel.
+//! @file      Core/Fitting/FitSuiteImp.h
+//! @brief     Defines class FitSuiteImp.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSUITEKERNEL_H
-#define FITSUITEKERNEL_H
+#ifndef FITSUITEIMP_H
+#define FITSUITEIMP_H
 
 #include "FitOptions.h"
 #include "FitSuiteFunctions.h"
@@ -36,13 +36,13 @@ class FitKernel;
 //! Fitting kernel for FitSuite.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitSuiteKernel
+class BA_CORE_API_ FitSuiteImp
 {
  public:
-    FitSuiteKernel(const std::function<void()>& notifyObservers);
-    FitSuiteKernel& operator=(const FitSuiteKernel&) = delete;
-    FitSuiteKernel(const FitSuiteKernel&) = delete;
-    virtual ~FitSuiteKernel();
+    FitSuiteImp(const std::function<void()>& notifyObservers);
+    FitSuiteImp& operator=(const FitSuiteImp&) = delete;
+    FitSuiteImp(const FitSuiteImp&) = delete;
+    virtual ~FitSuiteImp();
 
     //! Resets most state variables, to get prepared for the next fit
     void clear();
@@ -64,6 +64,9 @@ class BA_CORE_API_ FitSuiteKernel
 
     //! Sets minimizer
     void setMinimizer(IMinimizer* minimizer);
+
+    //! Returns minimizer
+//    const IMinimizer *minimizer() const;
 
     //! Runs a fit, which may consist of several minimization rounds
     virtual void runFit();
@@ -108,6 +111,9 @@ class BA_CORE_API_ FitSuiteKernel
     void resetInterrupt() { m_is_interrupted = false; }
     bool isInterrupted() const { return m_is_interrupted; }
 
+    const FitKernel* kernel() const;
+//    FitKernel* kernel();
+
 private:
     bool check_prerequisites() const;
     void link_fit_parameters();
@@ -125,7 +131,7 @@ private:
     boost::posix_time::ptime m_end_time;
     std::function<void()> m_notifyObservers;
 
-    std::unique_ptr<FitKernel> m_new_kernel;
+    std::unique_ptr<FitKernel> m_kernel;
 };
 
-#endif // FITKERNEL_H
+#endif

@@ -29,7 +29,7 @@ class FitSuiteObjects;
 class FitParameterSet;
 class FitSuiteStrategies;
 class FitOptions;
-class FitSuiteKernel;
+class FitSuiteImp;
 class IMinimizer;
 
 //! @class FitSuite
@@ -81,6 +81,9 @@ public:
 
     //! Sets minimizer
     void setMinimizer(IMinimizer* minimizer);
+
+    //! Returns minimizer.
+    const IMinimizer *minimizer() const;
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.
@@ -160,7 +163,7 @@ public:
     const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
-    std::unique_ptr<FitSuiteKernel> m_kernel;
+    std::unique_ptr<FitSuiteImp> m_impl;
 };
 
 #endif // FITSUITE_H

@@ -44,6 +44,11 @@ void FitKernel::setMinimizer(IMinimizer *minimizer)
     m_impl->setMinimizer(minimizer);
 }
 
+const IMinimizer *FitKernel::minimizer() const
+{
+    return m_impl->minimizer();
+}
+
 void FitKernel::addFitParameter(const std::string &name, double value,
                                 const RealLimits &lim, const Attributes &attr, double step)
 {

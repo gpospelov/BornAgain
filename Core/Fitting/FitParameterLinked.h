@@ -29,8 +29,9 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
 {
  public:
     FitParameterLinked() {}
-    FitParameterLinked(const std::string& name, double value, double step,
-        const AttLimits& lim=AttLimits::limitless());
+    FitParameterLinked(const std::string& name, double value,
+        const AttLimits& lim=AttLimits::limitless(), double step = 0.0);
+
     FitParameterLinked(const FitParameterLinked&) = delete;
     FitParameterLinked& operator=(const FitParameterLinked&) = delete;
     ~FitParameterLinked() final;

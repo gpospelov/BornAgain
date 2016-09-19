@@ -6087,6 +6087,7 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include <numpy/arrayobject.h>
 
 
+#include "AttLimits.h"
 #include "FitParameter.h"
 #include "FitParameterSet.h"
 #include "IMinimizer.h"
@@ -18553,48 +18554,377 @@ SWIGINTERN PyObject *vector_string_t_swigregister(PyObject *SWIGUNUSEDPARM(self)
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_Attributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_AttLimits__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *result = 0 ;
+  AttLimits *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_Attributes")) SWIG_fail;
-  result = (Attributes *)new Attributes();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Attributes, SWIG_POINTER_NEW |  0 );
+  if (!PyArg_ParseTuple(args,(char *)":new_AttLimits")) SWIG_fail;
+  result = (AttLimits *)new AttLimits();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AttLimits, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes_fixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_AttLimits__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes result;
+  RealLimits *arg1 = 0 ;
+  Attributes *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  AttLimits *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":Attributes_fixed")) SWIG_fail;
-  result = Attributes::fixed();
-  resultobj = SWIG_NewPointerObj((new Attributes(static_cast< const Attributes& >(result))), SWIGTYPE_p_Attributes, SWIG_POINTER_OWN |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_AttLimits",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_RealLimits,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_AttLimits" "', argument " "1"" of type '" "RealLimits const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_AttLimits" "', argument " "1"" of type '" "RealLimits const &""'"); 
+  }
+  arg1 = reinterpret_cast< RealLimits * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Attributes,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_AttLimits" "', argument " "2"" of type '" "Attributes const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_AttLimits" "', argument " "2"" of type '" "Attributes const &""'"); 
+  }
+  arg2 = reinterpret_cast< Attributes * >(argp2);
+  result = (AttLimits *)new AttLimits((RealLimits const &)*arg1,(Attributes const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AttLimits, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes_free(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Attributes result;
+SWIGINTERN PyObject *_wrap_new_AttLimits(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
   
-  if (!PyArg_ParseTuple(args,(char *)":Attributes_free")) SWIG_fail;
-  result = Attributes::free();
-  resultobj = SWIG_NewPointerObj((new Attributes(static_cast< const Attributes& >(result))), SWIGTYPE_p_Attributes, SWIG_POINTER_OWN |  0 );
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    return _wrap_new_AttLimits__SWIG_0(self, args);
+  }
+  if (argc == 2) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_RealLimits, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_Attributes, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_AttLimits__SWIG_1(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_AttLimits'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    AttLimits::AttLimits()\n"
+    "    AttLimits::AttLimits(RealLimits const &,Attributes const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_limitless(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":AttLimits_limitless")) SWIG_fail;
+  result = AttLimits::limitless();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes_setFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits_lowerLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject * obj0 = 0 ;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_lowerLimited",&obj0)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "AttLimits_lowerLimited" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = AttLimits::lowerLimited(arg1);
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_positive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":AttLimits_positive")) SWIG_fail;
+  result = AttLimits::positive();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_nonnegative(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":AttLimits_nonnegative")) SWIG_fail;
+  result = AttLimits::nonnegative();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_upperLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject * obj0 = 0 ;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_upperLimited",&obj0)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "AttLimits_upperLimited" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = AttLimits::upperLimited(arg1);
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_limited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:AttLimits_limited",&obj0,&obj1)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "AttLimits_limited" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "AttLimits_limited" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = AttLimits::limited(arg1,arg2);
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_fixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":AttLimits_fixed")) SWIG_fail;
+  result = AttLimits::fixed();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isFixed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isFixed" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isFixed();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isLimited",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isLimited" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isLimited();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isUpperLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isUpperLimited",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isUpperLimited" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isUpperLimited();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isLowerLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isLowerLimited",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isLowerLimited" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isLowerLimited();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isLimitless(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isLimitless",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isLimitless" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isLimitless();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_lowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_lowerLimit",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_lowerLimit" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (double)((AttLimits const *)arg1)->lowerLimit();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_upperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_upperLimit",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_upperLimit" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (double)((AttLimits const *)arg1)->upperLimit();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_setFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
   bool arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -18603,15 +18933,15 @@ SWIGINTERN PyObject *_wrap_Attributes_setFixed(PyObject *SWIGUNUSEDPARM(self), P
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Attributes_setFixed",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:AttLimits_setFixed",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes_setFixed" "', argument " "1"" of type '" "Attributes *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_setFixed" "', argument " "1"" of type '" "AttLimits *""'"); 
   }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
   ecode2 = SWIG_AsVal_bool(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Attributes_setFixed" "', argument " "2"" of type '" "bool""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "AttLimits_setFixed" "', argument " "2"" of type '" "bool""'");
   } 
   arg2 = static_cast< bool >(val2);
   (arg1)->setFixed(arg2);
@@ -18622,54 +18952,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes_isFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits___eq__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:Attributes_isFixed",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes_isFixed" "', argument " "1"" of type '" "Attributes const *""'"); 
-  }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
-  result = (bool)((Attributes const *)arg1)->isFixed();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Attributes_isFree(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:Attributes_isFree",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes_isFree" "', argument " "1"" of type '" "Attributes const *""'"); 
-  }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
-  result = (bool)((Attributes const *)arg1)->isFree();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Attributes___eq__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
-  Attributes *arg2 = 0 ;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  AttLimits *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -18678,21 +18964,21 @@ SWIGINTERN PyObject *_wrap_Attributes___eq__(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject * obj1 = 0 ;
   bool result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Attributes___eq__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:AttLimits___eq__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes___eq__" "', argument " "1"" of type '" "Attributes const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits___eq__" "', argument " "1"" of type '" "AttLimits const *""'"); 
   }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Attributes,  0  | 0);
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_AttLimits,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Attributes___eq__" "', argument " "2"" of type '" "Attributes const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AttLimits___eq__" "', argument " "2"" of type '" "AttLimits const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Attributes___eq__" "', argument " "2"" of type '" "Attributes const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AttLimits___eq__" "', argument " "2"" of type '" "AttLimits const &""'"); 
   }
-  arg2 = reinterpret_cast< Attributes * >(argp2);
-  result = (bool)((Attributes const *)arg1)->operator ==((Attributes const &)*arg2);
+  arg2 = reinterpret_cast< AttLimits * >(argp2);
+  result = (bool)((AttLimits const *)arg1)->operator ==((AttLimits const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -18700,10 +18986,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes___ne__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits___ne__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
-  Attributes *arg2 = 0 ;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  AttLimits *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -18712,21 +18998,21 @@ SWIGINTERN PyObject *_wrap_Attributes___ne__(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject * obj1 = 0 ;
   bool result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Attributes___ne__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:AttLimits___ne__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes___ne__" "', argument " "1"" of type '" "Attributes const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits___ne__" "', argument " "1"" of type '" "AttLimits const *""'"); 
   }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Attributes,  0  | 0);
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_AttLimits,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Attributes___ne__" "', argument " "2"" of type '" "Attributes const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AttLimits___ne__" "', argument " "2"" of type '" "AttLimits const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Attributes___ne__" "', argument " "2"" of type '" "Attributes const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AttLimits___ne__" "', argument " "2"" of type '" "AttLimits const &""'"); 
   }
-  arg2 = reinterpret_cast< Attributes * >(argp2);
-  result = (bool)((Attributes const *)arg1)->operator !=((Attributes const &)*arg2);
+  arg2 = reinterpret_cast< AttLimits * >(argp2);
+  result = (bool)((AttLimits const *)arg1)->operator !=((AttLimits const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -18734,19 +19020,41 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_Attributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_toString",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_toString" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = ((AttLimits const *)arg1)->toString();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_AttLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_Attributes",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, SWIG_POINTER_DISOWN |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_AttLimits",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Attributes" "', argument " "1"" of type '" "Attributes *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_AttLimits" "', argument " "1"" of type '" "AttLimits *""'"); 
   }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -18755,536 +19063,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *Attributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *AttLimits_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_Attributes, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_new_RealLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)":new_RealLimits")) SWIG_fail;
-  result = (RealLimits *)new RealLimits();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RealLimits, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_hasLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_hasLowerLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_hasLowerLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (bool)((RealLimits const *)arg1)->hasLowerLimit();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_getLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_getLowerLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_getLowerLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (double)((RealLimits const *)arg1)->getLowerLimit();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_setLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits_setLowerLimit",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_setLowerLimit" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_setLowerLimit" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setLowerLimit(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_removeLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_removeLowerLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_removeLowerLimit" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  (arg1)->removeLowerLimit();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_hasUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_hasUpperLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_hasUpperLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (bool)((RealLimits const *)arg1)->hasUpperLimit();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_getUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_getUpperLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_getUpperLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (double)((RealLimits const *)arg1)->getUpperLimit();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_setUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits_setUpperLimit",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_setUpperLimit" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_setUpperLimit" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setUpperLimit(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_removeUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_removeUpperLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_removeUpperLimit" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  (arg1)->removeUpperLimit();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_hasLowerAndUpperLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_hasLowerAndUpperLimits",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_hasLowerAndUpperLimits" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (bool)((RealLimits const *)arg1)->hasLowerAndUpperLimits();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_setLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  double arg2 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:RealLimits_setLimits",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_setLimits" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_setLimits" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RealLimits_setLimits" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  (arg1)->setLimits(arg2,arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_removeLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_removeLimits",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_removeLimits" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  (arg1)->removeLimits();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_isInRange(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits_isInRange",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_isInRange" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_isInRange" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (bool)((RealLimits const *)arg1)->isInRange(arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_lowerLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject * obj0 = 0 ;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_lowerLimited",&obj0)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "RealLimits_lowerLimited" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = RealLimits::lowerLimited(arg1);
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_positive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)":RealLimits_positive")) SWIG_fail;
-  result = RealLimits::positive();
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_nonnegative(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)":RealLimits_nonnegative")) SWIG_fail;
-  result = RealLimits::nonnegative();
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_upperLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject * obj0 = 0 ;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_upperLimited",&obj0)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "RealLimits_upperLimited" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = RealLimits::upperLimited(arg1);
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_limited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits_limited",&obj0,&obj1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "RealLimits_limited" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_limited" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = RealLimits::limited(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_limitless(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)":RealLimits_limitless")) SWIG_fail;
-  result = RealLimits::limitless();
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits___eq__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  RealLimits *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits___eq__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits___eq__" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_RealLimits,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RealLimits___eq__" "', argument " "2"" of type '" "RealLimits const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RealLimits___eq__" "', argument " "2"" of type '" "RealLimits const &""'"); 
-  }
-  arg2 = reinterpret_cast< RealLimits * >(argp2);
-  result = (bool)((RealLimits const *)arg1)->operator ==((RealLimits const &)*arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits___ne__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  RealLimits *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits___ne__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits___ne__" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_RealLimits,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RealLimits___ne__" "', argument " "2"" of type '" "RealLimits const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RealLimits___ne__" "', argument " "2"" of type '" "RealLimits const &""'"); 
-  }
-  arg2 = reinterpret_cast< RealLimits * >(argp2);
-  result = (bool)((RealLimits const *)arg1)->operator !=((RealLimits const &)*arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_RealLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_RealLimits",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RealLimits" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *RealLimits_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_RealLimits, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_AttLimits, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -22258,143 +22040,30 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"vector_string_t_capacity", _wrap_vector_string_t_capacity, METH_VARARGS, (char *)"vector_string_t_capacity(vector_string_t self) -> std::vector< std::string >::size_type"},
 	 { (char *)"delete_vector_string_t", _wrap_delete_vector_string_t, METH_VARARGS, (char *)"delete_vector_string_t(vector_string_t self)"},
 	 { (char *)"vector_string_t_swigregister", vector_string_t_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_Attributes", _wrap_new_Attributes, METH_VARARGS, (char *)"\n"
-		"new_Attributes() -> Attributes\n"
-		"\n"
-		"Attributes::Attributes()\n"
-		"\n"
+	 { (char *)"new_AttLimits", _wrap_new_AttLimits, METH_VARARGS, (char *)"\n"
+		"AttLimits()\n"
+		"new_AttLimits(RealLimits const & limits, Attributes const & fixedAttr) -> AttLimits\n"
 		""},
-	 { (char *)"Attributes_fixed", _wrap_Attributes_fixed, METH_VARARGS, (char *)"Attributes_fixed() -> Attributes"},
-	 { (char *)"Attributes_free", _wrap_Attributes_free, METH_VARARGS, (char *)"Attributes_free() -> Attributes"},
-	 { (char *)"Attributes_setFixed", _wrap_Attributes_setFixed, METH_VARARGS, (char *)"\n"
-		"Attributes_setFixed(Attributes self, bool is_fixed)\n"
-		"\n"
-		"void Attributes::setFixed(bool is_fixed)\n"
-		"\n"
-		""},
-	 { (char *)"Attributes_isFixed", _wrap_Attributes_isFixed, METH_VARARGS, (char *)"\n"
-		"Attributes_isFixed(Attributes self) -> bool\n"
-		"\n"
-		"bool Attributes::isFixed() const \n"
-		"\n"
-		""},
-	 { (char *)"Attributes_isFree", _wrap_Attributes_isFree, METH_VARARGS, (char *)"Attributes_isFree(Attributes self) -> bool"},
-	 { (char *)"Attributes___eq__", _wrap_Attributes___eq__, METH_VARARGS, (char *)"Attributes___eq__(Attributes self, Attributes other) -> bool"},
-	 { (char *)"Attributes___ne__", _wrap_Attributes___ne__, METH_VARARGS, (char *)"Attributes___ne__(Attributes self, Attributes other) -> bool"},
-	 { (char *)"delete_Attributes", _wrap_delete_Attributes, METH_VARARGS, (char *)"delete_Attributes(Attributes self)"},
-	 { (char *)"Attributes_swigregister", Attributes_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_RealLimits", _wrap_new_RealLimits, METH_VARARGS, (char *)"\n"
-		"new_RealLimits() -> RealLimits\n"
-		"\n"
-		"RealLimits::RealLimits()\n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_hasLowerLimit", _wrap_RealLimits_hasLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_hasLowerLimit(RealLimits self) -> bool\n"
-		"\n"
-		"bool RealLimits::hasLowerLimit() const\n"
-		"\n"
-		"if has lower limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_getLowerLimit", _wrap_RealLimits_getLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_getLowerLimit(RealLimits self) -> double\n"
-		"\n"
-		"double RealLimits::getLowerLimit() const\n"
-		"\n"
-		"Returns lower limit. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_setLowerLimit", _wrap_RealLimits_setLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_setLowerLimit(RealLimits self, double value)\n"
-		"\n"
-		"void RealLimits::setLowerLimit(double value)\n"
-		"\n"
-		"Sets lower limit. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_removeLowerLimit", _wrap_RealLimits_removeLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_removeLowerLimit(RealLimits self)\n"
-		"\n"
-		"void RealLimits::removeLowerLimit()\n"
-		"\n"
-		"remove lower limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_hasUpperLimit", _wrap_RealLimits_hasUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_hasUpperLimit(RealLimits self) -> bool\n"
-		"\n"
-		"bool RealLimits::hasUpperLimit() const\n"
-		"\n"
-		"if has upper limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_getUpperLimit", _wrap_RealLimits_getUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_getUpperLimit(RealLimits self) -> double\n"
-		"\n"
-		"double RealLimits::getUpperLimit() const\n"
-		"\n"
-		"Returns upper limit. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_setUpperLimit", _wrap_RealLimits_setUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_setUpperLimit(RealLimits self, double value)\n"
-		"\n"
-		"void RealLimits::setUpperLimit(double value)\n"
-		"\n"
-		"Sets upper limit. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_removeUpperLimit", _wrap_RealLimits_removeUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_removeUpperLimit(RealLimits self)\n"
-		"\n"
-		"void RealLimits::removeUpperLimit()\n"
-		"\n"
-		"remove upper limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_hasLowerAndUpperLimits", _wrap_RealLimits_hasLowerAndUpperLimits, METH_VARARGS, (char *)"\n"
-		"RealLimits_hasLowerAndUpperLimits(RealLimits self) -> bool\n"
-		"\n"
-		"bool RealLimits::hasLowerAndUpperLimits() const\n"
-		"\n"
-		"if has lower and upper limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_setLimits", _wrap_RealLimits_setLimits, METH_VARARGS, (char *)"\n"
-		"RealLimits_setLimits(RealLimits self, double xmin, double xmax)\n"
-		"\n"
-		"void RealLimits::setLimits(double xmin, double xmax)\n"
-		"\n"
-		"Sets lower and upper limits. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_removeLimits", _wrap_RealLimits_removeLimits, METH_VARARGS, (char *)"\n"
-		"RealLimits_removeLimits(RealLimits self)\n"
-		"\n"
-		"void RealLimits::removeLimits()\n"
-		"\n"
-		"remove limits \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_isInRange", _wrap_RealLimits_isInRange, METH_VARARGS, (char *)"\n"
-		"RealLimits_isInRange(RealLimits self, double value) -> bool\n"
-		"\n"
-		"bool RealLimits::isInRange(double value) const\n"
-		"\n"
-		"returns true if proposed value is in limits range \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_lowerLimited", _wrap_RealLimits_lowerLimited, METH_VARARGS, (char *)"RealLimits_lowerLimited(double bound_value) -> RealLimits"},
-	 { (char *)"RealLimits_positive", _wrap_RealLimits_positive, METH_VARARGS, (char *)"RealLimits_positive() -> RealLimits"},
-	 { (char *)"RealLimits_nonnegative", _wrap_RealLimits_nonnegative, METH_VARARGS, (char *)"RealLimits_nonnegative() -> RealLimits"},
-	 { (char *)"RealLimits_upperLimited", _wrap_RealLimits_upperLimited, METH_VARARGS, (char *)"RealLimits_upperLimited(double bound_value) -> RealLimits"},
-	 { (char *)"RealLimits_limited", _wrap_RealLimits_limited, METH_VARARGS, (char *)"RealLimits_limited(double left_bound_value, double right_bound_value) -> RealLimits"},
-	 { (char *)"RealLimits_limitless", _wrap_RealLimits_limitless, METH_VARARGS, (char *)"RealLimits_limitless() -> RealLimits"},
-	 { (char *)"RealLimits___eq__", _wrap_RealLimits___eq__, METH_VARARGS, (char *)"RealLimits___eq__(RealLimits self, RealLimits other) -> bool"},
-	 { (char *)"RealLimits___ne__", _wrap_RealLimits___ne__, METH_VARARGS, (char *)"RealLimits___ne__(RealLimits self, RealLimits other) -> bool"},
-	 { (char *)"delete_RealLimits", _wrap_delete_RealLimits, METH_VARARGS, (char *)"delete_RealLimits(RealLimits self)"},
-	 { (char *)"RealLimits_swigregister", RealLimits_swigregister, METH_VARARGS, NULL},
+	 { (char *)"AttLimits_limitless", _wrap_AttLimits_limitless, METH_VARARGS, (char *)"AttLimits_limitless() -> AttLimits"},
+	 { (char *)"AttLimits_lowerLimited", _wrap_AttLimits_lowerLimited, METH_VARARGS, (char *)"AttLimits_lowerLimited(double bound_value) -> AttLimits"},
+	 { (char *)"AttLimits_positive", _wrap_AttLimits_positive, METH_VARARGS, (char *)"AttLimits_positive() -> AttLimits"},
+	 { (char *)"AttLimits_nonnegative", _wrap_AttLimits_nonnegative, METH_VARARGS, (char *)"AttLimits_nonnegative() -> AttLimits"},
+	 { (char *)"AttLimits_upperLimited", _wrap_AttLimits_upperLimited, METH_VARARGS, (char *)"AttLimits_upperLimited(double bound_value) -> AttLimits"},
+	 { (char *)"AttLimits_limited", _wrap_AttLimits_limited, METH_VARARGS, (char *)"AttLimits_limited(double left_bound_value, double right_bound_value) -> AttLimits"},
+	 { (char *)"AttLimits_fixed", _wrap_AttLimits_fixed, METH_VARARGS, (char *)"AttLimits_fixed() -> AttLimits"},
+	 { (char *)"AttLimits_isFixed", _wrap_AttLimits_isFixed, METH_VARARGS, (char *)"AttLimits_isFixed(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_isLimited", _wrap_AttLimits_isLimited, METH_VARARGS, (char *)"AttLimits_isLimited(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_isUpperLimited", _wrap_AttLimits_isUpperLimited, METH_VARARGS, (char *)"AttLimits_isUpperLimited(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_isLowerLimited", _wrap_AttLimits_isLowerLimited, METH_VARARGS, (char *)"AttLimits_isLowerLimited(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_isLimitless", _wrap_AttLimits_isLimitless, METH_VARARGS, (char *)"AttLimits_isLimitless(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_lowerLimit", _wrap_AttLimits_lowerLimit, METH_VARARGS, (char *)"AttLimits_lowerLimit(AttLimits self) -> double"},
+	 { (char *)"AttLimits_upperLimit", _wrap_AttLimits_upperLimit, METH_VARARGS, (char *)"AttLimits_upperLimit(AttLimits self) -> double"},
+	 { (char *)"AttLimits_setFixed", _wrap_AttLimits_setFixed, METH_VARARGS, (char *)"AttLimits_setFixed(AttLimits self, bool isFixed)"},
+	 { (char *)"AttLimits___eq__", _wrap_AttLimits___eq__, METH_VARARGS, (char *)"AttLimits___eq__(AttLimits self, AttLimits other) -> bool"},
+	 { (char *)"AttLimits___ne__", _wrap_AttLimits___ne__, METH_VARARGS, (char *)"AttLimits___ne__(AttLimits self, AttLimits other) -> bool"},
+	 { (char *)"AttLimits_toString", _wrap_AttLimits_toString, METH_VARARGS, (char *)"AttLimits_toString(AttLimits self) -> std::string"},
+	 { (char *)"delete_AttLimits", _wrap_delete_AttLimits, METH_VARARGS, (char *)"delete_AttLimits(AttLimits self)"},
+	 { (char *)"AttLimits_swigregister", AttLimits_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IMinimizer", _wrap_new_IMinimizer, METH_VARARGS, (char *)"\n"
 		"new_IMinimizer() -> IMinimizer\n"
 		"\n"
@@ -22483,8 +22152,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_swigregister", IMinimizer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitParameter", _wrap_new_FitParameter, METH_VARARGS, (char *)"\n"
 		"FitParameter()\n"
-		"FitParameter(std::string const & name, double value, AttLimits const & limits, double step=0.0)\n"
-		"FitParameter(std::string const & name, double value, AttLimits const & limits)\n"
+		"FitParameter(std::string const & name, double value, AttLimits limits, double step=0.0)\n"
+		"FitParameter(std::string const & name, double value, AttLimits limits)\n"
 		"new_FitParameter(std::string const & name, double value) -> FitParameter\n"
 		"\n"
 		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)\n"
@@ -22520,10 +22189,10 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"FitParameter_limits", _wrap_FitParameter_limits, METH_VARARGS, (char *)"\n"
-		"limits() -> AttLimits const\n"
-		"FitParameter_limits(FitParameter self) -> AttLimits &\n"
+		"limits() -> AttLimits\n"
+		"FitParameter_limits(FitParameter self) -> AttLimits\n"
 		""},
-	 { (char *)"FitParameter_setLimits", _wrap_FitParameter_setLimits, METH_VARARGS, (char *)"FitParameter_setLimits(FitParameter self, AttLimits const & limits) -> FitParameter"},
+	 { (char *)"FitParameter_setLimits", _wrap_FitParameter_setLimits, METH_VARARGS, (char *)"FitParameter_setLimits(FitParameter self, AttLimits limits) -> FitParameter"},
 	 { (char *)"FitParameter_lowerLimited", _wrap_FitParameter_lowerLimited, METH_VARARGS, (char *)"FitParameter_lowerLimited(FitParameter self, double bound_value) -> FitParameter"},
 	 { (char *)"FitParameter_positive", _wrap_FitParameter_positive, METH_VARARGS, (char *)"FitParameter_positive(FitParameter self) -> FitParameter"},
 	 { (char *)"FitParameter_nonnegative", _wrap_FitParameter_nonnegative, METH_VARARGS, (char *)"FitParameter_nonnegative(FitParameter self) -> FitParameter"},

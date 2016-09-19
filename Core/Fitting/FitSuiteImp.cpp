@@ -61,23 +61,18 @@ void FitSuiteImp::addSimulationAndRealData(const GISASSimulation& simulation,
 //! Adds fit parameter, step is calculated from initial parameter value
 void FitSuiteImp::addFitParameter(const std::string& name, double value)
 {
-    addFitParameter(name, value, RealLimits::limitless(), Attributes::free());
+    addFitParameter(name, value, AttLimits::limitless());
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-void FitSuiteImp::addFitParameter(const std::string& name, double value, const RealLimits& lim,
-                                const Attributes& attr, double step, double error)
+void FitSuiteImp::addFitParameter(const std::string& name, double value,
+                                  const AttLimits& limits, double step)
 {
     if(step <=0.0)
         step = value * getOptions().getStepFactor();
-//    for(auto par: m_fit_parameters.getFitParameters()) {
-//        if( par->getName() == name )
-//            throw std::runtime_error(
-//                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
-//    }
-//    m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
+
     m_kernel->fitParameters()->addFitParameter(
-                new FitParameterLinked(name, value, step, AttLimits(lim, attr)));
+                new FitParameterLinked(name, value, limits, step));
 }
 
 void FitSuiteImp::addFitStrategy(const IFitStrategy& strategy)

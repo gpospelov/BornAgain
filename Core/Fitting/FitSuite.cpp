@@ -40,10 +40,10 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
     m_impl->addSimulationAndRealData(simulation, *data, weight);
 }
 
-void FitSuite::addFitParameter(const std::string& name, double value, const RealLimits& lim,
-                               const Attributes& attr, double step)
+void FitSuite::addFitParameter(const std::string& name, double value,
+                               const AttLimits& limits, double step)
 {
-    m_impl->addFitParameter(name, value, lim, attr, step);
+    m_impl->addFitParameter(name, value, limits, step);
 }
 
 void FitSuite::setMinimizer(const std::string& minimizer_name, const std::string& algorithm_name,

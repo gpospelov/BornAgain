@@ -16,10 +16,9 @@
 #ifndef FITSUITE_H
 #define FITSUITE_H
 
-#include "Attributes.h"
-#include "RealLimits.h"
 #include "IObserver.h"
 #include "OutputData.h"
+#include "AttLimits.h"
 
 class GISASSimulation;
 class IHistogram;
@@ -59,11 +58,10 @@ public:
     //! Adds fit parameter
     //! @param name The name of fit parameter
     //! @param value Parameter's starting value
-    //! @param attlim Limits attribute
+    //! @param limits Limits attribute
     //! @param step Initial parameter's step (some minimizers don't use it)
     void addFitParameter(const std::string& name, double value,
-                         const RealLimits& lim=RealLimits::limitless(),
-                         const Attributes& attr=Attributes::free(), double step = 0.0);
+                         const AttLimits& limits=AttLimits::limitless(), double step = 0.0);
 
     //! Sets minimizer with given name and algorithm type
     //! @param minimizer_name The name of the minimizer

@@ -34,7 +34,7 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedWithValue)
 {
     AttLimits limits = AttLimits::limited(-10.0, 2.0);
 
-    FitParameterLinked fitParameter("FitPL", 2.0, 0.2, limits);
+    FitParameterLinked fitParameter("FitPL", 2.0, limits, 0.2);
 
     EXPECT_EQ("FitPL", fitParameter.name());
     EXPECT_EQ(2.0, fitParameter.value());

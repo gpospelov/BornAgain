@@ -5784,9 +5784,8 @@ class FitSuite(IObservable):
 
     def addFitParameter(self, *args):
         """
-        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim, Attributes attr, double step=0.0)
-        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim, Attributes attr)
-        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim)
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits const & limits, double step=0.0)
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits const & limits)
         addFitParameter(FitSuite self, std::string const & name, double value)
 
         void FitSuite::addFitParameter(const std::string &name, double value, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)

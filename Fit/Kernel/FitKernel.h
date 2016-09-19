@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 #include "KernelTypes.h"
 #include <memory>
+#include <string>
 
 class FitKernelImp;
 class RealLimits;

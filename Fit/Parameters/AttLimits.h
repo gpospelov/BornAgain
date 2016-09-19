@@ -29,6 +29,7 @@ class BA_CORE_API_ AttLimits
 public:
     AttLimits();
 
+    static AttLimits limitless();
     static AttLimits lowerLimited(double bound_value);
     static AttLimits positive();
     static AttLimits nonnegative();
@@ -46,6 +47,11 @@ public:
     double upperLimit() const;
 
     void setFixed(bool isFixed);
+
+    bool operator==(const AttLimits &other) const;
+    bool operator!=(const AttLimits &other) const { return !(*this == other); }
+
+    std::string toString() const;
 
 private:
     AttLimits(const RealLimits &limits, const Attributes &fixedAttr);

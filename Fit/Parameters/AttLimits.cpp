@@ -14,13 +14,19 @@
 // ************************************************************************** //
 
 #include "AttLimits.h"
-
+#include <sstream>
+#include <iomanip>
 
 AttLimits::AttLimits()
     : m_limits(RealLimits::limitless())
     , m_att_fixed(Attributes::free())
 {
 
+}
+
+AttLimits AttLimits::limitless()
+{
+    return AttLimits();
 }
 
 AttLimits AttLimits::lowerLimited(double bound_value)
@@ -92,6 +98,30 @@ void AttLimits::setFixed(bool isFixed)
 {
     m_limits.removeLimits();
     m_att_fixed.setFixed(isFixed);
+}
+
+bool AttLimits::operator==(const AttLimits &other) const
+{
+    return m_limits == other.m_limits && m_att_fixed == other.m_att_fixed;
+}
+
+std::string AttLimits::toString() const
+{
+    std::ostringstream result;
+
+    if(isFixed()) {
+        result << "fixed";
+    }else if(isLimitless()) {
+        result << "free";
+    } else if(isLowerLimited()) {
+        result << "lim("  << std::fixed <<std::setprecision(2) << lowerLimit() << ",)";
+    }else if(isUpperLimited()) {
+        result << "lim(," << std::fixed <<std::setprecision(2) << upperLimit() << ",)";
+    }else if(isLimited()) {
+        result << "lim(" << std::fixed <<std::setprecision(2) << lowerLimit() << "," <<
+            std::fixed <<std::setprecision(2) << upperLimit() << ")";
+    }
+    return result.str();
 }
 
 AttLimits::AttLimits(const RealLimits &limits, const Attributes &fixedAttr)

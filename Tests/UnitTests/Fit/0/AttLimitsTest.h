@@ -9,7 +9,6 @@ class AttLimitsTest : public ::testing::Test
  protected:
     AttLimitsTest(){}
     virtual ~AttLimitsTest(){}
-
 };
 
 TEST_F(AttLimitsTest, InitialState)

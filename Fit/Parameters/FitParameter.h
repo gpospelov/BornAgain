@@ -62,4 +62,48 @@ class BA_CORE_API_ FitParameter : public RealLimits, public Attributes
     double m_error;
 };
 
-#endif // FITPARAMETER_H
+
+#include "AttLimits.h"
+class BA_CORE_API_ NewFitParameter
+{
+public:
+    NewFitParameter();
+    NewFitParameter(const std::string& name, double value,
+                    const AttLimits& limits=AttLimits::limitless(), double step=0.0);
+    virtual ~NewFitParameter(){}
+
+    std::string name() const;
+
+    double startValue() const;
+
+    double value() const;
+    virtual void setValue(double value);
+
+    double step() const;
+    NewFitParameter& setStep(double value);
+
+    double error() const;
+    void setError(double value);
+
+    const AttLimits& limits() const;
+    AttLimits& limits();
+
+    NewFitParameter& setLimits(const AttLimits& limits);
+
+    NewFitParameter& lowerLimited(double bound_value);
+    NewFitParameter& positive();
+    NewFitParameter& nonnegative();
+    NewFitParameter& upperLimited(double bound_value);
+    NewFitParameter& limited(double left_bound_value, double right_bound_value);
+    NewFitParameter& fixed();
+
+private:
+    std::string m_name;
+    double m_start_value;
+    double m_value;
+    double m_step;
+    double m_error;
+    AttLimits m_limits;
+};
+
+#endif

@@ -62,3 +62,94 @@ void FitParameter::print(std::ostream& ostr) const
     ostr << " ";
     RealLimits::print(ostr);
 }
+
+// --------------------------------------------------------------------------------
+
+NewFitParameter::NewFitParameter()
+    : m_start_value(0.0)
+    , m_value(0.0)
+    , m_step(0.0)
+    , m_error(0.0)
+{
+
+}
+
+NewFitParameter::NewFitParameter(const std::string &name, double value, const AttLimits &limits,
+                                 double step)
+    : m_name(name)
+    , m_start_value(value)
+    , m_value(value)
+    , m_step(step)
+    , m_error(0.0)
+    , m_limits(limits)
+{
+
+}
+
+std::string NewFitParameter::name() const { return m_name; }
+
+double NewFitParameter::startValue() const { return m_start_value; }
+
+double NewFitParameter::value() const { return m_value; }
+
+void NewFitParameter::setValue(double value) { m_value = value; }
+
+double NewFitParameter::step() const { return m_step; }
+
+NewFitParameter &NewFitParameter::setStep(double value)
+{
+    m_step = value;
+    return *this;
+}
+
+double NewFitParameter::error() const { return m_error; }
+
+void NewFitParameter::setError(double value) { m_error = value; }
+
+const AttLimits &NewFitParameter::limits() const { return m_limits;}
+
+AttLimits &NewFitParameter::limits() { return m_limits;}
+
+NewFitParameter& NewFitParameter::setLimits(const AttLimits &limits)
+{
+    m_limits = limits;
+    return *this;
+}
+
+NewFitParameter &NewFitParameter::lowerLimited(double bound_value)
+{
+    m_limits = AttLimits::lowerLimited(bound_value);
+    return *this;
+}
+
+NewFitParameter &NewFitParameter::positive()
+{
+    m_limits = AttLimits::positive();
+    return *this;
+}
+
+NewFitParameter &NewFitParameter::nonnegative()
+{
+    m_limits = AttLimits::nonnegative();
+    return *this;
+}
+
+NewFitParameter &NewFitParameter::upperLimited(double bound_value)
+{
+    m_limits = AttLimits::upperLimited(bound_value);
+    return *this;
+}
+
+NewFitParameter &NewFitParameter::limited(double left_bound_value, double right_bound_value)
+{
+    m_limits = AttLimits::limited(left_bound_value, right_bound_value);
+    return *this;
+}
+
+NewFitParameter &NewFitParameter::fixed()
+{
+    m_limits = AttLimits::fixed();
+    return *this;
+}
+
+

@@ -32,6 +32,7 @@ class BA_CORE_API_ Attributes
 
     void setFixed(bool is_fixed) { m_is_fixed = is_fixed; }
     bool isFixed() const { return m_is_fixed; }
+    bool isFree() const { return !isFixed(); }
 
     friend std::ostream& operator<<(std::ostream& ostr, const Attributes& m) {
         m.print(ostr); return ostr; }

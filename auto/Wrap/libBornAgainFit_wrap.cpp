@@ -18643,6 +18643,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Attributes_isFree(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Attributes *arg1 = (Attributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Attributes_isFree",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes_isFree" "', argument " "1"" of type '" "Attributes const *""'"); 
+  }
+  arg1 = reinterpret_cast< Attributes * >(argp1);
+  result = (bool)((Attributes const *)arg1)->isFree();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Attributes___eq__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Attributes *arg1 = (Attributes *) 0 ;
@@ -22182,6 +22204,7 @@ static PyMethodDef SwigMethods[] = {
 		"bool Attributes::isFixed() const \n"
 		"\n"
 		""},
+	 { (char *)"Attributes_isFree", _wrap_Attributes_isFree, METH_VARARGS, (char *)"Attributes_isFree(Attributes self) -> bool"},
 	 { (char *)"Attributes___eq__", _wrap_Attributes___eq__, METH_VARARGS, (char *)"Attributes___eq__(Attributes self, Attributes other) -> bool"},
 	 { (char *)"Attributes___ne__", _wrap_Attributes___ne__, METH_VARARGS, (char *)"Attributes___ne__(Attributes self, Attributes other) -> bool"},
 	 { (char *)"delete_Attributes", _wrap_delete_Attributes, METH_VARARGS, (char *)"delete_Attributes(Attributes self)"},

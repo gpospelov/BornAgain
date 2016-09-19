@@ -1502,6 +1502,11 @@ class Attributes(_object):
         return _libBornAgainFit.Attributes_isFixed(self)
 
 
+    def isFree(self):
+        """isFree(Attributes self) -> bool"""
+        return _libBornAgainFit.Attributes_isFree(self)
+
+
     def __eq__(self, other):
         """__eq__(Attributes self, Attributes other) -> bool"""
         return _libBornAgainFit.Attributes___eq__(self, other)

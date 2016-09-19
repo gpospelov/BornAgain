@@ -29,13 +29,13 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
     TestMinimizer() : m_min_value(0) {}
     ~TestMinimizer(){}
 
-    virtual std::string minimizerName() const;
+    virtual std::string minimizerName() const override;
 
-    void minimize();
+    void minimize() override;
 
-    void setParameters(const FitParameterSet &parameters);
+    void setParameters(const FitParameterSet &parameters) override;
 
-    void setObjectiveFunction(objective_function_t func);
+    void setObjectiveFunction(objective_function_t func) override;
 
     std::string reportResults() const override;
 

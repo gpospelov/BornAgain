@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include "KernelTypes.h"
+#include <string>
 
 class FitParameterSet;
 

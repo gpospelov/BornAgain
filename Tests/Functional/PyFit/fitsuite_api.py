@@ -4,6 +4,8 @@ Testing of python specific FitSuite API.
 import sys
 import os
 import unittest
+
+sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
 class FitSuiteAPITest(unittest.TestCase):

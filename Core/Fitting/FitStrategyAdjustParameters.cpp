@@ -14,9 +14,9 @@
 // ************************************************************************** //
 
 #include "FitStrategyAdjustParameters.h"
-#include "FitKernel.h"
+#include "FitSuiteImp.h"
 #include "FitParameter.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "Logger.h"
 #include "Exceptions.h"
 
@@ -36,7 +36,7 @@ void FitStrategyAdjustParameters::execute()
     if( !m_kernel )
         throw Exceptions::NullPointerException(
             "FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
-    FitSuiteParameters* fitParameters = m_kernel->getFitParameters();
+    FitParameterSet* fitParameters = m_kernel->getFitParameters();
 
     // fixing all parameters at they current values
     if( m_fix_all ) {
@@ -56,17 +56,17 @@ void FitStrategyAdjustParameters::execute()
     // fixing dedicated list of fit parameters
     for(auto name: m_pars_to_fix) {
         msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << name;
-        fitParameters->getFitParameter(name)->setFixed(true);
+        fitParameters->fitParameter(name)->setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
     for(auto name: m_pars_to_release) {
         msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << name;
-        fitParameters->getFitParameter(name)->setFixed(false);
+        fitParameters->fitParameter(name)->setFixed(false);
     }
 
     // saving original param values
-    std::vector<double> original_param_values = fitParameters->getValues();
+    std::vector<double> original_param_values = fitParameters->values();
 
     // calling minimization
     m_kernel->minimize();

@@ -14,13 +14,13 @@
 // ************************************************************************** //
 
 #include "FitSuiteFunctions.h"
-#include "FitKernel.h"
+#include "FitSuiteImp.h"
 #include "Logger.h"
 #include <cassert>
 #include <stdexcept>
 
 //! evaluate chi squared value
-double FitSuiteChiSquaredFunction::evaluate(const double* pars)
+double FitSuiteChiSquaredFunction::evaluate(const std::vector<double> &pars)
 {
     assert(m_kernel != nullptr);
     if (m_kernel->isInterrupted())
@@ -38,7 +38,7 @@ double FitSuiteChiSquaredFunction::evaluate(const double* pars)
 // (calculations are done for all dataset when index==0, when index!=0 already
 // calculated data just returned
 double FitSuiteGradientFunction::evaluate(
-    const double* pars, unsigned int index, double* gradients)
+    const std::vector<double> &pars, unsigned int index, std::vector<double>& gradients)
 {
     assert(m_kernel != nullptr);
     if (m_kernel->isInterrupted())
@@ -54,7 +54,7 @@ double FitSuiteGradientFunction::evaluate(
     if(parameters_changed)
         calculate_residuals(pars);
 
-    if(gradients) {
+    if(gradients.size()) {
         if(index == 0 || parameters_changed ) {
             calculate_gradients(pars);
             m_ncalls_gradient++;
@@ -112,25 +112,23 @@ void FitSuiteGradientFunction::verify_minimizer_logic(
     m_prev_index = current_index;
 }
 
-void FitSuiteGradientFunction::calculate_residuals(const double* pars)
+void FitSuiteGradientFunction::calculate_residuals(const std::vector<double> &pars)
 {
     runSimulation(pars);
     for(size_t i_data=0; i_data<m_ndatasize; ++i_data)
         m_residuals[i_data] = m_kernel->getFitObjects()->getResidualValue(i_data);
 }
 
-void FitSuiteGradientFunction::calculate_gradients(const double* pars)
+void FitSuiteGradientFunction::calculate_gradients(const std::vector<double> &pars)
 {
     // FIXME get kEps from outside fit_suite->getMinimizer()->getPrecision();
     const double kEps = 1.0E-9; // Good for Fumili
     //const double kEps = 1.0E-5;
     for(size_t i_par=0; i_par<m_npars; ++i_par ) {
-        std::vector<double > pars_deriv; // values of parameters for derivative calculation
-        pars_deriv.resize(m_npars);
-        std::copy(pars, pars+m_npars, pars_deriv.begin());
+        std::vector<double > pars_deriv = pars; // values of parameters for derivative calculation
         pars_deriv[i_par] += kEps;
 
-        runSimulation(&pars_deriv.front());
+        runSimulation(pars_deriv);
 
         std::vector<double> residuals2;
         residuals2.resize(m_ndatasize);
@@ -145,7 +143,7 @@ void FitSuiteGradientFunction::calculate_gradients(const double* pars)
 
 }
 
-void FitSuiteGradientFunction::runSimulation(const double* pars){
+void FitSuiteGradientFunction::runSimulation(const std::vector<double> &pars){
     assert(m_kernel);
     m_kernel->getFitParameters()->setValues(pars);
     m_kernel->getFitObjects()->runSimulations();

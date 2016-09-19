@@ -15,7 +15,7 @@
 
 #include "FitSuiteStrategies.h"
 #include <cassert>
-#include "FitKernel.h"
+#include "FitSuiteImp.h"
 
 FitSuiteStrategies::FitSuiteStrategies()
     : m_kernel(nullptr), m_current_strategy_index(0)

@@ -12,6 +12,7 @@ set(test_cases
     Minuit2_Migrad
     RectDetectorFit
     ExperimentalFit
+    StandaloneFit
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake
@@ -33,11 +34,15 @@ include_directories(
 #file(GLOB source_files "*.cpp")
 #file(GLOB include_files "*.h")
 
+message(INFO "XXX ${BornAgainFit_INCLUDE_DIRS} ")
+
 add_executable(FitTest
     FitTest.cpp IMinimizerTest.cpp  IMinimizerTest.h  MinimizerTests.cpp
     MinimizerTests.h RectDetectorFitTest.cpp  RectDetectorFitTest.h
     StandardFitsFactory.cpp StandardFitsFactory.h
     ExperimentalFitTest.h ExperimentalFitTest.cpp
+    StandaloneFitTest.h StandaloneFitTest.cpp
+    ObjectiveTestFunctions.h ObjectiveTestFunctions.cpp
     )
 
 target_link_libraries(FitTest BornAgainFit BornAgainCore BornAgainTestMachinery)

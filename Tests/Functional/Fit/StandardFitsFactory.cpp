@@ -17,6 +17,7 @@
 #include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
 #include "ExperimentalFitTest.h"
+#include "StandaloneFitTest.h"
 #include <boost/format.hpp>
 
 StandardFitsFactory::StandardFitsFactory()
@@ -65,6 +66,12 @@ StandardFitsFactory::StandardFitsFactory()
         "ExperimentalFit",
         create_new<ExperimentalFitTest>,
         "Experimental fit on the way to refactoring");
+
+    registerItem(
+        "StandaloneFit",
+        create_new<StandaloneFitTest>,
+        "Experimental fit on the way to refactoring");
+
 }
 
 IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)

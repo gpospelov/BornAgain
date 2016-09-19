@@ -26,10 +26,11 @@ class IHistogram;
 class IChiSquaredModule;
 class IFitStrategy;
 class FitSuiteObjects;
-class FitSuiteParameters;
+class FitParameterSet;
 class FitSuiteStrategies;
 class FitOptions;
-class FitKernel;
+class FitSuiteImp;
+class IMinimizer;
 
 //! @class FitSuite
 //! @ingroup fitting
@@ -79,10 +80,10 @@ public:
     void addFitStrategy(const IFitStrategy& strategy);
 
     //! Sets minimizer
-    void setMinimizer(class IMinimizer* minimizer);
+    void setMinimizer(IMinimizer* minimizer);
 
-    //! Returns minimizer
-    class IMinimizer* getMinimizer();
+    //! Returns minimizer.
+    const IMinimizer *minimizer() const;
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.
@@ -124,7 +125,7 @@ public:
     FitSuiteObjects* getFitObjects();
 
     //! Returns reference to fit parameters
-    FitSuiteParameters* getFitParameters();
+    FitParameterSet* fitParameters();
 
     //! Returns reference to fit parameters
     FitSuiteStrategies* getFitStrategies();
@@ -162,7 +163,7 @@ public:
     const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
-    std::unique_ptr<FitKernel> m_kernel;
+    std::unique_ptr<FitSuiteImp> m_impl;
 };
 
 #endif // FITSUITE_H

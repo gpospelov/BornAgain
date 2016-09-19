@@ -127,13 +127,12 @@ class DrawObserver(ba.IFitObserver):
         plt.axis('off')
         plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
                  format(fit_suite.getNumberOfIterations(),
-                        fit_suite.getMinimizer().getMinimizerName()))
+                        fit_suite.minimizer().minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1,
-                     '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(),
-                                                 fitpars[i].getValue()))
+        for index, fitPar in enumerate(fit_suite.fitParameters()):
+            plt.text(0.01, 0.55 - index*0.1,
+                     '{:30.30s}: {:6.3f}'.format(fitPar.getName(),\
+                                                 fitPar.getValue()))
         plt.draw()
         plt.pause(0.01)
 
@@ -184,16 +183,15 @@ if __name__ == '__main__':
         fit_suite.runFit()
         print("Fitting completed.")
         print("chi2:", fit_suite.getChi2())
-        fitpars = fit_suite.getFitParameters()
-        for i in range(fitpars.size()): # workaround #1588
-            par = fitpars[i]
-            print(par.getName(), par.getValue(), par.getError())
+        for fitPar in fit_suite.fitParameters():
+            print(fitPar.getName(), fitPar.getValue(), fitPar.getError())
+        plt.show()
     else:
         fit_suite.runFit()
-        fitpars = fit_suite.getFitParameters()
-        pars = [ fitpars[i] for i in range(fitpars.size()) ] # workaround #1588
+        fitpars = fit_suite.fitParameters()
         from collections import OrderedDict
         out = [ OrderedDict([('name', par.getName()),
                              ('value', par.getValue()),
-                             ('error', par.getError())]) for par in pars ]
+                             ('error', par.getError())])\
+                for par in fit_suite.fitParameters()]
         ba.yamlDump(arg+".ref", out)

@@ -3456,53 +3456,52 @@ namespace Swig {
 
 #define SWIGTYPE_p_Attributes swig_types[0]
 #define SWIGTYPE_p_FitParameter swig_types[1]
-#define SWIGTYPE_p_FitSuiteParameters swig_types[2]
+#define SWIGTYPE_p_FitParameterSet swig_types[2]
 #define SWIGTYPE_p_IMinimizer swig_types[3]
 #define SWIGTYPE_p_MinimizerCatalogue swig_types[4]
 #define SWIGTYPE_p_MinimizerFactory swig_types[5]
 #define SWIGTYPE_p_RealLimits swig_types[6]
 #define SWIGTYPE_p_allocator_type swig_types[7]
 #define SWIGTYPE_p_char swig_types[8]
-#define SWIGTYPE_p_corr_matrix_t swig_types[9]
-#define SWIGTYPE_p_difference_type swig_types[10]
-#define SWIGTYPE_p_double swig_types[11]
-#define SWIGTYPE_p_function_chi2_t swig_types[12]
-#define SWIGTYPE_p_function_gradient_t swig_types[13]
+#define SWIGTYPE_p_const_iterator swig_types[9]
+#define SWIGTYPE_p_container_t swig_types[10]
+#define SWIGTYPE_p_corr_matrix_t swig_types[11]
+#define SWIGTYPE_p_difference_type swig_types[12]
+#define SWIGTYPE_p_gradient_function_t swig_types[13]
 #define SWIGTYPE_p_int swig_types[14]
-#define SWIGTYPE_p_long_long swig_types[15]
-#define SWIGTYPE_p_p_PyObject swig_types[16]
-#define SWIGTYPE_p_short swig_types[17]
-#define SWIGTYPE_p_signed_char swig_types[18]
-#define SWIGTYPE_p_size_type swig_types[19]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[20]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[21]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[22]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[23]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[24]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[25]
-#define SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t swig_types[26]
-#define SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t swig_types[27]
+#define SWIGTYPE_p_iterator swig_types[15]
+#define SWIGTYPE_p_long_long swig_types[16]
+#define SWIGTYPE_p_objective_function_t swig_types[17]
+#define SWIGTYPE_p_p_PyObject swig_types[18]
+#define SWIGTYPE_p_short swig_types[19]
+#define SWIGTYPE_p_signed_char swig_types[20]
+#define SWIGTYPE_p_size_type swig_types[21]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[22]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[23]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[24]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[25]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[26]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[27]
 #define SWIGTYPE_p_std__invalid_argument swig_types[28]
 #define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[29]
 #define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[30]
 #define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[31]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t swig_types[32]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[33]
-#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[34]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[35]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[36]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[37]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[38]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[39]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[40]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[41]
-#define SWIGTYPE_p_unsigned_char swig_types[42]
-#define SWIGTYPE_p_unsigned_int swig_types[43]
-#define SWIGTYPE_p_unsigned_long_long swig_types[44]
-#define SWIGTYPE_p_unsigned_short swig_types[45]
-#define SWIGTYPE_p_value_type swig_types[46]
-static swig_type_info *swig_types[48];
-static swig_module_info swig_module = {swig_types, 47, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator swig_types[32]
+#define SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator swig_types[33]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[34]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[35]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[36]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[37]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[38]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[39]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[40]
+#define SWIGTYPE_p_unsigned_char swig_types[41]
+#define SWIGTYPE_p_unsigned_int swig_types[42]
+#define SWIGTYPE_p_unsigned_long_long swig_types[43]
+#define SWIGTYPE_p_unsigned_short swig_types[44]
+#define SWIGTYPE_p_value_type swig_types[45]
+static swig_type_info *swig_types[47];
+static swig_module_info swig_module = {swig_types, 46, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5628,7 +5627,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -6088,7 +6087,7 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 
 
 #include "FitParameter.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "IMinimizer.h"
 #include "MinimizerCatalogue.h"
 #include "MinimizerFactory.h"
@@ -6107,10 +6106,10 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
-SWIGINTERN FitParameter const *FitSuiteParameters___getitem____SWIG_0(FitSuiteParameters const *self,std::string name){
+SWIGINTERN FitParameter const *FitParameterSet___getitem____SWIG_0(FitParameterSet const *self,std::string name){
         return (*(self))[name];
     }
-SWIGINTERN FitParameter const *FitSuiteParameters___getitem____SWIG_1(FitSuiteParameters const *self,size_t index){
+SWIGINTERN FitParameter const *FitParameterSet___getitem____SWIG_1(FitParameterSet const *self,size_t index){
         return (*(self))[index];
     }
 
@@ -19365,38 +19364,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IMinimizer_setParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IMinimizer_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  FitParameter *arg3 = (FitParameter *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setParameter",&obj0,&obj1,&obj2)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_clear",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setParameter" "', argument " "1"" of type '" "IMinimizer *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_clear" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_setParameter" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_FitParameter, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IMinimizer_setParameter" "', argument " "3"" of type '" "FitParameter const *""'"); 
-  }
-  arg3 = reinterpret_cast< FitParameter * >(argp3);
-  (arg1)->setParameter(arg2,(FitParameter const *)arg3);
+  (arg1)->clear();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19407,7 +19388,7 @@ fail:
 SWIGINTERN PyObject *_wrap_IMinimizer_setParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
-  FitSuiteParameters *arg2 = 0 ;
+  FitParameterSet *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -19421,15 +19402,15 @@ SWIGINTERN PyObject *_wrap_IMinimizer_setParameters(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setParameters" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_FitSuiteParameters,  0  | 0);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_FitParameterSet,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitSuiteParameters const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitParameterSet const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitSuiteParameters const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setParameters" "', argument " "2"" of type '" "FitParameterSet const &""'"); 
   }
-  arg2 = reinterpret_cast< FitSuiteParameters * >(argp2);
-  (arg1)->setParameters((FitSuiteParameters const &)*arg2);
+  arg2 = reinterpret_cast< FitParameterSet * >(argp2);
+  (arg1)->setParameters((FitParameterSet const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19437,46 +19418,37 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IMinimizer_setChiSquaredFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IMinimizer_setObjectiveFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
-  IMinimizer::function_chi2_t arg2 ;
-  size_t arg3 ;
+  objective_function_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
   int res2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setChiSquaredFunction",&obj0,&obj1,&obj2)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_setObjectiveFunction",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "1"" of type '" "IMinimizer *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setObjectiveFunction" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__functionT_double_fdouble_const_pF_t,  0  | 0);
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_objective_function_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "2"" of type '" "IMinimizer::function_chi2_t""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setObjectiveFunction" "', argument " "2"" of type '" "objective_function_t""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "2"" of type '" "IMinimizer::function_chi2_t""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setObjectiveFunction" "', argument " "2"" of type '" "objective_function_t""'");
     } else {
-      IMinimizer::function_chi2_t * temp = reinterpret_cast< IMinimizer::function_chi2_t * >(argp2);
+      objective_function_t * temp = reinterpret_cast< objective_function_t * >(argp2);
       arg2 = *temp;
       if (SWIG_IsNewObj(res2)) delete temp;
     }
   }
-  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setChiSquaredFunction" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
-  (arg1)->setChiSquaredFunction(arg2,arg3);
+  (arg1)->setObjectiveFunction(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -19487,75 +19459,44 @@ fail:
 SWIGINTERN PyObject *_wrap_IMinimizer_setGradientFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
-  IMinimizer::function_gradient_t arg2 ;
-  size_t arg3 ;
-  size_t arg4 ;
+  gradient_function_t arg2 ;
+  int arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
   int res2 = 0 ;
-  size_t val3 ;
+  int val3 ;
   int ecode3 = 0 ;
-  size_t val4 ;
-  int ecode4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:IMinimizer_setGradientFunction",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OOO:IMinimizer_setGradientFunction",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_setGradientFunction" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,  0  | 0);
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_gradient_function_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "IMinimizer::function_gradient_t""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "gradient_function_t""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "IMinimizer::function_gradient_t""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_setGradientFunction" "', argument " "2"" of type '" "gradient_function_t""'");
     } else {
-      IMinimizer::function_gradient_t * temp = reinterpret_cast< IMinimizer::function_gradient_t * >(argp2);
+      gradient_function_t * temp = reinterpret_cast< gradient_function_t * >(argp2);
       arg2 = *temp;
       if (SWIG_IsNewObj(res2)) delete temp;
     }
   }
-  ecode3 = SWIG_AsVal_size_t(obj2, &val3);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setGradientFunction" "', argument " "3"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IMinimizer_setGradientFunction" "', argument " "3"" of type '" "int""'");
   } 
-  arg3 = static_cast< size_t >(val3);
-  ecode4 = SWIG_AsVal_size_t(obj3, &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IMinimizer_setGradientFunction" "', argument " "4"" of type '" "size_t""'");
-  } 
-  arg4 = static_cast< size_t >(val4);
-  (arg1)->setGradientFunction(arg2,arg3,arg4);
+  arg3 = static_cast< int >(val3);
+  (arg1)->setGradientFunction(arg2,arg3);
   resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getNumberOfVariables(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  size_t result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getNumberOfVariables",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getNumberOfVariables" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getNumberOfVariables();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
   return NULL;
@@ -19578,133 +19519,6 @@ SWIGINTERN PyObject *_wrap_IMinimizer_getMinValue(PyObject *SWIGUNUSEDPARM(self)
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
   result = (double)((IMinimizer const *)arg1)->getMinValue();
   resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariableAtMinimum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getValueOfVariableAtMinimum",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getValueOfVariableAtMinimum" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (double)((IMinimizer const *)arg1)->getValueOfVariableAtMinimum(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getValueOfVariablesAtMinimum(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::vector< double,std::allocator< double > > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getValueOfVariablesAtMinimum",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getValueOfVariablesAtMinimum" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getValueOfVariablesAtMinimum();
-  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_getErrorOfVariable",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IMinimizer_getErrorOfVariable" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (double)((IMinimizer const *)arg1)->getErrorOfVariable(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_getErrorOfVariables(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::vector< double,std::allocator< double > > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_getErrorOfVariables",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_getErrorOfVariables" "', argument " "1"" of type '" "IMinimizer const *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  result = ((IMinimizer const *)arg1)->getErrorOfVariables();
-  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IMinimizer_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *arg1 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:IMinimizer_clear",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_clear" "', argument " "1"" of type '" "IMinimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  (arg1)->clear();
-  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -19736,7 +19550,7 @@ fail:
 SWIGINTERN PyObject *_wrap_IMinimizer_propagateResults(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
-  FitSuiteParameters *arg2 = 0 ;
+  FitParameterSet *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -19750,14 +19564,14 @@ SWIGINTERN PyObject *_wrap_IMinimizer_propagateResults(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_propagateResults" "', argument " "1"" of type '" "IMinimizer *""'"); 
   }
   arg1 = reinterpret_cast< IMinimizer * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_FitSuiteParameters,  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_FitParameterSet,  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_propagateResults" "', argument " "2"" of type '" "FitSuiteParameters &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_propagateResults" "', argument " "2"" of type '" "FitParameterSet &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_propagateResults" "', argument " "2"" of type '" "FitSuiteParameters &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_propagateResults" "', argument " "2"" of type '" "FitParameterSet &""'"); 
   }
-  arg2 = reinterpret_cast< FitSuiteParameters * >(argp2);
+  arg2 = reinterpret_cast< FitParameterSet * >(argp2);
   (arg1)->propagateResults(*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -20480,32 +20294,32 @@ SWIGINTERN PyObject *FitParameter_swigregister(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_FitSuiteParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_FitParameterSet(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *result = 0 ;
+  FitParameterSet *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_FitSuiteParameters")) SWIG_fail;
-  result = (FitSuiteParameters *)new FitSuiteParameters();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitSuiteParameters, SWIG_POINTER_NEW |  0 );
+  if (!PyArg_ParseTuple(args,(char *)":new_FitParameterSet")) SWIG_fail;
+  result = (FitParameterSet *)new FitParameterSet();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameterSet, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_FitSuiteParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_FitParameterSet(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_FitSuiteParameters",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, SWIG_POINTER_DISOWN |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_FitParameterSet",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_FitSuiteParameters" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_FitParameterSet" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -20514,19 +20328,19 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_clear",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_clear",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_clear" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_clear" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   (arg1)->clear();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -20535,81 +20349,73 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_addFitParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  FitParameter *arg2 = (FitParameter *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
+  size_t result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_addFitParameter",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_addFitParameter" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_size" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_FitParameter, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_addFitParameter" "', argument " "2"" of type '" "FitParameter *""'"); 
-  }
-  arg2 = reinterpret_cast< FitParameter * >(argp2);
-  (arg1)->addFitParameter(arg2);
-  resultobj = SWIG_Py_Void();
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->size();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameters__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_begin__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< FitParameter *,std::allocator< FitParameter * > > *result = 0 ;
+  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator > result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_getFitParameters",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_begin",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getFitParameters" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_begin" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = (std::vector< FitParameter *,std::allocator< FitParameter * > > *) &(arg1)->getFitParameters();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, 0 |  0 );
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = (arg1)->begin();
+  resultobj = SWIG_NewPointerObj((new FitParameterSet::iterator(static_cast< const FitParameterSet::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameters__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_begin__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< FitParameter *,std::allocator< FitParameter * > > *result = 0 ;
+  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator > result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_getFitParameters",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_begin",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getFitParameters" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_begin" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = (std::vector< FitParameter *,std::allocator< FitParameter * > > *) &((FitSuiteParameters const *)arg1)->getFitParameters();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, 0 |  0 );
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->begin();
+  resultobj = SWIG_NewPointerObj((new FitParameterSet::const_iterator(static_cast< const FitParameterSet::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameters(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_begin(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[2] = {
     0
@@ -20624,34 +20430,148 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameters(PyObject *self, P
   if (argc == 1) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_FitSuiteParameters_getFitParameters__SWIG_0(self, args);
+      return _wrap_FitParameterSet_begin__SWIG_0(self, args);
     }
   }
   if (argc == 1) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_FitSuiteParameters_getFitParameters__SWIG_1(self, args);
+      return _wrap_FitParameterSet_begin__SWIG_1(self, args);
     }
   }
   
 fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters_getFitParameters'.\n"
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitParameterSet_begin'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    FitSuiteParameters::getFitParameters()\n"
-    "    FitSuiteParameters::getFitParameters() const\n");
+    "    FitParameterSet::begin()\n"
+    "    FitParameterSet::begin() const\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_end__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_end",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_end" "', argument " "1"" of type '" "FitParameterSet *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = (arg1)->end();
+  resultobj = SWIG_NewPointerObj((new FitParameterSet::iterator(static_cast< const FitParameterSet::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameterSet_end__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_end",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_end" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->end();
+  resultobj = SWIG_NewPointerObj((new FitParameterSet::const_iterator(static_cast< const FitParameterSet::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameterSet_end(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_FitParameterSet_end__SWIG_0(self, args);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_FitParameterSet_end__SWIG_1(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitParameterSet_end'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    FitParameterSet::end()\n"
+    "    FitParameterSet::end() const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameterSet_addFitParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  FitParameter *arg2 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet_addFitParameter",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_addFitParameter" "', argument " "1"" of type '" "FitParameterSet *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_addFitParameter" "', argument " "2"" of type '" "FitParameter *""'"); 
+  }
+  arg2 = reinterpret_cast< FitParameter * >(argp2);
+  (arg1)->addFitParameter(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameterSet_fitParameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -20660,24 +20580,24 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameter__SWIG_0(PyObject *
   PyObject * obj1 = 0 ;
   FitParameter *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_getFitParameter",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet_fitParameter",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getFitParameter" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_fitParameter" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_getFitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_fitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitSuiteParameters_getFitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_fitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
-  result = (FitParameter *)((FitSuiteParameters const *)arg1)->getFitParameter((std::string const &)*arg2);
+  result = (FitParameter *)((FitParameterSet const *)arg1)->fitParameter((std::string const &)*arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -20687,9 +20607,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameter__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_fitParameter__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   std::string *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -20698,24 +20618,24 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameter__SWIG_1(PyObject *
   PyObject * obj1 = 0 ;
   FitParameter *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_getFitParameter",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet_fitParameter",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getFitParameter" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_fitParameter" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_getFitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_fitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitSuiteParameters_getFitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_fitParameter" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
-  result = (FitParameter *)(arg1)->getFitParameter((std::string const &)*arg2);
+  result = (FitParameter *)(arg1)->fitParameter((std::string const &)*arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -20725,7 +20645,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameter(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_fitParameter(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
@@ -20740,72 +20660,64 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_getFitParameter(PyObject *self, Py
   if (argc == 2) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_FitSuiteParameters_getFitParameter__SWIG_1(self, args);
+        return _wrap_FitParameterSet_fitParameter__SWIG_1(self, args);
       }
     }
   }
   if (argc == 2) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_FitSuiteParameters_getFitParameter__SWIG_0(self, args);
+        return _wrap_FitParameterSet_fitParameter__SWIG_0(self, args);
       }
     }
   }
   
 fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters_getFitParameter'.\n"
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitParameterSet_fitParameter'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    FitSuiteParameters::getFitParameter(std::string const &) const\n"
-    "    FitSuiteParameters::getFitParameter(std::string const &)\n");
+    "    FitParameterSet::fitParameter(std::string const &) const\n"
+    "    FitParameterSet::fitParameter(std::string const &)\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_setValues__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_values(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  double *arg2 = (double *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
+  std::vector< double,std::allocator< double > > result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_setValues",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_values",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_setValues" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_values" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_double, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_setValues" "', argument " "2"" of type '" "double const *""'"); 
-  }
-  arg2 = reinterpret_cast< double * >(argp2);
-  (arg1)->setValues((double const *)arg2);
-  resultobj = SWIG_Py_Void();
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->values();
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_setValues__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_setValues(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   std::vector< double,std::allocator< double > > *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -20813,20 +20725,20 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_setValues__SWIG_1(PyObject *SWIGUN
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_setValues",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet_setValues",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_setValues" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_setValues" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   {
     std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
     res2 = swig::asptr(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_setValues" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_setValues" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitSuiteParameters_setValues" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_setValues" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
     }
     arg2 = ptr;
   }
@@ -20840,70 +20752,160 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_setValues(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_valuesDifferFrom__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  std::vector< double,std::allocator< double > > *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:FitParameterSet_valuesDifferFrom",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_valuesDifferFrom" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res2 = swig::asptr(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_valuesDifferFrom" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_valuesDifferFrom" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  ecode3 = SWIG_AsVal_double(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FitParameterSet_valuesDifferFrom" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (bool)((FitParameterSet const *)arg1)->valuesDifferFrom((std::vector< double,std::allocator< double > > const &)*arg2,arg3);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameterSet_valuesDifferFrom__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  std::vector< double,std::allocator< double > > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet_valuesDifferFrom",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_valuesDifferFrom" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res2 = swig::asptr(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_valuesDifferFrom" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_valuesDifferFrom" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = (bool)((FitParameterSet const *)arg1)->valuesDifferFrom((std::vector< double,std::allocator< double > > const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameterSet_valuesDifferFrom(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[3] = {
+  PyObject *argv[4] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
   }
   if (argc == 2) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_FitSuiteParameters_setValues__SWIG_0(self, args);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = swig::asptr(argv[1], (std::vector< double,std::allocator< double > >**)(0));
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_FitSuiteParameters_setValues__SWIG_1(self, args);
+        return _wrap_FitParameterSet_valuesDifferFrom__SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = swig::asptr(argv[1], (std::vector< double,std::allocator< double > >**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_FitParameterSet_valuesDifferFrom__SWIG_0(self, args);
+        }
       }
     }
   }
   
 fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters_setValues'.\n"
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitParameterSet_valuesDifferFrom'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    FitSuiteParameters::setValues(double const *)\n"
-    "    FitSuiteParameters::setValues(std::vector< double,std::allocator< double > > const &)\n");
+    "    FitParameterSet::valuesDifferFrom(std::vector< double,std::allocator< double > > const &,double) const\n"
+    "    FitParameterSet::valuesDifferFrom(std::vector< double,std::allocator< double > > const &) const\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getValues(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_errors(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   std::vector< double,std::allocator< double > > result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_getValues",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_errors",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getValues" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_errors" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = ((FitSuiteParameters const *)arg1)->getValues();
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->errors();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -20911,9 +20913,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_setErrors(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_setErrors(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   std::vector< double,std::allocator< double > > *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -20921,20 +20923,20 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_setErrors(PyObject *SWIGUNUSEDPARM
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_setErrors",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet_setErrors",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_setErrors" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_setErrors" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   {
     std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
     res2 = swig::asptr(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_setErrors" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_setErrors" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitSuiteParameters_setErrors" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_setErrors" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
     }
     arg2 = ptr;
   }
@@ -20948,43 +20950,21 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_getErrors(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_freeFitParameterCount(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::vector< double,std::allocator< double > > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_getErrors",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_getErrors" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = ((FitSuiteParameters const *)arg1)->getErrors();
-  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   size_t result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_size",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_freeFitParameterCount",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_size" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_freeFitParameterCount" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = ((FitSuiteParameters const *)arg1)->size();
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->freeFitParameterCount();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -20992,230 +20972,19 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_begin__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_fixAll(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_begin",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_begin" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = (arg1)->begin();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_begin__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_begin",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_begin" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = ((FitSuiteParameters const *)arg1)->begin();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_begin(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_FitSuiteParameters_begin__SWIG_0(self, args);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_FitSuiteParameters_begin__SWIG_1(self, args);
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters_begin'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    FitSuiteParameters::begin()\n"
-    "    FitSuiteParameters::begin() const\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_end__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_end",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_end" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = (arg1)->end();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_end__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  SwigValueWrapper< std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_end",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_end" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = ((FitSuiteParameters const *)arg1)->end();
-  resultobj = SWIG_NewPointerObj((new std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator(static_cast< const std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_end(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_FitSuiteParameters_end__SWIG_0(self, args);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_FitSuiteParameters_end__SWIG_1(self, args);
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters_end'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    FitSuiteParameters::end()\n"
-    "    FitSuiteParameters::end() const\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_numberOfFreeFitParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  size_t result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_numberOfFreeFitParameters",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_numberOfFreeFitParameters" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = ((FitSuiteParameters const *)arg1)->numberOfFreeFitParameters();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_printFitParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_printFitParameters",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_fixAll",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_printFitParameters" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_fixAll" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  ((FitSuiteParameters const *)arg1)->printFitParameters();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_fixAll(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_fixAll",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_fixAll" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   (arg1)->fixAll();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -21224,19 +20993,19 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_releaseAll(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_releaseAll(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_releaseAll",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_releaseAll",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_releaseAll" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_releaseAll" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   (arg1)->releaseAll();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -21245,9 +21014,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_setFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_setFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   std::vector< std::string,std::allocator< std::string > > *arg2 = 0 ;
   bool arg3 ;
   void *argp1 = 0 ;
@@ -21259,26 +21028,26 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters_setFixed(PyObject *SWIGUNUSEDPARM(
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:FitSuiteParameters_setFixed",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OOO:FitParameterSet_setFixed",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_setFixed" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_setFixed" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   {
     std::vector< std::string,std::allocator< std::string > > *ptr = (std::vector< std::string,std::allocator< std::string > > *)0;
     res2 = swig::asptr(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_setFixed" "', argument " "2"" of type '" "std::vector< std::string,std::allocator< std::string > > const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_setFixed" "', argument " "2"" of type '" "std::vector< std::string,std::allocator< std::string > > const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitSuiteParameters_setFixed" "', argument " "2"" of type '" "std::vector< std::string,std::allocator< std::string > > const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_setFixed" "', argument " "2"" of type '" "std::vector< std::string,std::allocator< std::string > > const &""'"); 
     }
     arg2 = ptr;
   }
   ecode3 = SWIG_AsVal_bool(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FitSuiteParameters_setFixed" "', argument " "3"" of type '" "bool""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FitParameterSet_setFixed" "', argument " "3"" of type '" "bool""'");
   } 
   arg3 = static_cast< bool >(val3);
   (arg1)->setFixed((std::vector< std::string,std::allocator< std::string > > const &)*arg2,arg3);
@@ -21291,61 +21060,21 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_valuesDifferFrom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_parametersToString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  double *arg2 = (double *) 0 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:FitSuiteParameters_valuesDifferFrom",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
-  }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_double, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "2"" of type '" "double const *""'"); 
-  }
-  arg2 = reinterpret_cast< double * >(argp2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FitSuiteParameters_valuesDifferFrom" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (bool)((FitSuiteParameters const *)arg1)->valuesDifferFrom((double const *)arg2,arg3);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_reportResults(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   std::string result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_reportResults",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_parametersToString",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_reportResults" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_parametersToString" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = ((FitSuiteParameters const *)arg1)->reportResults();
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->parametersToString();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -21353,21 +21082,43 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_correlationMatrix(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_reportResults(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  FitSuiteParameters::corr_matrix_t result;
+  std::string result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitSuiteParameters_correlationMatrix",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_reportResults",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_correlationMatrix" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_reportResults" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
-  result = ((FitSuiteParameters const *)arg1)->correlationMatrix();
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->reportResults();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameterSet_correlationMatrix(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  FitParameterSet::corr_matrix_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_correlationMatrix",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_correlationMatrix" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->correlationMatrix();
   resultobj = swig::from(static_cast< std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > >(result));
   return resultobj;
 fail:
@@ -21375,34 +21126,34 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters_setCorrelationMatrix(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_setCorrelationMatrix(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
-  FitSuiteParameters::corr_matrix_t *arg2 = 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  FitParameterSet::corr_matrix_t *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = SWIG_OLDOBJ ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters_setCorrelationMatrix",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet_setCorrelationMatrix",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters_setCorrelationMatrix" "', argument " "1"" of type '" "FitSuiteParameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_setCorrelationMatrix" "', argument " "1"" of type '" "FitParameterSet *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   {
     std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *ptr = (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *)0;
     res2 = swig::asptr(obj1, &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitSuiteParameters_setCorrelationMatrix" "', argument " "2"" of type '" "FitSuiteParameters::corr_matrix_t const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_setCorrelationMatrix" "', argument " "2"" of type '" "FitParameterSet::corr_matrix_t const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitSuiteParameters_setCorrelationMatrix" "', argument " "2"" of type '" "FitSuiteParameters::corr_matrix_t const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_setCorrelationMatrix" "', argument " "2"" of type '" "FitParameterSet::corr_matrix_t const &""'"); 
     }
     arg2 = ptr;
   }
-  (arg1)->setCorrelationMatrix((FitSuiteParameters::corr_matrix_t const &)*arg2);
+  (arg1)->setCorrelationMatrix((FitParameterSet::corr_matrix_t const &)*arg2);
   resultobj = SWIG_Py_Void();
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -21412,9 +21163,47 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet_isExistingName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet_isExistingName",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_isExistingName" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameterSet_isExistingName" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameterSet_isExistingName" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = (bool)((FitParameterSet const *)arg1)->isExistingName((std::string const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameterSet___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   std::string arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -21422,22 +21211,22 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem____SWIG_0(PyObject *SWIG
   PyObject * obj1 = 0 ;
   FitParameter *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters___getitem__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet___getitem__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters___getitem__" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet___getitem__" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     int res = SWIG_AsPtr_std_string(obj1, &ptr);
     if (!SWIG_IsOK(res) || !ptr) {
-      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "FitSuiteParameters___getitem__" "', argument " "2"" of type '" "std::string""'"); 
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "FitParameterSet___getitem__" "', argument " "2"" of type '" "std::string""'"); 
     }
     arg2 = *ptr;
     if (SWIG_IsNewObj(res)) delete ptr;
   }
-  result = (FitParameter *)FitSuiteParameters___getitem____SWIG_0((FitSuiteParameters const *)arg1,arg2);
+  result = (FitParameter *)FitParameterSet___getitem____SWIG_0((FitParameterSet const *)arg1,arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
   return resultobj;
 fail:
@@ -21445,9 +21234,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet___getitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  FitSuiteParameters *arg1 = (FitSuiteParameters *) 0 ;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
   size_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -21457,18 +21246,18 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem____SWIG_1(PyObject *SWIG
   PyObject * obj1 = 0 ;
   FitParameter *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:FitSuiteParameters___getitem__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitSuiteParameters, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameterSet___getitem__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitSuiteParameters___getitem__" "', argument " "1"" of type '" "FitSuiteParameters const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet___getitem__" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
   }
-  arg1 = reinterpret_cast< FitSuiteParameters * >(argp1);
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitSuiteParameters___getitem__" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitParameterSet___getitem__" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (FitParameter *)FitSuiteParameters___getitem____SWIG_1((FitSuiteParameters const *)arg1,arg2);
+  result = (FitParameter *)FitParameterSet___getitem____SWIG_1((FitParameterSet const *)arg1,arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
   return resultobj;
 fail:
@@ -21476,7 +21265,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem__(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameterSet___getitem__(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
@@ -21491,7 +21280,7 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem__(PyObject *self, PyObje
   if (argc == 2) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -21499,37 +21288,37 @@ SWIGINTERN PyObject *_wrap_FitSuiteParameters___getitem__(PyObject *self, PyObje
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_FitSuiteParameters___getitem____SWIG_1(self, args);
+        return _wrap_FitParameterSet___getitem____SWIG_1(self, args);
       }
     }
   }
   if (argc == 2) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitSuiteParameters, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameterSet, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_FitSuiteParameters___getitem____SWIG_0(self, args);
+        return _wrap_FitParameterSet___getitem____SWIG_0(self, args);
       }
     }
   }
   
 fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitSuiteParameters___getitem__'.\n"
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitParameterSet___getitem__'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    FitSuiteParameters::__getitem__(std::string) const\n"
-    "    FitSuiteParameters::__getitem__(size_t) const\n");
+    "    FitParameterSet::__getitem__(std::string) const\n"
+    "    FitParameterSet::__getitem__(size_t) const\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *FitSuiteParameters_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *FitParameterSet_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_FitSuiteParameters, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_FitParameterSet, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -22545,44 +22334,29 @@ static PyMethodDef SwigMethods[] = {
 		"run minimization \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_setParameter", _wrap_IMinimizer_setParameter, METH_VARARGS, (char *)"\n"
-		"IMinimizer_setParameter(IMinimizer self, size_t index, FitParameter par)\n"
+	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"\n"
+		"IMinimizer_clear(IMinimizer self)\n"
 		"\n"
-		"void IMinimizer::setParameter(size_t index, const FitParameter *par)\n"
+		"void IMinimizer::clear()\n"
 		"\n"
-		"Sets internal minimizer parameter. \n"
+		"clear resources (parameters) for consecutives minimizations \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_setParameters", _wrap_IMinimizer_setParameters, METH_VARARGS, (char *)"\n"
-		"IMinimizer_setParameters(IMinimizer self, FitSuiteParameters parameters)\n"
+		"IMinimizer_setParameters(IMinimizer self, FitParameterSet parameters)\n"
 		"\n"
 		"void IMinimizer::setParameters(const FitSuiteParameters &parameters)\n"
 		"\n"
 		"Sets internal minimizer parameters using external parameter list. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_setChiSquaredFunction", _wrap_IMinimizer_setChiSquaredFunction, METH_VARARGS, (char *)"\n"
-		"IMinimizer_setChiSquaredFunction(IMinimizer self, IMinimizer::function_chi2_t fun_chi2, size_t nparameters)\n"
-		"\n"
-		"void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)\n"
-		"\n"
-		"Sets chi squared function to minimize. \n"
-		"\n"
-		""},
+	 { (char *)"IMinimizer_setObjectiveFunction", _wrap_IMinimizer_setObjectiveFunction, METH_VARARGS, (char *)"IMinimizer_setObjectiveFunction(IMinimizer self, objective_function_t arg3)"},
 	 { (char *)"IMinimizer_setGradientFunction", _wrap_IMinimizer_setGradientFunction, METH_VARARGS, (char *)"\n"
-		"IMinimizer_setGradientFunction(IMinimizer self, IMinimizer::function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)\n"
+		"IMinimizer_setGradientFunction(IMinimizer self, gradient_function_t arg3, int arg4)\n"
 		"\n"
 		"void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)\n"
 		"\n"
 		"Sets gradient function to minimize. \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_getNumberOfVariables", _wrap_IMinimizer_getNumberOfVariables, METH_VARARGS, (char *)"\n"
-		"IMinimizer_getNumberOfVariables(IMinimizer self) -> size_t\n"
-		"\n"
-		"size_t IMinimizer::getNumberOfVariables() const\n"
-		"\n"
-		"Returns number of variables to fit. \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_getMinValue", _wrap_IMinimizer_getMinValue, METH_VARARGS, (char *)"\n"
@@ -22591,46 +22365,6 @@ static PyMethodDef SwigMethods[] = {
 		"double IMinimizer::getMinValue() const\n"
 		"\n"
 		"Returns minimum function value. \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_getValueOfVariableAtMinimum", _wrap_IMinimizer_getValueOfVariableAtMinimum, METH_VARARGS, (char *)"\n"
-		"IMinimizer_getValueOfVariableAtMinimum(IMinimizer self, size_t index) -> double\n"
-		"\n"
-		"double IMinimizer::getValueOfVariableAtMinimum(size_t index) const\n"
-		"\n"
-		"Returns value of the parameter at the minimum. \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_getValueOfVariablesAtMinimum", _wrap_IMinimizer_getValueOfVariablesAtMinimum, METH_VARARGS, (char *)"\n"
-		"IMinimizer_getValueOfVariablesAtMinimum(IMinimizer self) -> vdouble1d_t\n"
-		"\n"
-		"std::vector< double > IMinimizer::getValueOfVariablesAtMinimum() const\n"
-		"\n"
-		"Returns values of parameters at the minimum. \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_getErrorOfVariable", _wrap_IMinimizer_getErrorOfVariable, METH_VARARGS, (char *)"\n"
-		"IMinimizer_getErrorOfVariable(IMinimizer self, size_t index) -> double\n"
-		"\n"
-		"double IMinimizer::getErrorOfVariable(size_t index) const\n"
-		"\n"
-		"Returns error of variable at minimum. \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_getErrorOfVariables", _wrap_IMinimizer_getErrorOfVariables, METH_VARARGS, (char *)"\n"
-		"IMinimizer_getErrorOfVariables(IMinimizer self) -> vdouble1d_t\n"
-		"\n"
-		"std::vector< double > IMinimizer::getErrorOfVariables() const\n"
-		"\n"
-		"Returns errors of variables at minimum. \n"
-		"\n"
-		""},
-	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"\n"
-		"IMinimizer_clear(IMinimizer self)\n"
-		"\n"
-		"void IMinimizer::clear()\n"
-		"\n"
-		"clear resources (parameters) for consecutives minimizations \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_reportResults", _wrap_IMinimizer_reportResults, METH_VARARGS, (char *)"\n"
@@ -22642,7 +22376,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"
-		"IMinimizer_propagateResults(IMinimizer self, FitSuiteParameters parameters)\n"
+		"IMinimizer_propagateResults(IMinimizer self, FitParameterSet parameters)\n"
 		"\n"
 		"void IMinimizer::propagateResults(FitSuiteParameters &parameters)\n"
 		"\n"
@@ -22722,172 +22456,45 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"FitParameter_swigregister", FitParameter_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitSuiteParameters", _wrap_new_FitSuiteParameters, METH_VARARGS, (char *)"\n"
-		"new_FitSuiteParameters() -> FitSuiteParameters\n"
-		"\n"
-		"FitSuiteParameters::FitSuiteParameters()\n"
-		"\n"
+	 { (char *)"new_FitParameterSet", _wrap_new_FitParameterSet, METH_VARARGS, (char *)"new_FitParameterSet() -> FitParameterSet"},
+	 { (char *)"delete_FitParameterSet", _wrap_delete_FitParameterSet, METH_VARARGS, (char *)"delete_FitParameterSet(FitParameterSet self)"},
+	 { (char *)"FitParameterSet_clear", _wrap_FitParameterSet_clear, METH_VARARGS, (char *)"FitParameterSet_clear(FitParameterSet self)"},
+	 { (char *)"FitParameterSet_size", _wrap_FitParameterSet_size, METH_VARARGS, (char *)"FitParameterSet_size(FitParameterSet self) -> size_t"},
+	 { (char *)"FitParameterSet_begin", _wrap_FitParameterSet_begin, METH_VARARGS, (char *)"\n"
+		"begin() -> FitParameterSet::iterator\n"
+		"FitParameterSet_begin(FitParameterSet self) -> FitParameterSet::const_iterator\n"
 		""},
-	 { (char *)"delete_FitSuiteParameters", _wrap_delete_FitSuiteParameters, METH_VARARGS, (char *)"\n"
-		"delete_FitSuiteParameters(FitSuiteParameters self)\n"
-		"\n"
-		"FitSuiteParameters::~FitSuiteParameters()\n"
-		"\n"
+	 { (char *)"FitParameterSet_end", _wrap_FitParameterSet_end, METH_VARARGS, (char *)"\n"
+		"end() -> FitParameterSet::iterator\n"
+		"FitParameterSet_end(FitParameterSet self) -> FitParameterSet::const_iterator\n"
 		""},
-	 { (char *)"FitSuiteParameters_clear", _wrap_FitSuiteParameters_clear, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_clear(FitSuiteParameters self)\n"
-		"\n"
-		"void FitSuiteParameters::clear()\n"
-		"\n"
-		"Clears all defined parameters. \n"
-		"\n"
+	 { (char *)"FitParameterSet_addFitParameter", _wrap_FitParameterSet_addFitParameter, METH_VARARGS, (char *)"FitParameterSet_addFitParameter(FitParameterSet self, FitParameter par)"},
+	 { (char *)"FitParameterSet_fitParameter", _wrap_FitParameterSet_fitParameter, METH_VARARGS, (char *)"\n"
+		"fitParameter(std::string const & name) -> FitParameter\n"
+		"FitParameterSet_fitParameter(FitParameterSet self, std::string const & name) -> FitParameter\n"
 		""},
-	 { (char *)"FitSuiteParameters_addFitParameter", _wrap_FitSuiteParameters_addFitParameter, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_addFitParameter(FitSuiteParameters self, FitParameter par)\n"
-		"\n"
-		"void FitSuiteParameters::addFitParameter(FitParameter *par)\n"
-		"\n"
-		"Adds fit parameter. \n"
-		"\n"
+	 { (char *)"FitParameterSet_values", _wrap_FitParameterSet_values, METH_VARARGS, (char *)"FitParameterSet_values(FitParameterSet self) -> vdouble1d_t"},
+	 { (char *)"FitParameterSet_setValues", _wrap_FitParameterSet_setValues, METH_VARARGS, (char *)"FitParameterSet_setValues(FitParameterSet self, vdouble1d_t pars_values)"},
+	 { (char *)"FitParameterSet_valuesDifferFrom", _wrap_FitParameterSet_valuesDifferFrom, METH_VARARGS, (char *)"\n"
+		"valuesDifferFrom(vdouble1d_t par_values, double tolerance=2.0) -> bool\n"
+		"FitParameterSet_valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values) -> bool\n"
 		""},
-	 { (char *)"FitSuiteParameters_getFitParameters", _wrap_FitSuiteParameters_getFitParameters, METH_VARARGS, (char *)"\n"
-		"getFitParameters() -> std::vector< FitParameter *,std::allocator< FitParameter * > >\n"
-		"FitSuiteParameters_getFitParameters(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > > const &\n"
-		"\n"
-		"const std::vector<FitParameter*>& FitSuiteParameters::getFitParameters() const \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_getFitParameter", _wrap_FitSuiteParameters_getFitParameter, METH_VARARGS, (char *)"\n"
-		"getFitParameter(std::string const & name) -> FitParameter\n"
-		"FitSuiteParameters_getFitParameter(FitSuiteParameters self, std::string const & name) -> FitParameter\n"
-		"\n"
-		"FitParameter * FitSuiteParameters::getFitParameter(const std::string &name)\n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_setValues", _wrap_FitSuiteParameters_setValues, METH_VARARGS, (char *)"\n"
-		"setValues(double const * pars_values)\n"
-		"FitSuiteParameters_setValues(FitSuiteParameters self, vdouble1d_t pars_values)\n"
-		"\n"
-		"void FitSuiteParameters::setValues(const std::vector< double > &pars_values)\n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_getValues", _wrap_FitSuiteParameters_getValues, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_getValues(FitSuiteParameters self) -> vdouble1d_t\n"
-		"\n"
-		"std::vector< double > FitSuiteParameters::getValues() const\n"
-		"\n"
-		"Returns values of all defined parameters. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_setErrors", _wrap_FitSuiteParameters_setErrors, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_setErrors(FitSuiteParameters self, vdouble1d_t pars_errors)\n"
-		"\n"
-		"void FitSuiteParameters::setErrors(const std::vector< double > &pars_errors)\n"
-		"\n"
-		"Sets errors to all parameters. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_getErrors", _wrap_FitSuiteParameters_getErrors, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_getErrors(FitSuiteParameters self) -> vdouble1d_t\n"
-		"\n"
-		"std::vector< double > FitSuiteParameters::getErrors() const\n"
-		"\n"
-		"Returns errors of all defined parameters. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_size", _wrap_FitSuiteParameters_size, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_size(FitSuiteParameters self) -> size_t\n"
-		"\n"
-		"size_t FitSuiteParameters::size() const\n"
-		"\n"
-		"Returns number of parameters. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_begin", _wrap_FitSuiteParameters_begin, METH_VARARGS, (char *)"\n"
-		"begin() -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator\n"
-		"FitSuiteParameters_begin(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator\n"
-		"\n"
-		"std::vector<FitParameter*>::const_iterator FitSuiteParameters::begin() const \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_end", _wrap_FitSuiteParameters_end, METH_VARARGS, (char *)"\n"
-		"end() -> std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator\n"
-		"FitSuiteParameters_end(FitSuiteParameters self) -> std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator\n"
-		"\n"
-		"std::vector<FitParameter*>::const_iterator FitSuiteParameters::end() const \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_numberOfFreeFitParameters", _wrap_FitSuiteParameters_numberOfFreeFitParameters, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_numberOfFreeFitParameters(FitSuiteParameters self) -> size_t\n"
-		"\n"
-		"size_t FitSuiteParameters::numberOfFreeFitParameters() const\n"
-		"\n"
-		"Returns number of free parameters. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_printFitParameters", _wrap_FitSuiteParameters_printFitParameters, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_printFitParameters(FitSuiteParameters self)\n"
-		"\n"
-		"void FitSuiteParameters::printFitParameters() const\n"
-		"\n"
-		"Print defined parameters. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_fixAll", _wrap_FitSuiteParameters_fixAll, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_fixAll(FitSuiteParameters self)\n"
-		"\n"
-		"void FitSuiteParameters::fixAll()\n"
-		"\n"
-		"Fix all parameters. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_releaseAll", _wrap_FitSuiteParameters_releaseAll, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_releaseAll(FitSuiteParameters self)\n"
-		"\n"
-		"void FitSuiteParameters::releaseAll()\n"
-		"\n"
-		"Release all parameters. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_setFixed", _wrap_FitSuiteParameters_setFixed, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_setFixed(FitSuiteParameters self, vector_string_t pars, bool is_fixed)\n"
-		"\n"
-		"void FitSuiteParameters::setFixed(const std::vector< std::string > &pars, bool is_fixed)\n"
-		"\n"
-		"Set fixed flag for parameters from the list. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_valuesDifferFrom", _wrap_FitSuiteParameters_valuesDifferFrom, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_valuesDifferFrom(FitSuiteParameters self, double const * par_values, double tolerance) -> bool\n"
-		"\n"
-		"bool FitSuiteParameters::valuesDifferFrom(const double *par_values, double tolerance) const\n"
-		"\n"
-		"Returns true if parameters already have the given values. \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_reportResults", _wrap_FitSuiteParameters_reportResults, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_reportResults(FitSuiteParameters self) -> std::string\n"
-		"\n"
-		"std::string FitSuiteParameters::reportResults() const \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_correlationMatrix", _wrap_FitSuiteParameters_correlationMatrix, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_correlationMatrix(FitSuiteParameters self) -> vdouble2d_t\n"
-		"\n"
-		"corr_matrix_t FitSuiteParameters::correlationMatrix() const \n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters_setCorrelationMatrix", _wrap_FitSuiteParameters_setCorrelationMatrix, METH_VARARGS, (char *)"\n"
-		"FitSuiteParameters_setCorrelationMatrix(FitSuiteParameters self, vdouble2d_t matrix)\n"
-		"\n"
-		"void FitSuiteParameters::setCorrelationMatrix(const corr_matrix_t &matrix)\n"
-		"\n"
-		""},
-	 { (char *)"FitSuiteParameters___getitem__", _wrap_FitSuiteParameters___getitem__, METH_VARARGS, (char *)"\n"
+	 { (char *)"FitParameterSet_errors", _wrap_FitParameterSet_errors, METH_VARARGS, (char *)"FitParameterSet_errors(FitParameterSet self) -> vdouble1d_t"},
+	 { (char *)"FitParameterSet_setErrors", _wrap_FitParameterSet_setErrors, METH_VARARGS, (char *)"FitParameterSet_setErrors(FitParameterSet self, vdouble1d_t pars_errors)"},
+	 { (char *)"FitParameterSet_freeFitParameterCount", _wrap_FitParameterSet_freeFitParameterCount, METH_VARARGS, (char *)"FitParameterSet_freeFitParameterCount(FitParameterSet self) -> size_t"},
+	 { (char *)"FitParameterSet_fixAll", _wrap_FitParameterSet_fixAll, METH_VARARGS, (char *)"FitParameterSet_fixAll(FitParameterSet self)"},
+	 { (char *)"FitParameterSet_releaseAll", _wrap_FitParameterSet_releaseAll, METH_VARARGS, (char *)"FitParameterSet_releaseAll(FitParameterSet self)"},
+	 { (char *)"FitParameterSet_setFixed", _wrap_FitParameterSet_setFixed, METH_VARARGS, (char *)"FitParameterSet_setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)"},
+	 { (char *)"FitParameterSet_parametersToString", _wrap_FitParameterSet_parametersToString, METH_VARARGS, (char *)"FitParameterSet_parametersToString(FitParameterSet self) -> std::string"},
+	 { (char *)"FitParameterSet_reportResults", _wrap_FitParameterSet_reportResults, METH_VARARGS, (char *)"FitParameterSet_reportResults(FitParameterSet self) -> std::string"},
+	 { (char *)"FitParameterSet_correlationMatrix", _wrap_FitParameterSet_correlationMatrix, METH_VARARGS, (char *)"FitParameterSet_correlationMatrix(FitParameterSet self) -> vdouble2d_t"},
+	 { (char *)"FitParameterSet_setCorrelationMatrix", _wrap_FitParameterSet_setCorrelationMatrix, METH_VARARGS, (char *)"FitParameterSet_setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)"},
+	 { (char *)"FitParameterSet_isExistingName", _wrap_FitParameterSet_isExistingName, METH_VARARGS, (char *)"FitParameterSet_isExistingName(FitParameterSet self, std::string const & name) -> bool"},
+	 { (char *)"FitParameterSet___getitem__", _wrap_FitParameterSet___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> FitParameter\n"
-		"FitSuiteParameters___getitem__(FitSuiteParameters self, size_t index) -> FitParameter\n"
+		"FitParameterSet___getitem__(FitParameterSet self, size_t index) -> FitParameter\n"
 		""},
-	 { (char *)"FitSuiteParameters_swigregister", FitSuiteParameters_swigregister, METH_VARARGS, NULL},
+	 { (char *)"FitParameterSet_swigregister", FitParameterSet_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_MinimizerCatalogue", _wrap_new_MinimizerCatalogue, METH_VARARGS, (char *)"\n"
 		"new_MinimizerCatalogue() -> MinimizerCatalogue\n"
 		"\n"
@@ -22959,20 +22566,22 @@ static void *_p_FitParameterTo_p_RealLimits(void *x, int *SWIGUNUSEDPARM(newmemo
 }
 static swig_type_info _swigt__p_Attributes = {"_p_Attributes", "Attributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitParameter = {"_p_FitParameter", "FitParameter *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_FitSuiteParameters = {"_p_FitSuiteParameters", "FitSuiteParameters *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_FitParameterSet = {"_p_FitParameterSet", "FitParameterSet *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IMinimizer = {"_p_IMinimizer", "IMinimizer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerCatalogue = {"_p_MinimizerCatalogue", "MinimizerCatalogue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "MinimizerFactory *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_container_t = {"_p_container_t", "container_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_corr_matrix_t = {"_p_corr_matrix_t", "corr_matrix_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_double = {"_p_double", "double *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_function_chi2_t = {"_p_function_chi2_t", "function_chi2_t *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_function_gradient_t = {"_p_function_gradient_t", "function_gradient_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_gradient_function_t = {"_p_gradient_function_t", "gradient_function_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "intptr_t *|int *|int_least32_t *|int_fast32_t *|int32_t *|int_fast16_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_iterator = {"_p_iterator", "iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long_long = {"_p_long_long", "int_least64_t *|int_fast64_t *|int64_t *|long long *|intmax_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_objective_function_t = {"_p_objective_function_t", "objective_function_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_PyObject = {"_p_p_PyObject", "PyObject **", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_short = {"_p_short", "short *|int_least16_t *|int16_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "signed char *|int_least8_t *|int_fast8_t *|int8_t *", 0, 0, (void*)0, 0};
@@ -22983,15 +22592,12 @@ static swig_type_info _swigt__p_std__allocatorT_std__complexT_double_t_t = {"_p_
 static swig_type_info _swigt__p_std__allocatorT_std__string_t = {"_p_std__allocatorT_std__string_t", "std::vector< std::string >::allocator_type *|std::allocator< std::string > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t = {"_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t", "std::vector< std::vector< double > >::allocator_type *|std::allocator< std::vector< double,std::allocator< double > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_unsigned_long_t = {"_p_std__allocatorT_unsigned_long_t", "std::vector< unsigned long >::allocator_type *|std::allocator< unsigned long > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__functionT_double_fdouble_const_pF_t = {"_p_std__functionT_double_fdouble_const_pF_t", "std::function< double (double const *) > *|IMinimizer::function_chi2_t *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t = {"_p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t", "IMinimizer::function_gradient_t *|std::function< double (double const *,unsigned int,double *) > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IMultiLayerBuilder_t = {"_p_std__shared_ptrT_IMultiLayerBuilder_t", "std::shared_ptr< IMultiLayerBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t", "std::vector< FitParameter *,std::allocator< FitParameter * > > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator", "std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator", "std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator", "FitParameterSet::const_iterator *|std::vector< FitParameter *,std::allocator< FitParameter * > >::const_iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator = {"_p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator", "FitParameterSet::iterator *|std::vector< FitParameter *,std::allocator< FitParameter * > >::iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t = {"_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t", "std::vector< std::complex< double > > *|std::vector< std::complex< double >,std::allocator< std::complex< double > > > *", 0, 0, (void*)0, 0};
@@ -23008,20 +22614,22 @@ static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Attributes,
   &_swigt__p_FitParameter,
-  &_swigt__p_FitSuiteParameters,
+  &_swigt__p_FitParameterSet,
   &_swigt__p_IMinimizer,
   &_swigt__p_MinimizerCatalogue,
   &_swigt__p_MinimizerFactory,
   &_swigt__p_RealLimits,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
+  &_swigt__p_const_iterator,
+  &_swigt__p_container_t,
   &_swigt__p_corr_matrix_t,
   &_swigt__p_difference_type,
-  &_swigt__p_double,
-  &_swigt__p_function_chi2_t,
-  &_swigt__p_function_gradient_t,
+  &_swigt__p_gradient_function_t,
   &_swigt__p_int,
+  &_swigt__p_iterator,
   &_swigt__p_long_long,
+  &_swigt__p_objective_function_t,
   &_swigt__p_p_PyObject,
   &_swigt__p_short,
   &_swigt__p_signed_char,
@@ -23032,13 +22640,10 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__allocatorT_std__string_t,
   &_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   &_swigt__p_std__allocatorT_unsigned_long_t,
-  &_swigt__p_std__functionT_double_fdouble_const_pF_t,
-  &_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
   &_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t,
   &_swigt__p_std__shared_ptrT_IObserver_t,
-  &_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t,
   &_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator,
   &_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
@@ -23057,20 +22662,22 @@ static swig_type_info *swig_type_initial[] = {
 
 static swig_cast_info _swigc__p_Attributes[] = {  {&_swigt__p_FitParameter, _p_FitParameterTo_p_Attributes, 0, 0},  {&_swigt__p_Attributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FitParameter[] = {  {&_swigt__p_FitParameter, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_FitSuiteParameters[] = {  {&_swigt__p_FitSuiteParameters, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_FitParameterSet[] = {  {&_swigt__p_FitParameterSet, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerCatalogue[] = {  {&_swigt__p_MinimizerCatalogue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFactory, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_FitParameter, _p_FitParameterTo_p_RealLimits, 0, 0},  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_container_t[] = {  {&_swigt__p_container_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_corr_matrix_t[] = {  {&_swigt__p_corr_matrix_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_double[] = {  {&_swigt__p_double, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_function_chi2_t[] = {  {&_swigt__p_function_chi2_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_function_gradient_t[] = {  {&_swigt__p_function_gradient_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_gradient_function_t[] = {  {&_swigt__p_gradient_function_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_iterator[] = {  {&_swigt__p_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_objective_function_t[] = {  {&_swigt__p_objective_function_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_PyObject[] = {  {&_swigt__p_p_PyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -23081,13 +22688,10 @@ static swig_cast_info _swigc__p_std__allocatorT_std__complexT_double_t_t[] = {  
 static swig_cast_info _swigc__p_std__allocatorT_std__string_t[] = {  {&_swigt__p_std__allocatorT_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t[] = {  {&_swigt__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_unsigned_long_t[] = {  {&_swigt__p_std__allocatorT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_pF_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t[] = {  {&_swigt__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t[] = {  {&_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator[] = {  {&_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator[] = {  {&_swigt__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -23106,20 +22710,22 @@ static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Attributes,
   _swigc__p_FitParameter,
-  _swigc__p_FitSuiteParameters,
+  _swigc__p_FitParameterSet,
   _swigc__p_IMinimizer,
   _swigc__p_MinimizerCatalogue,
   _swigc__p_MinimizerFactory,
   _swigc__p_RealLimits,
   _swigc__p_allocator_type,
   _swigc__p_char,
+  _swigc__p_const_iterator,
+  _swigc__p_container_t,
   _swigc__p_corr_matrix_t,
   _swigc__p_difference_type,
-  _swigc__p_double,
-  _swigc__p_function_chi2_t,
-  _swigc__p_function_gradient_t,
+  _swigc__p_gradient_function_t,
   _swigc__p_int,
+  _swigc__p_iterator,
   _swigc__p_long_long,
+  _swigc__p_objective_function_t,
   _swigc__p_p_PyObject,
   _swigc__p_short,
   _swigc__p_signed_char,
@@ -23130,13 +22736,10 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__allocatorT_std__string_t,
   _swigc__p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t,
   _swigc__p_std__allocatorT_unsigned_long_t,
-  _swigc__p_std__functionT_double_fdouble_const_pF_t,
-  _swigc__p_std__functionT_double_fdouble_const_p_unsigned_int_double_pF_t,
   _swigc__p_std__invalid_argument,
   _swigc__p_std__shared_ptrT_IFitObserver_t,
   _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t,
   _swigc__p_std__shared_ptrT_IObserver_t,
-  _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t,
   _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__const_iterator,
   _swigc__p_std__vectorT_FitParameter_p_std__allocatorT_FitParameter_p_t_t__iterator,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,

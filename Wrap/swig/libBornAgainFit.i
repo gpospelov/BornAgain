@@ -62,7 +62,7 @@ import_array();
 
 %{
 #include "FitParameter.h"
-#include "FitSuiteParameters.h"
+#include "FitParameterSet.h"
 #include "IMinimizer.h"
 #include "MinimizerCatalogue.h"
 #include "MinimizerFactory.h"
@@ -81,7 +81,7 @@ import_array();
 
 %include "IMinimizer.h"
 %include "FitParameter.h"
-%include "FitSuiteParameters.h"
+%include "FitParameterSet.h"
 %include "MinimizerCatalogue.h"
 %include "MinimizerFactory.h"
 

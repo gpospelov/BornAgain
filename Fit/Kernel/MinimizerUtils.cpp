@@ -16,6 +16,7 @@
 #include "MinimizerUtils.h"
 #include <sstream>
 #include <algorithm>
+#include <cmath>
 #include <limits>
 
 std::string MinimizerUtils::toString(const std::vector<std::string> &v, const std::string &delim)

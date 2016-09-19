@@ -5,16 +5,15 @@
 #include <limits>
 
 
-class LimitsTest : public ::testing::Test
+class RealLimitsTest : public ::testing::Test
 {
- protected:
-    LimitsTest(){}
-    virtual ~LimitsTest(){}
-
+protected:
+    RealLimitsTest(){}
+    virtual ~RealLimitsTest(){}
 };
 
 
-TEST_F(LimitsTest, LimitsInitial)
+TEST_F(RealLimitsTest, LimitsInitial)
 {
     RealLimits limits;
 
@@ -23,7 +22,7 @@ TEST_F(LimitsTest, LimitsInitial)
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
 }
 
-TEST_F(LimitsTest, LimitsSetLimit)
+TEST_F(RealLimitsTest, LimitsSetLimit)
 {
     RealLimits limits;
 
@@ -95,7 +94,7 @@ TEST_F(LimitsTest, LimitsSetLimit)
 
 }
 
-TEST_F(LimitsTest, LimitsLowerLimited)
+TEST_F(RealLimitsTest, LimitsLowerLimited)
 {
     RealLimits limits = RealLimits::lowerLimited(5.0);
     EXPECT_TRUE(limits.hasLowerLimit());
@@ -106,7 +105,7 @@ TEST_F(LimitsTest, LimitsLowerLimited)
     EXPECT_EQ(0.0,limits.getUpperLimit());
 }
 
-TEST_F(LimitsTest, LimitsUpperLimited)
+TEST_F(RealLimitsTest, LimitsUpperLimited)
 {
     RealLimits limits = RealLimits::upperLimited(5.0);
     EXPECT_FALSE(limits.hasLowerLimit());
@@ -117,7 +116,7 @@ TEST_F(LimitsTest, LimitsUpperLimited)
     EXPECT_EQ(5.0,limits.getUpperLimit());
 }
 
-TEST_F(LimitsTest, LimitsLimited)
+TEST_F(RealLimitsTest, LimitsLimited)
 {
     RealLimits limits = RealLimits::limited(-10.0, 2.0);
     EXPECT_TRUE(limits.hasLowerLimit());
@@ -128,7 +127,7 @@ TEST_F(LimitsTest, LimitsLimited)
     EXPECT_EQ(2.0,limits.getUpperLimit());
 }
 
-TEST_F(LimitsTest, LimitsLimitless)
+TEST_F(RealLimitsTest, LimitsLimitless)
 {
     RealLimits limits = RealLimits::limitless();
 
@@ -137,7 +136,7 @@ TEST_F(LimitsTest, LimitsLimitless)
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
 }
 
-TEST_F(LimitsTest, ComparisonOperators)
+TEST_F(RealLimitsTest, ComparisonOperators)
 {
     RealLimits lim1 = RealLimits::limited(1.0, 2.0);
     RealLimits lim2 = RealLimits::limited(1.0, 2.0);
@@ -160,7 +159,7 @@ TEST_F(LimitsTest, ComparisonOperators)
     EXPECT_FALSE(lim7 != lim8);
 }
 
-TEST_F(LimitsTest, CopyConstructor)
+TEST_F(RealLimitsTest, CopyConstructor)
 {
     RealLimits lim1 = RealLimits::limited(1.0, 2.0);
     RealLimits lim2 = lim1;
@@ -172,4 +171,4 @@ TEST_F(LimitsTest, CopyConstructor)
     EXPECT_FALSE(lim1 != lim3);
 }
 
-#endif // LIMITSTEST_H
+#endif

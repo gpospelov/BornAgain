@@ -6,4 +6,5 @@
 #include "FitParameterTest.h"
 #include "MultiOptionTest.h"
 #include "OptionContainerTest.h"
+#include "RealLimitsTest.h"
 

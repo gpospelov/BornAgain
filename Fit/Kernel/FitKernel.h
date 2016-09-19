@@ -22,8 +22,7 @@
 #include <string>
 
 class FitKernelImp;
-class RealLimits;
-class Attributes;
+class AttLimits;
 class FitParameterSet;
 class IMinimizer;
 
@@ -48,11 +47,9 @@ public:
     //! Returns minimizer.
     const IMinimizer *minimizer() const;
 
-
     //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,
-                         const RealLimits& lim, const Attributes& attr,
-                         double step=0.0);
+                         const AttLimits& limits, double step=0.0);
 
     void setObjectiveFunction(objective_function_t func);
 

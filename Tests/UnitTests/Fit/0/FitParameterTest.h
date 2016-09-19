@@ -12,64 +12,64 @@ class FitParameterTest : public ::testing::Test
 };
 
 
-TEST_F(FitParameterTest, FitParameterInitial)
+//TEST_F(FitParameterTest, FitParameterInitial)
+//{
+//    FitParameter fitParameter;
+
+//    EXPECT_EQ("", fitParameter.getName());
+//    EXPECT_EQ(0.0, fitParameter.getValue());
+//    EXPECT_EQ(0.0, fitParameter.getStep());
+//    EXPECT_EQ(0.0, fitParameter.getError());
+
+//    EXPECT_FALSE(fitParameter.hasLowerLimit());
+//    EXPECT_FALSE(fitParameter.hasUpperLimit());
+//    EXPECT_FALSE(fitParameter.hasLowerAndUpperLimits());
+//    EXPECT_FALSE(fitParameter.isFixed());
+//}
+
+//TEST_F(FitParameterTest, FitParameterSetValue)
+//{
+//    FitParameter fitParameter;
+//    fitParameter.setValue(-1.0);
+//    fitParameter.setStep(0.1);
+//    fitParameter.setError(1.2);
+
+//    EXPECT_EQ(-1.0, fitParameter.getValue());
+//    EXPECT_EQ(0.1, fitParameter.getStep());
+//    EXPECT_EQ(1.2, fitParameter.getError());
+//}
+
+
+//TEST_F(FitParameterTest, FitParameterWithValue)
+//{
+//    RealLimits limits = RealLimits::limited(-10.0, 2.0);
+
+//    FitParameter fitParameter("FitP", 2.0, 0.2, limits, Attributes::free(), 0.01);
+
+//    EXPECT_EQ("FitP", fitParameter.getName());
+//    EXPECT_EQ(2.0, fitParameter.getValue());
+//    EXPECT_EQ(0.2, fitParameter.getStep());
+//    EXPECT_EQ(0.01, fitParameter.getError());
+
+//    EXPECT_TRUE(fitParameter.hasLowerLimit());
+//    EXPECT_TRUE(fitParameter.hasUpperLimit());
+//    EXPECT_TRUE(fitParameter.hasLowerAndUpperLimits());
+//    EXPECT_FALSE(fitParameter.isFixed());
+//    EXPECT_EQ(-10.0, fitParameter.getLowerLimit());
+//    EXPECT_EQ(2.0, fitParameter.getUpperLimit());
+
+//    fitParameter.setValue(-1.0);
+//    fitParameter.setStep(0.1);
+//    fitParameter.setError(1.2);
+
+//    EXPECT_EQ(-1.0, fitParameter.getValue());
+//    EXPECT_EQ(0.1, fitParameter.getStep());
+//    EXPECT_EQ(1.2, fitParameter.getError());
+//}
+
+TEST_F(FitParameterTest, Initial)
 {
-    FitParameter fitParameter;
-
-    EXPECT_EQ("", fitParameter.getName());
-    EXPECT_EQ(0.0, fitParameter.getValue());
-    EXPECT_EQ(0.0, fitParameter.getStep());
-    EXPECT_EQ(0.0, fitParameter.getError());
-
-    EXPECT_FALSE(fitParameter.hasLowerLimit());
-    EXPECT_FALSE(fitParameter.hasUpperLimit());
-    EXPECT_FALSE(fitParameter.hasLowerAndUpperLimits());
-    EXPECT_FALSE(fitParameter.isFixed());
-}
-
-TEST_F(FitParameterTest, FitParameterSetValue)
-{
-    FitParameter fitParameter;
-    fitParameter.setValue(-1.0);
-    fitParameter.setStep(0.1);
-    fitParameter.setError(1.2);
-
-    EXPECT_EQ(-1.0, fitParameter.getValue());
-    EXPECT_EQ(0.1, fitParameter.getStep());
-    EXPECT_EQ(1.2, fitParameter.getError());
-}
-
-
-TEST_F(FitParameterTest, FitParameterWithValue)
-{
-    RealLimits limits = RealLimits::limited(-10.0, 2.0);
-
-    FitParameter fitParameter("FitP", 2.0, 0.2, limits, Attributes::free(), 0.01);
-
-    EXPECT_EQ("FitP", fitParameter.getName());
-    EXPECT_EQ(2.0, fitParameter.getValue());
-    EXPECT_EQ(0.2, fitParameter.getStep());
-    EXPECT_EQ(0.01, fitParameter.getError());
-
-    EXPECT_TRUE(fitParameter.hasLowerLimit());
-    EXPECT_TRUE(fitParameter.hasUpperLimit());
-    EXPECT_TRUE(fitParameter.hasLowerAndUpperLimits());
-    EXPECT_FALSE(fitParameter.isFixed());
-    EXPECT_EQ(-10.0, fitParameter.getLowerLimit());
-    EXPECT_EQ(2.0, fitParameter.getUpperLimit());
-
-    fitParameter.setValue(-1.0);
-    fitParameter.setStep(0.1);
-    fitParameter.setError(1.2);
-
-    EXPECT_EQ(-1.0, fitParameter.getValue());
-    EXPECT_EQ(0.1, fitParameter.getStep());
-    EXPECT_EQ(1.2, fitParameter.getError());
-}
-
-TEST_F(FitParameterTest, NewInitial)
-{
-    NewFitParameter par;
+    FitParameter par;
     EXPECT_EQ(std::string(), par.name());
     EXPECT_EQ(0.0, par.value());
     EXPECT_EQ(0.0, par.startValue());
@@ -78,12 +78,12 @@ TEST_F(FitParameterTest, NewInitial)
     EXPECT_TRUE(par.limits().isLimitless());
 }
 
-TEST_F(FitParameterTest, NewConstructors)
+TEST_F(FitParameterTest, Constructors)
 {
     const std::string name("name");
     const double value(1.0);
 
-    NewFitParameter par(name, value);
+    FitParameter par(name, value);
     EXPECT_EQ(name, par.name());
     EXPECT_EQ(value, par.value());
     EXPECT_EQ(value, par.startValue());
@@ -94,7 +94,7 @@ TEST_F(FitParameterTest, NewConstructors)
     const AttLimits limits = AttLimits::limited(1.0, 2.0);
     const double step(0.01);
 
-    NewFitParameter par2(name, value, limits, step);
+    FitParameter par2(name, value, limits, step);
     EXPECT_EQ(name, par2.name());
     EXPECT_EQ(value, par2.value());
     EXPECT_EQ(value, par2.startValue());
@@ -103,7 +103,7 @@ TEST_F(FitParameterTest, NewConstructors)
     EXPECT_EQ(limits, par2.limits());
 }
 
-TEST_F(FitParameterTest, NewSetters)
+TEST_F(FitParameterTest, Setters)
 {
     const std::string name("name");
     const double start_value(1.0);
@@ -112,7 +112,7 @@ TEST_F(FitParameterTest, NewSetters)
     const double error(0.02);
     const double step(0.01);
 
-    NewFitParameter par(name, start_value);
+    FitParameter par(name, start_value);
     par.setValue(value);
 
     EXPECT_EQ(value, par.value());
@@ -128,14 +128,14 @@ TEST_F(FitParameterTest, NewSetters)
     EXPECT_EQ(step, par.step());
 }
 
-TEST_F(FitParameterTest, NewCompoundSetters)
+TEST_F(FitParameterTest, CompoundSetters)
 {
     const std::string name("name");
     const double start_value(1.0);
     const double step(0.1);
     const double lim1(1.0), lim2(2.0);
 
-    NewFitParameter par(name, start_value);
+    FitParameter par(name, start_value);
 
     par.setStep(step).lowerLimited(lim1);
     EXPECT_EQ(step, par.step());

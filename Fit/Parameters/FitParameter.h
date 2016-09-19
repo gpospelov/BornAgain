@@ -16,61 +16,20 @@
 #ifndef FITPARAMETER_H
 #define FITPARAMETER_H
 
-#include "Attributes.h"
-#include "RealLimits.h"
+#include "AttLimits.h"
 #include <string>
 
-//! Fittable parameter with value, error, step, limits, and fixed flag.
-//! @ingroup fitting_internal
+//! @class FitParameter
+//! @ingroup fitting
+//! @brief The FitParameter represents fittable parameter with value, error, step, and limits.
 
-class BA_CORE_API_ FitParameter : public RealLimits, public Attributes
-{
- public:
-    FitParameter();
-    FitParameter(
-        const std::string& name, double value, double step=0.0,
-        const RealLimits& limits=RealLimits::limitless(), const Attributes& attr=Attributes::free(),
-        double error=0.0);
-    virtual ~FitParameter() {}
-
-    std::string getName() const { return m_name; }
-
-    virtual double getStartValue() const { return m_start_value; }
-
-    virtual void setValue(double value) { m_value = value; }
-    double getValue() const { return m_value; }
-
-    void setStep(double value) { m_step = value; }
-    double getStep() const { return m_step; }
-
-    void setError(double value) { m_error = value; }
-    double getError() const { return m_error; }
-
-    //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const FitParameter& m) {
-        m.print(ostr); return ostr; }
-
-    std::string limitsToString() const;
-
- protected:
-    void print(std::ostream& ostr) const;
-
-    std::string m_name;
-    double m_start_value;
-    double m_value;
-    double m_step;
-    double m_error;
-};
-
-
-#include "AttLimits.h"
-class BA_CORE_API_ NewFitParameter
+class BA_CORE_API_ FitParameter
 {
 public:
-    NewFitParameter();
-    NewFitParameter(const std::string& name, double value,
+    FitParameter();
+    FitParameter(const std::string& name, double value,
                     const AttLimits& limits=AttLimits::limitless(), double step=0.0);
-    virtual ~NewFitParameter(){}
+    virtual ~FitParameter(){}
 
     std::string name() const;
 
@@ -80,7 +39,7 @@ public:
     virtual void setValue(double value);
 
     double step() const;
-    NewFitParameter& setStep(double value);
+    FitParameter& setStep(double value);
 
     double error() const;
     void setError(double value);
@@ -88,15 +47,16 @@ public:
     const AttLimits& limits() const;
     AttLimits& limits();
 
-    NewFitParameter& setLimits(const AttLimits& limits);
+    FitParameter& setLimits(const AttLimits& limits);
 
-    NewFitParameter& lowerLimited(double bound_value);
-    NewFitParameter& positive();
-    NewFitParameter& nonnegative();
-    NewFitParameter& upperLimited(double bound_value);
-    NewFitParameter& limited(double left_bound_value, double right_bound_value);
-    NewFitParameter& fixed();
+    FitParameter& lowerLimited(double bound_value);
+    FitParameter& positive();
+    FitParameter& nonnegative();
+    FitParameter& upperLimited(double bound_value);
+    FitParameter& limited(double left_bound_value, double right_bound_value);
+    FitParameter& fixed();
 
+    virtual std::string toString() const;
 private:
     std::string m_name;
     double m_start_value;

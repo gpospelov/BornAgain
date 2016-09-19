@@ -15,8 +15,7 @@
 
 #include "StandaloneFitTest.h"
 #include "FitKernel.h"
-#include "RealLimits.h"
-#include "Attributes.h"
+#include "AttLimits.h"
 #include "ObjectiveTestFunctions.h"
 #include <iostream>
 
@@ -37,8 +36,8 @@ bool StandaloneFitTest::runTest()
 //                         double step=0.0);
 
 
-    fitKernel->addFitParameter("par1", -1.2, RealLimits::limited(-5.0, 5.0), Attributes::free(), 0.01);
-    fitKernel->addFitParameter("par2", 1.0, RealLimits::limited(-5.0, 5.0), Attributes::free(), 0.01);
+    fitKernel->addFitParameter("par1", -1.2, AttLimits::limited(-5.0, 5.0), 0.01);
+    fitKernel->addFitParameter("par2", 1.0, AttLimits::limited(-5.0, 5.0), 0.01);
 
 
     fitKernel->setObjectiveFunction(TestFunctions::RosenBrock);

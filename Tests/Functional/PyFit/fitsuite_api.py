@@ -22,8 +22,8 @@ class FitSuiteAPITest(unittest.TestCase):
 
         nn = 0
         for par in fitSuite.fitParameters():
-            self.assertTrue(par.getName() == names[nn])
-            self.assertTrue(par.getValue() == values[nn])
+            self.assertTrue(par.name() == names[nn])
+            self.assertTrue(par.value() == values[nn])
             nn = nn+1
 
         self.assertTrue(nn == 3)

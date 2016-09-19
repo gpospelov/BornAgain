@@ -110,13 +110,12 @@ int GeneticMinimizer::randomSeed() const
 
 void GeneticMinimizer::setParameter(size_t index, const FitParameter *par)
 {
-    if( !par->isFixed() && !par->hasLowerAndUpperLimits()) {
+    if( !par->limits().isFixed() && !par->limits().isLimited()) {
         std::ostringstream ostr;
         ostr << "GeneticMinimizer::setParameter() -> Error! "
              << "Genetic minimizer requires either fixed or "
              << "limited AttLimits::limited(left,right) parameter. "
-             << " Parameter name '" << par->getName() << "', isFixed():" << par->isFixed()
-             << " hasLowerAndUpperLimits:" << par->hasLowerAndUpperLimits();
+             << " Parameter name '" << par->name() << "', limits:" << par->limits().toString();
         throw std::runtime_error(ostr.str());
     }
     RootMinimizerAdapter::setParameter(index, par);

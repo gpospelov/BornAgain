@@ -131,8 +131,7 @@ class DrawObserver(ba.IFitObserver):
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         for index, fitPar in enumerate(fit_suite.fitParameters()):
             plt.text(0.01, 0.55 - index*0.1,
-                     '{:30.30s}: {:6.3f}'.format(fitPar.getName(),\
-                                                 fitPar.getValue()))
+                     '{:30.30s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
         plt.draw()
         plt.pause(0.01)
 
@@ -184,14 +183,14 @@ if __name__ == '__main__':
         print("Fitting completed.")
         print("chi2:", fit_suite.getChi2())
         for fitPar in fit_suite.fitParameters():
-            print(fitPar.getName(), fitPar.getValue(), fitPar.getError())
+            print(fitPar.name(), fitPar.value(), fitPar.error())
         plt.show()
     else:
         fit_suite.runFit()
         fitpars = fit_suite.fitParameters()
         from collections import OrderedDict
-        out = [ OrderedDict([('name', par.getName()),
-                             ('value', par.getValue()),
-                             ('error', par.getError())])\
+        out = [ OrderedDict([('name', par.name()),
+                             ('value', par.value()),
+                             ('error', par.error())])\
                 for par in fit_suite.fitParameters()]
         ba.yamlDump(arg+".ref", out)

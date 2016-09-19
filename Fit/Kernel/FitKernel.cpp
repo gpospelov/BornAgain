@@ -49,11 +49,12 @@ const IMinimizer *FitKernel::minimizer() const
     return m_impl->minimizer();
 }
 
-void FitKernel::addFitParameter(const std::string &name, double value,
-                                const RealLimits &lim, const Attributes &attr, double step)
+void FitKernel::addFitParameter(const std::string& name, double value,
+                     const AttLimits& limits, double step)
 {
-    m_impl->addFitParameter(new FitParameter(name, value, step, lim, attr));
+    m_impl->addFitParameter(new FitParameter(name, value, limits, step));
 }
+
 
 void FitKernel::setObjectiveFunction(objective_function_t func)
 {

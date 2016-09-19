@@ -28,6 +28,7 @@ class BA_CORE_API_ AttLimits
 {
 public:
     AttLimits();
+    AttLimits(const RealLimits &limits, const Attributes &fixedAttr); // TODO make private
 
     static AttLimits limitless();
     static AttLimits lowerLimited(double bound_value);
@@ -54,7 +55,6 @@ public:
     std::string toString() const;
 
 private:
-    AttLimits(const RealLimits &limits, const Attributes &fixedAttr);
 
     RealLimits m_limits;
     Attributes m_att_fixed;

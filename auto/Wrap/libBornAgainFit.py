@@ -1934,7 +1934,7 @@ class IMinimizer(_object):
 IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
 IMinimizer_swigregister(IMinimizer)
 
-class FitParameter(RealLimits, Attributes):
+class FitParameter(_object):
     """
 
 
@@ -1945,22 +1945,16 @@ class FitParameter(RealLimits, Attributes):
     """
 
     __swig_setmethods__ = {}
-    for _s in [RealLimits, Attributes]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [RealLimits, Attributes]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         """
         __init__(FitParameter self) -> FitParameter
-        __init__(FitParameter self, std::string const & name, double value, double step=0.0, RealLimits limits, Attributes attr, double error=0.0) -> FitParameter
-        __init__(FitParameter self, std::string const & name, double value, double step=0.0, RealLimits limits, Attributes attr) -> FitParameter
-        __init__(FitParameter self, std::string const & name, double value, double step=0.0, RealLimits limits) -> FitParameter
-        __init__(FitParameter self, std::string const & name, double value, double step=0.0) -> FitParameter
+        __init__(FitParameter self, std::string const & name, double value, AttLimits const & limits, double step=0.0) -> FitParameter
+        __init__(FitParameter self, std::string const & name, double value, AttLimits const & limits) -> FitParameter
         __init__(FitParameter self, std::string const & name, double value) -> FitParameter
 
         FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
@@ -1974,24 +1968,19 @@ class FitParameter(RealLimits, Attributes):
     __swig_destroy__ = _libBornAgainFit.delete_FitParameter
     __del__ = lambda self: None
 
-    def getName(self):
-        """
-        getName(FitParameter self) -> std::string
-
-        std::string FitParameter::getName() const 
-
-        """
-        return _libBornAgainFit.FitParameter_getName(self)
+    def name(self):
+        """name(FitParameter self) -> std::string"""
+        return _libBornAgainFit.FitParameter_name(self)
 
 
-    def getStartValue(self):
-        """
-        getStartValue(FitParameter self) -> double
+    def startValue(self):
+        """startValue(FitParameter self) -> double"""
+        return _libBornAgainFit.FitParameter_startValue(self)
 
-        virtual double FitParameter::getStartValue() const 
 
-        """
-        return _libBornAgainFit.FitParameter_getStartValue(self)
+    def value(self):
+        """value(FitParameter self) -> double"""
+        return _libBornAgainFit.FitParameter_value(self)
 
 
     def setValue(self, value):
@@ -2004,19 +1993,14 @@ class FitParameter(RealLimits, Attributes):
         return _libBornAgainFit.FitParameter_setValue(self, value)
 
 
-    def getValue(self):
-        """
-        getValue(FitParameter self) -> double
-
-        double FitParameter::getValue() const 
-
-        """
-        return _libBornAgainFit.FitParameter_getValue(self)
+    def step(self):
+        """step(FitParameter self) -> double"""
+        return _libBornAgainFit.FitParameter_step(self)
 
 
     def setStep(self, value):
         """
-        setStep(FitParameter self, double value)
+        setStep(FitParameter self, double value) -> FitParameter
 
         void FitParameter::setStep(double value)
 
@@ -2024,14 +2008,9 @@ class FitParameter(RealLimits, Attributes):
         return _libBornAgainFit.FitParameter_setStep(self, value)
 
 
-    def getStep(self):
-        """
-        getStep(FitParameter self) -> double
-
-        double FitParameter::getStep() const 
-
-        """
-        return _libBornAgainFit.FitParameter_getStep(self)
+    def error(self):
+        """error(FitParameter self) -> double"""
+        return _libBornAgainFit.FitParameter_error(self)
 
 
     def setError(self, value):
@@ -2044,136 +2023,55 @@ class FitParameter(RealLimits, Attributes):
         return _libBornAgainFit.FitParameter_setError(self, value)
 
 
-    def getError(self):
-        """
-        getError(FitParameter self) -> double
-
-        double FitParameter::getError() const 
-
-        """
-        return _libBornAgainFit.FitParameter_getError(self)
-
-
-    def limitsToString(self):
-        """
-        limitsToString(FitParameter self) -> std::string
-
-        std::string FitParameter::limitsToString() const 
-
-        """
-        return _libBornAgainFit.FitParameter_limitsToString(self)
-
-FitParameter_swigregister = _libBornAgainFit.FitParameter_swigregister
-FitParameter_swigregister(FitParameter)
-
-class NewFitParameter(_object):
-    """Proxy of C++ NewFitParameter class."""
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, NewFitParameter, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, NewFitParameter, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(NewFitParameter self) -> NewFitParameter
-        __init__(NewFitParameter self, std::string const & name, double value, AttLimits const & limits, double step=0.0) -> NewFitParameter
-        __init__(NewFitParameter self, std::string const & name, double value, AttLimits const & limits) -> NewFitParameter
-        __init__(NewFitParameter self, std::string const & name, double value) -> NewFitParameter
-        """
-        this = _libBornAgainFit.new_NewFitParameter(*args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainFit.delete_NewFitParameter
-    __del__ = lambda self: None
-
-    def name(self):
-        """name(NewFitParameter self) -> std::string"""
-        return _libBornAgainFit.NewFitParameter_name(self)
-
-
-    def startValue(self):
-        """startValue(NewFitParameter self) -> double"""
-        return _libBornAgainFit.NewFitParameter_startValue(self)
-
-
-    def value(self):
-        """value(NewFitParameter self) -> double"""
-        return _libBornAgainFit.NewFitParameter_value(self)
-
-
-    def setValue(self, value):
-        """setValue(NewFitParameter self, double value)"""
-        return _libBornAgainFit.NewFitParameter_setValue(self, value)
-
-
-    def step(self):
-        """step(NewFitParameter self) -> double"""
-        return _libBornAgainFit.NewFitParameter_step(self)
-
-
-    def setStep(self, value):
-        """setStep(NewFitParameter self, double value) -> NewFitParameter"""
-        return _libBornAgainFit.NewFitParameter_setStep(self, value)
-
-
-    def error(self):
-        """error(NewFitParameter self) -> double"""
-        return _libBornAgainFit.NewFitParameter_error(self)
-
-
-    def setError(self, value):
-        """setError(NewFitParameter self, double value)"""
-        return _libBornAgainFit.NewFitParameter_setError(self, value)
-
-
     def limits(self, *args):
         """
-        limits(NewFitParameter self) -> AttLimits const
-        limits(NewFitParameter self) -> AttLimits &
+        limits(FitParameter self) -> AttLimits const
+        limits(FitParameter self) -> AttLimits &
         """
-        return _libBornAgainFit.NewFitParameter_limits(self, *args)
+        return _libBornAgainFit.FitParameter_limits(self, *args)
 
 
     def setLimits(self, limits):
-        """setLimits(NewFitParameter self, AttLimits const & limits) -> NewFitParameter"""
-        return _libBornAgainFit.NewFitParameter_setLimits(self, limits)
+        """setLimits(FitParameter self, AttLimits const & limits) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setLimits(self, limits)
 
 
     def lowerLimited(self, bound_value):
-        """lowerLimited(NewFitParameter self, double bound_value) -> NewFitParameter"""
-        return _libBornAgainFit.NewFitParameter_lowerLimited(self, bound_value)
+        """lowerLimited(FitParameter self, double bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_lowerLimited(self, bound_value)
 
 
     def positive(self):
-        """positive(NewFitParameter self) -> NewFitParameter"""
-        return _libBornAgainFit.NewFitParameter_positive(self)
+        """positive(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_positive(self)
 
 
     def nonnegative(self):
-        """nonnegative(NewFitParameter self) -> NewFitParameter"""
-        return _libBornAgainFit.NewFitParameter_nonnegative(self)
+        """nonnegative(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_nonnegative(self)
 
 
     def upperLimited(self, bound_value):
-        """upperLimited(NewFitParameter self, double bound_value) -> NewFitParameter"""
-        return _libBornAgainFit.NewFitParameter_upperLimited(self, bound_value)
+        """upperLimited(FitParameter self, double bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_upperLimited(self, bound_value)
 
 
     def limited(self, left_bound_value, right_bound_value):
-        """limited(NewFitParameter self, double left_bound_value, double right_bound_value) -> NewFitParameter"""
-        return _libBornAgainFit.NewFitParameter_limited(self, left_bound_value, right_bound_value)
+        """limited(FitParameter self, double left_bound_value, double right_bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_limited(self, left_bound_value, right_bound_value)
 
 
     def fixed(self):
-        """fixed(NewFitParameter self) -> NewFitParameter"""
-        return _libBornAgainFit.NewFitParameter_fixed(self)
+        """fixed(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_fixed(self)
 
-NewFitParameter_swigregister = _libBornAgainFit.NewFitParameter_swigregister
-NewFitParameter_swigregister(NewFitParameter)
+
+    def toString(self):
+        """toString(FitParameter self) -> std::string"""
+        return _libBornAgainFit.FitParameter_toString(self)
+
+FitParameter_swigregister = _libBornAgainFit.FitParameter_swigregister
+FitParameter_swigregister(FitParameter)
 
 class FitParameterSet(_object):
     """Proxy of C++ FitParameterSet class."""

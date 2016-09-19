@@ -52,7 +52,7 @@ public:
 
     FitParameterSet* fitParameters();
 
-    IMinimizer *minimizer() ;
+    IMinimizer *minimizer();
 
 private:
     FitParameterSet m_fit_parameters;

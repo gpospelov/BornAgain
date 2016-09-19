@@ -77,7 +77,7 @@ void FitSuiteImp::addFitParameter(const std::string& name, double value, const R
 //    }
 //    m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
     m_kernel->fitParameters()->addFitParameter(
-                new FitParameterLinked(name, value, step, lim, attr, error));
+                new FitParameterLinked(name, value, step, AttLimits(lim, attr)));
 }
 
 void FitSuiteImp::addFitStrategy(const IFitStrategy& strategy)

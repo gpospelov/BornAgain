@@ -59,11 +59,11 @@ std::string MinimizerResultsHelper::reportResults(const FitParameterSet *paramet
     for(const FitParameter *par : *parameters) {
         result << boost::format("#%-2d  %-10s  %-6.4f      %-15s  %-6.4f    %5.4f \n")
                   % npar
-                  % par->getName()
-                  % par->getStartValue()
-                  % par->limitsToString()
-                  % par->getValue()
-                  % par->getError();
+                  % par->name()
+                  % par->startValue()
+                  % par->limits().toString()
+                  % par->value()
+                  % par->error();
         ++npar;
     }
 

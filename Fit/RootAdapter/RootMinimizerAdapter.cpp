@@ -143,34 +143,34 @@ void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
 void RootMinimizerAdapter::setParameter(size_t index, const FitParameter *par)
 {
     bool success;
-    if (par->isFixed()) {
-        success = rootMinimizer()->SetFixedVariable((int)index, par->getName().c_str(),
-                                                    par->getValue());
+    if (par->limits().isFixed()) {
+        success = rootMinimizer()->SetFixedVariable((int)index, par->name().c_str(),
+                                                    par->value());
 
     }
 
-    else if (par->hasLowerAndUpperLimits()) {
-        success = rootMinimizer()->SetLimitedVariable((int)index, par->getName().c_str(),
-                                                      par->getValue(), par->getStep(),
-                                                      par->getLowerLimit(),
-                                                      par->getUpperLimit());
+    else if (par->limits().isLimited()) {
+        success = rootMinimizer()->SetLimitedVariable((int)index, par->name().c_str(),
+                                                      par->value(), par->step(),
+                                                      par->limits().lowerLimit(),
+                                                      par->limits().upperLimit());
     }
 
-    else if (par->hasLowerLimit() && !par->hasUpperLimit()) {
-        success = rootMinimizer()->SetLowerLimitedVariable((int)index, par->getName().c_str(),
-                                                           par->getValue(), par->getStep(),
-                                                           par->getLowerLimit());
+    else if (par->limits().isLowerLimited()) {
+        success = rootMinimizer()->SetLowerLimitedVariable((int)index, par->name().c_str(),
+                                                           par->value(), par->step(),
+                                                           par->limits().lowerLimit());
     }
 
-    else if (par->hasUpperLimit() && !par->hasLowerLimit()) {
-        success = rootMinimizer()->SetUpperLimitedVariable((int)index, par->getName().c_str(),
-                                                           par->getValue(), par->getStep(),
-                                                           par->getUpperLimit());
+    else if (par->limits().isUpperLimited()) {
+        success = rootMinimizer()->SetUpperLimitedVariable((int)index, par->name().c_str(),
+                                                           par->value(), par->step(),
+                                                           par->limits().upperLimit());
     }
 
-    else if (!par->hasUpperLimit() && !par->hasLowerLimit() && !par->isFixed()) {
-        success = rootMinimizer()->SetVariable((int)index, par->getName().c_str(), par->getValue(),
-                                               par->getStep());
+    else if (!par->limits().isLimitless()) {
+        success = rootMinimizer()->SetVariable((int)index, par->name().c_str(), par->value(),
+                                               par->step());
     }
 
     else {
@@ -180,7 +180,7 @@ void RootMinimizerAdapter::setParameter(size_t index, const FitParameter *par)
     if( !success ) {
         std::ostringstream ostr;
         ostr << "BasicMinimizer::setParameter() -> Error! Can't set minimizer's fit parameter";
-        ostr << "Index:" << index << " name '" << par->getName() << "'";
+        ostr << "Index:" << index << " name '" << par->name() << "'";
         throw std::runtime_error(ostr.str());
     }
 }

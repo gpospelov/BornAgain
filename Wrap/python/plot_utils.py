@@ -25,6 +25,27 @@ def standardIntensityPlot(result):
     import matplotlib
     import sys
     from matplotlib import pyplot as plt
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
+        aspect='auto',
+    )
+    cb = plt.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', size=16)
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
+
+
+def exoticIntensityPlot(result):
+    """
+    Plots intensity map.
+    """
+    import matplotlib
+    import sys
+    from matplotlib import pyplot as plt
     from matplotlib import rc
     rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
     rc('text', usetex=True)

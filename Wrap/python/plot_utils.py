@@ -85,12 +85,16 @@ def getFilenameOrPlotflag():
     obtained from the command-line argument, or prints a help message and exit.
     """
     import sys
+    # if len(sys.argv)<=1:
+    #     print("Usage:")
+    #     print("  " + sys.argv[0] + " -p                           # to plot results")
+    #     print("  " + sys.argv[0] + " <filename without extension> # to save results")
+    #     sys.exit()
+    # return sys.argv[1]
     if len(sys.argv)<=1:
-        print("Usage:")
-        print("  " + sys.argv[0] + " -p                           # to plot results")
-        print("  " + sys.argv[0] + " <filename without extension> # to save results")
-        sys.exit()
-    return sys.argv[1]
+        return '-p'
+    else:
+        return sys.argv[1]
 
 
 def simulateThenPlotOrSave(

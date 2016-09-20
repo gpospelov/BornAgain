@@ -35,8 +35,7 @@ class SpecularComputation final : public INoncopyable
 public:
     SpecularComputation(const MultiLayer* p_multi_layer);
 
-    void eval(const SimulationOptions& options,
-              ProgressHandler* progress,
+    void eval(ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it);

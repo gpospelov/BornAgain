@@ -12075,7 +12075,7 @@ C++ includes: SpecularComputation.h
 %feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer *p_multi_layer)
 ";
 
-%feature("docstring")  SpecularComputation::eval "void SpecularComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+%feature("docstring")  SpecularComputation::eval "void SpecularComputation::eval(ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
 ";
 
 %feature("docstring")  SpecularComputation::setSpecularInfo "void SpecularComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
@@ -13457,6 +13457,8 @@ Set all element intensities to given value.
 
 
 // File: SpecularComputation_8cpp.xml
+%feature("docstring")  ContainsSpecularWavevector "bool ContainsSpecularWavevector(const SimulationElement &sim_element)
+";
 
 
 // File: SpecularComputation_8h.xml

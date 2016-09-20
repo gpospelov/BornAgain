@@ -32,6 +32,9 @@ BA_CORE_API_ std::string gslErrorDescription(int errorCode);
 
 BA_CORE_API_ bool numbersDiffer(double a, double b, double tol);
 
+BA_CORE_API_ std::string sectionString(const std::string &sectionName = std::string(),
+                                       int report_width=80);
+
 }
 
 #endif

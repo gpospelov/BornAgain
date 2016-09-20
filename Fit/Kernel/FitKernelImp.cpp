@@ -15,6 +15,7 @@
 
 #include "FitKernelImp.h"
 #include "IMinimizer.h"
+#include "MinimizerUtils.h"
 #include <sstream>
 
 FitKernelImp::FitKernelImp()
@@ -74,22 +75,12 @@ void FitKernelImp::minimize()
 std::string FitKernelImp::reportResults() const
 {
     std::ostringstream result;
-
-     result << std::endl;
-     result
-         << "--- FitSuite::printResults -----------------------------------------------------\n";
-     result << "functionCalls: " << m_objective_function.functionCalls() << "\n";
-//     result << " Chi2:" << std::scientific << std::setprecision(8)
-//               << m_fit_objects.getChiSquaredValue()
-//               << "    chi2.NCall:" << m_function_chi2.getNCalls()
-//               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
-//               << m_function_gradient.getNCallsGradient() << ","
-//               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
-
-     result << m_minimizer->reportResults();
-     result << m_fit_parameters.reportResults();
-
-     return result.str();
+    result << std::endl;
+    result << MinimizerUtils::sectionString("FitSuite::printResults");
+    result << "functionCalls: " << m_objective_function.functionCalls() << "\n";
+    result << m_minimizer->reportResults();
+    result << m_fit_parameters.reportResults();
+    return result.str();
 }
 
 FitParameterSet *FitKernelImp::fitParameters()

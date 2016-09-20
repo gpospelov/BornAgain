@@ -30,7 +30,7 @@ class SimulationOptions;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class SpecularComputation : public INoncopyable
+class SpecularComputation final : public INoncopyable
 {
 public:
     SpecularComputation(const MultiLayer* p_multi_layer);

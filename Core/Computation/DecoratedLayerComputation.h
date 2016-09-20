@@ -17,7 +17,6 @@
 #define DECORATEDLAYERCOMPUTATION_H
 
 #include "INoncopyable.h"
-#include "WinDllMacros.h"
 #include <vector>
 
 using std::size_t;
@@ -34,7 +33,7 @@ class SimulationOptions;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecoratedLayerComputation : public INoncopyable
+class DecoratedLayerComputation final : public INoncopyable
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);

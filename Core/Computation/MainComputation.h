@@ -35,7 +35,7 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MainComputation : public INoncopyable
+class MainComputation final : public INoncopyable
 {
 public:
     MainComputation(

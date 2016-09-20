@@ -24,6 +24,7 @@
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
+#include "SpecularComputation.h"
 #include "ScalarSpecularInfoMap.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
@@ -59,12 +60,14 @@ MainComputation::MainComputation(
     // scattering from rough surfaces in DWBA
     if (mp_multi_layer->hasRoughness())
         mp_roughness_computation = new RoughMultiLayerComputation(mp_multi_layer);
+    mp_specular_computation = new SpecularComputation(mp_multi_layer);
 }
 
 MainComputation::~MainComputation()
 {
     delete mp_multi_layer;
     delete mp_roughness_computation;
+    delete mp_specular_computation;
     for (auto& layer_comp: m_layer_computation)
         for (DecoratedLayerComputation* comp: layer_comp)
             delete comp;
@@ -85,6 +88,7 @@ void MainComputation::run()
 // The normalization of the calculated scattering intensities is:
 // For nanoparticles: rho * (scattering cross-section/scattering particle)
 // For roughness: (scattering cross-section of area S)/S
+// For specular peak: |R|^2 * sin(alpha_i) / solid_angle
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
@@ -112,6 +116,11 @@ void MainComputation::runProtected()
         mp_roughness_computation->eval(m_progress, layer_elements.begin(), layer_elements.end());
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
+
+    bool use_specular = true;
+    if (use_specular) {
+        mp_specular_computation->eval(m_progress, polarized, m_begin_it, m_end_it);
+    }
 }
 
 void MainComputation::collectRTCoefficientsScalar()
@@ -129,6 +138,10 @@ void MainComputation::collectRTCoefficientsScalar()
         // layer roughness DWBA
         if (mp_roughness_computation)
             mp_roughness_computation->setSpecularInfo(i, layer_coeff_map);
+
+        if (i==0) {
+            mp_specular_computation->setSpecularInfo(layer_coeff_map);
+        }
     }
 }
 

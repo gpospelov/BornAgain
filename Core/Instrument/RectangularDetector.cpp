@@ -424,6 +424,11 @@ double RectPixelMap::getSolidAngle() const
     return m_solid_angle;
 }
 
+bool RectPixelMap::contains(kvector_t) const
+{
+    return false;
+}
+
 kvector_t RectPixelMap::normalizeLength(const kvector_t direction, double length) const
 {
     return direction.unit()*length;

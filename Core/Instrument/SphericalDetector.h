@@ -80,11 +80,12 @@ public:
     AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin);
     virtual ~AngularPixelMap() {}
 
-    virtual AngularPixelMap* clone() const;
-    virtual AngularPixelMap* createZeroSizeMap(double x, double y) const;
-    virtual kvector_t getK(double x, double y, double wavelength) const;
-    virtual double getIntegrationFactor(double x, double y) const;
-    virtual double getSolidAngle() const;
+    AngularPixelMap* clone() const override;
+    AngularPixelMap* createZeroSizeMap(double x, double y) const override;
+    kvector_t getK(double x, double y, double wavelength) const override;
+    double getIntegrationFactor(double x, double y) const override;
+    double getSolidAngle() const override;
+    bool contains(kvector_t k) const override;
 private:
     double m_alpha, m_phi;
     double m_dalpha, m_dphi;

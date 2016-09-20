@@ -102,6 +102,12 @@ double SimulationElement::getPhi(double x, double y) const
     return getK(x,y).phi();
 }
 
+bool SimulationElement::containsSpecularWavevector() const
+{
+    kvector_t k = vecOfLambdaAlphaPhi(m_wavelength, -m_alpha_i, m_phi_i);
+    return mP_pixel_map->contains(k);
+}
+
 kvector_t SimulationElement::getK(double x, double y) const {
     return mP_pixel_map->getK(x, y, m_wavelength);
 }

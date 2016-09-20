@@ -123,11 +123,12 @@ public:
     RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height);
     virtual ~RectPixelMap() {}
 
-    virtual RectPixelMap* clone() const;
-    virtual RectPixelMap* createZeroSizeMap(double x, double y) const;
-    virtual kvector_t getK(double x, double y, double wavelength) const;
-    virtual double getIntegrationFactor(double x, double y) const;
-    virtual double getSolidAngle() const;
+    RectPixelMap* clone() const override;
+    RectPixelMap* createZeroSizeMap(double x, double y) const override;
+    kvector_t getK(double x, double y, double wavelength) const override;
+    double getIntegrationFactor(double x, double y) const override;
+    double getSolidAngle() const override;
+    bool contains(kvector_t k) const override;
 private:
     kvector_t normalizeLength(const kvector_t direction, double length) const;
     double calculateSolidAngle() const;

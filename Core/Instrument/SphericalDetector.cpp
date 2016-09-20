@@ -19,6 +19,7 @@
 #include "IPixelMap.h"
 #include "SimulationElement.h"
 #include "Units.h"
+#include "MathConstants.h"
 
 SphericalDetector::SphericalDetector()
 {
@@ -232,4 +233,17 @@ double AngularPixelMap::getSolidAngle() const
 {
     if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;
+}
+
+bool AngularPixelMap::contains(kvector_t k) const
+{
+    if (m_dalpha==0.0) return false;
+    if (m_dphi==0.0) return false;
+    double alpha = M_PI_2 - k.theta();
+    double x = (alpha - m_alpha)/m_dalpha;
+    if (x<0.0 || x>=1.0) return false;
+    double phi = k.phi();
+    double y = (phi - m_phi)/m_dphi;
+    if (y<0.0 || y>=1.0) return false;
+    return true;
 }

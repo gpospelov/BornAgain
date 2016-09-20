@@ -18,9 +18,6 @@
 #include "LayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
 
-bool ContainsSpecularWavevector(const SimulationElement& sim_element);
-
-
 SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer)
     : mp_multi_layer(p_multi_layer)
 {}
@@ -33,7 +30,7 @@ void SpecularComputation::eval(
 {
     if (polarized) return;
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
-        if (ContainsSpecularWavevector(*it)) {
+        if (it->containsSpecularWavevector()) {
             complex_t R = mP_specular_info->getInCoefficients(*it)->getScalarR();
             double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
             if (sin_alpha_i==0.0) sin_alpha_i = 1.0;
@@ -51,13 +48,4 @@ void SpecularComputation::setSpecularInfo(const LayerSpecularInfo &specular_info
     if (mP_specular_info.get() != &specular_info) {
         mP_specular_info.reset(specular_info.clone());
     }
-}
-
-bool ContainsSpecularWavevector(const SimulationElement& sim_element)
-{
-    kvector_t q0 = sim_element.getQ(0.0, 0.0);
-    kvector_t q1 = sim_element.getQ(1.0, 1.0);
-    if (q0.x()!=0.0 && q0.x()*q1.x() >= 0.0) return false;
-    if (q0.y()!=0.0 && q0.y()*q1.y() >= 0.0) return false;
-    return true;
 }

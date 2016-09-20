@@ -82,6 +82,9 @@ public:
     //! get phi for given detector pixel coordinates
     double getPhi(double x, double y) const;
 
+    //! check if element contains given wavevector
+    bool containsSpecularWavevector() const;
+
 private:
     //! swap function
     void swapContent(SimulationElement &other);

@@ -21,7 +21,6 @@
 #include "FitSuiteObjects.h"
 #include "FitParameterSet.h"
 #include "FitSuiteStrategies.h"
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <functional>
 #ifndef SWIG
 #include <atomic>
@@ -121,10 +120,7 @@ private:
 #ifndef SWIG
     std::atomic<bool> m_is_interrupted;
 #endif
-    boost::posix_time::ptime m_start_time;
-    boost::posix_time::ptime m_end_time;
     std::function<void()> m_notifyObservers;
-
     std::unique_ptr<FitKernel> m_kernel;
 };
 

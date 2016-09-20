@@ -20,6 +20,7 @@
 #include "KernelTypes.h"
 #include "FitParameterSet.h"
 #include "ObjectiveFunction.h"
+#include "TimeInterval.h"
 #include <memory>
 
 class IMinimizer;
@@ -58,6 +59,7 @@ private:
     FitParameterSet m_fit_parameters;
     std::unique_ptr<IMinimizer> m_minimizer;
     ObjectiveFunction m_objective_function;
+    TimeInterval m_time_interval;
 };
 
 #endif

@@ -50,6 +50,8 @@ void FitKernelImp::setGradientFunction(gradient_function_t func, int ndatasize)
 
 void FitKernelImp::minimize()
 {
+    m_time_interval.start();
+
     objective_function_t func =
         [&](const std::vector<double> &pars) { return m_objective_function.evaluate(pars); };
     m_minimizer->setObjectiveFunction(func);
@@ -70,6 +72,8 @@ void FitKernelImp::minimize()
 
     // set found values to the parameters
     m_minimizer->propagateResults(m_fit_parameters);
+
+    m_time_interval.stop();
 }
 
 std::string FitKernelImp::reportResults() const
@@ -77,7 +81,8 @@ std::string FitKernelImp::reportResults() const
     std::ostringstream result;
     result << std::endl;
     result << MinimizerUtils::sectionString("FitSuite::printResults");
-    result << "functionCalls: " << m_objective_function.functionCalls() << "\n";
+    result << "functionCalls: " << m_objective_function.functionCalls()
+           << " (" << m_time_interval.runTime() << " sec total)" << "\n";
     result << m_minimizer->reportResults();
     result << m_fit_parameters.reportResults();
     return result.str();

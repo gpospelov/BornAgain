@@ -19,6 +19,7 @@
 #include "WinDllMacros.h"
 #include "RealLimits.h"
 #include "Attributes.h"
+#include <string>
 
 //! @class AttLimits
 //! @ingroup fitting

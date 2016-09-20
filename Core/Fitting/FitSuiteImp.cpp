@@ -86,8 +86,6 @@ void FitSuiteImp::setMinimizer(IMinimizer* minimizer)
 
 void FitSuiteImp::runFit()
 {
-    m_start_time = boost::posix_time::microsec_clock::local_time();
-
     // check if all prerequisites are fullfilled before starting minimization
     check_prerequisites();
 
@@ -102,8 +100,6 @@ void FitSuiteImp::runFit()
     // call observers to let them to get results
     m_is_last_iteration = true;
     notifyObservers();
-
-    m_end_time =  boost::posix_time::microsec_clock::local_time();
 }
 
 void FitSuiteImp::minimize()
@@ -182,12 +178,6 @@ std::string FitSuiteImp::reportResults() const
 
 //     return result.str();
     return m_kernel->reportResults();
-}
-
-double FitSuiteImp::getRunTime() const
-{
-    boost::posix_time::time_duration diff = m_end_time - m_start_time;
-    return diff.total_milliseconds()/1000.;
 }
 
 const FitKernel *FitSuiteImp::kernel() const

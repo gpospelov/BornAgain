@@ -49,12 +49,12 @@ public:
 
     FitParameter& setLimits(const AttLimits& limits);
 
-    FitParameter& lowerLimited(double bound_value);
-    FitParameter& positive();
-    FitParameter& nonnegative();
-    FitParameter& upperLimited(double bound_value);
-    FitParameter& limited(double left_bound_value, double right_bound_value);
-    FitParameter& fixed();
+    FitParameter& setLowerLimited(double bound_value);
+    FitParameter& setPositive();
+    FitParameter& setNonnegative();
+    FitParameter& setUpperLimited(double bound_value);
+    FitParameter& setLimited(double left_bound_value, double right_bound_value);
+    FitParameter& setFixed();
 
     virtual std::string toString() const;
 private:

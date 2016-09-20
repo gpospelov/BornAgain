@@ -59,20 +59,15 @@ void FitSuiteImp::addSimulationAndRealData(const GISASSimulation& simulation,
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-void FitSuiteImp::addFitParameter(const std::string& name, double value)
-{
-    addFitParameter(name, value, AttLimits::limitless());
-}
-
-//! Adds fit parameter, step is calculated from initial parameter value
-void FitSuiteImp::addFitParameter(const std::string& name, double value,
+FitParameterLinked *FitSuiteImp::addFitParameter(const std::string& name, double value,
                                   const AttLimits& limits, double step)
 {
     if(step <=0.0)
         step = value * getOptions().getStepFactor();
 
-    m_kernel->fitParameters()->addFitParameter(
-                new FitParameterLinked(name, value, limits, step));
+    FitParameterLinked *result = new FitParameterLinked(name, value, limits, step);
+    m_kernel->fitParameters()->addFitParameter(result);
+    return result;
 }
 
 void FitSuiteImp::addFitStrategy(const IFitStrategy& strategy)
@@ -88,11 +83,6 @@ void FitSuiteImp::setMinimizer(IMinimizer* minimizer)
 //    m_minimizer.reset(minimizer);
     m_kernel->setMinimizer(minimizer);
 }
-
-//const IMinimizer *FitSuiteImp::minimizer() const
-//{
-//    return m_kernel->minimizer();
-//}
 
 void FitSuiteImp::runFit()
 {

@@ -1848,34 +1848,34 @@ class FitParameter(_object):
         return _libBornAgainFit.FitParameter_setLimits(self, limits)
 
 
-    def lowerLimited(self, bound_value):
-        """lowerLimited(FitParameter self, double bound_value) -> FitParameter"""
-        return _libBornAgainFit.FitParameter_lowerLimited(self, bound_value)
+    def setLowerLimited(self, bound_value):
+        """setLowerLimited(FitParameter self, double bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setLowerLimited(self, bound_value)
 
 
-    def positive(self):
-        """positive(FitParameter self) -> FitParameter"""
-        return _libBornAgainFit.FitParameter_positive(self)
+    def setPositive(self):
+        """setPositive(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setPositive(self)
 
 
-    def nonnegative(self):
-        """nonnegative(FitParameter self) -> FitParameter"""
-        return _libBornAgainFit.FitParameter_nonnegative(self)
+    def setNonnegative(self):
+        """setNonnegative(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setNonnegative(self)
 
 
-    def upperLimited(self, bound_value):
-        """upperLimited(FitParameter self, double bound_value) -> FitParameter"""
-        return _libBornAgainFit.FitParameter_upperLimited(self, bound_value)
+    def setUpperLimited(self, bound_value):
+        """setUpperLimited(FitParameter self, double bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setUpperLimited(self, bound_value)
 
 
-    def limited(self, left_bound_value, right_bound_value):
-        """limited(FitParameter self, double left_bound_value, double right_bound_value) -> FitParameter"""
-        return _libBornAgainFit.FitParameter_limited(self, left_bound_value, right_bound_value)
+    def setLimited(self, left_bound_value, right_bound_value):
+        """setLimited(FitParameter self, double left_bound_value, double right_bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setLimited(self, left_bound_value, right_bound_value)
 
 
-    def fixed(self):
-        """fixed(FitParameter self) -> FitParameter"""
-        return _libBornAgainFit.FitParameter_fixed(self)
+    def setFixed(self):
+        """setFixed(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setFixed(self)
 
 
     def toString(self):

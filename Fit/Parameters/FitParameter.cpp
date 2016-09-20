@@ -68,37 +68,37 @@ FitParameter& FitParameter::setLimits(const AttLimits &limits)
     return *this;
 }
 
-FitParameter &FitParameter::lowerLimited(double bound_value)
+FitParameter &FitParameter::setLowerLimited(double bound_value)
 {
     m_limits = AttLimits::lowerLimited(bound_value);
     return *this;
 }
 
-FitParameter &FitParameter::positive()
+FitParameter &FitParameter::setPositive()
 {
     m_limits = AttLimits::positive();
     return *this;
 }
 
-FitParameter &FitParameter::nonnegative()
+FitParameter &FitParameter::setNonnegative()
 {
     m_limits = AttLimits::nonnegative();
     return *this;
 }
 
-FitParameter &FitParameter::upperLimited(double bound_value)
+FitParameter &FitParameter::setUpperLimited(double bound_value)
 {
     m_limits = AttLimits::upperLimited(bound_value);
     return *this;
 }
 
-FitParameter &FitParameter::limited(double left_bound_value, double right_bound_value)
+FitParameter &FitParameter::setLimited(double left_bound_value, double right_bound_value)
 {
     m_limits = AttLimits::limited(left_bound_value, right_bound_value);
     return *this;
 }
 
-FitParameter &FitParameter::fixed()
+FitParameter &FitParameter::setFixed()
 {
     m_limits = AttLimits::fixed();
     return *this;

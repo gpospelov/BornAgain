@@ -40,10 +40,10 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
     m_impl->addSimulationAndRealData(simulation, *data, weight);
 }
 
-void FitSuite::addFitParameter(const std::string& name, double value,
+FitParameterLinked *FitSuite::addFitParameter(const std::string& name, double value,
                                const AttLimits& limits, double step)
 {
-    m_impl->addFitParameter(name, value, limits, step);
+    return m_impl->addFitParameter(name, value, limits, step);
 }
 
 void FitSuite::setMinimizer(const std::string& minimizer_name, const std::string& algorithm_name,
@@ -78,21 +78,6 @@ void FitSuite::initPrint(int print_every_nth)
 {
     std::shared_ptr<FitSuitePrintObserver> observer(new FitSuitePrintObserver(print_every_nth));
     attachObserver(observer);
-}
-
-void FitSuite::fixAllParameters()
-{
-    fitParameters()->fixAll();
-}
-
-void FitSuite::releaseAllParameters()
-{
-    fitParameters()->releaseAll();
-}
-
-void FitSuite::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
-{
-    fitParameters()->setFixed(pars, is_fixed);
 }
 
 void FitSuite::runFit()

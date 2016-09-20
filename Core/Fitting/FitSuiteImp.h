@@ -31,6 +31,7 @@ class AttLimits;
 class GISASSimulation;
 class IMinimizer;
 class FitKernel;
+class FitParameterLinked;
 
 //! Fitting kernel for FitSuite.
 //! @ingroup fitting_internal
@@ -52,19 +53,14 @@ class BA_CORE_API_ FitSuiteImp
                                   double weight);
 
     //! Adds fit parameter
-    void addFitParameter(const std::string& name, double value);
-    //! Adds fit parameter
-    void addFitParameter(const std::string& name, double value,
-                         const AttLimits& limits, double step = 0.0);
+    FitParameterLinked* addFitParameter(const std::string& name, double value,
+                                        const AttLimits& limits, double step = 0.0);
 
     //! Adds fit strategy
     void addFitStrategy(const IFitStrategy& strategy);
 
     //! Sets minimizer
     void setMinimizer(IMinimizer* minimizer);
-
-    //! Returns minimizer
-//    const IMinimizer *minimizer() const;
 
     //! Runs a fit, which may consist of several minimization rounds
     virtual void runFit();

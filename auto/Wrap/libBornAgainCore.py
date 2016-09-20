@@ -5732,6 +5732,83 @@ class FitOptions(_object):
 FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
 FitOptions_swigregister(FitOptions)
 
+class FitParameterLinked(libBornAgainFit.FitParameter):
+    """
+
+
+    Fittable parameter, linked to other parameters from pools.
+
+    C++ includes: FitParameterLinked.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [libBornAgainFit.FitParameter]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameterLinked, name, value)
+    __swig_getmethods__ = {}
+    for _s in [libBornAgainFit.FitParameter]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FitParameterLinked, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(FitParameterLinked self) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim, double step=0.0) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & name, double value) -> FitParameterLinked
+
+        FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
+
+        """
+        this = _libBornAgainCore.new_FitParameterLinked(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitParameterLinked
+    __del__ = lambda self: None
+
+    def setValue(self, value):
+        """
+        setValue(FitParameterLinked self, double value)
+
+        void FitParameterLinked::setValue(double value) final
+
+        Sets given value for all bound parameters. 
+
+        """
+        return _libBornAgainCore.FitParameterLinked_setValue(self, value)
+
+
+    def addParameter(self, par):
+        """
+        addParameter(FitParameterLinked self, RealParameter par)
+
+        void FitParameterLinked::addParameter(RealParameter *par)
+
+        Adds real parameter to the collection. 
+
+        """
+        return _libBornAgainCore.FitParameterLinked_addParameter(self, par)
+
+
+    def addMatchedParametersFromPool(self, *args):
+        """
+        addMatchedParametersFromPool(FitParameterLinked self, ParameterPool pool, std::string const & wildcard)
+        addMatchedParametersFromPool(FitParameterLinked self, ParameterPool pool)
+
+        void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard=std::string())
+
+        Adds parameters from pool which match given wildcard. 
+
+        """
+        return _libBornAgainCore.FitParameterLinked_addMatchedParametersFromPool(self, *args)
+
+FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
+FitParameterLinked_swigregister(FitParameterLinked)
+
 class FitSuite(IObservable):
     """
 
@@ -5784,9 +5861,9 @@ class FitSuite(IObservable):
 
     def addFitParameter(self, *args):
         """
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits const & limits, double step=0.0)
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits const & limits)
-        addFitParameter(FitSuite self, std::string const & name, double value)
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits, double step=0.0) -> FitParameterLinked
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits) -> FitParameterLinked
+        addFitParameter(FitSuite self, std::string const & name, double value) -> FitParameterLinked
 
         void FitSuite::addFitParameter(const std::string &name, double value, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
 
@@ -5871,42 +5948,6 @@ class FitSuite(IObservable):
 
         """
         return _libBornAgainCore.FitSuite_initPrint(self, print_every_nth)
-
-
-    def fixAllParameters(self):
-        """
-        fixAllParameters(FitSuite self)
-
-        void FitSuite::fixAllParameters()
-
-        Set all parameters to fixed. 
-
-        """
-        return _libBornAgainCore.FitSuite_fixAllParameters(self)
-
-
-    def releaseAllParameters(self):
-        """
-        releaseAllParameters(FitSuite self)
-
-        void FitSuite::releaseAllParameters()
-
-        Set all parameters to released. 
-
-        """
-        return _libBornAgainCore.FitSuite_releaseAllParameters(self)
-
-
-    def setParametersFixed(self, pars, is_fixed):
-        """
-        setParametersFixed(FitSuite self, vector_string_t pars, bool is_fixed)
-
-        void FitSuite::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)
-
-        Set fixed flag for parameters from the list. 
-
-        """
-        return _libBornAgainCore.FitSuite_setParametersFixed(self, pars, is_fixed)
 
 
     def runFit(self):

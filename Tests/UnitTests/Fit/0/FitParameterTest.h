@@ -137,23 +137,23 @@ TEST_F(FitParameterTest, CompoundSetters)
 
     FitParameter par(name, start_value);
 
-    par.setStep(step).lowerLimited(lim1);
+    par.setStep(step).setLowerLimited(lim1);
     EXPECT_EQ(step, par.step());
     EXPECT_TRUE(par.limits().isLowerLimited());
     EXPECT_EQ(par.limits().lowerLimit(), lim1);
     EXPECT_EQ(par.limits().upperLimit(), 0.0);
 
-    par.setStep(step).upperLimited(lim2);
+    par.setStep(step).setUpperLimited(lim2);
     EXPECT_TRUE(par.limits().isUpperLimited());
     EXPECT_EQ(par.limits().lowerLimit(), 0.0);
     EXPECT_EQ(par.limits().upperLimit(), lim2);
 
-    par.setStep(step).limited(lim1, lim2);
+    par.setStep(step).setLimited(lim1, lim2);
     EXPECT_TRUE(par.limits().isLimited());
     EXPECT_EQ(par.limits().lowerLimit(), lim1);
     EXPECT_EQ(par.limits().upperLimit(), lim2);
 
-    par.setStep(step).fixed();
+    par.setStep(step).setFixed();
     EXPECT_TRUE(par.limits().isFixed());
     EXPECT_EQ(par.limits().lowerLimit(), 0.0);
     EXPECT_EQ(par.limits().upperLimit(), 0.0);

@@ -30,6 +30,7 @@ class FitSuiteStrategies;
 class FitOptions;
 class FitSuiteImp;
 class IMinimizer;
+class FitParameterLinked;
 
 //! @class FitSuite
 //! @ingroup fitting
@@ -60,7 +61,7 @@ public:
     //! @param value Parameter's starting value
     //! @param limits Limits attribute
     //! @param step Initial parameter's step (some minimizers don't use it)
-    void addFitParameter(const std::string& name, double value,
+    FitParameterLinked* addFitParameter(const std::string& name, double value,
                          const AttLimits& limits=AttLimits::limitless(), double step = 0.0);
 
     //! Sets minimizer with given name and algorithm type
@@ -87,15 +88,6 @@ public:
     //! Prints also the summary when completed.
     //! @param print_every_nth Print every n'th iteration
     void initPrint(int print_every_nth);
-
-    //! Set all parameters to fixed
-    void fixAllParameters();
-
-    //! Set all parameters to released
-    void releaseAllParameters();
-
-    //! Set fixed flag for parameters from the list
-    void setParametersFixed(const std::vector<std::string>& pars, bool is_fixed);
 
     //! main method to run the fitting
     void runFit();

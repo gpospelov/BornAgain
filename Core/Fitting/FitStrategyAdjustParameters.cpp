@@ -36,7 +36,7 @@ void FitStrategyAdjustParameters::execute()
     if( !m_kernel )
         throw Exceptions::NullPointerException(
             "FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
-    FitParameterSet* fitParameters = m_kernel->getFitParameters();
+    FitParameterSet* fitParameters = m_kernel->fitParameters();
 
     // fixing all parameters at they current values
     if( m_fix_all ) {

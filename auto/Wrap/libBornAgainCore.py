@@ -5967,16 +5967,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_runFit(self)
 
 
-    def getNumberOfFitObjects(self):
-        """
-        getNumberOfFitObjects(FitSuite self) -> int
-
-        int FitSuite::getNumberOfFitObjects() const
-
-        Returns number of fit objects, where fit object stands for (real, simulated) pair. 
-
-        """
-        return _libBornAgainCore.FitSuite_getNumberOfFitObjects(self)
+    def numberOfFitObjects(self):
+        """numberOfFitObjects(FitSuite self) -> int"""
+        return _libBornAgainCore.FitSuite_numberOfFitObjects(self)
 
 
     def getRealData(self, i_item=0):
@@ -6036,16 +6029,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_getChiSquaredMap(self, i_item)
 
 
-    def getFitObjects(self):
-        """
-        getFitObjects(FitSuite self) -> FitSuiteObjects
-
-        FitSuiteObjects * FitSuite::getFitObjects()
-
-        returns  FitObject (pair of simulation/real data) 
-
-        """
-        return _libBornAgainCore.FitSuite_getFitObjects(self)
+    def fitObjects(self):
+        """fitObjects(FitSuite self) -> FitSuiteObjects"""
+        return _libBornAgainCore.FitSuite_fitObjects(self)
 
 
     def fitParameters(self):
@@ -6053,16 +6039,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_fitParameters(self)
 
 
-    def getFitStrategies(self):
-        """
-        getFitStrategies(FitSuite self) -> FitSuiteStrategies *
-
-        FitSuiteStrategies * FitSuite::getFitStrategies()
-
-        Returns reference to fit parameters. 
-
-        """
-        return _libBornAgainCore.FitSuite_getFitStrategies(self)
+    def fitStrategies(self):
+        """fitStrategies(FitSuite self) -> FitSuiteStrategies *"""
+        return _libBornAgainCore.FitSuite_fitStrategies(self)
 
 
     def isLastIteration(self):
@@ -6077,28 +6056,14 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_isLastIteration(self)
 
 
-    def getNumberOfIterations(self):
-        """
-        getNumberOfIterations(FitSuite self) -> size_t
-
-        size_t FitSuite::getNumberOfIterations() const
-
-        Returns current number of minimization function calls. 
-
-        """
-        return _libBornAgainCore.FitSuite_getNumberOfIterations(self)
+    def numberOfIterations(self):
+        """numberOfIterations(FitSuite self) -> size_t"""
+        return _libBornAgainCore.FitSuite_numberOfIterations(self)
 
 
-    def getCurrentStrategyIndex(self):
-        """
-        getCurrentStrategyIndex(FitSuite self) -> size_t
-
-        size_t FitSuite::getCurrentStrategyIndex() const
-
-        Returns the number of current strategy. 
-
-        """
-        return _libBornAgainCore.FitSuite_getCurrentStrategyIndex(self)
+    def currentStrategyIndex(self):
+        """currentStrategyIndex(FitSuite self) -> size_t"""
+        return _libBornAgainCore.FitSuite_currentStrategyIndex(self)
 
 
     def printResults(self):

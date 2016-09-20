@@ -41,8 +41,8 @@ class BA_CORE_API_ FitSuite : public IObservable
 public:
     FitSuite();
     FitSuite(const FitSuite&) = delete;
-    ~FitSuite();
     FitSuite& operator=(const FitSuite&) = delete;
+    ~FitSuite();
 
     // ------------------------------------------------------------------------
     // Fitting setup
@@ -97,7 +97,7 @@ public:
     // ------------------------------------------------------------------------
 
     //! Returns number of fit objects, where fit object stands for (real, simulated) pair.
-    int getNumberOfFitObjects() const;
+    int numberOfFitObjects() const;
 
     //! returns real data histogram
     //! @param i_item The index of fit object
@@ -112,22 +112,22 @@ public:
     IHistogram* getChiSquaredMap(size_t i_item = 0) const;
 
     //! returns FitObject (pair of simulation/real data)
-    FitSuiteObjects* getFitObjects();
+    FitSuiteObjects* fitObjects();
 
     //! Returns reference to fit parameters
     FitParameterSet* fitParameters();
 
     //! Returns reference to fit parameters
-    FitSuiteStrategies* getFitStrategies();
+    FitSuiteStrategies* fitStrategies();
 
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const;
 
     //! Returns current number of minimization function calls
-    size_t getNumberOfIterations() const;
+    size_t numberOfIterations() const;
 
     //! Returns the number of current strategy
-    size_t getCurrentStrategyIndex() const;
+    size_t currentStrategyIndex() const;
 
     //! Prints results of the minimization to the standard output.
     void printResults() const;
@@ -137,12 +137,6 @@ public:
 
     //! Returns minimum chi squared value found
     double getChi2() const;
-
-    //! Returns general setting of fit kernel
-    FitOptions& getOptions();
-
-    //! Sets general setting of fit kernel
-    void setOptions(const FitOptions& fit_options);
 
     void interruptFitting();
     void resetInterrupt();

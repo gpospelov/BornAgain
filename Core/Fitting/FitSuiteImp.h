@@ -68,23 +68,23 @@ class BA_CORE_API_ FitSuiteImp
     void minimize();
 
     //! Returns reference to the kit with data
-    FitSuiteObjects* getFitObjects() { return &m_fit_objects; }
-    const FitSuiteObjects* getFitObjects() const { return &m_fit_objects; }
+    FitSuiteObjects* fitObjects() { return &m_fit_objects; }
+    const FitSuiteObjects* fitObjects() const { return &m_fit_objects; }
 
     //! Returns reference to fit parameters
-    FitParameterSet* getFitParameters();
+    FitParameterSet* fitParameters();
 
     //! Returns reference to fit parameters
-    FitSuiteStrategies* getFitStrategies() { return &m_fit_strategies; }
+    FitSuiteStrategies* fitStrategies() { return &m_fit_strategies; }
 
     //! Returns true if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const { return m_is_last_iteration; }
 
     //! Returns current number of minimization function calls
-    size_t getNCalls() const;
+    size_t numberOfIterations() const;
 
     //! Returns the number of current strategy
-    size_t getCurrentStrategyIndex() const;
+    size_t currentStrategyIndex() const;
 
     //! Reports results of minimization in the form of multi-line string.
     std::string reportResults() const;
@@ -95,9 +95,6 @@ class BA_CORE_API_ FitSuiteImp
     //! Sets fit options
     void setOptions(const FitOptions& fit_options) { m_fit_options = fit_options; }
 
-    //! Returns total wall time in seconds which was spend for run fit
-    double getRunTime() const;
-
     void notifyObservers() { m_notifyObservers(); }
 
     void interruptFitting() { m_is_interrupted = true; }
@@ -105,7 +102,6 @@ class BA_CORE_API_ FitSuiteImp
     bool isInterrupted() const { return m_is_interrupted; }
 
     const FitKernel* kernel() const;
-//    FitKernel* kernel();
 
 private:
     bool check_prerequisites() const;

@@ -30,7 +30,7 @@ void FitSuitePrintObserver::update(FitSuite* fit_suite)
 {
     m_fit_suite = fit_suite;
 
-    if(fit_suite->getNumberOfIterations() == 0) {
+    if(fit_suite->numberOfIterations()== 0) {
         m_start_time = boost::posix_time::second_clock::local_time();
         m_last_call_time = boost::posix_time::second_clock::local_time();
     }
@@ -38,7 +38,7 @@ void FitSuitePrintObserver::update(FitSuite* fit_suite)
     if(m_strategy_has_changed) {
         std::cout <<
             "-------------------------------------------------------------------------------\n";
-        std::cout << (*m_fit_suite->getFitStrategies()->getCurrentStrategy()) << std::endl;
+        std::cout << (*m_fit_suite->fitStrategies()->getCurrentStrategy()) << std::endl;
         std::cout <<
             "-------------------------------------------------------------------------------\n";
     }
@@ -54,8 +54,8 @@ void FitSuitePrintObserver::update(FitSuite* fit_suite)
 void FitSuitePrintObserver::printIterationHeader()
 {
     std::cout << "FitPrintObserver::update() -> Info."
-              << " NCall:" << m_fit_suite->getNumberOfIterations()
-              << " NStrategy:" << m_fit_suite->getCurrentStrategyIndex()
+              << " NCall:" << m_fit_suite->numberOfIterations()
+              << " NStrategy:" << m_fit_suite->currentStrategyIndex()
               << " Chi2:" << std::scientific << std::setprecision(8)
               << m_fit_suite->getChi2() << std::endl;
 }

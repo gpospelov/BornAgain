@@ -38,6 +38,11 @@ FitParameter::FitParameter(const std::string &name, double value, const AttLimit
 
 }
 
+FitParameter *FitParameter::clone() const
+{
+    return new FitParameter(*this);
+}
+
 std::string FitParameter::name() const { return m_name; }
 
 double FitParameter::startValue() const { return m_start_value; }
@@ -114,4 +119,14 @@ std::string FitParameter::toString() const
     ostr << adjusted_name << std::scientific << std::setprecision(8) << m_value << "  ";
     ostr << m_limits.toString();
     return ostr.str();
+}
+
+FitParameter::FitParameter(const FitParameter &other) : IFitParameter()
+{
+    m_name = other.m_name;
+    m_start_value = other.m_start_value;
+    m_value = other.m_value;
+    m_step = other.m_step;
+    m_error = other.m_error;
+    m_limits = other.m_limits;
 }

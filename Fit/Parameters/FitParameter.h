@@ -16,6 +16,7 @@
 #ifndef FITPARAMETER_H
 #define FITPARAMETER_H
 
+#include "IFitParameter.h"
 #include "AttLimits.h"
 #include <string>
 
@@ -23,13 +24,15 @@
 //! @ingroup fitting
 //! @brief The FitParameter represents fittable parameter with value, error, step, and limits.
 
-class BA_CORE_API_ FitParameter
+class BA_CORE_API_ FitParameter : public IFitParameter
 {
 public:
     FitParameter();
     FitParameter(const std::string& name, double value,
                     const AttLimits& limits=AttLimits::limitless(), double step=0.0);
     virtual ~FitParameter(){}
+
+    FitParameter* clone() const;
 
     std::string name() const;
 
@@ -57,6 +60,10 @@ public:
     FitParameter& setFixed();
 
     virtual std::string toString() const;
+
+protected:
+    FitParameter(const FitParameter& other);
+
 private:
     std::string m_name;
     double m_start_value;

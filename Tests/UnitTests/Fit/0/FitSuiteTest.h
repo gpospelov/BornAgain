@@ -34,7 +34,7 @@ TEST_F(FitSuiteTest, addFitParameter)
     EXPECT_EQ(10.0, par->limits().lowerLimit());
     EXPECT_EQ(20.0, par->limits().upperLimit());
 
-    FitParameter& par2 = fitSuite->addFitParameter("par3", 3.0)->setStep(0.03).setLowerLimited(30.0);
+    FitParameter &par2 = fitSuite->addFitParameter("par3", 3.0)->setStep(0.03).setLowerLimited(30.0);
     EXPECT_EQ("par3", par2.name());
     EXPECT_EQ(3.0, par2.value());
     EXPECT_EQ(0.0, par2.error());
@@ -42,10 +42,10 @@ TEST_F(FitSuiteTest, addFitParameter)
     EXPECT_TRUE(par2.limits().isLowerLimited());
     EXPECT_EQ(30.0, par2.limits().lowerLimit());
 
-    par2 = fitSuite->addFitParameter("par4", 4.0)->setFixed();
-    EXPECT_EQ("par4", par2.name());
-    EXPECT_EQ(4.0, par2.value());
-    EXPECT_TRUE(par2.limits().isFixed());
+    FitParameter &par3 = fitSuite->addFitParameter("par4", 4.0)->setFixed();
+    EXPECT_EQ("par4", par3.name());
+    EXPECT_EQ(4.0, par3.value());
+    EXPECT_TRUE(par3.limits().isFixed());
 }
 
 #endif

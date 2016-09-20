@@ -25,13 +25,8 @@
 #include "SimulationElement.h"
 
 DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_t layout_index)
-    : mp_layer(p_layer), mp_specular_info(nullptr), m_layout_index(layout_index)
+    : mp_layer(p_layer), m_layout_index(layout_index)
 {}
-
-DecoratedLayerComputation::~DecoratedLayerComputation()
-{
-    delete mp_specular_info;
-}
 
 void DecoratedLayerComputation::eval(
     const SimulationOptions& options,
@@ -42,8 +37,8 @@ void DecoratedLayerComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it)
 {
     LayerStrategyBuilder builder(*mp_layer, sample, options, m_layout_index);
-    assert(mp_specular_info);
-    builder.setRTInfo(*mp_specular_info);
+    assert(mP_specular_info);
+    builder.setRTInfo(*mP_specular_info);
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy(builder.createStrategy());
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
@@ -63,8 +58,7 @@ void DecoratedLayerComputation::eval(
 
 void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
-    if (mp_specular_info != &specular_info) {
-        delete mp_specular_info;
-        mp_specular_info = specular_info.clone();
+    if (mP_specular_info.get() != &specular_info) {
+        mP_specular_info.reset(specular_info.clone());
     }
 }

@@ -18,6 +18,7 @@
 
 #include "INoncopyable.h"
 #include <vector>
+#include <memory>
 
 using std::size_t;
 
@@ -37,7 +38,6 @@ class DecoratedLayerComputation final : public INoncopyable
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
-    ~DecoratedLayerComputation();
 
     void eval(const SimulationOptions& options,
               ProgressHandler* progress,
@@ -49,7 +49,7 @@ public:
 
 private:
     const Layer* mp_layer;
-    LayerSpecularInfo* mp_specular_info;
+    std::unique_ptr<LayerSpecularInfo> mP_specular_info;
     size_t m_layout_index;
 };
 

@@ -49,7 +49,7 @@ public:
 
     //! Adds fit parameter
     void addFitParameter(const std::string& name, double value,
-                         const AttLimits& limits, double step=0.0);
+                         const AttLimits& limits, double step);
 
     void setObjectiveFunction(objective_function_t func);
 

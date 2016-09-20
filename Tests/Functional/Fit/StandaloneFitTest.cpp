@@ -16,34 +16,53 @@
 #include "StandaloneFitTest.h"
 #include "FitKernel.h"
 #include "AttLimits.h"
-#include "ObjectiveTestFunctions.h"
+#include "ObjectiveFunctionPlan.h"
+#include "FitParameterSet.h"
 #include <iostream>
 
 StandaloneFitTest::StandaloneFitTest()
     : IFunctionalTest("StandaloneFit", "Collection of standalone tests for fitting library")
 {
-
+    addTest<Rosenbrock1>("Minuit2", "Migrad");
+    addTest<WoodFour>("Minuit2", "Migrad");
+    addTest<Rosenbrock1>("GSLMultiMin", "BFGS2");
 }
 
 bool StandaloneFitTest::runTest()
 {
+    bool success(true);
+    for(auto plan: m_plans) {
+        std::cout << plan->minimizerName()
+                  << " " << plan->algorithmName()
+                  << " " << plan->functionPlanName() << std::endl;
+
+        success &= runPlan(plan);
+    }
+
+    std::cout << "StandaloneFitTest::runTest() -> " << (success ? "OK" : "FAILED") << std::endl;
+
+    return success;
+}
+
+bool StandaloneFitTest::runPlan(std::shared_ptr<StandaloneFitPlan> plan)
+{
+    bool success(true);
+
     std::unique_ptr<FitKernel> fitKernel(new FitKernel);
+    fitKernel->setMinimizer(plan->minimizerName(), plan->algorithmName());
 
-    fitKernel->setMinimizer("Minuit2", "Migrad");
+    int index(0);
+    for(FitParameterPlan p : plan->parameterPlan())
+        fitKernel->addFitParameter("par"+std::to_string(index++), p.m_start_value, p.m_limits, p.m_step);
 
-//    void addFitParameter(const std::string& name, double value,
-//                         const RealLimits& lim, const Attributes& attr,
-//                         double step=0.0);
-
-
-    fitKernel->addFitParameter("par1", -1.2, AttLimits::limited(-5.0, 5.0), 0.01);
-    fitKernel->addFitParameter("par2", 1.0, AttLimits::limited(-5.0, 5.0), 0.01);
-
-
-    fitKernel->setObjectiveFunction(TestFunctions::RosenBrock);
+    fitKernel->setObjectiveFunction(plan->objectiveFunction());
     fitKernel->minimize();
-
     std::cout << fitKernel->reportResults() << std::endl;
 
-    return true;
+    std::vector<double> foundValues = fitKernel->fitParameters()->values();
+
+    if(!plan->planSucceeded(foundValues))
+        success = false;
+
+    return success;
 }

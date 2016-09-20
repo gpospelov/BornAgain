@@ -31,10 +31,9 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
     FitParameterLinked() {}
     FitParameterLinked(const std::string& name, double value,
         const AttLimits& lim=AttLimits::limitless(), double step = 0.0);
-
-    FitParameterLinked(const FitParameterLinked&) = delete;
-    FitParameterLinked& operator=(const FitParameterLinked&) = delete;
     ~FitParameterLinked() final;
+
+    FitParameterLinked *clone() const;
 
     void setValue(double value) final;
 

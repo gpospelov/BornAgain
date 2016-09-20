@@ -5770,6 +5770,11 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
     __swig_destroy__ = _libBornAgainCore.delete_FitParameterLinked
     __del__ = lambda self: None
 
+    def clone(self):
+        """clone(FitParameterLinked self) -> FitParameterLinked"""
+        return _libBornAgainCore.FitParameterLinked_clone(self)
+
+
     def setValue(self, value):
         """
         setValue(FitParameterLinked self, double value)

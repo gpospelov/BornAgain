@@ -29,6 +29,11 @@ FitParameterLinked::~FitParameterLinked()
         delete par;
 }
 
+FitParameterLinked *FitParameterLinked::clone() const
+{
+    throw std::runtime_error("FitParameterLinked::clone() -> Not yet implemented;");
+}
+
 //! Sets given value for all bound parameters
 void FitParameterLinked::setValue(double value) {
     FitParameter::setValue(value);

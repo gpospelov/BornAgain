@@ -27,7 +27,8 @@
 namespace TestFunctions
 {
 
-    BA_CORE_API_ double RosenBrock(const std::vector<double>& par);
+BA_CORE_API_ double RosenBrock(const std::vector<double>& par);
+BA_CORE_API_ double WoodFour(const std::vector<double>& par);
 
 }
 

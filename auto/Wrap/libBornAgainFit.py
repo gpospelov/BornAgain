@@ -1446,12 +1446,9 @@ class AttLimits(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, AttLimits, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
-        """
-        __init__(AttLimits self) -> AttLimits
-        __init__(AttLimits self, RealLimits const & limits, Attributes const & fixedAttr) -> AttLimits
-        """
-        this = _libBornAgainFit.new_AttLimits(*args)
+    def __init__(self):
+        """__init__(AttLimits self) -> AttLimits"""
+        this = _libBornAgainFit.new_AttLimits()
         try:
             self.this.append(this)
         except Exception:

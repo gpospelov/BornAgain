@@ -22,13 +22,13 @@
 
 //! @class AttLimits
 //! @ingroup fitting
-//! @brief The AttLimits class defines limited/free attribute of fit parameter.
+//! @brief The AttLimits class defines limited/free attribute of fit parameter and provides
+//! coupling between them.
 
 class BA_CORE_API_ AttLimits
 {
 public:
     AttLimits();
-    AttLimits(const RealLimits &limits, const Attributes &fixedAttr); // TODO make private
 
     static AttLimits limitless();
     static AttLimits lowerLimited(double bound_value);
@@ -54,11 +54,14 @@ public:
 
     std::string toString() const;
 
+    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m)
+    { ostr << m.toString(); return ostr; }
+
 private:
+    AttLimits(const RealLimits &limits, const Attributes &fixedAttr);
 
     RealLimits m_limits;
     Attributes m_att_fixed;
 };
-
 
 #endif

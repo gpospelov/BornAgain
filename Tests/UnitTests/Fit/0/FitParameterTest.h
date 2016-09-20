@@ -121,5 +121,4 @@ TEST_F(FitParameterTest, Clone)
     EXPECT_EQ(lim2, clone->limits().upperLimit());
 }
 
-
 #endif

@@ -85,6 +85,9 @@ public:
     //! check if element contains given wavevector
     bool containsSpecularWavevector() const;
 
+    //! indicate that this element contains the specular wavevector
+    void setSpecular(bool contains_specular);
+
 private:
     //! swap function
     void swapContent(SimulationElement &other);
@@ -99,6 +102,7 @@ private:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
     std::unique_ptr<IPixelMap> mP_pixel_map;
+    bool m_contains_specular;
 };
 
 

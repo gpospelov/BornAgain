@@ -21,14 +21,15 @@
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
                                      const IPixelMap* pixelmap)
     : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i), m_intensity(0.0)
+    , m_contains_specular(false)
 {
     mP_pixel_map.reset(pixelmap->clone());
     initPolarization();
 }
 
 SimulationElement::SimulationElement(const SimulationElement &other)
-    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i),
-      m_intensity(other.m_intensity)
+    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
+    , m_intensity(other.m_intensity), m_contains_specular(other.m_contains_specular)
 {
     mP_pixel_map.reset(other.mP_pixel_map->clone());
     m_polarization = other.m_polarization;
@@ -47,8 +48,8 @@ SimulationElement& SimulationElement::operator=(const SimulationElement &other)
 }
 
 SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
-    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i),
-      m_intensity(other.m_intensity)
+    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
+    , m_intensity(other.m_intensity), m_contains_specular(other.m_contains_specular)
 {
     mP_pixel_map.reset(other.mP_pixel_map->createZeroSizeMap(x, y));
     m_polarization = other.m_polarization;
@@ -84,6 +85,7 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(m_polarization, other.m_polarization);
     std::swap(m_analyzer_operator, other.m_analyzer_operator);
     std::swap(mP_pixel_map, other.mP_pixel_map);
+    std::swap(m_contains_specular, other.m_contains_specular);
 }
 
 void SimulationElement::initPolarization()
@@ -106,6 +108,11 @@ bool SimulationElement::containsSpecularWavevector() const
 {
     kvector_t k = vecOfLambdaAlphaPhi(m_wavelength, -m_alpha_i, m_phi_i);
     return mP_pixel_map->contains(k);
+}
+
+void SimulationElement::setSpecular(bool contains_specular)
+{
+    m_contains_specular = contains_specular;
 }
 
 kvector_t SimulationElement::getK(double x, double y) const {

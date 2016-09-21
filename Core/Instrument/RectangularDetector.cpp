@@ -310,8 +310,9 @@ std::string RectangularDetector::getAxisName(size_t index) const
     }
 }
 
-size_t RectangularDetector::getIndexOfSpecular() const
+size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
 {
+    (void)beam;
     return getTotalSize();
 }
 

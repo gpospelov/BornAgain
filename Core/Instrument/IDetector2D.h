@@ -160,7 +160,7 @@ protected:
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is
     //! returned. This corresponds to an overflow index.
-    virtual size_t getIndexOfSpecular() const=0;
+    virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
 
     //! Returns total number of pixels
     size_t getTotalSize() const;

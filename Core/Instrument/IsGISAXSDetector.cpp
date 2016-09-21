@@ -73,7 +73,7 @@ IAxis *IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, dou
     }    return new CustomBinAxis(getAxisName(index), n_bins, min, max);
 }
 
-size_t IsGISAXSDetector::getIndexOfSpecular() const
+size_t IsGISAXSDetector::getIndexOfSpecular(const Beam&) const
 {
     return getTotalSize();
 }

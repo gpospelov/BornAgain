@@ -190,8 +190,9 @@ std::string SphericalDetector::getAxisName(size_t index) const
     }
 }
 
-size_t SphericalDetector::getIndexOfSpecular() const
+size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
 {
+    (void)beam;
     return getTotalSize();
 }
 

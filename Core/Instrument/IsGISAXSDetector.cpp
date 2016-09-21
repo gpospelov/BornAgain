@@ -72,3 +72,8 @@ IAxis *IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, dou
             "IsGISAXSDetector::createAxis() -> Error! Number n_bins can't be zero.");
     }    return new CustomBinAxis(getAxisName(index), n_bins, min, max);
 }
+
+size_t IsGISAXSDetector::getIndexOfSpecular(const Beam&) const
+{
+    return getTotalSize();
+}

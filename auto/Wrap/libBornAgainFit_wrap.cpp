@@ -5627,7 +5627,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -22345,18 +22345,21 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_setParameters", _wrap_IMinimizer_setParameters, METH_VARARGS, (char *)"\n"
 		"IMinimizer_setParameters(IMinimizer self, FitParameterSet parameters)\n"
 		"\n"
-		"void IMinimizer::setParameters(const FitSuiteParameters &parameters)\n"
+		"void IMinimizer::setParameters(const FitParameterSet &parameters)\n"
 		"\n"
 		"Sets internal minimizer parameters using external parameter list. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_setObjectiveFunction", _wrap_IMinimizer_setObjectiveFunction, METH_VARARGS, (char *)"IMinimizer_setObjectiveFunction(IMinimizer self, objective_function_t arg3)"},
+	 { (char *)"IMinimizer_setObjectiveFunction", _wrap_IMinimizer_setObjectiveFunction, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setObjectiveFunction(IMinimizer self, objective_function_t arg3)\n"
+		"\n"
+		"virtual void IMinimizer::setObjectiveFunction(objective_function_t)\n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_setGradientFunction", _wrap_IMinimizer_setGradientFunction, METH_VARARGS, (char *)"\n"
 		"IMinimizer_setGradientFunction(IMinimizer self, gradient_function_t arg3, int arg4)\n"
 		"\n"
-		"void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)\n"
-		"\n"
-		"Sets gradient function to minimize. \n"
+		"virtual void IMinimizer::setGradientFunction(gradient_function_t, int)\n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_getMinValue", _wrap_IMinimizer_getMinValue, METH_VARARGS, (char *)"\n"
@@ -22378,7 +22381,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"
 		"IMinimizer_propagateResults(IMinimizer self, FitParameterSet parameters)\n"
 		"\n"
-		"void IMinimizer::propagateResults(FitSuiteParameters &parameters)\n"
+		"void IMinimizer::propagateResults(FitParameterSet &parameters)\n"
 		"\n"
 		"Propagates results of minimization to fit parameter set. \n"
 		"\n"
@@ -22456,40 +22459,178 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"FitParameter_swigregister", FitParameter_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitParameterSet", _wrap_new_FitParameterSet, METH_VARARGS, (char *)"new_FitParameterSet() -> FitParameterSet"},
-	 { (char *)"delete_FitParameterSet", _wrap_delete_FitParameterSet, METH_VARARGS, (char *)"delete_FitParameterSet(FitParameterSet self)"},
-	 { (char *)"FitParameterSet_clear", _wrap_FitParameterSet_clear, METH_VARARGS, (char *)"FitParameterSet_clear(FitParameterSet self)"},
-	 { (char *)"FitParameterSet_size", _wrap_FitParameterSet_size, METH_VARARGS, (char *)"FitParameterSet_size(FitParameterSet self) -> size_t"},
+	 { (char *)"new_FitParameterSet", _wrap_new_FitParameterSet, METH_VARARGS, (char *)"\n"
+		"new_FitParameterSet() -> FitParameterSet\n"
+		"\n"
+		"FitParameterSet::FitParameterSet()\n"
+		"\n"
+		""},
+	 { (char *)"delete_FitParameterSet", _wrap_delete_FitParameterSet, METH_VARARGS, (char *)"\n"
+		"delete_FitParameterSet(FitParameterSet self)\n"
+		"\n"
+		"FitParameterSet::~FitParameterSet()\n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_clear", _wrap_FitParameterSet_clear, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_clear(FitParameterSet self)\n"
+		"\n"
+		"void FitParameterSet::clear()\n"
+		"\n"
+		"container specific\n"
+		"\n"
+		"Clears all defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_size", _wrap_FitParameterSet_size, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_size(FitParameterSet self) -> size_t\n"
+		"\n"
+		"size_t FitParameterSet::size() const\n"
+		"\n"
+		"Returns number of parameters. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameterSet_begin", _wrap_FitParameterSet_begin, METH_VARARGS, (char *)"\n"
 		"begin() -> FitParameterSet::iterator\n"
 		"FitParameterSet_begin(FitParameterSet self) -> FitParameterSet::const_iterator\n"
+		"\n"
+		"FitParameterSet::const_iterator FitParameterSet::begin() const \n"
+		"\n"
 		""},
 	 { (char *)"FitParameterSet_end", _wrap_FitParameterSet_end, METH_VARARGS, (char *)"\n"
 		"end() -> FitParameterSet::iterator\n"
 		"FitParameterSet_end(FitParameterSet self) -> FitParameterSet::const_iterator\n"
+		"\n"
+		"FitParameterSet::const_iterator FitParameterSet::end() const \n"
+		"\n"
 		""},
-	 { (char *)"FitParameterSet_addFitParameter", _wrap_FitParameterSet_addFitParameter, METH_VARARGS, (char *)"FitParameterSet_addFitParameter(FitParameterSet self, FitParameter par)"},
+	 { (char *)"FitParameterSet_addFitParameter", _wrap_FitParameterSet_addFitParameter, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_addFitParameter(FitParameterSet self, FitParameter par)\n"
+		"\n"
+		"void FitParameterSet::addFitParameter(FitParameter *par)\n"
+		"\n"
+		"adding fit parameters\n"
+		"\n"
+		"Adds fit parameter. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameterSet_fitParameter", _wrap_FitParameterSet_fitParameter, METH_VARARGS, (char *)"\n"
 		"fitParameter(std::string const & name) -> FitParameter\n"
 		"FitParameterSet_fitParameter(FitParameterSet self, std::string const & name) -> FitParameter\n"
+		"\n"
+		"FitParameter * FitParameterSet::fitParameter(const std::string &name)\n"
+		"\n"
 		""},
-	 { (char *)"FitParameterSet_values", _wrap_FitParameterSet_values, METH_VARARGS, (char *)"FitParameterSet_values(FitParameterSet self) -> vdouble1d_t"},
-	 { (char *)"FitParameterSet_setValues", _wrap_FitParameterSet_setValues, METH_VARARGS, (char *)"FitParameterSet_setValues(FitParameterSet self, vdouble1d_t pars_values)"},
+	 { (char *)"FitParameterSet_values", _wrap_FitParameterSet_values, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_values(FitParameterSet self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > FitParameterSet::values() const\n"
+		"\n"
+		"fit parameter's values and errors\n"
+		"\n"
+		"Returns values of all defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_setValues", _wrap_FitParameterSet_setValues, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_setValues(FitParameterSet self, vdouble1d_t pars_values)\n"
+		"\n"
+		"void FitParameterSet::setValues(const std::vector< double > &pars_values)\n"
+		"\n"
+		"Sets values for all defined parameters. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameterSet_valuesDifferFrom", _wrap_FitParameterSet_valuesDifferFrom, METH_VARARGS, (char *)"\n"
 		"valuesDifferFrom(vdouble1d_t par_values, double tolerance=2.0) -> bool\n"
 		"FitParameterSet_valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values) -> bool\n"
+		"\n"
+		"bool FitParameterSet::valuesDifferFrom(const std::vector< double > &par_values, double tolerance=2.0) const\n"
+		"\n"
+		"Returns true if parameters already have the given values. \n"
+		"\n"
 		""},
-	 { (char *)"FitParameterSet_errors", _wrap_FitParameterSet_errors, METH_VARARGS, (char *)"FitParameterSet_errors(FitParameterSet self) -> vdouble1d_t"},
-	 { (char *)"FitParameterSet_setErrors", _wrap_FitParameterSet_setErrors, METH_VARARGS, (char *)"FitParameterSet_setErrors(FitParameterSet self, vdouble1d_t pars_errors)"},
-	 { (char *)"FitParameterSet_freeFitParameterCount", _wrap_FitParameterSet_freeFitParameterCount, METH_VARARGS, (char *)"FitParameterSet_freeFitParameterCount(FitParameterSet self) -> size_t"},
-	 { (char *)"FitParameterSet_fixAll", _wrap_FitParameterSet_fixAll, METH_VARARGS, (char *)"FitParameterSet_fixAll(FitParameterSet self)"},
-	 { (char *)"FitParameterSet_releaseAll", _wrap_FitParameterSet_releaseAll, METH_VARARGS, (char *)"FitParameterSet_releaseAll(FitParameterSet self)"},
-	 { (char *)"FitParameterSet_setFixed", _wrap_FitParameterSet_setFixed, METH_VARARGS, (char *)"FitParameterSet_setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)"},
-	 { (char *)"FitParameterSet_parametersToString", _wrap_FitParameterSet_parametersToString, METH_VARARGS, (char *)"FitParameterSet_parametersToString(FitParameterSet self) -> std::string"},
-	 { (char *)"FitParameterSet_reportResults", _wrap_FitParameterSet_reportResults, METH_VARARGS, (char *)"FitParameterSet_reportResults(FitParameterSet self) -> std::string"},
-	 { (char *)"FitParameterSet_correlationMatrix", _wrap_FitParameterSet_correlationMatrix, METH_VARARGS, (char *)"FitParameterSet_correlationMatrix(FitParameterSet self) -> vdouble2d_t"},
-	 { (char *)"FitParameterSet_setCorrelationMatrix", _wrap_FitParameterSet_setCorrelationMatrix, METH_VARARGS, (char *)"FitParameterSet_setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)"},
-	 { (char *)"FitParameterSet_isExistingName", _wrap_FitParameterSet_isExistingName, METH_VARARGS, (char *)"FitParameterSet_isExistingName(FitParameterSet self, std::string const & name) -> bool"},
+	 { (char *)"FitParameterSet_errors", _wrap_FitParameterSet_errors, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_errors(FitParameterSet self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > FitParameterSet::errors() const\n"
+		"\n"
+		"Returns errors of all defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_setErrors", _wrap_FitParameterSet_setErrors, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_setErrors(FitParameterSet self, vdouble1d_t pars_errors)\n"
+		"\n"
+		"void FitParameterSet::setErrors(const std::vector< double > &pars_errors)\n"
+		"\n"
+		"Sets errors to all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_freeFitParameterCount", _wrap_FitParameterSet_freeFitParameterCount, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_freeFitParameterCount(FitParameterSet self) -> size_t\n"
+		"\n"
+		"size_t FitParameterSet::freeFitParameterCount() const\n"
+		"\n"
+		"Make parameters fixed and free.\n"
+		"\n"
+		"Returns number of free parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_fixAll", _wrap_FitParameterSet_fixAll, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_fixAll(FitParameterSet self)\n"
+		"\n"
+		"void FitParameterSet::fixAll()\n"
+		"\n"
+		"Fix all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_releaseAll", _wrap_FitParameterSet_releaseAll, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_releaseAll(FitParameterSet self)\n"
+		"\n"
+		"void FitParameterSet::releaseAll()\n"
+		"\n"
+		"Release all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_setFixed", _wrap_FitParameterSet_setFixed, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)\n"
+		"\n"
+		"void FitParameterSet::setFixed(const std::vector< std::string > &pars, bool is_fixed)\n"
+		"\n"
+		"Set fixed flag for parameters from the list. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_parametersToString", _wrap_FitParameterSet_parametersToString, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_parametersToString(FitParameterSet self) -> std::string\n"
+		"\n"
+		"std::string FitParameterSet::parametersToString() const\n"
+		"\n"
+		"Printing and reporting. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_reportResults", _wrap_FitParameterSet_reportResults, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_reportResults(FitParameterSet self) -> std::string\n"
+		"\n"
+		"std::string FitParameterSet::reportResults() const \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_correlationMatrix", _wrap_FitParameterSet_correlationMatrix, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_correlationMatrix(FitParameterSet self) -> vdouble2d_t\n"
+		"\n"
+		"corr_matrix_t FitParameterSet::correlationMatrix() const \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_setCorrelationMatrix", _wrap_FitParameterSet_setCorrelationMatrix, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)\n"
+		"\n"
+		"void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)\n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_isExistingName", _wrap_FitParameterSet_isExistingName, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_isExistingName(FitParameterSet self, std::string const & name) -> bool\n"
+		"\n"
+		"bool FitParameterSet::isExistingName(const std::string &name) const\n"
+		"\n"
+		"Returns true if parameter with such name exists. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameterSet___getitem__", _wrap_FitParameterSet___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> FitParameter\n"
 		"FitParameterSet___getitem__(FitParameterSet self, size_t index) -> FitParameter\n"

@@ -32,15 +32,18 @@ public:
     IsGISAXSDetector(const IsGISAXSDetector &other);
     IsGISAXSDetector &operator=(const IsGISAXSDetector &other);
 
-    virtual IsGISAXSDetector* clone() const;
-
-    virtual ~IsGISAXSDetector() {}
+    IsGISAXSDetector* clone() const override;
 
 protected:
-    virtual void print(std::ostream &ostr) const;
+    void print(std::ostream &ostr) const override;
 
     //! Generates an axis with correct name and default binning for given index
-    virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const;
+    IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
+
+    //! Returns index of pixel that contains the specular wavevector.
+    //! If no pixel contains this specular wavevector, the number of pixels is
+    //! returned. This corresponds to an overflow index.
+    size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
 #endif // ISGISAXSDETECTOR_H

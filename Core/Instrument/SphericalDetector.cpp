@@ -19,6 +19,7 @@
 #include "IPixelMap.h"
 #include "SimulationElement.h"
 #include "Units.h"
+#include "MathConstants.h"
 
 SphericalDetector::SphericalDetector()
 {
@@ -181,14 +182,27 @@ std::string SphericalDetector::getAxisName(size_t index) const
     switch (index) {
     case 0:
         return BornAgain::PHI_AXIS_NAME;
-        break;
     case 1:
         return BornAgain::ALPHA_AXIS_NAME;
-        break;
     default:
         throw Exceptions::LogicErrorException(
             "SphericalDetector::getAxisName(size_t index) -> Error! index > 1");
     }
+}
+
+size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
+{
+    if (getDimension()!=2) return getTotalSize();
+    double alpha = beam.getAlpha();
+    double phi = beam.getPhi();
+    const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    size_t phi_index = phi_axis.findIndex(phi);
+    size_t alpha_index = alpha_axis.findIndex(alpha);
+    if (phi_index < phi_axis.getSize() && alpha_index < alpha_axis.getSize()) {
+        return getGlobalIndex(phi_index, alpha_index);
+    }
+    return getTotalSize();
 }
 
 AngularPixelMap::AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin)

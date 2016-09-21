@@ -41,37 +41,42 @@ public:
     SphericalDetector(const SphericalDetector &other);
     SphericalDetector &operator=(const SphericalDetector &other);
 
-    virtual SphericalDetector* clone() const;
+    SphericalDetector* clone() const override;
 
-    virtual ~SphericalDetector() {}
+    ~SphericalDetector() override {}
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
+    std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const override;
 
     //! Returns detector map in given axes units
-    virtual OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+    OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const override;
 
     //! returns vector of valid axes units
-    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+    std::vector<EAxesUnits> getValidAxesUnits() const override;
 
     //! return default axes units
-    virtual EAxesUnits getDefaultAxesUnits() const;
+    EAxesUnits getDefaultAxesUnits() const override;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
-    virtual IPixelMap* createPixelMap(size_t index) const;
+    IPixelMap* createPixelMap(size_t index) const override;
 
-    virtual void print(std::ostream& ostr) const;
+    void print(std::ostream& ostr) const override;
 
     //! Registers some class members for later access via parameter pool.
-    virtual void init_parameters() {}
+    void init_parameters() override {}
 
     //! Generates an axis with correct name and default binning for given index
-    virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const;
+    IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
 
     //! Returns the name for the axis with given index
-    virtual std::string getAxisName(size_t index) const;
+    std::string getAxisName(size_t index) const override;
+
+    //! Returns index of pixel that contains the specular wavevector.
+    //! If no pixel contains this specular wavevector, the number of pixels is
+    //! returned. This corresponds to an overflow index.
+    size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
 class AngularPixelMap : public IPixelMap
@@ -80,11 +85,11 @@ public:
     AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin);
     virtual ~AngularPixelMap() {}
 
-    virtual AngularPixelMap* clone() const;
-    virtual AngularPixelMap* createZeroSizeMap(double x, double y) const;
-    virtual kvector_t getK(double x, double y, double wavelength) const;
-    virtual double getIntegrationFactor(double x, double y) const;
-    virtual double getSolidAngle() const;
+    AngularPixelMap* clone() const override;
+    AngularPixelMap* createZeroSizeMap(double x, double y) const override;
+    kvector_t getK(double x, double y, double wavelength) const override;
+    double getIntegrationFactor(double x, double y) const override;
+    double getSolidAngle() const override;
 private:
     double m_alpha, m_phi;
     double m_dalpha, m_dphi;

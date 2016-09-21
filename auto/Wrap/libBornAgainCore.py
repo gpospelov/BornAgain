@@ -2994,6 +2994,10 @@ class Bin1D(_object):
 Bin1D_swigregister = _libBornAgainCore.Bin1D_swigregister
 Bin1D_swigregister(Bin1D)
 
+
+def BinContains(bin, value):
+    """BinContains(Bin1D bin, double value) -> bool"""
+    return _libBornAgainCore.BinContains(bin, value)
 class Bin1DKVector(_object):
     """
 
@@ -3261,6 +3265,11 @@ class IAxis(_object):
 
         """
         return _libBornAgainCore.IAxis_findClosestIndex(self, value)
+
+
+    def findIndex(self, value):
+        """findIndex(IAxis self, double value) -> size_t"""
+        return _libBornAgainCore.IAxis_findIndex(self, value)
 
 
     def __eq__(self, right):
@@ -3756,7 +3765,7 @@ class ISample(ICloneable, IParameterized):
         """
         clone(ISample self) -> ISample
 
-        virtual ISample* ISample::clone() const =0
+        ISample* ISample::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -4651,7 +4660,7 @@ class IFitStrategy(INamed):
         """
         init(IFitStrategy self, FitSuiteImp * fit_suite)
 
-        void IFitStrategy::init(FitKernel *fit_suite)
+        void IFitStrategy::init(FitSuiteImp *fit_suite)
 
         """
         return _libBornAgainCore.IFitStrategy_init(self, fit_suite)
@@ -5660,14 +5669,7 @@ FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)
 
 class FitOptions(_object):
-    """
-
-
-    General fitting options.
-
-    C++ includes: FitOptions.h
-
-    """
+    """Proxy of C++ FitOptions class."""
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitOptions, name, value)
@@ -5676,12 +5678,7 @@ class FitOptions(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """
-        __init__(FitOptions self) -> FitOptions
-
-        FitOptions::FitOptions()
-
-        """
+        """__init__(FitOptions self) -> FitOptions"""
         this = _libBornAgainCore.new_FitOptions()
         try:
             self.this.append(this)
@@ -5691,42 +5688,22 @@ class FitOptions(_object):
     __del__ = lambda self: None
 
     def getDerivEpsilon(self):
-        """
-        getDerivEpsilon(FitOptions self) -> double
-
-        double FitOptions::getDerivEpsilon() const 
-
-        """
+        """getDerivEpsilon(FitOptions self) -> double"""
         return _libBornAgainCore.FitOptions_getDerivEpsilon(self)
 
 
     def setDerivEpsilon(self, deriv_epsilon):
-        """
-        setDerivEpsilon(FitOptions self, double deriv_epsilon)
-
-        void FitOptions::setDerivEpsilon(double deriv_epsilon)
-
-        """
+        """setDerivEpsilon(FitOptions self, double deriv_epsilon)"""
         return _libBornAgainCore.FitOptions_setDerivEpsilon(self, deriv_epsilon)
 
 
     def getStepFactor(self):
-        """
-        getStepFactor(FitOptions self) -> double
-
-        double FitOptions::getStepFactor() const 
-
-        """
+        """getStepFactor(FitOptions self) -> double"""
         return _libBornAgainCore.FitOptions_getStepFactor(self)
 
 
     def setStepFactor(self, step_factor):
-        """
-        setStepFactor(FitOptions self, double step_factor)
-
-        void FitOptions::setStepFactor(double step_factor)
-
-        """
+        """setStepFactor(FitOptions self, double step_factor)"""
         return _libBornAgainCore.FitOptions_setStepFactor(self, step_factor)
 
 FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
@@ -5843,7 +5820,7 @@ class FitSuite(IObservable):
         setMinimizer(FitSuite self, std::string const & minimizer_name)
         setMinimizer(FitSuite self, IMinimizer * minimizer)
 
-        void FitSuite::setMinimizer(class IMinimizer *minimizer)
+        void FitSuite::setMinimizer(IMinimizer *minimizer)
 
         Sets minimizer. 
 
@@ -5852,7 +5829,14 @@ class FitSuite(IObservable):
 
 
     def minimizer(self):
-        """minimizer(FitSuite self) -> IMinimizer const *"""
+        """
+        minimizer(FitSuite self) -> IMinimizer const *
+
+        const IMinimizer * FitSuite::minimizer() const
+
+        Returns minimizer. 
+
+        """
         return _libBornAgainCore.FitSuite_minimizer(self)
 
 
@@ -6004,7 +5988,14 @@ class FitSuite(IObservable):
 
 
     def fitParameters(self):
-        """fitParameters(FitSuite self) -> FitParameterSet *"""
+        """
+        fitParameters(FitSuite self) -> FitParameterSet *
+
+        FitParameterSet * FitSuite::fitParameters()
+
+        Returns reference to fit parameters. 
+
+        """
         return _libBornAgainCore.FitSuite_fitParameters(self)
 
 
@@ -9908,7 +9899,7 @@ class IFormFactor(ISample):
 
     The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
 
-    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBAPol,  FormFactorCrystal.
+    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
 
     C++ includes: IFormFactor.h
 
@@ -9947,7 +9938,7 @@ class IFormFactor(ISample):
         """
         clone(IFormFactor self) -> IFormFactor
 
-        virtual IFormFactor* IFormFactor::clone() const =0
+        IFormFactor* IFormFactor::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -9959,7 +9950,7 @@ class IFormFactor(ISample):
         """
         accept(IFormFactor self, ISampleVisitor visitor)
 
-        virtual void IFormFactor::accept(ISampleVisitor *visitor) const =0
+        void IFormFactor::accept(ISampleVisitor *visitor) const override=0
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10252,7 +10243,9 @@ class IFormFactorBorn(IFormFactor):
     """
 
 
-    Pure virtual base class for Born form factors. In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
+    Pure virtual base class for Born form factors.
+
+    In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
     C++ includes: IFormFactorBorn.h
 
@@ -10291,7 +10284,7 @@ class IFormFactorBorn(IFormFactor):
         """
         clone(IFormFactorBorn self) -> IFormFactorBorn
 
-        virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -10303,7 +10296,7 @@ class IFormFactorBorn(IFormFactor):
         """
         evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const
+        complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -10317,7 +10310,7 @@ class IFormFactorBorn(IFormFactor):
 
         virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
@@ -10370,7 +10363,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         clone(IFormFactorDecorator self) -> IFormFactorDecorator
 
-        virtual IFormFactorDecorator* IFormFactorDecorator::clone() const =0
+        IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -10382,7 +10375,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         accept(IFormFactorDecorator self, ISampleVisitor visitor)
 
-        virtual void IFormFactorDecorator::accept(ISampleVisitor *visitor) const =0
+        void IFormFactorDecorator::accept(ISampleVisitor *visitor) const override=0
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -10394,7 +10387,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         setAmbientMaterial(IFormFactorDecorator self, IMaterial material)
 
-        virtual void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material)
+        void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -10406,7 +10399,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         getVolume(IFormFactorDecorator self) -> double
 
-        virtual double IFormFactorDecorator::getVolume() const
+        double IFormFactorDecorator::getVolume() const override
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -10418,7 +10411,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         getRadialExtension(IFormFactorDecorator self) -> double
 
-        virtual double IFormFactorDecorator::getRadialExtension() const
+        double IFormFactorDecorator::getRadialExtension() const override
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10788,7 +10781,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const overridefinal
 
         Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 
@@ -10812,7 +10805,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         getVolume(FormFactorPolyhedron self) -> double
 
-        double FormFactorPolyhedron::getVolume() const final
+        double FormFactorPolyhedron::getVolume() const overridefinal
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -10824,7 +10817,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         getRadialExtension(FormFactorPolyhedron self) -> double
 
-        double FormFactorPolyhedron::getRadialExtension() const final
+        double FormFactorPolyhedron::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10875,7 +10868,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolygonalPrism self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const overridefinal
 
         Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 
@@ -10909,7 +10902,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         getRadialExtension(FormFactorPolygonalPrism self) -> double
 
-        double FormFactorPolygonalPrism::getRadialExtension() const final
+        double FormFactorPolygonalPrism::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10948,9 +10941,9 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolygonalSurface self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorPolygonalSurface_evaluate_for_q(self, q)
@@ -10960,7 +10953,7 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         """
         getVolume(FormFactorPolygonalSurface self) -> double
 
-        double FormFactorPolygonalSurface::getVolume() const
+        double FormFactorPolygonalSurface::getVolume() const override
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -10972,7 +10965,7 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         """
         getRadialExtension(FormFactorPolygonalSurface self) -> double
 
-        double FormFactorPolygonalSurface::getRadialExtension() const final
+        double FormFactorPolygonalSurface::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11036,7 +11029,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         """
         clone(FormFactorAnisoPyramid self) -> FormFactorAnisoPyramid
 
-        FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const final
+        FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11048,7 +11041,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         """
         accept(FormFactorAnisoPyramid self, ISampleVisitor visitor)
 
-        void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const final
+        void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11149,7 +11142,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         clone(FormFactorBox self) -> FormFactorBox
 
-        FormFactorBox* FormFactorBox::clone() const
+        FormFactorBox* FormFactorBox::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11161,7 +11154,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         accept(FormFactorBox self, ISampleVisitor visitor)
 
-        void FormFactorBox::accept(ISampleVisitor *visitor) const final
+        void FormFactorBox::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11203,7 +11196,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         getRadialExtension(FormFactorBox self) -> double
 
-        double FormFactorBox::getRadialExtension() const final
+        double FormFactorBox::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11215,9 +11208,9 @@ class FormFactorBox(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
 
-        complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorBox_evaluate_for_q(self, q)
@@ -11276,7 +11269,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         clone(FormFactorCone self) -> FormFactorCone
 
-        FormFactorCone* FormFactorCone::clone() const
+        FormFactorCone* FormFactorCone::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11288,7 +11281,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         accept(FormFactorCone self, ISampleVisitor visitor)
 
-        void FormFactorCone::accept(ISampleVisitor *visitor) const final
+        void FormFactorCone::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11330,7 +11323,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         getRadialExtension(FormFactorCone self) -> double
 
-        double FormFactorCone::getRadialExtension() const final
+        double FormFactorCone::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11342,9 +11335,9 @@ class FormFactorCone(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorCone self, cvector_t q) -> complex_t
 
-        complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorCone_evaluate_for_q(self, q)
@@ -11403,7 +11396,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         """
         clone(FormFactorCone6 self) -> FormFactorCone6
 
-        virtual FormFactorCone6* FormFactorCone6::clone() const
+        FormFactorCone6* FormFactorCone6::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11415,7 +11408,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         """
         accept(FormFactorCone6 self, ISampleVisitor visitor)
 
-        virtual void FormFactorCone6::accept(ISampleVisitor *visitor) const
+        void FormFactorCone6::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11496,7 +11489,7 @@ class FormFactorCrystal(IFormFactor):
         """
         clone(FormFactorCrystal self) -> FormFactorCrystal
 
-        FormFactorCrystal* FormFactorCrystal::clone() const final
+        FormFactorCrystal* FormFactorCrystal::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11508,7 +11501,7 @@ class FormFactorCrystal(IFormFactor):
         """
         accept(FormFactorCrystal self, ISampleVisitor visitor)
 
-        void FormFactorCrystal::accept(ISampleVisitor *visitor) const final
+        void FormFactorCrystal::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11520,7 +11513,7 @@ class FormFactorCrystal(IFormFactor):
         """
         getVolume(FormFactorCrystal self) -> double
 
-        double FormFactorCrystal::getVolume() const final
+        double FormFactorCrystal::getVolume() const overridefinal
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -11532,7 +11525,7 @@ class FormFactorCrystal(IFormFactor):
         """
         getRadialExtension(FormFactorCrystal self) -> double
 
-        double FormFactorCrystal::getRadialExtension() const final
+        double FormFactorCrystal::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11544,7 +11537,7 @@ class FormFactorCrystal(IFormFactor):
         """
         evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const final
+        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -11606,7 +11599,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         clone(FormFactorCuboctahedron self) -> FormFactorCuboctahedron
 
-        FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const final
+        FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11618,7 +11611,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         accept(FormFactorCuboctahedron self, ISampleVisitor visitor)
 
-        void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const final
+        void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11707,7 +11700,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         clone(FormFactorCylinder self) -> FormFactorCylinder
 
-        FormFactorCylinder* FormFactorCylinder::clone() const
+        FormFactorCylinder* FormFactorCylinder::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11719,7 +11712,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         accept(FormFactorCylinder self, ISampleVisitor visitor)
 
-        void FormFactorCylinder::accept(ISampleVisitor *visitor) const final
+        void FormFactorCylinder::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11751,7 +11744,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         getRadialExtension(FormFactorCylinder self) -> double
 
-        double FormFactorCylinder::getRadialExtension() const final
+        double FormFactorCylinder::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11763,9 +11756,9 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorCylinder self, cvector_t q) -> complex_t
 
-        complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorCylinder_evaluate_for_q(self, q)
@@ -11815,7 +11808,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         clone(FormFactorDecoratorDebyeWaller self) -> FormFactorDecoratorDebyeWaller
 
-        FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const final
+        FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11827,7 +11820,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         accept(FormFactorDecoratorDebyeWaller self, ISampleVisitor visitor)
 
-        void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const final
+        void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11839,7 +11832,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         evaluate(FormFactorDecoratorDebyeWaller self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const final
+        complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -11896,7 +11889,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         """
         clone(FormFactorDodecahedron self) -> FormFactorDodecahedron
 
-        FormFactorDodecahedron* FormFactorDodecahedron::clone() const final
+        FormFactorDodecahedron* FormFactorDodecahedron::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11908,7 +11901,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         """
         accept(FormFactorDodecahedron self, ISampleVisitor visitor)
 
-        void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const final
+        void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -11978,7 +11971,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         clone(FormFactorEllipsoidalCylinder self) -> FormFactorEllipsoidalCylinder
 
-        FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const
+        FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -11990,7 +11983,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         accept(FormFactorEllipsoidalCylinder self, ISampleVisitor visitor)
 
-        void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const final
+        void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12032,7 +12025,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         getRadialExtension(FormFactorEllipsoidalCylinder self) -> double
 
-        double FormFactorEllipsoidalCylinder::getRadialExtension() const final
+        double FormFactorEllipsoidalCylinder::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12044,9 +12037,9 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorEllipsoidalCylinder self, cvector_t q) -> complex_t
 
-        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_evaluate_for_q(self, q)
@@ -12093,7 +12086,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         clone(FormFactorFullSphere self) -> FormFactorFullSphere
 
-        FormFactorFullSphere* FormFactorFullSphere::clone() const
+        FormFactorFullSphere* FormFactorFullSphere::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12105,7 +12098,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         accept(FormFactorFullSphere self, ISampleVisitor visitor)
 
-        void FormFactorFullSphere::accept(ISampleVisitor *visitor) const final
+        void FormFactorFullSphere::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12127,7 +12120,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         getRadialExtension(FormFactorFullSphere self) -> double
 
-        double FormFactorFullSphere::getRadialExtension() const final
+        double FormFactorFullSphere::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12139,9 +12132,9 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t
 
-        complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorFullSphere_evaluate_for_q(self, q)
@@ -12197,7 +12190,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         clone(FormFactorFullSpheroid self) -> FormFactorFullSpheroid
 
-        FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
+        FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12209,7 +12202,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         accept(FormFactorFullSpheroid self, ISampleVisitor visitor)
 
-        void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const final
+        void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12241,7 +12234,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         getRadialExtension(FormFactorFullSpheroid self) -> double
 
-        double FormFactorFullSpheroid::getRadialExtension() const final
+        double FormFactorFullSpheroid::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12253,9 +12246,9 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorFullSpheroid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorFullSpheroid_evaluate_for_q(self, q)
@@ -12303,7 +12296,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         clone(FormFactorGauss self) -> FormFactorGauss
 
-        FormFactorGauss* FormFactorGauss::clone() const final
+        FormFactorGauss* FormFactorGauss::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12315,7 +12308,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         accept(FormFactorGauss self, ISampleVisitor visitor)
 
-        void FormFactorGauss::accept(ISampleVisitor *visitor) const final
+        void FormFactorGauss::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12347,7 +12340,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         getRadialExtension(FormFactorGauss self) -> double
 
-        double FormFactorGauss::getRadialExtension() const final
+        double FormFactorGauss::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12359,9 +12352,9 @@ class FormFactorGauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorGauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorGauss_evaluate_for_q(self, q)
@@ -12422,7 +12415,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         clone(FormFactorHemiEllipsoid self) -> FormFactorHemiEllipsoid
 
-        FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const
+        FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12434,7 +12427,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         accept(FormFactorHemiEllipsoid self, ISampleVisitor visitor)
 
-        void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const final
+        void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12476,7 +12469,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         getRadialExtension(FormFactorHemiEllipsoid self) -> double
 
-        double FormFactorHemiEllipsoid::getRadialExtension() const final
+        double FormFactorHemiEllipsoid::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12488,9 +12481,9 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorHemiEllipsoid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorHemiEllipsoid_evaluate_for_q(self, q)
@@ -12535,7 +12528,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         """
         clone(FormFactorIcosahedron self) -> FormFactorIcosahedron
 
-        FormFactorIcosahedron* FormFactorIcosahedron::clone() const final
+        FormFactorIcosahedron* FormFactorIcosahedron::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12547,7 +12540,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         """
         accept(FormFactorIcosahedron self, ISampleVisitor visitor)
 
-        void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const final
+        void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12620,7 +12613,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         clone(FormFactorLongBoxGauss self) -> FormFactorLongBoxGauss
 
-        FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const
+        FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12632,7 +12625,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         accept(FormFactorLongBoxGauss self, ISampleVisitor visitor)
 
-        void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const final
+        void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12674,7 +12667,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         getRadialExtension(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getRadialExtension() const final
+        double FormFactorLongBoxGauss::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12686,9 +12679,9 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongBoxGauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_evaluate_for_q(self, q)
@@ -12749,7 +12742,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         clone(FormFactorLongBoxLorentz self) -> FormFactorLongBoxLorentz
 
-        FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const
+        FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12761,7 +12754,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         accept(FormFactorLongBoxLorentz self, ISampleVisitor visitor)
 
-        void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const final
+        void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12803,7 +12796,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         getRadialExtension(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getRadialExtension() const final
+        double FormFactorLongBoxLorentz::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12815,9 +12808,9 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongBoxLorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_evaluate_for_q(self, q)
@@ -12878,7 +12871,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         clone(FormFactorLongRipple1Gauss self) -> FormFactorLongRipple1Gauss
 
-        FormFactorLongRipple1Gauss* FormFactorLongRipple1Gauss::clone() const
+        FormFactorLongRipple1Gauss* FormFactorLongRipple1Gauss::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12890,7 +12883,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         accept(FormFactorLongRipple1Gauss self, ISampleVisitor visitor)
 
-        void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const final
+        void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -12932,7 +12925,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         getRadialExtension(FormFactorLongRipple1Gauss self) -> double
 
-        double FormFactorLongRipple1Gauss::getRadialExtension() const final
+        double FormFactorLongRipple1Gauss::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12944,7 +12937,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Gauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -13007,7 +13000,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         clone(FormFactorLongRipple1Lorentz self) -> FormFactorLongRipple1Lorentz
 
-        FormFactorLongRipple1Lorentz* FormFactorLongRipple1Lorentz::clone() const
+        FormFactorLongRipple1Lorentz* FormFactorLongRipple1Lorentz::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13019,7 +13012,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         accept(FormFactorLongRipple1Lorentz self, ISampleVisitor visitor)
 
-        void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const final
+        void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13031,7 +13024,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         getRadialExtension(FormFactorLongRipple1Lorentz self) -> double
 
-        double FormFactorLongRipple1Lorentz::getRadialExtension() const final
+        double FormFactorLongRipple1Lorentz::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13073,7 +13066,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Lorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -13139,7 +13132,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         clone(FormFactorLongRipple2Gauss self) -> FormFactorLongRipple2Gauss
 
-        FormFactorLongRipple2Gauss* FormFactorLongRipple2Gauss::clone() const
+        FormFactorLongRipple2Gauss* FormFactorLongRipple2Gauss::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13151,7 +13144,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         accept(FormFactorLongRipple2Gauss self, ISampleVisitor visitor)
 
-        void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const final
+        void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13203,7 +13196,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         getRadialExtension(FormFactorLongRipple2Gauss self) -> double
 
-        double FormFactorLongRipple2Gauss::getRadialExtension() const final
+        double FormFactorLongRipple2Gauss::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13215,7 +13208,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Gauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -13279,7 +13272,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         clone(FormFactorLongRipple2Lorentz self) -> FormFactorLongRipple2Lorentz
 
-        FormFactorLongRipple2Lorentz* FormFactorLongRipple2Lorentz::clone() const
+        FormFactorLongRipple2Lorentz* FormFactorLongRipple2Lorentz::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13291,7 +13284,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         accept(FormFactorLongRipple2Lorentz self, ISampleVisitor visitor)
 
-        void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const final
+        void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13343,7 +13336,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         getRadialExtension(FormFactorLongRipple2Lorentz self) -> double
 
-        double FormFactorLongRipple2Lorentz::getRadialExtension() const final
+        double FormFactorLongRipple2Lorentz::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13355,7 +13348,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Lorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -13405,7 +13398,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         clone(FormFactorLorentz self) -> FormFactorLorentz
 
-        FormFactorLorentz* FormFactorLorentz::clone() const final
+        FormFactorLorentz* FormFactorLorentz::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13417,7 +13410,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         accept(FormFactorLorentz self, ISampleVisitor visitor)
 
-        void FormFactorLorentz::accept(ISampleVisitor *visitor) const final
+        void FormFactorLorentz::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13449,7 +13442,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         getRadialExtension(FormFactorLorentz self) -> double
 
-        double FormFactorLorentz::getRadialExtension() const final
+        double FormFactorLorentz::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13461,9 +13454,9 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorLorentz_evaluate_for_q(self, q)
@@ -13510,7 +13503,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         """
         clone(FormFactorPrism3 self) -> FormFactorPrism3
 
-        virtual FormFactorPrism3* FormFactorPrism3::clone() const
+        FormFactorPrism3* FormFactorPrism3::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13522,7 +13515,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         """
         accept(FormFactorPrism3 self, ISampleVisitor visitor)
 
-        virtual void FormFactorPrism3::accept(ISampleVisitor *visitor) const
+        void FormFactorPrism3::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13581,7 +13574,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         """
         clone(FormFactorPrism6 self) -> FormFactorPrism6
 
-        virtual FormFactorPrism6* FormFactorPrism6::clone() const
+        FormFactorPrism6* FormFactorPrism6::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13593,7 +13586,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         """
         accept(FormFactorPrism6 self, ISampleVisitor visitor)
 
-        virtual void FormFactorPrism6::accept(ISampleVisitor *visitor) const
+        void FormFactorPrism6::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13605,7 +13598,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         """
         getBaseEdge(FormFactorPrism6 self) -> double
 
-        virtual double FormFactorPrism6::getBaseEdge() const 
+        double FormFactorPrism6::getBaseEdge() const 
 
         """
         return _libBornAgainCore.FormFactorPrism6_getBaseEdge(self)
@@ -13664,7 +13657,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         """
         clone(FormFactorPyramid self) -> FormFactorPyramid
 
-        FormFactorPyramid* FormFactorPyramid::clone() const final
+        FormFactorPyramid* FormFactorPyramid::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13676,7 +13669,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         """
         accept(FormFactorPyramid self, ISampleVisitor visitor)
 
-        void FormFactorPyramid::accept(ISampleVisitor *visitor) const final
+        void FormFactorPyramid::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13769,7 +13762,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         clone(FormFactorRipple1 self) -> FormFactorRipple1
 
-        FormFactorRipple1* FormFactorRipple1::clone() const
+        FormFactorRipple1* FormFactorRipple1::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13781,7 +13774,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         accept(FormFactorRipple1 self, ISampleVisitor visitor)
 
-        void FormFactorRipple1::accept(ISampleVisitor *visitor) const final
+        void FormFactorRipple1::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13823,7 +13816,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         getRadialExtension(FormFactorRipple1 self) -> double
 
-        double FormFactorRipple1::getRadialExtension() const final
+        double FormFactorRipple1::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13835,7 +13828,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorRipple1 self, cvector_t q) -> complex_t
 
-        complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -13901,7 +13894,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         clone(FormFactorRipple2 self) -> FormFactorRipple2
 
-        FormFactorRipple2* FormFactorRipple2::clone() const
+        FormFactorRipple2* FormFactorRipple2::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13913,7 +13906,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         accept(FormFactorRipple2 self, ISampleVisitor visitor)
 
-        void FormFactorRipple2::accept(ISampleVisitor *visitor) const final
+        void FormFactorRipple2::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -13965,7 +13958,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         getRadialExtension(FormFactorRipple2 self) -> double
 
-        double FormFactorRipple2::getRadialExtension() const final
+        double FormFactorRipple2::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13977,7 +13970,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorRipple2 self, cvector_t q) -> complex_t
 
-        complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -14026,7 +14019,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius
 
-        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const final
+        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14038,7 +14031,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereGaussianRadius self, ISampleVisitor visitor)
 
-        void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const final
+        void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14050,7 +14043,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         getRadialExtension(FormFactorSphereGaussianRadius self) -> double
 
-        double FormFactorSphereGaussianRadius::getRadialExtension() const final
+        double FormFactorSphereGaussianRadius::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14062,9 +14055,9 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_evaluate_for_q(self, q)
@@ -14111,7 +14104,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius
 
-        FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const final
+        FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14123,7 +14116,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereLogNormalRadius self, ISampleVisitor visitor)
 
-        void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const final
+        void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14135,7 +14128,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         getRadialExtension(FormFactorSphereLogNormalRadius self) -> double
 
-        double FormFactorSphereLogNormalRadius::getRadialExtension() const final
+        double FormFactorSphereLogNormalRadius::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14147,9 +14140,9 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_evaluate_for_q(self, q)
@@ -14196,7 +14189,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereUniformRadius self) -> FormFactorSphereUniformRadius
 
-        FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const final
+        FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14208,7 +14201,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereUniformRadius self, ISampleVisitor visitor)
 
-        void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const final
+        void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14220,7 +14213,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         getRadialExtension(FormFactorSphereUniformRadius self) -> double
 
-        double FormFactorSphereUniformRadius::getRadialExtension() const final
+        double FormFactorSphereUniformRadius::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14232,9 +14225,9 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereUniformRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorSphereUniformRadius_evaluate_for_q(self, q)
@@ -14293,7 +14286,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         clone(FormFactorTetrahedron self) -> FormFactorTetrahedron
 
-        virtual FormFactorTetrahedron* FormFactorTetrahedron::clone() const
+        FormFactorTetrahedron* FormFactorTetrahedron::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14305,7 +14298,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         accept(FormFactorTetrahedron self, ISampleVisitor visitor)
 
-        virtual void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
+        void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14384,7 +14377,7 @@ class FormFactorTrivial(IFormFactorBorn):
         """
         clone(FormFactorTrivial self) -> FormFactorTrivial
 
-        FormFactorTrivial* FormFactorTrivial::clone() const
+        FormFactorTrivial* FormFactorTrivial::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14396,7 +14389,7 @@ class FormFactorTrivial(IFormFactorBorn):
         """
         accept(FormFactorTrivial self, ISampleVisitor visitor)
 
-        void FormFactorTrivial::accept(ISampleVisitor *visitor) const final
+        void FormFactorTrivial::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14408,7 +14401,7 @@ class FormFactorTrivial(IFormFactorBorn):
         """
         getRadialExtension(FormFactorTrivial self) -> double
 
-        double FormFactorTrivial::getRadialExtension() const final
+        double FormFactorTrivial::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14420,9 +14413,9 @@ class FormFactorTrivial(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTrivial self, cvector_t arg2) -> complex_t
 
-        complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const final
+        complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorTrivial_evaluate_for_q(self, arg2)
@@ -14478,7 +14471,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         """
         clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube
 
-        FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const final
+        FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14490,7 +14483,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         """
         accept(FormFactorTruncatedCube self, ISampleVisitor visitor)
 
-        void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const final
+        void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14559,7 +14552,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         clone(FormFactorTruncatedSphere self) -> FormFactorTruncatedSphere
 
-        FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const
+        FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14571,7 +14564,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         accept(FormFactorTruncatedSphere self, ISampleVisitor visitor)
 
-        void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const final
+        void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14603,7 +14596,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         getRadialExtension(FormFactorTruncatedSphere self) -> double
 
-        double FormFactorTruncatedSphere::getRadialExtension() const final
+        double FormFactorTruncatedSphere::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14615,9 +14608,9 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
+        complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Complex formfactor. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_evaluate_for_q(self, q)
@@ -14664,7 +14657,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         clone(FormFactorTruncatedSpheroid self) -> FormFactorTruncatedSpheroid
 
-        FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const
+        FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14676,7 +14669,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         accept(FormFactorTruncatedSpheroid self, ISampleVisitor visitor)
 
-        void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const final
+        void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14718,7 +14711,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         getRadialExtension(FormFactorTruncatedSpheroid self) -> double
 
-        double FormFactorTruncatedSpheroid::getRadialExtension() const final
+        double FormFactorTruncatedSpheroid::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14730,9 +14723,9 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTruncatedSpheroid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const final
+        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const overridefinal
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. 
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_evaluate_for_q(self, q)
@@ -14746,9 +14739,9 @@ class FormFactorWeighted(IFormFactor):
     """
 
 
-    Coherent sum of different scalar  IFormFactor's with different weights, at the same position.
+    Coherent sum of different scalar  IFormFactor's with different weights.
 
-    Used by  ParticleComposition and  ParticleCoreShell. If particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
+    Used by  ParticleComposition and  ParticleCoreShell. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
     C++ includes: FormFactorWeighted.h
 
@@ -14783,7 +14776,7 @@ class FormFactorWeighted(IFormFactor):
         """
         clone(FormFactorWeighted self) -> FormFactorWeighted
 
-        FormFactorWeighted * FormFactorWeighted::clone() const final
+        FormFactorWeighted * FormFactorWeighted::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -14795,7 +14788,7 @@ class FormFactorWeighted(IFormFactor):
         """
         accept(FormFactorWeighted self, ISampleVisitor visitor)
 
-        void FormFactorWeighted::accept(ISampleVisitor *visitor) const final
+        void FormFactorWeighted::accept(ISampleVisitor *visitor) const overridefinal
 
         Calls the  ISampleVisitor's visit method. 
 
@@ -14807,7 +14800,7 @@ class FormFactorWeighted(IFormFactor):
         """
         getRadialExtension(FormFactorWeighted self) -> double
 
-        double FormFactorWeighted::getRadialExtension() const final
+        double FormFactorWeighted::getRadialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14830,7 +14823,7 @@ class FormFactorWeighted(IFormFactor):
         """
         setAmbientMaterial(FormFactorWeighted self, IMaterial material)
 
-        void FormFactorWeighted::setAmbientMaterial(const IMaterial &material) final
+        void FormFactorWeighted::setAmbientMaterial(const IMaterial &material) overridefinal
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -14842,7 +14835,7 @@ class FormFactorWeighted(IFormFactor):
         """
         evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const final
+        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -15298,6 +15291,16 @@ class SimulationOptions(_object):
 
         """
         return _libBornAgainCore.SimulationOptions_getDefaultVariability(self)
+
+
+    def setIncludeSpecular(self, include_specular):
+        """setIncludeSpecular(SimulationOptions self, bool include_specular)"""
+        return _libBornAgainCore.SimulationOptions_setIncludeSpecular(self, include_specular)
+
+
+    def includeSpecular(self):
+        """includeSpecular(SimulationOptions self) -> bool"""
+        return _libBornAgainCore.SimulationOptions_includeSpecular(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None

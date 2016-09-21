@@ -185,6 +185,9 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
         SimulationElement sim_element(wavelength, alpha_i, phi_i, P_pixel_map.get());
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
+        if (index==getIndexOfSpecular(beam)) {
+            sim_element.setSpecular(true);
+        }
         result.push_back(sim_element);
     }
     return result;
@@ -229,7 +232,13 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
         remainder /= m_axes[i_axis]->getSize();
     }
     throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
-                              "Error! No axis with given number");
+                                          "Error! No axis with given number");
+}
+
+size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
+{
+    if (getDimension()!=2) return getTotalSize();
+    return x*m_axes[1]->getSize()+y;
 }
 
 void IDetector2D::swapContent(IDetector2D &other)
@@ -238,6 +247,17 @@ void IDetector2D::swapContent(IDetector2D &other)
     std::swap(this->mP_detector_resolution, other.mP_detector_resolution);
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
     std::swap(this->m_detector_mask, other.m_detector_mask);
+}
+
+size_t IDetector2D::getTotalSize() const
+{
+    if (getDimension()==0) return 0;
+    size_t result = 1;
+    for (size_t i_axis=0; i_axis<getDimension(); ++i_axis)
+    {
+        result *= m_axes[i_axis]->getSize();
+    }
+    return result;
 }
 
 bool IDetector2D::checkAnalyzerProperties(

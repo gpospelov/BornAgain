@@ -240,6 +240,17 @@ void IDetector2D::swapContent(IDetector2D &other)
     std::swap(this->m_detector_mask, other.m_detector_mask);
 }
 
+size_t IDetector2D::getTotalSize() const
+{
+    if (getDimension()==0) return 0;
+    size_t result = 1;
+    for (size_t i_axis=0; i_axis<getDimension(); ++i_axis)
+    {
+        result *= m_axes[i_axis]->getSize();
+    }
+    return result;
+}
+
 bool IDetector2D::checkAnalyzerProperties(
     const kvector_t direction, double efficiency, double total_transmission) const
 {

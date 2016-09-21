@@ -302,14 +302,17 @@ std::string RectangularDetector::getAxisName(size_t index) const
     switch (index) {
     case 0:
         return BornAgain::U_AXIS_NAME;
-        break;
     case 1:
         return BornAgain::V_AXIS_NAME;
-        break;
     default:
         throw Exceptions::LogicErrorException(
             "RectangularDetector::getAxisName(size_t index) -> Error! index > 1");
     }
+}
+
+size_t RectangularDetector::getIndexOfSpecular() const
+{
+    return getTotalSize();
 }
 
 void RectangularDetector::swapContent(RectangularDetector& other)

@@ -44,11 +44,11 @@ public:
     RectangularDetector(const RectangularDetector& other);
     RectangularDetector& operator=(const RectangularDetector& other);
 
-    virtual RectangularDetector* clone() const;
+    RectangularDetector* clone() const override;
 
-    virtual ~RectangularDetector();
+    ~RectangularDetector();
 
-    virtual void init(const Beam& beam);
+    void init(const Beam& beam) override;
 
     void setPosition(const kvector_t normal_to_detector, double u0, double v0,
                      const kvector_t direction = kvector_t(0.0, -1.0, 0.0));
@@ -60,8 +60,8 @@ public:
     void setDirectBeamPosition(double u0, double v0);
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
+    std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const override;
 
     double getWidth() const;
     double getHeight() const;
@@ -77,28 +77,33 @@ public:
     EDetectorArrangement getDetectorArrangment() const;
 
     //! Returns detector map in given axes units
-    virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units_type) const;
+    OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units_type) const override;
 
     //! returns vector of valid axes units
-    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+    std::vector<EAxesUnits> getValidAxesUnits() const override;
 
     //! return default axes units
-    virtual EAxesUnits getDefaultAxesUnits() const;
+    EAxesUnits getDefaultAxesUnits() const override;
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
-    virtual IPixelMap* createPixelMap(size_t index) const;
+    IPixelMap* createPixelMap(size_t index) const override;
 
-    virtual void print(std::ostream& ostr) const;
+    void print(std::ostream& ostr) const override;
 
     //! Registers some class members for later access via parameter pool.
-    virtual void init_parameters() {}
+    void init_parameters() override {}
 
     //! Generates an axis with correct name and default binning for given index
-    virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const;
+    IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
 
     //! Returns the name for the axis with given index
-    virtual std::string getAxisName(size_t index) const;
+    std::string getAxisName(size_t index) const override;
+
+    //! Returns index of pixel that contains the specular wavevector.
+    //! If no pixel contains this specular wavevector, the number of pixels is
+    //! returned. This corresponds to an overflow index.
+    size_t getIndexOfSpecular() const override;
 
     //! swap function
     void swapContent(RectangularDetector& other);

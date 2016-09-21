@@ -2994,6 +2994,10 @@ class Bin1D(_object):
 Bin1D_swigregister = _libBornAgainCore.Bin1D_swigregister
 Bin1D_swigregister(Bin1D)
 
+
+def BinContains(bin, value):
+    """BinContains(Bin1D bin, double value) -> bool"""
+    return _libBornAgainCore.BinContains(bin, value)
 class Bin1DKVector(_object):
     """
 

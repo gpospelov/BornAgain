@@ -232,7 +232,13 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
         remainder /= m_axes[i_axis]->getSize();
     }
     throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
-                              "Error! No axis with given number");
+                                          "Error! No axis with given number");
+}
+
+size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
+{
+    if (getDimension()!=2) return getTotalSize();
+    return x*m_axes[1]->getSize()+y;
 }
 
 void IDetector2D::swapContent(IDetector2D &other)

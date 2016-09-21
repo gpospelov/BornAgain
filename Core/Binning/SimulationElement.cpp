@@ -106,7 +106,7 @@ double SimulationElement::getPhi(double x, double y) const
 
 bool SimulationElement::containsSpecularWavevector() const
 {
-    return  m_contains_specular;
+    return m_contains_specular;
 }
 
 void SimulationElement::setSpecular(bool contains_specular)

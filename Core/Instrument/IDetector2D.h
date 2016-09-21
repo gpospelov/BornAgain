@@ -154,6 +154,9 @@ protected:
     //! Calculate axis index for given global index
     size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
 
+    //! Calculate global index from two axis indices
+    size_t getGlobalIndex(size_t x, size_t y) const;
+
     //! swap function
     void swapContent(IDetector2D& other);
 

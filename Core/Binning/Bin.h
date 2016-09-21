@@ -28,6 +28,10 @@ struct BA_CORE_API_ Bin1D
     double getBinSize() const { return m_upper - m_lower; }
 };
 
+//! Checks if value is contained in bin:
+//! value in [m_lower, m_upper)
+bool BinContains(const Bin1D& bin, double value);
+
 //! @class Bin1DKVector
 //! @ingroup tools_internal
 //! @brief An one-dimensional range of kvector_t's

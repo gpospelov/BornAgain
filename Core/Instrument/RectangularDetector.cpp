@@ -324,10 +324,9 @@ size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
     double v = k_orth.dot(m_v_unit) + m_v0;
     const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    size_t u_index = u_axis.findClosestIndex(u);
-    size_t v_index = v_axis.findClosestIndex(v);
-    if (BinContains(u_axis.getBin(u_index), u) &&
-            BinContains(v_axis.getBin(v_index), v)) {
+    size_t u_index = u_axis.findIndex(u);
+    size_t v_index = v_axis.findIndex(v);
+    if (u_index < u_axis.getSize() && v_index < v_axis.getSize()) {
         return getGlobalIndex(u_index, v_index);
     }
     return getTotalSize();

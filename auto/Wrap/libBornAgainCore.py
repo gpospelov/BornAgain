@@ -3267,6 +3267,11 @@ class IAxis(_object):
         return _libBornAgainCore.IAxis_findClosestIndex(self, value)
 
 
+    def findIndex(self, value):
+        """findIndex(IAxis self, double value) -> size_t"""
+        return _libBornAgainCore.IAxis_findIndex(self, value)
+
+
     def __eq__(self, right):
         """__eq__(IAxis self, IAxis right) -> bool"""
         return _libBornAgainCore.IAxis___eq__(self, right)

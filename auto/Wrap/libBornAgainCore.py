@@ -15287,6 +15287,16 @@ class SimulationOptions(_object):
         """
         return _libBornAgainCore.SimulationOptions_getDefaultVariability(self)
 
+
+    def setIncludeSpecular(self, include_specular):
+        """setIncludeSpecular(SimulationOptions self, bool include_specular)"""
+        return _libBornAgainCore.SimulationOptions_setIncludeSpecular(self, include_specular)
+
+
+    def includeSpecular(self):
+        """includeSpecular(SimulationOptions self) -> bool"""
+        return _libBornAgainCore.SimulationOptions_includeSpecular(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None
 SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister

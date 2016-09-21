@@ -117,8 +117,7 @@ void MainComputation::runProtected()
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 
-    bool use_specular = true;
-    if (use_specular) {
+    if (m_sim_options.includeSpecular()) {
         mp_specular_computation->eval(m_progress, polarized, m_begin_it, m_end_it);
     }
 }

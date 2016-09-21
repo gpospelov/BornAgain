@@ -90,7 +90,6 @@ public:
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;
-    bool contains(kvector_t k) const override;
 private:
     double m_alpha, m_phi;
     double m_dalpha, m_dphi;

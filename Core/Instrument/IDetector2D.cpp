@@ -185,6 +185,9 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
         SimulationElement sim_element(wavelength, alpha_i, phi_i, P_pixel_map.get());
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
+        if (index==getIndexOfSpecular()) {
+            sim_element.setSpecular(true);
+        }
         result.push_back(sim_element);
     }
     return result;

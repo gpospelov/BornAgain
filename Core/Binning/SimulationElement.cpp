@@ -106,8 +106,7 @@ double SimulationElement::getPhi(double x, double y) const
 
 bool SimulationElement::containsSpecularWavevector() const
 {
-    kvector_t k = vecOfLambdaAlphaPhi(m_wavelength, -m_alpha_i, m_phi_i);
-    return mP_pixel_map->contains(k);
+    return  m_contains_specular;
 }
 
 void SimulationElement::setSpecular(bool contains_specular)

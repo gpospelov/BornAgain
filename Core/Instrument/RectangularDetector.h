@@ -133,7 +133,6 @@ public:
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;
-    bool contains(kvector_t k) const override;
 private:
     kvector_t normalizeLength(const kvector_t direction, double length) const;
     double calculateSolidAngle() const;

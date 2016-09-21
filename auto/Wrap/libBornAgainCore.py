@@ -19546,11 +19546,6 @@ class IPixelMap(_object):
         """
         return _libBornAgainCore.IPixelMap_getSolidAngle(self)
 
-
-    def contains(self, k):
-        """contains(IPixelMap self, kvector_t k) -> bool"""
-        return _libBornAgainCore.IPixelMap_contains(self, k)
-
 IPixelMap_swigregister = _libBornAgainCore.IPixelMap_swigregister
 IPixelMap_swigregister(IPixelMap)
 
@@ -19715,11 +19710,6 @@ class AngularPixelMap(IPixelMap):
 
         """
         return _libBornAgainCore.AngularPixelMap_getSolidAngle(self)
-
-
-    def contains(self, k):
-        """contains(AngularPixelMap self, kvector_t k) -> bool"""
-        return _libBornAgainCore.AngularPixelMap_contains(self, k)
 
 AngularPixelMap_swigregister = _libBornAgainCore.AngularPixelMap_swigregister
 AngularPixelMap_swigregister(AngularPixelMap)
@@ -23955,11 +23945,6 @@ class RectPixelMap(IPixelMap):
 
         """
         return _libBornAgainCore.RectPixelMap_getSolidAngle(self)
-
-
-    def contains(self, k):
-        """contains(RectPixelMap self, kvector_t k) -> bool"""
-        return _libBornAgainCore.RectPixelMap_contains(self, k)
 
 RectPixelMap_swigregister = _libBornAgainCore.RectPixelMap_swigregister
 RectPixelMap_swigregister(RectPixelMap)

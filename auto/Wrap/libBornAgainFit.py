@@ -1680,7 +1680,7 @@ class IMinimizer(_object):
         """
         setParameters(IMinimizer self, FitParameterSet parameters)
 
-        void IMinimizer::setParameters(const FitSuiteParameters &parameters)
+        void IMinimizer::setParameters(const FitParameterSet &parameters)
 
         Sets internal minimizer parameters using external parameter list. 
 
@@ -1689,7 +1689,12 @@ class IMinimizer(_object):
 
 
     def setObjectiveFunction(self, arg2):
-        """setObjectiveFunction(IMinimizer self, objective_function_t arg2)"""
+        """
+        setObjectiveFunction(IMinimizer self, objective_function_t arg2)
+
+        virtual void IMinimizer::setObjectiveFunction(objective_function_t)
+
+        """
         return _libBornAgainFit.IMinimizer_setObjectiveFunction(self, arg2)
 
 
@@ -1697,9 +1702,7 @@ class IMinimizer(_object):
         """
         setGradientFunction(IMinimizer self, gradient_function_t arg2, int arg3)
 
-        void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
-
-        Sets gradient function to minimize. 
+        virtual void IMinimizer::setGradientFunction(gradient_function_t, int)
 
         """
         return _libBornAgainFit.IMinimizer_setGradientFunction(self, arg2, arg3)
@@ -1733,7 +1736,7 @@ class IMinimizer(_object):
         """
         propagateResults(IMinimizer self, FitParameterSet parameters)
 
-        void IMinimizer::propagateResults(FitSuiteParameters &parameters)
+        void IMinimizer::propagateResults(FitParameterSet &parameters)
 
         Propagates results of minimization to fit parameter set. 
 
@@ -1913,7 +1916,14 @@ FitParameter_swigregister = _libBornAgainFit.FitParameter_swigregister
 FitParameter_swigregister(FitParameter)
 
 class FitParameterSet(_object):
-    """Proxy of C++ FitParameterSet class."""
+    """
+
+
+    The  FitParameterSet represents collection of fit parameters for the minimizer.
+
+    C++ includes: FitParameterSet.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameterSet, name, value)
@@ -1922,7 +1932,12 @@ class FitParameterSet(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(FitParameterSet self) -> FitParameterSet"""
+        """
+        __init__(FitParameterSet self) -> FitParameterSet
+
+        FitParameterSet::FitParameterSet()
+
+        """
         this = _libBornAgainFit.new_FitParameterSet()
         try:
             self.this.append(this)
@@ -1932,12 +1947,28 @@ class FitParameterSet(_object):
     __del__ = lambda self: None
 
     def clear(self):
-        """clear(FitParameterSet self)"""
+        """
+        clear(FitParameterSet self)
+
+        void FitParameterSet::clear()
+
+        container specific
+
+        Clears all defined parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_clear(self)
 
 
     def size(self):
-        """size(FitParameterSet self) -> size_t"""
+        """
+        size(FitParameterSet self) -> size_t
+
+        size_t FitParameterSet::size() const
+
+        Returns number of parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_size(self)
 
 
@@ -1945,6 +1976,9 @@ class FitParameterSet(_object):
         """
         begin(FitParameterSet self) -> FitParameterSet::iterator
         begin(FitParameterSet self) -> FitParameterSet::const_iterator
+
+        FitParameterSet::const_iterator FitParameterSet::begin() const 
+
         """
         return _libBornAgainFit.FitParameterSet_begin(self, *args)
 
@@ -1953,12 +1987,24 @@ class FitParameterSet(_object):
         """
         end(FitParameterSet self) -> FitParameterSet::iterator
         end(FitParameterSet self) -> FitParameterSet::const_iterator
+
+        FitParameterSet::const_iterator FitParameterSet::end() const 
+
         """
         return _libBornAgainFit.FitParameterSet_end(self, *args)
 
 
     def addFitParameter(self, par):
-        """addFitParameter(FitParameterSet self, FitParameter par)"""
+        """
+        addFitParameter(FitParameterSet self, FitParameter par)
+
+        void FitParameterSet::addFitParameter(FitParameter *par)
+
+        adding fit parameters
+
+        Adds fit parameter. 
+
+        """
         return _libBornAgainFit.FitParameterSet_addFitParameter(self, par)
 
 
@@ -1966,17 +2012,36 @@ class FitParameterSet(_object):
         """
         fitParameter(FitParameterSet self, std::string const & name) -> FitParameter
         fitParameter(FitParameterSet self, std::string const & name) -> FitParameter
+
+        FitParameter * FitParameterSet::fitParameter(const std::string &name)
+
         """
         return _libBornAgainFit.FitParameterSet_fitParameter(self, *args)
 
 
     def values(self):
-        """values(FitParameterSet self) -> vdouble1d_t"""
+        """
+        values(FitParameterSet self) -> vdouble1d_t
+
+        std::vector< double > FitParameterSet::values() const
+
+        fit parameter's values and errors
+
+        Returns values of all defined parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_values(self)
 
 
     def setValues(self, pars_values):
-        """setValues(FitParameterSet self, vdouble1d_t pars_values)"""
+        """
+        setValues(FitParameterSet self, vdouble1d_t pars_values)
+
+        void FitParameterSet::setValues(const std::vector< double > &pars_values)
+
+        Sets values for all defined parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_setValues(self, pars_values)
 
 
@@ -1984,62 +2049,140 @@ class FitParameterSet(_object):
         """
         valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values, double tolerance=2.0) -> bool
         valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values) -> bool
+
+        bool FitParameterSet::valuesDifferFrom(const std::vector< double > &par_values, double tolerance=2.0) const
+
+        Returns true if parameters already have the given values. 
+
         """
         return _libBornAgainFit.FitParameterSet_valuesDifferFrom(self, par_values, tolerance)
 
 
     def errors(self):
-        """errors(FitParameterSet self) -> vdouble1d_t"""
+        """
+        errors(FitParameterSet self) -> vdouble1d_t
+
+        std::vector< double > FitParameterSet::errors() const
+
+        Returns errors of all defined parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_errors(self)
 
 
     def setErrors(self, pars_errors):
-        """setErrors(FitParameterSet self, vdouble1d_t pars_errors)"""
+        """
+        setErrors(FitParameterSet self, vdouble1d_t pars_errors)
+
+        void FitParameterSet::setErrors(const std::vector< double > &pars_errors)
+
+        Sets errors to all parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_setErrors(self, pars_errors)
 
 
     def freeFitParameterCount(self):
-        """freeFitParameterCount(FitParameterSet self) -> size_t"""
+        """
+        freeFitParameterCount(FitParameterSet self) -> size_t
+
+        size_t FitParameterSet::freeFitParameterCount() const
+
+        Make parameters fixed and free.
+
+        Returns number of free parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_freeFitParameterCount(self)
 
 
     def fixAll(self):
-        """fixAll(FitParameterSet self)"""
+        """
+        fixAll(FitParameterSet self)
+
+        void FitParameterSet::fixAll()
+
+        Fix all parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_fixAll(self)
 
 
     def releaseAll(self):
-        """releaseAll(FitParameterSet self)"""
+        """
+        releaseAll(FitParameterSet self)
+
+        void FitParameterSet::releaseAll()
+
+        Release all parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_releaseAll(self)
 
 
     def setFixed(self, pars, is_fixed):
-        """setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)"""
+        """
+        setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)
+
+        void FitParameterSet::setFixed(const std::vector< std::string > &pars, bool is_fixed)
+
+        Set fixed flag for parameters from the list. 
+
+        """
         return _libBornAgainFit.FitParameterSet_setFixed(self, pars, is_fixed)
 
 
     def parametersToString(self):
-        """parametersToString(FitParameterSet self) -> std::string"""
+        """
+        parametersToString(FitParameterSet self) -> std::string
+
+        std::string FitParameterSet::parametersToString() const
+
+        Printing and reporting. 
+
+        """
         return _libBornAgainFit.FitParameterSet_parametersToString(self)
 
 
     def reportResults(self):
-        """reportResults(FitParameterSet self) -> std::string"""
+        """
+        reportResults(FitParameterSet self) -> std::string
+
+        std::string FitParameterSet::reportResults() const 
+
+        """
         return _libBornAgainFit.FitParameterSet_reportResults(self)
 
 
     def correlationMatrix(self):
-        """correlationMatrix(FitParameterSet self) -> vdouble2d_t"""
+        """
+        correlationMatrix(FitParameterSet self) -> vdouble2d_t
+
+        corr_matrix_t FitParameterSet::correlationMatrix() const 
+
+        """
         return _libBornAgainFit.FitParameterSet_correlationMatrix(self)
 
 
     def setCorrelationMatrix(self, matrix):
-        """setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)"""
+        """
+        setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)
+
+        void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)
+
+        """
         return _libBornAgainFit.FitParameterSet_setCorrelationMatrix(self, matrix)
 
 
     def isExistingName(self, name):
-        """isExistingName(FitParameterSet self, std::string const & name) -> bool"""
+        """
+        isExistingName(FitParameterSet self, std::string const & name) -> bool
+
+        bool FitParameterSet::isExistingName(const std::string &name) const
+
+        Returns true if parameter with such name exists. 
+
+        """
         return _libBornAgainFit.FitParameterSet_isExistingName(self, name)
 
 

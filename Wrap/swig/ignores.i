@@ -59,3 +59,8 @@
 %ignore ISampleVisitor::visit(const FormFactorDWBAPol*);
 %ignore FormFactorDWBA;
 %ignore ISampleVisitor::visit(const FormFactorDWBA*);
+%ignore MainComputation;
+%ignore DecoratedLayerComputation;
+%ignore RoughMultiLayerComputation;
+%ignore SpecularComputation;
+

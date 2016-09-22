@@ -154,8 +154,19 @@ protected:
     //! Calculate axis index for given global index
     size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
 
+    //! Calculate global index from two axis indices
+    size_t getGlobalIndex(size_t x, size_t y) const;
+
     //! swap function
     void swapContent(IDetector2D& other);
+
+    //! Returns index of pixel that contains the specular wavevector.
+    //! If no pixel contains this specular wavevector, the number of pixels is
+    //! returned. This corresponds to an overflow index.
+    virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
+
+    //! Returns total number of pixels
+    size_t getTotalSize() const;
 
     SafePointerVector<IAxis> m_axes;
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;

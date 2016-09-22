@@ -18,7 +18,6 @@
 
 #include "Complex.h"
 #include "INoncopyable.h"
-#include "WinDllMacros.h"
 #include <vector>
 
 class LayerSpecularInfo;
@@ -30,7 +29,7 @@ class SimulationElement;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ RoughMultiLayerComputation : public INoncopyable
+class RoughMultiLayerComputation final : public INoncopyable
 {
 public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer);

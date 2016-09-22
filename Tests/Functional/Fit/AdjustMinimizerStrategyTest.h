@@ -18,9 +18,9 @@
 
 #include "IMinimizerTest.h"
 
-//! @class MinimizerStrategyTest
+//! @class AdjustMinimizerStrategyTest
 //! @ingroup standard_samples
-//! @brief The MinimizerStrategyTest verifies fitting with the chain of minimizers.
+//! @brief The AdjustMinimizerStrategyTest verifies fitting with the chain of minimizers.
 
 class AdjustMinimizerStrategyTest : public IMinimizerTest
 {
@@ -30,7 +30,6 @@ public:
 protected:
     void initParameterPlan() override;
     std::unique_ptr<FitSuite> createFitSuite() override;
-
 };
 
 #endif

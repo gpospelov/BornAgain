@@ -17,7 +17,7 @@
 #include "Units.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
-#include "FitStrategyAdjustMinimizer.h"
+#include "AdjustMinimizerStrategy.h"
 #include "MinimizerConstants.h"
 
 
@@ -41,10 +41,10 @@ std::unique_ptr<FitSuite> AdjustMinimizerStrategyTest::createFitSuite() {
   std::unique_ptr<FitSuite> result(new FitSuite());
   result->initPrint(10);
 
-  result->addFitStrategy(FitStrategyAdjustMinimizer(
-      MinimizerNames::Genetic, std::string(), "MaxIterations=2;"));
+  result->addFitStrategy(AdjustMinimizerStrategy(
+      MinimizerNames::Genetic, std::string(), "MaxIterations=3;"));
 
-  result->addFitStrategy(FitStrategyAdjustMinimizer(MinimizerNames::Minuit2,
+  result->addFitStrategy(AdjustMinimizerStrategy(MinimizerNames::Minuit2,
                                                     AlgorithmNames::Migrad));
 
   for (size_t i = 0; i < m_parameters.size(); ++i)

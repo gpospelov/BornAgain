@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitStrategyAdjustMinimizer.cpp
-//! @brief     Implements class FitStrategyAdjustMinimizer.
+//! @file      Core/Fitting/AdjustMinimizerStrategy.cpp
+//! @brief     Implements class AdjustMinimizerStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,17 +13,17 @@
 //
 // ************************************************************************** //
 
-#include "FitStrategyAdjustMinimizer.h"
+#include "AdjustMinimizerStrategy.h"
 #include "FitSuiteImp.h"
 #include "IMinimizer.h"
 #include "MinimizerFactory.h"
 
-FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
+AdjustMinimizerStrategy::AdjustMinimizerStrategy()
     : IFitStrategy("FitStrategy/AdjustMinimizer")
 {
 }
 
-FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimizerName,
+AdjustMinimizerStrategy::AdjustMinimizerStrategy(const std::string &minimizerName,
                                                        const std::string &algorithmName,
                                                        const std::string &optionString)
     : IFitStrategy("FitStrategy/AdjustMinimizer")
@@ -35,13 +35,13 @@ FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimi
 }
 
 
-FitStrategyAdjustMinimizer* FitStrategyAdjustMinimizer::clone() const
+AdjustMinimizerStrategy* AdjustMinimizerStrategy::clone() const
 {
-    FitStrategyAdjustMinimizer* result = new FitStrategyAdjustMinimizer(*this);
+    AdjustMinimizerStrategy* result = new AdjustMinimizerStrategy(*this);
     return result;
 }
 
-void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizerName,
+void AdjustMinimizerStrategy::setMinimizer(const std::string &minimizerName,
                                               const std::string &algorithmName,
                                               const std::string &optionString)
 {
@@ -50,14 +50,14 @@ void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizerName,
     m_optionString = optionString;
 }
 
-void FitStrategyAdjustMinimizer::execute()
+void AdjustMinimizerStrategy::execute()
 {
     m_kernel->setMinimizer(
         MinimizerFactory::createMinimizer(m_minimizerName, m_algorithmName, m_optionString));
     m_kernel->minimize();
 }
 
-std::string FitStrategyAdjustMinimizer::toString() const
+std::string AdjustMinimizerStrategy::toString() const
 {
     std::ostringstream ostr;
     ostr << "FitStrategy/AdjustMinimizer ("
@@ -67,7 +67,7 @@ std::string FitStrategyAdjustMinimizer::toString() const
     return ostr.str();
 }
 
-FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const FitStrategyAdjustMinimizer &other)
+AdjustMinimizerStrategy::AdjustMinimizerStrategy(const AdjustMinimizerStrategy &other)
     : IFitStrategy(other)
 {
     m_minimizerName = other.m_minimizerName;

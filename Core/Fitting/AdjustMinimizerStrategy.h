@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitStrategyAdjustMinimizer.h
-//! @brief     Defines class FitStrategyAdjustMinimizer
+//! @file      Core/Fitting/AdjustMinimizerStrategy.h
+//! @brief     Defines class AdjustMinimizerStrategy
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,20 +18,20 @@
 
 #include "IFitStrategy.h"
 
-//! @class FitStrategyAdjustMinimizer
+//! @class AdjustMinimizerStrategy
 //! @ingroup fitting
 //! @brief Strategy modifies mimimizer settings before running minimization round.
 
-class BA_CORE_API_ FitStrategyAdjustMinimizer : public IFitStrategy
+class BA_CORE_API_ AdjustMinimizerStrategy : public IFitStrategy
 {
 public:
-    FitStrategyAdjustMinimizer();
+    AdjustMinimizerStrategy();
 
-    FitStrategyAdjustMinimizer(const std::string& minimizerName,
+    AdjustMinimizerStrategy(const std::string& minimizerName,
                                const std::string& algorithmName = std::string(),
                                const std::string& optionString=std::string());
 
-    virtual FitStrategyAdjustMinimizer* clone() const;
+    virtual AdjustMinimizerStrategy* clone() const;
 
     void setMinimizer(const std::string& minimizerName,
                       const std::string& algorithmName = std::string(),
@@ -41,7 +41,7 @@ public:
 
 protected:
     virtual std::string toString() const;
-    FitStrategyAdjustMinimizer(const FitStrategyAdjustMinimizer &other);
+    AdjustMinimizerStrategy(const AdjustMinimizerStrategy &other);
 
 private:
     std::string m_minimizerName;

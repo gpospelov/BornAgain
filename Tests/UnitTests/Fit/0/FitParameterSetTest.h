@@ -78,31 +78,28 @@ TEST_F(FitParameterSetTest, parameterValues)
 TEST_F(FitParameterSetTest, parameterErrors)
 {
     FitParameterSet parameters;
-    FitParameter *par1 = new FitParameter("par1", 1.0, 0.01, RealLimits::limitless(),
-                                          Attributes::free(), 1.0);
-    FitParameter *par2 = new FitParameter("par2", 1.0, 0.01, RealLimits::limitless(),
-                                          Attributes::free(), 2.0);
+    FitParameter *par1 = new FitParameter("par1", 1.0, AttLimits::limitless(), 0.01);
+    FitParameter *par2 = new FitParameter("par2", 1.0, AttLimits::limitless(), 0.01);
 
     parameters.addFitParameter(par1);
     parameters.addFitParameter(par2);
+    par1->setError(1.0);
+    par2->setError(2.0);
 
     std::vector<double> errors{1.0, 2.0};
     EXPECT_EQ(parameters.errors(), errors);
 
     parameters.setErrors(std::vector<double>() = {4.0, 5.0});
-    EXPECT_EQ(par1->getError(), 4.0);
-    EXPECT_EQ(par2->getError(), 5.0);
+    EXPECT_EQ(par1->error(), 4.0);
+    EXPECT_EQ(par2->error(), 5.0);
 }
 
 TEST_F(FitParameterSetTest, fixRelease)
 {
     FitParameterSet parameters;
-    FitParameter *par1 = new FitParameter("par1", 1.0, 0.01, RealLimits::limitless(),
-                                          Attributes::free(), 1.0);
-    FitParameter *par2 = new FitParameter("par2", 1.0, 0.01, RealLimits::limitless(),
-                                          Attributes::free(), 2.0);
-    FitParameter *par3 = new FitParameter("par3", 1.0, 0.01, RealLimits::limitless(),
-                                          Attributes::free(), 2.0);
+    FitParameter *par1 = new FitParameter("par1", 1.0, AttLimits::limitless(), 0.01);
+    FitParameter *par2 = new FitParameter("par2", 1.0, AttLimits::limitless(), 0.01);
+    FitParameter *par3 = new FitParameter("par3", 1.0, AttLimits::limitless(), 0.01);
 
     parameters.addFitParameter(par1);
     parameters.addFitParameter(par2);
@@ -110,9 +107,9 @@ TEST_F(FitParameterSetTest, fixRelease)
 
     EXPECT_EQ(parameters.freeFitParameterCount(), 3);
 
-    par1->setFixed(true);
+    par1->limits().setFixed(true);
     EXPECT_EQ(parameters.freeFitParameterCount(), 2);
-    par2->setFixed(true);
+    par2->limits().setFixed(true);
     EXPECT_EQ(parameters.freeFitParameterCount(), 1);
 
     parameters.fixAll();
@@ -124,9 +121,9 @@ TEST_F(FitParameterSetTest, fixRelease)
     std::vector<std::string> names_to_fix={"par1", "par3"};
     parameters.setFixed(names_to_fix, true);
     EXPECT_EQ(parameters.freeFitParameterCount(), 1);
-    EXPECT_TRUE(par1->isFixed());
-    EXPECT_FALSE(par2->isFixed());
-    EXPECT_TRUE(par3->isFixed());
+    EXPECT_TRUE(par1->limits().isFixed());
+    EXPECT_FALSE(par2->limits().isFixed());
+    EXPECT_TRUE(par3->limits().isFixed());
 }
 
 #endif

@@ -85,6 +85,7 @@
 #include "FTDistributions2D.h"
 #include "FitObject.h"
 #include "FitOptions.h"
+#include "FitParameterLinked.h"
 #include "FitSuite.h"
 #include "FitSuiteImp.h"
 #include "FitSuiteObjects.h"
@@ -127,7 +128,7 @@
 #include "FormFactorTruncatedCube.h"
 #include "FormFactorTruncatedSphere.h"
 #include "FormFactorTruncatedSpheroid.h"
-#include "FormFactorWeighted.h"
+#include "FormFactorWeighted.h"    
 #include "GISASSimulation.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
@@ -236,8 +237,11 @@
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
+%import(module="libBornAgainFit") "AttLimits.h"
 %import(module="libBornAgainFit") "Attributes.h"
 %import(module="libBornAgainFit") "RealLimits.h"
+%import(module="libBornAgainFit") "IFitParameter.h"
+%import(module="libBornAgainFit") "FitParameter.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"
@@ -282,7 +286,7 @@
 %include "ChiSquaredModule.h"
 %include "FitObject.h"
 %include "FitOptions.h"
-
+%include "FitParameterLinked.h"
 %include "FitSuite.h"
 %include "FitSuiteObjects.h"
 %include "MathFunctions.h"

@@ -94,18 +94,17 @@ def run_fitting():
 
     # this fit parameter will change both length_1 and length_2 simultaneously
     fit_suite.addFitParameter(
-        "*2DLattice/LatticeLength*", 8.*nm, ba.RealLimits.limited(4., 12.))
+        "*2DLattice/LatticeLength*", 8.*nm, ba.AttLimits.limited(4., 12.))
     fit_suite.addFitParameter(
-        "*/FullSphere/Radius", 8.*nm, ba.RealLimits.limited(4., 12.))
+        "*/FullSphere/Radius", 8.*nm, ba.AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()
 
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

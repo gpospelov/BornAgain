@@ -59,25 +59,15 @@ void FitSuiteImp::addSimulationAndRealData(const GISASSimulation& simulation,
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-void FitSuiteImp::addFitParameter(const std::string& name, double value)
-{
-    addFitParameter(name, value, RealLimits::limitless(), Attributes::free());
-}
-
-//! Adds fit parameter, step is calculated from initial parameter value
-void FitSuiteImp::addFitParameter(const std::string& name, double value, const RealLimits& lim,
-                                const Attributes& attr, double step, double error)
+FitParameterLinked *FitSuiteImp::addFitParameter(const std::string& name, double value,
+                                  const AttLimits& limits, double step)
 {
     if(step <=0.0)
         step = value * getOptions().getStepFactor();
-//    for(auto par: m_fit_parameters.getFitParameters()) {
-//        if( par->getName() == name )
-//            throw std::runtime_error(
-//                "FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
-//    }
-//    m_fit_parameters.addFitParameter(new FitParameterLinked(name, value, step, lim, attr, error));
-    m_kernel->fitParameters()->addFitParameter(
-                new FitParameterLinked(name, value, step, lim, attr, error));
+
+    FitParameterLinked *result = new FitParameterLinked(name, value, limits, step);
+    m_kernel->fitParameters()->addFitParameter(result);
+    return result;
 }
 
 void FitSuiteImp::addFitStrategy(const IFitStrategy& strategy)
@@ -94,15 +84,8 @@ void FitSuiteImp::setMinimizer(IMinimizer* minimizer)
     m_kernel->setMinimizer(minimizer);
 }
 
-//const IMinimizer *FitSuiteImp::minimizer() const
-//{
-//    return m_kernel->minimizer();
-//}
-
 void FitSuiteImp::runFit()
 {
-    m_start_time = boost::posix_time::microsec_clock::local_time();
-
     // check if all prerequisites are fullfilled before starting minimization
     check_prerequisites();
 
@@ -117,8 +100,6 @@ void FitSuiteImp::runFit()
     // call observers to let them to get results
     m_is_last_iteration = true;
     notifyObservers();
-
-    m_end_time =  boost::posix_time::microsec_clock::local_time();
 }
 
 void FitSuiteImp::minimize()
@@ -145,7 +126,7 @@ void FitSuiteImp::minimize()
 
     // setting number of free parameters for proper chi2 normalization
 //    m_fit_objects.setNfreeParameters((int)m_fit_parameters.numberOfFreeFitParameters());
-    m_fit_objects.setNfreeParameters((int)getFitParameters()->freeFitParameterCount());
+    m_fit_objects.setNfreeParameters((int)fitParameters()->freeFitParameterCount());
 
     // minimize
     try {
@@ -159,13 +140,12 @@ void FitSuiteImp::minimize()
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
-FitParameterSet *FitSuiteImp::getFitParameters() {
-//    return &m_fit_parameters;
+FitParameterSet *FitSuiteImp::fitParameters() {
     return m_kernel->fitParameters();
 }
 
 // get current number of minimization function calls
-size_t FitSuiteImp::getNCalls() const
+size_t FitSuiteImp::numberOfIterations() const
 {
     //return m_minimizer->getNCalls();
     // I don't know which function Minimizer calls (chi2 or gradient)
@@ -173,7 +153,7 @@ size_t FitSuiteImp::getNCalls() const
         m_function_chi2.getNCalls() : m_function_gradient.getNCalls();
 }
 
-size_t FitSuiteImp::getCurrentStrategyIndex() const
+size_t FitSuiteImp::currentStrategyIndex() const
 {
     return m_fit_strategies.getCurrentStrategyIndex();
 }
@@ -197,12 +177,6 @@ std::string FitSuiteImp::reportResults() const
 
 //     return result.str();
     return m_kernel->reportResults();
-}
-
-double FitSuiteImp::getRunTime() const
-{
-    boost::posix_time::time_duration diff = m_end_time - m_start_time;
-    return diff.total_milliseconds()/1000.;
 }
 
 const FitKernel *FitSuiteImp::kernel() const

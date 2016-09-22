@@ -36,33 +36,33 @@ void FitStrategyAdjustParameters::execute()
     if( !m_kernel )
         throw Exceptions::NullPointerException(
             "FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
-    FitParameterSet* fitParameters = m_kernel->getFitParameters();
+    FitParameterSet* fitParameters = m_kernel->fitParameters();
 
     // fixing all parameters at they current values
     if( m_fix_all ) {
         for(auto par: *fitParameters)
-            par->setFixed(true);
+            par->limits().setFixed(true);
     }
 
     // releasing all parameters
     if( m_release_all ) {
         for(auto par: *fitParameters) {
             msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing "
-                                << par->getName();
-            par->setFixed(false);
+                                << par->name();
+            par->limits().setFixed(false);
         }
     }
 
     // fixing dedicated list of fit parameters
     for(auto name: m_pars_to_fix) {
         msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << name;
-        fitParameters->fitParameter(name)->setFixed(true);
+        fitParameters->fitParameter(name)->limits().setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
     for(auto name: m_pars_to_release) {
         msglog(MSG::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << name;
-        fitParameters->fitParameter(name)->setFixed(false);
+        fitParameters->fitParameter(name)->limits().setFixed(false);
     }
 
     // saving original param values

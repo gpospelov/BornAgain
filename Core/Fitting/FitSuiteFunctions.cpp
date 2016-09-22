@@ -26,9 +26,9 @@ double FitSuiteChiSquaredFunction::evaluate(const std::vector<double> &pars)
     if (m_kernel->isInterrupted())
         throw std::runtime_error("Fitting was interrupted by the user.");
 
-    m_kernel->getFitParameters()->setValues(pars);
-    m_kernel->getFitObjects()->runSimulations();
-    double chi_squared = m_kernel->getFitObjects()->getChiSquaredValue();
+    m_kernel->fitParameters()->setValues(pars);
+    m_kernel->fitObjects()->runSimulations();
+    double chi_squared = m_kernel->fitObjects()->getChiSquaredValue();
     m_kernel->notifyObservers();
     m_ncall++;
     return chi_squared;
@@ -46,7 +46,7 @@ double FitSuiteGradientFunction::evaluate(
 
     bool parameters_changed(true);
     if(m_ncalls_total != 0)
-        parameters_changed = m_kernel->getFitParameters()->valuesDifferFrom(pars, 2.);
+        parameters_changed = m_kernel->fitParameters()->valuesDifferFrom(pars, 2.);
 
     verify_arrays();
     verify_minimizer_logic(parameters_changed, (int)index);
@@ -74,10 +74,10 @@ double FitSuiteGradientFunction::evaluate(
 
 void FitSuiteGradientFunction::verify_arrays()
 {
-    if( m_npars != m_kernel->getFitParameters()->size() ||
-        m_ndatasize != m_kernel->getFitObjects()->getSizeOfDataSet() ) {
-        m_npars = m_kernel->getFitParameters()->size();
-        m_ndatasize = m_kernel->getFitObjects()->getSizeOfDataSet();
+    if( m_npars != m_kernel->fitParameters()->size() ||
+        m_ndatasize != m_kernel->fitObjects()->getSizeOfDataSet() ) {
+        m_npars = m_kernel->fitParameters()->size();
+        m_ndatasize = m_kernel->fitObjects()->getSizeOfDataSet();
         m_residuals.clear();
         m_residuals.resize(m_ndatasize, 0.0);
         m_gradients.clear();
@@ -116,7 +116,7 @@ void FitSuiteGradientFunction::calculate_residuals(const std::vector<double> &pa
 {
     runSimulation(pars);
     for(size_t i_data=0; i_data<m_ndatasize; ++i_data)
-        m_residuals[i_data] = m_kernel->getFitObjects()->getResidualValue(i_data);
+        m_residuals[i_data] = m_kernel->fitObjects()->getResidualValue(i_data);
 }
 
 void FitSuiteGradientFunction::calculate_gradients(const std::vector<double> &pars)
@@ -133,18 +133,18 @@ void FitSuiteGradientFunction::calculate_gradients(const std::vector<double> &pa
         std::vector<double> residuals2;
         residuals2.resize(m_ndatasize);
         for(size_t i_data=0; i_data<m_ndatasize; ++i_data)
-            residuals2[i_data] = m_kernel->getFitObjects()->getResidualValue(i_data);
+            residuals2[i_data] = m_kernel->fitObjects()->getResidualValue(i_data);
         for(size_t i_data=0; i_data <m_ndatasize; ++i_data)
             m_gradients[i_par][i_data] = (residuals2[i_data] - m_residuals[i_data])/kEps;
     }
     // returning back old parameters
-    m_kernel->getFitParameters()->setValues(pars);
+    m_kernel->fitParameters()->setValues(pars);
     runSimulation(pars);
 
 }
 
 void FitSuiteGradientFunction::runSimulation(const std::vector<double> &pars){
     assert(m_kernel);
-    m_kernel->getFitParameters()->setValues(pars);
-    m_kernel->getFitObjects()->runSimulations();
+    m_kernel->fitParameters()->setValues(pars);
+    m_kernel->fitObjects()->runSimulations();
 }

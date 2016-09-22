@@ -25,6 +25,27 @@ def standardIntensityPlot(result):
     import matplotlib
     import sys
     from matplotlib import pyplot as plt
+    im = plt.imshow(
+        result.getArray(),
+        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                result.getYmin()/deg, result.getYmax()/deg],
+        aspect='auto',
+    )
+    cb = plt.colorbar(im)
+    cb.set_label(r'Intensity (arb. u.)', size=16)
+    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
+    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+    plt.show()
+
+
+def exoticIntensityPlot(result):
+    """
+    Plots intensity map.
+    """
+    import matplotlib
+    import sys
+    from matplotlib import pyplot as plt
     from matplotlib import rc
     rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
     rc('text', usetex=True)
@@ -85,12 +106,16 @@ def getFilenameOrPlotflag():
     obtained from the command-line argument, or prints a help message and exit.
     """
     import sys
+    # if len(sys.argv)<=1:
+    #     print("Usage:")
+    #     print("  " + sys.argv[0] + " -p                           # to plot results")
+    #     print("  " + sys.argv[0] + " <filename without extension> # to save results")
+    #     sys.exit()
+    # return sys.argv[1]
     if len(sys.argv)<=1:
-        print("Usage:")
-        print("  " + sys.argv[0] + " -p                           # to plot results")
-        print("  " + sys.argv[0] + " <filename without extension> # to save results")
-        sys.exit()
-    return sys.argv[1]
+        return '-p'
+    else:
+        return sys.argv[1]
 
 
 def simulateThenPlotOrSave(
@@ -125,6 +150,7 @@ class DefaultFitObserver(IFitObserver):
 
         import matplotlib
         from matplotlib import pyplot as plt
+        global matplotlib, plt
 
         self.fig = plt.figure(figsize=(10.25, 7.69))
         self.fig.canvas.draw()
@@ -151,11 +177,10 @@ class DefaultFitObserver(IFitObserver):
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.getNumberOfIterations(), fit_suite.getMinimizer().getMinimizerName()))
+                 format(fit_suite.numberOfIterations(), fit_suite.minimizer().minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1,  '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(), fitpars[i].getValue()))
+        for index, fitPar in enumerate(fit_suite.fitParameters()):
+            plt.text(0.01, 0.55 - index*0.1,  '{:30.30s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
 
         plt.draw()
         plt.pause(0.01)

@@ -61,6 +61,8 @@ import_array();
 %import "WinDllMacros.h"
 
 %{
+#include "AttLimits.h"
+#include "IFitParameter.h"
 #include "FitParameter.h"
 #include "FitParameterSet.h"
 #include "IMinimizer.h"
@@ -76,10 +78,9 @@ import_array();
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%include "Attributes.h"
-%include "RealLimits.h"
-
+%include "AttLimits.h"
 %include "IMinimizer.h"
+%include "IFitParameter.h"
 %include "FitParameter.h"
 %include "FitParameterSet.h"
 %include "MinimizerCatalogue.h"

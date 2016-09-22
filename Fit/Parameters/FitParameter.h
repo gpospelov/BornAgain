@@ -16,50 +16,61 @@
 #ifndef FITPARAMETER_H
 #define FITPARAMETER_H
 
-#include "Attributes.h"
-#include "RealLimits.h"
+#include "IFitParameter.h"
+#include "AttLimits.h"
 #include <string>
 
-//! Fittable parameter with value, error, step, limits, and fixed flag.
-//! @ingroup fitting_internal
+//! @class FitParameter
+//! @ingroup fitting
+//! @brief The FitParameter represents fittable parameter with value, error, step, and limits.
 
-class BA_CORE_API_ FitParameter : public RealLimits, public Attributes
+class BA_CORE_API_ FitParameter : public IFitParameter
 {
- public:
+public:
     FitParameter();
-    FitParameter(
-        const std::string& name, double value, double step=0.0,
-        const RealLimits& limits=RealLimits::limitless(), const Attributes& attr=Attributes::free(),
-        double error=0.0);
-    virtual ~FitParameter() {}
+    FitParameter(const std::string& name, double value,
+                    const AttLimits& limits=AttLimits::limitless(), double step=0.0);
+    virtual ~FitParameter(){}
 
-    std::string getName() const { return m_name; }
+    FitParameter* clone() const;
 
-    virtual double getStartValue() const { return m_start_value; }
+    std::string name() const;
 
-    virtual void setValue(double value) { m_value = value; }
-    double getValue() const { return m_value; }
+    double startValue() const;
 
-    void setStep(double value) { m_step = value; }
-    double getStep() const { return m_step; }
+    double value() const;
+    virtual void setValue(double value);
 
-    void setError(double value) { m_error = value; }
-    double getError() const { return m_error; }
+    double step() const;
+    FitParameter& setStep(double value);
 
-    //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const FitParameter& m) {
-        m.print(ostr); return ostr; }
+    double error() const;
+    void setError(double value);
 
-    std::string limitsToString() const;
+    const AttLimits& limits() const;
+    AttLimits& limits();
 
- protected:
-    void print(std::ostream& ostr) const;
+    FitParameter& setLimits(const AttLimits& limits);
 
+    FitParameter& setLowerLimited(double bound_value);
+    FitParameter& setPositive();
+    FitParameter& setNonnegative();
+    FitParameter& setUpperLimited(double bound_value);
+    FitParameter& setLimited(double left_bound_value, double right_bound_value);
+    FitParameter& setFixed();
+
+    virtual std::string toString() const;
+
+protected:
+    FitParameter(const FitParameter& other);
+
+private:
     std::string m_name;
     double m_start_value;
     double m_value;
     double m_step;
     double m_error;
+    AttLimits m_limits;
 };
 
-#endif // FITPARAMETER_H
+#endif

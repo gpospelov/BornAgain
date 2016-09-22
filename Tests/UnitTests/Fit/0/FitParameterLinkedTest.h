@@ -19,30 +19,29 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedInitial)
 {
     FitParameterLinked fitParameterLinked;
 
-    EXPECT_EQ("", fitParameterLinked.getName());
-    EXPECT_EQ(0.0, fitParameterLinked.getValue());
-    EXPECT_EQ(0.0, fitParameterLinked.getStep());
-    EXPECT_EQ(0.0, fitParameterLinked.getError());
+    EXPECT_EQ("", fitParameterLinked.name());
+    EXPECT_EQ(0.0, fitParameterLinked.value());
+    EXPECT_EQ(0.0, fitParameterLinked.step());
+    EXPECT_EQ(0.0, fitParameterLinked.error());
 
-    EXPECT_FALSE(fitParameterLinked.hasLowerLimit());
-    EXPECT_FALSE(fitParameterLinked.hasUpperLimit());
-    EXPECT_FALSE(fitParameterLinked.hasLowerAndUpperLimits());
-    EXPECT_FALSE(fitParameterLinked.isFixed());
+    EXPECT_FALSE(fitParameterLinked.limits().isLowerLimited());
+    EXPECT_FALSE(fitParameterLinked.limits().isUpperLimited());
+    EXPECT_FALSE(fitParameterLinked.limits().isLimited());
+    EXPECT_FALSE(fitParameterLinked.limits().isFixed());
 }
 
 TEST_F(FitParameterLinkedTest, FitParameterLinkedWithValue)
 {
-    RealLimits limits = RealLimits::limited(-10.0, 2.0);
+    AttLimits limits = AttLimits::limited(-10.0, 2.0);
 
-    FitParameterLinked fitParameter("FitPL", 2.0, 0.2, limits, Attributes::free(), 0.01);
+    FitParameterLinked fitParameter("FitPL", 2.0, limits, 0.2);
 
-    EXPECT_EQ("FitPL", fitParameter.getName());
-    EXPECT_EQ(2.0, fitParameter.getValue());
-    EXPECT_EQ(0.2, fitParameter.getStep());
-    EXPECT_EQ(0.01, fitParameter.getError());
+    EXPECT_EQ("FitPL", fitParameter.name());
+    EXPECT_EQ(2.0, fitParameter.value());
+    EXPECT_EQ(0.2, fitParameter.step());
 
-    EXPECT_EQ(-10.0, fitParameter.getLowerLimit());
-    EXPECT_EQ(2.0, fitParameter.getUpperLimit());
+    EXPECT_EQ(-10.0, fitParameter.limits().lowerLimit());
+    EXPECT_EQ(2.0, fitParameter.limits().upperLimit());
 }
 
 TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
@@ -72,7 +71,7 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     linked.addParameter(par32);
 
     linked.setValue(11.2);
-    EXPECT_EQ(linked.getValue(), 11.2);
+    EXPECT_EQ(linked.value(), 11.2);
     EXPECT_EQ(obj1.getParameter("1")->getValue(), 11.2);
     EXPECT_EQ(obj1.getParameter("2")->getValue(), 2);
     EXPECT_EQ(obj2.getParameter("1")->getValue(), 11.2);

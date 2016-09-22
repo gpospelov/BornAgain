@@ -58,10 +58,10 @@ void GUIFitObserver::update(FitSuite *subject)
 //        emit plotsUpdate();
 //    }
 
-    if(subject->getNumberOfIterations() % m_update_interval == 0) {
+    if(subject->numberOfIterations() % m_update_interval == 0) {
         if(m_block_update_plots) {
             qDebug() << "GUI is busy with plotting, skipping iteration "
-                     << subject->getNumberOfIterations();
+                     << subject->numberOfIterations();
         }
     }
 
@@ -71,7 +71,7 @@ void GUIFitObserver::update(FitSuite *subject)
 
         FitProgressInfo info;
         info.m_chi2 = subject->getChi2();
-        info.m_iteration_count = (int)subject->getNumberOfIterations();
+        info.m_iteration_count = (int)subject->numberOfIterations();
         info.m_values = GUIHelpers::fromStdVector(subject->fitParameters()->values());
         qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
         emit progressInfoUpdate(info);
@@ -96,7 +96,7 @@ void GUIFitObserver::setInterval(int val)
 bool GUIFitObserver::canUpdatePlots(FitSuite *fitSuite)
 {
     if(m_block_update_plots) return false;
-    if(fitSuite->getNumberOfIterations() % m_update_interval == 0) return true;
+    if(fitSuite->numberOfIterations() % m_update_interval == 0) return true;
     if(fitSuite->isLastIteration()) return true;
     return false;
 }
@@ -105,8 +105,8 @@ bool GUIFitObserver::canUpdatePlots(FitSuite *fitSuite)
 //! or in the case of last iteration
 bool GUIFitObserver::canUpdateProgressInfo(FitSuite *fitSuite)
 {
-    if(fitSuite->getNumberOfIterations() == 0) return true;
-    if(fitSuite->getNumberOfIterations() % m_update_interval == 0) return true;
+    if(fitSuite->numberOfIterations() == 0) return true;
+    if(fitSuite->numberOfIterations() % m_update_interval == 0) return true;
     if(fitSuite->isLastIteration()) return true;
     return false;
 }

@@ -70,7 +70,7 @@ StandardFitsFactory::StandardFitsFactory()
     registerItem(
         "StandaloneFit",
         create_new<StandaloneFitTest>,
-        "Experimental fit on the way to refactoring");
+        "Test of standalone fit of arbitrary functions");
 
 }
 

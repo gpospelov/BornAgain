@@ -115,18 +115,17 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*radius", 8.*nm, ba.RealLimits.limited(4., 12.))
+    fit_suite.addFitParameter("*radius", 8.*nm, ba.AttLimits.limited(4., 12.))
     fit_suite.addFitParameter("*lattice_constant",
-                              8.*nm, ba.RealLimits.limited(4., 12.))
+                              8.*nm, ba.AttLimits.limited(4., 12.))
 
     # running fit
     fit_suite.runFit()
 
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

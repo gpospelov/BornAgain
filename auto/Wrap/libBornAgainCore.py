@@ -5709,6 +5709,88 @@ class FitOptions(_object):
 FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
 FitOptions_swigregister(FitOptions)
 
+class FitParameterLinked(libBornAgainFit.FitParameter):
+    """
+
+
+    Fittable parameter, linked to other parameters from pools.
+
+    C++ includes: FitParameterLinked.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [libBornAgainFit.FitParameter]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameterLinked, name, value)
+    __swig_getmethods__ = {}
+    for _s in [libBornAgainFit.FitParameter]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FitParameterLinked, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(FitParameterLinked self) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim, double step=0.0) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & name, double value) -> FitParameterLinked
+
+        FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
+
+        """
+        this = _libBornAgainCore.new_FitParameterLinked(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitParameterLinked
+    __del__ = lambda self: None
+
+    def clone(self):
+        """clone(FitParameterLinked self) -> FitParameterLinked"""
+        return _libBornAgainCore.FitParameterLinked_clone(self)
+
+
+    def setValue(self, value):
+        """
+        setValue(FitParameterLinked self, double value)
+
+        void FitParameterLinked::setValue(double value) final
+
+        Sets given value for all bound parameters. 
+
+        """
+        return _libBornAgainCore.FitParameterLinked_setValue(self, value)
+
+
+    def addParameter(self, par):
+        """
+        addParameter(FitParameterLinked self, RealParameter par)
+
+        void FitParameterLinked::addParameter(RealParameter *par)
+
+        Adds real parameter to the collection. 
+
+        """
+        return _libBornAgainCore.FitParameterLinked_addParameter(self, par)
+
+
+    def addMatchedParametersFromPool(self, *args):
+        """
+        addMatchedParametersFromPool(FitParameterLinked self, ParameterPool pool, std::string const & wildcard)
+        addMatchedParametersFromPool(FitParameterLinked self, ParameterPool pool)
+
+        void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard=std::string())
+
+        Adds parameters from pool which match given wildcard. 
+
+        """
+        return _libBornAgainCore.FitParameterLinked_addMatchedParametersFromPool(self, *args)
+
+FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
+FitParameterLinked_swigregister(FitParameterLinked)
+
 class FitSuite(IObservable):
     """
 
@@ -5761,10 +5843,9 @@ class FitSuite(IObservable):
 
     def addFitParameter(self, *args):
         """
-        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim, Attributes attr, double step=0.0)
-        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim, Attributes attr)
-        addFitParameter(FitSuite self, std::string const & name, double value, RealLimits lim)
-        addFitParameter(FitSuite self, std::string const & name, double value)
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits, double step=0.0) -> FitParameterLinked
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits) -> FitParameterLinked
+        addFitParameter(FitSuite self, std::string const & name, double value) -> FitParameterLinked
 
         void FitSuite::addFitParameter(const std::string &name, double value, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
 
@@ -5858,42 +5939,6 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_initPrint(self, print_every_nth)
 
 
-    def fixAllParameters(self):
-        """
-        fixAllParameters(FitSuite self)
-
-        void FitSuite::fixAllParameters()
-
-        Set all parameters to fixed. 
-
-        """
-        return _libBornAgainCore.FitSuite_fixAllParameters(self)
-
-
-    def releaseAllParameters(self):
-        """
-        releaseAllParameters(FitSuite self)
-
-        void FitSuite::releaseAllParameters()
-
-        Set all parameters to released. 
-
-        """
-        return _libBornAgainCore.FitSuite_releaseAllParameters(self)
-
-
-    def setParametersFixed(self, pars, is_fixed):
-        """
-        setParametersFixed(FitSuite self, vector_string_t pars, bool is_fixed)
-
-        void FitSuite::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)
-
-        Set fixed flag for parameters from the list. 
-
-        """
-        return _libBornAgainCore.FitSuite_setParametersFixed(self, pars, is_fixed)
-
-
     def runFit(self):
         """
         runFit(FitSuite self)
@@ -5906,16 +5951,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_runFit(self)
 
 
-    def getNumberOfFitObjects(self):
-        """
-        getNumberOfFitObjects(FitSuite self) -> int
-
-        int FitSuite::getNumberOfFitObjects() const
-
-        Returns number of fit objects, where fit object stands for (real, simulated) pair. 
-
-        """
-        return _libBornAgainCore.FitSuite_getNumberOfFitObjects(self)
+    def numberOfFitObjects(self):
+        """numberOfFitObjects(FitSuite self) -> int"""
+        return _libBornAgainCore.FitSuite_numberOfFitObjects(self)
 
 
     def getRealData(self, i_item=0):
@@ -5975,16 +6013,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_getChiSquaredMap(self, i_item)
 
 
-    def getFitObjects(self):
-        """
-        getFitObjects(FitSuite self) -> FitSuiteObjects
-
-        FitSuiteObjects * FitSuite::getFitObjects()
-
-        returns  FitObject (pair of simulation/real data) 
-
-        """
-        return _libBornAgainCore.FitSuite_getFitObjects(self)
+    def fitObjects(self):
+        """fitObjects(FitSuite self) -> FitSuiteObjects"""
+        return _libBornAgainCore.FitSuite_fitObjects(self)
 
 
     def fitParameters(self):
@@ -5999,16 +6030,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_fitParameters(self)
 
 
-    def getFitStrategies(self):
-        """
-        getFitStrategies(FitSuite self) -> FitSuiteStrategies *
-
-        FitSuiteStrategies * FitSuite::getFitStrategies()
-
-        Returns reference to fit parameters. 
-
-        """
-        return _libBornAgainCore.FitSuite_getFitStrategies(self)
+    def fitStrategies(self):
+        """fitStrategies(FitSuite self) -> FitSuiteStrategies *"""
+        return _libBornAgainCore.FitSuite_fitStrategies(self)
 
 
     def isLastIteration(self):
@@ -6023,28 +6047,14 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_isLastIteration(self)
 
 
-    def getNumberOfIterations(self):
-        """
-        getNumberOfIterations(FitSuite self) -> size_t
-
-        size_t FitSuite::getNumberOfIterations() const
-
-        Returns current number of minimization function calls. 
-
-        """
-        return _libBornAgainCore.FitSuite_getNumberOfIterations(self)
+    def numberOfIterations(self):
+        """numberOfIterations(FitSuite self) -> size_t"""
+        return _libBornAgainCore.FitSuite_numberOfIterations(self)
 
 
-    def getCurrentStrategyIndex(self):
-        """
-        getCurrentStrategyIndex(FitSuite self) -> size_t
-
-        size_t FitSuite::getCurrentStrategyIndex() const
-
-        Returns the number of current strategy. 
-
-        """
-        return _libBornAgainCore.FitSuite_getCurrentStrategyIndex(self)
+    def currentStrategyIndex(self):
+        """currentStrategyIndex(FitSuite self) -> size_t"""
+        return _libBornAgainCore.FitSuite_currentStrategyIndex(self)
 
 
     def printResults(self):

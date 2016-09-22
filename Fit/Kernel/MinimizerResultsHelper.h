@@ -43,7 +43,6 @@ private:
     std::string reportDescription(const RootMinimizerAdapter *minimizer) const;
     std::string reportOption(const RootMinimizerAdapter *minimizer) const;
     std::string reportStatus(const RootMinimizerAdapter *minimizer) const;
-    std::string section(const std::string &sectionName = std::string()) const;
 };
 
 template <typename T>

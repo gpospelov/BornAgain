@@ -34,20 +34,20 @@ void IFitObserver::notify(IObservable* subject)
 
     bool needs_update(false);
 
-    if(fit_suite->getFitStrategies()->size() &&
-            m_current_strategy_index != (int)fit_suite->getCurrentStrategyIndex()) {
+    if(fit_suite->fitStrategies()->size() &&
+            m_current_strategy_index != (int)fit_suite->currentStrategyIndex()) {
         needs_update = true;
-        m_current_strategy_index = fit_suite->getCurrentStrategyIndex();
+        m_current_strategy_index = fit_suite->currentStrategyIndex();
         m_strategy_has_changed = true;
     } else {
         m_strategy_has_changed = false;
     }
 
-    if( fit_suite->getNumberOfIterations() == 0 )
+    if( fit_suite->numberOfIterations() == 0 )
         needs_update = true;  // first iteration
     if( fit_suite->isLastIteration() )
         needs_update = true; // last iteration
-    if( fit_suite->getNumberOfIterations() % m_update_every_nth == 0 )
+    if( fit_suite->numberOfIterations() % m_update_every_nth == 0 )
         needs_update = true; // every n'th iteration
 
     if(needs_update)

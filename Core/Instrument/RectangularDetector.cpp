@@ -302,14 +302,34 @@ std::string RectangularDetector::getAxisName(size_t index) const
     switch (index) {
     case 0:
         return BornAgain::U_AXIS_NAME;
-        break;
     case 1:
         return BornAgain::V_AXIS_NAME;
-        break;
     default:
         throw Exceptions::LogicErrorException(
             "RectangularDetector::getAxisName(size_t index) -> Error! index > 1");
     }
+}
+
+size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
+{
+    if (getDimension()!=2) return getTotalSize();
+    double alpha = beam.getAlpha();
+    double phi = beam.getPhi();
+    kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
+    kvector_t normal_unit = m_normal_to_detector.unit();
+    double kd = k_spec.dot(normal_unit);
+    if (kd<=0.0) return getTotalSize();
+    kvector_t k_orth = (k_spec/kd - normal_unit)*m_distance;
+    double u = k_orth.dot(m_u_unit) + m_u0;
+    double v = k_orth.dot(m_v_unit) + m_v0;
+    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    size_t u_index = u_axis.findIndex(u);
+    size_t v_index = v_axis.findIndex(v);
+    if (u_index < u_axis.getSize() && v_index < v_axis.getSize()) {
+        return getGlobalIndex(u_index, v_index);
+    }
+    return getTotalSize();
 }
 
 void RectangularDetector::swapContent(RectangularDetector& other)

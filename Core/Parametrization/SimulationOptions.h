@@ -59,8 +59,13 @@ public:
 
     double getDefaultVariability() const;
 
+    void setIncludeSpecular(bool include_specular) { m_include_specular = include_specular; }
+
+    bool includeSpecular() const { return m_include_specular; }
+
 private:
     bool m_mc_integration;
+    bool m_include_specular;
     size_t m_mc_points;
     ThreadInfo m_thread_info;
 };

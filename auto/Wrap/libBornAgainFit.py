@@ -1437,351 +1437,165 @@ class vector_string_t(_object):
 vector_string_t_swigregister = _libBornAgainFit.vector_string_t_swigregister
 vector_string_t_swigregister(vector_string_t)
 
-class Attributes(_object):
-    """
-
-
-    Attributes for a fit parameter. Currently, the only attribute is fixed/free.
-
-    C++ includes: Attributes.h
-
-    """
+class AttLimits(_object):
+    """Proxy of C++ AttLimits class."""
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Attributes, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AttLimits, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Attributes, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, AttLimits, name)
     __repr__ = _swig_repr
 
     def __init__(self):
-        """
-        __init__(Attributes self) -> Attributes
-
-        Attributes::Attributes()
-
-        """
-        this = _libBornAgainFit.new_Attributes()
+        """__init__(AttLimits self) -> AttLimits"""
+        this = _libBornAgainFit.new_AttLimits()
         try:
             self.this.append(this)
         except Exception:
             self.this = this
 
-    def fixed():
-        """fixed() -> Attributes"""
-        return _libBornAgainFit.Attributes_fixed()
+    def limitless():
+        """limitless() -> AttLimits"""
+        return _libBornAgainFit.AttLimits_limitless()
 
     if _newclass:
-        fixed = staticmethod(fixed)
-    __swig_getmethods__["fixed"] = lambda x: fixed
-
-    def free():
-        """free() -> Attributes"""
-        return _libBornAgainFit.Attributes_free()
-
-    if _newclass:
-        free = staticmethod(free)
-    __swig_getmethods__["free"] = lambda x: free
-
-    def setFixed(self, is_fixed):
-        """
-        setFixed(Attributes self, bool is_fixed)
-
-        void Attributes::setFixed(bool is_fixed)
-
-        """
-        return _libBornAgainFit.Attributes_setFixed(self, is_fixed)
-
-
-    def isFixed(self):
-        """
-        isFixed(Attributes self) -> bool
-
-        bool Attributes::isFixed() const 
-
-        """
-        return _libBornAgainFit.Attributes_isFixed(self)
-
-
-    def __eq__(self, other):
-        """__eq__(Attributes self, Attributes other) -> bool"""
-        return _libBornAgainFit.Attributes___eq__(self, other)
-
-
-    def __ne__(self, other):
-        """__ne__(Attributes self, Attributes other) -> bool"""
-        return _libBornAgainFit.Attributes___ne__(self, other)
-
-    __swig_destroy__ = _libBornAgainFit.delete_Attributes
-    __del__ = lambda self: None
-Attributes_swigregister = _libBornAgainFit.Attributes_swigregister
-Attributes_swigregister(Attributes)
-
-def Attributes_fixed():
-    """Attributes_fixed() -> Attributes"""
-    return _libBornAgainFit.Attributes_fixed()
-
-def Attributes_free():
-    """Attributes_free() -> Attributes"""
-    return _libBornAgainFit.Attributes_free()
-
-class RealLimits(_object):
-    """
-
-
-    Limits for a real fit parameter.
-
-    C++ includes: RealLimits.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, RealLimits, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, RealLimits, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(RealLimits self) -> RealLimits
-
-        RealLimits::RealLimits()
-
-        """
-        this = _libBornAgainFit.new_RealLimits()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def hasLowerLimit(self):
-        """
-        hasLowerLimit(RealLimits self) -> bool
-
-        bool RealLimits::hasLowerLimit() const
-
-        if has lower limit 
-
-        """
-        return _libBornAgainFit.RealLimits_hasLowerLimit(self)
-
-
-    def getLowerLimit(self):
-        """
-        getLowerLimit(RealLimits self) -> double
-
-        double RealLimits::getLowerLimit() const
-
-        Returns lower limit. 
-
-        """
-        return _libBornAgainFit.RealLimits_getLowerLimit(self)
-
-
-    def setLowerLimit(self, value):
-        """
-        setLowerLimit(RealLimits self, double value)
-
-        void RealLimits::setLowerLimit(double value)
-
-        Sets lower limit. 
-
-        """
-        return _libBornAgainFit.RealLimits_setLowerLimit(self, value)
-
-
-    def removeLowerLimit(self):
-        """
-        removeLowerLimit(RealLimits self)
-
-        void RealLimits::removeLowerLimit()
-
-        remove lower limit 
-
-        """
-        return _libBornAgainFit.RealLimits_removeLowerLimit(self)
-
-
-    def hasUpperLimit(self):
-        """
-        hasUpperLimit(RealLimits self) -> bool
-
-        bool RealLimits::hasUpperLimit() const
-
-        if has upper limit 
-
-        """
-        return _libBornAgainFit.RealLimits_hasUpperLimit(self)
-
-
-    def getUpperLimit(self):
-        """
-        getUpperLimit(RealLimits self) -> double
-
-        double RealLimits::getUpperLimit() const
-
-        Returns upper limit. 
-
-        """
-        return _libBornAgainFit.RealLimits_getUpperLimit(self)
-
-
-    def setUpperLimit(self, value):
-        """
-        setUpperLimit(RealLimits self, double value)
-
-        void RealLimits::setUpperLimit(double value)
-
-        Sets upper limit. 
-
-        """
-        return _libBornAgainFit.RealLimits_setUpperLimit(self, value)
-
-
-    def removeUpperLimit(self):
-        """
-        removeUpperLimit(RealLimits self)
-
-        void RealLimits::removeUpperLimit()
-
-        remove upper limit 
-
-        """
-        return _libBornAgainFit.RealLimits_removeUpperLimit(self)
-
-
-    def hasLowerAndUpperLimits(self):
-        """
-        hasLowerAndUpperLimits(RealLimits self) -> bool
-
-        bool RealLimits::hasLowerAndUpperLimits() const
-
-        if has lower and upper limit 
-
-        """
-        return _libBornAgainFit.RealLimits_hasLowerAndUpperLimits(self)
-
-
-    def setLimits(self, xmin, xmax):
-        """
-        setLimits(RealLimits self, double xmin, double xmax)
-
-        void RealLimits::setLimits(double xmin, double xmax)
-
-        Sets lower and upper limits. 
-
-        """
-        return _libBornAgainFit.RealLimits_setLimits(self, xmin, xmax)
-
-
-    def removeLimits(self):
-        """
-        removeLimits(RealLimits self)
-
-        void RealLimits::removeLimits()
-
-        remove limits 
-
-        """
-        return _libBornAgainFit.RealLimits_removeLimits(self)
-
-
-    def isInRange(self, value):
-        """
-        isInRange(RealLimits self, double value) -> bool
-
-        bool RealLimits::isInRange(double value) const
-
-        returns true if proposed value is in limits range 
-
-        """
-        return _libBornAgainFit.RealLimits_isInRange(self, value)
-
+        limitless = staticmethod(limitless)
+    __swig_getmethods__["limitless"] = lambda x: limitless
 
     def lowerLimited(bound_value):
-        """lowerLimited(double bound_value) -> RealLimits"""
-        return _libBornAgainFit.RealLimits_lowerLimited(bound_value)
+        """lowerLimited(double bound_value) -> AttLimits"""
+        return _libBornAgainFit.AttLimits_lowerLimited(bound_value)
 
     if _newclass:
         lowerLimited = staticmethod(lowerLimited)
     __swig_getmethods__["lowerLimited"] = lambda x: lowerLimited
 
     def positive():
-        """positive() -> RealLimits"""
-        return _libBornAgainFit.RealLimits_positive()
+        """positive() -> AttLimits"""
+        return _libBornAgainFit.AttLimits_positive()
 
     if _newclass:
         positive = staticmethod(positive)
     __swig_getmethods__["positive"] = lambda x: positive
 
     def nonnegative():
-        """nonnegative() -> RealLimits"""
-        return _libBornAgainFit.RealLimits_nonnegative()
+        """nonnegative() -> AttLimits"""
+        return _libBornAgainFit.AttLimits_nonnegative()
 
     if _newclass:
         nonnegative = staticmethod(nonnegative)
     __swig_getmethods__["nonnegative"] = lambda x: nonnegative
 
     def upperLimited(bound_value):
-        """upperLimited(double bound_value) -> RealLimits"""
-        return _libBornAgainFit.RealLimits_upperLimited(bound_value)
+        """upperLimited(double bound_value) -> AttLimits"""
+        return _libBornAgainFit.AttLimits_upperLimited(bound_value)
 
     if _newclass:
         upperLimited = staticmethod(upperLimited)
     __swig_getmethods__["upperLimited"] = lambda x: upperLimited
 
     def limited(left_bound_value, right_bound_value):
-        """limited(double left_bound_value, double right_bound_value) -> RealLimits"""
-        return _libBornAgainFit.RealLimits_limited(left_bound_value, right_bound_value)
+        """limited(double left_bound_value, double right_bound_value) -> AttLimits"""
+        return _libBornAgainFit.AttLimits_limited(left_bound_value, right_bound_value)
 
     if _newclass:
         limited = staticmethod(limited)
     __swig_getmethods__["limited"] = lambda x: limited
 
-    def limitless():
-        """limitless() -> RealLimits"""
-        return _libBornAgainFit.RealLimits_limitless()
+    def fixed():
+        """fixed() -> AttLimits"""
+        return _libBornAgainFit.AttLimits_fixed()
 
     if _newclass:
-        limitless = staticmethod(limitless)
-    __swig_getmethods__["limitless"] = lambda x: limitless
+        fixed = staticmethod(fixed)
+    __swig_getmethods__["fixed"] = lambda x: fixed
+
+    def isFixed(self):
+        """isFixed(AttLimits self) -> bool"""
+        return _libBornAgainFit.AttLimits_isFixed(self)
+
+
+    def isLimited(self):
+        """isLimited(AttLimits self) -> bool"""
+        return _libBornAgainFit.AttLimits_isLimited(self)
+
+
+    def isUpperLimited(self):
+        """isUpperLimited(AttLimits self) -> bool"""
+        return _libBornAgainFit.AttLimits_isUpperLimited(self)
+
+
+    def isLowerLimited(self):
+        """isLowerLimited(AttLimits self) -> bool"""
+        return _libBornAgainFit.AttLimits_isLowerLimited(self)
+
+
+    def isLimitless(self):
+        """isLimitless(AttLimits self) -> bool"""
+        return _libBornAgainFit.AttLimits_isLimitless(self)
+
+
+    def lowerLimit(self):
+        """lowerLimit(AttLimits self) -> double"""
+        return _libBornAgainFit.AttLimits_lowerLimit(self)
+
+
+    def upperLimit(self):
+        """upperLimit(AttLimits self) -> double"""
+        return _libBornAgainFit.AttLimits_upperLimit(self)
+
+
+    def setFixed(self, isFixed):
+        """setFixed(AttLimits self, bool isFixed)"""
+        return _libBornAgainFit.AttLimits_setFixed(self, isFixed)
+
 
     def __eq__(self, other):
-        """__eq__(RealLimits self, RealLimits other) -> bool"""
-        return _libBornAgainFit.RealLimits___eq__(self, other)
+        """__eq__(AttLimits self, AttLimits other) -> bool"""
+        return _libBornAgainFit.AttLimits___eq__(self, other)
 
 
     def __ne__(self, other):
-        """__ne__(RealLimits self, RealLimits other) -> bool"""
-        return _libBornAgainFit.RealLimits___ne__(self, other)
+        """__ne__(AttLimits self, AttLimits other) -> bool"""
+        return _libBornAgainFit.AttLimits___ne__(self, other)
 
-    __swig_destroy__ = _libBornAgainFit.delete_RealLimits
+
+    def toString(self):
+        """toString(AttLimits self) -> std::string"""
+        return _libBornAgainFit.AttLimits_toString(self)
+
+    __swig_destroy__ = _libBornAgainFit.delete_AttLimits
     __del__ = lambda self: None
-RealLimits_swigregister = _libBornAgainFit.RealLimits_swigregister
-RealLimits_swigregister(RealLimits)
+AttLimits_swigregister = _libBornAgainFit.AttLimits_swigregister
+AttLimits_swigregister(AttLimits)
 
-def RealLimits_lowerLimited(bound_value):
-    """RealLimits_lowerLimited(double bound_value) -> RealLimits"""
-    return _libBornAgainFit.RealLimits_lowerLimited(bound_value)
+def AttLimits_limitless():
+    """AttLimits_limitless() -> AttLimits"""
+    return _libBornAgainFit.AttLimits_limitless()
 
-def RealLimits_positive():
-    """RealLimits_positive() -> RealLimits"""
-    return _libBornAgainFit.RealLimits_positive()
+def AttLimits_lowerLimited(bound_value):
+    """AttLimits_lowerLimited(double bound_value) -> AttLimits"""
+    return _libBornAgainFit.AttLimits_lowerLimited(bound_value)
 
-def RealLimits_nonnegative():
-    """RealLimits_nonnegative() -> RealLimits"""
-    return _libBornAgainFit.RealLimits_nonnegative()
+def AttLimits_positive():
+    """AttLimits_positive() -> AttLimits"""
+    return _libBornAgainFit.AttLimits_positive()
 
-def RealLimits_upperLimited(bound_value):
-    """RealLimits_upperLimited(double bound_value) -> RealLimits"""
-    return _libBornAgainFit.RealLimits_upperLimited(bound_value)
+def AttLimits_nonnegative():
+    """AttLimits_nonnegative() -> AttLimits"""
+    return _libBornAgainFit.AttLimits_nonnegative()
 
-def RealLimits_limited(left_bound_value, right_bound_value):
-    """RealLimits_limited(double left_bound_value, double right_bound_value) -> RealLimits"""
-    return _libBornAgainFit.RealLimits_limited(left_bound_value, right_bound_value)
+def AttLimits_upperLimited(bound_value):
+    """AttLimits_upperLimited(double bound_value) -> AttLimits"""
+    return _libBornAgainFit.AttLimits_upperLimited(bound_value)
 
-def RealLimits_limitless():
-    """RealLimits_limitless() -> RealLimits"""
-    return _libBornAgainFit.RealLimits_limitless()
+def AttLimits_limited(left_bound_value, right_bound_value):
+    """AttLimits_limited(double left_bound_value, double right_bound_value) -> AttLimits"""
+    return _libBornAgainFit.AttLimits_limited(left_bound_value, right_bound_value)
+
+def AttLimits_fixed():
+    """AttLimits_fixed() -> AttLimits"""
+    return _libBornAgainFit.AttLimits_fixed()
 
 class IMinimizer(_object):
     """
@@ -1866,7 +1680,7 @@ class IMinimizer(_object):
         """
         setParameters(IMinimizer self, FitParameterSet parameters)
 
-        void IMinimizer::setParameters(const FitSuiteParameters &parameters)
+        void IMinimizer::setParameters(const FitParameterSet &parameters)
 
         Sets internal minimizer parameters using external parameter list. 
 
@@ -1875,7 +1689,12 @@ class IMinimizer(_object):
 
 
     def setObjectiveFunction(self, arg2):
-        """setObjectiveFunction(IMinimizer self, objective_function_t arg2)"""
+        """
+        setObjectiveFunction(IMinimizer self, objective_function_t arg2)
+
+        virtual void IMinimizer::setObjectiveFunction(objective_function_t)
+
+        """
         return _libBornAgainFit.IMinimizer_setObjectiveFunction(self, arg2)
 
 
@@ -1883,9 +1702,7 @@ class IMinimizer(_object):
         """
         setGradientFunction(IMinimizer self, gradient_function_t arg2, int arg3)
 
-        void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
-
-        Sets gradient function to minimize. 
+        virtual void IMinimizer::setGradientFunction(gradient_function_t, int)
 
         """
         return _libBornAgainFit.IMinimizer_setGradientFunction(self, arg2, arg3)
@@ -1919,7 +1736,7 @@ class IMinimizer(_object):
         """
         propagateResults(IMinimizer self, FitParameterSet parameters)
 
-        void IMinimizer::propagateResults(FitSuiteParameters &parameters)
+        void IMinimizer::propagateResults(FitParameterSet &parameters)
 
         Propagates results of minimization to fit parameter set. 
 
@@ -1929,7 +1746,28 @@ class IMinimizer(_object):
 IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
 IMinimizer_swigregister(IMinimizer)
 
-class FitParameter(RealLimits, Attributes):
+class IFitParameter(_object):
+    """Proxy of C++ IFitParameter class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IFitParameter, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IFitParameter, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainFit.delete_IFitParameter
+    __del__ = lambda self: None
+
+    def clone(self):
+        """clone(IFitParameter self) -> IFitParameter"""
+        return _libBornAgainFit.IFitParameter_clone(self)
+
+IFitParameter_swigregister = _libBornAgainFit.IFitParameter_swigregister
+IFitParameter_swigregister(IFitParameter)
+
+class FitParameter(IFitParameter):
     """
 
 
@@ -1940,11 +1778,11 @@ class FitParameter(RealLimits, Attributes):
     """
 
     __swig_setmethods__ = {}
-    for _s in [RealLimits, Attributes]:
+    for _s in [IFitParameter]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [RealLimits, Attributes]:
+    for _s in [IFitParameter]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
     __repr__ = _swig_repr
@@ -1952,10 +1790,8 @@ class FitParameter(RealLimits, Attributes):
     def __init__(self, *args):
         """
         __init__(FitParameter self) -> FitParameter
-        __init__(FitParameter self, std::string const & name, double value, double step=0.0, RealLimits limits, Attributes attr, double error=0.0) -> FitParameter
-        __init__(FitParameter self, std::string const & name, double value, double step=0.0, RealLimits limits, Attributes attr) -> FitParameter
-        __init__(FitParameter self, std::string const & name, double value, double step=0.0, RealLimits limits) -> FitParameter
-        __init__(FitParameter self, std::string const & name, double value, double step=0.0) -> FitParameter
+        __init__(FitParameter self, std::string const & name, double value, AttLimits limits, double step=0.0) -> FitParameter
+        __init__(FitParameter self, std::string const & name, double value, AttLimits limits) -> FitParameter
         __init__(FitParameter self, std::string const & name, double value) -> FitParameter
 
         FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
@@ -1969,24 +1805,24 @@ class FitParameter(RealLimits, Attributes):
     __swig_destroy__ = _libBornAgainFit.delete_FitParameter
     __del__ = lambda self: None
 
-    def getName(self):
-        """
-        getName(FitParameter self) -> std::string
-
-        std::string FitParameter::getName() const 
-
-        """
-        return _libBornAgainFit.FitParameter_getName(self)
+    def clone(self):
+        """clone(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_clone(self)
 
 
-    def getStartValue(self):
-        """
-        getStartValue(FitParameter self) -> double
+    def name(self):
+        """name(FitParameter self) -> std::string"""
+        return _libBornAgainFit.FitParameter_name(self)
 
-        virtual double FitParameter::getStartValue() const 
 
-        """
-        return _libBornAgainFit.FitParameter_getStartValue(self)
+    def startValue(self):
+        """startValue(FitParameter self) -> double"""
+        return _libBornAgainFit.FitParameter_startValue(self)
+
+
+    def value(self):
+        """value(FitParameter self) -> double"""
+        return _libBornAgainFit.FitParameter_value(self)
 
 
     def setValue(self, value):
@@ -1999,19 +1835,14 @@ class FitParameter(RealLimits, Attributes):
         return _libBornAgainFit.FitParameter_setValue(self, value)
 
 
-    def getValue(self):
-        """
-        getValue(FitParameter self) -> double
-
-        double FitParameter::getValue() const 
-
-        """
-        return _libBornAgainFit.FitParameter_getValue(self)
+    def step(self):
+        """step(FitParameter self) -> double"""
+        return _libBornAgainFit.FitParameter_step(self)
 
 
     def setStep(self, value):
         """
-        setStep(FitParameter self, double value)
+        setStep(FitParameter self, double value) -> FitParameter
 
         void FitParameter::setStep(double value)
 
@@ -2019,14 +1850,9 @@ class FitParameter(RealLimits, Attributes):
         return _libBornAgainFit.FitParameter_setStep(self, value)
 
 
-    def getStep(self):
-        """
-        getStep(FitParameter self) -> double
-
-        double FitParameter::getStep() const 
-
-        """
-        return _libBornAgainFit.FitParameter_getStep(self)
+    def error(self):
+        """error(FitParameter self) -> double"""
+        return _libBornAgainFit.FitParameter_error(self)
 
 
     def setError(self, value):
@@ -2039,30 +1865,65 @@ class FitParameter(RealLimits, Attributes):
         return _libBornAgainFit.FitParameter_setError(self, value)
 
 
-    def getError(self):
+    def limits(self, *args):
         """
-        getError(FitParameter self) -> double
-
-        double FitParameter::getError() const 
-
+        limits(FitParameter self) -> AttLimits
+        limits(FitParameter self) -> AttLimits
         """
-        return _libBornAgainFit.FitParameter_getError(self)
+        return _libBornAgainFit.FitParameter_limits(self, *args)
 
 
-    def limitsToString(self):
-        """
-        limitsToString(FitParameter self) -> std::string
+    def setLimits(self, limits):
+        """setLimits(FitParameter self, AttLimits limits) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setLimits(self, limits)
 
-        std::string FitParameter::limitsToString() const 
 
-        """
-        return _libBornAgainFit.FitParameter_limitsToString(self)
+    def setLowerLimited(self, bound_value):
+        """setLowerLimited(FitParameter self, double bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setLowerLimited(self, bound_value)
+
+
+    def setPositive(self):
+        """setPositive(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setPositive(self)
+
+
+    def setNonnegative(self):
+        """setNonnegative(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setNonnegative(self)
+
+
+    def setUpperLimited(self, bound_value):
+        """setUpperLimited(FitParameter self, double bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setUpperLimited(self, bound_value)
+
+
+    def setLimited(self, left_bound_value, right_bound_value):
+        """setLimited(FitParameter self, double left_bound_value, double right_bound_value) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setLimited(self, left_bound_value, right_bound_value)
+
+
+    def setFixed(self):
+        """setFixed(FitParameter self) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setFixed(self)
+
+
+    def toString(self):
+        """toString(FitParameter self) -> std::string"""
+        return _libBornAgainFit.FitParameter_toString(self)
 
 FitParameter_swigregister = _libBornAgainFit.FitParameter_swigregister
 FitParameter_swigregister(FitParameter)
 
 class FitParameterSet(_object):
-    """Proxy of C++ FitParameterSet class."""
+    """
+
+
+    The  FitParameterSet represents collection of fit parameters for the minimizer.
+
+    C++ includes: FitParameterSet.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameterSet, name, value)
@@ -2071,7 +1932,12 @@ class FitParameterSet(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(FitParameterSet self) -> FitParameterSet"""
+        """
+        __init__(FitParameterSet self) -> FitParameterSet
+
+        FitParameterSet::FitParameterSet()
+
+        """
         this = _libBornAgainFit.new_FitParameterSet()
         try:
             self.this.append(this)
@@ -2081,12 +1947,28 @@ class FitParameterSet(_object):
     __del__ = lambda self: None
 
     def clear(self):
-        """clear(FitParameterSet self)"""
+        """
+        clear(FitParameterSet self)
+
+        void FitParameterSet::clear()
+
+        container specific
+
+        Clears all defined parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_clear(self)
 
 
     def size(self):
-        """size(FitParameterSet self) -> size_t"""
+        """
+        size(FitParameterSet self) -> size_t
+
+        size_t FitParameterSet::size() const
+
+        Returns number of parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_size(self)
 
 
@@ -2094,6 +1976,9 @@ class FitParameterSet(_object):
         """
         begin(FitParameterSet self) -> FitParameterSet::iterator
         begin(FitParameterSet self) -> FitParameterSet::const_iterator
+
+        FitParameterSet::const_iterator FitParameterSet::begin() const 
+
         """
         return _libBornAgainFit.FitParameterSet_begin(self, *args)
 
@@ -2102,12 +1987,24 @@ class FitParameterSet(_object):
         """
         end(FitParameterSet self) -> FitParameterSet::iterator
         end(FitParameterSet self) -> FitParameterSet::const_iterator
+
+        FitParameterSet::const_iterator FitParameterSet::end() const 
+
         """
         return _libBornAgainFit.FitParameterSet_end(self, *args)
 
 
     def addFitParameter(self, par):
-        """addFitParameter(FitParameterSet self, FitParameter par)"""
+        """
+        addFitParameter(FitParameterSet self, FitParameter par)
+
+        void FitParameterSet::addFitParameter(FitParameter *par)
+
+        adding fit parameters
+
+        Adds fit parameter. 
+
+        """
         return _libBornAgainFit.FitParameterSet_addFitParameter(self, par)
 
 
@@ -2115,17 +2012,36 @@ class FitParameterSet(_object):
         """
         fitParameter(FitParameterSet self, std::string const & name) -> FitParameter
         fitParameter(FitParameterSet self, std::string const & name) -> FitParameter
+
+        FitParameter * FitParameterSet::fitParameter(const std::string &name)
+
         """
         return _libBornAgainFit.FitParameterSet_fitParameter(self, *args)
 
 
     def values(self):
-        """values(FitParameterSet self) -> vdouble1d_t"""
+        """
+        values(FitParameterSet self) -> vdouble1d_t
+
+        std::vector< double > FitParameterSet::values() const
+
+        fit parameter's values and errors
+
+        Returns values of all defined parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_values(self)
 
 
     def setValues(self, pars_values):
-        """setValues(FitParameterSet self, vdouble1d_t pars_values)"""
+        """
+        setValues(FitParameterSet self, vdouble1d_t pars_values)
+
+        void FitParameterSet::setValues(const std::vector< double > &pars_values)
+
+        Sets values for all defined parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_setValues(self, pars_values)
 
 
@@ -2133,62 +2049,140 @@ class FitParameterSet(_object):
         """
         valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values, double tolerance=2.0) -> bool
         valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values) -> bool
+
+        bool FitParameterSet::valuesDifferFrom(const std::vector< double > &par_values, double tolerance=2.0) const
+
+        Returns true if parameters already have the given values. 
+
         """
         return _libBornAgainFit.FitParameterSet_valuesDifferFrom(self, par_values, tolerance)
 
 
     def errors(self):
-        """errors(FitParameterSet self) -> vdouble1d_t"""
+        """
+        errors(FitParameterSet self) -> vdouble1d_t
+
+        std::vector< double > FitParameterSet::errors() const
+
+        Returns errors of all defined parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_errors(self)
 
 
     def setErrors(self, pars_errors):
-        """setErrors(FitParameterSet self, vdouble1d_t pars_errors)"""
+        """
+        setErrors(FitParameterSet self, vdouble1d_t pars_errors)
+
+        void FitParameterSet::setErrors(const std::vector< double > &pars_errors)
+
+        Sets errors to all parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_setErrors(self, pars_errors)
 
 
     def freeFitParameterCount(self):
-        """freeFitParameterCount(FitParameterSet self) -> size_t"""
+        """
+        freeFitParameterCount(FitParameterSet self) -> size_t
+
+        size_t FitParameterSet::freeFitParameterCount() const
+
+        Make parameters fixed and free.
+
+        Returns number of free parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_freeFitParameterCount(self)
 
 
     def fixAll(self):
-        """fixAll(FitParameterSet self)"""
+        """
+        fixAll(FitParameterSet self)
+
+        void FitParameterSet::fixAll()
+
+        Fix all parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_fixAll(self)
 
 
     def releaseAll(self):
-        """releaseAll(FitParameterSet self)"""
+        """
+        releaseAll(FitParameterSet self)
+
+        void FitParameterSet::releaseAll()
+
+        Release all parameters. 
+
+        """
         return _libBornAgainFit.FitParameterSet_releaseAll(self)
 
 
     def setFixed(self, pars, is_fixed):
-        """setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)"""
+        """
+        setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)
+
+        void FitParameterSet::setFixed(const std::vector< std::string > &pars, bool is_fixed)
+
+        Set fixed flag for parameters from the list. 
+
+        """
         return _libBornAgainFit.FitParameterSet_setFixed(self, pars, is_fixed)
 
 
     def parametersToString(self):
-        """parametersToString(FitParameterSet self) -> std::string"""
+        """
+        parametersToString(FitParameterSet self) -> std::string
+
+        std::string FitParameterSet::parametersToString() const
+
+        Printing and reporting. 
+
+        """
         return _libBornAgainFit.FitParameterSet_parametersToString(self)
 
 
     def reportResults(self):
-        """reportResults(FitParameterSet self) -> std::string"""
+        """
+        reportResults(FitParameterSet self) -> std::string
+
+        std::string FitParameterSet::reportResults() const 
+
+        """
         return _libBornAgainFit.FitParameterSet_reportResults(self)
 
 
     def correlationMatrix(self):
-        """correlationMatrix(FitParameterSet self) -> vdouble2d_t"""
+        """
+        correlationMatrix(FitParameterSet self) -> vdouble2d_t
+
+        corr_matrix_t FitParameterSet::correlationMatrix() const 
+
+        """
         return _libBornAgainFit.FitParameterSet_correlationMatrix(self)
 
 
     def setCorrelationMatrix(self, matrix):
-        """setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)"""
+        """
+        setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)
+
+        void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)
+
+        """
         return _libBornAgainFit.FitParameterSet_setCorrelationMatrix(self, matrix)
 
 
     def isExistingName(self, name):
-        """isExistingName(FitParameterSet self, std::string const & name) -> bool"""
+        """
+        isExistingName(FitParameterSet self, std::string const & name) -> bool
+
+        bool FitParameterSet::isExistingName(const std::string &name) const
+
+        Returns true if parameter with such name exists. 
+
+        """
         return _libBornAgainFit.FitParameterSet_isExistingName(self, name)
 
 

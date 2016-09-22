@@ -71,9 +71,9 @@ FitParameterSet::const_iterator FitParameterSet::end() const
 
 void FitParameterSet::addFitParameter(FitParameter *par)
 {
-    if(isExistingName(par->getName()))
+    if(isExistingName(par->name()))
         throw std::runtime_error("FitParameterSet::addFitParameter() -> Error. Parameter with "
-                                 "the name '"+par->getName()+"' already exist.");
+                                 "the name '"+par->name()+"' already exist.");
 
     for (auto fitPar: m_parameters)
         if(fitPar == par)
@@ -87,7 +87,7 @@ void FitParameterSet::addFitParameter(FitParameter *par)
 const FitParameter* FitParameterSet::fitParameter(const std::string& name) const
 {
     for (auto par: m_parameters)
-        if (par->getName() == name)
+        if (par->name() == name)
             return par;
     throw std::runtime_error("FitParameterSet::getFitParameter() -> "
                              "Error. No parameter with name '"+name+"'");
@@ -126,7 +126,7 @@ std::vector<double> FitParameterSet::values() const
 {
     std::vector<double> result;
     for (auto par: m_parameters)
-        result.push_back(par->getValue());
+        result.push_back(par->value());
     return result;
 }
 
@@ -140,10 +140,10 @@ void FitParameterSet::setValues(const std::vector<double>& pars_values)
     for (auto par: m_parameters) {
         if (std::isnan(pars_values[index]))
             throw std::runtime_error("FitParameterSet::setValues() -> Error."
-                                     " Attempt to set nan '"+par->getName() + std::string("'."));
+                                     " Attempt to set nan '"+par->name() + std::string("'."));
         if (std::isinf(pars_values[index]))
             throw std::runtime_error("FitParameterSet::setValues() -> Error. Attempt to set inf '"+
-                                      par->getName()  + std::string("'."));
+                                      par->name()  + std::string("'."));
         par->setValue(pars_values[index]);
         ++index;
     }
@@ -156,7 +156,7 @@ bool FitParameterSet::valuesDifferFrom(const std::vector<double> &pars_values, d
     check_array_size(pars_values);
 
     for (size_t i=0; i<m_parameters.size(); ++i)
-        if (MinimizerUtils::numbersDiffer(m_parameters[i]->getValue(), pars_values[i], tol))
+        if (MinimizerUtils::numbersDiffer(m_parameters[i]->value(), pars_values[i], tol))
             return true;
     return false;
 }
@@ -167,7 +167,7 @@ std::vector<double> FitParameterSet::errors() const
 {
     std::vector<double> result;
     for (auto par: m_parameters)
-        result.push_back(par->getError());
+        result.push_back(par->error());
     return result;
 }
 
@@ -187,7 +187,7 @@ size_t FitParameterSet::freeFitParameterCount() const
 {
     size_t result(0);
     for (auto par: m_parameters)
-        if (!par->isFixed())
+        if (!par->limits().isFixed())
             result++;
     return result;
 }
@@ -197,7 +197,7 @@ size_t FitParameterSet::freeFitParameterCount() const
 void FitParameterSet::fixAll()
 {
     for (auto par: m_parameters)
-        par->setFixed(true);
+        par->limits().setFixed(true);
 }
 
 //! Release all parameters.
@@ -205,7 +205,7 @@ void FitParameterSet::fixAll()
 void FitParameterSet::releaseAll()
 {
     for (auto par: m_parameters)
-        par->setFixed(false);
+        par->limits().setFixed(false);
 }
 
 //! Set fixed flag for parameters from the list.
@@ -213,7 +213,7 @@ void FitParameterSet::releaseAll()
 void FitParameterSet::setFixed(const std::vector<std::string>& pars, bool is_fixed)
 {
     for (auto par: pars)
-        fitParameter(par)->setFixed(is_fixed);
+        fitParameter(par)->limits().setFixed(is_fixed);
 }
 
 
@@ -223,7 +223,7 @@ std::string FitParameterSet::parametersToString() const
 
     int npar(0);
     for (auto par: m_parameters)
-        result << "   # "<< npar++ << " " << (*par) << "\n";
+        result << "   # "<< npar++ << " " << par->toString() << "\n";
 
     return result.str();
 }
@@ -248,7 +248,7 @@ void FitParameterSet::setCorrelationMatrix(const FitParameterSet::corr_matrix_t 
 bool FitParameterSet::isExistingName(const std::string &name) const
 {
     for (auto par: m_parameters)
-        if (par->getName() == name)
+        if (par->name() == name)
             return true;
 
     return false;

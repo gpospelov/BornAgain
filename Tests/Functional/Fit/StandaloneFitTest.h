@@ -17,6 +17,7 @@
 #define STANDALONEFITTEST_H
 
 #include "IMinimizerTest.h"
+#include "StandaloneFitPlan.h"
 
 //! @class StandaloneFitTest
 //! @ingroup standard_samples
@@ -28,6 +29,22 @@ public:
     StandaloneFitTest();
 
     bool runTest();
+
+    template<typename T>
+    void addTest(const std::string &minimizerName, const std::string &algorithmName);
+
+private:
+    bool runPlan(std::shared_ptr<StandaloneFitPlan> plan);
+
+    std::vector<std::shared_ptr<StandaloneFitPlan>> m_plans;
 };
+
+template<typename T>
+void StandaloneFitTest::addTest(const std::string &minimizerName, const std::string &algorithmName)
+{
+    m_plans.push_back(
+        std::shared_ptr<StandaloneFitPlan>(new StandaloneFitPlan(minimizerName, algorithmName, new T()))
+    );
+}
 
 #endif

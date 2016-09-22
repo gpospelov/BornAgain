@@ -78,6 +78,10 @@ class DrawObserver(ba.IFitObserver):
     and chi2 map will be shown for both datasets.
     """
     def __init__(self, draw_every_nth=10):
+        import matplotlib
+        from matplotlib import pyplot as plt
+        global matplotlib, plt
+
         ba.IFitObserver.__init__(self, draw_every_nth)
         self.fig = plt.figure(figsize=(12.8, 10.24))
         self.fig.canvas.draw()
@@ -94,7 +98,7 @@ class DrawObserver(ba.IFitObserver):
         plt.title(title)
 
     def plot_datasets(self, fit_suite, canvas):
-        for i_dataset in range(0, fit_suite.getNumberOfFitObjects()):
+        for i_dataset in range(0, fit_suite.numberOfFitObjects()):
             real_data = fit_suite.getRealData(i_dataset)
             simul_data = fit_suite.getSimulationData(i_dataset)
             chi2_map = fit_suite.getChiSquaredMap(i_dataset)
@@ -114,14 +118,12 @@ class DrawObserver(ba.IFitObserver):
         plt.subplot(canvas[6:])
         plt.axis('off')
         plt.text(0.01, 0.95, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.getNumberOfIterations(),
-                        fit_suite.getMinimizer().getMinimizerName()))
+                 format(fit_suite.numberOfIterations(),
+                        fit_suite.minimizer().minimizerName()))
         plt.text(0.01, 0.70, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.30 - i*0.3,
-                     '{:40.40s}: {:6.3f}'.format(fitpars[i].getName(),
-                                                 fitpars[i].getValue()))
+        for index, fitPar in enumerate(fit_suite.fitParameters()):
+            plt.text(0.01, 0.30 - index*0.3,
+                     '{:40.40s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
 
     def update(self, fit_suite):
         self.fig.clf()
@@ -162,21 +164,17 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter(
-        "*/HemiEllipsoid/RadiusX", 4.*nm, ba.RealLimits.limited(2., 10.))
-    fit_suite.addFitParameter(
-        "*/HemiEllipsoid/RadiusY", 6.*nm, ba.RealLimits.fixed())
-    fit_suite.addFitParameter(
-        "*/HemiEllipsoid/Height", 4.*nm, ba.RealLimits.limited(2., 10.))
+    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusX", 4.*nm).setLimited(2., 10.)
+    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusY", 6.*nm).setFixed()
+    fit_suite.addFitParameter("*/HemiEllipsoid/Height", 4.*nm).setLimited(2., 10.)
 
     # running fit
     fit_suite.runFit()
 
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

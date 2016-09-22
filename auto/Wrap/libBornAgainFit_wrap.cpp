@@ -3454,13 +3454,13 @@ namespace Swig {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_Attributes swig_types[0]
+#define SWIGTYPE_p_AttLimits swig_types[0]
 #define SWIGTYPE_p_FitParameter swig_types[1]
 #define SWIGTYPE_p_FitParameterSet swig_types[2]
-#define SWIGTYPE_p_IMinimizer swig_types[3]
-#define SWIGTYPE_p_MinimizerCatalogue swig_types[4]
-#define SWIGTYPE_p_MinimizerFactory swig_types[5]
-#define SWIGTYPE_p_RealLimits swig_types[6]
+#define SWIGTYPE_p_IFitParameter swig_types[3]
+#define SWIGTYPE_p_IMinimizer swig_types[4]
+#define SWIGTYPE_p_MinimizerCatalogue swig_types[5]
+#define SWIGTYPE_p_MinimizerFactory swig_types[6]
 #define SWIGTYPE_p_allocator_type swig_types[7]
 #define SWIGTYPE_p_char swig_types[8]
 #define SWIGTYPE_p_const_iterator swig_types[9]
@@ -6086,6 +6086,8 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include <numpy/arrayobject.h>
 
 
+#include "AttLimits.h"
+#include "IFitParameter.h"
 #include "FitParameter.h"
 #include "FitParameterSet.h"
 #include "IMinimizer.h"
@@ -18552,48 +18554,303 @@ SWIGINTERN PyObject *vector_string_t_swigregister(PyObject *SWIGUNUSEDPARM(self)
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_Attributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_AttLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *result = 0 ;
+  AttLimits *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)":new_Attributes")) SWIG_fail;
-  result = (Attributes *)new Attributes();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Attributes, SWIG_POINTER_NEW |  0 );
+  if (!PyArg_ParseTuple(args,(char *)":new_AttLimits")) SWIG_fail;
+  result = (AttLimits *)new AttLimits();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AttLimits, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes_fixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits_limitless(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes result;
+  AttLimits result;
   
-  if (!PyArg_ParseTuple(args,(char *)":Attributes_fixed")) SWIG_fail;
-  result = Attributes::fixed();
-  resultobj = SWIG_NewPointerObj((new Attributes(static_cast< const Attributes& >(result))), SWIGTYPE_p_Attributes, SWIG_POINTER_OWN |  0 );
+  if (!PyArg_ParseTuple(args,(char *)":AttLimits_limitless")) SWIG_fail;
+  result = AttLimits::limitless();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes_free(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits_lowerLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes result;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject * obj0 = 0 ;
+  AttLimits result;
   
-  if (!PyArg_ParseTuple(args,(char *)":Attributes_free")) SWIG_fail;
-  result = Attributes::free();
-  resultobj = SWIG_NewPointerObj((new Attributes(static_cast< const Attributes& >(result))), SWIGTYPE_p_Attributes, SWIG_POINTER_OWN |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_lowerLimited",&obj0)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "AttLimits_lowerLimited" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = AttLimits::lowerLimited(arg1);
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes_setFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits_positive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":AttLimits_positive")) SWIG_fail;
+  result = AttLimits::positive();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_nonnegative(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":AttLimits_nonnegative")) SWIG_fail;
+  result = AttLimits::nonnegative();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_upperLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject * obj0 = 0 ;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_upperLimited",&obj0)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "AttLimits_upperLimited" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = AttLimits::upperLimited(arg1);
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_limited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:AttLimits_limited",&obj0,&obj1)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "AttLimits_limited" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "AttLimits_limited" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = AttLimits::limited(arg1,arg2);
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_fixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":AttLimits_fixed")) SWIG_fail;
+  result = AttLimits::fixed();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isFixed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isFixed" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isFixed();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isLimited",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isLimited" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isLimited();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isUpperLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isUpperLimited",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isUpperLimited" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isUpperLimited();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isLowerLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isLowerLimited",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isLowerLimited" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isLowerLimited();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_isLimitless(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_isLimitless",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_isLimitless" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (bool)((AttLimits const *)arg1)->isLimitless();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_lowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_lowerLimit",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_lowerLimit" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (double)((AttLimits const *)arg1)->lowerLimit();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_upperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_upperLimit",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_upperLimit" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = (double)((AttLimits const *)arg1)->upperLimit();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AttLimits_setFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
   bool arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -18602,15 +18859,15 @@ SWIGINTERN PyObject *_wrap_Attributes_setFixed(PyObject *SWIGUNUSEDPARM(self), P
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Attributes_setFixed",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:AttLimits_setFixed",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes_setFixed" "', argument " "1"" of type '" "Attributes *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_setFixed" "', argument " "1"" of type '" "AttLimits *""'"); 
   }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
   ecode2 = SWIG_AsVal_bool(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Attributes_setFixed" "', argument " "2"" of type '" "bool""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "AttLimits_setFixed" "', argument " "2"" of type '" "bool""'");
   } 
   arg2 = static_cast< bool >(val2);
   (arg1)->setFixed(arg2);
@@ -18621,32 +18878,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes_isFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits___eq__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:Attributes_isFixed",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes_isFixed" "', argument " "1"" of type '" "Attributes const *""'"); 
-  }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
-  result = (bool)((Attributes const *)arg1)->isFixed();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Attributes___eq__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
-  Attributes *arg2 = 0 ;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  AttLimits *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -18655,21 +18890,21 @@ SWIGINTERN PyObject *_wrap_Attributes___eq__(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject * obj1 = 0 ;
   bool result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Attributes___eq__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:AttLimits___eq__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes___eq__" "', argument " "1"" of type '" "Attributes const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits___eq__" "', argument " "1"" of type '" "AttLimits const *""'"); 
   }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Attributes,  0  | 0);
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_AttLimits,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Attributes___eq__" "', argument " "2"" of type '" "Attributes const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AttLimits___eq__" "', argument " "2"" of type '" "AttLimits const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Attributes___eq__" "', argument " "2"" of type '" "Attributes const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AttLimits___eq__" "', argument " "2"" of type '" "AttLimits const &""'"); 
   }
-  arg2 = reinterpret_cast< Attributes * >(argp2);
-  result = (bool)((Attributes const *)arg1)->operator ==((Attributes const &)*arg2);
+  arg2 = reinterpret_cast< AttLimits * >(argp2);
+  result = (bool)((AttLimits const *)arg1)->operator ==((AttLimits const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -18677,10 +18912,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Attributes___ne__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits___ne__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
-  Attributes *arg2 = 0 ;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  AttLimits *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -18689,21 +18924,21 @@ SWIGINTERN PyObject *_wrap_Attributes___ne__(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject * obj1 = 0 ;
   bool result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Attributes___ne__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:AttLimits___ne__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Attributes___ne__" "', argument " "1"" of type '" "Attributes const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits___ne__" "', argument " "1"" of type '" "AttLimits const *""'"); 
   }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Attributes,  0  | 0);
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_AttLimits,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Attributes___ne__" "', argument " "2"" of type '" "Attributes const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AttLimits___ne__" "', argument " "2"" of type '" "AttLimits const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Attributes___ne__" "', argument " "2"" of type '" "Attributes const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AttLimits___ne__" "', argument " "2"" of type '" "AttLimits const &""'"); 
   }
-  arg2 = reinterpret_cast< Attributes * >(argp2);
-  result = (bool)((Attributes const *)arg1)->operator !=((Attributes const &)*arg2);
+  arg2 = reinterpret_cast< AttLimits * >(argp2);
+  result = (bool)((AttLimits const *)arg1)->operator !=((AttLimits const &)*arg2);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -18711,19 +18946,41 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_Attributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_AttLimits_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Attributes *arg1 = (Attributes *) 0 ;
+  AttLimits *arg1 = (AttLimits *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:AttLimits_toString",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AttLimits_toString" "', argument " "1"" of type '" "AttLimits const *""'"); 
+  }
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
+  result = ((AttLimits const *)arg1)->toString();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_AttLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  AttLimits *arg1 = (AttLimits *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_Attributes",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Attributes, SWIG_POINTER_DISOWN |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_AttLimits",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_AttLimits, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Attributes" "', argument " "1"" of type '" "Attributes *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_AttLimits" "', argument " "1"" of type '" "AttLimits *""'"); 
   }
-  arg1 = reinterpret_cast< Attributes * >(argp1);
+  arg1 = reinterpret_cast< AttLimits * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -18732,536 +18989,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *Attributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *AttLimits_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_Attributes, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_new_RealLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)":new_RealLimits")) SWIG_fail;
-  result = (RealLimits *)new RealLimits();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RealLimits, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_hasLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_hasLowerLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_hasLowerLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (bool)((RealLimits const *)arg1)->hasLowerLimit();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_getLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_getLowerLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_getLowerLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (double)((RealLimits const *)arg1)->getLowerLimit();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_setLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits_setLowerLimit",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_setLowerLimit" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_setLowerLimit" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setLowerLimit(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_removeLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_removeLowerLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_removeLowerLimit" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  (arg1)->removeLowerLimit();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_hasUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_hasUpperLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_hasUpperLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (bool)((RealLimits const *)arg1)->hasUpperLimit();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_getUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  double result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_getUpperLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_getUpperLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (double)((RealLimits const *)arg1)->getUpperLimit();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_setUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits_setUpperLimit",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_setUpperLimit" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_setUpperLimit" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setUpperLimit(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_removeUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_removeUpperLimit",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_removeUpperLimit" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  (arg1)->removeUpperLimit();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_hasLowerAndUpperLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_hasLowerAndUpperLimits",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_hasLowerAndUpperLimits" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (bool)((RealLimits const *)arg1)->hasLowerAndUpperLimits();
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_setLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  double arg2 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:RealLimits_setLimits",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_setLimits" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_setLimits" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "RealLimits_setLimits" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  (arg1)->setLimits(arg2,arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_removeLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_removeLimits",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_removeLimits" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  (arg1)->removeLimits();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_isInRange(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits_isInRange",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_isInRange" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_isInRange" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (bool)((RealLimits const *)arg1)->isInRange(arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_lowerLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject * obj0 = 0 ;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_lowerLimited",&obj0)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "RealLimits_lowerLimited" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = RealLimits::lowerLimited(arg1);
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_positive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)":RealLimits_positive")) SWIG_fail;
-  result = RealLimits::positive();
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_nonnegative(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)":RealLimits_nonnegative")) SWIG_fail;
-  result = RealLimits::nonnegative();
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_upperLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject * obj0 = 0 ;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_upperLimited",&obj0)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "RealLimits_upperLimited" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = RealLimits::upperLimited(arg1);
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_limited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits_limited",&obj0,&obj1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(obj0, &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "RealLimits_limited" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "RealLimits_limited" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = RealLimits::limited(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits_limitless(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits result;
-  
-  if (!PyArg_ParseTuple(args,(char *)":RealLimits_limitless")) SWIG_fail;
-  result = RealLimits::limitless();
-  resultobj = SWIG_NewPointerObj((new RealLimits(static_cast< const RealLimits& >(result))), SWIGTYPE_p_RealLimits, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits___eq__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  RealLimits *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits___eq__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits___eq__" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_RealLimits,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RealLimits___eq__" "', argument " "2"" of type '" "RealLimits const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RealLimits___eq__" "', argument " "2"" of type '" "RealLimits const &""'"); 
-  }
-  arg2 = reinterpret_cast< RealLimits * >(argp2);
-  result = (bool)((RealLimits const *)arg1)->operator ==((RealLimits const &)*arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_RealLimits___ne__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  RealLimits *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  bool result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:RealLimits___ne__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits___ne__" "', argument " "1"" of type '" "RealLimits const *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_RealLimits,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RealLimits___ne__" "', argument " "2"" of type '" "RealLimits const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RealLimits___ne__" "', argument " "2"" of type '" "RealLimits const &""'"); 
-  }
-  arg2 = reinterpret_cast< RealLimits * >(argp2);
-  result = (bool)((RealLimits const *)arg1)->operator !=((RealLimits const &)*arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_RealLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  RealLimits *arg1 = (RealLimits *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_RealLimits",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_RealLimits" "', argument " "1"" of type '" "RealLimits *""'"); 
-  }
-  arg1 = reinterpret_cast< RealLimits * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *RealLimits_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_RealLimits, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_AttLimits, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -19587,6 +19318,56 @@ SWIGINTERN PyObject *IMinimizer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyO
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_delete_IFitParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IFitParameter *arg1 = (IFitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_IFitParameter",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitParameter, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IFitParameter" "', argument " "1"" of type '" "IFitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< IFitParameter * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IFitParameter_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IFitParameter *arg1 = (IFitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  IFitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IFitParameter_clone",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitParameter_clone" "', argument " "1"" of type '" "IFitParameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< IFitParameter * >(argp1);
+  result = (IFitParameter *)((IFitParameter const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *IFitParameter_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_IFitParameter, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitParameter *result = 0 ;
@@ -19604,166 +19385,15 @@ SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_1(PyObject *SWIGUNUSEDPARM(sel
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   double arg2 ;
-  double arg3 ;
-  RealLimits *arg4 = 0 ;
-  Attributes *arg5 = 0 ;
-  double arg6 ;
+  AttLimits *arg3 = 0 ;
+  double arg4 ;
   int res1 = SWIG_OLDOBJ ;
   double val2 ;
   int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
-  void *argp5 = 0 ;
-  int res5 = 0 ;
-  double val6 ;
-  int ecode6 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
-  PyObject * obj4 = 0 ;
-  PyObject * obj5 = 0 ;
-  FitParameter *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:new_FitParameter",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "RealLimits const &""'"); 
-  }
-  if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "4"" of type '" "RealLimits const &""'"); 
-  }
-  arg4 = reinterpret_cast< RealLimits * >(argp4);
-  res5 = SWIG_ConvertPtr(obj4, &argp5, SWIGTYPE_p_Attributes,  0  | 0);
-  if (!SWIG_IsOK(res5)) {
-    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "new_FitParameter" "', argument " "5"" of type '" "Attributes const &""'"); 
-  }
-  if (!argp5) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "5"" of type '" "Attributes const &""'"); 
-  }
-  arg5 = reinterpret_cast< Attributes * >(argp5);
-  ecode6 = SWIG_AsVal_double(obj5, &val6);
-  if (!SWIG_IsOK(ecode6)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "new_FitParameter" "', argument " "6"" of type '" "double""'");
-  } 
-  arg6 = static_cast< double >(val6);
-  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,arg3,(RealLimits const &)*arg4,(Attributes const &)*arg5,arg6);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  double arg2 ;
-  double arg3 ;
-  RealLimits *arg4 = 0 ;
-  Attributes *arg5 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
-  void *argp5 = 0 ;
-  int res5 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
-  PyObject * obj4 = 0 ;
-  FitParameter *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOOOO:new_FitParameter",&obj0,&obj1,&obj2,&obj3,&obj4)) SWIG_fail;
-  {
-    std::string *ptr = (std::string *)0;
-    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "1"" of type '" "std::string const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  ecode2 = SWIG_AsVal_double(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "RealLimits const &""'"); 
-  }
-  if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "4"" of type '" "RealLimits const &""'"); 
-  }
-  arg4 = reinterpret_cast< RealLimits * >(argp4);
-  res5 = SWIG_ConvertPtr(obj4, &argp5, SWIGTYPE_p_Attributes,  0  | 0);
-  if (!SWIG_IsOK(res5)) {
-    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "new_FitParameter" "', argument " "5"" of type '" "Attributes const &""'"); 
-  }
-  if (!argp5) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "5"" of type '" "Attributes const &""'"); 
-  }
-  arg5 = reinterpret_cast< Attributes * >(argp5);
-  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,arg3,(RealLimits const &)*arg4,(Attributes const &)*arg5);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::string *arg1 = 0 ;
-  double arg2 ;
-  double arg3 ;
-  RealLimits *arg4 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
@@ -19787,20 +19417,20 @@ SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_3(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "double""'");
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "3"" of type '" "AttLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< AttLimits * >(argp3);
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "double""'");
   } 
-  arg3 = static_cast< double >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_RealLimits,  0  | 0);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "new_FitParameter" "', argument " "4"" of type '" "RealLimits const &""'"); 
-  }
-  if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "4"" of type '" "RealLimits const &""'"); 
-  }
-  arg4 = reinterpret_cast< RealLimits * >(argp4);
-  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,arg3,(RealLimits const &)*arg4);
+  arg4 = static_cast< double >(val4);
+  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,(AttLimits const &)*arg3,arg4);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -19810,16 +19440,16 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_4(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   double arg2 ;
-  double arg3 ;
+  AttLimits *arg3 = 0 ;
   int res1 = SWIG_OLDOBJ ;
   double val2 ;
   int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
@@ -19842,12 +19472,15 @@ SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_4(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_FitParameter" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(obj2, &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,arg3);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_FitParameter" "', argument " "3"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FitParameter" "', argument " "3"" of type '" "AttLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< AttLimits * >(argp3);
+  result = (FitParameter *)new FitParameter((std::string const &)*arg1,arg2,(AttLimits const &)*arg3);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, SWIG_POINTER_NEW |  0 );
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
@@ -19857,7 +19490,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_5(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_FitParameter__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
   double arg2 ;
@@ -19897,14 +19530,14 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_FitParameter(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[7] = {
+  PyObject *argv[5] = {
     0
   };
   Py_ssize_t ii;
   
   if (!PyTuple_Check(args)) SWIG_fail;
   argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 6) && (ii < argc); ii++) {
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
   }
   if (argc == 0) {
@@ -19920,7 +19553,7 @@ SWIGINTERN PyObject *_wrap_new_FitParameter(PyObject *self, PyObject *args) {
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_new_FitParameter__SWIG_5(self, args);
+        return _wrap_new_FitParameter__SWIG_3(self, args);
       }
     }
   }
@@ -19934,12 +19567,10 @@ SWIGINTERN PyObject *_wrap_new_FitParameter(PyObject *self, PyObject *args) {
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_AttLimits, 0);
+        _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_new_FitParameter__SWIG_4(self, args);
+          return _wrap_new_FitParameter__SWIG_2(self, args);
         }
       }
     }
@@ -19954,77 +19585,15 @@ SWIGINTERN PyObject *_wrap_new_FitParameter(PyObject *self, PyObject *args) {
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, 0);
-          _v = SWIG_CheckState(res);
-          if (_v) {
-            return _wrap_new_FitParameter__SWIG_3(self, args);
-          }
-        }
-      }
-    }
-  }
-  if (argc == 5) {
-    int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_AttLimits, 0);
         _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
         if (_v) {
-          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, 0);
-          _v = SWIG_CheckState(res);
-          if (_v) {
-            int res = SWIG_ConvertPtr(argv[4], 0, SWIGTYPE_p_Attributes, 0);
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
             _v = SWIG_CheckState(res);
-            if (_v) {
-              return _wrap_new_FitParameter__SWIG_2(self, args);
-            }
           }
-        }
-      }
-    }
-  }
-  if (argc == 6) {
-    int _v;
-    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_RealLimits, 0);
-          _v = SWIG_CheckState(res);
           if (_v) {
-            int res = SWIG_ConvertPtr(argv[4], 0, SWIGTYPE_p_Attributes, 0);
-            _v = SWIG_CheckState(res);
-            if (_v) {
-              {
-                int res = SWIG_AsVal_double(argv[5], NULL);
-                _v = SWIG_CheckState(res);
-              }
-              if (_v) {
-                return _wrap_new_FitParameter__SWIG_1(self, args);
-              }
-            }
+            return _wrap_new_FitParameter__SWIG_1(self, args);
           }
         }
       }
@@ -20035,10 +19604,8 @@ fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_FitParameter'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    FitParameter::FitParameter()\n"
-    "    FitParameter::FitParameter(std::string const &,double,double,RealLimits const &,Attributes const &,double)\n"
-    "    FitParameter::FitParameter(std::string const &,double,double,RealLimits const &,Attributes const &)\n"
-    "    FitParameter::FitParameter(std::string const &,double,double,RealLimits const &)\n"
-    "    FitParameter::FitParameter(std::string const &,double,double)\n"
+    "    FitParameter::FitParameter(std::string const &,double,AttLimits const &,double)\n"
+    "    FitParameter::FitParameter(std::string const &,double,AttLimits const &)\n"
     "    FitParameter::FitParameter(std::string const &,double)\n");
   return 0;
 }
@@ -20065,7 +19632,29 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitParameter_getName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameter_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_clone",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_clone" "', argument " "1"" of type '" "FitParameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  result = (FitParameter *)((FitParameter const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitParameter *arg1 = (FitParameter *) 0 ;
   void *argp1 = 0 ;
@@ -20073,13 +19662,13 @@ SWIGINTERN PyObject *_wrap_FitParameter_getName(PyObject *SWIGUNUSEDPARM(self), 
   PyObject * obj0 = 0 ;
   std::string result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getName",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_name",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getName" "', argument " "1"" of type '" "FitParameter const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_name" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = ((FitParameter const *)arg1)->getName();
+  result = ((FitParameter const *)arg1)->name();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -20087,7 +19676,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitParameter_getStartValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameter_startValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitParameter *arg1 = (FitParameter *) 0 ;
   void *argp1 = 0 ;
@@ -20095,13 +19684,35 @@ SWIGINTERN PyObject *_wrap_FitParameter_getStartValue(PyObject *SWIGUNUSEDPARM(s
   PyObject * obj0 = 0 ;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getStartValue",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_startValue",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getStartValue" "', argument " "1"" of type '" "FitParameter const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_startValue" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = (double)((FitParameter const *)arg1)->getStartValue();
+  result = (double)((FitParameter const *)arg1)->startValue();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_value",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_value" "', argument " "1"" of type '" "FitParameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  result = (double)((FitParameter const *)arg1)->value();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20139,7 +19750,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitParameter_getValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameter_step(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitParameter *arg1 = (FitParameter *) 0 ;
   void *argp1 = 0 ;
@@ -20147,13 +19758,13 @@ SWIGINTERN PyObject *_wrap_FitParameter_getValue(PyObject *SWIGUNUSEDPARM(self),
   PyObject * obj0 = 0 ;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getValue",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_step",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getValue" "', argument " "1"" of type '" "FitParameter const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_step" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = (double)((FitParameter const *)arg1)->getValue();
+  result = (double)((FitParameter const *)arg1)->step();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20171,6 +19782,7 @@ SWIGINTERN PyObject *_wrap_FitParameter_setStep(PyObject *SWIGUNUSEDPARM(self), 
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
+  FitParameter *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:FitParameter_setStep",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
@@ -20183,15 +19795,15 @@ SWIGINTERN PyObject *_wrap_FitParameter_setStep(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitParameter_setStep" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  (arg1)->setStep(arg2);
-  resultobj = SWIG_Py_Void();
+  result = (FitParameter *) &(arg1)->setStep(arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitParameter_getStep(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameter_error(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitParameter *arg1 = (FitParameter *) 0 ;
   void *argp1 = 0 ;
@@ -20199,13 +19811,13 @@ SWIGINTERN PyObject *_wrap_FitParameter_getStep(PyObject *SWIGUNUSEDPARM(self), 
   PyObject * obj0 = 0 ;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getStep",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_error",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getStep" "', argument " "1"" of type '" "FitParameter const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_error" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = (double)((FitParameter const *)arg1)->getStep();
+  result = (double)((FitParameter const *)arg1)->error();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -20243,29 +19855,293 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FitParameter_getError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameter_limits__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitParameter *arg1 = (FitParameter *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  double result;
+  AttLimits *result = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_getError",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_limits",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_getError" "', argument " "1"" of type '" "FitParameter const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_limits" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = (double)((FitParameter const *)arg1)->getError();
-  resultobj = SWIG_From_double(static_cast< double >(result));
+  result = (AttLimits *) &((FitParameter const *)arg1)->limits();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AttLimits, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_FitParameter_limitsToString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FitParameter_limits__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  AttLimits *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_limits",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_limits" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  result = (AttLimits *) &(arg1)->limits();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_AttLimits, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_limits(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameter, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_FitParameter_limits__SWIG_1(self, args);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_FitParameter, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_FitParameter_limits__SWIG_0(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'FitParameter_limits'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    FitParameter::limits() const\n"
+    "    FitParameter::limits()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_setLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  AttLimits *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameter_setLimits",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_setLimits" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitParameter_setLimits" "', argument " "2"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitParameter_setLimits" "', argument " "2"" of type '" "AttLimits const &""'"); 
+  }
+  arg2 = reinterpret_cast< AttLimits * >(argp2);
+  result = (FitParameter *) &(arg1)->setLimits((AttLimits const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_setLowerLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameter_setLowerLimited",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_setLowerLimited" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitParameter_setLowerLimited" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (FitParameter *) &(arg1)->setLowerLimited(arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_setPositive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_setPositive",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_setPositive" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  result = (FitParameter *) &(arg1)->setPositive();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_setNonnegative(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_setNonnegative",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_setNonnegative" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  result = (FitParameter *) &(arg1)->setNonnegative();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_setUpperLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:FitParameter_setUpperLimited",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_setUpperLimited" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitParameter_setUpperLimited" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (FitParameter *) &(arg1)->setUpperLimited(arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_setLimited(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  double arg2 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:FitParameter_setLimited",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_setLimited" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitParameter_setLimited" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FitParameter_setLimited" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (FitParameter *) &(arg1)->setLimited(arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_setFixed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameter *arg1 = (FitParameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  FitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_setFixed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_setFixed" "', argument " "1"" of type '" "FitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameter * >(argp1);
+  result = (FitParameter *) &(arg1)->setFixed();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitParameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitParameter_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitParameter *arg1 = (FitParameter *) 0 ;
   void *argp1 = 0 ;
@@ -20273,13 +20149,13 @@ SWIGINTERN PyObject *_wrap_FitParameter_limitsToString(PyObject *SWIGUNUSEDPARM(
   PyObject * obj0 = 0 ;
   std::string result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_limitsToString",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameter_toString",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameter, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_limitsToString" "', argument " "1"" of type '" "FitParameter const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameter_toString" "', argument " "1"" of type '" "FitParameter const *""'"); 
   }
   arg1 = reinterpret_cast< FitParameter * >(argp1);
-  result = ((FitParameter const *)arg1)->limitsToString();
+  result = ((FitParameter const *)arg1)->toString();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -22162,142 +22038,27 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"vector_string_t_capacity", _wrap_vector_string_t_capacity, METH_VARARGS, (char *)"vector_string_t_capacity(vector_string_t self) -> std::vector< std::string >::size_type"},
 	 { (char *)"delete_vector_string_t", _wrap_delete_vector_string_t, METH_VARARGS, (char *)"delete_vector_string_t(vector_string_t self)"},
 	 { (char *)"vector_string_t_swigregister", vector_string_t_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_Attributes", _wrap_new_Attributes, METH_VARARGS, (char *)"\n"
-		"new_Attributes() -> Attributes\n"
-		"\n"
-		"Attributes::Attributes()\n"
-		"\n"
-		""},
-	 { (char *)"Attributes_fixed", _wrap_Attributes_fixed, METH_VARARGS, (char *)"Attributes_fixed() -> Attributes"},
-	 { (char *)"Attributes_free", _wrap_Attributes_free, METH_VARARGS, (char *)"Attributes_free() -> Attributes"},
-	 { (char *)"Attributes_setFixed", _wrap_Attributes_setFixed, METH_VARARGS, (char *)"\n"
-		"Attributes_setFixed(Attributes self, bool is_fixed)\n"
-		"\n"
-		"void Attributes::setFixed(bool is_fixed)\n"
-		"\n"
-		""},
-	 { (char *)"Attributes_isFixed", _wrap_Attributes_isFixed, METH_VARARGS, (char *)"\n"
-		"Attributes_isFixed(Attributes self) -> bool\n"
-		"\n"
-		"bool Attributes::isFixed() const \n"
-		"\n"
-		""},
-	 { (char *)"Attributes___eq__", _wrap_Attributes___eq__, METH_VARARGS, (char *)"Attributes___eq__(Attributes self, Attributes other) -> bool"},
-	 { (char *)"Attributes___ne__", _wrap_Attributes___ne__, METH_VARARGS, (char *)"Attributes___ne__(Attributes self, Attributes other) -> bool"},
-	 { (char *)"delete_Attributes", _wrap_delete_Attributes, METH_VARARGS, (char *)"delete_Attributes(Attributes self)"},
-	 { (char *)"Attributes_swigregister", Attributes_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_RealLimits", _wrap_new_RealLimits, METH_VARARGS, (char *)"\n"
-		"new_RealLimits() -> RealLimits\n"
-		"\n"
-		"RealLimits::RealLimits()\n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_hasLowerLimit", _wrap_RealLimits_hasLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_hasLowerLimit(RealLimits self) -> bool\n"
-		"\n"
-		"bool RealLimits::hasLowerLimit() const\n"
-		"\n"
-		"if has lower limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_getLowerLimit", _wrap_RealLimits_getLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_getLowerLimit(RealLimits self) -> double\n"
-		"\n"
-		"double RealLimits::getLowerLimit() const\n"
-		"\n"
-		"Returns lower limit. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_setLowerLimit", _wrap_RealLimits_setLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_setLowerLimit(RealLimits self, double value)\n"
-		"\n"
-		"void RealLimits::setLowerLimit(double value)\n"
-		"\n"
-		"Sets lower limit. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_removeLowerLimit", _wrap_RealLimits_removeLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_removeLowerLimit(RealLimits self)\n"
-		"\n"
-		"void RealLimits::removeLowerLimit()\n"
-		"\n"
-		"remove lower limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_hasUpperLimit", _wrap_RealLimits_hasUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_hasUpperLimit(RealLimits self) -> bool\n"
-		"\n"
-		"bool RealLimits::hasUpperLimit() const\n"
-		"\n"
-		"if has upper limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_getUpperLimit", _wrap_RealLimits_getUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_getUpperLimit(RealLimits self) -> double\n"
-		"\n"
-		"double RealLimits::getUpperLimit() const\n"
-		"\n"
-		"Returns upper limit. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_setUpperLimit", _wrap_RealLimits_setUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_setUpperLimit(RealLimits self, double value)\n"
-		"\n"
-		"void RealLimits::setUpperLimit(double value)\n"
-		"\n"
-		"Sets upper limit. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_removeUpperLimit", _wrap_RealLimits_removeUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_removeUpperLimit(RealLimits self)\n"
-		"\n"
-		"void RealLimits::removeUpperLimit()\n"
-		"\n"
-		"remove upper limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_hasLowerAndUpperLimits", _wrap_RealLimits_hasLowerAndUpperLimits, METH_VARARGS, (char *)"\n"
-		"RealLimits_hasLowerAndUpperLimits(RealLimits self) -> bool\n"
-		"\n"
-		"bool RealLimits::hasLowerAndUpperLimits() const\n"
-		"\n"
-		"if has lower and upper limit \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_setLimits", _wrap_RealLimits_setLimits, METH_VARARGS, (char *)"\n"
-		"RealLimits_setLimits(RealLimits self, double xmin, double xmax)\n"
-		"\n"
-		"void RealLimits::setLimits(double xmin, double xmax)\n"
-		"\n"
-		"Sets lower and upper limits. \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_removeLimits", _wrap_RealLimits_removeLimits, METH_VARARGS, (char *)"\n"
-		"RealLimits_removeLimits(RealLimits self)\n"
-		"\n"
-		"void RealLimits::removeLimits()\n"
-		"\n"
-		"remove limits \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_isInRange", _wrap_RealLimits_isInRange, METH_VARARGS, (char *)"\n"
-		"RealLimits_isInRange(RealLimits self, double value) -> bool\n"
-		"\n"
-		"bool RealLimits::isInRange(double value) const\n"
-		"\n"
-		"returns true if proposed value is in limits range \n"
-		"\n"
-		""},
-	 { (char *)"RealLimits_lowerLimited", _wrap_RealLimits_lowerLimited, METH_VARARGS, (char *)"RealLimits_lowerLimited(double bound_value) -> RealLimits"},
-	 { (char *)"RealLimits_positive", _wrap_RealLimits_positive, METH_VARARGS, (char *)"RealLimits_positive() -> RealLimits"},
-	 { (char *)"RealLimits_nonnegative", _wrap_RealLimits_nonnegative, METH_VARARGS, (char *)"RealLimits_nonnegative() -> RealLimits"},
-	 { (char *)"RealLimits_upperLimited", _wrap_RealLimits_upperLimited, METH_VARARGS, (char *)"RealLimits_upperLimited(double bound_value) -> RealLimits"},
-	 { (char *)"RealLimits_limited", _wrap_RealLimits_limited, METH_VARARGS, (char *)"RealLimits_limited(double left_bound_value, double right_bound_value) -> RealLimits"},
-	 { (char *)"RealLimits_limitless", _wrap_RealLimits_limitless, METH_VARARGS, (char *)"RealLimits_limitless() -> RealLimits"},
-	 { (char *)"RealLimits___eq__", _wrap_RealLimits___eq__, METH_VARARGS, (char *)"RealLimits___eq__(RealLimits self, RealLimits other) -> bool"},
-	 { (char *)"RealLimits___ne__", _wrap_RealLimits___ne__, METH_VARARGS, (char *)"RealLimits___ne__(RealLimits self, RealLimits other) -> bool"},
-	 { (char *)"delete_RealLimits", _wrap_delete_RealLimits, METH_VARARGS, (char *)"delete_RealLimits(RealLimits self)"},
-	 { (char *)"RealLimits_swigregister", RealLimits_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_AttLimits", _wrap_new_AttLimits, METH_VARARGS, (char *)"new_AttLimits() -> AttLimits"},
+	 { (char *)"AttLimits_limitless", _wrap_AttLimits_limitless, METH_VARARGS, (char *)"AttLimits_limitless() -> AttLimits"},
+	 { (char *)"AttLimits_lowerLimited", _wrap_AttLimits_lowerLimited, METH_VARARGS, (char *)"AttLimits_lowerLimited(double bound_value) -> AttLimits"},
+	 { (char *)"AttLimits_positive", _wrap_AttLimits_positive, METH_VARARGS, (char *)"AttLimits_positive() -> AttLimits"},
+	 { (char *)"AttLimits_nonnegative", _wrap_AttLimits_nonnegative, METH_VARARGS, (char *)"AttLimits_nonnegative() -> AttLimits"},
+	 { (char *)"AttLimits_upperLimited", _wrap_AttLimits_upperLimited, METH_VARARGS, (char *)"AttLimits_upperLimited(double bound_value) -> AttLimits"},
+	 { (char *)"AttLimits_limited", _wrap_AttLimits_limited, METH_VARARGS, (char *)"AttLimits_limited(double left_bound_value, double right_bound_value) -> AttLimits"},
+	 { (char *)"AttLimits_fixed", _wrap_AttLimits_fixed, METH_VARARGS, (char *)"AttLimits_fixed() -> AttLimits"},
+	 { (char *)"AttLimits_isFixed", _wrap_AttLimits_isFixed, METH_VARARGS, (char *)"AttLimits_isFixed(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_isLimited", _wrap_AttLimits_isLimited, METH_VARARGS, (char *)"AttLimits_isLimited(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_isUpperLimited", _wrap_AttLimits_isUpperLimited, METH_VARARGS, (char *)"AttLimits_isUpperLimited(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_isLowerLimited", _wrap_AttLimits_isLowerLimited, METH_VARARGS, (char *)"AttLimits_isLowerLimited(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_isLimitless", _wrap_AttLimits_isLimitless, METH_VARARGS, (char *)"AttLimits_isLimitless(AttLimits self) -> bool"},
+	 { (char *)"AttLimits_lowerLimit", _wrap_AttLimits_lowerLimit, METH_VARARGS, (char *)"AttLimits_lowerLimit(AttLimits self) -> double"},
+	 { (char *)"AttLimits_upperLimit", _wrap_AttLimits_upperLimit, METH_VARARGS, (char *)"AttLimits_upperLimit(AttLimits self) -> double"},
+	 { (char *)"AttLimits_setFixed", _wrap_AttLimits_setFixed, METH_VARARGS, (char *)"AttLimits_setFixed(AttLimits self, bool isFixed)"},
+	 { (char *)"AttLimits___eq__", _wrap_AttLimits___eq__, METH_VARARGS, (char *)"AttLimits___eq__(AttLimits self, AttLimits other) -> bool"},
+	 { (char *)"AttLimits___ne__", _wrap_AttLimits___ne__, METH_VARARGS, (char *)"AttLimits___ne__(AttLimits self, AttLimits other) -> bool"},
+	 { (char *)"AttLimits_toString", _wrap_AttLimits_toString, METH_VARARGS, (char *)"AttLimits_toString(AttLimits self) -> std::string"},
+	 { (char *)"delete_AttLimits", _wrap_delete_AttLimits, METH_VARARGS, (char *)"delete_AttLimits(AttLimits self)"},
+	 { (char *)"AttLimits_swigregister", AttLimits_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IMinimizer", _wrap_new_IMinimizer, METH_VARARGS, (char *)"\n"
 		"new_IMinimizer() -> IMinimizer\n"
 		"\n"
@@ -22345,18 +22106,21 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_setParameters", _wrap_IMinimizer_setParameters, METH_VARARGS, (char *)"\n"
 		"IMinimizer_setParameters(IMinimizer self, FitParameterSet parameters)\n"
 		"\n"
-		"void IMinimizer::setParameters(const FitSuiteParameters &parameters)\n"
+		"void IMinimizer::setParameters(const FitParameterSet &parameters)\n"
 		"\n"
 		"Sets internal minimizer parameters using external parameter list. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_setObjectiveFunction", _wrap_IMinimizer_setObjectiveFunction, METH_VARARGS, (char *)"IMinimizer_setObjectiveFunction(IMinimizer self, objective_function_t arg3)"},
+	 { (char *)"IMinimizer_setObjectiveFunction", _wrap_IMinimizer_setObjectiveFunction, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setObjectiveFunction(IMinimizer self, objective_function_t arg3)\n"
+		"\n"
+		"virtual void IMinimizer::setObjectiveFunction(objective_function_t)\n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_setGradientFunction", _wrap_IMinimizer_setGradientFunction, METH_VARARGS, (char *)"\n"
 		"IMinimizer_setGradientFunction(IMinimizer self, gradient_function_t arg3, int arg4)\n"
 		"\n"
-		"void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)\n"
-		"\n"
-		"Sets gradient function to minimize. \n"
+		"virtual void IMinimizer::setGradientFunction(gradient_function_t, int)\n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_getMinValue", _wrap_IMinimizer_getMinValue, METH_VARARGS, (char *)"\n"
@@ -22378,18 +22142,19 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"
 		"IMinimizer_propagateResults(IMinimizer self, FitParameterSet parameters)\n"
 		"\n"
-		"void IMinimizer::propagateResults(FitSuiteParameters &parameters)\n"
+		"void IMinimizer::propagateResults(FitParameterSet &parameters)\n"
 		"\n"
 		"Propagates results of minimization to fit parameter set. \n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_swigregister", IMinimizer_swigregister, METH_VARARGS, NULL},
+	 { (char *)"delete_IFitParameter", _wrap_delete_IFitParameter, METH_VARARGS, (char *)"delete_IFitParameter(IFitParameter self)"},
+	 { (char *)"IFitParameter_clone", _wrap_IFitParameter_clone, METH_VARARGS, (char *)"IFitParameter_clone(IFitParameter self) -> IFitParameter"},
+	 { (char *)"IFitParameter_swigregister", IFitParameter_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitParameter", _wrap_new_FitParameter, METH_VARARGS, (char *)"\n"
 		"FitParameter()\n"
-		"FitParameter(std::string const & name, double value, double step=0.0, RealLimits limits, Attributes attr, double error=0.0)\n"
-		"FitParameter(std::string const & name, double value, double step=0.0, RealLimits limits, Attributes attr)\n"
-		"FitParameter(std::string const & name, double value, double step=0.0, RealLimits limits)\n"
-		"FitParameter(std::string const & name, double value, double step=0.0)\n"
+		"FitParameter(std::string const & name, double value, AttLimits limits, double step=0.0)\n"
+		"FitParameter(std::string const & name, double value, AttLimits limits)\n"
 		"new_FitParameter(std::string const & name, double value) -> FitParameter\n"
 		"\n"
 		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)\n"
@@ -22401,95 +22166,215 @@ static PyMethodDef SwigMethods[] = {
 		"virtual FitParameter::~FitParameter()\n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_getName", _wrap_FitParameter_getName, METH_VARARGS, (char *)"\n"
-		"FitParameter_getName(FitParameter self) -> std::string\n"
-		"\n"
-		"std::string FitParameter::getName() const \n"
-		"\n"
-		""},
-	 { (char *)"FitParameter_getStartValue", _wrap_FitParameter_getStartValue, METH_VARARGS, (char *)"\n"
-		"FitParameter_getStartValue(FitParameter self) -> double\n"
-		"\n"
-		"virtual double FitParameter::getStartValue() const \n"
-		"\n"
-		""},
+	 { (char *)"FitParameter_clone", _wrap_FitParameter_clone, METH_VARARGS, (char *)"FitParameter_clone(FitParameter self) -> FitParameter"},
+	 { (char *)"FitParameter_name", _wrap_FitParameter_name, METH_VARARGS, (char *)"FitParameter_name(FitParameter self) -> std::string"},
+	 { (char *)"FitParameter_startValue", _wrap_FitParameter_startValue, METH_VARARGS, (char *)"FitParameter_startValue(FitParameter self) -> double"},
+	 { (char *)"FitParameter_value", _wrap_FitParameter_value, METH_VARARGS, (char *)"FitParameter_value(FitParameter self) -> double"},
 	 { (char *)"FitParameter_setValue", _wrap_FitParameter_setValue, METH_VARARGS, (char *)"\n"
 		"FitParameter_setValue(FitParameter self, double value)\n"
 		"\n"
 		"virtual void FitParameter::setValue(double value)\n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_getValue", _wrap_FitParameter_getValue, METH_VARARGS, (char *)"\n"
-		"FitParameter_getValue(FitParameter self) -> double\n"
-		"\n"
-		"double FitParameter::getValue() const \n"
-		"\n"
-		""},
+	 { (char *)"FitParameter_step", _wrap_FitParameter_step, METH_VARARGS, (char *)"FitParameter_step(FitParameter self) -> double"},
 	 { (char *)"FitParameter_setStep", _wrap_FitParameter_setStep, METH_VARARGS, (char *)"\n"
-		"FitParameter_setStep(FitParameter self, double value)\n"
+		"FitParameter_setStep(FitParameter self, double value) -> FitParameter\n"
 		"\n"
 		"void FitParameter::setStep(double value)\n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_getStep", _wrap_FitParameter_getStep, METH_VARARGS, (char *)"\n"
-		"FitParameter_getStep(FitParameter self) -> double\n"
-		"\n"
-		"double FitParameter::getStep() const \n"
-		"\n"
-		""},
+	 { (char *)"FitParameter_error", _wrap_FitParameter_error, METH_VARARGS, (char *)"FitParameter_error(FitParameter self) -> double"},
 	 { (char *)"FitParameter_setError", _wrap_FitParameter_setError, METH_VARARGS, (char *)"\n"
 		"FitParameter_setError(FitParameter self, double value)\n"
 		"\n"
 		"void FitParameter::setError(double value)\n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_getError", _wrap_FitParameter_getError, METH_VARARGS, (char *)"\n"
-		"FitParameter_getError(FitParameter self) -> double\n"
-		"\n"
-		"double FitParameter::getError() const \n"
-		"\n"
+	 { (char *)"FitParameter_limits", _wrap_FitParameter_limits, METH_VARARGS, (char *)"\n"
+		"limits() -> AttLimits\n"
+		"FitParameter_limits(FitParameter self) -> AttLimits\n"
 		""},
-	 { (char *)"FitParameter_limitsToString", _wrap_FitParameter_limitsToString, METH_VARARGS, (char *)"\n"
-		"FitParameter_limitsToString(FitParameter self) -> std::string\n"
-		"\n"
-		"std::string FitParameter::limitsToString() const \n"
-		"\n"
-		""},
+	 { (char *)"FitParameter_setLimits", _wrap_FitParameter_setLimits, METH_VARARGS, (char *)"FitParameter_setLimits(FitParameter self, AttLimits limits) -> FitParameter"},
+	 { (char *)"FitParameter_setLowerLimited", _wrap_FitParameter_setLowerLimited, METH_VARARGS, (char *)"FitParameter_setLowerLimited(FitParameter self, double bound_value) -> FitParameter"},
+	 { (char *)"FitParameter_setPositive", _wrap_FitParameter_setPositive, METH_VARARGS, (char *)"FitParameter_setPositive(FitParameter self) -> FitParameter"},
+	 { (char *)"FitParameter_setNonnegative", _wrap_FitParameter_setNonnegative, METH_VARARGS, (char *)"FitParameter_setNonnegative(FitParameter self) -> FitParameter"},
+	 { (char *)"FitParameter_setUpperLimited", _wrap_FitParameter_setUpperLimited, METH_VARARGS, (char *)"FitParameter_setUpperLimited(FitParameter self, double bound_value) -> FitParameter"},
+	 { (char *)"FitParameter_setLimited", _wrap_FitParameter_setLimited, METH_VARARGS, (char *)"FitParameter_setLimited(FitParameter self, double left_bound_value, double right_bound_value) -> FitParameter"},
+	 { (char *)"FitParameter_setFixed", _wrap_FitParameter_setFixed, METH_VARARGS, (char *)"FitParameter_setFixed(FitParameter self) -> FitParameter"},
+	 { (char *)"FitParameter_toString", _wrap_FitParameter_toString, METH_VARARGS, (char *)"FitParameter_toString(FitParameter self) -> std::string"},
 	 { (char *)"FitParameter_swigregister", FitParameter_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_FitParameterSet", _wrap_new_FitParameterSet, METH_VARARGS, (char *)"new_FitParameterSet() -> FitParameterSet"},
-	 { (char *)"delete_FitParameterSet", _wrap_delete_FitParameterSet, METH_VARARGS, (char *)"delete_FitParameterSet(FitParameterSet self)"},
-	 { (char *)"FitParameterSet_clear", _wrap_FitParameterSet_clear, METH_VARARGS, (char *)"FitParameterSet_clear(FitParameterSet self)"},
-	 { (char *)"FitParameterSet_size", _wrap_FitParameterSet_size, METH_VARARGS, (char *)"FitParameterSet_size(FitParameterSet self) -> size_t"},
+	 { (char *)"new_FitParameterSet", _wrap_new_FitParameterSet, METH_VARARGS, (char *)"\n"
+		"new_FitParameterSet() -> FitParameterSet\n"
+		"\n"
+		"FitParameterSet::FitParameterSet()\n"
+		"\n"
+		""},
+	 { (char *)"delete_FitParameterSet", _wrap_delete_FitParameterSet, METH_VARARGS, (char *)"\n"
+		"delete_FitParameterSet(FitParameterSet self)\n"
+		"\n"
+		"FitParameterSet::~FitParameterSet()\n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_clear", _wrap_FitParameterSet_clear, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_clear(FitParameterSet self)\n"
+		"\n"
+		"void FitParameterSet::clear()\n"
+		"\n"
+		"container specific\n"
+		"\n"
+		"Clears all defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_size", _wrap_FitParameterSet_size, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_size(FitParameterSet self) -> size_t\n"
+		"\n"
+		"size_t FitParameterSet::size() const\n"
+		"\n"
+		"Returns number of parameters. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameterSet_begin", _wrap_FitParameterSet_begin, METH_VARARGS, (char *)"\n"
 		"begin() -> FitParameterSet::iterator\n"
 		"FitParameterSet_begin(FitParameterSet self) -> FitParameterSet::const_iterator\n"
+		"\n"
+		"FitParameterSet::const_iterator FitParameterSet::begin() const \n"
+		"\n"
 		""},
 	 { (char *)"FitParameterSet_end", _wrap_FitParameterSet_end, METH_VARARGS, (char *)"\n"
 		"end() -> FitParameterSet::iterator\n"
 		"FitParameterSet_end(FitParameterSet self) -> FitParameterSet::const_iterator\n"
+		"\n"
+		"FitParameterSet::const_iterator FitParameterSet::end() const \n"
+		"\n"
 		""},
-	 { (char *)"FitParameterSet_addFitParameter", _wrap_FitParameterSet_addFitParameter, METH_VARARGS, (char *)"FitParameterSet_addFitParameter(FitParameterSet self, FitParameter par)"},
+	 { (char *)"FitParameterSet_addFitParameter", _wrap_FitParameterSet_addFitParameter, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_addFitParameter(FitParameterSet self, FitParameter par)\n"
+		"\n"
+		"void FitParameterSet::addFitParameter(FitParameter *par)\n"
+		"\n"
+		"adding fit parameters\n"
+		"\n"
+		"Adds fit parameter. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameterSet_fitParameter", _wrap_FitParameterSet_fitParameter, METH_VARARGS, (char *)"\n"
 		"fitParameter(std::string const & name) -> FitParameter\n"
 		"FitParameterSet_fitParameter(FitParameterSet self, std::string const & name) -> FitParameter\n"
+		"\n"
+		"FitParameter * FitParameterSet::fitParameter(const std::string &name)\n"
+		"\n"
 		""},
-	 { (char *)"FitParameterSet_values", _wrap_FitParameterSet_values, METH_VARARGS, (char *)"FitParameterSet_values(FitParameterSet self) -> vdouble1d_t"},
-	 { (char *)"FitParameterSet_setValues", _wrap_FitParameterSet_setValues, METH_VARARGS, (char *)"FitParameterSet_setValues(FitParameterSet self, vdouble1d_t pars_values)"},
+	 { (char *)"FitParameterSet_values", _wrap_FitParameterSet_values, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_values(FitParameterSet self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > FitParameterSet::values() const\n"
+		"\n"
+		"fit parameter's values and errors\n"
+		"\n"
+		"Returns values of all defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_setValues", _wrap_FitParameterSet_setValues, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_setValues(FitParameterSet self, vdouble1d_t pars_values)\n"
+		"\n"
+		"void FitParameterSet::setValues(const std::vector< double > &pars_values)\n"
+		"\n"
+		"Sets values for all defined parameters. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameterSet_valuesDifferFrom", _wrap_FitParameterSet_valuesDifferFrom, METH_VARARGS, (char *)"\n"
 		"valuesDifferFrom(vdouble1d_t par_values, double tolerance=2.0) -> bool\n"
 		"FitParameterSet_valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values) -> bool\n"
+		"\n"
+		"bool FitParameterSet::valuesDifferFrom(const std::vector< double > &par_values, double tolerance=2.0) const\n"
+		"\n"
+		"Returns true if parameters already have the given values. \n"
+		"\n"
 		""},
-	 { (char *)"FitParameterSet_errors", _wrap_FitParameterSet_errors, METH_VARARGS, (char *)"FitParameterSet_errors(FitParameterSet self) -> vdouble1d_t"},
-	 { (char *)"FitParameterSet_setErrors", _wrap_FitParameterSet_setErrors, METH_VARARGS, (char *)"FitParameterSet_setErrors(FitParameterSet self, vdouble1d_t pars_errors)"},
-	 { (char *)"FitParameterSet_freeFitParameterCount", _wrap_FitParameterSet_freeFitParameterCount, METH_VARARGS, (char *)"FitParameterSet_freeFitParameterCount(FitParameterSet self) -> size_t"},
-	 { (char *)"FitParameterSet_fixAll", _wrap_FitParameterSet_fixAll, METH_VARARGS, (char *)"FitParameterSet_fixAll(FitParameterSet self)"},
-	 { (char *)"FitParameterSet_releaseAll", _wrap_FitParameterSet_releaseAll, METH_VARARGS, (char *)"FitParameterSet_releaseAll(FitParameterSet self)"},
-	 { (char *)"FitParameterSet_setFixed", _wrap_FitParameterSet_setFixed, METH_VARARGS, (char *)"FitParameterSet_setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)"},
-	 { (char *)"FitParameterSet_parametersToString", _wrap_FitParameterSet_parametersToString, METH_VARARGS, (char *)"FitParameterSet_parametersToString(FitParameterSet self) -> std::string"},
-	 { (char *)"FitParameterSet_reportResults", _wrap_FitParameterSet_reportResults, METH_VARARGS, (char *)"FitParameterSet_reportResults(FitParameterSet self) -> std::string"},
-	 { (char *)"FitParameterSet_correlationMatrix", _wrap_FitParameterSet_correlationMatrix, METH_VARARGS, (char *)"FitParameterSet_correlationMatrix(FitParameterSet self) -> vdouble2d_t"},
-	 { (char *)"FitParameterSet_setCorrelationMatrix", _wrap_FitParameterSet_setCorrelationMatrix, METH_VARARGS, (char *)"FitParameterSet_setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)"},
-	 { (char *)"FitParameterSet_isExistingName", _wrap_FitParameterSet_isExistingName, METH_VARARGS, (char *)"FitParameterSet_isExistingName(FitParameterSet self, std::string const & name) -> bool"},
+	 { (char *)"FitParameterSet_errors", _wrap_FitParameterSet_errors, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_errors(FitParameterSet self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > FitParameterSet::errors() const\n"
+		"\n"
+		"Returns errors of all defined parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_setErrors", _wrap_FitParameterSet_setErrors, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_setErrors(FitParameterSet self, vdouble1d_t pars_errors)\n"
+		"\n"
+		"void FitParameterSet::setErrors(const std::vector< double > &pars_errors)\n"
+		"\n"
+		"Sets errors to all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_freeFitParameterCount", _wrap_FitParameterSet_freeFitParameterCount, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_freeFitParameterCount(FitParameterSet self) -> size_t\n"
+		"\n"
+		"size_t FitParameterSet::freeFitParameterCount() const\n"
+		"\n"
+		"Make parameters fixed and free.\n"
+		"\n"
+		"Returns number of free parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_fixAll", _wrap_FitParameterSet_fixAll, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_fixAll(FitParameterSet self)\n"
+		"\n"
+		"void FitParameterSet::fixAll()\n"
+		"\n"
+		"Fix all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_releaseAll", _wrap_FitParameterSet_releaseAll, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_releaseAll(FitParameterSet self)\n"
+		"\n"
+		"void FitParameterSet::releaseAll()\n"
+		"\n"
+		"Release all parameters. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_setFixed", _wrap_FitParameterSet_setFixed, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)\n"
+		"\n"
+		"void FitParameterSet::setFixed(const std::vector< std::string > &pars, bool is_fixed)\n"
+		"\n"
+		"Set fixed flag for parameters from the list. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_parametersToString", _wrap_FitParameterSet_parametersToString, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_parametersToString(FitParameterSet self) -> std::string\n"
+		"\n"
+		"std::string FitParameterSet::parametersToString() const\n"
+		"\n"
+		"Printing and reporting. \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_reportResults", _wrap_FitParameterSet_reportResults, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_reportResults(FitParameterSet self) -> std::string\n"
+		"\n"
+		"std::string FitParameterSet::reportResults() const \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_correlationMatrix", _wrap_FitParameterSet_correlationMatrix, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_correlationMatrix(FitParameterSet self) -> vdouble2d_t\n"
+		"\n"
+		"corr_matrix_t FitParameterSet::correlationMatrix() const \n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_setCorrelationMatrix", _wrap_FitParameterSet_setCorrelationMatrix, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)\n"
+		"\n"
+		"void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)\n"
+		"\n"
+		""},
+	 { (char *)"FitParameterSet_isExistingName", _wrap_FitParameterSet_isExistingName, METH_VARARGS, (char *)"\n"
+		"FitParameterSet_isExistingName(FitParameterSet self, std::string const & name) -> bool\n"
+		"\n"
+		"bool FitParameterSet::isExistingName(const std::string &name) const\n"
+		"\n"
+		"Returns true if parameter with such name exists. \n"
+		"\n"
+		""},
 	 { (char *)"FitParameterSet___getitem__", _wrap_FitParameterSet___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> FitParameter\n"
 		"FitParameterSet___getitem__(FitParameterSet self, size_t index) -> FitParameter\n"
@@ -22558,19 +22443,16 @@ static PyMethodDef SwigMethods[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static void *_p_FitParameterTo_p_Attributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Attributes *)  ((FitParameter *) x));
+static void *_p_FitParameterTo_p_IFitParameter(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IFitParameter *)  ((FitParameter *) x));
 }
-static void *_p_FitParameterTo_p_RealLimits(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((RealLimits *)  ((FitParameter *) x));
-}
-static swig_type_info _swigt__p_Attributes = {"_p_Attributes", "Attributes *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_AttLimits = {"_p_AttLimits", "AttLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitParameter = {"_p_FitParameter", "FitParameter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitParameterSet = {"_p_FitParameterSet", "FitParameterSet *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IFitParameter = {"_p_IFitParameter", "IFitParameter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IMinimizer = {"_p_IMinimizer", "IMinimizer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerCatalogue = {"_p_MinimizerCatalogue", "MinimizerCatalogue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "MinimizerFactory *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_const_iterator = {"_p_const_iterator", "const_iterator *", 0, 0, (void*)0, 0};
@@ -22612,13 +22494,13 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "unsigned
 static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_Attributes,
+  &_swigt__p_AttLimits,
   &_swigt__p_FitParameter,
   &_swigt__p_FitParameterSet,
+  &_swigt__p_IFitParameter,
   &_swigt__p_IMinimizer,
   &_swigt__p_MinimizerCatalogue,
   &_swigt__p_MinimizerFactory,
-  &_swigt__p_RealLimits,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_const_iterator,
@@ -22660,13 +22542,13 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_value_type,
 };
 
-static swig_cast_info _swigc__p_Attributes[] = {  {&_swigt__p_FitParameter, _p_FitParameterTo_p_Attributes, 0, 0},  {&_swigt__p_Attributes, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_AttLimits[] = {  {&_swigt__p_AttLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FitParameter[] = {  {&_swigt__p_FitParameter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FitParameterSet[] = {  {&_swigt__p_FitParameterSet, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IFitParameter[] = {  {&_swigt__p_IFitParameter, 0, 0, 0},  {&_swigt__p_FitParameter, _p_FitParameterTo_p_IFitParameter, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerCatalogue[] = {  {&_swigt__p_MinimizerCatalogue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFactory, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_FitParameter, _p_FitParameterTo_p_RealLimits, 0, 0},  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_const_iterator[] = {  {&_swigt__p_const_iterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -22708,13 +22590,13 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_Attributes,
+  _swigc__p_AttLimits,
   _swigc__p_FitParameter,
   _swigc__p_FitParameterSet,
+  _swigc__p_IFitParameter,
   _swigc__p_IMinimizer,
   _swigc__p_MinimizerCatalogue,
   _swigc__p_MinimizerFactory,
-  _swigc__p_RealLimits,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_const_iterator,

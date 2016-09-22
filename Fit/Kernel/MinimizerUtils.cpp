@@ -87,3 +87,20 @@ bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
         throw std::runtime_error("MinimizerUtils::numbersDiffer() -> Error.Not intended for tol<1");
     return std::abs(a-b) > eps * std::max( tol*eps, std::abs(b) );
 }
+
+//! Returns horizontal line of 80 characters length with section name in it.
+
+std::string MinimizerUtils::sectionString(const std::string &sectionName, int report_width)
+{
+    std::ostringstream result;
+    if(sectionName.empty()) {
+        result << std::string(report_width, '-') << std::endl;
+    } else {
+        // to make "--- SectionName ------------------------------"
+        std::string prefix(3, '-');
+        std::string body = std::string(" ") + sectionName + std::string(" ");
+        std::string postfix(report_width - body.size() - prefix.size(), '-');
+        result << prefix << body << postfix << std::endl;
+    }
+    return result.str();
+}

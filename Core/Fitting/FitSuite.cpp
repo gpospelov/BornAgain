@@ -40,10 +40,10 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
     m_impl->addSimulationAndRealData(simulation, *data, weight);
 }
 
-void FitSuite::addFitParameter(const std::string& name, double value, const RealLimits& lim,
-                               const Attributes& attr, double step)
+FitParameterLinked *FitSuite::addFitParameter(const std::string& name, double value,
+                               const AttLimits& limits, double step)
 {
-    m_impl->addFitParameter(name, value, lim, attr, step);
+    return m_impl->addFitParameter(name, value, limits, step);
 }
 
 void FitSuite::setMinimizer(const std::string& minimizer_name, const std::string& algorithm_name,
@@ -56,7 +56,7 @@ void FitSuite::setMinimizer(const std::string& minimizer_name, const std::string
 
 void FitSuite::setChiSquaredModule(const IChiSquaredModule& chi2_module)
 {
-    m_impl->getFitObjects()->setChiSquaredModule(chi2_module);
+    m_impl->fitObjects()->setChiSquaredModule(chi2_module);
 }
 
 void FitSuite::addFitStrategy(const IFitStrategy& strategy)
@@ -80,75 +80,60 @@ void FitSuite::initPrint(int print_every_nth)
     attachObserver(observer);
 }
 
-void FitSuite::fixAllParameters()
-{
-    fitParameters()->fixAll();
-}
-
-void FitSuite::releaseAllParameters()
-{
-    fitParameters()->releaseAll();
-}
-
-void FitSuite::setParametersFixed(const std::vector<std::string>& pars, bool is_fixed)
-{
-    fitParameters()->setFixed(pars, is_fixed);
-}
-
 void FitSuite::runFit()
 {
     m_impl->runFit();
 }
 
-int FitSuite::getNumberOfFitObjects() const
+int FitSuite::numberOfFitObjects() const
 {
-    return m_impl->getFitObjects()->getNumberOfFitObjects();
+    return m_impl->fitObjects()->getNumberOfFitObjects();
 }
 
 IHistogram* FitSuite::getRealData(size_t i_item) const
 {
-    return IHistogram::createHistogram(*m_impl->getFitObjects()->getRealData(i_item));
+    return IHistogram::createHistogram(*m_impl->fitObjects()->getRealData(i_item));
 }
 
 IHistogram* FitSuite::getSimulationData(size_t i_item) const
 {
-    return IHistogram::createHistogram(*m_impl->getFitObjects()->getSimulationData(i_item));
+    return IHistogram::createHistogram(*m_impl->fitObjects()->getSimulationData(i_item));
 }
 
 IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const
 {
-    return IHistogram::createHistogram(*m_impl->getFitObjects()->getChiSquaredMap(i_item));
+    return IHistogram::createHistogram(*m_impl->fitObjects()->getChiSquaredMap(i_item));
 }
 
 const OutputData<double>* FitSuite::getRealOutputData(size_t i_item) const
 {
-    return m_impl->getFitObjects()->getRealData(i_item);
+    return m_impl->fitObjects()->getRealData(i_item);
 }
 
 const OutputData<double>* FitSuite::getSimulationOutputData(size_t i_item) const
 {
-    return m_impl->getFitObjects()->getSimulationData(i_item);
+    return m_impl->fitObjects()->getSimulationData(i_item);
 }
 
 const OutputData<double>* FitSuite::getChiSquaredOutputData(size_t i_item) const
 {
-    return m_impl->getFitObjects()->getChiSquaredMap(i_item);
+    return m_impl->fitObjects()->getChiSquaredMap(i_item);
 }
 
 
-FitSuiteObjects* FitSuite::getFitObjects()
+FitSuiteObjects* FitSuite::fitObjects()
 {
-    return m_impl->getFitObjects();
+    return m_impl->fitObjects();
 }
 
 FitParameterSet* FitSuite::fitParameters()
 {
-    return m_impl->getFitParameters();
+    return m_impl->fitParameters();
 }
 
-FitSuiteStrategies* FitSuite::getFitStrategies()
+FitSuiteStrategies* FitSuite::fitStrategies()
 {
-    return m_impl->getFitStrategies();
+    return m_impl->fitStrategies();
 }
 
 bool FitSuite::isLastIteration() const
@@ -156,14 +141,14 @@ bool FitSuite::isLastIteration() const
     return m_impl->isLastIteration();
 }
 
-size_t FitSuite::getNumberOfIterations() const
+size_t FitSuite::numberOfIterations() const
 {
-    return m_impl->getNCalls();
+    return m_impl->numberOfIterations();
 }
 
-size_t FitSuite::getCurrentStrategyIndex() const
+size_t FitSuite::currentStrategyIndex() const
 {
-    return m_impl->getCurrentStrategyIndex();
+    return m_impl->currentStrategyIndex();
 }
 
 void FitSuite::printResults() const
@@ -178,12 +163,7 @@ std::string FitSuite::reportResults() const
 
 double FitSuite::getChi2() const
 {
-    return m_impl->getFitObjects()->getChiSquaredValue();
-}
-
-FitOptions& FitSuite::getOptions()
-{
-    return m_impl->getOptions();
+    return m_impl->fitObjects()->getChiSquaredValue();
 }
 
 void FitSuite::interruptFitting()

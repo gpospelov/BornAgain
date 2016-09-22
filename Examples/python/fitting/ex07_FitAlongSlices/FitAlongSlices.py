@@ -123,14 +123,12 @@ class DrawObserver(ba.IFitObserver):
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iteration  " + '{:d}     {:s}'.
-                 format(fit_suite.getNumberOfIterations(),
-                        fit_suite.getMinimizer().getMinimizerName()))
+                 format(fit_suite.numberOfIterations(),
+                        fit_suite.minimizer().minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1,
-                     '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(),
-                                                 fitpars[i].getValue()))
+        for index, fitPar in enumerate(fit_suite.fitParameters()):
+            plt.text(0.01, 0.55 - index*0.1,
+                     '{:30.30s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
 
         plt.draw()
         plt.pause(0.01)
@@ -198,19 +196,16 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter(
-        "*/Cylinder/Radius", 6.*nm, ba.RealLimits.limited(4., 8.))
-    fit_suite.addFitParameter(
-        "*/Cylinder/Height", 9.*nm, ba.RealLimits.limited(8., 12.))
+    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nm).setLimited(4., 8.)
+    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nm).setLimited(8., 12.)
 
     # running fit
     fit_suite.runFit()
 
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

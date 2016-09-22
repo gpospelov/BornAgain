@@ -22,9 +22,10 @@
 #include "SimulationOptions.h"
 #include <vector>
 
-class DecoratedLayerComputation;
 class MultiLayer;
+class DecoratedLayerComputation;
 class RoughMultiLayerComputation;
+class SpecularComputation;
 class ProgressHandler;
 class SimulationElement;
 
@@ -35,7 +36,7 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MainComputation : public INoncopyable
+class MainComputation final : public INoncopyable
 {
 public:
     MainComputation(
@@ -65,6 +66,7 @@ private:
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
     RoughMultiLayerComputation* mp_roughness_computation;
+    SpecularComputation *mp_specular_computation;
     std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
 
     ComputationOutcome m_outcome;

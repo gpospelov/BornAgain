@@ -31,19 +31,10 @@ include_directories(
     ${RootMinimizers_INCLUDE_DIRS}
 )
 
-#file(GLOB source_files "*.cpp")
-#file(GLOB include_files "*.h")
+file(GLOB source_files "*.cpp")
+file(GLOB include_files "*.h")
 
-message(INFO "XXX ${BornAgainFit_INCLUDE_DIRS} ")
-
-add_executable(FitTest
-    FitTest.cpp IMinimizerTest.cpp  IMinimizerTest.h  MinimizerTests.cpp
-    MinimizerTests.h RectDetectorFitTest.cpp  RectDetectorFitTest.h
-    StandardFitsFactory.cpp StandardFitsFactory.h
-    ExperimentalFitTest.h ExperimentalFitTest.cpp
-    StandaloneFitTest.h StandaloneFitTest.cpp
-    ObjectiveTestFunctions.h ObjectiveTestFunctions.cpp
-    )
+add_executable(FitTest ${include_files} ${source_files})
 
 target_link_libraries(FitTest BornAgainFit BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})

@@ -29,6 +29,6 @@ std::unique_ptr<FitSuite> ExperimentalFitTest::createFitSuite()
     for (const auto& par: m_parameters)
         result->addFitParameter(
             par.m_name, par.m_start_value,
-            RealLimits::lowerLimited(0.01), Attributes::free(), par.m_start_value/100.);
+            AttLimits::lowerLimited(0.01), par.m_start_value/100.);
     return result;
 }

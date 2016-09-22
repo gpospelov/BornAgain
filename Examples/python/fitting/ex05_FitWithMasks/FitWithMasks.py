@@ -138,10 +138,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter(
-        "*/Cylinder/Radius", 6.*nm, ba.RealLimits.limited(4., 8.))
-    fit_suite.addFitParameter(
-        "*/Cylinder/Height", 9.*nm, ba.RealLimits.limited(8., 12.))
+    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nm).setLimited(4., 8.)
+    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nm).setLimited(8., 12.)
 
     # running fit
     fit_suite.runFit()
@@ -149,9 +147,9 @@ def run_fitting():
     print("Fitting completed.")
     fit_suite.printResults()
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    print("chi2:", fit_suite.getChi2())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

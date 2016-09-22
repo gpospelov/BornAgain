@@ -18,16 +18,20 @@
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-FitParameterLinked::FitParameterLinked(
-    const std::string& name, double value, double step, const RealLimits& lim,
-    const Attributes& attr, double error)
-    : FitParameter(name, value, step, lim, attr, error)
+FitParameterLinked::FitParameterLinked(const std::string& name, double value,
+                                       const AttLimits& lim, double step)
+    : FitParameter(name, value, lim, step)
 {}
 
 FitParameterLinked::~FitParameterLinked()
 {
     for (auto* par: m_pool_parameters)
         delete par;
+}
+
+FitParameterLinked *FitParameterLinked::clone() const
+{
+    throw std::runtime_error("FitParameterLinked::clone() -> Not yet implemented;");
 }
 
 //! Sets given value for all bound parameters
@@ -50,7 +54,7 @@ void FitParameterLinked::addParameter(RealParameter* par)
 void FitParameterLinked::addMatchedParametersFromPool(
     const ParameterPool* pool, const std::string& wildcard)
 {
-    std::string wildcard_to_use = getName();
+    std::string wildcard_to_use = name();
     if( !wildcard.empty())
         wildcard_to_use = wildcard;
     for (auto* par: pool->getMatchedParameters(wildcard_to_use))
@@ -63,8 +67,8 @@ void FitParameterLinked::addMatchedParametersFromPool(
 
 void FitParameterLinked::print(std::ostream& ostr) const
 {
-    FitParameter::print(ostr);
-    ostr << "FitParameterLinked '" << getName() << "'" << " value:" << m_value
+    ostr << FitParameter::toString();
+    ostr << "FitParameterLinked '" << name() << "'" << " value:" << value()
          << " collsize:" << m_pool_parameters.size();
 //    if(m_parametercoll.size() ) {
 //        ostr << " addresses: ";

@@ -32,6 +32,9 @@ class BA_CORE_API_ IMinimizer
     IMinimizer() { }
     virtual ~IMinimizer() { }
 
+    IMinimizer(const IMinimizer &other) = delete;
+    IMinimizer & operator=(const IMinimizer &other) = delete;
+
     //! return name of the minimizer
     virtual std::string minimizerName() const;
 
@@ -52,13 +55,16 @@ class BA_CORE_API_ IMinimizer
     virtual void setGradientFunction(gradient_function_t, int ){}
 
     //! Returns minimum function value
-    virtual double getMinValue() const;
+    virtual double minValue() const;
 
     //! Prints fit results
     virtual std::string reportResults() const;
 
     //! Propagates results of minimization to fit parameter set
     virtual void propagateResults(FitParameterSet& parameters);
+
+    //! Sets option string to the minimizer
+    virtual void setOptions(const std::string &options);
 };
 
 #endif

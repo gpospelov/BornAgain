@@ -32,7 +32,7 @@ std::string MinimizerOptions::toOptionString() const
     return result.str();
 }
 
-void MinimizerOptions::setOptions(const std::string &options)
+void MinimizerOptions::setOptionString(const std::string &options)
 {
     // splits multiple option string "Strategy=1;Tolerance=0.01;"
     std::vector<std::string> tokens = Utils::String::split(options, delimeter);

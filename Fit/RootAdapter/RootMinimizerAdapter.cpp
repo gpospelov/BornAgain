@@ -85,6 +85,11 @@ void RootMinimizerAdapter::setGradientFunction(gradient_function_t func, int nda
     m_obj_func->setGradientCallback(func, ndatasize);
 }
 
+double RootMinimizerAdapter::minValue() const
+{
+    return rootMinimizer()->MinValue();
+}
+
 std::string RootMinimizerAdapter::reportResults() const
 {
     MinimizerResultsHelper reporter;
@@ -112,7 +117,7 @@ std::map<std::string, std::string> RootMinimizerAdapter::statusMap() const
         result["ProvidesError"] = "Doesn't provide error calculation";
     }
 
-    result["MinValue"] = to_string_scientific(rootMinimizer()->MinValue());
+    result["MinValue"] = to_string_scientific(minValue());
 
     return result;
 }
@@ -136,6 +141,11 @@ void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
         }
         parameters.setCorrelationMatrix(matrix);
     }
+}
+
+void RootMinimizerAdapter::setOptions(const std::string &optionString)
+{
+    options().setOptionString(optionString);
 }
 
 //! Propagate fit parameter down to ROOT minimizer.

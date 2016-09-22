@@ -32,18 +32,18 @@ TEST_F(MinimizerOptionsTest, setOptionsFromString)
     EXPECT_EQ(1, options.optionValue<int>("Strategy"));
     EXPECT_EQ(0.01, options.optionValue<double>("Tolerance"));
 
-    options.setOptions("Strategy=2;");
+    options.setOptionString("Strategy=2;");
     EXPECT_EQ(2, options.optionValue<int>("Strategy"));
-    options.setOptions("Strategy=3");
+    options.setOptionString("Strategy=3");
     EXPECT_EQ(3, options.optionValue<int>("Strategy"));
     EXPECT_EQ(0.01, options.optionValue<double>("Tolerance"));
 
-    options.setOptions("Strategy=5;Tolerance=0.0001;Algorithm=Unknown");
+    options.setOptionString("Strategy=5;Tolerance=0.0001;Algorithm=Unknown");
     EXPECT_EQ(5, options.optionValue<int>("Strategy"));
     EXPECT_EQ(0.0001, options.optionValue<double>("Tolerance"));
     EXPECT_EQ("Unknown", options.optionValue<std::string>("Algorithm"));
 
-    EXPECT_THROW(options.setOptions("Strategy=5;XXX=y;Tolerance=0.0001;"), std::runtime_error);
+    EXPECT_THROW(options.setOptionString("Strategy=5;XXX=y;Tolerance=0.0001;"), std::runtime_error);
 }
 
 #endif

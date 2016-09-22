@@ -26,7 +26,7 @@
 
 IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
                                               const std::string& algorithmType,
-                                              const std::string& )
+                                              const std::string& optionString)
 {
     IMinimizer* result(0);
 
@@ -61,6 +61,9 @@ IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
         throw std::runtime_error(ostr.str());
     }
 
+    if(!optionString.empty())
+        result->setOptions(optionString);
+
     return result;
 }
 
@@ -72,18 +75,6 @@ void MinimizerFactory::printCatalogue()
 std::string MinimizerFactory::catalogueToString()
 {
     return catalogue().toString();
-}
-
-//! Create minimizer using existing one. Only minimizer type and minimizer settings are propagated.
-//! This method serves as a kind of 'shallow' clone for minimizer.
-//! The reason why the minimizer doesn't have own clone method is because of complicate structure of
-//! ROOT minimizer internals.
-IMinimizer* MinimizerFactory::createMinimizer(const IMinimizer* other)
-{
-    IMinimizer *result = createMinimizer(other->minimizerName(), other->algorithmName());
-//    if(other->getOptions())
-//        result->setOptions(*other->getOptions());
-    return result;
 }
 
 const MinimizerCatalogue& MinimizerFactory::catalogue()

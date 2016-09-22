@@ -41,7 +41,7 @@ FitStrategyAdjustMinimizer* FitStrategyAdjustMinimizer::clone() const
 {
     FitStrategyAdjustMinimizer* result = new FitStrategyAdjustMinimizer();
     result->setName(getName());
-    result->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer));
+    //result->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer));
     return result;
 }
 
@@ -66,7 +66,7 @@ void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizer_name,
 void FitStrategyAdjustMinimizer::execute()
 {
 
-    m_kernel->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer) );
+    //m_kernel->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer) );
 
     m_kernel->minimize();
 

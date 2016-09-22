@@ -29,7 +29,7 @@ public:
     std::string toOptionString() const;
 
     //! Set options from their string representation
-    void setOptions(const std::string &options);
+    void setOptionString(const std::string &options);
 
 private:
     void processCommand(const std::string &command);

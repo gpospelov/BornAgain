@@ -43,15 +43,12 @@ class BA_CORE_API_ MinimizerFactory
 {
  public:
     static IMinimizer* createMinimizer(const std::string& minimizerName,
-        const std::string& algorithmType="",
-        const std::string& ="");
+                                       const std::string& algorithmType = std::string(),
+                                       const std::string& optionString  = std::string());
 
     static void printCatalogue();
 
     static std::string catalogueToString();
-
-    //! Returns copy of minimizer type and settings. No full clone, would be too heavy!
-    static IMinimizer* createMinimizer(const IMinimizer* other);
 
     static const MinimizerCatalogue& catalogue();
 };

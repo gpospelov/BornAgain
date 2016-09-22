@@ -54,6 +54,8 @@ public:
     template<typename T>
     T getDefault() const;
 
+    void setFromString(const std::string &value);
+
 private:
     std::string m_name;
     std::string m_description;

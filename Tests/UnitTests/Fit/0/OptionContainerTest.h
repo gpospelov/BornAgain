@@ -68,7 +68,6 @@ TEST_F(OptionContainerTest, setOptionValue)
 
     // setting wrong type to the option
     EXPECT_THROW(test.setOptionValue("option #1", 99.0), std::runtime_error);
-
 }
 
 TEST_F(OptionContainerTest, Copying)

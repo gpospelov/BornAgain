@@ -17,28 +17,11 @@
 #define UTILS_H
 
 #include "WinDllMacros.h"
+#include "StringUtils.h"
 #include <string>
 #include <vector>
 
 namespace Utils {
-
-//! Collection of utilities for std::string.
-//! @ingroup tools_internal
-
-class BA_CORE_API_ String
-{
-public:
-    //! Split string into vector of string using delimeter.
-    static std::vector<std::string> split(const std::string& text, const std::string& delimeter);
-
-    //! replace all occurences of items from string text with delimeter
-    static void replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
-                                       const std::string& replacement=std::string(""));
-
-    //! Returns string obtain by joining vector elements
-    static std::string join(const std::vector<std::string>& joinable, const std::string& joint);
-};
-
 
 class BA_CORE_API_ System
 {

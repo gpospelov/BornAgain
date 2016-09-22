@@ -150,6 +150,7 @@ class DefaultFitObserver(IFitObserver):
 
         import matplotlib
         from matplotlib import pyplot as plt
+        global matplotlib, plt
 
         self.fig = plt.figure(figsize=(10.25, 7.69))
         self.fig.canvas.draw()
@@ -176,11 +177,10 @@ class DefaultFitObserver(IFitObserver):
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.getNumberOfIterations(), fit_suite.getMinimizer().getMinimizerName()))
+                 format(fit_suite.numberOfIterations(), fit_suite.minimizer().minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1,  '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(), fitpars[i].getValue()))
+        for index, fitPar in enumerate(fit_suite.fitParameters()):
+            plt.text(0.01, 0.55 - index*0.1,  '{:30.30s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
 
         plt.draw()
         plt.pause(0.01)

@@ -106,26 +106,25 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # print all defined parameters for sample and simulation
-    fit_suite.getFitObjects().printParameters()
+    fit_suite.fitObjects().printParameters()
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nm,
-                              ba.RealLimits.limited(4., 8.))
+                              ba.AttLimits.limited(4., 8.))
     fit_suite.addFitParameter("*/Cylinder/Height", 9.*nm,
-                              ba.RealLimits.limited(8., 12.))
+                              ba.AttLimits.limited(8., 12.))
     fit_suite.addFitParameter("*/Normalizer/scale", 1.5,
-                              ba.RealLimits.limited(1.0, 3.0))
+                              ba.AttLimits.limited(1.0, 3.0))
     fit_suite.addFitParameter("*/Normalizer/shift", 50.,
-                              ba.RealLimits.limited(1, 500.))
+                              ba.AttLimits.limited(1, 500.))
 
     # running fit
     fit_suite.runFit()
 
     print("Fitting completed.")
-    print("chi2:", fit_suite.getMinimizer().getMinValue())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    print("chi2:", fit_suite.getChi2())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

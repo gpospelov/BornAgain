@@ -126,7 +126,7 @@ class DrawObserver(ba.IFitObserver):
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.getNumberOfIterations(),
+                 format(fit_suite.numberOfIterations(),
                         fit_suite.minimizer().minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         for index, fitPar in enumerate(fit_suite.fitParameters()):
@@ -160,14 +160,10 @@ def create_fit():
     fit_suite.initPrint(10)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 4.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Height", 4.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Height", 4.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Prism3/Height", 4.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm).setLowerLimited(0.01)
 
     return fit_suite
 

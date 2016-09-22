@@ -62,23 +62,18 @@ def run_fitting():
     fit_suite.initPrint(10)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 4.*nm,
-                              ba.RealLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm,
-                              ba.RealLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Height", 4.*nm,
-                              ba.RealLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm,
-                              ba.RealLimits.lowerLimited(0.01))
+    fit_suite.addFitParameter("*Cylinder/Height", 4.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Prism3/Height", 4.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm).setLowerLimited(0.01)
 
     # running fit
     fit_suite.runFit()
 
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for par in fit_suite.fitParameters():
+        print(par.name(), par.value(), par.error())
 
 if __name__ == '__main__':
     run_fitting()

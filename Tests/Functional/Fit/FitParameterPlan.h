@@ -26,10 +26,11 @@
 class FitParameterPlan
 {
 public:
-    FitParameterPlan(double start_value, double expected_value,
+    FitParameterPlan();
+    FitParameterPlan(const std::string &name, double start_value, double expected_value,
                      const AttLimits &limits, double step);
-    ~FitParameterPlan();
 
+    std::string m_name;
     double m_start_value; //!< starting value of fit parameter
     double m_expected_value; //!< expected value to find in the fit
     AttLimits m_limits; //!< limits of fit parameter

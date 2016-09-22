@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/ExperimentalFitTest.h
-//! @brief     Declares class ExperimentalFitTest.
+//! @file      Tests/Functional/Fit/MinimizerStrategyTest.h
+//! @brief     Declares class MinimizerStrategyTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,18 +18,19 @@
 
 #include "IMinimizerTest.h"
 
-//! @class ExperimentalFitTest
+//! @class MinimizerStrategyTest
 //! @ingroup standard_samples
-//! @brief Experimental test on the way to refactored minimizers
+//! @brief The MinimizerStrategyTest verifies fitting with the chain of minimizers.
 
-class ExperimentalFitTest : public IMinimizerTest
+class AdjustMinimizerStrategyTest : public IMinimizerTest
 {
 public:
-    ExperimentalFitTest();
+    AdjustMinimizerStrategyTest();
 
 protected:
-    virtual std::unique_ptr<FitSuite> createFitSuite();
+    void initParameterPlan() override;
+    std::unique_ptr<FitSuite> createFitSuite() override;
 
 };
 
-#endif // EXPERIMENTALFITTEST_H
+#endif

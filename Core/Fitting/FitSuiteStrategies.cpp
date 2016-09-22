@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "FitSuiteStrategies.h"
-#include <cassert>
 #include "FitSuiteImp.h"
+#include <stdexcept>
 
 FitSuiteStrategies::FitSuiteStrategies()
     : m_kernel(nullptr), m_current_strategy_index(0)
@@ -33,18 +33,19 @@ void FitSuiteStrategies::clear()
     m_current_strategy_index = 0;
 }
 
-IFitStrategy *FitSuiteStrategies::getCurrentStrategy()
+IFitStrategy *FitSuiteStrategies::currentStrategy()
 {
-    assert(m_current_strategy_index < m_strategies.size());
+    if(m_current_strategy_index >= m_strategies.size())
+        throw std::runtime_error("FitSuiteStrategies::currentStrategy() -> Error in index.");
 
     return m_strategies[m_current_strategy_index];
 }
 
-void FitSuiteStrategies::addStrategy(IFitStrategy* strategy)
+void FitSuiteStrategies::addStrategy(const IFitStrategy &strategy)
 {
-    assert(m_kernel);
-    strategy->init(m_kernel);
-    m_strategies.push_back(strategy);
+    IFitStrategy *clone = strategy.clone();
+    clone->init(m_kernel);
+    m_strategies.push_back(clone);
 }
 
 void FitSuiteStrategies::minimize()

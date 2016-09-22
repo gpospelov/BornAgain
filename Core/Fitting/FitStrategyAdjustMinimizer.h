@@ -18,42 +18,35 @@
 
 #include "IFitStrategy.h"
 
-class IMinimizer;
-class ObsoleteMinimizerOptions;
-
 //! @class FitStrategyAdjustMinimizer
 //! @ingroup fitting
-//! @brief Strategy modifies mimimizer settings before running minimization round
+//! @brief Strategy modifies mimimizer settings before running minimization round.
 
 class BA_CORE_API_ FitStrategyAdjustMinimizer : public IFitStrategy
 {
 public:
     FitStrategyAdjustMinimizer();
 
-    FitStrategyAdjustMinimizer(const std::string& minimizer_name,
-                               const std::string& algorithm_name = std::string(),
-                               const std::string& minimizer_options=std::string());
-
-    virtual ~FitStrategyAdjustMinimizer();
+    FitStrategyAdjustMinimizer(const std::string& minimizerName,
+                               const std::string& algorithmName = std::string(),
+                               const std::string& optionString=std::string());
 
     virtual FitStrategyAdjustMinimizer* clone() const;
 
-    IMinimizer* getMinimizer();
-    void setMinimizer(IMinimizer* minimizer);
-
-    void setMinimizer(const std::string& minimizer_name,
-                      const std::string& algorithm_name = std::string(),
-                      const std::string& minimizer_options=std::string());
+    void setMinimizer(const std::string& minimizerName,
+                      const std::string& algorithmName = std::string(),
+                      const std::string& optionString=std::string());
 
     virtual void execute();
 
-    virtual ObsoleteMinimizerOptions* getMinimizerOptions();
-
 protected:
-    virtual void print(std::ostream &ostr) const;
+    virtual std::string toString() const;
+    FitStrategyAdjustMinimizer(const FitStrategyAdjustMinimizer &other);
 
 private:
-    IMinimizer* m_minimizer;
+    std::string m_minimizerName;
+    std::string m_algorithmName;
+    std::string m_optionString;
 };
 
-#endif // FITSTRATEGYADJUSTMINIMIZER_H
+#endif

@@ -19,7 +19,6 @@
 #include "IFitStrategy.h"
 #include "SafePointerVector.h"
 
-
 //! @class FitSuiteStrategies
 //! @ingroup fitting_internal
 //! @brief Collection of strategies to fit
@@ -29,20 +28,22 @@ class BA_CORE_API_ FitSuiteStrategies
 public:
     FitSuiteStrategies();
     virtual ~FitSuiteStrategies();
+    FitSuiteStrategies(const FitSuiteStrategies &other) = delete;
+    FitSuiteStrategies& operator=(const FitSuiteStrategies &other) = delete;
 
     void init(FitSuiteImp* fit_suite) { m_kernel = fit_suite; }
 
-    void addStrategy(IFitStrategy* strategy);
+    void addStrategy(const IFitStrategy& strategy);
 
     void minimize();
 
-    size_t getCurrentStrategyIndex() const { return m_current_strategy_index; }
+    size_t currentStrategyIndex() const { return m_current_strategy_index; }
 
     size_t size() const { return m_strategies.size(); }
 
     void clear();
 
-    IFitStrategy* getCurrentStrategy();
+    IFitStrategy* currentStrategy();
 
 private:
     SafePointerVector<IFitStrategy> m_strategies;

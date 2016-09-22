@@ -72,15 +72,11 @@ FitParameterLinked *FitSuiteImp::addFitParameter(const std::string& name, double
 
 void FitSuiteImp::addFitStrategy(const IFitStrategy& strategy)
 {
-    m_fit_strategies.addStrategy(strategy.clone());
+    m_fit_strategies.addStrategy(strategy);
 }
 
 void FitSuiteImp::setMinimizer(IMinimizer* minimizer)
 {
-    if(!minimizer)
-        throw std::runtime_error(
-            "FitSuite::setMinimizer() -> Error. Attempt to set nullptr minimizer");
-//    m_minimizer.reset(minimizer);
     m_kernel->setMinimizer(minimizer);
 }
 
@@ -155,7 +151,7 @@ size_t FitSuiteImp::numberOfIterations() const
 
 size_t FitSuiteImp::currentStrategyIndex() const
 {
-    return m_fit_strategies.getCurrentStrategyIndex();
+    return m_fit_strategies.currentStrategyIndex();
 }
 
 std::string FitSuiteImp::reportResults() const
@@ -217,17 +213,3 @@ void FitSuiteImp::link_fit_parameters()
     msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
     msglog(MSG::DEBUG2) << *pool;
 }
-
-//void FitSuiteKernel::link_fit_parameters()
-//{
-//    const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-//    for (auto par: m_fit_parameters.getFitParameters()) {
-//        FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
-//        if( !linkedPar )
-//            throw std::runtime_error(
-//                "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
-//        linkedPar->addMatchedParametersFromPool(pool.get());
-//    }
-//    msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
-//    msglog(MSG::DEBUG2) << *pool;
-//}

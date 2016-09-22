@@ -4643,6 +4643,8 @@ class IFitStrategy(INamed):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFitStrategy
+    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -4653,8 +4655,6 @@ class IFitStrategy(INamed):
         """
         return _libBornAgainCore.IFitStrategy_clone(self)
 
-    __swig_destroy__ = _libBornAgainCore.delete_IFitStrategy
-    __del__ = lambda self: None
 
     def init(self, fit_suite):
         """
@@ -4713,7 +4713,7 @@ class FitStrategyDefault(IFitStrategy):
 
     def clone(self):
         """
-        clone(FitStrategyDefault self) -> IFitStrategy
+        clone(FitStrategyDefault self) -> FitStrategyDefault
 
         IFitStrategy * FitStrategyDefault::clone() const 
 
@@ -6565,9 +6565,9 @@ class FitStrategyAdjustMinimizer(IFitStrategy):
     def __init__(self, *args):
         """
         __init__(FitStrategyAdjustMinimizer self) -> FitStrategyAdjustMinimizer
-        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options) -> FitStrategyAdjustMinimizer
-        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizer_name, std::string const & algorithm_name) -> FitStrategyAdjustMinimizer
-        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizer_name) -> FitStrategyAdjustMinimizer
+        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizerName, std::string const & algorithmName, std::string const & optionString) -> FitStrategyAdjustMinimizer
+        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizerName, std::string const & algorithmName) -> FitStrategyAdjustMinimizer
+        __init__(FitStrategyAdjustMinimizer self, std::string const & minimizerName) -> FitStrategyAdjustMinimizer
 
         FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
 
@@ -6577,8 +6577,6 @@ class FitStrategyAdjustMinimizer(IFitStrategy):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitStrategyAdjustMinimizer
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -6590,22 +6588,11 @@ class FitStrategyAdjustMinimizer(IFitStrategy):
         return _libBornAgainCore.FitStrategyAdjustMinimizer_clone(self)
 
 
-    def getMinimizer(self):
-        """
-        getMinimizer(FitStrategyAdjustMinimizer self) -> IMinimizer *
-
-        IMinimizer * FitStrategyAdjustMinimizer::getMinimizer()
-
-        """
-        return _libBornAgainCore.FitStrategyAdjustMinimizer_getMinimizer(self)
-
-
     def setMinimizer(self, *args):
         """
-        setMinimizer(FitStrategyAdjustMinimizer self, IMinimizer * minimizer)
-        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)
-        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizer_name, std::string const & algorithm_name)
-        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizer_name)
+        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizerName, std::string const & algorithmName, std::string const & optionString)
+        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizerName, std::string const & algorithmName)
+        setMinimizer(FitStrategyAdjustMinimizer self, std::string const & minimizerName)
 
         void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
 
@@ -6622,16 +6609,8 @@ class FitStrategyAdjustMinimizer(IFitStrategy):
         """
         return _libBornAgainCore.FitStrategyAdjustMinimizer_execute(self)
 
-
-    def getMinimizerOptions(self):
-        """
-        getMinimizerOptions(FitStrategyAdjustMinimizer self) -> ObsoleteMinimizerOptions *
-
-        ObsoleteMinimizerOptions * FitStrategyAdjustMinimizer::getMinimizerOptions()
-
-        """
-        return _libBornAgainCore.FitStrategyAdjustMinimizer_getMinimizerOptions(self)
-
+    __swig_destroy__ = _libBornAgainCore.delete_FitStrategyAdjustMinimizer
+    __del__ = lambda self: None
 FitStrategyAdjustMinimizer_swigregister = _libBornAgainCore.FitStrategyAdjustMinimizer_swigregister
 FitStrategyAdjustMinimizer_swigregister(FitStrategyAdjustMinimizer)
 

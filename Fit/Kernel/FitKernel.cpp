@@ -41,6 +41,9 @@ void FitKernel::setMinimizer(const std::string &minimizerName, const std::string
 
 void FitKernel::setMinimizer(IMinimizer *minimizer)
 {
+    if(!minimizer)
+        throw std::runtime_error("FitKernel::setMinimizer() -> Error. Nullptr minimizer");
+
     m_impl->setMinimizer(minimizer);
 }
 

@@ -38,7 +38,7 @@ void FitSuitePrintObserver::update(FitSuite* fit_suite)
     if(m_strategy_has_changed) {
         std::cout <<
             "-------------------------------------------------------------------------------\n";
-        std::cout << (*m_fit_suite->fitStrategies()->getCurrentStrategy()) << std::endl;
+        std::cout << (*m_fit_suite->fitStrategies()->currentStrategy()) << std::endl;
         std::cout <<
             "-------------------------------------------------------------------------------\n";
     }

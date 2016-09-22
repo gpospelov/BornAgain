@@ -19,76 +19,58 @@
 #include "MinimizerFactory.h"
 
 FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
-    : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(nullptr)
+    : IFitStrategy("FitStrategy/AdjustMinimizer")
 {
 }
 
-FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimizer_name,
-                                                       const std::string &algorithm_name,
-                                                       const std::string &minimizer_options)
-    : IFitStrategy("FitStrategyAdjustMinimizer"), m_minimizer(nullptr)
+FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimizerName,
+                                                       const std::string &algorithmName,
+                                                       const std::string &optionString)
+    : IFitStrategy("FitStrategy/AdjustMinimizer")
+    , m_minimizerName(minimizerName)
+    , m_algorithmName(algorithmName)
+    , m_optionString(optionString)
 {
-    setMinimizer(minimizer_name, algorithm_name, minimizer_options);
+    setMinimizer(minimizerName, algorithmName, optionString);
 }
 
-FitStrategyAdjustMinimizer::~FitStrategyAdjustMinimizer()
-{
-    delete m_minimizer;
-}
 
-// partial clone
 FitStrategyAdjustMinimizer* FitStrategyAdjustMinimizer::clone() const
 {
-    FitStrategyAdjustMinimizer* result = new FitStrategyAdjustMinimizer();
-    result->setName(getName());
-    //result->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer));
+    FitStrategyAdjustMinimizer* result = new FitStrategyAdjustMinimizer(*this);
     return result;
 }
 
-IMinimizer* FitStrategyAdjustMinimizer::getMinimizer()
+void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizerName,
+                                              const std::string &algorithmName,
+                                              const std::string &optionString)
 {
-    return m_minimizer;
-}
-
-void FitStrategyAdjustMinimizer::setMinimizer(IMinimizer* minimizer)
-{
-    m_minimizer = minimizer;
-}
-
-void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizer_name,
-                                              const std::string &algorithm_name,
-                                              const std::string &minimizer_options)
-{
-    setMinimizer(MinimizerFactory::createMinimizer(
-                     minimizer_name, algorithm_name, minimizer_options));
+    m_minimizerName = minimizerName;
+    m_algorithmName = algorithmName;
+    m_optionString = optionString;
 }
 
 void FitStrategyAdjustMinimizer::execute()
 {
-
-    //m_kernel->setMinimizer( MinimizerFactory::createMinimizer(m_minimizer) );
-
+    m_kernel->setMinimizer(
+        MinimizerFactory::createMinimizer(m_minimizerName, m_algorithmName, m_optionString));
     m_kernel->minimize();
-
-    //m_fit_suite->printResults();
 }
 
-ObsoleteMinimizerOptions* FitStrategyAdjustMinimizer::getMinimizerOptions()
+std::string FitStrategyAdjustMinimizer::toString() const
 {
-//    if(!m_minimizer)
-//        return nullptr;
-//    return m_minimizer->getOptions();
-    assert(0);
-    return nullptr;
+    std::ostringstream ostr;
+    ostr << "FitStrategy/AdjustMinimizer ("
+         << m_minimizerName << ", "
+         << m_algorithmName << ", "
+         << m_optionString << ")";
+    return ostr.str();
 }
 
-void FitStrategyAdjustMinimizer::print(std::ostream &ostr) const
+FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const FitStrategyAdjustMinimizer &other)
+    : IFitStrategy(other)
 {
-    assert(0);
-    ostr << "FitStrategy/AdjustMinimizer: ";
-//    if(m_minimizer) {
-//        ostr << m_minimizer->getMinimizerName();
-//        if(m_minimizer->getAlgorithmName().size())
-//            ostr << "(" << m_minimizer->getAlgorithmName() << ")";
-//    }
+    m_minimizerName = other.m_minimizerName;
+    m_algorithmName = other.m_algorithmName;
+    m_optionString = other.m_optionString;
 }

@@ -19,7 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <vector>
-using std::size_t;
+#include <cstddef>
 
 class FitSuiteImp;
 
@@ -50,7 +50,6 @@ class BA_CORE_API_ FitSuiteChiSquaredFunction : public IFitSuiteFunction
     FitSuiteChiSquaredFunction() {}
     virtual ~FitSuiteChiSquaredFunction() {}
     //! evaluate method for chi2 value called directly from the minimizer
-//    double evaluate(const double* pars);
     double evaluate(const std::vector<double> &pars);
 };
 
@@ -66,8 +65,8 @@ class BA_CORE_API_ FitSuiteGradientFunction : public IFitSuiteFunction
         : m_npars(0), m_ndatasize(0), m_prev_index(-1),
           m_ncalls_total(0), m_ncalls_gradient(0) {}
     virtual ~FitSuiteGradientFunction() {}
+
     //! evaluate method for gradients and residuals called directly from the minimizer
-//    double evaluate(const double* pars, unsigned int index, double* gradients);
     double evaluate(const std::vector<double> &pars, unsigned int index,
                     std::vector<double>& gradients);
 

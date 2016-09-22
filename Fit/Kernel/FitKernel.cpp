@@ -34,6 +34,11 @@ FitKernel::~FitKernel()
 
 }
 
+void FitKernel::clear()
+{
+    m_impl->clear();
+}
+
 void FitKernel::setMinimizer(const std::string &minimizerName, const std::string &algorithmName)
 {
     m_impl->setMinimizer(MinimizerFactory::createMinimizer(minimizerName, algorithmName));
@@ -90,4 +95,9 @@ FitParameterSet *FitKernel::fitParameters()
 const FitParameterSet *FitKernel::fitParameters() const
 {
     return m_impl->fitParameters();
+}
+
+int FitKernel::functionCalls() const
+{
+    return m_impl->functionCalls();
 }

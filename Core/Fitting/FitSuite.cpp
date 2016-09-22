@@ -19,6 +19,7 @@
 #include "FitSuitePrintObserver.h"
 #include "IHistogram.h"
 #include "MinimizerFactory.h"
+#include <iostream>
 
 FitSuite::FitSuite()
     : m_impl(new FitSuiteImp(std::bind(&FitSuite::notifyObservers, this)))

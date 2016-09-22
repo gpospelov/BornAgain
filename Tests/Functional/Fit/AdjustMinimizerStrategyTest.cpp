@@ -42,7 +42,7 @@ std::unique_ptr<FitSuite> AdjustMinimizerStrategyTest::createFitSuite() {
   result->initPrint(10);
 
   result->addFitStrategy(AdjustMinimizerStrategy(
-      MinimizerNames::Genetic, std::string(), "MaxIterations=3;"));
+      MinimizerNames::Genetic, std::string(), "MaxIterations=1;"));
 
   result->addFitStrategy(AdjustMinimizerStrategy(MinimizerNames::Minuit2,
                                                     AlgorithmNames::Migrad));

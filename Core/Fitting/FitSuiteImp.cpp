@@ -25,7 +25,6 @@
 #include <stdexcept>
 
 FitSuiteImp::FitSuiteImp(const std::function<void()>& notifyObservers)
-//    : m_minimizer(MinimizerFactory::createMinimizer("Minuit2", "Migrad"))
     : m_is_last_iteration(false)
     , m_is_interrupted(false)
     , m_notifyObservers(notifyObservers)
@@ -45,7 +44,7 @@ FitSuiteImp::~FitSuiteImp()
 void FitSuiteImp::clear()
 {
     m_fit_objects.clear();
-//    m_fit_parameters.clear();
+    m_kernel->clear();
     m_fit_strategies.clear();
     m_is_last_iteration = false;
     m_is_interrupted = false;
@@ -100,11 +99,6 @@ void FitSuiteImp::runFit()
 
 void FitSuiteImp::minimize()
 {
-    // initialize minimizer with fitting functions
-//    IMinimizer::function_chi2_t fun_chi2 =
-//        [&] (const double* pars) {return m_function_chi2.evaluate(pars);};
-//    m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
-
     objective_function_t fun_chi2 =
         [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
     m_kernel->setObjectiveFunction( fun_chi2);
@@ -117,11 +111,6 @@ void FitSuiteImp::minimize()
     m_kernel->setGradientFunction(
         fun_gradient, m_fit_objects.getSizeOfDataSet() );
 
-    // initialize minimizer's parameters with the list of local fit parameters
-//    m_minimizer->setParameters(m_fit_parameters);
-
-    // setting number of free parameters for proper chi2 normalization
-//    m_fit_objects.setNfreeParameters((int)m_fit_parameters.numberOfFreeFitParameters());
     m_fit_objects.setNfreeParameters((int)fitParameters()->freeFitParameterCount());
 
     // minimize
@@ -129,9 +118,6 @@ void FitSuiteImp::minimize()
 //        m_minimizer->minimize();
         m_kernel->minimize();
     } catch (int) {}
-
-    // set found values to the parameters
-//    m_minimizer->propagateResults(m_fit_parameters);
 
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
@@ -143,10 +129,7 @@ FitParameterSet *FitSuiteImp::fitParameters() {
 // get current number of minimization function calls
 size_t FitSuiteImp::numberOfIterations() const
 {
-    //return m_minimizer->getNCalls();
-    // I don't know which function Minimizer calls (chi2 or gradient)
-    return m_function_chi2.getNCalls() ?
-        m_function_chi2.getNCalls() : m_function_gradient.getNCalls();
+    return m_kernel->functionCalls();
 }
 
 size_t FitSuiteImp::currentStrategyIndex() const
@@ -156,22 +139,6 @@ size_t FitSuiteImp::currentStrategyIndex() const
 
 std::string FitSuiteImp::reportResults() const
 {
-//    std::ostringstream result;
-
-//     result << std::endl;
-//     result
-//         << "--- FitSuite::printResults -----------------------------------------------------\n";
-//     result << " Chi2:" << std::scientific << std::setprecision(8)
-//               << m_fit_objects.getChiSquaredValue()
-//               << "    chi2.NCall:" << m_function_chi2.getNCalls()
-//               << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
-//               << m_function_gradient.getNCallsGradient() << ","
-//               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
-
-//     result << m_minimizer->reportResults();
-//     result << m_fit_parameters.reportResults();
-
-//     return result.str();
     return m_kernel->reportResults();
 }
 
@@ -180,19 +147,10 @@ const FitKernel *FitSuiteImp::kernel() const
    return m_kernel.get();
 }
 
-//FitKernel *FitSuiteImp::kernel()
-//{
-//   return m_kernel.get();
-//}
-
 bool FitSuiteImp::check_prerequisites() const
 {
-//    if( !m_minimizer ) throw Exceptions::LogicErrorException(
-//        "FitSuite::check_prerequisites() -> Error! No minimizer found.");
     if( !m_fit_objects.getNumberOfFitObjects() ) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
-//    if( !m_fit_parameters.size() ) throw Exceptions::LogicErrorException(
-//        "FitSuite::check_prerequisites() -> Error! No fit parameters defined");
     if( m_fit_objects.getSizeOfDataSet() == 0) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No elements to fit. "
         "Looks like whole detector is masked.");

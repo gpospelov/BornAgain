@@ -65,7 +65,6 @@ double FitSuiteGradientFunction::evaluate(
 
     m_ncalls_total++;
     if(index == 0 ) {
-    //if(index == 0 && !gradients) {
         m_kernel->notifyObservers();
         m_ncall++;
     }

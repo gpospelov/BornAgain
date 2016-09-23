@@ -112,18 +112,31 @@ void FitParameterItem::initMinMaxValues(const RealLimits &limits)
 
 //! Constructs Limits correspodning to current GUI settings.
 
-RealLimits FitParameterItem::getLimits()
+AttLimits FitParameterItem::getAttLimits()
 {
-    if(isLimited())
-        return RealLimits::limited(getItemValue(P_MIN).toDouble(), getItemValue(P_MAX).toDouble());
+    if(isFixed()) {
+        return AttLimits::fixed();
+    }
 
-    if(isLowerLimited())
-        return RealLimits::lowerLimited(getItemValue(P_MIN).toDouble());
+    else if(isLimited()) {
+        return AttLimits::limited(getItemValue(P_MIN).toDouble(), getItemValue(P_MAX).toDouble());
+    }
 
-    if(isUpperLimited())
-        return RealLimits::upperLimited(getItemValue(P_MAX).toDouble());
+    else if(isLowerLimited()) {
+        return AttLimits::lowerLimited(getItemValue(P_MIN).toDouble());
+    }
 
-    return RealLimits::limitless();
+    else if(isUpperLimited()) {
+        return AttLimits::upperLimited(getItemValue(P_MAX).toDouble());
+    }
+
+    else if(isFree()) {
+        return AttLimits::limitless();
+    }
+
+    else {
+        throw GUIHelpers::Error("FitParameterItem::getLimits() -> Error. Unknown limit type");
+    }
 }
 
 //! Enables/disables min, max properties on FitParameterItem's type

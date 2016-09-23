@@ -29,7 +29,8 @@ ObjectiveFunctionPlan::ObjectiveFunctionPlan(const std::string &name, objective_
 void ObjectiveFunctionPlan::addParameter(double start_value, double expected_value,
                                          const AttLimits &limits, double step)
 {
-    m_parameters.push_back(FitParameterPlan(start_value, expected_value, limits, step));
+    std::string name = "par"+std::to_string(m_parameters.size());
+    m_parameters.push_back(FitParameterPlan(name, start_value, expected_value, limits, step));
 }
 
 //! Plan for finding rosenbrock function minimum

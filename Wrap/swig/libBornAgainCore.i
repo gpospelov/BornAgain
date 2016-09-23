@@ -218,7 +218,7 @@
 #include "IIntensityNormalizer.h"
 #include "ISquaredFunction.h"
 #include "MathFunctions.h"
-#include "FitStrategyAdjustMinimizer.h"
+#include "AdjustMinimizerStrategy.h"
 %}
 
 // ownership
@@ -290,8 +290,7 @@
 %include "FitSuite.h"
 %include "FitSuiteObjects.h"
 %include "MathFunctions.h"
-%include "FitStrategyAdjustMinimizer.h"
-
+%include "AdjustMinimizerStrategy.h"
 %include "IFactory.h"
 %include "IMultiLayerBuilder.h"
 %include "ISampleVisitor.h"

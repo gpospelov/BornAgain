@@ -16,7 +16,7 @@
 #include "StandardFitsFactory.h"
 #include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
-#include "ExperimentalFitTest.h"
+#include "AdjustMinimizerStrategyTest.h"
 #include "StandaloneFitTest.h"
 #include <boost/format.hpp>
 
@@ -63,9 +63,9 @@ StandardFitsFactory::StandardFitsFactory()
         "Fit of rectangular detector, with crop and masks applied");
 
     registerItem(
-        "ExperimentalFit",
-        create_new<ExperimentalFitTest>,
-        "Experimental fit on the way to refactoring");
+        "AdjustMinimizerStrategy",
+        create_new<AdjustMinimizerStrategyTest>,
+        "Test of minimizer chain: genetic -> minuit2");
 
     registerItem(
         "StandaloneFit",

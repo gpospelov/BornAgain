@@ -84,4 +84,22 @@ TEST_F(MultiOptionTest, Assignment)
     EXPECT_EQ(double_value, copy.getDefault<double>());
 }
 
+TEST_F(MultiOptionTest, SetFromString)
+{
+    MultiOption opt("name", 2.0);
+    opt.setFromString("2.1");
+    EXPECT_EQ(2.1, opt.get<double>());
+    opt.setFromString("2");
+    EXPECT_EQ(2.0, opt.get<double>());
+
+    MultiOption opt2("name", 99);
+    opt2.setFromString("100");
+    EXPECT_EQ(100, opt2.get<int>());
+
+    MultiOption opt3("name", "xxx");
+    opt3.setFromString("yyy");
+    EXPECT_EQ("yyy", opt3.get<std::string>());
+}
+
+
 #endif

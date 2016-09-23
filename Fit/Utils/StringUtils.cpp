@@ -19,7 +19,7 @@
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
 
-bool StringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern)
+bool Utils::String::matchesPattern(const std::string& text, const std::string& wildcardPattern)
 {
     bool caseSensitive(true);
 
@@ -52,9 +52,35 @@ bool StringUtils::matchesPattern(const std::string& text, const std::string& wil
 
 //! Returns string right-padded with blanks.
 
-std::string StringUtils::padRight(const std::string& name, int length)
+std::string Utils::String::padRight(const std::string& name, int length)
 {
     std::string result = name;
     result.resize(length,' ');
+    return result;
+}
+
+//! Returns token vector obtained by splitting string at delimiters.
+
+std::vector<std::string> Utils::String::split(const std::string& text, const std::string& delimiter)
+{
+    std::vector<std::string> tokens;
+    boost::split(tokens, text, boost::is_any_of(delimiter));
+    return tokens;
+}
+
+void Utils::String::replaceItemsFromString(
+    std::string& text, const std::vector<std::string>& items, const std::string& replacement)
+{
+    for(size_t i=0; i<items.size(); ++i)
+        boost::replace_all(text, items[i], replacement);
+}
+
+std::string Utils::String::join(const std::vector<std::string>& joinable, const std::string& joint)
+{
+    std::string result;
+    size_t n = joinable.size();
+    for(size_t i=0; i<n-1; ++i)
+        result += joinable[i] + joint;
+    result += joinable[n-1];
     return result;
 }

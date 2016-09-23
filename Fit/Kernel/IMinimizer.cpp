@@ -40,9 +40,9 @@ void IMinimizer::setParameters(const FitParameterSet & /*parameters*/)
     throw std::runtime_error("IMinimizer::setParameters() -> Not implemented.");
 }
 
-double IMinimizer::getMinValue() const
+double IMinimizer::minValue() const
 {
-    throw std::runtime_error("IMinimizer::getMinValue() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::minValue() -> Not implemented.");
 }
 
 std::string IMinimizer::reportResults() const
@@ -53,6 +53,10 @@ std::string IMinimizer::reportResults() const
 
 void IMinimizer::propagateResults(FitParameterSet &/*parameters*/)
 {
-    throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");
+    throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");    
+}
 
+void IMinimizer::setOptions(const std::string &/*options*/)
+{
+    throw std::runtime_error("IMinimizer::setOptions() -> Not implemented.");
 }

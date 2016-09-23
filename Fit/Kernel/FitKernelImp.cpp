@@ -28,6 +28,12 @@ FitKernelImp::~FitKernelImp()
 
 }
 
+void FitKernelImp::clear()
+{
+    m_fit_parameters.clear();
+    m_minimizer.reset();
+}
+
 void FitKernelImp::setMinimizer(IMinimizer *minimizer)
 {
     m_minimizer.reset(minimizer);
@@ -50,6 +56,12 @@ void FitKernelImp::setGradientFunction(gradient_function_t func, int ndatasize)
 
 void FitKernelImp::minimize()
 {
+    if(!m_minimizer)
+        throw std::runtime_error("FitKernelImp::minimize() -> Error. Minimizer is not defined.");
+
+    if(m_fit_parameters.size() == 0)
+        throw std::runtime_error("FitKernelImp::minimize() -> Error. No fit parameters defined.");
+
     m_time_interval.start();
 
     objective_function_t func =
@@ -65,10 +77,7 @@ void FitKernelImp::minimize()
 
     m_minimizer->setParameters(m_fit_parameters);
 
-    // minimize
-    try {
-        m_minimizer->minimize();
-    } catch (int) {}
+    m_minimizer->minimize();
 
     // set found values to the parameters
     m_minimizer->propagateResults(m_fit_parameters);
@@ -96,4 +105,9 @@ FitParameterSet *FitKernelImp::fitParameters()
 IMinimizer *FitKernelImp::minimizer()
 {
     return m_minimizer.get();
+}
+
+int FitKernelImp::functionCalls() const
+{
+    return m_objective_function.functionCalls();
 }

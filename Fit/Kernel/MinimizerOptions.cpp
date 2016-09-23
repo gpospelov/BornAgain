@@ -14,14 +14,55 @@
 // ************************************************************************** //
 
 #include "MinimizerOptions.h"
+#include "StringUtils.h"
 #include <sstream>
+#include <iostream>
+#include <stdexcept>
 
-std::string MinimizerOptions::toOptionString(const std::string &delimeter) const
+namespace {
+const std::string delimeter(";");
+}
+
+std::string MinimizerOptions::toOptionString() const
 {
     std::ostringstream result;
     for(auto option: m_options) {
         result << option->name() << std::string("=") << option->value() << delimeter;
     }
     return result.str();
+}
+
+void MinimizerOptions::setOptionString(const std::string &options)
+{
+    // splits multiple option string "Strategy=1;Tolerance=0.01;"
+    std::vector<std::string> tokens = Utils::String::split(options, delimeter);
+    try {
+        for(std::string opt : tokens)
+            if(opt.size())
+                    processCommand(opt);
+    } catch(std::exception &ex) {
+        std::ostringstream ostr;
+        ostr << "MinimizerOptions::setOptions() -> Error. Can't parse option string '"
+             << options << "'.\n, error message '"
+             << ex.what() << "'";
+        throw std::runtime_error(ostr.str());
+    }
+}
+
+//! Process single option string 'Tolerance=0.01' and sets the value
+//! to corresponding MultiOption
+
+void MinimizerOptions::processCommand(const std::string &command)
+{
+    std::vector<std::string> tokens = Utils::String::split(command, "=");
+    if(tokens.size() != 2)
+        throw std::runtime_error("MinimizerOptions::processOption() -> Can't parse option '"+
+                                 command+"'");
+
+    std::string name = tokens[0];
+    std::string value = tokens[1];
+
+    OptionContainer::option_t opt = option(name);
+    opt->setFromString(value);
 }
 

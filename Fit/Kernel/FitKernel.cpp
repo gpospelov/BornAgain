@@ -34,6 +34,11 @@ FitKernel::~FitKernel()
 
 }
 
+void FitKernel::clear()
+{
+    m_impl->clear();
+}
+
 void FitKernel::setMinimizer(const std::string &minimizerName, const std::string &algorithmName)
 {
     m_impl->setMinimizer(MinimizerFactory::createMinimizer(minimizerName, algorithmName));
@@ -41,6 +46,9 @@ void FitKernel::setMinimizer(const std::string &minimizerName, const std::string
 
 void FitKernel::setMinimizer(IMinimizer *minimizer)
 {
+    if(!minimizer)
+        throw std::runtime_error("FitKernel::setMinimizer() -> Error. Nullptr minimizer");
+
     m_impl->setMinimizer(minimizer);
 }
 
@@ -87,4 +95,9 @@ FitParameterSet *FitKernel::fitParameters()
 const FitParameterSet *FitKernel::fitParameters() const
 {
     return m_impl->fitParameters();
+}
+
+int FitKernel::functionCalls() const
+{
+    return m_impl->functionCalls();
 }

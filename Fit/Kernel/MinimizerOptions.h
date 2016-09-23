@@ -25,9 +25,14 @@
 class BA_CORE_API_ MinimizerOptions : public OptionContainer {
 public:
 
-    //! Returns string with all options using given delimeter
-    std::string toOptionString(const std::string &delimeter=";") const;
+    //! Returns string with all options (i.e. "Strategy=1;Tolerance=0.01;")
+    std::string toOptionString() const;
 
+    //! Set options from their string representation
+    void setOptionString(const std::string &options);
+
+private:
+    void processCommand(const std::string &command);
 };
 
 #endif

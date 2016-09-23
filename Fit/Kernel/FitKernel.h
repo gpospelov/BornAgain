@@ -36,6 +36,8 @@ public:
     FitKernel();
     ~FitKernel();
 
+    void clear();
+
     //! Sets minimizer with given name and algorithm type
     //! @param minimizerName The name of the minimizer
     //! @param algorithmName Optional name of the minimizer's algorithm
@@ -63,6 +65,8 @@ public:
     FitParameterSet* fitParameters();
     const FitParameterSet* fitParameters() const;
 
+    //! Number of objective function calls.
+    int functionCalls() const;
 private:
     std::unique_ptr<FitKernelImp> m_impl;
 };

@@ -28,10 +28,10 @@ class BA_CORE_API_ FitOptions
     FitOptions();
     ~FitOptions(){}
 
-    double getDerivEpsilon() const;
+    double derivEpsilon() const;
     void setDerivEpsilon(double deriv_epsilon);
 
-    double getStepFactor() const;
+    double stepFactor() const;
     void setStepFactor(double step_factor);
 
  private:
@@ -45,7 +45,7 @@ inline FitOptions::FitOptions()
 {
 }
 
-inline double FitOptions::getDerivEpsilon() const
+inline double FitOptions::derivEpsilon() const
 {
     return m_deriv_epsilon;
 }
@@ -55,7 +55,7 @@ inline void FitOptions::setDerivEpsilon(double deriv_epsilon)
     m_deriv_epsilon = deriv_epsilon;
 }
 
-inline double FitOptions::getStepFactor() const
+inline double FitOptions::stepFactor() const
 {
     return m_step_factor;
 }
@@ -64,8 +64,6 @@ inline void FitOptions::setStepFactor(double step_factor)
 {
     m_step_factor = step_factor;
 }
-
-
 
 #endif // FITOPTIONS_H
 

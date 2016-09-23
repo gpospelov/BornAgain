@@ -20,13 +20,26 @@
 #include <string>
 #include <vector>
 
-namespace StringUtils {
+namespace Utils {
 
-    //! Returns true if text matches pattern with wildcards '*' and '?'.
-    BA_CORE_API_ bool matchesPattern(const std::string& text, const std::string& wildcardPattern);
+namespace String {
 
-    BA_CORE_API_ std::string padRight(const std::string& name, int length);
+//! Returns true if text matches pattern with wildcards '*' and '?'.
+BA_CORE_API_ bool matchesPattern(const std::string& text, const std::string& wildcardPattern);
 
-} // namespace StringUtils
+BA_CORE_API_ std::string padRight(const std::string& name, int length);
 
-#endif // STRINGUTILS_H
+//! Split string into vector of string using delimeter.
+BA_CORE_API_ std::vector<std::string> split(const std::string& text, const std::string& delimeter);
+
+//! replace all occurences of items from string text with delimeter
+BA_CORE_API_ void replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
+                                         const std::string& replacement=std::string(""));
+
+//! Returns string obtain by joining vector elements
+BA_CORE_API_ std::string join(const std::vector<std::string>& joinable, const std::string& joint);
+
+}
+}
+
+#endif

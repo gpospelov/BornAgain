@@ -83,13 +83,12 @@ def run_fitting():
 
     use_two_minimizers_strategy = False
     if use_two_minimizers_strategy:
-        strategy1 = ba.FitStrategyAdjustMinimizer("Genetic")
-        strategy1.getMinimizerOptions().setMaxIterations(3)
+        strategy1 = ba.AdjustMinimizerStrategy("Genetic")
         fit_suite.addFitStrategy(strategy1)
 
         # Second fit strategy will use another algorithm.
         # It will use best parameters found from previous minimization round.
-        strategy2 = ba.FitStrategyAdjustMinimizer("Minuit2", "Migrad")
+        strategy2 = ba.AdjustMinimizerStrategy("Minuit2", "Migrad")
         fit_suite.addFitStrategy(strategy2)
 
     # running fit

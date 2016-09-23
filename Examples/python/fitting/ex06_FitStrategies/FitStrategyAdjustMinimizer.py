@@ -96,8 +96,10 @@ def run_fitting():
     # setting fitting parameters with starting values
     # Here we select starting values being quite far from true values
     # to puzzle our minimizer's as much as possible
-    fit_suite.addFitParameter("*Height", 1.*nm).setLimited(0.01, 30.).setStep(0.05*nm)
-    fit_suite.addFitParameter("*Radius", 20.*nm).setLimited(0.01, 30.).setStep(0.05*nm)
+    fit_suite.addFitParameter("*Height", 1.*nm).setLimited(0.01, 30.)\
+        .setStep(0.05*nm)
+    fit_suite.addFitParameter("*Radius", 20.*nm).setLimited(0.01, 30.)\
+        .setStep(0.05*nm)
 
     # Now we create first fig strategy which will run first minimization round
     # using the Genetic minimizer.

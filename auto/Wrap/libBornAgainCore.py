@@ -5687,9 +5687,9 @@ class FitOptions(_object):
     __swig_destroy__ = _libBornAgainCore.delete_FitOptions
     __del__ = lambda self: None
 
-    def getDerivEpsilon(self):
-        """getDerivEpsilon(FitOptions self) -> double"""
-        return _libBornAgainCore.FitOptions_getDerivEpsilon(self)
+    def derivEpsilon(self):
+        """derivEpsilon(FitOptions self) -> double"""
+        return _libBornAgainCore.FitOptions_derivEpsilon(self)
 
 
     def setDerivEpsilon(self, deriv_epsilon):
@@ -5697,9 +5697,9 @@ class FitOptions(_object):
         return _libBornAgainCore.FitOptions_setDerivEpsilon(self, deriv_epsilon)
 
 
-    def getStepFactor(self):
-        """getStepFactor(FitOptions self) -> double"""
-        return _libBornAgainCore.FitOptions_getStepFactor(self)
+    def stepFactor(self):
+        """stepFactor(FitOptions self) -> double"""
+        return _libBornAgainCore.FitOptions_stepFactor(self)
 
 
     def setStepFactor(self, step_factor):

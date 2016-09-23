@@ -11,7 +11,7 @@ set(test_cases
     Minuit2_Fumili
     Minuit2_Migrad
     RectDetectorFit
-    ExperimentalFit
+    AdjustMinimizerStrategy
     StandaloneFit
 )
 

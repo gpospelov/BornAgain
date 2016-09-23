@@ -62,7 +62,7 @@ FitParameterLinked *FitSuiteImp::addFitParameter(const std::string& name, double
                                   const AttLimits& limits, double step)
 {
     if(step <=0.0)
-        step = value * getOptions().getStepFactor();
+        step = value * getOptions().stepFactor();
 
     FitParameterLinked *result = new FitParameterLinked(name, value, limits, step);
     m_kernel->fitParameters()->addFitParameter(result);

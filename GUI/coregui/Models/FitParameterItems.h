@@ -17,7 +17,7 @@
 #define FITPARAMETERITEMS_H
 
 #include "SessionItem.h"
-
+#include "AttLimits.h"
 
 //! FitParameterItems is a collection of items to define fit parameters in GUI.
 
@@ -48,7 +48,7 @@ public:
 
     void initMinMaxValues(const RealLimits &limits);
 
-    RealLimits getLimits();
+    AttLimits getAttLimits();
 
 private:
     void onTypeChange();

@@ -61,9 +61,9 @@ public:
     FitStrategyDefault();
     virtual FitStrategyDefault* clone() const;
     virtual void execute();
+
 protected:
     FitStrategyDefault(const FitStrategyDefault &other);
-
 };
 
 #endif // IFITSTRATEGY_H

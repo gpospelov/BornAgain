@@ -18,10 +18,9 @@
 #define COLORMAPSCENEADAPTOR_H
 
 #include "ISceneAdaptor.h"
+class ColorMap;
 
-class ColorMapPlot;
-
-//! Performs conversion of MaskItems coordinates between ColorMapPlot and GraphicsScene
+//! Performs conversion of MaskItems coordinates between ColorMap and GraphicsScene.
 
 class ColorMapSceneAdaptor : public ISceneAdaptor
 {
@@ -35,7 +34,7 @@ public:
     qreal fromSceneX(qreal scene_x) const;
     qreal fromSceneY(qreal scene_y) const;
 
-    void setColorMapPlot(ColorMapPlot *plot);
+    void setColorMapPlot(ColorMap *plot);
 
     bool eventFilter(QObject *object, QEvent *event);
 
@@ -43,8 +42,7 @@ public:
     const QRectF& getViewportRectangle() const;
 
 private:
-    ColorMapPlot *m_plot;
+    ColorMap *m_plot;
 };
-
 
 #endif // COLORMAPSCENEADAPTOR_H

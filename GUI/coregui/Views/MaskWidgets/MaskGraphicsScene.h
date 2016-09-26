@@ -34,6 +34,8 @@ class QItemSelection;
 class PolygonView;
 class MaskEditorAction;
 class IntensityDataItem;
+class QGraphicsSceneMouseEvent;
+class QPainter;
 
 //! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
 

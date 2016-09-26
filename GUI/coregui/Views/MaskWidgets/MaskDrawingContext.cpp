@@ -107,6 +107,6 @@ bool MaskDrawingContext::getMaskValue() const
 bool MaskDrawingContext::isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity)
 {
     if(isDrawingInProgress() && isPolygonMode()
-            && proposed_new_activity > MaskEditorFlags::PAN_ZOOM_MODE) return true;
+            && proposed_new_activity >= MaskEditorFlags::PAN_ZOOM_MODE) return true;
     return false;
 }

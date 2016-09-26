@@ -149,9 +149,19 @@ void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 
     m_context.setActivityType(value);
     if(m_context.isInZoomMode()) {
+        m_selectionModel->clearSelection();
+        foreach(IMaskView *view, m_ItemToView.values()) {
+            view->setAcceptedMouseButtons(Qt::NoButton);
+        }
+
         m_proxy->setInZoomMode(true);
     } else {
+        foreach(IMaskView *view, m_ItemToView.values()) {
+            view->setAcceptedMouseButtons(Qt::LeftButton);
+        }
+
         m_proxy->setInZoomMode(false);
+
     }
 }
 

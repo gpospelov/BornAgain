@@ -30,6 +30,9 @@
 #include "SampleBuilderFactory.h"
 #include "SampleModel.h"
 #include "WarningMessageService.h"
+#include "RealDataItem.h"
+#include "IntensityDataIOFactory.h"
+#include "IntensityDataItem.h"
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -219,9 +222,19 @@ void ApplicationModels::createTestJob()
 //    realDataItem->intensityDataItem()->setOutputData(data->createOutputData());
 //    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
 
-
     m_jobModel->runJob(jobItem->index());
+}
 
+void ApplicationModels::createTestRealData()
+{
+    RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(
+                m_realDataModel->insertNewItem(Constants::RealDataType));
+    realDataItem->setItemName("realdata");
+    IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(
+                m_realDataModel->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
+
+    OutputData<double>* data = IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int");
+    intensityDataItem->setOutputData(data);
 }
 
 //! Writes all model in file one by one

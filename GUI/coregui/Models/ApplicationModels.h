@@ -49,6 +49,7 @@ public:
 
     void createTestSample();
     void createTestJob();
+    void createTestRealData();
 
     void writeTo(class QXmlStreamWriter *writer);
     void readFrom(class QXmlStreamReader *reader, class WarningMessageService *messageService);

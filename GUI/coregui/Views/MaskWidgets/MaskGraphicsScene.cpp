@@ -212,7 +212,11 @@ void MaskGraphicsScene::updateScene()
 {
     if(!m_maskModel) return;
     updateProxyWidget();
-    updateViews(m_maskModel->parent(m_maskContainerIndex));
+//    updateViews(m_maskModel->parent(m_maskContainerIndex));
+    SessionItem *container = m_maskModel->itemForIndex(m_maskContainerIndex);
+    Q_ASSERT(container->modelType() == Constants::MaskContainerType);
+    updateViews(m_maskContainerIndex, addViewForItem(container));
+
     setZValues();
 }
 

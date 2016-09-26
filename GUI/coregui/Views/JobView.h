@@ -24,6 +24,7 @@ class MainWindow;
 class JobViewDocks;
 class JobActivityStatusBar;
 class JobProgressAssistant;
+class JobItem;
 
 //! The JobView class is a main view to show list of jobs, job results and widgets for real time
 //! and fitting activities.
@@ -40,10 +41,10 @@ signals:
     void activityChanged(int activity);
 
 public slots:
-    void onFocusRequest(class JobItem *jobItem);
+    void onFocusRequest(JobItem *jobItem);
     void setActivity(int activity);
     void onDockMenuRequest();
-    void onSelectionChanged(class JobItem *jobItem);
+    void onSelectionChanged(JobItem *jobItem);
 
 protected:
     virtual void showEvent(QShowEvent *);

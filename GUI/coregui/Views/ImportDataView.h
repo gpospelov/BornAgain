@@ -19,6 +19,7 @@
 
 #include "ItemStackPresenter.h"
 #include "RealDataEditorWidget.h"
+#include "RealDataMaskWidget.h"
 
 class ImportDataToolBar;
 class ItemSelectorWidget;
@@ -46,7 +47,8 @@ private:
     ImportDataToolBar *m_toolBar;
     Manhattan::MiniSplitter *m_splitter;
     ItemSelectorWidget *m_selectorWidget;
-    ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
+    ItemStackPresenter<RealDataMaskWidget> *m_stackedWidget;
+//    ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
     RealDataModel *m_realDataModel;
 };
 

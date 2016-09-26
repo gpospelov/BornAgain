@@ -30,7 +30,7 @@
 MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     : QWidget(parent)
     , m_scene(new MaskGraphicsScene(this))
-    , m_view(new MaskGraphicsView(m_scene, this))
+    , m_view(new MaskGraphicsView(m_scene))
     , m_resultsPresenter(new MaskResultsPresenter(this))
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
@@ -49,6 +49,7 @@ void MaskEditorCanvas::setMaskContext(SessionModel *model, const QModelIndex &ma
 {
     m_scene->setMaskContext(model, maskContainerIndex, intensityItem);
     m_resultsPresenter->setMaskContext(model, maskContainerIndex, intensityItem);
+    getView()->updateSize(getView()->size());
 }
 
 void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)

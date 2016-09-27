@@ -33,6 +33,7 @@ public:
 
     bool isSelectionMode() const;
     bool isInZoomMode() const;
+    bool isRectangleShapeMode() const;
     bool isRectangleMode() const;
     bool isEllipseMode() const;
     bool isPolygonMode() const;
@@ -47,6 +48,8 @@ public:
     bool getMaskValue() const;
 
     bool isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity);
+
+    QString activityToModelType() const;
 
 private:
 

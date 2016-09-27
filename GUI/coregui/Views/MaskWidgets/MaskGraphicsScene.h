@@ -84,9 +84,8 @@ private:
     void deleteViews(const QModelIndex & itemIndex);
     void removeItemViewFromScene(SessionItem *item);
 
-    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);
-    bool isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event);
-    bool isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);    
+    bool isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
@@ -97,8 +96,7 @@ private:
 
     void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 
-    void processRectangleItem(QGraphicsSceneMouseEvent *event);
-    void processEllipseItem(QGraphicsSceneMouseEvent *event);
+    void processRectangleShapeItem(QGraphicsSceneMouseEvent *event);
     void processPolygonItem(QGraphicsSceneMouseEvent *event);
     void processLineItem(QGraphicsSceneMouseEvent *event);
     void processVerticalLineItem(const QPointF &pos);

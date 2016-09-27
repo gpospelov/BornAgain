@@ -268,13 +268,8 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    if(isValidForRectangleDrawing(event)) {
-        processRectangleItem(event);
-        return;
-    }
-
-    if(isValidForEllipseDrawing(event)) {
-        processEllipseItem(event);
+    if(isValidForRectangleShapeDrawing(event)) {
+        processRectangleShapeItem(event);
         return;
     }
 
@@ -283,13 +278,8 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(isDrawingInProgress() && m_context.isRectangleMode()) {
-        processRectangleItem(event);
-        return;
-    }
-
-    if(isDrawingInProgress() && m_context.isEllipseMode()) {
-        processEllipseItem(event);
+    if(isDrawingInProgress() && m_context.isRectangleShapeMode()) {
+        processRectangleShapeItem(event);
         return;
     }
 
@@ -307,7 +297,7 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before";
     if(isDrawingInProgress()) {
-        if (m_context.isRectangleMode() || m_context.isEllipseMode()) {
+        if (m_context.isRectangleShapeMode()) {
             clearSelection();
             if (m_currentItem) {
                 // drawing ended up with item drawn, let's make it selected
@@ -465,24 +455,13 @@ bool MaskGraphicsScene::isValidMouseClick(QGraphicsSceneMouseEvent *event)
     return true;
 }
 
-//! Returns true if mouse click is in context suitable for rectangle drawing.
+//! Returns true if mouse click is valid for rectangular/elliptic shapes.
 
-bool MaskGraphicsScene::isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event)
+bool MaskGraphicsScene::isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent *event)
 {
     if(isDrawingInProgress()) return false;
     if(!isValidMouseClick(event)) return false;
-    if(!m_context.isRectangleMode()) return false;
-    if(isAreaContains(event, MaskEditorHelper::SIZEHANDLE)) return false;
-    return true;
-}
-
-//! Returns true if mouse click is in context suitable for ellipse drawing.
-
-bool MaskGraphicsScene::isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event)
-{
-    if(isDrawingInProgress()) return false;
-    if(!isValidMouseClick(event)) return false;
-    if(!m_context.isEllipseMode()) return false;
+    if(!m_context.isRectangleShapeMode()) return false;
     if(isAreaContains(event, MaskEditorHelper::SIZEHANDLE)) return false;
     return true;
 }
@@ -571,64 +550,44 @@ void MaskGraphicsScene::makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *eve
         graphicsItem->setSelected(true);
 }
 
-//! Processes RectangleItem drawing
+//! Processes RectangleItem and EllipseItem drawing
 //! If the mouse move distance with left button down is larger than certain threshold,
-//! new RectangleItem will be created. Further, this function will update size and position
+//! new item will be created. Further, this function will update size and position
 //! of current rectangle if mouse keep moving.
-//! FIXME Refactor to handle Ellipses and rectangles in single function
 
-void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
+void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent *event)
 {
-    if(!isDrawingInProgress()) setDrawingInProgress(true);
+    if(!isDrawingInProgress())
+        setDrawingInProgress(true);
 
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
     QPointF mouse_pos = event->scenePos();
     QLineF line(mouse_pos, click_pos);
 
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
-        m_currentItem = m_maskModel->insertNewItem(Constants::RectangleMaskType,
+        m_currentItem = m_maskModel->insertNewItem(m_context.activityToModelType(),
                                                    m_maskContainerIndex, 0);
         m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
 
-    if(m_currentItem) {
-        qreal xmin = std::min(click_pos.x(), mouse_pos.x());
-        qreal xmax = std::max(click_pos.x(), mouse_pos.x());
-        qreal ymin = std::min(click_pos.y(), mouse_pos.y());
-        qreal ymax = std::max(click_pos.y(), mouse_pos.y());
+    if(!m_currentItem)
+        return;
 
+    qreal xmin = std::min(click_pos.x(), mouse_pos.x());
+    qreal xmax = std::max(click_pos.x(), mouse_pos.x());
+    qreal ymin = std::min(click_pos.y(), mouse_pos.y());
+    qreal ymax = std::max(click_pos.y(), mouse_pos.y());
+
+    if(m_currentItem->modelType() == Constants::RectangleMaskType) {
         m_currentItem->setItemValue(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
         m_currentItem->setItemValue(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
         m_currentItem->setItemValue(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
         m_currentItem->setItemValue(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
     }
-}
 
-//! Processes EllipseItem drawing
-void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
-{
-    if(!isDrawingInProgress()) setDrawingInProgress(true);
-
-    QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
-    QPointF mouse_pos = event->scenePos();
-    QLineF line(mouse_pos, click_pos);
-
-    if(!m_currentItem && line.length() > min_distance_to_create_rect) {
-        m_currentItem = m_maskModel->insertNewItem(Constants::EllipseMaskType,
-                                                   m_maskContainerIndex, 0);
-        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
-                                             m_context.getMaskValue());
-        setItemName(m_currentItem);
-    }
-
-    if(m_currentItem) {
-        qreal xmin = std::min(click_pos.x(), mouse_pos.x());
-        qreal xmax = std::max(click_pos.x(), mouse_pos.x());
-        qreal ymin = std::min(click_pos.y(), mouse_pos.y());
-        qreal ymax = std::max(click_pos.y(), mouse_pos.y());
-
+    else if(m_currentItem->modelType() == Constants::EllipseMaskType){
         m_currentItem->setItemValue(EllipseItem::P_XCENTER,
                                              m_adaptor->fromSceneX(xmin + (xmax-xmin)/2.));
         m_currentItem->setItemValue(EllipseItem::P_YCENTER,
@@ -638,7 +597,6 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
         m_currentItem->setItemValue(
             EllipseItem::P_YRADIUS, (m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax))/2.);
     }
-
 }
 
 void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)

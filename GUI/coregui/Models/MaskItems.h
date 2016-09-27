@@ -34,7 +34,7 @@ public:
 
 
 //! A base class for all mask items
-//!
+
 class BA_CORE_API_ MaskItem : public SessionItem
 {
 
@@ -112,6 +112,5 @@ public:
     explicit MaskAllItem();
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
-
 
 #endif // MASKITEMS_H

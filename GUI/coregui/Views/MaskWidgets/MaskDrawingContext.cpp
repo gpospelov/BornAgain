@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "MaskDrawingContext.h"
+#include "item_constants.h"
 #include <QDebug>
-
 
 MaskDrawingContext::MaskDrawingContext()
     : m_current_activity(MaskEditorFlags::SELECTION_MODE)
@@ -50,6 +50,12 @@ bool MaskDrawingContext::isSelectionMode() const
 bool MaskDrawingContext::isInZoomMode() const
 {
     return m_current_activity == MaskEditorFlags::PAN_ZOOM_MODE;
+}
+
+bool MaskDrawingContext::isRectangleShapeMode() const
+{
+    return (m_current_activity == MaskEditorFlags::RECTANGLE_MODE) ||
+           (m_current_activity == MaskEditorFlags::ELLIPSE_MODE);
 }
 
 bool MaskDrawingContext::isRectangleMode() const
@@ -109,4 +115,13 @@ bool MaskDrawingContext::isActivityRequiresDrawingCancel(MaskEditorFlags::Activi
     if(isDrawingInProgress() && isPolygonMode()
             && proposed_new_activity >= MaskEditorFlags::PAN_ZOOM_MODE) return true;
     return false;
+}
+
+//! Returns model type corresponding to current activity.
+
+QString MaskDrawingContext::activityToModelType() const
+{
+    if(isRectangleMode()) return Constants::RectangleMaskType;
+    if(isEllipseMode()) return Constants::EllipseMaskType;
+    return QString();
 }

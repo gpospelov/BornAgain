@@ -580,7 +580,8 @@ void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent *even
     qreal ymin = std::min(click_pos.y(), mouse_pos.y());
     qreal ymax = std::max(click_pos.y(), mouse_pos.y());
 
-    if(m_currentItem->modelType() == Constants::RectangleMaskType) {
+    if(m_currentItem->modelType() == Constants::RectangleMaskType ||
+            m_currentItem->modelType() == Constants::RegionOfInterestType) {
         m_currentItem->setItemValue(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
         m_currentItem->setItemValue(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
         m_currentItem->setItemValue(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));

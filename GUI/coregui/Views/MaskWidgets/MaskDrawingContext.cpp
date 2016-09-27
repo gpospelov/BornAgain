@@ -55,7 +55,8 @@ bool MaskDrawingContext::isInZoomMode() const
 bool MaskDrawingContext::isRectangleShapeMode() const
 {
     return (m_current_activity == MaskEditorFlags::RECTANGLE_MODE) ||
-           (m_current_activity == MaskEditorFlags::ELLIPSE_MODE);
+           (m_current_activity == MaskEditorFlags::ELLIPSE_MODE) ||
+           (m_current_activity == MaskEditorFlags::ROI_MODE);
 }
 
 bool MaskDrawingContext::isRectangleMode() const
@@ -93,6 +94,11 @@ bool MaskDrawingContext::isMaskAllMode() const
     return m_current_activity == MaskEditorFlags::MASKALL_MODE;
 }
 
+bool MaskDrawingContext::isROIMode() const
+{
+    return m_current_activity == MaskEditorFlags::ROI_MODE;
+}
+
 bool MaskDrawingContext::isDrawingInProgress() const
 {
     return m_drawing_in_progress;
@@ -123,5 +129,6 @@ QString MaskDrawingContext::activityToModelType() const
 {
     if(isRectangleMode()) return Constants::RectangleMaskType;
     if(isEllipseMode()) return Constants::EllipseMaskType;
+    if(isROIMode()) return Constants::RegionOfInterestType;
     return QString();
 }

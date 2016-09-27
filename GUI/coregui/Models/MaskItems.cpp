@@ -27,9 +27,12 @@ MaskContainerItem::MaskContainerItem()
     : SessionItem(Constants::MaskContainerType)
 {
     const QString T_MASKS = "Mask Tag";
-    registerTag(T_MASKS, 0, -1, QStringList() << Constants::RectangleMaskType << Constants::PolygonMaskType
-                << Constants::EllipseMaskType << Constants::VerticalLineMaskType
-                << Constants::HorizontalLineMaskType << Constants::MaskAllType);
+    QStringList allowedMasks = QStringList()
+            << Constants::RectangleMaskType << Constants::PolygonMaskType
+            << Constants::EllipseMaskType << Constants::VerticalLineMaskType
+            << Constants::HorizontalLineMaskType << Constants::MaskAllType
+            << Constants::RegionOfInterestType;
+    registerTag(T_MASKS, 0, -1, allowedMasks);
     setDefaultTag(T_MASKS);
 }
 

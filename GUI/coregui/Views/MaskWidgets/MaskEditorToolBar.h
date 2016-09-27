@@ -56,7 +56,7 @@ private:
     void setup_extratools_group();
     void add_separator();
 
-    MaskEditorFlags::Activity getCurrentActivity() const;
+    MaskEditorFlags::Activity currentActivity() const;
     void setCurrentActivity(MaskEditorFlags::Activity value);
 
     MaskEditorActions *m_editorActions;

@@ -41,6 +41,7 @@ public:
     bool isVerticalLineMode() const;
     bool isHorizontalLineMode() const;
     bool isMaskAllMode() const;
+    bool isROIMode() const;
 
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);

@@ -5627,7 +5627,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -22043,7 +22043,12 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"vector_string_t_capacity", _wrap_vector_string_t_capacity, METH_VARARGS, (char *)"vector_string_t_capacity(vector_string_t self) -> std::vector< std::string >::size_type"},
 	 { (char *)"delete_vector_string_t", _wrap_delete_vector_string_t, METH_VARARGS, (char *)"delete_vector_string_t(vector_string_t self)"},
 	 { (char *)"vector_string_t_swigregister", vector_string_t_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_AttLimits", _wrap_new_AttLimits, METH_VARARGS, (char *)"new_AttLimits() -> AttLimits"},
+	 { (char *)"new_AttLimits", _wrap_new_AttLimits, METH_VARARGS, (char *)"\n"
+		"new_AttLimits() -> AttLimits\n"
+		"\n"
+		"AttLimits::AttLimits()\n"
+		"\n"
+		""},
 	 { (char *)"AttLimits_limitless", _wrap_AttLimits_limitless, METH_VARARGS, (char *)"AttLimits_limitless() -> AttLimits"},
 	 { (char *)"AttLimits_lowerLimited", _wrap_AttLimits_lowerLimited, METH_VARARGS, (char *)"AttLimits_lowerLimited(double bound_value) -> AttLimits"},
 	 { (char *)"AttLimits_positive", _wrap_AttLimits_positive, METH_VARARGS, (char *)"AttLimits_positive() -> AttLimits"},
@@ -22051,23 +22056,68 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AttLimits_upperLimited", _wrap_AttLimits_upperLimited, METH_VARARGS, (char *)"AttLimits_upperLimited(double bound_value) -> AttLimits"},
 	 { (char *)"AttLimits_limited", _wrap_AttLimits_limited, METH_VARARGS, (char *)"AttLimits_limited(double left_bound_value, double right_bound_value) -> AttLimits"},
 	 { (char *)"AttLimits_fixed", _wrap_AttLimits_fixed, METH_VARARGS, (char *)"AttLimits_fixed() -> AttLimits"},
-	 { (char *)"AttLimits_isFixed", _wrap_AttLimits_isFixed, METH_VARARGS, (char *)"AttLimits_isFixed(AttLimits self) -> bool"},
-	 { (char *)"AttLimits_isLimited", _wrap_AttLimits_isLimited, METH_VARARGS, (char *)"AttLimits_isLimited(AttLimits self) -> bool"},
-	 { (char *)"AttLimits_isUpperLimited", _wrap_AttLimits_isUpperLimited, METH_VARARGS, (char *)"AttLimits_isUpperLimited(AttLimits self) -> bool"},
-	 { (char *)"AttLimits_isLowerLimited", _wrap_AttLimits_isLowerLimited, METH_VARARGS, (char *)"AttLimits_isLowerLimited(AttLimits self) -> bool"},
-	 { (char *)"AttLimits_isLimitless", _wrap_AttLimits_isLimitless, METH_VARARGS, (char *)"AttLimits_isLimitless(AttLimits self) -> bool"},
-	 { (char *)"AttLimits_lowerLimit", _wrap_AttLimits_lowerLimit, METH_VARARGS, (char *)"AttLimits_lowerLimit(AttLimits self) -> double"},
-	 { (char *)"AttLimits_upperLimit", _wrap_AttLimits_upperLimit, METH_VARARGS, (char *)"AttLimits_upperLimit(AttLimits self) -> double"},
-	 { (char *)"AttLimits_setFixed", _wrap_AttLimits_setFixed, METH_VARARGS, (char *)"AttLimits_setFixed(AttLimits self, bool isFixed)"},
+	 { (char *)"AttLimits_isFixed", _wrap_AttLimits_isFixed, METH_VARARGS, (char *)"\n"
+		"AttLimits_isFixed(AttLimits self) -> bool\n"
+		"\n"
+		"bool AttLimits::isFixed() const \n"
+		"\n"
+		""},
+	 { (char *)"AttLimits_isLimited", _wrap_AttLimits_isLimited, METH_VARARGS, (char *)"\n"
+		"AttLimits_isLimited(AttLimits self) -> bool\n"
+		"\n"
+		"bool AttLimits::isLimited() const \n"
+		"\n"
+		""},
+	 { (char *)"AttLimits_isUpperLimited", _wrap_AttLimits_isUpperLimited, METH_VARARGS, (char *)"\n"
+		"AttLimits_isUpperLimited(AttLimits self) -> bool\n"
+		"\n"
+		"bool AttLimits::isUpperLimited() const \n"
+		"\n"
+		""},
+	 { (char *)"AttLimits_isLowerLimited", _wrap_AttLimits_isLowerLimited, METH_VARARGS, (char *)"\n"
+		"AttLimits_isLowerLimited(AttLimits self) -> bool\n"
+		"\n"
+		"bool AttLimits::isLowerLimited() const \n"
+		"\n"
+		""},
+	 { (char *)"AttLimits_isLimitless", _wrap_AttLimits_isLimitless, METH_VARARGS, (char *)"\n"
+		"AttLimits_isLimitless(AttLimits self) -> bool\n"
+		"\n"
+		"bool AttLimits::isLimitless() const \n"
+		"\n"
+		""},
+	 { (char *)"AttLimits_lowerLimit", _wrap_AttLimits_lowerLimit, METH_VARARGS, (char *)"\n"
+		"AttLimits_lowerLimit(AttLimits self) -> double\n"
+		"\n"
+		"double AttLimits::lowerLimit() const \n"
+		"\n"
+		""},
+	 { (char *)"AttLimits_upperLimit", _wrap_AttLimits_upperLimit, METH_VARARGS, (char *)"\n"
+		"AttLimits_upperLimit(AttLimits self) -> double\n"
+		"\n"
+		"double AttLimits::upperLimit() const \n"
+		"\n"
+		""},
+	 { (char *)"AttLimits_setFixed", _wrap_AttLimits_setFixed, METH_VARARGS, (char *)"\n"
+		"AttLimits_setFixed(AttLimits self, bool isFixed)\n"
+		"\n"
+		"void AttLimits::setFixed(bool isFixed)\n"
+		"\n"
+		""},
 	 { (char *)"AttLimits___eq__", _wrap_AttLimits___eq__, METH_VARARGS, (char *)"AttLimits___eq__(AttLimits self, AttLimits other) -> bool"},
 	 { (char *)"AttLimits___ne__", _wrap_AttLimits___ne__, METH_VARARGS, (char *)"AttLimits___ne__(AttLimits self, AttLimits other) -> bool"},
-	 { (char *)"AttLimits_toString", _wrap_AttLimits_toString, METH_VARARGS, (char *)"AttLimits_toString(AttLimits self) -> std::string"},
+	 { (char *)"AttLimits_toString", _wrap_AttLimits_toString, METH_VARARGS, (char *)"\n"
+		"AttLimits_toString(AttLimits self) -> std::string\n"
+		"\n"
+		"std::string AttLimits::toString() const \n"
+		"\n"
+		""},
 	 { (char *)"delete_AttLimits", _wrap_delete_AttLimits, METH_VARARGS, (char *)"delete_AttLimits(AttLimits self)"},
 	 { (char *)"AttLimits_swigregister", AttLimits_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_IMinimizer", _wrap_new_IMinimizer, METH_VARARGS, (char *)"\n"
 		"new_IMinimizer() -> IMinimizer\n"
 		"\n"
-		"IMinimizer::IMinimizer()\n"
+		"IMinimizer::IMinimizer(const IMinimizer &other)=delete\n"
 		"\n"
 		""},
 	 { (char *)"delete_IMinimizer", _wrap_delete_IMinimizer, METH_VARARGS, (char *)"\n"
@@ -22128,7 +22178,14 @@ static PyMethodDef SwigMethods[] = {
 		"virtual void IMinimizer::setGradientFunction(gradient_function_t, int)\n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_minValue", _wrap_IMinimizer_minValue, METH_VARARGS, (char *)"IMinimizer_minValue(IMinimizer self) -> double"},
+	 { (char *)"IMinimizer_minValue", _wrap_IMinimizer_minValue, METH_VARARGS, (char *)"\n"
+		"IMinimizer_minValue(IMinimizer self) -> double\n"
+		"\n"
+		"double IMinimizer::minValue() const\n"
+		"\n"
+		"Returns minimum function value. \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_reportResults", _wrap_IMinimizer_reportResults, METH_VARARGS, (char *)"\n"
 		"IMinimizer_reportResults(IMinimizer self) -> std::string\n"
 		"\n"
@@ -22145,10 +22202,27 @@ static PyMethodDef SwigMethods[] = {
 		"Propagates results of minimization to fit parameter set. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_setOptions", _wrap_IMinimizer_setOptions, METH_VARARGS, (char *)"IMinimizer_setOptions(IMinimizer self, std::string const & options)"},
+	 { (char *)"IMinimizer_setOptions", _wrap_IMinimizer_setOptions, METH_VARARGS, (char *)"\n"
+		"IMinimizer_setOptions(IMinimizer self, std::string const & options)\n"
+		"\n"
+		"void IMinimizer::setOptions(const std::string &options)\n"
+		"\n"
+		"Sets option string to the minimizer. \n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_swigregister", IMinimizer_swigregister, METH_VARARGS, NULL},
-	 { (char *)"delete_IFitParameter", _wrap_delete_IFitParameter, METH_VARARGS, (char *)"delete_IFitParameter(IFitParameter self)"},
-	 { (char *)"IFitParameter_clone", _wrap_IFitParameter_clone, METH_VARARGS, (char *)"IFitParameter_clone(IFitParameter self) -> IFitParameter"},
+	 { (char *)"delete_IFitParameter", _wrap_delete_IFitParameter, METH_VARARGS, (char *)"\n"
+		"delete_IFitParameter(IFitParameter self)\n"
+		"\n"
+		"virtual IFitParameter::~IFitParameter()\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_clone", _wrap_IFitParameter_clone, METH_VARARGS, (char *)"\n"
+		"IFitParameter_clone(IFitParameter self) -> IFitParameter\n"
+		"\n"
+		"virtual IFitParameter* IFitParameter::clone() const =0\n"
+		"\n"
+		""},
 	 { (char *)"IFitParameter_swigregister", IFitParameter_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitParameter", _wrap_new_FitParameter, METH_VARARGS, (char *)"\n"
 		"FitParameter()\n"
@@ -22156,7 +22230,7 @@ static PyMethodDef SwigMethods[] = {
 		"FitParameter(std::string const & name, double value, AttLimits limits)\n"
 		"new_FitParameter(std::string const & name, double value) -> FitParameter\n"
 		"\n"
-		"FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)\n"
+		"FitParameter::FitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)\n"
 		"\n"
 		""},
 	 { (char *)"delete_FitParameter", _wrap_delete_FitParameter, METH_VARARGS, (char *)"\n"
@@ -22165,24 +22239,54 @@ static PyMethodDef SwigMethods[] = {
 		"virtual FitParameter::~FitParameter()\n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_clone", _wrap_FitParameter_clone, METH_VARARGS, (char *)"FitParameter_clone(FitParameter self) -> FitParameter"},
-	 { (char *)"FitParameter_name", _wrap_FitParameter_name, METH_VARARGS, (char *)"FitParameter_name(FitParameter self) -> std::string"},
-	 { (char *)"FitParameter_startValue", _wrap_FitParameter_startValue, METH_VARARGS, (char *)"FitParameter_startValue(FitParameter self) -> double"},
-	 { (char *)"FitParameter_value", _wrap_FitParameter_value, METH_VARARGS, (char *)"FitParameter_value(FitParameter self) -> double"},
+	 { (char *)"FitParameter_clone", _wrap_FitParameter_clone, METH_VARARGS, (char *)"\n"
+		"FitParameter_clone(FitParameter self) -> FitParameter\n"
+		"\n"
+		"FitParameter * FitParameter::clone() const \n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_name", _wrap_FitParameter_name, METH_VARARGS, (char *)"\n"
+		"FitParameter_name(FitParameter self) -> std::string\n"
+		"\n"
+		"std::string FitParameter::name() const \n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_startValue", _wrap_FitParameter_startValue, METH_VARARGS, (char *)"\n"
+		"FitParameter_startValue(FitParameter self) -> double\n"
+		"\n"
+		"double FitParameter::startValue() const \n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_value", _wrap_FitParameter_value, METH_VARARGS, (char *)"\n"
+		"FitParameter_value(FitParameter self) -> double\n"
+		"\n"
+		"double FitParameter::value() const \n"
+		"\n"
+		""},
 	 { (char *)"FitParameter_setValue", _wrap_FitParameter_setValue, METH_VARARGS, (char *)"\n"
 		"FitParameter_setValue(FitParameter self, double value)\n"
 		"\n"
-		"virtual void FitParameter::setValue(double value)\n"
+		"void FitParameter::setValue(double value)\n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_step", _wrap_FitParameter_step, METH_VARARGS, (char *)"FitParameter_step(FitParameter self) -> double"},
+	 { (char *)"FitParameter_step", _wrap_FitParameter_step, METH_VARARGS, (char *)"\n"
+		"FitParameter_step(FitParameter self) -> double\n"
+		"\n"
+		"double FitParameter::step() const \n"
+		"\n"
+		""},
 	 { (char *)"FitParameter_setStep", _wrap_FitParameter_setStep, METH_VARARGS, (char *)"\n"
 		"FitParameter_setStep(FitParameter self, double value) -> FitParameter\n"
 		"\n"
-		"void FitParameter::setStep(double value)\n"
+		"FitParameter & FitParameter::setStep(double value)\n"
 		"\n"
 		""},
-	 { (char *)"FitParameter_error", _wrap_FitParameter_error, METH_VARARGS, (char *)"FitParameter_error(FitParameter self) -> double"},
+	 { (char *)"FitParameter_error", _wrap_FitParameter_error, METH_VARARGS, (char *)"\n"
+		"FitParameter_error(FitParameter self) -> double\n"
+		"\n"
+		"double FitParameter::error() const \n"
+		"\n"
+		""},
 	 { (char *)"FitParameter_setError", _wrap_FitParameter_setError, METH_VARARGS, (char *)"\n"
 		"FitParameter_setError(FitParameter self, double value)\n"
 		"\n"
@@ -22192,15 +22296,58 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitParameter_limits", _wrap_FitParameter_limits, METH_VARARGS, (char *)"\n"
 		"limits() -> AttLimits\n"
 		"FitParameter_limits(FitParameter self) -> AttLimits\n"
+		"\n"
+		"AttLimits & FitParameter::limits()\n"
+		"\n"
 		""},
-	 { (char *)"FitParameter_setLimits", _wrap_FitParameter_setLimits, METH_VARARGS, (char *)"FitParameter_setLimits(FitParameter self, AttLimits limits) -> FitParameter"},
-	 { (char *)"FitParameter_setLowerLimited", _wrap_FitParameter_setLowerLimited, METH_VARARGS, (char *)"FitParameter_setLowerLimited(FitParameter self, double bound_value) -> FitParameter"},
-	 { (char *)"FitParameter_setPositive", _wrap_FitParameter_setPositive, METH_VARARGS, (char *)"FitParameter_setPositive(FitParameter self) -> FitParameter"},
-	 { (char *)"FitParameter_setNonnegative", _wrap_FitParameter_setNonnegative, METH_VARARGS, (char *)"FitParameter_setNonnegative(FitParameter self) -> FitParameter"},
-	 { (char *)"FitParameter_setUpperLimited", _wrap_FitParameter_setUpperLimited, METH_VARARGS, (char *)"FitParameter_setUpperLimited(FitParameter self, double bound_value) -> FitParameter"},
-	 { (char *)"FitParameter_setLimited", _wrap_FitParameter_setLimited, METH_VARARGS, (char *)"FitParameter_setLimited(FitParameter self, double left_bound_value, double right_bound_value) -> FitParameter"},
-	 { (char *)"FitParameter_setFixed", _wrap_FitParameter_setFixed, METH_VARARGS, (char *)"FitParameter_setFixed(FitParameter self) -> FitParameter"},
-	 { (char *)"FitParameter_toString", _wrap_FitParameter_toString, METH_VARARGS, (char *)"FitParameter_toString(FitParameter self) -> std::string"},
+	 { (char *)"FitParameter_setLimits", _wrap_FitParameter_setLimits, METH_VARARGS, (char *)"\n"
+		"FitParameter_setLimits(FitParameter self, AttLimits limits) -> FitParameter\n"
+		"\n"
+		"FitParameter & FitParameter::setLimits(const AttLimits &limits)\n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setLowerLimited", _wrap_FitParameter_setLowerLimited, METH_VARARGS, (char *)"\n"
+		"FitParameter_setLowerLimited(FitParameter self, double bound_value) -> FitParameter\n"
+		"\n"
+		"FitParameter & FitParameter::setLowerLimited(double bound_value)\n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setPositive", _wrap_FitParameter_setPositive, METH_VARARGS, (char *)"\n"
+		"FitParameter_setPositive(FitParameter self) -> FitParameter\n"
+		"\n"
+		"FitParameter & FitParameter::setPositive()\n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setNonnegative", _wrap_FitParameter_setNonnegative, METH_VARARGS, (char *)"\n"
+		"FitParameter_setNonnegative(FitParameter self) -> FitParameter\n"
+		"\n"
+		"FitParameter & FitParameter::setNonnegative()\n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setUpperLimited", _wrap_FitParameter_setUpperLimited, METH_VARARGS, (char *)"\n"
+		"FitParameter_setUpperLimited(FitParameter self, double bound_value) -> FitParameter\n"
+		"\n"
+		"FitParameter & FitParameter::setUpperLimited(double bound_value)\n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setLimited", _wrap_FitParameter_setLimited, METH_VARARGS, (char *)"\n"
+		"FitParameter_setLimited(FitParameter self, double left_bound_value, double right_bound_value) -> FitParameter\n"
+		"\n"
+		"FitParameter & FitParameter::setLimited(double left_bound_value, double right_bound_value)\n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_setFixed", _wrap_FitParameter_setFixed, METH_VARARGS, (char *)"\n"
+		"FitParameter_setFixed(FitParameter self) -> FitParameter\n"
+		"\n"
+		"FitParameter & FitParameter::setFixed()\n"
+		"\n"
+		""},
+	 { (char *)"FitParameter_toString", _wrap_FitParameter_toString, METH_VARARGS, (char *)"\n"
+		"FitParameter_toString(FitParameter self) -> std::string\n"
+		"\n"
+		"std::string FitParameter::toString() const \n"
+		"\n"
+		""},
 	 { (char *)"FitParameter_swigregister", FitParameter_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitParameterSet", _wrap_new_FitParameterSet, METH_VARARGS, (char *)"\n"
 		"new_FitParameterSet() -> FitParameterSet\n"

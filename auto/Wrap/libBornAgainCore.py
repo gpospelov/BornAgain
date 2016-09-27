@@ -2996,7 +2996,14 @@ Bin1D_swigregister(Bin1D)
 
 
 def BinContains(bin, value):
-    """BinContains(Bin1D bin, double value) -> bool"""
+    """
+    BinContains(Bin1D bin, double value) -> bool
+
+    bool BinContains(const Bin1D &bin, double value)
+
+    Checks if value is contained in bin: value in [m_lower, m_upper) 
+
+    """
     return _libBornAgainCore.BinContains(bin, value)
 class Bin1DKVector(_object):
     """
@@ -3268,7 +3275,14 @@ class IAxis(_object):
 
 
     def findIndex(self, value):
-        """findIndex(IAxis self, double value) -> size_t"""
+        """
+        findIndex(IAxis self, double value) -> size_t
+
+        size_t IAxis::findIndex(double value) const
+
+        find index of bin that contains the given value returns  getSize() when value is not found 
+
+        """
         return _libBornAgainCore.IAxis_findIndex(self, value)
 
 
@@ -4715,7 +4729,7 @@ class FitStrategyDefault(IFitStrategy):
         """
         clone(FitStrategyDefault self) -> FitStrategyDefault
 
-        IFitStrategy * FitStrategyDefault::clone() const 
+        FitStrategyDefault * FitStrategyDefault::clone() const 
 
         """
         return _libBornAgainCore.FitStrategyDefault_clone(self)
@@ -5736,7 +5750,7 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
         __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim) -> FitParameterLinked
         __init__(FitParameterLinked self, std::string const & name, double value) -> FitParameterLinked
 
-        FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
+        FitParameterLinked::FitParameterLinked(const std::string &name, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
 
         """
         this = _libBornAgainCore.new_FitParameterLinked(*args)
@@ -5748,7 +5762,12 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
     __del__ = lambda self: None
 
     def clone(self):
-        """clone(FitParameterLinked self) -> FitParameterLinked"""
+        """
+        clone(FitParameterLinked self) -> FitParameterLinked
+
+        FitParameterLinked * FitParameterLinked::clone() const 
+
+        """
         return _libBornAgainCore.FitParameterLinked_clone(self)
 
 
@@ -5847,7 +5866,7 @@ class FitSuite(IObservable):
         addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits) -> FitParameterLinked
         addFitParameter(FitSuite self, std::string const & name, double value) -> FitParameterLinked
 
-        void FitSuite::addFitParameter(const std::string &name, double value, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
+        FitParameterLinked * FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
 
         Adds fit parameter
 
@@ -5860,7 +5879,7 @@ class FitSuite(IObservable):
         value: 
         Parameter's starting value
 
-        attlim: 
+        limits: 
         Limits attribute
 
         step: 
@@ -5952,7 +5971,14 @@ class FitSuite(IObservable):
 
 
     def numberOfFitObjects(self):
-        """numberOfFitObjects(FitSuite self) -> int"""
+        """
+        numberOfFitObjects(FitSuite self) -> int
+
+        int FitSuite::numberOfFitObjects() const
+
+        Returns number of fit objects, where fit object stands for (real, simulated) pair. 
+
+        """
         return _libBornAgainCore.FitSuite_numberOfFitObjects(self)
 
 
@@ -6014,7 +6040,14 @@ class FitSuite(IObservable):
 
 
     def fitObjects(self):
-        """fitObjects(FitSuite self) -> FitSuiteObjects"""
+        """
+        fitObjects(FitSuite self) -> FitSuiteObjects
+
+        FitSuiteObjects * FitSuite::fitObjects()
+
+        returns  FitObject (pair of simulation/real data) 
+
+        """
         return _libBornAgainCore.FitSuite_fitObjects(self)
 
 
@@ -6031,7 +6064,14 @@ class FitSuite(IObservable):
 
 
     def fitStrategies(self):
-        """fitStrategies(FitSuite self) -> FitSuiteStrategies *"""
+        """
+        fitStrategies(FitSuite self) -> FitSuiteStrategies *
+
+        FitSuiteStrategies * FitSuite::fitStrategies()
+
+        Returns reference to fit parameters. 
+
+        """
         return _libBornAgainCore.FitSuite_fitStrategies(self)
 
 
@@ -6048,12 +6088,26 @@ class FitSuite(IObservable):
 
 
     def numberOfIterations(self):
-        """numberOfIterations(FitSuite self) -> size_t"""
+        """
+        numberOfIterations(FitSuite self) -> size_t
+
+        size_t FitSuite::numberOfIterations() const
+
+        Returns current number of minimization function calls. 
+
+        """
         return _libBornAgainCore.FitSuite_numberOfIterations(self)
 
 
     def currentStrategyIndex(self):
-        """currentStrategyIndex(FitSuite self) -> size_t"""
+        """
+        currentStrategyIndex(FitSuite self) -> size_t
+
+        size_t FitSuite::currentStrategyIndex() const
+
+        Returns the number of current strategy. 
+
+        """
         return _libBornAgainCore.FitSuite_currentStrategyIndex(self)
 
 
@@ -6543,7 +6597,14 @@ def GenerateNormalRandom(average, std_dev):
     """
     return _libBornAgainCore.GenerateNormalRandom(average, std_dev)
 class AdjustMinimizerStrategy(IFitStrategy):
-    """Proxy of C++ AdjustMinimizerStrategy class."""
+    """
+
+
+    Strategy modifies mimimizer settings before running minimization round.
+
+    C++ includes: AdjustMinimizerStrategy.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IFitStrategy]:
@@ -6561,6 +6622,9 @@ class AdjustMinimizerStrategy(IFitStrategy):
         __init__(AdjustMinimizerStrategy self, std::string const & minimizerName, std::string const & algorithmName, std::string const & optionString) -> AdjustMinimizerStrategy
         __init__(AdjustMinimizerStrategy self, std::string const & minimizerName, std::string const & algorithmName) -> AdjustMinimizerStrategy
         __init__(AdjustMinimizerStrategy self, std::string const & minimizerName) -> AdjustMinimizerStrategy
+
+        AdjustMinimizerStrategy::AdjustMinimizerStrategy(const std::string &minimizerName, const std::string &algorithmName=std::string(), const std::string &optionString=std::string())
+
         """
         this = _libBornAgainCore.new_AdjustMinimizerStrategy(*args)
         try:
@@ -6572,7 +6636,7 @@ class AdjustMinimizerStrategy(IFitStrategy):
         """
         clone(AdjustMinimizerStrategy self) -> AdjustMinimizerStrategy
 
-        virtual IFitStrategy* IFitStrategy::clone() const =0
+        AdjustMinimizerStrategy * AdjustMinimizerStrategy::clone() const 
 
         """
         return _libBornAgainCore.AdjustMinimizerStrategy_clone(self)
@@ -6583,6 +6647,9 @@ class AdjustMinimizerStrategy(IFitStrategy):
         setMinimizer(AdjustMinimizerStrategy self, std::string const & minimizerName, std::string const & algorithmName, std::string const & optionString)
         setMinimizer(AdjustMinimizerStrategy self, std::string const & minimizerName, std::string const & algorithmName)
         setMinimizer(AdjustMinimizerStrategy self, std::string const & minimizerName)
+
+        void AdjustMinimizerStrategy::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=std::string(), const std::string &optionString=std::string())
+
         """
         return _libBornAgainCore.AdjustMinimizerStrategy_setMinimizer(self, *args)
 
@@ -6591,7 +6658,7 @@ class AdjustMinimizerStrategy(IFitStrategy):
         """
         execute(AdjustMinimizerStrategy self)
 
-        virtual void IFitStrategy::execute()=0
+        void AdjustMinimizerStrategy::execute()
 
         """
         return _libBornAgainCore.AdjustMinimizerStrategy_execute(self)
@@ -15270,12 +15337,22 @@ class SimulationOptions(_object):
 
 
     def setIncludeSpecular(self, include_specular):
-        """setIncludeSpecular(SimulationOptions self, bool include_specular)"""
+        """
+        setIncludeSpecular(SimulationOptions self, bool include_specular)
+
+        void SimulationOptions::setIncludeSpecular(bool include_specular)
+
+        """
         return _libBornAgainCore.SimulationOptions_setIncludeSpecular(self, include_specular)
 
 
     def includeSpecular(self):
-        """includeSpecular(SimulationOptions self) -> bool"""
+        """
+        includeSpecular(SimulationOptions self) -> bool
+
+        bool SimulationOptions::includeSpecular() const 
+
+        """
         return _libBornAgainCore.SimulationOptions_includeSpecular(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
@@ -19583,7 +19660,7 @@ class SphericalDetector(IDetector2D):
         """
         clone(SphericalDetector self) -> SphericalDetector
 
-        SphericalDetector * SphericalDetector::clone() const 
+        SphericalDetector * SphericalDetector::clone() const override
 
         """
         return _libBornAgainCore.SphericalDetector_clone(self)
@@ -19595,7 +19672,7 @@ class SphericalDetector(IDetector2D):
         """
         createDetectorMap(SphericalDetector self, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
 
-        OutputData< double > * SphericalDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
+        OutputData< double > * SphericalDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
 
         Returns detector map in given axes units. 
 
@@ -19607,7 +19684,7 @@ class SphericalDetector(IDetector2D):
         """
         getValidAxesUnits(SphericalDetector self) -> std::vector< IDetector2D::EAxesUnits,std::allocator< IDetector2D::EAxesUnits > >
 
-        std::vector< IDetector2D::EAxesUnits > SphericalDetector::getValidAxesUnits() const
+        std::vector< IDetector2D::EAxesUnits > SphericalDetector::getValidAxesUnits() const override
 
         returns vector of valid axes units 
 
@@ -19619,7 +19696,7 @@ class SphericalDetector(IDetector2D):
         """
         getDefaultAxesUnits(SphericalDetector self) -> IDetector2D::EAxesUnits
 
-        IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
+        IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const override
 
         return default axes units 
 
@@ -19661,7 +19738,7 @@ class AngularPixelMap(IPixelMap):
         """
         clone(AngularPixelMap self) -> AngularPixelMap
 
-        AngularPixelMap * AngularPixelMap::clone() const 
+        AngularPixelMap * AngularPixelMap::clone() const override
 
         """
         return _libBornAgainCore.AngularPixelMap_clone(self)
@@ -19671,7 +19748,7 @@ class AngularPixelMap(IPixelMap):
         """
         createZeroSizeMap(AngularPixelMap self, double x, double y) -> AngularPixelMap
 
-        AngularPixelMap * AngularPixelMap::createZeroSizeMap(double x, double y) const 
+        AngularPixelMap * AngularPixelMap::createZeroSizeMap(double x, double y) const override
 
         """
         return _libBornAgainCore.AngularPixelMap_createZeroSizeMap(self, x, y)
@@ -19681,7 +19758,7 @@ class AngularPixelMap(IPixelMap):
         """
         getK(AngularPixelMap self, double x, double y, double wavelength) -> kvector_t
 
-        kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const 
+        kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const override
 
         """
         return _libBornAgainCore.AngularPixelMap_getK(self, x, y, wavelength)
@@ -19691,7 +19768,7 @@ class AngularPixelMap(IPixelMap):
         """
         getIntegrationFactor(AngularPixelMap self, double x, double y) -> double
 
-        double AngularPixelMap::getIntegrationFactor(double x, double y) const 
+        double AngularPixelMap::getIntegrationFactor(double x, double y) const override
 
         """
         return _libBornAgainCore.AngularPixelMap_getIntegrationFactor(self, x, y)
@@ -19701,7 +19778,7 @@ class AngularPixelMap(IPixelMap):
         """
         getSolidAngle(AngularPixelMap self) -> double
 
-        double AngularPixelMap::getSolidAngle() const 
+        double AngularPixelMap::getSolidAngle() const override
 
         """
         return _libBornAgainCore.AngularPixelMap_getSolidAngle(self)
@@ -19748,7 +19825,7 @@ class IsGISAXSDetector(SphericalDetector):
         """
         clone(IsGISAXSDetector self) -> IsGISAXSDetector
 
-        IsGISAXSDetector * IsGISAXSDetector::clone() const 
+        IsGISAXSDetector * IsGISAXSDetector::clone() const override
 
         """
         return _libBornAgainCore.IsGISAXSDetector_clone(self)
@@ -23633,7 +23710,7 @@ class RectangularDetector(IDetector2D):
         """
         clone(RectangularDetector self) -> RectangularDetector
 
-        RectangularDetector * RectangularDetector::clone() const 
+        RectangularDetector * RectangularDetector::clone() const override
 
         """
         return _libBornAgainCore.RectangularDetector_clone(self)
@@ -23645,7 +23722,7 @@ class RectangularDetector(IDetector2D):
         """
         init(RectangularDetector self, Beam beam)
 
-        void RectangularDetector::init(const Beam &beam)
+        void RectangularDetector::init(const Beam &beam) override
 
         Inits detector with the beam settings. 
 
@@ -23830,7 +23907,7 @@ class RectangularDetector(IDetector2D):
         """
         createDetectorMap(RectangularDetector self, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
 
-        OutputData< double > * RectangularDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
+        OutputData< double > * RectangularDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
 
         Returns detector map in given axes units. 
 
@@ -23842,7 +23919,7 @@ class RectangularDetector(IDetector2D):
         """
         getValidAxesUnits(RectangularDetector self) -> std::vector< IDetector2D::EAxesUnits,std::allocator< IDetector2D::EAxesUnits > >
 
-        std::vector< IDetector2D::EAxesUnits > RectangularDetector::getValidAxesUnits() const
+        std::vector< IDetector2D::EAxesUnits > RectangularDetector::getValidAxesUnits() const override
 
         returns vector of valid axes units 
 
@@ -23854,7 +23931,7 @@ class RectangularDetector(IDetector2D):
         """
         getDefaultAxesUnits(RectangularDetector self) -> IDetector2D::EAxesUnits
 
-        IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
+        IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const override
 
         return default axes units 
 
@@ -23896,7 +23973,7 @@ class RectPixelMap(IPixelMap):
         """
         clone(RectPixelMap self) -> RectPixelMap
 
-        RectPixelMap * RectPixelMap::clone() const 
+        RectPixelMap * RectPixelMap::clone() const override
 
         """
         return _libBornAgainCore.RectPixelMap_clone(self)
@@ -23906,7 +23983,7 @@ class RectPixelMap(IPixelMap):
         """
         createZeroSizeMap(RectPixelMap self, double x, double y) -> RectPixelMap
 
-        RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const 
+        RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const override
 
         """
         return _libBornAgainCore.RectPixelMap_createZeroSizeMap(self, x, y)
@@ -23916,7 +23993,7 @@ class RectPixelMap(IPixelMap):
         """
         getK(RectPixelMap self, double x, double y, double wavelength) -> kvector_t
 
-        kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
+        kvector_t RectPixelMap::getK(double x, double y, double wavelength) const override
 
         """
         return _libBornAgainCore.RectPixelMap_getK(self, x, y, wavelength)
@@ -23926,7 +24003,7 @@ class RectPixelMap(IPixelMap):
         """
         getIntegrationFactor(RectPixelMap self, double x, double y) -> double
 
-        double RectPixelMap::getIntegrationFactor(double x, double y) const 
+        double RectPixelMap::getIntegrationFactor(double x, double y) const override
 
         """
         return _libBornAgainCore.RectPixelMap_getIntegrationFactor(self, x, y)
@@ -23936,7 +24013,7 @@ class RectPixelMap(IPixelMap):
         """
         getSolidAngle(RectPixelMap self) -> double
 
-        double RectPixelMap::getSolidAngle() const 
+        double RectPixelMap::getSolidAngle() const override
 
         """
         return _libBornAgainCore.RectPixelMap_getSolidAngle(self)

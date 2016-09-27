@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSTRATEGYADJUSTMINIMIZER_H
-#define FITSTRATEGYADJUSTMINIMIZER_H
+#ifndef ADJUSTMINIMIZERSTRATEGY_H
+#define ADJUSTMINIMIZERSTRATEGY_H
 
 #include "IFitStrategy.h"
 
@@ -49,4 +49,4 @@ private:
     std::string m_optionString;
 };
 
-#endif
+#endif // ADJUSTMINIMIZERSTRATEGY_H

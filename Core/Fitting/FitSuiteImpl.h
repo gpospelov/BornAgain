@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitSuiteImp.h
+//! @file      Core/Fitting/FitSuiteImpl.h
 //! @brief     Defines class FitSuiteImp.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSUITEIMP_H
-#define FITSUITEIMP_H
+#ifndef FITSUITEIMPL_H
+#define FITSUITEIMPL_H
 
 #include "FitOptions.h"
 #include "FitSuiteFunctions.h"
@@ -120,4 +120,4 @@ private:
     std::unique_ptr<FitKernel> m_kernel;
 };
 
-#endif
+#endif // FITSUITEIMPL_H

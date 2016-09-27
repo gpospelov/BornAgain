@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "AdjustMinimizerStrategy.h"
-#include "FitSuiteImp.h"
+#include "FitSuiteImpl.h"
 #include "IMinimizer.h"
 #include "MinimizerFactory.h"
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootWrapper/RootMinimizerFunctions.h
+//! @file      Fit/RootAdapter/RootMinimizerFunctions.h
 //! @brief     Defines classes RootObjectiveFunction and RootGradientFunction
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -73,4 +73,4 @@ class RootGradientFunction : public BA_ROOT::Math::FitMethodFunction
     root_gradient_t m_fun_gradient;
 };
 
-#endif
+#endif // ROOTMINIMIZERFUNCTIONS_H

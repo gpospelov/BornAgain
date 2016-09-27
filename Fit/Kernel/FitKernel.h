@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/FitKernel.h
+//! @file      Fit/Kernel/FitKernel.h
 //! @brief     Defines class FitKernel.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,7 +21,7 @@
 #include <memory>
 #include <string>
 
-class FitKernelImp;
+class FitKernelImpl;
 class AttLimits;
 class FitParameterSet;
 class IMinimizer;
@@ -68,7 +68,7 @@ public:
     //! Number of objective function calls.
     int functionCalls() const;
 private:
-    std::unique_ptr<FitKernelImp> m_impl;
+    std::unique_ptr<FitKernelImpl> m_impl;
 };
 
-#endif
+#endif // FITKERNEL_H

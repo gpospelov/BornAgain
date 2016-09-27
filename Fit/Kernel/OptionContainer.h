@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/OptionContainer.h
+//! @file      Fit/Kernel/OptionContainer.h
 //! @brief     Declares class OptionContainer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -95,4 +95,4 @@ void OptionContainer::setOptionValue(const std::string& optionName, T value)
                                  "type to option '"+optionName+"'");
 }
 
-#endif
+#endif // OPTIONCONTAINER_H

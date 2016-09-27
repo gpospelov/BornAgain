@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/FitKernelImp.cpp
-//! @brief     Declares class FitKernelImp.
+//! @file      Fit/Kernel/FitKernelImpl.cpp
+//! @brief     Declares class FitKernelImpl.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,54 +13,54 @@
 //
 // ************************************************************************** //
 
-#include "FitKernelImp.h"
+#include "FitKernelImpl.h"
 #include "IMinimizer.h"
 #include "MinimizerUtils.h"
 #include <sstream>
 
-FitKernelImp::FitKernelImp()
+FitKernelImpl::FitKernelImpl()
 {
 
 }
 
-FitKernelImp::~FitKernelImp()
+FitKernelImpl::~FitKernelImpl()
 {
 
 }
 
-void FitKernelImp::clear()
+void FitKernelImpl::clear()
 {
     m_fit_parameters.clear();
     m_minimizer.reset();
 }
 
-void FitKernelImp::setMinimizer(IMinimizer *minimizer)
+void FitKernelImpl::setMinimizer(IMinimizer *minimizer)
 {
     m_minimizer.reset(minimizer);
 }
 
-void FitKernelImp::addFitParameter(FitParameter *par)
+void FitKernelImpl::addFitParameter(FitParameter *par)
 {
     m_fit_parameters.addFitParameter(par);
 }
 
-void FitKernelImp::setObjectiveFunction(objective_function_t func)
+void FitKernelImpl::setObjectiveFunction(objective_function_t func)
 {
     m_objective_function.setObjectiveFunction(func);
 }
 
-void FitKernelImp::setGradientFunction(gradient_function_t func, int ndatasize)
+void FitKernelImpl::setGradientFunction(gradient_function_t func, int ndatasize)
 {
     m_objective_function.setGradientFunction(func, ndatasize);
 }
 
-void FitKernelImp::minimize()
+void FitKernelImpl::minimize()
 {
     if(!m_minimizer)
-        throw std::runtime_error("FitKernelImp::minimize() -> Error. Minimizer is not defined.");
+        throw std::runtime_error("FitKernelImpl::minimize() -> Error. Minimizer is not defined.");
 
     if(m_fit_parameters.size() == 0)
-        throw std::runtime_error("FitKernelImp::minimize() -> Error. No fit parameters defined.");
+        throw std::runtime_error("FitKernelImpl::minimize() -> Error. No fit parameters defined.");
 
     m_time_interval.start();
 
@@ -85,7 +85,7 @@ void FitKernelImp::minimize()
     m_time_interval.stop();
 }
 
-std::string FitKernelImp::reportResults() const
+std::string FitKernelImpl::reportResults() const
 {
     std::ostringstream result;
     result << std::endl;
@@ -97,17 +97,17 @@ std::string FitKernelImp::reportResults() const
     return result.str();
 }
 
-FitParameterSet *FitKernelImp::fitParameters()
+FitParameterSet *FitKernelImpl::fitParameters()
 {
     return &m_fit_parameters;
 }
 
-IMinimizer *FitKernelImp::minimizer()
+IMinimizer *FitKernelImpl::minimizer()
 {
     return m_minimizer.get();
 }
 
-int FitKernelImp::functionCalls() const
+int FitKernelImpl::functionCalls() const
 {
     return m_objective_function.functionCalls();
 }

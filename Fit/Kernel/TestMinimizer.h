@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/TestMinimizer.h
+//! @file      Fit/Kernel/TestMinimizer.h
 //! @brief     Defines class TestMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -45,4 +45,4 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
     objective_function_t m_fcn;
 };
 
-#endif
+#endif // TESTMINIMIZER_H

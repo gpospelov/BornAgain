@@ -21,7 +21,7 @@
 #include <vector>
 #include <cstddef>
 
-class FitSuiteImp;
+class FitSuiteImpl;
 
 //! @class IFitSuiteFunction
 //! @ingroup fitting_internal
@@ -32,10 +32,10 @@ class BA_CORE_API_ IFitSuiteFunction
  public:
     IFitSuiteFunction() : m_kernel(0), m_ncall(0) {}
     virtual ~IFitSuiteFunction() {}
-    virtual void init(FitSuiteImp* fit_suite) { m_kernel = fit_suite; }
+    virtual void init(FitSuiteImpl* fit_suite) { m_kernel = fit_suite; }
     virtual size_t getNCalls() const { return m_ncall; }
  protected:
-    FitSuiteImp* m_kernel;
+    FitSuiteImpl* m_kernel;
     size_t m_ncall;
 };
 

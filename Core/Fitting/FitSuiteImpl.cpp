@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitSuiteImp.cpp
-//! @brief     Implements class FitSuiteImp.
+//! @file      Core/Fitting/FitSuiteImpl.cpp
+//! @brief     Implements class FitSuiteImpl.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "FitSuiteImp.h"
+#include "FitSuiteImpl.h"
 #include "RealLimits.h"
 #include "FitParameter.h"
 #include "FitParameterLinked.h"
@@ -24,7 +24,7 @@
 #include "FitKernel.h"
 #include <stdexcept>
 
-FitSuiteImp::FitSuiteImp(const std::function<void()>& notifyObservers)
+FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
     : m_is_last_iteration(false)
     , m_is_interrupted(false)
     , m_notifyObservers(notifyObservers)
@@ -35,13 +35,13 @@ FitSuiteImp::FitSuiteImp(const std::function<void()>& notifyObservers)
     m_fit_strategies.init(this);
 }
 
-FitSuiteImp::~FitSuiteImp()
+FitSuiteImpl::~FitSuiteImpl()
 {
     clear();
 }
 
 //! Clears all data.
-void FitSuiteImp::clear()
+void FitSuiteImpl::clear()
 {
     m_fit_objects.clear();
     m_kernel->clear();
@@ -51,14 +51,14 @@ void FitSuiteImp::clear()
 }
 
 //! Adds pair of (simulation, real data) for consecutive simulation
-void FitSuiteImp::addSimulationAndRealData(const GISASSimulation& simulation,
+void FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulation,
                                          const OutputData<double>& real_data, double weight)
 {
     m_fit_objects.add(simulation, real_data, weight);
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-FitParameterLinked *FitSuiteImp::addFitParameter(const std::string& name, double value,
+FitParameterLinked *FitSuiteImpl::addFitParameter(const std::string& name, double value,
                                   const AttLimits& limits, double step)
 {
     if(step <=0.0)
@@ -69,17 +69,17 @@ FitParameterLinked *FitSuiteImp::addFitParameter(const std::string& name, double
     return result;
 }
 
-void FitSuiteImp::addFitStrategy(const IFitStrategy& strategy)
+void FitSuiteImpl::addFitStrategy(const IFitStrategy& strategy)
 {
     m_fit_strategies.addStrategy(strategy);
 }
 
-void FitSuiteImp::setMinimizer(IMinimizer* minimizer)
+void FitSuiteImpl::setMinimizer(IMinimizer* minimizer)
 {
     m_kernel->setMinimizer(minimizer);
 }
 
-void FitSuiteImp::runFit()
+void FitSuiteImpl::runFit()
 {
     // check if all prerequisites are fullfilled before starting minimization
     check_prerequisites();
@@ -97,7 +97,7 @@ void FitSuiteImp::runFit()
     notifyObservers();
 }
 
-void FitSuiteImp::minimize()
+void FitSuiteImpl::minimize()
 {
     objective_function_t fun_chi2 =
         [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
@@ -122,32 +122,32 @@ void FitSuiteImp::minimize()
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
-FitParameterSet *FitSuiteImp::fitParameters() {
+FitParameterSet *FitSuiteImpl::fitParameters() {
     return m_kernel->fitParameters();
 }
 
 // get current number of minimization function calls
-size_t FitSuiteImp::numberOfIterations() const
+size_t FitSuiteImpl::numberOfIterations() const
 {
     return m_kernel->functionCalls();
 }
 
-size_t FitSuiteImp::currentStrategyIndex() const
+size_t FitSuiteImpl::currentStrategyIndex() const
 {
     return m_fit_strategies.currentStrategyIndex();
 }
 
-std::string FitSuiteImp::reportResults() const
+std::string FitSuiteImpl::reportResults() const
 {
     return m_kernel->reportResults();
 }
 
-const FitKernel *FitSuiteImp::kernel() const
+const FitKernel *FitSuiteImpl::kernel() const
 {
    return m_kernel.get();
 }
 
-bool FitSuiteImp::check_prerequisites() const
+bool FitSuiteImpl::check_prerequisites() const
 {
     if( !m_fit_objects.getNumberOfFitObjects() ) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
@@ -158,7 +158,7 @@ bool FitSuiteImp::check_prerequisites() const
 }
 
 //! link FitMultiParameters with simulation parameters
-void FitSuiteImp::link_fit_parameters()
+void FitSuiteImpl::link_fit_parameters()
 {
     const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
     for (auto par: *m_kernel->fitParameters()) {

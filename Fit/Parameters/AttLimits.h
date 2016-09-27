@@ -65,4 +65,4 @@ private:
     Attributes m_att_fixed;
 };
 
-#endif
+#endif // ATTLIMITS_H

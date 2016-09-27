@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/GSLMultiMinimizer.h
+//! @file      Fit/RootAdapter/GSLMultiMinimizer.h
 //! @brief     Declares class GSLMultiMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -51,4 +51,4 @@ private:
     std::unique_ptr<BA_ROOT::Math::GSLMinimizer> m_gsl_minimizer;
 };
 
-#endif
+#endif // GSLMULTIMINIMIZER_H

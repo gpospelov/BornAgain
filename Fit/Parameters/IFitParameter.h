@@ -33,4 +33,4 @@ public:
     virtual IFitParameter* clone() const = 0;
 };
 
-#endif
+#endif // IFITPARAMETER_H

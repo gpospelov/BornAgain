@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/MinimizerResultsHelper.h
+//! @file      Fit/Kernel/MinimizerResultsHelper.h
 //! @brief     Declares class MinimizerResultsHelper.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -64,5 +64,5 @@ std::string to_string_scientific(const T a_value, int n = 10)
     return out.str();
 }
 
-#endif
+#endif // MINIMIZERRESULTSHELPER_H
 

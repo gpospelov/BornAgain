@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/RootMinimizerAdapter.h
+//! @file      Fit/RootAdapter/RootMinimizerAdapter.h
 //! @brief     Declares class RootMinimizerAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -123,5 +123,5 @@ T RootMinimizerAdapter::optionValue(const std::string &optionName) const
     return m_options.optionValue<T>(optionName);
 }
 
-#endif
+#endif // ROOTMINIMIZERADAPTER_H
 

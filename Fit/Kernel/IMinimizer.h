@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/IMinimizer.h
+//! @file      Fit/Kernel/IMinimizer.h
 //! @brief     Defines class IMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -67,4 +67,4 @@ class BA_CORE_API_ IMinimizer
     virtual void setOptions(const std::string &options);
 };
 
-#endif
+#endif // IMINIMIZER_H

@@ -1,6 +1,30 @@
 
 // File: index.xml
 
+// File: classAdjustMinimizerStrategy.xml
+%feature("docstring") AdjustMinimizerStrategy "
+
+Strategy modifies mimimizer settings before running minimization round.
+
+C++ includes: AdjustMinimizerStrategy.h
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::AdjustMinimizerStrategy "AdjustMinimizerStrategy::AdjustMinimizerStrategy()
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::AdjustMinimizerStrategy "AdjustMinimizerStrategy::AdjustMinimizerStrategy(const std::string &minimizerName, const std::string &algorithmName=std::string(), const std::string &optionString=std::string())
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::clone "AdjustMinimizerStrategy * AdjustMinimizerStrategy::clone() const 
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::setMinimizer "void AdjustMinimizerStrategy::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=std::string(), const std::string &optionString=std::string())
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::execute "void AdjustMinimizerStrategy::execute()
+";
+
+
 // File: classAngularPixelMap.xml
 %feature("docstring") AngularPixelMap "";
 
@@ -10,19 +34,19 @@
 %feature("docstring")  AngularPixelMap::~AngularPixelMap "virtual AngularPixelMap::~AngularPixelMap()
 ";
 
-%feature("docstring")  AngularPixelMap::clone "AngularPixelMap * AngularPixelMap::clone() const 
+%feature("docstring")  AngularPixelMap::clone "AngularPixelMap * AngularPixelMap::clone() const override
 ";
 
-%feature("docstring")  AngularPixelMap::createZeroSizeMap "AngularPixelMap * AngularPixelMap::createZeroSizeMap(double x, double y) const 
+%feature("docstring")  AngularPixelMap::createZeroSizeMap "AngularPixelMap * AngularPixelMap::createZeroSizeMap(double x, double y) const override
 ";
 
-%feature("docstring")  AngularPixelMap::getK "kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const 
+%feature("docstring")  AngularPixelMap::getK "kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const override
 ";
 
-%feature("docstring")  AngularPixelMap::getIntegrationFactor "double AngularPixelMap::getIntegrationFactor(double x, double y) const 
+%feature("docstring")  AngularPixelMap::getIntegrationFactor "double AngularPixelMap::getIntegrationFactor(double x, double y) const override
 ";
 
-%feature("docstring")  AngularPixelMap::getSolidAngle "double AngularPixelMap::getSolidAngle() const 
+%feature("docstring")  AngularPixelMap::getSolidAngle "double AngularPixelMap::getSolidAngle() const override
 ";
 
 
@@ -1583,13 +1607,13 @@ C++ includes: FitParameterLinked.h
 %feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked()
 ";
 
-%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
-";
-
-%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const FitParameterLinked &)=delete
+%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
 ";
 
 %feature("docstring")  FitParameterLinked::~FitParameterLinked "FitParameterLinked::~FitParameterLinked() final
+";
+
+%feature("docstring")  FitParameterLinked::clone "FitParameterLinked * FitParameterLinked::clone() const 
 ";
 
 %feature("docstring")  FitParameterLinked::setValue "void FitParameterLinked::setValue(double value) final
@@ -1605,42 +1629,6 @@ Adds real parameter to the collection.
 %feature("docstring")  FitParameterLinked::addMatchedParametersFromPool "void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard=std::string())
 
 Adds parameters from pool which match given wildcard. 
-";
-
-
-// File: classFitStrategyAdjustMinimizer.xml
-%feature("docstring") FitStrategyAdjustMinimizer "
-
-Strategy modifies mimimizer settings before running minimization round.
-
-C++ includes: FitStrategyAdjustMinimizer.h
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer "FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer()
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer "FitStrategyAdjustMinimizer::FitStrategyAdjustMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::~FitStrategyAdjustMinimizer "FitStrategyAdjustMinimizer::~FitStrategyAdjustMinimizer()
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::clone "FitStrategyAdjustMinimizer * FitStrategyAdjustMinimizer::clone() const 
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::getMinimizer "IMinimizer * FitStrategyAdjustMinimizer::getMinimizer()
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::setMinimizer "void FitStrategyAdjustMinimizer::setMinimizer(IMinimizer *minimizer)
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::setMinimizer "void FitStrategyAdjustMinimizer::setMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::execute "void FitStrategyAdjustMinimizer::execute()
-";
-
-%feature("docstring")  FitStrategyAdjustMinimizer::getMinimizerOptions "ObsoleteMinimizerOptions * FitStrategyAdjustMinimizer::getMinimizerOptions()
 ";
 
 
@@ -1699,7 +1687,7 @@ C++ includes: IFitStrategy.h
 %feature("docstring")  FitStrategyDefault::FitStrategyDefault "FitStrategyDefault::FitStrategyDefault()
 ";
 
-%feature("docstring")  FitStrategyDefault::clone "IFitStrategy * FitStrategyDefault::clone() const 
+%feature("docstring")  FitStrategyDefault::clone "FitStrategyDefault * FitStrategyDefault::clone() const 
 ";
 
 %feature("docstring")  FitStrategyDefault::execute "void FitStrategyDefault::execute()
@@ -1787,7 +1775,7 @@ Assigns pair of (simulation, real data) for fitting. More than one pair can be a
 Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
 ";
 
-%feature("docstring")  FitSuite::addFitParameter "void FitSuite::addFitParameter(const std::string &name, double value, const RealLimits &lim=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double step=0.0)
+%feature("docstring")  FitSuite::addFitParameter "FitParameterLinked * FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
 
 Adds fit parameter
 
@@ -1800,7 +1788,7 @@ The name of fit parameter
 value: 
 Parameter's starting value
 
-attlim: 
+limits: 
 Limits attribute
 
 step: 
@@ -1855,27 +1843,12 @@ print_every_nth:
 Print every n'th iteration 
 ";
 
-%feature("docstring")  FitSuite::fixAllParameters "void FitSuite::fixAllParameters()
-
-Set all parameters to fixed. 
-";
-
-%feature("docstring")  FitSuite::releaseAllParameters "void FitSuite::releaseAllParameters()
-
-Set all parameters to released. 
-";
-
-%feature("docstring")  FitSuite::setParametersFixed "void FitSuite::setParametersFixed(const std::vector< std::string > &pars, bool is_fixed)
-
-Set fixed flag for parameters from the list. 
-";
-
 %feature("docstring")  FitSuite::runFit "void FitSuite::runFit()
 
 main method to run the fitting 
 ";
 
-%feature("docstring")  FitSuite::getNumberOfFitObjects "int FitSuite::getNumberOfFitObjects() const
+%feature("docstring")  FitSuite::numberOfFitObjects "int FitSuite::numberOfFitObjects() const
 
 Returns number of fit objects, where fit object stands for (real, simulated) pair. 
 ";
@@ -1913,7 +1886,7 @@ i_item:
 The index of fit object 
 ";
 
-%feature("docstring")  FitSuite::getFitObjects "FitSuiteObjects * FitSuite::getFitObjects()
+%feature("docstring")  FitSuite::fitObjects "FitSuiteObjects * FitSuite::fitObjects()
 
 returns  FitObject (pair of simulation/real data) 
 ";
@@ -1923,7 +1896,7 @@ returns  FitObject (pair of simulation/real data)
 Returns reference to fit parameters. 
 ";
 
-%feature("docstring")  FitSuite::getFitStrategies "FitSuiteStrategies * FitSuite::getFitStrategies()
+%feature("docstring")  FitSuite::fitStrategies "FitSuiteStrategies * FitSuite::fitStrategies()
 
 Returns reference to fit parameters. 
 ";
@@ -1933,12 +1906,12 @@ Returns reference to fit parameters.
 if the last iteration is done (used by observers to print summary) 
 ";
 
-%feature("docstring")  FitSuite::getNumberOfIterations "size_t FitSuite::getNumberOfIterations() const
+%feature("docstring")  FitSuite::numberOfIterations "size_t FitSuite::numberOfIterations() const
 
 Returns current number of minimization function calls. 
 ";
 
-%feature("docstring")  FitSuite::getCurrentStrategyIndex "size_t FitSuite::getCurrentStrategyIndex() const
+%feature("docstring")  FitSuite::currentStrategyIndex "size_t FitSuite::currentStrategyIndex() const
 
 Returns the number of current strategy. 
 ";
@@ -1956,16 +1929,6 @@ Reports results of minimization in the form of multi-line string.
 %feature("docstring")  FitSuite::getChi2 "double FitSuite::getChi2() const
 
 Returns minimum chi squared value found. 
-";
-
-%feature("docstring")  FitSuite::getOptions "FitOptions & FitSuite::getOptions()
-
-Returns general setting of fit kernel. 
-";
-
-%feature("docstring")  FitSuite::setOptions "void FitSuite::setOptions(const FitOptions &fit_options)
-
-Sets general setting of fit kernel. 
 ";
 
 %feature("docstring")  FitSuite::interruptFitting "void FitSuite::interruptFitting()
@@ -2037,137 +2000,123 @@ evaluate residual and derivative for given data element
 ";
 
 
-// File: classFitSuiteImp.xml
-%feature("docstring") FitSuiteImp "
+// File: classFitSuiteImpl.xml
+%feature("docstring") FitSuiteImpl "
 
 Fitting kernel for  FitSuite.
 
-C++ includes: FitSuiteImp.h
+C++ includes: FitSuiteImpl.h
 ";
 
-%feature("docstring")  FitSuiteImp::FitSuiteImp "FitSuiteImp::FitSuiteImp(const std::function< void()> &notifyObservers)
+%feature("docstring")  FitSuiteImpl::FitSuiteImpl "FitSuiteImpl::FitSuiteImpl(const std::function< void()> &notifyObservers)
 ";
 
-%feature("docstring")  FitSuiteImp::FitSuiteImp "FitSuiteImp::FitSuiteImp(const FitSuiteImp &)=delete
+%feature("docstring")  FitSuiteImpl::FitSuiteImpl "FitSuiteImpl::FitSuiteImpl(const FitSuiteImpl &)=delete
 ";
 
-%feature("docstring")  FitSuiteImp::~FitSuiteImp "FitSuiteImp::~FitSuiteImp()
+%feature("docstring")  FitSuiteImpl::~FitSuiteImpl "FitSuiteImpl::~FitSuiteImpl()
 ";
 
-%feature("docstring")  FitSuiteImp::clear "void FitSuiteImp::clear()
+%feature("docstring")  FitSuiteImpl::clear "void FitSuiteImpl::clear()
 
 Resets most state variables, to get prepared for the next fit.
 
 Clears all data. 
 ";
 
-%feature("docstring")  FitSuiteImp::addSimulationAndRealData "void FitSuiteImp::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
+%feature("docstring")  FitSuiteImpl::addSimulationAndRealData "void FitSuiteImpl::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
 
 Adds pair of (simulation, real data) for consecutive simulation. 
 ";
 
-%feature("docstring")  FitSuiteImp::addFitParameter "void FitSuiteImp::addFitParameter(const std::string &name, double value)
+%feature("docstring")  FitSuiteImpl::addFitParameter "FitParameterLinked * FitSuiteImpl::addFitParameter(const std::string &name, double value, const AttLimits &limits, double step=0.0)
 
 Adds fit parameter.
 
 Adds fit parameter, step is calculated from initial parameter value. 
 ";
 
-%feature("docstring")  FitSuiteImp::addFitParameter "void FitSuiteImp::addFitParameter(const std::string &name, double value, const RealLimits &lim, const Attributes &attr, double step=0.0, double error=0.0)
-
-Adds fit parameter.
-
-Adds fit parameter, step is calculated from initial parameter value. 
-";
-
-%feature("docstring")  FitSuiteImp::addFitStrategy "void FitSuiteImp::addFitStrategy(const IFitStrategy &strategy)
+%feature("docstring")  FitSuiteImpl::addFitStrategy "void FitSuiteImpl::addFitStrategy(const IFitStrategy &strategy)
 
 Adds fit strategy. 
 ";
 
-%feature("docstring")  FitSuiteImp::setMinimizer "void FitSuiteImp::setMinimizer(IMinimizer *minimizer)
+%feature("docstring")  FitSuiteImpl::setMinimizer "void FitSuiteImpl::setMinimizer(IMinimizer *minimizer)
 
 Sets minimizer. 
 ";
 
-%feature("docstring")  FitSuiteImp::runFit "void FitSuiteImp::runFit()
+%feature("docstring")  FitSuiteImpl::runFit "void FitSuiteImpl::runFit()
 
-Returns minimizer.
-
-Runs a fit, which may consist of several minimization rounds 
+Runs a fit, which may consist of several minimization rounds. 
 ";
 
-%feature("docstring")  FitSuiteImp::minimize "void FitSuiteImp::minimize()
+%feature("docstring")  FitSuiteImpl::minimize "void FitSuiteImpl::minimize()
 
 Runs a single minimization round (called by FitSuiteStrategy) 
 ";
 
-%feature("docstring")  FitSuiteImp::getFitObjects "FitSuiteObjects* FitSuiteImp::getFitObjects()
+%feature("docstring")  FitSuiteImpl::fitObjects "FitSuiteObjects* FitSuiteImpl::fitObjects()
 
 Returns reference to the kit with data. 
 ";
 
-%feature("docstring")  FitSuiteImp::getFitObjects "const FitSuiteObjects* FitSuiteImp::getFitObjects() const 
+%feature("docstring")  FitSuiteImpl::fitObjects "const FitSuiteObjects* FitSuiteImpl::fitObjects() const 
 ";
 
-%feature("docstring")  FitSuiteImp::getFitParameters "FitParameterSet * FitSuiteImp::getFitParameters()
+%feature("docstring")  FitSuiteImpl::fitParameters "FitParameterSet * FitSuiteImpl::fitParameters()
 
 Returns reference to fit parameters. 
 ";
 
-%feature("docstring")  FitSuiteImp::getFitStrategies "FitSuiteStrategies* FitSuiteImp::getFitStrategies()
+%feature("docstring")  FitSuiteImpl::fitStrategies "FitSuiteStrategies* FitSuiteImpl::fitStrategies()
 
 Returns reference to fit parameters. 
 ";
 
-%feature("docstring")  FitSuiteImp::isLastIteration "bool FitSuiteImp::isLastIteration() const
+%feature("docstring")  FitSuiteImpl::isLastIteration "bool FitSuiteImpl::isLastIteration() const
 
 Returns true if the last iteration is done (used by observers to print summary) 
 ";
 
-%feature("docstring")  FitSuiteImp::getNCalls "size_t FitSuiteImp::getNCalls() const
+%feature("docstring")  FitSuiteImpl::numberOfIterations "size_t FitSuiteImpl::numberOfIterations() const
 
 Returns current number of minimization function calls. 
 ";
 
-%feature("docstring")  FitSuiteImp::getCurrentStrategyIndex "size_t FitSuiteImp::getCurrentStrategyIndex() const
+%feature("docstring")  FitSuiteImpl::currentStrategyIndex "size_t FitSuiteImpl::currentStrategyIndex() const
 
 Returns the number of current strategy. 
 ";
 
-%feature("docstring")  FitSuiteImp::reportResults "std::string FitSuiteImp::reportResults() const
+%feature("docstring")  FitSuiteImpl::reportResults "std::string FitSuiteImpl::reportResults() const
 
 Reports results of minimization in the form of multi-line string. 
 ";
 
-%feature("docstring")  FitSuiteImp::getOptions "FitOptions& FitSuiteImp::getOptions()
+%feature("docstring")  FitSuiteImpl::getOptions "FitOptions& FitSuiteImpl::getOptions()
 
 Returns current fit options. 
 ";
 
-%feature("docstring")  FitSuiteImp::setOptions "void FitSuiteImp::setOptions(const FitOptions &fit_options)
+%feature("docstring")  FitSuiteImpl::setOptions "void FitSuiteImpl::setOptions(const FitOptions &fit_options)
 
 Sets fit options. 
 ";
 
-%feature("docstring")  FitSuiteImp::getRunTime "double FitSuiteImp::getRunTime() const
-
-Returns total wall time in seconds which was spend for run fit. 
+%feature("docstring")  FitSuiteImpl::notifyObservers "void FitSuiteImpl::notifyObservers()
 ";
 
-%feature("docstring")  FitSuiteImp::notifyObservers "void FitSuiteImp::notifyObservers()
+%feature("docstring")  FitSuiteImpl::interruptFitting "void FitSuiteImpl::interruptFitting()
 ";
 
-%feature("docstring")  FitSuiteImp::interruptFitting "void FitSuiteImp::interruptFitting()
+%feature("docstring")  FitSuiteImpl::resetInterrupt "void FitSuiteImpl::resetInterrupt()
 ";
 
-%feature("docstring")  FitSuiteImp::resetInterrupt "void FitSuiteImp::resetInterrupt()
+%feature("docstring")  FitSuiteImpl::isInterrupted "bool FitSuiteImpl::isInterrupted() const 
 ";
 
-%feature("docstring")  FitSuiteImp::isInterrupted "bool FitSuiteImp::isInterrupted() const 
-";
-
-%feature("docstring")  FitSuiteImp::kernel "const FitKernel * FitSuiteImp::kernel() const 
+%feature("docstring")  FitSuiteImpl::kernel "const FitKernel * FitSuiteImpl::kernel() const 
 ";
 
 
@@ -2313,16 +2262,19 @@ C++ includes: FitSuiteStrategies.h
 %feature("docstring")  FitSuiteStrategies::~FitSuiteStrategies "FitSuiteStrategies::~FitSuiteStrategies()
 ";
 
-%feature("docstring")  FitSuiteStrategies::init "void FitSuiteStrategies::init(FitSuiteImp *fit_suite)
+%feature("docstring")  FitSuiteStrategies::FitSuiteStrategies "FitSuiteStrategies::FitSuiteStrategies(const FitSuiteStrategies &other)=delete
 ";
 
-%feature("docstring")  FitSuiteStrategies::addStrategy "void FitSuiteStrategies::addStrategy(IFitStrategy *strategy)
+%feature("docstring")  FitSuiteStrategies::init "void FitSuiteStrategies::init(FitSuiteImpl *fit_suite)
+";
+
+%feature("docstring")  FitSuiteStrategies::addStrategy "void FitSuiteStrategies::addStrategy(const IFitStrategy &strategy)
 ";
 
 %feature("docstring")  FitSuiteStrategies::minimize "void FitSuiteStrategies::minimize()
 ";
 
-%feature("docstring")  FitSuiteStrategies::getCurrentStrategyIndex "size_t FitSuiteStrategies::getCurrentStrategyIndex() const 
+%feature("docstring")  FitSuiteStrategies::currentStrategyIndex "size_t FitSuiteStrategies::currentStrategyIndex() const 
 ";
 
 %feature("docstring")  FitSuiteStrategies::size "size_t FitSuiteStrategies::size() const 
@@ -2331,7 +2283,7 @@ C++ includes: FitSuiteStrategies.h
 %feature("docstring")  FitSuiteStrategies::clear "void FitSuiteStrategies::clear()
 ";
 
-%feature("docstring")  FitSuiteStrategies::getCurrentStrategy "IFitStrategy * FitSuiteStrategies::getCurrentStrategy()
+%feature("docstring")  FitSuiteStrategies::currentStrategy "IFitStrategy * FitSuiteStrategies::currentStrategy()
 ";
 
 
@@ -5343,6 +5295,11 @@ Returns value of last point of axis.
 find bin index which is best match for given value 
 ";
 
+%feature("docstring")  IAxis::findIndex "size_t IAxis::findIndex(double value) const
+
+find index of bin that contains the given value returns  getSize() when value is not found 
+";
+
 %feature("docstring")  IAxis::getBinCenters "std::vector< double > IAxis::getBinCenters() const 
 ";
 
@@ -5867,19 +5824,16 @@ Concrete implementation should manipulate with fit parameters/data and then call
 C++ includes: IFitStrategy.h
 ";
 
-%feature("docstring")  IFitStrategy::IFitStrategy "IFitStrategy::IFitStrategy()
-";
-
 %feature("docstring")  IFitStrategy::IFitStrategy "IFitStrategy::IFitStrategy(const std::string &name)
-";
-
-%feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const =0
 ";
 
 %feature("docstring")  IFitStrategy::~IFitStrategy "virtual IFitStrategy::~IFitStrategy()
 ";
 
-%feature("docstring")  IFitStrategy::init "void IFitStrategy::init(FitSuiteImp *fit_suite)
+%feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const =0
+";
+
+%feature("docstring")  IFitStrategy::init "void IFitStrategy::init(FitSuiteImpl *fit_suite)
 ";
 
 %feature("docstring")  IFitStrategy::execute "virtual void IFitStrategy::execute()=0
@@ -5900,7 +5854,7 @@ C++ includes: FitSuiteFunctions.h
 %feature("docstring")  IFitSuiteFunction::~IFitSuiteFunction "virtual IFitSuiteFunction::~IFitSuiteFunction()
 ";
 
-%feature("docstring")  IFitSuiteFunction::init "virtual void IFitSuiteFunction::init(FitSuiteImp *fit_suite)
+%feature("docstring")  IFitSuiteFunction::init "virtual void IFitSuiteFunction::init(FitSuiteImpl *fit_suite)
 ";
 
 %feature("docstring")  IFitSuiteFunction::getNCalls "virtual size_t IFitSuiteFunction::getNCalls() const 
@@ -8172,10 +8126,7 @@ C++ includes: IsGISAXSDetector.h
 %feature("docstring")  IsGISAXSDetector::IsGISAXSDetector "IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
 ";
 
-%feature("docstring")  IsGISAXSDetector::clone "IsGISAXSDetector * IsGISAXSDetector::clone() const 
-";
-
-%feature("docstring")  IsGISAXSDetector::~IsGISAXSDetector "virtual IsGISAXSDetector::~IsGISAXSDetector()
+%feature("docstring")  IsGISAXSDetector::clone "IsGISAXSDetector * IsGISAXSDetector::clone() const override
 ";
 
 
@@ -10991,13 +10942,13 @@ Height of the detector in mm along y-direction
 %feature("docstring")  RectangularDetector::RectangularDetector "RectangularDetector::RectangularDetector(const RectangularDetector &other)
 ";
 
-%feature("docstring")  RectangularDetector::clone "RectangularDetector * RectangularDetector::clone() const 
+%feature("docstring")  RectangularDetector::clone "RectangularDetector * RectangularDetector::clone() const override
 ";
 
 %feature("docstring")  RectangularDetector::~RectangularDetector "RectangularDetector::~RectangularDetector()
 ";
 
-%feature("docstring")  RectangularDetector::init "void RectangularDetector::init(const Beam &beam)
+%feature("docstring")  RectangularDetector::init "void RectangularDetector::init(const Beam &beam) override
 
 Inits detector with the beam settings. 
 ";
@@ -11017,7 +10968,7 @@ Inits detector with the beam settings.
 %feature("docstring")  RectangularDetector::setDirectBeamPosition "void RectangularDetector::setDirectBeamPosition(double u0, double v0)
 ";
 
-%feature("docstring")  RectangularDetector::addParametersToExternalPool "std::string RectangularDetector::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  RectangularDetector::addParametersToExternalPool "std::string RectangularDetector::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const override
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -11058,17 +11009,17 @@ Adds parameters from local pool to external pool and recursively calls its direc
 %feature("docstring")  RectangularDetector::getDetectorArrangment "RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const 
 ";
 
-%feature("docstring")  RectangularDetector::createDetectorMap "OutputData< double > * RectangularDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
+%feature("docstring")  RectangularDetector::createDetectorMap "OutputData< double > * RectangularDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
 
 Returns detector map in given axes units. 
 ";
 
-%feature("docstring")  RectangularDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > RectangularDetector::getValidAxesUnits() const
+%feature("docstring")  RectangularDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > RectangularDetector::getValidAxesUnits() const override
 
 returns vector of valid axes units 
 ";
 
-%feature("docstring")  RectangularDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
+%feature("docstring")  RectangularDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const override
 
 return default axes units 
 ";
@@ -11098,19 +11049,19 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  RectPixelMap::~RectPixelMap "virtual RectPixelMap::~RectPixelMap()
 ";
 
-%feature("docstring")  RectPixelMap::clone "RectPixelMap * RectPixelMap::clone() const 
+%feature("docstring")  RectPixelMap::clone "RectPixelMap * RectPixelMap::clone() const override
 ";
 
-%feature("docstring")  RectPixelMap::createZeroSizeMap "RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const 
+%feature("docstring")  RectPixelMap::createZeroSizeMap "RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const override
 ";
 
-%feature("docstring")  RectPixelMap::getK "kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
+%feature("docstring")  RectPixelMap::getK "kvector_t RectPixelMap::getK(double x, double y, double wavelength) const override
 ";
 
-%feature("docstring")  RectPixelMap::getIntegrationFactor "double RectPixelMap::getIntegrationFactor(double x, double y) const 
+%feature("docstring")  RectPixelMap::getIntegrationFactor "double RectPixelMap::getIntegrationFactor(double x, double y) const override
 ";
 
-%feature("docstring")  RectPixelMap::getSolidAngle "double RectPixelMap::getSolidAngle() const 
+%feature("docstring")  RectPixelMap::getSolidAngle "double RectPixelMap::getSolidAngle() const override
 ";
 
 
@@ -11924,6 +11875,16 @@ get alpha for given detector pixel coordinates
 get phi for given detector pixel coordinates 
 ";
 
+%feature("docstring")  SimulationElement::containsSpecularWavevector "bool SimulationElement::containsSpecularWavevector() const
+
+check if element contains given wavevector 
+";
+
+%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(bool contains_specular)
+
+indicate that this element contains the specular wavevector 
+";
+
 
 // File: classSimulationFactory.xml
 %feature("docstring") SimulationFactory "
@@ -11996,6 +11957,12 @@ Sets the batch and thread information to be used.
 ";
 
 %feature("docstring")  SimulationOptions::getDefaultVariability "double SimulationOptions::getDefaultVariability() const 
+";
+
+%feature("docstring")  SimulationOptions::setIncludeSpecular "void SimulationOptions::setIncludeSpecular(bool include_specular)
+";
+
+%feature("docstring")  SimulationOptions::includeSpecular "bool SimulationOptions::includeSpecular() const 
 ";
 
 
@@ -12233,28 +12200,28 @@ upper edge of last alpha-bin
 %feature("docstring")  SphericalDetector::SphericalDetector "SphericalDetector::SphericalDetector(const SphericalDetector &other)
 ";
 
-%feature("docstring")  SphericalDetector::clone "SphericalDetector * SphericalDetector::clone() const 
+%feature("docstring")  SphericalDetector::clone "SphericalDetector * SphericalDetector::clone() const override
 ";
 
-%feature("docstring")  SphericalDetector::~SphericalDetector "virtual SphericalDetector::~SphericalDetector()
+%feature("docstring")  SphericalDetector::~SphericalDetector "SphericalDetector::~SphericalDetector() override
 ";
 
-%feature("docstring")  SphericalDetector::addParametersToExternalPool "std::string SphericalDetector::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  SphericalDetector::addParametersToExternalPool "std::string SphericalDetector::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const override
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  SphericalDetector::createDetectorMap "OutputData< double > * SphericalDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
+%feature("docstring")  SphericalDetector::createDetectorMap "OutputData< double > * SphericalDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
 
 Returns detector map in given axes units. 
 ";
 
-%feature("docstring")  SphericalDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > SphericalDetector::getValidAxesUnits() const
+%feature("docstring")  SphericalDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > SphericalDetector::getValidAxesUnits() const override
 
 returns vector of valid axes units 
 ";
 
-%feature("docstring")  SphericalDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
+%feature("docstring")  SphericalDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const override
 
 return default axes units 
 ";
@@ -12402,15 +12369,6 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 %feature("docstring")  SquareLatticeBuilder::buildSample "MultiLayer * SquareLatticeBuilder::buildSample() const 
-";
-
-
-// File: classUtils_1_1String.xml
-%feature("docstring") Utils::String "
-
-Collection of utilities for std::string.
-
-C++ includes: Utils.h
 ";
 
 
@@ -13363,9 +13321,17 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: Bin_8cpp.xml
+%feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
+
+Checks if value is contained in bin: value in [m_lower, m_upper) 
+";
 
 
 // File: Bin_8h.xml
+%feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
+
+Checks if value is contained in bin: value in [m_lower, m_upper) 
+";
 
 
 // File: ConstKBinAxis_8cpp.xml
@@ -13457,8 +13423,6 @@ Set all element intensities to given value.
 
 
 // File: SpecularComputation_8cpp.xml
-%feature("docstring")  ContainsSpecularWavevector "bool ContainsSpecularWavevector(const SimulationElement &sim_element)
-";
 
 
 // File: SpecularComputation_8h.xml
@@ -13515,6 +13479,12 @@ Set all element intensities to given value.
 // File: SampleLabelHandler_8h.xml
 
 
+// File: AdjustMinimizerStrategy_8cpp.xml
+
+
+// File: AdjustMinimizerStrategy_8h.xml
+
+
 // File: FitObject_8cpp.xml
 
 
@@ -13525,12 +13495,6 @@ Set all element intensities to given value.
 
 
 // File: FitParameterLinked_8h.xml
-
-
-// File: FitStrategyAdjustMinimizer_8cpp.xml
-
-
-// File: FitStrategyAdjustMinimizer_8h.xml
 
 
 // File: FitStrategyAdjustParameters_8cpp.xml
@@ -13551,10 +13515,10 @@ Set all element intensities to given value.
 // File: FitSuiteFunctions_8h.xml
 
 
-// File: FitSuiteImp_8cpp.xml
+// File: FitSuiteImpl_8cpp.xml
 
 
-// File: FitSuiteImp_8h.xml
+// File: FitSuiteImpl_8h.xml
 
 
 // File: FitSuiteObjects_8cpp.xml
@@ -14722,77 +14686,74 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 // File: WavevectorInfo_8h.xml
 
 
-// File: dir_52a2c863b7b3435f7dcd40f26828d521.xml
+// File: dir_5f1a4a05eca575eab319839347bb4113.xml
 
 
-// File: dir_41e08c09ca0aab46c4ada92f12a8c00b.xml
+// File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
 
 
-// File: dir_4544cbc948815333bef1258cf6b298b8.xml
+// File: dir_629bf8536959f2975d8caec326cd60c0.xml
 
 
-// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
+// File: dir_7de90f35ae2a2c7b4fa95823d333cc96.xml
 
 
-// File: dir_404b7d29693a4f046d60c2eccafd1df4.xml
+// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
-// File: dir_c83916cd1ff49c9e86c8a91c5655951d.xml
+// File: dir_e5c18127747cd9d7214e02067b529d74.xml
 
 
-// File: dir_59be1faf7048e95263c2fcba140abda1.xml
+// File: dir_cca9b87b2505f372a6ce58947a507789.xml
 
 
-// File: dir_e746abb3ff095e53619d5a61a48e781a.xml
+// File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
 
 
-// File: dir_554fcc4911648c79d524724e80d45fa4.xml
+// File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
 
 
-// File: dir_cc3c45a5d33be920aaf94cb9b9fbdb35.xml
+// File: dir_72a38c5b455c03a72881c3c65e21783d.xml
 
 
-// File: dir_9a756f0b2738ef3b5663c172b32b6a4b.xml
+// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
 
 
-// File: dir_e8bc32d0cf85ef86a42504cd31af1370.xml
+// File: dir_602d2305564088eb1fd2ee9e74929d48.xml
 
 
-// File: dir_8b890ad49a09d8f36525f5af93e5737c.xml
+// File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml
 
 
-// File: dir_9bdb7f774cce5b77ddd3ed60472b168c.xml
+// File: dir_24998d15d4ee11ef081e71321705b47b.xml
 
 
-// File: dir_74beab5553c7ad06e27a6baadceea9c3.xml
+// File: dir_0bf70e747e161ad6105733dd3b116e64.xml
 
 
-// File: dir_bcc7f66c041cef9b775368068412e104.xml
+// File: dir_c21740227f50b02f28bdacfb625f042a.xml
 
 
-// File: dir_95667ae48b286f0957284f712e6e3af5.xml
+// File: dir_d4e34ce36424db6c5895519defe19e58.xml
 
 
-// File: dir_4251a3aefb390b6051267154c2f94d1e.xml
+// File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
 
 
-// File: dir_529c0a19338d84aadf389c7b83eb56b1.xml
+// File: dir_6babb1605c026604526d064f820d612b.xml
 
 
-// File: dir_051c0ff7ebc48614253af3001519ace0.xml
+// File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml
 
 
-// File: dir_f59c6b3c978505a5ca3672a364c1918e.xml
+// File: dir_bf872a709c84554e66a8525bb546523f.xml
 
 
-// File: dir_871fae137308712382f6192f4445a900.xml
+// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
 
 
-// File: dir_44b1a8f39c14c02f6e3c2be419aa97b0.xml
+// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
 
 
-// File: dir_1a0696269c107461a4ce8ff1a48cd2f2.xml
-
-
-// File: dir_7f288243cf9c204a176dfbf45ea9d349.xml
+// File: dir_19cd2158bba3b9a051f8f27403820580.xml
 

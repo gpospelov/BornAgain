@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/GSLLevenbergMarquardtMinimizer.cpp
+//! @file      Fit/RootAdapter/GSLLevenbergMarquardtMinimizer.cpp
 //! @brief     Implements class GSLLevenbergMarquardtMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org

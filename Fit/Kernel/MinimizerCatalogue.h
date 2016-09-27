@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/MinimizerCatalogue.h
+//! @file      Fit/Kernel/MinimizerCatalogue.h
 //! @brief     Defines class MinimizerCatalogue.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -53,4 +53,4 @@ private:
     std::vector<MinimizerInfo> m_minimizers;
 };
 
-#endif
+#endif // MINIMIZERCATALOGUE_H

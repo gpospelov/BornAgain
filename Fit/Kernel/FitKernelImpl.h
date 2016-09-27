@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/FitKernelImp.h
+//! @file      Fit/Kernel/FitKernelImpl.h
 //! @brief     Defines class FitKernelImp.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITKERNELIMP_H
-#define FITKERNELIMP_H
+#ifndef FITKERNELIMPL_H
+#define FITKERNELIMPL_H
 
 #include "WinDllMacros.h"
 #include "KernelTypes.h"
@@ -66,4 +66,4 @@ private:
     TimeInterval m_time_interval;
 };
 
-#endif
+#endif // FITKERNELIMPL_H

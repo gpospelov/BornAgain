@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/MultiOption.h
+//! @file      Fit/Kernel/MultiOption.h
 //! @brief     Declares class MultiOption
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -85,5 +85,5 @@ T MultiOption::getDefault() const
     return boost::get<T>(m_default_value);
 }
 
-#endif
+#endif // MULTIOPTION_H
 

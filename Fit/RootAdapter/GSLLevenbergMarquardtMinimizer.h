@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/GSLLevenbergMarquardtMinimizer.h
+//! @file      Fit/RootAdapter/GSLLevenbergMarquardtMinimizer.h
 //! @brief     Declares class GSLLevenbergMarquardtMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -57,4 +57,4 @@ private:
     std::unique_ptr<BA_ROOT::Math::GSLNLSMinimizer> m_gsl_minimizer;
 };
 
-#endif
+#endif // GSLLEVENBERGMARQUARDTMINIMIZER_H

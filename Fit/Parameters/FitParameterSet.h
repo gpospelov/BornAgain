@@ -90,4 +90,4 @@ private:
     corr_matrix_t m_corr_matrix; //!< correlation matrix
 };
 
-#endif
+#endif // FITPARAMETERSET_H

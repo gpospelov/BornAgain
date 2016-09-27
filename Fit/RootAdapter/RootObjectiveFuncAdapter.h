@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/RootObjectiveFunctionAdapter.h
+//! @file      Fit/RootAdapter/RootObjectiveFuncAdapter.h
 //! @brief     Declares class RootObjectiveFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ROOTOBJECTIVEFUNCTIONADAPTER_H
-#define ROOTOBJECTIVEFUNCTIONADAPTER_H
+#ifndef ROOTOBJECTIVEFUNCADAPTER_H
+#define ROOTOBJECTIVEFUNCADAPTER_H
 
 #include "WinDllMacros.h"
 #include "KernelTypes.h"
@@ -56,4 +56,4 @@ private:
     int m_ndatasize;
 };
 
-#endif
+#endif // ROOTOBJECTIVEFUNCADAPTER_H

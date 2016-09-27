@@ -17,9 +17,14 @@
 #include "RegionOfInterestView.h"
 #include <QPainter>
 
+//! Paints two-color tiny frame without filling.
+
 void RegionOfInterestView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    //painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(QPen(QColor(34, 67, 255)));
     painter->drawRect(m_mask_rect);
+
+    QRectF secondRect = m_mask_rect.marginsAdded(QMarginsF(1, 1, 1, 1));
+    painter->setPen(QPen(QColor(255, 255, 245)));
+    painter->drawRect(secondRect);
 }

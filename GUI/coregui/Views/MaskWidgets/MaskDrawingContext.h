@@ -51,6 +51,7 @@ public:
     bool isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity);
 
     QString activityToModelType() const;
+    int activityToRow() const;
 
 private:
 

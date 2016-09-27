@@ -132,3 +132,12 @@ QString MaskDrawingContext::activityToModelType() const
     if(isROIMode()) return Constants::RegionOfInterestType;
     return QString();
 }
+
+//! Returns model row corresponding to given activity. All shapes, except ROI, will be added
+//! on top of each other. ROI shape will be added at the bottom.
+
+int MaskDrawingContext::activityToRow() const
+{
+    if(isROIMode()) return -1;
+    return 0;
+}

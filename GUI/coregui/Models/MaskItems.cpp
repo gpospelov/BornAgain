@@ -83,7 +83,7 @@ std::unique_ptr<Geometry::IShape2D> RectangleItem::createShape(double scale) con
 RegionOfInterestItem::RegionOfInterestItem()
     : RectangleItem(Constants::RegionOfInterestType)
 {
-
+    setItemValue(P_MASK_VALUE, false);
 }
 
 /* ------------------------------------------------------------------------- */

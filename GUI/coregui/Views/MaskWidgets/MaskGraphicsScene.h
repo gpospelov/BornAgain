@@ -89,6 +89,7 @@ private:
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
+
     bool isAreaContains(QGraphicsSceneMouseEvent *event, MaskEditorHelper::EViewTypes viewType);
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);

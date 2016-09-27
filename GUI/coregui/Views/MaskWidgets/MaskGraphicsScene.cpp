@@ -455,7 +455,7 @@ bool MaskGraphicsScene::isValidMouseClick(QGraphicsSceneMouseEvent *event)
     return true;
 }
 
-//! Returns true if mouse click is valid for rectangular/elliptic shapes.
+//! Returns true if mouse click is valid for rectangular/elliptic/ROI shapes.
 
 bool MaskGraphicsScene::isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent *event)
 {
@@ -463,6 +463,12 @@ bool MaskGraphicsScene::isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent
     if(!isValidMouseClick(event)) return false;
     if(!m_context.isRectangleShapeMode()) return false;
     if(isAreaContains(event, MaskEditorHelper::SIZEHANDLE)) return false;
+    if(m_context.isROIMode()) {
+        // only one ROI is allowed
+        foreach(SessionItem *item, m_ItemToView.keys())
+            if(item->modelType() == Constants::RegionOfInterestType)
+                return false;
+    }
     return true;
 }
 
@@ -566,7 +572,7 @@ void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent *even
 
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_maskModel->insertNewItem(m_context.activityToModelType(),
-                                                   m_maskContainerIndex, 0);
+                                                   m_maskContainerIndex, m_context.activityToRow());
         m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
@@ -708,6 +714,9 @@ PolygonView *MaskGraphicsScene::currentPolygon() const
 
 void MaskGraphicsScene::setItemName(SessionItem *itemToChange)
 {
+    if(itemToChange->modelType() == Constants::RegionOfInterestType)
+        return;
+
     int glob_index(0);
     for(int i_row = 0; i_row < m_maskModel->rowCount(m_maskContainerIndex); ++i_row) {
          QModelIndex itemIndex = m_maskModel->index( i_row, 0, m_maskContainerIndex );

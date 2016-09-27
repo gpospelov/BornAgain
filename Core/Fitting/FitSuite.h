@@ -28,7 +28,7 @@ class FitSuiteObjects;
 class FitParameterSet;
 class FitSuiteStrategies;
 class FitOptions;
-class FitSuiteImp;
+class FitSuiteImpl;
 class IMinimizer;
 class FitParameterLinked;
 
@@ -147,7 +147,7 @@ public:
     const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
 
 private:
-    std::unique_ptr<FitSuiteImp> m_impl;
+    std::unique_ptr<FitSuiteImpl> m_impl;
 };
 
 #endif // FITSUITE_H

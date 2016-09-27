@@ -131,54 +131,54 @@ Number of objective function calls.
 ";
 
 
-// File: classFitKernelImp.xml
-%feature("docstring") FitKernelImp "
+// File: classFitKernelImpl.xml
+%feature("docstring") FitKernelImpl "
 
 The  FitKernel implementation.
 
-C++ includes: FitKernelImp.h
+C++ includes: FitKernelImpl.h
 ";
 
-%feature("docstring")  FitKernelImp::FitKernelImp "FitKernelImp::FitKernelImp()
+%feature("docstring")  FitKernelImpl::FitKernelImpl "FitKernelImpl::FitKernelImpl()
 ";
 
-%feature("docstring")  FitKernelImp::~FitKernelImp "FitKernelImp::~FitKernelImp()
+%feature("docstring")  FitKernelImpl::~FitKernelImpl "FitKernelImpl::~FitKernelImpl()
 ";
 
-%feature("docstring")  FitKernelImp::clear "void FitKernelImp::clear()
+%feature("docstring")  FitKernelImpl::clear "void FitKernelImpl::clear()
 ";
 
-%feature("docstring")  FitKernelImp::setMinimizer "void FitKernelImp::setMinimizer(IMinimizer *minimizer)
+%feature("docstring")  FitKernelImpl::setMinimizer "void FitKernelImpl::setMinimizer(IMinimizer *minimizer)
 
 Sets minimizer. 
 ";
 
-%feature("docstring")  FitKernelImp::addFitParameter "void FitKernelImp::addFitParameter(FitParameter *par)
+%feature("docstring")  FitKernelImpl::addFitParameter "void FitKernelImpl::addFitParameter(FitParameter *par)
 
 Adds fit parameter. 
 ";
 
-%feature("docstring")  FitKernelImp::setObjectiveFunction "void FitKernelImp::setObjectiveFunction(objective_function_t func)
+%feature("docstring")  FitKernelImpl::setObjectiveFunction "void FitKernelImpl::setObjectiveFunction(objective_function_t func)
 ";
 
-%feature("docstring")  FitKernelImp::setGradientFunction "void FitKernelImp::setGradientFunction(gradient_function_t func, int ndatasize)
+%feature("docstring")  FitKernelImpl::setGradientFunction "void FitKernelImpl::setGradientFunction(gradient_function_t func, int ndatasize)
 ";
 
-%feature("docstring")  FitKernelImp::minimize "void FitKernelImp::minimize()
+%feature("docstring")  FitKernelImpl::minimize "void FitKernelImpl::minimize()
 ";
 
-%feature("docstring")  FitKernelImp::reportResults "std::string FitKernelImp::reportResults() const
+%feature("docstring")  FitKernelImpl::reportResults "std::string FitKernelImpl::reportResults() const
 
 Reports results of minimization in the form of multi-line string. 
 ";
 
-%feature("docstring")  FitKernelImp::fitParameters "FitParameterSet * FitKernelImp::fitParameters()
+%feature("docstring")  FitKernelImpl::fitParameters "FitParameterSet * FitKernelImpl::fitParameters()
 ";
 
-%feature("docstring")  FitKernelImp::minimizer "IMinimizer * FitKernelImp::minimizer()
+%feature("docstring")  FitKernelImpl::minimizer "IMinimizer * FitKernelImpl::minimizer()
 ";
 
-%feature("docstring")  FitKernelImp::functionCalls "int FitKernelImp::functionCalls() const
+%feature("docstring")  FitKernelImpl::functionCalls "int FitKernelImpl::functionCalls() const
 
 Number of objective function calls. 
 ";
@@ -1493,10 +1493,10 @@ Returns string obtain by joining vector elements.
 // File: FitKernel_8h.xml
 
 
-// File: FitKernelImp_8cpp.xml
+// File: FitKernelImpl_8cpp.xml
 
 
-// File: FitKernelImp_8h.xml
+// File: FitKernelImpl_8h.xml
 
 
 // File: FitOptions_8h.xml

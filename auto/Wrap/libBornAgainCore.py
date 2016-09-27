@@ -4672,9 +4672,9 @@ class IFitStrategy(INamed):
 
     def init(self, fit_suite):
         """
-        init(IFitStrategy self, FitSuiteImp * fit_suite)
+        init(IFitStrategy self, FitSuiteImpl * fit_suite)
 
-        void IFitStrategy::init(FitSuiteImp *fit_suite)
+        void IFitStrategy::init(FitSuiteImpl *fit_suite)
 
         """
         return _libBornAgainCore.IFitStrategy_init(self, fit_suite)

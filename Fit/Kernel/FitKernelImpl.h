@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Kernel/FitKernelImpl.h
-//! @brief     Defines class FitKernelImp.
+//! @brief     Defines class FitKernelImpl.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,15 +26,15 @@
 class IMinimizer;
 class FitParameter;
 
-//! @class FitKernelImp
+//! @class FitKernelImpl
 //! @ingroup fitting_internal
 //! @brief The FitKernel implementation.
 
-class BA_CORE_API_ FitKernelImp
+class BA_CORE_API_ FitKernelImpl
 {
 public:
-    FitKernelImp();
-    ~FitKernelImp();
+    FitKernelImpl();
+    ~FitKernelImpl();
 
     void clear();
 

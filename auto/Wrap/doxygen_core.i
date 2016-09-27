@@ -2000,123 +2000,123 @@ evaluate residual and derivative for given data element
 ";
 
 
-// File: classFitSuiteImp.xml
-%feature("docstring") FitSuiteImp "
+// File: classFitSuiteImpl.xml
+%feature("docstring") FitSuiteImpl "
 
 Fitting kernel for  FitSuite.
 
-C++ includes: FitSuiteImp.h
+C++ includes: FitSuiteImpl.h
 ";
 
-%feature("docstring")  FitSuiteImp::FitSuiteImp "FitSuiteImp::FitSuiteImp(const std::function< void()> &notifyObservers)
+%feature("docstring")  FitSuiteImpl::FitSuiteImpl "FitSuiteImpl::FitSuiteImpl(const std::function< void()> &notifyObservers)
 ";
 
-%feature("docstring")  FitSuiteImp::FitSuiteImp "FitSuiteImp::FitSuiteImp(const FitSuiteImp &)=delete
+%feature("docstring")  FitSuiteImpl::FitSuiteImpl "FitSuiteImpl::FitSuiteImpl(const FitSuiteImpl &)=delete
 ";
 
-%feature("docstring")  FitSuiteImp::~FitSuiteImp "FitSuiteImp::~FitSuiteImp()
+%feature("docstring")  FitSuiteImpl::~FitSuiteImpl "FitSuiteImpl::~FitSuiteImpl()
 ";
 
-%feature("docstring")  FitSuiteImp::clear "void FitSuiteImp::clear()
+%feature("docstring")  FitSuiteImpl::clear "void FitSuiteImpl::clear()
 
 Resets most state variables, to get prepared for the next fit.
 
 Clears all data. 
 ";
 
-%feature("docstring")  FitSuiteImp::addSimulationAndRealData "void FitSuiteImp::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
+%feature("docstring")  FitSuiteImpl::addSimulationAndRealData "void FitSuiteImpl::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
 
 Adds pair of (simulation, real data) for consecutive simulation. 
 ";
 
-%feature("docstring")  FitSuiteImp::addFitParameter "FitParameterLinked * FitSuiteImp::addFitParameter(const std::string &name, double value, const AttLimits &limits, double step=0.0)
+%feature("docstring")  FitSuiteImpl::addFitParameter "FitParameterLinked * FitSuiteImpl::addFitParameter(const std::string &name, double value, const AttLimits &limits, double step=0.0)
 
 Adds fit parameter.
 
 Adds fit parameter, step is calculated from initial parameter value. 
 ";
 
-%feature("docstring")  FitSuiteImp::addFitStrategy "void FitSuiteImp::addFitStrategy(const IFitStrategy &strategy)
+%feature("docstring")  FitSuiteImpl::addFitStrategy "void FitSuiteImpl::addFitStrategy(const IFitStrategy &strategy)
 
 Adds fit strategy. 
 ";
 
-%feature("docstring")  FitSuiteImp::setMinimizer "void FitSuiteImp::setMinimizer(IMinimizer *minimizer)
+%feature("docstring")  FitSuiteImpl::setMinimizer "void FitSuiteImpl::setMinimizer(IMinimizer *minimizer)
 
 Sets minimizer. 
 ";
 
-%feature("docstring")  FitSuiteImp::runFit "void FitSuiteImp::runFit()
+%feature("docstring")  FitSuiteImpl::runFit "void FitSuiteImpl::runFit()
 
 Runs a fit, which may consist of several minimization rounds. 
 ";
 
-%feature("docstring")  FitSuiteImp::minimize "void FitSuiteImp::minimize()
+%feature("docstring")  FitSuiteImpl::minimize "void FitSuiteImpl::minimize()
 
 Runs a single minimization round (called by FitSuiteStrategy) 
 ";
 
-%feature("docstring")  FitSuiteImp::fitObjects "FitSuiteObjects* FitSuiteImp::fitObjects()
+%feature("docstring")  FitSuiteImpl::fitObjects "FitSuiteObjects* FitSuiteImpl::fitObjects()
 
 Returns reference to the kit with data. 
 ";
 
-%feature("docstring")  FitSuiteImp::fitObjects "const FitSuiteObjects* FitSuiteImp::fitObjects() const 
+%feature("docstring")  FitSuiteImpl::fitObjects "const FitSuiteObjects* FitSuiteImpl::fitObjects() const 
 ";
 
-%feature("docstring")  FitSuiteImp::fitParameters "FitParameterSet * FitSuiteImp::fitParameters()
+%feature("docstring")  FitSuiteImpl::fitParameters "FitParameterSet * FitSuiteImpl::fitParameters()
 
 Returns reference to fit parameters. 
 ";
 
-%feature("docstring")  FitSuiteImp::fitStrategies "FitSuiteStrategies* FitSuiteImp::fitStrategies()
+%feature("docstring")  FitSuiteImpl::fitStrategies "FitSuiteStrategies* FitSuiteImpl::fitStrategies()
 
 Returns reference to fit parameters. 
 ";
 
-%feature("docstring")  FitSuiteImp::isLastIteration "bool FitSuiteImp::isLastIteration() const
+%feature("docstring")  FitSuiteImpl::isLastIteration "bool FitSuiteImpl::isLastIteration() const
 
 Returns true if the last iteration is done (used by observers to print summary) 
 ";
 
-%feature("docstring")  FitSuiteImp::numberOfIterations "size_t FitSuiteImp::numberOfIterations() const
+%feature("docstring")  FitSuiteImpl::numberOfIterations "size_t FitSuiteImpl::numberOfIterations() const
 
 Returns current number of minimization function calls. 
 ";
 
-%feature("docstring")  FitSuiteImp::currentStrategyIndex "size_t FitSuiteImp::currentStrategyIndex() const
+%feature("docstring")  FitSuiteImpl::currentStrategyIndex "size_t FitSuiteImpl::currentStrategyIndex() const
 
 Returns the number of current strategy. 
 ";
 
-%feature("docstring")  FitSuiteImp::reportResults "std::string FitSuiteImp::reportResults() const
+%feature("docstring")  FitSuiteImpl::reportResults "std::string FitSuiteImpl::reportResults() const
 
 Reports results of minimization in the form of multi-line string. 
 ";
 
-%feature("docstring")  FitSuiteImp::getOptions "FitOptions& FitSuiteImp::getOptions()
+%feature("docstring")  FitSuiteImpl::getOptions "FitOptions& FitSuiteImpl::getOptions()
 
 Returns current fit options. 
 ";
 
-%feature("docstring")  FitSuiteImp::setOptions "void FitSuiteImp::setOptions(const FitOptions &fit_options)
+%feature("docstring")  FitSuiteImpl::setOptions "void FitSuiteImpl::setOptions(const FitOptions &fit_options)
 
 Sets fit options. 
 ";
 
-%feature("docstring")  FitSuiteImp::notifyObservers "void FitSuiteImp::notifyObservers()
+%feature("docstring")  FitSuiteImpl::notifyObservers "void FitSuiteImpl::notifyObservers()
 ";
 
-%feature("docstring")  FitSuiteImp::interruptFitting "void FitSuiteImp::interruptFitting()
+%feature("docstring")  FitSuiteImpl::interruptFitting "void FitSuiteImpl::interruptFitting()
 ";
 
-%feature("docstring")  FitSuiteImp::resetInterrupt "void FitSuiteImp::resetInterrupt()
+%feature("docstring")  FitSuiteImpl::resetInterrupt "void FitSuiteImpl::resetInterrupt()
 ";
 
-%feature("docstring")  FitSuiteImp::isInterrupted "bool FitSuiteImp::isInterrupted() const 
+%feature("docstring")  FitSuiteImpl::isInterrupted "bool FitSuiteImpl::isInterrupted() const 
 ";
 
-%feature("docstring")  FitSuiteImp::kernel "const FitKernel * FitSuiteImp::kernel() const 
+%feature("docstring")  FitSuiteImpl::kernel "const FitKernel * FitSuiteImpl::kernel() const 
 ";
 
 
@@ -2265,7 +2265,7 @@ C++ includes: FitSuiteStrategies.h
 %feature("docstring")  FitSuiteStrategies::FitSuiteStrategies "FitSuiteStrategies::FitSuiteStrategies(const FitSuiteStrategies &other)=delete
 ";
 
-%feature("docstring")  FitSuiteStrategies::init "void FitSuiteStrategies::init(FitSuiteImp *fit_suite)
+%feature("docstring")  FitSuiteStrategies::init "void FitSuiteStrategies::init(FitSuiteImpl *fit_suite)
 ";
 
 %feature("docstring")  FitSuiteStrategies::addStrategy "void FitSuiteStrategies::addStrategy(const IFitStrategy &strategy)
@@ -5833,7 +5833,7 @@ C++ includes: IFitStrategy.h
 %feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const =0
 ";
 
-%feature("docstring")  IFitStrategy::init "void IFitStrategy::init(FitSuiteImp *fit_suite)
+%feature("docstring")  IFitStrategy::init "void IFitStrategy::init(FitSuiteImpl *fit_suite)
 ";
 
 %feature("docstring")  IFitStrategy::execute "virtual void IFitStrategy::execute()=0
@@ -5854,7 +5854,7 @@ C++ includes: FitSuiteFunctions.h
 %feature("docstring")  IFitSuiteFunction::~IFitSuiteFunction "virtual IFitSuiteFunction::~IFitSuiteFunction()
 ";
 
-%feature("docstring")  IFitSuiteFunction::init "virtual void IFitSuiteFunction::init(FitSuiteImp *fit_suite)
+%feature("docstring")  IFitSuiteFunction::init "virtual void IFitSuiteFunction::init(FitSuiteImpl *fit_suite)
 ";
 
 %feature("docstring")  IFitSuiteFunction::getNCalls "virtual size_t IFitSuiteFunction::getNCalls() const 
@@ -13515,10 +13515,10 @@ Set all element intensities to given value.
 // File: FitSuiteFunctions_8h.xml
 
 
-// File: FitSuiteImp_8cpp.xml
+// File: FitSuiteImpl_8cpp.xml
 
 
-// File: FitSuiteImp_8h.xml
+// File: FitSuiteImpl_8h.xml
 
 
 // File: FitSuiteObjects_8cpp.xml

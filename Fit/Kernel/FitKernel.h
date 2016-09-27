@@ -21,7 +21,7 @@
 #include <memory>
 #include <string>
 
-class FitKernelImp;
+class FitKernelImpl;
 class AttLimits;
 class FitParameterSet;
 class IMinimizer;
@@ -68,7 +68,7 @@ public:
     //! Number of objective function calls.
     int functionCalls() const;
 private:
-    std::unique_ptr<FitKernelImp> m_impl;
+    std::unique_ptr<FitKernelImpl> m_impl;
 };
 
 #endif // FITKERNEL_H

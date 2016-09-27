@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Fitting/FitSuiteImpl.h
-//! @brief     Defines class FitSuiteImp.
+//! @brief     Defines class FitSuiteImpl.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -35,13 +35,13 @@ class FitParameterLinked;
 //! Fitting kernel for FitSuite.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitSuiteImp
+class BA_CORE_API_ FitSuiteImpl
 {
  public:
-    FitSuiteImp(const std::function<void()>& notifyObservers);
-    FitSuiteImp& operator=(const FitSuiteImp&) = delete;
-    FitSuiteImp(const FitSuiteImp&) = delete;
-    virtual ~FitSuiteImp();
+    FitSuiteImpl(const std::function<void()>& notifyObservers);
+    FitSuiteImpl& operator=(const FitSuiteImpl&) = delete;
+    FitSuiteImpl(const FitSuiteImpl&) = delete;
+    virtual ~FitSuiteImpl();
 
     //! Resets most state variables, to get prepared for the next fit
     void clear();

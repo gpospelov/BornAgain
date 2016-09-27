@@ -176,6 +176,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
     result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
 
+    result[Constants::RegionOfInterestType] = &createInstance<RegionOfInterestItem>;
+
     result[Constants::GroupItemType] = &createInstance<GroupItem>;
 
     result[Constants::ParameterContainerType] = &createInstance<ParameterContainerItem>;

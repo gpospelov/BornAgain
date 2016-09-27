@@ -25,6 +25,7 @@
 #include "PolygonPointView.h"
 #include "PolygonView.h"
 #include "RectangleView.h"
+#include "RegionOfInterestView.h"
 #include "SessionItem.h"
 #include "item_constants.h"
 
@@ -66,9 +67,10 @@ IMaskView *MaskViewFactory::createMaskView(SessionItem *item,
         result = new MaskAllView();
     }
 
-//    else if(model_type == Constants::IntensityDataType) {
-//        result = new IntensityDataView();
-//    }
+    else if(model_type == Constants::RegionOfInterestType) {
+        result = new RegionOfInterestView();
+    }
+
 
     else {
         throw GUIHelpers::Error("MaskViewFactory::createSampleView() -> Error! "

@@ -27,7 +27,6 @@ class IShape2D;
 
 class BA_CORE_API_ MaskContainerItem : public SessionItem
 {
-
 public:
     explicit MaskContainerItem();
 };
@@ -37,7 +36,6 @@ public:
 
 class BA_CORE_API_ MaskItem : public SessionItem
 {
-
 public:
     static const QString P_MASK_VALUE;
     explicit MaskItem(const QString &name);
@@ -46,15 +44,21 @@ public:
 
 class BA_CORE_API_ RectangleItem : public MaskItem
 {
-
 public:
     static const QString P_XLOW;
     static const QString P_YLOW;
     static const QString P_XUP;
     static const QString P_YUP;
-    explicit RectangleItem();
+    explicit RectangleItem(const QString &modelType = Constants::RectangleMaskType);
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
+
+class BA_CORE_API_ RegionOfInterestItem : public RectangleItem
+{
+public:
+    RegionOfInterestItem();
+};
+
 
 class BA_CORE_API_ PolygonPointItem : public SessionItem
 {
@@ -62,7 +66,7 @@ class BA_CORE_API_ PolygonPointItem : public SessionItem
 public:
     static const QString P_POSX;
     static const QString P_POSY;
-    explicit PolygonPointItem();
+    PolygonPointItem();
 };
 
 class BA_CORE_API_ PolygonItem : public MaskItem
@@ -70,7 +74,7 @@ class BA_CORE_API_ PolygonItem : public MaskItem
 
 public:
     static const QString P_ISCLOSED;
-    explicit PolygonItem();
+    PolygonItem();
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
@@ -79,7 +83,7 @@ class BA_CORE_API_ VerticalLineItem : public MaskItem
 
 public:
     static const QString P_POSX;
-    explicit VerticalLineItem();
+    VerticalLineItem();
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
@@ -88,7 +92,7 @@ class BA_CORE_API_ HorizontalLineItem : public MaskItem
 
 public:
     static const QString P_POSY;
-    explicit HorizontalLineItem();
+    HorizontalLineItem();
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
@@ -101,15 +105,14 @@ public:
     static const QString P_XRADIUS;
     static const QString P_YRADIUS;
     static const QString P_ANGLE;
-    explicit EllipseItem();
+    EllipseItem();
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 
 class BA_CORE_API_ MaskAllItem : public MaskItem
 {
-
 public:
-    explicit MaskAllItem();
+    MaskAllItem();
     virtual std::unique_ptr<Geometry::IShape2D> createShape(double scale) const;
 };
 

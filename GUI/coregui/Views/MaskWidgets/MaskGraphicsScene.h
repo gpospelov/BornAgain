@@ -57,7 +57,7 @@ public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
     void onMaskValueChanged(MaskEditorFlags::MaskValue value);
     void onResetViewRequest();
-    void onRowsInserted(const QModelIndex &parent, int first, int last);
+    void onRowsInserted(const QModelIndex &, int, int);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &, int, int);
     void cancelCurrentDrawing();
@@ -93,6 +93,7 @@ private:
     bool isAreaContains(QGraphicsSceneMouseEvent *event, MaskEditorHelper::EViewTypes viewType);
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
+    void setInPanAndZoomMode(bool value);
 
     void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 
@@ -105,7 +106,7 @@ private:
     void processMaskAllItem(QGraphicsSceneMouseEvent *event);
 
     void setZValues();
-    PolygonView *getCurrentPolygon() const;
+    PolygonView *currentPolygon() const;
     void setItemName(SessionItem *itemToChange);
 
     SessionModel *m_maskModel;
@@ -120,6 +121,5 @@ private:
     QPointF m_currentMousePosition;
     MaskDrawingContext m_context;
 };
-
 
 #endif // MASKGRAPHICSSCENE_H

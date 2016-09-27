@@ -1,7 +1,20 @@
-# Finds BornAgain instalation
-# It defines:
-# BORNAGAIN_INCLUDE_DIR  PATH to the include directory
-# BORNAGAIN_LIBRARIES    BornAgain libraries
+#  BornAgain: simulate and fit scattering at grazing incidence
+#
+#  @file      Examples/cpp/modules/FindBornAgain.cmake
+#  @brief     Finds BornAgain installation
+#
+#  Usage:     find_package(BornAgain REQUIRED)
+#
+#  Outcome:   defines
+#             - BORNAGAIN_INCLUDE_DIR  PATH to the include directory
+#             - BORNAGAIN_LIBRARIES    BornAgain libraries
+#
+#  @homepage  http://www.bornagainproject.org
+#  @license   GNU General Public License v3 or higher (see COPYING)
+#  @copyright Forschungszentrum Jülich GmbH 2016
+#  @authors   Scientific Computing Group at MLZ Garching
+#  @authors   J. Burle, C. Durniak, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+
 
 set(BORNAGAINSYS $ENV{BORNAGAINSYS})
 
@@ -10,12 +23,12 @@ if(BORNAGAINSYS)
     set(BORNAGAIN_INCLUDE_DIR ${BORNAGAINSYS}/include/BornAgain-1.6)
 endif()
 
-find_library (BORNAGAIN_CORE BornAgainCore
+find_library (BORNAGAIN_CORE _libBornAgainCore.so
     PATHS ${BORNAGAIN_LIBRARY_DIR}
     HINTS ${BORNAGAIN_LIBRARY_DIR}
 )
 
-find_library (BORNAGAIN_FIT BornAgainFit
+find_library (BORNAGAIN_FIT _libBornAgainFit.so
     PATHS ${BORNAGAIN_LIBRARY_DIR}
     HINTS ${BORNAGAIN_LIBRARY_DIR}
 )

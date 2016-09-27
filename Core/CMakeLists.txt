@@ -173,6 +173,7 @@ install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_ex
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 install (FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
 install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
+install (FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h DESTINATION ${destination_include} COMPONENT Headers)
 
 if(WIN32)
     # python in windows required .pyd extention for the library name

@@ -8,15 +8,6 @@
 #include "FormFactorPrism3.h"
 #include "Units.h"
 
-#include "TCanvas.h"
-#include "TH1D.h"
-#include "TH2D.h"
-#include "TH3D.h"
-#include "TStyle.h"
-#include "TLine.h"
-#include "TROOT.h"
-#include "TApplication.h"
-
 #include "CylindersAndPrisms.h"
 
 
@@ -73,6 +64,7 @@ void CylindersAndPrismsExample::runSimulation()
 
 void CylindersAndPrismsExample::drawResult()
 {
+/*
     const IAxis *axisPhi = m_result->getAxis(0);
     const IAxis *axisAlpha = m_result->getAxis(1);
 
@@ -112,18 +104,14 @@ void CylindersAndPrismsExample::drawResult()
     delete axisPhi;
     delete axisAlpha;
     delete hist;
+*/
 }
 
 
 int main(int argc, char **argv)
 {
-    CylindersAndPrismsExample* example = new CylindersAndPrismsExample();
-    example->runSimulation();
-
-    TApplication *theApp = new TApplication("theApp", &argc, argv);
-    example->drawResult();
-    theApp->Run();
-
-    delete example;
+    CylindersAndPrismsExample example;
+    example.runSimulation();
+    example.drawResult();
     return 0;
 }

@@ -1,5 +1,5 @@
-#ifndef CYLINDERSANDPRISMS_H_
-#define CYLINDERSANDPRISMS_H_
+#ifndef CYLINDERSANDPRISMS_H
+#define CYLINDERSANDPRISMS_H
 
 // Mixture of cylinders and prisms without interference (IsGISAXS example ex-1)
 #include "OutputData.h"
@@ -25,4 +25,4 @@ private:
     MultiLayer *m_sample;
 };
 
-#endif /* CYLINDERSANDPRISMS_H_ */
+#endif // CYLINDERSANDPRISMS_H

@@ -10,12 +10,12 @@ if(BORNAGAINSYS)
     set(BORNAGAIN_INCLUDE_DIR ${BORNAGAINSYS}/include/BornAgain-1.6)
 endif()
 
-find_library (BORNAGAIN_CORE BornAgainCore
+find_library (BORNAGAIN_CORE _libBornAgainCore.so
     PATHS ${BORNAGAIN_LIBRARY_DIR}
     HINTS ${BORNAGAIN_LIBRARY_DIR}
 )
 
-find_library (BORNAGAIN_FIT BornAgainFit
+find_library (BORNAGAIN_FIT _libBornAgainFit.so
     PATHS ${BORNAGAIN_LIBRARY_DIR}
     HINTS ${BORNAGAIN_LIBRARY_DIR}
 )

@@ -28,7 +28,8 @@ DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_
     : mp_layer(p_layer), m_layout_index(layout_index)
 {}
 
-void DecoratedLayerComputation::eval(
+//! Performs computation on range of simulation elements; returns true if computation shall continue
+bool DecoratedLayerComputation::eval(
     const SimulationOptions& options,
     ProgressHandler* progress,
     bool polarized,
@@ -52,8 +53,10 @@ void DecoratedLayerComputation::eval(
             it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
         else
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
-        progress->incrementDone(1);
+        if( !stepProgress(progress) )
+            return false;
     }
+    return true;
 }
 
 void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)

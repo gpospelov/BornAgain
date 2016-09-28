@@ -105,15 +105,18 @@ void MainComputation::runProtected()
     bool polarized = mp_multi_layer->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
         for (DecoratedLayerComputation* comp: layer_comp) {
-            comp->eval(m_sim_options, m_progress, polarized, *mp_multi_layer,
-                       layer_elements.begin(), layer_elements.end());
+            if( !comp->eval(m_sim_options, m_progress, polarized, *mp_multi_layer,
+                            layer_elements.begin(), layer_elements.end()) )
+                return; // cancelled
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }
     }
 
     if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
         msglog(MSG::DEBUG2) << "MainComputation::run() -> roughness";
-        mp_roughness_computation->eval(m_progress, layer_elements.begin(), layer_elements.end());
+        if( !mp_roughness_computation->eval(
+                m_progress, layer_elements.begin(), layer_elements.end()) )
+            return; // cancelled
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 

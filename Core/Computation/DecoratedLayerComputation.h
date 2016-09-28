@@ -39,7 +39,7 @@ class DecoratedLayerComputation final : public ThreadedComputation
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
 
-    bool eval(const SimulationOptions& options,
+    void eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
               const MultiLayer& sample,

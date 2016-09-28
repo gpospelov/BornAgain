@@ -32,9 +32,8 @@ void ProgressHandler::subscribe(ProgressHandler::Callback_t inform)
 //! Increments number of completed computation steps (ticks).
 //! Performs callback (method m_inform) to inform the subscriber about
 //! the state of the computation and to obtain as return value a flag
-//! that indicates whether to continue the computation. Returns the
-//! value of that flag to request the owner to terminate.
-bool ProgressHandler::incrementDone(size_t ticks_done)
+//! that indicates whether to continue the computation.
+void ProgressHandler::incrementDone(size_t ticks_done)
 {
     static std::mutex single_mutex;
     std::unique_lock<std::mutex> single_lock( single_mutex );
@@ -48,5 +47,4 @@ bool ProgressHandler::incrementDone(size_t ticks_done)
     // the value 100 is only returned if everything is done
 
     m_continuation_flag = ( !m_inform || m_inform(percentage_done) ) && m_continuation_flag;
-    return m_continuation_flag;
 }

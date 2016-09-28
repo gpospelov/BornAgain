@@ -16,14 +16,12 @@
 #include "ProgressHandler.h"
 #include "ThreadedComputation.h"
 
-//! Increments progress count; updates upstream progress handler; returns true unless cancelled.
-bool ThreadedComputation::stepProgress(ProgressHandler* progress)
+//! Increments progress count; at regular intervals updates main progress handler.
+void ThreadedComputation::stepProgress(ProgressHandler* progress)
 {
     ++m_count;
     if( m_count==bundle ) {
-        if( !progress->incrementDone(bundle) )
-            return false;
+        progress->incrementDone(bundle);
         m_count = 0;
     }
-    return true;
 }

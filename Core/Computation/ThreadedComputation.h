@@ -27,7 +27,7 @@ class ThreadedComputation: public INoncopyable
 public:
     ThreadedComputation() : m_count(0) {}
 protected:
-    bool stepProgress(ProgressHandler* progress);
+    void stepProgress(ProgressHandler* progress);
 private:
     const int bundle = 100;
     int m_count;

@@ -33,6 +33,7 @@
 #include "RealDataItem.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
+#include "ImportDataAssistant.h"
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -233,8 +234,12 @@ void ApplicationModels::createTestRealData()
     IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(
                 m_realDataModel->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
 
-    OutputData<double>* data = IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int");
-    intensityDataItem->setOutputData(data);
+    std::unique_ptr<OutputData<double>> data(
+                IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
+
+    ImportDataAssistant assistant;
+    OutputData<double> *simplified = assistant.createSimlifiedOutputData(*data.get());
+    intensityDataItem->setOutputData(simplified);
 }
 
 //! Writes all model in file one by one

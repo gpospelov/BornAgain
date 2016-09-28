@@ -32,6 +32,8 @@ public:
     static void loadIntensityData(class RealDataItem *realDataItem, const QString &projectDir);
     static void saveIntensityData(class RealDataItem *realDataItem, const QString &projectDir);
 
+    OutputData<double> *createSimlifiedOutputData(const OutputData<double> &data);
+
 };
 
 #endif // IMPORTDATAASSISTANT_H

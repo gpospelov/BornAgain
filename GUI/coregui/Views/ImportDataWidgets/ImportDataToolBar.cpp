@@ -107,19 +107,34 @@ void ImportDataToolBar::onImportDataAction()
     Q_ASSERT(m_realDataModel);
     ImportDataAssistant assistant;
     QString baseNameOfImportedFile;
-    if(OutputData<double> *data = assistant.importData(baseNameOfImportedFile)) {
+
+
+    std::unique_ptr<OutputData<double>> data(assistant.importData(baseNameOfImportedFile));
+    if(data) {
         RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(
-                    m_realDataModel->insertNewItem(Constants::RealDataType));
+            m_realDataModel->insertNewItem(Constants::RealDataType));
         realDataItem->setItemName(baseNameOfImportedFile);
         IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(
-                    m_realDataModel->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
-        intensityDataItem->setOutputData(data);
+            m_realDataModel->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
+        intensityDataItem->setOutputData(data.release());
         m_selectionModel->clearSelection();
         m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
-        qDebug() << "baseNameOfImportedFile" << baseNameOfImportedFile;
-
-        matchAxesToInstrument(realDataItem);
     }
+
+
+//    if(OutputData<double> *data = assistant.importData(baseNameOfImportedFile)) {
+//        RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(
+//                    m_realDataModel->insertNewItem(Constants::RealDataType));
+//        realDataItem->setItemName(baseNameOfImportedFile);
+//        IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(
+//                    m_realDataModel->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
+//        intensityDataItem->setOutputData(data);
+//        m_selectionModel->clearSelection();
+//        m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+//        qDebug() << "baseNameOfImportedFile" << baseNameOfImportedFile;
+
+//        //matchAxesToInstrument(realDataItem);
+//    }
 
 }
 

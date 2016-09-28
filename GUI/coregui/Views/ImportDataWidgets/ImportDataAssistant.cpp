@@ -21,6 +21,7 @@
 #include "IntensityDataItem.h"
 #include "RealDataItem.h"
 #include "projectmanager.h"
+#include "BornAgainNamespace.h"
 #include <QDebug>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -51,16 +52,19 @@ OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFil
     if(newImportDir != dirname)
         AppSvc::projectManager()->setImportDir(newImportDir);
 
-    OutputData<double>* result(nullptr);
+    OutputData<double> *result(nullptr);
 
     try {
-        result = IntensityDataIOFactory::readOutputData(fileName.toStdString());
+        std::unique_ptr<OutputData<double>> data(
+                    IntensityDataIOFactory::readOutputData(fileName.toStdString()));
+        result = createSimlifiedOutputData(*data.get());
     } catch (std::exception &ex) {
         QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
                               .arg(fileName)
                               .arg(QString::fromStdString(std::string(ex.what())));
         QMessageBox::warning(0, "IO Problem", message);
     }
+
     return result;
 }
 
@@ -84,4 +88,24 @@ void ImportDataAssistant::saveIntensityData(RealDataItem *realDataItem, const QS
         IntensityDataIOFactory::writeOutputData(
                     *intensityItem->getOutputData(), filename.toStdString());
     }
+}
+
+//! Creates OutputData with simplified axes [0,nxbin]x[0,nybin].
+
+OutputData<double> *ImportDataAssistant::createSimlifiedOutputData(const OutputData<double> &data)
+{
+    double xmin(0.0), ymin(0.0);
+
+    const IAxis *aX = data.getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis *aY = data.getAxis(BornAgain::Y_AXIS_INDEX);
+
+    double xmax = double(aX->getSize());
+    double ymax = double(aY->getSize());
+
+    OutputData<double> *result = new OutputData<double>;
+    result->addAxis(FixedBinAxis("X [nbins]", aX->getSize(), xmin, xmax));
+    result->addAxis(FixedBinAxis("Y [nbins]", aY->getSize(), ymin, ymax));
+    result->setRawDataVector(data.getRawDataVector());
+
+    return result;
 }

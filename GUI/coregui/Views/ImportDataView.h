@@ -22,7 +22,6 @@
 #include "RealDataMaskWidget.h"
 
 class ImportDataToolBar;
-//class ItemSelectorWidget;
 class RealDataModel;
 class RealDataSelectorWidget;
 
@@ -47,7 +46,6 @@ private:
 
     ImportDataToolBar *m_toolBar;
     Manhattan::MiniSplitter *m_splitter;
-//    ItemSelectorWidget *m_selectorWidget;
     RealDataSelectorWidget *m_selectorWidget;
 //    ItemStackPresenter<RealDataMaskWidget> *m_stackedWidget;
     ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;

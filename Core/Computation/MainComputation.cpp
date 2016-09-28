@@ -117,9 +117,8 @@ void MainComputation::runProtected()
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 
-    if (m_sim_options.includeSpecular()) {
+    if (m_sim_options.includeSpecular())
         mp_specular_computation->eval(m_progress, polarized, m_begin_it, m_end_it);
-    }
 }
 
 void MainComputation::collectRTCoefficientsScalar()
@@ -138,9 +137,8 @@ void MainComputation::collectRTCoefficientsScalar()
         if (mp_roughness_computation)
             mp_roughness_computation->setSpecularInfo(i, layer_coeff_map);
 
-        if (i==0) {
+        if (i==0)
             mp_specular_computation->setSpecularInfo(layer_coeff_map);
-        }
     }
 }
 

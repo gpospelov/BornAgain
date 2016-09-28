@@ -272,14 +272,14 @@ void Simulation::runSingleSimulation()
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
-            MainComputation* p_dwba_simulation = new MainComputation(
-                mP_sample.get(), m_options, m_progress, begin_it, end_it);
-            simulations.push_back(p_dwba_simulation);
+            simulations.push_back(
+                new MainComputation(
+                    mP_sample.get(), m_options, m_progress, begin_it, end_it));
         }
 
         // Run simulations in n threads.
         for (MainComputation* sim: simulations)
-            threads.push_back(new std::thread([](MainComputation* p_sim) {p_sim->run();}, sim));
+            threads.push_back(new std::thread([sim]() {sim->run();}));
 
         // Wait for threads to complete.
         for (auto thread: threads) {

@@ -58,7 +58,6 @@ void DecoratedLayerComputation::eval(
 
 void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
-    if (mP_specular_info.get() != &specular_info) {
+    if (mP_specular_info.get() != &specular_info)
         mP_specular_info.reset(specular_info.clone());
-    }
 }

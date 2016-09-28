@@ -44,6 +44,8 @@ bool DecoratedLayerComputation::eval(
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
+        if (!progress->alive())
+            return false;
         double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_layer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0)

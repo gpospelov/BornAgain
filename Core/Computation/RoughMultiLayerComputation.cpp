@@ -58,6 +58,8 @@ bool RoughMultiLayerComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it)
 {
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
+        if (!progress->alive())
+            return false;
         it->setIntensity(evaluate(*it));
         if( !stepProgress(progress) )
             return false;

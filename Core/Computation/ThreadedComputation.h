@@ -29,7 +29,7 @@ public:
 protected:
     bool stepProgress(ProgressHandler* progress);
 private:
-    const int bundle = 1000;
+    const int bundle = 100;
     int m_count;
 };
 

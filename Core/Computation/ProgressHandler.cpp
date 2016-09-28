@@ -47,7 +47,6 @@ bool ProgressHandler::incrementDone(size_t ticks_done)
     // fractional part is discarded, which is fine here:
     // the value 100 is only returned if everything is done
 
-    if(!m_inform)
-        return true;
-    return m_inform(percentage_done); // report to subscriber, and get continuation flag
+    m_continuation_flag = ( !m_inform || m_inform(percentage_done) ) && m_continuation_flag;
+    return m_continuation_flag;
 }

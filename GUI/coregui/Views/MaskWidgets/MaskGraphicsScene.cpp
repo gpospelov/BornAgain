@@ -573,7 +573,8 @@ void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent *even
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
         m_currentItem = m_maskModel->insertNewItem(m_context.activityToModelType(),
                                                    m_maskContainerIndex, m_context.activityToRow());
-        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
+        if(!m_context.isROIMode())
+            m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }

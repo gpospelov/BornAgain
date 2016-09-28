@@ -177,7 +177,6 @@ void EllipseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void EllipseView::update_view()
 {
-//    prepareGeometryChange();
     update_bounding_rect();
     update_position();
     update();
@@ -200,8 +199,16 @@ void EllipseView::update_bounding_rect()
 //! updates position of view using item properties
 void EllipseView::update_position()
 {
+    disconnect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
+    disconnect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
+
+
     setX(toSceneX(EllipseItem::P_XCENTER));
     setY(toSceneY(EllipseItem::P_YCENTER));
+
+    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
+    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
+
     if(par(EllipseItem::P_ANGLE) != 0.0)
         setTransform(QTransform().rotate(-1.0*par(EllipseItem::P_ANGLE)));
 

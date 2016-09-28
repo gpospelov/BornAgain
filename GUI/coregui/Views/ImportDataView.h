@@ -47,8 +47,8 @@ private:
     ImportDataToolBar *m_toolBar;
     Manhattan::MiniSplitter *m_splitter;
     ItemSelectorWidget *m_selectorWidget;
-    ItemStackPresenter<RealDataMaskWidget> *m_stackedWidget;
-//    ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
+//    ItemStackPresenter<RealDataMaskWidget> *m_stackedWidget;
+    ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
     RealDataModel *m_realDataModel;
 };
 

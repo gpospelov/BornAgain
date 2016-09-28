@@ -20,8 +20,17 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-//! The RealDataSelectorWidget class holds QListView on the left side of ImportDataView to
-//! switch between different RealDataItem's
+class RealDataPropertiesWidget;
+class ItemSelectorWidget;
+class RealDataPropertiesWidget;
+class RealDataModel;
+class SessionItem;
+class QItemSelectionModel;
+namespace Manhattan { class MiniSplitter;}
+
+//! The RealDataSelectorWidget represents left panel of ImportDataView. Contains a widget to
+//! select data set (ItemSelectorWidget) and properties of currently selected data
+//! (RealDataPropertiesWidget).
 
 class BA_CORE_API_ RealDataSelectorWidget : public QWidget
 {
@@ -33,8 +42,20 @@ public:
     QSize sizeHint() const { return QSize(200, 400); }
     QSize minimumSizeHint() const { return QSize(128, 200); }
 
+    void setModel(RealDataModel *model);
+
+    QItemSelectionModel *selectionModel();
+
+signals:
+    void selectionChanged(SessionItem *);
+
+public slots:
+    void onSelectionChanged(SessionItem *item);
+
 private:
-    class QListView *m_listView;
+    Manhattan::MiniSplitter *m_splitter;
+    ItemSelectorWidget *m_selectorWidget;
+    RealDataPropertiesWidget *m_propertiesWidget;
 };
 
 #endif // REALDATASELECTORWIDGET_H

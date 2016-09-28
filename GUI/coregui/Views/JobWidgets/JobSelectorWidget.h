@@ -22,6 +22,10 @@
 
 class JobModel;
 class JobItem;
+class StyledToolBar;
+class JobSelectorActions;
+class JobListWidget;
+class JobPropertiesWidget;
 
 namespace Manhattan {
     class MiniSplitter;
@@ -52,11 +56,11 @@ private slots:
     void onSelectionChanged(JobItem *jobItem);
 
 private:
-    class Manhattan::MiniSplitter *m_splitter;
-    class StyledToolBar *m_toolBar;
-    class JobSelectorActions *m_jobSelectorActions;
-    class JobListWidget *m_jobListWidget;
-    class JobPropertiesWidget *m_jobProperties;
+    Manhattan::MiniSplitter *m_splitter;
+    StyledToolBar *m_toolBar;
+    JobSelectorActions *m_jobSelectorActions;
+    JobListWidget *m_jobListWidget;
+    JobPropertiesWidget *m_jobProperties;
     JobModel *m_jobModel;
 };
 

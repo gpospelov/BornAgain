@@ -18,6 +18,7 @@
 #include "ImportDataToolBar.h"
 #include "ItemSelectorWidget.h"
 #include "RealDataModel.h"
+#include "RealDataSelectorWidget.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
@@ -26,9 +27,8 @@
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_toolBar(new ImportDataToolBar)
-//    , m_splitter(new QSplitter)
     , m_splitter(new Manhattan::MiniSplitter)
-    , m_selectorWidget(new ItemSelectorWidget)
+    , m_selectorWidget(new RealDataSelectorWidget)
     , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
 //    , m_stackedWidget(new ItemStackPresenter<RealDataMaskWidget>)
     , m_realDataModel(mainWindow->realDataModel())

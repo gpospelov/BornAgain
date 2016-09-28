@@ -114,9 +114,17 @@ void ImportDataToolBar::onImportDataAction()
         RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(
             m_realDataModel->insertNewItem(Constants::RealDataType));
         realDataItem->setItemName(baseNameOfImportedFile);
-        IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(
-            m_realDataModel->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
-        intensityDataItem->setOutputData(data.release());
+        realDataItem->setOutputData(data.release());
+
+
+//        IntensityDataItem *intensityDataItem = dynamic_cast<IntensityDataItem *>(
+//            m_realDataModel->insertNewItem(Constants::IntensityDataType, realDataItem->index()));
+//        intensityDataItem->setOutputData(data.release());
+//        ComboProperty combo;
+//        combo << Constants::UnitsNbins;
+//        intensityDataItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+//        intensityDataItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
+
         m_selectionModel->clearSelection();
         m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
     }
@@ -185,11 +193,13 @@ void ImportDataToolBar::matchAxesToInstrument(RealDataItem *realDataItem)
         OutputData<double> *realData = realDataItem->intensityDataItem()->getOutputData();
         if(realData->hasSameDimensions(*detectorMap.get())) {
             detectorMap->setRawDataVector(realData->getRawDataVector());
-            realDataItem->intensityDataItem()->setOutputData(detectorMap.release());
-            realDataItem->intensityDataItem()->setAxesRangeToData();
+            IntensityDataItem *intensityItem = realDataItem->intensityDataItem();
+            intensityItem->setOutputData(detectorMap.release());
+            intensityItem->setAxesRangeToData();
             ComboProperty combo;
-            combo << "Unknown";
-            realDataItem->intensityDataItem()->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+            combo << Constants::UnitsNbins;
+            intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+            intensityItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
 
             break;
         }

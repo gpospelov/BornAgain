@@ -19,6 +19,7 @@
 
 #include "SessionItem.h"
 
+template <class T> class OutputData;
 class IntensityDataItem;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
@@ -31,6 +32,8 @@ public:
 
     IntensityDataItem *intensityDataItem();
     const IntensityDataItem *intensityDataItem() const;
+
+    void setOutputData(OutputData<double> *data);
 
 private:
     void updateIntensityDataFileName();

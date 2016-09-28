@@ -17,6 +17,8 @@
 #include "RealDataItem.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
+#include "ComboProperty.h"
+#include "SessionModel.h"
 
 const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 
@@ -52,6 +54,23 @@ const IntensityDataItem *RealDataItem::intensityDataItem() const
 {
     const IntensityDataItem *result = dynamic_cast<const IntensityDataItem *>(getItem(T_INTENSITY_DATA));
     return result;
+}
+
+//! Sets OutputData to underlying item. Creates it, if not exists.
+
+void RealDataItem::setOutputData(OutputData<double> *data)
+{
+    IntensityDataItem *item = intensityDataItem();
+    if(!item) {
+        item = dynamic_cast<IntensityDataItem *>(
+            this->model()->insertNewItem(Constants::IntensityDataType, this->index()));
+        ComboProperty combo;
+        combo << Constants::UnitsNbins;
+        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+        item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
+    }
+
+    item->setOutputData(data);
 }
 
 //! Updates the name of file to store intensity data.

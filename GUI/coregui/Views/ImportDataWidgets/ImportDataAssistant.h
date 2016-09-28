@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 
 template <class T> class OutputData;
+class RealDataItem;
 class QString;
 
 //! The ImportDataAssistant class provides utility methods to import data files.
@@ -29,8 +30,8 @@ public:
 
     OutputData<double> *importData(QString &baseNameOfLoadedFile);
 
-    static void loadIntensityData(class RealDataItem *realDataItem, const QString &projectDir);
-    static void saveIntensityData(class RealDataItem *realDataItem, const QString &projectDir);
+    static void loadIntensityData(RealDataItem *realDataItem, const QString &projectDir);
+    static void saveIntensityData(RealDataItem *realDataItem, const QString &projectDir);
 
     OutputData<double> *createSimlifiedOutputData(const OutputData<double> &data);
 

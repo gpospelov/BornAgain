@@ -56,6 +56,7 @@ Simulation::Simulation(const Simulation& other)
 
 Simulation::~Simulation() {} // forward class declaration prevents move to .h
 
+//! Initializes a progress monitor that prints to stdout.
 void Simulation::setTerminalProgressMonitor()
 {
     m_progress.subscribe( [] (int percentage_done) -> bool {
@@ -277,8 +278,8 @@ void Simulation::runSingleSimulation()
         }
 
         // Run simulations in n threads.
-        for (auto it = simulations.begin(); it != simulations.end(); ++it)
-            threads.push_back(new std::thread([] (MainComputation* p_sim) {p_sim->run();} , *it));
+        for (MainComputation* sim: simulations)
+            threads.push_back(new std::thread([](MainComputation* p_sim) {p_sim->run();}, sim));
 
         // Wait for threads to complete.
         for (auto thread: threads) {

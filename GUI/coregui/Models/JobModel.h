@@ -64,7 +64,6 @@ public slots:
 
 private:
     QString generateJobName();
-    QString generateJobIdentifier();
     void restoreItem(SessionItem *item);
     void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
     void createFitContainers(JobItem *jobItem);

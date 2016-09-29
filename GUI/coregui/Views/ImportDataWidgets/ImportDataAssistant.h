@@ -33,7 +33,7 @@ public:
     static void loadIntensityData(RealDataItem *realDataItem, const QString &projectDir);
     static void saveIntensityData(RealDataItem *realDataItem, const QString &projectDir);
 
-    OutputData<double> *createSimlifiedOutputData(const OutputData<double> &data);
+    static OutputData<double> *createSimlifiedOutputData(const OutputData<double> &data);
 
 };
 

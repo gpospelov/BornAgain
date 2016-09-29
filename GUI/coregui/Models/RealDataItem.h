@@ -21,6 +21,7 @@
 
 template <class T> class OutputData;
 class IntensityDataItem;
+class InstrumentItem;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
 
@@ -37,6 +38,8 @@ public:
     const IntensityDataItem *intensityDataItem() const;
 
     void setOutputData(OutputData<double> *data);
+
+    void linkToInstrument(const InstrumentItem *instrument);
 
 private:
     void updateIntensityDataFileName();

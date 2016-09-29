@@ -20,6 +20,7 @@
 #include "ComboProperty.h"
 #include "SessionModel.h"
 #include "ComboProperty.h"
+#include "JobItemHelper.h"
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
@@ -31,7 +32,8 @@ RealDataItem::RealDataItem()
 {
     setItemName(QStringLiteral("undefined"));
 
-    addProperty(P_INSTRUMENT_ID, QString())->setVisible(false);
+//    addProperty(P_INSTRUMENT_ID, QString())->setVisible(false);
+    addProperty(P_INSTRUMENT_ID, QString());
     addProperty(P_INSTRUMENT_NAME, QString());
 
     ComboProperty instruments = ComboProperty() << "Undefined";
@@ -53,6 +55,21 @@ RealDataItem::RealDataItem()
             updateIntensityDataFileName();
         }
     );
+
+
+//    mapper()->setOnChildPropertyChange(
+//                [this](SessionItem* item, const QString &name)
+//    {
+//        if (item->modelType() == Constants::IntensityDataType
+//            && name == IntensityDataItem::P_AXES_UNITS) {
+//            auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
+//            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
+//            qDebug() << "QQQQ" << item->modelType() << name;
+
+//        }
+//    });
+
+
 
 }
 
@@ -79,11 +96,16 @@ void RealDataItem::setOutputData(OutputData<double> *data)
         combo << Constants::UnitsNbins;
         item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
         item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-        item->setXaxisTitle("X [mm]");
-        item->setYaxisTitle("Y [mm]");
+        item->setXaxisTitle("X [nbins]");
+        item->setYaxisTitle("Y [nbins]");
     }
 
     item->setOutputData(data);
+}
+
+void RealDataItem::linkToInstrument(const InstrumentItem *)
+{
+
 }
 
 //! Updates the name of file to store intensity data.

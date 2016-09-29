@@ -28,6 +28,7 @@ DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_
     : mp_layer(p_layer), m_layout_index(layout_index)
 {}
 
+//! Performs computation on range of simulation elements.
 void DecoratedLayerComputation::eval(
     const SimulationOptions& options,
     ProgressHandler* progress,
@@ -43,6 +44,8 @@ void DecoratedLayerComputation::eval(
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
+        if (!progress->alive())
+            return;
         double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_layer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0)
@@ -52,13 +55,12 @@ void DecoratedLayerComputation::eval(
             it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
         else
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
-        progress->incrementDone(1);
+        stepProgress(progress);
     }
 }
 
 void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
-    if (mP_specular_info.get() != &specular_info) {
+    if (mP_specular_info.get() != &specular_info)
         mP_specular_info.reset(specular_info.clone());
-    }
 }

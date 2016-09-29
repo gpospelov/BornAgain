@@ -17,7 +17,7 @@
 #define ROUGHMULTILAYERCOMPUTATION_H
 
 #include "Complex.h"
-#include "INoncopyable.h"
+#include "ThreadedComputation.h"
 #include <vector>
 
 class LayerSpecularInfo;
@@ -29,7 +29,7 @@ class SimulationElement;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class RoughMultiLayerComputation final : public INoncopyable
+class RoughMultiLayerComputation final : public ThreadedComputation
 {
 public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer);

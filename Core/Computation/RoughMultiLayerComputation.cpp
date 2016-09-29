@@ -51,14 +51,17 @@ RoughMultiLayerComputation::~RoughMultiLayerComputation()
         delete mp_specular_info_vector[i];
 }
 
+//! Calls evaluate on range of simulation elements; returns true if computation shall continue
 void RoughMultiLayerComputation::eval(
     ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
 {
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
+        if (!progress->alive())
+            return;
         it->setIntensity(evaluate(*it));
-        progress->incrementDone(1);
+        stepProgress(progress);
     }
 }
 

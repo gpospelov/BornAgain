@@ -18,6 +18,7 @@
 #include "ItemSelectorWidget.h"
 #include "RealDataPropertiesWidget.h"
 #include "RealDataModel.h"
+#include "LinkInstrumentManager.h"
 #include "minisplitter.h"
 #include <QVBoxLayout>
 #include <QItemSelectionModel>
@@ -27,6 +28,7 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget *parent)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new ItemSelectorWidget)
     , m_propertiesWidget(new RealDataPropertiesWidget)
+    , m_linkManager(new LinkInstrumentManager(this))
 {
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
@@ -48,9 +50,10 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget *parent)
         this, SLOT(onSelectionChanged(SessionItem *)));
 }
 
-void RealDataSelectorWidget::setModel(RealDataModel *model)
+void RealDataSelectorWidget::setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel)
 {
-    m_selectorWidget->setModel(model);
+    m_selectorWidget->setModel(realDataModel);
+    m_linkManager->setModels(instrumentModel, realDataModel);
 }
 
 QItemSelectionModel *RealDataSelectorWidget::selectionModel()

@@ -17,32 +17,34 @@
 #include "InstrumentItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
+#include "GUIHelpers.h"
+
+const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 
 InstrumentItem::InstrumentItem()
     : SessionItem(Constants::InstrumentType)
 {
     setItemName(Constants::InstrumentType);
+
+    addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
+
     const QString T_DATA = "Data tag";
     registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorType);
     setDefaultTag(T_DATA);
 }
 
-BeamItem *InstrumentItem::getBeamItem() const
+BeamItem *InstrumentItem::beamItem() const
 {
-    for(SessionItem *item : childItems()) {
-        if(item->modelType() == Constants::BeamType) {
+    for(SessionItem *item : childItems())
+        if(item->modelType() == Constants::BeamType)
             return dynamic_cast<BeamItem *>(item);
-        }
-    }
     return 0;
 }
 
-DetectorItem *InstrumentItem::getDetectorItem() const
+DetectorItem *InstrumentItem::detectorItem() const
 {
-    for(SessionItem *item : childItems()) {
-        if(item->modelType() == Constants::DetectorType) {
+    for(SessionItem *item : childItems())
+        if(item->modelType() == Constants::DetectorType)
             return dynamic_cast<DetectorItem *>(item);
-        }
-    }
     return 0;
 }

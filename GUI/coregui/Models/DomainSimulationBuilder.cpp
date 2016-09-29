@@ -44,10 +44,10 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sa
     result->setSample(*P_multilayer);
     result->setInstrument(*P_instrument);
 
-    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->getBeamItem(),
+    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(),
                                                              result);
 
-    TransformToDomain::addMasksToSimulation(*instrumentItem->getDetectorItem(),
+    TransformToDomain::addMasksToSimulation(*instrumentItem->detectorItem(),
                                             result);
 
     if(optionsItem)

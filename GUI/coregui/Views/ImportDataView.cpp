@@ -57,7 +57,7 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
 
     setupConnections();
 
-    m_selectorWidget->setModel(mainWindow->realDataModel());
+    m_selectorWidget->setModels(mainWindow->instrumentModel(), mainWindow->realDataModel());
     m_stackedWidget->setModel(mainWindow->realDataModel());
     m_toolBar->setRealDataModel(mainWindow->realDataModel());
     m_toolBar->setInstrumentModel(mainWindow->instrumentModel());

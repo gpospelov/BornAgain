@@ -24,12 +24,12 @@ class DetectorItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
-public:
-    explicit InstrumentItem();
+public:    
+    static const QString P_IDENTIFIER;
+    InstrumentItem();
 
-    BeamItem *getBeamItem() const;
-
-    DetectorItem *getDetectorItem() const;
+    BeamItem *beamItem() const;
+    DetectorItem *detectorItem() const;
 };
 
 #endif // INSTRUMENTITEM_H

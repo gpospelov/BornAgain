@@ -19,13 +19,24 @@
 #include "IntensityDataItem.h"
 #include "ComboProperty.h"
 #include "SessionModel.h"
+#include "ComboProperty.h"
 
+const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
+const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
+const QString RealDataItem::P_INSTRUMENT_COMBO = "Combo";
 const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 
 RealDataItem::RealDataItem()
     : SessionItem(Constants::RealDataType)
 {
     setItemName(QStringLiteral("undefined"));
+
+    addProperty(P_INSTRUMENT_ID, QString())->setVisible(false);
+    addProperty(P_INSTRUMENT_NAME, QString());
+
+    ComboProperty instruments = ComboProperty() << "Undefined";
+    addProperty(P_INSTRUMENT_COMBO, instruments.getVariant());
+
     registerTag(T_INTENSITY_DATA, 1, 1, QStringList() << Constants::IntensityDataType);
     setDefaultTag(T_INTENSITY_DATA);
 

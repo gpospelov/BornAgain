@@ -130,7 +130,7 @@ void SimulationSetupAssistant::realDataShape(const RealDataItem *realData, int &
 void SimulationSetupAssistant::detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny)
 {
     nx = ny = 0;
-    DetectorItem *detectorItem = instrumentItem ->getDetectorItem();
+    DetectorItem *detectorItem = instrumentItem ->detectorItem();
     Q_ASSERT(detectorItem);
 
     auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);

@@ -102,9 +102,9 @@ OutputData<double> *ImportDataAssistant::createSimlifiedOutputData(const OutputD
     double xmax = double(aX->getSize());
     double ymax = double(aY->getSize());
 
-    OutputData<double> *result = new OutputData<double>;
-    result->addAxis(FixedBinAxis("X [nbins]", aX->getSize(), xmin, xmax));
-    result->addAxis(FixedBinAxis("Y [nbins]", aY->getSize(), ymin, ymax));
+    OutputData<double> *result = new OutputData<double>;    
+    result->addAxis(FixedBinAxis(aX->getName(), aX->getSize(), xmin, xmax));
+    result->addAxis(FixedBinAxis(aY->getName(), aY->getSize(), ymin, ymax));
     result->setRawDataVector(data.getRawDataVector());
 
     return result;

@@ -68,6 +68,8 @@ void RealDataItem::setOutputData(OutputData<double> *data)
         combo << Constants::UnitsNbins;
         item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
         item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
+        item->setXaxisTitle("X [mm]");
+        item->setYaxisTitle("Y [mm]");
     }
 
     item->setOutputData(data);

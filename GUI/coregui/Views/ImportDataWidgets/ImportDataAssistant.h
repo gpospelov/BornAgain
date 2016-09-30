@@ -21,6 +21,7 @@
 
 template <class T> class OutputData;
 class RealDataItem;
+class InstrumentItem;
 class QString;
 
 //! The ImportDataAssistant class provides utility methods to import data files.
@@ -34,6 +35,16 @@ public:
     static void saveIntensityData(RealDataItem *realDataItem, const QString &projectDir);
 
     static OutputData<double> *createSimlifiedOutputData(const OutputData<double> &data);
+
+    static bool hasSameDimensions(const InstrumentItem *instrumentItem,
+                                  const RealDataItem *realDataItemItem, QString &message);
+
+    static void realDataShape(const RealDataItem *realData, int &nx, int &ny);
+
+    static void detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny);
+
+    static void setInstrumentShapeToData(InstrumentItem *instrumentItem,
+                                         const RealDataItem *realDataItemItem);
 
 };
 

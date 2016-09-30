@@ -41,9 +41,6 @@ private:
     void checkFittingSetup(const InstrumentItem *instrumentItem, const RealDataItem *realData);
     QString composeMessage();
 
-    void realDataShape(const RealDataItem *realData, int &nx, int &ny);
-    void detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny);
-
     bool m_isValid;
     QStringList m_messages;
 };

@@ -22,6 +22,9 @@
 #include "RealDataItem.h"
 #include "projectmanager.h"
 #include "BornAgainNamespace.h"
+#include "InstrumentItem.h"
+#include "AxesItems.h"
+#include "DetectorItems.h"
 #include <QDebug>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -108,4 +111,100 @@ OutputData<double> *ImportDataAssistant::createSimlifiedOutputData(const OutputD
     result->setRawDataVector(data.getRawDataVector());
 
     return result;
+}
+
+//! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
+
+bool ImportDataAssistant::hasSameDimensions(const InstrumentItem *instrumentItem,
+                              const RealDataItem *realDataItemItem, QString &message)
+{
+    bool isSame(true);
+    message.clear();
+
+    int nxData(0), nyData(0);
+    realDataShape(realDataItemItem, nxData, nyData);
+
+    int nxDetector(0), nyDetector(0);
+    detectorShape(instrumentItem, nxDetector, nyDetector);
+
+    if(nxData != nxDetector || nyData != nyDetector) {
+        isSame = false;
+        message = QString("detector [%1x%2], data [%3x%4]")
+                          .arg(nxDetector).arg(nyDetector).arg(nxData).arg(nyData);
+    }
+
+    return isSame;
+}
+
+//! Returns shape of RealDataItem axes.
+
+void ImportDataAssistant::realDataShape(const RealDataItem *realData, int &nx, int &ny)
+{
+    nx = ny = 0;
+    if(const IntensityDataItem *intensityItem = realData->intensityDataItem()) {
+        SessionItem *xaxis = intensityItem->getItem(IntensityDataItem::P_XAXIS);
+        nx = xaxis->getItemValue(BasicAxisItem::P_NBINS).toInt();
+        SessionItem *yaxis = intensityItem->getItem(IntensityDataItem::P_YAXIS);
+        ny = yaxis->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    }
+}
+
+//! Returns shape of Instrument's detector axes.
+
+void ImportDataAssistant::detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny)
+{
+    nx = ny = 0;
+    DetectorItem *detectorItem = instrumentItem ->detectorItem();
+    Q_ASSERT(detectorItem);
+
+    // FIXME Refactor subDetector
+    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
+    Q_ASSERT(subDetector);
+
+    std::unique_ptr<IDetector2D> detector;
+
+    if(auto sphericalDetector = dynamic_cast<SphericalDetectorItem *>(subDetector)) {
+        detector = sphericalDetector->createDetector();
+    }
+
+    else if(auto rectangularDetector = dynamic_cast<RectangularDetectorItem *>(subDetector)) {
+        detector = rectangularDetector->createDetector();
+    }
+
+    Q_ASSERT(detector.get());
+    nx = detector->getAxis(0).getSize();
+    ny = detector->getAxis(1).getSize();
+}
+
+void ImportDataAssistant::setInstrumentShapeToData(InstrumentItem *instrumentItem,
+                                                   const RealDataItem *realDataItemItem)
+{
+    int nxData(0), nyData(0);
+    realDataShape(realDataItemItem, nxData, nyData);
+
+    DetectorItem *detectorItem = instrumentItem ->detectorItem();
+    Q_ASSERT(detectorItem);
+
+    // FIXME Refactor subDetector
+    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
+    Q_ASSERT(subDetector);
+
+    if (subDetector->modelType() == Constants::SphericalDetectorType) {
+      subDetector->getItem(SphericalDetectorItem::P_PHI_AXIS)
+          ->setItemValue(BasicAxisItem::P_NBINS, nxData);
+      subDetector->getItem(SphericalDetectorItem::P_ALPHA_AXIS)
+          ->setItemValue(BasicAxisItem::P_NBINS, nyData);
+    }
+
+    else if (subDetector->modelType() == Constants::RectangularDetectorType) {
+        subDetector->getItem(RectangularDetectorItem::P_X_AXIS)
+            ->setItemValue(BasicAxisItem::P_NBINS, nxData);
+        subDetector->getItem(RectangularDetectorItem::P_Y_AXIS)
+            ->setItemValue(BasicAxisItem::P_NBINS, nyData);
+    }
+
+    else {
+        throw GUIHelpers::Error("ImportDataAssistant::setInstrumentShapeToData() -> Error.");
+    }
+
 }

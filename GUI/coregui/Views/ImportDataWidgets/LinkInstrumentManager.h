@@ -27,6 +27,7 @@ class RealDataModel;
 class SessionItem;
 class InstrumentItem;
 class IntensityDataItem;
+class RealDataItem;
 
 //! The LinkInstrumentManager class provides communication between InstrumentModel and
 //! RealDataModel. Particularly, it notifies RealDataItem about changes in linked instruments.
@@ -61,6 +62,8 @@ private:
     InstrumentInfo& getInstrumentInfo(SessionItem *item);
     QString instrumentNameFromIdentifier(const QString &identifier);
     InstrumentItem *getInstrument(const QString &identifier);
+
+    bool canLinkDataToInstrument(RealDataItem *realDataItem, InstrumentItem *instrumentItem);
 
     InstrumentModel *m_instrumentModel;
     RealDataModel *m_realDataModel;

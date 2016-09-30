@@ -27,6 +27,8 @@
 #include "IntensityDataItem.h"
 #include "DomainObjectBuilder.h"
 #include "Instrument.h"
+#include <QMessageBox>
+#include <QPushButton>
 #include <QDebug>
 
 namespace {
@@ -65,18 +67,20 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, c
         ComboProperty combo = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_COMBO).value<ComboProperty>();
         QString instrName = combo.getValue();
 
-        dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, instrName);
 
         int index = m_instrumentNames.indexOf(instrName);
         QString identifier;
         if(index >= 0)
             identifier = m_instrumentVec[index].m_identifier;
-        dataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, identifier);
 
         RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(dataItem);
         Q_ASSERT(realDataItem);
 
-        realDataItem->linkToInstrument(getInstrument(identifier));
+        if(canLinkDataToInstrument(realDataItem, getInstrument(identifier))) {
+            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, identifier);
+            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, instrName);
+            realDataItem->linkToInstrument(getInstrument(identifier));
+        }
     }
 
 }
@@ -148,6 +152,45 @@ InstrumentItem *LinkInstrumentManager::getInstrument(const QString &identifier)
             return m_instrumentVec[i].m_instrument;
 
     return nullptr;
+}
+
+bool LinkInstrumentManager::canLinkDataToInstrument(RealDataItem *realDataItem,
+                                                    InstrumentItem *instrumentItem)
+{
+    // linking to null instrument is possible, it means unlinking from previous one
+    if(instrumentItem == nullptr)
+        return true;
+
+    QString message;
+    if(ImportDataAssistant::hasSameDimensions(instrumentItem, realDataItem, message))
+       return true;
+
+    bool canLink(false);
+
+    QMessageBox msgBox;
+    msgBox.setText("The shape of data and detector differs.");
+
+    QString informative;
+    informative.append(message);
+    informative.append("\n\nDo you want to modify instrument so it matches shape of real data?\n\n");
+    msgBox.setInformativeText(informative);
+
+    QPushButton *modifyInstrumentButton = msgBox.addButton("Yes, please modify instrument",
+                                                           QMessageBox::YesRole);
+    QPushButton *cancelButton = msgBox.addButton("No, leave as it is",
+                                                 QMessageBox::NoRole);
+
+    msgBox.exec();
+
+    if (msgBox.clickedButton() == modifyInstrumentButton) {
+        canLink = true;
+        // connect
+        ImportDataAssistant::setInstrumentShapeToData(instrumentItem, realDataItem);
+    } else if (msgBox.clickedButton() == cancelButton) {
+        canLink = false;
+    }
+
+    return canLink;
 }
 
 

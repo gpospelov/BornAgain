@@ -62,8 +62,6 @@ private:
     QString instrumentNameFromIdentifier(const QString &identifier);
     InstrumentItem *getInstrument(const QString &identifier);
 
-    void updateDataAxes(IntensityDataItem *intensityDataItem, const InstrumentItem *instrumentItem);
-
     InstrumentModel *m_instrumentModel;
     RealDataModel *m_realDataModel;
     QStringList m_instrumentNames;

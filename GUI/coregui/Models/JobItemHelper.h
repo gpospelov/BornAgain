@@ -39,6 +39,9 @@ public:
     static void updateDataAxes(IntensityDataItem *intensityItem,
                                const InstrumentItem *instrumentItem);
 
+    static void adjustIntensityDataToInstrument(IntensityDataItem *intensityDataItem,
+                                                const InstrumentItem *instrumentItem);
+
     //! saves intensity data into project directory
     static void saveIntensityData(JobItem *jobItem, const QString &projectDir);
 
@@ -59,9 +62,11 @@ public:
 
     static void initIntensityItemProperties(IntensityDataItem *intensityItem, const IDetector2D *detector);
 
+
     static void updateAxesTitle(IntensityDataItem *intensityItem);
 
     static OutputData<double> *createDefaultDetectorMap(const InstrumentItem *instrumentItem);
+
 
     static OutputData<double> *createDetectorMap(const InstrumentItem *instrumentItem,
                                                  IDetector2D::EAxesUnits units);

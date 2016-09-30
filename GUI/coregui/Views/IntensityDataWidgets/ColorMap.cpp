@@ -198,6 +198,7 @@ void ColorMap::resetView()
 
 void ColorMap::onIntensityModified()
 {
+    setAxesRangeFromItem(m_item);
     setDataFromItem(m_item);
     replot();
 }

@@ -21,6 +21,7 @@
 #include "SessionModel.h"
 #include "ComboProperty.h"
 #include "JobItemHelper.h"
+#include "ImportDataAssistant.h"
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
@@ -29,6 +30,7 @@ const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 
 RealDataItem::RealDataItem()
     : SessionItem(Constants::RealDataType)
+    , m_linkedInstrument(0)
 {
     setItemName(QStringLiteral("undefined"));
 
@@ -56,18 +58,19 @@ RealDataItem::RealDataItem()
         }
     );
 
-
-//    mapper()->setOnChildPropertyChange(
-//                [this](SessionItem* item, const QString &name)
-//    {
-//        if (item->modelType() == Constants::IntensityDataType
-//            && name == IntensityDataItem::P_AXES_UNITS) {
-//            auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
-//            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
-//            qDebug() << "QQQQ" << item->modelType() << name;
-
-//        }
-//    });
+    mapper()->setOnChildPropertyChange(
+                [this](SessionItem* item, const QString &name)
+    {
+        if (item && item->modelType() == Constants::IntensityDataType
+            && name == IntensityDataItem::P_AXES_UNITS) {
+            if(!m_linkedInstrument)
+                return;
+            mapper()->setActive(false);
+            Q_ASSERT(m_linkedInstrument);
+            JobItemHelper::updateDataAxes(intensityDataItem(), m_linkedInstrument);
+            mapper()->setActive(true);
+        }
+    });
 
 
 
@@ -103,9 +106,10 @@ void RealDataItem::setOutputData(OutputData<double> *data)
     item->setOutputData(data);
 }
 
-void RealDataItem::linkToInstrument(const InstrumentItem *)
+void RealDataItem::linkToInstrument(const InstrumentItem *instrument)
 {
-
+    m_linkedInstrument = instrument;
+    updateToInstrument();
 }
 
 //! Updates the name of file to store intensity data.
@@ -116,4 +120,33 @@ void RealDataItem::updateIntensityDataFileName()
         QString newFileName = GUIHelpers::intensityDataFileName(this);
         item->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
     }
+}
+
+void RealDataItem::updateToInstrument()
+{
+    if(!intensityDataItem())
+        return;
+
+    if(!intensityDataItem()->getOutputData())
+        return;
+
+    IntensityDataItem *item = intensityDataItem();
+    Q_ASSERT(item);
+
+    if(m_linkedInstrument == 0) {
+        ComboProperty combo;
+        combo << Constants::UnitsNbins;
+        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+        item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
+        item->setXaxisTitle("X [nbins]");
+        item->setYaxisTitle("Y [nbins]");
+        item->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*item->getOutputData()));
+        item->setAxesRangeToData();
+    }
+
+    else {
+        JobItemHelper::adjustIntensityDataToInstrument(item, m_linkedInstrument);
+
+    }
+
 }

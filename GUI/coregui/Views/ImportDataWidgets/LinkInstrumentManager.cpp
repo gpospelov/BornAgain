@@ -60,6 +60,7 @@ void LinkInstrumentManager::setOnInstrumentPropertyChange(SessionItem *instrumen
 
 void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, const QString &property)
 {
+    qDebug() << "AAAAA" << dataItem << property;
     if(property == RealDataItem::P_INSTRUMENT_COMBO) {
         ComboProperty combo = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_COMBO).value<ComboProperty>();
         QString instrName = combo.getValue();
@@ -75,10 +76,7 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, c
         RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(dataItem);
         Q_ASSERT(realDataItem);
 
-        IntensityDataItem *intensityDataItem = realDataItem->intensityDataItem();
-
-        updateDataAxes(intensityDataItem, getInstrument(identifier));
-
+        realDataItem->linkToInstrument(getInstrument(identifier));
     }
 
 }
@@ -152,38 +150,6 @@ InstrumentItem *LinkInstrumentManager::getInstrument(const QString &identifier)
     return nullptr;
 }
 
-void LinkInstrumentManager::updateDataAxes(IntensityDataItem *intensityDataItem,
-                                           const InstrumentItem *instrumentItem)
-{
-    if(instrumentItem == 0) {
-        ComboProperty combo;
-        combo << Constants::UnitsNbins;
-        intensityDataItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
-        intensityDataItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-        intensityDataItem->setXaxisTitle("X [nbins]");
-        intensityDataItem->setYaxisTitle("Y [nbins]");
-        intensityDataItem->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*intensityDataItem->getOutputData()));
-
-    }
-
-    else {
-        OutputData<double> *newData = JobItemHelper::createDefaultDetectorMap(instrumentItem);
-        newData->setRawDataVector(intensityDataItem->getOutputData()->getRawDataVector());
-
-        intensityDataItem->setOutputData(newData);
-        intensityDataItem->setAxesRangeToData();
-
-
-//        ComboProperty combo;
-//        combo << Constants::UnitsNbins;
-//        intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
-//        intensityItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-
-
-    }
-
-
-}
 
 void LinkInstrumentManager::updateInstrumentMap()
 {

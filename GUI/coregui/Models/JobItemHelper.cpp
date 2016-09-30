@@ -82,11 +82,11 @@ void JobItemHelper::setResults(IntensityDataItem *intensityItem,
     }
 }
 
-//! Updates axes of OutputData in IntensityData item to correspond
-//! with IntensityDataItem::P_AXES_UNITS selection
-//! InstrumentItem is used to get domain Instrument and be able to convert OutputData
+//! Updates axes of OutputData in IntensityData item to correspond with
+//! IntensityDataItem::P_AXES_UNITS selection. InstrumentItem is used to get domain's detector map.
+
 void JobItemHelper::updateDataAxes(IntensityDataItem *intensityItem,
-                                         const InstrumentItem *instrumentItem)
+                                   const InstrumentItem *instrumentItem)
 {
     Q_ASSERT(intensityItem);
     Q_ASSERT(instrumentItem);
@@ -104,6 +104,41 @@ void JobItemHelper::updateDataAxes(IntensityDataItem *intensityItem,
     intensityItem->setAxesRangeToData();
     updateAxesTitle(intensityItem);
 }
+
+
+void JobItemHelper::adjustIntensityDataToInstrument(IntensityDataItem *intensityDataItem,
+                                                    const InstrumentItem *instrumentItem)
+{
+    DomainObjectBuilder builder;
+    auto instrument = builder.buildInstrument(*instrumentItem);
+    instrument->initDetector();
+
+    IDetector2D::EAxesUnits preferrable_units
+        = preferableGUIAxesUnits(instrument->getDetector()->getDefaultAxesUnits());
+
+    std::unique_ptr<OutputData<double>> newData(
+        instrument->getDetector()->createDetectorMap(instrument->getBeam(),
+                                                     preferrable_units));
+
+    newData->setRawDataVector(intensityDataItem->getOutputData()->getRawDataVector());
+
+    if(!newData->hasSameDimensions(*intensityDataItem->getOutputData()))
+        throw GUIHelpers::Error("JobItemHelper::adjustIntensityDataToInstrument() -> Error. "
+                                "Dimension of detector doesn't match IntensityData.");
+
+    ComboProperty unitsCombo;
+    foreach (auto units, instrument->getDetector()->getValidAxesUnits())
+        unitsCombo << getNameFromAxesUnits(units);
+    unitsCombo.setValue(getNameFromAxesUnits(preferrable_units));
+
+    intensityDataItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
+    intensityDataItem->setItemValue(IntensityDataItem::P_AXES_UNITS, unitsCombo.getVariant());
+
+    updateAxesTitle(intensityDataItem);
+    intensityDataItem->setOutputData(newData.release());
+    intensityDataItem->setAxesRangeToData();
+}
+
 
 //! Saves intensityData in project directory
 //! Axes of data will be reset to default
@@ -234,6 +269,7 @@ void JobItemHelper::initIntensityItemProperties(IntensityDataItem *intensityItem
 
 }
 
+
 void JobItemHelper::updateAxesTitle(IntensityDataItem *intensityItem)
 {
     // axes labels
@@ -265,6 +301,7 @@ OutputData<double> *JobItemHelper::createDefaultDetectorMap(const InstrumentItem
     return instrument->getDetector()->createDetectorMap(instrument->getBeam(),
                                                         preferableGUIAxesUnits(units));
 }
+
 
 
 //! creates detector map from instrument description with axes corresponding to given units

@@ -43,6 +43,8 @@ public:
 
 private:
     void updateIntensityDataFileName();
+    void updateToInstrument();
+    const InstrumentItem *m_linkedInstrument;
 };
 
 #endif // REALDATAITEM_H

@@ -39,7 +39,8 @@ IntensityDataItem::IntensityDataItem()
 //    setItemName(Constants::IntensityDataType);
 
     ComboProperty units;
-    addProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
+//    addProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
+    addProperty(P_AXES_UNITS, units.getVariant());
 
     addProperty(P_TITLE, QString())->setVisible(false);
 

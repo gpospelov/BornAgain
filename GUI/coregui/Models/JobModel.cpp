@@ -131,7 +131,6 @@ void JobModel::loadNonXMLData(const QString &projectDir)
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
         JobItemHelper::loadIntensityData(jobItem, projectDir);
-        JobItemHelper::loadRealData(jobItem, projectDir);
     }
 
 }
@@ -142,7 +141,7 @@ void JobModel::saveNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemHelper::saveIntensityData(jobItem, projectDir);
+        JobItemHelper::saveIntensityData(jobItem->getIntensityDataItem(), projectDir);
     }
 }
 

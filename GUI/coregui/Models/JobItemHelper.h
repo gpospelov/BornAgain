@@ -43,13 +43,10 @@ public:
                                                 const InstrumentItem *instrumentItem);
 
     //! saves intensity data into project directory
-    static void saveIntensityData(JobItem *jobItem, const QString &projectDir);
+    static void saveIntensityData(IntensityDataItem *intensityItem, const QString &projectDir);
 
     //! load intensity data from project directory
     static void loadIntensityData(JobItem *jobItem, const QString &projectDir);
-
-    //! load intensity data from project directory
-    static void loadRealData(JobItem *jobItem, const QString &projectDir);
 
     //! returns axes units names from their domain counterpart
     static QString getNameFromAxesUnits(IDetector2D::EAxesUnits units);
@@ -60,7 +57,8 @@ public:
     //! converts detector default axes units into units most suitable for GUI
     static IDetector2D::EAxesUnits preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units);
 
-    static void initIntensityItemProperties(IntensityDataItem *intensityItem, const IDetector2D *detector);
+    static void setIntensityItemAxesUnits(IntensityDataItem *intensityItem, const InstrumentItem *instrumentItem);
+    static void setIntensityItemAxesUnits(IntensityDataItem *intensityItem, const IDetector2D *detector);
 
 
     static void updateAxesTitle(IntensityDataItem *intensityItem);

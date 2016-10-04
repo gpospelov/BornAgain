@@ -1,6 +1,45 @@
 
 // File: index.xml
 
+// File: classAttLimits.xml
+%feature("docstring") AttLimits "
+
+The  AttLimits class defines limited/free attribute of fit parameter and provides coupling between them.
+
+C++ includes: AttLimits.h
+";
+
+%feature("docstring")  AttLimits::AttLimits "AttLimits::AttLimits()
+";
+
+%feature("docstring")  AttLimits::isFixed "bool AttLimits::isFixed() const 
+";
+
+%feature("docstring")  AttLimits::isLimited "bool AttLimits::isLimited() const 
+";
+
+%feature("docstring")  AttLimits::isUpperLimited "bool AttLimits::isUpperLimited() const 
+";
+
+%feature("docstring")  AttLimits::isLowerLimited "bool AttLimits::isLowerLimited() const 
+";
+
+%feature("docstring")  AttLimits::isLimitless "bool AttLimits::isLimitless() const 
+";
+
+%feature("docstring")  AttLimits::lowerLimit "double AttLimits::lowerLimit() const 
+";
+
+%feature("docstring")  AttLimits::upperLimit "double AttLimits::upperLimit() const 
+";
+
+%feature("docstring")  AttLimits::setFixed "void AttLimits::setFixed(bool isFixed)
+";
+
+%feature("docstring")  AttLimits::toString "std::string AttLimits::toString() const 
+";
+
+
 // File: classAttributes.xml
 %feature("docstring") Attributes "
 
@@ -18,6 +57,9 @@ C++ includes: Attributes.h
 %feature("docstring")  Attributes::isFixed "bool Attributes::isFixed() const 
 ";
 
+%feature("docstring")  Attributes::isFree "bool Attributes::isFree() const 
+";
+
 
 // File: classFitKernel.xml
 %feature("docstring") FitKernel "
@@ -31,6 +73,9 @@ C++ includes: FitKernel.h
 ";
 
 %feature("docstring")  FitKernel::~FitKernel "FitKernel::~FitKernel()
+";
+
+%feature("docstring")  FitKernel::clear "void FitKernel::clear()
 ";
 
 %feature("docstring")  FitKernel::setMinimizer "void FitKernel::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=std::string())
@@ -55,7 +100,7 @@ Optional name of the minimizer's algorithm
 Returns minimizer. 
 ";
 
-%feature("docstring")  FitKernel::addFitParameter "void FitKernel::addFitParameter(const std::string &name, double value, const RealLimits &lim, const Attributes &attr, double step=0.0)
+%feature("docstring")  FitKernel::addFitParameter "void FitKernel::addFitParameter(const std::string &name, double value, const AttLimits &limits, double step)
 
 Adds fit parameter. 
 ";
@@ -80,49 +125,62 @@ Reports results of minimization in the form of multi-line string.
 %feature("docstring")  FitKernel::fitParameters "const FitParameterSet * FitKernel::fitParameters() const 
 ";
 
+%feature("docstring")  FitKernel::functionCalls "int FitKernel::functionCalls() const
 
-// File: classFitKernelImp.xml
-%feature("docstring") FitKernelImp "
+Number of objective function calls. 
+";
+
+
+// File: classFitKernelImpl.xml
+%feature("docstring") FitKernelImpl "
 
 The  FitKernel implementation.
 
-C++ includes: FitKernelImp.h
+C++ includes: FitKernelImpl.h
 ";
 
-%feature("docstring")  FitKernelImp::FitKernelImp "FitKernelImp::FitKernelImp()
+%feature("docstring")  FitKernelImpl::FitKernelImpl "FitKernelImpl::FitKernelImpl()
 ";
 
-%feature("docstring")  FitKernelImp::~FitKernelImp "FitKernelImp::~FitKernelImp()
+%feature("docstring")  FitKernelImpl::~FitKernelImpl "FitKernelImpl::~FitKernelImpl()
 ";
 
-%feature("docstring")  FitKernelImp::setMinimizer "void FitKernelImp::setMinimizer(IMinimizer *minimizer)
+%feature("docstring")  FitKernelImpl::clear "void FitKernelImpl::clear()
+";
+
+%feature("docstring")  FitKernelImpl::setMinimizer "void FitKernelImpl::setMinimizer(IMinimizer *minimizer)
 
 Sets minimizer. 
 ";
 
-%feature("docstring")  FitKernelImp::addFitParameter "void FitKernelImp::addFitParameter(FitParameter *par)
+%feature("docstring")  FitKernelImpl::addFitParameter "void FitKernelImpl::addFitParameter(FitParameter *par)
 
 Adds fit parameter. 
 ";
 
-%feature("docstring")  FitKernelImp::setObjectiveFunction "void FitKernelImp::setObjectiveFunction(objective_function_t func)
+%feature("docstring")  FitKernelImpl::setObjectiveFunction "void FitKernelImpl::setObjectiveFunction(objective_function_t func)
 ";
 
-%feature("docstring")  FitKernelImp::setGradientFunction "void FitKernelImp::setGradientFunction(gradient_function_t func, int ndatasize)
+%feature("docstring")  FitKernelImpl::setGradientFunction "void FitKernelImpl::setGradientFunction(gradient_function_t func, int ndatasize)
 ";
 
-%feature("docstring")  FitKernelImp::minimize "void FitKernelImp::minimize()
+%feature("docstring")  FitKernelImpl::minimize "void FitKernelImpl::minimize()
 ";
 
-%feature("docstring")  FitKernelImp::reportResults "std::string FitKernelImp::reportResults() const
+%feature("docstring")  FitKernelImpl::reportResults "std::string FitKernelImpl::reportResults() const
 
 Reports results of minimization in the form of multi-line string. 
 ";
 
-%feature("docstring")  FitKernelImp::fitParameters "FitParameterSet * FitKernelImp::fitParameters()
+%feature("docstring")  FitKernelImpl::fitParameters "FitParameterSet * FitKernelImpl::fitParameters()
 ";
 
-%feature("docstring")  FitKernelImp::minimizer "IMinimizer * FitKernelImp::minimizer()
+%feature("docstring")  FitKernelImpl::minimizer "IMinimizer * FitKernelImpl::minimizer()
+";
+
+%feature("docstring")  FitKernelImpl::functionCalls "int FitKernelImpl::functionCalls() const
+
+Number of objective function calls. 
 ";
 
 
@@ -140,13 +198,13 @@ C++ includes: FitOptions.h
 %feature("docstring")  FitOptions::~FitOptions "FitOptions::~FitOptions()
 ";
 
-%feature("docstring")  FitOptions::getDerivEpsilon "double FitOptions::getDerivEpsilon() const 
+%feature("docstring")  FitOptions::derivEpsilon "double FitOptions::derivEpsilon() const 
 ";
 
 %feature("docstring")  FitOptions::setDerivEpsilon "void FitOptions::setDerivEpsilon(double deriv_epsilon)
 ";
 
-%feature("docstring")  FitOptions::getStepFactor "double FitOptions::getStepFactor() const 
+%feature("docstring")  FitOptions::stepFactor "double FitOptions::stepFactor() const 
 ";
 
 %feature("docstring")  FitOptions::setStepFactor "void FitOptions::setStepFactor(double step_factor)
@@ -156,7 +214,7 @@ C++ includes: FitOptions.h
 // File: classFitParameter.xml
 %feature("docstring") FitParameter "
 
-Fittable parameter with value, error, step, limits, and fixed flag.
+The  FitParameter represents fittable parameter with value, error, step, and limits.
 
 C++ includes: FitParameter.h
 ";
@@ -164,37 +222,67 @@ C++ includes: FitParameter.h
 %feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter()
 ";
 
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, double step=0.0, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free(), double error=0.0)
+%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
 ";
 
 %feature("docstring")  FitParameter::~FitParameter "virtual FitParameter::~FitParameter()
 ";
 
-%feature("docstring")  FitParameter::getName "std::string FitParameter::getName() const 
+%feature("docstring")  FitParameter::clone "FitParameter * FitParameter::clone() const 
 ";
 
-%feature("docstring")  FitParameter::getStartValue "virtual double FitParameter::getStartValue() const 
+%feature("docstring")  FitParameter::name "std::string FitParameter::name() const 
 ";
 
-%feature("docstring")  FitParameter::setValue "virtual void FitParameter::setValue(double value)
+%feature("docstring")  FitParameter::startValue "double FitParameter::startValue() const 
 ";
 
-%feature("docstring")  FitParameter::getValue "double FitParameter::getValue() const 
+%feature("docstring")  FitParameter::value "double FitParameter::value() const 
 ";
 
-%feature("docstring")  FitParameter::setStep "void FitParameter::setStep(double value)
+%feature("docstring")  FitParameter::setValue "void FitParameter::setValue(double value)
 ";
 
-%feature("docstring")  FitParameter::getStep "double FitParameter::getStep() const 
+%feature("docstring")  FitParameter::step "double FitParameter::step() const 
+";
+
+%feature("docstring")  FitParameter::setStep "FitParameter & FitParameter::setStep(double value)
+";
+
+%feature("docstring")  FitParameter::error "double FitParameter::error() const 
 ";
 
 %feature("docstring")  FitParameter::setError "void FitParameter::setError(double value)
 ";
 
-%feature("docstring")  FitParameter::getError "double FitParameter::getError() const 
+%feature("docstring")  FitParameter::limits "const AttLimits & FitParameter::limits() const 
 ";
 
-%feature("docstring")  FitParameter::limitsToString "std::string FitParameter::limitsToString() const 
+%feature("docstring")  FitParameter::limits "AttLimits & FitParameter::limits()
+";
+
+%feature("docstring")  FitParameter::setLimits "FitParameter & FitParameter::setLimits(const AttLimits &limits)
+";
+
+%feature("docstring")  FitParameter::setLowerLimited "FitParameter & FitParameter::setLowerLimited(double bound_value)
+";
+
+%feature("docstring")  FitParameter::setPositive "FitParameter & FitParameter::setPositive()
+";
+
+%feature("docstring")  FitParameter::setNonnegative "FitParameter & FitParameter::setNonnegative()
+";
+
+%feature("docstring")  FitParameter::setUpperLimited "FitParameter & FitParameter::setUpperLimited(double bound_value)
+";
+
+%feature("docstring")  FitParameter::setLimited "FitParameter & FitParameter::setLimited(double left_bound_value, double right_bound_value)
+";
+
+%feature("docstring")  FitParameter::setFixed "FitParameter & FitParameter::setFixed()
+";
+
+%feature("docstring")  FitParameter::toString "std::string FitParameter::toString() const 
 ";
 
 
@@ -479,6 +567,27 @@ Returns string representation of current minimizer status.
 ";
 
 
+// File: classIFitParameter.xml
+%feature("docstring") IFitParameter "
+
+The  IFitParameter is a base class for fit parameters.
+
+C++ includes: IFitParameter.h
+";
+
+%feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter()
+";
+
+%feature("docstring")  IFitParameter::~IFitParameter "virtual IFitParameter::~IFitParameter()
+";
+
+%feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter(const IFitParameter &)=delete
+";
+
+%feature("docstring")  IFitParameter::clone "virtual IFitParameter* IFitParameter::clone() const =0
+";
+
+
 // File: classIMinimizer.xml
 %feature("docstring") IMinimizer "
 
@@ -491,6 +600,9 @@ C++ includes: IMinimizer.h
 ";
 
 %feature("docstring")  IMinimizer::~IMinimizer "virtual IMinimizer::~IMinimizer()
+";
+
+%feature("docstring")  IMinimizer::IMinimizer "IMinimizer::IMinimizer(const IMinimizer &other)=delete
 ";
 
 %feature("docstring")  IMinimizer::minimizerName "std::string IMinimizer::minimizerName() const
@@ -524,7 +636,7 @@ Sets internal minimizer parameters using external parameter list.
 %feature("docstring")  IMinimizer::setGradientFunction "virtual void IMinimizer::setGradientFunction(gradient_function_t, int)
 ";
 
-%feature("docstring")  IMinimizer::getMinValue "double IMinimizer::getMinValue() const
+%feature("docstring")  IMinimizer::minValue "double IMinimizer::minValue() const
 
 Returns minimum function value. 
 ";
@@ -537,6 +649,11 @@ Prints fit results.
 %feature("docstring")  IMinimizer::propagateResults "void IMinimizer::propagateResults(FitParameterSet &parameters)
 
 Propagates results of minimization to fit parameter set. 
+";
+
+%feature("docstring")  IMinimizer::setOptions "void IMinimizer::setOptions(const std::string &options)
+
+Sets option string to the minimizer. 
 ";
 
 
@@ -663,9 +780,14 @@ The  MinimizerOptions class holds collection of internal minimizer settings.
 C++ includes: MinimizerOptions.h
 ";
 
-%feature("docstring")  MinimizerOptions::toOptionString "std::string MinimizerOptions::toOptionString(const std::string &delimeter=\";\") const
+%feature("docstring")  MinimizerOptions::toOptionString "std::string MinimizerOptions::toOptionString() const
 
-Returns string with all options using given delimeter. 
+Returns string with all options (i.e. \"Strategy=1;Tolerance=0.01;\") 
+";
+
+%feature("docstring")  MinimizerOptions::setOptionString "void MinimizerOptions::setOptionString(const std::string &options)
+
+Set options from their string representation. 
 ";
 
 
@@ -801,6 +923,11 @@ Returns the option's value.
 %feature("docstring")  MultiOption::getDefault "T MultiOption::getDefault() const
 
 Returns the option's default value (i.e. used during construction) 
+";
+
+%feature("docstring")  MultiOption::setFromString "void MultiOption::setFromString(const std::string &value)
+
+Sets the value of option from string. TODO find more elegant way (without if/else and boost::lexical_cast 
 ";
 
 
@@ -1019,6 +1146,11 @@ Sets internal minimizer parameters using external parameter list.
 %feature("docstring")  RootMinimizerAdapter::setGradientFunction "void RootMinimizerAdapter::setGradientFunction(gradient_function_t func, int ndatasize) overridefinal
 ";
 
+%feature("docstring")  RootMinimizerAdapter::minValue "double RootMinimizerAdapter::minValue() const overridefinal
+
+Returns minimum function value. 
+";
+
 %feature("docstring")  RootMinimizerAdapter::reportResults "std::string RootMinimizerAdapter::reportResults() const overridefinal
 
 Prints fit results. 
@@ -1048,6 +1180,11 @@ Returns map of string representing different minimizer statuses.
 %feature("docstring")  RootMinimizerAdapter::propagateResults "void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters) override
 
 Propagates results of minimization to fit parameter set. 
+";
+
+%feature("docstring")  RootMinimizerAdapter::setOptions "void RootMinimizerAdapter::setOptions(const std::string &optionString) overridefinal
+
+Sets option string to the minimizer. 
 ";
 
 
@@ -1225,19 +1362,50 @@ Prints fit results.
 ";
 
 
+// File: classTimeInterval.xml
+%feature("docstring") TimeInterval "";
+
+%feature("docstring")  TimeInterval::TimeInterval "TimeInterval::TimeInterval()
+";
+
+%feature("docstring")  TimeInterval::~TimeInterval "TimeInterval::~TimeInterval()
+";
+
+%feature("docstring")  TimeInterval::start "void TimeInterval::start()
+";
+
+%feature("docstring")  TimeInterval::stop "void TimeInterval::stop()
+";
+
+%feature("docstring")  TimeInterval::runTime "double TimeInterval::runTime() const
+
+returns run time in sec.msec 
+";
+
+
+// File: classTimeIntervalImp.xml
+%feature("docstring") TimeIntervalImp "";
+
+%feature("docstring")  TimeIntervalImp::TimeIntervalImp "TimeIntervalImp::TimeIntervalImp()
+";
+
+
 // File: namespace_0D0.xml
+
+
+// File: namespace_0D15.xml
 
 
 // File: namespace_0D17.xml
 
 
-// File: namespace_0D36.xml
+// File: namespace_0D39.xml
 
 
-// File: namespace_0D38.xml
+// File: namespace_0D41.xml
 
 
-// File: namespace_0D42.xml
+// File: namespace_0D45.xml
 
 
 // File: namespaceAlgorithmNames.xml
@@ -1270,6 +1438,11 @@ Returns translation of GSL error code to string.
 %feature("docstring")  MinimizerUtils::numbersDiffer "bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
 ";
 
+%feature("docstring")  MinimizerUtils::sectionString "std::string MinimizerUtils::sectionString(const std::string &sectionName=std::string(), int report_width=80)
+
+Returns horizontal line of 80 characters length with section name in it. 
+";
+
 
 // File: namespaceMSG.xml
 %feature("docstring")  MSG::SetLevel "BA_CORE_API_ void MSG::SetLevel(EMessageLevel level)
@@ -1282,15 +1455,35 @@ Returns translation of GSL error code to string.
 // File: namespaceOptionNames.xml
 
 
-// File: namespaceStringUtils.xml
-%feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+// File: namespaceUtils.xml
+
+
+// File: namespaceUtils_1_1String.xml
+%feature("docstring")  Utils::String::matchesPattern "bool Utils::String::matchesPattern(const std::string &text, const std::string &wildcardPattern)
 
 Returns true if text matches pattern with wildcards '*' and '?'. 
 ";
 
-%feature("docstring")  StringUtils::padRight "std::string StringUtils::padRight(const std::string &name, int length)
+%feature("docstring")  Utils::String::padRight "std::string Utils::String::padRight(const std::string &name, int length)
 
 Returns string right-padded with blanks. 
+";
+
+%feature("docstring")  Utils::String::split "std::vector< std::string > Utils::String::split(const std::string &text, const std::string &delimeter)
+
+Split string into vector of string using delimeter.
+
+Returns token vector obtained by splitting string at delimiters. 
+";
+
+%feature("docstring")  Utils::String::replaceItemsFromString "void Utils::String::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=std::string(\"\"))
+
+replace all occurences of items from string text with delimeter 
+";
+
+%feature("docstring")  Utils::String::join "std::string Utils::String::join(const std::vector< std::string > &joinable, const std::string &joint)
+
+Returns string obtain by joining vector elements. 
 ";
 
 
@@ -1300,10 +1493,10 @@ Returns string right-padded with blanks.
 // File: FitKernel_8h.xml
 
 
-// File: FitKernelImp_8cpp.xml
+// File: FitKernelImpl_8cpp.xml
 
 
-// File: FitKernelImp_8h.xml
+// File: FitKernelImpl_8h.xml
 
 
 // File: FitOptions_8h.xml
@@ -1386,6 +1579,12 @@ Returns string right-padded with blanks.
 // File: TestMinimizer_8h.xml
 
 
+// File: AttLimits_8cpp.xml
+
+
+// File: AttLimits_8h.xml
+
+
 // File: Attributes_8h.xml
 
 
@@ -1399,6 +1598,9 @@ Returns string right-padded with blanks.
 
 
 // File: FitParameterSet_8h.xml
+
+
+// File: IFitParameter_8h.xml
 
 
 // File: RealLimits_8cpp.xml
@@ -1464,20 +1666,23 @@ Returns string right-padded with blanks.
 // File: StringUtils_8h.xml
 
 
-// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
+// File: TimeInterval_8cpp.xml
 
 
-// File: dir_befad91b6aded329d87ab1464acca32e.xml
+// File: TimeInterval_8h.xml
 
 
-// File: dir_f9473c719213b1ce2ec7fbf8aef1535c.xml
+// File: dir_892d84e8d1420bf45a9053cf0eede900.xml
 
 
-// File: dir_1acb97a05207425a4804447756e3d919.xml
+// File: dir_ddbc8017d498762c6500a9e593e25277.xml
 
 
-// File: dir_50776eae6dbf3f787dd8fd4106a9bdd2.xml
+// File: dir_17bde39ef6b5d64be6f6883a061c9058.xml
 
 
-// File: dir_111d40054bb7ae6116a9a4a5aab3a0b8.xml
+// File: dir_5e88eb7454533834afc0f9fdcde3e277.xml
+
+
+// File: dir_c742711e288b52ad835463ef3a11378f.xml
 

@@ -105,6 +105,8 @@ void MainComputation::runProtected()
     bool polarized = mp_multi_layer->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
         for (DecoratedLayerComputation* comp: layer_comp) {
+            if (!m_progress->alive())
+                return;
             comp->eval(m_sim_options, m_progress, polarized, *mp_multi_layer,
                        layer_elements.begin(), layer_elements.end());
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
@@ -113,13 +115,15 @@ void MainComputation::runProtected()
 
     if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
         msglog(MSG::DEBUG2) << "MainComputation::run() -> roughness";
-        mp_roughness_computation->eval(m_progress, layer_elements.begin(), layer_elements.end());
+        if (!m_progress->alive())
+            return;
+        mp_roughness_computation->eval(
+            m_progress, layer_elements.begin(), layer_elements.end());
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 
-    if (m_sim_options.includeSpecular()) {
+    if (m_sim_options.includeSpecular())
         mp_specular_computation->eval(m_progress, polarized, m_begin_it, m_end_it);
-    }
 }
 
 void MainComputation::collectRTCoefficientsScalar()
@@ -138,9 +142,8 @@ void MainComputation::collectRTCoefficientsScalar()
         if (mp_roughness_computation)
             mp_roughness_computation->setSpecularInfo(i, layer_coeff_map);
 
-        if (i==0) {
+        if (i==0)
             mp_specular_computation->setSpecularInfo(layer_coeff_map);
-        }
     }
 }
 

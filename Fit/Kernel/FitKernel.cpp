@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/FitKernel.cpp
+//! @file      Fit/Kernel/FitKernel.cpp
 //! @brief     Implements class FitKernel.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitKernel.h"
-#include "FitKernelImp.h"
+#include "FitKernelImpl.h"
 #include "MinimizerFactory.h"
 #include "FitParameter.h"
 
@@ -24,7 +24,7 @@ const std::string default_algorithm = "Migrad";
 }
 
 FitKernel::FitKernel()
-    : m_impl(new FitKernelImp)
+    : m_impl(new FitKernelImpl)
 {
     setMinimizer(default_minimizer, default_algorithm);
 }

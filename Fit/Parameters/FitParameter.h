@@ -73,4 +73,4 @@ private:
     AttLimits m_limits;
 };
 
-#endif
+#endif // FITPARAMETER_H

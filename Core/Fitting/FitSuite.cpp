@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitSuite.h"
-#include "FitSuiteImp.h"
+#include "FitSuiteImpl.h"
 #include "FitKernel.h"
 #include "FitSuitePrintObserver.h"
 #include "IHistogram.h"
@@ -22,7 +22,7 @@
 #include <iostream>
 
 FitSuite::FitSuite()
-    : m_impl(new FitSuiteImp(std::bind(&FitSuite::notifyObservers, this)))
+    : m_impl(new FitSuiteImpl(std::bind(&FitSuite::notifyObservers, this)))
 {}
 
 FitSuite::~FitSuite()

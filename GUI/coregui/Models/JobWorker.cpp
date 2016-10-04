@@ -29,7 +29,6 @@ JobWorker::JobWorker(QString identifier, GISASSimulation *simulation)
     , m_terminate_request_flag(false)
     , m_simulation_duration(0)
 {
-
 }
 
 void JobWorker::start()
@@ -83,7 +82,6 @@ bool JobWorker::simulationInformsUs(int percentage_done)
         m_percentage_done = percentage_done;
         emit progressUpdate();
     }
-
     return !m_terminate_request_flag;
 }
 

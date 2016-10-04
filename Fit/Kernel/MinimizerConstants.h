@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/MinimizerConstants.h
+//! @file      Fit/Kernel/MinimizerConstants.h
 //! @brief     Defines class MinimizerConstants.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -67,4 +67,4 @@ const std::string BoltzmannTmin = "t_min";
 
 } // namespace OptionsNames
 
-#endif
+#endif // MINIMIZERCONSTANTS_H

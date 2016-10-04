@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/GeneticMinimizer.h
+//! @file      Fit/RootAdapter/GeneticMinimizer.h
 //! @brief     Declares class GeneticMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -70,4 +70,4 @@ private:
     std::unique_ptr<BA_ROOT::Math::GeneticMinimizer> m_genetic_minimizer;
 };
 
-#endif
+#endif // GENETICMINIMIZER_H

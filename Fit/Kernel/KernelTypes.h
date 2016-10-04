@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/KernelTypes.h
+//! @file      Fit/Kernel/KernelTypes.h
 //! @brief     Defines common types for fitting library.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -28,4 +28,4 @@ typedef std::function<double(const double*)> root_objective_t;
 
 typedef std::function<double(const double*, unsigned int, double*)> root_gradient_t;
 
-#endif
+#endif // KERNELTYPES_H

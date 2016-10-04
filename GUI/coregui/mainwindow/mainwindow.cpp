@@ -195,8 +195,8 @@ void MainWindow::onSessionModelViewActive(bool isActive)
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(jobModel()->hasUnfinishedJobs()) {
-        QMessageBox::warning(this, tr("Can't quite the application."),
-                             "Can't quite the application while jobs are running.\n"
+        QMessageBox::warning(this, tr("Can't quit the application."),
+                             "Can't quit the application while jobs are running.\n"
                              "Cancel running jobs or wait until they are completed.");
         event->ignore();
         return;

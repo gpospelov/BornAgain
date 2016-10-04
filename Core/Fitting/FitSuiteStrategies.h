@@ -31,7 +31,7 @@ public:
     FitSuiteStrategies(const FitSuiteStrategies &other) = delete;
     FitSuiteStrategies& operator=(const FitSuiteStrategies &other) = delete;
 
-    void init(FitSuiteImp* fit_suite) { m_kernel = fit_suite; }
+    void init(FitSuiteImpl* fit_suite) { m_kernel = fit_suite; }
 
     void addStrategy(const IFitStrategy& strategy);
 
@@ -47,7 +47,7 @@ public:
 
 private:
     SafePointerVector<IFitStrategy> m_strategies;
-    FitSuiteImp* m_kernel;
+    FitSuiteImpl* m_kernel;
     size_t m_current_strategy_index;
 };
 

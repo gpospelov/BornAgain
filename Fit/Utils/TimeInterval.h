@@ -37,4 +37,4 @@ private:
     std::unique_ptr<TimeIntervalImp> m_imp;
 };
 
-#endif
+#endif // TIMEINTERVAL_H

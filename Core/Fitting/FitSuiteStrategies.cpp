@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitSuiteStrategies.h"
-#include "FitSuiteImp.h"
+#include "FitSuiteImpl.h"
 #include <stdexcept>
 
 FitSuiteStrategies::FitSuiteStrategies()

@@ -42,4 +42,4 @@ BA_CORE_API_ std::string join(const std::vector<std::string>& joinable, const st
 }
 }
 
-#endif
+#endif // STRINGUTILS_H

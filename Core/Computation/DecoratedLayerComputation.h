@@ -16,7 +16,7 @@
 #ifndef DECORATEDLAYERCOMPUTATION_H
 #define DECORATEDLAYERCOMPUTATION_H
 
-#include "INoncopyable.h"
+#include "ThreadedComputation.h"
 #include <vector>
 #include <memory>
 
@@ -34,7 +34,7 @@ class SimulationOptions;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class DecoratedLayerComputation final : public INoncopyable
+class DecoratedLayerComputation final : public ThreadedComputation
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);

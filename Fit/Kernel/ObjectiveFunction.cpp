@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/ObjectiveFunction.h
+//! @file      Fit/Kernel/ObjectiveFunction.cpp
 //! @brief     Declares class ObjectiveFunction
 //!
 //! @homepage  http://www.bornagainproject.org

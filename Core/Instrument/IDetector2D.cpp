@@ -178,6 +178,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
             "IDetector2D::createSimulationElements: detector is not two-dimensional");
     if (!hasMasks())
         m_detector_mask.initMaskData(*this);
+    size_t spec_index = getIndexOfSpecular(beam);
     const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
     for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
         if ((*mask_data)[index]) continue;
@@ -185,7 +186,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
         SimulationElement sim_element(wavelength, alpha_i, phi_i, P_pixel_map.get());
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
-        if (index==getIndexOfSpecular(beam)) {
+        if (index==spec_index) {
             sim_element.setSpecular(true);
         }
         result.push_back(sim_element);

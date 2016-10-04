@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/InstrumentItem.h
-//! @brief     Defines class InstrumentItem
+//! @file      GUI/coregui/Views/MaskWidgets/RegionOfInterestView.h
+//! @brief     Defines RegionOfInterestView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,22 +14,17 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTITEM_H
-#define INSTRUMENTITEM_H
+#include "RegionOfInterestView.h"
+#include <QPainter>
 
-#include "SessionItem.h"
+//! Paints two-color tiny frame without filling.
 
-class BeamItem;
-class DetectorItem;
-
-class BA_CORE_API_ InstrumentItem : public SessionItem
+void RegionOfInterestView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-public:    
-    static const QString P_IDENTIFIER;
-    InstrumentItem();
+    painter->setPen(QPen(QColor(34, 67, 255)));
+    painter->drawRect(m_mask_rect);
 
-    BeamItem *beamItem() const;
-    DetectorItem *detectorItem() const;
-};
-
-#endif // INSTRUMENTITEM_H
+    QRectF secondRect = m_mask_rect.marginsAdded(QMarginsF(1, 1, 1, 1));
+    painter->setPen(QPen(QColor(255, 255, 245)));
+    painter->drawRect(secondRect);
+}

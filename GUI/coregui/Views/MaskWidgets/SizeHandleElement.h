@@ -37,7 +37,7 @@ public:
         NONE,
         TOPLEFT,     TOPMIDDLE,   TOPRIGHT,
         MIDDLELEFT,               MIDDLERIGHT,
-        BOTTOMRIGHT, BOTTOMMIDLE, BOTTOMLEFT,
+        BOTTOMLEFT, BOTTOMMIDLE, BOTTOMRIGHT,
     };
 
     enum EHandleType

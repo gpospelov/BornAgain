@@ -34,6 +34,8 @@ class QItemSelection;
 class PolygonView;
 class MaskEditorAction;
 class IntensityDataItem;
+class QGraphicsSceneMouseEvent;
+class QPainter;
 
 //! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
 
@@ -55,7 +57,7 @@ public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
     void onMaskValueChanged(MaskEditorFlags::MaskValue value);
     void onResetViewRequest();
-    void onRowsInserted(const QModelIndex &parent, int first, int last);
+    void onRowsInserted(const QModelIndex &, int, int);
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &, int, int);
     void cancelCurrentDrawing();
@@ -82,20 +84,20 @@ private:
     void deleteViews(const QModelIndex & itemIndex);
     void removeItemViewFromScene(SessionItem *item);
 
-    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);
-    bool isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event);
-    bool isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);    
+    bool isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
+
     bool isAreaContains(QGraphicsSceneMouseEvent *event, MaskEditorHelper::EViewTypes viewType);
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
+    void setInPanAndZoomMode(bool value);
 
     void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 
-    void processRectangleItem(QGraphicsSceneMouseEvent *event);
-    void processEllipseItem(QGraphicsSceneMouseEvent *event);
+    void processRectangleShapeItem(QGraphicsSceneMouseEvent *event);
     void processPolygonItem(QGraphicsSceneMouseEvent *event);
     void processLineItem(QGraphicsSceneMouseEvent *event);
     void processVerticalLineItem(const QPointF &pos);
@@ -103,7 +105,7 @@ private:
     void processMaskAllItem(QGraphicsSceneMouseEvent *event);
 
     void setZValues();
-    PolygonView *getCurrentPolygon() const;
+    PolygonView *currentPolygon() const;
     void setItemName(SessionItem *itemToChange);
 
     SessionModel *m_maskModel;
@@ -118,6 +120,5 @@ private:
     QPointF m_currentMousePosition;
     MaskDrawingContext m_context;
 };
-
 
 #endif // MASKGRAPHICSSCENE_H

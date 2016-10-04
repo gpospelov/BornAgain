@@ -23,6 +23,7 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QUuid>
 
 namespace {
 QMap<QString, QString> initializeCharacterMap()
@@ -237,6 +238,11 @@ QStringList fromStdStrings(const std::vector<std::string> &container)
         result.append(QString::fromStdString(str));
     }
     return result;
+}
+
+QString createUuid()
+{
+    return  QUuid::createUuid().toString();
 }
 
 

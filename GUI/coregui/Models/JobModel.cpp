@@ -28,7 +28,6 @@
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
 #include <QDebug>
-#include <QUuid>
 
 
 JobModel::JobModel(QObject *parent)
@@ -84,7 +83,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
 
     JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
     jobItem->setItemName(generateJobName());
-    jobItem->setIdentifier(generateJobIdentifier());
+    jobItem->setIdentifier(GUIHelpers::createUuid());
 
     SessionItem *multilayer = copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
     multilayer->setItemName(Constants::MultiLayerType);
@@ -132,7 +131,6 @@ void JobModel::loadNonXMLData(const QString &projectDir)
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
         JobItemHelper::loadIntensityData(jobItem, projectDir);
-        JobItemHelper::loadRealData(jobItem, projectDir);
     }
 
 }
@@ -143,7 +141,7 @@ void JobModel::saveNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemHelper::saveIntensityData(jobItem, projectDir);
+        JobItemHelper::saveIntensityData(jobItem->getIntensityDataItem(), projectDir);
     }
 }
 
@@ -193,13 +191,6 @@ QString JobModel::generateJobName()
          }
     }
     return QString("job")+QString::number(++glob_index);
-}
-
-
-//! generate unique job identifier
-QString JobModel::generateJobIdentifier()
-{
-    return QUuid::createUuid().toString();
 }
 
 void JobModel::restoreItem(SessionItem *item)

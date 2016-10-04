@@ -17,6 +17,7 @@
 #ifndef SESSIONXML_H
 #define SESSIONXML_H
 
+#include "WinDllMacros.h"
 #include <QVariant>
 
 class QXmlStreamWriter;

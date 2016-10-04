@@ -18,8 +18,8 @@
 #include "IconProvider.h"
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
+#include "GUIHelpers.h"
 #include <QDebug>
-#include <QUuid>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
@@ -100,7 +100,7 @@ MaterialItem *MaterialModel::cloneMaterial(const QModelIndex &index)
         return nullptr;
 
     SessionItem *clonedMaterial = copyParameterizedItem(origMaterial, 0);
-    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, QUuid::createUuid().toString());
+    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
     clonedMaterial->setItemName(origMaterial->itemName()+" (clone)");
     return dynamic_cast<MaterialItem *>(clonedMaterial);
 }

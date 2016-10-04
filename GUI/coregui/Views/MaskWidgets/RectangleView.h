@@ -50,7 +50,7 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-private:
+protected:
     void update_view();
     void update_bounding_rect();
     void update_position();

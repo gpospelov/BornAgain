@@ -78,6 +78,8 @@ template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
     return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
 }
 
+BA_CORE_API_ QString createUuid();
+
 } // namespace GUIHelpers
 
 #endif // GUIHELPERS_H

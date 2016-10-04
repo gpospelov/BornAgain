@@ -72,14 +72,15 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
-    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
-        if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
-            proxy->resize(event->size());
-            scene()->setSceneRect(0,0,event->size().width(),event->size().height());
-            proxy->setPos(0,0);
-            qDebug() << "!!! Resizing" << this->size() << event->size();
-        }
-    }
+    updateSize(event->size());
+//    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
+//        if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
+//            proxy->resize(event->size());
+//            scene()->setSceneRect(0,0,event->size().width(),event->size().height());
+//            proxy->setPos(0,0);
+//            qDebug() << "!!! Resizing" << this->size() << event->size();
+//        }
+//    }
 }
 
 void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
@@ -150,6 +151,19 @@ void MaskGraphicsView::increazeZoomValue()
     double zoom_value = m_current_zoom_value + zoom_step;
     if(zoom_value > max_zoom_value) zoom_value = max_zoom_value;
     setZoomValue(zoom_value);
+}
+
+void MaskGraphicsView::updateSize(const QSize &newSize)
+{
+    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
+        if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
+            proxy->resize(newSize);
+            scene()->setSceneRect(0, 0, newSize.width(), newSize.height());
+            proxy->setPos(0,0);
+            qDebug() << "!!! Resizing" << this->size() << newSize;
+        }
+    }
+
 }
 
 

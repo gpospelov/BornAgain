@@ -52,7 +52,7 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *
     connect(m_maskValueGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(onMaskValueGroupChange(int)));
 
-    m_previousActivity = getCurrentActivity();
+    m_previousActivity = currentActivity();
 }
 
 //! Handles ZOOM requests from MaskGraphicsView while user press and holds
@@ -60,18 +60,18 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *
 void MaskEditorToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value)
 {
     if(value.testFlag(MaskEditorFlags::PAN_ZOOM_MODE)) {
-        m_previousActivity = getCurrentActivity();
+        m_previousActivity = currentActivity();
         m_activityButtonGroup->button(MaskEditorFlags::PAN_ZOOM_MODE)->setChecked(true);
     } else {
         setCurrentActivity(m_previousActivity);
     }
-    emit activityModeChanged(getCurrentActivity());
+    emit activityModeChanged(currentActivity());
 }
 
 void MaskEditorToolBar::onActivityGroupChange(int value)
 {
     Q_UNUSED(value);
-    emit activityModeChanged(getCurrentActivity());
+    emit activityModeChanged(currentActivity());
 }
 
 void MaskEditorToolBar::onMaskValueGroupChange(int value)
@@ -141,6 +141,12 @@ void MaskEditorToolBar::setup_maskvalue_group()
 
 void MaskEditorToolBar::setup_shapes_group()
 {
+    QToolButton *roiButton = new QToolButton(this);
+    roiButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_rectangle.svg"));
+    roiButton->setToolTip("Create region of interest");
+    roiButton->setCheckable(true);
+    addWidget(roiButton);
+
     QToolButton *rectangleButton = new QToolButton(this);
     rectangleButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_rectangle.svg"));
     rectangleButton->setToolTip("Create rectangle mask");
@@ -178,6 +184,7 @@ void MaskEditorToolBar::setup_shapes_group()
     maskAllButton->setCheckable(true);
     addWidget(maskAllButton);
 
+    m_activityButtonGroup->addButton(roiButton, MaskEditorFlags::ROI_MODE);
     m_activityButtonGroup->addButton(rectangleButton, MaskEditorFlags::RECTANGLE_MODE);
     m_activityButtonGroup->addButton(polygonButton, MaskEditorFlags::POLYGON_MODE);
     m_activityButtonGroup->addButton(verticalLineButton, MaskEditorFlags::VERTICAL_LINE_MODE);
@@ -221,7 +228,7 @@ void MaskEditorToolBar::add_separator()
     addWidget(new QLabel(" "));
 }
 
-MaskEditorFlags::Activity MaskEditorToolBar::getCurrentActivity() const
+MaskEditorFlags::Activity MaskEditorToolBar::currentActivity() const
 {
     return MaskEditorFlags::EActivityType(m_activityButtonGroup->checkedId());
 }

@@ -38,9 +38,9 @@
 MaskEditor::MaskEditor(QWidget* parent)
     : QMainWindow(parent)
     , m_itemActions(new MaskEditorActions(this))
-    , m_toolBar(new MaskEditorToolBar(m_itemActions, this))
-    , m_editorPropertyPanel(new MaskEditorPropertyPanel(this))
-    , m_editorCanvas(new MaskEditorCanvas(this))
+    , m_toolBar(new MaskEditorToolBar(m_itemActions))
+    , m_editorPropertyPanel(new MaskEditorPropertyPanel)
+    , m_editorCanvas(new MaskEditorCanvas)
     , m_splitter(new QSplitter(this))
 {
     setObjectName(QStringLiteral("MaskEditor"));

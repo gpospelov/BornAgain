@@ -36,6 +36,8 @@ public:
 public slots:
     void onResetViewRequest();
 
+    void updateSize(const QSize &newSize);
+
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
 

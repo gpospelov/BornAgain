@@ -30,6 +30,10 @@
 #include "SampleBuilderFactory.h"
 #include "SampleModel.h"
 #include "WarningMessageService.h"
+#include "RealDataItem.h"
+#include "IntensityDataIOFactory.h"
+#include "IntensityDataItem.h"
+#include "ImportDataAssistant.h"
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -165,6 +169,14 @@ void ApplicationModels::createSampleModel()
             m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 }
 
+void ApplicationModels::createInstrumentModel()
+{
+    delete m_instrumentModel;
+    m_instrumentModel = new InstrumentModel(this);
+    connectModel(m_instrumentModel);
+    m_instrumentModel->setIconProvider(new IconProvider());
+}
+
 void ApplicationModels::createRealDataModel()
 {
     delete m_realDataModel;
@@ -177,14 +189,6 @@ void ApplicationModels::createJobModel()
     delete m_jobModel;
     m_jobModel = new JobModel(this);
     connectModel(m_jobModel);
-}
-
-void ApplicationModels::createInstrumentModel()
-{
-    delete m_instrumentModel;
-    m_instrumentModel = new InstrumentModel(this);
-    connectModel(m_instrumentModel);
-    m_instrumentModel->setIconProvider(new IconProvider());
 }
 
 void ApplicationModels::createTestSample()
@@ -219,9 +223,21 @@ void ApplicationModels::createTestJob()
 //    realDataItem->intensityDataItem()->setOutputData(data->createOutputData());
 //    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
 
-
     m_jobModel->runJob(jobItem->index());
+}
 
+void ApplicationModels::createTestRealData()
+{
+    RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(
+                m_realDataModel->insertNewItem(Constants::RealDataType));
+    realDataItem->setItemName("realdata");
+
+    std::unique_ptr<OutputData<double>> data(
+                IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
+
+    ImportDataAssistant assistant;
+    OutputData<double> *simplified = assistant.createSimlifiedOutputData(*data.get());
+    realDataItem->setOutputData(simplified);
 }
 
 //! Writes all model in file one by one

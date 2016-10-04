@@ -33,6 +33,7 @@ public:
 
     bool isSelectionMode() const;
     bool isInZoomMode() const;
+    bool isRectangleShapeMode() const;
     bool isRectangleMode() const;
     bool isEllipseMode() const;
     bool isPolygonMode() const;
@@ -40,6 +41,7 @@ public:
     bool isVerticalLineMode() const;
     bool isHorizontalLineMode() const;
     bool isMaskAllMode() const;
+    bool isROIMode() const;
 
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
@@ -47,6 +49,9 @@ public:
     bool getMaskValue() const;
 
     bool isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity);
+
+    QString activityToModelType() const;
+    int activityToRow() const;
 
 private:
 

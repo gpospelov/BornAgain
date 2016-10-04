@@ -22,7 +22,6 @@
 #include <QItemSelectionModel>
 #include <QListView>
 #include <QMenu>
-#include <QUuid>
 #include <QVariant>
 
 namespace {

@@ -15,14 +15,8 @@
 // ************************************************************************** //
 
 #include "SimulationSetupAssistant.h"
-#include "AxesItems.h"
-#include "DetectorItems.h"
-#include "IAxis.h"
-#include "IDetector2D.h"
-#include "InstrumentItem.h"
-#include "IntensityDataItem.h"
-#include "RealDataItem.h"
 #include "SampleValidator.h"
+#include "ImportDataAssistant.h"
 #include <QDebug>
 #include <QMessageBox>
 
@@ -87,16 +81,10 @@ void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem *instrumen
     if(!realData)
         return;
 
-    int nxData(0), nyData(0), nxDetector(0), nyDetector(0);
-    realDataShape(realData, nxData, nyData);
-    detectorShape(instrumentItem, nxDetector, nyDetector);
-
-    if(nxData != nxDetector || nyData != nyDetector) {
+    QString message;
+    if(!ImportDataAssistant::hasSameDimensions(instrumentItem, realData, message)) {
         m_isValid = false;
-        m_messages.append("The realData doesn't match selected instrument.");
-        QString message = QString("Different shape of axes \n Detector [%1, %2], realData[%3, %4].")
-                .arg(nxDetector).arg(nyDetector).arg(nxData).arg(nyData);
-        m_messages.append(message);
+        m_messages.append("The RealData doesn't match selected instrument: "+message);
     }
 }
 
@@ -110,43 +98,4 @@ QString SimulationSetupAssistant::composeMessage()
         result.append(text);
     }
     return result;
-}
-
-//! Returns shape of RealDataItem axes.
-
-void SimulationSetupAssistant::realDataShape(const RealDataItem *realData, int &nx, int &ny)
-{
-    nx = ny = 0;
-    if(const IntensityDataItem *intensityItem = realData->intensityDataItem()) {
-        SessionItem *xaxis = intensityItem->getItem(IntensityDataItem::P_XAXIS);
-        nx = xaxis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        SessionItem *yaxis = intensityItem->getItem(IntensityDataItem::P_XAXIS);
-        ny = yaxis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-    }
-}
-
-//! Returns shape of Instrument's detector axes.
-
-void SimulationSetupAssistant::detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny)
-{
-    nx = ny = 0;
-    DetectorItem *detectorItem = instrumentItem ->getDetectorItem();
-    Q_ASSERT(detectorItem);
-
-    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
-    Q_ASSERT(subDetector);
-
-    std::unique_ptr<IDetector2D> detector;
-
-    if(auto sphericalDetector = dynamic_cast<SphericalDetectorItem *>(subDetector)) {
-        detector = sphericalDetector->createDetector();
-    }
-
-    else if(auto rectangularDetector = dynamic_cast<RectangularDetectorItem *>(subDetector)) {
-        detector = rectangularDetector->createDetector();
-    }
-
-    Q_ASSERT(detector.get());
-    nx = detector->getAxis(0).getSize();
-    ny = detector->getAxis(1).getSize();
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/InstrumentItem.h
-//! @brief     Defines class InstrumentItem
+//! @file      GUI/coregui/Views/MaskWidgets/RegionOfInterestView.h
+//! @brief     Defines RegionOfInterestView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,22 +14,25 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTITEM_H
-#define INSTRUMENTITEM_H
+#ifndef REGIONOFINTERESTVIEW_H
+#define REGIONOFINTERESTVIEW_H
 
-#include "SessionItem.h"
+#include "RectangleView.h"
 
-class BeamItem;
-class DetectorItem;
+//! The RegionOfInterest class represent view of RegionOfInterestItem on graphics scene.
 
-class BA_CORE_API_ InstrumentItem : public SessionItem
+class BA_CORE_API_ RegionOfInterestView : public RectangleView
 {
-public:    
-    static const QString P_IDENTIFIER;
-    InstrumentItem();
+    Q_OBJECT
 
-    BeamItem *beamItem() const;
-    DetectorItem *detectorItem() const;
+public:
+    int type() const { return MaskEditorHelper::REGIONOFINTEREST; }
+
+protected:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+
 };
 
-#endif // INSTRUMENTITEM_H
+
+#endif
+

@@ -27,9 +27,12 @@ MaskContainerItem::MaskContainerItem()
     : SessionItem(Constants::MaskContainerType)
 {
     const QString T_MASKS = "Mask Tag";
-    registerTag(T_MASKS, 0, -1, QStringList() << Constants::RectangleMaskType << Constants::PolygonMaskType
-                << Constants::EllipseMaskType << Constants::VerticalLineMaskType
-                << Constants::HorizontalLineMaskType << Constants::MaskAllType);
+    QStringList allowedMasks = QStringList()
+            << Constants::RectangleMaskType << Constants::PolygonMaskType
+            << Constants::EllipseMaskType << Constants::VerticalLineMaskType
+            << Constants::HorizontalLineMaskType << Constants::MaskAllType
+            << Constants::RegionOfInterestType;
+    registerTag(T_MASKS, 0, -1, allowedMasks);
     setDefaultTag(T_MASKS);
 }
 
@@ -56,10 +59,10 @@ const QString RectangleItem::P_YLOW = "ylow";
 const QString RectangleItem::P_XUP = "xup";
 const QString RectangleItem::P_YUP = "yup";
 
-RectangleItem::RectangleItem()
-    : MaskItem(Constants::RectangleMaskType)
+RectangleItem::RectangleItem(const QString &modelType)
+    : MaskItem(modelType)
 {
-    setItemName(Constants::RectangleMaskType);
+    setItemName(modelType);
     addProperty(P_XLOW, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_YLOW, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_XUP, 0.0)->setLimits(RealLimits::limitless());
@@ -76,6 +79,15 @@ std::unique_ptr<Geometry::IShape2D> RectangleItem::createShape(double scale) con
 }
 
 /* ------------------------------------------------------------------------- */
+
+RegionOfInterestItem::RegionOfInterestItem()
+    : RectangleItem(Constants::RegionOfInterestType)
+{
+    setItemValue(P_MASK_VALUE, false);
+}
+
+/* ------------------------------------------------------------------------- */
+
 const QString PolygonPointItem::P_POSX = "X position";
 const QString PolygonPointItem::P_POSY = "Y position";
 
@@ -187,3 +199,4 @@ std::unique_ptr<Geometry::IShape2D> MaskAllItem::createShape(double scale) const
     Q_UNUSED(scale);
     return GUIHelpers::make_unique<Geometry::InfinitePlane>();
 }
+

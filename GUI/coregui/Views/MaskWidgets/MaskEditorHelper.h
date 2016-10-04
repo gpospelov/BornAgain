@@ -40,6 +40,7 @@ public:
         HORIZONTALLINE,
         ELLIPSE,
         MASKALL,
+        REGIONOFINTEREST,
         MASKGRAPHICSPROXY
     };
 

@@ -19,21 +19,32 @@
 
 #include "SessionItem.h"
 
+template <class T> class OutputData;
 class IntensityDataItem;
+class InstrumentItem;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
 
 class BA_CORE_API_ RealDataItem : public SessionItem
 {
 public:
+    static const QString P_INSTRUMENT_ID;
+    static const QString P_INSTRUMENT_NAME;
+    static const QString P_INSTRUMENT_COMBO;
     static const QString T_INTENSITY_DATA;
     explicit RealDataItem();
 
     IntensityDataItem *intensityDataItem();
     const IntensityDataItem *intensityDataItem() const;
 
+    void setOutputData(OutputData<double> *data);
+
+    void linkToInstrument(const InstrumentItem *instrument);
+
 private:
     void updateIntensityDataFileName();
+    void updateToInstrument();
+    const InstrumentItem *m_linkedInstrument;
 };
 
 #endif // REALDATAITEM_H

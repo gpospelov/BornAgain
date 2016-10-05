@@ -102,7 +102,7 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, c
 //            realDataItem->mapper()->setActive(false);
 
             dataItem->setItemValue(RealDataItem::P_INSTRUMENT_COMBO, combo.getVariant());
-            //dataItem->getItem(RealDataItem::P_INSTRUMENT_COMBO)->emitDataChanged();
+            dataItem->getItem(RealDataItem::P_INSTRUMENT_COMBO)->emitDataChanged(Qt::DisplayRole);
 //            realDataItem->mapper()->setActive(true);
 
             qDebug() << "AAAAA 1.5";

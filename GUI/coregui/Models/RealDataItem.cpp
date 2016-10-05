@@ -91,6 +91,9 @@ RealDataItem::RealDataItem()
     });
 
 
+//    registerTag(T_INTENSITY_DATA, 1, 1, QStringList() << Constants::IntensityDataType);
+//    insertItem(0, new IntensityDataItem(), T_INTENSITY_DATA);
+
 
 }
 

@@ -22,6 +22,8 @@
 
 class ComponentEditor;
 class SessionItem;
+class QDataWidgetMapper;
+class QLineEdit;
 
 //! The RealDataPropertiesWidget class holds component editor for RealDataItem.
 //! Part of RealDataSelectorWidget, resides at lower left corner of ImportDataView.
@@ -37,9 +39,13 @@ public:
 
     void setItem(SessionItem *item);
 
+    void setModels();
+
 private:
     ComponentEditor *m_propertyEditor;
-    ComponentEditor *m_propertyEditor2;
+//    ComponentEditor *m_propertyEditor2;
+    QDataWidgetMapper *m_dataNameMapper;
+    QLineEdit *m_dataNameEdit;
 };
 
 #endif

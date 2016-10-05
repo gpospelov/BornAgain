@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     qRegisterMetaType<QVector<double> >("QVector<double>");
     qRegisterMetaType<FitProgressInfo>("FitProgressInfo");
-    QMetaType::registerComparators<ComboProperty>();
+//    QMetaType::registerComparators<ComboProperty>();
 
     QApplication a(argc, argv);
 

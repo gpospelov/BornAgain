@@ -96,7 +96,7 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, c
         } else {
             QString prevName = instrumentNameFromIdentifier(currentIdentifier);
             qDebug() << "AAAAA 1.3" << prevName;
-            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, prevName);
+//            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, prevName);
             qDebug() << "AAAAA 1.4";
             combo.setValue(prevName);
 //            realDataItem->mapper()->setActive(false);

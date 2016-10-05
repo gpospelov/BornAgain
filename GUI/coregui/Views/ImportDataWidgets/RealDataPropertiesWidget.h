@@ -39,6 +39,7 @@ public:
 
 private:
     ComponentEditor *m_propertyEditor;
+    ComponentEditor *m_propertyEditor2;
 };
 
 #endif

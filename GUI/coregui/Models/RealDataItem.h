@@ -32,7 +32,7 @@ public:
     static const QString P_INSTRUMENT_NAME;
     static const QString P_INSTRUMENT_COMBO;
     static const QString T_INTENSITY_DATA;
-    explicit RealDataItem();
+    RealDataItem();
 
     IntensityDataItem *intensityDataItem();
     const IntensityDataItem *intensityDataItem() const;

@@ -53,6 +53,7 @@
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
+#include "LinkInstrumentItem.h"
 #include <QDebug>
 
 namespace {
@@ -192,6 +193,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::SimulationOptionsType] = &createInstance<SimulationOptionsItem>;
 
     result[Constants::RealDataType] = &createInstance<RealDataItem>;
+    result[Constants::LinkInstrumentType] = &createInstance<LinkInstrumentItem>;
 
     result[Constants::MinimizerContainerType] = &createInstance<MinimizerContainerItem>;
     result[Constants::MinuitMinimizerType] = &createInstance<MinuitMinimizerItem>;

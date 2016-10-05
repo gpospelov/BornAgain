@@ -22,6 +22,7 @@
 RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
     : QWidget(parent)
     , m_propertyEditor(new ComponentEditor)
+    , m_propertyEditor2(new ComponentEditor)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle("RealDataPropertiesWidget");
@@ -31,6 +32,7 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(m_propertyEditor);
+    mainLayout->addWidget(m_propertyEditor2);
 
     setLayout(mainLayout);
 }
@@ -38,6 +40,7 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
 void RealDataPropertiesWidget::setItem(SessionItem *item)
 {
     m_propertyEditor->setItem(item);
+    m_propertyEditor2->setItem(item);
 }
 
 

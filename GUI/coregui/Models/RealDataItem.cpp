@@ -46,9 +46,27 @@ RealDataItem::RealDataItem()
 
     mapper()->setOnPropertyChange(
         [this](const QString &name){
-        if(name == P_NAME && isTag(T_INTENSITY_DATA))
+        if(name == P_NAME && isTag(T_INTENSITY_DATA)) {
             updateIntensityDataFileName();
         }
+
+        else if(name == P_INSTRUMENT_ID) {
+            QString id = getItemValue(P_INSTRUMENT_ID).toString();
+            if(id.isEmpty()) {
+                mapper()->setActive(false);
+                ComboProperty combo;
+                combo << Constants::UnitsNbins;
+                IntensityDataItem *item = intensityDataItem();
+                item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+                item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
+                item->setXaxisTitle("X [nbins]");
+                item->setYaxisTitle("Y [nbins]");
+                item->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*item->getOutputData()));
+                item->setAxesRangeToData();
+                mapper()->setActive(true);
+            }
+        }
+    }
     );
 
     mapper()->setOnChildrenChange(

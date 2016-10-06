@@ -20,10 +20,15 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class LinkInstrumentManager;
 class ComponentEditor;
 class SessionItem;
+class InstrumentModel;
+class RealDataModel;
+class RealDataItem;
 class QDataWidgetMapper;
 class QLineEdit;
+class QComboBox;
 
 //! The RealDataPropertiesWidget class holds component editor for RealDataItem.
 //! Part of RealDataSelectorWidget, resides at lower left corner of ImportDataView.
@@ -39,13 +44,23 @@ public:
 
     void setItem(SessionItem *item);
 
-    void setModels();
+    void setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel);
+
+public slots:
+    void onInstrumentComboIndexChanged(int index);
+    void onInstrumentMapUpdate();
 
 private:
+    void setComboToIdentifier(const QString &identifier);
+    void setComboConnected(bool isConnected);
+
+    LinkInstrumentManager *m_linkManager;
     ComponentEditor *m_propertyEditor;
-//    ComponentEditor *m_propertyEditor2;
     QDataWidgetMapper *m_dataNameMapper;
     QLineEdit *m_dataNameEdit;
+    QComboBox *m_instrumentCombo;
+    QString m_current_id;
+    RealDataItem *m_currentDataItem;
 };
 
 #endif

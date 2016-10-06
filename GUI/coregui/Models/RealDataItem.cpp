@@ -25,7 +25,6 @@
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
-const QString RealDataItem::P_INSTRUMENT_COMBO = "Combo";
 const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 
 RealDataItem::RealDataItem()
@@ -34,12 +33,8 @@ RealDataItem::RealDataItem()
 {
     setItemName(QStringLiteral("undefined"));
 
-//    addProperty(P_INSTRUMENT_ID, QString())->setVisible(false);
     addProperty(P_INSTRUMENT_ID, QString());
     addProperty(P_INSTRUMENT_NAME, QString());
-
-    ComboProperty instruments = ComboProperty() << "Undefined";
-    addProperty(P_INSTRUMENT_COMBO, instruments.getVariant());
 
     registerTag(T_INTENSITY_DATA, 1, 1, QStringList() << Constants::IntensityDataType);
     setDefaultTag(T_INTENSITY_DATA);
@@ -51,20 +46,20 @@ RealDataItem::RealDataItem()
         }
 
         else if(name == P_INSTRUMENT_ID) {
-            QString id = getItemValue(P_INSTRUMENT_ID).toString();
-            if(id.isEmpty()) {
-                mapper()->setActive(false);
-                ComboProperty combo;
-                combo << Constants::UnitsNbins;
-                IntensityDataItem *item = intensityDataItem();
-                item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
-                item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-                item->setXaxisTitle("X [nbins]");
-                item->setYaxisTitle("Y [nbins]");
-                item->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*item->getOutputData()));
-                item->setAxesRangeToData();
-                mapper()->setActive(true);
-            }
+//            QString id = getItemValue(P_INSTRUMENT_ID).toString();
+//            if(id.isEmpty()) {
+//                mapper()->setActive(false);
+//                ComboProperty combo;
+//                combo << Constants::UnitsNbins;
+//                IntensityDataItem *item = intensityDataItem();
+//                item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+//                item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
+//                item->setXaxisTitle("X [nbins]");
+//                item->setYaxisTitle("Y [nbins]");
+//                item->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*item->getOutputData()));
+//                item->setAxesRangeToData();
+//                mapper()->setActive(true);
+//            }
         }
     }
     );

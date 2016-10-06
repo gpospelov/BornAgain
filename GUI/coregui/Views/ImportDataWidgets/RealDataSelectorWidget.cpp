@@ -28,7 +28,6 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget *parent)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new ItemSelectorWidget)
     , m_propertiesWidget(new RealDataPropertiesWidget)
-    , m_linkManager(new LinkInstrumentManager(this))
 {
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
@@ -49,13 +48,13 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget *parent)
     connect(m_selectorWidget, SIGNAL(selectionChanged(SessionItem *)),
         this, SLOT(onSelectionChanged(SessionItem *)));
 
-//    m_propertiesWidget->setItem(m_linkManager->getLinkInstrumentItem());
 }
 
-void RealDataSelectorWidget::setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel)
+void RealDataSelectorWidget::setModels(InstrumentModel *instrumentModel,
+                                       RealDataModel *realDataModel)
 {
     m_selectorWidget->setModel(realDataModel);
-    m_linkManager->setModels(instrumentModel, realDataModel);
+    m_propertiesWidget->setModels(instrumentModel, realDataModel);
 }
 
 QItemSelectionModel *RealDataSelectorWidget::selectionModel()
@@ -66,6 +65,5 @@ QItemSelectionModel *RealDataSelectorWidget::selectionModel()
 void RealDataSelectorWidget::onSelectionChanged(SessionItem *item)
 {
    m_propertiesWidget->setItem(item);
-//   m_linkManager->setRealDataItem(item);
    emit selectionChanged(item);
 }

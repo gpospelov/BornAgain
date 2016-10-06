@@ -32,23 +32,31 @@
 #include <QPushButton>
 #include <QDebug>
 
+
 namespace {
 const QString undefinedInstrumentName = "Undefined";
 }
+
+LinkInstrumentManager::InstrumentInfo::InstrumentInfo()
+    : m_name(undefinedInstrumentName)
+    , m_instrument(0)
+{}
+
 
 LinkInstrumentManager::LinkInstrumentManager(QObject *parent)
     : QObject(parent)
     , m_instrumentModel(0)
     , m_realDataModel(0)
 {
-
+    connect(this, SIGNAL(instrumentMapUpdated()), this, SLOT(updateLinks()));
 }
 
-void LinkInstrumentManager::setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel)
+void LinkInstrumentManager::setModels(InstrumentModel *instrumentModel,
+                                      RealDataModel *realDataModel)
 {
     setInstrumentModel(instrumentModel);
     setRealDataModel(realDataModel);
-    updateLinks();
+    updateInstrumentMap();
 }
 
 
@@ -56,60 +64,16 @@ void LinkInstrumentManager::setOnInstrumentPropertyChange(SessionItem *instrumen
 {
     Q_ASSERT(instrument);
     qDebug() << "LinkInstrumentManager::setOnInstrumentPropertyChange" << instrument->itemName() << property;
-    if(property == SessionItem::P_NAME) {        
-        updateLinks();
+    if(property == SessionItem::P_NAME) {
+        updateInstrumentMap();
     }
 }
 
 void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, const QString &property)
 {
-    qDebug() << "AAAAA" << dataItem << property;
-    if(property == RealDataItem::P_INSTRUMENT_COMBO) {
-        QString currentIdentifier = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
-        ComboProperty combo = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_COMBO).value<ComboProperty>();
+    qDebug() << "AAAAA setOnRealDataPropertyChange" << dataItem << property;
 
-        qDebug() << " AAAA";
-        qDebug() << " AAAA";
-        qDebug() << " AAAA 0.1" << combo.getValue();
-
-        QString instrName = combo.getValue();
-
-        QString identifier = instrumentIdentifierFromName(instrName);
-
-        if(identifier == currentIdentifier)
-            return;
-
-        qDebug() << " AAAA 0.2";
-
-        RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(dataItem);
-        Q_ASSERT(realDataItem);
-
-
-        qDebug() << " AAAAAAA" << combo.getValue() << combo.getCachedValue() << currentIdentifier << identifier;
-
-        if(canLinkDataToInstrument(realDataItem, getInstrument(identifier))) {
-            qDebug() << "AAAAA 1.1";
-            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, identifier);
-            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, instrName);
-            qDebug() << "AAAAA 1.2";
-//            realDataItem->linkToInstrument(getInstrument(identifier));
-        } else {
-            QString prevName = instrumentNameFromIdentifier(currentIdentifier);
-            qDebug() << "AAAAA 1.3" << prevName;
-//            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, prevName);
-            qDebug() << "AAAAA 1.4";
-            combo.setValue(prevName);
-//            realDataItem->mapper()->setActive(false);
-
-            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_COMBO, combo.getVariant());
-            dataItem->getItem(RealDataItem::P_INSTRUMENT_COMBO)->emitDataChanged(Qt::DisplayRole);
-//            realDataItem->mapper()->setActive(true);
-
-            qDebug() << "AAAAA 1.5";
-        }
-    }
-
-    else if(property == RealDataItem::P_INSTRUMENT_ID) {
+    if(property == RealDataItem::P_INSTRUMENT_ID) {
         qDebug() << "AAAAA 2.1";
         RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(dataItem);
         QString identifier = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
@@ -123,18 +87,18 @@ void LinkInstrumentManager::setInstrumentModel(InstrumentModel *model)
 {
     if (m_instrumentModel) {
         disconnect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(updateLinks()));
+                   this, SLOT(updateInstrumentMap()));
         disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(updateLinks()));
+                   this, SLOT(updateInstrumentMap()));
     }
 
     m_instrumentModel = model;
 
     if (m_instrumentModel) {
         connect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(updateLinks()));
+                   this, SLOT(updateInstrumentMap()));
         connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(updateLinks()));
+                   this, SLOT(updateInstrumentMap()));
     }
 
 }
@@ -166,19 +130,20 @@ QString LinkInstrumentManager::instrumentNameFromIdentifier(const QString &ident
         if(m_instrumentVec[i].m_identifier == identifier)
             return m_instrumentVec[i].m_name;
 
-    return undefinedInstrumentName;
+    throw GUIHelpers::Error("LinkInstrumentManager::instrumentNameFromIdentifier() -> Error. "
+                            "Unknown instrument identifier.");
 }
 
 //! Returns instrument's identifier from its name
 
-QString LinkInstrumentManager::instrumentIdentifierFromName(const QString &name)
-{
-    for(int i=0; i<m_instrumentVec.size(); ++i)
-        if(m_instrumentVec[i].m_name == name)
-            return m_instrumentVec[i].m_identifier;
+//QString LinkInstrumentManager::instrumentIdentifierFromName(const QString &name)
+//{
+//    for(int i=0; i<m_instrumentVec.size(); ++i)
+//        if(m_instrumentVec[i].m_name == name)
+//            return m_instrumentVec[i].m_identifier;
 
-    return QString();
-}
+//    return QString();
+//}
 
 InstrumentItem *LinkInstrumentManager::getInstrument(const QString &identifier)
 {
@@ -191,15 +156,37 @@ InstrumentItem *LinkInstrumentManager::getInstrument(const QString &identifier)
 
 QStringList LinkInstrumentManager::instrumentNames() const
 {
-    QStringList result = QStringList() << undefinedInstrumentName;
+    QStringList result;
     for(int i=0; i<m_instrumentVec.size(); ++i)
         result.append(m_instrumentVec[i].m_name);
     return result;
 }
 
-bool LinkInstrumentManager::canLinkDataToInstrument(RealDataItem *realDataItem,
-                                                    InstrumentItem *instrumentItem)
+int LinkInstrumentManager::instrumentComboIndex(const QString &identifier)
 {
+    for(int i=0; i<m_instrumentVec.size(); ++i)
+        if(m_instrumentVec[i].m_identifier == identifier)
+            return i;
+
+    return -1; // no such identifier exists
+}
+
+QString LinkInstrumentManager::instrumentIdentifier(int comboIndex)
+{
+    Q_ASSERT(comboIndex >= 0 && comboIndex < m_instrumentVec.size());
+    return m_instrumentVec[comboIndex].m_identifier;
+}
+
+//bool LinkInstrumentManager::canLinkDataToInstrument(RealDataItem *realDataItem,
+//                                                    InstrumentItem *instrumentItem)
+//{
+//}
+
+bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem *realDataItem,
+                                                    const QString &identifier)
+{
+    InstrumentItem *instrumentItem = getInstrument(identifier);
+
     // linking to null instrument is possible, it means unlinking from previous one
     if(instrumentItem == nullptr)
         return true;
@@ -227,7 +214,6 @@ bool LinkInstrumentManager::canLinkDataToInstrument(RealDataItem *realDataItem,
 
     if (msgBox.clickedButton() == modifyInstrumentButton) {
         canLink = true;
-        // connect
         ImportDataAssistant::setInstrumentShapeToData(instrumentItem, realDataItem);
     } else if (msgBox.clickedButton() == cancelButton) {
         canLink = false;
@@ -238,17 +224,19 @@ bool LinkInstrumentManager::canLinkDataToInstrument(RealDataItem *realDataItem,
 
 void LinkInstrumentManager::updateLinks()
 {
-    updateInstrumentMap();
-    updateRealDataMap();
+    foreach(SessionItem *dataItem, m_realDataModel->topItems(Constants::RealDataType)) {
+        QString identifier = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
+        if(!getInstrument(identifier)) {
+            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+        }
+    }
 }
 
 
 void LinkInstrumentManager::updateInstrumentMap()
 {
-    Q_ASSERT(m_realDataModel);
-
-//    m_instrumentInfo.clear();
     m_instrumentVec.clear();
+    m_instrumentVec.append(InstrumentInfo()); // undefined instrument
     foreach(SessionItem *item, m_instrumentModel->topItems(Constants::InstrumentType)) {
         item->mapper()->unsubscribe(this);
         item->mapper()->setOnPropertyChange(
@@ -261,9 +249,10 @@ void LinkInstrumentManager::updateInstrumentMap()
         info.m_name = item->itemName();
         info.m_identifier = item->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
         info.m_instrument = dynamic_cast<InstrumentItem *>(item);
-//        m_instrumentInfo[item] = info;
         m_instrumentVec.append(info);
     }
+
+    emit instrumentMapUpdated();
 }
 
 void LinkInstrumentManager::updateRealDataMap()
@@ -271,17 +260,17 @@ void LinkInstrumentManager::updateRealDataMap()
     foreach(SessionItem *dataItem, m_realDataModel->topItems(Constants::RealDataType)) {
         dataItem->mapper()->unsubscribe(this);
 
-        QString identifier = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
-        QString instrName = instrumentNameFromIdentifier(identifier);
-        if(instrName == undefinedInstrumentName) {
-            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
-        }
+//        QString identifier = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
+//        QString instrName = instrumentNameFromIdentifier(identifier);
+//        if(instrName == undefinedInstrumentName) {
+//            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+//        }
 
-        ComboProperty combo = ComboProperty() << instrumentNames();
-        combo.setValue(instrName);
+//        ComboProperty combo = ComboProperty() << instrumentNames();
+//        combo.setValue(instrName);
 
-        dataItem->setItemValue(RealDataItem::P_INSTRUMENT_COMBO, combo.getVariant());
-        dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, instrName);
+//        dataItem->setItemValue(RealDataItem::P_INSTRUMENT_COMBO, combo.getVariant());
+//        dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, instrName);
 
         dataItem->mapper()->setOnPropertyChange(
                     [this, dataItem](const QString &name)

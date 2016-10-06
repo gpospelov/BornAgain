@@ -40,7 +40,7 @@ public:
     class InstrumentInfo
     {
     public:
-        InstrumentInfo() : m_instrument(0){}
+        InstrumentInfo();
         QString m_identifier;
         QString m_name;
         InstrumentItem *m_instrument;
@@ -49,6 +49,9 @@ public:
     explicit LinkInstrumentManager(QObject *parent =  0);
 
     void setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel);
+
+signals:
+    void instrumentMapUpdated();
 
 public slots:
     void setOnInstrumentPropertyChange(SessionItem *instrument, const QString &property);
@@ -59,15 +62,18 @@ private slots:
     void updateInstrumentMap();
     void updateRealDataMap();
 
+public:
+    QString instrumentNameFromIdentifier(const QString &identifier);
+//    QString instrumentIdentifierFromName(const QString &name);
+    InstrumentItem *getInstrument(const QString &identifier);
+    QStringList instrumentNames() const;
+    int instrumentComboIndex(const QString &identifier);
+    QString instrumentIdentifier(int comboIndex);
+    bool canLinkDataToInstrument(const RealDataItem *realDataItem, const QString &identifier);
+
 private:
     void setInstrumentModel(InstrumentModel *model);
     void setRealDataModel(RealDataModel *model);
-    QString instrumentNameFromIdentifier(const QString &identifier);
-    QString instrumentIdentifierFromName(const QString &name);
-    InstrumentItem *getInstrument(const QString &identifier);
-    QStringList instrumentNames() const;
-
-    bool canLinkDataToInstrument(RealDataItem *realDataItem, InstrumentItem *instrumentItem);
 
     InstrumentModel *m_instrumentModel;
     RealDataModel *m_realDataModel;

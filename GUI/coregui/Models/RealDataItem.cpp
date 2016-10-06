@@ -38,6 +38,7 @@ RealDataItem::RealDataItem()
 
     registerTag(T_INTENSITY_DATA, 1, 1, QStringList() << Constants::IntensityDataType);
     setDefaultTag(T_INTENSITY_DATA);
+    insertItem(0, new IntensityDataItem(), T_INTENSITY_DATA);
 
     mapper()->setOnPropertyChange(
         [this](const QString &name){
@@ -85,11 +86,6 @@ RealDataItem::RealDataItem()
         }
     });
 
-
-//    registerTag(T_INTENSITY_DATA, 1, 1, QStringList() << Constants::IntensityDataType);
-//    insertItem(0, new IntensityDataItem(), T_INTENSITY_DATA);
-
-
 }
 
 IntensityDataItem *RealDataItem::intensityDataItem()
@@ -108,22 +104,15 @@ const IntensityDataItem *RealDataItem::intensityDataItem() const
 void RealDataItem::setOutputData(OutputData<double> *data)
 {
     IntensityDataItem *item = intensityDataItem();
-    if(!item) {
-        item = dynamic_cast<IntensityDataItem *>(
-            this->model()->insertNewItem(Constants::IntensityDataType, this->index()));
-        ComboProperty combo;
-        combo << Constants::UnitsNbins;
-        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
-        item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-        item->setXaxisTitle("X [nbins]");
-        item->setYaxisTitle("Y [nbins]");
-    }
-
+    Q_ASSERT(item);
     item->setOutputData(data);
 }
 
 void RealDataItem::linkToInstrument(const InstrumentItem *instrument)
 {
+    if(m_linkedInstrument == instrument)
+        return;
+
     m_linkedInstrument = instrument;
     updateToInstrument();
 }

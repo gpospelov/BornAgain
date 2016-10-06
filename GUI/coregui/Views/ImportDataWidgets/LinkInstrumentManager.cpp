@@ -48,7 +48,7 @@ LinkInstrumentManager::LinkInstrumentManager(QObject *parent)
     , m_instrumentModel(0)
     , m_realDataModel(0)
 {
-    connect(this, SIGNAL(instrumentMapUpdated()), this, SLOT(updateLinks()));
+//    connect(this, SIGNAL(instrumentMapUpdated()), this, SLOT(updateLinks()));
 }
 
 void LinkInstrumentManager::setModels(InstrumentModel *instrumentModel,
@@ -57,6 +57,8 @@ void LinkInstrumentManager::setModels(InstrumentModel *instrumentModel,
     setInstrumentModel(instrumentModel);
     setRealDataModel(realDataModel);
     updateInstrumentMap();
+    updateRealDataMap();
+    updateLinks();
 }
 
 
@@ -64,7 +66,7 @@ void LinkInstrumentManager::setOnInstrumentPropertyChange(SessionItem *instrumen
 {
     Q_ASSERT(instrument);
     qDebug() << "LinkInstrumentManager::setOnInstrumentPropertyChange" << instrument->itemName() << property;
-    if(property == SessionItem::P_NAME) {
+    if(property == SessionItem::P_NAME || property == InstrumentItem::P_IDENTIFIER) {
         updateInstrumentMap();
     }
 }
@@ -72,7 +74,6 @@ void LinkInstrumentManager::setOnInstrumentPropertyChange(SessionItem *instrumen
 void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, const QString &property)
 {
     qDebug() << "AAAAA setOnRealDataPropertyChange" << dataItem << property;
-
     if(property == RealDataItem::P_INSTRUMENT_ID) {
         qDebug() << "AAAAA 2.1";
         RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(dataItem);
@@ -80,25 +81,48 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, c
         realDataItem->linkToInstrument(getInstrument(identifier));
         qDebug() << "AAAAA 2.2";
     }
+}
 
+//! Updates map of instruments on insert/remove instrument.
+
+void LinkInstrumentManager::onInstrumentRowsChange(const QModelIndex &parent, int, int)
+{
+    // valid parent means not an instrument (which is top level item) but something below
+    if(parent.isValid())
+        return;
+
+    updateInstrumentMap();
+    updateLinks();
+}
+
+//! Updates map of data on insert/remove event.
+
+void LinkInstrumentManager::onRealDataRowsChange(const QModelIndex &parent, int, int)
+{
+    // valid parent means not a data (which is top level item) but something below
+    if(parent.isValid())
+        return;
+
+    updateRealDataMap();
+    updateLinks();
 }
 
 void LinkInstrumentManager::setInstrumentModel(InstrumentModel *model)
 {
     if (m_instrumentModel) {
         disconnect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(updateInstrumentMap()));
+                   this, SLOT(onInstrumentRowsChange(QModelIndex,int,int)));
         disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(updateInstrumentMap()));
+                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
     }
 
     m_instrumentModel = model;
 
     if (m_instrumentModel) {
         connect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(updateInstrumentMap()));
+                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
         connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(updateInstrumentMap()));
+                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
     }
 
 }
@@ -107,18 +131,18 @@ void LinkInstrumentManager::setRealDataModel(RealDataModel *model)
 {
     if (m_realDataModel) {
         disconnect(m_realDataModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(updateRealDataMap()));
+                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
         disconnect(m_realDataModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(updateRealDataMap()));
+                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
     }
 
     m_realDataModel = model;
 
     if (m_realDataModel) {
         connect(m_realDataModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(updateRealDataMap()));
+                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
         connect(m_realDataModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(updateRealDataMap()));
+                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
     }
 }
 
@@ -187,7 +211,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem *realData
 {
     InstrumentItem *instrumentItem = getInstrument(identifier);
 
-    // linking to null instrument is possible, it means unlinking from previous one
+    // linking to null instrument is possible, it means unlinking from currently linked
     if(instrumentItem == nullptr)
         return true;
 
@@ -224,11 +248,19 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem *realData
 
 void LinkInstrumentManager::updateLinks()
 {
-    foreach(SessionItem *dataItem, m_realDataModel->topItems(Constants::RealDataType)) {
-        QString identifier = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
-        if(!getInstrument(identifier)) {
-            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+    foreach(SessionItem *item, m_realDataModel->topItems(Constants::RealDataType)) {
+        RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(item);
+        Q_ASSERT(realDataItem);
+
+        QString identifier = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
+        InstrumentItem *instrumentItem = getInstrument(identifier);
+
+        if(!instrumentItem) {
+            realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+        } else {
+            realDataItem->linkToInstrument(instrumentItem);
         }
+
     }
 }
 
@@ -259,18 +291,6 @@ void LinkInstrumentManager::updateRealDataMap()
 {
     foreach(SessionItem *dataItem, m_realDataModel->topItems(Constants::RealDataType)) {
         dataItem->mapper()->unsubscribe(this);
-
-//        QString identifier = dataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
-//        QString instrName = instrumentNameFromIdentifier(identifier);
-//        if(instrName == undefinedInstrumentName) {
-//            dataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
-//        }
-
-//        ComboProperty combo = ComboProperty() << instrumentNames();
-//        combo.setValue(instrName);
-
-//        dataItem->setItemValue(RealDataItem::P_INSTRUMENT_COMBO, combo.getVariant());
-//        dataItem->setItemValue(RealDataItem::P_INSTRUMENT_NAME, instrName);
 
         dataItem->mapper()->setOnPropertyChange(
                     [this, dataItem](const QString &name)

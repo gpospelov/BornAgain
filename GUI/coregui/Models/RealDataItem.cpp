@@ -110,8 +110,8 @@ void RealDataItem::setOutputData(OutputData<double> *data)
 
 void RealDataItem::linkToInstrument(const InstrumentItem *instrument)
 {
-    if(m_linkedInstrument == instrument)
-        return;
+//    if(m_linkedInstrument == instrument)
+//        return;
 
     m_linkedInstrument = instrument;
     updateToInstrument();

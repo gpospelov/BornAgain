@@ -18,11 +18,11 @@
 #define IMPORTDATAASSISTANT_H
 
 #include "WinDllMacros.h"
+#include <QString>
 
 template <class T> class OutputData;
 class RealDataItem;
 class InstrumentItem;
-class QString;
 
 //! The ImportDataAssistant class provides utility methods to import data files.
 
@@ -37,7 +37,11 @@ public:
     static OutputData<double> *createSimlifiedOutputData(const OutputData<double> &data);
 
     static bool hasSameDimensions(const InstrumentItem *instrumentItem,
-                                  const RealDataItem *realDataItemItem, QString &message);
+                                  const RealDataItem *realDataItem);
+
+    static bool hasSameDimensions(const InstrumentItem *instrumentItem,
+                                  const RealDataItem *realDataItem,
+                                  QString &message);
 
     static void realDataShape(const RealDataItem *realData, int &nx, int &ny);
 

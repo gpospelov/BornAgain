@@ -41,6 +41,7 @@ void RealDataModel::loadNonXMLData(const QString &projectDir)
             = dynamic_cast<RealDataItem *>(itemForIndex(index(i, 0, QModelIndex())));
         ImportDataAssistant::loadIntensityData(realDataItem, projectDir);
     }
+    emit modelLoaded();
 }
 
 //! Saves JobItem's OutputData to the projectDir

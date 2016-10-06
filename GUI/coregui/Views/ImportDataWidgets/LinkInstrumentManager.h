@@ -21,6 +21,7 @@
 #include <QObject>
 #include <QMap>
 #include <QVector>
+#include <QStringList>
 
 class InstrumentModel;
 class RealDataModel;

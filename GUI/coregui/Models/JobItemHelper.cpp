@@ -221,16 +221,17 @@ void JobItemHelper::setIntensityItemAxesUnits(IntensityDataItem *intensityItem,
 void JobItemHelper::setIntensityItemAxesUnits(IntensityDataItem *intensityItem,
                                               const IDetector2D *detector)
 {
-    ComboProperty combo = intensityItem->getItemValue(IntensityDataItem::P_AXES_UNITS)
+    ComboProperty orig = intensityItem->getItemValue(IntensityDataItem::P_AXES_UNITS)
                               .value<ComboProperty>();
 
-    if(!combo.getValues().isEmpty())
-        return;
+//    if(!combo.getValues().isEmpty())
+//        return;
 
-    QString cachedUnits = combo.getCachedValue();
+    QString cachedUnits = orig.getCachedValue();
 
     intensityItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
 
+    ComboProperty combo;
     foreach (auto units, detector->getValidAxesUnits()) {
         combo << getNameFromAxesUnits(units);
     }

@@ -29,7 +29,7 @@ def finalize_git():
     cmd = "cd %s; git push" % get_source_dir()
     run_command(cmd)
 
-    cmd = "cd %s; git tag -a %s -m \"Release %s\"" % (get_source_dir(), get_version(), get_version())
+    cmd = "cd %s; git tag -a v%s -m \"Release %s\"" % (get_source_dir(), get_version(), get_version())
     run_command(cmd)
 
     cmd = "cd %s; git push --tags" % get_source_dir()

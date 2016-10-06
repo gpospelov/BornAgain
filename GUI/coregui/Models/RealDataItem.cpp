@@ -46,22 +46,6 @@ RealDataItem::RealDataItem()
             updateIntensityDataFileName();
         }
 
-        else if(name == P_INSTRUMENT_ID) {
-//            QString id = getItemValue(P_INSTRUMENT_ID).toString();
-//            if(id.isEmpty()) {
-//                mapper()->setActive(false);
-//                ComboProperty combo;
-//                combo << Constants::UnitsNbins;
-//                IntensityDataItem *item = intensityDataItem();
-//                item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
-//                item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-//                item->setXaxisTitle("X [nbins]");
-//                item->setYaxisTitle("Y [nbins]");
-//                item->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*item->getOutputData()));
-//                item->setAxesRangeToData();
-//                mapper()->setActive(true);
-//            }
-        }
     }
     );
 
@@ -90,12 +74,14 @@ RealDataItem::RealDataItem()
 
 IntensityDataItem *RealDataItem::intensityDataItem()
 {
-    return const_cast<IntensityDataItem *>(static_cast<const RealDataItem*>(this)->intensityDataItem());
+    return const_cast<IntensityDataItem *>(
+                static_cast<const RealDataItem*>(this)->intensityDataItem());
 }
 
 const IntensityDataItem *RealDataItem::intensityDataItem() const
 {
-    const IntensityDataItem *result = dynamic_cast<const IntensityDataItem *>(getItem(T_INTENSITY_DATA));
+    const IntensityDataItem *result = dynamic_cast<const IntensityDataItem *>(
+                getItem(T_INTENSITY_DATA));
     return result;
 }
 

@@ -21,7 +21,6 @@
 #include <QWidget>
 
 class LinkInstrumentManager;
-class ComponentEditor;
 class SessionItem;
 class InstrumentModel;
 class RealDataModel;
@@ -30,7 +29,7 @@ class QDataWidgetMapper;
 class QLineEdit;
 class QComboBox;
 
-//! The RealDataPropertiesWidget class holds component editor for RealDataItem.
+//! The RealDataPropertiesWidget class holds instrument selector to link with RealDataItem.
 //! Part of RealDataSelectorWidget, resides at lower left corner of ImportDataView.
 
 class BA_CORE_API_ RealDataPropertiesWidget : public QWidget
@@ -39,12 +38,11 @@ class BA_CORE_API_ RealDataPropertiesWidget : public QWidget
 public:
     explicit RealDataPropertiesWidget(QWidget *parent = 0);
 
-    QSize sizeHint() const { return QSize(64, 256); }
-    QSize minimumSizeHint() const { return QSize(64, 64); }
-
-    void setItem(SessionItem *item);
+    QSize sizeHint() const { return QSize(64, 135); }
+    QSize minimumSizeHint() const { return QSize(64, 128); }
 
     void setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel);
+    void setItem(SessionItem *item);
 
 public slots:
     void onInstrumentComboIndexChanged(int index);
@@ -56,7 +54,6 @@ private:
     void setComboConnected(bool isConnected);
 
     LinkInstrumentManager *m_linkManager;
-    ComponentEditor *m_propertyEditor;
     QDataWidgetMapper *m_dataNameMapper;
     QLineEdit *m_dataNameEdit;
     QComboBox *m_instrumentCombo;

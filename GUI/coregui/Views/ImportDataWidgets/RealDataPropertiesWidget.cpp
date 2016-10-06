@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "RealDataPropertiesWidget.h"
-#include "ComponentEditor.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
 #include "LinkInstrumentManager.h"
@@ -24,13 +23,17 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QDataWidgetMapper>
+#include <QLabel>
 #include <QDebug>
 
+namespace {
+const QString instrumentNameTooltip = "Name of real data";
+const QString selectorTooltip = "Select instrument to link with real data";
+}
 
 RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
     : QWidget(parent)
     , m_linkManager(new LinkInstrumentManager(this))
-    , m_propertyEditor(new ComponentEditor)
     , m_dataNameMapper(new QDataWidgetMapper)
     , m_dataNameEdit(new QLineEdit)
     , m_instrumentCombo(new QComboBox)
@@ -39,15 +42,25 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle("RealDataPropertiesWidget");
 
-
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
-    mainLayout->setSpacing(0);
-    mainLayout->setContentsMargins(0,0,0,0);
-    mainLayout->addWidget(m_propertyEditor);
+    mainLayout->setMargin(5);
+    mainLayout->setSpacing(2);
+
+    QLabel *nameLabel = new QLabel("Dataset");
+    nameLabel->setToolTip(instrumentNameTooltip);
+    m_dataNameEdit->setToolTip(instrumentNameTooltip);
+
+    QLabel *selectorLabel = new QLabel("Linked instrument");
+    selectorLabel->setToolTip(selectorTooltip);
+    m_instrumentCombo->setToolTip(selectorTooltip);
+
+    mainLayout->addWidget(nameLabel);
     mainLayout->addWidget(m_dataNameEdit);
+    mainLayout->addSpacing(5);
+    mainLayout->addWidget(selectorLabel);
     mainLayout->addWidget(m_instrumentCombo);
 
+    mainLayout->addStretch();
     setLayout(mainLayout);
 
     setComboConnected(true);
@@ -55,16 +68,18 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
             this, SLOT(onInstrumentMapUpdate()));
 }
 
+//! Sets models to underlying link manager.
+
 void RealDataPropertiesWidget::setModels(InstrumentModel *instrumentModel,
                                          RealDataModel *realDataModel)
 {
     m_linkManager->setModels(instrumentModel, realDataModel);
 }
 
+//! Set current RealDataItem to display in instrument selector.
 
 void RealDataPropertiesWidget::setItem(SessionItem *item)
 {
-    m_propertyEditor->setItem(item);
     m_dataNameMapper->clearMapping();
 
     if(item == m_currentDataItem)
@@ -72,7 +87,6 @@ void RealDataPropertiesWidget::setItem(SessionItem *item)
 
     if(m_currentDataItem)
         m_currentDataItem->mapper()->unsubscribe(this);
-
 
     m_currentDataItem = dynamic_cast<RealDataItem *>(item);
 
@@ -85,26 +99,19 @@ void RealDataPropertiesWidget::setItem(SessionItem *item)
         onRealDataPropertyChanged(name);
     }, this);
 
-
     m_currentDataItem->mapper()->setOnItemDestroy(
                 [this](SessionItem *) {
         m_currentDataItem = 0;
     }, this);
 
-
-//    if(!item)
-//        return;
-
-//    m_currentDataItem = dynamic_cast<RealDataItem *>(item);
-//    Q_ASSERT(m_currentDataItem);
-
+    // Initialize QLineEdit to edit itemName directly in the model
     m_dataNameMapper->setModel(item->model());
     m_dataNameMapper->setRootIndex(item->index());
     m_dataNameMapper->setCurrentModelIndex(item->getItem(SessionItem::P_NAME)->index());
     m_dataNameMapper->addMapping(m_dataNameEdit, 1);
     m_dataNameMapper->toFirst();
 
-
+    // Set combo selector to show linked instrument
     setComboToIdentifier(item->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString());
 }
 
@@ -130,10 +137,9 @@ void RealDataPropertiesWidget::onInstrumentComboIndexChanged(int index)
         // LinkManager doesn't allow to link data to instrument.
         setComboToIdentifier(dataLink); // Returning Combo selector to previous state
     }
-
 }
 
-//! Updates instrument selector for new instrument names, and add/remove instrument events.
+//! Updates instrument selector for new instruments and their names.
 //! Current selection will be preserved.
 
 void RealDataPropertiesWidget::onInstrumentMapUpdate()
@@ -152,7 +158,7 @@ void RealDataPropertiesWidget::onInstrumentMapUpdate()
     setComboConnected(true);
 }
 
-//! Updates instrument combo on link change of current RealDataItem
+//! Updates instrument combo on link change of current RealDataItem.
 
 void RealDataPropertiesWidget::onRealDataPropertyChanged(const QString &name)
 {
@@ -186,4 +192,3 @@ void RealDataPropertiesWidget::setComboConnected(bool isConnected)
                 this, SLOT(onInstrumentComboIndexChanged(int)));
     }
 }
-

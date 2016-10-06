@@ -66,11 +66,37 @@ void RealDataPropertiesWidget::setItem(SessionItem *item)
 {
     m_propertyEditor->setItem(item);
     m_dataNameMapper->clearMapping();
-    if(!item)
+
+    if(item == m_currentDataItem)
         return;
 
+    if(m_currentDataItem)
+        m_currentDataItem->mapper()->unsubscribe(this);
+
+
     m_currentDataItem = dynamic_cast<RealDataItem *>(item);
-    Q_ASSERT(m_currentDataItem);
+
+    if(!m_currentDataItem)
+        return;
+
+    m_currentDataItem->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onRealDataPropertyChanged(name);
+    }, this);
+
+
+    m_currentDataItem->mapper()->setOnItemDestroy(
+                [this](SessionItem *) {
+        m_currentDataItem = 0;
+    }, this);
+
+
+//    if(!item)
+//        return;
+
+//    m_currentDataItem = dynamic_cast<RealDataItem *>(item);
+//    Q_ASSERT(m_currentDataItem);
 
     m_dataNameMapper->setModel(item->model());
     m_dataNameMapper->setRootIndex(item->index());
@@ -124,6 +150,16 @@ void RealDataPropertiesWidget::onInstrumentMapUpdate()
         m_instrumentCombo->setCurrentIndex(0);
     }
     setComboConnected(true);
+}
+
+//! Updates instrument combo on link change of current RealDataItem
+
+void RealDataPropertiesWidget::onRealDataPropertyChanged(const QString &name)
+{
+    if(name == RealDataItem::P_INSTRUMENT_ID) {
+        setComboToIdentifier(
+                    m_currentDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString());
+    }
 }
 
 //! Sets instrument combo selector to the state corresponding to given instrument identifier.

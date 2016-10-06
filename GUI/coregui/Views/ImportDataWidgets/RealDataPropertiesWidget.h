@@ -49,6 +49,7 @@ public:
 public slots:
     void onInstrumentComboIndexChanged(int index);
     void onInstrumentMapUpdate();
+    void onRealDataPropertyChanged(const QString &name);
 
 private:
     void setComboToIdentifier(const QString &identifier);

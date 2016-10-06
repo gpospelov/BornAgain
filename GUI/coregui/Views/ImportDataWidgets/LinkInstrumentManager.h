@@ -58,6 +58,8 @@ public slots:
     void setOnInstrumentPropertyChange(SessionItem *instrument, const QString &property);
     void setOnRealDataPropertyChange(SessionItem *dataItem, const QString &property);
 
+    void onInstrumentChildChange(SessionItem *instrument, SessionItem *child);
+
     void onInstrumentRowsChange(const QModelIndex & parent, int, int);
     void onRealDataRowsChange(const QModelIndex & parent, int, int);
 
@@ -65,10 +67,10 @@ private slots:
     void updateLinks();
     void updateInstrumentMap();
     void updateRealDataMap();
+    void onInstrumentBinningChange(SessionItem *changedInstrument);
 
 public:
     QString instrumentNameFromIdentifier(const QString &identifier);
-//    QString instrumentIdentifierFromName(const QString &name);
     InstrumentItem *getInstrument(const QString &identifier);
     QStringList instrumentNames() const;
     int instrumentComboIndex(const QString &identifier);

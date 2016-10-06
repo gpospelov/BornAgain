@@ -28,6 +28,7 @@
 #include "DomainObjectBuilder.h"
 #include "Instrument.h"
 #include "LinkInstrumentItem.h"
+#include "AxesItems.h"
 #include <QMessageBox>
 #include <QPushButton>
 #include <QDebug>
@@ -48,7 +49,6 @@ LinkInstrumentManager::LinkInstrumentManager(QObject *parent)
     , m_instrumentModel(0)
     , m_realDataModel(0)
 {
-//    connect(this, SIGNAL(instrumentMapUpdated()), this, SLOT(updateLinks()));
 }
 
 void LinkInstrumentManager::setModels(InstrumentModel *instrumentModel,
@@ -60,7 +60,6 @@ void LinkInstrumentManager::setModels(InstrumentModel *instrumentModel,
     updateRealDataMap();
     updateLinks();
 }
-
 
 void LinkInstrumentManager::setOnInstrumentPropertyChange(SessionItem *instrument, const QString &property)
 {
@@ -81,6 +80,13 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem, c
         realDataItem->linkToInstrument(getInstrument(identifier));
         qDebug() << "AAAAA 2.2";
     }
+}
+
+void LinkInstrumentManager::onInstrumentChildChange(SessionItem *instrument, SessionItem *child)
+{
+    qDebug() << "onInstrumentChildChange" << instrument->modelType() << child->modelType() << child->itemName();
+    if(child->itemName() == BasicAxisItem::P_NBINS)
+        onInstrumentBinningChange(instrument);
 }
 
 //! Updates map of instruments on insert/remove instrument.
@@ -107,48 +113,6 @@ void LinkInstrumentManager::onRealDataRowsChange(const QModelIndex &parent, int,
     updateLinks();
 }
 
-void LinkInstrumentManager::setInstrumentModel(InstrumentModel *model)
-{
-    if (m_instrumentModel) {
-        disconnect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(onInstrumentRowsChange(QModelIndex,int,int)));
-        disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
-    }
-
-    m_instrumentModel = model;
-
-    if (m_instrumentModel) {
-        connect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
-        connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
-    }
-
-}
-
-void LinkInstrumentManager::setRealDataModel(RealDataModel *model)
-{
-    if (m_realDataModel) {
-        disconnect(m_realDataModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
-        disconnect(m_realDataModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
-        disconnect(m_realDataModel, SIGNAL(modelLoaded()),
-                   this, SLOT(updateLinks()));
-    }
-
-    m_realDataModel = model;
-
-    if (m_realDataModel) {
-        connect(m_realDataModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
-        connect(m_realDataModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
-        connect(m_realDataModel, SIGNAL(modelLoaded()),
-                   this, SLOT(updateLinks()));
-    }
-}
 
 //! Returns name of the instrument from identifier
 
@@ -275,11 +239,19 @@ void LinkInstrumentManager::updateInstrumentMap()
     m_instrumentVec.append(InstrumentInfo()); // undefined instrument
     foreach(SessionItem *item, m_instrumentModel->topItems(Constants::InstrumentType)) {
         item->mapper()->unsubscribe(this);
+
         item->mapper()->setOnPropertyChange(
                     [this, item](const QString &name)
         {
             setOnInstrumentPropertyChange(item, name);
         }, this);
+
+        item->mapper()->setOnAnyChildChange(
+            [this, item] (SessionItem* child)
+        {
+            onInstrumentChildChange(item, child);
+        }, this);
+
 
         InstrumentInfo info;
         info.m_name = item->itemName();
@@ -306,3 +278,69 @@ void LinkInstrumentManager::updateRealDataMap()
 
 }
 
+//! Runs through all RealDataItem and break the link, if instrument binning doesn't match the data.
+
+void LinkInstrumentManager::onInstrumentBinningChange(SessionItem *changedInstrument)
+{
+    Q_ASSERT(changedInstrument);
+
+    foreach(SessionItem *item, m_realDataModel->topItems(Constants::RealDataType)) {
+        RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(item);
+
+        QString identifier = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
+        InstrumentItem *instrumentItem = getInstrument(identifier);
+        if(instrumentItem == changedInstrument) {
+            QString message;
+            if(!ImportDataAssistant::hasSameDimensions(instrumentItem, realDataItem, message)) {
+                qDebug() << "Breaking the link " << identifier;
+                realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+            }
+        }
+    }
+}
+
+//! Sets connections for instrument model.
+
+void LinkInstrumentManager::setInstrumentModel(InstrumentModel *model)
+{
+    if (m_instrumentModel) {
+        disconnect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                   this, SLOT(onInstrumentRowsChange(QModelIndex,int,int)));
+        disconnect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
+    }
+
+    m_instrumentModel = model;
+
+    if (m_instrumentModel) {
+        connect(m_instrumentModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
+        connect(m_instrumentModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                   this, SLOT(onInstrumentRowsChange(QModelIndex, int, int)));
+    }
+}
+
+//! Sets connections for real data model.
+
+void LinkInstrumentManager::setRealDataModel(RealDataModel *model)
+{
+    if (m_realDataModel) {
+        disconnect(m_realDataModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
+        disconnect(m_realDataModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
+        disconnect(m_realDataModel, SIGNAL(modelLoaded()),
+                   this, SLOT(updateLinks()));
+    }
+
+    m_realDataModel = model;
+
+    if (m_realDataModel) {
+        connect(m_realDataModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
+        connect(m_realDataModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                   this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
+        connect(m_realDataModel, SIGNAL(modelLoaded()),
+                   this, SLOT(updateLinks()));
+    }
+}

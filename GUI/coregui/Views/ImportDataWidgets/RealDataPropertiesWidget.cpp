@@ -35,7 +35,9 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
     : QWidget(parent)
     , m_linkManager(new LinkInstrumentManager(this))
     , m_dataNameMapper(new QDataWidgetMapper)
+    , m_dataNameLabel(new QLabel("Dataset"))
     , m_dataNameEdit(new QLineEdit)
+    , m_instrumentLabel(new QLabel("Linked instrument"))
     , m_instrumentCombo(new QComboBox)
     , m_currentDataItem(0)
 {
@@ -46,18 +48,15 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
     mainLayout->setMargin(5);
     mainLayout->setSpacing(2);
 
-    QLabel *nameLabel = new QLabel("Dataset");
-    nameLabel->setToolTip(instrumentNameTooltip);
+    m_dataNameLabel->setToolTip(instrumentNameTooltip);
     m_dataNameEdit->setToolTip(instrumentNameTooltip);
-
-    QLabel *selectorLabel = new QLabel("Linked instrument");
-    selectorLabel->setToolTip(selectorTooltip);
+    m_instrumentLabel->setToolTip(selectorTooltip);
     m_instrumentCombo->setToolTip(selectorTooltip);
 
-    mainLayout->addWidget(nameLabel);
+    mainLayout->addWidget(m_dataNameLabel);
     mainLayout->addWidget(m_dataNameEdit);
     mainLayout->addSpacing(5);
-    mainLayout->addWidget(selectorLabel);
+    mainLayout->addWidget(m_instrumentLabel);
     mainLayout->addWidget(m_instrumentCombo);
 
     mainLayout->addStretch();
@@ -66,6 +65,8 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
     setComboConnected(true);
     connect(m_linkManager, SIGNAL(instrumentMapUpdated()),
             this, SLOT(onInstrumentMapUpdate()));
+
+    setPropertiesEnabled(false);
 }
 
 //! Sets models to underlying link manager.
@@ -90,8 +91,12 @@ void RealDataPropertiesWidget::setItem(SessionItem *item)
 
     m_currentDataItem = dynamic_cast<RealDataItem *>(item);
 
-    if(!m_currentDataItem)
+    if(!m_currentDataItem) {
+        setPropertiesEnabled(false);
         return;
+    }
+
+    setPropertiesEnabled(true);
 
     m_currentDataItem->mapper()->setOnPropertyChange(
                 [this](const QString &name)
@@ -120,7 +125,6 @@ void RealDataPropertiesWidget::setItem(SessionItem *item)
 
 void RealDataPropertiesWidget::onInstrumentComboIndexChanged(int index)
 {
-    qDebug() << "AAA" << index;
     m_current_id = m_linkManager->instrumentIdentifier(index);
 
     if(!m_currentDataItem)
@@ -191,4 +195,15 @@ void RealDataPropertiesWidget::setComboConnected(bool isConnected)
         disconnect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(onInstrumentComboIndexChanged(int)));
     }
+}
+
+//! Sets all widget's children enabled/disabled. When no RealDataItem selected all
+//! will appear in gray.
+
+void RealDataPropertiesWidget::setPropertiesEnabled(bool enabled)
+{
+    m_dataNameLabel->setEnabled(enabled);
+    m_dataNameEdit->setEnabled(enabled);
+    m_instrumentLabel->setEnabled(enabled);
+    m_instrumentCombo->setEnabled(enabled);
 }

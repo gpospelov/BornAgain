@@ -28,6 +28,7 @@ class RealDataItem;
 class QDataWidgetMapper;
 class QLineEdit;
 class QComboBox;
+class QLabel;
 
 //! The RealDataPropertiesWidget class holds instrument selector to link with RealDataItem.
 //! Part of RealDataSelectorWidget, resides at lower left corner of ImportDataView.
@@ -52,10 +53,13 @@ public slots:
 private:
     void setComboToIdentifier(const QString &identifier);
     void setComboConnected(bool isConnected);
+    void setPropertiesEnabled(bool enabled);
 
     LinkInstrumentManager *m_linkManager;
     QDataWidgetMapper *m_dataNameMapper;
+    QLabel *m_dataNameLabel;
     QLineEdit *m_dataNameEdit;
+    QLabel *m_instrumentLabel;
     QComboBox *m_instrumentCombo;
     QString m_current_id;
     RealDataItem *m_currentDataItem;

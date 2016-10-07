@@ -136,6 +136,7 @@ void RealDataItem::updateToInstrument()
     }
 
     else {
+
         JobItemHelper::adjustIntensityDataToInstrument(item, m_linkedInstrument);
 
     }

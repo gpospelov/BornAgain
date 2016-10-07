@@ -21,6 +21,7 @@
 #include "RealDataItem.h"
 #include "ImportDataAssistant.h"
 #include "AxesItems.h"
+#include "DetectorItems.h"
 #include <QMessageBox>
 #include <QPushButton>
 #include <QDebug>
@@ -167,7 +168,12 @@ void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem *instrument, 
     if(child == nullptr)
         return;
 
-    if(child->itemName() == BasicAxisItem::P_NBINS) {
+    qDebug() << "SSS 1.1" << child->modelType() << child->itemName();
+    qDebug() << "SSS 1.1" << child->parent()->modelType() << child->parent()->itemName();
+
+
+    if(child->itemName() == BasicAxisItem::P_NBINS ||
+       child->parent()->itemName() == DetectorItem::P_DETECTOR) {
         onInstrumentBinningChange(instrument);
     } else {
         onInstrumentLayoutChange(instrument);

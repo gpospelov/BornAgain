@@ -120,11 +120,11 @@ void JobItemHelper::adjustIntensityDataToInstrument(IntensityDataItem *intensity
         instrument->getDetector()->createDetectorMap(instrument->getBeam(),
                                                      preferrable_units));
 
-    newData->setRawDataVector(intensityDataItem->getOutputData()->getRawDataVector());
-
     if(!newData->hasSameDimensions(*intensityDataItem->getOutputData()))
         throw GUIHelpers::Error("JobItemHelper::adjustIntensityDataToInstrument() -> Error. "
                                 "Dimension of detector doesn't match IntensityData.");
+
+    newData->setRawDataVector(intensityDataItem->getOutputData()->getRawDataVector());
 
     ComboProperty unitsCombo;
     foreach (auto units, instrument->getDetector()->getValidAxesUnits())

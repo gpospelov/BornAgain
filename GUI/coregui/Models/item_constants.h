@@ -157,6 +157,7 @@ const ModelType RegionOfInterestType = "RegionOfInterest";
 const ModelType SimulationOptionsType = "SimulationOptions";
 
 const ModelType RealDataType = "RealData";
+const ModelType LinkInstrumentType = "LinkInstrument";
 
 const ModelType MinimizerContainerType = "MinimizerContainer";
 const ModelType MinuitMinimizerType = "Minuit2";

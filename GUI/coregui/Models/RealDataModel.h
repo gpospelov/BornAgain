@@ -32,6 +32,9 @@ public:
     void loadNonXMLData(const QString &projectDir);
     void saveNonXMLData(const QString &projectDir);
 
+signals:
+    void modelLoaded();
+
 };
 
 #endif // REALDATAMODEL_H

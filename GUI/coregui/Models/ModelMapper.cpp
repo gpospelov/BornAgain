@@ -15,8 +15,6 @@
 // ************************************************************************** //
 
 #include "SessionModel.h"
-#include <QDebug>
-
 
 ModelMapper::ModelMapper(QObject *parent)
     : QObject(parent)
@@ -258,12 +256,9 @@ void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &b
 
 void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int /*last*/)
 {
-    qDebug() << "OOO-> ModelMapper::onRowsInserted -> begin()";
     Q_ASSERT(m_item);
 
     SessionItem *newChild = m_model->itemForIndex(parent.child(first, 0));
-    qDebug() << "AAA 1.1" << m_item << m_item->displayName();
-    qDebug() << "AAA 1.2" << newChild << newChild->displayName();
 
     int nestling = nestlingDepth(newChild);
 
@@ -298,17 +293,12 @@ void ModelMapper::onRowsInserted(const QModelIndex &parent, int first, int /*las
     if (nestling > 0) {
         callOnAnyChildChange(newChild);
     }
-
-    qDebug() << "OOO-> ModelMapper::onRowsInserted -> end()";
 }
 
 void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*last*/)
 {
-    qDebug() << "OOO-> ModelMapper::onBeginRemoveRows -> begin()";
     Q_ASSERT(m_item);
     SessionItem *oldChild = m_model->itemForIndex(parent.child(first, 0));
-//    qDebug() << "AAA 1.1" << m_item << m_item->displayName();
-//    qDebug() << "AAA 1.2" << oldChild << oldChild->displayName();
 
     int nestling = nestlingDepth(m_model->itemForIndex(parent));
 
@@ -342,17 +332,11 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*
 
     if (m_item == oldChild) {
         m_aboutToDelete = parent.child(first, 0);
-        qDebug() << "---------------------------->>>";
-        qDebug() << "ModelMapper::onBeginRemoveRows() -> preparing m_aboutToDelete" << m_aboutToDelete;
     }
-
-    qDebug() << "OOO-> ModelMapper::onBeginRemoveRows -> end()";
 }
 
 void ModelMapper::onRowRemoved(const QModelIndex &parent, int first, int /*last*/)
 {
-    qDebug() << "OOO-> ModelMapper::onRowRemoved -> begin()";
-
     int nestling = nestlingDepth(m_model->itemForIndex(parent));
 
     if (nestling >= 0 || m_model->itemForIndex(parent) == m_item->parent()) {
@@ -362,11 +346,7 @@ void ModelMapper::onRowRemoved(const QModelIndex &parent, int first, int /*last*
     }
 
     if(m_aboutToDelete.isValid() && m_aboutToDelete == parent.child(first, 0)) {
-        qDebug() << "ModelMapper::onRowRemoved() -> clearingMapper";
         clearMapper();
-        qDebug() << "<<<- done ---------------------------";
 
     }
-    qDebug() << "OOO-> ModelMapper::onRowRemoved -> end()";
-
 }

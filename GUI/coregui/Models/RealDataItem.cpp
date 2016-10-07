@@ -25,7 +25,6 @@
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
-const QString RealDataItem::P_INSTRUMENT_COMBO = "Combo";
 const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 
 RealDataItem::RealDataItem()
@@ -34,21 +33,20 @@ RealDataItem::RealDataItem()
 {
     setItemName(QStringLiteral("undefined"));
 
-//    addProperty(P_INSTRUMENT_ID, QString())->setVisible(false);
     addProperty(P_INSTRUMENT_ID, QString());
     addProperty(P_INSTRUMENT_NAME, QString());
 
-    ComboProperty instruments = ComboProperty() << "Undefined";
-    addProperty(P_INSTRUMENT_COMBO, instruments.getVariant());
-
     registerTag(T_INTENSITY_DATA, 1, 1, QStringList() << Constants::IntensityDataType);
     setDefaultTag(T_INTENSITY_DATA);
+    insertItem(0, new IntensityDataItem(), T_INTENSITY_DATA);
 
     mapper()->setOnPropertyChange(
         [this](const QString &name){
-        if(name == P_NAME && isTag(T_INTENSITY_DATA))
+        if(name == P_NAME && isTag(T_INTENSITY_DATA)) {
             updateIntensityDataFileName();
         }
+
+    }
     );
 
     mapper()->setOnChildrenChange(
@@ -72,18 +70,18 @@ RealDataItem::RealDataItem()
         }
     });
 
-
-
 }
 
 IntensityDataItem *RealDataItem::intensityDataItem()
 {
-    return const_cast<IntensityDataItem *>(static_cast<const RealDataItem*>(this)->intensityDataItem());
+    return const_cast<IntensityDataItem *>(
+                static_cast<const RealDataItem*>(this)->intensityDataItem());
 }
 
 const IntensityDataItem *RealDataItem::intensityDataItem() const
 {
-    const IntensityDataItem *result = dynamic_cast<const IntensityDataItem *>(getItem(T_INTENSITY_DATA));
+    const IntensityDataItem *result = dynamic_cast<const IntensityDataItem *>(
+                getItem(T_INTENSITY_DATA));
     return result;
 }
 
@@ -92,22 +90,15 @@ const IntensityDataItem *RealDataItem::intensityDataItem() const
 void RealDataItem::setOutputData(OutputData<double> *data)
 {
     IntensityDataItem *item = intensityDataItem();
-    if(!item) {
-        item = dynamic_cast<IntensityDataItem *>(
-            this->model()->insertNewItem(Constants::IntensityDataType, this->index()));
-        ComboProperty combo;
-        combo << Constants::UnitsNbins;
-        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
-        item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-        item->setXaxisTitle("X [nbins]");
-        item->setYaxisTitle("Y [nbins]");
-    }
-
+    Q_ASSERT(item);
     item->setOutputData(data);
 }
 
 void RealDataItem::linkToInstrument(const InstrumentItem *instrument)
 {
+//    if(m_linkedInstrument == instrument)
+//        return;
+
     m_linkedInstrument = instrument;
     updateToInstrument();
 }
@@ -145,6 +136,7 @@ void RealDataItem::updateToInstrument()
     }
 
     else {
+
         JobItemHelper::adjustIntensityDataToInstrument(item, m_linkedInstrument);
 
     }

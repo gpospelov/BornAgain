@@ -38,8 +38,7 @@ IntensityDataItem::IntensityDataItem()
 {
 //    setItemName(Constants::IntensityDataType);
 
-    ComboProperty units;
-//    addProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
+    ComboProperty units = ComboProperty() << Constants::UnitsNbins;
     addProperty(P_AXES_UNITS, units.getVariant());
 
     addProperty(P_TITLE, QString())->setVisible(false);
@@ -68,6 +67,9 @@ IntensityDataItem::IntensityDataItem()
 
     item = addGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
+
+    setXaxisTitle("X [nbins]");
+    setYaxisTitle("Y [nbins]");
 
     // name of the file used to serialize given IntensityDataItem
     addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);

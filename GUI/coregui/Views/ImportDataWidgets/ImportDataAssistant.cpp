@@ -113,16 +113,23 @@ OutputData<double> *ImportDataAssistant::createSimlifiedOutputData(const OutputD
     return result;
 }
 
+bool ImportDataAssistant::hasSameDimensions(const InstrumentItem *instrumentItem,
+                                            const RealDataItem *realDataItem)
+{
+    QString message;
+    return hasSameDimensions(instrumentItem, realDataItem, message);
+}
+
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
 bool ImportDataAssistant::hasSameDimensions(const InstrumentItem *instrumentItem,
-                              const RealDataItem *realDataItemItem, QString &message)
+                              const RealDataItem *realDataItem, QString &message)
 {
     bool isSame(true);
     message.clear();
 
     int nxData(0), nyData(0);
-    realDataShape(realDataItemItem, nxData, nyData);
+    realDataShape(realDataItem, nxData, nyData);
 
     int nxDetector(0), nyDetector(0);
     detectorShape(instrumentItem, nxDetector, nyDetector);

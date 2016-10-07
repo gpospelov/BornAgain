@@ -18,6 +18,7 @@
 #include "SplashScreen.h"
 #include "appoptions.h"
 #include "mainwindow.h"
+#include "ComboProperty.h"
 #include <QApplication>
 #include <QDebug>
 #include <QLocale>
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     qRegisterMetaType<QVector<double> >("QVector<double>");
     qRegisterMetaType<FitProgressInfo>("FitProgressInfo");
+//    QMetaType::registerComparators<ComboProperty>();
 
     QApplication a(argc, argv);
 

@@ -27,7 +27,6 @@ class InstrumentModel;
 class RealDataModel;
 class SessionItem;
 class QItemSelectionModel;
-class LinkInstrumentManager;
 namespace Manhattan { class MiniSplitter;}
 
 //! The RealDataSelectorWidget represents left panel of ImportDataView. Contains a widget to
@@ -58,7 +57,6 @@ private:
     Manhattan::MiniSplitter *m_splitter;
     ItemSelectorWidget *m_selectorWidget;
     RealDataPropertiesWidget *m_propertiesWidget;
-    LinkInstrumentManager *m_linkManager;
 };
 
 #endif // REALDATASELECTORWIDGET_H

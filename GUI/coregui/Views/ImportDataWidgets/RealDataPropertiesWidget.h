@@ -20,10 +20,17 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class ComponentEditor;
+class LinkInstrumentManager;
 class SessionItem;
+class InstrumentModel;
+class RealDataModel;
+class RealDataItem;
+class QDataWidgetMapper;
+class QLineEdit;
+class QComboBox;
+class QLabel;
 
-//! The RealDataPropertiesWidget class holds component editor for RealDataItem.
+//! The RealDataPropertiesWidget class holds instrument selector to link with RealDataItem.
 //! Part of RealDataSelectorWidget, resides at lower left corner of ImportDataView.
 
 class BA_CORE_API_ RealDataPropertiesWidget : public QWidget
@@ -32,13 +39,30 @@ class BA_CORE_API_ RealDataPropertiesWidget : public QWidget
 public:
     explicit RealDataPropertiesWidget(QWidget *parent = 0);
 
-    QSize sizeHint() const { return QSize(64, 256); }
-    QSize minimumSizeHint() const { return QSize(64, 64); }
+    QSize sizeHint() const { return QSize(64, 135); }
+    QSize minimumSizeHint() const { return QSize(64, 128); }
 
+    void setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel);
     void setItem(SessionItem *item);
 
+public slots:
+    void onInstrumentComboIndexChanged(int index);
+    void onInstrumentMapUpdate();
+    void onRealDataPropertyChanged(const QString &name);
+
 private:
-    ComponentEditor *m_propertyEditor;
+    void setComboToIdentifier(const QString &identifier);
+    void setComboConnected(bool isConnected);
+    void setPropertiesEnabled(bool enabled);
+
+    LinkInstrumentManager *m_linkManager;
+    QDataWidgetMapper *m_dataNameMapper;
+    QLabel *m_dataNameLabel;
+    QLineEdit *m_dataNameEdit;
+    QLabel *m_instrumentLabel;
+    QComboBox *m_instrumentCombo;
+    QString m_current_id;
+    RealDataItem *m_currentDataItem;
 };
 
 #endif

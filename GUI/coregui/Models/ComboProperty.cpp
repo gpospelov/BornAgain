@@ -82,5 +82,5 @@ bool ComboProperty::operator==(const ComboProperty &other) const {
 
 bool ComboProperty::operator<(const ComboProperty &other) const
 {
-    return m_current_value < other.m_current_value && m_values < other.m_values;
+    return m_current_value < other.m_current_value && m_values.size() < other.m_values.size();
 }

@@ -80,6 +80,8 @@ template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
 
 BA_CORE_API_ QString createUuid();
 
+BA_CORE_API_ bool isTheSame(const QStringList &lhs, const QStringList &rhs);
+
 } // namespace GUIHelpers
 
 #endif // GUIHELPERS_H

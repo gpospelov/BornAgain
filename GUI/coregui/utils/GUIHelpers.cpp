@@ -245,5 +245,15 @@ QString createUuid()
     return  QUuid::createUuid().toString();
 }
 
+bool isTheSame(const QStringList &lhs, const QStringList &rhs)
+{
+    if(lhs.size() != rhs.size()) return false;
+    for(int i=0; i<lhs.size(); ++i)
+        if(lhs.at(i) != rhs.at(i))
+            return false;
+
+    return true;
+}
+
 
 } // namespace GUIHelpers

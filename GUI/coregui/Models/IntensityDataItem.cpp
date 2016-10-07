@@ -19,6 +19,7 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "MaskItems.h"
 
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString IntensityDataItem::P_TITLE = "Title";
@@ -370,4 +371,9 @@ void IntensityDataItem::resetView()
     setAxesRangeToData();
     if(!isZAxisLocked())
         computeDataRange();
+}
+
+MaskContainerItem *IntensityDataItem::maskContainerItem()
+{
+    return dynamic_cast<MaskContainerItem *>(getItem(IntensityDataItem::T_MASKS));
 }

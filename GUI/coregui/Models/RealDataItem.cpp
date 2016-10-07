@@ -22,6 +22,7 @@
 #include "ComboProperty.h"
 #include "JobItemHelper.h"
 #include "ImportDataAssistant.h"
+#include "MaskUnitsConverter.h"
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
@@ -65,7 +66,14 @@ RealDataItem::RealDataItem()
                 return;
             mapper()->setActive(false);
             Q_ASSERT(m_linkedInstrument);
+
+            MaskUnitsConverter converter;
+            converter.convertToNbins(intensityDataItem());
+
             JobItemHelper::updateDataAxes(intensityDataItem(), m_linkedInstrument);
+
+            converter.convertFromNbins(intensityDataItem());
+
             mapper()->setActive(true);
         }
     });

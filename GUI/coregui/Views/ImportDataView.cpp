@@ -29,8 +29,8 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     , m_toolBar(new ImportDataToolBar)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new RealDataSelectorWidget)
-    , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
-//    , m_stackedWidget(new ItemStackPresenter<RealDataMaskWidget>)
+//    , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
+    , m_stackedWidget(new ItemStackPresenter<RealDataMaskWidget>)
     , m_realDataModel(mainWindow->realDataModel())
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -71,8 +71,8 @@ void ImportDataView::onSelectionChanged(SessionItem *item)
     bool isNew(false);
     m_stackedWidget->setItem(item, isNew);
     if(isNew) {
-        RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
-//        RealDataMaskWidget *widget = m_stackedWidget->currentWidget();
+//        RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
+        RealDataMaskWidget *widget = m_stackedWidget->currentWidget();
         Q_ASSERT(widget);
         widget->setItem(item);
     }

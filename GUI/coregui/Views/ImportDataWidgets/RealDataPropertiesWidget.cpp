@@ -206,4 +206,8 @@ void RealDataPropertiesWidget::setPropertiesEnabled(bool enabled)
     m_dataNameEdit->setEnabled(enabled);
     m_instrumentLabel->setEnabled(enabled);
     m_instrumentCombo->setEnabled(enabled);
+    if(enabled == false) {
+        m_dataNameEdit->clear();
+        m_instrumentCombo->setCurrentIndex(0);
+    }
 }

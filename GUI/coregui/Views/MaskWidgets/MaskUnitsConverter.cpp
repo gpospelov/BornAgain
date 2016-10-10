@@ -18,6 +18,7 @@
 #include "IntensityDataItem.h"
 #include "MaskItems.h"
 #include "BornAgainNamespace.h"
+#include "IntensityDataFunctions.h"
 #include <QDebug>
 
 void MaskUnitsConverter::convertToNbins(IntensityDataItem *intensityData)
@@ -41,75 +42,135 @@ void MaskUnitsConverter::convertFromNbins(IntensityDataItem *intensityData)
 
 void MaskUnitsConverter::convertMaskToNbins(SessionItem *maskItem, const OutputData<double> *data)
 {
-    qDebug() << "TTT" << maskItem->modelType();
-
-    if(maskItem->modelType() == Constants::RectangleMaskType) {
-        double x = maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
-        double y = maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
-
-        pointToBins(x, y, data);
-        maskItem->setItemValue(RectangleItem::P_XLOW, x);
-        maskItem->setItemValue(RectangleItem::P_YLOW, y);
-
-        x = maskItem->getItemValue(RectangleItem::P_XUP).toDouble();
-        y = maskItem->getItemValue(RectangleItem::P_YUP).toDouble();
-        pointToBins(x, y, data);
-        maskItem->setItemValue(RectangleItem::P_XUP, x);
-        maskItem->setItemValue(RectangleItem::P_YUP, y);
+    if(maskItem->modelType() == Constants::RectangleMaskType ||
+            maskItem->modelType() == Constants::RegionOfInterestType) {
+        convertToBinf(maskItem, RectangleItem::P_XLOW, RectangleItem::P_YLOW, data);
+        convertToBinf(maskItem, RectangleItem::P_XUP, RectangleItem::P_YUP, data);
     }
+
+    else if(maskItem->modelType() == Constants::PolygonMaskType) {
+        foreach (SessionItem *pointItem, maskItem->getChildrenOfType(Constants::PolygonPointType))
+            convertToBinf(pointItem, PolygonPointItem::P_POSX, PolygonPointItem::P_POSY, data);
+    }
+
+    else if(maskItem->modelType() == Constants::VerticalLineMaskType) {
+        convertToBinf(maskItem, VerticalLineItem::P_POSX, QString(), data);
+
+    }
+
+    else if(maskItem->modelType() == Constants::HorizontalLineMaskType) {
+        convertToBinf(maskItem, QString(), HorizontalLineItem::P_POSY, data);
+
+    }
+
+    else if(maskItem->modelType() == Constants::EllipseMaskType) {
+        double xc = maskItem->getItemValue(EllipseItem::P_XCENTER).toDouble();
+        double yc = maskItem->getItemValue(EllipseItem::P_YCENTER).toDouble();
+        double xR = maskItem->getItemValue(EllipseItem::P_XRADIUS).toDouble();
+        double yR = maskItem->getItemValue(EllipseItem::P_YRADIUS).toDouble();
+
+        double x2 = xc + xR;
+        double y2 = yc + yR;
+
+        IntensityDataFunctions::coordinateToBinf(xc, yc, data);
+        IntensityDataFunctions::coordinateToBinf(x2, y2, data);
+
+        maskItem->setItemValue(EllipseItem::P_XCENTER, xc);
+        maskItem->setItemValue(EllipseItem::P_YCENTER, yc);
+        maskItem->setItemValue(EllipseItem::P_XRADIUS, x2 - xc);
+        maskItem->setItemValue(EllipseItem::P_YRADIUS, y2 - yc);
+
+//        convertToBinf(maskItem, EllipseItem::P_XCENTER, EllipseItem::P_YCENTER, data);
+//        convertToBinf(maskItem, EllipseItem::P_XRADIUS, EllipseItem::P_YRADIUS, data);
+    }
+
 }
 
 void MaskUnitsConverter::convertMaskFromNbins(SessionItem *maskItem, const OutputData<double> *data)
 {
-    if(maskItem->modelType() == Constants::RectangleMaskType) {
-        double x = maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
-        double y = maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
-
-        pointFromBins(x, y, data);
-        maskItem->setItemValue(RectangleItem::P_XLOW, x);
-        maskItem->setItemValue(RectangleItem::P_YLOW, y);
-
-        x = maskItem->getItemValue(RectangleItem::P_XUP).toDouble();
-        y = maskItem->getItemValue(RectangleItem::P_YUP).toDouble();
-        pointFromBins(x, y, data);
-        maskItem->setItemValue(RectangleItem::P_XUP, x);
-        maskItem->setItemValue(RectangleItem::P_YUP, y);
+    if(maskItem->modelType() == Constants::RectangleMaskType ||
+            maskItem->modelType() == Constants::RegionOfInterestType) {
+        convertFromBinf(maskItem, RectangleItem::P_XLOW, RectangleItem::P_YLOW, data);
+        convertFromBinf(maskItem, RectangleItem::P_XUP, RectangleItem::P_YUP, data);
     }
 
+    else if(maskItem->modelType() == Constants::PolygonMaskType) {
+        foreach (SessionItem *pointItem, maskItem->getChildrenOfType(Constants::PolygonPointType))
+            convertFromBinf(pointItem, PolygonPointItem::P_POSX, PolygonPointItem::P_POSY, data);
+    }
+
+    else if(maskItem->modelType() == Constants::VerticalLineMaskType) {
+        convertFromBinf(maskItem, VerticalLineItem::P_POSX, QString(), data);
+
+    }
+
+    else if(maskItem->modelType() == Constants::HorizontalLineMaskType) {
+        convertFromBinf(maskItem, QString(), HorizontalLineItem::P_POSY, data);
+
+    }
+
+    else if(maskItem->modelType() == Constants::EllipseMaskType) {
+        double xc = maskItem->getItemValue(EllipseItem::P_XCENTER).toDouble();
+        double yc = maskItem->getItemValue(EllipseItem::P_YCENTER).toDouble();
+        double xR = maskItem->getItemValue(EllipseItem::P_XRADIUS).toDouble();
+        double yR = maskItem->getItemValue(EllipseItem::P_YRADIUS).toDouble();
+
+        double x2 = xc + xR;
+        double y2 = yc + yR;
+
+        IntensityDataFunctions::coordinateFromBinf(xc, yc, data);
+        IntensityDataFunctions::coordinateFromBinf(x2, y2, data);
+
+        maskItem->setItemValue(EllipseItem::P_XCENTER, xc);
+        maskItem->setItemValue(EllipseItem::P_YCENTER, yc);
+        maskItem->setItemValue(EllipseItem::P_XRADIUS, x2 - xc);
+        maskItem->setItemValue(EllipseItem::P_YRADIUS, y2 - yc);
+
+
+
+//        convertFromBinf(maskItem, EllipseItem::P_XCENTER, EllipseItem::P_YCENTER, data);
+//        convertFromBinf(maskItem, EllipseItem::P_XRADIUS, EllipseItem::P_YRADIUS, data);
+    }
+
+
+
 }
 
-void MaskUnitsConverter::pointToBins(double &x, double &y, const OutputData<double> *data)
+void MaskUnitsConverter::convertToBinf(SessionItem *maskItem, const QString &xname,
+                                       const QString &yname, const OutputData<double> *data)
 {
-    x = pointToBins(x, data->getAxis(BornAgain::X_AXIS_INDEX));
-    y = pointToBins(y, data->getAxis(BornAgain::Y_AXIS_INDEX));
+    if(maskItem->isTag(xname)) {
+        double x = maskItem->getItemValue(xname).toDouble();
+        x = IntensityDataFunctions::coordinateToBinf(x, data->getAxis(BornAgain::X_AXIS_INDEX));
+        maskItem->setItemValue(xname, x);
+    }
+
+    if(maskItem->isTag(yname)) {
+        double y = maskItem->getItemValue(yname).toDouble();
+        y = IntensityDataFunctions::coordinateToBinf(y, data->getAxis(BornAgain::Y_AXIS_INDEX));
+        maskItem->setItemValue(yname, y);
+    }
 }
 
-void MaskUnitsConverter::pointFromBins(double &x, double &y, const OutputData<double> *data)
+void MaskUnitsConverter::convertFromBinf(SessionItem *maskItem, const QString &xname,
+                                         const QString &yname, const OutputData<double> *data)
 {
-    x = pointFromBins(x, data->getAxis(BornAgain::X_AXIS_INDEX));
-    y = pointFromBins(y, data->getAxis(BornAgain::Y_AXIS_INDEX));
+    if(maskItem->isTag(xname)) {
+        double x = maskItem->getItemValue(xname).toDouble();
+        x = IntensityDataFunctions::coordinateFromBinf(x, data->getAxis(BornAgain::X_AXIS_INDEX));
+        maskItem->setItemValue(xname, x);
+    }
 
+    if(maskItem->isTag(yname)) {
+        double y = maskItem->getItemValue(yname).toDouble();
+        y = IntensityDataFunctions::coordinateFromBinf(y, data->getAxis(BornAgain::Y_AXIS_INDEX));
+        maskItem->setItemValue(yname, y);
+    }
+
+
+//    double x = maskItem->getItemValue(xname).toDouble();
+//    double y = maskItem->getItemValue(yname).toDouble();
+//    IntensityDataFunctions::coordinateFromBinf(x, y, data);
+//    maskItem->setItemValue(xname, x);
+//    maskItem->setItemValue(yname, y);
 }
-
-double MaskUnitsConverter::pointToBins(double value, const IAxis *axis)
-{
-    int index = axis->findClosestIndex(value);
-
-    Bin1D bin = axis->getBin(index);
-
-    double f = (value - bin.m_lower)/bin.getBinSize();
-
-    return double(index) + f;
-}
-
-double MaskUnitsConverter::pointFromBins(double value, const IAxis *axis)
-{
-    int index = static_cast<int>(value);
-    Bin1D bin = axis->getBin(index);
-
-    double f = value - static_cast<double>(index);
-
-    return bin.m_lower + f*bin.getBinSize();
-}
-
-

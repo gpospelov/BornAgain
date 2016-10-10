@@ -23,6 +23,7 @@ class IntensityDataItem;
 class SessionItem;
 class IAxis;
 template<class T> class OutputData;
+class QString;
 
 //! The MaskUnitsConverter converts coordinates of all masks from one units to anoter.
 //! I.e. masks in 'mm' into masks in 'deg'.
@@ -38,11 +39,11 @@ private:
     void convertMaskToNbins(SessionItem *maskItem, const OutputData<double> *data);
     void convertMaskFromNbins(SessionItem *maskItem, const OutputData<double> *data);
 
-    void pointToBins(double &x, double &y, const OutputData<double> *data);
-    void pointFromBins(double &x, double &y, const OutputData<double> *data);
-    double pointToBins(double value, const IAxis *axis);
-    double pointFromBins(double value, const IAxis *axis);
+    void convertToBinf(SessionItem *maskItem, const QString &xname,
+                       const QString &yname, const OutputData<double> *data);
 
+    void convertFromBinf(SessionItem *maskItem, const QString &xname,
+                         const QString &yname, const OutputData<double> *data);
 };
 
 

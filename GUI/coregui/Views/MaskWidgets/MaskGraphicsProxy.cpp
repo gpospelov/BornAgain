@@ -18,14 +18,16 @@
 #include "ColorMapSceneAdaptor.h"
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
+#include "ColorMapCanvas.h"
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 
 MaskGraphicsProxy::MaskGraphicsProxy()
-    : m_colorMap(new ColorMap)
+    : m_colorMap(new ColorMapCanvas)
     , m_sceneAdaptor(0)
     , m_send_signals_to_colormap(false)
 {
+    m_colorMap->setStatusLabelEnabled(true);
     resize(1200, 1000);
     setAcceptedMouseButtons(Qt::NoButton);
 }
@@ -48,7 +50,7 @@ void MaskGraphicsProxy::setSceneAdaptor(ISceneAdaptor *sceneAdaptor)
 {
     m_sceneAdaptor = dynamic_cast<ColorMapSceneAdaptor *>(sceneAdaptor);
     Q_ASSERT(m_sceneAdaptor);
-    m_sceneAdaptor->setColorMapPlot(m_colorMap);
+    m_sceneAdaptor->setColorMapPlot(m_colorMap->colorMap());
 }
 
 //! Sets widget to zoom mode, when signals (zoom wheel, mouse clicks) are send down to
@@ -66,7 +68,7 @@ void MaskGraphicsProxy::setInZoomMode(bool value)
 void MaskGraphicsProxy::resetView()
 {
     Q_ASSERT(m_colorMap);
-    m_colorMap->resetView();
+    m_colorMap->colorMap()->resetView();
 }
 
 void MaskGraphicsProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)

@@ -24,6 +24,7 @@ class SessionItem;
 class ISceneAdaptor;
 class ColorMapSceneAdaptor;
 class ColorMap;
+class ColorMapCanvas;
 class IntensityDataItem;
 
 //! Graphics proxy to place QWidget inside QGraphicsScene, used by MaskEditorCanvas.
@@ -51,7 +52,7 @@ protected:
     void wheelEvent(QGraphicsSceneWheelEvent *event);
 
 private:
-    ColorMap *m_colorMap;
+    ColorMapCanvas *m_colorMap;
     ColorMapSceneAdaptor *m_sceneAdaptor;
     bool m_send_signals_to_colormap;
 };

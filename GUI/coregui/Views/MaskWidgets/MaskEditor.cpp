@@ -49,7 +49,7 @@ MaskEditor::MaskEditor(QWidget* parent)
     m_splitter->addWidget(m_editorCanvas);
     m_splitter->addWidget(m_editorPropertyPanel);
 
-    addToolBar(m_toolBar);
+    addToolBar(Qt::RightToolBarArea, m_toolBar);
 
     setCentralWidget(m_splitter);
 

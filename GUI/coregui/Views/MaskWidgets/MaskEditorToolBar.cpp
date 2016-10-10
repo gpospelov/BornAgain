@@ -39,8 +39,8 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *
 
     setup_selection_group();
     add_separator();
-    setup_maskvalue_group();
-    add_separator();
+//    setup_maskvalue_group();
+//    add_separator();
     setup_shapes_group();
     add_separator();
     setup_maskmodify_group();

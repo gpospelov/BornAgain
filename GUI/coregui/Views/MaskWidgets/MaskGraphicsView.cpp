@@ -36,6 +36,7 @@ MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     setObjectName(QStringLiteral("MaskGraphicsView"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setRenderHints(QPainter::HighQualityAntialiasing|QPainter::TextAntialiasing);
+    setStyleSheet( "QGraphicsView { border-style: none; }" );
     setMouseTracking(true);
 }
 

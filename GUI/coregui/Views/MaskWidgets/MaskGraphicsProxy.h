@@ -45,6 +45,8 @@ public:
 
     void resetView();
 
+    ColorMap *colorMap();
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
@@ -52,7 +54,8 @@ protected:
     void wheelEvent(QGraphicsSceneWheelEvent *event);
 
 private:
-    ColorMapCanvas *m_colorMap;
+//    ColorMapCanvas *m_colorMap;
+    ColorMap *m_colorMap;
     ColorMapSceneAdaptor *m_sceneAdaptor;
     bool m_send_signals_to_colormap;
 };

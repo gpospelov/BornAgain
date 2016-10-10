@@ -36,6 +36,7 @@ class MaskEditorAction;
 class IntensityDataItem;
 class QGraphicsSceneMouseEvent;
 class QPainter;
+class ColorMap;
 
 //! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
 
@@ -50,6 +51,7 @@ public:
 
     void setSelectionModel(QItemSelectionModel *model);
 
+    ColorMap *colorMap();
 signals:
     void itemContextMenuRequest(const QPoint &point);
 

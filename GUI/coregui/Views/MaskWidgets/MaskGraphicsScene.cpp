@@ -116,6 +116,12 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
     }
 }
 
+ColorMap *MaskGraphicsScene::colorMap()
+{
+    Q_ASSERT(m_proxy);
+    return m_proxy->colorMap();
+}
+
 void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 {
     if(!m_proxy)

@@ -20,6 +20,7 @@
 #include "MaskGraphicsView.h"
 #include "MaskResultsPresenter.h"
 #include "SessionModel.h"
+#include "ColorMapLabel.h"
 #include <QDebug>
 #include <QDebug>
 #include <QGraphicsRectItem>
@@ -31,6 +32,7 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     : QWidget(parent)
     , m_scene(new MaskGraphicsScene(this))
     , m_view(new MaskGraphicsView(m_scene))
+    , m_statusLabel(new ColorMapLabel(0, this))
     , m_resultsPresenter(new MaskResultsPresenter(this))
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
@@ -38,6 +40,7 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_view);
+    mainLayout->addWidget(m_statusLabel);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
@@ -50,6 +53,7 @@ void MaskEditorCanvas::setMaskContext(SessionModel *model, const QModelIndex &ma
     m_scene->setMaskContext(model, maskContainerIndex, intensityItem);
     m_resultsPresenter->setMaskContext(model, maskContainerIndex, intensityItem);
     getView()->updateSize(getView()->size());
+    m_statusLabel->addColorMap(m_scene->colorMap());
 }
 
 void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)

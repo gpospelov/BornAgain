@@ -29,11 +29,11 @@
 #include "SampleBuilderFactory.h"
 #include "SessionModel.h"
 #include "SimulationFactory.h"
+#include "minisplitter.h"
 #include <QBoxLayout>
 #include <QContextMenuEvent>
 #include <QDebug>
 #include <QMenu>
-#include <QSplitter>
 
 MaskEditor::MaskEditor(QWidget* parent)
     : QMainWindow(parent)
@@ -41,13 +41,15 @@ MaskEditor::MaskEditor(QWidget* parent)
     , m_toolBar(new MaskEditorToolBar(m_itemActions))
     , m_editorPropertyPanel(new MaskEditorPropertyPanel)
     , m_editorCanvas(new MaskEditorCanvas)
-    , m_splitter(new QSplitter(this))
+//    , m_splitter(new QSplitter(this))
+    , m_splitter(new Manhattan::MiniSplitter)
 {
     setObjectName(QStringLiteral("MaskEditor"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_splitter->addWidget(m_editorCanvas);
     m_splitter->addWidget(m_editorPropertyPanel);
+    m_splitter->setCollapsible(1, true);
 
     addToolBar(Qt::RightToolBarArea, m_toolBar);
 

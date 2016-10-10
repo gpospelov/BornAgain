@@ -29,6 +29,7 @@ class MaskEditorCanvas;
 class QSplitter;
 class SessionModel;
 class IntensityDataItem;
+namespace Manhattan { class MiniSplitter; }
 
 //! Main class to draw masks on top of intensity data map
 
@@ -59,7 +60,7 @@ private:
     MaskEditorToolBar *m_toolBar;
     MaskEditorPropertyPanel *m_editorPropertyPanel;
     MaskEditorCanvas *m_editorCanvas;
-    QSplitter *m_splitter;
+    Manhattan::MiniSplitter *m_splitter;
 };
 
 

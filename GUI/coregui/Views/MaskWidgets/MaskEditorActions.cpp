@@ -48,6 +48,24 @@ MaskEditorActions::MaskEditorActions(QWidget *parent)
     parent->addAction(m_deleteMaskAction);
     connect(m_deleteMaskAction, SIGNAL(triggered()), this, SLOT(onDeleteMaskAction()));
 
+    // Actions for top toolbar
+    m_resetViewAction = new QAction(this);
+    m_resetViewAction->setText("Reset");
+    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
+    m_resetViewAction->setToolTip("Reset View");
+    connect(m_resetViewAction, SIGNAL(triggered()), this, SIGNAL(resetViewRequest()));
+
+    m_savePlotAction = new QAction(this);
+    m_savePlotAction->setText("Save");
+    m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_savePlotAction->setToolTip("Save Plot");
+    connect(m_savePlotAction, SIGNAL(triggered()), this, SIGNAL(savePlotRequest()));
+
+    m_togglePanelAction = new QAction(this);
+    m_togglePanelAction->setText("Properties");
+    m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
+    m_togglePanelAction->setToolTip("Toggle Property Panel");
+    connect(m_togglePanelAction, SIGNAL(triggered()), this, SIGNAL(propertyPanelRequest()));
 }
 
 void MaskEditorActions::setModel(SessionModel *maskModel, const QModelIndex &rootIndex)
@@ -61,14 +79,19 @@ void MaskEditorActions::setSelectionModel(QItemSelectionModel *selectionModel)
     m_selectionModel = selectionModel;
 }
 
-QAction *MaskEditorActions::getSendToBackAction()
+QAction *MaskEditorActions::sendToBackAction()
 {
     return m_sendToBackAction;
 }
 
-QAction *MaskEditorActions::getBringToFrontAction()
+QAction *MaskEditorActions::bringToFrontAction()
 {
     return m_bringToFrontAction;
+}
+
+QList<QAction *> MaskEditorActions::topToolBarActions()
+{
+    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_togglePanelAction;
 }
 
 //! Constructs MaskItem context menu following the request from MaskGraphicsScene

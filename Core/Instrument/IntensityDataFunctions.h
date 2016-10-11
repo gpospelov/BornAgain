@@ -43,6 +43,18 @@ public:
     //! Applies detector resolution function and returns new IntensityData object
     static OutputData<double>* applyDetectorResolution(
         const OutputData<double>& origin, const IResolutionFunction2D& resolution_function);
+
+    //! Transforms coordinate on axis into the bin-fraction-coordinate.
+    static double coordinateToBinf(double coordinate, const IAxis *axis);
+
+    //! Transforms bin-fraction-coordinate into axis coordinate.
+    static double coordinateFromBinf(double value, const IAxis *axis);
+
+    //! Transform x,y coordinate from OutputData axes coordinates to bin-fraction-coordinates
+    static void coordinateToBinf(double &x, double &y, const OutputData<double> *data);
+
+    //! Transform x,y coordinate from bin-fraction-coordinates to OutputData's axes coordinates
+    static void coordinateFromBinf(double &x, double &y, const OutputData<double> *data);
 };
 
 #endif // INTENSITYDATAFUNCTIONS_H

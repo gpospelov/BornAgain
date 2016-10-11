@@ -20,7 +20,13 @@
 #include "MaskGraphicsView.h"
 #include "MaskResultsPresenter.h"
 #include "SessionModel.h"
-#include <QDebug>
+#include "ColorMapLabel.h"
+#include "SavePlotAssistant.h"
+#include "AppSvc.h"
+#include "projectmanager.h"
+#include "ColorMap.h"
+#include "IntensityDataItem.h"
+#include "MaskItems.h"
 #include <QDebug>
 #include <QGraphicsRectItem>
 #include <QModelIndex>
@@ -31,6 +37,8 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     : QWidget(parent)
     , m_scene(new MaskGraphicsScene(this))
     , m_view(new MaskGraphicsView(m_scene))
+    , m_intensityDataItem(0)
+    , m_statusLabel(new ColorMapLabel(0, this))
     , m_resultsPresenter(new MaskResultsPresenter(this))
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
@@ -38,18 +46,25 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_view);
+    mainLayout->addWidget(m_statusLabel);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
+
+    connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
+            this, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
 
 }
 
 void MaskEditorCanvas::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
                                       IntensityDataItem *intensityItem)
 {
+    m_intensityDataItem = intensityItem;
+
     m_scene->setMaskContext(model, maskContainerIndex, intensityItem);
     m_resultsPresenter->setMaskContext(model, maskContainerIndex, intensityItem);
-    getView()->updateSize(getView()->size());
+    m_view->updateSize(m_view->size());
+    m_statusLabel->addColorMap(m_scene->colorMap());
 }
 
 void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)
@@ -62,13 +77,54 @@ MaskGraphicsScene *MaskEditorCanvas::getScene()
     return m_scene;
 }
 
-MaskGraphicsView *MaskEditorCanvas::getView()
-{
-    return m_view;
-}
-
 void MaskEditorCanvas::onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType)
 {
     m_resultsPresenter->updatePresenter(presentationType);
     m_scene->onPresentationTypeRequest(presentationType);
+}
+
+//! Saves plot into project directory.
+
+void MaskEditorCanvas::onSavePlotRequest()
+{
+    QString dirname = AppSvc::projectManager()->userExportDir();
+
+    SavePlotAssistant saveAssistant;
+    saveAssistant.savePlot(dirname, m_scene->colorMap()->customPlot(), m_intensityDataItem);
+}
+
+void MaskEditorCanvas::onResetViewRequest()
+{
+    m_view->onResetViewRequest();
+
+    if(isAxisRangeMatchData()) {
+        setZoomToROI();
+    } else {
+        m_intensityDataItem->resetView();
+    }
+}
+
+//! Returns true if IntensityData is currently at 100% zoom level
+
+bool MaskEditorCanvas::isAxisRangeMatchData() const
+{
+    Q_ASSERT(m_intensityDataItem);
+
+    if(m_intensityDataItem->getLowerX() != m_intensityDataItem->getXmin()) return false;
+    if(m_intensityDataItem->getUpperX() != m_intensityDataItem->getXmax()) return false;
+    if(m_intensityDataItem->getLowerY() != m_intensityDataItem->getYmin()) return false;
+    if(m_intensityDataItem->getUpperY() != m_intensityDataItem->getYmax()) return false;
+    return true;
+}
+
+void MaskEditorCanvas::setZoomToROI()
+{
+    if(MaskContainerItem *maskContainer = m_intensityDataItem->maskContainerItem()) {
+        if(SessionItem *roiItem = maskContainer->getChildOfType(Constants::RegionOfInterestType)) {
+            m_intensityDataItem->setLowerX(roiItem->getItemValue(RectangleItem::P_XLOW).toDouble());
+            m_intensityDataItem->setUpperX(roiItem->getItemValue(RectangleItem::P_XUP).toDouble());
+            m_intensityDataItem->setLowerY(roiItem->getItemValue(RectangleItem::P_YLOW).toDouble());
+            m_intensityDataItem->setUpperY(roiItem->getItemValue(RectangleItem::P_YUP).toDouble());
+        }
+    }
 }

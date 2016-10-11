@@ -36,16 +36,14 @@ MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     setObjectName(QStringLiteral("MaskGraphicsView"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setRenderHints(QPainter::HighQualityAntialiasing|QPainter::TextAntialiasing);
+    setStyleSheet( "QGraphicsView { border-style: none; }" );
     setMouseTracking(true);
 }
 
 //! Reset given view to original zoom state. Also asks graphics scene to do the same with color map.
 void MaskGraphicsView::onResetViewRequest()
 {
-    qDebug() << "MaskGraphicsView::onResetViewRequest()";
     setZoomValue(1.0);
-    MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    maskScene->onResetViewRequest();
 }
 
 void MaskGraphicsView::wheelEvent(QWheelEvent *event)

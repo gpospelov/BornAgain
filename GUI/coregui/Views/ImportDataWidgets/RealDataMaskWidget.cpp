@@ -49,7 +49,6 @@ RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
 
     mainLayout->addLayout(hlayout);
     setLayout(mainLayout);
-
 }
 
 void RealDataMaskWidget::setItem(SessionItem *item)
@@ -67,8 +66,7 @@ void RealDataMaskWidget::setItem(SessionItem *item)
 
 QList<QAction *> RealDataMaskWidget::actionList()
 {
-//    return m_intensityWidget->actionList() + m_propertyWidget->actionList();
-    return QList<QAction*>();
+    return m_maskEditor->topToolBarActions();
 }
 
 MaskContainerItem *RealDataMaskWidget::createMaskContainer(IntensityDataItem *intensityData)

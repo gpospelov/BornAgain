@@ -15,5 +15,6 @@
         <file>images/maskeditor_masktrue.svg</file>
         <file>images/maskeditor_maskfalse.svg</file>
         <file>images/maskeditor_lightbulb.svg</file>
+        <file>images/maskeditor_roi.svg</file>
     </qresource>
 </RCC>

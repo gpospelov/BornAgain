@@ -21,6 +21,7 @@
 #include "WinDllMacros.h"
 #include <QModelIndex>
 #include <QObject>
+#include <QList>
 
 class QAction;
 class SessionModel;
@@ -41,8 +42,15 @@ public:
     void setModel(SessionModel *maskModel, const QModelIndex &rootIndex);
     void setSelectionModel(QItemSelectionModel *selectionModel);
 
-    QAction *getSendToBackAction();
-    QAction *getBringToFrontAction();
+    QAction *sendToBackAction();
+    QAction *bringToFrontAction();
+
+    QList<QAction *> topToolBarActions();
+
+signals:
+    void resetViewRequest();
+    void propertyPanelRequest();
+    void savePlotRequest();
 
 public slots:
     void onItemContextMenuRequest(const QPoint &point);
@@ -64,6 +72,10 @@ private:
     QAction *m_bringToFrontAction;
     QAction *m_sendToBackAction;
     QAction *m_deleteMaskAction;
+
+    QAction *m_resetViewAction;
+    QAction *m_savePlotAction;
+    QAction *m_togglePanelAction;
 
     SessionModel *m_maskModel;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem

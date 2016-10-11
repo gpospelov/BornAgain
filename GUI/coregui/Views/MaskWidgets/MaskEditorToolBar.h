@@ -34,10 +34,8 @@ public:
 
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
-    void propertyPanelRequest();
     void presentationTypeRequest(MaskEditorFlags::PresentationType);
     void maskValueChanged(MaskEditorFlags::MaskValue);
-    void resetViewRequest();
 
 public slots:
     void onChangeActivityRequest(MaskEditorFlags::Activity value);

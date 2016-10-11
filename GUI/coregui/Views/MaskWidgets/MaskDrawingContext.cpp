@@ -19,7 +19,7 @@
 #include <QDebug>
 
 MaskDrawingContext::MaskDrawingContext()
-    : m_current_activity(MaskEditorFlags::SELECTION_MODE)
+    : m_current_activity(MaskEditorFlags::PAN_ZOOM_MODE)
     , m_mask_value(MaskEditorFlags::MASK_ON)
     , m_drawing_in_progress(false)
 {

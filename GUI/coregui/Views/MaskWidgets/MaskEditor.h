@@ -50,13 +50,15 @@ public slots:
     void onPropertyPanelRequest();
     void init_test_model();
 
+    QList<QAction *> topToolBarActions();
+
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
 
 private:
     void setup_connections();
 
-    MaskEditorActions *m_itemActions;
+    MaskEditorActions *m_editorActions;
     MaskEditorToolBar *m_toolBar;
     MaskEditorPropertyPanel *m_editorPropertyPanel;
     MaskEditorCanvas *m_editorCanvas;

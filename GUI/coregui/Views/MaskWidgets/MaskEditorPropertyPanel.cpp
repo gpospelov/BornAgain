@@ -50,14 +50,14 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setSpacing(0);
 
     setup_PlotProperties(m_accordion);
     setup_MaskStack(m_accordion);
     setup_MaskProperties(m_accordion);
-    m_accordion->getContentPane(0)->headerClicked();
+    //m_accordion->getContentPane(0)->headerClicked();
 
     mainLayout->addWidget(m_accordion);
-    mainLayout->setSpacing(0);
 
     setLayout(mainLayout);
 }

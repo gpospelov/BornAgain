@@ -37,8 +37,8 @@
 
 MaskEditor::MaskEditor(QWidget* parent)
     : QMainWindow(parent)
-    , m_itemActions(new MaskEditorActions(this))
-    , m_toolBar(new MaskEditorToolBar(m_itemActions))
+    , m_editorActions(new MaskEditorActions(this))
+    , m_toolBar(new MaskEditorToolBar(m_editorActions))
     , m_editorPropertyPanel(new MaskEditorPropertyPanel)
     , m_editorCanvas(new MaskEditorCanvas)
 //    , m_splitter(new QSplitter(this))
@@ -72,8 +72,8 @@ void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex &maskCont
     m_editorCanvas->setMaskContext(model, maskContainerIndex, intensityItem);
     m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
 
-    m_itemActions->setModel(model, maskContainerIndex);
-    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
+    m_editorActions->setModel(model, maskContainerIndex);
+    m_editorActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 }
 
 //! shows/hides right panel with properties
@@ -163,8 +163,29 @@ void MaskEditor::init_test_model()
     setMaskContext(maskModel, maskModel->indexOfItem(container), intensityItem);
 }
 
+//! Returns list of actions intended for styled toolbar (on the top).
+
+QList<QAction *> MaskEditor::topToolBarActions()
+{
+    return m_editorActions->topToolBarActions();
+}
+
 void MaskEditor::setup_connections()
 {
+    // reset view request is propagated from editorActions to graphics view
+    connect(m_editorActions,
+            SIGNAL(resetViewRequest()),
+            m_editorCanvas->getView(),
+            SLOT(onResetViewRequest())
+            );
+
+    // tool panel request is propagated from editorActions to this MaskEditor
+    connect(m_editorActions,
+            SIGNAL(propertyPanelRequest()),
+            this,
+            SLOT(onPropertyPanelRequest())
+            );
+
     // selection/drawing activity is propagated from ToolBar to graphics scene
     connect(m_toolBar,
             SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
@@ -179,25 +200,11 @@ void MaskEditor::setup_connections()
             SLOT(onMaskValueChanged(MaskEditorFlags::MaskValue))
             );
 
-    // tool panel request is propagated from ToolBar to this MaskEditor
-    connect(m_toolBar,
-            SIGNAL(propertyPanelRequest()),
-            this,
-            SLOT(onPropertyPanelRequest())
-            );
-
     // show results request is propagated from ToolBar to Canvas
     connect(m_toolBar,
             SIGNAL(presentationTypeRequest(MaskEditorFlags::PresentationType)),
             m_editorCanvas,
             SLOT(onPresentationTypeRequest(MaskEditorFlags::PresentationType))
-            );
-
-    // reset view request is propagated from ToolBar to graphics view
-    connect(m_toolBar,
-            SIGNAL(resetViewRequest()),
-            m_editorCanvas->getView(),
-            SLOT(onResetViewRequest())
             );
 
     // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
@@ -210,14 +217,14 @@ void MaskEditor::setup_connections()
     // context menu request is propagated from graphics scene to MaskEditorActions
     connect(m_editorCanvas->getScene(),
             SIGNAL(itemContextMenuRequest(QPoint)),
-            m_itemActions,
+            m_editorActions,
             SLOT(onItemContextMenuRequest(QPoint))
             );
 
     // context menu request is propagated from PropertyPanel to MaskEditorActions
     connect(m_editorPropertyPanel,
             SIGNAL(itemContextMenuRequest(QPoint)),
-            m_itemActions,
+            m_editorActions,
             SLOT(onItemContextMenuRequest(QPoint))
             );
 

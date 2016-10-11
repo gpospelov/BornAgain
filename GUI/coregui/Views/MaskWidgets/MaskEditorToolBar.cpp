@@ -109,11 +109,10 @@ void MaskEditorToolBar::setup_selection_group()
     resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
     resetViewButton->setToolTip("Reset pan/zoom to initial state");
     addWidget(resetViewButton);
+    connect(resetViewButton, SIGNAL(clicked()), m_editorActions, SIGNAL(resetViewRequest()));
 
     m_activityButtonGroup->addButton(selectionButton, MaskEditorFlags::SELECTION_MODE);
     m_activityButtonGroup->addButton(panButton, MaskEditorFlags::PAN_ZOOM_MODE);
-
-    connect(resetViewButton, SIGNAL(clicked()), this, SIGNAL(resetViewRequest()));
 }
 
 void MaskEditorToolBar::setup_maskvalue_group()
@@ -196,8 +195,8 @@ void MaskEditorToolBar::setup_shapes_group()
 void MaskEditorToolBar::setup_maskmodify_group()
 {
     Q_ASSERT(m_editorActions);
-    addAction(m_editorActions->getBringToFrontAction());
-    addAction(m_editorActions->getSendToBackAction());
+    addAction(m_editorActions->bringToFrontAction());
+    addAction(m_editorActions->sendToBackAction());
 }
 
 void MaskEditorToolBar::setup_extratools_group()
@@ -207,10 +206,8 @@ void MaskEditorToolBar::setup_extratools_group()
     presentationButton->setToolTip("Press and hold to see mask results.");
     addWidget(presentationButton);
 
-    connect(presentationButton, SIGNAL(pressed()),
-            this, SLOT(onPresentationTypePressed()));
-    connect(presentationButton, SIGNAL(released()),
-            this, SLOT(onPresentationTypeReleased()));
+    connect(presentationButton, SIGNAL(pressed()), this, SLOT(onPresentationTypePressed()));
+    connect(presentationButton, SIGNAL(released()), this, SLOT(onPresentationTypeReleased()));
 
     QToolButton *propertyPanelButton = new QToolButton(this);
     propertyPanelButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_toolpanel.svg"));
@@ -218,7 +215,7 @@ void MaskEditorToolBar::setup_extratools_group()
     addWidget(propertyPanelButton);
 
     connect(propertyPanelButton, SIGNAL(clicked()),
-            this, SIGNAL(propertyPanelRequest()));
+            m_editorActions, SIGNAL(propertyPanelRequest()));
 }
 
 void MaskEditorToolBar::add_separator()

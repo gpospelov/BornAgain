@@ -140,7 +140,8 @@ void FitSuiteWidget::startFitting()
 
     try {
         qDebug() << " try run fitting";
-        m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
+        m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
+                                    FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
         fitSuite->attachObserver(m_observer);
         m_runFitManager->setFitSuite(fitSuite);
@@ -193,7 +194,8 @@ void FitSuiteWidget::onFittingFinished()
 void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
 {
     if(name == FitSuiteItem::P_UPDATE_INTERVAL) {
-        m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
+        m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
+                                    FitSuiteItem::P_UPDATE_INTERVAL).toInt());
 
     }
 
@@ -209,7 +211,8 @@ void FitSuiteWidget::connectSignals()
 {
     connect(m_runFitManager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
     connect(m_runFitManager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
-    connect(m_runFitManager, SIGNAL(fittingError(QString)), this, SLOT(processFittingError(QString)));
+    connect(m_runFitManager, SIGNAL(fittingError(QString)),
+            this, SLOT(processFittingError(QString)));
 
     connect(m_observer.get(), SIGNAL(plotsUpdate()), this, SLOT(onPlotsUpdate()));
 
@@ -247,8 +250,9 @@ void FitSuiteWidget::updateLog(const FitProgressInfo &info)
     FitParameterContainerItem *fitParContainer = m_currentItem->fitParameterContainerItem();
     int index(0);
     QVector<double> values = info.parValues();
-    foreach(SessionItem *item, fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
-        QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index]);
+    foreach(SessionItem *item,
+            fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index++]);
         message.append(parinfo);
     }
 

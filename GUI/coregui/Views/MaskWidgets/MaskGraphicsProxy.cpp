@@ -63,13 +63,6 @@ void MaskGraphicsProxy::setInZoomMode(bool value)
     }
 }
 
-void MaskGraphicsProxy::resetView()
-{
-    Q_ASSERT(m_colorMap);
-//    m_colorMap->colorMap()->resetView();
-    m_colorMap->resetView();
-}
-
 ColorMap *MaskGraphicsProxy::colorMap()
 {
     return m_colorMap;

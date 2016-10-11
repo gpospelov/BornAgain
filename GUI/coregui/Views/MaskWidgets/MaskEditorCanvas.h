@@ -42,13 +42,19 @@ public:
     void setSelectionModel(QItemSelectionModel *model);
 
     MaskGraphicsScene *getScene();
-    MaskGraphicsView *getView();
+
+signals:
+    void changeActivityRequest(MaskEditorFlags::Activity);
 
 public slots:
     void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
     void onSavePlotRequest();
+    void onResetViewRequest();
 
 private:
+    bool isAxisRangeMatchData() const;
+    void setZoomToROI();
+
     MaskGraphicsScene *m_scene;
     MaskGraphicsView *m_view;
     IntensityDataItem *m_intensityDataItem;

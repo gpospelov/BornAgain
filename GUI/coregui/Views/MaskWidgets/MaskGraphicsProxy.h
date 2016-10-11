@@ -42,8 +42,6 @@ public:
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
     void setInZoomMode(bool value);
 
-    void resetView();
-
     ColorMap *colorMap();
 
 protected:

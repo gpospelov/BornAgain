@@ -174,7 +174,7 @@ void MaskEditor::setup_connections()
     // reset view request is propagated from editorActions to graphics view
     connect(m_editorActions,
             SIGNAL(resetViewRequest()),
-            m_editorCanvas->getView(),
+            m_editorCanvas,
             SLOT(onResetViewRequest())
             );
 
@@ -214,7 +214,7 @@ void MaskEditor::setup_connections()
             );
 
     // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
-    connect(m_editorCanvas->getView(),
+    connect(m_editorCanvas,
             SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
             m_toolBar,
             SLOT(onChangeActivityRequest(MaskEditorFlags::Activity))

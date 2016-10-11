@@ -38,13 +38,9 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *
     setProperty("_q_custom_style_disabled", QVariant(true));
 
     setup_selection_group();
-    add_separator();
 //    setup_maskvalue_group();
-//    add_separator();
     setup_shapes_group();
-    add_separator();
     setup_maskmodify_group();
-    add_separator();
     setup_extratools_group();
 
     connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)),
@@ -99,17 +95,19 @@ void MaskEditorToolBar::setup_selection_group()
     panButton->setChecked(true);
     addWidget(panButton);
 
-    QToolButton *selectionButton = new QToolButton(this);
-    selectionButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_arrow.svg"));
-    selectionButton->setToolTip("Select/modify mode");
-    selectionButton->setCheckable(true);
-    addWidget(selectionButton);
-
     QToolButton *resetViewButton = new QToolButton(this);
     resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
     resetViewButton->setToolTip("Reset pan/zoom to initial state");
     addWidget(resetViewButton);
     connect(resetViewButton, SIGNAL(clicked()), m_editorActions, SIGNAL(resetViewRequest()));
+
+    add_separator();
+
+    QToolButton *selectionButton = new QToolButton(this);
+    selectionButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_arrow.svg"));
+    selectionButton->setToolTip("Select/modify mask");
+    selectionButton->setCheckable(true);
+    addWidget(selectionButton);
 
     m_activityButtonGroup->addButton(panButton, MaskEditorFlags::PAN_ZOOM_MODE);
     m_activityButtonGroup->addButton(selectionButton, MaskEditorFlags::SELECTION_MODE);
@@ -190,6 +188,7 @@ void MaskEditorToolBar::setup_shapes_group()
     m_activityButtonGroup->addButton(horizontalLineButton, MaskEditorFlags::HORIZONTAL_LINE_MODE);
     m_activityButtonGroup->addButton(ellipseButton, MaskEditorFlags::ELLIPSE_MODE);
 //    m_activityButtonGroup->addButton(maskAllButton, MaskEditorFlags::MASKALL_MODE);
+    add_separator();
 }
 
 void MaskEditorToolBar::setup_maskmodify_group()
@@ -197,6 +196,7 @@ void MaskEditorToolBar::setup_maskmodify_group()
     Q_ASSERT(m_editorActions);
     addAction(m_editorActions->bringToFrontAction());
     addAction(m_editorActions->sendToBackAction());
+    add_separator();
 }
 
 void MaskEditorToolBar::setup_extratools_group()
@@ -216,6 +216,7 @@ void MaskEditorToolBar::setup_extratools_group()
 
     connect(propertyPanelButton, SIGNAL(clicked()),
             m_editorActions, SIGNAL(propertyPanelRequest()));
+    add_separator();
 }
 
 void MaskEditorToolBar::add_separator()

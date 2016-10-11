@@ -139,7 +139,7 @@ void MaskEditorToolBar::setup_maskvalue_group()
 void MaskEditorToolBar::setup_shapes_group()
 {
     QToolButton *roiButton = new QToolButton(this);
-    roiButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_rectangle.svg"));
+    roiButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_roi.svg"));
     roiButton->setToolTip("Create region of interest");
     roiButton->setCheckable(true);
     addWidget(roiButton);

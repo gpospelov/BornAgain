@@ -95,7 +95,7 @@ void MaskEditorCanvas::onSavePlotRequest()
 
 void MaskEditorCanvas::onResetViewRequest()
 {
-//    m_view->onResetViewRequest();
+    m_view->onResetViewRequest();
 
     if(isAxisRangeMatchData()) {
         setZoomToROI();

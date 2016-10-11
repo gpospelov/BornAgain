@@ -9,7 +9,7 @@ BornAgain-1.6.1, released 2016.07.15
 
 BornAgain-1.6.0, released 2016.06.30
   > Summary:
-    1) Python 3 support
+    1) Python3 support
     2) GUI: beta version of fitting
     3) Core: new roughness calculation that is more stable for large roughness
     4) Core: new formfactors dodecahedron and icosahedron
@@ -361,10 +361,10 @@ BornAgain-1.0.0, released 2015.01.29
   * Refactoring #830: Check pass by value for Eigen matrices of fixed size
   * Refactoring #889: Remove Stochastic parameters in favour of IDistribution classes
   * Refactoring #913: Remove FormFactorDWBAConstZ
-  * Testing #795: Test dmg package  
+  * Testing #795: Test dmg package
 
 BornAgain-0.9.9, released 2014.10.29
-  > Summary: 
+  > Summary:
     1) Further GUI development: QuickSimulationView, exception catching, property limits
     2) Few bugfixes, support for multiple layout objects per layer, python script generation, minor refactoring in UserAPI.
     3) User Manual: new appendix with python examples
@@ -403,9 +403,9 @@ BornAgain-0.9.9, released 2014.10.29
   * Documentation #846: Adapt manual to new constructor for InterferenceFunction2DLattice
   * Refactoring #786: Remove unnecessary calls to getOutCoefficients
   * Refactoring #818: Review SimulationParameters
-  
+
 BornAgain-0.9.8, released 2014.08.28
-  > Summary: 
+  > Summary:
     1) Further GUI development toward first beta scheduled for October, 2014.
        Implemented rotation of particles in GUI, real time simulation window.
     2) Few bugfixes, minor refactoring in UserAPI.
@@ -427,9 +427,9 @@ BornAgain-0.9.8, released 2014.08.28
   * Feature #748: Refactor IAxis family
   * Feature #763: Provide icon set for recent widgets
   * Feature #766: Propagate latest API changes (IAxis, IntensityDataIOFactory) into user manual.
-  
+
 BornAgain-0.9.7, released 2014.07.31
-  > Summary: 
+  > Summary:
     1) Further GUI development toward first beta scheduled for October, 2014.
     2) Redesign of RT coefficient calculations to reduce numerical instabilities in very thick layers.
     3) Improvements in Monte-Carlo integration to cope with highly oscillatory form factors of super large particles.
@@ -460,7 +460,7 @@ BornAgain-0.9.7, released 2014.07.31
   * Documentation #691: Provide simple cartoons for concepts that are otherwise difficult to understand
   * Refactoring #581: Check naming of the coherence length
   * Testing #674: Provide functional test machinery for GUI.
-    
+
 BornAgain-0.9.6, released 2014.06.04
   > Summary: Diverse GUI items (OutputData Widget, basic simulation functionality) + big form factor issue
   * Feature #597: Attach Instrument view to session model
@@ -659,7 +659,7 @@ BornAgain-0.9.1, released 2013.09.27
   * Documentation #407: Review Installation section
   * Documentation #408: Update wiki page to conform with the UserManual
   * Refactoring #370: Remove unnecessary code duplication introduced during implementation of polarization
-  * Support #371: Simulate S. Disch's sample    
+  * Support #371: Simulate S. Disch's sample
 
 BornAgain-0.9, released 2013.08.23
   * FunctionalTests: fitting from python works two times faster than fitting from C++

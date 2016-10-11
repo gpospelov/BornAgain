@@ -149,7 +149,8 @@ void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const Output
     y = coordinateToBinf(y, data->getAxis(BornAgain::Y_AXIS_INDEX));
 }
 
-void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData<double> *data)
+void IntensityDataFunctions::coordinateFromBinf(double &x, double &y,
+                                                const OutputData<double> *data)
 {
     x = coordinateFromBinf(x, data->getAxis(BornAgain::X_AXIS_INDEX));
     y = coordinateFromBinf(y, data->getAxis(BornAgain::Y_AXIS_INDEX));

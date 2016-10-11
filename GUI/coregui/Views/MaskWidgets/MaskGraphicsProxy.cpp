@@ -18,19 +18,16 @@
 #include "ColorMapSceneAdaptor.h"
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
-#include "ColorMapCanvas.h"
-#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
+#include <QDebug>
 
 MaskGraphicsProxy::MaskGraphicsProxy()
-//    : m_colorMap(new ColorMapCanvas)
     : m_colorMap(new ColorMap)
     , m_sceneAdaptor(0)
     , m_send_signals_to_colormap(false)
 {
-//    m_colorMap->setStatusLabelEnabled(true);
     resize(1200, 1000);
-    setAcceptedMouseButtons(Qt::NoButton);
+    setInZoomMode(true);
 }
 
 MaskGraphicsProxy::~MaskGraphicsProxy()
@@ -51,7 +48,6 @@ void MaskGraphicsProxy::setSceneAdaptor(ISceneAdaptor *sceneAdaptor)
 {
     m_sceneAdaptor = dynamic_cast<ColorMapSceneAdaptor *>(sceneAdaptor);
     Q_ASSERT(m_sceneAdaptor);
-//    m_sceneAdaptor->setColorMapPlot(m_colorMap->colorMap());
     m_sceneAdaptor->setColorMapPlot(m_colorMap);
 }
 

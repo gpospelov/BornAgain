@@ -41,7 +41,6 @@ MaskEditor::MaskEditor(QWidget* parent)
     , m_toolBar(new MaskEditorToolBar(m_editorActions))
     , m_editorPropertyPanel(new MaskEditorPropertyPanel)
     , m_editorCanvas(new MaskEditorCanvas)
-//    , m_splitter(new QSplitter(this))
     , m_splitter(new Manhattan::MiniSplitter)
 {
     setObjectName(QStringLiteral("MaskEditor"));
@@ -186,6 +185,13 @@ void MaskEditor::setup_connections()
             SLOT(onPropertyPanelRequest())
             );
 
+    // save plot request is propagated from editorActions to graphics scene
+    connect(m_editorActions,
+            SIGNAL(savePlotRequest()),
+            m_editorCanvas,
+            SLOT(onSavePlotRequest())
+            );
+
     // selection/drawing activity is propagated from ToolBar to graphics scene
     connect(m_toolBar,
             SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
@@ -227,5 +233,4 @@ void MaskEditor::setup_connections()
             m_editorActions,
             SLOT(onItemContextMenuRequest(QPoint))
             );
-
 }

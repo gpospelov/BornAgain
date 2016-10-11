@@ -50,6 +50,7 @@ public:
 signals:
     void resetViewRequest();
     void propertyPanelRequest();
+    void savePlotRequest();
 
 public slots:
     void onItemContextMenuRequest(const QPoint &point);

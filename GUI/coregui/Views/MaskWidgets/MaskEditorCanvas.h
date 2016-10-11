@@ -28,6 +28,7 @@ class QModelIndex;
 class MaskResultsPresenter;
 class IntensityDataItem;
 class ColorMapLabel;
+class IntensityDataItem;
 
 //! Painting widget for MaskEditor, contains graphics scene and graphics view
 
@@ -45,10 +46,12 @@ public:
 
 public slots:
     void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
+    void onSavePlotRequest();
 
 private:
     MaskGraphicsScene *m_scene;
     MaskGraphicsView *m_view;
+    IntensityDataItem *m_intensityDataItem;
     ColorMapLabel *m_statusLabel;
     MaskResultsPresenter *m_resultsPresenter;
 };

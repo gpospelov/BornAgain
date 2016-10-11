@@ -59,6 +59,7 @@ MaskEditorActions::MaskEditorActions(QWidget *parent)
     m_savePlotAction->setText("Save");
     m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
     m_savePlotAction->setToolTip("Save Plot");
+    connect(m_savePlotAction, SIGNAL(triggered()), this, SIGNAL(savePlotRequest()));
 
     m_togglePanelAction = new QAction(this);
     m_togglePanelAction->setText("Properties");

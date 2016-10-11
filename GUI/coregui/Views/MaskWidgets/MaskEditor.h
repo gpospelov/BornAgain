@@ -26,7 +26,6 @@ class MaskEditorPropertyPanel;
 class MaskEditorActions;
 class MaskEditorToolBar;
 class MaskEditorCanvas;
-class QSplitter;
 class SessionModel;
 class IntensityDataItem;
 namespace Manhattan { class MiniSplitter; }

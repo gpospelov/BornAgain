@@ -150,7 +150,7 @@ The first one is the shape transform of the entire layer,
   = \chi_\text{m} \int_{z_{\il+1}}^{z_{\il}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}
   = (2\pi)^2 \chi_\text{m} d_\il \e^{i q_\perp \overline{z}}  \delta(\q_\plll) \sinc\left( q_\perp d_\il /2 \right),
 \end{equation}
-with $\overline{z} \coloneqq \frac{z_\il + z_{\il+1}}{2}$ and $d_\il \coloneqq z_\il - z_{\il+1}$.
+with $\overline{z} \coloneqq (z_\il + z_{\il+1})/2$ and $d_\il \coloneqq z_\il - z_{\il+1}$.
 Thanks to the delta function,
 this term only contributes to the direct beam and specular peak.
 \Warn{Since $\chi_\text{m}=0$ in BornAgain,
@@ -262,7 +262,7 @@ we encode the particle coordinates in a distribution function
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
   \PD_{l}(\r,\v\tau,\v\tau')
-  = \sum_{ij} \delta(\r-(\R_{j\plll}-\R_{i\plll}))
+  \coloneqq \sum_{ij} \delta(\r-(\R_{j\plll}-\R_{i\plll}))
   \delta(\v\tau-\v{T}_i)\delta(\v\tau'-\v{T}_j).
 \end{equation}
 Since in the following we are concerned with only one layer,
@@ -279,7 +279,7 @@ The differential cross section~\cref{Eass3} becomes
 \end{equation}
 where the integration over $\r$ is restricted to the horizontal plane.
 
-The normalization of the distribution function $\PD$ is such that it's total
+The normalization of the distribution function $\PD$ is such that its total
 integral equals the square of the number of particles that contribute to the scattering:
 \begin{equation}
   \int\!\d^2r\, \int\! \d^{d_T}\tau\, \d^{d_T}\tau' \PD(\r,\v\tau,\v\tau')
@@ -550,7 +550,7 @@ independent of the particle types ($\v\tau$ and $\v\tau'$).
 For a perfect one-dimensional lattice along the x-axis with period $a$, the position
 correlation function is given by:
 \begin{equation}
-  \rho_S\GD(\r) = \sum_{n\neq 0} \delta(x-na)\delta(y).
+  \rho_S\GD(\r) = \sum_{n} \delta(x-na)\delta(y).
 \end{equation}
 The corresponding interference function then becomes
 \begin{equation}
@@ -559,7 +559,7 @@ The corresponding interference function then becomes
 where $2\pi /a$ is a basis vector for the reciprocal lattice.
 
 For computational reasons in \BornAgain, the delta functions appearing in the interference function
-are replaced by distributions of a finite width $H(q_x-2\pi k/a)$. This ammounts to convoluting the
+are replaced by distributions of a finite width $H(q_x-2\pi k/a)$. This amounts to convoluting the
 previously given interference function with $H(q_x)$ or, equivalently, multiplying
 the position correlation function by the inverse Fourier image of $H(q_x)$, called the
 \index{Decay function}
@@ -620,7 +620,7 @@ decay functions that are defined in the radial variable
 \end{equation}
 where $(X,Y)$ are the coordinates in an orthonormal coordinate system, where the $X$-axis is rotated
 by an angle $\gamma$ with respect to the first lattice vector $\v a$.
-This ammounts to convoluting the
+This amounts to convoluting the
 previously given interference function with $H(\q)$ or, equivalently, multiplying
 the position correlation function by the inverse Fourier image of $H(\q)$, called the
 \index{Decay function}
@@ -654,9 +654,10 @@ The decay functions are all normalized such that $\int\!d\q_\plll H(\q)= 4\pi^2$
 %===============================================================================
 \subsection{The one-dimensional paracrystal} \label{sec:sect:1dparacrystal}
 %===============================================================================
-A paracrystal, originally developed by Hosemann\cite{Hos51}, models the cumulative disorder of
-the interparticle distances. Although the paracrystal in one dimension is not directly implemented in \BornAgain, it forms the
-basis for the paracrystal models in \BornAgain\ and will thus be discussed first.
+A paracrystal, originally developed by Hosemann \cite{Hos51},
+models the cumulative disorder of the interparticle distances.
+Although the paracrystal in one dimension is not directly implemented in \BornAgain,
+it forms the basis for the paracrystal models in \BornAgain\ and will thus be discussed first.
 
 In one dimension, the paracrystal is parameterized by the
 position distribution of the nearest neighbour $p(x)$, centered at a peak distance $D$. The probablility
@@ -878,7 +879,11 @@ The particles are positioned at regular intervals generating a layout characteri
 This lattice can be two or one-dimensional depending on the characteristics of the particles. For example when they are infinitely long, the implementation can be simplified and reduced to a "pseudo" 1D system.
 
 \index{Paracrystal}
-A paracrystal, whose notion was developed by Hosemann\cite{Hos51}, allows fluctuations of the lengths and orientations of lattice vectors. Paracrystals can be defined as distorted crystals in which the crystalline order has not disappeared and for which the behavior of the interference functions  at small angles is coherent.
+A paracrystal, whose notion was developed by Hosemann \cite{Hos51},
+allows fluctuations of the lengths and orientations of lattice vectors.
+Paracrystals can be defined as distorted crystals
+in which the crystalline order has not disappeared
+and for which the behavior of the interference functions at small angles is coherent.
 It is a transition between the regular lattice and the disordered state.\\
 
 For example, in one dimension, a paracrystal is generated using the following method. First we place a particle at the origin. The second particle is put at a distance $x$ with a density probability $p(x)$ that is peaked at a mean value $D$: $\int_{-\infty} ^{\infty}p(x)dx=1$ and $\int_{-\infty}^{\infty}xp(x)dx=D$. The third one is added at a distance $y$ from the second site using the same rule with a density probability $p_2(y)= \int_{-\infty}^{\infty}p(x)p(y-x)dx=p\otimes p(y)$.\\ With such a method, the pair correlation function $g(x)$ is built step by step. Its expression and the one of its Fourier transform, which is the interference function are

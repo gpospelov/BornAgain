@@ -552,11 +552,12 @@ correlation function is given by:
 \begin{equation}
   \rho_S\GD(\r) = \sum_{n\neq 0} \delta(x-na)\delta(y).
 \end{equation}
-The corresponding interference function then becomes
+Using standard relations for the Dirac comb,
+one obtains the interference function
 \begin{equation}
-  \SD(\q) = \frac{2\pi}{a}\sum_k \delta(q_x - \frac{2\pi k}{a}),
+  \SD(\q) = \frac{1}{a}\sum_k \delta(q_x - \frac{2\pi k}{a}),
 \end{equation}
-where $2\pi /a$ is a basis vector for the reciprocal lattice.
+which has the reciprocal lattice period $2\pi/a$.
 
 For computational reasons in \BornAgain, the delta functions appearing in the interference function
 are replaced by distributions of a finite width $H(q_x-2\pi k/a)$. This amounts to convoluting the

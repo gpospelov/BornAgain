@@ -6,4 +6,4 @@
 #include "SpecialFunctionsTest.h"
 #include "RectangularDetectorTest.h"
 #include "PrecomputedTest.h"
-#include "DetectorTest.h"
+#include "SphericalDetectorTest.h"

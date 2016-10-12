@@ -62,6 +62,7 @@ public:
     void setDetector(const IDetector2D& detector);
 
     //! Sets detector parameters using axes of output data
+    //! TODO -> remove this after RegionOfInterest
     void setDetectorParameters(const OutputData<double>& output_data);
     void setDetectorParameters(const IHistogram& histogram);
 

@@ -64,6 +64,7 @@ private:
     QListView *m_listView;
     ComponentEditor *m_maskPropertyEditor;
     ComponentEditor *m_plotPropertyEditor;
+    AccordionWidget *m_accordion;
     SessionModel *m_maskModel;
     QModelIndex m_rootIndex;
     IntensityDataItem *m_intensityDataItem;

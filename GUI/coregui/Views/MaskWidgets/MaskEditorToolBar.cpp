@@ -38,13 +38,9 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *
     setProperty("_q_custom_style_disabled", QVariant(true));
 
     setup_selection_group();
-    add_separator();
-    setup_maskvalue_group();
-    add_separator();
+//    setup_maskvalue_group();
     setup_shapes_group();
-    add_separator();
     setup_maskmodify_group();
-    add_separator();
     setup_extratools_group();
 
     connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)),
@@ -92,28 +88,29 @@ void MaskEditorToolBar::onPresentationTypeReleased()
 
 void MaskEditorToolBar::setup_selection_group()
 {
-    QToolButton *selectionButton = new QToolButton(this);
-    selectionButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_arrow.svg"));
-    selectionButton->setToolTip("Select/modify mode");
-    selectionButton->setCheckable(true);
-    selectionButton->setChecked(true);
-    addWidget(selectionButton);
-
     QToolButton *panButton = new QToolButton(this);
     panButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_hand.svg"));
     panButton->setToolTip("Pan/zoom mode (space)");
     panButton->setCheckable(true);
+    panButton->setChecked(true);
     addWidget(panButton);
 
     QToolButton *resetViewButton = new QToolButton(this);
     resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
     resetViewButton->setToolTip("Reset pan/zoom to initial state");
     addWidget(resetViewButton);
+    connect(resetViewButton, SIGNAL(clicked()), m_editorActions, SIGNAL(resetViewRequest()));
 
-    m_activityButtonGroup->addButton(selectionButton, MaskEditorFlags::SELECTION_MODE);
+    add_separator();
+
+    QToolButton *selectionButton = new QToolButton(this);
+    selectionButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_arrow.svg"));
+    selectionButton->setToolTip("Select/modify mask");
+    selectionButton->setCheckable(true);
+    addWidget(selectionButton);
+
     m_activityButtonGroup->addButton(panButton, MaskEditorFlags::PAN_ZOOM_MODE);
-
-    connect(resetViewButton, SIGNAL(clicked()), this, SIGNAL(resetViewRequest()));
+    m_activityButtonGroup->addButton(selectionButton, MaskEditorFlags::SELECTION_MODE);
 }
 
 void MaskEditorToolBar::setup_maskvalue_group()
@@ -142,7 +139,7 @@ void MaskEditorToolBar::setup_maskvalue_group()
 void MaskEditorToolBar::setup_shapes_group()
 {
     QToolButton *roiButton = new QToolButton(this);
-    roiButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_rectangle.svg"));
+    roiButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_roi.svg"));
     roiButton->setToolTip("Create region of interest");
     roiButton->setCheckable(true);
     addWidget(roiButton);
@@ -177,12 +174,12 @@ void MaskEditorToolBar::setup_shapes_group()
     ellipseButton->setCheckable(true);
     addWidget(ellipseButton);
 
-    QToolButton *maskAllButton = new QToolButton(this);
-    maskAllButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_maskall.svg"));
-    maskAllButton->setToolTip("Create masked area covering whole detector plane\n"
-                              "Will be placed beneath all masks. Only one instance is allowed.");
-    maskAllButton->setCheckable(true);
-    addWidget(maskAllButton);
+//    QToolButton *maskAllButton = new QToolButton(this);
+//    maskAllButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_maskall.svg"));
+//    maskAllButton->setToolTip("Create masked area covering whole detector plane\n"
+//                              "Will be placed beneath all masks. Only one instance is allowed.");
+//    maskAllButton->setCheckable(true);
+//    addWidget(maskAllButton);
 
     m_activityButtonGroup->addButton(roiButton, MaskEditorFlags::ROI_MODE);
     m_activityButtonGroup->addButton(rectangleButton, MaskEditorFlags::RECTANGLE_MODE);
@@ -190,14 +187,16 @@ void MaskEditorToolBar::setup_shapes_group()
     m_activityButtonGroup->addButton(verticalLineButton, MaskEditorFlags::VERTICAL_LINE_MODE);
     m_activityButtonGroup->addButton(horizontalLineButton, MaskEditorFlags::HORIZONTAL_LINE_MODE);
     m_activityButtonGroup->addButton(ellipseButton, MaskEditorFlags::ELLIPSE_MODE);
-    m_activityButtonGroup->addButton(maskAllButton, MaskEditorFlags::MASKALL_MODE);
+//    m_activityButtonGroup->addButton(maskAllButton, MaskEditorFlags::MASKALL_MODE);
+    add_separator();
 }
 
 void MaskEditorToolBar::setup_maskmodify_group()
 {
     Q_ASSERT(m_editorActions);
-    addAction(m_editorActions->getBringToFrontAction());
-    addAction(m_editorActions->getSendToBackAction());
+    addAction(m_editorActions->bringToFrontAction());
+    addAction(m_editorActions->sendToBackAction());
+    add_separator();
 }
 
 void MaskEditorToolBar::setup_extratools_group()
@@ -207,10 +206,8 @@ void MaskEditorToolBar::setup_extratools_group()
     presentationButton->setToolTip("Press and hold to see mask results.");
     addWidget(presentationButton);
 
-    connect(presentationButton, SIGNAL(pressed()),
-            this, SLOT(onPresentationTypePressed()));
-    connect(presentationButton, SIGNAL(released()),
-            this, SLOT(onPresentationTypeReleased()));
+    connect(presentationButton, SIGNAL(pressed()), this, SLOT(onPresentationTypePressed()));
+    connect(presentationButton, SIGNAL(released()), this, SLOT(onPresentationTypeReleased()));
 
     QToolButton *propertyPanelButton = new QToolButton(this);
     propertyPanelButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_toolpanel.svg"));
@@ -218,7 +215,8 @@ void MaskEditorToolBar::setup_extratools_group()
     addWidget(propertyPanelButton);
 
     connect(propertyPanelButton, SIGNAL(clicked()),
-            this, SIGNAL(propertyPanelRequest()));
+            m_editorActions, SIGNAL(propertyPanelRequest()));
+    add_separator();
 }
 
 void MaskEditorToolBar::add_separator()

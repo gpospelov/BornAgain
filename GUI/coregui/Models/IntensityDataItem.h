@@ -21,7 +21,7 @@
 #include "IDetector2D.h"
 
 class BasicAxisItem;
-
+class MaskContainerItem;
 
 class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
@@ -93,6 +93,8 @@ public:
     BasicAxisItem *yAxisItem();
 
     void resetView();
+
+    MaskContainerItem *maskContainerItem();
 
 public slots:
     void setLowerX(double xmin);

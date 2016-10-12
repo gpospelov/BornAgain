@@ -26,9 +26,9 @@ class MaskEditorPropertyPanel;
 class MaskEditorActions;
 class MaskEditorToolBar;
 class MaskEditorCanvas;
-class QSplitter;
 class SessionModel;
 class IntensityDataItem;
+namespace Manhattan { class MiniSplitter; }
 
 //! Main class to draw masks on top of intensity data map
 
@@ -49,17 +49,19 @@ public slots:
     void onPropertyPanelRequest();
     void init_test_model();
 
+    QList<QAction *> topToolBarActions();
+
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
 
 private:
     void setup_connections();
 
-    MaskEditorActions *m_itemActions;
+    MaskEditorActions *m_editorActions;
     MaskEditorToolBar *m_toolBar;
     MaskEditorPropertyPanel *m_editorPropertyPanel;
     MaskEditorCanvas *m_editorCanvas;
-    QSplitter *m_splitter;
+    Manhattan::MiniSplitter *m_splitter;
 };
 
 

@@ -22,6 +22,7 @@
 class JobModel;
 class IntensityDataItem;
 class ComponentEditor;
+class SessionItem;
 
 //! The IntensityDataPropertyWidget shows ComponentEditor for given IntensityDataItem.
 

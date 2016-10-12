@@ -26,7 +26,7 @@
 
 template <class T> class IntegratorMCMiser;
 class Bin1DCVector;
-class FormFactorInfo;
+class WeightedFormFactor;
 class IInterferenceFunction;
 class LayerSpecularInfo;
 class SimulationElement;
@@ -44,7 +44,7 @@ public:
     virtual ~IInterferenceFunctionStrategy();
 
     //! Initializes the object with form factors and interference functions
-    virtual void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
+    virtual void init(const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
                       const IInterferenceFunction& iff);
 
     //! Provides the R,T coefficients information
@@ -66,7 +66,7 @@ protected:
     virtual double evaluateForMatrixList(const SimulationElement& sim_element,
                                          const matrixFFVector_t& ff_list) const = 0;
 
-    SafePointerVector<FormFactorInfo> m_ff_infos;        //!< form factor info
+    SafePointerVector<WeightedFormFactor> m_weighted_ffs;        //!< form factor info
     std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
     SimulationOptions m_options;                         //!< simulation options
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA

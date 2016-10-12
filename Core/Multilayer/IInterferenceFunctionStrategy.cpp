@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
-#include "FormFactorInfo.h"
+#include "WeightedFormFactor.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
@@ -41,9 +41,9 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() {}
 
 void IInterferenceFunctionStrategy::init(
-    const SafePointerVector<FormFactorInfo>& form_factor_infos, const IInterferenceFunction& iff)
+    const SafePointerVector<WeightedFormFactor>& weighted_formfactors, const IInterferenceFunction& iff)
 {
-    m_ff_infos = form_factor_infos;
+    m_weighted_ffs = weighted_formfactors;
     mP_iff.reset(iff.clone());
 }
 
@@ -83,7 +83,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
         mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
-    for (auto it: m_ff_infos) {
+    for (auto it: m_weighted_ffs) {
         it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         complex_t ff_mat = it->mp_ff->evaluate(wavevectors);
         m_ff.push_back(wavevector_scattering_factor*ff_mat);
@@ -104,7 +104,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorListPol(
         mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
-    for (auto it: m_ff_infos) {
+    for (auto it: m_weighted_ffs) {
         it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = it->mp_ff->evaluatePol(wavevectors);
         m_ff_pol.push_back(wavevector_scattering_factor*ff_mat);

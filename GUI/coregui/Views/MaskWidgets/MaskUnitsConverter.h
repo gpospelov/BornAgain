@@ -54,4 +54,4 @@ private:
     EConvertionDirection m_direction;
 };
 
-#endif
+#endif // MASKUNITSCONVERTER_H

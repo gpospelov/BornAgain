@@ -735,4 +735,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif
+#endif // QTPROPERTYMANAGER_H

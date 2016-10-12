@@ -27,8 +27,8 @@
 **
 ****************************************************************************/
 
-#ifndef SETTINGSTUTILS_H
-#define SETTINGSTUTILS_H
+#ifndef STRINGUTILS_H
+#define STRINGUTILS_H
 
 #include "qt-manhattan-style_global.hpp"
 
@@ -82,4 +82,4 @@ QTMANHATTANSTYLESHARED_EXPORT QString expandMacros(const QString &str, AbstractM
 
 } // namespace Manhattan
 
-#endif // SETTINGSTUTILS_H
+#endif // STRINGUTILS_H

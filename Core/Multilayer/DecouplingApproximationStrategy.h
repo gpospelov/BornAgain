@@ -30,7 +30,7 @@ public:
         : IInterferenceFunctionStrategy(sim_params) {}
     ~DecouplingApproximationStrategy() final {}
 
-    void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
+    void init(const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
               const IInterferenceFunction& iff) final;
 
 private:

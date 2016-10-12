@@ -29,7 +29,7 @@ public:
     SizeSpacingCorrelationApproximationStrategy(SimulationOptions sim_params, double kappa);
     ~SizeSpacingCorrelationApproximationStrategy() final {}
 
-    void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
+    void init(const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
               const IInterferenceFunction& iff) final;
 
 private:

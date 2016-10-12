@@ -20,7 +20,7 @@
 #include "SimulationOptions.h"
 #include <memory>
 
-class FormFactorInfo;
+class WeightedFormFactor;
 class IInterferenceFunctionStrategy;
 class IMaterial;
 class IParticle;
@@ -58,15 +58,14 @@ private:
     bool requiresMatrixFFs() const;
     //! collect the formfactor info of all particles in the decoration and decorate
     //! these for DWBA when needed
-    void collectFormFactorInfos();
+    void collectWeightedFormFactors();
     //! collect the interference function
     void collectInterferenceFunction();
     //! Creates formfactor info for single particle
-    FormFactorInfo* createFormFactorInfo(
+    WeightedFormFactor* createWeightedFormFactor(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
-    //! Info about form factors
-    SafePointerVector<class FormFactorInfo> m_ff_infos;
+    SafePointerVector<class WeightedFormFactor> m_weighted_ffs;
 
     //! Interference function
     std::unique_ptr<class IInterferenceFunction> mP_interference_function;

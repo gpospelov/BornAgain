@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/MaskWidgets/RegionOfInterestView.h
+//! @file      GUI/coregui/Views/MaskWidgets/RegionOfInterestView.cpp
 //! @brief     Defines RegionOfInterestView class
 //!
 //! @homepage  http://www.bornagainproject.org

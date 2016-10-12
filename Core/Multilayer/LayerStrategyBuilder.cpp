@@ -15,7 +15,7 @@
 
 #include "LayerStrategyBuilder.h"
 #include "Exceptions.h"
-#include "FormFactorInfo.h"
+#include "WeightedFormFactor.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
 #include "ILayout.h"
@@ -46,7 +46,7 @@ void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
 
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
-    collectFormFactorInfos();
+    collectWeightedFormFactors();
     collectInterferenceFunction();
     IInterferenceFunctionStrategy* p_result(nullptr);
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
@@ -73,7 +73,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(m_ff_infos, *mP_interference_function);
+    p_result->init(m_weighted_ffs, *mP_interference_function);
     p_result->setSpecularInfo(*mP_specular_info);
     return p_result;
 }
@@ -83,20 +83,20 @@ bool LayerStrategyBuilder::requiresMatrixFFs() const
     return mP_sample->containsMagneticMaterial();
 }
 
-void LayerStrategyBuilder::collectFormFactorInfos()
+void LayerStrategyBuilder::collectWeightedFormFactors()
 {
     assert(mP_layer->getNumberOfLayouts()>0);
-    m_ff_infos.clear();
+    m_weighted_ffs.clear();
     const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial* p_layer_material = mP_layer->getMaterial();
     double total_abundance = mP_layer->getTotalAbundance();
     if (total_abundance<=0.0)
         total_abundance = 1.0;
     for (const IParticle* particle: p_layout->getParticles()) {
-        FormFactorInfo* p_ff_info;
-        p_ff_info = createFormFactorInfo(particle, p_layer_material);
-        p_ff_info->m_abundance /= total_abundance;
-        m_ff_infos.push_back(p_ff_info);
+        WeightedFormFactor* p_weighted_ff;
+        p_weighted_ff = createWeightedFormFactor(particle, p_layer_material);
+        p_weighted_ff->m_abundance /= total_abundance;
+        m_weighted_ffs.push_back(p_weighted_ff);
     }
     return;
 }
@@ -112,7 +112,7 @@ void LayerStrategyBuilder::collectInterferenceFunction()
         mP_interference_function.reset( new InterferenceFunctionNone() );
 }
 
-FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
+WeightedFormFactor* LayerStrategyBuilder::createWeightedFormFactor(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
     const std::unique_ptr<IParticle> P_particle_clone(particle->clone());
@@ -130,5 +130,5 @@ FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
     } else
         p_ff_framework = P_ff_particle->clone();
 
-    return new FormFactorInfo(p_ff_framework, particle->getAbundance());
+    return new WeightedFormFactor(p_ff_framework, particle->getAbundance());
 }

@@ -71,4 +71,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif
+#endif // QTBUTTONPROPERTYBROWSER_H

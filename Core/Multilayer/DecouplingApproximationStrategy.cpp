@@ -15,7 +15,7 @@
 
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
-#include "FormFactorInfo.h"
+#include "WeightedFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
@@ -24,10 +24,10 @@
 #include <iostream>
 
 void DecouplingApproximationStrategy::init(
-    const SafePointerVector<FormFactorInfo>& form_factor_infos, const IInterferenceFunction& iff)
+    const SafePointerVector<WeightedFormFactor>& weighted_formfactors, const IInterferenceFunction& iff)
 {
-    IInterferenceFunctionStrategy::init(form_factor_infos, iff);
-    if (m_ff_infos.size()==0)
+    IInterferenceFunctionStrategy::init(weighted_formfactors, iff);
+    if (m_weighted_ffs.size()==0)
         throw Exceptions::ClassInitializationException(
             "No formfactors for Decoupling Approximation.");
 }
@@ -39,16 +39,16 @@ double DecouplingApproximationStrategy::evaluateForList(
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
     double total_abundance = 0.0;
-    for (size_t i = 0; i < m_ff_infos.size(); ++i)
-        total_abundance += m_ff_infos[i]->m_abundance;
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
+        total_abundance += m_weighted_ffs[i]->m_abundance;
     if (total_abundance <= 0.0)
         return 0.0;
-    for (size_t i = 0; i < m_ff_infos.size(); ++i) {
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
         complex_t ff = ff_list[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
-        double fraction = m_ff_infos[i]->m_abundance / total_abundance;
+        double fraction = m_weighted_ffs[i]->m_abundance / total_abundance;
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
     }
@@ -66,17 +66,17 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
     double total_abundance = 0.0;
-    for (size_t i = 0; i < m_ff_infos.size(); ++i)
-        total_abundance += m_ff_infos[i]->m_abundance;
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
+        total_abundance += m_weighted_ffs[i]->m_abundance;
     if (total_abundance <= 0.0)
         return 0.0;
-    for (size_t i = 0; i < m_ff_infos.size(); ++i) {
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
         Eigen::Matrix2cd ff = ff_list[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> "
                 "Error! Form factor contains NaN or infinite");
-        double fraction = m_ff_infos[i]->m_abundance / total_abundance;
+        double fraction = m_weighted_ffs[i]->m_abundance / total_abundance;
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }

@@ -19,7 +19,7 @@
 #include "ICloneable.h"
 class IFormFactor;
 
-//! Information about particle position and abundance.
+//! Information about particle form factor and abundance.
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ FormFactorInfo : public ICloneable

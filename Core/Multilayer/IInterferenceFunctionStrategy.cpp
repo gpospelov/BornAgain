@@ -83,7 +83,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
         mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
-    for( auto it: m_ff_infos ) {
+    for (auto it: m_ff_infos) {
         it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         complex_t ff_mat = it->mp_ff->evaluate(wavevectors);
         m_ff.push_back(wavevector_scattering_factor*ff_mat);
@@ -92,7 +92,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
 
 //! Precomputes matrix form factors.
 void IInterferenceFunctionStrategy::calculateFormFactorListPol(
-        const SimulationElement &sim_element) const
+        const SimulationElement& sim_element) const
 {
     clearFormFactorLists();
 
@@ -104,7 +104,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorListPol(
         mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
-    for ( auto it: m_ff_infos ) {
+    for (auto it: m_ff_infos) {
         it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = it->mp_ff->evaluatePol(wavevectors);
         m_ff_pol.push_back(wavevector_scattering_factor*ff_mat);

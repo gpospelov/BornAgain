@@ -24,7 +24,8 @@
 #include <iostream>
 
 void DecouplingApproximationStrategy::init(
-    const SafePointerVector<WeightedFormFactor>& weighted_formfactors, const IInterferenceFunction& iff)
+    const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
+    const IInterferenceFunction& iff)
 {
     IInterferenceFunctionStrategy::init(weighted_formfactors, iff);
     if (m_weighted_ffs.size()==0)
@@ -32,7 +33,9 @@ void DecouplingApproximationStrategy::init(
             "No formfactors for Decoupling Approximation.");
 }
 
-//! Evaluates the intensity for given list of evaluated form factors.
+//! Returns the total incoherent and coherent scattering intensity for given kf and
+//! for one layer (implied by the given particle form factors).
+//! For each IParticle in the layer layout, the precomputed form factor must be provided.
 double DecouplingApproximationStrategy::evaluateForList(
     const SimulationElement& sim_element, const std::vector<complex_t>& ff_list) const
 {
@@ -57,8 +60,11 @@ double DecouplingApproximationStrategy::evaluateForList(
     return total_abundance * (intensity + amplitude_norm * (itf_function - 1.0));
 }
 
-//! Evaluates the intensity for given list of evaluated form factors
-//! in the presence of polarization of beam and detector.
+//! Returns the total incoherent and coherent scattering intensity for given kf and
+//! for one layer (implied by the given particle form factors).
+//! For each IParticle in the layer layout, the precomputed form factor must be provided.
+//! This is the polarized variant of evaluateForList. Each form factor must be
+//! precomputed for polarized beam and detector.
 double DecouplingApproximationStrategy::evaluateForMatrixList(
     const SimulationElement& sim_element, const matrixFFVector_t& ff_list) const
 {

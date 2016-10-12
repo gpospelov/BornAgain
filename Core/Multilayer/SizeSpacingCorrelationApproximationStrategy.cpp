@@ -28,7 +28,8 @@ SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximation
 }
 
 void SizeSpacingCorrelationApproximationStrategy::init(
-    const SafePointerVector<WeightedFormFactor>& weighted_formfactors, const IInterferenceFunction &iff)
+    const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
+    const IInterferenceFunction &iff)
 {
     IInterferenceFunctionStrategy::init(weighted_formfactors, iff);
     if (m_weighted_ffs.size()==0)
@@ -37,10 +38,13 @@ void SizeSpacingCorrelationApproximationStrategy::init(
     initMeanRadius();
 }
 
+//! Returns the total scattering intensity for given kf and
+//! for one layer (implied by the given particle form factors).
+//! For each IParticle in the layer layout, the precomputed form factor must be provided.
 double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
     const SimulationElement& sim_element, const std::vector<complex_t>& ff_list) const
 {
-    double qp = getqp(sim_element.getMeanQ());
+    double qp = sim_element.getMeanQ().magxy();
     double diffuse_intensity = 0.0;
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
@@ -60,10 +64,15 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
     return total_abundance * (diffuse_intensity + interference_intensity);
 }
 
+//! Returns the total scattering intensity for given kf and
+//! for one layer (implied by the given particle form factors).
+//! For each IParticle in the layer layout, the precomputed form factor must be provided.
+//! This is the polarized variant of evaluateForList. Each form factor must be
+//! precomputed for polarized beam and detector.
 double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     const SimulationElement& sim_element, const matrixFFVector_t& ff_list) const
 {
-    double qp = getqp(sim_element.getMeanQ());
+    double qp = sim_element.getMeanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
@@ -92,7 +101,7 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
     const kvector_t q, const std::vector<complex_t> &ff_list) const
 {
-    double qp = getqp(q);
+    double qp = q.magxy();
     complex_t result(0.0, 0.0);
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
@@ -108,7 +117,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicMatrixFF(
     const kvector_t q, const matrixFFVector_t& ff_list) const
 {
-    double qp = getqp(q);
+    double qp = q.magxy();
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
@@ -124,7 +133,7 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteris
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
     const kvector_t q, const std::vector<complex_t>& ff_list) const
 {
-    double qp = getqp(q);
+    double qp = q.magxy();
     complex_t result(0.0, 0.0);
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
@@ -140,7 +149,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristic
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicMatrixFF(
     const kvector_t q, const matrixFFVector_t& ff_list) const
 {
-    double qp = getqp(q);
+    double qp = q.magxy();
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
@@ -163,9 +172,8 @@ SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(doubl
     return p_iff->FTPDF(qp);
 }
 
-complex_t
-SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoupling(double qp,
-                                                                           double kappa) const
+complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoupling(
+        double qp, double kappa) const
 {
     size_t n_frs = m_weighted_ffs.size();
     complex_t result = complex_t(0.0, 0.0);
@@ -179,27 +187,21 @@ SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoupling(doubl
     return result / total_abundance;
 }
 
-complex_t
-SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(
+complex_t SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(
     double qp, double kappa, size_t index) const
 {
     return std::exp(complex_t(0.0, 1.0) * kappa * qp
                     * (m_weighted_ffs[index]->mp_ff->getRadialExtension() - m_mean_radius));
 }
 
-double SizeSpacingCorrelationApproximationStrategy::getqp(const kvector_t q) const
-{
-    double qxr = q.x();
-    double qyr = q.y();
-    return std::sqrt(qxr * qxr + qyr * qyr);
-}
-
+//! Sets m_mean_radius to the weighted arithmetic average of the particle radii.
 void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
 {
     m_mean_radius = 0.0;
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
-        m_mean_radius += m_weighted_ffs[i]->m_abundance * m_weighted_ffs[i]->mp_ff->getRadialExtension();
+        m_mean_radius += m_weighted_ffs[i]->m_abundance *
+                m_weighted_ffs[i]->mp_ff->getRadialExtension();
         total_abundance += m_weighted_ffs[i]->m_abundance;
     }
     if (total_abundance > 0.0)

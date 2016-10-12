@@ -41,7 +41,8 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() {}
 
 void IInterferenceFunctionStrategy::init(
-    const SafePointerVector<WeightedFormFactor>& weighted_formfactors, const IInterferenceFunction& iff)
+    const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
+    const IInterferenceFunction& iff)
 {
     m_weighted_ffs = weighted_formfactors;
     mP_iff.reset(iff.clone());

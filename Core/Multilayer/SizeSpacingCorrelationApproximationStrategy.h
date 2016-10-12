@@ -33,12 +33,8 @@ public:
               const IInterferenceFunction& iff) final;
 
 private:
-    //! Evaluates the intensity for given list of evaluated form factors
     double evaluateForList(const SimulationElement& sim_element,
                            const std::vector<complex_t>& ff_list) const final;
-
-    //! Evaluates the intensity for given list of evaluated form factors
-    //! in the presence of polarization of beam and detector
     double evaluateForMatrixList(const SimulationElement& sim_element,
                                  const matrixFFVector_t& ff_list) const final;
 
@@ -53,7 +49,6 @@ private:
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
     complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
-    double getqp(const kvector_t q) const;
     void initMeanRadius();
     double m_mean_radius;
     double m_kappa;

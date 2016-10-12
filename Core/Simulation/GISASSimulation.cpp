@@ -155,8 +155,6 @@ void GISASSimulation::transferResultsToIntensityMap()
     if (detector_dimension!=2)
         throw Exceptions::RuntimeErrorException("GISASSimulation::transferResultsToIntensityMap: "
                                     "detector is not two-dimensional");
-    updateIntensityMap();
-
     size_t element_index(0);
     for(size_t index=0; index<m_intensity_map.getAllocatedSize(); ++index) {
         if(m_instrument.getDetector()->isMasked(index)) continue;

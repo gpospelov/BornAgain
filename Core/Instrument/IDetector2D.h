@@ -114,7 +114,12 @@ public:
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+
+    //! Creates single simulation element.
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
+
+    void transferResultsToIntensityMap(OutputData<double> &data,
+                                       const std::vector<SimulationElement> &elements) const;
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
@@ -123,6 +128,9 @@ public:
 
     //! Returns detector map in given axes units
     virtual OutputData<double>* createDetectorMap(const Beam&, EAxesUnits) const;
+
+    //! Inits axes of OutputData to match the detector and sets values to zero.
+    virtual void initOutputData(OutputData<double> &data) const;
 
     //! returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;

@@ -142,8 +142,6 @@ void GISASSimulation::maskAll()
     m_instrument.getDetector()->maskAll();
 }
 
-// *** protected ***
-
 void GISASSimulation::initSimulationElementVector()
 {
     m_sim_elements = m_instrument.createSimulationElements();
@@ -151,24 +149,12 @@ void GISASSimulation::initSimulationElementVector()
 
 void GISASSimulation::transferResultsToIntensityMap()
 {
-    size_t detector_dimension = m_instrument.getDetectorDimension();
-    if (detector_dimension!=2)
-        throw Exceptions::RuntimeErrorException("GISASSimulation::transferResultsToIntensityMap: "
-                                    "detector is not two-dimensional");
-    size_t element_index(0);
-    for(size_t index=0; index<m_intensity_map.getAllocatedSize(); ++index) {
-        if(m_instrument.getDetector()->isMasked(index)) continue;
-        m_intensity_map[index] = m_sim_elements[element_index++].getIntensity();
-    }
+    m_instrument.getDetector()->transferResultsToIntensityMap(m_intensity_map, m_sim_elements);
 }
 
 void GISASSimulation::updateIntensityMap()
 {
-    m_intensity_map.clear();
-    size_t detector_dimension = m_instrument.getDetectorDimension();
-    for (size_t dim=0; dim<detector_dimension; ++dim)
-        m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
-    m_intensity_map.setAllTo(0.);
+    m_instrument.getDetector()->initOutputData(m_intensity_map);
 }
 
 void GISASSimulation::initialize()

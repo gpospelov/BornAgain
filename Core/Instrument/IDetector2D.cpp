@@ -114,6 +114,14 @@ OutputData<double>* IDetector2D::createDetectorMap(const Beam&, EAxesUnits) cons
     return nullptr;
 }
 
+void IDetector2D::initOutputData(OutputData<double> &data) const
+{
+    data.clear();
+    for(size_t i=0; i<getDimension(); ++i)
+        data.addAxis(getAxis(i));
+    data.setAllTo(0.);
+}
+
 std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
 {
     std::vector<EAxesUnits> result = {NBINS};
@@ -194,7 +202,6 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     return result;
 }
 
-//! create single simulation element
 SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
 {
     double wavelength = beam.getWavelength();
@@ -202,6 +209,20 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
     double phi_i = beam.getPhi();
     const std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
     return SimulationElement(wavelength, alpha_i, phi_i, P_pixel_map.get());
+}
+
+void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,
+    const std::vector<SimulationElement> &elements) const
+{
+    size_t element_index(0);
+    for(size_t index=0; index<data.getAllocatedSize(); ++index) {
+        if(this->isMasked(index)) continue;
+        data[index] = elements[element_index++].getIntensity();
+        if(element_index > elements.size()) {
+            throw Exceptions::RuntimeErrorException("IDetector2D::transferResultsToIntensityMap -> "
+                                                    "Error. Number of elements doesn't match data");
+        }
+    }
 }
 
 bool IDetector2D::dataShapeMatches(const OutputData<double> *p_data) const

@@ -46,6 +46,9 @@ void IInterferenceFunctionStrategy::init(
 {
     m_weighted_ffs = weighted_formfactors;
     mP_iff.reset(iff.clone());
+    m_total_abundance = 0;
+    for (const auto wff: m_weighted_ffs)
+        m_total_abundance += wff->m_abundance;
 }
 
 void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo& specular_info)

@@ -66,30 +66,24 @@ protected:
     virtual double evaluateForMatrixList(const SimulationElement& sim_element,
                                          const matrixFFVector_t& ff_list) const = 0;
 
-    SafePointerVector<WeightedFormFactor> m_weighted_ffs;        //!< form factor info
-    std::unique_ptr<IInterferenceFunction> mP_iff;       //!< interference function
-    SimulationOptions m_options;                         //!< simulation options
+    double m_total_abundance; //!< cached sum of particle abundances, computed by init()
+    SafePointerVector<WeightedFormFactor> m_weighted_ffs;
+    std::unique_ptr<IInterferenceFunction> mP_iff;
+    SimulationOptions m_options;
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
-    void calculateFormFactorList(const SimulationElement& sim_element) const;
-
+    void calculateFormFactorList   (const SimulationElement& sim_element) const;
     void calculateFormFactorListPol(const SimulationElement& sim_element) const;
 
     //! Clears the cached form factor lists
     void clearFormFactorLists() const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the intensity
-    double MCIntegratedEvaluate(const SimulationElement& sim_element) const;
-
-    //! Perform a Monte Carlo integration over the bin for the evaluation of the
-    //! polarized intensity
+    double MCIntegratedEvaluate   (const SimulationElement& sim_element) const;
     double MCIntegratedEvaluatePol(const SimulationElement& sim_element) const;
 
-    //! Evaluate for fixed angles
-    double evaluate_for_fixed_angles(double* fractions, size_t dim, void* params) const;
-
-    //! Evaluate polarized for fixed angles
+    double evaluate_for_fixed_angles    (double* fractions, size_t dim, void* params) const;
     double evaluate_for_fixed_angles_pol(double* fractions, size_t dim, void* params) const;
 
     mutable std::vector<complex_t> m_ff; //!< cached form factor evaluations

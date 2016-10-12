@@ -41,23 +41,20 @@ double DecouplingApproximationStrategy::evaluateForList(
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    if (total_abundance <= 0.0)
+    if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
         complex_t ff = ff_list[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
-        double fraction = m_weighted_ffs[i]->m_abundance / total_abundance;
+        double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
-    return total_abundance * (intensity + amplitude_norm * (itf_function - 1.0));
+    return m_total_abundance * (intensity + amplitude_norm * (itf_function - 1.0));
 }
 
 //! Returns the total incoherent and coherent scattering intensity for given kf and
@@ -71,10 +68,7 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    if (total_abundance <= 0.0)
+    if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
         Eigen::Matrix2cd ff = ff_list[i];
@@ -82,7 +76,7 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> "
                 "Error! Form factor contains NaN or infinite");
-        double fraction = m_weighted_ffs[i]->m_abundance / total_abundance;
+        double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
@@ -92,5 +86,5 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
-    return total_abundance * (intensity_trace + amplitude_trace * (itf_function - 1.0));
+    return m_total_abundance * (intensity_trace + amplitude_trace * (itf_function - 1.0));
 }

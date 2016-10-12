@@ -46,22 +46,19 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
 {
     double qp = sim_element.getMeanQ().magxy();
     double diffuse_intensity = 0.0;
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    if (total_abundance <= 0.0)
+    if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
         complex_t ff = ff_list[i];
-        double fraction = m_weighted_ffs[i]->m_abundance / total_abundance;
+        double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
         diffuse_intensity += fraction * std::norm(ff);
     }
-    complex_t mcff  = getMeanCharacteristicFF    (qp, ff_list) / total_abundance;
-    complex_t mcffc = getMeanConjCharacteristicFF(qp, ff_list) / total_abundance;
-    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa) / total_abundance;
+    complex_t mcff  = getMeanCharacteristicFF    (qp, ff_list) / m_total_abundance;
+    complex_t mcffc = getMeanConjCharacteristicFF(qp, ff_list) / m_total_abundance;
+    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa) / m_total_abundance;
     complex_t omega = getCharacteristicDistribution(qp);
     double interference_intensity = 2.0 * (mcff * mcffc * omega / (1.0 - p2kappa * omega)).real();
-    return total_abundance * (diffuse_intensity + interference_intensity);
+    return m_total_abundance * (diffuse_intensity + interference_intensity);
 }
 
 //! Returns the total scattering intensity for given kf and
@@ -74,21 +71,18 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
 {
     double qp = sim_element.getMeanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    if (total_abundance <= 0.0)
+    if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
         Eigen::Matrix2cd ff = ff_list[i];
-        double fraction = m_weighted_ffs[i]->m_abundance / total_abundance;
+        double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
         diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
     Eigen::Matrix2cd mcff  =
-        getMeanCharacteristicMatrixFF    (sim_element.getMeanQ(), ff_list) / total_abundance;
+        getMeanCharacteristicMatrixFF    (sim_element.getMeanQ(), ff_list) / m_total_abundance;
     Eigen::Matrix2cd mcffc =
-        getMeanConjCharacteristicMatrixFF(sim_element.getMeanQ(), ff_list) / total_abundance;
-    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa) / total_abundance;
+        getMeanConjCharacteristicMatrixFF(sim_element.getMeanQ(), ff_list) / m_total_abundance;
+    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa) / m_total_abundance;
     complex_t omega = getCharacteristicDistribution(qp);
     Eigen::Matrix2cd interference_matrix
         = (2.0 * omega / (1.0 - p2kappa * omega))
@@ -96,7 +90,7 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     Eigen::Matrix2cd diffuse_matrix2 = sim_element.getAnalyzerOperator() * diffuse_matrix;
     double interference_trace = std::abs(interference_matrix.trace());
     double diffuse_trace = std::abs(diffuse_matrix2.trace());
-    return total_abundance * (diffuse_trace + interference_trace);
+    return m_total_abundance * (diffuse_trace + interference_trace);
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
@@ -171,12 +165,9 @@ complex_t SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPh
 void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
 {
     m_mean_radius = 0.0;
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
         m_mean_radius += m_weighted_ffs[i]->m_abundance *
             m_weighted_ffs[i]->mp_ff->getRadialExtension();
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    }
-    if (total_abundance > 0.0)
-        m_mean_radius /= total_abundance;
+    if (m_total_abundance > 0.0)
+        m_mean_radius /= m_total_abundance;
 }

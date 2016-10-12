@@ -40,10 +40,7 @@ public:
 
     virtual ~LayerStrategyBuilder();
 
-    //! Sets reflection/transmission map for DWBA calculation
     void setRTInfo(const LayerSpecularInfo& specular_info);
-
-    //! Creates a strategy object which is able to calculate the scattering for fixed k_f
     virtual IInterferenceFunctionStrategy* createStrategy();
 
 protected:
@@ -54,20 +51,13 @@ protected:
     size_t m_layout_index; //!< index for the layout to be used in the layer
 
 private:
-    //! determines if the form factors need to be matrix valued
     bool requiresMatrixFFs() const;
-    //! collect the formfactor info of all particles in the decoration and decorate
-    //! these for DWBA when needed
     void collectWeightedFormFactors();
-    //! collect the interference function
     void collectInterferenceFunction();
-    //! Creates weighted formfactor for a single particle
     WeightedFormFactor* createWeightedFormFactor(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
     SafePointerVector<class WeightedFormFactor> m_weighted_ffs;
-
-    //! Interference function
     std::unique_ptr<class IInterferenceFunction> mP_interference_function;
 };
 

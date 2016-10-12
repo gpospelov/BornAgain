@@ -39,11 +39,13 @@ LayerStrategyBuilder::LayerStrategyBuilder(
 
 LayerStrategyBuilder::~LayerStrategyBuilder() {}
 
+//! Sets reflection/transmission map for DWBA calculation
 void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
 {
     mP_specular_info.reset(specular_info.clone());
 }
 
+//! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
     collectWeightedFormFactors();
@@ -78,11 +80,13 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     return p_result;
 }
 
+//! Returns true if the form factors need to be matrix valued.
 bool LayerStrategyBuilder::requiresMatrixFFs() const
 {
     return mP_sample->containsMagneticMaterial();
 }
 
+//! Sets m_weighted_ffs, the list of weighted form factors.
 void LayerStrategyBuilder::collectWeightedFormFactors()
 {
     assert(mP_layer->getNumberOfLayouts()>0);
@@ -100,6 +104,7 @@ void LayerStrategyBuilder::collectWeightedFormFactors()
     }
 }
 
+//! Sets mP_interference_function.
 void LayerStrategyBuilder::collectInterferenceFunction()
 {
     assert(mP_layer->getNumberOfLayouts()>0);
@@ -111,6 +116,7 @@ void LayerStrategyBuilder::collectInterferenceFunction()
         mP_interference_function.reset( new InterferenceFunctionNone() );
 }
 
+//! Returns a new weighted formfactor for a given particle in given ambient material.
 WeightedFormFactor* LayerStrategyBuilder::createWeightedFormFactor(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
@@ -120,8 +126,7 @@ WeightedFormFactor* LayerStrategyBuilder::createWeightedFormFactor(
     // formfactor
     const std::unique_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor());
     IFormFactor* p_ff_framework;
-    size_t n_layers = mP_layer->getNumberOfLayers();
-    if (n_layers>1) {
+    if (mP_layer->getNumberOfLayers()>1) {
         if (requiresMatrixFFs())
             p_ff_framework = new FormFactorDWBAPol(*P_ff_particle);
         else

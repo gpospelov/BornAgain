@@ -18624,6 +18624,28 @@ class IntensityDataFunctions(_object):
         applyDetectorResolution = staticmethod(applyDetectorResolution)
     __swig_getmethods__["applyDetectorResolution"] = lambda x: applyDetectorResolution
 
+    def coordinateToBinf(*args):
+        """
+        coordinateToBinf(double coordinate, IAxis axis) -> double
+        coordinateToBinf(double & x, double & y, IntensityData data)
+        """
+        return _libBornAgainCore.IntensityDataFunctions_coordinateToBinf(*args)
+
+    if _newclass:
+        coordinateToBinf = staticmethod(coordinateToBinf)
+    __swig_getmethods__["coordinateToBinf"] = lambda x: coordinateToBinf
+
+    def coordinateFromBinf(*args):
+        """
+        coordinateFromBinf(double value, IAxis axis) -> double
+        coordinateFromBinf(double & x, double & y, IntensityData data)
+        """
+        return _libBornAgainCore.IntensityDataFunctions_coordinateFromBinf(*args)
+
+    if _newclass:
+        coordinateFromBinf = staticmethod(coordinateFromBinf)
+    __swig_getmethods__["coordinateFromBinf"] = lambda x: coordinateFromBinf
+
     def __init__(self):
         """
         __init__(IntensityDataFunctions self) -> IntensityDataFunctions
@@ -18663,6 +18685,20 @@ def IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2):
 def IntensityDataFunctions_applyDetectorResolution(origin, resolution_function):
     """IntensityDataFunctions_applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData"""
     return _libBornAgainCore.IntensityDataFunctions_applyDetectorResolution(origin, resolution_function)
+
+def IntensityDataFunctions_coordinateToBinf(*args):
+    """
+    coordinateToBinf(double coordinate, IAxis axis) -> double
+    IntensityDataFunctions_coordinateToBinf(double & x, double & y, IntensityData data)
+    """
+    return _libBornAgainCore.IntensityDataFunctions_coordinateToBinf(*args)
+
+def IntensityDataFunctions_coordinateFromBinf(*args):
+    """
+    coordinateFromBinf(double value, IAxis axis) -> double
+    IntensityDataFunctions_coordinateFromBinf(double & x, double & y, IntensityData data)
+    """
+    return _libBornAgainCore.IntensityDataFunctions_coordinateFromBinf(*args)
 
 class IntensityDataIOFactory(_object):
     """

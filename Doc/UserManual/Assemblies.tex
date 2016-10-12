@@ -41,7 +41,7 @@ In the following, all such inhomogeneities will be described as
 Therefore, for the moment we refer to the \IsGISAXS\ manual \cite{Laz08}.}
 
 %\iffalse
-Our derivation of the DWBA (\cref{Sdwba}) has shown
+Our derivation of the DWBA (\cref{SGisas}) has shown
 that the distinction between refraction and reflection on the one hand
 and scattering on the other hand is not a fundamental one,
 but to a certain degree arbitrary:
@@ -534,19 +534,24 @@ particles is the coherent scattering intensity of~\cref{EICoherent}.
 
 The conditional interference function is defined as
 \begin{equation}
-  \SD(\q |\v\tau,\v\tau') \coloneqq 1 + \rho_S \int\! d^2r\, e^{i\q_\plll\r}\! \GD(\r|\v\tau,\v\tau').
+  \SD(\q |\v\tau,\v\tau')
+  \coloneqq 1 + \rho_S \int\!\d^2r\, \e^{i\q_\plll\r}\! \GD(\r|\v\tau,\v\tau').
 \end{equation}
 With the chosen normalization, $\rho_S \GD(\r|\v\tau,\v\tau') d^2r$ gives the probability of
-finding a particle of type $\v\tau'$ in the infinitesimal area $d^2r$ at the relative position $\r$ from
+finding a particle of type $\v\tau'$ in the infinitesimal area~$d^2r$
+at the relative position~$\r$ from
 a given (different) particle of type $\v\tau$.
 
-In the following subsections, the supported interference functions in \BornAgain\ will be discussed.
-With one exception, they all assume the R-T decoupling approximation, making the interference function
+In the following subsections,
+the supported interference functions in \BornAgain\ will be discussed.
+With one exception,
+they all assume the R-T decoupling approximation, making the interference function
 independent of the particle types ($\v\tau$ and $\v\tau'$).
 
 %===============================================================================
 \subsection{One-dimensional lattice} \label{sec:sect:1dlattice}
 %===============================================================================
+
 For a perfect one-dimensional lattice along the x-axis with period $a$, the position
 correlation function is given by:
 \begin{equation}
@@ -578,21 +583,24 @@ The interference function can then be written as:
     \hline
     \text{Name} & h(x) & H(q_x) \\
     \hline
-    \text{Cauchy} & e^{-|x|/\lambda} & \frac{2\lambda}{1+q_x^2\lambda^2} \\
+    \text{Cauchy} & \e^{-|x|/\lambda} & \frac{2\lambda}{1+q_x^2\lambda^2} \\
     \hline
-    \text{Gauss} & e^{-x^2/2\lambda^2} & \sqrt{2\pi}\lambda e^{-q_x^2\lambda^2/2} \\
+    \text{Gauss} & \e^{-x^2/2\lambda^2} & \sqrt{2\pi}\lambda \e^{-q_x^2\lambda^2/2} \\
     \hline
     \text{Triangle} & 1-|x|/\lambda \quad \text{for} \quad |x|<\lambda & \lambda \sinc^2(q_x\lambda/2) \\
     \hline
   \end{array}
 \end{equation}
 
-In addition, a pseudo-Voigt decay function is available, which is a convex combination of the Cauchy and Gauss decay functions.
+In addition, a pseudo-Voigt decay function is available,
+which is a convex combination of the Cauchy and Gauss decay functions.
 \Emph{
-The decay functions are all normalized such that $\int\!dq_x H(q_x)=2\pi$, which is equivalent to $h(0)=1$.
+The decay functions are all normalized such that $\int\!\d q_x H(q_x)=2\pi$,
+which is equivalent to $h(0)=1$.
 }
 \Emph{
-If the one-dimensional lattice is rotated with respect to the x-axis by an angle $\xi$, the corresponding interference function is calculated
+If the one-dimensional lattice is rotated with respect to the x-axis by an angle $\xi$,
+the corresponding interference function is calculated
 by using the correct projection of the in-plane reciprocal vector instead of $q_x$:
 \begin{equation}
   q_\xi = q_x \cos\xi + q_y \sin\xi.
@@ -602,6 +610,7 @@ by using the correct projection of the in-plane reciprocal vector instead of $q_
 %===============================================================================
 \subsection{Two-dimensional lattice} \label{sec:sect:2dlattice}
 %===============================================================================
+
 For a perfect two-dimensional lattice with lattice basis $(\v a,\v b)$, the position
 correlation function is given by:
 \begin{equation}
@@ -619,7 +628,8 @@ decay functions that are defined in the radial variable
 \begin{equation}
   \phi \coloneqq \sqrt{X^2/\lambda_X^2 + Y^2/\lambda_Y^2},
 \end{equation}
-where $(X,Y)$ are the coordinates in an orthonormal coordinate system, where the $X$-axis is rotated
+where $(X,Y)$ are the coordinates in an orthonormal coordinate system,
+where the $X$-axis is rotated
 by an angle $\gamma$ with respect to the first lattice vector $\v a$.
 This amounts to convoluting the
 previously given interference function with $H(\q)$ or, equivalently, multiplying
@@ -639,29 +649,33 @@ The interference function can then be written as:
     \hline
     \text{Name} & h(\phi) & H(Q) \\
     \hline
-    \text{Cauchy} & e^{-\phi} & \frac{2\pi\lambda_X\lambda_Y}{(1+Q^2)^{3/2}} \\
+    \text{Cauchy} & \e^{-\phi} & \frac{2\pi\lambda_X\lambda_Y}{(1+Q^2)^{3/2}} \\
     \hline
-    \text{Gauss} & e^{-\phi^2/2} & 2\pi\lambda_X\lambda_Y e^{-Q^2/2} \\
+    \text{Gauss} & \e^{-\phi^2/2} & 2\pi\lambda_X\lambda_Y \e^{-Q^2/2} \\
     \hline
   \end{array}
 \end{equation}
 with $Q \coloneqq \sqrt{q_X^2\lambda_X^2 + q_Y^2\lambda_Y^2}$.
 
-In addition, a pseudo-Voigt decay function is available, which is a convex combination of the Cauchy and Gauss decay functions.
+In addition, a pseudo-Voigt decay function is available,
+which is a convex combination of the Cauchy and Gauss decay functions.
 \Emph{
-The decay functions are all normalized such that $\int\!d\q_\plll H(\q)= 4\pi^2$, which is equivalent to $h(0)=1$.
+The decay functions are all normalized such that $\int\!\d^2q_\plll H(\q)= 4\pi^2$,
+which is equivalent to $h(0)=1$.
 }
 
 %===============================================================================
 \subsection{The one-dimensional paracrystal} \label{sec:sect:1dparacrystal}
 %===============================================================================
+
 A paracrystal, originally developed by Hosemann \cite{Hos51},
 models the cumulative disorder of the interparticle distances.
 Although the paracrystal in one dimension is not directly implemented in \BornAgain,
 it forms the basis for the paracrystal models in \BornAgain\ and will thus be discussed first.
 
 In one dimension, the paracrystal is parameterized by the
-position distribution of the nearest neighbour $p(x)$, centered at a peak distance $D$. The probablility
+position distribution of the nearest neighbour $p(x)$, centered at a peak distance $D$.
+The probablility
 distribution of the position of the nearest neighbour to the right of the particle at the origin then becomes
 \begin{equation}
   p_1(x) = p(x-D).
@@ -687,7 +701,7 @@ Since the Fourier transformed distribution $P(q_x)$ will always be $1$ at $q_x=0
 This singularity is caused by the forward scattering contribution of an infinitely long lattice and can be removed in two ways in \BornAgain.
 The simplest way is to multiply $P(q_x)$ by a fixed factor that is very close, but not equal to, one:
 \begin{equation}
-  P'(q_x) \coloneqq P(q_x) e^{-D/\Lambda},
+  P'(q_x) \coloneqq P(q_x) \e^{-D/\Lambda},
 \end{equation}
 where $\Lambda$ has dimension of length and is called the damping length.
 
@@ -771,7 +785,7 @@ The following distributions are currently supported:
     \hline
     \text{Gate} & \frac{1}{\pi\omega_X\omega_Y}  \quad \text{for} \quad \phi < 1 & \frac{2J_1(Q)}{Q} \\
     \hline
-    \text{Cone} & \frac{3}{\pi\omega_X\omega_Y}\left(1 - \phi \right)  \quad \text{for} \quad \phi < 1 & 6\left[ \frac{J_1(Q)}{Q} - \frac{1}{Q^3}\int_0^Q\!du u^2 J_0(u) \right] \\
+    \text{Cone} & \frac{3}{\pi\omega_X\omega_Y}\left(1 - \phi \right)  \quad \text{for} \quad \phi < 1 & 6\left[ \frac{J_1(Q)}{Q} - \frac{1}{Q^3}\int_0^Q\!\d u u^2 J_0(u) \right] \\
     \hline
   \end{array}
 \end{equation}
@@ -844,13 +858,16 @@ where
   I_d(\q) &
   \equiv {\bra\left\rvert F_\alpha (\q) \right\rvert^2\ket}_{\alpha}
        - \left\lvert {\bra F_\alpha (\q)\ket}_{\alpha} \right\rvert^2, \\
-  S_{\alpha\beta} (\q) &\equiv 1 + \rho_V \int_V d^3\r\mathcal{G}_{\alpha\beta}(\r) \exp \left[ i\q\cdot \r \right].
+  S_{\alpha\beta} (\q) &\equiv 1 + \rho_V \int_V \d^3\r\mathcal{G}_{\alpha\beta}(\r)
+                       \exp \left[ i\q\cdot \r \right].
 \end{align*}
-$S_{\alpha\beta} (\q)$ is called the \emph{interference function} and $\bra\dotso\ket_\alpha$ is the expectation value over the classes $\lbrace \alpha\rbrace$.
+$S_{\alpha\beta} (\q)$ is called the \emph{interference function},
+and $\bra\dotso\ket_\alpha$ is the expectation value over the classes $\lbrace \alpha\rbrace$.
 
 
 TO MERGE IN:
-More precisely, the probability density for finding a particle $\alpha$ at position $\v{R}_\alpha$ and another one of type $\beta$ at $\v{R}_\beta$ is given by:
+More precisely, the probability density for finding a particle~$\alpha$
+at position $\v{R}_\alpha$ and another one of type $\beta$ at $\v{R}_\beta$ is given by:
 \begin{equation*}
   \mathcal{P}(\alpha, \v{R}_\alpha ; \beta , \v{R}_\beta ) \equiv \rho_V^2 p_\alpha p_\beta \ppcf{\alpha}{\beta}{R}.
 \end{equation*}
@@ -860,7 +877,10 @@ More precisely, the probability density for finding a particle $\alpha$ at posit
 \section{Horizontal particle distributions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To proceed further, when the morphology and topology are not exactly known, some hypotheses need to be made since the correlation between the kinds of scatterers and their relative positions included in the pair correlation functions are difficult to estimate. Several options are available:
+To proceed further, when the morphology and topology are not exactly known,
+some hypotheses need to be made since the correlation between the kinds of scatterers
+and their relative positions included in the pair correlation functions are difficult to estimate.
+Several options are available:
 
 
 
@@ -887,7 +907,14 @@ in which the crystalline order has not disappeared
 and for which the behavior of the interference functions at small angles is coherent.
 It is a transition between the regular lattice and the disordered state.\\
 
-For example, in one dimension, a paracrystal is generated using the following method. First we place a particle at the origin. The second particle is put at a distance $x$ with a density probability $p(x)$ that is peaked at a mean value $D$: $\int_{-\infty} ^{\infty}p(x)dx=1$ and $\int_{-\infty}^{\infty}xp(x)dx=D$. The third one is added at a distance $y$ from the second site using the same rule with a density probability $p_2(y)= \int_{-\infty}^{\infty}p(x)p(y-x)dx=p\otimes p(y)$.\\ With such a method, the pair correlation function $g(x)$ is built step by step. Its expression and the one of its Fourier transform, which is the interference function are
+For example, in one dimension, a paracrystal is generated using the following method. First we place a particle at the origin. The second particle is put at a distance $x$ with a density probability $p(x)$ that is peaked at a mean value $D$: $\int_{-\infty} ^{\infty}p(x)\d x=1$
+and $\int_{-\infty}^{\infty}xp(x)\d x=D$.
+The third one is added at a distance $y$ from the second site
+using the same rule with a density probability
+$p_2(y)= \int_{-\infty}^{\infty}p(x)p(y-x)dx=p\otimes p(y)$.
+
+With such a method, the pair correlation function $g(x)$ is built step by step.
+Its expression and the one of its Fourier transform, which is the interference function are
 \begin{equation*}
 g(x)=\delta(x)+ p(x)+ p(x)\otimes p(x)+\ldots + p(-x)+\ldots \: \mathrm{and}\:\, S(q)=\Re\left(\dfrac{1+P(q)}{1-P(q)}\right),
 \end{equation*}
@@ -914,8 +941,17 @@ where $\Lambda$ is a damping length used in order to introduce some finite-size 
 \label{fig:1dparas_q}
 \end{figure}
 
-In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\v{a}$ and $\v{b}$ using the following conditions for the densities of probabilities:\\ $\int p_{\v{a}}(\r)d^2r=\int p_{\v{b}}(\r)d^2r=1$, $\int \r p_{\v{a}}(\r)d^2r=\v{a}$, $\int \r p_{\v{b}}(\r)d^2r=\v{b}$.\\
-In the ideal case the deformations along the two axes are decoupled and each unit cell should retain a parallelogram shape. The interference function is given by\\ $S(q_{\plll})=\prod_{k=a,b}\Re\left(\dfrac{1+P_k(q_{\plll})}{1-P_k(q_{\plll})} \right)$ with $P_k$ the Fourier transform of $p_k$, $k=a, b$.
+In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\v{a}$ and $\v{b}$ using the following conditions for the densities of probabilities:
+
+$\int p_{\v{a}}(\r)d^2r=\int p_{\v{b}}(\r)\d^2r=1$,
+$\int \r p_{\v{a}}(\r)\d^2r=\v{a}$,
+$\int \r p_{\v{b}}(\r)\d^2r=\v{b}$.
+
+In the ideal case the deformations along the two axes are decoupled
+and each unit cell should retain a parallelogram shape.
+The interference function is given by
+$S(q_{\plll})=\prod_{k=a,b}\Re\left(\dfrac{1+P_k(q_{\plll})}{1-P_k(q_{\plll})} \right)$
+with $P_k$ the Fourier transform of $p_k$, $k=a, b$.
 
 \paragraph{Probability distributions} \mbox{}\\
 The scattering by an ordered lattice gives rise to a series of Bragg peaks situated at the nodes of the reciprocal lattice. Any divergence from the ideal crystalline case modifies the output spectrum by, for example, widening or attenuating the Bragg peaks. The influence of these "defects" can be accounted for
@@ -999,18 +1035,20 @@ I(\q ) = {\bra\left| F_\alpha(\q ) \right| ^2\ket}_{\alpha}
 \end{equation}
 with
 \begin{align*}
-  \tilde{p}_\kappa(\q ) &= \int d\alpha\; p(\alpha) e^{i\kappa q_x \Delta R(\alpha)}  \\
-  \Omega_\kappa(\q ) &= \tilde{p}_{2\kappa}(\q ) \phi(\q) e^{i q_x D_0}  \\
-  \widetilde{\curlf_\kappa}(\q ) &= \int d\alpha\; p(\alpha)F_\alpha (\q ) e^{i\kappa q_x \Delta R(\alpha)},
+  \tilde{p}_\kappa(\q ) &= \int \d\alpha\; p(\alpha) \e^{i\kappa q_x \Delta R(\alpha)}  \\
+  \Omega_\kappa(\q ) &= \tilde{p}_{2\kappa}(\q ) \phi(\q) \e^{i q_x D_0}  \\
+  \widetilde{\curlf_\kappa}(\q ) &=
+       \int \d\alpha\; p(\alpha)F_\alpha (\q ) \e^{i\kappa q_x \Delta R(\alpha)},
 \end{align*}
 and the Fourier transform of $P_1(x|\alpha_0\alpha_1)$ is
 \begin{equation*}
-  \curlp (\q ) = \phi (\q )e^{i q_x D_0} e^{i \kappa q_x \left[ \Delta R(\alpha_0) + \Delta R(\alpha_1) \right] }.
+  \curlp (\q ) = \phi (\q )\e^{i q_x D_0}
+                    \e^{i \kappa q_x \left[ \Delta R(\alpha_0) + \Delta R(\alpha_1) \right] }.
 \end{equation*}
 
 Using the result from the one-dimensional analysis, one can apply this formula ad hoc for distributions of particles in a plane, where the coordinate $x$ will now be replaced with $(x,y)$, while the $s$ coordinate encodes a position in the remaining orthogonal direction. One must be aware however that this constitutes a further approximation, since this type of correlation does not have a general solution in more than one dimension.
 
-The intensity in \cref{Esscainf} will contain a Dirac delta function contribution, caused by taking an infinite sum of terms that are perfectly correlated at $\q = 0$. One can leverage this behaviour by multiplying the nearest neighbor distribution by a constant factor $e^{-D/\Lambda}$, which removes the division by zero in \cref{Esscainf}.
+The intensity in \cref{Esscainf} will contain a Dirac delta function contribution, caused by taking an infinite sum of terms that are perfectly correlated at $\q = 0$. One can leverage this behaviour by multiplying the nearest neighbor distribution by a constant factor $\e^{-D/\Lambda}$, which removes the division by zero in \cref{Esscainf}.
 Another way of dealing with this infinity at $\q =0$ consists of taking only a finite number of terms, in which case the geometric series still has an analytic solution, but becomes a bit more cumbersome:
 \begin{equation*}
 \begin{split}
@@ -1125,10 +1163,10 @@ The system considered in this section consists of particles encapsulated in a la
 
 \begin{align}
   F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z})
-  &= T_\text{i} T_\text{f} F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})e^{i(k_{i,z}-k_{f,z})d}\nonumber \\
-  &+ R_\text{i} T_\text{f} F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z})e^{i(-k_{i,z}-k_{f,z})d} \nonumber \\
-  &+ R_\text{f} T_\text{i} F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) e^{i(k_{i,z}+k_{f,z})d}\nonumber \\
-  &+ R_\text{f} R_\text{i}F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z})e^{i(-k_{i,z}+k_{f,z})d}, \label{Edwbaburied}
+  &= T_\text{i} T_\text{f} F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})\e^{i(k_{i,z}-k_{f,z})d}\nonumber \\
+  &+ R_\text{i} T_\text{f} F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z})\e^{i(-k_{i,z}-k_{f,z})d} \nonumber \\
+  &+ R_\text{f} T_\text{i} F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) \e^{i(k_{i,z}+k_{f,z})d}\nonumber \\
+  &+ R_\text{f} R_\text{i}F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z})\e^{i(-k_{i,z}+k_{f,z})d}, \label{Edwbaburied}
 \end{align}
 
 \begin{equation*}

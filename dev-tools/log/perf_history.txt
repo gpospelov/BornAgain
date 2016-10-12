@@ -502,3 +502,7 @@
 | date                | hostname  | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
 | 2016-05-25 12:50:59 | jcnsopc22 | Linux x86_64 | 2.7    | 126.2680  | 19.0747    | 2.9620     | 0.7566          | 3.5780          | 0.5746    | 2.2319        | 0.7519            | 2.6683         | 1.0811 | 1.7840      | 1.8264    | 0.8599    |
 
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-12 14:58:56 | scgsun   | Linux x86_64 | 2.7    | 121.8000  | 18.9031    | 2.8314     | 0.6853          | 3.3220          | 0.5178    | 2.2989        | 0.7084            | 3.1807         | 1.0054 | 1.7599      | 1.7037    | 0.8896    |
+| 2016-10-12 15:00:12 | scgsun   | Linux x86_64 | 2.7    | 121.7560  | 19.1301    | 2.9637     | 0.6960          | 3.3558          | 0.5273    | 2.3114        | 0.7187            | 3.1900         | 1.0233 | 1.7531      | 1.7332    | 0.8575    |

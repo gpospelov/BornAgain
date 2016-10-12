@@ -97,5 +97,4 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::MiniGISASMonteCarlo,
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2], "
                  "in Monte-Carlo mode");
-
 }

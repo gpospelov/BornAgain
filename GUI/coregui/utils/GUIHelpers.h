@@ -21,6 +21,7 @@
 #include <QStringList>
 #include <QWidget>
 #include <memory>
+#include <sstream>
 
 class JobItem;
 class RealDataItem;
@@ -83,5 +84,13 @@ BA_CORE_API_ QString createUuid();
 BA_CORE_API_ bool isTheSame(const QStringList &lhs, const QStringList &rhs);
 
 } // namespace GUIHelpers
+
+inline std::ostream&  operator <<(std::ostream &stream,const QString &str)
+{
+   stream << str.toStdString();
+   return stream;
+}
+
+
 
 #endif // GUIHELPERS_H

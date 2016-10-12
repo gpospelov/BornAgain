@@ -17,13 +17,15 @@
 #define SIMULATIONFACTORY_H
 
 #include "IFactory.h"
+#include "GISASSimulation.h"
+#include <string>
 
 //! @class SimulationFactory
 //! @ingroup standard_samples
 //! @brief Registry to create standard pre-defined simulations.
 //! Used in functional tests, performance measurements, etc.
 
-class BA_CORE_API_ SimulationFactory : public IFactory<std::string, class GISASSimulation>
+class BA_CORE_API_ SimulationFactory : public IFactory<std::string, GISASSimulation>
 {
 public:
     SimulationFactory();

@@ -19,6 +19,7 @@
 #include "Exceptions.h"
 #include <functional>
 #include <map>
+#include <sstream>
 
 //! Base class for all factories.
 //! @ingroup tools_internal
@@ -43,19 +44,24 @@ public:
     //! Creates object by calling creation function corresponded to given identifier
     AbstractProduct* createItem(const Key& item_key) {
         auto it = m_callbacks.find(item_key);
-        if( it == m_callbacks.end() ) // unexpectedly not found
-            throw Exceptions::UnknownClassRegistrationException(
-                    "IFactory::createItem() -> Panic. Unknown item key");
-        // invoke the creation function
+        if( it == m_callbacks.end() ) {
+            std::ostringstream message;
+            message << "IFactory::createItem() -> Error. Unknown item key '"
+                    << item_key << "'";
+            throw Exceptions::RuntimeErrorException(message.str());
+        }
         return (it->second)();
     }
 
     //! Registers object's creation function and store object description
     bool registerItem(const Key& item_key, CreateItemCallback CreateFn,
                       const std::string& itemDescription="") {
-        if (m_callbacks.find(item_key) != m_callbacks.end())
-            throw Exceptions::ExistingClassRegistrationException(
-                    "IFactory::registerItem() -> Panic! Already registered item key");
+        if (m_callbacks.find(item_key) != m_callbacks.end()) {
+            std::ostringstream message;
+            message << "IFactory::createItem() -> Error. Already registered item key '"
+                    << item_key << "'";
+            throw Exceptions::RuntimeErrorException(message.str());
+        }
         if (itemDescription!="")
             m_descriptions.insert(make_pair(item_key, itemDescription));
         return m_callbacks.insert(make_pair(item_key, CreateFn)).second;

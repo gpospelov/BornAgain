@@ -17,6 +17,7 @@
 #include "ItemComboWidget.h"
 #include "ItemComboToolBar.h"
 #include "SessionItemWidget.h"
+#include "GUIHelpers.h"
 #include <QComboBox>
 #include <QDebug>
 #include <QEvent>

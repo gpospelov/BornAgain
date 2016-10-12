@@ -18624,6 +18624,28 @@ class IntensityDataFunctions(_object):
         applyDetectorResolution = staticmethod(applyDetectorResolution)
     __swig_getmethods__["applyDetectorResolution"] = lambda x: applyDetectorResolution
 
+    def coordinateToBinf(*args):
+        """
+        coordinateToBinf(double coordinate, IAxis axis) -> double
+        coordinateToBinf(double & x, double & y, IntensityData data)
+        """
+        return _libBornAgainCore.IntensityDataFunctions_coordinateToBinf(*args)
+
+    if _newclass:
+        coordinateToBinf = staticmethod(coordinateToBinf)
+    __swig_getmethods__["coordinateToBinf"] = lambda x: coordinateToBinf
+
+    def coordinateFromBinf(*args):
+        """
+        coordinateFromBinf(double value, IAxis axis) -> double
+        coordinateFromBinf(double & x, double & y, IntensityData data)
+        """
+        return _libBornAgainCore.IntensityDataFunctions_coordinateFromBinf(*args)
+
+    if _newclass:
+        coordinateFromBinf = staticmethod(coordinateFromBinf)
+    __swig_getmethods__["coordinateFromBinf"] = lambda x: coordinateFromBinf
+
     def __init__(self):
         """
         __init__(IntensityDataFunctions self) -> IntensityDataFunctions
@@ -18663,6 +18685,20 @@ def IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2):
 def IntensityDataFunctions_applyDetectorResolution(origin, resolution_function):
     """IntensityDataFunctions_applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData"""
     return _libBornAgainCore.IntensityDataFunctions_applyDetectorResolution(origin, resolution_function)
+
+def IntensityDataFunctions_coordinateToBinf(*args):
+    """
+    coordinateToBinf(double coordinate, IAxis axis) -> double
+    IntensityDataFunctions_coordinateToBinf(double & x, double & y, IntensityData data)
+    """
+    return _libBornAgainCore.IntensityDataFunctions_coordinateToBinf(*args)
+
+def IntensityDataFunctions_coordinateFromBinf(*args):
+    """
+    coordinateFromBinf(double value, IAxis axis) -> double
+    IntensityDataFunctions_coordinateFromBinf(double & x, double & y, IntensityData data)
+    """
+    return _libBornAgainCore.IntensityDataFunctions_coordinateFromBinf(*args)
 
 class IntensityDataIOFactory(_object):
     """
@@ -24348,7 +24384,7 @@ class ThreadInfo(_object):
 ThreadInfo_swigregister = _libBornAgainCore.ThreadInfo_swigregister
 ThreadInfo_swigregister(ThreadInfo)
 
-class SampleBuilderFactory(_object):
+class SampleBuilderFactoryTemp(_object):
     """
 
 
@@ -24359,16 +24395,110 @@ class SampleBuilderFactory(_object):
     """
 
     __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SampleBuilderFactoryTemp, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SampleBuilderFactoryTemp, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(IFactory<(std::string,IMultiLayerBuilder)> self) -> SampleBuilderFactoryTemp
+
+        IFactory< Key, AbstractProduct >::IFactory()
+
+        """
+        this = _libBornAgainCore.new_SampleBuilderFactoryTemp()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def createItem(self, item_key):
+        """
+        createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder
+
+        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
+
+        Creates object by calling creation function corresponded to given identifier. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_createItem(self, item_key)
+
+
+    def registerItem(self, *args):
+        """
+        registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+        registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool
+
+        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
+
+        Registers object's creation function and store object description. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, *args)
+
+    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
+    __del__ = lambda self: None
+
+    def getNumberOfRegistered(self):
+        """
+        getNumberOfRegistered(SampleBuilderFactoryTemp self) -> size_t
+
+        size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
+
+        Returns number of registered objects. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_getNumberOfRegistered(self)
+
+
+    def begin(self):
+        """
+        begin(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
+
+        const_iterator IFactory< Key, AbstractProduct >::begin() const 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_begin(self)
+
+
+    def end(self):
+        """
+        end(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
+
+        const_iterator IFactory< Key, AbstractProduct >::end() const 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_end(self)
+
+SampleBuilderFactoryTemp_swigregister = _libBornAgainCore.SampleBuilderFactoryTemp_swigregister
+SampleBuilderFactoryTemp_swigregister(SampleBuilderFactoryTemp)
+
+class SampleBuilderFactory(SampleBuilderFactoryTemp):
+    """
+
+
+    Factory to create standard pre-defined samples.
+
+    C++ includes: SampleBuilderFactory.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [SampleBuilderFactoryTemp]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, SampleBuilderFactory, name, value)
     __swig_getmethods__ = {}
+    for _s in [SampleBuilderFactoryTemp]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, SampleBuilderFactory, name)
     __repr__ = _swig_repr
 
     def __init__(self):
         """
-        __init__(IFactory<(std::string,IMultiLayerBuilder)> self) -> SampleBuilderFactory
+        __init__(SampleBuilderFactory self) -> SampleBuilderFactory
 
-        IFactory< Key, AbstractProduct >::IFactory()
+        SampleBuilderFactory::SampleBuilderFactory()
 
         """
         this = _libBornAgainCore.new_SampleBuilderFactory()
@@ -24377,68 +24507,23 @@ class SampleBuilderFactory(_object):
         except Exception:
             self.this = this
 
-    def createItem(self, item_key):
+    def createSample(self, name):
         """
-        createItem(SampleBuilderFactory self, std::string const & item_key) -> IMultiLayerBuilder
+        createSample(SampleBuilderFactory self, std::string const & name) -> MultiLayer
 
-        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
+        MultiLayer * SampleBuilderFactory::createSample(const std::string &name)
 
-        Creates object by calling creation function corresponded to given identifier. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_createItem(self, item_key)
-
-
-    def registerItem(self, *args):
-        """
-        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
-        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool
-
-        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
-
-        Registers object's creation function and store object description. 
+        Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
 
         """
-        return _libBornAgainCore.SampleBuilderFactory_registerItem(self, *args)
+        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
 
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
     __del__ = lambda self: None
-
-    def getNumberOfRegistered(self):
-        """
-        getNumberOfRegistered(SampleBuilderFactory self) -> size_t
-
-        size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
-
-        Returns number of registered objects. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_getNumberOfRegistered(self)
-
-
-    def begin(self):
-        """
-        begin(SampleBuilderFactory self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
-
-        const_iterator IFactory< Key, AbstractProduct >::begin() const 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_begin(self)
-
-
-    def end(self):
-        """
-        end(SampleBuilderFactory self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
-
-        const_iterator IFactory< Key, AbstractProduct >::end() const 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_end(self)
-
 SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
 SampleBuilderFactory_swigregister(SampleBuilderFactory)
 
-class SimulationFactory(_object):
+class SimulationFactoryTemp(_object):
     """
 
 
@@ -24449,19 +24534,19 @@ class SimulationFactory(_object):
     """
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationFactory, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationFactoryTemp, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, SimulationFactory, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, SimulationFactoryTemp, name)
     __repr__ = _swig_repr
 
     def __init__(self):
         """
-        __init__(IFactory<(std::string,GISASSimulation)> self) -> SimulationFactory
+        __init__(IFactory<(std::string,GISASSimulation)> self) -> SimulationFactoryTemp
 
         IFactory< Key, AbstractProduct >::IFactory()
 
         """
-        this = _libBornAgainCore.new_SimulationFactory()
+        this = _libBornAgainCore.new_SimulationFactoryTemp()
         try:
             self.this.append(this)
         except Exception:
@@ -24469,62 +24554,99 @@ class SimulationFactory(_object):
 
     def createItem(self, item_key):
         """
-        createItem(SimulationFactory self, std::string const & item_key) -> GISASSimulation
+        createItem(SimulationFactoryTemp self, std::string const & item_key) -> GISASSimulation
 
         AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
 
         Creates object by calling creation function corresponded to given identifier. 
 
         """
-        return _libBornAgainCore.SimulationFactory_createItem(self, item_key)
+        return _libBornAgainCore.SimulationFactoryTemp_createItem(self, item_key)
 
 
     def registerItem(self, *args):
         """
-        registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
-        registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn) -> bool
+        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn) -> bool
 
         bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
 
         Registers object's creation function and store object description. 
 
         """
-        return _libBornAgainCore.SimulationFactory_registerItem(self, *args)
+        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, *args)
 
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
     __del__ = lambda self: None
 
     def getNumberOfRegistered(self):
         """
-        getNumberOfRegistered(SimulationFactory self) -> size_t
+        getNumberOfRegistered(SimulationFactoryTemp self) -> size_t
 
         size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
 
         Returns number of registered objects. 
 
         """
-        return _libBornAgainCore.SimulationFactory_getNumberOfRegistered(self)
+        return _libBornAgainCore.SimulationFactoryTemp_getNumberOfRegistered(self)
 
 
     def begin(self):
         """
-        begin(SimulationFactory self) -> IFactory< std::string,GISASSimulation >::const_iterator
+        begin(SimulationFactoryTemp self) -> IFactory< std::string,GISASSimulation >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::begin() const 
 
         """
-        return _libBornAgainCore.SimulationFactory_begin(self)
+        return _libBornAgainCore.SimulationFactoryTemp_begin(self)
 
 
     def end(self):
         """
-        end(SimulationFactory self) -> IFactory< std::string,GISASSimulation >::const_iterator
+        end(SimulationFactoryTemp self) -> IFactory< std::string,GISASSimulation >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::end() const 
 
         """
-        return _libBornAgainCore.SimulationFactory_end(self)
+        return _libBornAgainCore.SimulationFactoryTemp_end(self)
 
+SimulationFactoryTemp_swigregister = _libBornAgainCore.SimulationFactoryTemp_swigregister
+SimulationFactoryTemp_swigregister(SimulationFactoryTemp)
+
+class SimulationFactory(SimulationFactoryTemp):
+    """
+
+
+    Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
+
+    C++ includes: SimulationFactory.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [SimulationFactoryTemp]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationFactory, name, value)
+    __swig_getmethods__ = {}
+    for _s in [SimulationFactoryTemp]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SimulationFactory, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(SimulationFactory self) -> SimulationFactory
+
+        SimulationFactory::SimulationFactory()
+
+        """
+        this = _libBornAgainCore.new_SimulationFactory()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
+    __del__ = lambda self: None
 SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
 SimulationFactory_swigregister(SimulationFactory)
 

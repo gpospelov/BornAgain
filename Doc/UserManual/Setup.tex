@@ -288,8 +288,6 @@
 \defineBox{boxWarn}{boxxWarn}{magenta!40}{magenta}
   {\marginSymbolLarge{fig/icons/Achtung.png}{WARN}}
 \defineBox{boxNote}{boxxNote}{yellow!33}{yellow}{{}}
-\defineBox{boxTuto}{boxxTuto}{blue!25}{red}
-  {\marginSymbolLarge{fig/icons/Arbeiten.png}{TODO}}
 \defineBox{boxEmph}{boxxEmph}{green!20}{green}{{}}
 \defineBox{boxLink}{boxxLink}{blue!25}{blue}
   {\marginSymbolLarge{fig/icons/Weblink.png}{LINK}}
@@ -297,8 +295,8 @@
 \def\Warn#1{\begin{boxWarn}#1\end{boxWarn}}
 \def\Work#1{\begin{boxWork}#1\end{boxWork}}
 \def\Note#1{\begin{boxNote}#1\end{boxNote}}
-\def\Tuto#1{\begin{boxTuto}#1\end{boxTuto}}
 \def\Link#1{\begin{boxLink}#1\end{boxLink}}
+\let\Tuto=\Link
 \def\Emph#1{\begin{boxEmph}#1\end{boxEmph}}
 \def\Emphc#1{\begin{boxEmph}#1\vskip -5pt\end{boxEmph}}
 

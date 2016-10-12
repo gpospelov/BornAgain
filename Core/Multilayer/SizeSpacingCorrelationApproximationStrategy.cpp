@@ -54,11 +54,11 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
         complex_t ff = ff_list[i];
         double fraction = m_weighted_ffs[i]->m_abundance / total_abundance;
-        diffuse_intensity += fraction * (std::norm(ff));
+        diffuse_intensity += fraction * std::norm(ff);
     }
-    complex_t mcff = getMeanCharacteristicFF(sim_element.getMeanQ(), ff_list);
-    complex_t mcffc = getMeanConjCharacteristicFF(sim_element.getMeanQ(), ff_list);
-    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
+    complex_t mcff  = getMeanCharacteristicFF    (qp, ff_list) / total_abundance;
+    complex_t mcffc = getMeanConjCharacteristicFF(qp, ff_list) / total_abundance;
+    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa) / total_abundance;
     complex_t omega = getCharacteristicDistribution(qp);
     double interference_intensity = 2.0 * (mcff * mcffc * omega / (1.0 - p2kappa * omega)).real();
     return total_abundance * (diffuse_intensity + interference_intensity);
@@ -75,9 +75,8 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     double qp = sim_element.getMeanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
         total_abundance += m_weighted_ffs[i]->m_abundance;
-    }
     if (total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
@@ -85,9 +84,11 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
         double fraction = m_weighted_ffs[i]->m_abundance / total_abundance;
         diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
-    Eigen::Matrix2cd mcff = getMeanCharacteristicMatrixFF(sim_element.getMeanQ(), ff_list);
-    Eigen::Matrix2cd mcffc = getMeanConjCharacteristicMatrixFF(sim_element.getMeanQ(), ff_list);
-    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
+    Eigen::Matrix2cd mcff  =
+        getMeanCharacteristicMatrixFF    (sim_element.getMeanQ(), ff_list) / total_abundance;
+    Eigen::Matrix2cd mcffc =
+        getMeanConjCharacteristicMatrixFF(sim_element.getMeanQ(), ff_list) / total_abundance;
+    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa) / total_abundance;
     complex_t omega = getCharacteristicDistribution(qp);
     Eigen::Matrix2cd interference_matrix
         = (2.0 * omega / (1.0 - p2kappa * omega))
@@ -99,19 +100,23 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
-    const kvector_t q, const std::vector<complex_t> &ff_list) const
+    double qp, const std::vector<complex_t> &ff_list) const
 {
-    double qp = q.magxy();
     complex_t result(0.0, 0.0);
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
         result += m_weighted_ffs[i]->m_abundance * ff_list[i]
                   * calculatePositionOffsetPhase(qp, m_kappa, i);
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    }
-    if (total_abundance <= 0.0)
-        return result;
-    return result / total_abundance;
+    return result;
+}
+
+complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
+    double qp, const std::vector<complex_t>& ff_list) const
+{
+    complex_t result(0.0, 0.0);
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
+        result += m_weighted_ffs[i]->m_abundance * std::conj(ff_list[i])
+                  * calculatePositionOffsetPhase(qp, m_kappa, i);
+    return result;
 }
 
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicMatrixFF(
@@ -119,31 +124,10 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteris
 {
     double qp = q.magxy();
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
         result += m_weighted_ffs[i]->m_abundance * calculatePositionOffsetPhase(qp, m_kappa, i)
                   * ff_list[i];
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    }
-    if (total_abundance <= 0.0)
-        return result;
-    return result / total_abundance;
-}
-
-complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
-    const kvector_t q, const std::vector<complex_t>& ff_list) const
-{
-    double qp = q.magxy();
-    complex_t result(0.0, 0.0);
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
-        result += m_weighted_ffs[i]->m_abundance * std::conj(ff_list[i])
-                  * calculatePositionOffsetPhase(qp, m_kappa, i);
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    }
-    if (total_abundance <= 0.0)
-        return result;
-    return result / total_abundance;
+    return result;
 }
 
 Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicMatrixFF(
@@ -151,47 +135,36 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharact
 {
     double qp = q.magxy();
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
         result += m_weighted_ffs[i]->m_abundance * calculatePositionOffsetPhase(qp, m_kappa, i)
                   * ff_list[i].adjoint();
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    }
-    if (total_abundance <= 0.0)
-        return result;
-    return result / total_abundance;
+    return result;
 }
 
-complex_t
-SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(double qp) const
+complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(
+    double qp) const
 {
     const InterferenceFunctionRadialParaCrystal *p_iff
-        = dynamic_cast<const InterferenceFunctionRadialParaCrystal *>(mP_iff.get());
+        = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(mP_iff.get());
     if (p_iff == 0)
         throw Exceptions::ClassInitializationException("Wrong interference function for SSCA");
     return p_iff->FTPDF(qp);
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoupling(
-        double qp, double kappa) const
+    double qp, double kappa) const
 {
     size_t n_frs = m_weighted_ffs.size();
     complex_t result = complex_t(0.0, 0.0);
-    double total_abundance = 0.0;
-    for (size_t i = 0; i < n_frs; ++i) {
+    for (size_t i = 0; i < n_frs; ++i)
         result += m_weighted_ffs[i]->m_abundance * calculatePositionOffsetPhase(qp, kappa, i);
-        total_abundance += m_weighted_ffs[i]->m_abundance;
-    }
-    if (total_abundance <= 0.0)
-        return result;
-    return result / total_abundance;
+    return result;
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(
     double qp, double kappa, size_t index) const
 {
-    return std::exp(complex_t(0.0, 1.0) * kappa * qp
-                    * (m_weighted_ffs[index]->mp_ff->getRadialExtension() - m_mean_radius));
+    return exp_I(kappa * qp * (m_weighted_ffs[index]->mp_ff->getRadialExtension() - m_mean_radius));
 }
 
 //! Sets m_mean_radius to the weighted arithmetic average of the particle radii.
@@ -201,7 +174,7 @@ void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
     double total_abundance = 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
         m_mean_radius += m_weighted_ffs[i]->m_abundance *
-                m_weighted_ffs[i]->mp_ff->getRadialExtension();
+            m_weighted_ffs[i]->mp_ff->getRadialExtension();
         total_abundance += m_weighted_ffs[i]->m_abundance;
     }
     if (total_abundance > 0.0)

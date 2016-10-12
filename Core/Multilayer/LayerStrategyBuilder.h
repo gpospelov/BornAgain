@@ -61,7 +61,7 @@ private:
     void collectWeightedFormFactors();
     //! collect the interference function
     void collectInterferenceFunction();
-    //! Creates formfactor info for single particle
+    //! Creates weighted formfactor for a single particle
     WeightedFormFactor* createWeightedFormFactor(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 

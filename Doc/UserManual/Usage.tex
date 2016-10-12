@@ -130,7 +130,7 @@ We implement two different shapes of particles: cylinders and
 prisms (\idest  elongated particles with a constant equilateral triangular cross section).
 
 All particles implemented in \BornAgain\ are defined by their
-form factors (see \cref{app:ff}), their sizes and the material
+form factors (see \cref{SFF}), their sizes and the material
 they are made of. Here, for the
 cylindrical particle, we input its radius and height.  For the prism,
 the possible inputs are the length of one side of its equilateral triangular
@@ -237,9 +237,8 @@ The first stage is to create the \Code{Simulation()} object (line~\ref{run2}). T
 parameters (line~\ref{runbeam}). %, which are associated with the
 %sample previously defined (line~\ref{runsample}). Finally we run
 %the simulation (line~\ref{runsimul}).
-Those functions are part of the Simulation
-class.  The different incident and exit angles are
-shown in \cref{fig:multil3d}.
+Those functions are part of the Simulation class.
+The different incident and exit angles are shown in \cref{fig:multil3d}.
 
 The detector parameters are set using ranges of angles via
 the function:

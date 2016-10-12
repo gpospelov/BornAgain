@@ -815,7 +815,7 @@ we present particle assembly models that are supported in \BornAgain.
 %\index{Particles!intersecting layer boundaries}}
 
 The nanoparticles are characterized by their form factors
-(\idest the Fourier transform of the shape function - see \cref{app:ff} for a list of form factors implemented in \BornAgain) and the composing material.
+(\cref{SFF}) and the composing material.
 
 
 \Note{\indent
@@ -941,9 +941,8 @@ where $\Lambda$ is a damping length used in order to introduce some finite-size 
 \label{fig:1dparas_q}
 \end{figure}
 
-In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\v{a}$ and $\v{b}$ using the following conditions for the densities of probabilities:
-
-$\int p_{\v{a}}(\r)d^2r=\int p_{\v{b}}(\r)\d^2r=1$,
+In two dimensions, the paracrystal is constructed on a pseudo-regular lattice with base vectors $\v{a}$ and $\v{b}$ using the following conditions for the densities of probabilities:\\
+$\int p_{\v{a}}(\r)\d^2r=\int p_{\v{b}}(\r)\d^2r=1$,
 $\int \r p_{\v{a}}(\r)\d^2r=\v{a}$,
 $\int \r p_{\v{b}}(\r)\d^2r=\v{b}$.
 
@@ -1498,7 +1497,7 @@ where ($L_1$, $L_2$, $\alpha$, $\xi$) are shown in \cref{fig:2dlattice} with
 \begin{itemize}
 \item[]$L_1$, $L_2$ the lengths of the lattice cell,
 \item[]$\alpha$ the angle between the lattice basis vectors $\v{a}, \v{b}$ in direct space,
-\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\v{a}$ vector of the lattice basis and the $\v{x}$ axis of the reference Cartesian frame (as shown in \cref{fig:multil3d}).
+\item[] $\xi$ is the angle defining the lattice orientation (set to $0$ by default); it is taken as the angle between the $\v{a}$ vector of the lattice basis and the $\v{x}$ axis of the reference Cartesian frame (as shown in \cref{fig:2dlattice}).
 \end{itemize}
 
 \begin{figure}[tb]

@@ -36,18 +36,16 @@ private:
     double evaluateForList(const SimulationElement& sim_element) const final;
     double evaluateForMatrixList(const SimulationElement& sim_element) const final;
 
-    complex_t getMeanCharacteristicFF(
-        double qp, const std::vector<complex_t>& ff_list) const;
-    complex_t getMeanConjCharacteristicFF(
-        double qp, const std::vector<complex_t>& ff_list) const;
-    Eigen::Matrix2cd getMeanCharacteristicMatrixFF(
-        const kvector_t q, const matrixFFVector_t& ff_list) const;
-    Eigen::Matrix2cd getMeanConjCharacteristicMatrixFF(
-        const kvector_t q, const matrixFFVector_t& ff_list) const;
+    complex_t getMeanCharacteristicFF(double qp) const;
+    complex_t getMeanConjCharacteristicFF(double qp) const;
+    Eigen::Matrix2cd getMeanCharacteristicMatrixFF(double qp) const;
+    Eigen::Matrix2cd getMeanConjCharacteristicMatrixFF(double qp) const;
+
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
     complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
     void initMeanRadius();
+
     double m_mean_radius;
     double m_kappa;
 };

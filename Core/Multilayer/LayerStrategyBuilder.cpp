@@ -46,8 +46,11 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
+    assert(mP_layer->getNumberOfLayouts()>0);
     collectFormFactorWrappers();
-    collectInterferenceFunction();
+    std::unique_ptr<class IInterferenceFunction> P_interference_function {
+        mP_layer->getLayout(m_layout_index)->cloneInterferenceFunction() };
+
     IInterferenceFunctionStrategy* p_result = nullptr;
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
     {
@@ -56,13 +59,11 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
         break;
     case ILayout::SSCA:
     {
-        if (!mP_interference_function)
-            throw Exceptions::ClassInitializationException(
-                "SSCA requires an interference function");
-        double kappa = mP_interference_function->getKappa();
+        double kappa = P_interference_function->getKappa();
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
-                "SSCA requires a strictly positive coupling value");
+                "SSCA requires a nontrivial interference function "
+                "with a strictly positive coupling coefficient kappa");
         p_result = new SizeSpacingCorrelationApproximationStrategy(m_sim_params, kappa);
         break;
     }
@@ -73,7 +74,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(m_formfactor_wrappers, *mP_interference_function, *mP_specular_info);
+    p_result->init(m_formfactor_wrappers, *P_interference_function, *mP_specular_info);
     return p_result;
 }
 
@@ -93,18 +94,6 @@ void LayerStrategyBuilder::collectFormFactorWrappers()
         p_weighted_ff->m_abundance /= total_abundance;
         m_formfactor_wrappers.push_back(p_weighted_ff);
     }
-}
-
-//! Sets mP_interference_function.
-void LayerStrategyBuilder::collectInterferenceFunction()
-{
-    assert(mP_layer->getNumberOfLayouts()>0);
-    const IInterferenceFunction* p_iff =
-        mP_layer->getLayout(m_layout_index)->getInterferenceFunction();
-    if (p_iff)
-        mP_interference_function.reset(p_iff->clone());
-    else
-        mP_interference_function.reset( new InterferenceFunctionNone() );
 }
 
 //! Returns a new weighted formfactor for a given particle in given ambient material.

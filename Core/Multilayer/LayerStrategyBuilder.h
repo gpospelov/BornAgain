@@ -45,7 +45,6 @@ public:
 
 private:
     void collectFormFactorWrappers();
-    void collectInterferenceFunction();
     FormFactorWrapper* createFormFactorWrapper(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
@@ -55,7 +54,6 @@ private:
     std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer
     SafePointerVector<class FormFactorWrapper> m_formfactor_wrappers;
-    std::unique_ptr<class IInterferenceFunction> mP_interference_function;
 };
 
 #endif // LAYERSTRATEGYBUILDER_H

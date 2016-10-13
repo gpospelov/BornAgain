@@ -17270,6 +17270,11 @@ class ILayout(ICompositeSample):
         return _libBornAgainCore.ILayout_getInterferenceFunction(self)
 
 
+    def cloneInterferenceFunction(self):
+        """cloneInterferenceFunction(ILayout self) -> IInterferenceFunction"""
+        return _libBornAgainCore.ILayout_cloneInterferenceFunction(self)
+
+
     def getTotalParticleSurfaceDensity(self):
         """
         getTotalParticleSurfaceDensity(ILayout self) -> double
@@ -23307,6 +23312,11 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_getInterferenceFunction(self)
+
+
+    def cloneInterferenceFunction(self):
+        """cloneInterferenceFunction(ParticleLayout self) -> IInterferenceFunction"""
+        return _libBornAgainCore.ParticleLayout_cloneInterferenceFunction(self)
 
 
     def addInterferenceFunction(self, interference_function):

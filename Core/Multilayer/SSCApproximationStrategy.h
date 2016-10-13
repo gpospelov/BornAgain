@@ -23,29 +23,61 @@ class SimulationElement;
 //! Strategy which implements size spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SSCApproximationStrategy : public IInterferenceFunctionStrategy
+class SSCApproximationStrategy : public virtual IInterferenceFunctionStrategy
 {
 public:
-    SSCApproximationStrategy(SimulationOptions sim_params, double kappa);
-    ~SSCApproximationStrategy() final {}
+    SSCApproximationStrategy(double kappa);
+    virtual ~SSCApproximationStrategy() {}
 
-private:
-    void strategy_specific_post_init() final;
-    double evaluateForList(const SimulationElement& sim_element) const final;
-    double evaluateForMatrixList(const SimulationElement& sim_element) const final;
-
-    complex_t getMeanCharacteristicFF(double qp) const;
-    complex_t getMeanConjCharacteristicFF(double qp) const;
-    Eigen::Matrix2cd getMeanCharacteristicMatrixFF(double qp) const;
-    Eigen::Matrix2cd getMeanConjCharacteristicMatrixFF(double qp) const;
-
+protected:
+    complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
     complex_t getCharacteristicDistribution(double qp) const;
     complex_t getCharacteristicSizeCoupling(double qp, double kappa) const;
-    complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
-    void initMeanRadius();
 
     double m_mean_radius;
     double m_kappa;
+
+private:
+    void strategy_specific_post_init() final;
+
+    void initMeanRadius();
+};
+
+//!
+
+class SSCApproximationStrategy1
+    : public IInterferenceFunctionStrategy1
+    , public SSCApproximationStrategy
+{
+public:
+    SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
+        : IInterferenceFunctionStrategy1(sim_params), SSCApproximationStrategy(kappa) {}
+    ~SSCApproximationStrategy1() final {}
+
+private:
+    double evaluateForList(const SimulationElement& sim_element) const final;
+
+    complex_t getMeanCharacteristicFF(double qp) const;
+    complex_t getMeanConjCharacteristicFF(double qp) const;
+};
+
+//!
+
+class SSCApproximationStrategy2
+    : public IInterferenceFunctionStrategy2
+    , public SSCApproximationStrategy
+{
+public:
+    SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
+        : IInterferenceFunctionStrategy2(sim_params), SSCApproximationStrategy(kappa) {}
+    ~SSCApproximationStrategy2() final {}
+
+private:
+    double evaluateForList(const SimulationElement& sim_element) const final;
+
+    Eigen::Matrix2cd getMeanCharacteristicFF(double qp) const;
+    Eigen::Matrix2cd getMeanConjCharacteristicFF(double qp) const;
+
 };
 
 #endif // SSCAPPROXIMATIONSTRATEGY_H

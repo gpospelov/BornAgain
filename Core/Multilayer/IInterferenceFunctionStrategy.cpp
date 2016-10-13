@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/IInterferenceFunctionStrategy.cpp
-//! @brief     Implements default behaviour of IInterferenceFunctionStrategy
+//! @brief     Implements default behaviour of IInterferenceFunctionStrategy,
+//!              IInterferenceFunctionStrategy2, IInterferenceFunctionStrategy2
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,6 +25,9 @@
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
+
+IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
+{}
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
     const SimulationOptions& sim_params)
@@ -66,6 +70,7 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
     return evaluateForList(sim_element);
 }
 
+//! Performs a Monte Carlo integration over the bin for the evaluation of the intensity.
 double IInterferenceFunctionStrategy::MCIntegratedEvaluate(
     const SimulationElement& sim_element) const
 {

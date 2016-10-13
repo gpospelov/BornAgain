@@ -39,13 +39,11 @@ void DecoratedLayerComputation::eval(
     const SimulationOptions& options,
     ProgressHandler* progress,
     bool polarized,
-    const MultiLayer& sample,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(*mp_layer, sample.containsMagneticMaterial(), options,
-                             m_layout_index, mP_specular_info.get()).
+        LayerStrategyBuilder(*mp_layer, polarized, options, m_layout_index, mP_specular_info.get()).
             createStrategy() };
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
@@ -57,10 +55,7 @@ void DecoratedLayerComputation::eval(
         if (n_layers > 1 && alpha_f < 0)
             continue;
         // each ffdwba: one call to getOutCoeffs
-        if (polarized)
-            it->setIntensity(p_strategy->evaluatePol(*it) * total_surface_density);
-        else
-            it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
+        it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
         stepProgress(progress);
     }
 }

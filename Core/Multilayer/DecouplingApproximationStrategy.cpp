@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/DecouplingApproximationStrategy.cpp
-//! @brief     Implements class DecouplingApproximationStrategy.
+//! @brief     Implements classes DecouplingApproximationStrategy1,
+//!              DecouplingApproximationStrategy2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,7 +27,7 @@
 //! Returns the total incoherent and coherent scattering intensity for given kf and
 //! for one layer (implied by the given particle form factors).
 //! For each IParticle in the layer layout, the precomputed form factor must be provided.
-double DecouplingApproximationStrategy::evaluateForList(
+double DecouplingApproximationStrategy1::evaluateForList(
     const SimulationElement& sim_element) const
 {
     double intensity = 0.0;
@@ -52,7 +53,7 @@ double DecouplingApproximationStrategy::evaluateForList(
 //! For each IParticle in the layer layout, the precomputed form factor must be provided.
 //! This is the polarized variant of evaluateForList. Each form factor must be
 //! precomputed for polarized beam and detector.
-double DecouplingApproximationStrategy::evaluateForMatrixList(
+double DecouplingApproximationStrategy2::evaluateForList(
     const SimulationElement& sim_element) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
@@ -61,7 +62,7 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        Eigen::Matrix2cd ff = m_ff_pol[i];
+        Eigen::Matrix2cd ff = m_ff[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> "

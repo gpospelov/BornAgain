@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/IInterferenceFunctionStrategy.h
-//! @brief     Defines class IInterferenceFunctionStrategy.
+//! @brief     Defines classes IInterferenceFunctionStrategy,
+//!              IInterferenceFunctionStrategy2, IInterferenceFunctionStrategy2
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -44,6 +45,7 @@ class SimulationElement;
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
+    IInterferenceFunctionStrategy();
     IInterferenceFunctionStrategy(const SimulationOptions& sim_params);
     virtual ~IInterferenceFunctionStrategy();
 
@@ -51,7 +53,7 @@ public:
               const IInterferenceFunction& iff, const LayerSpecularInfo& specular_info);
 
     //! Calculates the intensity for scalar particles/interactions
-    virtual double evaluate(const SimulationElement& sim_element) const =0;
+    double evaluate(const SimulationElement& sim_element) const;
 
 protected:
     virtual void strategy_specific_post_init() {}
@@ -67,11 +69,8 @@ protected:
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
-
-    //! Perform a Monte Carlo integration over the bin for the evaluation of the intensity
-    virtual double MCIntegratedEvaluate(const SimulationElement& sim_element) const =0;
-
-    virtual double evaluate_for_fixed_angles(double* fractions, size_t dim, void* params) const =0;
+    double MCIntegratedEvaluate(const SimulationElement& sim_element) const;
+    double evaluate_for_fixed_angles(double* fractions, size_t dim, void* params) const;
 
 #ifndef SWIG
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;
@@ -80,7 +79,7 @@ private:
 
 //!
 
-class BA_CORE_API_ IInterferenceFunctionStrategy1 : public IInterferenceFunctionStrategy
+class BA_CORE_API_ IInterferenceFunctionStrategy1 : public virtual IInterferenceFunctionStrategy
 {
 public:
     IInterferenceFunctionStrategy1(const SimulationOptions& sim_params)
@@ -95,7 +94,7 @@ private:
 
 //!
 
-class BA_CORE_API_ IInterferenceFunctionStrategy2 : public IInterferenceFunctionStrategy
+class BA_CORE_API_ IInterferenceFunctionStrategy2 : public virtual IInterferenceFunctionStrategy
 {
 public:
     typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>
@@ -108,7 +107,7 @@ public:
               const IInterferenceFunction& iff, const LayerSpecularInfo& specular_info);
 
 protected:
-    mutable matrixFFVector_t m_ff_pol; //!< cached polarized form factors
+    mutable matrixFFVector_t m_ff; //!< cached polarized form factors
 
 private:
     void precomputeParticleFormfactors(const SimulationElement& sim_element) const final;

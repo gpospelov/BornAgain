@@ -25,17 +25,19 @@
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "DecouplingApproximationStrategy.h"
-#include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer& decorated_layer, const MultiLayer& sample,
+    const Layer& decorated_layer, bool polarized,
     const SimulationOptions& sim_params, size_t layout_index,
     const LayerSpecularInfo* specular_info)
-    : m_sim_params{sim_params}, mP_specular_info{nullptr}, m_layout_index{layout_index}
+    : m_sim_params {sim_params}
+    , mP_specular_info {nullptr}
+    , m_layout_index {layout_index}
+    , m_polarized {polarized}
 {
     mP_layer.reset(decorated_layer.clone());
     assert(mP_layer->getNumberOfLayouts() > 0);
-    mP_sample.reset(sample.clone());
     assert(specular_info);
     mP_specular_info.reset(specular_info->clone());
 }
@@ -63,7 +65,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
                 "with a strictly positive coupling coefficient kappa");
-        p_result = new SizeSpacingCorrelationApproximationStrategy(m_sim_params, kappa);
+        p_result = new SSCApproximationStrategy(m_sim_params, kappa);
         break;
     }
     default:
@@ -106,7 +108,7 @@ FormFactorWrapper* LayerStrategyBuilder::createFormFactorWrapper(
     const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
     IFormFactor* p_ff_framework;
     if (mP_layer->getNumberOfLayers()>1) {
-        if (mP_sample->containsMagneticMaterial())
+        if (m_polarized)
             p_ff_framework = new FormFactorDWBAPol(*P_ff_particle);
         else
             p_ff_framework = new FormFactorDWBA(*P_ff_particle);

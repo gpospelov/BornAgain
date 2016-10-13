@@ -35,7 +35,7 @@ class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
-        const Layer& decorated_layer, const MultiLayer& sample,
+        const Layer& decorated_layer, bool polarized,
         const SimulationOptions& sim_params, size_t layout_index,
         const LayerSpecularInfo* specular_info);
 
@@ -52,7 +52,8 @@ private:
     std::unique_ptr<class MultiLayer> mP_sample;               //!< sample
     SimulationOptions m_sim_params;                            //!< simulation parameters
     std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
-    size_t m_layout_index; //!< index for the layout to be used in the layer
+    size_t m_layout_index;                      //!< index for the layout to be used in the layer
+    bool m_polarized;                           //!< polarized computation required?
 };
 
 #endif // LAYERSTRATEGYBUILDER_H

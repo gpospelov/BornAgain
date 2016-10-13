@@ -6500,7 +6500,7 @@ If defined by this interference function's parameters, returns the particle dens
 // File: classIInterferenceFunctionStrategy.xml
 %feature("docstring") IInterferenceFunctionStrategy "
 
-Virtual base class of the interference function strategy classes  DecouplingApproximationStrategy,  SizeSpacingCorrelationApproximationStrategy. These classes provide 'evaluate' functions that compute the scattering intensity from a decorated layer, taking into account a specific inter-particle interference function.
+Virtual base class of the interference function strategy classes  DecouplingApproximationStrategy,  SSCApproximationStrategy. These classes provide 'evaluate' functions that compute the scattering intensity from a decorated layer, taking into account a specific inter-particle interference function.
 
 Child classes are instantiated in  LayerStrategyBuilder::createStrategy, which is called from  DecoratedLayerComputation::eval.
 
@@ -12009,21 +12009,6 @@ C++ includes: SizeDistributionModelsBuilder.h
 ";
 
 
-// File: classSizeSpacingCorrelationApproximationStrategy.xml
-%feature("docstring") SizeSpacingCorrelationApproximationStrategy "
-
-Strategy which implements size spacing correlation approximation.
-
-C++ includes: SizeSpacingCorrelationApproximationStrategy.h
-";
-
-%feature("docstring")  SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy "SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(SimulationOptions sim_params, double kappa)
-";
-
-%feature("docstring")  SizeSpacingCorrelationApproximationStrategy::~SizeSpacingCorrelationApproximationStrategy "SizeSpacingCorrelationApproximationStrategy::~SizeSpacingCorrelationApproximationStrategy() final
-";
-
-
 // File: classSpecularComputation.xml
 %feature("docstring") SpecularComputation "
 
@@ -12362,6 +12347,21 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 %feature("docstring")  SquareLatticeBuilder::buildSample "MultiLayer * SquareLatticeBuilder::buildSample() const 
+";
+
+
+// File: classSSCApproximationStrategy.xml
+%feature("docstring") SSCApproximationStrategy "
+
+Strategy which implements size spacing correlation approximation.
+
+C++ includes: SSCApproximationStrategy.h
+";
+
+%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa)
+";
+
+%feature("docstring")  SSCApproximationStrategy::~SSCApproximationStrategy "SSCApproximationStrategy::~SSCApproximationStrategy() final
 ";
 
 
@@ -12750,7 +12750,7 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D273.xml
 
 
-// File: namespace_0D305.xml
+// File: namespace_0D303.xml
 
 
 // File: namespace_0D426.xml
@@ -14180,12 +14180,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: ScalarSpecularInfoMap_8h.xml
 
 
-// File: SizeSpacingCorrelationApproximationStrategy_8cpp.xml
-
-
-// File: SizeSpacingCorrelationApproximationStrategy_8h.xml
-
-
 // File: SpecularMagnetic_8cpp.xml
 %feature("docstring")  I "static complex_t I(0., 1.)
 ";
@@ -14203,6 +14197,12 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: SpecularMatrix_8h.xml
+
+
+// File: SSCApproximationStrategy_8cpp.xml
+
+
+// File: SSCApproximationStrategy_8h.xml
 
 
 // File: DistributionHandler_8cpp.xml

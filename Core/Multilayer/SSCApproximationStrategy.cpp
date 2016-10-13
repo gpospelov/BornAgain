@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SizeSpacingCorrelationApproximationStrategy.cpp
-//! @brief     Implements class SizeSpacingCorrelationApproximationStrategy.
+//! @file      Core/Multilayer/SSCApproximationStrategy.cpp
+//! @brief     Implements class SSCApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "SSCApproximationStrategy.h"
 #include "Exceptions.h"
 #include "FormFactorWrapper.h"
 #include "IFormFactor.h"
@@ -21,13 +21,13 @@
 #include "RealParameter.h"
 #include "SimulationElement.h"
 
-SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(
+SSCApproximationStrategy::SSCApproximationStrategy(
     SimulationOptions sim_params, double kappa)
     : IInterferenceFunctionStrategy(sim_params), m_mean_radius(0.0), m_kappa(kappa)
 {
 }
 
-void SizeSpacingCorrelationApproximationStrategy::strategy_specific_post_init()
+void SSCApproximationStrategy::strategy_specific_post_init()
 {
     initMeanRadius();
 }
@@ -35,7 +35,7 @@ void SizeSpacingCorrelationApproximationStrategy::strategy_specific_post_init()
 //! Returns the total scattering intensity for given kf and
 //! for one layer (implied by the given particle form factors).
 //! For each IParticle in the layer layout, the precomputed form factor must be provided.
-double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
+double SSCApproximationStrategy::evaluateForList(
     const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();
@@ -60,7 +60,7 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
 //! For each IParticle in the layer layout, the precomputed form factor must be provided.
 //! This is the polarized variant of evaluateForList. Each form factor must be
 //! precomputed for polarized beam and detector.
-double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
+double SSCApproximationStrategy::evaluateForMatrixList(
     const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();
@@ -85,7 +85,7 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     return m_total_abundance * (diffuse_trace + interference_trace);
 }
 
-complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
+complex_t SSCApproximationStrategy::getMeanCharacteristicFF(
     double qp) const
 {
     complex_t result(0.0, 0.0);
@@ -95,7 +95,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
     return result / m_total_abundance;
 }
 
-complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicFF(
+complex_t SSCApproximationStrategy::getMeanConjCharacteristicFF(
     double qp) const
 {
     complex_t result(0.0, 0.0);
@@ -105,7 +105,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristic
     return result / m_total_abundance;
 }
 
-Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicMatrixFF(
+Eigen::Matrix2cd SSCApproximationStrategy::getMeanCharacteristicMatrixFF(
     double qp) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
@@ -115,7 +115,7 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteris
     return result / m_total_abundance;
 }
 
-Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristicMatrixFF(
+Eigen::Matrix2cd SSCApproximationStrategy::getMeanConjCharacteristicMatrixFF(
     double qp) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
@@ -125,7 +125,7 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharact
     return result / m_total_abundance;
 }
 
-complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(
+complex_t SSCApproximationStrategy::getCharacteristicDistribution(
     double qp) const
 {
     const InterferenceFunctionRadialParaCrystal *p_iff
@@ -135,7 +135,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribu
     return p_iff->FTPDF(qp);
 }
 
-complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoupling(
+complex_t SSCApproximationStrategy::getCharacteristicSizeCoupling(
     double qp, double kappa) const
 {
     size_t n_frs = m_formfactor_wrappers.size();
@@ -146,7 +146,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoup
     return result / m_total_abundance;
 }
 
-complex_t SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(
+complex_t SSCApproximationStrategy::calculatePositionOffsetPhase(
     double qp, double kappa, size_t index) const
 {
     return exp_I(kappa * qp *
@@ -154,7 +154,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPh
 }
 
 //! Sets m_mean_radius to the weighted arithmetic average of the particle radii.
-void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
+void SSCApproximationStrategy::initMeanRadius()
 {
     m_mean_radius = 0.0;
     for (const auto ffw: m_formfactor_wrappers)

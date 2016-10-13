@@ -32,7 +32,7 @@ class LayerSpecularInfo;
 class SimulationElement;
 
 //! Virtual base class of the interference function strategy classes
-//! DecouplingApproximationStrategy, SizeSpacingCorrelationApproximationStrategy.
+//! DecouplingApproximationStrategy, SSCApproximationStrategy.
 //! These classes provide 'evaluate' functions that compute the scattering intensity
 //! from a decorated layer, taking into account a specific inter-particle interference function.
 //!

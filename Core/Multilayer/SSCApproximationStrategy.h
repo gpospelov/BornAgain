@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SizeSpacingCorrelationApproximationStrategy.h
-//! @brief     Defines class SizeSpacingCorrelationApproximationStrategy.
+//! @file      Core/Multilayer/SSCApproximationStrategy.h
+//! @brief     Defines class SSCApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
-#define SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
+#ifndef SSCAPPROXIMATIONSTRATEGY_H
+#define SSCAPPROXIMATIONSTRATEGY_H
 
 #include "IInterferenceFunctionStrategy.h"
 
@@ -23,11 +23,11 @@ class SimulationElement;
 //! Strategy which implements size spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunctionStrategy
+class SSCApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    SizeSpacingCorrelationApproximationStrategy(SimulationOptions sim_params, double kappa);
-    ~SizeSpacingCorrelationApproximationStrategy() final {}
+    SSCApproximationStrategy(SimulationOptions sim_params, double kappa);
+    ~SSCApproximationStrategy() final {}
 
 private:
     void strategy_specific_post_init() final;
@@ -48,4 +48,4 @@ private:
     double m_kappa;
 };
 
-#endif // SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H
+#endif // SSCAPPROXIMATIONSTRATEGY_H

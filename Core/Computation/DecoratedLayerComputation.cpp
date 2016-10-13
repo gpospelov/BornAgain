@@ -44,7 +44,8 @@ void DecoratedLayerComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(*mp_layer, sample, options, m_layout_index, mP_specular_info.get()).
+        LayerStrategyBuilder(*mp_layer, sample.containsMagneticMaterial(), options,
+                             m_layout_index, mP_specular_info.get()).
             createStrategy() };
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 

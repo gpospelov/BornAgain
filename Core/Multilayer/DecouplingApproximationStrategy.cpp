@@ -21,7 +21,6 @@
 #include "MathFunctions.h"
 #include "RealParameter.h"
 #include "SimulationElement.h"
-#include <cassert>
 
 //! Returns the total incoherent and coherent scattering intensity for given kf and
 //! for one layer (implied by the given particle form factors).

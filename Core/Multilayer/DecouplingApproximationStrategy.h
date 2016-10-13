@@ -20,41 +20,31 @@
 
 class SimulationElement;
 
-//! Strategy for implementing decoupling approximation.
+//! Strategy class to compute the total scalar scattering from a decorated layer
+//! in decoupling approximation.
 //! @ingroup algorithms_internal
-
-class BA_CORE_API_ DecouplingApproximationStrategy : public virtual IInterferenceFunctionStrategy
-{
-public:
-    DecouplingApproximationStrategy() {}
-    virtual ~DecouplingApproximationStrategy() {}
-};
-
-//!
 
 class BA_CORE_API_ DecouplingApproximationStrategy1
     : public IInterferenceFunctionStrategy1
-    , public DecouplingApproximationStrategy
 {
 public:
     DecouplingApproximationStrategy1(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy(sim_params)  {}
-    ~DecouplingApproximationStrategy1() final {}
+        : IInterferenceFunctionStrategy(sim_params) {}
 
 private:
     double evaluateForList(const SimulationElement& sim_element) const final;
 };
 
-//!
+//! Strategy class to compute the total polarized scattering from a decorated layer
+//! in decoupling approximation.
+//! @ingroup algorithms_internal
 
 class BA_CORE_API_ DecouplingApproximationStrategy2
     : public IInterferenceFunctionStrategy2
-    , public DecouplingApproximationStrategy
 {
 public:
     DecouplingApproximationStrategy2(SimulationOptions sim_params)
         : IInterferenceFunctionStrategy(sim_params) {}
-    ~DecouplingApproximationStrategy2() final {}
 
 private:
     double evaluateForList(const SimulationElement& sim_element) const final;

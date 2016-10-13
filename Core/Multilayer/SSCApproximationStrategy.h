@@ -20,7 +20,9 @@
 
 class SimulationElement;
 
-//! Strategy which implements size spacing correlation approximation.
+//! Virtual base class for SSCApproximationStrategy1 and SSCApproximationStrategy2,
+//! which compute the total scalar/polarized scattering from a decorated layer
+//! in size-spacing correlation approximation.
 //! @ingroup algorithms_internal
 
 class SSCApproximationStrategy : public virtual IInterferenceFunctionStrategy
@@ -43,7 +45,8 @@ private:
     void initMeanRadius();
 };
 
-//!
+//! Strategy class to compute the total scalar scattering from a decorated layer
+//! in size-spacing correlation approximation.
 
 class SSCApproximationStrategy1
     : public IInterferenceFunctionStrategy1
@@ -61,7 +64,8 @@ private:
     complex_t getMeanConjCharacteristicFF(double qp) const;
 };
 
-//!
+//! Strategy class to compute the total polarized scattering from a decorated layer
+//! in size-spacing correlation approximation.
 
 class SSCApproximationStrategy2
     : public IInterferenceFunctionStrategy2

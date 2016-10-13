@@ -37,17 +37,12 @@ void SimulationOptions::setMonteCarloIntegration(bool flag, size_t mc_points)
 
 void SimulationOptions::setNumberOfThreads(int nthreads)
 {
-    if(nthreads == 0) {
+    if(nthreads == 0)
         m_thread_info.n_threads = (int)std::thread::hardware_concurrency();
-    }
-
-    else if(nthreads > 0) {
+    else if(nthreads > 0)
         m_thread_info.n_threads = nthreads;
-    }
-
-    else {
+    else
         m_thread_info.n_threads = 1;
-    }
 }
 
 int SimulationOptions::getNumberOfThreads() const

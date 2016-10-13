@@ -82,8 +82,6 @@ private:
 class BA_CORE_API_ IInterferenceFunctionStrategy1 : public virtual IInterferenceFunctionStrategy
 {
 public:
-    IInterferenceFunctionStrategy1(const SimulationOptions& sim_params)
-        : IInterferenceFunctionStrategy(sim_params) {}
 
 protected:
     mutable std::vector<complex_t> m_ff; //!< cached form factor evaluations
@@ -99,12 +97,6 @@ class BA_CORE_API_ IInterferenceFunctionStrategy2 : public virtual IInterference
 public:
     typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>
         matrixFFVector_t;
-
-    IInterferenceFunctionStrategy2(const SimulationOptions& sim_params)
-        : IInterferenceFunctionStrategy(sim_params) {}
-
-    void init(const SafePointerVector<FormFactorWrapper>& weighted_formfactors,
-              const IInterferenceFunction& iff, const LayerSpecularInfo& specular_info);
 
 protected:
     mutable matrixFFVector_t m_ff; //!< cached polarized form factors

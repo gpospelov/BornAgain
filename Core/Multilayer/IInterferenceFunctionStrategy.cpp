@@ -31,9 +31,9 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
     const SimulationOptions& sim_params)
-    : mP_iff { nullptr }
-    , m_options(sim_params)
 {
+    mP_iff = nullptr;
+    m_options = sim_params;
     mP_integrator = make_integrator_miser(
         this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2);
 }
@@ -62,6 +62,7 @@ void IInterferenceFunctionStrategy::init(
     strategy_specific_post_init();
 }
 
+#include<iostream>
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
     if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))

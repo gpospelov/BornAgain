@@ -51,7 +51,7 @@ class SSCApproximationStrategy1
 {
 public:
     SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
-        : IInterferenceFunctionStrategy1(sim_params), SSCApproximationStrategy(kappa) {}
+        : IInterferenceFunctionStrategy(sim_params), SSCApproximationStrategy(kappa) {}
     ~SSCApproximationStrategy1() final {}
 
 private:
@@ -69,7 +69,7 @@ class SSCApproximationStrategy2
 {
 public:
     SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
-        : IInterferenceFunctionStrategy2(sim_params), SSCApproximationStrategy(kappa) {}
+        : IInterferenceFunctionStrategy(sim_params), SSCApproximationStrategy(kappa) {}
     ~SSCApproximationStrategy2() final {}
 
 private:

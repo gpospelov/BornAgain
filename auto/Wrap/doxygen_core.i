@@ -454,21 +454,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -964,7 +964,7 @@ C++ includes: DecoratedLayerComputation.h
 %feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
 ";
 
-%feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const MultiLayer &sample, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const
+%feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const
 
 Computes scattering intensity for given range of simulation elements. 
 ";
@@ -978,10 +978,30 @@ Strategy for implementing decoupling approximation.
 C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params)
+%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy()
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::~DecouplingApproximationStrategy "DecouplingApproximationStrategy::~DecouplingApproximationStrategy() final
+%feature("docstring")  DecouplingApproximationStrategy::~DecouplingApproximationStrategy "virtual DecouplingApproximationStrategy::~DecouplingApproximationStrategy()
+";
+
+
+// File: classDecouplingApproximationStrategy1.xml
+%feature("docstring") DecouplingApproximationStrategy1 "";
+
+%feature("docstring")  DecouplingApproximationStrategy1::DecouplingApproximationStrategy1 "DecouplingApproximationStrategy1::DecouplingApproximationStrategy1(SimulationOptions sim_params)
+";
+
+%feature("docstring")  DecouplingApproximationStrategy1::~DecouplingApproximationStrategy1 "DecouplingApproximationStrategy1::~DecouplingApproximationStrategy1() final
+";
+
+
+// File: classDecouplingApproximationStrategy2.xml
+%feature("docstring") DecouplingApproximationStrategy2 "";
+
+%feature("docstring")  DecouplingApproximationStrategy2::DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::DecouplingApproximationStrategy2(SimulationOptions sim_params)
+";
+
+%feature("docstring")  DecouplingApproximationStrategy2::~DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::~DecouplingApproximationStrategy2() final
 ";
 
 
@@ -6507,6 +6527,9 @@ Child classes are instantiated in  LayerStrategyBuilder::createStrategy, which i
 C++ includes: IInterferenceFunctionStrategy.h
 ";
 
+%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
+";
+
 %feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions &sim_params)
 ";
 
@@ -6523,9 +6546,21 @@ Initializes the object with form factors and interference functions.
 Calculates the intensity for scalar particles/interactions. 
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::evaluatePol "double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement &sim_element) const
 
-Calculates the intensity in the presence of polarization of beam and detector. 
+// File: classIInterferenceFunctionStrategy1.xml
+%feature("docstring") IInterferenceFunctionStrategy1 "";
+
+%feature("docstring")  IInterferenceFunctionStrategy1::IInterferenceFunctionStrategy1 "IInterferenceFunctionStrategy1::IInterferenceFunctionStrategy1(const SimulationOptions &sim_params)
+";
+
+
+// File: classIInterferenceFunctionStrategy2.xml
+%feature("docstring") IInterferenceFunctionStrategy2 "";
+
+%feature("docstring")  IInterferenceFunctionStrategy2::IInterferenceFunctionStrategy2 "IInterferenceFunctionStrategy2::IInterferenceFunctionStrategy2(const SimulationOptions &sim_params)
+";
+
+%feature("docstring")  IInterferenceFunctionStrategy2::init "void IInterferenceFunctionStrategy2::init(const SafePointerVector< FormFactorWrapper > &weighted_formfactors, const IInterferenceFunction &iff, const LayerSpecularInfo &specular_info)
 ";
 
 
@@ -8738,7 +8773,7 @@ Methods to generate a simulation strategy for  DecoratedLayerComputation.
 C++ includes: LayerStrategyBuilder.h
 ";
 
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, const MultiLayer &sample, const SimulationOptions &sim_params, size_t layout_index, const LayerSpecularInfo *specular_info)
+%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, bool polarized, const SimulationOptions &sim_params, size_t layout_index, const LayerSpecularInfo *specular_info)
 ";
 
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
@@ -12358,10 +12393,30 @@ Strategy which implements size spacing correlation approximation.
 C++ includes: SSCApproximationStrategy.h
 ";
 
-%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa)
+%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(double kappa)
 ";
 
-%feature("docstring")  SSCApproximationStrategy::~SSCApproximationStrategy "SSCApproximationStrategy::~SSCApproximationStrategy() final
+%feature("docstring")  SSCApproximationStrategy::~SSCApproximationStrategy "virtual SSCApproximationStrategy::~SSCApproximationStrategy()
+";
+
+
+// File: classSSCApproximationStrategy1.xml
+%feature("docstring") SSCApproximationStrategy1 "";
+
+%feature("docstring")  SSCApproximationStrategy1::SSCApproximationStrategy1 "SSCApproximationStrategy1::SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
+";
+
+%feature("docstring")  SSCApproximationStrategy1::~SSCApproximationStrategy1 "SSCApproximationStrategy1::~SSCApproximationStrategy1() final
+";
+
+
+// File: classSSCApproximationStrategy2.xml
+%feature("docstring") SSCApproximationStrategy2 "";
+
+%feature("docstring")  SSCApproximationStrategy2::SSCApproximationStrategy2 "SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
+";
+
+%feature("docstring")  SSCApproximationStrategy2::~SSCApproximationStrategy2 "SSCApproximationStrategy2::~SSCApproximationStrategy2() final
 ";
 
 

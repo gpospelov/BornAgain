@@ -33,12 +33,12 @@ public:
 //!
 
 class BA_CORE_API_ DecouplingApproximationStrategy1
-    : public DecouplingApproximationStrategy
-    , public IInterferenceFunctionStrategy1
+    : public IInterferenceFunctionStrategy1
+    , public DecouplingApproximationStrategy
 {
 public:
     DecouplingApproximationStrategy1(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy1(sim_params) {}
+        : IInterferenceFunctionStrategy(sim_params)  {}
     ~DecouplingApproximationStrategy1() final {}
 
 private:
@@ -48,12 +48,12 @@ private:
 //!
 
 class BA_CORE_API_ DecouplingApproximationStrategy2
-    : public DecouplingApproximationStrategy
-    , public IInterferenceFunctionStrategy2
+    : public IInterferenceFunctionStrategy2
+    , public DecouplingApproximationStrategy
 {
 public:
     DecouplingApproximationStrategy2(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy2(sim_params) {}
+        : IInterferenceFunctionStrategy(sim_params) {}
     ~DecouplingApproximationStrategy2() final {}
 
 private:

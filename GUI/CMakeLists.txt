@@ -21,9 +21,7 @@ add_subdirectory(main)
 
 set(BornAgainGUI_INCLUDE_DIRS
     ${BornAgainGUI_INCLUDE_DIRS}
-#    ${BornAgainQtAddOn_INCLUDE_DIRS}
     PARENT_SCOPE)
 set(BornAgainGUI_LIBRARY
     ${BornAgainGUI_LIBRARY}
-    ${BornAgainQtAddOn_LIBRARY}
     PARENT_SCOPE)

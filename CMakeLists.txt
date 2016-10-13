@@ -89,13 +89,12 @@ endif()
 if(BORNAGAIN_GUI)
     include(SearchQt)
     add_subdirectory(ThirdParty/GUI)
-    message(DEBUG " 2 ---> QtAddOn_INC_DIR: ${BornAgainQtAddOn_INCLUDE_DIRS}.")
-#    add_subdirectory(GUI)
+    add_subdirectory(GUI)
     if(UNITTESTS)
-#        add_subdirectory(Tests/UnitTests/GUI)
+        add_subdirectory(Tests/UnitTests/GUI)
     endif()
 endif()
-#add_subdirectory(Tests/Functional) # functional tests (ctest)
+add_subdirectory(Tests/Functional) # functional tests (ctest)
 
 add_subdirectory(cmake/bornagain) # trick to print an after-install message
 

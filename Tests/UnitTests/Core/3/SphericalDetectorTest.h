@@ -10,6 +10,8 @@
 #include "Polygon.h"
 #include "BornAgainNamespace.h"
 #include "Rectangle.h"
+#include "Units.h"
+#include "Beam.h"
 #include <memory>
 
 class SphericalDetectorTest : public ::testing::Test
@@ -109,7 +111,7 @@ TEST_F(SphericalDetectorTest, constructionWithParameters)
     EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, detector.getAxis(1).getName());
 }
 
-//! Init external data with detector axes
+//! Init external data with detector axes.
 
 TEST_F(SphericalDetectorTest, initOutputData)
 {
@@ -127,6 +129,45 @@ TEST_F(SphericalDetectorTest, initOutputData)
     EXPECT_EQ(0.0, data.getAxis(1)->getMin() );
     EXPECT_EQ(2.0, data.getAxis(1)->getMax() );
     EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, data.getAxis(1)->getName());
+}
+
+//! Creation of the detector map with axes in given units
+
+TEST_F(SphericalDetectorTest, createDetectorMap)
+{
+    SphericalDetector detector(10, -1.0*Units::deg, 1.0*Units::deg,
+                               20, 0.0*Units::deg, 2.0*Units::deg);
+
+    Beam beam;
+    beam.setCentralK(1.0*Units::angstrom, 0.4*Units::deg, 0.0);
+
+    // creating map in default units, which are radians and checking axes
+    std::unique_ptr<OutputData<double>> data(
+                detector.createDetectorMap(beam, IDetector2D::DEFAULT));
+    EXPECT_EQ(data->getAxis(0)->getSize(), 10);
+    EXPECT_EQ(data->getAxis(0)->getMin(), -1.0*Units::deg);
+    EXPECT_EQ(data->getAxis(0)->getMax(), 1.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1)->getSize(), 20);
+    EXPECT_EQ(data->getAxis(1)->getMin(), 0.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1)->getMax(), 2.0*Units::deg);
+
+    // creating map in degrees and checking axes
+    data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
+    EXPECT_EQ(data->getAxis(0)->getSize(), 10);
+    EXPECT_FLOAT_EQ(data->getAxis(0)->getMin(), -1.0);
+    EXPECT_FLOAT_EQ(data->getAxis(0)->getMax(), 1.0);
+    EXPECT_EQ(data->getAxis(1)->getSize(), 20);
+    EXPECT_FLOAT_EQ(data->getAxis(1)->getMin(), 0.0);
+    EXPECT_FLOAT_EQ(data->getAxis(1)->getMax(), 2.0);
+
+    // creating map in nbins and checking axes
+    data.reset(detector.createDetectorMap(beam, IDetector2D::NBINS));
+    EXPECT_EQ(data->getAxis(0)->getSize(), 10);
+    EXPECT_FLOAT_EQ(data->getAxis(0)->getMin(), 0.0);
+    EXPECT_FLOAT_EQ(data->getAxis(0)->getMax(), 10.0);
+    EXPECT_EQ(data->getAxis(1)->getSize(), 20);
+    EXPECT_FLOAT_EQ(data->getAxis(1)->getMin(), 0.0);
+    EXPECT_FLOAT_EQ(data->getAxis(1)->getMax(), 20.0);
 }
 
 //! Testing region of interest.

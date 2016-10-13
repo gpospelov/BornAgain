@@ -116,21 +116,24 @@ OutputData<double>* IDetector2D::createDetectorMap(const Beam&, EAxesUnits) cons
 
 //!
 
-void IDetector2D::initOutputData(OutputData<double>& data) const
-{
-    data.clear();
-    if(m_region_of_interest) {
-        std::unique_ptr<IAxis> axis0(getAxis(0).createClippedAxis(m_region_of_interest->getXlow(), m_region_of_interest->getXup()));
-        std::unique_ptr<IAxis> axis1(getAxis(1).createClippedAxis(m_region_of_interest->getYlow(), m_region_of_interest->getYup()));
-        data.addAxis(*axis0);
-        data.addAxis(*axis1);
+void IDetector2D::initOutputData(OutputData<double> &data) const {
+  data.clear();
 
-    } else {
-        for(size_t i=0; i<getDimension(); ++i)
-            data.addAxis(getAxis(i));
-    }
+  if (m_region_of_interest) {
+    std::unique_ptr<IAxis> axis0(getAxis(0).createClippedAxis(
+        m_region_of_interest->getXlow(), m_region_of_interest->getXup()));
+    data.addAxis(*axis0);
 
-    data.setAllTo(0.);
+    std::unique_ptr<IAxis> axis1(getAxis(1).createClippedAxis(
+        m_region_of_interest->getYlow(), m_region_of_interest->getYup()));
+    data.addAxis(*axis1);
+
+  } else {
+    for (size_t i = 0; i < getDimension(); ++i)
+      data.addAxis(getAxis(i));
+  }
+
+  data.setAllTo(0.);
 }
 
 std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const

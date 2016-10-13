@@ -22,6 +22,7 @@
 #include "EigenCore.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
+#include "Rectangle.h"
 #include <memory>
 
 template<class T> class OutputData;
@@ -138,6 +139,14 @@ public:
     //! return default axes units
     virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
 
+    //! Returns region of  interest if exists.
+    const Geometry::Rectangle* regionOfInterest() const;
+
+    //! Sets rectangular region of interest with lower left and uppre right corners defined.
+    void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
+
+    //! Resets region of interest making whole detector plane available for the simulation.
+    void resetRegionOfInterest();
 protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const=0;
@@ -191,6 +200,8 @@ private:
     Eigen::Matrix2cd calculateAnalyzerOperator(
         const kvector_t direction, double efficiency, double total_transmission = 1.0) const;
 #endif
+
+    std::unique_ptr<Geometry::Rectangle> m_region_of_interest;
 };
 
 #endif // IDETECTOR2D_H

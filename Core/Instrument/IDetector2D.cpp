@@ -114,11 +114,22 @@ OutputData<double>* IDetector2D::createDetectorMap(const Beam&, EAxesUnits) cons
     return nullptr;
 }
 
-void IDetector2D::initOutputData(OutputData<double> &data) const
+//!
+
+void IDetector2D::initOutputData(OutputData<double>& data) const
 {
     data.clear();
-    for(size_t i=0; i<getDimension(); ++i)
-        data.addAxis(getAxis(i));
+    if(m_region_of_interest) {
+        std::unique_ptr<IAxis> axis0(getAxis(0).createClippedAxis(m_region_of_interest->getXlow(), m_region_of_interest->getXup()));
+        std::unique_ptr<IAxis> axis1(getAxis(1).createClippedAxis(m_region_of_interest->getYlow(), m_region_of_interest->getYup()));
+        data.addAxis(*axis0);
+        data.addAxis(*axis1);
+
+    } else {
+        for(size_t i=0; i<getDimension(); ++i)
+            data.addAxis(getAxis(i));
+    }
+
     data.setAllTo(0.);
 }
 
@@ -126,6 +137,21 @@ std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
 {
     std::vector<EAxesUnits> result = {NBINS};
     return result;
+}
+
+const Geometry::Rectangle *IDetector2D::regionOfInterest() const
+{
+    return m_region_of_interest.get();
+}
+
+void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+{
+    m_region_of_interest.reset(new Geometry::Rectangle(xlow, ylow, xup, yup));
+}
+
+void IDetector2D::resetRegionOfInterest()
+{
+    m_region_of_interest.reset();
 }
 
 void IDetector2D::removeMasks()
@@ -269,6 +295,7 @@ void IDetector2D::swapContent(IDetector2D &other)
     std::swap(this->mP_detector_resolution, other.mP_detector_resolution);
     std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
     std::swap(this->m_detector_mask, other.m_detector_mask);
+    std::swap(this->m_region_of_interest, other.m_region_of_interest);
 }
 
 size_t IDetector2D::getTotalSize() const

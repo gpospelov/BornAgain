@@ -9,6 +9,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "Polygon.h"
 #include "BornAgainNamespace.h"
+#include "Rectangle.h"
 #include <memory>
 
 class SphericalDetectorTest : public ::testing::Test
@@ -58,6 +59,9 @@ TEST_F(SphericalDetectorTest, initialState)
 
     // resolution function
     EXPECT_EQ(nullptr, detector.getDetectorResolutionFunction());
+
+    // region of interest
+    EXPECT_EQ(nullptr, detector.regionOfInterest());
 
     // behavior
     ASSERT_THROW(detector.getAxis(0), Exceptions::OutOfBoundsException);
@@ -123,6 +127,71 @@ TEST_F(SphericalDetectorTest, initOutputData)
     EXPECT_EQ(0.0, data.getAxis(1)->getMin() );
     EXPECT_EQ(2.0, data.getAxis(1)->getMax() );
     EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, data.getAxis(1)->getName());
+}
+
+//! Testing region of interest.
+
+TEST_F(SphericalDetectorTest, regionOfInterest)
+{
+    SphericalDetector detector;
+    detector.addAxis(FixedBinAxis("axis0", 8, -3.0, 5.0));
+    detector.addAxis(FixedBinAxis("axis1", 4, 0.0, 4.0));
+
+    // creating region of interest
+    double xlow(-2.0), ylow(1.0), xup(4.0), yup(3.0);
+    detector.setRegionOfInterest(xlow, ylow, xup, yup);
+    EXPECT_FALSE(nullptr == detector.regionOfInterest());
+    EXPECT_EQ(detector.regionOfInterest()->getXlow(), xlow);
+    EXPECT_EQ(detector.regionOfInterest()->getYlow(), ylow);
+    EXPECT_EQ(detector.regionOfInterest()->getXup(), xup);
+    EXPECT_EQ(detector.regionOfInterest()->getYup(), yup);
+
+    // replacing region of interest with a new one
+    double xlow2(-2.1), ylow2(1.1), xup2(4.1), yup2(3.1);
+    detector.setRegionOfInterest(xlow2, ylow2, xup2, yup2);
+    EXPECT_EQ(detector.regionOfInterest()->getXlow(), xlow2);
+    EXPECT_EQ(detector.regionOfInterest()->getYlow(), ylow2);
+    EXPECT_EQ(detector.regionOfInterest()->getXup(), xup2);
+    EXPECT_EQ(detector.regionOfInterest()->getYup(), yup2);
+
+    // removing region of interest
+    detector.resetRegionOfInterest();
+    EXPECT_TRUE(nullptr == detector.regionOfInterest());
+}
+
+//! Init external data with detector axes when region of interest is present.
+
+TEST_F(SphericalDetectorTest, regionOfInterestAndData)
+{
+    SphericalDetector detector;
+    detector.addAxis(FixedBinAxis("axis0", 8, -3.0, 5.0));
+    detector.addAxis(FixedBinAxis("axis1", 4, 0.0, 4.0));
+
+    // creating region of interest which is larger than detector plane
+    detector.setRegionOfInterest(-4.0, -1.0, 6.0, 7.0);
+
+    // initializing data via the detector and making sure that data axes are exactly as in detector
+    OutputData<double> data;
+    detector.initOutputData(data);
+    EXPECT_EQ(data.getAllocatedSize(), 32);
+    EXPECT_EQ(data.getAxis(0)->getSize(), 8);
+    EXPECT_EQ(data.getAxis(0)->getMin(), -3.0);
+    EXPECT_EQ(data.getAxis(0)->getMax(), 5.0);
+    EXPECT_EQ(data.getAxis(1)->getSize(), 4);
+    EXPECT_EQ(data.getAxis(1)->getMin(), 0.0);
+    EXPECT_EQ(data.getAxis(1)->getMax(), 4.0);
+
+    // Creating region of interest inside the detector and checking that data is initialized with
+    // axes corresponding to croped area.
+    // Please note, that crop is done via IAxis::createClippedAxis which
+    detector.setRegionOfInterest(-1.8, 0.5, 3.0, 2.5);
+    detector.initOutputData(data);
+    EXPECT_EQ(data.getAxis(0)->getSize(), 6);
+    EXPECT_EQ(data.getAxis(0)->getMin(), -2.0); // result of crop at x = -1.8
+    EXPECT_EQ(data.getAxis(0)->getMax(), 4.0); // result of crop at x = 3.0
+    EXPECT_EQ(data.getAxis(1)->getSize(), 3);
+    EXPECT_EQ(data.getAxis(1)->getMin(), 0.0);
+    EXPECT_EQ(data.getAxis(1)->getMax(), 3.0);
 }
 
 

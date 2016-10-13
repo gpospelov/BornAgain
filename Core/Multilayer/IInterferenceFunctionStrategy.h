@@ -4,7 +4,7 @@
 //
 //! @file      Core/Multilayer/IInterferenceFunctionStrategy.h
 //! @brief     Defines classes IInterferenceFunctionStrategy,
-//!              IInterferenceFunctionStrategy2, IInterferenceFunctionStrategy2
+//!              IInterferenceFunctionStrategy1, IInterferenceFunctionStrategy2
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -32,12 +32,18 @@ class IInterferenceFunction;
 class LayerSpecularInfo;
 class SimulationElement;
 
-//! Virtual base class of the interference function strategy classes
-//! DecouplingApproximationStrategy, SSCApproximationStrategy.
-//! These classes provide 'evaluate' functions that compute the scattering intensity
+//! Pure virtual base class of all interference function strategy classes.
+//! Provides an 'evaluate' function that computes the total scattering intensity
 //! from a decorated layer, taking into account a specific inter-particle interference function.
+//! This function uses low-level functions precomputeParticleFormfactors, evaluateForList
+//! that are implemented differently in different inheriting classes.
+//! Multiple inheritance is used to support scalar and polarized scattering
+//! (through IInterferenceFunctionStrategy1, IInterferenceFunctionStrategy2)
+//! and to implement different approximation schemes
+//! (DecouplingApproximationStrategy1, SSCApproximationStrategy1, and their polarized
+//! counterparts).
 //!
-//! Child classes are instantiated in LayerStrategyBuilder::createStrategy,
+//! Instantiation of child classes takes place in LayerStrategyBuilder::createStrategy,
 //! which is called from DecoratedLayerComputation::eval.
 //!
 //! @ingroup algorithms_internal
@@ -77,7 +83,8 @@ private:
 #endif
 };
 
-//!
+//! Pure virtual base class of all scalar interference function strategy classes.
+//! Provides the precomputation of particle form factors.
 
 class BA_CORE_API_ IInterferenceFunctionStrategy1 : public virtual IInterferenceFunctionStrategy
 {
@@ -90,7 +97,8 @@ private:
     void precomputeParticleFormfactors(const SimulationElement& sim_element) const final;
 };
 
-//!
+//! Pure virtual base class of all polarized interference function strategy classes.
+//! Provides the precomputation of particle form factors.
 
 class BA_CORE_API_ IInterferenceFunctionStrategy2 : public virtual IInterferenceFunctionStrategy
 {

@@ -4,7 +4,7 @@
 //
 //! @file      Core/Multilayer/IInterferenceFunctionStrategy.cpp
 //! @brief     Implements default behaviour of IInterferenceFunctionStrategy,
-//!              IInterferenceFunctionStrategy2, IInterferenceFunctionStrategy2
+//!              IInterferenceFunctionStrategy1, IInterferenceFunctionStrategy2
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

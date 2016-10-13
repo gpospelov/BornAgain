@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/SSCApproximationStrategy.h
-//! @brief     Defines class SSCApproximationStrategy.
+//! @brief     Defines classes SSCApproximationStrategy,
+//!              SSCApproximationStrategy1, SSCApproximationStrategy2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -42,7 +42,8 @@ LayerStrategyBuilder::LayerStrategyBuilder(
     mP_specular_info.reset(specular_info->clone());
 }
 
-LayerStrategyBuilder::~LayerStrategyBuilder() {} // needs class definitions => don't move to .h
+LayerStrategyBuilder::~LayerStrategyBuilder()
+{} // needs class definitions => don't move to .h
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
@@ -56,7 +57,10 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
     {
     case ILayout::DA:
-        p_result = new DecouplingApproximationStrategy(m_sim_params);
+        if (m_polarized)
+            p_result = new DecouplingApproximationStrategy2(m_sim_params);
+        else
+            p_result = new DecouplingApproximationStrategy1(m_sim_params);
         break;
     case ILayout::SSCA:
     {
@@ -65,7 +69,10 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
                 "with a strictly positive coupling coefficient kappa");
-        p_result = new SSCApproximationStrategy(m_sim_params, kappa);
+        if (m_polarized)
+            p_result = new SSCApproximationStrategy2(m_sim_params, kappa);
+        else
+            p_result = new SSCApproximationStrategy1(m_sim_params, kappa);
         break;
     }
     default:

@@ -32,13 +32,10 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
 {
     mP_integrator = make_integrator_miser(
         this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2);
-    mP_integrator_pol = make_integrator_miser(
-        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol, 2);
 }
 
-// destructor should be defined and it should be in *.cpp,
-// otherwise forward declaration of IntegratorMCMiser doesn't work
-IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() {}
+IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
+{} // needs class definitions => don't move to .h
 
 //! Initializes the object with form factors and interference functions
 void IInterferenceFunctionStrategy::init(
@@ -69,17 +66,32 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
     return evaluateForList(sim_element);
 }
 
-double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_element) const
+double IInterferenceFunctionStrategy::MCIntegratedEvaluate(
+    const SimulationElement& sim_element) const
 {
-    if (m_options.isIntegrate()) // TODO: consider testing solid angle as in scalar case
-        return MCIntegratedEvaluatePol(sim_element);
-    precomputeParticleFormfactorsPol(sim_element);
-    return evaluateForMatrixList(sim_element);
+    double min_array[] = {0.0, 0.0};
+    double max_array[] = {1.0, 1.0};
+    return mP_integrator->integrate(
+        min_array, max_array, (void*)&sim_element, m_options.getMcPoints());
 }
 
+double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
+    double* fractions, size_t, void* params) const
+{
+    double par0 = fractions[0];
+    double par1 = fractions[1];
+
+    SimulationElement* pars = static_cast<SimulationElement*>(params);
+
+    SimulationElement sim_element(*pars, par0, par1);
+    precomputeParticleFormfactors(sim_element);
+    return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element);
+}
+
+
 //! Precomputes scalar form factors.
-void IInterferenceFunctionStrategy::precomputeParticleFormfactors(
-        const SimulationElement& sim_element) const
+void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
+    const SimulationElement& sim_element) const
 {
     m_ff.clear();
 
@@ -99,10 +111,10 @@ void IInterferenceFunctionStrategy::precomputeParticleFormfactors(
 }
 
 //! Precomputes matrix form factors.
-void IInterferenceFunctionStrategy::precomputeParticleFormfactorsPol(
-        const SimulationElement& sim_element) const
+void IInterferenceFunctionStrategy2::precomputeParticleFormfactors(
+    const SimulationElement& sim_element) const
 {
-    m_ff_pol.clear();
+    m_ff.clear();
 
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -115,50 +127,6 @@ void IInterferenceFunctionStrategy::precomputeParticleFormfactorsPol(
     for (auto ffw: m_formfactor_wrappers) {
         ffw->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = ffw->mp_ff->evaluatePol(wavevectors);
-        m_ff_pol.push_back(wavevector_scattering_factor*ff_mat);
+        m_ff.push_back(wavevector_scattering_factor*ff_mat);
     }
-}
-
-double IInterferenceFunctionStrategy::MCIntegratedEvaluate(
-    const SimulationElement& sim_element) const
-{
-    double min_array[] = {0.0, 0.0};
-    double max_array[] = {1.0, 1.0};
-    return mP_integrator->integrate(
-        min_array, max_array, (void*)&sim_element, m_options.getMcPoints());
-}
-
-double IInterferenceFunctionStrategy::MCIntegratedEvaluatePol(
-        const SimulationElement& sim_element) const
-{
-    double min_array[] = {0.0, 0.0};
-    double max_array[] = {1.0, 1.0};
-    return mP_integrator_pol->integrate(
-        min_array, max_array, (void*)&sim_element, m_options.getMcPoints());
-}
-
-double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
-    double* fractions, size_t, void* params) const
-{
-    double par0 = fractions[0];
-    double par1 = fractions[1];
-
-    SimulationElement* pars = static_cast<SimulationElement*>(params);
-
-    SimulationElement sim_element(*pars, par0, par1);
-    precomputeParticleFormfactors(sim_element);
-    return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element);
-}
-
-double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
-    double* fractions, size_t, void* params) const
-{
-    double par0 = fractions[0];
-    double par1 = fractions[1];
-
-    SimulationElement* pars = static_cast<SimulationElement*>(params);
-
-    SimulationElement sim_element(*pars, par0, par1);
-    precomputeParticleFormfactorsPol(sim_element);
-    return pars->getIntegrationFactor(par0, par1) * evaluateForMatrixList(sim_element);
 }

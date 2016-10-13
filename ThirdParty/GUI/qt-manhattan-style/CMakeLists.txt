@@ -78,9 +78,9 @@ add_library(${library_name} STATIC ${SRCS} ${UI_HDRS} ${RCS})
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
-message(DEBUG " 00 ---> lib_name: ${library_name}.")
-message(DEBUG " 01 ---> QtAddOn_INC_DIR: ${BornAgainQtAddOn_INCLUDE_DIRS}.")
 
 # --- dependencies ---------
 target_link_libraries(${library_name} ${Qt5Widgets_LIBRARIES})
 target_link_libraries(${library_name} Qt5::Widgets)
+
+

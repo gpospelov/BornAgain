@@ -962,6 +962,8 @@ C++ includes: DecoratedLayerComputation.h
 ";
 
 %feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const MultiLayer &sample, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+
+Performs computation on range of simulation elements. 
 ";
 
 %feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
@@ -10789,9 +10791,12 @@ C++ includes: ProgressHandler.h
 %feature("docstring")  ProgressHandler::setExpectedNTicks "void ProgressHandler::setExpectedNTicks(size_t n)
 ";
 
-%feature("docstring")  ProgressHandler::incrementDone "bool ProgressHandler::incrementDone(size_t ticks_done)
+%feature("docstring")  ProgressHandler::incrementDone "void ProgressHandler::incrementDone(size_t ticks_done)
 
-Increments number of completed computation steps (ticks). Performs callback (method m_inform) to inform the subscriber about the state of the computation and to obtain as return value a flag that indicates whether to continue the computation. Returns the value of that flag to request the owner to terminate. 
+Increments number of completed computation steps (ticks). Performs callback (method m_inform) to inform the subscriber about the state of the computation and to obtain as return value a flag that indicates whether to continue the computation. 
+";
+
+%feature("docstring")  ProgressHandler::alive "bool ProgressHandler::alive()
 ";
 
 
@@ -11260,6 +11265,8 @@ C++ includes: RoughMultiLayerComputation.h
 ";
 
 %feature("docstring")  RoughMultiLayerComputation::eval "void RoughMultiLayerComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+
+Calls evaluate on range of simulation elements; returns true if computation shall continue. 
 ";
 
 %feature("docstring")  RoughMultiLayerComputation::setSpecularInfo "void RoughMultiLayerComputation::setSpecularInfo(size_t i_layer, const LayerSpecularInfo &specular_info)
@@ -11775,6 +11782,8 @@ Adds parameters defined in this class the to external pool.
 ";
 
 %feature("docstring")  Simulation::setTerminalProgressMonitor "void Simulation::setTerminalProgressMonitor()
+
+Initializes a progress monitor that prints to stdout. 
 ";
 
 
@@ -12409,6 +12418,18 @@ Returns current string.
 %feature("docstring") Utils::System "";
 
 
+// File: classThreadedComputation.xml
+%feature("docstring") ThreadedComputation "
+
+Base class for threaded computation; keeps count of progress.
+
+C++ includes: ThreadedComputation.h
+";
+
+%feature("docstring")  ThreadedComputation::ThreadedComputation "ThreadedComputation::ThreadedComputation()
+";
+
+
 // File: structThreadInfo.xml
 %feature("docstring") ThreadInfo "
 
@@ -12742,13 +12763,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D271.xml
+// File: namespace_0D273.xml
 
 
-// File: namespace_0D303.xml
+// File: namespace_0D305.xml
 
 
-// File: namespace_0D424.xml
+// File: namespace_0D426.xml
 
 
 // File: namespace_0D55.xml
@@ -13426,6 +13447,12 @@ Set all element intensities to given value.
 
 
 // File: SpecularComputation_8h.xml
+
+
+// File: ThreadedComputation_8cpp.xml
+
+
+// File: ThreadedComputation_8h.xml
 
 
 // File: FormFactorDecoratorDebyeWaller_8cpp.xml

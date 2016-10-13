@@ -1,3 +1,0 @@
-This copy of gtest-1.7.0 is patched at the following places:
-
-- src/gtest.cc (compare gtest.orig.cc)

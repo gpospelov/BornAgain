@@ -146,6 +146,7 @@ include_directories(
     ${GSL_INCLUDE_DIR}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
+    ${BornAgainQtAddOn_INCLUDE_DIRS}
     ${ManhattanStyle_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}

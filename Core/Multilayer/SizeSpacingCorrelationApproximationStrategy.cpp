@@ -110,8 +110,8 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteris
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
-        result += m_formfactor_wrappers[i]->m_abundance * calculatePositionOffsetPhase(qp, m_kappa, i)
-                  * m_ff_pol[i];
+        result += m_formfactor_wrappers[i]->m_abundance *
+            calculatePositionOffsetPhase(qp, m_kappa, i) * m_ff_pol[i];
     return result / m_total_abundance;
 }
 
@@ -120,8 +120,8 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharact
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
-        result += m_formfactor_wrappers[i]->m_abundance * calculatePositionOffsetPhase(qp, m_kappa, i)
-                  * m_ff_pol[i].adjoint();
+        result += m_formfactor_wrappers[i]->m_abundance *
+            calculatePositionOffsetPhase(qp, m_kappa, i) * m_ff_pol[i].adjoint();
     return result / m_total_abundance;
 }
 
@@ -141,14 +141,16 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoup
     size_t n_frs = m_formfactor_wrappers.size();
     complex_t result = complex_t(0.0, 0.0);
     for (size_t i = 0; i < n_frs; ++i)
-        result += m_formfactor_wrappers[i]->m_abundance * calculatePositionOffsetPhase(qp, kappa, i);
+        result += m_formfactor_wrappers[i]->m_abundance *
+            calculatePositionOffsetPhase(qp, kappa, i);
     return result / m_total_abundance;
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(
     double qp, double kappa, size_t index) const
 {
-    return exp_I(kappa * qp * (m_formfactor_wrappers[index]->mp_ff->getRadialExtension() - m_mean_radius));
+    return exp_I(kappa * qp *
+                 (m_formfactor_wrappers[index]->mp_ff->getRadialExtension() - m_mean_radius));
 }
 
 //! Sets m_mean_radius to the weighted arithmetic average of the particle radii.

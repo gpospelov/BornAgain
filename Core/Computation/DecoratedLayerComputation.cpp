@@ -28,6 +28,12 @@ DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_
     : mp_layer(p_layer), m_layout_index(layout_index)
 {}
 
+void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
+{
+    if (&specular_info != mP_specular_info.get())
+        mP_specular_info.reset(specular_info.clone());
+}
+
 //! Computes scattering intensity for given range of simulation elements.
 void DecoratedLayerComputation::eval(
     const SimulationOptions& options,
@@ -56,10 +62,4 @@ void DecoratedLayerComputation::eval(
             it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
         stepProgress(progress);
     }
-}
-
-void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
-{
-    if (mP_specular_info.get() != &specular_info)
-        mP_specular_info.reset(specular_info.clone());
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/WeightedFormFactor.cpp
-//! @brief     Implements class WeightedFormFactor.
+//! @file      Core/Aggregate/FormFactorWrapper.cpp
+//! @brief     Implements class FormFactorWrapper.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "WeightedFormFactor.h"
+#include "FormFactorWrapper.h"
 #include "IFormFactor.h"
 
-WeightedFormFactor::~WeightedFormFactor() { delete mp_ff; }
+FormFactorWrapper::~FormFactorWrapper() { delete mp_ff; }
 
-WeightedFormFactor* WeightedFormFactor::clone() const
+FormFactorWrapper* FormFactorWrapper::clone() const
 {
-    return new WeightedFormFactor(mp_ff->clone(), m_abundance);
+    return new FormFactorWrapper(mp_ff->clone(), m_abundance);
 }

@@ -26,7 +26,7 @@
 
 template <class T> class IntegratorMCMiser;
 class Bin1DCVector;
-class WeightedFormFactor;
+class FormFactorWrapper;
 class IInterferenceFunction;
 class LayerSpecularInfo;
 class SimulationElement;
@@ -50,7 +50,7 @@ public:
     IInterferenceFunctionStrategy(const SimulationOptions& sim_params);
     virtual ~IInterferenceFunctionStrategy();
 
-    void init(const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
+    void init(const SafePointerVector<FormFactorWrapper>& weighted_formfactors,
               const IInterferenceFunction& iff, const LayerSpecularInfo& specular_info);
 
     //! Calculates the intensity for scalar particles/interactions
@@ -70,7 +70,7 @@ protected:
     virtual double evaluateForMatrixList(const SimulationElement& sim_element) const = 0;
 
     double m_total_abundance; //!< cached sum of particle abundances, computed by init()
-    SafePointerVector<WeightedFormFactor> m_weighted_ffs;
+    SafePointerVector<FormFactorWrapper> m_formfactor_wrappers;
     std::unique_ptr<IInterferenceFunction> mP_iff;
     SimulationOptions m_options;
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA

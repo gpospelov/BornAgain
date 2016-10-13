@@ -20,7 +20,7 @@
 #include "SimulationOptions.h"
 #include <memory>
 
-class WeightedFormFactor;
+class FormFactorWrapper;
 class IInterferenceFunctionStrategy;
 class IMaterial;
 class IParticle;
@@ -44,9 +44,9 @@ public:
     IInterferenceFunctionStrategy* createStrategy();
 
 private:
-    void collectWeightedFormFactors();
+    void collectFormFactorWrappers();
     void collectInterferenceFunction();
-    WeightedFormFactor* createWeightedFormFactor(
+    FormFactorWrapper* createFormFactorWrapper(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
     std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer
@@ -54,7 +54,7 @@ private:
     SimulationOptions m_sim_params;                            //!< simulation parameters
     std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     size_t m_layout_index; //!< index for the layout to be used in the layer
-    SafePointerVector<class WeightedFormFactor> m_weighted_ffs;
+    SafePointerVector<class FormFactorWrapper> m_formfactor_wrappers;
     std::unique_ptr<class IInterferenceFunction> mP_interference_function;
 };
 

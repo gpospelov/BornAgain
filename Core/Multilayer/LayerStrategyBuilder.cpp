@@ -15,7 +15,7 @@
 
 #include "LayerStrategyBuilder.h"
 #include "Exceptions.h"
-#include "WeightedFormFactor.h"
+#include "FormFactorWrapper.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
 #include "ILayout.h"
@@ -46,7 +46,7 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
-    collectWeightedFormFactors();
+    collectFormFactorWrappers();
     collectInterferenceFunction();
     IInterferenceFunctionStrategy* p_result = nullptr;
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
@@ -73,25 +73,25 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(m_weighted_ffs, *mP_interference_function, *mP_specular_info);
+    p_result->init(m_formfactor_wrappers, *mP_interference_function, *mP_specular_info);
     return p_result;
 }
 
-//! Sets m_weighted_ffs, the list of weighted form factors.
-void LayerStrategyBuilder::collectWeightedFormFactors()
+//! Sets m_formfactor_wrappers, the list of weighted form factors.
+void LayerStrategyBuilder::collectFormFactorWrappers()
 {
     assert(mP_layer->getNumberOfLayouts()>0);
-    m_weighted_ffs.clear();
+    m_formfactor_wrappers.clear();
     const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial* p_layer_material = mP_layer->getMaterial();
     double total_abundance = mP_layer->getTotalAbundance();
     if (total_abundance<=0.0) // TODO: why this can happen? why not throw error?
         total_abundance = 1.0;
     for (const IParticle* particle: p_layout->getParticles()) {
-        WeightedFormFactor* p_weighted_ff;
-        p_weighted_ff = createWeightedFormFactor(particle, p_layer_material);
+        FormFactorWrapper* p_weighted_ff;
+        p_weighted_ff = createFormFactorWrapper(particle, p_layer_material);
         p_weighted_ff->m_abundance /= total_abundance;
-        m_weighted_ffs.push_back(p_weighted_ff);
+        m_formfactor_wrappers.push_back(p_weighted_ff);
     }
 }
 
@@ -108,7 +108,7 @@ void LayerStrategyBuilder::collectInterferenceFunction()
 }
 
 //! Returns a new weighted formfactor for a given particle in given ambient material.
-WeightedFormFactor* LayerStrategyBuilder::createWeightedFormFactor(
+FormFactorWrapper* LayerStrategyBuilder::createFormFactorWrapper(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
     const std::unique_ptr<IParticle> P_particle_clone(particle->clone());
@@ -125,5 +125,5 @@ WeightedFormFactor* LayerStrategyBuilder::createWeightedFormFactor(
     } else
         p_ff_framework = P_ff_particle->clone();
 
-    return new WeightedFormFactor(p_ff_framework, particle->getAbundance());
+    return new FormFactorWrapper(p_ff_framework, particle->getAbundance());
 }

@@ -15172,6 +15172,8 @@ class Simulation(ICloneable, IParameterized):
 
         void Simulation::setTerminalProgressMonitor()
 
+        Initializes a progress monitor that prints to stdout. 
+
         """
         return _libBornAgainCore.Simulation_setTerminalProgressMonitor(self)
 
@@ -17511,9 +17513,7 @@ class IParticle(IAbstractParticle):
     """
 
 
-    Interface for a real particle (one that has position/rotation and form factor).
-
-    Inherited by  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal.
+    Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
 
     C++ includes: IParticle.h
 
@@ -22992,7 +22992,7 @@ class ParticleDistribution(IAbstractParticle):
     """
 
 
-    A particle with a form factor and refractive index  ParticleDistribution.
+    A particle type that is a parametric distribution of  IParticle's.
 
     C++ includes: ParticleDistribution.h
 

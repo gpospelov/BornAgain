@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
-#include "WeightedFormFactor.h"
+#include "FormFactorWrapper.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
@@ -42,18 +42,18 @@ IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() {}
 
 //! Initializes the object with form factors and interference functions
 void IInterferenceFunctionStrategy::init(
-    const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
+    const SafePointerVector<FormFactorWrapper>& weighted_formfactors,
     const IInterferenceFunction& iff,
     const LayerSpecularInfo& specular_info)
 {
     if (weighted_formfactors.size()==0)
         throw Exceptions::ClassInitializationException("Bug: Decorated layer has no formfactors.");
-    m_weighted_ffs = weighted_formfactors;
+    m_formfactor_wrappers = weighted_formfactors;
     mP_iff.reset(iff.clone());
 
     m_total_abundance = 0;
-    for (const auto wff: m_weighted_ffs)
-        m_total_abundance += wff->m_abundance;
+    for (const auto ffw: m_formfactor_wrappers)
+        m_total_abundance += ffw->m_abundance;
 
     if (&specular_info != mP_specular_info.get())
         mP_specular_info.reset(specular_info.clone());
@@ -91,9 +91,9 @@ void IInterferenceFunctionStrategy::precomputeParticleFormfactors(
         mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
-    for (auto wff: m_weighted_ffs) {
-        wff->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        complex_t ff_mat = wff->mp_ff->evaluate(wavevectors);
+    for (auto ffw: m_formfactor_wrappers) {
+        ffw->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+        complex_t ff_mat = ffw->mp_ff->evaluate(wavevectors);
         m_ff.push_back(wavevector_scattering_factor*ff_mat);
     }
 }
@@ -112,9 +112,9 @@ void IInterferenceFunctionStrategy::precomputeParticleFormfactorsPol(
         mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
-    for (auto wff: m_weighted_ffs) {
-        wff->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        Eigen::Matrix2cd ff_mat = wff->mp_ff->evaluatePol(wavevectors);
+    for (auto ffw: m_formfactor_wrappers) {
+        ffw->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+        Eigen::Matrix2cd ff_mat = ffw->mp_ff->evaluatePol(wavevectors);
         m_ff_pol.push_back(wavevector_scattering_factor*ff_mat);
     }
 }

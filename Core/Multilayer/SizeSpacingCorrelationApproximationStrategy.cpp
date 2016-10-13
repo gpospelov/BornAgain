@@ -15,7 +15,7 @@
 
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "Exceptions.h"
-#include "WeightedFormFactor.h"
+#include "FormFactorWrapper.h"
 #include "IFormFactor.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "RealParameter.h"
@@ -42,9 +42,9 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
     double diffuse_intensity = 0.0;
     if (m_total_abundance <= 0.0)
         return 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         complex_t ff = m_ff[i];
-        double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
+        double fraction = m_formfactor_wrappers[i]->m_abundance / m_total_abundance;
         diffuse_intensity += fraction * std::norm(ff);
     }
     complex_t mcff  = getMeanCharacteristicFF    (qp);
@@ -67,9 +67,9 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     if (m_total_abundance <= 0.0)
         return 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = m_ff_pol[i];
-        double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
+        double fraction = m_formfactor_wrappers[i]->m_abundance / m_total_abundance;
         diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
     Eigen::Matrix2cd mcff  = getMeanCharacteristicMatrixFF    (qp);
@@ -89,8 +89,8 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanCharacteristicFF(
     double qp) const
 {
     complex_t result(0.0, 0.0);
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
-        result += m_weighted_ffs[i]->m_abundance * m_ff[i]
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
+        result += m_formfactor_wrappers[i]->m_abundance * m_ff[i]
                   * calculatePositionOffsetPhase(qp, m_kappa, i);
     return result / m_total_abundance;
 }
@@ -99,8 +99,8 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristic
     double qp) const
 {
     complex_t result(0.0, 0.0);
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
-        result += m_weighted_ffs[i]->m_abundance * std::conj(m_ff[i])
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
+        result += m_formfactor_wrappers[i]->m_abundance * std::conj(m_ff[i])
                   * calculatePositionOffsetPhase(qp, m_kappa, i);
     return result / m_total_abundance;
 }
@@ -109,8 +109,8 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanCharacteris
     double qp) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
-        result += m_weighted_ffs[i]->m_abundance * calculatePositionOffsetPhase(qp, m_kappa, i)
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
+        result += m_formfactor_wrappers[i]->m_abundance * calculatePositionOffsetPhase(qp, m_kappa, i)
                   * m_ff_pol[i];
     return result / m_total_abundance;
 }
@@ -119,8 +119,8 @@ Eigen::Matrix2cd SizeSpacingCorrelationApproximationStrategy::getMeanConjCharact
     double qp) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i)
-        result += m_weighted_ffs[i]->m_abundance * calculatePositionOffsetPhase(qp, m_kappa, i)
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
+        result += m_formfactor_wrappers[i]->m_abundance * calculatePositionOffsetPhase(qp, m_kappa, i)
                   * m_ff_pol[i].adjoint();
     return result / m_total_abundance;
 }
@@ -138,25 +138,25 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribu
 complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicSizeCoupling(
     double qp, double kappa) const
 {
-    size_t n_frs = m_weighted_ffs.size();
+    size_t n_frs = m_formfactor_wrappers.size();
     complex_t result = complex_t(0.0, 0.0);
     for (size_t i = 0; i < n_frs; ++i)
-        result += m_weighted_ffs[i]->m_abundance * calculatePositionOffsetPhase(qp, kappa, i);
+        result += m_formfactor_wrappers[i]->m_abundance * calculatePositionOffsetPhase(qp, kappa, i);
     return result / m_total_abundance;
 }
 
 complex_t SizeSpacingCorrelationApproximationStrategy::calculatePositionOffsetPhase(
     double qp, double kappa, size_t index) const
 {
-    return exp_I(kappa * qp * (m_weighted_ffs[index]->mp_ff->getRadialExtension() - m_mean_radius));
+    return exp_I(kappa * qp * (m_formfactor_wrappers[index]->mp_ff->getRadialExtension() - m_mean_radius));
 }
 
 //! Sets m_mean_radius to the weighted arithmetic average of the particle radii.
 void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
 {
     m_mean_radius = 0.0;
-    for (const auto wff: m_weighted_ffs)
-        m_mean_radius += wff->m_abundance * wff->mp_ff->getRadialExtension();
+    for (const auto ffw: m_formfactor_wrappers)
+        m_mean_radius += ffw->m_abundance * ffw->mp_ff->getRadialExtension();
     if (m_total_abundance > 0.0)
         m_mean_radius /= m_total_abundance;
 }

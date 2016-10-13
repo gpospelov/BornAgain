@@ -15,7 +15,7 @@
 
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
-#include "WeightedFormFactor.h"
+#include "FormFactorWrapper.h"
 #include "IInterferenceFunction.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
@@ -33,12 +33,12 @@ double DecouplingApproximationStrategy::evaluateForList(
     complex_t amplitude = complex_t(0.0, 0.0);
     if (m_total_abundance <= 0.0)
         return 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         complex_t ff = m_ff[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
-        double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
+        double fraction = m_formfactor_wrappers[i]->m_abundance / m_total_abundance;
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
     }
@@ -60,13 +60,13 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
 
     if (m_total_abundance <= 0.0)
         return 0.0;
-    for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = m_ff_pol[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> "
                 "Error! Form factor contains NaN or infinite");
-        double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
+        double fraction = m_formfactor_wrappers[i]->m_abundance / m_total_abundance;
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }

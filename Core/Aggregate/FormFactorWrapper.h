@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/WeightedFormFactor.h
-//! @brief     Defines class WeightedFormFactor.
+//! @file      Core/Aggregate/FormFactorWrapper.h
+//! @brief     Defines class FormFactorWrapper.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef WEIGHTEDFORMFACTOR_H
-#define WEIGHTEDFORMFACTOR_H
+#ifndef FORMFACTORWRAPPER_H
+#define FORMFACTORWRAPPER_H
 
 #include "ICloneable.h"
 class IFormFactor;
@@ -22,15 +22,15 @@ class IFormFactor;
 //! Information about particle form factor and abundance.
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ WeightedFormFactor : public ICloneable
+class BA_CORE_API_ FormFactorWrapper : public ICloneable
 {
 public:
-    WeightedFormFactor(IFormFactor* ff, double abundance)
+    FormFactorWrapper(IFormFactor* ff, double abundance)
         : mp_ff(ff), m_abundance(abundance) {}
-    virtual ~WeightedFormFactor();
-    virtual WeightedFormFactor* clone() const;
+    virtual ~FormFactorWrapper();
+    virtual FormFactorWrapper* clone() const;
     IFormFactor* mp_ff;
     double m_abundance;
 };
 
-#endif // WEIGHTEDFORMFACTOR_H
+#endif // FORMFACTORWRAPPER_H

@@ -62,7 +62,7 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
     if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))
         return MCIntegratedEvaluate(sim_element);
     calculateFormFactorList(sim_element);
-    return evaluateForList(sim_element, m_ff);
+    return evaluateForList(sim_element);
 }
 
 double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_element) const
@@ -70,7 +70,7 @@ double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_e
     if (m_options.isIntegrate()) // TODO: consider testing solid angle as in scalar case
         return MCIntegratedEvaluatePol(sim_element);
     calculateFormFactorListPol(sim_element);
-    return evaluateForMatrixList(sim_element, m_ff_pol);
+    return evaluateForMatrixList(sim_element);
 }
 
 //! Precomputes scalar form factors.
@@ -149,7 +149,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
 
     SimulationElement sim_element(*pars, par0, par1);
     calculateFormFactorList(sim_element);
-    return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element, m_ff);
+    return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element);
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
@@ -162,5 +162,5 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles_pol(
 
     SimulationElement sim_element(*pars, par0, par1);
     calculateFormFactorListPol(sim_element);
-    return pars->getIntegrationFactor(par0, par1) * evaluateForMatrixList(sim_element, m_ff_pol);
+    return pars->getIntegrationFactor(par0, par1) * evaluateForMatrixList(sim_element);
 }

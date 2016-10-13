@@ -42,19 +42,19 @@ void SizeSpacingCorrelationApproximationStrategy::init(
 //! for one layer (implied by the given particle form factors).
 //! For each IParticle in the layer layout, the precomputed form factor must be provided.
 double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
-    const SimulationElement& sim_element, const std::vector<complex_t>& ff_list) const
+    const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();
     double diffuse_intensity = 0.0;
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
-        complex_t ff = ff_list[i];
+        complex_t ff = m_ff[i];
         double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
         diffuse_intensity += fraction * std::norm(ff);
     }
-    complex_t mcff  = getMeanCharacteristicFF    (qp, ff_list);
-    complex_t mcffc = getMeanConjCharacteristicFF(qp, ff_list);
+    complex_t mcff  = getMeanCharacteristicFF    (qp, m_ff);
+    complex_t mcffc = getMeanConjCharacteristicFF(qp, m_ff);
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
     double interference_intensity = 2.0 * (mcff * mcffc * omega / (1.0 - p2kappa * omega)).real();
@@ -67,19 +67,19 @@ double SizeSpacingCorrelationApproximationStrategy::evaluateForList(
 //! This is the polarized variant of evaluateForList. Each form factor must be
 //! precomputed for polarized beam and detector.
 double SizeSpacingCorrelationApproximationStrategy::evaluateForMatrixList(
-    const SimulationElement& sim_element, const matrixFFVector_t& ff_list) const
+    const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
-        Eigen::Matrix2cd ff = ff_list[i];
+        Eigen::Matrix2cd ff = m_ff_pol[i];
         double fraction = m_weighted_ffs[i]->m_abundance / m_total_abundance;
         diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
-    Eigen::Matrix2cd mcff  = getMeanCharacteristicMatrixFF    (sim_element.getMeanQ(), ff_list);
-    Eigen::Matrix2cd mcffc = getMeanConjCharacteristicMatrixFF(sim_element.getMeanQ(), ff_list);
+    Eigen::Matrix2cd mcff  = getMeanCharacteristicMatrixFF    (sim_element.getMeanQ(), m_ff_pol);
+    Eigen::Matrix2cd mcffc = getMeanConjCharacteristicMatrixFF(sim_element.getMeanQ(), m_ff_pol);
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
     Eigen::Matrix2cd interference_matrix

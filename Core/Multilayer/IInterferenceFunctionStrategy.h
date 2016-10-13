@@ -58,19 +58,19 @@ public:
 
 protected:
     //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const SimulationElement& sim_element,
-                                   const std::vector<complex_t>& ff_list) const = 0;
+    virtual double evaluateForList(const SimulationElement& sim_element) const = 0;
 
     //! Evaluates the intensity for given list of evaluated form factors
     //! in the presence of polarization of beam and detector
-    virtual double evaluateForMatrixList(const SimulationElement& sim_element,
-                                         const matrixFFVector_t& ff_list) const = 0;
+    virtual double evaluateForMatrixList(const SimulationElement& sim_element) const = 0;
 
     double m_total_abundance; //!< cached sum of particle abundances, computed by init()
     SafePointerVector<WeightedFormFactor> m_weighted_ffs;
     std::unique_ptr<IInterferenceFunction> mP_iff;
     SimulationOptions m_options;
     std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    mutable std::vector<complex_t> m_ff; //!< cached form factor evaluations
+    mutable matrixFFVector_t m_ff_pol; //!< cached polarized form factors
 
 private:
     void calculateFormFactorList   (const SimulationElement& sim_element) const;
@@ -86,8 +86,6 @@ private:
     double evaluate_for_fixed_angles    (double* fractions, size_t dim, void* params) const;
     double evaluate_for_fixed_angles_pol(double* fractions, size_t dim, void* params) const;
 
-    mutable std::vector<complex_t> m_ff; //!< cached form factor evaluations
-    mutable matrixFFVector_t m_ff_pol; //!< cached polarized form factors
 #ifndef SWIG
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator_pol;

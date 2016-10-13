@@ -34,11 +34,8 @@ public:
               const IInterferenceFunction& iff) final;
 
 private:
-    double evaluateForList(const SimulationElement& sim_element,
-                           const std::vector<complex_t>& ff_list) const final;
-
-    double evaluateForMatrixList(const SimulationElement& sim_element,
-                                 const matrixFFVector_t& ff_list) const final;
+    double evaluateForList(const SimulationElement& sim_element) const final;
+    double evaluateForMatrixList(const SimulationElement& sim_element) const final;
 };
 
 #endif // DECOUPLINGAPPROXIMATIONSTRATEGY_H

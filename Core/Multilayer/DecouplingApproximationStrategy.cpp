@@ -37,14 +37,14 @@ void DecouplingApproximationStrategy::init(
 //! for one layer (implied by the given particle form factors).
 //! For each IParticle in the layer layout, the precomputed form factor must be provided.
 double DecouplingApproximationStrategy::evaluateForList(
-    const SimulationElement& sim_element, const std::vector<complex_t>& ff_list) const
+    const SimulationElement& sim_element) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
-        complex_t ff = ff_list[i];
+        complex_t ff = m_ff[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
@@ -63,7 +63,7 @@ double DecouplingApproximationStrategy::evaluateForList(
 //! This is the polarized variant of evaluateForList. Each form factor must be
 //! precomputed for polarized beam and detector.
 double DecouplingApproximationStrategy::evaluateForMatrixList(
-    const SimulationElement& sim_element, const matrixFFVector_t& ff_list) const
+    const SimulationElement& sim_element) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
@@ -71,7 +71,7 @@ double DecouplingApproximationStrategy::evaluateForMatrixList(
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_weighted_ffs.size(); ++i) {
-        Eigen::Matrix2cd ff = ff_list[i];
+        Eigen::Matrix2cd ff = m_ff_pol[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> "

@@ -43,9 +43,9 @@ void DecoratedLayerComputation::eval(
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
-    LayerStrategyBuilder builder(*mp_layer, sample, options, m_layout_index,
-                                 mP_specular_info.get());
-    const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy(builder.createStrategy());
+    const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
+        LayerStrategyBuilder(*mp_layer, sample, options, m_layout_index, mP_specular_info.get()).
+            createStrategy() };
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {

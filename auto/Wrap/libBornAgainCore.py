@@ -17271,7 +17271,12 @@ class ILayout(ICompositeSample):
 
 
     def cloneInterferenceFunction(self):
-        """cloneInterferenceFunction(ILayout self) -> IInterferenceFunction"""
+        """
+        cloneInterferenceFunction(ILayout self) -> IInterferenceFunction
+
+        virtual IInterferenceFunction* ILayout::cloneInterferenceFunction() const =0
+
+        """
         return _libBornAgainCore.ILayout_cloneInterferenceFunction(self)
 
 
@@ -23296,7 +23301,7 @@ class ParticleLayout(ILayout):
 
         double ParticleLayout::getAbundanceOfParticle(size_t index) const
 
-        Get abundance fraction of particle with index. 
+        Returns the abundance fraction of particle at given index. 
 
         """
         return _libBornAgainCore.ParticleLayout_getAbundanceOfParticle(self, index)
@@ -23306,16 +23311,23 @@ class ParticleLayout(ILayout):
         """
         getInterferenceFunction(ParticleLayout self) -> IInterferenceFunction
 
-        const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const final
+        const IInterferenceFunction* ParticleLayout::getInterferenceFunction() const final
 
-        Returns interference functions. 
+        Returns interference function. 
 
         """
         return _libBornAgainCore.ParticleLayout_getInterferenceFunction(self)
 
 
     def cloneInterferenceFunction(self):
-        """cloneInterferenceFunction(ParticleLayout self) -> IInterferenceFunction"""
+        """
+        cloneInterferenceFunction(ParticleLayout self) -> IInterferenceFunction
+
+        IInterferenceFunction * ParticleLayout::cloneInterferenceFunction() const final
+
+        Returns a clone, or an  InterferenceFunctionNone. 
+
+        """
         return _libBornAgainCore.ParticleLayout_cloneInterferenceFunction(self)
 
 

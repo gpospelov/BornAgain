@@ -9,7 +9,6 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
-
 include(GlobDirectories)
 GLOB_DIRECTORIES(CORE_SUBDIRS)
 

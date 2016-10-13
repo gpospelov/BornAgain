@@ -961,12 +961,12 @@ C++ includes: DecoratedLayerComputation.h
 %feature("docstring")  DecoratedLayerComputation::DecoratedLayerComputation "DecoratedLayerComputation::DecoratedLayerComputation(const Layer *p_layer, size_t layout_index=0)
 ";
 
-%feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const MultiLayer &sample, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
-
-Computes scattering intensity for given range of simulation elements. 
+%feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
 ";
 
-%feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
+%feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const MultiLayer &sample, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const
+
+Computes scattering intensity for given range of simulation elements. 
 ";
 
 
@@ -6645,6 +6645,9 @@ Get total abundance of all particles.
 Returns interference function. 
 ";
 
+%feature("docstring")  ILayout::cloneInterferenceFunction "virtual IInterferenceFunction* ILayout::cloneInterferenceFunction() const =0
+";
+
 %feature("docstring")  ILayout::getTotalParticleSurfaceDensity "virtual double ILayout::getTotalParticleSurfaceDensity() const =0
 
 Returns surface density of all particles. 
@@ -8741,7 +8744,7 @@ C++ includes: LayerStrategyBuilder.h
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
 ";
 
-%feature("docstring")  LayerStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayerStrategyBuilder::createStrategy()
+%feature("docstring")  LayerStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayerStrategyBuilder::createStrategy() const
 
 Returns a new strategy object that is able to calculate the scattering for fixed k_f. 
 ";
@@ -10543,12 +10546,17 @@ Returns information on all particles (type and abundance) and generates new part
 
 %feature("docstring")  ParticleLayout::getAbundanceOfParticle "double ParticleLayout::getAbundanceOfParticle(size_t index) const
 
-Get abundance fraction of particle with index. 
+Returns the abundance fraction of particle at given index. 
 ";
 
-%feature("docstring")  ParticleLayout::getInterferenceFunction "const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const final
+%feature("docstring")  ParticleLayout::getInterferenceFunction "const IInterferenceFunction* ParticleLayout::getInterferenceFunction() const final
 
-Returns interference functions. 
+Returns interference function. 
+";
+
+%feature("docstring")  ParticleLayout::cloneInterferenceFunction "IInterferenceFunction * ParticleLayout::cloneInterferenceFunction() const final
+
+Returns a clone, or an  InterferenceFunctionNone. 
 ";
 
 %feature("docstring")  ParticleLayout::addInterferenceFunction "void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)

@@ -31,7 +31,7 @@ ParticleLayout::ParticleLayout()
     setName(BornAgain::ParticleLayoutType);
 }
 
-ParticleLayout::~ParticleLayout() {} // needs member class declarations => don't move to .h
+ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle)
     : mP_interference_function {nullptr}

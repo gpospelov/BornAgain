@@ -40,16 +40,15 @@ LayerStrategyBuilder::LayerStrategyBuilder(
     mP_specular_info.reset(specular_info->clone());
 }
 
-LayerStrategyBuilder::~LayerStrategyBuilder()
-{} // cannot be moved to .h, needs definitions of classes that are forward declared in .h
+LayerStrategyBuilder::~LayerStrategyBuilder() {} // needs class definitions => don't move to .h
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
 {
     assert(mP_layer->getNumberOfLayouts()>0);
     collectFormFactorWrappers();
-    std::unique_ptr<class IInterferenceFunction> P_interference_function {
-        mP_layer->getLayout(m_layout_index)->cloneInterferenceFunction() };
+    std::unique_ptr<class IInterferenceFunction> P_interference_function{
+        mP_layer->getLayout(m_layout_index)->cloneInterferenceFunction()};
 
     IInterferenceFunctionStrategy* p_result = nullptr;
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
@@ -96,15 +95,14 @@ void LayerStrategyBuilder::collectFormFactorWrappers()
     }
 }
 
-//! Returns a new weighted formfactor for a given particle in given ambient material.
+//! Returns a new formfactor wrapper for a given particle in given ambient material.
 FormFactorWrapper* LayerStrategyBuilder::createFormFactorWrapper(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
-    const std::unique_ptr<IParticle> P_particle_clone(particle->clone());
+    const std::unique_ptr<IParticle> P_particle_clone{ particle->clone() };
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
-    // formfactor
-    const std::unique_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor());
+    const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
     IFormFactor* p_ff_framework;
     if (mP_layer->getNumberOfLayers()>1) {
         if (mP_sample->containsMagneticMaterial())

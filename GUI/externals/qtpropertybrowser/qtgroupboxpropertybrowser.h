@@ -63,4 +63,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // QTGROUPBOXPROPERTYBROWSER_H
+#endif

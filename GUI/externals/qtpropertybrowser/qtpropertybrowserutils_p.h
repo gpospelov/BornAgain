@@ -42,8 +42,8 @@
 // We mean it.
 //
 
-#ifndef QTPROPERTYBROWSERUTILS_P_H
-#define QTPROPERTYBROWSERUTILS_P_H
+#ifndef QTPROPERTYBROWSERUTILS_H
+#define QTPROPERTYBROWSERUTILS_H
 
 #include <QtCore/QMap>
 #include <QtGui/QIcon>
@@ -121,4 +121,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // QTPROPERTYBROWSERUTILS_P_H
+#endif

@@ -27,8 +27,8 @@
 **
 ****************************************************************************/
 
-#ifndef QTCASSERT_H
-#define QTCASSERT_H
+#ifndef QTC_ASSERT_H
+#define QTC_ASSERT_H
 
 #include "qt-manhattan-style_global.hpp"
 
@@ -45,5 +45,5 @@ namespace Manhattan { QTMANHATTANSTYLESHARED_EXPORT void writeAssertLocation(con
 #define QTC_ASSERT(cond, action) if (cond) {} else { QTC_ASSERT_STRING(#cond); action; } do {} while (0)
 #define QTC_CHECK(cond) if (cond) {} else { QTC_ASSERT_STRING(#cond); } do {} while (0)
 
-#endif // QTCASSERT_H
+#endif // QTC_ASSERT_H
 

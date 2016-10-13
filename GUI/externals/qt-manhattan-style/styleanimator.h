@@ -27,8 +27,8 @@
 **
 ****************************************************************************/
 
-#ifndef STYLEANIMATOR_H
-#define STYLEANIMATOR_H
+#ifndef ANIMATION_H
+#define ANIMATION_H
 
 #include <QPointer>
 #include <QTime>
@@ -98,4 +98,4 @@ private:
     QList <Animation*> animations;
 };
 
-#endif // STYLEANIMATOR_H
+#endif // ANIMATION_H

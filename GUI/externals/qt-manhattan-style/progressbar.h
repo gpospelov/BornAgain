@@ -27,8 +27,8 @@
 **
 ****************************************************************************/
 
-#ifndef PROGRESSBAR_H
-#define PROGRESSBAR_H
+#ifndef PROGRESSPIE_H
+#define PROGRESSPIE_H
 
 #include "qt-manhattan-style_global.hpp"
 #include <QString>
@@ -86,4 +86,4 @@ private:
 
 } // namespace Manhattan
 
-#endif // PROGRESSBAR_H
+#endif // PROGRESSPIE_H

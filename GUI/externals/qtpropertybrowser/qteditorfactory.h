@@ -386,4 +386,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // QTEDITORFACTORY_H
+#endif

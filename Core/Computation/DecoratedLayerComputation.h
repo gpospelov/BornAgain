@@ -22,7 +22,6 @@
 
 using std::size_t;
 
-class IInterferenceFunctionStrategy;
 class Layer;
 class LayerSpecularInfo;
 class MultiLayer;

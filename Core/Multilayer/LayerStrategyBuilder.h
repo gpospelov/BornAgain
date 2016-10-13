@@ -36,27 +36,24 @@ class BA_CORE_API_ LayerStrategyBuilder
 public:
     LayerStrategyBuilder(
         const Layer& decorated_layer, const MultiLayer& sample,
-        const SimulationOptions& sim_params, size_t layout_index);
+        const SimulationOptions& sim_params, size_t layout_index,
+        const LayerSpecularInfo* specular_info);
 
-    virtual ~LayerStrategyBuilder();
+    ~LayerStrategyBuilder();
 
-    void setRTInfo(const LayerSpecularInfo& specular_info);
-    virtual IInterferenceFunctionStrategy* createStrategy();
-
-protected:
-    std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer
-    std::unique_ptr<class MultiLayer> mP_sample;               //!< sample
-    SimulationOptions m_sim_params;                            //!< simulation parameters
-    std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
-    size_t m_layout_index; //!< index for the layout to be used in the layer
+    IInterferenceFunctionStrategy* createStrategy();
 
 private:
-    bool requiresMatrixFFs() const;
     void collectWeightedFormFactors();
     void collectInterferenceFunction();
     WeightedFormFactor* createWeightedFormFactor(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
+    std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer
+    std::unique_ptr<class MultiLayer> mP_sample;               //!< sample
+    SimulationOptions m_sim_params;                            //!< simulation parameters
+    std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    size_t m_layout_index; //!< index for the layout to be used in the layer
     SafePointerVector<class WeightedFormFactor> m_weighted_ffs;
     std::unique_ptr<class IInterferenceFunction> mP_interference_function;
 };

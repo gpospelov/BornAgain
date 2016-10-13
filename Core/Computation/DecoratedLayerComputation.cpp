@@ -28,7 +28,7 @@ DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_
     : mp_layer(p_layer), m_layout_index(layout_index)
 {}
 
-//! Performs computation on range of simulation elements.
+//! Computes scattering intensity for given range of simulation elements.
 void DecoratedLayerComputation::eval(
     const SimulationOptions& options,
     ProgressHandler* progress,
@@ -37,9 +37,8 @@ void DecoratedLayerComputation::eval(
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
 {
-    LayerStrategyBuilder builder(*mp_layer, sample, options, m_layout_index);
-    assert(mP_specular_info);
-    builder.setRTInfo(*mP_specular_info);
+    LayerStrategyBuilder builder(*mp_layer, sample, options, m_layout_index,
+                                 mP_specular_info.get());
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy(builder.createStrategy());
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 

@@ -29,21 +29,19 @@
 
 LayerStrategyBuilder::LayerStrategyBuilder(
     const Layer& decorated_layer, const MultiLayer& sample,
-    const SimulationOptions& sim_params, size_t layout_index)
+    const SimulationOptions& sim_params, size_t layout_index,
+    const LayerSpecularInfo* specular_info)
     : m_sim_params{sim_params}, mP_specular_info{nullptr}, m_layout_index{layout_index}
 {
     mP_layer.reset(decorated_layer.clone());
-    mP_sample.reset(sample.clone());
     assert(mP_layer->getNumberOfLayouts() > 0);
+    mP_sample.reset(sample.clone());
+    assert(specular_info);
+    mP_specular_info.reset(specular_info->clone());
 }
 
-LayerStrategyBuilder::~LayerStrategyBuilder() {}
-
-//! Sets reflection/transmission map for DWBA calculation
-void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
-{
-    mP_specular_info.reset(specular_info.clone());
-}
+LayerStrategyBuilder::~LayerStrategyBuilder()
+{} // cannot be moved to .h, needs definitions of classes that are forward declared in .h
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
@@ -60,11 +58,11 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     {
         if (!mP_interference_function)
             throw Exceptions::ClassInitializationException(
-                    "SSCA requires an interference function");
+                "SSCA requires an interference function");
         double kappa = mP_interference_function->getKappa();
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
-                    "SSCA requires a strictly positive coupling value");
+                "SSCA requires a strictly positive coupling value");
         p_result = new SizeSpacingCorrelationApproximationStrategy(m_sim_params, kappa);
         break;
     }
@@ -78,12 +76,6 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     p_result->init(m_weighted_ffs, *mP_interference_function);
     p_result->setSpecularInfo(*mP_specular_info);
     return p_result;
-}
-
-//! Returns true if the form factors need to be matrix valued.
-bool LayerStrategyBuilder::requiresMatrixFFs() const
-{
-    return mP_sample->containsMagneticMaterial();
 }
 
 //! Sets m_weighted_ffs, the list of weighted form factors.
@@ -127,7 +119,7 @@ WeightedFormFactor* LayerStrategyBuilder::createWeightedFormFactor(
     const std::unique_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor());
     IFormFactor* p_ff_framework;
     if (mP_layer->getNumberOfLayers()>1) {
-        if (requiresMatrixFFs())
+        if (mP_sample->containsMagneticMaterial())
             p_ff_framework = new FormFactorDWBAPol(*P_ff_particle);
         else
             p_ff_framework = new FormFactorDWBA(*P_ff_particle);

@@ -30,7 +30,6 @@ class SSCApproximationStrategy : public virtual IInterferenceFunctionStrategy
 {
 public:
     SSCApproximationStrategy(double kappa);
-    virtual ~SSCApproximationStrategy() {}
 
 protected:
     complex_t calculatePositionOffsetPhase(double qp, double kappa, size_t index) const;
@@ -56,7 +55,6 @@ class SSCApproximationStrategy1
 public:
     SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
         : IInterferenceFunctionStrategy(sim_params), SSCApproximationStrategy(kappa) {}
-    ~SSCApproximationStrategy1() final {}
 
 private:
     double evaluateForList(const SimulationElement& sim_element) const final;
@@ -75,7 +73,6 @@ class SSCApproximationStrategy2
 public:
     SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
         : IInterferenceFunctionStrategy(sim_params), SSCApproximationStrategy(kappa) {}
-    ~SSCApproximationStrategy2() final {}
 
 private:
     double evaluateForList(const SimulationElement& sim_element) const final;

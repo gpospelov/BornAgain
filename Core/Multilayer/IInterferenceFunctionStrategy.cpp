@@ -29,14 +29,12 @@
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
 {}
 
-IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
-    const SimulationOptions& sim_params)
-{
-    mP_iff = nullptr;
-    m_options = sim_params;
-    mP_integrator = make_integrator_miser(
-        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2);
-}
+IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params)
+    : mP_iff {nullptr}
+    , m_options {sim_params}
+    , mP_integrator {make_integrator_miser(
+        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2)}
+{}
 
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 {} // needs class definitions => don't move to .h
@@ -62,7 +60,6 @@ void IInterferenceFunctionStrategy::init(
     strategy_specific_post_init();
 }
 
-#include<iostream>
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
     if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))
@@ -99,7 +96,7 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
 void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
     const SimulationElement& sim_element) const
 {
-    m_ff.clear();
+    m_precomputed_ff1.clear();
 
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -112,7 +109,7 @@ void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
     for (auto ffw: m_formfactor_wrappers) {
         ffw->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         complex_t ff_mat = ffw->mp_ff->evaluate(wavevectors);
-        m_ff.push_back(wavevector_scattering_factor*ff_mat);
+        m_precomputed_ff1.push_back(wavevector_scattering_factor*ff_mat);
     }
 }
 
@@ -120,7 +117,7 @@ void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
 void IInterferenceFunctionStrategy2::precomputeParticleFormfactors(
     const SimulationElement& sim_element) const
 {
-    m_ff.clear();
+    m_precomputed_ff2.clear();
 
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -133,6 +130,6 @@ void IInterferenceFunctionStrategy2::precomputeParticleFormfactors(
     for (auto ffw: m_formfactor_wrappers) {
         ffw->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
         Eigen::Matrix2cd ff_mat = ffw->mp_ff->evaluatePol(wavevectors);
-        m_ff.push_back(wavevector_scattering_factor*ff_mat);
+        m_precomputed_ff2.push_back(wavevector_scattering_factor*ff_mat);
     }
 }

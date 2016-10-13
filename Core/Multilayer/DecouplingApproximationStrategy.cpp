@@ -33,7 +33,7 @@ double DecouplingApproximationStrategy1::evaluateForList(
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        complex_t ff = m_ff[i];
+        complex_t ff = m_precomputed_ff1[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
@@ -60,7 +60,7 @@ double DecouplingApproximationStrategy2::evaluateForList(
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        Eigen::Matrix2cd ff = m_ff[i];
+        Eigen::Matrix2cd ff = m_precomputed_ff2[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> "

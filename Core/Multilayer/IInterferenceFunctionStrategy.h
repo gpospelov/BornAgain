@@ -88,10 +88,8 @@ private:
 
 class BA_CORE_API_ IInterferenceFunctionStrategy1 : public virtual IInterferenceFunctionStrategy
 {
-public:
-
 protected:
-    mutable std::vector<complex_t> m_ff; //!< cached form factor evaluations
+    mutable std::vector<complex_t> m_precomputed_ff1; //!< cached form factor evaluations
 
 private:
     void precomputeParticleFormfactors(const SimulationElement& sim_element) const final;
@@ -107,7 +105,7 @@ public:
         matrixFFVector_t;
 
 protected:
-    mutable matrixFFVector_t m_ff; //!< cached polarized form factors
+    mutable matrixFFVector_t m_precomputed_ff2; //!< cached polarized form factors
 
 private:
     void precomputeParticleFormfactors(const SimulationElement& sim_element) const final;

@@ -24,8 +24,7 @@
 
 SSCApproximationStrategy::SSCApproximationStrategy(double kappa)
     : m_mean_radius(0.0), m_kappa(kappa)
-{
-}
+{}
 
 void SSCApproximationStrategy::strategy_specific_post_init()
 {
@@ -42,7 +41,7 @@ double SSCApproximationStrategy1::evaluateForList(const SimulationElement& sim_e
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        complex_t ff = m_ff[i];
+        complex_t ff = m_precomputed_ff1[i];
         double fraction = m_formfactor_wrappers[i]->m_abundance / m_total_abundance;
         diffuse_intensity += fraction * std::norm(ff);
     }
@@ -66,7 +65,7 @@ double SSCApproximationStrategy2::evaluateForList(const SimulationElement& sim_e
     if (m_total_abundance <= 0.0)
         return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        Eigen::Matrix2cd ff = m_ff[i];
+        Eigen::Matrix2cd ff = m_precomputed_ff2[i];
         double fraction = m_formfactor_wrappers[i]->m_abundance / m_total_abundance;
         diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
@@ -87,7 +86,7 @@ complex_t SSCApproximationStrategy1::getMeanCharacteristicFF(double qp) const
 {
     complex_t result(0.0, 0.0);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
-        result += m_formfactor_wrappers[i]->m_abundance * m_ff[i]
+        result += m_formfactor_wrappers[i]->m_abundance * m_precomputed_ff1[i]
                   * calculatePositionOffsetPhase(qp, m_kappa, i);
     return result / m_total_abundance;
 }
@@ -96,7 +95,7 @@ complex_t SSCApproximationStrategy1::getMeanConjCharacteristicFF(double qp) cons
 {
     complex_t result(0.0, 0.0);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
-        result += m_formfactor_wrappers[i]->m_abundance * std::conj(m_ff[i])
+        result += m_formfactor_wrappers[i]->m_abundance * std::conj(m_precomputed_ff1[i])
                   * calculatePositionOffsetPhase(qp, m_kappa, i);
     return result / m_total_abundance;
 }
@@ -106,7 +105,7 @@ Eigen::Matrix2cd SSCApproximationStrategy2::getMeanCharacteristicFF(double qp) c
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
         result += m_formfactor_wrappers[i]->m_abundance *
-            calculatePositionOffsetPhase(qp, m_kappa, i) * m_ff[i];
+            calculatePositionOffsetPhase(qp, m_kappa, i) * m_precomputed_ff2[i];
     return result / m_total_abundance;
 }
 
@@ -115,7 +114,7 @@ Eigen::Matrix2cd SSCApproximationStrategy2::getMeanConjCharacteristicFF(double q
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i)
         result += m_formfactor_wrappers[i]->m_abundance *
-            calculatePositionOffsetPhase(qp, m_kappa, i) * m_ff[i].adjoint();
+            calculatePositionOffsetPhase(qp, m_kappa, i) * m_precomputed_ff2[i].adjoint();
     return result / m_total_abundance;
 }
 

@@ -29,10 +29,8 @@ public:
     SizeSpacingCorrelationApproximationStrategy(SimulationOptions sim_params, double kappa);
     ~SizeSpacingCorrelationApproximationStrategy() final {}
 
-    void init(const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
-              const IInterferenceFunction& iff) final;
-
 private:
+    void strategy_specific_post_init() final;
     double evaluateForList(const SimulationElement& sim_element) const final;
     double evaluateForMatrixList(const SimulationElement& sim_element) const final;
 

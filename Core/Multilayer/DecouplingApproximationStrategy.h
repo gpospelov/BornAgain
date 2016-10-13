@@ -30,9 +30,6 @@ public:
         : IInterferenceFunctionStrategy(sim_params) {}
     ~DecouplingApproximationStrategy() final {}
 
-    void init(const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
-              const IInterferenceFunction& iff) final;
-
 private:
     double evaluateForList(const SimulationElement& sim_element) const final;
     double evaluateForMatrixList(const SimulationElement& sim_element) const final;

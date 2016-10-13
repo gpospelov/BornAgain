@@ -27,14 +27,8 @@ SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximation
 {
 }
 
-void SizeSpacingCorrelationApproximationStrategy::init(
-    const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
-    const IInterferenceFunction &iff)
+void SizeSpacingCorrelationApproximationStrategy::strategy_specific_post_init()
 {
-    IInterferenceFunctionStrategy::init(weighted_formfactors, iff);
-    if (m_weighted_ffs.size()==0)
-        throw Exceptions::ClassInitializationException(
-            "No formfactors for Size-Spacing Correlation Approximation.");
     initMeanRadius();
 }
 

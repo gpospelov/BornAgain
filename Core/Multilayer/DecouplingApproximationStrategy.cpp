@@ -23,16 +23,6 @@
 #include <cassert>
 #include <iostream>
 
-void DecouplingApproximationStrategy::init(
-    const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
-    const IInterferenceFunction& iff)
-{
-    IInterferenceFunctionStrategy::init(weighted_formfactors, iff);
-    if (m_weighted_ffs.size()==0)
-        throw Exceptions::ClassInitializationException(
-            "No formfactors for Decoupling Approximation.");
-}
-
 //! Returns the total incoherent and coherent scattering intensity for given kf and
 //! for one layer (implied by the given particle form factors).
 //! For each IParticle in the layer layout, the precomputed form factor must be provided.

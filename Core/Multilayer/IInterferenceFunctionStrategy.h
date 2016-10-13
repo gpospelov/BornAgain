@@ -31,7 +31,14 @@ class IInterferenceFunction;
 class LayerSpecularInfo;
 class SimulationElement;
 
-//! Algorithm to apply one of interference function strategies (LMA, SCCA etc).
+//! Virtual base class of the interference function strategy classes
+//! DecouplingApproximationStrategy, SizeSpacingCorrelationApproximationStrategy.
+//! These classes provide 'evaluate' functions that compute the scattering intensity
+//! from a decorated layer, taking into account a specific inter-particle interference function.
+//!
+//! Child classes are instantiated in LayerStrategyBuilder::createStrategy,
+//! which is called from DecoratedLayerComputation::eval.
+//!
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ IInterferenceFunctionStrategy
@@ -43,12 +50,8 @@ public:
     IInterferenceFunctionStrategy(const SimulationOptions& sim_params);
     virtual ~IInterferenceFunctionStrategy();
 
-    //! Initializes the object with form factors and interference functions
-    virtual void init(const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
-                      const IInterferenceFunction& iff);
-
-    //! Provides the R,T coefficients information
-    void setSpecularInfo(const LayerSpecularInfo& specular_info);
+    void init(const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
+              const IInterferenceFunction& iff, const LayerSpecularInfo& specular_info);
 
     //! Calculates the intensity for scalar particles/interactions
     double evaluate(const SimulationElement& sim_element) const;
@@ -57,6 +60,8 @@ public:
     double evaluatePol(const SimulationElement& sim_element) const;
 
 protected:
+    virtual void strategy_specific_post_init() {}
+
     //! Evaluates the intensity for given list of evaluated form factors
     virtual double evaluateForList(const SimulationElement& sim_element) const = 0;
 

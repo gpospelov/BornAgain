@@ -40,21 +40,25 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
 // otherwise forward declaration of IntegratorMCMiser doesn't work
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() {}
 
+//! Initializes the object with form factors and interference functions
 void IInterferenceFunctionStrategy::init(
     const SafePointerVector<WeightedFormFactor>& weighted_formfactors,
-    const IInterferenceFunction& iff)
+    const IInterferenceFunction& iff,
+    const LayerSpecularInfo& specular_info)
 {
+    if (weighted_formfactors.size()==0)
+        throw Exceptions::ClassInitializationException("Bug: Decorated layer has no formfactors.");
     m_weighted_ffs = weighted_formfactors;
     mP_iff.reset(iff.clone());
+
     m_total_abundance = 0;
     for (const auto wff: m_weighted_ffs)
         m_total_abundance += wff->m_abundance;
-}
 
-void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo& specular_info)
-{
-    if (mP_specular_info.get() != &specular_info)
+    if (&specular_info != mP_specular_info.get())
         mP_specular_info.reset(specular_info.clone());
+
+    strategy_specific_post_init();
 }
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const

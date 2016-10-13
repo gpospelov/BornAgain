@@ -73,8 +73,8 @@ protected:
     mutable matrixFFVector_t m_ff_pol; //!< cached polarized form factors
 
 private:
-    void calculateFormFactorList   (const SimulationElement& sim_element) const;
-    void calculateFormFactorListPol(const SimulationElement& sim_element) const;
+    void precomputeParticleFormfactors   (const SimulationElement& sim_element) const;
+    void precomputeParticleFormfactorsPol(const SimulationElement& sim_element) const;
 
     //! Perform a Monte Carlo integration over the bin for the evaluation of the intensity
     double MCIntegratedEvaluate   (const SimulationElement& sim_element) const;

@@ -76,9 +76,6 @@ private:
     void calculateFormFactorList   (const SimulationElement& sim_element) const;
     void calculateFormFactorListPol(const SimulationElement& sim_element) const;
 
-    //! Clears the cached form factor lists
-    void clearFormFactorLists() const;
-
     //! Perform a Monte Carlo integration over the bin for the evaluation of the intensity
     double MCIntegratedEvaluate   (const SimulationElement& sim_element) const;
     double MCIntegratedEvaluatePol(const SimulationElement& sim_element) const;

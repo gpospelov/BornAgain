@@ -77,7 +77,7 @@ double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement& sim_e
 void IInterferenceFunctionStrategy::calculateFormFactorList(
         const SimulationElement& sim_element) const
 {
-    clearFormFactorLists();
+    m_ff.clear();
 
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -87,9 +87,9 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
         mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
-    for (auto it: m_weighted_ffs) {
-        it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        complex_t ff_mat = it->mp_ff->evaluate(wavevectors);
+    for (auto wff: m_weighted_ffs) {
+        wff->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+        complex_t ff_mat = wff->mp_ff->evaluate(wavevectors);
         m_ff.push_back(wavevector_scattering_factor*ff_mat);
     }
 }
@@ -98,7 +98,7 @@ void IInterferenceFunctionStrategy::calculateFormFactorList(
 void IInterferenceFunctionStrategy::calculateFormFactorListPol(
         const SimulationElement& sim_element) const
 {
-    clearFormFactorLists();
+    m_ff_pol.clear();
 
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -108,17 +108,11 @@ void IInterferenceFunctionStrategy::calculateFormFactorListPol(
         mP_specular_info->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
-    for (auto it: m_weighted_ffs) {
-        it->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        Eigen::Matrix2cd ff_mat = it->mp_ff->evaluatePol(wavevectors);
+    for (auto wff: m_weighted_ffs) {
+        wff->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+        Eigen::Matrix2cd ff_mat = wff->mp_ff->evaluatePol(wavevectors);
         m_ff_pol.push_back(wavevector_scattering_factor*ff_mat);
     }
-}
-
-void IInterferenceFunctionStrategy::clearFormFactorLists() const
-{
-    m_ff.clear();
-    m_ff_pol.clear();
 }
 
 double IInterferenceFunctionStrategy::MCIntegratedEvaluate(

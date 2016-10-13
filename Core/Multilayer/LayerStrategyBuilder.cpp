@@ -43,10 +43,10 @@ LayerStrategyBuilder::LayerStrategyBuilder(
 LayerStrategyBuilder::~LayerStrategyBuilder() {} // needs class definitions => don't move to .h
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
-IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
+IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 {
     assert(mP_layer->getNumberOfLayouts()>0);
-    collectFormFactorWrappers();
+    SafePointerVector<class FormFactorWrapper> ff_wrappers = collectFormFactorWrappers();
     std::unique_ptr<class IInterferenceFunction> P_interference_function{
         mP_layer->getLayout(m_layout_index)->cloneInterferenceFunction()};
 
@@ -73,15 +73,15 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(m_formfactor_wrappers, *P_interference_function, *mP_specular_info);
+    p_result->init(ff_wrappers, *P_interference_function, *mP_specular_info);
     return p_result;
 }
 
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
-void LayerStrategyBuilder::collectFormFactorWrappers()
+SafePointerVector<class FormFactorWrapper> LayerStrategyBuilder::collectFormFactorWrappers() const
 {
     assert(mP_layer->getNumberOfLayouts()>0);
-    m_formfactor_wrappers.clear();
+    SafePointerVector<class FormFactorWrapper> result;
     const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial* p_layer_material = mP_layer->getMaterial();
     double total_abundance = mP_layer->getTotalAbundance();
@@ -91,8 +91,9 @@ void LayerStrategyBuilder::collectFormFactorWrappers()
         FormFactorWrapper* p_weighted_ff;
         p_weighted_ff = createFormFactorWrapper(particle, p_layer_material);
         p_weighted_ff->m_abundance /= total_abundance;
-        m_formfactor_wrappers.push_back(p_weighted_ff);
+        result.push_back(p_weighted_ff);
     }
+    return result;
 }
 
 //! Returns a new formfactor wrapper for a given particle in given ambient material.

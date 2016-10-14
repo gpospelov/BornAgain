@@ -83,4 +83,4 @@ private:
     QVector<InstrumentInfo> m_instrumentVec;
 };
 
-#endif
+#endif // LINKINSTRUMENTMANAGER_H

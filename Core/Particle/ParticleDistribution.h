@@ -21,8 +21,7 @@
 
 class IParticle;
 
-//! @brief A particle with a form factor and refractive index
-//! ParticleDistribution
+//! A particle type that is a parametric distribution of IParticle's.
 //! @ingroup samples
 
 class BA_CORE_API_ ParticleDistribution : public IAbstractParticle

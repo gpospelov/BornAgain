@@ -34,4 +34,4 @@ public:
     LinkInstrumentItem();
 };
 
-#endif
+#endif // LINKINSTRUMENTITEM_H

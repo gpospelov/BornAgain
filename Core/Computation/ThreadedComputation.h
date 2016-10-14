@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/ThreadedComputation.cpp
+//! @file      Core/Computation/ThreadedComputation.h
 //! @brief     Defines class ThreadedComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -27,10 +27,10 @@ class ThreadedComputation: public INoncopyable
 public:
     ThreadedComputation() : m_count(0) {}
 protected:
-    void stepProgress(ProgressHandler* progress);
+    void stepProgress(ProgressHandler* progress) const;
 private:
     const int bundle = 100;
-    int m_count;
+    mutable int m_count;
 };
 
 #endif // THREADEDCOMPUTATION_H

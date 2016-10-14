@@ -48,7 +48,7 @@ private:
 //! in size-spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SSCApproximationStrategy1
+class SSCApproximationStrategy1 final
     : public IInterferenceFunctionStrategy1
     , public SSCApproximationStrategy
 {
@@ -66,7 +66,7 @@ private:
 //! in size-spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SSCApproximationStrategy2
+class SSCApproximationStrategy2 final
     : public IInterferenceFunctionStrategy2
     , public SSCApproximationStrategy
 {

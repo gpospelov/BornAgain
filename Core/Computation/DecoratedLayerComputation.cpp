@@ -47,6 +47,7 @@ void DecoratedLayerComputation::eval(
             createStrategy() };
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
+    ThreadedComputation counter;
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
             return;
@@ -56,6 +57,6 @@ void DecoratedLayerComputation::eval(
             continue;
         // each ffdwba: one call to getOutCoeffs
         it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
-        stepProgress(progress);
+        counter.stepProgress(progress);
     }
 }

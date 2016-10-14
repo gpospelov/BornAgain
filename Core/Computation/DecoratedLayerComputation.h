@@ -33,7 +33,7 @@ class SimulationOptions;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class DecoratedLayerComputation final : public ThreadedComputation
+class DecoratedLayerComputation
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);

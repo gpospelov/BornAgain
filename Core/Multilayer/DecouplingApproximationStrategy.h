@@ -25,7 +25,7 @@ class SimulationElement;
 //! in decoupling approximation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecouplingApproximationStrategy1
+class BA_CORE_API_ DecouplingApproximationStrategy1 final
     : public IInterferenceFunctionStrategy1
 {
 public:
@@ -40,7 +40,7 @@ private:
 //! in decoupling approximation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecouplingApproximationStrategy2
+class BA_CORE_API_ DecouplingApproximationStrategy2 final
     : public IInterferenceFunctionStrategy2
 {
 public:

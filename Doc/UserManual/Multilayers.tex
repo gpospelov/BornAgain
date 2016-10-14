@@ -215,17 +215,17 @@ Since the $\psi^\pm_{w\il}$ are plane waves within layer~$\il$,
 we can at once write down the DWBA transition matrix element~\cref{Edwba}
 \index{Distorted-wave Born approximation!multilayer}%
 \begin{equation}\label{Edwba_ml0}
-  \bra \psi_\ti|\chi|\psi_\tf\ket
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
   = \sum_{\il} \sum_{\pm_\ti} \sum_{\pm_\tf}
     A^{\pm *}_{\ti \il} A^\pm_{\tf \il}
-     \chi_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il}),
+     \delta v_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il}),
 \end{equation}
 where
 \begin{equation}\label{Echij}
-  \chi_\il(\v{q})
-  \coloneqq  \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}\chi(\r)
+  \delta v_\il(\v{q})
+  \coloneqq  \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}\delta v(\r)
 \end{equation}
-\nomenclature[1χ032 2l010 2q040]{$\chi_\il(\v{q})$}{Fourier transform of the perturbation potential $\chi(\r)$, evaluated in one sample layer}%
+\nomenclature[1χ032 2l010 2q040]{$\delta v_\il(\v{q})$}{Fourier transform of the perturbation potential $\delta v(\r)$, evaluated in one sample layer}%
 is the Fourier transform
 of the perturbative potential~\cref{EChiGraded},
 restricted to one layer.
@@ -244,8 +244,8 @@ and define the corresponding wavenumbers and amplitude factors and as
 Accordingly, we can write \cref{Edwba_ml0} as
 \Emph{
 \begin{equation}\label{Edwba_ml}
-  \bra \psi_\ti|\chi|\psi_\tf\ket
-  = \sum_{\il} \sum_{u} C^u_\il \chi_\il(\q_\il^u).
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  = \sum_{\il} \sum_{u} C^u_\il \delta v_\il(\q_\il^u).
 \end{equation}
 \vspace*{-5pt}}
 From~\cref{Ekpmwj3} we see that all four wavevectors $\q^u$

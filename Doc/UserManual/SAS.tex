@@ -45,6 +45,8 @@ relates to the experimental detector image (Sec.\ref{SdetImg}).
 \index{Wave propagation!neutrons|(}%
 \index{Neutrons!wave propagation|(}%
 
+\def\Vmac{\overline{V}}
+
 \index{Schrodinger@Schrödinger equation!microscopic}%
 The scalar wavefunction $\psi(\r,t)$
 \nomenclature[2t020]{$t$}{Time}%
@@ -137,10 +139,10 @@ The macroscopic field equation
 has still the form of a stationary Schrödinger equation,
 \index{Schrodinger@Schrödinger equation!macroscopic}%
 \begin{equation}\label{EmacrSchrodi}
-  \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \psi(\r) = 0,
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+\Vmac(\r)-\hbar\omega\right\} \psi(\r) = 0,
 \end{equation}
 \nomenclature[1ψ030 2r040 2t020]{$\psi(\r,t)$}{Coherent wavefunction}%
-\nomenclature[2v020 2r040]{$v(\r)$}{Macrosopic optical potential}%
+\nomenclature[2v131 2r040]{$\Vmac(\r)$}{Macroscopic optical potential}%
 where $\psi$ now stands for the \E{coherent wavefunction}
 \index{Coherent wavefunction}%
 \index{Wave propagation!coherent}%
@@ -155,12 +157,13 @@ especially in terms of a
 \index{Scattering length density}%
 $\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
 \nomenclature[1ρ 034 2s000 2r040]{$\rho_s(\r)$}{Scattering length density}%
+\nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density}%
 \begin{equation}
   v(\r)=\frac{2\pi \hbar^2}{m}\rho_s(\r),
 \end{equation}
 or of a \E{refractive index}~$n(\r)$
 \nomenclature[2n020 2r040]{$n(\r)$}{Refractive index}%
-\index{Refractive index} % !vs scattering length density}%
+\index{Refractive index}% !vs scattering length density}%
 \index{Index of refraction|see {Refractive index}}%
 defined by
 \begin{equation}\label{EnRefrIndx}

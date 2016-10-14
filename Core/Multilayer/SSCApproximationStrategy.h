@@ -58,9 +58,7 @@ public:
 
 private:
     double evaluateForList(const SimulationElement& sim_element) const final;
-
-    complex_t getMeanCharacteristicFF(double qp) const;
-    complex_t getMeanConjCharacteristicFF(double qp) const;
+    complex_t getMeanFormfactorNorm(double qp) const;
 };
 
 
@@ -78,9 +76,7 @@ public:
 
 private:
     double evaluateForList(const SimulationElement& sim_element) const final;
-
-    Eigen::Matrix2cd getMeanCharacteristicFF(double qp) const;
-    Eigen::Matrix2cd getMeanConjCharacteristicFF(double qp) const;
+    void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj) const;
 };
 
 #endif // SSCAPPROXIMATIONSTRATEGY_H

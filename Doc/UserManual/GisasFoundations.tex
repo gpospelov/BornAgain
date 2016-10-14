@@ -141,35 +141,6 @@ that is governed by the one-dimensional wave equation
 \left\{\partial_z^2 + K(z)^2 - k_\parallel^2 \right\} \phi(z) = 0.
 \end{equation}\vspace*{-10pt}
 }
-This equation has no practicable solution for arbitrary functions~$K(z)$.
-In BornAgain, samples are assumed to consist of a finite number of discrete layers.
-\index{Multilayer!refractive index profiles}%
-\index{Layer!refractive index profiles}%
-Within one layer, the refractive index must either be constant,
-or have an affine linear dependence $n(z)^2=a+bz$.
-All other cases must be handled by dividing the sample into many layers
-and approximating $n(z)^2$ by a step function.
-
-\Work{Support for linear gradings with $n(z)^2=a+bz$ is not yet implemented.}
-\index{Refractive index!graded}%
-\index{Graded layer}%
-\index{Layer!graded}%
-\iffalse
-For a graded refractive index~$n$
- that is a smooth function of~$z$,
-the differential equation~\cref{Ewavez} is best solved
-using the WKB method.\footnote
-{Also called \E{semiclassical approximation} or
-\E{phase integral method},
-%originally developed
-%by Liouville (1837), Green (1837), Lord Rayleigh (1912), and Jeffreys (1923),
-named after Wentzel (1926), Kramers (1926), Brillouin (1926).
-See any textbook on quantum mechanics.}
-\index{WKB method}%
-\index{Semiclassical approximation|see {WKB method}}%
-\index{Phase integral method|see {WKB method}}%
-\fi
-
 When an incident plane wave,
 travelling downwards with
 $\phi(z)=\e^{-ik_\perp z}$,
@@ -187,21 +158,10 @@ and an upward travelling component $\phi^+(z)$.
 The only exception is in the homogeneous substrate at the bottom of the sample,
 where there is no incoming upward travelling wave.
 
-For a stepwise refractive index profile,
-the $\phi^\pm(z)$ are derived from continuity conditions at the layer interfaces.
-The limiting values on approaching the interface from above or below
-are related to each other through Fresnel's
-transmission and reflection coefficients.
-\index{Fresnel coefficients}%
-This will be elaborated in \Cref{Sacrolay}.
-
-The following derivations in \Cref{SDWBA}, however,
-are not restricted to specific refractive index profiles.
-They hold for whatever solutions
-$\psi^\pm(\r)$ of the wave equation~\cref{EHelmholtzGradedHomog}.
-
-
-\index{Absorption|)}%
+The discussion how to solve~\Cref{Ewavez} shall be postponed to~\Cref{sec:Multilayers}.
+For the following derivation of the distorted wave Born approximation,
+it is sufficient to assume that somehow the wave equation has been solved,
+and upward and downward travelling wave functions $\psi^\pm(\r)$ have been obtained.
 
 %===============================================================================
 \section{Distorted-wave Born approximation (DWBA)}\label{SDWBA}

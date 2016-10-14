@@ -7,3 +7,4 @@
 #include "RectangularDetectorTest.h"
 #include "PrecomputedTest.h"
 #include "SphericalDetectorTest.h"
+#include "SimulationAreaTest.h"

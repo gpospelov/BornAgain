@@ -147,6 +147,10 @@ public:
 
     //! Resets region of interest making whole detector plane available for the simulation.
     void resetRegionOfInterest();
+
+    //! Returns total number of pixels
+    size_t getTotalSize() const;
+
 protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const=0;
@@ -181,9 +185,6 @@ protected:
     //! If no pixel contains this specular wavevector, the number of pixels is
     //! returned. This corresponds to an overflow index.
     virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
-
-    //! Returns total number of pixels
-    size_t getTotalSize() const;
 
     SafePointerVector<IAxis> m_axes;
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;

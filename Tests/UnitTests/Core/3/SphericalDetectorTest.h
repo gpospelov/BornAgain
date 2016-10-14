@@ -208,10 +208,11 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndData)
     detector.addAxis(FixedBinAxis("axis0", 8, -3.0, 5.0));
     detector.addAxis(FixedBinAxis("axis1", 4, 0.0, 4.0));
 
-    // creating region of interest which is larger than detector plane
-    detector.setRegionOfInterest(-4.0, -1.0, 6.0, 7.0);
+    // creating region of interest
+    detector.setRegionOfInterest(-1.8, 0.5, 3.0, 2.5);
 
     // initializing data via the detector and making sure that data axes are exactly as in detector
+    // (i.e. to confirm that regionOfInterest doesn't change data structure)
     OutputData<double> data;
     detector.initOutputData(data);
     EXPECT_EQ(data.getAllocatedSize(), 32);
@@ -221,18 +222,6 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndData)
     EXPECT_EQ(data.getAxis(1)->getSize(), 4);
     EXPECT_EQ(data.getAxis(1)->getMin(), 0.0);
     EXPECT_EQ(data.getAxis(1)->getMax(), 4.0);
-
-    // Creating region of interest inside the detector and checking that data is initialized with
-    // axes corresponding to croped area.
-    // Please note, that crop is done via IAxis::createClippedAxis which
-    detector.setRegionOfInterest(-1.8, 0.5, 3.0, 2.5);
-    detector.initOutputData(data);
-    EXPECT_EQ(data.getAxis(0)->getSize(), 6);
-    EXPECT_EQ(data.getAxis(0)->getMin(), -2.0); // result of crop at x = -1.8
-    EXPECT_EQ(data.getAxis(0)->getMax(), 4.0); // result of crop at x = 3.0
-    EXPECT_EQ(data.getAxis(1)->getSize(), 3);
-    EXPECT_EQ(data.getAxis(1)->getMin(), 0.0);
-    EXPECT_EQ(data.getAxis(1)->getMax(), 3.0);
 }
 
 

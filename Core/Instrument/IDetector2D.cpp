@@ -118,21 +118,8 @@ OutputData<double>* IDetector2D::createDetectorMap(const Beam&, EAxesUnits) cons
 
 void IDetector2D::initOutputData(OutputData<double> &data) const {
   data.clear();
-
-  if (m_region_of_interest) {
-    std::unique_ptr<IAxis> axis0(getAxis(0).createClippedAxis(
-        m_region_of_interest->getXlow(), m_region_of_interest->getXup()));
-    data.addAxis(*axis0);
-
-    std::unique_ptr<IAxis> axis1(getAxis(1).createClippedAxis(
-        m_region_of_interest->getYlow(), m_region_of_interest->getYup()));
-    data.addAxis(*axis1);
-
-  } else {
-    for (size_t i = 0; i < getDimension(); ++i)
+  for (size_t i = 0; i < getDimension(); ++i)
       data.addAxis(getAxis(i));
-  }
-
   data.setAllTo(0.);
 }
 
@@ -219,7 +206,6 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
     for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
         if ((*mask_data)[index]) continue;
-        std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
         SimulationElement sim_element(wavelength, alpha_i, phi_i,
                                       std::unique_ptr<IPixelMap>(createPixelMap(index)));
         sim_element.setPolarization(beam_polarization);

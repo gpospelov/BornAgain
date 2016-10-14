@@ -58,8 +58,9 @@ in the distorted wave Born approximation (\cref{SDWBA}).
 \nomenclature[1φ024 2f000]{$\phi_\tf$}{Angle between the detected beam, projected into the sample plane, and the $x$ axis}%
 \nomenclature[2x020]{$x$}{Horizontal coordinate, usually chosen along the incoming beam projection}%
 \nomenclature[2y020]{$y$}{Horizontal oordinate, chosen normal to $z$ and $x$}%
-  The numbered layers illustrate a multilayer system as dicussed
-  in \cref{sec:Multilayers}.
+  The numbered layers illustrate a multilayer system as dicussed in \cref{sec:Multilayers}.
+\index{Layer!numbering}%
+\index{Multilayer}
   }
   \label{fig:expgeom}
 \end{figure}
@@ -129,30 +130,32 @@ by the factorization ansatz
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
 The horizontal wavevector $\k_\parallel$ remains constant
 as initialized by the incoming beam.
-The vertical wavefunction must fulfill
+The factorization ansatz \cref{Ekpar} leaves us some freedom
+how to deal with an imaginary part of~$n$.
+We \E{choose} that horizontal wavevectors~$\k_\parallel$
+shall always be real.
+The damping then appears in the vertical wavefunction~$\phi(z)$
+that is governed by the one-dimensional wave equation
 \Emph{
 \begin{equation}\label{Ewavez}
 \left\{\partial_z^2 + K(z)^2 - k_\parallel^2 \right\} \phi(z) = 0.
 \end{equation}\vspace*{-10pt}
 }
-When an incident plane wave,
-travelling downwards with
-$\phi(z)=\e^{-ik_\perp z}$,
-\nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
-impinges on a sample with $n(z)\ne 1$,
-then the wave is partly reflected ($-k_\perp$ reversed into $+k_\perp$)
-and partly refracted
-($k_\perp$ changing while $\k_\parallel$ stays constant,
-resulting in a change of glancing angle).
-Similarly, reflection and refraction occur
-whenever $n(z)$ varies within the sample.
-As a result, at any $z$ within the zone where $n(z)$ varies,
-the vertical wavefunction $\phi(z)$ is composed of a
-downward travelling component $\phi^-(z)$
-and an upward travelling component $\phi^+(z)$.
+This equation has no practicable solution for arbitrary functions~$K(z)$.
+In BornAgain, samples are assumed to consist of a finite number of discrete layers.
+\index{Multilayer!refractive index profiles}%
+\index{Layer!refractive index profiles}%
+Within one layer, the refractive index must either be constant,
+or have an affine linear dependence $n(z)^2=a+bz$.
+All other cases must be handled by dividing the sample into many layers
+and approximating $n(z)^2$ by a step function.
 
-For a graded refractive index~$n$
+\Work{Support for linear gradings with $n(z)^2=a+bz$ is not yet implemented.}
 \index{Refractive index!graded}%
+\index{Graded layer}%
+\index{Layer!graded}%
+\iffalse
+For a graded refractive index~$n$
  that is a smooth function of~$z$,
 the differential equation~\cref{Ewavez} is best solved
 using the WKB method.\footnote
@@ -165,21 +168,38 @@ See any textbook on quantum mechanics.}
 \index{WKB method}%
 \index{Semiclassical approximation|see {WKB method}}%
 \index{Phase integral method|see {WKB method}}%
-If otherwise $n(z)$ is discontinuous at some interface $z=z_j$,
-then the limiting values of $\phi^-(z)$ and $\phi^+(z)$
-on approaching $z_j$ from above or below
-are connected to each other through Fresnel's
+\fi
+
+When an incident plane wave,
+travelling downwards with
+$\phi(z)=\e^{-ik_\perp z}$,
+\nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
+impinges on a sample with $n(z)\ne 1$,
+then the wave is partly reflected ($-k_\perp$ reversed into $+k_\perp$)
+and partly refracted
+($k_\perp$ changing while $\k_\parallel$ stays constant,
+resulting in a change of glancing angle).
+Similarly, reflection and refraction occur
+whereever $n(z)$~varies.
+As a result, throughout the vertical wavefunction $\phi(z)$ is composed of a
+downward travelling component $\phi^-(z)$
+and an upward travelling component $\phi^+(z)$.
+The only exception is in the homogeneous substrate at the bottom of the sample,
+where there is no incoming upward travelling wave.
+
+For a stepwise refractive index profile,
+the $\phi^\pm(z)$ are derived from continuity conditions at the layer interfaces.
+The limiting values on approaching the interface from above or below
+are related to each other through Fresnel's
 transmission and reflection coefficients.
 \index{Fresnel coefficients}%
-This applies in particular to multilayer systems,
-discussed in \cref{sec:Multilayers}.
+This will be elaborated in \Cref{Sacrolay}.
 
-The factorization ansatz \cref{Ekpar} leaves us some freedom
-how to deal with an imaginary part of~$n$.
-We \E{choose} that horizontal wavevectors~$\k_\parallel$
-shall always be real.
-The damping then appears in the vertical wavefunction~$\phi(z)$
-that is governed by the complex wave equation \cref{Ewavez}.
+The following derivations in \Cref{SDWBA}, however,
+are not restricted to specific refractive index profiles.
+They hold for whatever solutions
+$\psi^\pm(\r)$ of the wave equation~\cref{EHelmholtzGradedHomog}.
+
 
 \index{Absorption|)}%
 

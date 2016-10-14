@@ -34,5 +34,5 @@ protected:
 };
 
 
-#endif
+#endif // REGIONOFINTERESTVIEW_H
 

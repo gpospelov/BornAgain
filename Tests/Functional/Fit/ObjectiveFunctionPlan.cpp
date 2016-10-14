@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/ObjectiveFunctionPlan.h
+//! @file      Tests/Functional/Fit/ObjectiveFunctionPlan.cpp
 //! @brief     Declares classes to define plans for testing objective functions.
 //!
 //! @homepage  http://www.bornagainproject.org

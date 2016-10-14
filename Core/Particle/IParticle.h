@@ -22,10 +22,9 @@
 #include <memory>
 
 
-//! Interface for a real particle (one that has position/rotation and form factor).
+//! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
+//! Provides position/rotation and form factor. Abundance is inherited from IAbstractParticle.
 //!
-//! Inherited by Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
-
 //! @ingroup samples
 
 class BA_CORE_API_ IParticle : public IAbstractParticle

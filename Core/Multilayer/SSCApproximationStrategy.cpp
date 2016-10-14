@@ -28,7 +28,12 @@ SSCApproximationStrategy::SSCApproximationStrategy(double kappa)
 
 void SSCApproximationStrategy::strategy_specific_post_init()
 {
-    initMeanRadius();
+    // Set m_mean_radius to the weighted arithmetic average of the particle radii.
+    m_mean_radius = 0.0;
+    for (const auto ffw: m_formfactor_wrappers)
+        m_mean_radius += ffw->m_abundance * ffw->mp_ff->getRadialExtension();
+    if (m_total_abundance > 0.0)
+        m_mean_radius /= m_total_abundance;
 }
 
 //! Returns the total scattering intensity for given kf and
@@ -142,14 +147,4 @@ complex_t SSCApproximationStrategy::calculatePositionOffsetPhase(
 {
     return exp_I(kappa * qp *
                  (m_formfactor_wrappers[index]->mp_ff->getRadialExtension() - m_mean_radius));
-}
-
-//! Sets m_mean_radius to the weighted arithmetic average of the particle radii.
-void SSCApproximationStrategy::initMeanRadius()
-{
-    m_mean_radius = 0.0;
-    for (const auto ffw: m_formfactor_wrappers)
-        m_mean_radius += ffw->m_abundance * ffw->mp_ff->getRadialExtension();
-    if (m_total_abundance > 0.0)
-        m_mean_radius /= m_total_abundance;
 }

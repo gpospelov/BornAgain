@@ -13,6 +13,9 @@
 //
 // ************************************************************************** //
 
+#ifndef STRINGUSAGEMAP_H
+#define STRINGUSAGEMAP_H
+
 #include <map>
 #include <string>
 
@@ -51,3 +54,5 @@ private:
     std::string m_current_string;
     nstringmap_t m_nstringmap;
 };
+
+#endif // STRINGUSAGEMAP_H

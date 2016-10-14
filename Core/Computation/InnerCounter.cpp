@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/ThreadedComputation.cpp
-//! @brief     Implements class ThreadedComputation.
+//! @file      Core/Computation/InnerCounter.cpp
+//! @brief     Implements class InnerCounter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,10 +14,10 @@
 // ************************************************************************** //
 
 #include "ProgressHandler.h"
-#include "ThreadedComputation.h"
+#include "InnerCounter.h"
 
 //! Increments progress count; at regular intervals updates main progress handler.
-void ThreadedComputation::stepProgress(ProgressHandler* progress)
+void InnerCounter::stepProgress(ProgressHandler* progress)
 {
     ++m_count;
     if( m_count==bundle ) {

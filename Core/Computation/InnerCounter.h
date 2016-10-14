@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/ThreadedComputation.h
-//! @brief     Defines class ThreadedComputation.
+//! @file      Core/Computation/InnerCounter.h
+//! @brief     Defines class InnerCounter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef THREADEDCOMPUTATION_H
-#define THREADEDCOMPUTATION_H
+#ifndef INNERCOUNTER_H
+#define INNERCOUNTER_H
 
 #include "INoncopyable.h"
 
@@ -22,14 +22,14 @@ class ProgressHandler;
 
 //! Base class for threaded computation; keeps count of progress.
 
-class ThreadedComputation: public INoncopyable
+class InnerCounter: public INoncopyable
 {
 public:
-    ThreadedComputation() : m_count(0) {}
+    InnerCounter() : m_count(0) {}
     void stepProgress(ProgressHandler* progress);
 private:
     const int bundle = 100;
     int m_count;
 };
 
-#endif // THREADEDCOMPUTATION_H
+#endif // INNERCOUNTER_H

@@ -219,8 +219,9 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
     for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
         if ((*mask_data)[index]) continue;
-        const std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
-        SimulationElement sim_element(wavelength, alpha_i, phi_i, P_pixel_map.get());
+        std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
+        SimulationElement sim_element(wavelength, alpha_i, phi_i,
+                                      std::unique_ptr<IPixelMap>(createPixelMap(index)));
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         if (index==spec_index) {
@@ -236,8 +237,8 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
     double wavelength = beam.getWavelength();
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
-    const std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
-    return SimulationElement(wavelength, alpha_i, phi_i, P_pixel_map.get());
+    return SimulationElement(wavelength, alpha_i, phi_i,
+                             std::unique_ptr<IPixelMap>(createPixelMap(index)));
 }
 
 void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,

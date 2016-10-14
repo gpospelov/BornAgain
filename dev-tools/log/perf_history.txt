@@ -512,3 +512,7 @@
 | 2016-10-12 15:08:03 | scgsun   | Linux x86_64 | 2.7    | 122.8240  | 21.1832    | 3.8394     | 0.7716          | 3.4871          | 0.6384    | 2.5385        | 0.8021            | 3.3587         | 1.1122 | 1.8113      | 1.8655    | 0.9583    |
 | 2016-10-12 15:15:12 | scgsun   | Linux x86_64 | 2.7    | 121.6320  | 18.9844    | 2.8292     | 0.6947          | 3.3337          | 0.5314    | 2.3015        | 0.7091            | 3.2037         | 1.0140 | 1.7533      | 1.7217    | 0.8920    |
 
+
+# after the switch to std::move in SimulationElement
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | | 2016-10-14 08:51:54 | scgsun   | Linux x86_64 | 2.7    | 122.8880  | 19.3683    | 2.8577     | 0.7296          | 3.3728          | 0.5629    | 2.3569        | 0.7555            | 3.3065         | 1.0475 | 1.7642      | 1.7467    | 0.8680    |
+

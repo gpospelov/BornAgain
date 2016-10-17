@@ -108,7 +108,7 @@ void MainComputation::runProtected()
         for (const DecoratedLayerComputation* comp: layer_comp) {
             if (!m_progress->alive())
                 return;
-            comp->eval(m_sim_options, m_progress, polarized, *mp_multi_layer,
+            comp->eval(m_sim_options, m_progress, polarized,
                        layer_elements.begin(), layer_elements.end());
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }

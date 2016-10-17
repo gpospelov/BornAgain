@@ -26,11 +26,10 @@ class ThreadedComputation: public INoncopyable
 {
 public:
     ThreadedComputation() : m_count(0) {}
-protected:
-    void stepProgress(ProgressHandler* progress) const;
+    void stepProgress(ProgressHandler* progress);
 private:
     const int bundle = 100;
-    mutable int m_count;
+    int m_count;
 };
 
 #endif // THREADEDCOMPUTATION_H

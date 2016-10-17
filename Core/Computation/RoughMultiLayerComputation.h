@@ -29,7 +29,7 @@ class SimulationElement;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class RoughMultiLayerComputation final : public ThreadedComputation
+class RoughMultiLayerComputation
 {
 public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer);

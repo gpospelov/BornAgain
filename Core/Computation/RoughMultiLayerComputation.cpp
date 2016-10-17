@@ -57,11 +57,12 @@ void RoughMultiLayerComputation::eval(
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
 {
+    ThreadedComputation counter;
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
             return;
         it->setIntensity(evaluate(*it));
-        stepProgress(progress);
+        counter.stepProgress(progress);
     }
 }
 

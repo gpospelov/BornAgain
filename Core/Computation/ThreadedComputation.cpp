@@ -17,7 +17,7 @@
 #include "ThreadedComputation.h"
 
 //! Increments progress count; at regular intervals updates main progress handler.
-void ThreadedComputation::stepProgress(ProgressHandler* progress) const
+void ThreadedComputation::stepProgress(ProgressHandler* progress)
 {
     ++m_count;
     if( m_count==bundle ) {

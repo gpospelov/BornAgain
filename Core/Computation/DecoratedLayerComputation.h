@@ -33,7 +33,7 @@ class SimulationOptions;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class DecoratedLayerComputation final : public ThreadedComputation
+class DecoratedLayerComputation
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
@@ -43,7 +43,6 @@ public:
     void eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
-              const MultiLayer& sample,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const;
 

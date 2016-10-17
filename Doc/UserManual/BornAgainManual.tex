@@ -36,6 +36,7 @@ Walter Van Herck, Joachim Wuttke}
 \input{Setup}
 
 \begin{document}
+\pagenumbering{roman}
 \flushbottom
 
 \input{Macros}
@@ -44,6 +45,10 @@ Walter Van Herck, Joachim Wuttke}
 \tableofcontents\cleardoublepage
 
 \include{Introduction}
+
+\def\thepage{\thechapter-\arabic{page}}
+\def\pagereset{\setcounter{page}{1}}
+
 \include{SAS}
 \include{GisasFoundations}
 \include{Multilayers}
@@ -61,13 +66,17 @@ Walter Van Herck, Joachim Wuttke}
 \appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \include{Proofs}
 
+\def\pagereset{\setcounter{page}{1}\def\thepage{Bib-\arabic{page}}}
 \otherchapter{Bibliography}
 \bibliographystyle{switch}
 \bibliography{jw7}
 
-\otherchapter{\nomname}\label{Snomencl}
+\def\pagereset{\setcounter{page}{1}\def\thepage{Nom-\arabic{page}}}
+\otherchapter{\nomname}
+\label{Snomencl}
 \printnomenclature[6em]
 
+\def\pagereset{\setcounter{page}{1}\def\thepage{Idx-\arabic{page}}}
 \otherchapter{Index}
 \small
 \printindex

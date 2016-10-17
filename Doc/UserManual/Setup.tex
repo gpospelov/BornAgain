@@ -75,6 +75,15 @@
 \DeclareMathOperator{\expmone}{expm1}
 \DeclareMathOperator{\expmtwo}{expm2}
 
+%-------------------------------------------------------------------------------
+%  Footer
+%-------------------------------------------------------------------------------
+
+\makeatletter
+\def\@oddfoot{\thepage\hfill\today\hfill\thepage}
+\def\@evenfoot{\@oddfoot}
+\makeatother
+\def\pagereset{}
 
 %-------------------------------------------------------------------------------
 %  Sectioning
@@ -90,7 +99,7 @@
 \firstchapterinpartfalse
 \renewcommand\part{%
   \clearpage\firstchapterinparttrue
-  \thispagestyle{plain}%
+  %\thispagestyle{plain}%
   \if@twocolumn
     \onecolumn
     \@tempswatrue
@@ -116,12 +125,14 @@
     }
 
 \renewcommand\chapter{
+  \pagereset
   \iffirstchapterinpart\else\clearpage\fi
   \firstchapterinpartfalse
-                    \thispagestyle{plain}%
-                    \global\@topnum\z@
-                    \@afterindentfalse
-                    \secdef\@chapter\@schapter}
+  %\thispagestyle{myheadings}
+  %                  \thispagestyle{plain}%
+  \global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
 
 \def\mychapterhead#1{%
   \vspace*{50\p@ plus 10\p@ minus 10\p@}%
@@ -138,6 +149,7 @@
 % Index, Bibliography, ...
 \def\otherchapter#1{
   \clearpage
+  \pagereset
   \phantomsection
   \addcontentsline{toc}{chapter}{#1}
   \markboth{#1}{#1}}
@@ -199,6 +211,17 @@
 \renewcommand{\nomname}{List of Symbols}
   % see nomencl.txt for how to force the ordering of symbols
 \def\nompageref#1{,~\hyperpage{#1}\nomentryend\endgroup}
+\makeatletter
+\def\thenomenclature{%
+  \nompreamble
+  \list{}{%
+    \labelwidth\nom@tempdim
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \itemsep\nomitemsep
+    \let\makelabel\nomlabel}}
+\makeatother
+
 %-------------------------------------------------------------------------------
 %  Improve LaTeX basics
 %-------------------------------------------------------------------------------

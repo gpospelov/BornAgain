@@ -40,6 +40,7 @@ public:
 
 private:
     const IDetector2D *m_detector;
+    size_t m_roi_x1, m_roi_x2, m_roi_y1, m_roi_y2;
 };
 
 

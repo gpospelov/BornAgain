@@ -122,6 +122,8 @@ TEST_F(SimulationAreaTest, maskedCornerIteration)
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
 }
 
+//! Iteration when whole detector is masked
+
 TEST_F(SimulationAreaTest, allMaskedIteration)
 {
     SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
@@ -136,6 +138,28 @@ TEST_F(SimulationAreaTest, allMaskedIteration)
     }
     EXPECT_EQ(indexes.size(), size_t(0));
     EXPECT_EQ(elementIndexes.size(), size_t(0));
+}
+
+//! Iteration when RegionOfInterest is present
+
+TEST_F(SimulationAreaTest, maskAndRoiIteration)
+{
+    SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
+    detector.setRegionOfInterest(0.1, 1.1, 2.9, 3.9);
+    detector.addMask(Geometry::Rectangle(-0.9, 0.1, 0.9, 1.9), true);
+    SimulationArea area(&detector);
+
+    std::vector<int> expectedIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
+    std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
+    std::vector<int> indexes;
+    std::vector<int> elementIndexes;
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        indexes.push_back(it.index());
+        elementIndexes.push_back(it.elementIndex());
+    }
+    EXPECT_EQ(indexes, expectedIndexes);
+    EXPECT_EQ(elementIndexes, expectedElementIndexes);
+
 }
 
 #endif

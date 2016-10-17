@@ -151,6 +151,9 @@ public:
     //! Returns total number of pixels
     size_t getTotalSize() const;
 
+    //! Calculate axis index for given global index
+    size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
+
 protected:
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const=0;
@@ -171,9 +174,6 @@ protected:
 
     //! Initialize polarization (for constructors)
     void initPolarizationOperator();
-
-    //! Calculate axis index for given global index
-    size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
 
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;

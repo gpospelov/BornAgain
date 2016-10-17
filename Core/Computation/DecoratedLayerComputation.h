@@ -16,7 +16,7 @@
 #ifndef DECORATEDLAYERCOMPUTATION_H
 #define DECORATEDLAYERCOMPUTATION_H
 
-#include "ThreadedComputation.h"
+#include "InnerCounter.h"
 #include <vector>
 #include <memory>
 

@@ -58,7 +58,7 @@ int GISASSimulation::getNumberOfSimulationElements() const
         throw Exceptions::RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
                                     "detector is not two-dimensional");
     const IAxis& x_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis& y_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& y_axis = m_instrument.getDetectorAxis(BornAgain::Y_AXIS_INDEX);
     int nmasked = getInstrument().getDetector()->getNumberOfMaskedChannels();
     return x_axis.getSize()*y_axis.getSize() - nmasked;
 }

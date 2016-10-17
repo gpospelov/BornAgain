@@ -49,9 +49,6 @@ public:
     std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const override;
 
-    //! Returns detector map in given axes units
-    OutputData<double> *createDetectorMap(const Beam& beam, EAxesUnits units_type) const override;
-
     //! returns vector of valid axes units
     std::vector<EAxesUnits> getValidAxesUnits() const override;
 
@@ -69,6 +66,10 @@ protected:
 
     //! Generates an axis with correct name and default binning for given index
     IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
+
+    //! Calculates axis range from original detector axes in given units (mm, rad, etc)
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
+                                    double &amin, double &amax) const override;
 
     //! Returns the name for the axis with given index
     std::string getAxisName(size_t index) const override;

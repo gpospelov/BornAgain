@@ -20,6 +20,9 @@
 #include "Logger.h"
 #include "SimulationElement.h"
 #include "SimulationArea.h"
+#include "BornAgainNamespace.h"
+#include "Units.h"
+#include "Exceptions.h"
 
 IDetector2D::IDetector2D()
     : m_axes()
@@ -110,12 +113,13 @@ std::string IDetector2D::addParametersToExternalPool(
     return new_path;
 }
 
-OutputData<double>* IDetector2D::createDetectorMap(const Beam&, EAxesUnits) const
+OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
 {
-    return nullptr;
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    result->addAxis(*constructAxis(BornAgain::X_AXIS_INDEX, beam, units));
+    result->addAxis(*constructAxis(BornAgain::Y_AXIS_INDEX, beam, units));
+    return result.release();
 }
-
-//!
 
 void IDetector2D::initOutputData(OutputData<double> &data) const {
   data.clear();
@@ -264,6 +268,53 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
     }
     throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
                                           "Error! No axis with given number");
+}
+
+std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,
+                                                  IDetector2D::EAxesUnits units) const
+{
+    double amin(0), amax(0);
+    calculateAxisRange(axis_index, beam, units, amin, amax);
+    return std::unique_ptr<IAxis>(
+        new FixedBinAxis(getAxisName(axis_index), getAxis(axis_index).getSize(), amin, amax));
+}
+
+void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
+        IDetector2D::EAxesUnits units, double &amin, double &amax) const
+{
+    amin = 0.0; amax=0.0;
+
+    if(units == DEFAULT) {
+        amin = getAxis(axis_index).getMin();
+        amax = getAxis(axis_index).getMax();
+
+    }else if(units == NBINS) {
+        amin = 0.0;
+        amax = static_cast<double>(getAxis(axis_index).getSize());
+
+    } else if(units == QYQZ && axis_index == BornAgain::X_AXIS_INDEX) {
+        const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
+        SimulationElement el_left_bottom
+            = getSimulationElement(getGlobalIndex(0, 0), beam);
+        SimulationElement el_right_bottom
+            = getSimulationElement(getGlobalIndex(aX.getSize()-1, 0), beam);
+        amin = el_left_bottom.getQ(0.0, 0.0).y();
+        amax = el_right_bottom.getQ(1.0, 0.0).y();
+
+    } else if(units == QYQZ && axis_index == BornAgain::Y_AXIS_INDEX) {
+        const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
+        const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
+        SimulationElement el_center_bottom
+            = getSimulationElement(getGlobalIndex(aX.getSize()/2, 0), beam);
+        SimulationElement el_center_top
+            = getSimulationElement(getGlobalIndex(aX.getSize()/2, aY.getSize()-1), beam);
+        amin = -el_center_bottom.getQ(0.5, 0.0).z();
+        amax = -el_center_top.getQ(0.5, 1.0).z();
+
+    } else {
+        throw Exceptions::RuntimeErrorException("IDetector2D::calculateAxisRange() -> Error. "
+                                                "Unknown units " +std::to_string(units));
+    }
 }
 
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const

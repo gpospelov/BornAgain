@@ -128,7 +128,7 @@ public:
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
     //! Returns detector map in given axes units
-    virtual OutputData<double>* createDetectorMap(const Beam&, EAxesUnits) const;
+    virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
 
     //! Inits axes of OutputData to match the detector and sets values to zero.
     virtual void initOutputData(OutputData<double> &data) const;
@@ -163,6 +163,14 @@ protected:
 
     //! Generates an axis with correct name and default binning for given index
     virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const=0;
+
+    //! Constructs axis with min,max corresponding to selected units
+    std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
+                                         EAxesUnits units) const;
+
+    //! Calculates axis range from original detector axes in given units (mm, rad, etc)
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
+                                    double &amin, double &amax) const;
 
     //! Returns the name for the axis with given index
     virtual std::string getAxisName(size_t index) const=0;

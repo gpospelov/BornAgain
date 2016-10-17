@@ -514,5 +514,8 @@
 
 
 # after the switch to std::move in SimulationElement
-| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | | 2016-10-14 08:51:54 | scgsun   | Linux x86_64 | 2.7    | 122.8880  | 19.3683    | 2.8577     | 0.7296          | 3.3728          | 0.5629    | 2.3569        | 0.7555            | 3.3065         | 1.0475 | 1.7642      | 1.7467    | 0.8680    |
+| 2016-10-14 08:51:54 | scgsun   | Linux x86_64 | 2.7    | 122.8880  | 19.3683    | 2.8577     | 0.7296          | 3.3728          | 0.5629    | 2.3569        | 0.7555            | 3.3065         | 1.0475 | 1.7642      | 1.7467    | 0.8680    |
+
+# after switch to SimulationAreaIterator
+| 2016-10-17 11:28:02 | scgsun   | Linux x86_64 | 2.7    | 122.3960  | 19.9584    | 3.0328     | 0.7849          | 3.4156          | 0.5976    | 2.3843        | 0.7670            | 3.4331         | 1.0687 | 1.7839      | 1.8056    | 0.8850    |
 

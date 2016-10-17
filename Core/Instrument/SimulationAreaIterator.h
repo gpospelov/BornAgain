@@ -29,8 +29,8 @@ class BA_CORE_API_ SimulationAreaIterator
 public:
     explicit SimulationAreaIterator(const SimulationArea *area, size_t start_at_index);
 
-    int index() const { return m_index; }
-    int elementIndex() const { return m_element_index;}
+    size_t index() const { return m_index; }
+    size_t elementIndex() const { return m_element_index;}
 
     bool operator==(const SimulationAreaIterator &other) const;
     bool operator!=(const SimulationAreaIterator &other) const;
@@ -39,9 +39,10 @@ public:
     SimulationAreaIterator& operator++();
 
     //! postfix increment
-    SimulationAreaIterator& operator++(int);
+    SimulationAreaIterator operator++(int);
 
 private:
+    size_t nextIndex(size_t currentIndex);
     const SimulationArea *m_area;
     size_t m_index;  //!< global index in detector plane defined by its axes
     size_t m_element_index; //!< sequential number for SimulationElementVector
@@ -50,7 +51,6 @@ private:
 inline bool SimulationAreaIterator::operator==(const SimulationAreaIterator &other) const
 {
   return m_area == other.m_area && m_index == other.m_index;
-//          && m_element_index == other.m_element_index;
 }
 
 inline bool SimulationAreaIterator::operator!=(const SimulationAreaIterator &right) const

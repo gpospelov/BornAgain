@@ -34,7 +34,9 @@ public:
     SimulationAreaIterator begin();
     SimulationAreaIterator end();
 
-    const IDetector2D* detector() const { return m_detector; }
+    bool isMasked(size_t index) const;
+
+    size_t totalSize() const;
 
 private:
     const IDetector2D *m_detector;

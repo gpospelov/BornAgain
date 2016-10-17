@@ -19,6 +19,7 @@
 #include "InfinitePlane.h"
 #include "Logger.h"
 #include "SimulationElement.h"
+#include "SimulationArea.h"
 
 IDetector2D::IDetector2D()
     : m_axes()
@@ -197,24 +198,22 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
     Eigen::Matrix2cd analyzer_operator = getAnalyzerOperator();
 
-    if (getDimension()!=2)
-        throw Exceptions::RuntimeErrorException(
-            "IDetector2D::createSimulationElements: detector is not two-dimensional");
     if (!hasMasks())
         m_detector_mask.initMaskData(*this);
     size_t spec_index = getIndexOfSpecular(beam);
-    const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
-    for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
-        if ((*mask_data)[index]) continue;
+
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         SimulationElement sim_element(wavelength, alpha_i, phi_i,
-                                      std::unique_ptr<IPixelMap>(createPixelMap(index)));
+                                      std::unique_ptr<IPixelMap>(createPixelMap(it.index())));
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
-        if (index==spec_index) {
+        if (it.index()==spec_index) {
             sim_element.setSpecular(true);
         }
         result.push_back(sim_element);
     }
+
     return result;
 }
 
@@ -230,15 +229,9 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
 void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,
     const std::vector<SimulationElement> &elements) const
 {
-    size_t element_index(0);
-    for(size_t index=0; index<data.getAllocatedSize(); ++index) {
-        if(this->isMasked(index)) continue;
-        data[index] = elements[element_index++].getIntensity();
-        if(element_index > elements.size()) {
-            throw Exceptions::RuntimeErrorException("IDetector2D::transferResultsToIntensityMap -> "
-                                                    "Error. Number of elements doesn't match data");
-        }
-    }
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        data[it.index()] = elements[it.elementIndex()].getIntensity();
 }
 
 bool IDetector2D::dataShapeMatches(const OutputData<double> *p_data) const

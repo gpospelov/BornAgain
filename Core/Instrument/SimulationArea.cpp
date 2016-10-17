@@ -16,6 +16,7 @@
 #include "SimulationArea.h"
 #include "IDetector2D.h"
 #include "Exceptions.h"
+#include <sstream>
 
 SimulationArea::SimulationArea(const IDetector2D *detector)
     : m_detector(detector)
@@ -23,6 +24,10 @@ SimulationArea::SimulationArea(const IDetector2D *detector)
     if(detector == nullptr)
         throw Exceptions::RuntimeErrorException("SimulationArea::SimulationArea -> Error. "
                                                 "Detector nullptr.");
+
+    if (m_detector->getDimension()!=2)
+        throw Exceptions::RuntimeErrorException(
+            "SimulationArea::SimulationArea: detector is not two-dimensional");
 }
 
 SimulationAreaIterator SimulationArea::begin()
@@ -35,3 +40,19 @@ SimulationAreaIterator SimulationArea::end()
     return SimulationAreaIterator(this, m_detector->getTotalSize());
 }
 
+bool SimulationArea::isMasked(size_t index) const
+{
+    if(index >= m_detector->getTotalSize()) {
+        std::ostringstream message;
+        message << "SimulationArea::isActive() -> Error. Index " << index << " is out of range, "
+             << "totalSize=" << m_detector->getTotalSize();
+        throw Exceptions::RuntimeErrorException(message.str());
+    }
+
+    return m_detector->isMasked(index);
+}
+
+size_t SimulationArea::totalSize() const
+{
+    return m_detector->getTotalSize();
+}

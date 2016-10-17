@@ -205,7 +205,7 @@ Accordingly, the three-dimensional wavefunction can be written as
 \begin{equation}
   \psi(\r) = \psi^-(\r)+\psi^+(\r).
 \end{equation}
-This holds not only for the incident wave,
+All this holds not only for the incident wave,
 but also for a plane wave that is traced back from a detector pixel
 towards the sample.
 \index{Backtracing}%
@@ -348,8 +348,7 @@ which adds to the complexity of GISAS patterns.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\iffalse
-\section{Coherence length [TO REVISE]}\label{Scoherlen}
+\section{Coherence length}\label{Scoherlen}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \index{Coherence length|(}%
@@ -365,26 +364,14 @@ On the other hand, the horizontal integration domain is infinite
 within our formalism,
 which is of course an idealization.
 Obviously, physical integration limits are imposed by the finite
-\E{illuminated sample area}.\footnote
-{For a given instrument setup,
-the incoming beam illuminates a finite area~$A_\ti$ in the sample plane,
-and similarly, scattered radiation is only detected if it originates
-from an area~$A_\tf$ that can be determined
-by tracing back rays from the detector
-to their intersection with the sample plane.
-In a well aligned instrument, $A_\ti$ and $A_\tf$ are nearly the same.
-Let $A_\text{beam}\coloneqq A_\ti\cap A_\tf$.
-In a well aligned experiment,
-$A_\text{beam}$ is equal to or a subset of $A_\text{sample}$
-(if $A_\ti$ or $A_\tf$ are larger than $A_\text{sample}$,
-collimation slits should be narrowed
-lest useless rays cause avoidable noise).
-Anyhow, the horizontal integration domain
-is limited to the \E{illuminated sample area} (``beam footprint'')
-$A_{xy}\coloneqq A_\text{sample}\cap A_\text{beam}$.}
 \index{Sample area}%
+\E{illuminated sample area}.\footnote
+{We assume a well aligned instrument,
+for which the beam footprint and the backtraced detector footprint
 \index{Illumination!beam footprint on sample}%
 \index{Beam footprint}%
+\index{Backtracing!beam footprint}%
+agree within reasonable accuracy.}
 Another limitation comes from the finite \E{coherence length}
 of the instrumental setup,
 which usually is much shorter than the sample width and length
@@ -489,4 +476,3 @@ in $y$ or $z$ direction.\footnote
 % TODO: more about implementation !
 
 \index{Coherence length|)}%
-%\fi

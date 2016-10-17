@@ -72,8 +72,8 @@ The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \E{quantum-mechanical sign convention}.
 \index{Wave propagation|seealso {Sign convention}}%
-\index{Sign convention!wave propagation}%
 \index{Conventions|see {Sign convention}}%
+\index{Sign convention!wave propagation|(}%
 For electromagnetic radiation
 usage is less uniform.
 While most optics textbooks
@@ -88,13 +88,9 @@ and therefore we need to leave the Schrödinger equation~\cref{ESchrodi} intact.
 Thence:
 
 \Note
-{\indent In this manual, and in the program code of \BornAgain,
-the quantum-mechanical sign convention~\cref{Estationarywave} is chosen.
-This has implications for the sign of the imaginary part of the
-refractive index,
-\index{Index of refraction|see {Refractive index}}
-\index{Refractive index!sign convention}%
-as explained in \Cref{Sabsorption}.}
+{\indent In this manual, and in the program code of BornAgain,
+the quantum-mechanical sign convention~\cref{Estationarywave} is chosen.}
+\index{Sign convention!wave propagation|)}%
 
 Inserting \cref{Estationarywave} in \cref{ESchrodi},
 we obtain the stationary Schrödinger equation
@@ -173,6 +169,8 @@ The macroscopic Schrödinger equation~\cref{EmacrSchrodi} becomes
 \end{equation}
 In a homogeneous medium with $\delta v=0$,
 \cref{ESchrodi3} reduces to the Helmholtz wave equation.
+\index{Helmholtz wave equation}%
+\index{Wave propagation!Helmholtz equation}%
 This motivates us to rewrite~\cref{ESchrodi3} as
 \Emph{
 \begin{equation}\label{ESchrodiK}
@@ -199,7 +197,6 @@ and the \E{refractive index}
   n\coloneqq \sqrt{1-\frac{4\pi}{K_0^2}\overline{v}}.
 \end{equation}
 \index{Absorption|(}%
-\index{Refractive index!sign convention}%
 The complex refractive index of a given material
 shall be written as
 \begin{equation}\label{Endb1}
@@ -213,7 +210,8 @@ A nonzero~$\beta$ describes absorption and leads to a damping of propagating wav
 {The plus sign in front of~$i\beta$ is a consequence of
 the quantum-mechanical sign convention;
 in the X-ray crystallography convention it would be a minus sign.
-\index{Sign convention}}
+\index{Refractive index!sign convention}%
+\index{Sign convention!refractive index}}
 
 The Schrödinger equation \cref{ESchrodiK}
 is the starting point for the analysis of small-angle scattering (SAS) experiments
@@ -244,6 +242,7 @@ in order to account for refraction and reflection in layered samples.
 To describe an elastic scattering experiment,
 we need to solve the Schrödinger equation~\cref{ESchrodiK}
 under the asymptotic boundary condition
+\index{Boundary conditions!elastic scattering}%
 \begin{equation}\label{Escabouco}
   \psi(\r)
   \simeq \psi_\ti(\r) + f(\vartheta,\varphi)\frac{\e^{iKr}}{4\pi r}
@@ -251,6 +250,7 @@ under the asymptotic boundary condition
 \end{equation}
 \nomenclature[1ψ034 2i000 2r040]{$\psi_\ti(\r)$}{Incident wavefunction}%
 \nomenclature[2i000]{i}{Subscript ``incident''}%
+\index{Incident radiation!Born approximation}%
 where $\psi_\ti(\r)$ is the incident wave
 as prepared by the experimental apparatus,
 and the second term on the right-hand side is
@@ -283,6 +283,7 @@ We start with the homogeneous equation
 \end{equation}
 which is solved by plane waves and superpositions thereof.
 It applies in particular to the incident wave~$\psi_\ti$.
+\index{Incident radiation!plane wave}%
 
 For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
@@ -413,6 +414,7 @@ we will in the following rather use its complex conjugate
 $\bra \psi_\ti|\delta v|\psi_\tf\ket = \bra \psi_\tf|\delta v|\psi_\ti\ket^*$.
 Under the standard assumption
 that the incident radiation is a plane wave
+\index{Incident radiation!plane wave}%
 \begin{equation}\label{EPsi0Plane}
   \psi_\ti(\r)=\e^{i \k_\ti \r}
 \end{equation}
@@ -473,6 +475,7 @@ The ratio of the scattered flux hitting an infinitesimal detector area
 $r^2\d\Omega$ to the incident flux is expressed as a
 \E{differential cross section}
 \index{Cross section}%
+\index{Incident radiation!flux|(}%
 \begin{equation}\label{Exsectiondef}
   \frac{\d\sigma}{\d\Omega}
   \coloneqq  \frac{r^2 J(\r)}{J_\ti}.
@@ -485,6 +488,8 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 % below in \cref{SdetImg}.
 
 With \cref{EPsi0Plane}, the incident flux is
+\index{Incident radiation!flux|)}%
+\index{Flux!Born approximation}%
 \begin{equation}\label{EJi}
   \v{J}_\ti = \k_\ti.
 \end{equation}
@@ -497,6 +502,10 @@ With \cref{EsandwichC}, the scattered flux at the detector is
 From \cref{Exsectiondef} we obtain
 the generic differential cross section
 of elastic scattering in first order Born approximation,
+\index{Born approximation!elastic scattering cross section}%
+\index{Cross section!elastic scattering in Born approximation}%
+\index{Elastic scattering!cross section in Born approximation}%
+\index{Scattering!elastic cross section in Born approximation}%
 \Emph{
 \begin{equation}\label{Exsection}
   \frac{\d\sigma}{\d\Omega}
@@ -507,10 +516,12 @@ As we shall see below,
 it holds not only for plane waves governed
 by the vacuum Helmholtz equation~\cref{EHelmholtzHomog},
 but also for distorted waves.
+\index{Distorted-wave Born approximation!elastic cross section}%
 
 In the plane-wave case \cref{Echiq} considered here,
 the differential cross section is just the squared modulus
-of the Fourier transform of the perturbative potential,
+of the Fourier transform of the bound scattering length density,
+\index{Scattering length density!Fourier transform}%
 \begin{equation}\label{Ecross1}
   \frac{\d\sigma}{\d\Omega}
   = {\left| v(\q) \right|}^2.

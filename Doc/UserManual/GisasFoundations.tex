@@ -21,14 +21,13 @@
 
 Wave propagation through thin layers requires
 a special formalism that accounts for
-refraction and reflection (\cref{Sfac21}).
-Radiation impinging under grazing incidence
-has long trajectories so that absorption is
-often considerable (\cref{Sabsorption}).
+refraction and reflection (\cref{Swave21}).
 The so obtained distorted plane waves are the base
 for the reformulation of Born's scattering theory
 in the distorted wave Born approximation (\cref{SDWBA}).
 % TODO RESTORE XREF We also discuss the limits of coherent superposition (\cref{Scoherlen}),
+
+\index{GISAS|see{Grazing-incidence small angle scattering}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[Wave propagation in $2+1$ dimensions]{Wave propagation in $\v{2+1}$ dimensions}\label{Swave21}
@@ -38,6 +37,13 @@ in the distorted wave Born approximation (\cref{SDWBA}).
   \centering
     \includegraphics[clip=, width=120mm]{fig/drawing/setup_multilayer.jpg}
   \caption[Conventional GISAS scattering geometry.]{Geometric conventions
+\index{Conventions!GISAS geometry}%
+\index{Grazing-incidence small angle scattering!geometric conventions}%
+\index{Coordinate system!GISAS geometry}%
+\index{Glancing angle}%
+\index{Incident radiation!angles}%
+\index{Scattering angles}%
+\index{Geometry!conventions for GISAS}
   in GISAS scattering comprise a Cartesian coordinate system
   and a set of angles.
   The coordinate system has a $z$ axis normal to the sample plane,
@@ -84,13 +90,16 @@ and the \E{sample normal} ($z$) as \E{vertical},
 \index{Conventions|see {Horizontal and Vertical}}%
 even if this does not correspond to the actual experimental geometry.\footnote
 {In many reflectometers,
+\index{Reflectometer!vertical vs horizontal}%
+\index{Scattering plane!vertical vs horizontal}%
  the scattering plane and the sample normal are horizontal in laboratory space.}
 The $z$ axis points upwards, hence out of the sample towards the
 vacuum (or air) halfspace where the incident radiation comes from,
 as illustrated in \cref{fig:expgeom}.
 % TODO: add figure
 
-Vertical modulations of the refractive index $n(z)$
+Vertical variations of the refractive index $n(z)$
+\index{Refractive index!vertical variation}%
 cause refraction and reflection of an incident plane wave.
 \index{Glancing angle}%
 \index{Refraction}%
@@ -107,7 +116,7 @@ from the onset, in the wave propagation equation.
 Therefore we have to modify our derivation of
 the scattering cross section~\cref{Exsection} at an early stage,
 namely at the decomposition~\cref{Edecompose_v} of the scattering length density.
-\index{Scattering length density}%
+\index{Scattering length density!vertical variation}%
 We replace~\cref{Edecompose_v} by
 \begin{equation}\label{Edecompose_vz}
   v(\r) = \overline{v}(z) + \delta v(\r),
@@ -115,53 +124,97 @@ We replace~\cref{Edecompose_v} by
 allowing for vertical variations of~$\overline{v}$.
 Equations~\cref{Edispersion} and \cref{EnRefrIndx} must be modified
 to allow for a $z$~dependence of the refractive index~$n(z)$ and the wavenumber~$K(z)$.
+\index{Wave propagation!in multilayer|(}
 The homogeneous wave equation~\cref{EHelmholtzHomog} takes the form
-\begin{equation}\label{EHelmholtzGradedHomog}
+\begin{equation}\label{EWaveZ}
   \left\{\Nabla^2+K(z)^2\right\}\psi(\r) = 0.
 \end{equation}
-It is solved for the horizontal coordinate~$\r_\parallel$
-by the factorization ansatz
-\Emph{
+To formulate boundary conditions,
+\index{Boundary conditions!wave propagation through multilayer}%
+we request $K(z)=\text{const}$ in the semi-infinite half spaces above and below the sample.
+To keep the following exposition as simple as possible,
+we specialize to the case that the incident plane wave comes from above the sample
+(BornAgain also supports incidence from below).
+This downward travelling plane wave shall be denoted
+\index{Incident radiation!plane wave}%
+\index{Incident radiation!GISAS}%
+\begin{equation}\label{Epsiminus}
+  \psi^{-}(\r) = \e^{i\k_\parallel\r_\parallel-ik_{\perp}z},
+\end{equation}
+\nomenclature[0$\parallel$]{$\parallel$}{Parallel to the $xy$ sample plane}%
+\nomenclature[0$\perp$]{$\perp$}{Normal to the $xy$ sample plane}%
+\nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
+\nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
+with subscripts $\parallel$ and~$\perp$ refering to the sample $xy$ plane.
+The wave vector components $\k_\parallel$ and $k_{\perp}$ are related to
+the wavenumber~$K(z)=\sqrt{\k_\parallel^2+k_{\perp}^2}$,
+\index{Wavenumber!constant in GISAS}%
+and to the glancing angle
+\index{Glancing angle}%
+$\alpha=\arctan(k_{\perp}/k_\parallel)$.
+
+When the incident wave hits a sample with nontrivial refractive index,
+it is wholly or partly reflected.
+Therefore, the full the solution of~\cref{EWaveZ} in the half space above the sample is
+\begin{equation}
+  \psi(\r) = \e^{i\k_\parallel\r_\parallel-ik_{\perp} z} +
+      R\, \e^{i\k_\parallel\r_\parallel+ik_{\perp} z}
+  \text{ for }z\gg0,
+\end{equation}
+with a complex reflection coefficient~$R$.
+\index{Reflection coefficient}%
+The reflected flux is given by the re\-flect\-an\-ce $|R|^2$.
+\index{Reflectance}%
+\index{Flux!reflected}%
+By choice of our boundary conditions,
+there is no upward travelling wave in the half space below the sample.
+In this region, the solution of~\cref{EWaveZ} is simply
+\begin{equation}
+  \psi(\r) = T\, \e^{i\k_\parallel\r_\parallel+ik_{\perp} z}
+  \text{ for }z\ll0,
+\end{equation}
+with a complex transmission coefficient~$T$.
+The transmitted flux is given by the transmittance $|T|^2$.
+\index{Transmittance}%
+\index{Flux!transmitted}%
+
+Within the sample, the wave equation~\cref{EWaveZ}
+is solved by the factorization ansatz
 \begin{equation}\label{Ekpar}
 \psi(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
-\end{equation}\vspace*{-10pt}
-}
-\nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
+\end{equation}
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
-The horizontal wavevector $\k_\parallel$ remains constant
-as initialized by the incoming beam.
-The factorization ansatz \cref{Ekpar} leaves us some freedom
-how to deal with an imaginary part of~$n$.
-We \E{choose} that horizontal wavevectors~$\k_\parallel$
-shall always be real.
-The damping then appears in the vertical wavefunction~$\phi(z)$
-that is governed by the one-dimensional wave equation
-\Emph{
+Continuity at the interfaces above and below the sample
+requires that the horizontal wavevector $\k_\parallel$ is constant.
+The vertical wavefunction~$\phi(z)$
+is governed by the one-dimensional wave equation
 \begin{equation}\label{Ewavez}
 \left\{\partial_z^2 + K(z)^2 - k_\parallel^2 \right\} \phi(z) = 0.
-\end{equation}\vspace*{-10pt}
-}
-When an incident plane wave,
-travelling downwards with
-$\phi(z)=\e^{-ik_\perp z}$,
-\nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
-impinges on a sample with $n(z)\ne 1$,
-then the wave is partly reflected ($-k_\perp$ reversed into $+k_\perp$)
-and partly refracted
-($k_\perp$ changing while $\k_\parallel$ stays constant,
-resulting in a change of glancing angle).
-Similarly, reflection and refraction occur
-whereever $n(z)$~varies.
-As a result, throughout the vertical wavefunction $\phi(z)$ is composed of a
-downward travelling component $\phi^-(z)$
-and an upward travelling component $\phi^+(z)$.
-The only exception is in the homogeneous substrate at the bottom of the sample,
-where there is no incoming upward travelling wave.
-
+\end{equation}
 The discussion how to solve~\Cref{Ewavez} shall be postponed to~\Cref{sec:Multilayers}.
 For the following derivation of the distorted wave Born approximation,
-it is sufficient to assume that somehow the wave equation has been solved,
-and upward and downward travelling wave functions $\psi^\pm(\r)$ have been obtained.
+it is sufficient to assume that the wave equation~\cref{EWaveZ}
+has somehow been solved.
+
+Furthermore, at some point we shall use the fact that $\phi(z)$,
+as solution of a differential equation of second degree,
+can be written as superposition
+of a downward travelling wave $\phi^-(z)$
+and an upward travelling wave $\phi^+(z)$.
+Accordingly, the three-dimensional wavefunction can be written as
+\begin{equation}
+  \psi(\r) = \psi^-(\r)+\psi^+(\r).
+\end{equation}
+This holds not only for the incident wave,
+but also for a plane wave that is traced back from a detector pixel
+towards the sample.
+\index{Backtracing}%
+\index{Scattered wave!backtracing}%
+\index{Detector!backtracing}%
+Accordingly,
+the distorted-wave Born approximation will result in a cross section~\cref{Edwba}
+that involves two incident and two final partial wavefunctions.
+\index{Wave propagation!in multilayer|)}
 
 %===============================================================================
 \section{Distorted-wave Born approximation (DWBA)}\label{SDWBA}
@@ -199,7 +252,7 @@ To carry out this idea, we need to determine the Green function~$G$.
 In \cref{SBornExpans} we did so quite specifically
 for a homogeneous material.
 Computing~$G$ in closed form for a more generic wave equation
-like~\cref{EHelmholtzGradedHomog} is far more difficult,
+like~\cref{EWaveZ} is far more difficult,
 if not outright impossible.
 Fortunately, this computation is not necessary,
 and would be but wasted effort:
@@ -244,7 +297,7 @@ we obtain
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
 which agrees literally with \cref{EGreenFar},
-though $\psi_\tf$ is not any longer a plane wave.
+though $\psi_\tf$ is no longer a plane wave.
 Accordingly,
 the scattered far-field is still given by \cref{EsandwichC},
 and the differential cross section by \cref{Exsection}.

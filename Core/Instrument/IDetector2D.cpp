@@ -113,6 +113,27 @@ std::string IDetector2D::addParametersToExternalPool(
     return new_path;
 }
 
+OutputData<double> *IDetector2D::getDetectorIntensity(const OutputData<double> &data,
+                                                      const Beam& beam,
+                                                      IDetector2D::EAxesUnits units_type) const
+{
+    std::unique_ptr<OutputData<double> > result (data.clone());
+    applyDetectorResolution(result.get());
+
+    if(units_type == IDetector2D::DEFAULT) {
+        return result.release();
+    }
+
+    OutputData<double>* detectorMap = createDetectorMap(beam, units_type);
+    if(!detectorMap)
+        throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
+                                    "Can't create detector map.");
+    detectorMap->setRawDataVector(result->getRawDataVector());
+    return detectorMap;
+
+
+}
+
 OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);

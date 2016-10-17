@@ -127,6 +127,12 @@ public:
     virtual std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
+    //! Returns clone of the intensity map with detector resolution applied,
+    //! axes of map will be in requested units
+    OutputData<double>* getDetectorIntensity(
+        const OutputData<double>& data, const Beam& beam,
+        IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+
     //! Returns detector map in given axes units
     virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
 

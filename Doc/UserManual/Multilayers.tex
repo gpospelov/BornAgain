@@ -338,98 +338,6 @@ Since $\k_\parallel=\text{const}$,
  all four wavevectors $\q^u$ have the same horizontal component;
 they differ only in their vertical component~$q^u_\perp$.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Special cases: geometric optics, evanescent wave}\label{SSpecial}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In the absence of absorption and above the critical angle,
-wavevectors are real
-so that we can describe the beam in terms of a glancing angle
-\begin{equation}\label{Edef_alpha}
-  \alpha_{\il}\coloneqq \arctan(k_{\perp \il}/k_{\plll}).
-\end{equation}
-Equivalently,
-\begin{equation}
-  k_{\plll}=K n_\il \cos\alpha_{\il}.
-\end{equation}
-Since $k_{\plll}$ is constant across layers,
-we have
-\begin{equation}\label{ESnell}
-  n_\il \cos\alpha_{\il} = \text{the same for all }\il,
-\end{equation}
-which is Snell's refraction law.
-\index{Refraction!Snell's law}
-\index{Snell's law}
-
-In general, however, the vertical wavenumber $k_{\perp}$,
-determined by $K_l$ and $k_\parallel$ as per~\cref{Epsiminus},
-can become imaginary (total reflection conditions) or complex (absorbing layer).
-\index{Wavevector!complex}%
-This makes the above geometric interpretation untenable
-so that we have to fully rely on an algebraic formalism.
-We write
-\begin{equation}\label{Edecompkperp}
-  k_\perp \eqqcolon k_\perp' + i k_\perp''
-\end{equation}
-for the decomposition into a real and an imaginary part.
-Accordingly, full wavevectors have the decomposition
-\begin{equation}
-  \k^\pm
-  \eqqcolon {\k^\pm}' + i{\k^\pm}''
-  = \k_\plll \pm (k_\perp' + i k_\perp'')\v{\hat z}.
-\end{equation}
-Per \cref{Endb1}, we have $\beta\ge0$ and $\delta<1$,
-from which it follows that $k_\perp''$ always has the same sign as $k_\perp'$.
-
-After these preparations,
-we can compute the flux~\cref{EdefJ}:
-\begin{equation}
-  \begin{array}{@{}l@{\;}l}
-  \v{J}(\r)
-  =&   \left|A^-\right|^2 \e^{+2k_\perp'' (z-z_l)} {\k^-}'
-    + \left|A^+\right|^2 \e^{-2k_\perp''(z-z_l)} {\k^+}'
-\\[2ex]
-  &+ \left[
-      A^-{A^+}^* \e^{-2ik_\perp'(z-z_l)} {\left(\k_\plll-ik_\perp''\v{\hat z}\right)}
-    + \text{c.c.}
-    \right].
-  \end{array}
-\end{equation}
-The first two terms describe the exponential intensity decrease
-due to absorption, while
-the oscillatory term in square brackets
-is responsible for waveguide effects in layers with finite thickness.
-
-The flux can also be written in terms of the one-dimensional wavefunctions $\phi^{\pm}(z)$:
-\begin{equation}
-  \begin{array}{@{}l@{\;}l}
-  \v{J}(\r) =& \left|\phi^+(z)+\phi^-(z)\right|^2\cdot\k_\plll \\
-  &+ \left[ \left|\phi^+(z)\right|^2 k_\perp' - \left|\phi^-(z)\right|^2 k_\perp' +
-  2\Im(\phi^-(z){\phi^+}^*(z))k_\perp'' \right]\cdot \v{\hat z}.
-  \end{array}
-\end{equation}
-The first term denotes the horizontal component
-of the flux and can be seen to consist of the product
-of the particle density at position $z$ and the wavector $\k_\plll$.
-The $z$-component consists of the difference
-between the up- and downward travelling wave components
-and an extra term that encodes the interference between them.
-
-In the special case of a purely imaginary~$k_{\perp \il}$,
-the flux becomes:
-\begin{equation}
-  \v{J}(\r) = \left| \psi \right|^2 \k_\plll + 2 \Im (A^-{A^+}^*) k_\perp''\v{\hat z}.
-\end{equation}
-This flux consists of two clearly distinct parts: an \E{evanescent wave},
-\index{Evanescent wave}%
-travelling horizontally
- and a vertical component that is independent of the $z$ position.
-The vertical component is a necessary
- degree of freedom to fulfill the boundary conditions at the layer's top and bottom interfaces.
-In the case of a semi-infinite layer, the vertical component becomes zero and
- all incoming radiation at the top of the layer undergoes \E{total reflection}.
-\index{Total reflection}%
-
 %===============================================================================
 \section{Wave propagation across layers}\label{Sacrolay}
 %===============================================================================
@@ -610,6 +518,98 @@ The following cases are treated seperately:
     representing a slight absorption. However, this should be inconsequential because the index of refraction
     of non-vacuum layer always contains an absorptive component.
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Special cases: geometric optics, evanescent wave}\label{SSpecial}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In the absence of absorption and above the critical angle,
+wavevectors are real
+so that we can describe the beam in terms of a glancing angle
+\begin{equation}\label{Edef_alpha}
+  \alpha_{\il}\coloneqq \arctan(k_{\perp \il}/k_{\plll}).
+\end{equation}
+Equivalently,
+\begin{equation}
+  k_{\plll}=K n_\il \cos\alpha_{\il}.
+\end{equation}
+Since $k_{\plll}$ is constant across layers,
+we have
+\begin{equation}\label{ESnell}
+  n_\il \cos\alpha_{\il} = \text{the same for all }\il,
+\end{equation}
+which is Snell's refraction law.
+\index{Refraction!Snell's law}
+\index{Snell's law}
+
+In general, however, the vertical wavenumber $k_{\perp}$,
+determined by $K_l$ and $k_\parallel$ as per~\cref{Epsiminus},
+can become imaginary (total reflection conditions) or complex (absorbing layer).
+\index{Wavevector!complex}%
+This makes the above geometric interpretation untenable
+so that we have to fully rely on an algebraic formalism.
+We write
+\begin{equation}\label{Edecompkperp}
+  k_\perp \eqqcolon k_\perp' + i k_\perp''
+\end{equation}
+for the decomposition into a real and an imaginary part.
+Accordingly, full wavevectors have the decomposition
+\begin{equation}
+  \k^\pm
+  \eqqcolon {\k^\pm}' + i{\k^\pm}''
+  = \k_\plll \pm (k_\perp' + i k_\perp'')\v{\hat z}.
+\end{equation}
+Per \cref{Endb1}, we have $\beta\ge0$ and $\delta<1$,
+from which it follows that $k_\perp''$ always has the same sign as $k_\perp'$.
+
+After these preparations,
+we can compute the flux~\cref{EdefJ}:
+\begin{equation}
+  \begin{array}{@{}l@{\;}l}
+  \v{J}(\r)
+  =&   \left|A^-\right|^2 \e^{+2k_\perp'' (z-z_l)} {\k^-}'
+    + \left|A^+\right|^2 \e^{-2k_\perp''(z-z_l)} {\k^+}'
+\\[2ex]
+  &+ \left[
+      A^-{A^+}^* \e^{-2ik_\perp'(z-z_l)} {\left(\k_\plll-ik_\perp''\v{\hat z}\right)}
+    + \text{c.c.}
+    \right].
+  \end{array}
+\end{equation}
+The first two terms describe the exponential intensity decrease
+due to absorption, while
+the oscillatory term in square brackets
+is responsible for waveguide effects in layers with finite thickness.
+
+The flux can also be written in terms of the one-dimensional wavefunctions $\phi^{\pm}(z)$:
+\begin{equation}
+  \begin{array}{@{}l@{\;}l}
+  \v{J}(\r) =& \left|\phi^+(z)+\phi^-(z)\right|^2\cdot\k_\plll \\
+  &+ \left[ \left|\phi^+(z)\right|^2 k_\perp' - \left|\phi^-(z)\right|^2 k_\perp' +
+  2\Im(\phi^-(z){\phi^+}^*(z))k_\perp'' \right]\cdot \v{\hat z}.
+  \end{array}
+\end{equation}
+The first term denotes the horizontal component
+of the flux and can be seen to consist of the product
+of the particle density at position $z$ and the wavector $\k_\plll$.
+The $z$-component consists of the difference
+between the up- and downward travelling wave components
+and an extra term that encodes the interference between them.
+
+In the special case of a purely imaginary~$k_{\perp \il}$,
+the flux becomes:
+\begin{equation}
+  \v{J}(\r) = \left| \psi \right|^2 \k_\plll + 2 \Im (A^-{A^+}^*) k_\perp''\v{\hat z}.
+\end{equation}
+This flux consists of two clearly distinct parts: an \E{evanescent wave},
+\index{Evanescent wave}%
+travelling horizontally
+ and a vertical component that is independent of the $z$ position.
+The vertical component is a necessary
+ degree of freedom to fulfill the boundary conditions at the layer's top and bottom interfaces.
+In the case of a semi-infinite layer, the vertical component becomes zero and
+ all incoming radiation at the top of the layer undergoes \E{total reflection}.
+\index{Total reflection}%
 
 
 %===============================================================================

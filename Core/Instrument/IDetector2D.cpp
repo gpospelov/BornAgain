@@ -117,21 +117,20 @@ OutputData<double> *IDetector2D::getDetectorIntensity(const OutputData<double> &
                                                       const Beam& beam,
                                                       IDetector2D::EAxesUnits units_type) const
 {
-    std::unique_ptr<OutputData<double> > result (data.clone());
+    std::unique_ptr<OutputData<double>> result(data.clone());
     applyDetectorResolution(result.get());
 
-    if(units_type == IDetector2D::DEFAULT) {
+    if(units_type == IDetector2D::DEFAULT && regionOfInterest() == nullptr)
         return result.release();
-    }
 
-    OutputData<double>* detectorMap = createDetectorMap(beam, units_type);
+    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
     if(!detectorMap)
         throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
                                     "Can't create detector map.");
-    detectorMap->setRawDataVector(result->getRawDataVector());
-    return detectorMap;
 
+    setDataToDetectorMap(*detectorMap.get(), *result.get());
 
+    return detectorMap.release();
 }
 
 OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
@@ -296,8 +295,35 @@ std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam 
 {
     double amin(0), amax(0);
     calculateAxisRange(axis_index, beam, units, amin, amax);
-    return std::unique_ptr<IAxis>(
-        new FixedBinAxis(getAxisName(axis_index), getAxis(axis_index).getSize(), amin, amax));
+
+    std::unique_ptr<IAxis> result(new FixedBinAxis(getAxisName(axis_index),
+                                                   getAxis(axis_index).getSize(), amin, amax));
+
+    if(m_region_of_interest) {
+        return clipAxisToRoi(axis_index, *result.get());
+    } else {
+        return result;
+    }
+}
+
+std::unique_ptr<IAxis> IDetector2D::clipAxisToRoi(size_t axis_index, const IAxis &axis) const
+{
+    if(!m_region_of_interest)
+        throw Exceptions::RuntimeErrorException("IDetector2D::clipAxisToRoi() -> Error. ROI is "
+                                                "absent");
+
+    size_t nbin1(0), nbin2(axis.getSize()-1);
+    if(axis_index == BornAgain::X_AXIS_INDEX) {
+        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXlow());
+        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXup());
+
+    }else if(axis_index == BornAgain::Y_AXIS_INDEX) {
+        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYlow());
+        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYup());
+    }
+
+    return std::unique_ptr<IAxis>(new FixedBinAxis(axis.getName(), nbin2-nbin1+1,
+                                    axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
 }
 
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
@@ -393,6 +419,33 @@ Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(
     result(1, 0) = diff*(x + im * y) / 2.0;
     result(1, 1) = (sum - diff*z) / 2.0;
     return result;
+}
+
+void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
+                                       const OutputData<double> &data) const
+{
+    if(detectorMap.getAllocatedSize() == data.getAllocatedSize()) {
+        detectorMap.setRawDataVector(data.getRawDataVector());
+        return;
+    }
+
+    if(const Geometry::Rectangle *roi = regionOfInterest()) {
+        size_t roi_x = getAxis(BornAgain::X_AXIS_INDEX).findClosestIndex(roi->getXlow());
+        size_t roi_y = getAxis(BornAgain::Y_AXIS_INDEX).findClosestIndex(roi->getYlow());
+        size_t index0 = getGlobalIndex(roi_x, roi_y);
+        const IAxis &yAxisOfDetector = getAxis(BornAgain::Y_AXIS_INDEX);
+
+        const IAxis &xAxisOfMap = *detectorMap.getAxis(BornAgain::X_AXIS_INDEX);
+        const IAxis &yAxisOfMap = *detectorMap.getAxis(BornAgain::Y_AXIS_INDEX);
+        for(size_t ix=0; ix<xAxisOfMap.getSize(); ++ix) {
+            for(size_t iy=0; iy<yAxisOfMap.getSize(); ++iy) {
+                size_t mapIndex = iy + ix*yAxisOfMap.getSize();
+                size_t globalIndex = index0 + iy + ix*yAxisOfDetector.getSize();
+                detectorMap[mapIndex] = data[globalIndex];
+            }
+        }
+    }
+
 }
 
 void IDetector2D::addAxis(const IAxis& axis)

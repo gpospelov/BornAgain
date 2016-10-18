@@ -174,6 +174,8 @@ protected:
     std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
                                          EAxesUnits units) const;
 
+    std::unique_ptr<IAxis> clipAxisToRoi(size_t axis_index, const IAxis &axis) const;
+
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
                                     double &amin, double &amax) const;
@@ -215,6 +217,9 @@ private:
     Eigen::Matrix2cd calculateAnalyzerOperator(
         const kvector_t direction, double efficiency, double total_transmission = 1.0) const;
 #endif
+
+    void setDataToDetectorMap(OutputData<double> &detectorMap,
+                              const OutputData<double> &data) const;
 
     std::unique_ptr<Geometry::Rectangle> m_region_of_interest;
 };

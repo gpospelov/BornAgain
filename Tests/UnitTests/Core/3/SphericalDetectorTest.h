@@ -224,6 +224,75 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndData)
     EXPECT_EQ(data.getAxis(1)->getMax(), 4.0);
 }
 
+//! Create detector map in the presence of region of interest.
+
+TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
+{
+    SphericalDetector detector(6, -1.0*Units::deg, 5.0*Units::deg,
+                               4, 0.0*Units::deg, 4.0*Units::deg);
+
+    detector.setRegionOfInterest(0.1*Units::deg, 1.1*Units::deg, 3.0*Units::deg, 2.9*Units::deg);
+    Beam beam;
+    beam.setCentralK(1.0*Units::angstrom, 0.4*Units::deg, 0.0);
+
+    // Creating map in default units, which are radians and checking that axes are clipped
+    // to region of interest.
+    std::unique_ptr<OutputData<double>> data(
+                detector.createDetectorMap(beam, IDetector2D::DEFAULT));
+    EXPECT_EQ(data->getAxis(0)->getSize(), 4);
+    EXPECT_EQ(data->getAxis(0)->getMin(), 0.0*Units::deg);
+    EXPECT_EQ(data->getAxis(0)->getMax(), 4.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1)->getSize(), 2);
+    EXPECT_EQ(data->getAxis(1)->getMin(), 1.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1)->getMax(), 3.0*Units::deg);
+
+    // Creating map with axes in degrees, and checking that it is clipped to the region of interest
+    data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
+    EXPECT_EQ(data->getAxis(0)->getSize(), 4);
+    EXPECT_EQ(data->getAxis(0)->getMin(), 0.0);
+    EXPECT_EQ(data->getAxis(0)->getMax(), 4.0);
+    EXPECT_EQ(data->getAxis(1)->getSize(), 2);
+    EXPECT_EQ(data->getAxis(1)->getMin(), 1.0);
+    EXPECT_EQ(data->getAxis(1)->getMax(), 3.0);
+}
+
+//! Checking IDetector2D::getIntensityData in the presence of region of interest.
+
+TEST_F(SphericalDetectorTest, getIntensityData)
+{
+    SphericalDetector detector(6, -1.0*Units::deg, 5.0*Units::deg,
+                               4, 0.0*Units::deg, 4.0*Units::deg);
+    detector.setRegionOfInterest(0.1*Units::deg, 1.1*Units::deg, 3.0*Units::deg, 2.9*Units::deg);
+    Beam beam;
+    beam.setCentralK(1.0*Units::angstrom, 0.4*Units::deg, 0.0);
+
+    // Initializing data (no region of interest involved yet) and filling with amplitudes
+    OutputData<double> intensityData;
+    detector.initOutputData(intensityData);
+    EXPECT_EQ(intensityData.getAllocatedSize(), 6*4);
+    for(size_t i=0; i<intensityData.getAllocatedSize(); ++i) {
+        intensityData[i] = static_cast<double>(i);
+    }
+    EXPECT_EQ(intensityData[intensityData.getAllocatedSize()-1], 23.0);
+
+    // Getting detectorIntensity and checking that amplitudes are correct and it is clipped to
+    // region of interest.
+
+    std::unique_ptr<OutputData<double>> detectorIntensity(
+                detector.getDetectorIntensity(intensityData, beam, IDetector2D::DEGREES));
+
+    EXPECT_EQ(detectorIntensity->getAllocatedSize(), 8);
+    EXPECT_EQ((*detectorIntensity)[0], 5.0);
+    EXPECT_EQ((*detectorIntensity)[7], 18.0);
+    EXPECT_EQ(detectorIntensity->getAxis(0)->getSize(), 4);
+    EXPECT_EQ(detectorIntensity->getAxis(0)->getMin(), 0.0);
+    EXPECT_EQ(detectorIntensity->getAxis(0)->getMax(), 4.0);
+    EXPECT_EQ(detectorIntensity->getAxis(1)->getSize(), 2);
+    EXPECT_EQ(detectorIntensity->getAxis(1)->getMin(), 1.0);
+    EXPECT_EQ(detectorIntensity->getAxis(1)->getMax(), 3.0);
+}
+
+
 
 TEST_F(SphericalDetectorTest, DetectorCopying)
 {

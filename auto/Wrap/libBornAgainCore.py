@@ -15172,6 +15172,8 @@ class Simulation(ICloneable, IParameterized):
 
         void Simulation::setTerminalProgressMonitor()
 
+        Initializes a progress monitor that prints to stdout. 
+
         """
         return _libBornAgainCore.Simulation_setTerminalProgressMonitor(self)
 
@@ -17306,6 +17308,16 @@ class ILayout(ICompositeSample):
         return _libBornAgainCore.ILayout_getInterferenceFunction(self)
 
 
+    def cloneInterferenceFunction(self):
+        """
+        cloneInterferenceFunction(ILayout self) -> IInterferenceFunction
+
+        virtual IInterferenceFunction* ILayout::cloneInterferenceFunction() const =0
+
+        """
+        return _libBornAgainCore.ILayout_cloneInterferenceFunction(self)
+
+
     def getTotalParticleSurfaceDensity(self):
         """
         getTotalParticleSurfaceDensity(ILayout self) -> double
@@ -17549,9 +17561,7 @@ class IParticle(IAbstractParticle):
     """
 
 
-    Interface for a real particle (one that has position/rotation and form factor).
-
-    Inherited by  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal.
+    Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
 
     C++ includes: IParticle.h
 
@@ -23018,7 +23028,7 @@ class ParticleDistribution(IAbstractParticle):
     """
 
 
-    A particle with a form factor and refractive index  ParticleDistribution.
+    A particle type that is a parametric distribution of  IParticle's.
 
     C++ includes: ParticleDistribution.h
 
@@ -23317,7 +23327,7 @@ class ParticleLayout(ILayout):
 
         double ParticleLayout::getAbundanceOfParticle(size_t index) const
 
-        Get abundance fraction of particle with index. 
+        Returns the abundance fraction of particle at given index. 
 
         """
         return _libBornAgainCore.ParticleLayout_getAbundanceOfParticle(self, index)
@@ -23327,12 +23337,24 @@ class ParticleLayout(ILayout):
         """
         getInterferenceFunction(ParticleLayout self) -> IInterferenceFunction
 
-        const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const final
+        const IInterferenceFunction* ParticleLayout::getInterferenceFunction() const final
 
-        Returns interference functions. 
+        Returns interference function. 
 
         """
         return _libBornAgainCore.ParticleLayout_getInterferenceFunction(self)
+
+
+    def cloneInterferenceFunction(self):
+        """
+        cloneInterferenceFunction(ParticleLayout self) -> IInterferenceFunction
+
+        IInterferenceFunction * ParticleLayout::cloneInterferenceFunction() const final
+
+        Returns a clone, or an  InterferenceFunctionNone. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_cloneInterferenceFunction(self)
 
 
     def addInterferenceFunction(self, interference_function):

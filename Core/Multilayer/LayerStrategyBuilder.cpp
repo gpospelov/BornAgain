@@ -15,7 +15,7 @@
 
 #include "LayerStrategyBuilder.h"
 #include "Exceptions.h"
-#include "FormFactorInfo.h"
+#include "FormFactorWrapper.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
 #include "ILayout.h"
@@ -25,45 +25,54 @@
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "DecouplingApproximationStrategy.h"
-#include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer& decorated_layer, const MultiLayer& sample,
-    const SimulationOptions& sim_params, size_t layout_index)
-    : m_sim_params{sim_params}, mP_specular_info{nullptr}, m_layout_index{layout_index}
+    const Layer& decorated_layer, bool polarized,
+    const SimulationOptions& sim_params, size_t layout_index,
+    const LayerSpecularInfo* specular_info)
+    : m_sim_params {sim_params}
+    , mP_specular_info {nullptr}
+    , m_layout_index {layout_index}
+    , m_polarized {polarized}
 {
     mP_layer.reset(decorated_layer.clone());
-    mP_sample.reset(sample.clone());
     assert(mP_layer->getNumberOfLayouts() > 0);
+    assert(specular_info);
+    mP_specular_info.reset(specular_info->clone());
 }
 
-LayerStrategyBuilder::~LayerStrategyBuilder() {}
+LayerStrategyBuilder::~LayerStrategyBuilder()
+{} // needs class definitions => don't move to .h
 
-void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo& specular_info)
+//! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
+IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 {
-    mP_specular_info.reset(specular_info.clone());
-}
+    assert(mP_layer->getNumberOfLayouts()>0);
+    SafePointerVector<class FormFactorWrapper> ff_wrappers = collectFormFactorWrappers();
+    std::unique_ptr<class IInterferenceFunction> P_interference_function{
+        mP_layer->getLayout(m_layout_index)->cloneInterferenceFunction()};
 
-IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
-{
-    collectFormFactorInfos();
-    collectInterferenceFunction();
-    IInterferenceFunctionStrategy* p_result(nullptr);
+    IInterferenceFunctionStrategy* p_result = nullptr;
     switch (mP_layer->getLayout(m_layout_index)->getApproximation())
     {
     case ILayout::DA:
-        p_result = new DecouplingApproximationStrategy(m_sim_params);
+        if (m_polarized)
+            p_result = new DecouplingApproximationStrategy2(m_sim_params);
+        else
+            p_result = new DecouplingApproximationStrategy1(m_sim_params);
         break;
     case ILayout::SSCA:
     {
-        if (!mP_interference_function)
-            throw Exceptions::ClassInitializationException(
-                    "SSCA requires an interference function");
-        double kappa = mP_interference_function->getKappa();
+        double kappa = P_interference_function->getKappa();
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
-                    "SSCA requires a strictly positive coupling value");
-        p_result = new SizeSpacingCorrelationApproximationStrategy(m_sim_params, kappa);
+                "SSCA requires a nontrivial interference function "
+                "with a strictly positive coupling coefficient kappa");
+        if (m_polarized)
+            p_result = new SSCApproximationStrategy2(m_sim_params, kappa);
+        else
+            p_result = new SSCApproximationStrategy1(m_sim_params, kappa);
         break;
     }
     default:
@@ -73,62 +82,45 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy()
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(m_ff_infos, *mP_interference_function);
-    p_result->setSpecularInfo(*mP_specular_info);
+    p_result->init(ff_wrappers, *P_interference_function, *mP_specular_info);
     return p_result;
 }
 
-bool LayerStrategyBuilder::requiresMatrixFFs() const
-{
-    return mP_sample->containsMagneticMaterial();
-}
-
-void LayerStrategyBuilder::collectFormFactorInfos()
+//! Sets m_formfactor_wrappers, the list of weighted form factors.
+SafePointerVector<class FormFactorWrapper> LayerStrategyBuilder::collectFormFactorWrappers() const
 {
     assert(mP_layer->getNumberOfLayouts()>0);
-    m_ff_infos.clear();
+    SafePointerVector<class FormFactorWrapper> result;
     const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial* p_layer_material = mP_layer->getMaterial();
     double total_abundance = mP_layer->getTotalAbundance();
-    if (total_abundance<=0.0)
+    if (total_abundance<=0.0) // TODO: why this can happen? why not throw error?
         total_abundance = 1.0;
     for (const IParticle* particle: p_layout->getParticles()) {
-        FormFactorInfo* p_ff_info;
-        p_ff_info = createFormFactorInfo(particle, p_layer_material);
-        p_ff_info->m_abundance /= total_abundance;
-        m_ff_infos.push_back(p_ff_info);
+        FormFactorWrapper* p_weighted_ff;
+        p_weighted_ff = createFormFactorWrapper(particle, p_layer_material);
+        p_weighted_ff->m_abundance /= total_abundance;
+        result.push_back(p_weighted_ff);
     }
-    return;
+    return result;
 }
 
-void LayerStrategyBuilder::collectInterferenceFunction()
-{
-    assert(mP_layer->getNumberOfLayouts()>0);
-    const IInterferenceFunction* p_iff =
-        mP_layer->getLayout(m_layout_index)->getInterferenceFunction();
-    if (p_iff)
-        mP_interference_function.reset(p_iff->clone());
-    else
-        mP_interference_function.reset( new InterferenceFunctionNone() );
-}
-
-FormFactorInfo* LayerStrategyBuilder::createFormFactorInfo(
+//! Returns a new formfactor wrapper for a given particle in given ambient material.
+FormFactorWrapper* LayerStrategyBuilder::createFormFactorWrapper(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
-    const std::unique_ptr<IParticle> P_particle_clone(particle->clone());
+    const std::unique_ptr<IParticle> P_particle_clone{ particle->clone() };
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
-    // formfactor
-    const std::unique_ptr<IFormFactor> P_ff_particle(P_particle_clone->createFormFactor());
+    const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
     IFormFactor* p_ff_framework;
-    size_t n_layers = mP_layer->getNumberOfLayers();
-    if (n_layers>1) {
-        if (requiresMatrixFFs())
+    if (mP_layer->getNumberOfLayers()>1) {
+        if (m_polarized)
             p_ff_framework = new FormFactorDWBAPol(*P_ff_particle);
         else
             p_ff_framework = new FormFactorDWBA(*P_ff_particle);
     } else
         p_ff_framework = P_ff_particle->clone();
 
-    return new FormFactorInfo(p_ff_framework, particle->getAbundance());
+    return new FormFactorWrapper(p_ff_framework, particle->getAbundance());
 }

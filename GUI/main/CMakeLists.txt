@@ -8,7 +8,7 @@ set(executable_name BornAgain)
 # -----------------------------------------------------------------------------
 include_directories(
     ${BornAgainGUI_INCLUDE_DIRS}
-    ${ManhattanStyle_INCLUDE_DIRS}
+    ${QtAddOn_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/Core/Basics
 )

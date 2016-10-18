@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "IInterferenceFunction.h"
+#include "InterferenceFunctionNone.h"
 #include "ISampleVisitor.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
@@ -30,7 +31,7 @@ ParticleLayout::ParticleLayout()
     setName(BornAgain::ParticleLayoutType);
 }
 
-ParticleLayout::~ParticleLayout() {} // needs member class declarations => don't move to .h
+ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle)
     : mP_interference_function {nullptr}
@@ -131,10 +132,10 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
 //! Returns particle info
 const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
 {
-    if (index<m_particles.size())
-        return m_particles[index];
-    throw Exceptions::OutOfBoundsException(
-        "ParticleLayout::getParticle() -> Error! Not so many particles in this decoration.");
+    if (index>=m_particles.size())
+        throw Exceptions::OutOfBoundsException(
+            "ParticleLayout::getParticle() -> Error! Not so many particles in this decoration.");
+    return m_particles[index];
 }
 
 //! Returns information on all particles (type and abundance)
@@ -146,9 +147,8 @@ SafePointerVector<const IParticle> ParticleLayout::getParticles() const
         if (const auto* p_part_distr = dynamic_cast<const ParticleDistribution*>(particle)) {
             std::vector<const IParticle*> generated_particles;
             p_part_distr->generateParticles(generated_particles);
-            for (size_t i = 0; i < generated_particles.size(); ++i) {
-                particle_vector.push_back(generated_particles[i]);
-            }
+            for (const IParticle* particle: generated_particles)
+                particle_vector.push_back(particle);
         } else if (const auto* p_iparticle = dynamic_cast<const IParticle*>(particle)) {
             particle_vector.push_back(p_iparticle->clone());
         }
@@ -156,16 +156,19 @@ SafePointerVector<const IParticle> ParticleLayout::getParticles() const
     return particle_vector;
 }
 
-//! Get abundance fraction of particle with index
+//! Returns the abundance fraction of particle at given index.
 double ParticleLayout::getAbundanceOfParticle(size_t index) const
 {
     return m_particles[index]->getAbundance();
 }
 
-//! Returns interference functions
-const IInterferenceFunction* ParticleLayout::getInterferenceFunction() const
+//! Returns a clone, or an InterferenceFunctionNone.
+IInterferenceFunction* ParticleLayout::cloneInterferenceFunction() const
 {
-    return mP_interference_function.get();
+    if( const IInterferenceFunction* p_iff = mP_interference_function.get() )
+        return p_iff->clone();
+    else
+        return new InterferenceFunctionNone();
 }
 
 //! Adds interference functions

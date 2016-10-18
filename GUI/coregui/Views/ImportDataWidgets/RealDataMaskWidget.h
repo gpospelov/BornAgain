@@ -49,5 +49,5 @@ private:
     IntensityDataItem *m_currentItem;
 };
 
-#endif
+#endif // REALDATAMASKWIDGET_H
 

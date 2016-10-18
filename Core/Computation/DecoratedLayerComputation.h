@@ -16,13 +16,12 @@
 #ifndef DECORATEDLAYERCOMPUTATION_H
 #define DECORATEDLAYERCOMPUTATION_H
 
-#include "ThreadedComputation.h"
+#include "InnerCounter.h"
 #include <vector>
 #include <memory>
 
 using std::size_t;
 
-class IInterferenceFunctionStrategy;
 class Layer;
 class LayerSpecularInfo;
 class MultiLayer;
@@ -34,18 +33,18 @@ class SimulationOptions;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class DecoratedLayerComputation final : public ThreadedComputation
+class DecoratedLayerComputation
 {
 public:
     DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
 
+    void setSpecularInfo(const LayerSpecularInfo& specular_info);
+
     void eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
-              const MultiLayer& sample,
               const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it);
-    void setSpecularInfo(const LayerSpecularInfo& specular_info);
+              const std::vector<SimulationElement>::iterator& end_it) const;
 
 private:
     const Layer* mp_layer;

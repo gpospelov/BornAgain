@@ -454,21 +454,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -961,10 +961,12 @@ C++ includes: DecoratedLayerComputation.h
 %feature("docstring")  DecoratedLayerComputation::DecoratedLayerComputation "DecoratedLayerComputation::DecoratedLayerComputation(const Layer *p_layer, size_t layout_index=0)
 ";
 
-%feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const MultiLayer &sample, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+%feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
 ";
 
-%feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
+%feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const
+
+Computes scattering intensity for given range of simulation elements. 
 ";
 
 
@@ -976,15 +978,30 @@ Strategy for implementing decoupling approximation.
 C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params)
+%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy()
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::~DecouplingApproximationStrategy "DecouplingApproximationStrategy::~DecouplingApproximationStrategy() final
+%feature("docstring")  DecouplingApproximationStrategy::~DecouplingApproximationStrategy "virtual DecouplingApproximationStrategy::~DecouplingApproximationStrategy()
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::init "void DecouplingApproximationStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff) final
 
-Initializes the object with form factors and interference functions. 
+// File: classDecouplingApproximationStrategy1.xml
+%feature("docstring") DecouplingApproximationStrategy1 "";
+
+%feature("docstring")  DecouplingApproximationStrategy1::DecouplingApproximationStrategy1 "DecouplingApproximationStrategy1::DecouplingApproximationStrategy1(SimulationOptions sim_params)
+";
+
+%feature("docstring")  DecouplingApproximationStrategy1::~DecouplingApproximationStrategy1 "DecouplingApproximationStrategy1::~DecouplingApproximationStrategy1() final
+";
+
+
+// File: classDecouplingApproximationStrategy2.xml
+%feature("docstring") DecouplingApproximationStrategy2 "";
+
+%feature("docstring")  DecouplingApproximationStrategy2::DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::DecouplingApproximationStrategy2(SimulationOptions sim_params)
+";
+
+%feature("docstring")  DecouplingApproximationStrategy2::~DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::~DecouplingApproximationStrategy2() final
 ";
 
 
@@ -3264,24 +3281,6 @@ Calls the  ISampleVisitor's visit method.
 ";
 
 
-// File: classFormFactorInfo.xml
-%feature("docstring") FormFactorInfo "
-
-Information about particle position and abundance.
-
-C++ includes: FormFactorInfo.h
-";
-
-%feature("docstring")  FormFactorInfo::FormFactorInfo "FormFactorInfo::FormFactorInfo(IFormFactor *ff, double abundance)
-";
-
-%feature("docstring")  FormFactorInfo::~FormFactorInfo "FormFactorInfo::~FormFactorInfo()
-";
-
-%feature("docstring")  FormFactorInfo::clone "FormFactorInfo * FormFactorInfo::clone() const 
-";
-
-
 // File: classFormFactorLongBoxGauss.xml
 %feature("docstring") FormFactorLongBoxGauss "
 
@@ -4325,6 +4324,24 @@ Returns scattering amplitude for complex wavevectors ki, kf.
 %feature("docstring")  FormFactorWeighted::evaluatePol "Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
 
 Calculates and returns a polarized form factor calculation in DWBA. 
+";
+
+
+// File: classFormFactorWrapper.xml
+%feature("docstring") FormFactorWrapper "
+
+Information about particle form factor and abundance.
+
+C++ includes: FormFactorWrapper.h
+";
+
+%feature("docstring")  FormFactorWrapper::FormFactorWrapper "FormFactorWrapper::FormFactorWrapper(IFormFactor *ff, double abundance)
+";
+
+%feature("docstring")  FormFactorWrapper::~FormFactorWrapper "FormFactorWrapper::~FormFactorWrapper()
+";
+
+%feature("docstring")  FormFactorWrapper::clone "FormFactorWrapper * FormFactorWrapper::clone() const 
 ";
 
 
@@ -6503,9 +6520,14 @@ If defined by this interference function's parameters, returns the particle dens
 // File: classIInterferenceFunctionStrategy.xml
 %feature("docstring") IInterferenceFunctionStrategy "
 
-Algorithm to apply one of interference function strategies (LMA, SCCA etc).
+Virtual base class of the interference function strategy classes  DecouplingApproximationStrategy,  SSCApproximationStrategy. These classes provide 'evaluate' functions that compute the scattering intensity from a decorated layer, taking into account a specific inter-particle interference function.
+
+Child classes are instantiated in  LayerStrategyBuilder::createStrategy, which is called from  DecoratedLayerComputation::eval.
 
 C++ includes: IInterferenceFunctionStrategy.h
+";
+
+%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions &sim_params)
@@ -6514,14 +6536,9 @@ C++ includes: IInterferenceFunctionStrategy.h
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
+%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorWrapper > &weighted_formfactors, const IInterferenceFunction &iff, const LayerSpecularInfo &specular_info)
 
 Initializes the object with form factors and interference functions. 
-";
-
-%feature("docstring")  IInterferenceFunctionStrategy::setSpecularInfo "void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &specular_info)
-
-Provides the R,T coefficients information. 
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const SimulationElement &sim_element) const
@@ -6529,9 +6546,21 @@ Provides the R,T coefficients information.
 Calculates the intensity for scalar particles/interactions. 
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::evaluatePol "double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement &sim_element) const
 
-Calculates the intensity in the presence of polarization of beam and detector. 
+// File: classIInterferenceFunctionStrategy1.xml
+%feature("docstring") IInterferenceFunctionStrategy1 "";
+
+%feature("docstring")  IInterferenceFunctionStrategy1::IInterferenceFunctionStrategy1 "IInterferenceFunctionStrategy1::IInterferenceFunctionStrategy1(const SimulationOptions &sim_params)
+";
+
+
+// File: classIInterferenceFunctionStrategy2.xml
+%feature("docstring") IInterferenceFunctionStrategy2 "";
+
+%feature("docstring")  IInterferenceFunctionStrategy2::IInterferenceFunctionStrategy2 "IInterferenceFunctionStrategy2::IInterferenceFunctionStrategy2(const SimulationOptions &sim_params)
+";
+
+%feature("docstring")  IInterferenceFunctionStrategy2::init "void IInterferenceFunctionStrategy2::init(const SafePointerVector< FormFactorWrapper > &weighted_formfactors, const IInterferenceFunction &iff, const LayerSpecularInfo &specular_info)
 ";
 
 
@@ -6649,6 +6678,9 @@ Get total abundance of all particles.
 %feature("docstring")  ILayout::getInterferenceFunction "virtual const IInterferenceFunction* ILayout::getInterferenceFunction() const =0
 
 Returns interference function. 
+";
+
+%feature("docstring")  ILayout::cloneInterferenceFunction "virtual IInterferenceFunction* ILayout::cloneInterferenceFunction() const =0
 ";
 
 %feature("docstring")  ILayout::getTotalParticleSurfaceDensity "virtual double ILayout::getTotalParticleSurfaceDensity() const =0
@@ -7574,9 +7606,7 @@ Copies local parameters to external_pool, under name \"path/<name>copy_number/\"
 // File: classIParticle.xml
 %feature("docstring") IParticle "
 
-Interface for a real particle (one that has position/rotation and form factor).
-
-Inherited by  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal.
+Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
 
 C++ includes: IParticle.h
 ";
@@ -8743,20 +8773,15 @@ Methods to generate a simulation strategy for  DecoratedLayerComputation.
 C++ includes: LayerStrategyBuilder.h
 ";
 
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, const MultiLayer &sample, const SimulationOptions &sim_params, size_t layout_index)
+%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, bool polarized, const SimulationOptions &sim_params, size_t layout_index, const LayerSpecularInfo *specular_info)
 ";
 
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
 ";
 
-%feature("docstring")  LayerStrategyBuilder::setRTInfo "void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo &specular_info)
+%feature("docstring")  LayerStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayerStrategyBuilder::createStrategy() const
 
-Sets reflection/transmission map for DWBA calculation. 
-";
-
-%feature("docstring")  LayerStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayerStrategyBuilder::createStrategy()
-
-Creates a strategy object which is able to calculate the scattering for fixed k_f. 
+Returns a new strategy object that is able to calculate the scattering for fixed k_f. 
 ";
 
 
@@ -10371,7 +10396,7 @@ Returns the shell particle.
 // File: classParticleDistribution.xml
 %feature("docstring") ParticleDistribution "
 
-A particle with a form factor and refractive index  ParticleDistribution.
+A particle type that is a parametric distribution of  IParticle's.
 
 C++ includes: ParticleDistribution.h
 ";
@@ -10556,12 +10581,17 @@ Returns information on all particles (type and abundance) and generates new part
 
 %feature("docstring")  ParticleLayout::getAbundanceOfParticle "double ParticleLayout::getAbundanceOfParticle(size_t index) const
 
-Get abundance fraction of particle with index. 
+Returns the abundance fraction of particle at given index. 
 ";
 
-%feature("docstring")  ParticleLayout::getInterferenceFunction "const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const final
+%feature("docstring")  ParticleLayout::getInterferenceFunction "const IInterferenceFunction* ParticleLayout::getInterferenceFunction() const final
 
-Returns interference functions. 
+Returns interference function. 
+";
+
+%feature("docstring")  ParticleLayout::cloneInterferenceFunction "IInterferenceFunction * ParticleLayout::cloneInterferenceFunction() const final
+
+Returns a clone, or an  InterferenceFunctionNone. 
 ";
 
 %feature("docstring")  ParticleLayout::addInterferenceFunction "void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
@@ -10789,9 +10819,12 @@ C++ includes: ProgressHandler.h
 %feature("docstring")  ProgressHandler::setExpectedNTicks "void ProgressHandler::setExpectedNTicks(size_t n)
 ";
 
-%feature("docstring")  ProgressHandler::incrementDone "bool ProgressHandler::incrementDone(size_t ticks_done)
+%feature("docstring")  ProgressHandler::incrementDone "void ProgressHandler::incrementDone(size_t ticks_done)
 
-Increments number of completed computation steps (ticks). Performs callback (method m_inform) to inform the subscriber about the state of the computation and to obtain as return value a flag that indicates whether to continue the computation. Returns the value of that flag to request the owner to terminate. 
+Increments number of completed computation steps (ticks). Performs callback (method m_inform) to inform the subscriber about the state of the computation and to obtain as return value a flag that indicates whether to continue the computation. 
+";
+
+%feature("docstring")  ProgressHandler::alive "bool ProgressHandler::alive()
 ";
 
 
@@ -11260,6 +11293,8 @@ C++ includes: RoughMultiLayerComputation.h
 ";
 
 %feature("docstring")  RoughMultiLayerComputation::eval "void RoughMultiLayerComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+
+Calls evaluate on range of simulation elements; returns true if computation shall continue. 
 ";
 
 %feature("docstring")  RoughMultiLayerComputation::setSpecularInfo "void RoughMultiLayerComputation::setSpecularInfo(size_t i_layer, const LayerSpecularInfo &specular_info)
@@ -11775,6 +11810,8 @@ Adds parameters defined in this class the to external pool.
 ";
 
 %feature("docstring")  Simulation::setTerminalProgressMonitor "void Simulation::setTerminalProgressMonitor()
+
+Initializes a progress monitor that prints to stdout. 
 ";
 
 
@@ -11865,14 +11902,10 @@ Gets the polarization analyzer operator (in spin basis along z-axis)
 %feature("docstring")  SimulationElement::getSolidAngle "double SimulationElement::getSolidAngle() const 
 ";
 
-%feature("docstring")  SimulationElement::getAlpha "double SimulationElement::getAlpha(double x, double y) const
-
-get alpha for given detector pixel coordinates 
+%feature("docstring")  SimulationElement::getAlpha "double SimulationElement::getAlpha(double x, double y) const 
 ";
 
-%feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const
-
-get phi for given detector pixel coordinates 
+%feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const 
 ";
 
 %feature("docstring")  SimulationElement::containsSpecularWavevector "bool SimulationElement::containsSpecularWavevector() const
@@ -12008,26 +12041,6 @@ C++ includes: SizeDistributionModelsBuilder.h
 ";
 
 %feature("docstring")  SizeDistributionSSCAModelBuilder::buildSample "MultiLayer * SizeDistributionSSCAModelBuilder::buildSample() const 
-";
-
-
-// File: classSizeSpacingCorrelationApproximationStrategy.xml
-%feature("docstring") SizeSpacingCorrelationApproximationStrategy "
-
-Strategy which implements size spacing correlation approximation.
-
-C++ includes: SizeSpacingCorrelationApproximationStrategy.h
-";
-
-%feature("docstring")  SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy "SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(SimulationOptions sim_params, double kappa)
-";
-
-%feature("docstring")  SizeSpacingCorrelationApproximationStrategy::~SizeSpacingCorrelationApproximationStrategy "SizeSpacingCorrelationApproximationStrategy::~SizeSpacingCorrelationApproximationStrategy() final
-";
-
-%feature("docstring")  SizeSpacingCorrelationApproximationStrategy::init "void SizeSpacingCorrelationApproximationStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff) final
-
-Initializes the object with form factors and interference functions. 
 ";
 
 
@@ -12372,6 +12385,41 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
+// File: classSSCApproximationStrategy.xml
+%feature("docstring") SSCApproximationStrategy "
+
+Strategy which implements size spacing correlation approximation.
+
+C++ includes: SSCApproximationStrategy.h
+";
+
+%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(double kappa)
+";
+
+%feature("docstring")  SSCApproximationStrategy::~SSCApproximationStrategy "virtual SSCApproximationStrategy::~SSCApproximationStrategy()
+";
+
+
+// File: classSSCApproximationStrategy1.xml
+%feature("docstring") SSCApproximationStrategy1 "";
+
+%feature("docstring")  SSCApproximationStrategy1::SSCApproximationStrategy1 "SSCApproximationStrategy1::SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
+";
+
+%feature("docstring")  SSCApproximationStrategy1::~SSCApproximationStrategy1 "SSCApproximationStrategy1::~SSCApproximationStrategy1() final
+";
+
+
+// File: classSSCApproximationStrategy2.xml
+%feature("docstring") SSCApproximationStrategy2 "";
+
+%feature("docstring")  SSCApproximationStrategy2::SSCApproximationStrategy2 "SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
+";
+
+%feature("docstring")  SSCApproximationStrategy2::~SSCApproximationStrategy2 "SSCApproximationStrategy2::~SSCApproximationStrategy2() final
+";
+
+
 // File: classStringUsageMap.xml
 %feature("docstring") StringUsageMap "
 
@@ -12407,6 +12455,18 @@ Returns current string.
 
 // File: classUtils_1_1System.xml
 %feature("docstring") Utils::System "";
+
+
+// File: classThreadedComputation.xml
+%feature("docstring") ThreadedComputation "
+
+Base class for threaded computation; keeps count of progress.
+
+C++ includes: ThreadedComputation.h
+";
+
+%feature("docstring")  ThreadedComputation::ThreadedComputation "ThreadedComputation::ThreadedComputation()
+";
 
 
 // File: structThreadInfo.xml
@@ -12742,13 +12802,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D271.xml
+// File: namespace_0D273.xml
 
 
 // File: namespace_0D303.xml
 
 
-// File: namespace_0D424.xml
+// File: namespace_0D426.xml
 
 
 // File: namespace_0D55.xml
@@ -13212,10 +13272,10 @@ enables exception throw in the case of NaN, Inf
 ";
 
 
-// File: FormFactorInfo_8cpp.xml
+// File: FormFactorWrapper_8cpp.xml
 
 
-// File: FormFactorInfo_8h.xml
+// File: FormFactorWrapper_8h.xml
 
 
 // File: FTDecayFunctions_8cpp.xml
@@ -13426,6 +13486,12 @@ Set all element intensities to given value.
 
 
 // File: SpecularComputation_8h.xml
+
+
+// File: ThreadedComputation_8cpp.xml
+
+
+// File: ThreadedComputation_8h.xml
 
 
 // File: FormFactorDecoratorDebyeWaller_8cpp.xml
@@ -14169,12 +14235,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: ScalarSpecularInfoMap_8h.xml
 
 
-// File: SizeSpacingCorrelationApproximationStrategy_8cpp.xml
-
-
-// File: SizeSpacingCorrelationApproximationStrategy_8h.xml
-
-
 // File: SpecularMagnetic_8cpp.xml
 %feature("docstring")  I "static complex_t I(0., 1.)
 ";
@@ -14192,6 +14252,12 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: SpecularMatrix_8h.xml
+
+
+// File: SSCApproximationStrategy_8cpp.xml
+
+
+// File: SSCApproximationStrategy_8h.xml
 
 
 // File: DistributionHandler_8cpp.xml

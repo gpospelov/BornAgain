@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/FormFactorInfo.h
-//! @brief     Defines class FormFactorInfo.
+//! @file      Core/Aggregate/FormFactorWrapper.h
+//! @brief     Defines class FormFactorWrapper.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,24 +13,24 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORINFO_H
-#define FORMFACTORINFO_H
+#ifndef FORMFACTORWRAPPER_H
+#define FORMFACTORWRAPPER_H
 
 #include "ICloneable.h"
 class IFormFactor;
 
-//! Information about particle position and abundance.
+//! Information about particle form factor and abundance.
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ FormFactorInfo : public ICloneable
+class BA_CORE_API_ FormFactorWrapper : public ICloneable
 {
 public:
-    FormFactorInfo(IFormFactor* ff, double abundance)
+    FormFactorWrapper(IFormFactor* ff, double abundance)
         : mp_ff(ff), m_abundance(abundance) {}
-    virtual ~FormFactorInfo();
-    virtual FormFactorInfo* clone() const;
+    virtual ~FormFactorWrapper();
+    virtual FormFactorWrapper* clone() const;
     IFormFactor* mp_ff;
     double m_abundance;
 };
 
-#endif // FORMFACTORINFO_H
+#endif // FORMFACTORWRAPPER_H

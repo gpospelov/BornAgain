@@ -20,7 +20,7 @@
 #include "SimulationOptions.h"
 #include <memory>
 
-class FormFactorInfo;
+class FormFactorWrapper;
 class IInterferenceFunctionStrategy;
 class IMaterial;
 class IParticle;
@@ -35,41 +35,25 @@ class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
-        const Layer& decorated_layer, const MultiLayer& sample,
-        const SimulationOptions& sim_params, size_t layout_index);
+        const Layer& decorated_layer, bool polarized,
+        const SimulationOptions& sim_params, size_t layout_index,
+        const LayerSpecularInfo* specular_info);
 
-    virtual ~LayerStrategyBuilder();
+    ~LayerStrategyBuilder();
 
-    //! Sets reflection/transmission map for DWBA calculation
-    void setRTInfo(const LayerSpecularInfo& specular_info);
+    IInterferenceFunctionStrategy* createStrategy() const;
 
-    //! Creates a strategy object which is able to calculate the scattering for fixed k_f
-    virtual IInterferenceFunctionStrategy* createStrategy();
+private:
+    SafePointerVector<class FormFactorWrapper> collectFormFactorWrappers() const;
+    FormFactorWrapper* createFormFactorWrapper(
+        const IParticle* particle, const IMaterial* p_ambient_material) const;
 
-protected:
     std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer
     std::unique_ptr<class MultiLayer> mP_sample;               //!< sample
     SimulationOptions m_sim_params;                            //!< simulation parameters
     std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
-    size_t m_layout_index; //!< index for the layout to be used in the layer
-
-private:
-    //! determines if the form factors need to be matrix valued
-    bool requiresMatrixFFs() const;
-    //! collect the formfactor info of all particles in the decoration and decorate
-    //! these for DWBA when needed
-    void collectFormFactorInfos();
-    //! collect the interference function
-    void collectInterferenceFunction();
-    //! Creates formfactor info for single particle
-    FormFactorInfo* createFormFactorInfo(
-        const IParticle* particle, const IMaterial* p_ambient_material) const;
-
-    //! Info about form factors
-    SafePointerVector<class FormFactorInfo> m_ff_infos;
-
-    //! Interference function
-    std::unique_ptr<class IInterferenceFunction> mP_interference_function;
+    size_t m_layout_index;                      //!< index for the layout to be used in the layer
+    bool m_polarized;                           //!< polarized computation required?
 };
 
 #endif // LAYERSTRATEGYBUILDER_H

@@ -36,7 +36,7 @@ needed for grazing-incidence small-angle scattering (\Cref{SBornApprox}).
 
 Finally, we discuss how the physical scattering law
 (the double differential cross section as function of the scattering vector~$\q$)
-relates to the experimental detector image (Sec.\ref{SdetImg}).
+relates to the experimental detector image (\Cref{SdetImg}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,6 +44,8 @@ relates to the experimental detector image (Sec.\ref{SdetImg}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Wave propagation!neutrons|(}%
 \index{Neutrons!wave propagation|(}%
+
+\def\Vmac{\tilde{V}}
 
 \index{Schrodinger@Schrödinger equation!microscopic}%
 The scalar wavefunction $\psi(\r,t)$
@@ -70,8 +72,8 @@ The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \E{quantum-mechanical sign convention}.
 \index{Wave propagation|seealso {Sign convention}}%
-\index{Sign convention!wave propagation}%
 \index{Conventions|see {Sign convention}}%
+\index{Sign convention!wave propagation|(}%
 For electromagnetic radiation
 usage is less uniform.
 While most optics textbooks
@@ -86,13 +88,9 @@ and therefore we need to leave the Schrödinger equation~\cref{ESchrodi} intact.
 Thence:
 
 \Note
-{\indent In this manual, and in the program code of \BornAgain,
-the quantum-mechanical sign convention~\cref{Estationarywave} is chosen.
-This has implications for the sign of the imaginary part of the
-refractive index,
-\index{Index of refraction|see {Refractive index}}
-\index{Refractive index!sign convention}%
-as explained in \Cref{Sabsorption}.}
+{\indent In this manual, and in the program code of BornAgain,
+the quantum-mechanical sign convention~\cref{Estationarywave} is chosen.}
+\index{Sign convention!wave propagation|)}%
 
 Inserting \cref{Estationarywave} in \cref{ESchrodi},
 we obtain the stationary Schrödinger equation
@@ -137,58 +135,94 @@ The macroscopic field equation
 has still the form of a stationary Schrödinger equation,
 \index{Schrodinger@Schrödinger equation!macroscopic}%
 \begin{equation}\label{EmacrSchrodi}
-  \left\{-\frac{\hbar^2}{2m}\Nabla^2+v(\r)-\hbar\omega\right\} \psi(\r) = 0,
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+\Vmac(\r)-\hbar\omega\right\} \psi(\r) = 0,
 \end{equation}
 \nomenclature[1ψ030 2r040 2t020]{$\psi(\r,t)$}{Coherent wavefunction}%
-\nomenclature[2v020 2r040]{$v(\r)$}{Macrosopic optical potential}%
+\nomenclature[2v131 2r040]{$\Vmac(\r)$}{Macroscopic optical potential}%
 where $\psi$ now stands for the \E{coherent wavefunction}
 \index{Coherent wavefunction}%
 \index{Wave propagation!coherent}%
 obtained by superposition of
 incident and forward scattered states,
-and $v(\r)$ is the \E{macroscopic optical potential}.
+and $\Vmac(\r)$ is the \E{macroscopic optical potential}.
 \index{Optical potential!macroscopic}%
 This potential is weak, and slowly varying compared to atomic length scales.
-It can be rewritten in a number of ways,
-especially in terms of a
+In the following it shall be expressed through the
 \E{bound scattering length density}
+\index{Bound scattering length|see{Scattering length}}%
 \index{Scattering length density}%
-$\rho_s(\r)$ \cite[eq.\ 2.8.37]{Sea89},
-\nomenclature[1ρ 034 2s000 2r040]{$\rho_s(\r)$}{Scattering length density}%
+\cite[eq.\ 2.8.37]{Sea89},
+\nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density}%
 \begin{equation}
-  v(\r)=\frac{2\pi \hbar^2}{m}\rho_s(\r),
+  v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r),
 \end{equation}
-or of a \E{refractive index}~$n(\r)$
-\nomenclature[2n020 2r040]{$n(\r)$}{Refractive index}%
-\index{Refractive index} % !vs scattering length density}%
-\index{Index of refraction|see {Refractive index}}%
-defined by
-\begin{equation}\label{EnRefrIndx}
-  n(\r)^2\coloneqq 1-\frac{4\pi}{K^2}\rho_s(\r) = 1 -\frac{2m}{\hbar^2 K^2}v(\r).
+which shall be decomposed into a constant average and a fluctuating part,
+\begin{equation}\label{Edecompose_v}
+  v(\r) = \overline{v} + \delta v(\r).
 \end{equation}
-In the latter expression,
-we introduced the \E{vacuum wavenumber}~$K$,
-\nomenclature[2k120]{$K$}{Vacuum wavenumber, corresponding to the frequency~$\omega$}%
-which is connected with the frequency~$\omega$ through the
-\E{dispersion relation}
-\begin{equation}
-  \frac{\hbar^2 K^2}{2m} = \hbar\omega.
+\nomenclature[1d030 2v230 2r040]{$\delta v(\r)$}{Fluctuating part of the scattering length density}%
+\nomenclature[2v021]{$\overline{v}$}{Average scattering length density}%
+The macroscopic Schrödinger equation~\cref{EmacrSchrodi} becomes
+\begin{equation}\label{ESchrodi3}
+  \left\{ \Nabla^2 + \frac{2m\omega}{\hbar} - 4\pi\overline{v} \right\}\psi(\r)
+  = 4\pi\delta v(\r)\psi(\r).
 \end{equation}
-Since we only consider stationary solutions~\cref{Estationarywave},
-$\omega$ will not appear any further in our derivations.
-Instead, we use~$K$ as the given parameter that characterizes the
-incoming radiation.
-In terms of $K$ and $n$,
-the macroscopic Schrödinger equation \cref{EmacrSchrodi}
-can be rewritten as
+In a homogeneous medium with $\delta v=0$,
+\cref{ESchrodi3} reduces to the Helmholtz wave equation.
+\index{Helmholtz wave equation}%
+\index{Wave propagation!Helmholtz equation}%
+This motivates us to rewrite~\cref{ESchrodi3} as
 \Emph{
-\begin{equation}\label{EnSchrodi}
-  \left\{\Nabla^2+K^2n(\r)^2\right\}\psi(\r) = 0.
-\end{equation}\vspace*{-10pt}
-}
-This equation is the starting point for the analysis of all
-small-angle scattering experiments,
-whether under grazing incidence (GISAS) or not (regular SAS).
+\begin{equation}\label{ESchrodiK}
+  \left\{ \Nabla^2 + K^2 \right\}\psi(\r)
+  = 4\pi\delta v(\r)\psi(\r),
+\end{equation}}
+where the wavenumber~$K$ is given by the dispersion relation
+\nomenclature[2k120]{$K$}{Wavenumber}%
+\index{Dispersion!neutron in homogeneous medium}%
+\index{Wavenumber!neutron}%
+\begin{equation}\label{Edispersion}
+  K^2 = \frac{2m\omega}{\hbar} - 4\pi\overline{v}
+      = K_0^2\left(1-\frac{4\pi}{K_0^2}\overline{v}\right)
+      = K_0^2 n^2.
+\end{equation}
+To arrive at the final compact expression $K=K_0 n$
+we introduced the vacuum wavenumber~$K_0$
+\nomenclature[2k122]{$K_0$}{Wavenumber in vacuum}%
+and the \E{refractive index}
+\nomenclature[2n020]{$n$}{Refractive index}%
+\index{Refractive index}% !vs scattering length density}%
+\index{Index of refraction|see {Refractive index}}%
+\begin{equation}\label{EnRefrIndx}
+  n\coloneqq \sqrt{1-\frac{4\pi}{K_0^2}\overline{v}}.
+\end{equation}
+\index{Absorption|(}%
+The complex refractive index of a given material
+shall be written as
+\begin{equation}\label{Endb1}
+  n =  1-\delta +i\beta,
+\end{equation}
+\nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
+   $n=1-\delta +i\beta$}%
+\nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
+introducing two small real, nonnegative parameters $\delta, \beta$.
+A nonzero~$\beta$ describes absorption and leads to a damping of propagating waves.\footnote
+{The plus sign in front of~$i\beta$ is a consequence of
+the quantum-mechanical sign convention;
+in the X-ray crystallography convention it would be a minus sign.
+\index{Refractive index!sign convention}%
+\index{Sign convention!refractive index}}
+
+The Schrödinger equation \cref{ESchrodiK}
+is the starting point for the analysis of small-angle scattering (SAS) experiments
+in Born approximation (\cref{SBornApprox}).
+Later (\cref{Swave21}), for the special case of grazing incidence,
+the distorted wave Born approximation (DWBA)
+\index{Distorted-wave Born approximation}%
+will start with a slight modification of the decomposition~\cref{Edecompose_v}:
+vertical variations of the average scattering length density
+will be reassigned from $\delta v(\r)$ to $n(z)$
+in order to account for refraction and reflection in layered samples.
 \index{SAS|see {Small-angle scattering}}%
 \index{Small-angle scattering}%
 
@@ -206,8 +240,9 @@ whether under grazing incidence (GISAS) or not (regular SAS).
 \index{Born approximation|(}%
 
 To describe an elastic scattering experiment,
-we need to solve the Schrödinger equation~\cref{EnSchrodi}
+we need to solve the Schrödinger equation~\cref{ESchrodiK}
 under the asymptotic boundary condition
+\index{Boundary conditions!elastic scattering}%
 \begin{equation}\label{Escabouco}
   \psi(\r)
   \simeq \psi_\ti(\r) + f(\vartheta,\varphi)\frac{\e^{iKr}}{4\pi r}
@@ -215,6 +250,7 @@ under the asymptotic boundary condition
 \end{equation}
 \nomenclature[1ψ034 2i000 2r040]{$\psi_\ti(\r)$}{Incident wavefunction}%
 \nomenclature[2i000]{i}{Subscript ``incident''}%
+\index{Incident radiation!Born approximation}%
 where $\psi_\ti(\r)$ is the incident wave
 as prepared by the experimental apparatus,
 and the second term on the right-hand side is
@@ -222,50 +258,32 @@ the outgoing scattered wave
 that carries information in form of the angular distribution
 $f(\vartheta,\varphi)$.
 
-For thermal or cold neutrons,
-as for X-rays, the refractive index~$n$ is almost always
-very close to~1.
+For thermal or cold neutrons, as for X-rays,
+the refractive index~$n$ is almost always very close to~1,
+fluctuations of the scattering length density are at most of the order of $1-n$,
+and therefore the right-hand side of~\cref{ESchrodiK}
+is but a weak perturbation.
 This suggests a solution of the Schrödinger equation
-by means of a perturbation expansion in powers of $n^2-1$.
-This expansion is named after Max Born
-who introduced it in quantum mechanics.\footnote
-{It goes back to Lord Rayleigh
+by means of a perturbation expansion in powers of $\delta v$,
+known as the \E{Born expansion} or \E{Born series}.\footnote{
+Named after Max Born
+who introduced it in quantum mechanics.
+The idea goes back to Lord Rayleigh
 who devised it for sound,
 and later also applied it to electromagnetic waves,
 which resulted in his famous explanation of the blue sky.}
 
-To carry out this idea, we rewrite the Schrödinger equation
-once more so that it takes the form of a Helmholtz equation
-\index{Helmholtz equation}%
-with a perturbation term on the right side:
-\begin{equation}\label{ESchrodiHelmholtz}
-  \left(\Nabla^2+K^2\right)\psi(\r)
-  = 4\pi\chi(\r)\psi(\r)
-\end{equation}
-with
-\begin{equation}\label{EChiDef}
-  \chi(\r) \coloneqq  \frac{K^2}{4\pi}\left(1-n^2(\r)\right).
-\end{equation}
-\nomenclature[1χ030 2r040]{$\chi(\r)$}{Perturbative potential,
-for neutrons equal to the scattering-length density~$\rho_s$}%
-This definition just compensates \cref{EnRefrIndx} so that $\chi=\rho_s$.
-In the following, we prefer the notation~$\chi$
-and the appellation \E{perturbative potential}
-\index{Potential|see {Perturbation}}%
-\index{Perturbation}%
-over the scattering length density~$\rho_s$
-to prepare for the generalization to the electromagnetic case.
-
-Equation~\cref{ESchrodiHelmholtz} looks
+Equation~\cref{ESchrodiK} looks
 like an inhomogeneous differential equation ---
-provided we neglect for a moment that the unknown function~$\psi$
-reappears on the right side.
-The homogeneous equation
+except that the right-hand side contains the unknown function~$\psi$.
+In the Born expansion this problem is solved by iteration.
+We start with the homogeneous equation
 \begin{equation}\label{EHelmholtzHomog}
-  \left(\Nabla^2+K^2\right)\psi(\r) = 0
+  \left(\Nabla^2+K^2\right)\psi(\r) = 0,
 \end{equation}
-is solved by plane waves and superpositions thereof.
+which is solved by plane waves and superpositions thereof.
 It applies in particular to the incident wave~$\psi_\ti$.
+\index{Incident radiation!plane wave}%
 
 For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
@@ -284,40 +302,40 @@ This explains the appearance of the factor $4\pi$.}
   G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|},
 \end{equation}
 which is an outgoing spherical wave centered at $\r'$.
-Convoluting this function with the given inhomogeneity $4\pi\chi\psi$,
+Convoluting this function with the given inhomogeneity $4\pi\delta v\psi$,
 we obtain what is known as the Lippmann-Schwinger equation,
 \index{Lippmann-Schwinger equation}%the formal solution
 \begin{equation}\label{EPsiFormal}
   \psi(\r)
   = \psi_\ti(\r)
-  + \int\!\d^3r'\, G(\r,\r') 4\pi\chi(\r')\psi(\r').
+  + \int\!\d^3r'\, G(\r,\r') 4\pi\delta v(\r')\psi(\r').
 \end{equation}
 This integral equation for $\psi(\r)$ improves
-upon the original stationary Schrödinger equation \cref{ESchrodiHelmholtz}
+upon the original stationary Schrödinger equation \cref{ESchrodiK}
 in that it ensures the boundary condition~\cref{Escabouco}.
 It can be resolved into an infinite series
 by iteratively substituting the full right-hand side of~\cref{EPsiFormal}
 into the integrand.
-Successive terms in this series contain rising powers of $\chi$.
-Since $\chi$ is assumed to be small, the series is likely to converge.
+Successive terms in this series contain rising powers of $\delta v$.
+Since $\delta v$ is assumed to be small, the series is likely to converge.
 In \E{first-order Born approximation},
-only the linear order in $\chi$ is retained,
+only the linear order in $\delta v$ is retained,
 \begin{equation}\label{EBorn}
   \psi(\r)
   \doteq \psi_\ti(\r)
-  + 4\pi \int\!\d^3r'\, G(\r,\r') \chi(\r') \psi_\ti(\r').
+  + 4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\ti(\r').
 \end{equation}
 This is practically always adequate for
 material investigations with X-rays or neutrons,
 where the aim is to
-deduce $\chi(\r')$ from the scattered intensity ${|\psi(\r)|}^2$.
+deduce $\delta v(\r')$ from the scattered intensity ${|\psi(\r)|}^2$.
 Since detectors are always placed at positions $\r$
 that are not illuminated by the incident beam,
 we are only interested in the scattered wave field
 \begin{equation}\label{EBornS}
   \psi_\text{s}(\r)
   \coloneqq
-  4\pi \int\!\d^3r'\, G(\r,\r') \chi(\r') \psi_\ti(\r').
+  4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\ti(\r').
 \end{equation}
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
 \nomenclature[2s000 0]{s}{Subscript ``scattered''}%
@@ -349,8 +367,8 @@ This allows us to expand
   \equiv r - \frac{\k_\tf \r'}{K},
 \end{equation}
 \nomenclature[2f000]{f}{Subscript ``final'',
-for outgoing waves scattered into the direction of the detector}%
-\nomenclature[2k040]{$\k$}{wavevector}
+   for outgoing waves scattered into the direction of the detector}%
+\nomenclature[2k040]{$\k$}{wavevector}%
 where we have introduced the outgoing wavevector
 \begin{equation}
   \k_\tf\coloneqq K\frac{\r}{r}.
@@ -362,14 +380,14 @@ and obtain in leading order the far-field Green function
   G_\text{far}(\r,\r')
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
-\nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}
-  {Far-field approximation to the Green function $G(\r,\r')$}
+\nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field
+   approximation to the Green function $G(\r,\r')$}%
 where
 \begin{equation}
   \psi_\tf(\r) \coloneqq  \e^{i\k_\tf \r}
 \end{equation}
-\nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}
-  {Plane wave propagating from the sample towards the detector}%
+\nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}{Plane
+  wave propagating from the sample towards the detector}%
 is a plane wave propagating towards the detector,
 and $\psi^*$ designates the complex conjugate of $\psi$.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
@@ -379,36 +397,37 @@ becomes in the far-field approximation
 \begin{equation}\label{EsandwichC}
   \psi_\text{s,far}(\r)
   = \frac{\e^{iKr}}{r}
-    \bra \psi_\tf|\chi|\psi_\ti\ket,
+    \bra \psi_\tf|\delta v|\psi_\ti\ket,
 \end{equation}
-\nomenclature[1ψ034 2s000 2far]{$\psi_\text{s,far}(\r)$}
-  {Far-field approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
+\nomenclature[1ψ034 2s000 2far]{$\psi_\text{s,far}(\r)$}{Far-field
+   approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
 where we used Dirac notation for the transition matrix element
 \index{Transition matrix}%
 \begin{equation}\label{Etrama}
-  \bra \psi_\tf|\chi|\psi_\ti\ket
-  \coloneqq  \int\!\d^3r\, \psi^*_\tf(\r)\chi(\r)\psi_\ti(\r).
+  \bra \psi_\tf|\delta v|\psi_\ti\ket
+  \coloneqq  \int\!\d^3r\, \psi^*_\tf(\r)\delta v(\r)\psi_\ti(\r).
 \end{equation}
-\nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}
-  {Matrix element, defined as a volume integral}%
+\nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix
+  element, defined as a volume integral}%
 In order to reconcile conflicting sign conventions,
 we will in the following rather use its complex conjugate
-$\bra \psi_\ti|\chi|\psi_\tf\ket = \bra \psi_\tf|\chi|\psi_\ti\ket^*$.
+$\bra \psi_\ti|\delta v|\psi_\tf\ket = \bra \psi_\tf|\delta v|\psi_\ti\ket^*$.
 Under the standard assumption
 that the incident radiation is a plane wave
+\index{Incident radiation!plane wave}%
 \begin{equation}\label{EPsi0Plane}
   \psi_\ti(\r)=\e^{i \k_\ti \r}
 \end{equation}
 with $k_\ti=K$,
 the matrix element takes the form
 \begin{equation}\label{Echiq}
-  \bra \psi_\ti|\chi|\psi_\tf\ket
-  = \int\!\d^3r\, {\rm e}^{-i\k_\ti\r}\chi(\r){\rm e}^{i\k_\tf\r}
-  = \int\!\d^3r\, {\rm e}^{i\q\r}\chi(\r)
-  \eqqcolon \chi(\q),
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  = \int\!\d^3r\, {\rm e}^{-i\k_\ti\r}\delta v(\r){\rm e}^{i\k_\tf\r}
+  = \int\!\d^3r\, {\rm e}^{i\q\r}\delta v(\r)
+  \eqqcolon v(\q),
 \end{equation}
-\nomenclature[1χ030 2q040]{$\chi(\v{q})$}
-  {Fourier transform of the perturbation potential $\chi(\r)$}%
+\nomenclature[1χ030 2q040]{$v(\v{q})$}{Fourier
+   transform of the perturbation potential $\delta v(\r)$}%
 where we have introduced the \E{scattering vector}\footnote
 {With this choice of sign,
 \index{Sign convention!scattering vector}%
@@ -429,7 +448,7 @@ which can only be achieved by the convention~\cref{Eq}.}
   \q\coloneqq \k_\tf-\k_\ti
 \end{equation}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
-and the notation $\chi(\q)$ for
+and the notation $v(\q)$ for
 the Fourier transform of the perturbative potential,
 \index{Optical potential!Fourier transform}%
 which is what small-angle neutron scattering basically measures.
@@ -450,12 +469,13 @@ We define it in arbitrary relative units as
 \begin{equation}\label{EdefJ}
   \v{J}(\r) \coloneqq  \psi^*\frac{\Nabla}{2i}\psi - \psi\frac{\Nabla}{2i}\psi^*.
 \end{equation}
-\nomenclature[2j150 2r040]{$\v{J}(\r)$}{Probability flux}
+\nomenclature[2j150 2r040]{$\v{J}(\r)$}{Probability flux}%
 \index{Flux!incident and scattered}%
 The ratio of the scattered flux hitting an infinitesimal detector area
 $r^2\d\Omega$ to the incident flux is expressed as a
 \E{differential cross section}
 \index{Cross section}%
+\index{Incident radiation!flux|(}%
 \begin{equation}\label{Exsectiondef}
   \frac{\d\sigma}{\d\Omega}
   \coloneqq  \frac{r^2 J(\r)}{J_\ti}.
@@ -468,6 +488,8 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 % below in \cref{SdetImg}.
 
 With \cref{EPsi0Plane}, the incident flux is
+\index{Incident radiation!flux|)}%
+\index{Flux!Born approximation}%
 \begin{equation}\label{EJi}
   \v{J}_\ti = \k_\ti.
 \end{equation}
@@ -475,28 +497,34 @@ With \cref{EsandwichC}, the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
-    {\left|\bra\psi_\ti|\chi|\psi_\tf\ket\right|}^2.
+    {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
 \end{equation}
 From \cref{Exsectiondef} we obtain
 the generic differential cross section
 of elastic scattering in first order Born approximation,
+\index{Born approximation!elastic scattering cross section}%
+\index{Cross section!elastic scattering in Born approximation}%
+\index{Elastic scattering!cross section in Born approximation}%
+\index{Scattering!elastic cross section in Born approximation}%
 \Emph{
 \begin{equation}\label{Exsection}
   \frac{\d\sigma}{\d\Omega}
-  =  {\left|\bra\psi_\ti|\chi|\psi_\tf\ket\right|}^2.
+  =  {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
 \end{equation}\vspace*{-5pt}
 }
 As we shall see below,
 it holds not only for plane waves governed
 by the vacuum Helmholtz equation~\cref{EHelmholtzHomog},
 but also for distorted waves.
+\index{Distorted-wave Born approximation!elastic cross section}%
 
 In the plane-wave case \cref{Echiq} considered here,
 the differential cross section is just the squared modulus
-of the Fourier transform of the perturbative potential,
+of the Fourier transform of the bound scattering length density,
+\index{Scattering length density!Fourier transform}%
 \begin{equation}\label{Ecross1}
   \frac{\d\sigma}{\d\Omega}
-  = {\left| \chi(\q) \right|}^2.
+  = {\left| v(\q) \right|}^2.
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -670,7 +698,7 @@ that $q_x$ goes with the square of the two other components of the scattering ve
 \end{equation}
 Therefore, under typical small angle conditions $y,z\to L$
 the dependence of the scattering signal on $q_x$ is unimportant:
-one basically measures $\chi(\q)\simeq \chi(0,q_y,q_z)$.
+one basically measures $v(\q)\simeq v(0,q_y,q_z)$.
 The exception, for sample structures with long correlations in $x$~direction,
 is illustrated in~\cref{Fdetbox}.
 

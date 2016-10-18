@@ -51,11 +51,12 @@ MainComputation::MainComputation(
     m_begin_it = begin_it;
     m_end_it = end_it;
 
-    for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
-        m_layer_computation.push_back({});
-        for (size_t j=0; j<mp_multi_layer->getLayer(i)->getNumberOfLayouts(); ++j)
-            m_layer_computation[i].push_back(
-                new DecoratedLayerComputation(mp_multi_layer->getLayer(i), j));
+    size_t nLayers = mp_multi_layer->getNumberOfLayers();
+    m_layer_computation.resize( nLayers );
+    for (size_t i=0; i<nLayers; ++i) {
+        const Layer* layer = mp_multi_layer->getLayer(i);
+        for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
+            m_layer_computation[i].push_back( new DecoratedLayerComputation(layer, j) );
     }
     // scattering from rough surfaces in DWBA
     if (mp_multi_layer->hasRoughness())
@@ -104,10 +105,10 @@ void MainComputation::runProtected()
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     bool polarized = mp_multi_layer->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
-        for (DecoratedLayerComputation* comp: layer_comp) {
+        for (const DecoratedLayerComputation* comp: layer_comp) {
             if (!m_progress->alive())
                 return;
-            comp->eval(m_sim_options, m_progress, polarized, *mp_multi_layer,
+            comp->eval(m_sim_options, m_progress, polarized,
                        layer_elements.begin(), layer_elements.end());
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
         }

@@ -44,7 +44,7 @@ public:
     void addParticle(const IAbstractParticle& particle, double abundance);
     void addParticle(const IParticle& particle, double abundance, const kvector_t position);
     void addParticle(const IParticle& particle, double abundance,
-                             const kvector_t position, const IRotation& rotation);
+                     const kvector_t position, const IRotation& rotation);
 
     size_t getNumberOfParticles() const final { return m_particles.size(); }
 
@@ -54,8 +54,9 @@ public:
 
     double getAbundanceOfParticle(size_t index) const;
 
-    const IInterferenceFunction* getInterferenceFunction() const final;
-
+    const IInterferenceFunction* getInterferenceFunction() const final {
+        return mP_interference_function.get(); }
+    IInterferenceFunction* cloneInterferenceFunction() const final;
     void addInterferenceFunction(const IInterferenceFunction& interference_function);
 
     double getTotalParticleSurfaceDensity() const final;

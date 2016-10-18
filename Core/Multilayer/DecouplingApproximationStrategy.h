@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/DecouplingApproximationStrategy.h
-//! @brief     Defines class DecouplingApproximationStrategy.
+//! @brief     Defines classes DecouplingApproximationStrategy1 and
+//!              DecouplingApproximationStrategy2
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,25 +21,34 @@
 
 class SimulationElement;
 
-//! Strategy for implementing decoupling approximation.
+//! Strategy class to compute the total scalar scattering from a decorated layer
+//! in decoupling approximation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
+class BA_CORE_API_ DecouplingApproximationStrategy1 final
+    : public IInterferenceFunctionStrategy1
 {
 public:
-    DecouplingApproximationStrategy(SimulationOptions sim_params)
+    DecouplingApproximationStrategy1(SimulationOptions sim_params)
         : IInterferenceFunctionStrategy(sim_params) {}
-    ~DecouplingApproximationStrategy() final {}
-
-    void init(const SafePointerVector<FormFactorInfo>& form_factor_infos,
-              const IInterferenceFunction& iff) final;
 
 private:
-    double evaluateForList(const SimulationElement& sim_element,
-                           const std::vector<complex_t>& ff_list) const final;
+    double evaluateForList(const SimulationElement& sim_element) const final;
+};
 
-    double evaluateForMatrixList(const SimulationElement& sim_element,
-                                 const matrixFFVector_t& ff_list) const final;
+//! Strategy class to compute the total polarized scattering from a decorated layer
+//! in decoupling approximation.
+//! @ingroup algorithms_internal
+
+class BA_CORE_API_ DecouplingApproximationStrategy2 final
+    : public IInterferenceFunctionStrategy2
+{
+public:
+    DecouplingApproximationStrategy2(SimulationOptions sim_params)
+        : IInterferenceFunctionStrategy(sim_params) {}
+
+private:
+    double evaluateForList(const SimulationElement& sim_element) const final;
 };
 
 #endif // DECOUPLINGAPPROXIMATIONSTRATEGY_H

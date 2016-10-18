@@ -21,27 +21,29 @@
 
 Wave propagation through thin layers requires
 a special formalism that accounts for
-refraction and reflection (\cref{Sfac21}).
-Radiation impinging under grazing incidence
-has long trajectories so that absorption is
-often considerable (\cref{Sabsorption}).
+refraction and reflection (\cref{Swave21}).
 The so obtained distorted plane waves are the base
 for the reformulation of Born's scattering theory
 in the distorted wave Born approximation (\cref{SDWBA}).
 % TODO RESTORE XREF We also discuss the limits of coherent superposition (\cref{Scoherlen}),
 
+\index{GISAS|see{Grazing-incidence small angle scattering}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[Wave propagation in $2+1$ dimensions]{Wave propagation in $\v{2+1}$ dimensions}\label{Swave21}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%===============================================================================
-\subsection{Factorization ansatz}\label{Sfac21}
-%===============================================================================
 
 \begin{figure}[tb]
   \centering
     \includegraphics[clip=, width=120mm]{fig/drawing/setup_multilayer.jpg}
   \caption[Conventional GISAS scattering geometry.]{Geometric conventions
+\index{Conventions!GISAS geometry}%
+\index{Grazing-incidence small angle scattering!geometric conventions}%
+\index{Coordinate system!GISAS geometry}%
+\index{Glancing angle}%
+\index{Incident radiation!angles}%
+\index{Scattering angles}%
+\index{Geometry!conventions for GISAS}
   in GISAS scattering comprise a Cartesian coordinate system
   and a set of angles.
   The coordinate system has a $z$ axis normal to the sample plane,
@@ -62,8 +64,9 @@ in the distorted wave Born approximation (\cref{SDWBA}).
 \nomenclature[1φ024 2f000]{$\phi_\tf$}{Angle between the detected beam, projected into the sample plane, and the $x$ axis}%
 \nomenclature[2x020]{$x$}{Horizontal coordinate, usually chosen along the incoming beam projection}%
 \nomenclature[2y020]{$y$}{Horizontal oordinate, chosen normal to $z$ and $x$}%
-  The numbered layers illustrate a multilayer system as dicussed
-  in \cref{sec:Multilayers}.
+  The numbered layers illustrate a multilayer system as dicussed in \cref{sec:Multilayers}.
+\index{Layer!numbering}%
+\index{Multilayer}
   }
   \label{fig:expgeom}
 \end{figure}
@@ -74,6 +77,9 @@ or most generically:
 samples with a $2+1$ dimensional structure
 that are on average translationally invariant in $x$ and $y$ direction,
 but structured in $z$ direction.
+\nomenclature[2x020]{$x$}{Horizontal coordinate, in the sample plane}%
+\nomenclature[2y020]{$y$}{Horizontal coordinate, in the sample plane}%
+\nomenclature[2z020]{$z$}{Vertical coordinate, along the sample normal}%
 By convention,
 we designate the \E{sample plane} ($xy$) as \E{horizontal},
 \index{Sample plane}%
@@ -84,13 +90,16 @@ and the \E{sample normal} ($z$) as \E{vertical},
 \index{Conventions|see {Horizontal and Vertical}}%
 even if this does not correspond to the actual experimental geometry.\footnote
 {In many reflectometers,
+\index{Reflectometer!vertical vs horizontal}%
+\index{Scattering plane!vertical vs horizontal}%
  the scattering plane and the sample normal are horizontal in laboratory space.}
 The $z$ axis points upwards, hence out of the sample towards the
 vacuum (or air) halfspace where the incident radiation comes from,
 as illustrated in \cref{fig:expgeom}.
 % TODO: add figure
 
-Vertical modulations of the refractive index $n(\r)$
+Vertical variations of the refractive index $n(z)$
+\index{Refractive index!vertical variation}%
 cause refraction and reflection of an incident plane wave.
 \index{Glancing angle}%
 \index{Refraction}%
@@ -102,114 +111,110 @@ even though $1-n$ is only of the order $10^{-5}$ or smaller.
 Such zeroth-order effects cannot be accounted for
 by perturbative scattering theory.
 Instead, we need to deal with refraction and reflection
-at the level of the wave propagation equation.
-We move the vertical variations of the squared refractive index
-to the left-hand side of the Schrödinger equation~\cref{EnSchrodi},
-\begin{equation}\label{EHelmholtzGraded}
-  \left\{\Nabla^2+K^2\nz(z)\right\}\psi(\r)
-  = 4\pi \chi(\r) \psi(\r),
+from the onset, in the wave propagation equation.
+
+Therefore we have to modify our derivation of
+the scattering cross section~\cref{Exsection} at an early stage,
+namely at the decomposition~\cref{Edecompose_v} of the scattering length density.
+\index{Scattering length density!vertical variation}%
+We replace~\cref{Edecompose_v} by
+\begin{equation}\label{Edecompose_vz}
+  v(\r) = \overline{v}(z) + \delta v(\r),
 \end{equation}
-\nomenclature[2z020]{$z$}{Vertical coordinate, along the sample normal}%
-\nomenclature[2n030 2z020]{$\nz(z)$}{Refractive index, horizontally averaged}%
-where the overline indicates an horizontal average.
-Deviating from \cref{EChiDef},
-the perturbation has been redefined as
-\begin{equation}\label{EChiGraded}
-  \chi(\r) \coloneqq  \frac{K^2}{4\pi}\left(\nz(z)-n^2(\r)\right),
+allowing for vertical variations of~$\overline{v}$.
+Equations~\cref{Edispersion} and \cref{EnRefrIndx} must be modified
+to allow for a $z$~dependence of the refractive index~$n(z)$ and the wavenumber~$K(z)$.
+\index{Wave propagation!in multilayer|(}
+The homogeneous wave equation~\cref{EHelmholtzHomog} takes the form
+\begin{equation}\label{EWaveZ}
+  \left\{\Nabla^2+K(z)^2\right\}\psi(\r) = 0.
 \end{equation}
-which only accounts for horizontal fluctuations of the refractive index.
-Wave propagation,
-unperturbed by~$\chi$, but including refraction and reflection effects,
-obeys the homogeneous equation
-\begin{equation}\label{EHelmholtzGradedHomog}
-  \left\{\Nabla^2+K^2\nz(z)\right\}\psi(\r) = 0.
+To formulate boundary conditions,
+\index{Boundary conditions!wave propagation through multilayer}%
+we request $K(z)=\text{const}$ in the semi-infinite half spaces above and below the sample.
+To keep the following exposition as simple as possible,
+we specialize to the case that the incident plane wave comes from above the sample
+(BornAgain also supports incidence from below).
+This downward travelling plane wave shall be denoted
+\index{Incident radiation!plane wave}%
+\index{Incident radiation!GISAS}%
+\begin{equation}\label{Epsiminus}
+  \psi^{-}(\r) = \e^{i\k_\parallel\r_\parallel-ik_{\perp}z},
 \end{equation}
-It is solved for the horizontal coordinate~$\r_\parallel$
-by the factorization ansatz
-\Emph{
+\nomenclature[0$\parallel$]{$\parallel$}{Parallel to the $xy$ sample plane}%
+\nomenclature[0$\perp$]{$\perp$}{Normal to the $xy$ sample plane}%
+\nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
+\nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
+with subscripts $\parallel$ and~$\perp$ refering to the sample $xy$ plane.
+The wave vector components $\k_\parallel$ and $k_{\perp}$ are related to
+the wavenumber~$K(z)=\sqrt{\k_\parallel^2+k_{\perp}^2}$,
+\index{Wavenumber!constant in GISAS}%
+and to the glancing angle
+\index{Glancing angle}%
+$\alpha=\arctan(k_{\perp}/k_\parallel)$.
+
+When the incident wave hits a sample with nontrivial refractive index,
+it is wholly or partly reflected.
+Therefore, the full the solution of~\cref{EWaveZ} in the half space above the sample is
+\begin{equation}
+  \psi(\r) = \e^{i\k_\parallel\r_\parallel-ik_{\perp} z} +
+      R\, \e^{i\k_\parallel\r_\parallel+ik_{\perp} z}
+  \text{ for }z\gg0,
+\end{equation}
+with a complex reflection coefficient~$R$.
+\index{Reflection coefficient}%
+The reflected flux is given by the re\-flect\-an\-ce $|R|^2$.
+\index{Reflectance}%
+\index{Flux!reflected}%
+By choice of our boundary conditions,
+there is no upward travelling wave in the half space below the sample.
+In this region, the solution of~\cref{EWaveZ} is simply
+\begin{equation}
+  \psi(\r) = T\, \e^{i\k_\parallel\r_\parallel+ik_{\perp} z}
+  \text{ for }z\ll0,
+\end{equation}
+with a complex transmission coefficient~$T$.
+The transmitted flux is given by the transmittance $|T|^2$.
+\index{Transmittance}%
+\index{Flux!transmitted}%
+
+Within the sample, the wave equation~\cref{EWaveZ}
+is solved by the factorization ansatz
 \begin{equation}\label{Ekpar}
 \psi(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
-\end{equation}\vspace*{-10pt}
-}
-\nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
-\nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
-The horizontal wavevector $\k_\parallel$ remains constant
-as initialized by the incoming beam.
-The vertical wavefunction must fulfill
-\Emph{
-\begin{equation}\label{Ewavez}
-\left\{\partial_z^2 + K^2\nz(z) - k_\parallel^2 \right\} \phi(z) = 0.
-\end{equation}\vspace*{-10pt}
-}
-When an incident plane wave,
-travelling downwards with
-$\phi(z)=\e^{-ik_\perp z}$,
-\nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
-impinges on a sample with $\nz(z)\ne 1$,
-then the wave is partly reflected ($-k_\perp$ reversed into $+k_\perp$)
-and partly refracted
-($k_\perp$ changing while $\k_\parallel$ stays constant,
-resulting in a change of glancing angle).
-Similarly, reflection and refraction occur
-whenever $\nz(z)$ varies within the sample.
-As a result, at any $z$ within the zone where $\nz(z)$ varies,
-the vertical wavefunction $\phi(z)$ is composed of a
-downward travelling component $\phi^-(z)$
-and an upward travelling component $\phi^+(z)$.
-
-For a graded refractive index
-\index{Refractive index!graded}%
-$\nz$ that is a smooth function of~$z$,
-the differential equation~\cref{Ewavez} is best solved
-using the WKB method.\footnote
-{Also called \E{semiclassical approximation} or
-\E{phase integral method},
-%originally developed
-%by Liouville (1837), Green (1837), Lord Rayleigh (1912), and Jeffreys (1923),
-named after Wentzel (1926), Kramers (1926), Brillouin (1926).
-See any textbook on quantum mechanics.}
-\index{WKB method}%
-\index{Semiclassical approximation|see {WKB method}}%
-\index{Phase integral method|see {WKB method}}%
-If otherwise $\nz(z)$ is discontinuous at some interface $z=z_j$,
-then the limiting values of $\phi^-(z)$ and $\phi^+(z)$
-on approaching $z_j$ from above or below
-are connected to each other through Fresnel's
-transmission and reflection coefficients.
-\index{Fresnel coefficients}%
-This applies in particular to multilayer systems,
-discussed in \cref{sec:Multilayers}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{How to describe absorption}\label{Sabsorption}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\index{Absorption|(}%
-\index{Refractive index!sign convention}%
-The complex refractive index of a given material
-shall be written as
-\begin{equation}\label{Endb1}
-  n\doteq 1-\delta +i\beta,
 \end{equation}
-\nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
-   $n=1-\delta +i\beta$}%
-\nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
-introducing two small real, nonnegative parameters $\delta, \beta$.
-While a vertical gradation of $\delta$ causes refraction and reflection,
-a nonzero~$\beta$ describes absorption and leads to a damping of propagating waves.
-The plus sign in front of the imaginary part is a consequence of
-the quantum-mechanical sign convention;
-in the X-ray crystallography convention it would be a minus sign.
-\index{Sign convention}%
+\nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
+Continuity at the interfaces above and below the sample
+requires that the horizontal wavevector $\k_\parallel$ is constant.
+The vertical wavefunction~$\phi(z)$
+is governed by the one-dimensional wave equation
+\begin{equation}\label{Ewavez}
+\left\{\partial_z^2 + K(z)^2 - k_\parallel^2 \right\} \phi(z) = 0.
+\end{equation}
+The discussion how to solve~\Cref{Ewavez} shall be postponed to~\Cref{sec:Multilayers}.
+For the following derivation of the distorted wave Born approximation,
+it is sufficient to assume that the wave equation~\cref{EWaveZ}
+has somehow been solved.
 
-The factorization ansatz \cref{Ekpar} leaves us some freedom
-how to deal with an imaginary part of~$n$.
-We \E{choose} that horizontal wavevectors~$\k_\parallel$
-shall always be real.
-The damping then appears in the vertical wavefunction~$\phi(z)$
-that is governed by the complex wave equation \cref{Ewavez}.
-
-\index{Absorption|)}%
+Furthermore, at some point we shall use the fact that $\phi(z)$,
+as solution of a differential equation of second degree,
+can be written as superposition
+of a downward travelling wave $\phi^-(z)$
+and an upward travelling wave $\phi^+(z)$.
+Accordingly, the three-dimensional wavefunction can be written as
+\begin{equation}
+  \psi(\r) = \psi^-(\r)+\psi^+(\r).
+\end{equation}
+All this holds not only for the incident wave,
+but also for a plane wave that is traced back from a detector pixel
+towards the sample.
+\index{Backtracing}%
+\index{Scattered wave!backtracing}%
+\index{Detector!backtracing}%
+Accordingly,
+the distorted-wave Born approximation will result in a cross section~\cref{Edwba}
+that involves two incident and two final partial wavefunctions.
+\index{Wave propagation!in multilayer|)}
 
 %===============================================================================
 \section{Distorted-wave Born approximation (DWBA)}\label{SDWBA}
@@ -247,7 +252,7 @@ To carry out this idea, we need to determine the Green function~$G$.
 In \cref{SBornExpans} we did so quite specifically
 for a homogeneous material.
 Computing~$G$ in closed form for a more generic wave equation
-like~\cref{EHelmholtzGradedHomog} is far more difficult,
+like~\cref{EWaveZ} is far more difficult,
 if not outright impossible.
 Fortunately, this computation is not necessary,
 and would be but wasted effort:
@@ -292,12 +297,12 @@ we obtain
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
 which agrees literally with \cref{EGreenFar},
-though $\psi_\tf$ is not any longer a plane wave.
+though $\psi_\tf$ is no longer a plane wave.
 Accordingly,
 the scattered far-field is still given by \cref{EsandwichC},
 and the differential cross section by \cref{Exsection}.
 We only need to redetermine the matrix element
-$\bra \psi_\ti|\chi|\psi_\tf\ket$,
+$\bra \psi_\ti|\delta v|\psi_\tf\ket$,
 which no longer has the plane-wave form~\cref{Echiq}.
 
 Since both the incident
@@ -313,27 +318,27 @@ are composed of downward and upward propagating waves,
 or f (final)}%
 the matrix element can be expanded into four terms,
 \begin{equation}\label{Edwba4}
-  \bra \psi_\ti|\chi|\psi_\tf\ket
-  = \bra \psi^-_\ti|\chi|\psi^-_\tf\ket
-  + \bra \psi^-_\ti|\chi|\psi^+_\tf\ket
-  + \bra \psi^+_\ti|\chi|\psi^-_\tf\ket
-  + \bra \psi^+_\ti|\chi|\psi^+_\tf\ket,
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  = \bra \psi^-_\ti|\delta v|\psi^-_\tf\ket
+  + \bra \psi^-_\ti|\delta v|\psi^+_\tf\ket
+  + \bra \psi^+_\ti|\delta v|\psi^-_\tf\ket
+  + \bra \psi^+_\ti|\delta v|\psi^+_\tf\ket,
 \end{equation}
 \nomenclature[1ψ041 0\pm 2r040]{$\psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\psi(\r)$}%
 \nomenclature[0\pm]{$\pm$}{Upward ($+$) or downward ($-$) propagating}%
 or in an obvious shorthand notation
 \Emph{%
 \begin{equation}\label{Edwba}
-  \bra \psi_\ti|\chi|\psi_\tf\ket
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
   = \sum_{\pm_\ti} \sum_{\pm_\tf}
-    \bra \psi^\pm_\ti|\chi|\psi^\pm_\tf\ket.
+    \bra \psi^\pm_\ti|\delta v|\psi^\pm_\tf\ket.
 \end{equation}%
 \vspace*{-5pt}}
 This equation contains the essence of
 the distorted-wave Born approximation
 for small-angle scattering under grazing incidence,
 and is the base for all scattering models implemented in \BornAgain.
-Since $\bra \psi_\ti|\chi|\psi_\tf\ket$
+Since $\bra \psi_\ti|\delta v|\psi_\tf\ket$
 appears as a squared modulus
 in the differential cross section~\cref{Exsection},
 the four terms of \cref{Edwba} can interfere with each other,
@@ -343,43 +348,30 @@ which adds to the complexity of GISAS patterns.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\iffalse
-\section{Coherence length [TO REVISE]}\label{Scoherlen}
+\section{Coherence length}\label{Scoherlen}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \index{Coherence length|(}%
-The matrix elements $\bra \psi^\pm_\ti|\chi|\psi^\pm_\tf\ket$
+The matrix elements $\bra \psi^\pm_\ti|\delta v|\psi^\pm_\tf\ket$
 are given by three-dimensional integrals~\cref{Etrama},
 \begin{equation}\label{Etrama3}
-  \bra \psi_\ti^\pm|\chi|\psi_\tf^\pm\ket
-  \coloneqq  \int\!\d^3r\, \psi^{\pm*}_\ti(\r)\chi(\r)\psi^\pm_\tf(\r).
+  \bra \psi_\ti^\pm|\delta v|\psi_\tf^\pm\ket
+  \coloneqq  \int\!\d^3r\, \psi^{\pm*}_\ti(\r)\delta v(\r)\psi^\pm_\tf(\r).
 \end{equation}
 The integration domain is effectively limited to a finite $z$ interval,
-where $\chi(\r)$ is horizontally modulated.
+where $\delta v(\r)$ is horizontally modulated.
 On the other hand, the horizontal integration domain is infinite
 within our formalism,
 which is of course an idealization.
 Obviously, physical integration limits are imposed by the finite
-\E{illuminated sample area}.\footnote
-{For a given instrument setup,
-the incoming beam illuminates a finite area~$A_\ti$ in the sample plane,
-and similarly, scattered radiation is only detected if it originates
-from an area~$A_\tf$ that can be determined
-by tracing back rays from the detector
-to their intersection with the sample plane.
-In a well aligned instrument, $A_\ti$ and $A_\tf$ are nearly the same.
-Let $A_\text{beam}\coloneqq A_\ti\cap A_\tf$.
-In a well aligned experiment,
-$A_\text{beam}$ is equal to or a subset of $A_\text{sample}$
-(if $A_\ti$ or $A_\tf$ are larger than $A_\text{sample}$,
-collimation slits should be narrowed
-lest useless rays cause avoidable noise).
-Anyhow, the horizontal integration domain
-is limited to the \E{illuminated sample area} (``beam footprint'')
-$A_{xy}\coloneqq A_\text{sample}\cap A_\text{beam}$.}
 \index{Sample area}%
+\E{illuminated sample area}.\footnote
+{We assume a well aligned instrument,
+for which the beam footprint and the backtraced detector footprint
 \index{Illumination!beam footprint on sample}%
 \index{Beam footprint}%
+\index{Backtracing!beam footprint}%
+agree within reasonable accuracy.}
 Another limitation comes from the finite \E{coherence length}
 of the instrumental setup,
 which usually is much shorter than the sample width and length
@@ -484,4 +476,3 @@ in $y$ or $z$ direction.\footnote
 % TODO: more about implementation !
 
 \index{Coherence length|)}%
-%\fi

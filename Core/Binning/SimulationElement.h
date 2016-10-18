@@ -76,10 +76,7 @@ public:
 
     double getSolidAngle() const;
 
-    //! get alpha for given detector pixel coordinates
     double getAlpha(double x, double y) const;
-
-    //! get phi for given detector pixel coordinates
     double getPhi(double x, double y) const;
 
     //! check if element contains given wavevector

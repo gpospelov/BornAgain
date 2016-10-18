@@ -419,9 +419,9 @@
 %include "ISelectionRule.h"
 %include "SpecularSimulation.h"
 %include "ThreadInfo.h"
-%template(SampleBuilderFactory) IFactory<std::string, IMultiLayerBuilder>;
-//%include "SampleBuilderFactory.h"
-%template(SimulationFactory) IFactory<std::string, GISASSimulation>;
-//%include "SimulationFactory.h"
+%template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
+%include "SampleBuilderFactory.h"
+%template(SimulationFactoryTemp) IFactory<std::string, GISASSimulation>;
+%include "SimulationFactory.h"
 
 %include "extendCore.i"

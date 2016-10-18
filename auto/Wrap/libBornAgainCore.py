@@ -16704,15 +16704,15 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
 HomogeneousMagneticMaterial_swigregister = _libBornAgainCore.HomogeneousMagneticMaterial_swigregister
 HomogeneousMagneticMaterial_swigregister(HomogeneousMagneticMaterial)
 
-class IDetector2D(IParameterized):
+class IDetector2D(ICloneable, IParameterized):
     """Proxy of C++ IDetector2D class."""
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IDetector2D, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IDetector2D, name)
 
@@ -16961,16 +16961,29 @@ class IDetector2D(IParameterized):
         return _libBornAgainCore.IDetector2D_hasMasks(self)
 
 
-    def createDetectorMap(self, arg2, arg3):
+    def getDetectorIntensity(self, *args):
         """
-        createDetectorMap(IDetector2D self, Beam arg2, IDetector2D::EAxesUnits arg3) -> IntensityData
+        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
+        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam) -> IntensityData
+        """
+        return _libBornAgainCore.IDetector2D_getDetectorIntensity(self, *args)
+
+
+    def createDetectorMap(self, beam, units):
+        """
+        createDetectorMap(IDetector2D self, Beam beam, IDetector2D::EAxesUnits units) -> IntensityData
 
         OutputData< double > * IDetector2D::createDetectorMap(const Beam &, EAxesUnits) const
 
         Returns detector map in given axes units. 
 
         """
-        return _libBornAgainCore.IDetector2D_createDetectorMap(self, arg2, arg3)
+        return _libBornAgainCore.IDetector2D_createDetectorMap(self, beam, units)
+
+
+    def initOutputData(self, data):
+        """initOutputData(IDetector2D self, IntensityData data)"""
+        return _libBornAgainCore.IDetector2D_initOutputData(self, data)
 
 
     def getValidAxesUnits(self):
@@ -16995,6 +17008,31 @@ class IDetector2D(IParameterized):
 
         """
         return _libBornAgainCore.IDetector2D_getDefaultAxesUnits(self)
+
+
+    def regionOfInterest(self):
+        """regionOfInterest(IDetector2D self) -> Rectangle"""
+        return _libBornAgainCore.IDetector2D_regionOfInterest(self)
+
+
+    def setRegionOfInterest(self, xlow, ylow, xup, yup):
+        """setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)"""
+        return _libBornAgainCore.IDetector2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
+
+
+    def resetRegionOfInterest(self):
+        """resetRegionOfInterest(IDetector2D self)"""
+        return _libBornAgainCore.IDetector2D_resetRegionOfInterest(self)
+
+
+    def getTotalSize(self):
+        """getTotalSize(IDetector2D self) -> size_t"""
+        return _libBornAgainCore.IDetector2D_getTotalSize(self)
+
+
+    def getAxisBinIndex(self, index, selected_axis):
+        """getAxisBinIndex(IDetector2D self, size_t index, size_t selected_axis) -> size_t"""
+        return _libBornAgainCore.IDetector2D_getAxisBinIndex(self, index, selected_axis)
 
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
 IDetector2D_swigregister(IDetector2D)
@@ -19713,18 +19751,6 @@ class SphericalDetector(IDetector2D):
 
     __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
     __del__ = lambda self: None
-
-    def createDetectorMap(self, beam, units_type):
-        """
-        createDetectorMap(SphericalDetector self, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
-
-        OutputData< double > * SphericalDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
-
-        Returns detector map in given axes units. 
-
-        """
-        return _libBornAgainCore.SphericalDetector_createDetectorMap(self, beam, units_type)
-
 
     def getValidAxesUnits(self):
         """
@@ -23961,18 +23987,6 @@ class RectangularDetector(IDetector2D):
         return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
 
 
-    def createDetectorMap(self, beam, units_type):
-        """
-        createDetectorMap(RectangularDetector self, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
-
-        OutputData< double > * RectangularDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
-
-        Returns detector map in given axes units. 
-
-        """
-        return _libBornAgainCore.RectangularDetector_createDetectorMap(self, beam, units_type)
-
-
     def getValidAxesUnits(self):
         """
         getValidAxesUnits(RectangularDetector self) -> std::vector< IDetector2D::EAxesUnits,std::allocator< IDetector2D::EAxesUnits > >
@@ -24406,7 +24420,7 @@ class ThreadInfo(_object):
 ThreadInfo_swigregister = _libBornAgainCore.ThreadInfo_swigregister
 ThreadInfo_swigregister(ThreadInfo)
 
-class SampleBuilderFactory(_object):
+class SampleBuilderFactoryTemp(_object):
     """
 
 
@@ -24417,16 +24431,110 @@ class SampleBuilderFactory(_object):
     """
 
     __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SampleBuilderFactoryTemp, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SampleBuilderFactoryTemp, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(IFactory<(std::string,IMultiLayerBuilder)> self) -> SampleBuilderFactoryTemp
+
+        IFactory< Key, AbstractProduct >::IFactory()
+
+        """
+        this = _libBornAgainCore.new_SampleBuilderFactoryTemp()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def createItem(self, item_key):
+        """
+        createItem(SampleBuilderFactoryTemp self, std::string const & item_key) -> IMultiLayerBuilder
+
+        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
+
+        Creates object by calling creation function corresponded to given identifier. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_createItem(self, item_key)
+
+
+    def registerItem(self, *args):
+        """
+        registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+        registerItem(SampleBuilderFactoryTemp self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool
+
+        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
+
+        Registers object's creation function and store object description. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, *args)
+
+    __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
+    __del__ = lambda self: None
+
+    def getNumberOfRegistered(self):
+        """
+        getNumberOfRegistered(SampleBuilderFactoryTemp self) -> size_t
+
+        size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
+
+        Returns number of registered objects. 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_getNumberOfRegistered(self)
+
+
+    def begin(self):
+        """
+        begin(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
+
+        const_iterator IFactory< Key, AbstractProduct >::begin() const 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_begin(self)
+
+
+    def end(self):
+        """
+        end(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
+
+        const_iterator IFactory< Key, AbstractProduct >::end() const 
+
+        """
+        return _libBornAgainCore.SampleBuilderFactoryTemp_end(self)
+
+SampleBuilderFactoryTemp_swigregister = _libBornAgainCore.SampleBuilderFactoryTemp_swigregister
+SampleBuilderFactoryTemp_swigregister(SampleBuilderFactoryTemp)
+
+class SampleBuilderFactory(SampleBuilderFactoryTemp):
+    """
+
+
+    Factory to create standard pre-defined samples.
+
+    C++ includes: SampleBuilderFactory.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [SampleBuilderFactoryTemp]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, SampleBuilderFactory, name, value)
     __swig_getmethods__ = {}
+    for _s in [SampleBuilderFactoryTemp]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, SampleBuilderFactory, name)
     __repr__ = _swig_repr
 
     def __init__(self):
         """
-        __init__(IFactory<(std::string,IMultiLayerBuilder)> self) -> SampleBuilderFactory
+        __init__(SampleBuilderFactory self) -> SampleBuilderFactory
 
-        IFactory< Key, AbstractProduct >::IFactory()
+        SampleBuilderFactory::SampleBuilderFactory()
 
         """
         this = _libBornAgainCore.new_SampleBuilderFactory()
@@ -24435,68 +24543,23 @@ class SampleBuilderFactory(_object):
         except Exception:
             self.this = this
 
-    def createItem(self, item_key):
+    def createSample(self, name):
         """
-        createItem(SampleBuilderFactory self, std::string const & item_key) -> IMultiLayerBuilder
+        createSample(SampleBuilderFactory self, std::string const & name) -> MultiLayer
 
-        AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
+        MultiLayer * SampleBuilderFactory::createSample(const std::string &name)
 
-        Creates object by calling creation function corresponded to given identifier. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_createItem(self, item_key)
-
-
-    def registerItem(self, *args):
-        """
-        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
-        registerItem(SampleBuilderFactory self, std::string const & item_key, IFactory< std::string,IMultiLayerBuilder >::CreateItemCallback CreateFn) -> bool
-
-        bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
-
-        Registers object's creation function and store object description. 
+        Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
 
         """
-        return _libBornAgainCore.SampleBuilderFactory_registerItem(self, *args)
+        return _libBornAgainCore.SampleBuilderFactory_createSample(self, name)
 
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactory
     __del__ = lambda self: None
-
-    def getNumberOfRegistered(self):
-        """
-        getNumberOfRegistered(SampleBuilderFactory self) -> size_t
-
-        size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
-
-        Returns number of registered objects. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_getNumberOfRegistered(self)
-
-
-    def begin(self):
-        """
-        begin(SampleBuilderFactory self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
-
-        const_iterator IFactory< Key, AbstractProduct >::begin() const 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_begin(self)
-
-
-    def end(self):
-        """
-        end(SampleBuilderFactory self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
-
-        const_iterator IFactory< Key, AbstractProduct >::end() const 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactory_end(self)
-
 SampleBuilderFactory_swigregister = _libBornAgainCore.SampleBuilderFactory_swigregister
 SampleBuilderFactory_swigregister(SampleBuilderFactory)
 
-class SimulationFactory(_object):
+class SimulationFactoryTemp(_object):
     """
 
 
@@ -24507,19 +24570,19 @@ class SimulationFactory(_object):
     """
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationFactory, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationFactoryTemp, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, SimulationFactory, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, SimulationFactoryTemp, name)
     __repr__ = _swig_repr
 
     def __init__(self):
         """
-        __init__(IFactory<(std::string,GISASSimulation)> self) -> SimulationFactory
+        __init__(IFactory<(std::string,GISASSimulation)> self) -> SimulationFactoryTemp
 
         IFactory< Key, AbstractProduct >::IFactory()
 
         """
-        this = _libBornAgainCore.new_SimulationFactory()
+        this = _libBornAgainCore.new_SimulationFactoryTemp()
         try:
             self.this.append(this)
         except Exception:
@@ -24527,62 +24590,99 @@ class SimulationFactory(_object):
 
     def createItem(self, item_key):
         """
-        createItem(SimulationFactory self, std::string const & item_key) -> GISASSimulation
+        createItem(SimulationFactoryTemp self, std::string const & item_key) -> GISASSimulation
 
         AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
 
         Creates object by calling creation function corresponded to given identifier. 
 
         """
-        return _libBornAgainCore.SimulationFactory_createItem(self, item_key)
+        return _libBornAgainCore.SimulationFactoryTemp_createItem(self, item_key)
 
 
     def registerItem(self, *args):
         """
-        registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
-        registerItem(SimulationFactory self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn) -> bool
+        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn) -> bool
 
         bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
 
         Registers object's creation function and store object description. 
 
         """
-        return _libBornAgainCore.SimulationFactory_registerItem(self, *args)
+        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, *args)
 
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
     __del__ = lambda self: None
 
     def getNumberOfRegistered(self):
         """
-        getNumberOfRegistered(SimulationFactory self) -> size_t
+        getNumberOfRegistered(SimulationFactoryTemp self) -> size_t
 
         size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
 
         Returns number of registered objects. 
 
         """
-        return _libBornAgainCore.SimulationFactory_getNumberOfRegistered(self)
+        return _libBornAgainCore.SimulationFactoryTemp_getNumberOfRegistered(self)
 
 
     def begin(self):
         """
-        begin(SimulationFactory self) -> IFactory< std::string,GISASSimulation >::const_iterator
+        begin(SimulationFactoryTemp self) -> IFactory< std::string,GISASSimulation >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::begin() const 
 
         """
-        return _libBornAgainCore.SimulationFactory_begin(self)
+        return _libBornAgainCore.SimulationFactoryTemp_begin(self)
 
 
     def end(self):
         """
-        end(SimulationFactory self) -> IFactory< std::string,GISASSimulation >::const_iterator
+        end(SimulationFactoryTemp self) -> IFactory< std::string,GISASSimulation >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::end() const 
 
         """
-        return _libBornAgainCore.SimulationFactory_end(self)
+        return _libBornAgainCore.SimulationFactoryTemp_end(self)
 
+SimulationFactoryTemp_swigregister = _libBornAgainCore.SimulationFactoryTemp_swigregister
+SimulationFactoryTemp_swigregister(SimulationFactoryTemp)
+
+class SimulationFactory(SimulationFactoryTemp):
+    """
+
+
+    Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
+
+    C++ includes: SimulationFactory.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [SimulationFactoryTemp]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimulationFactory, name, value)
+    __swig_getmethods__ = {}
+    for _s in [SimulationFactoryTemp]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SimulationFactory, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(SimulationFactory self) -> SimulationFactory
+
+        SimulationFactory::SimulationFactory()
+
+        """
+        this = _libBornAgainCore.new_SimulationFactory()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
+    __del__ = lambda self: None
 SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
 SimulationFactory_swigregister(SimulationFactory)
 

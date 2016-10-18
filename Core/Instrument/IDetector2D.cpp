@@ -19,6 +19,10 @@
 #include "InfinitePlane.h"
 #include "Logger.h"
 #include "SimulationElement.h"
+#include "SimulationArea.h"
+#include "BornAgainNamespace.h"
+#include "Units.h"
+#include "Exceptions.h"
 
 IDetector2D::IDetector2D()
     : m_axes()
@@ -28,12 +32,16 @@ IDetector2D::IDetector2D()
 }
 
 IDetector2D::IDetector2D(const IDetector2D &other)
-    : IParameterized(), m_axes(other.m_axes),
-      m_analyzer_operator(other.m_analyzer_operator), m_detector_mask(other.m_detector_mask)
+    : IParameterized(),
+      m_axes(other.m_axes),
+      m_analyzer_operator(other.m_analyzer_operator),
+      m_detector_mask(other.m_detector_mask)
 {
     setName(other.getName());
     if (other.mP_detector_resolution)
         mP_detector_resolution.reset(other.mP_detector_resolution->clone());
+    if(other.regionOfInterest())
+        m_region_of_interest.reset(other.regionOfInterest()->clone());
     init_parameters();
 }
 
@@ -109,15 +117,60 @@ std::string IDetector2D::addParametersToExternalPool(
     return new_path;
 }
 
-OutputData<double>* IDetector2D::createDetectorMap(const Beam&, EAxesUnits) const
+OutputData<double> *IDetector2D::getDetectorIntensity(const OutputData<double> &data,
+                                                      const Beam& beam,
+                                                      IDetector2D::EAxesUnits units_type) const
 {
-    return nullptr;
+    std::unique_ptr<OutputData<double>> result(data.clone());
+    applyDetectorResolution(result.get());
+
+    if(units_type == IDetector2D::DEFAULT && regionOfInterest() == nullptr)
+        return result.release();
+
+    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
+    if(!detectorMap)
+        throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
+                                    "Can't create detector map.");
+
+    setDataToDetectorMap(*detectorMap.get(), *result.get());
+
+    return detectorMap.release();
+}
+
+OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
+{
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    result->addAxis(*constructAxis(BornAgain::X_AXIS_INDEX, beam, units));
+    result->addAxis(*constructAxis(BornAgain::Y_AXIS_INDEX, beam, units));
+    return result.release();
+}
+
+void IDetector2D::initOutputData(OutputData<double> &data) const {
+  data.clear();
+  for (size_t i = 0; i < getDimension(); ++i)
+      data.addAxis(getAxis(i));
+  data.setAllTo(0.);
 }
 
 std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
 {
     std::vector<EAxesUnits> result = {NBINS};
     return result;
+}
+
+const Geometry::Rectangle *IDetector2D::regionOfInterest() const
+{
+    return m_region_of_interest.get();
+}
+
+void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+{
+    m_region_of_interest.reset(new Geometry::Rectangle(xlow, ylow, xup, yup));
+}
+
+void IDetector2D::resetRegionOfInterest()
+{
+    m_region_of_interest.reset();
 }
 
 void IDetector2D::removeMasks()
@@ -173,35 +226,40 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
     Eigen::Matrix2cd analyzer_operator = getAnalyzerOperator();
 
-    if (getDimension()!=2)
-        throw Exceptions::RuntimeErrorException(
-            "IDetector2D::createSimulationElements: detector is not two-dimensional");
     if (!hasMasks())
         m_detector_mask.initMaskData(*this);
     size_t spec_index = getIndexOfSpecular(beam);
-    const OutputData<bool>* mask_data = m_detector_mask.getMaskData();
-    for (size_t index=0; index<mask_data->getAllocatedSize(); ++index) {
-        if ((*mask_data)[index]) continue;
-        const std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
-        SimulationElement sim_element(wavelength, alpha_i, phi_i, P_pixel_map.get());
+
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        SimulationElement sim_element(wavelength, alpha_i, phi_i,
+                                      std::unique_ptr<IPixelMap>(createPixelMap(it.index())));
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
-        if (index==spec_index) {
+        if (it.index()==spec_index) {
             sim_element.setSpecular(true);
         }
         result.push_back(sim_element);
     }
+
     return result;
 }
 
-//! create single simulation element
 SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
 {
     double wavelength = beam.getWavelength();
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
-    const std::unique_ptr<IPixelMap> P_pixel_map(createPixelMap(index));
-    return SimulationElement(wavelength, alpha_i, phi_i, P_pixel_map.get());
+    return SimulationElement(wavelength, alpha_i, phi_i,
+                             std::unique_ptr<IPixelMap>(createPixelMap(index)));
+}
+
+void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,
+    const std::vector<SimulationElement> &elements) const
+{
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        data[it.index()] = elements[it.elementIndex()].getIntensity();
 }
 
 bool IDetector2D::dataShapeMatches(const OutputData<double> *p_data) const
@@ -236,18 +294,84 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
                                           "Error! No axis with given number");
 }
 
+std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,
+                                                  IDetector2D::EAxesUnits units) const
+{
+    double amin(0), amax(0);
+    calculateAxisRange(axis_index, beam, units, amin, amax);
+
+    std::unique_ptr<IAxis> result(new FixedBinAxis(getAxisName(axis_index),
+                                                   getAxis(axis_index).getSize(), amin, amax));
+
+    if(m_region_of_interest) {
+        return clipAxisToRoi(axis_index, *result.get());
+    } else {
+        return result;
+    }
+}
+
+std::unique_ptr<IAxis> IDetector2D::clipAxisToRoi(size_t axis_index, const IAxis &axis) const
+{
+    if(!m_region_of_interest)
+        throw Exceptions::RuntimeErrorException("IDetector2D::clipAxisToRoi() -> Error. ROI is "
+                                                "absent");
+
+    size_t nbin1(0), nbin2(axis.getSize()-1);
+    if(axis_index == BornAgain::X_AXIS_INDEX) {
+        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXlow());
+        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXup());
+
+    }else if(axis_index == BornAgain::Y_AXIS_INDEX) {
+        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYlow());
+        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYup());
+    }
+
+    return std::unique_ptr<IAxis>(new FixedBinAxis(axis.getName(), nbin2-nbin1+1,
+                                    axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
+}
+
+void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
+        IDetector2D::EAxesUnits units, double &amin, double &amax) const
+{
+    amin = 0.0; amax=0.0;
+
+    if(units == DEFAULT) {
+        amin = getAxis(axis_index).getMin();
+        amax = getAxis(axis_index).getMax();
+
+    }else if(units == NBINS) {
+        amin = 0.0;
+        amax = static_cast<double>(getAxis(axis_index).getSize());
+
+    } else if(units == QYQZ && axis_index == BornAgain::X_AXIS_INDEX) {
+        const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
+        SimulationElement el_left_bottom
+            = getSimulationElement(getGlobalIndex(0, 0), beam);
+        SimulationElement el_right_bottom
+            = getSimulationElement(getGlobalIndex(aX.getSize()-1, 0), beam);
+        amin = el_left_bottom.getQ(0.0, 0.0).y();
+        amax = el_right_bottom.getQ(1.0, 0.0).y();
+
+    } else if(units == QYQZ && axis_index == BornAgain::Y_AXIS_INDEX) {
+        const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
+        const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
+        SimulationElement el_center_bottom
+            = getSimulationElement(getGlobalIndex(aX.getSize()/2, 0), beam);
+        SimulationElement el_center_top
+            = getSimulationElement(getGlobalIndex(aX.getSize()/2, aY.getSize()-1), beam);
+        amin = -el_center_bottom.getQ(0.5, 0.0).z();
+        amax = -el_center_top.getQ(0.5, 1.0).z();
+
+    } else {
+        throw Exceptions::RuntimeErrorException("IDetector2D::calculateAxisRange() -> Error. "
+                                                "Unknown units " +std::to_string(units));
+    }
+}
+
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
     if (getDimension()!=2) return getTotalSize();
     return x*m_axes[1]->getSize()+y;
-}
-
-void IDetector2D::swapContent(IDetector2D &other)
-{
-    std::swap(this->m_axes, other.m_axes);
-    std::swap(this->mP_detector_resolution, other.mP_detector_resolution);
-    std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
-    std::swap(this->m_detector_mask, other.m_detector_mask);
 }
 
 size_t IDetector2D::getTotalSize() const
@@ -290,6 +414,33 @@ Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(
     result(1, 0) = diff*(x + im * y) / 2.0;
     result(1, 1) = (sum - diff*z) / 2.0;
     return result;
+}
+
+void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
+                                       const OutputData<double> &data) const
+{
+    if(detectorMap.getAllocatedSize() == data.getAllocatedSize()) {
+        detectorMap.setRawDataVector(data.getRawDataVector());
+        return;
+    }
+
+    if(const Geometry::Rectangle *roi = regionOfInterest()) {
+        size_t roi_x = getAxis(BornAgain::X_AXIS_INDEX).findClosestIndex(roi->getXlow());
+        size_t roi_y = getAxis(BornAgain::Y_AXIS_INDEX).findClosestIndex(roi->getYlow());
+        size_t index0 = getGlobalIndex(roi_x, roi_y);
+        const IAxis &yAxisOfDetector = getAxis(BornAgain::Y_AXIS_INDEX);
+
+        const IAxis &xAxisOfMap = *detectorMap.getAxis(BornAgain::X_AXIS_INDEX);
+        const IAxis &yAxisOfMap = *detectorMap.getAxis(BornAgain::Y_AXIS_INDEX);
+        for(size_t ix=0; ix<xAxisOfMap.getSize(); ++ix) {
+            for(size_t iy=0; iy<yAxisOfMap.getSize(); ++iy) {
+                size_t mapIndex = iy + ix*yAxisOfMap.getSize();
+                size_t globalIndex = index0 + iy + ix*yAxisOfDetector.getSize();
+                detectorMap[mapIndex] = data[globalIndex];
+            }
+        }
+    }
+
 }
 
 void IDetector2D::addAxis(const IAxis& axis)

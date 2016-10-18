@@ -39,15 +39,6 @@ IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
     init_parameters();
 }
 
-IsGISAXSDetector &IsGISAXSDetector::operator=(const IsGISAXSDetector &other)
-{
-    if (this != &other) {
-        IsGISAXSDetector tmp(other);
-        tmp.swapContent(*this);
-    }
-    return *this;
-}
-
 IsGISAXSDetector *IsGISAXSDetector::clone() const
 {
     return new IsGISAXSDetector(*this);

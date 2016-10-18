@@ -22,6 +22,7 @@
 #include "EigenCore.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
+#include "Rectangle.h"
 #include <memory>
 
 template<class T> class OutputData;
@@ -38,13 +39,12 @@ namespace Geometry {
 //! @ingroup simulation
 //! @brief The detector interface.
 
-class BA_CORE_API_ IDetector2D : public IParameterized
+class BA_CORE_API_ IDetector2D : public ICloneable, public IParameterized
 {
 public:
     enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
 
     IDetector2D();
-    IDetector2D(const IDetector2D& other);
 
     virtual IDetector2D* clone() const=0;
 
@@ -114,15 +114,29 @@ public:
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+
+    //! Creates single simulation element.
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
+
+    void transferResultsToIntensityMap(OutputData<double> &data,
+                                       const std::vector<SimulationElement> &elements) const;
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
+    //! Returns clone of the intensity map with detector resolution applied,
+    //! axes of map will be in requested units
+    OutputData<double>* getDetectorIntensity(
+        const OutputData<double>& data, const Beam& beam,
+        IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+
     //! Returns detector map in given axes units
-    virtual OutputData<double>* createDetectorMap(const Beam&, EAxesUnits) const;
+    virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
+
+    //! Inits axes of OutputData to match the detector and sets values to zero.
+    virtual void initOutputData(OutputData<double> &data) const;
 
     //! returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;
@@ -130,7 +144,24 @@ public:
     //! return default axes units
     virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
 
+    //! Returns region of  interest if exists.
+    const Geometry::Rectangle* regionOfInterest() const;
+
+    //! Sets rectangular region of interest with lower left and uppre right corners defined.
+    void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
+
+    //! Resets region of interest making whole detector plane available for the simulation.
+    void resetRegionOfInterest();
+
+    //! Returns total number of pixels
+    size_t getTotalSize() const;
+
+    //! Calculate axis index for given global index
+    size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
+
 protected:
+    IDetector2D(const IDetector2D& other);
+
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const=0;
 
@@ -139,6 +170,16 @@ protected:
 
     //! Generates an axis with correct name and default binning for given index
     virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const=0;
+
+    //! Constructs axis with min,max corresponding to selected units
+    std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
+                                         EAxesUnits units) const;
+
+    std::unique_ptr<IAxis> clipAxisToRoi(size_t axis_index, const IAxis &axis) const;
+
+    //! Calculates axis range from original detector axes in given units (mm, rad, etc)
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
+                                    double &amin, double &amax) const;
 
     //! Returns the name for the axis with given index
     virtual std::string getAxisName(size_t index) const=0;
@@ -151,22 +192,13 @@ protected:
     //! Initialize polarization (for constructors)
     void initPolarizationOperator();
 
-    //! Calculate axis index for given global index
-    size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
-
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;
-
-    //! swap function
-    void swapContent(IDetector2D& other);
 
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is
     //! returned. This corresponds to an overflow index.
     virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
-
-    //! Returns total number of pixels
-    size_t getTotalSize() const;
 
     SafePointerVector<IAxis> m_axes;
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;
@@ -183,6 +215,11 @@ private:
     Eigen::Matrix2cd calculateAnalyzerOperator(
         const kvector_t direction, double efficiency, double total_transmission = 1.0) const;
 #endif
+
+    void setDataToDetectorMap(OutputData<double> &detectorMap,
+                              const OutputData<double> &data) const;
+
+    std::unique_ptr<Geometry::Rectangle> m_region_of_interest;
 };
 
 #endif // IDETECTOR2D_H

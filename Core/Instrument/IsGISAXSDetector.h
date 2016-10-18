@@ -27,10 +27,8 @@ class BA_CORE_API_ IsGISAXSDetector : public SphericalDetector
 public:
     IsGISAXSDetector();
     IsGISAXSDetector(size_t n_phi, double phi_min, double phi_max,
-                      size_t n_alpha, double alpha_min, double alpha_max);
-
+                     size_t n_alpha, double alpha_min, double alpha_max);
     IsGISAXSDetector(const IsGISAXSDetector &other);
-    IsGISAXSDetector &operator=(const IsGISAXSDetector &other);
 
     IsGISAXSDetector* clone() const override;
 

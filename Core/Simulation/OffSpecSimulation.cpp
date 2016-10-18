@@ -110,8 +110,6 @@ std::string OffSpecSimulation::addParametersToExternalPool(
     return new_path;
 }
 
-// *** protected ***
-
 void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
@@ -135,7 +133,6 @@ void OffSpecSimulation::initSimulationElementVector()
 void OffSpecSimulation::transferResultsToIntensityMap()
 {
     checkInitialization();
-    updateIntensityMap();
     const IAxis& phi_axis = m_instrument.getDetectorAxis(0);
     size_t phi_f_size = phi_axis.getSize();
     if (phi_f_size*m_intensity_map.getAllocatedSize()!=m_sim_elements.size())

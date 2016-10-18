@@ -122,19 +122,7 @@ void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) co
 OutputData<double>* Instrument::getDetectorIntensity(
     const OutputData<double> &data, IDetector2D::EAxesUnits units_type) const
 {
-    std::unique_ptr<OutputData<double> > result (data.clone());
-    applyDetectorResolution(result.get());
-
-    if(units_type == IDetector2D::DEFAULT) {
-        return result.release();
-    } else {
-        OutputData<double>* detectorMap = mP_detector->createDetectorMap(m_beam, units_type);
-        if(!detectorMap)
-            throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
-                                        "Can't create detector map.");
-        detectorMap->setRawDataVector(result->getRawDataVector());
-        return detectorMap;
-    }
+    return mP_detector->getDetectorIntensity(data, m_beam, units_type);
 }
 
 void Instrument::print(std::ostream& ostr) const

@@ -502,3 +502,20 @@
 | date                | hostname  | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
 | 2016-05-25 12:50:59 | jcnsopc22 | Linux x86_64 | 2.7    | 126.2680  | 19.0747    | 2.9620     | 0.7566          | 3.5780          | 0.5746    | 2.2319        | 0.7519            | 2.6683         | 1.0811 | 1.7840      | 1.8264    | 0.8599    |
 
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-12 14:58:56 | scgsun   | Linux x86_64 | 2.7    | 121.8000  | 18.9031    | 2.8314     | 0.6853          | 3.3220          | 0.5178    | 2.2989        | 0.7084            | 3.1807         | 1.0054 | 1.7599      | 1.7037    | 0.8896    |
+| 2016-10-12 15:00:12 | scgsun   | Linux x86_64 | 2.7    | 121.7560  | 19.1301    | 2.9637     | 0.6960          | 3.3558          | 0.5273    | 2.3114        | 0.7187            | 3.1900         | 1.0233 | 1.7531      | 1.7332    | 0.8575    |
+
+# removed extra call of updateIntensityMap()
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-12 15:08:03 | scgsun   | Linux x86_64 | 2.7    | 122.8240  | 21.1832    | 3.8394     | 0.7716          | 3.4871          | 0.6384    | 2.5385        | 0.8021            | 3.3587         | 1.1122 | 1.8113      | 1.8655    | 0.9583    |
+| 2016-10-12 15:15:12 | scgsun   | Linux x86_64 | 2.7    | 121.6320  | 18.9844    | 2.8292     | 0.6947          | 3.3337          | 0.5314    | 2.3015        | 0.7091            | 3.2037         | 1.0140 | 1.7533      | 1.7217    | 0.8920    |
+
+
+# after the switch to std::move in SimulationElement
+| 2016-10-14 08:51:54 | scgsun   | Linux x86_64 | 2.7    | 122.8880  | 19.3683    | 2.8577     | 0.7296          | 3.3728          | 0.5629    | 2.3569        | 0.7555            | 3.3065         | 1.0475 | 1.7642      | 1.7467    | 0.8680    |
+
+# after switch to SimulationAreaIterator
+| 2016-10-17 11:28:02 | scgsun   | Linux x86_64 | 2.7    | 122.3960  | 19.9584    | 3.0328     | 0.7849          | 3.4156          | 0.5976    | 2.3843        | 0.7670            | 3.4331         | 1.0687 | 1.7839      | 1.8056    | 0.8850    |
+

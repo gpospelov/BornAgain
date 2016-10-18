@@ -146,11 +146,14 @@
     \vskip 40\p@ plus 8\p@ minus 8\p@
   }}
 
+\def\pagemode#1{%
+\def\thepage{#1:\arabic{page}} % compositor character must agree with page_compositor in *.ist files
+\def\pagereset{\setcounter{page}{1}}}
+
 % Index, Bibliography, ...
 \def\otherchapter#1#2{
   \clearpage
-  \setcounter{page}{1}
-  \def\thepage{#2:\arabic{page}}
+  \pagemode{#2}
   \phantomsection
   \addcontentsline{toc}{chapter}{#1}
   \markboth{#1}{#1}}
@@ -211,7 +214,7 @@
 %-------------------------------------------------------------------------------
 
 \ifdraft{\usepackage{showidx}}{}
-\usepackage{imakeidx}
+\usepackage[noautomatic]{imakeidx}
 \makeindex
 
 \makeatletter

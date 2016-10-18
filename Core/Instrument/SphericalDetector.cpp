@@ -42,15 +42,6 @@ SphericalDetector::SphericalDetector(const SphericalDetector& other)
     init_parameters();
 }
 
-SphericalDetector& SphericalDetector::operator=(const SphericalDetector& other)
-{
-    if (this !=& other) {
-        SphericalDetector tmp(other);
-        tmp.swapContent(*this);
-    }
-    return *this;
-}
-
 SphericalDetector* SphericalDetector::clone() const
 {
     return new SphericalDetector(*this);

@@ -12,33 +12,15 @@
 #include "Rectangle.h"
 #include "Units.h"
 #include "Beam.h"
+#include "SimulationArea.h"
 #include <memory>
 
 class SphericalDetectorTest : public ::testing::Test
 {
  protected:
-    SphericalDetectorTest();
-    virtual ~SphericalDetectorTest();
-
-    SphericalDetector *originalDetector;
-    SphericalDetector copyOfOriginalDetector;
+    SphericalDetectorTest(){}
+    virtual ~SphericalDetectorTest(){}
 };
-
-SphericalDetectorTest::SphericalDetectorTest()
-{
-    originalDetector = new SphericalDetector();
-    FixedBinAxis axis0("axis0", 10, 0.0, 10.0);
-    FixedBinAxis axis1("axis1", 20, 0.0, 20.0);
-    originalDetector->addAxis(axis0);
-    originalDetector->addAxis(axis1);
-    originalDetector->setDetectorResolution(new ConvolutionDetectorResolution(
-            new ResolutionFunction2DGaussian(1,1)));
-}
-
-SphericalDetectorTest::~SphericalDetectorTest()
-{
-    delete originalDetector;
-}
 
 //! Default detector construction
 
@@ -292,24 +274,6 @@ TEST_F(SphericalDetectorTest, getIntensityData)
     EXPECT_EQ(detectorIntensity->getAxis(1)->getMax(), 3.0);
 }
 
-
-
-TEST_F(SphericalDetectorTest, DetectorCopying)
-{
-    copyOfOriginalDetector = *originalDetector;
-    delete originalDetector;
-    originalDetector = 0;
-    ASSERT_TRUE( copyOfOriginalDetector.getDimension() == 2 );
-    EXPECT_EQ( (double)0, copyOfOriginalDetector.getAxis(0).getMin() );
-    EXPECT_EQ( (double)10, copyOfOriginalDetector.getAxis(0).getMax() );
-    EXPECT_EQ( (size_t)10, copyOfOriginalDetector.getAxis(0).getSize() );
-    EXPECT_EQ( (double)0, copyOfOriginalDetector.getAxis(1).getMin() );
-    EXPECT_EQ( (double)20, copyOfOriginalDetector.getAxis(1).getMax() );
-    EXPECT_EQ( (size_t)20, copyOfOriginalDetector.getAxis(1).getSize() );
-    EXPECT_TRUE(std::string("ConvolutionDetectorResolution")
-        == copyOfOriginalDetector.getDetectorResolutionFunction()->getName());
-}
-
 TEST_F(SphericalDetectorTest, MaskOfDetector)
 {
     SphericalDetector detector;
@@ -333,7 +297,7 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
         }
     }
 
-    SphericalDetector detector2 = detector;
+    SphericalDetector detector2(detector);
     mask = detector2.getDetectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
         double x = mask->getAxisValue(index, 0);
@@ -355,6 +319,51 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
             EXPECT_FALSE(detector.isMasked(index));
         }
     }
+}
+
+//! Checking clone in the presence of ROI and masks.
+
+TEST_F(SphericalDetectorTest, Clone)
+{
+    Beam beam;
+    beam.setCentralK(1.0*Units::angstrom, 0.4*Units::deg, 0.0);
+
+    SphericalDetector detector(6, -1.0*Units::deg, 5.0*Units::deg,
+                               4, 0.0*Units::deg, 4.0*Units::deg);
+    detector.setRegionOfInterest(0.1*Units::deg, 1.1*Units::deg, 3.0*Units::deg, 2.9*Units::deg);
+    detector.addMask(Geometry::Rectangle(-0.9*Units::deg, 0.1*Units::deg, 0.9*Units::deg, 1.9*Units::deg), true);
+    detector.addMask(Geometry::Rectangle(3.1*Units::deg, 2.1*Units::deg, 4.9*Units::deg, 3.9*Units::deg), true);
+    detector.setDetectorResolution(new ConvolutionDetectorResolution(
+            new ResolutionFunction2DGaussian(1,1)));
+
+    std::unique_ptr<SphericalDetector> clone(detector.clone());
+
+    std::unique_ptr<OutputData<double>> data(
+                clone->createDetectorMap(beam, IDetector2D::DEGREES));
+    EXPECT_EQ(data->getAxis(0)->getSize(), 4);
+    EXPECT_EQ(data->getAxis(0)->getMin(), 0.0);
+    EXPECT_EQ(data->getAxis(0)->getMax(), 4.0);
+    EXPECT_EQ(data->getAxis(1)->getSize(), 2);
+    EXPECT_EQ(data->getAxis(1)->getMin(), 1.0);
+    EXPECT_EQ(data->getAxis(1)->getMax(), 3.0);
+
+    EXPECT_EQ(std::string("ConvolutionDetectorResolution"),
+              clone->getDetectorResolutionFunction()->getName());
+
+    EXPECT_EQ(clone->getNumberOfMaskedChannels(), 8);
+
+    // checking iteration over the map of cloned detector
+    SimulationArea area(clone.get());
+    std::vector<int> expectedIndexes = {6, 9, 10, 13, 14, 17};
+    std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5};
+    std::vector<int> indexes;
+    std::vector<int> elementIndexes;
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        indexes.push_back(it.index());
+        elementIndexes.push_back(it.elementIndex());
+    }
+    EXPECT_EQ(indexes, expectedIndexes);
+    EXPECT_EQ(elementIndexes, expectedElementIndexes);
 }
 
 #endif // SPHERICALDETECTORTEST_H

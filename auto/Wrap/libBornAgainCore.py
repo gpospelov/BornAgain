@@ -16702,15 +16702,15 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
 HomogeneousMagneticMaterial_swigregister = _libBornAgainCore.HomogeneousMagneticMaterial_swigregister
 HomogeneousMagneticMaterial_swigregister(HomogeneousMagneticMaterial)
 
-class IDetector2D(IParameterized):
+class IDetector2D(ICloneable, IParameterized):
     """Proxy of C++ IDetector2D class."""
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IDetector2D, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IDetector2D, name)
 
@@ -16959,16 +16959,29 @@ class IDetector2D(IParameterized):
         return _libBornAgainCore.IDetector2D_hasMasks(self)
 
 
-    def createDetectorMap(self, arg2, arg3):
+    def getDetectorIntensity(self, *args):
         """
-        createDetectorMap(IDetector2D self, Beam arg2, IDetector2D::EAxesUnits arg3) -> IntensityData
+        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
+        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam) -> IntensityData
+        """
+        return _libBornAgainCore.IDetector2D_getDetectorIntensity(self, *args)
+
+
+    def createDetectorMap(self, beam, units):
+        """
+        createDetectorMap(IDetector2D self, Beam beam, IDetector2D::EAxesUnits units) -> IntensityData
 
         OutputData< double > * IDetector2D::createDetectorMap(const Beam &, EAxesUnits) const
 
         Returns detector map in given axes units. 
 
         """
-        return _libBornAgainCore.IDetector2D_createDetectorMap(self, arg2, arg3)
+        return _libBornAgainCore.IDetector2D_createDetectorMap(self, beam, units)
+
+
+    def initOutputData(self, data):
+        """initOutputData(IDetector2D self, IntensityData data)"""
+        return _libBornAgainCore.IDetector2D_initOutputData(self, data)
 
 
     def getValidAxesUnits(self):
@@ -16993,6 +17006,31 @@ class IDetector2D(IParameterized):
 
         """
         return _libBornAgainCore.IDetector2D_getDefaultAxesUnits(self)
+
+
+    def regionOfInterest(self):
+        """regionOfInterest(IDetector2D self) -> Rectangle"""
+        return _libBornAgainCore.IDetector2D_regionOfInterest(self)
+
+
+    def setRegionOfInterest(self, xlow, ylow, xup, yup):
+        """setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)"""
+        return _libBornAgainCore.IDetector2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
+
+
+    def resetRegionOfInterest(self):
+        """resetRegionOfInterest(IDetector2D self)"""
+        return _libBornAgainCore.IDetector2D_resetRegionOfInterest(self)
+
+
+    def getTotalSize(self):
+        """getTotalSize(IDetector2D self) -> size_t"""
+        return _libBornAgainCore.IDetector2D_getTotalSize(self)
+
+
+    def getAxisBinIndex(self, index, selected_axis):
+        """getAxisBinIndex(IDetector2D self, size_t index, size_t selected_axis) -> size_t"""
+        return _libBornAgainCore.IDetector2D_getAxisBinIndex(self, index, selected_axis)
 
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
 IDetector2D_swigregister(IDetector2D)
@@ -19703,18 +19741,6 @@ class SphericalDetector(IDetector2D):
 
     __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
     __del__ = lambda self: None
-
-    def createDetectorMap(self, beam, units_type):
-        """
-        createDetectorMap(SphericalDetector self, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
-
-        OutputData< double > * SphericalDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
-
-        Returns detector map in given axes units. 
-
-        """
-        return _libBornAgainCore.SphericalDetector_createDetectorMap(self, beam, units_type)
-
 
     def getValidAxesUnits(self):
         """
@@ -23937,18 +23963,6 @@ class RectangularDetector(IDetector2D):
 
         """
         return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
-
-
-    def createDetectorMap(self, beam, units_type):
-        """
-        createDetectorMap(RectangularDetector self, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
-
-        OutputData< double > * RectangularDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
-
-        Returns detector map in given axes units. 
-
-        """
-        return _libBornAgainCore.RectangularDetector_createDetectorMap(self, beam, units_type)
 
 
     def getValidAxesUnits(self):

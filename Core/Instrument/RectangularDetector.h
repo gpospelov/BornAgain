@@ -42,7 +42,6 @@ public:
     RectangularDetector(int nxbins, double width, int nybins, double height);
 
     RectangularDetector(const RectangularDetector& other);
-    RectangularDetector& operator=(const RectangularDetector& other);
 
     RectangularDetector* clone() const override;
 

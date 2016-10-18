@@ -32,12 +32,16 @@ IDetector2D::IDetector2D()
 }
 
 IDetector2D::IDetector2D(const IDetector2D &other)
-    : IParameterized(), m_axes(other.m_axes),
-      m_analyzer_operator(other.m_analyzer_operator), m_detector_mask(other.m_detector_mask)
+    : IParameterized(),
+      m_axes(other.m_axes),
+      m_analyzer_operator(other.m_analyzer_operator),
+      m_detector_mask(other.m_detector_mask)
 {
     setName(other.getName());
     if (other.mP_detector_resolution)
         mP_detector_resolution.reset(other.mP_detector_resolution->clone());
+    if(other.regionOfInterest())
+        m_region_of_interest.reset(other.regionOfInterest()->clone());
     init_parameters();
 }
 
@@ -368,15 +372,6 @@ size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
     if (getDimension()!=2) return getTotalSize();
     return x*m_axes[1]->getSize()+y;
-}
-
-void IDetector2D::swapContent(IDetector2D &other)
-{
-    std::swap(this->m_axes, other.m_axes);
-    std::swap(this->mP_detector_resolution, other.mP_detector_resolution);
-    std::swap(this->m_analyzer_operator, other.m_analyzer_operator);
-    std::swap(this->m_detector_mask, other.m_detector_mask);
-    std::swap(this->m_region_of_interest, other.m_region_of_interest);
 }
 
 size_t IDetector2D::getTotalSize() const

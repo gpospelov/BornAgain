@@ -54,15 +54,6 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
 
 RectangularDetector::~RectangularDetector() {}
 
-RectangularDetector& RectangularDetector::operator=(const RectangularDetector& other)
-{
-    if (this != &other) {
-        RectangularDetector tmp(other);
-        tmp.swapContent(*this);
-    }
-    return *this;
-}
-
 RectangularDetector *RectangularDetector::clone() const
 {
     return new RectangularDetector(*this);
@@ -304,14 +295,6 @@ size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
         return getGlobalIndex(u_index, v_index);
     }
     return getTotalSize();
-}
-
-void RectangularDetector::swapContent(RectangularDetector& other)
-{
-    IDetector2D::swapContent(other);
-    std::swap(this->m_normal_to_detector, other.m_normal_to_detector);
-    std::swap(this->m_u_unit, other.m_u_unit);
-    std::swap(this->m_v_unit, other.m_v_unit);
 }
 
 void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0)

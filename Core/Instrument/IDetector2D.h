@@ -39,13 +39,12 @@ namespace Geometry {
 //! @ingroup simulation
 //! @brief The detector interface.
 
-class BA_CORE_API_ IDetector2D : public IParameterized
+class BA_CORE_API_ IDetector2D : public ICloneable, public IParameterized
 {
 public:
     enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
 
     IDetector2D();
-    IDetector2D(const IDetector2D& other);
 
     virtual IDetector2D* clone() const=0;
 
@@ -161,6 +160,8 @@ public:
     size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
 
 protected:
+    IDetector2D(const IDetector2D& other);
+
     //! Create an IPixelMap for the given OutputData object and index
     virtual IPixelMap* createPixelMap(size_t index) const=0;
 
@@ -193,9 +194,6 @@ protected:
 
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;
-
-    //! swap function
-    void swapContent(IDetector2D& other);
 
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is

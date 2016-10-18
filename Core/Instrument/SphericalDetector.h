@@ -39,7 +39,6 @@ public:
                       size_t n_alpha, double alpha_min, double alpha_max);
 
     SphericalDetector(const SphericalDetector &other);
-    SphericalDetector &operator=(const SphericalDetector &other);
 
     SphericalDetector* clone() const override;
 

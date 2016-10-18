@@ -223,6 +223,47 @@ that involves two incident and two final partial wavefunctions.
 
 TO MERGE
 
+Since both the incident
+and the scattered distorted wavefunction
+are composed of downward and upward propagating waves,
+\begin{equation}\label{Epsipm}
+  \psi_w(\r)
+  = \psi^-_w(\r) + \psi^+_w(\r)
+  \quad\text{with}\quad
+  w=\ti,\tf,
+\end{equation}
+\nomenclature[2w010]{$w$}{An index that can take the values i (incident)
+or f (final)}%
+the matrix element can be expanded into four terms,
+\begin{equation}\label{Edwba4}
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  = \bra \psi^-_\ti|\delta v|\psi^-_\tf\ket
+  + \bra \psi^-_\ti|\delta v|\psi^+_\tf\ket
+  + \bra \psi^+_\ti|\delta v|\psi^-_\tf\ket
+  + \bra \psi^+_\ti|\delta v|\psi^+_\tf\ket,
+\end{equation}
+\nomenclature[1ψ041 0\pm 2r040]{$\psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\psi(\r)$}%
+\nomenclature[0\pm]{$\pm$}{Upward ($+$) or downward ($-$) propagating}%
+or in an obvious shorthand notation
+\Emph{%
+\begin{equation}\label{Edwba}
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  = \sum_{\pm_\ti} \sum_{\pm_\tf}
+    \bra \psi^\pm_\ti|\delta v|\psi^\pm_\tf\ket.
+\end{equation}%
+\vspace*{-5pt}}
+This equation contains the essence of
+the distorted-wave Born approximation
+for small-angle scattering under grazing incidence,
+and is the base for all scattering models implemented in \BornAgain.
+Since $\bra \psi_\ti|\delta v|\psi_\tf\ket$
+appears as a squared modulus
+in the differential cross section~\cref{Exsection},
+the four terms of \cref{Edwba} can interfere with each other,
+which adds to the complexity of GISAS patterns.
+
+... OTHER OLD MAT ...
+
 \index{Refractive index!graded}%
 \index{Graded layer}%
 \index{Layer!graded}%

@@ -379,7 +379,7 @@ and obtain in leading order the far-field Green function
 \nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field
    approximation to the Green function $G(\r,\r')$}%
 where
-\begin{equation}
+\begin{equation}\label{EPsisfar}
   \psi_\tf(\r) \coloneqq  \e^{i\k_\tf \r}
 \end{equation}
 \nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}{Plane
@@ -387,9 +387,8 @@ where
 is a plane wave propagating towards the detector,
 and $\psi^*$ designates the complex conjugate of $\psi$.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
-
-The scattered wave~\cref{EBornS}
-becomes in the far-field approximation
+Inserting \cref{EGreenFar} and~\cref{EPsisfar} in \cref{EBornS},
+we obtain the far-field approximation for the scattered wave,
 \begin{equation}\label{EsandwichC}
   \psi_\text{s,far}(\r)
   = \frac{\e^{iKr}}{r}
@@ -399,15 +398,19 @@ becomes in the far-field approximation
    approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
 where we used Dirac notation for the transition matrix element
 \index{Transition matrix}%
+\Emph{%
 \begin{equation}\label{Etrama}
   \bra \psi_\tf|\delta v|\psi_\ti\ket
   \coloneqq  \int\!\d^3r\, \psi^*_\tf(\r)\delta v(\r)\psi_\ti(\r).
 \end{equation}
+\vspace*{-5pt}}
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix
   element, defined as a volume integral}%
 In order to reconcile conflicting sign conventions,
+\index{Sign convention!transition matrix|(}%
 we will in the following rather use its complex conjugate
 $\bra \psi_\ti|\delta v|\psi_\tf\ket = \bra \psi_\tf|\delta v|\psi_\ti\ket^*$.
+
 Under the standard assumption
 that the incident radiation is a plane wave
 \index{Incident radiation!plane wave}%
@@ -482,21 +485,22 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 % The geometric factors that are needed to
 % convert $\d\sigma/\d\Omega$ into detector counts will be discussed
 % below in \cref{SdetImg}.
-
-With \cref{EPsi0Plane}, the incident flux is
+For a plane wave~\cref{EPsi0Plane}, the incident flux is
 \index{Incident radiation!flux|)}%
 \index{Flux!Born approximation}%
 \begin{equation}\label{EJi}
   \v{J}_\ti = \k_\ti.
 \end{equation}
-With \cref{EsandwichC}, the scattered flux at the detector is
+With the far-field result~\cref{EsandwichC}
+and the notation~\cref{Etrama},
+the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
     {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
 \end{equation}
-From \cref{Exsectiondef} we obtain
-the generic differential cross section
+Inserting these into definition~\cref{Exsectiondef},
+we obtain the generic differential cross section
 of elastic scattering in first order Born approximation,
 \index{Born approximation!elastic scattering cross section}%
 \index{Cross section!elastic scattering in Born approximation}%
@@ -540,38 +544,33 @@ and an analytic result
 the Green function of the Helmholtz equation is a plane wave
 with respect to the locus of scattering).
 These three elements must not necessarily go together.
-We can apply the very same approximation scheme,
-even if the incident field is not a plane wave,
-but a \E{distorted wave},
-namely a superposition of downwards and upwards travelling plane waves,
-as derived in the previous section.
-This is the core idea
-of the \E{distorted-wave Born approximation} (DWBA).\footnote
-{The distorted-wave Born approximation
-was originally devised by Massey and Mott (ca 1933)
-for collisions of charged particles.}
-% Schiff (^3 1968, p 327) cites
-% Mott, Massey, The Theory of Atomic Collisions, p 100, Oxford 1933;
-% There are also several papers by Massey and Mott from about 1933.
+In particularly, there is a fairly straightforward generalization
+of the Born approximation for the case that
+the incident field is not a plane wave,
+called the \E{distorted-wave Born approximation} (DWBA).\footnote
+{Originally devised by Massey and Mott (ca 1933)
+for collisions of charged particles.
+The first explicit application to grazing-incidence scattering
+seems to be by Vineyard (1982) \cite{Vin82}.}
+It is pertinent for grazing-incidence scattering
+because refraction and reflection at interfaces
+distort the incident radiation into
+a superposition of downwards and upwards travelling waves,
+as we shall discuss below in~\Cref{Swave21}.
 
-To carry out this idea, we need to determine the Green function~$G$.
-\index{Green function!vertically structured material}%
-In \cref{SBornExpans} we did so quite specifically
-for a homogeneous material.
-Computing~$G$ in closed form for a more generic wave equation
-like~\cref{EWaveZ} is far more difficult,
-if not outright impossible.
-Fortunately, this computation is not necessary,
-and would be but wasted effort:
-We do not need the full solution~$G(\r,\r')$,
-but only its asymptotic far-field value $G(\rD,\r')$
+To derive the scattering cross section in DWBA,
+we are going to use generic properties of the Green function~$G$
+\index{Green function!DWBA}%
+that do not depend on the specific form~\cref{EHelmholtzHomog}
+of the homogeneous wave equation.
+While ignoring the full solution~$G(\r,\r')$,
+we can still investigate its asymptotic far-field limit $G(\rD,\r')$
 at a detector position $\rD$.
 \nomenclature[2r041 2d100]{$\rD$}{Position of the detector}%
-Thanks to a \E{source-detector reciprocity theorem}~\cref{Ereci}
+The \E{source-detector reciprocity theorem}~\cref{Ereci}
 \index{Reciprocity}%
-proven in \cref{Sreci1},
-we can compute this value
-as
+proven in \cref{Sreci1}
+yields
 \begin{equation}\label{EreciDup}
   G(\rD,\r) = B(\r,\rD),
 \end{equation}
@@ -597,59 +596,21 @@ Therefore,
   B_\text{far}(\r,\rD)
   = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r).
 \end{equation}
-Applying now the reciprocity theorem \cref{EreciDup},
-we obtain
+Reciprocity \cref{EreciDup} yields
 \begin{equation}\label{EGreenFarDWBA}
   G_\text{far}(\r,\r')
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
 \end{equation}
-which agrees literally with \cref{EGreenFar},
+which is identical with with \cref{EGreenFar},
 though $\psi_\tf$ is no longer a plane wave.
-Accordingly,
-the scattered far-field is still given by \cref{EsandwichC},
-and the differential cross section by \cref{Exsection}.
-We only need to redetermine the matrix element
-$\bra \psi_\ti|\delta v|\psi_\tf\ket$,
-which no longer has the plane-wave form~\cref{Echiq}.
 
-Since both the incident
-and the scattered distorted wavefunction
-are composed of downward and upward propagating waves,
-\begin{equation}\label{Epsipm}
-  \psi_w(\r)
-  = \psi^-_w(\r) + \psi^+_w(\r)
-  \quad\text{with}\quad
-  w=\ti,\tf,
-\end{equation}
-\nomenclature[2w010]{$w$}{An index that can take the values i (incident)
-or f (final)}%
-the matrix element can be expanded into four terms,
-\begin{equation}\label{Edwba4}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
-  = \bra \psi^-_\ti|\delta v|\psi^-_\tf\ket
-  + \bra \psi^-_\ti|\delta v|\psi^+_\tf\ket
-  + \bra \psi^+_\ti|\delta v|\psi^-_\tf\ket
-  + \bra \psi^+_\ti|\delta v|\psi^+_\tf\ket,
-\end{equation}
-\nomenclature[1ψ041 0\pm 2r040]{$\psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\psi(\r)$}%
-\nomenclature[0\pm]{$\pm$}{Upward ($+$) or downward ($-$) propagating}%
-or in an obvious shorthand notation
-\Emph{%
-\begin{equation}\label{Edwba}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
-  = \sum_{\pm_\ti} \sum_{\pm_\tf}
-    \bra \psi^\pm_\ti|\delta v|\psi^\pm_\tf\ket.
-\end{equation}%
-\vspace*{-5pt}}
-This equation contains the essence of
-the distorted-wave Born approximation
-for small-angle scattering under grazing incidence,
-and is the base for all scattering models implemented in \BornAgain.
-Since $\bra \psi_\ti|\delta v|\psi_\tf\ket$
-appears as a squared modulus
-in the differential cross section~\cref{Exsection},
-the four terms of \cref{Edwba} can interfere with each other,
-which adds to the complexity of GISAS patterns.
+\Emph{Accordingly,
+the differential cross section is still given by \cref{Exsection},
+and the transition matrix element by~\cref{Etrama}.}
+The plane-wave form~\cref{Echiq}, however, does no longer hold;
+its replacement depends on the distorted wavefunction,
+is therefore application specific,
+and will be worked out later (\cref{SdwbaMulay}).
 
 \index{Distorted-wave Born approximation|)}%
 
@@ -658,12 +619,13 @@ which adds to the complexity of GISAS patterns.
 \section{Coherence length}\label{Scoherlen}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Per \cref{Exsection} and~\cref{Etrama},
 \index{Coherence length|(}%
-The matrix elements $\bra \psi^\pm_\ti|\delta v|\psi^\pm_\tf\ket$
-are given by three-dimensional integrals~\cref{Etrama},
+the matrix element $\bra \psi_\ti|\delta v|\psi_\tf\ket$
+is given by a three-dimensional integral
 \begin{equation}\label{Etrama3}
-  \bra \psi_\ti^\pm|\delta v|\psi_\tf^\pm\ket
-  \coloneqq  \int\!\d^3r\, \psi^{\pm*}_\ti(\r)\delta v(\r)\psi^\pm_\tf(\r).
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  \coloneqq  \int\!\d^3r\, \psi^{*}_\ti(\r)\delta v(\r)\psi_\tf(\r).
 \end{equation}
 The integration domain is effectively limited to a finite $z$ interval,
 where $\delta v(\r)$ is horizontally modulated.

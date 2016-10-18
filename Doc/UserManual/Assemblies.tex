@@ -799,6 +799,33 @@ Again, a convex combination of the Cauchy and Gauss distributions in two dimensi
 \subsection{The radial paracrystal with size-position coupling} \label{sec:sect:sscaparacrystal}
 %===============================================================================
 
+Restricting the calculation to one layer, the differential cross section for a specific arrangement of particles of
+different type is:
+\begin{equation}\label{Epdm1}
+  \frac{\partial\sigma}{\partial\Omega}
+  =
+  \sum_{ij}  \e^{i\q_{\plll}(\R_{j\plll}-\R_{i\plll})}\!
+  \FD^*(\v{T}_i) \FD(\v{T}_j).
+\end{equation}
+
+In a statistical ensemble, this cross section has to be averaged by the joint probability density function
+for all postions and types of each individual particle:
+\begin{equation}\label{EPDdeltas}
+  \PD\left(\lbrace \R_{i\plll} \rbrace, \lbrace \v{T}_i \rbrace\right).
+\end{equation}
+Its normalization is chosen such that the total integral over its phase space equals $N!$,
+with $N$ the number of particles. This reflects the arbitrary nature of the indices $i$ for each particle
+and will be removed when we consider a specific choice for the indices.
+
+The expectation value of the differential cross section then becomes
+\begin{equation}\label{Epdm1}
+  \left\langle\frac{\partial\sigma}{\partial\Omega}\right\rangle
+  =
+  \int\!\prod_i\!d^2\R_{i\plll}\!d\v{T}_i
+  \,\PD\left(\lbrace \R_{i\plll} \rbrace, \lbrace \v{T}_i \rbrace\right)
+  \sum_{jk}  \e^{i\q_{\plll}(\R_{k\plll}-\R_{j\plll})}\!
+  \FD^*(\v{T}_j) \FD(\v{T}_k).
+\end{equation}
 %\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF [TO REVISE]}

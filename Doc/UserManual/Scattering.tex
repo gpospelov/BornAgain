@@ -24,16 +24,19 @@ This chapter introduces the basic theory of small-angle scattering (SAS).
 We specifically consider scalar neutron propagation,
 adjourning the notationally more involved
 vectorial theory of X-rays and polarized neutrons
-to a later edition. % TODO REVERT TEMPORARY % to the later \cref{SPol}.
+to a later chapter (%\Cref{SPol} --
+yet to be written). % TODO UPDATE LINK
 Our exposition is self-contained,
 except for the initial passage from the microscopic
 to the macroscopic Schrödinger equation,
 which we outline only briefly (\Cref{Swave}).
-The standard description of scattering in first order Born approximation
-is introduced in a way that is suitable subsequent modification
-into the distorted wave Born approximation
-needed for grazing-incidence small-angle scattering (\Cref{SBornApprox}).
-
+The standard description of scattering in first-order Born approximation
+(\Cref{SBornApprox})
+is introduced in a way that facilitates the following generalization
+into the distorted-wave Born approximation (DWBA)
+needed for grazing-incidence scattering (\Cref{SDWBA}).
+This chapter finishes with a qualitative discussion
+of coherence lengths (\Cref{Scoherlen}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Coherent neutron propagation}\label{Swave}
@@ -172,7 +175,8 @@ This motivates us to rewrite~\cref{ESchrodi3} as
 \begin{equation}\label{ESchrodiK}
   \left\{ \Nabla^2 + K^2 \right\}\psi(\r)
   = 4\pi\delta v(\r)\psi(\r),
-\end{equation}}
+\end{equation}
+\vspace*{-5pt}}
 where the wavenumber~$K$ is given by the dispersion relation
 \nomenclature[2k120]{$K$}{Wavenumber}%
 \index{Dispersion!neutron in homogeneous medium}%

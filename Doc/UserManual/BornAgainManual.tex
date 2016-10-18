@@ -66,18 +66,16 @@ Walter Van Herck, Joachim Wuttke}
 \appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \include{Proofs}
 
-\def\pagereset{\setcounter{page}{1}\def\thepage{Bib-\arabic{page}}}
-\otherchapter{Bibliography}
+\otherchapter{Bibliography}{Bib}
 \bibliographystyle{switch}
 \bibliography{jw7}
 
-\def\pagereset{\setcounter{page}{1}\def\thepage{Nom-\arabic{page}}}
-\otherchapter{\nomname}
+\otherchapter{List of Symbols}{Sym}
+\chapter*{List of Symbols}
 \label{Snomencl}
 \printnomenclature[6em]
 
-\def\pagereset{\setcounter{page}{1}\def\thepage{Idx-\arabic{page}}}
-\otherchapter{Index}
+\otherchapter{Index}{Idx}
 \small
 \printindex
 

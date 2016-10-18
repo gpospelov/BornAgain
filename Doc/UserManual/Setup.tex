@@ -147,9 +147,10 @@
   }}
 
 % Index, Bibliography, ...
-\def\otherchapter#1{
+\def\otherchapter#1#2{
   \clearpage
-  \pagereset
+  \setcounter{page}{1}
+  \def\thepage{#2-\arabic{page}}
   \phantomsection
   \addcontentsline{toc}{chapter}{#1}
   \markboth{#1}{#1}}
@@ -203,6 +204,28 @@
     \vrule \@height \z@ \@depth .3\normalbaselineskip \@width \z@}}
 \def\@mkidx{\smash{\hbox{\raise3cm\vbox to \z@{\hbox{\@rightidx\box\indexbox}\vss}}}}
 \def\@rightidx{\hskip\columnwidth \hskip\marginparsep}
+  \renewenvironment{theindex}
+    {\imki@maybeaddtotoc
+     \imki@indexlevel{\indexname}\imki@indexheaders
+     % patched here \thispagestyle{\imki@firstpagestyle}%
+     \ifnum\imki@columns>\@ne
+       \columnsep \imki@columnsep
+       \ifx\imki@idxprologue\relax
+         \begin{multicols}{\imki@columns}
+       \else
+         \begin{multicols}{\imki@columns}[\imki@idxprologue]
+       \fi
+     \else
+       \imki@idxprologue
+     \fi
+     \global\let\imki@idxprologue\relax
+     \parindent\z@
+     \parskip\z@ \@plus .3\p@\relax
+     \columnseprule \ifKV@imki@columnseprule.4\p@\else\z@\fi
+     \raggedright
+     \let\item\@idxitem
+     \imki@othercode}
+    {\ifnum\imki@columns>\@ne\end{multicols}\fi}
 \makeatother
 
 

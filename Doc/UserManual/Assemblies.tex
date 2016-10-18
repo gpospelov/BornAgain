@@ -34,36 +34,10 @@ fluctuations of the refractive index are due to
 of a mesoscopic size (nanometer to micrometer).
 In the following, all such inhomogeneities will be described as
 \E{particles} that are embedded in a material layer.
-
-\iffalse % minimal version
-\Work
-{Documentation on inter-particle correlations is under preparation.
-\BornAgain\ currently offers the same choice of models as \IsGISAXS.
-Therefore, for the moment we refer to the \IsGISAXS\ manual \cite{Laz08}.}
-\fi
-
-%\iffalse
-Our derivation of the DWBA (\cref{SGisas}) has shown
-that the distinction between refraction and reflection on the one hand
-and scattering on the other hand is not a fundamental one,
-but to a certain degree arbitrary:
-In \cref{EHelmholtzGraded} we have some freedom to assign
-inhomogeneities of the scattering length density
-either to the averaged refractive index in the
-homogeneous wave propagation equation,
-or to the perturbative potential.
-Therefore it is legitimate
-to describe \E{dilute} embedded particles
-as scattering centers that otherwise do not affect the propagating waves.
-For GISAS by \E{concentrated} particles, however,
-one must expect multiple scattering to invalidate this approach.
-It seems preferable to take the embedded particles into account
-when computing the average refractive index,
-which then leads to refraction and reflection caused conjointly
-by embedding material (``matrix'') and embedded particles.
-\index{Matrix!embedding}%
-In this case, one has to consider the scattering contributions of
-the matrix to the specular and direct peak.
+For readability,
+only \E{one} species of embedded particles will be considered.
+In BornAgain, any layer can be decorated with an arbitrary number
+of different particles species.
 
 In general, therefore, the average squared refractive index~$\nz(z)$
 used in~\cref{EHelmholtzGraded}

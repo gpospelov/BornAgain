@@ -93,6 +93,12 @@ public:
     std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
 
+    //! Sets rectangular region of interest with lower left and upper right corners defined.
+    void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
+
+    //! Resets region of interest making whole detector plane available for the simulation.
+    void resetRegionOfInterest();
+
 private:
     GISASSimulation(const GISASSimulation& other);
 

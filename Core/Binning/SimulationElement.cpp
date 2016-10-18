@@ -19,11 +19,14 @@
 #include <vector>
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
-                                     const IPixelMap* pixelmap)
-    : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i), m_intensity(0.0)
+                                     std::unique_ptr<IPixelMap> pixelmap)
+    : m_wavelength(wavelength)
+    , m_alpha_i(alpha_i)
+    , m_phi_i(phi_i)
+    , m_intensity(0.0)
+    , mP_pixel_map(std::move(pixelmap))
     , m_contains_specular(false)
 {
-    mP_pixel_map.reset(pixelmap->clone());
     initPolarization();
 }
 

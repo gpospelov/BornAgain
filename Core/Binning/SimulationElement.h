@@ -32,7 +32,7 @@ class BA_CORE_API_ SimulationElement
 {
 public:
     SimulationElement(double wavelength, double alpha_i, double phi_i,
-                      const IPixelMap* pixelmap);
+                      std::unique_ptr<IPixelMap> pixelmap);
     SimulationElement(const SimulationElement &other);
     SimulationElement &operator=(const SimulationElement &other);
 

@@ -57,15 +57,15 @@ with indicator function.
 \nomenclature[1χ032 2p000]{$\chi_\sp(\r)$ indicates whether $\r$ is in particle of type~$\sp$}%
 \index{Indicator function}%
 and $\chi_\sm(\r)\coloneqq 1-\chi_\sp(\r)$.
-The average scattering length density is then
+The average scattering length density in layer~$l$ is then
 \begin{equation}
-  \overline{v} = v_\sp\rho_\sp + v_\sm\rho_\sm,
+  \overline{v}_l = v_\sp\rho_\sp + v_\sm\rho_\sm,
 \end{equation}
-where $\rho_\sp=\overline{\chi_\sp(\r)}$ and $\rho_\sm=1-\rho_\sp$
+where $\rho_\sp\coloneqq\overline{\chi_\sp(\r)}$ and $\rho_\sm=1-\rho_\sp$
 are volume fractions.
-Per \Cref{SStep}, $\overline{v}$ determines the refractive index~$n_l$
+Per \Cref{SStep}, $\overline{v}_l$ determines the refractive index~$n_l$
 and the wavenumber~$K_l$.
-The wavefunctions $\psi_\text{i}$ and~$\psi_\text{f}$ in layer~$l$
+The wavefunctions $\psi_\text{i}$ and~$\psi_\text{f}$
 are then determined as described in \Cref{Sacrolay}.
 
 The fluctuating term in the decomposition~\cref{Edecompose_v} is
@@ -73,6 +73,11 @@ The fluctuating term in the decomposition~\cref{Edecompose_v} is
   \delta v(\r) = \Delta v_\sp\left(\chi_p(\r)-\rho_\sp\right)
 \end{equation}
 with $\Delta v_\sp\coloneqq v_\sp-v_\sm$.
+
+\Work{Until version 1.7,
+BornAgain does not compute $\Delta v_\sp$ from $v_\sp-v_\sm$,
+but uses the given $v_\sp$ in place of $\Delta v_\sp$.}
+
 Per \Cref{SStep},
 the DWBA scattering cross section is the norm \cref{Exsection}
 of a sum \cref{Edwba_ml0} of four terms per layer,
@@ -106,17 +111,20 @@ which allows us to write~\cref{Edvlq} as
   \delta v_l(\q)
   = \Delta v_\sp\chi_\sp(\q) - \Delta v_\sp\rho_\sp (2\pi)^2\delta(\q_\parallel)\chi_l(q_\perp).
 \end{equation}
-Thanks to the delta function in $\q_\parallel$,
-the second term contributes only to the off-specular scattering,
-\index{Off-specular scattering!from finite layer width}%
-but not to the grazing-incidence scattering;
-it is not yet implemented in BornAgain.
-
-\Work{Until version 1.7,
-BornAgain does computes neither $\Delta v_\sp$ nor $\overline{v}$
-from the given $v_\sp$ and $v_\sm$.
-Instead, the given $v_\sm$ is used as $\overline{v}$,
-and the given $v_\sp$ as $\Delta v_\sp$.}
+The second term is spurious since it is nonvanishing only for $\q_\parallel=0$,
+in which case case there is a compensating contribution from the first term.
+Furthermore, the kinematics of elastic scattering allows $\q_\parallel=0$
+only for forward scattering ($q_\perp=0$) or specular reflection ($q_\perp=2K\sin\alpha$).
+These two cases are not covered by first-order scattering theory anyway;
+in experiments, the transmitted and the reflected beam are typically absorbed by a beamstop.
+For these reasons we must not consider the second term of~\cref{Edvlq} any further;
+we can work with
+\Emph{
+\begin{equation}\label{Edvlq2}
+  \delta v_l(\q)
+  = \Delta v_\sp\chi_\sp(\q).
+\end{equation}
+\vspace*{-5pt}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure and form factor}\label{SPartFactors}

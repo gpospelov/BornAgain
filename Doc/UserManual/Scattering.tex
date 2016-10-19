@@ -15,8 +15,8 @@
 
 \part{Physics}\label{PPHYS}
 
-\chapter{Foundations of small-angle scattering}  \label{SSas}
-\chaptermark{Small-angle scattering}
+\chapter{Scattering}  \label{SSca}
+\chaptermark{Scattering}
 
 \index{Small-angle scattering|(}%
 
@@ -24,20 +24,19 @@ This chapter introduces the basic theory of small-angle scattering (SAS).
 We specifically consider scalar neutron propagation,
 adjourning the notationally more involved
 vectorial theory of X-rays and polarized neutrons
-to a later edition. % TODO REVERT TEMPORARY % to the later \cref{SPol}.
+to a later chapter (%\Cref{SPol} --
+yet to be written). % TODO UPDATE LINK
 Our exposition is self-contained,
 except for the initial passage from the microscopic
 to the macroscopic Schrödinger equation,
 which we outline only briefly (\Cref{Swave}).
-The standard description of scattering in first order Born approximation
-is introduced in a way that is suitable subsequent modification
-into the distorted wave Born approximation
-needed for grazing-incidence small-angle scattering (\Cref{SBornApprox}).
-
-Finally, we discuss how the physical scattering law
-(the double differential cross section as function of the scattering vector~$\q$)
-relates to the experimental detector image (\Cref{SdetImg}).
-
+The standard description of scattering in first-order Born approximation
+(\Cref{SBornApprox})
+is introduced in a way that facilitates the following generalization
+into the distorted-wave Born approximation (DWBA)
+needed for grazing-incidence scattering (\Cref{SDWBA}).
+This chapter finishes with a qualitative discussion
+of coherence lengths (\Cref{Scoherlen}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Coherent neutron propagation}\label{Swave}
@@ -176,25 +175,26 @@ This motivates us to rewrite~\cref{ESchrodi3} as
 \begin{equation}\label{ESchrodiK}
   \left\{ \Nabla^2 + K^2 \right\}\psi(\r)
   = 4\pi\delta v(\r)\psi(\r),
-\end{equation}}
+\end{equation}
+\vspace*{-5pt}}
 where the wavenumber~$K$ is given by the dispersion relation
 \nomenclature[2k120]{$K$}{Wavenumber}%
 \index{Dispersion!neutron in homogeneous medium}%
 \index{Wavenumber!neutron}%
 \begin{equation}\label{Edispersion}
   K^2 = \frac{2m\omega}{\hbar} - 4\pi\overline{v}
-      = K_0^2\left(1-\frac{4\pi}{K_0^2}\overline{v}\right)
-      = K_0^2 n^2.
+      = K_\text{vac}^2\left(1-\frac{4\pi}{K_\text{vac}^2}\overline{v}\right)
+      = K_\text{vac}^2 n^2.
 \end{equation}
-To arrive at the final compact expression $K=K_0 n$
-we introduced the vacuum wavenumber~$K_0$
-\nomenclature[2k122]{$K_0$}{Wavenumber in vacuum}%
+To arrive at the final compact expression $K=K_\text{vac} n$
+we introduced the vacuum wavenumber~$K_\text{vac}$
+\nomenclature[2k124 200vac]{$K_\text{vac}$}{Wavenumber in vacuum}%
 and the \E{refractive index}
 \nomenclature[2n020]{$n$}{Refractive index}%
 \index{Refractive index}% !vs scattering length density}%
 \index{Index of refraction|see {Refractive index}}%
 \begin{equation}\label{EnRefrIndx}
-  n\coloneqq \sqrt{1-\frac{4\pi}{K_0^2}\overline{v}}.
+  n\coloneqq \sqrt{1-\frac{4\pi}{K_\text{vac}^2}\overline{v}}.
 \end{equation}
 \index{Absorption|(}%
 The complex refractive index of a given material
@@ -383,7 +383,7 @@ and obtain in leading order the far-field Green function
 \nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field
    approximation to the Green function $G(\r,\r')$}%
 where
-\begin{equation}
+\begin{equation}\label{EPsisfar}
   \psi_\tf(\r) \coloneqq  \e^{i\k_\tf \r}
 \end{equation}
 \nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}{Plane
@@ -391,9 +391,8 @@ where
 is a plane wave propagating towards the detector,
 and $\psi^*$ designates the complex conjugate of $\psi$.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
-
-The scattered wave~\cref{EBornS}
-becomes in the far-field approximation
+Inserting \cref{EGreenFar} and~\cref{EPsisfar} in \cref{EBornS},
+we obtain the far-field approximation for the scattered wave,
 \begin{equation}\label{EsandwichC}
   \psi_\text{s,far}(\r)
   = \frac{\e^{iKr}}{r}
@@ -403,15 +402,19 @@ becomes in the far-field approximation
    approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
 where we used Dirac notation for the transition matrix element
 \index{Transition matrix}%
+\Emph{%
 \begin{equation}\label{Etrama}
   \bra \psi_\tf|\delta v|\psi_\ti\ket
   \coloneqq  \int\!\d^3r\, \psi^*_\tf(\r)\delta v(\r)\psi_\ti(\r).
 \end{equation}
+\vspace*{-5pt}}
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix
   element, defined as a volume integral}%
 In order to reconcile conflicting sign conventions,
+\index{Sign convention!transition matrix|(}%
 we will in the following rather use its complex conjugate
 $\bra \psi_\ti|\delta v|\psi_\tf\ket = \bra \psi_\tf|\delta v|\psi_\ti\ket^*$.
+
 Under the standard assumption
 that the incident radiation is a plane wave
 \index{Incident radiation!plane wave}%
@@ -486,21 +489,22 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 % The geometric factors that are needed to
 % convert $\d\sigma/\d\Omega$ into detector counts will be discussed
 % below in \cref{SdetImg}.
-
-With \cref{EPsi0Plane}, the incident flux is
+For a plane wave~\cref{EPsi0Plane}, the incident flux is
 \index{Incident radiation!flux|)}%
 \index{Flux!Born approximation}%
 \begin{equation}\label{EJi}
   \v{J}_\ti = \k_\ti.
 \end{equation}
-With \cref{EsandwichC}, the scattered flux at the detector is
+With the far-field result~\cref{EsandwichC}
+and the notation~\cref{Etrama},
+the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
     {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
 \end{equation}
-From \cref{Exsectiondef} we obtain
-the generic differential cross section
+Inserting these into definition~\cref{Exsectiondef},
+we obtain the generic differential cross section
 of elastic scattering in first order Born approximation,
 \index{Born approximation!elastic scattering cross section}%
 \index{Cross section!elastic scattering in Born approximation}%
@@ -527,285 +531,247 @@ of the Fourier transform of the bound scattering length density,
   = {\left| v(\q) \right|}^2.
 \end{equation}
 
+%===============================================================================
+\section{Distorted-wave Born approximation (DWBA)}\label{SDWBA}
+%===============================================================================
+
+\index{Distorted-wave Born approximation|(}%
+\index{DWBA|see {Distorted-wave Born approximation}}%
+
+The standard form of the Born approximation,
+as presented in \cref{SBornApprox},
+combines an approximation scheme
+(computing \cref{EPsiFormal} by iteration)
+with an assumption (the incident field is a plane wave)
+and an analytic result
+(in far-field approximation,
+the Green function of the Helmholtz equation is a plane wave
+with respect to the locus of scattering).
+These three elements must not necessarily go together.
+In particularly, there is a fairly straightforward generalization
+of the Born approximation for the case that
+the incident field is not a plane wave,
+called the \E{distorted-wave Born approximation} (DWBA).\footnote
+{Originally devised by Massey and Mott (ca 1933)
+for collisions of charged particles.
+The first explicit application to grazing-incidence scattering
+seems to be by Vineyard (1982) \cite{Vin82}.}
+It is pertinent for grazing-incidence scattering
+because refraction and reflection at interfaces
+distort the incident radiation into
+a superposition of downwards and upwards travelling waves,
+as we shall discuss below in~\Cref{Swave21}.
+
+The above derivation of the Born cross section becomes invalid
+when there are systematic variations of the scattering length density
+that preclude the decomposition~\cref{Edecompose_v}.
+Let us instead write in full genericity
+\begin{equation}\label{Edecompose_vr}
+  v(\r) = \overline{v}(\r) + \delta v(\r).
+\end{equation}
+How to distinguish the systematic variations~$\overline{v}(\r)$
+from the random fluctuations~$\delta v(\r)$
+will depend on the application.
+In any case, the macroscopic Schrödinger equation~\cref{ESchrodiK} takes the form
+\begin{equation}\label{ESchrodiK}
+  \left\{ \Nabla^2 + K^2(\r) \right\}\psi(\r)
+  = 4\pi\delta v(\r)\psi(\r).
+\end{equation}
+We assume that the homogeneous wave equation that generalizes~\cref{EHelmholtzHomog}
+can be solved for~$\psi(\r)$.
+Outside the finite sample volume,
+we still have $K=\text{const}$.
+Therefore, we can impose on~$\psi(\r)$ the boundary condition that it be
+a plane wave outside the sample.
+We need two such wavefunctions:
+A function~$\psi_\text{i}(\r)$ to match the incident radiation,
+and a function~$\psi_\text{f}(\r)$ to match a plane wave that reaches a detector pixel.
+
+In contrast, we will not even attempt to obtain a full solution
+\index{Green function!DWBA}%
+of the generalized Green function equation~\cref{EHelmholtzForGreen}.
+We will only consider its asymptotic far-field limit $G(\rD,\r)$
+at a detector position $\rD$.
+Nonetheless, this function will be exact in the coordinate~$\r$
+that designates where the scattering takes place.
+\nomenclature[2r041 2d100]{$\rD$}{Position of the detector}%
+The \E{source-detector reciprocity theorem}~\cref{Ereci}
+\index{Reciprocity}%
+proven in \cref{Sreci1}
+yields
+\begin{equation}\label{EreciDup}
+  G(\rD,\r) = B(\r,\rD),
+\end{equation}
+\nomenclature[2b030 2r040 2r041]{$B(\r,\r')$}{Green function, adjoint of $G$}%
+where~$B$ is the \E{adjoint Green function}
+that describes backward propagation from $\rD$ into the sample.
+Outside the sample,
+$B$ obeys the Helmholtz equation
+with isolated inhomogeneity \cref{EHelmholtzForGreen},
+and therefore has the far-field expansion~\cref{EGreenFar},
+\index{Far-field approximation}%
+\begin{equation}\label{EBFar}
+  B_\text{far}(\r,\rD)
+  =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\tf \r}.
+\end{equation}
+As explained above,
+we assume that there is a solution $\psi_\text{f}(\r)$ of the homogeneous
+wave equation that matches $\e^{i\k_\tf \r}$ outside the sample.
+Therefore,
+\begin{equation}\label{EBFull}
+  B_\text{far}(\r,\rD)
+  = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r)
+\end{equation}
+is the far-field approximation (in $\rD$)
+to the solution of the Green function equation that generalizes~\cref{EHelmholtzForGreen}.
+It does not involve any approximation in~$\r$.
+Reciprocity \cref{EreciDup} yields
+\begin{equation}\label{EGreenFarDWBA}
+  G_\text{far}(\r,\r')
+  = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
+\end{equation}
+which is identical with with \cref{EGreenFar},
+but no longer depends on $\psi_\tf$ being a plane wave.
+
+\Emph{Accordingly,
+the differential cross section is still given by \cref{Exsection},
+and the transition matrix element by~\cref{Etrama}.}
+The plane-wave form~\cref{Echiq}, however, does no longer hold;
+its replacement depends on the distorted wavefunctions
+$\psi_\text{i}$ and $\psi_\text{f}$,
+is therefore application specific,
+and will be worked out later (\cref{Swave21}).
+
+\index{Distorted-wave Born approximation|)}%
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Detector images [TO REVISE]}\label{SdetImg}
+\section{Coherence length}\label{Scoherlen}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\tc{\text{c}}
-
-%-------------------------------------------------------------------------------
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=.5\textwidth]{fig/drawing/experimental_geometry.png}
-\end{center}
-\caption{Experimental geometry with a two-dimensional pixel detector.}
-\label{FexpGeom}
-\end{figure}
-%-------------------------------------------------------------------------------
-
-To conclude this chapter on the foundations of small-angle scattering,
-we shall derive the geometric factors
-that allow us to convert differential cross sections into detector counts.
-We shall also discuss how to present data on a physically meaningful scale.
-
-%===============================================================================
-\subsection{Pixel coordinates, scattering angles, and $\symbf{q}$ components}
-%===============================================================================
-
-We assume that scattered radiation is detected in a flat,
-two-dimensional detector
-that generates histograms on a rectangular grid,
-consisting of $n\cdot m$ pixels of constant width and height,
-as sketched in \cref{FexpGeom}.
-This figure also shows the coordinate system
-\index{Conventions|see {Coordinate system}}%
-\index{Coordinate system}%
-according to unanimous GISAS convention,
-with $z$ normal to the sample plane,
-and with the incident beam in the $xz$ plane.
-The origin is at the center of the sample surface.
-We suppose that the detector is mounted perpendicular to the $x$ axis
-at a distance $L$ from the sample position.
-%the $x$ axis intersects the detector plane at $(L,y_\tc,z_\tc)$.
-The real-space coordinate at the center of pixel $(i,j)$ is $(L,y_i,z_i)$.
-Each pixel has a width~$\Delta y$ and a height~$\Delta z$.
-\index{Detector!pixel coordinate}%
-\index{Pixel|see {Detector}}%
-
-The affine-linear conversion from pixel indices $i,j$ to pixel coordinates $x_i,y_i$
-requires an experimental calibration of the origin.
-\Work{How is this done in \BornAgain?}
-\index{Detector!calibration}%
-
-Since the differential scattering cross section \cref{Exsectiondef}
-is given with respect to a solid-angle element $\d\Omega$,
-we need to express the scattered wavevector $\k_\tf$ in spherical coordinates,
-using the horizontal azimuth angle~$\phi_\tf$
-and the vertical glancing angle $\alpha_\tf$.
-The projection of $(\alpha_\tf,\phi_\tf)$ into
-the detector plane~$(y,z)$ is known as the \E{gnomonic projection}.
-\index{Gnomonic projection}%
-\index{Projection!wave vector to pixel coordinate}%
-\index{Mapping!wave vector to pixel coordinate}%
-\index{Transformation!wave vector to pixel coordinate}%
-From elementary trigonometry one finds
-\begin{equation}\label{Eyzdet}
-  \begin{array}{lcl}
-  y &=& L \tan\phi_\tf,\\
-  z &=& (L/ \cos\phi_\tf) \tan\alpha_\tf.
-  \end{array}
+Per \cref{Exsection} and~\cref{Etrama},
+\index{Coherence length|(}%
+the matrix element $\bra \psi_\ti|\delta v|\psi_\tf\ket$
+is given by a three-dimensional integral
+\begin{equation}\label{Etrama3}
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  \coloneqq  \int\!\d^3r\, \psi^{*}_\ti(\r)\delta v(\r)\psi_\tf(\r).
 \end{equation}
-\cref{Fconstalphi} shows lines of equal $\alpha_\tf$,~$\phi_\tf$
-in the detector plane.
-To emphasize the curvature of the constant-$\alpha_\tf$ lines,
-scattering angles up to more than 25$^\circ$ are shown.
-In typical SAS or GISAS,
-scattering angles are much smaller,
-and therefore the mapping between pixel coordinates and
-scattering angles is in a good first approximation linear.
-Of course \BornAgain\ is not restricted to this linear regime,
-but uses the exact nonlinear mapping~\cref{Eyzdet}.
+The integration domain is effectively limited to a finite $z$ interval,
+where $\delta v(\r)$ is horizontally modulated.
+On the other hand, the horizontal integration domain is infinite
+within our formalism,
+which is of course an idealization.
+Obviously, physical integration limits are imposed by the finite
+\index{Sample area}%
+\E{illuminated sample area}.\footnote
+{We assume a well aligned instrument,
+for which the beam footprint and the backtracked detector footprint
+\index{Illumination!beam footprint on sample}%
+\index{Beam footprint}%
+\index{Backtracking!beam footprint}%
+agree within reasonable accuracy.}
+Another limitation comes from the finite \E{coherence length}
+of the instrumental setup,
+which usually is much shorter than the sample width and length
+%This is of importance in neutron scattering
+%where typical sample dimensions of 1\ldots10~mm
+%are much larger than the relevant coherence length,
+%which is of the order 10\ldots100~$\upmu$m
+\cite{HaPR10,MaMM14}.\footnote
+{These two references also make clear that
+  the theoretical description and the experimental determination of
+  coherence lengths are difficult problems and subject of ongoing research.}
 
-%-------------------------------------------------------------------------------
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_alphi.ps}
-\end{center}
-\caption{Lines of constant $\alpha_\tf$ (red) or $\phi_\tf$ (blue)
-in the detector plane,
-for a planar detector at distance~$L$ from the sample.
-The black dot indicates the beamstop location for
-the central incident beam (SAS geometry, $\hat\k_\ti = \hat x$).}
-\label{Fconstalphi}
-\end{figure}
-%-------------------------------------------------------------------------------
+While each single neutron is described by a wavefunction
+that allows for \E{coherent} superposition of
+different contributions to the scattered wavefunction,
+the final detector statistics
+\index{Detector statistics}%
+is given by an \E{incoherent} sum
+over the differential cross sections of individual neutrons.
+The finite \E{resolution}
+\index{Resolution|(}%
+of an experimental setup is in part due to the fact that
+different neutrons have different wavenumbers,
+originate\footnote
+{It is reasonable to take the last collision in the moderator
+  as the \E{origin} of a neutron ray,
+  since collisions between neutrons and hydrogen nuclei bound in
+  disordered matter lead to almost perfect decoherence.}
+at different points in the moderator,
+and are detected at slightly different points within one detector pixel.
+This can be modeled by computing expected scattering intensities as
+averages over different neutrons with
+$K$, $\v{\hat k}_\ti$, and $\v{\hat k}_\tf$ drawn at random
+from appropriate distributions.
+% TODO RESTORE TEMPORARILY REMOVED XREF as described in \cref{Sresolution}.
 
-To determine the scattering vector $\q_{ij}$
-that corresponds to a pixel $(i,j)$,
-we need to express the outgoing wavevector~$\k_\tf$ as function of $y$ and~$z$.
-This can be done either by inverting \cref{Eyzdet}
-and inserting the so obtained $\alpha_\tf(y,z)$ and $\phi_\tf(y)$ in
-\begin{equation}\label{Ekf_by_angle}
-  \k_\tf=K\left(\begin{array}{c}
-   \cos\alpha_\tf\cos\phi_\tf\\
-   \cos\alpha_\tf\sin\phi_\tf\\
-   \sin\alpha_\tf\end{array}\right),
-\end{equation}
-or much more directly by using geometric similarity in Cartesian coordinates.
-The result is rather simple:
-\Emph{
-\begin{equation}\label{Ekf_by_pixel}
-  \k_\tf=\frac{K}{\sqrt{L^2+y^2+z^2}}\left(\begin{array}{c}
-   L\\
-   y\\
-   z\end{array}\right).
-\end{equation}
-\vspace*{-5pt}}
+However, this is not the full story.
+In the above introduction to the Born approximation
+we have made the standard assumption
+that an incoming neutron can be described by a plane wave
+$\psi_\ti=\e^{i\k_\ti\r}$.
+The wavefunction $\psi_\tf$ traced back from the detector is also
+approximated by a plane wave.
+In the DWBA we allow these waves to be distorted within the sample,
+but when impinging on the sample they still are plane.
+A plane wave obviously is an idealized concept,
+since it has infinite lateral extension.
+The \E{transverse coherence length} indicates the scale
+beyond which this approximation becomes invalid.
+At larger scales, the wave fronts appear randomly distorted.
+Physical causes of these distortions include
+reflections in the neutron guide,
+diffraction by guide windows and other slits,
+and diffraction by imperfect monochromator crystals.
+Of course the distorted wave still admits a Fourier decomposition
+into plane waves with slightly different wavevectors.
+In practice, it is impossible to distinguish this spread of wavevectors
+from the incoherent spread described in the previous paragraph.
+The instrumental resolution function therefore
+accounts for both causes of wavevector distortion.
+\index{Resolution|)}%
 
+Usually, therefore, a GISANS image is an incoherent average
+over coherent diffraction patterns collected from
+many small subareas of the sample.
+Only horizontal sample structures on scales smaller the coherence length
+yield interference patterns.
+Structure fluctuations on larger scales
+produce said incoherent average of different GISANS images.
 
-%-------------------------------------------------------------------------------
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_q_x.ps}
-\hfill
-\includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_q_yz.ps}
-\end{center}
-\caption{Lines of constant $q_x$ (left), $q_y$ or $q_z$ (right),
-in units of the incident wavenumber $K=2\pi/\lambda$,
-for a planar detector.
-SAS geometry as in Fig.~\protect\ref{Fconstalphi}.}
-\label{Fconstq}
-\end{figure}
-%-------------------------------------------------------------------------------
+The crossover from coherent to incoherent scattering is of course
+a gradual one.
+The coherence length, however defined,
+indicates where a certain, somewhat arbitrary degree
+of decoherence is reached.
+Under these reservations
+one defines a \E{coherence spot}
+in the cross section of an approximately plane wave
+as an area where the coherence is above a certain threshold.
+Unless the wave has been prepared in a highly anisotropic guide and slit system,
+this spot is about circular.
+Under grazing incidence conditions however,
+the projection of this spot onto the sample surface
+yields a very elongated ellipse.
+Therefore, the coherence length is much larger in $x$ than
+in $y$ or $z$ direction.\footnote
+{This has nothing to do with the distinction of
+  \E{transverse} and \E{longitudinal} coherence length.
+  Longitudinal coherence has to do with wavelength stability
+  and is of no importance for elastic scattering.
+  We are talking here about \E{horizontal} and \E{vertical}
+  projections of the \E{transverse} coherence length.}
 
-The transform \cref{Eqalgo} between pixel coordinates $y$,~$z$
-and physical scattering vector components $q_y$, $q_z$
-is nonlinear, due to the square-root term in the denominator of~\cref{Ekf_by_pixel}.
-For $y,z\ll L$, however, nonlinear terms loose importance.
+\Note{\indent Unless otherwise said, \BornAgain\ simulates
+  \E{coherent} diffraction patterns obtained by
+  the linear superposition of scattered waves.
+  To simulate an \E{incoherent} mixture of diffraction patterns,
+  the most generic solution is a script with an outer loop
+  that averages over several coherent computations with
+  appropriately distributed parameters.}
 
-%-------------------------------------------------------------------------------
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=1\textwidth]{fig/ff2/ff_det_box.pdf}
-\end{center}
-\caption{Simulated detector image for small-angle scattering from
-uncorrelated cuboids (right rectangular prisms).
-  \index{Box (form factor)}
-  \index{Cuboid (form factor)}
-  \index{Prism (form factor)!reactangular (Box)}
-  \index{FormFactorBox@\Code{FormFactorBox}}
-The incoming wavelength is 0.1~nm.
-The prisms have edge lengths $L_y=L_z=10$~nm;
-the length $L_x$, in beam direction, is varied as shown above the plots.
-\index{Circular modulation!of detector image as function of $q_x$}
-The circular modulation comes from a factor $\sinc(q_x L_x/2)$
-in the cuboid form factor, with $q_x$ given by~\cref{Eqxasy}.}
-\label{Fdetbox}
-\end{figure}
-%-------------------------------------------------------------------------------
+% TODO: more about implementation !
 
-The left detector frame in \cref{Fconstq}
-shows circles of constant values of $\pm q_x$.
-For given steps in $q_x$, the distance between adjacent circles
-increases towards the detector center.
-From \cref{Eq} and \cref{Ekf_by_pixel},
-one finds asymptotically for $y,z\to L$
-that $q_x$ goes with the square of the two other components of the scattering vector,
-\begin{equation}\label{Eqxasy}
-  \frac{q_x}{K}
-  \doteq \frac{y^2+z^2}{2 L^2}
-  \doteq \frac{q_y^2 + q_z^2}{2K^2}.
-\end{equation}
-Therefore, under typical small angle conditions $y,z\to L$
-the dependence of the scattering signal on $q_x$ is unimportant:
-one basically measures $v(\q)\simeq v(0,q_y,q_z)$.
-The exception, for sample structures with long correlations in $x$~direction,
-is illustrated in~\cref{Fdetbox}.
-
-%-------------------------------------------------------------------------------
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=.47\textwidth]{fig/drawing/SAS_const_p_yz.ps}
-\end{center}
-\caption{The outer contour of the blue and red grid
-shows the border of a square detector image
-after transformation into the physical coordinates $q_y$,~$q_z$.
-The blue and red curves correspond to horizontal and vertical lines in the detector.}
-\label{Fconstp}
-\end{figure}
-%-------------------------------------------------------------------------------
-
-As anticipated in \cref{Eqxasy},
-the other two components of $\q$ are in first order linear in the pixel coordinates,
-\begin{equation}
-  \frac{q_y}{K}=\frac{y}{L}\left(1-\frac{y^2+z^2}{2L^2}+\ldots\right),
-\end{equation}
-and similarly for~$q_z$.
-The nonlinear correction terms lead to the pincushion distortion
-shown in the right detector frame in \cref{Fconstq}.
-\index{Distortion!of $q_x$, $q_y$ grid in detector plane}%
-\index{Detector!distortion of $q_x$, $q_y$ grid}%
-\index{Pincushion distortion}%
-
-Since pixel coordinates are meaningful only
-with respect to a specific experimental setup,
-users may wish to transform detector images
-towards the physical coordinates $q_y$ and~$q_z$.
-As shown in \cref{Fconstp},
-this would yield a barrel-shaped illuminated area
-in the $q_y$,~$q_z$~plane.
-
-To summarize this section,
-the wavevector $\q_{ij}$ can be determined from the pixel indices
-through the following steps:
-\begin{equation}\label{Eqalgo}
-  \begin{array}{cl}
-      (i,j)&\\
-      \downarrow&\mbox{calibrate of origin, then employ affine-linear mapping}\\
-      (y,z)\\
-      \downarrow&\mbox{use (\protect\ref{Ekf_by_pixel})}\\
-      \k_\tf&\\
-      \downarrow&\mbox{use (\protect\ref{Eq})}\\
-      \q&\\
-  \end{array}
-\end{equation}
-
-\Note{\indent Transforming detector images
-  from pixel coordinates into the $q_y$,~$q_z$~plane is not implemented in \BornAgain,
-  and not on our agenda.
-  We would, however, like to hear about use cases.}
-
-\Emph{\indent When simulating and fitting experimental data with \BornAgain,
-detector images remain unchanged.
-All work is done in terms of reduced pixel coordinates $y/L$ and~$z/L$.
-Corrections are applied to the simulated, not to the measured data.}
-
-\Work{\indent \ldots show how to plot $q$ grid on top of detector image \ldots}
-
-%===============================================================================
-\subsection{Intensity transformation}
-%===============================================================================
-
-The solid angle under which a detector pixel
-is illuminated from the sample is in linear approximation
-\begin{equation}
-  \Delta\Omega
-  = \cos\alpha_\tf\:\Delta\alpha_\tf\,\Delta\phi_\tf
-  = \cos\alpha_\tf
-    \left|\frac{\partial(\alpha_\tf,\phi_\tf)}{\partial(y,z)}\right|
-    \Delta y \,\Delta z
-  = \cos^3\!\alpha_\tf\, \cos^3\!\phi_\tf\: \frac{\Delta y \,\Delta z}{L^2}.
-\end{equation}
-\index{Detector!illumination angle correction factor}%
-\index{Illumination!detector}%
-Altogether,
-the expected count rate in detector pixel $(i,j)$ is proportional to
-\begin{equation}\label{EItrafo_cos}
-  I_{ij} = \cos^3\!\alpha_\tf\, \cos^3\!\phi_\tf\:
-          \frac{\partial\sigma}{\partial\Omega}(\q_{ij}),
-\end{equation}
-where we have omitted constant factors $L^{-2}$, $\Delta y$ and $\Delta z$.
-Using pixel coordinates instead of angles, this can be rewritten as
-\Emph{%
-\begin{equation}\label{EItrafo_pix}
-  I_{ij} = \left( 1+\frac{y^2+z^2}{L^2}\right)^{-3/2}
-          \frac{\partial\sigma}{\partial\Omega}\bigl(\q_{ij}(y,z)\bigr).
-\end{equation}
-\vspace*{-2pt}}
-%(usually as the centre between the transmitted
-%and the specularly reflected beam spot).
-
-%Tradition wants that raw data be \E{treated} or \E{reduced}
-%before they are \E{analyzed}.
-%In our case, raw data reduction would comprise
-%the transform \cref{Eqalgo} of pixel coordinates into scattering vectors,
-%and the accompanying renormalization \cref{EItrafo} of pixel counts.
-
-%===============================================================================
-\subsection{Symmetry}
-%===============================================================================
-
-\Work{to write ... and to continue in other chapters}
-
-\index{Small-angle scattering|)}%
-%\fi
+\index{Coherence length|)}%

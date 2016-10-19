@@ -40,6 +40,8 @@ public:
     //! the original detector pixel
     SimulationElement(const SimulationElement &other, double x, double y);
 
+    SimulationElement(SimulationElement &&other) noexcept;
+
     ~SimulationElement();
 
 #ifndef SWIG

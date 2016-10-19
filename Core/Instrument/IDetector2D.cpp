@@ -235,7 +235,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
         if (it.index()==spec_index) {
             sim_element.setSpecular(true);
         }
-        result.push_back(sim_element);
+        result.push_back(std::move(sim_element));
     }
 
     return result;

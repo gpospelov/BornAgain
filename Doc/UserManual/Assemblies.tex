@@ -21,6 +21,9 @@
 \section{Embedded particles}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def\sp{\text{p}}
+\def\sm{\text{m}}
+
 \index{Particle assemblies|(}%
 \index{Nanoparticles|see {Particles}}%
 \index{Mesoparticles|see {Particles}}%
@@ -34,11 +37,43 @@ fluctuations of the refractive index are due to
 of a mesoscopic size (nanometer to micrometer).
 In the following, all such inhomogeneities will be described as
 \E{particles} that are embedded in a material layer.
-For readability,
-only \E{one} species of embedded particles will be considered.
 In BornAgain, any layer can be decorated with an arbitrary number
 of different particles species.
+For readability, however, in the following
+only \E{one} species of embedded particles will be considered.
 
+The scattering length density for an assembly of homogeneous particles of type~$\sp$
+in a homogeneous matrix~$\sm$ is
+\begin{equation}
+  v(\r) = v_\sp \chi_\sp(\r) + v_\sm \chi_\sm(\r)
+\end{equation}
+with indicator function.
+\begin{equation}
+  \chi_\sp(\r)\coloneqq\left\{\begin{array}{ll}
+  1&\text{~if $\r$ in p,}\\[.2ex]
+  0&\text{~otherwise,} \end{array}\right.
+\end{equation}
+\nomenclature[1χ032 2p000]{$\chi_\sp(\r)$ indicates whether $\r$ is in particle of type~$\sp$}%
+\index{Indicator function}%
+and $\chi_\sm(\r)\coloneqq 1-\chi_\sp(\r)$.
+The average scattering length density is then
+\begin{equation}
+  \overline{v} = v_\sp\rho_\sp + v_\sm\rho_\sm,
+\end{equation}
+where $\rho_\sp=\overline{\chi_\sp(\r)}$ and $\rho_\sm=1-\rho_\sp$
+are volume fractions.
+The decomposition~\cref{Edecompose_v} holds with a fluctuating part
+\begin{equation}
+  \delta v(\r) = \Delta v_\sp(\chi_p(\r)-\rho_\sp)
+\end{equation}
+with $\Delta v_\sp\coloneqq v_\sp-v_\sm$.
+
+Since our material layer has a constant~$\overline{v}$,
+the wavefunctions~$\psi_\text{i,f}^\pm$ are plane waves,
+and the DWBA matrix elements of~\cref{Edwba} are all
+Fourier transforms~\cref{Echij}
+of $\chi_l(z)\delta v(\r)$.
+we consider a layer with a $z$-independent
 In general, therefore, the average squared refractive index~$\nz(z)$
 used in~\cref{EHelmholtzGraded}
 does not equal the value $n_\text{m}^2(z)$ of the matrix,

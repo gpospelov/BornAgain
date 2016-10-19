@@ -305,16 +305,25 @@ The DWBA transition matrix element~\cref{Edwba} is
   \bra \psi_\ti|\delta v|\psi_\tf\ket
   = \sum_{\il} \sum_{\pm_\ti} \sum_{\pm_\tf}
     A^{\pm *}_{\ti \il} A^\pm_{\tf \il}
-     \delta v_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il}),
+     \delta v_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il})
 \end{equation}
-where the Fourier transform of the scattering length density
+with the Fourier transform of the scattering length density
+restricted to layer~$l$
 \begin{equation}\label{Echij}
   \delta v_\il(\v{q})
   \coloneqq  \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}\delta v(\r)
+  = \int\!\d^3r \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z).
 \end{equation}
-\nomenclature[1χ032 2l010 2q040]{$\delta v_\il(\v{q})$}{Fourier transform
+\nomenclature[1δ00 2v030 2l010 2q040]{$\delta v_\il(\v{q})$}{Fourier transform
 of the scattering length density $\delta v(\r)$, evaluated in one sample layer}%
-has been restricted to one layer.
+The latter form makes use of the indicator function
+\nomenclature[1χ032 2l010]{$\chi_l(z)$ indicates whether $z$ is in layer~$l$}%
+\index{Indicator function}%
+\begin{equation}
+  \chi_\il(\r)\coloneqq\left\{\begin{array}{ll}
+  1&\text{~if $z_\il\le z \le z_{\il+1}$,}\\[.2ex]
+  0&\text{~otherwise.} \end{array}\right.
+\end{equation}
 
 To alleviate later calculations,
 we now number the four DWBA terms from 1 to~4,

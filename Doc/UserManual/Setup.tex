@@ -75,6 +75,15 @@
 \DeclareMathOperator{\expmone}{expm1}
 \DeclareMathOperator{\expmtwo}{expm2}
 
+%-------------------------------------------------------------------------------
+%  Footer
+%-------------------------------------------------------------------------------
+
+\makeatletter
+\def\@oddfoot{\thepage\hfill\today\hfill\thepage}
+\def\@evenfoot{\@oddfoot}
+\makeatother
+\def\pagereset{}
 
 %-------------------------------------------------------------------------------
 %  Sectioning
@@ -90,7 +99,7 @@
 \firstchapterinpartfalse
 \renewcommand\part{%
   \clearpage\firstchapterinparttrue
-  \thispagestyle{plain}%
+  %\thispagestyle{plain}%
   \if@twocolumn
     \onecolumn
     \@tempswatrue
@@ -116,12 +125,14 @@
     }
 
 \renewcommand\chapter{
+  \pagereset
   \iffirstchapterinpart\else\clearpage\fi
   \firstchapterinpartfalse
-                    \thispagestyle{plain}%
-                    \global\@topnum\z@
-                    \@afterindentfalse
-                    \secdef\@chapter\@schapter}
+  %\thispagestyle{myheadings}
+  %                  \thispagestyle{plain}%
+  \global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
 
 \def\mychapterhead#1{%
   \vspace*{50\p@ plus 10\p@ minus 10\p@}%
@@ -135,9 +146,14 @@
     \vskip 40\p@ plus 8\p@ minus 8\p@
   }}
 
+\def\pagemode#1{%
+\def\thepage{#1:\arabic{page}} % compositor character must agree with page_compositor in *.ist files
+\def\pagereset{\setcounter{page}{1}}}
+
 % Index, Bibliography, ...
-\def\otherchapter#1{
+\def\otherchapter#1#2{
   \clearpage
+  \pagemode{#2}
   \phantomsection
   \addcontentsline{toc}{chapter}{#1}
   \markboth{#1}{#1}}
@@ -169,11 +185,36 @@
 \usepackage{titlesec}
 
 %-------------------------------------------------------------------------------
+%  Table of Contents
+%-------------------------------------------------------------------------------
+
+% from latex.ltx, worked incorrectly for non-standard page label
+\makeatletter
+\def\@dottedtocline#1#2#3#4#5{%
+  \ifnum #1>\c@tocdepth \else
+    \vskip \z@ \@plus.2\p@
+    {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+     \parindent #2\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima #3\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {#4}\nobreak
+     \leaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+        mu$}\hfill
+     \nobreak
+     \hbox{\hfil\normalfont \normalcolor #5}% % patched here
+     \par}%
+  \fi}
+\makeatother
+
+%-------------------------------------------------------------------------------
 %  Index, List of Symbols
 %-------------------------------------------------------------------------------
 
 \ifdraft{\usepackage{showidx}}{}
-\usepackage{imakeidx}
+\usepackage[noautomatic]{imakeidx}
 \makeindex
 
 \makeatletter
@@ -191,6 +232,28 @@
     \vrule \@height \z@ \@depth .3\normalbaselineskip \@width \z@}}
 \def\@mkidx{\smash{\hbox{\raise3cm\vbox to \z@{\hbox{\@rightidx\box\indexbox}\vss}}}}
 \def\@rightidx{\hskip\columnwidth \hskip\marginparsep}
+  \renewenvironment{theindex}
+    {\imki@maybeaddtotoc
+     \imki@indexlevel{\indexname}\imki@indexheaders
+     % patched here \thispagestyle{\imki@firstpagestyle}%
+     \ifnum\imki@columns>\@ne
+       \columnsep \imki@columnsep
+       \ifx\imki@idxprologue\relax
+         \begin{multicols}{\imki@columns}
+       \else
+         \begin{multicols}{\imki@columns}[\imki@idxprologue]
+       \fi
+     \else
+       \imki@idxprologue
+     \fi
+     \global\let\imki@idxprologue\relax
+     \parindent\z@
+     \parskip\z@ \@plus .3\p@\relax
+     \columnseprule \ifKV@imki@columnseprule.4\p@\else\z@\fi
+     \raggedright
+     \let\item\@idxitem
+     \imki@othercode}
+    {\ifnum\imki@columns>\@ne\end{multicols}\fi}
 \makeatother
 
 
@@ -199,6 +262,17 @@
 \renewcommand{\nomname}{List of Symbols}
   % see nomencl.txt for how to force the ordering of symbols
 \def\nompageref#1{,~\hyperpage{#1}\nomentryend\endgroup}
+\makeatletter
+\def\thenomenclature{%
+  \nompreamble
+  \list{}{%
+    \labelwidth\nom@tempdim
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \itemsep\nomitemsep
+    \let\makelabel\nomlabel}}
+\makeatother
+
 %-------------------------------------------------------------------------------
 %  Improve LaTeX basics
 %-------------------------------------------------------------------------------

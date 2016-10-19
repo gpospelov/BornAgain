@@ -36,6 +36,7 @@ Walter Van Herck, Joachim Wuttke}
 \input{Setup}
 
 \begin{document}
+\pagenumbering{roman}
 \flushbottom
 
 \input{Macros}
@@ -44,12 +45,14 @@ Walter Van Herck, Joachim Wuttke}
 \tableofcontents\cleardoublepage
 
 \include{Introduction}
-\include{SAS}
-\include{GisasFoundations}
+
+\pagemode{\thechapter}
+\include{Scattering}
 \include{Multilayers}
 \include{Assemblies}
 %%\include{Roughness}
 %%\include{PolarizedScattering}
+\include{Instrument}
 
 %\include{ThreeAPIs}
 %\include{Usage}
@@ -61,14 +64,16 @@ Walter Van Herck, Joachim Wuttke}
 \appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \include{Proofs}
 
-\otherchapter{Bibliography}
+\otherchapter{Bibliography}{Bib}
 \bibliographystyle{switch}
 \bibliography{jw7}
 
-\otherchapter{\nomname}\label{Snomencl}
+\otherchapter{List of Symbols}{Sym}
+\chapter*{List of Symbols}
+\label{Snomencl}
 \printnomenclature[6em]
 
-\otherchapter{Index}
+\otherchapter{Index}{Idx}
 \small
 \printindex
 

@@ -68,18 +68,23 @@ The decomposition~\cref{Edecompose_v} holds with a fluctuating part
 \end{equation}
 with $\Delta v_\sp\coloneqq v_\sp-v_\sm$.
 
-Since our material layer has a constant~$\overline{v}$,
+Since our material layer~$l$ has a constant~$\overline{v}$,
 all results of \Cref{SStep} apply:
-The initial and final wavefunctions $\psi_\text{i,f}$ are sums
-of up- and downward travelling plane waves,
+The initial and final wavefunctions $\psi_\text{i,f}$
+are sums of up- and downward travelling plane waves,
 the DWBA scattering cross section is the norm \cref{Exsection}
-of a sum \cref{Edwba_ml0} of four terms,
+of a sum \cref{Edwba_ml0} of four terms per layer,
 and each term involves the Fourier transforms~\cref{Echij}
 of $\delta v(\r)\chi_l(z)$,
 \begin{equation}
   \delta v_l(\q)
-  = \int\!\d^3r \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z)
-%  = \Delta v_\sp \left( \chi_{\sp l}(\q) - \rho_\sp \right).
+  = \int\!\d^3r \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z).
+\end{equation}
+We denote the half thickness and the mean $z$ coordinate of layer~$l$ by
+\begin{equation}
+  h_l\coloneqq \left(z_{l-1}-z_l\right)/2
+  \text{~and~}
+  \overline{z}_l \coloneqq \left(z_{l-1}+z_l\right)/2.
 \end{equation}
 
 We further introduce the \E{form factor}

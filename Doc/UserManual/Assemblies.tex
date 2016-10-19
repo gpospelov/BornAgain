@@ -18,11 +18,12 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Embedded particles}
+\section{Wave propagation and scattering contributions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\sp{\text{p}}
 \def\sm{\text{m}}
+\def\mz{\overline{z}}
 
 \index{Particle assemblies|(}%
 \index{Nanoparticles|see {Particles}}%
@@ -48,7 +49,7 @@ in a homogeneous matrix~$\sm$ is
   v(\r) = v_\sp \chi_\sp(\r) + v_\sm \chi_\sm(\r)
 \end{equation}
 with indicator function.
-\begin{equation}
+\begin{equation}\label{EdefChiP}
   \chi_\sp(\r)\coloneqq\left\{\begin{array}{ll}
   1&\text{~if $\r$ in p,}\\[.2ex]
   0&\text{~otherwise,} \end{array}\right.
@@ -62,30 +63,64 @@ The average scattering length density is then
 \end{equation}
 where $\rho_\sp=\overline{\chi_\sp(\r)}$ and $\rho_\sm=1-\rho_\sp$
 are volume fractions.
-The decomposition~\cref{Edecompose_v} holds with a fluctuating part
+Per \Cref{SStep}, $\overline{v}$ determines the refractive index~$n_l$
+and the wavenumber~$K_l$.
+The wavefunctions $\psi_\text{i}$ and~$\psi_\text{f}$ in layer~$l$
+are then determined as described in \Cref{Sacrolay}.
+
+The fluctuating term in the decomposition~\cref{Edecompose_v} is
 \begin{equation}
   \delta v(\r) = \Delta v_\sp\left(\chi_p(\r)-\rho_\sp\right)
 \end{equation}
 with $\Delta v_\sp\coloneqq v_\sp-v_\sm$.
-
-Since our material layer~$l$ has a constant~$\overline{v}$,
-all results of \Cref{SStep} apply:
-The initial and final wavefunctions $\psi_\text{i,f}$
-are sums of up- and downward travelling plane waves,
+Per \Cref{SStep},
 the DWBA scattering cross section is the norm \cref{Exsection}
 of a sum \cref{Edwba_ml0} of four terms per layer,
 and each term involves the Fourier transforms~\cref{Echij}
 of $\delta v(\r)\chi_l(z)$,
-\begin{equation}
+\begin{equation}\label{Edvlq}
   \delta v_l(\q)
-  = \int\!\d^3r \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z).
+  = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z).
 \end{equation}
-We denote the half thickness and the mean $z$ coordinate of layer~$l$ by
+The Fourier transform of any indicator function~$\chi(\r)$ shall be denoted as
+\begin{equation}
+  \chi(\q) \coloneqq \int\!\d^3r\, \e^{i\v{q}\,\r} \chi(\r).
+\end{equation}
+We define the half thickness and the mean $z$ coordinate of layer~$l$ as
 \begin{equation}
   h_l\coloneqq \left(z_{l-1}-z_l\right)/2
   \text{~and~}
-  \overline{z}_l \coloneqq \left(z_{l-1}+z_l\right)/2.
+  \mz_l \coloneqq \left(z_{l-1}+z_l\right)/2
 \end{equation}
+to write the Fourier transform of the one-dimensional indicator function $\chi_l(z)$
+in closed form:
+\begin{equation}
+  \chi_l(q_\perp)
+  = \int_{\mz_l-h_l}^{\mz_l+h_l}\!\d z\, \e^{i q_\perp z}
+  = \e^{i q_\perp \mz_l}\, 2h_l\, \text{sinc}\left(q_\perp h\right).
+\end{equation}
+By construction~\cref{EdefChiP}, $\chi_\sp(\r)=0$ if $\r$ lies outside layer~$l$.
+Therefore $\chi_\sp(\r)\chi_l(z)=\chi_\sp(\r)$,
+which allows us to write~\cref{Edvlq} as
+\begin{equation}\label{Edvlq}
+  \delta v_l(\q)
+  = \Delta v_\sp\chi_\sp(\q) - \Delta v_\sp\rho_\sp (2\pi)^2\delta(\q_\parallel)\chi_l(q_\perp).
+\end{equation}
+Thanks to the delta function in $\q_\parallel$,
+the second term contributes only to the off-specular scattering,
+\index{Off-specular scattering!from finite layer width}%
+but not to the grazing-incidence scattering;
+it is not yet implemented in BornAgain.
+
+\Work{Until version 1.7,
+BornAgain does computes neither $\Delta v_\sp$ nor $\overline{v}$
+from the given $v_\sp$ and $v_\sm$.
+Instead, the given $v_\sm$ is used as $\overline{v}$,
+and the given $v_\sp$ as $\Delta v_\sp$.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Structure and form factor}\label{SPartFactors}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We further introduce the \E{form factor}
 \index{Form factor}%

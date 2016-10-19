@@ -199,9 +199,9 @@ void ApplicationModels::createTestSample()
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
-//    SimulationFactory simRegistry;
-//    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToReflectedBeamDpos"));
-    //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
+//    StandardSimulationsRegistry simRegistry;
+//    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("SphericalDetWithRoi"));
+//    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 
 void ApplicationModels::createTestJob()

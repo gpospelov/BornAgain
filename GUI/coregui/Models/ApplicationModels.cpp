@@ -34,6 +34,7 @@
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "ImportDataAssistant.h"
+#include "StandardSimulations.h"
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -46,7 +47,7 @@ ApplicationModels::ApplicationModels(QObject *parent)
     , m_jobModel(0)
 {
     createModels();
-//    createTestSample();
+    createTestSample();
 //    createTestJob();
 
 //    SessionItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
@@ -199,8 +200,8 @@ void ApplicationModels::createTestSample()
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
-//    StandardSimulationsRegistry simRegistry;
-//    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("SphericalDetWithRoi"));
+// to populate sample with predefined instrument
+//    const std::unique_ptr<GISASSimulation> simulation(StandardSimulations::GISASWithMasks());
 //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 

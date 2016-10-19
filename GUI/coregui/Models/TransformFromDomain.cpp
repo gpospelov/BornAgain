@@ -432,9 +432,10 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GIS
 {
     Q_ASSERT(detectorItem);
 
-    double units(1.0);
-    if(detectorItem->modelType() == Constants::SphericalDetectorType)
-        units = 1./Units::degree;
+    double scale(1.0);
+    if(detectorItem->getGroupItem(DetectorItem::P_DETECTOR)->modelType()
+            == Constants::SphericalDetectorType)
+        scale = 1./Units::degree;
 
     const IDetector2D* detector = simulation.getInstrument().getDetector();
     const DetectorMask* detectorMask = detector->getDetectorMask();
@@ -446,21 +447,21 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GIS
             const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
             if(const Geometry::Ellipse* ellipse = dynamic_cast<const Geometry::Ellipse*>(shape)) {
                 EllipseItem* ellipseItem = new EllipseItem();
-                ellipseItem->setItemValue(EllipseItem::P_XCENTER, units*ellipse->getCenterX());
-                ellipseItem->setItemValue(EllipseItem::P_YCENTER, units*ellipse->getCenterY());
-                ellipseItem->setItemValue(EllipseItem::P_XRADIUS, units*ellipse->getRadiusX());
-                ellipseItem->setItemValue(EllipseItem::P_YRADIUS, units*ellipse->getRadiusY());
-                ellipseItem->setItemValue(EllipseItem::P_ANGLE, units*ellipse->getTheta());
+                ellipseItem->setItemValue(EllipseItem::P_XCENTER, scale*ellipse->getCenterX());
+                ellipseItem->setItemValue(EllipseItem::P_YCENTER, scale*ellipse->getCenterY());
+                ellipseItem->setItemValue(EllipseItem::P_XRADIUS, scale*ellipse->getRadiusX());
+                ellipseItem->setItemValue(EllipseItem::P_YRADIUS, scale*ellipse->getRadiusY());
+                ellipseItem->setItemValue(EllipseItem::P_ANGLE, scale*ellipse->getTheta());
                 ellipseItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(0, ellipseItem);
 
             }
             else if(const Geometry::Rectangle* rectangle = dynamic_cast<const Geometry::Rectangle*>(shape)) {
                 RectangleItem* rectangleItem = new RectangleItem();
-                rectangleItem->setItemValue(RectangleItem::P_XLOW, units*rectangle->getXlow());
-                rectangleItem->setItemValue(RectangleItem::P_YLOW, units*rectangle->getYlow());
-                rectangleItem->setItemValue(RectangleItem::P_XUP, units*rectangle->getXup());
-                rectangleItem->setItemValue(RectangleItem::P_YUP, units*rectangle->getYup());
+                rectangleItem->setItemValue(RectangleItem::P_XLOW, scale*rectangle->getXlow());
+                rectangleItem->setItemValue(RectangleItem::P_YLOW, scale*rectangle->getYlow());
+                rectangleItem->setItemValue(RectangleItem::P_XUP, scale*rectangle->getXup());
+                rectangleItem->setItemValue(RectangleItem::P_YUP, scale*rectangle->getYup());
                 rectangleItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(0, rectangleItem);
 
@@ -471,8 +472,8 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GIS
                 polygon->getPoints(xpos, ypos);
                 for(size_t i_point=0; i_point<xpos.size(); ++i_point) {
                     PolygonPointItem* pointItem = new PolygonPointItem();
-                    pointItem->setItemValue(PolygonPointItem::P_POSX, units*xpos[i_point]);
-                    pointItem->setItemValue(PolygonPointItem::P_POSY, units*ypos[i_point]);
+                    pointItem->setItemValue(PolygonPointItem::P_POSX, scale*xpos[i_point]);
+                    pointItem->setItemValue(PolygonPointItem::P_POSY, scale*ypos[i_point]);
                     polygonItem->insertItem(-1, pointItem);
                 }
 
@@ -483,13 +484,13 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GIS
             }
             else if(const Geometry::VerticalLine* vline = dynamic_cast<const Geometry::VerticalLine*>(shape)) {
                 VerticalLineItem* lineItem = new VerticalLineItem();
-                lineItem->setItemValue(VerticalLineItem::P_POSX, units*vline->getXpos());
+                lineItem->setItemValue(VerticalLineItem::P_POSX, scale*vline->getXpos());
                 lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(0, lineItem);
             }
             else if(const Geometry::HorizontalLine* hline = dynamic_cast<const Geometry::HorizontalLine*>(shape)) {
                 HorizontalLineItem* lineItem = new HorizontalLineItem();
-                lineItem->setItemValue(HorizontalLineItem::P_POSY, units*hline->getYpos());
+                lineItem->setItemValue(HorizontalLineItem::P_POSY, scale*hline->getYpos());
                 lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
                 containerItem->insertItem(0, lineItem);
             }
@@ -514,10 +515,10 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GIS
         }
 
         RegionOfInterestItem *roiItem = new RegionOfInterestItem();
-        roiItem->setItemValue(RectangleItem::P_XLOW, units*detector->regionOfInterest()->getXlow());
-        roiItem->setItemValue(RectangleItem::P_YLOW, units*detector->regionOfInterest()->getYlow());
-        roiItem->setItemValue(RectangleItem::P_XUP, units*detector->regionOfInterest()->getXup());
-        roiItem->setItemValue(RectangleItem::P_YUP, units*detector->regionOfInterest()->getYup());
+        roiItem->setItemValue(RectangleItem::P_XLOW, scale*detector->regionOfInterest()->getXlow());
+        roiItem->setItemValue(RectangleItem::P_YLOW, scale*detector->regionOfInterest()->getYlow());
+        roiItem->setItemValue(RectangleItem::P_XUP, scale*detector->regionOfInterest()->getXup());
+        roiItem->setItemValue(RectangleItem::P_YUP, scale*detector->regionOfInterest()->getYup());
         containerItem->insertItem(-1, roiItem);
     }
 }

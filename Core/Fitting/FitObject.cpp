@@ -17,6 +17,7 @@
 #include "FitElement.h"
 #include "GISASSimulation.h"
 #include "IIntensityNormalizer.h"
+#include "SimulationArea.h"
 
 FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
     double weight, bool adjust_detector_to_data)
@@ -99,10 +100,7 @@ std::string FitObject::get_error_message() const
 
 size_t FitObject::getSizeOfData() const
 {
-    // TODO Fix this hell
-    size_t result = m_real_data->getAllocatedSize() -
-        m_simulation->getInstrument().getDetector()->getDetectorMask()->getNumberOfMaskedChannels();
-    return result;
+    return m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
 }
 
 //! Runs simulation and put results (the real and simulated intensities) into
@@ -116,24 +114,13 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
     if(normalizer)
         normalizer->apply(*m_simulation_data.get());
 
-    const OutputData<bool>* masks(0);
-    if(m_simulation->getInstrument().getDetector()->hasMasks())
-        masks = m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData();
-
-    if(masks && m_simulation_data->getAllocatedSize() != masks->getAllocatedSize()) {
-        std::ostringstream message;
-        message << "FitObject::prepareFitElements() -> Error. Size mismatch. "
-                << "m_simulation_data->getAllocatedSize():" << m_simulation_data->getAllocatedSize()
-                << " " << "masks->getAllocatedSize()" << masks->getAllocatedSize()
-                << std::endl;
-        throw Exceptions::RuntimeErrorException(message.str());
-    }
-
-    for(size_t index=0; index<m_simulation_data->getAllocatedSize(); ++index) {
-        if(masks && (*masks)[index]) continue;
-        FitElement element(index, (*m_simulation_data)[index], (*m_real_data)[index], weight);
+    SimulationArea area(m_simulation->getInstrument().getDetector());
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        FitElement element(it.index(), (*m_simulation_data)[it.index()],
+                (*m_real_data)[it.index()], weight);
         fit_elements.push_back(element);
     }
+
 }
 
 //!Creates ChiSquared map from external vector.

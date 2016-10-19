@@ -860,19 +860,19 @@ is the deviation from the mean of the size of a particle of type $\v{T}_n$.
 
 The differential cross section (\ref{Ecsc}) in this case can then be expressed as:
 \begin{equation}\label{Ecsssca}
-  \left\langle\frac{\partial\sigma}{\partial\Omega}\right\rangle
+  \frac{1}{N}\left\langle\frac{\partial\sigma}{\partial\Omega}\right\rangle
   =
   \int\!d\v{T}\,\PD (\v{T}) \left| \FD(\q,\v{T}) \right|^2
   +
   2\Re \left\lbrace \FD_\kappa(\q)\tilde{\FD}_\kappa(\q)
   \cdot
-  \frac{P(q_\plll)}{1 - \tilde{p}_{2\kappa}(\q_{\plll})P(q_\plll))} \right\rbrace ,
+  \frac{P(q_\plll)}{1 - \tilde{p}_{2\kappa}(q_{\plll})P(q_\plll))} \right\rbrace ,
 \end{equation}
 with 
 \begin{align*}
-  \tilde{p}_{\kappa}(\q_\plll) & \coloneqq \int\!d\v{T}\,\PD (\v{T}) e^{i\kappa\q_\plll\Delta X(\v{T})}, \\
-  \FD_\kappa(\q) & \coloneqq \int\!d\v{T}\,\PD (\v{T}) e^{i\kappa\q_\plll\Delta X(\v{T})} \FD(\q, \v{T}), \\
-  \tilde{\FD}_\kappa(\q) & \coloneqq \int\!d\v{T}\,\PD (\v{T}) e^{i\kappa\q_\plll\Delta X(\v{T})} \FD^*(\q, \v{T})
+  \tilde{p}_{\kappa}(q_\plll) & \coloneqq \int\!d\v{T}\,\PD (\v{T}) e^{i\kappa q_\plll\Delta X(\v{T})}, \\
+  \FD_\kappa(\q) & \coloneqq \int\!d\v{T}\,\PD (\v{T}) e^{i\kappa q_\plll\Delta X(\v{T})} \FD(\q, \v{T}), \\
+  \tilde{\FD}_\kappa(\q) & \coloneqq \int\!d\v{T}\,\PD (\v{T}) e^{i\kappa q_\plll\Delta X(\v{T})} \FD^*(\q, \v{T})
 \end{align*}
 and $P(q_\plll)$ is the Fourier transform of the average next neighbor distance (as was also the case for the radial
 paracrystal).

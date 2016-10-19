@@ -519,3 +519,19 @@
 # after switch to SimulationAreaIterator
 | 2016-10-17 11:28:02 | scgsun   | Linux x86_64 | 2.7    | 122.3960  | 19.9584    | 3.0328     | 0.7849          | 3.4156          | 0.5976    | 2.3843        | 0.7670            | 3.4331         | 1.0687 | 1.7839      | 1.8056    | 0.8850    |
 
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-19 16:07:36 | scgsun   | Linux x86_64 | 2.7    | 122.0920  | 19.7493    | 2.8688     | 0.7697          | 3.4029          | 0.6063    | 2.3930        | 0.7820            | 3.2194         | 1.0796 | 1.8609      | 1.8693    | 0.8974    |
+
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-19 16:24:06 | scgsun   | Linux x86_64 | 2.7    | 121.9280  | 20.5678    | 3.2099     | 0.8127          | 3.5007          | 0.6635    | 2.5303        | 0.8397            | 3.2550         | 1.1002 | 1.8465      | 1.9096    | 0.8998    |
+
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-19 16:26:39 | scgsun   | Linux x86_64 | 2.7    | 122.0600  | 20.1381    | 2.8649     | 0.8167          | 3.5113          | 0.6651    | 2.5195        | 0.8412            | 3.2485         | 1.0922 | 1.8063      | 1.8740    | 0.8984    |
+
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-19 16:42:00 | scgsun   | Linux x86_64 | 2.7    | 121.8400  | 20.0396    | 3.1581     | 0.7961          | 3.4329          | 0.6432    | 2.4310        | 0.8203            | 3.1920         | 1.0742 | 1.7783      | 1.8312    | 0.8822    |
+

@@ -41,7 +41,7 @@ public:
     void prepareSimulation() final;
 
     //! Gets the number of elements this simulation needs to calculate
-    int getNumberOfSimulationElements() const final;
+    int numberOfSimulationElements() const final;
 
     //! Returns detector intensity map (no detector resolution)
     const OutputData<double>* getOutputData() const { return &m_intensity_map; }

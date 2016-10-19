@@ -15077,14 +15077,9 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getSampleBuilder(self)
 
 
-    def getNumberOfSimulationElements(self):
-        """
-        getNumberOfSimulationElements(Simulation self) -> int
-
-        virtual int Simulation::getNumberOfSimulationElements() const =0
-
-        """
-        return _libBornAgainCore.Simulation_getNumberOfSimulationElements(self)
+    def numberOfSimulationElements(self):
+        """numberOfSimulationElements(Simulation self) -> int"""
+        return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
 
 
     def getDetectorIntensity(self, *args):
@@ -15421,16 +15416,9 @@ class GISASSimulation(Simulation):
         return _libBornAgainCore.GISASSimulation_prepareSimulation(self)
 
 
-    def getNumberOfSimulationElements(self):
-        """
-        getNumberOfSimulationElements(GISASSimulation self) -> int
-
-        int GISASSimulation::getNumberOfSimulationElements() const final
-
-        Gets the number of elements this simulation needs to calculate. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_getNumberOfSimulationElements(self)
+    def numberOfSimulationElements(self):
+        """numberOfSimulationElements(GISASSimulation self) -> int"""
+        return _libBornAgainCore.GISASSimulation_numberOfSimulationElements(self)
 
 
     def getOutputData(self):
@@ -17043,6 +17031,11 @@ class IDetector2D(ICloneable, IParameterized):
     def getAxisBinIndex(self, index, selected_axis):
         """getAxisBinIndex(IDetector2D self, size_t index, size_t selected_axis) -> size_t"""
         return _libBornAgainCore.IDetector2D_getAxisBinIndex(self, index, selected_axis)
+
+
+    def numberOfSimulationElements(self):
+        """numberOfSimulationElements(IDetector2D self) -> size_t"""
+        return _libBornAgainCore.IDetector2D_numberOfSimulationElements(self)
 
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
 IDetector2D_swigregister(IDetector2D)
@@ -21479,16 +21472,9 @@ class OffSpecSimulation(Simulation):
         return _libBornAgainCore.OffSpecSimulation_prepareSimulation(self)
 
 
-    def getNumberOfSimulationElements(self):
-        """
-        getNumberOfSimulationElements(OffSpecSimulation self) -> int
-
-        int OffSpecSimulation::getNumberOfSimulationElements() const final
-
-        Gets the number of elements this simulation needs to calculate. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_getNumberOfSimulationElements(self)
+    def numberOfSimulationElements(self):
+        """numberOfSimulationElements(OffSpecSimulation self) -> int"""
+        return _libBornAgainCore.OffSpecSimulation_numberOfSimulationElements(self)
 
 
     def getOutputData(self):

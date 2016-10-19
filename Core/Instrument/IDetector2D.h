@@ -154,6 +154,9 @@ public:
     //! Calculate axis index for given global index
     size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
 
+    //! Returns number of simulation elements.
+    size_t numberOfSimulationElements() const;
+
 protected:
     IDetector2D(const IDetector2D& other);
 

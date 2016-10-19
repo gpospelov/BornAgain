@@ -215,6 +215,7 @@ bool IDetector2D::hasMasks() const
 std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam &beam)
 {
     std::vector<SimulationElement> result;
+
     double wavelength = beam.getWavelength();
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
@@ -282,6 +283,15 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
     }
     throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
                                           "Error! No axis with given number");
+}
+
+size_t IDetector2D::numberOfSimulationElements() const
+{
+    size_t result(0);
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        ++result;
+    return result;
 }
 
 std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,

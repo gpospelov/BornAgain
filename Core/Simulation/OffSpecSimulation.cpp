@@ -55,12 +55,10 @@ void OffSpecSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-int OffSpecSimulation::getNumberOfSimulationElements() const
+int OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
-    const IAxis& phi_axis = m_instrument.getDetectorAxis(0);
-    const IAxis& alpha_axis = m_instrument.getDetectorAxis(1);
-    return phi_axis.getSize()*alpha_axis.getSize()*mp_alpha_i_axis->getSize();
+    return getInstrument().getDetector()->numberOfSimulationElements()*mp_alpha_i_axis->getSize();
 }
 
 Histogram2D* OffSpecSimulation::getIntensityData() const

@@ -28,7 +28,7 @@ class IShape2D;
 class BA_CORE_API_ MaskContainerItem : public SessionItem
 {
 public:
-    explicit MaskContainerItem();
+    MaskContainerItem();
 };
 
 

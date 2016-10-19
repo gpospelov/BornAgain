@@ -147,7 +147,7 @@ public:
     //! Returns region of  interest if exists.
     const Geometry::Rectangle* regionOfInterest() const;
 
-    //! Sets rectangular region of interest with lower left and uppre right corners defined.
+    //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
 
     //! Resets region of interest making whole detector plane available for the simulation.

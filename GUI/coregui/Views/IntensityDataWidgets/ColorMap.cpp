@@ -228,37 +228,33 @@ void ColorMap::onSubItemPropertyChanged(const QString &property_group,
         return;
 
     if (property_group == IntensityDataItem::P_XAXIS) {
-        if (property_name == BasicAxisItem::P_MIN) {
+        if (property_name == BasicAxisItem::P_MIN || property_name == BasicAxisItem::P_MAX) {
+            setAxesRangeConnected(false);
             QCPRange range = m_customPlot->xAxis->range();
             range.lower = m_item->getLowerX();
-            m_customPlot->xAxis->setRange(range);
-            replot();
-        } else if (property_name == BasicAxisItem::P_MAX) {
-            QCPRange range = m_customPlot->xAxis->range();
             range.upper = m_item->getUpperX();
             m_customPlot->xAxis->setRange(range);
+            setAxesRangeConnected(true);
             replot();
         } else if (property_name == BasicAxisItem::P_TITLE) {
             m_customPlot->xAxis->setLabel(m_item->getXaxisTitle());
-            m_colorScale->setMargins(QMargins(0,0,0,0)); // a hack to make MarginGroup working
+            m_colorScale->setMargins(QMargins(0,0,0,0));
+            // a hack to make MarginGroup working
+            //             m_customPlot->plotLayout()->simplify();
             replot();
-//             m_customPlot->plotLayout()->simplify();
         }
     } else if (property_group == IntensityDataItem::P_YAXIS) {
-        if (property_name == BasicAxisItem::P_MIN) {
+        if (property_name == BasicAxisItem::P_MIN || property_name == BasicAxisItem::P_MAX) {
+            setAxesRangeConnected(false);
             QCPRange range = m_customPlot->yAxis->range();
             range.lower = m_item->getLowerY();
-            m_customPlot->yAxis->setRange(range);
-            replot();
-        } else if (property_name == BasicAxisItem::P_MAX) {
-            QCPRange range = m_customPlot->yAxis->range();
             range.upper = m_item->getUpperY();
             m_customPlot->yAxis->setRange(range);
+            setAxesRangeConnected(true);
             replot();
         } else if (property_name == BasicAxisItem::P_TITLE) {
             m_customPlot->yAxis->setLabel(m_item->getYaxisTitle());
             replot();
-            m_customPlot->plotLayout()->simplify();
         }
     }
 

@@ -47,6 +47,8 @@ set(test_cases
     TransformBox
     TriangularRipple
     TwoTypesCylindersDistribution
+    SphericalDetWithRoi
+    RectDetWithRoi
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

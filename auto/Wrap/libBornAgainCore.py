@@ -15575,6 +15575,16 @@ class GISASSimulation(Simulation):
         """
         return _libBornAgainCore.GISASSimulation_maskAll(self)
 
+
+    def setRegionOfInterest(self, xlow, ylow, xup, yup):
+        """setRegionOfInterest(GISASSimulation self, double xlow, double ylow, double xup, double yup)"""
+        return _libBornAgainCore.GISASSimulation_setRegionOfInterest(self, xlow, ylow, xup, yup)
+
+
+    def resetRegionOfInterest(self):
+        """resetRegionOfInterest(GISASSimulation self)"""
+        return _libBornAgainCore.GISASSimulation_resetRegionOfInterest(self)
+
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
 GISASSimulation_swigregister(GISASSimulation)
 

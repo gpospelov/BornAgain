@@ -331,6 +331,20 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "LargeCylindersInDWBABuilder",
         "None",
         5e-1);
+
+    add("SphericalDetWithRoi",
+        "Spherical detector with ROI and mask defined",
+        "SphericalDetWithRoi",
+        "CylindersAndPrismsBuilder",
+        "None",
+        1e-10);
+
+    add("RectDetWithRoi",
+        "Rectangular detector with ROI and mask defined",
+        "RectDetWithRoi",
+        "CylindersAndPrismsBuilder",
+        "None",
+        1e-10);
 }
 
 void StandardSimulationsRegistry::add(

@@ -34,6 +34,7 @@
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "ImportDataAssistant.h"
+#include "StandardSimulations.h"
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
@@ -199,9 +200,9 @@ void ApplicationModels::createTestSample()
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
-//    SimulationFactory simRegistry;
-//    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createSimulation("RectDetectorPerpToReflectedBeamDpos"));
-    //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
+// to populate sample with predefined instrument
+//    const std::unique_ptr<GISASSimulation> simulation(StandardSimulations::GISASWithMasks());
+//    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 
 void ApplicationModels::createTestJob()

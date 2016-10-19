@@ -663,10 +663,19 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
             throw Exceptions::RuntimeErrorException(
                 "ExportToPython::defineDetector: unknown alignment");
 
-        result << indent() << "simulation.setDetector(detector)\n\n";
+        result << indent() << "simulation.setDetector(detector)\n";
 
     } else
         throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: unknown detector");
+
+    if(iDetector->regionOfInterest()) {
+        result << indent() << "simulation.setRegionOfInterest("
+               << printFunc(iDetector)(iDetector->regionOfInterest()->getXlow()) << ", "
+               << printFunc(iDetector)(iDetector->regionOfInterest()->getYlow()) << ", "
+               << printFunc(iDetector)(iDetector->regionOfInterest()->getXup()) << ", "
+               << printFunc(iDetector)(iDetector->regionOfInterest()->getYup()) << ")\n";
+    }
+    result << indent() << "\n";
 
     return result.str();
 }

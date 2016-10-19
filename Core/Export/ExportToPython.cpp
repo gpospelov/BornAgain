@@ -41,13 +41,14 @@
 #include "Utils.h"
 #include <iomanip>
 #include <set>
+#include <functional>
 
 class IFormFactor;
 class LayerRoughness;
 
 using namespace PythonFormatting;
 
-namespace CodeSnippet {
+namespace {
 
     const std::string preamble =
         "import numpy\n"
@@ -68,7 +69,9 @@ namespace CodeSnippet {
         "if __name__ == '__main__': \n"
         "    ba.simulateThenPlotOrSave(simulate, plot)\n";
 
-} // namespace CodeSnippet
+    std::function<std::string(double)> printFunc(const IDetector2D *detector);
+
+}
 
 ExportToPython::ExportToPython(const MultiLayer& multilayer)
     : m_label(new SampleLabelHandler())
@@ -111,12 +114,12 @@ ExportToPython::~ExportToPython()
 
 std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* simulation)
 {
-    return CodeSnippet::preamble
+    return preamble
         + defineGetSample()
         + defineGetSimulation(simulation)
         + definePlot(simulation)
-        + CodeSnippet::defineSimulate
-        + CodeSnippet::mainProgram;
+        + defineSimulate
+        + mainProgram;
 }
 
 std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
@@ -858,8 +861,8 @@ void ExportToPython::setPositionInformation(
 }
 
 //! Returns print function for given detector type.
-
-std::function<std::string (double)> ExportToPython::printFunc(const IDetector2D *detector) const
+namespace {
+std::function<std::string (double)> printFunc(const IDetector2D *detector)
 {
     std::function<std::string(double)> result;
 
@@ -873,4 +876,5 @@ std::function<std::string (double)> ExportToPython::printFunc(const IDetector2D 
     }
 
     return result;
+}
 }

@@ -18,13 +18,11 @@
 
 #include "WinDllMacros.h"
 #include <string>
-#include <functional>
 
 class GISASSimulation;
 class IParticle;
 class MultiLayer;
 class SampleLabelHandler;
-class IDetector2D;
 
 //! Write a Python script that allows to run the current simulation.
 
@@ -67,9 +65,6 @@ private:
                                 std::ostringstream& result) const;
 
     SampleLabelHandler* m_label;
-
-    std::function<std::string(double)> printFunc(const IDetector2D *detector) const;
-
 };
 
 #endif // EXPORTTOPYTHON_H

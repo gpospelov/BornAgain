@@ -683,13 +683,8 @@ std::string ExportToPython::defineDetectorResolutionFunction(
                     p_convfunc->getResolutionFunction2D())) {
                 result << indent() << "simulation.setDetectorResolutionFunction(";
                 result << "ba.ResolutionFunction2DGaussian(";
-                if(detector->getDefaultAxesUnits() == IDetector2D::RADIANS) {
-                    result << printDegrees(resfunc->getSigmaX()) << ", ";
-                    result << printDegrees(resfunc->getSigmaY()) << "))\n";
-                } else {
-                    result << printDouble(resfunc->getSigmaX()) << ", ";
-                    result << printDouble(resfunc->getSigmaY()) << "))\n";
-                }
+                result << printFunc(detector)(resfunc->getSigmaX()) << ", ";
+                result << printFunc(detector)(resfunc->getSigmaY()) << "))\n";
             } else {
                 throw Exceptions::RuntimeErrorException(
                     "ExportToPython::defineDetectorResolutionFunction() -> Error. "
@@ -754,7 +749,7 @@ std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
         for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
-            result << representShape2D(indent(), shape, mask_value);
+            result << representShape2D(indent(), shape, mask_value, printFunc(detector));
         }
         result << "\n";
     }
@@ -851,4 +846,22 @@ void ExportToPython::setPositionInformation(
                << name << ".setPosition("
                << name << "_position)\n";
     }
+}
+
+//! Returns print function for given detector type.
+
+std::function<std::string (double)> ExportToPython::printFunc(const IDetector2D *detector) const
+{
+    std::function<std::string(double)> result;
+
+    if(detector->getDefaultAxesUnits() == IDetector2D::MM) {
+        result = PythonFormatting::printDouble;
+    } else if(detector->getDefaultAxesUnits() == IDetector2D::RADIANS) {
+        result = PythonFormatting::printDegrees;
+    } else {
+        throw Exceptions::RuntimeErrorException("ExportToPython::defineMasks() -> Error. Unknown "
+                                                "detector units.");
+    }
+
+    return result;
 }

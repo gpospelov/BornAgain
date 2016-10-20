@@ -154,11 +154,8 @@ void GISASSimulation::initSimulationElementVector()
 
 void GISASSimulation::transferResultsToIntensityMap()
 {
-    std::unique_ptr<OutputData<double>> data(
-        m_instrument.getDetector()->createDetectorIntensity(m_sim_elements, m_instrument.getBeam()));
+    std::unique_ptr<OutputData<double>> data(m_instrument.createDetectorIntensity(m_sim_elements));
     m_intensity_map.copyFrom(*data.get());
-
-//    m_instrument.getDetector()->transferResultsToIntensityMap(m_intensity_map, m_sim_elements);
 }
 
 void GISASSimulation::updateIntensityMap()

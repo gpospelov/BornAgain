@@ -126,6 +126,11 @@ we can work with
 \end{equation}
 \vspace*{-5pt}}
 
+\Warn{\indent Currently, \BornAgain\ does not support interferences
+  between particles in different layers.
+  This means in particular that there is no way to model particles
+  that extend beyond layer interfaces.}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure and form factor}\label{SPartFactors}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -171,45 +176,26 @@ can no longer be factorized as in \cref{ESqFq}
 because there may be any kind of correlation
 between particle positions~$\R_i$ and parameters~$\v{T}_i$.
 To proceed,
-we need to approximate these correlations by statistical models.
-
-\Warn{\indent Currently, \BornAgain\ does not support interferences
-  between particles in different layers.
-  This means in particular that there is no way to model particles
-  that extend beyond layer interfaces.}
-With this restriction, \cref{Eass4} becomes an incoherent sum
-\begin{equation}
-  \frac{\partial\sigma}{\partial\Omega}
-  = \sum_{l} \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-\end{equation}
-  \index{IsGISAXS@\IsGISAXS!particle assemblies}%
-over contributions from different layers,\footnote
-{This generalizes Eq.~(2.6) of the \IsGISAXS\ manual \cite{Laz08}.}
-\Emph{
-\begin{equation}\label{Eass3}
-  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-  = \sum_{ij} \e^{i\q_{l\plll}(-\R_{i\plll}+\R_{j\plll})}
-    \FD^*_l(\v{T}_i) \FD_l(\v{T}_j).
-\end{equation}
-\vspace*{-5pt}}
-
-If the morphology of a sample is known from experiments
-(e.g.\ transmission electron microscopy) or from simulations,
-one could use a straightforward evaluation of~\cref{Eass3}
-to predict the scattering pattern
-for a given set of particle coordinates $\{\R_i,\v{T}_i\}$.
+we need to specify the statistical distributions
+of these coordinates.
+This can in principle be done in two different ways:
+Either through physical models, implemented within BornAgain,
+or by loading a representative set $\{\R_i,\v{T}_i\}$
+from an external \E{morphology} file
+that could be generated from simulations,
+or from electron microscopy images.
 
 \addtocounter{footnote}{1}
 % see http://tex.stackexchange.com/questions/35298 how to repair hyperref
-\Note{\indent Simulations based on \E{morphology data}\footnotemark[\value{footnote}]
+\Note{\indent Import of \E{morphology data},
+pioneered by \IsGISAXS\ \cite[Sec.~3.3]{Laz08},
+\index{IsGISAXS@\string\IsGISAXS!morphology data}%
 \index{Morphology!as input data}%
-  have not yet been implemented in \BornAgain,
+  is not yet implemented in \BornAgain,
   and are not on our agenda.
   Please contact us if you have a use case.}
-\footnotetext[\value{footnote}]{Known from \IsGISAXS\ \cite[Sec.~3.3]{Laz08}.
-\index{IsGISAXS@\string\IsGISAXS!morphology data}}
 
-Instead, \BornAgain\ provides various physical models
+BornAgain provides various physical models
 for the distribution of $\R_i$ and $\v{T}_i$.
 Except if uniform particles form a perfect two-dimensional crystal,
 some degrees of freedom will be more or less disordered.

@@ -8,12 +8,18 @@ class FitParameterSetIterator(object):
         self.fitParameters = fitParameters
         self.index = -1
 
+    def __iter__(self):
+        return self
+
     def next(self):
         self.index += 1
         if self.index < self.fitParameters.size():
             return self.fitParameters[self.index]
         else:
             raise StopIteration
+
+    def __next__(self):
+        return self.next()
 %}
 
 // FitParameterSet accessors

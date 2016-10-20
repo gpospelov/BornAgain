@@ -38,45 +38,69 @@ fluctuations of the refractive index are due to
 of a mesoscopic size (nanometer to micrometer).
 In the following, all such inhomogeneities will be described as
 \E{particles} that are embedded in a material layer.
-In BornAgain, any layer can be decorated with an arbitrary number
+In BornAgain, a sample can be decorated with an arbitrary number
 of different particles species.
-For readability, however, in the following
-only \E{one} species of embedded particles will be considered.
+For readability, in the following
+only \E{one} kind of embedded particles will be considered;
+the generalization to several species is straightforward.
 
-The scattering length density for an assembly of homogeneous particles of type~$\sp$
-in a homogeneous matrix~$\sm$ is
+The matrix material has a SLD~$v_\sm(z)$
+that may or may not vary with~$z$.
+The SLD of the entire sample,
+consisting of the matrix and an assembly of particles of type~$\sp$,
+shall be written
 \begin{equation}
-  v(\r) = v_\sp \chi_\sp(\r) + v_\sm \chi_\sm(\r)
+  v(\r) = v_\sm(z) + \Delta v_\sp(\r).
 \end{equation}
-with indicator function.
+If the particles are homogeneous, then
+\begin{equation}\label{EDvpHomo}
+  \Delta v_\sp(\r) = \left(v_\sp-v_\sm(z)\right)\chi_\sp(\r)
+\end{equation}
+with the indicator function
 \begin{equation}\label{EdefChiP}
   \chi_\sp(\r)\coloneqq\left\{\begin{array}{ll}
   1&\text{~if $\r$ in p,}\\[.2ex]
-  0&\text{~otherwise,} \end{array}\right.
+  0&\text{~otherwise.} \end{array}\right.
 \end{equation}
 \nomenclature[1χ032 2p000]{$\chi_\sp(\r)$ indicates whether $\r$ is in particle of type~$\sp$}%
 \index{Indicator function}%
+The following formalism, however, shall not rely on \cref{EDvpHomo},
+but also allow for soft particles for which $\Delta v_\sp(\r)$ is a continuous function of~$\r$.
+
+To apply the DWBA to this scattering problem,
+we must choose a decomposition~\cref{Edecompose_vz} of~$v(\r)$.
+BornAgain only supports step profiles for~$v_\sm(z)$.
+Within one layer~$l$, the matrix has a constant SLD~$v_{\sm l}$.
+\Work{Currently (at least up to version 1.7),
+BornAgain puts $\overline{v}_l = v_{\sm l}$.
+In the future, this may be replaced by a better approximation
+that takes the average contribution from the particle SLD into account.}
+\iffalse
+For each layer
 and $\chi_\sm(\r)\coloneqq 1-\chi_\sp(\r)$.
-The average scattering length density in layer~$l$ is then
+The average SLD in layer~$l$ is then
 \begin{equation}
   \overline{v}_l = v_\sp\rho_\sp + v_\sm\rho_\sm,
 \end{equation}
 where $\rho_\sp\coloneqq\overline{\chi_\sp(\r)}$ and $\rho_\sm=1-\rho_\sp$
 are volume fractions.
+\fi
+
 Per \Cref{SStep}, $\overline{v}_l$ determines the refractive index~$n_l$
 and the wavenumber~$K_l$.
 The wavefunctions $\psi_\text{i}$ and~$\psi_\text{f}$
 are then determined as described in \Cref{Sacrolay}.
-
-The fluctuating term in the decomposition~\cref{Edecompose_v} is
+The fluctuating term in the decomposition~\cref{Edecompose_vz} is
 \begin{equation}
-  \delta v(\r) = \Delta v_\sp\left(\chi_p(\r)-\rho_\sp\right)
+  \delta v_l(\r) = v_{\sm l} + \Delta v_\sp(\r) - \overline{v}_l.
 \end{equation}
-with $\Delta v_\sp\coloneqq v_\sp-v_\sm$.
+With $\overline{v}_l = v_{\sm l}$, this reduces to
+$\delta v_l(\r) = \Delta v_\sp(\r)$.
 
-\Work{Until and including version 1.7,
-BornAgain does not compute $\Delta v_\sp$ from $v_\sp-v_\sm$,
-but uses the given $v_\sp$ in place of $\Delta v_\sp$.}
+\Work{Currently,
+BornAgain does not compute $\Delta v_\sp = v_\sp - v_\sm$,
+but interprets the given $v_\sp$
+(given through a particle refractive index) as if it were $\Delta v_\sp$.}
 
 Per \Cref{SStep},
 the DWBA scattering cross section is the norm \cref{Exsection}
@@ -85,8 +109,10 @@ and each term involves the Fourier transforms~\cref{Echij}
 of $\delta v(\r)\chi_l(z)$,
 \begin{equation}\label{Edvlq}
   \delta v_l(\q)
-  = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z).
+  = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z)
 \end{equation}
+with the indicator function
+
 The Fourier transform of any indicator function~$\chi(\r)$ shall be denoted as
 \begin{equation}
   \chi(\q) \coloneqq \int\!\d^3r\, \e^{i\v{q}\,\r} \chi(\r).
@@ -159,7 +185,7 @@ particles are not all identical.
 They may vary in shape, size, orientation, or refractive index profile.
 In the following, these degrees of freedom
 shall be denoted by a parameter vector~$\v{T}_i$.
-The scattering length density~\cref{Echihomo} then becomes
+The SLD~\cref{Echihomo} then becomes
 \begin{equation}\label{Echihetero}
   \chi_\text{p}(\r) = \sum_i F(\r-\R_i,\v{T}_i).
 \end{equation}
@@ -171,14 +197,10 @@ can no longer be factorized as in \cref{ESqFq}
 because there may be any kind of correlation
 between particle positions~$\R_i$ and parameters~$\v{T}_i$.
 
-
 \Warn{\indent Currently, \BornAgain\ does not support interferences
   between particles in different layers.
   This means in particular that there is no way to model particles
   that extend beyond layer interfaces.}
-
-
-
 
 
 To proceed,
@@ -273,7 +295,7 @@ which leads to the decomposition
 \end{equation}\vskip -5pt}
 We denote averages under~$p(\v\tau)$ as
 \begin{equation}
-  \bra\FD\ket \coloneqq  \int\!\d^{d_T}\v\tau\,p(\v\tau)\FD(\tau),
+  \bra\FD\ket \coloneqq  \int\!\d\v\tau\,p(\v\tau)\FD(\tau),
 \end{equation}
 so that the \E{diffuse} scattering intensity assumes the simple form
 \index{Diffuse scattering}%
@@ -999,7 +1021,7 @@ The scattering by an ordered lattice gives rise to a series of Bragg peaks situa
 TO MERGE IN:
 introduces correlations between polydisperse particles, more precisely between the size of the particles and their mutual spacing. A classical example would consist in particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes \cite{LaLR07}, as illustrated in \cref{fig:ssca}.
 
-%For a sample where only the statistical properties of particle positions and size are known, the scattered intensity per scattering particle is expressed as the average over an ensemble of the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density $\curlp (\r ) \equiv \sum_{ij} S_i(-\r )\otimes S_j(\r )\otimes \delta (\r + \r_i - \r_j )$:
+%For a sample where only the statistical properties of particle positions and size are known, the scattered intensity per scattering particle is expressed as the average over an ensemble of the Fourier transform of the Patterson function, which is the autocorrelation of the SLD $\curlp (\r ) \equiv \sum_{ij} S_i(-\r )\otimes S_j(\r )\otimes \delta (\r + \r_i - \r_j )$:
 %\begin{equation*}
 %  I(\q ) = \frac{1}{N}\ensavg{}{\curlf (\curlp (\r ))},
 %\end{equation*}
@@ -1016,7 +1038,7 @@ introduces correlations between polydisperse particles, more precisely between t
 
 In the Size-Spacing Correlation Approximation, a correlation is assumed between the shape/size of the particles and their mutual spacing. A classical example would consist of particles whose closest-neighbor spacing depends linearly on the sum of their respective sizes. The following discussion of this type of correlation is inspired by \cite{LaLR07}
 
-The scattered intensity can also be calculated as the Fourier transform of the Patterson function, which is the autocorrelation of the scattering length density:
+The scattered intensity can also be calculated as the Fourier transform of the Patterson function, which is the autocorrelation of the SLD:
 \begin{equation*}
   \curlp (\r ) \equiv \sum_{ij} S_i(-\r )\otimes S_j(\r )\otimes \delta (\r + \r_i - \r_j ).
 \end{equation*}

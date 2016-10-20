@@ -147,11 +147,12 @@ and $\Vmac(\r)$ is the \E{macroscopic optical potential}.
 \index{Optical potential!macroscopic}%
 This potential is weak, and slowly varying compared to atomic length scales.
 In the following it shall be expressed through the
-\E{bound scattering length density}
+\E{bound scattering length density} (SLD)
 \index{Bound scattering length|see{Scattering length}}%
 \index{Scattering length density}%
+\index{SLD|see{Scattering length density}}%
 \cite[eq.\ 2.8.37]{Sea89},
-\nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density}%
+\nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density (SLD)}%
 \begin{equation}
   v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r),
 \end{equation}
@@ -191,7 +192,7 @@ we introduced the vacuum wavenumber~$K_\text{vac}$
 \nomenclature[2k124 200vac]{$K_\text{vac}$}{Wavenumber in vacuum}%
 and the \E{refractive index}
 \nomenclature[2n020]{$n$}{Refractive index}%
-\index{Refractive index}% !vs scattering length density}%
+\index{Refractive index}%
 \index{Index of refraction|see {Refractive index}}%
 \begin{equation}\label{EnRefrIndx}
   n\coloneqq \sqrt{1-\frac{4\pi}{K_\text{vac}^2}\overline{v}}.
@@ -220,7 +221,7 @@ Later (\cref{Swave21}), for the special case of grazing incidence,
 the distorted wave Born approximation (DWBA)
 \index{Distorted-wave Born approximation}%
 will start with a slight modification of the decomposition~\cref{Edecompose_v}:
-vertical variations of the average scattering length density
+vertical variations of the average SLD
 will be reassigned from $\delta v(\r)$ to $n(z)$
 in order to account for refraction and reflection in layered samples.
 \index{SAS|see {Small-angle scattering}}%
@@ -260,7 +261,7 @@ $f(\vartheta,\varphi)$.
 
 For thermal or cold neutrons, as for X-rays,
 the refractive index~$n$ is almost always very close to~1,
-fluctuations of the scattering length density are at most of the order of $1-n$,
+fluctuations of the SLD are at most of the order of $1-n$,
 and therefore the right-hand side of~\cref{ESchrodiK}
 is but a weak perturbation.
 This suggests a solution of the Schrödinger equation
@@ -524,7 +525,7 @@ but also for distorted waves.
 
 In the plane-wave case \cref{Echiq} considered here,
 the differential cross section is just the squared modulus
-of the Fourier transform of the bound scattering length density,
+of the Fourier transform of the SLD,
 \index{Scattering length density!Fourier transform}%
 \begin{equation}\label{Ecross1}
   \frac{\d\sigma}{\d\Omega}
@@ -563,7 +564,7 @@ a superposition of downwards and upwards travelling waves,
 as we shall discuss below in~\Cref{Swave21}.
 
 The above derivation of the Born cross section becomes invalid
-when there are systematic variations of the scattering length density
+when there are systematic variations of the SLD
 that preclude the decomposition~\cref{Edecompose_v}.
 Let us instead write in full genericity
 \begin{equation}\label{Edecompose_vr}

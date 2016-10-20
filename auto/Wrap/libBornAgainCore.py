@@ -15553,12 +15553,26 @@ class GISASSimulation(Simulation):
 
 
     def setRegionOfInterest(self, xlow, ylow, xup, yup):
-        """setRegionOfInterest(GISASSimulation self, double xlow, double ylow, double xup, double yup)"""
+        """
+        setRegionOfInterest(GISASSimulation self, double xlow, double ylow, double xup, double yup)
+
+        void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+        Sets rectangular region of interest with lower left and upper right corners defined. 
+
+        """
         return _libBornAgainCore.GISASSimulation_setRegionOfInterest(self, xlow, ylow, xup, yup)
 
 
     def resetRegionOfInterest(self):
-        """resetRegionOfInterest(GISASSimulation self)"""
+        """
+        resetRegionOfInterest(GISASSimulation self)
+
+        void GISASSimulation::resetRegionOfInterest()
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
         return _libBornAgainCore.GISASSimulation_resetRegionOfInterest(self)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
@@ -16949,8 +16963,18 @@ class IDetector2D(ICloneable, IParameterized):
 
     def createDetectorIntensity(self, *args):
         """
+<<<<<<< c73d6bb2fbec6533d697e56a806875cd891d7a93
         createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
         createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
+=======
+        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
+        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam) -> IntensityData
+
+        OutputData< double > * IDetector2D::getDetectorIntensity(const OutputData< double > &data, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+
+        Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units 
+
+>>>>>>> Remove unused masking functionality from OutputData
         """
         return _libBornAgainCore.IDetector2D_createDetectorIntensity(self, *args)
 
@@ -16959,7 +16983,7 @@ class IDetector2D(ICloneable, IParameterized):
         """
         createDetectorMap(IDetector2D self, Beam beam, IDetector2D::EAxesUnits units) -> IntensityData
 
-        OutputData< double > * IDetector2D::createDetectorMap(const Beam &, EAxesUnits) const
+        OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units) const
 
         Returns detector map in given axes units. 
 
@@ -16968,7 +16992,14 @@ class IDetector2D(ICloneable, IParameterized):
 
 
     def initOutputData(self, data):
-        """initOutputData(IDetector2D self, IntensityData data)"""
+        """
+        initOutputData(IDetector2D self, IntensityData data)
+
+        void IDetector2D::initOutputData(OutputData< double > &data) const
+
+        Inits axes of  OutputData to match the detector and sets values to zero. 
+
+        """
         return _libBornAgainCore.IDetector2D_initOutputData(self, data)
 
 
@@ -16997,27 +17028,62 @@ class IDetector2D(ICloneable, IParameterized):
 
 
     def regionOfInterest(self):
-        """regionOfInterest(IDetector2D self) -> Rectangle"""
+        """
+        regionOfInterest(IDetector2D self) -> Rectangle
+
+        const Geometry::Rectangle * IDetector2D::regionOfInterest() const
+
+        Returns region of interest if exists. 
+
+        """
         return _libBornAgainCore.IDetector2D_regionOfInterest(self)
 
 
     def setRegionOfInterest(self, xlow, ylow, xup, yup):
-        """setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)"""
+        """
+        setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)
+
+        void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+        Sets rectangular region of interest with lower left and upper right corners defined. 
+
+        """
         return _libBornAgainCore.IDetector2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
 
 
     def resetRegionOfInterest(self):
-        """resetRegionOfInterest(IDetector2D self)"""
+        """
+        resetRegionOfInterest(IDetector2D self)
+
+        void IDetector2D::resetRegionOfInterest()
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
         return _libBornAgainCore.IDetector2D_resetRegionOfInterest(self)
 
 
     def getTotalSize(self):
-        """getTotalSize(IDetector2D self) -> size_t"""
+        """
+        getTotalSize(IDetector2D self) -> size_t
+
+        size_t IDetector2D::getTotalSize() const
+
+        Returns total number of pixels. 
+
+        """
         return _libBornAgainCore.IDetector2D_getTotalSize(self)
 
 
     def getAxisBinIndex(self, index, selected_axis):
-        """getAxisBinIndex(IDetector2D self, size_t index, size_t selected_axis) -> size_t"""
+        """
+        getAxisBinIndex(IDetector2D self, size_t index, size_t selected_axis) -> size_t
+
+        size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
+
+        Calculate axis index for given global index. 
+
+        """
         return _libBornAgainCore.IDetector2D_getAxisBinIndex(self, index, selected_axis)
 
 
@@ -21705,54 +21771,6 @@ class IntensityData(_object):
 
         """
         return _libBornAgainCore.IntensityData_end(self, *args)
-
-
-    def getMask(self):
-        """
-        getMask(IntensityData self) -> Mask *
-
-        Mask* OutputData< T >::getMask() const
-
-        Returns mask that will be used by iterators. 
-
-        """
-        return _libBornAgainCore.IntensityData_getMask(self)
-
-
-    def setMask(self, mask):
-        """
-        setMask(IntensityData self, Mask const & mask)
-
-        void OutputData< T >::setMask(const Mask &mask)
-
-        Sets mask (or a stack of masks) 
-
-        """
-        return _libBornAgainCore.IntensityData_setMask(self, mask)
-
-
-    def addMask(self, mask):
-        """
-        addMask(IntensityData self, Mask const & mask)
-
-        void OutputData< T >::addMask(const Mask &mask)
-
-        Adds mask that will be used by iterators. 
-
-        """
-        return _libBornAgainCore.IntensityData_addMask(self, mask)
-
-
-    def removeAllMasks(self):
-        """
-        removeAllMasks(IntensityData self)
-
-        void OutputData< T >::removeAllMasks()
-
-        Remove all masks. 
-
-        """
-        return _libBornAgainCore.IntensityData_removeAllMasks(self)
 
 
     def setVariability(self, variability):

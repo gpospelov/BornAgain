@@ -454,21 +454,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -970,38 +970,27 @@ Computes scattering intensity for given range of simulation elements.
 ";
 
 
-// File: classDecouplingApproximationStrategy.xml
-%feature("docstring") DecouplingApproximationStrategy "
+// File: classDecouplingApproximationStrategy1.xml
+%feature("docstring") DecouplingApproximationStrategy1 "
 
-Strategy for implementing decoupling approximation.
+Strategy class to compute the total scalar scattering from a decorated layer in decoupling approximation.
 
 C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy()
-";
-
-%feature("docstring")  DecouplingApproximationStrategy::~DecouplingApproximationStrategy "virtual DecouplingApproximationStrategy::~DecouplingApproximationStrategy()
-";
-
-
-// File: classDecouplingApproximationStrategy1.xml
-%feature("docstring") DecouplingApproximationStrategy1 "";
-
 %feature("docstring")  DecouplingApproximationStrategy1::DecouplingApproximationStrategy1 "DecouplingApproximationStrategy1::DecouplingApproximationStrategy1(SimulationOptions sim_params)
-";
-
-%feature("docstring")  DecouplingApproximationStrategy1::~DecouplingApproximationStrategy1 "DecouplingApproximationStrategy1::~DecouplingApproximationStrategy1() final
 ";
 
 
 // File: classDecouplingApproximationStrategy2.xml
-%feature("docstring") DecouplingApproximationStrategy2 "";
+%feature("docstring") DecouplingApproximationStrategy2 "
 
-%feature("docstring")  DecouplingApproximationStrategy2::DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::DecouplingApproximationStrategy2(SimulationOptions sim_params)
+Strategy class to compute the total polarized scattering from a decorated layer in decoupling approximation.
+
+C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy2::~DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::~DecouplingApproximationStrategy2() final
+%feature("docstring")  DecouplingApproximationStrategy2::DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::DecouplingApproximationStrategy2(SimulationOptions sim_params)
 ";
 
 
@@ -4772,7 +4761,7 @@ Sets the detector (axes can be overwritten later)
 
 %feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(const OutputData< double > &output_data)
 
-Sets detector parameters using axes of output data. 
+Sets detector parameters using axes of output data TODO -> remove this after RegionOfInterest 
 ";
 
 %feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(const IHistogram &histogram)
@@ -4831,6 +4820,16 @@ Put the mask for all detector channels (i.e. exclude whole detector from the ana
 %feature("docstring")  GISASSimulation::addParametersToExternalPool "std::string GISASSimulation::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
+";
+
+%feature("docstring")  GISASSimulation::setRegionOfInterest "void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+Sets rectangular region of interest with lower left and upper right corners defined. 
+";
+
+%feature("docstring")  GISASSimulation::resetRegionOfInterest "void GISASSimulation::resetRegionOfInterest()
+
+Resets region of interest making whole detector plane available for the simulation. 
 ";
 
 
@@ -5530,9 +5529,6 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::IDetector2D "IDetector2D::IDetector2D()
 ";
 
-%feature("docstring")  IDetector2D::IDetector2D "IDetector2D::IDetector2D(const IDetector2D &other)
-";
-
 %feature("docstring")  IDetector2D::clone "virtual IDetector2D* IDetector2D::clone() const =0
 ";
 
@@ -5639,7 +5635,10 @@ Create a vector of  SimulationElement objects according to the detector and its 
 
 %feature("docstring")  IDetector2D::getSimulationElement "SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
 
-create single simulation element 
+Creates single simulation element. 
+";
+
+%feature("docstring")  IDetector2D::transferResultsToIntensityMap "void IDetector2D::transferResultsToIntensityMap(OutputData< double > &data, const std::vector< SimulationElement > &elements) const 
 ";
 
 %feature("docstring")  IDetector2D::addParametersToExternalPool "std::string IDetector2D::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
@@ -5647,9 +5646,19 @@ create single simulation element
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &, EAxesUnits) const
+%feature("docstring")  IDetector2D::getDetectorIntensity "OutputData< double > * IDetector2D::getDetectorIntensity(const OutputData< double > &data, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+
+Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units 
+";
+
+%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units) const
 
 Returns detector map in given axes units. 
+";
+
+%feature("docstring")  IDetector2D::initOutputData "void IDetector2D::initOutputData(OutputData< double > &data) const
+
+Inits axes of  OutputData to match the detector and sets values to zero. 
 ";
 
 %feature("docstring")  IDetector2D::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > IDetector2D::getValidAxesUnits() const
@@ -5660,6 +5669,31 @@ returns vector of valid axes units
 %feature("docstring")  IDetector2D::getDefaultAxesUnits "virtual EAxesUnits IDetector2D::getDefaultAxesUnits() const
 
 return default axes units 
+";
+
+%feature("docstring")  IDetector2D::regionOfInterest "const Geometry::Rectangle * IDetector2D::regionOfInterest() const
+
+Returns region of interest if exists. 
+";
+
+%feature("docstring")  IDetector2D::setRegionOfInterest "void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+Sets rectangular region of interest with lower left and upper right corners defined. 
+";
+
+%feature("docstring")  IDetector2D::resetRegionOfInterest "void IDetector2D::resetRegionOfInterest()
+
+Resets region of interest making whole detector plane available for the simulation. 
+";
+
+%feature("docstring")  IDetector2D::getTotalSize "size_t IDetector2D::getTotalSize() const
+
+Returns total number of pixels. 
+";
+
+%feature("docstring")  IDetector2D::getAxisBinIndex "size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
+
+Calculate axis index for given global index. 
 ";
 
 
@@ -6520,9 +6554,9 @@ If defined by this interference function's parameters, returns the particle dens
 // File: classIInterferenceFunctionStrategy.xml
 %feature("docstring") IInterferenceFunctionStrategy "
 
-Virtual base class of the interference function strategy classes  DecouplingApproximationStrategy,  SSCApproximationStrategy. These classes provide 'evaluate' functions that compute the scattering intensity from a decorated layer, taking into account a specific inter-particle interference function.
+Pure virtual base class of all interference function strategy classes. Provides an 'evaluate' function that computes the total scattering intensity from a decorated layer, taking into account a specific inter-particle interference function. This function uses low-level functions precomputeParticleFormfactors, evaluateForList that are implemented differently in different inheriting classes. Multiple inheritance is used to support scalar and polarized scattering (through  IInterferenceFunctionStrategy1,  IInterferenceFunctionStrategy2) and to implement different approximation schemes ( DecouplingApproximationStrategy1,  SSCApproximationStrategy1, and their polarized counterparts).
 
-Child classes are instantiated in  LayerStrategyBuilder::createStrategy, which is called from  DecoratedLayerComputation::eval.
+Instantiation of child classes takes place in  LayerStrategyBuilder::createStrategy, which is called from  DecoratedLayerComputation::eval.
 
 C++ includes: IInterferenceFunctionStrategy.h
 ";
@@ -6548,19 +6582,20 @@ Calculates the intensity for scalar particles/interactions.
 
 
 // File: classIInterferenceFunctionStrategy1.xml
-%feature("docstring") IInterferenceFunctionStrategy1 "";
+%feature("docstring") IInterferenceFunctionStrategy1 "
 
-%feature("docstring")  IInterferenceFunctionStrategy1::IInterferenceFunctionStrategy1 "IInterferenceFunctionStrategy1::IInterferenceFunctionStrategy1(const SimulationOptions &sim_params)
+Pure virtual base class of all scalar interference function strategy classes. Provides the precomputation of particle form factors.
+
+C++ includes: IInterferenceFunctionStrategy.h
 ";
 
 
 // File: classIInterferenceFunctionStrategy2.xml
-%feature("docstring") IInterferenceFunctionStrategy2 "";
+%feature("docstring") IInterferenceFunctionStrategy2 "
 
-%feature("docstring")  IInterferenceFunctionStrategy2::IInterferenceFunctionStrategy2 "IInterferenceFunctionStrategy2::IInterferenceFunctionStrategy2(const SimulationOptions &sim_params)
-";
+Pure virtual base class of all polarized interference function strategy classes. Provides the precomputation of particle form factors.
 
-%feature("docstring")  IInterferenceFunctionStrategy2::init "void IInterferenceFunctionStrategy2::init(const SafePointerVector< FormFactorWrapper > &weighted_formfactors, const IInterferenceFunction &iff, const LayerSpecularInfo &specular_info)
+C++ includes: IInterferenceFunctionStrategy.h
 ";
 
 
@@ -6818,6 +6853,23 @@ Returns true if point with given coordinates is inside or on border of the shape
 %feature("docstring")  Geometry::InfinitePlane::contains "bool Geometry::InfinitePlane::contains(const Bin1D &, const Bin1D &) const
 
 Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+";
+
+
+// File: classInnerCounter.xml
+%feature("docstring") InnerCounter "
+
+Base class for threaded computation; keeps count of progress.
+
+C++ includes: InnerCounter.h
+";
+
+%feature("docstring")  InnerCounter::InnerCounter "InnerCounter::InnerCounter()
+";
+
+%feature("docstring")  InnerCounter::stepProgress "void InnerCounter::stepProgress(ProgressHandler *progress)
+
+Increments progress count; at regular intervals updates main progress handler. 
 ";
 
 
@@ -8936,138 +8988,6 @@ C++ includes: MainComputation.h
 ";
 
 
-// File: classMask.xml
-%feature("docstring") Mask "
-
-Base class for masking  OutputData elements.
-
-C++ includes: Mask.h
-";
-
-%feature("docstring")  Mask::Mask "Mask::Mask(Mask *p_submask=0)
-";
-
-%feature("docstring")  Mask::~Mask "virtual Mask::~Mask()
-";
-
-%feature("docstring")  Mask::clone "Mask * Mask::clone() const 
-";
-
-%feature("docstring")  Mask::getFirstValidIndex "size_t Mask::getFirstValidIndex(size_t start_index)
-";
-
-%feature("docstring")  Mask::getNextIndex "size_t Mask::getNextIndex(size_t total_index)
-";
-
-%feature("docstring")  Mask::setMaxIndex "void Mask::setMaxIndex(size_t max_index)
-";
-
-%feature("docstring")  Mask::getOwnIndex "size_t Mask::getOwnIndex() const 
-";
-
-%feature("docstring")  Mask::getMaxIndex "size_t Mask::getMaxIndex() const 
-";
-
-
-// File: classMaskCoordinateEllipseFunction.xml
-%feature("docstring") MaskCoordinateEllipseFunction "
-
-Ellipse shaped mask for  OutputData.
-
-C++ includes: MaskCoordinateFunction.h
-";
-
-%feature("docstring")  MaskCoordinateEllipseFunction::MaskCoordinateEllipseFunction "MaskCoordinateEllipseFunction::MaskCoordinateEllipseFunction(size_t rank, const int *center, const int *radii)
-";
-
-%feature("docstring")  MaskCoordinateEllipseFunction::clone "MaskCoordinateEllipseFunction * MaskCoordinateEllipseFunction::clone() const 
-";
-
-%feature("docstring")  MaskCoordinateEllipseFunction::~MaskCoordinateEllipseFunction "MaskCoordinateEllipseFunction::~MaskCoordinateEllipseFunction()
-";
-
-
-// File: classMaskCoordinateFunction.xml
-%feature("docstring") MaskCoordinateFunction "
-
-Base class for all kind of  OutputData's masks.
-
-C++ includes: MaskCoordinateFunction.h
-";
-
-%feature("docstring")  MaskCoordinateFunction::MaskCoordinateFunction "MaskCoordinateFunction::MaskCoordinateFunction(size_t rank)
-";
-
-%feature("docstring")  MaskCoordinateFunction::clone "MaskCoordinateFunction * MaskCoordinateFunction::clone() const 
-";
-
-%feature("docstring")  MaskCoordinateFunction::~MaskCoordinateFunction "virtual MaskCoordinateFunction::~MaskCoordinateFunction()
-";
-
-%feature("docstring")  MaskCoordinateFunction::isMasked "bool MaskCoordinateFunction::isMasked(size_t rank, const int *coordinates) const 
-";
-
-%feature("docstring")  MaskCoordinateFunction::setInvertFlag "void MaskCoordinateFunction::setInvertFlag(bool invert)
-";
-
-
-// File: classMaskCoordinateRectangleFunction.xml
-%feature("docstring") MaskCoordinateRectangleFunction "
-
-Rectangular mask for  OutputData.
-
-C++ includes: MaskCoordinateFunction.h
-";
-
-%feature("docstring")  MaskCoordinateRectangleFunction::MaskCoordinateRectangleFunction "MaskCoordinateRectangleFunction::MaskCoordinateRectangleFunction(size_t rank, const int *minima, const int *maxima)
-";
-
-%feature("docstring")  MaskCoordinateRectangleFunction::clone "MaskCoordinateRectangleFunction * MaskCoordinateRectangleFunction::clone() const 
-";
-
-%feature("docstring")  MaskCoordinateRectangleFunction::~MaskCoordinateRectangleFunction "MaskCoordinateRectangleFunction::~MaskCoordinateRectangleFunction()
-";
-
-
-// File: classMaskCoordinates.xml
-%feature("docstring") MaskCoordinates "
-
-Mask based on the coordinates.
-
-C++ includes: Mask.h
-";
-
-%feature("docstring")  MaskCoordinates::MaskCoordinates "MaskCoordinates::MaskCoordinates(size_t rank, const int *dims, Mask *p_submask=0)
-";
-
-%feature("docstring")  MaskCoordinates::~MaskCoordinates "MaskCoordinates::~MaskCoordinates()
-";
-
-%feature("docstring")  MaskCoordinates::clone "MaskCoordinates * MaskCoordinates::clone() const 
-";
-
-%feature("docstring")  MaskCoordinates::setMaskCoordinateFunction "void MaskCoordinates::setMaskCoordinateFunction(MaskCoordinateFunction *p_mask_function)
-";
-
-
-// File: classMaskIndexModulus.xml
-%feature("docstring") MaskIndexModulus "
-
-Mask based on the index modulo a given number.
-
-C++ includes: Mask.h
-";
-
-%feature("docstring")  MaskIndexModulus::MaskIndexModulus "MaskIndexModulus::MaskIndexModulus(size_t modulus, size_t remainder, Mask *p_submask=0)
-";
-
-%feature("docstring")  MaskIndexModulus::~MaskIndexModulus "virtual MaskIndexModulus::~MaskIndexModulus()
-";
-
-%feature("docstring")  MaskIndexModulus::clone "MaskIndexModulus * MaskIndexModulus::clone() const 
-";
-
-
 // File: classMatrixRTCoefficients.xml
 %feature("docstring") MatrixRTCoefficients "
 
@@ -9592,26 +9512,6 @@ Returns read/write iterator that points to the one past last element.
 Returns read-only iterator that points to the one past last element. 
 ";
 
-%feature("docstring")  OutputData::getMask "Mask* OutputData< T >::getMask() const
-
-Returns mask that will be used by iterators. 
-";
-
-%feature("docstring")  OutputData::setMask "void OutputData< T >::setMask(const Mask &mask)
-
-Sets mask (or a stack of masks) 
-";
-
-%feature("docstring")  OutputData::addMask "void OutputData< T >::addMask(const Mask &mask)
-
-Adds mask that will be used by iterators. 
-";
-
-%feature("docstring")  OutputData::removeAllMasks "void OutputData< T >::removeAllMasks()
-
-Remove all masks. 
-";
-
 %feature("docstring")  OutputData::setVariability "void OutputData< T >::setVariability(double variability)
 ";
 
@@ -9867,21 +9767,6 @@ Returns current index.
 %feature("docstring")  OutputDataIterator::getContainer "TContainer* OutputDataIterator< TValue, TContainer >::getContainer() const
 
 Returns container pointer. 
-";
-
-%feature("docstring")  OutputDataIterator::getMask "Mask* OutputDataIterator< TValue, TContainer >::getMask() const
-
-Returns mask. 
-";
-
-%feature("docstring")  OutputDataIterator::setMask "void OutputDataIterator< TValue, TContainer >::setMask(const Mask &mask)
-
-Sets mask (or a stack of masks) 
-";
-
-%feature("docstring")  OutputDataIterator::addMask "void OutputDataIterator< TValue, TContainer >::addMask(const Mask &mask)
-
-Adds mask (also resets index to first available element) 
 ";
 
 
@@ -11042,11 +10927,6 @@ Adds parameters from local pool to external pool and recursively calls its direc
 %feature("docstring")  RectangularDetector::getDetectorArrangment "RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const 
 ";
 
-%feature("docstring")  RectangularDetector::createDetectorMap "OutputData< double > * RectangularDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
-
-Returns detector map in given axes units. 
-";
-
 %feature("docstring")  RectangularDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > RectangularDetector::getValidAxesUnits() const override
 
 returns vector of valid axes units 
@@ -11815,6 +11695,48 @@ Initializes a progress monitor that prints to stdout.
 ";
 
 
+// File: classSimulationArea.xml
+%feature("docstring") SimulationArea "
+
+The  SimulationArea class holds iteration logic over active detector channels in the presence of masked areas and RegionOfInterest defined.
+
+C++ includes: SimulationArea.h
+";
+
+%feature("docstring")  SimulationArea::SimulationArea "SimulationArea::SimulationArea(const IDetector2D *detector)
+";
+
+%feature("docstring")  SimulationArea::begin "SimulationAreaIterator SimulationArea::begin()
+";
+
+%feature("docstring")  SimulationArea::end "SimulationAreaIterator SimulationArea::end()
+";
+
+%feature("docstring")  SimulationArea::isMasked "bool SimulationArea::isMasked(size_t index) const 
+";
+
+%feature("docstring")  SimulationArea::totalSize "size_t SimulationArea::totalSize() const 
+";
+
+
+// File: classSimulationAreaIterator.xml
+%feature("docstring") SimulationAreaIterator "
+
+The  SimulationAreaIterator class is an iterator for  SimulationArea.
+
+C++ includes: SimulationAreaIterator.h
+";
+
+%feature("docstring")  SimulationAreaIterator::SimulationAreaIterator "SimulationAreaIterator::SimulationAreaIterator(const SimulationArea *area, size_t start_at_index)
+";
+
+%feature("docstring")  SimulationAreaIterator::index "size_t SimulationAreaIterator::index() const 
+";
+
+%feature("docstring")  SimulationAreaIterator::elementIndex "size_t SimulationAreaIterator::elementIndex() const 
+";
+
+
 // File: classSimulationElement.xml
 %feature("docstring") SimulationElement "
 
@@ -11823,7 +11745,7 @@ Data stucture containing both input and output of a single detector cell.
 C++ includes: SimulationElement.h
 ";
 
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, const IPixelMap *pixelmap)
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixelMap > pixelmap)
 ";
 
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
@@ -12224,11 +12146,6 @@ upper edge of last alpha-bin
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  SphericalDetector::createDetectorMap "OutputData< double > * SphericalDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const override
-
-Returns detector map in given axes units. 
-";
-
 %feature("docstring")  SphericalDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > SphericalDetector::getValidAxesUnits() const override
 
 returns vector of valid axes units 
@@ -12388,7 +12305,7 @@ C++ includes: TwoDimLatticeBuilder.h
 // File: classSSCApproximationStrategy.xml
 %feature("docstring") SSCApproximationStrategy "
 
-Strategy which implements size spacing correlation approximation.
+Virtual base class for  SSCApproximationStrategy1 and  SSCApproximationStrategy2, which compute the total scalar/polarized scattering from a decorated layer in size-spacing correlation approximation.
 
 C++ includes: SSCApproximationStrategy.h
 ";
@@ -12396,27 +12313,28 @@ C++ includes: SSCApproximationStrategy.h
 %feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(double kappa)
 ";
 
-%feature("docstring")  SSCApproximationStrategy::~SSCApproximationStrategy "virtual SSCApproximationStrategy::~SSCApproximationStrategy()
-";
-
 
 // File: classSSCApproximationStrategy1.xml
-%feature("docstring") SSCApproximationStrategy1 "";
+%feature("docstring") SSCApproximationStrategy1 "
+
+Strategy class to compute the total scalar scattering from a decorated layer in size-spacing correlation approximation.
+
+C++ includes: SSCApproximationStrategy.h
+";
 
 %feature("docstring")  SSCApproximationStrategy1::SSCApproximationStrategy1 "SSCApproximationStrategy1::SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
 ";
 
-%feature("docstring")  SSCApproximationStrategy1::~SSCApproximationStrategy1 "SSCApproximationStrategy1::~SSCApproximationStrategy1() final
-";
-
 
 // File: classSSCApproximationStrategy2.xml
-%feature("docstring") SSCApproximationStrategy2 "";
+%feature("docstring") SSCApproximationStrategy2 "
 
-%feature("docstring")  SSCApproximationStrategy2::SSCApproximationStrategy2 "SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
+Strategy class to compute the total polarized scattering from a decorated layer in size-spacing correlation approximation.
+
+C++ includes: SSCApproximationStrategy.h
 ";
 
-%feature("docstring")  SSCApproximationStrategy2::~SSCApproximationStrategy2 "SSCApproximationStrategy2::~SSCApproximationStrategy2() final
+%feature("docstring")  SSCApproximationStrategy2::SSCApproximationStrategy2 "SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
 ";
 
 
@@ -12455,18 +12373,6 @@ Returns current string.
 
 // File: classUtils_1_1System.xml
 %feature("docstring") Utils::System "";
-
-
-// File: classThreadedComputation.xml
-%feature("docstring") ThreadedComputation "
-
-Base class for threaded computation; keeps count of progress.
-
-C++ includes: ThreadedComputation.h
-";
-
-%feature("docstring")  ThreadedComputation::ThreadedComputation "ThreadedComputation::ThreadedComputation()
-";
 
 
 // File: structThreadInfo.xml
@@ -12811,16 +12717,16 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D426.xml
 
 
-// File: namespace_0D55.xml
+// File: namespace_0D57.xml
+
+
+// File: namespace_0D72.xml
 
 
 // File: namespaceboost_1_1geometry.xml
 
 
 // File: namespaceBornAgain.xml
-
-
-// File: namespaceCodeSnippet.xml
 
 
 // File: namespaceExceptions.xml
@@ -13137,7 +13043,7 @@ Parse double values from string to vector of double.
 
 
 // File: namespacePythonFormatting.xml
-%feature("docstring")  PythonFormatting::representShape2D "BA_CORE_API_ std::string PythonFormatting::representShape2D(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PythonFormatting::representShape2D "BA_CORE_API_ std::string PythonFormatting::representShape2D(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
 
 Returns fixed Python code snippet that defines the function \"runSimulation\". 
 ";
@@ -13210,12 +13116,18 @@ GISAS simulation with small detector and phi[-1,1], theta[0,1].
 ";
 
 %feature("docstring")  StandardSimulations::MiniGISASBeamDivergence "GISASSimulation * StandardSimulations::MiniGISASBeamDivergence()
+
+GISAS simulation with beam divergence applied. 
 ";
 
 %feature("docstring")  StandardSimulations::MiniGISASDetectorResolution "GISASSimulation * StandardSimulations::MiniGISASDetectorResolution()
+
+GISAS simulation with detector resolution. 
 ";
 
 %feature("docstring")  StandardSimulations::GISASWithMasks "GISASSimulation * StandardSimulations::GISASWithMasks()
+
+GISAS simulation with multiple masks on the detector plane. 
 ";
 
 %feature("docstring")  StandardSimulations::MaxiGISAS "GISASSimulation * StandardSimulations::MaxiGISAS()
@@ -13239,21 +13151,43 @@ Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorGeneric "GISASSimulation * StandardSimulations::RectDetectorGeneric()
+
+GISAS simulation with generic rectangular detector. 
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorPerpToSample "GISASSimulation * StandardSimulations::RectDetectorPerpToSample()
+
+GISAS simulation with the rectangular detector perpendicular to the sample. 
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorPerpToDirectBeam "GISASSimulation * StandardSimulations::RectDetectorPerpToDirectBeam()
+
+GISAS simulation with the rectangular detector perpendicular to the direct beam. 
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorPerpToReflectedBeam "GISASSimulation * StandardSimulations::RectDetectorPerpToReflectedBeam()
+
+GISAS simulation with the rectangular detector perpendicular to the reflected beam. 
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorPerpToReflectedBeamDpos "GISASSimulation * StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
+
+GISAS simulation with the rectangular detector perpendicular to the reflected beam when the coordinates of direct beam are known. 
 ";
 
 %feature("docstring")  StandardSimulations::MiniGISASMonteCarlo "GISASSimulation * StandardSimulations::MiniGISASMonteCarlo()
+
+GISAS simulation with Monte-Carlo integration switched ON. 
+";
+
+%feature("docstring")  StandardSimulations::SphericalDetWithRoi "GISASSimulation * StandardSimulations::SphericalDetWithRoi()
+
+GISAS simulation with spherical detector, region of interest and mask. 
+";
+
+%feature("docstring")  StandardSimulations::RectDetWithRoi "GISASSimulation * StandardSimulations::RectDetWithRoi()
+
+GISAS simulation with rectangular detector, region of interest and mask. 
 ";
 
 
@@ -13464,6 +13398,12 @@ Set all element intensities to given value.
 // File: DecoratedLayerComputation_8h.xml
 
 
+// File: InnerCounter_8cpp.xml
+
+
+// File: InnerCounter_8h.xml
+
+
 // File: MainComputation_8cpp.xml
 
 
@@ -13486,12 +13426,6 @@ Set all element intensities to given value.
 
 
 // File: SpecularComputation_8h.xml
-
-
-// File: ThreadedComputation_8cpp.xml
-
-
-// File: ThreadedComputation_8h.xml
 
 
 // File: FormFactorDecoratorDebyeWaller_8cpp.xml
@@ -14046,6 +13980,18 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: ResolutionFunction2DGaussian_8h.xml
 
 
+// File: SimulationArea_8cpp.xml
+
+
+// File: SimulationArea_8h.xml
+
+
+// File: SimulationAreaIterator_8cpp.xml
+
+
+// File: SimulationAreaIterator_8h.xml
+
+
 // File: SphericalDetector_8cpp.xml
 
 
@@ -14086,18 +14032,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: Line_8h.xml
-
-
-// File: Mask_8cpp.xml
-
-
-// File: Mask_8h.xml
-
-
-// File: MaskCoordinateFunction_8cpp.xml
-
-
-// File: MaskCoordinateFunction_8h.xml
 
 
 // File: Polygon_8cpp.xml
@@ -14752,74 +14686,77 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 // File: WavevectorInfo_8h.xml
 
 
-// File: dir_5f1a4a05eca575eab319839347bb4113.xml
+// File: dir_52a2c863b7b3435f7dcd40f26828d521.xml
 
 
-// File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
+// File: dir_41e08c09ca0aab46c4ada92f12a8c00b.xml
 
 
-// File: dir_629bf8536959f2975d8caec326cd60c0.xml
+// File: dir_4544cbc948815333bef1258cf6b298b8.xml
 
 
-// File: dir_7de90f35ae2a2c7b4fa95823d333cc96.xml
+// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
 
 
-// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
+// File: dir_404b7d29693a4f046d60c2eccafd1df4.xml
 
 
-// File: dir_e5c18127747cd9d7214e02067b529d74.xml
+// File: dir_c83916cd1ff49c9e86c8a91c5655951d.xml
 
 
-// File: dir_cca9b87b2505f372a6ce58947a507789.xml
+// File: dir_59be1faf7048e95263c2fcba140abda1.xml
 
 
-// File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
+// File: dir_e746abb3ff095e53619d5a61a48e781a.xml
 
 
-// File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
+// File: dir_554fcc4911648c79d524724e80d45fa4.xml
 
 
-// File: dir_72a38c5b455c03a72881c3c65e21783d.xml
+// File: dir_cc3c45a5d33be920aaf94cb9b9fbdb35.xml
 
 
-// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
+// File: dir_9a756f0b2738ef3b5663c172b32b6a4b.xml
 
 
-// File: dir_602d2305564088eb1fd2ee9e74929d48.xml
+// File: dir_e8bc32d0cf85ef86a42504cd31af1370.xml
 
 
-// File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml
+// File: dir_8b890ad49a09d8f36525f5af93e5737c.xml
 
 
-// File: dir_24998d15d4ee11ef081e71321705b47b.xml
+// File: dir_9bdb7f774cce5b77ddd3ed60472b168c.xml
 
 
-// File: dir_0bf70e747e161ad6105733dd3b116e64.xml
+// File: dir_74beab5553c7ad06e27a6baadceea9c3.xml
 
 
-// File: dir_c21740227f50b02f28bdacfb625f042a.xml
+// File: dir_bcc7f66c041cef9b775368068412e104.xml
 
 
-// File: dir_d4e34ce36424db6c5895519defe19e58.xml
+// File: dir_95667ae48b286f0957284f712e6e3af5.xml
 
 
-// File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
+// File: dir_4251a3aefb390b6051267154c2f94d1e.xml
 
 
-// File: dir_6babb1605c026604526d064f820d612b.xml
+// File: dir_529c0a19338d84aadf389c7b83eb56b1.xml
 
 
-// File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml
+// File: dir_051c0ff7ebc48614253af3001519ace0.xml
 
 
-// File: dir_bf872a709c84554e66a8525bb546523f.xml
+// File: dir_f59c6b3c978505a5ca3672a364c1918e.xml
 
 
-// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
+// File: dir_871fae137308712382f6192f4445a900.xml
 
 
-// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
+// File: dir_44b1a8f39c14c02f6e3c2be419aa97b0.xml
 
 
-// File: dir_19cd2158bba3b9a051f8f27403820580.xml
+// File: dir_1a0696269c107461a4ce8ff1a48cd2f2.xml
+
+
+// File: dir_7f288243cf9c204a176dfbf45ea9d349.xml
 

@@ -119,18 +119,6 @@ public:
         return const_iterator(this, getAllocatedSize());
     }
 
-    //! Returns mask that will be used by iterators
-    Mask* getMask() const { return mp_mask; }
-
-    //! Sets mask (or a stack of masks)
-    void setMask(const Mask& mask);
-
-    //! Adds mask that will be used by iterators
-    void addMask(const Mask& mask);
-
-    //! Remove all masks
-    void removeAllMasks();
-
     void setVariability(double variability) { m_variability = variability; }
     double getVariability() const { return m_variability; }
 
@@ -267,7 +255,6 @@ public:
 private:
     SafePointerVector<IAxis> m_value_axes;
     LLData<T>* mp_ll_data;
-    Mask* mp_mask;
     double m_variability;
 };
 
@@ -279,7 +266,6 @@ template <class T>
 OutputData<T>::OutputData()
     : m_value_axes()
     , mp_ll_data(nullptr)
-    , mp_mask(nullptr)
     , m_variability(2e-10)
 {
     allocate();
@@ -296,8 +282,6 @@ OutputData<T>* OutputData<T>::clone() const
     OutputData<T>* ret = new OutputData<T>();
     ret->m_value_axes = m_value_axes;
     (*ret->mp_ll_data) = *mp_ll_data;
-    if (mp_mask)
-        ret->mp_mask = mp_mask->clone();
     ret->setVariability(m_variability);
     return ret;
 }
@@ -311,8 +295,6 @@ void OutputData<T>::copyFrom(const OutputData<T>& other)
     mp_ll_data = 0;
     if(other.mp_ll_data)
         mp_ll_data = new LLData<T>(*other.mp_ll_data);
-    if (other.getMask())
-        mp_mask = other.getMask()->clone();
     m_variability = other.getVariability();
 }
 
@@ -324,8 +306,6 @@ void OutputData<T>::copyShapeFrom(const OutputData<U>& other)
     size_t rank = other.getRank();
     for (size_t i=0; i<rank; ++i)
         addAxis(*other.getAxis(i));
-    if (other.getMask())
-        mp_mask = other.getMask()->clone();
     m_variability = other.getVariability();
 }
 
@@ -430,8 +410,6 @@ template <class T>
 typename OutputData<T>::iterator OutputData<T>::begin()
 {
     typename OutputData<T>::iterator result(this);
-    if (mp_mask)
-        result.setMask(*mp_mask);
     return result;
 }
 
@@ -439,39 +417,7 @@ template <class T>
 typename OutputData<T>::const_iterator OutputData<T>::begin() const
 {
     typename OutputData<T>::const_iterator result(this);
-    if (mp_mask)
-        result.setMask(*mp_mask);
     return result;
-}
-
-template <class T>
-void OutputData<T>::setMask(const Mask& mask)
-{
-    if (mp_mask !=& mask) {
-        delete mp_mask;
-        mp_mask = mask.clone();
-        mp_mask->setMaxIndex(getAllocatedSize());
-    }
-}
-
-template <class T>
-void OutputData<T>::addMask(const Mask& mask)
-{
-    if (mask.mp_submask)
-        throw Exceptions::RuntimeErrorException(
-            "OutputData<T>::addMask() -> "
-            "Error! One can only add single masks to OutputDataIterator at a time");
-    Mask* p_old_mask = getMask();
-    mp_mask = mask.clone();
-    mp_mask->mp_submask = p_old_mask;
-    mp_mask->setMaxIndex(getAllocatedSize());
-}
-
-template<class T>
-void OutputData<T>::removeAllMasks()
-{
-    delete mp_mask;
-    mp_mask = 0;
 }
 
 template<class T>
@@ -598,8 +544,6 @@ template <class T>
 void OutputData<T>::clear()
 {
     m_value_axes.clear();
-    delete mp_mask;
-    mp_mask = 0;
     allocate();
 }
 

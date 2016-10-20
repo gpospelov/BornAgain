@@ -16,7 +16,9 @@
 #ifndef OUTPUTDATAITERATOR_H
 #define OUTPUTDATAITERATOR_H
 
-#include "Mask.h"
+#include <cstddef>
+#include <iterator>
+#include <utility>
 
 //! @class OutputDataIterator
 //! @ingroup tools_internal
@@ -67,15 +69,6 @@ public:
     //! Returns container pointer
     TContainer* getContainer() const { return mp_output_data; }
 
-    //! Returns mask
-    Mask* getMask() const { return mp_mask; }
-
-    //! Sets mask (or a stack of masks)
-    void setMask(const Mask& mask);
-
-    //! Adds mask (also resets index to first available element)
-    void addMask(const Mask& mask);
-
     // typedefs for std::iterator_traits
     typedef std::forward_iterator_tag iterator_category;
     typedef TValue value_type;
@@ -91,14 +84,12 @@ protected:
     virtual void swapContents(OutputDataIterator<TValue, TContainer>& other);
     size_t m_current_index;
     TContainer* mp_output_data;
-    Mask* mp_mask;
 };
 
 template<class TValue, class TContainer>
     OutputDataIterator<TValue, TContainer>::OutputDataIterator()
     : m_current_index(0)
     , mp_output_data(0)
-    , mp_mask(0)
 {
 }
 
@@ -107,7 +98,6 @@ template<class TValue, class TContainer>
         TContainer *p_output_data, size_t start_at_index)
     : m_current_index(start_at_index)
     , mp_output_data(p_output_data)
-    , mp_mask(0)
 {
 }
 
@@ -117,13 +107,9 @@ template<class TValue2, class TContainer2>
         const OutputDataIterator<TValue2, TContainer2>& other)
     : m_current_index(0)
     , mp_output_data(0)
-    , mp_mask(0)
 {
     mp_output_data = static_cast<TContainer*>(other.getContainer());
     m_current_index = other.getIndex();
-    if (other.getMask()) {
-        mp_mask = other.getMask()->clone();
-    }
 }
 
 template<class TValue, class TContainer>
@@ -131,13 +117,9 @@ template<class TValue, class TContainer>
         const OutputDataIterator<TValue, TContainer>& other)
     : m_current_index(0)
     , mp_output_data(0)
-    , mp_mask(0)
 {
     mp_output_data = other.getContainer();
     m_current_index = other.getIndex();
-    if (other.getMask()) {
-        mp_mask = other.getMask()->clone();
-    }
 }
 
 //! comparison
@@ -182,20 +164,14 @@ template<class TValue, class TContainer>
 template<class TValue, class TContainer>
     OutputDataIterator<TValue, TContainer>::~OutputDataIterator()
 {
-    if (mp_mask) delete mp_mask;
 }
 
 template<class TValue, class TContainer>
     OutputDataIterator<TValue, TContainer>&
     OutputDataIterator<TValue, TContainer>::operator++()
 {
-    if (mp_mask) {
-        m_current_index = mp_mask->getNextIndex(m_current_index);
-    }
-    else {
-        if (m_current_index<mp_output_data->getAllocatedSize()) {
-            ++m_current_index;
-        }
+    if (m_current_index<mp_output_data->getAllocatedSize()) {
+        ++m_current_index;
     }
     return *this;
 }
@@ -222,37 +198,11 @@ template<class TValue, class TContainer> TValue*
 }
 
 template<class TValue, class TContainer>
-    void OutputDataIterator<TValue, TContainer>::setMask(const Mask& mask)
-{
-    if (mp_mask !=& mask) {
-        delete mp_mask;
-        mp_mask = mask.clone();
-        mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
-    }
-    m_current_index = mp_mask->getFirstValidIndex(m_current_index);
-}
-
-template<class TValue, class TContainer>
-    void OutputDataIterator<TValue, TContainer>::addMask(const Mask& mask)
-{
-    if (mask.mp_submask) {
-        throw Exceptions::RuntimeErrorException("OutputDataIterator<>::addMask()"
-            " -> Error! One can only add single masks to OutputDataIterator at a time");
-    }
-    Mask* p_old_mask = getMask();
-    mp_mask = mask.clone();
-    mp_mask->mp_submask = p_old_mask;
-    mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
-    m_current_index = mp_mask->getFirstValidIndex(m_current_index);
-}
-
-template<class TValue, class TContainer>
     void OutputDataIterator<TValue, TContainer>::swapContents(
         OutputDataIterator<TValue, TContainer>& other)
 {
     std::swap(this->m_current_index, other.m_current_index);
     std::swap(this->mp_output_data, other.mp_output_data);
-    std::swap(this->mp_mask, other.mp_mask);
 }
 
 #endif // OUTPUTDATAITERATOR_H

@@ -16963,6 +16963,8 @@ class IDetector2D(ICloneable, IParameterized):
         """
         getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
         getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam) -> IntensityData
+        getDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
+        getDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
         """
         return _libBornAgainCore.IDetector2D_getDetectorIntensity(self, *args)
 

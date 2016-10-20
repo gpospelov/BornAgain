@@ -38,6 +38,9 @@ public:
 
     size_t totalSize() const;
 
+    //! Return index in ROO map from global index
+    int roiIndex(size_t globalIndex) const;
+
 private:
     const IDetector2D *m_detector;
     size_t m_roi_x1, m_roi_x2, m_roi_y1, m_roi_y2;

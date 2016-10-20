@@ -132,6 +132,22 @@ OutputData<double> *IDetector2D::getDetectorIntensity(const OutputData<double> &
     return detectorMap.release();
 }
 
+OutputData<double> *IDetector2D::getDetectorIntensity(
+        const std::vector<SimulationElement> &elements,
+        const Beam &beam, IDetector2D::EAxesUnits units_type) const
+{
+    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
+    if(!detectorMap)
+        throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
+                                    "Can't create detector map.");
+
+    applyDetectorResolution(detectorMap.get());
+
+    setDataToDetectorMap(*detectorMap.get(), elements);
+
+    return detectorMap.release();
+}
+
 OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
@@ -409,6 +425,15 @@ void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
             }
         }
     }
+
+}
+
+void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
+                                       const std::vector<SimulationElement> &elements) const
+{
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
 
 }
 

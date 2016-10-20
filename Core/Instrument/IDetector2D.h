@@ -127,6 +127,11 @@ public:
         const OutputData<double>& data, const Beam& beam,
         IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
+    OutputData<double>* getDetectorIntensity(
+        const std::vector<SimulationElement> &elements, const Beam& beam,
+        IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+
+
     //! Returns detector map in given axes units
     virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
 
@@ -202,6 +207,8 @@ protected:
 private:
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const OutputData<double> &data) const;
+    void setDataToDetectorMap(OutputData<double> &detectorMap,
+                              const std::vector<SimulationElement> &elements) const;
     std::unique_ptr<Geometry::Rectangle> m_region_of_interest;
     DetectionProperties m_detection_properties;
 };

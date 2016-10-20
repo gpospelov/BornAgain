@@ -130,6 +130,17 @@ we can work with
 \section{Structure and form factor}\label{SPartFactors}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+The second term in \cref{Echijmp} describes the scattering
+by the embedded particles.
+To proceed, we need to model their scattering properties
+and spatial distribution.
+A single particle~$i$ shall be characterized by its location~$\R_i$,
+and by a parameter vector~$\v{T}_i$ that collects
+characteristics like shape, size, orientation, and refractive index profile.
+The potential of all particles can then be written as a sum
+\begin{equation}
+  \chi_\text{p}(\r) = \sum_i \chi(\r-\R_i,\v{T}_i).
+\end{equation}
 We further introduce the \E{form factor}
 \index{Form factor}%
 of a particle,

@@ -126,11 +126,6 @@ we can work with
 \end{equation}
 \vspace*{-5pt}}
 
-\Warn{\indent Currently, \BornAgain\ does not support interferences
-  between particles in different layers.
-  This means in particular that there is no way to model particles
-  that extend beyond layer interfaces.}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure and form factor}\label{SPartFactors}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,6 +170,17 @@ The scattering matrix element
 can no longer be factorized as in \cref{ESqFq}
 because there may be any kind of correlation
 between particle positions~$\R_i$ and parameters~$\v{T}_i$.
+
+
+\Warn{\indent Currently, \BornAgain\ does not support interferences
+  between particles in different layers.
+  This means in particular that there is no way to model particles
+  that extend beyond layer interfaces.}
+
+
+
+
+
 To proceed,
 we need to specify the statistical distributions
 of these coordinates.

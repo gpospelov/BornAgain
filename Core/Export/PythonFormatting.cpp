@@ -33,6 +33,7 @@
 #include "MathConstants.h"
 #include "Utils.h"
 #include "Units.h"
+#include "IDetector2D.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
@@ -58,8 +59,8 @@ namespace PythonFormatting {
 
 //! Returns fixed Python code snippet that defines the function "runSimulation".
 
-std::string representShape2D(
-    const std::string& indent, const Geometry::IShape2D* ishape, bool mask_value)
+std::string representShape2D(const std::string& indent, const Geometry::IShape2D* ishape,
+                             bool mask_value, std::function<std::string(double)> printValueFunc)
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -69,8 +70,8 @@ std::string representShape2D(
         shape->getPoints(xpos, ypos);
         result << indent << "points = [";
         for(size_t i=0; i<xpos.size(); ++i) {
-            result << "[" << printDegrees(xpos[i]) << ", " <<
-                printDegrees(ypos[i]) << "]";
+            result << "[" << printValueFunc(xpos[i]) << ", " <<
+                printValueFunc(ypos[i]) << "]";
             if(i!= xpos.size()-1) result << ", ";
         }
         result << "]\n";
@@ -83,10 +84,10 @@ std::string representShape2D(
     } else if(const Geometry::Ellipse* shape = dynamic_cast<const Geometry::Ellipse*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.Ellipse("
-               << printDegrees(shape->getCenterX()) << ", "
-               << printDegrees(shape->getCenterY()) << ", "
-               << printDegrees(shape->getRadiusX()) << ", "
-               << printDegrees(shape->getRadiusY());
+               << printValueFunc(shape->getCenterX()) << ", "
+               << printValueFunc(shape->getCenterY()) << ", "
+               << printValueFunc(shape->getRadiusX()) << ", "
+               << printValueFunc(shape->getRadiusY());
         if(shape->getTheta() != 0.0) result << ", " << printDegrees(shape->getTheta());
         result << "), " << printBool(mask_value) << ")\n";
     }
@@ -94,10 +95,10 @@ std::string representShape2D(
     else if(const Geometry::Rectangle* shape = dynamic_cast<const Geometry::Rectangle*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.Rectangle("
-               << printDegrees(shape->getXlow()) << ", "
-               << printDegrees(shape->getYlow()) << ", "
-               << printDegrees(shape->getXup()) << ", "
-               << printDegrees(shape->getYup()) << "), "
+               << printValueFunc(shape->getXlow()) << ", "
+               << printValueFunc(shape->getYlow()) << ", "
+               << printValueFunc(shape->getXup()) << ", "
+               << printValueFunc(shape->getYup()) << "), "
                << printBool(mask_value) << ")\n";
     }
 
@@ -105,7 +106,7 @@ std::string representShape2D(
             dynamic_cast<const Geometry::VerticalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.VerticalLine("
-               << printDegrees(shape->getXpos()) << "), "
+               << printValueFunc(shape->getXpos()) << "), "
                << printBool(mask_value) << ")\n";
     }
 
@@ -113,7 +114,7 @@ std::string representShape2D(
             dynamic_cast<const Geometry::HorizontalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
         result << "ba.HorizontalLine("
-               << printDegrees(shape->getYpos()) << "), "
+               << printValueFunc(shape->getYpos()) << "), "
                << printBool(mask_value) << ")\n";
 
     } else

@@ -127,6 +127,16 @@ std::string GISASSimulation::addParametersToExternalPool(
     return new_path;
 }
 
+void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+{
+    m_instrument.getDetector()->setRegionOfInterest(xlow, ylow, xup, yup);
+}
+
+void GISASSimulation::resetRegionOfInterest()
+{
+    m_instrument.getDetector()->resetRegionOfInterest();
+}
+
 void GISASSimulation::removeMasks()
 {
     m_instrument.getDetector()->removeMasks();

@@ -317,7 +317,9 @@ void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem& item,
     auto subDetector = item.getGroupItem(DetectorItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
+    double scale(1.0);
     if(auto sphericalDetector = dynamic_cast<SphericalDetectorItem*>(subDetector)) {
+        scale = Units::degree;
         auto detector = sphericalDetector->createDetector();
         instrument->setDetector(*detector);
         auto resfunc = sphericalDetector->createResolutionFunction();
@@ -334,6 +336,16 @@ void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem& item,
         throw GUIHelpers::Error(
             "TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "
             + subDetector->modelType());
+    }
+
+    if(auto maskContainerItem = item.getChildOfType(Constants::MaskContainerType)) {
+        if(SessionItem *roi = maskContainerItem->getChildOfType(Constants::RegionOfInterestType)) {
+           double xlow = scale*roi->getItemValue(RectangleItem::P_XLOW).toDouble();
+           double ylow = scale*roi->getItemValue(RectangleItem::P_YLOW).toDouble();
+           double xup = scale*roi->getItemValue(RectangleItem::P_XUP).toDouble();
+           double yup = scale*roi->getItemValue(RectangleItem::P_YUP).toDouble();
+           instrument->getDetector()->setRegionOfInterest(xlow, ylow, xup, yup);
+        }
     }
 
 }
@@ -387,6 +399,10 @@ void TransformToDomain::addMasksToSimulation(const SessionItem& detector_item,
             for(int i_row = maskContainerItem->childItems().size(); i_row>0; --i_row) {
                 if(auto maskItem = dynamic_cast<MaskItem*>(
                        maskContainerItem->childItems().at(i_row-1))) {
+
+                    if(maskItem->modelType() == Constants::RegionOfInterestType)
+                        continue;
+
                     std::unique_ptr<Geometry::IShape2D > shape(maskItem->createShape(scale));
                     bool mask_value = maskItem->getItemValue(MaskItem::P_MASK_VALUE).toBool();
                     simulation->addMask(*shape, mask_value);

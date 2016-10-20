@@ -43,6 +43,8 @@ GISASSimulation* RectDetectorPerpToDirectBeam();
 GISASSimulation* RectDetectorPerpToReflectedBeam();
 GISASSimulation* RectDetectorPerpToReflectedBeamDpos();
 GISASSimulation* MiniGISASMonteCarlo();
+GISASSimulation* SphericalDetWithRoi();
+GISASSimulation* RectDetWithRoi();
 }
 
 #endif // STANDARDSIMULATIONS_H

@@ -42,6 +42,8 @@ set(test_cases
     TransformBox
     TriangularRipple
     TwoTypesCylindersDistribution
+    SphericalDetWithRoi
+    RectDetWithRoi
 )
 
 

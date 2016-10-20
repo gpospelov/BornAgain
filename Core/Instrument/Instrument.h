@@ -91,11 +91,9 @@ public:
     //! apply the detector resolution to the given intensity map
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
-    //! Returns clone of the intensity map with detector resolution applied,
-    //! axes of map will be in requested units
-    OutputData<double>* getDetectorIntensity(
-        const OutputData<double>& data,
-        IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+    //! Returns new intensity map with detector resolution applied and axes in requested units
+    OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
+            IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask

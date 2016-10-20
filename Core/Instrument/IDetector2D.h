@@ -121,16 +121,9 @@ public:
     virtual std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
-    //! Returns clone of the intensity map with detector resolution applied,
-    //! axes of map will be in requested units
-    OutputData<double>* getDetectorIntensity(
-        const OutputData<double>& data, const Beam& beam,
-        IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
-
-    OutputData<double>* getDetectorIntensity(
-        const std::vector<SimulationElement> &elements, const Beam& beam,
-        IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
-
+    //! Returns new intensity map with detector resolution applied and axes in requested units
+    OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
+            const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
     //! Returns detector map in given axes units
     virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
@@ -205,8 +198,6 @@ protected:
     DetectorMask m_detector_mask;
 
 private:
-    void setDataToDetectorMap(OutputData<double> &detectorMap,
-                              const OutputData<double> &data) const;
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const std::vector<SimulationElement> &elements) const;
     std::unique_ptr<Geometry::Rectangle> m_region_of_interest;

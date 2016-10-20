@@ -112,27 +112,7 @@ std::string IDetector2D::addParametersToExternalPool(
     return new_path;
 }
 
-OutputData<double> *IDetector2D::getDetectorIntensity(const OutputData<double> &data,
-                                                      const Beam& beam,
-                                                      IDetector2D::EAxesUnits units_type) const
-{
-    std::unique_ptr<OutputData<double>> result(data.clone());
-    applyDetectorResolution(result.get());
-
-    if(units_type == IDetector2D::DEFAULT && regionOfInterest() == nullptr)
-        return result.release();
-
-    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
-    if(!detectorMap)
-        throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
-                                    "Can't create detector map.");
-
-    setDataToDetectorMap(*detectorMap.get(), *result.get());
-
-    return detectorMap.release();
-}
-
-OutputData<double> *IDetector2D::getDetectorIntensity(
+OutputData<double> *IDetector2D::createDetectorIntensity(
         const std::vector<SimulationElement> &elements,
         const Beam &beam, IDetector2D::EAxesUnits units_type) const
 {
@@ -398,33 +378,6 @@ size_t IDetector2D::getTotalSize() const
         result *= m_axes[i_axis]->getSize();
     }
     return result;
-}
-
-void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
-                                       const OutputData<double> &data) const
-{
-    if(detectorMap.getAllocatedSize() == data.getAllocatedSize()) {
-        detectorMap.setRawDataVector(data.getRawDataVector());
-        return;
-    }
-
-    if(const Geometry::Rectangle *roi = regionOfInterest()) {
-        size_t roi_x = getAxis(BornAgain::X_AXIS_INDEX).findClosestIndex(roi->getXlow());
-        size_t roi_y = getAxis(BornAgain::Y_AXIS_INDEX).findClosestIndex(roi->getYlow());
-        size_t index0 = getGlobalIndex(roi_x, roi_y);
-        const IAxis &yAxisOfDetector = getAxis(BornAgain::Y_AXIS_INDEX);
-
-        const IAxis &xAxisOfMap = *detectorMap.getAxis(BornAgain::X_AXIS_INDEX);
-        const IAxis &yAxisOfMap = *detectorMap.getAxis(BornAgain::Y_AXIS_INDEX);
-        for(size_t ix=0; ix<xAxisOfMap.getSize(); ++ix) {
-            for(size_t iy=0; iy<yAxisOfMap.getSize(); ++iy) {
-                size_t mapIndex = iy + ix*yAxisOfMap.getSize();
-                size_t globalIndex = index0 + iy + ix*yAxisOfDetector.getSize();
-                detectorMap[mapIndex] = data[globalIndex];
-            }
-        }
-    }
-
 }
 
 void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,

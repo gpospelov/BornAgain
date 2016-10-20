@@ -16959,14 +16959,12 @@ class IDetector2D(ICloneable, IParameterized):
         return _libBornAgainCore.IDetector2D_hasMasks(self)
 
 
-    def getDetectorIntensity(self, *args):
+    def createDetectorIntensity(self, *args):
         """
-        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
-        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam) -> IntensityData
-        getDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
-        getDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
+        createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
+        createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
         """
-        return _libBornAgainCore.IDetector2D_getDetectorIntensity(self, *args)
+        return _libBornAgainCore.IDetector2D_createDetectorIntensity(self, *args)
 
 
     def createDetectorMap(self, beam, units):
@@ -18599,17 +18597,12 @@ class Instrument(IParameterized):
         return _libBornAgainCore.Instrument_applyDetectorResolution(self, p_intensity_map)
 
 
-    def getDetectorIntensity(self, *args):
+    def createDetectorIntensity(self, *args):
         """
-        getDetectorIntensity(Instrument self, IntensityData data, IDetector2D::EAxesUnits units_type) -> IntensityData
-        getDetectorIntensity(Instrument self, IntensityData data) -> IntensityData
-
-        OutputData< double > * Instrument::getDetectorIntensity(const OutputData< double > &data, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
-
-        Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units 
-
+        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units_type) -> IntensityData
+        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
         """
-        return _libBornAgainCore.Instrument_getDetectorIntensity(self, *args)
+        return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
 
 
     def initDetector(self):

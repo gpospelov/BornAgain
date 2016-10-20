@@ -24,7 +24,7 @@
 class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn
 {
 public:
-    FormFactorGauss(double volume);
+    FormFactorGauss(double length);
     FormFactorGauss(double width, double height);
 
     FormFactorGauss* clone() const override final {

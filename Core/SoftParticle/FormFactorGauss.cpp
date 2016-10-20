@@ -19,8 +19,8 @@
 #include "RealParameter.h"
 #include <limits>
 
-FormFactorGauss::FormFactorGauss(double volume)
-    : FormFactorGauss( std::pow(volume, 1.0/3.0), std::pow(volume, 1.0/3.0) ) {}
+FormFactorGauss::FormFactorGauss(double length)
+    : FormFactorGauss(length, length) {}
 
 FormFactorGauss::FormFactorGauss(double width, double height)
 {

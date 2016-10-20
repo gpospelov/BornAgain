@@ -67,37 +67,32 @@ with the indicator function
 The following formalism, however, shall not rely on \cref{EDvpHomo},
 but also allow for soft particles for which $\Delta v_\sp(\r)$ is a continuous function of~$\r$.
 
-To apply the DWBA to this scattering problem,
-we must choose a decomposition~\cref{Edecompose_vz} of~$v(\r)$.
 BornAgain only supports step profiles for~$v_\sm(z)$.
 Within one layer~$l$, the matrix has a constant SLD~$v_{\sm l}$.
-\Work{Currently (at least up to version 1.7),
-BornAgain puts $\overline{v}_l = v_{\sm l}$.
-In the future, this may be replaced by a better approximation
-that takes the average contribution from the particle SLD into account.}
-\iffalse
-For each layer
-and $\chi_\sm(\r)\coloneqq 1-\chi_\sp(\r)$.
-The average SLD in layer~$l$ is then
+To specifiy a decomposition~\cref{Edecompose_vz}, we define
 \begin{equation}
-  \overline{v}_l = v_\sp\rho_\sp + v_\sm\rho_\sm,
+  \delta v_l(\r)
+  \coloneqq\left\{\begin{array}{ll}
+  v_l(\r) - \overline{v}_l&\text{~if $\r$ in Layer~$l$,}\\[.2ex]
+  0&\text{~otherwise.} \end{array}\right.
 \end{equation}
-where $\rho_\sp\coloneqq\overline{\chi_\sp(\r)}$ and $\rho_\sm=1-\rho_\sp$
-are volume fractions.
-\fi
-
+This leaves the constant term $\overline{v}_l$ still undetermined.
+The best choice is probably the volume average of $v(\r)$,
+though we are not aware of any proof that this maximizes the accuracy of the DWBA.
+\Note{Currently (at least up to version 1.7),
+BornAgain uses the simpler choice
+ $\overline{v}_l = v_{\sm l}$.
+This may change in the future.}
 Per \Cref{SStep}, $\overline{v}_l$ determines the refractive index~$n_l$
 and the wavenumber~$K_l$.
 The wavefunctions $\psi_\text{i}$ and~$\psi_\text{f}$
 are then determined as described in \Cref{Sacrolay}.
-The fluctuating term in the decomposition~\cref{Edecompose_vz} is
-\begin{equation}
-  \delta v_l(\r) = v_{\sm l} + \Delta v_\sp(\r) - \overline{v}_l.
+Furthermore, our current choice $\overline{v}_l = v_{\sm l}$
+implies
+\begin{equation}\label{Edvl_cur}
+  \delta v_l(\r) = \Delta v_\sp(\r)\text{~for $\r$ in the layer.}
 \end{equation}
-With $\overline{v}_l = v_{\sm l}$, this reduces to
-$\delta v_l(\r) = \Delta v_\sp(\r)$.
-
-\Work{Currently,
+\Warn{Currently,
 BornAgain does not compute $\Delta v_\sp = v_\sp - v_\sm$,
 but interprets the given $v_\sp$
 (given through a particle refractive index) as if it were $\Delta v_\sp$.}
@@ -105,20 +100,14 @@ but interprets the given $v_\sp$
 Per \Cref{SStep},
 the DWBA scattering cross section is the norm \cref{Exsection}
 of a sum \cref{Edwba_ml0} of four terms per layer,
-and each term involves the Fourier transforms~\cref{Echij}
-of $\delta v(\r)\chi_l(z)$,
+and each term involves the Fourier transforms~\cref{Echij},
+which thanks to~\cref{Edvl_cur} takes the simple form
 \Emph{
 \begin{equation}\label{Edvlq}
   \delta v_l(\q)
-  = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z)
+  = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v_l(\r)
 \end{equation}
 \vspace*{-5pt}}
-with the indicator function
-\begin{equation}\label{EdefChiP}
-  \chi_l(z)\coloneqq\left\{\begin{array}{ll}
-  1&\text{~if $z$ in Layer~$l$,}\\[.2ex]
-  0&\text{~otherwise.} \end{array}\right.
-\end{equation}
 
 \iffalse
 The Fourier transform of any indicator function~$\chi(\r)$ shall be denoted as

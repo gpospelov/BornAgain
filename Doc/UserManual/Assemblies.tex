@@ -160,12 +160,12 @@ that are either spherical, or all have the same orientation.
 For $\r$ in Layer~$l$, the SLD~\cref{Edvl_cur}
 can then be written as a sum over particle positions~$\R_i$,
 \begin{equation}\label{Echihomo}
-  \chi_\sp(\r) = \sum_i F(\r-\R_i),
+  v_\sp(\r) = \sum_i F(\r-\R_i),
 \end{equation}
 where~$F(\r)$ is the SLD of a single particle located at the origin.
 Its Fourier transform can be written as a product
 \begin{equation}\label{ESqFq}
-  \chi_\sp(\q) = S(\q) F(\q)
+  v_\sp(\q) = S(\q) F(\q)
 \end{equation}
 of the assembly's \E{structure factor}, given by the particle positions,
 \begin{equation}\label{EdefSq}
@@ -185,11 +185,11 @@ In the following, these degrees of freedom
 shall be denoted by a parameter vector~$\v{T}_i$.
 The SLD~\cref{Echihomo} then becomes
 \begin{equation}\label{Echihetero}
-  \chi_\text{p}(\r) = \sum_i F(\r-\R_i,\v{T}_i).
+  v_\sp(\r) = \sum_i F(\r-\R_i,\v{T}_i).
 \end{equation}
 The scattering matrix element
 \begin{equation}\label{Echiqsum}
-  \chi_\text{p}(\q) = \sum_i \e^{i\q\R_i} F(\q,\v{T}_i)
+  v_\sp(\q) = \sum_i \e^{i\q\R_i} F(\q,\v{T}_i)
 \end{equation}
 can no longer be factorized as in \cref{ESqFq}
 because there may be any kind of correlation

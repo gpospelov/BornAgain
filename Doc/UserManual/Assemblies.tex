@@ -18,7 +18,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Wave propagation and scattering contributions}
+\section{Basic formalism} %Wave propagation and scattering contributions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\sp{\text{p}}
@@ -107,12 +107,20 @@ the DWBA scattering cross section is the norm \cref{Exsection}
 of a sum \cref{Edwba_ml0} of four terms per layer,
 and each term involves the Fourier transforms~\cref{Echij}
 of $\delta v(\r)\chi_l(z)$,
+\Emph{
 \begin{equation}\label{Edvlq}
   \delta v_l(\q)
   = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z)
 \end{equation}
+\vspace*{-5pt}}
 with the indicator function
+\begin{equation}\label{EdefChiP}
+  \chi_l(z)\coloneqq\left\{\begin{array}{ll}
+  1&\text{~if $z$ in Layer~$l$,}\\[.2ex]
+  0&\text{~otherwise.} \end{array}\right.
+\end{equation}
 
+\iffalse
 The Fourier transform of any indicator function~$\chi(\r)$ shall be denoted as
 \begin{equation}
   \chi(\q) \coloneqq \int\!\d^3r\, \e^{i\v{q}\,\r} \chi(\r).
@@ -151,6 +159,7 @@ we can work with
   = \Delta v_\sp\chi_\sp(\q).
 \end{equation}
 \vspace*{-5pt}}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure and form factor}\label{SPartFactors}

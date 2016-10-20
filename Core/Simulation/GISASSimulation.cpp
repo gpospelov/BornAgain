@@ -59,9 +59,15 @@ int GISASSimulation::numberOfSimulationElements() const
 
 OutputData<double>* GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type) const
 {
-    OutputData<double>* ret = m_instrument.getDetectorIntensity(m_intensity_map, units_type);
-    ret->setVariability( m_options.getDefaultVariability() );
-    return ret;
+//    OutputData<double>* ret = m_instrument.getDetectorIntensity(m_intensity_map, units_type);
+//    ret->setVariability( m_options.getDefaultVariability() );
+//    return ret;
+
+    std::unique_ptr<OutputData<double>> data(
+        m_instrument.getDetector()->getDetectorIntensity(m_sim_elements, m_instrument.getBeam(),
+                                                         units_type));
+    data->setVariability( m_options.getDefaultVariability() );
+    return data.release();
 }
 
 Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const

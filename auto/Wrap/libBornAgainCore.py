@@ -21766,18 +21766,6 @@ class IntensityData(_object):
         return _libBornAgainCore.IntensityData_getAxis(self, *args)
 
 
-    def getAxisSerialNumber(self, axis_name):
-        """
-        getAxisSerialNumber(IntensityData self, std::string const & axis_name) -> size_t
-
-        size_t OutputData< T >::getAxisSerialNumber(const std::string &axis_name) const
-
-        returns serial number of axis with given name 
-
-        """
-        return _libBornAgainCore.IntensityData_getAxisSerialNumber(self, axis_name)
-
-
     def getRank(self):
         """
         getRank(IntensityData self) -> size_t

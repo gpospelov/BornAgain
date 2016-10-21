@@ -9469,11 +9469,6 @@ returns axis with given serial number
 returns axis with given name 
 ";
 
-%feature("docstring")  OutputData::getAxisSerialNumber "size_t OutputData< T >::getAxisSerialNumber(const std::string &axis_name) const
-
-returns serial number of axis with given name 
-";
-
 %feature("docstring")  OutputData::getRank "size_t OutputData< T >::getRank() const
 
 Returns number of dimensions. 
@@ -12736,13 +12731,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D276.xml
+// File: namespace_0D274.xml
 
 
-// File: namespace_0D306.xml
+// File: namespace_0D304.xml
 
 
-// File: namespace_0D429.xml
+// File: namespace_0D427.xml
 
 
 // File: namespace_0D57.xml
@@ -12939,45 +12934,6 @@ Returns true if two doubles agree within epsilon*tolerance.
 %feature("docstring")  Numeric::get_relative_difference "double BA_CORE_API_ Numeric::get_relative_difference(double a, double b)
 
 Returns the safe relative difference, which is |(a-b)/b| except in special cases. 
-";
-
-
-// File: namespaceOutputDataFunctions.xml
-%feature("docstring")  OutputDataFunctions::doubleBinSize "OutputData< double > * OutputDataFunctions::doubleBinSize(const OutputData< double > &source)
-
-double the bin size for each dimension
-
-double the bin size for each dimension. 
-";
-
-%feature("docstring")  OutputDataFunctions::FourierTransform "void OutputDataFunctions::FourierTransform(const OutputData< double > &source, OutputData< complex_t > *p_destination)
-
-unnormalized Fourier transformation for real data
-
-Fourier transformation of output data. 
-";
-
-%feature("docstring")  OutputDataFunctions::FourierTransformR "void OutputDataFunctions::FourierTransformR(const OutputData< complex_t > &source, OutputData< double > *p_destination)
-
-unnormalized reverse Fourier transformation for real data
-
-Fourier back transform. 
-";
-
-%feature("docstring")  OutputDataFunctions::getRealPart "OutputData< double > * OutputDataFunctions::getRealPart(const OutputData< complex_t > &source)
-
-reduces the data to the element-wise real, imaginary or modulus part 
-";
-
-%feature("docstring")  OutputDataFunctions::getImagPart "OutputData< double > * OutputDataFunctions::getImagPart(const OutputData< complex_t > &source)
-";
-
-%feature("docstring")  OutputDataFunctions::getModulusPart "OutputData< double > * OutputDataFunctions::getModulusPart(const OutputData< complex_t > &source)
-";
-
-%feature("docstring")  OutputDataFunctions::getComponentData "OutputData< double > * OutputDataFunctions::getComponentData(const OutputData< Eigen::Matrix2d > &source, int row, int column)
-
-Selects an element-wise component of the matrix-valued  OutputData structure and returns a new double-valued one 
 ";
 
 
@@ -13982,17 +13938,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: OutputData_8h.xml
-
-
-// File: OutputDataFunctions_8cpp.xml
-%feature("docstring")  toFftw3Array "void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
-";
-
-%feature("docstring")  fromFftw3Array "void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
-";
-
-
-// File: OutputDataFunctions_8h.xml
 
 
 // File: OutputDataIterator_8h.xml

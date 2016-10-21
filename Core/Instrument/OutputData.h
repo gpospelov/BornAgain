@@ -63,9 +63,6 @@ public:
     //! returns axis with given name
     const IAxis* getAxis(const std::string& axis_name) const;
 
-    //! returns serial number of axis with given name
-    size_t getAxisSerialNumber(const std::string& axis_name) const;
-
     // ---------------------------------
     // retrieve basic info
     // ---------------------------------
@@ -253,6 +250,9 @@ public:
     void allocate();
 
 private:
+    //! returns serial number of axis with given name
+    size_t getAxisIndex(const std::string& axis_name) const;
+
     SafePointerVector<IAxis> m_value_axes;
     LLData<T>* mp_ll_data;
     double m_variability;
@@ -363,18 +363,6 @@ const IAxis* OutputData<T>::getAxis(const std::string& axis_name) const
     return 0;
 }
 
-// return index of axis
-template <class T>
-size_t OutputData<T>::getAxisSerialNumber(const std::string &axis_name) const
-{
-    for (size_t i = 0; i < m_value_axes.size(); ++i)
-        if (m_value_axes[i]->getName() == axis_name) return i;
-    throw Exceptions::LogicErrorException(
-        "OutputData<T>::getAxisSerialNumber() -> "
-        "Error! Axis with given name not found '"+axis_name+std::string("'"));
-}
-
-
 template<class T>
 inline std::vector<size_t> OutputData<T>::getAllSizes() const
 {
@@ -454,7 +442,7 @@ int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) 
 template<class T>
 int OutputData<T>::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
 {
-    return getAxisBinIndex(global_index, getAxisSerialNumber(axis_name));
+    return getAxisBinIndex(global_index, getAxisIndex(axis_name));
 }
 
 template <class T>
@@ -507,7 +495,7 @@ double OutputData<T>::getAxisValue(size_t global_index, size_t i_selected_axis) 
 template <class T>
 double OutputData<T>::getAxisValue(size_t global_index, const std::string& axis_name) const
 {
-    return getAxisValue(global_index, getAxisSerialNumber(axis_name));
+    return getAxisValue(global_index, getAxisIndex(axis_name));
 }
 
 template <class T>
@@ -530,7 +518,7 @@ Bin1D OutputData<T>::getAxisBin(size_t global_index, size_t i_selected_axis) con
 template <class T>
 Bin1D OutputData<T>::getAxisBin(size_t global_index, const std::string& axis_name) const
 {
-    return getAxisBin(global_index, getAxisSerialNumber(axis_name));
+    return getAxisBin(global_index, getAxisIndex(axis_name));
 }
 
 template<class T>
@@ -681,5 +669,17 @@ bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
 template<>
 PyObject* OutputData<double>::getArray() const;
 #endif
+
+// return index of axis
+template <class T>
+size_t OutputData<T>::getAxisIndex(const std::string &axis_name) const
+{
+    for (size_t i = 0; i < m_value_axes.size(); ++i)
+        if (m_value_axes[i]->getName() == axis_name) return i;
+    throw Exceptions::LogicErrorException(
+        "OutputData<T>::getAxisSerialNumber() -> "
+        "Error! Axis with given name not found '"+axis_name+std::string("'"));
+}
+
 
 #endif // OUTPUTDATA_H

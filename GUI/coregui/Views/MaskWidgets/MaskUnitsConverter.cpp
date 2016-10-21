@@ -23,7 +23,7 @@
 #include <QDebug>
 
 MaskUnitsConverter::MaskUnitsConverter()
-    : m_data(0)
+    : mp_data(0)
     , m_direction(UNDEFINED)
 {
 
@@ -53,7 +53,7 @@ void MaskUnitsConverter::convertIntensityDataItem(IntensityDataItem *intensityDa
     if(!intensityData || !intensityData->getOutputData() || !intensityData->maskContainerItem())
         return;
 
-    m_data = intensityData->getOutputData();
+    mp_data = intensityData->getOutputData();
 
     foreach(SessionItem *maskItem, intensityData->maskContainerItem()->getItems())
         convertMask(maskItem);
@@ -92,11 +92,11 @@ void MaskUnitsConverter::convertMask(SessionItem *maskItem)
         double y2 = yc + yR;
 
         if(m_direction == TO_NBINS) {
-            IntensityDataFunctions::coordinateToBinf(xc, yc, m_data);
-            IntensityDataFunctions::coordinateToBinf(x2, y2, m_data);
+            IntensityDataFunctions::coordinateToBinf(xc, yc, *mp_data);
+            IntensityDataFunctions::coordinateToBinf(x2, y2, *mp_data);
         } else {
-            IntensityDataFunctions::coordinateFromBinf(xc, yc, m_data);
-            IntensityDataFunctions::coordinateFromBinf(x2, y2, m_data);
+            IntensityDataFunctions::coordinateFromBinf(xc, yc, *mp_data);
+            IntensityDataFunctions::coordinateFromBinf(x2, y2, *mp_data);
         }
 
         maskItem->setItemValue(EllipseItem::P_XCENTER, xc);
@@ -130,14 +130,14 @@ void MaskUnitsConverter::convertCoordinate(SessionItem *maskItem, const QString 
 
 double MaskUnitsConverter::convert(double value, int axis_index)
 {
-    Q_ASSERT(m_data);
+    Q_ASSERT(mp_data);
     Q_ASSERT(axis_index == BornAgain::X_AXIS_INDEX || axis_index == BornAgain::Y_AXIS_INDEX);
 
     if(m_direction == TO_NBINS) {
-        return IntensityDataFunctions::coordinateToBinf(value, &m_data->getAxis(axis_index));
+        return IntensityDataFunctions::coordinateToBinf(value, mp_data->getAxis(axis_index));
 
     } else if (m_direction == FROM_NBINS){
-        return IntensityDataFunctions::coordinateFromBinf(value, &m_data->getAxis(axis_index));
+        return IntensityDataFunctions::coordinateFromBinf(value, mp_data->getAxis(axis_index));
     }
 
     throw GUIHelpers::Error("MaskUnitsConverter::convertX() -> Error. Unknown convertion");

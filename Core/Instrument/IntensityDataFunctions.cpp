@@ -117,43 +117,43 @@ OutputData<double>* IntensityDataFunctions::applyDetectorResolution(
 // (center of non-existing bin #-1).
 // Used for Mask convertion.
 
-double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis *axis)
+double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis& axis)
 {
-    int index = axis->findClosestIndex(coordinate);
-    Bin1D bin = axis->getBin(index);
+    int index = axis.findClosestIndex(coordinate);
+    Bin1D bin = axis.getBin(index);
     double f = (coordinate - bin.m_lower)/bin.getBinSize();
     return static_cast<double>(index) + f;
 }
 
-double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis *axis)
+double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axis)
 {
     int index = static_cast<int>(value);
 
     double result(0);
     if(index < 0) {
-        Bin1D bin = axis->getBin(0);
+        Bin1D bin = axis.getBin(0);
         result = bin.m_lower + value*bin.getBinSize();
-    } else if(index >= (int)axis->getSize()) {
-        Bin1D bin = axis->getBin(axis->getSize()-1);
-        result = bin.m_upper + (value-axis->getSize())*bin.getBinSize();
+    } else if(index >= (int)axis.getSize()) {
+        Bin1D bin = axis.getBin(axis.getSize()-1);
+        result = bin.m_upper + (value-axis.getSize())*bin.getBinSize();
     } else {
-        Bin1D bin = axis->getBin(index);
+        Bin1D bin = axis.getBin(index);
         result = bin.m_lower + (value - static_cast<double>(index))*bin.getBinSize();
     }
 
     return result;
 }
 
-void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData<double> *data)
+void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData<double>& data)
 {
-    x = coordinateToBinf(x, &data->getAxis(BornAgain::X_AXIS_INDEX));
-    y = coordinateToBinf(y, &data->getAxis(BornAgain::Y_AXIS_INDEX));
+    x = coordinateToBinf(x, data.getAxis(BornAgain::X_AXIS_INDEX));
+    y = coordinateToBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
 }
 
 void IntensityDataFunctions::coordinateFromBinf(double &x, double &y,
-                                                const OutputData<double> *data)
+                                                const OutputData<double>& data)
 {
-    x = coordinateFromBinf(x, &data->getAxis(BornAgain::X_AXIS_INDEX));
-    y = coordinateFromBinf(y, &data->getAxis(BornAgain::Y_AXIS_INDEX));
+    x = coordinateFromBinf(x, data.getAxis(BornAgain::X_AXIS_INDEX));
+    y = coordinateFromBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
 }
 

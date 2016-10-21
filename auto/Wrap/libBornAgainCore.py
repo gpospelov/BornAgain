@@ -5561,9 +5561,8 @@ class FitObject(IParameterized, INoncopyable):
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
 
-    def __init__(self, simulation, real_data, weight=1, adjust_detector_to_data=False):
+    def __init__(self, simulation, real_data, weight=1):
         """
-        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1, bool adjust_detector_to_data=False) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data) -> FitObject
 
@@ -5587,7 +5586,7 @@ class FitObject(IParameterized, INoncopyable):
         Detector axes will be adjusted to real data axes, if true 
 
         """
-        this = _libBornAgainCore.new_FitObject(simulation, real_data, weight, adjust_detector_to_data)
+        this = _libBornAgainCore.new_FitObject(simulation, real_data, weight)
         try:
             self.this.append(this)
         except Exception:
@@ -18573,10 +18572,18 @@ class Instrument(IParameterized):
 
     def createDetectorIntensity(self, *args):
         """
-        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units_type) -> IntensityData
+        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units) -> IntensityData
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
         """
         return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
+
+
+    def createDetectorMap(self, *args):
+        """
+        createDetectorMap(Instrument self, IDetector2D::EAxesUnits units) -> IntensityData
+        createDetectorMap(Instrument self) -> IntensityData
+        """
+        return _libBornAgainCore.Instrument_createDetectorMap(self, *args)
 
 
     def initDetector(self):

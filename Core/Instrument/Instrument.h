@@ -90,7 +90,11 @@ public:
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
-            IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+            IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const;
+
+    //! Returns empty detector map in given axes units.
+    virtual OutputData<double>* createDetectorMap(
+            IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const;
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask

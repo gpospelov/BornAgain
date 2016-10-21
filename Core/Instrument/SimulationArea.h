@@ -20,21 +20,21 @@
 #include "SimulationAreaIterator.h"
 class IDetector2D;
 
-//! @class SimulationArea
+//! Holds iteration logic over active detector channels in the presence of masked areas
+//! and RegionOfInterest defined.
 //! @ingroup simulation
-//! @brief The SimulationArea class holds iteration logic over active detector channels
-//! in the presence of masked areas and RegionOfInterest defined.
 
 class BA_CORE_API_ SimulationArea
 {
 public:
     using iterator = SimulationAreaIterator;
     explicit SimulationArea(const IDetector2D *detector);
+    virtual ~SimulationArea(){}
 
     SimulationAreaIterator begin();
     SimulationAreaIterator end();
 
-    bool isMasked(size_t index) const;
+    virtual bool isMasked(size_t index) const;
 
     size_t totalSize() const;
 

@@ -22,15 +22,12 @@
 #include "DetectorFunctions.h"
 
 FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
-    double weight, bool adjust_detector_to_data)
+    double weight)
     : m_simulation(simulation.clone())
-    , m_real_data(real_data.clone())
-    , m_chi2_data(new OutputData<double>)
     , m_weight(weight)
-    , m_adjust_detector_to_data(adjust_detector_to_data)
 {
     setName("FitObject");
-    init_dataset();
+    init_dataset(real_data);
 }
 
 FitObject::~FitObject()
@@ -52,19 +49,24 @@ std::string FitObject::addParametersToExternalPool(
 }
 
 //! Initialize detector, if necessary, to match experimental data
-void FitObject::init_dataset()
+void FitObject::init_dataset(const OutputData<double >& real_data)
 {
-    check_realdata();
-    m_chi2_data->copyShapeFrom(*m_real_data);
+    check_realdata(real_data);
+
+    m_chi2_data.reset(m_simulation->getInstrument().createDetectorMap());
+    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data);
+
 }
 
-void FitObject::check_realdata() const
+//! Checks if real data and the detector have same dimensions. If not, exception will be thrown.
+
+void FitObject::check_realdata(const OutputData<double> &real_data) const
 {
     const IDetector2D *detector = m_simulation->getInstrument().getDetector();
-    if(!DetectorFunctions::hasSameDimensions(*detector, *m_real_data.get())){
+    if(!DetectorFunctions::hasSameDimensions(*detector, real_data)){
         std::ostringstream message;
         message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
-                << "the detector. Real data:" << DetectorFunctions::axesToString(*m_real_data.get())
+                << "the detector. Real data:" << DetectorFunctions::axesToString(real_data)
                         << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
         throw Exceptions::RuntimeErrorException(message.str());
     }
@@ -89,8 +91,8 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
 
     SimulationArea area(m_simulation->getInstrument().getDetector());
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        FitElement element(it.index(), (*m_simulation_data)[it.index()],
-                (*m_real_data)[it.index()], weight);
+        FitElement element(it.roiIndex(), (*m_simulation_data)[it.roiIndex()],
+                (*m_real_data)[it.roiIndex()], weight);
         fit_elements.push_back(element);
     }
 
@@ -103,6 +105,11 @@ const OutputData<double>* FitObject::getChiSquaredMap(
     std::vector<FitElement>::const_iterator last) const
 {
     m_chi2_data->setAllTo(0.0);
+//    SimulationArea area(m_simulation->getInstrument().getDetector());
+//    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+//        (*m_chi2_data)[it->rotIndex()] = it->getSquaredDifference();
+//    }
+
     for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it)
         (*m_chi2_data)[it->getIndex()] = it->getSquaredDifference();
     return m_chi2_data.get();

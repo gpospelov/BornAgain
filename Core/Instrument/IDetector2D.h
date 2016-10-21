@@ -125,7 +125,7 @@ public:
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
             const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
-    //! Returns detector map in given axes units
+    //! Returns empty detector map in given axes units.
     virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
 
     //! Inits axes of OutputData to match the detector and sets values to zero.

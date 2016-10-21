@@ -9459,12 +9459,12 @@ C++ includes: OutputData.h
 %feature("docstring")  OutputData::addAxis "void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)
 ";
 
-%feature("docstring")  OutputData::getAxis "const IAxis * OutputData< T >::getAxis(size_t serial_number) const
+%feature("docstring")  OutputData::getAxis "const IAxis & OutputData< T >::getAxis(size_t serial_number) const
 
 returns axis with given serial number 
 ";
 
-%feature("docstring")  OutputData::getAxis "const IAxis * OutputData< T >::getAxis(const std::string &axis_name) const
+%feature("docstring")  OutputData::getAxis "const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
 
 returns axis with given name 
 ";

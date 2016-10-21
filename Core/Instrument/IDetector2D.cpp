@@ -60,7 +60,7 @@ void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
             "IDetector2D::matchDetectorAxes() -> Error! Data is not two dimensional");
     clear();
     for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis)
-        addAxis(*output_data.getAxis(i_axis));
+        addAxis(output_data.getAxis(i_axis));
     m_detector_mask.initMaskData(*this);
 }
 

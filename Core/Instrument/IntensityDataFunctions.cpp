@@ -68,12 +68,13 @@ OutputData<double>* IntensityDataFunctions::createClippedDataSet(
 
     OutputData<double > *result = new OutputData<double >;
     for(size_t i_axis=0; i_axis<origin.getRank(); i_axis++) {
-        const IAxis *axis = origin.getAxis(i_axis);
+        const IAxis &axis = origin.getAxis(i_axis);
+        //TODO: replace this with exception safe code
         IAxis *new_axis;
         if(i_axis == 0)
-            new_axis = axis->createClippedAxis(x1, x2);
+            new_axis = axis.createClippedAxis(x1, x2);
         else
-            new_axis = axis->createClippedAxis(y1, y2);
+            new_axis = axis.createClippedAxis(y1, y2);
         result->addAxis(*new_axis);
         delete new_axis;
     }
@@ -85,7 +86,7 @@ OutputData<double>* IntensityDataFunctions::createClippedDataSet(
     {
         double x = origin.getAxisValue(it_origin.getIndex(), 0);
         double y = origin.getAxisValue(it_origin.getIndex(), 1);
-        if(result->getAxis(0)->contains(x) && result->getAxis(1)->contains(y)) {
+        if(result->getAxis(0).contains(x) && result->getAxis(1).contains(y)) {
             *it_result = *it_origin;
             ++it_result;
         }
@@ -145,14 +146,14 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis *axi
 
 void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData<double> *data)
 {
-    x = coordinateToBinf(x, data->getAxis(BornAgain::X_AXIS_INDEX));
-    y = coordinateToBinf(y, data->getAxis(BornAgain::Y_AXIS_INDEX));
+    x = coordinateToBinf(x, &data->getAxis(BornAgain::X_AXIS_INDEX));
+    y = coordinateToBinf(y, &data->getAxis(BornAgain::Y_AXIS_INDEX));
 }
 
 void IntensityDataFunctions::coordinateFromBinf(double &x, double &y,
                                                 const OutputData<double> *data)
 {
-    x = coordinateFromBinf(x, data->getAxis(BornAgain::X_AXIS_INDEX));
-    y = coordinateFromBinf(y, data->getAxis(BornAgain::Y_AXIS_INDEX));
+    x = coordinateFromBinf(x, &data->getAxis(BornAgain::X_AXIS_INDEX));
+    y = coordinateFromBinf(y, &data->getAxis(BornAgain::Y_AXIS_INDEX));
 }
 

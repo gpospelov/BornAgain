@@ -21758,7 +21758,7 @@ class IntensityData(_object):
         getAxis(IntensityData self, size_t serial_number) -> IAxis
         getAxis(IntensityData self, std::string const & axis_name) -> IAxis
 
-        const IAxis * OutputData< T >::getAxis(const std::string &axis_name) const
+        const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
 
         returns axis with given name 
 

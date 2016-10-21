@@ -134,10 +134,10 @@ double MaskUnitsConverter::convert(double value, int axis_index)
     Q_ASSERT(axis_index == BornAgain::X_AXIS_INDEX || axis_index == BornAgain::Y_AXIS_INDEX);
 
     if(m_direction == TO_NBINS) {
-        return IntensityDataFunctions::coordinateToBinf(value, m_data->getAxis(axis_index));
+        return IntensityDataFunctions::coordinateToBinf(value, &m_data->getAxis(axis_index));
 
     } else if (m_direction == FROM_NBINS){
-        return IntensityDataFunctions::coordinateFromBinf(value, m_data->getAxis(axis_index));
+        return IntensityDataFunctions::coordinateFromBinf(value, &m_data->getAxis(axis_index));
     }
 
     throw GUIHelpers::Error("MaskUnitsConverter::convertX() -> Error. Unknown convertion");

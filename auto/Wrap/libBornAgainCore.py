@@ -12323,7 +12323,7 @@ class FormFactorGauss(IFormFactorBorn):
 
     def __init__(self, *args):
         """
-        __init__(FormFactorGauss self, double volume) -> FormFactorGauss
+        __init__(FormFactorGauss self, double length) -> FormFactorGauss
         __init__(FormFactorGauss self, double width, double height) -> FormFactorGauss
 
         FormFactorGauss::FormFactorGauss(double width, double height)
@@ -13425,7 +13425,7 @@ class FormFactorLorentz(IFormFactorBorn):
 
     def __init__(self, *args):
         """
-        __init__(FormFactorLorentz self, double volume) -> FormFactorLorentz
+        __init__(FormFactorLorentz self, double length) -> FormFactorLorentz
         __init__(FormFactorLorentz self, double width, double height) -> FormFactorLorentz
 
         FormFactorLorentz::FormFactorLorentz(double width, double height)

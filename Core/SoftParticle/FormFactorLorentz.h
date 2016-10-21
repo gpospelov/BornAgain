@@ -24,7 +24,7 @@
 class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn
 {
 public:
-    FormFactorLorentz(double volume);
+    FormFactorLorentz(double length);
     FormFactorLorentz(double width, double height);
 
     FormFactorLorentz* clone() const override final {

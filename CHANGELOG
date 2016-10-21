@@ -1,4 +1,6 @@
 BornAgain-1.7
+  > API changes
+    1) The one-argument constructors of FormFactorGauss and FormFactorLorentz now accept a length instead of a volume
   > Summary:
     1) We moved the source repository from our own server to GitHub,
          https://github.com/scgmlz/BornAgain.

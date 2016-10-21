@@ -172,8 +172,8 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
 //    const IAxis *axis0 = result->getAxis(0);
 //    const IAxis *axis1 = result->getAxis(1);
 
-//    for(int ix=0; ix<(int)axis0->getSize(); ix+=2) {
-//        for(int iy=0; iy<(int)axis1->getSize(); iy+=2) {
+//    for(int ix=0; ix<(int)axis0.size(); ix+=2) {
+//        for(int iy=0; iy<(int)axis1.size(); iy+=2) {
 //            std::vector<int> indices = {ix, iy};
 //            int index = result->toGlobalIndex(indices);
 //            (*result)[index] = 10;

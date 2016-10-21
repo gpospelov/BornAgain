@@ -88,7 +88,7 @@ void SpecularSimulation::prepareSimulation()
 {
     updateSample();
 
-    if (!m_alpha_i_axis || m_alpha_i_axis->getSize() < 1)
+    if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
         throw Exceptions::ClassInitializationException("SpecularSimulation::checkSimulation() "
                                            "-> Error. Incoming alpha range not configured.");
     if (m_lambda <= 0.0)

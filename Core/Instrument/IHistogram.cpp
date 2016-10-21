@@ -68,7 +68,7 @@ double IHistogram::getXmax() const
 
 size_t IHistogram::getNbinsX() const
 {
-    return getXaxis().getSize();
+    return getXaxis().size();
 }
 
 double IHistogram::getYmin() const
@@ -83,7 +83,7 @@ double IHistogram::getYmax() const
 
 size_t IHistogram::getNbinsY() const
 {
-    return getYaxis().getSize();
+    return getYaxis().size();
 }
 
 size_t IHistogram::getGlobalBin(size_t binx, size_t biny) const

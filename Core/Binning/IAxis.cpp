@@ -24,10 +24,10 @@ IAxis* IAxis::createDoubleBinSize() const
 
 size_t IAxis::findIndex(double value) const
 {
-    for (size_t index=0; index<getSize(); ++index) {
+    for (size_t index=0; index<size(); ++index) {
         if (BinContains(getBin(index), value)) return index;
     }
-    return getSize();
+    return size();
 }
 
 bool IAxis::equals(const IAxis& other) const

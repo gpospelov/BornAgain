@@ -50,9 +50,9 @@ TEST_F(InstrumentTest, BeamManipulation)
     const IAxis &axis0 = m_instrument.getDetectorAxis(0);
     const IAxis &axis1 = m_instrument.getDetectorAxis(1);
     EXPECT_EQ( axis0.getName(), BornAgain::PHI_AXIS_NAME );
-    EXPECT_EQ( axis0.getSize(), (size_t)10);
+    EXPECT_EQ( axis0.size(), (size_t)10);
     EXPECT_STREQ( axis1.getName().c_str(), "theta_f" );
-    EXPECT_EQ( axis1.getSize(), (size_t)20);
+    EXPECT_EQ( axis1.size(), (size_t)20);
 
     m_instrument.setBeamIntensity(10);
     EXPECT_EQ( double(10), m_instrument.getBeamIntensity());

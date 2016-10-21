@@ -333,7 +333,7 @@ void OutputData<T>::addAxis(const IAxis& new_axis)
             "OutputData<T>::addAxis(const IAxis& new_axis) -> "
             "Error! Attempt to add axis with already existing name '" +
             new_axis.getName() + "'");
-    if (new_axis.getSize()>0) {
+    if (new_axis.size()>0) {
         m_value_axes.push_back(new_axis.clone());
         allocate();
     }
@@ -417,8 +417,8 @@ std::vector<int> OutputData<T>::getAxesBinIndices(size_t global_index) const
     result.resize(mp_ll_data->getRank());
     for (size_t i=0; i<mp_ll_data->getRank(); ++i) {
         result[mp_ll_data->getRank()-1-i] =
-            (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i]->getSize());
-        remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->getSize();
+            (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i]->size());
+        remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->size();
     }
     return result;
 }
@@ -430,9 +430,9 @@ int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) 
     size_t remainder(global_index);
     for (size_t i=0; i<mp_ll_data->getRank(); ++i) {
         size_t i_axis = mp_ll_data->getRank()-1-i;
-        int result = (int)(remainder % m_value_axes[i_axis]->getSize());
+        int result = (int)(remainder % m_value_axes[i_axis]->size());
         if(i_selected_axis == i_axis ) return result;
-        remainder /= m_value_axes[i_axis]->getSize();
+        remainder /= m_value_axes[i_axis]->size();
     }
     throw Exceptions::LogicErrorException("OutputData<T>::getAxisBinIndex() -> "
                                           "Error! No axis with given number");
@@ -456,16 +456,16 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
     size_t result = 0;
     int step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i) {
-        if(axes_indices[i-1] < 0 || axes_indices[i-1] >= (int)m_value_axes[i-1]->getSize()) {
+        if(axes_indices[i-1] < 0 || axes_indices[i-1] >= (int)m_value_axes[i-1]->size()) {
             std::ostringstream message;
             message << "size_t OutputData<T>::toGlobalIndex() -> Error. Index ";
             message << axes_indices[i-1] << " is out of range. Axis ";
             message << m_value_axes[i-1]->getName();
-            message << " size " << m_value_axes[i-1]->getSize() << ".\n";
+            message << " size " << m_value_axes[i-1]->size() << ".\n";
             throw Exceptions::LogicErrorException(message.str());
         }
         result += axes_indices[i-1]*step_size;
-        step_size *= m_value_axes[i-1]->getSize();
+        step_size *= m_value_axes[i-1]->size();
     }
     return result;
 }
@@ -613,7 +613,7 @@ void OutputData<T>::allocate()
     size_t rank = m_value_axes.size();
     int* dims =  new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        dims[i] = (int)getAxis(i).getSize();
+        dims[i] = (int)getAxis(i).size();
     }
     mp_ll_data = new LLData<T>(rank, dims);
     T default_value = T();
@@ -648,7 +648,7 @@ inline bool OutputData<T>::hasSameDimensions(const OutputData<U>& right) const
     if (!right.isInitialized()) return false;
     if (getRank() != right.getRank()) return false;
     for (size_t i_axis=0; i_axis<getRank(); ++i_axis)
-        if (getAxis(i_axis).getSize() != right.getAxis(i_axis).getSize()) return false;
+        if (getAxis(i_axis).size() != right.getAxis(i_axis).size()) return false;
     return true;
 }
 

@@ -56,7 +56,7 @@ int Histogram2D::fill(double x, double y, double weight)
 
 Histogram1D* Histogram2D::projectionX()
 {
-    return create_projectionX(0, getXaxis().getSize()-1);
+    return create_projectionX(0, getXaxis().size()-1);
 }
 
 Histogram1D* Histogram2D::projectionX(double yvalue)
@@ -74,7 +74,7 @@ Histogram1D* Histogram2D::projectionX(double ylow, double yup)
 
 Histogram1D* Histogram2D::projectionY()
 {
-    return create_projectionY(0, getXaxis().getSize()-1);
+    return create_projectionY(0, getXaxis().size()-1);
 }
 
 Histogram1D* Histogram2D::projectionY(double xvalue)

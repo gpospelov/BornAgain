@@ -102,12 +102,12 @@ OutputData<double> *ImportDataAssistant::createSimlifiedOutputData(const OutputD
     const IAxis &aX = data.getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis &aY = data.getAxis(BornAgain::Y_AXIS_INDEX);
 
-    double xmax = double(aX.getSize());
-    double ymax = double(aY.getSize());
+    double xmax = double(aX.size());
+    double ymax = double(aY.size());
 
     OutputData<double> *result = new OutputData<double>;
-    result->addAxis(FixedBinAxis(aX.getName(), aX.getSize(), xmin, xmax));
-    result->addAxis(FixedBinAxis(aY.getName(), aY.getSize(), ymin, ymax));
+    result->addAxis(FixedBinAxis(aX.getName(), aX.size(), xmin, xmax));
+    result->addAxis(FixedBinAxis(aY.getName(), aY.size(), ymin, ymax));
     result->setRawDataVector(data.getRawDataVector());
 
     return result;
@@ -179,8 +179,8 @@ void ImportDataAssistant::detectorShape(const InstrumentItem *instrumentItem, in
     }
 
     Q_ASSERT(detector.get());
-    nx = detector->getAxis(0).getSize();
-    ny = detector->getAxis(1).getSize();
+    nx = detector->getAxis(0).size();
+    ny = detector->getAxis(1).size();
 }
 
 void ImportDataAssistant::setInstrumentShapeToData(InstrumentItem *instrumentItem,

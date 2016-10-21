@@ -124,9 +124,9 @@ void VerticalSlicePlot::plotItem(IntensityDataItem *intensityItem)
     const IAxis &axis = data->getAxis(1);
     double bin_size(0);
 //    if(intensityItem->axesInRadians()) {
-        bin_size = (axis.getMax() - axis.getMin())/axis.getSize();
+        bin_size = (axis.getMax() - axis.getMin())/axis.size();
 //    } else {
-//        bin_size = (Units::rad2deg(axis->getMax()) - Units::rad2deg((axis->getMin())))/axis->getSize();
+//        bin_size = (Units::rad2deg(axis->getMax()) - Units::rad2deg((axis->getMin())))/axis.size();
 //    }
 
     m_bars->setWidth(bin_size);

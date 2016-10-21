@@ -610,7 +610,7 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
         result << indent() << "simulation.setDetectorParameters(";
         for(size_t index=0; index<detector->getDimension(); ++index) {
             if (index != 0) result << ", ";
-            result << detector->getAxis(index).getSize() << ", "
+            result << detector->getAxis(index).size() << ", "
                    << printDegrees(detector->getAxis(index).getMin()) << ", "
                    << printDegrees(detector->getAxis(index).getMax());
         }

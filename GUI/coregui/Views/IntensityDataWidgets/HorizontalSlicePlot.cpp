@@ -123,7 +123,7 @@ void HorizontalSlicePlot::plotItem(IntensityDataItem *intensityItem)
 
     const IAxis &axis0 = data->getAxis(0);
     double bin_size(0);
-    bin_size = (axis0.getMax() - axis0.getMin())/axis0.getSize();
+    bin_size = (axis0.getMax() - axis0.getMin())/axis0.size();
 
     m_bars->setWidth(bin_size);
     m_bars->setPen(Qt::NoPen);

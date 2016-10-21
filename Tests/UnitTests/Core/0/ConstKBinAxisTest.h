@@ -41,18 +41,18 @@ protected:
 //[-5.0, -3.99816897832528, -2.9975609824866662, -1.99786732193833, -0.9987818274427882, 0.0, 0.9987818274427874, 1.9978673219383292, 2.997560982486666, 3.998168978325279, 5.0]
 TEST_F(ConstKBinAxisTest, TypicalAxis)
 {
-    EXPECT_EQ(m_nbins, m_axis.getSize());
+    EXPECT_EQ(m_nbins, m_axis.size());
     EXPECT_EQ(m_start, m_axis.getMin());
     EXPECT_EQ(m_end, m_axis.getMax());
 
     EXPECT_DOUBLE_EQ(m_start, m_axis.getBinBoundaries().front());
     EXPECT_DOUBLE_EQ(m_end, m_axis.getBinBoundaries().back());
 
-    for(size_t i=0; i<m_axis.getSize(); ++i) {
+    for(size_t i=0; i<m_axis.size(); ++i) {
         EXPECT_DOUBLE_EQ( m_centers[i], m_axis[i]);
     }
 
-    for(size_t i=0; i<m_axis.getSize(); ++i) {
+    for(size_t i=0; i<m_axis.size(); ++i) {
         EXPECT_DOUBLE_EQ( m_boundaries[i], m_axis.getBin(i).m_lower);
         EXPECT_DOUBLE_EQ( m_boundaries[i+1], m_axis.getBin(i).m_upper);
     }
@@ -87,7 +87,7 @@ TEST_F(ConstKBinAxisTest, ClippedAxis)
     delete clip1;
 
     ConstKBinAxis *clip2 = m_axis.createClippedAxis(Units::deg2rad(-3.0), Units::deg2rad(3.0));
-    EXPECT_EQ(clip2->getSize(), size_t(8));
+    EXPECT_EQ(clip2->size(), size_t(8));
     std::vector<double> boundaries = clip2->getBinBoundaries();
     for(size_t i=0; i<boundaries.size(); ++i) {
         EXPECT_EQ(boundaries[i], m_axis.getBin(1+i).m_lower);

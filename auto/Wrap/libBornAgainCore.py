@@ -3236,16 +3236,16 @@ class IAxis(_object):
     __swig_destroy__ = _libBornAgainCore.delete_IAxis
     __del__ = lambda self: None
 
-    def getSize(self):
+    def size(self):
         """
-        getSize(IAxis self) -> size_t
+        size(IAxis self) -> size_t
 
-        virtual size_t IAxis::getSize() const =0
+        virtual size_t IAxis::size() const =0
 
         retrieve the number of bins 
 
         """
-        return _libBornAgainCore.IAxis_getSize(self)
+        return _libBornAgainCore.IAxis_size(self)
 
 
     def getName(self):
@@ -3336,7 +3336,7 @@ class IAxis(_object):
 
         size_t IAxis::findIndex(double value) const
 
-        find index of bin that contains the given value returns  getSize() when value is not found 
+        find index of bin that contains the given value returns  size() when value is not found 
 
         """
         return _libBornAgainCore.IAxis_findIndex(self, value)
@@ -3470,16 +3470,16 @@ class VariableBinAxis(IAxis):
         return _libBornAgainCore.VariableBinAxis_clone(self)
 
 
-    def getSize(self):
+    def size(self):
         """
-        getSize(VariableBinAxis self) -> size_t
+        size(VariableBinAxis self) -> size_t
 
-        size_t VariableBinAxis::getSize() const
+        size_t VariableBinAxis::size() const
 
         retrieve the number of bins 
 
         """
-        return _libBornAgainCore.VariableBinAxis_getSize(self)
+        return _libBornAgainCore.VariableBinAxis_size(self)
 
 
     def getBin(self, index):
@@ -9895,16 +9895,16 @@ class FixedBinAxis(IAxis):
         return _libBornAgainCore.FixedBinAxis_clone(self)
 
 
-    def getSize(self):
+    def size(self):
         """
-        getSize(FixedBinAxis self) -> size_t
+        size(FixedBinAxis self) -> size_t
 
-        size_t FixedBinAxis::getSize() const
+        size_t FixedBinAxis::size() const
 
         retrieve the number of bins 
 
         """
-        return _libBornAgainCore.FixedBinAxis_getSize(self)
+        return _libBornAgainCore.FixedBinAxis_size(self)
 
 
     def getBin(self, index):

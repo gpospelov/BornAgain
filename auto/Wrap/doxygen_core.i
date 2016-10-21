@@ -2351,7 +2351,7 @@ upper edge of last bin
 clone function 
 ";
 
-%feature("docstring")  FixedBinAxis::getSize "size_t FixedBinAxis::getSize() const
+%feature("docstring")  FixedBinAxis::size "size_t FixedBinAxis::size() const
 
 retrieve the number of bins 
 ";
@@ -5290,7 +5290,7 @@ Creates a new axis with half the number of bins.
 destructor 
 ";
 
-%feature("docstring")  IAxis::getSize "virtual size_t IAxis::getSize() const =0
+%feature("docstring")  IAxis::size "virtual size_t IAxis::size() const =0
 
 retrieve the number of bins 
 ";
@@ -5330,7 +5330,7 @@ find bin index which is best match for given value
 
 %feature("docstring")  IAxis::findIndex "size_t IAxis::findIndex(double value) const
 
-find index of bin that contains the given value returns  getSize() when value is not found 
+find index of bin that contains the given value returns  size() when value is not found 
 ";
 
 %feature("docstring")  IAxis::getBinCenters "std::vector< double > IAxis::getBinCenters() const 
@@ -12624,7 +12624,7 @@ Array of size nbins+1 containing low-edges for each bin and upper edge of last b
 clone function 
 ";
 
-%feature("docstring")  VariableBinAxis::getSize "size_t VariableBinAxis::getSize() const
+%feature("docstring")  VariableBinAxis::size "size_t VariableBinAxis::size() const
 
 retrieve the number of bins 
 ";

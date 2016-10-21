@@ -16,7 +16,6 @@
 
 \chapter{Multilayer systems}  \label{sec:Multilayers}
 
-
 \index{Multilayer|(}%
 \index{Layer structures|see {Multilayer}}
 
@@ -43,7 +42,6 @@ in the distorted wave Born approximation (\cref{SDWBA}).
 \index{Grazing-incidence small angle scattering!geometric conventions}%
 \index{Coordinate system!GISAS geometry}%
 \index{Glancing angle}%
-\index{Incident radiation!angles}%
 \index{Scattering angles}%
 \index{Geometry!conventions for GISAS}
   in GISAS scattering comprise a Cartesian coordinate system
@@ -129,47 +127,44 @@ The homogeneous wave equation~\cref{EHelmholtzHomog} takes the form
 \begin{equation}\label{EWaveZ}
   \left\{\Nabla^2+K(z)^2\right\}\psi(\r) = 0.
 \end{equation}
-To formulate boundary conditions,
-\index{Boundary conditions!wave propagation through multilayer}%
-we request $K(z)=\text{const}$ in the semi-infinite half spaces above and below the sample.
-To keep the following exposition as simple as possible,
-we specialize to the case that the incident plane wave comes from above the sample
-(BornAgain also supports incidence from below).
-This downward travelling plane wave shall be denoted
-\index{Incident radiation!plane wave}%
-\index{Incident radiation!GISAS}%
+Below and above the sample,
+$K(z)=\text{const}$:
+in these regions, $\psi(\r)$~is a superposition of plane waves.
+The exciting wavefunction is
+\index{Exciting wave!DWBA}%
+\index{Wave!exciting}%
 \begin{equation}\label{Epsiminus}
-  \psi^{-}(\r) = \e^{i\k_\parallel\r_\parallel-ik_{\perp}z},
+  \psi_\se(\r) = \e^{i\k_\parallel\r_\parallel+ik_{\perp\se}z},
 \end{equation}
 \nomenclature[0$\parallel$]{$\parallel$}{Parallel to the $xy$ sample plane}%
 \nomenclature[0$\perp$]{$\perp$}{Normal to the $xy$ sample plane}%
 \nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
 \nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
-with subscripts $\parallel$ and~$\perp$ refering to the sample $xy$ plane.
+The subscripts $\parallel$ and~$\perp$ refer to the sample $xy$ plane.
 The wave vector components $\k_\parallel$ and $k_{\perp}$ must fulfill
 \begin{equation}
   K(z)^2=\k_\parallel^2+k_{\perp}^2.
 \end{equation}
-
-When the incident wave hits a sample with nontrivial refractive index,
+Continuity across the sample implies
+\begin{equation}\label{Ekconst}
+  \k_\parallel = \text{const}.
+\end{equation}
+When the incident wave hits the sample,
 it is wholly or partly reflected.
-Therefore, the full the solution of~\cref{EWaveZ} in the half space above the sample is
-\begin{equation}
-  \psi(\r) = \e^{i\k_\parallel\r_\parallel-ik_{\perp} z} +
-      R\, \e^{i\k_\parallel\r_\parallel+ik_{\perp} z}
-  \text{ for }z\gg0,
+Therefore, the full the solution of~\cref{EWaveZ} in the half space
+of the radiation source is
+\begin{equation}\label{Eref1}
+  \psi(\r) = \e^{i\k_\parallel\r_\parallel+ik_{\perp\se} z} +
+      R\, \e^{i\k_\parallel\r_\parallel-ik_{\perp\se} z}
 \end{equation}
 with a complex reflection coefficient~$R$.
 \index{Reflection coefficient}%
 The reflected flux is given by the re\-flect\-an\-ce $|R|^2$.
 \index{Reflectance}%
 \index{Flux!reflected}%
-By choice of our boundary conditions,
-there is no upward travelling wave in the half space below the sample.
-In this region, the solution of~\cref{EWaveZ} is simply
-\begin{equation}
-  \psi(\r) = T\, \e^{i\k_\parallel\r_\parallel+ik_{\perp} z}
-  \text{ for }z\ll0,
+In the opposite halfspace, the solution of~\cref{EWaveZ} is simply
+\begin{equation}\label{Etra1}
+  \psi(\r) = T\, \e^{i\k_\parallel\r_\parallel+ik_{\perp\se} z}
 \end{equation}
 with a complex transmission coefficient~$T$.
 The transmitted flux is given by the transmittance $|T|^2$.
@@ -182,10 +177,6 @@ is solved by the factorization ansatz
 \psi(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
-Continuity at the interfaces above and below the sample implies
-\begin{equation}\label{Ekconst}
-  \k_\parallel = \text{const}.
-\end{equation}
 The vertical wavefunction~$\phi(z)$
 is governed by the one-dimensional wave equation
 \begin{equation}\label{Ewavez}

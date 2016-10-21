@@ -19,10 +19,9 @@
 #include "IParameterized.h"
 #include "Beam.h"
 #include "DetectorMask.h"
-#include "EigenCore.h"
 #include "SafePointerVector.h"
-#include "Vectors3D.h"
 #include "Rectangle.h"
+#include "DetectionProperties.h"
 #include <memory>
 
 template<class T> class OutputData;
@@ -31,6 +30,7 @@ class IAxis;
 class IDetectorResolution;
 class IPixelMap;
 class SimulationElement;
+class DetectionProperties;
 namespace Geometry {
     class IShape2D;
 }
@@ -83,11 +83,6 @@ public:
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission=1.0);
 
-#ifndef SWIG
-    //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getAnalyzerOperator() const;
-#endif
-
     //! removes all masks from the detector
     void removeMasks();
 
@@ -126,11 +121,9 @@ public:
     virtual std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
-    //! Returns clone of the intensity map with detector resolution applied,
-    //! axes of map will be in requested units
-    OutputData<double>* getDetectorIntensity(
-        const OutputData<double>& data, const Beam& beam,
-        IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+    //! Returns new intensity map with detector resolution applied and axes in requested units
+    OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
+            const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
     //! Returns detector map in given axes units
     virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
@@ -159,6 +152,9 @@ public:
     //! Calculate axis index for given global index
     size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
 
+    //! Returns number of simulation elements.
+    size_t numberOfSimulationElements() const;
+
 protected:
     IDetector2D(const IDetector2D& other);
 
@@ -186,12 +182,6 @@ protected:
 
     bool isCorrectAxisIndex(size_t index) const;
 
-    //! Returns true if data has a compatible format with the detector.
-    bool dataShapeMatches(const OutputData<double>* p_data) const;
-
-    //! Initialize polarization (for constructors)
-    void initPolarizationOperator();
-
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;
 
@@ -202,24 +192,13 @@ protected:
 
     SafePointerVector<IAxis> m_axes;
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;
-#ifndef SWIG
-    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
-#endif
     DetectorMask m_detector_mask;
+
 private:
-    //! Verify if the given analyzer properties are physical
-    bool checkAnalyzerProperties(const kvector_t direction, double efficiency,
-                                 double total_transmission) const;
-
-#ifndef SWIG
-    Eigen::Matrix2cd calculateAnalyzerOperator(
-        const kvector_t direction, double efficiency, double total_transmission = 1.0) const;
-#endif
-
     void setDataToDetectorMap(OutputData<double> &detectorMap,
-                              const OutputData<double> &data) const;
-
+                              const std::vector<SimulationElement> &elements) const;
     std::unique_ptr<Geometry::Rectangle> m_region_of_interest;
+    DetectionProperties m_detection_properties;
 };
 
 #endif // IDETECTOR2D_H

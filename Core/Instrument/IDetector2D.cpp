@@ -28,14 +28,13 @@ IDetector2D::IDetector2D()
     : m_axes()
 {
     init_parameters();
-    initPolarizationOperator();
 }
 
 IDetector2D::IDetector2D(const IDetector2D &other)
-    : IParameterized(),
-      m_axes(other.m_axes),
-      m_analyzer_operator(other.m_analyzer_operator),
-      m_detector_mask(other.m_detector_mask)
+    : IParameterized()
+    , m_axes(other.m_axes)
+    , m_detector_mask(other.m_detector_mask)
+    , m_detection_properties(other.m_detection_properties)
 {
     setName(other.getName());
     if (other.mP_detector_resolution)
@@ -97,12 +96,8 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
 void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                      double total_transmission)
 {
-    if (!checkAnalyzerProperties(direction, efficiency, total_transmission))
-        throw Exceptions::ClassInitializationException(
-            "IDetector2D::setAnalyzerProperties: the given properties are not physical");
-    m_analyzer_operator = calculateAnalyzerOperator(direction, efficiency, total_transmission);
+    m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
-
 
 std::string IDetector2D::addParametersToExternalPool(
     const std::string& path, ParameterPool *external_pool, int copy_number) const
@@ -117,22 +112,17 @@ std::string IDetector2D::addParametersToExternalPool(
     return new_path;
 }
 
-OutputData<double> *IDetector2D::getDetectorIntensity(const OutputData<double> &data,
-                                                      const Beam& beam,
-                                                      IDetector2D::EAxesUnits units_type) const
+OutputData<double> *IDetector2D::createDetectorIntensity(
+        const std::vector<SimulationElement> &elements,
+        const Beam &beam, IDetector2D::EAxesUnits units_type) const
 {
-    std::unique_ptr<OutputData<double>> result(data.clone());
-    applyDetectorResolution(result.get());
-
-    if(units_type == IDetector2D::DEFAULT && regionOfInterest() == nullptr)
-        return result.release();
-
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
     if(!detectorMap)
         throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
                                     "Can't create detector map.");
 
-    setDataToDetectorMap(*detectorMap.get(), *result.get());
+    setDataToDetectorMap(*detectorMap.get(), elements);
+    applyDetectorResolution(detectorMap.get());
 
     return detectorMap.release();
 }
@@ -220,11 +210,12 @@ bool IDetector2D::hasMasks() const
 std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam &beam)
 {
     std::vector<SimulationElement> result;
+
     double wavelength = beam.getWavelength();
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    Eigen::Matrix2cd analyzer_operator = getAnalyzerOperator();
+    Eigen::Matrix2cd analyzer_operator = m_detection_properties.analyzerOperator();
 
     if (!hasMasks())
         m_detector_mask.initMaskData(*this);
@@ -239,7 +230,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
         if (it.index()==spec_index) {
             sim_element.setSpecular(true);
         }
-        result.push_back(sim_element);
+        result.push_back(std::move(sim_element));
     }
 
     return result;
@@ -262,24 +253,6 @@ void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,
         data[it.index()] = elements[it.elementIndex()].getIntensity();
 }
 
-bool IDetector2D::dataShapeMatches(const OutputData<double> *p_data) const
-{
-    if (p_data->getRank() != getDimension())
-        return false;
-    for (size_t i = 0; i < getDimension(); ++i) {
-        const IAxis *p_data_axis = p_data->getAxis(i);
-        const IAxis &detector_axis = getAxis(i);
-        if (detector_axis != *p_data_axis)
-            return false;
-    }
-    return true;
-}
-
-void IDetector2D::initPolarizationOperator()
-{
-    m_analyzer_operator = Eigen::Matrix2cd::Identity();
-}
-
 size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
 {
     size_t remainder(index);
@@ -292,6 +265,15 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
     }
     throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
                                           "Error! No axis with given number");
+}
+
+size_t IDetector2D::numberOfSimulationElements() const
+{
+    size_t result(0);
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        ++result;
+    return result;
 }
 
 std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,
@@ -385,61 +367,14 @@ size_t IDetector2D::getTotalSize() const
     return result;
 }
 
-bool IDetector2D::checkAnalyzerProperties(
-    const kvector_t direction, double efficiency, double total_transmission) const
-{
-    if (direction.mag() == 0.0)
-        return false;
-    double aplus = total_transmission * (1.0 + efficiency);
-    double amin = total_transmission * (1.0 - efficiency);
-    if (aplus < 0.0 || aplus > 1.0)
-        return false;
-    if (amin < 0.0 || amin > 1.0)
-        return false;
-    return true;
-}
-
-Eigen::Matrix2cd IDetector2D::calculateAnalyzerOperator(
-    const kvector_t direction, double efficiency, double total_transmission) const
-{
-    Eigen::Matrix2cd result;
-    double x = direction.x()/direction.mag();
-    double y = direction.y()/direction.mag();
-    double z = direction.z()/direction.mag();
-    double sum = total_transmission * 2.0;
-    double diff = total_transmission * efficiency * 2.0;
-    complex_t im(0.0, 1.0);
-    result(0, 0) = (sum + diff*z) / 2.0;
-    result(0, 1) = diff*(x - im * y) / 2.0;
-    result(1, 0) = diff*(x + im * y) / 2.0;
-    result(1, 1) = (sum - diff*z) / 2.0;
-    return result;
-}
-
 void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
-                                       const OutputData<double> &data) const
+                                       const std::vector<SimulationElement> &elements) const
 {
-    if(detectorMap.getAllocatedSize() == data.getAllocatedSize()) {
-        detectorMap.setRawDataVector(data.getRawDataVector());
+    if(elements.empty())
         return;
-    }
-
-    if(const Geometry::Rectangle *roi = regionOfInterest()) {
-        size_t roi_x = getAxis(BornAgain::X_AXIS_INDEX).findClosestIndex(roi->getXlow());
-        size_t roi_y = getAxis(BornAgain::Y_AXIS_INDEX).findClosestIndex(roi->getYlow());
-        size_t index0 = getGlobalIndex(roi_x, roi_y);
-        const IAxis &yAxisOfDetector = getAxis(BornAgain::Y_AXIS_INDEX);
-
-        const IAxis &xAxisOfMap = *detectorMap.getAxis(BornAgain::X_AXIS_INDEX);
-        const IAxis &yAxisOfMap = *detectorMap.getAxis(BornAgain::Y_AXIS_INDEX);
-        for(size_t ix=0; ix<xAxisOfMap.getSize(); ++ix) {
-            for(size_t iy=0; iy<yAxisOfMap.getSize(); ++iy) {
-                size_t mapIndex = iy + ix*yAxisOfMap.getSize();
-                size_t globalIndex = index0 + iy + ix*yAxisOfDetector.getSize();
-                detectorMap[mapIndex] = data[globalIndex];
-            }
-        }
-    }
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
 
 }
 
@@ -469,13 +404,6 @@ const IDetectorResolution* IDetector2D::getDetectorResolutionFunction() const
 {
     return mP_detector_resolution.get();
 }
-
-#ifndef SWIG
-Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
-{
-    return m_analyzer_operator;
-}
-#endif
 
 bool IDetector2D::isCorrectAxisIndex(size_t index) const
 {

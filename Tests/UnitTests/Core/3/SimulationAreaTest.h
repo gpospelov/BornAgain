@@ -162,4 +162,31 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
 
 }
 
+//! Checking index of ROI
+
+TEST_F(SimulationAreaTest, indexInRoi)
+{
+    SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
+    detector.setRegionOfInterest(0.1, 1.1, 2.9, 3.9);
+    detector.addMask(Geometry::Rectangle(-0.9, 0.1, 0.9, 1.9), true);
+    SimulationArea area(&detector);
+
+    std::vector<int> expectedIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
+    std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
+    std::vector<int> expectedRoi = {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<int> indexes;
+    std::vector<int> elementIndexes;
+    std::vector<int> roiIndexes;
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        indexes.push_back(it.index());
+        elementIndexes.push_back(it.elementIndex());
+        roiIndexes.push_back(it.roiIndex());
+    }
+    EXPECT_EQ(indexes, expectedIndexes);
+    EXPECT_EQ(elementIndexes, expectedElementIndexes);
+    EXPECT_EQ(roiIndexes, expectedRoi);
+
+
+}
+
 #endif

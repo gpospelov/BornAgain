@@ -17,6 +17,9 @@
 #include "FitElement.h"
 #include "GISASSimulation.h"
 #include "IIntensityNormalizer.h"
+#include "SimulationArea.h"
+#include "BornAgainNamespace.h"
+#include "DetectorFunctions.h"
 
 FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
     double weight, bool adjust_detector_to_data)
@@ -51,58 +54,26 @@ std::string FitObject::addParametersToExternalPool(
 //! Initialize detector, if necessary, to match experimental data
 void FitObject::init_dataset()
 {
-    if(!same_dimensions_dataset()) {
-        if(!(m_adjust_detector_to_data && is_possible_to_adjust_simulation()))
-            throw Exceptions::LogicErrorException(get_error_message());
-        m_simulation->setDetectorParameters(*m_real_data);
-    }
+    check_realdata();
     m_chi2_data->copyShapeFrom(*m_real_data);
 }
 
-bool FitObject::same_dimensions_dataset() const
+void FitObject::check_realdata() const
 {
-    return m_real_data->hasSameDimensions(*m_simulation->getOutputData());
+    const IDetector2D *detector = m_simulation->getInstrument().getDetector();
+    if(!DetectorFunctions::hasSameDimensions(*detector, *m_real_data.get())){
+        std::ostringstream message;
+        message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
+                << "the detector. Real data:" << DetectorFunctions::axesToString(*m_real_data.get())
+                        << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
+        throw Exceptions::RuntimeErrorException(message.str());
+    }
 }
 
-//! returns true if it is possible to adjust detector axes to the axes of real data
-//! * rank of two data should coinside
-//! * for every axis, number of real data axis bins should be not large than simulation axis
-//! * for every axis, (min,max) values of real axis should be inside simulation axis
-bool FitObject::is_possible_to_adjust_simulation() const
-{
-    if(m_simulation->getOutputData()->getRank() != m_real_data->getRank()) return false;
-    for(size_t i=0; i<m_real_data->getRank(); ++i) {
-        const IAxis* ra = m_real_data->getAxis(i);
-        const IAxis* sa = m_simulation->getOutputData()->getAxis(i);
-        if(ra->getSize() > sa->getSize()) return false;
-        if(ra->getMin() < sa->getMin()) return false;
-        if(ra->getMax() > sa->getMax()) return false;
-    }
-    return true;
-}
-
-std::string FitObject::get_error_message() const
-{
-    std::ostringstream message;
-    message << "FitObject::init_dataset() -> Error. "
-            << "Real data and detector have different shape. \n"
-            << "Real data axes -> ";
-    for(size_t i=0; i<m_real_data->getRank(); ++i) {
-        message << "#"<< i << ": " << (*m_real_data->getAxis(i)) << " ";
-    }
-    message << "\nDetector axes  -> ";
-    for(size_t i=0; i<m_simulation->getOutputData()->getRank(); ++i) {
-        message << "#"<< i << ": " << (*m_simulation->getOutputData()->getAxis(i)) << " ";
-    }
-    return message.str();
-}
 
 size_t FitObject::getSizeOfData() const
 {
-    // TODO Fix this hell
-    size_t result = m_real_data->getAllocatedSize() -
-        m_simulation->getInstrument().getDetector()->getDetectorMask()->getNumberOfMaskedChannels();
-    return result;
+    return m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
 }
 
 //! Runs simulation and put results (the real and simulated intensities) into
@@ -116,24 +87,13 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
     if(normalizer)
         normalizer->apply(*m_simulation_data.get());
 
-    const OutputData<bool>* masks(0);
-    if(m_simulation->getInstrument().getDetector()->hasMasks())
-        masks = m_simulation->getInstrument().getDetector()->getDetectorMask()->getMaskData();
-
-    if(masks && m_simulation_data->getAllocatedSize() != masks->getAllocatedSize()) {
-        std::ostringstream message;
-        message << "FitObject::prepareFitElements() -> Error. Size mismatch. "
-                << "m_simulation_data->getAllocatedSize():" << m_simulation_data->getAllocatedSize()
-                << " " << "masks->getAllocatedSize()" << masks->getAllocatedSize()
-                << std::endl;
-        throw Exceptions::RuntimeErrorException(message.str());
-    }
-
-    for(size_t index=0; index<m_simulation_data->getAllocatedSize(); ++index) {
-        if(masks && (*masks)[index]) continue;
-        FitElement element(index, (*m_simulation_data)[index], (*m_real_data)[index], weight);
+    SimulationArea area(m_simulation->getInstrument().getDetector());
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        FitElement element(it.index(), (*m_simulation_data)[it.index()],
+                (*m_real_data)[it.index()], weight);
         fit_elements.push_back(element);
     }
+
 }
 
 //!Creates ChiSquared map from external vector.

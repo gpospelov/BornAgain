@@ -47,7 +47,6 @@ public slots:
                         IntensityDataItem *intensityItem);
 
     void onPropertyPanelRequest();
-    void init_test_model();
 
     QList<QAction *> topToolBarActions();
 

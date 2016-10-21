@@ -52,22 +52,17 @@ void GISASSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-int GISASSimulation::getNumberOfSimulationElements() const
+int GISASSimulation::numberOfSimulationElements() const
 {
-    if (m_instrument.getDetectorDimension()!=2)
-        throw Exceptions::RuntimeErrorException("GISASSimulation::getNumberOfSimulationElements: "
-                                    "detector is not two-dimensional");
-    const IAxis& x_axis = m_instrument.getDetectorAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis& y_axis = m_instrument.getDetectorAxis(BornAgain::Y_AXIS_INDEX);
-    int nmasked = getInstrument().getDetector()->getNumberOfMaskedChannels();
-    return x_axis.getSize()*y_axis.getSize() - nmasked;
+    return getInstrument().getDetector()->numberOfSimulationElements();
 }
 
 OutputData<double>* GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type) const
 {
-    OutputData<double>* ret = m_instrument.getDetectorIntensity(m_intensity_map, units_type);
-    ret->setVariability( m_options.getDefaultVariability() );
-    return ret;
+    std::unique_ptr<OutputData<double>> result(
+        m_instrument.createDetectorIntensity(m_sim_elements, units_type));
+    result->setVariability( m_options.getDefaultVariability() );
+    return result.release();
 }
 
 Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
@@ -159,7 +154,8 @@ void GISASSimulation::initSimulationElementVector()
 
 void GISASSimulation::transferResultsToIntensityMap()
 {
-    m_instrument.getDetector()->transferResultsToIntensityMap(m_intensity_map, m_sim_elements);
+    std::unique_ptr<OutputData<double>> data(m_instrument.createDetectorIntensity(m_sim_elements));
+    m_intensity_map.copyFrom(*data.get());
 }
 
 void GISASSimulation::updateIntensityMap()

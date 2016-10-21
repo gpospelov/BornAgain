@@ -36,7 +36,7 @@ public:
     //! @param weight Weight of dataset in chi2 calculations
     //! @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true
     FitObject(const GISASSimulation& simulation, const OutputData<double>& real_data,
-              double weight = 1, bool adjust_detector_to_data = true);
+              double weight = 1, bool adjust_detector_to_data = false);
 
     virtual ~FitObject();
 
@@ -72,9 +72,7 @@ protected:
 
 private:
     void init_dataset();
-    bool same_dimensions_dataset() const;
-    bool is_possible_to_adjust_simulation() const;
-    std::string get_error_message() const;
+    void check_realdata() const;
 
     std::unique_ptr<GISASSimulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;

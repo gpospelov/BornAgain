@@ -46,28 +46,7 @@ namespace OutputDataFunctions
     //! structure and returns a new double-valued one
     BA_CORE_API_ OutputData<double>* getComponentData(
         const OutputData<Eigen::Matrix2d>& source, int row, int column);
-    //! Assembles a matrix-valued OuputData structure from its component maps
-    BA_CORE_API_ OutputData<Eigen::Matrix2d>* createFromComponents(
-        const OutputData<double>& component_00,
-        const OutputData<double>& component_01,
-        const OutputData<double>& component_10,
-        const OutputData<double>& component_11);
 #endif
-
-    //! Slice data, having one bin on selected axis fixed. Resulting output
-    //! data will have one axis less (without axis 'fixed_axis_name')
-    BA_CORE_API_ OutputData<double>* sliceAccrossOneAxis(
-        const OutputData<double>& data, const std::string& fixed_axis_name,
-        double fixed_axis_value);
-
-    //! Select range on one of the axis. Resulting output data will have same
-    //! number of axes
-    BA_CORE_API_ OutputData<double>* selectRangeOnOneAxis(
-        const OutputData<double>& data, const std::string& selected_axis_name,
-        double axis_value1, double axis_value2);
-
-    //! apply intensity function to values stored in output data
-    BA_CORE_API_ void applyFunction(OutputData<double>& data, const IIntensityFunction* func);
 }
 
 #endif // OUTPUTDATAFUNCTIONS_H

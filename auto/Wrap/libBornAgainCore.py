@@ -22263,43 +22263,6 @@ def getModulusPart(source):
 
     """
     return _libBornAgainCore.getModulusPart(source)
-
-def sliceAccrossOneAxis(data, fixed_axis_name, fixed_axis_value):
-    """
-    sliceAccrossOneAxis(IntensityData data, std::string const & fixed_axis_name, double fixed_axis_value) -> IntensityData
-
-    OutputData< double > * OutputDataFunctions::sliceAccrossOneAxis(const OutputData< double > &data, const std::string &fixed_axis_name, double fixed_axis_value)
-
-    Slice data, having one bin on selected axis fixed. Resulting output data will have one axis less (without axis 'fixed_axis_name') 
-
-    """
-    return _libBornAgainCore.sliceAccrossOneAxis(data, fixed_axis_name, fixed_axis_value)
-
-def selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2):
-    """
-    selectRangeOnOneAxis(IntensityData data, std::string const & selected_axis_name, double axis_value1, double axis_value2) -> IntensityData
-
-    OutputData< double > * OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
-
-    Select range on one of the axis.
-
-    Select range on one of the axis. Resulting output data will have same number of axes
-
-    Resulting output data will have same number of axes 
-
-    """
-    return _libBornAgainCore.selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2)
-
-def applyFunction(data, func):
-    """
-    applyFunction(IntensityData data, IIntensityFunction func)
-
-    void OutputDataFunctions::applyFunction(OutputData< double > &data, const IIntensityFunction *func)
-
-    apply intensity function to values stored in output data 
-
-    """
-    return _libBornAgainCore.applyFunction(data, func)
 class ParameterDistribution(IParameterized):
     """Proxy of C++ ParameterDistribution class."""
 

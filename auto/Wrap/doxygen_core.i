@@ -12736,13 +12736,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D277.xml
+// File: namespace_0D276.xml
 
 
-// File: namespace_0D307.xml
+// File: namespace_0D306.xml
 
 
-// File: namespace_0D430.xml
+// File: namespace_0D429.xml
 
 
 // File: namespace_0D57.xml
@@ -12978,30 +12978,6 @@ reduces the data to the element-wise real, imaginary or modulus part
 %feature("docstring")  OutputDataFunctions::getComponentData "OutputData< double > * OutputDataFunctions::getComponentData(const OutputData< Eigen::Matrix2d > &source, int row, int column)
 
 Selects an element-wise component of the matrix-valued  OutputData structure and returns a new double-valued one 
-";
-
-%feature("docstring")  OutputDataFunctions::createFromComponents "OutputData< Eigen::Matrix2d > * OutputDataFunctions::createFromComponents(const OutputData< double > &component_00, const OutputData< double > &component_01, const OutputData< double > &component_10, const OutputData< double > &component_11)
-
-Assembles a matrix-valued OuputData structure from its component maps. 
-";
-
-%feature("docstring")  OutputDataFunctions::sliceAccrossOneAxis "OutputData< double > * OutputDataFunctions::sliceAccrossOneAxis(const OutputData< double > &data, const std::string &fixed_axis_name, double fixed_axis_value)
-
-Slice data, having one bin on selected axis fixed. Resulting output data will have one axis less (without axis 'fixed_axis_name') 
-";
-
-%feature("docstring")  OutputDataFunctions::selectRangeOnOneAxis "OutputData< double > * OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
-
-Select range on one of the axis.
-
-Select range on one of the axis. Resulting output data will have same number of axes
-
-Resulting output data will have same number of axes 
-";
-
-%feature("docstring")  OutputDataFunctions::applyFunction "void OutputDataFunctions::applyFunction(OutputData< double > &data, const IIntensityFunction *func)
-
-apply intensity function to values stored in output data 
 ";
 
 
@@ -13941,9 +13917,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: IDetector2D_8h.xml
-
-
-// File: IDetectorResolution_8cpp.xml
 
 
 // File: IDetectorResolution_8h.xml

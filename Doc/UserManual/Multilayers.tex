@@ -236,13 +236,45 @@ the four terms of \cref{Edwba} can interfere with each other,
 which adds to the complexity of GISAS patterns.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Multilayer with step-index profile}\label{SStep}
+\section{Multilayers}\label{SStep}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To proceed, we need to consider specific refractive index profiles~$n(z)$.
-Currently, BornAgain only supports step profiles:
+BornAgain supports multilayer samples
+with refractive index discontinuities at layer interfaces.
+Conventions for layer numbers and interface coordinates are
+introduced in~\Cref{Fdefz}.
+
+%--------------------------------------------------------------------------------
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{fig/drawing/multilayer_z_conventions.ps}
+\end{center}
+\caption{Conventions for layer numbers and interface coordinates:
+Layers are numbered from top to bottom.
+The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
+the substrate (extending to $z\to-\infty$) is layer~$N$.
+\nomenclature[2n120]{$N$}{A multilayer sample has $N+1$ layers, including the
+  semi-infinite bottom and top layers}
+\index{Multilayer!numbering}%
+\index{Layer!index}%
+\index{Convention!layer number}%
+The parameter $z_l$
+\nomenclature[2z020 2l010]{$z_l$}{Vertical
+  coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
+is the $z$ coordinate of the \E{top} interface of layer~$l$,
+\index{Multilayer!coordinates}%
+\index{Layer!coordinate}%
+\index{Convention!interface coordinate}%
+except for $z_0$ which is the coordinate of the \E{bottom} interface
+of the air or vacuum layer~0.}
+\label{Fdefz}
+\end{figure}
+%--------------------------------------------------------------------------------
+
+
 The multilayer sample consists of a finite sequence of discrete layers
 $l=0,\ldots,N$
+\nomenclature[2l010]{$l$}{Layer index}%
 with constant refractive indices $n_l$
 \nomenclature[2k122 2l010]{$K_l$}{Wavenumber in layer~$l$}%
 \nomenclature[2n020 2l010]{$n_l$}{Refractive index of layer~$l$}%
@@ -270,41 +302,8 @@ The vertical wavenumber is determined by \cref{Epsiminus} and~\cref{Ekconst},
   k_{\perp l}^\pm = \pm\sqrt{K_l^2 - k_\parallel^2}.
 \end{equation}
 
-%--------------------------------------------------------------------------------
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=0.4\textwidth]{fig/drawing/multilayer_z_conventions.ps}
-\end{center}
-\caption{Conventions for layer numbers and interface coordinates.
-\index{Multilayer!numbering}%
-\index{Layer!index}%
-\index{Multilayer!coordinates}%
-\index{Layer!coordinate}%
-\index{Convention!layer number}%
-\index{Convention!interface coordinate}%
-}
-\label{Fdefz}
-\end{figure}
-%--------------------------------------------------------------------------------
-
-\Note{\indent By convention, illustrated in \cref{Fdefz},
-layers are numbered from top to bottom.
-The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
-\index{Multilayer!numbering}%
-\index{Layer!index}%
-\index{Convention!layer number}%
-the substrate (extending to $z\to-\infty$) is layer~$N$.
-The parameter $z_l$ is the $z$ coordinate of the \E{top} interface
-\index{Multilayer!coordinates}%
-\index{Layer!coordinate}%
-\index{Convention!interface coordinate}%
-\nomenclature[2z020 2l010]{$z_l$}{Vertical
-  coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
-of layer~$l$, except for $z_0$ which is the coordinate of the \E{bottom} interface
-of the air or vacuum layer~0.}
-
 With the indicator function
-\nomenclature[1χ032 2l010]{$\chi_l(z)$ indicates whether $z$ is in layer~$l$}%
+\nomenclature[1χ032 2l010]{$\chi_l(z)$}{indicates whether $z$ is in layer~$l$}%
 \index{Indicator function}%
 \begin{equation}
   \chi_\il(\r)\coloneqq\left\{\begin{array}{ll}

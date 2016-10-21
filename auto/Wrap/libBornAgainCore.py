@@ -5594,64 +5594,34 @@ class FitObject(IParameterized, INoncopyable):
     __swig_destroy__ = _libBornAgainCore.delete_FitObject
     __del__ = lambda self: None
 
-    def getRealData(self):
-        """
-        getRealData(FitObject self) -> IntensityData
-
-        const OutputData<double>* FitObject::getRealData() const
-
-        Returns real (experimental) data. 
-
-        """
-        return _libBornAgainCore.FitObject_getRealData(self)
+    def realData(self):
+        """realData(FitObject self) -> IntensityData"""
+        return _libBornAgainCore.FitObject_realData(self)
 
 
-    def getSimulationData(self):
-        """
-        getSimulationData(FitObject self) -> IntensityData
-
-        const OutputData<double>* FitObject::getSimulationData() const
-
-        Returns simulated data. 
-
-        """
-        return _libBornAgainCore.FitObject_getSimulationData(self)
+    def simulationData(self):
+        """simulationData(FitObject self) -> IntensityData"""
+        return _libBornAgainCore.FitObject_simulationData(self)
 
 
-    def getSimulation(self):
-        """
-        getSimulation(FitObject self) -> GISASSimulation
-
-        const GISASSimulation* FitObject::getSimulation() const
-
-        Returns simulation. 
-
-        """
-        return _libBornAgainCore.FitObject_getSimulation(self)
+    def chiSquaredMap(self):
+        """chiSquaredMap(FitObject self) -> IntensityData"""
+        return _libBornAgainCore.FitObject_chiSquaredMap(self)
 
 
-    def getWeight(self):
-        """
-        getWeight(FitObject self) -> double
-
-        double FitObject::getWeight() const
-
-        Returns weight of data set in chi2 calculations. 
-
-        """
-        return _libBornAgainCore.FitObject_getWeight(self)
+    def simulation(self):
+        """simulation(FitObject self) -> GISASSimulation"""
+        return _libBornAgainCore.FitObject_simulation(self)
 
 
-    def getSizeOfData(self):
-        """
-        getSizeOfData(FitObject self) -> size_t
+    def weight(self):
+        """weight(FitObject self) -> double"""
+        return _libBornAgainCore.FitObject_weight(self)
 
-        size_t FitObject::getSizeOfData() const
 
-        Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
-
-        """
-        return _libBornAgainCore.FitObject_getSizeOfData(self)
+    def numberOfFitElements(self):
+        """numberOfFitElements(FitObject self) -> size_t"""
+        return _libBornAgainCore.FitObject_numberOfFitElements(self)
 
 
     def prepareFitElements(self, fit_elements, weight, normalizer=None):
@@ -5667,16 +5637,9 @@ class FitObject(IParameterized, INoncopyable):
         return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, normalizer)
 
 
-    def getChiSquaredMap(self, first, last):
-        """
-        getChiSquaredMap(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last) -> IntensityData
-
-        const OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
-
-        Creates ChiSquared map from external vector. 
-
-        """
-        return _libBornAgainCore.FitObject_getChiSquaredMap(self, first, last)
+    def transferToChi2Map(self, first, last):
+        """transferToChi2Map(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last)"""
+        return _libBornAgainCore.FitObject_transferToChi2Map(self, first, last)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)

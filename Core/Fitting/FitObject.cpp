@@ -33,7 +33,28 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
 FitObject::~FitObject()
 {}
 
+const OutputData<double> &FitObject::realData() const
+{
+    return *m_real_data.get();
+}
+
+const OutputData<double> &FitObject::simulationData() const
+{
+    return *m_simulation_data.get();
+}
+
+const OutputData<double> &FitObject::chiSquaredMap() const
+{
+    return *m_chi2_data.get();
+}
+
+const GISASSimulation &FitObject::simulation() const
+{
+    return *m_simulation.get();
+}
+
 //! Adds parameters from local pool to external pool
+
 std::string FitObject::addParametersToExternalPool(
     const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
@@ -73,14 +94,14 @@ void FitObject::check_realdata(const OutputData<double> &real_data) const
     }
 }
 
-
-size_t FitObject::getSizeOfData() const
+size_t FitObject::numberOfFitElements() const
 {
     return m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
 }
 
-//! Runs simulation and put results (the real and simulated intensities) into
-//! external vector. Masked channels will be excluded from the vector.
+//! Runs simulation and put results (the real and simulated intensities) into external vector.
+//! Masked channels will be excluded from the vector.
+
 void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double weight,
                                    IIntensityNormalizer* normalizer)
 {
@@ -96,22 +117,16 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
                 (*m_real_data)[it.roiIndex()], weight);
         fit_elements.push_back(element);
     }
-
 }
 
-//!Creates ChiSquared map from external vector.
-// It is used from Python in one example, didn't find nicer way/place to create such map.
-const OutputData<double>* FitObject::getChiSquaredMap(
+//! Updates ChiSquared map from external vector and returns const reference to it. Used from
+//! Python in FitSuiteDrawObserver.
+
+void FitObject::transferToChi2Map(
     std::vector<FitElement>::const_iterator first,
     std::vector<FitElement>::const_iterator last) const
 {
     m_chi2_data->setAllTo(0.0);
-//    SimulationArea area(m_simulation->getInstrument().getDetector());
-//    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-//        (*m_chi2_data)[it->rotIndex()] = it->getSquaredDifference();
-//    }
-
     for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it)
         (*m_chi2_data)[it->getIndex()] = it->getSquaredDifference();
-    return m_chi2_data.get();
 }

@@ -31,7 +31,7 @@ class BA_CORE_API_ FitObject : public IParameterized, public INoncopyable
 {
 public:
     //! FitObject constructor
-    //! @param simulation The simulation to eun
+    //! @param simulation The simulation to run
     //! @param real_data The real data
     //! @param weight Weight of dataset in chi2 calculations
     //! @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true
@@ -41,26 +41,29 @@ public:
     virtual ~FitObject();
 
     //! Returns real (experimental) data.
-    const OutputData<double>* getRealData() const { return m_real_data.get(); }
+    const OutputData<double>& realData() const;
 
     //! Returns simulated data.
-    const OutputData<double>* getSimulationData() const { return m_simulation_data.get(); }
+    const OutputData<double>& simulationData() const;
+
+    //! Returns chi2 map.
+    const OutputData<double>& chiSquaredMap() const;
 
     //! Returns simulation
-    const GISASSimulation* getSimulation() const { return m_simulation.get(); }
+    const GISASSimulation& simulation() const;
 
     //! Returns weight of data set in chi2 calculations.
-    double getWeight() const { return m_weight; }
+    double weight() const { return m_weight; }
 
     //! Returns the size of the data. It is equal to the number of non-masked detector channels
     //! which will participate in chi2 calculations.
-    size_t getSizeOfData() const;
+    size_t numberOfFitElements() const;
 
     void prepareFitElements(std::vector<FitElement>& fit_elements, double weight,
                             IIntensityNormalizer* normalizer=0);
 
-    const OutputData<double>* getChiSquaredMap(std::vector<FitElement>::const_iterator first,
-                                         std::vector<FitElement>::const_iterator last) const;
+    void transferToChi2Map(std::vector<FitElement>::const_iterator first,
+                           std::vector<FitElement>::const_iterator last) const;
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(

@@ -70,7 +70,7 @@ class BoxTransformationsTest(unittest.TestCase):
 
         data = self.get_intensity_data(box)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print(diff)
         self.assertLess(diff, 1e-10)
 

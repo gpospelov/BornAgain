@@ -71,7 +71,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
 
         data = self.get_intensity_data(composition)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_BoxComposition:", diff)
         self.assertLess(diff, 1e-10)
         # utils.plot_intensity_data(reference_data)
@@ -101,7 +101,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
 
         data = self.get_intensity_data(composition)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_BoxCompositionRotateX:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -130,7 +130,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
 
         data = self.get_intensity_data(composition)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_BoxCompositionRotateY:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -159,7 +159,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
 
         data = self.get_intensity_data(composition)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_BoxCompositionRotateZ:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -189,7 +189,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
 
         data = self.get_intensity_data(composition)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_BoxCompositionRotateZandY:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -232,7 +232,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
 
         data = self.get_intensity_data(composition)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_BoxStackComposition:", diff)
         self.assertLess(diff, 1e-10)
 

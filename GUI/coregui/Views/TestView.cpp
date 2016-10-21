@@ -104,8 +104,6 @@ void TestView::test_MaskEditor()
     layout->setSpacing(0);
     layout->addWidget(maskEditor);
     setLayout(layout);
-
-    maskEditor->init_test_model();
 }
 
 void TestView::test_AccordionWidget()

@@ -119,10 +119,10 @@ void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) co
     mP_detector->applyDetectorResolution(p_intensity_map);
 }
 
-OutputData<double>* Instrument::getDetectorIntensity(
-    const OutputData<double> &data, IDetector2D::EAxesUnits units_type) const
+OutputData<double> *Instrument::createDetectorIntensity(
+        const std::vector<SimulationElement> &elements, IDetector2D::EAxesUnits units_type) const
 {
-    return mP_detector->getDetectorIntensity(data, m_beam, units_type);
+    return mP_detector->createDetectorIntensity(elements, m_beam, units_type);
 }
 
 void Instrument::print(std::ostream& ostr) const

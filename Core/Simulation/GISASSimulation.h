@@ -41,19 +41,14 @@ public:
     void prepareSimulation() final;
 
     //! Gets the number of elements this simulation needs to calculate
-    int getNumberOfSimulationElements() const final;
-
-    //! Returns detector intensity map (no detector resolution)
-    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
+    int numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map with detector resolution applied
     OutputData<double>* getDetectorIntensity(
-        IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+            IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
-    //! Returns clone of the detector intensity map with detector resolution applied in the form
-    //! of 2D histogram.
-    Histogram2D* getIntensityData(
-        IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+    //! Returns histogram representing intensity map in requested axes units
+    Histogram2D* getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);

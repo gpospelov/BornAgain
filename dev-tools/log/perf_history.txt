@@ -519,3 +519,19 @@
 # after switch to SimulationAreaIterator
 | 2016-10-17 11:28:02 | scgsun   | Linux x86_64 | 2.7    | 122.3960  | 19.9584    | 3.0328     | 0.7849          | 3.4156          | 0.5976    | 2.3843        | 0.7670            | 3.4331         | 1.0687 | 1.7839      | 1.8056    | 0.8850    |
 
+# before starting experimenting with move
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-19 16:24:06 | scgsun   | Linux x86_64 | 2.7    | 121.9280  | 20.5678    | 3.2099     | 0.8127          | 3.5007          | 0.6635    | 2.5303        | 0.8397            | 3.2550         | 1.1002 | 1.8465      | 1.9096    | 0.8998    |
+| 2016-10-19 16:26:39 | scgsun   | Linux x86_64 | 2.7    | 122.0600  | 20.1381    | 2.8649     | 0.8167          | 3.5113          | 0.6651    | 2.5195        | 0.8412            | 3.2485         | 1.0922 | 1.8063      | 1.8740    | 0.8984    |
+
+# switch to std::move in push_back(SimulationElement) and move constructor
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-19 17:39:20 | scgsun   | Linux x86_64 | 2.7    | 122.0200  | 19.8183    | 3.0563     | 0.7435          | 3.4176          | 0.5715    | 2.4363        | 0.7578            | 3.2653         | 1.0309 | 1.8148      | 1.8095    | 0.9147    |
+| 2016-10-19 17:39:43 | scgsun   | Linux x86_64 | 2.7    | 121.4320  | 19.3674    | 2.8519     | 0.7252          | 3.4087          | 0.5557    | 2.4153        | 0.7385            | 3.2286         | 1.0009 | 1.7881      | 1.7605    | 0.8939    |
+
+# IDetector::getIntensityData refactoring
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-21 10:59:30 | scgsun   | Linux x86_64 | 2.7    | 121.0680  | 18.9790    | 2.8173     | 0.7080          | 3.3343          | 0.5471    | 2.3242        | 0.7298            | 3.1912         | 0.9791 | 1.7649      | 1.7282    | 0.8548    |
+| 2016-10-21 10:59:54 | scgsun   | Linux x86_64 | 2.7    | 121.1520  | 19.0818    | 2.7965     | 0.7001          | 3.3864          | 0.5668    | 2.3523        | 0.7130            | 3.1896         | 0.9822 | 1.7599      | 1.7774    | 0.8578    |

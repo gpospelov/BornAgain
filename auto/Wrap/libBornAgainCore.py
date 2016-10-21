@@ -5561,9 +5561,9 @@ class FitObject(IParameterized, INoncopyable):
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
 
-    def __init__(self, simulation, real_data, weight=1, adjust_detector_to_data=True):
+    def __init__(self, simulation, real_data, weight=1, adjust_detector_to_data=False):
         """
-        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1, bool adjust_detector_to_data=True) -> FitObject
+        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1, bool adjust_detector_to_data=False) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data) -> FitObject
 
@@ -12323,7 +12323,7 @@ class FormFactorGauss(IFormFactorBorn):
 
     def __init__(self, *args):
         """
-        __init__(FormFactorGauss self, double volume) -> FormFactorGauss
+        __init__(FormFactorGauss self, double length) -> FormFactorGauss
         __init__(FormFactorGauss self, double width, double height) -> FormFactorGauss
 
         FormFactorGauss::FormFactorGauss(double width, double height)
@@ -13425,7 +13425,7 @@ class FormFactorLorentz(IFormFactorBorn):
 
     def __init__(self, *args):
         """
-        __init__(FormFactorLorentz self, double volume) -> FormFactorLorentz
+        __init__(FormFactorLorentz self, double length) -> FormFactorLorentz
         __init__(FormFactorLorentz self, double width, double height) -> FormFactorLorentz
 
         FormFactorLorentz::FormFactorLorentz(double width, double height)
@@ -15077,14 +15077,9 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getSampleBuilder(self)
 
 
-    def getNumberOfSimulationElements(self):
-        """
-        getNumberOfSimulationElements(Simulation self) -> int
-
-        virtual int Simulation::getNumberOfSimulationElements() const =0
-
-        """
-        return _libBornAgainCore.Simulation_getNumberOfSimulationElements(self)
+    def numberOfSimulationElements(self):
+        """numberOfSimulationElements(Simulation self) -> int"""
+        return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
 
 
     def getDetectorIntensity(self, *args):
@@ -15421,28 +15416,9 @@ class GISASSimulation(Simulation):
         return _libBornAgainCore.GISASSimulation_prepareSimulation(self)
 
 
-    def getNumberOfSimulationElements(self):
-        """
-        getNumberOfSimulationElements(GISASSimulation self) -> int
-
-        int GISASSimulation::getNumberOfSimulationElements() const final
-
-        Gets the number of elements this simulation needs to calculate. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_getNumberOfSimulationElements(self)
-
-
-    def getOutputData(self):
-        """
-        getOutputData(GISASSimulation self) -> IntensityData
-
-        const OutputData<double>* GISASSimulation::getOutputData() const
-
-        Returns detector intensity map (no detector resolution) 
-
-        """
-        return _libBornAgainCore.GISASSimulation_getOutputData(self)
+    def numberOfSimulationElements(self):
+        """numberOfSimulationElements(GISASSimulation self) -> int"""
+        return _libBornAgainCore.GISASSimulation_numberOfSimulationElements(self)
 
 
     def getDetectorIntensity(self, *args):
@@ -16971,12 +16947,12 @@ class IDetector2D(ICloneable, IParameterized):
         return _libBornAgainCore.IDetector2D_hasMasks(self)
 
 
-    def getDetectorIntensity(self, *args):
+    def createDetectorIntensity(self, *args):
         """
-        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
-        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam) -> IntensityData
+        createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
+        createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
         """
-        return _libBornAgainCore.IDetector2D_getDetectorIntensity(self, *args)
+        return _libBornAgainCore.IDetector2D_createDetectorIntensity(self, *args)
 
 
     def createDetectorMap(self, beam, units):
@@ -17043,6 +17019,11 @@ class IDetector2D(ICloneable, IParameterized):
     def getAxisBinIndex(self, index, selected_axis):
         """getAxisBinIndex(IDetector2D self, size_t index, size_t selected_axis) -> size_t"""
         return _libBornAgainCore.IDetector2D_getAxisBinIndex(self, index, selected_axis)
+
+
+    def numberOfSimulationElements(self):
+        """numberOfSimulationElements(IDetector2D self) -> size_t"""
+        return _libBornAgainCore.IDetector2D_numberOfSimulationElements(self)
 
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
 IDetector2D_swigregister(IDetector2D)
@@ -18604,17 +18585,12 @@ class Instrument(IParameterized):
         return _libBornAgainCore.Instrument_applyDetectorResolution(self, p_intensity_map)
 
 
-    def getDetectorIntensity(self, *args):
+    def createDetectorIntensity(self, *args):
         """
-        getDetectorIntensity(Instrument self, IntensityData data, IDetector2D::EAxesUnits units_type) -> IntensityData
-        getDetectorIntensity(Instrument self, IntensityData data) -> IntensityData
-
-        OutputData< double > * Instrument::getDetectorIntensity(const OutputData< double > &data, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
-
-        Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units 
-
+        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units_type) -> IntensityData
+        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
         """
-        return _libBornAgainCore.Instrument_getDetectorIntensity(self, *args)
+        return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
 
 
     def initDetector(self):
@@ -21479,28 +21455,9 @@ class OffSpecSimulation(Simulation):
         return _libBornAgainCore.OffSpecSimulation_prepareSimulation(self)
 
 
-    def getNumberOfSimulationElements(self):
-        """
-        getNumberOfSimulationElements(OffSpecSimulation self) -> int
-
-        int OffSpecSimulation::getNumberOfSimulationElements() const final
-
-        Gets the number of elements this simulation needs to calculate. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_getNumberOfSimulationElements(self)
-
-
-    def getOutputData(self):
-        """
-        getOutputData(OffSpecSimulation self) -> IntensityData
-
-        const OutputData<double>* OffSpecSimulation::getOutputData() const
-
-        Returns detector intensity map. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_getOutputData(self)
+    def numberOfSimulationElements(self):
+        """numberOfSimulationElements(OffSpecSimulation self) -> int"""
+        return _libBornAgainCore.OffSpecSimulation_numberOfSimulationElements(self)
 
 
     def getDetectorIntensity(self, *args):

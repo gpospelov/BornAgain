@@ -51,8 +51,6 @@ QMap<IDetector2D::EAxesUnits, QString> init_description_to_units_map()
 }
 }
 
-// -------------------------------------------------------------------------------------------------
-
 QMap<QString, IDetector2D::EAxesUnits> JobItemHelper::m_name_to_units
     = init_units_to_description_map();
 
@@ -62,24 +60,25 @@ QMap<IDetector2D::EAxesUnits, QString> JobItemHelper::m_units_to_name
 void JobItemHelper::setResults(IntensityDataItem *intensityItem,
                                      const GISASSimulation *simulation)
 {
+    IDetector2D::EAxesUnits selected_units = IDetector2D::DEFAULT;
 
-    if(hasSameDimensions(intensityItem, simulation)) {
-        intensityItem->setRawDataVector(simulation->getOutputData());
-        if(!intensityItem->isZAxisLocked())
-            intensityItem->computeDataRange();
-
-    } else {
-
+    if(intensityItem->getOutputData() == nullptr) {
         const IDetector2D *detector = simulation->getInstrument().getDetector();
-
         setIntensityItemAxesUnits(intensityItem, detector);
-
-        IDetector2D::EAxesUnits selected_units
-            = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
-        intensityItem->setOutputData(simulation->getDetectorIntensity(selected_units));
-
+        selected_units = getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
         updateAxesTitle(intensityItem);
     }
+
+    std::unique_ptr<OutputData<double>> data(simulation->getDetectorIntensity(selected_units));
+
+    if(intensityItem->getOutputData() == nullptr) {
+        intensityItem->setOutputData(data.release());
+    } else {
+        intensityItem->setRawDataVector(data.get());
+        if(!intensityItem->isZAxisLocked())
+            intensityItem->computeDataRange();
+    }
+
 }
 
 //! Updates axes of OutputData in IntensityData item to correspond with ::P_AXES_UNITS selection.
@@ -302,15 +301,4 @@ OutputData<double> *JobItemHelper::createDetectorMap(const InstrumentItem *instr
     }
 
     return result;
-}
-
-//! Returns true if IntensityDataItem has OutputData with the same shape as simulation.
-
-bool JobItemHelper::hasSameDimensions(const IntensityDataItem *intensityItem,
-                                  const GISASSimulation *simulation)
-{
-    if(auto data = intensityItem->getOutputData())
-        return data->hasSameDimensions(*simulation->getOutputData());
-
-    return false;
 }

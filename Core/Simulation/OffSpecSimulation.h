@@ -39,9 +39,6 @@ public:
     //! Gets the number of elements this simulation needs to calculate
     int numberOfSimulationElements() const final;
 
-    //! Returns detector intensity map
-    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
-
     //! Returns clone of the detector intensity map
     OutputData<double>* getDetectorIntensity(
         IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const {

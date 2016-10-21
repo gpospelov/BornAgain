@@ -18,6 +18,16 @@
 #include "GISASSimulation.h"
 #include "IIntensityNormalizer.h"
 #include "SimulationArea.h"
+#include "BornAgainNamespace.h"
+
+//namespace {
+//template<class T> std::string axesToString(T* object) {
+//    std::stringstream result;
+//    result <<  "(" << object->getAxis(BornAgain::X_AXIS_INDEX).getSize()
+//           << ", " << object->getAxis(BornAgain::Y_AXIS_INDEX).getSize() << ")";
+//    return result.str();
+//}
+//}
 
 FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
     double weight, bool adjust_detector_to_data)
@@ -52,51 +62,29 @@ std::string FitObject::addParametersToExternalPool(
 //! Initialize detector, if necessary, to match experimental data
 void FitObject::init_dataset()
 {
-    if(!same_dimensions_dataset()) {
-        if(!(m_adjust_detector_to_data && is_possible_to_adjust_simulation()))
-            throw Exceptions::LogicErrorException(get_error_message());
-        m_simulation->setDetectorParameters(*m_real_data);
-    }
+    check_realdata();
     m_chi2_data->copyShapeFrom(*m_real_data);
 }
 
-bool FitObject::same_dimensions_dataset() const
+void FitObject::check_realdata() const
 {
-    return m_real_data->hasSameDimensions(*m_simulation->getOutputData());
+    if(m_real_data->getRank() != 2)
+        throw Exceptions::RuntimeErrorException("FitObject::check_realdata() -> Error. "
+                                                "The real data is not two-dimensional.");
+//    const IDetector2D *detector = m_simulation->getInstrument().getDetector();
+////    if(m_real_data->getAxis(BornAgain::X_AXIS_INDEX).getSize()
+////            != detector->getAxis(BornAgain::X_AXIS_INDEX).getSize()
+////            || m_real_data->getAxis(BornAgain::Y_AXIS_INDEX)->getSize()
+////            != detector->getAxis(BornAgain::Y_AXIS_INDEX)->getSize()) {
+//        std::ostringstream message;
+//        message << "FitObject::check_realdata() -> Error. Axes of the detector doesn't match "
+//                << "real data: " << axesToString(detector)
+//                << ", detector:" << axesToString(detector);
+//        throw Exceptions::RuntimeErrorException(message.str());
+
+////    }
 }
 
-//! returns true if it is possible to adjust detector axes to the axes of real data
-//! * rank of two data should coinside
-//! * for every axis, number of real data axis bins should be not large than simulation axis
-//! * for every axis, (min,max) values of real axis should be inside simulation axis
-bool FitObject::is_possible_to_adjust_simulation() const
-{
-    if(m_simulation->getOutputData()->getRank() != m_real_data->getRank()) return false;
-    for(size_t i=0; i<m_real_data->getRank(); ++i) {
-        const IAxis* ra = m_real_data->getAxis(i);
-        const IAxis* sa = m_simulation->getOutputData()->getAxis(i);
-        if(ra->getSize() > sa->getSize()) return false;
-        if(ra->getMin() < sa->getMin()) return false;
-        if(ra->getMax() > sa->getMax()) return false;
-    }
-    return true;
-}
-
-std::string FitObject::get_error_message() const
-{
-    std::ostringstream message;
-    message << "FitObject::init_dataset() -> Error. "
-            << "Real data and detector have different shape. \n"
-            << "Real data axes -> ";
-    for(size_t i=0; i<m_real_data->getRank(); ++i) {
-        message << "#"<< i << ": " << (*m_real_data->getAxis(i)) << " ";
-    }
-    message << "\nDetector axes  -> ";
-    for(size_t i=0; i<m_simulation->getOutputData()->getRank(); ++i) {
-        message << "#"<< i << ": " << (*m_simulation->getOutputData()->getAxis(i)) << " ";
-    }
-    return message.str();
-}
 
 size_t FitObject::getSizeOfData() const
 {

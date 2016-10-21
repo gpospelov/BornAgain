@@ -5561,9 +5561,9 @@ class FitObject(IParameterized, INoncopyable):
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
 
-    def __init__(self, simulation, real_data, weight=1, adjust_detector_to_data=True):
+    def __init__(self, simulation, real_data, weight=1, adjust_detector_to_data=False):
         """
-        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1, bool adjust_detector_to_data=True) -> FitObject
+        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1, bool adjust_detector_to_data=False) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data) -> FitObject
 
@@ -15421,18 +15421,6 @@ class GISASSimulation(Simulation):
         return _libBornAgainCore.GISASSimulation_numberOfSimulationElements(self)
 
 
-    def getOutputData(self):
-        """
-        getOutputData(GISASSimulation self) -> IntensityData
-
-        const OutputData<double>* GISASSimulation::getOutputData() const
-
-        Returns detector intensity map (no detector resolution) 
-
-        """
-        return _libBornAgainCore.GISASSimulation_getOutputData(self)
-
-
     def getDetectorIntensity(self, *args):
         """
         getDetectorIntensity(GISASSimulation self, IDetector2D::EAxesUnits units_type) -> IntensityData
@@ -21470,18 +21458,6 @@ class OffSpecSimulation(Simulation):
     def numberOfSimulationElements(self):
         """numberOfSimulationElements(OffSpecSimulation self) -> int"""
         return _libBornAgainCore.OffSpecSimulation_numberOfSimulationElements(self)
-
-
-    def getOutputData(self):
-        """
-        getOutputData(OffSpecSimulation self) -> IntensityData
-
-        const OutputData<double>* OffSpecSimulation::getOutputData() const
-
-        Returns detector intensity map. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_getOutputData(self)
 
 
     def getDetectorIntensity(self, *args):

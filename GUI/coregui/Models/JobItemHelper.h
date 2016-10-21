@@ -69,9 +69,6 @@ public:
     static OutputData<double> *createDetectorMap(const InstrumentItem *instrumentItem,
                                                  IDetector2D::EAxesUnits units);
 
-    static bool hasSameDimensions(const IntensityDataItem *intensityItem,
-                              const GISASSimulation *simulation);
-
     //!< correspondance of GUI axes units names to their domain counterpart
     static QMap<QString, IDetector2D::EAxesUnits> m_name_to_units;
 

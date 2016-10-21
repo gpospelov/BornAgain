@@ -30,7 +30,8 @@ bool TestBatchSimulation()
         threadInfo.current_batch = i_batch;
         batch->getOptions().setThreadInfo(threadInfo);
         batch->runSimulation();
-        *result += *batch->getOutputData();
+        std::unique_ptr<OutputData<double>> batchResult(batch->getDetectorIntensity());
+        *result += *batchResult.get();
     }
 
     double diff = IntensityDataFunctions::getRelativeDifference(*result, *reference);

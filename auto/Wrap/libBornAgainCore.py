@@ -15730,7 +15730,7 @@ class IHistogram(_object):
         """
         getXaxis(IHistogram self) -> IAxis
 
-        const IAxis * IHistogram::getXaxis() const
+        const IAxis & IHistogram::getXaxis() const
 
         returns x-axis 
 
@@ -15742,7 +15742,7 @@ class IHistogram(_object):
         """
         getYaxis(IHistogram self) -> IAxis
 
-        const IAxis * IHistogram::getYaxis() const
+        const IAxis & IHistogram::getYaxis() const
 
         returns y-axis for 2D histograms 
 

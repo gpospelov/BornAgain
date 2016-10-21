@@ -6238,12 +6238,12 @@ Returns number of histogram dimensions.
 Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. 
 ";
 
-%feature("docstring")  IHistogram::getXaxis "const IAxis * IHistogram::getXaxis() const
+%feature("docstring")  IHistogram::getXaxis "const IAxis & IHistogram::getXaxis() const
 
 returns x-axis 
 ";
 
-%feature("docstring")  IHistogram::getYaxis "const IAxis * IHistogram::getYaxis() const
+%feature("docstring")  IHistogram::getYaxis "const IAxis & IHistogram::getYaxis() const
 
 returns y-axis for 2D histograms 
 ";

@@ -85,12 +85,12 @@ size_t SimulationArea::roiIndex(size_t globalIndex) const
 
     size_t nxGlob = m_detector->getAxisBinIndex(globalIndex, BornAgain::X_AXIS_INDEX);
     size_t nyGlob = m_detector->getAxisBinIndex(globalIndex, BornAgain::Y_AXIS_INDEX);
-    int nx = nxGlob - m_roi_x1;
-    int ny = nyGlob - m_roi_y1;
-    if(nx<0 || nx > static_cast<int>(m_roi_x2-m_roi_x1+1))
-        throw Exceptions::RuntimeErrorException("SimulationArea::roiIndex() -> Error.");
-    if(ny<0 || ny > static_cast<int>(m_roi_y2-m_roi_y1+1))
-            throw Exceptions::RuntimeErrorException("SimulationArea::roiIndex() -> Error.");
 
-    return ny + nx*(m_roi_y2-m_roi_y1+1);
+    if(nxGlob < m_roi_x1 || nxGlob > m_roi_x2)
+        throw Exceptions::RuntimeErrorException("SimulationArea::roiIndex() -> Error.");
+
+    if(nyGlob < m_roi_y1 || nyGlob > m_roi_y2)
+        throw Exceptions::RuntimeErrorException("SimulationArea::roiIndex() -> Error.");
+
+    return nyGlob - m_roi_y1 + (nxGlob - m_roi_x1)*(m_roi_y2-m_roi_y1+1);
 }

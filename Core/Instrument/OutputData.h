@@ -253,6 +253,9 @@ private:
     //! returns serial number of axis with given name
     size_t getAxisIndex(const std::string& axis_name) const;
 
+    //! checks if given axis name exists
+    bool axisNameExists(const std::string& axis_name) const;
+
     SafePointerVector<IAxis> m_value_axes;
     LLData<T>* mp_ll_data;
     double m_variability;
@@ -325,7 +328,7 @@ OutputData<double>* OutputData<T>::meanValues() const
 template <class T>
 void OutputData<T>::addAxis(const IAxis& new_axis)
 {
-    if( getAxis(new_axis.getName()) )
+    if( axisNameExists(new_axis.getName()) )
         throw Exceptions::LogicErrorException(
             "OutputData<T>::addAxis(const IAxis& new_axis) -> "
             "Error! Attempt to add axis with already existing name '" +
@@ -339,7 +342,7 @@ void OutputData<T>::addAxis(const IAxis& new_axis)
 template <class T>
 void OutputData<T>::addAxis(const std::string& name, size_t size, double start, double end)
 {
-    if( getAxis(name) )
+    if( axisNameExists(name) )
         throw Exceptions::LogicErrorException(
             "OutputData<T>::addAxis(std::string name) -> "
             "Error! Attempt to add axis with already existing name '" +
@@ -357,10 +360,7 @@ const IAxis* OutputData<T>::getAxis(size_t serial_number) const
 template <class T>
 const IAxis* OutputData<T>::getAxis(const std::string& axis_name) const
 {
-    for (size_t i = 0; i < m_value_axes.size(); ++i)
-        if (m_value_axes[i]->getName() == axis_name)
-            return m_value_axes[i];
-    return 0;
+    return getAxis(getAxisIndex(axis_name));
 }
 
 template<class T>
@@ -677,8 +677,16 @@ size_t OutputData<T>::getAxisIndex(const std::string &axis_name) const
     for (size_t i = 0; i < m_value_axes.size(); ++i)
         if (m_value_axes[i]->getName() == axis_name) return i;
     throw Exceptions::LogicErrorException(
-        "OutputData<T>::getAxisSerialNumber() -> "
+        "OutputData<T>::getAxisIndex() -> "
         "Error! Axis with given name not found '"+axis_name+std::string("'"));
+}
+
+template <class T>
+bool OutputData<T>::axisNameExists(const std::string &axis_name) const
+{
+    for (size_t i = 0; i < m_value_axes.size(); ++i)
+        if (m_value_axes[i]->getName() == axis_name) return true;
+    return false;
 }
 
 

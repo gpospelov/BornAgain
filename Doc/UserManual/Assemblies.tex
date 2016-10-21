@@ -85,7 +85,7 @@ BornAgain uses the simpler choice
 This may change in the future.}
 Per \Cref{SStep}, $\overline{v}_l$ determines the refractive index~$n_l$
 and the wavenumber~$K_l$.
-The wavefunctions $\psi_\text{i}$ and~$\psi_\text{f}$
+The wavefunctions $\psi_\si$ and~$\psi_\sf$
 are then determined as described in \Cref{Sacrolay}.
 Furthermore, our current choice $\overline{v}_l = v_{\sm l}$
 implies
@@ -1132,7 +1132,7 @@ In this configuration, the particles are sitting on top of a substrate layer, in
 F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})+ R_i F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z}) \nonumber \\
 &+ R_f F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) + R_i R_f F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z}), \label{Edwbaair}
 \end{align}
-where $q_{\plll}$ is the component of the scattering beam in the plane of the interface ($\q=\k_i-\k_\text{f}$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as\\ $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\plll}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\plll}|^2}}$, where $n_s=1-\delta_s +i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\plll}$ are the $z$-component and the in-plane component of $\k_\text{i}$ or $\k_\text{f}$. \\
+where $q_{\plll}$ is the component of the scattering beam in the plane of the interface ($\q=\k_i-\k_\sf$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as\\ $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\plll}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\plll}|^2}}$, where $n_s=1-\delta_s +i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\plll}$ are the $z$-component and the in-plane component of $\k_\si$ or $\k_\sf$. \\
 
 \Note{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Par54,BoWo99}.}
 
@@ -1217,10 +1217,10 @@ The system considered in this section consists of particles encapsulated in a la
 
 \begin{align}
   F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z})
-  &= T_\text{i} T_\text{f} F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})\e^{i(k_{i,z}-k_{f,z})d}\nonumber \\
-  &+ R_\text{i} T_\text{f} F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z})\e^{i(-k_{i,z}-k_{f,z})d} \nonumber \\
-  &+ R_\text{f} T_\text{i} F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) \e^{i(k_{i,z}+k_{f,z})d}\nonumber \\
-  &+ R_\text{f} R_\text{i}F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z})\e^{i(-k_{i,z}+k_{f,z})d}, \label{Edwbaburied}
+  &= T_\si T_\sf F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})\e^{i(k_{i,z}-k_{f,z})d}\nonumber \\
+  &+ R_\si T_\sf F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z})\e^{i(-k_{i,z}-k_{f,z})d} \nonumber \\
+  &+ R_\sf T_\si F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) \e^{i(k_{i,z}+k_{f,z})d}\nonumber \\
+  &+ R_\sf R_\si F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z})\e^{i(-k_{i,z}+k_{f,z})d}, \label{Edwbaburied}
 \end{align}
 
 \begin{equation*}

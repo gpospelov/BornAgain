@@ -578,19 +578,56 @@ In any case, the macroscopic Schrödinger equation~\cref{ESchrodiK} takes the fo
   \left\{ \Nabla^2 + K^2(\r) \right\}\psi(\r)
   = 4\pi\delta v(\r)\psi(\r).
 \end{equation}
-We assume that the homogeneous wave equation that generalizes~\cref{EHelmholtzHomog}
-can be solved for~$\psi(\r)$.
-Outside the finite sample volume,
-we still have $K=\text{const}$.
-Therefore, we can impose on~$\psi(\r)$ the boundary condition that it be
-a plane wave outside the sample.
-We need two such wavefunctions:
-A function~$\psi_\text{i}(\r)$ to match the incident radiation,
-and a function~$\psi_\text{f}(\r)$ to match a plane wave that reaches a detector pixel.
+As before,
+the Born expansion starts from the homogeneous wave equation,
+\begin{equation}\label{EHomoK}
+  \left\{ \Nabla^2 + K^2(\r) \right\}\psi(\r) = 0.
+\end{equation}
+Differently from \Cref{SBornExpans},
+solutions are no longer plane waves.
+This makes it necessary
+to work out the distinction between \E{exciting} wave~$\psi_\se$
+\nomenclature[1ψ034 2e000]{$\psi_\se$}{Exciting wave}%
+and \E{incident} wave~$\psi_\si$.
+The \E{exciting wave}
+\index{Exciting wave}%
+\index{Wave!exciting}%
+is prepared far
+outside the sample by a radiation source and some optical devices.
+It is a superposition of plane waves,
+as discussed later in the context of instrumental resolution effects
+(\cref{SInstr}).
+Here, while discussing scattering theory,
+it shall be represented by a single plane wave
+$\psi_\se(\r)=\e^{i\k_\se\r}$.
+This function is defined for all~$\r$,
+but is physical only along the primary beam, upstream of the sample.
 
-In contrast, we will not even attempt to obtain a full solution
+In contrast, by the \E{incident wave}~$\psi_\si(\r)$
+\index{Incident wave!DWBA}%
+\index{Incident wave!vs exciting wave}%
+\index{Wave!incident}%
+we understand an exact solution of~\cref{EHomoK}.
+Upstream of the sample, along the primary beam, it coincides with the exciting wave.
+Inside the sample, however, it undergoes refraction and reflection,
+and therefore no longer is a plane wave, and no longer equals~$\psi_\se(\r)$.
+This is different from the conventional Born approximation,
+where $\psi_\si$ is a plane wave throughout the sample,
+and therefore must not be distinguished from~$\psi_\se$.
+
+Besides $\psi_\si$,
+we will need another solution $\psi_\sf$ of~\cref{EHomoK}
+\index{Final wave!DWBA}%
+\index{Wave!final}%
+to describe a wave field that emanates from the sample,
+and reaches a detector pixel in form of a plane wave.
+The actual solution of~\cref{EHomoK} shall be postponed to \Cref{sec:Multilayers}.
+From here onwards, we proceed as if $\psi_\si(\r)$ and $\psi_\sf(\r)$ were known.
+
+Differently from the above derivation of the Born expansion,
+we will not even attempt to obtain a full solution
 \index{Green function!DWBA}%
-of the generalized Green function equation~\cref{EHelmholtzForGreen}.
+of the Green function equation that generalizes~\cref{EHelmholtzForGreen}.
 We will only consider its asymptotic far-field limit $G(\rD,\r)$
 at a detector position $\rD$.
 Nonetheless, this function will be exact in the coordinate~$\r$
@@ -616,7 +653,7 @@ and therefore has the far-field expansion~\cref{EGreenFar},
   =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\tf \r}.
 \end{equation}
 As explained above,
-we assume that there is a solution $\psi_\text{f}(\r)$ of the homogeneous
+we assume that there is a solution $\psi_\sf(\r)$ of the homogeneous
 wave equation that matches $\e^{i\k_\tf \r}$ outside the sample.
 Therefore,
 \begin{equation}\label{EBFull}
@@ -639,7 +676,7 @@ the differential cross section is still given by \cref{Exsection},
 and the transition matrix element by~\cref{Etrama}.}
 The plane-wave form~\cref{Echiq}, however, does no longer hold;
 its replacement depends on the distorted wavefunctions
-$\psi_\text{i}$ and $\psi_\text{f}$,
+$\psi_\si$ and $\psi_\sf$,
 is therefore application specific,
 and will be worked out later (\cref{Swave21}).
 

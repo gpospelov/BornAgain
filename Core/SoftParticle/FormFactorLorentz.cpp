@@ -28,11 +28,10 @@ FormFactorLorentz::FormFactorLorentz(double width, double height)
     initialize();
 }
 
-FormFactorLorentz::FormFactorLorentz(double volume)
+FormFactorLorentz::FormFactorLorentz(double length)
+    : m_width { length }
+    , m_height { length }
 {
-    double R = std::pow(volume, 1.0/3.0);
-    m_height = R;
-    m_width = R;
     initialize();
 }
 

@@ -78,16 +78,19 @@ size_t SimulationArea::totalSize() const
     return m_detector->getTotalSize();
 }
 
-int SimulationArea::roiIndex(size_t globalIndex) const
+size_t SimulationArea::roiIndex(size_t globalIndex) const
 {
     if(!m_detector->regionOfInterest())
-        return static_cast<int>(globalIndex);
+        return globalIndex;
 
     size_t nxGlob = m_detector->getAxisBinIndex(globalIndex, BornAgain::X_AXIS_INDEX);
     size_t nyGlob = m_detector->getAxisBinIndex(globalIndex, BornAgain::Y_AXIS_INDEX);
     int nx = nxGlob - m_roi_x1;
     int ny = nyGlob - m_roi_y1;
-    if(nx<0 || nx > static_cast<int>(m_roi_x2-m_roi_x1+1)) return -1;
-    if(ny<0 || ny > static_cast<int>(m_roi_y2-m_roi_y1+1)) return -1;
-    return static_cast<int>(ny + nx*(m_roi_y2-m_roi_y1+1));
+    if(nx<0 || nx > static_cast<int>(m_roi_x2-m_roi_x1+1))
+        throw Exceptions::RuntimeErrorException("SimulationArea::roiIndex() -> Error.");
+    if(ny<0 || ny > static_cast<int>(m_roi_y2-m_roi_y1+1))
+            throw Exceptions::RuntimeErrorException("SimulationArea::roiIndex() -> Error.");
+
+    return ny + nx*(m_roi_y2-m_roi_y1+1);
 }

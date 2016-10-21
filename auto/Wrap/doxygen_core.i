@@ -454,21 +454,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -991,6 +991,28 @@ C++ includes: DecouplingApproximationStrategy.h
 ";
 
 %feature("docstring")  DecouplingApproximationStrategy2::DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::DecouplingApproximationStrategy2(SimulationOptions sim_params)
+";
+
+
+// File: classDetectionProperties.xml
+%feature("docstring") DetectionProperties "
+
+Detector properties (efficiency, transmission).
+
+C++ includes: DetectionProperties.h
+";
+
+%feature("docstring")  DetectionProperties::DetectionProperties "DetectionProperties::DetectionProperties()
+";
+
+%feature("docstring")  DetectionProperties::setAnalyzerProperties "void DetectionProperties::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
+
+Sets the polarization analyzer characteristics of the detector. 
+";
+
+%feature("docstring")  DetectionProperties::analyzerOperator "Eigen::Matrix2cd DetectionProperties::analyzerOperator() const
+
+Gets the polarization density matrix (in spin basis along z-axis) 
 ";
 
 
@@ -1536,7 +1558,7 @@ Holds simulation description and real data to run the fit.
 C++ includes: FitObject.h
 ";
 
-%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=true)
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=false)
 
 FitObject constructor
 
@@ -3156,7 +3178,7 @@ The formfactor of a gaussian.
 C++ includes: FormFactorGauss.h
 ";
 
-%feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double volume)
+%feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double length)
 ";
 
 %feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double width, double height)
@@ -3618,7 +3640,7 @@ The formfactor of a lorentzian.
 C++ includes: FormFactorLorentz.h
 ";
 
-%feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double volume)
+%feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double length)
 ";
 
 %feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double width, double height)
@@ -4729,14 +4751,9 @@ C++ includes: GISASSimulation.h
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  GISASSimulation::getNumberOfSimulationElements "int GISASSimulation::getNumberOfSimulationElements() const final
+%feature("docstring")  GISASSimulation::numberOfSimulationElements "int GISASSimulation::numberOfSimulationElements() const final
 
 Gets the number of elements this simulation needs to calculate. 
-";
-
-%feature("docstring")  GISASSimulation::getOutputData "const OutputData<double>* GISASSimulation::getOutputData() const
-
-Returns detector intensity map (no detector resolution) 
 ";
 
 %feature("docstring")  GISASSimulation::getDetectorIntensity "OutputData< double > * GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
@@ -4746,7 +4763,7 @@ Returns clone of the detector intensity map with detector resolution applied.
 
 %feature("docstring")  GISASSimulation::getIntensityData "Histogram2D * GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
 
-Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. 
+Returns histogram representing intensity map in requested axes units. 
 ";
 
 %feature("docstring")  GISASSimulation::setBeamParameters "void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
@@ -5585,11 +5602,6 @@ Applies the detector resolution to the given intensity maps.
 Sets the polarization analyzer characteristics of the detector. 
 ";
 
-%feature("docstring")  IDetector2D::getAnalyzerOperator "Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
-
-Gets the polarization density matrix (in spin basis along z-axis) 
-";
-
 %feature("docstring")  IDetector2D::removeMasks "void IDetector2D::removeMasks()
 
 removes all masks from the detector 
@@ -5646,9 +5658,9 @@ Creates single simulation element.
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  IDetector2D::getDetectorIntensity "OutputData< double > * IDetector2D::getDetectorIntensity(const OutputData< double > &data, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+%feature("docstring")  IDetector2D::createDetectorIntensity "OutputData< double > * IDetector2D::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
 
-Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units 
+Returns new intensity map with detector resolution applied and axes in requested units. 
 ";
 
 %feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units) const
@@ -5694,6 +5706,11 @@ Returns total number of pixels.
 %feature("docstring")  IDetector2D::getAxisBinIndex "size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
 
 Calculate axis index for given global index. 
+";
+
+%feature("docstring")  IDetector2D::numberOfSimulationElements "size_t IDetector2D::numberOfSimulationElements() const
+
+Returns number of simulation elements. 
 ";
 
 
@@ -6998,9 +7015,9 @@ Sets the polarization analyzer characteristics of the detector.
 apply the detector resolution to the given intensity map 
 ";
 
-%feature("docstring")  Instrument::getDetectorIntensity "OutputData< double > * Instrument::getDetectorIntensity(const OutputData< double > &data, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
 
-Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units 
+Returns new intensity map with detector resolution applied and axes in requested units. 
 ";
 
 %feature("docstring")  Instrument::createSimulationElements "std::vector< SimulationElement > Instrument::createSimulationElements()
@@ -9364,14 +9381,9 @@ C++ includes: OffSpecSimulation.h
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  OffSpecSimulation::getNumberOfSimulationElements "int OffSpecSimulation::getNumberOfSimulationElements() const final
+%feature("docstring")  OffSpecSimulation::numberOfSimulationElements "int OffSpecSimulation::numberOfSimulationElements() const final
 
 Gets the number of elements this simulation needs to calculate. 
-";
-
-%feature("docstring")  OffSpecSimulation::getOutputData "const OutputData<double>* OffSpecSimulation::getOutputData() const
-
-Returns detector intensity map. 
 ";
 
 %feature("docstring")  OffSpecSimulation::getDetectorIntensity "OutputData<double>* OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
@@ -11660,7 +11672,7 @@ The  MultiLayer object will not be owned by the  Simulation object.
 %feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const 
 ";
 
-%feature("docstring")  Simulation::getNumberOfSimulationElements "virtual int Simulation::getNumberOfSimulationElements() const =0
+%feature("docstring")  Simulation::numberOfSimulationElements "virtual int Simulation::numberOfSimulationElements() const =0
 ";
 
 %feature("docstring")  Simulation::getDetectorIntensity "virtual OutputData<double>* Simulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const =0
@@ -11723,6 +11735,11 @@ C++ includes: SimulationArea.h
 %feature("docstring")  SimulationArea::totalSize "size_t SimulationArea::totalSize() const 
 ";
 
+%feature("docstring")  SimulationArea::roiIndex "size_t SimulationArea::roiIndex(size_t globalIndex) const
+
+Return index in ROO map from global index. 
+";
+
 
 // File: classSimulationAreaIterator.xml
 %feature("docstring") SimulationAreaIterator "
@@ -11739,6 +11756,9 @@ C++ includes: SimulationAreaIterator.h
 ";
 
 %feature("docstring")  SimulationAreaIterator::elementIndex "size_t SimulationAreaIterator::elementIndex() const 
+";
+
+%feature("docstring")  SimulationAreaIterator::roiIndex "int SimulationAreaIterator::roiIndex() const 
 ";
 
 
@@ -11759,6 +11779,9 @@ C++ includes: SimulationElement.h
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
 
 Construct  SimulationElement from other element and restrict k_f to specific value in the original detector pixel 
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other) noexcept
 ";
 
 %feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement()
@@ -12713,13 +12736,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D273.xml
+// File: namespace_0D277.xml
 
 
-// File: namespace_0D303.xml
+// File: namespace_0D307.xml
 
 
-// File: namespace_0D426.xml
+// File: namespace_0D430.xml
 
 
 // File: namespace_0D57.xml
@@ -12732,6 +12755,23 @@ C++ includes: WavevectorInfo.h
 
 
 // File: namespaceBornAgain.xml
+
+
+// File: namespaceDetectorFunctions.xml
+%feature("docstring")  DetectorFunctions::hasSameDimensions "bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector, const OutputData< double > &data)
+
+Returns true if the data has same axes size (nx,ny) with the detector. 
+";
+
+%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const IDetector2D &detector)
+
+Returns string representation of axes dimension in the form \"(nx,ny)\". 
+";
+
+%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const OutputData< double > &data)
+
+Returns string representation of axes dimension in the form \"(nx,ny)\". 
+";
 
 
 // File: namespaceExceptions.xml
@@ -13853,6 +13893,18 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: CumulativeValue_8h.xml
+
+
+// File: DetectionProperties_8cpp.xml
+
+
+// File: DetectionProperties_8h.xml
+
+
+// File: DetectorFunctions_8cpp.xml
+
+
+// File: DetectorFunctions_8h.xml
 
 
 // File: DetectorMask_8cpp.xml

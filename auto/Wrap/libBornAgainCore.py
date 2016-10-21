@@ -5637,7 +5637,7 @@ class FitObject(IParameterized, INoncopyable):
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data) -> FitObject
 
-        FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=true)
+        FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=false)
 
         FitObject constructor
 
@@ -15155,7 +15155,12 @@ class Simulation(ICloneable, IParameterized):
 
 
     def numberOfSimulationElements(self):
-        """numberOfSimulationElements(Simulation self) -> int"""
+        """
+        numberOfSimulationElements(Simulation self) -> int
+
+        virtual int Simulation::numberOfSimulationElements() const =0
+
+        """
         return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
 
 
@@ -15494,7 +15499,14 @@ class GISASSimulation(Simulation):
 
 
     def numberOfSimulationElements(self):
-        """numberOfSimulationElements(GISASSimulation self) -> int"""
+        """
+        numberOfSimulationElements(GISASSimulation self) -> int
+
+        int GISASSimulation::numberOfSimulationElements() const final
+
+        Gets the number of elements this simulation needs to calculate. 
+
+        """
         return _libBornAgainCore.GISASSimulation_numberOfSimulationElements(self)
 
 
@@ -15518,7 +15530,7 @@ class GISASSimulation(Simulation):
 
         Histogram2D * GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
 
-        Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. 
+        Returns histogram representing intensity map in requested axes units. 
 
         """
         return _libBornAgainCore.GISASSimulation_getIntensityData(self, *args)
@@ -17040,18 +17052,13 @@ class IDetector2D(ICloneable, IParameterized):
 
     def createDetectorIntensity(self, *args):
         """
-<<<<<<< c73d6bb2fbec6533d697e56a806875cd891d7a93
         createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
         createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
-=======
-        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
-        getDetectorIntensity(IDetector2D self, IntensityData data, Beam beam) -> IntensityData
 
-        OutputData< double > * IDetector2D::getDetectorIntensity(const OutputData< double > &data, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+        OutputData< double > * IDetector2D::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
 
-        Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units 
+        Returns new intensity map with detector resolution applied and axes in requested units. 
 
->>>>>>> Remove unused masking functionality from OutputData
         """
         return _libBornAgainCore.IDetector2D_createDetectorIntensity(self, *args)
 
@@ -17165,7 +17172,14 @@ class IDetector2D(ICloneable, IParameterized):
 
 
     def numberOfSimulationElements(self):
-        """numberOfSimulationElements(IDetector2D self) -> size_t"""
+        """
+        numberOfSimulationElements(IDetector2D self) -> size_t
+
+        size_t IDetector2D::numberOfSimulationElements() const
+
+        Returns number of simulation elements. 
+
+        """
         return _libBornAgainCore.IDetector2D_numberOfSimulationElements(self)
 
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
@@ -18732,6 +18746,11 @@ class Instrument(IParameterized):
         """
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units_type) -> IntensityData
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
+
+        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+
+        Returns new intensity map with detector resolution applied and axes in requested units. 
+
         """
         return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
 
@@ -21599,7 +21618,14 @@ class OffSpecSimulation(Simulation):
 
 
     def numberOfSimulationElements(self):
-        """numberOfSimulationElements(OffSpecSimulation self) -> int"""
+        """
+        numberOfSimulationElements(OffSpecSimulation self) -> int
+
+        int OffSpecSimulation::numberOfSimulationElements() const final
+
+        Gets the number of elements this simulation needs to calculate. 
+
+        """
         return _libBornAgainCore.OffSpecSimulation_numberOfSimulationElements(self)
 
 

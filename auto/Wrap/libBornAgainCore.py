@@ -18769,133 +18769,71 @@ class Instrument(IParameterized):
 Instrument_swigregister = _libBornAgainCore.Instrument_swigregister
 Instrument_swigregister(Instrument)
 
-class IntensityDataFunctions(_object):
-    """
 
-
-    Class holding collection of static methods to work with intensity data.
-
-    C++ includes: IntensityDataFunctions.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityDataFunctions, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, IntensityDataFunctions, name)
-    __repr__ = _swig_repr
-
-    def getRelativeDifference(*args):
-        """
-        getRelativeDifference(IntensityData dat, IntensityData ref) -> double
-        getRelativeDifference(IHistogram dat, IHistogram ref) -> double
-        """
-        return _libBornAgainCore.IntensityDataFunctions_getRelativeDifference(*args)
-
-    if _newclass:
-        getRelativeDifference = staticmethod(getRelativeDifference)
-    __swig_getmethods__["getRelativeDifference"] = lambda x: getRelativeDifference
-
-    def createRelativeDifferenceData(data, reference):
-        """createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData"""
-        return _libBornAgainCore.IntensityDataFunctions_createRelativeDifferenceData(data, reference)
-
-    if _newclass:
-        createRelativeDifferenceData = staticmethod(createRelativeDifferenceData)
-    __swig_getmethods__["createRelativeDifferenceData"] = lambda x: createRelativeDifferenceData
-
-    def createClippedDataSet(origin, x1, y1, x2, y2):
-        """createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData"""
-        return _libBornAgainCore.IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2)
-
-    if _newclass:
-        createClippedDataSet = staticmethod(createClippedDataSet)
-    __swig_getmethods__["createClippedDataSet"] = lambda x: createClippedDataSet
-
-    def applyDetectorResolution(origin, resolution_function):
-        """applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData"""
-        return _libBornAgainCore.IntensityDataFunctions_applyDetectorResolution(origin, resolution_function)
-
-    if _newclass:
-        applyDetectorResolution = staticmethod(applyDetectorResolution)
-    __swig_getmethods__["applyDetectorResolution"] = lambda x: applyDetectorResolution
-
-    def coordinateToBinf(*args):
-        """
-        coordinateToBinf(double coordinate, IAxis axis) -> double
-        coordinateToBinf(double & x, double & y, IntensityData data)
-        """
-        return _libBornAgainCore.IntensityDataFunctions_coordinateToBinf(*args)
-
-    if _newclass:
-        coordinateToBinf = staticmethod(coordinateToBinf)
-    __swig_getmethods__["coordinateToBinf"] = lambda x: coordinateToBinf
-
-    def coordinateFromBinf(*args):
-        """
-        coordinateFromBinf(double value, IAxis axis) -> double
-        coordinateFromBinf(double & x, double & y, IntensityData data)
-        """
-        return _libBornAgainCore.IntensityDataFunctions_coordinateFromBinf(*args)
-
-    if _newclass:
-        coordinateFromBinf = staticmethod(coordinateFromBinf)
-    __swig_getmethods__["coordinateFromBinf"] = lambda x: coordinateFromBinf
-
-    def __init__(self):
-        """
-        __init__(IntensityDataFunctions self) -> IntensityDataFunctions
-
-
-
-        Class holding collection of static methods to work with intensity data.
-
-        C++ includes: IntensityDataFunctions.h
-
-        """
-        this = _libBornAgainCore.new_IntensityDataFunctions()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityDataFunctions
-    __del__ = lambda self: None
-IntensityDataFunctions_swigregister = _libBornAgainCore.IntensityDataFunctions_swigregister
-IntensityDataFunctions_swigregister(IntensityDataFunctions)
-
-def IntensityDataFunctions_getRelativeDifference(*args):
+def getRelativeDifference(*args):
     """
     getRelativeDifference(IntensityData dat, IntensityData ref) -> double
-    IntensityDataFunctions_getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+
+    double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+
     """
-    return _libBornAgainCore.IntensityDataFunctions_getRelativeDifference(*args)
+    return _libBornAgainCore.getRelativeDifference(*args)
 
-def IntensityDataFunctions_createRelativeDifferenceData(data, reference):
-    """IntensityDataFunctions_createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData"""
-    return _libBornAgainCore.IntensityDataFunctions_createRelativeDifferenceData(data, reference)
+def createRelativeDifferenceData(data, reference):
+    """
+    createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData
 
-def IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2):
-    """IntensityDataFunctions_createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData"""
-    return _libBornAgainCore.IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2)
+    OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
 
-def IntensityDataFunctions_applyDetectorResolution(origin, resolution_function):
-    """IntensityDataFunctions_applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData"""
-    return _libBornAgainCore.IntensityDataFunctions_applyDetectorResolution(origin, resolution_function)
+    """
+    return _libBornAgainCore.createRelativeDifferenceData(data, reference)
 
-def IntensityDataFunctions_coordinateToBinf(*args):
+def createClippedDataSet(origin, x1, y1, x2, y2):
+    """
+    createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData
+
+    OutputData<double>* IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
+
+    Returns new IntensityData objects which axes clipped to represent the specified rectangle 
+
+    """
+    return _libBornAgainCore.createClippedDataSet(origin, x1, y1, x2, y2)
+
+def applyDetectorResolution(origin, resolution_function):
+    """
+    applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData
+
+    OutputData<double>* IntensityDataFunctions::applyDetectorResolution(const OutputData< double > &origin, const IResolutionFunction2D &resolution_function)
+
+    Applies detector resolution function and returns new IntensityData object. 
+
+    """
+    return _libBornAgainCore.applyDetectorResolution(origin, resolution_function)
+
+def coordinateToBinf(*args):
     """
     coordinateToBinf(double coordinate, IAxis axis) -> double
-    IntensityDataFunctions_coordinateToBinf(double & x, double & y, IntensityData data)
-    """
-    return _libBornAgainCore.IntensityDataFunctions_coordinateToBinf(*args)
+    coordinateToBinf(double & x, double & y, IntensityData data)
 
-def IntensityDataFunctions_coordinateFromBinf(*args):
+    void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transform x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates 
+
+    """
+    return _libBornAgainCore.coordinateToBinf(*args)
+
+def coordinateFromBinf(*args):
     """
     coordinateFromBinf(double value, IAxis axis) -> double
-    IntensityDataFunctions_coordinateFromBinf(double & x, double & y, IntensityData data)
-    """
-    return _libBornAgainCore.IntensityDataFunctions_coordinateFromBinf(*args)
+    coordinateFromBinf(double & x, double & y, IntensityData data)
 
+    void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transform x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates 
+
+    """
+    return _libBornAgainCore.coordinateFromBinf(*args)
 class IntensityDataIOFactory(_object):
     """
 

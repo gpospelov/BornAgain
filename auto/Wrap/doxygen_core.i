@@ -454,21 +454,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -12807,6 +12807,47 @@ Returns file names that agree with a regex glob pattern.
 
 
 // File: namespaceGeometry.xml
+
+
+// File: namespaceIntensityDataFunctions.xml
+%feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
+";
+
+%feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+";
+
+%feature("docstring")  IntensityDataFunctions::createRelativeDifferenceData "OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
+";
+
+%feature("docstring")  IntensityDataFunctions::createClippedDataSet "OutputData<double>* IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
+
+Returns new IntensityData objects which axes clipped to represent the specified rectangle 
+";
+
+%feature("docstring")  IntensityDataFunctions::applyDetectorResolution "OutputData<double>* IntensityDataFunctions::applyDetectorResolution(const OutputData< double > &origin, const IResolutionFunction2D &resolution_function)
+
+Applies detector resolution function and returns new IntensityData object. 
+";
+
+%feature("docstring")  IntensityDataFunctions::coordinateToBinf "double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis &axis)
+
+Transforms coordinate on axis into the bin-fraction-coordinate. 
+";
+
+%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis &axis)
+
+Transforms bin-fraction-coordinate into axis coordinate. 
+";
+
+%feature("docstring")  IntensityDataFunctions::coordinateToBinf "void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+Transform x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates 
+";
+
+%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+Transform x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates 
+";
 
 
 // File: namespaceMaterials.xml

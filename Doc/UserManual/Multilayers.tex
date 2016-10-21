@@ -182,8 +182,10 @@ is solved by the factorization ansatz
 \psi(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
-Continuity at the interfaces above and below the sample
-requires that the horizontal wavevector $\k_\parallel$ is constant.
+Continuity at the interfaces above and below the sample implies
+\begin{equation}\label{Ekconst}
+  \k_\parallel = \text{const}.
+\end{equation}
 The vertical wavefunction~$\phi(z)$
 is governed by the one-dimensional wave equation
 \begin{equation}\label{Ewavez}
@@ -245,59 +247,77 @@ with constant refractive indices $n_l$
 \nomenclature[2k122 2l010]{$K_l$}{Wavenumber in layer~$l$}%
 \nomenclature[2n020 2l010]{$n_l$}{Refractive index of layer~$l$}%
 and wavenumber $K_l\coloneqq K_\text{vac} n_l$.
-Within each layer, the $\psi^\pm_l$ are plane waves.
-Their amplitudes are determined
- Fresnel's transmission and reflection coefficients
+Any up- or downward travelling solution of the wave equation shall be written
+as a sum over partial wavefunctions,
+\begin{equation}
+  \psi^\pm(\r) = \sum_l \psi_l^\pm(\r),
+\end{equation}
+with the requirement
+\begin{equation}
+   \psi_l^\pm(\r) = 0 \text{~for $\r$ outside layer~$l$.}
+\end{equation}
+Within the layer, $\psi^\pm_l$ is a plane wave
+that factorizes as in~\cref{Ekpar}.
+Its amplitude~$A_l^\pm$ is determined recursively
+by Fresnel's transmission and reflection coefficients
 \index{Fresnel coefficients}%
 that are based on continuity conditions at the layer interfaces.
 This will be elaborated in \Cref{Sacrolay}.
 \index{Multilayer!refractive index profiles}%
 \index{Layer!refractive index profiles}%
+The vertical wavenumber is determined by \cref{Epsiminus} and~\cref{Ekconst},
+\begin{equation}
+  k_{\perp l}^\pm = \pm\sqrt{K_l^2 - k_\parallel^2}.
+\end{equation}
 
 %--------------------------------------------------------------------------------
 \begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.4\textwidth]{fig/drawing/multilayer_z_conventions.ps}
 \end{center}
-\caption{The parameter $z_l$ is the $z$ coordinate of the \E{top} interface
+\caption{Conventions for layer numbers and interface coordinates.
 \index{Multilayer!numbering}%
 \index{Layer!index}%
 \index{Multilayer!coordinates}%
 \index{Layer!coordinate}%
-of layer~$l$, except for $z_0$ which is the coordinate of the \E{bottom} interface
-of the air or vacuum layer~0.}
+\index{Convention!layer number}%
+\index{Convention!interface coordinate}%
+}
 \label{Fdefz}
 \end{figure}
 %--------------------------------------------------------------------------------
 
-\Note{\indent By convention,
-layers are numbered from top to bottom (see \cref{Fdefz}).
+\Note{\indent By convention, illustrated in \cref{Fdefz},
+layers are numbered from top to bottom.
 The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
 \index{Multilayer!numbering}%
 \index{Layer!index}%
-the substrate (extending to $z\to-\infty$) is layer~$N$.}
-
-% TODO REPLACE BY TEXT BELOW
-Support for rough interfaces is already implemented in \BornAgain,
-but documentation is adjourned to a later edition of this manual.
-%Unless layer interfaces are smooth,
-%their roughness causes extra contribution to the total scattering.
-%This is implemented in BornAgain as described in \Cref{SRough}.
-
-Wave functions $\psi^\pm(\r)$ factorize as in~\cref{Ekpar}.
-The vertical wavefunction shall be written as
-\begin{equation}\label{Ephizwj}
-  \phi^\pm_{w\il}(z)=A^\pm_{w\il}\e^{\pm ik_{\perp w\il}(z-z_\il)}.
-\end{equation}
-\nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude of the plane wave $\phi^\pm_{w\il}(\r)$}%
-For later convenience,
-the phase factor in \cref{Ephizwj} includes an offset~$z_\il$
-as defined in \cref{Fdefz}.
-\nomenclature[2z020 2l010]{$z_l$}{Vertical coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
+\index{Convention!layer number}%
+the substrate (extending to $z\to-\infty$) is layer~$N$.
+The parameter $z_l$ is the $z$ coordinate of the \E{top} interface
 \index{Multilayer!coordinates}%
 \index{Layer!coordinate}%
-The amplitudes $A^\pm_{wl}$ need to be computed recursively,
-as described below in \cref{Sacrolay}.
+\index{Convention!interface coordinate}%
+\nomenclature[2z020 2l010]{$z_l$}{Vertical
+  coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
+of layer~$l$, except for $z_0$ which is the coordinate of the \E{bottom} interface
+of the air or vacuum layer~0.}
+
+With the indicator function
+\nomenclature[1χ032 2l010]{$\chi_l(z)$ indicates whether $z$ is in layer~$l$}%
+\index{Indicator function}%
+\begin{equation}
+  \chi_\il(\r)\coloneqq\left\{\begin{array}{ll}
+  1&\text{~if $z_\il\le z \le z_{\il+1}$,}\\[.2ex]
+  0&\text{~otherwise,} \end{array}\right.
+\end{equation}
+the vertical wavefunction can be written
+\begin{equation}\label{Ephizwj}
+  \phi^\pm_l(z)=A^\pm_l\e^{\pm ik_{\perp l}(z-z_\il)}\chi_l(z).
+\end{equation}
+\nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude
+  of the plane wave $\phi^\pm_{w\il}(\r)$}%
+The offset~$z_\il$ has been included in the phase factor for later convenience.
 
 The DWBA transition matrix element~\cref{Edwba} is
 \index{Distorted-wave Born approximation!multilayer}%
@@ -316,14 +336,6 @@ restricted to layer~$l$
 \end{equation}
 \nomenclature[1δ00 2v030 2l010 2q040]{$\delta v_\il(\v{q})$}{Fourier transform
 of the SLD $\delta v(\r)$, evaluated in one sample layer}%
-The latter form makes use of the indicator function
-\nomenclature[1χ032 2l010]{$\chi_l(z)$ indicates whether $z$ is in layer~$l$}%
-\index{Indicator function}%
-\begin{equation}
-  \chi_\il(\r)\coloneqq\left\{\begin{array}{ll}
-  1&\text{~if $z_\il\le z \le z_{\il+1}$,}\\[.2ex]
-  0&\text{~otherwise.} \end{array}\right.
-\end{equation}
 
 To alleviate later calculations,
 we now number the four DWBA terms from 1 to~4,
@@ -364,6 +376,13 @@ From elementary quantum mechanics we know that
 piecewise solutions of the Schrödinger equations must be connected
 such that the wavefunction $\phi(\r)$ and its first derivative
 $\Nabla\phi(\r)$ evolve continuously.
+
+% TODO REPLACE BY TEXT BELOW
+\Note{Support for rough interfaces is already implemented in \BornAgain,
+but documentation is adjourned to a later edition of this manual.}
+%Unless layer interfaces are smooth,
+%their roughness causes extra contribution to the total scattering.
+%This is implemented in BornAgain as described in \Cref{SRough}.
 
 To deal with the coordinate offsets introduced in \cref{Ephizwj},
 we introduce the function%

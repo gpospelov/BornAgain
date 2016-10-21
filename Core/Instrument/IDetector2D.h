@@ -182,9 +182,6 @@ protected:
 
     bool isCorrectAxisIndex(size_t index) const;
 
-    //! Returns true if data has a compatible format with the detector.
-    bool dataShapeMatches(const OutputData<double>* p_data) const;
-
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;
 

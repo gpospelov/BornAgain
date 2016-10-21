@@ -19,15 +19,7 @@
 #include "IIntensityNormalizer.h"
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
-
-//namespace {
-//template<class T> std::string axesToString(T* object) {
-//    std::stringstream result;
-//    result <<  "(" << object->getAxis(BornAgain::X_AXIS_INDEX).getSize()
-//           << ", " << object->getAxis(BornAgain::Y_AXIS_INDEX).getSize() << ")";
-//    return result.str();
-//}
-//}
+#include "DetectorFunctions.h"
 
 FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
     double weight, bool adjust_detector_to_data)
@@ -68,21 +60,14 @@ void FitObject::init_dataset()
 
 void FitObject::check_realdata() const
 {
-    if(m_real_data->getRank() != 2)
-        throw Exceptions::RuntimeErrorException("FitObject::check_realdata() -> Error. "
-                                                "The real data is not two-dimensional.");
-//    const IDetector2D *detector = m_simulation->getInstrument().getDetector();
-////    if(m_real_data->getAxis(BornAgain::X_AXIS_INDEX).getSize()
-////            != detector->getAxis(BornAgain::X_AXIS_INDEX).getSize()
-////            || m_real_data->getAxis(BornAgain::Y_AXIS_INDEX)->getSize()
-////            != detector->getAxis(BornAgain::Y_AXIS_INDEX)->getSize()) {
-//        std::ostringstream message;
-//        message << "FitObject::check_realdata() -> Error. Axes of the detector doesn't match "
-//                << "real data: " << axesToString(detector)
-//                << ", detector:" << axesToString(detector);
-//        throw Exceptions::RuntimeErrorException(message.str());
-
-////    }
+    const IDetector2D *detector = m_simulation->getInstrument().getDetector();
+    if(!DetectorFunctions::hasSameDimensions(*detector, *m_real_data.get())){
+        std::ostringstream message;
+        message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
+                << "the detector. Real data:" << DetectorFunctions::axesToString(*m_real_data.get())
+                        << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
+        throw Exceptions::RuntimeErrorException(message.str());
+    }
 }
 
 

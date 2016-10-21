@@ -253,19 +253,6 @@ void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,
         data[it.index()] = elements[it.elementIndex()].getIntensity();
 }
 
-bool IDetector2D::dataShapeMatches(const OutputData<double> *p_data) const
-{
-    if (p_data->getRank() != getDimension())
-        return false;
-    for (size_t i = 0; i < getDimension(); ++i) {
-        const IAxis *p_data_axis = p_data->getAxis(i);
-        const IAxis &detector_axis = getAxis(i);
-        if (detector_axis != *p_data_axis)
-            return false;
-    }
-    return true;
-}
-
 size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
 {
     size_t remainder(index);

@@ -20,9 +20,8 @@
 #include <cstdlib>
 class SimulationArea;
 
-//! @class SimulationAreaIterator
+//! An iterator for SimulationArea.
 //! @ingroup simulation
-//! @brief The SimulationAreaIterator class is an iterator for SimulationArea.
 
 class BA_CORE_API_ SimulationAreaIterator
 {

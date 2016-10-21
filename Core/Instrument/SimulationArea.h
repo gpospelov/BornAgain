@@ -41,10 +41,22 @@ public:
     //! Return index in ROO map from global index
     size_t roiIndex(size_t globalIndex) const;
 
-private:
+protected:
     const IDetector2D *m_detector;
     size_t m_roi_x1, m_roi_x2, m_roi_y1, m_roi_y2;
 };
 
+//! Holds iteration logic over active detector channels in the presence of ROI. On the contrary
+//! to SimulationArea class, iterates also over masked areas.
+//! @ingroup simulation
+
+class BA_CORE_API_ SimulationRoiArea : public SimulationArea
+{
+public:
+    explicit SimulationRoiArea(const IDetector2D *detector);
+
+    virtual bool isMasked(size_t index) const;
+
+};
 
 #endif

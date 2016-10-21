@@ -54,8 +54,9 @@ void FitObject::init_dataset(const OutputData<double >& real_data)
     check_realdata(real_data);
 
     m_chi2_data.reset(m_simulation->getInstrument().createDetectorMap());
-    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data);
-
+    bool put_masked_areas_to_zero(false);
+    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
+                                                   put_masked_areas_to_zero);
 }
 
 //! Checks if real data and the detector have same dimensions. If not, exception will be thrown.

@@ -94,3 +94,22 @@ size_t SimulationArea::roiIndex(size_t globalIndex) const
 
     return nyGlob - m_roi_y1 + (nxGlob - m_roi_x1)*(m_roi_y2-m_roi_y1+1);
 }
+
+// --------------------------------------------------------------------------------------
+
+SimulationRoiArea::SimulationRoiArea(const IDetector2D *detector)
+    : SimulationArea(detector)
+{
+
+}
+
+bool SimulationRoiArea::isMasked(size_t index) const
+{
+    if(m_detector->regionOfInterest()) {
+        size_t nx = m_detector->getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
+        if(nx<m_roi_x1 || nx>m_roi_x2) return true;
+        size_t ny = m_detector->getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+        if(ny<m_roi_y1 || ny>m_roi_y2) return true;
+    }
+    return false;
+}

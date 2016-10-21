@@ -30,7 +30,7 @@ in the distorted wave Born approximation (\cref{SDWBA}).
 \index{GISAS|see{Grazing-incidence small angle scattering}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Wave propagation in (2+1)D and the DWBA}\label{Swave21}
+\section{DWBA for layered samples}\label{Swave21}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %--------------------------------------------------------------------------------
@@ -145,10 +145,14 @@ The wave vector components $\k_\parallel$ and $k_{\perp}$ must fulfill
 \begin{equation}
   K(z)^2=\k_\parallel^2+k_{\perp}^2.
 \end{equation}
+\index{Wavenumber!vertical}%
+\index{Vertical wavenumber}%
 Continuity across the sample implies
 \begin{equation}\label{Ekconst}
   \k_\parallel = \text{const}.
 \end{equation}
+\index{Wavevector!horizontal!constant}%
+\index{Horizontal wavevector!constant}%
 When the incident wave hits the sample,
 it is wholly or partly reflected.
 Therefore, the full the solution of~\cref{EWaveZ} in the half space
@@ -226,15 +230,6 @@ in the differential cross section~\cref{Exsection},
 the four terms of \cref{Edwba} can interfere with each other,
 which adds to the complexity of GISAS patterns.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Multilayers}\label{SStep}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-BornAgain supports multilayer samples
-with refractive index discontinuities at layer interfaces.
-Conventions for layer numbers and interface coordinates are
-introduced in~\Cref{Fdefz}.
-
 %--------------------------------------------------------------------------------
 \begin{figure}[tb]
 \begin{center}
@@ -263,7 +258,11 @@ of the air or vacuum layer~0.}
 %--------------------------------------------------------------------------------
 
 
-The multilayer sample consists of a finite sequence of discrete layers
+BornAgain supports multilayer samples
+with refractive index discontinuities at layer interfaces.
+Conventions for layer numbers and interface coordinates are
+introduced in~\Cref{Fdefz}.
+A multilayer sample consists of a finite sequence of discrete layers
 $l=0,\ldots,N$
 \nomenclature[2l010]{$l$}{Layer index}%
 with constant refractive indices $n_l$
@@ -279,6 +278,27 @@ with the requirement
 \begin{equation}
    \psi_l^\pm(\r) = 0 \text{~for $\r$ outside layer~$l$.}
 \end{equation}
+The DWBA matrix element~\cref{Edwba} then takes the form
+\Emph{%
+\begin{equation}\label{Edwbal}
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  = \sum_l \sum_{\pm_\ti} \sum_{\pm_\tf}
+    \bra \psi^\pm_{\ti l}|\delta v|\psi^\pm_{\tf l}\ket.
+\end{equation}%
+\vspace*{-5pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Homogeneous layers}\label{SLayHomo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
+\subsection{DWBA for one layer}\label{SStep}
+%===============================================================================
+
+BornAgain currently only supports layers with a homogenous matrix.
+In terms of~\cref{Edecompose_vz} this means that
+$\overline{v}(z)\eqqcolon v_l$ must be constant within a layer.
+
 Within the layer, $\psi^\pm_l$ is a plane wave
 that factorizes as in~\cref{Ekpar}.
 Its amplitude~$A_l^\pm$ is determined recursively
@@ -292,6 +312,31 @@ The vertical wavenumber is determined by \cref{Epsiminus} and~\cref{Ekconst},
 \begin{equation}
   k_{\perp l}^\pm = \pm\sqrt{K_l^2 - k_\parallel^2}.
 \end{equation}
+In the absence of absorption and above the critical angle,
+wavevectors are real
+so that we can describe the beam in terms of a glancing angle
+\begin{equation}\label{Edef_alpha}
+  \alpha_{\il}\coloneqq \arctan(k_{\perp \il}/k_{\plll}).
+\end{equation}
+Equivalently,
+\begin{equation}
+  k_{\plll}=K n_\il \cos\alpha_{\il}.
+\end{equation}
+Since $k_{\plll}$ is constant across layers,
+we have
+\begin{equation}\label{ESnell}
+  n_\il \cos\alpha_{\il} = \text{the same for all }\il,
+\end{equation}
+which is Snell's refraction law.
+\index{Refraction!Snell's law}
+\index{Snell's law}
+In general, however, the vertical wavenumber $k_{\perp}$,
+determined by $K_l$ and $k_\parallel$ as per~\cref{Epsiminus},
+can become imaginary (total reflection conditions) or complex (absorbing layer).
+\index{Wavevector!complex}%
+In these cases, glancing angles are no longer well defined,
+and the geometric interpretation of~$\psi_l(\r)$ less obvious.
+so that one has to fully rely on the algebraic formalism.
 
 With the indicator function
 \nomenclature[1χ032 2l010]{$\chi_l(z)$}{indicates whether $z$ is in layer~$l$}%
@@ -350,7 +395,7 @@ Since $\k_\parallel=\text{const}$,
 they differ only in their vertical component~$q^u_\perp$.
 
 %===============================================================================
-\section{Wave propagation across layers}\label{Sacrolay}
+\subsection{Wave amplitudes}\label{Sacrolay}
 %===============================================================================
 
 \index{Fresnel coefficients}%
@@ -537,35 +582,10 @@ The following cases are treated seperately:
     of non-vacuum layer always contains an absorptive component.
 \end{itemize}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Special cases: geometric optics, evanescent wave}\label{SSpecial}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%===============================================================================
+\subsection{Flux, evanescent waves}\label{SSpecial}
+%===============================================================================
 
-In the absence of absorption and above the critical angle,
-wavevectors are real
-so that we can describe the beam in terms of a glancing angle
-\begin{equation}\label{Edef_alpha}
-  \alpha_{\il}\coloneqq \arctan(k_{\perp \il}/k_{\plll}).
-\end{equation}
-Equivalently,
-\begin{equation}
-  k_{\plll}=K n_\il \cos\alpha_{\il}.
-\end{equation}
-Since $k_{\plll}$ is constant across layers,
-we have
-\begin{equation}\label{ESnell}
-  n_\il \cos\alpha_{\il} = \text{the same for all }\il,
-\end{equation}
-which is Snell's refraction law.
-\index{Refraction!Snell's law}
-\index{Snell's law}
-
-In general, however, the vertical wavenumber $k_{\perp}$,
-determined by $K_l$ and $k_\parallel$ as per~\cref{Epsiminus},
-can become imaginary (total reflection conditions) or complex (absorbing layer).
-\index{Wavevector!complex}%
-This makes the above geometric interpretation untenable
-so that we have to fully rely on an algebraic formalism.
 We write
 \begin{equation}\label{Edecompkperp}
   k_\perp \eqqcolon k_\perp' + i k_\perp''

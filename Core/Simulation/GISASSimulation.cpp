@@ -85,21 +85,6 @@ void GISASSimulation::setDetector(const IDetector2D& detector)
     updateIntensityMap();
 }
 
-void GISASSimulation::setDetectorParameters(const OutputData<double>& output_data)
-{
-    m_instrument.matchDetectorAxes(output_data);
-
-    m_intensity_map.clear();
-    m_intensity_map.copyShapeFrom(output_data); // to copy mask too
-    m_intensity_map.setAllTo(0.);
-}
-
-void GISASSimulation::setDetectorParameters(const IHistogram& histogram)
-{
-    const std::unique_ptr<OutputData<double>> data(histogram.createOutputData());
-    setDetectorParameters(*data);
-}
-
 void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
                                             size_t n_alpha, double alpha_min, double alpha_max)
 {

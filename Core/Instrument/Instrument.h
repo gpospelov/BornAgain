@@ -70,9 +70,6 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
 
-    //! Sets detector parameters using axes of output data
-    void matchDetectorAxes(const OutputData<double>& output_data);
-
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);

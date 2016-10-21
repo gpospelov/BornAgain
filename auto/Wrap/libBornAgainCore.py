@@ -15471,10 +15471,8 @@ class GISASSimulation(Simulation):
         return _libBornAgainCore.GISASSimulation_setDetector(self, detector)
 
 
-    def setDetectorParameters(self, *args):
+    def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
         """
-        setDetectorParameters(GISASSimulation self, IntensityData output_data)
-        setDetectorParameters(GISASSimulation self, IHistogram histogram)
         setDetectorParameters(GISASSimulation self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
 
         void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
@@ -15503,7 +15501,7 @@ class GISASSimulation(Simulation):
         upper edge of last alpha-bin 
 
         """
-        return _libBornAgainCore.GISASSimulation_setDetectorParameters(self, *args)
+        return _libBornAgainCore.GISASSimulation_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
 
     def removeMasks(self):
@@ -18514,18 +18512,6 @@ class Instrument(IParameterized):
         return _libBornAgainCore.Instrument_setDetector(self, detector)
 
 
-    def matchDetectorAxes(self, output_data):
-        """
-        matchDetectorAxes(Instrument self, IntensityData output_data)
-
-        void Instrument::matchDetectorAxes(const OutputData< double > &output_data)
-
-        Sets detector parameters using axes of output data. 
-
-        """
-        return _libBornAgainCore.Instrument_matchDetectorAxes(self, output_data)
-
-
     def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
         """
         setDetectorParameters(Instrument self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -21497,9 +21483,8 @@ class OffSpecSimulation(Simulation):
         return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, arg2, alpha_axis, phi_i)
 
 
-    def setDetectorParameters(self, *args):
+    def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
         """
-        setDetectorParameters(OffSpecSimulation self, IntensityData output_data)
         setDetectorParameters(OffSpecSimulation self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
         void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -21507,7 +21492,7 @@ class OffSpecSimulation(Simulation):
         Sets detector parameters using angle ranges. 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_setDetectorParameters(self, *args)
+        return _libBornAgainCore.OffSpecSimulation_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)

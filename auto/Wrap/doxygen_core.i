@@ -9769,6 +9769,11 @@ Returns current index.
 Returns container pointer. 
 ";
 
+%feature("docstring")  OutputDataIterator::swap "void OutputDataIterator< TValue, TContainer >::swap(OutputDataIterator< TValue, TContainer > &other)
+
+Swaps iterators. 
+";
+
 
 // File: classOutputDataReader.xml
 %feature("docstring") OutputDataReader "
@@ -13966,6 +13971,10 @@ The mathematics implemented here is described in full detail in a paper by Joach
 
 
 // File: OutputDataIterator_8h.xml
+%feature("docstring")  swap "void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+make Swappable 
+";
 
 
 // File: RectangularDetector_8cpp.xml

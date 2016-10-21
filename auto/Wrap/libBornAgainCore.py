@@ -302,7 +302,14 @@ class vdouble1d_t(_object):
 
 
     def swap(self, v):
-        """swap(vdouble1d_t self, vdouble1d_t v)"""
+        """
+        swap(vdouble1d_t self, vdouble1d_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vdouble1d_t_swap(self, v)
 
 
@@ -507,7 +514,14 @@ class vdouble2d_t(_object):
 
 
     def swap(self, v):
-        """swap(vdouble2d_t self, vdouble2d_t v)"""
+        """
+        swap(vdouble2d_t self, vdouble2d_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vdouble2d_t_swap(self, v)
 
 
@@ -712,7 +726,14 @@ class vector_integer_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_integer_t self, vector_integer_t v)"""
+        """
+        swap(vector_integer_t self, vector_integer_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_integer_t_swap(self, v)
 
 
@@ -917,7 +938,14 @@ class vector_longinteger_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_longinteger_t self, vector_longinteger_t v)"""
+        """
+        swap(vector_longinteger_t self, vector_longinteger_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_longinteger_t_swap(self, v)
 
 
@@ -1122,7 +1150,14 @@ class vector_complex_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_complex_t self, vector_complex_t v)"""
+        """
+        swap(vector_complex_t self, vector_complex_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_complex_t_swap(self, v)
 
 
@@ -1327,7 +1362,14 @@ class vector_string_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_string_t self, vector_string_t v)"""
+        """
+        swap(vector_string_t self, vector_string_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_string_t_swap(self, v)
 
 
@@ -2141,7 +2183,14 @@ class vector_kvector_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_kvector_t self, vector_kvector_t v)"""
+        """
+        swap(vector_kvector_t self, vector_kvector_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_kvector_t_swap(self, v)
 
 
@@ -2570,7 +2619,14 @@ class vector_cvector_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_cvector_t self, vector_cvector_t v)"""
+        """
+        swap(vector_cvector_t self, vector_cvector_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_cvector_t_swap(self, v)
 
 
@@ -4022,7 +4078,14 @@ class swig_dummy_type_isample_vector(_object):
 
 
     def swap(self, v):
-        """swap(swig_dummy_type_isample_vector self, swig_dummy_type_isample_vector v)"""
+        """
+        swap(swig_dummy_type_isample_vector self, swig_dummy_type_isample_vector v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.swig_dummy_type_isample_vector_swap(self, v)
 
 
@@ -4227,7 +4290,14 @@ class swig_dummy_type_const_isample_vector(_object):
 
 
     def swap(self, v):
-        """swap(swig_dummy_type_const_isample_vector self, swig_dummy_type_const_isample_vector v)"""
+        """
+        swap(swig_dummy_type_const_isample_vector self, swig_dummy_type_const_isample_vector v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.swig_dummy_type_const_isample_vector_swap(self, v)
 
 
@@ -10172,7 +10242,14 @@ class vector_IFormFactorPtr_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_IFormFactorPtr_t self, vector_IFormFactorPtr_t v)"""
+        """
+        swap(vector_IFormFactorPtr_t self, vector_IFormFactorPtr_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_IFormFactorPtr_t_swap(self, v)
 
 

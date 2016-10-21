@@ -40,14 +40,14 @@ SimulationElement::SimulationElement(const SimulationElement &other)
 }
 
 SimulationElement::SimulationElement(SimulationElement &&other) noexcept
-    : m_wavelength(std::move(other.m_wavelength))
-    , m_alpha_i(std::move(other.m_alpha_i))
-    , m_phi_i(std::move(other.m_phi_i))
-    , m_intensity(std::move(other.m_intensity))
+    : m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_phi_i(other.m_phi_i)
+    , m_intensity(other.m_intensity)
     , m_polarization(std::move(other.m_polarization))
     , m_analyzer_operator(std::move(other.m_analyzer_operator))
     , mP_pixel_map(std::move(other.mP_pixel_map))
-    , m_contains_specular(std::move(other.m_contains_specular))
+    , m_contains_specular(other.m_contains_specular)
 {
 
 }

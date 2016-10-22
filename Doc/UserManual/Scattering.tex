@@ -296,18 +296,24 @@ except that the right-hand side contains the unknown function~$\psi$.
 In the Born expansion this problem is solved by iteration.
 The zeroth approximation to~\cref{ESchrodiK} is the homogeneous wave equation
 \begin{equation}\label{EHelmholtzHomog}
-  \left(\Nabla^2+K(\r)^2\right)\psi(\r) = 0.
+  \left\{\Nabla^2+K(\r)^2\right\}\psi(\r) = 0.
 \end{equation}
-At this point, we make the additional assumption
-that our ...
-
-which is solved by plane waves and superpositions thereof.
-It applies in particular to the incident wave~$\psi_\ti$.
-\index{Incident radiation|see{Exciting wave}}%
+It does not have a practicable generic solution.
+Therefore at this point one needs to make additional simplifying assumptions.
+As said in connection with~\cref{Edecompose_v},
+there is some freedom in the choice of $\overline{v}(\r)$.
+In the basic variant of the Born expansion,
+one makes the simplest possible choice, $\overline{v}=\text{const}$,
+taking the value of $v(\r)$ outside the finite sample volume.
+A constant~$\overline{v}$ implies a constant~$K$,
+and so \cref{EHelmholtzHomog} reduces to the Helmholtz equation.
+\index{Helmholtz wave equation}%
+\index{Wave propagation!Helmholtz equation}%
+It is solved by plane waves and superpositions thereof.
 
 For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
-  \left(\Nabla^2+K^2\right)G(\r,\r') = \delta(\r-\r')
+  \left\{\Nabla^2+K^2\right\}G(\r,\r') = \delta(\r-\r')
 \end{equation}
 \nomenclature[2g130 2r040 2r041]{$G(\r,\r')$}{Green function}%
 \index{Green function!homogeneous material}%

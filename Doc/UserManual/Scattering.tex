@@ -173,21 +173,21 @@ as a starting point to study scattering by condensed-matter samples
 To compute scattering cross sections from a perturbation expansion,
 we will need to decompose the SLD as
 \begin{equation}\label{Edecompose_v}
-  v(\r) \coloneqq \overline{v}(\r) + \delta v(\r).
+  v(\r) \coloneqq \mv(\r) + \delta v(\r).
 \end{equation}
 \nomenclature[1d030 2v230 2r040]{$\delta v(\r)$}{Fluctuating part of the scattering length density}%
-\nomenclature[2v021]{$\overline{v}$}{Average scattering length density}%
+\nomenclature[2v021]{$\mv$}{Average scattering length density}%
 For $\r$ outside the finite sample volume, we require $\delta v(\r)=0$.
 Inside the sample, the decomposition~\cref{Edecompose_v} is somewhat arbitrary,
 and can be chosen for analytical convenience.
 The macroscopic Schrödinger equation~\cref{EmacrSchrodi} becomes
 \begin{equation}\label{ESchrodi3}
-  \left\{ \Nabla^2 + \frac{2m\omega}{\hbar} - 4\pi\overline{v}(\r) \right\}\psi(\r)
+  \left\{ \Nabla^2 + \frac{2m\omega}{\hbar} - 4\pi\mv(\r) \right\}\psi(\r)
   = 4\pi\delta v(\r)\psi(\r).
 \end{equation}
 The left-hand side describes optical wave propagation,
 the right-hand side is a perturbation that causes scattering.
-Accordingly, $\overline{v}(\r)$ should only contain SLD variations
+Accordingly, $\mv(\r)$ should only contain SLD variations
 that are simple enough to allow an analytical solution.
 The SLD fluctuation~$\delta v(\r)$ then stands for the more irregular
 features of a sample one ultimately wants to study in a scattering experiment.
@@ -205,7 +205,7 @@ It contains the wavenumber~$K(\r)$, given by the dispersion relation
 \index{Dispersion!neutron in homogeneous medium}%
 \index{Wavenumber!neutron}%
 \begin{equation}\label{Edispersion}
-  K(\r)^2 = \frac{2m\omega}{\hbar} - 4\pi\overline{v}(\r).
+  K(\r)^2 = \frac{2m\omega}{\hbar} - 4\pi\mv(\r).
 \end{equation}
 With the vacuum wavenumber~$K_\text{vac}$
 \nomenclature[2k124 200vac]{$K_\text{vac}$}{Wavenumber in vacuum}%
@@ -214,7 +214,7 @@ and the \E{refractive index}
 \index{Refractive index}%
 \index{Index of refraction|see {Refractive index}}%
 \begin{equation}\label{EnRefrIndx}
-  n\coloneqq \sqrt{1-\frac{4\pi}{K_\text{vac}^2}\overline{v}},
+  n\coloneqq \sqrt{1-\frac{4\pi}{K_\text{vac}^2}\mv},
 \end{equation}
 \cref{Edispersion} takes the simple form $K=K_\text{vac} n$.
 \index{Absorption|(}%
@@ -295,18 +295,18 @@ like an inhomogeneous differential equation ---
 except that the right-hand side contains the unknown function~$\psi$.
 In the Born expansion this problem is solved by iteration.
 The zeroth approximation to~\cref{ESchrodiK} is the homogeneous wave equation
-\begin{equation}\label{EHelmholtzHomog}
+\begin{equation}\label{EHomoK}
   \left\{\Nabla^2+K(\r)^2\right\}\psi(\r) = 0.
 \end{equation}
 It does not have a practicable generic solution.
 Therefore at this point one needs to make additional simplifying assumptions.
 As said in connection with~\cref{Edecompose_v},
-there is some freedom in the choice of $\overline{v}(\r)$.
+there is some freedom in the choice of $\mv(\r)$.
 In the basic variant of the Born expansion,
-one makes the simplest possible choice, $\overline{v}=\text{const}$,
+one makes the simplest possible choice, $\mv=\text{const}$,
 taking the value of $v(\r)$ outside the finite sample volume.
-A constant~$\overline{v}$ implies a constant~$K$,
-and so \cref{EHelmholtzHomog} reduces to the Helmholtz equation.
+A constant~$\mv$ implies a constant~$K$,
+and so \cref{EHomoK} reduces to the Helmholtz equation.
 \index{Helmholtz wave equation}%
 \index{Wave propagation!Helmholtz equation}%
 It is solved by plane waves and superpositions thereof.
@@ -544,7 +544,7 @@ of elastic scattering in first order Born approximation,
 }
 As we shall see below,
 it holds not only for plane waves governed
-by the vacuum Helmholtz equation~\cref{EHelmholtzHomog},
+by the Helmholtz equation,
 but also for distorted waves.
 \index{Distorted-wave Born approximation!elastic cross section}%
 
@@ -564,63 +564,28 @@ of the Fourier transform of the SLD,
 \index{Distorted-wave Born approximation|(}%
 \index{DWBA|see {Distorted-wave Born approximation}}%
 
-For the Born approximation to be accurate,
-the perturbation~$\delta v(\r)$ must be small.
-In the standard theory, as exposed in~\cref{?}
-
-When this is not the case,
-the basic idea of the Born expansion can still be saved
-in what is called
-The standard form of the Born approximation,
-as presented in \cref{SBornApprox},
-combines an approximation scheme
-(computing \cref{EPsiFormal} by iteration)
-with an assumption (the incident field is a plane wave)
-and an analytic result
-(in far-field approximation,
-the Green function of the Helmholtz equation is a plane wave
-with respect to the locus of scattering).
-These three elements must not necessarily go together.
-In particularly, there is a fairly straightforward generalization
-of the Born approximation for the case that
-the incident field is not a plane wave,
-called the \E{distorted-wave Born approximation} (DWBA).\footnote
-{Originally devised by Massey and Mott (ca 1933)
+The standard Born approximation depends on the choice $\mv=\text{const}$,
+which implies that $\psi_\si$ and $\psi_\sf$ are plane waves.
+In the distorted-wave Born approximation (DWBA),\footnote{
+The DWBA was originally devised by Massey and Mott (ca 1933)
 for collisions of charged particles.
 The first explicit application to grazing-incidence scattering
 seems to be by Vineyard (1982) \cite{Vin82}.}
-It is pertinent for grazing-incidence scattering
-because refraction and reflection at interfaces
-distort the incident radiation into
-a superposition of downwards and upwards travelling waves,
-as we shall discuss below in~\Cref{Swave21}.
+this requirement is dropped.
+The SLD decomposition~\cref{Edecompose_v}
+is restored to full genericity,
+and it is taken for granted
+that somehow analytical or numerical solutions $\psi_\si$ and~$\psi_\sf$
+of the homogeneous wave equation~\cref{EHomoK}
+have been obtained.
 
-The above derivation of the Born cross section becomes invalid
-when there are systematic variations of the SLD
-that preclude the decomposition~\cref{Edecompose_v}.
-Let us instead write in full genericity
-\begin{equation}\label{Edecompose_vr}
-  v(\r) = \overline{v}(\r) + \delta v(\r).
-\end{equation}
-How to distinguish the systematic variations~$\overline{v}(\r)$
-from the random fluctuations~$\delta v(\r)$
-will depend on the application.
-In any case, the macroscopic Schrödinger equation~\cref{ESchrodiK} takes the form
-\begin{equation}\label{ESchrodiKr}
-  \left\{ \Nabla^2 + K^2(\r) \right\}\psi(\r)
-  = 4\pi\delta v(\r)\psi(\r).
-\end{equation}
-As before,
-the Born expansion starts from the homogeneous wave equation,
-\begin{equation}\label{EHomoK}
-  \left\{ \Nabla^2 + K^2(\r) \right\}\psi(\r) = 0.
-\end{equation}
-Differently from \Cref{SBornExpans},
-solutions are no longer plane waves.
-This makes it necessary
-to work out the distinction between \E{exciting} wave~$\psi_\se$
+Because these solutions are no longer plane waves,
+we need to work out a terminological and notational distinction
+that is blurred in the standard Born approximation:
+we need to distinguish
+ between the \E{exciting} wave~$\psi_\se$
 \nomenclature[1ψ034 2e000]{$\psi_\se(\r)$}{Exciting wave}%
-and \E{incident} wave~$\psi_\si$.
+and the \E{incident} wave~$\psi_\si$.
 The \E{exciting wave}
 \index{Exciting wave}%
 \index{Wave!exciting}%
@@ -647,15 +612,6 @@ and therefore no longer is a plane wave, and no longer equals~$\psi_\se(\r)$.
 This is different from the conventional Born approximation,
 where $\psi_\si$ is a plane wave throughout the sample,
 and therefore must not be distinguished from~$\psi_\se$.
-
-Besides $\psi_\si$,
-we will need another solution $\psi_\sf$ of~\cref{EHomoK}
-\index{Final wave!DWBA}%
-\index{Wave!final}%
-to describe a wave field that emanates from the sample,
-and reaches a detector pixel in form of a plane wave.
-The actual solution of~\cref{EHomoK} shall be postponed to \Cref{sec:Multilayers}.
-From here onwards, we proceed as if $\psi_\si(\r)$ and $\psi_\sf(\r)$ were known.
 
 Differently from the above derivation of the Born expansion,
 we will not even attempt to obtain a full solution

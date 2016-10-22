@@ -73,21 +73,21 @@ To specifiy a decomposition~\cref{Edecompose_vz}, we define
 \begin{equation}
   \delta v_l(\r)
   \coloneqq\left\{\begin{array}{ll}
-  v_l(\r) - \overline{v}_l&\text{~if $\r$ in Layer~$l$,}\\[.2ex]
+  v_l(\r) - \mv_l&\text{~if $\r$ in Layer~$l$,}\\[.2ex]
   0&\text{~otherwise.} \end{array}\right.
 \end{equation}
-This leaves the constant term $\overline{v}_l$ still undetermined.
+This leaves the constant term $\mv_l$ still undetermined.
 The best choice is probably the volume average of $v(\r)$,
 though we are not aware of any proof that this maximizes the accuracy of the DWBA.
 \Note{Currently (at least up to version 1.7),
 BornAgain uses the simpler choice
- $\overline{v}_l = v_{\sm l}$.
+ $\mv_l = v_{\sm l}$.
 This may change in the future.}
-Per \Cref{SStep}, $\overline{v}_l$ determines the refractive index~$n_l$
+Per \Cref{SStep}, $\mv_l$ determines the refractive index~$n_l$
 and the wavenumber~$K_l$.
 The wavefunctions $\psi_\si$ and~$\psi_\sf$
 are then determined as described in \Cref{Sacrolay}.
-Furthermore, our current choice $\overline{v}_l = v_{\sm l}$
+Furthermore, our current choice $\mv_l = v_{\sm l}$
 implies
 \begin{equation}\label{Edvl_cur}
   \delta v_l(\r) = \Delta v_\sp(\r)\text{~for $\r$ in the layer.}

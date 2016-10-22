@@ -154,20 +154,34 @@ In the following it shall be expressed through the
 \cite[eq.\ 2.8.37]{Sea89},
 \nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density (SLD)}%
 \begin{equation}
-  v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r),
+  v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r).
 \end{equation}
-which shall be decomposed into a constant average and a fluctuating part,
+The scattering target
+\index{Scattering!target}%
+\index{Target}%
+typically is a material sample one wants to investigate.
+\index{Material!sample}%
+\index{Sample}%
+It has finite size, and is
+surrounded by an infinite homogeneous medium,
+typically vacuum or air.
+\index{Air}%
+\index{Vacuum}%
+\index{Surrounding medium}%
+\index{Medium}
+We write $\overline{v}$ for the SLD of the surrounding medium, and
 \begin{equation}\label{Edecompose_v}
-  v(\r) = \overline{v} + \delta v(\r).
+  \delta v(\r) \coloneqq v(\r) - \overline{v}
 \end{equation}
 \nomenclature[1d030 2v230 2r040]{$\delta v(\r)$}{Fluctuating part of the scattering length density}%
 \nomenclature[2v021]{$\overline{v}$}{Average scattering length density}%
+for the modulation of the SLD by the sample.
 The macroscopic Schrödinger equation~\cref{EmacrSchrodi} becomes
 \begin{equation}\label{ESchrodi3}
   \left\{ \Nabla^2 + \frac{2m\omega}{\hbar} - 4\pi\overline{v} \right\}\psi(\r)
   = 4\pi\delta v(\r)\psi(\r).
 \end{equation}
-In a homogeneous medium with $\delta v=0$,
+Outside the sample,
 \cref{ESchrodi3} reduces to the Helmholtz wave equation.
 \index{Helmholtz wave equation}%
 \index{Wave propagation!Helmholtz equation}%
@@ -217,12 +231,12 @@ in the X-ray crystallography convention it would be a minus sign.
 The Schrödinger equation \cref{ESchrodiK}
 is the starting point for the analysis of small-angle scattering (SAS) experiments
 in Born approximation (\cref{SBornApprox}).
-Later (\cref{Swave21}), for the special case of grazing incidence,
-the distorted wave Born approximation (DWBA)
+For the special case of grazing incidence,
+the distorted wave Born approximation (DWBA, \Cref{SDWBA})
 \index{Distorted-wave Born approximation}%
 will start with a slight modification of the decomposition~\cref{Edecompose_v}:
 vertical variations of the average SLD
-will be reassigned from $\delta v(\r)$ to $n(z)$
+will be reassigned from $\delta v(\r)$ to $\overline{v}(z)$
 in order to account for refraction and reflection in layered samples.
 \index{SAS|see {Small-angle scattering}}%
 \index{Small-angle scattering}%

@@ -535,3 +535,10 @@
 | date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
 | 2016-10-21 10:59:30 | scgsun   | Linux x86_64 | 2.7    | 121.0680  | 18.9790    | 2.8173     | 0.7080          | 3.3343          | 0.5471    | 2.3242        | 0.7298            | 3.1912         | 0.9791 | 1.7649      | 1.7282    | 0.8548    |
 | 2016-10-21 10:59:54 | scgsun   | Linux x86_64 | 2.7    | 121.1520  | 19.0818    | 2.7965     | 0.7001          | 3.3864          | 0.5668    | 2.3523        | 0.7130            | 3.1896         | 0.9822 | 1.7599      | 1.7774    | 0.8578    |
+
+# after OutputData iterator ans Masks cleanup
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-24 12:47:54 | scgsun   | Linux x86_64 | 2.7    | 121.6880  | 19.1974    | 2.8407     | 0.7347          | 3.3421          | 0.5651    | 2.3444        | 0.7357            | 3.2363         | 0.9956 | 1.7685      | 1.7709    | 0.8634    |
+| 2016-10-24 12:48:34 | scgsun   | Linux x86_64 | 2.7    | 122.7240  | 19.2525    | 2.8169     | 0.7120          | 3.4839          | 0.5526    | 2.3417        | 0.7331            | 3.2394         | 1.0024 | 1.7585      | 1.7631    | 0.8490    |
+

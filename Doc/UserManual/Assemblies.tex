@@ -124,11 +124,142 @@ With the \E{DWBA form factor}
 \end{equation}
 the scattering matrix element~\cref{Escamatrix2} becomes
 \Emph{
-\begin{equation}
+\begin{equation}\label{EsumRF}
   \bra\psi_\ti|\delta v|\psi_\tf\ket
   = \sum_j \e^{i\q_\parallel \R_{\parallel j}}  {\cal F}(\q_\parallel,\v{T_j})
 \end{equation}
 \vspace*{-5pt}}
+In the following \Cref{SFormFactor} we discuss the form factor~${\cal F}$.
+The remainder of this chapter is devoted to the coupling
+between particle form and position;
+various approximations are used to make~\cref{EsumRF} manageable.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Particle form factor}\label{SFormFactor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Particles!form factor|see {Form factor}}
+\index{Form factor|(}
+
+%===============================================================================
+\subsection{Shape transform}
+%===============================================================================
+
+\index{Shape transform|(}
+The form factor % TODO RESTORE ~\cref{EFFdef}
+of a particle is the Fourier transform
+of its shape function $S(\r)=\chi(\r)/\tilde\chi$,
+\nomenclature[2s130 2r040]{$S(\r)$}{Shape function}%
+\nomenclature[2f130 2q040]{$F(\q)$}{Particle form factor}%
+\index{Shape function}%
+\begin{equation}
+  F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
+\end{equation}
+For hard-shell particles %the shape function
+$S(\r)$ only takes the values 0 and~1
+so that the form factor becomes
+the \E{shape transform}
+\index{Shape transform}%
+\begin{equation}\label{EFFhardshell}
+  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
+\end{equation}
+where $V$ is the volume of the particle.
+\nomenclature[2v130 0]{$V$}{Volume of embedded particle}%
+\E{Ripples}
+\index{Ripple (form factor)}%
+ are particles with infinite extension in one dimension
+(by convention in $x$ direction).
+They have the shape transform
+\begin{equation}\label{EFFripple}
+  F(\q)=\delta(q_x)\int_A {\rm d}^2r\, {\rm e}^{i(q_y y + q_z z)},
+\end{equation}
+where $A$ is the cross section.
+To avoid an extra distinction of cases,
+\BornAgain\ implements ripples as particles with a \E{finite} length~$L$,
+which users may keep fixed at a very large value.
+% TODO: document alternative implementation of infinite ripples
+
+\BornAgain\ comes with a comprehensive collection of hard-coded
+shape transforms for standard particle geometries like
+spheres, cylinders, prisms, or pyramids,
+plus some ripples.
+They are available through constructors like
+\begin{lstlisting}
+  FormFactorCone(radius, height, alpha)
+\end{lstlisting}
+These functions are documented in \cref{SFF}.
+
+\index{Form factor!tutorial}%
+\index{Form factor!examples}%
+\index{Form factor!custom implementation}%
+\Tuto{The online tutorial contains an entire section on
+  \tuto{47}{embedded particles}, including several usage examples
+  and a \tuto{72}{list of all available form factors}.
+  If a particle shape is missing, try to implement a \tuto{107}{custom form factor},
+  or/and contact us.}
+
+\index{Large particles!numeric difficulty}%
+\index{Oscillations!from large particle form factor}%
+\index{Monte-Carlo integration!for large particle form factor}%
+\index{Particles!rapid form factor oscillations}%
+\index{Form factor!rapid oscillations}%
+\index{Form factor!large particles}%
+\Warn{For large particles (typically of order 1000nm),
+  the form factor oscillates rapidly within one detector bin
+  so that analytical calculations (performed for the bin center)
+  may give a completely wrong intensity pattern.}
+
+\Tuto{In this case, the best solution we can currently provide
+  is a Monte-Carlo integration, as shown in the example
+  \tuto{TODO}{large particle form factor}.}
+
+\index{Shape transform|)}
+
+%===============================================================================
+\subsection{Inhomogeneous particles}
+%===============================================================================
+
+For particles that are made of different materials,
+the definition % TODO RESTORE ~\cref{EFFdef}
+of the form factor~$F(\q)$
+must be generalized in obvious ways.
+In practice, the most important case is the \E{core-shell particle}.
+\index{Inhomogeneous particles}%
+\index{Core-shell particles}%
+\index{Particles!Core-shell}%
+This is supported in \BornAgain\ through the function
+\index{ParticleCoreShell@\Code{ParticleCoreShell}}
+\begin{lstlisting}
+  ParticleCoreShell(shell_particle, core_particle, relative_core_position)}
+\end{lstlisting}
+where \Code{shell\_particle} is assumed to be inscribed
+in \Code{core\_particle},
+and \Code{relative\_\discretionary{}{}{}core\_\discretionary{}{}{}position}
+specifies the position of the
+center of the base of the core particle relative
+to center of the base of the shell particle.
+
+\Tuto{See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.}
+
+%===============================================================================
+\subsection{Polydispersity}
+%===============================================================================
+
+\index{Polydispersity!embedded particles}%
+\index{Particles!polydispersity}%
+\index{Distribution!of particle parameters}%
+\index{Form factor!parameter distributions}%
+Embedded particles may be \E{polydisperse}, i.~e.\ have statistical distributions
+for some or all their numeric parameters.
+This is supported in \BornAgain\ through the same mechanism
+as for other numeric parameters.
+
+\Tuto{See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
+  The example also shows how two parameters can be tied to each other
+(size distribution with constant ratio radius/height).}
+
+
+\index{Form factor|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure and form factor}\label{SPartFactors}
@@ -344,133 +475,6 @@ it is only available for paracrystals
 % and will therefore be discussed later (\cref{}).
 }
 %\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Form factors}\label{SFormFactor}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\index{Particles!form factor|see {Form factor}}
-\index{Form factor|(}
-
-%===============================================================================
-\subsection{Shape transform}
-%===============================================================================
-
-\index{Shape transform|(}
-The form factor % TODO RESTORE ~\cref{EFFdef}
-of a particle is the Fourier transform
-of its shape function $S(\r)=\chi(\r)/\tilde\chi$,
-\nomenclature[2s130 2r040]{$S(\r)$}{Shape function}%
-\nomenclature[2f130 2q040]{$F(\q)$}{Particle form factor}%
-\index{Shape function}%
-\begin{equation}
-  F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
-\end{equation}
-For hard-shell particles %the shape function
-$S(\r)$ only takes the values 0 and~1
-so that the form factor becomes
-the \E{shape transform}
-\index{Shape transform}%
-\begin{equation}\label{EFFhardshell}
-  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
-\end{equation}
-where $V$ is the volume of the particle.
-\nomenclature[2v130 0]{$V$}{Volume of embedded particle}%
-\E{Ripples}
-\index{Ripple (form factor)}%
- are particles with infinite extension in one dimension
-(by convention in $x$ direction).
-They have the shape transform
-\begin{equation}\label{EFFripple}
-  F(\q)=\delta(q_x)\int_A {\rm d}^2r\, {\rm e}^{i(q_y y + q_z z)},
-\end{equation}
-where $A$ is the cross section.
-To avoid an extra distinction of cases,
-\BornAgain\ implements ripples as particles with a \E{finite} length~$L$,
-which users may keep fixed at a very large value.
-% TODO: document alternative implementation of infinite ripples
-
-\BornAgain\ comes with a comprehensive collection of hard-coded
-shape transforms for standard particle geometries like
-spheres, cylinders, prisms, or pyramids,
-plus some ripples.
-They are available through constructors like
-\begin{lstlisting}
-  FormFactorCone(radius, height, alpha)
-\end{lstlisting}
-These functions are documented in \cref{SFF}.
-
-\index{Form factor!tutorial}%
-\index{Form factor!examples}%
-\index{Form factor!custom implementation}%
-\Tuto{The online tutorial contains an entire section on
-  \tuto{47}{embedded particles}, including several usage examples
-  and a \tuto{72}{list of all available form factors}.
-  If a particle shape is missing, try to implement a \tuto{107}{custom form factor},
-  or/and contact us.}
-
-\index{Large particles!numeric difficulty}%
-\index{Oscillations!from large particle form factor}%
-\index{Monte-Carlo integration!for large particle form factor}%
-\index{Particles!rapid form factor oscillations}%
-\index{Form factor!rapid oscillations}%
-\index{Form factor!large particles}%
-\Warn{For large particles (typically of order 1000nm),
-  the form factor oscillates rapidly within one detector bin
-  so that analytical calculations (performed for the bin center)
-  may give a completely wrong intensity pattern.}
-
-\Tuto{In this case, the best solution we can currently provide
-  is a Monte-Carlo integration, as shown in the example
-  \tuto{TODO}{large particle form factor}.}
-
-\index{Shape transform|)}
-
-%===============================================================================
-\subsection{Inhomogeneous particles}
-%===============================================================================
-
-For particles that are made of different materials,
-the definition % TODO RESTORE ~\cref{EFFdef}
-of the form factor~$F(\q)$
-must be generalized in obvious ways.
-In practice, the most important case is the \E{core-shell particle}.
-\index{Inhomogeneous particles}%
-\index{Core-shell particles}%
-\index{Particles!Core-shell}%
-This is supported in \BornAgain\ through the function
-\index{ParticleCoreShell@\Code{ParticleCoreShell}}
-\begin{lstlisting}
-  ParticleCoreShell(shell_particle, core_particle, relative_core_position)}
-\end{lstlisting}
-where \Code{shell\_particle} is assumed to be inscribed
-in \Code{core\_particle},
-and \Code{relative\_\discretionary{}{}{}core\_\discretionary{}{}{}position}
-specifies the position of the
-center of the base of the core particle relative
-to center of the base of the shell particle.
-
-\Tuto{See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.}
-
-%===============================================================================
-\subsection{Polydispersity}
-%===============================================================================
-
-\index{Polydispersity!embedded particles}%
-\index{Particles!polydispersity}%
-\index{Distribution!of particle parameters}%
-\index{Form factor!parameter distributions}%
-Embedded particles may be \E{polydisperse}, i.~e.\ have statistical distributions
-for some or all their numeric parameters.
-This is supported in \BornAgain\ through the same mechanism
-as for other numeric parameters.
-
-\Tuto{See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
-  The example also shows how two parameters can be tied to each other
-(size distribution with constant ratio radius/height).}
-
-
-\index{Form factor|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Interference functions}

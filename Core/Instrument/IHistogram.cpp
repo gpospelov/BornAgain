@@ -44,46 +44,46 @@ size_t IHistogram::getTotalNumberOfBins() const
     return m_data.getAllocatedSize();
 }
 
-const IAxis* IHistogram::getXaxis() const
+const IAxis& IHistogram::getXaxis() const
 {
     check_x_axis();
-    return &m_data.getAxis(0);
+    return m_data.getAxis(0);
 }
 
-const IAxis* IHistogram::getYaxis() const
+const IAxis& IHistogram::getYaxis() const
 {
     check_y_axis();
-    return &m_data.getAxis(1);
+    return m_data.getAxis(1);
 }
 
 double IHistogram::getXmin() const
 {
-    return getXaxis()->getMin();
+    return getXaxis().getMin();
 }
 
 double IHistogram::getXmax() const
 {
-    return getXaxis()->getMax();
+    return getXaxis().getMax();
 }
 
 size_t IHistogram::getNbinsX() const
 {
-    return getXaxis()->getSize();
+    return getXaxis().size();
 }
 
 double IHistogram::getYmin() const
 {
-    return getYaxis()->getMin();
+    return getYaxis().getMin();
 }
 
 double IHistogram::getYmax() const
 {
-    return getYaxis()->getMax();
+    return getYaxis().getMax();
 }
 
 size_t IHistogram::getNbinsY() const
 {
-    return getYaxis()->getSize();
+    return getYaxis().size();
 }
 
 size_t IHistogram::getGlobalBin(size_t binx, size_t biny) const

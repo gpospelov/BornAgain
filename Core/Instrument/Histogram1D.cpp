@@ -44,17 +44,17 @@ Histogram1D* Histogram1D::clone() const
 
 int Histogram1D::fill(double x, double weight)
 {
-    const IAxis* axis = getXaxis();
-    if(x < axis->getMin() || x>=axis->getMax())
+    const IAxis& axis = getXaxis();
+    if(x < axis.getMin() || x>=axis.getMax())
         return -1;
-    size_t index = axis->findClosestIndex(x);
+    size_t index = axis.findClosestIndex(x);
     m_data[index].add(weight);
     return (int)index;
 }
 
 std::vector<double> Histogram1D::getBinCenters() const
 {
-    return getXaxis()->getBinCenters();
+    return getXaxis().getBinCenters();
 }
 
 std::vector<double> Histogram1D::getBinValues() const
@@ -88,14 +88,14 @@ PyObject* Histogram1D::getBinErrorsNumpy() const
 
 Histogram1D* Histogram1D::crop(double xmin, double xmax)
 {
-    const std::unique_ptr<IAxis > xaxis(getXaxis()->createClippedAxis(xmin, xmax));
+    const std::unique_ptr<IAxis > xaxis(getXaxis().createClippedAxis(xmin, xmax));
     Histogram1D* result = new Histogram1D(*xaxis);
     OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();
     OutputData<CumulativeValue>::iterator it_result = result->m_data.begin();
     while (it_origin != m_data.end())
     {
         double x = m_data.getAxisValue(it_origin.getIndex(), 0);
-        if(result->getXaxis()->contains(x)) {
+        if(result->getXaxis().contains(x)) {
             *it_result = *it_origin;
             ++it_result;
         }

@@ -279,14 +279,14 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     BasicAxisItem* phiAxisItem = dynamic_cast<BasicAxisItem*>(
         detectorItem->getItem(SphericalDetectorItem::P_PHI_AXIS));
     Q_ASSERT(phiAxisItem);
-    phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
+    phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.size());
     phiAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
     phiAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
 
     BasicAxisItem* alphaAxisItem = dynamic_cast<BasicAxisItem*>(
         detectorItem->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
     Q_ASSERT(alphaAxisItem);
-    alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
+    alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
     alphaAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 

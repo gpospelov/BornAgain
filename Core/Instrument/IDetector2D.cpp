@@ -259,9 +259,9 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
     for (size_t i=0; i<getDimension(); ++i)
     {
         size_t i_axis = getDimension()-1-i;
-        int result = remainder % m_axes[i_axis]->getSize();
+        int result = remainder % m_axes[i_axis]->size();
         if(selected_axis == i_axis ) return result;
-        remainder /= m_axes[i_axis]->getSize();
+        remainder /= m_axes[i_axis]->size();
     }
     throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
                                           "Error! No axis with given number");
@@ -283,7 +283,7 @@ std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam 
     calculateAxisRange(axis_index, beam, units, amin, amax);
 
     std::unique_ptr<IAxis> result(new FixedBinAxis(getAxisName(axis_index),
-                                                   getAxis(axis_index).getSize(), amin, amax));
+                                                   getAxis(axis_index).size(), amin, amax));
 
     if(m_region_of_interest) {
         return clipAxisToRoi(axis_index, *result.get());
@@ -298,7 +298,7 @@ std::unique_ptr<IAxis> IDetector2D::clipAxisToRoi(size_t axis_index, const IAxis
         throw Exceptions::RuntimeErrorException("IDetector2D::clipAxisToRoi() -> Error. ROI is "
                                                 "absent");
 
-    size_t nbin1(0), nbin2(axis.getSize()-1);
+    size_t nbin1(0), nbin2(axis.size()-1);
     if(axis_index == BornAgain::X_AXIS_INDEX) {
         nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXlow());
         nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXup());
@@ -323,14 +323,14 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
 
     }else if(units == NBINS) {
         amin = 0.0;
-        amax = static_cast<double>(getAxis(axis_index).getSize());
+        amax = static_cast<double>(getAxis(axis_index).size());
 
     } else if(units == QYQZ && axis_index == BornAgain::X_AXIS_INDEX) {
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         SimulationElement el_left_bottom
             = getSimulationElement(getGlobalIndex(0, 0), beam);
         SimulationElement el_right_bottom
-            = getSimulationElement(getGlobalIndex(aX.getSize()-1, 0), beam);
+            = getSimulationElement(getGlobalIndex(aX.size()-1, 0), beam);
         amin = el_left_bottom.getQ(0.0, 0.0).y();
         amax = el_right_bottom.getQ(1.0, 0.0).y();
 
@@ -338,9 +338,9 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
         SimulationElement el_center_bottom
-            = getSimulationElement(getGlobalIndex(aX.getSize()/2, 0), beam);
+            = getSimulationElement(getGlobalIndex(aX.size()/2, 0), beam);
         SimulationElement el_center_top
-            = getSimulationElement(getGlobalIndex(aX.getSize()/2, aY.getSize()-1), beam);
+            = getSimulationElement(getGlobalIndex(aX.size()/2, aY.size()-1), beam);
         amin = -el_center_bottom.getQ(0.5, 0.0).z();
         amax = -el_center_top.getQ(0.5, 1.0).z();
 
@@ -353,7 +353,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
     if (getDimension()!=2) return getTotalSize();
-    return x*m_axes[1]->getSize()+y;
+    return x*m_axes[1]->size()+y;
 }
 
 size_t IDetector2D::getTotalSize() const
@@ -362,7 +362,7 @@ size_t IDetector2D::getTotalSize() const
     size_t result = 1;
     for (size_t i_axis=0; i_axis<getDimension(); ++i_axis)
     {
-        result *= m_axes[i_axis]->getSize();
+        result *= m_axes[i_axis]->size();
     }
     return result;
 }

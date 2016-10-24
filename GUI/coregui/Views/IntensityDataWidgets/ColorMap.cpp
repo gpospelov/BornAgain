@@ -426,8 +426,8 @@ void ColorMap::setAxesRangeFromItem(IntensityDataItem *item)
     const IAxis &axis_x = data->getAxis(0);
     const IAxis &axis_y = data->getAxis(1);
 
-    m_colorMap->data()->setSize(static_cast<int>(axis_x.getSize()),
-                                static_cast<int>(axis_y.getSize()));
+    m_colorMap->data()->setSize(static_cast<int>(axis_x.size()),
+                                static_cast<int>(axis_y.size()));
 
     m_colorMap->data()->setRange(ColorMapHelper::itemXrange(item),
                                  ColorMapHelper::itemYrange(item));
@@ -462,10 +462,10 @@ void ColorMap::setDataFromItem(IntensityDataItem *item)
     const IAxis &axis_x = data->getAxis(0);
     const IAxis &axis_y = data->getAxis(1);
 
-    for(size_t ix=0; ix<axis_x.getSize(); ++ix) {
-        for(size_t iy=0; iy<axis_y.getSize(); ++iy) {
+    for(size_t ix=0; ix<axis_x.size(); ++ix) {
+        for(size_t iy=0; iy<axis_y.size(); ++iy) {
             m_colorMap->data()->setCell(static_cast<int>(ix), static_cast<int>(iy),
-                                        (*data)[iy+axis_y.getSize()*ix]);
+                                        (*data)[iy+axis_y.size()*ix]);
         }
     }
 }

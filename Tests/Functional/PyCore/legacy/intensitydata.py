@@ -21,7 +21,7 @@ class IntensityDataTest(unittest.TestCase):
 
     def test_create_1d_object(self):
         axis0 = FixedBinAxis("angle", 20, 0.0, 20.)
-        self.assertEqual(20, axis0.getSize())
+        self.assertEqual(20, axis0.size())
         self.assertEqual(0.0, axis0.getMin())
         self.assertEqual(20.0, axis0.getMax())
         data = IntensityData()
@@ -50,7 +50,7 @@ class IntensityDataTest(unittest.TestCase):
         self.assertEqual(1000, data.getTotalNumberOfBins())
         self.assertEqual(2, data.getRank())
         self.assertEqual(0, data.integral())
-        self.assertEqual(10, data.getXaxis().getSize())
+        self.assertEqual(10, data.getXaxis().size())
 
 
     def test_numpy_array(self):

@@ -101,8 +101,8 @@ size_t VariableBinAxis::findClosestIndex(double value) const
 std::vector<double> VariableBinAxis::getBinCenters() const
 {
     std::vector<double> result;
-    result.resize(getSize(), 0.0);
-    for(size_t i=0; i<getSize(); ++i) {
+    result.resize(size(), 0.0);
+    for(size_t i=0; i<size(); ++i) {
         result[i] = getBin(i).getMidPoint();
     }
     return result;
@@ -116,7 +116,7 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
                                   "'left'' should be smaller than 'right'" );
 
     if(left < getMin()) left = getBin(0).getMidPoint();
-    if(right >= getMax()) right = getBin(getSize()-1).getMidPoint();
+    if(right >= getMax()) right = getBin(size()-1).getMidPoint();
 
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);
@@ -133,7 +133,7 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
 
 void VariableBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "VariableBinAxis(\"" << m_name << "\", " << getSize() << ", [";
+    ostr << "VariableBinAxis(\"" << m_name << "\", " << size() << ", [";
     for(size_t i=0; i<m_bin_boundaries.size(); ++i) {
         ostr << std::setprecision(std::numeric_limits<double>::digits10+2) << m_bin_boundaries[i];
         if(i!=m_bin_boundaries.size()-1) ostr << ", ";
@@ -146,7 +146,7 @@ bool VariableBinAxis::equals(const IAxis& other) const
 {
     if (!IAxis::equals(other)) return false;
     if (const VariableBinAxis* p_other_cast = dynamic_cast<const VariableBinAxis*>(&other)) {
-        if (getSize() != p_other_cast->getSize()) return false;
+        if (size() != p_other_cast->size()) return false;
         for(size_t i=0; i<m_bin_boundaries.size(); ++i) {
             if( !Numeric::areAlmostEqual(m_bin_boundaries[i], p_other_cast->m_bin_boundaries[i])) {
                 return false;

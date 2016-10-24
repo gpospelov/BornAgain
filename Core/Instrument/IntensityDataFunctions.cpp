@@ -133,9 +133,9 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axi
     if(index < 0) {
         Bin1D bin = axis.getBin(0);
         result = bin.m_lower + value*bin.getBinSize();
-    } else if(index >= (int)axis.getSize()) {
-        Bin1D bin = axis.getBin(axis.getSize()-1);
-        result = bin.m_upper + (value-axis.getSize())*bin.getBinSize();
+    } else if(index >= (int)axis.size()) {
+        Bin1D bin = axis.getBin(axis.size()-1);
+        result = bin.m_upper + (value-axis.size())*bin.getBinSize();
     } else {
         Bin1D bin = axis.getBin(index);
         result = bin.m_lower + (value - static_cast<double>(index))*bin.getBinSize();

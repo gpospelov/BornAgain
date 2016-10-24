@@ -296,9 +296,9 @@ void IntensityDataItem::updateAxesZoomLevel()
         setUpperY(getYmax());
     }
 
-    const int nx = static_cast<int>(m_data->getAxis(BornAgain::X_AXIS_INDEX).getSize());
+    const int nx = static_cast<int>(m_data->getAxis(BornAgain::X_AXIS_INDEX).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
-    const int ny = static_cast<int>(m_data->getAxis(BornAgain::Y_AXIS_INDEX).getSize());
+    const int ny = static_cast<int>(m_data->getAxis(BornAgain::Y_AXIS_INDEX).size());
     yAxisItem()->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 

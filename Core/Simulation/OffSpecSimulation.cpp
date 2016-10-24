@@ -58,7 +58,7 @@ void OffSpecSimulation::prepareSimulation()
 int OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
-    return getInstrument().getDetector()->numberOfSimulationElements()*mp_alpha_i_axis->getSize();
+    return getInstrument().getDetector()->numberOfSimulationElements()*mp_alpha_i_axis->size();
 }
 
 Histogram2D* OffSpecSimulation::getIntensityData() const
@@ -71,7 +71,7 @@ void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis
 {
     delete mp_alpha_i_axis;
     mp_alpha_i_axis = alpha_axis.clone();
-    if (alpha_axis.getSize()<1)
+    if (alpha_axis.size()<1)
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::prepareSimulation() "
                 "-> Error. Incoming alpha range size < 1.");
@@ -116,7 +116,7 @@ void OffSpecSimulation::initSimulationElementVector()
     double phi_i = beam.getPhi();
     checkInitialization();
 
-    for (size_t iAlpha = 0; iAlpha < mp_alpha_i_axis->getSize(); ++iAlpha) {
+    for (size_t iAlpha = 0; iAlpha < mp_alpha_i_axis->size(); ++iAlpha) {
         // Incoming angle by convention defined as positive:
         double alpha_i = mp_alpha_i_axis->getBin(iAlpha).getMidPoint();
         beam.setCentralK(wavelength, alpha_i, phi_i);
@@ -132,12 +132,12 @@ void OffSpecSimulation::transferResultsToIntensityMap()
 {
     checkInitialization();
     const IAxis& phi_axis = m_instrument.getDetectorAxis(0);
-    size_t phi_f_size = phi_axis.getSize();
+    size_t phi_f_size = phi_axis.size();
     if (phi_f_size*m_intensity_map.getAllocatedSize()!=m_sim_elements.size())
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::transferResultsToIntensityMap: "
             "intensity map size does not conform to number of calculated intensities");
-    for (size_t i=0; i<mp_alpha_i_axis->getSize(); ++i)
+    for (size_t i=0; i<mp_alpha_i_axis->size(); ++i)
         transferDetectorImage(i);
 }
 
@@ -162,14 +162,14 @@ void OffSpecSimulation::transferDetectorImage(int index)
     for (size_t i=0; i<detector_size; ++i)
         detector_image[i] = m_sim_elements[index*detector_size + i].getIntensity();
     m_instrument.applyDetectorResolution(&detector_image);
-    size_t y_axis_size = m_instrument.getDetectorAxis(1).getSize();
+    size_t y_axis_size = m_instrument.getDetectorAxis(1).size();
     for (size_t i=0; i<detector_size; ++i)
         m_intensity_map[index*y_axis_size + i%y_axis_size] += detector_image[i];
 }
 
 void OffSpecSimulation::checkInitialization() const
 {
-    if (!mp_alpha_i_axis || mp_alpha_i_axis->getSize()<1)
+    if (!mp_alpha_i_axis || mp_alpha_i_axis->size()<1)
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::checkInitialization() "
                 "Incoming alpha range not configured.");

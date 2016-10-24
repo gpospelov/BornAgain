@@ -76,21 +76,21 @@ double RegionOfInterest::getYup() const
 
 size_t RegionOfInterest::detectorIndex(size_t roiIndex) const
 {
-    std::vector<size_t> coord = coordinates(roiIndex, m_roi_dims);
-    return m_glob_index0 + coord[1] + coord[0]*m_detector_dims[1];
+    return m_glob_index0 + ycoord(roiIndex, m_roi_dims)
+            + xcoord(roiIndex, m_roi_dims)*m_detector_dims[1];
 }
 
 size_t RegionOfInterest::roiIndex(size_t globalIndex) const
 {
-    std::vector<size_t> globCoord = coordinates(globalIndex, m_detector_dims);
-
-    if(globCoord[0] < m_ax1 || globCoord[0] > m_ax2)
+    size_t ny = ycoord(globalIndex, m_detector_dims);
+    if(ny < m_ay1 || ny > m_ay2)
         throw Exceptions::RuntimeErrorException("RegionOfInterest::roiIndex() -> Error.");
 
-    if(globCoord[1] < m_ay1 || globCoord[1] > m_ay2)
+    size_t nx = xcoord(globalIndex, m_detector_dims);
+    if(nx < m_ax1 || nx > m_ax2)
         throw Exceptions::RuntimeErrorException("RegionOfInterest::roiIndex() -> Error.");
 
-    return globCoord[1] - m_ay1 + (globCoord[0] - m_ax1)*m_roi_dims[1];
+    return ny - m_ay1 + (nx - m_ax1)*m_roi_dims[1];
 }
 
 size_t RegionOfInterest::roiSize() const
@@ -105,9 +105,10 @@ size_t RegionOfInterest::detectorSize() const
 
 bool RegionOfInterest::isInROI(size_t detectorIndex) const
 {
-    std::vector<size_t> coord = coordinates(detectorIndex, m_detector_dims);
-    if(coord[0]<m_ax1 || coord[0]>m_ax2) return false;
-    if(coord[1]<m_ay1 || coord[1]>m_ay2) return false;
+    size_t ny = ycoord(detectorIndex, m_detector_dims);
+    if(ny<m_ay1 || ny>m_ay2) return false;
+    size_t nx = xcoord(detectorIndex, m_detector_dims);
+    if(nx<m_ax1 || nx>m_ax2) return false;
     return true;
 }
 

@@ -55,7 +55,8 @@ public:
 private:
     RegionOfInterest(const RegionOfInterest &other);
 
-    std::vector<size_t> coordinates(size_t index, const std::vector<size_t> &dims) const;
+    size_t xcoord(size_t index, const std::vector<size_t> &dims) const;
+    size_t ycoord(size_t index, const std::vector<size_t> &dims) const;
 
     void initFrom(const IDetector2D& detector);
 
@@ -68,17 +69,16 @@ private:
     std::vector<size_t> m_roi_dims;
 };
 
-inline std::vector<size_t>
-RegionOfInterest::coordinates(size_t index, const std::vector<size_t> &dims) const
+inline
+size_t RegionOfInterest::xcoord(size_t index, const std::vector<size_t> &dims) const
 {
-    const size_t rank(2);
-    std::vector<size_t> result(rank);
-    int remainder = static_cast<int>(index);
-    for (size_t i=rank; i>0; --i) {
-        result[i-1] = remainder % dims[i-1];
-        remainder = remainder / dims[i-1];
-    }
-    return result;
+    return index/dims[1] % dims[0];
+}
+
+inline
+size_t RegionOfInterest::ycoord(size_t index, const std::vector<size_t> &dims) const
+{
+    return index % dims[1];
 }
 
 #endif

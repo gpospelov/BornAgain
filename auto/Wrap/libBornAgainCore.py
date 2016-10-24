@@ -16839,18 +16839,6 @@ class IDetector2D(ICloneable, IParameterized):
         return _libBornAgainCore.IDetector2D_clear(self)
 
 
-    def matchDetectorAxes(self, output_data):
-        """
-        matchDetectorAxes(IDetector2D self, IntensityData output_data)
-
-        void IDetector2D::matchDetectorAxes(const OutputData< double > &output_data)
-
-        Sets detector parameters using axes of output data. 
-
-        """
-        return _libBornAgainCore.IDetector2D_matchDetectorAxes(self, output_data)
-
-
     def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
         """
         setDetectorParameters(IDetector2D self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)

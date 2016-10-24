@@ -93,62 +93,42 @@ is given by~\Cref{Exsection}:
 \end{equation}
 With the factorization~\cref{Ekpar},
 the integral~\cref{Etrama} becomes
-\begin{equation}
+\begin{equation}\label{Escamatrix2}
   \bra\psi_\ti|\delta v|\psi_\tf\ket
   = \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
     \int\!\d z\, \phi_\si(z) \delta v(\r) \phi^*_\sf(z).
 \end{equation}
-
-
-and each term involves the Fourier transforms~\cref{Echij},
-which thanks to~\cref{Edvl_cur} takes the simple form
+The SLD distribution of a set of identical particles,
+located at positions~$\R_j$, can be written as a sum
+\begin{equation}\label{Echihomo}
+  v_\sp(\r) = \sum_j F(\r-\R_j).
+\end{equation}
+In many applications,
+particles are not all identical.
+They may vary in shape, size, orientation, or refractive index profile.
+These degrees of freedom
+shall be denoted by a parameter vector~$\v{T}_j$.
+Specifically for a $2+1$~dimensional sample,
+it is convenient to restrict the coordinate vectors~$\R_j$ to the $xy$~plane,
+and to redefine~$\v{T}_j$ to include the vertical particle coordinate~$z_j$.
+In consequence, \cref{Echihomo}~is replaced by
+\begin{equation}\label{Echihetero}
+  v_\sp(\r) = \sum_j F(\r-\R_{\parallel j},\v{T}_j).
+\end{equation}
+With the \E{DWBA form factor}
+\begin{equation}
+  {\cal F}(\q_\parallel,\v{T})
+  \coloneqq
+    \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
+    \int\!\d z\, \phi_\si(z) \delta F(\r,\v{T}) \phi^*_\sf(z),
+\end{equation}
+the scattering matrix element~\cref{Escamatrix2} becomes
 \Emph{
-\begin{equation}\label{Edvlq}
-  \delta v_l(\q)
-  = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v_l(\r)
+\begin{equation}
+  \bra\psi_\ti|\delta v|\psi_\tf\ket
+  = \sum_j \e^{i\q_\parallel \R_{\parallel j}}  {\cal F}(\q_\parallel,\v{T_j})
 \end{equation}
 \vspace*{-5pt}}
-
-\iffalse %----------------------------------------------------------------------
-The Fourier transform of any indicator function~$\chi(\r)$ shall be denoted as
-\begin{equation}
-  \chi(\q) \coloneqq \int\!\d^3r\, \e^{i\v{q}\,\r} \chi(\r).
-\end{equation}
-We define the half thickness and the mean $z$ coordinate of layer~$l$ as
-\begin{equation}
-  h_l\coloneqq \left(z_{l-1}-z_l\right)/2
-  \text{~and~}
-  \mz_l \coloneqq \left(z_{l-1}+z_l\right)/2
-\end{equation}
-to write the Fourier transform of the one-dimensional indicator function $\chi_l(z)$
-in closed form:
-\begin{equation}
-  \chi_l(q_\perp)
-  = \int_{\mz_l-h_l}^{\mz_l+h_l}\!\d z\, \e^{i q_\perp z}
-  = \e^{i q_\perp \mz_l}\, 2h_l\, \text{sinc}\left(q_\perp h\right).
-\end{equation}
-By construction~\cref{EdefChiP}, $\chi_\sp(\r)=0$ if $\r$ lies outside layer~$l$.
-Therefore $\chi_\sp(\r)\chi_l(z)=\chi_\sp(\r)$,
-which allows us to write~\cref{Edvlq} as
-\begin{equation}\label{Edvlq}
-  \delta v_l(\q)
-  = \Delta v_\sp\chi_\sp(\q) - \Delta v_\sp\rho_\sp (2\pi)^2\delta(\q_\parallel)\chi_l(q_\perp).
-\end{equation}
-The second term is spurious since it is nonvanishing only for $\q_\parallel=0$,
-in which case case there is a compensating contribution from the first term.
-Furthermore, the kinematics of elastic scattering allows $\q_\parallel=0$
-only for forward scattering ($q_\perp=0$) or specular reflection ($q_\perp=2K\sin\alpha$).
-These two cases need special consideration anyway (not yet implemented),
-and are not part of our first-order scattering simulation.
-For these reasons we must not consider the second term of~\cref{Edvlq} any further;
-we can work with
-\Emph{
-\begin{equation}\label{Edvlq2}
-  \delta v_l(\q)
-  = \Delta v_\sp\chi_\sp(\q).
-\end{equation}
-\vspace*{-5pt}}
-\fi      %----------------------------------------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure and form factor}\label{SPartFactors}
@@ -159,9 +139,6 @@ an assembly of identical particles
 that are either spherical, or all have the same orientation.
 For $\r$ in Layer~$l$, the SLD~\cref{Edvl_cur}
 can then be written as a sum over particle positions~$\R_i$,
-\begin{equation}\label{Echihomo}
-  v_\sp(\r) = \sum_i F(\r-\R_i),
-\end{equation}
 where~$F(\r)$ is the SLD of a single particle located at the origin.
 Its Fourier transform can be written as a product
 \begin{equation}\label{ESqFq}
@@ -178,15 +155,7 @@ and the individual particles' \E{form factor}
 Form factors are discussed in \Cref{SFormFactor}.
 The remainder of this chapter is devoted to structure factors.
 
-In many applications,
-particles are not all identical.
-They may vary in shape, size, orientation, or refractive index profile.
-In the following, these degrees of freedom
-shall be denoted by a parameter vector~$\v{T}_i$.
 The SLD~\cref{Echihomo} then becomes
-\begin{equation}\label{Echihetero}
-  v_\sp(\r) = \sum_i F(\r-\R_i,\v{T}_i).
-\end{equation}
 The scattering matrix element
 \begin{equation}\label{Echiqsum}
   v_\sp(\q) = \sum_i \e^{i\q\R_i} F(\q,\v{T}_i)

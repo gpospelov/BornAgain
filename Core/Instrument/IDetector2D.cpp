@@ -246,14 +246,6 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
                              std::unique_ptr<IPixelMap>(createPixelMap(index)));
 }
 
-void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,
-    const std::vector<SimulationElement> &elements) const
-{
-    SimulationArea area(this);
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
-        data[it.index()] = elements[it.elementIndex()].getIntensity();
-}
-
 size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
 {
     size_t remainder(index);

@@ -112,9 +112,6 @@ public:
 
     //! Creates single simulation element.
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
-
-    void transferResultsToIntensityMap(OutputData<double> &data,
-                                       const std::vector<SimulationElement> &elements) const;
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.

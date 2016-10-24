@@ -9,6 +9,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "Polygon.h"
 #include "BornAgainNamespace.h"
+#include "RegionOfInterest.h"
 #include "Rectangle.h"
 #include "Units.h"
 #include "Beam.h"

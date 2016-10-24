@@ -36,6 +36,11 @@ RegionOfInterest *RegionOfInterest::clone() const
     return new RegionOfInterest(*this);
 }
 
+RegionOfInterest::~RegionOfInterest()
+{
+
+}
+
 RegionOfInterest::RegionOfInterest(const RegionOfInterest &other)
     : m_rectangle(other.m_rectangle->clone())
     , m_ax1(other.m_ax1)
@@ -96,6 +101,14 @@ size_t RegionOfInterest::roiSize() const
 size_t RegionOfInterest::detectorSize() const
 {
     return m_detector_dims[0]*m_detector_dims[1];
+}
+
+bool RegionOfInterest::isInROI(size_t detectorIndex) const
+{
+    std::vector<size_t> coord = coordinates(detectorIndex, m_detector_dims);
+    if(coord[0]<m_ax1 || coord[0]>m_ax2) return false;
+    if(coord[1]<m_ay1 || coord[1]>m_ay2) return false;
+    return true;
 }
 
 void RegionOfInterest::initFrom(const IDetector2D &detector)

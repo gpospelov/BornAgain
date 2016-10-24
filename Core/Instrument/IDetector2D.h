@@ -20,7 +20,6 @@
 #include "Beam.h"
 #include "DetectorMask.h"
 #include "SafePointerVector.h"
-#include "Rectangle.h"
 #include "DetectionProperties.h"
 #include <memory>
 
@@ -31,6 +30,7 @@ class IDetectorResolution;
 class IPixelMap;
 class SimulationElement;
 class DetectionProperties;
+class RegionOfInterest;
 namespace Geometry {
     class IShape2D;
 }
@@ -132,7 +132,7 @@ public:
     virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
 
     //! Returns region of  interest if exists.
-    const Geometry::Rectangle* regionOfInterest() const;
+    const RegionOfInterest* regionOfInterest() const;
 
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
@@ -191,7 +191,7 @@ protected:
 private:
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const std::vector<SimulationElement> &elements) const;
-    std::unique_ptr<Geometry::Rectangle> m_region_of_interest;
+    std::unique_ptr<RegionOfInterest> m_region_of_interest;
     DetectionProperties m_detection_properties;
 };
 

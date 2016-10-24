@@ -17061,7 +17061,7 @@ class IDetector2D(ICloneable, IParameterized):
 
     def regionOfInterest(self):
         """
-        regionOfInterest(IDetector2D self) -> Rectangle
+        regionOfInterest(IDetector2D self) -> RegionOfInterest const *
 
         const Geometry::Rectangle * IDetector2D::regionOfInterest() const
 

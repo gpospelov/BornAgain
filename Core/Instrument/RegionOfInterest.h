@@ -31,6 +31,7 @@ class BA_CORE_API_ RegionOfInterest : public ICloneable
 public:
     RegionOfInterest(const IDetector2D& detector, double xlow, double ylow, double xup, double yup);
     RegionOfInterest *clone() const;
+    ~RegionOfInterest();
 
     double getXlow() const;
     double getYlow() const;
@@ -49,10 +50,13 @@ public:
     //! Number of detector bins.
     size_t detectorSize() const;
 
+    bool isInROI(size_t detectorIndex) const;
+
 private:
     RegionOfInterest(const RegionOfInterest &other);
 
     std::vector<size_t> coordinates(size_t index, const std::vector<size_t> &dims) const;
+
     void initFrom(const IDetector2D& detector);
 
     std::unique_ptr<Geometry::Rectangle> m_rectangle;

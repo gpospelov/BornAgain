@@ -19,14 +19,11 @@
 #include "Rectangle.h"
 #include "IntensityDataFunctions.h"
 #include "BornAgainNamespace.h"
+#include "RegionOfInterest.h"
 #include <sstream>
 
 SimulationArea::SimulationArea(const IDetector2D *detector)
     : m_detector(detector)
-    , m_roi_x1(0)
-    , m_roi_x2(0)
-    , m_roi_y1(0)
-    , m_roi_y2(0)
 {
     if(detector == nullptr)
         throw Exceptions::RuntimeErrorException("SimulationArea::SimulationArea -> Error. "
@@ -35,13 +32,6 @@ SimulationArea::SimulationArea(const IDetector2D *detector)
     if (m_detector->getDimension()!=2)
         throw Exceptions::RuntimeErrorException(
             "SimulationArea::SimulationArea: detector is not two-dimensional");
-
-    if(const Geometry::Rectangle *roi = m_detector->regionOfInterest()) {
-        m_roi_x1 = detector->getAxis(BornAgain::X_AXIS_INDEX).findClosestIndex(roi->getXlow());
-        m_roi_x2 = detector->getAxis(BornAgain::X_AXIS_INDEX).findClosestIndex(roi->getXup());
-        m_roi_y1 = detector->getAxis(BornAgain::Y_AXIS_INDEX).findClosestIndex(roi->getYlow());
-        m_roi_y2 = detector->getAxis(BornAgain::Y_AXIS_INDEX).findClosestIndex(roi->getYup());
-    }
 }
 
 SimulationAreaIterator SimulationArea::begin()
@@ -63,12 +53,8 @@ bool SimulationArea::isMasked(size_t index) const
         throw Exceptions::RuntimeErrorException(message.str());
     }
 
-    if(m_detector->regionOfInterest()) {
-        size_t nx = m_detector->getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
-        if(nx<m_roi_x1 || nx>m_roi_x2) return true;
-        size_t ny = m_detector->getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
-        if(ny<m_roi_y1 || ny>m_roi_y2) return true;
-    }
+    if(m_detector->regionOfInterest())
+        if(!m_detector->regionOfInterest()->isInROI(index)) return true;
 
     return m_detector->isMasked(index);
 }
@@ -83,16 +69,7 @@ size_t SimulationArea::roiIndex(size_t globalIndex) const
     if(!m_detector->regionOfInterest())
         return globalIndex;
 
-    size_t nxGlob = m_detector->getAxisBinIndex(globalIndex, BornAgain::X_AXIS_INDEX);
-    size_t nyGlob = m_detector->getAxisBinIndex(globalIndex, BornAgain::Y_AXIS_INDEX);
-
-    if(nxGlob < m_roi_x1 || nxGlob > m_roi_x2)
-        throw Exceptions::RuntimeErrorException("SimulationArea::roiIndex() -> Error.");
-
-    if(nyGlob < m_roi_y1 || nyGlob > m_roi_y2)
-        throw Exceptions::RuntimeErrorException("SimulationArea::roiIndex() -> Error.");
-
-    return nyGlob - m_roi_y1 + (nxGlob - m_roi_x1)*(m_roi_y2-m_roi_y1+1);
+    return m_detector->regionOfInterest()->roiIndex(globalIndex);
 }
 
 // --------------------------------------------------------------------------------------
@@ -105,11 +82,8 @@ SimulationRoiArea::SimulationRoiArea(const IDetector2D *detector)
 
 bool SimulationRoiArea::isMasked(size_t index) const
 {
-    if(m_detector->regionOfInterest()) {
-        size_t nx = m_detector->getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
-        if(nx<m_roi_x1 || nx>m_roi_x2) return true;
-        size_t ny = m_detector->getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
-        if(ny<m_roi_y1 || ny>m_roi_y2) return true;
-    }
+    if(m_detector->regionOfInterest())
+        if(!m_detector->regionOfInterest()->isInROI(index)) return true;
+
     return false;
 }

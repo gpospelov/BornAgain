@@ -38,12 +38,11 @@ public:
 
     size_t totalSize() const;
 
-    //! Return index in ROO map from global index
+    //! Return index in ROI map from global index
     size_t roiIndex(size_t globalIndex) const;
 
 protected:
     const IDetector2D *m_detector;
-    size_t m_roi_x1, m_roi_x2, m_roi_y1, m_roi_y2;
 };
 
 //! Holds iteration logic over active detector channels in the presence of ROI. On the contrary

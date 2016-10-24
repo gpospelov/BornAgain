@@ -22,6 +22,7 @@
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"
+#include "RegionOfInterest.h"
 #include "Exceptions.h"
 
 IDetector2D::IDetector2D()
@@ -138,14 +139,14 @@ std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
     return result;
 }
 
-const Geometry::Rectangle *IDetector2D::regionOfInterest() const
+const RegionOfInterest *IDetector2D::regionOfInterest() const
 {
     return m_region_of_interest.get();
 }
 
 void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    m_region_of_interest.reset(new Geometry::Rectangle(xlow, ylow, xup, yup));
+    m_region_of_interest.reset(new RegionOfInterest(*this, xlow, ylow, xup, yup));
 }
 
 void IDetector2D::resetRegionOfInterest()

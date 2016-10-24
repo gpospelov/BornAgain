@@ -39,6 +39,7 @@
 #include "SampleLabelHandler.h"
 #include "SphericalDetector.h"
 #include "Utils.h"
+#include "RegionOfInterest.h"
 #include <iomanip>
 #include <set>
 #include <functional>

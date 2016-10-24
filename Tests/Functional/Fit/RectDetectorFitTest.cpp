@@ -31,12 +31,14 @@ std::unique_ptr<GISASSimulation> RectDetectorFitTest::createSimulation()
 
     double detector_distance(500.0);
     double width(20.0), height(18.0);
-    RectangularDetector detector(20, width, 18, height);
+//    RectangularDetector detector(20, width, 18, height);
+    RectangularDetector detector(500, width, 450, height);
     detector.setPerpendicularToSampleX(detector_distance, width/2., 0.0);
 
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     result->setDetector(detector);
-    result->setRegionOfInterest(2.0, 6.0, 16.0, 14.0);
+//    result->setRegionOfInterest(2.0, 6.0, 16.0, 14.0);
+    result->setRegionOfInterest(6.0, 6.0, 14.0, 12.0);
     result->addMask(Geometry::Rectangle(8.0, 8.0, 10.0, 10.0), true);
 
     return result;

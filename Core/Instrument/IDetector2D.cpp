@@ -53,17 +53,6 @@ const IAxis &IDetector2D::getAxis(size_t index) const
     throw Exceptions::OutOfBoundsException("Not so many axes in this detector.");
 }
 
-void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
-{
-    if (output_data.getRank()!=2)
-        throw Exceptions::LogicErrorException(
-            "IDetector2D::matchDetectorAxes() -> Error! Data is not two dimensional");
-    clear();
-    for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis)
-        addAxis(output_data.getAxis(i_axis));
-    m_detector_mask.initMaskData(*this);
-}
-
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                         size_t n_y, double y_min, double y_max)
 {

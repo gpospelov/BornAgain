@@ -64,8 +64,8 @@ size_t FixedBinAxis::findClosestIndex(double value) const
 std::vector<double> FixedBinAxis::getBinCenters() const
 {
     std::vector<double> result;
-    result.resize(getSize(), 0.0);
-    for(size_t i=0; i<getSize(); ++i) {
+    result.resize(size(), 0.0);
+    for(size_t i=0; i<size(); ++i) {
         result[i] = getBin(i).getMidPoint();
     }
     return result;
@@ -74,11 +74,11 @@ std::vector<double> FixedBinAxis::getBinCenters() const
 std::vector<double> FixedBinAxis::getBinBoundaries() const
 {
     std::vector<double> result;
-    result.resize(getSize()+1, 0.0);
-    for(size_t i=0; i<getSize(); ++i) {
+    result.resize(size()+1, 0.0);
+    for(size_t i=0; i<size(); ++i) {
         result[i] = getBin(i).m_lower;
     }
-    result[getSize()] = getBin(getSize()-1).m_upper;
+    result[size()] = getBin(size()-1).m_upper;
     return result;
 }
 
@@ -89,7 +89,7 @@ FixedBinAxis *FixedBinAxis::createClippedAxis(double left, double right) const
                                   "'left' should be smaller than 'right'");
 
     if(left < getMin()) left = getBin(0).getMidPoint();
-    if(right >= getMax()) right = getBin(getSize()-1).getMidPoint();
+    if(right >= getMax()) right = getBin(size()-1).getMidPoint();
 
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);
@@ -100,7 +100,7 @@ FixedBinAxis *FixedBinAxis::createClippedAxis(double left, double right) const
 
 void FixedBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "FixedBinAxis(\"" << m_name << "\", " << getSize() << ", "
+    ostr << "FixedBinAxis(\"" << m_name << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10+2) << getMin() << ", "
          << getMax() << ")";
 }
@@ -109,7 +109,7 @@ bool FixedBinAxis::equals(const IAxis& other) const
 {
     if (!IAxis::equals(other)) return false;
     if (const FixedBinAxis *otherAxis = dynamic_cast<const FixedBinAxis *>(&other)) {
-        if (getSize() != otherAxis->getSize()) return false;
+        if (size() != otherAxis->size()) return false;
         if ( !Numeric::areAlmostEqual(m_start, otherAxis->m_start)) return false;
         if ( !Numeric::areAlmostEqual(m_end, otherAxis->m_end)) return false;
         return true;

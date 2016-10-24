@@ -124,12 +124,12 @@ void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_int
     if (data_size < 2)
         return; // No convolution for sets of zero or one element
     // Construct kernel vector from resolution function
-    if (axis.getSize() != data_size)
+    if (axis.size() != data_size)
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
             "Size of axis for intensity map does not correspond to size of data in the map." );
-    double step_size = std::abs(axis[0]-axis[axis.getSize()-1])/(data_size-1);
-    double mid_value = axis[axis.getSize()/2]; // because Convolve expects zero at midpoint
+    double step_size = std::abs(axis[0]-axis[axis.size()-1])/(data_size-1);
+    double mid_value = axis[axis.size()/2]; // because Convolve expects zero at midpoint
     std::vector<double> kernel;
     for (size_t index=0; index<data_size; ++index) {
         kernel.push_back(getIntegratedPDF1d(axis[index] - mid_value, step_size));
@@ -156,8 +156,8 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
             "Number of axes for intensity map does not correspond to the dimension of the map." );
     const IAxis &axis_1 = p_intensity_map->getAxis(0);
     const IAxis &axis_2 = p_intensity_map->getAxis(1);
-    size_t axis_size_1 = axis_1.getSize();
-    size_t axis_size_2 = axis_2.getSize();
+    size_t axis_size_1 = axis_1.size();
+    size_t axis_size_2 = axis_2.size();
     if (axis_size_1 < 2 || axis_size_2 < 2)
         return; // No 2d convolution for 1d data
     // Construct source vector array from original intensity map

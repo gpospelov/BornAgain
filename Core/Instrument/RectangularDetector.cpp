@@ -145,12 +145,12 @@ double RectangularDetector::getHeight() const
 
 size_t RectangularDetector::getNbinsX() const
 {
-    return getAxis(BornAgain::X_AXIS_INDEX).getSize();
+    return getAxis(BornAgain::X_AXIS_INDEX).size();
 }
 
 size_t RectangularDetector::getNbinsY() const
 {
-    return getAxis(BornAgain::Y_AXIS_INDEX).getSize();
+    return getAxis(BornAgain::Y_AXIS_INDEX).size();
 }
 
 kvector_t RectangularDetector::getNormalVector() const
@@ -242,16 +242,16 @@ void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam
             SimulationElement el_left_bottom
                 = getSimulationElement(getGlobalIndex(0, 0), beam);
             SimulationElement el_right_bottom
-                = getSimulationElement(getGlobalIndex(aX.getSize()-1, 0), beam);
+                = getSimulationElement(getGlobalIndex(aX.size()-1, 0), beam);
             amin = scale * el_left_bottom.getPhi(0.0, 0.0);
             amax = scale * el_right_bottom.getPhi(1.0, 0.0);
         } else if(axis_index == BornAgain::Y_AXIS_INDEX) {
             const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
             const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
             SimulationElement el_center_bottom
-                = getSimulationElement(getGlobalIndex(aX.getSize()/2, 0), beam);
+                = getSimulationElement(getGlobalIndex(aX.size()/2, 0), beam);
             SimulationElement el_center_top
-                = getSimulationElement(getGlobalIndex(aX.getSize()/2, aY.getSize()-1), beam);
+                = getSimulationElement(getGlobalIndex(aX.size()/2, aY.size()-1), beam);
             amin = scale * el_center_bottom.getAlpha(0.5, 0.0);
             amax = scale * el_center_top.getAlpha(0.5, 1.0);
         }
@@ -291,7 +291,7 @@ size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
     const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
     size_t u_index = u_axis.findIndex(u);
     size_t v_index = v_axis.findIndex(v);
-    if (u_index < u_axis.getSize() && v_index < v_axis.getSize()) {
+    if (u_index < u_axis.size() && v_index < v_axis.size()) {
         return getGlobalIndex(u_index, v_index);
     }
     return getTotalSize();

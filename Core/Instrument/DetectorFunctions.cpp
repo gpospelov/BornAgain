@@ -27,7 +27,7 @@ bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector,
         return false;
 
     for (size_t i = 0; i < detector.getDimension(); ++i)
-        if(data.getAxis(i).getSize() != detector.getAxis(i).getSize())
+        if(data.getAxis(i).size() != detector.getAxis(i).size())
             return false;
 
     return true;
@@ -39,7 +39,7 @@ std::string DetectorFunctions::axesToString(const IDetector2D &detector)
 
     result << "(";
     for (size_t i = 0; i < detector.getDimension(); ++i) {
-        result << detector.getAxis(i).getSize();
+        result << detector.getAxis(i).size();
         if(i!=detector.getDimension()-1)
             result << ",";
     }
@@ -54,7 +54,7 @@ std::string DetectorFunctions::axesToString(const OutputData<double> &data)
 
     result << "(";
     for (size_t i = 0; i < data.getRank(); ++i) {
-        result << data.getAxis(i).getSize();
+        result << data.getAxis(i).size();
         if(i!=data.getRank()-1)
             result << ",";
     }

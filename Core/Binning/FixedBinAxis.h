@@ -36,7 +36,7 @@ public:
 
     FixedBinAxis *clone() const;
 
-    size_t getSize() const { return m_nbins; }
+    size_t size() const { return m_nbins; }
 
     double operator[](size_t index) const;
 

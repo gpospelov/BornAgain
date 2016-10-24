@@ -65,13 +65,13 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
     SpecularSimulation sim;
 
     sim.setBeamParameters(1.0, 10, -2.0, 3.0);
-    EXPECT_EQ(size_t(10), sim.getAlphaAxis()->getSize());
+    EXPECT_EQ(size_t(10), sim.getAlphaAxis()->size());
     EXPECT_EQ(-2.0, sim.getAlphaAxis()->getMin());
     EXPECT_EQ(3.0, sim.getAlphaAxis()->getMax());
 
     FixedBinAxis axis("axis",2, -1.0, 2.0);
     sim.setBeamParameters(1.0, axis);
-    EXPECT_EQ(size_t(2), sim.getAlphaAxis()->getSize());
+    EXPECT_EQ(size_t(2), sim.getAlphaAxis()->size());
     EXPECT_EQ(-1.0, sim.getAlphaAxis()->getMin());
     EXPECT_EQ(2.0, sim.getAlphaAxis()->getMax());
 }

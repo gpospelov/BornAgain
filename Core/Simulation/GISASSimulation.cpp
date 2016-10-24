@@ -82,14 +82,12 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
 void GISASSimulation::setDetector(const IDetector2D& detector)
 {
     m_instrument.setDetector(detector);
-    updateIntensityMap();
 }
 
 void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
                                             size_t n_alpha, double alpha_min, double alpha_max)
 {
     m_instrument.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
-    updateIntensityMap();
 }
 
 std::string GISASSimulation::addParametersToExternalPool(
@@ -139,13 +137,10 @@ void GISASSimulation::initSimulationElementVector()
 
 void GISASSimulation::transferResultsToIntensityMap()
 {
-    std::unique_ptr<OutputData<double>> data(m_instrument.createDetectorIntensity(m_sim_elements));
-    m_intensity_map.copyFrom(*data.get());
 }
 
 void GISASSimulation::updateIntensityMap()
 {
-    m_instrument.getDetector()->initOutputData(m_intensity_map);
 }
 
 void GISASSimulation::initialize()

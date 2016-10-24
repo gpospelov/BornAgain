@@ -7,3 +7,4 @@
 #include "PrecomputedTest.h"
 #include "SphericalDetectorTest.h"
 #include "SimulationAreaTest.h"
+#include "RegionOfInterestTest.h"

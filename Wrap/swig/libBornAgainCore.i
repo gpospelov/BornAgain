@@ -187,7 +187,6 @@
 #include "MultiLayer.h"
 #include "OffSpecSimulation.h"
 #include "OutputData.h"
-#include "OutputDataFunctions.h"
 #include "ParameterDistribution.h"
 #include "ParameterPool.h"
 #include "Particle.h"
@@ -402,7 +401,6 @@
 %include "IIntensityFunction.h"
 %include "OutputData.h"
 %template(IntensityData) OutputData<double>;
-%include "OutputDataFunctions.h"
 %include "ParameterDistribution.h"
 %include "ParameterPool.h"
 %include "Particle.h"

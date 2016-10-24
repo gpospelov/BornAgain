@@ -18,7 +18,7 @@
 
 #include "IParameterized.h"
 #include "OutputData.h"
-
+#include "ICloneable.h"
 
 //! @class IDetectorResolution
 //! @ingroup algorithms_internal

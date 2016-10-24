@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "OMPISimulation.h"
-#include "OutputDataFunctions.h"
 #include "Logger.h"
 
 #ifdef BORNAGAIN_OPENMPI

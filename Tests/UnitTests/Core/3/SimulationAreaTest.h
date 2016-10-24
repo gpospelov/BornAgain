@@ -23,15 +23,15 @@ TEST_F(SimulationAreaTest, iteratorOperations)
 
     // begin iterator
     SimulationArea::iterator it_begin = area.begin();
-    EXPECT_EQ(it_begin.index(), 0);
-    EXPECT_EQ(it_begin.elementIndex(), 0);
+    EXPECT_EQ(it_begin.index(), (size_t)0);
+    EXPECT_EQ(it_begin.elementIndex(), (size_t)0);
     EXPECT_TRUE(it_begin == area.begin());
     EXPECT_FALSE(it_begin != area.begin());
 
     // end iterator
     SimulationArea::iterator it_end = area.end();
     EXPECT_EQ(it_end.index(), detector.getTotalSize());
-    EXPECT_EQ(it_end.elementIndex(), 0); // has initial value
+    EXPECT_EQ(it_end.elementIndex(), (size_t)0); // has initial value
 
     // begin/end comparison
     EXPECT_TRUE(it_begin != it_end);
@@ -44,13 +44,13 @@ TEST_F(SimulationAreaTest, iteratorOperations)
 
     // increment
     it++;
-    EXPECT_EQ(it.index(), 1);
-    EXPECT_EQ(it.elementIndex(), 1);
+    EXPECT_EQ(it.index(), (size_t)1);
+    EXPECT_EQ(it.elementIndex(), (size_t)1);
     EXPECT_TRUE(it != it_begin);
     EXPECT_FALSE(it == it_begin);
     ++it;
-    EXPECT_EQ(it.index(), 2);
-    EXPECT_EQ(it.elementIndex(), 2);
+    EXPECT_EQ(it.index(), (size_t)2);
+    EXPECT_EQ(it.elementIndex(), (size_t)2);
 
     // incrementing well behind the end
     for(size_t i=0; i<100; ++i) ++it;

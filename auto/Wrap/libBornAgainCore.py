@@ -302,7 +302,14 @@ class vdouble1d_t(_object):
 
 
     def swap(self, v):
-        """swap(vdouble1d_t self, vdouble1d_t v)"""
+        """
+        swap(vdouble1d_t self, vdouble1d_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vdouble1d_t_swap(self, v)
 
 
@@ -507,7 +514,14 @@ class vdouble2d_t(_object):
 
 
     def swap(self, v):
-        """swap(vdouble2d_t self, vdouble2d_t v)"""
+        """
+        swap(vdouble2d_t self, vdouble2d_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vdouble2d_t_swap(self, v)
 
 
@@ -712,7 +726,14 @@ class vector_integer_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_integer_t self, vector_integer_t v)"""
+        """
+        swap(vector_integer_t self, vector_integer_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_integer_t_swap(self, v)
 
 
@@ -917,7 +938,14 @@ class vector_longinteger_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_longinteger_t self, vector_longinteger_t v)"""
+        """
+        swap(vector_longinteger_t self, vector_longinteger_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_longinteger_t_swap(self, v)
 
 
@@ -1122,7 +1150,14 @@ class vector_complex_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_complex_t self, vector_complex_t v)"""
+        """
+        swap(vector_complex_t self, vector_complex_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_complex_t_swap(self, v)
 
 
@@ -1327,7 +1362,14 @@ class vector_string_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_string_t self, vector_string_t v)"""
+        """
+        swap(vector_string_t self, vector_string_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_string_t_swap(self, v)
 
 
@@ -2141,7 +2183,14 @@ class vector_kvector_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_kvector_t self, vector_kvector_t v)"""
+        """
+        swap(vector_kvector_t self, vector_kvector_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_kvector_t_swap(self, v)
 
 
@@ -2570,7 +2619,14 @@ class vector_cvector_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_cvector_t self, vector_cvector_t v)"""
+        """
+        swap(vector_cvector_t self, vector_cvector_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_cvector_t_swap(self, v)
 
 
@@ -4022,7 +4078,14 @@ class swig_dummy_type_isample_vector(_object):
 
 
     def swap(self, v):
-        """swap(swig_dummy_type_isample_vector self, swig_dummy_type_isample_vector v)"""
+        """
+        swap(swig_dummy_type_isample_vector self, swig_dummy_type_isample_vector v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.swig_dummy_type_isample_vector_swap(self, v)
 
 
@@ -4227,7 +4290,14 @@ class swig_dummy_type_const_isample_vector(_object):
 
 
     def swap(self, v):
-        """swap(swig_dummy_type_const_isample_vector self, swig_dummy_type_const_isample_vector v)"""
+        """
+        swap(swig_dummy_type_const_isample_vector self, swig_dummy_type_const_isample_vector v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.swig_dummy_type_const_isample_vector_swap(self, v)
 
 
@@ -5566,7 +5636,7 @@ class FitObject(IParameterized, INoncopyable):
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data) -> FitObject
 
-        FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=true)
+        FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=false)
 
         FitObject constructor
 
@@ -10134,7 +10204,14 @@ class vector_IFormFactorPtr_t(_object):
 
 
     def swap(self, v):
-        """swap(vector_IFormFactorPtr_t self, vector_IFormFactorPtr_t v)"""
+        """
+        swap(vector_IFormFactorPtr_t self, vector_IFormFactorPtr_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
         return _libBornAgainCore.vector_IFormFactorPtr_t_swap(self, v)
 
 
@@ -15040,7 +15117,12 @@ class Simulation(ICloneable, IParameterized):
 
 
     def numberOfSimulationElements(self):
-        """numberOfSimulationElements(Simulation self) -> int"""
+        """
+        numberOfSimulationElements(Simulation self) -> int
+
+        virtual int Simulation::numberOfSimulationElements() const =0
+
+        """
         return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
 
 
@@ -15379,7 +15461,14 @@ class GISASSimulation(Simulation):
 
 
     def numberOfSimulationElements(self):
-        """numberOfSimulationElements(GISASSimulation self) -> int"""
+        """
+        numberOfSimulationElements(GISASSimulation self) -> int
+
+        int GISASSimulation::numberOfSimulationElements() const final
+
+        Gets the number of elements this simulation needs to calculate. 
+
+        """
         return _libBornAgainCore.GISASSimulation_numberOfSimulationElements(self)
 
 
@@ -15403,7 +15492,7 @@ class GISASSimulation(Simulation):
 
         Histogram2D * GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
 
-        Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. 
+        Returns histogram representing intensity map in requested axes units. 
 
         """
         return _libBornAgainCore.GISASSimulation_getIntensityData(self, *args)
@@ -15513,12 +15602,26 @@ class GISASSimulation(Simulation):
 
 
     def setRegionOfInterest(self, xlow, ylow, xup, yup):
-        """setRegionOfInterest(GISASSimulation self, double xlow, double ylow, double xup, double yup)"""
+        """
+        setRegionOfInterest(GISASSimulation self, double xlow, double ylow, double xup, double yup)
+
+        void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+        Sets rectangular region of interest with lower left and upper right corners defined. 
+
+        """
         return _libBornAgainCore.GISASSimulation_setRegionOfInterest(self, xlow, ylow, xup, yup)
 
 
     def resetRegionOfInterest(self):
-        """resetRegionOfInterest(GISASSimulation self)"""
+        """
+        resetRegionOfInterest(GISASSimulation self)
+
+        void GISASSimulation::resetRegionOfInterest()
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
         return _libBornAgainCore.GISASSimulation_resetRegionOfInterest(self)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
@@ -16911,6 +17014,11 @@ class IDetector2D(ICloneable, IParameterized):
         """
         createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, IDetector2D::EAxesUnits units_type) -> IntensityData
         createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
+
+        OutputData< double > * IDetector2D::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+
+        Returns new intensity map with detector resolution applied and axes in requested units. 
+
         """
         return _libBornAgainCore.IDetector2D_createDetectorIntensity(self, *args)
 
@@ -16919,7 +17027,7 @@ class IDetector2D(ICloneable, IParameterized):
         """
         createDetectorMap(IDetector2D self, Beam beam, IDetector2D::EAxesUnits units) -> IntensityData
 
-        OutputData< double > * IDetector2D::createDetectorMap(const Beam &, EAxesUnits) const
+        OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units) const
 
         Returns detector map in given axes units. 
 
@@ -16928,7 +17036,14 @@ class IDetector2D(ICloneable, IParameterized):
 
 
     def initOutputData(self, data):
-        """initOutputData(IDetector2D self, IntensityData data)"""
+        """
+        initOutputData(IDetector2D self, IntensityData data)
+
+        void IDetector2D::initOutputData(OutputData< double > &data) const
+
+        Inits axes of  OutputData to match the detector and sets values to zero. 
+
+        """
         return _libBornAgainCore.IDetector2D_initOutputData(self, data)
 
 
@@ -16957,32 +17072,74 @@ class IDetector2D(ICloneable, IParameterized):
 
 
     def regionOfInterest(self):
-        """regionOfInterest(IDetector2D self) -> Rectangle"""
+        """
+        regionOfInterest(IDetector2D self) -> Rectangle
+
+        const Geometry::Rectangle * IDetector2D::regionOfInterest() const
+
+        Returns region of interest if exists. 
+
+        """
         return _libBornAgainCore.IDetector2D_regionOfInterest(self)
 
 
     def setRegionOfInterest(self, xlow, ylow, xup, yup):
-        """setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)"""
+        """
+        setRegionOfInterest(IDetector2D self, double xlow, double ylow, double xup, double yup)
+
+        void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+        Sets rectangular region of interest with lower left and upper right corners defined. 
+
+        """
         return _libBornAgainCore.IDetector2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
 
 
     def resetRegionOfInterest(self):
-        """resetRegionOfInterest(IDetector2D self)"""
+        """
+        resetRegionOfInterest(IDetector2D self)
+
+        void IDetector2D::resetRegionOfInterest()
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
         return _libBornAgainCore.IDetector2D_resetRegionOfInterest(self)
 
 
     def getTotalSize(self):
-        """getTotalSize(IDetector2D self) -> size_t"""
+        """
+        getTotalSize(IDetector2D self) -> size_t
+
+        size_t IDetector2D::getTotalSize() const
+
+        Returns total number of pixels. 
+
+        """
         return _libBornAgainCore.IDetector2D_getTotalSize(self)
 
 
     def getAxisBinIndex(self, index, selected_axis):
-        """getAxisBinIndex(IDetector2D self, size_t index, size_t selected_axis) -> size_t"""
+        """
+        getAxisBinIndex(IDetector2D self, size_t index, size_t selected_axis) -> size_t
+
+        size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
+
+        Calculate axis index for given global index. 
+
+        """
         return _libBornAgainCore.IDetector2D_getAxisBinIndex(self, index, selected_axis)
 
 
     def numberOfSimulationElements(self):
-        """numberOfSimulationElements(IDetector2D self) -> size_t"""
+        """
+        numberOfSimulationElements(IDetector2D self) -> size_t
+
+        size_t IDetector2D::numberOfSimulationElements() const
+
+        Returns number of simulation elements. 
+
+        """
         return _libBornAgainCore.IDetector2D_numberOfSimulationElements(self)
 
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
@@ -18537,6 +18694,11 @@ class Instrument(IParameterized):
         """
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units) -> IntensityData
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
+
+        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+
+        Returns new intensity map with detector resolution applied and axes in requested units. 
+
         """
         return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
 
@@ -18563,133 +18725,71 @@ class Instrument(IParameterized):
 Instrument_swigregister = _libBornAgainCore.Instrument_swigregister
 Instrument_swigregister(Instrument)
 
-class IntensityDataFunctions(_object):
-    """
 
-
-    Class holding collection of static methods to work with intensity data.
-
-    C++ includes: IntensityDataFunctions.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IntensityDataFunctions, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, IntensityDataFunctions, name)
-    __repr__ = _swig_repr
-
-    def getRelativeDifference(*args):
-        """
-        getRelativeDifference(IntensityData dat, IntensityData ref) -> double
-        getRelativeDifference(IHistogram dat, IHistogram ref) -> double
-        """
-        return _libBornAgainCore.IntensityDataFunctions_getRelativeDifference(*args)
-
-    if _newclass:
-        getRelativeDifference = staticmethod(getRelativeDifference)
-    __swig_getmethods__["getRelativeDifference"] = lambda x: getRelativeDifference
-
-    def createRelativeDifferenceData(data, reference):
-        """createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData"""
-        return _libBornAgainCore.IntensityDataFunctions_createRelativeDifferenceData(data, reference)
-
-    if _newclass:
-        createRelativeDifferenceData = staticmethod(createRelativeDifferenceData)
-    __swig_getmethods__["createRelativeDifferenceData"] = lambda x: createRelativeDifferenceData
-
-    def createClippedDataSet(origin, x1, y1, x2, y2):
-        """createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData"""
-        return _libBornAgainCore.IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2)
-
-    if _newclass:
-        createClippedDataSet = staticmethod(createClippedDataSet)
-    __swig_getmethods__["createClippedDataSet"] = lambda x: createClippedDataSet
-
-    def applyDetectorResolution(origin, resolution_function):
-        """applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData"""
-        return _libBornAgainCore.IntensityDataFunctions_applyDetectorResolution(origin, resolution_function)
-
-    if _newclass:
-        applyDetectorResolution = staticmethod(applyDetectorResolution)
-    __swig_getmethods__["applyDetectorResolution"] = lambda x: applyDetectorResolution
-
-    def coordinateToBinf(*args):
-        """
-        coordinateToBinf(double coordinate, IAxis axis) -> double
-        coordinateToBinf(double & x, double & y, IntensityData data)
-        """
-        return _libBornAgainCore.IntensityDataFunctions_coordinateToBinf(*args)
-
-    if _newclass:
-        coordinateToBinf = staticmethod(coordinateToBinf)
-    __swig_getmethods__["coordinateToBinf"] = lambda x: coordinateToBinf
-
-    def coordinateFromBinf(*args):
-        """
-        coordinateFromBinf(double value, IAxis axis) -> double
-        coordinateFromBinf(double & x, double & y, IntensityData data)
-        """
-        return _libBornAgainCore.IntensityDataFunctions_coordinateFromBinf(*args)
-
-    if _newclass:
-        coordinateFromBinf = staticmethod(coordinateFromBinf)
-    __swig_getmethods__["coordinateFromBinf"] = lambda x: coordinateFromBinf
-
-    def __init__(self):
-        """
-        __init__(IntensityDataFunctions self) -> IntensityDataFunctions
-
-
-
-        Class holding collection of static methods to work with intensity data.
-
-        C++ includes: IntensityDataFunctions.h
-
-        """
-        this = _libBornAgainCore.new_IntensityDataFunctions()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityDataFunctions
-    __del__ = lambda self: None
-IntensityDataFunctions_swigregister = _libBornAgainCore.IntensityDataFunctions_swigregister
-IntensityDataFunctions_swigregister(IntensityDataFunctions)
-
-def IntensityDataFunctions_getRelativeDifference(*args):
+def getRelativeDifference(*args):
     """
     getRelativeDifference(IntensityData dat, IntensityData ref) -> double
-    IntensityDataFunctions_getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+
+    BA_CORE_API_ double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+
     """
-    return _libBornAgainCore.IntensityDataFunctions_getRelativeDifference(*args)
+    return _libBornAgainCore.getRelativeDifference(*args)
 
-def IntensityDataFunctions_createRelativeDifferenceData(data, reference):
-    """IntensityDataFunctions_createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData"""
-    return _libBornAgainCore.IntensityDataFunctions_createRelativeDifferenceData(data, reference)
+def createRelativeDifferenceData(data, reference):
+    """
+    createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData
 
-def IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2):
-    """IntensityDataFunctions_createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData"""
-    return _libBornAgainCore.IntensityDataFunctions_createClippedDataSet(origin, x1, y1, x2, y2)
+    BA_CORE_API_ OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
 
-def IntensityDataFunctions_applyDetectorResolution(origin, resolution_function):
-    """IntensityDataFunctions_applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData"""
-    return _libBornAgainCore.IntensityDataFunctions_applyDetectorResolution(origin, resolution_function)
+    """
+    return _libBornAgainCore.createRelativeDifferenceData(data, reference)
 
-def IntensityDataFunctions_coordinateToBinf(*args):
+def createClippedDataSet(origin, x1, y1, x2, y2):
+    """
+    createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData
+
+    BA_CORE_API_ OutputData<double>* IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
+
+    Returns new IntensityData objects which axes clipped to represent the specified rectangle 
+
+    """
+    return _libBornAgainCore.createClippedDataSet(origin, x1, y1, x2, y2)
+
+def applyDetectorResolution(origin, resolution_function):
+    """
+    applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData
+
+    BA_CORE_API_ OutputData<double>* IntensityDataFunctions::applyDetectorResolution(const OutputData< double > &origin, const IResolutionFunction2D &resolution_function)
+
+    Applies detector resolution function and returns new IntensityData object. 
+
+    """
+    return _libBornAgainCore.applyDetectorResolution(origin, resolution_function)
+
+def coordinateToBinf(*args):
     """
     coordinateToBinf(double coordinate, IAxis axis) -> double
-    IntensityDataFunctions_coordinateToBinf(double & x, double & y, IntensityData data)
-    """
-    return _libBornAgainCore.IntensityDataFunctions_coordinateToBinf(*args)
+    coordinateToBinf(double & x, double & y, IntensityData data)
 
-def IntensityDataFunctions_coordinateFromBinf(*args):
+    BA_CORE_API_ void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transform x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates 
+
+    """
+    return _libBornAgainCore.coordinateToBinf(*args)
+
+def coordinateFromBinf(*args):
     """
     coordinateFromBinf(double value, IAxis axis) -> double
-    IntensityDataFunctions_coordinateFromBinf(double & x, double & y, IntensityData data)
-    """
-    return _libBornAgainCore.IntensityDataFunctions_coordinateFromBinf(*args)
+    coordinateFromBinf(double & x, double & y, IntensityData data)
 
+    BA_CORE_API_ void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transform x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates 
+
+    """
+    return _libBornAgainCore.coordinateFromBinf(*args)
 class IntensityDataIOFactory(_object):
     """
 
@@ -21412,7 +21512,14 @@ class OffSpecSimulation(Simulation):
 
 
     def numberOfSimulationElements(self):
-        """numberOfSimulationElements(OffSpecSimulation self) -> int"""
+        """
+        numberOfSimulationElements(OffSpecSimulation self) -> int
+
+        int OffSpecSimulation::numberOfSimulationElements() const final
+
+        Gets the number of elements this simulation needs to calculate. 
+
+        """
         return _libBornAgainCore.OffSpecSimulation_numberOfSimulationElements(self)
 
 
@@ -21544,24 +21651,12 @@ class IntensityData(_object):
         getAxis(IntensityData self, size_t serial_number) -> IAxis
         getAxis(IntensityData self, std::string const & axis_name) -> IAxis
 
-        const IAxis * OutputData< T >::getAxis(const std::string &axis_name) const
+        const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
 
         returns axis with given name 
 
         """
         return _libBornAgainCore.IntensityData_getAxis(self, *args)
-
-
-    def getAxisSerialNumber(self, axis_name):
-        """
-        getAxisSerialNumber(IntensityData self, std::string const & axis_name) -> size_t
-
-        size_t OutputData< T >::getAxisSerialNumber(const std::string &axis_name) const
-
-        returns serial number of axis with given name 
-
-        """
-        return _libBornAgainCore.IntensityData_getAxisSerialNumber(self, axis_name)
 
 
     def getRank(self):
@@ -21660,54 +21755,6 @@ class IntensityData(_object):
 
         """
         return _libBornAgainCore.IntensityData_end(self, *args)
-
-
-    def getMask(self):
-        """
-        getMask(IntensityData self) -> Mask *
-
-        Mask* OutputData< T >::getMask() const
-
-        Returns mask that will be used by iterators. 
-
-        """
-        return _libBornAgainCore.IntensityData_getMask(self)
-
-
-    def setMask(self, mask):
-        """
-        setMask(IntensityData self, Mask const & mask)
-
-        void OutputData< T >::setMask(const Mask &mask)
-
-        Sets mask (or a stack of masks) 
-
-        """
-        return _libBornAgainCore.IntensityData_setMask(self, mask)
-
-
-    def addMask(self, mask):
-        """
-        addMask(IntensityData self, Mask const & mask)
-
-        void OutputData< T >::addMask(const Mask &mask)
-
-        Adds mask that will be used by iterators. 
-
-        """
-        return _libBornAgainCore.IntensityData_addMask(self, mask)
-
-
-    def removeAllMasks(self):
-        """
-        removeAllMasks(IntensityData self)
-
-        void OutputData< T >::removeAllMasks()
-
-        Remove all masks. 
-
-        """
-        return _libBornAgainCore.IntensityData_removeAllMasks(self)
 
 
     def setVariability(self, variability):
@@ -22029,111 +22076,6 @@ class IntensityData(_object):
 IntensityData_swigregister = _libBornAgainCore.IntensityData_swigregister
 IntensityData_swigregister(IntensityData)
 
-
-def doubleBinSize(source):
-    """
-    doubleBinSize(IntensityData source) -> IntensityData
-
-    OutputData< double > * OutputDataFunctions::doubleBinSize(const OutputData< double > &source)
-
-    double the bin size for each dimension
-
-    double the bin size for each dimension. 
-
-    """
-    return _libBornAgainCore.doubleBinSize(source)
-
-def FourierTransform(source, p_destination):
-    """
-    FourierTransform(IntensityData source, OutputData< complex_t > * p_destination)
-
-    void OutputDataFunctions::FourierTransform(const OutputData< double > &source, OutputData< complex_t > *p_destination)
-
-    unnormalized Fourier transformation for real data
-
-    Fourier transformation of output data. 
-
-    """
-    return _libBornAgainCore.FourierTransform(source, p_destination)
-
-def FourierTransformR(source, p_destination):
-    """
-    FourierTransformR(OutputData< complex_t > const & source, IntensityData p_destination)
-
-    void OutputDataFunctions::FourierTransformR(const OutputData< complex_t > &source, OutputData< double > *p_destination)
-
-    unnormalized reverse Fourier transformation for real data
-
-    Fourier back transform. 
-
-    """
-    return _libBornAgainCore.FourierTransformR(source, p_destination)
-
-def getRealPart(source):
-    """
-    getRealPart(OutputData< complex_t > const & source) -> IntensityData
-
-    OutputData< double > * OutputDataFunctions::getRealPart(const OutputData< complex_t > &source)
-
-    reduces the data to the element-wise real, imaginary or modulus part 
-
-    """
-    return _libBornAgainCore.getRealPart(source)
-
-def getImagPart(source):
-    """
-    getImagPart(OutputData< complex_t > const & source) -> IntensityData
-
-    OutputData< double > * OutputDataFunctions::getImagPart(const OutputData< complex_t > &source)
-
-    """
-    return _libBornAgainCore.getImagPart(source)
-
-def getModulusPart(source):
-    """
-    getModulusPart(OutputData< complex_t > const & source) -> IntensityData
-
-    OutputData< double > * OutputDataFunctions::getModulusPart(const OutputData< complex_t > &source)
-
-    """
-    return _libBornAgainCore.getModulusPart(source)
-
-def sliceAccrossOneAxis(data, fixed_axis_name, fixed_axis_value):
-    """
-    sliceAccrossOneAxis(IntensityData data, std::string const & fixed_axis_name, double fixed_axis_value) -> IntensityData
-
-    OutputData< double > * OutputDataFunctions::sliceAccrossOneAxis(const OutputData< double > &data, const std::string &fixed_axis_name, double fixed_axis_value)
-
-    Slice data, having one bin on selected axis fixed. Resulting output data will have one axis less (without axis 'fixed_axis_name') 
-
-    """
-    return _libBornAgainCore.sliceAccrossOneAxis(data, fixed_axis_name, fixed_axis_value)
-
-def selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2):
-    """
-    selectRangeOnOneAxis(IntensityData data, std::string const & selected_axis_name, double axis_value1, double axis_value2) -> IntensityData
-
-    OutputData< double > * OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
-
-    Select range on one of the axis.
-
-    Select range on one of the axis. Resulting output data will have same number of axes
-
-    Resulting output data will have same number of axes 
-
-    """
-    return _libBornAgainCore.selectRangeOnOneAxis(data, selected_axis_name, axis_value1, axis_value2)
-
-def applyFunction(data, func):
-    """
-    applyFunction(IntensityData data, IIntensityFunction func)
-
-    void OutputDataFunctions::applyFunction(OutputData< double > &data, const IIntensityFunction *func)
-
-    apply intensity function to values stored in output data 
-
-    """
-    return _libBornAgainCore.applyFunction(data, func)
 class ParameterDistribution(IParameterized):
     """Proxy of C++ ParameterDistribution class."""
 

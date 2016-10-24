@@ -18,6 +18,7 @@
 
 #include "IParameterized.h"
 #include "OutputData.h"
+#include <INoncopyable.h>
 #include <memory>
 
 class FitElement;

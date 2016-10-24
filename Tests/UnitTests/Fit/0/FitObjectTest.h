@@ -39,21 +39,21 @@ TEST_F(FitObjectTest, StandardPair)
     EXPECT_EQ(obj.weight(), weight);
     EXPECT_EQ(obj.numberOfFitElements(), size_t(nx*ny));
 
-    EXPECT_EQ(obj.realData().getAxis(0)->getSize(), nx);
-    EXPECT_EQ(obj.realData().getAxis(1)->getSize(), ny);
-    EXPECT_EQ(obj.realData().getAxis(0)->getMin(), xmin);
-    EXPECT_EQ(obj.realData().getAxis(0)->getMax(), xmax);
-    EXPECT_EQ(obj.realData().getAxis(1)->getMin(), ymin);
-    EXPECT_EQ(obj.realData().getAxis(1)->getMax(), ymax);
+    EXPECT_EQ(obj.realData().getAxis(0).getSize(), nx);
+    EXPECT_EQ(obj.realData().getAxis(1).getSize(), ny);
+    EXPECT_EQ(obj.realData().getAxis(0).getMin(), xmin);
+    EXPECT_EQ(obj.realData().getAxis(0).getMax(), xmax);
+    EXPECT_EQ(obj.realData().getAxis(1).getMin(), ymin);
+    EXPECT_EQ(obj.realData().getAxis(1).getMax(), ymax);
     EXPECT_EQ(obj.realData().totalSum(), intensity*nx*ny);
 
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(0)->getSize(), nx);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(1)->getSize(), ny);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(0).getSize(), nx);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(1).getSize(), ny);
     EXPECT_EQ(obj.chiSquaredMap().totalSum(), 0.0);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(0)->getMin(), xmin);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(0)->getMax(), xmax);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(1)->getMin(), ymin);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(1)->getMax(), ymax);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(0).getMin(), xmin);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(0).getMax(), xmax);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(1).getMin(), ymin);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(1).getMax(), ymax);
 }
 
 //! Test of the case when simulation has ROI.
@@ -83,21 +83,21 @@ TEST_F(FitObjectTest, RoiPair)
     EXPECT_EQ(obj.weight(), weight);
     EXPECT_EQ(obj.numberOfFitElements(), size_t(roi_nx*roi_ny));
 
-    EXPECT_EQ(obj.realData().getAxis(0)->getSize(), roi_nx);
-    EXPECT_EQ(obj.realData().getAxis(1)->getSize(), roi_ny);
-    EXPECT_EQ(obj.realData().getAxis(0)->getMin(), roi_xmin);
-    EXPECT_EQ(obj.realData().getAxis(0)->getMax(), roi_xmax);
-    EXPECT_EQ(obj.realData().getAxis(1)->getMin(), roi_ymin);
-    EXPECT_EQ(obj.realData().getAxis(1)->getMax(), roi_ymax);
+    EXPECT_EQ(obj.realData().getAxis(0).getSize(), roi_nx);
+    EXPECT_EQ(obj.realData().getAxis(1).getSize(), roi_ny);
+    EXPECT_EQ(obj.realData().getAxis(0).getMin(), roi_xmin);
+    EXPECT_EQ(obj.realData().getAxis(0).getMax(), roi_xmax);
+    EXPECT_EQ(obj.realData().getAxis(1).getMin(), roi_ymin);
+    EXPECT_EQ(obj.realData().getAxis(1).getMax(), roi_ymax);
     EXPECT_EQ(obj.realData().totalSum(), intensity*roi_nx*roi_ny);
 
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(0)->getSize(), roi_nx);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(1)->getSize(), roi_ny);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(0).getSize(), roi_nx);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(1).getSize(), roi_ny);
     EXPECT_EQ(obj.chiSquaredMap().totalSum(), 0.0);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(0)->getMin(), roi_xmin);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(0)->getMax(), roi_xmax);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(1)->getMin(), roi_ymin);
-    EXPECT_EQ(obj.chiSquaredMap().getAxis(1)->getMax(), roi_ymax);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(0).getMin(), roi_xmin);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(0).getMax(), roi_xmax);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(1).getMin(), roi_ymin);
+    EXPECT_EQ(obj.chiSquaredMap().getAxis(1).getMax(), roi_ymax);
 }
 
 #endif // FITOBJECTTEST_H

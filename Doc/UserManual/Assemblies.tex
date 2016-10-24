@@ -49,7 +49,7 @@ that may or may not vary with~$z$.
 The SLD of the entire sample,
 consisting of the matrix and an assembly of particles of type~$\sp$,
 shall be written
-\begin{equation}
+\begin{equation}\label{Evmpr}
   v(\r) = v_\sm(z) + \Delta v_\sp(\r).
 \end{equation}
 If the particles are homogeneous, then
@@ -66,40 +66,40 @@ with the indicator function
 \index{Indicator function}%
 The following formalism, however, shall not rely on \cref{EDvpHomo},
 but also allow for soft particles for which $\Delta v_\sp(\r)$ is a continuous function of~$\r$.
-
-BornAgain only supports step profiles for~$v_\sm(z)$.
-Within one layer~$l$, the matrix has a constant SLD~$v_{\sm l}$.
-To specifiy a decomposition~\cref{Edecompose_vz}, we define
-\begin{equation}
-  \delta v_l(\r)
-  \coloneqq\left\{\begin{array}{ll}
-  v_l(\r) - \mv_l&\text{~if $\r$ in Layer~$l$,}\\[.2ex]
-  0&\text{~otherwise.} \end{array}\right.
-\end{equation}
-This leaves the constant term $\mv_l$ still undetermined.
-The best choice is probably the volume average of $v(\r)$,
-though we are not aware of any proof that this maximizes the accuracy of the DWBA.
-\Note{Currently (at least up to version 1.7),
-BornAgain uses the simpler choice
- $\mv_l = v_{\sm l}$.
-This may change in the future.}
-Per \Cref{SStep}, $\mv_l$ determines the refractive index~$n_l$
-and the wavenumber~$K_l$.
-The wavefunctions $\psi_\si$ and~$\psi_\sf$
-are then determined as described in \Cref{Sacrolay}.
-Furthermore, our current choice $\mv_l = v_{\sm l}$
-implies
-\begin{equation}\label{Edvl_cur}
-  \delta v_l(\r) = \Delta v_\sp(\r)\text{~for $\r$ in the layer.}
-\end{equation}
 \Warn{Currently,
-BornAgain does not compute $\Delta v_\sp = v_\sp - v_\sm$,
-but interprets the given $v_\sp$
-(given through a particle refractive index) as if it were $\Delta v_\sp$.}
+BornAgain uses the given $v_\sp$
+(given through a particle refractive index)
+in place of the difference $v_\sp - v_\sm(z)$.
+In other words, BornAgain does not subtract the matrix SLD from the particle SLD;
+it leaves it to the user to do this subtraction before entering the particle refractive index.}
 
-Per \Cref{SStep},
-the DWBA scattering cross section is the norm \cref{Exsection}
-of a sum \cref{Edwba_ml0} of four terms per layer,
+The sum~\cref{Evmpr} has the same form as the decomposition~\cref{Edecompose_vz}.
+Nonetheless, implementations are free to choose a convenient mean SLD~$\mv(z)$.
+Currently, BornAgain uses $\mv(z)\coloneqq v_\sm(z)$,
+though we suspect that for non-dilute particles
+$\mv(z)\coloneqq v_\sm(z) + \overline{\Delta v_\sp(\r)}$ would yield
+a more accurate scattering simulation.
+With $\mv(z)\coloneqq v_\sm(z)$, we have
+$\delta v_l(\r) = \Delta v_\sp(\r)$.
+Outside the layer that contains the embedded particles,
+$\delta v_l(\r)=0$.
+
+The elastic scattering cross section
+in distorted-wave Born approximation
+is given by~\Cref{Exsection}:
+\begin{equation}\label{Exsection2}
+  \frac{\d\sigma}{\d\Omega}
+  =  {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
+\end{equation}
+With the factorization~\cref{Ekpar},
+the integral~\cref{Etrama} becomes
+\begin{equation}
+  \bra\psi_\ti|\delta v|\psi_\tf\ket
+  = \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
+    \int\!\d z\, \phi_\si(z) \delta v(\r) \phi^*_\sf(z).
+\end{equation}
+
+
 and each term involves the Fourier transforms~\cref{Echij},
 which thanks to~\cref{Edvl_cur} takes the simple form
 \Emph{

@@ -12810,41 +12810,41 @@ Returns file names that agree with a regex glob pattern.
 
 
 // File: namespaceIntensityDataFunctions.xml
-%feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
+%feature("docstring")  IntensityDataFunctions::getRelativeDifference "BA_CORE_API_ double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
 ";
 
-%feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+%feature("docstring")  IntensityDataFunctions::getRelativeDifference "BA_CORE_API_ double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 ";
 
-%feature("docstring")  IntensityDataFunctions::createRelativeDifferenceData "OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
+%feature("docstring")  IntensityDataFunctions::createRelativeDifferenceData "BA_CORE_API_ OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
 ";
 
-%feature("docstring")  IntensityDataFunctions::createClippedDataSet "OutputData<double>* IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
+%feature("docstring")  IntensityDataFunctions::createClippedDataSet "BA_CORE_API_ OutputData<double>* IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
 
 Returns new IntensityData objects which axes clipped to represent the specified rectangle 
 ";
 
-%feature("docstring")  IntensityDataFunctions::applyDetectorResolution "OutputData<double>* IntensityDataFunctions::applyDetectorResolution(const OutputData< double > &origin, const IResolutionFunction2D &resolution_function)
+%feature("docstring")  IntensityDataFunctions::applyDetectorResolution "BA_CORE_API_ OutputData<double>* IntensityDataFunctions::applyDetectorResolution(const OutputData< double > &origin, const IResolutionFunction2D &resolution_function)
 
 Applies detector resolution function and returns new IntensityData object. 
 ";
 
-%feature("docstring")  IntensityDataFunctions::coordinateToBinf "double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis &axis)
+%feature("docstring")  IntensityDataFunctions::coordinateToBinf "BA_CORE_API_ double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis &axis)
 
 Transforms coordinate on axis into the bin-fraction-coordinate. 
 ";
 
-%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis &axis)
+%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "BA_CORE_API_ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis &axis)
 
 Transforms bin-fraction-coordinate into axis coordinate. 
 ";
 
-%feature("docstring")  IntensityDataFunctions::coordinateToBinf "void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+%feature("docstring")  IntensityDataFunctions::coordinateToBinf "BA_CORE_API_ void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
 
 Transform x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates 
 ";
 
-%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "BA_CORE_API_ void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
 
 Transform x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates 
 ";

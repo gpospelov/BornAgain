@@ -18775,7 +18775,7 @@ def getRelativeDifference(*args):
     getRelativeDifference(IntensityData dat, IntensityData ref) -> double
     getRelativeDifference(IHistogram dat, IHistogram ref) -> double
 
-    double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+    BA_CORE_API_ double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 
     """
     return _libBornAgainCore.getRelativeDifference(*args)
@@ -18784,7 +18784,7 @@ def createRelativeDifferenceData(data, reference):
     """
     createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData
 
-    OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
+    BA_CORE_API_ OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
 
     """
     return _libBornAgainCore.createRelativeDifferenceData(data, reference)
@@ -18793,7 +18793,7 @@ def createClippedDataSet(origin, x1, y1, x2, y2):
     """
     createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData
 
-    OutputData<double>* IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
+    BA_CORE_API_ OutputData<double>* IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
 
     Returns new IntensityData objects which axes clipped to represent the specified rectangle 
 
@@ -18804,7 +18804,7 @@ def applyDetectorResolution(origin, resolution_function):
     """
     applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData
 
-    OutputData<double>* IntensityDataFunctions::applyDetectorResolution(const OutputData< double > &origin, const IResolutionFunction2D &resolution_function)
+    BA_CORE_API_ OutputData<double>* IntensityDataFunctions::applyDetectorResolution(const OutputData< double > &origin, const IResolutionFunction2D &resolution_function)
 
     Applies detector resolution function and returns new IntensityData object. 
 
@@ -18816,7 +18816,7 @@ def coordinateToBinf(*args):
     coordinateToBinf(double coordinate, IAxis axis) -> double
     coordinateToBinf(double & x, double & y, IntensityData data)
 
-    void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+    BA_CORE_API_ void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
 
     Transform x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates 
 
@@ -18828,7 +18828,7 @@ def coordinateFromBinf(*args):
     coordinateFromBinf(double value, IAxis axis) -> double
     coordinateFromBinf(double & x, double & y, IntensityData data)
 
-    void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+    BA_CORE_API_ void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
 
     Transform x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates 
 

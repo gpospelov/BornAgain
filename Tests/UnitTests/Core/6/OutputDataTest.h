@@ -3,7 +3,6 @@
 
 #include "OutputData.h"
 #include <algorithm>
-#include "OutputDataFunctions.h"
 #include "IntensityDataFunctions.h"
 #include "VariableBinAxis.h"
 #include "FixedBinAxis.h"

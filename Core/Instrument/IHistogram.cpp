@@ -47,13 +47,13 @@ size_t IHistogram::getTotalNumberOfBins() const
 const IAxis* IHistogram::getXaxis() const
 {
     check_x_axis();
-    return m_data.getAxis(0);
+    return &m_data.getAxis(0);
 }
 
 const IAxis* IHistogram::getYaxis() const
 {
     check_y_axis();
-    return m_data.getAxis(1);
+    return &m_data.getAxis(1);
 }
 
 double IHistogram::getXmin() const

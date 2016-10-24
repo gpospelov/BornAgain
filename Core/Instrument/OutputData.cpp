@@ -30,7 +30,7 @@ PyObject* OutputData<double>::getArray() const
 {
     std::vector<size_t > dimensions;
     for (size_t i=0; i<getRank(); i++)
-        dimensions.push_back(getAxis(i)->getSize());
+        dimensions.push_back(getAxis(i).getSize());
 
     // for rot90 of 2-dim arrays to conform with numpy
     if (dimensions.size() == 2)

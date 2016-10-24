@@ -18,7 +18,7 @@ TEST_F(FitParameterSetTest, addFitParameter)
 
     FitParameter *par = new FitParameter("par1", 1.0);
     parameters.addFitParameter(par);
-    EXPECT_EQ(parameters.size(), 1);
+    EXPECT_EQ(parameters.size(), (size_t)1);
 
     // attempt to add same fit parameter twice
     EXPECT_THROW(parameters.addFitParameter(par), std::runtime_error);

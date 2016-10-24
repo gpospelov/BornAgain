@@ -66,7 +66,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
 
         data = self.get_intensity_data(coreshell)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_SameMaterialCoreShell:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -110,7 +110,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
 
         data = self.get_intensity_data(coreshell)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_CoreShellBoxRotateZ:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -157,7 +157,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
 
         # utils.plot_intensity_data(data)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_CoreShellBoxRotateY:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -205,7 +205,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
 
         data = self.get_intensity_data(coreshell)
 
-        diff = IntensityDataFunctions.getRelativeDifference(data, reference_data)
+        diff = getRelativeDifference(data, reference_data)
         print("test_CoreShellBoxRotateZandY:", diff)
         self.assertLess(diff, 1e-10)
 

@@ -99,15 +99,15 @@ OutputData<double> *ImportDataAssistant::createSimlifiedOutputData(const OutputD
 {
     double xmin(0.0), ymin(0.0);
 
-    const IAxis *aX = data.getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis *aY = data.getAxis(BornAgain::Y_AXIS_INDEX);
+    const IAxis &aX = data.getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis &aY = data.getAxis(BornAgain::Y_AXIS_INDEX);
 
-    double xmax = double(aX->getSize());
-    double ymax = double(aY->getSize());
+    double xmax = double(aX.getSize());
+    double ymax = double(aY.getSize());
 
-    OutputData<double> *result = new OutputData<double>;    
-    result->addAxis(FixedBinAxis(aX->getName(), aX->getSize(), xmin, xmax));
-    result->addAxis(FixedBinAxis(aY->getName(), aY->getSize(), ymin, ymax));
+    OutputData<double> *result = new OutputData<double>;
+    result->addAxis(FixedBinAxis(aX.getName(), aX.getSize(), xmin, xmax));
+    result->addAxis(FixedBinAxis(aY.getName(), aY.getSize(), ymin, ymax));
     result->setRawDataVector(data.getRawDataVector());
 
     return result;

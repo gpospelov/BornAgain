@@ -308,43 +308,14 @@ as for other numeric parameters.
 \index{Form factor|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Structure and form factor}\label{SPartFactors}
+\section{Decoupling approximations}\label{Spartidis}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We start the study of $\delta v_l(\q)$ with the simplest case:
-an assembly of identical particles
-that are either spherical, or all have the same orientation.
-For $\r$ in Layer~$l$, the SLD~\cref{Edvl_cur}
-can then be written as a sum over particle positions~$\R_i$,
-where~$F(\r)$ is the SLD of a single particle located at the origin.
-Its Fourier transform can be written as a product
-\begin{equation}\label{ESqFq}
-  v_\sp(\q) = S(\q) F(\q)
-\end{equation}
-of the assembly's \E{structure factor}, given by the particle positions,
-\begin{equation}\label{EdefSq}
-  S(\q) \coloneqq \sum_i \e^{i\q\R_i},
-\end{equation}
-and the individual particles' \E{form factor}
-\begin{equation}\label{EdefFq}
-  F(\q) \coloneqq \int\!\d^3r\, \e^{i\v{q}\,\r} F(\r).
-\end{equation}
-Form factors are discussed in \Cref{SFormFactor}.
-The remainder of this chapter is devoted to structure factors.
-
-The SLD~\cref{Echihomo} then becomes
-The scattering matrix element
-\begin{equation}\label{Echiqsum}
-  v_\sp(\q) = \sum_i \e^{i\q\R_i} F(\q,\v{T}_i)
-\end{equation}
-can no longer be factorized as in \cref{ESqFq}
-because there may be any kind of correlation
-between particle positions~$\R_i$ and parameters~$\v{T}_i$.
-
-
-To proceed,
-we need to specify the statistical distributions
-of these coordinates.
+In the DWBA matrix element~\cref{EsumRF},
+particle positions, orientations, shapes, and sizes can be coupled in
+arbitrary ways.
+To proceed any further,
+we need to specify this coupling at least in statistical terms.
 This can in principle be done in two different ways:
 Either through physical models, implemented within BornAgain,
 or by loading a representative set $\{\R_i,\v{T}_i\}$
@@ -368,10 +339,6 @@ Except if uniform particles form a perfect two-dimensional crystal,
 some degrees of freedom will be more or less disordered.
 Therefore the models need to be formulated in a statistical language.
 That formalism is then versatile enough to also cover any degree of order.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Decoupling approximations}\label{Spartidis}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 To prepare a statistical formulation,
 we encode the particle coordinates in a distribution function

@@ -38,12 +38,22 @@ public:
 
     size_t totalSize() const;
 
-    //! Return index in ROI map from global index
-    size_t roiIndex(size_t globalIndex) const;
+    //! Return index in ROI map from iterator index
+    size_t roiIndex(size_t index) const;
+
+    //! Return detector index from iterator index
+    size_t detectorIndex(size_t index) const;
 
 protected:
     const IDetector2D *m_detector;
+    size_t m_max_index;
 };
+
+inline size_t SimulationArea::totalSize() const
+{
+    return m_max_index;
+}
+
 
 //! Holds iteration logic over active detector channels in the presence of ROI. On the contrary
 //! to SimulationArea class, iterates also over masked areas.

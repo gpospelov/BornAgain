@@ -30,6 +30,7 @@ class BA_CORE_API_ RegionOfInterest : public ICloneable
 {
 public:
     RegionOfInterest(const IDetector2D& detector, double xlow, double ylow, double xup, double yup);
+    RegionOfInterest& operator=(const RegionOfInterest &other) = delete;
     RegionOfInterest *clone() const;
     ~RegionOfInterest();
 

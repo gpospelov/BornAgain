@@ -214,8 +214,8 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
 
     SimulationArea area(this);
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        SimulationElement sim_element(wavelength, alpha_i, phi_i,
-                                      std::unique_ptr<IPixelMap>(createPixelMap(it.index())));
+        SimulationElement sim_element(wavelength, alpha_i, phi_i, std::unique_ptr<IPixelMap>(
+                                          createPixelMap(it.detectorIndex())));
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         if (it.index()==spec_index) {

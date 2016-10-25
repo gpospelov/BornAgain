@@ -81,13 +81,13 @@ std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instr
 
         SimulationArea area(instrument.getDetector());
         for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-            (*result)[it.roiIndex()] = data[it.index()];
+            (*result)[it.roiIndex()] = data[it.detectorIndex()];
         }
 
     } else {
         SimulationRoiArea area(instrument.getDetector());
         for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it) {
-            (*result)[it.roiIndex()] = data[it.index()];
+            (*result)[it.roiIndex()] = data[it.detectorIndex()];
         }
     }
 

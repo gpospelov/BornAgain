@@ -70,12 +70,15 @@ TEST_F(SimulationAreaTest, detectorIteration)
 
     std::vector<int> indexes;
     std::vector<int> elementIndexes;
+    std::vector<int> detectorIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
     }
     EXPECT_EQ(indexes, expectedIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
+    EXPECT_EQ(detectorIndexes, expectedIndexes);
 }
 
 //! Iteration over masked detector
@@ -153,13 +156,15 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
     std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
     std::vector<int> indexes;
     std::vector<int> elementIndexes;
+    std::vector<int> detectorIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
     }
     EXPECT_EQ(indexes, expectedIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
-
+    EXPECT_EQ(detectorIndexes, expectedIndexes);
 }
 
 //! Checking index of ROI
@@ -177,16 +182,17 @@ TEST_F(SimulationAreaTest, indexInRoi)
     std::vector<int> indexes;
     std::vector<int> elementIndexes;
     std::vector<int> roiIndexes;
+    std::vector<int> detectorIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
         roiIndexes.push_back(it.roiIndex());
+        detectorIndexes.push_back(it.detectorIndex());
     }
     EXPECT_EQ(indexes, expectedIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
     EXPECT_EQ(roiIndexes, expectedRoi);
-
-
+    EXPECT_EQ(detectorIndexes, expectedIndexes);
 }
 
 #endif

@@ -31,6 +31,7 @@ public:
     size_t index() const { return m_index; }
     size_t elementIndex() const { return m_element_index;}
     int roiIndex() const;
+    int detectorIndex() const;
 
     bool operator==(const SimulationAreaIterator &other) const;
     bool operator!=(const SimulationAreaIterator &other) const;

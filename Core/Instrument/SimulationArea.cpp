@@ -24,6 +24,7 @@
 
 SimulationArea::SimulationArea(const IDetector2D *detector)
     : m_detector(detector)
+    , m_max_index(0)
 {
     if(detector == nullptr)
         throw Exceptions::RuntimeErrorException("SimulationArea::SimulationArea -> Error. "
@@ -32,6 +33,8 @@ SimulationArea::SimulationArea(const IDetector2D *detector)
     if (m_detector->getDimension()!=2)
         throw Exceptions::RuntimeErrorException(
             "SimulationArea::SimulationArea: detector is not two-dimensional");
+
+    m_max_index = m_detector->getTotalSize();
 }
 
 SimulationAreaIterator SimulationArea::begin()
@@ -41,15 +44,15 @@ SimulationAreaIterator SimulationArea::begin()
 
 SimulationAreaIterator SimulationArea::end()
 {
-    return SimulationAreaIterator(this, m_detector->getTotalSize());
+    return SimulationAreaIterator(this, totalSize());
 }
 
 bool SimulationArea::isMasked(size_t index) const
 {
-    if(index >= m_detector->getTotalSize()) {
+    if(index >= totalSize()) {
         std::ostringstream message;
         message << "SimulationArea::isActive() -> Error. Index " << index << " is out of range, "
-             << "totalSize=" << m_detector->getTotalSize();
+             << "totalSize=" << totalSize();
         throw Exceptions::RuntimeErrorException(message.str());
     }
 
@@ -59,17 +62,21 @@ bool SimulationArea::isMasked(size_t index) const
     return m_detector->isMasked(index);
 }
 
-size_t SimulationArea::totalSize() const
-{
-    return m_detector->getTotalSize();
-}
-
-size_t SimulationArea::roiIndex(size_t globalIndex) const
+size_t SimulationArea::roiIndex(size_t index) const
 {
     if(!m_detector->regionOfInterest())
-        return globalIndex;
+        return index;
 
-    return m_detector->regionOfInterest()->roiIndex(globalIndex);
+    return m_detector->regionOfInterest()->roiIndex(index);
+}
+
+size_t SimulationArea::detectorIndex(size_t index) const
+{
+//    if(!m_detector->regionOfInterest())
+//        return index;
+
+//    return m_detector->regionOfInterest()->detectorIndex(index);
+    return index;
 }
 
 // --------------------------------------------------------------------------------------

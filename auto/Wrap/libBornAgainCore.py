@@ -2083,6 +2083,11 @@ class kvector_t(_object):
         """__rmul__(kvector_t self, double c) -> kvector_t"""
         return _libBornAgainCore.kvector_t___rmul__(self, c)
 
+
+    def __neg__(self):
+        """__neg__(kvector_t self) -> kvector_t"""
+        return _libBornAgainCore.kvector_t___neg__(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_kvector_t
     __del__ = lambda self: None
 kvector_t_swigregister = _libBornAgainCore.kvector_t_swigregister

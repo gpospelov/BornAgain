@@ -207,15 +207,7 @@ void Simulation::updateSample()
 {
     if (!mp_sample_builder)
         return;
-    MultiLayer* p_new_sample = mp_sample_builder->buildSample();
-    std::string builder_type = typeid(*mp_sample_builder).name();
-    if (builder_type.find("IMultiLayerBuilder_wrapper") != std::string::npos) {
-        msglog(MSG::DEBUG2) << "Simulation::updateSample() -> "
-            "OMG, some body has called me from python, what an idea... ";
-        setSample(*p_new_sample);
-    } else {
-        mP_sample.reset(p_new_sample);
-    }
+    mP_sample.reset( mp_sample_builder->buildSample() );
 }
 
 //! Runs a single simulation with fixed parameter values.

@@ -177,10 +177,10 @@ const DetectorMask *IDetector2D::getDetectorMask() const
     return &m_detector_mask;
 }
 
-int IDetector2D::getNumberOfMaskedChannels() const
+size_t IDetector2D::numberOfMaskedChannels() const
 {
     if (getDetectorMask()) {
-        return getDetectorMask()->getNumberOfMaskedChannels();
+        return getDetectorMask()->numberOfMaskedChannels();
     } else {
         return 0;
     }
@@ -188,9 +188,7 @@ int IDetector2D::getNumberOfMaskedChannels() const
 
 bool IDetector2D::isMasked(size_t index) const
 {
-    if (!m_detector_mask.getMaskData()->isInitialized())
-        return false;
-    return m_detector_mask.getMask(index);
+    return m_detector_mask.isMasked(index);
 }
 
 bool IDetector2D::hasMasks() const

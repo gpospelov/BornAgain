@@ -80,11 +80,14 @@ void DetectorMask::initMaskData(const OutputData<double>& data)
     process_masks();
 }
 
-bool DetectorMask::getMask(size_t index) const
+bool DetectorMask::isMasked(size_t index) const
 {
     if(!m_mask_data.isInitialized())
-        throw Exceptions::LogicErrorException(
-            "DetectorMask::getMask() -> Error. Masks are not initialized");
+        return false;
+
+    if(index >= m_mask_data.getAllocatedSize())
+        throw Exceptions::RuntimeErrorException("DetectorMask::getMask() -> Error. "
+                                              "Index is out of range "+std::to_string(index));
     return m_mask_data[index];
 }
 
@@ -104,14 +107,14 @@ void DetectorMask::removeMasks()
     m_mask_data.clear();
 }
 
-size_t DetectorMask::getNumberOfMasks() const
+size_t DetectorMask::numberOfMasks() const
 {
     return m_shapes.size();
 }
 
 const Geometry::IShape2D* DetectorMask::getMaskShape(size_t mask_index, bool& mask_value) const
 {
-    if(mask_index >= getNumberOfMasks())
+    if(mask_index >= numberOfMasks())
         return nullptr;
     mask_value = m_mask_of_shape[mask_index];
     return m_shapes[mask_index];

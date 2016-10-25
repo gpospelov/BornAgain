@@ -44,7 +44,7 @@ public:
 
     void initMaskData(const OutputData<double>& data);
 
-    bool getMask(size_t index) const;
+    bool isMasked(size_t index) const;
 
     const OutputData<bool>* getMaskData() const { return &m_mask_data; }
 
@@ -54,11 +54,11 @@ public:
     void removeMasks();
 
     //! returns true if has masks
-    bool hasMasks() const { return getNumberOfMasks()>0; }
+    bool hasMasks() const { return numberOfMasks()>0; }
 
-    int getNumberOfMaskedChannels() const { return m_number_of_masked_channels; }
+    int numberOfMaskedChannels() const { return m_number_of_masked_channels; }
 
-    size_t getNumberOfMasks() const;
+    size_t numberOfMasks() const;
 
     const Geometry::IShape2D* getMaskShape(size_t mask_index, bool& mask_value) const;
 

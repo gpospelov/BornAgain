@@ -95,8 +95,7 @@ public:
 
     const DetectorMask* getDetectorMask() const;
 
-    int getNumberOfMaskedChannels() const;
-
+    size_t numberOfMaskedChannels() const;
 
     bool isMasked(size_t index) const;
 

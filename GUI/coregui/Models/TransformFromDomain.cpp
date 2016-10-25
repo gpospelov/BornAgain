@@ -440,10 +440,10 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GIS
 
     const IDetector2D* detector = simulation.getInstrument().getDetector();
     const DetectorMask* detectorMask = detector->getDetectorMask();
-    if(detectorMask && detectorMask->getNumberOfMasks()) {
+    if(detectorMask && detectorMask->numberOfMasks()) {
         MaskContainerItem* containerItem = new MaskContainerItem();
         detectorItem->insertItem(-1, containerItem);
-        for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
+        for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
             if(const Geometry::Ellipse* ellipse = dynamic_cast<const Geometry::Ellipse*>(shape)) {

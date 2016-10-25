@@ -116,7 +116,7 @@ In consequence, \cref{Echihomo}~is replaced by
   v_\sp(\r) = \sum_j F(\r-\R_{\parallel j},\v{T}_j).
 \end{equation}
 With the \E{DWBA form factor}
-\begin{equation}
+\begin{equation}\label{EcFdef}
   {\cal F}(\q_\parallel,\v{T})
   \coloneqq
     \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
@@ -130,8 +130,8 @@ the scattering matrix element~\cref{Escamatrix2} becomes
 \end{equation}
 \vspace*{-5pt}}
 In the following \Cref{SFormFactor} we discuss the form factor~${\cal F}$.
-The remainder of this chapter is devoted to the coupling
-between particle form and position;
+The remainder of this chapter is devoted to the
+positional term and to the coupling between particle form and position;
 various approximations are used to make~\cref{EsumRF} manageable.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -140,6 +140,33 @@ various approximations are used to make~\cref{EsumRF} manageable.
 
 \index{Particles!form factor|see {Form factor}}
 \index{Form factor|(}
+
+%===============================================================================
+\subsection{Generic vs plane-wave case}
+%===============================================================================
+
+In \Cref{Swave21} we have applied the DWBA to a multilayer system
+with unspecified SLD profile~$\mv(z)$.
+In this generic case,
+the vertical wavefunction~$\phi(z)$ is no plane wave,
+but must be obtained
+by analytically or numerically solving the differential equation~\cref{Ewavez}.
+To evaluate the DWBA form factorfor such~$\phi(z)$,
+it is helpful to change the order of integration in~\cref{EcFdef}:
+\begin{equation}\label{EcFx}
+  {\cal F}(\q_\parallel,\v{T})
+   = \int\!\d z\, \phi_\si(z) F(q_\parallel,z,\v{T}) \phi^*_\sf(z)
+\end{equation}
+with
+\begin{equation}\label{EFqpadef}
+  F(\q_\parallel,z,\v{T})
+  \coloneqq \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel} F(\r,\v{T}).
+\end{equation}
+$F(\q_\parallel,z,\v{T})$ is an \E{intermediate Fourier transform},
+since it is a transform in some, but not all the coordinates;
+more specifically, it may be called the \E{horizontal Fourier transform}.
+For homogeneous particles,
+it is the \E{shape transform} of horizontal cuts.
 
 
 %===============================================================================

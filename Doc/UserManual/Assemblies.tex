@@ -126,7 +126,7 @@ the scattering matrix element~\cref{Escamatrix2} becomes
 \Emph{
 \begin{equation}\label{EsumRF}
   \bra\psi_\ti|\delta v|\psi_\tf\ket
-  = \sum_j \e^{i\q_\parallel \R_{\parallel j}}  {\cal F}(\q_\parallel,\v{T_j})
+  = \sum_j \e^{i\q_\parallel \R_{\parallel j}}  {\cal F}(\q_\parallel,\v{T}_j)
 \end{equation}
 \vspace*{-5pt}}
 In the following \Cref{SFormFactor} we discuss the form factor~${\cal F}$.
@@ -142,7 +142,7 @@ various approximations are used to make~\cref{EsumRF} manageable.
 \index{Form factor|(}
 
 %===============================================================================
-\subsection{Generic vs plane-wave case}
+\subsection{Foundations}
 %===============================================================================
 
 In \Cref{Swave21} we have applied the DWBA to a multilayer system
@@ -191,82 +191,42 @@ and so we will call it.
 if the plane waves~$\phi^\pm(z)$ are \E{damped} due to an imaginary part
 of the refractive index.
 
+\Warn{\indent Currently, \BornAgain\ does not support interferences
+  between particles in different layers.
+  This means in particular that there is no way to model particles
+  that extend beyond layer interfaces.}
+
 We now specify the generic parameter vector as
-\begin{equation}\label{ETdef}
-  \v{T} \coloneqq (h,\v{\Omega},\v{P}),
-\end{equation}
+$\v{T} \coloneqq (h,\v{\Omega},\v{P})$,
 where $h$ is the vertical location of the particle
 (the vertical component of the position vector~$\R$),
-$\v{\Omega}$ is a parameter tuple that specifies the orientation,
+$\v{\Omega}$ determines a rotation matrix~$D_{\v{\Omega}}$ so that
+\begin{equation}\label{ErOm}
+  F(\r,h,\v{\Omega},\v{P}) = F(D_{\v{\Omega}}\r,h,\v{0},\v{P}),
+\end{equation}
 and $\v{P}$ collects size, shape and other parameters that determine
 the refractive index profile of the particle.
-This allows us to factor out the $h$~dependence of the Born form factor:
-\begin{equation}\label{EFqh}
-  F(\q,h,\v{\Omega},\v{P})
-  = \e^{iq_\parallel h} F(\q,0,\v{\Omega},\v{P}).
-\end{equation}
-The parameters~$\v{\Omega}$ determine a rotation matrix~$D_{\v{\Omega}}$ so that
-\begin{equation}\label{ErOm}
-  F(\r,h,\v{\Omega},\v{P}) = F(D_{\v{\Omega}}\r,h,\v{0},\v{P}).
-\end{equation}
-Passing this through the Fourier transform, and combining it with~\cref{EFqh},
-we easily obtain
+With this, we can express the generic Born form factor as
 \begin{equation}\label{EqOm}
-  F(\q,h,\v{\Omega},\v{P}) = \e^{iq_\parallel h} F(D_{\v{\Omega}}^{-1}\q,0,\v{0},\v{P}).
+  F(\q,h,\v{\Omega},\v{P}) = \e^{iq_\parallel h} F(D_{\v{\Omega}}^{-1}\q,\v{P}),
 \end{equation}
-This reduces the implementation task to computing the Born form factor
-for standard location $h=0$ and standard orientation~$\v{\Omega}=\v{0}$,
+using the standard form factor
+for location $h=0$ and orientation~$\v{\Omega}=\v{0}$,
 \begin{equation}\label{EFqPdef}
   F(\q,\v{P}) \coloneqq F(\q,0,\v{0},\v{P}).
 \end{equation}
 
 %===============================================================================
-\subsection{Shape transform}
+\subsection{Implementation notes}
 %===============================================================================
 
-\index{Shape transform|(}
-The form factor % TODO RESTORE ~\cref{EFFdef}
-of a particle is the Fourier transform
-of its shape function $S(\r)=\chi(\r)/\tilde\chi$,
-\nomenclature[2s130 2r040]{$S(\r)$}{Shape function}%
-\nomenclature[2f130 2q040]{$F(\q)$}{Particle form factor}%
-\index{Shape function}%
-\begin{equation}
-  F(\q)=\int {\rm d}^3r\, {\rm e}^{i\q\r} S(\r).
-\end{equation}
-For hard-shell particles %the shape function
-$S(\r)$ only takes the values 0 and~1
-so that the form factor becomes
-the \E{shape transform}
-\index{Shape transform}%
-\begin{equation}\label{EFFhardshell}
-  F(\q)=\int_V {\rm d}^3r\, {\rm e}^{i\q\r},
-\end{equation}
-where $V$ is the volume of the particle.
-\nomenclature[2v130 0]{$V$}{Volume of embedded particle}%
-\E{Ripples}
-\index{Ripple (form factor)}%
- are particles with infinite extension in one dimension
-(by convention in $x$ direction).
-They have the shape transform
-\begin{equation}\label{EFFripple}
-  F(\q)=\delta(q_x)\int_A {\rm d}^2r\, {\rm e}^{i(q_y y + q_z z)},
-\end{equation}
-where $A$ is the cross section.
-To avoid an extra distinction of cases,
-\BornAgain\ implements ripples as particles with a \E{finite} length~$L$,
-which users may keep fixed at a very large value.
-% TODO: document alternative implementation of infinite ripples
-
-\BornAgain\ comes with a comprehensive collection of hard-coded
-shape transforms for standard particle geometries like
-spheres, cylinders, prisms, or pyramids,
-plus some ripples.
-They are available through constructors like
-\begin{lstlisting}
-  FormFactorCone(radius, height, alpha)
-\end{lstlisting}
-These functions are documented in \cref{SFF}.
+BornAgain comes with a comprehensive library of form factors.
+Hard-particle form factors are Fourier shape transforms.
+They are available for various spheroids, cylinders, cones, prisms, polyhedra,
+and ripples, % TODO
+as listed in~\Cref{SFF}.
+Soft-particle form factors % TODO
+are not yet documented in this Manual.
 
 \index{Form factor!tutorial}%
 \index{Form factor!examples}%
@@ -276,6 +236,24 @@ These functions are documented in \cref{SFF}.
   and a \tuto{72}{list of all available form factors}.
   If a particle shape is missing, try to implement a \tuto{107}{custom form factor},
   or/and contact us.}
+
+The particles can be rotated in a different direction by using one of
+the following transformations: \Code{CreateRotateX($\theta$),
+  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
+around the associated axis and $\theta$ is the
+angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
+the $z$-axis:\\
+
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
+    pyramid = Particle(m_particle, pyramid_ff)
+    angle_around_z = 45.*degree
+    transform = Transform3D.createRotateZ(angle_around_z)
+    particle_layout = ParticleLayout()
+    particle_layout.addParticle(pyramid, transform)
+\end{lstlisting}
+
+\Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
 
 \index{Large particles!numeric difficulty}%
 \index{Oscillations!from large particle form factor}%
@@ -291,12 +269,6 @@ These functions are documented in \cref{SFF}.
 \Tuto{In this case, the best solution we can currently provide
   is a Monte-Carlo integration, as shown in the example
   \tuto{TODO}{large particle form factor}.}
-
-\index{Shape transform|)}
-
-%===============================================================================
-\subsection{Inhomogeneous particles}
-%===============================================================================
 
 For particles that are made of different materials,
 the definition % TODO RESTORE ~\cref{EFFdef}
@@ -321,9 +293,6 @@ to center of the base of the shell particle.
 \Tuto{See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.}
 
 %===============================================================================
-\subsection{Polydispersity}
-%===============================================================================
-
 \index{Polydispersity!embedded particles}%
 \index{Particles!polydispersity}%
 \index{Distribution!of particle parameters}%
@@ -336,7 +305,6 @@ as for other numeric parameters.
 \Tuto{See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
   The example also shows how two parameters can be tied to each other
 (size distribution with constant ratio radius/height).}
-
 
 \index{Form factor|)}
 
@@ -373,11 +341,6 @@ The scattering matrix element
 can no longer be factorized as in \cref{ESqFq}
 because there may be any kind of correlation
 between particle positions~$\R_i$ and parameters~$\v{T}_i$.
-
-\Warn{\indent Currently, \BornAgain\ does not support interferences
-  between particles in different layers.
-  This means in particular that there is no way to model particles
-  that extend beyond layer interfaces.}
 
 
 To proceed,

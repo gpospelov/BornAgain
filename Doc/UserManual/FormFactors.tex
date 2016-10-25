@@ -15,7 +15,7 @@
 
 \part{Reference}\label{PREF}
 
-\chapter{Form factor library}  \label{SFF}
+\chapter{Hard-particle form factors}  \label{SFF}
 
 % Don't number subfigures in this chapter.
 \makeatletter
@@ -51,24 +51,6 @@ Different parametrization or a different choice of the origin
 cause our analytic form factors to trivially deviate
 from expressions given in the \IsGISAXS\ manual \cite[Sec.~2.3]{Laz08}
 or in the literature \cite[Appendix]{ReLL09}.
-
-The particles can be rotated in a different direction by using one of
-the following transformations: \Code{CreateRotateX($\theta$),
-  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
-around the associated axis and $\theta$ is the
-angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
-the $z$-axis:\\
-
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(m_particle, pyramid_ff)
-    angle_around_z = 45.*degree
-    transform = Transform3D.createRotateZ(angle_around_z)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform)
-\end{lstlisting}
-
-\Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
 
 We recomputed all expressions to make sure
 that they also hold for complex scattering vectors,
@@ -226,7 +208,7 @@ plots of $I$ are restricted to the quadrant $\alpha_\tf\ge0$, $\phi_\tf\ge0$.
 However, it requires some experience to fully appreciate the
 information content of these plots.
 For a demonstration of this,
-try to capture the main features of \cref{F1quadrants}.
+try to grasp the main features of \cref{F1quadrants}.
 Then compare with \cref{F4quadrants}.
 
 \begin{figure}[t]

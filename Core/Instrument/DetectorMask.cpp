@@ -63,6 +63,7 @@ void DetectorMask::initMaskData(const IDetector2D& detector)
 
     for (size_t dim=0; dim<detector.getDimension(); ++dim) {
         const IAxis &axis = detector.getAxis(dim);
+// TODO consider masked area of the same size as detector in ROI
 //        if(detector.regionOfInterest()) {
 //            m_mask_data.addAxis(*detector.regionOfInterest()->clipAxisToRoi(dim, axis).get());
 //        } else {

@@ -34,6 +34,7 @@ public:
     SimulationAreaIterator begin();
     SimulationAreaIterator end();
 
+    //! returns trus if given iterator index correspond to masked detector channel
     virtual bool isMasked(size_t index) const;
 
     size_t totalSize() const;

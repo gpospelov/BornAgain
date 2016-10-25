@@ -75,8 +75,8 @@ protected:
     virtual void init_parameters() {}
 
 private:
-    void init_dataset(const OutputData<double >& real_data);
-    void check_realdata(const OutputData<double >& real_data) const;
+    void init_dataset(const OutputData<double>& real_data);
+    void check_realdata(const OutputData<double>& real_data) const;
 
     std::unique_ptr<GISASSimulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;

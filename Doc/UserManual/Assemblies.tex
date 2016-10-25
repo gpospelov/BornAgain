@@ -175,15 +175,16 @@ With the notations~\cref{Eudef},
 the DWBA form factor~\cref{EcFx} becomes
 \begin{equation}\label{EcFres1}
   {\cal F}(\q_\parallel,\v{T})
-   = \sum_l \sum_u C^u_l F(\q,\v{T})
+   = \sum_l \sum_u C^u_l F_l(\q^u_l,\v{T})
 \end{equation}
 with
 \begin{equation}\label{EFqTdef}
-  F(\q,\v{T})
-  \coloneqq \int\!\d z\, \e^{iq^u_l z} F(q_\parallel,z,\v{T})
-   = \int\!\d^3 r\, \e^{i\q^u_l \r} F(\r,\v{T}).
+  F_l(\q,\v{T})
+  \coloneqq \int\!\d z\, \e^{iq^u_l z} F(q_\parallel,z,\v{T}) \chi_l(z)
+   = \int\!\d^3 r\, \e^{i\q^u_l \r} F(\r,\v{T})\chi_l(z).
 \end{equation}
-$F(q,\v{T})$ is the standard form factor
+Except for the restriction to layer~$l$,
+$F_l(q,\v{T})$ is the standard form factor
 that appears in the regular (plane-wave) Born approximation.
 Therefore, it is occasionally called the \E{Born form factor},
 and so we will call it.
@@ -191,9 +192,7 @@ and so we will call it.
 if the plane waves~$\phi^\pm(z)$ are \E{damped} due to an imaginary part
 of the refractive index.
 
-\Warn{\indent Currently, \BornAgain\ does not support interferences
-  between particles in different layers.
-  This means in particular that there is no way to model particles
+\Warn{Currently, \BornAgain\ does not support particles
   that extend beyond layer interfaces.}
 
 We now specify the generic parameter vector as

@@ -110,7 +110,7 @@ These degrees of freedom
 shall be denoted by a parameter vector~$\v{T}_j$.
 Specifically for a $2+1$~dimensional sample,
 it is convenient to restrict the coordinate vectors~$\R_j$ to the $xy$~plane,
-and to redefine~$\v{T}_j$ to include the vertical particle coordinate~$z_j$.
+and to redefine~$\v{T}_j$ to include the vertical particle component of~$\R_j$.
 In consequence, \cref{Echihomo}~is replaced by
 \begin{equation}\label{Echihetero}
   v_\sp(\r) = \sum_j F(\r-\R_{\parallel j},\v{T}_j).
@@ -178,7 +178,7 @@ the DWBA form factor~\cref{EcFx} becomes
    = \sum_l \sum_u C^u_l F(\q,\v{T})
 \end{equation}
 with
-\begin{equation}\label{EcFres1}
+\begin{equation}\label{EFqTdef}
   F(\q,\v{T})
   \coloneqq \int\!\d z\, \e^{iq^u_l z} F(q_\parallel,z,\v{T})
    = \int\!\d^3 r\, \e^{i\q^u_l \r} F(\r,\v{T}).
@@ -187,7 +187,38 @@ $F(q,\v{T})$ is the standard form factor
 that appears in the regular (plane-wave) Born approximation.
 Therefore, it is occasionally called the \E{Born form factor},
 and so we will call it.
+\Cref{EcFres1,EFqTdef} remain applicable
+if the plane waves~$\phi^\pm(z)$ are \E{damped} due to an imaginary part
+of the refractive index.
 
+We now specify the generic parameter vector as
+\begin{equation}\label{ETdef}
+  \v{T} \coloneqq (h,\v{\Omega},\v{P}),
+\end{equation}
+where $h$ is the vertical location of the particle
+(the vertical component of the position vector~$\R$),
+$\v{\Omega}$ is a parameter tuple that specifies the orientation,
+and $\v{P}$ collects size, shape and other parameters that determine
+the refractive index profile of the particle.
+This allows us to factor out the $h$~dependence of the Born form factor:
+\begin{equation}\label{EFqh}
+  F(\q,h,\v{\Omega},\v{P})
+  = \e^{iq_\parallel h} F(\q,0,\v{\Omega},\v{P}).
+\end{equation}
+The parameters~$\v{\Omega}$ determine a rotation matrix~$D_{\v{\Omega}}$ so that
+\begin{equation}\label{ErOm}
+  F(\r,h,\v{\Omega},\v{P}) = F(D_{\v{\Omega}}\r,h,\v{0},\v{P}).
+\end{equation}
+Passing this through the Fourier transform, and combining it with~\cref{EFqh},
+we easily obtain
+\begin{equation}\label{EqOm}
+  F(\q,h,\v{\Omega},\v{P}) = \e^{iq_\parallel h} F(D_{\v{\Omega}}^{-1}\q,0,\v{0},\v{P}).
+\end{equation}
+This reduces the implementation task to computing the Born form factor
+for standard location $h=0$ and standard orientation~$\v{\Omega}=\v{0}$,
+\begin{equation}\label{EFqPdef}
+  F(\q,\v{P}) \coloneqq F(\q,0,\v{0},\v{P}).
+\end{equation}
 
 %===============================================================================
 \subsection{Shape transform}

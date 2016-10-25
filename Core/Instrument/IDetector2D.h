@@ -165,8 +165,6 @@ protected:
     std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
                                          EAxesUnits units) const;
 
-    std::unique_ptr<IAxis> clipAxisToRoi(size_t axis_index, const IAxis &axis) const;
-
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
                                     double &amin, double &amax) const;

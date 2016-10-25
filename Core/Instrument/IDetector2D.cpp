@@ -269,30 +269,10 @@ std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam 
                                                    getAxis(axis_index).size(), amin, amax));
 
     if(m_region_of_interest) {
-        return clipAxisToRoi(axis_index, *result.get());
+        return m_region_of_interest->clipAxisToRoi(axis_index, *result.get());
     } else {
         return result;
     }
-}
-
-std::unique_ptr<IAxis> IDetector2D::clipAxisToRoi(size_t axis_index, const IAxis &axis) const
-{
-    if(!m_region_of_interest)
-        throw Exceptions::RuntimeErrorException("IDetector2D::clipAxisToRoi() -> Error. ROI is "
-                                                "absent");
-
-    size_t nbin1(0), nbin2(axis.size()-1);
-    if(axis_index == BornAgain::X_AXIS_INDEX) {
-        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXlow());
-        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXup());
-
-    }else if(axis_index == BornAgain::Y_AXIS_INDEX) {
-        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYlow());
-        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYup());
-    }
-
-    return std::unique_ptr<IAxis>(new FixedBinAxis(axis.getName(), nbin2-nbin1+1,
-                                    axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
 }
 
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,

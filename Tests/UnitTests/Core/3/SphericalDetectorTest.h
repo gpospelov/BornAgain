@@ -355,15 +355,15 @@ TEST_F(SphericalDetectorTest, Clone)
 
     // checking iteration over the map of cloned detector
     SimulationArea area(clone.get());
-    std::vector<int> expectedIndexes = {6, 9, 10, 13, 14, 17};
+    std::vector<int> expectedDetectorIndexes = {6, 9, 10, 13, 14, 17};
     std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5};
-    std::vector<int> indexes;
+    std::vector<int> detectorIndexes;
     std::vector<int> elementIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        indexes.push_back(it.index());
+        detectorIndexes.push_back(it.detectorIndex());
         elementIndexes.push_back(it.elementIndex());
     }
-    EXPECT_EQ(indexes, expectedIndexes);
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
 }
 

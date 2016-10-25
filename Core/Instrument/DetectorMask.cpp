@@ -16,9 +16,7 @@
 #include "BornAgainNamespace.h"
 #include "IDetector2D.h"
 #include "Histogram2D.h"
-
-
-// InfinitePlane, Line, VerticalLine, HorizontalLine
+#include "RegionOfInterest.h"
 
 DetectorMask::DetectorMask()
     : m_number_of_masked_channels(0)
@@ -63,8 +61,14 @@ void DetectorMask::initMaskData(const IDetector2D& detector)
     assert(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
-    for (size_t dim=0; dim<detector.getDimension(); ++dim)
-        m_mask_data.addAxis(detector.getAxis(dim));
+    for (size_t dim=0; dim<detector.getDimension(); ++dim) {
+        const IAxis &axis = detector.getAxis(dim);
+//        if(detector.regionOfInterest()) {
+//            m_mask_data.addAxis(*detector.regionOfInterest()->clipAxisToRoi(dim, axis).get());
+//        } else {
+            m_mask_data.addAxis(axis);
+//        }
+    }
 
     process_masks();
 }
@@ -86,7 +90,7 @@ bool DetectorMask::isMasked(size_t index) const
         return false;
 
     if(index >= m_mask_data.getAllocatedSize())
-        throw Exceptions::RuntimeErrorException("DetectorMask::getMask() -> Error. "
+        throw Exceptions::RuntimeErrorException("DetectorMask::isMasked() -> Error. "
                                               "Index is out of range "+std::to_string(index));
     return m_mask_data[index];
 }

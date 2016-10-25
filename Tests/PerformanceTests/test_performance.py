@@ -251,8 +251,8 @@ class PerformanceTests:
         sum_cpu = 0.0
 
         for test in self.m_tests:
-            sum_wall += test.m_wall_time;
-            sum_cpu += test.m_cpu_time;
+            sum_wall += test.m_wall_time
+            sum_cpu += test.m_cpu_time
 
         if record_cpu_time: dictionary["total cpu"] = "%-.4f" % sum_cpu
         dictionary["total wall"] = "%-.4f" % sum_wall
@@ -260,9 +260,9 @@ class PerformanceTests:
         for test in self.m_tests:
             dictionary[test.m_test_name] = "%-.4f" % test.m_wall_time
 
-        write_file.write("\n");
+        write_file.write("\n")
         pretty_write(dictionary, write_file)
-        write_file.write("\n");
+        write_file.write("\n")
         write_file.flush()
 
         if ( self.m_filename != None ):

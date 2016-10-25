@@ -43,8 +43,9 @@ double ObjectiveFunction::evaluate(const std::vector<double> &pars)
         throw std::runtime_error("ObjectiveFunction::evaluate() -> Error. "
                                  "Objective function is not set");
 
+    double result = m_objective_function(pars);
     ++m_ncalls;
-    return m_objective_function(pars);
+    return result;
 }
 
 //! Evaluates residual and gradients of the function for given vector of function parameters
@@ -57,8 +58,10 @@ double ObjectiveFunction::evaluate_gradient(const std::vector<double>& pars, int
         throw std::runtime_error("ObjectiveFunction::evaluate() -> Error. "
                                  "Gradient function is not set");
 
+    double result = m_gradient_function(pars, index, gradient);
+
     if(index == 0)
         ++m_ncalls;
 
-    return m_gradient_function(pars, index, gradient);
+    return result;
 }

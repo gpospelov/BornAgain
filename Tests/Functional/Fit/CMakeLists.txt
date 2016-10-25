@@ -10,7 +10,7 @@ set(test_cases
     GeneticMinimizer
     Minuit2_Fumili
     Minuit2_Migrad
-    #RectDetectorFit
+    RectDetectorFit
     AdjustMinimizerStrategy
     StandaloneFit
 )

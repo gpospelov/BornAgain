@@ -93,32 +93,32 @@ int FitSuite::numberOfFitObjects() const
 
 IHistogram* FitSuite::getRealData(size_t i_item) const
 {
-    return IHistogram::createHistogram(*m_impl->fitObjects()->getRealData(i_item));
+    return IHistogram::createHistogram(m_impl->fitObjects()->getRealData(i_item));
 }
 
 IHistogram* FitSuite::getSimulationData(size_t i_item) const
 {
-    return IHistogram::createHistogram(*m_impl->fitObjects()->getSimulationData(i_item));
+    return IHistogram::createHistogram(m_impl->fitObjects()->getSimulationData(i_item));
 }
 
 IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const
 {
-    return IHistogram::createHistogram(*m_impl->fitObjects()->getChiSquaredMap(i_item));
+    return IHistogram::createHistogram(m_impl->fitObjects()->getChiSquaredMap(i_item));
 }
 
 const OutputData<double>* FitSuite::getRealOutputData(size_t i_item) const
 {
-    return m_impl->fitObjects()->getRealData(i_item);
+    return &m_impl->fitObjects()->getRealData(i_item);
 }
 
 const OutputData<double>* FitSuite::getSimulationOutputData(size_t i_item) const
 {
-    return m_impl->fitObjects()->getSimulationData(i_item);
+    return &m_impl->fitObjects()->getSimulationData(i_item);
 }
 
 const OutputData<double>* FitSuite::getChiSquaredOutputData(size_t i_item) const
 {
-    return m_impl->fitObjects()->getChiSquaredMap(i_item);
+    return &m_impl->fitObjects()->getChiSquaredMap(i_item);
 }
 
 

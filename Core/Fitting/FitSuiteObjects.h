@@ -46,15 +46,15 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
 
     //! Returns real data from corresponding FitObject
     //! @param i_item Index of FitObject
-    const OutputData<double>* getRealData(size_t i_item = 0) const;
+    const OutputData<double>& getRealData(size_t i_item = 0) const;
 
     //! Returns simulated data from corresponding FitObject
     //! @param i_item Index of FitObject
-    const OutputData<double>* getSimulationData(size_t i_item = 0) const;
+    const OutputData<double>& getSimulationData(size_t i_item = 0) const;
 
     //! Returns new chi-squared map from corresponding FitObject
     //! @param i_item Index of FitObject
-    const OutputData<double>* getChiSquaredMap(size_t i_item = 0) const;
+    const OutputData<double>& getChiSquaredMap(size_t i_item = 0) const;
 
     //! run all simulation defined in fit pairs
     void runSimulations();

@@ -22,6 +22,7 @@
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"
+#include "RegionOfInterest.h"
 #include "Exceptions.h"
 
 IDetector2D::IDetector2D()
@@ -51,17 +52,6 @@ const IAxis &IDetector2D::getAxis(size_t index) const
     if (isCorrectAxisIndex(index))
         return *m_axes[index];
     throw Exceptions::OutOfBoundsException("Not so many axes in this detector.");
-}
-
-void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
-{
-    if (output_data.getRank()!=2)
-        throw Exceptions::LogicErrorException(
-            "IDetector2D::matchDetectorAxes() -> Error! Data is not two dimensional");
-    clear();
-    for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis)
-        addAxis(output_data.getAxis(i_axis));
-    m_detector_mask.initMaskData(*this);
 }
 
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -132,6 +122,7 @@ OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis(*constructAxis(BornAgain::X_AXIS_INDEX, beam, units));
     result->addAxis(*constructAxis(BornAgain::Y_AXIS_INDEX, beam, units));
+    result->setAllTo(0.);
     return result.release();
 }
 
@@ -148,14 +139,14 @@ std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
     return result;
 }
 
-const Geometry::Rectangle *IDetector2D::regionOfInterest() const
+const RegionOfInterest *IDetector2D::regionOfInterest() const
 {
     return m_region_of_interest.get();
 }
 
 void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    m_region_of_interest.reset(new Geometry::Rectangle(xlow, ylow, xup, yup));
+    m_region_of_interest.reset(new RegionOfInterest(*this, xlow, ylow, xup, yup));
 }
 
 void IDetector2D::resetRegionOfInterest()
@@ -223,8 +214,8 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
 
     SimulationArea area(this);
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        SimulationElement sim_element(wavelength, alpha_i, phi_i,
-                                      std::unique_ptr<IPixelMap>(createPixelMap(it.index())));
+        SimulationElement sim_element(wavelength, alpha_i, phi_i, std::unique_ptr<IPixelMap>(
+                                          createPixelMap(it.detectorIndex())));
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         if (it.index()==spec_index) {
@@ -243,14 +234,6 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
     double phi_i = beam.getPhi();
     return SimulationElement(wavelength, alpha_i, phi_i,
                              std::unique_ptr<IPixelMap>(createPixelMap(index)));
-}
-
-void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,
-    const std::vector<SimulationElement> &elements) const
-{
-    SimulationArea area(this);
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
-        data[it.index()] = elements[it.elementIndex()].getIntensity();
 }
 
 size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const

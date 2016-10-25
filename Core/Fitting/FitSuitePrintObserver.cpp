@@ -31,7 +31,7 @@ void FitSuitePrintObserver::update(FitSuite* fit_suite)
 {
     m_fit_suite = fit_suite;
 
-    if(fit_suite->numberOfIterations()== 0) {
+    if(fit_suite->numberOfIterations() == 0) {
         m_run_time.start();
         m_last_call_time.start();
     }

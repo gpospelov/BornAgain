@@ -80,12 +80,6 @@ void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis
     updateIntensityMap();
 }
 
-void OffSpecSimulation::setDetectorParameters(const OutputData<double>& output_data)
-{
-    m_instrument.matchDetectorAxes(output_data);
-    updateIntensityMap();
-}
-
 void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                               size_t n_y, double y_min, double y_max)
 {

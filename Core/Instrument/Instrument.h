@@ -70,9 +70,6 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
 
-    //! Sets detector parameters using axes of output data
-    void matchDetectorAxes(const OutputData<double>& output_data);
-
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);
@@ -93,7 +90,11 @@ public:
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
-            IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+            IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const;
+
+    //! Returns empty detector map in given axes units.
+    virtual OutputData<double>* createDetectorMap(
+            IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const;
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the beam, detector and its mask

@@ -50,9 +50,6 @@ public:
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i);
 
-    //! Sets detector parameters using axes of output data
-    void setDetectorParameters(const OutputData<double>& output_data);
-
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);

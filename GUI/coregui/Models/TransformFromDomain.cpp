@@ -47,6 +47,7 @@
 #include "ParticleItem.h"
 #include "Polygon.h"
 #include "Rectangle.h"
+#include "RegionOfInterest.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunctionItems.h"
 #include "SphericalDetector.h"

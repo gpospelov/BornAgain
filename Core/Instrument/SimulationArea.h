@@ -20,31 +20,52 @@
 #include "SimulationAreaIterator.h"
 class IDetector2D;
 
-//! @class SimulationArea
+//! Holds iteration logic over active detector channels in the presence of masked areas
+//! and RegionOfInterest defined.
 //! @ingroup simulation
-//! @brief The SimulationArea class holds iteration logic over active detector channels
-//! in the presence of masked areas and RegionOfInterest defined.
 
 class BA_CORE_API_ SimulationArea
 {
 public:
     using iterator = SimulationAreaIterator;
     explicit SimulationArea(const IDetector2D *detector);
+    virtual ~SimulationArea(){}
 
     SimulationAreaIterator begin();
     SimulationAreaIterator end();
 
-    bool isMasked(size_t index) const;
+    virtual bool isMasked(size_t index) const;
 
     size_t totalSize() const;
 
-    //! Return index in ROO map from global index
-    size_t roiIndex(size_t globalIndex) const;
+    //! Return index in ROI map from iterator index
+    size_t roiIndex(size_t index) const;
 
-private:
+    //! Return detector index from iterator index
+    size_t detectorIndex(size_t index) const;
+
+protected:
     const IDetector2D *m_detector;
-    size_t m_roi_x1, m_roi_x2, m_roi_y1, m_roi_y2;
+    size_t m_max_index;
 };
 
+inline size_t SimulationArea::totalSize() const
+{
+    return m_max_index;
+}
+
+
+//! Holds iteration logic over active detector channels in the presence of ROI. On the contrary
+//! to SimulationArea class, iterates also over masked areas.
+//! @ingroup simulation
+
+class BA_CORE_API_ SimulationRoiArea : public SimulationArea
+{
+public:
+    explicit SimulationRoiArea(const IDetector2D *detector);
+
+    virtual bool isMasked(size_t index) const;
+
+};
 
 #endif

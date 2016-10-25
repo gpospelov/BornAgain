@@ -5631,9 +5631,8 @@ class FitObject(IParameterized, INoncopyable):
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
 
-    def __init__(self, simulation, real_data, weight=1, adjust_detector_to_data=False):
+    def __init__(self, simulation, real_data, weight=1):
         """
-        __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1, bool adjust_detector_to_data=False) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data) -> FitObject
 
@@ -5657,7 +5656,7 @@ class FitObject(IParameterized, INoncopyable):
         Detector axes will be adjusted to real data axes, if true 
 
         """
-        this = _libBornAgainCore.new_FitObject(simulation, real_data, weight, adjust_detector_to_data)
+        this = _libBornAgainCore.new_FitObject(simulation, real_data, weight)
         try:
             self.this.append(this)
         except Exception:
@@ -5665,64 +5664,34 @@ class FitObject(IParameterized, INoncopyable):
     __swig_destroy__ = _libBornAgainCore.delete_FitObject
     __del__ = lambda self: None
 
-    def getRealData(self):
-        """
-        getRealData(FitObject self) -> IntensityData
-
-        const OutputData<double>* FitObject::getRealData() const
-
-        Returns real (experimental) data. 
-
-        """
-        return _libBornAgainCore.FitObject_getRealData(self)
+    def realData(self):
+        """realData(FitObject self) -> IntensityData"""
+        return _libBornAgainCore.FitObject_realData(self)
 
 
-    def getSimulationData(self):
-        """
-        getSimulationData(FitObject self) -> IntensityData
-
-        const OutputData<double>* FitObject::getSimulationData() const
-
-        Returns simulated data. 
-
-        """
-        return _libBornAgainCore.FitObject_getSimulationData(self)
+    def simulationData(self):
+        """simulationData(FitObject self) -> IntensityData"""
+        return _libBornAgainCore.FitObject_simulationData(self)
 
 
-    def getSimulation(self):
-        """
-        getSimulation(FitObject self) -> GISASSimulation
-
-        const GISASSimulation* FitObject::getSimulation() const
-
-        Returns simulation. 
-
-        """
-        return _libBornAgainCore.FitObject_getSimulation(self)
+    def chiSquaredMap(self):
+        """chiSquaredMap(FitObject self) -> IntensityData"""
+        return _libBornAgainCore.FitObject_chiSquaredMap(self)
 
 
-    def getWeight(self):
-        """
-        getWeight(FitObject self) -> double
-
-        double FitObject::getWeight() const
-
-        Returns weight of data set in chi2 calculations. 
-
-        """
-        return _libBornAgainCore.FitObject_getWeight(self)
+    def simulation(self):
+        """simulation(FitObject self) -> GISASSimulation"""
+        return _libBornAgainCore.FitObject_simulation(self)
 
 
-    def getSizeOfData(self):
-        """
-        getSizeOfData(FitObject self) -> size_t
+    def weight(self):
+        """weight(FitObject self) -> double"""
+        return _libBornAgainCore.FitObject_weight(self)
 
-        size_t FitObject::getSizeOfData() const
 
-        Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
-
-        """
-        return _libBornAgainCore.FitObject_getSizeOfData(self)
+    def numberOfFitElements(self):
+        """numberOfFitElements(FitObject self) -> size_t"""
+        return _libBornAgainCore.FitObject_numberOfFitElements(self)
 
 
     def prepareFitElements(self, fit_elements, weight, normalizer=None):
@@ -5738,16 +5707,9 @@ class FitObject(IParameterized, INoncopyable):
         return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, normalizer)
 
 
-    def getChiSquaredMap(self, first, last):
-        """
-        getChiSquaredMap(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last) -> IntensityData
-
-        const OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
-
-        Creates ChiSquared map from external vector. 
-
-        """
-        return _libBornAgainCore.FitObject_getChiSquaredMap(self, first, last)
+    def transferToChi2Map(self, first, last):
+        """transferToChi2Map(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last)"""
+        return _libBornAgainCore.FitObject_transferToChi2Map(self, first, last)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)
@@ -15560,10 +15522,8 @@ class GISASSimulation(Simulation):
         return _libBornAgainCore.GISASSimulation_setDetector(self, detector)
 
 
-    def setDetectorParameters(self, *args):
+    def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
         """
-        setDetectorParameters(GISASSimulation self, IntensityData output_data)
-        setDetectorParameters(GISASSimulation self, IHistogram histogram)
         setDetectorParameters(GISASSimulation self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
 
         void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
@@ -15592,7 +15552,7 @@ class GISASSimulation(Simulation):
         upper edge of last alpha-bin 
 
         """
-        return _libBornAgainCore.GISASSimulation_setDetectorParameters(self, *args)
+        return _libBornAgainCore.GISASSimulation_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
 
     def removeMasks(self):
@@ -16879,18 +16839,6 @@ class IDetector2D(ICloneable, IParameterized):
         return _libBornAgainCore.IDetector2D_clear(self)
 
 
-    def matchDetectorAxes(self, output_data):
-        """
-        matchDetectorAxes(IDetector2D self, IntensityData output_data)
-
-        void IDetector2D::matchDetectorAxes(const OutputData< double > &output_data)
-
-        Sets detector parameters using axes of output data. 
-
-        """
-        return _libBornAgainCore.IDetector2D_matchDetectorAxes(self, output_data)
-
-
     def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
         """
         setDetectorParameters(IDetector2D self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -17113,7 +17061,7 @@ class IDetector2D(ICloneable, IParameterized):
 
     def regionOfInterest(self):
         """
-        regionOfInterest(IDetector2D self) -> Rectangle
+        regionOfInterest(IDetector2D self) -> RegionOfInterest const *
 
         const Geometry::Rectangle * IDetector2D::regionOfInterest() const
 
@@ -18671,18 +18619,6 @@ class Instrument(IParameterized):
         return _libBornAgainCore.Instrument_setDetector(self, detector)
 
 
-    def matchDetectorAxes(self, output_data):
-        """
-        matchDetectorAxes(Instrument self, IntensityData output_data)
-
-        void Instrument::matchDetectorAxes(const OutputData< double > &output_data)
-
-        Sets detector parameters using axes of output data. 
-
-        """
-        return _libBornAgainCore.Instrument_matchDetectorAxes(self, output_data)
-
-
     def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
         """
         setDetectorParameters(Instrument self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -18744,7 +18680,7 @@ class Instrument(IParameterized):
 
     def createDetectorIntensity(self, *args):
         """
-        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units_type) -> IntensityData
+        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units) -> IntensityData
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
         OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
@@ -18753,6 +18689,14 @@ class Instrument(IParameterized):
 
         """
         return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
+
+
+    def createDetectorMap(self, *args):
+        """
+        createDetectorMap(Instrument self, IDetector2D::EAxesUnits units) -> IntensityData
+        createDetectorMap(Instrument self) -> IntensityData
+        """
+        return _libBornAgainCore.Instrument_createDetectorMap(self, *args)
 
 
     def initDetector(self):
@@ -21604,9 +21548,8 @@ class OffSpecSimulation(Simulation):
         return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, arg2, alpha_axis, phi_i)
 
 
-    def setDetectorParameters(self, *args):
+    def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
         """
-        setDetectorParameters(OffSpecSimulation self, IntensityData output_data)
         setDetectorParameters(OffSpecSimulation self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
         void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -21614,7 +21557,7 @@ class OffSpecSimulation(Simulation):
         Sets detector parameters using angle ranges. 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_setDetectorParameters(self, *args)
+        return _libBornAgainCore.OffSpecSimulation_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)

@@ -35,6 +35,11 @@ int SimulationAreaIterator::roiIndex() const
     return m_area->roiIndex(m_index);
 }
 
+int SimulationAreaIterator::detectorIndex() const
+{
+    return m_area->detectorIndex(m_index);
+}
+
 SimulationAreaIterator &SimulationAreaIterator::operator++()
 {
     size_t index = nextIndex(m_index);

@@ -32,6 +32,9 @@
 
     virtual void setParameterValue(const std::string& name, double value) {
         dynamic_cast<IParameterized*>($self)->setParameterValue(name, value); }
+
+    bool isPythonBuilder() const {
+        return true; }
 };
 
 // necessary to export this since Python does not support dynamic casting

@@ -6788,6 +6788,11 @@ class IMultiLayerBuilder(IParameterized):
         return _libBornAgainCore.IMultiLayerBuilder_getFTDistribution2D(self)
 
 
+    def isPythonBuilder(self):
+        """isPythonBuilder(IMultiLayerBuilder self) -> bool"""
+        return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder(self)
+
+
     def registerParameter(self, name, parpointer):
         """
         registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter

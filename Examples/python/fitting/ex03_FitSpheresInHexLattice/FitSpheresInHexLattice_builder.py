@@ -75,6 +75,7 @@ def create_real_data():
     Generating "real" data by adding noise to the simulated data.
     """
     sample_builder = MySampleBuilder()
+    print sample_builder.isPythonBuilder()
     sample_builder.setParameterValue("radius", 5.0*nm)
     sample_builder.setParameterValue("lattice_constant", 10.0*nm)
 

@@ -54,8 +54,7 @@ class MySampleBuilder(ba.IMultiLayerBuilder):
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(substrate_layer)
-        self.sample = multi_layer
-        return self.sample
+        return multi_layer
 
 
 def get_simulation():
@@ -75,7 +74,6 @@ def create_real_data():
     Generating "real" data by adding noise to the simulated data.
     """
     sample_builder = MySampleBuilder()
-    print sample_builder.isPythonBuilder()
     sample_builder.setParameterValue("radius", 5.0*nm)
     sample_builder.setParameterValue("lattice_constant", 10.0*nm)
 

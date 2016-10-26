@@ -207,7 +207,11 @@ void Simulation::updateSample()
 {
     if (!mp_sample_builder)
         return;
-    mP_sample.reset( mp_sample_builder->buildSample() );
+    if (mp_sample_builder->isPythonBuilder()) {
+        mP_sample.reset( mp_sample_builder->buildSample()->clone() );
+    } else {
+        mP_sample.reset( mp_sample_builder->buildSample() );
+    }
 }
 
 //! Runs a single simulation with fixed parameter values.

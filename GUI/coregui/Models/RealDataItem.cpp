@@ -65,7 +65,6 @@ RealDataItem::RealDataItem()
             if(!m_linkedInstrument)
                 return;
             mapper()->setActive(false);
-            Q_ASSERT(m_linkedInstrument);
 
             MaskUnitsConverter converter;
             converter.convertToNbins(intensityDataItem());
@@ -139,8 +138,11 @@ void RealDataItem::updateToInstrument()
         item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
         item->setXaxisTitle("X [nbins]");
         item->setYaxisTitle("Y [nbins]");
+        MaskUnitsConverter converter;
+        converter.convertToNbins(intensityDataItem());
         item->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*item->getOutputData()));
         item->setAxesRangeToData();
+        converter.convertFromNbins(intensityDataItem());
     }
 
     else {

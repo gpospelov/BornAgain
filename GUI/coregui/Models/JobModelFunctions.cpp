@@ -20,11 +20,14 @@
 #include "RealDataItem.h"
 #include "IntensityDataItem.h"
 #include "FitSuiteItem.h"
+#include "InstrumentItem.h"
 #include "GUIHelpers.h"
+#include "MaskUnitsConverter.h"
 
 
 namespace JobModelFunctions {
 void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
+void processInstrumentLink(JobItem *jobItem);
 void createFitContainers(JobItem *jobItem);
 }
 
@@ -33,6 +36,7 @@ void createFitContainers(JobItem *jobItem);
 void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem)
 {
     JobModelFunctions::copyRealDataItem(jobItem, realDataItem);
+    JobModelFunctions::processInstrumentLink(jobItem);
     JobModelFunctions::createFitContainers(jobItem);
 }
 
@@ -52,6 +56,23 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
     realDataItemCopy->intensityDataItem()->setOutputData(
                 realDataItem->intensityDataItem()->getOutputData()->clone());
 }
+
+//! Links RealDataItem to the JobItem's instrument.
+
+void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
+{
+    RealDataItem *realData = jobItem->realDataItem();
+    if(!realData)
+        throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. No data.");
+
+    InstrumentItem *instrument = jobItem->getInstrumentItem();
+    if(!instrument)
+        throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. "
+                                "No instrument.");
+
+    realData->linkToInstrument(instrument);
+}
+
 
 //! Creates necessary fit containers for jobItem intended for fitting.
 

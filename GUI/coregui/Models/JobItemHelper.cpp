@@ -115,15 +115,15 @@ void JobItemHelper::adjustIntensityDataToInstrument(IntensityDataItem *intensity
     IDetector2D::EAxesUnits preferrable_units
         = preferableGUIAxesUnits(instrument->getDetector()->getDefaultAxesUnits());
 
-    std::unique_ptr<OutputData<double>> newData(
-        instrument->getDetector()->createDetectorMap(instrument->getBeam(),
-                                                     preferrable_units));
+//    std::unique_ptr<OutputData<double>> newData(
+//        instrument->getDetector()->createDetectorMap(instrument->getBeam(),
+//                                                     preferrable_units));
 
-    if(!newData->hasSameDimensions(*intensityDataItem->getOutputData()))
-        throw GUIHelpers::Error("JobItemHelper::adjustIntensityDataToInstrument() -> Error. "
-                                "Dimension of detector doesn't match IntensityData.");
+//    if(!newData->hasSameDimensions(*intensityDataItem->getOutputData()))
+//        throw GUIHelpers::Error("JobItemHelper::adjustIntensityDataToInstrument() -> Error. "
+//                                "Dimension of detector doesn't match IntensityData.");
 
-    newData->setRawDataVector(intensityDataItem->getOutputData()->getRawDataVector());
+//    newData->setRawDataVector(intensityDataItem->getOutputData()->getRawDataVector());
 
     ComboProperty unitsCombo;
     foreach (auto units, instrument->getDetector()->getValidAxesUnits())
@@ -133,9 +133,9 @@ void JobItemHelper::adjustIntensityDataToInstrument(IntensityDataItem *intensity
     intensityDataItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
     intensityDataItem->setItemValue(IntensityDataItem::P_AXES_UNITS, unitsCombo.getVariant());
 
-    updateAxesTitle(intensityDataItem);
-    intensityDataItem->setOutputData(newData.release());
-    intensityDataItem->setAxesRangeToData();
+//    updateAxesTitle(intensityDataItem);
+//    intensityDataItem->setOutputData(newData.release());
+//    intensityDataItem->setAxesRangeToData();
 }
 
 

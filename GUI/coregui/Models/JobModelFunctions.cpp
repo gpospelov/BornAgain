@@ -23,11 +23,14 @@
 #include "InstrumentItem.h"
 #include "GUIHelpers.h"
 #include "MaskUnitsConverter.h"
+#include "DetectorItems.h"
+#include "MaskItems.h"
 #include <QDebug>
 
 namespace JobModelFunctions {
 void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
 void processInstrumentLink(JobItem *jobItem);
+void copyMasksToInstrument(JobItem *jobItem);
 void createFitContainers(JobItem *jobItem);
 }
 
@@ -35,8 +38,13 @@ void createFitContainers(JobItem *jobItem);
 
 void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem)
 {
+    if(!jobItem->getInstrumentItem())
+        throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. "
+                                "No instrument.");
+
     JobModelFunctions::copyRealDataItem(jobItem, realDataItem);
     JobModelFunctions::processInstrumentLink(jobItem);
+    JobModelFunctions::copyMasksToInstrument(jobItem);
     JobModelFunctions::createFitContainers(jobItem);
 }
 
@@ -65,14 +73,28 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
     if(!realData)
         throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. No data.");
 
-    InstrumentItem *instrument = jobItem->getInstrumentItem();
-    if(!instrument)
-        throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. "
-                                "No instrument.");
-
-    realData->linkToInstrument(instrument);
+    // linking to instrument
+    // a) because copying of item from RealDataModel destroyed possible links
+    // b) because we want to convert possible masks to the default units of JobItem's instrument
+    realData->linkToInstrument(jobItem->getInstrumentItem());
 }
 
+//! Copies masks and ROI from RealDataItem on board of instrument.
+
+void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
+{
+    IntensityDataItem *intensityItem = jobItem->realDataItem()->intensityDataItem();
+    DetectorItem *detector = jobItem->getInstrumentItem()->detectorItem();
+
+    // removing original masks from the detector, if exists
+    if(detector->maskContainerItem())
+        detector->takeItem(0, DetectorItem::T_MASKS);
+
+    if(MaskContainerItem *container = intensityItem->maskContainerItem()) {
+        SessionModel *model = detector->model();
+        model->copyParameterizedItem(container, detector, DetectorItem::T_MASKS);
+    }
+}
 
 //! Creates necessary fit containers for jobItem intended for fitting.
 

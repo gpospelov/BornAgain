@@ -31,7 +31,7 @@ public:
     explicit DetectorItem();
     virtual ~DetectorItem(){}
 
-    MaskContainerItem *getMaskContainerItem() const;
+    MaskContainerItem *maskContainerItem() const;
 };
 
 #endif // DETECTORITEMS_H

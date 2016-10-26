@@ -395,7 +395,7 @@ void TransformToDomain::addMasksToSimulation(const SessionItem& detector_item,
         if(detectorItem->getGroupItem(DetectorItem::P_DETECTOR)->modelType()
                 == Constants::SphericalDetectorType) scale = Units::degree;
 
-        if(auto maskContainerItem = detectorItem->getMaskContainerItem()) {
+        if(auto maskContainerItem = detectorItem->maskContainerItem()) {
             for(int i_row = maskContainerItem->childItems().size(); i_row>0; --i_row) {
                 if(auto maskItem = dynamic_cast<MaskItem*>(
                        maskContainerItem->childItems().at(i_row-1))) {

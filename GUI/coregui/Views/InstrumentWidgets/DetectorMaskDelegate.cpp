@@ -49,11 +49,11 @@ void DetectorMaskDelegate::initMaskEditorContext(
     createIntensityDataItem();
     createMaskContainer();
 
-    Q_ASSERT(m_detectorItem->getMaskContainerItem());
+    Q_ASSERT(m_detectorItem->maskContainerItem());
 
     maskEditor->setMaskContext(
         m_instrumentModel,
-        m_instrumentModel->indexOfItem(m_detectorItem->getMaskContainerItem()),
+        m_instrumentModel->indexOfItem(m_detectorItem->maskContainerItem()),
         m_intensityItem);
 }
 
@@ -95,7 +95,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 void DetectorMaskDelegate::createMaskContainer()
 {
     Q_ASSERT(m_detectorItem);
-    if (!m_detectorItem->getMaskContainerItem()) {
+    if (!m_detectorItem->maskContainerItem()) {
         m_instrumentModel->insertNewItem(
             Constants::MaskContainerType,
             m_instrumentModel->indexOfItem(m_detectorItem));

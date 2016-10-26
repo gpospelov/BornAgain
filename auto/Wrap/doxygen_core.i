@@ -454,21 +454,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -1052,7 +1052,7 @@ Init the map of masks for the given detector plane.
 %feature("docstring")  DetectorMask::initMaskData "void DetectorMask::initMaskData(const OutputData< double > &data)
 ";
 
-%feature("docstring")  DetectorMask::getMask "bool DetectorMask::getMask(size_t index) const 
+%feature("docstring")  DetectorMask::isMasked "bool DetectorMask::isMasked(size_t index) const 
 ";
 
 %feature("docstring")  DetectorMask::getMaskData "const OutputData<bool>* DetectorMask::getMaskData() const 
@@ -1071,10 +1071,10 @@ remove all masks and return object to initial state
 returns true if has masks 
 ";
 
-%feature("docstring")  DetectorMask::getNumberOfMaskedChannels "int DetectorMask::getNumberOfMaskedChannels() const 
+%feature("docstring")  DetectorMask::numberOfMaskedChannels "int DetectorMask::numberOfMaskedChannels() const 
 ";
 
-%feature("docstring")  DetectorMask::getNumberOfMasks "size_t DetectorMask::getNumberOfMasks() const 
+%feature("docstring")  DetectorMask::numberOfMasks "size_t DetectorMask::numberOfMasks() const 
 ";
 
 %feature("docstring")  DetectorMask::getMaskShape "const Geometry::IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const 
@@ -1558,7 +1558,7 @@ Holds simulation description and real data to run the fit.
 C++ includes: FitObject.h
 ";
 
-%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=false)
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1)
 
 FitObject constructor
 
@@ -1566,7 +1566,7 @@ Parameters:
 -----------
 
 simulation: 
-The simulation to eun
+The simulation to run
 
 real_data: 
 The real data
@@ -1581,27 +1581,32 @@ Detector axes will be adjusted to real data axes, if true
 %feature("docstring")  FitObject::~FitObject "FitObject::~FitObject()
 ";
 
-%feature("docstring")  FitObject::getRealData "const OutputData<double>* FitObject::getRealData() const
+%feature("docstring")  FitObject::realData "const OutputData< double > & FitObject::realData() const
 
 Returns real (experimental) data. 
 ";
 
-%feature("docstring")  FitObject::getSimulationData "const OutputData<double>* FitObject::getSimulationData() const
+%feature("docstring")  FitObject::simulationData "const OutputData< double > & FitObject::simulationData() const
 
 Returns simulated data. 
 ";
 
-%feature("docstring")  FitObject::getSimulation "const GISASSimulation* FitObject::getSimulation() const
+%feature("docstring")  FitObject::chiSquaredMap "const OutputData< double > & FitObject::chiSquaredMap() const
+
+Returns chi2 map. 
+";
+
+%feature("docstring")  FitObject::simulation "const GISASSimulation & FitObject::simulation() const
 
 Returns simulation. 
 ";
 
-%feature("docstring")  FitObject::getWeight "double FitObject::getWeight() const
+%feature("docstring")  FitObject::weight "double FitObject::weight() const
 
 Returns weight of data set in chi2 calculations. 
 ";
 
-%feature("docstring")  FitObject::getSizeOfData "size_t FitObject::getSizeOfData() const
+%feature("docstring")  FitObject::numberOfFitElements "size_t FitObject::numberOfFitElements() const
 
 Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
 ";
@@ -1611,9 +1616,9 @@ Returns the size of the data. It is equal to the number of non-masked detector c
 Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
 ";
 
-%feature("docstring")  FitObject::getChiSquaredMap "const OutputData< double > * FitObject::getChiSquaredMap(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
+%feature("docstring")  FitObject::transferToChi2Map "void FitObject::transferToChi2Map(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
 
-Creates ChiSquared map from external vector. 
+Updates ChiSquared map from external vector and returns const reference to it. Used from Python in FitSuiteDrawObserver. 
 ";
 
 %feature("docstring")  FitObject::addParametersToExternalPool "std::string FitObject::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
@@ -2184,7 +2189,7 @@ Returns total number of data points.
 Replaces default  ChiSquaredModule with new one. 
 ";
 
-%feature("docstring")  FitSuiteObjects::getRealData "const OutputData< double > * FitSuiteObjects::getRealData(size_t i_item=0) const
+%feature("docstring")  FitSuiteObjects::getRealData "const OutputData< double > & FitSuiteObjects::getRealData(size_t i_item=0) const
 
 Returns real data from corresponding  FitObject
 
@@ -2195,7 +2200,7 @@ i_item:
 Index of  FitObject
 ";
 
-%feature("docstring")  FitSuiteObjects::getSimulationData "const OutputData< double > * FitSuiteObjects::getSimulationData(size_t i_item=0) const
+%feature("docstring")  FitSuiteObjects::getSimulationData "const OutputData< double > & FitSuiteObjects::getSimulationData(size_t i_item=0) const
 
 Returns simulated data from corresponding  FitObject
 
@@ -2206,7 +2211,7 @@ i_item:
 Index of  FitObject
 ";
 
-%feature("docstring")  FitSuiteObjects::getChiSquaredMap "const OutputData< double > * FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
+%feature("docstring")  FitSuiteObjects::getChiSquaredMap "const OutputData< double > & FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
 
 Returns new chi-squared map from corresponding  FitObject
 
@@ -4776,14 +4781,6 @@ Sets beam parameters from here (forwarded to  Instrument)
 Sets the detector (axes can be overwritten later) 
 ";
 
-%feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(const OutputData< double > &output_data)
-
-Sets detector parameters using axes of output data TODO -> remove this after RegionOfInterest 
-";
-
-%feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(const IHistogram &histogram)
-";
-
 %feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
 
 Sets spherical detector parameters using angle ranges
@@ -5569,11 +5566,6 @@ Inits detector with the beam settings.
 %feature("docstring")  IDetector2D::clear "void IDetector2D::clear()
 ";
 
-%feature("docstring")  IDetector2D::matchDetectorAxes "void IDetector2D::matchDetectorAxes(const OutputData< double > &output_data)
-
-Sets detector parameters using axes of output data. 
-";
-
 %feature("docstring")  IDetector2D::setDetectorParameters "void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
 Sets detector parameters using angle ranges. 
@@ -5629,7 +5621,7 @@ Put the mask for all detector channels (i.e. exclude whole detector from the ana
 %feature("docstring")  IDetector2D::getDetectorMask "const DetectorMask * IDetector2D::getDetectorMask() const 
 ";
 
-%feature("docstring")  IDetector2D::getNumberOfMaskedChannels "int IDetector2D::getNumberOfMaskedChannels() const 
+%feature("docstring")  IDetector2D::numberOfMaskedChannels "size_t IDetector2D::numberOfMaskedChannels() const 
 ";
 
 %feature("docstring")  IDetector2D::isMasked "bool IDetector2D::isMasked(size_t index) const 
@@ -5650,9 +5642,6 @@ Create a vector of  SimulationElement objects according to the detector and its 
 Creates single simulation element. 
 ";
 
-%feature("docstring")  IDetector2D::transferResultsToIntensityMap "void IDetector2D::transferResultsToIntensityMap(OutputData< double > &data, const std::vector< SimulationElement > &elements) const 
-";
-
 %feature("docstring")  IDetector2D::addParametersToExternalPool "std::string IDetector2D::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
@@ -5665,7 +5654,7 @@ Returns new intensity map with detector resolution applied and axes in requested
 
 %feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units) const
 
-Returns detector map in given axes units. 
+Returns empty detector map in given axes units. 
 ";
 
 %feature("docstring")  IDetector2D::initOutputData "void IDetector2D::initOutputData(OutputData< double > &data) const
@@ -5683,7 +5672,7 @@ returns vector of valid axes units
 return default axes units 
 ";
 
-%feature("docstring")  IDetector2D::regionOfInterest "const Geometry::Rectangle * IDetector2D::regionOfInterest() const
+%feature("docstring")  IDetector2D::regionOfInterest "const RegionOfInterest * IDetector2D::regionOfInterest() const
 
 Returns region of interest if exists. 
 ";
@@ -6826,6 +6815,9 @@ C++ includes: IMultiLayerBuilder.h
 %feature("docstring")  IMultiLayerBuilder::getFTDistribution2D "const IFTDistribution2D * IMultiLayerBuilder::getFTDistribution2D() const 
 ";
 
+%feature("docstring")  IMultiLayerBuilder::isPythonBuilder "bool IMultiLayerBuilder::isPythonBuilder() const 
+";
+
 
 // File: classINamed.xml
 %feature("docstring") INamed "
@@ -6982,11 +6974,6 @@ Returns the detector's dimension.
 Sets the detector (axes can be overwritten later) 
 ";
 
-%feature("docstring")  Instrument::matchDetectorAxes "void Instrument::matchDetectorAxes(const OutputData< double > &output_data)
-
-Sets detector parameters using axes of output data. 
-";
-
 %feature("docstring")  Instrument::setDetectorParameters "void Instrument::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
 Sets detector parameters using angle ranges. 
@@ -7015,9 +7002,14 @@ Sets the polarization analyzer characteristics of the detector.
 apply the detector resolution to the given intensity map 
 ";
 
-%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
 
 Returns new intensity map with detector resolution applied and axes in requested units. 
+";
+
+%feature("docstring")  Instrument::createDetectorMap "OutputData< double > * Instrument::createDetectorMap(IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
+
+Returns empty detector map in given axes units. 
 ";
 
 %feature("docstring")  Instrument::createSimulationElements "std::vector< SimulationElement > Instrument::createSimulationElements()
@@ -9401,11 +9393,6 @@ Returns clone of the detector intensity map in the form of 2D histogram.
 Sets beam parameters from here (forwarded to  Instrument) 
 ";
 
-%feature("docstring")  OffSpecSimulation::setDetectorParameters "void OffSpecSimulation::setDetectorParameters(const OutputData< double > &output_data)
-
-Sets detector parameters using axes of output data. 
-";
-
 %feature("docstring")  OffSpecSimulation::setDetectorParameters "void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
 Sets detector parameters using angle ranges. 
@@ -10990,6 +10977,62 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 
+// File: classRegionOfInterest.xml
+%feature("docstring") RegionOfInterest "
+
+Defines rectangular area for the detector which will be simulated/fitted.
+
+C++ includes: RegionOfInterest.h
+";
+
+%feature("docstring")  RegionOfInterest::RegionOfInterest "RegionOfInterest::RegionOfInterest(const IDetector2D &detector, double xlow, double ylow, double xup, double yup)
+";
+
+%feature("docstring")  RegionOfInterest::clone "RegionOfInterest * RegionOfInterest::clone() const 
+";
+
+%feature("docstring")  RegionOfInterest::~RegionOfInterest "RegionOfInterest::~RegionOfInterest()
+";
+
+%feature("docstring")  RegionOfInterest::getXlow "double RegionOfInterest::getXlow() const 
+";
+
+%feature("docstring")  RegionOfInterest::getYlow "double RegionOfInterest::getYlow() const 
+";
+
+%feature("docstring")  RegionOfInterest::getXup "double RegionOfInterest::getXup() const 
+";
+
+%feature("docstring")  RegionOfInterest::getYup "double RegionOfInterest::getYup() const 
+";
+
+%feature("docstring")  RegionOfInterest::detectorIndex "size_t RegionOfInterest::detectorIndex(size_t roiIndex) const
+
+Converts roi index to the detector index. 
+";
+
+%feature("docstring")  RegionOfInterest::roiIndex "size_t RegionOfInterest::roiIndex(size_t detectorIndex) const
+
+Converts global detector index to ROI index. 
+";
+
+%feature("docstring")  RegionOfInterest::roiSize "size_t RegionOfInterest::roiSize() const
+
+Number of detector bins in ROI area. 
+";
+
+%feature("docstring")  RegionOfInterest::detectorSize "size_t RegionOfInterest::detectorSize() const
+
+Number of detector bins. 
+";
+
+%feature("docstring")  RegionOfInterest::isInROI "bool RegionOfInterest::isInROI(size_t detectorIndex) const 
+";
+
+%feature("docstring")  RegionOfInterest::clipAxisToRoi "std::unique_ptr< IAxis > RegionOfInterest::clipAxisToRoi(size_t axis_index, const IAxis &axis) const 
+";
+
+
 // File: classResolutionFunction2DGaussian.xml
 %feature("docstring") ResolutionFunction2DGaussian "
 
@@ -11710,12 +11753,15 @@ Initializes a progress monitor that prints to stdout.
 // File: classSimulationArea.xml
 %feature("docstring") SimulationArea "
 
-The  SimulationArea class holds iteration logic over active detector channels in the presence of masked areas and RegionOfInterest defined.
+Holds iteration logic over active detector channels in the presence of masked areas and  RegionOfInterest defined.
 
 C++ includes: SimulationArea.h
 ";
 
 %feature("docstring")  SimulationArea::SimulationArea "SimulationArea::SimulationArea(const IDetector2D *detector)
+";
+
+%feature("docstring")  SimulationArea::~SimulationArea "virtual SimulationArea::~SimulationArea()
 ";
 
 %feature("docstring")  SimulationArea::begin "SimulationAreaIterator SimulationArea::begin()
@@ -11724,22 +11770,29 @@ C++ includes: SimulationArea.h
 %feature("docstring")  SimulationArea::end "SimulationAreaIterator SimulationArea::end()
 ";
 
-%feature("docstring")  SimulationArea::isMasked "bool SimulationArea::isMasked(size_t index) const 
+%feature("docstring")  SimulationArea::isMasked "bool SimulationArea::isMasked(size_t index) const
+
+returns trus if given iterator index correspond to masked detector channel 
 ";
 
 %feature("docstring")  SimulationArea::totalSize "size_t SimulationArea::totalSize() const 
 ";
 
-%feature("docstring")  SimulationArea::roiIndex "size_t SimulationArea::roiIndex(size_t globalIndex) const
+%feature("docstring")  SimulationArea::roiIndex "size_t SimulationArea::roiIndex(size_t index) const
 
-Return index in ROO map from global index. 
+Return index in ROI map from iterator index. 
+";
+
+%feature("docstring")  SimulationArea::detectorIndex "size_t SimulationArea::detectorIndex(size_t index) const
+
+Return detector index from iterator index. 
 ";
 
 
 // File: classSimulationAreaIterator.xml
 %feature("docstring") SimulationAreaIterator "
 
-The  SimulationAreaIterator class is an iterator for  SimulationArea.
+An iterator for  SimulationArea.
 
 C++ includes: SimulationAreaIterator.h
 ";
@@ -11754,6 +11807,9 @@ C++ includes: SimulationAreaIterator.h
 ";
 
 %feature("docstring")  SimulationAreaIterator::roiIndex "int SimulationAreaIterator::roiIndex() const 
+";
+
+%feature("docstring")  SimulationAreaIterator::detectorIndex "int SimulationAreaIterator::detectorIndex() const 
 ";
 
 
@@ -11941,6 +11997,23 @@ Sets the batch and thread information to be used.
 ";
 
 %feature("docstring")  SimulationOptions::includeSpecular "bool SimulationOptions::includeSpecular() const 
+";
+
+
+// File: classSimulationRoiArea.xml
+%feature("docstring") SimulationRoiArea "
+
+Holds iteration logic over active detector channels in the presence of ROI. On the contrary to  SimulationArea class, iterates also over masked areas.
+
+C++ includes: SimulationArea.h
+";
+
+%feature("docstring")  SimulationRoiArea::SimulationRoiArea "SimulationRoiArea::SimulationRoiArea(const IDetector2D *detector)
+";
+
+%feature("docstring")  SimulationRoiArea::isMasked "bool SimulationRoiArea::isMasked(size_t) const
+
+returns trus if given iterator index correspond to masked detector channel 
 ";
 
 
@@ -12731,13 +12804,13 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace_0D274.xml
+// File: namespace_0D276.xml
 
 
-// File: namespace_0D304.xml
+// File: namespace_0D306.xml
 
 
-// File: namespace_0D427.xml
+// File: namespace_0D429.xml
 
 
 // File: namespace_0D57.xml
@@ -12766,6 +12839,11 @@ Returns string representation of axes dimension in the form \"(nx,ny)\".
 %feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const OutputData< double > &data)
 
 Returns string representation of axes dimension in the form \"(nx,ny)\". 
+";
+
+%feature("docstring")  DetectorFunctions::createDataSet "std::unique_ptr< OutputData< double > > DetectorFunctions::createDataSet(const Instrument &instrument, const OutputData< double > &data, bool put_masked_areas_to_zero=true)
+
+Creates real data containing original user data clipped to the ROI area of the detector. If put_masked_areas_to_zero==true: resulting data will have 0.0 in all masked areas If put_masked_areas_to_zero==false: resulting data will be only cropped, masked areas will still contain intensities TODO: what users will like more (this appears on FitSuitePlotObserver)? 
 ";
 
 
@@ -13992,6 +14070,12 @@ make Swappable
 
 
 // File: RectangularDetector_8h.xml
+
+
+// File: RegionOfInterest_8cpp.xml
+
+
+// File: RegionOfInterest_8h.xml
 
 
 // File: ResolutionFunction2DGaussian_8cpp.xml

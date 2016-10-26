@@ -66,7 +66,7 @@ public:
     MultiLayer* getSample() const { return mP_sample.get(); }
 
     void setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mp_sample_builder; }
+    std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mP_sample_builder; }
 
     virtual int numberOfSimulationElements() const=0;
 
@@ -119,7 +119,7 @@ protected:
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
     std::unique_ptr<MultiLayer> mP_sample;
-    std::shared_ptr<IMultiLayerBuilder> mp_sample_builder;
+    std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler m_progress;

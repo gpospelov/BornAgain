@@ -183,7 +183,7 @@ $\phi(z)$~can be written as superposition
 of a downward travelling wave $\phi^-(z)$
 and an upward travelling wave $\phi^+(z)$.
 Accordingly, the three-dimensional wavefunction can be written as
-\begin{equation}
+\begin{equation}\label{Epsisumpm}
   \psi(\r) = \psi^-(\r)+\psi^+(\r).
 \end{equation}
 \nomenclature[1ψ041 0\pm 2r040]{$\psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\psi(\r)$}%
@@ -263,11 +263,11 @@ with constant refractive indices $n_l$
 and wavenumber $K_l\coloneqq K_\text{vac} n_l$.
 Any up- or downward travelling solution of the wave equation shall be written
 as a sum over partial wavefunctions,
-\begin{equation}
+\begin{equation}\label{Epsipmsuml}
   \psi^\pm(\r) = \sum_l \psi_l^\pm(\r),
 \end{equation}
 with the requirement
-\begin{equation}
+\begin{equation}\label{Epsipmloutside}
    \psi_l^\pm(\r) = 0 \text{~for $\r$ outside layer~$l$.}
 \end{equation}
 The DWBA matrix element~\cref{Edwba} then takes the form
@@ -301,7 +301,7 @@ This will be elaborated in \Cref{Sacrolay}.
 \index{Multilayer!refractive index profiles}%
 \index{Layer!refractive index profiles}%
 The vertical wavenumber is determined by \cref{Epsiminus} and~\cref{Ekconst},
-\begin{equation}
+\begin{equation}\label{Ekperpl}
   k_{\perp l}^\pm = \pm\sqrt{K_l^2 - k_\parallel^2}.
 \end{equation}
 In the absence of absorption and above the critical angle,
@@ -311,7 +311,7 @@ so that we can describe the beam in terms of a glancing angle
   \alpha_{\il}\coloneqq \arctan(k_{\perp \il}/k_{\plll}).
 \end{equation}
 Equivalently,
-\begin{equation}
+\begin{equation}\label{Ekplllncos}
   k_{\plll}=K n_\il \cos\alpha_{\il}.
 \end{equation}
 Since $k_{\plll}$ is constant across layers,
@@ -333,7 +333,7 @@ so that one has to fully rely on the algebraic formalism.
 With the indicator function
 \nomenclature[1χ032 2l010]{$\chi_l(z)$}{indicates whether $z$ is in layer~$l$}%
 \index{Indicator function}%
-\begin{equation}
+\begin{equation}\label{Echildef}
   \chi_\il(\r)\coloneqq\left\{\begin{array}{ll}
   1&\text{~if $z_\il\le z \le z_{\il+1}$,}\\[.2ex]
   0&\text{~otherwise,} \end{array}\right.
@@ -413,7 +413,7 @@ but documentation is adjourned to a later edition of this manual.}
 
 To deal with the coordinate offsets introduced in \cref{Ephizwj},
 we introduce the function%
-\begin{equation}
+\begin{equation}\label{Edldef}
   d_\il\coloneqq z_{\il}-z_{\il+1},
 \end{equation}
 which is the thickness of layer~$\il$,
@@ -430,11 +430,11 @@ Accordingly, the continuity conditions at the interface are
   \end{array}
 \end{equation}
 We abbreviate
-\begin{equation}
+\begin{equation}\label{Efldef}
   f_\il \coloneqq  k_{\perp \il}/K = \sqrt{\nzj-(k_\plll/K)^2}
 \end{equation}
 and
-\begin{equation}
+\begin{equation}\label{Edelldef}
    \delta_\il \coloneqq  \e^{iKf_\il d_\il}.
 \end{equation}
 For the plane waves \cref{Ephizwj},
@@ -494,8 +494,8 @@ In the substrate, $A^+_{N}=0$ because there is no radiation
 coming from $z\to-\infty$.
 This leaves us with two unkown amplitudes,
 the overall coefficients of transmission~$A^-_N$ and reflection~$A^+_0$.
-These two unknowns are  connected by a system of two linear equations,
-\begin{equation}
+These two unknowns are connected by a system of two linear equations,
+\begin{equation}\label{E1Ap}
   \left( \begin{array}{c}1\\ A^+_0\end{array} \right)
   = M_1 \cdots M_{N} \left( \begin{array}{c}A^-_N\\0\end{array} \right).
 \end{equation}
@@ -514,7 +514,7 @@ yielding unnormalized amplitudes
 When the top layer is reached,
 the obtained values are normalized
 so that the boundary condition $A^-_{0}=1$ be satisfied,
-\begin{equation}
+\begin{equation}\label{EApml}
   A^\pm_{\il} = \frac{\tilde A^\pm_l}{\tilde A^-_0}.
 \end{equation}
 For GISAS detection in transmission geometry
@@ -535,16 +535,15 @@ with a single interface between two semi-infinite,
 non-absorbing media. The incoming wave is assumed to be above the
 critical angle, ensuring all $f_l$ are real.
 The reflected flux,
-normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$,
-is
+normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$, is
 \index{Reflected flux}%
-\begin{equation}
+\begin{equation}\label{EJrefl}
   \frac{J_{0\perp}^+}{J_{0\perp}^-}
   = - \left(\frac{f_0-f_1}{f_0+f_1}\right)^2,
 \end{equation}
 and the transmitted flux
 \index{Transmitted flux}%
-\begin{equation}
+\begin{equation}\label{EJtran}
   \frac{J_{1\perp}^-}{J_{0\perp}^-}
   = \frac{4f_0 f_1}{(f_0+f_1)^2}.
 \end{equation}
@@ -556,7 +555,7 @@ and agrees with Fresnel's result for $s$-polarized light.\footnote
 The above algorithm fails if $f_{\il}\to0$
 because $M_{\il+1}$ becomes singular.
 The general solution of \cref{Ewavez} will be a linear function of $z$:
-\begin{equation}
+\begin{equation}\label{Ephilz}
   \phi_{\il}(z) = A^0_{\il} + A^1_{\il}z.
 \end{equation}
 In \BornAgain, such a linear wavefunction amplitude can not be handled by the form factors,
@@ -594,7 +593,7 @@ from which it follows that $k_\perp''$ always has the same sign as $k_\perp'$.
 
 After these preparations,
 we can compute the flux~\cref{EdefJ}:
-\begin{equation}
+\begin{equation}\label{EJ1}
   \begin{array}{@{}l@{\;}l}
   \v{J}(\r)
   =&   \left|A^-\right|^2 \e^{+2k_\perp'' (z-z_l)} {\k^-}'
@@ -612,7 +611,7 @@ the oscillatory term in square brackets
 is responsible for waveguide effects in layers with finite thickness.
 
 The flux can also be written in terms of the one-dimensional wavefunctions $\phi^{\pm}(z)$:
-\begin{equation}
+\begin{equation}\label{EJ2}
   \begin{array}{@{}l@{\;}l}
   \v{J}(\r) =& \left|\phi^+(z)+\phi^-(z)\right|^2\cdot\k_\plll \\
   &+ \left[ \left|\phi^+(z)\right|^2 k_\perp' - \left|\phi^-(z)\right|^2 k_\perp' +
@@ -628,7 +627,7 @@ and an extra term that encodes the interference between them.
 
 In the special case of a purely imaginary~$k_{\perp \il}$,
 the flux becomes:
-\begin{equation}
+\begin{equation}\label{EJ3}
   \v{J}(\r) = \left| \psi \right|^2 \k_\plll + 2 \Im (A^-{A^+}^*) k_\perp''\v{\hat z}.
 \end{equation}
 This flux consists of two clearly distinct parts: an \E{evanescent wave},

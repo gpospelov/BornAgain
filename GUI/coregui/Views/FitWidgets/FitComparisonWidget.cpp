@@ -228,9 +228,9 @@ void FitComparisonWidget::calculateRelativeDifference()
     Q_ASSERT(m_simulatedDataItem);
     Q_ASSERT(m_relativeDiffItem);
 
-//    m_relativeDiffItem->setOutputData(
-//        IntensityDataFunctions::createRelativeDifferenceData(*m_simulatedDataItem->getOutputData(),
-//                *m_realDataItem->getOutputData()));
+    m_relativeDiffItem->setOutputData(
+        IntensityDataFunctions::createRelativeDifferenceData(*m_simulatedDataItem->getOutputData(),
+                *m_realDataItem->getOutputData()));
 
     m_relativeDiffItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
     m_relativeDiffItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());

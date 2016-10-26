@@ -28,12 +28,15 @@
 #include "DetectorFunctions.h"
 #include "DomainObjectBuilder.h"
 #include "Instrument.h"
+#include "JobItemHelper.h"
+#include "IDetector2D.h"
 #include <QDebug>
 
 namespace JobModelFunctions {
 void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
 void processInstrumentLink(JobItem *jobItem);
 void copyMasksToInstrument(JobItem *jobItem);
+void cropRealData(JobItem *jobItem);
 void createFitContainers(JobItem *jobItem);
 }
 
@@ -48,6 +51,7 @@ void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem 
     JobModelFunctions::copyRealDataItem(jobItem, realDataItem);
     JobModelFunctions::processInstrumentLink(jobItem);
     JobModelFunctions::copyMasksToInstrument(jobItem);
+    JobModelFunctions::cropRealData(jobItem);
     JobModelFunctions::createFitContainers(jobItem);
 }
 
@@ -81,17 +85,6 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
     // a) because copying of item from RealDataModel destroyed possible links
     // b) because we want to convert possible masks to the default units of JobItem's instrument
     realData->linkToInstrument(jobItem->instrumentItem());
-
-    // adjusting real data to the size of region of interest
-
-//    DomainObjectBuilder builder;
-//    auto instrument = builder.buildInstrument(*jobItem->instrumentItem());
-//    instrument->initDetector();
-
-//    std::unique_ptr<OutputData<double>> adjustedData = DetectorFunctions::createDataSet(
-//                *instrument.get(), *realData->intensityDataItem()->getOutputData());
-//    realData->intensityDataItem()->setOutputData(adjustedData.release());
-
 }
 
 //! Copies masks and ROI from RealDataItem on board of instrument.
@@ -109,6 +102,28 @@ void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
         SessionModel *model = detector->model();
         model->copyParameterizedItem(container, detector, DetectorItem::T_MASKS);
     }
+}
+
+//! Crops RealDataItem to the region of interest. TODO is there better place?
+
+void JobModelFunctions::cropRealData(JobItem *jobItem) {
+    RealDataItem *realData = jobItem->realDataItem();
+
+    // adjusting real data to the size of region of interest
+    IntensityDataItem *intensityItem = realData->intensityDataItem();
+
+    DomainObjectBuilder builder;
+    auto instrument = builder.buildInstrument(*jobItem->instrumentItem());
+    instrument->initDetector();
+
+    IDetector2D::EAxesUnits requested_units
+        = JobItemHelper::getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
+    qDebug() << "AAAAAAa" << requested_units << intensityItem->getSelectedAxesUnits();
+
+    std::unique_ptr<OutputData<double>> adjustedData = DetectorFunctions::createDataSet(
+                *instrument.get(), *intensityItem->getOutputData(), true, requested_units);
+    intensityItem->setOutputData(adjustedData.release());
+    intensityItem->setAxesRangeToData();
 }
 
 //! Creates necessary fit containers for jobItem intended for fitting.

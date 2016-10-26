@@ -17,6 +17,7 @@
 #define DETECTORFUNCTIONS_H
 
 #include "WinDllMacros.h"
+#include "IDetector2D.h"
 #include <string>
 #include <memory>
 template<class T> class OutputData;
@@ -49,8 +50,8 @@ std::string axesToString(const OutputData<double>& data);
 //! TODO: what users will like more (this appears on FitSuitePlotObserver)?
 
 std::unique_ptr<OutputData<double>> createDataSet(const Instrument& instrument,
-                                                  const OutputData<double> &data,
-                                                  bool put_masked_areas_to_zero=true);
+    const OutputData<double> &data, bool put_masked_areas_to_zero=true,
+    IDetector2D::EAxesUnits units=IDetector2D::DEFAULT);
 
 }
 

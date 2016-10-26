@@ -95,12 +95,10 @@ JobItem::JobItem()
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &name)
     {
-        if (item->modelType() == Constants::IntensityDataType
+        if (item->parent() == this && item->modelType() == Constants::IntensityDataType
             && name == IntensityDataItem::P_AXES_UNITS) {
             auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
             JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
-            qDebug() << "QQQQ" << item->modelType() << name;
-
         }
     });
 

@@ -23,7 +23,7 @@
 #include "InstrumentItem.h"
 #include "GUIHelpers.h"
 #include "MaskUnitsConverter.h"
-
+#include <QDebug>
 
 namespace JobModelFunctions {
 void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);

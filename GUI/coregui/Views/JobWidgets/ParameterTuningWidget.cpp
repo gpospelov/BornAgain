@@ -173,7 +173,7 @@ void ParameterTuningWidget::updateParameterModel()
 
     if(!m_currentJobItem) return;
 
-    if(!m_currentJobItem->getMultiLayerItem() || !m_currentJobItem->getInstrumentItem())
+    if(!m_currentJobItem->multiLayerItem() || !m_currentJobItem->instrumentItem())
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 

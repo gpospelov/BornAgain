@@ -98,7 +98,7 @@ JobItem::JobItem()
         if (item->parent() == this && item->modelType() == Constants::IntensityDataType
             && name == IntensityDataItem::P_AXES_UNITS) {
             auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
-            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
+            JobItemHelper::updateDataAxes(intensityItem, instrumentItem());
         }
     });
 
@@ -250,14 +250,14 @@ bool JobItem::runInBackground() const
 
 //! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
 //! multilayer will be used
-MultiLayerItem *JobItem::getMultiLayerItem()
+MultiLayerItem *JobItem::multiLayerItem()
 {
     return dynamic_cast<MultiLayerItem*>(getItem(T_SAMPLE));
 }
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
 //! the instrument will be used
-InstrumentItem *JobItem::getInstrumentItem()
+InstrumentItem *JobItem::instrumentItem()
 {
     return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
 }

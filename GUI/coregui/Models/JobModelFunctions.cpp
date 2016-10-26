@@ -25,6 +25,9 @@
 #include "MaskUnitsConverter.h"
 #include "DetectorItems.h"
 #include "MaskItems.h"
+#include "DetectorFunctions.h"
+#include "DomainObjectBuilder.h"
+#include "Instrument.h"
 #include <QDebug>
 
 namespace JobModelFunctions {
@@ -38,7 +41,7 @@ void createFitContainers(JobItem *jobItem);
 
 void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem)
 {
-    if(!jobItem->getInstrumentItem())
+    if(!jobItem->instrumentItem())
         throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. "
                                 "No instrument.");
 
@@ -61,6 +64,7 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
     RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(
         model->copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
     Q_ASSERT(realDataItemCopy);
+
     realDataItemCopy->intensityDataItem()->setOutputData(
                 realDataItem->intensityDataItem()->getOutputData()->clone());
 }
@@ -76,7 +80,18 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
     // linking to instrument
     // a) because copying of item from RealDataModel destroyed possible links
     // b) because we want to convert possible masks to the default units of JobItem's instrument
-    realData->linkToInstrument(jobItem->getInstrumentItem());
+    realData->linkToInstrument(jobItem->instrumentItem());
+
+    // adjusting real data to the size of region of interest
+
+//    DomainObjectBuilder builder;
+//    auto instrument = builder.buildInstrument(*jobItem->instrumentItem());
+//    instrument->initDetector();
+
+//    std::unique_ptr<OutputData<double>> adjustedData = DetectorFunctions::createDataSet(
+//                *instrument.get(), *realData->intensityDataItem()->getOutputData());
+//    realData->intensityDataItem()->setOutputData(adjustedData.release());
+
 }
 
 //! Copies masks and ROI from RealDataItem on board of instrument.
@@ -84,7 +99,7 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
 {
     IntensityDataItem *intensityItem = jobItem->realDataItem()->intensityDataItem();
-    DetectorItem *detector = jobItem->getInstrumentItem()->detectorItem();
+    DetectorItem *detector = jobItem->instrumentItem()->detectorItem();
 
     // removing original masks from the detector, if exists
     if(detector->maskContainerItem())

@@ -108,7 +108,7 @@ void ParameterTreeBuilder::populateDomainLinks(JobItem *jobItem, const QString &
             if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
                 QString parItemPath = FitParameterHelper::getParameterItemPath(parItem);
                 std::string domainPath = ModelPath::translateParameterName(
-                    jobItem->getMultiLayerItem()->parent(), parItemPath);
+                    jobItem->multiLayerItem()->parent(), parItemPath);
                 parItem->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(domainPath));
             }
         }

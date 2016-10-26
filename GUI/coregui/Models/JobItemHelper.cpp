@@ -149,7 +149,7 @@ void JobItemHelper::loadIntensityData(JobItem *jobItem, const QString &projectDi
     if (info.exists()) {
         std::unique_ptr<OutputData<double>> rawData(
             IntensityDataIOFactory::readOutputData(filename.toStdString()));
-        setIntensityItemAxesUnits(intensityItem, jobItem->getInstrumentItem());
+        setIntensityItemAxesUnits(intensityItem, jobItem->instrumentItem());
         intensityItem->setOutputData(rawData.release());
 
     } else {

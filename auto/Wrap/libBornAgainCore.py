@@ -8115,14 +8115,9 @@ class DetectorMask(_object):
         return _libBornAgainCore.DetectorMask_initMaskData(self, *args)
 
 
-    def getMask(self, index):
-        """
-        getMask(DetectorMask self, size_t index) -> bool
-
-        bool DetectorMask::getMask(size_t index) const 
-
-        """
-        return _libBornAgainCore.DetectorMask_getMask(self, index)
+    def isMasked(self, index):
+        """isMasked(DetectorMask self, size_t index) -> bool"""
+        return _libBornAgainCore.DetectorMask_isMasked(self, index)
 
 
     def getMaskData(self):
@@ -8169,24 +8164,14 @@ class DetectorMask(_object):
         return _libBornAgainCore.DetectorMask_hasMasks(self)
 
 
-    def getNumberOfMaskedChannels(self):
-        """
-        getNumberOfMaskedChannels(DetectorMask self) -> int
-
-        int DetectorMask::getNumberOfMaskedChannels() const 
-
-        """
-        return _libBornAgainCore.DetectorMask_getNumberOfMaskedChannels(self)
+    def numberOfMaskedChannels(self):
+        """numberOfMaskedChannels(DetectorMask self) -> int"""
+        return _libBornAgainCore.DetectorMask_numberOfMaskedChannels(self)
 
 
-    def getNumberOfMasks(self):
-        """
-        getNumberOfMasks(DetectorMask self) -> size_t
-
-        size_t DetectorMask::getNumberOfMasks() const 
-
-        """
-        return _libBornAgainCore.DetectorMask_getNumberOfMasks(self)
+    def numberOfMasks(self):
+        """numberOfMasks(DetectorMask self) -> size_t"""
+        return _libBornAgainCore.DetectorMask_numberOfMasks(self)
 
 
     def getMaskShape(self, mask_index, mask_value):
@@ -16971,14 +16956,9 @@ class IDetector2D(ICloneable, IParameterized):
         return _libBornAgainCore.IDetector2D_getDetectorMask(self)
 
 
-    def getNumberOfMaskedChannels(self):
-        """
-        getNumberOfMaskedChannels(IDetector2D self) -> int
-
-        int IDetector2D::getNumberOfMaskedChannels() const 
-
-        """
-        return _libBornAgainCore.IDetector2D_getNumberOfMaskedChannels(self)
+    def numberOfMaskedChannels(self):
+        """numberOfMaskedChannels(IDetector2D self) -> size_t"""
+        return _libBornAgainCore.IDetector2D_numberOfMaskedChannels(self)
 
 
     def isMasked(self, index):

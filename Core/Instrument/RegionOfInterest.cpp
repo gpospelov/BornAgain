@@ -112,6 +112,14 @@ bool RegionOfInterest::isInROI(size_t detectorIndex) const
     return true;
 }
 
+std::unique_ptr<IAxis> RegionOfInterest::clipAxisToRoi(size_t axis_index, const IAxis &axis) const
+{
+    size_t nbin1 = (axis_index == BornAgain::X_AXIS_INDEX ? m_ax1 : m_ay1);
+    size_t nbin2 = (axis_index == BornAgain::X_AXIS_INDEX ? m_ax2 : m_ay2);
+    return std::unique_ptr<IAxis>(new FixedBinAxis(axis.getName(), nbin2-nbin1+1,
+                                    axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
+}
+
 void RegionOfInterest::initFrom(const IDetector2D &detector)
 {
     if(detector.getDimension() != 2)

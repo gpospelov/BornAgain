@@ -33,22 +33,22 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
 FitObject::~FitObject()
 {}
 
-const OutputData<double> &FitObject::realData() const
+const OutputData<double>& FitObject::realData() const
 {
     return *m_real_data.get();
 }
 
-const OutputData<double> &FitObject::simulationData() const
+const OutputData<double>& FitObject::simulationData() const
 {
     return *m_simulation_data.get();
 }
 
-const OutputData<double> &FitObject::chiSquaredMap() const
+const OutputData<double>& FitObject::chiSquaredMap() const
 {
     return *m_chi2_data.get();
 }
 
-const GISASSimulation &FitObject::simulation() const
+const GISASSimulation& FitObject::simulation() const
 {
     return *m_simulation.get();
 }
@@ -70,7 +70,7 @@ std::string FitObject::addParametersToExternalPool(
 }
 
 //! Initialize detector, if necessary, to match experimental data
-void FitObject::init_dataset(const OutputData<double >& real_data)
+void FitObject::init_dataset(const OutputData<double>& real_data)
 {
     check_realdata(real_data);
 

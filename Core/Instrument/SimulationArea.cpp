@@ -34,7 +34,10 @@ SimulationArea::SimulationArea(const IDetector2D *detector)
         throw Exceptions::RuntimeErrorException(
             "SimulationArea::SimulationArea: detector is not two-dimensional");
 
-    m_max_index = m_detector->getTotalSize();
+    if(m_detector->regionOfInterest())
+        m_max_index = m_detector->regionOfInterest()->roiSize();
+    else
+        m_max_index = m_detector->getTotalSize();
 }
 
 SimulationAreaIterator SimulationArea::begin()
@@ -56,27 +59,20 @@ bool SimulationArea::isMasked(size_t index) const
         throw Exceptions::RuntimeErrorException(message.str());
     }
 
-    if(m_detector->regionOfInterest())
-        if(!m_detector->regionOfInterest()->isInROI(index)) return true;
-
-    return m_detector->isMasked(index);
+    return m_detector->getDetectorMask()->isMasked(detectorIndex(index));
 }
 
 size_t SimulationArea::roiIndex(size_t index) const
 {
-    if(!m_detector->regionOfInterest())
-        return index;
-
-    return m_detector->regionOfInterest()->roiIndex(index);
+    return index;
 }
 
 size_t SimulationArea::detectorIndex(size_t index) const
 {
-//    if(!m_detector->regionOfInterest())
-//        return index;
+    if(!m_detector->regionOfInterest())
+        return index;
 
-//    return m_detector->regionOfInterest()->detectorIndex(index);
-    return index;
+    return m_detector->regionOfInterest()->detectorIndex(index);
 }
 
 // --------------------------------------------------------------------------------------
@@ -87,10 +83,7 @@ SimulationRoiArea::SimulationRoiArea(const IDetector2D *detector)
 
 }
 
-bool SimulationRoiArea::isMasked(size_t index) const
+bool SimulationRoiArea::isMasked(size_t) const
 {
-    if(m_detector->regionOfInterest())
-        if(!m_detector->regionOfInterest()->isInROI(index)) return true;
-
     return false;
 }

@@ -95,8 +95,7 @@ public:
 
     const DetectorMask* getDetectorMask() const;
 
-    int getNumberOfMaskedChannels() const;
-
+    size_t numberOfMaskedChannels() const;
 
     bool isMasked(size_t index) const;
 
@@ -164,8 +163,6 @@ protected:
     //! Constructs axis with min,max corresponding to selected units
     std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
                                          EAxesUnits units) const;
-
-    std::unique_ptr<IAxis> clipAxisToRoi(size_t axis_index, const IAxis &axis) const;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,

@@ -22,6 +22,7 @@
 
 namespace Geometry { class Rectangle; }
 class IDetector2D;
+class IAxis;
 
 //! Defines rectangular area for the detector which will be simulated/fitted.
 //! @ingroup simulation
@@ -52,6 +53,8 @@ public:
     size_t detectorSize() const;
 
     bool isInROI(size_t detectorIndex) const;
+
+    std::unique_ptr<IAxis> clipAxisToRoi(size_t axis_index, const IAxis &axis) const;
 
 private:
     RegionOfInterest(const RegionOfInterest &other);

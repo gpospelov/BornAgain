@@ -34,6 +34,7 @@ public:
     SimulationAreaIterator begin();
     SimulationAreaIterator end();
 
+    //! returns trus if given iterator index correspond to masked detector channel
     virtual bool isMasked(size_t index) const;
 
     size_t totalSize() const;
@@ -64,7 +65,7 @@ class BA_CORE_API_ SimulationRoiArea : public SimulationArea
 public:
     explicit SimulationRoiArea(const IDetector2D *detector);
 
-    virtual bool isMasked(size_t index) const;
+    virtual bool isMasked(size_t) const;
 
 };
 

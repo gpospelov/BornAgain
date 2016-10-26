@@ -40,7 +40,7 @@ TEST_F(SphericalDetectorTest, initialState)
 
     // masks
     EXPECT_FALSE(detector.hasMasks());
-    EXPECT_EQ(0, detector.getNumberOfMaskedChannels());
+    EXPECT_EQ(0, detector.numberOfMaskedChannels());
 
     // resolution function
     EXPECT_EQ(nullptr, detector.getDetectorResolutionFunction());
@@ -351,19 +351,19 @@ TEST_F(SphericalDetectorTest, Clone)
     EXPECT_EQ(std::string("ConvolutionDetectorResolution"),
               clone->getDetectorResolutionFunction()->getName());
 
-    EXPECT_EQ(clone->getNumberOfMaskedChannels(), 8);
+    EXPECT_EQ(clone->numberOfMaskedChannels(), 8);
 
     // checking iteration over the map of cloned detector
     SimulationArea area(clone.get());
-    std::vector<int> expectedIndexes = {6, 9, 10, 13, 14, 17};
+    std::vector<int> expectedDetectorIndexes = {6, 9, 10, 13, 14, 17};
     std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5};
-    std::vector<int> indexes;
+    std::vector<int> detectorIndexes;
     std::vector<int> elementIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        indexes.push_back(it.index());
+        detectorIndexes.push_back(it.detectorIndex());
         elementIndexes.push_back(it.elementIndex());
     }
-    EXPECT_EQ(indexes, expectedIndexes);
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
 }
 

@@ -547,3 +547,10 @@
 | date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
 | 2016-10-24 13:27:17 | scgsun   | Linux x86_64 | 2.7    | 120.7920  | 19.2657    | 2.8666     | 0.6583          | 3.3504          | 0.4888    | 2.3131        | 0.6682            | 3.2659         | 1.1200 | 1.9051      | 1.7457    | 0.8838    |
 
+
+# after switch to SimulationAreaIterator based on ROI
+
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2016-10-25 17:19:59 | scgsun   | Linux x86_64 | 2.7    | 121.3720  | 18.5189    | 2.8794     | 0.5891          | 3.2295          | 0.4259    | 2.2341        | 0.5990            | 3.4064         | 0.8513 | 1.7682      | 1.6408    | 0.8952    |
+| 2016-10-25 17:20:43 | scgsun   | Linux x86_64 | 2.7    | 120.4280  | 18.1926    | 2.8557     | 0.5722          | 3.2113          | 0.4582    | 2.2046        | 0.5936            | 3.2125         | 0.8494 | 1.7489      | 1.6168    | 0.8694    |
+

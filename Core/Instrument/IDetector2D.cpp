@@ -147,11 +147,13 @@ const RegionOfInterest *IDetector2D::regionOfInterest() const
 void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
     m_region_of_interest.reset(new RegionOfInterest(*this, xlow, ylow, xup, yup));
+    m_detector_mask.initMaskData(*this);
 }
 
 void IDetector2D::resetRegionOfInterest()
 {
     m_region_of_interest.reset();
+    m_detector_mask.initMaskData(*this);
 }
 
 void IDetector2D::removeMasks()
@@ -177,10 +179,10 @@ const DetectorMask *IDetector2D::getDetectorMask() const
     return &m_detector_mask;
 }
 
-int IDetector2D::getNumberOfMaskedChannels() const
+size_t IDetector2D::numberOfMaskedChannels() const
 {
     if (getDetectorMask()) {
-        return getDetectorMask()->getNumberOfMaskedChannels();
+        return getDetectorMask()->numberOfMaskedChannels();
     } else {
         return 0;
     }
@@ -188,9 +190,7 @@ int IDetector2D::getNumberOfMaskedChannels() const
 
 bool IDetector2D::isMasked(size_t index) const
 {
-    if (!m_detector_mask.getMaskData()->isInitialized())
-        return false;
-    return m_detector_mask.getMask(index);
+    return m_detector_mask.isMasked(index);
 }
 
 bool IDetector2D::hasMasks() const
@@ -269,30 +269,10 @@ std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam 
                                                    getAxis(axis_index).size(), amin, amax));
 
     if(m_region_of_interest) {
-        return clipAxisToRoi(axis_index, *result.get());
+        return m_region_of_interest->clipAxisToRoi(axis_index, *result.get());
     } else {
         return result;
     }
-}
-
-std::unique_ptr<IAxis> IDetector2D::clipAxisToRoi(size_t axis_index, const IAxis &axis) const
-{
-    if(!m_region_of_interest)
-        throw Exceptions::RuntimeErrorException("IDetector2D::clipAxisToRoi() -> Error. ROI is "
-                                                "absent");
-
-    size_t nbin1(0), nbin2(axis.size()-1);
-    if(axis_index == BornAgain::X_AXIS_INDEX) {
-        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXlow());
-        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXup());
-
-    }else if(axis_index == BornAgain::Y_AXIS_INDEX) {
-        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYlow());
-        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYup());
-    }
-
-    return std::unique_ptr<IAxis>(new FixedBinAxis(axis.getName(), nbin2-nbin1+1,
-                                    axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
 }
 
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,

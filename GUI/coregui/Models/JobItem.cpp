@@ -25,6 +25,7 @@
 #include "ParameterTreeItems.h"
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
+#include "IntensityDataItem.h"
 #include <QDebug>
 
 namespace {

@@ -1597,9 +1597,9 @@ end % WuGdict...
 
 WuGdict11a begin
 
-10 dup autolabel defsiz
+9.5 dup autolabel defsiz
 1 dup stdred
-2 -13 setnewpage newpage
+13 -6 setnewpage newpage
 
 /darkgreen { 13 133  13 setRGBcolor } def
 /litegreen {202 253 222 setRGBcolor } def
@@ -1610,12 +1610,37 @@ WuGdict11a begin
 
 21 setown
 
-215 175 135 setRGBcolor 0 10 2 4 { fill } execRect3
-black .4 3 {(substrate)} textLM
-195 205 195 setRGBcolor 0 10 4 6 { fill } execRect3
-black .4 5 {(decorated layer)} textLM
-215 235 255 setRGBcolor 0 10 6 8 { fill } execRect3
-black .4 7 {(vacuum / air)} textLM
+% Layers
+/stack { -12.6 8 -13 } def
+stack 215 175 135 setRGBcolor -3 -1 { fill } execRect3
+black -2 {(substrate)} textLM
+stack 195 205 195 setRGBcolor -1  1 { fill } execRect3
+black  0 {(decorated layer)} textLM
+stack 215 235 255 setRGBcolor  1  3 { fill } execRect3
+black +2 {(vacuum / air)} textLM
+
+% Embedded particle
+255 235 215 setRGBcolor
+gsave
+1 1.2 scale
+-6.6 6.6 7
+{ np 0 .8 0 360 arc cp fill } for
+grestore
+
+5 [] lset
+ 33 153 102 setRGBcolor % green
+np
+0 0 mv
+-2 -1 li
+-6 +1 li
+-11 +3 li st
+
+np
+0 0 mv
+-2 +1 li
+-7 +3 li st
+
+165   0  33 setRGBcolor % red
 
 showpage
 end % WuGdict...

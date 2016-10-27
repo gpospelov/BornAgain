@@ -59,12 +59,12 @@ void DesignerMimeData::read_xmldescr(const QString &xmldescr)
         if (reader.readNext() == QXmlStreamReader::StartElement) {
             const QStringRef name = reader.name();
             if(widget_found) {
-                reader.raiseError(tr("Unexpected element <%1>").arg(name.toString()));
+                reader.raiseError("Unexpected element <%1>".arg(name.toString()));
             }
             if (name.compare(QStringLiteral("widget"), Qt::CaseInsensitive) == 0) {
                 read_widget(reader);
             } else {
-                reader.raiseError(tr("Unexpected element <%1>").arg(name.toString()));
+                reader.raiseError("Unexpected element <%1>".arg(name.toString()));
             }
         }
     }

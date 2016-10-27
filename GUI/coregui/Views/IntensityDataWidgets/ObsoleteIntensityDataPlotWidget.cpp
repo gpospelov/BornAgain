@@ -250,18 +250,18 @@ void ObsoleteIntensityDataPlotWidget::showContextMenu(const QPoint &point)
 
 void ObsoleteIntensityDataPlotWidget::setupContextMenuActions()
 {
-    m_propertyPanelAction = new QAction(tr("Plot Properties"), this);
+    m_propertyPanelAction = new QAction("Plot Properties", this);
     m_propertyPanelAction->setCheckable(true);
     connect(m_propertyPanelAction, SIGNAL(triggered(bool)), this, SLOT(onPropertyPanelAction(bool)));
 
-    m_projectionsAction = new QAction(tr("&Projections"), this);
+    m_projectionsAction = new QAction("&Projections", this);
     m_projectionsAction->setCheckable(true);
     connect(m_projectionsAction, SIGNAL(triggered(bool)), this, SLOT(onProjectionsAction(bool)));
 
-    m_resetAction = new QAction(tr("Reset View"), this);
+    m_resetAction = new QAction("Reset View", this);
     connect(m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
 
-    m_saveAction = new QAction(tr("Save as"), this);
+    m_saveAction = new QAction("Save as", this);
     connect(m_saveAction, SIGNAL(triggered()), this, SIGNAL(savePlotRequest()));
 
 }

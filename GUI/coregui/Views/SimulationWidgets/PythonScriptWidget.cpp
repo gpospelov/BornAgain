@@ -136,8 +136,8 @@ void PythonScriptWidget::onExportToFileButton()
     if(dirname.isEmpty())
         dirname = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 
-    QString file_name = QFileDialog::getSaveFileName(this, tr("Select file"), dirname,
-                            tr("Python scipts (*.py)"), 0,
+    QString file_name = QFileDialog::getSaveFileName(this, "Select file", dirname,
+                            "Python scipts (*.py)", 0,
                             QFileDialog::DontResolveSymlinks);
 
     if(file_name.isEmpty()) return;
@@ -147,7 +147,7 @@ void PythonScriptWidget::onExportToFileButton()
         qDebug() << "PythonScriptWidget::onExportToFileButton: Error! Can't save file";
         QMessageBox warning_dialog(this);
         warning_dialog.setIcon(QMessageBox::Warning);
-        warning_dialog.setText(tr("File could not be opened for writing!"));
+        warning_dialog.setText("File could not be opened for writing!");
         warning_dialog.exec();
         return;
     }

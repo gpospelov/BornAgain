@@ -99,7 +99,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     detailsLayout->addLayout(textLayout);
 
 
-    m_closeButton = new QPushButton(tr("Close"));
+    m_closeButton = new QPushButton("Close");
     connect(m_closeButton, SIGNAL(clicked()), this, SLOT(reject()));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;

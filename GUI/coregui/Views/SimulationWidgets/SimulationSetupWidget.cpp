@@ -110,7 +110,7 @@ QWidget *SimulationSetupWidget::createButtonWidget()
 
     QHBoxLayout *simButtonLayout = new QHBoxLayout;
     // run simulation button
-    runSimulationButton = new QPushButton(tr("Run Simulation"));
+    runSimulationButton = new QPushButton("Run Simulation");
     runSimulationButton->setIcon(QIcon(":/images/main_simulation.png"));
     runSimulationButton->setMinimumWidth(100);
     runSimulationButton->setMinimumHeight(50);
@@ -122,7 +122,7 @@ QWidget *SimulationSetupWidget::createButtonWidget()
 //    runSimulationButton->setPalette(palette);
 
     // export simulation to a python script
-    exportToPyScriptButton = new QPushButton(tr("Export to Python Script"));
+    exportToPyScriptButton = new QPushButton("Export to Python Script");
     exportToPyScriptButton->setIcon(QIcon(":/images/mode_script.png"));
     exportToPyScriptButton->setMinimumWidth(100);
     exportToPyScriptButton->setMinimumHeight(50);

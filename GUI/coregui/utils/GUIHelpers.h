@@ -47,8 +47,8 @@ BA_CORE_API_ void warning(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
 BA_CORE_API_ bool question(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString(),
-        const QString &yesText=QObject::tr("&Yes"),
-        const QString &noText=QObject::tr("&No"));
+        const QString &yesText=QObject::"&Yes",
+        const QString &noText=QObject::"&No");
 BA_CORE_API_ bool okToDelete(QWidget *parent, const QString &title,
         const QString &text, const QString &detailedText=QString());
 

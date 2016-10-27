@@ -297,7 +297,7 @@ int WidgetBoxTreeWidget::ensureScratchpad()
          return existingIndex;
 
     QTreeWidgetItem *scratch_item = new QTreeWidgetItem(this);
-    scratch_item->setText(0, tr("Scratchpad"));
+    scratch_item->setText(0, "Scratchpad");
     setTopLevelRole(SCRATCHPAD_ITEM, scratch_item);
     addCategoryView(scratch_item, false); // Scratchpad in list mode.
     return categoryCount() - 1;
@@ -399,7 +399,7 @@ void WidgetBoxTreeWidget::addCustomCategories(bool replace)
 
 static inline QString msgXmlError(const QString &fileName, const QXmlStreamReader &r)
 {
-    return QDesignerWidgetBox::tr("An error has been encountered at line %1 of %2: %3")
+    return QDesignerWidgetBox::"An error has been encountered at line %1 of %2: %3"
             .arg(r.lineNumber()).arg(fileName, r.errorString());
 }
 
@@ -538,7 +538,7 @@ bool WidgetBoxTreeWidget::readWidget(Widget *w, const QString &xml, QXmlStreamRe
                         startTagPosition = currentPosition;
                         parsedWidgetTag = true;
                     } else {
-                        r.raiseError(QDesignerWidgetBox::tr("Unexpected element <%1> encountered when parsing for <widget> or <ui>").arg(name.toString()));
+                        r.raiseError(QDesignerWidgetBox::"Unexpected element <%1> encountered when parsing for <widget> or <ui>".arg(name.toString()));
                         return false;
                     }
                 }
@@ -557,7 +557,7 @@ bool WidgetBoxTreeWidget::readWidget(Widget *w, const QString &xml, QXmlStreamRe
             }
             break;
         case QXmlStreamReader::EndDocument:
-            r.raiseError(QDesignerWidgetBox::tr("Unexpected end of file encountered when parsing widgets."));
+            r.raiseError(QDesignerWidgetBox::"Unexpected end of file encountered when parsing widgets.");
             return false;
         case QXmlStreamReader::Invalid:
             return false;
@@ -566,7 +566,7 @@ bool WidgetBoxTreeWidget::readWidget(Widget *w, const QString &xml, QXmlStreamRe
         }
     }
     if (!parsedWidgetTag) {
-        r.raiseError(QDesignerWidgetBox::tr("A widget element could not be found."));
+        r.raiseError(QDesignerWidgetBox::"A widget element could not be found.");
         return false;
     }
     // Oddity: Startposition is 1 off
@@ -671,7 +671,7 @@ WidgetBoxTreeWidget::CategoryList WidgetBoxTreeWidget::loadCustomCategoryList() 
 //    if (customWidgets.empty())
 //        return result;
 
-//    static const QString customCatName = tr("Custom Widgets");
+//    static const QString customCatName = "Custom Widgets";
 
 //    const QString invisible = QLatin1String(invisibleNameC);
 //    const QString iconPrefix = QLatin1String(iconPrefixC);
@@ -936,12 +936,12 @@ void WidgetBoxTreeWidget::contextMenuEvent(QContextMenuEvent *e)
                             && topLevelRole(item->parent()) ==  SCRATCHPAD_ITEM;
 
     QMenu menu;
-    menu.addAction(tr("Expand all"), this, SLOT(expandAll()));
-    menu.addAction(tr("Collapse all"), this, SLOT(collapseAll()));
+    menu.addAction("Expand all", this, SLOT(expandAll()));
+    menu.addAction("Collapse all", this, SLOT(collapseAll()));
     menu.addSeparator();
 
-    QAction *listModeAction = menu.addAction(tr("List View"));
-    QAction *iconModeAction = menu.addAction(tr("Icon View"));
+    QAction *listModeAction = menu.addAction("List View");
+    QAction *iconModeAction = menu.addAction("Icon View");
     listModeAction->setCheckable(true);
     iconModeAction->setCheckable(true);
     QActionGroup *viewModeGroup = new QActionGroup(&menu);
@@ -956,9 +956,9 @@ void WidgetBoxTreeWidget::contextMenuEvent(QContextMenuEvent *e)
 
     if (scratchpad_menu) {
         menu.addSeparator();
-        menu.addAction(tr("Remove"), itemWidget(item, 0), SLOT(removeCurrentItem()));
+        menu.addAction("Remove", itemWidget(item, 0), SLOT(removeCurrentItem()));
         if (!m_iconMode)
-            menu.addAction(tr("Edit name"), itemWidget(item, 0), SLOT(editCurrentItem()));
+            menu.addAction("Edit name", itemWidget(item, 0), SLOT(editCurrentItem()));
     }
     e->accept();
     menu.exec(mapToGlobal(e->pos()));

@@ -41,7 +41,7 @@ void WarningSignWidget::paintEvent(QPaintEvent *event) {
 void WarningSignWidget::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    QMessageBox::warning(this, tr("Houston, we have a problem."), m_warning_message);
+    QMessageBox::warning(this, "Houston, we have a problem.", m_warning_message);
 }
 
 //! set geometry of widget around center point

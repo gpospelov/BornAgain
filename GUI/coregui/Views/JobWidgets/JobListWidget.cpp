@@ -81,10 +81,10 @@ QItemSelectionModel *JobListWidget::selectionModel()
 //    connect(m_signalMapper, SIGNAL(mapped(int)),
 //            this, SLOT(equalizeSelectedToJob(int)));
 
-//    m_removeJobAction = new QAction(tr("Remove Job"), this);
+//    m_removeJobAction = new QAction("Remove Job", this);
 //    connect(m_removeJobAction, SIGNAL(triggered()), this, SLOT(removeJob()));
 
-//    m_runJobAction = new QAction(tr("Run Job"), this);
+//    m_runJobAction = new QAction("Run Job", this);
 //    connect(m_runJobAction, SIGNAL(triggered()), this, SLOT(runJob()));
 //}
 

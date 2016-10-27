@@ -109,8 +109,8 @@ bool okToDelete(QWidget *parent, const QString &title, const QString &text, cons
     if (!detailedText.isEmpty())
         messageBox->setInformativeText(detailedText);
     QAbstractButton *deleteButton = messageBox->addButton(
-            QObject::tr("&Delete"), QMessageBox::AcceptRole);
-    messageBox->addButton(QObject::tr("Do &Not Delete"),
+            QObject::"&Delete", QMessageBox::AcceptRole);
+    messageBox->addButton(QObject::"Do &Not Delete",
                           QMessageBox::RejectRole);
     messageBox->setDefaultButton(
             qobject_cast<QPushButton*>(deleteButton));

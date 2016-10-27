@@ -180,7 +180,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 
     // should not be here
-    throw GUIHelpers::Error(tr("LayerView::mouseReleaseEvent() -> Loggic error."));
+    throw GUIHelpers::Error("LayerView::mouseReleaseEvent() -> Loggic error.");
 }
 
 void ILayerView::update_appearance()

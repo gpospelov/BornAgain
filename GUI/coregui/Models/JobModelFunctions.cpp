@@ -74,6 +74,10 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
 }
 
 //! Links RealDataItem to the JobItem's instrument.
+// (re-)Linking is necessary because of following reason
+// 1) Copying of RealDataItem from RealDataModel on board of JobItem requires relink to the copied
+//    insturment
+// 2) During relink all masks (if exists) will be converted to the default units of current detector
 
 void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 {
@@ -81,9 +85,6 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
     if(!realData)
         throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. No data.");
 
-    // linking to instrument
-    // a) because copying of item from RealDataModel destroyed possible links
-    // b) because we want to convert possible masks to the default units of JobItem's instrument
     realData->linkToInstrument(jobItem->instrumentItem());
 }
 

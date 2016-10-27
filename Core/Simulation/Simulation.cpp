@@ -36,13 +36,13 @@ Simulation::Simulation(const MultiLayer& p_sample)
 }
 
 Simulation::Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : mp_sample_builder(p_sample_builder)
+    : mP_sample_builder(p_sample_builder)
 {}
 
 Simulation::Simulation(const Simulation& other)
     : ICloneable()
     , IParameterized(other)
-    , mp_sample_builder(other.mp_sample_builder)
+    , mP_sample_builder(other.mP_sample_builder)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
@@ -172,7 +172,7 @@ void Simulation::setSampleBuilder(std::shared_ptr<class IMultiLayerBuilder> p_sa
         throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "
                                    "Error! Attempt to set null sample builder.");
 
-    mp_sample_builder = p_sample_builder;
+    mP_sample_builder = p_sample_builder;
     mP_sample.reset(nullptr);
 }
 
@@ -181,8 +181,8 @@ std::string Simulation::addSimulationParametersToExternalPool(
 {
     std::string new_path = path;
 
-    if (mp_sample_builder) {
-        new_path = mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
+    if (mP_sample_builder) {
+        new_path = mP_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
     } else if (mP_sample) {
         new_path = mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
@@ -205,9 +205,13 @@ void Simulation::addParameterDistribution(const ParameterDistribution& par_distr
 
 void Simulation::updateSample()
 {
-    if (!mp_sample_builder)
+    if (!mP_sample_builder)
         return;
-    mP_sample.reset( mp_sample_builder->buildSample() );
+    if (mP_sample_builder->isPythonBuilder()) {
+        mP_sample.reset( mP_sample_builder->buildSample()->clone() );
+    } else {
+        mP_sample.reset( mP_sample_builder->buildSample() );
+    }
 }
 
 //! Runs a single simulation with fixed parameter values.

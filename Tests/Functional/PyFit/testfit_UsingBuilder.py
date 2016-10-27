@@ -146,8 +146,7 @@ class MySampleBuilder(IMultiLayerBuilder):
         air_layer.addLayout(particle_layout)
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(substrate_layer)
-        self.sample = multi_layer
-        return self.sample
+        return multi_layer
 
 
 if __name__ == '__main__':

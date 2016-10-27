@@ -38,6 +38,10 @@ public:
 
     const IFormFactor* getFormFactor() const;
     const IFTDistribution2D* getFTDistribution2D() const;
+
+    // this method is extended in the Python wrappers (needed to solve ownership issues with
+    // the created sample in buildSample()
+    static bool isPythonBuilder() { return false; }
 };
 
 #endif // IMULTILAYERBUILDER_H

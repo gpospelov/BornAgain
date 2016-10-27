@@ -16,7 +16,6 @@
 
 \chapter{Multilayer systems}  \label{sec:Multilayers}
 
-
 \index{Multilayer|(}%
 \index{Layer structures|see {Multilayer}}
 
@@ -31,7 +30,7 @@ in the distorted wave Born approximation (\cref{SDWBA}).
 \index{GISAS|see{Grazing-incidence small angle scattering}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Wave propagation in (2+1)D and the DWBA}\label{Swave21}
+\section{DWBA for layered samples}\label{Swave21}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %--------------------------------------------------------------------------------
@@ -43,7 +42,6 @@ in the distorted wave Born approximation (\cref{SDWBA}).
 \index{Grazing-incidence small angle scattering!geometric conventions}%
 \index{Coordinate system!GISAS geometry}%
 \index{Glancing angle}%
-\index{Incident radiation!angles}%
 \index{Scattering angles}%
 \index{Geometry!conventions for GISAS}
   in GISAS scattering comprise a Cartesian coordinate system
@@ -98,7 +96,7 @@ where the sample normal is horizontal in laboratory space.
 Scattering from such systems will be studied in distorted-wave Born approximation.
 To determine the cross section~\cref{Exsection},
 we need to determine the incident and final wavefunctions
-$\psi_\text{i}$ and~$\psi_\text{f}$.
+$\psi_\si$ and~$\psi_\sf$.
 Vertical variations of the refractive index $n(z)$
 \index{Refractive index!vertical variation}%
 cause refraction and reflection.
@@ -112,64 +110,57 @@ Such zeroth-order effects cannot be accounted for
 by perturbative scattering theory.
 Instead, we need to deal with refraction and reflection
 from the onset, in the wave propagation equation.
-
-Therefore we have to modify our derivation of
-the scattering cross section~\cref{Exsection} at an early stage,
-namely at the decomposition~\cref{Edecompose_v} of the scattering length density.
-\index{Scattering length density!vertical variation}%
-We specizialize~\cref{Edecompose_vr} to
+Accordingly, the SLD decomposition~\cref{Edecompose_v} takes the form
 \begin{equation}\label{Edecompose_vz}
-  v(\r) = \overline{v}(z) + \delta v(\r),
+  v(\r) = \mv(z) + \delta v(\r),
 \end{equation}
-allowing only vertical variations of~$\overline{v}$.
-Equations~\cref{Edispersion} and \cref{EnRefrIndx} must be modified
-to allow for a $z$~dependence of the refractive index~$n(z)$ and the wavenumber~$K(z)$.
 \index{Wave propagation!in multilayer|(}
-The homogeneous wave equation~\cref{EHelmholtzHomog} takes the form
+and the homogeneous wave equation~\cref{EHomoK} becomes
 \begin{equation}\label{EWaveZ}
   \left\{\Nabla^2+K(z)^2\right\}\psi(\r) = 0.
 \end{equation}
-To formulate boundary conditions,
-\index{Boundary conditions!wave propagation through multilayer}%
-we request $K(z)=\text{const}$ in the semi-infinite half spaces above and below the sample.
-To keep the following exposition as simple as possible,
-we specialize to the case that the incident plane wave comes from above the sample
-(BornAgain also supports incidence from below).
-This downward travelling plane wave shall be denoted
-\index{Incident radiation!plane wave}%
-\index{Incident radiation!GISAS}%
+Below and above the sample,
+$K(z)=\text{const}$:
+in these regions, $\psi(\r)$~is a superposition of plane waves.
+The exciting wavefunction is
+\index{Exciting wave!DWBA}%
+\index{Wave!exciting}%
 \begin{equation}\label{Epsiminus}
-  \psi^{-}(\r) = \e^{i\k_\parallel\r_\parallel-ik_{\perp}z},
+  \psi_\se(\r) = \e^{i\k_\parallel\r_\parallel+ik_{\perp\se}z},
 \end{equation}
 \nomenclature[0$\parallel$]{$\parallel$}{Parallel to the $xy$ sample plane}%
 \nomenclature[0$\perp$]{$\perp$}{Normal to the $xy$ sample plane}%
 \nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
 \nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
-with subscripts $\parallel$ and~$\perp$ refering to the sample $xy$ plane.
+The subscripts $\parallel$ and~$\perp$ refer to the sample $xy$ plane.
 The wave vector components $\k_\parallel$ and $k_{\perp}$ must fulfill
 \begin{equation}
   K(z)^2=\k_\parallel^2+k_{\perp}^2.
 \end{equation}
-
-When the incident wave hits a sample with nontrivial refractive index,
+\index{Wavenumber!vertical}%
+\index{Vertical wavenumber}%
+Continuity across the sample implies
+\begin{equation}\label{Ekconst}
+  \k_\parallel = \text{const}.
+\end{equation}
+\index{Wavevector!horizontal!constant}%
+\index{Horizontal wavevector!constant}%
+When the incident wave hits the sample,
 it is wholly or partly reflected.
-Therefore, the full the solution of~\cref{EWaveZ} in the half space above the sample is
-\begin{equation}
-  \psi(\r) = \e^{i\k_\parallel\r_\parallel-ik_{\perp} z} +
-      R\, \e^{i\k_\parallel\r_\parallel+ik_{\perp} z}
-  \text{ for }z\gg0,
+Therefore, the full the solution of~\cref{EWaveZ} in the half space
+of the radiation source is
+\begin{equation}\label{Eref1}
+  \psi(\r) = \e^{i\k_\parallel\r_\parallel+ik_{\perp\se} z} +
+      R\, \e^{i\k_\parallel\r_\parallel-ik_{\perp\se} z}
 \end{equation}
 with a complex reflection coefficient~$R$.
 \index{Reflection coefficient}%
 The reflected flux is given by the re\-flect\-an\-ce $|R|^2$.
 \index{Reflectance}%
 \index{Flux!reflected}%
-By choice of our boundary conditions,
-there is no upward travelling wave in the half space below the sample.
-In this region, the solution of~\cref{EWaveZ} is simply
-\begin{equation}
-  \psi(\r) = T\, \e^{i\k_\parallel\r_\parallel+ik_{\perp} z}
-  \text{ for }z\ll0,
+In the opposite halfspace, the solution of~\cref{EWaveZ} is simply
+\begin{equation}\label{Etra1}
+  \psi(\r) = T\, \e^{i\k_\parallel\r_\parallel+ik_{\perp\se} z}
 \end{equation}
 with a complex transmission coefficient~$T$.
 The transmitted flux is given by the transmittance $|T|^2$.
@@ -182,8 +173,6 @@ is solved by the factorization ansatz
 \psi(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
 \end{equation}
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
-Continuity at the interfaces above and below the sample
-requires that the horizontal wavevector $\k_\parallel$ is constant.
 The vertical wavefunction~$\phi(z)$
 is governed by the one-dimensional wave equation
 \begin{equation}\label{Ewavez}
@@ -194,13 +183,13 @@ $\phi(z)$~can be written as superposition
 of a downward travelling wave $\phi^-(z)$
 and an upward travelling wave $\phi^+(z)$.
 Accordingly, the three-dimensional wavefunction can be written as
-\begin{equation}
+\begin{equation}\label{Epsisumpm}
   \psi(\r) = \psi^-(\r)+\psi^+(\r).
 \end{equation}
 \nomenclature[1ψ041 0\pm 2r040]{$\psi^\pm(\r)$}{Upward ($+$) or downward ($-$) propagating component of $\psi(\r)$}%
 \nomenclature[0\pm]{$\pm$}{Upward ($+$) or downward ($-$) propagating}%
-All this holds not only for the incident wavefunction~$\psi_\text{i}$,
-but also for the wavefunction~$\psi_\text{f}$
+All this holds not only for the incident wavefunction~$\psi_\si$,
+but also for the wavefunction~$\psi_\sf$
 that is tracked back from a detector pixel towards the sample.
 \index{Backtracing}%
 \index{Scattered wave!backtracing}%
@@ -233,71 +222,129 @@ in the differential cross section~\cref{Exsection},
 the four terms of \cref{Edwba} can interfere with each other,
 which adds to the complexity of GISAS patterns.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Multilayer with step-index profile}\label{SStep}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-To proceed, we need to consider specific refractive index profiles~$n(z)$.
-Currently, BornAgain only supports step profiles:
-The multilayer sample consists of a finite sequence of discrete layers
-$l=0,\ldots,N$
-with constant refractive indices $n_l$
-\nomenclature[2k122 2l010]{$K_l$}{Wavenumber in layer~$l$}%
-\nomenclature[2n020 2l010]{$n_l$}{Refractive index of layer~$l$}%
-and wavenumber $K_l\coloneqq K_\text{vac} n_l$.
-Within each layer, the $\psi^\pm_l$ are plane waves.
-Their amplitudes are determined
- Fresnel's transmission and reflection coefficients
-\index{Fresnel coefficients}%
-that are based on continuity conditions at the layer interfaces.
-This will be elaborated in \Cref{Sacrolay}.
-\index{Multilayer!refractive index profiles}%
-\index{Layer!refractive index profiles}%
-
 %--------------------------------------------------------------------------------
 \begin{figure}[tb]
 \begin{center}
 \includegraphics[width=0.4\textwidth]{fig/drawing/multilayer_z_conventions.ps}
 \end{center}
-\caption{The parameter $z_l$ is the $z$ coordinate of the \E{top} interface
+\caption{Conventions for layer numbers and interface coordinates:
+Layers are numbered from top to bottom.
+The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
+the substrate (extending to $z\to-\infty$) is layer~$N$.
+\nomenclature[2n120]{$N$}{A multilayer sample has $N+1$ layers, including the
+  semi-infinite bottom and top layers}
 \index{Multilayer!numbering}%
 \index{Layer!index}%
+\index{Convention!layer number}%
+The parameter $z_l$
+\nomenclature[2z020 2l010]{$z_l$}{Vertical
+  coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
+is the $z$ coordinate of the \E{top} interface of layer~$l$,
 \index{Multilayer!coordinates}%
 \index{Layer!coordinate}%
-of layer~$l$, except for $z_0$ which is the coordinate of the \E{bottom} interface
+\index{Convention!interface coordinate}%
+except for $z_0$ which is the coordinate of the \E{bottom} interface
 of the air or vacuum layer~0.}
 \label{Fdefz}
 \end{figure}
 %--------------------------------------------------------------------------------
 
-\Note{\indent By convention,
-layers are numbered from top to bottom (see \cref{Fdefz}).
-The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
-\index{Multilayer!numbering}%
-\index{Layer!index}%
-the substrate (extending to $z\to-\infty$) is layer~$N$.}
 
-% TODO REPLACE BY TEXT BELOW
-Support for rough interfaces is already implemented in \BornAgain,
-but documentation is adjourned to a later edition of this manual.
-%Unless layer interfaces are smooth,
-%their roughness causes extra contribution to the total scattering.
-%This is implemented in BornAgain as described in \Cref{SRough}.
-
-Wave functions $\psi^\pm(\r)$ factorize as in~\cref{Ekpar}.
-The vertical wavefunction shall be written as
-\begin{equation}\label{Ephizwj}
-  \phi^\pm_{w\il}(z)=A^\pm_{w\il}\e^{\pm ik_{\perp w\il}(z-z_\il)}.
+BornAgain supports multilayer samples
+with refractive index discontinuities at layer interfaces.
+Conventions for layer numbers and interface coordinates are
+introduced in~\Cref{Fdefz}.
+A multilayer sample consists of a finite sequence of discrete layers
+$l=0,\ldots,N$
+\nomenclature[2l010]{$l$}{Layer index}%
+with constant refractive indices $n_l$
+\nomenclature[2k122 2l010]{$K_l$}{Wavenumber in layer~$l$}%
+\nomenclature[2n020 2l010]{$n_l$}{Refractive index of layer~$l$}%
+and wavenumber $K_l\coloneqq K_\text{vac} n_l$.
+Any up- or downward travelling solution of the wave equation shall be written
+as a sum over partial wavefunctions,
+\begin{equation}\label{Epsipmsuml}
+  \psi^\pm(\r) = \sum_l \psi_l^\pm(\r),
 \end{equation}
-\nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude of the plane wave $\phi^\pm_{w\il}(\r)$}%
-For later convenience,
-the phase factor in \cref{Ephizwj} includes an offset~$z_\il$
-as defined in \cref{Fdefz}.
-\nomenclature[2z020 2l010]{$z_l$}{Vertical coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
-\index{Multilayer!coordinates}%
-\index{Layer!coordinate}%
-The amplitudes $A^\pm_{wl}$ need to be computed recursively,
-as described below in \cref{Sacrolay}.
+with the requirement
+\begin{equation}\label{Epsipmloutside}
+   \psi_l^\pm(\r) = 0 \text{~for $\r$ outside layer~$l$.}
+\end{equation}
+The DWBA matrix element~\cref{Edwba} then takes the form
+\Emph{%
+\begin{equation}\label{Edwbal}
+  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  = \sum_l \sum_{\pm_\ti} \sum_{\pm_\tf}
+    \bra \psi^\pm_{\ti l}|\delta v|\psi^\pm_{\tf l}\ket.
+\end{equation}%
+\vspace*{-5pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Homogeneous layers}\label{SLayHomo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
+\subsection{DWBA for one layer}\label{SStep}
+%===============================================================================
+
+BornAgain currently only supports layers with a homogenous matrix.
+In terms of~\cref{Edecompose_vz} this means that
+$\mv(z)\eqqcolon v_l$ must be constant within a layer.
+
+Within the layer, $\psi^\pm_l$ is a plane wave
+that factorizes as in~\cref{Ekpar}.
+Its amplitude~$A_l^\pm$ is determined recursively
+by Fresnel's transmission and reflection coefficients
+\index{Fresnel coefficients}%
+that are based on continuity conditions at the layer interfaces.
+This will be elaborated in \Cref{Sacrolay}.
+\index{Multilayer!refractive index profiles}%
+\index{Layer!refractive index profiles}%
+The vertical wavenumber is determined by \cref{Epsiminus} and~\cref{Ekconst},
+\begin{equation}\label{Ekperpl}
+  k_{\perp l}^\pm = \pm\sqrt{K_l^2 - k_\parallel^2}.
+\end{equation}
+In the absence of absorption and above the critical angle,
+wavevectors are real
+so that we can describe the beam in terms of a glancing angle
+\begin{equation}\label{Edef_alpha}
+  \alpha_{\il}\coloneqq \arctan(k_{\perp \il}/k_{\plll}).
+\end{equation}
+Equivalently,
+\begin{equation}\label{Ekplllncos}
+  k_{\plll}=K n_\il \cos\alpha_{\il}.
+\end{equation}
+Since $k_{\plll}$ is constant across layers,
+we have
+\begin{equation}\label{ESnell}
+  n_\il \cos\alpha_{\il} = \text{the same for all }\il,
+\end{equation}
+which is Snell's refraction law.
+\index{Refraction!Snell's law}
+\index{Snell's law}
+In general, however, the vertical wavenumber $k_{\perp}$,
+determined by $K_l$ and $k_\parallel$ as per~\cref{Epsiminus},
+can become imaginary (total reflection conditions) or complex (absorbing layer).
+\index{Wavevector!complex}%
+In these cases, glancing angles are no longer well defined,
+and the geometric interpretation of~$\psi_l(\r)$ less obvious.
+so that one has to fully rely on the algebraic formalism.
+
+With the indicator function
+\nomenclature[1χ032 2l010]{$\chi_l(z)$}{indicates whether $z$ is in layer~$l$}%
+\index{Indicator function}%
+\begin{equation}\label{Echildef}
+  \chi_\il(\r)\coloneqq\left\{\begin{array}{ll}
+  1&\text{~if $z_\il\le z \le z_{\il+1}$,}\\[.2ex]
+  0&\text{~otherwise,} \end{array}\right.
+\end{equation}
+the vertical wavefunction can be written
+\begin{equation}\label{Ephizwj}
+  \phi^\pm_l(z)=A^\pm_l\e^{\pm ik_{\perp l}(z-z_\il)}\chi_l(z).
+\end{equation}
+\nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude
+  of the plane wave $\phi^\pm_{w\il}(\r)$}%
+The offset~$z_\il$ has been included in the phase factor for later convenience.
 
 The DWBA transition matrix element~\cref{Edwba} is
 \index{Distorted-wave Born approximation!multilayer}%
@@ -305,21 +352,22 @@ The DWBA transition matrix element~\cref{Edwba} is
   \bra \psi_\ti|\delta v|\psi_\tf\ket
   = \sum_{\il} \sum_{\pm_\ti} \sum_{\pm_\tf}
     A^{\pm *}_{\ti \il} A^\pm_{\tf \il}
-     \delta v_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il}),
+     \delta v_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il})
 \end{equation}
-where the Fourier transform of the scattering length density
+with the Fourier transform of the SLD
+restricted to layer~$l$
 \begin{equation}\label{Echij}
   \delta v_\il(\v{q})
   \coloneqq  \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}\delta v(\r)
+  = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z).
 \end{equation}
-\nomenclature[1χ032 2l010 2q040]{$\delta v_\il(\v{q})$}{Fourier transform
-of the scattering length density $\delta v(\r)$, evaluated in one sample layer}%
-has been restricted to one layer.
+\nomenclature[1δ00 2v030 2l010 2q040]{$\delta v_\il(\v{q})$}{Fourier transform
+of the SLD $\delta v(\r)$, evaluated in one sample layer}%
 
 To alleviate later calculations,
 we now number the four DWBA terms from 1 to~4,
 and define the corresponding wavenumbers and amplitude factors and as
-\begin{equation}
+\begin{equation}\label{Eudef}
   \begin{array}{l@{\hspace{2em}}l}
     \q^1 \coloneqq  \k^-_\tf - \k^-_\ti,& C^1 \coloneqq  A^{-*}_\ti A^-_\tf, \\[.6ex]
     \q^2 \coloneqq  \k^-_\tf - \k^+_\ti,& C^2 \coloneqq  A^{-*}_\ti A^+_\tf, \\[.6ex]
@@ -338,100 +386,8 @@ Since $\k_\parallel=\text{const}$,
  all four wavevectors $\q^u$ have the same horizontal component;
 they differ only in their vertical component~$q^u_\perp$.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Special cases: geometric optics, evanescent wave}\label{SSpecial}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In the absence of absorption and above the critical angle,
-wavevectors are real
-so that we can describe the beam in terms of a glancing angle
-\begin{equation}\label{Edef_alpha}
-  \alpha_{\il}\coloneqq \arctan(k_{\perp \il}/k_{\plll}).
-\end{equation}
-Equivalently,
-\begin{equation}
-  k_{\plll}=K n_\il \cos\alpha_{\il}.
-\end{equation}
-Since $k_{\plll}$ is constant across layers,
-we have
-\begin{equation}\label{ESnell}
-  n_\il \cos\alpha_{\il} = \text{the same for all }\il,
-\end{equation}
-which is Snell's refraction law.
-\index{Refraction!Snell's law}
-\index{Snell's law}
-
-In general, however, the vertical wavenumber $k_{\perp}$,
-determined by $K_l$ and $k_\parallel$ as per~\cref{Epsiminus},
-can become imaginary (total reflection conditions) or complex (absorbing layer).
-\index{Wavevector!complex}%
-This makes the above geometric interpretation untenable
-so that we have to fully rely on an algebraic formalism.
-We write
-\begin{equation}\label{Edecompkperp}
-  k_\perp \eqqcolon k_\perp' + i k_\perp''
-\end{equation}
-for the decomposition into a real and an imaginary part.
-Accordingly, full wavevectors have the decomposition
-\begin{equation}
-  \k^\pm
-  \eqqcolon {\k^\pm}' + i{\k^\pm}''
-  = \k_\plll \pm (k_\perp' + i k_\perp'')\v{\hat z}.
-\end{equation}
-Per \cref{Endb1}, we have $\beta\ge0$ and $\delta<1$,
-from which it follows that $k_\perp''$ always has the same sign as $k_\perp'$.
-
-After these preparations,
-we can compute the flux~\cref{EdefJ}:
-\begin{equation}
-  \begin{array}{@{}l@{\;}l}
-  \v{J}(\r)
-  =&   \left|A^-\right|^2 \e^{+2k_\perp'' (z-z_l)} {\k^-}'
-    + \left|A^+\right|^2 \e^{-2k_\perp''(z-z_l)} {\k^+}'
-\\[2ex]
-  &+ \left[
-      A^-{A^+}^* \e^{-2ik_\perp'(z-z_l)} {\left(\k_\plll-ik_\perp''\v{\hat z}\right)}
-    + \text{c.c.}
-    \right].
-  \end{array}
-\end{equation}
-The first two terms describe the exponential intensity decrease
-due to absorption, while
-the oscillatory term in square brackets
-is responsible for waveguide effects in layers with finite thickness.
-
-The flux can also be written in terms of the one-dimensional wavefunctions $\phi^{\pm}(z)$:
-\begin{equation}
-  \begin{array}{@{}l@{\;}l}
-  \v{J}(\r) =& \left|\phi^+(z)+\phi^-(z)\right|^2\cdot\k_\plll \\
-  &+ \left[ \left|\phi^+(z)\right|^2 k_\perp' - \left|\phi^-(z)\right|^2 k_\perp' +
-  2\Im(\phi^-(z){\phi^+}^*(z))k_\perp'' \right]\cdot \v{\hat z}.
-  \end{array}
-\end{equation}
-The first term denotes the horizontal component
-of the flux and can be seen to consist of the product
-of the particle density at position $z$ and the wavector $\k_\plll$.
-The $z$-component consists of the difference
-between the up- and downward travelling wave components
-and an extra term that encodes the interference between them.
-
-In the special case of a purely imaginary~$k_{\perp \il}$,
-the flux becomes:
-\begin{equation}
-  \v{J}(\r) = \left| \psi \right|^2 \k_\plll + 2 \Im (A^-{A^+}^*) k_\perp''\v{\hat z}.
-\end{equation}
-This flux consists of two clearly distinct parts: an \E{evanescent wave},
-\index{Evanescent wave}%
-travelling horizontally
- and a vertical component that is independent of the $z$ position.
-The vertical component is a necessary
- degree of freedom to fulfill the boundary conditions at the layer's top and bottom interfaces.
-In the case of a semi-infinite layer, the vertical component becomes zero and
- all incoming radiation at the top of the layer undergoes \E{total reflection}.
-\index{Total reflection}%
-
 %===============================================================================
-\section{Wave propagation across layers}\label{Sacrolay}
+\subsection{Wave amplitudes}\label{Sacrolay}
 %===============================================================================
 
 \index{Fresnel coefficients}%
@@ -448,9 +404,16 @@ piecewise solutions of the Schrödinger equations must be connected
 such that the wavefunction $\phi(\r)$ and its first derivative
 $\Nabla\phi(\r)$ evolve continuously.
 
+% TODO REPLACE BY TEXT BELOW
+\Note{Support for rough interfaces is already implemented in \BornAgain,
+but documentation is adjourned to a later edition of this manual.}
+%Unless layer interfaces are smooth,
+%their roughness causes extra contribution to the total scattering.
+%This is implemented in BornAgain as described in \Cref{SRough}.
+
 To deal with the coordinate offsets introduced in \cref{Ephizwj},
 we introduce the function%
-\begin{equation}
+\begin{equation}\label{Edldef}
   d_\il\coloneqq z_{\il}-z_{\il+1},
 \end{equation}
 which is the thickness of layer~$\il$,
@@ -467,11 +430,11 @@ Accordingly, the continuity conditions at the interface are
   \end{array}
 \end{equation}
 We abbreviate
-\begin{equation}
+\begin{equation}\label{Efldef}
   f_\il \coloneqq  k_{\perp \il}/K = \sqrt{\nzj-(k_\plll/K)^2}
 \end{equation}
 and
-\begin{equation}
+\begin{equation}\label{Edelldef}
    \delta_\il \coloneqq  \e^{iKf_\il d_\il}.
 \end{equation}
 For the plane waves \cref{Ephizwj},
@@ -531,8 +494,8 @@ In the substrate, $A^+_{N}=0$ because there is no radiation
 coming from $z\to-\infty$.
 This leaves us with two unkown amplitudes,
 the overall coefficients of transmission~$A^-_N$ and reflection~$A^+_0$.
-These two unknowns are  connected by a system of two linear equations,
-\begin{equation}
+These two unknowns are connected by a system of two linear equations,
+\begin{equation}\label{E1Ap}
   \left( \begin{array}{c}1\\ A^+_0\end{array} \right)
   = M_1 \cdots M_{N} \left( \begin{array}{c}A^-_N\\0\end{array} \right).
 \end{equation}
@@ -551,7 +514,7 @@ yielding unnormalized amplitudes
 When the top layer is reached,
 the obtained values are normalized
 so that the boundary condition $A^-_{0}=1$ be satisfied,
-\begin{equation}
+\begin{equation}\label{EApml}
   A^\pm_{\il} = \frac{\tilde A^\pm_l}{\tilde A^-_0}.
 \end{equation}
 For GISAS detection in transmission geometry
@@ -572,16 +535,15 @@ with a single interface between two semi-infinite,
 non-absorbing media. The incoming wave is assumed to be above the
 critical angle, ensuring all $f_l$ are real.
 The reflected flux,
-normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$,
-is
+normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$, is
 \index{Reflected flux}%
-\begin{equation}
+\begin{equation}\label{EJrefl}
   \frac{J_{0\perp}^+}{J_{0\perp}^-}
   = - \left(\frac{f_0-f_1}{f_0+f_1}\right)^2,
 \end{equation}
 and the transmitted flux
 \index{Transmitted flux}%
-\begin{equation}
+\begin{equation}\label{EJtran}
   \frac{J_{1\perp}^-}{J_{0\perp}^-}
   = \frac{4f_0 f_1}{(f_0+f_1)^2}.
 \end{equation}
@@ -593,7 +555,7 @@ and agrees with Fresnel's result for $s$-polarized light.\footnote
 The above algorithm fails if $f_{\il}\to0$
 because $M_{\il+1}$ becomes singular.
 The general solution of \cref{Ewavez} will be a linear function of $z$:
-\begin{equation}
+\begin{equation}\label{Ephilz}
   \phi_{\il}(z) = A^0_{\il} + A^1_{\il}z.
 \end{equation}
 In \BornAgain, such a linear wavefunction amplitude can not be handled by the form factors,
@@ -610,6 +572,73 @@ The following cases are treated seperately:
     representing a slight absorption. However, this should be inconsequential because the index of refraction
     of non-vacuum layer always contains an absorptive component.
 \end{itemize}
+
+%===============================================================================
+\subsection{Flux, evanescent waves}\label{SSpecial}
+%===============================================================================
+
+We write
+\begin{equation}\label{Edecompkperp}
+  k_\perp \eqqcolon k_\perp' + i k_\perp''
+\end{equation}
+for the decomposition into a real and an imaginary part.
+Accordingly, full wavevectors have the decomposition
+\begin{equation}
+  \k^\pm
+  \eqqcolon {\k^\pm}' + i{\k^\pm}''
+  = \k_\plll \pm (k_\perp' + i k_\perp'')\v{\hat z}.
+\end{equation}
+Per \cref{Endb1}, we have $\beta\ge0$ and $\delta<1$,
+from which it follows that $k_\perp''$ always has the same sign as $k_\perp'$.
+
+After these preparations,
+we can compute the flux~\cref{EdefJ}:
+\begin{equation}\label{EJ1}
+  \begin{array}{@{}l@{\;}l}
+  \v{J}(\r)
+  =&   \left|A^-\right|^2 \e^{+2k_\perp'' (z-z_l)} {\k^-}'
+    + \left|A^+\right|^2 \e^{-2k_\perp''(z-z_l)} {\k^+}'
+\\[2ex]
+  &+ \left[
+      A^-{A^+}^* \e^{-2ik_\perp'(z-z_l)} {\left(\k_\plll-ik_\perp''\v{\hat z}\right)}
+    + \text{c.c.}
+    \right].
+  \end{array}
+\end{equation}
+The first two terms describe the exponential intensity decrease
+due to absorption, while
+the oscillatory term in square brackets
+is responsible for waveguide effects in layers with finite thickness.
+
+The flux can also be written in terms of the one-dimensional wavefunctions $\phi^{\pm}(z)$:
+\begin{equation}\label{EJ2}
+  \begin{array}{@{}l@{\;}l}
+  \v{J}(\r) =& \left|\phi^+(z)+\phi^-(z)\right|^2\cdot\k_\plll \\
+  &+ \left[ \left|\phi^+(z)\right|^2 k_\perp' - \left|\phi^-(z)\right|^2 k_\perp' +
+  2\Im(\phi^-(z){\phi^+}^*(z))k_\perp'' \right]\cdot \v{\hat z}.
+  \end{array}
+\end{equation}
+The first term denotes the horizontal component
+of the flux and can be seen to consist of the product
+of the particle density at position $z$ and the wavector $\k_\plll$.
+The $z$-component consists of the difference
+between the up- and downward travelling wave components
+and an extra term that encodes the interference between them.
+
+In the special case of a purely imaginary~$k_{\perp \il}$,
+the flux becomes:
+\begin{equation}\label{EJ3}
+  \v{J}(\r) = \left| \psi \right|^2 \k_\plll + 2 \Im (A^-{A^+}^*) k_\perp''\v{\hat z}.
+\end{equation}
+This flux consists of two clearly distinct parts: an \E{evanescent wave},
+\index{Evanescent wave}%
+travelling horizontally
+ and a vertical component that is independent of the $z$ position.
+The vertical component is a necessary
+ degree of freedom to fulfill the boundary conditions at the layer's top and bottom interfaces.
+In the case of a semi-infinite layer, the vertical component becomes zero and
+ all incoming radiation at the top of the layer undergoes \E{total reflection}.
+\index{Total reflection}%
 
 
 %===============================================================================

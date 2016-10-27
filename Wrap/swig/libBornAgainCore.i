@@ -33,6 +33,7 @@
 %include "shared_pointers.i"
 
 %include "warnings.i"
+%include "extendCore.i"
 %include "ignores.i"
 %include "directors.i"
 
@@ -422,4 +423,3 @@
 %template(SimulationFactoryTemp) IFactory<std::string, GISASSimulation>;
 %include "SimulationFactory.h"
 
-%include "extendCore.i"

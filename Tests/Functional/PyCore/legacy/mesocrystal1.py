@@ -97,8 +97,7 @@ class MySampleBuilder(IMultiLayerBuilder):
         p_multi_layer.addLayer(avg_layer)
         p_multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
 
-        self.sample = p_multi_layer
-        return self.sample
+        return p_multi_layer
 
     # -------------------------------------------------------------------------
     # building meso crystal

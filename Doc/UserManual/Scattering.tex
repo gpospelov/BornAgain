@@ -39,10 +39,14 @@ This chapter finishes with a qualitative discussion
 of coherence lengths (\Cref{Scoherlen}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Coherent neutron propagation}\label{Swave}
+\section{Neutron propagation}\label{Swave}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Wave propagation!neutrons|(}%
 \index{Neutrons!wave propagation|(}%
+
+%===============================================================================
+\subsection{Coherent wave equation}
+%===============================================================================
 
 \def\Vmac{\tilde{V}}
 
@@ -129,7 +133,7 @@ This is
 similar to the passage from
 the microscopic to the macroscopic Maxwell equations.
 The details are intricate \cite{Sea89,Lax51},
-but the result \cite[eq.~2.8.32]{Sea89} looks very simple:
+but the result \cite[eq.~2.8.32]{Sea89} is very simple:
 The macroscopic field equation
 has still the form of a stationary Schrödinger equation,
 \index{Schrodinger@Schrödinger equation!macroscopic}%
@@ -147,84 +151,112 @@ and $\Vmac(\r)$ is the \E{macroscopic optical potential}.
 \index{Optical potential!macroscopic}%
 This potential is weak, and slowly varying compared to atomic length scales.
 In the following it shall be expressed through the
-\E{bound scattering length density}
+\E{bound scattering length density} (SLD)
 \index{Bound scattering length|see{Scattering length}}%
 \index{Scattering length density}%
+\index{SLD|see{Scattering length density}}%
 \cite[eq.\ 2.8.37]{Sea89},
-\nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density}%
+\nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density (SLD)}%
 \begin{equation}
-  v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r),
+  v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r).
 \end{equation}
-which shall be decomposed into a constant average and a fluctuating part,
+
+%===============================================================================
+\subsection{SLD fluctuations}
+%===============================================================================
+
+In the following, we will use~\cref{EmacrSchrodi}
+as a starting point to study scattering by condensed-matter samples
+(we will prefer the brief term \E{sample} over \E{scattering target}).
+\index{Scattering target|see{Sample}}%
+\index{Sample}%
+To compute scattering cross sections from a perturbation expansion,
+we will need to decompose the SLD as
 \begin{equation}\label{Edecompose_v}
-  v(\r) = \overline{v} + \delta v(\r).
+  v(\r) \coloneqq \mv(\r) + \delta v(\r).
 \end{equation}
 \nomenclature[1d030 2v230 2r040]{$\delta v(\r)$}{Fluctuating part of the scattering length density}%
-\nomenclature[2v021]{$\overline{v}$}{Average scattering length density}%
+\nomenclature[2v021]{$\mv$}{Average scattering length density}%
+For $\r$ outside the finite sample volume, we require $\delta v(\r)=0$.
+Inside the sample, the decomposition~\cref{Edecompose_v} is somewhat arbitrary,
+and can be chosen for analytical convenience.
 The macroscopic Schrödinger equation~\cref{EmacrSchrodi} becomes
 \begin{equation}\label{ESchrodi3}
-  \left\{ \Nabla^2 + \frac{2m\omega}{\hbar} - 4\pi\overline{v} \right\}\psi(\r)
+  \left\{ \Nabla^2 + \frac{2m\omega}{\hbar} - 4\pi\mv(\r) \right\}\psi(\r)
   = 4\pi\delta v(\r)\psi(\r).
 \end{equation}
-In a homogeneous medium with $\delta v=0$,
-\cref{ESchrodi3} reduces to the Helmholtz wave equation.
-\index{Helmholtz wave equation}%
-\index{Wave propagation!Helmholtz equation}%
-This motivates us to rewrite~\cref{ESchrodi3} as
+The left-hand side describes optical wave propagation,
+the right-hand side is a perturbation that causes scattering.
+Accordingly, $\mv(\r)$ should only contain SLD variations
+that are simple enough to allow an analytical solution.
+The SLD fluctuation~$\delta v(\r)$ then stands for the more irregular
+features of a sample one ultimately wants to study in a scattering experiment.
+
+For brevity, we rewrite~\cref{ESchrodi3} as
 \Emph{
 \begin{equation}\label{ESchrodiK}
-  \left\{ \Nabla^2 + K^2 \right\}\psi(\r)
-  = 4\pi\delta v(\r)\psi(\r),
+  \left\{ \Nabla^2 + K(\r)^2 \right\}\psi(\r)
+  = 4\pi\delta v(\r)\psi(\r).
 \end{equation}
 \vspace*{-5pt}}
-where the wavenumber~$K$ is given by the dispersion relation
+This will be the starting point for all further analyses.
+It contains the wavenumber~$K(\r)$, given by the dispersion relation
 \nomenclature[2k120]{$K$}{Wavenumber}%
 \index{Dispersion!neutron in homogeneous medium}%
 \index{Wavenumber!neutron}%
 \begin{equation}\label{Edispersion}
-  K^2 = \frac{2m\omega}{\hbar} - 4\pi\overline{v}
-      = K_\text{vac}^2\left(1-\frac{4\pi}{K_\text{vac}^2}\overline{v}\right)
-      = K_\text{vac}^2 n^2.
+  K(\r)^2 = \frac{2m\omega}{\hbar} - 4\pi\mv(\r).
 \end{equation}
-To arrive at the final compact expression $K=K_\text{vac} n$
-we introduced the vacuum wavenumber~$K_\text{vac}$
+With the vacuum wavenumber~$K_\text{vac}$
 \nomenclature[2k124 200vac]{$K_\text{vac}$}{Wavenumber in vacuum}%
 and the \E{refractive index}
 \nomenclature[2n020]{$n$}{Refractive index}%
-\index{Refractive index}% !vs scattering length density}%
+\index{Refractive index}%
 \index{Index of refraction|see {Refractive index}}%
 \begin{equation}\label{EnRefrIndx}
-  n\coloneqq \sqrt{1-\frac{4\pi}{K_\text{vac}^2}\overline{v}}.
+  n\coloneqq \sqrt{1-\frac{4\pi}{K_\text{vac}^2}\mv},
 \end{equation}
+\cref{Edispersion} takes the simple form $K=K_\text{vac} n$.
 \index{Absorption|(}%
 The complex refractive index of a given material
-shall be written as
+shall be written with two real parameters:
 \begin{equation}\label{Endb1}
   n =  1-\delta +i\beta,
 \end{equation}
 \nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
    $n=1-\delta +i\beta$}%
 \nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
-introducing two small real, nonnegative parameters $\delta, \beta$.
-A nonzero~$\beta$ describes absorption and leads to a damping of propagating waves.\footnote
+For x-rays and thermal neutrons,
+$\delta$ and $\beta$ are almost always nonnegative,\footnote
 {The plus sign in front of~$i\beta$ is a consequence of
 the quantum-mechanical sign convention;
 in the X-ray crystallography convention it would be a minus sign.
 \index{Refractive index!sign convention}%
 \index{Sign convention!refractive index}}
+and much smaller than~1.
+A nonzero~$\beta$ describes absorption and leads to a damping of propagating waves.
 
-The Schrödinger equation \cref{ESchrodiK}
-is the starting point for the analysis of small-angle scattering (SAS) experiments
-in Born approximation (\cref{SBornApprox}).
-Later (\cref{Swave21}), for the special case of grazing incidence,
-the distorted wave Born approximation (DWBA)
-\index{Distorted-wave Born approximation}%
-will start with a slight modification of the decomposition~\cref{Edecompose_v}:
-vertical variations of the average scattering length density
-will be reassigned from $\delta v(\r)$ to $n(z)$
-in order to account for refraction and reflection in layered samples.
+The SLD fluctuation amplitude $|\delta v(\r)|$ is at most of order $1-n$.
+Therefore the right-hand side of the Schrödinger equation~\cref{ESchrodiK}
+is but a weak perturbation.
+This suggests a solution
+by means of a perturbation expansion in powers of $\delta v$,
+known as the \E{Born expansion} or \E{Born series}.\footnote{
+Named after Max Born
+who introduced it in quantum mechanics.
+The idea goes back to Lord Rayleigh
+who devised it for sound,
+and later also applied it to electromagnetic waves,
+which resulted in his famous explanation of the blue sky.}
+The standard first-order Born approximation (BA, \cref{SBornApprox})
+is regularly used  for the analysis of small-angle scattering (SAS) experiments.
 \index{SAS|see {Small-angle scattering}}%
 \index{Small-angle scattering}%
+\index{BA|see{Born approximation}}%
+\index{Born approximation}%
+For grazing-incidence small-angle scattering (GISAS),
+one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
+\index{Distorted-wave Born approximation}%
 
 \index{Wave propagation!neutrons|)}%
 \index{Neutrons!wave propagation|)}%
@@ -258,36 +290,30 @@ the outgoing scattered wave
 that carries information in form of the angular distribution
 $f(\vartheta,\varphi)$.
 
-For thermal or cold neutrons, as for X-rays,
-the refractive index~$n$ is almost always very close to~1,
-fluctuations of the scattering length density are at most of the order of $1-n$,
-and therefore the right-hand side of~\cref{ESchrodiK}
-is but a weak perturbation.
-This suggests a solution of the Schrödinger equation
-by means of a perturbation expansion in powers of $\delta v$,
-known as the \E{Born expansion} or \E{Born series}.\footnote{
-Named after Max Born
-who introduced it in quantum mechanics.
-The idea goes back to Lord Rayleigh
-who devised it for sound,
-and later also applied it to electromagnetic waves,
-which resulted in his famous explanation of the blue sky.}
-
 Equation~\cref{ESchrodiK} looks
 like an inhomogeneous differential equation ---
 except that the right-hand side contains the unknown function~$\psi$.
 In the Born expansion this problem is solved by iteration.
-We start with the homogeneous equation
-\begin{equation}\label{EHelmholtzHomog}
-  \left(\Nabla^2+K^2\right)\psi(\r) = 0,
+The zeroth approximation to~\cref{ESchrodiK} is the homogeneous wave equation
+\begin{equation}\label{EHomoK}
+  \left\{\Nabla^2+K(\r)^2\right\}\psi(\r) = 0.
 \end{equation}
-which is solved by plane waves and superpositions thereof.
-It applies in particular to the incident wave~$\psi_\ti$.
-\index{Incident radiation!plane wave}%
+It does not have a practicable generic solution.
+Therefore at this point one needs to make additional simplifying assumptions.
+As said in connection with~\cref{Edecompose_v},
+there is some freedom in the choice of $\mv(\r)$.
+In the basic variant of the Born expansion,
+one makes the simplest possible choice, $\mv=\text{const}$,
+taking the value of $v(\r)$ outside the finite sample volume.
+A constant~$\mv$ implies a constant~$K$,
+and so \cref{EHomoK} reduces to the Helmholtz equation.
+\index{Helmholtz wave equation}%
+\index{Wave propagation!Helmholtz equation}%
+It is solved by plane waves and superpositions thereof.
 
 For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
-  \left(\Nabla^2+K^2\right)G(\r,\r') = \delta(\r-\r')
+  \left\{\Nabla^2+K^2\right\}G(\r,\r') = \delta(\r-\r')
 \end{equation}
 \nomenclature[2g130 2r040 2r041]{$G(\r,\r')$}{Green function}%
 \index{Green function!homogeneous material}%
@@ -430,7 +456,7 @@ the matrix element takes the form
   \eqqcolon v(\q),
 \end{equation}
 \nomenclature[1χ030 2q040]{$v(\v{q})$}{Fourier
-   transform of the perturbation potential $\delta v(\r)$}%
+   transform of the SLD~$\delta v(\r)$}%
 where we have introduced the \E{scattering vector}\footnote
 {With this choice of sign,
 \index{Sign convention!scattering vector}%
@@ -452,7 +478,7 @@ which can only be achieved by the convention~\cref{Eq}.}
 \end{equation}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
 and the notation $v(\q)$ for
-the Fourier transform of the perturbative potential,
+the Fourier transform of the SLD,
 \index{Optical potential!Fourier transform}%
 which is what small-angle neutron scattering basically measures.
 
@@ -518,78 +544,79 @@ of elastic scattering in first order Born approximation,
 }
 As we shall see below,
 it holds not only for plane waves governed
-by the vacuum Helmholtz equation~\cref{EHelmholtzHomog},
+by the Helmholtz equation,
 but also for distorted waves.
 \index{Distorted-wave Born approximation!elastic cross section}%
 
 In the plane-wave case \cref{Echiq} considered here,
 the differential cross section is just the squared modulus
-of the Fourier transform of the bound scattering length density,
+of the Fourier transform of the SLD,
 \index{Scattering length density!Fourier transform}%
 \begin{equation}\label{Ecross1}
   \frac{\d\sigma}{\d\Omega}
   = {\left| v(\q) \right|}^2.
 \end{equation}
 
-%===============================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Distorted-wave Born approximation (DWBA)}\label{SDWBA}
-%===============================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \index{Distorted-wave Born approximation|(}%
 \index{DWBA|see {Distorted-wave Born approximation}}%
 
-The standard form of the Born approximation,
-as presented in \cref{SBornApprox},
-combines an approximation scheme
-(computing \cref{EPsiFormal} by iteration)
-with an assumption (the incident field is a plane wave)
-and an analytic result
-(in far-field approximation,
-the Green function of the Helmholtz equation is a plane wave
-with respect to the locus of scattering).
-These three elements must not necessarily go together.
-In particularly, there is a fairly straightforward generalization
-of the Born approximation for the case that
-the incident field is not a plane wave,
-called the \E{distorted-wave Born approximation} (DWBA).\footnote
-{Originally devised by Massey and Mott (ca 1933)
+The standard Born approximation depends on the choice $\mv=\text{const}$,
+which implies that $\psi_\si$ and $\psi_\sf$ are plane waves.
+In the distorted-wave Born approximation (DWBA),\footnote{
+The DWBA was originally devised by Massey and Mott (ca 1933)
 for collisions of charged particles.
 The first explicit application to grazing-incidence scattering
 seems to be by Vineyard (1982) \cite{Vin82}.}
-It is pertinent for grazing-incidence scattering
-because refraction and reflection at interfaces
-distort the incident radiation into
-a superposition of downwards and upwards travelling waves,
-as we shall discuss below in~\Cref{Swave21}.
+this requirement is dropped.
+The SLD decomposition~\cref{Edecompose_v}
+is restored to full genericity,
+and it is taken for granted
+that somehow analytical or numerical solutions $\psi_\si$ and~$\psi_\sf$
+of the homogeneous wave equation~\cref{EHomoK}
+have been obtained.
 
-The above derivation of the Born cross section becomes invalid
-when there are systematic variations of the scattering length density
-that preclude the decomposition~\cref{Edecompose_v}.
-Let us instead write in full genericity
-\begin{equation}\label{Edecompose_vr}
-  v(\r) = \overline{v}(\r) + \delta v(\r).
-\end{equation}
-How to distinguish the systematic variations~$\overline{v}(\r)$
-from the random fluctuations~$\delta v(\r)$
-will depend on the application.
-In any case, the macroscopic Schrödinger equation~\cref{ESchrodiK} takes the form
-\begin{equation}\label{ESchrodiK}
-  \left\{ \Nabla^2 + K^2(\r) \right\}\psi(\r)
-  = 4\pi\delta v(\r)\psi(\r).
-\end{equation}
-We assume that the homogeneous wave equation that generalizes~\cref{EHelmholtzHomog}
-can be solved for~$\psi(\r)$.
-Outside the finite sample volume,
-we still have $K=\text{const}$.
-Therefore, we can impose on~$\psi(\r)$ the boundary condition that it be
-a plane wave outside the sample.
-We need two such wavefunctions:
-A function~$\psi_\text{i}(\r)$ to match the incident radiation,
-and a function~$\psi_\text{f}(\r)$ to match a plane wave that reaches a detector pixel.
+Because these solutions are no longer plane waves,
+we need to work out a terminological and notational distinction
+that is blurred in the standard Born approximation:
+we need to distinguish
+ between the \E{exciting} wave~$\psi_\se$
+\nomenclature[1ψ034 2e000]{$\psi_\se(\r)$}{Exciting wave}%
+and the \E{incident} wave~$\psi_\si$.
+The \E{exciting wave}
+\index{Exciting wave}%
+\index{Wave!exciting}%
+is prepared far
+outside the sample by a radiation source and some optical devices.
+\index{Radiation source}%
+It is a superposition of plane waves,
+as discussed later in the context of instrumental resolution effects
+(\cref{SInstr}).
+Here, while discussing scattering theory,
+it shall be represented by a single plane wave
+$\psi_\se(\r)=\e^{i\k_\se\r}$.
+This function is defined for all~$\r$,
+but is physical only along the primary beam, upstream of the sample.
 
-In contrast, we will not even attempt to obtain a full solution
+In contrast, by the \E{incident wave}~$\psi_\si(\r)$
+\index{Incident wave!DWBA}%
+\index{Incident wave!vs exciting wave}%
+\index{Wave!incident}%
+we understand an exact solution of~\cref{EHomoK}.
+Upstream of the sample, along the primary beam, it coincides with the exciting wave.
+Inside the sample, however, it undergoes refraction and reflection,
+and therefore no longer is a plane wave, and no longer equals~$\psi_\se(\r)$.
+This is different from the conventional Born approximation,
+where $\psi_\si$ is a plane wave throughout the sample,
+and therefore must not be distinguished from~$\psi_\se$.
+
+Differently from the above derivation of the Born expansion,
+we will not even attempt to obtain a full solution
 \index{Green function!DWBA}%
-of the generalized Green function equation~\cref{EHelmholtzForGreen}.
+of the Green function equation that generalizes~\cref{EHelmholtzForGreen}.
 We will only consider its asymptotic far-field limit $G(\rD,\r)$
 at a detector position $\rD$.
 Nonetheless, this function will be exact in the coordinate~$\r$
@@ -615,7 +642,7 @@ and therefore has the far-field expansion~\cref{EGreenFar},
   =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\tf \r}.
 \end{equation}
 As explained above,
-we assume that there is a solution $\psi_\text{f}(\r)$ of the homogeneous
+we assume that there is a solution $\psi_\sf(\r)$ of the homogeneous
 wave equation that matches $\e^{i\k_\tf \r}$ outside the sample.
 Therefore,
 \begin{equation}\label{EBFull}
@@ -638,7 +665,7 @@ the differential cross section is still given by \cref{Exsection},
 and the transition matrix element by~\cref{Etrama}.}
 The plane-wave form~\cref{Echiq}, however, does no longer hold;
 its replacement depends on the distorted wavefunctions
-$\psi_\text{i}$ and $\psi_\text{f}$,
+$\psi_\si$ and $\psi_\sf$,
 is therefore application specific,
 and will be worked out later (\cref{Swave21}).
 
@@ -646,8 +673,12 @@ and will be worked out later (\cref{Swave21}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Coherence length}\label{Scoherlen}
+\section{Coherent vs incoherent scattering}\label{Scoherlen}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
+\subsection{Coherence length}
+%===============================================================================
 
 Per \cref{Exsection} and~\cref{Etrama},
 \index{Coherence length|(}%
@@ -658,8 +689,8 @@ is given by a three-dimensional integral
   \coloneqq  \int\!\d^3r\, \psi^{*}_\ti(\r)\delta v(\r)\psi_\tf(\r).
 \end{equation}
 The integration domain is effectively limited to a finite $z$ interval,
-where $\delta v(\r)$ is horizontally modulated.
-On the other hand, the horizontal integration domain is infinite
+where $\delta v(\r)$ is nonzero.
+The horizontal integration domain, however, is infinite
 within our formalism,
 which is of course an idealization.
 Obviously, physical integration limits are imposed by the finite
@@ -743,8 +774,7 @@ produce said incoherent average of different GISANS images.
 
 The crossover from coherent to incoherent scattering is of course
 a gradual one.
-The coherence length, however defined,
-indicates where a certain, somewhat arbitrary degree
+The coherence length indicates where a certain, somewhat arbitrary degree
 of decoherence is reached.
 Under these reservations
 one defines a \E{coherence spot}
@@ -764,6 +794,11 @@ in $y$ or $z$ direction.\footnote
   We are talking here about \E{horizontal} and \E{vertical}
   projections of the \E{transverse} coherence length.}
 
+%===============================================================================
+\subsection{Implementation}
+%===============================================================================
+
+
 \Note{\indent Unless otherwise said, \BornAgain\ simulates
   \E{coherent} diffraction patterns obtained by
   the linear superposition of scattered waves.
@@ -772,6 +807,8 @@ in $y$ or $z$ direction.\footnote
   that averages over several coherent computations with
   appropriately distributed parameters.}
 
+\Warn{\indent Currently, \BornAgain\ does not support interferences
+  between particles in different layers.}
 % TODO: more about implementation !
 
 \index{Coherence length|)}%

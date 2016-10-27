@@ -32,6 +32,7 @@ class BA_CORE_API_ MaskEditorHelper
 public:
     enum EViewTypes {
         IMASKVIEW = QGraphicsItem::UserType+1, // = 65537
+        RECTANGLEBASE,
         RECTANGLE,
         SIZEHANDLE,
         POLYGON,

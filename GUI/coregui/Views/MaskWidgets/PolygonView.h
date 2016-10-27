@@ -56,5 +56,4 @@ private:
     bool m_close_polygon_request;
 };
 
-
 #endif // POLYGONVIEW_H

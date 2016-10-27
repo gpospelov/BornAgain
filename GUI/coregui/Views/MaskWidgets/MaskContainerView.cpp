@@ -21,7 +21,6 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
-
 MaskContainerView::MaskContainerView()
 {
     // the key flag to not to draw children going outside ot given shape
@@ -30,7 +29,6 @@ MaskContainerView::MaskContainerView()
 
 void MaskContainerView::update_view()
 {
-//    prepareGeometryChange();
     m_bounding_rect = m_adaptor->getViewportRectangle();
     update();
 }

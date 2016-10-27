@@ -71,6 +71,8 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
 
     realDataItemCopy->intensityDataItem()->setOutputData(
                 realDataItem->intensityDataItem()->getOutputData()->clone());
+
+
 }
 
 //! Links RealDataItem to the JobItem's instrument.

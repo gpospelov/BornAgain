@@ -26,6 +26,7 @@
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
 #include "IntensityDataItem.h"
+#include "JobItemFunctions.h"
 #include <QDebug>
 
 namespace {
@@ -298,10 +299,9 @@ RealDataItem *JobItem::realDataItem()
 
 void JobItem::updateIntensityDataFileName()
 {
-    if(IntensityDataItem *item = getIntensityDataItem()) {
-        QString newFileName = GUIHelpers::intensityDataFileName(this);
-        item->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
-    }
+    if(IntensityDataItem *item = getIntensityDataItem())
+        item->setItemValue(IntensityDataItem::P_FILE_NAME,
+                           JobItemFunctions::jobResultsFileName(*this));
 }
 
 SimulationOptionsItem *JobItem::getSimulationOptionsItem()

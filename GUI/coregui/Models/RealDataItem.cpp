@@ -23,6 +23,7 @@
 #include "JobItemHelper.h"
 #include "ImportDataAssistant.h"
 #include "MaskUnitsConverter.h"
+#include "JobItemFunctions.h"
 #include <QDebug>
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
@@ -112,10 +113,9 @@ void RealDataItem::linkToInstrument(const InstrumentItem *instrument)
 
 void RealDataItem::updateIntensityDataFileName()
 {
-    if(IntensityDataItem *item = intensityDataItem()) {
-        QString newFileName = GUIHelpers::intensityDataFileName(this);
-        item->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
-    }
+    if(IntensityDataItem *item = intensityDataItem())
+        item->setItemValue(IntensityDataItem::P_FILE_NAME,
+                           JobItemFunctions::realDataFileName(*this));
 }
 
 void RealDataItem::updateToInstrument()

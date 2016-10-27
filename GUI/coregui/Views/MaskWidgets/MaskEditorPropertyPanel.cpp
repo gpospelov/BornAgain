@@ -80,6 +80,8 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     mainLayout->addWidget(m_accordion);
 
     setLayout(mainLayout);
+
+    m_plotPropertyEditor->setHeaderHidden(true);
 }
 
 

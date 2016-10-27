@@ -23,6 +23,7 @@
 #include "qtpropertybrowser.h"
 #include <QVBoxLayout>
 #include <QVariant>
+#include <QTreeView>
 
 ComponentEditor::ComponentEditor(ComponentEditorFlags::PresentationType flags, QWidget *parent)
     : QWidget(parent)
@@ -89,6 +90,17 @@ void ComponentEditor::clearEditor()
     disconnectManager();
     m_d->clear();
     connectManager();
+}
+
+void ComponentEditor::setHeaderHidden(bool hide)
+{
+    const QObjectList list = m_d->m_browser->children();
+    foreach(QObject *obj, list) {
+        QTreeView *view = dynamic_cast<QTreeView *>(obj);
+        if(view)
+            view->setHeaderHidden(hide);
+    }
+
 }
 
 //! Propagates data from SessionItem to editor

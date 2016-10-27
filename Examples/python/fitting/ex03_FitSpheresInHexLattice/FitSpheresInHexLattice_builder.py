@@ -100,8 +100,7 @@ def run_fitting():
     main function to run fitting
     """
     simulation = get_simulation()
-    sample_builder = MySampleBuilder()
-    simulation.setSampleBuilder(sample_builder)
+    simulation.setSampleBuilder(MySampleBuilder())
     simulation.printParameters()
 
     real_data = create_real_data()

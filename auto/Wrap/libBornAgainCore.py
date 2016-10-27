@@ -15150,14 +15150,14 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getSample(self)
 
 
-    def setSampleBuilder(self, sample_builder):
+    def setSampleBuilderCpp(self, sample_builder):
         """
-        setSampleBuilder(Simulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
+        setSampleBuilderCpp(Simulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         void Simulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         """
-        return _libBornAgainCore.Simulation_setSampleBuilder(self, sample_builder)
+        return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
 
 
     def getSampleBuilder(self):
@@ -15269,6 +15269,11 @@ class Simulation(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.Simulation_setTerminalProgressMonitor(self)
+
+
+    def setSampleBuilder(self, ptr):
+        self.samplebuilder = ptr
+        self.setSampleBuilderCpp(ptr)
 
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
@@ -24164,16 +24169,16 @@ class SpecularSimulation(ICloneable, IParameterized):
         return _libBornAgainCore.SpecularSimulation_getSample(self)
 
 
-    def setSampleBuilder(self, sample_builder):
+    def setSampleBuilderCpp(self, sample_builder):
         """
-        setSampleBuilder(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
+        setSampleBuilderCpp(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         void SpecularSimulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         Sets the sample builder. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_setSampleBuilder(self, sample_builder)
+        return _libBornAgainCore.SpecularSimulation_setSampleBuilderCpp(self, sample_builder)
 
 
     def getSampleBuilder(self):
@@ -24278,6 +24283,11 @@ class SpecularSimulation(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.SpecularSimulation_prepareSimulation(self)
+
+
+    def setSampleBuilder(self, ptr):
+        self.samplebuilder = ptr
+        self.setSampleBuilderCpp(ptr)
 
 SpecularSimulation_swigregister = _libBornAgainCore.SpecularSimulation_swigregister
 SpecularSimulation_swigregister(SpecularSimulation)

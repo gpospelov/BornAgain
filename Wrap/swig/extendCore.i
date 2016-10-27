@@ -48,3 +48,23 @@
     static Histogram1D* dynamicCast(IHistogram* pHistogram) {
         return dynamic_cast<Histogram1D*>(pHistogram); }
 };
+
+// needed to prevent ownership problems with passed IMultiLayerBuilder
+%rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
+%extend Simulation {
+    %pythoncode %{
+         def setSampleBuilder(self, ptr):
+             self.samplebuilder = ptr
+             self.setSampleBuilderCpp(ptr)
+    %}
+ };
+
+%rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
+%extend SpecularSimulation {
+    %pythoncode %{
+         def setSampleBuilder(self, ptr):
+             self.samplebuilder = ptr
+             self.setSampleBuilderCpp(ptr)
+    %}
+ };
+

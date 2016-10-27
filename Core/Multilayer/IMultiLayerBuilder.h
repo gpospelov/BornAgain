@@ -41,7 +41,7 @@ public:
 
     // this method is extended in the Python wrappers (needed to solve ownership issues with
     // the created sample in buildSample()
-    bool isPythonBuilder() const { return false; }
+    static bool isPythonBuilder() { return false; }
 };
 
 #endif // IMULTILAYERBUILDER_H

@@ -6847,15 +6847,18 @@ class IMultiLayerBuilder(IParameterized):
         return _libBornAgainCore.IMultiLayerBuilder_setParameterValue(self, name, value)
 
 
-    def isPythonBuilder(self):
+    def isPythonBuilder():
         """
-        isPythonBuilder(IMultiLayerBuilder self) -> bool
+        isPythonBuilder() -> bool
 
         bool IMultiLayerBuilder::isPythonBuilder() const 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder(self)
+        return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder()
 
+    if _newclass:
+        isPythonBuilder = staticmethod(isPythonBuilder)
+    __swig_getmethods__["isPythonBuilder"] = lambda x: isPythonBuilder
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IMultiLayerBuilder(self)
@@ -6872,6 +6875,15 @@ class IMultiLayerBuilder(IParameterized):
 
 IMultiLayerBuilder_swigregister = _libBornAgainCore.IMultiLayerBuilder_swigregister
 IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
+
+def IMultiLayerBuilder_isPythonBuilder():
+    """
+    IMultiLayerBuilder_isPythonBuilder() -> bool
+
+    bool IMultiLayerBuilder::isPythonBuilder() const 
+
+    """
+    return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder()
 
 class ISampleVisitor(_object):
     """

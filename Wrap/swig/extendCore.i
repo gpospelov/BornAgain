@@ -33,7 +33,7 @@
     virtual void setParameterValue(const std::string& name, double value) {
         dynamic_cast<IParameterized*>($self)->setParameterValue(name, value); }
 
-    bool isPythonBuilder() const {
+    static bool isPythonBuilder() {
         return true; }
 };
 

@@ -179,10 +179,9 @@ void RectangleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void RectangleView::update_view()
 {
-//    prepareGeometryChange();
+    prepareGeometryChange();
     update_bounding_rect();
     update_position();
-    update();
 }
 
 //! updates view's bounding rectangle using item properties

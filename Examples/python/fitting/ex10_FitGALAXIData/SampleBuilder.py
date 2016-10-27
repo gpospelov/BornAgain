@@ -93,5 +93,4 @@ class MySampleBuilder(ba.IMultiLayerBuilder):
         multi_layer.addLayerWithTopRoughness(ptfe_layer, r_ptfe)
         multi_layer.addLayer(substrate_layer)
 
-        self.sample = multi_layer
-        return self.sample
+        return multi_layer

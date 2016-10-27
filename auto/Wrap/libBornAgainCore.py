@@ -5641,7 +5641,7 @@ class FitObject(IParameterized, INoncopyable):
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data, double weight=1) -> FitObject
         __init__(FitObject self, GISASSimulation simulation, IntensityData real_data) -> FitObject
 
-        FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1, bool adjust_detector_to_data=false)
+        FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1)
 
         FitObject constructor
 
@@ -5649,7 +5649,7 @@ class FitObject(IParameterized, INoncopyable):
         -----------
 
         simulation: 
-        The simulation to eun
+        The simulation to run
 
         real_data: 
         The real data
@@ -5670,32 +5670,74 @@ class FitObject(IParameterized, INoncopyable):
     __del__ = lambda self: None
 
     def realData(self):
-        """realData(FitObject self) -> IntensityData"""
+        """
+        realData(FitObject self) -> IntensityData
+
+        const OutputData< double > & FitObject::realData() const
+
+        Returns real (experimental) data. 
+
+        """
         return _libBornAgainCore.FitObject_realData(self)
 
 
     def simulationData(self):
-        """simulationData(FitObject self) -> IntensityData"""
+        """
+        simulationData(FitObject self) -> IntensityData
+
+        const OutputData< double > & FitObject::simulationData() const
+
+        Returns simulated data. 
+
+        """
         return _libBornAgainCore.FitObject_simulationData(self)
 
 
     def chiSquaredMap(self):
-        """chiSquaredMap(FitObject self) -> IntensityData"""
+        """
+        chiSquaredMap(FitObject self) -> IntensityData
+
+        const OutputData< double > & FitObject::chiSquaredMap() const
+
+        Returns chi2 map. 
+
+        """
         return _libBornAgainCore.FitObject_chiSquaredMap(self)
 
 
     def simulation(self):
-        """simulation(FitObject self) -> GISASSimulation"""
+        """
+        simulation(FitObject self) -> GISASSimulation
+
+        const GISASSimulation & FitObject::simulation() const
+
+        Returns simulation. 
+
+        """
         return _libBornAgainCore.FitObject_simulation(self)
 
 
     def weight(self):
-        """weight(FitObject self) -> double"""
+        """
+        weight(FitObject self) -> double
+
+        double FitObject::weight() const
+
+        Returns weight of data set in chi2 calculations. 
+
+        """
         return _libBornAgainCore.FitObject_weight(self)
 
 
     def numberOfFitElements(self):
-        """numberOfFitElements(FitObject self) -> size_t"""
+        """
+        numberOfFitElements(FitObject self) -> size_t
+
+        size_t FitObject::numberOfFitElements() const
+
+        Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
+
+        """
         return _libBornAgainCore.FitObject_numberOfFitElements(self)
 
 
@@ -5713,7 +5755,14 @@ class FitObject(IParameterized, INoncopyable):
 
 
     def transferToChi2Map(self, first, last):
-        """transferToChi2Map(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last)"""
+        """
+        transferToChi2Map(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last)
+
+        void FitObject::transferToChi2Map(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
+
+        Updates ChiSquared map from external vector and returns const reference to it. Used from Python in FitSuiteDrawObserver. 
+
+        """
         return _libBornAgainCore.FitObject_transferToChi2Map(self, first, last)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
@@ -6340,7 +6389,7 @@ class FitSuiteObjects(IParameterized, INoncopyable):
         getRealData(FitSuiteObjects self, size_t i_item=0) -> IntensityData
         getRealData(FitSuiteObjects self) -> IntensityData
 
-        const OutputData< double > * FitSuiteObjects::getRealData(size_t i_item=0) const
+        const OutputData< double > & FitSuiteObjects::getRealData(size_t i_item=0) const
 
         Returns real data from corresponding  FitObject
 
@@ -6359,7 +6408,7 @@ class FitSuiteObjects(IParameterized, INoncopyable):
         getSimulationData(FitSuiteObjects self, size_t i_item=0) -> IntensityData
         getSimulationData(FitSuiteObjects self) -> IntensityData
 
-        const OutputData< double > * FitSuiteObjects::getSimulationData(size_t i_item=0) const
+        const OutputData< double > & FitSuiteObjects::getSimulationData(size_t i_item=0) const
 
         Returns simulated data from corresponding  FitObject
 
@@ -6378,7 +6427,7 @@ class FitSuiteObjects(IParameterized, INoncopyable):
         getChiSquaredMap(FitSuiteObjects self, size_t i_item=0) -> IntensityData
         getChiSquaredMap(FitSuiteObjects self) -> IntensityData
 
-        const OutputData< double > * FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
+        const OutputData< double > & FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
 
         Returns new chi-squared map from corresponding  FitObject
 
@@ -6789,24 +6838,27 @@ class IMultiLayerBuilder(IParameterized):
 
 
     def registerParameter(self, name, parpointer):
-        """
-        registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
-
-        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
-
-        """
+        """registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter"""
         return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
 
 
     def setParameterValue(self, name, value):
-        """
-        setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)
-
-        void IParameterized::setParameterValue(const std::string &name, double value)
-
-        """
+        """setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)"""
         return _libBornAgainCore.IMultiLayerBuilder_setParameterValue(self, name, value)
 
+
+    def isPythonBuilder():
+        """
+        isPythonBuilder() -> bool
+
+        bool IMultiLayerBuilder::isPythonBuilder() const 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder()
+
+    if _newclass:
+        isPythonBuilder = staticmethod(isPythonBuilder)
+    __swig_getmethods__["isPythonBuilder"] = lambda x: isPythonBuilder
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IMultiLayerBuilder(self)
@@ -6823,6 +6875,15 @@ class IMultiLayerBuilder(IParameterized):
 
 IMultiLayerBuilder_swigregister = _libBornAgainCore.IMultiLayerBuilder_swigregister
 IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
+
+def IMultiLayerBuilder_isPythonBuilder():
+    """
+    IMultiLayerBuilder_isPythonBuilder() -> bool
+
+    bool IMultiLayerBuilder::isPythonBuilder() const 
+
+    """
+    return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder()
 
 class ISampleVisitor(_object):
     """
@@ -8116,7 +8177,12 @@ class DetectorMask(_object):
 
 
     def isMasked(self, index):
-        """isMasked(DetectorMask self, size_t index) -> bool"""
+        """
+        isMasked(DetectorMask self, size_t index) -> bool
+
+        bool DetectorMask::isMasked(size_t index) const 
+
+        """
         return _libBornAgainCore.DetectorMask_isMasked(self, index)
 
 
@@ -8165,12 +8231,22 @@ class DetectorMask(_object):
 
 
     def numberOfMaskedChannels(self):
-        """numberOfMaskedChannels(DetectorMask self) -> int"""
+        """
+        numberOfMaskedChannels(DetectorMask self) -> int
+
+        int DetectorMask::numberOfMaskedChannels() const 
+
+        """
         return _libBornAgainCore.DetectorMask_numberOfMaskedChannels(self)
 
 
     def numberOfMasks(self):
-        """numberOfMasks(DetectorMask self) -> size_t"""
+        """
+        numberOfMasks(DetectorMask self) -> size_t
+
+        size_t DetectorMask::numberOfMasks() const 
+
+        """
         return _libBornAgainCore.DetectorMask_numberOfMasks(self)
 
 
@@ -15086,14 +15162,14 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_getSample(self)
 
 
-    def setSampleBuilder(self, sample_builder):
+    def setSampleBuilderCpp(self, sample_builder):
         """
-        setSampleBuilder(Simulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
+        setSampleBuilderCpp(Simulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         void Simulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         """
-        return _libBornAgainCore.Simulation_setSampleBuilder(self, sample_builder)
+        return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
 
 
     def getSampleBuilder(self):
@@ -15205,6 +15281,11 @@ class Simulation(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.Simulation_setTerminalProgressMonitor(self)
+
+
+    def setSampleBuilder(self, ptr):
+        self.samplebuilder = ptr
+        self.setSampleBuilderCpp(ptr)
 
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
@@ -16957,7 +17038,12 @@ class IDetector2D(ICloneable, IParameterized):
 
 
     def numberOfMaskedChannels(self):
-        """numberOfMaskedChannels(IDetector2D self) -> size_t"""
+        """
+        numberOfMaskedChannels(IDetector2D self) -> size_t
+
+        size_t IDetector2D::numberOfMaskedChannels() const 
+
+        """
         return _libBornAgainCore.IDetector2D_numberOfMaskedChannels(self)
 
 
@@ -17002,7 +17088,7 @@ class IDetector2D(ICloneable, IParameterized):
 
         OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units) const
 
-        Returns detector map in given axes units. 
+        Returns empty detector map in given axes units. 
 
         """
         return _libBornAgainCore.IDetector2D_createDetectorMap(self, beam, units)
@@ -17048,7 +17134,7 @@ class IDetector2D(ICloneable, IParameterized):
         """
         regionOfInterest(IDetector2D self) -> RegionOfInterest const *
 
-        const Geometry::Rectangle * IDetector2D::regionOfInterest() const
+        const RegionOfInterest * IDetector2D::regionOfInterest() const
 
         Returns region of interest if exists. 
 
@@ -18668,7 +18754,7 @@ class Instrument(IParameterized):
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units) -> IntensityData
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
-        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
 
         Returns new intensity map with detector resolution applied and axes in requested units. 
 
@@ -18680,6 +18766,11 @@ class Instrument(IParameterized):
         """
         createDetectorMap(Instrument self, IDetector2D::EAxesUnits units) -> IntensityData
         createDetectorMap(Instrument self) -> IntensityData
+
+        OutputData< double > * Instrument::createDetectorMap(IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
+
+        Returns empty detector map in given axes units. 
+
         """
         return _libBornAgainCore.Instrument_createDetectorMap(self, *args)
 
@@ -24090,16 +24181,16 @@ class SpecularSimulation(ICloneable, IParameterized):
         return _libBornAgainCore.SpecularSimulation_getSample(self)
 
 
-    def setSampleBuilder(self, sample_builder):
+    def setSampleBuilderCpp(self, sample_builder):
         """
-        setSampleBuilder(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
+        setSampleBuilderCpp(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         void SpecularSimulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
         Sets the sample builder. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_setSampleBuilder(self, sample_builder)
+        return _libBornAgainCore.SpecularSimulation_setSampleBuilderCpp(self, sample_builder)
 
 
     def getSampleBuilder(self):
@@ -24204,6 +24295,11 @@ class SpecularSimulation(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.SpecularSimulation_prepareSimulation(self)
+
+
+    def setSampleBuilder(self, ptr):
+        self.samplebuilder = ptr
+        self.setSampleBuilderCpp(ptr)
 
 SpecularSimulation_swigregister = _libBornAgainCore.SpecularSimulation_swigregister
 SpecularSimulation_swigregister(SpecularSimulation)

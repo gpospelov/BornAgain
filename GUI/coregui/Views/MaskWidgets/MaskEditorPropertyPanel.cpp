@@ -31,6 +31,26 @@
 #include <QPushButton>
 #include <QToolButton>
 #include <QVBoxLayout>
+#include <QTreeView>
+
+
+//! Widget to cheat Accordion to resize correctly.
+
+class EnvelopWidget : public QWidget
+{
+public:
+    EnvelopWidget(QWidget *content)
+    {
+        QVBoxLayout *mainLayout = new QVBoxLayout;
+        mainLayout->setContentsMargins(0,0,0,0);
+        mainLayout->setSpacing(0);
+        setSizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+        mainLayout->addWidget(content);
+        setLayout(mainLayout);
+    }
+
+    QSize sizeHint() const { return QSize(128, 500); }
+};
 
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     : QWidget(parent)
@@ -55,7 +75,7 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget *parent)
     setup_PlotProperties(m_accordion);
     setup_MaskStack(m_accordion);
     setup_MaskProperties(m_accordion);
-    //m_accordion->getContentPane(0)->headerClicked();
+    m_accordion->getContentPane(0)->headerClicked();
 
     mainLayout->addWidget(m_accordion);
 
@@ -132,15 +152,12 @@ void MaskEditorPropertyPanel::setup_PlotProperties(AccordionWidget *accordion)
     cp->setContainerFrameStyle(QFrame::Plain);
     QFrame *contentFrame = cp->getContentFrame();
 
-    //contentFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
     m_plotPropertyEditor->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    layout->addWidget(m_plotPropertyEditor);
+    layout->addWidget(new EnvelopWidget(m_plotPropertyEditor));
     contentFrame->setLayout(layout);
 }
-
 
 void MaskEditorPropertyPanel::setup_MaskStack(AccordionWidget *accordion)
 {
@@ -153,6 +170,7 @@ void MaskEditorPropertyPanel::setup_MaskStack(AccordionWidget *accordion)
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_listView);
+    layout->addWidget(new EnvelopWidget(m_listView));
     contentFrame->setLayout(layout);
 }
 
@@ -166,6 +184,6 @@ void MaskEditorPropertyPanel::setup_MaskProperties(AccordionWidget *accordion)
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(m_maskPropertyEditor);
+    layout->addWidget(new EnvelopWidget(m_maskPropertyEditor));
     contentFrame->setLayout(layout);
 }

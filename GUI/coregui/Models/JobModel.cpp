@@ -28,6 +28,7 @@
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
 #include "JobModelFunctions.h"
+#include "ImportDataAssistant.h"
 #include <QDebug>
 
 
@@ -130,8 +131,11 @@ void JobModel::loadNonXMLData(const QString &projectDir)
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
         JobItemHelper::loadIntensityData(jobItem, projectDir);
+        if(RealDataItem *refItem = jobItem->realDataItem()) {
+            ImportDataAssistant::loadIntensityData(refItem, projectDir);
+            refItem->linkToInstrument(jobItem->instrumentItem());
+        }
     }
-
 }
 
 //! Saves JobItem's OutputData to the projectDir
@@ -141,6 +145,8 @@ void JobModel::saveNonXMLData(const QString &projectDir)
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
         JobItemHelper::saveIntensityData(jobItem->getIntensityDataItem(), projectDir);
+        if(RealDataItem *refItem = jobItem->realDataItem())
+            JobItemHelper::saveIntensityData(refItem->intensityDataItem(), projectDir);
     }
 }
 

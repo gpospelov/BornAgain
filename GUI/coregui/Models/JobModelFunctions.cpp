@@ -30,6 +30,7 @@
 #include "Instrument.h"
 #include "JobItemHelper.h"
 #include "IDetector2D.h"
+#include "JobItemFunctions.h"
 #include <QDebug>
 
 namespace JobModelFunctions {
@@ -72,7 +73,9 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
     realDataItemCopy->intensityDataItem()->setOutputData(
                 realDataItem->intensityDataItem()->getOutputData()->clone());
 
-
+    // adapting the name to job name
+    realDataItemCopy->intensityDataItem()->setItemValue(IntensityDataItem::P_FILE_NAME,
+        JobItemFunctions::jobReferenceFileName(*jobItem));
 }
 
 //! Links RealDataItem to the JobItem's instrument.

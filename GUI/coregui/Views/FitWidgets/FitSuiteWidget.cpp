@@ -106,7 +106,7 @@ void FitSuiteWidget::onError(const QString &text)
 void FitSuiteWidget::onPlotsUpdate()
 {
     qDebug() << "FitSuiteWidget::onPlotsUpdate";
-    m_currentItem->getIntensityDataItem()->setRawDataVector(m_observer->simulationData());
+    m_currentItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
 }
 

@@ -103,7 +103,7 @@ void FitComparisonWidget::setJobItem(JobItem *jobItem)
         return;
 
     processJobItemItem(jobItem);
-    setSimulatedDataItem(jobItem->getIntensityDataItem());
+    setSimulatedDataItem(jobItem->intensityDataItem());
 
 
     m_relativeDiffItem = createRelativeDifferenceItem();

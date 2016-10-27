@@ -160,7 +160,7 @@ void ParameterTuningWidget::onSliderValueChanged(double value)
 void ParameterTuningWidget::onLockZValueChanged(bool value)
 {
     if(!m_currentJobItem) return;
-    if(IntensityDataItem *intensityDataItem = m_currentJobItem->getIntensityDataItem()) {
+    if(IntensityDataItem *intensityDataItem = m_currentJobItem->intensityDataItem()) {
         qDebug() << "ModelTuningWidget::onLockZValueChanged(bool value) ->" << value;
         intensityDataItem->setZAxisLocked(value);
     }

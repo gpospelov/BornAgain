@@ -144,7 +144,7 @@ void JobModel::saveNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemHelper::saveIntensityData(jobItem->getIntensityDataItem(), projectDir);
+        JobItemHelper::saveIntensityData(jobItem->intensityDataItem(), projectDir);
         if(RealDataItem *refItem = jobItem->realDataItem())
             JobItemHelper::saveIntensityData(refItem->intensityDataItem(), projectDir);
     }

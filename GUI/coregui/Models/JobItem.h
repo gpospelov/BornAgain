@@ -55,7 +55,7 @@ public:
     QString getIdentifier() const;
     void setIdentifier(const QString &identifier);
 
-    IntensityDataItem *getIntensityDataItem();
+    IntensityDataItem *intensityDataItem();
 
     QString getStatus() const;
     void setStatus(const QString &status);

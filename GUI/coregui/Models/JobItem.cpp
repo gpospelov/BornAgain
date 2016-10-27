@@ -126,7 +126,7 @@ void JobItem::setIdentifier(const QString &identifier)
     setItemValue(JobItem::P_IDENTIFIER, identifier);
 }
 
-IntensityDataItem *JobItem::getIntensityDataItem()
+IntensityDataItem *JobItem::intensityDataItem()
 {
     return dynamic_cast<IntensityDataItem*>(getItem(T_OUTPUT));
 }
@@ -143,7 +143,7 @@ void JobItem::setStatus(const QString &status)
     combo_property.setValue(status);
     setItemValue(P_STATUS, combo_property.getVariant());
     if(status == Constants::STATUS_FAILED) {
-        if(IntensityDataItem *intensityItem = getIntensityDataItem()) {
+        if(IntensityDataItem *intensityItem = intensityDataItem()) {
             if(intensityItem->getOutputData())
                 intensityItem->getOutputData()->setAllTo(0.0);
                 emit intensityItem->emitDataChanged();
@@ -265,7 +265,7 @@ InstrumentItem *JobItem::instrumentItem()
 
 void JobItem::setResults(const GISASSimulation *simulation)
 {
-    IntensityDataItem *intensityItem = getIntensityDataItem();
+    IntensityDataItem *intensityItem = intensityDataItem();
     Q_ASSERT(intensityItem);
 
     JobItemHelper::setResults(intensityItem, simulation);
@@ -299,7 +299,7 @@ RealDataItem *JobItem::realDataItem()
 
 void JobItem::updateIntensityDataFileName()
 {
-    if(IntensityDataItem *item = getIntensityDataItem())
+    if(IntensityDataItem *item = intensityDataItem())
         item->setItemValue(IntensityDataItem::P_FILE_NAME,
                            JobItemFunctions::jobResultsFileName(*this));
 

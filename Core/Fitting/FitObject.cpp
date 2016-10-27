@@ -72,25 +72,39 @@ std::string FitObject::addParametersToExternalPool(
 //! Initialize detector, if necessary, to match experimental data
 void FitObject::init_dataset(const OutputData<double>& real_data)
 {
-    check_realdata(real_data);
+    process_realdata(real_data);
 
     m_chi2_data.reset(m_simulation->getInstrument().createDetectorMap());
-    bool put_masked_areas_to_zero(true);
-    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
-                                                   put_masked_areas_to_zero);
+//    bool put_masked_areas_to_zero(true);
+//    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
+//                                                   put_masked_areas_to_zero);
 }
 
-//! Checks if real data and the detector have same dimensions. If not, exception will be thrown.
-
-void FitObject::check_realdata(const OutputData<double> &real_data) const
+//! Adapt real data to use with fitting.
+// If real_data and the detector have the same size, real_data will be croped to the ROI
+// If size of real_data and the detector is different, it is assumed that it is already cropped
+void FitObject::process_realdata(const OutputData<double> &real_data)
 {
     const IDetector2D *detector = m_simulation->getInstrument().getDetector();
     if(!DetectorFunctions::hasSameDimensions(*detector, real_data)){
+        std::unique_ptr<OutputData<double>> detectorMap(
+                    m_simulation->getInstrument().createDetectorMap());
+
+        if(detectorMap->hasSameDimensions(real_data)) {
+            detectorMap->setRawDataVector(real_data.getRawDataVector());
+            m_real_data.reset(detectorMap.release());
+        } else {
+
         std::ostringstream message;
         message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
                 << "the detector. Real data:" << DetectorFunctions::axesToString(real_data)
                         << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
         throw Exceptions::RuntimeErrorException(message.str());
+        }
+    } else {
+        bool put_masked_areas_to_zero(true);
+        m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
+                                                       put_masked_areas_to_zero);
     }
 }
 

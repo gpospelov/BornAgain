@@ -23,6 +23,7 @@
 #include "JobItemHelper.h"
 #include "ImportDataAssistant.h"
 #include "MaskUnitsConverter.h"
+#include <QDebug>
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
@@ -65,7 +66,6 @@ RealDataItem::RealDataItem()
             if(!m_linkedInstrument)
                 return;
             mapper()->setActive(false);
-            Q_ASSERT(m_linkedInstrument);
 
             MaskUnitsConverter converter;
             converter.convertToNbins(intensityDataItem());
@@ -104,9 +104,6 @@ void RealDataItem::setOutputData(OutputData<double> *data)
 
 void RealDataItem::linkToInstrument(const InstrumentItem *instrument)
 {
-//    if(m_linkedInstrument == instrument)
-//        return;
-
     m_linkedInstrument = instrument;
     updateToInstrument();
 }
@@ -139,14 +136,15 @@ void RealDataItem::updateToInstrument()
         item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
         item->setXaxisTitle("X [nbins]");
         item->setYaxisTitle("Y [nbins]");
+        MaskUnitsConverter converter;
+        converter.convertToNbins(intensityDataItem());
         item->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*item->getOutputData()));
         item->setAxesRangeToData();
+        converter.convertFromNbins(intensityDataItem());
     }
 
     else {
-
-        JobItemHelper::adjustIntensityDataToInstrument(item, m_linkedInstrument);
-
+        JobItemHelper::adjustAxesUnitsToInstrument(item, m_linkedInstrument);
     }
 
 }

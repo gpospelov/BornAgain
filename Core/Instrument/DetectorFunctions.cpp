@@ -64,7 +64,7 @@ std::string DetectorFunctions::axesToString(const OutputData<double> &data)
 }
 
 std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instrument &instrument,
-    const OutputData<double> &data, bool put_masked_areas_to_zero)
+    const OutputData<double> &data, bool put_masked_areas_to_zero, IDetector2D::EAxesUnits units)
 {
     if(!DetectorFunctions::hasSameDimensions(*instrument.getDetector(), data)){
         std::ostringstream message;
@@ -75,7 +75,7 @@ std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instr
         throw Exceptions::RuntimeErrorException(message.str());
     }
 
-    std::unique_ptr<OutputData<double>> result(instrument.createDetectorMap());
+    std::unique_ptr<OutputData<double>> result(instrument.createDetectorMap(units));
 
     if(put_masked_areas_to_zero) {
 

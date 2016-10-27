@@ -86,9 +86,9 @@ public:
     bool runImmediately() const;
     bool runInBackground() const;
 
-    MultiLayerItem *getMultiLayerItem();
+    MultiLayerItem *multiLayerItem();
 
-    InstrumentItem *getInstrumentItem();
+    InstrumentItem *instrumentItem();
 
     SimulationOptionsItem *getSimulationOptionsItem();
 

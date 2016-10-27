@@ -22,6 +22,7 @@
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"
+#include "RegionOfInterest.h"
 #include "Exceptions.h"
 
 IDetector2D::IDetector2D()
@@ -51,17 +52,6 @@ const IAxis &IDetector2D::getAxis(size_t index) const
     if (isCorrectAxisIndex(index))
         return *m_axes[index];
     throw Exceptions::OutOfBoundsException("Not so many axes in this detector.");
-}
-
-void IDetector2D::matchDetectorAxes(const OutputData<double> &output_data)
-{
-    if (output_data.getRank()!=2)
-        throw Exceptions::LogicErrorException(
-            "IDetector2D::matchDetectorAxes() -> Error! Data is not two dimensional");
-    clear();
-    for (size_t i_axis = 0; i_axis < output_data.getRank(); ++i_axis)
-        addAxis(*output_data.getAxis(i_axis));
-    m_detector_mask.initMaskData(*this);
 }
 
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -132,6 +122,7 @@ OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis(*constructAxis(BornAgain::X_AXIS_INDEX, beam, units));
     result->addAxis(*constructAxis(BornAgain::Y_AXIS_INDEX, beam, units));
+    result->setAllTo(0.);
     return result.release();
 }
 
@@ -148,19 +139,21 @@ std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
     return result;
 }
 
-const Geometry::Rectangle *IDetector2D::regionOfInterest() const
+const RegionOfInterest *IDetector2D::regionOfInterest() const
 {
     return m_region_of_interest.get();
 }
 
 void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    m_region_of_interest.reset(new Geometry::Rectangle(xlow, ylow, xup, yup));
+    m_region_of_interest.reset(new RegionOfInterest(*this, xlow, ylow, xup, yup));
+    m_detector_mask.initMaskData(*this);
 }
 
 void IDetector2D::resetRegionOfInterest()
 {
     m_region_of_interest.reset();
+    m_detector_mask.initMaskData(*this);
 }
 
 void IDetector2D::removeMasks()
@@ -186,10 +179,10 @@ const DetectorMask *IDetector2D::getDetectorMask() const
     return &m_detector_mask;
 }
 
-int IDetector2D::getNumberOfMaskedChannels() const
+size_t IDetector2D::numberOfMaskedChannels() const
 {
     if (getDetectorMask()) {
-        return getDetectorMask()->getNumberOfMaskedChannels();
+        return getDetectorMask()->numberOfMaskedChannels();
     } else {
         return 0;
     }
@@ -197,9 +190,7 @@ int IDetector2D::getNumberOfMaskedChannels() const
 
 bool IDetector2D::isMasked(size_t index) const
 {
-    if (!m_detector_mask.getMaskData()->isInitialized())
-        return false;
-    return m_detector_mask.getMask(index);
+    return m_detector_mask.isMasked(index);
 }
 
 bool IDetector2D::hasMasks() const
@@ -223,8 +214,8 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
 
     SimulationArea area(this);
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        SimulationElement sim_element(wavelength, alpha_i, phi_i,
-                                      std::unique_ptr<IPixelMap>(createPixelMap(it.index())));
+        SimulationElement sim_element(wavelength, alpha_i, phi_i, std::unique_ptr<IPixelMap>(
+                                          createPixelMap(it.detectorIndex())));
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         if (it.index()==spec_index) {
@@ -245,23 +236,15 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
                              std::unique_ptr<IPixelMap>(createPixelMap(index)));
 }
 
-void IDetector2D::transferResultsToIntensityMap(OutputData<double> &data,
-    const std::vector<SimulationElement> &elements) const
-{
-    SimulationArea area(this);
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
-        data[it.index()] = elements[it.elementIndex()].getIntensity();
-}
-
 size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
 {
     size_t remainder(index);
     for (size_t i=0; i<getDimension(); ++i)
     {
         size_t i_axis = getDimension()-1-i;
-        int result = remainder % m_axes[i_axis]->getSize();
+        int result = remainder % m_axes[i_axis]->size();
         if(selected_axis == i_axis ) return result;
-        remainder /= m_axes[i_axis]->getSize();
+        remainder /= m_axes[i_axis]->size();
     }
     throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
                                           "Error! No axis with given number");
@@ -283,33 +266,13 @@ std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam 
     calculateAxisRange(axis_index, beam, units, amin, amax);
 
     std::unique_ptr<IAxis> result(new FixedBinAxis(getAxisName(axis_index),
-                                                   getAxis(axis_index).getSize(), amin, amax));
+                                                   getAxis(axis_index).size(), amin, amax));
 
     if(m_region_of_interest) {
-        return clipAxisToRoi(axis_index, *result.get());
+        return m_region_of_interest->clipAxisToRoi(axis_index, *result.get());
     } else {
         return result;
     }
-}
-
-std::unique_ptr<IAxis> IDetector2D::clipAxisToRoi(size_t axis_index, const IAxis &axis) const
-{
-    if(!m_region_of_interest)
-        throw Exceptions::RuntimeErrorException("IDetector2D::clipAxisToRoi() -> Error. ROI is "
-                                                "absent");
-
-    size_t nbin1(0), nbin2(axis.getSize()-1);
-    if(axis_index == BornAgain::X_AXIS_INDEX) {
-        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXlow());
-        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getXup());
-
-    }else if(axis_index == BornAgain::Y_AXIS_INDEX) {
-        nbin1 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYlow());
-        nbin2 = getAxis(axis_index).findClosestIndex(m_region_of_interest->getYup());
-    }
-
-    return std::unique_ptr<IAxis>(new FixedBinAxis(axis.getName(), nbin2-nbin1+1,
-                                    axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
 }
 
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
@@ -323,14 +286,14 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
 
     }else if(units == NBINS) {
         amin = 0.0;
-        amax = static_cast<double>(getAxis(axis_index).getSize());
+        amax = static_cast<double>(getAxis(axis_index).size());
 
     } else if(units == QYQZ && axis_index == BornAgain::X_AXIS_INDEX) {
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         SimulationElement el_left_bottom
             = getSimulationElement(getGlobalIndex(0, 0), beam);
         SimulationElement el_right_bottom
-            = getSimulationElement(getGlobalIndex(aX.getSize()-1, 0), beam);
+            = getSimulationElement(getGlobalIndex(aX.size()-1, 0), beam);
         amin = el_left_bottom.getQ(0.0, 0.0).y();
         amax = el_right_bottom.getQ(1.0, 0.0).y();
 
@@ -338,9 +301,9 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
         SimulationElement el_center_bottom
-            = getSimulationElement(getGlobalIndex(aX.getSize()/2, 0), beam);
+            = getSimulationElement(getGlobalIndex(aX.size()/2, 0), beam);
         SimulationElement el_center_top
-            = getSimulationElement(getGlobalIndex(aX.getSize()/2, aY.getSize()-1), beam);
+            = getSimulationElement(getGlobalIndex(aX.size()/2, aY.size()-1), beam);
         amin = -el_center_bottom.getQ(0.5, 0.0).z();
         amax = -el_center_top.getQ(0.5, 1.0).z();
 
@@ -353,7 +316,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
     if (getDimension()!=2) return getTotalSize();
-    return x*m_axes[1]->getSize()+y;
+    return x*m_axes[1]->size()+y;
 }
 
 size_t IDetector2D::getTotalSize() const
@@ -362,7 +325,7 @@ size_t IDetector2D::getTotalSize() const
     size_t result = 1;
     for (size_t i_axis=0; i_axis<getDimension(); ++i_axis)
     {
-        result *= m_axes[i_axis]->getSize();
+        result *= m_axes[i_axis]->size();
     }
     return result;
 }

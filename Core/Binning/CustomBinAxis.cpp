@@ -74,7 +74,7 @@ CustomBinAxis *CustomBinAxis::createClippedAxis(double /* left */, double /* rig
 
 void CustomBinAxis::print(std::ostream &ostr) const
 {
-    ostr << "CustomBinAxis(\"" << m_name << "\", " << getSize() << ", "
+    ostr << "CustomBinAxis(\"" << m_name << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10+2)
          << m_start << ", " << m_end << ")";
 }
@@ -84,7 +84,7 @@ bool CustomBinAxis::equals(const IAxis &other) const
 {
     if (!IAxis::equals(other)) return false;
     if (const CustomBinAxis *otherAxis = dynamic_cast<const CustomBinAxis *>(&other)) {
-        if (getSize() != otherAxis->getSize()) return false;
+        if (size() != otherAxis->size()) return false;
         if ( !Numeric::areAlmostEqual(m_start, otherAxis->m_start)) return false;
         if ( !Numeric::areAlmostEqual(m_end, otherAxis->m_end)) return false;
         return true;

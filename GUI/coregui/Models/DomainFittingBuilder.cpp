@@ -46,7 +46,7 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
         double value = parItem->getItemValue(FitParameterItem::P_START_VALUE).toDouble();
         foreach(SessionItem *linkItem, parItem->getItems(FitParameterItem::T_LINK)) {
             QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-            std::string domainPath = "*" + ModelPath::translateParameterName(jobItem->getMultiLayerItem()->parent(), link);
+            std::string domainPath = "*" + ModelPath::translateParameterName(jobItem->multiLayerItem()->parent(), link);
             linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
             result->addFitParameter(domainPath, value, parItem->getAttLimits());
             //FIXME only link is possible at the time due to limitations in FitCore
@@ -56,8 +56,8 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 
     DomainSimulationBuilder builder;
     const std::unique_ptr<GISASSimulation> simulation(
-                builder.getSimulation(jobItem->getMultiLayerItem(),
-                                        jobItem->getInstrumentItem()));
+                builder.getSimulation(jobItem->multiLayerItem(),
+                                        jobItem->instrumentItem()));
 
     RealDataItem *realDataItem = jobItem->realDataItem();
     if(!realDataItem)

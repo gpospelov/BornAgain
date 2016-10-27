@@ -58,13 +58,10 @@ public:
     void addAxis(const std::string& name, size_t size, double start, double end);
 
     //! returns axis with given serial number
-    const IAxis* getAxis(size_t serial_number) const;
+    const IAxis& getAxis(size_t serial_number) const;
 
     //! returns axis with given name
-    const IAxis* getAxis(const std::string& axis_name) const;
-
-    //! returns serial number of axis with given name
-    size_t getAxisSerialNumber(const std::string& axis_name) const;
+    const IAxis& getAxis(const std::string& axis_name) const;
 
     // ---------------------------------
     // retrieve basic info
@@ -118,18 +115,6 @@ public:
     const_iterator end() const {
         return const_iterator(this, getAllocatedSize());
     }
-
-    //! Returns mask that will be used by iterators
-    Mask* getMask() const { return mp_mask; }
-
-    //! Sets mask (or a stack of masks)
-    void setMask(const Mask& mask);
-
-    //! Adds mask that will be used by iterators
-    void addMask(const Mask& mask);
-
-    //! Remove all masks
-    void removeAllMasks();
 
     void setVariability(double variability) { m_variability = variability; }
     double getVariability() const { return m_variability; }
@@ -265,9 +250,14 @@ public:
     void allocate();
 
 private:
+    //! returns serial number of axis with given name
+    size_t getAxisIndex(const std::string& axis_name) const;
+
+    //! checks if given axis name exists
+    bool axisNameExists(const std::string& axis_name) const;
+
     SafePointerVector<IAxis> m_value_axes;
     LLData<T>* mp_ll_data;
-    Mask* mp_mask;
     double m_variability;
 };
 
@@ -279,7 +269,6 @@ template <class T>
 OutputData<T>::OutputData()
     : m_value_axes()
     , mp_ll_data(nullptr)
-    , mp_mask(nullptr)
     , m_variability(2e-10)
 {
     allocate();
@@ -296,8 +285,6 @@ OutputData<T>* OutputData<T>::clone() const
     OutputData<T>* ret = new OutputData<T>();
     ret->m_value_axes = m_value_axes;
     (*ret->mp_ll_data) = *mp_ll_data;
-    if (mp_mask)
-        ret->mp_mask = mp_mask->clone();
     ret->setVariability(m_variability);
     return ret;
 }
@@ -311,8 +298,6 @@ void OutputData<T>::copyFrom(const OutputData<T>& other)
     mp_ll_data = 0;
     if(other.mp_ll_data)
         mp_ll_data = new LLData<T>(*other.mp_ll_data);
-    if (other.getMask())
-        mp_mask = other.getMask()->clone();
     m_variability = other.getVariability();
 }
 
@@ -323,9 +308,7 @@ void OutputData<T>::copyShapeFrom(const OutputData<U>& other)
     clear();
     size_t rank = other.getRank();
     for (size_t i=0; i<rank; ++i)
-        addAxis(*other.getAxis(i));
-    if (other.getMask())
-        mp_mask = other.getMask()->clone();
+        addAxis(other.getAxis(i));
     m_variability = other.getVariability();
 }
 
@@ -345,12 +328,12 @@ OutputData<double>* OutputData<T>::meanValues() const
 template <class T>
 void OutputData<T>::addAxis(const IAxis& new_axis)
 {
-    if( getAxis(new_axis.getName()) )
+    if( axisNameExists(new_axis.getName()) )
         throw Exceptions::LogicErrorException(
             "OutputData<T>::addAxis(const IAxis& new_axis) -> "
             "Error! Attempt to add axis with already existing name '" +
             new_axis.getName() + "'");
-    if (new_axis.getSize()>0) {
+    if (new_axis.size()>0) {
         m_value_axes.push_back(new_axis.clone());
         allocate();
     }
@@ -359,7 +342,7 @@ void OutputData<T>::addAxis(const IAxis& new_axis)
 template <class T>
 void OutputData<T>::addAxis(const std::string& name, size_t size, double start, double end)
 {
-    if( getAxis(name) )
+    if( axisNameExists(name) )
         throw Exceptions::LogicErrorException(
             "OutputData<T>::addAxis(std::string name) -> "
             "Error! Attempt to add axis with already existing name '" +
@@ -369,31 +352,16 @@ void OutputData<T>::addAxis(const std::string& name, size_t size, double start, 
 }
 
 template <class T>
-const IAxis* OutputData<T>::getAxis(size_t serial_number) const
+const IAxis& OutputData<T>::getAxis(size_t serial_number) const
 {
-    return m_value_axes[serial_number];
+    return *m_value_axes[serial_number];
 }
 
 template <class T>
-const IAxis* OutputData<T>::getAxis(const std::string& axis_name) const
+const IAxis& OutputData<T>::getAxis(const std::string& axis_name) const
 {
-    for (size_t i = 0; i < m_value_axes.size(); ++i)
-        if (m_value_axes[i]->getName() == axis_name)
-            return m_value_axes[i];
-    return 0;
+    return getAxis(getAxisIndex(axis_name));
 }
-
-// return index of axis
-template <class T>
-size_t OutputData<T>::getAxisSerialNumber(const std::string &axis_name) const
-{
-    for (size_t i = 0; i < m_value_axes.size(); ++i)
-        if (m_value_axes[i]->getName() == axis_name) return i;
-    throw Exceptions::LogicErrorException(
-        "OutputData<T>::getAxisSerialNumber() -> "
-        "Error! Axis with given name not found '"+axis_name+std::string("'"));
-}
-
 
 template<class T>
 inline std::vector<size_t> OutputData<T>::getAllSizes() const
@@ -430,8 +398,6 @@ template <class T>
 typename OutputData<T>::iterator OutputData<T>::begin()
 {
     typename OutputData<T>::iterator result(this);
-    if (mp_mask)
-        result.setMask(*mp_mask);
     return result;
 }
 
@@ -439,39 +405,7 @@ template <class T>
 typename OutputData<T>::const_iterator OutputData<T>::begin() const
 {
     typename OutputData<T>::const_iterator result(this);
-    if (mp_mask)
-        result.setMask(*mp_mask);
     return result;
-}
-
-template <class T>
-void OutputData<T>::setMask(const Mask& mask)
-{
-    if (mp_mask !=& mask) {
-        delete mp_mask;
-        mp_mask = mask.clone();
-        mp_mask->setMaxIndex(getAllocatedSize());
-    }
-}
-
-template <class T>
-void OutputData<T>::addMask(const Mask& mask)
-{
-    if (mask.mp_submask)
-        throw Exceptions::RuntimeErrorException(
-            "OutputData<T>::addMask() -> "
-            "Error! One can only add single masks to OutputDataIterator at a time");
-    Mask* p_old_mask = getMask();
-    mp_mask = mask.clone();
-    mp_mask->mp_submask = p_old_mask;
-    mp_mask->setMaxIndex(getAllocatedSize());
-}
-
-template<class T>
-void OutputData<T>::removeAllMasks()
-{
-    delete mp_mask;
-    mp_mask = 0;
 }
 
 template<class T>
@@ -483,8 +417,8 @@ std::vector<int> OutputData<T>::getAxesBinIndices(size_t global_index) const
     result.resize(mp_ll_data->getRank());
     for (size_t i=0; i<mp_ll_data->getRank(); ++i) {
         result[mp_ll_data->getRank()-1-i] =
-            (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i]->getSize());
-        remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->getSize();
+            (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i]->size());
+        remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->size();
     }
     return result;
 }
@@ -496,9 +430,9 @@ int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) 
     size_t remainder(global_index);
     for (size_t i=0; i<mp_ll_data->getRank(); ++i) {
         size_t i_axis = mp_ll_data->getRank()-1-i;
-        int result = (int)(remainder % m_value_axes[i_axis]->getSize());
+        int result = (int)(remainder % m_value_axes[i_axis]->size());
         if(i_selected_axis == i_axis ) return result;
-        remainder /= m_value_axes[i_axis]->getSize();
+        remainder /= m_value_axes[i_axis]->size();
     }
     throw Exceptions::LogicErrorException("OutputData<T>::getAxisBinIndex() -> "
                                           "Error! No axis with given number");
@@ -508,7 +442,7 @@ int OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) 
 template<class T>
 int OutputData<T>::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
 {
-    return getAxisBinIndex(global_index, getAxisSerialNumber(axis_name));
+    return getAxisBinIndex(global_index, getAxisIndex(axis_name));
 }
 
 template <class T>
@@ -522,16 +456,16 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
     size_t result = 0;
     int step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i) {
-        if(axes_indices[i-1] < 0 || axes_indices[i-1] >= (int)m_value_axes[i-1]->getSize()) {
+        if(axes_indices[i-1] < 0 || axes_indices[i-1] >= (int)m_value_axes[i-1]->size()) {
             std::ostringstream message;
             message << "size_t OutputData<T>::toGlobalIndex() -> Error. Index ";
             message << axes_indices[i-1] << " is out of range. Axis ";
             message << m_value_axes[i-1]->getName();
-            message << " size " << m_value_axes[i-1]->getSize() << ".\n";
+            message << " size " << m_value_axes[i-1]->size() << ".\n";
             throw Exceptions::LogicErrorException(message.str());
         }
         result += axes_indices[i-1]*step_size;
-        step_size *= m_value_axes[i-1]->getSize();
+        step_size *= m_value_axes[i-1]->size();
     }
     return result;
 }
@@ -561,7 +495,7 @@ double OutputData<T>::getAxisValue(size_t global_index, size_t i_selected_axis) 
 template <class T>
 double OutputData<T>::getAxisValue(size_t global_index, const std::string& axis_name) const
 {
-    return getAxisValue(global_index, getAxisSerialNumber(axis_name));
+    return getAxisValue(global_index, getAxisIndex(axis_name));
 }
 
 template <class T>
@@ -584,7 +518,7 @@ Bin1D OutputData<T>::getAxisBin(size_t global_index, size_t i_selected_axis) con
 template <class T>
 Bin1D OutputData<T>::getAxisBin(size_t global_index, const std::string& axis_name) const
 {
-    return getAxisBin(global_index, getAxisSerialNumber(axis_name));
+    return getAxisBin(global_index, getAxisIndex(axis_name));
 }
 
 template<class T>
@@ -598,8 +532,6 @@ template <class T>
 void OutputData<T>::clear()
 {
     m_value_axes.clear();
-    delete mp_mask;
-    mp_mask = 0;
     allocate();
 }
 
@@ -681,7 +613,7 @@ void OutputData<T>::allocate()
     size_t rank = m_value_axes.size();
     int* dims =  new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        dims[i] = (int)getAxis(i)->getSize();
+        dims[i] = (int)getAxis(i).size();
     }
     mp_ll_data = new LLData<T>(rank, dims);
     T default_value = T();
@@ -716,7 +648,7 @@ inline bool OutputData<T>::hasSameDimensions(const OutputData<U>& right) const
     if (!right.isInitialized()) return false;
     if (getRank() != right.getRank()) return false;
     for (size_t i_axis=0; i_axis<getRank(); ++i_axis)
-        if (getAxis(i_axis)->getSize() != right.getAxis(i_axis)->getSize()) return false;
+        if (getAxis(i_axis).size() != right.getAxis(i_axis).size()) return false;
     return true;
 }
 
@@ -728,7 +660,7 @@ bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
     if (!hasSameDimensions(right)) return false;
 
     for (size_t i=0; i<m_value_axes.size(); ++i)
-        if (!HaveSameNameAndShape(*getAxis(i), *right.getAxis(i))) return false;
+        if (!HaveSameNameAndShape(getAxis(i), right.getAxis(i))) return false;
     return true;
 }
 
@@ -737,5 +669,25 @@ bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
 template<>
 PyObject* OutputData<double>::getArray() const;
 #endif
+
+// return index of axis
+template <class T>
+size_t OutputData<T>::getAxisIndex(const std::string &axis_name) const
+{
+    for (size_t i = 0; i < m_value_axes.size(); ++i)
+        if (m_value_axes[i]->getName() == axis_name) return i;
+    throw Exceptions::LogicErrorException(
+        "OutputData<T>::getAxisIndex() -> "
+        "Error! Axis with given name not found '"+axis_name+std::string("'"));
+}
+
+template <class T>
+bool OutputData<T>::axisNameExists(const std::string &axis_name) const
+{
+    for (size_t i = 0; i < m_value_axes.size(); ++i)
+        if (m_value_axes[i]->getName() == axis_name) return true;
+    return false;
+}
+
 
 #endif // OUTPUTDATA_H

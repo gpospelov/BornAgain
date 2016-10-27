@@ -20,32 +20,34 @@
 #include <memory>
 
 SpecularSimulation::SpecularSimulation()
-    : IParameterized("SpecularSimulation"), m_sample(0), m_alpha_i_axis(0), m_z_axis(0),
+    : IParameterized("SpecularSimulation"), mP_sample { nullptr }, m_alpha_i_axis(0), m_z_axis(0),
       m_lambda(0.0)
 {
     init_parameters();
 }
 
 SpecularSimulation::SpecularSimulation(const ISample &sample)
-    : IParameterized("SpecularSimulation"), m_sample(sample.clone()), m_alpha_i_axis(0),
+    : IParameterized("SpecularSimulation"), mP_sample(sample.clone()), m_alpha_i_axis(0),
       m_z_axis(0), m_lambda(0.0)
 {
     init_parameters();
 }
 
 SpecularSimulation::SpecularSimulation(std::shared_ptr<IMultiLayerBuilder> sample_builder)
-    : IParameterized("SpecularSimulation"), m_sample(0), m_sample_builder(sample_builder),
+    : IParameterized("SpecularSimulation"), mP_sample { nullptr },
+      mP_sample_builder(sample_builder),
       m_alpha_i_axis(0), m_z_axis(0), m_lambda(0.0)
 {
     init_parameters();
 }
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation &other)
-    : ICloneable(), IParameterized(other), m_sample(0), m_sample_builder(other.m_sample_builder),
+    : ICloneable(), IParameterized(other), mP_sample { nullptr },
+      mP_sample_builder(other.mP_sample_builder),
       m_alpha_i_axis(0), m_z_axis(0), m_lambda(other.m_lambda)
 {
-    if (other.m_sample)
-        m_sample = other.m_sample->clone();
+    if (other.mP_sample.get())
+        mP_sample.reset( other.mP_sample->clone() );
     if (other.m_alpha_i_axis)
         m_alpha_i_axis = other.m_alpha_i_axis->clone();
     if (other.m_z_axis)
@@ -57,7 +59,6 @@ SpecularSimulation::SpecularSimulation(const SpecularSimulation &other)
 
 SpecularSimulation::~SpecularSimulation()
 {
-    delete m_sample;
     delete m_alpha_i_axis;
     delete m_z_axis;
 }
@@ -69,8 +70,7 @@ SpecularSimulation *SpecularSimulation::clone() const
 
 void SpecularSimulation::setSample(const ISample &sample)
 {
-    delete m_sample;
-    m_sample = sample.clone();
+    mP_sample.reset( sample.clone() );
 }
 
 void SpecularSimulation::setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder)
@@ -79,22 +79,21 @@ void SpecularSimulation::setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sa
         throw Exceptions::NullPointerException("SpecularSimulation::setSampleBuilder() -> "
                                    "Error! Attempt to set null sample builder.");
 
-    m_sample_builder = sample_builder;
-    delete m_sample;
-    m_sample = 0;
+    mP_sample_builder = sample_builder;
+    mP_sample.reset(nullptr);
 }
 
 void SpecularSimulation::prepareSimulation()
 {
     updateSample();
 
-    if (!m_alpha_i_axis || m_alpha_i_axis->getSize() < 1)
+    if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
         throw Exceptions::ClassInitializationException("SpecularSimulation::checkSimulation() "
                                            "-> Error. Incoming alpha range not configured.");
     if (m_lambda <= 0.0)
         throw Exceptions::ClassInitializationException("SpecularSimulation::checkSimulation() "
                                            "-> Error. Incoming wavelength <= 0.");
-    if (!m_sample)
+    if (!mP_sample)
         throw Exceptions::ClassInitializationException(
             "SpecularSimulation::checkSimulation() -> Error. No sample set");
 
@@ -105,7 +104,7 @@ void SpecularSimulation::runSimulation()
 {
     prepareSimulation();
 
-    MultiLayer *multilayer = dynamic_cast<MultiLayer *>(m_sample);
+    MultiLayer *multilayer = dynamic_cast<MultiLayer*>(mP_sample.get());
     if (!multilayer)
         throw Exceptions::NullPointerException(
             "SpecularSimulation::runSimulation() -> Error. Not a MultiLayer");
@@ -198,15 +197,8 @@ SpecularSimulation::getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const
 
 void SpecularSimulation::updateSample()
 {
-    if (m_sample_builder) {
-        ISample *new_sample = m_sample_builder->buildSample();
-        std::string builder_type = typeid(*m_sample_builder).name();
-        if (builder_type.find("IMultiLayerBuilder_wrapper") != std::string::npos) {
-            setSample(*new_sample);
-        } else {
-            delete m_sample;
-            m_sample = new_sample;
-        }
+    if (mP_sample_builder) {
+        mP_sample.reset( mP_sample_builder->buildSample() );
     }
 }
 

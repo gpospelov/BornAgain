@@ -55,12 +55,12 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
     output_stream << "# reproducibility\n" << data.getVariability() << "\n";
 
     for(size_t i=0; i<data.getRank(); ++i) {
-        const IAxis *axis = data.getAxis(i);
+        const IAxis &axis = data.getAxis(i);
         output_stream << std::endl;
         output_stream << "# axis-" << i << "\n";
-        output_stream << (*axis) << "\n";
+        output_stream << (axis) << "\n";
     }
-    size_t n_columns = data.getAxis(data.getRank()-1)->getSize();
+    size_t n_columns = data.getAxis(data.getRank()-1).size();
 
     output_stream << "\n# data\n";
     WriteOutputDataDoubles(data, output_stream, n_columns);
@@ -80,8 +80,8 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& 
     output_stream << "# BornAgain Intensity Data" << std::endl;
     output_stream << "# Simple 2D array suitable for numpy, matlab etc." << std::endl;
 
-    size_t nrows = data.getAxis(BornAgain::Y_AXIS_INDEX)->getSize();
-    size_t ncols = data.getAxis(BornAgain::X_AXIS_INDEX)->getSize();
+    size_t nrows = data.getAxis(BornAgain::Y_AXIS_INDEX).size();
+    size_t ncols = data.getAxis(BornAgain::X_AXIS_INDEX).size();
 
     output_stream << "# [nrows=" << nrows
                   << ", ncols=" << ncols << "]" << std::endl;

@@ -23,15 +23,15 @@ TEST_F(SimulationAreaTest, iteratorOperations)
 
     // begin iterator
     SimulationArea::iterator it_begin = area.begin();
-    EXPECT_EQ(it_begin.index(), 0);
-    EXPECT_EQ(it_begin.elementIndex(), 0);
+    EXPECT_EQ(it_begin.index(), (size_t)0);
+    EXPECT_EQ(it_begin.elementIndex(), (size_t)0);
     EXPECT_TRUE(it_begin == area.begin());
     EXPECT_FALSE(it_begin != area.begin());
 
     // end iterator
     SimulationArea::iterator it_end = area.end();
     EXPECT_EQ(it_end.index(), detector.getTotalSize());
-    EXPECT_EQ(it_end.elementIndex(), 0); // has initial value
+    EXPECT_EQ(it_end.elementIndex(), (size_t)0); // has initial value
 
     // begin/end comparison
     EXPECT_TRUE(it_begin != it_end);
@@ -44,13 +44,13 @@ TEST_F(SimulationAreaTest, iteratorOperations)
 
     // increment
     it++;
-    EXPECT_EQ(it.index(), 1);
-    EXPECT_EQ(it.elementIndex(), 1);
+    EXPECT_EQ(it.index(), (size_t)1);
+    EXPECT_EQ(it.elementIndex(), (size_t)1);
     EXPECT_TRUE(it != it_begin);
     EXPECT_FALSE(it == it_begin);
     ++it;
-    EXPECT_EQ(it.index(), 2);
-    EXPECT_EQ(it.elementIndex(), 2);
+    EXPECT_EQ(it.index(), (size_t)2);
+    EXPECT_EQ(it.elementIndex(), (size_t)2);
 
     // incrementing well behind the end
     for(size_t i=0; i<100; ++i) ++it;
@@ -70,12 +70,15 @@ TEST_F(SimulationAreaTest, detectorIteration)
 
     std::vector<int> indexes;
     std::vector<int> elementIndexes;
+    std::vector<int> detectorIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
     }
     EXPECT_EQ(indexes, expectedIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
+    EXPECT_EQ(detectorIndexes, expectedIndexes);
 }
 
 //! Iteration over masked detector
@@ -149,17 +152,23 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
     detector.addMask(Geometry::Rectangle(-0.9, 0.1, 0.9, 1.9), true);
     SimulationArea area(&detector);
 
-    std::vector<int> expectedIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
+    std::vector<int> expectedRoiIndexes = {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<int> expectedDetectorIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
     std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
     std::vector<int> indexes;
     std::vector<int> elementIndexes;
+    std::vector<int> detectorIndexes;
+    std::vector<int> roiIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
+        roiIndexes.push_back(it.roiIndex());
     }
-    EXPECT_EQ(indexes, expectedIndexes);
+    EXPECT_EQ(indexes, expectedRoiIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
-
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
+    EXPECT_EQ(roiIndexes, expectedRoiIndexes);
 }
 
 //! Checking index of ROI
@@ -171,22 +180,24 @@ TEST_F(SimulationAreaTest, indexInRoi)
     detector.addMask(Geometry::Rectangle(-0.9, 0.1, 0.9, 1.9), true);
     SimulationArea area(&detector);
 
-    std::vector<int> expectedIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
+    std::vector<int> expectedIndexes = {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<int> expectedDetectorIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
     std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
     std::vector<int> expectedRoi = {1, 2, 3, 4, 5, 6, 7, 8};
     std::vector<int> indexes;
     std::vector<int> elementIndexes;
     std::vector<int> roiIndexes;
+    std::vector<int> detectorIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
         roiIndexes.push_back(it.roiIndex());
+        detectorIndexes.push_back(it.detectorIndex());
     }
     EXPECT_EQ(indexes, expectedIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
     EXPECT_EQ(roiIndexes, expectedRoi);
-
-
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
 }
 
 #endif

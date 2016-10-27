@@ -39,7 +39,7 @@ public:
     virtual ~IAxis() {}
 
     //! retrieve the number of bins
-    virtual size_t getSize() const=0;
+    virtual size_t size() const=0;
 
     //! retrieve the label of the axis
     std::string getName() const { return m_name; }
@@ -65,7 +65,7 @@ public:
     virtual size_t findClosestIndex(double value) const=0;
 
     //! find index of bin that contains the given value
-    //! returns getSize() when value is not found
+    //! returns size() when value is not found
     size_t findIndex(double value) const;
 
     //! test for equality

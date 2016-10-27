@@ -30,7 +30,7 @@ PyObject* OutputData<double>::getArray() const
 {
     std::vector<size_t > dimensions;
     for (size_t i=0; i<getRank(); i++)
-        dimensions.push_back(getAxis(i)->getSize());
+        dimensions.push_back(getAxis(i).size());
 
     // for rot90 of 2-dim arrays to conform with numpy
     if (dimensions.size() == 2)
@@ -57,7 +57,7 @@ PyObject* OutputData<double>::getArray() const
         for (size_t index=0; index<getAllocatedSize(); ++index) {
             std::vector<int> axes_indices = getAxesBinIndices(index);
             size_t offset = axes_indices[0] +
-                m_value_axes[0]->getSize()*(m_value_axes[1]->getSize() - 1 - axes_indices[1]);
+                m_value_axes[0]->size()*(m_value_axes[1]->size() - 1 - axes_indices[1]);
             array_buffer[offset] = (*this)[index];
         }
 

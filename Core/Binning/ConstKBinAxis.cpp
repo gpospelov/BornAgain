@@ -58,7 +58,7 @@ ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const
             "ConstKBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
 
     if(left < getMin()) left = getBin(0).getMidPoint();
-    if(right >= getMax()) right = getBin(getSize()-1).getMidPoint();
+    if(right >= getMax()) right = getBin(size()-1).getMidPoint();
 
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);
@@ -81,7 +81,7 @@ bool ConstKBinAxis::equals(const IAxis& other) const
 {
     if (!IAxis::equals(other)) return false;
     if (const ConstKBinAxis* otherAxis = dynamic_cast<const ConstKBinAxis*>(&other)) {
-        if (getSize() != otherAxis->getSize()) return false;
+        if (size() != otherAxis->size()) return false;
         if ( !Numeric::areAlmostEqual(m_start, otherAxis->m_start)) return false;
         if ( !Numeric::areAlmostEqual(m_end, otherAxis->m_end)) return false;
         return true;
@@ -91,7 +91,7 @@ bool ConstKBinAxis::equals(const IAxis& other) const
 
 void ConstKBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "ConstKBinAxis(\"" << m_name << "\", " << getSize() << ", "
+    ostr << "ConstKBinAxis(\"" << m_name << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10+2)
          << m_start << ", " << m_end << ")";
 }

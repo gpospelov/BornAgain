@@ -42,7 +42,7 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
 {
     size_t result(0);
     for(auto it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it)
-        result += (*it)->getSizeOfData();
+        result += (*it)->numberOfFitElements();
     return result;
 }
 
@@ -51,25 +51,31 @@ void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule& chi2_module)
     m_chi2_module.reset(chi2_module.clone());
 }
 
-const OutputData<double> *FitSuiteObjects::getRealData(size_t i_item) const
+const OutputData<double> &FitSuiteObjects::getRealData(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->getRealData();
+    return m_fit_objects[check_index(i_item)]->realData();
 }
 
-const OutputData<double>* FitSuiteObjects::getSimulationData(size_t i_item) const
+const OutputData<double> &FitSuiteObjects::getSimulationData(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->getSimulationData();
+    return m_fit_objects[check_index(i_item)]->simulationData();
 }
 
-const OutputData<double>* FitSuiteObjects::getChiSquaredMap(size_t i_item) const
+const OutputData<double> &FitSuiteObjects::getChiSquaredMap(size_t i_item) const
 {
     check_index(i_item);
+
     size_t istart(0);
     for(size_t i=0; i<i_item; ++i)
-        istart += m_fit_objects[i]->getSizeOfData();
+        istart += m_fit_objects[i]->numberOfFitElements();
+
     std::vector<FitElement>::const_iterator start = m_fit_elements.begin() + istart;
-    std::vector<FitElement>::const_iterator end = start + m_fit_objects[i_item]->getSizeOfData();
-    return m_fit_objects[check_index(i_item)]->getChiSquaredMap(start, end);
+    std::vector<FitElement>::const_iterator end = start
+            + m_fit_objects[i_item]->numberOfFitElements();
+
+    m_fit_objects[i_item]->transferToChi2Map(start, end);
+
+    return m_fit_objects[i_item]->chiSquaredMap();
 }
 
 //! loop through all defined simulations and run them
@@ -85,7 +91,7 @@ void FitSuiteObjects::runSimulations()
     m_fit_elements.reserve(getSizeOfDataSet());
 
     for(auto it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it)
-        (*it)->prepareFitElements(m_fit_elements, (*it)->getWeight()/m_total_weight,
+        (*it)->prepareFitElements(m_fit_elements, (*it)->weight()/m_total_weight,
                                   m_chi2_module->getIntensityNormalizer());
 
     if(m_fit_elements.size() != getSizeOfDataSet()) {

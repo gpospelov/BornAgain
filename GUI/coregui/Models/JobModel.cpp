@@ -27,6 +27,7 @@
 #include "ParameterTreeItems.h"
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
+#include "JobModelFunctions.h"
 #include <QDebug>
 
 
@@ -97,10 +98,8 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 
-    if(realDataItem) {
-        copyRealDataItem(jobItem, realDataItem);
-        createFitContainers(jobItem);
-    }
+    if(realDataItem)
+        JobModelFunctions::setupJobItemForFit(jobItem, realDataItem);
 
     return jobItem;
 }
@@ -202,53 +201,3 @@ void JobModel::restoreItem(SessionItem *item)
         restoreItem(child);
     }
 }
-
-//! Copy RealDataItem to jobItem intended for fitting.
-
-void JobModel::copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem)
-{
-    if(!realDataItem)
-        return;
-
-    RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(
-        copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
-    Q_ASSERT(realDataItemCopy);
-    realDataItemCopy->intensityDataItem()->setOutputData(
-                realDataItem->intensityDataItem()->getOutputData()->clone());
-}
-
-//! Creates necessary fit containers for jobItem intended for fitting.
-
-void JobModel::createFitContainers(JobItem *jobItem)
-{
-    SessionItem *fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
-    if(fitSuiteItem != nullptr) {
-        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
-                                "a second FitSuiteItem.");
-    }
-
-    fitSuiteItem = insertNewItem(Constants::FitSuiteType,
-                                 jobItem->index(), -1, JobItem::T_FIT_SUITE);
-
-    SessionItem *parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
-    if(parsContainerItem != nullptr) {
-        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
-                                "a second FitParameterContainer.");
-    }
-
-    parsContainerItem = insertNewItem(Constants::FitParameterContainerType,
-                                      fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
-
-    // Minimizer settings
-    SessionItem *minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
-    if(minimizerContainerItem != nullptr) {
-        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
-                                "a second MinimizerContainer.");
-    }
-
-    minimizerContainerItem = insertNewItem(Constants::MinimizerContainerType,
-                                      fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
-
-}
-
-

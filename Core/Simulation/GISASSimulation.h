@@ -56,11 +56,6 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
 
-    //! Sets detector parameters using axes of output data
-    //! TODO -> remove this after RegionOfInterest
-    void setDetectorParameters(const OutputData<double>& output_data);
-    void setDetectorParameters(const IHistogram& histogram);
-
     //! Sets spherical detector parameters using angle ranges
     //! @param n_phi number of phi-axis bins
     //! @param phi_min low edge of first phi-bin

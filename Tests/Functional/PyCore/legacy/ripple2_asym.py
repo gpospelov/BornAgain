@@ -55,7 +55,7 @@ def runTest():
 
     reference = get_reference_data("ripple2_asym_reference.int.gz")
 
-    diff = IntensityDataFunctions.getRelativeDifference(result, reference)
+    diff = getRelativeDifference(result, reference)
 
     status = "OK"
     if (diff > 1e-10 or numpy.isnan(diff)):

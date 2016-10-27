@@ -5,7 +5,9 @@
         return c * *($self); }
     BasicVector3D<double> __rmul__(double c) const {
         return *($self) * c; }
- };
+    BasicVector3D<double> __neg__() const {
+        return - *($self); }
+};
 
 %extend OutputData<double> {
     double __getitem__(unsigned int i) { return (*($self))[i]; }

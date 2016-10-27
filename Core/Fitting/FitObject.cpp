@@ -22,21 +22,39 @@
 #include "DetectorFunctions.h"
 
 FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
-    double weight, bool adjust_detector_to_data)
+    double weight)
     : m_simulation(simulation.clone())
-    , m_real_data(real_data.clone())
-    , m_chi2_data(new OutputData<double>)
     , m_weight(weight)
-    , m_adjust_detector_to_data(adjust_detector_to_data)
 {
     setName("FitObject");
-    init_dataset();
+    init_dataset(real_data);
 }
 
 FitObject::~FitObject()
 {}
 
+const OutputData<double>& FitObject::realData() const
+{
+    return *m_real_data.get();
+}
+
+const OutputData<double>& FitObject::simulationData() const
+{
+    return *m_simulation_data.get();
+}
+
+const OutputData<double>& FitObject::chiSquaredMap() const
+{
+    return *m_chi2_data.get();
+}
+
+const GISASSimulation& FitObject::simulation() const
+{
+    return *m_simulation.get();
+}
+
 //! Adds parameters from local pool to external pool
+
 std::string FitObject::addParametersToExternalPool(
     const std::string& path, ParameterPool* external_pool, int copy_number) const
 {
@@ -52,32 +70,52 @@ std::string FitObject::addParametersToExternalPool(
 }
 
 //! Initialize detector, if necessary, to match experimental data
-void FitObject::init_dataset()
+void FitObject::init_dataset(const OutputData<double>& real_data)
 {
-    check_realdata();
-    m_chi2_data->copyShapeFrom(*m_real_data);
+    process_realdata(real_data);
+
+    m_chi2_data.reset(m_simulation->getInstrument().createDetectorMap());
+//    bool put_masked_areas_to_zero(true);
+//    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
+//                                                   put_masked_areas_to_zero);
 }
 
-void FitObject::check_realdata() const
+//! Adapt real data to use with fitting.
+// If real_data and the detector have the same size, real_data will be croped to the ROI
+// If size of real_data and the detector is different, it is assumed that it is already cropped
+void FitObject::process_realdata(const OutputData<double> &real_data)
 {
     const IDetector2D *detector = m_simulation->getInstrument().getDetector();
-    if(!DetectorFunctions::hasSameDimensions(*detector, *m_real_data.get())){
+    if(!DetectorFunctions::hasSameDimensions(*detector, real_data)){
+        std::unique_ptr<OutputData<double>> detectorMap(
+                    m_simulation->getInstrument().createDetectorMap());
+
+        if(detectorMap->hasSameDimensions(real_data)) {
+            detectorMap->setRawDataVector(real_data.getRawDataVector());
+            m_real_data.reset(detectorMap.release());
+        } else {
+
         std::ostringstream message;
         message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
-                << "the detector. Real data:" << DetectorFunctions::axesToString(*m_real_data.get())
+                << "the detector. Real data:" << DetectorFunctions::axesToString(real_data)
                         << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
         throw Exceptions::RuntimeErrorException(message.str());
+        }
+    } else {
+        bool put_masked_areas_to_zero(true);
+        m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
+                                                       put_masked_areas_to_zero);
     }
 }
 
-
-size_t FitObject::getSizeOfData() const
+size_t FitObject::numberOfFitElements() const
 {
     return m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
 }
 
-//! Runs simulation and put results (the real and simulated intensities) into
-//! external vector. Masked channels will be excluded from the vector.
+//! Runs simulation and put results (the real and simulated intensities) into external vector.
+//! Masked channels will be excluded from the vector.
+
 void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double weight,
                                    IIntensityNormalizer* normalizer)
 {
@@ -89,21 +127,20 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
 
     SimulationArea area(m_simulation->getInstrument().getDetector());
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        FitElement element(it.index(), (*m_simulation_data)[it.index()],
-                (*m_real_data)[it.index()], weight);
+        FitElement element(it.roiIndex(), (*m_simulation_data)[it.roiIndex()],
+                (*m_real_data)[it.roiIndex()], weight);
         fit_elements.push_back(element);
     }
-
 }
 
-//!Creates ChiSquared map from external vector.
-// It is used from Python in one example, didn't find nicer way/place to create such map.
-const OutputData<double>* FitObject::getChiSquaredMap(
+//! Updates ChiSquared map from external vector and returns const reference to it. Used from
+//! Python in FitSuiteDrawObserver.
+
+void FitObject::transferToChi2Map(
     std::vector<FitElement>::const_iterator first,
     std::vector<FitElement>::const_iterator last) const
 {
     m_chi2_data->setAllTo(0.0);
     for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it)
         (*m_chi2_data)[it->getIndex()] = it->getSquaredDifference();
-    return m_chi2_data.get();
 }

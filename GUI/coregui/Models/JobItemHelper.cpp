@@ -104,8 +104,7 @@ void JobItemHelper::updateDataAxes(IntensityDataItem *intensityItem,
     updateAxesTitle(intensityItem);
 }
 
-
-void JobItemHelper::adjustIntensityDataToInstrument(IntensityDataItem *intensityDataItem,
+void JobItemHelper::adjustAxesUnitsToInstrument(IntensityDataItem *intensityDataItem,
                                                     const InstrumentItem *instrumentItem)
 {
     DomainObjectBuilder builder;
@@ -115,27 +114,12 @@ void JobItemHelper::adjustIntensityDataToInstrument(IntensityDataItem *intensity
     IDetector2D::EAxesUnits preferrable_units
         = preferableGUIAxesUnits(instrument->getDetector()->getDefaultAxesUnits());
 
-    std::unique_ptr<OutputData<double>> newData(
-        instrument->getDetector()->createDetectorMap(instrument->getBeam(),
-                                                     preferrable_units));
-
-    if(!newData->hasSameDimensions(*intensityDataItem->getOutputData()))
-        throw GUIHelpers::Error("JobItemHelper::adjustIntensityDataToInstrument() -> Error. "
-                                "Dimension of detector doesn't match IntensityData.");
-
-    newData->setRawDataVector(intensityDataItem->getOutputData()->getRawDataVector());
-
     ComboProperty unitsCombo;
     foreach (auto units, instrument->getDetector()->getValidAxesUnits())
         unitsCombo << getNameFromAxesUnits(units);
     unitsCombo.setValue(getNameFromAxesUnits(preferrable_units));
 
-    intensityDataItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
     intensityDataItem->setItemValue(IntensityDataItem::P_AXES_UNITS, unitsCombo.getVariant());
-
-    updateAxesTitle(intensityDataItem);
-    intensityDataItem->setOutputData(newData.release());
-    intensityDataItem->setAxesRangeToData();
 }
 
 
@@ -165,7 +149,7 @@ void JobItemHelper::loadIntensityData(JobItem *jobItem, const QString &projectDi
     if (info.exists()) {
         std::unique_ptr<OutputData<double>> rawData(
             IntensityDataIOFactory::readOutputData(filename.toStdString()));
-        setIntensityItemAxesUnits(intensityItem, jobItem->getInstrumentItem());
+        setIntensityItemAxesUnits(intensityItem, jobItem->instrumentItem());
         intensityItem->setOutputData(rawData.release());
 
     } else {

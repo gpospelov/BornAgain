@@ -39,6 +39,7 @@
 #include "SampleLabelHandler.h"
 #include "SphericalDetector.h"
 #include "Utils.h"
+#include "RegionOfInterest.h"
 #include <iomanip>
 #include <set>
 #include <functional>
@@ -610,7 +611,7 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
         result << indent() << "simulation.setDetectorParameters(";
         for(size_t index=0; index<detector->getDimension(); ++index) {
             if (index != 0) result << ", ";
-            result << detector->getAxis(index).getSize() << ", "
+            result << detector->getAxis(index).size() << ", "
                    << printDegrees(detector->getAxis(index).getMin()) << ", "
                    << printDegrees(detector->getAxis(index).getMax());
         }
@@ -756,9 +757,9 @@ std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
 
     const IDetector2D* detector = simulation->getInstrument().getDetector();
     const DetectorMask* detectorMask = detector->getDetectorMask();
-    if(detectorMask && detectorMask->getNumberOfMasks()) {
+    if(detectorMask && detectorMask->numberOfMasks()) {
         result << "\n";
-        for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
+        for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
             result << representShape2D(indent(), shape, mask_value, printFunc(detector));

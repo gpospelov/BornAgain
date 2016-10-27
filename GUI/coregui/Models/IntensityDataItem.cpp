@@ -121,13 +121,13 @@ double IntensityDataItem::getUpperX() const
 double IntensityDataItem::getXmin() const
 {
     Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::X_AXIS_INDEX)->getMin();
+    return m_data->getAxis(BornAgain::X_AXIS_INDEX).getMin();
 }
 
 double IntensityDataItem::getXmax() const
 {
     Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::X_AXIS_INDEX)->getMax();
+    return m_data->getAxis(BornAgain::X_AXIS_INDEX).getMax();
 }
 
 double IntensityDataItem::getLowerY() const
@@ -143,13 +143,13 @@ double IntensityDataItem::getUpperY() const
 double IntensityDataItem::getYmin() const
 {
     Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getMin();
+    return m_data->getAxis(BornAgain::Y_AXIS_INDEX).getMin();
 }
 
 double IntensityDataItem::getYmax() const
 {
     Q_ASSERT(m_data);
-        return m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getMax();
+        return m_data->getAxis(BornAgain::Y_AXIS_INDEX).getMax();
 }
 
 double IntensityDataItem::getLowerZ() const
@@ -296,9 +296,9 @@ void IntensityDataItem::updateAxesZoomLevel()
         setUpperY(getYmax());
     }
 
-    const int nx = static_cast<int>(m_data->getAxis(BornAgain::X_AXIS_INDEX)->getSize());
+    const int nx = static_cast<int>(m_data->getAxis(BornAgain::X_AXIS_INDEX).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
-    const int ny = static_cast<int>(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getSize());
+    const int ny = static_cast<int>(m_data->getAxis(BornAgain::Y_AXIS_INDEX).size());
     yAxisItem()->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 
@@ -307,10 +307,10 @@ void IntensityDataItem::updateAxesZoomLevel()
 void IntensityDataItem::updateAxesLabels()
 {
     if(getXaxisTitle().isEmpty())
-        setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX)->getName()));
+        setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX).getName()));
 
     if(getYaxisTitle().isEmpty())
-        setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getName()));
+        setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX).getName()));
 }
 
 //! Sets min,max values for z-axis, if axes is not locked, and ranges are not yet set.

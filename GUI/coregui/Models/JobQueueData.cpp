@@ -83,8 +83,8 @@ void JobQueueData::runJob(JobItem *jobItem)
 
     GISASSimulation *simulation(0);
     try{
-        simulation = DomainSimulationBuilder::getSimulation(jobItem->getMultiLayerItem(),
-                                                            jobItem->getInstrumentItem(),
+        simulation = DomainSimulationBuilder::getSimulation(jobItem->multiLayerItem(),
+                                                            jobItem->instrumentItem(),
                                                             jobItem->getSimulationOptionsItem());
     } catch(const std::exception &ex) {
         QString message("JobQueueData::runJob() -> Error. "

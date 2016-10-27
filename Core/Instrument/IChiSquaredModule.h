@@ -20,7 +20,7 @@
 #include "IIntensityFunction.h"
 #include "IIntensityNormalizer.h"
 #include "ISquaredFunction.h"
-
+#include "ICloneable.h"
 
 //! Interface for ChiSquaredModule for chi2 calculations.
 //! @ingroup fitting_internal

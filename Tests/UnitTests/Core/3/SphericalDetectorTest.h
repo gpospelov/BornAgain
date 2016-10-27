@@ -9,6 +9,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "Polygon.h"
 #include "BornAgainNamespace.h"
+#include "RegionOfInterest.h"
 #include "Rectangle.h"
 #include "Units.h"
 #include "Beam.h"
@@ -39,7 +40,7 @@ TEST_F(SphericalDetectorTest, initialState)
 
     // masks
     EXPECT_FALSE(detector.hasMasks());
-    EXPECT_EQ(0, detector.getNumberOfMaskedChannels());
+    EXPECT_EQ(0, detector.numberOfMaskedChannels());
 
     // resolution function
     EXPECT_EQ(nullptr, detector.getDetectorResolutionFunction());
@@ -83,11 +84,11 @@ TEST_F(SphericalDetectorTest, constructionWithAxes)
 TEST_F(SphericalDetectorTest, constructionWithParameters)
 {
     SphericalDetector detector(10, -1.0, 1.0, 20, 0.0, 2.0);
-    EXPECT_EQ(10, detector.getAxis(0).getSize() );
+    EXPECT_EQ((size_t)10, detector.getAxis(0).size() );
     EXPECT_EQ(-1.0, detector.getAxis(0).getMin() );
     EXPECT_EQ(1.0, detector.getAxis(0).getMax() );
     EXPECT_EQ(BornAgain::PHI_AXIS_NAME, detector.getAxis(0).getName());
-    EXPECT_EQ(20, detector.getAxis(1).getSize() );
+    EXPECT_EQ((size_t)20, detector.getAxis(1).size() );
     EXPECT_EQ(0.0, detector.getAxis(1).getMin() );
     EXPECT_EQ(2.0, detector.getAxis(1).getMax() );
     EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, detector.getAxis(1).getName());
@@ -101,16 +102,16 @@ TEST_F(SphericalDetectorTest, initOutputData)
     OutputData<double> data;
     detector.initOutputData(data);
 
-    EXPECT_EQ(data.getAllocatedSize(), 200);
+    EXPECT_EQ(data.getAllocatedSize(), (size_t)200);
 
-    EXPECT_EQ(10, data.getAxis(0)->getSize() );
-    EXPECT_EQ(-1.0, data.getAxis(0)->getMin() );
-    EXPECT_EQ(1.0, data.getAxis(0)->getMax() );
-    EXPECT_EQ(BornAgain::PHI_AXIS_NAME, data.getAxis(0)->getName());
-    EXPECT_EQ(20, data.getAxis(1)->getSize() );
-    EXPECT_EQ(0.0, data.getAxis(1)->getMin() );
-    EXPECT_EQ(2.0, data.getAxis(1)->getMax() );
-    EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, data.getAxis(1)->getName());
+    EXPECT_EQ((size_t)10, data.getAxis(0).size() );
+    EXPECT_EQ(-1.0, data.getAxis(0).getMin() );
+    EXPECT_EQ(1.0, data.getAxis(0).getMax() );
+    EXPECT_EQ(BornAgain::PHI_AXIS_NAME, data.getAxis(0).getName());
+    EXPECT_EQ((size_t)20, data.getAxis(1).size() );
+    EXPECT_EQ(0.0, data.getAxis(1).getMin() );
+    EXPECT_EQ(2.0, data.getAxis(1).getMax() );
+    EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, data.getAxis(1).getName());
 }
 
 //! Creation of the detector map with axes in given units
@@ -126,30 +127,30 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     // creating map in default units, which are radians and checking axes
     std::unique_ptr<OutputData<double>> data(
                 detector.createDetectorMap(beam, IDetector2D::DEFAULT));
-    EXPECT_EQ(data->getAxis(0)->getSize(), 10);
-    EXPECT_EQ(data->getAxis(0)->getMin(), -1.0*Units::deg);
-    EXPECT_EQ(data->getAxis(0)->getMax(), 1.0*Units::deg);
-    EXPECT_EQ(data->getAxis(1)->getSize(), 20);
-    EXPECT_EQ(data->getAxis(1)->getMin(), 0.0*Units::deg);
-    EXPECT_EQ(data->getAxis(1)->getMax(), 2.0*Units::deg);
+    EXPECT_EQ(data->getAxis(0).size(), (size_t)10);
+    EXPECT_EQ(data->getAxis(0).getMin(), -1.0*Units::deg);
+    EXPECT_EQ(data->getAxis(0).getMax(), 1.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1).size(), (size_t)20);
+    EXPECT_EQ(data->getAxis(1).getMin(), 0.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1).getMax(), 2.0*Units::deg);
 
     // creating map in degrees and checking axes
     data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
-    EXPECT_EQ(data->getAxis(0)->getSize(), 10);
-    EXPECT_FLOAT_EQ(data->getAxis(0)->getMin(), -1.0);
-    EXPECT_FLOAT_EQ(data->getAxis(0)->getMax(), 1.0);
-    EXPECT_EQ(data->getAxis(1)->getSize(), 20);
-    EXPECT_FLOAT_EQ(data->getAxis(1)->getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(1)->getMax(), 2.0);
+    EXPECT_EQ(data->getAxis(0).size(), (size_t)10);
+    EXPECT_FLOAT_EQ(data->getAxis(0).getMin(), -1.0);
+    EXPECT_FLOAT_EQ(data->getAxis(0).getMax(), 1.0);
+    EXPECT_EQ(data->getAxis(1).size(), (size_t)20);
+    EXPECT_FLOAT_EQ(data->getAxis(1).getMin(), 0.0);
+    EXPECT_FLOAT_EQ(data->getAxis(1).getMax(), 2.0);
 
     // creating map in nbins and checking axes
     data.reset(detector.createDetectorMap(beam, IDetector2D::NBINS));
-    EXPECT_EQ(data->getAxis(0)->getSize(), 10);
-    EXPECT_FLOAT_EQ(data->getAxis(0)->getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(0)->getMax(), 10.0);
-    EXPECT_EQ(data->getAxis(1)->getSize(), 20);
-    EXPECT_FLOAT_EQ(data->getAxis(1)->getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(1)->getMax(), 20.0);
+    EXPECT_EQ(data->getAxis(0).size(), (size_t)10);
+    EXPECT_FLOAT_EQ(data->getAxis(0).getMin(), 0.0);
+    EXPECT_FLOAT_EQ(data->getAxis(0).getMax(), 10.0);
+    EXPECT_EQ(data->getAxis(1).size(), (size_t)20);
+    EXPECT_FLOAT_EQ(data->getAxis(1).getMin(), 0.0);
+    EXPECT_FLOAT_EQ(data->getAxis(1).getMax(), 20.0);
 }
 
 //! Testing region of interest.
@@ -197,13 +198,13 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndData)
     // (i.e. to confirm that regionOfInterest doesn't change data structure)
     OutputData<double> data;
     detector.initOutputData(data);
-    EXPECT_EQ(data.getAllocatedSize(), 32);
-    EXPECT_EQ(data.getAxis(0)->getSize(), 8);
-    EXPECT_EQ(data.getAxis(0)->getMin(), -3.0);
-    EXPECT_EQ(data.getAxis(0)->getMax(), 5.0);
-    EXPECT_EQ(data.getAxis(1)->getSize(), 4);
-    EXPECT_EQ(data.getAxis(1)->getMin(), 0.0);
-    EXPECT_EQ(data.getAxis(1)->getMax(), 4.0);
+    EXPECT_EQ(data.getAllocatedSize(), (size_t)32);
+    EXPECT_EQ(data.getAxis(0).size(), (size_t)8);
+    EXPECT_EQ(data.getAxis(0).getMin(), -3.0);
+    EXPECT_EQ(data.getAxis(0).getMax(), 5.0);
+    EXPECT_EQ(data.getAxis(1).size(), (size_t)4);
+    EXPECT_EQ(data.getAxis(1).getMin(), 0.0);
+    EXPECT_EQ(data.getAxis(1).getMax(), 4.0);
 }
 
 //! Create detector map in the presence of region of interest.
@@ -221,21 +222,21 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
     // to region of interest.
     std::unique_ptr<OutputData<double>> data(
                 detector.createDetectorMap(beam, IDetector2D::DEFAULT));
-    EXPECT_EQ(data->getAxis(0)->getSize(), 4);
-    EXPECT_EQ(data->getAxis(0)->getMin(), 0.0*Units::deg);
-    EXPECT_EQ(data->getAxis(0)->getMax(), 4.0*Units::deg);
-    EXPECT_EQ(data->getAxis(1)->getSize(), 2);
-    EXPECT_EQ(data->getAxis(1)->getMin(), 1.0*Units::deg);
-    EXPECT_EQ(data->getAxis(1)->getMax(), 3.0*Units::deg);
+    EXPECT_EQ(data->getAxis(0).size(), (size_t)4);
+    EXPECT_EQ(data->getAxis(0).getMin(), 0.0*Units::deg);
+    EXPECT_EQ(data->getAxis(0).getMax(), 4.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1).size(), (size_t)2);
+    EXPECT_EQ(data->getAxis(1).getMin(), 1.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1).getMax(), 3.0*Units::deg);
 
     // Creating map with axes in degrees, and checking that it is clipped to the region of interest
     data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
-    EXPECT_EQ(data->getAxis(0)->getSize(), 4);
-    EXPECT_EQ(data->getAxis(0)->getMin(), 0.0);
-    EXPECT_EQ(data->getAxis(0)->getMax(), 4.0);
-    EXPECT_EQ(data->getAxis(1)->getSize(), 2);
-    EXPECT_EQ(data->getAxis(1)->getMin(), 1.0);
-    EXPECT_EQ(data->getAxis(1)->getMax(), 3.0);
+    EXPECT_EQ(data->getAxis(0).size(), (size_t)4);
+    EXPECT_EQ(data->getAxis(0).getMin(), 0.0);
+    EXPECT_EQ(data->getAxis(0).getMax(), 4.0);
+    EXPECT_EQ(data->getAxis(1).size(), (size_t)2);
+    EXPECT_EQ(data->getAxis(1).getMin(), 1.0);
+    EXPECT_EQ(data->getAxis(1).getMax(), 3.0);
 }
 
 //! Checking IDetector2D::getIntensityData in the presence of region of interest.
@@ -251,7 +252,7 @@ TEST_F(SphericalDetectorTest, getIntensityData)
     // Initializing data (no region of interest involved yet) and filling with amplitudes
     OutputData<double> intensityData;
     detector.initOutputData(intensityData);
-    EXPECT_EQ(intensityData.getAllocatedSize(), 6*4);
+    EXPECT_EQ(intensityData.getAllocatedSize(), (size_t)6*4);
     for(size_t i=0; i<intensityData.getAllocatedSize(); ++i) {
         intensityData[i] = static_cast<double>(i);
     }
@@ -266,12 +267,12 @@ TEST_F(SphericalDetectorTest, getIntensityData)
 //    EXPECT_EQ(detectorIntensity->getAllocatedSize(), 8);
 //    EXPECT_EQ((*detectorIntensity)[0], 5.0);
 //    EXPECT_EQ((*detectorIntensity)[7], 18.0);
-//    EXPECT_EQ(detectorIntensity->getAxis(0)->getSize(), 4);
-//    EXPECT_EQ(detectorIntensity->getAxis(0)->getMin(), 0.0);
-//    EXPECT_EQ(detectorIntensity->getAxis(0)->getMax(), 4.0);
-//    EXPECT_EQ(detectorIntensity->getAxis(1)->getSize(), 2);
-//    EXPECT_EQ(detectorIntensity->getAxis(1)->getMin(), 1.0);
-//    EXPECT_EQ(detectorIntensity->getAxis(1)->getMax(), 3.0);
+//    EXPECT_EQ(detectorIntensity->getAxis(0).size(), 4);
+//    EXPECT_EQ(detectorIntensity->getAxis(0).getMin(), 0.0);
+//    EXPECT_EQ(detectorIntensity->getAxis(0).getMax(), 4.0);
+//    EXPECT_EQ(detectorIntensity->getAxis(1).size(), 2);
+//    EXPECT_EQ(detectorIntensity->getAxis(1).getMin(), 1.0);
+//    EXPECT_EQ(detectorIntensity->getAxis(1).getMax(), 3.0);
 }
 
 TEST_F(SphericalDetectorTest, MaskOfDetector)
@@ -340,29 +341,29 @@ TEST_F(SphericalDetectorTest, Clone)
 
     std::unique_ptr<OutputData<double>> data(
                 clone->createDetectorMap(beam, IDetector2D::DEGREES));
-    EXPECT_EQ(data->getAxis(0)->getSize(), 4);
-    EXPECT_EQ(data->getAxis(0)->getMin(), 0.0);
-    EXPECT_EQ(data->getAxis(0)->getMax(), 4.0);
-    EXPECT_EQ(data->getAxis(1)->getSize(), 2);
-    EXPECT_EQ(data->getAxis(1)->getMin(), 1.0);
-    EXPECT_EQ(data->getAxis(1)->getMax(), 3.0);
+    EXPECT_EQ(data->getAxis(0).size(), (size_t)4);
+    EXPECT_EQ(data->getAxis(0).getMin(), 0.0);
+    EXPECT_EQ(data->getAxis(0).getMax(), 4.0);
+    EXPECT_EQ(data->getAxis(1).size(), (size_t)2);
+    EXPECT_EQ(data->getAxis(1).getMin(), 1.0);
+    EXPECT_EQ(data->getAxis(1).getMax(), 3.0);
 
     EXPECT_EQ(std::string("ConvolutionDetectorResolution"),
               clone->getDetectorResolutionFunction()->getName());
 
-    EXPECT_EQ(clone->getNumberOfMaskedChannels(), 8);
+    EXPECT_EQ(clone->numberOfMaskedChannels(), 8);
 
     // checking iteration over the map of cloned detector
     SimulationArea area(clone.get());
-    std::vector<int> expectedIndexes = {6, 9, 10, 13, 14, 17};
+    std::vector<int> expectedDetectorIndexes = {6, 9, 10, 13, 14, 17};
     std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5};
-    std::vector<int> indexes;
+    std::vector<int> detectorIndexes;
     std::vector<int> elementIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        indexes.push_back(it.index());
+        detectorIndexes.push_back(it.detectorIndex());
         elementIndexes.push_back(it.elementIndex());
     }
-    EXPECT_EQ(indexes, expectedIndexes);
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
 }
 

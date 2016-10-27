@@ -65,7 +65,7 @@ class RotationsCubeTest(unittest.TestCase):
 
     def get_difference(self, reference_data, test_data, add_to="air"):
         intensity = self.get_intensity_data(test_data, add_to)
-        return IntensityDataFunctions.getRelativeDifference(reference_data, intensity)
+        return getRelativeDifference(reference_data, intensity)
 
     def testRotationZ(self):
         """

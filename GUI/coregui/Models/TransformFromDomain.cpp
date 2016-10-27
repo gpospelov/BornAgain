@@ -47,6 +47,7 @@
 #include "ParticleItem.h"
 #include "Polygon.h"
 #include "Rectangle.h"
+#include "RegionOfInterest.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunctionItems.h"
 #include "SphericalDetector.h"
@@ -279,14 +280,14 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     BasicAxisItem* phiAxisItem = dynamic_cast<BasicAxisItem*>(
         detectorItem->getItem(SphericalDetectorItem::P_PHI_AXIS));
     Q_ASSERT(phiAxisItem);
-    phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.getSize());
+    phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.size());
     phiAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
     phiAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
 
     BasicAxisItem* alphaAxisItem = dynamic_cast<BasicAxisItem*>(
         detectorItem->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
     Q_ASSERT(alphaAxisItem);
-    alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.getSize());
+    alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
     alphaAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
@@ -439,10 +440,10 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GIS
 
     const IDetector2D* detector = simulation.getInstrument().getDetector();
     const DetectorMask* detectorMask = detector->getDetectorMask();
-    if(detectorMask && detectorMask->getNumberOfMasks()) {
+    if(detectorMask && detectorMask->numberOfMasks()) {
         MaskContainerItem* containerItem = new MaskContainerItem();
         detectorItem->insertItem(-1, containerItem);
-        for(size_t i_mask=0; i_mask<detectorMask->getNumberOfMasks(); ++i_mask) {
+        for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
             if(const Geometry::Ellipse* ellipse = dynamic_cast<const Geometry::Ellipse*>(shape)) {

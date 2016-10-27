@@ -20,7 +20,6 @@
 #include "Beam.h"
 #include "DetectorMask.h"
 #include "SafePointerVector.h"
-#include "Rectangle.h"
 #include "DetectionProperties.h"
 #include <memory>
 
@@ -31,6 +30,7 @@ class IDetectorResolution;
 class IPixelMap;
 class SimulationElement;
 class DetectionProperties;
+class RegionOfInterest;
 namespace Geometry {
     class IShape2D;
 }
@@ -60,9 +60,6 @@ public:
     size_t getDimension() const;
 
     void clear();
-
-    //! Sets detector parameters using axes of output data
-    void matchDetectorAxes(const OutputData<double>& output_data);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -98,8 +95,7 @@ public:
 
     const DetectorMask* getDetectorMask() const;
 
-    int getNumberOfMaskedChannels() const;
-
+    size_t numberOfMaskedChannels() const;
 
     bool isMasked(size_t index) const;
 
@@ -112,9 +108,6 @@ public:
 
     //! Creates single simulation element.
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
-
-    void transferResultsToIntensityMap(OutputData<double> &data,
-                                       const std::vector<SimulationElement> &elements) const;
 #endif
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
@@ -125,7 +118,7 @@ public:
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
             const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
-    //! Returns detector map in given axes units
+    //! Returns empty detector map in given axes units.
     virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
 
     //! Inits axes of OutputData to match the detector and sets values to zero.
@@ -138,7 +131,7 @@ public:
     virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
 
     //! Returns region of  interest if exists.
-    const Geometry::Rectangle* regionOfInterest() const;
+    const RegionOfInterest* regionOfInterest() const;
 
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
@@ -171,8 +164,6 @@ protected:
     std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
                                          EAxesUnits units) const;
 
-    std::unique_ptr<IAxis> clipAxisToRoi(size_t axis_index, const IAxis &axis) const;
-
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
                                     double &amin, double &amax) const;
@@ -197,7 +188,7 @@ protected:
 private:
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const std::vector<SimulationElement> &elements) const;
-    std::unique_ptr<Geometry::Rectangle> m_region_of_interest;
+    std::unique_ptr<RegionOfInterest> m_region_of_interest;
     DetectionProperties m_detection_properties;
 };
 

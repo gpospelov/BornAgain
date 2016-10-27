@@ -39,7 +39,7 @@ public:
     static void updateDataAxes(IntensityDataItem *intensityItem,
                                const InstrumentItem *instrumentItem);
 
-    static void adjustIntensityDataToInstrument(IntensityDataItem *intensityDataItem,
+    static void adjustAxesUnitsToInstrument(IntensityDataItem *intensityDataItem,
                                                 const InstrumentItem *instrumentItem);
 
     //! saves intensity data into project directory

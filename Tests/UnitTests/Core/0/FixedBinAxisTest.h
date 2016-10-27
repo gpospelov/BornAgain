@@ -15,7 +15,7 @@ protected:
 TEST_F(FixedBinAxisTest, IndexedAccessor)
 {
     FixedBinAxis a1("length", 100, 0.0, 10.0);
-    ASSERT_EQ((size_t)100, a1.getSize());
+    ASSERT_EQ((size_t)100, a1.size());
     EXPECT_EQ(0.0, a1.getMin());
     EXPECT_EQ(10.0, a1.getMax());
     EXPECT_DOUBLE_EQ(0.05, a1[0]);
@@ -33,7 +33,7 @@ TEST_F(FixedBinAxisTest, IndexedAccessor)
 TEST_F(FixedBinAxisTest, VectorOfUnitLength)
 {
     FixedBinAxis vec("name", 1, 1.0, 2.0);
-    EXPECT_EQ((size_t)1, vec.getSize());
+    EXPECT_EQ((size_t)1, vec.size());
     EXPECT_EQ(double(1.0), vec.getMin());
     EXPECT_EQ(double(2.0), vec.getMax());
     EXPECT_EQ(1.5, vec[0]);
@@ -42,7 +42,7 @@ TEST_F(FixedBinAxisTest, VectorOfUnitLength)
 TEST_F(FixedBinAxisTest, FindClosestIndex)
 {
     FixedBinAxis v1("name", 2, 0.0, 1.0);
-    EXPECT_EQ( size_t(2), v1.getSize());
+    EXPECT_EQ( size_t(2), v1.size());
     EXPECT_EQ( size_t(0), v1.findClosestIndex(0.0));
     EXPECT_EQ( size_t(0), v1.findClosestIndex(0.25));
     EXPECT_EQ( size_t(1), v1.findClosestIndex(0.5));
@@ -162,14 +162,14 @@ TEST_F(FixedBinAxisTest, ClippedAxis)
     FixedBinAxis axis("name", 4, -1.0, 3.0);
 
     FixedBinAxis *clip1 = axis.createClippedAxis(-0.5, 2.5);
-    EXPECT_EQ(clip1->getSize(), axis.getSize());
+    EXPECT_EQ(clip1->size(), axis.size());
     EXPECT_EQ(clip1->getMin(), axis.getMin());
     EXPECT_EQ(clip1->getMax(), axis.getMax());
     EXPECT_TRUE(*clip1 == axis);
     delete clip1;
 
     FixedBinAxis *clip2 = axis.createClippedAxis(0.0, 1.99);
-    EXPECT_EQ(clip2->getSize(), size_t(2));
+    EXPECT_EQ(clip2->size(), size_t(2));
     EXPECT_EQ(clip2->getMin(), 0.0);
     EXPECT_EQ(clip2->getMax(), 2.0);
     EXPECT_TRUE(*clip2 != axis);

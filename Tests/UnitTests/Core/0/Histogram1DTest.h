@@ -20,7 +20,7 @@ TEST_F(Histogram1DTest, FixedBinConstructor)
     EXPECT_EQ(size_t(5), hist.getTotalNumberOfBins());
     EXPECT_EQ(0.0, hist.getXmin());
     EXPECT_EQ(5.0, hist.getXmax());
-    EXPECT_EQ(std::string("x-axis"), hist.getXaxis()->getName());
+    EXPECT_EQ(std::string("x-axis"), hist.getXaxis().getName());
     EXPECT_THROW(hist.getYaxis(), Exceptions::LogicErrorException);
     for(size_t index=0; index<hist.getTotalNumberOfBins(); ++index) {
         EXPECT_EQ(index, hist.getGlobalBin(index));
@@ -38,7 +38,7 @@ TEST_F(Histogram1DTest, FixedBinDefaultContent)
     for(size_t index=0; index < bin_centers.size(); ++index) {
         EXPECT_EQ(centers[index], bin_centers[index]);
         EXPECT_EQ(hist.getXaxisValue(index), bin_centers[index]);
-        EXPECT_EQ(hist.getXaxis()->getBinCenter(index), bin_centers[index]);
+        EXPECT_EQ(hist.getXaxis().getBinCenter(index), bin_centers[index]);
     }
 
     // default bin values
@@ -149,8 +149,8 @@ TEST_F(Histogram1DTest, CreateHistogram)
     std::unique_ptr<IHistogram> hist(IHistogram::createHistogram(data));
     EXPECT_EQ(size_t(1), hist->getRank());
     EXPECT_EQ(data.getAllocatedSize(), hist->getNbinsX());
-    EXPECT_EQ(data.getAxis(0)->getMin(), hist->getXmin());
-    EXPECT_EQ(data.getAxis(0)->getMax(), hist->getXmax());
+    EXPECT_EQ(data.getAxis(0).getMin(), hist->getXmin());
+    EXPECT_EQ(data.getAxis(0).getMax(), hist->getXmax());
     for(size_t i=0; i<hist->getTotalNumberOfBins(); ++i) {
         EXPECT_EQ(data[i], hist->getBinContent(i));
         EXPECT_EQ(data[i], hist->getBinAverage(i));
@@ -171,8 +171,8 @@ TEST_F(Histogram1DTest, CreateOutputData)
     std::unique_ptr<OutputData<double> > data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
     EXPECT_EQ(size_t(1), data->getRank());
     EXPECT_EQ(data->getAllocatedSize(), hist.getNbinsX());
-    EXPECT_EQ(data->getAxis(0)->getMin(), hist.getXmin());
-    EXPECT_EQ(data->getAxis(0)->getMax(), hist.getXmax());
+    EXPECT_EQ(data->getAxis(0).getMin(), hist.getXmin());
+    EXPECT_EQ(data->getAxis(0).getMax(), hist.getXmax());
     for(size_t i=0; i<data->getAllocatedSize(); ++i) {
         EXPECT_EQ(4.0, (*data)[i]);
     }

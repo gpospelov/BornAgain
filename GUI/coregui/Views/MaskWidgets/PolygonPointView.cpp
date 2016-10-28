@@ -46,7 +46,6 @@ void PolygonPointView::update_view()
     update();
 }
 
-
 void PolygonPointView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setRenderHints(QPainter::Antialiasing);

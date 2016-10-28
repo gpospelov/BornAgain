@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/MaskWidgets/RegionOfInterestView.h
-//! @brief     Defines RegionOfInterestView class
+//! @file      GUI/coregui/Models/JobItemFunctions.h
+//! @brief     Defines auxiliary functions in JobItemFunctions namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,24 +14,26 @@
 //
 // ************************************************************************** //
 
-#ifndef REGIONOFINTERESTVIEW_H
-#define REGIONOFINTERESTVIEW_H
+#ifndef JOBITEMFUNCTIONS_H
+#define JOBITEMFUNCTIONS_H
 
-#include "RectangleView.h"
+#include "WinDllMacros.h"
+#include <QString>
 
-//! The RegionOfInterest class represent view of RegionOfInterestItem on graphics scene.
+class JobItem;
+class RealDataItem;
 
-class BA_CORE_API_ RegionOfInterestView : public RectangleView
+//! Contains set of convenience methods for JobItem and its children.
+
+namespace JobItemFunctions
 {
-    Q_OBJECT
 
-public:
-    int type() const { return MaskEditorHelper::REGIONOFINTEREST; }
+BA_CORE_API_ QString jobResultsFileName(const JobItem& jobItem);
 
-protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+BA_CORE_API_ QString jobReferenceFileName(const JobItem& jobItem);
 
-};
+BA_CORE_API_ QString realDataFileName(const RealDataItem& realDataItem);
 
-#endif // REGIONOFINTERESTVIEW_H
+}
 
+#endif

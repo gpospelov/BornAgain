@@ -38,7 +38,7 @@ public:
     ~ObsoleteIntensityDataPlotWidget();
 
     QSize sizeHint() const { return QSize(800, 800); }
-    QSize minimumSizeHint() const { return QSize(512, 512); }
+    QSize minimumSizeHint() const { return QSize(256, 256); }
 
     void setItem(IntensityDataItem *item);
 

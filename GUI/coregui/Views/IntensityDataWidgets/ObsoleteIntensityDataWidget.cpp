@@ -71,8 +71,8 @@ void ObsoleteIntensityDataWidget::setItem(SessionItem *item)
 {
     JobItem *jobItem = dynamic_cast<JobItem *>(item);
     Q_ASSERT(jobItem);
-    m_currentItem = jobItem->getIntensityDataItem();
-    setIntensityData(jobItem->getIntensityDataItem());
+    m_currentItem = jobItem->intensityDataItem();
+    setIntensityData(jobItem->intensityDataItem());
 }
 
 void ObsoleteIntensityDataWidget::setIntensityData(IntensityDataItem *intensityItem)

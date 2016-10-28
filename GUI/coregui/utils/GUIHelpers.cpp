@@ -151,22 +151,6 @@ QString getValidFileName(const QString &proposed_name)
     return result;
 }
 
-//! Constructs file name there intensity data should be stored in the case of JobItem.
-
-QString intensityDataFileName(JobItem *jobItem)
-{
-    QString bodyName = GUIHelpers::getValidFileName(jobItem->itemName());
-    return QString("jobdata_%1_0.int.gz").arg(bodyName);
-}
-
-//! Constructs file name there intensity data should be stored in the case of RealDataItem.
-
-QString intensityDataFileName(RealDataItem *realDataItem)
-{
-    QString bodyName = GUIHelpers::getValidFileName(realDataItem->itemName());
-    return QString("realdata_%1_0.int.gz").arg(bodyName);
-}
-
 //! parses version string into 3 numbers, returns true in the case of success
 bool parseVersion(const QString &version, int &major_num, int &minor_num, int &patch_num)
 {

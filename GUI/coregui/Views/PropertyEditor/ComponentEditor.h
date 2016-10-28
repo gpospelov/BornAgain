@@ -42,6 +42,8 @@ public:
 
     void clearEditor();
 
+    void setHeaderHidden(bool hide);
+
 public slots:
     virtual void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
     virtual void onRowsInserted(const QModelIndex &parent, int first, int last);

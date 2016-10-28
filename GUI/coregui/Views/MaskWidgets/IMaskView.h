@@ -74,7 +74,5 @@ protected:
     QRectF m_bounding_rect;
 };
 
-
-
 #endif // IMASKVIEW_H
 

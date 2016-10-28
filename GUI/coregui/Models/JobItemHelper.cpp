@@ -139,7 +139,7 @@ void JobItemHelper::saveIntensityData(IntensityDataItem *intensityItem, const QS
 
 void JobItemHelper::loadIntensityData(JobItem *jobItem, const QString &projectDir)
 {
-    IntensityDataItem *intensityItem = jobItem->getIntensityDataItem();
+    IntensityDataItem *intensityItem = jobItem->intensityDataItem();
     if(!intensityItem)
         return;
 

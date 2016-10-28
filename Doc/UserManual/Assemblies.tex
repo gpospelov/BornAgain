@@ -106,7 +106,7 @@ it is convenient to restrict the coordinate vectors~$\R_j$ to the $xy$~plane,
 and to redefine~$\v{T}_j$ to include the vertical particle component of~$\R_j$.
 In consequence, \cref{Echihomo}~is replaced by
 \begin{equation}\label{Echihetero}
-  v_\sp(\r) = \sum_j F(\r-\R_{\parallel j},\v{T}_j).
+  v_\sp(\r) = \sum_j F(\r-\R_{j\plll},\v{T}_j).
 \end{equation}
 With the \E{DWBA form factor}
 \begin{equation}\label{EcFdef}
@@ -118,13 +118,13 @@ With the \E{DWBA form factor}
 the scattering matrix element~\cref{Escamatrix2} becomes
 \begin{equation}\label{EsumRF}
   \bra\psi_\si|\delta v|\psi_\sf\ket
-  = \sum_j \e^{i\q_\parallel \R_{\parallel j}}  \FD(\q_\parallel,\v{T}_j).
+  = \sum_j \e^{i\q_\parallel \R_{j\plll}}  \FD(\q_\parallel,\v{T}_j).
 \end{equation}
 The elastic scattering cross section~\cref{Exsection} can be written as
 \Emph{
 \begin{equation}\label{Exsection2}
   \frac{\d\sigma}{\d\Omega}
-  = \sum_{jk} \e^{i\q_\plll(\R_{\plll j}-\R_{\plll k})} \FD(\q_\plll,\v{T}_j) \FD^*(\q_\plll,\v{T}_k).
+  = \sum_{jk} \e^{i\q_\plll(\R_{j\plll}-\R_{k\plll})} \FD(\q_\plll,\v{T}_j) \FD^*(\q_\plll,\v{T}_k).
 \end{equation}
 \vspace*{-5pt}}
 
@@ -345,20 +345,17 @@ we encode the particle coordinates in a distribution function
 \index{Particles!distribution function}%
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
-  \PD_{l}(\r,\v\tau,\v\tau')
-  \coloneqq \sum_{ij} \delta(\r-(\R_{j\plll}-\R_{i\plll}))
-  \delta(\v\tau-\v{T}_i)\delta(\v\tau'-\v{T}_j).
+  \PD(\r,\v\tau,\v\tau')
+  \coloneqq \sum_{jk} \delta(\r-(\R_{j\plll}-\R_{k\plll}))
+  \delta(\v\tau-\v{T}_j)\delta(\v\tau'-\v{T}_k).
 \end{equation}
-Since in the following we are concerned with only one layer,
-we shall omit the index~$l$ from $\q_{l\plll}$, $\PD_l$, and $\FD_l$.
-The differential cross section~\cref{Eass3} becomes
+The differential cross section~\cref{Exsection2} becomes
 \begin{equation}\label{Epdm1}
-  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-  =
-  \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
+  \frac{\partial\sigma}{\partial\Omega}
+ =\int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
   \int\! \d\v{\tau}\, \d\v{\tau}'
     \PD(\r,\v\tau,\v\tau')
-    \FD^*(\v\tau) \FD(\v\tau'),
+    \FD(\v\tau) \FD^*(\v\tau'),
 \end{equation}
 where the integration over $\r$ is restricted to the horizontal plane,
 and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$,
@@ -395,7 +392,7 @@ The case $\r=0$ (equivalent with $i=j$) needs special consideration,
 which leads to the decomposition
 \Emph
 {\begin{equation}
-  \frac{1}{N_p}\left.\frac{\partial\sigma}{\partial\Omega}\right|_l
+  \frac{1}{N_p}\frac{\partial\sigma}{\partial\Omega}
   = I_\text{d}+I_\text{c}.
 \end{equation}\vskip -5pt}
 We denote averages under~$p(\v\tau)$ as

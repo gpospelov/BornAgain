@@ -349,7 +349,19 @@ we encode the particle coordinates in a distribution function
   \coloneqq \sum_{jk} \delta(\r-(\R_{j\plll}-\R_{k\plll}))
   \delta(\v\tau-\v{T}_j)\delta(\v\tau'-\v{T}_k).
 \end{equation}
-The differential cross section~\cref{Exsection2} becomes
+Its total integral is
+\begin{equation}\label{EPint}
+  \int\!\d^2r\, \int\! \d\v{\tau}\, \d\v{\tau}' \PD(\r,\v\tau,\v\tau')
+  = N_p^2,
+\end{equation}
+where~$N_p$ is the number
+\nomenclature[2n122 2p010]{$N_p$}{Number of scattering centers}%
+of particles,
+the integration over $\r$ is restricted to the horizontal plane,
+and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$,
+with $n$~being the dimensionality of~$\v{T}$.
+In later approximations, \cref{EPint} will be a normalization requirement.
+The differential cross section~\cref{Exsection2} can now be written as
 \begin{equation}\label{Epdm1}
   \frac{\partial\sigma}{\partial\Omega}
  =\int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
@@ -357,24 +369,12 @@ The differential cross section~\cref{Exsection2} becomes
     \PD(\r,\v\tau,\v\tau')
     \FD(\v\tau) \FD^*(\v\tau'),
 \end{equation}
-where the integration over $\r$ is restricted to the horizontal plane,
-and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$,
-with $n$~being the dimensionality of~$\v{T}$.
-
-The normalization of the distribution function $\PD$ is such that its total
-integral equals the square of the number of particles that contribute to the scattering:
-\begin{equation}
-  \int\!\d^2r\, \int\! \d\v{\tau}\, \d\v{\tau}' \PD(\r,\v\tau,\v\tau')
-  = N_p^2,
-\end{equation}
-with $N_p$ the number of scattering centers.
-\nomenclature[2n122 2p010]{$N_p$}{Number of scattering centers}
-
-
 In the following, we will present different physical models
 that provide computable approximations
 for the formally exact distribution~\cref{EPDdeltas}.
-All these models are based on the following assumption
+
+For the time being,
+we only support models that make the following assumption
 about the particle \E{properties} like shape, size, and orientation
 (but \E{not} position) that are  encoded in the vector~$\v T_i$:
 \Note{\textbf{T-T decoupling approximation:}
@@ -388,7 +388,7 @@ For $\r\ne0$, the distribution $\PD$ factorizes as
   \PD(\r,\v\tau,\v\tau')\eqqcolon N_p \rho_S \GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau'),
 \end{equation}
 which defines the conditional position correlation function~$\GD$ (defined to exclude self-correlation).
-The case $\r=0$ (equivalent with $i=j$) needs special consideration,
+The case $\r=0$ (equivalent with $j=k$) needs special consideration,
 which leads to the decomposition
 \Emph
 {\begin{equation}

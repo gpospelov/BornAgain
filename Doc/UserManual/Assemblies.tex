@@ -84,17 +84,10 @@ $\delta v_l(\r) = \Delta v_\sp(\r)$.
 Outside the layer that contains the embedded particles,
 $\delta v_l(\r)=0$.
 
-The elastic scattering cross section
-in distorted-wave Born approximation
-is given by~\Cref{Exsection}:
-\begin{equation}\label{Exsection2}
-  \frac{\d\sigma}{\d\Omega}
-  =  {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
-\end{equation}
 With the factorization~\cref{Ekpar},
-the integral~\cref{Etrama} becomes
+the scattering matrix element~\cref{Etrama} becomes
 \begin{equation}\label{Escamatrix2}
-  \bra\psi_\ti|\delta v|\psi_\tf\ket
+  \bra\psi_\si|\delta v|\psi_\sf\ket
   = \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
     \int\!\d z\, \phi_\si(z) \delta v(\r) \phi^*_\sf(z).
 \end{equation}
@@ -117,19 +110,25 @@ In consequence, \cref{Echihomo}~is replaced by
 \end{equation}
 With the \E{DWBA form factor}
 \begin{equation}\label{EcFdef}
-  {\cal F}(\q_\parallel,\v{T})
+  \FD(\q_\parallel,\v{T})
   \coloneqq
     \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
     \int\!\d z\, \phi_\si(z) F(\r,\v{T}) \phi^*_\sf(z),
 \end{equation}
 the scattering matrix element~\cref{Escamatrix2} becomes
-\Emph{
 \begin{equation}\label{EsumRF}
-  \bra\psi_\ti|\delta v|\psi_\tf\ket
-  = \sum_j \e^{i\q_\parallel \R_{\parallel j}}  {\cal F}(\q_\parallel,\v{T}_j)
+  \bra\psi_\si|\delta v|\psi_\sf\ket
+  = \sum_j \e^{i\q_\parallel \R_{\parallel j}}  \FD(\q_\parallel,\v{T}_j).
+\end{equation}
+The elastic scattering cross section~\cref{Exsection} can be written as
+\Emph{
+\begin{equation}\label{Exsection2}
+  \frac{\d\sigma}{\d\Omega}
+  = \sum_{jk} \e^{i\q_\plll(\R_{\plll j}-\R_{\plll k})} \FD(\q_\plll,\v{T}_j) \FD^*(\q_\plll,\v{T}_k).
 \end{equation}
 \vspace*{-5pt}}
-In the following \Cref{SFormFactor} we discuss the form factor~${\cal F}$.
+
+In the following \Cref{SFormFactor} we discuss the form factor~$\FD$.
 The remainder of this chapter is devoted to the
 positional term and to the coupling between particle form and position;
 various approximations are used to make~\cref{EsumRF} manageable.
@@ -154,7 +153,7 @@ by analytically or numerically solving the differential equation~\cref{Ewavez}.
 To evaluate the DWBA form factor for such~$\phi(z)$,
 it is helpful to change the order of integration in~\cref{EcFdef}:
 \begin{equation}\label{EcFx}
-  {\cal F}(\q_\parallel,\v{T})
+  \FD(\q_\parallel,\v{T})
    = \int\!\d z\, \phi_\si(z) F(q_\parallel,z,\v{T}) \phi^*_\sf(z)
 \end{equation}
 with
@@ -174,7 +173,7 @@ Within each layer, the wavefunction is the sum of two plane waves~\cref{Ephizwj}
 With the notations~\cref{Eudef},
 the DWBA form factor~\cref{EcFx} becomes
 \begin{equation}\label{EcFres1}
-  {\cal F}(\q_\parallel,\v{T})
+  \FD(\q_\parallel,\v{T})
    = \sum_l \sum_u C^u_l F_l(\q^u_l,\v{T})
 \end{equation}
 with
@@ -330,7 +329,7 @@ pioneered by \IsGISAXS\ \cite[Sec.~3.3]{Laz08},
 \index{IsGISAXS@\string\IsGISAXS!morphology data}%
 \index{Morphology!as input data}%
   is not yet implemented in \BornAgain,
-  and are not on our agenda.
+  and not on our agenda.
   Please contact us if you have a use case.}
 
 BornAgain provides various physical models
@@ -861,7 +860,7 @@ where $\ppcf{\alpha}{\beta}{R}$ is called the \emph{partial pair correlation fun
 TO MERGE IN:
 
 \begin{align*}
-  & \bra \frac{d\sigma}{d\Omega}(\k_\ti,\k_\tf) \ket_{\text{Off-specular}}  \\
+  & \bra \frac{d\sigma}{d\Omega}(\k_\si,\k_\sf) \ket_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
   & \times \iint_S d^2r_\alpha^\plll d^2r_\beta^\plll \ppcf{\alpha}{\beta}{R^\plll} \exp \left[ i\v{q}_{j\plll}\cdot (\r_\alpha^\plll - \r_\beta^\plll ) \right].
 \end{align*}

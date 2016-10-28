@@ -51,17 +51,17 @@ in the distorted wave Born approximation (\cref{SDWBA}).
   The $x$ axis usually points along the incident beam,
   projected onto the sample plane.
   Incident and final plane waves are characterized
-  by wavevectors $\k_\ti$, $\k_\tf$;
-  the angle $\alpha_\ti$ is the incident glancing angle;
-  $\phi_\ti$ is usually zero, unless used to describe a sample rotation;
-  $\alpha_\tf$ is the exit angle with respect to the sample's surface;
-  and $\phi_\tf$ is the scattering angle with respect to the scattering plane.
-  In the above figure $\phi_\tf$ is negative by convention, while all other angles
+  by wavevectors $\k_\si$, $\k_\sf$;
+  the angle $\alpha_\si$ is the incident glancing angle;
+  $\phi_\si$ is usually zero, unless used to describe a sample rotation;
+  $\alpha_\sf$ is the exit angle with respect to the sample's surface;
+  and $\phi_\sf$ is the scattering angle with respect to the scattering plane.
+  In the above figure $\phi_\sf$ is negative by convention, while all other angles
   are positive.
-\nomenclature[1α024 2i000]{$\alpha_\ti$}{Glancing angle of the incident beam}
-\nomenclature[1α024 2f000]{$\alpha_\tf$}{Glancing angle of the detected beam}
-\nomenclature[1φ024 2i000]{$\phi_\ti$}{Angle between the incident beam, projected into the sample plane, and the $x$ axis}%
-\nomenclature[1φ024 2f000]{$\phi_\tf$}{Angle between the detected beam, projected into the sample plane, and the $x$ axis}%
+\nomenclature[1α024 2i000]{$\alpha_\si$}{Glancing angle of the incident beam}
+\nomenclature[1α024 2f000]{$\alpha_\sf$}{Glancing angle of the detected beam}
+\nomenclature[1φ024 2i000]{$\phi_\si$}{Angle between the incident beam, projected into the sample plane, and the $x$ axis}%
+\nomenclature[1φ024 2f000]{$\phi_\sf$}{Angle between the detected beam, projected into the sample plane, and the $x$ axis}%
 \nomenclature[2x020]{$x$}{Horizontal coordinate, usually chosen along the incoming beam projection}%
 \nomenclature[2y020]{$y$}{Horizontal oordinate, chosen normal to $z$ and $x$}%
   The numbered layers illustrate a multilayer system as dicussed in \cref{sec:Multilayers}.
@@ -215,25 +215,25 @@ involves two incident and two final partial wavefunctions.
 The resulting sum
 \index{Wave propagation!in multilayer|)}
 \begin{equation}\label{Edwba4}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
-  = \bra \psi^-_\ti|\delta v|\psi^-_\tf\ket
-  + \bra \psi^-_\ti|\delta v|\psi^+_\tf\ket
-  + \bra \psi^+_\ti|\delta v|\psi^-_\tf\ket
-  + \bra \psi^+_\ti|\delta v|\psi^+_\tf\ket
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  = \bra \psi^-_\si|\delta v|\psi^-_\sf\ket
+  + \bra \psi^-_\si|\delta v|\psi^+_\sf\ket
+  + \bra \psi^+_\si|\delta v|\psi^-_\sf\ket
+  + \bra \psi^+_\si|\delta v|\psi^+_\sf\ket
 \end{equation}
 is depicted in \Cref{Fdwba4terms}.
 It can be written in an obvious shorthand notation
 \Emph{%
 \begin{equation}\label{Edwba}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
-  = \sum_{\pm_\ti} \sum_{\pm_\tf}
-    \bra \psi^\pm_\ti|\delta v|\psi^\pm_\tf\ket.
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  = \sum_{\pm_\si} \sum_{\pm_\sf}
+    \bra \psi^\pm_\si|\delta v|\psi^\pm_\sf\ket.
 \end{equation}%
 \vspace*{-5pt}}
 This equation contains the essence of
 the DWBA for GISAS,
 and is the base for all scattering models implemented in \BornAgain.
-Since $\bra \psi_\ti|\delta v|\psi_\tf\ket$
+Since $\bra \psi_\si|\delta v|\psi_\sf\ket$
 appears as a squared modulus
 in the differential cross section~\cref{Exsection},
 the four terms of \cref{Edwba} can interfere with each other,
@@ -262,9 +262,9 @@ with the requirement
 The DWBA matrix element~\cref{Edwba} then takes the form
 \Emph{%
 \begin{equation}\label{Edwbal}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
-  = \sum_l \sum_{\pm_\ti} \sum_{\pm_\tf}
-    \bra \psi^\pm_{\ti l}|\delta v|\psi^\pm_{\tf l}\ket.
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  = \sum_l \sum_{\pm_\si} \sum_{\pm_\sf}
+    \bra \psi^\pm_{\si l}|\delta v|\psi^\pm_{\sf l}\ket.
 \end{equation}%
 \vspace*{-5pt}}
 
@@ -365,10 +365,10 @@ The offset~$z_\il$ has been included in the phase factor for later convenience.
 The DWBA transition matrix element~\cref{Edwba} is
 \index{Distorted-wave Born approximation!multilayer}%
 \begin{equation}\label{Edwba_ml0}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
-  = \sum_{\il} \sum_{\pm_\ti} \sum_{\pm_\tf}
-    A^{\pm *}_{\ti \il} A^\pm_{\tf \il}
-     \delta v_\il(\k^\pm_{\tf \il}-\k^\pm_{\ti \il})
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  = \sum_{\il} \sum_{\pm_\si} \sum_{\pm_\sf}
+    A^{\pm *}_{\si \il} A^\pm_{\sf \il}
+     \delta v_\il(\k^\pm_{\sf \il}-\k^\pm_{\si \il})
 \end{equation}
 with the Fourier transform of the SLD
 restricted to layer~$l$
@@ -384,16 +384,16 @@ we number the four DWBA terms from 1 to~4 as shown in \cref{Fdwba4terms},
 and define the corresponding wavenumbers and amplitude factors and as
 \begin{equation}\label{Eudef}
   \begin{array}{l@{\hspace{2em}}l}
-    \q^1 \coloneqq  \k^+_\tf - \k^-_\ti,& C^1 \coloneqq  A^{-*}_\ti A^+_\tf, \\[.6ex]
-    \q^2 \coloneqq  \k^-_\tf - \k^-_\ti,& C^2 \coloneqq  A^{-*}_\ti A^-_\tf, \\[.6ex]
-    \q^3 \coloneqq  \k^+_\tf - \k^+_\ti,& C^3 \coloneqq  A^{+*}_\ti A^+_\tf, \\[.6ex]
-    \q^4 \coloneqq  \k^-_\tf - \k^+_\ti,& C^4 \coloneqq  A^{+*}_\ti A^-_\tf.
+    \q^1 \coloneqq  \k^+_\sf - \k^-_\si,& C^1 \coloneqq  A^{-*}_\si A^+_\sf, \\[.6ex]
+    \q^2 \coloneqq  \k^-_\sf - \k^-_\si,& C^2 \coloneqq  A^{-*}_\si A^-_\sf, \\[.6ex]
+    \q^3 \coloneqq  \k^+_\sf - \k^+_\si,& C^3 \coloneqq  A^{+*}_\si A^+_\sf, \\[.6ex]
+    \q^4 \coloneqq  \k^-_\sf - \k^+_\si,& C^4 \coloneqq  A^{+*}_\si A^-_\sf.
   \end{array}
 \end{equation}
 Accordingly, we can write \cref{Edwba_ml0} as
 \Emph{
 \begin{equation}\label{Edwba_ml}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
+  \bra \psi_\si|\delta v|\psi_\sf\ket
   = \sum_{\il} \sum_{u} C^u_\il \delta v_\il(\q_\il^u).
 \end{equation}
 \vspace*{-5pt}}

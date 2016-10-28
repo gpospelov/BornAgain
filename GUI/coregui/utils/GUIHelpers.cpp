@@ -108,10 +108,8 @@ bool okToDelete(QWidget *parent, const QString &title, const QString &text, cons
     messageBox->setText(text);
     if (!detailedText.isEmpty())
         messageBox->setInformativeText(detailedText);
-    QAbstractButton *deleteButton = messageBox->addButton(
-            QObject::tr("&Delete"), QMessageBox::AcceptRole);
-    messageBox->addButton(QObject::tr("Do &Not Delete"),
-                          QMessageBox::RejectRole);
+    QAbstractButton *deleteButton = messageBox->addButton("&Delete", QMessageBox::AcceptRole);
+    messageBox->addButton("Do &Not Delete", QMessageBox::RejectRole);
     messageBox->setDefaultButton(
             qobject_cast<QPushButton*>(deleteButton));
     messageBox->exec();
@@ -122,9 +120,8 @@ bool okToDelete(QWidget *parent, const QString &title, const QString &text, cons
 int getVariantType(const QVariant &variant)
 {
     int result = variant.type();
-    if (result == QVariant::UserType) {
+    if (result == QVariant::UserType)
         result = variant.userType();
-    }
     return result;
 }
 

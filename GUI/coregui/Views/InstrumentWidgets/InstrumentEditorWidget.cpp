@@ -70,7 +70,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // main group box with all instrument parameters
-    QGroupBox *instrumentGroup = new QGroupBox(tr("Instrument Parameters"));
+    QGroupBox *instrumentGroup = new QGroupBox("Instrument Parameters");
     QVBoxLayout *instrumentGroupLayout = new QVBoxLayout;
     instrumentGroupLayout->setContentsMargins(0,0,0,0);
     instrumentGroup->setLayout(instrumentGroupLayout);

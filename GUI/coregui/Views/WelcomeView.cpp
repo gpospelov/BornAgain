@@ -57,7 +57,7 @@ WelcomeView::WelcomeView(MainWindow *parent)
 //        button_palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
 //        m_newProjectButton->setPalette(button_palette);
 
-    m_newProjectButton = new QPushButton(tr("New Project"));
+    m_newProjectButton = new QPushButton("New Project");
     m_newProjectButton->setMinimumWidth(buttonWidth);
     m_newProjectButton->setMinimumHeight(buttonHeight);
     m_newProjectButton->setFont(buttonFont);
@@ -66,14 +66,14 @@ WelcomeView::WelcomeView(MainWindow *parent)
     m_newProjectButton->setAttribute(Qt::WA_MacShowFocusRect, false);
 
 
-    m_openProjectButton = new QPushButton(tr("Open Project"));
+    m_openProjectButton = new QPushButton("Open Project");
     m_openProjectButton->setMinimumWidth(buttonWidth);
     m_openProjectButton->setMinimumHeight(buttonHeight);
     m_openProjectButton->setFont(buttonFont);
     m_openProjectButton->setToolTip("Open existing project");
 //    m_openProjectButton->setStyleSheet(ssheet);
 
-    m_newUsertButton = new QPushButton(tr("New to BornAgain?"));
+    m_newUsertButton = new QPushButton("New to BornAgain?");
     m_newUsertButton->setMinimumWidth(buttonWidth);
     m_newUsertButton->setMinimumHeight(buttonHeight);
     m_newUsertButton->setFont(buttonFont);
@@ -272,7 +272,7 @@ void WelcomeView::onWebLinkClicked(const QUrl &url)
 
 void WelcomeView::onNewUser()
 {
-    QUrl url(tr("http://www.bornagainproject.org"));
+    QUrl url("http://www.bornagainproject.org");
     QDesktopServices::openUrl(url);
 }
 

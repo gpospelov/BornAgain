@@ -58,14 +58,12 @@ void DesignerMimeData::read_xmldescr(const QString &xmldescr)
     while (!reader.atEnd()) {
         if (reader.readNext() == QXmlStreamReader::StartElement) {
             const QStringRef name = reader.name();
-            if(widget_found) {
-                reader.raiseError(tr("Unexpected element <%1>").arg(name.toString()));
-            }
-            if (name.compare(QStringLiteral("widget"), Qt::CaseInsensitive) == 0) {
+            if(widget_found)
+                reader.raiseError("Unexpected element <"+name.toString()+">");
+            if (name.compare(QStringLiteral("widget"), Qt::CaseInsensitive) == 0)
                 read_widget(reader);
-            } else {
-                reader.raiseError(tr("Unexpected element <%1>").arg(name.toString()));
-            }
+            else
+                reader.raiseError("Unexpected element <"+name.toString()+">");
         }
     }
 
@@ -114,4 +112,3 @@ QPixmap DesignerMimeData::getPixmap(const QString &name)
 {
     return DesignerHelper::getMimePixmap(name);
 }
-

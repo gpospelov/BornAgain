@@ -221,12 +221,12 @@ void InstrumentView::setupActions()
     m_toolBar->addWidget(new QLabel(" "));
 
     m_addInstrumentAction
-        = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), tr("Add new instrument"), this);
+        = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), "Add new instrument", this);
     connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
 
     m_removeInstrumentAction
         = new QAction(QIcon(":/SampleDesigner/images/toolbar_recycle_dark.png"),
-                      tr("Remove currently selected instrument"), this);
+                      "Remove currently selected instrument", this);
     connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
 
     Q_ASSERT(m_instrumentSelector->getListView());

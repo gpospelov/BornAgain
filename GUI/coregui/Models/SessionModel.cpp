@@ -93,9 +93,9 @@ QVariant SessionModel::headerData(int section, Qt::Orientation orientation, int 
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
         case ITEM_NAME:
-            return tr("Name");
+            return "Name";
         case ITEM_VALUE:
-            return tr("Value");
+            return "Value";
         }
     }
     return QVariant();

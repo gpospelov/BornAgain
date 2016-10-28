@@ -52,7 +52,7 @@ SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget *parent)
     mainLayout->setSpacing(0);
 
     // selection of input parameters
-    QGroupBox *groupBox = new QGroupBox(tr("Data selection"));
+    QGroupBox *groupBox = new QGroupBox("Data selection");
 
     QLabel *instrumentSelectionLabel = new QLabel(QStringLiteral("Select Instrument:"));
     instrumentSelectionLabel->setToolTip(select_instrument_tooltip);

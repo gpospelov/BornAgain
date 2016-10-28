@@ -97,7 +97,7 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     addWidget(new QLabel(" Zoom "));
     m_scaleCombo = new QComboBox;
     QStringList scales;
-    scales << tr("25%")<< tr("50%") << tr("75%") << tr("100%") << tr("125%") << tr("150%");
+    scales << "25%"<< "50%" << "75%" << "100%" << "125%" << "150%";
     m_scaleCombo->addItems(scales);
     m_scaleCombo->setCurrentIndex(3);
     connect(m_scaleCombo, SIGNAL(currentIndexChanged(QString)),
@@ -138,7 +138,7 @@ void SampleToolBar::onViewSelectionMode(int mode)
 
 void SampleToolBar::onScaleComboChanged(const QString &scale_string)
 {
-    double scale = scale_string.left(scale_string.indexOf(tr("%"))).toDouble() / 100.0;
+    double scale = scale_string.left(scale_string.indexOf("%")).toDouble() / 100.0;
     emit changeScale(scale);
 }
 

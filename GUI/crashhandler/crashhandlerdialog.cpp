@@ -14,14 +14,14 @@ CrashHandlerDialog::CrashHandlerDialog(QString errorText, QWidget *parent)
 
     m_clipboard = QApplication::clipboard();
 
-    m_titleLabel = new QLabel(tr("BornAgain has been closed unexpectedly. We appologize for this. \nPlease fill bug report using info provided below."));
+    m_titleLabel = new QLabel("BornAgain has been closed unexpectedly. We appologize for this. \nPlease fill bug report using info provided below.");
 
     m_errorTextEdit = new QTextEdit();
     m_errorTextEdit->setText(m_errorText);
 
-    m_copyButton = new QPushButton(tr("Copy to Clipboard"));
-    m_reportButton = new QPushButton(tr("Report"));
-    m_closeButton = new QPushButton(tr("Close"));
+    m_copyButton = new QPushButton("Copy to Clipboard");
+    m_reportButton = new QPushButton("Report");
+    m_closeButton = new QPushButton("Close");
 
     connect(m_copyButton, SIGNAL(clicked()), this, SLOT(onCopyButtonClicked()));
     connect(m_reportButton, SIGNAL(clicked()), this, SLOT(onReportButtonClicked()));
@@ -44,7 +44,7 @@ CrashHandlerDialog::CrashHandlerDialog(QString errorText, QWidget *parent)
     mainLayout->addLayout(buttonLayout);
 
     setLayout(mainLayout);
-    setWindowTitle(tr("BornAgain Crash Handler"));
+    setWindowTitle("BornAgain Crash Handler");
 }
 
 void CrashHandlerDialog::onCopyButtonClicked()
@@ -55,7 +55,7 @@ void CrashHandlerDialog::onCopyButtonClicked()
 
 void CrashHandlerDialog::onReportButtonClicked()
 {
-    QUrl url(tr("http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues/new"));
+    QUrl url("http://apps.jcns.fz-juelich.de/redmine/projects/bornagain/issues/new");
     QDesktopServices::openUrl(url);
 }
 

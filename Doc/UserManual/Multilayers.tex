@@ -167,6 +167,22 @@ The transmitted flux is given by the transmittance $|T|^2$.
 \index{Transmittance}%
 \index{Flux!transmitted}%
 
+%--------------------------------------------------------------------------------
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=1\textwidth]{fig/drawing/dwba_4terms.ps}
+\end{center}
+\caption{The four terms in the DWBA scattering matrix element~\cref{Edwba}.
+Note that this is a highly simplified visualization.
+In particular, it does not show multiple reflections
+\index{Multiple reflections}%
+\index{Reflection!multiple}%
+of incoming or scattered radiation,
+though they are properly accounted for by DWBA theory and by all simulation software.}
+\label{Fdwba4terms}
+\end{figure}
+%--------------------------------------------------------------------------------
+
 Within the sample, the wave equation~\cref{EWaveZ}
 is solved by the factorization ansatz
 \begin{equation}\label{Ekpar}
@@ -194,18 +210,19 @@ that is tracked back from a detector pixel towards the sample.
 \index{Backtracing}%
 \index{Scattered wave!backtracing}%
 \index{Detector!backtracing}%
-Accordingly,
-the distorted-wave Born approximation will result in a cross section~\cref{Edwba}
-that involves two incident and two final partial wavefunctions:
+Therefore the scattering matrix element
+involves two incident and two final partial wavefunctions.
+The resulting sum
 \index{Wave propagation!in multilayer|)}
 \begin{equation}\label{Edwba4}
   \bra \psi_\ti|\delta v|\psi_\tf\ket
   = \bra \psi^-_\ti|\delta v|\psi^-_\tf\ket
   + \bra \psi^-_\ti|\delta v|\psi^+_\tf\ket
   + \bra \psi^+_\ti|\delta v|\psi^-_\tf\ket
-  + \bra \psi^+_\ti|\delta v|\psi^+_\tf\ket,
+  + \bra \psi^+_\ti|\delta v|\psi^+_\tf\ket
 \end{equation}
-or in an obvious shorthand notation
+is depicted in \Cref{Fdwba4terms}.
+It can be written in an obvious shorthand notation
 \Emph{%
 \begin{equation}\label{Edwba}
   \bra \psi_\ti|\delta v|\psi_\tf\ket
@@ -221,34 +238,6 @@ appears as a squared modulus
 in the differential cross section~\cref{Exsection},
 the four terms of \cref{Edwba} can interfere with each other,
 which adds to the complexity of GISAS patterns.
-
-%--------------------------------------------------------------------------------
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=0.4\textwidth]{fig/drawing/multilayer_z_conventions.ps}
-\end{center}
-\caption{Conventions for layer numbers and interface coordinates:
-Layers are numbered from top to bottom.
-The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
-the substrate (extending to $z\to-\infty$) is layer~$N$.
-\nomenclature[2n120]{$N$}{A multilayer sample has $N+1$ layers, including the
-  semi-infinite bottom and top layers}
-\index{Multilayer!numbering}%
-\index{Layer!index}%
-\index{Convention!layer number}%
-The parameter $z_l$
-\nomenclature[2z020 2l010]{$z_l$}{Vertical
-  coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
-is the $z$ coordinate of the \E{top} interface of layer~$l$,
-\index{Multilayer!coordinates}%
-\index{Layer!coordinate}%
-\index{Convention!interface coordinate}%
-except for $z_0$ which is the coordinate of the \E{bottom} interface
-of the air or vacuum layer~0.}
-\label{Fdefz}
-\end{figure}
-%--------------------------------------------------------------------------------
-
 
 BornAgain supports multilayer samples
 with refractive index discontinuities at layer interfaces.
@@ -278,6 +267,33 @@ The DWBA matrix element~\cref{Edwba} then takes the form
     \bra \psi^\pm_{\ti l}|\delta v|\psi^\pm_{\tf l}\ket.
 \end{equation}%
 \vspace*{-5pt}}
+
+%--------------------------------------------------------------------------------
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{fig/drawing/multilayer_z_conventions.ps}
+\end{center}
+\caption{Conventions for layer numbers and interface coordinates:
+Layers are numbered from top to bottom.
+The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
+the substrate (extending to $z\to-\infty$) is layer~$N$.
+\nomenclature[2n120]{$N$}{A multilayer sample has $N+1$ layers, including the
+  semi-infinite bottom and top layers}
+\index{Multilayer!numbering}%
+\index{Layer!index}%
+\index{Convention!layer number}%
+The parameter $z_l$
+\nomenclature[2z020 2l010]{$z_l$}{Vertical
+  coordinate at the top of layer~$l$ (at the bottom for $l=0$)}%
+is the $z$ coordinate of the \E{top} interface of layer~$l$,
+\index{Multilayer!coordinates}%
+\index{Layer!coordinate}%
+\index{Convention!interface coordinate}%
+except for $z_0$ which is the coordinate of the \E{bottom} interface
+of the air or vacuum layer~0.}
+\label{Fdefz}
+\end{figure}
+%--------------------------------------------------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Homogeneous layers}\label{SLayHomo}
@@ -363,16 +379,15 @@ restricted to layer~$l$
 \end{equation}
 \nomenclature[1δ00 2v030 2l010 2q040]{$\delta v_\il(\v{q})$}{Fourier transform
 of the SLD $\delta v(\r)$, evaluated in one sample layer}%
-
 To alleviate later calculations,
-we now number the four DWBA terms from 1 to~4,
+we number the four DWBA terms from 1 to~4 as shown in \cref{Fdwba4terms},
 and define the corresponding wavenumbers and amplitude factors and as
 \begin{equation}\label{Eudef}
   \begin{array}{l@{\hspace{2em}}l}
-    \q^1 \coloneqq  \k^-_\tf - \k^-_\ti,& C^1 \coloneqq  A^{-*}_\ti A^-_\tf, \\[.6ex]
-    \q^2 \coloneqq  \k^-_\tf - \k^+_\ti,& C^2 \coloneqq  A^{-*}_\ti A^+_\tf, \\[.6ex]
-    \q^3 \coloneqq  \k^+_\tf - \k^-_\ti,& C^3 \coloneqq  A^{+*}_\ti A^-_\tf, \\[.6ex]
-    \q^4 \coloneqq  \k^+_\tf - \k^+_\ti,& C^4 \coloneqq  A^{+*}_\ti A^+_\tf.
+    \q^1 \coloneqq  \k^+_\tf - \k^-_\ti,& C^1 \coloneqq  A^{-*}_\ti A^+_\tf, \\[.6ex]
+    \q^2 \coloneqq  \k^-_\tf - \k^-_\ti,& C^2 \coloneqq  A^{-*}_\ti A^-_\tf, \\[.6ex]
+    \q^3 \coloneqq  \k^+_\tf - \k^+_\ti,& C^3 \coloneqq  A^{+*}_\ti A^+_\tf, \\[.6ex]
+    \q^4 \coloneqq  \k^-_\tf - \k^+_\ti,& C^4 \coloneqq  A^{+*}_\ti A^-_\tf.
   \end{array}
 \end{equation}
 Accordingly, we can write \cref{Edwba_ml0} as

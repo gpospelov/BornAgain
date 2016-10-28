@@ -384,13 +384,13 @@ In other words, the $\v T_j$
 are independent and identically distributed (\E{i.i.d.}) random variables.
 They all have the same distribution~$p(\v\tau)$.
 Averages under this distribution shall be denoted as
-\begin{equation}
+\begin{equation}\label{Epavg}
   \bra f\ket \coloneqq  \int\!\d\v\tau\,p(\v\tau)f(\tau).
 \end{equation}
 Pairs of particles have the distribution~$p(\v\tau)p(\v\tau')$,
 except if the two particles are identical.
 In consequence, the distribution $\PD$ must have the form
-\begin{equation}
+\begin{equation}\label{EPbyG}
   \PD(\r,\v\tau,\v\tau')
   = N_p \{ \delta(\r)p(\v\tau)\delta(\v\tau-\v\tau')
            + \left[\GD(\r|\v\tau,\v\tau') - \delta(\r)\right] p(\v\tau)p(\v\tau')\}
@@ -398,7 +398,7 @@ In consequence, the distribution $\PD$ must have the form
 with the conditional position correlation function~$\GD$.
 Inserting this in \cref{Epdm1} we obtain
 \Emph
-{\begin{equation}
+{\begin{equation}\label{EIdIc}
   \frac{1}{N_p}\xElas
   = I_\text{d}+I_\text{c}
 \end{equation}\vskip -5pt}
@@ -409,17 +409,17 @@ with the \E{diffuse} and \E{coherent} scattering intensities
 \index{Scattering!coherent}%
 \Emph
 {\begin{eqnarray}
-  I_\text{d}
+  I_\text{d}\label{EIddef}
   &\coloneqq& \bra\left|\FD\right|^2\ket-\left|\bra\FD\ket\right|^2,
 \\[2ex]
-  I_\text{c}
+  I_\text{c}\label{EIcdef}
   &\coloneqq&
   \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
   \int\! \d\v{\tau}\, \d\v{\tau}'
   \GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau') \FD(\v\tau) \FD^*(\v\tau').
 \end{eqnarray}\vskip -5pt}
 The diffuse intensity can be rewritten as
-\begin{equation}
+\begin{equation}\label{EIdDiff}
   I_\text{d}
   = \bra\left|\FD-\bra\FD\ket\right|^2\ket,
 \end{equation}
@@ -440,8 +440,9 @@ at atomic level, we will call it the
 \E{particle position correlation function}.
 \index{Particle position correlation function}%
 The Fourier transform
-\begin{equation}
-  \SD(\q)\coloneqq 1 + \rho_S \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!   \GD(\r)
+\begin{equation}\label{ESqdef}
+  \SD(\q)
+  \coloneqq \int\!\d^2r\, \e^{i\q_{\plll}\r}\! \GD(\r)
 \end{equation}
 shall be called the \E{interference function}.
 \index{Interference function}%.
@@ -452,13 +453,10 @@ the atomic \E{static structure factor}
 \index{Lattice factor}%
 The coherent scattering intensity then takes the simple form
 \Emph
-{\begin{equation}
+{\begin{equation}\label{EIcFac}
   I_\text{c} = \SD(\q) \left|\bra\FD\ket\right|^2.
 \end{equation}\vskip -5pt}
-
-Altogether, the approximations introduced so far
-(coherent superposition; uncorrelated particle properties;
-R-T decoupling)
+Together, the T-T and R-T decoupling
 make up the \E{decoupling approximation}
 \index{IsGISAXS@\IsGISAXS!decoupling approximation}
 of \IsGISAXS.\footnote

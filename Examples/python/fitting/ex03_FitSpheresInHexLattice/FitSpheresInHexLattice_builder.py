@@ -54,8 +54,7 @@ class MySampleBuilder(ba.IMultiLayerBuilder):
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(substrate_layer)
-        self.sample = multi_layer
-        return self.sample
+        return multi_layer
 
 
 def get_simulation():
@@ -101,8 +100,7 @@ def run_fitting():
     main function to run fitting
     """
     simulation = get_simulation()
-    sample_builder = MySampleBuilder()
-    simulation.setSampleBuilder(sample_builder)
+    simulation.setSampleBuilder(MySampleBuilder())
     simulation.printParameters()
 
     real_data = create_real_data()

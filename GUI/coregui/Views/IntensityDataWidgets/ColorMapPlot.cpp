@@ -356,7 +356,6 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
             QCPRange range = m_customPlot->xAxis->range();
             range.lower = m_item->getLowerX();
             range.upper = m_item->getUpperX();
-            qDebug() << "CCCC" << m_item->getLowerX() << m_item->getUpperX();
             m_customPlot->xAxis->setRange(range);
             setAxesRangeConnected(true);
             replot();

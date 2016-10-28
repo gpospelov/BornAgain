@@ -33,6 +33,5 @@ protected:
 
 };
 
-
 #endif // REGIONOFINTERESTVIEW_H
 

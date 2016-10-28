@@ -70,5 +70,4 @@ private:
     IntensityDataItem *m_intensityDataItem;
 };
 
-
 #endif // MASKEDITORPROPERTYPANEL_H

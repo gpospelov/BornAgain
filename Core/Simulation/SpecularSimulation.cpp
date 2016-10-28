@@ -197,7 +197,11 @@ SpecularSimulation::getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const
 
 void SpecularSimulation::updateSample()
 {
-    if (mP_sample_builder) {
+    if (!mP_sample_builder)
+        return;
+    if (mP_sample_builder->isPythonBuilder()) {
+        mP_sample.reset( mP_sample_builder->buildSample()->clone() );
+    } else {
         mP_sample.reset( mP_sample_builder->buildSample() );
     }
 }

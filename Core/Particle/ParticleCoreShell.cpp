@@ -68,7 +68,8 @@ void ParticleCoreShell::setAmbientMaterial(const IMaterial& material)
 
 const IMaterial* ParticleCoreShell::getAmbientMaterial() const
 {
-    if (!mp_shell) return 0;
+    if (!mp_shell)
+        return nullptr;
     return mp_shell->getAmbientMaterial();
 }
 
@@ -100,7 +101,7 @@ IFormFactor* ParticleCoreShell::createTransformedFormFactor(const IRotation* p_r
     return P_result.release();
 }
 
-void ParticleCoreShell::addAndRegisterCore(const Particle &core, kvector_t relative_core_position)
+void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relative_core_position)
 {
     if(mp_core) {
         deregisterChild(mp_core);
@@ -112,7 +113,7 @@ void ParticleCoreShell::addAndRegisterCore(const Particle &core, kvector_t relat
 }
 
 
-void ParticleCoreShell::addAndRegisterShell(const Particle &shell)
+void ParticleCoreShell::addAndRegisterShell(const Particle& shell)
 {
     if(mp_shell) {
         deregisterChild(mp_shell);

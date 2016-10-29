@@ -88,8 +88,8 @@ With the factorization~\cref{Ekpar},
 the scattering matrix element~\cref{Etrama} becomes
 \begin{equation}\label{Escamatrix2}
   \bra\psi_\si|\delta v|\psi_\sf\ket
-  = \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
-    \int\!\d z\, \phi_\si(z) \delta v(\r) \phi^*_\sf(z).
+  = \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll}
+    \int\!\d z\, \phi^*_\si(z) \delta v(\r) \phi_\sf(z).
 \end{equation}
 The SLD distribution of a set of identical particles,
 located at positions~$\R_j$, can be written as a sum
@@ -110,15 +110,15 @@ In consequence, \cref{Echihomo}~is replaced by
 \end{equation}
 With the \E{DWBA form factor}
 \begin{equation}\label{EcFdef}
-  \FD(\q_\parallel,\v{T})
+  \FD(\q_\plll,\v{T})
   \coloneqq
-    \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
-    \int\!\d z\, \phi_\si(z) F(\r,\v{T}) \phi^*_\sf(z),
+    \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll}
+    \int\!\d z\, \phi^*_\si(z) F(\r,\v{T}) \phi_\sf(z),
 \end{equation}
 the scattering matrix element~\cref{Escamatrix2} becomes
 \begin{equation}\label{EsumRF}
   \bra\psi_\si|\delta v|\psi_\sf\ket
-  = \sum_j \e^{i\q_\parallel \R_{j\plll}}  \FD(\q_\parallel,\v{T}_j).
+  = \sum_j \e^{i\q_\plll \R_{j\plll}}  \FD(\q_\plll,\v{T}_j).
 \end{equation}
 The elastic scattering cross section~\cref{Exsection} can be written as
 \Emph{
@@ -153,15 +153,15 @@ by analytically or numerically solving the differential equation~\cref{Ewavez}.
 To evaluate the DWBA form factor for such~$\phi(z)$,
 it is helpful to change the order of integration in~\cref{EcFdef}:
 \begin{equation}\label{EcFx}
-  \FD(\q_\parallel,\v{T})
-   = \int\!\d z\, \phi_\si(z) F(q_\parallel,z,\v{T}) \phi^*_\sf(z)
+  \FD(\q_\plll,\v{T})
+   = \int\!\d z\, \phi^*_\si(z) F(q_\plll,z,\v{T}) \phi_\sf(z)
 \end{equation}
 with
 \begin{equation}\label{EFqpadef}
-  F(\q_\parallel,z,\v{T})
-  \coloneqq \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel} F(\r,\v{T}).
+  F(\q_\plll,z,\v{T})
+  \coloneqq \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll} F(\r,\v{T}).
 \end{equation}
-$F(\q_\parallel,z,\v{T})$ is an \E{intermediate Fourier transform},
+$F(\q_\plll,z,\v{T})$ is an \E{intermediate Fourier transform},
 since it is a transform in some, but not all the coordinates;
 more specifically, it may be called the \E{horizontal Fourier transform}.
 For homogeneous particles,
@@ -173,13 +173,13 @@ Within each layer, the wavefunction is the sum of two plane waves~\cref{Ephizwj}
 With the notations~\cref{Eudef},
 the DWBA form factor~\cref{EcFx} becomes
 \begin{equation}\label{EcFres1}
-  \FD(\q_\parallel,\v{T})
+  \FD(\q_\plll,\v{T})
    = \sum_l \sum_u C^u_l F_l(\q^u_l,\v{T})
 \end{equation}
 with
 \begin{equation}\label{EFqTdef}
   F_l(\q,\v{T})
-  \coloneqq \int\!\d z\, \e^{iq^u_l z} F(q_\parallel,z,\v{T}) \chi_l(z)
+  \coloneqq \int\!\d z\, \e^{iq^u_l z} F(q_\plll,z,\v{T}) \chi_l(z)
    = \int\!\d^3 r\, \e^{i\q^u_l \r} F(\r,\v{T})\chi_l(z).
 \end{equation}
 Except for the restriction to layer~$l$,
@@ -206,7 +206,7 @@ and $\v{P}$ collects size, shape and other parameters that determine
 the refractive index profile of the particle.
 With this, we can express the generic Born form factor as
 \begin{equation}\label{EqOm}
-  F(\q,h,\v{\Omega},\v{P}) = \e^{iq_\parallel h} F(D_{\v{\Omega}}^{-1}\q,\v{P}),
+  F(\q,h,\v{\Omega},\v{P}) = \e^{iq_\plll h} F(D_{\v{\Omega}}^{-1}\q,\v{P}),
 \end{equation}
 using the standard form factor
 for location $h=0$ and orientation~$\v{\Omega}=\v{0}$,

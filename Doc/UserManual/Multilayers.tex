@@ -126,22 +126,22 @@ The exciting wavefunction is
 \index{Exciting wave!DWBA}%
 \index{Wave!exciting}%
 \begin{equation}\label{Epsiminus}
-  \psi_\se(\r) = \e^{i\k_\parallel\r_\parallel+ik_{\perp\se}z},
+  \psi_\se(\r) = \e^{i\k_\plll\r_\plll+ik_{\perp\se}z},
 \end{equation}
-\nomenclature[0$\parallel$]{$\parallel$}{Parallel to the $xy$ sample plane}%
+\nomenclature[0$\plll$]{$\plll$}{Parallel to the $xy$ sample plane}%
 \nomenclature[0$\perp$]{$\perp$}{Normal to the $xy$ sample plane}%
 \nomenclature[2k021\perp]{$k_\perp$}{Component of $\k$ along the sample normal}%
-\nomenclature[2k041\parallel]{$\k_\parallel$}{Projection of $\k$ onto the sample plane}%
-The subscripts $\parallel$ and~$\perp$ refer to the sample $xy$ plane.
-The wave vector components $\k_\parallel$ and $k_{\perp}$ must fulfill
+\nomenclature[2k041\plll]{$\k_\plll$}{Projection of $\k$ onto the sample plane}%
+The subscripts $\plll$ and~$\perp$ refer to the sample $xy$ plane.
+The wave vector components $\k_\plll$ and $k_{\perp}$ must fulfill
 \begin{equation}
-  K(z)^2=\k_\parallel^2+k_{\perp}^2.
+  K(z)^2=\k_\plll^2+k_{\perp}^2.
 \end{equation}
 \index{Wavenumber!vertical}%
 \index{Vertical wavenumber}%
 Continuity across the sample implies
 \begin{equation}\label{Ekconst}
-  \k_\parallel = \text{const}.
+  \k_\plll = \text{const}.
 \end{equation}
 \index{Wavevector!horizontal!constant}%
 \index{Horizontal wavevector!constant}%
@@ -150,8 +150,8 @@ it is wholly or partly reflected.
 Therefore, the full the solution of~\cref{EWaveZ} in the half space
 of the radiation source is
 \begin{equation}\label{Eref1}
-  \psi(\r) = \e^{i\k_\parallel\r_\parallel+ik_{\perp\se} z} +
-      R\, \e^{i\k_\parallel\r_\parallel-ik_{\perp\se} z}
+  \psi(\r) = \e^{i\k_\plll\r_\plll+ik_{\perp\se} z} +
+      R\, \e^{i\k_\plll\r_\plll-ik_{\perp\se} z}
 \end{equation}
 with a complex reflection coefficient~$R$.
 \index{Reflection coefficient}%
@@ -160,7 +160,7 @@ The reflected flux is given by the re\-flect\-an\-ce $|R|^2$.
 \index{Flux!reflected}%
 In the opposite halfspace, the solution of~\cref{EWaveZ} is simply
 \begin{equation}\label{Etra1}
-  \psi(\r) = T\, \e^{i\k_\parallel\r_\parallel+ik_{\perp\se} z}
+  \psi(\r) = T\, \e^{i\k_\plll\r_\plll+ik_{\perp\se} z}
 \end{equation}
 with a complex transmission coefficient~$T$.
 The transmitted flux is given by the transmittance $|T|^2$.
@@ -186,13 +186,13 @@ though they are properly accounted for by DWBA theory and by all simulation soft
 Within the sample, the wave equation~\cref{EWaveZ}
 is solved by the factorization ansatz
 \begin{equation}\label{Ekpar}
-\psi(\r) = \e^{i \k_\parallel\r_\parallel} \phi(z).
+\psi(\r) = \e^{i \k_\plll\r_\plll} \phi(z).
 \end{equation}
 \nomenclature[1φ020 0z020]{$\phi(z)$}{$z$-dependent factor of $\psi(\r)$}%
 The vertical wavefunction~$\phi(z)$
 is governed by the one-dimensional wave equation
 \begin{equation}\label{Ewavez}
-\left\{\partial_z^2 + K(z)^2 - k_\parallel^2 \right\} \phi(z) = 0.
+\left\{\partial_z^2 + K(z)^2 - k_\plll^2 \right\} \phi(z) = 0.
 \end{equation}
 As solution of a differential equation of second degree,
 $\phi(z)$~can be written as superposition
@@ -318,7 +318,7 @@ This will be elaborated in \Cref{Sacrolay}.
 \index{Layer!refractive index profiles}%
 The vertical wavenumber is determined by \cref{Epsiminus} and~\cref{Ekconst},
 \begin{equation}\label{Ekperpl}
-  k_{\perp l}^\pm = \pm\sqrt{K_l^2 - k_\parallel^2}.
+  k_{\perp l}^\pm = \pm\sqrt{K_l^2 - k_\plll^2}.
 \end{equation}
 In the absence of absorption and above the critical angle,
 wavevectors are real
@@ -339,7 +339,7 @@ which is Snell's refraction law.
 \index{Refraction!Snell's law}
 \index{Snell's law}
 In general, however, the vertical wavenumber $k_{\perp}$,
-determined by $K_l$ and $k_\parallel$ as per~\cref{Epsiminus},
+determined by $K_l$ and $k_\plll$ as per~\cref{Epsiminus},
 can become imaginary (total reflection conditions) or complex (absorbing layer).
 \index{Wavevector!complex}%
 In these cases, glancing angles are no longer well defined,
@@ -397,8 +397,8 @@ Accordingly, we can write \cref{Edwba_ml0} as
   = \sum_{\il} \sum_{u} C^u_\il \delta v_\il(\q_\il^u).
 \end{equation}
 \vspace*{-5pt}}
-Since $\k_\parallel=\text{const}$,
- all four wavevectors $\q^u$ have the same horizontal component;
+Since $\k_\plll=\text{const}$,
+ all four wavevectors $\q^u$ have the same horizontal component~$\q_\plll$;
 they differ only in their vertical component~$q^u_\perp$.
 
 %===============================================================================

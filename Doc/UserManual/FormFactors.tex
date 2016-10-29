@@ -38,8 +38,8 @@ the real-space geometry is shown in orthogonal projections,
 the parameters of the \BornAgain\ method are defined,
 an analytical expression for the form factor is given,
 and exemplary results for $\left|F(\q)\right|^2$ versus
-$\alpha_\tf,\phi_\tf$ are shown for small-angle scattering conditions
-($\alpha_\ti=\phi_\ti=0$).
+$\alpha_\sf,\phi_\sf$ are shown for small-angle scattering conditions
+($\alpha_\si=\phi_\si=0$).
 
 The computation of $F(\q)$ is based on
 shapes $S(\r)$ given in Cartesian coordinates,
@@ -58,7 +58,7 @@ used to describe in order to take any material absorption into account.
 The implementation in \BornAgain\ allows all three components
 of~$\q$ to be complex.\footnote
 {According to \cref{Smulayabs},
-only the vertical components of $\k_\ti$ and $\k_\tf$ can have imaginary parts.
+only the vertical components of $\k_\si$ and $\k_\sf$ can have imaginary parts.
 However,
 for tilted particles
 $F(\v{\tilde{q}})$ needs to be computed with
@@ -73,7 +73,7 @@ Afterwards, the detailed documentation is in alphabetical order.
 
 %\clearpage\thispagestyle{empty}
 \def\entry#1#2#3#4#5#6{%
-\raisebox{-3.8ex}{\includegraphics[width=5em]{fig/blue/#2.png}} &
+\raisebox{-3.8ex}{\includefinal{5em}{fig/blue/#2.png}} &
  \texttt{#1}& %\newline\textsl{#1} &
 #5 & % symmetry
 #4 & % parameters
@@ -157,13 +157,13 @@ For polyhedra, see Ref.~\cite{ba:ffp} for a meticulous discussion.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_demo_1quadrants.pdf}
+\includefinal{1\TW}{fig/ff2/ff_demo_1quadrants.pdf}
 \end{center}
-\caption{Normalized intensity $I(\alpha_\tf,\phi_\tf)$
+\caption{Normalized intensity $I(\alpha_\sf,\phi_\sf)$
 for small-angle scattering by a truncated sphere with $R=4.2$~nm and $H=6.1$~nm,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).
 Since $I$ possess the standard symmetry (\protect\ref{EFq4sym}),
-data are only shown for first quadrant $0^\circ\le\phi_\tf,\alpha_\tf\le 5^\circ$.}
+data are only shown for first quadrant $0^\circ\le\phi_\sf,\alpha_\sf\le 5^\circ$.}
 \label{F1quadrants}
 \end{figure}
 
@@ -184,27 +184,27 @@ the particle volume~$V$ is about 250~nm$^3$ (within $\pm5$~\%);
 except ripples, which are chosen with a vertical section $V/L$ of 40~nm$^2$
 and a length of 25~nm.
 The incident wavelength is 1~\AA.
-The incident beam is always in $x$ direction, hence $\alpha_\ti=\phi_\ti=0$.
+The incident beam is always in $x$ direction, hence $\alpha_\si=\phi_\si=0$.
 Simulated detector images are normalized to the maximum scattering intensity at $F(0)=V$,
 \begin{equation}
-  I(\alpha_\tf,\phi_\tf)\coloneqq |F(q(\alpha_\tf,\phi_\tf))|^2/V^2.
+  I(\alpha_\sf,\phi_\sf)\coloneqq |F(q(\alpha_\sf,\phi_\sf))|^2/V^2.
 \end{equation}
 All plots have the same logarithmic color scale,
 extending over ten decades from $10^{-1)}$ to~1.
-Plot ranges in $\alpha_\tf$ and $\phi_\tf$ are also standardized as far as
+Plot ranges in $\alpha_\sf$ and $\phi_\sf$ are also standardized as far as
 reasonably possible.
 For most particle geometries,
 $I$ has horizontal and vertical mirror planes:
 \begin{equation}\label{EFq4sym}
-  I(\alpha_\tf,\phi_\tf)
-  = I(\alpha_\tf,-\phi_\tf)
-  = I(-\alpha_\tf,-\phi_\tf)
-  = I(\alpha_\tf,-\phi_\tf).
+  I(\alpha_\sf,\phi_\sf)
+  = I(\alpha_\sf,-\phi_\sf)
+  = I(-\alpha_\sf,-\phi_\sf)
+  = I(\alpha_\sf,-\phi_\sf).
 \end{equation}
 % TODO RESTORE TEMPORARILY REMOVED XREF
 % The physical origin this symmetry is discussed in \cref{Ssym}.
 For these particles,
-plots of $I$ are restricted to the quadrant $\alpha_\tf\ge0$, $\phi_\tf\ge0$.
+plots of $I$ are restricted to the quadrant $\alpha_\sf\ge0$, $\phi_\sf\ge0$.
 However, it requires some experience to fully appreciate the
 information content of these plots.
 For a demonstration of this,
@@ -213,10 +213,10 @@ Then compare with \cref{F4quadrants}.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_demo_4quadrants.pdf}
+\includefinal{1\TW}{fig/ff2/ff_demo_4quadrants.pdf}
 \end{center}
 \caption{Same data as in Fig.~\protect\ref{F1quadrants},
-but now shown for all four quadrants ($-5^\circ\le\phi_\tf,\alpha_\tf\le 5^\circ$).
+but now shown for all four quadrants ($-5^\circ\le\phi_\sf,\alpha_\sf\le 5^\circ$).
 The vertical interference pattern,
 which gradually disappears with increasing tilt angle,
  is much more salient in this plot
@@ -239,7 +239,7 @@ than in the preceding one-quadrant representation.}
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/AnistropicPyramid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/AnistropicPyramid3d.png}}
 \hfill
 \subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/AnisoPyramid2dxy.pdf}}
 \hfill
@@ -280,7 +280,7 @@ They must fulfill
 \paragraph{Examples}\strut\\
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_AnisoPyramid.pdf}
+\includefinal{1\TW}{fig/ff2/ff_AnisoPyramid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=13$~nm, $W=8$~nm, $H=4.2$~nm, and $\alpha=60^\circ$,
@@ -311,11 +311,11 @@ and were found to fully agree.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Box3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Box3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Box2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Box2dxz.pdf}}}
 \hfill
 \caption{A rectangular cuboid.}
 \end{figure}
@@ -350,7 +350,7 @@ F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Box.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Box.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=18$~nm, $W=4.6$~nm, and $H=3$~nm,
@@ -374,11 +374,11 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Cone3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Cone3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Cone2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Cone2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cone2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{3mm}{\includefinal{.3\TW}{fig/cuts/Cone2dxz.pdf}}}
 \hfill
 \caption{A truncated cone with circular base.}
 \end{figure}
@@ -422,7 +422,7 @@ Results:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Cone.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Cone.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=4$~nm, $H=11$~nm, and $\alpha=75^\circ$,
@@ -447,11 +447,11 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Cone63d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Cone63d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Cone62dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Cone62dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cone62dxz.pdf}}}
+\subfigure[Side view]{\raisebox{5mm}{\includefinal{.3\TW}{fig/cuts/Cone62dxz.pdf}}}
 \hfill
 \caption{A truncated pyramid, based on a regular hexagon}
 \end{figure}
@@ -491,7 +491,7 @@ The parameters must fulfill
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Cone6.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Cone6.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=6$~nm, $H=5$~nm, and $\alpha=60^\circ$,
@@ -518,11 +518,11 @@ with series expansions near singularities.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Cuboctahedron3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Cuboctahedron3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Cuboctahedron2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Cuboctahedron2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cuboctahedron2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Cuboctahedron2dxz.pdf}}}
 \hfill
 \caption{A compound of two truncated pyramids with a common square base
 and opposite orientations.}
@@ -566,7 +566,7 @@ They must fulfill
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Cuboctahedron.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Cuboctahedron.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=8$~nm, $H=5$~nm, $r_H=0.5$, and $\alpha=60^\circ$,
@@ -591,11 +591,11 @@ using the generic polyhedron form factor \cite{ba:ffp}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Cylinder3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Cylinder3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Cylinder2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Cylinder2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-2.5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cylinder2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-2.5mm}{\includefinal{.3\TW}{fig/cuts/Cylinder2dxz.pdf}}}
 \hfill
 \caption{An upright circular cylinder.}
 \end{figure}
@@ -635,7 +635,7 @@ Results:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Cylinder.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Cylinder.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=3$~nm and $H=8.8$~nm,
@@ -685,11 +685,11 @@ Integration over~$r$ then yields the in-plane contribution to the form factor~$F
 \begin{figure}[H]
 \strut\hfill
 %\subfigure[Perspective]
-{\includegraphics[width=.24\textwidth]{fig/blue/Dodecahedron3d.png}}
+{\includefinal{.24\TW}{fig/blue/Dodecahedron3d.png}}
 %\hfill
-%\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+%\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Box2dxy.pdf}}
 %\hfill
-%\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+%\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Box2dxz.pdf}}}
 \hfill\strut
 \caption{A regular dodecahedron.}
 \end{figure}
@@ -721,7 +721,7 @@ with the parameter
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Dodecahedron_sym.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Dodecahedron_sym.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $a=3.2$~nm,
@@ -733,7 +733,7 @@ edge in the $xy$ plane and perpendicular to the $x$ axis.}
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Dodecahedron_asy.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Dodecahedron_asy.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $a=3.2$~nm,
@@ -759,11 +759,11 @@ based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/EllipsoidalCylinder3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/EllipsoidalCylinder3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/EllipsoidalCylinder2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/EllipsoidalCylinder2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{4mm}{\includegraphics[width=.30\textwidth]{fig/cuts/EllipsoidalCylinder2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{4mm}{\includefinal{.3\TW}{fig/cuts/EllipsoidalCylinder2dxz.pdf}}}
 \hfill
 \caption{A upright cylinder whose cross section is an ellipse.}
 \end{figure}
@@ -800,7 +800,7 @@ F = 2\pi R_a R_b H \exp\left(i\frac{q_z H}{2}\right)
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_EllipsoidalCylinder.pdf}
+\includefinal{1\TW}{fig/ff2/ff_EllipsoidalCylinder.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R_a=6.3$~nm, $R_b=4.2$~nm and $H=3$~nm,
@@ -824,11 +824,11 @@ or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/FullSphere3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/FullSphere3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/FullSphere2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/FullSphere2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/FullSphere2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-2mm}{\includefinal{.3\TW}{fig/cuts/FullSphere2dxz.pdf}}}
 \hfill
 \caption{A full sphere.}
 \end{figure}
@@ -866,7 +866,7 @@ F = \frac{4\pi}{q^3} \exp(iq_z R)\left[\sin(qR) - qR \cos(qR)\right],
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{fig/ff2/ff_FullSphere.pdf}
+\includefinal{.5\TW}{fig/ff2/ff_FullSphere.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=3.9$~nm.}
@@ -955,11 +955,11 @@ which is what we wanted to prove.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/FullSpheroid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/FullSpheroid3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/FullSpheroid2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-3mm}{\includefinal{.3\TW}{fig/cuts/FullSpheroid2dxz.pdf}}}
 \hfill
 \caption{A full spheroid, generated by rotating an ellipse around the vertical axis.}
 \end{figure}
@@ -998,7 +998,7 @@ Results:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{fig/ff2/ff_FullSpheroid.pdf}
+\includefinal{.5\TW}{fig/ff2/ff_FullSpheroid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=3.5$~nm and $H=9.8$~nm.}
@@ -1024,11 +1024,11 @@ We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/HemiEllipsoid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/HemiEllipsoid3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/HemiEllipsoid2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/HemiEllipsoid2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/HemiEllipsoid2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{5mm}{\includefinal{.3\TW}{fig/cuts/HemiEllipsoid2dxz.pdf}}}
 \hfill
 \caption{An horizontally oriented ellipsoid, truncated at the central plane.}
 \end{figure}
@@ -1067,7 +1067,7 @@ Results:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_HemiEllipsoid.pdf}
+\includefinal{1\TW}{fig/ff2/ff_HemiEllipsoid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R_a=10$~nm, $R_b=3.8$~nm and $H=3.2$~nm,
@@ -1093,11 +1093,11 @@ or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 \begin{figure}[H]
 \strut\hfill
 %\subfigure[Perspective]
-{\includegraphics[width=.24\textwidth]{fig/blue/Icosahedron3d.png}}
+{\includefinal{.24\TW}{fig/blue/Icosahedron3d.png}}
 %\hfill
-%\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+%\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Box2dxy.pdf}}
 %\hfill
-%\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+%\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Box2dxz.pdf}}}
 \hfill\strut
 \caption{A regular icosahedron.}
 \end{figure}
@@ -1129,7 +1129,7 @@ with the parameter
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Icosahedron_sym.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Icosahedron_sym.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $a=4.8$~nm,
@@ -1141,7 +1141,7 @@ edge in the $xy$ plane and perpendicular to the $x$ axis.}
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Icosahedron_asy.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Icosahedron_asy.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $a=4.8$~nm,
@@ -1166,11 +1166,11 @@ based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Prism33d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Prism33d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxy.ps}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Prism32dxy.ps}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxz.ps}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Prism32dxz.ps}}
 \hfill
 \caption{A prism based on an equilateral triangle.}
 \end{figure}
@@ -1204,7 +1204,7 @@ computed using the generic form factor of a planar polygon \cite{ba:ffp},
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Prism3.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Prism3.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=13.8$~nm and $H=3$~nm,
@@ -1235,11 +1235,11 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Prism63d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Prism63d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism62dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Prism62dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Prism62dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-3mm}{\includefinal{.3\TW}{fig/cuts/Prism62dxz.pdf}}}
 \hfill
 \caption{A prism based on a regular hexagon.}
 \end{figure}
@@ -1274,7 +1274,7 @@ with two-fold symmetry~($S_2$) \cite{ba:ffp},
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Prism6.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Prism6.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=5.7$~nm and $H=3$~nm,
@@ -1304,11 +1304,11 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Pyramid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Pyramid3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Pyramid2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Pyramid2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Pyramid2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Pyramid2dxz.pdf}}}
 \hfill
 \caption{A truncated pyramid with a square base.}
 \end{figure}
@@ -1346,7 +1346,7 @@ They must fulfill
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Pyramid.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Pyramid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=10$~nm, $H=4.2$~nm and $\alpha=60^{\circ}$,
@@ -1375,11 +1375,11 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Ripple13d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Ripple13d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple12dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Ripple12dxy.pdf}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple12dyz.pdf}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Ripple12dyz.pdf}}
 \hfill
 \caption{A ripple with a sinusoidal profile.}
 \end{figure}
@@ -1425,7 +1425,7 @@ $u=\text{arccos}( 2z/H-1)$.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Ripple1.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Ripple1.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=25$~nm, $W=10$~nm and $H=8$~nm,
@@ -1446,11 +1446,11 @@ Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Ripple23d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Ripple23d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple22dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Ripple22dxy.pdf}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple22dyz.pdf}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Ripple22dyz.pdf}}
 \hfill
 \caption{A ripple with an asymmetric saw-tooth profile.}
 \end{figure}
@@ -1495,7 +1495,7 @@ F &=L W
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Ripple2.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Ripple2.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
@@ -1522,11 +1522,11 @@ Incorrectly named so, since it actually has five, not four surfaces.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Tetrahedron3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Tetrahedron3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxy.ps}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Tetrahedron2dxy.ps}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.ps}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Tetrahedron2dxz.ps}}
 \hfill
 \caption{A truncated pyramid, based on an equilateral triangle.}
 \end{figure}
@@ -1566,7 +1566,7 @@ It is related to the dihedral angle through $\tan \alpha = 2 \tan \beta$.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Tetrahedron.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Tetrahedron.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=12$~nm, $H=8$~nm, and $\alpha=75^\circ$,
@@ -1598,11 +1598,11 @@ with series expansions near singularities.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/TruncatedCube3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/TruncatedCube3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Truncatedcube2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Truncatedcube2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Truncatedcube2dxz.pdf}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Truncatedcube2dxz.pdf}}
 \hfill
 \caption{A cube whose eight vertices have been removed.
 The truncated part of each vertex is a trirectangular tetrahedron.}
@@ -1640,7 +1640,7 @@ They must fulfill
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedCube.pdf}
+\includefinal{1\TW}{fig/ff2/ff_TruncatedCube.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
@@ -1664,11 +1664,11 @@ of a polygonal prism \cite{ba:ffp}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Sphere3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Sphere3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Sphere2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Sphere2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Sphere2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-2mm}{\includefinal{.3\TW}{fig/cuts/Sphere2dxz.pdf}}}
 \hfill
 \caption{A truncated sphere.}
 \end{figure}
@@ -1711,7 +1711,7 @@ F= 2\pi \exp[i q_z (H-R)]\int_{R-H}^{R}\!\d z\, R_z^2
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedSphere.pdf}
+\includefinal{1\TW}{fig/ff2/ff_TruncatedSphere.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=4.2$~nm and $H=6.1$~nm,
@@ -1735,11 +1735,11 @@ Agrees with the \IsGISAXS\ form factor
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Spheroid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Spheroid3d.png}}
 \hfill
-\subfigure[Top view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Spheroid2dxy.pdf}}}
+\subfigure[Top view]{\raisebox{5mm}{\includefinal{.3\TW}{fig/cuts/Spheroid2dxy.pdf}}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Spheroid2dxz.pdf}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Spheroid2dxz.pdf}}
 \hfill
 \caption{A vertically oriented, horizontally truncated spheroid.}
 \end{figure}
@@ -1782,7 +1782,7 @@ F =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H}^{f_p R} \!\d z\,
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedSpheroid.pdf}
+\includefinal{1\TW}{fig/ff2/ff_TruncatedSpheroid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=3.3$~nm, $H=9.8$~nm, and $f_p=1.8$,

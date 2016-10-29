@@ -18,7 +18,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Basic formalism} %Wave propagation and scattering contributions}
+\section{Generic scattering cross section}\label{SAssX}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\sp{\text{p}}
@@ -174,11 +174,15 @@ the DWBA form factor~\cref{EcFx} becomes
 with
 \begin{equation}\label{EFqTdef}
   F_l(\q,\v{T})
-  \coloneqq \int\!\d z\, \e^{iq^u_{l\plll} z} F(\q_\plll,z,\v{T}) \chi_l(z)
-   = \int\!\d^3 r\, \e^{i\q^u_l \r} F(\r,\v{T})\chi_l(z).
+  \coloneqq \int\!\d z\, \e^{iq_\perp z} F(\q_\plll,z,\v{T}) \chi_l(z).
+\end{equation}
+Inserting~\cref{EFqpadef}, we find that this is a plain three-dimensional Fourier transform:
+\begin{equation}\label{EFqT3d}
+  F_l(\q,\v{T})
+   = \int\!\d^3 r\, \e^{i\q \r} F(\r,\v{T})\chi_l(z).
 \end{equation}
 Except for the restriction to layer~$l$,
-$F_l(\q,\v{T})$ is the standard form factor
+it is the standard form factor
 that appears in the regular (plane-wave) Born approximation.
 Therefore, it is occasionally called the \E{Born form factor},
 and so we will call it.
@@ -186,27 +190,34 @@ and so we will call it.
 if the plane waves~$\phi^\pm(z)$ are \E{damped} due to an imaginary part
 of the refractive index.
 
-\Warn{Currently, \BornAgain\ does not support particles
-  that extend beyond layer interfaces.}
+\Work{Currently, the summation over~$l$ in~\cref{EcFres1} is not implemented in BornAgain.
+Therefore particles must not extend beyond layer interfaces.
+This restriction will be lifted in one of the next releases.}
 
-We now specify the generic parameter vector as
-$\v{T} \coloneqq (h,\v{\Omega},\v{P})$,
-where $h$ is the vertical location of the particle
-(the vertical component of the position vector~$\R$),
-$\v{\Omega}$ determines a rotation matrix~$D_{\v{\Omega}}$ so that
+To describe how~\cref{EFqT3d} is evaluated in BornAgain,
+we need to specify some of the parameters contained in the generic parameter vector
+$\v{T} \coloneqq (\Delta v_\sp,Z,\v{\Omega},\v{U})$:
+$\Delta v_\sp$ is the SLD difference between the particle and the embedding matrix,
+as discussed in~\cref{SAssX};
+for an inhomogeneous particle, it is some reference value
+obtained e.~g.\ from the maximum SLD.
+$Z$ is the vertical location of the particle;
+in our formalism, it is the vertical component of the position vector~$\R$.
+$\v{\Omega}$ is a tuple of rotation angles;
+they determine a rotation matrix~$D_{\v{\Omega}}$ that shall be defined by its action
 \begin{equation}\label{ErOm}
-  F(\r,h,\v{\Omega},\v{P}) = F(D_{\v{\Omega}}\r,h,\v{0},\v{P}),
+  F(\r,Z,\v{\Omega},\v{U}) = F(D_{\v{\Omega}}^{-1}\r,Z,\v{0},\v{U}).
 \end{equation}
-and $\v{P}$ collects size, shape and other parameters that determine
-the refractive index profile of the particle.
+Finally, $\v{U}$ collects all remaining parameters,
+among them size and shape parameters that determine the geometry
+and thereby the refractive index profile of the particle.
 With this, we can express the generic Born form factor as
 \begin{equation}\label{EqOm}
-  F(\q,h,\v{\Omega},\v{P}) = \e^{iq_\plll h} F(D_{\v{\Omega}}^{-1}\q,\v{P}),
+  F(\q,\Delta v_\sp,Z,\v{\Omega},\v{U}) = \Delta v_\sp \e^{iq_\plll Z} F(D_{\v{\Omega}}\q,\v{U}),
 \end{equation}
-using the standard form factor
-for location $h=0$ and orientation~$\v{\Omega}=\v{0}$,
+introducing the standard form factor
 \begin{equation}\label{EFqPdef}
-  F(\q,\v{P}) \coloneqq F(\q,0,\v{0},\v{P}).
+  F(\q,\v{U}) \coloneqq F(\q,1,0,\v{0},\v{U}).
 \end{equation}
 
 %===============================================================================
@@ -238,12 +249,10 @@ angle of rotation from this axis. For example, the following \Code{Python}\ scri
 the $z$-axis:\\
 
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(m_particle, pyramid_ff)
-    angle_around_z = 45.*degree
-    transform = Transform3D.createRotateZ(angle_around_z)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform)
+    pyramid_ff = ba.FormFactorPyramid(10*nm, 5*nm, 54.73*deg )
+    pyramid = ba.Particle(m_particle, pyramid_ff)
+    transform = ba.Transform3D.createRotateZ(45*deg)
+    particle_layout = ba.ParticleLayout().addParticle(pyramid, transform)
 \end{lstlisting}
 
 \Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
@@ -274,11 +283,11 @@ In practice, the most important case is the \E{core-shell particle}.
 This is supported in \BornAgain\ through the function
 \index{ParticleCoreShell@\Code{ParticleCoreShell}}
 \begin{lstlisting}
-  ParticleCoreShell(shell_particle, core_particle, relative_core_position)}
+  ParticleCoreShell(shell_particle, core_particle, rel_position)
 \end{lstlisting}
 where \Code{shell\_particle} is assumed to be inscribed
-in \Code{core\_particle},
-and \Code{relative\_\discretionary{}{}{}core\_\discretionary{}{}{}position}
+in \Code{core\_particle}.
+\Code{rel\_\discretionary{}{}{}position}
 specifies the position of the
 center of the base of the core particle relative
 to center of the base of the shell particle.

@@ -141,10 +141,6 @@ various approximations are used to make~\cref{EsumRF} manageable.
 \index{Particles!form factor|see {Form factor}}
 \index{Form factor|(}
 
-%===============================================================================
-\subsection{Computing the DWBA form factor}
-%===============================================================================
-
 To compute the DWBA form factor
 for a generic vertical wavefunction~$\phi(z)$,
 it is gadvantageous to exchange the order of integration in~\cref{EcFdef}:
@@ -220,95 +216,15 @@ introducing the standard form factor
   F(\q,\v{U}) \coloneqq F(\q,1,0,\v{0},\v{U}).
 \end{equation}
 
-%===============================================================================
-\subsection{Implementation notes}
-%===============================================================================
-
 BornAgain comes with a comprehensive library of form factors.
+For general usage instructions, see~\Cref{SintroPFF}.
 Hard-particle form factors are Fourier shape transforms.
-They are available for various spheroids, cylinders, cones, prisms, polyhedra,
-and ripples, % TODO
-as listed in~\Cref{SFF}.
+They are available for various spheroids, cylinders, cones, prisms, and polyhedra,
+as listed in~\Cref{SHPFF}.
+Ripples, used to model gratings, are described in~\Cref{SRipple}.
 Soft-particle form factors % TODO
 are not yet documented in this Manual.
 
-\index{Form factor!tutorial}%
-\index{Form factor!examples}%
-\index{Form factor!custom implementation}%
-\Tuto{The online tutorial contains an entire section on
-  \tuto{47}{embedded particles}, including several usage examples
-  and a \tuto{72}{list of all available form factors}.
-  If a particle shape is missing, try to implement a \tuto{107}{custom form factor},
-  or/and contact us.}
-
-The particles can be rotated in a different direction by using one of
-the following transformations: \Code{CreateRotateX($\theta$),
-  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
-around the associated axis and $\theta$ is the
-angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
-the $z$-axis:\\
-
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    pyramid_ff = ba.FormFactorPyramid(10*nm, 5*nm, 54.73*deg )
-    pyramid = ba.Particle(m_particle, pyramid_ff)
-    transform = ba.Transform3D.createRotateZ(45*deg)
-    particle_layout = ba.ParticleLayout().addParticle(pyramid, transform)
-\end{lstlisting}
-
-\Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
-
-\index{Large particles!numeric difficulty}%
-\index{Oscillations!from large particle form factor}%
-\index{Monte-Carlo integration!for large particle form factor}%
-\index{Particles!rapid form factor oscillations}%
-\index{Form factor!rapid oscillations}%
-\index{Form factor!large particles}%
-\Warn{For large particles (typically of order 1000nm),
-  the form factor oscillates rapidly within one detector bin
-  so that analytical calculations (performed for the bin center)
-  may give a completely wrong intensity pattern.}
-
-\Tuto{In this case, the best solution we can currently provide
-  is a Monte-Carlo integration, as shown in the example
-  \tuto{TODO}{large particle form factor}.}
-
-For particles that are made of different materials,
-the definition % TODO RESTORE ~\cref{EFFdef}
-of the form factor~$F(\q)$
-must be generalized in obvious ways.
-In practice, the most important case is the \E{core-shell particle}.
-\index{Inhomogeneous particles}%
-\index{Core-shell particles}%
-\index{Particles!Core-shell}%
-This is supported in \BornAgain\ through the function
-\index{ParticleCoreShell@\Code{ParticleCoreShell}}
-\begin{lstlisting}
-  ParticleCoreShell(shell_particle, core_particle, rel_position)
-\end{lstlisting}
-where \Code{shell\_particle} is assumed to be inscribed
-in \Code{core\_particle}.
-\Code{rel\_\discretionary{}{}{}position}
-specifies the position of the
-center of the base of the core particle relative
-to center of the base of the shell particle.
-
-\Tuto{See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.}
-
-%===============================================================================
-\index{Polydispersity!embedded particles}%
-\index{Particles!polydispersity}%
-\index{Distribution!of particle parameters}%
-\index{Form factor!parameter distributions}%
-Embedded particles may be \E{polydisperse}, i.~e.\ have statistical distributions
-for some or all their numeric parameters.
-This is supported in \BornAgain\ through the same mechanism
-as for other numeric parameters.
-
-\Tuto{See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
-  The example also shows how two parameters can be tied to each other
-(size distribution with constant ratio radius/height).}
-
-\index{Form factor|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decoupling approximations}\label{Spartidis}

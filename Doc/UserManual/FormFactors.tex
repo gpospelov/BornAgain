@@ -14,8 +14,93 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \part{Reference}\label{PREF}
+\chapter{Particle form factors}\label{SPFF}
 
-\chapter{Hard-particle form factors}  \label{SFF}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Usage}\label{SintroPFF}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor!tutorial}%
+\index{Form factor!examples}%
+\index{Form factor!custom implementation}%
+\Tuto{The online tutorial contains an entire section on
+  \tuto{47}{embedded particles}, including several usage examples
+  and a \tuto{72}{list of all available form factors}.
+  If a particle shape is missing, try to implement a \tuto{107}{custom form factor},
+  or/and contact us.}
+
+The particles can be rotated in a different direction by using one of
+the following transformations: \Code{CreateRotateX($\theta$),
+  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
+around the associated axis and $\theta$ is the
+angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
+the $z$-axis:\\
+
+\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+    pyramid_ff = ba.FormFactorPyramid(10*nm, 5*nm, 54.73*deg )
+    pyramid = ba.Particle(m_particle, pyramid_ff)
+    transform = ba.Transform3D.createRotateZ(45*deg)
+    particle_layout = ba.ParticleLayout().addParticle(pyramid, transform)
+\end{lstlisting}
+
+\Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
+
+\index{Large particles!numeric difficulty}%
+\index{Oscillations!from large particle form factor}%
+\index{Monte-Carlo integration!for large particle form factor}%
+\index{Particles!rapid form factor oscillations}%
+\index{Form factor!rapid oscillations}%
+\index{Form factor!large particles}%
+\Warn{For large particles (typically of order 1000nm),
+  the form factor oscillates rapidly within one detector bin
+  so that analytical calculations (performed for the bin center)
+  may give a completely wrong intensity pattern.}
+
+\Tuto{In this case, the best solution we can currently provide
+  is a Monte-Carlo integration, as shown in the example
+  \tuto{TODO}{large particle form factor}.}
+
+For particles that are made of different materials,
+the definition % TODO RESTORE ~\cref{EFFdef}
+of the form factor~$F(\q)$
+must be generalized in obvious ways.
+In practice, the most important case is the \E{core-shell particle}.
+\index{Inhomogeneous particles}%
+\index{Core-shell particles}%
+\index{Particles!Core-shell}%
+This is supported in \BornAgain\ through the function
+\index{ParticleCoreShell@\Code{ParticleCoreShell}}
+\begin{lstlisting}
+  ParticleCoreShell(shell_particle, core_particle, rel_position)
+\end{lstlisting}
+where \Code{shell\_particle} is assumed to be inscribed
+in \Code{core\_particle}.
+\Code{rel\_\discretionary{}{}{}position}
+specifies the position of the
+center of the base of the core particle relative
+to center of the base of the shell particle.
+
+\Tuto{See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.}
+
+%===============================================================================
+\index{Polydispersity!embedded particles}%
+\index{Particles!polydispersity}%
+\index{Distribution!of particle parameters}%
+\index{Form factor!parameter distributions}%
+Embedded particles may be \E{polydisperse}, i.~e.\ have statistical distributions
+for some or all their numeric parameters.
+This is supported in \BornAgain\ through the same mechanism
+as for other numeric parameters.
+
+\Tuto{See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
+  The example also shows how two parameters can be tied to each other
+(size distribution with constant ratio radius/height).}
+
+\index{Form factor|)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Hard particles}\label{SHPFF}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Don't number subfigures in this chapter.
 \makeatletter
@@ -24,9 +109,9 @@
 
 % \lstset{language=python,style=eclipseboxed,numbers=none,nolol}
 
-\def\ffsection#1{\FloatBarrier\clearpage\ifodd\value{page}
-\E{Page intentionally left blank}\clearpage\else\fi
-\section{#1}}
+\def\ffsection#1{%
+%\FloatBarrier\clearpage\ifodd\value{page}\E{Page intentionally left blank}\clearpage\else\fi
+\subsection{#1}}
 
 
 \BornAgain\ comes with a comprehensive collection of hard-coded
@@ -109,8 +194,6 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 \entry{Box}{Box3d}{Box}{$L$, $W$, $H$}{D$_{2\h}$}{Prism2}
 \entry{HemiEllipsoid}{HemiEllipsoid3d}{HemiEllipsoid}{$R_a$, $R_b$, $H$}{C$_{2\v}$}{HemiEllipsoid}
 \entry{AnisoPyramid}{AnistropicPyramid3d}{AnisoPyramid}{$L$, $W$, $H$, $\alpha$}{C$_{2\v}$}{Frustum2}
-\entry{Ripple1}{Ripple13d}{Ripple1}{$L$, $W$, $H$}{C$_{2\v}$}{Sinewave}
-\entry{Ripple2}{Ripple23d}{Ripple2}{$L$, $W$, $H$, $d$}{C$_\text{s}$}{Sawtooth}
 \hline
 \end{longtable}
 \end{center}
@@ -1365,149 +1448,6 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 
 %===============================================================================
-\ffsection{Ripple1 (sinusoidal)} \label{SRipple1}
-%===============================================================================
-  \index{Ripple (form factor)!sinusoidal (Ripple1)}
-  \index{Sinusoidal ripple (form factor)}
-  \index{FormFactorRipple1@\Code{FormFactorRipple1}}
-
-\paragraph{Real-space geometry}\strut\\
-
-\begin{figure}[H]
-\hfill
-\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Ripple13d.png}}
-\hfill
-\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Ripple12dxy.pdf}}
-\hfill
-\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Ripple12dyz.pdf}}
-\hfill
-\caption{A ripple with a sinusoidal profile.}
-\end{figure}
-
-\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}
-  FormFactorRipple1(length, width, height)
-\end{lstlisting}
-with the parameters
-\begin{itemize}
-\item \texttt{length}, $L$,
-\item \texttt{width}, $W$,
-\item \texttt{height}, $H$.
-\end{itemize}
-
-The ripple is modelled as a surface
-\begin{equation*}
-  Z(y) = \frac{H}{2}\left[ 1 + \cos\frac{2\pi y}{W} \right].
-\end{equation*}
-
-\paragraph{Form factor}\strut\\
-Using the inverse profile
-\begin{equation*}
-  Y(z) = \frac{W}{2\pi}\text{arccos}\left( \frac{2z}{H}-1 \right),
-\end{equation*}
-the form factor is computed by numeric integration:
-\begin{equation*}
-F = L \sinc\left(\frac{q_xL}{2}\right)
-   \int_0^H\!\d z\,\e^{iq_zz}\, 2Y(z)\sinc\left(q_y Y(z)\right).
-\end{equation*}
-The integration is substantially accelerated by the substitution
-$u=\text{arccos}( 2z/H-1)$.
-
-\paragraph{Volume, horizontal section}\strut\\
-\begin{equation*}
-  V = \dfrac{L W H}{2},
-\end{equation*}
-\begin{equation*}
-  S = L W.
-\end{equation*}
-
-\paragraph{Examples}\strut
-
-\begin{figure}[H]
-\begin{center}
-\includefinal{1\TW}{fig/ff2/ff_Ripple1.pdf}
-\end{center}
-\caption{Normalized intensity $|F|^2/V^2$,
-computed with $L=25$~nm, $W=10$~nm and $H=8$~nm,
-for four different angles~$\omega$ of rotation around the $z$ axis.}
-\end{figure}
-
-\paragraph{History}\strut\\
-Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
-
-%===============================================================================
-\ffsection{Ripple2 (saw-tooth)} \label{SRipple2}
-%===============================================================================
-  \index{Ripple (form factor)!saw-tooth (Ripple2)}
-  \index{Saw-tooth ripple (form factor)}
-  \index{FormFactorRipple2@\Code{FormFactorRipple2}}
-
-\paragraph{Real-space geometry}\strut\\
-
-\begin{figure}[H]
-\hfill
-\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Ripple23d.png}}
-\hfill
-\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Ripple22dxy.pdf}}
-\hfill
-\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Ripple22dyz.pdf}}
-\hfill
-\caption{A ripple with an asymmetric saw-tooth profile.}
-\end{figure}
-
-\FloatBarrier
-
-\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}
-  FormFactorRipple2(length, width, height, asymmetry)
-\end{lstlisting}
-with the parameters
-\begin{itemize}
-\item \texttt{length}, $L$,
-\item \texttt{width}, $W$,
-\item \texttt{height}, $H$.
-\item \texttt{asymmetry}, $d$.
-\end{itemize}
-They must fulfill
-\begin{displaymath}
-  |d| \le W/2.
-\end{displaymath}
-
-\paragraph{Form factor, volume, horizontal section}\strut\\
-\begin{align*}
-F &=L W
-\sinc\left(\frac{q_xL}{2}\right)\times \\ &
-\int_0^H \!\d z\,
-\left(1-\frac{z}{H}\right)
- \sinc\left[\frac{q_y
-    W}{2}\left(1-\frac{z}{H}\right)\right]
-\exp\left\{ i\left[q_zz -
-    q_yd\left(1-\frac{z}{H}\right)\right]\right\}
-\end{align*}
-\begin{equation*}
-  V = \dfrac{L W H}{2},
-\end{equation*}
-\begin{equation*}
-  S = L W.
-\end{equation*}
-
-\paragraph{Examples}\strut
-
-\begin{figure}[H]
-\begin{center}
-\includefinal{1\TW}{fig/ff2/ff_Ripple2.pdf}
-\end{center}
-\caption{Normalized intensity $|F|^2/V^2$,
-computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
-for four different angles~$\omega$ of rotation around the $z$ axis.
-The low symmetry requires other angular ranges than used in most other figures.}
-\end{figure}
-
-\paragraph{History}\strut\\
-Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
-
-
-%===============================================================================
 \ffsection{Tetrahedron} \label{STetrahedron}
 %===============================================================================
   \index{Tetrahedron (form factor)}
@@ -1798,3 +1738,150 @@ Agrees with the \IsGISAXS\ form factor
 
 \index{Shape transform!catalogue|)}
 \index{Form factor!catalogue|)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ripples}\label{SRipple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%===============================================================================
+\ffsection{Ripple1 (sinusoidal)} \label{SRipple1}
+%===============================================================================
+  \index{Ripple (form factor)!sinusoidal (Ripple1)}
+  \index{Sinusoidal ripple (form factor)}
+  \index{FormFactorRipple1@\Code{FormFactorRipple1}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\hfill
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Ripple13d.png}}
+\hfill
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Ripple12dxy.pdf}}
+\hfill
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Ripple12dyz.pdf}}
+\hfill
+\caption{A ripple with a sinusoidal profile.}
+\end{figure}
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorRipple1(length, width, height)
+\end{lstlisting}
+with the parameters
+\begin{itemize}
+\item \texttt{length}, $L$,
+\item \texttt{width}, $W$,
+\item \texttt{height}, $H$.
+\end{itemize}
+
+The ripple is modelled as a surface
+\begin{equation*}
+  Z(y) = \frac{H}{2}\left[ 1 + \cos\frac{2\pi y}{W} \right].
+\end{equation*}
+
+\paragraph{Form factor}\strut\\
+Using the inverse profile
+\begin{equation*}
+  Y(z) = \frac{W}{2\pi}\text{arccos}\left( \frac{2z}{H}-1 \right),
+\end{equation*}
+the form factor is computed by numeric integration:
+\begin{equation*}
+F = L \sinc\left(\frac{q_xL}{2}\right)
+   \int_0^H\!\d z\,\e^{iq_zz}\, 2Y(z)\sinc\left(q_y Y(z)\right).
+\end{equation*}
+The integration is substantially accelerated by the substitution
+$u=\text{arccos}( 2z/H-1)$.
+
+\paragraph{Volume, horizontal section}\strut\\
+\begin{equation*}
+  V = \dfrac{L W H}{2},
+\end{equation*}
+\begin{equation*}
+  S = L W.
+\end{equation*}
+
+\paragraph{Examples}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includefinal{1\TW}{fig/ff2/ff_Ripple1.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=25$~nm, $W=10$~nm and $H=8$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
+\end{figure}
+
+\paragraph{History}\strut\\
+Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
+
+%===============================================================================
+\ffsection{Ripple2 (saw-tooth)} \label{SRipple2}
+%===============================================================================
+  \index{Ripple (form factor)!saw-tooth (Ripple2)}
+  \index{Saw-tooth ripple (form factor)}
+  \index{FormFactorRipple2@\Code{FormFactorRipple2}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\hfill
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Ripple23d.png}}
+\hfill
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Ripple22dxy.pdf}}
+\hfill
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Ripple22dyz.pdf}}
+\hfill
+\caption{A ripple with an asymmetric saw-tooth profile.}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorRipple2(length, width, height, asymmetry)
+\end{lstlisting}
+with the parameters
+\begin{itemize}
+\item \texttt{length}, $L$,
+\item \texttt{width}, $W$,
+\item \texttt{height}, $H$.
+\item \texttt{asymmetry}, $d$.
+\end{itemize}
+They must fulfill
+\begin{displaymath}
+  |d| \le W/2.
+\end{displaymath}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+\begin{align*}
+F &=L W
+\sinc\left(\frac{q_xL}{2}\right)\times \\ &
+\int_0^H \!\d z\,
+\left(1-\frac{z}{H}\right)
+ \sinc\left[\frac{q_y
+    W}{2}\left(1-\frac{z}{H}\right)\right]
+\exp\left\{ i\left[q_zz -
+    q_yd\left(1-\frac{z}{H}\right)\right]\right\}
+\end{align*}
+\begin{equation*}
+  V = \dfrac{L W H}{2},
+\end{equation*}
+\begin{equation*}
+  S = L W.
+\end{equation*}
+
+\paragraph{Examples}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includefinal{1\TW}{fig/ff2/ff_Ripple2.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.
+The low symmetry requires other angular ranges than used in most other figures.}
+\end{figure}
+
+\paragraph{History}\strut\\
+Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.

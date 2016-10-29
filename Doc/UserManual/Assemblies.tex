@@ -833,26 +833,11 @@ with
 \end{align*}
 and $P(q_\plll)$ is the Fourier transform of the average next neighbor distance (as was also the case for the radial
 paracrystal).
+
 %\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{OLD STUFF [TO REVISE]}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Unless embedded particles are dilute like an ideal gas,
-their positions are somehow correlated,
-which leads to interference patterns in the scattered radiation.
-In the following,
-we present particle assembly models that are supported in \BornAgain.
-% For a more complete theoretical description,
-% the user is referred to, for example, reference~\cite{ReLL09}.
-
-%\Work{\indent \BornAgain\ does not yet support embedded particles
-%  that intersect a layer boundary.
-%\index{Particles!intersecting layer boundaries}}
-
-The nanoparticles are characterized by their form factors
-(\cref{SFF}) and the composing material.
-
 
 \Note{\indent
 The vertical positions of particles in a layer are given in relative
@@ -910,24 +895,8 @@ at position $\v{R}_\alpha$ and another one of type $\beta$ at $\v{R}_\beta$ is g
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Horizontal particle distributions}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-To proceed further, when the morphology and topology are not exactly known,
-some hypotheses need to be made since the correlation between the kinds of scatterers
-and their relative positions included in the pair correlation functions are difficult to estimate.
-Several options are available:
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Layout of particles}\label{sec:partlayout}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%===============================================================================
-\subsection{The uncorrelated or disordered lattice}
-%===============================================================================
-For very diluted distributions of particles, the particles are too far apart from each other to lead to any interference between the waves scattered by each of them. In this case the interference function is equal to 1. The scattered intensity is then entirely determined by the form factors of the particles distributed in the sample.
 
 %===============================================================================
 \subsection{The regular lattice and the ideal paracrystal}
@@ -1108,7 +1077,8 @@ This expression has a well-defined limit for $\Omega_\kappa(\q ) \rightarrow 1$ 
 \subsection{Particles deposited on a substrate}
 %===============================================================================
 %Substrate modified Born approximation
-In this configuration, the particles are sitting on top of a substrate layer, in the air as shown in \cref{fig:SchemDWBA}. In the DWBA the expression of a form factor becomes
+In this configuration, the particles are sitting on top of a substrate layer in air or vacuum.
+In the DWBA the expression of a form factor becomes
 \begin{align}
 F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{f,z})+ R_i F_{\rm{BA}}(q_{\plll}, -k_{i,z}-k_{f,z}) \nonumber \\
 &+ R_f F_{\rm{BA}}(q_{\plll}, k_{i,z}+k_{f,z}) + R_i R_f F_{\rm{BA}}(q_{\plll},-k_{i,z}+k_{f,z}), \label{Edwbaair}
@@ -1116,19 +1086,6 @@ F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z}) &= F_{\rm{BA}}(q_{\plll}, k_{i,z}-k_{
 where $q_{\plll}$ is the component of the scattering beam in the plane of the interface ($\q=\k_i-\k_\sf$), $k_{i,z}$ and $k_{f,z}$ are the z-component of the incident and scattered beam, respectively. $R_i$, $R_f$ are the reflection coefficients in incidence and reflection. They are defined as\\ $R=\dfrac{k_z+\sqrt{n_s^2k_0^2-|k_{\plll}|^2}}{k_z-\sqrt{n_s^2 k_0^2-|k_{\plll}|^2}}$, where $n_s=1-\delta_s +i \beta_s$ is the refractive index of the substrate, $k_0$ is the wavelength in vacuum ($2\pi /\lambda$), $k_z$ and $k_{\plll}$ are the $z$-component and the in-plane component of $\k_\si$ or $\k_\sf$. \\
 
 \Note{If the particles are sitting on a multilayered system, the expression of the form factor in the DWBA is obtained by replacing the Fresnel coefficient by the corresponding coefficients of the underlying layers \cite{Par54,BoWo99}.}
-
-\vspace{18pt}
-
-\Cref{fig:SchemDWBA} illustrates the four scattering processes for a supported particle, taken into account in the DWBA. The first term of eqn\.~\Cref{Edwbaair}  corresponds to the Born approximation. Each term of $F_{\rm{DWBA}}$ is weighted by a Fresnel coefficient.
-
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=\textwidth]{fig/drawing/drawingDWBA.pdf}
-\end{center}
-\caption{Schematic views of the different terms appearing in the expression of the form factor under DWBA for particles sitting on a substrate layer.}
-\label{fig:SchemDWBA}
-\end{figure}
-
 
 Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornAgain\ when generating the sample.  We consider the simple case of:
 \begin{itemize}
@@ -1194,7 +1151,7 @@ def get_sample():
 \subsection{Buried particles}
 %===============================================================================
 
-The system considered in this section consists of particles encapsulated in a layer, which is sitting on a substrate (see \cref{fig:SchemDWBAburied}). In this case the form factor in the DWBA is given by
+The system considered in this section consists of particles encapsulated in a layer, which is sitting on a substrate. In this case the form factor in the DWBA is given by
 
 \begin{align}
   F_{\rm{DWBA}}(q_{\plll}, k_{i,z}, k_{f,z})
@@ -1212,15 +1169,6 @@ where $q_{\plll}$ is the component of the scattering beam in the plane of the in
 r^j_{n,n+1}=\frac{k_{j,z,n}-k_{j,z,n+1}}{k_{j,z,n}-k_{j,z,n+1}}, \qquad t^j_{n,n+1}= \frac{2k_{j,z,n}}{k_{j,z,n}-k_{j,z,n+1}}, \quad n=0,1, \quad j=i,f,
 \end{equation*}
 where index $n$ is related to the layers, $z$ to the vertical component, and $j$ to the beams (incident and outgoing).
-
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=\textwidth]{fig/drawing/drawingDWBAburied.pdf}
-\end{center}
-\caption{Schematic views of the different terms appearing in the expression of the form factor under the DWBA for buried particles.}
-\label{fig:SchemDWBAburied}
-\end{figure}
-
 
 \Cref{fig:dwbaburied} shows a typical example of the output intensity scattered from a sample made of 3 layers: air, substrate, and in between, spherical particles embedded in the middle of a 30~nm-thick layer. This figure had been generated using listing~\ref{lst:dwbaburied}.
 

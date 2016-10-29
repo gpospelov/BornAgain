@@ -324,16 +324,16 @@ In the absence of absorption and above the critical angle,
 wavevectors are real
 so that we can describe the beam in terms of a glancing angle
 \begin{equation}\label{Edef_alpha}
-  \alpha_{\il}\coloneqq \arctan(k_{\perp \il}/k_{\plll}).
+  \alpha_l\coloneqq \arctan(k_{\perp l}/k_{\plll}).
 \end{equation}
 Equivalently,
 \begin{equation}\label{Ekplllncos}
-  k_{\plll}=K n_\il \cos\alpha_{\il}.
+  k_{\plll}=K n_l \cos\alpha_l.
 \end{equation}
 Since $k_{\plll}$ is constant across layers,
 we have
 \begin{equation}\label{ESnell}
-  n_\il \cos\alpha_{\il} = \text{the same for all }\il,
+  n_l \cos\alpha_l = \text{the same for all }l,
 \end{equation}
 which is Snell's refraction law.
 \index{Refraction!Snell's law}
@@ -350,34 +350,34 @@ With the indicator function
 \nomenclature[1χ032 2l010]{$\chi_l(z)$}{indicates whether $z$ is in layer~$l$}%
 \index{Indicator function}%
 \begin{equation}\label{Echildef}
-  \chi_\il(\r)\coloneqq\left\{\begin{array}{ll}
-  1&\text{~if $z_\il\le z \le z_{\il+1}$,}\\[.2ex]
+  \chi_l(\r)\coloneqq\left\{\begin{array}{ll}
+  1&\text{~if $z_l\le z \le z_{l+1}$,}\\[.2ex]
   0&\text{~otherwise,} \end{array}\right.
 \end{equation}
 the vertical wavefunction can be written
 \begin{equation}\label{Ephizwj}
-  \phi^\pm_l(z)=A^\pm_l\e^{\pm ik_{\perp l}(z-z_\il)}\chi_l(z).
+  \phi^\pm_l(z)=A^\pm_l\e^{\pm ik_{\perp l}(z-z_l)}\chi_l(z).
 \end{equation}
-\nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{w\il}$}{Amplitude
-  of the plane wave $\phi^\pm_{w\il}(\r)$}%
-The offset~$z_\il$ has been included in the phase factor for later convenience.
+\nomenclature[2a123 2w010 2l010 \pm]{$A^\pm_{wl}$}{Amplitude
+  of the plane wave $\phi^\pm_{wl}(\r)$}%
+The offset~$z_l$ has been included in the phase factor for later convenience.
 
 The DWBA transition matrix element~\cref{Edwba} is
 \index{Distorted-wave Born approximation!multilayer}%
 \begin{equation}\label{Edwba_ml0}
   \bra \psi_\si|\delta v|\psi_\sf\ket
-  = \sum_{\il} \sum_{\pm_\si} \sum_{\pm_\sf}
-    A^{\pm *}_{\si \il} A^\pm_{\sf \il}
-     \delta v_\il(\k^\pm_{\sf \il}-\k^\pm_{\si \il})
+  = \sum_l \sum_{\pm_\si} \sum_{\pm_\sf}
+    A^{\pm *}_{\si l} A^\pm_{\sf l}
+     \delta v_l(\k^\pm_{\sf l}-\k^\pm_{\si l})
 \end{equation}
 with the Fourier transform of the SLD
 restricted to layer~$l$
 \begin{equation}\label{Echij}
-  \delta v_\il(\v{q})
-  \coloneqq  \int_{z_\il}^{z_{\il-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}\delta v(\r)
+  \delta v_l(\v{q})
+  \coloneqq  \int_{z_l}^{z_{l-1}}\!\d z \int\!\d^2r_\plll\, \e^{i\v{q}\,\r}\delta v(\r)
   = \int\!\d^3r\, \e^{i\v{q}\,\r}\delta v(\r) \chi_l(z).
 \end{equation}
-\nomenclature[1δ00 2v030 2l010 2q040]{$\delta v_\il(\v{q})$}{Fourier transform
+\nomenclature[1δ00 2v030 2l010 2q040]{$\delta v_l(\v{q})$}{Fourier transform
 of the SLD $\delta v(\r)$, evaluated in one sample layer}%
 To alleviate later calculations,
 we number the four DWBA terms from 1 to~4 as shown in \cref{Fdwba4terms},
@@ -394,12 +394,12 @@ Accordingly, we can write \cref{Edwba_ml0} as
 \Emph{
 \begin{equation}\label{Edwba_ml}
   \bra \psi_\si|\delta v|\psi_\sf\ket
-  = \sum_{\il} \sum_{u} C^u_\il \delta v_\il(\q_\il^u).
+  = \sum_l \sum_{u} C^u_l \delta v_l(\q_l^u).
 \end{equation}
 \vspace*{-5pt}}
 Since $\k_\plll=\text{const}$,
- all four wavevectors $\q^u$ have the same horizontal component~$\q_\plll$;
-they differ only in their vertical component~$q^u_\perp$.
+ all wavevectors $\q^u_l$ have the same horizontal component~$\q_\plll$;
+they differ only in their vertical component~$q^u_{l\perp}$.
 
 %===============================================================================
 \subsection{Wave amplitudes}\label{Sacrolay}
@@ -409,7 +409,7 @@ they differ only in their vertical component~$q^u_\perp$.
 \index{Transmission|see {Fresnel coefficients}}%
 \index{Reflection|seealso {Fresnel coefficients}}%
 
-The plane-wave amplitudes $A^\pm_{w\il}$ need to be computed recursively
+The plane-wave amplitudes $A^\pm_{wl}$ need to be computed recursively
 from layer to layer.
 Since these computations are identical for incident and final waves,
 we omit the subscript~$w$ in the remainder of this section.
@@ -429,60 +429,60 @@ but documentation is adjourned to a later edition of this manual.}
 To deal with the coordinate offsets introduced in \cref{Ephizwj},
 we introduce the function%
 \begin{equation}\label{Edldef}
-  d_\il\coloneqq z_{\il}-z_{\il+1},
+  d_l\coloneqq z_l-z_{l+1},
 \end{equation}
-which is the thickness of layer~$\il$,
-except for $\il=0$,
+which is the thickness of layer~$l$,
+except for $l=0$,
 where the special definition of $z_0$ (\cref{Fdefz}) implies $d_0=0$.
-We consider the interface between layers $\il$ and $\il-1$,
-with~$\il=1,\ldots,N$, as shown in \cref{Fboundary}.
-This interface has the vertical coordinate $z_{\il}=z_{l-1}-d_{l-1}$.
+We consider the interface between layers $l$ and $l-1$,
+with~$l=1,\ldots,N$, as shown in \cref{Fboundary}.
+This interface has the vertical coordinate $z_l=z_{l-1}-d_{l-1}$.
 Accordingly, the continuity conditions at the interface are
 \begin{equation}\label{Econtcond}
   \begin{array}{lcl}
- \hphantom{\partial_z}\phi_{\il}(z_{\il}) &=& \hphantom{\partial_z}\phi_{\il-1}(z_{\il-1}-d_{\il-1}),\\
-           \partial_z \phi_{\il}(z_{\il}) &=&           \partial_z \phi_{\il-1}(z_{\il-1}-d_{\il-1}).
+ \hphantom{\partial_z}\phi_l(z_l) &=& \hphantom{\partial_z}\phi_{l-1}(z_{l-1}-d_{l-1}),\\
+           \partial_z \phi_l(z_l) &=&           \partial_z \phi_{l-1}(z_{l-1}-d_{l-1}).
   \end{array}
 \end{equation}
 We abbreviate
 \begin{equation}\label{Efldef}
-  f_\il \coloneqq  k_{\perp \il}/K = \sqrt{\nzj-(k_\plll/K)^2}
+  f_l \coloneqq  k_{\perp l}/K = \sqrt{\overline{n_l^2}-(k_\plll/K)^2}
 \end{equation}
 and
 \begin{equation}\label{Edelldef}
-   \delta_\il \coloneqq  \e^{iKf_\il d_\il}.
+   \delta_l \coloneqq  \e^{iKf_l d_l}.
 \end{equation}
 For the plane waves \cref{Ephizwj},
 the continuity conditions~\cref{Econtcond} take the form
 \begin{equation}\label{Econt2}
   \begin{array}{@{}l@{}lcl@{}l}
-  +A^-_{\il} &+A^+_{\il}
+  +A^-_l &+A^+_l
   &=&
-  +A^-_{\il-1}\delta_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^{-1},
+  +A^-_{l-1}\delta_{l-1} &+A^+_{l-1}\delta_{l-1}^{-1},
   \\
-  -A^-_{\il} f_{\il}  &+A^+_{\il} f_{\il}
+  -A^-_l f_l  &+A^+_l f_l
   &=&
-  -A^-_{\il-1}\delta_{\il-1} f_{\il-1} &+A^+_{\il-1}\delta_{\il-1}^{-1} f_{\il-1}.
+  -A^-_{l-1}\delta_{l-1} f_{l-1} &+A^+_{l-1}\delta_{l-1}^{-1} f_{l-1}.
   \end{array}
 \end{equation}
 After some lines of linear algebra,
 we can rewrite this equation system as
 \begin{equation}\label{EcMc}
-  \left( \begin{array}{c}A^-_{\il-1}\\ A^+_{\il-1}\end{array} \right)
-  = M_{\il} \left( \begin{array}{c}A^-_{\il}\\A^+_{\il}\end{array} \right)
+  \left( \begin{array}{c}A^-_{l-1}\\ A^+_{l-1}\end{array} \right)
+  = M_l \left( \begin{array}{c}A^-_l\\A^+_l\end{array} \right)
 \end{equation}
 with the transfer matrix
 \begin{equation}\label{EMil}
-  M_\il
+  M_l
    \coloneqq
    \left(\begin{array}{cc}
-     \delta_{\il-1}^{-1}&0\\
-       0 & \delta_{\il-1}
+     \delta_{l-1}^{-1}&0\\
+       0 & \delta_{l-1}
    \end{array}\right)
-   \frac{1}{2f_{\il-1}}
+   \frac{1}{2f_{l-1}}
    \left(\begin{array}{cc}
-       (f_{\il-1}+f_{\il})&(f_{\il-1}-f_{\il})\\
-       (f_{\il-1}-f_{\il})&(f_{\il-1}+f_{\il})
+       (f_{l-1}+f_l)&(f_{l-1}-f_l)\\
+       (f_{l-1}-f_l)&(f_{l-1}+f_l)
    \end{array}\right).
 \end{equation}
 
@@ -523,14 +523,14 @@ and then carries out the propagation step \cref{EcMc}
 interface by interface,
 yielding unnormalized amplitudes
 \begin{equation}\label{EAtildel}
-  \left( \begin{array}{c}\tilde A^-_{\il}\\ \tilde A^+_{\il}\end{array} \right)
-  \coloneqq M_{\il+1}\cdots M_{N} \left( \begin{array}{c}1\\0\end{array} \right).
+  \left( \begin{array}{c}\tilde A^-_l\\ \tilde A^+_l\end{array} \right)
+  \coloneqq M_{l+1}\cdots M_{N} \left( \begin{array}{c}1\\0\end{array} \right).
 \end{equation}
 When the top layer is reached,
 the obtained values are normalized
 so that the boundary condition $A^-_{0}=1$ be satisfied,
 \begin{equation}\label{EApml}
-  A^\pm_{\il} = \frac{\tilde A^\pm_l}{\tilde A^-_0}.
+  A^\pm_l = \frac{\tilde A^\pm_l}{\tilde A^-_0}.
 \end{equation}
 For GISAS detection in transmission geometry
 \index{Transmission geometry}%
@@ -567,11 +567,11 @@ and agrees with Fresnel's result for $s$-polarized light.\footnote
 {See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
   or Hecht \cite[ch.~4.6.2]{Hec02}.}
 
-The above algorithm fails if $f_{\il}\to0$
-because $M_{\il+1}$ becomes singular.
+The above algorithm fails if $f_l\to0$
+because $M_{l+1}$ becomes singular.
 The general solution of \cref{Ewavez} will be a linear function of $z$:
 \begin{equation}\label{Ephilz}
-  \phi_{\il}(z) = A^0_{\il} + A^1_{\il}z.
+  \phi_l(z) = A^0_l + A^1_lz.
 \end{equation}
 In \BornAgain, such a linear wavefunction amplitude can not be handled by the form factors,
 which are only defined in terms of plane waves with complex wavevector components.
@@ -580,10 +580,10 @@ The following cases are treated seperately:
   \item There is only one layer: this is a trivial case whithout any need to calculate wave coefficients.
     The solution in the single layer is just the incoming/outgoing plane wave.
   \item The top layer of a multilayer has $f_0=0$: the limit $f_0\to0$ is well-defined and the
-    solution is given by $A^+_0 = -A^-_0$ and $A^{\pm}_{\il}=0$ for $\il>0$.
+    solution is given by $A^+_0 = -A^-_0$ and $A^{\pm}_l=0$ for $l>0$.
     % The boundary condition in the substrate imposes a linear relation between the two coefficients
     % of the linear wavefunction amplitude in the top layer. Since the first order term has to vanish, all amplitudes vanish.
-  \item $f_{\il}=0$ for a layer with $\il>0$: In this case $f_{\il}$ will be given a very small imaginary value,
+  \item $f_l=0$ for a layer with $l>0$: In this case $f_l$ will be given a very small imaginary value,
     representing a slight absorption. However, this should be inconsequential because the index of refraction
     of non-vacuum layer always contains an absorptive component.
 \end{itemize}
@@ -640,7 +640,7 @@ The $z$-component consists of the difference
 between the up- and downward travelling wave components
 and an extra term that encodes the interference between them.
 
-In the special case of a purely imaginary~$k_{\perp \il}$,
+In the special case of a purely imaginary~$k_{\perp l}$,
 the flux becomes:
 \begin{equation}\label{EJ3}
   \v{J}(\r) = \left| \psi \right|^2 \k_\plll + 2 \Im (A^-{A^+}^*) k_\perp''\v{\hat z}.

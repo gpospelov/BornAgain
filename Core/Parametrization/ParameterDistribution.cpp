@@ -17,8 +17,8 @@
 #include "Distributions.h"
 #include "Exceptions.h"
 
-ParameterDistribution::ParameterDistribution(const std::string &par_name,
-    const IDistribution1D &distribution, size_t nbr_samples,
+ParameterDistribution::ParameterDistribution(
+    const std::string& par_name, const IDistribution1D& distribution, size_t nbr_samples,
     double sigma_factor, const RealLimits &limits)
     : IParameterized("ParameterDistribution")
     , m_name(par_name)
@@ -29,20 +29,18 @@ ParameterDistribution::ParameterDistribution(const std::string &par_name,
     , m_xmax(-1.0)
 {
     mP_distribution.reset(distribution.clone());
-    if (m_sigma_factor < 0.0) {
+    if (m_sigma_factor < 0.0)
         throw Exceptions::RuntimeErrorException(
                 "ParameterDistribution::ParameterDistribution() -> Error."
                 "sigma factor cannot be negative");
-    }
-    if(nbr_samples == 0) {
+    if(nbr_samples == 0)
         throw Exceptions::RuntimeErrorException(
-                    "ParameterDistribution::ParameterDistribution() -> Error."
-                    "Number of samples can't be zero.");
-    }
+            "ParameterDistribution::ParameterDistribution() -> Error."
+            "Number of samples can't be zero.");
 }
 
-ParameterDistribution::ParameterDistribution(const std::string &par_name,
-    const IDistribution1D &distribution, size_t nbr_samples,
+ParameterDistribution::ParameterDistribution(
+    const std::string& par_name, const IDistribution1D& distribution, size_t nbr_samples,
     double xmin, double xmax)
     : IParameterized("ParameterDistribution")
     , m_name(par_name)
@@ -87,8 +85,7 @@ ParameterDistribution::~ParameterDistribution()
 {
 }
 
-ParameterDistribution& ParameterDistribution::operator=(
-        const ParameterDistribution& other)
+ParameterDistribution& ParameterDistribution::operator=(const ParameterDistribution& other)
 {
     if (this != &other) {
         this->m_name = other.m_name;

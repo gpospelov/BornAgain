@@ -73,15 +73,14 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
 {
     std::unique_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
-    std::vector<RealParameter*> main_par_matches
+    std::vector<RealParameter*> matched_pars
         = P_pool->getMatchedParameters(main_par_name);
-    if (main_par_matches.size() != 1)
+    if (matched_pars.size() != 1)
         throw Exceptions::RuntimeErrorException(
             "ParticleDistribution::generateParticles: "
             "main parameter name matches nothing or more than one parameter");
-    RealParameter* main_par = main_par_matches[0];
+    RealParameter* main_par = matched_pars[0];
     double main_par_value = main_par->getValue();
-    std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
     std::vector<std::string> linked_par_names = m_par_distribution.getLinkedParameterNames();
     std::map<std::string, double> linked_par_ratio_map;
     for (const std::string& name: linked_par_names) {
@@ -96,6 +95,7 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
         double linked_ratio = main_par_value == 0 ? 1.0 : linked_par_value / main_par_value;
         linked_par_ratio_map[name] = linked_ratio;
     }
+    std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
     std::vector<const IParticle*> result;
     for (const ParameterSample& main_sample: main_par_samples ) {
         double particle_abundance = getAbundance() * main_sample.weight;

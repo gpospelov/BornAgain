@@ -202,7 +202,7 @@ in our formalism, it is the vertical component of the position vector~$\R$.
 $\v{\Omega}$ is a tuple of rotation angles;
 they determine a rotation matrix~$D_{\v{\Omega}}$ that shall be defined by its action
 \begin{equation}\label{ErOm}
-  F(\r,Z,\v{\Omega},\v{U}) = F(D_{\v{\Omega}}^{-1}\r,Z,\v{0},\v{U}).
+  F(\r,\Delta v_\sp,Z,\v{\Omega},\v{U}) = F(D_{\v{\Omega}}^{-1}\r,\Delta v_\sp,Z,\v{0},\v{U}).
 \end{equation}
 Finally, $\v{U}$ collects all remaining parameters,
 among them size and shape parameters that determine the geometry
@@ -407,11 +407,38 @@ it is only available for paracrystals
 (to be documented later).
 % and will therefore be discussed later (\cref{}).
 }
-%\fi
+In BornAgain, R-T decoupling is the default.
+Only a few models explicitly introduce some size-position coupling.
+The following sections are therefore mostly concerned with models for~$\SD(\q)$.
+If a user-defined sample model leaves the interference function unspecified,
+then the default (\texttt{InterferenceFunctionNone})
+\index{InterferenceFunctionNone@\Code{InterferenceFunctionNone}}%
+is simply $\SD(\q)=1$,
+which is a valid model for \E{dilute} particles.
+\index{Dilute particles}%
+\index{Particles!dilute assembly}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Interference functions}
+\section{Mesocrystals}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+By a \E{mesocrystal},
+\index{Mesocrystal}%
+\index{Crystal!mesoscopic|see{Mesocrystal}}%
+we understand an assembly of \E{mesoscopic} particles
+on a one- or two-dimensional lattice.
+In BornAgain, we are nowhere concerned with
+the usual three-dimensional, microscopic, atomistic crystals of conventional solid-state physics.
+\index{Crystal!microscopic (unsupported)}%
+It is quite possible mesoparticles are made of microscopic crystals,
+and cause wide-angle scattering,
+but this is ignored in BornAgain;
+BornAgain does not support for any wide-angle scattering simulation.
+\index{Wide-angle scattering (unsupported)}%
+
+by a \E{crystal}
+\index{Nanocrystal|see{Crystal}}%
+We are explicitly \E{not} concerned with
 
 The starting point for describing the interference of the scattering from different
 particles is the coherent scattering intensity of~\cref{EICoherent}.
@@ -547,6 +574,10 @@ which is a convex combination of the Cauchy and Gauss decay functions.
 The decay functions are all normalized such that $\int\!\d^2q_\plll H(\q)= 4\pi^2$,
 which is equivalent to $h(0)=1$.
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Paracrystals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %===============================================================================
 \subsection{The one-dimensional paracrystal} \label{sec:sect:1dparacrystal}
@@ -758,6 +789,11 @@ with
 \end{align*}
 and $P(q_\plll)$ is the Fourier transform of the average next neighbor distance (as was also the case for the radial
 paracrystal).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Disordered assemblies}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -110,7 +110,7 @@ In consequence, \cref{Echihomo}~is replaced by
 \end{equation}
 With the \E{DWBA form factor}
 \begin{equation}\label{EcFdef}
-  \FD(\q_\plll,\v{T})
+  \FD_{\si\sf}(\q_\plll,\v{T})
   \coloneqq
     \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll}
     \int\!\d z\, \phi^*_\si(z) F(\r,\v{T}) \phi_\sf(z),
@@ -118,17 +118,18 @@ With the \E{DWBA form factor}
 the scattering matrix element~\cref{Escamatrix2} becomes
 \begin{equation}\label{EsumRF}
   \bra\psi_\si|\delta v|\psi_\sf\ket
-  = \sum_j \e^{i\q_\plll \R_{j\plll}}  \FD(\q_\plll,\v{T}_j).
+  = \sum_j \e^{i\q_\plll \R_{j\plll}}  \FD_{\si\sf}(\q_\plll,\v{T}_j).
 \end{equation}
 The elastic scattering cross section~\cref{Exsection} can be written as
 \Emph{
 \begin{equation}\label{Exsection2}
   \xElas
-  = \sum_{jk} \e^{i\q_\plll(\R_{j\plll}-\R_{k\plll})} \FD(\q_\plll,\v{T}_j) \FD^*(\q_\plll,\v{T}_k).
+  = \sum_{jk} \e^{i\q_\plll(\R_{j\plll}-\R_{k\plll})}
+         \FD_{\si\sf}(\q_\plll,\v{T}_j) \FD_{\si\sf}^*(\q_\plll,\v{T}_k).
 \end{equation}
 \vspace*{-5pt}}
 
-In the following \Cref{SFormFactor} we discuss the form factor~$\FD$.
+In the following \Cref{SFormFactor} we discuss the form factor~$\FD_{\si\sf}$.
 The remainder of this chapter is devoted to the
 positional term and to the coupling between particle form and position;
 various approximations are used to make~\cref{EsumRF} manageable.
@@ -141,49 +142,43 @@ various approximations are used to make~\cref{EsumRF} manageable.
 \index{Form factor|(}
 
 %===============================================================================
-\subsection{Foundations}
+\subsection{Computing the DWBA form factor}
 %===============================================================================
 
-In \Cref{Swave21} we have applied the DWBA to a multilayer system
-with unspecified SLD profile~$\mv(z)$.
-In this generic case,
-the vertical wavefunction~$\phi(z)$ is no plane wave,
-but must be obtained
-by analytically or numerically solving the differential equation~\cref{Ewavez}.
-To evaluate the DWBA form factor for such~$\phi(z)$,
-it is helpful to change the order of integration in~\cref{EcFdef}:
+To compute the DWBA form factor
+for a generic vertical wavefunction~$\phi(z)$,
+it is gadvantageous to exchange the order of integration in~\cref{EcFdef}:
 \begin{equation}\label{EcFx}
-  \FD(\q_\plll,\v{T})
-   = \int\!\d z\, \phi^*_\si(z) F(q_\plll,z,\v{T}) \phi_\sf(z)
+  \FD_{\si\sf}(\q_\plll,\v{T})
+   = \int\!\d z\, \phi^*_\si(z) F(q_\plll,z,\v{T}) \phi_\sf(z).
 \end{equation}
-with
+The function
 \begin{equation}\label{EFqpadef}
   F(\q_\plll,z,\v{T})
-  \coloneqq \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll} F(\r,\v{T}).
+  \coloneqq \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll} F(\r,\v{T})
 \end{equation}
-$F(\q_\plll,z,\v{T})$ is an \E{intermediate Fourier transform},
+is an \E{intermediate Fourier transform},
 since it is a transform in some, but not all the coordinates;
 more specifically, it may be called the \E{horizontal Fourier transform}.
 For homogeneous particles,
 it is the \E{shape transform} of horizontal cuts.
 
-Samples that only consist of homogeneous layers
-have been investigated in~\Cref{SLayHomo}.
-Within each layer, the wavefunction is the sum of two plane waves~\cref{Ephizwj}.
+For samples that only consist of homogeneous layers
+the wavefunction is the sum of two plane waves~\cref{Ephizwj}.
 With the notations~\cref{Eudef},
 the DWBA form factor~\cref{EcFx} becomes
 \begin{equation}\label{EcFres1}
-  \FD(\q_\plll,\v{T})
+  \FD_{\si\sf}(\q_\plll,\v{T})
    = \sum_l \sum_u C^u_l F_l(\q^u_l,\v{T})
 \end{equation}
 with
 \begin{equation}\label{EFqTdef}
   F_l(\q,\v{T})
-  \coloneqq \int\!\d z\, \e^{iq^u_l z} F(q_\plll,z,\v{T}) \chi_l(z)
+  \coloneqq \int\!\d z\, \e^{iq^u_{l\plll} z} F(\q_\plll,z,\v{T}) \chi_l(z)
    = \int\!\d^3 r\, \e^{i\q^u_l \r} F(\r,\v{T})\chi_l(z).
 \end{equation}
 Except for the restriction to layer~$l$,
-$F_l(q,\v{T})$ is the standard form factor
+$F_l(\q,\v{T})$ is the standard form factor
 that appears in the regular (plane-wave) Born approximation.
 Therefore, it is occasionally called the \E{Born form factor},
 and so we will call it.

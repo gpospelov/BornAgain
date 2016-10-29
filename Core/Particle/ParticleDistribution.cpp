@@ -69,8 +69,7 @@ const IMaterial* ParticleDistribution::getAmbientMaterial() const
 }
 
 //! Initializes list of new particles generated according to a distribution.
-void ParticleDistribution::generateParticles(
-        std::vector<const IParticle*>& particle_vector) const
+std::vector<const IParticle*> ParticleDistribution::generateParticles() const
 {
     std::unique_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
@@ -97,6 +96,7 @@ void ParticleDistribution::generateParticles(
         double linked_ratio = main_par_value == 0 ? 1.0 : linked_par_value / main_par_value;
         linked_par_ratio_map[linked_par_names[i]] = linked_ratio;
     }
+    std::vector<const IParticle*> result;
     for (size_t i = 0; i < main_par_samples.size(); ++i) {
         ParameterSample main_sample = main_par_samples[i];
         double particle_abundance = getAbundance() * main_sample.weight;
@@ -117,8 +117,9 @@ void ParticleDistribution::generateParticles(
                     "linked parameter name matches nothing or more than one parameter");
         }
         p_particle_clone->setAbundance(particle_abundance);
-        particle_vector.push_back(p_particle_clone);
+        result.push_back(p_particle_clone);
     }
+    return result;
 }
 
 ParameterPool* ParticleDistribution::createDistributedParameterPool() const

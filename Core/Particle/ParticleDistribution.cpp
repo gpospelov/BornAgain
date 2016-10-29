@@ -84,9 +84,9 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
     std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
     std::vector<std::string> linked_par_names = m_par_distribution.getLinkedParameterNames();
     std::map<std::string, double> linked_par_ratio_map;
-    for (size_t i = 0; i < linked_par_names.size(); ++i) {
+    for (const std::string& name: linked_par_names) {
         std::vector<RealParameter*> linked_par_matches
-            = P_pool->getMatchedParameters(linked_par_names[i]);
+            = P_pool->getMatchedParameters(name);
         if (linked_par_matches.size() != 1)
             throw Exceptions::RuntimeErrorException(
                 "ParticleDistribution::generateParticles: "
@@ -94,11 +94,10 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
         RealParameter* linked_par = linked_par_matches[0];
         double linked_par_value = linked_par->getValue();
         double linked_ratio = main_par_value == 0 ? 1.0 : linked_par_value / main_par_value;
-        linked_par_ratio_map[linked_par_names[i]] = linked_ratio;
+        linked_par_ratio_map[name] = linked_ratio;
     }
     std::vector<const IParticle*> result;
-    for (size_t i = 0; i < main_par_samples.size(); ++i) {
-        ParameterSample main_sample = main_par_samples[i];
+    for (const ParameterSample& main_sample: main_par_samples ) {
         double particle_abundance = getAbundance() * main_sample.weight;
         IParticle* p_particle_clone = mP_particle->clone();
         std::unique_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());

@@ -73,24 +73,12 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
 {
     std::unique_ptr<ParameterPool> P_pool(createDistributedParameterPool());
     std::string main_par_name = m_par_distribution.getMainParameterName();
-    std::vector<RealParameter*> matched_pars
-        = P_pool->getMatchedParameters(main_par_name);
-    if (matched_pars.size() != 1)
-        throw Exceptions::RuntimeErrorException(
-            "ParticleDistribution::generateParticles: "
-            "main parameter name matches nothing or more than one parameter");
-    RealParameter* main_par = matched_pars[0];
+    RealParameter* main_par = P_pool->getUniqueMatch(main_par_name);
     double main_par_value = main_par->getValue();
     std::vector<std::string> linked_par_names = m_par_distribution.getLinkedParameterNames();
     std::map<std::string, double> linked_par_ratio_map;
     for (const std::string& name: linked_par_names) {
-        std::vector<RealParameter*> linked_par_matches
-            = P_pool->getMatchedParameters(name);
-        if (linked_par_matches.size() != 1)
-            throw Exceptions::RuntimeErrorException(
-                "ParticleDistribution::generateParticles: "
-                "linked parameter name matches nothing or more than one parameter");
-        RealParameter* linked_par = linked_par_matches[0];
+        RealParameter* linked_par = P_pool->getUniqueMatch(name);
         double linked_par_value = linked_par->getValue();
         double linked_ratio = main_par_value == 0 ? 1.0 : linked_par_value / main_par_value;
         linked_par_ratio_map[name] = linked_ratio;

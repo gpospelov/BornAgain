@@ -64,6 +64,7 @@ public:
     const std::vector<RealParameter*> getParameters() const { return m_params; }
 
     std::vector<RealParameter*> getMatchedParameters(const std::string& wildcards) const;
+    RealParameter* getUniqueMatch(const std::string& pattern) const;
 
     void setParameterValue(const std::string& name, double value);
 

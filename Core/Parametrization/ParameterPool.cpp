@@ -13,15 +13,16 @@
 //
 // ************************************************************************** //
 
+#include "Exceptions.h"
 #include "ParameterPool.h"
 #include "RealLimits.h"
 #include "RealParameter.h"
-#include <stdexcept>
 #include "StringUtils.h"
 #include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 //! Constructs an empty parameter pool.
 
@@ -122,6 +123,20 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::strin
     if( selected_parameters.empty() )
         report_find_matched_parameters_error(pattern);
     return selected_parameters;
+}
+
+//! Returns the one parameter that matches the _pattern_ (wildcards '*' allowed), or throws.
+
+RealParameter* ParameterPool::getUniqueMatch(const std::string& pattern) const
+{
+    std::vector<RealParameter*> matches = getMatchedParameters( pattern );
+    if( matches.size() == 0 )
+        throw Exceptions::RuntimeErrorException(
+            "ParameterPool::getUniqueMatch: there is no match for '" + pattern + "'");
+    if( matches.size() != 1 )
+        throw Exceptions::RuntimeErrorException(
+            "ParameterPool::getUniqueMatch: pattern '" + pattern + "' is not unique");
+    return matches[0];
 }
 
 //! Sets parameter value.

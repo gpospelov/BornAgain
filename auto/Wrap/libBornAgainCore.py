@@ -22454,6 +22454,11 @@ class ParameterPool(_object):
         return _libBornAgainCore.ParameterPool_getMatchedParameters(self, wildcards)
 
 
+    def getUniqueMatch(self, pattern):
+        """getUniqueMatch(ParameterPool self, std::string const & pattern) -> RealParameter"""
+        return _libBornAgainCore.ParameterPool_getUniqueMatch(self, pattern)
+
+
     def setParameterValue(self, name, value):
         """
         setParameterValue(ParameterPool self, std::string const & name, double value)

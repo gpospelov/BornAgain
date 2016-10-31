@@ -100,7 +100,8 @@ void ParameterTreeBuilder::populateDomainLinks(JobItem *jobItem, const QString &
     stack.push(current);
     while (!stack.empty()) {
         current = stack.pop();
-        if (current->modelType() == Constants::ParameterLabelType) {
+        if (current->modelType() == Constants::ParameterLabelType
+                || current->modelType() == Constants::ParameterContainerType) {
             for (SessionItem *child : current->getItems()) {
                 stack.push(child);
             }

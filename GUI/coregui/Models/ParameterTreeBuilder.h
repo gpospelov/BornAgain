@@ -30,9 +30,9 @@ class ParameterTreeBuilder
 {
 public:
     static void createParameterTree(JobItem *item, const QString &tag = QString());
+    static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
 private:
     static void handleItem(SessionItem *tree, SessionItem *source);
-    static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
 };
 
 #endif // PARAMETERTREEBUILDER_H

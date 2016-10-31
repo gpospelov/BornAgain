@@ -24,4 +24,5 @@ endif()
 
 if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
+    add_subdirectory(GUI/GUITranslationTest)
 endif()

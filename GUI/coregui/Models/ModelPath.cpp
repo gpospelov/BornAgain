@@ -125,7 +125,10 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel *model, const QString
         SessionItem *t = model->rootItem();
         for(int i = 0; i < parts.length(); i++) {
             for (int j = 0; j < t->rowCount(); j++) {
-                if (t->childAt(j)->itemName() == parts[i]) {
+                // FIXME additional check t->childAt(j)->isEditable() is to skip
+                // JobItem::P_INSTRUMENT_NAME which conflicts with the name "Instrument" of
+                // InstrumentItem
+                if (t->childAt(j)->itemName() == parts[i] && t->childAt(j)->isEditable()) {
                     t = t->childAt(j);
                     break;
                 }

@@ -80,7 +80,9 @@ void GUITranslationTest::processParameterTree()
             }
         } else {
             if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
-                qDebug() << parItem->getItemValue(ParameterItem::P_DOMAIN).toString();
+                qDebug() << "link" << parItem->getItemValue(ParameterItem::P_LINK).toString();
+                qDebug() << "domain" << parItem->getItemValue(ParameterItem::P_DOMAIN).toString();
+                qDebug() << "---";
             }
         }
     }

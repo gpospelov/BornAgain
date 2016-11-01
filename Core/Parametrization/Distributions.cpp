@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathConstants.h"
+#include "ParameterSample.h"
 #include <cmath>
 #include <sstream>
 
@@ -25,9 +26,9 @@
 // class IDistribution1D
 // ************************************************************************** //
 
-//! Returns samples created according to sigma_factor, weighted with probabilityDensity().
+//! Returns equidistant samples, using intrinsic parameters, weighted with probabilityDensity().
 
-std::vector<ParameterSample> IDistribution1D::generateSamples(
+std::vector<ParameterSample> IDistribution1D::equidistantSamples(
     size_t nbr_samples, double sigma_factor, const RealLimits& limits) const
 {
     if (nbr_samples == 0)
@@ -36,12 +37,12 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
             "number of generated samples must be bigger than zero");
     if (isDelta())
         return { ParameterSample(getMean()) };
-    return generateSamplesFromValues( generateValueList( nbr_samples, sigma_factor, limits) );
+    return generateSamplesFromValues( equidistantPoints( nbr_samples, sigma_factor, limits) );
 }
 
 //! Returns equidistant samples from xmin to xmax, weighted with probabilityDensity().
 
-std::vector<ParameterSample> IDistribution1D::generateSamples(
+std::vector<ParameterSample> IDistribution1D::equidistantSamplesInRange(
     size_t nbr_samples, double xmin, double xmax) const
 {
     if (nbr_samples == 0)
@@ -50,12 +51,12 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
             "number of generated samples must be bigger than zero");
     if (isDelta())
         return { ParameterSample(getMean()) };
-    return generateSamplesFromValues( generateValues(nbr_samples, xmin, xmax) );
+    return generateSamplesFromValues( equidistantPointsInRange(nbr_samples, xmin, xmax) );
 }
 
 //! Returns equidistant interpolation points from xmin to xmax.
 
-std::vector<double> IDistribution1D::generateValues(
+std::vector<double> IDistribution1D::equidistantPointsInRange(
     size_t nbr_samples, double xmin, double xmax) const
 {
     if (nbr_samples < 2 || xmin == xmax)
@@ -127,10 +128,10 @@ double DistributionGate::probabilityDensity(double x) const
     return 1.0/(m_max-m_min);
 }
 
-std::vector<double> DistributionGate::generateValueList(
+std::vector<double> DistributionGate::equidistantPoints(
     size_t nbr_samples, double, const RealLimits&) const
 {
-    return generateValues(nbr_samples, m_min, m_max);
+    return equidistantPointsInRange(nbr_samples, m_min, m_max);
 }
 
 void DistributionGate::init_parameters()
@@ -172,7 +173,7 @@ double DistributionLorentz::probabilityDensity(double x) const
     return m_hwhm/(m_hwhm*m_hwhm + (x-m_mean)*(x-m_mean))/M_PI;
 }
 
-std::vector<double> DistributionLorentz::generateValueList(
+std::vector<double> DistributionLorentz::equidistantPoints(
     size_t nbr_samples, double sigma_factor, const RealLimits& limits) const
 {
     if (sigma_factor <= 0.0)
@@ -180,7 +181,7 @@ std::vector<double> DistributionLorentz::generateValueList(
     double xmin = m_mean - sigma_factor*m_hwhm;
     double xmax = m_mean + sigma_factor*m_hwhm;
     adjustMinMaxForLimits(xmin, xmax, limits);
-    return generateValues(nbr_samples, xmin, xmax);
+    return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
 void DistributionLorentz::init_parameters()
@@ -225,7 +226,7 @@ double DistributionGaussian::probabilityDensity(double x) const
     return exponential/m_std_dev/std::sqrt(M_TWOPI);
 }
 
-std::vector<double> DistributionGaussian::generateValueList(
+std::vector<double> DistributionGaussian::equidistantPoints(
     size_t nbr_samples, double sigma_factor, const RealLimits& limits) const
 {
     if (sigma_factor <= 0.0)
@@ -233,7 +234,7 @@ std::vector<double> DistributionGaussian::generateValueList(
     double xmin = m_mean - sigma_factor*m_std_dev;
     double xmax = m_mean + sigma_factor*m_std_dev;
     adjustMinMaxForLimits(xmin, xmax, limits);
-    return generateValues(nbr_samples, xmin, xmax);
+    return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
 void DistributionGaussian::init_parameters()
@@ -284,7 +285,7 @@ double DistributionLogNormal::getMean() const
     return m_median*std::exp(exponent);
 }
 
-std::vector<double> DistributionLogNormal::generateValueList(
+std::vector<double> DistributionLogNormal::equidistantPoints(
     size_t nbr_samples, double sigma_factor, const RealLimits& limits) const
 {
     if(nbr_samples < 2) {
@@ -297,7 +298,7 @@ std::vector<double> DistributionLogNormal::generateValueList(
     double xmin = m_median*std::exp(-sigma_factor*m_scale_param);
     double xmax = m_median*std::exp(sigma_factor*m_scale_param);
     adjustMinMaxForLimits(xmin, xmax, limits);
-    return generateValues(nbr_samples, xmin, xmax);
+    return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
 void DistributionLogNormal::init_parameters()
@@ -343,7 +344,7 @@ double DistributionCosine::probabilityDensity(double x) const
     return (1.0 + std::cos((x-m_mean)/m_sigma))/(m_sigma*M_TWOPI);
 }
 
-std::vector<double> DistributionCosine::generateValueList(
+std::vector<double> DistributionCosine::equidistantPoints(
     size_t nbr_samples, double sigma_factor, const RealLimits& limits) const
 {
     if (sigma_factor <= 0.0 || sigma_factor > 2.0)
@@ -351,7 +352,7 @@ std::vector<double> DistributionCosine::generateValueList(
     double xmin = m_mean - sigma_factor*m_sigma*M_PI_2;
     double xmax = m_mean + sigma_factor*m_sigma*M_PI_2;
     adjustMinMaxForLimits(xmin, xmax, limits);
-    return generateValues(nbr_samples, xmin, xmax);
+    return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
 void DistributionCosine::init_parameters()

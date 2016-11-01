@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParameterDistribution.h"
+#include "ParameterSample.h"
 #include "Distributions.h"
 #include "Exceptions.h"
 
@@ -116,9 +117,9 @@ size_t ParameterDistribution::getNbrSamples() const
 std::vector<ParameterSample> ParameterDistribution::generateSamples() const
 {
     if(m_xmin < m_xmax)
-        return mP_distribution->generateSamples(m_nbr_samples, m_xmin, m_xmax);
+        return mP_distribution->equidistantSamplesInRange(m_nbr_samples, m_xmin, m_xmax);
     else
-        return mP_distribution->generateSamples(m_nbr_samples, m_sigma_factor, m_limits);
+        return mP_distribution->equidistantSamples(m_nbr_samples, m_sigma_factor, m_limits);
 }
 
 const IDistribution1D* ParameterDistribution::getDistribution() const

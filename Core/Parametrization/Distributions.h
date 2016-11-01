@@ -18,8 +18,9 @@
 
 #include "IParameterized.h"
 #include "RealLimits.h"
-#include "ParameterSample.h"
 #include <vector>
+
+class ParameterSample;
 
 //! Interface for one-dimensional distributions.
 //! @ingroup distribution_internal
@@ -38,21 +39,22 @@ public:
     //! Returns the distribution-specific mean.
     virtual double getMean() const =0;
 
-    //! Returns samples created according to sigma_factor, weighted with probabilityDensity().
-    std::vector<ParameterSample> generateSamples(
-        size_t nbr_samples, double sigma_factor=0.0, const RealLimits& limits = RealLimits()) const;
+    //! Returns equidistant samples, using intrinsic parameters, weighted with probabilityDensity().
+    std::vector<ParameterSample> equidistantSamples(
+        size_t nbr_samples, double sigma_factor=0., const RealLimits& limits=RealLimits()) const;
 
     //! Returns equidistant samples from xmin to xmax, weighted with probabilityDensity().
-    std::vector<ParameterSample> generateSamples(
+    std::vector<ParameterSample> equidistantSamplesInRange(
         size_t nbr_samples, double xmin, double xmax) const;
 
     //! Returns equidistant interpolation points, with range computed in distribution-specific
     //! way from mean and width parameter, taking into account limits and sigma_factor.
-    virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor, const RealLimits& limits = RealLimits()) const =0;
+    virtual std::vector<double> equidistantPoints(size_t nbr_samples,
+            double sigma_factor, const RealLimits& limits=RealLimits()) const =0;
 
     //! Returns equidistant interpolation points from xmin to xmax.
-    virtual std::vector<double> generateValues(size_t nbr_samples, double xmin, double xmax) const;
+    virtual std::vector<double> equidistantPointsInRange(
+        size_t nbr_samples, double xmin, double xmax) const;
 
     //! Returns true if the distribution is in the limit case of a Dirac delta distribution.
     virtual bool isDelta() const =0;
@@ -87,7 +89,7 @@ public:
     double getMax() const { return m_max; }
 
     //! Returns list of sample values
-    virtual std::vector<double> generateValueList(
+    virtual std::vector<double> equidistantPoints(
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
@@ -121,7 +123,7 @@ public:
     double getHWHM() const { return m_hwhm; }
 
     //! generate list of sample values
-    virtual std::vector<double> generateValueList(
+    virtual std::vector<double> equidistantPoints(
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
@@ -156,7 +158,7 @@ public:
     double getStdDev() const { return m_std_dev; }
 
     //! generate list of sample values
-    virtual std::vector<double> generateValueList(size_t nbr_samples,
+    virtual std::vector<double> equidistantPoints(size_t nbr_samples,
             double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
@@ -192,7 +194,7 @@ public:
     double getScalePar() const { return m_scale_param; }
 
     //! generate list of sample values
-    virtual std::vector<double> generateValueList(
+    virtual std::vector<double> equidistantPoints(
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
@@ -226,7 +228,7 @@ public:
     double getSigma() const { return m_sigma; }
 
     //! generate list of sample values
-    virtual std::vector<double> generateValueList(
+    virtual std::vector<double> equidistantPoints(
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;

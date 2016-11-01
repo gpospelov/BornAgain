@@ -36,7 +36,7 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 public:
     Simulation();
     Simulation(const MultiLayer& p_sample);
-    Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
+    Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
     virtual ~Simulation();
 
     virtual Simulation* clone() const =0;

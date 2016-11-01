@@ -28,7 +28,7 @@ class BA_CORE_API_ OffSpecSimulation : public Simulation
 public:
     OffSpecSimulation();
     OffSpecSimulation(const MultiLayer& p_sample);
-    OffSpecSimulation(std::shared_ptr<class IMultiLayerBuilder> p_sample_builder);
+    OffSpecSimulation(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder);
     ~OffSpecSimulation() final {}
 
     OffSpecSimulation* clone() const { return new OffSpecSimulation(*this); }

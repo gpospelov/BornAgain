@@ -15496,7 +15496,7 @@ class GISASSimulation(Simulation):
         """
         __init__(GISASSimulation self) -> GISASSimulation
         __init__(GISASSimulation self, MultiLayer p_sample) -> GISASSimulation
-        __init__(GISASSimulation self, std::shared_ptr< IMultiLayerBuilder > p_sample_builder) -> GISASSimulation
+        __init__(GISASSimulation self, std::shared_ptr< IMultiLayerBuilder > const p_sample_builder) -> GISASSimulation
 
         GISASSimulation::GISASSimulation(std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
 
@@ -21540,7 +21540,7 @@ class OffSpecSimulation(Simulation):
         """
         __init__(OffSpecSimulation self) -> OffSpecSimulation
         __init__(OffSpecSimulation self, MultiLayer p_sample) -> OffSpecSimulation
-        __init__(OffSpecSimulation self, std::shared_ptr< IMultiLayerBuilder > p_sample_builder) -> OffSpecSimulation
+        __init__(OffSpecSimulation self, std::shared_ptr< IMultiLayerBuilder > const p_sample_builder) -> OffSpecSimulation
 
         OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class IMultiLayerBuilder > p_sample_builder)
 
@@ -24122,7 +24122,7 @@ class SpecularSimulation(ICloneable, IParameterized):
         """
         __init__(SpecularSimulation self) -> SpecularSimulation
         __init__(SpecularSimulation self, ISample sample) -> SpecularSimulation
-        __init__(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder) -> SpecularSimulation
+        __init__(SpecularSimulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder) -> SpecularSimulation
 
         SpecularSimulation::SpecularSimulation(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 

@@ -1,0 +1,46 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\part{Reference}\label{PREF}
+\chapter{Basics}\label{SRefBas}
+
+This Reference is organized top-down: We start with top-level classes like
+\texttt{GISAS\-Simulation};
+then we explain the classes needed to set up a meaningful simulation.
+For an alphabetic lookup of classes and functions,
+see the general Index at the end of this Manual.
+For classes and functions not explained here,
+see the automatically generated Doxygen documentation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Simulation classes}\label{SRefSim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Each BornAgain simulation is run from one of the three
+foundational simulation classes:\footnote
+{Developer note: They all inherit from a common interface class \ttIdx{Simulation}.}
+\ttIdx{GISAS\-Simulation},
+\ttIdx{OffSpecularSimulation},
+\ttIdx{SpecularSimulation}.
+
+%===============================================================================
+\subsection{GISASSimulation}
+%===============================================================================
+
+\setCpp
+\begin{lstlisting}
+    GISASSimulation(const MultiLayer& p_sample);
+    GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
+\end{lstlisting}

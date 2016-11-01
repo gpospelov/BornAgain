@@ -13,7 +13,6 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\part{Reference}\label{PREF}
 \chapter{Particle form factors}\label{SPFF}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -36,7 +35,8 @@ around the associated axis and $\theta$ is the
 angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
 the $z$-axis:\\
 
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\setPy
+\begin{lstlisting}
     pyramid_ff = ba.FormFactorPyramid(10*nm, 5*nm, 54.73*deg )
     pyramid = ba.Particle(m_particle, pyramid_ff)
     transform = ba.Transform3D.createRotateZ(45*deg)

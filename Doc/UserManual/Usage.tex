@@ -76,7 +76,8 @@ More examples can be found at our project web site \url{http://www.bornagainproj
 \subsubsection{Importing Python modules}
 %-------------------------------------------------------------------------------
 
-\begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
+\setPy
+\begin{lstlisting}
 import numpy @\label{import_lib_beg}@
 import matplotlib
 import pylab @\label{import_lib_end}@
@@ -92,7 +93,7 @@ imports the features of \BornAgain\ software.
 \subsubsection{Defining the materials}
 %-------------------------------------------------------------------------------
 
-\begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
+\begin{lstlisting}
 def get_sample(): @\label{def_function}@
     """
     Build and return the sample representing cylinders and pyramids on top of substrate without interference.
@@ -106,7 +107,7 @@ def get_sample(): @\label{def_function}@
 Line~\ref{def_function} marks the beginning of the
 function to define our sample. Lines~\ref{material2}, \ref{material3} and \ref{materialparticle} define different
 materials using class \Code{HomogeneousMaterial}. The general syntax is the following
-\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+\begin{lstlisting}
 <material_name> = HomogeneousMaterial("name", delta, beta)
 \end{lstlisting}
 where \Code{name} is the name of the
@@ -119,7 +120,7 @@ equal to $1-6\times 10^{-6} +i2\times 10^{-8} $, and the material of the particl
 %-------------------------------------------------------------------------------
 \subsubsection{Defining the particles}
 %-------------------------------------------------------------------------------
-\begin{lstlisting}[language=python,style=eclipseboxed,name=ex1,nolol]
+\begin{lstlisting}
     # collection of particles @\label{particles1}@
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer) @\label{particlescyl1}@
     cylinder = Particle(m_particle, cylinder_ff) @\label{particlescyl2}@
@@ -146,7 +147,7 @@ The same procedure has been applied for the prism in lines~\ref{particlesprism1}
 %-------------------------------------------------------------------------------
 \subsubsection{Characterizing particles assembly}
 %-------------------------------------------------------------------------------
-\begin{lstlisting}[language=python, style=eclipseboxed, name=ex1,nolol]
+\begin{lstlisting}
     particle_layout = ParticleLayout()  @\label{particlesdecor1}@
     particle_layout.addParticle(cylinder, 0.5)  @\label{particlesdecor2}@
     particle_layout.addParticle(prism, 0.5)@\label{particlesdecor3}@
@@ -158,8 +159,7 @@ in our sample is called \Code{ParticleLayout}
 (line~\ref{particlesdecor1}). We use the associated function \Code{addParticle}
 for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). Its general syntax is
 
-\begin{lstlisting}[language=python, style=eclipse,numbers=none]
-addParticle(<particle_name>, abundance)
+\begin{lstlisting}addParticle(<particle_name>, abundance)
 \end{lstlisting}
 where \Code{<particle\_name>} is the name used to define the particles
 (lines~\ref{particlescyl2} and \ref{particlesprism2}) and
@@ -181,7 +181,7 @@ imposed when we add the particles in a given layer by parameter \Code{depth}, as
 %-------------------------------------------------------------------------------
 \subsubsection{Multilayer}
 %-------------------------------------------------------------------------------
-\begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
+\begin{lstlisting}
 # air layer with particles and substrate form multi layer  @\label{sampleassembling}@
     air_layer = Layer(m_air) @\label{airlayer}@
     air_layer.addLayout(particle_layout) @\label{airlayerdecorator}@
@@ -223,7 +223,7 @@ substrate (line~\ref{layersubstrate}).
 \subsubsection{Characterizing the input beam and output detector}
 %-------------------------------------------------------------------------------
 
-\begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
+\begin{lstlisting}
 def get_simulation():  @\label{run1}@
     """
     Create and return GISAXS simulation with beam and detector defined
@@ -243,7 +243,7 @@ The different incident and exit angles are shown in \cref{fig:multil3d}.
 The detector parameters are set using ranges of angles via
 the function:
 
-\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+\begin{lstlisting}
 setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max),
 \end{lstlisting}
 
@@ -270,7 +270,7 @@ axes with custom variable bin size are explained elsewhere.}
 %at constant values of these two angles.\\
 
 \noindent To characterize the beam we use function
-\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+\begin{lstlisting}
 setBeamParameters(lambda, alpha_i, phi_i),
 \end{lstlisting}
 
@@ -285,7 +285,7 @@ direction of the incident beam (measured with respect to the $x$-axis).
 \subsubsection{Running the simulation and plotting the results}
 %-------------------------------------------------------------------------------
 
-\begin{lstlisting}[language=python, style=eclipseboxed,name=ex1,nolol]
+\begin{lstlisting}
 def run_simulation(): @\label{run_simulation}@
     """
    Run simulation and plot results

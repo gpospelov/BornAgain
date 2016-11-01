@@ -189,6 +189,8 @@
 %\usepackage[toc,page]{appendix}
 \usepackage{titlesec}
 
+\def\ttIdx#1{\texttt{#1}\index{#1@\Code{#1}}}
+
 %-------------------------------------------------------------------------------
 %  Table of Contents
 %-------------------------------------------------------------------------------
@@ -299,9 +301,13 @@
 \usepackage{tabulary}
 
 \usepackage[final]{listings}
-\usepackage{lstcustom}
+\usepackage[x11names]{xcolor}
+\usepackage{lstcustom} % under our control
 \renewcommand{\lstfontfamily}{\ttfamily}
-\lstset{language=python,style=eclipseboxed,numbers=none,nolol}
+\def\setPy{\lstset{language=python,style=eclipseboxed,numbers=none,nolol,
+   backgroundcolor=\color{SlateGray1}}}
+\def\setCpp{\lstset{language=C++,style=eclipseboxed,numbers=none,nolol,
+   backgroundcolor=\color{Wheat1}}}
 
 %-------------------------------------------------------------------------------
 %  Tikz pictures

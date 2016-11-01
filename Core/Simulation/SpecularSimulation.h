@@ -38,7 +38,7 @@ public:
 
     SpecularSimulation();
     SpecularSimulation(const ISample& sample);
-    SpecularSimulation(std::shared_ptr<IMultiLayerBuilder> sample_builder);
+    SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
     virtual ~SpecularSimulation();
 
     SpecularSimulation* clone() const;

@@ -19,6 +19,10 @@
 \newpage
 \chapter{Using the Python API}  \label{sec:Usage}
 
+\Work{This section is a collection of material that is waiting for revision and
+tighter integration with the remaining manual.
+Much more detailed instruction on using the Python API can be found in the online Tutorial.}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Running a simulation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -157,8 +161,8 @@ The object which holds the information about the positions and densities of part
 in our sample is called \Code{ParticleLayout}
 (line~\ref{particlesdecor1}). We use the associated function \Code{addParticle}
 for each particle shape (lines~\ref{particlesdecor2}, \ref{particlesdecor3}). Its general syntax is
-
-\begin{lstlisting}addParticle(<particle_name>, abundance)
+\begin{lstlisting}
+addParticle(<particle_name>, abundance)
 \end{lstlisting}
 where \Code{<particle\_name>} is the name used to define the particles
 (lines~\ref{particlescyl2} and \ref{particlesprism2}) and

@@ -69,6 +69,7 @@ public:
     void setParameterValue(const std::string& name, double value);
 
     int setMatchedParametersValue(const std::string& wildcards, double value);
+    void setUniqueMatchValue(const std::string& pattern, double value);
 
     std::vector<std::string> getParameterNames() const;
 

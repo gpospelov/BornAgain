@@ -22483,6 +22483,11 @@ class ParameterPool(_object):
         return _libBornAgainCore.ParameterPool_setMatchedParametersValue(self, wildcards, value)
 
 
+    def setUniqueMatchValue(self, pattern, value):
+        """setUniqueMatchValue(ParameterPool self, std::string const & pattern, double value)"""
+        return _libBornAgainCore.ParameterPool_setUniqueMatchValue(self, pattern, value)
+
+
     def getParameterNames(self):
         """
         getParameterNames(ParameterPool self) -> vector_string_t
@@ -23101,18 +23106,6 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_getParameterDistribution(self)
-
-
-    def createDistributedParameterPool(self):
-        """
-        createDistributedParameterPool(ParticleDistribution self) -> ParameterPool
-
-        ParameterPool * ParticleDistribution::createDistributedParameterPool() const
-
-        Returns the parameter pool that can be used for parameter distributions. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_createDistributedParameterPool(self)
 
 
     def getParticle(self):

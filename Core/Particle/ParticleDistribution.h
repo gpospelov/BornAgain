@@ -32,7 +32,7 @@ public:
     virtual ParticleDistribution* clone() const;
     virtual ParticleDistribution* cloneInvertB() const;
 
-    virtual void accept(ISampleVisitor* visitor) const;
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
     //! Returns textual representation of *this and its descendants.
     virtual std::string to_str(int indent=0) const;
@@ -49,11 +49,8 @@ public:
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const { return m_par_distribution; }
 
-    //! Returns the parameter pool that can be used for parameter distributions
-    ParameterPool* createDistributedParameterPool() const;
-
     //! Returns particle.
-    const IParticle* getParticle() const;
+    const IParticle* getParticle() const { return mP_particle.get(); }
 
 private:
     std::unique_ptr<IParticle> mP_particle;

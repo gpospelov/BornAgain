@@ -45,11 +45,6 @@ ParticleDistribution* ParticleDistribution::cloneInvertB() const
                                               "cloneInvertB: should never be called");
 }
 
-void ParticleDistribution::accept(ISampleVisitor* visitor) const
-{
-    visitor->visit(this);
-}
-
 std::string ParticleDistribution::to_str(int indent) const
 {
     std::stringstream ss;
@@ -68,53 +63,31 @@ const IMaterial* ParticleDistribution::getAmbientMaterial() const
     return mP_particle->getAmbientMaterial();
 }
 
-//! Initializes list of new particles generated according to a distribution.
+//! Returns particle clones with parameter values drawn from distribution.
+
 std::vector<const IParticle*> ParticleDistribution::generateParticles() const
 {
-    std::unique_ptr<ParameterPool> P_pool(createDistributedParameterPool());
+    std::unique_ptr<ParameterPool> P_pool {mP_particle->createParameterTree()};
     std::string main_par_name = m_par_distribution.getMainParameterName();
-    RealParameter* main_par = P_pool->getUniqueMatch(main_par_name);
-    double main_par_value = main_par->getValue();
-    std::vector<std::string> linked_par_names = m_par_distribution.getLinkedParameterNames();
-    std::map<std::string, double> linked_par_ratio_map;
-    for (const std::string& name: linked_par_names) {
-        RealParameter* linked_par = P_pool->getUniqueMatch(name);
-        double linked_par_value = linked_par->getValue();
-        double linked_ratio = main_par_value == 0 ? 1.0 : linked_par_value / main_par_value;
-        linked_par_ratio_map[name] = linked_ratio;
-    }
+    double main_par_value = P_pool->getUniqueMatch(main_par_name)->getValue();
+
+    // Preset link ratios:
+    std::map<std::string, double> linked_ratios;
+    for (const std::string& name: m_par_distribution.getLinkedParameterNames())
+        linked_ratios[name] = main_par_value == 0 ? 1.0 :
+            P_pool->getUniqueMatch(name)->getValue() / main_par_value;
+
+    // Draw distribution samples; for each sample, create one particle clone:
     std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
     std::vector<const IParticle*> result;
     for (const ParameterSample& main_sample: main_par_samples ) {
-        double particle_abundance = getAbundance() * main_sample.weight;
         IParticle* p_particle_clone = mP_particle->clone();
-        std::unique_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());
-        int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
-        if (changed != 1)
-            throw Exceptions::RuntimeErrorException(
-                "ParticleDistribution::generateParticles: "
-                "main parameter name matches nothing or more than one parameter");
-        for (std::map<std::string, double>::const_iterator it = linked_par_ratio_map.begin();
-             it != linked_par_ratio_map.end(); ++it) {
-            double new_linked_value = main_sample.value * it->second;
-            changed = P_new_pool->setMatchedParametersValue(it->first, new_linked_value);
-            if (changed != 1)
-                throw Exceptions::RuntimeErrorException(
-                    "ParticleDistribution::generateParticles: "
-                    "linked parameter name matches nothing or more than one parameter");
-        }
-        p_particle_clone->setAbundance(particle_abundance);
+        std::unique_ptr<ParameterPool> P_new_pool {p_particle_clone->createParameterTree()};
+        P_new_pool->setUniqueMatchValue(main_par_name, main_sample.value);
+        for (auto it = linked_ratios.begin(); it != linked_ratios.end(); ++it)
+            P_new_pool->setUniqueMatchValue(it->first, main_sample.value * it->second);
+        p_particle_clone->setAbundance(getAbundance() * main_sample.weight);
         result.push_back(p_particle_clone);
     }
     return result;
-}
-
-ParameterPool* ParticleDistribution::createDistributedParameterPool() const
-{
-    return mP_particle->createParameterTree();
-}
-
-const IParticle* ParticleDistribution::getParticle() const
-{
-    return mP_particle.get();
 }

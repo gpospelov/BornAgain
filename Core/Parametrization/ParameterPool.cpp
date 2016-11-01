@@ -154,7 +154,7 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
     }
 }
 
-//! Sets parameter value.
+//! Sets value of the nonzero parameters that match _pattern_ ('*' allowed), or throws.
 
 int ParameterPool::setMatchedParametersValue(const std::string& pattern, double value)
 {
@@ -168,6 +168,15 @@ int ParameterPool::setMatchedParametersValue(const std::string& pattern, double 
         }
     }
     return npars;
+}
+
+//! Sets value of the one parameter that matches _pattern_ ('*' allowed), or throws.
+
+void ParameterPool::setUniqueMatchValue(const std::string& pattern, double value)
+{
+    if (setMatchedParametersValue(pattern, value) != 1)
+        throw  Exceptions::RuntimeErrorException(
+            "ParameterPool::setUniqueMatchValue: pattern '"+pattern+"' is not unique");
 }
 
 std::vector<std::string> ParameterPool::getParameterNames() const

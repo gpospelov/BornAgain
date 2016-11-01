@@ -186,7 +186,8 @@ simulated or real intensity data together with the axes definition of the detect
 During the simulation setup
 it is created automatically when the user specifies the detector characteristics and is filled with the simulated intensities after the simulation is completed.
 
-\begin{lstlisting}[language=python, style=eclipseboxed]
+\setPy
+\begin{lstlisting}
 simulation = Simulation()
 simulation.setDetectorParameters(10, -5.0*degree, 5.0*degree, 5, 0.0*degree, 1.0*degree)
 ...
@@ -236,7 +237,7 @@ To export intensity data into  \Code{numpy} array the method \Code{getArray()} s
 on \Code{IntensityData} object as shown in line \ref{py:UserApi:getArray} of
 following code snippet.
 
-\begin{lstlisting}[language=python, style=eclipseboxed]
+\begin{lstlisting}
 intensity = simulation.getIntensityData()
 array = intensity.getArray() @\label{py:UserApi:getArray}@
 ...
@@ -274,7 +275,7 @@ this object to the fitting kernel.
 
 First, the user creates empty \Code{IntensityData} as shown
 in line~\ref{py:UserApi:IntensityData} of the following code snippet.
-\begin{lstlisting}[language=python, style=eclipseboxed]
+\begin{lstlisting}
 data = IntensityData() @\label{py:UserApi:IntensityData}@
 data.addAxis(FixedBinAxis("phi_f", 10, -5.0*degree, 5.0*degree)) @\label{py:UserApi:phi_f}@
 data.addAxis(FixedBinAxis("alpha_f", 5, 0.0*degree, 1.0*degree)) @\label{py:UserApi:alpha_f}@
@@ -291,7 +292,7 @@ In lines~\ref{py:UserApi:phi_f}, \ref{py:UserApi:alpha_f} two axes with fixed bi
 are defined to represent the detector layout as shown in \cref{fig:UserApi:IntensityData}.
 The constructor of \Code{FixedBinAxis} object has the following signature
 
-\begin{lstlisting}[language=python, style=eclipse,numbers=none]
+\begin{lstlisting}
 FixedBinAxis(title, nbins, min_angle, max_angle)
 \end{lstlisting}
 
@@ -305,7 +306,7 @@ using \Code{numpy} array prepared by the user (lines ~\ref{py:UserApi:create_arr
 The special class \Code{IntensityDataIOFactory} is intended for saving the intensity data
 in different datafile formats. For the moment, it only supports saving the data in specific BornAgain's text files (the file extention \Code{*.int}).
 
-\begin{lstlisting}[language=python, style=eclipseboxed]
+\begin{lstlisting}
 intensity = simulation.getIntensityData()
 IntensityDataIOFactory.writeIntensityData(intensity, 'file_name.int')
 \end{lstlisting}
@@ -314,6 +315,6 @@ IntensityDataIOFactory.writeIntensityData(intensity, 'file_name.int')
 The same class is also intended for reading intensity data
 from files with different formats. For the moment, it only supports reading the data from text files of special BornAgain's format (the file extention \Code{*.int}).
 
-\begin{lstlisting}[language=python, style=eclipseboxed]
+\begin{lstlisting}
 intensity = IntensityDataIOFactory.readIntensityData('file_name.int')
 \end{lstlisting}

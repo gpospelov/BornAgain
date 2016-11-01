@@ -428,36 +428,23 @@ By a \E{mesocrystal},
 we understand an assembly of \E{mesoscopic} particles
 on a one- or two-dimensional lattice.
 In BornAgain, we are nowhere concerned with
-the usual three-dimensional, microscopic, atomistic crystals of conventional solid-state physics.
+the usual three-dimensional, microscopic, atomistic crystals
 \index{Crystal!microscopic (unsupported)}%
-It is quite possible mesoparticles are made of microscopic crystals,
+of conventional solid-state physics.\footnote
+{This statement holds true regardless of the not so clear terminology in the BornAgain
+class hierarchy.
+The class \texttt{Crystal}
+\index{Crystal@\Code{Crystal} (class)}%
+stands for a mesocrystal of infinite extension.
+The class \texttt{Mesocrystal}
+\index{Mesocrystal@\Code{Mesocrystal} (class)}%
+adds a outer geometric shape.}
+It is quite possible that mesoparticles are made of microscopic crystals,
 and cause wide-angle scattering,
 but this is ignored in BornAgain;
-BornAgain does not support for any wide-angle scattering simulation.
+BornAgain does not support any wide-angle scattering simulation.
 \index{Wide-angle scattering (unsupported)}%
 
-by a \E{crystal}
-\index{Nanocrystal|see{Crystal}}%
-We are explicitly \E{not} concerned with
-
-The starting point for describing the interference of the scattering from different
-particles is the coherent scattering intensity of~\cref{EICoherent}.
-
-The conditional interference function is defined as
-\begin{equation}
-  \SD(\q |\v\tau,\v\tau')
-  \coloneqq 1 + \rho_S \int\!\d^2r\, \e^{i\q_\plll\r}\! \GD(\r|\v\tau,\v\tau').
-\end{equation}
-With the chosen normalization, $\rho_S \GD(\r|\v\tau,\v\tau') d^2r$ gives the probability of
-finding a particle of type $\v\tau'$ in the infinitesimal area~$d^2r$
-at the relative position~$\r$ from
-a given (different) particle of type $\v\tau$.
-
-In the following subsections,
-the supported interference functions in \BornAgain\ will be discussed.
-With one exception,
-they all assume the R-T decoupling approximation, making the interference function
-independent of the particle types ($\v\tau$ and~$\v\tau'$).
 
 %===============================================================================
 \subsection{One-dimensional lattice} \label{sec:sect:1dlattice}
@@ -794,6 +781,18 @@ paracrystal).
 \section{Disordered assemblies}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+The starting point for describing the interference of the scattering from different
+particles is the coherent scattering intensity of~\cref{EICoherent}.
+
+The conditional interference function is defined as
+\begin{equation}
+  \SD(\q |\v\tau,\v\tau')
+  \coloneqq 1 + \rho_S \int\!\d^2r\, \e^{i\q_\plll\r}\! \GD(\r|\v\tau,\v\tau').
+\end{equation}
+With the chosen normalization, $\rho_S \GD(\r|\v\tau,\v\tau') d^2r$ gives the probability of
+finding a particle of type $\v\tau'$ in the infinitesimal area~$d^2r$
+at the relative position~$\r$ from
+a given (different) particle of type $\v\tau$.
 
 %\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

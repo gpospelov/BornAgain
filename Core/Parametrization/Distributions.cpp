@@ -25,6 +25,8 @@
 // class IDistribution1D
 // ************************************************************************** //
 
+//! Returns samples created according to sigma_factor, weighted with probabilityDensity().
+
 std::vector<ParameterSample> IDistribution1D::generateSamples(
     size_t nbr_samples, double sigma_factor, const RealLimits& limits) const
 {
@@ -34,9 +36,10 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
             "number of generated samples must be bigger than zero");
     if (isDelta())
         return { ParameterSample(getMean()) };
-    std::vector<double> sample_values = generateValueList( nbr_samples, sigma_factor, limits);
-    return generateSamplesFromValues(sample_values);
+    return generateSamplesFromValues( generateValueList( nbr_samples, sigma_factor, limits) );
 }
+
+//! Returns equidistant samples from xmin to xmax, weighted with probabilityDensity().
 
 std::vector<ParameterSample> IDistribution1D::generateSamples(
     size_t nbr_samples, double xmin, double xmax) const
@@ -50,7 +53,8 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
     return generateSamplesFromValues( generateValues(nbr_samples, xmin, xmax) );
 }
 
-//! Interface
+//! Returns equidistant interpolation points from xmin to xmax.
+
 std::vector<double> IDistribution1D::generateValues(
     size_t nbr_samples, double xmin, double xmax) const
 {
@@ -71,8 +75,10 @@ void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 void IDistribution1D::adjustMinMaxForLimits(
     double& xmin, double& xmax, const RealLimits& limits) const
 {
-    if(limits.hasLowerLimit() && xmin < limits.getLowerLimit()) xmin = limits.getLowerLimit();
-    if(limits.hasUpperLimit() && xmax > limits.getUpperLimit()) xmax = limits.getUpperLimit();
+    if(limits.hasLowerLimit() && xmin < limits.getLowerLimit())
+        xmin = limits.getLowerLimit();
+    if(limits.hasUpperLimit() && xmax > limits.getUpperLimit())
+        xmax = limits.getUpperLimit();
     if(xmin > xmax) {
         std::ostringstream ostr;
         ostr << "IDistribution1D::adjustMinMaxForLimits() -> Error. Can't' adjust ";
@@ -80,6 +86,8 @@ void IDistribution1D::adjustMinMaxForLimits(
         throw Exceptions::DomainErrorException(ostr.str());
     }
 }
+
+//! Returns weighted samples from given interpolation points and probabilityDensity().
 
 std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(
     const std::vector<double>& sample_values) const

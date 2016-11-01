@@ -38,27 +38,20 @@ public:
     //! Returns the distribution-specific mean.
     virtual double getMean() const =0;
 
-    //! generate list of sampled values with their weight
-    //! xmin, xmax for sample generations are deduced from sigma_factor and possible limits
+    //! Returns samples created according to sigma_factor, weighted with probabilityDensity().
     std::vector<ParameterSample> generateSamples(
         size_t nbr_samples, double sigma_factor=0.0, const RealLimits& limits = RealLimits()) const;
 
-    //! generate list of sampled values with their weight within given xmin, xmax
+    //! Returns equidistant samples from xmin to xmax, weighted with probabilityDensity().
     std::vector<ParameterSample> generateSamples(
         size_t nbr_samples, double xmin, double xmax) const;
 
-    //! generate list of sample values
-    //! @param nbr_samples number of values to generate
-    //! @param sigma_factor parameter to derive min,max range for sample values
-    //! @param limits
-    //! @return vector of generated values
+    //! Returns equidistant interpolation points, with range computed in distribution-specific
+    //! way from mean and width parameter, taking into account limits and sigma_factor.
     virtual std::vector<double> generateValueList(size_t nbr_samples,
             double sigma_factor, const RealLimits& limits = RealLimits()) const =0;
 
-    //! generate list of sample values
-    //! @param nbr_samples number of values to generate
-    //! @param xmin, xmax start and end value of the generated samples
-    //! @return vector of generated values
+    //! Returns equidistant interpolation points from xmin to xmax.
     virtual std::vector<double> generateValues(size_t nbr_samples, double xmin, double xmax) const;
 
     //! Returns true if the distribution is in the limit case of a Dirac delta distribution.
@@ -71,7 +64,7 @@ protected:
     //! modifies xmin and xmax if they are outside of limits
     void adjustMinMaxForLimits(double& xmin, double& xmax, const RealLimits& limits) const;
 
-    //! generate list of sampled values with their weight from value list
+    //! Returns weighted samples from given interpolation points and probabilityDensity().
     std::vector<ParameterSample> generateSamplesFromValues(
         const std::vector<double>& sample_values) const;
 };

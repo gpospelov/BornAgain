@@ -70,8 +70,10 @@ In practice, the most important case is the \E{core-shell particle}.
 \index{Particles!Core-shell}%
 This is supported in \BornAgain\ through the function
 \index{ParticleCoreShell@\Code{ParticleCoreShell}}
+\setCpp
 \begin{lstlisting}
-  ParticleCoreShell(shell_particle, core_particle, rel_position)
+    ParticleCoreShell(const Particle& shell, const Particle& core,
+            kvector_t relative_core_position={0., 0., 0.});
 \end{lstlisting}
 where \Code{shell\_particle} is assumed to be inscribed
 in \Code{core\_particle}.
@@ -255,7 +257,7 @@ Concerns about user experience and about code readability
 sometimes lead to different choices.
 For the \BornAgain\ user interfaces (GUI and API)
 we have chosen the most standard parameters,
-as used in elementary geometry, like length, height, radius,
+as used in elementary geometry, like length, double height, radius,
 even if this is at variance from the \IsGISAXS\ precedent.
 Where our parametrization made analytic expressions too tedious,
 we use alternate internal parameters to alleviate the formul\ae.
@@ -335,7 +337,7 @@ than in the preceding one-quadrant representation.}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorAnisoPyramid(length, width, height, alpha)
+  FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -407,7 +409,7 @@ and were found to fully agree.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorBox(length, width, height)
+  FormFactorBox(double length, double width, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -468,7 +470,7 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCone(radius, height, alpha)
+  FormFactorCone(double radius, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -542,7 +544,7 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 \FloatBarrier
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCone6(base_edge,height, alpha)
+  FormFactorCone6(double base_edge, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -615,7 +617,7 @@ and opposite orientations.}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCuboctahedron(length, height, height_ratio, alpha)
+  FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -685,7 +687,7 @@ using the generic polyhedron form factor \cite{ba:ffp}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCylinder(radius, height)
+  FormFactorCylinder(double radius, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -781,7 +783,7 @@ Integration over~$r$ then yields the in-plane contribution to the form factor~$F
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorDodecahedron(edge)
+  FormFactorDodecahedron(double edge)
 \end{lstlisting}
 with the parameter
 \begin{itemize}
@@ -853,7 +855,7 @@ based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorEllipsoidalCylinder(radius_a, radius_b, height)
+  FormFactorEllipsoidalCylinder(double radius_a, radius_b, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -920,7 +922,7 @@ or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorFullSphere(radius)
+  FormFactorFullSphere(double radius)
 \end{lstlisting}
 with the parameter
 \begin{itemize}
@@ -1051,7 +1053,7 @@ which is what we wanted to prove.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorFullSpheroid(radius,height)
+  FormFactorFullSpheroid(double radius, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1118,7 +1120,7 @@ We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorHemiEllipsoid(radius_a, radius_b, height)
+  FormFactorHemiEllipsoid(double radius_a, double radius_b, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1189,7 +1191,7 @@ or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorIcosahedron(edge)
+  FormFactorIcosahedron(double edge)
 \end{lstlisting}
 with the parameter
 \begin{itemize}
@@ -1262,7 +1264,7 @@ based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorPrism3(length, height)
+  FormFactorPrism3(double length, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1331,7 +1333,7 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorPrism6(radius, height)
+  FormFactorPrism6(double radius, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1400,7 +1402,7 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorPyramid(length, height, alpha)
+  FormFactorPyramid(double length, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1475,7 +1477,7 @@ Incorrectly named so, since it actually has five, not four surfaces.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorTetrahedron(length, height, alpha)
+  FormFactorTetrahedron(double length, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1552,7 +1554,7 @@ The truncated part of each vertex is a trirectangular tetrahedron.}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorTruncatedCube(length, removed_length)
+  FormFactorTruncatedCube(double length, double removed_length)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1616,7 +1618,7 @@ of a polygonal prism \cite{ba:ffp}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorTruncatedSphere(radius, height)
+  FormFactorTruncatedSphere(double radius, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1686,7 +1688,7 @@ Agrees with the \IsGISAXS\ form factor
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorTruncatedSpheroid(radius, height, height_flattening)
+  FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1766,7 +1768,7 @@ Agrees with the \IsGISAXS\ form factor
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorRipple1(length, width, height)
+  FormFactorRipple1(double length, double width, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1839,7 +1841,7 @@ Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorRipple2(length, width, height, asymmetry)
+  FormFactorRipple2(double length, double width, double height, asymmetry)
 \end{lstlisting}
 with the parameters
 \begin{itemize}

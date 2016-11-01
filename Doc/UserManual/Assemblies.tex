@@ -1059,6 +1059,7 @@ Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornA
 
 \newpage
 
+\setPy
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample using Born (BA) or distorted-wave Born approximation (DWBA). The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
 def get_sample():
     """
@@ -1204,7 +1205,7 @@ the use is referred, for example, to \cref{sec:Example1Python}.\\
 The decoupling approximation (DA), local monodisperse approximation (LMA) and size spacing correlation approximation (SSCA) can be used in \BornAgain.
 The selection between DA and SSCA is made using\\
 \Code{ILayout.setApproximation(EInterferenceFunction approximation)} when defining the characteristics of the way particles and interference functions are embedded in a layer.  For example,
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
     particle_layout = ParticleLayout()
    ....
 # interference approx chosen between: DA (default) and SSCA
@@ -1214,7 +1215,7 @@ The selection between DA and SSCA is made using\\
 Note that with the SSCA, the users have to specify the coupling parameter $\kappa$ (with the function \Code{setKappa}), which should be a positive dimensionless value. $\kappa$ characterizes the influence of the neighboring particles' sizes on their distance. If $\kappa=0$, the SSCA reduces to the DA with a radial paracrystal for the interference function.\\
 
 For the LMA, its implementation is automatically done when using more than one layout of particles:
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
     particle_layout0 = ParticleLayout()
     particle_layout1 = ParticleLayout()
    ....

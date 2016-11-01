@@ -55,7 +55,7 @@ class GISASSimulation {
   Histogram2D* getIntensityData(...);
 };
 \end{lstlisting}
-\constrHide{GISAS\-Simulation}.
+\constrHide{GISAS\-Simulation}%
 They shall now be explained with full signatures.
 Some alternatives will also be shown.
 
@@ -143,7 +143,7 @@ class GISASSimulation {
   void runSimulation();
 };
 \end{lstlisting}
-\clFctHide{GISAS\-Simulation}{runSimulation}
+\clFctHide{GISAS\-Simulation}{runSimulation}%
 Once the simulation is fully set up, it is run once through this command.
 Results are stored in a protected class variable.
 
@@ -153,6 +153,18 @@ class GISASSimulation {
   Histogram2D* getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
 };
 \end{lstlisting}
-\clFctHide{GISAS\-Simulation}{getIntensityData}
+\clFctHide{GISAS\-Simulation}{getIntensityData}%
 This function returns a pointer to a \ttIdx{Histogram2D}
 that contains the outcome of the simulation.
+
+%===============================================================================
+\subsection{Off\-Specular\-Simulation}
+%===============================================================================
+
+\MissingSection
+
+%===============================================================================
+\subsection{Specular\-Simulation}
+%===============================================================================
+
+\MissingSection

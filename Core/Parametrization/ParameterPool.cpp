@@ -110,7 +110,7 @@ RealParameter* ParameterPool::getParameter(const std::string& name)
         "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
 }
 
-//! Returns vector of parameters that match the _pattern_ (wildcards '*' allowed).
+//! Returns nonempty vector of parameters that match the _pattern_ ('*' allowed), or throws.
 
 std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::string& pattern) const
 {
@@ -143,19 +143,15 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
 
 int ParameterPool::setMatchedParametersValue(const std::string& pattern, double value)
 {
-    int npars(0);
-    for (auto* par: m_params) {
-        if( Utils::String::matchesPattern( par->getName(), pattern ) ) {
-            try {
-                par->setValue(value);
-                npars++;
-            } catch(std::runtime_error) {
-                report_set_value_error(par->getName(), value);
-            }
+    int npars = 0;
+    for (RealParameter* par: getMatchedParameters(pattern)) {
+        try {
+            par->setValue(value);
+            npars++;
+        } catch(std::runtime_error) {
+            report_set_value_error(par->getName(), value);
         }
     }
-    if(npars == 0)
-        report_find_matched_parameters_error(pattern);
     return npars;
 }
 

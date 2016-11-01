@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Parametrization/Distributions.h
-//! @brief     Defines classes representing distributions.
+//! @brief     Defines classes representing one-dimensional distributions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,6 +21,10 @@
 #include <vector>
 
 class ParameterSample;
+
+// ************************************************************************** //
+// interface class IDistribution1D
+// ************************************************************************** //
 
 //! Interface for one-dimensional distributions.
 //! @ingroup distribution_internal
@@ -49,8 +53,8 @@ public:
 
     //! Returns equidistant interpolation points, with range computed in distribution-specific
     //! way from mean and width parameter, taking into account limits and sigma_factor.
-    virtual std::vector<double> equidistantPoints(size_t nbr_samples,
-            double sigma_factor, const RealLimits& limits=RealLimits()) const =0;
+    virtual std::vector<double> equidistantPoints(
+        size_t nbr_samples, double sigma_factor, const RealLimits& limits=RealLimits()) const =0;
 
     //! Returns equidistant interpolation points from xmin to xmax.
     virtual std::vector<double> equidistantPointsInRange(
@@ -72,8 +76,13 @@ protected:
 };
 
 
+// ************************************************************************** //
+// specific distribution classes
+// ************************************************************************** //
+
 //! Uniform distribution function with half width hwhm.
 //! @ingroup paramDistribution
+
 class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
@@ -158,8 +167,8 @@ public:
     double getStdDev() const { return m_std_dev; }
 
     //! generate list of sample values
-    virtual std::vector<double> equidistantPoints(size_t nbr_samples,
-            double sigma_factor, const RealLimits& limits = RealLimits()) const;
+    virtual std::vector<double> equidistantPoints(
+        size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
 

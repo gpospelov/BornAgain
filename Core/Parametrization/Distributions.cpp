@@ -25,11 +25,6 @@
 // class IDistribution1D
 // ************************************************************************** //
 
-IDistribution1D* IDistribution1D::clone() const
-{
-    throw Exceptions::NotImplementedException("IDistribution1D cannot be cloned");
-}
-
 std::vector<ParameterSample> IDistribution1D::generateSamples(
     size_t nbr_samples, double sigma_factor, const RealLimits& limits) const
 {
@@ -37,10 +32,8 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
         throw Exceptions::OutOfBoundsException(
             "IDistribution1D::generateSamples: "
             "number of generated samples must be bigger than zero");
-    if (isDelta()) {
-        std::vector<ParameterSample> result = { getMeanSample() };
-        return result;
-    }
+    if (isDelta())
+        return { ParameterSample(getMean()) };
     std::vector<double> sample_values = generateValueList( nbr_samples, sigma_factor, limits);
     return generateSamplesFromValues(sample_values);
 }
@@ -53,7 +46,7 @@ std::vector<ParameterSample> IDistribution1D::generateSamples(
             "IDistribution1D::generateSamples: "
             "number of generated samples must be bigger than zero");
     if (isDelta())
-        return { getMeanSample() };
+        return { ParameterSample(getMean()) };
     return generateSamplesFromValues( generateValues(nbr_samples, xmin, xmax) );
 }
 
@@ -66,14 +59,6 @@ std::vector<double> IDistribution1D::generateValues(
     std::vector<double> result(nbr_samples);
     for (size_t i=0; i<nbr_samples; ++i)
         result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
-    return result;
-}
-
-ParameterSample IDistribution1D::getMeanSample() const
-{
-    ParameterSample result;
-    result.value = getMean();
-    result.weight = 1.0;
     return result;
 }
 
@@ -99,20 +84,19 @@ void IDistribution1D::adjustMinMaxForLimits(
 std::vector<ParameterSample> IDistribution1D::generateSamplesFromValues(
     const std::vector<double>& sample_values) const
 {
-    std::vector<ParameterSample> result(sample_values.size());
+    std::vector<ParameterSample> result;
     double norm_factor = 0.0;
-    for (size_t i=0; i<sample_values.size(); ++i) {
-        double pdf = probabilityDensity(sample_values[i]);
-        result[i].value = sample_values[i];
-        result[i].weight = pdf;
+    for (double value: sample_values) {
+        double pdf = probabilityDensity(value);
+        result.push_back( ParameterSample(value, pdf) );
         norm_factor += pdf;
     }
     if (norm_factor <= 0.0)
         throw Exceptions::RuntimeErrorException(
             "IDistribution1D::generateSamples: "
             "total probability must be bigger than zero");
-    for (size_t i=0; i<sample_values.size(); ++i)
-        result[i].weight /= norm_factor;
+    for (ParameterSample& sample: result)
+        sample.weight /= norm_factor;
     return result;
 }
 

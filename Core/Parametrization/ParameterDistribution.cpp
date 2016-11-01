@@ -100,7 +100,7 @@ ParameterDistribution& ParameterDistribution::operator=(const ParameterDistribut
     return *this;
 }
 
-ParameterDistribution &ParameterDistribution::linkParameter(std::string par_name)
+ParameterDistribution& ParameterDistribution::linkParameter(std::string par_name)
 {
     m_linked_par_names.push_back(par_name);
     return *this;

@@ -21,7 +21,7 @@
 #include "ParameterSample.h"
 #include <vector>
 
-//! Interface for 1 dimensional distributions.
+//! Interface for one-dimensional distributions.
 //! @ingroup distribution_internal
 
 class BA_CORE_API_ IDistribution1D : public IParameterized
@@ -30,13 +30,13 @@ public:
     IDistribution1D() {}
     virtual ~IDistribution1D() {}
 
-    virtual IDistribution1D* clone() const;
+    virtual IDistribution1D* clone() const =0;
 
-    //! get the probability density for value x
-    virtual double probabilityDensity(double x) const=0;
+    //! Returns the distribution-specific probability density for value x.
+    virtual double probabilityDensity(double x) const =0;
 
-    //! get the mean of the distribution
-    virtual double getMean() const=0;
+    //! Returns the distribution-specific mean.
+    virtual double getMean() const =0;
 
     //! generate list of sampled values with their weight
     //! xmin, xmax for sample generations are deduced from sigma_factor and possible limits
@@ -53,7 +53,7 @@ public:
     //! @param limits
     //! @return vector of generated values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
-            double sigma_factor, const RealLimits& limits = RealLimits()) const=0;
+            double sigma_factor, const RealLimits& limits = RealLimits()) const =0;
 
     //! generate list of sample values
     //! @param nbr_samples number of values to generate
@@ -61,11 +61,8 @@ public:
     //! @return vector of generated values
     virtual std::vector<double> generateValues(size_t nbr_samples, double xmin, double xmax) const;
 
-    //! generate a single sample containing the mean value and weight 1
-    ParameterSample getMeanSample() const;
-
-    //! signals that the distribution is in the limit case of a Dirac delta distribution
-    virtual bool isDelta() const=0;
+    //! Returns true if the distribution is in the limit case of a Dirac delta distribution.
+    virtual bool isDelta() const =0;
 
 protected:
     //! this function is called during bad initialization of a subclass
@@ -89,26 +86,17 @@ public:
     DistributionGate(double min, double max);
     virtual ~DistributionGate() {}
 
-    //! clone method
-    virtual DistributionGate* clone() const { return new DistributionGate(m_min, m_max); }
+    DistributionGate* clone() const final { return new DistributionGate(m_min, m_max); }
 
-    //! get the probability density for value x
     double probabilityDensity(double x) const final;
-
-    //! get the mean of the distribution
     double getMean() const final { return (m_min+m_max)/2.0; }
-
-    //! Returns the minimum value of the distribution
     double getMin() const { return m_min; }
-
-    //! Returns the maximum value of the distribution
     double getMax() const { return m_max; }
 
     //! Returns list of sample values
     virtual std::vector<double> generateValueList(
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
-    //! signals that the distribution is in the limit case of a Dirac delta distribution
     bool isDelta() const final;
 
 protected:
@@ -133,22 +121,16 @@ public:
     DistributionLorentz(double mean, double hwhm);
     virtual ~DistributionLorentz() {}
 
-    virtual DistributionLorentz* clone() const { return new DistributionLorentz(m_mean, m_hwhm); }
+    DistributionLorentz* clone() const final { return new DistributionLorentz(m_mean, m_hwhm); }
 
-    //! get the probability density for value x
     double probabilityDensity(double x) const final;
-
-    //! Returns the mean of the distribution
     double getMean() const final { return m_mean; }
-
-    //! Returns the half width at half maximum
     double getHWHM() const { return m_hwhm; }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
-    //! signals that the distribution is in the limit case of a delta distribution
     bool isDelta() const final;
 
 protected:
@@ -173,24 +155,17 @@ public:
     DistributionGaussian(double mean, double std_dev);
     virtual ~DistributionGaussian() {}
 
-    //! clone method
-    virtual DistributionGaussian* clone() const {
+    DistributionGaussian* clone() const final {
         return new DistributionGaussian(m_mean, m_std_dev); }
 
-    //! get the probability density for value x
     double probabilityDensity(double x) const final;
-
-    //! Returns the mean of the distribution
     double getMean() const final { return m_mean; }
-
-    //! Returns the standard deviation
     double getStdDev() const { return m_std_dev; }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(size_t nbr_samples,
             double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
-    //! signals that the distribution is in the limit case of a delta distribution
     bool isDelta() const final;
 
 protected:
@@ -215,27 +190,18 @@ public:
     DistributionLogNormal(double median, double scale_param);
     virtual ~DistributionLogNormal() {}
 
-    //! clone method
-    virtual DistributionLogNormal* clone() const {
+    DistributionLogNormal* clone() const final {
         return new DistributionLogNormal(m_median, m_scale_param); }
 
-    //! get the probability density for value x
     double probabilityDensity(double x) const final;
-
-    //! get the mean of the distribution
     double getMean() const final;
-
-    //! Returns the median of the distribution
     double getMedian() const { return m_median; }
-
-    //! Returns the scale parameter of the distribution
     double getScalePar() const { return m_scale_param; }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
-    //! signals that the distribution is in the limit case of a delta distribution
     bool isDelta() const final;
 
 protected:
@@ -260,23 +226,16 @@ public:
     DistributionCosine(double mean, double sigma);
     virtual ~DistributionCosine() {}
 
-    //! clone method
-    virtual DistributionCosine* clone() const { return new DistributionCosine(m_mean, m_sigma); }
+    DistributionCosine* clone() const final { return new DistributionCosine(m_mean, m_sigma); }
 
-    //! get the probability density for value x
     double probabilityDensity(double x) const final;
-
-    //! Returns the mean of the distribution
     double getMean() const final { return m_mean; }
-
-    //! Returns the sigma parameter of the distribution
     double getSigma() const { return m_sigma; }
 
     //! generate list of sample values
     virtual std::vector<double> generateValueList(
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
-    //! signals that the distribution is in the limit case of a delta distribution
     bool isDelta() const final;
 
 protected:

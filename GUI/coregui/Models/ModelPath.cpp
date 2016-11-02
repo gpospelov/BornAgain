@@ -20,6 +20,8 @@
 #include "SessionModel.h"
 #include "JobItem.h"
 
+using std::string;
+
 std::vector<std::unique_ptr<IParameterTranslator>> ModelPath::m_special_translators {};
 
 QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString prefix)
@@ -68,12 +70,12 @@ double ModelPath::getParameterValue(const SessionItem *item, const QString &name
     }
 }
 
-std::string ModelPath::translateParameterName(const SessionItem* item, const QString& par_name)
+string ModelPath::translateParameterName(const SessionItem* item, const QString& par_name)
 {
     std::ostringstream result;
     QStringList list = splitParameterName(par_name);
     if (list.isEmpty()) {
-        return std::string {};
+        return {};
     }
     QString first_field = list[0];
     result << "/" << translateSingleName(first_field);
@@ -84,7 +86,7 @@ std::string ModelPath::translateParameterName(const SessionItem* item, const QSt
             result << translateParameterName(p_child, remainder);
         }
     }
-    return result.str();
+    return stripDistributionNone(result.str());
 }
 
 void ModelPath::addParameterTranslator(const IParameterTranslator &translator)
@@ -184,7 +186,7 @@ QString ModelPath::stripFirstField(const QString &par_name)
     return par_list.join("/");
 }
 
-std::string ModelPath::translateSingleName(const QString &name)
+string ModelPath::translateSingleName(const QString &name)
 {
     for (auto& translator : m_special_translators) {
         auto result = translator->translate(name);
@@ -219,3 +221,13 @@ SessionItem* ModelPath::findChild(const SessionItem *item, const QString& first_
     return p_child;
 }
 
+string ModelPath::stripDistributionNone(const string &name)
+{
+    const string distribution_none { "/DistributionNone/Value" };
+    if (name.length() >= distribution_none.length() &&
+        name.compare(name.length()-distribution_none.length(), distribution_none.length(),
+                     distribution_none)==0) {
+        return name.substr(0, name.length()-distribution_none.length());
+    }
+    return name;
+}

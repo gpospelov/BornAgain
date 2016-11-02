@@ -54,13 +54,15 @@ private:
 
     static QStringList splitParameterName(const QString& par_name);
 
-    static QString getFirstField(const QString &par_name);
+    static QString getFirstField(const QString& par_name);
 
-    static QString stripFirstField(const QString &par_name);
+    static QString stripFirstField(const QString& par_name);
 
-    static std::string translateSingleName(const QString &name);
+    static std::string translateSingleName(const QString& name);
 
-    static SessionItem* findChild(const SessionItem *item, const QString& first_field);
+    static SessionItem* findChild(const SessionItem* item, const QString& first_field);
+
+    static std::string stripDistributionNone(const std::string& name);
 
     static std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
 };

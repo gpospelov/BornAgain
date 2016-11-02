@@ -22,7 +22,7 @@
 
 using std::string;
 
-QStringList PositionTranslator::split(const QString &par_name) const
+QStringList PositionTranslator::split(const QString& par_name) const
 {
     QStringList result;
     string position_name = translate(par_name);
@@ -32,9 +32,9 @@ QStringList PositionTranslator::split(const QString &par_name) const
     return result;
 }
 
-string PositionTranslator::translate(const QString &name) const
+string PositionTranslator::translate(const QString& name) const
 {
-    auto name_list = name.split("/");
+    QStringList name_list = name.split("/");
     if (name_list.size() > 2) return {};
     if (name_list.size() > 1 && name_list[0] == ParticleItem::P_POSITION) {
         if (name_list[1] == VectorItem::P_X) {
@@ -50,7 +50,7 @@ string PositionTranslator::translate(const QString &name) const
     return {};
 }
 
-QStringList RotationTranslator::split(const QString &par_name) const
+QStringList RotationTranslator::split(const QString& par_name) const
 {
     QStringList result;
     string rotation_name = translate(par_name);
@@ -60,7 +60,7 @@ QStringList RotationTranslator::split(const QString &par_name) const
     return result;
 }
 
-string RotationTranslator::translate(const QString &name) const
+string RotationTranslator::translate(const QString& name) const
 {
     QStringList name_list = name.split("/");
     string separator {"/"};

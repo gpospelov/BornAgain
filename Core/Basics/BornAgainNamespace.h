@@ -202,6 +202,8 @@ const std::string Thickness = "Thickness";
 const std::string Hurst = "Hurst";
 const std::string CorrelationLength = "CorrelationLength";
 const std::string CrossCorrelationLength = "CrossCorrelationLength";
+const std::string Inclination = "InclinationAngle";
+const std::string Azimuth = "AzimuthalAngle";
 }
 
 #endif // BORNAGAINNAMESPACE_H

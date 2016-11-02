@@ -18,7 +18,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Basic formalism} %Wave propagation and scattering contributions}
+\section{Generic scattering cross section}\label{SAssX}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\sp{\text{p}}
@@ -84,19 +84,12 @@ $\delta v_l(\r) = \Delta v_\sp(\r)$.
 Outside the layer that contains the embedded particles,
 $\delta v_l(\r)=0$.
 
-The elastic scattering cross section
-in distorted-wave Born approximation
-is given by~\Cref{Exsection}:
-\begin{equation}\label{Exsection2}
-  \frac{\d\sigma}{\d\Omega}
-  =  {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
-\end{equation}
 With the factorization~\cref{Ekpar},
-the integral~\cref{Etrama} becomes
+the scattering matrix element~\cref{Etrama} becomes
 \begin{equation}\label{Escamatrix2}
-  \bra\psi_\ti|\delta v|\psi_\tf\ket
-  = \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
-    \int\!\d z\, \phi_\si(z) \delta v(\r) \phi^*_\sf(z).
+  \bra\psi_\si|\delta v|\psi_\sf\ket
+  = \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll}
+    \int\!\d z\, \phi^*_\si(z) \delta v(\r) \phi_\sf(z).
 \end{equation}
 The SLD distribution of a set of identical particles,
 located at positions~$\R_j$, can be written as a sum
@@ -113,23 +106,30 @@ it is convenient to restrict the coordinate vectors~$\R_j$ to the $xy$~plane,
 and to redefine~$\v{T}_j$ to include the vertical particle component of~$\R_j$.
 In consequence, \cref{Echihomo}~is replaced by
 \begin{equation}\label{Echihetero}
-  v_\sp(\r) = \sum_j F(\r-\R_{\parallel j},\v{T}_j).
+  v_\sp(\r) = \sum_j F(\r-\R_{j\plll},\v{T}_j).
 \end{equation}
 With the \E{DWBA form factor}
 \begin{equation}\label{EcFdef}
-  {\cal F}(\q_\parallel,\v{T})
+  \FD_{\si\sf}(\q_\plll,\v{T})
   \coloneqq
-    \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel}
-    \int\!\d z\, \phi_\si(z) F(\r,\v{T}) \phi^*_\sf(z),
+    \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll}
+    \int\!\d z\, \phi^*_\si(z) F(\r,\v{T}) \phi_\sf(z),
 \end{equation}
 the scattering matrix element~\cref{Escamatrix2} becomes
-\Emph{
 \begin{equation}\label{EsumRF}
-  \bra\psi_\ti|\delta v|\psi_\tf\ket
-  = \sum_j \e^{i\q_\parallel \R_{\parallel j}}  {\cal F}(\q_\parallel,\v{T}_j)
+  \bra\psi_\si|\delta v|\psi_\sf\ket
+  = \sum_j \e^{i\q_\plll \R_{j\plll}}  \FD_{\si\sf}(\q_\plll,\v{T}_j).
+\end{equation}
+The elastic scattering cross section~\cref{Exsection} can be written as
+\Emph{
+\begin{equation}\label{Exsection2}
+  \xElas
+  = \sum_{jk} \e^{i\q_\plll(\R_{j\plll}-\R_{k\plll})}
+         \FD_{\si\sf}(\q_\plll,\v{T}_j) \FD_{\si\sf}^*(\q_\plll,\v{T}_k).
 \end{equation}
 \vspace*{-5pt}}
-In the following \Cref{SFormFactor} we discuss the form factor~${\cal F}$.
+
+In the following \Cref{SFormFactor} we discuss the form factor~$\FD_{\si\sf}$.
 The remainder of this chapter is devoted to the
 positional term and to the coupling between particle form and position;
 various approximations are used to make~\cref{EsumRF} manageable.
@@ -141,50 +141,44 @@ various approximations are used to make~\cref{EsumRF} manageable.
 \index{Particles!form factor|see {Form factor}}
 \index{Form factor|(}
 
-%===============================================================================
-\subsection{Foundations}
-%===============================================================================
-
-In \Cref{Swave21} we have applied the DWBA to a multilayer system
-with unspecified SLD profile~$\mv(z)$.
-In this generic case,
-the vertical wavefunction~$\phi(z)$ is no plane wave,
-but must be obtained
-by analytically or numerically solving the differential equation~\cref{Ewavez}.
-To evaluate the DWBA form factor for such~$\phi(z)$,
-it is helpful to change the order of integration in~\cref{EcFdef}:
+To compute the DWBA form factor
+for a generic vertical wavefunction~$\phi(z)$,
+it is gadvantageous to exchange the order of integration in~\cref{EcFdef}:
 \begin{equation}\label{EcFx}
-  {\cal F}(\q_\parallel,\v{T})
-   = \int\!\d z\, \phi_\si(z) F(q_\parallel,z,\v{T}) \phi^*_\sf(z)
+  \FD_{\si\sf}(\q_\plll,\v{T})
+   = \int\!\d z\, \phi^*_\si(z) F(q_\plll,z,\v{T}) \phi_\sf(z).
 \end{equation}
-with
+The function
 \begin{equation}\label{EFqpadef}
-  F(\q_\parallel,z,\v{T})
-  \coloneqq \int\!\d^2 r_\parallel\, \e^{i\q_\parallel \r_\parallel} F(\r,\v{T}).
+  F(\q_\plll,z,\v{T})
+  \coloneqq \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll} F(\r,\v{T})
 \end{equation}
-$F(\q_\parallel,z,\v{T})$ is an \E{intermediate Fourier transform},
+is an \E{intermediate Fourier transform},
 since it is a transform in some, but not all the coordinates;
 more specifically, it may be called the \E{horizontal Fourier transform}.
 For homogeneous particles,
 it is the \E{shape transform} of horizontal cuts.
 
-Samples that only consist of homogeneous layers
-have been investigated in~\Cref{SLayHomo}.
-Within each layer, the wavefunction is the sum of two plane waves~\cref{Ephizwj}.
+For samples that only consist of homogeneous layers
+the wavefunction is the sum of two plane waves~\cref{Ephizwj}.
 With the notations~\cref{Eudef},
 the DWBA form factor~\cref{EcFx} becomes
 \begin{equation}\label{EcFres1}
-  {\cal F}(\q_\parallel,\v{T})
+  \FD_{\si\sf}(\q_\plll,\v{T})
    = \sum_l \sum_u C^u_l F_l(\q^u_l,\v{T})
 \end{equation}
 with
 \begin{equation}\label{EFqTdef}
   F_l(\q,\v{T})
-  \coloneqq \int\!\d z\, \e^{iq^u_l z} F(q_\parallel,z,\v{T}) \chi_l(z)
-   = \int\!\d^3 r\, \e^{i\q^u_l \r} F(\r,\v{T})\chi_l(z).
+  \coloneqq \int\!\d z\, \e^{iq_\perp z} F(\q_\plll,z,\v{T}) \chi_l(z).
+\end{equation}
+Inserting~\cref{EFqpadef}, we find that this is a plain three-dimensional Fourier transform:
+\begin{equation}\label{EFqT3d}
+  F_l(\q,\v{T})
+   = \int\!\d^3 r\, \e^{i\q \r} F(\r,\v{T})\chi_l(z).
 \end{equation}
 Except for the restriction to layer~$l$,
-$F_l(q,\v{T})$ is the standard form factor
+it is the standard form factor
 that appears in the regular (plane-wave) Born approximation.
 Therefore, it is occasionally called the \E{Born form factor},
 and so we will call it.
@@ -192,120 +186,45 @@ and so we will call it.
 if the plane waves~$\phi^\pm(z)$ are \E{damped} due to an imaginary part
 of the refractive index.
 
-\Warn{Currently, \BornAgain\ does not support particles
-  that extend beyond layer interfaces.}
+\Work{Currently, the summation over~$l$ in~\cref{EcFres1} is not implemented in BornAgain.
+Therefore particles must not extend beyond layer interfaces.
+This restriction will be lifted in one of the next releases.}
 
-We now specify the generic parameter vector as
-$\v{T} \coloneqq (h,\v{\Omega},\v{P})$,
-where $h$ is the vertical location of the particle
-(the vertical component of the position vector~$\R$),
-$\v{\Omega}$ determines a rotation matrix~$D_{\v{\Omega}}$ so that
+To describe how~\cref{EFqT3d} is evaluated in BornAgain,
+we need to specify some of the parameters contained in the generic parameter vector
+$\v{T} \coloneqq (\Delta v_\sp,Z,\v{\Omega},\v{U})$:
+$\Delta v_\sp$ is the SLD difference between the particle and the embedding matrix,
+as discussed in~\cref{SAssX};
+for an inhomogeneous particle, it is some reference value
+obtained e.~g.\ from the maximum SLD.
+$Z$ is the vertical location of the particle;
+in our formalism, it is the vertical component of the position vector~$\R$.
+$\v{\Omega}$ is a tuple of rotation angles;
+they determine a rotation matrix~$D_{\v{\Omega}}$ that shall be defined by its action
 \begin{equation}\label{ErOm}
-  F(\r,h,\v{\Omega},\v{P}) = F(D_{\v{\Omega}}\r,h,\v{0},\v{P}),
+  F(\r,\Delta v_\sp,Z,\v{\Omega},\v{U}) = F(D_{\v{\Omega}}^{-1}\r,\Delta v_\sp,Z,\v{0},\v{U}).
 \end{equation}
-and $\v{P}$ collects size, shape and other parameters that determine
-the refractive index profile of the particle.
+Finally, $\v{U}$ collects all remaining parameters,
+among them size and shape parameters that determine the geometry
+and thereby the refractive index profile of the particle.
 With this, we can express the generic Born form factor as
 \begin{equation}\label{EqOm}
-  F(\q,h,\v{\Omega},\v{P}) = \e^{iq_\parallel h} F(D_{\v{\Omega}}^{-1}\q,\v{P}),
+  F(\q,\Delta v_\sp,Z,\v{\Omega},\v{U}) = \Delta v_\sp \e^{iq_\plll Z} F(D_{\v{\Omega}}\q,\v{U}),
 \end{equation}
-using the standard form factor
-for location $h=0$ and orientation~$\v{\Omega}=\v{0}$,
+introducing the standard form factor
 \begin{equation}\label{EFqPdef}
-  F(\q,\v{P}) \coloneqq F(\q,0,\v{0},\v{P}).
+  F(\q,\v{U}) \coloneqq F(\q,1,0,\v{0},\v{U}).
 \end{equation}
-
-%===============================================================================
-\subsection{Implementation notes}
-%===============================================================================
 
 BornAgain comes with a comprehensive library of form factors.
+For general usage instructions, see~\Cref{SintroPFF}.
 Hard-particle form factors are Fourier shape transforms.
-They are available for various spheroids, cylinders, cones, prisms, polyhedra,
-and ripples, % TODO
-as listed in~\Cref{SFF}.
+They are available for various spheroids, cylinders, cones, prisms, and polyhedra,
+as listed in~\Cref{SHPFF}.
+Ripples, used to model gratings, are described in~\Cref{SRipple}.
 Soft-particle form factors % TODO
 are not yet documented in this Manual.
 
-\index{Form factor!tutorial}%
-\index{Form factor!examples}%
-\index{Form factor!custom implementation}%
-\Tuto{The online tutorial contains an entire section on
-  \tuto{47}{embedded particles}, including several usage examples
-  and a \tuto{72}{list of all available form factors}.
-  If a particle shape is missing, try to implement a \tuto{107}{custom form factor},
-  or/and contact us.}
-
-The particles can be rotated in a different direction by using one of
-the following transformations: \Code{CreateRotateX($\theta$),
-  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
-around the associated axis and $\theta$ is the
-angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
-the $z$-axis:\\
-
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(m_particle, pyramid_ff)
-    angle_around_z = 45.*degree
-    transform = Transform3D.createRotateZ(angle_around_z)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform)
-\end{lstlisting}
-
-\Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
-
-\index{Large particles!numeric difficulty}%
-\index{Oscillations!from large particle form factor}%
-\index{Monte-Carlo integration!for large particle form factor}%
-\index{Particles!rapid form factor oscillations}%
-\index{Form factor!rapid oscillations}%
-\index{Form factor!large particles}%
-\Warn{For large particles (typically of order 1000nm),
-  the form factor oscillates rapidly within one detector bin
-  so that analytical calculations (performed for the bin center)
-  may give a completely wrong intensity pattern.}
-
-\Tuto{In this case, the best solution we can currently provide
-  is a Monte-Carlo integration, as shown in the example
-  \tuto{TODO}{large particle form factor}.}
-
-For particles that are made of different materials,
-the definition % TODO RESTORE ~\cref{EFFdef}
-of the form factor~$F(\q)$
-must be generalized in obvious ways.
-In practice, the most important case is the \E{core-shell particle}.
-\index{Inhomogeneous particles}%
-\index{Core-shell particles}%
-\index{Particles!Core-shell}%
-This is supported in \BornAgain\ through the function
-\index{ParticleCoreShell@\Code{ParticleCoreShell}}
-\begin{lstlisting}
-  ParticleCoreShell(shell_particle, core_particle, relative_core_position)}
-\end{lstlisting}
-where \Code{shell\_particle} is assumed to be inscribed
-in \Code{core\_particle},
-and \Code{relative\_\discretionary{}{}{}core\_\discretionary{}{}{}position}
-specifies the position of the
-center of the base of the core particle relative
-to center of the base of the shell particle.
-
-\Tuto{See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.}
-
-%===============================================================================
-\index{Polydispersity!embedded particles}%
-\index{Particles!polydispersity}%
-\index{Distribution!of particle parameters}%
-\index{Form factor!parameter distributions}%
-Embedded particles may be \E{polydisperse}, i.~e.\ have statistical distributions
-for some or all their numeric parameters.
-This is supported in \BornAgain\ through the same mechanism
-as for other numeric parameters.
-
-\Tuto{See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
-  The example also shows how two parameters can be tied to each other
-(size distribution with constant ratio radius/height).}
-
-\index{Form factor|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decoupling approximations}\label{Spartidis}
@@ -330,7 +249,7 @@ pioneered by \IsGISAXS\ \cite[Sec.~3.3]{Laz08},
 \index{IsGISAXS@\string\IsGISAXS!morphology data}%
 \index{Morphology!as input data}%
   is not yet implemented in \BornAgain,
-  and are not on our agenda.
+  and not on our agenda.
   Please contact us if you have a use case.}
 
 BornAgain provides various physical models
@@ -346,80 +265,88 @@ we encode the particle coordinates in a distribution function
 \index{Particles!distribution function}%
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
-  \PD_{l}(\r,\v\tau,\v\tau')
-  \coloneqq \sum_{ij} \delta(\r-(\R_{j\plll}-\R_{i\plll}))
-  \delta(\v\tau-\v{T}_i)\delta(\v\tau'-\v{T}_j).
+  \PD(\r,\v\tau,\v\tau')
+  \coloneqq \sum_{jk} \delta(\r-(\R_{j\plll}-\R_{k\plll}))
+  \delta(\v\tau-\v{T}_j)\delta(\v\tau'-\v{T}_k).
 \end{equation}
-Since in the following we are concerned with only one layer,
-we shall omit the index~$l$ from $\q_{l\plll}$, $\PD_l$, and $\FD_l$.
-The differential cross section~\cref{Eass3} becomes
-\begin{equation}\label{Epdm1}
-  \left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-  =
-  \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
-  \int\! \d\v{\tau}\, \d\v{\tau}'
-    \PD(\r,\v\tau,\v\tau')
-    \FD^*(\v\tau) \FD(\v\tau'),
-\end{equation}
-where the integration over $\r$ is restricted to the horizontal plane,
-and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$,
-with $n$~being the dimensionality of~$\v{T}$.
-
-The normalization of the distribution function $\PD$ is such that its total
-integral equals the square of the number of particles that contribute to the scattering:
-\begin{equation}
+Its total integral is
+\begin{equation}\label{EPint}
   \int\!\d^2r\, \int\! \d\v{\tau}\, \d\v{\tau}' \PD(\r,\v\tau,\v\tau')
   = N_p^2,
 \end{equation}
-with $N_p$ the number of scattering centers.
-\nomenclature[2n122 2p010]{$N_p$}{Number of scattering centers}
-
-
+where~$N_p$ is the number
+\nomenclature[2n122 2p010]{$N_p$}{Number of scattering centers}%
+of particles,
+the integration over $\r$ is restricted to the horizontal plane,
+and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$,
+with $n$~being the dimensionality of~$\v\tau$.
+In later approximations, \cref{EPint} will be a normalization requirement.
+The differential cross section~\cref{Exsection2} can now be written as
+\begin{equation}\label{Epdm1}
+  \xElas
+ =\int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
+  \int\! \d\v{\tau}\, \d\v{\tau}'
+    \PD(\r,\v\tau,\v\tau')
+    \FD(\v\tau) \FD^*(\v\tau'),
+\end{equation}
 In the following, we will present different physical models
 that provide computable approximations
 for the formally exact distribution~\cref{EPDdeltas}.
-All these models are based on the following assumption
+
+For the time being,
+we only support models that make the following assumption
 about the particle \E{properties} like shape, size, and orientation
-(but \E{not} position) that are  encoded in the vector~$\v T_i$:
+(but \E{not} position) that are  encoded in the vector~$\v T_j$:
 \Note{\textbf{T-T decoupling approximation:}
 Properties of different particles are not correlated.}
 \index{T-T decoupling approximation}%
-In consequence, the $\v T_i$
+In other words, the $\v T_j$
 are independent and identically distributed (\E{i.i.d.}) random variables.
 They all have the same distribution~$p(\v\tau)$.
-For $\r\ne0$, the distribution $\PD$ factorizes as
-\begin{equation}
-  \PD(\r,\v\tau,\v\tau')\eqqcolon N_p \rho_S \GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau'),
+Averages under this distribution shall be denoted as
+\begin{equation}\label{Epavg}
+  \bra f\ket \coloneqq  \int\!\d\v\tau\,p(\v\tau)f(\tau).
 \end{equation}
-which defines the conditional position correlation function~$\GD$ (defined to exclude self-correlation).
-The case $\r=0$ (equivalent with $i=j$) needs special consideration,
-which leads to the decomposition
+Pairs of particles have the distribution~$p(\v\tau)p(\v\tau')$,
+except if the two particles are identical.
+In consequence, the distribution $\PD$ must have the form
+\begin{equation}\label{EPbyG}
+  \PD(\r,\v\tau,\v\tau')
+  = N_p \{ \delta(\r)p(\v\tau)\delta(\v\tau-\v\tau')
+           + \left[\GD(\r|\v\tau,\v\tau') - \delta(\r)\right] p(\v\tau)p(\v\tau')\}
+\end{equation}
+with the conditional position correlation function~$\GD$.
+Inserting this in \cref{Epdm1} we obtain
 \Emph
-{\begin{equation}
-  \frac{1}{N_p}\left.\frac{\partial\sigma}{\partial\Omega}\right|_l
-  = I_\text{d}+I_\text{c}.
+{\begin{equation}\label{EIdIc}
+  \frac{1}{N_p}\xElas
+  = I_\text{d}+I_\text{c}
 \end{equation}\vskip -5pt}
-We denote averages under~$p(\v\tau)$ as
-\begin{equation}
-  \bra\FD\ket \coloneqq  \int\!\d\v\tau\,p(\v\tau)\FD(\tau),
-\end{equation}
-so that the \E{diffuse} scattering intensity assumes the simple form
+with the \E{diffuse} and \E{coherent} scattering intensities
 \index{Diffuse scattering}%
 \index{Scattering!diffuse}%
+\index{Coherent scattering}%
+\index{Scattering!coherent}%
 \Emph
-{\begin{equation}
-  I_\text{d} = \bra\left|\FD\right|^2\ket-\left|\bra\FD\ket\right|^2.
-\end{equation}\vskip -5pt}
-The \E{coherent} scattering intensity is given by
-\Emph
-{\begin{equation}\label{EICoherent}
-  I_\text{c} =
+{\begin{eqnarray}
+  I_\text{d}\label{EIddef}
+  &\coloneqq& \bra\left|\FD\right|^2\ket-\left|\bra\FD\ket\right|^2,
+\\[2ex]
+  I_\text{c}\label{EIcdef}
+  &\coloneqq&
   \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!
   \int\! \d\v{\tau}\, \d\v{\tau}'
-  \left[\delta(\r)+\rho_S \GD(\r|\v\tau,\v\tau')\right]p(\v\tau)p(\v\tau')
-    \FD^*(\v\tau) \FD(\v\tau').
-\end{equation}\vskip -5pt}
+  \GD(\r|\v\tau,\v\tau')p(\v\tau)p(\v\tau') \FD(\v\tau) \FD^*(\v\tau').
+\end{eqnarray}\vskip -5pt}
+The diffuse intensity can be rewritten as
+\begin{equation}\label{EIdDiff}
+  I_\text{d}
+  = \bra\left|\FD-\bra\FD\ket\right|^2\ket,
+\end{equation}
+which shows that it is due to fluctuations of the single-particle form factor.
 
+To proceed further,
+we need to make approximations for the distribution~$\GD$.
 Only a few paracrystal models actually specify
 a conditioning of~$\GD$ on the particle properties~$\v\tau,\v\tau'$.
 For all other models, we assume the
@@ -433,8 +360,9 @@ at atomic level, we will call it the
 \E{particle position correlation function}.
 \index{Particle position correlation function}%
 The Fourier transform
-\begin{equation}
-  \SD(\q)\coloneqq 1 + \rho_S \int\!\d^2r\,   \e^{i\q_{\plll}\r}\!   \GD(\r)
+\begin{equation}\label{ESqdef}
+  \SD(\q)
+  \coloneqq \int\!\d^2r\, \e^{i\q_{\plll}\r}\! \GD(\r)
 \end{equation}
 shall be called the \E{interference function}.
 \index{Interference function}%.
@@ -445,13 +373,10 @@ the atomic \E{static structure factor}
 \index{Lattice factor}%
 The coherent scattering intensity then takes the simple form
 \Emph
-{\begin{equation}
+{\begin{equation}\label{EIcFac}
   I_\text{c} = \SD(\q) \left|\bra\FD\ket\right|^2.
 \end{equation}\vskip -5pt}
-
-Altogether, the approximations introduced so far
-(coherent superposition; uncorrelated particle properties;
-R-T decoupling)
+Together, the T-T and R-T decoupling
 make up the \E{decoupling approximation}
 \index{IsGISAXS@\IsGISAXS!decoupling approximation}
 of \IsGISAXS.\footnote
@@ -482,30 +407,44 @@ it is only available for paracrystals
 (to be documented later).
 % and will therefore be discussed later (\cref{}).
 }
-%\fi
+In BornAgain, R-T decoupling is the default.
+Only a few models explicitly introduce some size-position coupling.
+The following sections are therefore mostly concerned with models for~$\SD(\q)$.
+If a user-defined sample model leaves the interference function unspecified,
+then the default (\texttt{InterferenceFunctionNone})
+\index{InterferenceFunctionNone@\Code{InterferenceFunctionNone}}%
+is simply $\SD(\q)=1$,
+which is a valid model for \E{dilute} particles.
+\index{Dilute particles}%
+\index{Particles!dilute assembly}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Interference functions}
+\section{Mesocrystals}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The starting point for describing the interference of the scattering from different
-particles is the coherent scattering intensity of~\cref{EICoherent}.
+By a \E{mesocrystal},
+\index{Mesocrystal}%
+\index{Crystal!mesoscopic|see{Mesocrystal}}%
+we understand an assembly of \E{mesoscopic} particles
+on a one- or two-dimensional lattice.
+In BornAgain, we are nowhere concerned with
+the usual three-dimensional, microscopic, atomistic crystals
+\index{Crystal!microscopic (unsupported)}%
+of conventional solid-state physics.\footnote
+{This statement holds true regardless of the not so clear terminology in the BornAgain
+class hierarchy.
+The class \texttt{Crystal}
+\index{Crystal@\Code{Crystal} (class)}%
+stands for a mesocrystal of infinite extension.
+The class \texttt{Mesocrystal}
+\index{Mesocrystal@\Code{Mesocrystal} (class)}%
+adds a outer geometric shape.}
+It is quite possible that mesoparticles are made of microscopic crystals,
+and cause wide-angle scattering,
+but this is ignored in BornAgain;
+BornAgain does not support any wide-angle scattering simulation.
+\index{Wide-angle scattering (unsupported)}%
 
-The conditional interference function is defined as
-\begin{equation}
-  \SD(\q |\v\tau,\v\tau')
-  \coloneqq 1 + \rho_S \int\!\d^2r\, \e^{i\q_\plll\r}\! \GD(\r|\v\tau,\v\tau').
-\end{equation}
-With the chosen normalization, $\rho_S \GD(\r|\v\tau,\v\tau') d^2r$ gives the probability of
-finding a particle of type $\v\tau'$ in the infinitesimal area~$d^2r$
-at the relative position~$\r$ from
-a given (different) particle of type $\v\tau$.
-
-In the following subsections,
-the supported interference functions in \BornAgain\ will be discussed.
-With one exception,
-they all assume the R-T decoupling approximation, making the interference function
-independent of the particle types ($\v\tau$ and~$\v\tau'$).
 
 %===============================================================================
 \subsection{One-dimensional lattice} \label{sec:sect:1dlattice}
@@ -622,6 +561,10 @@ which is a convex combination of the Cauchy and Gauss decay functions.
 The decay functions are all normalized such that $\int\!\d^2q_\plll H(\q)= 4\pi^2$,
 which is equivalent to $h(0)=1$.
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Paracrystals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %===============================================================================
 \subsection{The one-dimensional paracrystal} \label{sec:sect:1dparacrystal}
@@ -759,10 +702,10 @@ Again, a convex combination of the Cauchy and Gauss distributions in two dimensi
 Restricting the calculation to one layer, the differential cross section for a specific arrangement of particles of
 different type is:
 \begin{equation}
-  \frac{\partial\sigma}{\partial\Omega}
+  \xElas
   =
   \sum_{ij}  \e^{i\q_{\plll}(\R_{j\plll}-\R_{i\plll})}\!
-  \FD^*(\v{T}_i) \FD(\v{T}_j).
+  \FD(\v{T}_i) \FD^*(\v{T}_j).
 \end{equation}
 
 In a statistical ensemble, this cross section has to be averaged by the joint probability density function
@@ -776,13 +719,13 @@ and will be removed when we consider a specific choice for the indices.
 
 The expectation value of the differential cross section then becomes
 \begin{equation}\label{Ecsc}
-  \left\langle\frac{\partial\sigma}{\partial\Omega}\right\rangle
+  \left\langle\xElas\right\rangle
   =
   \frac{1}{N!}\,
   \int\!\prod_i\!d^2\R_{i\plll}\!d\v{T}_i
   \,\PD\left(\lbrace \R_{i\plll} \rbrace, \lbrace \v{T}_i \rbrace\right)
   \sum_{jk}  \e^{i\q_{\plll}(\R_{k\plll}-\R_{j\plll})}\!
-  \FD^*(\v{T}_j) \FD(\v{T}_k).
+  \FD(\v{T}_j) \FD^*(\v{T}_k).
 \end{equation}
 
 As for the case of the radial paracrystal, a one-dimensional approach is developed, which is then
@@ -817,7 +760,7 @@ is the deviation from the mean of the size of a particle of type $\v{T}_n$.
 
 The differential cross section (\ref{Ecsc}) in this case can then be expressed as:
 \begin{equation}\label{Ecsssca}
-  \frac{1}{N}\left\langle\frac{\partial\sigma}{\partial\Omega}\right\rangle
+  \frac{1}{N}\left\langle\xElas\right\rangle
   =
   \int\!d\v{T}\,\PD (\v{T}) \left| \FD(\q,\v{T}) \right|^2
   +
@@ -834,8 +777,28 @@ with
 and $P(q_\plll)$ is the Fourier transform of the average next neighbor distance (as was also the case for the radial
 paracrystal).
 
-%\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Disordered assemblies}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\MissingSection
+\iffalse
+The starting point for describing the interference of the scattering from different
+particles is the coherent scattering intensity of~\cref{EICoherent}.
+
+The conditional interference function is defined as
+\begin{equation}
+  \SD(\q |\v\tau,\v\tau')
+  \coloneqq 1 + \rho_S \int\!\d^2r\, \e^{i\q_\plll\r}\! \GD(\r|\v\tau,\v\tau').
+\end{equation}
+With the chosen normalization, $\rho_S \GD(\r|\v\tau,\v\tau') d^2r$ gives the probability of
+finding a particle of type $\v\tau'$ in the infinitesimal area~$d^2r$
+at the relative position~$\r$ from
+a given (different) particle of type $\v\tau$.
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iffalse
 \section{OLD STUFF [TO REVISE]}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -851,7 +814,7 @@ layer which corresponds to \texttt{depth}=0.}
 
 Since in most experimental conditions only the statistical properties of the particles are known, one can consider the probabilistic value of this cross-section \idest its expectation value. Assuming that the particles' shapes are determined by their class $\alpha$, with the abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density as $\rho_V \equiv N/V$, the expectation value becomes:
 \begin{align*}
-  \bra \frac{d\sigma}{d\Omega}(\q) \ket  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\q)\right\rvert ^2 + \frac{\rho_V}{V}\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\q)F_\beta^*(\q)  \\
+  \bra \xElas(\q) \ket  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\q)\right\rvert ^2 + \frac{\rho_V}{V}\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\q)F_\beta^*(\q)  \\
   & \times \iint_V d^3\v{R}_\alpha d^3\v{R}_\beta \ppcf{\alpha}{\beta}{R} \exp \left[ i\q\cdot (\v{R}_\alpha - \v{R}_\beta ) \right],
 \end{align*}
 
@@ -861,7 +824,7 @@ where $\ppcf{\alpha}{\beta}{R}$ is called the \emph{partial pair correlation fun
 TO MERGE IN:
 
 \begin{align*}
-  & \bra \frac{d\sigma}{d\Omega}(\k_\ti,\k_\tf) \ket_{\text{Off-specular}}  \\
+  & \bra \xElas(\k_\si,\k_\sf) \ket_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
   & \times \iint_S d^2r_\alpha^\plll d^2r_\beta^\plll \ppcf{\alpha}{\beta}{R^\plll} \exp \left[ i\v{q}_{j\plll}\cdot (\r_\alpha^\plll - \r_\beta^\plll ) \right].
 \end{align*}
@@ -870,7 +833,7 @@ TO MERGE IN:
 TO MERGE IN:
 This expression can be split into a diffuse part, which by definition should be zero for the case of only one particle type, and a coherent part, resulting from the coherent superposition of scattering amplitudes for particles at different positions:
 \begin{equation*}
-  \bra \frac{d\sigma}{d\Omega}(\q) \ket
+  \bra \xElas(\q) \ket
   = I_d(\q) + {\bra F_\alpha (\q ) S_{\alpha\beta} (\q) F_\beta^* (\q)
                \ket}_{\alpha\beta},
 \end{equation*}
@@ -1099,6 +1062,7 @@ Script~\ref{lst:badwba} illustrates the difference between BA and DWBA in \BornA
 
 \newpage
 
+\setPy
 \begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol,caption={\Code{Python} script to generate a sample using Born (BA) or distorted-wave Born approximation (DWBA). The difference between BA and DWBA in this simple case is the absence or presence of a substrate layer in the sample.},label={lst:badwba}]
 def get_sample():
     """
@@ -1244,7 +1208,7 @@ the use is referred, for example, to \cref{sec:Example1Python}.\\
 The decoupling approximation (DA), local monodisperse approximation (LMA) and size spacing correlation approximation (SSCA) can be used in \BornAgain.
 The selection between DA and SSCA is made using\\
 \Code{ILayout.setApproximation(EInterferenceFunction approximation)} when defining the characteristics of the way particles and interference functions are embedded in a layer.  For example,
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
     particle_layout = ParticleLayout()
    ....
 # interference approx chosen between: DA (default) and SSCA
@@ -1254,7 +1218,7 @@ The selection between DA and SSCA is made using\\
 Note that with the SSCA, the users have to specify the coupling parameter $\kappa$ (with the function \Code{setKappa}), which should be a positive dimensionless value. $\kappa$ characterizes the influence of the neighboring particles' sizes on their distance. If $\kappa=0$, the SSCA reduces to the DA with a radial paracrystal for the interference function.\\
 
 For the LMA, its implementation is automatically done when using more than one layout of particles:
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
+\begin{lstlisting}
     particle_layout0 = ParticleLayout()
     particle_layout1 = ParticleLayout()
    ....
@@ -1619,4 +1583,4 @@ Function  & Parameters & Comments\\
 \end{table}
 
 \index{Particle assemblies|)}%
-%\fi
+\fi

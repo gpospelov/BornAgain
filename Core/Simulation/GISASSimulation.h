@@ -23,7 +23,7 @@ class IMultiLayerBuilder;
 class IHistogram;
 class Histogram2D;
 
-//! Main class to run the simulation.
+//! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
 
 class BA_CORE_API_ GISASSimulation : public Simulation
@@ -31,7 +31,7 @@ class BA_CORE_API_ GISASSimulation : public Simulation
 public:
     GISASSimulation();
     GISASSimulation(const MultiLayer& p_sample);
-    GISASSimulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
+    GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
 
     ~GISASSimulation() final {}
 

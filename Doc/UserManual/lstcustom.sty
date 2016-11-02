@@ -1,8 +1,7 @@
 % this is customisation of 'listings' packag
 % TODO: cleanup
 
-%\usepackage{color}
-\usepackage{xcolor}
+% xcolor must be included before (not done here, because different options may be desired).
 
 \definecolor{darkviolet}{rgb}{0.5,0,0.4} %
 \definecolor{darkgreen}{rgb}{0,0.4,0.2} %
@@ -22,19 +21,19 @@
 
 \lstdefinelanguage{pseudo}{
   keywords={procedure,end,return,integer,real,foreach,for,each,
-  do,if,then,else,while,until,true,false,algorithm}, 
+  do,if,then,else,while,until,true,false,algorithm},
   comment=[l]{//}
 }
 
 \lstdefinelanguage{oaw}{
   morekeywords={import, this, create, let, then, Void, extension, JAVA,
   IMPORT, DEFINE, ENDDEFINE, LET, ENDLET, FOR, FILE, ENDFILE, ITERATOR, FOREACH,
-  AS, IF, ENDFOREACH, ENDIF, EXPAND, INSTANCEOF, USING, SEPARATOR, CSTART, CEND, 
-  PROTECT, ENDPROTECT, ID, EXTENSION,   
+  AS, IF, ENDFOREACH, ENDIF, EXPAND, INSTANCEOF, USING, SEPARATOR, CSTART, CEND,
+  PROTECT, ENDPROTECT, ID, EXTENSION,
   context, ERROR, WARNING, INFO, enum},
   morecomment=[l]{//},
   morecomment=[s]{/*}{*/},
-  % FIXME: listings does not see guillemets, so any regions with them wont work  
+  % FIXME: listings does not see guillemets, so any regions with them wont work
   morecomment=[s]{«REM»}{«ENDREM»},
   morecomment=[s]{«REM}{»},
   morestring=[s]{'}{'},
@@ -60,121 +59,6 @@
   backgroundcolor=\color{lstbackgroundshellcolor},
   morecomment=[l]{\#}
 }
-
-\lstdefinelanguage{Esterel}
-{morekeywords={
-    abort, and, assert, await, 
-    bool,
-    call, case, clock, combine, constant, 
-    data, do, doup, dodown, dopar,
-    each, emit, else, elseif, end, every, exec, exit, extends,
-    for, function, 
-    generic, 
-    goto,
-    halt, handle, 
-    if, immediate, in, input, inputoutput, integer, interface, 
-    loop, 
-    map, module, multiclock, mux,
-    not, nothing, 
-    or, output, 
-    pause, positive, pre, present, procedure, 
-    relation, repeat, return, run, 
-    sensor, seq, signal, signed, suspend, sustain, 
-    task, then, times, trap, type, 
-    unsigned,
-    var, 
-    weak, when, with},
-  morecomment=[l]{\%}
-}
-
-\lstdefinelanguage{Lustre}
-{keywords={
-    and, assert, 
-    bool,
-    current,
-    else,
-    float,
-    if, int,
-    let, 
-    node, not, 
-    or,
-    pre, 
-    returns, 
-    tel, then,
-    var,
-    when
-  },
-  literate={-}{{--}}2 {->}{{$\to$~}}2 ,
-  morecomment=[l]{--},
-}
-
-\lstdefinelanguage{KEP}
-{morekeywords={ 
-    ABORT, ABORTI, ADD, ADDC, AWAIT, AWAITI, AWAITN, 
-    CALL, CAWAIT, CAWAITE, CMP, CMPS,
-    EMIT, EMITV, EMITD, EMITR, EXIT, GOTO, HALT, INPUT, JOIN, JW, LABORT, LABORTI,
-    LWABORT, LWABORTI, LOAD, MUL, NOTHING, OUTPUT, PAUSE, PAR, PARE,
-    PRE, PRIO, PRESENT, 
-    SETV,
-    SIGNAL, SIGNALV, SUSPEND, SUSPENDI, SUSTAIN, SUSTAINV, SUSTAIND,
-    SUSTAINR, TABORT, TABORTI, TWABORT, TWABORTI, WABORT, WABORTI,
-    %chkabort, jmp, ldaaddr
-  },
-  morecomment=[l]{//},
-  morecomment=[s]{/*}{*/},
-  morecomment=[l]{\%},
-  morestring=[b]"
-}
-
-\lstdefinelanguage{KLP}
-{morekeywords={ 
-    ADD, ADDI, AND,
-    DIV, DIVI, DONE, 
-    EQ,
-    GOTO,
-    IADD, IAND, IDIV, IEQ, IGE, IGT, ILE, ILT, INITC, INITV, INPUT, 
-    ICMOV, IRMOV, ISUB, IVMOV, IOR, IXOR, 
-    IMUL,
-    JF, JMP, JNZ, JT, JZ,
-    LOCAL,
-    MUL, MULI,
-    NEQ,
-    OUTPUT,
-    PRIO,
-    RRMOV, 
-    SETCLK, SETPC,
-    SUB, SUBI,
-    VVMOV,
-    XOR
-  },
-  morecomment=[l]{//},
-  morecomment=[l]{\#},
-  morecomment=[s]{/*}{*/},
-  morecomment=[l]{\%},
-  morestring=[b]",
-}
-
-\lstdefinelanguage{Kit}
-{morekeywords={%
-statechart, model, version, input, output, var, label, type, history, hi,
-deephistory, dh, initial, in, fork, fk, join, jn, junction, jc, sync, sy,
-choice, ch, dynamicchoice, dc, suspend, sd, final, doActivity, do,
-entryActivity, entry, exitActivity, exit, bindActivity, bind, localEvent,
-localVariable, priority, weakAbortion, wa, strongAbortion, sa,
-normalTermination, nt, suspension, sp, conditional, co, internalTransition,
-it, integer, float, double, boolean, combine, with, pos, pp, lp, width,
-height, collapsed, true, false%
-},
-  morecomment=[l]{\#},
-}
-
-\lstdefinelanguage{Repic}{
-  morekeywords={
-    abort, await, chkabort, emit, fork, goto, jmp, join,
-    ldaaddr, present, sync},
-  morecomment=[l]{\%}
-}
-
 
 \newcommand{\lstfontfamily}{\ttfamily}
 %\newcommand{\lstfontfamily}{\sffamily} % Adapt to schneider
@@ -205,33 +89,33 @@ height, collapsed, true, false%
 \lstdefinestyle{mydefault}{
   style=scriptsize,
   emphstyle=\color{red},
-  framexleftmargin=\lstframexleftmargin, 
-  frame=shadowbox, 
+  framexleftmargin=\lstframexleftmargin,
+  frame=shadowbox,
   keywordstyle=\structure,
   commentstyle=\itshape,
-  columns=flexible,            % Columns not rigid - gives nicer spacing 
+  columns=flexible,            % Columns not rigid - gives nicer spacing
   gobble=4,                    % Gobble first 4 characters of each line
   escapeinside=`',
   escapechar=@,
   lineskip=+0.2ex,
   rulesepcolor=\color{lstrulesepcolor},
   % WARNING: For some reason, the settin of backgroundcolor must take
-  % place at the very end!!! 
+  % place at the very end!!!
   backgroundcolor=\color{lstbackgroundprogcolor}
 }
 
 \lstdefinestyle{eclipse}{
     basicstyle=\small\lstfontfamily,
-    emphstyle=\color{red}\bfseries, 
+    emphstyle=\color{red}\bfseries,
     keywordstyle=\color{darkviolet}\bfseries,
     commentstyle=\color{darkgreen},
     stringstyle=\color{darkblue},
     numberstyle=\color{darkgrey}\lstfontfamily,
-    emph={Simulation,MaterialManager,MultiLayer,Layer,Particle,ParticleDecoration}, 
+    emph={Simulation,MaterialManager,MultiLayer,Layer,Particle,ParticleDecoration},
     emphstyle=\color{dockerblue},
     % get also javadoc style comments
     morecomment=[s][\color{lightblue}]{/**}{*/},
-   %columns=fullflexible, %spaceflexible, %flexible, fullflexible             
+   %columns=fullflexible, %spaceflexible, %flexible, fullflexible
 %  escapeinside=`',
 %  escapechar=@,
   showstringspaces=false,
@@ -259,12 +143,12 @@ breaklines = true
 moredelim=[is][\color{red}\itshape]{|}{|},
    escapeinside={@}{@},
     basicstyle=\small\lstfontfamily,
-    emphstyle=\color{red}\bfseries, 
+    emphstyle=\color{red}\bfseries,
     keywordstyle=\color{darkviolet}\bfseries,
     commentstyle=\color{darkgreen},
     stringstyle=\color{darkblue},
     numberstyle=\color{darkgrey}\lstfontfamily,
-    emph={Simulation,MaterialManager,MultiLayer,Layer,Particle,ParticleDecoration}, 
+    emph={Simulation,MaterialManager,MultiLayer,Layer,Particle,ParticleDecoration},
     emphstyle=\color{dockerblue},
     backgroundcolor=\color{lightlightgrey},
     morecomment=[s][\color{lightblue}]{/**}{*/},
@@ -297,7 +181,7 @@ breaklines = true
 \lstdefinestyle{commandline}{
    escapeinside={@}{@},
     basicstyle=\small\lstfontfamily,
-    emphstyle=\color{red}\bfseries, 
+    emphstyle=\color{red}\bfseries,
     keywordstyle=\color{darkviolet}\bfseries,
     commentstyle=\color{darkgreen},
     stringstyle=\color{darkblue},
@@ -310,7 +194,7 @@ breaklines = true
  frame=single,
 firstnumber=auto,
  rulesepcolor=\color{darkgrey},
-rulecolor=\color{darkgrey}, 
+rulecolor=\color{darkgrey},
 breaklines = true,
 numbers=none,
 %showspaces=true,
@@ -323,19 +207,19 @@ numbers=none,
 
 % \documentclass[a4paper,12pt]{article}
 % \usepackage[utf8]{inputenc}
-% 
+%
 % % Default fixed font does not support bold face
 % \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
 % \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
-% 
+%
 % % Custom colors
 % \usepackage{color}
 % \definecolor{deepblue}{rgb}{0,0,0.5}
 % \definecolor{deepred}{rgb}{0.6,0,0}
 % \definecolor{deepgreen}{rgb}{0,0.5,0}
-% 
+%
 % \usepackage{listings}
-% 
+%
 % % Python style for highlighting
 % \newcommand\pythonstyle{\lstset{
 % language=Python,
@@ -346,10 +230,10 @@ numbers=none,
 % emphstyle=\ttb\color{deepred},    % Custom highlighting style
 % stringstyle=\color{deepgreen},
 % frame=tb,                         % Any extra options here
-% showstringspaces=false            % 
+% showstringspaces=false            %
 % }}
-% 
-% 
+%
+%
 % % Python environment
 % \lstnewenvironment{python}[1][]
 % {
@@ -357,33 +241,33 @@ numbers=none,
 % \lstset{#1}
 % }
 % {}
-% 
+%
 % % Python for external files
 % \newcommand\pythonexternal[1]{{
 % \pythonstyle
 % \lstinputlisting{#1}}}
-% 
+%
 % % Python for inline
 % \newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
-% 
+%
 % \begin{document}
-% 
+%
 % \section{``In-text'' listing highlighting}
-% 
+%
 % \begin{python}
 % class MyClass(Yourclass):
 %     def __init__(self, my, yours):
 %         bla = '5 1 2 3 4'
 %         print bla
 % \end{python}
-% 
+%
 % \section{External listing highlighting}
-% 
+%
 % \pythonexternal{demo.py}
-% 
+%
 % \section{Inline highlighting}
-% 
+%
 % Definition \pythoninline{class MyClass} means \dots
-% 
+%
 % \end{document}
-% 
+%

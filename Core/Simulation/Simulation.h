@@ -36,7 +36,7 @@ class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
 public:
     Simulation();
     Simulation(const MultiLayer& p_sample);
-    Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
+    Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
     virtual ~Simulation();
 
     virtual Simulation* clone() const =0;
@@ -65,7 +65,7 @@ public:
     void setSample(const MultiLayer& sample);
     MultiLayer* getSample() const { return mP_sample.get(); }
 
-    void setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder);
+    void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
     std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mP_sample_builder; }
 
     virtual int numberOfSimulationElements() const=0;

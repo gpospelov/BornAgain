@@ -277,13 +277,13 @@ under the asymptotic boundary condition
 \index{Boundary conditions!elastic scattering}%
 \begin{equation}\label{Escabouco}
   \psi(\r)
-  \simeq \psi_\ti(\r) + f(\vartheta,\varphi)\frac{\e^{iKr}}{4\pi r}
+  \simeq \psi_\si(\r) + f(\vartheta,\varphi)\frac{\e^{iKr}}{4\pi r}
   \text{~for~}r\to\infty,
 \end{equation}
-\nomenclature[1ψ034 2i000 2r040]{$\psi_\ti(\r)$}{Incident wavefunction}%
+\nomenclature[1ψ034 2i000 2r040]{$\psi_\si(\r)$}{Incident wavefunction}%
 \nomenclature[2i000]{i}{Subscript ``incident''}%
 \index{Incident radiation!Born approximation}%
-where $\psi_\ti(\r)$ is the incident wave
+where $\psi_\si(\r)$ is the incident wave
 as prepared by the experimental apparatus,
 and the second term on the right-hand side is
 the outgoing scattered wave
@@ -333,7 +333,7 @@ we obtain what is known as the Lippmann-Schwinger equation,
 \index{Lippmann-Schwinger equation}%the formal solution
 \begin{equation}\label{EPsiFormal}
   \psi(\r)
-  = \psi_\ti(\r)
+  = \psi_\si(\r)
   + \int\!\d^3r'\, G(\r,\r') 4\pi\delta v(\r')\psi(\r').
 \end{equation}
 This integral equation for $\psi(\r)$ improves
@@ -348,8 +348,8 @@ In \E{first-order Born approximation},
 only the linear order in $\delta v$ is retained,
 \begin{equation}\label{EBorn}
   \psi(\r)
-  \doteq \psi_\ti(\r)
-  + 4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\ti(\r').
+  \doteq \psi_\si(\r)
+  + 4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\si(\r').
 \end{equation}
 This is practically always adequate for
 material investigations with X-rays or neutrons,
@@ -361,7 +361,7 @@ we are only interested in the scattered wave field
 \begin{equation}\label{EBornS}
   \psi_\text{s}(\r)
   \coloneqq
-  4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\ti(\r').
+  4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\si(\r').
 \end{equation}
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
 \nomenclature[2s000 0]{s}{Subscript ``scattered''}%
@@ -390,68 +390,64 @@ This allows us to expand
   \left|\r-\r'\right|
   \doteq \sqrt{r^2-2\r\,\r'}
   \doteq r - \frac{\r\,\r'}{r}
-  \equiv r - \frac{\k_\tf \r'}{K},
+  \equiv r - \frac{\k_\sf \r'}{K},
 \end{equation}
 \nomenclature[2f000]{f}{Subscript ``final'',
    for outgoing waves scattered into the direction of the detector}%
 \nomenclature[2k040]{$\k$}{wavevector}%
 where we have introduced the outgoing wavevector
 \begin{equation}
-  \k_\tf\coloneqq K\frac{\r}{r}.
+  \k_\sf\coloneqq K\frac{\r}{r}.
 \end{equation}
 We apply this to~\cref{EGreens1},
 \index{Green function!homogeneous material}%
 and obtain in leading order the far-field Green function
 \begin{equation}\label{EGreenFar}
   G_\text{far}(\r,\r')
-  = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
+  = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r')
 \end{equation}
 \nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field
    approximation to the Green function $G(\r,\r')$}%
 where
 \begin{equation}\label{EPsisfar}
-  \psi_\tf(\r) \coloneqq  \e^{i\k_\tf \r}
+  \psi_\sf(\r) \coloneqq  \e^{i\k_\sf \r}
 \end{equation}
-\nomenclature[1ψ034 2f000 2r040]{$\psi_\tf(\r)$}{Plane
+\nomenclature[1ψ034 2f000 2r040]{$\psi_\sf(\r)$}{Plane
   wave propagating from the sample towards the detector}%
 is a plane wave propagating towards the detector,
 and $\psi^*$ designates the complex conjugate of $\psi$.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
-Inserting \cref{EGreenFar} and~\cref{EPsisfar} in \cref{EBornS},
+Inserting \cref{EGreenFar} in \cref{EBornS},
 we obtain the far-field approximation for the scattered wave,
 \begin{equation}\label{EsandwichC}
   \psi_\text{s,far}(\r)
   = \frac{\e^{iKr}}{r}
-    \bra \psi_\tf|\delta v|\psi_\ti\ket,
+    \bra \psi_\si|\delta v|\psi_\sf\ket^*
 \end{equation}
 \nomenclature[1ψ034 2s000 2far]{$\psi_\text{s,far}(\r)$}{Far-field
    approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
-where we used Dirac notation for the transition matrix element
+with the Dirac notation for the transition matrix element
 \index{Transition matrix}%
 \Emph{%
 \begin{equation}\label{Etrama}
-  \bra \psi_\tf|\delta v|\psi_\ti\ket
-  \coloneqq  \int\!\d^3r\, \psi^*_\tf(\r)\delta v(\r)\psi_\ti(\r).
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \coloneqq  \int\!\d^3r\, \psi^*_\si(\r)\delta v(\r)\psi_\sf(\r).
 \end{equation}
 \vspace*{-5pt}}
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix
   element, defined as a volume integral}%
-In order to reconcile conflicting sign conventions,
-\index{Sign convention!transition matrix|(}%
-we will in the following rather use its complex conjugate
-$\bra \psi_\ti|\delta v|\psi_\tf\ket = \bra \psi_\tf|\delta v|\psi_\ti\ket^*$.
 
 Under the standard assumption
 that the incident radiation is a plane wave
 \index{Incident radiation!plane wave}%
 \begin{equation}\label{EPsi0Plane}
-  \psi_\ti(\r)=\e^{i \k_\ti \r}
+  \psi_\si(\r)=\e^{i \k_\si \r}
 \end{equation}
-with $k_\ti=K$,
+with $k_\si=K$,
 the matrix element takes the form
 \begin{equation}\label{Echiq}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
-  = \int\!\d^3r\, {\rm e}^{-i\k_\ti\r}\delta v(\r){\rm e}^{i\k_\tf\r}
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  = \int\!\d^3r\, {\rm e}^{-i\k_\si\r}\delta v(\r){\rm e}^{i\k_\sf\r}
   = \int\!\d^3r\, {\rm e}^{i\q\r}\delta v(\r)
   \eqqcolon v(\q),
 \end{equation}
@@ -474,7 +470,7 @@ with respect to equally oriented coordinate axes,
 which can only be achieved by the convention~\cref{Eq}.}
 \index{Scattering vector}%
 \begin{equation}\label{Eq}
-  \q\coloneqq \k_\tf-\k_\ti
+  \q\coloneqq \k_\sf-\k_\si
 \end{equation}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
 and the notation $v(\q)$ for
@@ -506,8 +502,8 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 \index{Cross section}%
 \index{Incident radiation!flux|(}%
 \begin{equation}\label{Exsectiondef}
-  \frac{\d\sigma}{\d\Omega}
-  \coloneqq  \frac{r^2 J(\r)}{J_\ti}.
+  \xElas
+  \coloneqq  \frac{r^2 J(\r)}{J_\si}.
 \end{equation}
 \nomenclature[1ω120]{$\Omega$}{Solid angle}%
 \nomenclature[1σ020]{$\sigma$}{Scattering or absorption cross section}%
@@ -519,7 +515,7 @@ For a plane wave~\cref{EPsi0Plane}, the incident flux is
 \index{Incident radiation!flux|)}%
 \index{Flux!Born approximation}%
 \begin{equation}\label{EJi}
-  \v{J}_\ti = \k_\ti.
+  \v{J}_\si = \k_\si.
 \end{equation}
 With the far-field result~\cref{EsandwichC}
 and the notation~\cref{Etrama},
@@ -527,7 +523,7 @@ the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
-    {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
+    {\left|\bra\psi_\si|\delta v|\psi_\sf\ket\right|}^2.
 \end{equation}
 Inserting these into definition~\cref{Exsectiondef},
 we obtain the generic differential cross section
@@ -538,8 +534,8 @@ of elastic scattering in first order Born approximation,
 \index{Scattering!elastic cross section in Born approximation}%
 \Emph{
 \begin{equation}\label{Exsection}
-  \frac{\d\sigma}{\d\Omega}
-  =  {\left|\bra\psi_\ti|\delta v|\psi_\tf\ket\right|}^2.
+  \xElas
+  =  {\left|\bra\psi_\si|\delta v|\psi_\sf\ket\right|}^2.
 \end{equation}\vspace*{-5pt}
 }
 As we shall see below,
@@ -553,7 +549,7 @@ the differential cross section is just the squared modulus
 of the Fourier transform of the SLD,
 \index{Scattering length density!Fourier transform}%
 \begin{equation}\label{Ecross1}
-  \frac{\d\sigma}{\d\Omega}
+  \xElas
   = {\left| v(\q) \right|}^2.
 \end{equation}
 
@@ -639,15 +635,15 @@ and therefore has the far-field expansion~\cref{EGreenFar},
 \index{Far-field approximation}%
 \begin{equation}\label{EBFar}
   B_\text{far}(\r,\rD)
-  =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\tf \r}.
+  =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\sf \r}.
 \end{equation}
 As explained above,
 we assume that there is a solution $\psi_\sf(\r)$ of the homogeneous
-wave equation that matches $\e^{i\k_\tf \r}$ outside the sample.
+wave equation that matches $\e^{i\k_\sf \r}$ outside the sample.
 Therefore,
 \begin{equation}\label{EBFull}
   B_\text{far}(\r,\rD)
-  = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\tf(\r)
+  = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\sf(\r)
 \end{equation}
 is the far-field approximation (in $\rD$)
 to the solution of the Green function equation that generalizes~\cref{EHelmholtzForGreen}.
@@ -655,10 +651,10 @@ It does not involve any approximation in~$\r$.
 Reciprocity \cref{EreciDup} yields
 \begin{equation}\label{EGreenFarDWBA}
   G_\text{far}(\r,\r')
-  = \frac{\e^{iKr}}{4\pi r}\psi^*_\tf(\r')
+  = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r')
 \end{equation}
 which is identical with with \cref{EGreenFar},
-but no longer depends on $\psi_\tf$ being a plane wave.
+but no longer depends on $\psi_\sf$ being a plane wave.
 
 \Emph{Accordingly,
 the differential cross section is still given by \cref{Exsection},
@@ -682,11 +678,11 @@ and will be worked out later (\cref{Swave21}).
 
 Per \cref{Exsection} and~\cref{Etrama},
 \index{Coherence length|(}%
-the matrix element $\bra \psi_\ti|\delta v|\psi_\tf\ket$
+the matrix element $\bra \psi_\si|\delta v|\psi_\sf\ket$
 is given by a three-dimensional integral
 \begin{equation}\label{Etrama3}
-  \bra \psi_\ti|\delta v|\psi_\tf\ket
-  \coloneqq  \int\!\d^3r\, \psi^{*}_\ti(\r)\delta v(\r)\psi_\tf(\r).
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \coloneqq  \int\!\d^3r\, \psi^{*}_\si(\r)\delta v(\r)\psi_\sf(\r).
 \end{equation}
 The integration domain is effectively limited to a finite $z$ interval,
 where $\delta v(\r)$ is nonzero.
@@ -734,7 +730,7 @@ at different points in the moderator,
 and are detected at slightly different points within one detector pixel.
 This can be modeled by computing expected scattering intensities as
 averages over different neutrons with
-$K$, $\v{\hat k}_\ti$, and $\v{\hat k}_\tf$ drawn at random
+$K$, $\v{\hat k}_\si$, and $\v{\hat k}_\sf$ drawn at random
 from appropriate distributions.
 % TODO RESTORE TEMPORARILY REMOVED XREF as described in \cref{Sresolution}.
 
@@ -742,8 +738,8 @@ However, this is not the full story.
 In the above introduction to the Born approximation
 we have made the standard assumption
 that an incoming neutron can be described by a plane wave
-$\psi_\ti=\e^{i\k_\ti\r}$.
-The wavefunction $\psi_\tf$ traced back from the detector is also
+$\psi_\si=\e^{i\k_\si\r}$.
+The wavefunction $\psi_\sf$ traced back from the detector is also
 approximated by a plane wave.
 In the DWBA we allow these waves to be distorted within the sample,
 but when impinging on the sample they still are plane.

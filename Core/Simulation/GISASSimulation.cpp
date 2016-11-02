@@ -31,7 +31,7 @@ GISASSimulation::GISASSimulation(const MultiLayer& p_sample)
     initialize();
 }
 
-GISASSimulation::GISASSimulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
+GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
 {
     initialize();

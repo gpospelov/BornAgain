@@ -124,7 +124,11 @@
      \parindent \z@ \huge \bfseries #2\par}
     }
 
+\newif\iffirstsectioninchapter
+\def\sectionclear{\iffirstsectioninchapter\else\ifdraft{\clearpage}{}\fi}
+
 \renewcommand\chapter{
+  \firstsectioninchaptertrue
   \pagereset
   \iffirstchapterinpart\else\clearpage\fi
   \firstchapterinpartfalse
@@ -161,14 +165,15 @@
 \def\ichapter#1{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 \def\isection#1{\section*{#1}\addcontentsline{toc}{section}{#1}}
 
-\renewcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.5ex \@plus -1.5ex \@minus -.5ex}%
-                                   {2.3ex \@plus .8ex \@minus .5ex}%
-                                   {\normalfont\Large\bfseries}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-3.25ex\@plus -1.3ex \@minus -.4ex}%
-                                     {1.5ex \@plus .5ex \@minus .3ex}%
-                                     {\normalfont\large\bfseries}}
+\renewcommand\section{\@startsection{section}{1}{\z@}
+  {-3.5ex \@plus -1.5ex \@minus -.5ex}
+  {2.3ex \@plus .8ex \@minus .5ex}
+  {\sectionclear\global\firstsectioninchapterfalse\normalfont\Large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}
+  {-3.25ex\@plus -1.3ex \@minus -.4ex}
+  {1.5ex \@plus .5ex \@minus .3ex}
+  {\normalfont\large\bfseries}}
+
 % from size11.clo
 \renewcommand\normalsize{
    \@setfontsize\normalsize\@xipt{13.6}%
@@ -183,6 +188,13 @@
 \setcounter{tocdepth}{3}
 %\usepackage[toc,page]{appendix}
 \usepackage{titlesec}
+
+\def\ttIdx#1{\texttt{#1}\index{#1@\Code{#1}}}
+\def\ttIdx#1{\texttt{#1}\index{#1@\Code{#1}}}
+\def\clFctHide#1#2{\index{#1@\Code{#1}!#2@\Code{#2}}\index{#2 #1@\Code{#2} (\Code{#1})}}
+\def\clFct#1#2{\texttt{#2}\clFctHide{#1}{#2}}
+\def\constrHide#1{\index{#1@\Code{#1}!constructor}}
+\def\constr#1{\texttt{#1}\constrHide{#1}}
 
 %-------------------------------------------------------------------------------
 %  Table of Contents
@@ -294,9 +306,16 @@
 \usepackage{tabulary}
 
 \usepackage[final]{listings}
-\usepackage{lstcustom}
+\usepackage[x11names]{xcolor}
+\usepackage{lstcustom} % under our control
 \renewcommand{\lstfontfamily}{\ttfamily}
-\lstset{language=python,style=eclipseboxed,numbers=none,nolol}
+
+\def\setPy{\lstset{language=python,style=eclipseboxed,numbers=none,nolol,
+   backgroundcolor=\color{SlateGray1}}}
+\def\setPyNum{\lstset{language=python,style=eclipseboxed,nolol,
+   backgroundcolor=\color{SlateGray1}}}
+\def\setCpp{\lstset{language=python,style=eclipseboxed,numbers=none,nolol,
+   backgroundcolor=\color{Wheat1}}}
 
 %-------------------------------------------------------------------------------
 %  Tikz pictures
@@ -317,6 +336,14 @@
         ({max(\x1,\x2)}, {\y1+1.5em}) -- node[right=0.6em] {#3} ({max(\x1,\x2)}, {\y2});
     \end{tikzpicture}
 }
+
+%-------------------------------------------------------------------------------
+%  Conditional pictures
+%-------------------------------------------------------------------------------
+
+\def\TW{\textwidth}
+\ifdraft{\def\skipresult{true}}{\def\skipresult{false}}
+\def\includefinal#1#2{\includegraphics[width=#1,draft=\skipresult]{#2}}
 
 %-------------------------------------------------------------------------------
 %  Highlighting

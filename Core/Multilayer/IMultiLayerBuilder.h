@@ -31,7 +31,7 @@ public:
     IMultiLayerBuilder() : IParameterized("SampleBuilder") {}
     virtual ~IMultiLayerBuilder() {}
 
-    virtual MultiLayer* buildSample() const = 0;
+    virtual MultiLayer* buildSample() const =0;
 
     void set_subtest(const IParameterized* subtest_item) { m_subtest_item = subtest_item; }
     const IParameterized* m_subtest_item;

@@ -35,7 +35,7 @@ Simulation::Simulation(const MultiLayer& p_sample)
     mP_sample.reset(p_sample.clone());
 }
 
-Simulation::Simulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
+Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : mP_sample_builder(p_sample_builder)
 {}
 
@@ -166,7 +166,7 @@ void Simulation::setSample(const MultiLayer& sample)
     mP_sample.reset(sample.clone());
 }
 
-void Simulation::setSampleBuilder(std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
+void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
 {
     if (!p_sample_builder)
         throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "

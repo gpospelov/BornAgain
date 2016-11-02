@@ -33,7 +33,7 @@ OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample)
     initialize();
 }
 
-OffSpecSimulation::OffSpecSimulation(std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
+OffSpecSimulation::OffSpecSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
     , mp_alpha_i_axis(nullptr)
 {

@@ -170,7 +170,7 @@ even though it is in a less mature state.
 In this manual, we use the following colored boxes to highlight
 certain information:
 
-\def\demobox#1{\hspace{5em}\begin{minipage}{.75\textwidth}#1
+\def\demobox#1{\noindent\strut\hspace{.2\TW}\begin{minipage}{.75\textwidth}#1
 \end{minipage}\hfill\strut}
 
 \medskip
@@ -194,6 +194,17 @@ with the software or the documentation.}}
 
 \medskip
 \demobox{\Link{\indent This is a link to the online docs.}}
+
+\medskip
+\setCpp
+\begin{lstlisting}[linewidth=.95\TW,xleftmargin=.2\TW]
+Such a box is used for C++ code.
+\end{lstlisting}
+
+\setPy
+\begin{lstlisting}[linewidth=.95\TW,xleftmargin=.2\TW]
+And such a box for Python.
+\end{lstlisting}
 
 \bigskip
 Mathematical notations are explained in the symbol index, page~\pageref{Snomencl}.

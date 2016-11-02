@@ -548,14 +548,15 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributi
 QString TransformFromDomain::translateParameterNameToGUI(SessionItem* item,
                                                          const QString& par_name)
 {
-    auto gui_par_list = ModelPath::getParameterTreeList(item);
-    for (auto gui_par_name : gui_par_list) {
-        auto domain_par_name = QString::fromStdString(ModelPath::translateParameterName(item, gui_par_name));
+    QStringList gui_par_list = ModelPath::getParameterTreeList(item);
+    for (QString gui_par_name : gui_par_list) {
+        QString domain_par_name = QString::fromStdString(
+                    ModelPath::translateParameterName(item, gui_par_name));
         if (domain_par_name == par_name) {
             return gui_par_name;
         }
     }
-    return QString();
+    return {};
 }
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)

@@ -68,18 +68,18 @@ double ModelPath::getParameterValue(const SessionItem *item, const QString &name
     }
 }
 
-std::string ModelPath::translateParameterName(const SessionItem *item, const QString &par_name)
+std::string ModelPath::translateParameterName(const SessionItem* item, const QString& par_name)
 {
     std::ostringstream result;
-    auto list = splitParameterName(par_name);
+    QStringList list = splitParameterName(par_name);
     if (list.isEmpty()) {
         return std::string {};
     }
-    auto first_field = list[0];
+    QString first_field = list[0];
     result << "/" << translateSingleName(first_field);
     if (list.size() > 1) {
-        auto remainder = list[1];
-        auto p_child = findChild(item, first_field);
+        QString remainder = list[1];
+        const SessionItem* p_child = findChild(item, first_field);
         if (p_child) {
             result << translateParameterName(p_child, remainder);
         }
@@ -160,6 +160,7 @@ QStringList ModelPath::splitParameterName(const QString &par_name)
             return result;
         }
     }
+    // TODO: extract as default split method
     result << getFirstField(par_name);
     QString remainder = stripFirstField(par_name);
     if (!remainder.isEmpty()) {

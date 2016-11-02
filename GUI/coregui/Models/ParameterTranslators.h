@@ -20,7 +20,7 @@
 
 class IParameterTranslator {
 public:
-    virtual ~IParameterTranslator() {}
+    virtual ~IParameterTranslator()=default;
 
     virtual IParameterTranslator* clone() const=0;
 
@@ -29,25 +29,25 @@ public:
 };
 
 
-class PositionTranslator : public IParameterTranslator {
+class PositionTranslator final : public IParameterTranslator {
 public:
-    ~PositionTranslator() final {}
+    ~PositionTranslator() override {}
 
-    virtual PositionTranslator* clone() const { return new PositionTranslator(); }
+    PositionTranslator* clone() const override { return new PositionTranslator {}; }
 
-    virtual QStringList split(const QString &par_name) const;
-    virtual std::string translate(const QString &name) const;
+    QStringList split(const QString &par_name) const override;
+    std::string translate(const QString &name) const override;
 };
 
 
-class RotationTranslator : public IParameterTranslator {
+class RotationTranslator final : public IParameterTranslator {
 public:
-    ~RotationTranslator() final {}
+    ~RotationTranslator() override {}
 
-    virtual RotationTranslator* clone() const { return new RotationTranslator(); }
+    RotationTranslator* clone() const override { return new RotationTranslator {}; }
 
-    virtual QStringList split(const QString &par_name) const;
-    virtual std::string translate(const QString &name) const;
+    QStringList split(const QString &par_name) const override;
+    std::string translate(const QString &name) const override;
 };
 
 #endif // PARAMETERTRANSLATORS_H

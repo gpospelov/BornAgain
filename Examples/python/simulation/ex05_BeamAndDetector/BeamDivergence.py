@@ -47,8 +47,8 @@ def get_simulation():
     alpha_distr = ba.DistributionGaussian(0.2*deg, 0.1*deg)
     phi_distr = ba.DistributionGaussian(0.0*deg, 0.1*deg)
     simulation.addParameterDistribution("*/Beam/Wavelength", wavelength_distr, 5)
-    simulation.addParameterDistribution("*/Beam/Alpha", alpha_distr, 5)
-    simulation.addParameterDistribution("*/Beam/Phi", phi_distr, 5)
+    simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr, 5)
+    simulation.addParameterDistribution("*/Beam/AzimuthalAngle", phi_distr, 5)
     return simulation
 
 

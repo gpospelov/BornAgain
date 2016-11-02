@@ -109,10 +109,10 @@ GISASSimulation* StandardSimulations::MiniGISASBeamDivergence()
     pattern1.beginsWith("*").add(BeamType).add(Wavelength);
     result->addParameterDistribution(pattern1.toStdString(), wavelength_distr, 5);
     ParameterPattern pattern2;
-    pattern2.beginsWith("*").add(BeamType).add(Alpha);
+    pattern2.beginsWith("*").add(BeamType).add(Inclination);
     result->addParameterDistribution(pattern2.toStdString(), alpha_distr, 4);
     ParameterPattern pattern3;
-    pattern3.beginsWith("*").add(BeamType).add(Phi);
+    pattern3.beginsWith("*").add(BeamType).add(Azimuth);
     result->addParameterDistribution(pattern3.toStdString(), phi_distr, 3);
 
     return result;

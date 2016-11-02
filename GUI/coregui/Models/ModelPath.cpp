@@ -221,6 +221,7 @@ SessionItem* ModelPath::findChild(const SessionItem *item, const QString& first_
     return p_child;
 }
 
+// TODO: remove this hack when refactoring name translations
 string ModelPath::stripDistributionNone(const string &name)
 {
     const string distribution_none { "/DistributionNone/Value" };

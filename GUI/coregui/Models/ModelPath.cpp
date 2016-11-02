@@ -18,7 +18,7 @@
 #include "GroupItem.h"
 #include "ParticleItem.h"
 #include "SessionModel.h"
-
+#include "JobItem.h"
 
 std::vector<std::unique_ptr<IParameterTranslator>> ModelPath::m_special_translators {};
 
@@ -197,10 +197,17 @@ std::string ModelPath::translateSingleName(const QString &name)
 
 SessionItem* ModelPath::findChild(const SessionItem *item, const QString& first_field)
 {
-    auto p_child = item->getChildByName(first_field);
+    if (item->modelType()==Constants::JobItemType) {
+        if (first_field==Constants::MultiLayerType) {
+            return item->getItem(JobItem::T_SAMPLE);
+        } else if (first_field==Constants::InstrumentType) {
+            return item->getItem(JobItem::T_INSTRUMENT);
+        }
+    }
+    SessionItem* p_child = item->getChildByName(first_field);
     if (!p_child) { //search through group items
         auto groupItems = item->getChildrenOfType(Constants::GroupItemType);
-        for (auto groupItem : groupItems) {
+        for (SessionItem* groupItem : groupItems) {
             if (GroupItem *gItem = dynamic_cast<GroupItem*>(groupItem)) {
                 if (gItem->group()->getCurrentType() == first_field) {
                     p_child = gItem->group()->getCurrentItem();

@@ -49,7 +49,7 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
             std::string domainPath = "*" + ModelPath::translateParameterName(jobItem, link);
             linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
             result->addFitParameter(domainPath, value, parItem->getAttLimits());
-            //FIXME only link is possible at the time due to limitations in FitCore
+            //FIXME only one link is possible at the time due to limitations in FitCore
             break;
         }
     }

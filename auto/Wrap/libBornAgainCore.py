@@ -15164,7 +15164,7 @@ class Simulation(ICloneable, IParameterized):
 
     def setSampleBuilderCpp(self, sample_builder):
         """
-        setSampleBuilderCpp(Simulation self, std::shared_ptr< IMultiLayerBuilder > sample_builder)
+        setSampleBuilderCpp(Simulation self, std::shared_ptr< IMultiLayerBuilder > const sample_builder)
 
         void Simulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 

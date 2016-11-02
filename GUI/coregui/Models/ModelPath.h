@@ -46,7 +46,7 @@ public:
 
     static QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
 
-    static SessionItem *getItemFromPath(const QString &relPath, SessionItem *parent);
+    static SessionItem* getItemFromPath(const QString &relPath, SessionItem *parent);
 
     static bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
 
@@ -59,6 +59,8 @@ private:
     static QString stripFirstField(const QString &par_name);
 
     static std::string translateSingleName(const QString &name);
+
+    static SessionItem* findChild(const SessionItem *item, const QString& first_field);
 
     static std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
 };

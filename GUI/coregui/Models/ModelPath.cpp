@@ -20,7 +20,7 @@
 #include "SessionModel.h"
 
 
-std::vector<std::unique_ptr<IParameterTranslator>> ModelPath::m_special_translators;
+std::vector<std::unique_ptr<IParameterTranslator>> ModelPath::m_special_translators {};
 
 QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString prefix)
 {
@@ -73,24 +73,13 @@ std::string ModelPath::translateParameterName(const SessionItem *item, const QSt
     std::ostringstream result;
     auto list = splitParameterName(par_name);
     if (list.isEmpty()) {
-        return std::string();
+        return std::string {};
     }
     auto first_field = list[0];
     result << "/" << translateSingleName(first_field);
     if (list.size() > 1) {
         auto remainder = list[1];
-        auto p_child = item->getChildByName(first_field);
-        if (!p_child) { //search through group items
-            auto groupItems = item->getChildrenOfType(Constants::GroupItemType);
-            for (auto groupItem : groupItems) {
-                if (GroupItem *gItem = dynamic_cast<GroupItem*>(groupItem)) {
-                    if (gItem->group()->getCurrentType() == first_field) {
-                        p_child = gItem->group()->getCurrentItem();
-                        break;
-                    }
-                }
-            }
-        }
+        auto p_child = findChild(item, first_field);
         if (p_child) {
             result << translateParameterName(p_child, remainder);
         }
@@ -182,14 +171,14 @@ QStringList ModelPath::splitParameterName(const QString &par_name)
 QString ModelPath::getFirstField(const QString &par_name)
 {
     QStringList par_list = par_name.split("/");
-    if (par_list.size()==0) return QString();
+    if (par_list.size()==0) return QString {};
     return par_list.front();
 }
 
 QString ModelPath::stripFirstField(const QString &par_name)
 {
     QStringList par_list = par_name.split("/");
-    if (par_list.size()<2) return QString();
+    if (par_list.size()<2) return QString {};
     par_list.removeFirst();
     return par_list.join("/");
 }
@@ -203,5 +192,22 @@ std::string ModelPath::translateSingleName(const QString &name)
         }
     }
     return name.toStdString();
+}
+
+SessionItem* ModelPath::findChild(const SessionItem *item, const QString& first_field)
+{
+    auto p_child = item->getChildByName(first_field);
+    if (!p_child) { //search through group items
+        auto groupItems = item->getChildrenOfType(Constants::GroupItemType);
+        for (auto groupItem : groupItems) {
+            if (GroupItem *gItem = dynamic_cast<GroupItem*>(groupItem)) {
+                if (gItem->group()->getCurrentType() == first_field) {
+                    p_child = gItem->group()->getCurrentItem();
+                    break;
+                }
+            }
+        }
+    }
+    return p_child;
 }
 

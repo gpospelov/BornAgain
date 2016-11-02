@@ -43,6 +43,7 @@ void JobView::onFocusRequest(JobItem *jobItem)
     if(jobItem->runInBackground())
         return;
 
+    setAppropriateActivityForJob(jobItem);
     m_docks->jobSelector()->makeJobItemSelected(jobItem);
 
     emit focusRequest(MainWindow::JOB);
@@ -137,4 +138,16 @@ void JobView::connectJobRelated()
     connect(m_docks->jobSelector(), SIGNAL(selectionChanged(JobItem*)),
             this, SLOT(onSelectionChanged(JobItem*)));
 
+}
+
+//! Sets appropriate activity for new JobItem
+
+void JobView::setAppropriateActivityForJob(JobItem *jobItem)
+{
+    if(m_docks->jobSelector()->currentJobItem() != jobItem) {
+        if(jobItem->isValidForFitting())
+            setActivity(JobViewFlags::FITTING_ACTIVITY);
+//        else
+//            setActivity(JobViewFlags::JOB_VIEW_ACTIVITY);
+    }
 }

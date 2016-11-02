@@ -56,6 +56,8 @@ private:
     void connectLayoutRelated();
     void connectJobRelated();
 
+    void setAppropriateActivityForJob(JobItem *jobItem);
+
     JobViewDocks *m_docks;
     JobActivityStatusBar *m_jobActivityStatusBar;
     JobProgressAssistant *m_progressAssistant;

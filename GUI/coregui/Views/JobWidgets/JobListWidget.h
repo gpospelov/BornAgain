@@ -26,6 +26,8 @@ class JobListViewDelegate;
 class QItemSelectionModel;
 class ItemSelectorWidget;
 class QModelIndex;
+class JobItem;
+class SessionItem;
 
 //! The JobListWidget class contains list view to select job items.
 
@@ -42,15 +44,17 @@ public:
 
     QItemSelectionModel *selectionModel();
 
+    const JobItem *currentJobItem() const;
+
 signals:
     void contextMenuRequest(const QPoint &point, const QModelIndex &index);
-    void selectionChanged(class JobItem *);
+    void selectionChanged(JobItem *);
 
 public slots:
-    void makeJobItemSelected(class JobItem *jobItem);
+    void makeJobItemSelected(JobItem *jobItem);
 
 private slots:
-    void onItemSelectionChanged(class SessionItem *item);
+    void onItemSelectionChanged(SessionItem *item);
 
 private:
     JobListViewDelegate *m_listViewDelegate;

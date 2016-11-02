@@ -222,9 +222,9 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
         ParameterPattern pattern_wavelength;
         pattern_wavelength.beginsWith("*").add(BeamType).add(Wavelength);
         ParameterPattern pattern_alpha;
-        pattern_alpha.beginsWith("*").add(BeamType).add(Alpha);
+        pattern_alpha.beginsWith("*").add(BeamType).add(Inclination);
         ParameterPattern pattern_phi;
-        pattern_phi.beginsWith("*").add(BeamType).add(Phi);
+        pattern_phi.beginsWith("*").add(BeamType).add(Azimuth);
         std::string mainParameterName = distributions[i].getMainParameterName();
         if (mainParameterName == pattern_wavelength.toStdString()) {
             BeamDistributionItem* beamWavelength = dynamic_cast<BeamDistributionItem*>(

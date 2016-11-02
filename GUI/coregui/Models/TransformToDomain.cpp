@@ -367,9 +367,9 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
     ParameterPattern pattern_wavelength;
     pattern_wavelength.beginsWith("*").add(BeamType).add(Wavelength);
     ParameterPattern pattern_alpha;
-    pattern_alpha.beginsWith("*").add(BeamType).add(Alpha);
+    pattern_alpha.beginsWith("*").add(BeamType).add(Inclination);
     ParameterPattern pattern_phi;
-    pattern_phi.beginsWith("*").add(BeamType).add(Phi);
+    pattern_phi.beginsWith("*").add(BeamType).add(Azimuth);
     if (beam_item.modelType() == Constants::BeamType) {
         if (auto beamWavelength
             = dynamic_cast<BeamWavelengthItem*>(beam_item.getItem(BeamItem::P_WAVELENGTH))) {

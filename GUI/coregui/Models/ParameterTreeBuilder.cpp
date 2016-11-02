@@ -100,7 +100,8 @@ void ParameterTreeBuilder::populateDomainLinks(JobItem *jobItem, const QString &
     stack.push(current);
     while (!stack.empty()) {
         current = stack.pop();
-        if (current->modelType() == Constants::ParameterLabelType) {
+        if (current->modelType() == Constants::ParameterLabelType
+                || current->modelType() == Constants::ParameterContainerType) {
             for (SessionItem *child : current->getItems()) {
                 stack.push(child);
             }
@@ -108,7 +109,7 @@ void ParameterTreeBuilder::populateDomainLinks(JobItem *jobItem, const QString &
             if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
                 QString parItemPath = FitParameterHelper::getParameterItemPath(parItem);
                 std::string domainPath = ModelPath::translateParameterName(
-                    jobItem->multiLayerItem()->parent(), parItemPath);
+                    jobItem, parItemPath);
                 parItem->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(domainPath));
             }
         }

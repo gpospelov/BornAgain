@@ -18,16 +18,15 @@
 #define MASKRESULTSPRESENTER_H
 
 #include "MaskEditorFlags.h"
-#include "OutputData.h"
 #include "WinDllMacros.h"
 #include <QModelIndex>
 #include <QObject>
 #include <memory>
 
-
 class SessionModel;
 class ColorMapPlot;
 class IntensityDataItem;
+template<class T> class OutputData;
 
 //! Updates bin values inside IntensityData to display current mask state. Returns IntensityData
 //! to original state when requested.
@@ -51,10 +50,9 @@ private:
     SessionModel *m_maskModel;
     QModelIndex m_maskContainerIndex;
     IntensityDataItem *m_intensityDataItem;
-    std::unique_ptr<OutputData<double> > m_dataBackup;
+    std::unique_ptr<OutputData<double>> m_dataBackup;
     bool m_interpolation_flag_backup;
 };
-
 
 #endif // MASKRESULTSPRESENTER_H
 

@@ -321,6 +321,12 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
 {
+    if(!isDrawingInProgress())
+        return;
+
+    if(m_currentMousePosition == QPointF())
+        return;
+
     if(PolygonView *polygon = currentPolygon()) {
         painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
         painter->drawLine(QLineF(polygon->getLastAddedPoint(), m_currentMousePosition));
@@ -624,6 +630,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
     if(PolygonView *polygon = currentPolygon()) {
         if(polygon->closePolygonIfNecessary()) {
             setDrawingInProgress(false);
+            m_currentMousePosition = QPointF();
             return;
         }
     }

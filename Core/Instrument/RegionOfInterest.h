@@ -23,6 +23,7 @@
 namespace Geometry { class Rectangle; }
 class IDetector2D;
 class IAxis;
+template<class T> class OutputData;
 
 //! Defines rectangular area for the detector which will be simulated/fitted.
 //! @ingroup simulation
@@ -30,7 +31,11 @@ class IAxis;
 class BA_CORE_API_ RegionOfInterest : public ICloneable
 {
 public:
-    RegionOfInterest(const IDetector2D& detector, double xlow, double ylow, double xup, double yup);
+    RegionOfInterest(const IDetector2D& detector,
+                     double xlow, double ylow, double xup, double yup);
+    RegionOfInterest(const OutputData<double> &data,
+                     double xlow, double ylow, double xup, double yup);
+
     RegionOfInterest& operator=(const RegionOfInterest &other) = delete;
     RegionOfInterest *clone() const;
     ~RegionOfInterest();
@@ -57,12 +62,13 @@ public:
     std::unique_ptr<IAxis> clipAxisToRoi(size_t axis_index, const IAxis &axis) const;
 
 private:
+    RegionOfInterest(double xlow, double ylow, double xup, double yup);
     RegionOfInterest(const RegionOfInterest &other);
 
     size_t xcoord(size_t index, const std::vector<size_t> &dims) const;
     size_t ycoord(size_t index, const std::vector<size_t> &dims) const;
 
-    void initFrom(const IDetector2D& detector);
+    void initFrom(const IAxis &x_axis, const IAxis &y_axis);
 
     std::unique_ptr<Geometry::Rectangle> m_rectangle;
     //!< Number of bins on detector axes corresponding to roi-rectanle.

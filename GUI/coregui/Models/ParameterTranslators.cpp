@@ -34,8 +34,8 @@ QStringList PositionTranslator::split(const QString &par_name) const
 
 string PositionTranslator::translate(const QString &name) const
 {
-    auto name_list = name.split(QString("/"));
-    if (name_list.size() > 2) return "";
+    auto name_list = name.split("/");
+    if (name_list.size() > 2) return {};
     if (name_list.size() > 1 && name_list[0] == ParticleItem::P_POSITION) {
         if (name_list[1] == VectorItem::P_X) {
             return BornAgain::PositionX;
@@ -47,9 +47,8 @@ string PositionTranslator::translate(const QString &name) const
             return BornAgain::PositionZ;
         }
     }
-    return "";
+    return {};
 }
-
 
 QStringList RotationTranslator::split(const QString &par_name) const
 {
@@ -63,27 +62,28 @@ QStringList RotationTranslator::split(const QString &par_name) const
 
 string RotationTranslator::translate(const QString &name) const
 {
-    auto name_list = name.split(QString("/"));
-    if (name_list.size() > 3) return "";
+    QStringList name_list = name.split("/");
+    string separator {"/"};
+    if (name_list.size() > 3) return {};
     if (name_list.size() == 3 && name_list[0] == Constants::TransformationType) {
         if (name_list[1] == Constants::XRotationType) {
-            return BornAgain::XRotationType + string("/") + BornAgain::Angle;
+            return BornAgain::XRotationType + separator + BornAgain::Angle;
         }
         if (name_list[1] == Constants::YRotationType) {
-            return BornAgain::YRotationType + string("/") + BornAgain::Angle;
+            return BornAgain::YRotationType + separator + BornAgain::Angle;
         }
         if (name_list[1] == Constants::ZRotationType) {
-            return BornAgain::ZRotationType + string("/") + BornAgain::Angle;
+            return BornAgain::ZRotationType + separator + BornAgain::Angle;
         }
         if (name_list[1] == Constants::EulerRotationType) {
             if (name_list[2] == EulerRotationItem::P_ALPHA) {
-                return BornAgain::EulerRotationType + string("/") + BornAgain::Alpha;
+                return BornAgain::EulerRotationType + separator + BornAgain::Alpha;
             } else if (name_list[2] == EulerRotationItem::P_BETA) {
-                return BornAgain::EulerRotationType + string("/") + BornAgain::Beta;
+                return BornAgain::EulerRotationType + separator + BornAgain::Beta;
             } else if (name_list[2] == EulerRotationItem::P_GAMMA) {
-                return BornAgain::EulerRotationType + string("/") + BornAgain::Gamma;
+                return BornAgain::EulerRotationType + separator + BornAgain::Gamma;
             }
         }
     }
-    return "";
+    return {};
 }

@@ -55,7 +55,10 @@ bool GUITranslationTest::runTest()
 {
     processParameterTree();
     bool success = checkExistingTranslations();
-    success &= checkMissedTranslations();
+
+    // Uncomment line below to check missed translation (i.e. when fit parameter exist in domain
+    // but doesn't exist in GUI (like thickness of top layer)
+    //success &= checkMissedTranslations();
 
     if(!success) {
         std::cout << "GUITranslationTest failed: " << m_simulationName
@@ -112,7 +115,8 @@ void GUITranslationTest::processParameterTree()
 
 }
 
-//! Validates GUI translations against simulation parameters.
+//! Validates GUI translations against simulation parameters. Tries to retrieve fit parameter
+//! from domain parameter pool using translated name.
 
 bool GUITranslationTest::checkExistingTranslations()
 {
@@ -135,8 +139,8 @@ bool GUITranslationTest::checkExistingTranslations()
         std::cout << "Translation doesn't match domain parameters:" << std::endl;
         std::cout << std::string(80, '-') << std::endl;
         for(auto pair : wrong_translations) {
-            std::cout << "gui    : " << pair.guiName << std::endl;
-            std::cout << "domain : " << pair.translatedName << std::endl;
+            std::cout << "gui         : " << pair.guiName << std::endl;
+            std::cout << "translation : " << pair.translatedName << std::endl;
             std::cout << std::string(8, '-') << std::endl;
         }
     }

@@ -17,6 +17,7 @@
 #include "ModelPath.h"
 #include "GroupItem.h"
 #include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
 #include "SessionModel.h"
 #include "JobItem.h"
 
@@ -241,6 +242,10 @@ bool ModelPath::isTranslatable(const SessionItem *item, const QString &par_name)
 {
     Q_UNUSED(item);
     if(par_name.contains(Constants::DetectorType))
+        return false;
+    if(par_name.contains(ParticleItem::P_ABUNDANCE))
+        return false;
+    if(par_name.contains(ParticleLayoutItem::P_TOTAL_DENSITY))
         return false;
 
     return true;

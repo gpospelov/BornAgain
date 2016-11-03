@@ -94,17 +94,18 @@ void GUITranslationTest::processParameterTree()
         current = stack.pop();
         if (current->modelType() == Constants::ParameterLabelType
                 || current->modelType() == Constants::ParameterContainerType) {
-            for (SessionItem *child : current->getItems()) {
+            for (SessionItem *child : current->getItems())
                 stack.push(child);
-            }
+
         } else {
             if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
-                std::string guiName = parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
-                std::string domainName = std::string("*") + parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
-                m_translations.push_back({guiName, domainName});
-                qDebug() << "link" << parItem->getItemValue(ParameterItem::P_LINK).toString();
-                qDebug() << "domain" << parItem->getItemValue(ParameterItem::P_DOMAIN).toString();
-                qDebug() << "---";
+                if(parItem->isFittable()) {
+                    std::string guiName =
+                            parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
+                    std::string domainName = std::string("*") +
+                            parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
+                    m_translations.push_back({guiName, domainName});
+                }
             }
         }
     }

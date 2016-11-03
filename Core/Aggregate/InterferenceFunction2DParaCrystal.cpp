@@ -166,7 +166,7 @@ void InterferenceFunction2DParaCrystal::init_parameters()
 {
     registerParameter(LatticeLength1, &m_lattice_params.m_length_1).setUnit("nm");
     registerParameter(LatticeLength2, &m_lattice_params.m_length_2).setUnit("nm");
-    registerParameter(Alpha, &m_lattice_params.m_angle).setUnit("rad");
+    registerParameter(LatticeAngle, &m_lattice_params.m_angle).setUnit("rad");
     registerParameter(Xi, &m_lattice_params.m_xi).setUnit("rad");
     registerParameter(DampingLength, &m_damping_length).setUnit("nm").setNonnegative();
     registerParameter(DomainSize1, &m_domain_sizes[0]).setUnit("nm").setNonnegative();

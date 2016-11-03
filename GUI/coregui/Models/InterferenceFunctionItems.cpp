@@ -16,6 +16,8 @@
 
 #include "InterferenceFunctionItems.h"
 #include "BornAgainNamespace.h"
+#include "ParameterTranslators.h"
+#include "ModelPath.h"
 #include "Units.h"
 
 const QString InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE =
@@ -77,6 +79,9 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
     getItem(P_ROTATION_ANGLE)->setEnabled(false);
     addGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
     addGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
+
+    LatticeTypeTranslator lattice_translator;
+    ModelPath::addParameterTranslator(lattice_translator);
 
     mapper()->setOnPropertyChange(
         [this](const QString &name) {

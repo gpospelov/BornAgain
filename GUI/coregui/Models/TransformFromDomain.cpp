@@ -222,9 +222,9 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
         ParameterPattern pattern_wavelength;
         pattern_wavelength.beginsWith("*").add(BeamType).add(Wavelength);
         ParameterPattern pattern_alpha;
-        pattern_alpha.beginsWith("*").add(BeamType).add(Alpha);
+        pattern_alpha.beginsWith("*").add(BeamType).add(Inclination);
         ParameterPattern pattern_phi;
-        pattern_phi.beginsWith("*").add(BeamType).add(Phi);
+        pattern_phi.beginsWith("*").add(BeamType).add(Azimuth);
         std::string mainParameterName = distributions[i].getMainParameterName();
         if (mainParameterName == pattern_wavelength.toStdString()) {
             BeamDistributionItem* beamWavelength = dynamic_cast<BeamDistributionItem*>(
@@ -548,14 +548,15 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributi
 QString TransformFromDomain::translateParameterNameToGUI(SessionItem* item,
                                                          const QString& par_name)
 {
-    auto gui_par_list = ModelPath::getParameterTreeList(item);
-    for (auto gui_par_name : gui_par_list) {
-        auto domain_par_name = QString::fromStdString(ModelPath::translateParameterName(item, gui_par_name));
+    QStringList gui_par_list = ModelPath::getParameterTreeList(item);
+    for (QString gui_par_name : gui_par_list) {
+        QString domain_par_name = QString::fromStdString(
+                    ModelPath::translateParameterName(item, gui_par_name));
         if (domain_par_name == par_name) {
             return gui_par_name;
         }
     }
-    return QString();
+    return {};
 }
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)

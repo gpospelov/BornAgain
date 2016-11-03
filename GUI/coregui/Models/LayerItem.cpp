@@ -15,9 +15,10 @@
 // ************************************************************************** //
 
 #include "LayerItem.h"
+#include "BornAgainNamespace.h"
 #include "MaterialUtils.h"
 
-const QString LayerItem::P_THICKNESS = "Thickness";
+const QString LayerItem::P_THICKNESS = QString::fromStdString(BornAgain::Thickness);
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
 const QString LayerItem::T_LAYOUTS = "Layout tag";

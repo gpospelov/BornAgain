@@ -15,9 +15,11 @@
 // ************************************************************************** //
 
 #include "MultiLayerItem.h"
+#include "BornAgainNamespace.h"
 #include "LayerItem.h"
 
-const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
+const QString MultiLayerItem::P_CROSS_CORR_LENGTH =
+        QString::fromStdString(BornAgain::CrossCorrelationLength);
 const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
 MultiLayerItem::MultiLayerItem()

@@ -45,7 +45,7 @@ void MultiLayerItem::updateLayers()
         } else {
             (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(true);
         }
-        if(it == list.begin() || it == list.end()) {
+        if(it == list.begin() || it == (list.end()-1)) {
             (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(false);
         } else {
             (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(true);

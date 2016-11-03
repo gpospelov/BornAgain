@@ -25,6 +25,7 @@ bool run_tests() {
 //        {"BasicGISAS", "Lattice1DBuilder"},
         {"BasicGISAS", "Basic2DParaCrystalBuilder"}
 //        {"BasicGISAS", "Basic2DLatticeBuilder"}
+//        {"BasicGISAS", "SquareLatticeBuilder"}
     };
 
     bool success(true);

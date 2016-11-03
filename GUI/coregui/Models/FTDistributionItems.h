@@ -87,8 +87,8 @@ class BA_CORE_API_ FTDistribution2DItem : public SessionItem
 {
 
 public:
-    static const QString P_CORR_LENGTH_X;
-    static const QString P_CORR_LENGTH_Y;
+    static const QString P_COHER_LENGTH_X;
+    static const QString P_COHER_LENGTH_Y;
     static const QString P_GAMMA;
     explicit FTDistribution2DItem(const QString name)
         : SessionItem(name) {

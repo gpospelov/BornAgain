@@ -99,7 +99,7 @@ public:
     double getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
     //! Sets thickness of layer.
-    void setLayerThickness(size_t i_layer, double thickness);
+    void setLayerThickness(size_t i_layer, double thickness); // TODO: remove this function!
 
     //! Prints class
     friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m) {

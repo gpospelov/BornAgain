@@ -1,0 +1,49 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Sample}\label{SRefSam}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Multilayer}\label{SRefMuLay}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Samples in BornAgain are always of type \ttIdx{MultiLayer}.
+
+\setCpp
+\begin{lstlisting}
+class MultiLayer {
+    MultiLayer(); // constructor
+    void addLayer(const Layer& p_child);
+    void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
+};
+\end{lstlisting}
+
+A \texttt{MultiLayer} consists of one or more layers,
+numbered from top to bottom as shown in~\cref{Fdefz}.
+The function \clFct{MultiLayer}{addLayer} or \clFct{MultiLayer}{addLayerWithTopRoughness}
+inserts one \ttIdx{Layer} at the high-index, low-$z$ end.
+
+The \texttt{Layer} API is documented in~\cref{SRefLayer},
+the \ttIdx{LayerRoughness} in~\cref{SRefRough}.
+
+A minimal sample, consisting of a substrate under air,
+can be constructed with the following Python code:
+
+\setPy
+\begin{lstlisting}
+sample = MultiLayer()
+sample.addLayer(air_layer)
+sample.addLayer(substrate_layer)
+\end{lstlisting}

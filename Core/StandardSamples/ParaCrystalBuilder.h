@@ -17,6 +17,7 @@
 #define PARACRYSTALBUILDER_H
 
 #include "IMultiLayerBuilder.h"
+#include <memory>
 
 class IFTDistribution2D;
 class ISample;
@@ -54,7 +55,8 @@ public:
     virtual ~Basic2DParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
 private:
-    IFTDistribution2D* m_pdf1;
+    std::unique_ptr<IFTDistribution2D> m_pdf1;
+    std::unique_ptr<IFTDistribution2D> m_pdf2;
 };
 
 //! @class HexParaCrystalBuilder

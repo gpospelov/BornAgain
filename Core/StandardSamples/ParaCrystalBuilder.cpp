@@ -79,16 +79,15 @@ void RadialParaCrystalBuilder::init_parameters()
 
 Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
     : m_pdf1(new FTDistribution2DCauchy(0.1*Units::nanometer, 0.2*Units::nanometer))
+    , m_pdf2(new FTDistribution2DCauchy(0.3*Units::nanometer, 0.4*Units::nanometer))
 {}
 
 Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
 {
-    delete m_pdf1;
 }
 
 MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
 {
-    const IFTDistribution2D* pdf2 = getFTDistribution2D();
     MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -105,7 +104,11 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     interference_function.setDomainSizes(20.0*Units::micrometer,
             40.0*Units::micrometer);
 
-    interference_function.setProbabilityDistributions(*m_pdf1, *pdf2);
+    if(const IFTDistribution2D* pdf2 = getFTDistribution2D())
+        interference_function.setProbabilityDistributions(*m_pdf1, *pdf2);
+    else
+        interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
+
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
 

@@ -235,9 +235,9 @@ string ModelPath::stripDistributionNone(const string &name)
 }
 
 //! Returns true when we know how to translate ParameterItem link to domain name.
-// TODO: item #1623, remove this hack when refactoring name translations
+// TODO: item #1623, item #1624 remove this hack when refactoring name translations
 // Function is intended to disalow drag-and-drop of ParameterItem onto FitParameterItem
-// for non-implemented or senseless translations.
+// for non-implemented  or senseless translations (in GUI)
 bool ModelPath::isTranslatable(const SessionItem *item, const QString &par_name)
 {
     Q_UNUSED(item);
@@ -246,6 +246,8 @@ bool ModelPath::isTranslatable(const SessionItem *item, const QString &par_name)
     if(par_name.contains(ParticleItem::P_ABUNDANCE))
         return false;
     if(par_name.contains(ParticleLayoutItem::P_TOTAL_DENSITY))
+        return false;
+    if(par_name.contains("FTDistribution1D") || par_name.contains("FTDecayFunction"))
         return false;
 
     return true;

@@ -25,6 +25,42 @@
 #include "RealParameter.h"
 #include "Units.h"
 
+MultiLayer *Basic2DLatticeBuilder::buildSample() const
+{
+    MultiLayer* multi_layer = new MultiLayer();
+
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    std::unique_ptr<InterferenceFunction2DLattice> P_interference_function(
+                new InterferenceFunction2DLattice(5.0*Units::nanometer, 10.0*Units::nanometer,
+                                                  30.0*Units::deg, 10.0*Units::deg));
+
+    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                                100.0*Units::nanometer/2.0/M_PI);
+    P_interference_function->setDecayFunction(pdf);
+
+    // particles
+    ParticleLayout particle_layout;
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    Particle particle(particle_material, ff_cyl);
+    particle_layout.addParticle(particle, 1.0);
+
+    particle_layout.addInterferenceFunction(*P_interference_function);
+
+    air_layer.addLayout(particle_layout);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+
+
 // -----------------------------------------------------------------------------
 // lattice #1:
 // -----------------------------------------------------------------------------
@@ -141,3 +177,4 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 
     return multi_layer;
 }
+

@@ -110,4 +110,6 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
     addGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
     addProperty(P_ROTATION_ANGLE, 0.0);
     addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction2DGroup);
+    LatticeTypeTranslator lattice_translator;
+    ModelPath::addParameterTranslator(lattice_translator);
 }

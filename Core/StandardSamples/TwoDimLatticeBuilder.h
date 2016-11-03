@@ -18,6 +18,17 @@
 
 #include "IMultiLayerBuilder.h"
 
+//! Builds sample: 2D lattice with arbitrary angle and different lattice length_1 and length_2.
+//! @ingroup standard_samples
+
+class BA_CORE_API_ Basic2DLatticeBuilder : public IMultiLayerBuilder
+{
+public:
+    Basic2DLatticeBuilder(){}
+    MultiLayer* buildSample() const;
+};
+
+
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 

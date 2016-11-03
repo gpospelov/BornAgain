@@ -119,7 +119,7 @@ std::string InterferenceFunction2DLattice::addParametersToExternalPool(
 
     // add parameters of the probability density function
     if (mp_pdf)
-        mp_pdf->addParametersToExternalPool(new_path, external_pool, 0);
+        mp_pdf->addParametersToExternalPool(new_path, external_pool, -1);
     return new_path;
 }
 

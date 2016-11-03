@@ -27,18 +27,23 @@
 #include "JobItem.h"
 #include "ParameterTreeBuilder.h"
 #include "ParameterTreeItems.h"
+#include "ParameterPool.h"
+#include "GUIHelpers.h"
+#include "StringUtils.h"
 #include <QStack>
 #include <QDebug>
 
 
-GUITranslationTest::GUITranslationTest()
+GUITranslationTest::GUITranslationTest(const std::string &simName, const std::string &sampleName)
     : m_models(new ApplicationModels(0))
+    , m_simulationName(simName)
+    , m_sampleName(sampleName)
 {
     SimulationFactory simFactory;
-    m_simulation.reset(simFactory.createItem("BasicGISAS"));
+    m_simulation.reset(simFactory.createItem(m_simulationName));
 
     SampleBuilderFactory sampleFactory;
-    m_simulation->setSample(*sampleFactory.createSample("CylindersAndPrismsBuilder"));
+    m_simulation->setSample(*sampleFactory.createSample(m_sampleName));
 }
 
 GUITranslationTest::~GUITranslationTest()
@@ -49,9 +54,20 @@ GUITranslationTest::~GUITranslationTest()
 bool GUITranslationTest::runTest()
 {
     processParameterTree();
-    m_simulation->printParameters();
-    return true;
+    bool success = checkExistingTranslations();
+    success &= checkMissedTranslations();
+
+    if(!success) {
+        std::cout << "GUITranslationTest failed: " << m_simulationName
+                  << " " << m_sampleName << std::endl;
+        std::cout << "Available simulation parameters" << std::endl;
+        m_simulation->printParameters();
+    }
+
+    return success;
 }
+
+//! Runs through GUI models and constructs list of available domain fit parameters names.
 
 void GUITranslationTest::processParameterTree()
 {
@@ -68,7 +84,10 @@ void GUITranslationTest::processParameterTree()
                 0,
                 m_models->documentModel()->getSimulationOptionsItem());
 
-    SessionItem *current = jobItem->getItem(JobItem::T_PARAMETER_TREE); // this is container
+    ParameterTreeBuilder::populateDomainLinks(jobItem, JobItem::T_PARAMETER_TREE);
+
+    SessionItem *current = jobItem->getItem(JobItem::T_PARAMETER_TREE);
+
     QStack<SessionItem *> stack;
     stack.push(current);
     while (!stack.empty()) {
@@ -80,6 +99,9 @@ void GUITranslationTest::processParameterTree()
             }
         } else {
             if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
+                std::string guiName = parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
+                std::string domainName = std::string("*") + parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
+                m_translations.push_back({guiName, domainName});
                 qDebug() << "link" << parItem->getItemValue(ParameterItem::P_LINK).toString();
                 qDebug() << "domain" << parItem->getItemValue(ParameterItem::P_DOMAIN).toString();
                 qDebug() << "---";
@@ -87,4 +109,75 @@ void GUITranslationTest::processParameterTree()
         }
     }
 
+}
+
+//! Validates GUI translations against simulation parameters.
+
+bool GUITranslationTest::checkExistingTranslations()
+{
+    if(m_translations.empty())
+        throw GUIHelpers::Error("GUITranslationTest::validateParameterTree() -> Error. "
+                                "Empty list of translations.");
+
+    std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
+    std::vector<name_pair> wrong_translations;
+    for(auto pair : m_translations) {
+        try {
+            pool->getMatchedParameters(pair.translatedName);
+        } catch (const std::runtime_error &/*ex*/) {
+            wrong_translations.push_back(pair);
+        }
+    }
+
+    if(wrong_translations.size() > 0) {
+        std::cout << std::string(80, '-') << std::endl;
+        std::cout << "Translation doesn't match domain parameters:" << std::endl;
+        std::cout << std::string(80, '-') << std::endl;
+        for(auto pair : wrong_translations) {
+            std::cout << "gui    : " << pair.guiName << std::endl;
+            std::cout << "domain : " << pair.translatedName << std::endl;
+            std::cout << std::string(8, '-') << std::endl;
+        }
+    }
+
+    bool isSuccess = (wrong_translations.empty() ? true : false);
+    return isSuccess;
+}
+
+//! Checks if all simulation parameters have translation.
+
+bool GUITranslationTest::checkMissedTranslations()
+{
+    if(m_translations.empty())
+        throw GUIHelpers::Error("GUITranslationTest::validateParameterTree() -> Error. "
+                                "Empty list of translations.");
+
+    std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
+    std::vector<std::string> domainNames = pool->getParameterNames();
+    std::vector<std::string> missedNames;
+    for(auto name : domainNames) {
+        std::string domainName = "*" + Utils::String::removeSubstring(name, "/GISASSimulation");
+        bool translationFound(false);
+        for(auto pair : m_translations) {
+            if(pair.translatedName == domainName) {
+                translationFound = true;
+                break;
+            }
+        }
+        if(!translationFound) {
+            missedNames.push_back(name);
+        }
+    }
+
+    if(missedNames.size() > 1) {
+        std::cout << std::string(80, '-') << std::endl;
+        std::cout << "Translation doesn't exist:" << std::endl;
+        std::cout << std::string(80, '-') << std::endl;
+        for(auto name : missedNames) {
+            std::cout << "domain : " << name << std::endl;
+        }
+    }
+
+    bool isSuccess = (missedNames.empty() ? true : false);
+    return isSuccess;
 }

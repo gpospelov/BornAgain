@@ -17,8 +17,20 @@
 #include <iostream>
 #include "GUITranslationTest.h"
 
+bool run_tests() {
+
+    std::vector<std::pair<std::string, std::string>> conditions = {
+        {"BasicGISAS", "CylindersAndPrismsBuilder"}
+    };
+
+    bool success(true);
+    for(auto pair: conditions)
+        success &= GUITranslationTest(pair.first, pair.second).runTest();
+
+    return success;
+}
+
 int main(int , char**)
 {
-    GUITranslationTest test;
-    return test.runTest() ? 0 : 1;
+    return run_tests() == true ? 0 : 1;
 }

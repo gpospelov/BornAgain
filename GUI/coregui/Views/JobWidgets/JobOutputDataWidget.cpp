@@ -58,17 +58,14 @@ void JobOutputDataWidget::setItem(JobItem * jobItem)
         JobResultsPresenter *widget = m_stackedWidget->currentWidget();
         Q_ASSERT(widget);
         widget->setItem(jobItem);
+        if(jobItem->isValidForFitting())
+            widget->setPresentation(Constants::FitComparisonWidgetName);
+
     }
 }
 
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
-    Q_UNUSED(activity);
-//    if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-//        if(auto widget = currentOutputDataWidget())
-//            widget->setPropertyPanelVisible(false);
-//    }
-
     if(auto widget = m_stackedWidget->currentWidget()) {
         if(activity == JobViewFlags::FITTING_ACTIVITY) {
             widget->setPresentation(Constants::FitComparisonWidgetName);

@@ -23,19 +23,18 @@
 #include "LatticeTypeItems.h"
 #include <QDebug>
 
-using std::string;
-
-QStringList PositionTranslator::split(const QString& par_name) const
+QStringList IParameterTranslator::split(const QString &par_name) const
 {
     QStringList result;
-    string position_name = translate(par_name);
-    if (!position_name.empty()) {
+
+    std::string translated_name = translate(par_name);
+    if (!translated_name.empty())
         result << par_name;
-    }
+
     return result;
 }
 
-string PositionTranslator::translate(const QString& name) const
+std::string PositionTranslator::translate(const QString& name) const
 {
     QStringList name_list = name.split("/");
     if (name_list.size() > 2) return {};
@@ -53,17 +52,7 @@ string PositionTranslator::translate(const QString& name) const
     return {};
 }
 
-QStringList LatticeTypeTranslator::split(const QString& par_name) const
-{
-    QStringList result;
-    string position_name = translate(par_name);
-    if (!position_name.empty()) {
-        result << par_name;
-    }
-    return result;
-}
-
-string LatticeTypeTranslator::translate(const QString& name) const
+std::string LatticeTypeTranslator::translate(const QString& name) const
 {
     QStringList name_list = name.split("/");
     if (name_list.size() != 2) return {};
@@ -90,20 +79,10 @@ string LatticeTypeTranslator::translate(const QString& name) const
     return {};
 }
 
-QStringList RotationTranslator::split(const QString& par_name) const
-{
-    QStringList result;
-    string rotation_name = translate(par_name);
-    if (!rotation_name.empty()) {
-        result << par_name;
-    }
-    return result;
-}
-
-string RotationTranslator::translate(const QString& name) const
+std::string RotationTranslator::translate(const QString& name) const
 {
     QStringList name_list = name.split("/");
-    string separator {"/"};
+    std::string separator {"/"};
     if (name_list.size() > 3) return {};
     if (name_list.size() == 3 && name_list[0] == Constants::TransformationType) {
         if (name_list[1] == Constants::XRotationType) {

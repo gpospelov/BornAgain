@@ -602,9 +602,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         = dynamic_cast<const FTDistribution2DCauchy*>(pdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DCauchyType);
-        pdfItem->setItemValue(FTDistribution2DCauchyItem::P_CORR_LENGTH_X,
+        pdfItem->setItemValue(FTDistribution2DCauchyItem::P_COHER_LENGTH_X,
                                        pdf_cauchy->getCoherenceLengthX());
-        pdfItem->setItemValue(FTDistribution2DCauchyItem::P_CORR_LENGTH_Y,
+        pdfItem->setItemValue(FTDistribution2DCauchyItem::P_COHER_LENGTH_Y,
                                        pdf_cauchy->getCoherenceLengthY());
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_GAMMA,
                                        Units::rad2deg(pdf_cauchy->getGamma()));
@@ -612,9 +612,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
                = dynamic_cast<const FTDistribution2DGauss*>(pdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DGaussType);
-        pdfItem->setItemValue(FTDistribution2DGaussItem::P_CORR_LENGTH_X,
+        pdfItem->setItemValue(FTDistribution2DGaussItem::P_COHER_LENGTH_X,
                                        pdf_gauss->getCoherenceLengthX());
-        pdfItem->setItemValue(FTDistribution2DGaussItem::P_CORR_LENGTH_Y,
+        pdfItem->setItemValue(FTDistribution2DGaussItem::P_COHER_LENGTH_Y,
                                        pdf_gauss->getCoherenceLengthY());
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_GAMMA,
                                        Units::rad2deg(pdf_gauss->getGamma()));
@@ -622,9 +622,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
                = dynamic_cast<const FTDistribution2DGate*>(pdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DGateType);
-        pdfItem->setItemValue(FTDistribution2DGateItem::P_CORR_LENGTH_X,
+        pdfItem->setItemValue(FTDistribution2DGateItem::P_COHER_LENGTH_X,
                                        pdf_gate->getCoherenceLengthX());
-        pdfItem->setItemValue(FTDistribution2DGateItem::P_CORR_LENGTH_Y,
+        pdfItem->setItemValue(FTDistribution2DGateItem::P_COHER_LENGTH_Y,
                                        pdf_gate->getCoherenceLengthY());
         pdfItem->setItemValue(FTDistribution2DGateItem::P_GAMMA,
                                        Units::rad2deg(pdf_gate->getGamma()));
@@ -632,9 +632,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
                = dynamic_cast<const FTDistribution2DCone*>(pdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DConeType);
-        pdfItem->setItemValue(FTDistribution2DConeItem::P_CORR_LENGTH_X,
+        pdfItem->setItemValue(FTDistribution2DConeItem::P_COHER_LENGTH_X,
                                        pdf_cone->getCoherenceLengthX());
-        pdfItem->setItemValue(FTDistribution2DConeItem::P_CORR_LENGTH_Y,
+        pdfItem->setItemValue(FTDistribution2DConeItem::P_COHER_LENGTH_Y,
                                        pdf_cone->getCoherenceLengthY());
         pdfItem->setItemValue(FTDistribution2DConeItem::P_GAMMA,
                                        Units::rad2deg(pdf_cone->getGamma()));
@@ -642,9 +642,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
                = dynamic_cast<const FTDistribution2DVoigt*>(pdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DVoigtType);
-        pdfItem->setItemValue(FTDistribution2DVoigtItem::P_CORR_LENGTH_X,
+        pdfItem->setItemValue(FTDistribution2DVoigtItem::P_COHER_LENGTH_X,
                                        pdf_voigt->getCoherenceLengthX());
-        pdfItem->setItemValue(FTDistribution2DVoigtItem::P_CORR_LENGTH_Y,
+        pdfItem->setItemValue(FTDistribution2DVoigtItem::P_COHER_LENGTH_Y,
                                        pdf_voigt->getCoherenceLengthY());
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_GAMMA,
                                        Units::rad2deg(pdf_voigt->getGamma()));

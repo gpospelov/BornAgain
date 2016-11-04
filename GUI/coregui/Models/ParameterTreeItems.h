@@ -42,6 +42,8 @@ public:
     ParameterItem();
     void propagateValueLink(bool backup = false);
     SessionItem *getLinkedItem();
+
+    bool isFittable() const;
 };
 
 //! The ParameterContainerItem is a top item to hold all ParameterItem, represents an entry

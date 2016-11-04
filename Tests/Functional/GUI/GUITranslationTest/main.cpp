@@ -17,8 +17,25 @@
 #include <iostream>
 #include "GUITranslationTest.h"
 
+bool run_tests() {
+
+    std::vector<std::pair<std::string, std::string>> conditions = {
+//        {"BasicGISAS", "CylindersAndPrismsBuilder"},
+//        {"BasicGISAS", "RadialParaCrystalBuilder"},
+//        {"BasicGISAS", "Lattice1DBuilder"},
+        {"BasicGISAS", "Basic2DParaCrystalBuilder"}
+//        {"BasicGISAS", "Basic2DLatticeBuilder"}
+//        {"BasicGISAS", "SquareLatticeBuilder"}
+    };
+
+    bool success(true);
+    for(auto pair: conditions)
+        success &= GUITranslationTest(pair.first, pair.second).runTest();
+
+    return success;
+}
+
 int main(int , char**)
 {
-    GUITranslationTest test;
-    return test.runTest() ? 0 : 1;
+    return run_tests() == true ? 0 : 1;
 }

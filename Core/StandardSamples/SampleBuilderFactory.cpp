@@ -92,6 +92,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Interference function of 2D rectangular paracrystal");
 
     registerItem(
+        "Basic2DLatticeBuilder",
+        create_new<Basic2DLatticeBuilder>,
+        "Square lattice with arbitrary parameters");
+
+    registerItem(
         "SquareLatticeBuilder",
         create_new<SquareLatticeBuilder>,
         "Interference of square lattice with disordered");

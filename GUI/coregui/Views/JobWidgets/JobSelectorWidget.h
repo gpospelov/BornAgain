@@ -46,6 +46,8 @@ public:
     QSize sizeHint() const { return QSize(210, 600); }
     QSize minimumSizeHint() const { return QSize(64, 300); }
 
+    const JobItem *currentJobItem() const;
+
 signals:
     void selectionChanged(JobItem *);
 

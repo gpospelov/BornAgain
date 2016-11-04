@@ -17,6 +17,7 @@
 #include "ModelPath.h"
 #include "GroupItem.h"
 #include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
 #include "SessionModel.h"
 #include "JobItem.h"
 
@@ -221,7 +222,7 @@ SessionItem* ModelPath::findChild(const SessionItem *item, const QString& first_
     return p_child;
 }
 
-// TODO: remove this hack when refactoring name translations
+// TODO: item #1623, remove this hack when refactoring name translations
 string ModelPath::stripDistributionNone(const string &name)
 {
     const string distribution_none { "/DistributionNone/Value" };
@@ -231,4 +232,35 @@ string ModelPath::stripDistributionNone(const string &name)
         return name.substr(0, name.length()-distribution_none.length());
     }
     return name;
+}
+
+//! Returns true when we know how to translate ParameterItem link to domain name.
+// TODO: item #1623, item #1624 remove this hack when refactoring name translations
+// Function is intended to disalow drag-and-drop of ParameterItem onto FitParameterItem
+// for non-implemented  or senseless translations (in GUI)
+bool ModelPath::isTranslatable(const SessionItem *item, const QString &par_name)
+{
+    Q_UNUSED(item);
+    if(par_name.contains(Constants::DetectorType))
+        return false;
+    if(par_name.contains(ParticleItem::P_ABUNDANCE))
+        return false;
+    if(par_name.contains(ParticleLayoutItem::P_TOTAL_DENSITY))
+        return false;
+    if(par_name.contains("FTDistribution1D") || par_name.contains("FTDecayFunction1D"))
+        return false;
+
+    return true;
+}
+
+//! Returns ancestor of given modelType for given item.
+//! For example, returns corresponding jobItem owning ParameterItem via ParameterContainer.
+
+const SessionItem* ModelPath::ancestor(const SessionItem *item, const QString &requiredModelType)
+{
+    const SessionItem *cur = item;
+    while (cur && cur->modelType() != requiredModelType)
+        cur = cur->parent();
+
+    return cur;
 }

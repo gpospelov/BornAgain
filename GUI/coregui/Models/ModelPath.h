@@ -50,6 +50,10 @@ public:
 
     static bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
 
+    static bool isTranslatable(const SessionItem *item, const QString &par_name);
+
+    static const SessionItem *ancestor(const SessionItem *item, const QString& requiredModelType);
+
 private:
 
     static QStringList splitParameterName(const QString& par_name);

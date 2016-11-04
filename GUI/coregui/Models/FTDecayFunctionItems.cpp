@@ -16,14 +16,20 @@
 
 #include "FTDecayFunctionItems.h"
 #include "Units.h"
+#include "BornAgainNamespace.h"
 
-const QString FTDecayFunction1DItem::P_DECAY_LENGTH = "Decay Length";
-const QString FTDecayFunction1DVoigtItem::P_ETA = "Eta";
-
-const QString FTDecayFunction2DItem::P_DECAY_LENGTH_X = "Decay Length X";
-const QString FTDecayFunction2DItem::P_DECAY_LENGTH_Y = "Decay Length Y";
-const QString FTDecayFunction2DItem::P_GAMMA = "Gamma";
-const QString FTDecayFunction2DVoigtItem::P_ETA = "Eta";
+const QString FTDecayFunction1DItem::P_DECAY_LENGTH
+    = QString::fromStdString(BornAgain::DecayLengthX);
+const QString FTDecayFunction1DVoigtItem::P_ETA
+    = QString::fromStdString(BornAgain::Eta);
+const QString FTDecayFunction2DItem::P_DECAY_LENGTH_X
+    = QString::fromStdString(BornAgain::DecayLengthX);
+const QString FTDecayFunction2DItem::P_DECAY_LENGTH_Y
+    = QString::fromStdString(BornAgain::DecayLengthY);
+const QString FTDecayFunction2DItem::P_GAMMA
+    = QString::fromStdString(BornAgain::Gamma);
+const QString FTDecayFunction2DVoigtItem::P_ETA
+    = QString::fromStdString(BornAgain::Eta);
 
 using namespace Constants;
 

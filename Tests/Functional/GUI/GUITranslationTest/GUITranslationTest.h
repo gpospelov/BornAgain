@@ -19,24 +19,42 @@
 
 #include "IFunctionalTest.h"
 #include <memory>
+#include <vector>
+#include <string>
+#include <map>
 
 class GISASSimulation;
 class ApplicationModels;
 
+//! Functional test to validate translation mechanism of GUI names into domain fit parameter names.
+//! * Constructs domain simulation using given sample builder and simulation name.
+//! * Converts domain simulation into GUI model presentation.
+//! * Constructs list of GUI fittable parameters, and then translate their names into domain names.
+//! * Complains, if translated names doesn't match registered parameters of domain simulation.
+//! * Complains, if simulation contains parameters which do not have translations.
+
 class GUITranslationTest : public IFunctionalTest
 {
 public:
-    GUITranslationTest();
+    GUITranslationTest(const std::string &simName, const std::string &sampleName);
 
     ~GUITranslationTest();
     bool runTest();
 
-
 private:
-    void processParameterTree();
+    struct name_pair {
+        std::string guiName;
+        std::string translatedName;
+    };
 
+    void processParameterTree();
+    bool checkExistingTranslations();
+    bool checkMissedTranslations();
     std::unique_ptr<GISASSimulation> m_simulation;
     std::unique_ptr<ApplicationModels> m_models;
+    //!< Vector of GUI parameter names and their translations to domain parameter names.
+    std::vector<name_pair> m_translations;
+    std::string m_simulationName, m_sampleName;
 };
 
 #endif

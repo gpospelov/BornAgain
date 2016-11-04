@@ -84,3 +84,11 @@ std::string Utils::String::join(const std::vector<std::string>& joinable, const 
     result += joinable[n-1];
     return result;
 }
+
+std::string Utils::String::removeSubstring(const std::string &text, const std::string &substr)
+{
+    std::string result = text;
+    for(std::string::size_type i=result.find(substr); i!=std::string::npos; i=result.find(substr))
+        result.erase(i, substr.length());
+    return result;
+}

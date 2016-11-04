@@ -90,6 +90,7 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
     double m_chi_squared_value;
     std::vector<FitElement> m_fit_elements;
     std::unique_ptr<IChiSquaredModule> m_chi2_module;
+    size_t m_fit_elements_count;
 };
 
 #endif // FITSUITEOBJECTS_H

@@ -18,6 +18,8 @@
 
 #include "HomogeneousMagneticMaterial.h"
 
+// TODO: replace this by a member function of IMaterial
+
 namespace Materials {
 
 IMaterial* createInvertedMaterial(const IMaterial *material);

@@ -189,11 +189,12 @@
 %\usepackage[toc,page]{appendix}
 \usepackage{titlesec}
 
-\def\ttIdx#1{\texttt{#1}\index{#1@\Code{#1}}}
-\def\ttIdx#1{\texttt{#1}\index{#1@\Code{#1}}}
-\def\clFctHide#1#2{\index{#1@\Code{#1}!#2@\Code{#2}}\index{#2 #1@\Code{#2} (\Code{#1})}}
+\def\TTI#1{#1@\Code{#1}}
+\def\ttIdx#1{\texttt{#1}\index{\TTI{#1}}}
+\def\ttIdx#1{\texttt{#1}\index{\TTI{#1}}}
+\def\clFctHide#1#2{\index{\TTI{#1}!\TTI{#2}}\index{#2 #1@\Code{#2} (\Code{#1})}}
 \def\clFct#1#2{\texttt{#2}\clFctHide{#1}{#2}}
-\def\constrHide#1{\index{#1@\Code{#1}!constructor}}
+\def\constrHide#1{\index{\TTI{#1}!constructor}}
 \def\constr#1{\texttt{#1}\constrHide{#1}}
 
 %-------------------------------------------------------------------------------

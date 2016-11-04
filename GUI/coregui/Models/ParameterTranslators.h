@@ -24,7 +24,7 @@ public:
 
     virtual IParameterTranslator* clone() const=0;
 
-    virtual QStringList split(const QString &par_name) const=0;
+    virtual QStringList split(const QString &par_name) const;
     virtual std::string translate(const QString &name) const=0;
 };
 
@@ -35,7 +35,6 @@ public:
 
     PositionTranslator* clone() const override { return new PositionTranslator {}; }
 
-    QStringList split(const QString &par_name) const override;
     std::string translate(const QString &name) const override;
 };
 
@@ -46,7 +45,6 @@ public:
 
     LatticeTypeTranslator* clone() const override { return new LatticeTypeTranslator {}; }
 
-    QStringList split(const QString &par_name) const override;
     std::string translate(const QString &name) const override;
 };
 
@@ -57,7 +55,6 @@ public:
 
     RotationTranslator* clone() const override { return new RotationTranslator {}; }
 
-    QStringList split(const QString &par_name) const override;
     std::string translate(const QString &name) const override;
 };
 

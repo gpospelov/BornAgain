@@ -58,7 +58,7 @@ bool GUITranslationTest::runTest()
 
     // Uncomment line below to check missed translation (i.e. when fit parameter exist in domain
     // but doesn't exist in GUI (like thickness of top layer)
-    success &= checkMissedTranslations();
+    //success &= checkMissedTranslations();
 
     if(!success) {
         std::cout << "GUITranslationTest failed: " << m_simulationName

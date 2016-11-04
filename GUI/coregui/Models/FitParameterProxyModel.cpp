@@ -195,8 +195,12 @@ QVariant FitParameterProxyModel::data(const QModelIndex &index, int role) const
                 return item->value();
             }
         }
-        if(role == Qt::TextColorRole && !item->isEditable()) {
+        else if(role == Qt::TextColorRole && !item->isEditable()) {
             return QVariant(QColor(Qt::gray));
+        }
+
+        else if(role == Qt::ToolTipRole && item->displayName() == FitParameterLinkItem::P_LINK) {
+            return item->value();
         }
     }
 

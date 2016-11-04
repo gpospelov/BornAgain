@@ -66,9 +66,8 @@ QStringList LatticeTypeTranslator::split(const QString& par_name) const
 string LatticeTypeTranslator::translate(const QString& name) const
 {
     QStringList name_list = name.split("/");
-    if (name_list.size() > 2) return {};
-    if (name_list.size() == 2 &&
-        name_list[0] == Constants::BasicLatticeType) {
+    if (name_list.size() != 2) return {};
+    if (name_list[0] == Constants::BasicLatticeType) {
 
         if (name_list[1] == BasicLatticeTypeItem::P_LATTICE_LENGTH1) {
             return BornAgain::LatticeLength1;
@@ -79,6 +78,13 @@ string LatticeTypeTranslator::translate(const QString& name) const
 
         if (name_list[1] == BasicLatticeTypeItem::P_LATTICE_ANGLE) {
             return BornAgain::LatticeAngle;
+        }
+    }
+
+    else if(name_list[0] == Constants::SquareLatticeType
+            || name_list[0] == Constants::HexagonalLatticeType) {
+        if (name_list[1] == SquareLatticeTypeItem::P_LATTICE_LENGTH) {
+            return SquareLatticeTypeItem::P_LATTICE_LENGTH.toStdString() + std::string("*");
         }
     }
     return {};

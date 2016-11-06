@@ -1881,18 +1881,6 @@ class kvector_t(_object):
         return _libBornAgainCore.kvector_t_setZ(self, a)
 
 
-    def setXYZ(self, x1, y1, z1):
-        """
-        setXYZ(kvector_t self, double const & x1, double const & y1, double const & z1)
-
-        void BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
-
-        Sets components in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.kvector_t_setXYZ(self, x1, y1, z1)
-
-
     def __iadd__(self, v):
         """__iadd__(kvector_t self, kvector_t v) -> kvector_t"""
         return _libBornAgainCore.kvector_t___iadd__(self, v)
@@ -2407,18 +2395,6 @@ class cvector_t(_object):
 
         """
         return _libBornAgainCore.cvector_t_setZ(self, a)
-
-
-    def setXYZ(self, x1, y1, z1):
-        """
-        setXYZ(cvector_t self, std::complex< double > const & x1, std::complex< double > const & y1, std::complex< double > const & z1)
-
-        void BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
-
-        Sets components in cartesian coordinate system. 
-
-        """
-        return _libBornAgainCore.cvector_t_setXYZ(self, x1, y1, z1)
 
 
     def __iadd__(self, v):

@@ -186,16 +186,6 @@ void ParameterPool::print(std::ostream& ostr) const
     }
 }
 
-std::string ParameterPool::get_error_message(const std::string& criteria) const
-{
-    std::ostringstream ostr;
-    ostr << "No parameters satisfying  criteria '" << criteria
-       << "' have been found. Existing keys are:\n";
-    for (const auto* par: m_params)
-        ostr << "'" << par->getName() << "'\n";
-    return ostr.str();
-}
-
 //! reports error while finding parameters matching given name.
 void ParameterPool::report_find_matched_parameters_error(const std::string& pattern) const
 {

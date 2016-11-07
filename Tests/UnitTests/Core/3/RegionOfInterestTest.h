@@ -30,22 +30,22 @@ TEST_F(RegionOfInterestTest, constructor)
     EXPECT_EQ(roi.getYup(), yup);
 
     // checking total size of the detector and roi in it
-    EXPECT_EQ(roi.detectorSize(), 32);
-    EXPECT_EQ(roi.roiSize(), 10);
+    EXPECT_EQ(roi.detectorSize(), 32u);
+    EXPECT_EQ(roi.roiSize(), 10u);
 
     // converting global detector index to local roi index
-    EXPECT_EQ(roi.roiIndex(5), 0);
-    EXPECT_EQ(roi.roiIndex(6), 1);
-    EXPECT_EQ(roi.roiIndex(9), 2);
-    EXPECT_EQ(roi.roiIndex(21), 8);
-    EXPECT_EQ(roi.roiIndex(22), 9);
+    EXPECT_EQ(roi.roiIndex(5), 0u);
+    EXPECT_EQ(roi.roiIndex(6), 1u);
+    EXPECT_EQ(roi.roiIndex(9), 2u);
+    EXPECT_EQ(roi.roiIndex(21), 8u);
+    EXPECT_EQ(roi.roiIndex(22), 9u);
     EXPECT_THROW(roi.roiIndex(23), Exceptions::RuntimeErrorException);
 
     // converting local ro index to global detector index
-    EXPECT_EQ(roi.detectorIndex(0), 5);
-    EXPECT_EQ(roi.detectorIndex(1), 6);
-    EXPECT_EQ(roi.detectorIndex(2), 9);
-    EXPECT_EQ(roi.detectorIndex(9), 22);
+    EXPECT_EQ(roi.detectorIndex(0), 5u);
+    EXPECT_EQ(roi.detectorIndex(1), 6u);
+    EXPECT_EQ(roi.detectorIndex(2), 9u);
+    EXPECT_EQ(roi.detectorIndex(9), 22u);
 }
 
 
@@ -62,18 +62,18 @@ TEST_F(RegionOfInterestTest, largeArea)
     RegionOfInterest roi(detector, xlow, ylow, xup, yup);
 
     // checking total size of the detector and roi in it
-    EXPECT_EQ(roi.detectorSize(), 32);
-    EXPECT_EQ(roi.roiSize(), 32);
+    EXPECT_EQ(roi.detectorSize(), 32u);
+    EXPECT_EQ(roi.roiSize(), 32u);
 
     // converting global detector index to local roi index
-    EXPECT_EQ(roi.roiIndex(5), 5);
-    EXPECT_EQ(roi.roiIndex(6), 6);
-    EXPECT_EQ(roi.roiIndex(9), 9);
-    EXPECT_EQ(roi.roiIndex(27), 27);
+    EXPECT_EQ(roi.roiIndex(5), 5u);
+    EXPECT_EQ(roi.roiIndex(6), 6u);
+    EXPECT_EQ(roi.roiIndex(9), 9u);
+    EXPECT_EQ(roi.roiIndex(27), 27u);
 
     // converting local ro index to global detector index
-    EXPECT_EQ(roi.detectorIndex(0), 0);
-    EXPECT_EQ(roi.detectorIndex(27), 27);
+    EXPECT_EQ(roi.detectorIndex(0), 0u);
+    EXPECT_EQ(roi.detectorIndex(27), 27u);
 }
 
 //! Testing clone
@@ -96,22 +96,22 @@ TEST_F(RegionOfInterestTest, clone)
     EXPECT_EQ(clone->getYup(), yup);
 
     // checking total size of the detector and roi in it
-    EXPECT_EQ(clone->detectorSize(), 32);
-    EXPECT_EQ(clone->roiSize(), 10);
+    EXPECT_EQ(clone->detectorSize(), 32u);
+    EXPECT_EQ(clone->roiSize(), 10u);
 
     // converting global detector index to local roi index
-    EXPECT_EQ(clone->roiIndex(5), 0);
-    EXPECT_EQ(clone->roiIndex(6), 1);
-    EXPECT_EQ(clone->roiIndex(9), 2);
-    EXPECT_EQ(clone->roiIndex(21), 8);
-    EXPECT_EQ(clone->roiIndex(22), 9);
+    EXPECT_EQ(clone->roiIndex(5), 0u);
+    EXPECT_EQ(clone->roiIndex(6), 1u);
+    EXPECT_EQ(clone->roiIndex(9), 2u);
+    EXPECT_EQ(clone->roiIndex(21), 8u);
+    EXPECT_EQ(clone->roiIndex(22), 9u);
     EXPECT_THROW(clone->roiIndex(23), Exceptions::RuntimeErrorException);
 
     // converting local ro index to global detector index
-    EXPECT_EQ(clone->detectorIndex(0), 5);
-    EXPECT_EQ(clone->detectorIndex(1), 6);
-    EXPECT_EQ(clone->detectorIndex(2), 9);
-    EXPECT_EQ(clone->detectorIndex(9), 22);
+    EXPECT_EQ(clone->detectorIndex(0), 5u);
+    EXPECT_EQ(clone->detectorIndex(1), 6u);
+    EXPECT_EQ(clone->detectorIndex(2), 9u);
+    EXPECT_EQ(clone->detectorIndex(9), 22u);
 }
 
 #endif

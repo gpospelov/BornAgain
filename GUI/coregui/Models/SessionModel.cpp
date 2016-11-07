@@ -81,6 +81,9 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
                 return item->itemName();
         } else if (role == Qt::DecorationRole && m_iconProvider) {
             return m_iconProvider->icon(item);
+
+        } else if(role == Qt::ToolTipRole) {
+            return item->displayName();
         } else {
             return item->data(role);
         }

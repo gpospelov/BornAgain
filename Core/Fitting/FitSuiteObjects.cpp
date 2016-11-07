@@ -21,6 +21,7 @@ FitSuiteObjects::FitSuiteObjects()
    ,m_nfree_parameters(0)
   , m_chi_squared_value(0)
   , m_chi2_module(new ChiSquaredModule())
+  , m_fit_elements_count(0)
 {
     setName("FitSuiteObjects");
     init_parameters();
@@ -34,16 +35,15 @@ void FitSuiteObjects::add(
     const GISASSimulation& simulation, const OutputData<double>& real_data, double weight)
 {
     m_total_weight += weight;
-    m_fit_objects.push_back(new FitObject(simulation, real_data, weight));
+    FitObject *fitObject = new FitObject(simulation, real_data, weight);
+    m_fit_elements_count += fitObject->numberOfFitElements();
+    m_fit_objects.push_back(fitObject);
 }
 
 //! Returns total number of data points
 size_t FitSuiteObjects::getSizeOfDataSet() const
 {
-    size_t result(0);
-    for(auto it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it)
-        result += (*it)->numberOfFitElements();
-    return result;
+    return m_fit_elements_count;
 }
 
 void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule& chi2_module)

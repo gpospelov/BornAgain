@@ -25,8 +25,12 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
     double weight)
     : m_simulation(simulation.clone())
     , m_weight(weight)
+    , m_fit_elements_count(0)
+
 {
     setName("FitObject");
+    m_fit_elements_count =
+            m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
     init_dataset(real_data);
 }
 
@@ -102,7 +106,7 @@ void FitObject::process_realdata(const OutputData<double> &real_data)
         throw Exceptions::RuntimeErrorException(message.str());
         }
     } else {
-        bool put_masked_areas_to_zero(true);
+        bool put_masked_areas_to_zero(false);
         m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
                                                        put_masked_areas_to_zero);
     }
@@ -110,7 +114,7 @@ void FitObject::process_realdata(const OutputData<double> &real_data)
 
 size_t FitObject::numberOfFitElements() const
 {
-    return m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
+    return m_fit_elements_count;
 }
 
 //! Runs simulation and put results (the real and simulated intensities) into external vector.

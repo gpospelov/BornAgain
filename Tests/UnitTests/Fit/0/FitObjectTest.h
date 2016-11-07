@@ -21,7 +21,7 @@ class FitObjectTest : public ::testing::Test
 
 TEST_F(FitObjectTest, StandardPair)
 {
-    int nx(5), ny(4);
+    size_t nx(5), ny(4);
     double xmin(-1.0), xmax(4.0), ymin(0.0), ymax(4.0);
 
     GISASSimulation simulation;
@@ -68,7 +68,7 @@ TEST_F(FitObjectTest, RoiPair)
     simulation.setRegionOfInterest(0.1, 1.1, 2.9, 3.9);
 
     // so new axes should be
-    int roi_nx(3), roi_ny(3);
+    size_t roi_nx(3), roi_ny(3);
     double roi_xmin(0.0), roi_xmax(3.0), roi_ymin(1.0), roi_ymax(4.0);
 
     OutputData<double> data;

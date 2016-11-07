@@ -18,7 +18,7 @@ TEST_F(FitParameterSetTest, addFitParameter)
 
     FitParameter *par = new FitParameter("par1", 1.0);
     parameters.addFitParameter(par);
-    EXPECT_EQ(parameters.size(), (size_t)1);
+    EXPECT_EQ(parameters.size(), 1u);
 
     // attempt to add same fit parameter twice
     EXPECT_THROW(parameters.addFitParameter(par), std::runtime_error);
@@ -28,7 +28,7 @@ TEST_F(FitParameterSetTest, addFitParameter)
     EXPECT_THROW(parameters.addFitParameter(par2.get()), std::runtime_error);
 
     parameters.clear();
-    EXPECT_EQ(parameters.size(), (size_t)0);
+    EXPECT_EQ(parameters.size(), 0u);
 }
 
 TEST_F(FitParameterSetTest, getFitParameter)
@@ -105,22 +105,22 @@ TEST_F(FitParameterSetTest, fixRelease)
     parameters.addFitParameter(par2);
     parameters.addFitParameter(par3);
 
-    EXPECT_EQ(parameters.freeFitParameterCount(), (size_t)3);
+    EXPECT_EQ(parameters.freeFitParameterCount(), 3u);
 
     par1->limits().setFixed(true);
-    EXPECT_EQ(parameters.freeFitParameterCount(), (size_t)2);
+    EXPECT_EQ(parameters.freeFitParameterCount(), 2u);
     par2->limits().setFixed(true);
-    EXPECT_EQ(parameters.freeFitParameterCount(), (size_t)1);
+    EXPECT_EQ(parameters.freeFitParameterCount(), 1u);
 
     parameters.fixAll();
-    EXPECT_EQ(parameters.freeFitParameterCount(), (size_t)0);
+    EXPECT_EQ(parameters.freeFitParameterCount(), 0u);
 
     parameters.releaseAll();
-    EXPECT_EQ(parameters.freeFitParameterCount(), (size_t)3);
+    EXPECT_EQ(parameters.freeFitParameterCount(), 3u);
 
     std::vector<std::string> names_to_fix={"par1", "par3"};
     parameters.setFixed(names_to_fix, true);
-    EXPECT_EQ(parameters.freeFitParameterCount(), (size_t)1);
+    EXPECT_EQ(parameters.freeFitParameterCount(), 1u);
     EXPECT_TRUE(par1->limits().isFixed());
     EXPECT_FALSE(par2->limits().isFixed());
     EXPECT_TRUE(par3->limits().isFixed());

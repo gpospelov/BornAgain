@@ -23,25 +23,25 @@ class LLDataTest : public ::testing::Test
 
 LLDataTest::LLDataTest()
 {
-    int *dim0 = new int[(size_t)0];
+    int *dim0 = new int[0];
 
-    int *dim1 = new int[(size_t)1];
+    int *dim1 = new int[1];
     dim1[0] = 10;
 
-    int *dim3 = new int[(size_t)3];
+    int *dim3 = new int[3];
     dim3[0] = 10;
     dim3[1] = 15;
     dim3[2] = 20;
 
-    int *dim2 = new int[(size_t)2];
+    int *dim2 = new int[2];
     dim2[0] = 20;
     dim2[1] = 30;
 
-    int_data_0d = new LLData<int>((size_t)0, dim0);
-    fl_data_1d  = new LLData<float>((size_t)1, dim1);
-    db_data_3d  = new LLData<double>((size_t)3, dim3);
+    int_data_0d = new LLData<int>(0u, dim0);
+    fl_data_1d  = new LLData<float>(1u, dim1);
+    db_data_3d  = new LLData<double>(3u, dim3);
 
-    matrix_data_2d = new LLData<Eigen::Matrix2d>((size_t)2, dim2);
+    matrix_data_2d = new LLData<Eigen::Matrix2d>(2u, dim2);
 
 }
 
@@ -51,19 +51,19 @@ LLDataTest::~LLDataTest()
 
 TEST_F(LLDataTest, TotalSize)
 {
-    EXPECT_EQ((size_t)1, int_data_0d->getTotalSize());
-    EXPECT_EQ((size_t)10, fl_data_1d->getTotalSize());
-    EXPECT_EQ((size_t)3000, db_data_3d->getTotalSize());
+    EXPECT_EQ(1u, int_data_0d->getTotalSize());
+    EXPECT_EQ(10u, fl_data_1d->getTotalSize());
+    EXPECT_EQ(3000u, db_data_3d->getTotalSize());
 
-    EXPECT_EQ((size_t)600, matrix_data_2d->getTotalSize());
+    EXPECT_EQ(600u, matrix_data_2d->getTotalSize());
 }
 
 TEST_F(LLDataTest, GetRank)
 {
-    EXPECT_EQ((size_t)0, int_data_0d->getRank());
-    EXPECT_EQ((size_t)1, fl_data_1d->getRank());
-    EXPECT_EQ((size_t)3, db_data_3d->getRank());
-    EXPECT_EQ((size_t)2, matrix_data_2d->getRank());
+    EXPECT_EQ(0u, int_data_0d->getRank());
+    EXPECT_EQ(1u, fl_data_1d->getRank());
+    EXPECT_EQ(3u, db_data_3d->getRank());
+    EXPECT_EQ(2u, matrix_data_2d->getRank());
 }
 
 
@@ -178,9 +178,9 @@ TEST_F(LLDataTest, Addition) {
     EXPECT_DOUBLE_EQ( (*other_db_data_3d)[11], 2.0);
     EXPECT_DOUBLE_EQ(other_db_data_3d->getTotalSum(), 6000.0);
 
-    int *odim1 = new int[(size_t)1];
+    int *odim1 = new int[1];
     odim1[0] = 12;
-    LLData<float>  *fl_data_1d2  = new LLData<float>((size_t)1, odim1);
+    LLData<float>  *fl_data_1d2  = new LLData<float>(1u, odim1);
     fl_data_1d2->setAll(10.0);
 
     EXPECT_THROW((*fl_data_1d) += (*fl_data_1d2), Exceptions::RuntimeErrorException);
@@ -218,9 +218,9 @@ TEST_F(LLDataTest, Substraction) {
     EXPECT_DOUBLE_EQ( (*other_db_data_3d)[11], 0.5);
     EXPECT_DOUBLE_EQ(other_db_data_3d->getTotalSum(), 1500.0);
 
-    int *odim1 = new int[(size_t)1];
+    int *odim1 = new int[1];
     odim1[0] = 12;
-    LLData<float>  *fl_data_1d2  = new LLData<float>((size_t)1, odim1);
+    LLData<float>  *fl_data_1d2  = new LLData<float>(1u, odim1);
     fl_data_1d2->setAll(10.0);
 
     EXPECT_THROW((*fl_data_1d) -= (*fl_data_1d2), Exceptions::RuntimeErrorException);
@@ -255,9 +255,9 @@ TEST_F(LLDataTest, Multiplication) {
     EXPECT_DOUBLE_EQ( (*other_db_data_3d)[11], 2.5);
     EXPECT_DOUBLE_EQ(other_db_data_3d->getTotalSum(), 7500.0);
 
-    int *odim1 = new int[(size_t)1];
+    int *odim1 = new int[1];
     odim1[0] = 12;
-    LLData<float>  *fl_data_1d2  = new LLData<float>((size_t)1, odim1);
+    LLData<float>  *fl_data_1d2  = new LLData<float>(1u, odim1);
     fl_data_1d2->setAll(10.0);
 
     EXPECT_THROW((*fl_data_1d) *= (*fl_data_1d2), Exceptions::RuntimeErrorException);
@@ -292,9 +292,9 @@ TEST_F(LLDataTest, Division) {
     EXPECT_DOUBLE_EQ( (*other_db_data_3d)[11], 2.0);
     EXPECT_DOUBLE_EQ(other_db_data_3d->getTotalSum(), 6000.0);
 
-    int *odim1 = new int[(size_t)1];
+    int *odim1 = new int[1];
     odim1[0] = 12;
-    LLData<float>  *fl_data_1d2  = new LLData<float>((size_t)1, odim1);
+    LLData<float>  *fl_data_1d2  = new LLData<float>(1u, odim1);
     fl_data_1d2->setAll(10.0);
 
     EXPECT_THROW((*fl_data_1d) /= (*fl_data_1d2), Exceptions::RuntimeErrorException);
@@ -307,25 +307,25 @@ TEST_F(LLDataTest, Division) {
 }
 
 TEST_F (LLDataTest, HaveSameDimensions) {
-    int *odim0 = new int[(size_t)0];
+    int *odim0 = new int[0];
 
-    int *odim1 = new int[(size_t)1];
+    int *odim1 = new int[1];
     odim1[0] = 10;
 
-    int *odim3 = new int[(size_t)3];
+    int *odim3 = new int[3];
     odim3[0] = 10;
     odim3[1] = 15;
     odim3[2] = 20;
 
-    int *odim2 = new int[(size_t)2];
+    int *odim2 = new int[2];
     odim2[0] = 20;
     odim2[1] = 30;
 
 
-    LLData<int>    *other_int_data_0d = new LLData<int>((size_t)0, odim0);
-    LLData<float>  *other_fl_data_1d  = new LLData<float>((size_t)1, odim1);
-    LLData<double> *other_db_data_3d  = new LLData<double>((size_t)3, odim3);
-    LLData<Eigen::Matrix2d> *other_matrix_data_2d = new LLData<Eigen::Matrix2d>((size_t)2, odim2);
+    LLData<int>    *other_int_data_0d = new LLData<int>(0u, odim0);
+    LLData<float>  *other_fl_data_1d  = new LLData<float>(1u, odim1);
+    LLData<double> *other_db_data_3d  = new LLData<double>(3u, odim3);
+    LLData<Eigen::Matrix2d> *other_matrix_data_2d = new LLData<Eigen::Matrix2d>(2u, odim2);
 
     EXPECT_TRUE(HaveSameDimensions(*int_data_0d, *other_int_data_0d));
     EXPECT_TRUE(HaveSameDimensions(*fl_data_1d, *other_fl_data_1d));
@@ -333,7 +333,7 @@ TEST_F (LLDataTest, HaveSameDimensions) {
     EXPECT_TRUE(HaveSameDimensions(*other_matrix_data_2d, *matrix_data_2d));
 
     odim3[1] = 25;
-    LLData<double> *some_other_db_data_3d  = new LLData<double>((size_t)3, odim3);
+    LLData<double> *some_other_db_data_3d  = new LLData<double>(3u, odim3);
     EXPECT_FALSE(HaveSameDimensions(*db_data_3d, *some_other_db_data_3d));
 
     delete other_int_data_0d;
@@ -353,7 +353,7 @@ TEST_F(LLDataTest, Accessors) {
     }
     EXPECT_FLOAT_EQ((*fl_data_1d)[2], 1.0f);
 
-    int *coordinate = new int[(size_t)1];
+    int *coordinate = new int[1];
     coordinate[0] = 2;
     EXPECT_FLOAT_EQ(fl_data_1d->atCoordinate(coordinate), 1.0f);
     EXPECT_FLOAT_EQ(fl_data_1d->getTotalSum(), 22.5f);
@@ -363,7 +363,7 @@ TEST_F(LLDataTest, Accessors) {
     }
 
     EXPECT_DOUBLE_EQ((*db_data_3d)[2], 0.4);
-    int *coordinate3d = new int[(size_t)3];
+    int *coordinate3d = new int[3];
     coordinate3d[0] = 0;
     coordinate3d[1] = 0;
     coordinate3d[2] = 2;
@@ -378,7 +378,7 @@ TEST_F(LLDataTest, Accessors) {
     }
 
     EXPECT_EQ((*matrix_data_2d)[2], 2 * Eigen::Matrix2d::Identity());
-    int *coordinate2d = new int[(size_t)2];
+    int *coordinate2d = new int[2];
     coordinate2d[0] = 0;
     coordinate2d[1] = 2;
 

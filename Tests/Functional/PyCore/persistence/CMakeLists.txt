@@ -12,7 +12,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_REF_DIR=\\\"${PYPERSIST_REF_
 file(GLOB PY_EXAMPLES
     "${PY_EXAMPLES_DIR}/simulation/ex*/*.py"
     "${PY_EXAMPLES_DIR}/fitting/ex01*/*.py"
-    "${PY_EXAMPLES_DIR}/fitting/ex02*/FitCylindersPrisms_detailed.py"
     )
 
 # for some reason these flags aren't propagated here by SetUpWindows.cmake

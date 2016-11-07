@@ -139,7 +139,7 @@ class DrawObserver(ba.IFitObserver):
             plt.ioff()
 
 
-def create_fit():
+def run_fitting():
     """
     Setup simulation and fit
     """
@@ -165,28 +165,18 @@ def create_fit():
     fit_suite.addFitParameter("*Prism3/Height", 4.*nm).setLowerLimited(0.01)
     fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm).setLowerLimited(0.01)
 
+    draw_observer = DrawObserver(draw_every_nth=10)
+    fit_suite.attachObserver(draw_observer)
+
+    fit_suite.runFit()
+    print("Fitting completed.")
+    print("chi2:", fit_suite.getChi2())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
+
     return fit_suite
 
 
 if __name__ == '__main__':
-    arg = ba.getFilenameOrPlotflag()
-    fit_suite = create_fit()
-    if arg == "-p":
-        draw_observer = DrawObserver(draw_every_nth=10)
-        fit_suite.attachObserver(draw_observer)
-        plt.show()
-        fit_suite.runFit()
-        print("Fitting completed.")
-        print("chi2:", fit_suite.getChi2())
-        for fitPar in fit_suite.fitParameters():
-            print(fitPar.name(), fitPar.value(), fitPar.error())
-        plt.show()
-    else:
-        fit_suite.runFit()
-        fitpars = fit_suite.fitParameters()
-        from collections import OrderedDict
-        out = [ OrderedDict([('name', par.name()),
-                             ('value', par.value()),
-                             ('error', par.error())])\
-                for par in fit_suite.fitParameters()]
-        ba.yamlDump(arg+".ref", out)
+    run_fitting()
+    plt.show()

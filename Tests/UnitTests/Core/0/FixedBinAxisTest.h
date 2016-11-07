@@ -15,7 +15,7 @@ protected:
 TEST_F(FixedBinAxisTest, IndexedAccessor)
 {
     FixedBinAxis a1("length", 100, 0.0, 10.0);
-    ASSERT_EQ((size_t)100, a1.size());
+    ASSERT_EQ(100u, a1.size());
     EXPECT_EQ(0.0, a1.getMin());
     EXPECT_EQ(10.0, a1.getMax());
     EXPECT_DOUBLE_EQ(0.05, a1[0]);
@@ -33,7 +33,7 @@ TEST_F(FixedBinAxisTest, IndexedAccessor)
 TEST_F(FixedBinAxisTest, VectorOfUnitLength)
 {
     FixedBinAxis vec("name", 1, 1.0, 2.0);
-    EXPECT_EQ((size_t)1, vec.size());
+    EXPECT_EQ(1u, vec.size());
     EXPECT_EQ(double(1.0), vec.getMin());
     EXPECT_EQ(double(2.0), vec.getMax());
     EXPECT_EQ(1.5, vec[0]);

@@ -57,7 +57,7 @@ TEST_F(VariableBinAxisTest, IndexedAccessor)
 
     VariableBinAxis a1("name", nbins, values);
 
-    ASSERT_EQ((size_t)100, a1.size());
+    ASSERT_EQ(100u, a1.size());
     EXPECT_EQ(0.0, a1.getMin());
     EXPECT_EQ(10.0, a1.getMax());
     EXPECT_DOUBLE_EQ(0.05, a1[0]);

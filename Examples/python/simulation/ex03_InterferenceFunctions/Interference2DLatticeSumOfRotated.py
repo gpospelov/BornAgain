@@ -52,7 +52,7 @@ def get_simulation():
     return simulation
 
 
-def simulate():
+def run_simulation():
     """
     Runs several simulations,
     sums intensities from different rotated lattices,
@@ -85,4 +85,5 @@ def simulate():
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate)
+    result = run_simulation()
+    ba.plot_intensity_data(result)

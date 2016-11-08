@@ -58,7 +58,7 @@ def get_simulation():
     return simulation
 
 
-def simulate():
+def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
@@ -71,4 +71,5 @@ def simulate():
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate)
+    result = run_simulation()
+    ba.plot_intensity_data(result)

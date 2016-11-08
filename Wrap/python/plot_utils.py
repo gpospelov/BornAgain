@@ -137,6 +137,25 @@ def simulateThenPlotOrSave(
         save(arg+".ref", result)
 
 
+def plot_intensity_data(intensity_data, plot=standardIntensityPlot, save=standardIntensitySave):
+    """
+    Plots intensity data (if no command line arguments are provided).
+    If there is an additional command line arguments, silently saves the data into the file for testing purposes.
+    """
+    import sys
+    if len(sys.argv) <= 1:
+        plot(intensity_data)
+
+    else:
+        filename = sys.argv[1]
+        # save result
+        if type(intensity_data) is dict:
+            for name, subresult in intensity_data.items():  # inefficient under Py2, but good enough
+                save(filename+"."+str(name), subresult)
+        else:
+            save(filename+".ref", intensity_data)
+
+
 class DefaultFitObserver(IFitObserver):
     """
     Draws fit progress every nth iteration. This class has to be attached to

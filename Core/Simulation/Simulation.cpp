@@ -62,9 +62,9 @@ void Simulation::setTerminalProgressMonitor()
     m_progress.subscribe( [] (int percentage_done) -> bool {
             if (percentage_done<100)
                 std::cout << std::setprecision(2)
-                          << "... " << percentage_done << "%\r" << std::flush;
+                          << "\r... " << percentage_done << "%" << std::flush;
             else // wipe out
-                std::cout << "        \n" << std::flush;
+                std::cout << "\r... 100%\n";
             return true;
         } );
 }

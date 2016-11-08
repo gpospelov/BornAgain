@@ -22,8 +22,8 @@
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);
-const QString BeamItem::P_INCLINATION_ANGLE = "Inclination Angle";
-const QString BeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
+const QString BeamItem::P_INCLINATION_ANGLE = QString::fromStdString(BornAgain::Inclination);
+const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString(BornAgain::Azimuth);
 
 BeamItem::BeamItem() : SessionItem(Constants::BeamType)
 {

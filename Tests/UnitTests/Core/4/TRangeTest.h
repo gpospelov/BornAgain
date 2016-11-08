@@ -24,9 +24,9 @@ TRangeTest::TRangeTest()
     floatRange = new TRange<float>(101.0f, 200.0f);
     doubleRange = new TRange<double>(201.0,300.0);
 
-    intSampledRange = new TSampledRange<int>((size_t)4000, 1, 100);
-    floatSampledRange = new TSampledRange<float>((size_t)5000, 101.0f, 200.0f);
-    doubleSampledRange = new TSampledRange<double>((size_t)6000, 201.0,300.0);
+    intSampledRange = new TSampledRange<int>(4000u, 1, 100);
+    floatSampledRange = new TSampledRange<float>(5000u, 101.0f, 200.0f);
+    doubleSampledRange = new TSampledRange<double>(6000u, 201.0,300.0);
 }
 
 TRangeTest::~TRangeTest()
@@ -87,9 +87,9 @@ TEST_F(TRangeTest, TRangeTestInRange)
 
 TEST_F(TRangeTest, TSampledRangeNSamples)
 {
-    EXPECT_EQ((size_t)4000, intSampledRange->getNSamples());
-    EXPECT_EQ((size_t)5000, floatSampledRange->getNSamples());
-    EXPECT_EQ((size_t)6000, doubleSampledRange->getNSamples());
+    EXPECT_EQ(4000u, intSampledRange->getNSamples());
+    EXPECT_EQ(5000u, floatSampledRange->getNSamples());
+    EXPECT_EQ(6000u, doubleSampledRange->getNSamples());
 }
 
 #endif // TRANGETEST_H

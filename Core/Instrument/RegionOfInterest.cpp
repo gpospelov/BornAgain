@@ -21,6 +21,23 @@
 
 RegionOfInterest::RegionOfInterest(const IDetector2D &detector,
                                    double xlow, double ylow, double xup, double yup)
+    : RegionOfInterest(xlow, ylow, xup, yup)
+{
+    initFrom(detector.getAxis(BornAgain::X_AXIS_INDEX), detector.getAxis(BornAgain::Y_AXIS_INDEX));
+}
+
+RegionOfInterest::RegionOfInterest(const OutputData<double> &data,
+                                   double xlow, double ylow, double xup, double yup)
+    : RegionOfInterest(xlow, ylow, xup, yup)
+{
+    if(data.getRank() != 2)
+        throw Exceptions::RuntimeErrorException("RegionOfInterest::RegionOfInterest() -> Error. "
+                                                "Data is not two-dimensional.");
+
+    initFrom(data.getAxis(BornAgain::X_AXIS_INDEX), data.getAxis(BornAgain::Y_AXIS_INDEX));
+}
+
+RegionOfInterest::RegionOfInterest(double xlow, double ylow, double xup, double yup)
     : m_rectangle(new Geometry::Rectangle(xlow, ylow, xup, yup))
     , m_ax1(0)
     , m_ay1(0)
@@ -28,7 +45,7 @@ RegionOfInterest::RegionOfInterest(const IDetector2D &detector,
     , m_ay2(0)
     , m_glob_index0(0)
 {
-    initFrom(detector);
+
 }
 
 RegionOfInterest *RegionOfInterest::clone() const
@@ -120,22 +137,19 @@ std::unique_ptr<IAxis> RegionOfInterest::clipAxisToRoi(size_t axis_index, const 
                                     axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
 }
 
-void RegionOfInterest::initFrom(const IDetector2D &detector)
+void RegionOfInterest::initFrom(const IAxis &x_axis, const IAxis &y_axis)
 {
-    if(detector.getDimension() != 2)
-        throw Exceptions::RuntimeErrorException("RegionOfInterest::initFrom() -> Error. Detector "
-                                                "is not two-dimensional.");
+    m_detector_dims.push_back(x_axis.size());
+    m_detector_dims.push_back(y_axis.size());
 
-    for(size_t i=0; i<detector.getDimension(); ++i)
-        m_detector_dims.push_back(detector.getAxis(i).size());
-
-    m_ax1 = detector.getAxis(BornAgain::X_AXIS_INDEX).findClosestIndex(getXlow());
-    m_ax2 = detector.getAxis(BornAgain::X_AXIS_INDEX).findClosestIndex(getXup());
-    m_ay1 = detector.getAxis(BornAgain::Y_AXIS_INDEX).findClosestIndex(getYlow());
-    m_ay2 = detector.getAxis(BornAgain::Y_AXIS_INDEX).findClosestIndex(getYup());
+    m_ax1 = x_axis.findClosestIndex(getXlow());
+    m_ax2 = x_axis.findClosestIndex(getXup());
+    m_ay1 = y_axis.findClosestIndex(getYlow());
+    m_ay2 = y_axis.findClosestIndex(getYup());
 
     m_roi_dims.push_back(m_ax2-m_ax1+1);
     m_roi_dims.push_back(m_ay2-m_ay1+1);
 
     m_glob_index0 = m_ay1 + m_ax1*m_detector_dims[1];
 }
+

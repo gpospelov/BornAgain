@@ -18,6 +18,7 @@
 #define PARAMETERTREEBUILDER_H
 
 #include <QString>
+#include "WinDllMacros.h"
 
 class JobItem;
 class SessionItem;
@@ -26,13 +27,13 @@ class SessionItem;
 //! The ParameterItem appears in RealTimeView and provides real time tuning of MultiLayerItem
 //! and InstrumentItem.
 
-class ParameterTreeBuilder
+class BA_CORE_API_ ParameterTreeBuilder
 {
 public:
     static void createParameterTree(JobItem *item, const QString &tag = QString());
+    static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
 private:
     static void handleItem(SessionItem *tree, SessionItem *source);
-    static void populateDomainLinks(JobItem *jobItem,  const QString &tag);
 };
 
 #endif // PARAMETERTREEBUILDER_H

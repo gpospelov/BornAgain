@@ -61,7 +61,7 @@ def get_simulation(monte_carlo_integration=True):
     return simulation
 
 
-def simulate():
+def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
@@ -70,8 +70,9 @@ def simulate():
     simulation.setSample(sample)
     simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
-    result = simulation.getIntensityData()
-    return result
+    return simulation.getIntensityData()
+
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate)
+    result = run_simulation()
+    ba.plot_intensity_data(result)

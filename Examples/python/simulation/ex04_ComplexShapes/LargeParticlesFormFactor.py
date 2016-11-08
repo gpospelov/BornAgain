@@ -69,6 +69,7 @@ def simulate(condi):
     simulation.runSimulation()
     return simulation.getIntensityData()
 
+
 def plot(result, nframe, title):
     plt.subplot(2, 2, nframe+1)
     plt.subplots_adjust(wspace=0.3, hspace=0.3)

@@ -73,6 +73,16 @@ QItemSelectionModel *JobListWidget::selectionModel()
     return m_listView->selectionModel();
 }
 
+//! Returns currently selected JobItem
+
+const JobItem *JobListWidget::currentJobItem() const
+{
+    QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
+    if(selected.size() == 1)
+        return m_jobModel->getJobItemForIndex(selected.at(0));
+    return nullptr;
+}
+
 
 //! setup context menu for listView
 //void JobListWidget::setupContextMenuActions()

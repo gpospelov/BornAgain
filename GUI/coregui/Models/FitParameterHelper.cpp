@@ -105,7 +105,7 @@ QStringList FitParameterHelper::getFitParameterNames(FitParameterContainerItem *
 
 //! return path to given item in the ParameterTreeContainer
 
-QString FitParameterHelper::getParameterItemPath(ParameterItem *parameterItem)
+QString FitParameterHelper::getParameterItemPath(const ParameterItem *parameterItem)
 {
     QString result = ModelPath::getPathFromIndex(parameterItem->index());
     QString containerPrefix = Constants::ParameterContainerType + "/";

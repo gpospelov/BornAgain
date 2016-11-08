@@ -15,9 +15,11 @@
 // ************************************************************************** //
 
 #include "MultiLayerItem.h"
+#include "BornAgainNamespace.h"
 #include "LayerItem.h"
 
-const QString MultiLayerItem::P_CROSS_CORR_LENGTH = "Cross Correlation Length";
+const QString MultiLayerItem::P_CROSS_CORR_LENGTH =
+        QString::fromStdString(BornAgain::CrossCorrelationLength);
 const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
 MultiLayerItem::MultiLayerItem()
@@ -43,7 +45,7 @@ void MultiLayerItem::updateLayers()
         } else {
             (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(true);
         }
-        if(it == list.begin() || it == list.end()) {
+        if(it == list.begin() || it == (list.end()-1)) {
             (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(false);
         } else {
             (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(true);

@@ -84,9 +84,7 @@ void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &p
     if (mp_pdf != &pdf)
         delete mp_pdf;
     mp_pdf = pdf.clone();
-    double omega_x = mp_pdf->getDecayLengthX();
-    double omega_y = mp_pdf->getDecayLengthY();
-    initialize_calc_factors(omega_x, omega_y);
+    initialize_calc_factors();
 }
 
 double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
@@ -119,7 +117,7 @@ std::string InterferenceFunction2DLattice::addParametersToExternalPool(
 
     // add parameters of the probability density function
     if (mp_pdf)
-        mp_pdf->addParametersToExternalPool(new_path, external_pool, 0);
+        mp_pdf->addParametersToExternalPool(new_path, external_pool, -1);
     return new_path;
 }
 
@@ -129,6 +127,12 @@ double InterferenceFunction2DLattice::getParticleDensity() const
     if (area == 0.0)
         return 0.0;
     return 1.0/area;
+}
+
+void InterferenceFunction2DLattice::onChange()
+{
+    initialize_rec_vectors();
+    initialize_calc_factors();
 }
 
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
@@ -200,15 +204,18 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
     m_bsy = +binv * std::cos(xi);
 }
 
-void InterferenceFunction2DLattice::initialize_calc_factors(double coherence_length_x,
-                                                            double coherence_length_y)
+void InterferenceFunction2DLattice::initialize_calc_factors()
 {
     if (!mp_pdf)
         throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::initialize_calc_factors"
             " -> Error! No probability distribution function defined.");
+
+    double coherence_length_x = mp_pdf->getDecayLengthX();
+    double coherence_length_y = mp_pdf->getDecayLengthY();
+
     // number of reciprocal lattice points to use
-    double qa_max, qb_max;
+    double qa_max(0.0), qb_max(0.0);
     mp_pdf->transformToStarBasis(nmax / coherence_length_x, nmax / coherence_length_y,
                                  m_lattice_params.m_angle, m_lattice_params.m_length_1,
                                  m_lattice_params.m_length_2, qa_max, qb_max);

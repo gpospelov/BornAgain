@@ -89,7 +89,8 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
 
     SessionItem *multilayer = copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
     multilayer->setItemName(Constants::MultiLayerType);
-    copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    SessionItem *instrument = copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    instrument->setItemName(Constants::InstrumentType);
     copyParameterizedItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());

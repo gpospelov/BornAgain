@@ -51,6 +51,9 @@ public:
     //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;
 
+protected:
+    void onChange() override final;
+
 private:
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
@@ -76,7 +79,7 @@ private:
     void initialize_rec_vectors();
 
     //! Initializes factors needed in each calculation
-    void initialize_calc_factors(double coherence_length_x, double coherence_length_y);
+    void initialize_calc_factors();
 
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*

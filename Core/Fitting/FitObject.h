@@ -83,6 +83,7 @@ private:
     std::unique_ptr<OutputData<double>> m_simulation_data;
     std::unique_ptr<OutputData<double>> m_chi2_data;
     double m_weight;
+    size_t m_fit_elements_count;
 };
 
 #endif // FITOBJECT_H

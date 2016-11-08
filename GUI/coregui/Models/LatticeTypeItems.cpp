@@ -15,12 +15,18 @@
 // ************************************************************************** //
 
 #include "LatticeTypeItems.h"
+#include "BornAgainNamespace.h"
 
-const QString BasicLatticeTypeItem::P_LATTICE_LENGTH1 = "Lattice_length_1";
-const QString BasicLatticeTypeItem::P_LATTICE_LENGTH2 = "Lattice_length_2";
-const QString BasicLatticeTypeItem::P_LATTICE_ANGLE = "Lattice_angle";
-const QString SquareLatticeTypeItem::P_LATTICE_LENGTH = "Lattice_length";
-const QString HexagonalLatticeTypeItem::P_LATTICE_LENGTH = "Lattice_length";
+const QString BasicLatticeTypeItem::P_LATTICE_LENGTH1
+    = QString::fromStdString(BornAgain::LatticeLength1);
+const QString BasicLatticeTypeItem::P_LATTICE_LENGTH2
+    = QString::fromStdString(BornAgain::LatticeLength2);
+const QString BasicLatticeTypeItem::P_LATTICE_ANGLE
+    = QString::fromStdString(BornAgain::LatticeAngle);
+const QString SquareLatticeTypeItem::P_LATTICE_LENGTH
+    = QString::fromStdString(BornAgain::LatticeLength);
+const QString HexagonalLatticeTypeItem::P_LATTICE_LENGTH
+    = QString::fromStdString(BornAgain::LatticeLength);
 
 
 BasicLatticeTypeItem::BasicLatticeTypeItem()

@@ -37,7 +37,10 @@ Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
 
         const QString modelType = sourceIndex.data(SessionModel::ModelTypeRole).toString();
         if(modelType == Constants::ParameterType) {
-            result |= Qt::ItemIsDragEnabled;
+            if(ParameterItem *parameterItem = getParameterItem(proxyIndex)) {
+                if(parameterItem->isFittable())
+                    result |= Qt::ItemIsDragEnabled;
+            }
         }
     }
 

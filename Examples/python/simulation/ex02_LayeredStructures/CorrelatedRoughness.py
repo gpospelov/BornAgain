@@ -54,10 +54,11 @@ def get_simulation():
     simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
                                      200, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setBeamIntensity(5e11)
     return simulation
 
 
-def simulate():
+def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
@@ -69,4 +70,5 @@ def simulate():
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate)
+    result = run_simulation()
+    ba.plot_intensity_data(result)

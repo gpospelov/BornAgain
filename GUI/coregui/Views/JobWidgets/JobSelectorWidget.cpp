@@ -69,6 +69,11 @@ void JobSelectorWidget::setModel(JobModel *jobModel)
     m_jobListWidget->setModel(m_jobModel);
 }
 
+const JobItem *JobSelectorWidget::currentJobItem() const
+{
+    return m_jobListWidget->currentJobItem();
+}
+
 void JobSelectorWidget::makeJobItemSelected(JobItem *item)
 {
     Q_ASSERT(item);

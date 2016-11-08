@@ -181,8 +181,9 @@ const std::string ScaleParameter = "ScaleParameter";
 const std::string Sigma = "Sigma";
 const std::string Eta = "Eta";
 const std::string Omega = "Omega";
-const std::string OmegaX = "OmegaX";
-const std::string OmegaY = "OmegaY";
+const std::string DecayLength = "DecayLength";
+const std::string DecayLengthX = "DecayLengthX";
+const std::string DecayLengthY = "DecayLengthY";
 const std::string CoherenceLengthX = "CoherenceLengthX";
 const std::string CoherenceLengthY = "CoherenceLengthY";
 const std::string SigmaX = "SigmaX";
@@ -190,8 +191,10 @@ const std::string SigmaY = "SigmaY";
 const std::string HeightDWFactor = "HeightDWFactor";
 const std::string RadiusDWFactor = "RadiusDWFactor";
 const std::string AsymmetryLength = "AsymmetryLength";
+const std::string LatticeLength = "LatticeLength";
 const std::string LatticeLength1 = "LatticeLength1";
 const std::string LatticeLength2 = "LatticeLength2";
+const std::string LatticeAngle = "Alpha";
 const std::string DampingLength = "DampingLength";
 const std::string DomainSize = "DomainSize";
 const std::string DomainSize1 = "DomainSize1";
@@ -202,6 +205,8 @@ const std::string Thickness = "Thickness";
 const std::string Hurst = "Hurst";
 const std::string CorrelationLength = "CorrelationLength";
 const std::string CrossCorrelationLength = "CrossCorrelationLength";
+const std::string Inclination = "InclinationAngle";
+const std::string Azimuth = "AzimuthalAngle";
 }
 
 #endif // BORNAGAINNAMESPACE_H

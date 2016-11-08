@@ -133,7 +133,7 @@ def plot(result):
     plt.show()
 
 
-def simulate():
+def run_simulation():
     """
     Run two simulations for two different detectors and plot results
     """
@@ -158,5 +158,7 @@ def simulate():
 
     return result
 
+
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, plot)
+    result = run_simulation()
+    ba.plot_intensity_data(result, plot)

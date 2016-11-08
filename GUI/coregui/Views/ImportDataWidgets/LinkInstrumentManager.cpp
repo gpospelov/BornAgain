@@ -22,6 +22,7 @@
 #include "ImportDataAssistant.h"
 #include "AxesItems.h"
 #include "DetectorItems.h"
+#include "MaskItems.h"
 #include <QMessageBox>
 #include <QPushButton>
 #include <QDebug>
@@ -106,6 +107,13 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem *realData
     // linking to null instrument is possible, it means unlinking from currently linked
     if(instrumentItem == nullptr)
         return true;
+
+    // FIXME temporary hack to get rid from Instrument's own masks and ROI
+    DetectorItem *detectorItem = instrumentItem->detectorItem();
+    if(SessionItem *maskContainer = detectorItem->maskContainerItem()) {
+        SessionItem *item = detectorItem->takeRow(detectorItem->rowOfChild(maskContainer));
+        delete item;
+    }
 
     QString message;
     if(ImportDataAssistant::hasSameDimensions(instrumentItem, realDataItem, message))

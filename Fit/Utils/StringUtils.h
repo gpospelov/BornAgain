@@ -39,6 +39,8 @@ BA_CORE_API_ void replaceItemsFromString(std::string& text, const std::vector<st
 //! Returns string obtain by joining vector elements
 BA_CORE_API_ std::string join(const std::vector<std::string>& joinable, const std::string& joint);
 
+//! Removes multiple occurences of given substring from a string and returns result.
+BA_CORE_API_ std::string removeSubstring(const std::string& text, const std::string& substr);
 }
 }
 

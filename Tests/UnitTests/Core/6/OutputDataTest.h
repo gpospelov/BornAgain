@@ -49,17 +49,17 @@ OutputDataTest::OutputDataTest()
 
 TEST_F(OutputDataTest, SingleElementAfterConstruction)
 {
-    EXPECT_EQ((size_t)1, int_data_0d.getAllocatedSize());
+    EXPECT_EQ(1u, int_data_0d.getAllocatedSize());
 }
 
 
 TEST_F(OutputDataTest, SizeAfterAddingAxes)
 {
-    EXPECT_EQ((size_t)1, int_data_0d.getAllocatedSize());
-    EXPECT_EQ((size_t)20, fl_data_1d.getAllocatedSize());
-    EXPECT_EQ((size_t)2000, db_data_3d.getAllocatedSize());
+    EXPECT_EQ(1u, int_data_0d.getAllocatedSize());
+    EXPECT_EQ(20u, fl_data_1d.getAllocatedSize());
+    EXPECT_EQ(2000u, db_data_3d.getAllocatedSize());
 
-    EXPECT_EQ((size_t)200, matrix_data_2d.getAllocatedSize());
+    EXPECT_EQ(200u, matrix_data_2d.getAllocatedSize());
 }
 
 

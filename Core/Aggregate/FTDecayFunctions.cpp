@@ -151,8 +151,8 @@ void IFTDecayFunction2D::print(std::ostream &ostr) const
 
 void IFTDecayFunction2D::init_parameters()
 {
-    registerParameter(BornAgain::OmegaX, &m_omega_x).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::OmegaY, &m_omega_y).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DecayLengthX, &m_omega_x).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DecayLengthY, &m_omega_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
     registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, M_PI);
 }
@@ -202,8 +202,8 @@ double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
 
 void FTDecayFunction2DVoigt::init_parameters()
 {
-    registerParameter(BornAgain::OmegaX, &m_omega_x).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::OmegaY, &m_omega_y).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DecayLengthX, &m_omega_x).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DecayLengthY, &m_omega_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Eta, &m_eta);
     registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
     registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, M_PI);

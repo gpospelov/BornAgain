@@ -9,10 +9,41 @@ file(MAKE_DIRECTORY ${PYPERSIST_OUT_DIR})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_OUT_DIR=\\\"${PYPERSIST_OUT_DIR}\\\"")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_REF_DIR=\\\"${PYPERSIST_REF_DIR}\\\"")
 
-file(GLOB PY_EXAMPLES
-    "${PY_EXAMPLES_DIR}/simulation/ex*/*.py"
-    "${PY_EXAMPLES_DIR}/fitting/ex01*/*.py"
-    "${PY_EXAMPLES_DIR}/fitting/ex02*/FitCylindersPrisms_detailed.py"
+set(PY_EXAMPLES
+    "simulation/ex01_BasicParticles/AllFormFactorsAvailable.py"
+    "simulation/ex01_BasicParticles/CylindersAndPrisms.py"
+    "simulation/ex01_BasicParticles/CylindersInBA.py"
+    "simulation/ex01_BasicParticles/CylindersInDWBA.py"
+    "simulation/ex01_BasicParticles/CylindersWithSizeDistribution.py"
+    "simulation/ex01_BasicParticles/RotatedPyramids.py"
+    "simulation/ex01_BasicParticles/TwoTypesOfCylindersWithSizeDistribution.py"
+    "simulation/ex02_LayeredStructures/BuriedParticles.py"
+    "simulation/ex02_LayeredStructures/CorrelatedRoughness.py"
+    "simulation/ex03_InterferenceFunctions/ApproximationDA.py"
+    "simulation/ex03_InterferenceFunctions/ApproximationLMA.py"
+    "simulation/ex03_InterferenceFunctions/ApproximationSSCA.py"
+    "simulation/ex03_InterferenceFunctions/CosineRipplesAtRectLattice.py"
+    "simulation/ex03_InterferenceFunctions/Interference1DLattice.py"
+    "simulation/ex03_InterferenceFunctions/Interference1DRadialParaCrystal.py"
+    "simulation/ex03_InterferenceFunctions/Interference2DCenteredSquareLattice.py"
+    "simulation/ex03_InterferenceFunctions/Interference2DLatticeSumOfRotated.py"
+    "simulation/ex03_InterferenceFunctions/Interference2DParaCrystal.py"
+    "simulation/ex03_InterferenceFunctions/Interference2DRotatedSquareLattice.py"
+    "simulation/ex03_InterferenceFunctions/Interference2DSquareLattice.py"
+    "simulation/ex03_InterferenceFunctions/RectangularGrating.py"
+    "simulation/ex03_InterferenceFunctions/SpheresAtHexLattice.py"
+    "simulation/ex03_InterferenceFunctions/TriangularRipple.py"
+    "simulation/ex04_ComplexShapes/CoreShellNanoparticles.py"
+    "simulation/ex04_ComplexShapes/CustomFormFactor.py"
+    "simulation/ex04_ComplexShapes/HexagonalLatticesWithBasis.py"
+    "simulation/ex04_ComplexShapes/LargeParticlesFormFactor.py"
+    "simulation/ex05_BeamAndDetector/BeamDivergence.py"
+    "simulation/ex05_BeamAndDetector/DetectorResolutionFunction.py"
+    "simulation/ex05_BeamAndDetector/OffSpecularSimulation.py"
+    "simulation/ex05_BeamAndDetector/RectangularDetector.py"
+    "simulation/ex05_BeamAndDetector/SpecularSimulation.py"
+    "simulation/ex06_Miscellaneous/AxesInDifferentUnits.py"
+    "fitting/ex01_SampleParametersIntro/SampleParametersIntro.py"
     )
 
 # for some reason these flags aren't propagated here by SetUpWindows.cmake
@@ -32,7 +63,8 @@ include_directories(
 
 add_executable(PyPersistenceTest RunPyPersistenceTest.cpp PyPersistenceTest.h PyPersistenceTest.cpp)
 target_link_libraries(PyPersistenceTest BornAgainCore BornAgainTestMachinery)
-foreach(script ${PY_EXAMPLES})
+foreach(example ${PY_EXAMPLES})
+    set(script ${PY_EXAMPLES_DIR}/${example})
     get_filename_component(script_dir  ${script} DIRECTORY)
     get_filename_component(script_name ${script} NAME_WE)
     get_filename_component(script_ext  ${script} EXT)

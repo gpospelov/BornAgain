@@ -42,7 +42,6 @@ set(PY_EXAMPLES
     "simulation/ex05_BeamAndDetector/OffSpecularSimulation.py"
     "simulation/ex05_BeamAndDetector/RectangularDetector.py"
     "simulation/ex05_BeamAndDetector/SpecularSimulation.py"
-    "simulation/ex06_Miscellaneous/AccessingSimulationResults.py"
     "simulation/ex06_Miscellaneous/AxesInDifferentUnits.py"
     "fitting/ex01_SampleParametersIntro/SampleParametersIntro.py"
     )

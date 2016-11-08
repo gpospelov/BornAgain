@@ -3,7 +3,7 @@ import os
 import numpy
 import unittest
 
-#sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
+sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
 class Histogram2DTest(unittest.TestCase):

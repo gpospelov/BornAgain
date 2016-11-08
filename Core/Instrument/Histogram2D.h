@@ -56,6 +56,9 @@ public:
     //! Constructor for 2D histograms from basic OutputData object
     Histogram2D(const OutputData<double>& data);
 
+    //! Constructor for 2D histograms from numpy array (thanks to swig)
+    Histogram2D(const std::vector<std::vector<double>>& data);
+
     //! Returns clone of other histogram
     Histogram2D* clone() const;
 
@@ -97,6 +100,12 @@ public:
 
     //! Create new histogram by applying rectangular clip.
     Histogram2D* crop(double xmin, double ymin, double xmax, double ymax);
+
+    //! Sets the values in histograms channels from numpy array,
+    void setContent(const std::vector<std::vector<double>>& data);
+
+    //! Add to values in histograms channels from numpy array,
+    void addContent(const std::vector<std::vector<double>>& data);
 
 protected:
     //! Creates projection along X. The projections is made by collecting the data in the range

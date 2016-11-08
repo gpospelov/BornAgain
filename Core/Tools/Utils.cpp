@@ -16,6 +16,7 @@
 #include "Utils.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <thread>
+#include <stdexcept>
 
 #ifdef DEBUG_FPE
 #ifdef Q_OS_MAC
@@ -51,4 +52,16 @@ void Utils::EnableFloatingPointExceptions()
     std::cout << "Utils::EnableFloatingPointExceptions() -> "
         "Can't enable floating point exceptions. Available in debug mode only.\n";
 #endif
+}
+
+std::pair<size_t, size_t> Utils::getShape(const std::vector<std::vector<double>>& data)
+{
+    size_t nrows = data.size();
+    size_t ncols(0);
+    if(nrows) ncols = data[0].size();
+    for(size_t row=0; row<nrows; row++)
+        if(data[row].size() != ncols)
+            throw std::runtime_error("Utils::getShape() -> Error. "
+                                     "Number of elements is different from row to row.");
+    return std::make_pair(nrows, ncols);
 }

@@ -16433,6 +16433,7 @@ class Histogram2D(IHistogram):
         __init__(Histogram2D self, int nbinsx, vdouble1d_t xbins, int nbinsy, vdouble1d_t ybins) -> Histogram2D
         __init__(Histogram2D self, IAxis axis_x, IAxis axis_y) -> Histogram2D
         __init__(Histogram2D self, IntensityData data) -> Histogram2D
+        __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
 
         Histogram2D::Histogram2D(const OutputData< double > &data)
 
@@ -16538,6 +16539,16 @@ class Histogram2D(IHistogram):
 
         """
         return _libBornAgainCore.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
+
+
+    def setContent(self, data):
+        """setContent(Histogram2D self, vdouble2d_t data)"""
+        return _libBornAgainCore.Histogram2D_setContent(self, data)
+
+
+    def addContent(self, data):
+        """addContent(Histogram2D self, vdouble2d_t data)"""
+        return _libBornAgainCore.Histogram2D_addContent(self, data)
 
 
     def dynamicCast(pHistogram):

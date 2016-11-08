@@ -33,6 +33,9 @@ public:
 //! enables exception throw in the case of NaN, Inf
 BA_CORE_API_ void EnableFloatingPointExceptions();
 
+//! Returns shape nrows, ncols of 2D array (for numpy)
+BA_CORE_API_ std::pair<size_t, size_t> getShape(const std::vector<std::vector<double>>& data);
+
 } // namespace Utils
 
 #endif // UTILS_H

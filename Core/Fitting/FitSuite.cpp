@@ -41,6 +41,15 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
     m_impl->addSimulationAndRealData(simulation, *data, weight);
 }
 
+void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
+                              const std::vector<std::vector<double>>& real_data,
+                              double weight)
+{
+    std::unique_ptr<IHistogram> data(IHistogram::createFrom(real_data));
+    addSimulationAndRealData(simulation, *data.get(), weight);
+}
+
+
 FitParameterLinked *FitSuite::addFitParameter(const std::string& name, double value,
                                const AttLimits& limits, double step)
 {

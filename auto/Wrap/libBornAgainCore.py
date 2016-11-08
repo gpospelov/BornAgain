@@ -5937,6 +5937,8 @@ class FitSuite(IObservable):
         addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IntensityData real_data)
         addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IHistogram real_data, double weight=1)
         addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IHistogram real_data)
+        addSimulationAndRealData(FitSuite self, GISASSimulation simulation, vdouble2d_t real_data, double weight=1)
+        addSimulationAndRealData(FitSuite self, GISASSimulation simulation, vdouble2d_t real_data)
 
         void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const IHistogram &real_data, double weight=1)
 

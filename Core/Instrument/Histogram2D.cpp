@@ -51,8 +51,8 @@ Histogram2D::Histogram2D(const std::vector<std::vector<double>>& data)
     const size_t ncols = shape.second;
 
     if(nrows == 0 || ncols == 0)
-        throw Exceptions::LogicErrorException("Histogram2D::Histogram2D() -> Error. Invalid"
-                                 "Number of elements is different from row to row.");
+        throw Exceptions::LogicErrorException("Histogram2D::Histogram2D() -> Error. "
+                                              "Not a two-dimensional numpy array");
 
     std::cout << "nrows, ncols" << nrows << " " << ncols << std::endl;
 

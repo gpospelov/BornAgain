@@ -16162,9 +16162,12 @@ class IHistogram(_object):
         createHistogram = staticmethod(createHistogram)
     __swig_getmethods__["createHistogram"] = lambda x: createHistogram
 
-    def createFrom(filename):
-        """createFrom(std::string const & filename) -> IHistogram"""
-        return _libBornAgainCore.IHistogram_createFrom(filename)
+    def createFrom(*args):
+        """
+        createFrom(std::string const & filename) -> IHistogram
+        createFrom(vdouble2d_t data) -> IHistogram
+        """
+        return _libBornAgainCore.IHistogram_createFrom(*args)
 
     if _newclass:
         createFrom = staticmethod(createFrom)
@@ -16256,9 +16259,12 @@ def IHistogram_createHistogram(source):
     """IHistogram_createHistogram(IntensityData source) -> IHistogram"""
     return _libBornAgainCore.IHistogram_createHistogram(source)
 
-def IHistogram_createFrom(filename):
-    """IHistogram_createFrom(std::string const & filename) -> IHistogram"""
-    return _libBornAgainCore.IHistogram_createFrom(filename)
+def IHistogram_createFrom(*args):
+    """
+    createFrom(std::string const & filename) -> IHistogram
+    IHistogram_createFrom(vdouble2d_t data) -> IHistogram
+    """
+    return _libBornAgainCore.IHistogram_createFrom(*args)
 
 class Histogram1D(IHistogram):
     """Proxy of C++ Histogram1D class."""

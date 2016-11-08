@@ -43,7 +43,6 @@ Histogram2D::Histogram2D(const OutputData<double>& data)
     init_from_data(data);
 }
 
-#include <iostream>
 Histogram2D::Histogram2D(const std::vector<std::vector<double>>& data)
 {
     auto shape = Utils::getShape(data);
@@ -53,8 +52,6 @@ Histogram2D::Histogram2D(const std::vector<std::vector<double>>& data)
     if(nrows == 0 || ncols == 0)
         throw Exceptions::LogicErrorException("Histogram2D::Histogram2D() -> Error. "
                                               "Not a two-dimensional numpy array");
-
-    std::cout << "nrows, ncols" << nrows << " " << ncols << std::endl;
 
     m_data.addAxis(FixedBinAxis("x-axis", ncols, 0.0, static_cast<double>(ncols)));
     m_data.addAxis(FixedBinAxis("y-axis", nrows, 0.0, static_cast<double>(nrows)));
@@ -157,11 +154,9 @@ void Histogram2D::addContent(const std::vector<std::vector<double> > &data)
 
     for(size_t row=0; row<nrows; ++row) {
         for(size_t col=0; col<ncols; ++col) {
-            std::cout << "row:" << row << " col:" << col << " data: " << data[row][col];
             size_t globalbin = nrows - row - 1 + col*nrows;
             m_data[globalbin].add(data[row][col]);
         }
-        std::cout << std::endl;
     }
 }
 

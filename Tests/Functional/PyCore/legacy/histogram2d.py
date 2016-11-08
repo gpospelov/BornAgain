@@ -50,6 +50,27 @@ class Histogram2DTest(unittest.TestCase):
             self.assertEqual(element*2.0, arr_from_hist[x][y])
 
 
+    def create_histogram(self, arr):
+        """
+        Returns newly created object
+        """
+        return ba.IHistogram.createFrom(arr)
+
+
+    def test_createFrom(self):
+        """
+        Testing newly create object
+        """
+        arr = numpy.array([[ 1,  2,  3,  4,  5],
+                           [ 6,  7,  8,  9, 10],
+                           [11, 12, 13, 14, 15]])
+        hist = self.create_histogram(arr)
+        arr_from_hist = hist.getArray()
+
+        for (x, y), element in numpy.ndenumerate(arr):
+            self.assertEqual(element, arr_from_hist[x][y])
+
+
 
 if __name__ == '__main__':
     unittest.main()

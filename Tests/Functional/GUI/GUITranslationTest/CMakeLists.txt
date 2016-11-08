@@ -1,5 +1,9 @@
 set(test_name GUITranslationTest)
 
+if(POLICY CMP0043)
+    cmake_policy(SET CMP0043 NEW)
+endif()
+
 find_package(Qt5Widgets REQUIRED)
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

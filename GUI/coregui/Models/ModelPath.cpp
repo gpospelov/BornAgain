@@ -110,17 +110,22 @@ QString ModelPath::getPathFromIndex(const QModelIndex &index)
     return QString();
 }
 
+// FIXME TODO refactor this hell, item #1623, item #1624
+
 QModelIndex ModelPath::getIndexFromPath(const SessionModel *model, const QString &path)
 {
     if (model) {
         QStringList parts = path.split("/");
         SessionItem *t = model->rootItem();
         for(int i = 0; i < parts.length(); i++) {
+            if (t->modelType()==Constants::JobItemType) {
+                if (parts[i]==Constants::InstrumentType) {
+                    t = t->getItem(JobItem::T_INSTRUMENT);
+                    continue;
+                }
+            }
             for (int j = 0; j < t->rowCount(); j++) {
-                // FIXME additional check t->childAt(j)->isEditable() is to skip
-                // JobItem::P_INSTRUMENT_NAME which conflicts with the name "Instrument" of
-                // InstrumentItem
-                if (t->childAt(j)->itemName() == parts[i] && t->childAt(j)->isEditable()) {
+                if (t->childAt(j)->itemName() == parts[i]) {
                     t = t->childAt(j);
                     break;
                 }

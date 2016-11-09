@@ -19,6 +19,7 @@
 #include "IObserver.h"
 #include "OutputData.h"
 #include "AttLimits.h"
+#include <vector>
 
 class GISASSimulation;
 class IHistogram;
@@ -55,6 +56,13 @@ public:
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
     void addSimulationAndRealData(const GISASSimulation& simulation,
                                   const IHistogram& real_data, double weight=1);
+
+    //! Assigns pair of (simulation, real data) for fitting. Numpy array is used to provide
+    //! intensities. Shape of array (nrows, ncols) should coinside with detector's axes
+    //! (n_alpha, n_phi).
+    void addSimulationAndRealData(const GISASSimulation& simulation,
+                                  const std::vector<std::vector<double>>& real_data,
+                                  double weight=1);
 
     //! Adds fit parameter
     //! @param name The name of fit parameter

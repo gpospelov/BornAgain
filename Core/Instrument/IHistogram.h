@@ -184,6 +184,9 @@ public:
     //! create new histogram from file content
     static IHistogram* createFrom(const std::string& filename);
 
+    //! create new histogram from numpy array
+    static IHistogram* createFrom(const std::vector<std::vector<double>>& data);
+
     //! creates new OutputData with histogram's shape and values corresponding to DataType
     OutputData<double>* createOutputData(DataType dataType = DataType::INTEGRAL) const;
 

@@ -16,7 +16,10 @@
 #include "Histogram2D.h"
 #include "Histogram1D.h"
 #include "VariableBinAxis.h"
+#include "BornAgainNamespace.h"
+#include "Utils.h"
 #include <memory>
+
 
 Histogram2D::Histogram2D(int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup)
 {
@@ -38,6 +41,22 @@ Histogram2D::Histogram2D(const IAxis &axis_x, const IAxis &axis_y)
 Histogram2D::Histogram2D(const OutputData<double>& data)
 {
     init_from_data(data);
+}
+
+Histogram2D::Histogram2D(const std::vector<std::vector<double>>& data)
+{
+    auto shape = Utils::getShape(data);
+    const size_t nrows = shape.first;
+    const size_t ncols = shape.second;
+
+    if(nrows == 0 || ncols == 0)
+        throw Exceptions::LogicErrorException("Histogram2D::Histogram2D() -> Error. "
+                                              "Not a two-dimensional numpy array");
+
+    m_data.addAxis(FixedBinAxis("x-axis", ncols, 0.0, static_cast<double>(ncols)));
+    m_data.addAxis(FixedBinAxis("y-axis", nrows, 0.0, static_cast<double>(nrows)));
+
+    this->setContent(data);
 }
 
 Histogram2D* Histogram2D::clone() const
@@ -109,6 +128,36 @@ Histogram2D* Histogram2D::crop(double xmin, double ymin, double xmax, double yma
         ++it_origin;
     }
     return result;
+}
+
+void Histogram2D::setContent(const std::vector<std::vector<double> > &data)
+{
+    reset();
+    addContent(data);
+}
+
+void Histogram2D::addContent(const std::vector<std::vector<double> > &data)
+{
+    auto shape = Utils::getShape(data);
+    const size_t nrows = shape.first;
+    const size_t ncols = shape.second;
+
+    if(nrows != m_data.getAxis(BornAgain::Y_AXIS_INDEX).size()
+            || ncols != m_data.getAxis(BornAgain::X_AXIS_INDEX).size()) {
+        std::ostringstream ostr;
+        ostr << "Histogram2D::addContent() -> Shape of input array [" << nrows
+             << ", " << ncols << "] doesn't mach histogram axes. "
+             << "X-axis size: " << m_data.getAxis(BornAgain::X_AXIS_INDEX).size()
+             << "Y-axis size: " << m_data.getAxis(BornAgain::Y_AXIS_INDEX).size();
+        throw Exceptions::LogicErrorException(ostr.str());
+    }
+
+    for(size_t row=0; row<nrows; ++row) {
+        for(size_t col=0; col<ncols; ++col) {
+            size_t globalbin = nrows - row - 1 + col*nrows;
+            m_data[globalbin].add(data[row][col]);
+        }
+    }
 }
 
 Histogram1D* Histogram2D::create_projectionX(int ybinlow, int ybinup)

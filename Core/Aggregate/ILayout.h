@@ -25,8 +25,13 @@ class ILayout;
 class IParticle;
 class IRotation;
 
-//! Interface to equip a sample component with various properties.
+//! Pure virtual interface class to equip a sample layer with scattering properties.
+//! Currently only inherited by ParticleLayout; in the future also by domain structure.
 //! @ingroup samples_internal
+
+// TODO: CONSIDER REFACTORING:
+//   reference to particles could be removed in ILayout,
+//   at the cost of a big refactoring of LayerStrategyBuilder.
 
 class BA_CORE_API_ ILayout : public ICompositeSample
 {

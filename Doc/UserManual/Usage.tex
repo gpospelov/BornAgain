@@ -136,7 +136,7 @@ We implement two different shapes of particles: cylinders and
 prisms (\idest  elongated particles with a constant equilateral triangular cross section).
 
 All particles implemented in \BornAgain\ are defined by their
-form factors (see \cref{SFF}), their sizes and the material
+form factors (see \cref{SPFF}), their sizes and the material
 they are made of. Here, for the
 cylindrical particle, we input its radius and height.  For the prism,
 the possible inputs are the length of one side of its equilateral triangular
@@ -172,17 +172,10 @@ where \Code{<particle\_name>} is the name used to define the particles
 \Code{abundance} is the proportion of this type of particles,
 normalized to the total number of particles. Here we have 50\% of cylinders
 and 50\% of prisms.
-
-\noindent Finally, lines~\ref{particlesnointerf} and
+Lines~\ref{particlesnointerf} and
 \ref{particlesinterf} specify that there is \textbf{no coherent interference} between
-the waves scattered by these particles. In this case, the intensity is calculated by
-the incoherent sum of the scattered waves: $\bra |F_j|^2\ket$,
-where $F_j$ is the form factor associated with the particle of type $j$.  The way these waves
-interfere imposes the horizontal distribution of
-the particles as
-the interference reflects the long or short-range order of the
-particles distribution (see  \cref{sec:sect:interf}). On the contrary, the vertical position is
-imposed when we add the particles in a given layer by parameter \Code{depth}, as shown in lines~\ref{particlesdecor2} and \ref{particlesdecor3}.
+the waves scattered by these particles.
+In this case, the intensity is given by the incoherent sum~\cref{EIdInc}.
 
 %-------------------------------------------------------------------------------
 \subsubsection{Multilayer}
@@ -240,51 +233,9 @@ def get_simulation():  @\label{run1}@
     simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree) @\label{runbeam}@
     return simulation @\label{returnsimul}@
 \end{lstlisting}
-The first stage is to create the \Code{Simulation()} object (line~\ref{run2}). Then we define the detector (line~\ref{rundetector}) and beam
-parameters (line~\ref{runbeam}). %, which are associated with the
-%sample previously defined (line~\ref{runsample}). Finally we run
-%the simulation (line~\ref{runsimul}).
-Those functions are part of the Simulation class.
-The different incident and exit angles are shown in \cref{fig:multil3d}.
-
-The detector parameters are set using ranges of angles via
-the function:
-\setPy
-\begin{lstlisting}
-setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max),
-\end{lstlisting}
-
-\noindent where number of bins \Code{n\_phi}, low edge of first bin \Code{phi\_f\_min} and
-upper edge of last bin \Code{phi\_f\_max} all together define $\phi_f$ detector axis,
-while \Code{n\_alpha}, \Code{alpha\_f\_min} and \Code{alpha\_f\_max} are related to
-$\alpha_f$ detector axis.
-
-\Note{Axis binning:
-By default axes are binned to provide constant bin size in k-space, which means slightly
-non-equidistant binning in angle space. Other possible options, including user defined
-axes with custom variable bin size are explained elsewhere.}
-
-%are the minimum and maximum values of $\phi_f$, respectively, \Code{n\_alpha} is
-%the number of bins for $\alpha_f$ axis, \Code{alpha\_f\_min} and \Code{alpha\_f\_max}
-%are the minimum and maximum values of
-%$\alpha_f$, respectively.
-
-%\Code{isgisaxs\_style=True} (default value = \Code{False}) is a boolean
-%used to characterise the structure of the output data. If
-%\Code{isgisaxs\_style=True}, the output data is binned at constant
-%values of the sine of the output angles, $\alpha_f$ and $\phi_f$, otherwise it is binned
-%at constant values of these two angles.\\
-
-\noindent To characterize the beam we use function
-\begin{lstlisting}
-setBeamParameters(lambda, alpha_i, phi_i),
-\end{lstlisting}
-
-\noindent where \Code{lambda} is the incident beam wavelength,
-\Code{alpha\_i} is the incident
-grazing angle on the surface of the sample,
-\Code{phi\_i} is the in-plane
-direction of the incident beam (measured with respect to the $x$-axis).
+Line~\ref{run2} creates a \Code{Simulation()} object.
+Line~\ref{rundetector} sets the histogram bins of the default spherical detector (\cref{SRefDet}).
+Line~\ref{runbeam} defines the incoming beam (\cref{SRefBeam}).
 
 
 %-------------------------------------------------------------------------------

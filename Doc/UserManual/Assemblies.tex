@@ -143,7 +143,7 @@ various approximations are used to make~\cref{EsumRF} manageable.
 
 To compute the DWBA form factor
 for a generic vertical wavefunction~$\phi(z)$,
-it is gadvantageous to exchange the order of integration in~\cref{EcFdef}:
+it is advantageous to exchange the order of integration in~\cref{EcFdef}:
 \begin{equation}\label{EcFx}
   \FD_{\si\sf}(\q_\plll,\v{T})
    = \int\!\d z\, \phi^*_\si(z) F(q_\plll,z,\v{T}) \phi_\sf(z).
@@ -410,6 +410,7 @@ it is only available for paracrystals
 In BornAgain, R-T decoupling is the default.
 Only a few models explicitly introduce some size-position coupling.
 The following sections are therefore mostly concerned with models for~$\SD(\q)$.
+
 If a user-defined sample model leaves the interference function unspecified,
 then the default (\texttt{InterferenceFunctionNone})
 \index{InterferenceFunctionNone@\Code{InterferenceFunctionNone}}%
@@ -417,6 +418,12 @@ is simply $\SD(\q)=1$,
 which is a valid model for \E{dilute} particles.
 \index{Dilute particles}%
 \index{Particles!dilute assembly}%
+$I_\text{c}$ then cancels the second term in~\cref{EIddef},
+so that the cross section~\cref{EIdIc} reduces to the incoherent sum
+\begin{equation}\label{EIdInc}
+  \frac{1}{N_p}\xElas
+  = \bra\left|\FD\right|^2\ket
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mesocrystals}

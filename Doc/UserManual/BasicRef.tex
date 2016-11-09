@@ -14,8 +14,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \part{Reference}\label{PREF}
-\chapter{Basics}\label{SRefBas}
 
+\bigskip
 This Reference is organized top-down: We start with top-level classes like
 \texttt{GISAS\-Simulation};
 then we explain the classes needed to set up a meaningful simulation.
@@ -23,6 +23,8 @@ For an alphabetic lookup of classes and functions,
 see the general Index at the end of this Manual.
 For classes and functions not explained here,
 see the automatically generated Doxygen documentation.
+
+\chapter{Simulation, Instrument, Histograms}\label{SRefBas}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Simulation classes}\label{SRefSim}
@@ -72,7 +74,7 @@ and azimuthal angles~$\varphi$}
 
 A two-dimensional detector must be defined through on of the following calls:
 
-\subsubsection{Detector setup}
+\subsubsection{Detector setup}\label{SRefDet}
 \begin{lstlisting}
 class GISASSimulation {
   void setDetectorParameters(
@@ -100,7 +102,7 @@ allows to supply any detector that realizes the interface \ttIdx{IDetector2D}.
 Besides \texttt{SphericalDetector}, this can be a \ttIdx{Rectangular\-Detector}.
 For details, see the \tuto{141}{rectangular detector tutorial}.
 
-\subsubsection{Beam setup}
+\subsubsection{Beam setup}\label{SRefBeam}
 \begin{lstlisting}
 class GISASSimulation {
   void setBeamParameters(

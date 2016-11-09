@@ -22,8 +22,6 @@
 class IAbstractParticle;
 class IInterferenceFunction;
 class ILayout;
-class IParticle;
-class IRotation;
 
 //! Pure virtual interface class to equip a sample layer with scattering properties.
 //! Currently only inherited by ParticleLayout; in the future also by domain structure.
@@ -41,39 +39,39 @@ public:
     ILayout() : me_approx(DA) {}
     virtual ~ILayout() {}
 
-    virtual ILayout* clone() const=0;
+    virtual ILayout* clone() const =0;
 
     //! calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor* visitor) const=0;
 
     //! Returns a clone with inverted magnetic fields
-    virtual ILayout* cloneInvertB() const=0;
+    virtual ILayout* cloneInvertB() const =0;
 
     //! Returns number of particles
-    virtual size_t getNumberOfParticles() const=0;
+    virtual size_t getNumberOfParticles() const =0;
 
     //! Returns information about particle with index
-    virtual const IAbstractParticle* getParticle(size_t index) const=0;
+    virtual const IAbstractParticle* getParticle(size_t index) const =0;
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual SafePointerVector<const IParticle> getParticles() const=0;
+    virtual SafePointerVector<const IParticle> getParticles() const =0;
 
     /// Get abundance fraction of particle with index
-    virtual double getAbundanceOfParticle(size_t index) const=0;
+    virtual double getAbundanceOfParticle(size_t index) const =0;
 
     /// Get total abundance of all particles
     double getTotalAbundance() const; // implemented below
 
     //! Returns interference function
-    virtual const IInterferenceFunction* getInterferenceFunction() const=0;
-    virtual IInterferenceFunction* cloneInterferenceFunction() const=0;
+    virtual const IInterferenceFunction* getInterferenceFunction() const =0;
+    virtual IInterferenceFunction* cloneInterferenceFunction() const =0;
 
     //! Returns surface density of all particles
-    virtual double getTotalParticleSurfaceDensity() const=0;
+    virtual double getTotalParticleSurfaceDensity() const =0;
 
     //! Sets surface density of all particles
-    virtual void setTotalParticleSurfaceDensity(double particle_density)=0;
+    virtual void setTotalParticleSurfaceDensity(double particle_density) =0;
 
     //! Gets the used approximation for particles and interference functions
     EInterferenceApproximation getApproximation() const { return me_approx; }

@@ -25,9 +25,15 @@ def standardIntensityPlot(result):
     import matplotlib
     import sys
     from matplotlib import pyplot as plt
+
+    zmin, zmax = 1.0, result.getMaximum()
+    if zmin >= zmax:
+        zmax = 1.0
+        zmin = 1e-6*zmax
+
     im = plt.imshow(
         result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+        norm=matplotlib.colors.LogNorm(zmin, zmax),
         extent=[result.getXmin()/deg, result.getXmax()/deg,
                 result.getYmin()/deg, result.getYmax()/deg],
         aspect='auto',

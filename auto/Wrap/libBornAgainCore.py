@@ -5937,6 +5937,8 @@ class FitSuite(IObservable):
         addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IntensityData real_data)
         addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IHistogram real_data, double weight=1)
         addSimulationAndRealData(FitSuite self, GISASSimulation simulation, IHistogram real_data)
+        addSimulationAndRealData(FitSuite self, GISASSimulation simulation, vdouble2d_t real_data, double weight=1)
+        addSimulationAndRealData(FitSuite self, GISASSimulation simulation, vdouble2d_t real_data)
 
         void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const IHistogram &real_data, double weight=1)
 
@@ -16162,9 +16164,12 @@ class IHistogram(_object):
         createHistogram = staticmethod(createHistogram)
     __swig_getmethods__["createHistogram"] = lambda x: createHistogram
 
-    def createFrom(filename):
-        """createFrom(std::string const & filename) -> IHistogram"""
-        return _libBornAgainCore.IHistogram_createFrom(filename)
+    def createFrom(*args):
+        """
+        createFrom(std::string const & filename) -> IHistogram
+        createFrom(vdouble2d_t data) -> IHistogram
+        """
+        return _libBornAgainCore.IHistogram_createFrom(*args)
 
     if _newclass:
         createFrom = staticmethod(createFrom)
@@ -16256,9 +16261,12 @@ def IHistogram_createHistogram(source):
     """IHistogram_createHistogram(IntensityData source) -> IHistogram"""
     return _libBornAgainCore.IHistogram_createHistogram(source)
 
-def IHistogram_createFrom(filename):
-    """IHistogram_createFrom(std::string const & filename) -> IHistogram"""
-    return _libBornAgainCore.IHistogram_createFrom(filename)
+def IHistogram_createFrom(*args):
+    """
+    createFrom(std::string const & filename) -> IHistogram
+    IHistogram_createFrom(vdouble2d_t data) -> IHistogram
+    """
+    return _libBornAgainCore.IHistogram_createFrom(*args)
 
 class Histogram1D(IHistogram):
     """Proxy of C++ Histogram1D class."""
@@ -16433,6 +16441,7 @@ class Histogram2D(IHistogram):
         __init__(Histogram2D self, int nbinsx, vdouble1d_t xbins, int nbinsy, vdouble1d_t ybins) -> Histogram2D
         __init__(Histogram2D self, IAxis axis_x, IAxis axis_y) -> Histogram2D
         __init__(Histogram2D self, IntensityData data) -> Histogram2D
+        __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
 
         Histogram2D::Histogram2D(const OutputData< double > &data)
 
@@ -16538,6 +16547,16 @@ class Histogram2D(IHistogram):
 
         """
         return _libBornAgainCore.Histogram2D_crop(self, xmin, ymin, xmax, ymax)
+
+
+    def setContent(self, data):
+        """setContent(Histogram2D self, vdouble2d_t data)"""
+        return _libBornAgainCore.Histogram2D_setContent(self, data)
+
+
+    def addContent(self, data):
+        """addContent(Histogram2D self, vdouble2d_t data)"""
+        return _libBornAgainCore.Histogram2D_addContent(self, data)
 
 
     def dynamicCast(pHistogram):

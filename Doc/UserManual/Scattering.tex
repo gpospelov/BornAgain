@@ -45,7 +45,7 @@ of coherence lengths (\Cref{Scoherlen}).
 \index{Neutrons!wave propagation|(}%
 
 %===============================================================================
-\subsection{Coherent wave equation}
+\subsection{Coherent wave equation}\label{ScohWave}
 %===============================================================================
 
 \def\Vmac{\tilde{V}}
@@ -64,13 +64,16 @@ is governed by the microscopic Schrödinger equation
 By assuming a time-independent potential $V(\r)$,
 we have excluded inelastic scattering.
 Therefore we only need to consider monochromatic waves
+\index{Wave!monochromatic}%
+\index{Monochromatic wave}%
 with given frequency~$\omega$.
 \nomenclature[1ω 020]{$\omega$}{Frequency of incident radiation}%
-In consequence, we have a stationary wavefunction
+In consequence, the wave function
 \begin{equation}\label{Estationarywave}
-  \psi(\r,t) = \psi(\r)\e^{-i\omega t}.
+  \psi(\r,t) = \psi(\r)\e^{-i\omega t}
 \end{equation}
 \nomenclature[1ψ030 2r040 0]{$\psi(\r)$}{Stationary wavefunction}%
+factorizes into a stationary wave and a time-dependent phase factor.
 The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \E{quantum-mechanical sign convention}.
@@ -162,7 +165,7 @@ In the following it shall be expressed through the
 \end{equation}
 
 %===============================================================================
-\subsection{SLD fluctuations}
+\subsection{SLD fluctuations}\label{Sfluct}
 %===============================================================================
 
 In the following, we will use~\cref{EmacrSchrodi}
@@ -226,7 +229,7 @@ shall be written with two real parameters:
 \nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
    $n=1-\delta +i\beta$}%
 \nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
-For x-rays and thermal neutrons,
+For X-rays and thermal neutrons,
 $\delta$ and $\beta$ are almost always nonnegative,\footnote
 {The plus sign in front of~$i\beta$ is a consequence of
 the quantum-mechanical sign convention;
@@ -260,6 +263,113 @@ one uses the slightly more generic distorted wave Born approximation (DWBA, \Cre
 
 \index{Wave propagation!neutrons|)}%
 \index{Neutrons!wave propagation|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{X-ray propagation}\label{SXray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{Wave propagation!X-rays|(}%
+\index{X-ray!wave propagation|(}%
+
+The propagation of X-rays is governed by Maxwell's equations,
+\index{Maxwell's equations}%
+\begin{equation}
+  \begin{array}{lll}
+    \Nabla\times\v{E}=-\partial_t \v{B},\quad
+   &\Nabla\v{B}=0,\quad
+   &\v{B}=\v{\mu}(\r)\mu_0\v{H},
+   \\[2ex]
+    \Nabla\times\v{H}=+\partial_t \v{D},\quad
+   &\Nabla\v{D}=0,\quad
+   &\v{D}=\v{\epsilon}(\r)\epsilon_0\v{E}.
+  \end{array}
+\end{equation}
+We do not consider magnetic refraction or scattering,
+so the relative magnetic permeability tensor is $\v{\mu}(\r)=1$.
+\index{Permeability tensor}%
+\index{Magnetic permeability tensor}%
+We assume the relative dielectric permittivity tensor~$\v{\epsilon}$
+\index{Dielectric permittivity tensor}%
+\index{Permittivity tensor}%
+to be time-independent.
+Therefore, as in~\cref{ScohWave}, we only need to consider monochromatic waves
+\index{Wave!monochromatic}%
+\index{Monochromatic wave}%
+with given frequency~$\omega$, and the electric field
+\index{Electric field!stationary}%
+\begin{equation}
+  \v{E}(\r,t) = \v{E}(\r)\e^{-i\omega t}
+\end{equation}
+factorizes into a stationary wave field and a time-dependent phase factor.
+Using the dispersion relation
+\begin{equation}
+  k_0^2 = \mu_0\epsilon_0\omega^2,
+\end{equation}
+\index{Dispersion!X-rays}%
+Maxwell's equations can then combined to yield a wave equation,
+\begin{equation}\label{ENabNabE}
+  \Nabla\times\Nabla\times\v{E} = k_0^2\v{\epsilon}(\r)\v{E}.
+\end{equation}
+\index{Wave equation!X-rays}%
+To simplify the left-hand side,
+we make use of a standard vector analysis identity,
+followed by an application of Gauss's law $\Nabla\v{D}=0$:
+\index{Gauss's law}%
+\begin{equation}
+  \Nabla\times\Nabla\times\v{E}
+  = - \Nabla^2\v{E} + \Nabla(\Nabla\v{E})
+  = - \Nabla^2\v{E} - \Nabla\left[\v{\epsilon}(\r)^{-1}(\Nabla\v\epsilon(\r))\v{E}\right].
+\end{equation}
+When applied to propagating waves, the second term can be neglected against the first one.
+This follows from a simple estimate:
+For X-rays, the dielectric permittivity tensor~$\v{\epsilon}$
+\index{Dielectric permittivity tensor}%
+\index{Permittivity tensor}%
+deviates from the unit tensor by no more than $10^{-5}$.
+All the more certainly, fluctuation amplitudes are no larger than $10^{-5}$.
+In contrast, within half a wavelength, $\v{E}$ changes sign.
+Therefore, $(\Nabla\v{\epsilon})\v{E}$ is by at least five orders of magnitude
+smaller than $\Nabla\v{E}$,
+and can safely be neglected.
+With this approximation, the wave equation~\cref{ENabNabE} becomes simply
+\begin{equation}\label{EwaveE2}
+  \Nabla^2\v{E}
+  = -k_0^2\v{\epsilon}(\r)\v{E}.
+\end{equation}
+To solve this equation by a perturbation expansion,
+we proceed as in \cref{Sfluct},
+and decompose the dielectric permittivity tensor
+into a slowly varying scalar and a fluctuating component,
+\begin{equation}
+  \v{\epsilon} = \overline{\epsilon}(\r) + \delta\v{\epsilon}(\r).
+\end{equation}
+With the additional notation
+\begin{equation}
+  K(\r)^2 \coloneqq k_0^2 \overline{\epsilon}(\r)
+\end{equation}
+and
+\begin{equation}
+  4\pi\delta\v{v}(\r) \coloneqq - k_0^2\delta\v{\epsilon},
+\end{equation}
+the wave equation~\cref{EwaveE2} takes the form
+\begin{equation}\label{EwaveE3}
+  \left\{\Nabla^2 + K(\r)^2\right\}\v{E}(\r)
+  = 4\pi\delta\v{v}(\r)\v{E}(\r).
+\end{equation}
+For the time being,
+BornAgain does not support polarization-dependent scattering
+\index{Polarized scattering!X-rays}%
+from tensorial dielectric structures.
+Therefore, from this point on we only consider scalar fluctuations
+$\delta\epsilon$ and~$\delta v$.
+If we write $\psi(\r)$ for the amplitude of $\v{E}(\r)$,
+\cref{EwaveE3} becomes identical with the perturbed Schrödinger equation~\cref{ESchrodiK}.
+\index{Schrodinger@Schrödinger equation!X-rays}%
+So all the following analysis,
+written in the language of neutron scattering,
+equally holds for scalar X-ray scattering.
+
+\index{Wave propagation!X-rays|)}%
+\index{X-ray!wave propagation|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron scattering in Born approximation}\label{SBornApprox}

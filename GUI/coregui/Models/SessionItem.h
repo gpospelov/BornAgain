@@ -124,13 +124,13 @@ public:
     bool isEditable() const;
 
     RealLimits limits() const;
-    void setLimits(const RealLimits &value);
+    SessionItem& setLimits(const RealLimits &value);
 
     int decimals() const;
-    void setDecimals(int n);
+    SessionItem& setDecimals(int n);
 
     QString toolTip() const;
-    void setToolTip(const QString &tooltip);
+    SessionItem& setToolTip(const QString &tooltip);
 
 
     // helper functions

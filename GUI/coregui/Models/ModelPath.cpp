@@ -118,11 +118,9 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel *model, const QString
         QStringList parts = path.split("/");
         SessionItem *t = model->rootItem();
         for(int i = 0; i < parts.length(); i++) {
-            if (t->modelType()==Constants::JobItemType) {
-                if (parts[i]==Constants::InstrumentType) {
-                    t = t->getItem(JobItem::T_INSTRUMENT);
-                    continue;
-                }
+            if (t->modelType()==Constants::JobItemType && parts[i]==Constants::InstrumentType) {
+                t = t->getItem(JobItem::T_INSTRUMENT);
+                continue;
             }
             for (int j = 0; j < t->rowCount(); j++) {
                 if (t->childAt(j)->itemName() == parts[i]) {

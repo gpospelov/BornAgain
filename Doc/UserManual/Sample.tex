@@ -139,3 +139,24 @@ class HomogeneousMagneticMaterial {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \MissingSection
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Particle layout}\label{SRefPLay}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A \ttIdx{ParticleLayout} is constructed through the following API:
+
+\setCpp
+\begin{lstlisting}
+class ParticleLayout {
+    ParticleLayout();
+    ParticleLayout(const IAbstractParticle& particle);
+    ParticleLayout(const IAbstractParticle& particle, double abundance);
+    void addParticle(const IAbstractParticle& particle);
+    void addParticle(const IAbstractParticle& particle, double abundance);
+    void addParticle(const IParticle& particle, double abundance, const kvector_t position);
+    void addParticle(const IParticle& particle, double abundance, const kvector_t position, const IRotation& rotation);
+    void addInterferenceFunction(const IInterferenceFunction& interference_function);
+    void setTotalParticleSurfaceDensity(double particle_density);
+};
+\end{lstlisting}

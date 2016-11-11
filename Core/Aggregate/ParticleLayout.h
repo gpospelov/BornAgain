@@ -41,7 +41,7 @@ public:
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
     void addParticle(const IAbstractParticle& particle);
-    void addParticle(const IAbstractParticle& particle, double abundance);
+    void addParticle(const IAbstractParticle& particle, double abundance); // TODO delete this
     void addParticle(const IParticle& particle, double abundance, const kvector_t position);
     void addParticle(const IParticle& particle, double abundance,
                      const kvector_t position, const IRotation& rotation);

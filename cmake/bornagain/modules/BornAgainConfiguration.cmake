@@ -115,17 +115,9 @@ message(STATUS "Destination directories: bin->${destination_bin}, lib->${destina
 # -----------------------------------------------------------------------------
 
 if(BORNAGAIN_RELEASE)
-    # configure a header file to pass CMake settings to the source code
-    configure_file(${TEMPLATE_DIR}/BAVersion.h.in
-        ${CMAKE_SOURCE_DIR}/Core/Samples/BAVersion.h)
-
     # configure Doxyfile
     configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in
         ${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile @ONLY)
-
-    # configure FindBornagain script
-    configure_file(${TEMPLATE_DIR}/FindBornAgain.cmake.in
-        ${CMAKE_SOURCE_DIR}/Examples/cpp/CylindersAndPrisms/modules/FindBornAgain.cmake @ONLY)
 endif()
 
 configure_file(${TEMPLATE_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCustom.cmake)

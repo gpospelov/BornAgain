@@ -17,11 +17,9 @@
 #include "ObjectiveTestFunctions.h"
 
 ObjectiveFunctionPlan::ObjectiveFunctionPlan(const std::string &name, objective_function_t func,
-                                             double expected_minimum, double threshold)
+                                             double , double )
     : m_name(name)
     , m_objective_function(func)
-    , m_expected_minimum(expected_minimum)
-    , m_threshold(threshold)
 {
 
 }

@@ -41,8 +41,6 @@ public:
 private:
     std::string m_name;
     objective_function_t m_objective_function;
-    double m_expected_minimum;
-    double m_threshold;
     std::vector<FitParameterPlan> m_parameters;
 };
 

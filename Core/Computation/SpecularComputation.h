@@ -33,7 +33,7 @@ class SimulationOptions;
 class SpecularComputation final : public INoncopyable
 {
 public:
-    SpecularComputation(const MultiLayer* p_multi_layer);
+    SpecularComputation();
 
     void eval(ProgressHandler* progress,
               bool polarized,
@@ -42,7 +42,6 @@ public:
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
 
 private:
-    const MultiLayer* mp_multi_layer;
     std::unique_ptr<LayerSpecularInfo> mP_specular_info;
 };
 

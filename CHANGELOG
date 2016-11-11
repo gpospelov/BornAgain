@@ -1,4 +1,4 @@
-BornAgain-1.7
+BornAgain-1.7.0, released 2016.11.11
   > API changes
     1) The one-argument constructors of FormFactorGauss and FormFactorLorentz now accept a length instead of a volume
   > Summary:
@@ -7,7 +7,7 @@ BornAgain-1.7
        This makes it easy for external contributors to propose changes in form of pull requests.
        Appveyor and Travis continuous integration server automatize tests.
        Python usage examples are now also covered by tests.
-    2) GUI support for fitting ... masking ...
+    2) GUI support for fitting, masking, setting region of interest.
        Control parameters for different fit engines unified ...?
     3) Behind the scenes: many directories, files, classes renamed or reorganized.
 

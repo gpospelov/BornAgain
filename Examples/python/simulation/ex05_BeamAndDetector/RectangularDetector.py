@@ -1,6 +1,9 @@
 """
 Simulation with rectangular detector. Pilatus3-1M detector is used as an example.
-Results will be compared against simulation with spherical detector.
+Results will be compared against simulation with spherical detector. Example
+demonstrates, that at the detector_distance 1000mm the difference in simulated
+amplitudes for spherical and rectangular detector is at the level of 10%. With
+distance increase
 """
 import numpy
 import bornagain as ba

@@ -105,7 +105,7 @@ def run_fitting():
     # using the Genetic minimizer.
     # The Genetic minimizer is able to explore large parameter space
     # without being trapped by some local minima.
-    strategy1 = ba.AdjustMinimizerStrategy("Genetic", "", "MaxIterations=1")
+    strategy1 = ba.AdjustMinimizerStrategy("Genetic", "", "MaxIterations=2")
     fit_suite.addFitStrategy(strategy1)
 
     # Second fit strategy will use another minimizer.

@@ -18,8 +18,7 @@
 #include "LayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
 
-SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer)
-    : mp_multi_layer(p_multi_layer)
+SpecularComputation::SpecularComputation()
 {}
 
 void SpecularComputation::eval(

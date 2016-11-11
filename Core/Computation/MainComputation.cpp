@@ -61,7 +61,7 @@ MainComputation::MainComputation(
     // scattering from rough surfaces in DWBA
     if (mp_multi_layer->hasRoughness())
         mp_roughness_computation = new RoughMultiLayerComputation(mp_multi_layer);
-    mp_specular_computation = new SpecularComputation(mp_multi_layer);
+    mp_specular_computation = new SpecularComputation();
 }
 
 MainComputation::~MainComputation()

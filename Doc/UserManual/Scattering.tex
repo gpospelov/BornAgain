@@ -583,7 +583,7 @@ Vineyard \cite{Vin82} discussed X-ray scattering,
 but failed to account for the distortion of the scattered wave;
 Mazur and Mills \cite{MaMi82} derived the inelastic neutron scattering cross section
 of ferromagnetic surface spin waves from scratch.
-A correct and readable derivation of the DWBA cross section
+A concise derivation of the DWBA cross section
 was provided by Dietrich and Wagner (1984/85) for X-rays \cite{DiWa84}
 and neutrons \cite{DiWa85}.}
 this requirement is dropped.
@@ -742,8 +742,14 @@ Since magnetic refraction or scattering is beyong the scope of BornAgain,
 the relative magnetic permeability tensor is always $\v{\mu}(\r)=1$.
 \index{Permeability}%
 \index{Magnetic permeability}%
-As customary in GISAXS, we assume with Laue \cite{Lau31}
-that the dielectric properties of the material are those of a polarizable electron cloud.
+As customary in SAXS and GISAXS,
+\index{Grazing-incidence small-angle scattering!dielectric model}%
+\index{Small-angle scattering!dielectric model}%
+we assume
+that the dielectric properties of the material are those of a polarizable electron cloud.\footnote
+{This is occasionally called the \E{Laue model}
+\index{Laue model}%
+ \cite{Lau31}.}
 Thereby the relative dielectric permittivity tensor~$\v{\eps}$
 \index{Dielectric permittivity}%
 \index{Permittivity}%
@@ -786,13 +792,13 @@ into a slowly varying component and one that fluctuates on atomic scales,
   1ε030 2r040]{$\delta\eps(\r)$}{Fast varying part of the permittivity~$\eps(\r)$}%
 With the additional notation
 \begin{equation}
-  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r)
+  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r),
 \end{equation}
-and
+compatible with~\cref{Ekkn}, and
 \begin{equation}
   4\pi\delta v(\r) \coloneqq - K^2\delta\eps,
 \end{equation}
-the wave equation~\cref{EwaveE2} takes the form
+the wave equation~\cref{ENabNabE} takes the form
 \begin{equation}\label{EwaveE3}
   \left\{-\Nabla\times\Nabla\times\v{1} + k(\r)^2\right\}\v{E}(\r)
   = 4\pi\delta v(\r)\v{E}(\r).
@@ -802,7 +808,7 @@ the wave equation~\cref{EwaveE2} takes the form
 This is very similar to the  perturbed Schrödinger equation~\cref{ESchrodiK}.
 There are only two differences:
 the more complicated differential operator,
-and the fact that $\v{E}$ is vector valued,
+and the fact that $\v{E}(\r)$ is vector valued,
 whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 
 %===============================================================================

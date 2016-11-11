@@ -78,7 +78,7 @@ public:
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission=1.0);
+                               double total_transmission);
 
     //! removes all masks from the detector
     void removeMasks();

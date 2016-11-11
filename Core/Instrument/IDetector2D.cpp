@@ -84,7 +84,7 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
 }
 
 void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                     double total_transmission)
+                                        double total_transmission)
 {
     m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
 }

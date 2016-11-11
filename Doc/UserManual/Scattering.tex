@@ -317,19 +317,67 @@ Equation~\cref{ESchrodiK} looks
 like an inhomogeneous differential equation ---
 except that the right-hand side contains the unknown function~$\psi$.
 The key idea of the Born expansion is to overcome this problem by iteration.
-For the time being,
-the right-hand side of~\cref{ESchrodiK} will be treated as a given inhomogeneity.
-On this premise, equation~\cref{ESchrodiK} shall be solved by the Green function method.
-The homogeneous wave equation
+Treating the right-hand side as a given inhomogeneity,
+one can solve~\cref{ESchrodiK} by the Green function method.
+The incident wave~$\psi_\si(\r)$ must be determined from the homogeneous wave equation
 \begin{equation}\label{EHomoK}
-  \left\{\Nabla^2+k(\r)^2\right\}\psi(\r) = 0
+  \left\{\Nabla^2+k(\r)^2\right\}\psi_\si(\r) = 0.
 \end{equation}
-correspondes to the zeroth order of the Born approximation,
-and will yield the incident wave~$\psi_\si(\r)$.
-The Green function~$G(\r,\r')$ obyes the wave equation with an isolated inhomogeneity,
+The Green function~$G(\r,\r')$ must fulfill the wave equation with an isolated inhomogeneity,
 \begin{equation}\label{EGreenK}
   \left\{\Nabla^2+k(\r)^2\right\}G(\r,\r') = \delta(\r-\r').
 \end{equation}
+Let us postpone the explicit or asymptotic solution of these two equations
+to later sections (\cref{Sfarfield} for the standard plane-wave case with $k(\r)=K$,
+\cref{SfarDW} for the more generic distorted-wave case).
+Here we only need to assume that solutions $\psi_\si$ and~$G$ exist.
+We can then posit the \E{Lippmann-Schwinger equation}
+\index{Lippmann-Schwinger equation}%
+\begin{equation}\label{EPsiFormal}
+  \psi(\r)
+  = \psi_\si(\r)
+  + \int\!\d^3r'\, G(\r,\r') 4\pi\delta v(\r')\psi(\r').
+\end{equation}
+By operating on both sides with~$\{\Nabla^2+k(\r)^2\}$
+it is easily demonstrated that solutions~$\psi$ of this integral equation
+fulfill the perturbed Schrödinger equation \cref{ESchrodiK}.
+
+The Lippmann-Schwinger equation can be resolved into an infinite series
+by iteratively substituting the full right-hand side of~\cref{EPsiFormal}
+into the integrand.
+Successive terms in this series contain rising powers of $\delta v$.
+Since $\delta v$ is assumed to be small, the series is likely to converge.
+In \E{first-order Born approximation},
+only the linear order in $\delta v$ is retained,
+\begin{equation}\label{EBorn}
+  \psi(\r)
+  \doteq \psi_\si(\r)
+  + 4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\si(\r').
+\end{equation}
+This is practically always adequate for
+material investigations with X-rays or neutrons,
+where the aim is to
+deduce $\delta v(\r')$ from the scattered intensity ${|\psi(\r)|}^2$.
+Since detectors are always placed at positions $\r$
+that are not illuminated by the incident beam,
+we are only interested in the scattered wave field
+\begin{equation}\label{EBornS}
+  \psi_\text{s}(\r)
+  \coloneqq
+  4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\si(\r').
+\end{equation}
+\nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
+\nomenclature[2s000 0]{s}{Subscript ``scattered''}%
+
+\index{Scattering!plane wave|)}%
+\index{Born approximation|)}%
+
+%===============================================================================
+\subsection{Far-field approximation}\label{Sfarfield}
+%===============================================================================
+
+\index{Far-field approximation|(}%
+
 These two equations are addressed in full generality by the distorted-wave Born approximation
 (\cref{SDWBA}).
 \index{Distorted-wave Born approximation}%
@@ -370,52 +418,6 @@ This explains the appearance of the factor $4\pi$.}
   G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|},
 \end{equation}
 which is an outgoing spherical wave centered at $\r'$.
-Convoluting this function with the given inhomogeneity $4\pi\delta v\psi$,
-we obtain what is known as the Lippmann-Schwinger equation,
-\index{Lippmann-Schwinger equation}%the formal solution
-\begin{equation}\label{EPsiFormal}
-  \psi(\r)
-  = \psi_\si(\r)
-  + \int\!\d^3r'\, G(\r,\r') 4\pi\delta v(\r')\psi(\r').
-\end{equation}
-This integral equation for $\psi(\r)$ improves
-upon the original stationary Schrödinger equation \cref{ESchrodiK}
-in that it ensures the boundary condition~\cref{Escabouco}.
-It can be resolved into an infinite series
-by iteratively substituting the full right-hand side of~\cref{EPsiFormal}
-into the integrand.
-Successive terms in this series contain rising powers of $\delta v$.
-Since $\delta v$ is assumed to be small, the series is likely to converge.
-In \E{first-order Born approximation},
-only the linear order in $\delta v$ is retained,
-\begin{equation}\label{EBorn}
-  \psi(\r)
-  \doteq \psi_\si(\r)
-  + 4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\si(\r').
-\end{equation}
-This is practically always adequate for
-material investigations with X-rays or neutrons,
-where the aim is to
-deduce $\delta v(\r')$ from the scattered intensity ${|\psi(\r)|}^2$.
-Since detectors are always placed at positions $\r$
-that are not illuminated by the incident beam,
-we are only interested in the scattered wave field
-\begin{equation}\label{EBornS}
-  \psi_\text{s}(\r)
-  \coloneqq
-  4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\si(\r').
-\end{equation}
-\nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
-\nomenclature[2s000 0]{s}{Subscript ``scattered''}%
-
-\index{Scattering!plane wave|)}%
-\index{Born approximation|)}%
-
-%===============================================================================
-\subsection{Far-field approximation}
-%===============================================================================
-
-\index{Far-field approximation|(}%
 
 We can further simplify \cref{EBornS}
 under the conditions of Fraunhofer diffraction:

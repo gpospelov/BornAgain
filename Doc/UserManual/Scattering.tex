@@ -294,7 +294,9 @@ one uses the slightly more generic distorted wave Born approximation (DWBA, \Cre
 
 To describe an elastic scattering experiment,
 we need to solve the Schrödinger equation~\cref{ESchrodiK}
-under the asymptotic boundary condition
+under the asymptotic boundary condition\footnote
+{A more formal variant of this is known as the \E{Sommerfeld radiation condition}.%
+\index{Sommerfeld radiation condition}}
 \index{Boundary conditions!elastic scattering}%
 \begin{equation}\label{Escabouco}
   \psi(\r)
@@ -314,23 +316,42 @@ $f(\vartheta,\varphi)$.
 Equation~\cref{ESchrodiK} looks
 like an inhomogeneous differential equation ---
 except that the right-hand side contains the unknown function~$\psi$.
-In the Born expansion this problem is solved by iteration.
-The zeroth approximation to~\cref{ESchrodiK} is the homogeneous wave equation
+The key idea of the Born expansion is to overcome this problem by iteration.
+For the time being,
+the right-hand side of~\cref{ESchrodiK} will be treated as a given inhomogeneity.
+On this premise, equation~\cref{ESchrodiK} shall be solved by the Green function method.
+The homogeneous wave equation
 \begin{equation}\label{EHomoK}
-  \left\{\Nabla^2+k(\r)^2\right\}\psi(\r) = 0.
+  \left\{\Nabla^2+k(\r)^2\right\}\psi(\r) = 0
 \end{equation}
-It does not have a practicable generic solution.
-Therefore at this point one needs to make additional simplifying assumptions.
+correspondes to the zeroth order of the Born approximation,
+and will yield the incident wave~$\psi_\si(\r)$.
+The Green function~$G(\r,\r')$ obyes the wave equation with an isolated inhomogeneity,
+\begin{equation}\label{EGreenK}
+  \left\{\Nabla^2+k(\r)^2\right\}G(\r,\r') = \delta(\r-\r').
+\end{equation}
+These two equations are addressed in full generality by the distorted-wave Born approximation
+(\cref{SDWBA}).
+\index{Distorted-wave Born approximation}%
+Here, we will substantially simplify them.
 As said in connection with~\cref{Edecompose_v},
 there is some freedom in the choice of $\mv(\r)$.
-In the basic variant of the Born expansion,
+In the standard variant of the Born expansion,
 one makes the simplest possible choice, $\mv=\text{const}$,
 taking the value of $v(\r)$ outside the finite sample volume.
-A constant~$\mv$ implies a constant~$K$,
-and so \cref{EHomoK} reduces to the Helmholtz equation.
+Accordingly, we have a constant~$k(\r)=K$.
+The homogeneous equation~\cref{EHomoK} reduces to the \E{Helmholtz equation},
 \index{Helmholtz wave equation}%
 \index{Wave propagation!Helmholtz equation}%
-It is solved by plane waves and superpositions thereof.
+and is solved by plane waves and superpositions thereof.
+In the following we choose the incident plane wave
+\index{Incident radiation!plane wave}%
+\begin{equation}\label{EPsi0Plane}
+  \psi_\si(\r)=\e^{i \k_\si \r}
+\end{equation}
+with $k_\si=K$.
+Superpositions of plane waves shall be discussed
+when we come to instrumental resolution effects (\cref{SBeam}).
 
 For an isolated inhomogeneity,
 \begin{equation}\label{EHelmholtzForGreen}
@@ -460,13 +481,7 @@ with the Dirac notation for the transition matrix element
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix
   element, defined as a volume integral}%
 
-Under the standard assumption
-that the incident radiation is a plane wave
-\index{Incident radiation!plane wave}%
-\begin{equation}\label{EPsi0Plane}
-  \psi_\si(\r)=\e^{i \k_\si \r}
-\end{equation}
-with $k_\si=K$,
+With the incident plane wave~\cref{EPsi0Plane},
 the matrix element takes the form
 \begin{equation}\label{Echiq}
   \bra \psi_\si|\delta v|\psi_\sf\ket
@@ -585,6 +600,10 @@ of the Fourier transform of the SLD,
 \index{Distorted-wave Born approximation|(}%
 \index{DWBA|see {Distorted-wave Born approximation}}%
 
+%===============================================================================
+\subsection{Introduction}\label{SDWBA1}
+%===============================================================================
+
 The standard Born approximation depends on the choice $\mv=\text{const}$,
 which implies that $\psi_\si$ and $\psi_\sf$ are plane waves.
 In the distorted-wave Born approximation (DWBA),\footnote{
@@ -650,11 +669,122 @@ Differently from the above derivation of the Born expansion,
 we will not even attempt to obtain a full solution
 \index{Green function!DWBA}%
 of the Green function equation that generalizes~\cref{EHelmholtzForGreen}.
-We will only consider its asymptotic far-field limit $G(\rD,\r)$
+We will only consider its asymptotic far-field limit $G_\infty(\rD,\r)$
 at a detector position $\rD$.
 Nonetheless, this function will be exact in the coordinate~$\r$
 that designates where the scattering takes place.
 \nomenclature[2r041 2d100]{$\rD$}{Position of the detector}%
+
+%===============================================================================
+\subsection{Reciprocity of the Green function}\label{SReci}
+%===============================================================================
+
+
+We derive a source-detector reciprocity theorem
+\index{Reciprocity|(}%
+\index{Green function!reciprocity}%
+for the scalar Schrödinger equation.
+It is needed in the derivation of the distorted-wave Born approximation
+(\cref{SDWBA}),
+where it allows us to short-cut the computation of the Green function,
+yielding at once the far-field at the detector position.
+
+We start from a generic stationary Schrödinger equation
+with an isolated inhomogeneity,
+\begin{equation}\label{EgsSchrodi}
+  \left\{\Nabla^2+v(\r)\right\}G(\r,\rS) = \delta(\r-\rS).
+\end{equation}
+We assume that the source location $\rS$
+%\nomenclature[2r041 2s100]{$\rS$}{Position of a scattering center}%
+(which in our application is a scattering center)
+lies within a finite sample volume.
+Outside the sample, the potential~$v(\r)$ has the constant value~$K^2$
+so that \cref{EgsSchrodi}
+reduces to the Helmholtz equation%
+\begin{equation}\label{EgsSchrodiHelmh}
+  \left\{\Nabla^2+K^2\right\}G(\r,\rS) = 0.
+\end{equation}
+We introduce the adjoint Green function~$B$
+%\nomenclature[2b030 2r040 2r041]{$B(\r,\r')$}{Green function, adjoint of $G$}%
+that originates from a source term at the detector location
+and obeys
+\begin{equation}\label{EgsSchrodiAdj}
+  \left\{\Nabla^2+v(\r)\right\}B(\r,\rD) = \delta(\r-\rD).
+\end{equation}
+We also introduce the auxiliary vector field
+\begin{equation}
+  \v{X}(\r,\rS,\rD)\coloneqq B(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla B(\r,\rD).
+\end{equation}
+%\nomenclature[2x150 2r040]{$\v{X}(\r,\rS,\rD)$}{Auxiliary vector field}%
+We inscribe the sample, the detector, and the origin of the coordinate system
+into a sphere $\Sphere$ with radius~$R$,
+%\nomenclature[2s180]{$\Sphere$}{Auxiliary spherical volume}%
+%\nomenclature[2r120]{$R$}{Radius of $\Sphere$}%
+and compute the volume integral
+\begin{equation}\label{Eprerecipro}
+  \begin{array}{lcl}
+    I(\rS,\rD)
+  &=& \displaystyle\int_\Sphere\!\d^3r\,\Nabla \v{X}(\r,\rS,\rD)
+  \\[1.8em]
+  &=& \displaystyle\int_\Sphere\!\d^3r\,\left(
+    B\Nabla^2 G- G\Nabla^2 B \right)
+  \\[1.4em]
+  &=&  B(\rS,\rD) - G(\rD,\rS).
+  \end{array}
+\end{equation}
+Alternatively, we can compute $I$ as a surface integral
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d\v{\sigma}\,\v{X}(\r,\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d{\sigma}\,
+       \left(B\partial_R G - G\partial_R B\right).
+\end{equation}
+On the surface $\partial\Sphere$,
+$B$ and $G$ are outgoing wave fields that obey the Helmholtz equation.
+Solutions of this equation in spherical coordinates
+have a well-known series expansion.
+We send $R\to\infty$ so that we need only to retain the lowest order,
+the form of which has been anticipated
+in the boundary condition~\cref{Escabouco},
+\begin{equation}
+   G(\r(R,\vartheta,\varphi),\rS)
+   \doteq \frac{\e^{iKR}}{4\pi R} g(\vartheta,\varphi),
+\end{equation}
+and similarly
+\begin{equation}
+   B(\r(R,\vartheta,\varphi),\rD)
+   \doteq \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
+\end{equation}
+The functions $g$ and $b$ can be further expanded into spherical harmonics,
+but this is of no interest here.
+The decisive point is the factorization of $G$ and $B$
+and their common $R$ dependence.
+It follows at once that
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d\sigma\,
+       (\text{$R$-dependent})(bg-gb)
+  = 0.
+\end{equation}
+From \cref{Eprerecipro} we obtain the \E{reciprocity theorem}
+\begin{equation}\label{Ereci}
+  G(\rD,\rS) = B(\rS,\rD).
+\end{equation}
+It allows us to obtain the far-field value of the
+forward-propagating Green function~$G$
+at the detector position~$\rD$
+from the adjoint Green function~$B$
+that traces the radiation back from $\rD$
+to the source location~$\rS$.
+The theorem is practically important because
+$B$ is much easier to compute than the unexpanded~$G$.
+
+\index{Reciprocity|)}%
+
+%===============================================================================
+\subsection{OLD MAT}\label{SDWBA1}
+%===============================================================================
+
 The \E{source-detector reciprocity theorem}~\cref{Ereci}
 \index{Reciprocity}%
 proven in \cref{Sreci1}

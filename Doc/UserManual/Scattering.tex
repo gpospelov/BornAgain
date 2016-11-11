@@ -84,15 +84,18 @@ The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \E{quantum-mechanical sign convention}.
 \index{Wave propagation|seealso {Sign convention}}%
-\index{Conventions|see {Sign convention}}%
+\index{Convention|see {Sign convention}}%
 \index{Sign convention!wave propagation|(}%
 For electromagnetic radiation
 usage is less uniform.
 While most optics textbooks
 have adopted the quantum-mechanical convention~\cref{Estationarywave},
+\index{Quantum-mechanical convention}%
 in X-ray crystallography
 the conjugate phase factor $\e^{+i\omega t}$ is prefered.
-This \E{crystallographic sign convention} has also been chosen
+This \E{crystallographic sign convention}
+\index{Crystallographic sign convention}%
+has also been chosen
 in influential texts on GISAXS (e.g.\ \cite{ReLL09}).
 Here, however, we are concerned not only with X-rays,
 but also with neutrons,
@@ -162,7 +165,7 @@ This potential is weak, and slowly varying compared to atomic length scales.
 In the following it shall be expressed through the
 \E{bound scattering length density} (SLD)
 \index{Bound scattering length|see{Scattering length}}%
-\index{Scattering length density}%
+\index{Scattering!length density}%
 \index{SLD|see{Scattering length density}}%
 \cite[eq.\ 2.8.37]{Sea89},
 \nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density (SLD)}%
@@ -177,9 +180,10 @@ In the following it shall be expressed through the
 In the following, we will use~\cref{EmacrSchrodi}
 as a starting point to study scattering by condensed-matter samples
 (we will prefer the brief term \E{sample} over \E{scattering target}).
-\index{Scattering target|see{Sample}}%
+\index{Scattering!target|see{Sample}}%
 \index{Sample}%
 To compute scattering cross sections from a perturbation expansion,
+\index{Perturbation expansion}%
 we will need to decompose the SLD as
 \begin{equation}\label{Edecompose_v}
   v(\r) \coloneqq \mv(\r) + \delta v(\r).
@@ -196,6 +200,8 @@ The macroscopic Schrödinger equation~\cref{EmacrSchrodi} becomes
 \end{equation}
 The left-hand side describes optical wave propagation,
 the right-hand side is a perturbation that causes scattering.
+\index{Perturbation potential!neutron}%
+\index{Potential|see{Perturbation potential}}%
 Accordingly, $\mv(\r)$ should only contain SLD variations
 that are simple enough to allow an analytical solution.
 The SLD fluctuation~$\delta v(\r)$ then stands for the more irregular
@@ -208,11 +214,12 @@ For brevity, we rewrite~\cref{ESchrodi3} as
   = 4\pi\delta v(\r)\psi(\r).
 \end{equation}
 \vspace*{-5pt}}
-This will be the starting point for all further analyses.
-It contains the wavenumber~$k(\r)$, defined by the dispersion relation
+\index{Perturbed Schrödinger equation}%
+This \E{perturbed Schrödinger equation} will be the starting point for all further analyses.
+It contains the material-dependent wavenumber~$k(\r)$, defined by the dispersion relation
 \nomenclature[2k030 2r040]{$k(\r)$}{Wavenumber}%
 \index{Dispersion!neutron in homogeneous medium}%
-\index{Wavenumber!neutron}%
+\index{Wavenumber!material dependent}%
 \begin{equation}\label{Edispersion}
   k(\r)^2 \coloneqq \frac{2m\omega}{\hbar} - 4\pi\mv(\r).
 \end{equation}
@@ -254,6 +261,7 @@ Therefore the right-hand side of the Schrödinger equation~\cref{ESchrodiK}
 is but a weak perturbation.
 This suggests a solution
 by means of a perturbation expansion in powers of $\delta v$,
+\index{Perturbation expansion}%
 known as the \E{Born expansion} or \E{Born series}.\footnote{
 Named after Max Born
 who introduced it in quantum mechanics.
@@ -282,6 +290,7 @@ one uses the slightly more generic distorted wave Born approximation (DWBA, \Cre
 %===============================================================================
 
 \index{Born approximation|(}%
+\index{Scattering!plane wave|(}%
 
 To describe an elastic scattering experiment,
 we need to solve the Schrödinger equation~\cref{ESchrodiK}
@@ -378,6 +387,7 @@ we are only interested in the scattered wave field
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
 \nomenclature[2s000 0]{s}{Subscript ``scattered''}%
 
+\index{Scattering!plane wave|)}%
 \index{Born approximation|)}%
 
 %===============================================================================
@@ -431,6 +441,7 @@ and $\psi^*$ designates the complex conjugate of $\psi$.
 With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
 Inserting \cref{EGreenFar} in \cref{EBornS},
 we obtain the far-field approximation for the scattered wave,
+\index{Scattered wave!far-field}%
 \begin{equation}\label{EsandwichC}
   \psi_\text{s,far}(\r)
   = \frac{\e^{iKr}}{r}
@@ -480,7 +491,7 @@ it is highly desirable to express pixel coordinates
 and scattering vector components
 with respect to equally oriented coordinate axes,
 which can only be achieved by the convention~\cref{Eq}.}
-\index{Scattering vector}%
+\index{Scattering!vector}%
 \begin{equation}\label{Eq}
   \q\coloneqq \k_\sf-\k_\si
 \end{equation}
@@ -512,6 +523,8 @@ The ratio of the scattered flux hitting an infinitesimal detector area
 $r^2\d\Omega$ to the incident flux is expressed as a
 \E{differential cross section}
 \index{Cross section}%
+\index{Scattering!cross section}%
+\index{Elastic scattering cross section}%
 \index{Incident radiation!flux|(}%
 \begin{equation}\label{Exsectiondef}
   \xElas
@@ -541,9 +554,9 @@ Inserting these into definition~\cref{Exsectiondef},
 we obtain the generic differential cross section
 of elastic scattering in first order Born approximation,
 \index{Born approximation!elastic scattering cross section}%
-\index{Cross section!elastic scattering in Born approximation}%
-\index{Elastic scattering!cross section in Born approximation}%
-\index{Scattering!elastic cross section in Born approximation}%
+\index{Cross section!Born approximation}%
+\index{Scattering!cross section!Born approximation}%
+\index{Elastic scattering cross section!Born approximation}%
 \Emph{
 \begin{equation}\label{Exsection}
   \xElas
@@ -559,7 +572,7 @@ but also for distorted waves.
 In the plane-wave case \cref{Echiq} considered here,
 the differential cross section is just the squared modulus
 of the Fourier transform of the SLD,
-\index{Scattering length density!Fourier transform}%
+\index{Scattering!length density!Fourier transform}%
 \begin{equation}\label{Ecross1}
   \xElas
   = {\left| v(\q) \right|}^2.
@@ -683,6 +696,9 @@ its replacement depends on the distorted wavefunctions
 $\psi_\si$ and $\psi_\sf$,
 is therefore application specific,
 and will be worked out later (\cref{Swave21}).
+\index{Cross section!distorted-wave Born approximation}%
+\index{Scattering!cross section!distorted-wave Born approximation}%
+\index{Elastic scattering cross section!distorted-wave Born approximation}%
 
 \index{Distorted-wave Born approximation|)}%
 
@@ -781,31 +797,35 @@ Maxwell's equations yield the wave equation
 \index{Wave equation!X-rays}%
 \index{X-ray!wave equation}%
 To solve this equation by a perturbation expansion,
+\index{Perturbation expansion}%
 we proceed as in \cref{Sfluct},
 and decompose the dielectric permittivity
-into a slowly varying component and one that fluctuates on atomic scales,
+into a slowly varying component and a perturbation that fluctuates on atomic scales,
 \begin{equation}
   \eps(\r) = \overline{\eps}(\r) + \delta\eps(\r).
 \end{equation}
 \nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Slowly varying part of the permittivity~$\eps(\r)$}%
 \nomenclature[1δ030
   1ε030 2r040]{$\delta\eps(\r)$}{Fast varying part of the permittivity~$\eps(\r)$}%
-With the additional notation
+In analogy to~\cref{Ekkn} we define the material-dependent wavenumber by
+\index{Wavenumber!material dependent}%
 \begin{equation}
-  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r),
+  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r).
 \end{equation}
-compatible with~\cref{Ekkn}, and
+Furthermore, we define the perturbation potential by
+\index{Perturbation potential!X-ray}%
 \begin{equation}
-  4\pi\delta v(\r) \coloneqq - K^2\delta\eps,
+  4\pi\delta v(\r) \coloneqq - K^2\delta\eps.
 \end{equation}
-the wave equation~\cref{ENabNabE} takes the form
+The wave equation~\cref{ENabNabE} then becomes
 \begin{equation}\label{EwaveE3}
   \left\{-\Nabla\times\Nabla\times\v{1} + k(\r)^2\right\}\v{E}(\r)
   = 4\pi\delta v(\r)\v{E}(\r).
 \end{equation}
 \index{Wave equation!X-rays}%
 \index{X-ray!wave equation}%
-This is very similar to the  perturbed Schrödinger equation~\cref{ESchrodiK}.
+This is very similar to the perturbed Schrödinger equation~\cref{ESchrodiK}.
+\index{Perturbed Schrödinger equation}%
 There are only two differences:
 the more complicated differential operator,
 and the fact that $\v{E}(\r)$ is vector valued,
@@ -831,8 +851,8 @@ followed by an application of Gauss's law $\Nabla\v{D}=0$:
 When applied to propagating waves, the second term can be neglected against the first one.
 This follows from a simple estimate:
 For X-rays, the dielectric permittivity~$\eps$
-\index{Dielectric permittivity tensor}%
-\index{Permittivity tensor}%
+\index{Dielectric permittivity}%
+\index{Permittivity}%
 deviates from the unit tensor by no more than $10^{-5}$.
 All the more certainly, fluctuation amplitudes are no larger than $10^{-5}$.
 In contrast, within half a wavelength, $\v{E}$ changes sign.

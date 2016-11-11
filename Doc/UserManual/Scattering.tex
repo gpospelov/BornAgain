@@ -62,8 +62,11 @@ is governed by the microscopic Schrödinger equation
   i\hbar\partial_t \psi(\r,t)
   = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
 \end{equation}
-By assuming a time-independent potential $V(\r)$,
-we have excluded inelastic scattering.
+Since BornAgain only supports elastic scattering,
+\index{Elastic scattering}%
+\index{Scattering!elastic}%
+the potential $V(\r)$ must be time independent.
+\index{Time}%
 Therefore we only need to consider monochromatic waves
 \index{Wave!monochromatic}%
 \index{Monochromatic wave}%
@@ -75,6 +78,8 @@ In consequence, the wave function
 \end{equation}
 \nomenclature[1ψ030 2r040 0]{$\psi(\r)$}{Stationary wavefunction}%
 factorizes into a stationary wave and a time-dependent phase factor.
+\index{Stationary wave function}%
+\index{Phase factor}%
 The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \E{quantum-mechanical sign convention}.
@@ -199,32 +204,35 @@ features of a sample one ultimately wants to study in a scattering experiment.
 For brevity, we rewrite~\cref{ESchrodi3} as
 \Emph{
 \begin{equation}\label{ESchrodiK}
-  \left\{ \Nabla^2 + K(\r)^2 \right\}\psi(\r)
+  \left\{ \Nabla^2 + k(\r)^2 \right\}\psi(\r)
   = 4\pi\delta v(\r)\psi(\r).
 \end{equation}
 \vspace*{-5pt}}
 This will be the starting point for all further analyses.
-It contains the wavenumber~$K(\r)$, given by the dispersion relation
-\nomenclature[2k120]{$K$}{Wavenumber}%
+It contains the wavenumber~$k(\r)$, defined by the dispersion relation
+\nomenclature[2k030 2r040]{$k(\r)$}{Wavenumber}%
 \index{Dispersion!neutron in homogeneous medium}%
 \index{Wavenumber!neutron}%
 \begin{equation}\label{Edispersion}
-  K(\r)^2 = \frac{2m\omega}{\hbar} - 4\pi\mv(\r).
+  k(\r)^2 \coloneqq \frac{2m\omega}{\hbar} - 4\pi\mv(\r).
 \end{equation}
-With the vacuum wavenumber~$K_\text{vac}$
-\nomenclature[2k124 200vac]{$K_\text{vac}$}{Wavenumber in vacuum}%
-and the \E{refractive index}
+Alternatively, we may write
+\begin{equation}\label{Ekkn}
+  k(\r)=K n(\r),
+\end{equation}
+using the vacuum wavenumber~$K\coloneqq 2m\omega/\hbar$
+\nomenclature[2k120]{$K$}{Wavenumber in vacuum}%
+and the neutron optical \E{refractive index}
 \nomenclature[2n020]{$n$}{Refractive index}%
 \index{Refractive index}%
 \index{Index of refraction|see {Refractive index}}%
 \begin{equation}\label{EnRefrIndx}
-  n\coloneqq \sqrt{1-\frac{4\pi}{K_\text{vac}^2}\mv},
+  n(\r)\coloneqq \sqrt{1-\frac{4\pi}{K^2}\mv(\r)}.
 \end{equation}
-\cref{Edispersion} takes the simple form $K=K_\text{vac} n$.
-The complex refractive index of a given material
-shall be written with two real parameters:
+It is customary to express the complex refractive index of a material
+by two real parameters:
 \begin{equation}\label{Endb1}
-  n =  1-\delta +i\beta,
+  n =  1-\delta +i\beta.
 \end{equation}
 \nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
    $n=1-\delta +i\beta$}%
@@ -300,7 +308,7 @@ except that the right-hand side contains the unknown function~$\psi$.
 In the Born expansion this problem is solved by iteration.
 The zeroth approximation to~\cref{ESchrodiK} is the homogeneous wave equation
 \begin{equation}\label{EHomoK}
-  \left\{\Nabla^2+K(\r)^2\right\}\psi(\r) = 0.
+  \left\{\Nabla^2+k(\r)^2\right\}\psi(\r) = 0.
 \end{equation}
 It does not have a practicable generic solution.
 Therefore at this point one needs to make additional simplifying assumptions.
@@ -683,10 +691,14 @@ and will be worked out later (\cref{Swave21}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{X-ray!scattering theory|(}%
 
+%===============================================================================
+\subsection{Wave equation}\label{SXwave}
+%===============================================================================
+
 The propagation of X-rays is governed by Maxwell's equations,
 \index{Maxwell's equations}%
 \index{Wave propagation!X-rays}%
-\begin{equation}
+\begin{equation}\label{EMaxwell}
   \begin{array}{lll}
     \Nabla\times\v{E}=-\partial_t \v{B},\quad
    &\Nabla\v{B}=0,\quad
@@ -694,73 +706,112 @@ The propagation of X-rays is governed by Maxwell's equations,
    \\[2ex]
     \Nabla\times\v{H}=+\partial_t \v{D},\quad
    &\Nabla\v{D}=0,\quad
-   &\v{D}=\v{\epsilon}(\r)\epsilon_0\v{E}.
+   &\v{D}=\v{\eps}(\r)\eps_0\v{E}.
   \end{array}
 \end{equation}
-Since we are only interested in elastic scattering
+\nomenclature[2e150 2r040 2t020]{$\v{E}(\r,t)$}{Electric field}%
+\nomenclature[2h150 2r040 2t020]{$\v{H}(\r,t)$}{Magnetizing field}%
+\nomenclature[2d150 2r040 2t020]{$\v{D}(\r,t)$}{Displacement field}%
+\nomenclature[2b150 2r040 2t020]{$\v{B}(\r,t)$}{Magnetic field}%
+\nomenclature[1ε070 2r040]{$\v\eps(\r)$}{Relative dielectric permittivity tensor}%
+\nomenclature[1μ070 2r040]{$\v\mu(\r)$}{Relative magnetic permeability tensor}%
+\nomenclature[1ε024 00]{$\eps_0$}{Vacuum permittivity, 8.854\ldots As/Vm}%
+\nomenclature[1μ024 00]{$\mu_0$}{Vacuum permeability, 1.256\ldots Vs/Am}%
+Since BornAgain only addresses elastic scattering,
 \index{Elastic scattering}%
 \index{Scattering!elastic}%
-We do not consider magnetic refraction or scattering,
-so the relative magnetic permeability tensor is $\v{\mu}(\r)=1$.
-\index{Permeability tensor}%
-\index{Magnetic permeability tensor}%
-We assume the relative dielectric permittivity tensor~$\v{\epsilon}$
-\index{Dielectric permittivity tensor}%
-\index{Permittivity tensor}%
+we assume the permeability and permittivity tensors $\v\mu$ and~$\v\eps$
 to be time-independent.
+\index{Time}%
 Therefore, as in~\cref{ScohWave}, we only need to consider monochromatic waves
 \index{Wave!monochromatic}%
 \index{Monochromatic wave}%
-with given frequency~$\omega$, and the electric field
-\index{Electric field!stationary}%
+with given frequency~$\omega$,
+and each of the fields $\v{E}$, $\v{D}$, $\v{H}$, $\v{B}$
+factorizes into a stationary field and a time-dependent phase factor.
+\index{Phase factor}%
+In the following, we will concentrate on the electric field
+\index{Electric field}%
 \begin{equation}
-  \v{E}(\r,t) = \v{E}(\r)\e^{-i\omega t}
+  \v{E}(\r,t) = \v{E}(\r)\e^{-i\omega t}.
 \end{equation}
-factorizes into a stationary wave field and a time-dependent phase factor.
-With the vacuum dispersion relation
+The other three fields can be obtained from~$\v{E}$
+by straightforward application of~\cref{EMaxwell}.
+
+Since magnetic refraction or scattering is beyong the scope of BornAgain,
+the relative magnetic permeability tensor is always $\v{\mu}(\r)=1$.
+\index{Permeability}%
+\index{Magnetic permeability}%
+As customary in GISAXS, we assume with Laue \cite{Lau31}
+that the dielectric properties of the material are those of a polarizable electron cloud.
+Thereby the relative dielectric permittivity tensor~$\v{\eps}$
+\index{Dielectric permittivity}%
+\index{Permittivity}%
+becomes a scalar,
 \begin{equation}
-  k_0^2 = \mu_0\epsilon_0\omega^2,
+  \eps(\r)=1-\frac{4\pi r_e}{K^2}\rho(\r),
+\end{equation}
+\nomenclature[1ε030 2r040]{$\eps(\r)$}{Relative dielectric permittivity function}%
+\nomenclature[1ρ030 2r040]{$\rho(\r)$}{Electron number density}%
+with the classical electron radius~$r_e=e^2/mc^2\simeq2.8\cdot10^{-15}$~m,
+\index{Electron radius}%
+\index{Classical electron radius}%
+\nomenclature[2r024 2e000]{$r_e$}{Classical electron radius~$2.817\ldots^{-15}$~m}%
+the electron number density~$\rho(\r)$,
+\index{Electron density}%
+\index{Density!electron}%
+\index{Number density|see{Density}}%
+and the vacuum wavenumber~$K$,
+given by the dispersion relation
+\begin{equation}
+  K^2 = \mu_0\eps_0\omega^2.
 \end{equation}
 \index{Dispersion!X-rays}%
+With these simplifying assumptions about $\v{\eps}$ and~$\v{\mu}$,
 Maxwell's equations yield the wave equation
 \begin{equation}\label{ENabNabE}
-  \Nabla\times\Nabla\times\v{E} = k_0^2\v{\epsilon}(\r)\v{E}.
+  \Nabla\times\Nabla\times\v{E} = K^2\eps(\r)\v{E}.
 \end{equation}
 \index{Wave equation!X-rays}%
+\index{X-ray!wave equation}%
 To solve this equation by a perturbation expansion,
 we proceed as in \cref{Sfluct},
-and decompose the dielectric permittivity tensor
-into a slowly varying scalar and a fluctuating component,
+and decompose the dielectric permittivity
+into a slowly varying component and one that fluctuates on atomic scales,
 \begin{equation}
-  \v{\epsilon}(\r) = \overline{\epsilon}(\r) + \delta\v{\epsilon}(\r).
+  \eps(\r) = \overline{\eps}(\r) + \delta\eps(\r).
 \end{equation}
+\nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Slowly varying part of the permittivity~$\eps(\r)$}%
+\nomenclature[1δ030
+  1ε030 2r040]{$\delta\eps(\r)$}{Fast varying part of the permittivity~$\eps(\r)$}%
 With the additional notation
 \begin{equation}
-  K(\r)^2 \coloneqq k_0^2 \overline{\epsilon}(\r)
+  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r)
 \end{equation}
 and
 \begin{equation}
-  4\pi\delta\v{v}(\r) \coloneqq - k_0^2\delta\v{\epsilon},
+  4\pi\delta v(\r) \coloneqq - K^2\delta\eps,
 \end{equation}
 the wave equation~\cref{EwaveE2} takes the form
 \begin{equation}\label{EwaveE3}
-  \left\{-\Nabla\times\Nabla\times\v{1} + K(\r)^2\right\}\v{E}(\r)
-  = 4\pi\delta\v{v}(\r)\v{E}(\r).
+  \left\{-\Nabla\times\Nabla\times\v{1} + k(\r)^2\right\}\v{E}(\r)
+  = 4\pi\delta v(\r)\v{E}(\r).
 \end{equation}
-For the time being,
-BornAgain does not support polarization-dependent scattering
-\index{Polarized scattering!X-rays}%
-from tensorial dielectric structures.
-Therefore, from this point on we only consider scalar fluctuations
-$\delta\epsilon$ and~$\delta v$.
-If we write $\psi(\r)$ for the amplitude of $\v{E}(\r)$,
-\cref{EwaveE3} replicates the perturbed Schrödinger equation~\cref{ESchrodiK}.
-\index{Schrodinger@Schrödinger equation!X-rays}%
-So all the following analysis,
-written in the language of neutron scattering,
-equally holds for scalar X-ray scattering.
-% TODO: except for the polarization factors ...
+\index{Wave equation!X-rays}%
+\index{X-ray!wave equation}%
+This is very similar to the  perturbed Schrödinger equation~\cref{ESchrodiK}.
+There are only two differences:
+the more complicated differential operator,
+and the fact that $\v{E}$ is vector valued,
+whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 
+%===============================================================================
+\subsection{Solution}\label{SXscasol}
+%===============================================================================
+
+\MissingSection
+
+\iffalse
 OLD MAT:
 To simplify the left-hand side,
 we make use of a standard vector analysis identity,
@@ -769,24 +820,25 @@ followed by an application of Gauss's law $\Nabla\v{D}=0$:
 \begin{equation}
   \Nabla\times\Nabla\times\v{E}
   = - \Nabla^2\v{E} + \Nabla(\Nabla\v{E})
-  = - \Nabla^2\v{E} - \Nabla\left[\v{\epsilon}(\r)^{-1}(\Nabla\v\epsilon(\r))\v{E}\right].
+  = - \Nabla^2\v{E} - \Nabla\left[\eps(\r)^{-1}(\Nabla\v\eps(\r))\v{E}\right].
 \end{equation}
 When applied to propagating waves, the second term can be neglected against the first one.
 This follows from a simple estimate:
-For X-rays, the dielectric permittivity tensor~$\v{\epsilon}$
+For X-rays, the dielectric permittivity~$\eps$
 \index{Dielectric permittivity tensor}%
 \index{Permittivity tensor}%
 deviates from the unit tensor by no more than $10^{-5}$.
 All the more certainly, fluctuation amplitudes are no larger than $10^{-5}$.
 In contrast, within half a wavelength, $\v{E}$ changes sign.
-Therefore, $(\Nabla\v{\epsilon})\v{E}$ is by at least five orders of magnitude
+Therefore, $(\Nabla\eps)\v{E}$ is by at least five orders of magnitude
 smaller than $\Nabla\v{E}$,
 and can safely be neglected.
 With this approximation, the wave equation~\cref{ENabNabE} becomes simply
 \begin{equation}\label{EwaveE2}
   \Nabla^2\v{E}
-  = -k_0^2\v{\epsilon}(\r)\v{E}.
+  = -K^2\eps(\r)\v{E}.
 \end{equation}
+\fi
 
 \index{X-ray!scattering theory|)}%
 

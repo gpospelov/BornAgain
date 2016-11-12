@@ -793,7 +793,7 @@ and~\cref{EGreenK} for plane waves and distorted waves as
 \end{equation}
 We now posit
 \begin{equation}\label{EGoG}
-  \Go(\rD,\rS) = G(\rD,\rS) - \int\!\d^3r\, \Go(\rD,\r)\delta k(\r)^2 G(\r,\rS),
+  \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, \Go(\rD,\r)\delta k(\r)^2 G(\r,\rS),
 \end{equation}
 which can be verified by operating on both sides with $\Do$.\footnote
 {This is not entirely convincing:
@@ -805,16 +805,16 @@ Perhaps this point must be chosen in the limit~$r_\text{D}\to\infty$.
 Our source~\cite{DiWa84} provides no clue.}
 We now use the reciprocity~\cref{Erecip} to transform~\cref{EGoG} into
 \begin{equation}
-  \Go(\rD,\rS) = G(\rD,\rS) - \int\!\d^3r\, G(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
+  \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, G(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
 \end{equation}
 Finally, we take far-field limit in $\rD$:
 \begin{equation}\label{EGoFF}
-  \Go_\infty(\rD,\rS) = G_\infty(\rD,\rS) - \int\!\d^3r\, G_\infty(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
+  \Go_\infty(\rD,\rS) = G_\infty(\rD,\rS) + \int\!\d^3r\, G_\infty(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
 \end{equation}
 We now turn to the solution~$\psi_\sf$ of the homogeneous wave equation.
 We posit
 \begin{equation}\label{Epfo}
-  \pfo(\rS) = \psi_\sf(\rS) - \int\!\d^3r\, \psi_\sf(\r)\delta k(\r)^2 \Go(\r,\rS),
+  \pfo(\rS) = \psi_\sf(\rS) + \int\!\d^3r\, \psi_\sf(\r)\delta k(\r)^2 \Go(\r,\rS),
 \end{equation}
 which again can be verified by operating on both sides with~$\Do$.
 We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
@@ -830,7 +830,7 @@ We take complex conjugate of both sides of~\cref{Epfo},
  and multiply them with $\phi(\rD)$ to obtain
 \begin{equation}\label{Epfo2}
   \Go_\infty(\rD,\rS)
-  = \phi(\rD)\psi^*_\sf(\rS) - \int\!\d^3r\, \phi(\rD)\psi^*_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
+  = \phi(\rD)\psi^*_\sf(\rS) + \int\!\d^3r\, \phi(\rD)\psi^*_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
 \end{equation}
 We compare with~\cref{EGoFF},
 and read off the far-field asymptote of the distorted-waves Green function
@@ -973,7 +973,7 @@ Furthermore, we define the scattering potential by
 \end{equation}
 The wave equation~\cref{ENabNabE} then becomes
 \begin{equation}\label{EwaveE3}
-  \left\{-\Nabla\times\Nabla\times\v{1} + k(\r)^2\right\}\v{E}(\r)
+  \left\{-\Nabla\times\Nabla\times\ONE + k(\r)^2\right\}\v{E}(\r)
   = 4\pi\delta v(\r)\v{E}(\r).
 \end{equation}
 \index{Wave equation!X-rays}%
@@ -992,7 +992,12 @@ whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 
 \MissingSection
 
-\iffalse
+\def\Gt{\TENS{G}}
+\begin{equation}
+  (\Nabla^2-\Nabla\cdot\Nabla+k(\r)^2)\Gt(\r,\r')
+  = \ONE \delta(\r-\r')
+\end{equation}
+
 OLD MAT:
 To simplify the left-hand side,
 we make use of a standard vector analysis identity,
@@ -1019,7 +1024,6 @@ With this approximation, the wave equation~\cref{ENabNabE} becomes simply
   \Nabla^2\v{E}
   = -K^2\eps(\r)\v{E}.
 \end{equation}
-\fi
 
 \index{X-ray!scattering theory|)}%
 

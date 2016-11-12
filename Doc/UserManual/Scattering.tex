@@ -324,6 +324,7 @@ The incident wave~$\psi_\si(\r)$ must be determined from the homogeneous wave eq
   \left\{\Nabla^2+k(\r)^2\right\}\psi_\si(\r) = 0.
 \end{equation}
 The Green function~$G(\r,\r')$ must fulfill the wave equation with an isolated inhomogeneity,
+\index{Green function}%
 \begin{equation}\label{EGreenK}
   \left\{\Nabla^2+k(\r)^2\right\}G(\r,\r') = \delta(\r-\r').
 \end{equation}
@@ -339,12 +340,12 @@ We can then posit the \E{Lippmann-Schwinger equation}
   + \int\!\d^3r'\, G(\r,\r') 4\pi\delta v(\r')\psi(\r').
 \end{equation}
 By operating on both sides with~$\{\Nabla^2+k(\r)^2\}$
-it is easily demonstrated that solutions~$\psi$ of this integral equation
+it is easily seen that solutions~$\psi$ of this integral equation
 fulfill the perturbed Schrödinger equation \cref{ESchrodiK}.
 
 The Lippmann-Schwinger equation can be resolved into an infinite series
 by iteratively substituting the full right-hand side of~\cref{EPsiFormal}
-into the integrand.
+for the occurence of~$\psi$ in the integrand.
 Successive terms in this series contain rising powers of $\delta v$.
 Since $\delta v$ is assumed to be small, the series is likely to converge.
 In \E{first-order Born approximation},
@@ -360,7 +361,9 @@ where the aim is to
 deduce $\delta v(\r')$ from the scattered intensity ${|\psi(\r)|}^2$.
 Since detectors are always placed at positions $\r$
 that are not illuminated by the incident beam,
-we are only interested in the scattered wave field
+we are only interested in the scattered wave
+\index{Scattered wave}%
+\index{Wave!scattered}%
 \begin{equation}\label{EBornS}
   \psi_\text{s}(\r)
   \coloneqq
@@ -368,6 +371,33 @@ we are only interested in the scattered wave field
 \end{equation}
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
 \nomenclature[2s000 0]{s}{Subscript ``scattered''}%
+For brevity and mathematical convenience,
+the integral introduced in~\cref{EPsiFormal} has no bounds
+and therefore formally runs over the entire space.
+However, the perturbation potential $\delta v(\r')$ in the integrand is nonzero
+only if $\r'$ lies inside the sample volume.
+On the other hand, we only need to compute the scattered wave~$\psi_\text{s}(\r)$
+at detector positions~$\r$ far outside the sample.
+This is just the condition for \E{Fraunhofer diffraction}:
+\index{Fraunhofer approximation}%
+the distance from the sample to the detector location~$\r$
+must be much larger than the size of the sample.
+In the context of generic scattering theory,
+it is known as the \E{far-field approximation}.
+\index{Far-field approximation}%
+To keep notation light,
+we assume from now on that the coordinate origin
+\index{Coordinate origin}%
+\index{Origin!coordinate system}%
+lies inside the sample.
+Then far-field asymptotes are obtained by taking the limit $r\to\infty$.
+Since we only need the asymptote $\psi_{\text{s}\infty}(\r)$ of the scattered wave,
+it is sufficient to solve~\cref{EGreenK} for the far-field Green function
+\begin{equation}
+  G_\infty(\r,\r')\coloneqq \lim_{r\to\infty} G(\r,\r').
+\end{equation}
+This will be done in very different ways for plane waves (\cref{Sfarfield})
+and for distorted waves (\cref{SfarDW}).
 
 \index{Scattering!plane wave|)}%
 \index{Born approximation|)}%
@@ -420,10 +450,7 @@ This explains the appearance of the factor $4\pi$.}
 which is an outgoing spherical wave centered at $\r'$.
 
 We can further simplify \cref{EBornS}
-under the conditions of Fraunhofer diffraction:
-\index{Fraunhofer approximation}%
-the distance from the sample to the detector location~$\r$
-must be much larger than the size of the sample.
+.. Fraunhofer ..
 Since the scattered wave $\psi_\text{s}(\r)$
 only depends on $\r$ through the Green function~$G(\r,\r')$,
 we shall derive a far-field approximation for the latter.
@@ -784,9 +811,10 @@ $B$ is much easier to compute than the unexpanded~$G$.
 \index{Reciprocity|)}%
 
 %===============================================================================
-\subsection{OLD MAT}\label{SDWBA1}
+\subsection{Far-field Green function}\label{SfarDW}
 %===============================================================================
 
+OLD MAT:
 The \E{source-detector reciprocity theorem}~\cref{Ereci}
 \index{Reciprocity}%
 proven in \cref{Sreci1}

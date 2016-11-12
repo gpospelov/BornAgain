@@ -743,7 +743,7 @@ $G$ is an outgoing solution of the Helmholtz equation.
 As such, it has a well-known series expansion in spherical coordinates
 We send $R\to\infty$ so that we need only to retain the lowest order:
 \begin{equation}
-  \begin{array}{lcl}
+  \begin{array}{@{}l@{\;}c@{\;}l}
    G(\r(R,\vartheta,\varphi),\rD)
    &\doteq&\displaystyle \frac{\e^{iKR}}{4\pi R} a(\vartheta,\varphi),
    \\[3.8ex]
@@ -767,56 +767,92 @@ which completes the proof.
 \subsection{Far-field Green function}\label{SfarDW}
 %===============================================================================
 
-OLD MAT:
-The \E{source-detector reciprocity theorem}~\cref{Ereci}
-\index{Reciprocity}%
-proven in \cref{Sreci1}
-yields
-\begin{equation}\label{EreciDup}
-  G(\rD,\r) = B(\r,\rD),
+\def\Do{\ocirc{D}}
+\def\Go{\ocirc{G}}
+\def\pfo{\ocirc{\psi}_\sf}
+
+The following derivation of the far-field Green function~$G_\infty$
+\index{Green function!distorted waves, far-field|(}%
+is a simplified rendering of Dietrich and Wagner \cite{DiWa84},
+transcribed from electromagnetic to neutron waves.
+With the differential operators
+\begin{equation}
+  \begin{array}{@{}l}
+    \Do \coloneqq \Nabla^2+K^2, \\[1.4ex]
+    D \coloneqq \Nabla^2+k(\r)^2 = \Do + \delta k(\r)^2,
+  \end{array}
 \end{equation}
-\nomenclature[2b030 2r040 2r041]{$B(\r,\r')$}{Green function, adjoint of $G$}%
-where~$B$ is the \E{adjoint Green function}
-that describes backward propagation from $\rD$ into the sample.
-Outside the sample,
-$B$ obeys the Helmholtz equation
-with isolated inhomogeneity \cref{EGreenK},
-and therefore has the far-field expansion~\cref{EGreenFar},
-\index{Far-field approximation}%
-\begin{equation}\label{EBFar}
-  B_\infty(\r,\rD)
-  =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\sf \r}.
+and with $\delta k^2\coloneqq k^2-K^2$,
+we rewrite the homogeneous and inhomogeneous differential equations \cref{EHomoK}
+and~\cref{EGreenK} for plane waves and distorted waves as
+\begin{equation}
+  \begin{array}{l@{\hspace{2em}}l}
+    \Do\pfo  (\r) = 0, &\Do\Go(\r,\r') = \delta(\r-\r'), \\[1.4ex]
+    D\psi_\sf(\r) = 0, &D  G  (\r,\r') = \delta(\r-\r').
+  \end{array}
 \end{equation}
-As explained above,
-we assume that there is a solution $\psi_\sf(\r)$ of the homogeneous
-wave equation that matches $\e^{i\k_\sf \r}$ outside the sample.
-Therefore,
-\begin{equation}\label{EBFull}
-  B_\infty(\r,\rD)
-  = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\sf(\r)
+We now posit
+\begin{equation}\label{EGoG}
+  \Go(\rD,\rS) = G(\rD,\rS) - \int\!\d^3r\, \Go(\rD,\r)\delta k(\r)^2 G(\r,\rS),
 \end{equation}
-is the far-field approximation (in $\rD$)
-to the solution of the Green function equation that generalizes~\cref{EGreenK}.
-It does not involve any approximation in~$\r$.
-Reciprocity \cref{EreciDup} yields
-\begin{equation}\label{EGreenFarDWBA}
-  G_\infty(\r,\r')
-  = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r')
+which can be verified by operating on both sides with $\Do$.\footnote
+{This is not entirely convincing:
+Equality of the second derivates is not sufficient to prove equality of
+two sides in an equation.
+For a full prove, we also have to show that the two sides, and their first derivatives,
+agree at least in one point~$\rD$.
+Perhaps this point must be chosen in the limit~$r_\text{D}\to\infty$.
+Our source~\cite{DiWa84} provides no clue.}
+We now use the reciprocity~\cref{Erecip} to transform~\cref{EGoG} into
+\begin{equation}
+  \Go(\rD,\rS) = G(\rD,\rS) - \int\!\d^3r\, G(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
 \end{equation}
-which is identical with with \cref{EGreenFar},
-but no longer depends on $\psi_\sf$ being a plane wave.
+Finally, we take far-field limit in $\rD$:
+\begin{equation}\label{EGoFF}
+  \Go_\infty(\rD,\rS) = G_\infty(\rD,\rS) - \int\!\d^3r\, G_\infty(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
+\end{equation}
+We now turn to the solution~$\psi_\sf$ of the homogeneous wave equation.
+We posit
+\begin{equation}\label{Epfo}
+  \pfo(\rS) = \psi_\sf(\rS) - \int\!\d^3r\, \psi_\sf(\r)\delta k(\r)^2 \Go(\r,\rS),
+\end{equation}
+which again can be verified by operating on both sides with~$\Do$.
+We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
+and rewrite it as
+\begin{equation}
+  \Go_\infty(\rD,\rS) = \phi(\rD)\pfo^*(\rS)
+\end{equation}
+with the far-field prefactor
+\begin{equation}
+  \phi(r) \coloneqq \frac{\e^{iKr}}{4\pi r}.
+\end{equation}
+We take complex conjugate of both sides of~\cref{Epfo},
+ and multiply them with $\phi(\rD)$ to obtain
+\begin{equation}\label{Epfo2}
+  \Go_\infty(\rD,\rS)
+  = \phi(\rD)\psi^*_\sf(\rS) - \int\!\d^3r\, \phi(\rD)\psi^*_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
+\end{equation}
+We compare with~\cref{EGoFF},
+and read off the far-field asymptote of the distorted-waves Green function
+\begin{equation}
+  G_\infty(\rD,\rS) = \phi(\rD)\psi^*_\sf(\rS).
+\end{equation}
+Note that this is formally identical with with \cref{EGreenFar},
+but no longer requires $\psi_\sf$ to be a plane wave.
+\index{Green function!distorted waves, far-field|)}%
 
 \Emph{Accordingly,
 the differential cross section is still given by \cref{Exsection},
 and the scattering matrix element by~\cref{Etrama}.}
-The plane-wave form~\cref{Echiq}, however, does no longer hold;
-its replacement depends on the distorted wavefunctions
-$\psi_\si$ and $\psi_\sf$,
-is therefore application specific,
-and will be worked out later (\cref{Swave21}).
+\index{Scattering matrix!distorted waves}%
 \index{Cross section!distorted-wave Born approximation}%
 \index{Scattering!cross section!distorted-wave Born approximation}%
 \index{Elastic scattering cross section!distorted-wave Born approximation}%
+The plane-wave form~\cref{Echiq}, however, does no longer hold.
+Its replacement depends on the distorted wavefunctions
+$\psi_\si$ and $\psi_\sf$,
+is therefore application specific,
+and will be worked out later (\cref{Swave21}).
 
 \index{Distorted-wave Born approximation|)}%
 
@@ -833,13 +869,13 @@ The propagation of X-rays is governed by Maxwell's equations,
 \index{Maxwell's equations}%
 \index{Wave propagation!X-rays}%
 \begin{equation}\label{EMaxwell}
-  \begin{array}{lll}
-    \Nabla\times\v{E}=-\partial_t \v{B},\quad
-   &\Nabla\v{B}=0,\quad
+  \begin{array}{@{}l@{\quad}l@{\quad}l}
+    \Nabla\times\v{E}=-\partial_t \v{B},
+   &\Nabla\v{B}=0,
    &\v{B}=\v{\mu}(\r)\mu_0\v{H},
    \\[2ex]
-    \Nabla\times\v{H}=+\partial_t \v{D},\quad
-   &\Nabla\v{D}=0,\quad
+    \Nabla\times\v{H}=+\partial_t \v{D},
+   &\Nabla\v{D}=0,
    &\v{D}=\v{\eps}(\r)\eps_0\v{E}.
   \end{array}
 \end{equation}

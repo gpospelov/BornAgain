@@ -77,10 +77,11 @@ In consequence, the wave function
   \psi(\r,t) = \psi(\r)\e^{-i\omega t}
 \end{equation}
 \nomenclature[1ψ030 2r040 0]{$\psi(\r)$}{Stationary wavefunction}%
-factorizes into a stationary wave and a time-dependent phase factor.
+factorizes into a stationary wave and a time-dependent phase factor.%
 \index{Stationary wave function}%
 \index{Phase factor}%
-The minus sign in the exponent of the phase factor
+\footnote
+{The minus sign in the exponent of the phase factor
 is an inevitable consequence of the standard form of the Schrödinger equation,
 and is therefore called the \E{quantum-mechanical sign convention}.
 \index{Wave propagation|seealso {Sign convention}}%
@@ -99,14 +100,11 @@ has also been chosen
 in influential texts on GISAXS (e.g.\ \cite{ReLL09}).
 Here, however, we are concerned not only with X-rays,
 but also with neutrons,
-and therefore we need to leave the Schrödinger equation~\cref{ESchrodi} intact.
-Thence:
-
-\Note
-{\indent In this manual, and in the program code of BornAgain,
-the quantum-mechanical sign convention~\cref{Estationarywave} is chosen.}
+and therefore need to leave the Schrödinger equation~\cref{ESchrodi} intact.
+Consequently, in this manual, and in the program code of BornAgain,
+the quantum-mechanical sign convention~\cref{Estationarywave}
 \index{Sign convention!wave propagation|)}%
-
+is chosen.}
 Inserting \cref{Estationarywave} in \cref{ESchrodi},
 we obtain the stationary Schrödinger equation
 \begin{equation}\label{EstatSchrodi}
@@ -200,8 +198,9 @@ The macroscopic Schrödinger equation~\cref{EmacrSchrodi} becomes
 \end{equation}
 The left-hand side describes optical wave propagation,
 the right-hand side is a perturbation that causes scattering.
-\index{Perturbation potential!neutron}%
-\index{Potential|see{Perturbation potential}}%
+\index{Scattering potential!neutron}%
+\index{Perturbation potential|see{Scattering potential}}%
+\index{Potential|see{Scattering potential}}%
 Accordingly, $\mv(\r)$ should only contain SLD variations
 that are simple enough to allow an analytical solution.
 The SLD fluctuation~$\delta v(\r)$ then stands for the more irregular
@@ -374,7 +373,7 @@ we are only interested in the scattered wave
 For brevity and mathematical convenience,
 the integral introduced in~\cref{EPsiFormal} has no bounds
 and therefore formally runs over the entire space.
-However, the perturbation potential $\delta v(\r')$ in the integrand is nonzero
+However, the scattering potential $\delta v(\r')$ in the integrand is nonzero
 only if $\r'$ lies inside the sample volume.
 On the other hand, we only need to compute the scattered wave~$\psi_\text{s}(\r)$
 at detector positions~$\r$ far outside the sample.
@@ -393,7 +392,7 @@ lies inside the sample.
 Then far-field asymptotes are obtained by taking the limit $r\to\infty$.
 Since we only need the asymptote $\psi_{\text{s}\infty}(\r)$ of the scattered wave,
 it is sufficient to solve~\cref{EGreenK} for the far-field Green function
-\begin{equation}
+\begin{equation}\label{EGinftydef}
   G_\infty(\r,\r')\coloneqq \lim_{r\to\infty} G(\r,\r').
 \end{equation}
 This will be done in very different ways for plane waves (\cref{Sfarfield})
@@ -403,21 +402,19 @@ and for distorted waves (\cref{SfarDW}).
 \index{Born approximation|)}%
 
 %===============================================================================
-\subsection{Far-field approximation}\label{Sfarfield}
+\subsection{Vacuum solution}\label{Sfarfield}
 %===============================================================================
 
 \index{Far-field approximation|(}%
 
-These two equations are addressed in full generality by the distorted-wave Born approximation
-(\cref{SDWBA}).
-\index{Distorted-wave Born approximation}%
-Here, we will substantially simplify them.
 As said in connection with~\cref{Edecompose_v},
 there is some freedom in the choice of $\mv(\r)$.
 In the standard variant of the Born expansion,
-one makes the simplest possible choice, $\mv=\text{const}$,
-taking the value of $v(\r)$ outside the finite sample volume.
-Accordingly, we have a constant~$k(\r)=K$.
+one makes the simplest possible choice,
+setting $\mv(\r)$ to the constant vacuum value.
+With~\cref{Edecompose_v},
+all fluctuations in $v(\r)$ are ascribed to the scattering potential~$\delta v(\r)$.
+With~\cref{Edispersion}, we have $k(\r)=K$.
 The homogeneous equation~\cref{EHomoK} reduces to the \E{Helmholtz equation},
 \index{Helmholtz wave equation}%
 \index{Wave propagation!Helmholtz equation}%
@@ -427,37 +424,29 @@ In the following we choose the incident plane wave
 \begin{equation}\label{EPsi0Plane}
   \psi_\si(\r)=\e^{i \k_\si \r}
 \end{equation}
+\nomenclature[2k040]{$\k$}{wavevector}%
 with $k_\si=K$.
-Superpositions of plane waves shall be discussed
-when we come to instrumental resolution effects (\cref{SBeam}).
+Superposition of plane waves
+\index{Superposition}%
+will be discussed when we come to instrumental resolution effects (\cref{SBeam}).
+\index{Instrument!resolution|see{Resolution}}%
+\index{Resolution}%
 
-For an isolated inhomogeneity,
-\begin{equation}\label{EHelmholtzForGreen}
-  \left\{\Nabla^2+K^2\right\}G(\r,\r') = \delta(\r-\r')
-\end{equation}
-\nomenclature[2g130 2r040 2r041]{$G(\r,\r')$}{Green function}%
-\index{Green function!homogeneous material}%
-is solved by the Green function\footnote
+The Green function of the inhomogeneous Helmholtz equation~\cref{EGreenK}
+with $k(\r)=K$ is well known:\footnote
 {Verification under the condition $\r\ne0$
 is a straightforward exercise in vector analysis.
 For the special case $\r=0$,
 one encloses the origin in a small sphere
 and integrates by means of the Gauss-Ostrogadsky divergence theorem.
 This explains the appearance of the factor $4\pi$.}
+\index{Green function!homogeneous material}%
 \begin{equation}\label{EGreens1}
-  G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|},
+  G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|}.
 \end{equation}
-which is an outgoing spherical wave centered at $\r'$.
-
-We can further simplify \cref{EBornS}
-.. Fraunhofer ..
-Since the scattered wave $\psi_\text{s}(\r)$
-only depends on $\r$ through the Green function~$G(\r,\r')$,
-we shall derive a far-field approximation for the latter.
-
-We choose the origin within the sample
-so that the integral in~\cref{EBornS} runs over $\r'$ with $r'\ll r$.
-This allows us to expand
+Read as a function of~$\r$, it is an outgoing spherical wave centered at $\r'$.
+To compute the far-field limit~\cref{EGinftydef},
+we expand for $\r'$ with $r'\ll r$:
 \begin{equation}
   \left|\r-\r'\right|
   \doteq \sqrt{r^2-2\r\,\r'}
@@ -466,19 +455,16 @@ This allows us to expand
 \end{equation}
 \nomenclature[2f000]{f}{Subscript ``final'',
    for outgoing waves scattered into the direction of the detector}%
-\nomenclature[2k040]{$\k$}{wavevector}%
 where we have introduced the outgoing wavevector
-\begin{equation}
-  \k_\sf\coloneqq K\frac{\r}{r}.
-\end{equation}
+$  \k_\sf\coloneqq K \r / r$.
 We apply this to~\cref{EGreens1},
 \index{Green function!homogeneous material}%
 and obtain in leading order the far-field Green function
 \begin{equation}\label{EGreenFar}
-  G_\text{far}(\r,\r')
-  = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r')
+  G_\infty(\r,\r')
+  = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r'),
 \end{equation}
-\nomenclature[2g134 2far]{$G_\text{far}(\r,\r')$}{Far-field
+\nomenclature[2g134 2far]{$G_\infty(\r,\r')$}{Far-field
    approximation to the Green function $G(\r,\r')$}%
 where
 \begin{equation}\label{EPsisfar}
@@ -488,19 +474,20 @@ where
   wave propagating from the sample towards the detector}%
 is a plane wave propagating towards the detector,
 and $\psi^*$ designates the complex conjugate of $\psi$.
-With respect to $\r$, $G_\text{far}$ is an outgoing spherical wave.
+As function of~$\r$, $G_\infty$ is an outgoing spherical wave.
 Inserting \cref{EGreenFar} in \cref{EBornS},
 we obtain the far-field approximation for the scattered wave,
 \index{Scattered wave!far-field}%
 \begin{equation}\label{EsandwichC}
-  \psi_\text{s,far}(\r)
+  \psi_{\text{s}\infty}(\r)
   = \frac{\e^{iKr}}{r}
     \bra \psi_\si|\delta v|\psi_\sf\ket^*
 \end{equation}
-\nomenclature[1ψ034 2s000 2far]{$\psi_\text{s,far}(\r)$}{Far-field
+\nomenclature[1ψ034 2s000 2far]{$\psi_{\text{s}\infty}(\r)$}{Far-field
    approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
-with the Dirac notation for the transition matrix element
-\index{Transition matrix}%
+with the Dirac notation for the scattering matrix element
+\index{Scattering matrix}%
+\index{Transition matrix|see{Scattering matrix}}%
 \Emph{%
 \begin{equation}\label{Etrama}
   \bra \psi_\si|\delta v|\psi_\sf\ket
@@ -509,9 +496,8 @@ with the Dirac notation for the transition matrix element
 \vspace*{-5pt}}
 \nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix
   element, defined as a volume integral}%
-
-With the incident plane wave~\cref{EPsi0Plane},
-the matrix element takes the form
+Since per \cref{EPsi0Plane} and~\cref{EPsisfar} our $\psi_\si$ and~$\psi_\sf$ are plane waves,
+the matrix element can be simplified as
 \begin{equation}\label{Echiq}
   \bra \psi_\si|\delta v|\psi_\sf\ket
   = \int\!\d^3r\, {\rm e}^{-i\k_\si\r}\delta v(\r){\rm e}^{i\k_\sf\r}
@@ -520,7 +506,7 @@ the matrix element takes the form
 \end{equation}
 \nomenclature[1χ030 2q040]{$v(\v{q})$}{Fourier
    transform of the SLD~$\delta v(\r)$}%
-where we have introduced the \E{scattering vector}\footnote
+with the \E{scattering vector}\footnote
 {With this choice of sign,
 \index{Sign convention!scattering vector}%
 $\hbar\q$ is the momentum
@@ -537,13 +523,14 @@ with respect to equally oriented coordinate axes,
 which can only be achieved by the convention~\cref{Eq}.}
 \index{Scattering!vector}%
 \begin{equation}\label{Eq}
-  \q\coloneqq \k_\sf-\k_\si
+  \q\coloneqq \k_\sf-\k_\si.
 \end{equation}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
-and the notation $v(\q)$ for
-the Fourier transform of the SLD,
-\index{Optical potential!Fourier transform}%
-which is what small-angle neutron scattering basically measures.
+\Cref{Echiq} summarizes the well-known fact that
+small-angle neutron scattering basically measures
+the Fourier transform $v(\q)$ of the SLD.
+\index{Scattering potential!Fourier transform}%
+\index{Fourier transform!scattering potential}%
 
 \index{Far-field approximation|)}%
 
@@ -612,7 +599,6 @@ it holds not only for plane waves governed
 by the Helmholtz equation,
 but also for distorted waves.
 \index{Distorted-wave Born approximation!elastic cross section}%
-
 In the plane-wave case \cref{Echiq} considered here,
 the differential cross section is just the squared modulus
 of the Fourier transform of the SLD,
@@ -697,7 +683,7 @@ and therefore must not be distinguished from~$\psi_\se$.
 Differently from the above derivation of the Born expansion,
 we will not even attempt to obtain a full solution
 \index{Green function!DWBA}%
-of the Green function equation that generalizes~\cref{EHelmholtzForGreen}.
+of the Green function equation~\cref{EGreenK}.
 We will only consider its asymptotic far-field limit $G_\infty(\rD,\r)$
 at a detector position $\rD$.
 Nonetheless, this function will be exact in the coordinate~$\r$
@@ -827,11 +813,11 @@ where~$B$ is the \E{adjoint Green function}
 that describes backward propagation from $\rD$ into the sample.
 Outside the sample,
 $B$ obeys the Helmholtz equation
-with isolated inhomogeneity \cref{EHelmholtzForGreen},
+with isolated inhomogeneity \cref{EGreenK},
 and therefore has the far-field expansion~\cref{EGreenFar},
 \index{Far-field approximation}%
 \begin{equation}\label{EBFar}
-  B_\text{far}(\r,\rD)
+  B_\infty(\r,\rD)
   =\frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\e^{-i\k_\sf \r}.
 \end{equation}
 As explained above,
@@ -839,15 +825,15 @@ we assume that there is a solution $\psi_\sf(\r)$ of the homogeneous
 wave equation that matches $\e^{i\k_\sf \r}$ outside the sample.
 Therefore,
 \begin{equation}\label{EBFull}
-  B_\text{far}(\r,\rD)
+  B_\infty(\r,\rD)
   = \frac{\e^{iKr_\text{D}}}{4\pi r_\text{D}}\psi^*_\sf(\r)
 \end{equation}
 is the far-field approximation (in $\rD$)
-to the solution of the Green function equation that generalizes~\cref{EHelmholtzForGreen}.
+to the solution of the Green function equation that generalizes~\cref{EGreenK}.
 It does not involve any approximation in~$\r$.
 Reciprocity \cref{EreciDup} yields
 \begin{equation}\label{EGreenFarDWBA}
-  G_\text{far}(\r,\r')
+  G_\infty(\r,\r')
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r')
 \end{equation}
 which is identical with with \cref{EGreenFar},
@@ -855,7 +841,7 @@ but no longer depends on $\psi_\sf$ being a plane wave.
 
 \Emph{Accordingly,
 the differential cross section is still given by \cref{Exsection},
-and the transition matrix element by~\cref{Etrama}.}
+and the scattering matrix element by~\cref{Etrama}.}
 The plane-wave form~\cref{Echiq}, however, does no longer hold;
 its replacement depends on the distorted wavefunctions
 $\psi_\si$ and $\psi_\sf$,
@@ -977,8 +963,8 @@ In analogy to~\cref{Ekkn} we define the material-dependent wavenumber by
 \begin{equation}
   k(\r)^2 \coloneqq K^2 \overline{\eps}(\r).
 \end{equation}
-Furthermore, we define the perturbation potential by
-\index{Perturbation potential!X-ray}%
+Furthermore, we define the scattering potential by
+\index{Scattering potential!X-ray}%
 \begin{equation}
   4\pi\delta v(\r) \coloneqq - K^2\delta\eps.
 \end{equation}

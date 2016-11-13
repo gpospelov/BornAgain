@@ -791,11 +791,12 @@ and~\cref{EGreenK} for plane waves and distorted waves as
     D\psi_\sf(\r) = 0, &D  G  (\r,\r') = \delta(\r-\r').
   \end{array}
 \end{equation}
-We now posit
+We now posit an integral equation that determines
+the full Green function $G$ if the vacuum Green function~$\Go$ is given:
 \begin{equation}\label{EGoG}
-  \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, \Go(\rD,\r)\delta k(\r)^2 G(\r,\rS),
+  \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, \Go(\rD,\r)\delta k(\r)^2 G(\r,\rS).
 \end{equation}
-which can be verified by operating on both sides with $\Do$.\footnote
+It can be verified by operating on both sides with $\Do$.\footnote
 {This is not entirely convincing:
 Equality of the second derivates is not sufficient to prove equality of
 two sides in an equation.
@@ -803,20 +804,20 @@ For a full prove, we also have to show that the two sides, and their first deriv
 agree at least in one point~$\rD$.
 Perhaps this point must be chosen in the limit~$r_\text{D}\to\infty$.
 Our source~\cite{DiWa84} provides no clue.}
-We now use the reciprocity~\cref{Erecip} to transform~\cref{EGoG} into
+We use the reciprocity~\cref{Erecip} to transform~\cref{EGoG} into
 \begin{equation}
   \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, G(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
 \end{equation}
-Finally, we take far-field limit in $\rD$:
+Below, we will only need the far-field limit in $\rD$:
 \begin{equation}\label{EGoFF}
   \Go_\infty(\rD,\rS) = G_\infty(\rD,\rS) + \int\!\d^3r\, G_\infty(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
 \end{equation}
-We now turn to the solution~$\psi_\sf$ of the homogeneous wave equation.
-We posit
+We also posit an integral equation that determines the distorted wave~$\pfo$
+if the plane wave~$\psi_\sf$ is given:
 \begin{equation}\label{Epfo}
-  \pfo(\rS) = \psi_\sf(\rS) + \int\!\d^3r\, \psi_\sf(\r)\delta k(\r)^2 \Go(\r,\rS),
+  \pfo(\rS) = \psi_\sf(\rS) + \int\!\d^3r\, \psi_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
 \end{equation}
-which again can be verified by operating on both sides with~$\Do$.
+Verification can again be done by operating on both sides with~$\Do$.
 We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
 and rewrite it as
 \begin{equation}

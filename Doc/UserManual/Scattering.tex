@@ -767,16 +767,16 @@ which completes the proof.
 \subsection{Far-field Green function}\label{SfarDW}
 %===============================================================================
 
-\def\Do{\ocirc{D}}
-\def\Go{\ocirc{G}}
-\def\pfo{\ocirc{\psi}_\sf}
+\def\Do{\overset{o}{D}}
+\def\Go{\overset{o}{G}}
+\def\pfo{\overset{o}{\psi}_\sf}
 
 The following derivation of the far-field Green function~$G_\infty$
 \index{Green function!distorted waves, far-field|(}%
 is a simplified rendering of Dietrich and Wagner \cite{DiWa84},
 transcribed from electromagnetic to neutron waves.
 With the differential operators
-\begin{equation}
+\begin{equation}\label{EDDdef}
   \begin{array}{@{}l}
     \Do \coloneqq \Nabla^2+K^2, \\[1.4ex]
     D \coloneqq \Nabla^2+k(\r)^2 = \Do + \delta k(\r)^2,
@@ -823,7 +823,7 @@ and rewrite it as
   \Go_\infty(\rD,\rS) = \phi(\rD)\pfo^*(\rS)
 \end{equation}
 with the far-field prefactor
-\begin{equation}
+\begin{equation}\label{Effphidef}
   \phi(r) \coloneqq \frac{\e^{iKr}}{4\pi r}.
 \end{equation}
 We take complex conjugate of both sides of~\cref{Epfo},
@@ -990,40 +990,81 @@ whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 \subsection{Solution}\label{SXscasol}
 %===============================================================================
 
-\MissingSection
+\def\TD{\TENS{D}}
+\def\TG{\TENS{G}}
+\def\TDo{\TENS{\overset{o}{D}}}
+\def\TGo{\TENS{\overset{o}{G}}}
+\def\Ef{\v{E}_\sf}
+\def\Efo{\TENS{\overset{o}{\v{E}}}_\sf}
+\def\Efoc{\Efo^*}
 
-\def\Gt{\TENS{G}}
+The far-field Green function for the wave equation~\cref{EwaveE3}
+can be derived along the lines of~\Cref{SfarDW}
+except that differential operators and Green functions are now dyadic tensors \cite{DiWa84}.
+\index{Green function!distorted waves, far-field|(}%
+Instead of \cref{EDDdef}, we will need the differential operators
 \begin{equation}
-  (\Nabla^2-\Nabla\cdot\Nabla+k(\r)^2)\Gt(\r,\r')
-  = \ONE \delta(\r-\r')
+  \begin{array}{@{}l}
+    \TDo \coloneqq -\Nabla\times\Nabla\times\ONE+K^2
+          = \Nabla^2-\Nabla\cdot\Nabla+K^2, \\[1.4ex]
+   \TD \coloneqq -\Nabla\times\Nabla\times\ONE+k(\r)^2 = \TDo + \delta k(\r)^2,
+  \end{array}
 \end{equation}
+with $\delta k^2\coloneqq k^2-K^2$ as before.
+Based on~\cref{EwaveE3},
+the homogeneous and inhomogeneous differential equations
+for plane waves and distorted waves are
+\begin{equation}
+  \begin{array}{l@{\hspace{2em}}l}
+    \TDo\Efo  (\r) = 0, &\TDo\TGo(\r,\r') = \ONE\delta(\r-\r'), \\[1.4ex]
+    \TD\Ef(\r) = 0, &\TD  \TG  (\r,\r') = \ONE\delta(\r-\r').
+  \end{array}
+\end{equation}
+\Cref{EGoFF} becomes
+\begin{equation}\label{EXGoFF}
+  \TGo_\infty(\rD,\rS)
+  = \TG_\infty(\rD,\rS) + \int\!\d^3r\, \TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS).
+\end{equation}
+\Cref{Epfo} gets replaced by
+\begin{equation}\label{EXpfo}
+  \Efo(\rS) = \Ef(\rS) + \int\!\d^3r\, \Ef(\r)\delta k(\r)^2 \TGo(\r,\rS).
+\end{equation}
+These equations can be verified by operating on both sides with~$\TDo$.
+We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
+and rewrite it as
+\begin{equation}
+  \TGo_\infty(\rD,\rS) = \phi(\rD)\Efoc(\rS)
+\end{equation}
+with the far-field prefactor $\phi$ as defined in~\cref{Effphidef}.
+We take complex conjugate of both sides of~\cref{EXpfo},
+ and multiply them with $\phi(\rD)$ to obtain
+\begin{equation}\label{EXpfo2}
+  \TGo_\infty(\rD,\rS)
+  = \phi(\rD)\psi^*_\sf(\rS) + \int\!\d^3r\, \phi(\rD)\psi^*_\sf(\r)\delta k(\r)^2 \TGo(\r,\rS).
+\end{equation}
+We compare with~\cref{EXGoFF},
+and read off the far-field asymptote of the distorted-waves Green function
+\begin{equation}
+  \TG_\infty(\rD,\rS) = \phi(\rD)\psi^*_\sf(\rS).
+\end{equation}
+Note that this is formally identical with with \cref{EGreenFar},
+but no longer requires $\Ef$ to be a plane wave.
+\index{Green function!distorted waves, far-field|)}%
 
-OLD MAT:
-To simplify the left-hand side,
-we make use of a standard vector analysis identity,
-followed by an application of Gauss's law $\Nabla\v{D}=0$:
-\index{Gauss's law}%
-\begin{equation}
-  \Nabla\times\Nabla\times\v{E}
-  = - \Nabla^2\v{E} + \Nabla(\Nabla\v{E})
-  = - \Nabla^2\v{E} - \Nabla\left[\eps(\r)^{-1}(\Nabla\v\eps(\r))\v{E}\right].
-\end{equation}
-When applied to propagating waves, the second term can be neglected against the first one.
-This follows from a simple estimate:
-For X-rays, the dielectric permittivity~$\eps$
-\index{Dielectric permittivity}%
-\index{Permittivity}%
-deviates from the unit tensor by no more than $10^{-5}$.
-All the more certainly, fluctuation amplitudes are no larger than $10^{-5}$.
-In contrast, within half a wavelength, $\v{E}$ changes sign.
-Therefore, $(\Nabla\eps)\v{E}$ is by at least five orders of magnitude
-smaller than $\Nabla\v{E}$,
-and can safely be neglected.
-With this approximation, the wave equation~\cref{ENabNabE} becomes simply
-\begin{equation}\label{EwaveE2}
-  \Nabla^2\v{E}
-  = -K^2\eps(\r)\v{E}.
-\end{equation}
+\Emph{Accordingly,
+the differential cross section is still given by \cref{Exsection},
+and the scattering matrix element by~\cref{Etrama}.}
+\index{Scattering matrix!distorted waves}%
+\index{Cross section!distorted-wave Born approximation}%
+\index{Scattering!cross section!distorted-wave Born approximation}%
+\index{Elastic scattering cross section!distorted-wave Born approximation}%
+The plane-wave form~\cref{Echiq}, however, does no longer hold.
+Its replacement depends on the distorted wavefunctions
+$\psi_\si$ and $\Ef$,
+is therefore application specific,
+and will be worked out later (\cref{Swave21}).
+
+%% TODO \index{Distorted-wave Born approximation|)}%
 
 \index{X-ray!scattering theory|)}%
 

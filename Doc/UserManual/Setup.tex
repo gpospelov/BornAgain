@@ -80,7 +80,7 @@
 %-------------------------------------------------------------------------------
 
 \makeatletter
-\def\@oddfoot{\thepage\hfill\today\hfill\thepage}
+\def\@oddfoot{\thepage\hfill\ifdraft{\today}{BornAgain-\version}\hfill\thepage}
 \def\@evenfoot{\@oddfoot}
 \makeatother
 \def\pagereset{}
@@ -151,8 +151,9 @@
   }}
 
 \def\pagemode#1{%
+\ifdraft{
 \def\thepage{#1:\arabic{page}} % compositor character must agree with page_compositor in *.ist files
-\def\pagereset{\setcounter{page}{1}}}
+\def\pagereset{\setcounter{page}{1}}}{}}
 
 % Index, Bibliography, ...
 \def\otherchapter#1#2{
@@ -185,7 +186,7 @@
 \makeatother
 
 \setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{2}
 %\usepackage[toc,page]{appendix}
 \usepackage{titlesec}
 
@@ -406,7 +407,7 @@
 %  Hyper ref and clever ref
 %-------------------------------------------------------------------------------
 
-\usepackage[final]{hyperref} % wants to be included last
+\usepackage[final,pagebackref=true]{hyperref} % wants to be included last
 \hypersetup{
     colorlinks,
     linkcolor={red!50!black},

@@ -15,6 +15,7 @@
 
 \chapter{Particle form factors}\label{SPFF}
 
+\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Usage}\label{SintroPFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,21 +46,6 @@ the $z$-axis:\\
 
 Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.
 
-\index{Large particles!numeric difficulty}%
-\index{Oscillations!from large particle form factor}%
-\index{Monte-Carlo integration!for large particle form factor}%
-\index{Particles!rapid form factor oscillations}%
-\index{Form factor!rapid oscillations}%
-\index{Form factor!large particles}%
-\Warn{For large particles (typically of order 1000nm),
-  the form factor oscillates rapidly within one detector bin
-  so that analytical calculations (performed for the bin center)
-  may give a completely wrong intensity pattern.}
-
-In this case, the best solution we can currently provide
-  is a Monte-Carlo integration, as shown in the example
-  \tuto{TODO}{large particle form factor}.
-
 For particles that are made of different materials,
 the definition % TODO RESTORE ~\cref{EFFdef}
 of the form factor~$F(\q)$
@@ -67,7 +53,7 @@ must be generalized in obvious ways.
 In practice, the most important case is the \E{core-shell particle}.
 \index{Inhomogeneous particles}%
 \index{Core-shell particles}%
-\index{Particles!Core-shell}%
+\index{Particle!Core-shell}%
 This is supported in \BornAgain\ through the function
 \index{ParticleCoreShell@\Code{ParticleCoreShell}}
 \setCpp
@@ -86,7 +72,7 @@ See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.
 
 %===============================================================================
 \index{Polydispersity!embedded particles}%
-\index{Particles!polydispersity}%
+\index{Particle!polydispersity}%
 \index{Distribution!of particle parameters}%
 \index{Form factor!parameter distributions}%
 Embedded particles may be \E{polydisperse}, i.~e.\ have statistical distributions
@@ -98,11 +84,13 @@ See the online tutorial for the example \tuto{66}{cylinders with size distributi
   The example also shows how two parameters can be tied to each other
 (size distribution with constant ratio radius/height).
 
-\index{Form factor|)}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Hard particles}\label{SHPFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor!hard particles|(}
 
 % Don't number subfigures in this chapter.
 \makeatletter
@@ -201,7 +189,7 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 
 \index{Rotation of particles}
 \index{Orientation of particles}
-\index{CreateRotateX@\Code{CreateRotateX|Y|Z}}
+\index{CreateRotateX@\Code{CreateRotateX}}
 \index{Transform3D@\Code{Transform3D}}
 
 In the following subsections,
@@ -306,6 +294,22 @@ which gradually disappears with increasing tilt angle,
 than in the preceding one-quadrant representation.}
 \label{F4quadrants}
 \end{figure}
+
+\index{Large particles!numeric difficulty}%
+\index{Numeric difficulty!form factor oscillations}%
+\index{Oscillations!from large particle form factor}%
+\index{Monte-Carlo integration!for large particle form factor}%
+\index{Particle!rapid form factor oscillations}%
+\index{Form factor!rapid oscillations}%
+\index{Form factor!large particles}%
+\Warn{For large particles (typically of order 1000nm),
+  the form factor oscillates rapidly within one detector bin
+  so that analytical calculations (performed for the bin center)
+  may give a completely wrong intensity pattern.}
+
+In this case, the best solution we can currently provide
+  is a Monte-Carlo integration, as shown in the example
+  \tuto{TODO}{large particle form factor}.
 
 \index{Shape transform!catalogue|(}
 \index{Form factor!catalogue|(}
@@ -1885,3 +1889,5 @@ The low symmetry requires other angular ranges than used in most other figures.}
 
 \paragraph{History}\strut\\
 Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
+
+\index{Form factor!hard particles|)}

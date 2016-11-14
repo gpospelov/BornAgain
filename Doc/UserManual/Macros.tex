@@ -24,6 +24,14 @@
 \fi
 % unused \newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
 
+% Tensors
+\ifolducm
+  \def\TENS#1{\ensuremath{\mathbfsf{#1}}} % for unicode-math <= 0.7f
+\else
+  \def\TENS#1{\symbfsf{#1}}
+\fi
+\def\ONE{\TENS{1}}
+
 % Math operators
 \newcommand{\ggll}{\mathrel{\substack{\ll\\[-.05em]\gg}}}
 \newcommand{\llgg}{\mathrel{\substack{\gg\\[-.05em]\ll}}}
@@ -51,6 +59,7 @@
 
 \def\d{\mathup d}
 \def\e{\mathup e}
+\def\eps{\epsilon}
 \def\E#1{\textsl{#1}}
 \def\etal{\E{et al.}}
 \def\FD{\mathcal{F}}

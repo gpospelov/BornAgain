@@ -16,6 +16,7 @@ the symbol/letter
 4 vectorial constant
 5 vectorial function
 6 unit vector
+7 tensor
 8 set
 
 [the following can be OR'ed]

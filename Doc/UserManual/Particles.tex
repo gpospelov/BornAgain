@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Embedded particles}\label{SRefParticles}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Particle layout}\label{SRefPLay}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A \ttIdx{ParticleLayout} is constructed through the following API:
+
+\setCpp
+\begin{lstlisting}
+class ParticleLayout {
+    ParticleLayout();
+    ParticleLayout(const IAbstractParticle& particle);
+    ParticleLayout(const IAbstractParticle& particle, double abundance);
+    void addParticle(const IAbstractParticle& particle);
+    void addParticle(const IAbstractParticle& particle, double abundance);
+    void addParticle(const IParticle& particle, double abundance, const kvector_t position);
+    void addParticle(const IParticle& particle, double abundance, const kvector_t position, const IRotation& rotation);
+    void addInterferenceFunction(const IInterferenceFunction& interference_function);
+    void setTotalParticleSurfaceDensity(double particle_density);
+};
+\end{lstlisting}
+
+An \ttIdx{IAbstractParticle} is either an \ttIdx{IParticle} (\cref{SRefIPart})
+or a \ttIdx{Particle\-Distri\-bution} (\cref{SRefPDis}).
+\index{Particle!IAbstractParticle@\Code{IAbstractParticle}}%
+\index{Particle!IParticle@\Code{IParticle}}%
+\index{Particle!ParticleDistribution@\Code{ParticleDistribution}}%
+In any case, it does not stand for \E{one} particle,
+but for one kind of particles.
+A \texttt{ParticleLayout} can be loaded with any number of \texttt{IAbstractParticle}s,
+using the function \clFct{IAbstractParticle}{addParticle}.
+
+Most often, a \texttt{ParticleLayout} is to be loaded with just one \texttt{IAbstractParticle}.
+In this case, \texttt{IAbstractParticle} can be passed as an argument of the
+\texttt{ParticleLayout} constructor,
+and no call of \texttt{addParticle} is needed;
+by default, the \texttt{abundance} is set to~1.
+\index{Abundance}%
+If there are several \texttt{IAbstractParticle}s,
+then the parameter \texttt{abundance} of the function \texttt{addParticle} must be used for
+a number that expresses the relative number density of the particle kind.
+
+\Work{Explain \texttt{position} and \ttIdx{IRotation} \ldots}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{IParticle}\label{SRefIPart}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\MissingSection
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Particle distribution}\label{SRefPDis}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\MissingSection

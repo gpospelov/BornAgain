@@ -13,16 +13,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\part{Reference}\label{PREF}
-
-\bigskip
-This Reference is organized top-down: We start with top-level classes like
-\texttt{GISAS\-Simulation};
-then we explain the classes needed to set up a meaningful simulation.
-For an alphabetic lookup of classes and functions,
-see the general Index at the end of this Manual.
-For classes and functions not explained here,
-see the automatically generated Doxygen documentation.
+% \part{Reference}\label{PREF}
 
 \chapter{Simulation, Instrument, Histograms}\label{SRefBas}
 
@@ -130,10 +121,10 @@ Either function call can be replaced by an extend forms of the constructor
 
 Since BornAgain is only concerned with multilayer samples,
 the \E{sample} class
-\index{Sample (class)|see{MultiLayer@\Code{MultiLayer}}}%
+\index{Sample (class)|see{\Code{MultiLayer}}}%
 is called \ttIdx{MultiLayer},
 and each \E{sample builder} must realize the interface \ttIdx{IMulti\-Layer\-Builder}.
-\index{Sample builder (interface)|see{IMultiLayerBuilder@\Code{IMultiLayerBuilder}}}%
+\index{Sample builder (interface)|see{\Code{IMultiLayerBuilder}}}%
 
 A sample builder provides a more versatile way to define a sample.
 Usage examples can be found in the test cases in \ttIdx{Core/StandardSamples}
@@ -157,8 +148,8 @@ class GISASSimulation {
 \end{lstlisting}
 \clFctHide{GISAS\-Simulation}{getIntensityData}%
 This function returns a pointer to a \ttIdx{Histogram2D}
-that contains the outcome of the simulation,
-as further discussed in~\Cref{SRefHis2D}.
+that contains the outcome of the simulation.
+% TODO link -> as further discussed in~\Cref{SRefHis2D}.
 
 %===============================================================================
 \subsection{Off\-Specular\-Simulation}
@@ -175,6 +166,9 @@ as further discussed in~\Cref{SRefHis2D}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Intensity data}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\MissingSection
+\iffalse
 
 %===============================================================================
 \subsection{Histogram2D}\label{SRefHis2D}
@@ -320,3 +314,4 @@ from files with different formats. For the moment, it only supports reading the 
 \begin{lstlisting}
 intensity = IntensityDataIOFactory.readIntensityData('file_name.int')
 \end{lstlisting}
+\fi

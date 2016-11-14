@@ -16,6 +16,12 @@
 \chapter{Instrument simulation}  \label{SInstr}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Incoming beam and resolution}\label{SBeam}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\MissingSection
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Detector images}\label{SdetImg}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -59,11 +65,12 @@ The real-space coordinate at the center of pixel $(i,j)$ is $(L,y_i,z_i)$.
 Each pixel has a width~$\Delta y$ and a height~$\Delta z$.
 \index{Detector!pixel coordinate}%
 \index{Pixel|see {Detector}}%
-
-The affine-linear conversion from pixel indices $i,j$ to pixel coordinates $x_i,y_i$
-requires an experimental calibration of the origin.
-\Work{How is this done in \BornAgain?}
+BornAgain requires a full parametrization of the detector geometry
 \index{Detector!calibration}%
+to correctly perform the affine-linear mapping from pixel indices $i,j$
+to pixel coordinates $x_i,y_i$;
+see the \tuto{141}{rectangular detector tutorial}.
+% TODO: link to Detector Reference
 
 Since the differential scattering cross section \cref{Exsectiondef}
 is given with respect to a solid-angle element $\d\Omega$,
@@ -165,7 +172,7 @@ uncorrelated cuboids (right rectangular prisms).
 The incoming wavelength is 0.1~nm.
 The prisms have edge lengths $L_y=L_z=10$~nm;
 the length $L_x$, in beam direction, is varied as shown above the plots.
-\index{Circular modulation!of detector image as function of $q_x$}
+\index{Circular modulation}%
 The circular modulation comes from a factor $\sinc(q_x L_x/2)$
 in the cuboid form factor, with $q_x$ given by~\cref{Eqxasy}.}
 \label{Fdetbox}

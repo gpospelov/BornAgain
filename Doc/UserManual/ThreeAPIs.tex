@@ -13,9 +13,9 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\part{Usage}\label{PUSE}
+\part{Reference}\label{PREF}
 
-\chapter{The three interfaces of \BornAgain}  \label{sec:API3}
+\chapter{Introduction: The three interfaces of \BornAgain}  \label{sec:API3}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architectural overview}
@@ -124,7 +124,7 @@ Of course this does not preclude the possibility that such scripts evolve into
 complex programs, modules, or packages.
 And anything we say about scripts also applies to usage of \BornAgain\ in an
 interactive Python session.%
-\index{Interactive!Python session}%
+\index{Interactive Python session}%
 \index{Python!interactive use}%
 
 Usage of \BornAgain\ in a Python script should start with the command
@@ -195,23 +195,14 @@ who uses Python to set up simulations or fits
 is seen as a \E{programmer} who writes an application program.
 This notwithstanding, he is still a \E{user}
 of the BornAgain Python library.
-The relation of this library to the underlaying C++ library is explained
+The relation of this library to the underlying C++ library is explained
 in \Cref{FarchPy}.
-
-The remaining chapters of this \Cref{PUSE} of the BornAgain Manual
-contain tutorial examples how to use the BornAgain Python API.
-\index{Tutorial}
-\Cref{PREF} provides an incomplete reference.
-\index{Reference}
-For a full reference, see the online API documentation at
-\url{bornagain.org/???}.
-This documentation is automatically generated from the source code
-(which for this purpose contains standardized comments in Doxygen format).
-\index{Doxygen!API reference}
-\index{Python!Doxygen API reference}
-It is actually a documentation of the C++ API,
-but usually it is not difficult to infer the form of the corresponding Python
-function calls.
+The classes and functions in the BornAgain Python library have the same
+names, argument lists, and return values
+as their counterparts in the C++ library.
+Therefore, we provide references only for the latter,
+which has the advantage that it is more explicit about the data types
+of function arguments and return values.
 
 \index{Application Programming Interface!Python|)}
 \index{Python!using BornAgain from|)}
@@ -238,14 +229,24 @@ Normal GISAS users, however, will find that their simulation and fit tasks
 are well served by the Python API,
 that edit-and-rerun cycles are faster with Python than with a compiled language,
 and that there is no need to use BornAgain from C++.
-Therefore, we provide not much documentation for the C++ API,
-except for the automatically generated Doxygen reference at
-\url{http://apps.jcns.fz-juelich.de/doxy/BornAgain/index.html} and
+Therefore, we provide only one code example:
+\url{Examples/cpp/CylindersAndPrisms} in the source distribution.
+
+The C++ API is fully documented
+in the automatically generated Doxygen reference at
+\url{http://apps.jcns.fz-juelich.de/doxy/BornAgain/index.html}.
 \index{Doxygen!API reference}
 \index{C++!Doxygen API reference}
-for the application example \url{Examples/cpp/CylindersAndPrisms}
-in the source distribution.
-
+The remaining chapters of this Manual
+provide a selective, annotated reference,
+especially of functions related to the physical modelling.
+It is organized top-down: We start with top-level classes like
+\texttt{GISAS\-Simulation};
+then we explain the classes needed to set up a meaningful simulation.
+For an alphabetic lookup of classes and functions,
+see the general Index at the end of this Manual.
+For classes and functions not explained here,
+see the Doxygen documentation.
 
 \index{Application Programming Interface!C++|)}
 \index{C++!using BornAgain from|)}

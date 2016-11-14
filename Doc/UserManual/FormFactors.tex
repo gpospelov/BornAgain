@@ -15,6 +15,7 @@
 
 \chapter{Particle form factors}\label{SPFF}
 
+\iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Usage}\label{SintroPFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,22 +45,6 @@ the $z$-axis:\\
 \end{lstlisting}
 
 Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.
-
-\index{Large particles!numeric difficulty}%
-\index{Numeric difficulty!form factor oscillations}%
-\index{Oscillations!from large particle form factor}%
-\index{Monte-Carlo integration!for large particle form factor}%
-\index{Particles!rapid form factor oscillations}%
-\index{Form factor!rapid oscillations}%
-\index{Form factor!large particles}%
-\Warn{For large particles (typically of order 1000nm),
-  the form factor oscillates rapidly within one detector bin
-  so that analytical calculations (performed for the bin center)
-  may give a completely wrong intensity pattern.}
-
-In this case, the best solution we can currently provide
-  is a Monte-Carlo integration, as shown in the example
-  \tuto{TODO}{large particle form factor}.
 
 For particles that are made of different materials,
 the definition % TODO RESTORE ~\cref{EFFdef}
@@ -98,6 +83,8 @@ as for other numeric parameters.
 See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
   The example also shows how two parameters can be tied to each other
 (size distribution with constant ratio radius/height).
+
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Hard particles}\label{SHPFF}
@@ -307,6 +294,22 @@ which gradually disappears with increasing tilt angle,
 than in the preceding one-quadrant representation.}
 \label{F4quadrants}
 \end{figure}
+
+\index{Large particles!numeric difficulty}%
+\index{Numeric difficulty!form factor oscillations}%
+\index{Oscillations!from large particle form factor}%
+\index{Monte-Carlo integration!for large particle form factor}%
+\index{Particles!rapid form factor oscillations}%
+\index{Form factor!rapid oscillations}%
+\index{Form factor!large particles}%
+\Warn{For large particles (typically of order 1000nm),
+  the form factor oscillates rapidly within one detector bin
+  so that analytical calculations (performed for the bin center)
+  may give a completely wrong intensity pattern.}
+
+In this case, the best solution we can currently provide
+  is a Monte-Carlo integration, as shown in the example
+  \tuto{TODO}{large particle form factor}.
 
 \index{Shape transform!catalogue|(}
 \index{Form factor!catalogue|(}

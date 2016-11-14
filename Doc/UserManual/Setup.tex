@@ -151,8 +151,9 @@
   }}
 
 \def\pagemode#1{%
+\ifdraft{
 \def\thepage{#1:\arabic{page}} % compositor character must agree with page_compositor in *.ist files
-\def\pagereset{\setcounter{page}{1}}}
+\def\pagereset{\setcounter{page}{1}}}{}}
 
 % Index, Bibliography, ...
 \def\otherchapter#1#2{

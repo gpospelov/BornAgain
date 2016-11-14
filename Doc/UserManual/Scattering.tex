@@ -1002,6 +1002,16 @@ whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 The far-field Green function for the wave equation~\cref{EwaveE3}
 can be derived along the lines of~\Cref{SfarDW}
 except that differential operators and Green functions are now dyadic tensors \cite{DiWa84}.
+\Work{This will be worked out soon.}
+As result, the scattering matrix element~\cref{Etrama} of the scalar case
+needs to be multiplied with \E{polarization factors}.
+\index{Polarization factor}%
+For GISAS geometry, they can be found in equations (92)--(95) of Ref.~\cite{ReLL09}.
+For the usual small scattering angles of GISAS,
+they are close to unity and therefore can be neglected.
+In BornAgain, they are not yet implemented.
+
+\iffalse
 \index{Green function!distorted waves, far-field|(}%
 Instead of \cref{EDDdef}, we will need the differential operators
 \begin{equation}
@@ -1064,7 +1074,7 @@ Its replacement depends on the distorted wavefunctions
 $\psi_\si$ and $\Ef$,
 is therefore application specific,
 and will be worked out later (\cref{Swave21}).
-
+\fi
 %% TODO \index{Distorted-wave Born approximation|)}%
 
 \index{X-ray!scattering theory|)}%

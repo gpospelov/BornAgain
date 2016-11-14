@@ -38,11 +38,11 @@ in the distorted wave Born approximation (\cref{SDWBA}).
   \centering
     \includegraphics[clip=, width=120mm]{fig/drawing/setup_multilayer.jpg}
   \caption[Conventional GISAS scattering geometry.]{Geometric conventions
-\index{Conventions!GISAS geometry}%
+\index{Convention!GISAS geometry}%
 \index{Grazing-incidence small angle scattering!geometric conventions}%
 \index{Coordinate system!GISAS geometry}%
 \index{Glancing angle}%
-\index{Scattering angles}%
+\index{Scattering!angle}%
 \index{Geometry!conventions for GISAS}
   in GISAS scattering comprise a Cartesian coordinate system
   and a set of angles.
@@ -86,7 +86,7 @@ and its normal point out of the sample in positive $z$~direction.
 \nomenclature[2z020]{$z$}{Vertical coordinate, along the sample normal}%
 \index{Horizontal plane}%
 \index{Vertical direction}%
-\index{Conventions|see {Horizontal and Vertical}}%
+\index{Convention|see {Horizontal and Vertical}}%
 In our visualizations, we will always represent the $xy$~plane as \E{horizontal},
 and the $z$~axis as upward \E{vertical},
 altough there are ``horizontal'' reflectometers
@@ -117,10 +117,10 @@ Accordingly, the SLD decomposition~\cref{Edecompose_v} takes the form
 \index{Wave propagation!in multilayer|(}
 and the homogeneous wave equation~\cref{EHomoK} becomes
 \begin{equation}\label{EWaveZ}
-  \left\{\Nabla^2+K(z)^2\right\}\psi(\r) = 0.
+  \left\{\Nabla^2+k(z)^2\right\}\psi(\r) = 0.
 \end{equation}
 Below and above the sample,
-$K(z)=\text{const}$:
+$k(z)=\text{const}$:
 in these regions, $\psi(\r)$~is a superposition of plane waves.
 The exciting wavefunction is
 \index{Exciting wave!DWBA}%
@@ -135,7 +135,7 @@ The exciting wavefunction is
 The subscripts $\plll$ and~$\perp$ refer to the sample $xy$ plane.
 The wave vector components $\k_\plll$ and $k_{\perp}$ must fulfill
 \begin{equation}
-  K(z)^2=\k_\plll^2+k_{\perp}^2.
+  k(z)^2=\k_\plll^2+k_{\perp}^2.
 \end{equation}
 \index{Wavenumber!vertical}%
 \index{Vertical wavenumber}%
@@ -143,8 +143,8 @@ Continuity across the sample implies
 \begin{equation}\label{Ekconst}
   \k_\plll = \text{const}.
 \end{equation}
-\index{Wavevector!horizontal!constant}%
-\index{Horizontal wavevector!constant}%
+\index{Wavevector!horizontal}%
+\index{Horizontal wavevector}%
 When the incident wave hits the sample,
 it is wholly or partly reflected.
 Therefore, the full the solution of~\cref{EWaveZ} in the half space
@@ -192,7 +192,7 @@ is solved by the factorization ansatz
 The vertical wavefunction~$\phi(z)$
 is governed by the one-dimensional wave equation
 \begin{equation}\label{Ewavez}
-\left\{\partial_z^2 + K(z)^2 - k_\plll^2 \right\} \phi(z) = 0.
+\left\{\partial_z^2 + k(z)^2 - k_\plll^2 \right\} \phi(z) = 0.
 \end{equation}
 As solution of a differential equation of second degree,
 $\phi(z)$~can be written as superposition
@@ -207,9 +207,9 @@ Accordingly, the three-dimensional wavefunction can be written as
 All this holds not only for the incident wavefunction~$\psi_\si$,
 but also for the wavefunction~$\psi_\sf$
 that is tracked back from a detector pixel towards the sample.
-\index{Backtracing}%
-\index{Scattered wave!backtracing}%
-\index{Detector!backtracing}%
+\index{Backtracking}%
+\index{Scattered wave!backtracking}%
+\index{Detector!backtracking}%
 Therefore the scattering matrix element
 involves two incident and two final partial wavefunctions.
 The resulting sum
@@ -661,7 +661,7 @@ In the case of a semi-infinite layer, the vertical component becomes zero and
 \section{Graded refractive index}\label{Sgraded}
 %===============================================================================
 
-\Cref{Ewavez} has no practicable solution for arbitrary functions~$K(z)$.
+\Cref{Ewavez} has no practicable solution for arbitrary functions~$k(z)$.
 
 Within one layer, the refractive index must either be constant,
 or have an affine linear dependence $n(z)^2=a+bz$.

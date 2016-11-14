@@ -19,15 +19,17 @@ In this chapter,
 we generalize our treatment of wave propagation and
 grazing-incidence small-angle scattering
 to polarized neutrons.
+\index{Neutrons!polarized}
+\index{Polarization!neutrons}
 We therefore need to study spinor wave equations,
 in contrast to the scalar theory of the previous chapter.
 
+\MissingSection
+\iffalse
 %===============================================================================
 \section{Polarized neutrons}\label{Snpol}
 %===============================================================================
 
-\index{Neutrons!polarized}
-\index{Polarization!neutrons}
 
 \Work{This is preliminary and incomplete material waiting for revision and extension}
 
@@ -42,7 +44,7 @@ in contrast to the scalar theory of the previous chapter.
 To allow for polarization-dependent interactions,
 we replace the squared index of refraction $n^2$
 by $1+\uu\chi$, where $\uu\chi$ is a $2\times 2$ susceptibility matrix.
-The wave equation \cref{Escalar_wave} for layer~$l$ becomes
+The wave equation \cref{EHomoK} for layer~$l$ becomes
 \begin{equation}\label{Ewaveqp}
 (\Delta +K^2 +K^2 \uu\chi_l) \u\psi(\r)= 0,
 \end{equation}
@@ -52,7 +54,7 @@ At interfaces between layers,
 both spinor components of $\u\psi(\r)$ and $\Nabla\u\psi(\r)$
 must evolve continuously.
 
-The reasons for the factorization \cref{Ewave3} still apply,
+The reasons for the factorization \cref{Ekpar} still apply,
 and so we can write
 \begin{equation}\label{Ewave3p}
 \u\psi(\r) = \u\psi(z) \e^{i \k_\parallel\r_\parallel}.
@@ -98,7 +100,7 @@ which includes in particular the case of scalar interactions.
 \subsection{Wave propagation across layers}
 %-------------------------------------------------------------------------------
 
-Generalizing \cref{Evecc},
+Generalizing \Cref{Sacrolay},
 we introduce the coefficient vector
 \begin{equation}
   c_l \coloneqq  {(\alpha_{l1}, \alpha_{l2}, \beta_{l1}, \beta_{l2})}^\text{T}.
@@ -106,11 +108,11 @@ we introduce the coefficient vector
 To match solutions for neighboring layers,
 continuity is requested for both spinorial components
 of $\u\psi$ and $\Nabla\u\psi$.
-As before \cref{EFcFDc}, we have at the bottom of layer~$l$
+We have at the bottom of layer~$l$
 \begin{equation}\label{EFcFDcp}
   F_l c_l = F_{l+1} D_{l+1} c_{l+1},
 \end{equation}
-where the matrices are now
+where the matrices are
 \begin{equation}
   F_l \coloneqq  \left(\begin{array}{cccc}
     x_{i1\UP}      &x_{i2\UP}     &x_{i1\UP}       &x_{i2\UP}       \\
@@ -153,9 +155,9 @@ This facilitates the computation of the inverse
       \cdot\uu x_l^{-1},
 \end{equation}
 which is needed for the transfer matrix $M_l$,
-defined as in \cref{Edef_M}.
+defined as in \cref{EMil}.
 With the new meaning of $c_l$ and $M_l$,
-the recursion \cref{EcMc} and the explicit solution~\cref{Eci}
+the recursion \cref{EcMc} and the explicit solution~\cref{EAtildel}
 hold as derived above.
 To resolve~\cref{Eci} for the reflected amplitudes $\alpha_{0l}$
 as function of the incident amplitudes $\beta_{0l}$,
@@ -182,3 +184,4 @@ which immediately yields
 \begin{equation}
   \u\alpha_0 = \uu m_{12}\,\uu m_{22}^{-1}\,\u\beta_0.
 \end{equation}
+\fi

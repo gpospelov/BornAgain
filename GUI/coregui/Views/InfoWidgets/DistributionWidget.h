@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/DistributionWidget.h
-//! @brief     Declares class DistributionWidget
+//! @brief     Defines class DistributionWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,9 +17,9 @@
 #ifndef DISTRIBUTIONWIDGET_H
 #define DISTRIBUTIONWIDGET_H
 
-#include <QWidget>
 #include "WarningSignWidget.h"
 #include "qcustomplot.h"
+#include <QWidget>
 #include <memory>
 
 class SessionItem;
@@ -65,4 +65,4 @@ private:
     WarningSignWidget *m_warningSign;
 };
 
-#endif
+#endif // DISTRIBUTIONWIDGET_H

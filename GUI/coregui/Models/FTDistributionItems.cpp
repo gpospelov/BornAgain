@@ -15,17 +15,20 @@
 // ************************************************************************** //
 
 #include "FTDistributionItems.h"
-#include "item_constants.h"
 #include "Units.h"
+#include "BornAgainNamespace.h"
 
 using namespace Constants;
 
 const QString FTDistribution1DItem::P_CORR_LENGTH = "Corr_length";
 const QString FTDistribution1DVoigtItem::P_ETA = "Eta";
 
-const QString FTDistribution2DItem::P_CORR_LENGTH_X = "Corr_length_x";
-const QString FTDistribution2DItem::P_CORR_LENGTH_Y = "Corr_length_y";
-const QString FTDistribution2DItem::P_GAMMA = "Gamma";
+const QString FTDistribution2DItem::P_COHER_LENGTH_X =
+        QString::fromStdString(BornAgain::CoherenceLengthX);
+const QString FTDistribution2DItem::P_COHER_LENGTH_Y =
+    QString::fromStdString(BornAgain::CoherenceLengthY);
+const QString FTDistribution2DItem::P_GAMMA =
+        QString::fromStdString(BornAgain::Gamma);
 const QString FTDistribution2DVoigtItem::P_ETA = "Eta";
 
 
@@ -101,7 +104,7 @@ FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
     : FTDistribution1DItem(FTDistribution1DVoigtType)
 {
     addProperty(P_CORR_LENGTH, 1.0);
-    addProperty(P_ETA, 0.5)->setLimits(AttLimits::limited(0.0, 1.0));
+    addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
 }
 
 IFTDistribution1D *FTDistribution1DVoigtItem::createFTDistribution() const
@@ -118,15 +121,15 @@ IFTDistribution1D *FTDistribution1DVoigtItem::createFTDistribution() const
 FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
     : FTDistribution2DItem(FTDistribution2DCauchyType)
 {
-    addProperty(P_CORR_LENGTH_X, 1.0);
-    addProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_COHER_LENGTH_X, 1.0);
+    addProperty(P_COHER_LENGTH_Y, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DCauchyItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DCauchy(
-                getItemValue(P_CORR_LENGTH_X).toDouble(),
-                getItemValue(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_COHER_LENGTH_X).toDouble(),
+                getItemValue(P_COHER_LENGTH_Y).toDouble()
                 );
     double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
@@ -137,15 +140,15 @@ IFTDistribution2D *FTDistribution2DCauchyItem::createFTDistribution() const
 FTDistribution2DGaussItem::FTDistribution2DGaussItem()
     : FTDistribution2DItem(FTDistribution2DGaussType)
 {
-    addProperty(P_CORR_LENGTH_X, 1.0);
-    addProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_COHER_LENGTH_X, 1.0);
+    addProperty(P_COHER_LENGTH_Y, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DGaussItem::createFTDistribution() const
 {
     auto *p_result =  new FTDistribution2DGauss(
-                getItemValue(P_CORR_LENGTH_X).toDouble(),
-                getItemValue(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_COHER_LENGTH_X).toDouble(),
+                getItemValue(P_COHER_LENGTH_Y).toDouble()
                 );
     double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
@@ -156,15 +159,15 @@ IFTDistribution2D *FTDistribution2DGaussItem::createFTDistribution() const
 FTDistribution2DGateItem::FTDistribution2DGateItem()
     : FTDistribution2DItem(FTDistribution2DGateType)
 {
-    addProperty(P_CORR_LENGTH_X, 1.0);
-    addProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_COHER_LENGTH_X, 1.0);
+    addProperty(P_COHER_LENGTH_Y, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DGateItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DGate(
-                getItemValue(P_CORR_LENGTH_X).toDouble(),
-                getItemValue(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_COHER_LENGTH_X).toDouble(),
+                getItemValue(P_COHER_LENGTH_Y).toDouble()
                 );
     double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
@@ -175,15 +178,15 @@ IFTDistribution2D *FTDistribution2DGateItem::createFTDistribution() const
 FTDistribution2DConeItem::FTDistribution2DConeItem()
     : FTDistribution2DItem(FTDistribution2DConeType)
 {
-    addProperty(P_CORR_LENGTH_X, 1.0);
-    addProperty(P_CORR_LENGTH_Y, 1.0);
+    addProperty(P_COHER_LENGTH_X, 1.0);
+    addProperty(P_COHER_LENGTH_Y, 1.0);
 }
 
 IFTDistribution2D *FTDistribution2DConeItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DCone(
-                getItemValue(P_CORR_LENGTH_X).toDouble(),
-                getItemValue(P_CORR_LENGTH_Y).toDouble()
+                getItemValue(P_COHER_LENGTH_X).toDouble(),
+                getItemValue(P_COHER_LENGTH_Y).toDouble()
                 );
     double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
     p_result->setGamma(gamma);
@@ -194,16 +197,16 @@ IFTDistribution2D *FTDistribution2DConeItem::createFTDistribution() const
 FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
     : FTDistribution2DItem(FTDistribution2DVoigtType)
 {
-    addProperty(P_CORR_LENGTH_X, 1.0);
-    addProperty(P_CORR_LENGTH_Y, 1.0);
-    addProperty(P_ETA, 0.5)->setLimits(AttLimits::limited(0.0, 1.0));
+    addProperty(P_COHER_LENGTH_X, 1.0);
+    addProperty(P_COHER_LENGTH_Y, 1.0);
+    addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
 }
 
 IFTDistribution2D *FTDistribution2DVoigtItem::createFTDistribution() const
 {
     auto *p_result = new FTDistribution2DVoigt(
-                getItemValue(P_CORR_LENGTH_X).toDouble(),
-                getItemValue(P_CORR_LENGTH_Y).toDouble(),
+                getItemValue(P_COHER_LENGTH_X).toDouble(),
+                getItemValue(P_COHER_LENGTH_Y).toDouble(),
                 getItemValue(P_ETA).toDouble()
                 );
     double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );

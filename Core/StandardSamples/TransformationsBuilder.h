@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/TransformationsBuilder.h
-//! @brief     Declares classes to build samples with different transformations.
+//! @brief     Defines classes to build samples with different transformations.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,18 +16,16 @@
 #ifndef TRANSFORMATIONSBUILDER_H
 #define TRANSFORMATIONSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
-//! @class TransformBoxBuilder
+//! Rotated box in 3 layers system.
 //! @ingroup standard_samples
-//! @brief Rotated box in 3 layers system
 
-class BA_CORE_API_ TransformBoxBuilder : public ISampleBuilder
+class BA_CORE_API_ TransformBoxBuilder : public IMultiLayerBuilder
 {
 public:
     TransformBoxBuilder(){}
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
-
-#endif // ROTATEDPYRAMIDSBUILDER_H
+#endif // TRANSFORMATIONSBUILDER_H

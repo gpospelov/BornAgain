@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/TestComponentView.h
-//! @brief     Declares class TestComponentView
+//! @brief     Defines class TestComponentView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,15 +14,14 @@
 //
 // ************************************************************************** //
 
-#ifndef TECTCOMPONENTVIEW_H
-#define TECTCOMPONENTVIEW_H
+#ifndef TESTCOMPONENTVIEW_H
+#define TESTCOMPONENTVIEW_H
 
 #include <QWidget>
 
 class MainWindow;
 class SampleModel;
 class ComponentEditor;
-class ComponentProxyEditor;
 class QTreeView;
 class QItemSelection;
 
@@ -47,4 +46,4 @@ private:
     ComponentEditor *m_editor3;
 };
 
-#endif
+#endif // TESTCOMPONENTVIEW_H

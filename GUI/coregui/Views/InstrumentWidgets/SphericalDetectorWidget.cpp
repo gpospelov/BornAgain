@@ -15,14 +15,14 @@
 // ************************************************************************** //
 
 #include "SphericalDetectorWidget.h"
-#include "DetectorItems.h"
-#include "GroupInfoBox.h"
-#include "ExtendedDetectorDialog.h"
 #include "ComponentBoxEditor.h"
+#include "DetectorItems.h"
+#include "ExtendedDetectorDialog.h"
+#include "GroupInfoBox.h"
 #include "columnresizer.h"
+#include <QDebug>
 #include <QGroupBox>
 #include <QVBoxLayout>
-#include <QDebug>
 
 SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
                                                  DetectorItem *detectorItem, QWidget *parent)

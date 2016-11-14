@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskEditorActions.h
-//! @brief     Declares class MaskEditorActions
+//! @brief     Defines class MaskEditorActions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,10 +17,11 @@
 #ifndef MASKEDITORACTIONS_H
 #define MASKEDITORACTIONS_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorFlags.h"
-#include <QObject>
+#include "WinDllMacros.h"
 #include <QModelIndex>
+#include <QObject>
+#include <QList>
 
 class QAction;
 class SessionModel;
@@ -41,8 +42,15 @@ public:
     void setModel(SessionModel *maskModel, const QModelIndex &rootIndex);
     void setSelectionModel(QItemSelectionModel *selectionModel);
 
-    QAction *getSendToBackAction();
-    QAction *getBringToFrontAction();
+    QAction *sendToBackAction();
+    QAction *bringToFrontAction();
+
+    QList<QAction *> topToolBarActions();
+
+signals:
+    void resetViewRequest();
+    void propertyPanelRequest();
+    void savePlotRequest();
 
 public slots:
     void onItemContextMenuRequest(const QPoint &point);
@@ -65,9 +73,13 @@ private:
     QAction *m_sendToBackAction;
     QAction *m_deleteMaskAction;
 
+    QAction *m_resetViewAction;
+    QAction *m_savePlotAction;
+    QAction *m_togglePanelAction;
+
     SessionModel *m_maskModel;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
     QItemSelectionModel *m_selectionModel;
 };
 
-#endif
+#endif // MASKEDITORACTIONS_H

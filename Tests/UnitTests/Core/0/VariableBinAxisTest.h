@@ -17,7 +17,7 @@ TEST_F(VariableBinAxisTest, VectorOfUnitLength)
     std::vector<double> values (arr, arr + sizeof(arr) / sizeof(arr[0]) );
     VariableBinAxis axis("name", 1, values);
     EXPECT_EQ("name", axis.getName());
-    EXPECT_EQ(size_t(1), axis.getSize());
+    EXPECT_EQ(size_t(1), axis.size());
     EXPECT_EQ(0.0, axis.getMin());
     EXPECT_EQ(1.0, axis.getMax());
     EXPECT_EQ(0.5, axis[0]);
@@ -57,7 +57,7 @@ TEST_F(VariableBinAxisTest, IndexedAccessor)
 
     VariableBinAxis a1("name", nbins, values);
 
-    ASSERT_EQ((size_t)100, a1.getSize());
+    ASSERT_EQ(100u, a1.size());
     EXPECT_EQ(0.0, a1.getMin());
     EXPECT_EQ(10.0, a1.getMax());
     EXPECT_DOUBLE_EQ(0.05, a1[0]);
@@ -81,7 +81,7 @@ TEST_F(VariableBinAxisTest, FindClosestIndex)
     std::vector<double> values1 (arr1, arr1 + sizeof(arr1) / sizeof(arr1[0]) );
 
     VariableBinAxis v1("name", 2, values1);
-    EXPECT_EQ( size_t(2), v1.getSize());
+    EXPECT_EQ( size_t(2), v1.size());
     EXPECT_EQ( size_t(0), v1.findClosestIndex(0.0));
     EXPECT_EQ( size_t(0), v1.findClosestIndex(0.25));
     EXPECT_EQ( size_t(1), v1.findClosestIndex(0.5));
@@ -230,7 +230,7 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
     delete clip1;
 
     VariableBinAxis *clip2 = axis.createClippedAxis(-0.5, 1.5);
-    EXPECT_EQ(clip2->getSize(), size_t(3));
+    EXPECT_EQ(clip2->size(), size_t(3));
     EXPECT_EQ(clip2->getMin(), -0.5);
     EXPECT_EQ(clip2->getMax(), 2.0);
     std::vector<double> centers = clip2->getBinCenters();
@@ -241,7 +241,7 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
     delete clip2;
 
     VariableBinAxis *clip3 = axis.createClippedAxis(-0.5, 0.99);
-    EXPECT_EQ(clip3->getSize(), size_t(2));
+    EXPECT_EQ(clip3->size(), size_t(2));
     EXPECT_EQ(clip3->getMin(), -0.5);
     EXPECT_EQ(clip3->getMax(), 1.0);
     std::vector<double> boundaries = clip3->getBinBoundaries();
@@ -255,4 +255,4 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
 
 
 
-#endif
+#endif // VARIABLEBINAXISTEST_H

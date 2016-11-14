@@ -15,22 +15,17 @@
 // ************************************************************************** //
 
 #include "SampleView.h"
-#include "mainwindow.h"
-#include "SampleViewComponents.h"
-#include "SampleDesigner.h"
-#include "SampleToolBar.h"
-#include "GUIHelpers.h"
-#include "SamplePropertyWidget.h"
+#include "FilterPropertyProxy.h"
 #include "InfoWidget.h"
 #include "ItemFactory.h"
-#include "FilterPropertyProxy.h"
-#include <QDockWidget>
-#include <QAbstractItemView>
-#include <QToolBar>
-#include <QAction>
-#include <QToolButton>
-#include <QMenu>
+#include "SampleDesigner.h"
+#include "SamplePropertyWidget.h"
+#include "SampleToolBar.h"
+#include "SampleViewComponents.h"
+#include "mainwindow.h"
 #include <QDebug>
+#include <QDockWidget>
+#include <QMenu>
 #include <QTimer>
 
 SampleView::SampleView(MainWindow *mainWindow)
@@ -40,7 +35,7 @@ SampleView::SampleView(MainWindow *mainWindow)
     , m_sampleModel(mainWindow->sampleModel())
     , m_instrumentModel(mainWindow->instrumentModel())
 {
-    setObjectName(tr("SampleView"));
+    setObjectName("SampleView");
 
     setCentralWidget(m_sampleDesigner->getCentralWidget());
 
@@ -118,8 +113,8 @@ void SampleView::createActions()
     connect(m_add_item_mapper, SIGNAL(mapped(const QString &)),
             this, SLOT(addItem(const QString &)));
 
-    m_delete_item_action = new QAction(tr("Delete"), this);
-    m_delete_item_action->setStatusTip(tr("Delete current object"));
+    m_delete_item_action = new QAction("Delete", this);
+    m_delete_item_action->setStatusTip("Delete current object");
     connect(m_delete_item_action, SIGNAL(triggered()),
             this, SLOT(deleteItem()));
 }

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitSuiteWidget.h
-//! @brief     Declares class FitSuiteWidget
+//! @brief     Defines class FitSuiteWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef FITSUITEWIDGET_H
 #define FITSUITEWIDGET_H
 
-#include "WinDllMacros.h"
 #include "FitProgressInfo.h"
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
 
@@ -90,4 +90,4 @@ private:
     bool m_block_progress_update;
 };
 
-#endif
+#endif // FITSUITEWIDGET_H

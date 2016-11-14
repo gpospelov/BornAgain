@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/FitParameterAbsModel.h
-//! @brief     Declares class FitParameterProxyModel
+//! @file      GUI/coregui/Models/FitParameterProxyModel.h
+//! @brief     Defines class FitParameterProxyModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,11 +14,12 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERABSMODEL_H
-#define FITPARAMETERABSMODEL_H
+#ifndef FITPARAMETERPROXYMODEL_H
+#define FITPARAMETERPROXYMODEL_H
 
 #include "WinDllMacros.h"
 #include <QAbstractItemModel>
+#include <QStringList>
 
 class SessionModel;
 class FitParameterContainerItem;
@@ -92,4 +93,4 @@ inline Qt::DropActions FitParameterProxyModel::supportedDropActions() const
 }
 
 
-#endif
+#endif // FITPARAMETERPROXYMODEL_H

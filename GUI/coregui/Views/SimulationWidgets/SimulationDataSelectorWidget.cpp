@@ -16,18 +16,18 @@
 
 #include "SimulationDataSelectorWidget.h"
 #include "ApplicationModels.h"
-#include "InstrumentModel.h"
-#include "SampleModel.h"
-#include "RealDataModel.h"
 #include "InstrumentItem.h"
+#include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "RealDataItem.h"
+#include "RealDataModel.h"
+#include "SampleModel.h"
 #include <QComboBox>
+#include <QDebug>
 #include <QFileDialog>
 #include <QGroupBox>
-#include <QVBoxLayout>
 #include <QLabel>
-#include <QDebug>
+#include <QVBoxLayout>
 
 namespace
 {
@@ -52,7 +52,7 @@ SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget *parent)
     mainLayout->setSpacing(0);
 
     // selection of input parameters
-    QGroupBox *groupBox = new QGroupBox(tr("Data selection"));
+    QGroupBox *groupBox = new QGroupBox("Data selection");
 
     QLabel *instrumentSelectionLabel = new QLabel(QStringLiteral("Select Instrument:"));
     instrumentSelectionLabel->setToolTip(select_instrument_tooltip);
@@ -127,7 +127,7 @@ void SimulationDataSelectorWidget::updateViewElements()
 {
     Q_ASSERT(m_applicationModels);
     updateSelection(m_instrumentCombo, m_applicationModels->instrumentModel()->topItemNames());
-    updateSelection(m_sampleCombo, m_applicationModels->sampleModel()->topItemNames());
+    updateSelection(m_sampleCombo, m_applicationModels->sampleModel()->topItemNames(Constants::MultiLayerType));
     updateSelection(m_realDataCombo, m_applicationModels->realDataModel()->topItemNames(), true);
 }
 

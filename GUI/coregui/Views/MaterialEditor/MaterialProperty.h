@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaterialEditor/MaterialProperty.h
-//! @brief     Declares class MaterialProperty
+//! @brief     Defines class MaterialProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,13 +17,12 @@
 #ifndef MATERIALPROPERTY_H
 #define MATERIALPROPERTY_H
 
+#include "WinDllMacros.h"
 #include <QColor>
-#include <QPixmap>
 #include <QMetaType>
+#include <QPixmap>
 #include <QString>
 #include <QVariant>
-
-#include "WinDllMacros.h"
 
 //! The MaterialProperty class defines unique identifier to help LayerItem, ParticleItem etc
 //! to access materials from MaterialEditor;

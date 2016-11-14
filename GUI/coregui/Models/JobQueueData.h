@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/JobQueueData.h
-//! @brief     Declares class JobQueueData
+//! @brief     Defines class JobQueueData
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,15 +18,13 @@
 #define JOBQUEUEDATA_H
 
 #include "WinDllMacros.h"
-#include <QObject>
-#include <QString>
 #include <QMap>
+#include <QObject>
 
 class JobItem;
 class JobModel;
 class GISASSimulation;
 class JobWorker;
-class QThread;
 
 //! The JobQueueData class holds all objects/logic to run simulation in a thread.
 
@@ -73,4 +71,4 @@ private:
     JobModel *m_jobModel;
 };
 
-#endif
+#endif // JOBQUEUEDATA_H

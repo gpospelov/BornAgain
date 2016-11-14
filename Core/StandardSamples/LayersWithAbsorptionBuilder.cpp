@@ -13,28 +13,24 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayer.h"
+#include "LayersWithAbsorptionBuilder.h"
+#include "Exceptions.h"
 #include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
+#include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "FunctionalTestSuite.h"
-#include "Exceptions.h"
-#include "LayersWithAbsorptionBuilder.h"
+#include "RealParameter.h"
+#include "Units.h"
 
-LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
+MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 {
-}
-
-LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
-{
-}
-
-ISample* LayersWithAbsorptionBuilder::buildSample() const
-{
-    const IFormFactor *form_factor = getFormFactor();
+    const IFormFactor* form_factor = getFormFactor();
     if(!form_factor)
-        throw NullPointerException("LayersWithAbsorptionBuilder::buildSample() -> Error. "
-                                   "Form factor is not initialized.");
+        throw Exceptions::NullPointerException(
+            "LayersWithAbsorptionBuilder::buildSample() -> Error. Form factor is not initialized.");
 
     HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
     HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);

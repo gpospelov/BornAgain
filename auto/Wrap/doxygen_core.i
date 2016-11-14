@@ -1,6 +1,30 @@
 
 // File: index.xml
 
+// File: classAdjustMinimizerStrategy.xml
+%feature("docstring") AdjustMinimizerStrategy "
+
+Strategy modifies mimimizer settings before running minimization round.
+
+C++ includes: AdjustMinimizerStrategy.h
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::AdjustMinimizerStrategy "AdjustMinimizerStrategy::AdjustMinimizerStrategy()
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::AdjustMinimizerStrategy "AdjustMinimizerStrategy::AdjustMinimizerStrategy(const std::string &minimizerName, const std::string &algorithmName=std::string(), const std::string &optionString=std::string())
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::clone "AdjustMinimizerStrategy * AdjustMinimizerStrategy::clone() const 
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::setMinimizer "void AdjustMinimizerStrategy::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=std::string(), const std::string &optionString=std::string())
+";
+
+%feature("docstring")  AdjustMinimizerStrategy::execute "void AdjustMinimizerStrategy::execute()
+";
+
+
 // File: classAngularPixelMap.xml
 %feature("docstring") AngularPixelMap "";
 
@@ -10,101 +34,19 @@
 %feature("docstring")  AngularPixelMap::~AngularPixelMap "virtual AngularPixelMap::~AngularPixelMap()
 ";
 
-%feature("docstring")  AngularPixelMap::clone "AngularPixelMap * AngularPixelMap::clone() const 
+%feature("docstring")  AngularPixelMap::clone "AngularPixelMap * AngularPixelMap::clone() const override
 ";
 
-%feature("docstring")  AngularPixelMap::createZeroSizeMap "AngularPixelMap * AngularPixelMap::createZeroSizeMap(double x, double y) const 
+%feature("docstring")  AngularPixelMap::createZeroSizeMap "AngularPixelMap * AngularPixelMap::createZeroSizeMap(double x, double y) const override
 ";
 
-%feature("docstring")  AngularPixelMap::getK "kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const 
+%feature("docstring")  AngularPixelMap::getK "kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const override
 ";
 
-%feature("docstring")  AngularPixelMap::getIntegrationFactor "double AngularPixelMap::getIntegrationFactor(double x, double y) const 
+%feature("docstring")  AngularPixelMap::getIntegrationFactor "double AngularPixelMap::getIntegrationFactor(double x, double y) const override
 ";
 
-%feature("docstring")  AngularPixelMap::getSolidAngle "double AngularPixelMap::getSolidAngle() const 
-";
-
-
-// File: classAttLimits.xml
-%feature("docstring") AttLimits "
-
-Attributes and limits for a fit parameter. Currently, the only attribute is fixed/free.
-
-C++ includes: AttLimits.h
-";
-
-%feature("docstring")  AttLimits::AttLimits "AttLimits::AttLimits()
-";
-
-%feature("docstring")  AttLimits::hasLowerLimit "bool AttLimits::hasLowerLimit() const
-
-if has lower limit 
-";
-
-%feature("docstring")  AttLimits::getLowerLimit "double AttLimits::getLowerLimit() const
-
-Returns lower limit. 
-";
-
-%feature("docstring")  AttLimits::setLowerLimit "void AttLimits::setLowerLimit(double value)
-
-Sets lower limit. 
-";
-
-%feature("docstring")  AttLimits::removeLowerLimit "void AttLimits::removeLowerLimit()
-
-remove lower limit 
-";
-
-%feature("docstring")  AttLimits::hasUpperLimit "bool AttLimits::hasUpperLimit() const
-
-if has upper limit 
-";
-
-%feature("docstring")  AttLimits::getUpperLimit "double AttLimits::getUpperLimit() const
-
-Returns upper limit. 
-";
-
-%feature("docstring")  AttLimits::setUpperLimit "void AttLimits::setUpperLimit(double value)
-
-Sets upper limit. 
-";
-
-%feature("docstring")  AttLimits::removeUpperLimit "void AttLimits::removeUpperLimit()
-
-remove upper limit 
-";
-
-%feature("docstring")  AttLimits::hasLowerAndUpperLimits "bool AttLimits::hasLowerAndUpperLimits() const
-
-if has lower and upper limit 
-";
-
-%feature("docstring")  AttLimits::setFixed "void AttLimits::setFixed(bool is_fixed)
-
-Sets object fixed. 
-";
-
-%feature("docstring")  AttLimits::isFixed "bool AttLimits::isFixed() const
-
-if object is fixed at some value 
-";
-
-%feature("docstring")  AttLimits::setLimits "void AttLimits::setLimits(double xmin, double xmax)
-
-Sets lower and upper limits. 
-";
-
-%feature("docstring")  AttLimits::removeLimits "void AttLimits::removeLimits()
-
-remove limits 
-";
-
-%feature("docstring")  AttLimits::isInRange "bool AttLimits::isInRange(double value) const
-
-returns true if proposed value is in limits range 
+%feature("docstring")  AngularPixelMap::getSolidAngle "double AngularPixelMap::getSolidAngle() const override
 ";
 
 
@@ -122,199 +64,178 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder "Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
 ";
 
-%feature("docstring")  Basic2DParaCrystalBuilder::buildSample "ISample * Basic2DParaCrystalBuilder::buildSample() const 
+%feature("docstring")  Basic2DParaCrystalBuilder::buildSample "MultiLayer * Basic2DParaCrystalBuilder::buildSample() const 
 ";
 
 
-// File: classGeometry_1_1BasicVector3D.xml
-%feature("docstring") Geometry::BasicVector3D "
+// File: classBasicVector3D.xml
+%feature("docstring") BasicVector3D "
 
 Three-dimensional vector template, for use with integer, double, or complex components.
 
 C++ includes: BasicVector3D.h
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::BasicVector3D "Geometry::BasicVector3D< T >::BasicVector3D()
+%feature("docstring")  BasicVector3D::BasicVector3D "BasicVector3D< T >::BasicVector3D()
 
 Default constructor. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::BasicVector3D "Geometry::BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
+%feature("docstring")  BasicVector3D::BasicVector3D "BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
 
 Constructor from cartesian components. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::x "T Geometry::BasicVector3D< T >::x() const
+%feature("docstring")  BasicVector3D::x "T BasicVector3D< T >::x() const
 
 Returns x-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::y "T Geometry::BasicVector3D< T >::y() const
+%feature("docstring")  BasicVector3D::y "T BasicVector3D< T >::y() const
 
 Returns y-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::z "T Geometry::BasicVector3D< T >::z() const
+%feature("docstring")  BasicVector3D::z "T BasicVector3D< T >::z() const
 
 Returns z-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::setX "void Geometry::BasicVector3D< T >::setX(const T &a)
+%feature("docstring")  BasicVector3D::setX "void BasicVector3D< T >::setX(const T &a)
 
 Sets x-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::setY "void Geometry::BasicVector3D< T >::setY(const T &a)
+%feature("docstring")  BasicVector3D::setY "void BasicVector3D< T >::setY(const T &a)
 
 Sets y-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::setZ "void Geometry::BasicVector3D< T >::setZ(const T &a)
+%feature("docstring")  BasicVector3D::setZ "void BasicVector3D< T >::setZ(const T &a)
 
 Sets z-component in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::setXYZ "void Geometry::BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
+%feature("docstring")  BasicVector3D::setXYZ "void BasicVector3D< T >::setXYZ(const T &x1, const T &y1, const T &z1)
 
 Sets components in cartesian coordinate system. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D<T> Geometry::BasicVector3D< T >::conj() const
+%feature("docstring")  BasicVector3D::conj "BasicVector3D<T> BasicVector3D< T >::conj() const
 
 Returns complex conjugate vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::mag2 "double Geometry::BasicVector3D< T >::mag2() const
+%feature("docstring")  BasicVector3D::mag2 "double BasicVector3D< T >::mag2() const
 
 Returns squared magnitude squared of the vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::mag "double Geometry::BasicVector3D< T >::mag() const
+%feature("docstring")  BasicVector3D::mag "double BasicVector3D< T >::mag() const
 
 Returns magnitude of the vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::magxy2 "double Geometry::BasicVector3D< T >::magxy2() const
+%feature("docstring")  BasicVector3D::magxy2 "double BasicVector3D< T >::magxy2() const
 
 Returns squared distance from z axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::magxy "double Geometry::BasicVector3D< T >::magxy() const
+%feature("docstring")  BasicVector3D::magxy "double BasicVector3D< T >::magxy() const
 
 Returns distance from z axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< T >::phi() const
+%feature("docstring")  BasicVector3D::phi "double BasicVector3D< T >::phi() const
 
 Returns azimuth angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< T >::theta() const
+%feature("docstring")  BasicVector3D::theta "double BasicVector3D< T >::theta() const
 
 Returns polar angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< T >::cosTheta() const
+%feature("docstring")  BasicVector3D::cosTheta "double BasicVector3D< T >::cosTheta() const
 
 Returns cosine of polar angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< T >::sin2Theta() const
+%feature("docstring")  BasicVector3D::sin2Theta "double BasicVector3D< T >::sin2Theta() const
 
 Returns squared sine of polar angle. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::unit "BasicVector3D<T> Geometry::BasicVector3D< T >::unit() const
+%feature("docstring")  BasicVector3D::unit "BasicVector3D<T> BasicVector3D< T >::unit() const
 
 Returns unit vector in direction of this. Throws for null vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D<std::complex<double> > Geometry::BasicVector3D< T >::complex() const
+%feature("docstring")  BasicVector3D::complex "BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
 
 Returns this, trivially converted to complex type. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::dot "auto Geometry::BasicVector3D< T >::dot(const BasicVector3D< U > &v) const -> decltype(this->x()*v.x())
+%feature("docstring")  BasicVector3D::real "BasicVector3D<double> BasicVector3D< T >::real() const
+
+Returns real parts. 
+";
+
+%feature("docstring")  BasicVector3D::dot "auto BasicVector3D< T >::dot(const BasicVector3D< U > &v) const -> decltype(this->x()*v.x())
 
 Returns dot product of vectors (antilinear in the first [=self] argument).
 
 Returns dot product of (complex) vectors (antilinear in the first [=self] argument). 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::cross "auto Geometry::BasicVector3D< T >::cross(const BasicVector3D< U > &v) const -> BasicVector3D< decltype(this->x()*v.x())>
+%feature("docstring")  BasicVector3D::cross "auto BasicVector3D< T >::cross(const BasicVector3D< U > &v) const -> BasicVector3D< decltype(this->x()*v.x())>
 
 Returns cross product of vectors (linear in both arguments).
 
 Returns cross product of (complex) vectors. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< T >::angle(const BasicVector3D< T > &v) const
+%feature("docstring")  BasicVector3D::angle "double BasicVector3D< T >::angle(const BasicVector3D< T > &v) const
 
 Returns angle with respect to another vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::project "BasicVector3D<T> Geometry::BasicVector3D< T >::project(const BasicVector3D< T > &v) const
+%feature("docstring")  BasicVector3D::project "BasicVector3D<T> BasicVector3D< T >::project(const BasicVector3D< T > &v) const
 
 Returns projection of this onto other vector: (this*v)*v/|v|^2. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::rotatedX "BasicVector3D<T> Geometry::BasicVector3D< T >::rotatedX(double a) const
+%feature("docstring")  BasicVector3D::rotatedX "BasicVector3D<T> BasicVector3D< T >::rotatedX(double a) const
 
 Returns result of rotation around x-axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::rotatedY "BasicVector3D<T> Geometry::BasicVector3D< T >::rotatedY(double a) const
+%feature("docstring")  BasicVector3D::rotatedY "BasicVector3D<T> BasicVector3D< T >::rotatedY(double a) const
 
 Returns result of rotation around y-axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::rotatedZ "BasicVector3D<T> Geometry::BasicVector3D< T >::rotatedZ(double a) const
+%feature("docstring")  BasicVector3D::rotatedZ "BasicVector3D<T> BasicVector3D< T >::rotatedZ(double a) const
 
 Returns result of rotation around z-axis. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::rotated "BasicVector3D<T> Geometry::BasicVector3D< T >::rotated(double a, const BasicVector3D< T > &v) const
+%feature("docstring")  BasicVector3D::rotated "BasicVector3D<T> BasicVector3D< T >::rotated(double a, const BasicVector3D< T > &v) const
 
 Returns result of rotation around the axis specified by another vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
+%feature("docstring")  BasicVector3D::conj "BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
+
+Returns complex conjugate vector. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::conj "BasicVector3D< complex_t > Geometry::BasicVector3D< complex_t >::conj() const
+%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< complex_t >::real() const
+
+Returns real parts. 
 ";
 
-%feature("docstring")  Geometry::BasicVector3D::phi "double Geometry::BasicVector3D< double >::phi() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::theta "double Geometry::BasicVector3D< double >::theta() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::cosTheta "double Geometry::BasicVector3D< double >::cosTheta() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::sin2Theta "double Geometry::BasicVector3D< double >::sin2Theta() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::complex "BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::angle "double Geometry::BasicVector3D< double >::angle(const BasicVector3D< double > &v) const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::conj "BA_CORE_API_ BasicVector3D< double > Geometry::BasicVector3D< double >::conj() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::conj "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< std::complex< double > >::conj() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::phi "BA_CORE_API_ double Geometry::BasicVector3D< double >::phi() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::theta "BA_CORE_API_ double Geometry::BasicVector3D< double >::theta() const
-";
-
-%feature("docstring")  Geometry::BasicVector3D::complex "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::BasicVector3D< double >::complex() const
+%feature("docstring")  BasicVector3D::unit "BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
 ";
 
 
@@ -337,17 +258,17 @@ C++ includes: Beam.h
 
 %feature("docstring")  Beam::getCentralK "kvector_t Beam::getCentralK() const
 
-Get the value of the wavevector. 
+Returns the wavevector. 
 ";
 
 %feature("docstring")  Beam::setCentralK "void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
 
-Sets the value of the incoming wavevector in terms of wavelength and incoming angles 
+Sets the wavevector in terms of wavelength and incoming angles. 
 ";
 
 %feature("docstring")  Beam::getIntensity "double Beam::getIntensity() const
 
-Gets the beam intensity in neutrons/sec. 
+Returns the beam intensity in neutrons/sec. 
 ";
 
 %feature("docstring")  Beam::setIntensity "void Beam::setIntensity(double intensity)
@@ -362,7 +283,7 @@ Sets the polarization density matrix according to the given Bloch vector.
 
 %feature("docstring")  Beam::getPolarization "Eigen::Matrix2cd Beam::getPolarization() const
 
-Gets the polarization density matrix (in spin basis along z-axis) 
+Returns the polarization density matrix (in spin basis along z-axis) 
 ";
 
 %feature("docstring")  Beam::getWavelength "double Beam::getWavelength() const 
@@ -376,12 +297,7 @@ Gets the polarization density matrix (in spin basis along z-axis)
 
 
 // File: structBin1D.xml
-%feature("docstring") Bin1D "
-
-One dimensional bin with left and right bounds.
-
-C++ includes: Bin.h
-";
+%feature("docstring") Bin1D "";
 
 %feature("docstring")  Bin1D::Bin1D "Bin1D::Bin1D()
 ";
@@ -396,7 +312,7 @@ C++ includes: Bin.h
 ";
 
 
-// File: structBin1DCVector.xml
+// File: classBin1DCVector.xml
 %feature("docstring") Bin1DCVector "
 
 An one-dimensional range of cvector_t's.
@@ -474,7 +390,7 @@ C++ includes: BoxCompositionBuilder.h
 %feature("docstring")  BoxCompositionRotateXBuilder::BoxCompositionRotateXBuilder "BoxCompositionRotateXBuilder::BoxCompositionRotateXBuilder()
 ";
 
-%feature("docstring")  BoxCompositionRotateXBuilder::buildSample "ISample * BoxCompositionRotateXBuilder::buildSample() const 
+%feature("docstring")  BoxCompositionRotateXBuilder::buildSample "MultiLayer * BoxCompositionRotateXBuilder::buildSample() const 
 ";
 
 
@@ -489,7 +405,7 @@ C++ includes: BoxCompositionBuilder.h
 %feature("docstring")  BoxCompositionRotateYBuilder::BoxCompositionRotateYBuilder "BoxCompositionRotateYBuilder::BoxCompositionRotateYBuilder()
 ";
 
-%feature("docstring")  BoxCompositionRotateYBuilder::buildSample "ISample * BoxCompositionRotateYBuilder::buildSample() const 
+%feature("docstring")  BoxCompositionRotateYBuilder::buildSample "MultiLayer * BoxCompositionRotateYBuilder::buildSample() const 
 ";
 
 
@@ -504,7 +420,7 @@ C++ includes: BoxCompositionBuilder.h
 %feature("docstring")  BoxCompositionRotateZandYBuilder::BoxCompositionRotateZandYBuilder "BoxCompositionRotateZandYBuilder::BoxCompositionRotateZandYBuilder()
 ";
 
-%feature("docstring")  BoxCompositionRotateZandYBuilder::buildSample "ISample * BoxCompositionRotateZandYBuilder::buildSample() const 
+%feature("docstring")  BoxCompositionRotateZandYBuilder::buildSample "MultiLayer * BoxCompositionRotateZandYBuilder::buildSample() const 
 ";
 
 
@@ -519,7 +435,7 @@ C++ includes: BoxCompositionBuilder.h
 %feature("docstring")  BoxCompositionRotateZBuilder::BoxCompositionRotateZBuilder "BoxCompositionRotateZBuilder::BoxCompositionRotateZBuilder()
 ";
 
-%feature("docstring")  BoxCompositionRotateZBuilder::buildSample "ISample * BoxCompositionRotateZBuilder::buildSample() const 
+%feature("docstring")  BoxCompositionRotateZBuilder::buildSample "MultiLayer * BoxCompositionRotateZBuilder::buildSample() const 
 ";
 
 
@@ -534,16 +450,7 @@ C++ includes: BoxCompositionBuilder.h
 %feature("docstring")  BoxStackCompositionBuilder::BoxStackCompositionBuilder "BoxStackCompositionBuilder::BoxStackCompositionBuilder()
 ";
 
-%feature("docstring")  BoxStackCompositionBuilder::buildSample "ISample * BoxStackCompositionBuilder::buildSample() const 
-";
-
-
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
+%feature("docstring")  BoxStackCompositionBuilder::buildSample "MultiLayer * BoxStackCompositionBuilder::buildSample() const 
 ";
 
 
@@ -556,10 +463,19 @@ C++ includes: IntegratorReal.h
 ";
 
 
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
+";
+
+
 // File: classCenteredSquareLatticeBuilder.xml
 %feature("docstring") CenteredSquareLatticeBuilder "
 
-Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
+Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
@@ -567,7 +483,7 @@ C++ includes: TwoDimLatticeBuilder.h
 %feature("docstring")  CenteredSquareLatticeBuilder::CenteredSquareLatticeBuilder "CenteredSquareLatticeBuilder::CenteredSquareLatticeBuilder()
 ";
 
-%feature("docstring")  CenteredSquareLatticeBuilder::buildSample "ISample * CenteredSquareLatticeBuilder::buildSample() const 
+%feature("docstring")  CenteredSquareLatticeBuilder::buildSample "MultiLayer * CenteredSquareLatticeBuilder::buildSample() const 
 ";
 
 
@@ -594,8 +510,6 @@ clone method
 ";
 
 %feature("docstring")  ChiSquaredModule::processFitElements "void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
-
-Updates mp_simulation_data and mp_weights, returns chi^2. 
 ";
 
 
@@ -603,6 +517,36 @@ Updates mp_simulation_data and mp_weights, returns chi^2.
 %feature("docstring") Exceptions::ClassInitializationException "";
 
 %feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
+";
+
+
+// File: classComputationOutcome.xml
+%feature("docstring") ComputationOutcome "
+
+Completion status (flag and text) of a numeric computation. Pure virtual base class for our model evaluation routines. Currently, the only child is Computations, which is the base for some more classes.
+
+C++ includes: ComputationOutcome.h
+";
+
+%feature("docstring")  ComputationOutcome::ComputationOutcome "ComputationOutcome::ComputationOutcome()
+";
+
+%feature("docstring")  ComputationOutcome::isCompleted "bool ComputationOutcome::isCompleted() const 
+";
+
+%feature("docstring")  ComputationOutcome::getRunMessage "std::string ComputationOutcome::getRunMessage() const 
+";
+
+%feature("docstring")  ComputationOutcome::setRunning "void ComputationOutcome::setRunning()
+";
+
+%feature("docstring")  ComputationOutcome::setCompleted "void ComputationOutcome::setCompleted()
+";
+
+%feature("docstring")  ComputationOutcome::setFailed "void ComputationOutcome::setFailed()
+";
+
+%feature("docstring")  ComputationOutcome::setRunMessage "void ComputationOutcome::setRunMessage(const std::string &message)
 ";
 
 
@@ -651,9 +595,9 @@ Creates a new clipped axis.
 // File: classConvolutionDetectorResolution.xml
 %feature("docstring") ConvolutionDetectorResolution "
 
-Convolutes the intensity in 1 or 2 dimensions with a resolution function.
+Limitation: this class assumes that the data points are evenly distributed on each axis.
 
-Limitation: this class assumes that the data points are evenly distributed on each axis
+Convolutes the intensity in 1 or 2 dimensions with a resolution function.
 
 C++ includes: ConvolutionDetectorResolution.h
 ";
@@ -679,7 +623,7 @@ Constructor taking a 2 dimensional resolution function as argument.
 Convolve given intensities with the encapsulated resolution. 
 ";
 
-%feature("docstring")  ConvolutionDetectorResolution::addParametersToExternalPool "std::string ConvolutionDetectorResolution::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  ConvolutionDetectorResolution::addParametersToExternalPool "std::string ConvolutionDetectorResolution::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively call children. 
 ";
@@ -740,7 +684,7 @@ C++ includes: CoreShellParticleBuilder.h
 %feature("docstring")  CoreShellBoxRotateZandYBuilder::CoreShellBoxRotateZandYBuilder "CoreShellBoxRotateZandYBuilder::CoreShellBoxRotateZandYBuilder()
 ";
 
-%feature("docstring")  CoreShellBoxRotateZandYBuilder::buildSample "ISample * CoreShellBoxRotateZandYBuilder::buildSample() const 
+%feature("docstring")  CoreShellBoxRotateZandYBuilder::buildSample "MultiLayer * CoreShellBoxRotateZandYBuilder::buildSample() const 
 ";
 
 
@@ -755,31 +699,7 @@ C++ includes: CoreShellParticleBuilder.h
 %feature("docstring")  CoreShellParticleBuilder::CoreShellParticleBuilder "CoreShellParticleBuilder::CoreShellParticleBuilder()
 ";
 
-%feature("docstring")  CoreShellParticleBuilder::buildSample "ISample * CoreShellParticleBuilder::buildSample() const 
-";
-
-
-// File: classCoreTest.xml
-%feature("docstring") CoreTest "
-
-Core functional test compares results of the standard simulation with reference intensity data. Normally invoked by FunctionalMultiTest.
-
-C++ includes: CoreTest.h
-";
-
-%feature("docstring")  CoreTest::CoreTest "CoreTest::CoreTest(const std::string &name, const std::string &description, GISASSimulation *simulation, double threshold)
-";
-
-%feature("docstring")  CoreTest::~CoreTest "CoreTest::~CoreTest()
-";
-
-%feature("docstring")  CoreTest::runTest "void CoreTest::runTest()
-";
-
-%feature("docstring")  CoreTest::analyseResults "int CoreTest::analyseResults()
-";
-
-%feature("docstring")  CoreTest::printResults "void CoreTest::printResults(std::ostream &ostr) const 
+%feature("docstring")  CoreShellParticleBuilder::buildSample "MultiLayer * CoreShellParticleBuilder::buildSample() const 
 ";
 
 
@@ -794,14 +714,14 @@ C++ includes: RipplesBuilder.h
 %feature("docstring")  CosineRippleBuilder::CosineRippleBuilder "CosineRippleBuilder::CosineRippleBuilder()
 ";
 
-%feature("docstring")  CosineRippleBuilder::buildSample "ISample * CosineRippleBuilder::buildSample() const 
+%feature("docstring")  CosineRippleBuilder::buildSample "MultiLayer * CosineRippleBuilder::buildSample() const 
 ";
 
 
 // File: classCrystal.xml
 %feature("docstring") Crystal "
 
-A crystal structure with a form factor as a basis.
+A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal, where it is given an outer shape.
 
 C++ includes: Crystal.h
 ";
@@ -812,28 +732,30 @@ C++ includes: Crystal.h
 %feature("docstring")  Crystal::~Crystal "Crystal::~Crystal()
 ";
 
-%feature("docstring")  Crystal::clone "Crystal * Crystal::clone() const
+%feature("docstring")  Crystal::clone "Crystal * Crystal::clone() const final
 
-clone method to allow for polymorphic copying 
+Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Crystal::cloneInvertB "Crystal * Crystal::cloneInvertB() const
+%feature("docstring")  Crystal::cloneInvertB "Crystal * Crystal::cloneInvertB() const final
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Crystal::accept "void Crystal::accept(ISampleVisitor *visitor) const
+%feature("docstring")  Crystal::accept "void Crystal::accept(ISampleVisitor *visitor) const final
 
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  Crystal::setAmbientMaterial "virtual void Crystal::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  Crystal::setAmbientMaterial "void Crystal::setAmbientMaterial(const IMaterial &material) final
 ";
 
-%feature("docstring")  Crystal::getAmbientMaterial "virtual const IMaterial* Crystal::getAmbientMaterial() const 
+%feature("docstring")  Crystal::getAmbientMaterial "const IMaterial * Crystal::getAmbientMaterial() const final
+
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, kvector_t translation) const
+%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
@@ -859,25 +781,25 @@ C++ includes: CumulativeValue.h
 %feature("docstring")  CumulativeValue::CumulativeValue "CumulativeValue::CumulativeValue()
 ";
 
+%feature("docstring")  CumulativeValue::clear "void CumulativeValue::clear()
+";
+
+%feature("docstring")  CumulativeValue::setContent "void CumulativeValue::setContent(double value)
+";
+
+%feature("docstring")  CumulativeValue::add "void CumulativeValue::add(double value, double weight=1.0)
+";
+
 %feature("docstring")  CumulativeValue::getNumberOfEntries "int CumulativeValue::getNumberOfEntries() const 
 ";
 
 %feature("docstring")  CumulativeValue::getContent "double CumulativeValue::getContent() const 
 ";
 
-%feature("docstring")  CumulativeValue::setContent "void CumulativeValue::setContent(double value)
-";
-
 %feature("docstring")  CumulativeValue::getAverage "double CumulativeValue::getAverage() const 
 ";
 
 %feature("docstring")  CumulativeValue::getRMS "double CumulativeValue::getRMS() const 
-";
-
-%feature("docstring")  CumulativeValue::add "void CumulativeValue::add(double value, double weight=1.0)
-";
-
-%feature("docstring")  CumulativeValue::clear "void CumulativeValue::clear()
 ";
 
 
@@ -942,7 +864,7 @@ C++ includes: CustomMorphologyBuilder.h
 %feature("docstring")  CustomMorphologyBuilder::CustomMorphologyBuilder "CustomMorphologyBuilder::CustomMorphologyBuilder()
 ";
 
-%feature("docstring")  CustomMorphologyBuilder::buildSample "ISample * CustomMorphologyBuilder::buildSample() const 
+%feature("docstring")  CustomMorphologyBuilder::buildSample "MultiLayer * CustomMorphologyBuilder::buildSample() const 
 ";
 
 
@@ -957,7 +879,7 @@ C++ includes: CylindersAndPrismsBuilder.h
 %feature("docstring")  CylindersAndPrismsBuilder::CylindersAndPrismsBuilder "CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
 ";
 
-%feature("docstring")  CylindersAndPrismsBuilder::buildSample "ISample * CylindersAndPrismsBuilder::buildSample() const 
+%feature("docstring")  CylindersAndPrismsBuilder::buildSample "MultiLayer * CylindersAndPrismsBuilder::buildSample() const 
 ";
 
 
@@ -972,7 +894,7 @@ C++ includes: CylindersBuilder.h
 %feature("docstring")  CylindersInBABuilder::CylindersInBABuilder "CylindersInBABuilder::CylindersInBABuilder()
 ";
 
-%feature("docstring")  CylindersInBABuilder::buildSample "ISample * CylindersInBABuilder::buildSample() const 
+%feature("docstring")  CylindersInBABuilder::buildSample "MultiLayer * CylindersInBABuilder::buildSample() const 
 ";
 
 
@@ -987,14 +909,14 @@ C++ includes: CylindersBuilder.h
 %feature("docstring")  CylindersInDWBABuilder::CylindersInDWBABuilder "CylindersInDWBABuilder::CylindersInDWBABuilder()
 ";
 
-%feature("docstring")  CylindersInDWBABuilder::buildSample "ISample * CylindersInDWBABuilder::buildSample() const 
+%feature("docstring")  CylindersInDWBABuilder::buildSample "MultiLayer * CylindersInDWBABuilder::buildSample() const 
 ";
 
 
 // File: classCylindersInSSCABuilder.xml
 %feature("docstring") CylindersInSSCABuilder "
 
-Builds sample: size spacing correlation approximation (IsGISAXS example #15)
+Builds sample: size spacing correlation approximation (IsGISAXS example #15).
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -1002,14 +924,14 @@ C++ includes: SizeDistributionModelsBuilder.h
 %feature("docstring")  CylindersInSSCABuilder::CylindersInSSCABuilder "CylindersInSSCABuilder::CylindersInSSCABuilder()
 ";
 
-%feature("docstring")  CylindersInSSCABuilder::buildSample "ISample * CylindersInSSCABuilder::buildSample() const 
+%feature("docstring")  CylindersInSSCABuilder::buildSample "MultiLayer * CylindersInSSCABuilder::buildSample() const 
 ";
 
 
 // File: classCylindersWithSizeDistributionBuilder.xml
 %feature("docstring") CylindersWithSizeDistributionBuilder "
 
-Cylinders in BA with size distributions (IsGISAXS example #3, part II)
+Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 
 C++ includes: ParticleDistributionsBuilder.h
 ";
@@ -1017,7 +939,7 @@ C++ includes: ParticleDistributionsBuilder.h
 %feature("docstring")  CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder "CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
 ";
 
-%feature("docstring")  CylindersWithSizeDistributionBuilder::buildSample "ISample * CylindersWithSizeDistributionBuilder::buildSample() const 
+%feature("docstring")  CylindersWithSizeDistributionBuilder::buildSample "MultiLayer * CylindersWithSizeDistributionBuilder::buildSample() const 
 ";
 
 
@@ -1028,51 +950,76 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classDecoratedLayerDWBASimulation.xml
-%feature("docstring") DecoratedLayerDWBASimulation "
+// File: classDecoratedLayerComputation.xml
+%feature("docstring") DecoratedLayerComputation "
 
-Calculates scattering cross sections in DWBA for a layer with particles in/on it.
+Computes the scattering contribution from one layer with particles in/on it. Controlled by  MainComputation.
 
-C++ includes: DecoratedLayerDWBASimulation.h
+C++ includes: DecoratedLayerComputation.h
 ";
 
-%feature("docstring")  DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation "DecoratedLayerDWBASimulation::DecoratedLayerDWBASimulation(const Layer *p_layer, size_t layout_index=0)
+%feature("docstring")  DecoratedLayerComputation::DecoratedLayerComputation "DecoratedLayerComputation::DecoratedLayerComputation(const Layer *p_layer, size_t layout_index=0)
 ";
 
-%feature("docstring")  DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation "DecoratedLayerDWBASimulation::~DecoratedLayerDWBASimulation()
+%feature("docstring")  DecoratedLayerComputation::setSpecularInfo "void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
 ";
 
-%feature("docstring")  DecoratedLayerDWBASimulation::clone "DecoratedLayerDWBASimulation* DecoratedLayerDWBASimulation::clone() const 
+%feature("docstring")  DecoratedLayerComputation::eval "void DecoratedLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const
+
+Computes scattering intensity for given range of simulation elements. 
 ";
 
-%feature("docstring")  DecoratedLayerDWBASimulation::run "void DecoratedLayerDWBASimulation::run()
-";
 
+// File: classDecouplingApproximationStrategy1.xml
+%feature("docstring") DecouplingApproximationStrategy1 "
 
-// File: classDecouplingApproximationStrategy.xml
-%feature("docstring") DecouplingApproximationStrategy "
-
-Strategy for implementing decoupling approximation.
+Strategy class to compute the total scalar scattering from a decorated layer in decoupling approximation.
 
 C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params)
+%feature("docstring")  DecouplingApproximationStrategy1::DecouplingApproximationStrategy1 "DecouplingApproximationStrategy1::DecouplingApproximationStrategy1(SimulationOptions sim_params)
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::~DecouplingApproximationStrategy "virtual DecouplingApproximationStrategy::~DecouplingApproximationStrategy()
+
+// File: classDecouplingApproximationStrategy2.xml
+%feature("docstring") DecouplingApproximationStrategy2 "
+
+Strategy class to compute the total polarized scattering from a decorated layer in decoupling approximation.
+
+C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::init "void DecouplingApproximationStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
+%feature("docstring")  DecouplingApproximationStrategy2::DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::DecouplingApproximationStrategy2(SimulationOptions sim_params)
+";
 
-Initializes the object with form factors and interference functions. 
+
+// File: classDetectionProperties.xml
+%feature("docstring") DetectionProperties "
+
+Detector properties (efficiency, transmission).
+
+C++ includes: DetectionProperties.h
+";
+
+%feature("docstring")  DetectionProperties::DetectionProperties "DetectionProperties::DetectionProperties()
+";
+
+%feature("docstring")  DetectionProperties::setAnalyzerProperties "void DetectionProperties::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
+
+Sets the polarization analyzer characteristics of the detector. 
+";
+
+%feature("docstring")  DetectionProperties::analyzerOperator "Eigen::Matrix2cd DetectionProperties::analyzerOperator() const
+
+Gets the polarization density matrix (in spin basis along z-axis) 
 ";
 
 
 // File: classDetectorMask.xml
 %feature("docstring") DetectorMask "
 
-The container with all masks.
+Collection of detector masks.
 
 C++ includes: DetectorMask.h
 ";
@@ -1105,10 +1052,13 @@ Init the map of masks for the given detector plane.
 %feature("docstring")  DetectorMask::initMaskData "void DetectorMask::initMaskData(const OutputData< double > &data)
 ";
 
-%feature("docstring")  DetectorMask::getMask "bool DetectorMask::getMask(size_t index) const 
+%feature("docstring")  DetectorMask::isMasked "bool DetectorMask::isMasked(size_t index) const 
 ";
 
-%feature("docstring")  DetectorMask::getMaskData "const OutputData< bool > * DetectorMask::getMaskData() const 
+%feature("docstring")  DetectorMask::getMaskData "const OutputData<bool>* DetectorMask::getMaskData() const 
+";
+
+%feature("docstring")  DetectorMask::createHistogram "Histogram2D * DetectorMask::createHistogram() const 
 ";
 
 %feature("docstring")  DetectorMask::removeMasks "void DetectorMask::removeMasks()
@@ -1121,10 +1071,10 @@ remove all masks and return object to initial state
 returns true if has masks 
 ";
 
-%feature("docstring")  DetectorMask::getNumberOfMaskedChannels "int DetectorMask::getNumberOfMaskedChannels() const 
+%feature("docstring")  DetectorMask::numberOfMaskedChannels "int DetectorMask::numberOfMaskedChannels() const 
 ";
 
-%feature("docstring")  DetectorMask::getNumberOfMasks "size_t DetectorMask::getNumberOfMasks() const 
+%feature("docstring")  DetectorMask::numberOfMasks "size_t DetectorMask::numberOfMasks() const 
 ";
 
 %feature("docstring")  DetectorMask::getMaskShape "const Geometry::IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const 
@@ -1168,16 +1118,21 @@ Returns the mean of the distribution.
 Returns the sigma parameter of the distribution. 
 ";
 
-%feature("docstring")  DistributionCosine::generateValueList "std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionCosine::generateValueList "std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 generate list of sample values 
+";
+
+%feature("docstring")  DistributionCosine::isDelta "bool DistributionCosine::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
 // File: classDistributionGate.xml
 %feature("docstring") DistributionGate "
 
-uniform distribution function with half width hwhm
+Uniform distribution function with half width hwhm.
 
 C++ includes: Distributions.h
 ";
@@ -1216,9 +1171,14 @@ Returns the minimum value of the distribution.
 Returns the maximum value of the distribution. 
 ";
 
-%feature("docstring")  DistributionGate::generateValueList "std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionGate::generateValueList "std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 Returns list of sample values. 
+";
+
+%feature("docstring")  DistributionGate::isDelta "bool DistributionGate::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -1259,9 +1219,14 @@ Returns the mean of the distribution.
 Returns the standard deviation. 
 ";
 
-%feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionGaussian::generateValueList "std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 generate list of sample values 
+";
+
+%feature("docstring")  DistributionGaussian::isDelta "bool DistributionGaussian::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -1279,7 +1244,7 @@ C++ includes: DistributionHandler.h
 %feature("docstring")  DistributionHandler::~DistributionHandler "DistributionHandler::~DistributionHandler()
 ";
 
-%feature("docstring")  DistributionHandler::addParameterDistribution "void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const AttLimits &limits=AttLimits())
+%feature("docstring")  DistributionHandler::addParameterDistribution "void DistributionHandler::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
 
 add a sampled parameter distribution 
 ";
@@ -1343,9 +1308,14 @@ Returns the median of the distribution.
 Returns the scale parameter of the distribution. 
 ";
 
-%feature("docstring")  DistributionLogNormal::generateValueList "std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionLogNormal::generateValueList "std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 generate list of sample values 
+";
+
+%feature("docstring")  DistributionLogNormal::isDelta "bool DistributionLogNormal::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -1366,9 +1336,7 @@ C++ includes: Distributions.h
 %feature("docstring")  DistributionLorentz::~DistributionLorentz "virtual DistributionLorentz::~DistributionLorentz()
 ";
 
-%feature("docstring")  DistributionLorentz::clone "virtual DistributionLorentz* DistributionLorentz::clone() const
-
-clone method 
+%feature("docstring")  DistributionLorentz::clone "virtual DistributionLorentz* DistributionLorentz::clone() const 
 ";
 
 %feature("docstring")  DistributionLorentz::probabilityDensity "double DistributionLorentz::probabilityDensity(double x) const
@@ -1386,9 +1354,14 @@ Returns the mean of the distribution.
 Returns the half width at half maximum. 
 ";
 
-%feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  DistributionLorentz::generateValueList "std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
 generate list of sample values 
+";
+
+%feature("docstring")  DistributionLorentz::isDelta "bool DistributionLorentz::isDelta() const
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -1433,43 +1406,6 @@ C++ includes: DWBADiffuseReflection.h
 ";
 
 
-// File: classDWBAProgressHandler.xml
-%feature("docstring") DWBAProgressHandler "
-
-Holds number of items processed by  DWBASimulation and informs  Simulation every n'th processed item.
-
-C++ includes: ProgressHandlerDWBA.h
-";
-
-
-// File: classDWBASimulation.xml
-%feature("docstring") DWBASimulation "
-
-Base class for different simulations, using DWBA.
-
-C++ includes: DWBASimulation.h
-";
-
-%feature("docstring")  DWBASimulation::DWBASimulation "DWBASimulation::DWBASimulation()
-";
-
-%feature("docstring")  DWBASimulation::~DWBASimulation "DWBASimulation::~DWBASimulation()
-";
-
-%feature("docstring")  DWBASimulation::init "void DWBASimulation::init(const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
-
-Initializes the simulation with the parameters from simulation. 
-";
-
-%feature("docstring")  DWBASimulation::getDWBAIntensity "const OutputData<double>& DWBASimulation::getDWBAIntensity() const
-
-Returns output data containing calculated intensity. 
-";
-
-%feature("docstring")  DWBASimulation::clone "DWBASimulation * DWBASimulation::clone() const 
-";
-
-
 // File: classGeometry_1_1Ellipse.xml
 %feature("docstring") Geometry::Ellipse "
 
@@ -1479,8 +1415,6 @@ C++ includes: Ellipse.h
 ";
 
 %feature("docstring")  Geometry::Ellipse::Ellipse "Geometry::Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta=0.0)
-
-Ellipse constructor
 
 Parameters:
 -----------
@@ -1501,17 +1435,17 @@ theta:
 Angle of  Ellipse rotation in radians 
 ";
 
-%feature("docstring")  Geometry::Ellipse::clone "Ellipse * Geometry::Ellipse::clone() const 
+%feature("docstring")  Geometry::Ellipse::clone "Ellipse* Geometry::Ellipse::clone() const 
 ";
 
 %feature("docstring")  Geometry::Ellipse::contains "bool Geometry::Ellipse::contains(double x, double y) const
 
-Returns true if given point is inside or on border of ellipse. 
+Returns true if point with given coordinates is inside or on border of the shape. 
 ";
 
 %feature("docstring")  Geometry::Ellipse::contains "bool Geometry::Ellipse::contains(const Bin1D &binx, const Bin1D &biny) const
 
-Returns true if area defined by two bins is inside or on border of ellipse. More precisely, if mid point of two bins satisfy this condition. 
+Returns true if area defined by two bins is inside or on border of ellipse; more precisely, if mid point of two bins satisfy this condition. 
 ";
 
 %feature("docstring")  Geometry::Ellipse::getCenterX "double Geometry::Ellipse::getCenterX() const 
@@ -1537,6 +1471,29 @@ Returns true if area defined by two bins is inside or on border of ellipse. More
 ";
 
 
+// File: classExportToPython.xml
+%feature("docstring") ExportToPython "
+
+Write a Python script that allows to run the current simulation.
+
+C++ includes: ExportToPython.h
+";
+
+%feature("docstring")  ExportToPython::ExportToPython "ExportToPython::ExportToPython(const MultiLayer &multilayer)
+";
+
+%feature("docstring")  ExportToPython::~ExportToPython "ExportToPython::~ExportToPython()
+";
+
+%feature("docstring")  ExportToPython::simulationToPythonLowlevel "std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation *simulation)
+
+Returns a Python script that sets up a simulation and runs it if invoked as main program. 
+";
+
+%feature("docstring")  ExportToPython::defineGetSample "std::string ExportToPython::defineGetSample() const 
+";
+
+
 // File: classExceptions_1_1FileIsBadException.xml
 %feature("docstring") Exceptions::FileIsBadException "";
 
@@ -1548,15 +1505,6 @@ Returns true if area defined by two bins is inside or on border of ellipse. More
 %feature("docstring") Exceptions::FileNotIsOpenException "";
 
 %feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
-";
-
-
-// File: classUtils_1_1FileSystem.xml
-%feature("docstring") Utils::FileSystem "
-
-Class collecting utilities to work with file system.
-
-C++ includes: FileSystem.h
 ";
 
 
@@ -1602,6 +1550,776 @@ C++ includes: FitElement.h
 ";
 
 
+// File: classFitObject.xml
+%feature("docstring") FitObject "
+
+Holds simulation description and real data to run the fit.
+
+C++ includes: FitObject.h
+";
+
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1)
+
+FitObject constructor
+
+Parameters:
+-----------
+
+simulation: 
+The simulation to run
+
+real_data: 
+The real data
+
+weight: 
+Weight of dataset in chi2 calculations
+
+adjust_detector_to_data: 
+Detector axes will be adjusted to real data axes, if true 
+";
+
+%feature("docstring")  FitObject::~FitObject "FitObject::~FitObject()
+";
+
+%feature("docstring")  FitObject::realData "const OutputData< double > & FitObject::realData() const
+
+Returns real (experimental) data. 
+";
+
+%feature("docstring")  FitObject::simulationData "const OutputData< double > & FitObject::simulationData() const
+
+Returns simulated data. 
+";
+
+%feature("docstring")  FitObject::chiSquaredMap "const OutputData< double > & FitObject::chiSquaredMap() const
+
+Returns chi2 map. 
+";
+
+%feature("docstring")  FitObject::simulation "const GISASSimulation & FitObject::simulation() const
+
+Returns simulation. 
+";
+
+%feature("docstring")  FitObject::weight "double FitObject::weight() const
+
+Returns weight of data set in chi2 calculations. 
+";
+
+%feature("docstring")  FitObject::numberOfFitElements "size_t FitObject::numberOfFitElements() const
+
+Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
+";
+
+%feature("docstring")  FitObject::prepareFitElements "void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *normalizer=0)
+
+Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
+";
+
+%feature("docstring")  FitObject::transferToChi2Map "void FitObject::transferToChi2Map(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
+
+Updates ChiSquared map from external vector and returns const reference to it. Used from Python in FitSuiteDrawObserver. 
+";
+
+%feature("docstring")  FitObject::addParametersToExternalPool "std::string FitObject::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
+
+Adds parameters from local pool to external pool and recursively calls its direct children.
+
+Adds parameters from local pool to external pool. 
+";
+
+
+// File: classFitParameterLinked.xml
+%feature("docstring") FitParameterLinked "
+
+Fittable parameter, linked to other parameters from pools.
+
+C++ includes: FitParameterLinked.h
+";
+
+%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked()
+";
+
+%feature("docstring")  FitParameterLinked::FitParameterLinked "FitParameterLinked::FitParameterLinked(const std::string &name, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
+";
+
+%feature("docstring")  FitParameterLinked::~FitParameterLinked "FitParameterLinked::~FitParameterLinked() final
+";
+
+%feature("docstring")  FitParameterLinked::clone "FitParameterLinked * FitParameterLinked::clone() const 
+";
+
+%feature("docstring")  FitParameterLinked::setValue "void FitParameterLinked::setValue(double value) final
+
+Sets given value for all bound parameters. 
+";
+
+%feature("docstring")  FitParameterLinked::addParameter "void FitParameterLinked::addParameter(RealParameter *par)
+
+Adds real parameter to the collection. 
+";
+
+%feature("docstring")  FitParameterLinked::addMatchedParametersFromPool "void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard=std::string())
+
+Adds parameters from pool which match given wildcard. 
+";
+
+
+// File: classFitStrategyAdjustParameters.xml
+%feature("docstring") FitStrategyAdjustParameters "
+
+Strategy which fixes/releases fit parameters and call minimizer.
+
+C++ includes: FitStrategyAdjustParameters.h
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::FitStrategyAdjustParameters "FitStrategyAdjustParameters::FitStrategyAdjustParameters(const std::string &name)
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::FitStrategyAdjustParameters "FitStrategyAdjustParameters::FitStrategyAdjustParameters()
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::~FitStrategyAdjustParameters "virtual FitStrategyAdjustParameters::~FitStrategyAdjustParameters()
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::clone "virtual FitStrategyAdjustParameters* FitStrategyAdjustParameters::clone() const 
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::execute "void FitStrategyAdjustParameters::execute()
+
+strategy which fixes/releases fit parameters and then call minimizer 
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::fix_all "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::fix_all()
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::release_all "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::release_all()
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::fix "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::fix(std::string parname)
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::release "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::release(std::string parname)
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::setPreserveOriginalValues "virtual void FitStrategyAdjustParameters::setPreserveOriginalValues(bool preserve_values)
+";
+
+%feature("docstring")  FitStrategyAdjustParameters::clear "virtual void FitStrategyAdjustParameters::clear()
+";
+
+
+// File: classFitStrategyDefault.xml
+%feature("docstring") FitStrategyDefault "
+
+Default fit strategy just let  FitSuite to run it's minimization round.
+
+C++ includes: IFitStrategy.h
+";
+
+%feature("docstring")  FitStrategyDefault::FitStrategyDefault "FitStrategyDefault::FitStrategyDefault()
+";
+
+%feature("docstring")  FitStrategyDefault::clone "FitStrategyDefault * FitStrategyDefault::clone() const 
+";
+
+%feature("docstring")  FitStrategyDefault::execute "void FitStrategyDefault::execute()
+";
+
+
+// File: classFitStrategyFixParameters.xml
+%feature("docstring") FitStrategyFixParameters "
+
+Strategy which fixes certain fit parameters leaving other released.
+
+C++ includes: FitStrategyAdjustParameters.h
+";
+
+%feature("docstring")  FitStrategyFixParameters::FitStrategyFixParameters "FitStrategyFixParameters::FitStrategyFixParameters()
+";
+
+%feature("docstring")  FitStrategyFixParameters::FitStrategyFixParameters "FitStrategyFixParameters::FitStrategyFixParameters(const std::vector< std::string > &pars)
+";
+
+%feature("docstring")  FitStrategyFixParameters::~FitStrategyFixParameters "virtual FitStrategyFixParameters::~FitStrategyFixParameters()
+";
+
+%feature("docstring")  FitStrategyFixParameters::clone "virtual FitStrategyFixParameters* FitStrategyFixParameters::clone() const 
+";
+
+%feature("docstring")  FitStrategyFixParameters::clear "virtual void FitStrategyFixParameters::clear()
+";
+
+%feature("docstring")  FitStrategyFixParameters::setFixed "virtual void FitStrategyFixParameters::setFixed(const std::vector< std::string > &pars)
+";
+
+
+// File: classFitStrategyReleaseParameters.xml
+%feature("docstring") FitStrategyReleaseParameters "
+
+Strategy which releases certain fit parameters leaving other fixed.
+
+C++ includes: FitStrategyAdjustParameters.h
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::FitStrategyReleaseParameters "FitStrategyReleaseParameters::FitStrategyReleaseParameters()
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::FitStrategyReleaseParameters "FitStrategyReleaseParameters::FitStrategyReleaseParameters(const std::vector< std::string > &pars)
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::~FitStrategyReleaseParameters "virtual FitStrategyReleaseParameters::~FitStrategyReleaseParameters()
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::clone "virtual FitStrategyReleaseParameters* FitStrategyReleaseParameters::clone() const 
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::clear "virtual void FitStrategyReleaseParameters::clear()
+";
+
+%feature("docstring")  FitStrategyReleaseParameters::setReleased "virtual void FitStrategyReleaseParameters::setReleased(const std::vector< std::string > &pars)
+";
+
+
+// File: classFitSuite.xml
+%feature("docstring") FitSuite "
+
+User interface class that wraps all fit methods.
+
+C++ includes: FitSuite.h
+";
+
+%feature("docstring")  FitSuite::FitSuite "FitSuite::FitSuite()
+";
+
+%feature("docstring")  FitSuite::FitSuite "FitSuite::FitSuite(const FitSuite &)=delete
+";
+
+%feature("docstring")  FitSuite::~FitSuite "FitSuite::~FitSuite()
+";
+
+%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1)
+
+Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
+";
+
+%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const IHistogram &real_data, double weight=1)
+
+Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
+";
+
+%feature("docstring")  FitSuite::addFitParameter "FitParameterLinked * FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
+
+Adds fit parameter
+
+Parameters:
+-----------
+
+name: 
+The name of fit parameter
+
+value: 
+Parameter's starting value
+
+limits: 
+Limits attribute
+
+step: 
+Initial parameter's step (some minimizers don't use it) 
+";
+
+%feature("docstring")  FitSuite::setMinimizer "void FitSuite::setMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
+
+Sets minimizer with given name and algorithm type
+
+Parameters:
+-----------
+
+minimizer_name: 
+The name of the minimizer
+
+algorithm_name: 
+Optional name of the minimizer's algorithm
+
+minimizer_options: 
+Optional string with additional minimizer settings 
+";
+
+%feature("docstring")  FitSuite::setChiSquaredModule "void FitSuite::setChiSquaredModule(const IChiSquaredModule &chi2_module)
+
+Replaces default  ChiSquaredModule with new one. 
+";
+
+%feature("docstring")  FitSuite::addFitStrategy "void FitSuite::addFitStrategy(const IFitStrategy &strategy)
+
+Adds fit strategy. 
+";
+
+%feature("docstring")  FitSuite::setMinimizer "void FitSuite::setMinimizer(IMinimizer *minimizer)
+
+Sets minimizer. 
+";
+
+%feature("docstring")  FitSuite::minimizer "const IMinimizer * FitSuite::minimizer() const
+
+Returns minimizer. 
+";
+
+%feature("docstring")  FitSuite::initPrint "void FitSuite::initPrint(int print_every_nth)
+
+Initializes printing to standard output during the fitting. Prints also the summary when completed.
+
+Parameters:
+-----------
+
+print_every_nth: 
+Print every n'th iteration 
+";
+
+%feature("docstring")  FitSuite::runFit "void FitSuite::runFit()
+
+main method to run the fitting 
+";
+
+%feature("docstring")  FitSuite::numberOfFitObjects "int FitSuite::numberOfFitObjects() const
+
+Returns number of fit objects, where fit object stands for (real, simulated) pair. 
+";
+
+%feature("docstring")  FitSuite::getRealData "IHistogram * FitSuite::getRealData(size_t i_item=0) const
+
+returns real data histogram
+
+Parameters:
+-----------
+
+i_item: 
+The index of fit object 
+";
+
+%feature("docstring")  FitSuite::getSimulationData "IHistogram * FitSuite::getSimulationData(size_t i_item=0) const
+
+returns simulated data histogram
+
+Parameters:
+-----------
+
+i_item: 
+The index of fit object 
+";
+
+%feature("docstring")  FitSuite::getChiSquaredMap "IHistogram * FitSuite::getChiSquaredMap(size_t i_item=0) const
+
+returns chi2 histogram calculated for (real, simulated) data pair
+
+Parameters:
+-----------
+
+i_item: 
+The index of fit object 
+";
+
+%feature("docstring")  FitSuite::fitObjects "FitSuiteObjects * FitSuite::fitObjects()
+
+returns  FitObject (pair of simulation/real data) 
+";
+
+%feature("docstring")  FitSuite::fitParameters "FitParameterSet * FitSuite::fitParameters()
+
+Returns reference to fit parameters. 
+";
+
+%feature("docstring")  FitSuite::fitStrategies "FitSuiteStrategies * FitSuite::fitStrategies()
+
+Returns reference to fit parameters. 
+";
+
+%feature("docstring")  FitSuite::isLastIteration "bool FitSuite::isLastIteration() const
+
+if the last iteration is done (used by observers to print summary) 
+";
+
+%feature("docstring")  FitSuite::numberOfIterations "size_t FitSuite::numberOfIterations() const
+
+Returns current number of minimization function calls. 
+";
+
+%feature("docstring")  FitSuite::currentStrategyIndex "size_t FitSuite::currentStrategyIndex() const
+
+Returns the number of current strategy. 
+";
+
+%feature("docstring")  FitSuite::printResults "void FitSuite::printResults() const
+
+Prints results of the minimization to the standard output. 
+";
+
+%feature("docstring")  FitSuite::reportResults "std::string FitSuite::reportResults() const
+
+Reports results of minimization in the form of multi-line string. 
+";
+
+%feature("docstring")  FitSuite::getChi2 "double FitSuite::getChi2() const
+
+Returns minimum chi squared value found. 
+";
+
+%feature("docstring")  FitSuite::interruptFitting "void FitSuite::interruptFitting()
+";
+
+%feature("docstring")  FitSuite::resetInterrupt "void FitSuite::resetInterrupt()
+";
+
+%feature("docstring")  FitSuite::isInterrupted "bool FitSuite::isInterrupted()
+";
+
+%feature("docstring")  FitSuite::getRealOutputData "const OutputData< double > * FitSuite::getRealOutputData(size_t i_item=0) const 
+";
+
+%feature("docstring")  FitSuite::getSimulationOutputData "const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const 
+";
+
+%feature("docstring")  FitSuite::getChiSquaredOutputData "const OutputData< double > * FitSuite::getChiSquaredOutputData(size_t i_item=0) const 
+";
+
+
+// File: classFitSuiteChiSquaredFunction.xml
+%feature("docstring") FitSuiteChiSquaredFunction "
+
+Chi squared fitting function for minimizer.
+
+C++ includes: FitSuiteFunctions.h
+";
+
+%feature("docstring")  FitSuiteChiSquaredFunction::FitSuiteChiSquaredFunction "FitSuiteChiSquaredFunction::FitSuiteChiSquaredFunction()
+";
+
+%feature("docstring")  FitSuiteChiSquaredFunction::~FitSuiteChiSquaredFunction "virtual FitSuiteChiSquaredFunction::~FitSuiteChiSquaredFunction()
+";
+
+%feature("docstring")  FitSuiteChiSquaredFunction::evaluate "double FitSuiteChiSquaredFunction::evaluate(const std::vector< double > &pars)
+
+evaluate method for chi2 value called directly from the minimizer
+
+evaluate chi squared value 
+";
+
+
+// File: classFitSuiteGradientFunction.xml
+%feature("docstring") FitSuiteGradientFunction "
+
+Gradient fitting function for minimizer.
+
+C++ includes: FitSuiteFunctions.h
+";
+
+%feature("docstring")  FitSuiteGradientFunction::FitSuiteGradientFunction "FitSuiteGradientFunction::FitSuiteGradientFunction()
+";
+
+%feature("docstring")  FitSuiteGradientFunction::~FitSuiteGradientFunction "virtual FitSuiteGradientFunction::~FitSuiteGradientFunction()
+";
+
+%feature("docstring")  FitSuiteGradientFunction::evaluate "double FitSuiteGradientFunction::evaluate(const std::vector< double > &pars, unsigned int index, std::vector< double > &gradients)
+
+evaluate method for gradients and residuals called directly from the minimizer
+
+evaluate residual and derivative for given data element 
+";
+
+%feature("docstring")  FitSuiteGradientFunction::getNCallsTotal "virtual size_t FitSuiteGradientFunction::getNCallsTotal() const 
+";
+
+%feature("docstring")  FitSuiteGradientFunction::getNCallsGradient "virtual size_t FitSuiteGradientFunction::getNCallsGradient() const 
+";
+
+
+// File: classFitSuiteImpl.xml
+%feature("docstring") FitSuiteImpl "
+
+Fitting kernel for  FitSuite.
+
+C++ includes: FitSuiteImpl.h
+";
+
+%feature("docstring")  FitSuiteImpl::FitSuiteImpl "FitSuiteImpl::FitSuiteImpl(const std::function< void()> &notifyObservers)
+";
+
+%feature("docstring")  FitSuiteImpl::FitSuiteImpl "FitSuiteImpl::FitSuiteImpl(const FitSuiteImpl &)=delete
+";
+
+%feature("docstring")  FitSuiteImpl::~FitSuiteImpl "FitSuiteImpl::~FitSuiteImpl()
+";
+
+%feature("docstring")  FitSuiteImpl::clear "void FitSuiteImpl::clear()
+
+Resets most state variables, to get prepared for the next fit.
+
+Clears all data. 
+";
+
+%feature("docstring")  FitSuiteImpl::addSimulationAndRealData "void FitSuiteImpl::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
+
+Adds pair of (simulation, real data) for consecutive simulation. 
+";
+
+%feature("docstring")  FitSuiteImpl::addFitParameter "FitParameterLinked * FitSuiteImpl::addFitParameter(const std::string &name, double value, const AttLimits &limits, double step=0.0)
+
+Adds fit parameter.
+
+Adds fit parameter, step is calculated from initial parameter value. 
+";
+
+%feature("docstring")  FitSuiteImpl::addFitStrategy "void FitSuiteImpl::addFitStrategy(const IFitStrategy &strategy)
+
+Adds fit strategy. 
+";
+
+%feature("docstring")  FitSuiteImpl::setMinimizer "void FitSuiteImpl::setMinimizer(IMinimizer *minimizer)
+
+Sets minimizer. 
+";
+
+%feature("docstring")  FitSuiteImpl::runFit "void FitSuiteImpl::runFit()
+
+Runs a fit, which may consist of several minimization rounds. 
+";
+
+%feature("docstring")  FitSuiteImpl::minimize "void FitSuiteImpl::minimize()
+
+Runs a single minimization round (called by FitSuiteStrategy) 
+";
+
+%feature("docstring")  FitSuiteImpl::fitObjects "FitSuiteObjects* FitSuiteImpl::fitObjects()
+
+Returns reference to the kit with data. 
+";
+
+%feature("docstring")  FitSuiteImpl::fitObjects "const FitSuiteObjects* FitSuiteImpl::fitObjects() const 
+";
+
+%feature("docstring")  FitSuiteImpl::fitParameters "FitParameterSet * FitSuiteImpl::fitParameters()
+
+Returns reference to fit parameters. 
+";
+
+%feature("docstring")  FitSuiteImpl::fitStrategies "FitSuiteStrategies* FitSuiteImpl::fitStrategies()
+
+Returns reference to fit parameters. 
+";
+
+%feature("docstring")  FitSuiteImpl::isLastIteration "bool FitSuiteImpl::isLastIteration() const
+
+Returns true if the last iteration is done (used by observers to print summary) 
+";
+
+%feature("docstring")  FitSuiteImpl::numberOfIterations "size_t FitSuiteImpl::numberOfIterations() const
+
+Returns current number of minimization function calls. 
+";
+
+%feature("docstring")  FitSuiteImpl::currentStrategyIndex "size_t FitSuiteImpl::currentStrategyIndex() const
+
+Returns the number of current strategy. 
+";
+
+%feature("docstring")  FitSuiteImpl::reportResults "std::string FitSuiteImpl::reportResults() const
+
+Reports results of minimization in the form of multi-line string. 
+";
+
+%feature("docstring")  FitSuiteImpl::getOptions "FitOptions& FitSuiteImpl::getOptions()
+
+Returns current fit options. 
+";
+
+%feature("docstring")  FitSuiteImpl::setOptions "void FitSuiteImpl::setOptions(const FitOptions &fit_options)
+
+Sets fit options. 
+";
+
+%feature("docstring")  FitSuiteImpl::notifyObservers "void FitSuiteImpl::notifyObservers()
+";
+
+%feature("docstring")  FitSuiteImpl::interruptFitting "void FitSuiteImpl::interruptFitting()
+";
+
+%feature("docstring")  FitSuiteImpl::resetInterrupt "void FitSuiteImpl::resetInterrupt()
+";
+
+%feature("docstring")  FitSuiteImpl::isInterrupted "bool FitSuiteImpl::isInterrupted() const 
+";
+
+%feature("docstring")  FitSuiteImpl::kernel "const FitKernel * FitSuiteImpl::kernel() const 
+";
+
+
+// File: classFitSuiteObjects.xml
+%feature("docstring") FitSuiteObjects "
+
+Holds vector of  FitObject's (simulation and real data) to fit
+
+C++ includes: FitSuiteObjects.h
+";
+
+%feature("docstring")  FitSuiteObjects::FitSuiteObjects "FitSuiteObjects::FitSuiteObjects()
+";
+
+%feature("docstring")  FitSuiteObjects::~FitSuiteObjects "FitSuiteObjects::~FitSuiteObjects()
+";
+
+%feature("docstring")  FitSuiteObjects::add "void FitSuiteObjects::add(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1.0)
+
+Adds to kit pair of (simulation, real data) for consecutive simulation. 
+";
+
+%feature("docstring")  FitSuiteObjects::getNumberOfFitObjects "size_t FitSuiteObjects::getNumberOfFitObjects() const
+
+Returns number of fit objects (simulation/real data pairs) 
+";
+
+%feature("docstring")  FitSuiteObjects::getSizeOfDataSet "size_t FitSuiteObjects::getSizeOfDataSet() const
+
+Returns total number of data points (number of all non-masked channels in all fit objects)
+
+Returns total number of data points. 
+";
+
+%feature("docstring")  FitSuiteObjects::setChiSquaredModule "void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule &chi2_module)
+
+Replaces default  ChiSquaredModule with new one. 
+";
+
+%feature("docstring")  FitSuiteObjects::getRealData "const OutputData< double > & FitSuiteObjects::getRealData(size_t i_item=0) const
+
+Returns real data from corresponding  FitObject
+
+Parameters:
+-----------
+
+i_item: 
+Index of  FitObject
+";
+
+%feature("docstring")  FitSuiteObjects::getSimulationData "const OutputData< double > & FitSuiteObjects::getSimulationData(size_t i_item=0) const
+
+Returns simulated data from corresponding  FitObject
+
+Parameters:
+-----------
+
+i_item: 
+Index of  FitObject
+";
+
+%feature("docstring")  FitSuiteObjects::getChiSquaredMap "const OutputData< double > & FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
+
+Returns new chi-squared map from corresponding  FitObject
+
+Parameters:
+-----------
+
+i_item: 
+Index of  FitObject
+";
+
+%feature("docstring")  FitSuiteObjects::runSimulations "void FitSuiteObjects::runSimulations()
+
+run all simulation defined in fit pairs
+
+loop through all defined simulations and run them 
+";
+
+%feature("docstring")  FitSuiteObjects::getChiSquaredValue "double FitSuiteObjects::getChiSquaredValue() const
+
+Returns chi2 calculated over whole dataset. 
+";
+
+%feature("docstring")  FitSuiteObjects::getResidualValue "double FitSuiteObjects::getResidualValue(size_t global_index)
+
+Returns residuals for single data element
+
+Parameters:
+-----------
+
+global_index: 
+index accross all element in  FitElement vector 
+";
+
+%feature("docstring")  FitSuiteObjects::addParametersToExternalPool "std::string FitSuiteObjects::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
+
+Adds parameters from local pool to external pool and call recursion over direct children.
+
+Adds parameters from local pool to external pool. 
+";
+
+%feature("docstring")  FitSuiteObjects::setNfreeParameters "void FitSuiteObjects::setNfreeParameters(int nfree_parameters)
+";
+
+%feature("docstring")  FitSuiteObjects::clear "void FitSuiteObjects::clear()
+
+clear all data 
+";
+
+
+// File: classFitSuitePrintObserver.xml
+%feature("docstring") FitSuitePrintObserver "
+
+Prints fit progress at the end of each  FitSuite's iteration.
+
+C++ includes: FitSuitePrintObserver.h
+";
+
+%feature("docstring")  FitSuitePrintObserver::FitSuitePrintObserver "FitSuitePrintObserver::FitSuitePrintObserver(int print_every_nth=1)
+";
+
+%feature("docstring")  FitSuitePrintObserver::~FitSuitePrintObserver "virtual FitSuitePrintObserver::~FitSuitePrintObserver()
+";
+
+%feature("docstring")  FitSuitePrintObserver::update "void FitSuitePrintObserver::update(FitSuite *fit_suite)
+
+Here Onserver will do actuall job when he thinks that it is a right moment. 
+";
+
+
+// File: classFitSuiteStrategies.xml
+%feature("docstring") FitSuiteStrategies "
+
+Collection of strategies to fit.
+
+C++ includes: FitSuiteStrategies.h
+";
+
+%feature("docstring")  FitSuiteStrategies::FitSuiteStrategies "FitSuiteStrategies::FitSuiteStrategies()
+";
+
+%feature("docstring")  FitSuiteStrategies::~FitSuiteStrategies "FitSuiteStrategies::~FitSuiteStrategies()
+";
+
+%feature("docstring")  FitSuiteStrategies::FitSuiteStrategies "FitSuiteStrategies::FitSuiteStrategies(const FitSuiteStrategies &other)=delete
+";
+
+%feature("docstring")  FitSuiteStrategies::init "void FitSuiteStrategies::init(FitSuiteImpl *fit_suite)
+";
+
+%feature("docstring")  FitSuiteStrategies::addStrategy "void FitSuiteStrategies::addStrategy(const IFitStrategy &strategy)
+";
+
+%feature("docstring")  FitSuiteStrategies::minimize "void FitSuiteStrategies::minimize()
+";
+
+%feature("docstring")  FitSuiteStrategies::currentStrategyIndex "size_t FitSuiteStrategies::currentStrategyIndex() const 
+";
+
+%feature("docstring")  FitSuiteStrategies::size "size_t FitSuiteStrategies::size() const 
+";
+
+%feature("docstring")  FitSuiteStrategies::clear "void FitSuiteStrategies::clear()
+";
+
+%feature("docstring")  FitSuiteStrategies::currentStrategy "IFitStrategy * FitSuiteStrategies::currentStrategy()
+";
+
+
 // File: classFixedBinAxis.xml
 %feature("docstring") FixedBinAxis "
 
@@ -1638,7 +2356,7 @@ upper edge of last bin
 clone function 
 ";
 
-%feature("docstring")  FixedBinAxis::getSize "size_t FixedBinAxis::getSize() const
+%feature("docstring")  FixedBinAxis::size "size_t FixedBinAxis::size() const
 
 retrieve the number of bins 
 ";
@@ -1688,37 +2406,35 @@ Creates a new clipped axis.
 // File: classFormFactorAnisoPyramid.xml
 %feature("docstring") FormFactorAnisoPyramid "
 
-The formfactor of a quadratic pyramid.
+A frustum (truncated pyramid) with rectangular base.
 
 C++ includes: FormFactorAnisoPyramid.h
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 
-Pyramid constructor.
-
 Parameters:
 -----------
 
 length: 
-of one side of Pyramid's rectangular base
+of one side of the rectangular base
 
 width: 
-of other side of Pyramid's rectangular base
+of other side of the rectangular base
 
 height: 
-of Pyramid
+of frustum
 
 alpha: 
 dihedral angle in radians between base and facet 
 ";
 
-%feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid * FormFactorAnisoPyramid::clone() const final
+%feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorAnisoPyramid::accept "void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const final
+%feature("docstring")  FormFactorAnisoPyramid::accept "void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -1739,106 +2455,85 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorBox.xml
 %feature("docstring") FormFactorBox "
 
-The formfactor for a rectangular box.
-
-The formfactor for a long rectangular box.
+A rectangular prism (parallelepiped).
 
 C++ includes: FormFactorBox.h
 ";
 
 %feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(double length, double width, double height)
 
-Box constructor.
-
 Parameters:
 -----------
 
 length: 
-of Box's base
+of rectangular base
 
 width: 
-of Box's base
+of rectangular base
 
 height: 
-of Box 
+of prism 
 ";
 
-%feature("docstring")  FormFactorBox::clone "FormFactorBox * FormFactorBox::clone() const
+%feature("docstring")  FormFactorBox::clone "FormFactorBox* FormFactorBox::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorBox::accept "void FormFactorBox::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorBox::accept "void FormFactorBox::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorBox::getLength "double FormFactorBox::getLength() const
-
-Returns length of Box. 
+%feature("docstring")  FormFactorBox::getLength "double FormFactorBox::getLength() const 
 ";
 
-%feature("docstring")  FormFactorBox::getHeight "double FormFactorBox::getHeight() const
-
-Returns height of Box. 
+%feature("docstring")  FormFactorBox::getHeight "double FormFactorBox::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorBox::getRadius "double FormFactorBox::getRadius() const
-
-Returns radius of Box. 
+%feature("docstring")  FormFactorBox::getWidth "double FormFactorBox::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorBox::getWidth "double FormFactorBox::getWidth() const
+%feature("docstring")  FormFactorBox::getRadialExtension "double FormFactorBox::getRadialExtension() const overridefinal
 
-Returns width of Box. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorCone.xml
 %feature("docstring") FormFactorCone "
 
-The formfactor of a cone.
+A conical frustum (cone truncated parallel to the base) with circular base.
 
 C++ includes: FormFactorCone.h
 ";
 
 %feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 
-Cone constructor.
-
 Parameters:
 -----------
 
 radius: 
-of Cone's base
+of circular base
 
 height: 
-of Cone
+of frustum
 
 alpha: 
-in radians between base and facet 
+angle in radians between base and lateral surface 
 ";
 
-%feature("docstring")  FormFactorCone::~FormFactorCone "FormFactorCone::~FormFactorCone()
-";
-
-%feature("docstring")  FormFactorCone::clone "FormFactorCone * FormFactorCone::clone() const
+%feature("docstring")  FormFactorCone::clone "FormFactorCone* FormFactorCone::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorCone::accept "void FormFactorCone::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorCone::accept "void FormFactorCone::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -1846,37 +2541,32 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  FormFactorCone::getHeight "double FormFactorCone::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorCone::getRadius "double FormFactorCone::getRadius() const
+%feature("docstring")  FormFactorCone::getAlpha "double FormFactorCone::getAlpha() const 
+";
+
+%feature("docstring")  FormFactorCone::getRadius "double FormFactorCone::getRadius() const 
+";
+
+%feature("docstring")  FormFactorCone::getRadialExtension "double FormFactorCone::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorCone::getAlpha "double FormFactorCone::getAlpha() const 
-";
+%feature("docstring")  FormFactorCone::evaluate_for_q "complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const overridefinal
 
-%feature("docstring")  FormFactorCone::evaluate_for_q "complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
-
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorCone6.xml
 %feature("docstring") FormFactorCone6 "
 
-The formfactor of a cone6.
+A frustum (truncated pyramid) with regular hexagonal base.
 
 C++ includes: FormFactorCone6.h
 ";
 
 %feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
-
-Cone6 constructor
 
 Parameters:
 -----------
@@ -1885,18 +2575,18 @@ base_edge:
 of hexagonal base
 
 height: 
-of Cone6
+of frustum
 
 alpha: 
 dihedral angle in radians between base and facet 
 ";
 
-%feature("docstring")  FormFactorCone6::clone "FormFactorCone6 * FormFactorCone6::clone() const
+%feature("docstring")  FormFactorCone6::clone "FormFactorCone6* FormFactorCone6::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorCone6::accept "void FormFactorCone6::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorCone6::accept "void FormFactorCone6::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -1914,7 +2604,7 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorCrystal.xml
 %feature("docstring") FormFactorCrystal "
 
-The formfactor for mesocrystals with a bulk crystal structure of particles.
+The formfactor of a  MesoCrystal.
 
 C++ includes: FormFactorCrystal.h
 ";
@@ -1922,85 +2612,72 @@ C++ includes: FormFactorCrystal.h
 %feature("docstring")  FormFactorCrystal::FormFactorCrystal "FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor)
 ";
 
-%feature("docstring")  FormFactorCrystal::~FormFactorCrystal "FormFactorCrystal::~FormFactorCrystal()
+%feature("docstring")  FormFactorCrystal::~FormFactorCrystal "FormFactorCrystal::~FormFactorCrystal() overridefinal
 ";
 
-%feature("docstring")  FormFactorCrystal::clone "FormFactorCrystal * FormFactorCrystal::clone() const
+%feature("docstring")  FormFactorCrystal::clone "FormFactorCrystal* FormFactorCrystal::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorCrystal::accept "virtual void FormFactorCrystal::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorCrystal::accept "void FormFactorCrystal::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorCrystal::getVolume "double FormFactorCrystal::getVolume() const
+%feature("docstring")  FormFactorCrystal::getVolume "double FormFactorCrystal::getVolume() const overridefinal
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  FormFactorCrystal::getRadius "double FormFactorCrystal::getRadius() const
+%feature("docstring")  FormFactorCrystal::getRadialExtension "double FormFactorCrystal::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorCrystal::evaluate "complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorCrystal::evaluate "complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
-%feature("docstring")  FormFactorCrystal::evaluatePol "Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorCrystal::evaluatePol "Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
 
 Returns scattering amplitude for matrix interactions. 
-";
-
-%feature("docstring")  FormFactorCrystal::evaluate_for_q "complex_t FormFactorCrystal::evaluate_for_q(const cvector_t q) const
-
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
 ";
 
 
 // File: classFormFactorCuboctahedron.xml
 %feature("docstring") FormFactorCuboctahedron "
 
-The formfactor of a cuboctahedron.
+A truncated bifrustum with quadratic base.
 
 C++ includes: FormFactorCuboctahedron.h
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 
-Cuboctahedron constructor.
-
 Parameters:
 -----------
 
 length: 
-of one side of Cuboctahedron's square base
+of one side of the square base
 
 height: 
-of bottom of Cuboctahedron
+of bottom frustum
 
 height_ratio: 
-height top part/height bottom part
+ratio of heights of top to bottom frustum
 
 alpha: 
-angle in radians between base and facet 
+dihedral angle in radians between base and facet 
 ";
 
-%feature("docstring")  FormFactorCuboctahedron::clone "FormFactorCuboctahedron * FormFactorCuboctahedron::clone() const final
+%feature("docstring")  FormFactorCuboctahedron::clone "FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorCuboctahedron::accept "void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const final
+%feature("docstring")  FormFactorCuboctahedron::accept "void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2021,34 +2698,20 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorCylinder.xml
 %feature("docstring") FormFactorCylinder "
 
-The formfactor of a cylinder.
+A circular cylinder.
 
 C++ includes: FormFactorCylinder.h
 ";
 
 %feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(double radius, double height)
-
-Cylinder constructor.
-
-Parameters:
------------
-
-radius: 
-of Cylinder's base
-
-height: 
-of Cylinder 
 ";
 
-%feature("docstring")  FormFactorCylinder::~FormFactorCylinder "virtual FormFactorCylinder::~FormFactorCylinder()
-";
-
-%feature("docstring")  FormFactorCylinder::clone "FormFactorCylinder * FormFactorCylinder::clone() const
+%feature("docstring")  FormFactorCylinder::clone "FormFactorCylinder* FormFactorCylinder::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorCylinder::accept "void FormFactorCylinder::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorCylinder::accept "void FormFactorCylinder::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2056,20 +2719,17 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  FormFactorCylinder::getHeight "double FormFactorCylinder::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorCylinder::getRadius "double FormFactorCylinder::getRadius() const
+%feature("docstring")  FormFactorCylinder::getRadius "double FormFactorCylinder::getRadius() const 
+";
+
+%feature("docstring")  FormFactorCylinder::getRadialExtension "double FormFactorCylinder::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorCylinder::evaluate_for_q "complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorCylinder::evaluate_for_q "complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -2081,39 +2741,41 @@ Debye-Waller factors in radial and z directions.
 C++ includes: FormFactorDecoratorDebyeWaller.h
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller "FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_factor)
-
-Isotropic Debye-Waller factor. 
-";
-
 %feature("docstring")  FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller "FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_h_factor, double dw_r_factor)
 
 Anisotropic Debye-Waller factor. 
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::~FormFactorDecoratorDebyeWaller "virtual FormFactorDecoratorDebyeWaller::~FormFactorDecoratorDebyeWaller()
+%feature("docstring")  FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller "FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_factor)
+
+Isotropic Debye-Waller factor. 
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::clone "FormFactorDecoratorDebyeWaller * FormFactorDecoratorDebyeWaller::clone() const
+%feature("docstring")  FormFactorDecoratorDebyeWaller::clone "FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::accept "virtual void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorDebyeWaller::accept "void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorDebyeWaller::evaluate "complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorDebyeWaller::evaluate "complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  FormFactorDecoratorDebyeWaller::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorDebyeWaller::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
+
+Returns scattering amplitude for matrix interactions. 
 ";
 
 
 // File: classFormFactorDecoratorFactor.xml
 %feature("docstring") FormFactorDecoratorFactor "
 
-Decorates a formfactor with a constant factor.
+Decorates a formfactor with a constant factor. Base class of  FormFactorDecoratorMaterial.
 
 C++ includes: FormFactorDecoratorFactor.h
 ";
@@ -2121,22 +2783,24 @@ C++ includes: FormFactorDecoratorFactor.h
 %feature("docstring")  FormFactorDecoratorFactor::FormFactorDecoratorFactor "FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t factor)
 ";
 
-%feature("docstring")  FormFactorDecoratorFactor::~FormFactorDecoratorFactor "virtual FormFactorDecoratorFactor::~FormFactorDecoratorFactor()
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::clone "FormFactorDecoratorFactor * FormFactorDecoratorFactor::clone() const
+%feature("docstring")  FormFactorDecoratorFactor::clone "FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const override
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorFactor::accept "void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorFactor::accept "void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const override
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorFactor::evaluate "complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorFactor::evaluate "complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo &wavevectors) const override
 
-Evaluate the form factor for scalar calculations. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  FormFactorDecoratorFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorFactor::evaluatePol(const WavevectorInfo &wavevectors) const override
+
+Returns scattering amplitude for matrix interactions. 
 ";
 
 
@@ -2151,12 +2815,15 @@ C++ includes: FormFactorDecoratorMaterial.h
 %feature("docstring")  FormFactorDecoratorMaterial::FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::clone "FormFactorDecoratorMaterial * FormFactorDecoratorMaterial::clone() const
+%feature("docstring")  FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() overridefinal
+";
+
+%feature("docstring")  FormFactorDecoratorMaterial::clone "FormFactorDecoratorMaterial * FormFactorDecoratorMaterial::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::accept "virtual void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorMaterial::accept "void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2166,59 +2833,15 @@ Calls the  ISampleVisitor's visit method.
 Sets the material of the scatterer. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::setAmbientMaterial "void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  FormFactorDecoratorMaterial::setAmbientMaterial "void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial &material) override
 
 Sets the ambient material. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::getAmbientRefractiveIndex "complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
-
-Retrieves the refractive index of the ambient material. 
+%feature("docstring")  FormFactorDecoratorMaterial::getAmbientRefractiveIndex "complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo &wavevectors) const
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
-// File: classFormFactorDecoratorMultiPositionFactor.xml
-%feature("docstring") FormFactorDecoratorMultiPositionFactor "
-
-The formfactor for the same particle at different fixed positions.
-
-C++ includes: FormFactorDecoratorMultiPositionFactor.h
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor "FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor, std::vector< kvector_t > positions)
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::clone "FormFactorDecoratorMultiPositionFactor * FormFactorDecoratorMultiPositionFactor::clone() const
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::accept "void FormFactorDecoratorMultiPositionFactor::accept(ISampleVisitor *visitor) const
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::getVolume "double FormFactorDecoratorMultiPositionFactor::getVolume() const
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::getRadius "double FormFactorDecoratorMultiPositionFactor::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluate "complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const WavevectorInfo &wavevectors) const
-
-Returns scattering amplitude for complex wavevector bin. 
-";
-
-%feature("docstring")  FormFactorDecoratorMultiPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMultiPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorMaterial::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
 
 Returns scattering amplitude for matrix interactions. 
 ";
@@ -2232,28 +2855,25 @@ Decorates a formfactor with a position dependent phase factor.
 C++ includes: FormFactorDecoratorPositionFactor.h
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position)
+%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, const kvector_t &position)
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::~FormFactorDecoratorPositionFactor "virtual FormFactorDecoratorPositionFactor::~FormFactorDecoratorPositionFactor()
-";
-
-%feature("docstring")  FormFactorDecoratorPositionFactor::clone "FormFactorDecoratorPositionFactor * FormFactorDecoratorPositionFactor::clone() const
+%feature("docstring")  FormFactorDecoratorPositionFactor::clone "FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::accept "void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorPositionFactor::accept "void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorPositionFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
 
 Returns scattering amplitude for matrix interactions. 
 ";
@@ -2267,31 +2887,36 @@ Equips a formfactor with a rotation.
 C++ includes: FormFactorDecoratorRotation.h
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &transform)
+%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &rotation)
 
 Constructor, setting form factor and rotation. 
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::clone "FormFactorDecoratorRotation * FormFactorDecoratorRotation::clone() const
+%feature("docstring")  FormFactorDecoratorRotation::clone "FormFactorDecoratorRotation * FormFactorDecoratorRotation::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::accept "void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDecoratorRotation::accept "void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  FormFactorDecoratorRotation::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorRotation::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
+
+Returns scattering amplitude for matrix interactions. 
 ";
 
 
 // File: classFormFactorDodecahedron.xml
 %feature("docstring") FormFactorDodecahedron "
 
-The formfactor of a regular dodecahedron.
+A regular dodecahedron.
 
 C++ includes: FormFactorDodecahedron.h
 ";
@@ -2307,12 +2932,12 @@ edge:
 length 
 ";
 
-%feature("docstring")  FormFactorDodecahedron::clone "FormFactorDodecahedron * FormFactorDodecahedron::clone() const final
+%feature("docstring")  FormFactorDodecahedron::clone "FormFactorDodecahedron* FormFactorDodecahedron::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDodecahedron::accept "void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const final
+%feature("docstring")  FormFactorDodecahedron::accept "void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2324,7 +2949,7 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorDWBA.xml
 %feature("docstring") FormFactorDWBA "
 
-Evaluates a coherent sum of the four DWBA terms in a scalar formfactor.
+Evaluates the coherent sum of the four DWBA terms in a scalar  IFormFactor.
 
 C++ includes: FormFactorDWBA.h
 ";
@@ -2332,34 +2957,44 @@ C++ includes: FormFactorDWBA.h
 %feature("docstring")  FormFactorDWBA::FormFactorDWBA "FormFactorDWBA::FormFactorDWBA(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  FormFactorDWBA::~FormFactorDWBA "FormFactorDWBA::~FormFactorDWBA()
+%feature("docstring")  FormFactorDWBA::~FormFactorDWBA "FormFactorDWBA::~FormFactorDWBA() override
 ";
 
-%feature("docstring")  FormFactorDWBA::clone "FormFactorDWBA * FormFactorDWBA::clone() const
+%feature("docstring")  FormFactorDWBA::clone "FormFactorDWBA * FormFactorDWBA::clone() const override
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDWBA::accept "virtual void FormFactorDWBA::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDWBA::accept "void FormFactorDWBA::accept(ISampleVisitor *visitor) const override
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs)
+%feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const override
 
-Sets reflection/transmission info for scalar DWBA simulation. 
+Calculates and returns a form factor calculation in DWBA. 
 ";
 
-%feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDWBA::getVolume "double FormFactorDWBA::getVolume() const override
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  FormFactorDWBA::getRadialExtension "double FormFactorDWBA::getRadialExtension() const override
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
+
+Sets reflection/transmission info for scalar DWBA simulation. 
 ";
 
 
 // File: classFormFactorDWBAPol.xml
 %feature("docstring") FormFactorDWBAPol "
 
-Evaluates a coherent sum of the 16 matrix DWBA terms in a polarized formfactor.
+Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized  IFormFactor.
 
 C++ includes: FormFactorDWBAPol.h
 ";
@@ -2367,40 +3002,40 @@ C++ includes: FormFactorDWBAPol.h
 %feature("docstring")  FormFactorDWBAPol::FormFactorDWBAPol "FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  FormFactorDWBAPol::~FormFactorDWBAPol "FormFactorDWBAPol::~FormFactorDWBAPol()
+%feature("docstring")  FormFactorDWBAPol::~FormFactorDWBAPol "FormFactorDWBAPol::~FormFactorDWBAPol() override
 ";
 
-%feature("docstring")  FormFactorDWBAPol::clone "FormFactorDWBAPol * FormFactorDWBAPol::clone() const
+%feature("docstring")  FormFactorDWBAPol::clone "FormFactorDWBAPol * FormFactorDWBAPol::clone() const override
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::accept "virtual void FormFactorDWBAPol::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorDWBAPol::accept "void FormFactorDWBAPol::accept(ISampleVisitor *visitor) const override
 
-calls the  ISampleVisitor's visit method 
+Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
 
-Throws exception. 
+Throws not-implemented exception. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::evaluatePol "Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorDWBAPol::evaluatePol "Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
 
 Calculates and returns a polarized form factor calculation in DWBA. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::getVolume "double FormFactorDWBAPol::getVolume() const
+%feature("docstring")  FormFactorDWBAPol::getVolume "double FormFactorDWBAPol::getVolume() const override
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::getRadius "double FormFactorDWBAPol::getRadius() const
+%feature("docstring")  FormFactorDWBAPol::getRadialExtension "double FormFactorDWBAPol::getRadialExtension() const override
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs)
+%feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
 
 Sets reflection/transmission info for scalar DWBA simulation. 
 ";
@@ -2409,14 +3044,12 @@ Sets reflection/transmission info for scalar DWBA simulation.
 // File: classFormFactorEllipsoidalCylinder.xml
 %feature("docstring") FormFactorEllipsoidalCylinder "
 
-The formfactor of an ellipsoidal cylinder.
+A cylinder with elliptical base.
 
 C++ includes: FormFactorEllipsoidalCylinder.h
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
-
-Ellipsoidal Cylinder constructor.
 
 Parameters:
 -----------
@@ -2428,22 +3061,16 @@ radius_y:
 half length of the other horizontal main axes
 
 height: 
-of Ellipsoidal Cylinder 
 ";
 
-%feature("docstring")  FormFactorEllipsoidalCylinder::clone "FormFactorEllipsoidalCylinder * FormFactorEllipsoidalCylinder::clone() const
+%feature("docstring")  FormFactorEllipsoidalCylinder::clone "FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorEllipsoidalCylinder::accept "void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorEllipsoidalCylinder::accept "void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorEllipsoidalCylinder::getRadius "double FormFactorEllipsoidalCylinder::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::getRadiusX "double FormFactorEllipsoidalCylinder::getRadiusX() const 
@@ -2455,95 +3082,78 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorEllipsoidalCylinder::getHeight "double FormFactorEllipsoidalCylinder::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorEllipsoidalCylinder::evaluate_for_q "complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorEllipsoidalCylinder::getRadialExtension "double FormFactorEllipsoidalCylinder::getRadialExtension() const overridefinal
 
-evaluate scattering amplitude for complex wavevector
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
 
-Parameters:
------------
+%feature("docstring")  FormFactorEllipsoidalCylinder::evaluate_for_q "complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const overridefinal
 
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorFullSphere.xml
 %feature("docstring") FormFactorFullSphere "
 
-The formfactor of a sphere.
+A full sphere.
 
 C++ includes: FormFactorFullSphere.h
 ";
 
 %feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(double radius)
-
-Full Sphere constructor.
-
-Parameters:
------------
-
-radius: 
-of Sphere 
 ";
 
-%feature("docstring")  FormFactorFullSphere::clone "FormFactorFullSphere * FormFactorFullSphere::clone() const
+%feature("docstring")  FormFactorFullSphere::clone "FormFactorFullSphere* FormFactorFullSphere::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorFullSphere::accept "void FormFactorFullSphere::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorFullSphere::accept "void FormFactorFullSphere::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorFullSphere::getRadius "double FormFactorFullSphere::getRadius() const
-
-Returns radius of sphere. 
+%feature("docstring")  FormFactorFullSphere::getRadius "double FormFactorFullSphere::getRadius() const 
 ";
 
-%feature("docstring")  FormFactorFullSphere::evaluate_for_q "complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorFullSphere::getRadialExtension "double FormFactorFullSphere::getRadialExtension() const overridefinal
 
-evaluate scattering amplitude for complex wavevector
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
 
-Parameters:
------------
+%feature("docstring")  FormFactorFullSphere::evaluate_for_q "complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const overridefinal
 
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorFullSpheroid.xml
 %feature("docstring") FormFactorFullSpheroid "
 
-The formfactor of a full spheroid.
+A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
 
 C++ includes: FormFactorFullSpheroid.h
 ";
 
 %feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
 
-Full Spheroid constructor.
-
 Parameters:
 -----------
 
 radius: 
-of spheroid
+of the two equal axes
 
 height: 
-of spheroid 
+total height of the spheroid, i.e. twice the radius of the third axis 
 ";
 
-%feature("docstring")  FormFactorFullSpheroid::~FormFactorFullSpheroid "FormFactorFullSpheroid::~FormFactorFullSpheroid()
-";
-
-%feature("docstring")  FormFactorFullSpheroid::clone "FormFactorFullSpheroid * FormFactorFullSpheroid::clone() const
+%feature("docstring")  FormFactorFullSpheroid::clone "FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorFullSpheroid::accept "void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorFullSpheroid::accept "void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2551,20 +3161,17 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  FormFactorFullSpheroid::getHeight "double FormFactorFullSpheroid::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorFullSpheroid::getRadius "double FormFactorFullSpheroid::getRadius() const
+%feature("docstring")  FormFactorFullSpheroid::getRadius "double FormFactorFullSpheroid::getRadius() const 
+";
+
+%feature("docstring")  FormFactorFullSpheroid::getRadialExtension "double FormFactorFullSpheroid::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorFullSpheroid::evaluate_for_q "complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorFullSpheroid::evaluate_for_q "complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -2576,58 +3183,48 @@ The formfactor of a gaussian.
 C++ includes: FormFactorGauss.h
 ";
 
-%feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double volume)
+%feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double length)
 ";
 
 %feature("docstring")  FormFactorGauss::FormFactorGauss "FormFactorGauss::FormFactorGauss(double width, double height)
 ";
 
-%feature("docstring")  FormFactorGauss::~FormFactorGauss "virtual FormFactorGauss::~FormFactorGauss()
-";
-
-%feature("docstring")  FormFactorGauss::clone "FormFactorGauss * FormFactorGauss::clone() const
+%feature("docstring")  FormFactorGauss::clone "FormFactorGauss* FormFactorGauss::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorGauss::accept "void FormFactorGauss::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorGauss::accept "void FormFactorGauss::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorGauss::evaluate_for_q "complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
-
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+%feature("docstring")  FormFactorGauss::getWidth "double FormFactorGauss::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorGauss::getHeight "double FormFactorGauss::getHeight() const
-
-Returns height. 
+%feature("docstring")  FormFactorGauss::getHeight "double FormFactorGauss::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorGauss::getRadius "double FormFactorGauss::getRadius() const
+%feature("docstring")  FormFactorGauss::getRadialExtension "double FormFactorGauss::getRadialExtension() const overridefinal
 
-Returns width. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorGauss::evaluate_for_q "complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const overridefinal
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorHemiEllipsoid.xml
 %feature("docstring") FormFactorHemiEllipsoid "
 
-The formfactor of an hemi ellipsoid.
+An hemi ellipsoid, obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
 
 C++ includes: FormFactorHemiEllipsoid.h
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
-
-Hemi Ellipsoid constructor.
 
 Parameters:
 -----------
@@ -2639,25 +3236,20 @@ radius_y:
 half length of the other horizontal main axes
 
 height: 
-of Hemi Ellipsoid 
+of the hemi ellipsoid 
 ";
 
-%feature("docstring")  FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid()
+%feature("docstring")  FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid "virtual FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid()
 ";
 
-%feature("docstring")  FormFactorHemiEllipsoid::clone "FormFactorHemiEllipsoid * FormFactorHemiEllipsoid::clone() const
+%feature("docstring")  FormFactorHemiEllipsoid::clone "FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorHemiEllipsoid::accept "void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorHemiEllipsoid::accept "void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorHemiEllipsoid::getRadius "double FormFactorHemiEllipsoid::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::getHeight "double FormFactorHemiEllipsoid::getHeight() const 
@@ -2669,22 +3261,21 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorHemiEllipsoid::getRadiusY "double FormFactorHemiEllipsoid::getRadiusY() const 
 ";
 
-%feature("docstring")  FormFactorHemiEllipsoid::evaluate_for_q "complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorHemiEllipsoid::getRadialExtension "double FormFactorHemiEllipsoid::getRadialExtension() const overridefinal
 
-evaluate scattering amplitude for complex wavevector
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
 
-Parameters:
------------
+%feature("docstring")  FormFactorHemiEllipsoid::evaluate_for_q "complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const overridefinal
 
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorIcosahedron.xml
 %feature("docstring") FormFactorIcosahedron "
 
-The formfactor of a regular icosahedron.
+A regular icosahedron.
 
 C++ includes: FormFactorIcosahedron.h
 ";
@@ -2692,12 +3283,12 @@ C++ includes: FormFactorIcosahedron.h
 %feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(double edge)
 ";
 
-%feature("docstring")  FormFactorIcosahedron::clone "FormFactorIcosahedron * FormFactorIcosahedron::clone() const final
+%feature("docstring")  FormFactorIcosahedron::clone "FormFactorIcosahedron* FormFactorIcosahedron::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorIcosahedron::accept "void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const final
+%feature("docstring")  FormFactorIcosahedron::accept "void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -2706,26 +3297,13 @@ Calls the  ISampleVisitor's visit method.
 ";
 
 
-// File: classFormFactorInfo.xml
-%feature("docstring") FormFactorInfo "
-
-The FormFactorInfo holds information about particle position and abundance.
-
-C++ includes: LayerStrategyBuilder.h
-";
-
-%feature("docstring")  FormFactorInfo::FormFactorInfo "FormFactorInfo::FormFactorInfo()
-";
-
-%feature("docstring")  FormFactorInfo::~FormFactorInfo "FormFactorInfo::~FormFactorInfo()
-";
-
-%feature("docstring")  FormFactorInfo::clone "FormFactorInfo * FormFactorInfo::clone() const 
-";
-
-
 // File: classFormFactorLongBoxGauss.xml
-%feature("docstring") FormFactorLongBoxGauss "";
+%feature("docstring") FormFactorLongBoxGauss "
+
+The formfactor for a long rectangular box.
+
+C++ includes: FormFactorLongBoxGauss.h
+";
 
 %feature("docstring")  FormFactorLongBoxGauss::FormFactorLongBoxGauss "FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, double height)
 
@@ -2744,50 +3322,43 @@ height:
 of Box 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::clone "FormFactorLongBoxGauss * FormFactorLongBoxGauss::clone() const
+%feature("docstring")  FormFactorLongBoxGauss::clone "FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::accept "void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorLongBoxGauss::accept "void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::getLength "double FormFactorLongBoxGauss::getLength() const
-
-Returns length of Box. 
+%feature("docstring")  FormFactorLongBoxGauss::getLength "double FormFactorLongBoxGauss::getLength() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::getHeight "double FormFactorLongBoxGauss::getHeight() const
-
-Returns height of Box. 
+%feature("docstring")  FormFactorLongBoxGauss::getHeight "double FormFactorLongBoxGauss::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::getRadius "double FormFactorLongBoxGauss::getRadius() const
-
-Returns radius of Box. 
+%feature("docstring")  FormFactorLongBoxGauss::getWidth "double FormFactorLongBoxGauss::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::getWidth "double FormFactorLongBoxGauss::getWidth() const
+%feature("docstring")  FormFactorLongBoxGauss::getRadialExtension "double FormFactorLongBoxGauss::getRadialExtension() const overridefinal
 
-Returns width of Box. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorLongBoxGauss::evaluate_for_q "complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorLongBoxGauss::evaluate_for_q "complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorLongBoxLorentz.xml
-%feature("docstring") FormFactorLongBoxLorentz "";
+%feature("docstring") FormFactorLongBoxLorentz "
+
+The formfactor for a long rectangular box.
+
+C++ includes: FormFactorLongBoxLorentz.h
+";
 
 %feature("docstring")  FormFactorLongBoxLorentz::FormFactorLongBoxLorentz "FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
 
@@ -2806,45 +3377,33 @@ height:
 of Box 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::clone "FormFactorLongBoxLorentz * FormFactorLongBoxLorentz::clone() const
+%feature("docstring")  FormFactorLongBoxLorentz::clone "FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::accept "void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorLongBoxLorentz::accept "void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::getLength "double FormFactorLongBoxLorentz::getLength() const
-
-Returns length of Box. 
+%feature("docstring")  FormFactorLongBoxLorentz::getLength "double FormFactorLongBoxLorentz::getLength() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::getHeight "double FormFactorLongBoxLorentz::getHeight() const
-
-Returns height of Box. 
+%feature("docstring")  FormFactorLongBoxLorentz::getHeight "double FormFactorLongBoxLorentz::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::getRadius "double FormFactorLongBoxLorentz::getRadius() const
-
-Returns radius of Box. 
+%feature("docstring")  FormFactorLongBoxLorentz::getWidth "double FormFactorLongBoxLorentz::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::getWidth "double FormFactorLongBoxLorentz::getWidth() const
+%feature("docstring")  FormFactorLongBoxLorentz::getRadialExtension "double FormFactorLongBoxLorentz::getRadialExtension() const overridefinal
 
-Returns width of Box. 
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorLongBoxLorentz::evaluate_for_q "complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorLongBoxLorentz::evaluate_for_q "complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -2873,22 +3432,14 @@ height:
 of cosine cross section 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Gauss::~FormFactorLongRipple1Gauss "FormFactorLongRipple1Gauss::~FormFactorLongRipple1Gauss()
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::clone "FormFactorLongRipple1Gauss * FormFactorLongRipple1Gauss::clone() const
+%feature("docstring")  FormFactorLongRipple1Gauss::clone "FormFactorLongRipple1Gauss* FormFactorLongRipple1Gauss::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Gauss::accept "void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorLongRipple1Gauss::accept "void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::getRadius "double FormFactorLongRipple1Gauss::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorLongRipple1Gauss::getHeight "double FormFactorLongRipple1Gauss::getHeight() const 
@@ -2900,7 +3451,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorLongRipple1Gauss::getLength "double FormFactorLongRipple1Gauss::getLength() const 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Gauss::evaluate_for_q "complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorLongRipple1Gauss::getRadialExtension "double FormFactorLongRipple1Gauss::getRadialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorLongRipple1Gauss::evaluate_for_q "complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const overridefinal
 
 Complex formfactor. 
 ";
@@ -2931,20 +3487,17 @@ height:
 of cosine cross section 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Lorentz::~FormFactorLongRipple1Lorentz "FormFactorLongRipple1Lorentz::~FormFactorLongRipple1Lorentz()
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::clone "FormFactorLongRipple1Lorentz * FormFactorLongRipple1Lorentz::clone() const
+%feature("docstring")  FormFactorLongRipple1Lorentz::clone "FormFactorLongRipple1Lorentz* FormFactorLongRipple1Lorentz::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Lorentz::accept "void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorLongRipple1Lorentz::accept "void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Lorentz::getRadius "double FormFactorLongRipple1Lorentz::getRadius() const
+%feature("docstring")  FormFactorLongRipple1Lorentz::getRadialExtension "double FormFactorLongRipple1Lorentz::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -2958,7 +3511,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorLongRipple1Lorentz::getLength "double FormFactorLongRipple1Lorentz::getLength() const 
 ";
 
-%feature("docstring")  FormFactorLongRipple1Lorentz::evaluate_for_q "complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorLongRipple1Lorentz::evaluate_for_q "complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const overridefinal
 
 Complex formfactor. 
 ";
@@ -2992,22 +3545,14 @@ asymmetry:
 length of triangular cross section 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Gauss::~FormFactorLongRipple2Gauss "virtual FormFactorLongRipple2Gauss::~FormFactorLongRipple2Gauss()
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::clone "FormFactorLongRipple2Gauss * FormFactorLongRipple2Gauss::clone() const
+%feature("docstring")  FormFactorLongRipple2Gauss::clone "FormFactorLongRipple2Gauss* FormFactorLongRipple2Gauss::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Gauss::accept "void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorLongRipple2Gauss::accept "void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::getRadius "double FormFactorLongRipple2Gauss::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorLongRipple2Gauss::getHeight "double FormFactorLongRipple2Gauss::getHeight() const 
@@ -3022,7 +3567,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorLongRipple2Gauss::getAsymmetry "double FormFactorLongRipple2Gauss::getAsymmetry() const 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Gauss::evaluate_for_q "complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorLongRipple2Gauss::getRadialExtension "double FormFactorLongRipple2Gauss::getRadialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorLongRipple2Gauss::evaluate_for_q "complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const overridefinal
 
 Complex formfactor. 
 ";
@@ -3037,8 +3587,6 @@ C++ includes: FormFactorLongRipple2Lorentz.h
 ";
 
 %feature("docstring")  FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz "FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry)
-
-FormFactorLongRipple2Lorentz constructor.
 
 Parameters:
 -----------
@@ -3056,22 +3604,14 @@ asymmetry:
 length of triangular cross section 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Lorentz::~FormFactorLongRipple2Lorentz "virtual FormFactorLongRipple2Lorentz::~FormFactorLongRipple2Lorentz()
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::clone "FormFactorLongRipple2Lorentz * FormFactorLongRipple2Lorentz::clone() const
+%feature("docstring")  FormFactorLongRipple2Lorentz::clone "FormFactorLongRipple2Lorentz* FormFactorLongRipple2Lorentz::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Lorentz::accept "void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorLongRipple2Lorentz::accept "void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::getRadius "double FormFactorLongRipple2Lorentz::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorLongRipple2Lorentz::getHeight "double FormFactorLongRipple2Lorentz::getHeight() const 
@@ -3086,7 +3626,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorLongRipple2Lorentz::getAsymmetry "double FormFactorLongRipple2Lorentz::getAsymmetry() const 
 ";
 
-%feature("docstring")  FormFactorLongRipple2Lorentz::evaluate_for_q "complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorLongRipple2Lorentz::getRadialExtension "double FormFactorLongRipple2Lorentz::getRadialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorLongRipple2Lorentz::evaluate_for_q "complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const overridefinal
 
 Complex formfactor. 
 ";
@@ -3100,46 +3645,36 @@ The formfactor of a lorentzian.
 C++ includes: FormFactorLorentz.h
 ";
 
-%feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double volume)
+%feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double length)
 ";
 
 %feature("docstring")  FormFactorLorentz::FormFactorLorentz "FormFactorLorentz::FormFactorLorentz(double width, double height)
 ";
 
-%feature("docstring")  FormFactorLorentz::clone "FormFactorLorentz * FormFactorLorentz::clone() const
+%feature("docstring")  FormFactorLorentz::clone "FormFactorLorentz* FormFactorLorentz::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorLorentz::accept "void FormFactorLorentz::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorLorentz::accept "void FormFactorLorentz::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorLorentz::getRadius "double FormFactorLorentz::getRadius() const
+%feature("docstring")  FormFactorLorentz::getWidth "double FormFactorLorentz::getWidth() const 
+";
+
+%feature("docstring")  FormFactorLorentz::getHeight "double FormFactorLorentz::getHeight() const 
+";
+
+%feature("docstring")  FormFactorLorentz::getRadialExtension "double FormFactorLorentz::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorLorentz::getHeight "double FormFactorLorentz::getHeight() const
+%feature("docstring")  FormFactorLorentz::evaluate_for_q "complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const overridefinal
 
-Returns height of shape. 
-";
-
-%feature("docstring")  FormFactorLorentz::getWidth "double FormFactorLorentz::getWidth() const
-
-Returns width of shape. 
-";
-
-%feature("docstring")  FormFactorLorentz::evaluate_for_q "complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
-
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -3154,7 +3689,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const double height)
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const final
+%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const overridefinal
 
 Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 ";
@@ -3167,7 +3702,7 @@ Returns the volume of this prism.
 %feature("docstring")  FormFactorPolygonalPrism::getHeight "double FormFactorPolygonalPrism::getHeight() const 
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::getRadius "virtual double FormFactorPolygonalPrism::getRadius() const final
+%feature("docstring")  FormFactorPolygonalPrism::getRadialExtension "double FormFactorPolygonalPrism::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -3184,23 +3719,17 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface()
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const final
+%feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::getVolume "double FormFactorPolygonalSurface::getVolume() const
+%feature("docstring")  FormFactorPolygonalSurface::getVolume "double FormFactorPolygonalSurface::getVolume() const override
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::getRadius "virtual double FormFactorPolygonalSurface::getRadius() const final
+%feature("docstring")  FormFactorPolygonalSurface::getRadialExtension "double FormFactorPolygonalSurface::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -3217,12 +3746,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
 ";
 
-%feature("docstring")  FormFactorPolyhedron::onChange "virtual void FormFactorPolyhedron::onChange()=0
-
-Action to be taken in inherited class when a parameter has changed. 
-";
-
-%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const final
+%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const overridefinal
 
 Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 ";
@@ -3232,12 +3756,12 @@ Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 ";
 
-%feature("docstring")  FormFactorPolyhedron::getVolume "virtual double FormFactorPolyhedron::getVolume() const final
+%feature("docstring")  FormFactorPolyhedron::getVolume "double FormFactorPolyhedron::getVolume() const overridefinal
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  FormFactorPolyhedron::getRadius "virtual double FormFactorPolyhedron::getRadius() const final
+%feature("docstring")  FormFactorPolyhedron::getRadialExtension "double FormFactorPolyhedron::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -3251,31 +3775,20 @@ Assertions for Platonic solid.
 // File: classFormFactorPrism3.xml
 %feature("docstring") FormFactorPrism3 "
 
-The formfactor of a prism based on an equilateral triangle.
+A prism based on an equilateral triangle.
 
 C++ includes: FormFactorPrism3.h
 ";
 
 %feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
-
-Prism3 constructor.
-
-Parameters:
------------
-
-base_edge: 
-of hexagonal base
-
-height: 
-of Prism3 
 ";
 
-%feature("docstring")  FormFactorPrism3::clone "FormFactorPrism3 * FormFactorPrism3::clone() const
+%feature("docstring")  FormFactorPrism3::clone "FormFactorPrism3* FormFactorPrism3::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorPrism3::accept "void FormFactorPrism3::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorPrism3::accept "void FormFactorPrism3::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3287,70 +3800,57 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorPrism6.xml
 %feature("docstring") FormFactorPrism6 "
 
-The formfactor of a prism based on a regular hexagonal.
+A prism based on a regular hexagonal.
 
 C++ includes: FormFactorPrism6.h
 ";
 
 %feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
-
-Prism6 constructor.
-
-Parameters:
------------
-
-base_edge: 
-of hexagonal base
-
-height: 
-of Prism6 
 ";
 
-%feature("docstring")  FormFactorPrism6::clone "FormFactorPrism6 * FormFactorPrism6::clone() const
+%feature("docstring")  FormFactorPrism6::clone "FormFactorPrism6* FormFactorPrism6::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorPrism6::accept "void FormFactorPrism6::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorPrism6::accept "void FormFactorPrism6::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorPrism6::getBaseEdge "virtual double FormFactorPrism6::getBaseEdge() const 
+%feature("docstring")  FormFactorPrism6::getBaseEdge "double FormFactorPrism6::getBaseEdge() const 
 ";
 
 
 // File: classFormFactorPyramid.xml
 %feature("docstring") FormFactorPyramid "
 
-The formfactor of a quadratic pyramid.
+A frustum with a quadratic base.
 
 C++ includes: FormFactorPyramid.h
 ";
 
 %feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 
-Pyramid constructor.
-
 Parameters:
 -----------
 
 base_edge: 
-of one side of Pyramid's square base
+of one side of the square base
 
 height: 
-of Pyramid
+of the frustum
 
 alpha: 
 dihedral angle in radians between base and facet 
 ";
 
-%feature("docstring")  FormFactorPyramid::clone "FormFactorPyramid * FormFactorPyramid::clone() const final
+%feature("docstring")  FormFactorPyramid::clone "FormFactorPyramid* FormFactorPyramid::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorPyramid::accept "void FormFactorPyramid::accept(ISampleVisitor *visitor) const final
+%feature("docstring")  FormFactorPyramid::accept "void FormFactorPyramid::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3390,22 +3890,17 @@ height:
 of cosine cross section 
 ";
 
-%feature("docstring")  FormFactorRipple1::~FormFactorRipple1 "FormFactorRipple1::~FormFactorRipple1()
-";
-
-%feature("docstring")  FormFactorRipple1::clone "FormFactorRipple1 * FormFactorRipple1::clone() const
+%feature("docstring")  FormFactorRipple1::clone "FormFactorRipple1* FormFactorRipple1::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorRipple1::accept "void FormFactorRipple1::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorRipple1::accept "void FormFactorRipple1::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorRipple1::getRadius "double FormFactorRipple1::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  FormFactorRipple1::getLength "double FormFactorRipple1::getLength() const 
 ";
 
 %feature("docstring")  FormFactorRipple1::getHeight "double FormFactorRipple1::getHeight() const 
@@ -3414,10 +3909,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorRipple1::getWidth "double FormFactorRipple1::getWidth() const 
 ";
 
-%feature("docstring")  FormFactorRipple1::getLength "double FormFactorRipple1::getLength() const 
+%feature("docstring")  FormFactorRipple1::getRadialExtension "double FormFactorRipple1::getRadialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorRipple1::evaluate_for_q "complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorRipple1::evaluate_for_q "complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const overridefinal
 
 Complex formfactor. 
 ";
@@ -3451,22 +3948,14 @@ asymmetry:
 length of triangular cross section 
 ";
 
-%feature("docstring")  FormFactorRipple2::~FormFactorRipple2 "virtual FormFactorRipple2::~FormFactorRipple2()
-";
-
-%feature("docstring")  FormFactorRipple2::clone "FormFactorRipple2 * FormFactorRipple2::clone() const
+%feature("docstring")  FormFactorRipple2::clone "FormFactorRipple2* FormFactorRipple2::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorRipple2::accept "void FormFactorRipple2::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorRipple2::accept "void FormFactorRipple2::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorRipple2::getRadius "double FormFactorRipple2::getRadius() const
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
 %feature("docstring")  FormFactorRipple2::getHeight "double FormFactorRipple2::getHeight() const 
@@ -3481,7 +3970,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorRipple2::getAsymmetry "double FormFactorRipple2::getAsymmetry() const 
 ";
 
-%feature("docstring")  FormFactorRipple2::evaluate_for_q "complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorRipple2::getRadialExtension "double FormFactorRipple2::getRadialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorRipple2::evaluate_for_q "complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const overridefinal
 
 Complex formfactor. 
 ";
@@ -3490,7 +3984,7 @@ Complex formfactor.
 // File: classFormFactorSphereGaussianRadius.xml
 %feature("docstring") FormFactorSphereGaussianRadius "
 
-The formfactor of sphere with gaussian radius distribution.
+A sphere with gaussian radius distribution.
 
 C++ includes: FormFactorSphereGaussianRadius.h
 ";
@@ -3498,40 +3992,31 @@ C++ includes: FormFactorSphereGaussianRadius.h
 %feature("docstring")  FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius "FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
 ";
 
-%feature("docstring")  FormFactorSphereGaussianRadius::clone "FormFactorSphereGaussianRadius * FormFactorSphereGaussianRadius::clone() const
+%feature("docstring")  FormFactorSphereGaussianRadius::clone "FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius "FormFactorSphereGaussianRadius::~FormFactorSphereGaussianRadius()
-";
-
-%feature("docstring")  FormFactorSphereGaussianRadius::accept "void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorSphereGaussianRadius::accept "void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorSphereGaussianRadius::getRadius "double FormFactorSphereGaussianRadius::getRadius() const
+%feature("docstring")  FormFactorSphereGaussianRadius::getRadialExtension "double FormFactorSphereGaussianRadius::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorSphereGaussianRadius::evaluate_for_q "complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorSphereGaussianRadius::evaluate_for_q "complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorSphereLogNormalRadius.xml
 %feature("docstring") FormFactorSphereLogNormalRadius "
 
-The formfactor of sphere with log normal radius distribution.
+A sphere with log normal radius distribution.
 
 C++ includes: FormFactorSphereLogNormalRadius.h
 ";
@@ -3539,33 +4024,24 @@ C++ includes: FormFactorSphereLogNormalRadius.h
 %feature("docstring")  FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius "FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples)
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::clone "FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const
+%feature("docstring")  FormFactorSphereLogNormalRadius::clone "FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius "FormFactorSphereLogNormalRadius::~FormFactorSphereLogNormalRadius()
-";
-
-%feature("docstring")  FormFactorSphereLogNormalRadius::accept "void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorSphereLogNormalRadius::accept "void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::getRadius "double FormFactorSphereLogNormalRadius::getRadius() const
+%feature("docstring")  FormFactorSphereLogNormalRadius::getRadialExtension "double FormFactorSphereLogNormalRadius::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorSphereLogNormalRadius::evaluate_for_q "complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorSphereLogNormalRadius::evaluate_for_q "complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -3580,67 +4056,56 @@ C++ includes: FormFactorSphereUniformRadius.h
 %feature("docstring")  FormFactorSphereUniformRadius::FormFactorSphereUniformRadius "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean, double full_width)
 ";
 
-%feature("docstring")  FormFactorSphereUniformRadius::clone "FormFactorSphereUniformRadius * FormFactorSphereUniformRadius::clone() const
+%feature("docstring")  FormFactorSphereUniformRadius::clone "FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorSphereUniformRadius::~FormFactorSphereUniformRadius "FormFactorSphereUniformRadius::~FormFactorSphereUniformRadius()
-";
-
-%feature("docstring")  FormFactorSphereUniformRadius::accept "void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorSphereUniformRadius::accept "void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorSphereUniformRadius::getRadius "double FormFactorSphereUniformRadius::getRadius() const
+%feature("docstring")  FormFactorSphereUniformRadius::getRadialExtension "double FormFactorSphereUniformRadius::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorSphereUniformRadius::evaluate_for_q "complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorSphereUniformRadius::evaluate_for_q "complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorTetrahedron.xml
 %feature("docstring") FormFactorTetrahedron "
 
-The formfactor of tetrahedron.
+A frustum with equilateral trigonal base.
 
 C++ includes: FormFactorTetrahedron.h
 ";
 
 %feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 
-Tetrahedron constructor.
-
 Parameters:
 -----------
 
 base_edge: 
-of a side of Tetrahedron's base
+of a side of the base
 
 height: 
-of Tetrahedron
+of the frustum
 
 alpha: 
 dihedral angle in radians between base and facet 
 ";
 
-%feature("docstring")  FormFactorTetrahedron::clone "FormFactorTetrahedron * FormFactorTetrahedron::clone() const
+%feature("docstring")  FormFactorTetrahedron::clone "FormFactorTetrahedron* FormFactorTetrahedron::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorTetrahedron::accept "void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorTetrahedron::accept "void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3658,7 +4123,7 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorTriangle.xml
 %feature("docstring") FormFactorTriangle "
 
-The formfactor of a planar equilateral triangle, for testing purposes.
+A planar equilateral triangle, for testing form factor computations.
 
 C++ includes: FormFactorTriangle.h
 ";
@@ -3666,12 +4131,12 @@ C++ includes: FormFactorTriangle.h
 %feature("docstring")  FormFactorTriangle::FormFactorTriangle "FormFactorTriangle::FormFactorTriangle(const double base_edge)
 ";
 
-%feature("docstring")  FormFactorTriangle::clone "FormFactorTriangle * FormFactorTriangle::clone() const
+%feature("docstring")  FormFactorTriangle::clone "FormFactorTriangle* FormFactorTriangle::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorTriangle::accept "void FormFactorTriangle::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorTriangle::accept "void FormFactorTriangle::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3683,7 +4148,7 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorTrivial.xml
 %feature("docstring") FormFactorTrivial "
 
-A uniform formfactor F(q)=1, for development purposes.
+A dot, with trivial formfactor F(q)=1.
 
 C++ includes: FormFactorTrivial.h
 ";
@@ -3691,37 +4156,31 @@ C++ includes: FormFactorTrivial.h
 %feature("docstring")  FormFactorTrivial::FormFactorTrivial "FormFactorTrivial::FormFactorTrivial()
 ";
 
-%feature("docstring")  FormFactorTrivial::clone "FormFactorTrivial * FormFactorTrivial::clone() const
+%feature("docstring")  FormFactorTrivial::clone "FormFactorTrivial* FormFactorTrivial::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorTrivial::accept "void FormFactorTrivial::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorTrivial::accept "void FormFactorTrivial::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorTrivial::getRadius "double FormFactorTrivial::getRadius() const
+%feature("docstring")  FormFactorTrivial::getRadialExtension "double FormFactorTrivial::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorTruncatedCube.xml
 %feature("docstring") FormFactorTruncatedCube "
 
-The formfactor of a truncated cube.
+A cube, with tetrahedral truncation of all edges.
 
 C++ includes: FormFactorTruncatedCube.h
 ";
@@ -3738,12 +4197,12 @@ removed_length:
 as removed from each edge of the cube 
 ";
 
-%feature("docstring")  FormFactorTruncatedCube::clone "FormFactorTruncatedCube * FormFactorTruncatedCube::clone() const final
+%feature("docstring")  FormFactorTruncatedCube::clone "FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorTruncatedCube::accept "void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const final
+%feature("docstring")  FormFactorTruncatedCube::accept "void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -3758,51 +4217,45 @@ Calls the  ISampleVisitor's visit method.
 // File: classFormFactorTruncatedSphere.xml
 %feature("docstring") FormFactorTruncatedSphere "
 
-The formfactor of a truncated Sphere.
+A truncated Sphere.
 
 C++ includes: FormFactorTruncatedSphere.h
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
-
-TruncatedSphere constructor.
-
-Parameters:
------------
-
-radius: 
-of Truncated Sphere
-
-height: 
-of Truncated Sphere 
 ";
 
-%feature("docstring")  FormFactorTruncatedSphere::~FormFactorTruncatedSphere "FormFactorTruncatedSphere::~FormFactorTruncatedSphere()
-";
-
-%feature("docstring")  FormFactorTruncatedSphere::clone "FormFactorTruncatedSphere * FormFactorTruncatedSphere::clone() const
+%feature("docstring")  FormFactorTruncatedSphere::clone "FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorTruncatedSphere::accept "void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorTruncatedSphere::accept "void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorTruncatedSphere::getRadius "virtual double FormFactorTruncatedSphere::getRadius() const
+%feature("docstring")  FormFactorTruncatedSphere::getHeight "double FormFactorTruncatedSphere::getHeight() const 
+";
+
+%feature("docstring")  FormFactorTruncatedSphere::getRadius "double FormFactorTruncatedSphere::getRadius() const 
+";
+
+%feature("docstring")  FormFactorTruncatedSphere::getRadialExtension "double FormFactorTruncatedSphere::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorTruncatedSphere::getHeight "double FormFactorTruncatedSphere::getHeight() const 
+%feature("docstring")  FormFactorTruncatedSphere::evaluate_for_q "complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const overridefinal
+
+Complex formfactor. 
 ";
 
 
 // File: classFormFactorTruncatedSpheroid.xml
 %feature("docstring") FormFactorTruncatedSpheroid "
 
-The formfactor of a truncated spheroid.
+A truncated spheroid. An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
 
 C++ includes: FormFactorTruncatedSpheroid.h
 ";
@@ -3810,17 +4263,17 @@ C++ includes: FormFactorTruncatedSpheroid.h
 %feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
 ";
 
-%feature("docstring")  FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::~FormFactorTruncatedSpheroid()
-";
-
-%feature("docstring")  FormFactorTruncatedSpheroid::clone "FormFactorTruncatedSpheroid * FormFactorTruncatedSpheroid::clone() const
+%feature("docstring")  FormFactorTruncatedSpheroid::clone "FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorTruncatedSpheroid::accept "void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorTruncatedSpheroid::accept "void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorTruncatedSpheroid::getRadius "double FormFactorTruncatedSpheroid::getRadius() const 
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::getHeight "double FormFactorTruncatedSpheroid::getHeight() const 
@@ -3829,27 +4282,23 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  FormFactorTruncatedSpheroid::getHeightFlattening "double FormFactorTruncatedSpheroid::getHeightFlattening() const 
 ";
 
-%feature("docstring")  FormFactorTruncatedSpheroid::getRadius "double FormFactorTruncatedSpheroid::getRadius() const
+%feature("docstring")  FormFactorTruncatedSpheroid::getRadialExtension "double FormFactorTruncatedSpheroid::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorTruncatedSpheroid::evaluate_for_q "complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
+%feature("docstring")  FormFactorTruncatedSpheroid::evaluate_for_q "complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const overridefinal
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classFormFactorWeighted.xml
 %feature("docstring") FormFactorWeighted "
 
-Coherent sum of different form factors with different weights. Acts on scalar form factors.
+Coherent sum of different scalar  IFormFactor's with different weights.
+
+Used by  ParticleComposition and  ParticleCoreShell. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
 C++ includes: FormFactorWeighted.h
 ";
@@ -3857,20 +4306,20 @@ C++ includes: FormFactorWeighted.h
 %feature("docstring")  FormFactorWeighted::FormFactorWeighted "FormFactorWeighted::FormFactorWeighted()
 ";
 
-%feature("docstring")  FormFactorWeighted::~FormFactorWeighted "FormFactorWeighted::~FormFactorWeighted()
+%feature("docstring")  FormFactorWeighted::~FormFactorWeighted "FormFactorWeighted::~FormFactorWeighted() overridefinal
 ";
 
-%feature("docstring")  FormFactorWeighted::clone "FormFactorWeighted * FormFactorWeighted::clone() const
+%feature("docstring")  FormFactorWeighted::clone "FormFactorWeighted * FormFactorWeighted::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorWeighted::accept "void FormFactorWeighted::accept(ISampleVisitor *visitor) const
+%feature("docstring")  FormFactorWeighted::accept "void FormFactorWeighted::accept(ISampleVisitor *visitor) const overridefinal
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorWeighted::getRadius "double FormFactorWeighted::getRadius() const
+%feature("docstring")  FormFactorWeighted::getRadialExtension "double FormFactorWeighted::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -3878,24 +4327,44 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorWeighted::addFormFactor "void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
 ";
 
-%feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(const IMaterial &material) overridefinal
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
-%feature("docstring")  FormFactorWeighted::evaluate "complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorWeighted::evaluate "complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
-%feature("docstring")  FormFactorWeighted::evaluatePol "Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  FormFactorWeighted::evaluatePol "Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
 
 Calculates and returns a polarized form factor calculation in DWBA. 
+";
+
+
+// File: classFormFactorWrapper.xml
+%feature("docstring") FormFactorWrapper "
+
+Information about particle form factor and abundance.
+
+C++ includes: FormFactorWrapper.h
+";
+
+%feature("docstring")  FormFactorWrapper::FormFactorWrapper "FormFactorWrapper::FormFactorWrapper(IFormFactor *ff, double abundance)
+";
+
+%feature("docstring")  FormFactorWrapper::~FormFactorWrapper "FormFactorWrapper::~FormFactorWrapper()
+";
+
+%feature("docstring")  FormFactorWrapper::clone "FormFactorWrapper * FormFactorWrapper::clone() const 
 ";
 
 
 // File: classFTDecayFunction1DCauchy.xml
 %feature("docstring") FTDecayFunction1DCauchy "
 
-1 dimensional Cauchy decay function in reciprocal space. Corresponds to exp(-|x|/omega) in real space
+One-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-|x|/omega) in real space.
 
 C++ includes: FTDecayFunctions.h
 ";
@@ -3903,20 +4372,17 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  FTDecayFunction1DCauchy::FTDecayFunction1DCauchy "FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
 ";
 
-%feature("docstring")  FTDecayFunction1DCauchy::~FTDecayFunction1DCauchy "virtual FTDecayFunction1DCauchy::~FTDecayFunction1DCauchy()
+%feature("docstring")  FTDecayFunction1DCauchy::clone "virtual FTDecayFunction1DCauchy* FTDecayFunction1DCauchy::clone() const 
 ";
 
-%feature("docstring")  FTDecayFunction1DCauchy::clone "FTDecayFunction1DCauchy * FTDecayFunction1DCauchy::clone() const 
-";
-
-%feature("docstring")  FTDecayFunction1DCauchy::evaluate "double FTDecayFunction1DCauchy::evaluate(double q) const 
+%feature("docstring")  FTDecayFunction1DCauchy::evaluate "double FTDecayFunction1DCauchy::evaluate(double q) const final
 ";
 
 
 // File: classFTDecayFunction1DGauss.xml
 %feature("docstring") FTDecayFunction1DGauss "
 
-1 dimensional Gauss decay function in reciprocal space. Corresponds to exp[-x^2/(2*omega^2)] in real space
+One-dimensional Gauss decay function in reciprocal space; corresponds to exp[-x^2/(2*omega^2)] in real space.
 
 C++ includes: FTDecayFunctions.h
 ";
@@ -3924,20 +4390,17 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  FTDecayFunction1DGauss::FTDecayFunction1DGauss "FTDecayFunction1DGauss::FTDecayFunction1DGauss(double omega)
 ";
 
-%feature("docstring")  FTDecayFunction1DGauss::~FTDecayFunction1DGauss "virtual FTDecayFunction1DGauss::~FTDecayFunction1DGauss()
+%feature("docstring")  FTDecayFunction1DGauss::clone "virtual FTDecayFunction1DGauss* FTDecayFunction1DGauss::clone() const 
 ";
 
-%feature("docstring")  FTDecayFunction1DGauss::clone "FTDecayFunction1DGauss * FTDecayFunction1DGauss::clone() const 
-";
-
-%feature("docstring")  FTDecayFunction1DGauss::evaluate "double FTDecayFunction1DGauss::evaluate(double q) const 
+%feature("docstring")  FTDecayFunction1DGauss::evaluate "double FTDecayFunction1DGauss::evaluate(double q) const final
 ";
 
 
 // File: classFTDecayFunction1DTriangle.xml
 %feature("docstring") FTDecayFunction1DTriangle "
 
-1 dimensional triangle decay function in reciprocal space. Corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space
+One-dimensional triangle decay function in reciprocal space; corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
 
 C++ includes: FTDecayFunctions.h
 ";
@@ -3945,20 +4408,17 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  FTDecayFunction1DTriangle::FTDecayFunction1DTriangle "FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double omega)
 ";
 
-%feature("docstring")  FTDecayFunction1DTriangle::~FTDecayFunction1DTriangle "virtual FTDecayFunction1DTriangle::~FTDecayFunction1DTriangle()
+%feature("docstring")  FTDecayFunction1DTriangle::clone "virtual FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const 
 ";
 
-%feature("docstring")  FTDecayFunction1DTriangle::clone "FTDecayFunction1DTriangle * FTDecayFunction1DTriangle::clone() const 
-";
-
-%feature("docstring")  FTDecayFunction1DTriangle::evaluate "double FTDecayFunction1DTriangle::evaluate(double q) const 
+%feature("docstring")  FTDecayFunction1DTriangle::evaluate "double FTDecayFunction1DTriangle::evaluate(double q) const final
 ";
 
 
 // File: classFTDecayFunction1DVoigt.xml
 %feature("docstring") FTDecayFunction1DVoigt "
 
-1 dimensional Voigt decay function in reciprocal space. Corresponds to eta*Gauss + (1-eta)*Cauchy
+One-dimensional pseudo-Voigt decay function in reciprocal space; corresponds to eta*Gauss + (1-eta)*Cauchy.
 
 C++ includes: FTDecayFunctions.h
 ";
@@ -3966,37 +4426,31 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double omega, double eta)
 ";
 
-%feature("docstring")  FTDecayFunction1DVoigt::~FTDecayFunction1DVoigt "virtual FTDecayFunction1DVoigt::~FTDecayFunction1DVoigt()
+%feature("docstring")  FTDecayFunction1DVoigt::clone "virtual FTDecayFunction1DVoigt* FTDecayFunction1DVoigt::clone() const 
 ";
 
-%feature("docstring")  FTDecayFunction1DVoigt::clone "FTDecayFunction1DVoigt * FTDecayFunction1DVoigt::clone() const 
+%feature("docstring")  FTDecayFunction1DVoigt::evaluate "double FTDecayFunction1DVoigt::evaluate(double q) const final
 ";
 
-%feature("docstring")  FTDecayFunction1DVoigt::evaluate "double FTDecayFunction1DVoigt::evaluate(double q) const 
-";
-
-%feature("docstring")  FTDecayFunction1DVoigt::getEta "virtual double FTDecayFunction1DVoigt::getEta() const 
+%feature("docstring")  FTDecayFunction1DVoigt::getEta "double FTDecayFunction1DVoigt::getEta() const 
 ";
 
 
 // File: classFTDecayFunction2DCauchy.xml
 %feature("docstring") FTDecayFunction2DCauchy "
 
-2 dimensional Cauchy decay function in reciprocal space. Corresponds to exp(-r) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
+Two-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-r) in real space, with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$.
 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y)
+%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::~FTDecayFunction2DCauchy "virtual FTDecayFunction2DCauchy::~FTDecayFunction2DCauchy()
+%feature("docstring")  FTDecayFunction2DCauchy::clone "virtual FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const 
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::clone "FTDecayFunction2DCauchy * FTDecayFunction2DCauchy::clone() const 
-";
-
-%feature("docstring")  FTDecayFunction2DCauchy::evaluate "double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
+%feature("docstring")  FTDecayFunction2DCauchy::evaluate "double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed decay function for q in X,Y coordinates 
 ";
@@ -4005,21 +4459,18 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 // File: classFTDecayFunction2DGauss.xml
 %feature("docstring") FTDecayFunction2DGauss "
 
-2 dimensional Gauss decay function in reciprocal space. Corresponds to exp(-r^2/2) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
+Two-dimensional Gauss decay function in reciprocal space; corresponds to exp(-r^2/2) in real space, with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$.
 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y)
+%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::~FTDecayFunction2DGauss "virtual FTDecayFunction2DGauss::~FTDecayFunction2DGauss()
+%feature("docstring")  FTDecayFunction2DGauss::clone "virtual FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const 
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::clone "FTDecayFunction2DGauss * FTDecayFunction2DGauss::clone() const 
-";
-
-%feature("docstring")  FTDecayFunction2DGauss::evaluate "double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
+%feature("docstring")  FTDecayFunction2DGauss::evaluate "double FTDecayFunction2DGauss::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed decay function for q in X,Y coordinates 
 ";
@@ -4028,21 +4479,18 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 // File: classFTDecayFunction2DVoigt.xml
 %feature("docstring") FTDecayFunction2DVoigt "
 
-2 dimensional Voigt decay function in reciprocal space. Corresponds to eta*Gauss + (1-eta)*Cauchy
+Two-dimensional pseudo-Voigt decay function in reciprocal space; corresponds to eta*Gauss + (1-eta)*Cauchy.
 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta)
+%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=M_PI_2)
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::~FTDecayFunction2DVoigt "virtual FTDecayFunction2DVoigt::~FTDecayFunction2DVoigt()
+%feature("docstring")  FTDecayFunction2DVoigt::clone "virtual FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const 
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::clone "FTDecayFunction2DVoigt * FTDecayFunction2DVoigt::clone() const 
-";
-
-%feature("docstring")  FTDecayFunction2DVoigt::evaluate "double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
+%feature("docstring")  FTDecayFunction2DVoigt::evaluate "double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed decay function for q in X,Y coordinates 
 ";
@@ -4054,93 +4502,89 @@ evaluate Fourier transformed decay function for q in X,Y coordinates
 // File: classFTDistribution1DCauchy.xml
 %feature("docstring") FTDistribution1DCauchy "
 
-1 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-|x|) in real space
+Exponential  IFTDistribution1D exp(-|omega*x|); its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DCauchy::FTDistribution1DCauchy "FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::~FTDistribution1DCauchy "virtual FTDistribution1DCauchy::~FTDistribution1DCauchy()
+%feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const final
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const 
-";
+%feature("docstring")  FTDistribution1DCauchy::evaluate "double FTDistribution1DCauchy::evaluate(double q) const final
 
-%feature("docstring")  FTDistribution1DCauchy::evaluate "double FTDistribution1DCauchy::evaluate(double q) const 
+Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
 
 // File: classFTDistribution1DCosine.xml
 %feature("docstring") FTDistribution1DCosine "
 
-1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1+cos(pi*x/omega) if |x|<omega (and 0 otherwise) in real space
+IFTDistribution1D consisting of one cosine wave [1+cos(pi*x/omega) if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) starts at evaluate(0)=1.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DCosine::FTDistribution1DCosine "FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DCosine::~FTDistribution1DCosine "virtual FTDistribution1DCosine::~FTDistribution1DCosine()
+%feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine* FTDistribution1DCosine::clone() const final
 ";
 
-%feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine * FTDistribution1DCosine::clone() const 
-";
+%feature("docstring")  FTDistribution1DCosine::evaluate "double FTDistribution1DCosine::evaluate(double q) const final
 
-%feature("docstring")  FTDistribution1DCosine::evaluate "double FTDistribution1DCosine::evaluate(double q) const 
+Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
 
 // File: classFTDistribution1DGate.xml
 %feature("docstring") FTDistribution1DGate "
 
-1 dimensional Gate distribution in Fourier space. Corresponds to a normalized constant if |x|<omega (and 0 otherwise) in real space
+Square gate  IFTDistribution1D; its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DGate::FTDistribution1DGate "FTDistribution1DGate::FTDistribution1DGate(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DGate::~FTDistribution1DGate "virtual FTDistribution1DGate::~FTDistribution1DGate()
+%feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate* FTDistribution1DGate::clone() const final
 ";
 
-%feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate * FTDistribution1DGate::clone() const 
-";
+%feature("docstring")  FTDistribution1DGate::evaluate "double FTDistribution1DGate::evaluate(double q) const final
 
-%feature("docstring")  FTDistribution1DGate::evaluate "double FTDistribution1DGate::evaluate(double q) const 
+Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
 
 // File: classFTDistribution1DGauss.xml
 %feature("docstring") FTDistribution1DGauss "
 
-1 dimensional Gauss distribution in Fourier space. Corresponds to a normalized exp(-x^2) in real space
+Gaussian  IFTDistribution1D; its Fourier transform evaluate(q) is a Gaussian starting at evaluate(0)=1.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DGauss::FTDistribution1DGauss "FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DGauss::~FTDistribution1DGauss "virtual FTDistribution1DGauss::~FTDistribution1DGauss()
+%feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss* FTDistribution1DGauss::clone() const final
 ";
 
-%feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss * FTDistribution1DGauss::clone() const 
-";
+%feature("docstring")  FTDistribution1DGauss::evaluate "double FTDistribution1DGauss::evaluate(double q) const final
 
-%feature("docstring")  FTDistribution1DGauss::evaluate "double FTDistribution1DGauss::evaluate(double q) const 
+Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
 
 // File: classFTDistribution1DTriangle.xml
 %feature("docstring") FTDistribution1DTriangle "
 
-1 dimensional triangle distribution in Fourier space. Corresponds to a normalized 1-|x|/omega if |x|<omega (and 0 otherwise) in real space
+Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DTriangle::FTDistribution1DTriangle "FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
@@ -4149,55 +4593,53 @@ C++ includes: FTDistributions.h
 %feature("docstring")  FTDistribution1DTriangle::~FTDistribution1DTriangle "virtual FTDistribution1DTriangle::~FTDistribution1DTriangle()
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const 
+%feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const final
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::evaluate "double FTDistribution1DTriangle::evaluate(double q) const 
+%feature("docstring")  FTDistribution1DTriangle::evaluate "double FTDistribution1DTriangle::evaluate(double q) const final
+
+Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
 
 // File: classFTDistribution1DVoigt.xml
 %feature("docstring") FTDistribution1DVoigt "
 
-1 dimensional Voigt distribution in Fourier space. Corresponds to eta*Gauss + (1-eta)*Cauchy
+IFTDistribution1D that provides a Fourier transform evaluate(q) in form of a pseudo-Voigt decay function eta*Gauss + (1-eta)*Cauchy, with both components starting at 1 for q=0.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::~FTDistribution1DVoigt "virtual FTDistribution1DVoigt::~FTDistribution1DVoigt()
+%feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const final
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const 
+%feature("docstring")  FTDistribution1DVoigt::evaluate "double FTDistribution1DVoigt::evaluate(double q) const final
+
+Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::evaluate "double FTDistribution1DVoigt::evaluate(double q) const 
-";
-
-%feature("docstring")  FTDistribution1DVoigt::getEta "virtual double FTDistribution1DVoigt::getEta() const 
+%feature("docstring")  FTDistribution1DVoigt::getEta "double FTDistribution1DVoigt::getEta() const 
 ";
 
 
 // File: classFTDistribution2DCauchy.xml
 %feature("docstring") FTDistribution2DCauchy "
 
-2 dimensional Cauchy distribution in Fourier space. Corresponds to a normalized exp(-r) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
+Two-dimensional Cauchy distribution in Fourier space; corresponds to a normalized exp(-r) in real space, with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::~FTDistribution2DCauchy "virtual FTDistribution2DCauchy::~FTDistribution2DCauchy()
+%feature("docstring")  FTDistribution2DCauchy::clone "FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const final
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::clone "FTDistribution2DCauchy * FTDistribution2DCauchy::clone() const 
-";
-
-%feature("docstring")  FTDistribution2DCauchy::evaluate "double FTDistribution2DCauchy::evaluate(double qx, double qy) const
+%feature("docstring")  FTDistribution2DCauchy::evaluate "double FTDistribution2DCauchy::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 ";
@@ -4206,21 +4648,18 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 // File: classFTDistribution2DCone.xml
 %feature("docstring") FTDistribution2DCone "
 
-2 dimensional cone distribution in Fourier space. Corresponds to 1-r if r<1 (and 0 otherwise) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
+Two-dimensional cone distribution in Fourier space; corresponds to 1-r if r<1 (and 0 otherwise) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 ";
 
-%feature("docstring")  FTDistribution2DCone::~FTDistribution2DCone "virtual FTDistribution2DCone::~FTDistribution2DCone()
+%feature("docstring")  FTDistribution2DCone::clone "FTDistribution2DCone* FTDistribution2DCone::clone() const final
 ";
 
-%feature("docstring")  FTDistribution2DCone::clone "FTDistribution2DCone * FTDistribution2DCone::clone() const 
-";
-
-%feature("docstring")  FTDistribution2DCone::evaluate "double FTDistribution2DCone::evaluate(double qx, double qy) const
+%feature("docstring")  FTDistribution2DCone::evaluate "double FTDistribution2DCone::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 ";
@@ -4229,21 +4668,18 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 // File: classFTDistribution2DGate.xml
 %feature("docstring") FTDistribution2DGate "
 
-2 dimensional gate distribution in Fourier space Corresponds to normalized constant if r<1 (and 0 otherwise) in real space. with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
+Two-dimensional gate distribution in Fourier space; corresponds to normalized constant if r<1 (and 0 otherwise) in real space, with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 ";
 
-%feature("docstring")  FTDistribution2DGate::~FTDistribution2DGate "virtual FTDistribution2DGate::~FTDistribution2DGate()
+%feature("docstring")  FTDistribution2DGate::clone "FTDistribution2DGate* FTDistribution2DGate::clone() const final
 ";
 
-%feature("docstring")  FTDistribution2DGate::clone "FTDistribution2DGate * FTDistribution2DGate::clone() const 
-";
-
-%feature("docstring")  FTDistribution2DGate::evaluate "double FTDistribution2DGate::evaluate(double qx, double qy) const
+%feature("docstring")  FTDistribution2DGate::evaluate "double FTDistribution2DGate::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 ";
@@ -4252,21 +4688,18 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 // File: classFTDistribution2DGauss.xml
 %feature("docstring") FTDistribution2DGauss "
 
-2 dimensional Gauss distribution in Fourier space. Corresponds to normalized exp(-r^2/2) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$
+Two-dimensional Gauss distribution in Fourier space; corresponds to normalized exp(-r^2/2) in real space with  $r=\\\\sqrt{(\\\\frac{x}{\\\\omega_x})^2 + (\\\\frac{y}{\\\\omega_y})^2}$.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y)
+%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 ";
 
-%feature("docstring")  FTDistribution2DGauss::~FTDistribution2DGauss "virtual FTDistribution2DGauss::~FTDistribution2DGauss()
+%feature("docstring")  FTDistribution2DGauss::clone "FTDistribution2DGauss* FTDistribution2DGauss::clone() const final
 ";
 
-%feature("docstring")  FTDistribution2DGauss::clone "FTDistribution2DGauss * FTDistribution2DGauss::clone() const 
-";
-
-%feature("docstring")  FTDistribution2DGauss::evaluate "double FTDistribution2DGauss::evaluate(double qx, double qy) const
+%feature("docstring")  FTDistribution2DGauss::evaluate "double FTDistribution2DGauss::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 ";
@@ -4275,123 +4708,57 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 // File: classFTDistribution2DVoigt.xml
 %feature("docstring") FTDistribution2DVoigt "
 
-2 dimensional Voigt distribution in Fourier space. Corresponds to eta*Gauss + (1-eta)*Cauchy
+Two-dimensional Voigt distribution in Fourier space; corresponds to eta*Gauss + (1-eta)*Cauchy
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta)
+%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=M_PI_2)
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::~FTDistribution2DVoigt "virtual FTDistribution2DVoigt::~FTDistribution2DVoigt()
+%feature("docstring")  FTDistribution2DVoigt::clone "FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const final
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::clone "FTDistribution2DVoigt * FTDistribution2DVoigt::clone() const 
-";
-
-%feature("docstring")  FTDistribution2DVoigt::evaluate "double FTDistribution2DVoigt::evaluate(double qx, double qy) const
+%feature("docstring")  FTDistribution2DVoigt::evaluate "double FTDistribution2DVoigt::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::getEta "virtual double FTDistribution2DVoigt::getEta() const 
-";
-
-
-// File: classFunctionalTestInfo.xml
-%feature("docstring") FunctionalTestInfo "
-
-Contains all necessary information to compose functional test.
-
-C++ includes: FunctionalTestInfo.h
-";
-
-%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo()
-";
-
-%feature("docstring")  FunctionalTestInfo::FunctionalTestInfo "FunctionalTestInfo::FunctionalTestInfo(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &subtest_type, double threshold)
-";
-
-
-// File: classFunctionalTestRegistry.xml
-%feature("docstring") FunctionalTestRegistry "
-
-The registry which holds information about available functional tests.
-
-C++ includes: FunctionalTestRegistry.h
-";
-
-%feature("docstring")  FunctionalTestRegistry::FunctionalTestRegistry "FunctionalTestRegistry::FunctionalTestRegistry()
-";
-
-%feature("docstring")  FunctionalTestRegistry::add "void FunctionalTestRegistry::add(const std::string &test_name, const std::string &test_description, const std::string &simulation_name, const std::string &sample_builder_name, const std::string &component_registry_name, double threshold)
-";
-
-%feature("docstring")  FunctionalTestRegistry::getItemOrExplain "const FunctionalTestInfo * FunctionalTestRegistry::getItemOrExplain(const std::string &test_name, const std::string &suite_name) const 
-";
-
-%feature("docstring")  FunctionalTestRegistry::printCatalogue "void FunctionalTestRegistry::printCatalogue(std::ostream &ostr) const 
-";
-
-
-// File: classFunctionalTestSuite.xml
-%feature("docstring") FunctionalTestSuite "
-
-To execute one functional test of given name.
-
-Used in functional tests (Core|Py|GUI)Suite, where it is subclassed as a singleton, and called through instance().execute(argc, argv). When processing execute, dependent classes will call back  getTest(). Certain tests have subtests; they will call back getFormFactor() etc.
-
-C++ includes: FunctionalTestSuite.h
-";
-
-%feature("docstring")  FunctionalTestSuite::FunctionalTestSuite "FunctionalTestSuite::FunctionalTestSuite()
-";
-
-%feature("docstring")  FunctionalTestSuite::~FunctionalTestSuite "virtual FunctionalTestSuite::~FunctionalTestSuite()
-";
-
-%feature("docstring")  FunctionalTestSuite::execute "int FunctionalTestSuite::execute(int argc, char **argv)
-
-Runs test (name given as command-line argument), and returns 0 for SUCCESS, or error code. 
-";
-
-%feature("docstring")  FunctionalTestSuite::getTest "virtual class IFunctionalTest* FunctionalTestSuite::getTest() const =0
-
-overloaded in (Core|Py|GUI)Suite.cpp 
+%feature("docstring")  FTDistribution2DVoigt::getEta "double FTDistribution2DVoigt::getEta() const 
 ";
 
 
 // File: classGISASSimulation.xml
-%feature("docstring") GISASSimulation "";
+%feature("docstring") GISASSimulation "
+
+Main class to run the simulation.
+
+C++ includes: GISASSimulation.h
+";
 
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation()
 ";
 
-%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const ISample &p_sample)
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const MultiLayer &p_sample)
 ";
 
-%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
 ";
 
-%feature("docstring")  GISASSimulation::~GISASSimulation "virtual GISASSimulation::~GISASSimulation()
+%feature("docstring")  GISASSimulation::~GISASSimulation "GISASSimulation::~GISASSimulation() final
 ";
 
 %feature("docstring")  GISASSimulation::clone "GISASSimulation* GISASSimulation::clone() const 
 ";
 
-%feature("docstring")  GISASSimulation::prepareSimulation "void GISASSimulation::prepareSimulation()
+%feature("docstring")  GISASSimulation::prepareSimulation "void GISASSimulation::prepareSimulation() final
 
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  GISASSimulation::getNumberOfSimulationElements "int GISASSimulation::getNumberOfSimulationElements() const
+%feature("docstring")  GISASSimulation::numberOfSimulationElements "int GISASSimulation::numberOfSimulationElements() const final
 
 Gets the number of elements this simulation needs to calculate. 
-";
-
-%feature("docstring")  GISASSimulation::getOutputData "const OutputData<double>* GISASSimulation::getOutputData() const
-
-Returns detector intensity map (no detector resolution) 
 ";
 
 %feature("docstring")  GISASSimulation::getDetectorIntensity "OutputData< double > * GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
@@ -4401,20 +4768,7 @@ Returns clone of the detector intensity map with detector resolution applied.
 
 %feature("docstring")  GISASSimulation::getIntensityData "Histogram2D * GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
 
-Returns clone of the detector intensity map with detector resolution applied in the form of 2D histogram. 
-";
-
-%feature("docstring")  GISASSimulation::setInstrument "void GISASSimulation::setInstrument(const Instrument &instrument)
-
-Sets the instrument containing beam and detector information. 
-";
-
-%feature("docstring")  GISASSimulation::getInstrument "const Instrument& GISASSimulation::getInstrument() const
-
-Returns the instrument containing beam and detector information. 
-";
-
-%feature("docstring")  GISASSimulation::getInstrument "Instrument& GISASSimulation::getInstrument()
+Returns histogram representing intensity map in requested axes units. 
 ";
 
 %feature("docstring")  GISASSimulation::setBeamParameters "void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
@@ -4422,27 +4776,9 @@ Returns the instrument containing beam and detector information.
 Sets beam parameters from here (forwarded to  Instrument) 
 ";
 
-%feature("docstring")  GISASSimulation::setBeamIntensity "void GISASSimulation::setBeamIntensity(double intensity)
-
-Sets beam intensity from here (forwarded to  Instrument) 
-";
-
-%feature("docstring")  GISASSimulation::setBeamPolarization "void GISASSimulation::setBeamPolarization(const kvector_t bloch_vector)
-
-Sets the beam polarization according to the given Bloch vector. 
-";
-
 %feature("docstring")  GISASSimulation::setDetector "void GISASSimulation::setDetector(const IDetector2D &detector)
 
 Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(const OutputData< double > &output_data)
-
-Sets detector parameters using axes of output data. 
-";
-
-%feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(const class IHistogram &histogram)
 ";
 
 %feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
@@ -4471,27 +4807,12 @@ alpha_max:
 upper edge of last alpha-bin 
 ";
 
-%feature("docstring")  GISASSimulation::setDetectorResolutionFunction "void GISASSimulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
-
-Define resolution function for detector. 
-";
-
-%feature("docstring")  GISASSimulation::removeDetectorResolutionFunction "void GISASSimulation::removeDetectorResolutionFunction()
-
-Removes detector resolution function. 
-";
-
-%feature("docstring")  GISASSimulation::setAnalyzerProperties "void GISASSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
-
-Sets the polarization analyzer characteristics of the detector. 
-";
-
 %feature("docstring")  GISASSimulation::removeMasks "void GISASSimulation::removeMasks()
 
 removes all masks from the detector 
 ";
 
-%feature("docstring")  GISASSimulation::addMask "void GISASSimulation::addMask(const class Geometry::IShape2D &shape, bool mask_value=true)
+%feature("docstring")  GISASSimulation::addMask "void GISASSimulation::addMask(const Geometry::IShape2D &shape, bool mask_value=true)
 
 Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
 
@@ -4510,9 +4831,19 @@ The value of mask
 Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
 ";
 
-%feature("docstring")  GISASSimulation::addParametersToExternalPool "std::string GISASSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  GISASSimulation::addParametersToExternalPool "std::string GISASSimulation::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
+";
+
+%feature("docstring")  GISASSimulation::setRegionOfInterest "void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+Sets rectangular region of interest with lower left and upper right corners defined. 
+";
+
+%feature("docstring")  GISASSimulation::resetRegionOfInterest "void GISASSimulation::resetRegionOfInterest()
+
+Resets region of interest making whole detector plane available for the simulation. 
 ";
 
 
@@ -4527,7 +4858,7 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  HexParaCrystalBuilder::HexParaCrystalBuilder "HexParaCrystalBuilder::HexParaCrystalBuilder()
 ";
 
-%feature("docstring")  HexParaCrystalBuilder::buildSample "ISample * HexParaCrystalBuilder::buildSample() const 
+%feature("docstring")  HexParaCrystalBuilder::buildSample "MultiLayer * HexParaCrystalBuilder::buildSample() const 
 ";
 
 
@@ -4612,7 +4943,12 @@ Create new histogram by applying crop on axis.
 
 
 // File: classHistogram2D.xml
-%feature("docstring") Histogram2D "";
+%feature("docstring") Histogram2D "
+
+Two dimensional histogram.
+
+C++ includes: Histogram2D.h
+";
 
 %feature("docstring")  Histogram2D::Histogram2D "Histogram2D::Histogram2D(int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup)
 
@@ -4754,7 +5090,7 @@ Create new histogram by applying rectangular clip.
 // File: classHomogeneousMagneticMaterial.xml
 %feature("docstring") HomogeneousMagneticMaterial "
 
-An homogeneous material with magnetization.
+A homogeneous material with magnetization.
 
 C++ includes: HomogeneousMagneticMaterial.h
 ";
@@ -4794,7 +5130,7 @@ Indicates that the material is not scalar. This means that different polarizatio
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::createTransformedMaterial "const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const IRotation &rotation) const
+%feature("docstring")  HomogeneousMagneticMaterial::createTransformedMaterial "const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Transform3D &transform) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -4821,27 +5157,21 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 %feature("docstring")  HomogeneousMaterial::~HomogeneousMaterial "virtual HomogeneousMaterial::~HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const
-
-Clone. 
+%feature("docstring")  HomogeneousMaterial::clone "virtual HomogeneousMaterial* HomogeneousMaterial::clone() const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::getRefractiveIndex "virtual complex_t HomogeneousMaterial::getRefractiveIndex() const
-
-Return refractive index. 
+%feature("docstring")  HomogeneousMaterial::getRefractiveIndex "virtual complex_t HomogeneousMaterial::getRefractiveIndex() const 
 ";
 
 %feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
-
-Set refractive index. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::getScatteringMatrix "Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double k_mag2) const
+%feature("docstring")  HomogeneousMaterial::getScatteringMatrix "virtual Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double) const
 
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const IMaterial * HomogeneousMaterial::createTransformedMaterial(const IRotation &rotation) const
+%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Transform3D &) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -4850,14 +5180,12 @@ Create a new material that is transformed with respect to this one.
 // File: classGeometry_1_1HorizontalLine.xml
 %feature("docstring") Geometry::HorizontalLine "
 
-Horizontal infinite line.
+An infinite horizontal line.
 
 C++ includes: Line.h
 ";
 
 %feature("docstring")  Geometry::HorizontalLine::HorizontalLine "Geometry::HorizontalLine::HorizontalLine(double y)
-
-Infinite vertical line constructor
 
 Parameters:
 -----------
@@ -4866,17 +5194,17 @@ y:
 The value at which it crosses y-axes 
 ";
 
-%feature("docstring")  Geometry::HorizontalLine::clone "HorizontalLine * Geometry::HorizontalLine::clone() const 
+%feature("docstring")  Geometry::HorizontalLine::clone "HorizontalLine* Geometry::HorizontalLine::clone() const 
 ";
 
 %feature("docstring")  Geometry::HorizontalLine::contains "bool Geometry::HorizontalLine::contains(double x, double y) const
 
-Returns true if given point is on this line segment. 
+Returns true if point with given coordinates is inside or on border of the shape. 
 ";
 
 %feature("docstring")  Geometry::HorizontalLine::contains "bool Geometry::HorizontalLine::contains(const Bin1D &binx, const Bin1D &biny) const
 
-Returns true if the line crosses the area defined by two given bins. 
+Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 ";
 
 %feature("docstring")  Geometry::HorizontalLine::getYpos "double Geometry::HorizontalLine::getYpos() const 
@@ -4888,7 +5216,9 @@ Returns true if the line crosses the area defined by two given bins.
 
 Interface for a generic particle.
 
-C++ includes: IParticle.h
+Inherited by  IParticle and  ParticleDistribution.
+
+C++ includes: IAbstractParticle.h
 ";
 
 %feature("docstring")  IAbstractParticle::IAbstractParticle "IAbstractParticle::IAbstractParticle()
@@ -4907,29 +5237,25 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  IAbstractParticle::accept "void IAbstractParticle::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IAbstractParticle::accept "virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const
 
-calls the  ISampleVisitor's visit method 
+Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  IAbstractParticle::setAmbientMaterial "void IAbstractParticle::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)=0
 
 Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
 
-%feature("docstring")  IAbstractParticle::getAbundance "double IAbstractParticle::getAbundance() const
-
-Returns abundance. 
+%feature("docstring")  IAbstractParticle::getAbundance "double IAbstractParticle::getAbundance() const 
 ";
 
 %feature("docstring")  IAbstractParticle::setAbundance "void IAbstractParticle::setAbundance(double abundance)
-
-Sets abundance. 
 ";
 
 %feature("docstring")  IAbstractParticle::getAmbientMaterial "virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 
@@ -4961,7 +5287,7 @@ Creates a new axis with half the number of bins.
 destructor 
 ";
 
-%feature("docstring")  IAxis::getSize "virtual size_t IAxis::getSize() const =0
+%feature("docstring")  IAxis::size "virtual size_t IAxis::size() const =0
 
 retrieve the number of bins 
 ";
@@ -4999,6 +5325,11 @@ Returns value of last point of axis.
 find bin index which is best match for given value 
 ";
 
+%feature("docstring")  IAxis::findIndex "size_t IAxis::findIndex(double value) const
+
+find index of bin that contains the given value returns  size() when value is not found 
+";
+
 %feature("docstring")  IAxis::getBinCenters "std::vector< double > IAxis::getBinCenters() const 
 ";
 
@@ -5019,7 +5350,9 @@ Returns true if axis contains given point.
 // File: classIChiSquaredModule.xml
 %feature("docstring") IChiSquaredModule "
 
-Interface for  ChiSquaredModule for chi2 calculations. Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
+Interface for  ChiSquaredModule for chi2 calculations.
+
+Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
 
 C++ includes: IChiSquaredModule.h
 ";
@@ -5080,17 +5413,11 @@ Sets data rescaler.
 // File: classICloneable.xml
 %feature("docstring") ICloneable "
 
-Interface for objects that must not be copied, except by cloning.
+Mix-in for objects that must not be copied, except by cloning.
 
-This virtual base class disables the copy constructor and the operator= in all its child classes. Child classes should provide clone().
+The base class  INoncopyable disables the copy constructor and the operator= in all its child classes. Child classes of  ICloneable should provide clone().
 
 C++ includes: ICloneable.h
-";
-
-%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
-";
-
-%feature("docstring")  ICloneable::~ICloneable "virtual ICloneable::~ICloneable()
 ";
 
 %feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
@@ -5105,7 +5432,7 @@ Used for Python overriding of clone.
 // File: classIClusteredParticles.xml
 %feature("docstring") IClusteredParticles "
 
-An ordered assembly of particles.
+An ordered assembly of particles. Currently, the only child class is  Crystal.
 
 C++ includes: IClusteredParticles.h
 ";
@@ -5113,12 +5440,9 @@ C++ includes: IClusteredParticles.h
 %feature("docstring")  IClusteredParticles::IClusteredParticles "IClusteredParticles::IClusteredParticles()
 ";
 
-%feature("docstring")  IClusteredParticles::~IClusteredParticles "virtual IClusteredParticles::~IClusteredParticles()
-";
-
 %feature("docstring")  IClusteredParticles::clone "virtual IClusteredParticles* IClusteredParticles::clone() const =0
 
-clone method to allow for polymorphic copying 
+Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IClusteredParticles::cloneInvertB "virtual IClusteredParticles* IClusteredParticles::cloneInvertB() const =0
@@ -5135,9 +5459,11 @@ calls the  ISampleVisitor's visit method
 ";
 
 %feature("docstring")  IClusteredParticles::getAmbientMaterial "virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
+
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, kvector_t) const =0
+%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
@@ -5151,7 +5477,9 @@ Composes transformation with existing one.
 // File: classICompositeSample.xml
 %feature("docstring") ICompositeSample "
 
-Interface to describe the tree-like composition of samples.
+Pure virtual base class for tree-like composite samples.
+
+Inherited by  IAbstractParticle, IClusteredParticle,  ILayout, ILayer, IMultiLayer.
 
 C++ includes: ICompositeSample.h
 ";
@@ -5159,17 +5487,17 @@ C++ includes: ICompositeSample.h
 %feature("docstring")  ICompositeSample::ICompositeSample "ICompositeSample::ICompositeSample()
 ";
 
-%feature("docstring")  ICompositeSample::~ICompositeSample "virtual ICompositeSample::~ICompositeSample()
+%feature("docstring")  ICompositeSample::~ICompositeSample "ICompositeSample::~ICompositeSample()
 ";
 
-%feature("docstring")  ICompositeSample::clone "ICompositeSample* ICompositeSample::clone() const =0
+%feature("docstring")  ICompositeSample::clone "virtual ICompositeSample* ICompositeSample::clone() const =0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ICompositeSample::accept "void ICompositeSample::accept(ISampleVisitor *visitor) const
+%feature("docstring")  ICompositeSample::accept "virtual void ICompositeSample::accept(ISampleVisitor *visitor) const =0
 
-calls the  ISampleVisitor's visit method 
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  ICompositeSample::registerChild "void ICompositeSample::registerChild(ISample *sample)
@@ -5184,17 +5512,17 @@ Removes registered child from the container.
 remove registered child from the container 
 ";
 
-%feature("docstring")  ICompositeSample::getChildren "std::vector< const ISample * > ICompositeSample::getChildren() const
+%feature("docstring")  ICompositeSample::getChildren "std::vector< const ISample * > ICompositeSample::getChildren() const final
 
 Returns a vector of children (const). 
 ";
 
-%feature("docstring")  ICompositeSample::size "size_t ICompositeSample::size() const
+%feature("docstring")  ICompositeSample::size "size_t ICompositeSample::size() const final
 
 Returns number of children. 
 ";
 
-%feature("docstring")  ICompositeSample::addParametersToExternalPool "std::string ICompositeSample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  ICompositeSample::addParametersToExternalPool "std::string ICompositeSample::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -5215,16 +5543,13 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::IDetector2D "IDetector2D::IDetector2D()
 ";
 
-%feature("docstring")  IDetector2D::IDetector2D "IDetector2D::IDetector2D(const IDetector2D &other)
-";
-
 %feature("docstring")  IDetector2D::clone "virtual IDetector2D* IDetector2D::clone() const =0
 ";
 
-%feature("docstring")  IDetector2D::~IDetector2D "virtual IDetector2D::~IDetector2D()
+%feature("docstring")  IDetector2D::~IDetector2D "IDetector2D::~IDetector2D()
 ";
 
-%feature("docstring")  IDetector2D::init "void IDetector2D::init(const Beam &beam)
+%feature("docstring")  IDetector2D::init "virtual void IDetector2D::init(const Beam &)
 
 Inits detector with the beam settings. 
 ";
@@ -5239,11 +5564,6 @@ Inits detector with the beam settings.
 ";
 
 %feature("docstring")  IDetector2D::clear "void IDetector2D::clear()
-";
-
-%feature("docstring")  IDetector2D::matchDetectorAxes "void IDetector2D::matchDetectorAxes(const OutputData< double > &output_data)
-
-Sets detector parameters using axes of output data. 
 ";
 
 %feature("docstring")  IDetector2D::setDetectorParameters "void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -5274,11 +5594,6 @@ Applies the detector resolution to the given intensity maps.
 Sets the polarization analyzer characteristics of the detector. 
 ";
 
-%feature("docstring")  IDetector2D::getAnalyzerOperator "Eigen::Matrix2cd IDetector2D::getAnalyzerOperator() const
-
-Gets the polarization density matrix (in spin basis along z-axis) 
-";
-
 %feature("docstring")  IDetector2D::removeMasks "void IDetector2D::removeMasks()
 
 removes all masks from the detector 
@@ -5306,7 +5621,7 @@ Put the mask for all detector channels (i.e. exclude whole detector from the ana
 %feature("docstring")  IDetector2D::getDetectorMask "const DetectorMask * IDetector2D::getDetectorMask() const 
 ";
 
-%feature("docstring")  IDetector2D::getNumberOfMaskedChannels "int IDetector2D::getNumberOfMaskedChannels() const 
+%feature("docstring")  IDetector2D::numberOfMaskedChannels "size_t IDetector2D::numberOfMaskedChannels() const 
 ";
 
 %feature("docstring")  IDetector2D::isMasked "bool IDetector2D::isMasked(size_t index) const 
@@ -5324,17 +5639,27 @@ Create a vector of  SimulationElement objects according to the detector and its 
 
 %feature("docstring")  IDetector2D::getSimulationElement "SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
 
-create single simulation element 
+Creates single simulation element. 
 ";
 
-%feature("docstring")  IDetector2D::addParametersToExternalPool "std::string IDetector2D::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  IDetector2D::addParametersToExternalPool "std::string IDetector2D::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
+%feature("docstring")  IDetector2D::createDetectorIntensity "OutputData< double > * IDetector2D::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
 
-Returns detector map in given axes units. 
+Returns new intensity map with detector resolution applied and axes in requested units. 
+";
+
+%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units) const
+
+Returns empty detector map in given axes units. 
+";
+
+%feature("docstring")  IDetector2D::initOutputData "void IDetector2D::initOutputData(OutputData< double > &data) const
+
+Inits axes of  OutputData to match the detector and sets values to zero. 
 ";
 
 %feature("docstring")  IDetector2D::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > IDetector2D::getValidAxesUnits() const
@@ -5342,9 +5667,39 @@ Returns detector map in given axes units.
 returns vector of valid axes units 
 ";
 
-%feature("docstring")  IDetector2D::getDefaultAxesUnits "IDetector2D::EAxesUnits IDetector2D::getDefaultAxesUnits() const
+%feature("docstring")  IDetector2D::getDefaultAxesUnits "virtual EAxesUnits IDetector2D::getDefaultAxesUnits() const
 
 return default axes units 
+";
+
+%feature("docstring")  IDetector2D::regionOfInterest "const RegionOfInterest * IDetector2D::regionOfInterest() const
+
+Returns region of interest if exists. 
+";
+
+%feature("docstring")  IDetector2D::setRegionOfInterest "void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+Sets rectangular region of interest with lower left and upper right corners defined. 
+";
+
+%feature("docstring")  IDetector2D::resetRegionOfInterest "void IDetector2D::resetRegionOfInterest()
+
+Resets region of interest making whole detector plane available for the simulation. 
+";
+
+%feature("docstring")  IDetector2D::getTotalSize "size_t IDetector2D::getTotalSize() const
+
+Returns total number of pixels. 
+";
+
+%feature("docstring")  IDetector2D::getAxisBinIndex "size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
+
+Calculate axis index for given global index. 
+";
+
+%feature("docstring")  IDetector2D::numberOfSimulationElements "size_t IDetector2D::numberOfSimulationElements() const
+
+Returns number of simulation elements. 
 ";
 
 
@@ -5387,9 +5742,7 @@ C++ includes: Distributions.h
 %feature("docstring")  IDistribution1D::~IDistribution1D "virtual IDistribution1D::~IDistribution1D()
 ";
 
-%feature("docstring")  IDistribution1D::clone "virtual IDistribution1D* IDistribution1D::clone() const
-
-clone method 
+%feature("docstring")  IDistribution1D::clone "IDistribution1D * IDistribution1D::clone() const 
 ";
 
 %feature("docstring")  IDistribution1D::probabilityDensity "virtual double IDistribution1D::probabilityDensity(double x) const =0
@@ -5402,7 +5755,7 @@ get the probability density for value x
 get the mean of the distribution 
 ";
 
-%feature("docstring")  IDistribution1D::generateSamples "std::vector< ParameterSample > IDistribution1D::generateSamples(size_t nbr_samples, double sigma_factor=0.0, const AttLimits &limits=AttLimits()) const
+%feature("docstring")  IDistribution1D::generateSamples "std::vector< ParameterSample > IDistribution1D::generateSamples(size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits()) const
 
 generate list of sampled values with their weight xmin, xmax for sample generations are deduced from sigma_factor and possible limits 
 ";
@@ -5412,7 +5765,7 @@ generate list of sampled values with their weight xmin, xmax for sample generati
 generate list of sampled values with their weight within given xmin, xmax 
 ";
 
-%feature("docstring")  IDistribution1D::generateValueList "virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const AttLimits &limits=AttLimits()) const =0
+%feature("docstring")  IDistribution1D::generateValueList "virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
 
 generate list of sample values
 
@@ -5432,6 +5785,8 @@ vector of generated values
 
 %feature("docstring")  IDistribution1D::generateValues "std::vector< double > IDistribution1D::generateValues(size_t nbr_samples, double xmin, double xmax) const
 
+Interface.
+
 generate list of sample values
 
 Parameters:
@@ -5445,6 +5800,16 @@ xmax:
 start and end value of the generated samples
 
 vector of generated values 
+";
+
+%feature("docstring")  IDistribution1D::getMeanSample "ParameterSample IDistribution1D::getMeanSample() const
+
+generate a single sample containing the mean value and weight 1 
+";
+
+%feature("docstring")  IDistribution1D::isDelta "virtual bool IDistribution1D::isDelta() const =0
+
+signals that the distribution is in the limit case of a delta distribution 
 ";
 
 
@@ -5464,12 +5829,7 @@ C++ includes: IFactory.h
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
-%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
-
-Registers object's creation function. 
-";
-
-%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription)
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription=\"\")
 
 Registers object's creation function and store object description. 
 ";
@@ -5482,23 +5842,90 @@ Registers object's creation function and store object description.
 Returns number of registered objects. 
 ";
 
-%feature("docstring")  IFactory::begin "iterator IFactory< Key, AbstractProduct >::begin()
-";
-
 %feature("docstring")  IFactory::begin "const_iterator IFactory< Key, AbstractProduct >::begin() const 
-";
-
-%feature("docstring")  IFactory::end "iterator IFactory< Key, AbstractProduct >::end()
 ";
 
 %feature("docstring")  IFactory::end "const_iterator IFactory< Key, AbstractProduct >::end() const 
 ";
 
 
+// File: classIFitObserver.xml
+%feature("docstring") IFitObserver "
+
+Base class for all fit observers. Calls update method in following cases: first iteration, every n-th iteration, last iteration and when fit strategy has changed.
+
+C++ includes: IFitObserver.h
+";
+
+%feature("docstring")  IFitObserver::IFitObserver "IFitObserver::IFitObserver(int update_every_nth)
+";
+
+%feature("docstring")  IFitObserver::notify "void IFitObserver::notify(IObservable *subject)
+
+The method used by Ovservable when he wants to be observed by this. 
+";
+
+%feature("docstring")  IFitObserver::update "void IFitObserver::update(FitSuite *fit_suite)
+
+Here Onserver will do actuall job when he thinks that it is a right moment. 
+";
+
+
+// File: classIFitStrategy.xml
+%feature("docstring") IFitStrategy "
+
+Interface to concrete fit strategy.
+
+Concrete implementation should manipulate with fit parameters/data and then call minimizer.
+
+C++ includes: IFitStrategy.h
+";
+
+%feature("docstring")  IFitStrategy::IFitStrategy "IFitStrategy::IFitStrategy(const std::string &name)
+";
+
+%feature("docstring")  IFitStrategy::~IFitStrategy "virtual IFitStrategy::~IFitStrategy()
+";
+
+%feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const =0
+";
+
+%feature("docstring")  IFitStrategy::init "void IFitStrategy::init(FitSuiteImpl *fit_suite)
+";
+
+%feature("docstring")  IFitStrategy::execute "virtual void IFitStrategy::execute()=0
+";
+
+
+// File: classIFitSuiteFunction.xml
+%feature("docstring") IFitSuiteFunction "
+
+Fitting functions interface to be used by Minimizer.
+
+C++ includes: FitSuiteFunctions.h
+";
+
+%feature("docstring")  IFitSuiteFunction::IFitSuiteFunction "IFitSuiteFunction::IFitSuiteFunction()
+";
+
+%feature("docstring")  IFitSuiteFunction::~IFitSuiteFunction "virtual IFitSuiteFunction::~IFitSuiteFunction()
+";
+
+%feature("docstring")  IFitSuiteFunction::init "virtual void IFitSuiteFunction::init(FitSuiteImpl *fit_suite)
+";
+
+%feature("docstring")  IFitSuiteFunction::getNCalls "virtual size_t IFitSuiteFunction::getNCalls() const 
+";
+
+
 // File: classIFormFactor.xml
 %feature("docstring") IFormFactor "
 
-The basic interface for form factors.
+Pure virtual base class for all form factors.
+
+The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
+
+Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
 
 C++ includes: IFormFactor.h
 ";
@@ -5506,22 +5933,27 @@ C++ includes: IFormFactor.h
 %feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor()
 ";
 
-%feature("docstring")  IFormFactor::~IFormFactor "virtual IFormFactor::~IFormFactor()
+%feature("docstring")  IFormFactor::~IFormFactor "IFormFactor::~IFormFactor() override
 ";
 
-%feature("docstring")  IFormFactor::clone "virtual IFormFactor* IFormFactor::clone() const =0
+%feature("docstring")  IFormFactor::clone "IFormFactor* IFormFactor::clone() const override=0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const class IMaterial &)
+%feature("docstring")  IFormFactor::accept "void IFormFactor::accept(ISampleVisitor *visitor) const override=0
+
+Calls the  ISampleVisitor's visit method. 
+";
+
+%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
 %feature("docstring")  IFormFactor::evaluate "virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
-Returns scattering amplitude for complex wavevector bin. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 %feature("docstring")  IFormFactor::evaluatePol "Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo &wavevectors) const
@@ -5534,7 +5966,7 @@ Returns scattering amplitude for matrix interactions.
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  IFormFactor::getRadius "virtual double IFormFactor::getRadius() const =0
+%feature("docstring")  IFormFactor::getRadialExtension "virtual double IFormFactor::getRadialExtension() const =0
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -5548,7 +5980,9 @@ Sets reflection/transmission info.
 // File: classIFormFactorBorn.xml
 %feature("docstring") IFormFactorBorn "
 
-Pure virtual interface for Born form factors. Depends only on q=ki-kf.
+Pure virtual base class for Born form factors.
+
+In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
 C++ includes: IFormFactorBorn.h
 ";
@@ -5556,45 +5990,36 @@ C++ includes: IFormFactorBorn.h
 %feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()
 ";
 
-%feature("docstring")  IFormFactorBorn::~IFormFactorBorn "virtual IFormFactorBorn::~IFormFactorBorn()
+%feature("docstring")  IFormFactorBorn::~IFormFactorBorn "IFormFactorBorn::~IFormFactorBorn() override
 ";
 
-%feature("docstring")  IFormFactorBorn::clone "virtual IFormFactorBorn* IFormFactorBorn::clone() const =0
+%feature("docstring")  IFormFactorBorn::clone "IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactorBorn::accept "virtual void IFormFactorBorn::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
 
-Calls the  ISampleVisitor's visit method. 
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
-%feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const
-
-Returns scattering amplitude for complex wavevector bin. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const
+%feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const override
 
 Returns scattering amplitude for matrix interactions. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
 
-evaluate scattering amplitude for complex wavevector
-
-Parameters:
------------
-
-q: 
-wavevector transfer q=k_i-k_f 
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
 // File: classIFormFactorDecorator.xml
 %feature("docstring") IFormFactorDecorator "
 
-Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, ...).
+Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
+
+This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
 
 C++ includes: IFormFactorDecorator.h
 ";
@@ -5602,28 +6027,30 @@ C++ includes: IFormFactorDecorator.h
 %feature("docstring")  IFormFactorDecorator::IFormFactorDecorator "IFormFactorDecorator::IFormFactorDecorator(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  IFormFactorDecorator::~IFormFactorDecorator "IFormFactorDecorator::~IFormFactorDecorator()
+%feature("docstring")  IFormFactorDecorator::~IFormFactorDecorator "IFormFactorDecorator::~IFormFactorDecorator() override
 ";
 
-%feature("docstring")  IFormFactorDecorator::clone "virtual IFormFactorDecorator* IFormFactorDecorator::clone() const =0
+%feature("docstring")  IFormFactorDecorator::clone "IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactorDecorator::accept "virtual void IFormFactorDecorator::accept(ISampleVisitor *visitor) const =0
+%feature("docstring")  IFormFactorDecorator::accept "void IFormFactorDecorator::accept(ISampleVisitor *visitor) const override=0
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
-%feature("docstring")  IFormFactorDecorator::getVolume "double IFormFactorDecorator::getVolume() const
+%feature("docstring")  IFormFactorDecorator::getVolume "double IFormFactorDecorator::getVolume() const override
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
 
-%feature("docstring")  IFormFactorDecorator::getRadius "double IFormFactorDecorator::getRadius() const
+%feature("docstring")  IFormFactorDecorator::getRadialExtension "double IFormFactorDecorator::getRadialExtension() const override
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -5632,15 +6059,12 @@ Returns the (approximate in some cases) radial size of the particle of this form
 // File: classIFTDecayFunction1D.xml
 %feature("docstring") IFTDecayFunction1D "
 
-Interface for 1 dimensional decay function in reciprocal space.
+Interface for a one-dimensional decay function, with evaluate(q) returning the Fourier transform, normalized to  $\\\\int dq\\\\; {\\\\rm evaluate}(q) = 1$.
 
 C++ includes: FTDecayFunctions.h
 ";
 
 %feature("docstring")  IFTDecayFunction1D::IFTDecayFunction1D "IFTDecayFunction1D::IFTDecayFunction1D(double omega)
-";
-
-%feature("docstring")  IFTDecayFunction1D::~IFTDecayFunction1D "virtual IFTDecayFunction1D::~IFTDecayFunction1D()
 ";
 
 %feature("docstring")  IFTDecayFunction1D::clone "virtual IFTDecayFunction1D* IFTDecayFunction1D::clone() const =0
@@ -5659,15 +6083,12 @@ C++ includes: FTDecayFunctions.h
 // File: classIFTDecayFunction2D.xml
 %feature("docstring") IFTDecayFunction2D "
 
-Interface for 2 dimensional decay function in reciprocal space.
+Interface for two-dimensional decay function in reciprocal space.
 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y)
-";
-
-%feature("docstring")  IFTDecayFunction2D::~IFTDecayFunction2D "virtual IFTDecayFunction2D::~IFTDecayFunction2D()
+%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 ";
 
 %feature("docstring")  IFTDecayFunction2D::clone "virtual IFTDecayFunction2D* IFTDecayFunction2D::clone() const =0
@@ -5712,21 +6133,20 @@ transform back to a*, b* basis:
 // File: classIFTDistribution1D.xml
 %feature("docstring") IFTDistribution1D "
 
-Interface for 1 dimensional distributions in Fourier space.
+Interface for a one-dimensional distribution, with normalization adjusted so that the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  IFTDistribution1D::IFTDistribution1D "IFTDistribution1D::IFTDistribution1D(double omega)
-";
-
-%feature("docstring")  IFTDistribution1D::~IFTDistribution1D "virtual IFTDistribution1D::~IFTDistribution1D()
 ";
 
 %feature("docstring")  IFTDistribution1D::clone "virtual IFTDistribution1D* IFTDistribution1D::clone() const =0
 ";
 
 %feature("docstring")  IFTDistribution1D::evaluate "virtual double IFTDistribution1D::evaluate(double q) const =0
+
+Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
 %feature("docstring")  IFTDistribution1D::setOmega "void IFTDistribution1D::setOmega(double omega)
@@ -5739,15 +6159,12 @@ C++ includes: FTDistributions.h
 // File: classIFTDistribution2D.xml
 %feature("docstring") IFTDistribution2D "
 
-Interface for 2 dimensional distributions in Fourier space.
+Interface for two-dimensional distributions in Fourier space.
 
-C++ includes: FTDistributions.h
+C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y)
-";
-
-%feature("docstring")  IFTDistribution2D::~IFTDistribution2D "virtual IFTDistribution2D::~IFTDistribution2D()
+%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 ";
 
 %feature("docstring")  IFTDistribution2D::clone "virtual IFTDistribution2D* IFTDistribution2D::clone() const =0
@@ -5771,45 +6188,6 @@ C++ includes: FTDistributions.h
 %feature("docstring")  IFTDistribution2D::evaluate "virtual double IFTDistribution2D::evaluate(double qx, double qy) const =0
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
-";
-
-
-// File: classIFunctionalTest.xml
-%feature("docstring") IFunctionalTest "
-
-Base class for all functional tests.
-
-C++ includes: IFunctionalTest.h
-";
-
-%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest()
-";
-
-%feature("docstring")  IFunctionalTest::IFunctionalTest "IFunctionalTest::IFunctionalTest(const std::string &name, const std::string &description)
-";
-
-%feature("docstring")  IFunctionalTest::~IFunctionalTest "virtual IFunctionalTest::~IFunctionalTest()
-";
-
-%feature("docstring")  IFunctionalTest::runTest "virtual void IFunctionalTest::runTest()=0
-";
-
-%feature("docstring")  IFunctionalTest::analyseResults "virtual int IFunctionalTest::analyseResults()=0
-";
-
-%feature("docstring")  IFunctionalTest::getDescription "std::string IFunctionalTest::getDescription() const 
-";
-
-%feature("docstring")  IFunctionalTest::setDescription "void IFunctionalTest::setDescription(const std::string &description)
-";
-
-%feature("docstring")  IFunctionalTest::getTestResult "ETestResult IFunctionalTest::getTestResult() const 
-";
-
-%feature("docstring")  IFunctionalTest::getTestResultString "std::string IFunctionalTest::getTestResultString() const 
-";
-
-%feature("docstring")  IFunctionalTest::getFormattedInfoString "std::string IFunctionalTest::getFormattedInfoString() const 
 ";
 
 
@@ -5839,7 +6217,7 @@ C++ includes: IHistogram.h
 %feature("docstring")  IHistogram::clone "virtual IHistogram* IHistogram::clone() const =0
 ";
 
-%feature("docstring")  IHistogram::getRank "size_t IHistogram::getRank() const
+%feature("docstring")  IHistogram::getRank "virtual size_t IHistogram::getRank() const =0
 
 Returns number of histogram dimensions. 
 ";
@@ -5849,12 +6227,12 @@ Returns number of histogram dimensions.
 Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. 
 ";
 
-%feature("docstring")  IHistogram::getXaxis "const IAxis * IHistogram::getXaxis() const
+%feature("docstring")  IHistogram::getXaxis "const IAxis & IHistogram::getXaxis() const
 
 returns x-axis 
 ";
 
-%feature("docstring")  IHistogram::getYaxis "const IAxis * IHistogram::getYaxis() const
+%feature("docstring")  IHistogram::getYaxis "const IAxis & IHistogram::getYaxis() const
 
 returns y-axis for 2D histograms 
 ";
@@ -5921,17 +6299,17 @@ Value on y-axis (for 2D histograms)
 Closest global bin index 
 ";
 
-%feature("docstring")  IHistogram::getXaxisIndex "int IHistogram::getXaxisIndex(size_t globalbin) const
+%feature("docstring")  IHistogram::getXaxisIndex "int IHistogram::getXaxisIndex(size_t i) const
 
 Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
 ";
 
-%feature("docstring")  IHistogram::getYaxisIndex "int IHistogram::getYaxisIndex(size_t globalbin) const
+%feature("docstring")  IHistogram::getYaxisIndex "int IHistogram::getYaxisIndex(size_t i) const
 
 Returns y-axis bin index for given globalbin (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getXaxisValue "double IHistogram::getXaxisValue(size_t globalbin)
+%feature("docstring")  IHistogram::getXaxisValue "double IHistogram::getXaxisValue(size_t i)
 
 Returns the value on x-axis corresponding to the global bin index.
 
@@ -5944,7 +6322,7 @@ The global bin index
 The center of corresponding bin of the axis 
 ";
 
-%feature("docstring")  IHistogram::getYaxisValue "double IHistogram::getYaxisValue(size_t globalbin)
+%feature("docstring")  IHistogram::getYaxisValue "double IHistogram::getYaxisValue(size_t i)
 
 Returns the value on y-axis corresponding to the 2D histogram global bin index.
 
@@ -5957,7 +6335,7 @@ The global bin index
 The center of corresponding bin of the axis 
 ";
 
-%feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t globalbin) const
+%feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t i) const
 
 Returns content (accumulated value) of the bin with given index.
 
@@ -5968,6 +6346,12 @@ globalbin:
 The global bin index
 
 The value accumulated by the bin (integral) 
+";
+
+%feature("docstring")  IHistogram::getData "const OutputData<CumulativeValue>& IHistogram::getData() const 
+";
+
+%feature("docstring")  IHistogram::getData "OutputData<CumulativeValue>& IHistogram::getData()
 ";
 
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t binx, size_t biny) const
@@ -5986,17 +6370,17 @@ y-axis bin index
 The value accumulated by the bin (integral) 
 ";
 
-%feature("docstring")  IHistogram::setBinContent "void IHistogram::setBinContent(size_t globalbin, double value)
+%feature("docstring")  IHistogram::setBinContent "void IHistogram::setBinContent(size_t i, double value)
 
 Sets content of the bin corresponding to the globalbin number. 
 ";
 
-%feature("docstring")  IHistogram::addBinContent "void IHistogram::addBinContent(size_t globalbin, double value)
+%feature("docstring")  IHistogram::addBinContent "void IHistogram::addBinContent(size_t i, double value)
 
 Add the value to the bin. 
 ";
 
-%feature("docstring")  IHistogram::getBinError "double IHistogram::getBinError(size_t globalbin) const
+%feature("docstring")  IHistogram::getBinError "double IHistogram::getBinError(size_t i) const
 
 Returns error of the bin with given index. 
 ";
@@ -6006,7 +6390,7 @@ Returns error of the bin with given index.
 Returns error of the bin with given indices (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getBinAverage "double IHistogram::getBinAverage(size_t globalbin) const
+%feature("docstring")  IHistogram::getBinAverage "double IHistogram::getBinAverage(size_t i) const
 
 Returns average value in the bin with given index. 
 ";
@@ -6016,7 +6400,7 @@ Returns average value in the bin with given index.
 Returns average value of the bin with given indices (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getBinNumberOfEntries "int IHistogram::getBinNumberOfEntries(size_t globalbin) const
+%feature("docstring")  IHistogram::getBinNumberOfEntries "int IHistogram::getBinNumberOfEntries(size_t i) const
 
 Returns number of entries in the bin with given index. 
 ";
@@ -6139,7 +6523,7 @@ C++ includes: IIntensityNormalizer.h
 // File: classIInterferenceFunction.xml
 %feature("docstring") IInterferenceFunction "
 
-Interface to interference functions.
+Pure virtual base class of interference functions.
 
 C++ includes: IInterferenceFunction.h
 ";
@@ -6147,19 +6531,19 @@ C++ includes: IInterferenceFunction.h
 %feature("docstring")  IInterferenceFunction::~IInterferenceFunction "virtual IInterferenceFunction::~IInterferenceFunction()
 ";
 
-%feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  IInterferenceFunction::clone "virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IInterferenceFunction::accept "virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IInterferenceFunction::accept "virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const =0
 
 Calls the  ISampleVisitor's visit method. 
+";
+
+%feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+
+Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
 %feature("docstring")  IInterferenceFunction::getKappa "virtual double IInterferenceFunction::getKappa() const
@@ -6176,25 +6560,25 @@ If defined by this interference function's parameters, returns the particle dens
 // File: classIInterferenceFunctionStrategy.xml
 %feature("docstring") IInterferenceFunctionStrategy "
 
-Algorithm to apply one of interference function strategies (LMA, SCCA etc)
+Pure virtual base class of all interference function strategy classes. Provides an 'evaluate' function that computes the total scattering intensity from a decorated layer, taking into account a specific inter-particle interference function. This function uses low-level functions precomputeParticleFormfactors, evaluateForList that are implemented differently in different inheriting classes. Multiple inheritance is used to support scalar and polarized scattering (through  IInterferenceFunctionStrategy1,  IInterferenceFunctionStrategy2) and to implement different approximation schemes ( DecouplingApproximationStrategy1,  SSCApproximationStrategy1, and their polarized counterparts).
+
+Instantiation of child classes takes place in  LayerStrategyBuilder::createStrategy, which is called from  DecoratedLayerComputation::eval.
 
 C++ includes: IInterferenceFunctionStrategy.h
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(SimulationOptions sim_params)
+%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
+";
+
+%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions &sim_params)
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
+%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorWrapper > &weighted_formfactors, const IInterferenceFunction &iff, const LayerSpecularInfo &specular_info)
 
 Initializes the object with form factors and interference functions. 
-";
-
-%feature("docstring")  IInterferenceFunctionStrategy::setSpecularInfo "void IInterferenceFunctionStrategy::setSpecularInfo(const LayerSpecularInfo &specular_info)
-
-Provides the R,T coefficients information. 
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const SimulationElement &sim_element) const
@@ -6202,9 +6586,22 @@ Provides the R,T coefficients information.
 Calculates the intensity for scalar particles/interactions. 
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::evaluatePol "double IInterferenceFunctionStrategy::evaluatePol(const SimulationElement &sim_element) const
 
-Calculates the intensity in the presence of polarization of beam and detector. 
+// File: classIInterferenceFunctionStrategy1.xml
+%feature("docstring") IInterferenceFunctionStrategy1 "
+
+Pure virtual base class of all scalar interference function strategy classes. Provides the precomputation of particle form factors.
+
+C++ includes: IInterferenceFunctionStrategy.h
+";
+
+
+// File: classIInterferenceFunctionStrategy2.xml
+%feature("docstring") IInterferenceFunctionStrategy2 "
+
+Pure virtual base class of all polarized interference function strategy classes. Provides the precomputation of particle form factors.
+
+C++ includes: IInterferenceFunctionStrategy.h
 ";
 
 
@@ -6324,6 +6721,9 @@ Get total abundance of all particles.
 Returns interference function. 
 ";
 
+%feature("docstring")  ILayout::cloneInterferenceFunction "virtual IInterferenceFunction* ILayout::cloneInterferenceFunction() const =0
+";
+
 %feature("docstring")  ILayout::getTotalParticleSurfaceDensity "virtual double ILayout::getTotalParticleSurfaceDensity() const =0
 
 Returns surface density of all particles. 
@@ -6334,7 +6734,7 @@ Returns surface density of all particles.
 Sets surface density of all particles. 
 ";
 
-%feature("docstring")  ILayout::getApproximation "ILayout::EInterferenceApproximation ILayout::getApproximation() const
+%feature("docstring")  ILayout::getApproximation "EInterferenceApproximation ILayout::getApproximation() const
 
 Gets the used approximation for particles and interference functions. 
 ";
@@ -6354,18 +6754,12 @@ C++ includes: IMaterial.h
 ";
 
 %feature("docstring")  IMaterial::IMaterial "IMaterial::IMaterial(const std::string &name)
-
-Constructor that sets  name. 
 ";
 
 %feature("docstring")  IMaterial::~IMaterial "virtual IMaterial::~IMaterial()
-
-Destructor. 
 ";
 
-%feature("docstring")  IMaterial::clone "IMaterial * IMaterial::clone() const
-
-Clone. 
+%feature("docstring")  IMaterial::clone "IMaterial * IMaterial::clone() const 
 ";
 
 %feature("docstring")  IMaterial::isScalarMaterial "virtual bool IMaterial::isScalarMaterial() const
@@ -6373,9 +6767,10 @@ Clone.
 Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
 ";
 
-%feature("docstring")  IMaterial::getRefractiveIndex "virtual complex_t IMaterial::getRefractiveIndex() const
+%feature("docstring")  IMaterial::isMagneticMaterial "bool IMaterial::isMagneticMaterial() const 
+";
 
-Return refractive index. 
+%feature("docstring")  IMaterial::getRefractiveIndex "virtual complex_t IMaterial::getRefractiveIndex() const 
 ";
 
 %feature("docstring")  IMaterial::getSpecularScatteringMatrix "Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
@@ -6388,9 +6783,39 @@ Get the effective scattering matrix from the refractive index and a given waveve
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  IMaterial::createTransformedMaterial "const IMaterial * IMaterial::createTransformedMaterial(const IRotation &rotation) const
+%feature("docstring")  IMaterial::createTransformedMaterial "virtual const IMaterial* IMaterial::createTransformedMaterial(const Transform3D &transform) const =0
 
 Create a new material that is transformed with respect to this one. 
+";
+
+
+// File: classIMultiLayerBuilder.xml
+%feature("docstring") IMultiLayerBuilder "
+
+Interface to the class capable to build samples to simulate.
+
+C++ includes: IMultiLayerBuilder.h
+";
+
+%feature("docstring")  IMultiLayerBuilder::IMultiLayerBuilder "IMultiLayerBuilder::IMultiLayerBuilder()
+";
+
+%feature("docstring")  IMultiLayerBuilder::~IMultiLayerBuilder "virtual IMultiLayerBuilder::~IMultiLayerBuilder()
+";
+
+%feature("docstring")  IMultiLayerBuilder::buildSample "virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
+";
+
+%feature("docstring")  IMultiLayerBuilder::set_subtest "void IMultiLayerBuilder::set_subtest(const IParameterized *subtest_item)
+";
+
+%feature("docstring")  IMultiLayerBuilder::getFormFactor "const IFormFactor * IMultiLayerBuilder::getFormFactor() const 
+";
+
+%feature("docstring")  IMultiLayerBuilder::getFTDistribution2D "const IFTDistribution2D * IMultiLayerBuilder::getFTDistribution2D() const 
+";
+
+%feature("docstring")  IMultiLayerBuilder::isPythonBuilder "bool IMultiLayerBuilder::isPythonBuilder() const 
 ";
 
 
@@ -6418,7 +6843,7 @@ C++ includes: INamed.h
 // File: classGeometry_1_1InfinitePlane.xml
 %feature("docstring") Geometry::InfinitePlane "
 
-The infinite plane is used in masking to mask everythin once and forever.
+The infinite plane is used for masking everything once and forever.
 
 C++ includes: InfinitePlane.h
 ";
@@ -6426,17 +6851,54 @@ C++ includes: InfinitePlane.h
 %feature("docstring")  Geometry::InfinitePlane::InfinitePlane "Geometry::InfinitePlane::InfinitePlane()
 ";
 
-%feature("docstring")  Geometry::InfinitePlane::clone "InfinitePlane * Geometry::InfinitePlane::clone() const 
+%feature("docstring")  Geometry::InfinitePlane::clone "InfinitePlane* Geometry::InfinitePlane::clone() const 
 ";
 
-%feature("docstring")  Geometry::InfinitePlane::contains "bool Geometry::InfinitePlane::contains(double x, double y) const
+%feature("docstring")  Geometry::InfinitePlane::contains "bool Geometry::InfinitePlane::contains(double, double) const
 
-Returns true if given point is inside or on border of rectangle. 
+Returns true if point with given coordinates is inside or on border of the shape. 
 ";
 
-%feature("docstring")  Geometry::InfinitePlane::contains "bool Geometry::InfinitePlane::contains(const Bin1D &binx, const Bin1D &biny) const
+%feature("docstring")  Geometry::InfinitePlane::contains "bool Geometry::InfinitePlane::contains(const Bin1D &, const Bin1D &) const
 
-Returns true if mid point of two bins is inside rectangle. 
+Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
+";
+
+
+// File: classInnerCounter.xml
+%feature("docstring") InnerCounter "
+
+Base class for threaded computation; keeps count of progress.
+
+C++ includes: InnerCounter.h
+";
+
+%feature("docstring")  InnerCounter::InnerCounter "InnerCounter::InnerCounter()
+";
+
+%feature("docstring")  InnerCounter::stepProgress "void InnerCounter::stepProgress(ProgressHandler *progress)
+
+Increments progress count; at regular intervals updates main progress handler. 
+";
+
+
+// File: classINoncopyable.xml
+%feature("docstring") INoncopyable "
+
+Mix-in for objects that must not be copied.
+
+This virtual base class disables the copy constructor and the operator= in all its child classes.
+
+C++ includes: INoncopyable.h
+";
+
+%feature("docstring")  INoncopyable::INoncopyable "INoncopyable::INoncopyable()
+";
+
+%feature("docstring")  INoncopyable::~INoncopyable "virtual INoncopyable::~INoncopyable()
+";
+
+%feature("docstring")  INoncopyable::INoncopyable "INoncopyable::INoncopyable(const INoncopyable &)=delete
 ";
 
 
@@ -6454,17 +6916,16 @@ C++ includes: Instrument.h
 %feature("docstring")  Instrument::Instrument "Instrument::Instrument(const Instrument &other)
 ";
 
-%feature("docstring")  Instrument::~Instrument "virtual Instrument::~Instrument()
+%feature("docstring")  Instrument::~Instrument "Instrument::~Instrument()
 ";
 
-%feature("docstring")  Instrument::getBeam "Beam Instrument::getBeam() const
+%feature("docstring")  Instrument::getBeam "Beam& Instrument::getBeam()
+";
 
-Returns the beam data. 
+%feature("docstring")  Instrument::getBeam "const Beam& Instrument::getBeam() const 
 ";
 
 %feature("docstring")  Instrument::setBeam "void Instrument::setBeam(const Beam &beam)
-
-Sets the beam data. 
 ";
 
 %feature("docstring")  Instrument::setBeamParameters "void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
@@ -6495,6 +6956,9 @@ Returns the detector data.
 %feature("docstring")  Instrument::getDetector "IDetector2D * Instrument::getDetector()
 ";
 
+%feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const 
+";
+
 %feature("docstring")  Instrument::getDetectorAxis "const IAxis & Instrument::getDetectorAxis(size_t index) const
 
 Returns a detector axis. 
@@ -6508,11 +6972,6 @@ Returns the detector's dimension.
 %feature("docstring")  Instrument::setDetector "void Instrument::setDetector(const IDetector2D &detector)
 
 Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  Instrument::matchDetectorAxes "void Instrument::matchDetectorAxes(const OutputData< double > &output_data)
-
-Sets detector parameters using axes of output data. 
 ";
 
 %feature("docstring")  Instrument::setDetectorParameters "void Instrument::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -6543,9 +7002,14 @@ Sets the polarization analyzer characteristics of the detector.
 apply the detector resolution to the given intensity map 
 ";
 
-%feature("docstring")  Instrument::getDetectorIntensity "OutputData< double > * Instrument::getDetectorIntensity(const OutputData< double > &data, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
 
-Returns clone of the intensity map with detector resolution applied, axes of map will be in requested units 
+Returns new intensity map with detector resolution applied and axes in requested units. 
+";
+
+%feature("docstring")  Instrument::createDetectorMap "OutputData< double > * Instrument::createDetectorMap(IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
+
+Returns empty detector map in given axes units. 
 ";
 
 %feature("docstring")  Instrument::createSimulationElements "std::vector< SimulationElement > Instrument::createSimulationElements()
@@ -6553,7 +7017,7 @@ Returns clone of the intensity map with detector resolution applied, axes of map
 Create a vector of  SimulationElement objects according to the beam, detector and its mask. 
 ";
 
-%feature("docstring")  Instrument::addParametersToExternalPool "std::string Instrument::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  Instrument::addParametersToExternalPool "std::string Instrument::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -6669,7 +7133,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionLog::clone "virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionLog::evaluate "virtual double IntensityFunctionLog::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const 
 ";
 
 
@@ -6687,7 +7151,7 @@ C++ includes: IIntensityFunction.h
 %feature("docstring")  IntensityFunctionSqrt::clone "virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
 ";
 
-%feature("docstring")  IntensityFunctionSqrt::evaluate "virtual double IntensityFunctionSqrt::evaluate(double value) const 
+%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const 
 ";
 
 
@@ -6711,7 +7175,7 @@ C++ includes: IIntensityNormalizer.h
 %feature("docstring")  IntensityNormalizer::createNormalizedData "OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const 
 ";
 
-%feature("docstring")  IntensityNormalizer::apply "void IntensityNormalizer::apply(OutputData< double > &data) const 
+%feature("docstring")  IntensityNormalizer::apply "void IntensityNormalizer::apply(OutputData< double > &data) const final
 ";
 
 %feature("docstring")  IntensityNormalizer::setMaximumIntensity "virtual void IntensityNormalizer::setMaximumIntensity(double max_intensity)
@@ -6729,13 +7193,13 @@ C++ includes: IIntensityNormalizer.h
 %feature("docstring")  IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer "IntensityScaleAndShiftNormalizer::IntensityScaleAndShiftNormalizer(double scale=1.0, double shift=0.0)
 ";
 
-%feature("docstring")  IntensityScaleAndShiftNormalizer::~IntensityScaleAndShiftNormalizer "virtual IntensityScaleAndShiftNormalizer::~IntensityScaleAndShiftNormalizer()
+%feature("docstring")  IntensityScaleAndShiftNormalizer::~IntensityScaleAndShiftNormalizer "IntensityScaleAndShiftNormalizer::~IntensityScaleAndShiftNormalizer() final
 ";
 
-%feature("docstring")  IntensityScaleAndShiftNormalizer::setMaximumIntensity "virtual void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double max_intensity)
+%feature("docstring")  IntensityScaleAndShiftNormalizer::setMaximumIntensity "void IntensityScaleAndShiftNormalizer::setMaximumIntensity(double) final
 ";
 
-%feature("docstring")  IntensityScaleAndShiftNormalizer::clone "virtual IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const 
+%feature("docstring")  IntensityScaleAndShiftNormalizer::clone "IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
 ";
 
 
@@ -6749,8 +7213,6 @@ C++ includes: InterferenceFunction1DLattice.h
 
 %feature("docstring")  InterferenceFunction1DLattice::InterferenceFunction1DLattice "InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
 
-constructor
-
 Parameters:
 -----------
 
@@ -6761,15 +7223,15 @@ xi:
 rotation of lattice with respect to x-axis 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::~InterferenceFunction1DLattice "InterferenceFunction1DLattice::~InterferenceFunction1DLattice()
+%feature("docstring")  InterferenceFunction1DLattice::~InterferenceFunction1DLattice "InterferenceFunction1DLattice::~InterferenceFunction1DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::clone "InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const
+%feature("docstring")  InterferenceFunction1DLattice::clone "InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const
+%feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -6780,10 +7242,10 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  InterferenceFunction1DLattice::getLatticeParameters "Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::getDecayFunction "const IFTDecayFunction1D * InterferenceFunction1DLattice::getDecayFunction() const 
+%feature("docstring")  InterferenceFunction1DLattice::getDecayFunction "const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::evaluate "double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
+%feature("docstring")  InterferenceFunction1DLattice::evaluate "double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -6798,8 +7260,6 @@ C++ includes: InterferenceFunction2DLattice.h
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0)
-
-contructor
 
 Parameters:
 -----------
@@ -6817,15 +7277,15 @@ xi:
 rotation of lattice with respect to x-axis 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::~InterferenceFunction2DLattice "InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
+%feature("docstring")  InterferenceFunction2DLattice::~InterferenceFunction2DLattice "InterferenceFunction2DLattice::~InterferenceFunction2DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::clone "InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const
+%feature("docstring")  InterferenceFunction2DLattice::clone "InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const
+%feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -6833,10 +7293,10 @@ Calls the  ISampleVisitor's visit method.
 %feature("docstring")  InterferenceFunction2DLattice::setDecayFunction "void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::getDecayFunction "const IFTDecayFunction2D * InterferenceFunction2DLattice::getDecayFunction() const 
+%feature("docstring")  InterferenceFunction2DLattice::getDecayFunction "const IFTDecayFunction2D* InterferenceFunction2DLattice::getDecayFunction() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
+%feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -6844,12 +7304,12 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DLattice::getLatticeParameters "Lattice2DParameters InterferenceFunction2DLattice::getLatticeParameters() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::addParametersToExternalPool "std::string InterferenceFunction2DLattice::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  InterferenceFunction2DLattice::addParametersToExternalPool "std::string InterferenceFunction2DLattice::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::getParticleDensity "double InterferenceFunction2DLattice::getParticleDensity() const
+%feature("docstring")  InterferenceFunction2DLattice::getParticleDensity "double InterferenceFunction2DLattice::getParticleDensity() const final
 
 Returns the particle density associated with this 2d lattice. 
 ";
@@ -6864,8 +7324,6 @@ C++ includes: InterferenceFunction2DParaCrystal.h
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0)
-
-constructor of 2D paracrystal interference function
 
 Parameters:
 -----------
@@ -6886,17 +7344,22 @@ damping_length:
 Damping length for removing delta function singularity at q=0. 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
+%feature("docstring")  InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() final
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::clone "InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const
+%feature("docstring")  InterferenceFunction2DParaCrystal::clone "InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const
+%feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunction2DParaCrystal::to_str "std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const final
+
+Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::setDomainSizes "void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)
@@ -6927,10 +7390,7 @@ pdf_2:
 probability distribution in second lattice direction 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::setIntegrationOverXi "void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
-";
-
-%feature("docstring")  InterferenceFunction2DParaCrystal::evaluate "double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
+%feature("docstring")  InterferenceFunction2DParaCrystal::evaluate "double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const final
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -6939,6 +7399,9 @@ Evaluates the interference function for a given wavevector transfer (only the re
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::getProbabilityDistributions "std::vector< const IFTDistribution2D * > InterferenceFunction2DParaCrystal::getProbabilityDistributions() const 
+";
+
+%feature("docstring")  InterferenceFunction2DParaCrystal::setIntegrationOverXi "void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::getIntegrationOverXi "bool InterferenceFunction2DParaCrystal::getIntegrationOverXi() const 
@@ -6950,21 +7413,23 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DParaCrystal::getLatticeParameters "Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::addParametersToExternalPool "std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  InterferenceFunction2DParaCrystal::addParametersToExternalPool "std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
-Adds parameters from local pool to external pool and recursively calls its direct children. 
+Adds parameters from local pool to external pool and recursively calls its direct children.
+
+Copies local parameters to external_pool, under name \"path/<name>copy_number/\". 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getParticleDensity "double InterferenceFunction2DParaCrystal::getParticleDensity() const
+%feature("docstring")  InterferenceFunction2DParaCrystal::getParticleDensity "double InterferenceFunction2DParaCrystal::getParticleDensity() const final
 
-Returns the particle density associated with this 2d paracrystal lattice. 
+If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 ";
 
 
 // File: classInterferenceFunctionNone.xml
 %feature("docstring") InterferenceFunctionNone "
 
-Default interference function (i.e. absence of any interference)
+Default interference function (i.e. absence of any interference).
 
 C++ includes: InterferenceFunctionNone.h
 ";
@@ -6972,17 +7437,17 @@ C++ includes: InterferenceFunctionNone.h
 %feature("docstring")  InterferenceFunctionNone::InterferenceFunctionNone "InterferenceFunctionNone::InterferenceFunctionNone()
 ";
 
-%feature("docstring")  InterferenceFunctionNone::clone "InterferenceFunctionNone * InterferenceFunctionNone::clone() const
+%feature("docstring")  InterferenceFunctionNone::clone "InterferenceFunctionNone* InterferenceFunctionNone::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const
+%feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t q) const
+%feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t) const final
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -6999,56 +7464,36 @@ C++ includes: InterferenceFunctionRadialParaCrystal.h
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal "InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::~InterferenceFunctionRadialParaCrystal "virtual InterferenceFunctionRadialParaCrystal::~InterferenceFunctionRadialParaCrystal()
-";
-
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::setDomainSize "void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::to_str "std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const final
 
-Sets size of coherence domain.
-
-Parameters:
------------
-
-size: 
-size in lattice direction 
-";
-
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getDomainSize "double InterferenceFunctionRadialParaCrystal::getDomainSize() const
-
-Gets size of coherence domain.
-
-Size in lattice direction 
+Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setKappa "void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
-
-Sets size-spacing coupling parameter.
-
-Parameters:
------------
-
-kappa: 
-size-spacing coupling parameter 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getKappa "double InterferenceFunctionRadialParaCrystal::getKappa() const
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getKappa "double InterferenceFunctionRadialParaCrystal::getKappa() const final
 
-Gets size-spacing coupling parameter.
-
-Size-spacing coupling parameter 
+Retrieves the size-distance coupling constant (default 0.0) 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::setDomainSize "void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+";
+
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getDomainSize "double InterferenceFunctionRadialParaCrystal::getDomainSize() const 
+";
+
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
@@ -7057,13 +7502,9 @@ Evaluates the interference function for a given wavevector transfer (only the re
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setProbabilityDistribution "void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
-
-Sets the Fourier transformed probability distribution of the nearest particle. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getProbabilityDistribution "const IFTDistribution1D * InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const
-
-Gets the Fourier transformed probability distribution of the nearest particle. 
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getProbabilityDistribution "const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getPeakDistance "double InterferenceFunctionRadialParaCrystal::getPeakDistance() const 
@@ -7145,27 +7586,53 @@ C++ includes: OutputDataWriteStrategy.h
 ";
 
 
+// File: classIParameter.xml
+%feature("docstring") IParameter "
+
+Pure virtual base class for parameter wrapper classes  RealParameter, ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
+
+C++ includes: IParameter.h
+";
+
+%feature("docstring")  IParameter::IParameter "IParameter< T >::IParameter()=delete
+";
+
+%feature("docstring")  IParameter::IParameter "IParameter< T >::IParameter(const std::string &name, volatile T *data, const std::string &parent_name, const std::function< void()> &onChange)
+";
+
+%feature("docstring")  IParameter::clone "virtual IParameter* IParameter< T >::clone(const std::string &new_name=\"\") const =0
+";
+
+%feature("docstring")  IParameter::isNull "virtual bool IParameter< T >::isNull() const
+
+Returns true if wrapped parameter was not initialized with proper real value. 
+";
+
+%feature("docstring")  IParameter::getData "volatile T& IParameter< T >::getData() const 
+";
+
+%feature("docstring")  IParameter::setData "void IParameter< T >::setData(volatile T &data)
+";
+
+
 // File: classIParameterized.xml
 %feature("docstring") IParameterized "
 
-Manage a local parameter pool, and a tree of child pools.
+Manages a local parameter pool, and a tree of child pools.
 
 C++ includes: IParameterized.h
 ";
 
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized()
-";
-
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name)
+%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name=\"\")
 ";
 
 %feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
 ";
 
-%feature("docstring")  IParameterized::~IParameterized "virtual IParameterized::~IParameterized()
+%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized() override
 ";
 
-%feature("docstring")  IParameterized::getParameterPool "const ParameterPool* IParameterized::getParameterPool() const
+%feature("docstring")  IParameterized::getParameterPool "ParameterPool* IParameterized::getParameterPool() const
 
 Returns pointer to the parameter pool. 
 ";
@@ -7178,27 +7645,18 @@ Creates new parameter pool, with all local parameters and those of its children.
 %feature("docstring")  IParameterized::printParameters "void IParameterized::printParameters()
 ";
 
-%feature("docstring")  IParameterized::registerParameter "void IParameterized::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
-
-Register parameter address in the parameter pool. 
+%feature("docstring")  IParameterized::registerParameter "RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
 ";
 
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
-
-Sets the value of the parameter with the given name. 
 ";
 
-%feature("docstring")  IParameterized::getParameter "RealParameterWrapper IParameterized::getParameter(const std::string &name) const
+%feature("docstring")  IParameterized::getParameter "RealParameter * IParameterized::getParameter(const std::string &name) const
 
-Returns parameter wrapper named  name. 
+Returns parameter with given 'name'. 
 ";
 
-%feature("docstring")  IParameterized::clearParameterPool "void IParameterized::clearParameterPool()
-
-Clears the parameter pool. 
-";
-
-%feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  IParameterized::addParametersToExternalPool "std::string IParameterized::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children.
 
@@ -7209,7 +7667,7 @@ Copies local parameters to external_pool, under name \"path/<name>copy_number/\"
 // File: classIParticle.xml
 %feature("docstring") IParticle "
 
-Interface for a real particle (one that has position/rotation and form factor)
+Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
 
 C++ includes: IParticle.h
 ";
@@ -7227,7 +7685,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  IParticle::accept "void IParticle::accept(ISampleVisitor *visitor) const
+%feature("docstring")  IParticle::accept "virtual void IParticle::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
@@ -7239,7 +7697,7 @@ Create a form factor for this particle.
 
 %feature("docstring")  IParticle::createTransformedFormFactor "virtual IFormFactor* IParticle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const =0
 
-Create a form factor for this particle with an extra scattering factor. 
+Create a form factor for this particle with an extra transformation. 
 ";
 
 %feature("docstring")  IParticle::getPosition "kvector_t IParticle::getPosition() const
@@ -7305,21 +7763,6 @@ C++ includes: IPixelMap.h
 ";
 
 
-// File: classIRegistry.xml
-%feature("docstring") IRegistry "
-
-Templated object registry.
-
-C++ includes: IRegistry.h
-";
-
-%feature("docstring")  IRegistry::getItem "const ValueType* IRegistry< ValueType >::getItem(const std::string &key) const 
-";
-
-%feature("docstring")  IRegistry::keys "std::vector<std::string> IRegistry< ValueType >::keys()
-";
-
-
 // File: classIResolutionFunction2D.xml
 %feature("docstring") IResolutionFunction2D "
 
@@ -7341,6 +7784,8 @@ C++ includes: IResolutionFunction2D.h
 // File: classIRotation.xml
 %feature("docstring") IRotation "
 
+must be subclass of sample, because it can be registered as a child in  ICompositeSample
+
 An interface for classes representing a rotation.
 
 C++ includes: Rotations.h
@@ -7351,10 +7796,10 @@ C++ includes: Rotations.h
 
 %feature("docstring")  IRotation::clone "virtual IRotation* IRotation::clone() const =0
 
-Returns a clone. 
+Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IRotation::cloneInvertB "virtual IRotation* IRotation::cloneInvertB() const =0
+%feature("docstring")  IRotation::cloneInvertB "IRotation* IRotation::cloneInvertB() const final
 
 Returns a clone with inverted magnetic fields. 
 ";
@@ -7369,7 +7814,7 @@ Returns a new  IRotation object that is the current object's inverse.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  IRotation::getTransform3D "virtual Geometry::Transform3D IRotation::getTransform3D() const =0
+%feature("docstring")  IRotation::getTransform3D "virtual Transform3D IRotation::getTransform3D() const =0
 
 Returns transformation. 
 ";
@@ -7403,12 +7848,16 @@ Calls the  ISampleVisitor's visit method.
 // File: classISample.xml
 %feature("docstring") ISample "
 
-Interface for objects related to scattering.
+Pure virtual base class for sample components and properties related to scattering.
+
+Inherited by  ICompositeSample,  IFormFactor,  IInterferenceFunction,  IRoughness,  IRotation. So it is much more basic and abstract than the name \"ISample\" suggests.
+
+Since  ICompositeSample contains a vector of  ISample's, we provide here some machinery for iterating through a tree (getMaterial, containedMaterials, containedSubclasses, ..). The functions getChildren and size, completely trivial here, become meaningful through their overloads in  ICompositeSample.
 
 C++ includes: ISample.h
 ";
 
-%feature("docstring")  ISample::clone "virtual ISample* ISample::clone() const =0
+%feature("docstring")  ISample::clone "ISample* ISample::clone() const override=0
 
 Returns a clone of this  ISample object. 
 ";
@@ -7423,56 +7872,39 @@ Returns a clone with inverted magnetic fields.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  ISample::createDWBASimulation "DWBASimulation * ISample::createDWBASimulation() const
+%feature("docstring")  ISample::to_str "std::string ISample::to_str(int indent=0) const
 
-Returns an  ISimulation if DWBA is required. 
+Returns textual representation of this and its descendants. 
 ";
 
-%feature("docstring")  ISample::printSampleTree "void ISample::printSampleTree()
+%feature("docstring")  ISample::getMaterial "virtual const IMaterial* ISample::getMaterial() const
 
-Outputs the tree of parameters generated from this  ISample object and its descendants. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::containsMagneticMaterial "bool ISample::containsMagneticMaterial() const
+%feature("docstring")  ISample::getAmbientMaterial "virtual const IMaterial* ISample::getAmbientMaterial() const
 
-Indicates if this  ISample object contains a material with magnetic properties. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::getChildren "std::vector< const ISample * > ISample::getChildren() const
+%feature("docstring")  ISample::containedMaterials "std::vector< const IMaterial * > ISample::containedMaterials() const
 
-Returns a vector of children (const). Default implementation returns empty vector. 
+Returns set of unique materials contained in this  ISample. 
+";
+
+%feature("docstring")  ISample::getChildren "virtual std::vector<const ISample*> ISample::getChildren() const
+
+Returns a vector of children. 
 ";
 
 %feature("docstring")  ISample::size "virtual size_t ISample::size() const
 
-Returns number of children. Default implementation returns zero. 
+Returns number of children. 
 ";
 
+%feature("docstring")  ISample::containedSubclass "std::vector< const T * > ISample::containedSubclass() const
 
-// File: classISampleBuilder.xml
-%feature("docstring") ISampleBuilder "
-
-Interface to the class capable to build samples to simulate.
-
-C++ includes: ISampleBuilder.h
-";
-
-%feature("docstring")  ISampleBuilder::ISampleBuilder "ISampleBuilder::ISampleBuilder()
-";
-
-%feature("docstring")  ISampleBuilder::~ISampleBuilder "virtual ISampleBuilder::~ISampleBuilder()
-";
-
-%feature("docstring")  ISampleBuilder::buildSample "virtual class ISample* ISampleBuilder::buildSample() const =0
-";
-
-%feature("docstring")  ISampleBuilder::set_subtest "void ISampleBuilder::set_subtest(const class IParameterized *subtest_item)
-";
-
-%feature("docstring")  ISampleBuilder::getFormFactor "const IFormFactor* ISampleBuilder::getFormFactor() const 
-";
-
-%feature("docstring")  ISampleBuilder::getFTDistribution2D "const IFTDistribution2D* ISampleBuilder::getFTDistribution2D() const 
+Returns vector of children of type T. 
 ";
 
 
@@ -7498,9 +7930,9 @@ C++ includes: ISampleBuilder.h
 // File: classISampleVisitor.xml
 %feature("docstring") ISampleVisitor "
 
-Visitor interface to visit  ISample objects.
+From visitor pattern to achieve double dispatch.
 
-From visitor pattern to achieve double dispatch
+Visitor interface to visit  ISample objects.
 
 C++ includes: ISampleVisitor.h
 ";
@@ -7673,9 +8105,6 @@ C++ includes: ISampleVisitor.h
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMaterial *)
 ";
 
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMultiPositionFactor *)
-";
-
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorPositionFactor *)
 ";
 
@@ -7752,7 +8181,7 @@ C++ includes: ISelectionRule.h
 %feature("docstring")  ISelectionRule::clone "virtual ISelectionRule* ISelectionRule::clone() const =0
 ";
 
-%feature("docstring")  ISelectionRule::coordinateSelected "virtual bool ISelectionRule::coordinateSelected(const IndexVector3D &coordinate) const =0
+%feature("docstring")  ISelectionRule::coordinateSelected "virtual bool ISelectionRule::coordinateSelected(const ivector_t &coordinate) const =0
 ";
 
 
@@ -7767,7 +8196,7 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  IsGISAXS08BBuilder::IsGISAXS08BBuilder "IsGISAXS08BBuilder::IsGISAXS08BBuilder()
 ";
 
-%feature("docstring")  IsGISAXS08BBuilder::buildSample "ISample * IsGISAXS08BBuilder::buildSample() const 
+%feature("docstring")  IsGISAXS08BBuilder::buildSample "MultiLayer * IsGISAXS08BBuilder::buildSample() const 
 ";
 
 
@@ -7788,10 +8217,7 @@ C++ includes: IsGISAXSDetector.h
 %feature("docstring")  IsGISAXSDetector::IsGISAXSDetector "IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
 ";
 
-%feature("docstring")  IsGISAXSDetector::clone "IsGISAXSDetector * IsGISAXSDetector::clone() const 
-";
-
-%feature("docstring")  IsGISAXSDetector::~IsGISAXSDetector "virtual IsGISAXSDetector::~IsGISAXSDetector()
+%feature("docstring")  IsGISAXSDetector::clone "IsGISAXSDetector * IsGISAXSDetector::clone() const override
 ";
 
 
@@ -7801,6 +8227,9 @@ C++ includes: IsGISAXSDetector.h
 Basic class for all shapes in 2D.
 
 C++ includes: IShape2D.h
+";
+
+%feature("docstring")  Geometry::IShape2D::IShape2D "Geometry::IShape2D::IShape2D(const std::string &name)
 ";
 
 %feature("docstring")  Geometry::IShape2D::clone "virtual IShape2D* Geometry::IShape2D::clone() const =0
@@ -7813,7 +8242,7 @@ Returns true if point with given coordinates is inside or on border of the shape
 
 %feature("docstring")  Geometry::IShape2D::contains "virtual bool Geometry::IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
 
-Returns true if area defined by two bins is inside or on border of the shape. 
+Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 ";
 
 
@@ -7826,37 +8255,10 @@ C++ includes: IShareable.h
 ";
 
 
-// File: classISimulation.xml
-%feature("docstring") ISimulation "
-
-Interface class, encapsulating different simulations.
-
-C++ includes: ISimulation.h
-";
-
-%feature("docstring")  ISimulation::ISimulation "ISimulation::ISimulation()
-";
-
-%feature("docstring")  ISimulation::~ISimulation "virtual ISimulation::~ISimulation()
-";
-
-%feature("docstring")  ISimulation::clone "ISimulation * ISimulation::clone() const 
-";
-
-%feature("docstring")  ISimulation::run "void ISimulation::run()
-";
-
-%feature("docstring")  ISimulation::isCompleted "bool ISimulation::isCompleted() const 
-";
-
-%feature("docstring")  ISimulation::getRunMessage "std::string ISimulation::getRunMessage() const 
-";
-
-
 // File: classISingleton.xml
 %feature("docstring") ISingleton "
 
-Singleton pattern.
+Base class for singletons.
 
 C++ includes: ISingleton.h
 ";
@@ -7873,18 +8275,21 @@ C++ includes: ISpecularInfoMap.h
 %feature("docstring")  ISpecularInfoMap::ISpecularInfoMap "ISpecularInfoMap::ISpecularInfoMap()
 ";
 
+%feature("docstring")  ISpecularInfoMap::ISpecularInfoMap "ISpecularInfoMap::ISpecularInfoMap(const ISpecularInfoMap &other)=delete
+";
+
 %feature("docstring")  ISpecularInfoMap::~ISpecularInfoMap "virtual ISpecularInfoMap::~ISpecularInfoMap()
 ";
 
 %feature("docstring")  ISpecularInfoMap::clone "virtual ISpecularInfoMap* ISpecularInfoMap::clone() const =0
 ";
 
-%feature("docstring")  ISpecularInfoMap::getOutCoefficients "virtual const ILayerRTCoefficients* ISpecularInfoMap::getOutCoefficients(double alpha_f, double phi_f, double wavelength) const =0
+%feature("docstring")  ISpecularInfoMap::getOutCoefficients "virtual const ILayerRTCoefficients* ISpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element) const =0
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
 
-%feature("docstring")  ISpecularInfoMap::getInCoefficients "virtual const ILayerRTCoefficients* ISpecularInfoMap::getInCoefficients(double alpha_i, double phi_i, double wavelength) const =0
+%feature("docstring")  ISpecularInfoMap::getInCoefficients "virtual const ILayerRTCoefficients* ISpecularInfoMap::getInCoefficients(const SimulationElement &sim_element) const =0
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
@@ -7982,33 +8387,46 @@ C++ includes: SampleTreeIterator.h
 ";
 
 
-// File: classKVectorContainer.xml
-%feature("docstring") KVectorContainer "
+// File: classLabelMap.xml
+%feature("docstring") LabelMap "";
 
-A vector of kvector_t's with optimized location/deallocation.
-
-C++ includes: FastVector.h
+%feature("docstring")  LabelMap::LabelMap "LabelMap< Key >::LabelMap()
 ";
 
-%feature("docstring")  KVectorContainer::KVectorContainer "KVectorContainer::KVectorContainer(int buff_size=3)
+%feature("docstring")  LabelMap::~LabelMap "virtual LabelMap< Key >::~LabelMap()
 ";
 
-%feature("docstring")  KVectorContainer::push_back "void KVectorContainer::push_back(const kvector_t k)
+%feature("docstring")  LabelMap::clear "void LabelMap< Key >::clear()
 ";
 
-%feature("docstring")  KVectorContainer::clear "void KVectorContainer::clear()
+%feature("docstring")  LabelMap::begin "const_iterator LabelMap< Key >::begin() const 
 ";
 
-%feature("docstring")  KVectorContainer::size "size_t KVectorContainer::size()
+%feature("docstring")  LabelMap::end "const_iterator LabelMap< Key >::end() const 
 ";
 
-%feature("docstring")  KVectorContainer::print "void KVectorContainer::print()
+%feature("docstring")  LabelMap::begin "iterator LabelMap< Key >::begin()
 ";
 
-%feature("docstring")  KVectorContainer::begin "const_iterator KVectorContainer::begin() const 
+%feature("docstring")  LabelMap::end "iterator LabelMap< Key >::end()
 ";
 
-%feature("docstring")  KVectorContainer::end "const_iterator KVectorContainer::end() const 
+%feature("docstring")  LabelMap::size "size_t LabelMap< Key >::size()
+";
+
+%feature("docstring")  LabelMap::insert "void LabelMap< Key >::insert(const Key &key, const std::string &object)
+";
+
+%feature("docstring")  LabelMap::find "const iterator LabelMap< Key >::find(const Key &key) const 
+";
+
+%feature("docstring")  LabelMap::find "iterator LabelMap< Key >::find(const Key &key)
+";
+
+%feature("docstring")  LabelMap::erase "void LabelMap< Key >::erase(const Key &key)
+";
+
+%feature("docstring")  LabelMap::value "const std::string& LabelMap< Key >::value(const Key &key)
 ";
 
 
@@ -8023,7 +8441,7 @@ C++ includes: CylindersBuilder.h
 %feature("docstring")  LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder "LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
 ";
 
-%feature("docstring")  LargeCylindersInDWBABuilder::buildSample "ISample * LargeCylindersInDWBABuilder::buildSample() const 
+%feature("docstring")  LargeCylindersInDWBABuilder::buildSample "MultiLayer * LargeCylindersInDWBABuilder::buildSample() const 
 ";
 
 
@@ -8035,7 +8453,7 @@ A lattice with three basis vectors.
 C++ includes: Lattice.h
 ";
 
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice()
+%feature("docstring")  Lattice::Lattice "Lattice::Lattice()=delete
 ";
 
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
@@ -8047,7 +8465,7 @@ C++ includes: Lattice.h
 %feature("docstring")  Lattice::~Lattice "Lattice::~Lattice()
 ";
 
-%feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const IRotation &rotation) const
+%feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
 
 Create transformed lattice. 
 ";
@@ -8082,17 +8500,17 @@ Returns the volume of the unit cell.
 Returns the reciprocal basis vectors. 
 ";
 
-%feature("docstring")  Lattice::getNearestLatticeVectorCoordinates "IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
+%feature("docstring")  Lattice::getNearestLatticeVectorCoordinates "ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 
 Returns the nearest lattice point from a given vector. 
 ";
 
-%feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
+%feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 
 Returns the nearest reciprocal lattice point from a given vector. 
 ";
 
-%feature("docstring")  Lattice::computeReciprocalLatticeVectorsWithinRadius "void Lattice::computeReciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
+%feature("docstring")  Lattice::reciprocalLatticeVectorsWithinRadius "std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
 
 Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
 ";
@@ -8100,9 +8518,6 @@ Computes a list of reciprocal lattice vectors within a specified distance of a g
 %feature("docstring")  Lattice::setSelectionRule "void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)
 
 Sets a selection rule for the reciprocal vectors. 
-";
-
-%feature("docstring")  Lattice::getKVectorContainer "const KVectorContainer& Lattice::getKVectorContainer() const 
 ";
 
 
@@ -8117,19 +8532,31 @@ C++ includes: LatticeBuilder.h
 %feature("docstring")  Lattice1DBuilder::Lattice1DBuilder "Lattice1DBuilder::Lattice1DBuilder()
 ";
 
-%feature("docstring")  Lattice1DBuilder::buildSample "ISample * Lattice1DBuilder::buildSample() const 
+%feature("docstring")  Lattice1DBuilder::buildSample "MultiLayer * Lattice1DBuilder::buildSample() const 
 ";
 
 
 // File: classLattice1DParameters.xml
 %feature("docstring") Lattice1DParameters "
 
-Additional parameters for 1D lattice.
+Basic parameters of a one-dimensional lattice.
 
 C++ includes: Lattice1DParameters.h
 ";
 
 %feature("docstring")  Lattice1DParameters::Lattice1DParameters "Lattice1DParameters::Lattice1DParameters()
+";
+
+%feature("docstring")  Lattice1DParameters::Lattice1DParameters "Lattice1DParameters::Lattice1DParameters(double length, double xi)
+
+Parameters:
+-----------
+
+length: 
+ Lattice constant.
+
+xi: 
+TODO: seems unused; explain or remove 
 ";
 
 
@@ -8144,41 +8571,45 @@ C++ includes: Lattice2DParameters.h
 %feature("docstring")  Lattice2DParameters::Lattice2DParameters "Lattice2DParameters::Lattice2DParameters()
 ";
 
+%feature("docstring")  Lattice2DParameters::getUnitCellArea "double Lattice2DParameters::getUnitCellArea() const 
+";
+
 
 // File: classLayer.xml
 %feature("docstring") Layer "
 
-A layer with thickness and material.
+A layer, with thickness (in nanometer) and material.
 
 C++ includes: Layer.h
 ";
 
 %feature("docstring")  Layer::Layer "Layer::Layer()
-
-Constructs empty layer. 
 ";
 
 %feature("docstring")  Layer::Layer "Layer::Layer(const IMaterial &material, double thickness=0)
-
-Constructs layer made of  material with  thickness in nanometers and decoration. 
 ";
 
-%feature("docstring")  Layer::~Layer "Layer::~Layer()
+%feature("docstring")  Layer::~Layer "Layer::~Layer() final
 ";
 
-%feature("docstring")  Layer::clone "Layer * Layer::clone() const
+%feature("docstring")  Layer::clone "Layer* Layer::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const
+%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const final
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Layer::accept "void Layer::accept(ISampleVisitor *visitor) const
+%feature("docstring")  Layer::accept "void Layer::accept(ISampleVisitor *visitor) const final
 
 Calls the  ISampleVisitor's visit method. 
+";
+
+%feature("docstring")  Layer::to_str "std::string Layer::to_str(int indent=0) const final
+
+Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  Layer::setThickness "void Layer::setThickness(double thickness)
@@ -8186,9 +8617,7 @@ Calls the  ISampleVisitor's visit method.
 Sets layer thickness in nanometers. 
 ";
 
-%feature("docstring")  Layer::getThickness "double Layer::getThickness() const
-
-Returns layer thickness in nanometers. 
+%feature("docstring")  Layer::getThickness "double Layer::getThickness() const 
 ";
 
 %feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const IMaterial &material)
@@ -8196,49 +8625,31 @@ Returns layer thickness in nanometers.
 Sets  material of the layer. 
 ";
 
-%feature("docstring")  Layer::setMaterialAndThickness "void Layer::setMaterialAndThickness(const IMaterial &material, double thickness)
+%feature("docstring")  Layer::getMaterial "const IMaterial* Layer::getMaterial() const
 
-Sets  material and  thickness. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  Layer::getMaterial "const IMaterial * Layer::getMaterial() const
-
-Returns layer's material. 
-";
-
-%feature("docstring")  Layer::getRefractiveIndex "complex_t Layer::getRefractiveIndex() const
-
-Returns refractive index of the layer's material. 
+%feature("docstring")  Layer::getRefractiveIndex "complex_t Layer::getRefractiveIndex() const 
 ";
 
 %feature("docstring")  Layer::getRefractiveIndex2 "complex_t Layer::getRefractiveIndex2() const
 
-Returns squared refractive index of the layer's material. 
+squared refractive index 
 ";
 
 %feature("docstring")  Layer::addLayout "void Layer::addLayout(const ILayout &decoration)
-
-sets particle layout 
 ";
 
-%feature("docstring")  Layer::getNumberOfLayouts "size_t Layer::getNumberOfLayouts() const
-
-gets number of layouts present 
+%feature("docstring")  Layer::getNumberOfLayouts "size_t Layer::getNumberOfLayouts() const 
 ";
 
-%feature("docstring")  Layer::getLayout "const ILayout * Layer::getLayout(size_t i) const
-
-returns particle decoration 
+%feature("docstring")  Layer::getLayout "const ILayout * Layer::getLayout(size_t i) const 
 ";
 
-%feature("docstring")  Layer::hasDWBASimulation "bool Layer::hasDWBASimulation() const
+%feature("docstring")  Layer::hasComputation "bool Layer::hasComputation() const
 
 Returns true if decoration is present. 
-";
-
-%feature("docstring")  Layer::createLayoutSimulation "LayerDWBASimulation * Layer::createLayoutSimulation(size_t layout_index) const
-
-creates and returns a  LayerDWBASimulation for the given layout 
 ";
 
 %feature("docstring")  Layer::getTotalParticleSurfaceDensity "double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const 
@@ -8251,27 +8662,6 @@ creates and returns a  LayerDWBASimulation for the given layout
 ";
 
 %feature("docstring")  Layer::getNumberOfLayers "size_t Layer::getNumberOfLayers() const 
-";
-
-
-// File: classLayerDWBASimulation.xml
-%feature("docstring") LayerDWBASimulation "
-
-Base class for DWBA simulations in a layer.
-
-C++ includes: LayerDWBASimulation.h
-";
-
-%feature("docstring")  LayerDWBASimulation::LayerDWBASimulation "LayerDWBASimulation::LayerDWBASimulation(const class Layer *p_layer)
-";
-
-%feature("docstring")  LayerDWBASimulation::~LayerDWBASimulation "LayerDWBASimulation::~LayerDWBASimulation()
-";
-
-%feature("docstring")  LayerDWBASimulation::clone "LayerDWBASimulation* LayerDWBASimulation::clone() const 
-";
-
-%feature("docstring")  LayerDWBASimulation::setSpecularInfo "void LayerDWBASimulation::setSpecularInfo(const LayerSpecularInfo &specular_info)
 ";
 
 
@@ -8291,9 +8681,9 @@ C++ includes: LayerInterface.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  LayerInterface::accept "void LayerInterface::accept(ISampleVisitor *visitor) const
+%feature("docstring")  LayerInterface::accept "virtual void LayerInterface::accept(ISampleVisitor *visitor) const
 
-calls the  ISampleVisitor's visit method 
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  LayerInterface::setLayerTop "void LayerInterface::setLayerTop(const Layer *p_layer_top)
@@ -8316,17 +8706,17 @@ Sets links to the layers above and below the interface.
 Sets roughness of the interface. 
 ";
 
-%feature("docstring")  LayerInterface::getRoughness "const LayerRoughness * LayerInterface::getRoughness() const
+%feature("docstring")  LayerInterface::getRoughness "const LayerRoughness* LayerInterface::getRoughness() const
 
 Returns roughness of the interface. 
 ";
 
-%feature("docstring")  LayerInterface::getLayerTop "const Layer * LayerInterface::getLayerTop() const
+%feature("docstring")  LayerInterface::getLayerTop "const Layer* LayerInterface::getLayerTop() const
 
 Returns top layer. 
 ";
 
-%feature("docstring")  LayerInterface::getLayerBottom "const Layer * LayerInterface::getLayerBottom() const
+%feature("docstring")  LayerInterface::getLayerBottom "const Layer* LayerInterface::getLayerBottom() const
 
 Returns bottom layer. 
 ";
@@ -8348,7 +8738,7 @@ C++ includes: LayerRoughness.h
 %feature("docstring")  LayerRoughness::LayerRoughness "LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength)
 ";
 
-%feature("docstring")  LayerRoughness::clone "LayerRoughness * LayerRoughness::clone() const
+%feature("docstring")  LayerRoughness::clone "LayerRoughness* LayerRoughness::clone() const
 
 Returns a clone of this  ISample object. 
 ";
@@ -8406,7 +8796,7 @@ Returns latteral correlation length.
 // File: classLayerSpecularInfo.xml
 %feature("docstring") LayerSpecularInfo "
 
-Holds the amplitude information of the neutron wavefunction in a specific layer for different incoming (outgoing) angles of the neutron beam in the top layer (these amplitudes correspond to the specular part of the neutron wavefunction)
+Holds the amplitude information of the radiation wavefunction in a specific layer for different incoming (outgoing) angles of the beam in the top layer (these amplitudes correspond to the specular part of the neutron wavefunction).
 
 C++ includes: LayerSpecularInfo.h
 ";
@@ -8414,10 +8804,10 @@ C++ includes: LayerSpecularInfo.h
 %feature("docstring")  LayerSpecularInfo::LayerSpecularInfo "LayerSpecularInfo::LayerSpecularInfo()
 ";
 
-%feature("docstring")  LayerSpecularInfo::~LayerSpecularInfo "virtual LayerSpecularInfo::~LayerSpecularInfo()
+%feature("docstring")  LayerSpecularInfo::~LayerSpecularInfo "LayerSpecularInfo::~LayerSpecularInfo() final
 ";
 
-%feature("docstring")  LayerSpecularInfo::clone "LayerSpecularInfo * LayerSpecularInfo::clone() const 
+%feature("docstring")  LayerSpecularInfo::clone "LayerSpecularInfo * LayerSpecularInfo::clone() const final
 ";
 
 %feature("docstring")  LayerSpecularInfo::addRTCoefficients "void LayerSpecularInfo::addRTCoefficients(ISpecularInfoMap *rt_coefficient_map)
@@ -8425,46 +8815,41 @@ C++ includes: LayerSpecularInfo.h
 Adds the amplitude coefficients for the (time-reversed) outgoing wavevector with the given angles 
 ";
 
-%feature("docstring")  LayerSpecularInfo::getOutCoefficients "const ILayerRTCoefficients * LayerSpecularInfo::getOutCoefficients(double alpha_f, double phi_f, double wavelength) const
+%feature("docstring")  LayerSpecularInfo::getOutCoefficients "const ILayerRTCoefficients * LayerSpecularInfo::getOutCoefficients(const SimulationElement &sim_element) const
 
-Retrieves the amplitude coefficients for the (time-reversed) outgoing wavevector with the given angles 
+Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
 ";
 
-%feature("docstring")  LayerSpecularInfo::getInCoefficients "const ILayerRTCoefficients * LayerSpecularInfo::getInCoefficients(double alpha_i, double phi_i, double wavelength) const
+%feature("docstring")  LayerSpecularInfo::getInCoefficients "const ILayerRTCoefficients * LayerSpecularInfo::getInCoefficients(const SimulationElement &sim_element) const
 
-Retrieves the amplitude coefficients for the incoming wavevector. 
+Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
 
 // File: classLayerStrategyBuilder.xml
 %feature("docstring") LayerStrategyBuilder "
 
-Methods to generate a simulation strategy for decorated  Layer SimulationParameters.
+Methods to generate a simulation strategy for  DecoratedLayerComputation.
 
 C++ includes: LayerStrategyBuilder.h
 ";
 
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, const Simulation &simulation, const SimulationOptions &sim_params, size_t layout_index)
+%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const Layer &decorated_layer, bool polarized, const SimulationOptions &sim_params, size_t layout_index, const LayerSpecularInfo *specular_info)
 ";
 
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
 ";
 
-%feature("docstring")  LayerStrategyBuilder::setRTInfo "void LayerStrategyBuilder::setRTInfo(const LayerSpecularInfo &specular_info)
+%feature("docstring")  LayerStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayerStrategyBuilder::createStrategy() const
 
-Sets reflection/transmission map for DWBA calculation. 
-";
-
-%feature("docstring")  LayerStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayerStrategyBuilder::createStrategy()
-
-Creates a strategy object which is able to calculate the scattering for fixed k_f. 
+Returns a new strategy object that is able to calculate the scattering for fixed k_f. 
 ";
 
 
 // File: classLayersWithAbsorptionBuilder.xml
 %feature("docstring") LayersWithAbsorptionBuilder "
 
-The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part). The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
+The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part).The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
 
 C++ includes: LayersWithAbsorptionBuilder.h
 ";
@@ -8472,37 +8857,35 @@ C++ includes: LayersWithAbsorptionBuilder.h
 %feature("docstring")  LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder "LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
 ";
 
-%feature("docstring")  LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder "LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
+%feature("docstring")  LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder "virtual LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
 ";
 
-%feature("docstring")  LayersWithAbsorptionBuilder::buildSample "ISample * LayersWithAbsorptionBuilder::buildSample() const 
+%feature("docstring")  LayersWithAbsorptionBuilder::buildSample "MultiLayer * LayersWithAbsorptionBuilder::buildSample() const 
 ";
 
 
 // File: classGeometry_1_1Line.xml
 %feature("docstring") Geometry::Line "
 
-The line segment.
+A line segment.
 
 C++ includes: Line.h
 ";
 
 %feature("docstring")  Geometry::Line::Line "Geometry::Line::Line(double x1, double y1, double x2, double y2)
-
-Line segment constructor. 
 ";
 
-%feature("docstring")  Geometry::Line::clone "Line * Geometry::Line::clone() const 
+%feature("docstring")  Geometry::Line::clone "Line* Geometry::Line::clone() const 
 ";
 
 %feature("docstring")  Geometry::Line::contains "bool Geometry::Line::contains(double x, double y) const
 
-Returns true if given point is on this line segment. 
+Returns true if point with given coordinates is inside or on border of the shape. 
 ";
 
 %feature("docstring")  Geometry::Line::contains "bool Geometry::Line::contains(const Bin1D &binx, const Bin1D &biny) const
 
-Returns true if the line crosses the area defined by two given bins. 
+Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 ";
 
 
@@ -8521,6 +8904,9 @@ C++ includes: LLData.h
 ";
 
 %feature("docstring")  LLData::~LLData "LLData< T >::~LLData()
+";
+
+%feature("docstring")  LLData::meanValues "LLData<double> LLData< T >::meanValues() const 
 ";
 
 %feature("docstring")  LLData::atCoordinate "T & LLData< T >::atCoordinate(int *coordinate)
@@ -8548,27 +8934,6 @@ C++ includes: LLData.h
 ";
 
 
-// File: classMSG_1_1Logger.xml
-%feature("docstring") MSG::Logger "
-
-Provides message service.
-
-C++ includes: MessageService.h
-";
-
-%feature("docstring")  MSG::Logger::Logger "MSG::Logger::Logger(EMessageLevel level)
-";
-
-%feature("docstring")  MSG::Logger::~Logger "MSG::Logger::~Logger()
-";
-
-%feature("docstring")  MSG::Logger::NowTime "std::string MSG::Logger::NowTime()
-";
-
-%feature("docstring")  MSG::Logger::ToString "const std::string & MSG::Logger::ToString(EMessageLevel level)
-";
-
-
 // File: classExceptions_1_1LogicErrorException.xml
 %feature("docstring") Exceptions::LogicErrorException "";
 
@@ -8587,7 +8952,7 @@ C++ includes: MagneticParticlesBuilder.h
 %feature("docstring")  MagneticCylindersBuilder::MagneticCylindersBuilder "MagneticCylindersBuilder::MagneticCylindersBuilder()
 ";
 
-%feature("docstring")  MagneticCylindersBuilder::buildSample "ISample * MagneticCylindersBuilder::buildSample() const 
+%feature("docstring")  MagneticCylindersBuilder::buildSample "MultiLayer * MagneticCylindersBuilder::buildSample() const 
 ";
 
 
@@ -8602,139 +8967,33 @@ C++ includes: MagneticParticlesBuilder.h
 %feature("docstring")  MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder "MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
 ";
 
-%feature("docstring")  MagneticParticleZeroFieldBuilder::buildSample "ISample * MagneticParticleZeroFieldBuilder::buildSample() const 
+%feature("docstring")  MagneticParticleZeroFieldBuilder::buildSample "MultiLayer * MagneticParticleZeroFieldBuilder::buildSample() const 
 ";
 
 
-// File: classMask.xml
-%feature("docstring") Mask "
+// File: classMainComputation.xml
+%feature("docstring") MainComputation "
 
-Base class for masking  OutputData elements.
+Performs a single-threaded DWBA computation with given sample and simulation parameters, for a given span of detector bins.
 
-C++ includes: Mask.h
+Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
+
+C++ includes: MainComputation.h
 ";
 
-%feature("docstring")  Mask::Mask "Mask::Mask(Mask *p_submask=0)
+%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer *p_multi_layer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
 ";
 
-%feature("docstring")  Mask::~Mask "virtual Mask::~Mask()
+%feature("docstring")  MainComputation::~MainComputation "MainComputation::~MainComputation()
 ";
 
-%feature("docstring")  Mask::clone "Mask * Mask::clone() const 
+%feature("docstring")  MainComputation::run "void MainComputation::run()
 ";
 
-%feature("docstring")  Mask::getFirstValidIndex "size_t Mask::getFirstValidIndex(size_t start_index)
+%feature("docstring")  MainComputation::isCompleted "bool MainComputation::isCompleted() const 
 ";
 
-%feature("docstring")  Mask::getNextIndex "size_t Mask::getNextIndex(size_t total_index)
-";
-
-%feature("docstring")  Mask::setMaxIndex "void Mask::setMaxIndex(size_t max_index)
-";
-
-%feature("docstring")  Mask::getOwnIndex "size_t Mask::getOwnIndex() const 
-";
-
-%feature("docstring")  Mask::getMaxIndex "size_t Mask::getMaxIndex() const 
-";
-
-
-// File: classMaskCoordinateEllipseFunction.xml
-%feature("docstring") MaskCoordinateEllipseFunction "
-
-Ellipse shaped mask for  OutputData.
-
-C++ includes: MaskCoordinateFunction.h
-";
-
-%feature("docstring")  MaskCoordinateEllipseFunction::MaskCoordinateEllipseFunction "MaskCoordinateEllipseFunction::MaskCoordinateEllipseFunction(size_t rank, const int *center, const int *radii)
-";
-
-%feature("docstring")  MaskCoordinateEllipseFunction::clone "MaskCoordinateEllipseFunction * MaskCoordinateEllipseFunction::clone() const 
-";
-
-%feature("docstring")  MaskCoordinateEllipseFunction::~MaskCoordinateEllipseFunction "MaskCoordinateEllipseFunction::~MaskCoordinateEllipseFunction()
-";
-
-
-// File: classMaskCoordinateFunction.xml
-%feature("docstring") MaskCoordinateFunction "
-
-Base class for all kind of  OutputData's masks.
-
-C++ includes: MaskCoordinateFunction.h
-";
-
-%feature("docstring")  MaskCoordinateFunction::MaskCoordinateFunction "MaskCoordinateFunction::MaskCoordinateFunction(size_t rank)
-";
-
-%feature("docstring")  MaskCoordinateFunction::clone "MaskCoordinateFunction * MaskCoordinateFunction::clone() const 
-";
-
-%feature("docstring")  MaskCoordinateFunction::~MaskCoordinateFunction "virtual MaskCoordinateFunction::~MaskCoordinateFunction()
-";
-
-%feature("docstring")  MaskCoordinateFunction::isMasked "bool MaskCoordinateFunction::isMasked(size_t rank, const int *coordinates) const 
-";
-
-%feature("docstring")  MaskCoordinateFunction::setInvertFlag "void MaskCoordinateFunction::setInvertFlag(bool invert)
-";
-
-
-// File: classMaskCoordinateRectangleFunction.xml
-%feature("docstring") MaskCoordinateRectangleFunction "
-
-Rectangular mask for  OutputData.
-
-C++ includes: MaskCoordinateFunction.h
-";
-
-%feature("docstring")  MaskCoordinateRectangleFunction::MaskCoordinateRectangleFunction "MaskCoordinateRectangleFunction::MaskCoordinateRectangleFunction(size_t rank, const int *minima, const int *maxima)
-";
-
-%feature("docstring")  MaskCoordinateRectangleFunction::clone "MaskCoordinateRectangleFunction * MaskCoordinateRectangleFunction::clone() const 
-";
-
-%feature("docstring")  MaskCoordinateRectangleFunction::~MaskCoordinateRectangleFunction "MaskCoordinateRectangleFunction::~MaskCoordinateRectangleFunction()
-";
-
-
-// File: classMaskCoordinates.xml
-%feature("docstring") MaskCoordinates "
-
-Mask based on the coordinates.
-
-C++ includes: Mask.h
-";
-
-%feature("docstring")  MaskCoordinates::MaskCoordinates "MaskCoordinates::MaskCoordinates(size_t rank, const int *dims, Mask *p_submask=0)
-";
-
-%feature("docstring")  MaskCoordinates::~MaskCoordinates "MaskCoordinates::~MaskCoordinates()
-";
-
-%feature("docstring")  MaskCoordinates::clone "MaskCoordinates * MaskCoordinates::clone() const 
-";
-
-%feature("docstring")  MaskCoordinates::setMaskCoordinateFunction "void MaskCoordinates::setMaskCoordinateFunction(MaskCoordinateFunction *p_mask_function)
-";
-
-
-// File: classMaskIndexModulus.xml
-%feature("docstring") MaskIndexModulus "
-
-Mask based on the index modulo a given number.
-
-C++ includes: Mask.h
-";
-
-%feature("docstring")  MaskIndexModulus::MaskIndexModulus "MaskIndexModulus::MaskIndexModulus(size_t modulus, size_t remainder, Mask *p_submask=0)
-";
-
-%feature("docstring")  MaskIndexModulus::~MaskIndexModulus "virtual MaskIndexModulus::~MaskIndexModulus()
-";
-
-%feature("docstring")  MaskIndexModulus::clone "MaskIndexModulus * MaskIndexModulus::clone() const 
+%feature("docstring")  MainComputation::getRunMessage "std::string MainComputation::getRunMessage() const 
 ";
 
 
@@ -8790,7 +9049,7 @@ Returns z-part of the two wavevector eigenmodes.
 // File: classMatrixSpecularInfoMap.xml
 %feature("docstring") MatrixSpecularInfoMap "
 
-Implementation of  ISpecularInfoMap for matrix valued reflection/ transmission coefficients.
+Implementation of  ISpecularInfoMap for matrix valued reflection/transmission coefficients.
 
 C++ includes: MatrixSpecularInfoMap.h
 ";
@@ -8798,18 +9057,18 @@ C++ includes: MatrixSpecularInfoMap.h
 %feature("docstring")  MatrixSpecularInfoMap::MatrixSpecularInfoMap "MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *multilayer, int layer)
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::~MatrixSpecularInfoMap "virtual MatrixSpecularInfoMap::~MatrixSpecularInfoMap()
+%feature("docstring")  MatrixSpecularInfoMap::~MatrixSpecularInfoMap "MatrixSpecularInfoMap::~MatrixSpecularInfoMap() final
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::clone "MatrixSpecularInfoMap * MatrixSpecularInfoMap::clone() const 
+%feature("docstring")  MatrixSpecularInfoMap::clone "MatrixSpecularInfoMap * MatrixSpecularInfoMap::clone() const final
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::getOutCoefficients "const MatrixRTCoefficients * MatrixSpecularInfoMap::getOutCoefficients(double alpha_f, double phi_f, double wavelength) const
+%feature("docstring")  MatrixSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * MatrixSpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element) const final
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::getInCoefficients "const MatrixRTCoefficients * MatrixSpecularInfoMap::getInCoefficients(double alpha_i, double phi_i, double wavelength) const
+%feature("docstring")  MatrixSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * MatrixSpecularInfoMap::getInCoefficients(const SimulationElement &sim_element) const final
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
@@ -8868,7 +9127,7 @@ Sets the refractive index of the ambient material (which influences its scatteri
 
 %feature("docstring")  MesoCrystal::getAmbientMaterial "const IMaterial * MesoCrystal::getAmbientMaterial() const
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  MesoCrystal::createTransformedFormFactor "IFormFactor * MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -8876,9 +9135,9 @@ Returns particle's material.
 Create a form factor for this particle with an extra scattering factor. 
 ";
 
-%feature("docstring")  MesoCrystal::getClusteredParticles "const IClusteredParticles * MesoCrystal::getClusteredParticles() const
+%feature("docstring")  MesoCrystal::getClusteredParticles "const IClusteredParticles* MesoCrystal::getClusteredParticles() const
 
-get the internal structure, which is in principle unbounded in space (eg. an infinite crystal) 
+get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
 ";
 
 
@@ -8896,16 +9155,14 @@ C++ includes: MesoCrystalBuilder.h
 %feature("docstring")  MesoCrystalBuilder::~MesoCrystalBuilder "virtual MesoCrystalBuilder::~MesoCrystalBuilder()
 ";
 
-%feature("docstring")  MesoCrystalBuilder::buildSample "ISample * MesoCrystalBuilder::buildSample() const 
+%feature("docstring")  MesoCrystalBuilder::buildSample "MultiLayer * MesoCrystalBuilder::buildSample() const 
 ";
 
 
 // File: classMultiLayer.xml
 %feature("docstring") MultiLayer "
 
-Stack of layers one below the other.
-
-Example of system of 4 layers (3 interfaces):
+Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
 
 ambience layer #0 z=getLayerBottomZ(0)=0.0 ------ interface #0 Fe, 20A layer #1 z=getLayerBottomZ(1)=-20.0 ------ interface #1 Cr, 40A layer #2 z=getLayerBottomZ(2)=-60.0 ------ interface #2 substrate layer #3 z=getLayerBottomZ(3)=-60.0
 
@@ -8918,19 +9175,20 @@ C++ includes: MultiLayer.h
 %feature("docstring")  MultiLayer::~MultiLayer "MultiLayer::~MultiLayer()
 ";
 
-%feature("docstring")  MultiLayer::accept "void MultiLayer::accept(ISampleVisitor *visitor) const
+%feature("docstring")  MultiLayer::accept "virtual void MultiLayer::accept(ISampleVisitor *visitor) const
 
-calls the  ISampleVisitor's visit method 
+Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  MultiLayer::getNumberOfLayers "size_t MultiLayer::getNumberOfLayers() const
+%feature("docstring")  MultiLayer::to_str "std::string MultiLayer::to_str(int indent=0) const
 
-Returns number of layers in multilayer. 
+Returns textual representation of this and its descendants. 
 ";
 
-%feature("docstring")  MultiLayer::getNumberOfInterfaces "size_t MultiLayer::getNumberOfInterfaces() const
+%feature("docstring")  MultiLayer::getNumberOfLayers "size_t MultiLayer::getNumberOfLayers() const 
+";
 
-Returns number of interfaces in multilayer. 
+%feature("docstring")  MultiLayer::getNumberOfInterfaces "size_t MultiLayer::getNumberOfInterfaces() const 
 ";
 
 %feature("docstring")  MultiLayer::addLayer "void MultiLayer::addLayer(const Layer &p_child)
@@ -8945,12 +9203,12 @@ Adds layer with default (zero) roughness.
 Adds layer with top roughness. 
 ";
 
-%feature("docstring")  MultiLayer::getLayer "const Layer * MultiLayer::getLayer(size_t i_layer) const
+%feature("docstring")  MultiLayer::getLayer "const Layer* MultiLayer::getLayer(size_t i_layer) const
 
 Returns layer with given index. 
 ";
 
-%feature("docstring")  MultiLayer::getLayerInterface "const LayerInterface * MultiLayer::getLayerInterface(size_t i_interface) const
+%feature("docstring")  MultiLayer::getLayerInterface "const LayerInterface* MultiLayer::getLayerInterface(size_t i_interface) const
 
 Returns layer with given index. 
 ";
@@ -9018,11 +9276,6 @@ Fourier transform of the correlation function of roughnesses between the interfa
 Sets thickness of layer. 
 ";
 
-%feature("docstring")  MultiLayer::createDWBASimulation "MultiLayerDWBASimulation * MultiLayer::createDWBASimulation() const
-
-look for the presence of DWBA terms (e.g. included particles) and return  ISimulation if needed 
-";
-
 %feature("docstring")  MultiLayer::getIndexOfLayer "int MultiLayer::getIndexOfLayer(const Layer *layer) const
 
 returns layer index 
@@ -9038,59 +9291,13 @@ returns true if contains magnetic materials and matrix calculations are required
 returns layer index corresponding to given global z coordinate 
 ";
 
-
-// File: classMultiLayerDWBASimulation.xml
-%feature("docstring") MultiLayerDWBASimulation "
-
-This is the class that will perform a DWBA calculation with the given sample and simulation parameters.
-
-C++ includes: MultiLayerDWBASimulation.h
+%feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const 
 ";
 
-%feature("docstring")  MultiLayerDWBASimulation::MultiLayerDWBASimulation "MultiLayerDWBASimulation::MultiLayerDWBASimulation(const MultiLayer *p_multi_layer)
+%feature("docstring")  MultiLayer::hasRoughness "bool MultiLayer::hasRoughness() const 
 ";
 
-%feature("docstring")  MultiLayerDWBASimulation::~MultiLayerDWBASimulation "MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
-";
-
-%feature("docstring")  MultiLayerDWBASimulation::clone "MultiLayerDWBASimulation* MultiLayerDWBASimulation::clone() const 
-";
-
-%feature("docstring")  MultiLayerDWBASimulation::init "void MultiLayerDWBASimulation::init(const Simulation &simulation, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
-
-Initializes the simulation with the parameters from simulation. 
-";
-
-%feature("docstring")  MultiLayerDWBASimulation::run "void MultiLayerDWBASimulation::run()
-";
-
-
-// File: classMultiLayerRoughnessDWBASimulation.xml
-%feature("docstring") MultiLayerRoughnessDWBASimulation "
-
-Calculation of diffuse reflection from multilayer with rough interfaces.
-
-C++ includes: MultiLayerRoughnessDWBASimulation.h
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(const MultiLayer *p_multi_layer)
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation "MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::clone "MultiLayerRoughnessDWBASimulation* MultiLayerRoughnessDWBASimulation::clone() const 
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::run "void MultiLayerRoughnessDWBASimulation::run()
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::setSpecularInfo "void MultiLayerRoughnessDWBASimulation::setSpecularInfo(size_t i_layer, const LayerSpecularInfo &specular_info)
-
-Sets magnetic reflection/transmission info for specific layer. 
-";
-
-%feature("docstring")  MultiLayerRoughnessDWBASimulation::evaluate "double MultiLayerRoughnessDWBASimulation::evaluate(const SimulationElement &sim_element)
+%feature("docstring")  MultiLayer::totalNofLayouts "size_t MultiLayer::totalNofLayouts() const 
 ";
 
 
@@ -9105,7 +9312,7 @@ C++ includes: MultiLayerWithRoughnessBuilder.h
 %feature("docstring")  MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder "MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
 ";
 
-%feature("docstring")  MultiLayerWithRoughnessBuilder::buildSample "ISample * MultiLayerWithRoughnessBuilder::buildSample() const 
+%feature("docstring")  MultiLayerWithRoughnessBuilder::buildSample "MultiLayer * MultiLayerWithRoughnessBuilder::buildSample() const 
 ";
 
 
@@ -9120,7 +9327,7 @@ C++ includes: MultipleLayoutBuilder.h
 %feature("docstring")  MultipleLayoutBuilder::MultipleLayoutBuilder "MultipleLayoutBuilder::MultipleLayoutBuilder()
 ";
 
-%feature("docstring")  MultipleLayoutBuilder::buildSample "ISample * MultipleLayoutBuilder::buildSample() const 
+%feature("docstring")  MultipleLayoutBuilder::buildSample "MultiLayer * MultipleLayoutBuilder::buildSample() const 
 ";
 
 
@@ -9149,31 +9356,26 @@ C++ includes: OffSpecSimulation.h
 %feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation()
 ";
 
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const ISample &p_sample)
+%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const MultiLayer &p_sample)
 ";
 
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
+%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(std::shared_ptr< class IMultiLayerBuilder > p_sample_builder)
 ";
 
-%feature("docstring")  OffSpecSimulation::~OffSpecSimulation "virtual OffSpecSimulation::~OffSpecSimulation()
+%feature("docstring")  OffSpecSimulation::~OffSpecSimulation "OffSpecSimulation::~OffSpecSimulation() final
 ";
 
 %feature("docstring")  OffSpecSimulation::clone "OffSpecSimulation* OffSpecSimulation::clone() const 
 ";
 
-%feature("docstring")  OffSpecSimulation::prepareSimulation "void OffSpecSimulation::prepareSimulation()
+%feature("docstring")  OffSpecSimulation::prepareSimulation "void OffSpecSimulation::prepareSimulation() final
 
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  OffSpecSimulation::getNumberOfSimulationElements "int OffSpecSimulation::getNumberOfSimulationElements() const
+%feature("docstring")  OffSpecSimulation::numberOfSimulationElements "int OffSpecSimulation::numberOfSimulationElements() const final
 
 Gets the number of elements this simulation needs to calculate. 
-";
-
-%feature("docstring")  OffSpecSimulation::getOutputData "const OutputData<double>* OffSpecSimulation::getOutputData() const
-
-Returns detector intensity map. 
 ";
 
 %feature("docstring")  OffSpecSimulation::getDetectorIntensity "OutputData<double>* OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
@@ -9186,34 +9388,9 @@ Returns clone of the detector intensity map.
 Returns clone of the detector intensity map in the form of 2D histogram. 
 ";
 
-%feature("docstring")  OffSpecSimulation::setInstrument "void OffSpecSimulation::setInstrument(const Instrument &instrument)
-
-Sets the instrument containing beam and detector information. 
-";
-
-%feature("docstring")  OffSpecSimulation::getInstrument "const Instrument& OffSpecSimulation::getInstrument() const
-
-Returns the instrument containing beam and detector information. 
-";
-
 %feature("docstring")  OffSpecSimulation::setBeamParameters "void OffSpecSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i)
 
 Sets beam parameters from here (forwarded to  Instrument) 
-";
-
-%feature("docstring")  OffSpecSimulation::setBeamIntensity "void OffSpecSimulation::setBeamIntensity(double intensity)
-
-Sets beam intensity from here (forwarded to  Instrument) 
-";
-
-%feature("docstring")  OffSpecSimulation::setBeamPolarization "void OffSpecSimulation::setBeamPolarization(const kvector_t bloch_vector)
-
-Sets the beam polarization according to the given Bloch vector. 
-";
-
-%feature("docstring")  OffSpecSimulation::setDetectorParameters "void OffSpecSimulation::setDetectorParameters(const OutputData< double > &output_data)
-
-Sets detector parameters using axes of output data. 
 ";
 
 %feature("docstring")  OffSpecSimulation::setDetectorParameters "void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -9221,79 +9398,9 @@ Sets detector parameters using axes of output data.
 Sets detector parameters using angle ranges. 
 ";
 
-%feature("docstring")  OffSpecSimulation::setDetectorResolutionFunction "void OffSpecSimulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
-
-Define resolution function for detector. 
-";
-
-%feature("docstring")  OffSpecSimulation::removeDetectorResolutionFunction "void OffSpecSimulation::removeDetectorResolutionFunction()
-
-Removes detector resolution function. 
-";
-
-%feature("docstring")  OffSpecSimulation::setAnalyzerProperties "void OffSpecSimulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
-
-Sets the polarization analyzer characteristics of the detector. 
-";
-
-%feature("docstring")  OffSpecSimulation::addParametersToExternalPool "std::string OffSpecSimulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  OffSpecSimulation::addParametersToExternalPool "std::string OffSpecSimulation::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const final
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
-";
-
-
-// File: classOMPISimulation.xml
-%feature("docstring") OMPISimulation "";
-
-%feature("docstring")  OMPISimulation::runSimulation "void OMPISimulation::runSimulation(Simulation *simulation)
-";
-
-
-// File: classUtils_1_1OrderedMap.xml
-%feature("docstring") Utils::OrderedMap "
-
-Ordered map which saves the order of insertion.
-
-C++ includes: Utils.h
-";
-
-%feature("docstring")  Utils::OrderedMap::OrderedMap "Utils::OrderedMap< Key, Object >::OrderedMap()
-";
-
-%feature("docstring")  Utils::OrderedMap::~OrderedMap "virtual Utils::OrderedMap< Key, Object >::~OrderedMap()
-";
-
-%feature("docstring")  Utils::OrderedMap::clear "void Utils::OrderedMap< Key, Object >::clear()
-";
-
-%feature("docstring")  Utils::OrderedMap::begin "const_iterator Utils::OrderedMap< Key, Object >::begin() const 
-";
-
-%feature("docstring")  Utils::OrderedMap::end "const_iterator Utils::OrderedMap< Key, Object >::end() const 
-";
-
-%feature("docstring")  Utils::OrderedMap::begin "iterator Utils::OrderedMap< Key, Object >::begin()
-";
-
-%feature("docstring")  Utils::OrderedMap::end "iterator Utils::OrderedMap< Key, Object >::end()
-";
-
-%feature("docstring")  Utils::OrderedMap::size "size_t Utils::OrderedMap< Key, Object >::size()
-";
-
-%feature("docstring")  Utils::OrderedMap::insert "void Utils::OrderedMap< Key, Object >::insert(const Key &key, const Object &object)
-";
-
-%feature("docstring")  Utils::OrderedMap::find "const iterator Utils::OrderedMap< Key, Object >::find(const Key &key) const 
-";
-
-%feature("docstring")  Utils::OrderedMap::find "iterator Utils::OrderedMap< Key, Object >::find(const Key &key)
-";
-
-%feature("docstring")  Utils::OrderedMap::erase "size_t Utils::OrderedMap< Key, Object >::erase(const Key &key)
-";
-
-%feature("docstring")  Utils::OrderedMap::value "const Object& Utils::OrderedMap< Key, Object >::value(const Key &key)
 ";
 
 
@@ -9307,7 +9414,7 @@ C++ includes: Utils.h
 // File: classOutputData.xml
 %feature("docstring") OutputData "
 
-Template class to store data of any type in multi-dimensional space.
+Template class to store data of any type in multi-dimensional space.Used with data type double to hold simulation results. Used with data type  CumulativeValue in  IHistogram classes. Used with data type bool to hold a detector mask (-> class  DetectorMask)
 
 C++ includes: OutputData.h
 ";
@@ -9330,25 +9437,23 @@ C++ includes: OutputData.h
 %feature("docstring")  OutputData::copyShapeFrom "void OutputData< T >::copyShapeFrom(const OutputData< U > &other)
 ";
 
+%feature("docstring")  OutputData::meanValues "OutputData< double > * OutputData< T >::meanValues() const 
+";
+
 %feature("docstring")  OutputData::addAxis "void OutputData< T >::addAxis(const IAxis &new_axis)
 ";
 
 %feature("docstring")  OutputData::addAxis "void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)
 ";
 
-%feature("docstring")  OutputData::getAxis "const IAxis * OutputData< T >::getAxis(size_t serial_number) const
+%feature("docstring")  OutputData::getAxis "const IAxis & OutputData< T >::getAxis(size_t serial_number) const
 
 returns axis with given serial number 
 ";
 
-%feature("docstring")  OutputData::getAxis "const IAxis * OutputData< T >::getAxis(const std::string &axis_name) const
+%feature("docstring")  OutputData::getAxis "const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
 
 returns axis with given name 
-";
-
-%feature("docstring")  OutputData::getAxisSerialNumber "size_t OutputData< T >::getAxisSerialNumber(const std::string &axis_name) const
-
-returns serial number of axis with given name 
 ";
 
 %feature("docstring")  OutputData::getRank "size_t OutputData< T >::getRank() const
@@ -9401,24 +9506,10 @@ Returns read/write iterator that points to the one past last element.
 Returns read-only iterator that points to the one past last element. 
 ";
 
-%feature("docstring")  OutputData::getMask "Mask* OutputData< T >::getMask() const
-
-Returns mask that will be used by iterators. 
+%feature("docstring")  OutputData::setVariability "void OutputData< T >::setVariability(double variability)
 ";
 
-%feature("docstring")  OutputData::setMask "void OutputData< T >::setMask(const Mask &mask)
-
-Sets mask (or a stack of masks) 
-";
-
-%feature("docstring")  OutputData::addMask "void OutputData< T >::addMask(const Mask &mask)
-
-Adds mask that will be used by iterators. 
-";
-
-%feature("docstring")  OutputData::removeAllMasks "void OutputData< T >::removeAllMasks()
-
-Remove all masks. 
+%feature("docstring")  OutputData::getVariability "double OutputData< T >::getVariability() const 
 ";
 
 %feature("docstring")  OutputData::getAxesBinIndices "std::vector< int > OutputData< T >::getAxesBinIndices(size_t global_index) const
@@ -9599,6 +9690,11 @@ Sets new values to raw data vector.
 Sets new values to raw data array. 
 ";
 
+%feature("docstring")  OutputData::getValue "double OutputData< T >::getValue(size_t index) const
+
+Returns value or summed value, depending on T. 
+";
+
 %feature("docstring")  OutputData::hasSameDimensions "bool OutputData< T >::hasSameDimensions(const OutputData< U > &right) const
 
 Returns true if object have same dimensions and number of axes bins.
@@ -9618,6 +9714,11 @@ Returns true if object have same dimensions and shape of axis.
 returns data as Python numpy array
 
 returns true if object is correctly initialized 
+";
+
+%feature("docstring")  OutputData::allocate "void OutputData< T >::allocate()
+
+memory allocation for current dimensions configuration 
 ";
 
 
@@ -9662,19 +9763,9 @@ Returns current index.
 Returns container pointer. 
 ";
 
-%feature("docstring")  OutputDataIterator::getMask "Mask* OutputDataIterator< TValue, TContainer >::getMask() const
+%feature("docstring")  OutputDataIterator::swap "void OutputDataIterator< TValue, TContainer >::swap(OutputDataIterator< TValue, TContainer > &other)
 
-Returns mask. 
-";
-
-%feature("docstring")  OutputDataIterator::setMask "void OutputDataIterator< TValue, TContainer >::setMask(const Mask &mask)
-
-Sets mask (or a stack of masks) 
-";
-
-%feature("docstring")  OutputDataIterator::addMask "void OutputDataIterator< TValue, TContainer >::addMask(const Mask &mask)
-
-Adds mask (also resets index to first available element) 
+Swaps iterators. 
 ";
 
 
@@ -9791,7 +9882,7 @@ Sets concrete writing strategy.
 // File: classParameterDistribution.xml
 %feature("docstring") ParameterDistribution "";
 
-%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const AttLimits &limits=AttLimits())
+%feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
 ";
 
 %feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double xmin, double xmax)
@@ -9829,12 +9920,12 @@ get the sigma factor
 generate list of sampled values with their weight 
 ";
 
-%feature("docstring")  ParameterDistribution::getLinkedParameterNames "std::vector< std::string > ParameterDistribution::getLinkedParameterNames() const
+%feature("docstring")  ParameterDistribution::getLinkedParameterNames "std::vector<std::string> ParameterDistribution::getLinkedParameterNames() const
 
 get list of linked parameter names 
 ";
 
-%feature("docstring")  ParameterDistribution::getLimits "AttLimits ParameterDistribution::getLimits() const 
+%feature("docstring")  ParameterDistribution::getLimits "RealLimits ParameterDistribution::getLimits() const 
 ";
 
 %feature("docstring")  ParameterDistribution::getMinValue "double ParameterDistribution::getMinValue() const 
@@ -9849,7 +9940,7 @@ get list of linked parameter names
 
 Helper class for constructing parameter patterns.
 
-C++ includes: IParameterized.h
+C++ includes: ParameterPattern.h
 ";
 
 %feature("docstring")  ParameterPattern::ParameterPattern "ParameterPattern::ParameterPattern()
@@ -9871,20 +9962,22 @@ C++ includes: IParameterized.h
 // File: classParameterPool.xml
 %feature("docstring") ParameterPool "
 
-Holds a map of pointers to parameters (which must have different names).
+Holds a map of pointers to parameters.Used in  IParameterized, which has a member ParameterPool* m_pool. So this is pimpl (pointer to implementation) idiom, with  ParameterPool providing the implementation of all the nontrivial functionality of  IParameterized.
+
+Parameter names must be unique since we use them as map keys.
 
 C++ includes: ParameterPool.h
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(IParameterized *parent)
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const std::string &name, const std::function< void()> &onChange)
 
 Constructs an empty parameter pool. 
 ";
 
-%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool()=delete
+%feature("docstring")  ParameterPool::ParameterPool "ParameterPool::ParameterPool(const ParameterPool &)=delete
 ";
 
-%feature("docstring")  ParameterPool::~ParameterPool "virtual ParameterPool::~ParameterPool()
+%feature("docstring")  ParameterPool::~ParameterPool "ParameterPool::~ParameterPool()
 ";
 
 %feature("docstring")  ParameterPool::clone "ParameterPool * ParameterPool::clone() const
@@ -9894,50 +9987,52 @@ Returns a literal clone.
 
 %feature("docstring")  ParameterPool::cloneWithPrefix "ParameterPool * ParameterPool::cloneWithPrefix(const std::string &prefix) const
 
-Returns a clone with  prefix added to every parameter key. 
+Returns a clone with  prefix prepended to every parameter key. 
 ";
 
 %feature("docstring")  ParameterPool::copyToExternalPool "void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
 
-Copies parameters to  external_pool, adding  prefix to every key.
-
-Copy parameters of given pool to the external pool while adding prefix to local parameter keys 
+Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
 ";
 
 %feature("docstring")  ParameterPool::clear "void ParameterPool::clear()
 
-Deletes parameter map. 
+Clears the parameter map. 
+";
+
+%feature("docstring")  ParameterPool::getName "std::string ParameterPool::getName() const 
 ";
 
 %feature("docstring")  ParameterPool::size "size_t ParameterPool::size() const
 
-Returns size of parameter container. 
+Returns number of parameters in the pool. 
 ";
 
-%feature("docstring")  ParameterPool::registerParameter "void ParameterPool::registerParameter(const std::string &name, double *parpointer, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  ParameterPool::addParameter "RealParameter & ParameterPool::addParameter(RealParameter *par)
 
-Registers a parameter with key  name and pointer-to-value  parpointer.
+Adds parameter to the pool, and returns reference to the input pointer.
 
-Registers parameter with given name. 
+Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
 ";
 
-%feature("docstring")  ParameterPool::addParameter "void ParameterPool::addParameter(const std::string &name, RealParameterWrapper par)
+%feature("docstring")  ParameterPool::getParameter "RealParameter * ParameterPool::getParameter(const std::string &name)
 
-Adds parameter to the pool.
-
-Low-level routine. 
+Returns parameter with given  name. 
 ";
 
-%feature("docstring")  ParameterPool::getParameter "RealParameterWrapper ParameterPool::getParameter(const std::string &name) const
+%feature("docstring")  ParameterPool::getParameter "const RealParameter * ParameterPool::getParameter(const std::string &name) const
 
-Returns parameter named  name.
-
-Returns parameter with given name. 
+Returns parameter with given  name. 
 ";
 
-%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameterWrapper > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+%feature("docstring")  ParameterPool::getParameters "const std::vector<RealParameter*> ParameterPool::getParameters() const
 
-Returns vector of parameters which fit pattern. 
+Returns full vector of parameters. 
+";
+
+%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+
+Returns vector of parameters that match the  pattern (wildcards '*' allowed). 
 ";
 
 %feature("docstring")  ParameterPool::setParameterValue "void ParameterPool::setParameterValue(const std::string &name, double value)
@@ -9947,18 +10042,14 @@ Sets parameter value.
 
 %feature("docstring")  ParameterPool::setMatchedParametersValue "int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
 
-Sets parameter value, return number of changed parameters.
-
 Sets parameter value. 
 ";
 
-%feature("docstring")  ParameterPool::getParameterNames "std::vector< std::string > ParameterPool::getParameterNames() const
-
-Returns all parameter names. 
+%feature("docstring")  ParameterPool::getParameterNames "std::vector< std::string > ParameterPool::getParameterNames() const 
 ";
 
 
-// File: structParameterSample.xml
+// File: classParameterSample.xml
 %feature("docstring") ParameterSample "
 
 Represents a sampled parameter value with its weight.
@@ -9997,19 +10088,24 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Particle::accept "void Particle::accept(ISampleVisitor *visitor) const
+%feature("docstring")  Particle::accept "virtual void Particle::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  Particle::setAmbientMaterial "void Particle::setAmbientMaterial(const IMaterial &material)
+%feature("docstring")  Particle::to_str "std::string Particle::to_str(int indent=0) const
+
+Returns textual representation of this and its descendants. 
+";
+
+%feature("docstring")  Particle::setAmbientMaterial "void Particle::setAmbientMaterial(const IMaterial &material) final
 
 Sets the refractive index of the ambient material (which influences its scattering power) 
 ";
 
-%feature("docstring")  Particle::getAmbientMaterial "const IMaterial * Particle::getAmbientMaterial() const
+%feature("docstring")  Particle::getAmbientMaterial "const IMaterial* Particle::getAmbientMaterial() const final
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  Particle::createTransformedFormFactor "IFormFactor * Particle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -10018,35 +10114,27 @@ Create a form factor for this particle with an extra scattering factor.
 ";
 
 %feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const IMaterial &material)
-
-Sets  material. 
 ";
 
-%feature("docstring")  Particle::getMaterial "const IMaterial * Particle::getMaterial() const
+%feature("docstring")  Particle::getMaterial "const IMaterial* Particle::getMaterial() const
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  Particle::getRefractiveIndex "complex_t Particle::getRefractiveIndex() const
-
-Returns refractive index of the particle. 
+%feature("docstring")  Particle::getRefractiveIndex "complex_t Particle::getRefractiveIndex() const 
 ";
 
 %feature("docstring")  Particle::setFormFactor "void Particle::setFormFactor(const IFormFactor &form_factor)
-
-Sets the form factor. 
 ";
 
-%feature("docstring")  Particle::getFormFactor "const IFormFactor * Particle::getFormFactor() const
-
-Returns the form factor. 
+%feature("docstring")  Particle::getFormFactor "const IFormFactor* Particle::getFormFactor() const 
 ";
 
 
 // File: classParticleComposition.xml
 %feature("docstring") ParticleComposition "
 
-A composition of particles at fixed positions.
+A composition of particles at fixed positions
 
 C++ includes: ParticleComposition.h
 ";
@@ -10076,9 +10164,9 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleComposition::accept "void ParticleComposition::accept(ISampleVisitor *visitor) const
+%feature("docstring")  ParticleComposition::accept "virtual void ParticleComposition::accept(ISampleVisitor *visitor) const
 
-Calls the  ISampleVisitor's visit method. 
+calls the  ISampleVisitor's visit method 
 ";
 
 %feature("docstring")  ParticleComposition::addParticle "void ParticleComposition::addParticle(const IParticle &particle)
@@ -10097,7 +10185,7 @@ Sets the refractive index of the ambient material (which influences its scatteri
 
 %feature("docstring")  ParticleComposition::getAmbientMaterial "const IMaterial * ParticleComposition::getAmbientMaterial() const
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  ParticleComposition::createTransformedFormFactor "IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -10130,7 +10218,7 @@ C++ includes: ParticleCompositionBuilder.h
 %feature("docstring")  ParticleCompositionBuilder::ParticleCompositionBuilder "ParticleCompositionBuilder::ParticleCompositionBuilder()
 ";
 
-%feature("docstring")  ParticleCompositionBuilder::buildSample "ISample * ParticleCompositionBuilder::buildSample() const 
+%feature("docstring")  ParticleCompositionBuilder::buildSample "MultiLayer * ParticleCompositionBuilder::buildSample() const 
 ";
 
 
@@ -10158,7 +10246,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleCoreShell::accept "void ParticleCoreShell::accept(ISampleVisitor *visitor) const
+%feature("docstring")  ParticleCoreShell::accept "virtual void ParticleCoreShell::accept(ISampleVisitor *visitor) const
 
 Calls the  ISampleVisitor's visit method. 
 ";
@@ -10170,7 +10258,7 @@ Sets the refractive index of the ambient material (which influences its scatteri
 
 %feature("docstring")  ParticleCoreShell::getAmbientMaterial "const IMaterial * ParticleCoreShell::getAmbientMaterial() const
 
-Returns particle's material. 
+Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  ParticleCoreShell::createTransformedFormFactor "IFormFactor * ParticleCoreShell::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
@@ -10178,12 +10266,12 @@ Returns particle's material.
 Create a form factor for this particle with an extra scattering factor. 
 ";
 
-%feature("docstring")  ParticleCoreShell::getCoreParticle "const Particle * ParticleCoreShell::getCoreParticle() const
+%feature("docstring")  ParticleCoreShell::getCoreParticle "const Particle* ParticleCoreShell::getCoreParticle() const
 
 Returns the core particle. 
 ";
 
-%feature("docstring")  ParticleCoreShell::getShellParticle "const Particle * ParticleCoreShell::getShellParticle() const
+%feature("docstring")  ParticleCoreShell::getShellParticle "const Particle* ParticleCoreShell::getShellParticle() const
 
 Returns the shell particle. 
 ";
@@ -10192,7 +10280,7 @@ Returns the shell particle.
 // File: classParticleDistribution.xml
 %feature("docstring") ParticleDistribution "
 
-A particle with a form factor and refractive index.
+A particle type that is a parametric distribution of  IParticle's.
 
 C++ includes: ParticleDistribution.h
 ";
@@ -10213,6 +10301,11 @@ Returns a clone with inverted magnetic fields.
 %feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(ISampleVisitor *visitor) const
 
 calls the  ISampleVisitor's visit method 
+";
+
+%feature("docstring")  ParticleDistribution::to_str "std::string ParticleDistribution::to_str(int indent=0) const
+
+Returns textual representation of* this and its descendants. 
 ";
 
 %feature("docstring")  ParticleDistribution::setAmbientMaterial "void ParticleDistribution::setAmbientMaterial(const IMaterial &material)
@@ -10257,10 +10350,10 @@ C++ includes: ParticleInTheAirBuilder.h
 %feature("docstring")  ParticleInTheAirBuilder::ParticleInTheAirBuilder "ParticleInTheAirBuilder::ParticleInTheAirBuilder()
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::~ParticleInTheAirBuilder "ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
+%feature("docstring")  ParticleInTheAirBuilder::~ParticleInTheAirBuilder "virtual ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::buildSample "ISample * ParticleInTheAirBuilder::buildSample() const 
+%feature("docstring")  ParticleInTheAirBuilder::buildSample "MultiLayer * ParticleInTheAirBuilder::buildSample() const 
 ";
 
 
@@ -10281,20 +10374,20 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
 ";
 
-%feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout()
+%feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout() final
 ";
 
-%feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const
+%feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleLayout::cloneInvertB "ParticleLayout * ParticleLayout::cloneInvertB() const
+%feature("docstring")  ParticleLayout::cloneInvertB "ParticleLayout * ParticleLayout::cloneInvertB() const final
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(ISampleVisitor *visitor) const
+%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(ISampleVisitor *visitor) const final
 
 calls the  ISampleVisitor's visit method 
 ";
@@ -10355,46 +10448,47 @@ rotation:
  Particle rotation 
 ";
 
-%feature("docstring")  ParticleLayout::getNumberOfParticles "size_t ParticleLayout::getNumberOfParticles() const
+%feature("docstring")  ParticleLayout::getNumberOfParticles "size_t ParticleLayout::getNumberOfParticles() const final
 
 Returns number of particles. 
 ";
 
-%feature("docstring")  ParticleLayout::getParticle "const IAbstractParticle * ParticleLayout::getParticle(size_t index) const
-
-get information about particle with index
+%feature("docstring")  ParticleLayout::getParticle "const IAbstractParticle * ParticleLayout::getParticle(size_t index) const final
 
 Returns particle info. 
 ";
 
-%feature("docstring")  ParticleLayout::getParticles "SafePointerVector< const IParticle > ParticleLayout::getParticles() const
+%feature("docstring")  ParticleLayout::getParticles "SafePointerVector< const IParticle > ParticleLayout::getParticles() const final
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
 %feature("docstring")  ParticleLayout::getAbundanceOfParticle "double ParticleLayout::getAbundanceOfParticle(size_t index) const
 
-Get abundance fraction of particle with index. 
+Returns the abundance fraction of particle at given index. 
 ";
 
-%feature("docstring")  ParticleLayout::getInterferenceFunction "const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const
+%feature("docstring")  ParticleLayout::getInterferenceFunction "const IInterferenceFunction* ParticleLayout::getInterferenceFunction() const final
 
-Returns interference functions. 
+Returns interference function. 
+";
+
+%feature("docstring")  ParticleLayout::cloneInterferenceFunction "IInterferenceFunction * ParticleLayout::cloneInterferenceFunction() const final
+
+Returns a clone, or an  InterferenceFunctionNone. 
 ";
 
 %feature("docstring")  ParticleLayout::addInterferenceFunction "void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
 
-Sets interference function.
-
 Adds interference functions. 
 ";
 
-%feature("docstring")  ParticleLayout::getTotalParticleSurfaceDensity "double ParticleLayout::getTotalParticleSurfaceDensity() const
+%feature("docstring")  ParticleLayout::getTotalParticleSurfaceDensity "double ParticleLayout::getTotalParticleSurfaceDensity() const final
 
 Returns surface density of all particles. 
 ";
 
-%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final
 
 Sets surface density of all particles. 
 ";
@@ -10403,14 +10497,12 @@ Sets surface density of all particles.
 // File: classGeometry_1_1Polygon.xml
 %feature("docstring") Geometry::Polygon "
 
-The polygon in 2D space.
+A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
 C++ includes: Polygon.h
 ";
 
-%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(std::vector< double > x, std::vector< double > y)
-
-Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(const std::vector< double > &x, const std::vector< double > &y)
 
 Parameters:
 -----------
@@ -10422,7 +10514,7 @@ y:
 Vector of y-coordinates of polygon points. 
 ";
 
-%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(std::vector< std::vector< double > > points)
+%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(const std::vector< std::vector< double >> &points)
 
 Polygon defined by two dimensional array with (x,y) coordinates of polygon points. The size of second dimension should be 2. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
@@ -10433,20 +10525,23 @@ points:
 Two dimensional vector of (x,y) coordinates of polygon points. 
 ";
 
+%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(const PolygonPrivate *d)
+";
+
 %feature("docstring")  Geometry::Polygon::~Polygon "Geometry::Polygon::~Polygon()
 ";
 
-%feature("docstring")  Geometry::Polygon::clone "Polygon * Geometry::Polygon::clone() const 
+%feature("docstring")  Geometry::Polygon::clone "virtual Polygon* Geometry::Polygon::clone() const 
 ";
 
 %feature("docstring")  Geometry::Polygon::contains "bool Geometry::Polygon::contains(double x, double y) const
 
-Returns true if given point is inside or on border of polygon. 
+Returns true if point with given coordinates is inside or on border of the shape. 
 ";
 
 %feature("docstring")  Geometry::Polygon::contains "bool Geometry::Polygon::contains(const Bin1D &binx, const Bin1D &biny) const
 
-Returns true if area defined by two bins is inside or on border of polygon. More precisely, if mid point of two bins satisfy this condition. 
+Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 ";
 
 %feature("docstring")  Geometry::Polygon::getArea "double Geometry::Polygon::getArea() const 
@@ -10457,7 +10552,12 @@ Returns true if area defined by two bins is inside or on border of polygon. More
 
 
 // File: classPolygonalTopology.xml
-%feature("docstring") PolygonalTopology "";
+%feature("docstring") PolygonalTopology "
+
+For internal use in  PolyhedralFace.
+
+C++ includes: FormFactorPolyhedron.h
+";
 
 
 // File: classGeometry_1_1PolygonPrivate.xml
@@ -10538,7 +10638,7 @@ true if face has a perpedicular two-fold symmetry axis
 
 %feature("docstring")  PolyhedralFace::normalProjectionConj "complex_t PolyhedralFace::normalProjectionConj(cvector_t q) const
 
-Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]. 
+Returns conj(q)*normal [ BasicVector3D::dot is antilinear in 'this' argument]. 
 ";
 
 %feature("docstring")  PolyhedralFace::ff_n "complex_t PolyhedralFace::ff_n(int m, const cvector_t q) const
@@ -10563,7 +10663,12 @@ Throws if deviation from inversion symmetry is detected. Does not check vertices
 
 
 // File: classPolyhedralTopology.xml
-%feature("docstring") PolyhedralTopology "";
+%feature("docstring") PolyhedralTopology "
+
+For internal use in  FormFactorPolyhedron.
+
+C++ includes: FormFactorPolyhedron.h
+";
 
 
 // File: classPrecomputed.xml
@@ -10578,9 +10683,7 @@ C++ includes: Precomputed.h
 // File: classProgressHandler.xml
 %feature("docstring") ProgressHandler "
 
-Provides the functionality to calculate the progress of running simulation and report it to GUI.
-
-Thread safe to be used from  DWBASimulation
+Maintains information about progress of a computation. Owner is the computation, which periodically calls the thread-safe function incrementDone(..). An application (GUI or script) may subscribe(..) to be informed about progress. It is then periodically called back by inform(..). The return value of inform(..) can be used to request termination of the computation.
 
 C++ includes: ProgressHandler.h
 ";
@@ -10588,233 +10691,24 @@ C++ includes: ProgressHandler.h
 %feature("docstring")  ProgressHandler::ProgressHandler "ProgressHandler::ProgressHandler()
 ";
 
-%feature("docstring")  ProgressHandler::setCallback "void ProgressHandler::setCallback(ProgressHandler::Callback_t callback)
+%feature("docstring")  ProgressHandler::ProgressHandler "ProgressHandler::ProgressHandler(const ProgressHandler &other)
 ";
 
-%feature("docstring")  ProgressHandler::update "bool ProgressHandler::update(int n)
-
-Collects number of items processed by different  DWBASimulation's. Calculates general progress and inform GUI if progress has changed. Return flag is obtained from GUI and transferred to  DWBASimulation to ask them to stop calculations. 
-";
-
-%feature("docstring")  ProgressHandler::setNmaxItems "void ProgressHandler::setNmaxItems(long max)
-";
-
-%feature("docstring")  ProgressHandler::getProgress "long ProgressHandler::getProgress() const 
-";
-
-%feature("docstring")  ProgressHandler::getNitems "long ProgressHandler::getNitems() const 
-";
-
-%feature("docstring")  ProgressHandler::init "void ProgressHandler::init(Simulation *simulation, int param_combinations=1)
-
-Initialize  ProgressHandler, estimates number of items to be calculated by  DWBASimulation's. 
+%feature("docstring")  ProgressHandler::subscribe "void ProgressHandler::subscribe(ProgressHandler::Callback_t callback)
 ";
 
 %feature("docstring")  ProgressHandler::reset "void ProgressHandler::reset()
 ";
 
-
-// File: classProgressHandlerDWBA.xml
-%feature("docstring") ProgressHandlerDWBA "";
-
-%feature("docstring")  ProgressHandlerDWBA::ProgressHandlerDWBA "ProgressHandlerDWBA::ProgressHandlerDWBA()
+%feature("docstring")  ProgressHandler::setExpectedNTicks "void ProgressHandler::setExpectedNTicks(size_t n)
 ";
 
-%feature("docstring")  ProgressHandlerDWBA::setCallback "void ProgressHandlerDWBA::setCallback(ProgressHandler::Callback_t callback)
+%feature("docstring")  ProgressHandler::incrementDone "void ProgressHandler::incrementDone(size_t ticks_done)
+
+Increments number of completed computation steps (ticks). Performs callback (method m_inform) to inform the subscriber about the state of the computation and to obtain as return value a flag that indicates whether to continue the computation. 
 ";
 
-%feature("docstring")  ProgressHandlerDWBA::getCallback "ProgressHandler::Callback_t ProgressHandlerDWBA::getCallback() const 
-";
-
-%feature("docstring")  ProgressHandlerDWBA::update "bool ProgressHandlerDWBA::update()
-
-Method increments number of items processed. Every n'th processed item the  Simulation is informed via thread safe callback. Return flag false is used to inform DWBSimulation to interrupt calculations. 
-";
-
-%feature("docstring")  ProgressHandlerDWBA::finished "bool ProgressHandlerDWBA::finished()
-
-finalize report to the simulation 
-";
-
-
-// File: classPyGenVisitor.xml
-%feature("docstring") PyGenVisitor "";
-
-%feature("docstring")  PyGenVisitor::PyGenVisitor "PyGenVisitor::PyGenVisitor()
-";
-
-%feature("docstring")  PyGenVisitor::~PyGenVisitor "PyGenVisitor::~PyGenVisitor()
-";
-
-%feature("docstring")  PyGenVisitor::writePyScript "std::string PyGenVisitor::writePyScript(const GISASSimulation *simulation, const std::string &output_filename)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorAnisoPyramid *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorBox *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCone6 *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCuboctahedron *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorCylinder *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorDodecahedron *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSphere *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorFullSpheroid *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorGauss *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorHemiEllipsoid *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorIcosahedron *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorLorentz *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism3 *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPrism6 *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorPyramid *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple1 *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorRipple2 *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTetrahedron *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedCube *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSphere *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const FormFactorTruncatedSpheroid *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionNone *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction1DLattice *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DLattice *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Layer *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "virtual void PyGenVisitor::visit(const LayerInterface *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const LayerRoughness *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MultiLayer *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleComposition *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const MesoCrystal *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const Particle *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleDistribution *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleCoreShell *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const ParticleLayout *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationX *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationY *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationZ *sample)
-";
-
-%feature("docstring")  PyGenVisitor::visit "void PyGenVisitor::visit(const RotationEuler *sample)
-";
-
-%feature("docstring")  PyGenVisitor::definePreamble "std::string PyGenVisitor::definePreamble() const 
-";
-
-%feature("docstring")  PyGenVisitor::defineGetSimulation "std::string PyGenVisitor::defineGetSimulation(const GISASSimulation *simulation) const 
-";
-
-%feature("docstring")  PyGenVisitor::defineGetSample "std::string PyGenVisitor::defineGetSample() const 
-";
-
-%feature("docstring")  PyGenVisitor::defineMaterials "std::string PyGenVisitor::defineMaterials() const 
-";
-
-
-// File: classPySuiteTest.xml
-%feature("docstring") PySuiteTest "
-
-Test whether Python dumps yields the same image as a direct computation.
-
-C++ includes: PySuiteTest.h
-";
-
-%feature("docstring")  PySuiteTest::PySuiteTest "PySuiteTest::PySuiteTest(const std::string &name, const std::string &description, GISASSimulation *reference_simulation, double threshold)
-";
-
-%feature("docstring")  PySuiteTest::~PySuiteTest "PySuiteTest::~PySuiteTest()
-";
-
-%feature("docstring")  PySuiteTest::runTest "void PySuiteTest::runTest()
-";
-
-%feature("docstring")  PySuiteTest::analyseResults "int PySuiteTest::analyseResults()
-";
-
-%feature("docstring")  PySuiteTest::getOutputData "const OutputData<double>* PySuiteTest::getOutputData() const 
-";
-
-%feature("docstring")  PySuiteTest::getDifference "double PySuiteTest::getDifference() const 
-";
-
-%feature("docstring")  PySuiteTest::printResults "void PySuiteTest::printResults(std::ostream &ostr) const 
+%feature("docstring")  ProgressHandler::alive "bool ProgressHandler::alive()
 ";
 
 
@@ -10829,45 +10723,53 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  RadialParaCrystalBuilder::RadialParaCrystalBuilder "RadialParaCrystalBuilder::RadialParaCrystalBuilder()
 ";
 
-%feature("docstring")  RadialParaCrystalBuilder::buildSample "ISample * RadialParaCrystalBuilder::buildSample() const 
+%feature("docstring")  RadialParaCrystalBuilder::buildSample "MultiLayer * RadialParaCrystalBuilder::buildSample() const 
 ";
 
 
-// File: classRealParameterWrapper.xml
-%feature("docstring") RealParameterWrapper "
+// File: classRealParameter.xml
+%feature("docstring") RealParameter "
 
-Wrapper to real parameter for remote access to its value and callback abilities
+Wraps a parameter of type double. In addition to name and on-change callback held by the parent class  IParameter, this class holds Limits, Attributes (currently only fixed or not), and a  Unit.
 
-C++ includes: RealParameterWrapper.h
+C++ includes: RealParameter.h
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(IParameterized *parent, double *par, const AttLimits &limits=AttLimits::limitless())
+%feature("docstring")  RealParameter::RealParameter "RealParameter::RealParameter(const std::string &name, volatile double *par, const std::string &parent_name, const std::function< void()> &onChange, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 ";
 
-%feature("docstring")  RealParameterWrapper::RealParameterWrapper "RealParameterWrapper::RealParameterWrapper(const RealParameterWrapper &other)
+%feature("docstring")  RealParameter::clone "RealParameter * RealParameter::clone(const std::string &new_name=\"\") const 
 ";
 
-%feature("docstring")  RealParameterWrapper::setValue "void RealParameterWrapper::setValue(double value)
+%feature("docstring")  RealParameter::setValue "void RealParameter::setValue(double value)
 
 Sets value of wrapped parameter and emit signal. 
 ";
 
-%feature("docstring")  RealParameterWrapper::getValue "double RealParameterWrapper::getValue() const
+%feature("docstring")  RealParameter::getValue "double RealParameter::getValue() const
 
 Returns value of wrapped parameter. 
 ";
 
-%feature("docstring")  RealParameterWrapper::isNull "bool RealParameterWrapper::isNull() const
-
-Returns true if wrapped parameter was not initialized with proper real value. 
+%feature("docstring")  RealParameter::setLimits "RealParameter& RealParameter::setLimits(const RealLimits &limits)
 ";
 
-%feature("docstring")  RealParameterWrapper::checkNull "void RealParameterWrapper::checkNull() const
-
-throw exception if parameter was not initialized with proper value 
+%feature("docstring")  RealParameter::getLimits "RealLimits RealParameter::getLimits() const 
 ";
 
-%feature("docstring")  RealParameterWrapper::getAttLimits "AttLimits RealParameterWrapper::getAttLimits() const 
+%feature("docstring")  RealParameter::setLimited "RealParameter & RealParameter::setLimited(double lower, double upper)
+";
+
+%feature("docstring")  RealParameter::setPositive "RealParameter & RealParameter::setPositive()
+";
+
+%feature("docstring")  RealParameter::setNonnegative "RealParameter & RealParameter::setNonnegative()
+";
+
+%feature("docstring")  RealParameter::setUnit "RealParameter& RealParameter::setUnit(const std::string &name)
+";
+
+%feature("docstring")  RealParameter::unit "std::string RealParameter::unit() const 
 ";
 
 
@@ -10880,8 +10782,6 @@ C++ includes: Rectangle.h
 ";
 
 %feature("docstring")  Geometry::Rectangle::Rectangle "Geometry::Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
-
-Rectangle constructor with lower left and upper right coordinates
 
 Parameters:
 -----------
@@ -10899,17 +10799,17 @@ yup:
 y-coordinate of upper right corner 
 ";
 
-%feature("docstring")  Geometry::Rectangle::clone "Rectangle * Geometry::Rectangle::clone() const 
+%feature("docstring")  Geometry::Rectangle::clone "Rectangle* Geometry::Rectangle::clone() const 
 ";
 
 %feature("docstring")  Geometry::Rectangle::contains "bool Geometry::Rectangle::contains(double x, double y) const
 
-Returns true if given point is inside or on border of rectangle. 
+Returns true if point with given coordinates is inside or on border of the shape. 
 ";
 
 %feature("docstring")  Geometry::Rectangle::contains "bool Geometry::Rectangle::contains(const Bin1D &binx, const Bin1D &biny) const
 
-Returns true if mid point of two bins is inside rectangle. 
+Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 ";
 
 %feature("docstring")  Geometry::Rectangle::getArea "double Geometry::Rectangle::getArea() const 
@@ -10959,13 +10859,13 @@ Height of the detector in mm along y-direction
 %feature("docstring")  RectangularDetector::RectangularDetector "RectangularDetector::RectangularDetector(const RectangularDetector &other)
 ";
 
-%feature("docstring")  RectangularDetector::clone "RectangularDetector * RectangularDetector::clone() const 
+%feature("docstring")  RectangularDetector::clone "RectangularDetector * RectangularDetector::clone() const override
 ";
 
-%feature("docstring")  RectangularDetector::~RectangularDetector "virtual RectangularDetector::~RectangularDetector()
+%feature("docstring")  RectangularDetector::~RectangularDetector "RectangularDetector::~RectangularDetector()
 ";
 
-%feature("docstring")  RectangularDetector::init "void RectangularDetector::init(const Beam &beam)
+%feature("docstring")  RectangularDetector::init "void RectangularDetector::init(const Beam &beam) override
 
 Inits detector with the beam settings. 
 ";
@@ -10985,7 +10885,7 @@ Inits detector with the beam settings.
 %feature("docstring")  RectangularDetector::setDirectBeamPosition "void RectangularDetector::setDirectBeamPosition(double u0, double v0)
 ";
 
-%feature("docstring")  RectangularDetector::addParametersToExternalPool "std::string RectangularDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  RectangularDetector::addParametersToExternalPool "std::string RectangularDetector::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const override
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
@@ -11026,17 +10926,12 @@ Adds parameters from local pool to external pool and recursively calls its direc
 %feature("docstring")  RectangularDetector::getDetectorArrangment "RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const 
 ";
 
-%feature("docstring")  RectangularDetector::createDetectorMap "OutputData< double > * RectangularDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
-
-Returns detector map in given axes units. 
-";
-
-%feature("docstring")  RectangularDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > RectangularDetector::getValidAxesUnits() const
+%feature("docstring")  RectangularDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > RectangularDetector::getValidAxesUnits() const override
 
 returns vector of valid axes units 
 ";
 
-%feature("docstring")  RectangularDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
+%feature("docstring")  RectangularDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const override
 
 return default axes units 
 ";
@@ -11053,7 +10948,7 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  RectParaCrystalBuilder::RectParaCrystalBuilder "RectParaCrystalBuilder::RectParaCrystalBuilder()
 ";
 
-%feature("docstring")  RectParaCrystalBuilder::buildSample "ISample * RectParaCrystalBuilder::buildSample() const 
+%feature("docstring")  RectParaCrystalBuilder::buildSample "MultiLayer * RectParaCrystalBuilder::buildSample() const 
 ";
 
 
@@ -11066,19 +10961,75 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  RectPixelMap::~RectPixelMap "virtual RectPixelMap::~RectPixelMap()
 ";
 
-%feature("docstring")  RectPixelMap::clone "RectPixelMap * RectPixelMap::clone() const 
+%feature("docstring")  RectPixelMap::clone "RectPixelMap * RectPixelMap::clone() const override
 ";
 
-%feature("docstring")  RectPixelMap::createZeroSizeMap "RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const 
+%feature("docstring")  RectPixelMap::createZeroSizeMap "RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const override
 ";
 
-%feature("docstring")  RectPixelMap::getK "kvector_t RectPixelMap::getK(double x, double y, double wavelength) const 
+%feature("docstring")  RectPixelMap::getK "kvector_t RectPixelMap::getK(double x, double y, double wavelength) const override
 ";
 
-%feature("docstring")  RectPixelMap::getIntegrationFactor "double RectPixelMap::getIntegrationFactor(double x, double y) const 
+%feature("docstring")  RectPixelMap::getIntegrationFactor "double RectPixelMap::getIntegrationFactor(double x, double y) const override
 ";
 
-%feature("docstring")  RectPixelMap::getSolidAngle "double RectPixelMap::getSolidAngle() const 
+%feature("docstring")  RectPixelMap::getSolidAngle "double RectPixelMap::getSolidAngle() const override
+";
+
+
+// File: classRegionOfInterest.xml
+%feature("docstring") RegionOfInterest "
+
+Defines rectangular area for the detector which will be simulated/fitted.
+
+C++ includes: RegionOfInterest.h
+";
+
+%feature("docstring")  RegionOfInterest::RegionOfInterest "RegionOfInterest::RegionOfInterest(const IDetector2D &detector, double xlow, double ylow, double xup, double yup)
+";
+
+%feature("docstring")  RegionOfInterest::clone "RegionOfInterest * RegionOfInterest::clone() const 
+";
+
+%feature("docstring")  RegionOfInterest::~RegionOfInterest "RegionOfInterest::~RegionOfInterest()
+";
+
+%feature("docstring")  RegionOfInterest::getXlow "double RegionOfInterest::getXlow() const 
+";
+
+%feature("docstring")  RegionOfInterest::getYlow "double RegionOfInterest::getYlow() const 
+";
+
+%feature("docstring")  RegionOfInterest::getXup "double RegionOfInterest::getXup() const 
+";
+
+%feature("docstring")  RegionOfInterest::getYup "double RegionOfInterest::getYup() const 
+";
+
+%feature("docstring")  RegionOfInterest::detectorIndex "size_t RegionOfInterest::detectorIndex(size_t roiIndex) const
+
+Converts roi index to the detector index. 
+";
+
+%feature("docstring")  RegionOfInterest::roiIndex "size_t RegionOfInterest::roiIndex(size_t detectorIndex) const
+
+Converts global detector index to ROI index. 
+";
+
+%feature("docstring")  RegionOfInterest::roiSize "size_t RegionOfInterest::roiSize() const
+
+Number of detector bins in ROI area. 
+";
+
+%feature("docstring")  RegionOfInterest::detectorSize "size_t RegionOfInterest::detectorSize() const
+
+Number of detector bins. 
+";
+
+%feature("docstring")  RegionOfInterest::isInROI "bool RegionOfInterest::isInROI(size_t detectorIndex) const 
+";
+
+%feature("docstring")  RegionOfInterest::clipAxisToRoi "std::unique_ptr< IAxis > RegionOfInterest::clipAxisToRoi(size_t axis_index, const IAxis &axis) const 
 ";
 
 
@@ -11096,7 +11047,7 @@ C++ includes: ResolutionFunction2DGaussian.h
 %feature("docstring")  ResolutionFunction2DGaussian::evaluateCDF "double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const 
 ";
 
-%feature("docstring")  ResolutionFunction2DGaussian::clone "ResolutionFunction2DGaussian * ResolutionFunction2DGaussian::clone() const 
+%feature("docstring")  ResolutionFunction2DGaussian::clone "ResolutionFunction2DGaussian* ResolutionFunction2DGaussian::clone() const 
 ";
 
 %feature("docstring")  ResolutionFunction2DGaussian::getSigmaX "double ResolutionFunction2DGaussian::getSigmaX() const 
@@ -11117,14 +11068,14 @@ C++ includes: RotatedPyramidsBuilder.h
 %feature("docstring")  RotatedPyramidsBuilder::RotatedPyramidsBuilder "RotatedPyramidsBuilder::RotatedPyramidsBuilder()
 ";
 
-%feature("docstring")  RotatedPyramidsBuilder::buildSample "ISample * RotatedPyramidsBuilder::buildSample() const 
+%feature("docstring")  RotatedPyramidsBuilder::buildSample "MultiLayer * RotatedPyramidsBuilder::buildSample() const 
 ";
 
 
 // File: classRotatedSquareLatticeBuilder.xml
 %feature("docstring") RotatedSquareLatticeBuilder "
 
-Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
+Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
@@ -11132,7 +11083,7 @@ C++ includes: TwoDimLatticeBuilder.h
 %feature("docstring")  RotatedSquareLatticeBuilder::RotatedSquareLatticeBuilder "RotatedSquareLatticeBuilder::RotatedSquareLatticeBuilder()
 ";
 
-%feature("docstring")  RotatedSquareLatticeBuilder::buildSample "ISample * RotatedSquareLatticeBuilder::buildSample() const 
+%feature("docstring")  RotatedSquareLatticeBuilder::buildSample "MultiLayer * RotatedSquareLatticeBuilder::buildSample() const 
 ";
 
 
@@ -11142,19 +11093,19 @@ C++ includes: TwoDimLatticeBuilder.h
 %feature("docstring")  RotationEuler::RotationEuler "RotationEuler::RotationEuler(double alpha, double beta, double gamma)
 ";
 
-%feature("docstring")  RotationEuler::clone "RotationEuler * RotationEuler::clone() const
+%feature("docstring")  RotationEuler::clone "RotationEuler* RotationEuler::clone() const
 
-Returns a clone. 
-";
-
-%feature("docstring")  RotationEuler::cloneInvertB "RotationEuler * RotationEuler::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
+Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  RotationEuler::createInverse "IRotation * RotationEuler::createInverse() const
 
 Returns a new  IRotation object that is the current object's inverse. 
+";
+
+%feature("docstring")  RotationEuler::accept "void RotationEuler::accept(ISampleVisitor *visitor) const
+
+Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  RotationEuler::getAlpha "double RotationEuler::getAlpha() const 
@@ -11166,12 +11117,7 @@ Returns a new  IRotation object that is the current object's inverse.
 %feature("docstring")  RotationEuler::getGamma "double RotationEuler::getGamma() const 
 ";
 
-%feature("docstring")  RotationEuler::accept "void RotationEuler::accept(ISampleVisitor *visitor) const
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  RotationEuler::getTransform3D "Geometry::Transform3D RotationEuler::getTransform3D() const
+%feature("docstring")  RotationEuler::getTransform3D "Transform3D RotationEuler::getTransform3D() const
 
 Returns transformation. 
 ";
@@ -11183,22 +11129,14 @@ Returns transformation.
 %feature("docstring")  RotationX::RotationX "RotationX::RotationX(double angle)
 ";
 
-%feature("docstring")  RotationX::clone "RotationX * RotationX::clone() const
+%feature("docstring")  RotationX::clone "RotationX* RotationX::clone() const
 
-Returns a clone. 
+Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  RotationX::cloneInvertB "RotationX * RotationX::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  RotationX::createInverse "RotationX * RotationX::createInverse() const
+%feature("docstring")  RotationX::createInverse "RotationX* RotationX::createInverse() const
 
 Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  RotationX::getAngle "double RotationX::getAngle() const 
 ";
 
 %feature("docstring")  RotationX::accept "void RotationX::accept(ISampleVisitor *visitor) const
@@ -11206,7 +11144,10 @@ Returns a new  IRotation object that is the current object's inverse.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  RotationX::getTransform3D "Geometry::Transform3D RotationX::getTransform3D() const
+%feature("docstring")  RotationX::getAngle "double RotationX::getAngle() const 
+";
+
+%feature("docstring")  RotationX::getTransform3D "Transform3D RotationX::getTransform3D() const
 
 Returns transformation. 
 ";
@@ -11218,22 +11159,14 @@ Returns transformation.
 %feature("docstring")  RotationY::RotationY "RotationY::RotationY(double angle)
 ";
 
-%feature("docstring")  RotationY::clone "RotationY * RotationY::clone() const
+%feature("docstring")  RotationY::clone "RotationY* RotationY::clone() const
 
-Returns a clone. 
+Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  RotationY::cloneInvertB "RotationY * RotationY::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  RotationY::createInverse "RotationY * RotationY::createInverse() const
+%feature("docstring")  RotationY::createInverse "RotationY* RotationY::createInverse() const
 
 Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  RotationY::getAngle "double RotationY::getAngle() const 
 ";
 
 %feature("docstring")  RotationY::accept "void RotationY::accept(ISampleVisitor *visitor) const
@@ -11241,7 +11174,10 @@ Returns a new  IRotation object that is the current object's inverse.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  RotationY::getTransform3D "Geometry::Transform3D RotationY::getTransform3D() const
+%feature("docstring")  RotationY::getAngle "double RotationY::getAngle() const 
+";
+
+%feature("docstring")  RotationY::getTransform3D "Transform3D RotationY::getTransform3D() const
 
 Returns transformation. 
 ";
@@ -11253,22 +11189,14 @@ Returns transformation.
 %feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(double angle=0.0)
 ";
 
-%feature("docstring")  RotationZ::clone "RotationZ * RotationZ::clone() const
+%feature("docstring")  RotationZ::clone "RotationZ* RotationZ::clone() const
 
-Returns a clone. 
+Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  RotationZ::cloneInvertB "RotationZ * RotationZ::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  RotationZ::createInverse "RotationZ * RotationZ::createInverse() const
+%feature("docstring")  RotationZ::createInverse "RotationZ* RotationZ::createInverse() const
 
 Returns a new  IRotation object that is the current object's inverse. 
-";
-
-%feature("docstring")  RotationZ::getAngle "double RotationZ::getAngle() const 
 ";
 
 %feature("docstring")  RotationZ::accept "void RotationZ::accept(ISampleVisitor *visitor) const
@@ -11276,9 +11204,40 @@ Returns a new  IRotation object that is the current object's inverse.
 Calls the  ISampleVisitor's visit method. 
 ";
 
-%feature("docstring")  RotationZ::getTransform3D "Geometry::Transform3D RotationZ::getTransform3D() const
+%feature("docstring")  RotationZ::getAngle "double RotationZ::getAngle() const 
+";
+
+%feature("docstring")  RotationZ::getTransform3D "Transform3D RotationZ::getTransform3D() const
 
 Returns transformation. 
+";
+
+
+// File: classRoughMultiLayerComputation.xml
+%feature("docstring") RoughMultiLayerComputation "
+
+Computes the diffuse reflection from the rough interfaces of a multilayer. Controlled by  MainComputation.
+
+C++ includes: RoughMultiLayerComputation.h
+";
+
+%feature("docstring")  RoughMultiLayerComputation::RoughMultiLayerComputation "RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
+";
+
+%feature("docstring")  RoughMultiLayerComputation::~RoughMultiLayerComputation "RoughMultiLayerComputation::~RoughMultiLayerComputation()
+";
+
+%feature("docstring")  RoughMultiLayerComputation::eval "void RoughMultiLayerComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+
+Calls evaluate on range of simulation elements; returns true if computation shall continue. 
+";
+
+%feature("docstring")  RoughMultiLayerComputation::setSpecularInfo "void RoughMultiLayerComputation::setSpecularInfo(size_t i_layer, const LayerSpecularInfo &specular_info)
+
+Sets magnetic reflection/transmission info for specific layer. 
+";
+
+%feature("docstring")  RoughMultiLayerComputation::evaluate "double RoughMultiLayerComputation::evaluate(const SimulationElement &sim_element)
 ";
 
 
@@ -11292,9 +11251,9 @@ Returns transformation.
 // File: classSafePointerVector.xml
 %feature("docstring") SafePointerVector "
 
-A vector of pointers, owned by *this, with methods to handle them safely.
+The objects pointed to must support the  ICloneable interface.
 
-The objects pointed to must support the ICLoneable interface.
+A vector of pointers, owned by *this, with methods to handle them safely.
 
 C++ includes: SafePointerVector.h
 ";
@@ -11305,7 +11264,7 @@ C++ includes: SafePointerVector.h
 %feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector(const SafePointerVector &other)
 ";
 
-%feature("docstring")  SafePointerVector::~SafePointerVector "SafePointerVector< T >::~SafePointerVector()
+%feature("docstring")  SafePointerVector::~SafePointerVector "virtual SafePointerVector< T >::~SafePointerVector()
 ";
 
 %feature("docstring")  SafePointerVector::size "size_t SafePointerVector< T >::size() const 
@@ -11353,7 +11312,7 @@ C++ includes: SampleBuilderFactory.h
 %feature("docstring")  SampleBuilderFactory::SampleBuilderFactory "SampleBuilderFactory::SampleBuilderFactory()
 ";
 
-%feature("docstring")  SampleBuilderFactory::createSample "ISample * SampleBuilderFactory::createSample(const std::string &name)
+%feature("docstring")  SampleBuilderFactory::createSample "MultiLayer * SampleBuilderFactory::createSample(const std::string &name)
 
 Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
 ";
@@ -11406,7 +11365,7 @@ Retrieves a SampleBuilder from the registry, does the build, and returns the res
 // File: classSampleLabelHandler.xml
 %feature("docstring") SampleLabelHandler "
 
-The hadler which construct labels for sample variables during python script generation.
+The handler which construct labels for sample variables during python script generation.
 
 C++ includes: SampleLabelHandler.h
 ";
@@ -11414,556 +11373,112 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
 ";
 
-%feature("docstring")  SampleLabelHandler::getFormFactorMap "SampleLabelHandler::formfactors_t * SampleLabelHandler::getFormFactorMap()
+%feature("docstring")  SampleLabelHandler::getFormFactorMap "formfactors_t* SampleLabelHandler::getFormFactorMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getInterferenceFunctionMap "SampleLabelHandler::interferences_t * SampleLabelHandler::getInterferenceFunctionMap()
+%feature("docstring")  SampleLabelHandler::getInterferenceFunctionMap "interferences_t* SampleLabelHandler::getInterferenceFunctionMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerMap "SampleLabelHandler::layers_t * SampleLabelHandler::getLayerMap()
+%feature("docstring")  SampleLabelHandler::getLayerMap "layers_t* SampleLabelHandler::getLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "SampleLabelHandler::roughnesses_t * SampleLabelHandler::getLayerRoughnessMap()
+%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "layouts_t* SampleLabelHandler::getParticleLayoutMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getMaterialMap "SampleLabelHandler::materials_t * SampleLabelHandler::getMaterialMap()
+%feature("docstring")  SampleLabelHandler::getMaterialMap "materials_t* SampleLabelHandler::getMaterialMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getMultiLayerMap "SampleLabelHandler::multilayers_t * SampleLabelHandler::getMultiLayerMap()
+%feature("docstring")  SampleLabelHandler::getMultiLayerMap "multilayers_t* SampleLabelHandler::getMultiLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleMap "SampleLabelHandler::particles_t * SampleLabelHandler::getParticleMap()
+%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "particlecompositions_t* SampleLabelHandler::getParticleCompositionMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleCoreShellMap "SampleLabelHandler::particlescoreshell_t * SampleLabelHandler::getParticleCoreShellMap()
+%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "particledistributions_t* SampleLabelHandler::getParticleDistributionsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "SampleLabelHandler::particledistributions_t * SampleLabelHandler::getParticleDistributionsMap()
+%feature("docstring")  SampleLabelHandler::getParticleMap "particles_t* SampleLabelHandler::getParticleMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "SampleLabelHandler::layouts_t * SampleLabelHandler::getParticleLayoutMap()
+%feature("docstring")  SampleLabelHandler::getParticleCoreShellMap "particlescoreshell_t* SampleLabelHandler::getParticleCoreShellMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "SampleLabelHandler::particlecompositions_t * SampleLabelHandler::getParticleCompositionMap()
+%feature("docstring")  SampleLabelHandler::getRotationsMap "rotations_t* SampleLabelHandler::getRotationsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getRotationsMap "SampleLabelHandler::rotations_t * SampleLabelHandler::getRotationsMap()
+%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "roughnesses_t* SampleLabelHandler::getLayerRoughnessMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticle "std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::getLabelFormFactor "std::string SampleLabelHandler::getLabelFormFactor(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::getLabelInterferenceFunction "std::string SampleLabelHandler::getLabelInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::getLabelLayout "std::string SampleLabelHandler::getLabelLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::getLabelMaterial "std::string SampleLabelHandler::getLabelMaterial(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::getLabelRotation "std::string SampleLabelHandler::getLabelRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IAbstractParticle *sample)
+%feature("docstring")  SampleLabelHandler::getLabelLayer "std::string SampleLabelHandler::getLabelLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::getLabelRoughness "std::string SampleLabelHandler::getLabelRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::getLabelMultiLayer "std::string SampleLabelHandler::getLabelMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleComposition "std::string SampleLabelHandler::getLabelParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleCoreShell "std::string SampleLabelHandler::getLabelParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabel "std::string SampleLabelHandler::getLabel(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::getLabelParticleDistribution "std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistribution *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const IMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::insertFormFactor "void SampleLabelHandler::insertFormFactor(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::insertInterferenceFunction "void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::insertRotation "void SampleLabelHandler::insertRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::insertLayer "void SampleLabelHandler::insertLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::insertRoughness "void SampleLabelHandler::insertRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const Particle *sample)
+%feature("docstring")  SampleLabelHandler::insertMultiLayer "void SampleLabelHandler::insertMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::insertParticle "void SampleLabelHandler::insertParticle(const Particle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::insertParticleComposition "void SampleLabelHandler::insertParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::insertParticleCoreShell "void SampleLabelHandler::insertParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::setLabel "void SampleLabelHandler::setLabel(const IRotation *sample)
-";
-
-
-// File: classSampleMaterialVisitor.xml
-%feature("docstring") SampleMaterialVisitor "
-
-SampleMaterialVisitor retrieves a list of the used materials in a sample.
-
-C++ includes: SampleMaterialVisitor.h
-";
-
-%feature("docstring")  SampleMaterialVisitor::SampleMaterialVisitor "SampleMaterialVisitor::SampleMaterialVisitor()
-";
-
-%feature("docstring")  SampleMaterialVisitor::~SampleMaterialVisitor "virtual SampleMaterialVisitor::~SampleMaterialVisitor()
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ISample *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ICompositeSample *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IClusteredParticles *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Crystal *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ILayout *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleLayout *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Layer *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const LayerInterface *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const MultiLayer *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const Particle *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleDistribution *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleComposition *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const MesoCrystal *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const ParticleCoreShell *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactor *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDWBAPol *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorWeighted *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactorBorn *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorAnisoPyramid *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorBox *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCone *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCone6 *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCrystal *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCuboctahedron *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorCylinder *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDodecahedron *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorFullSphere *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorFullSpheroid *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorGauss *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorHemiEllipsoid *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorIcosahedron *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLongBoxGauss *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLongBoxLorentz *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorLorentz *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPrism3 *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPrism6 *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorPyramid *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorRipple1 *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorRipple2 *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorSphereGaussianRadius *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorSphereLogNormalRadius *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTetrahedron *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTrivial *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedCube *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedSphere *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorTruncatedSpheroid *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IFormFactorDecorator *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDWBA *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorDebyeWaller *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorFactor *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorMaterial *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorMultiPositionFactor *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorPositionFactor *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const FormFactorDecoratorRotation *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IInterferenceFunction *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction1DLattice *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction2DLattice *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const InterferenceFunctionNone *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const IRoughness *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const LayerRoughness *sample)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationX *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationY *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationZ *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::visit "void SampleMaterialVisitor::visit(const RotationEuler *)
-";
-
-%feature("docstring")  SampleMaterialVisitor::getMaterials "std::vector<const IMaterial *> SampleMaterialVisitor::getMaterials() const
-
-return vector of material presented in the sample 
-";
-
-%feature("docstring")  SampleMaterialVisitor::containsMagneticMaterial "bool SampleMaterialVisitor::containsMagneticMaterial() const
-
-return true if contains magnetic materials 
-";
-
-%feature("docstring")  SampleMaterialVisitor::clear "void SampleMaterialVisitor::clear()
-
-clear state of the visitor 
-";
-
-
-// File: classSamplePrintVisitor.xml
-%feature("docstring") SamplePrintVisitor "
-
-To help composite sample to print tree-like structure on the screen.
-
-C++ includes: SamplePrintVisitor.h
-";
-
-%feature("docstring")  SamplePrintVisitor::SamplePrintVisitor "SamplePrintVisitor::SamplePrintVisitor()
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ISample *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ICompositeSample *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IClusteredParticles *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Crystal *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ILayout *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleLayout *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Layer *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const LayerInterface *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const MultiLayer *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const Particle *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleDistribution *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleComposition *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const MesoCrystal *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const ParticleCoreShell *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactor *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDWBAPol *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorWeighted *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactorBorn *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorAnisoPyramid *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorBox *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCone *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCone6 *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCrystal *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCuboctahedron *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorCylinder *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDodecahedron *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorEllipsoidalCylinder *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorFullSphere *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorFullSpheroid *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorGauss *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorHemiEllipsoid *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorIcosahedron *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLongBoxGauss *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLongBoxLorentz *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorLorentz *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPrism3 *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPrism6 *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorPyramid *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorRipple1 *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorRipple2 *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorSphereGaussianRadius *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorSphereLogNormalRadius *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTetrahedron *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTrivial *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedCube *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedSphere *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorTruncatedSpheroid *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IFormFactorDecorator *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDWBA *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorDebyeWaller *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorFactor *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorMaterial *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorMultiPositionFactor *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorPositionFactor *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const FormFactorDecoratorRotation *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IInterferenceFunction *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction1DLattice *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunctionRadialParaCrystal *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction2DLattice *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const InterferenceFunctionNone *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const IRoughness *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const LayerRoughness *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationX *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationY *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationZ *sample)
-";
-
-%feature("docstring")  SamplePrintVisitor::visit "void SamplePrintVisitor::visit(const RotationEuler *sample)
+%feature("docstring")  SampleLabelHandler::insertParticleDistribution "void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution *sample)
 ";
 
 
@@ -12062,7 +11577,7 @@ Scalar value getters; these throw errors by default as they should only be used 
 // File: classScalarSpecularInfoMap.xml
 %feature("docstring") ScalarSpecularInfoMap "
 
-Implementation of  ISpecularInfoMap for scalar valued reflection/ transmission coefficients.
+Implementation of  ISpecularInfoMap for scalar valued reflection/transmission coefficients.
 
 C++ includes: ScalarSpecularInfoMap.h
 ";
@@ -12070,21 +11585,18 @@ C++ includes: ScalarSpecularInfoMap.h
 %feature("docstring")  ScalarSpecularInfoMap::ScalarSpecularInfoMap "ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer, int layer)
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::~ScalarSpecularInfoMap "virtual ScalarSpecularInfoMap::~ScalarSpecularInfoMap()
+%feature("docstring")  ScalarSpecularInfoMap::~ScalarSpecularInfoMap "ScalarSpecularInfoMap::~ScalarSpecularInfoMap() final
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::clone "ScalarSpecularInfoMap * ScalarSpecularInfoMap::clone() const 
+%feature("docstring")  ScalarSpecularInfoMap::clone "ScalarSpecularInfoMap* ScalarSpecularInfoMap::clone() const final
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::getOutCoefficients "const ScalarRTCoefficients * ScalarSpecularInfoMap::getOutCoefficients(double alpha_f, double phi_f, double wavelength) const
+%feature("docstring")  ScalarSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element) const final
 
-Retrieves the amplitude coefficients for the given angles.
-
-Todo
-Can we avoid the code duplication in the two following functions ? 
+Retrieves the amplitude coefficients for the given angles. 
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ScalarRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(double alpha_i, double phi_i, double wavelength) const
+%feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(const SimulationElement &sim_element) const final
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
@@ -12114,28 +11626,28 @@ C++ includes: ISelectionRule.h
 %feature("docstring")  SimpleSelectionRule::clone "SimpleSelectionRule * SimpleSelectionRule::clone() const 
 ";
 
-%feature("docstring")  SimpleSelectionRule::coordinateSelected "bool SimpleSelectionRule::coordinateSelected(const IndexVector3D &coordinate) const 
+%feature("docstring")  SimpleSelectionRule::coordinateSelected "bool SimpleSelectionRule::coordinateSelected(const ivector_t &coordinate) const 
 ";
 
 
 // File: classSimulation.xml
 %feature("docstring") Simulation "
 
-Main class to run the simulation.
+Pure virtual base class of OffSpecularSimulation and  GISASSimulation, holds common infrastructure to run a simulation.
 
-C++ includes: GISASSimulation.h
+C++ includes: Simulation.h
 ";
 
 %feature("docstring")  Simulation::Simulation "Simulation::Simulation()
 ";
 
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation(const ISample &p_sample)
+%feature("docstring")  Simulation::Simulation "Simulation::Simulation(const MultiLayer &p_sample)
 ";
 
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation(std::shared_ptr< class ISampleBuilder > p_sample_builder)
+%feature("docstring")  Simulation::Simulation "Simulation::Simulation(std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
 ";
 
-%feature("docstring")  Simulation::~Simulation "virtual Simulation::~Simulation()
+%feature("docstring")  Simulation::~Simulation "Simulation::~Simulation()
 ";
 
 %feature("docstring")  Simulation::clone "virtual Simulation* Simulation::clone() const =0
@@ -12153,36 +11665,52 @@ Run a simulation, possibly averaged over parameter distributions.
 Run simulation with possible averaging over parameter distributions. 
 ";
 
-%feature("docstring")  Simulation::runOMPISimulation "void Simulation::runOMPISimulation()
-
-Run an OpenMPI simulation. 
+%feature("docstring")  Simulation::setInstrument "void Simulation::setInstrument(const Instrument &instrument)
 ";
 
-%feature("docstring")  Simulation::setSample "void Simulation::setSample(const ISample &sample)
-
-Sets the sample to be tested.
-
-The  ISample object will not be owned by the  Simulation object. 
+%feature("docstring")  Simulation::getInstrument "const Instrument& Simulation::getInstrument() const 
 ";
 
-%feature("docstring")  Simulation::getSample "ISample* Simulation::getSample() const
-
-Returns the sample. 
+%feature("docstring")  Simulation::getInstrument "Instrument& Simulation::getInstrument()
 ";
 
-%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
-
-Sets the sample builder. 
+%feature("docstring")  Simulation::setBeamIntensity "void Simulation::setBeamIntensity(double intensity)
 ";
 
-%feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<class ISampleBuilder> Simulation::getSampleBuilder() const
-
-return sample builder 
+%feature("docstring")  Simulation::getBeamIntensity "double Simulation::getBeamIntensity() const 
 ";
 
-%feature("docstring")  Simulation::getNumberOfSimulationElements "virtual int Simulation::getNumberOfSimulationElements() const =0
+%feature("docstring")  Simulation::setBeamPolarization "void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 
-Gets the number of elements this simulation needs to calculate. 
+Sets the beam polarization according to the given Bloch vector. 
+";
+
+%feature("docstring")  Simulation::setDetectorResolutionFunction "void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
+";
+
+%feature("docstring")  Simulation::removeDetectorResolutionFunction "void Simulation::removeDetectorResolutionFunction()
+";
+
+%feature("docstring")  Simulation::setAnalyzerProperties "void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
+
+Sets the polarization analyzer characteristics of the detector. 
+";
+
+%feature("docstring")  Simulation::setSample "void Simulation::setSample(const MultiLayer &sample)
+
+The  MultiLayer object will not be owned by the  Simulation object. 
+";
+
+%feature("docstring")  Simulation::getSample "MultiLayer* Simulation::getSample() const 
+";
+
+%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
+";
+
+%feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const 
+";
+
+%feature("docstring")  Simulation::numberOfSimulationElements "virtual int Simulation::numberOfSimulationElements() const =0
 ";
 
 %feature("docstring")  Simulation::getDetectorIntensity "virtual OutputData<double>* Simulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const =0
@@ -12190,32 +11718,18 @@ Gets the number of elements this simulation needs to calculate.
 Clone simulated intensity map. 
 ";
 
-%feature("docstring")  Simulation::addParametersToExternalPool "std::string Simulation::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  Simulation::addSimulationParametersToExternalPool "std::string Simulation::addSimulationParametersToExternalPool(const std::string &path, ParameterPool *external_pool) const
 
-Adds parameters from local to external pool, and call recursion over direct children. 
+Adds parameters defined in this class the to external pool. 
 ";
 
-%feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const AttLimits &limits=AttLimits())
-
-add a sampled parameter distribution 
+%feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
 ";
 
 %feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
-
-add a sampled parameter distribution 
 ";
 
-%feature("docstring")  Simulation::getDistributionHandler "const DistributionHandler & Simulation::getDistributionHandler() const 
-";
-
-%feature("docstring")  Simulation::setProgressHandler "void Simulation::setProgressHandler(ProgressHandler_t progress)
-
-sets progress handler (used by GUI) 
-";
-
-%feature("docstring")  Simulation::initProgressHandlerDWBA "void Simulation::initProgressHandlerDWBA(class ProgressHandlerDWBA *dwba_progress)
-
-initializes DWBA progress handler 
+%feature("docstring")  Simulation::getDistributionHandler "const DistributionHandler& Simulation::getDistributionHandler() const 
 ";
 
 %feature("docstring")  Simulation::setOptions "void Simulation::setOptions(const SimulationOptions &options)
@@ -12227,6 +11741,77 @@ initializes DWBA progress handler
 %feature("docstring")  Simulation::getOptions "SimulationOptions& Simulation::getOptions()
 ";
 
+%feature("docstring")  Simulation::subscribe "void Simulation::subscribe(ProgressHandler::Callback_t inform)
+";
+
+%feature("docstring")  Simulation::setTerminalProgressMonitor "void Simulation::setTerminalProgressMonitor()
+
+Initializes a progress monitor that prints to stdout. 
+";
+
+
+// File: classSimulationArea.xml
+%feature("docstring") SimulationArea "
+
+Holds iteration logic over active detector channels in the presence of masked areas and  RegionOfInterest defined.
+
+C++ includes: SimulationArea.h
+";
+
+%feature("docstring")  SimulationArea::SimulationArea "SimulationArea::SimulationArea(const IDetector2D *detector)
+";
+
+%feature("docstring")  SimulationArea::~SimulationArea "virtual SimulationArea::~SimulationArea()
+";
+
+%feature("docstring")  SimulationArea::begin "SimulationAreaIterator SimulationArea::begin()
+";
+
+%feature("docstring")  SimulationArea::end "SimulationAreaIterator SimulationArea::end()
+";
+
+%feature("docstring")  SimulationArea::isMasked "bool SimulationArea::isMasked(size_t index) const
+
+returns trus if given iterator index correspond to masked detector channel 
+";
+
+%feature("docstring")  SimulationArea::totalSize "size_t SimulationArea::totalSize() const 
+";
+
+%feature("docstring")  SimulationArea::roiIndex "size_t SimulationArea::roiIndex(size_t index) const
+
+Return index in ROI map from iterator index. 
+";
+
+%feature("docstring")  SimulationArea::detectorIndex "size_t SimulationArea::detectorIndex(size_t index) const
+
+Return detector index from iterator index. 
+";
+
+
+// File: classSimulationAreaIterator.xml
+%feature("docstring") SimulationAreaIterator "
+
+An iterator for  SimulationArea.
+
+C++ includes: SimulationAreaIterator.h
+";
+
+%feature("docstring")  SimulationAreaIterator::SimulationAreaIterator "SimulationAreaIterator::SimulationAreaIterator(const SimulationArea *area, size_t start_at_index)
+";
+
+%feature("docstring")  SimulationAreaIterator::index "size_t SimulationAreaIterator::index() const 
+";
+
+%feature("docstring")  SimulationAreaIterator::elementIndex "size_t SimulationAreaIterator::elementIndex() const 
+";
+
+%feature("docstring")  SimulationAreaIterator::roiIndex "int SimulationAreaIterator::roiIndex() const 
+";
+
+%feature("docstring")  SimulationAreaIterator::detectorIndex "int SimulationAreaIterator::detectorIndex() const 
+";
+
 
 // File: classSimulationElement.xml
 %feature("docstring") SimulationElement "
@@ -12236,7 +11821,7 @@ Data stucture containing both input and output of a single detector cell.
 C++ includes: SimulationElement.h
 ";
 
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, const IPixelMap *pixelmap)
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixelMap > pixelmap)
 ";
 
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
@@ -12245,6 +11830,9 @@ C++ includes: SimulationElement.h
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other, double x, double y)
 
 Construct  SimulationElement from other element and restrict k_f to specific value in the original detector pixel 
+";
+
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(SimulationElement &&other) noexcept
 ";
 
 %feature("docstring")  SimulationElement::~SimulationElement "SimulationElement::~SimulationElement()
@@ -12315,14 +11903,20 @@ Gets the polarization analyzer operator (in spin basis along z-axis)
 %feature("docstring")  SimulationElement::getSolidAngle "double SimulationElement::getSolidAngle() const 
 ";
 
-%feature("docstring")  SimulationElement::getAlpha "double SimulationElement::getAlpha(double x, double y) const
-
-get alpha for given detector pixel coordinates 
+%feature("docstring")  SimulationElement::getAlpha "double SimulationElement::getAlpha(double x, double y) const 
 ";
 
-%feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const
+%feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const 
+";
 
-get phi for given detector pixel coordinates 
+%feature("docstring")  SimulationElement::containsSpecularWavevector "bool SimulationElement::containsSpecularWavevector() const
+
+check if element contains given wavevector 
+";
+
+%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(bool contains_specular)
+
+indicate that this element contains the specular wavevector 
 ";
 
 
@@ -12396,11 +11990,37 @@ Sets the batch and thread information to be used.
 %feature("docstring")  SimulationOptions::getHardwareConcurrency "int SimulationOptions::getHardwareConcurrency() const 
 ";
 
+%feature("docstring")  SimulationOptions::getDefaultVariability "double SimulationOptions::getDefaultVariability() const 
+";
+
+%feature("docstring")  SimulationOptions::setIncludeSpecular "void SimulationOptions::setIncludeSpecular(bool include_specular)
+";
+
+%feature("docstring")  SimulationOptions::includeSpecular "bool SimulationOptions::includeSpecular() const 
+";
+
+
+// File: classSimulationRoiArea.xml
+%feature("docstring") SimulationRoiArea "
+
+Holds iteration logic over active detector channels in the presence of ROI. On the contrary to  SimulationArea class, iterates also over masked areas.
+
+C++ includes: SimulationArea.h
+";
+
+%feature("docstring")  SimulationRoiArea::SimulationRoiArea "SimulationRoiArea::SimulationRoiArea(const IDetector2D *detector)
+";
+
+%feature("docstring")  SimulationRoiArea::isMasked "bool SimulationRoiArea::isMasked(size_t) const
+
+returns trus if given iterator index correspond to masked detector channel 
+";
+
 
 // File: classSizeDistributionDAModelBuilder.xml
 %feature("docstring") SizeDistributionDAModelBuilder "
 
-Creates the sample demonstrating size distribution model in decoupling approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py.
+Creates the sample demonstrating size distribution model in decoupling approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -12408,14 +12028,14 @@ C++ includes: SizeDistributionModelsBuilder.h
 %feature("docstring")  SizeDistributionDAModelBuilder::SizeDistributionDAModelBuilder "SizeDistributionDAModelBuilder::SizeDistributionDAModelBuilder()
 ";
 
-%feature("docstring")  SizeDistributionDAModelBuilder::buildSample "ISample * SizeDistributionDAModelBuilder::buildSample() const 
+%feature("docstring")  SizeDistributionDAModelBuilder::buildSample "MultiLayer * SizeDistributionDAModelBuilder::buildSample() const 
 ";
 
 
 // File: classSizeDistributionLMAModelBuilder.xml
 %feature("docstring") SizeDistributionLMAModelBuilder "
 
-Creates the sample demonstrating size distribution model in local monodisperse approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py.
+Creates the sample demonstrating size distribution model in local monodisperse approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -12423,14 +12043,14 @@ C++ includes: SizeDistributionModelsBuilder.h
 %feature("docstring")  SizeDistributionLMAModelBuilder::SizeDistributionLMAModelBuilder "SizeDistributionLMAModelBuilder::SizeDistributionLMAModelBuilder()
 ";
 
-%feature("docstring")  SizeDistributionLMAModelBuilder::buildSample "ISample * SizeDistributionLMAModelBuilder::buildSample() const 
+%feature("docstring")  SizeDistributionLMAModelBuilder::buildSample "MultiLayer * SizeDistributionLMAModelBuilder::buildSample() const 
 ";
 
 
 // File: classSizeDistributionSSCAModelBuilder.xml
 %feature("docstring") SizeDistributionSSCAModelBuilder "
 
-Creates the sample demonstrating size distribution model in size space coupling approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py.
+Creates the sample demonstrating size distribution model in size space coupling approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -12438,27 +12058,25 @@ C++ includes: SizeDistributionModelsBuilder.h
 %feature("docstring")  SizeDistributionSSCAModelBuilder::SizeDistributionSSCAModelBuilder "SizeDistributionSSCAModelBuilder::SizeDistributionSSCAModelBuilder()
 ";
 
-%feature("docstring")  SizeDistributionSSCAModelBuilder::buildSample "ISample * SizeDistributionSSCAModelBuilder::buildSample() const 
+%feature("docstring")  SizeDistributionSSCAModelBuilder::buildSample "MultiLayer * SizeDistributionSSCAModelBuilder::buildSample() const 
 ";
 
 
-// File: classSizeSpacingCorrelationApproximationStrategy.xml
-%feature("docstring") SizeSpacingCorrelationApproximationStrategy "
+// File: classSpecularComputation.xml
+%feature("docstring") SpecularComputation "
 
-Strategy which implements size spacing correlation approximation.
+Computes the specular scattering. Controlled by  MainComputation.
 
-C++ includes: SizeSpacingCorrelationApproximationStrategy.h
+C++ includes: SpecularComputation.h
 ";
 
-%feature("docstring")  SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy "SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(SimulationOptions sim_params, double kappa)
+%feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer *p_multi_layer)
 ";
 
-%feature("docstring")  SizeSpacingCorrelationApproximationStrategy::~SizeSpacingCorrelationApproximationStrategy "virtual SizeSpacingCorrelationApproximationStrategy::~SizeSpacingCorrelationApproximationStrategy()
+%feature("docstring")  SpecularComputation::eval "void SpecularComputation::eval(ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
 ";
 
-%feature("docstring")  SizeSpacingCorrelationApproximationStrategy::init "void SizeSpacingCorrelationApproximationStrategy::init(const SafePointerVector< FormFactorInfo > &form_factor_infos, const IInterferenceFunction &iff)
-
-Initializes the object with form factors and interference functions. 
+%feature("docstring")  SpecularComputation::setSpecularInfo "void SpecularComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
 ";
 
 
@@ -12494,7 +12112,7 @@ C++ includes: SpecularSimulation.h
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const ISample &sample)
 ";
 
-%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(std::shared_ptr< class ISampleBuilder > sample_builder)
+%feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 ";
 
 %feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation()
@@ -12513,17 +12131,17 @@ Run a simulation with the current parameter settings.
 Sets the sample to be tested. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSample "ISample * SpecularSimulation::getSample() const
+%feature("docstring")  SpecularSimulation::getSample "ISample* SpecularSimulation::getSample() const
 
 Returns the sample. 
 ";
 
-%feature("docstring")  SpecularSimulation::setSampleBuilder "void SpecularSimulation::setSampleBuilder(std::shared_ptr< class ISampleBuilder > sample_builder)
+%feature("docstring")  SpecularSimulation::setSampleBuilder "void SpecularSimulation::setSampleBuilder(std::shared_ptr< IMultiLayerBuilder > sample_builder)
 
 Sets the sample builder. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSampleBuilder "std::shared_ptr< class ISampleBuilder > SpecularSimulation::getSampleBuilder() const
+%feature("docstring")  SpecularSimulation::getSampleBuilder "std::shared_ptr<IMultiLayerBuilder> SpecularSimulation::getSampleBuilder() const
 
 return sample builder 
 ";
@@ -12576,7 +12194,7 @@ Put into a clean state for running a simulation.
 // File: classSphericalDetector.xml
 %feature("docstring") SphericalDetector "
 
-A spherical detector with axes and resolution function.
+A spherical detector with axes and resolution function.  SphericalDetector
 
 C++ includes: SphericalDetector.h
 ";
@@ -12613,28 +12231,23 @@ upper edge of last alpha-bin
 %feature("docstring")  SphericalDetector::SphericalDetector "SphericalDetector::SphericalDetector(const SphericalDetector &other)
 ";
 
-%feature("docstring")  SphericalDetector::clone "SphericalDetector * SphericalDetector::clone() const 
+%feature("docstring")  SphericalDetector::clone "SphericalDetector * SphericalDetector::clone() const override
 ";
 
-%feature("docstring")  SphericalDetector::~SphericalDetector "virtual SphericalDetector::~SphericalDetector()
+%feature("docstring")  SphericalDetector::~SphericalDetector "SphericalDetector::~SphericalDetector() override
 ";
 
-%feature("docstring")  SphericalDetector::addParametersToExternalPool "std::string SphericalDetector::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const
+%feature("docstring")  SphericalDetector::addParametersToExternalPool "std::string SphericalDetector::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const override
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
-%feature("docstring")  SphericalDetector::createDetectorMap "OutputData< double > * SphericalDetector::createDetectorMap(const Beam &beam, EAxesUnits units_type) const
-
-Returns detector map in given axes units. 
-";
-
-%feature("docstring")  SphericalDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > SphericalDetector::getValidAxesUnits() const
+%feature("docstring")  SphericalDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > SphericalDetector::getValidAxesUnits() const override
 
 returns vector of valid axes units 
 ";
 
-%feature("docstring")  SphericalDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
+%feature("docstring")  SphericalDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const override
 
 return default axes units 
 ";
@@ -12773,7 +12386,7 @@ C++ includes: ISquaredFunction.h
 // File: classSquareLatticeBuilder.xml
 %feature("docstring") SquareLatticeBuilder "
 
-Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
+Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
@@ -12781,47 +12394,74 @@ C++ includes: TwoDimLatticeBuilder.h
 %feature("docstring")  SquareLatticeBuilder::SquareLatticeBuilder "SquareLatticeBuilder::SquareLatticeBuilder()
 ";
 
-%feature("docstring")  SquareLatticeBuilder::buildSample "ISample * SquareLatticeBuilder::buildSample() const 
+%feature("docstring")  SquareLatticeBuilder::buildSample "MultiLayer * SquareLatticeBuilder::buildSample() const 
 ";
 
 
-// File: classUtils_1_1String.xml
-%feature("docstring") Utils::String "
+// File: classSSCApproximationStrategy.xml
+%feature("docstring") SSCApproximationStrategy "
 
-Collection of utilities for std::string.
+Virtual base class for  SSCApproximationStrategy1 and  SSCApproximationStrategy2, which compute the total scalar/polarized scattering from a decorated layer in size-spacing correlation approximation.
 
-C++ includes: Utils.h
+C++ includes: SSCApproximationStrategy.h
+";
+
+%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(double kappa)
 ";
 
 
-// File: classUtils_1_1StringUsageMap.xml
-%feature("docstring") Utils::StringUsageMap "
+// File: classSSCApproximationStrategy1.xml
+%feature("docstring") SSCApproximationStrategy1 "
 
-Control how often a string is used.
+Strategy class to compute the total scalar scattering from a decorated layer in size-spacing correlation approximation.
 
-C++ includes: Utils.h
+C++ includes: SSCApproximationStrategy.h
 ";
 
-%feature("docstring")  Utils::StringUsageMap::StringUsageMap "Utils::StringUsageMap::StringUsageMap()
+%feature("docstring")  SSCApproximationStrategy1::SSCApproximationStrategy1 "SSCApproximationStrategy1::SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
 ";
 
-%feature("docstring")  Utils::StringUsageMap::~StringUsageMap "Utils::StringUsageMap::~StringUsageMap()
+
+// File: classSSCApproximationStrategy2.xml
+%feature("docstring") SSCApproximationStrategy2 "
+
+Strategy class to compute the total polarized scattering from a decorated layer in size-spacing correlation approximation.
+
+C++ includes: SSCApproximationStrategy.h
 ";
 
-%feature("docstring")  Utils::StringUsageMap::add "void Utils::StringUsageMap::add(std::string name)
-
-Adds string to the map to count number of times it was used. 
+%feature("docstring")  SSCApproximationStrategy2::SSCApproximationStrategy2 "SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
 ";
 
-%feature("docstring")  Utils::StringUsageMap::begin "iterator_t Utils::StringUsageMap::begin()
+
+// File: classStringUsageMap.xml
+%feature("docstring") StringUsageMap "
+
+Counts how often a string is used.
+
+C++ includes: StringUsageMap.h
+";
+
+%feature("docstring")  StringUsageMap::StringUsageMap "StringUsageMap::StringUsageMap()
+";
+
+%feature("docstring")  StringUsageMap::~StringUsageMap "StringUsageMap::~StringUsageMap()
+";
+
+%feature("docstring")  StringUsageMap::add "void StringUsageMap::add(const std::string &name)
+
+Adds string to the map, or increments usage counter. 
+";
+
+%feature("docstring")  StringUsageMap::begin "iterator_t StringUsageMap::begin()
 
 access to the map of strings 
 ";
 
-%feature("docstring")  Utils::StringUsageMap::end "iterator_t Utils::StringUsageMap::end()
+%feature("docstring")  StringUsageMap::end "iterator_t StringUsageMap::end()
 ";
 
-%feature("docstring")  Utils::StringUsageMap::get_current "std::string Utils::StringUsageMap::get_current() const
+%feature("docstring")  StringUsageMap::get_current "std::string StringUsageMap::get_current() const
 
 Returns current string. 
 ";
@@ -12829,30 +12469,6 @@ Returns current string.
 
 // File: classUtils_1_1System.xml
 %feature("docstring") Utils::System "";
-
-
-// File: classTestFormFactorsRegistry.xml
-%feature("docstring") TestFormFactorsRegistry "
-
-Registry with predefined form factors, for functional tests.
-
-C++ includes: SubtestRegistry.h
-";
-
-%feature("docstring")  TestFormFactorsRegistry::TestFormFactorsRegistry "TestFormFactorsRegistry::TestFormFactorsRegistry()
-";
-
-
-// File: classTestFTDistribution2DRegistry.xml
-%feature("docstring") TestFTDistribution2DRegistry "
-
-Registry with predefined Fourier transformed distributions, for functional tests.
-
-C++ includes: SubtestRegistry.h
-";
-
-%feature("docstring")  TestFTDistribution2DRegistry::TestFTDistribution2DRegistry "TestFTDistribution2DRegistry::TestFTDistribution2DRegistry()
-";
 
 
 // File: structThreadInfo.xml
@@ -12894,75 +12510,75 @@ C++ includes: TRange.h
 ";
 
 
-// File: classGeometry_1_1Transform3D.xml
-%feature("docstring") Geometry::Transform3D "
+// File: classTransform3D.xml
+%feature("docstring") Transform3D "
 
 Vector transformations in three dimensions.
 
 C++ includes: Transform3D.h
 ";
 
-%feature("docstring")  Geometry::Transform3D::Transform3D "Geometry::Transform3D::Transform3D()
+%feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D()
 
 Constructs unit transformation. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::Transform3D "Geometry::Transform3D::Transform3D(const Transform3D &other)
+%feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D(const Transform3D &other)
 
 Copy constructor. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::~Transform3D "Geometry::Transform3D::~Transform3D()
+%feature("docstring")  Transform3D::~Transform3D "Transform3D::~Transform3D()
 
 Destructor. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::clone "Geometry::Transform3D * Geometry::Transform3D::clone() const
+%feature("docstring")  Transform3D::clone "Transform3D * Transform3D::clone() const
 
 Clones the transformation. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::calculateEulerAngles "void Geometry::Transform3D::calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const
+%feature("docstring")  Transform3D::calculateEulerAngles "void Transform3D::calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const
 
 Calculates the Euler angles corresponding to the rotation. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::getInverse "Geometry::Transform3D Geometry::Transform3D::getInverse() const
+%feature("docstring")  Transform3D::getInverse "Transform3D Transform3D::getInverse() const
 
 Returns the inverse transformation. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::transformed "Geometry::BasicVector3D< double > Geometry::Transform3D::transformed(const BasicVector3D< double > &v) const
+%feature("docstring")  Transform3D::transformed "BasicVector3D< double > Transform3D::transformed(const BasicVector3D< double > &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::transformed "Geometry::BasicVector3D< complex_t > Geometry::Transform3D::transformed(const BasicVector3D< complex_t > &v) const
+%feature("docstring")  Transform3D::transformed "BasicVector3D< complex_t > Transform3D::transformed(const BasicVector3D< complex_t > &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::transformedInverse "Geometry::BasicVector3D< double > Geometry::Transform3D::transformedInverse(const BasicVector3D< double > &v) const
+%feature("docstring")  Transform3D::transformedInverse "BasicVector3D< double > Transform3D::transformedInverse(const BasicVector3D< double > &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::transformedInverse "Geometry::BasicVector3D< complex_t > Geometry::Transform3D::transformedInverse(const BasicVector3D< complex_t > &v) const
+%feature("docstring")  Transform3D::transformedInverse "BasicVector3D< complex_t > Transform3D::transformedInverse(const BasicVector3D< complex_t > &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Geometry::Transform3D::getRotationType "Geometry::Transform3D::ERotationType Geometry::Transform3D::getRotationType() const
+%feature("docstring")  Transform3D::getRotationType "Transform3D::ERotationType Transform3D::getRotationType() const
 
 Retrieve the rotation type (general, around x, y or z-axis) 
 ";
 
-%feature("docstring")  Geometry::Transform3D::isIdentity "bool Geometry::Transform3D::isIdentity() const
+%feature("docstring")  Transform3D::isIdentity "bool Transform3D::isIdentity() const
 
 Determine if the transformation is trivial (identity) 
 ";
 
-%feature("docstring")  Geometry::Transform3D::print "void Geometry::Transform3D::print(std::ostream &ostr) const 
+%feature("docstring")  Transform3D::print "void Transform3D::print(std::ostream &ostr) const 
 ";
 
 
@@ -12977,7 +12593,7 @@ C++ includes: TransformationsBuilder.h
 %feature("docstring")  TransformBoxBuilder::TransformBoxBuilder "TransformBoxBuilder::TransformBoxBuilder()
 ";
 
-%feature("docstring")  TransformBoxBuilder::buildSample "ISample * TransformBoxBuilder::buildSample() const 
+%feature("docstring")  TransformBoxBuilder::buildSample "MultiLayer * TransformBoxBuilder::buildSample() const 
 ";
 
 
@@ -12992,7 +12608,7 @@ C++ includes: RipplesBuilder.h
 %feature("docstring")  TriangularRippleBuilder::TriangularRippleBuilder "TriangularRippleBuilder::TriangularRippleBuilder()
 ";
 
-%feature("docstring")  TriangularRippleBuilder::buildSample "ISample * TriangularRippleBuilder::buildSample() const 
+%feature("docstring")  TriangularRippleBuilder::buildSample "MultiLayer * TriangularRippleBuilder::buildSample() const 
 ";
 
 
@@ -13014,7 +12630,7 @@ C++ includes: TRange.h
 // File: classTwoTypesCylindersDistributionBuilder.xml
 %feature("docstring") TwoTypesCylindersDistributionBuilder "
 
-Builds sample: mixture cylinder particles with different size distribution (IsGISAXS example #2)
+Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)
 
 C++ includes: ParticleDistributionsBuilder.h
 ";
@@ -13022,7 +12638,22 @@ C++ includes: ParticleDistributionsBuilder.h
 %feature("docstring")  TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder "TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 ";
 
-%feature("docstring")  TwoTypesCylindersDistributionBuilder::buildSample "ISample * TwoTypesCylindersDistributionBuilder::buildSample() const 
+%feature("docstring")  TwoTypesCylindersDistributionBuilder::buildSample "MultiLayer * TwoTypesCylindersDistributionBuilder::buildSample() const 
+";
+
+
+// File: classUnit.xml
+%feature("docstring") Unit "
+
+A physical unit.
+
+C++ includes: Unit.h
+";
+
+%feature("docstring")  Unit::Unit "Unit::Unit(const std::string &name=\"\")
+";
+
+%feature("docstring")  Unit::setUnit "void Unit::setUnit(const std::string &name)
 ";
 
 
@@ -13066,7 +12697,7 @@ Array of size nbins+1 containing low-edges for each bin and upper edge of last b
 clone function 
 ";
 
-%feature("docstring")  VariableBinAxis::getSize "size_t VariableBinAxis::getSize() const
+%feature("docstring")  VariableBinAxis::size "size_t VariableBinAxis::size() const
 
 retrieve the number of bins 
 ";
@@ -13097,7 +12728,7 @@ find bin index which is best match for given value
 %feature("docstring")  VariableBinAxis::getBinCenters "std::vector< double > VariableBinAxis::getBinCenters() const 
 ";
 
-%feature("docstring")  VariableBinAxis::getBinBoundaries "std::vector< double > VariableBinAxis::getBinBoundaries() const 
+%feature("docstring")  VariableBinAxis::getBinBoundaries "std::vector<double> VariableBinAxis::getBinBoundaries() const 
 ";
 
 %feature("docstring")  VariableBinAxis::createClippedAxis "VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const
@@ -13109,14 +12740,12 @@ Creates a new clipped axis.
 // File: classGeometry_1_1VerticalLine.xml
 %feature("docstring") Geometry::VerticalLine "
 
-Vertical infinite line.
+An infinite vertical line.
 
 C++ includes: Line.h
 ";
 
 %feature("docstring")  Geometry::VerticalLine::VerticalLine "Geometry::VerticalLine::VerticalLine(double x)
-
-Infinite vertical line constructor
 
 Parameters:
 -----------
@@ -13125,17 +12754,17 @@ x:
 The value at which it crosses x-axes 
 ";
 
-%feature("docstring")  Geometry::VerticalLine::clone "VerticalLine * Geometry::VerticalLine::clone() const 
+%feature("docstring")  Geometry::VerticalLine::clone "VerticalLine* Geometry::VerticalLine::clone() const 
 ";
 
 %feature("docstring")  Geometry::VerticalLine::contains "bool Geometry::VerticalLine::contains(double x, double y) const
 
-Returns true if given point is on this line segment (y is unused) 
+Returns true if point with given coordinates is inside or on border of the shape. 
 ";
 
 %feature("docstring")  Geometry::VerticalLine::contains "bool Geometry::VerticalLine::contains(const Bin1D &binx, const Bin1D &biny) const
 
-Returns true if the line crosses the area defined by two given bins. 
+Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 ";
 
 %feature("docstring")  Geometry::VerticalLine::getXpos "double Geometry::VerticalLine::getXpos() const 
@@ -13156,6 +12785,9 @@ C++ includes: WavevectorInfo.h
 %feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
 ";
 
+%feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
+";
+
 %feature("docstring")  WavevectorInfo::getKi "cvector_t WavevectorInfo::getKi() const 
 ";
 
@@ -13172,35 +12804,46 @@ C++ includes: WavevectorInfo.h
 // File: classMathFunctions_1_1Convolve_1_1Workspace.xml
 
 
-// File: namespace@339.xml
+// File: namespace_0D276.xml
 
 
-// File: namespace@353.xml
+// File: namespace_0D306.xml
 
 
-// File: namespace@67.xml
+// File: namespace_0D429.xml
 
 
-// File: namespace@95.xml
+// File: namespace_0D57.xml
+
+
+// File: namespace_0D72.xml
 
 
 // File: namespaceboost_1_1geometry.xml
 
 
 // File: namespaceBornAgain.xml
-%feature("docstring")  BornAgain::GetMajorVersionNumber "int BornAgain::GetMajorVersionNumber()
+
+
+// File: namespaceDetectorFunctions.xml
+%feature("docstring")  DetectorFunctions::hasSameDimensions "bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector, const OutputData< double > &data)
+
+Returns true if the data has same axes size (nx,ny) with the detector. 
 ";
 
-%feature("docstring")  BornAgain::GetMinorVersionNumber "int BornAgain::GetMinorVersionNumber()
+%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const IDetector2D &detector)
+
+Returns string representation of axes dimension in the form \"(nx,ny)\". 
 ";
 
-%feature("docstring")  BornAgain::GetPatchVersionNumber "int BornAgain::GetPatchVersionNumber()
+%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const OutputData< double > &data)
+
+Returns string representation of axes dimension in the form \"(nx,ny)\". 
 ";
 
-%feature("docstring")  BornAgain::GetName "std::string BornAgain::GetName()
-";
+%feature("docstring")  DetectorFunctions::createDataSet "std::unique_ptr< OutputData< double > > DetectorFunctions::createDataSet(const Instrument &instrument, const OutputData< double > &data, bool put_masked_areas_to_zero=true)
 
-%feature("docstring")  BornAgain::GetVersionNumber "std::string BornAgain::GetVersionNumber()
+Creates real data containing original user data clipped to the ROI area of the detector. If put_masked_areas_to_zero==true: resulting data will have 0.0 in all masked areas If put_masked_areas_to_zero==false: resulting data will be only cropped, masked areas will still contain intensities TODO: what users will like more (this appears on FitSuitePlotObserver)? 
 ";
 
 
@@ -13209,28 +12852,79 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: namespaceFormFactorTools.xml
-%feature("docstring")  FormFactorTools::createDWBAScalarFormFactor "IFormFactor * FormFactorTools::createDWBAScalarFormFactor(const IFormFactor &form_factor)
+// File: namespaceFileSystem.xml
+%feature("docstring")  FileSystem::GetFileExtension "std::string FileSystem::GetFileExtension(const std::string &name)
 
-Decorates the given formfactor with a scalar dwba formfactor and returns this form factor 
+Returns file extension. 
 ";
 
-%feature("docstring")  FormFactorTools::createDWBAMatrixFormFactor "IFormFactor * FormFactorTools::createDWBAMatrixFormFactor(const IFormFactor &form_factor)
+%feature("docstring")  FileSystem::CreateDirectory "bool FileSystem::CreateDirectory(const std::string &dir_name)
 
-Decorates the given formfactor with a matrix dwba formfactor and returns this form factor 
+creates directory in current directory 
+";
+
+%feature("docstring")  FileSystem::filesInDirectory "std::vector< std::string > FileSystem::filesInDirectory(const std::string &dir_name)
+
+Returns filenames of files in directory. 
+";
+
+%feature("docstring")  FileSystem::GetJoinPath "std::string FileSystem::GetJoinPath(const std::string &spath1, const std::string &spath2)
+
+join paths together 
+";
+
+%feature("docstring")  FileSystem::filename "std::string FileSystem::filename(const std::string &path)
+
+Returns path without directory part (\"Foo/Bar/Doz.int.gz\" -> \"Doz.int.gz\") 
+";
+
+%feature("docstring")  FileSystem::reglob "std::vector< std::string > FileSystem::reglob(const std::string &dir, const std::string &pattern)
+
+Returns file names that agree with a regex glob pattern. 
 ";
 
 
 // File: namespaceGeometry.xml
-%feature("docstring")  Geometry::toComplexVector "BA_CORE_API_ BasicVector3D< std::complex< double > > Geometry::toComplexVector(const BasicVector3D< double > &real_vector)
 
-Todo
-Replace by member function complex() 
+
+// File: namespaceIntensityDataFunctions.xml
+%feature("docstring")  IntensityDataFunctions::getRelativeDifference "BA_CORE_API_ double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
 ";
 
-%feature("docstring")  Geometry::vecOfLambdaAlphaPhi "BA_CORE_API_ BasicVector3D< double > Geometry::vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+%feature("docstring")  IntensityDataFunctions::getRelativeDifference "BA_CORE_API_ double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+";
 
-Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+%feature("docstring")  IntensityDataFunctions::createRelativeDifferenceData "BA_CORE_API_ OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
+";
+
+%feature("docstring")  IntensityDataFunctions::createClippedDataSet "BA_CORE_API_ OutputData<double>* IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
+
+Returns new IntensityData objects which axes clipped to represent the specified rectangle 
+";
+
+%feature("docstring")  IntensityDataFunctions::applyDetectorResolution "BA_CORE_API_ OutputData<double>* IntensityDataFunctions::applyDetectorResolution(const OutputData< double > &origin, const IResolutionFunction2D &resolution_function)
+
+Applies detector resolution function and returns new IntensityData object. 
+";
+
+%feature("docstring")  IntensityDataFunctions::coordinateToBinf "BA_CORE_API_ double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis &axis)
+
+Transforms coordinate on axis into the bin-fraction-coordinate. 
+";
+
+%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "BA_CORE_API_ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis &axis)
+
+Transforms bin-fraction-coordinate into axis coordinate. 
+";
+
+%feature("docstring")  IntensityDataFunctions::coordinateToBinf "BA_CORE_API_ void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+Transform x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates 
+";
+
+%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "BA_CORE_API_ void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+Transform x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates 
 ";
 
 
@@ -13350,86 +13044,15 @@ convolution of two real vectors of equal size
 ";
 
 
-// File: namespaceMSG.xml
-%feature("docstring")  MSG::SetLevel "BA_CORE_API_ void MSG::SetLevel(EMessageLevel level)
-";
-
-%feature("docstring")  MSG::SetLevel "BA_CORE_API_ void MSG::SetLevel(const std::string &levelname)
-";
-
-
 // File: namespaceNumeric.xml
-%feature("docstring")  Numeric::areAlmostEqual "bool BA_CORE_API_ Numeric::areAlmostEqual(double a, double b, double tolerance_factor)
+%feature("docstring")  Numeric::areAlmostEqual "bool BA_CORE_API_ Numeric::areAlmostEqual(double a, double b, double tolerance)
 
-compare two doubles 
+Returns true if two doubles agree within epsilon*tolerance. 
 ";
 
 %feature("docstring")  Numeric::get_relative_difference "double BA_CORE_API_ Numeric::get_relative_difference(double a, double b)
 
-calculates safe relative difference |(a-b)/b| 
-";
-
-
-// File: namespaceOutputDataFunctions.xml
-%feature("docstring")  OutputDataFunctions::doubleBinSize "OutputData< double > * OutputDataFunctions::doubleBinSize(const OutputData< double > &source)
-
-double the bin size for each dimension
-
-double the bin size for each dimension. 
-";
-
-%feature("docstring")  OutputDataFunctions::FourierTransform "void OutputDataFunctions::FourierTransform(const OutputData< double > &source, OutputData< complex_t > *p_destination)
-
-unnormalized Fourier transformation for real data
-
-Fourier transformation of output data. 
-";
-
-%feature("docstring")  OutputDataFunctions::FourierTransformR "void OutputDataFunctions::FourierTransformR(const OutputData< complex_t > &source, OutputData< double > *p_destination)
-
-unnormalized reverse Fourier transformation for real data
-
-Fourier back transform. 
-";
-
-%feature("docstring")  OutputDataFunctions::getRealPart "OutputData< double > * OutputDataFunctions::getRealPart(const OutputData< complex_t > &source)
-
-reduces the data to the element-wise real, imaginary or modulus part 
-";
-
-%feature("docstring")  OutputDataFunctions::getImagPart "OutputData< double > * OutputDataFunctions::getImagPart(const OutputData< complex_t > &source)
-";
-
-%feature("docstring")  OutputDataFunctions::getModulusPart "OutputData< double > * OutputDataFunctions::getModulusPart(const OutputData< complex_t > &source)
-";
-
-%feature("docstring")  OutputDataFunctions::getComponentData "OutputData< double > * OutputDataFunctions::getComponentData(const OutputData< Eigen::Matrix2d > &source, int row, int column)
-
-Selects an element-wise component of the matrix-valued  OutputData structure and returns a new double-valued one 
-";
-
-%feature("docstring")  OutputDataFunctions::createFromComponents "OutputData< Eigen::Matrix2d > * OutputDataFunctions::createFromComponents(const OutputData< double > &component_00, const OutputData< double > &component_01, const OutputData< double > &component_10, const OutputData< double > &component_11)
-
-Assembles a matrix-valued OuputData structure from its component maps. 
-";
-
-%feature("docstring")  OutputDataFunctions::sliceAccrossOneAxis "OutputData< double > * OutputDataFunctions::sliceAccrossOneAxis(const OutputData< double > &data, const std::string &fixed_axis_name, double fixed_axis_value)
-
-Slice data, having one bin on selected axis fixed. Resulting output data will have one axis less (without axis 'fixed_axis_name') 
-";
-
-%feature("docstring")  OutputDataFunctions::selectRangeOnOneAxis "OutputData< double > * OutputDataFunctions::selectRangeOnOneAxis(const OutputData< double > &data, const std::string &selected_axis_name, double axis_value1, double axis_value2)
-
-Select range on one of the axis.
-
-Select range on one of the axis. Resulting output data will have same number of axes
-
-Resulting output data will have same number of axes 
-";
-
-%feature("docstring")  OutputDataFunctions::applyFunction "void OutputDataFunctions::applyFunction(OutputData< double > &data, const IIntensityFunction *func)
-
-apply intensity function to values stored in output data 
+Returns the safe relative difference, which is |(a-b)/b| except in special cases. 
 ";
 
 
@@ -13515,43 +13138,52 @@ Parse double values from string to vector of double.
 ";
 
 
-// File: namespacePyGenTools.xml
-%feature("docstring")  PyGenTools::genPyScript "std::string PyGenTools::genPyScript(class GISASSimulation *simulation, const std::string &output_filename)
+// File: namespacePythonFormatting.xml
+%feature("docstring")  PythonFormatting::representShape2D "BA_CORE_API_ std::string PythonFormatting::representShape2D(const std::string &indent, const Geometry::IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
+
+Returns fixed Python code snippet that defines the function \"runSimulation\". 
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const class IDistribution1D *distribution)
+%feature("docstring")  PythonFormatting::printBool "BA_CORE_API_ std::string PythonFormatting::printBool(double value)
 ";
 
-%feature("docstring")  PyGenTools::getRepresentation "std::string PyGenTools::getRepresentation(const std::string &indent, const class Geometry::IShape2D *ishape, bool mask_value)
+%feature("docstring")  PythonFormatting::printDouble "BA_CORE_API_ std::string PythonFormatting::printDouble(double input)
 ";
 
-%feature("docstring")  PyGenTools::printBool "std::string PyGenTools::printBool(double value)
+%feature("docstring")  PythonFormatting::printNm "BA_CORE_API_ std::string PythonFormatting::printNm(double input)
 ";
 
-%feature("docstring")  PyGenTools::printDouble "std::string PyGenTools::printDouble(double input)
+%feature("docstring")  PythonFormatting::printScientificDouble "BA_CORE_API_ std::string PythonFormatting::printScientificDouble(double input)
 ";
 
-%feature("docstring")  PyGenTools::printNm "std::string PyGenTools::printNm(double input)
+%feature("docstring")  PythonFormatting::printDegrees "BA_CORE_API_ std::string PythonFormatting::printDegrees(double input)
 ";
 
-%feature("docstring")  PyGenTools::printScientificDouble "std::string PyGenTools::printScientificDouble(double input)
+%feature("docstring")  PythonFormatting::isSquare "BA_CORE_API_ bool PythonFormatting::isSquare(double length1, double length2, double angle)
 ";
 
-%feature("docstring")  PyGenTools::printDegrees "std::string PyGenTools::printDegrees(double input)
+%feature("docstring")  PythonFormatting::isHexagonal "BA_CORE_API_ bool PythonFormatting::isHexagonal(double length1, double length2, double angle)
 ";
 
-%feature("docstring")  PyGenTools::isSquare "bool PyGenTools::isSquare(double length1, double length2, double angle)
+%feature("docstring")  PythonFormatting::printKvector "BA_CORE_API_ std::string PythonFormatting::printKvector(const kvector_t value)
 ";
 
-%feature("docstring")  PyGenTools::isHexagonal "bool PyGenTools::isHexagonal(double length1, double length2, double angle)
-";
-
-%feature("docstring")  PyGenTools::printKvector "std::string PyGenTools::printKvector(const kvector_t value)
-";
-
-%feature("docstring")  PyGenTools::isDefaultDirection "bool PyGenTools::isDefaultDirection(const kvector_t direction)
+%feature("docstring")  PythonFormatting::isDefaultDirection "BA_CORE_API_ bool PythonFormatting::isDefaultDirection(const kvector_t direction)
 
 returns true if it is (0, -1, 0) vector 
+";
+
+%feature("docstring")  PythonFormatting::valueTimesUnit "BA_CORE_API_ std::string PythonFormatting::valueTimesUnit(const RealParameter *par)
+
+Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  PythonFormatting::argumentList "BA_CORE_API_ std::string PythonFormatting::argumentList(const IParameterized *ip)
+
+Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  PythonFormatting::simulationToPython "std::string PythonFormatting::simulationToPython(GISASSimulation *simulation)
 ";
 
 
@@ -13580,12 +13212,18 @@ GISAS simulation with small detector and phi[-1,1], theta[0,1].
 ";
 
 %feature("docstring")  StandardSimulations::MiniGISASBeamDivergence "GISASSimulation * StandardSimulations::MiniGISASBeamDivergence()
+
+GISAS simulation with beam divergence applied. 
 ";
 
 %feature("docstring")  StandardSimulations::MiniGISASDetectorResolution "GISASSimulation * StandardSimulations::MiniGISASDetectorResolution()
+
+GISAS simulation with detector resolution. 
 ";
 
 %feature("docstring")  StandardSimulations::GISASWithMasks "GISASSimulation * StandardSimulations::GISASWithMasks()
+
+GISAS simulation with multiple masks on the detector plane. 
 ";
 
 %feature("docstring")  StandardSimulations::MaxiGISAS "GISASSimulation * StandardSimulations::MaxiGISAS()
@@ -13609,21 +13247,43 @@ Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorGeneric "GISASSimulation * StandardSimulations::RectDetectorGeneric()
+
+GISAS simulation with generic rectangular detector. 
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorPerpToSample "GISASSimulation * StandardSimulations::RectDetectorPerpToSample()
+
+GISAS simulation with the rectangular detector perpendicular to the sample. 
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorPerpToDirectBeam "GISASSimulation * StandardSimulations::RectDetectorPerpToDirectBeam()
+
+GISAS simulation with the rectangular detector perpendicular to the direct beam. 
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorPerpToReflectedBeam "GISASSimulation * StandardSimulations::RectDetectorPerpToReflectedBeam()
+
+GISAS simulation with the rectangular detector perpendicular to the reflected beam. 
 ";
 
 %feature("docstring")  StandardSimulations::RectDetectorPerpToReflectedBeamDpos "GISASSimulation * StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
+
+GISAS simulation with the rectangular detector perpendicular to the reflected beam when the coordinates of direct beam are known. 
 ";
 
 %feature("docstring")  StandardSimulations::MiniGISASMonteCarlo "GISASSimulation * StandardSimulations::MiniGISASMonteCarlo()
+
+GISAS simulation with Monte-Carlo integration switched ON. 
+";
+
+%feature("docstring")  StandardSimulations::SphericalDetWithRoi "GISASSimulation * StandardSimulations::SphericalDetWithRoi()
+
+GISAS simulation with spherical detector, region of interest and mask. 
+";
+
+%feature("docstring")  StandardSimulations::RectDetWithRoi "GISASSimulation * StandardSimulations::RectDetWithRoi()
+
+GISAS simulation with rectangular detector, region of interest and mask. 
 ";
 
 
@@ -13636,79 +13296,16 @@ Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 
 
 // File: namespaceUtils.xml
-%feature("docstring")  Utils::AdjustStringLength "std::string Utils::AdjustStringLength(std::string name, int length)
-";
-
 %feature("docstring")  Utils::EnableFloatingPointExceptions "void Utils::EnableFloatingPointExceptions()
 
 enables exception throw in the case of NaN, Inf 
 ";
 
 
-// File: Beam_8cpp.xml
+// File: FormFactorWrapper_8cpp.xml
 
 
-// File: Beam_8h.xml
-
-
-// File: ChiSquaredModule_8cpp.xml
-
-
-// File: ChiSquaredModule_8h.xml
-
-
-// File: ConvolutionDetectorResolution_8cpp.xml
-
-
-// File: ConvolutionDetectorResolution_8h.xml
-
-
-// File: DecoratedLayerDWBASimulation_8cpp.xml
-
-
-// File: DecoratedLayerDWBASimulation_8h.xml
-
-
-// File: DecouplingApproximationStrategy_8cpp.xml
-
-
-// File: DecouplingApproximationStrategy_8h.xml
-
-
-// File: DetectorMask_8cpp.xml
-
-
-// File: DetectorMask_8h.xml
-
-
-// File: DistributionHandler_8cpp.xml
-
-
-// File: DistributionHandler_8h.xml
-
-
-// File: Distributions_8cpp.xml
-
-
-// File: Distributions_8h.xml
-
-
-// File: DWBADiffuseReflection_8cpp.xml
-
-
-// File: DWBADiffuseReflection_8h.xml
-
-
-// File: DWBASimulation_8cpp.xml
-
-
-// File: DWBASimulation_8h.xml
-
-
-// File: FitElement_8cpp.xml
-
-
-// File: FitElement_8h.xml
+// File: FormFactorWrapper_8h.xml
 
 
 // File: FTDecayFunctions_8cpp.xml
@@ -13717,197 +13314,149 @@ enables exception throw in the case of NaN, Inf
 // File: FTDecayFunctions_8h.xml
 
 
-// File: FTDistributions_8cpp.xml
+// File: FTDistributions1D_8cpp.xml
 
 
-// File: FTDistributions_8h.xml
+// File: FTDistributions1D_8h.xml
 
 
-// File: GISASSimulation_8cpp.xml
+// File: FTDistributions2D_8cpp.xml
 
 
-// File: GISASSimulation_8h.xml
+// File: FTDistributions2D_8h.xml
 
 
-// File: IChiSquaredModule_8cpp.xml
+// File: IInterferenceFunction_8h.xml
 
 
-// File: IChiSquaredModule_8h.xml
+// File: ILayout_8h.xml
 
 
-// File: IDetector2D_8cpp.xml
+// File: InterferenceFunction1DLattice_8cpp.xml
 
 
-// File: IDetector2D_8h.xml
+// File: InterferenceFunction1DLattice_8h.xml
 
 
-// File: IDetectorResolution_8cpp.xml
+// File: InterferenceFunction2DLattice_8cpp.xml
 
 
-// File: IDetectorResolution_8h.xml
+// File: InterferenceFunction2DLattice_8h.xml
 
 
-// File: IIntensityFunction_8h.xml
+// File: InterferenceFunction2DParaCrystal_8cpp.xml
 
 
-// File: IIntensityNormalizer_8cpp.xml
+// File: InterferenceFunction2DParaCrystal_8h.xml
 
 
-// File: IIntensityNormalizer_8h.xml
+// File: InterferenceFunctionNone_8cpp.xml
 
 
-// File: IInterferenceFunctionStrategy_8cpp.xml
+// File: InterferenceFunctionNone_8h.xml
 
 
-// File: IInterferenceFunctionStrategy_8h.xml
+// File: InterferenceFunctionRadialParaCrystal_8cpp.xml
 
 
-// File: ILayerRTCoefficients_8h.xml
+// File: InterferenceFunctionRadialParaCrystal_8h.xml
 
 
-// File: Instrument_8cpp.xml
+// File: ParticleLayout_8cpp.xml
 
 
-// File: Instrument_8h.xml
+// File: ParticleLayout_8h.xml
 
 
-// File: InterferenceFunctionStrategies_8h.xml
+// File: BornAgainNamespace_8h.xml
+
+
+// File: Complex_8h.xml
+%feature("docstring")  mul_I "complex_t mul_I(complex_t z)
+
+Returns product I*z, where I is the imaginary unit. 
+";
+
+%feature("docstring")  exp_I "complex_t exp_I(complex_t z)
+
+Returns exp(I*z), where I is the imaginary unit. 
+";
+
+
+// File: Exceptions_8cpp.xml
+
+
+// File: Exceptions_8h.xml
+
+
+// File: ICloneable_8h.xml
+
+
+// File: INamed_8h.xml
+
+
+// File: INoncopyable_8h.xml
+
+
+// File: IShareable_8h.xml
+
+
+// File: ISingleton_8h.xml
+
+
+// File: Macros_8h.xml
+
+
+// File: MathConstants_8h.xml
+
+
+// File: Bin_8cpp.xml
+%feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
+
+Checks if value is contained in bin: value in [m_lower, m_upper) 
+";
+
+
+// File: Bin_8h.xml
+%feature("docstring")  BinContains "bool BinContains(const Bin1D &bin, double value)
+
+Checks if value is contained in bin: value in [m_lower, m_upper) 
+";
+
+
+// File: ConstKBinAxis_8cpp.xml
+
+
+// File: ConstKBinAxis_8h.xml
+
+
+// File: CustomBinAxis_8cpp.xml
+
+
+// File: CustomBinAxis_8h.xml
+
+
+// File: FixedBinAxis_8cpp.xml
+
+
+// File: FixedBinAxis_8h.xml
+
+
+// File: IAxis_8cpp.xml
+
+
+// File: IAxis_8h.xml
+%feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
+
+global helper function for comparison of axes 
+";
 
 
 // File: IPixelMap_8h.xml
 
 
-// File: IResolutionFunction2D_8h.xml
-
-
-// File: ISampleBuilder_8h.xml
-
-
-// File: IsGISAXSDetector_8cpp.xml
-
-
-// File: IsGISAXSDetector_8h.xml
-
-
-// File: ISimulation_8h.xml
-
-
-// File: ISpecularInfoMap_8h.xml
-
-
-// File: ISquaredFunction_8h.xml
-
-
-// File: LayerDWBASimulation_8cpp.xml
-
-
-// File: LayerDWBASimulation_8h.xml
-
-
-// File: LayerSpecularInfo_8cpp.xml
-
-
-// File: LayerSpecularInfo_8h.xml
-
-
-// File: LayerStrategyBuilder_8cpp.xml
-
-
-// File: LayerStrategyBuilder_8h.xml
-
-
-// File: Mask_8cpp.xml
-
-
-// File: Mask_8h.xml
-
-
-// File: MaskCoordinateFunction_8cpp.xml
-
-
-// File: MaskCoordinateFunction_8h.xml
-
-
-// File: MatrixRTCoefficients_8cpp.xml
-
-
-// File: MatrixRTCoefficients_8h.xml
-
-
-// File: MatrixSpecularInfoMap_8cpp.xml
-
-
-// File: MatrixSpecularInfoMap_8h.xml
-
-
-// File: MultiLayerDWBASimulation_8cpp.xml
-
-
-// File: MultiLayerDWBASimulation_8h.xml
-
-
-// File: MultiLayerRoughnessDWBASimulation_8cpp.xml
-
-
-// File: MultiLayerRoughnessDWBASimulation_8h.xml
-
-
-// File: OffSpecSimulation_8cpp.xml
-
-
-// File: OffSpecSimulation_8h.xml
-
-
-// File: OMPISimulation_8cpp.xml
-
-
-// File: OMPISimulation_8h.xml
-
-
-// File: ParameterSample_8h.xml
-
-
-// File: ProgressHandler_8cpp.xml
-
-
-// File: ProgressHandler_8h.xml
-
-
-// File: ProgressHandlerDWBA_8cpp.xml
-
-
-// File: ProgressHandlerDWBA_8h.xml
-
-
-// File: RectangularDetector_8cpp.xml
-
-
-// File: RectangularDetector_8h.xml
-
-
-// File: ResolutionFunction2DGaussian_8cpp.xml
-
-
-// File: ResolutionFunction2DGaussian_8h.xml
-
-
-// File: ScalarRTCoefficients_8h.xml
-
-
-// File: ScalarSpecularInfoMap_8cpp.xml
-
-
-// File: ScalarSpecularInfoMap_8h.xml
-
-
-// File: Simulation_8cpp.xml
-
-
-// File: Simulation_8h.xml
-
-
 // File: SimulationElement_8cpp.xml
-%feature("docstring")  AddElementsWithWeight "void AddElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
+%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
 
 Add element vector to element vector with weight. 
 ";
@@ -13919,7 +13468,7 @@ Set all element intensities to given value.
 
 
 // File: SimulationElement_8h.xml
-%feature("docstring")  AddElementsWithWeight "void AddElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
+%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
 
 Add element vector to element vector with weight. 
 ";
@@ -13930,45 +13479,178 @@ Set all element intensities to given value.
 ";
 
 
-// File: SimulationOptions_8cpp.xml
+// File: VariableBinAxis_8cpp.xml
 
 
-// File: SimulationOptions_8h.xml
+// File: VariableBinAxis_8h.xml
 
 
-// File: SizeSpacingCorrelationApproximationStrategy_8cpp.xml
+// File: ComputationOutcome_8h.xml
 
 
-// File: SizeSpacingCorrelationApproximationStrategy_8h.xml
+// File: DecoratedLayerComputation_8cpp.xml
 
 
-// File: SpecularMagnetic_8cpp.xml
-%feature("docstring")  I "static complex_t I(0., 1.)
-";
+// File: DecoratedLayerComputation_8h.xml
 
 
-// File: SpecularMagnetic_8h.xml
+// File: InnerCounter_8cpp.xml
 
 
-// File: SpecularMatrix_8cpp.xml
+// File: InnerCounter_8h.xml
 
 
-// File: SpecularMatrix_8h.xml
+// File: MainComputation_8cpp.xml
 
 
-// File: SpecularSimulation_8cpp.xml
+// File: MainComputation_8h.xml
 
 
-// File: SpecularSimulation_8h.xml
+// File: ProgressHandler_8cpp.xml
 
 
-// File: SphericalDetector_8cpp.xml
+// File: ProgressHandler_8h.xml
 
 
-// File: SphericalDetector_8h.xml
+// File: RoughMultiLayerComputation_8cpp.xml
 
 
-// File: ThreadInfo_8h.xml
+// File: RoughMultiLayerComputation_8h.xml
+
+
+// File: SpecularComputation_8cpp.xml
+
+
+// File: SpecularComputation_8h.xml
+
+
+// File: FormFactorDecoratorDebyeWaller_8cpp.xml
+
+
+// File: FormFactorDecoratorDebyeWaller_8h.xml
+
+
+// File: FormFactorDecoratorFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorFactor_8h.xml
+
+
+// File: FormFactorDecoratorMaterial_8cpp.xml
+
+
+// File: FormFactorDecoratorMaterial_8h.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorRotation_8cpp.xml
+
+
+// File: FormFactorDecoratorRotation_8h.xml
+
+
+// File: IFormFactorDecorator_8h.xml
+
+
+// File: ExportToPython_8cpp.xml
+
+
+// File: ExportToPython_8h.xml
+
+
+// File: PythonFormatting_8cpp.xml
+
+
+// File: PythonFormatting_8h.xml
+
+
+// File: SampleLabelHandler_8cpp.xml
+
+
+// File: SampleLabelHandler_8h.xml
+
+
+// File: AdjustMinimizerStrategy_8cpp.xml
+
+
+// File: AdjustMinimizerStrategy_8h.xml
+
+
+// File: FitObject_8cpp.xml
+
+
+// File: FitObject_8h.xml
+
+
+// File: FitParameterLinked_8cpp.xml
+
+
+// File: FitParameterLinked_8h.xml
+
+
+// File: FitStrategyAdjustParameters_8cpp.xml
+
+
+// File: FitStrategyAdjustParameters_8h.xml
+
+
+// File: FitSuite_8cpp.xml
+
+
+// File: FitSuite_8h.xml
+
+
+// File: FitSuiteFunctions_8cpp.xml
+
+
+// File: FitSuiteFunctions_8h.xml
+
+
+// File: FitSuiteImpl_8cpp.xml
+
+
+// File: FitSuiteImpl_8h.xml
+
+
+// File: FitSuiteObjects_8cpp.xml
+
+
+// File: FitSuiteObjects_8h.xml
+
+
+// File: FitSuitePrintObserver_8cpp.xml
+
+
+// File: FitSuitePrintObserver_8h.xml
+
+
+// File: FitSuiteStrategies_8cpp.xml
+
+
+// File: FitSuiteStrategies_8h.xml
+
+
+// File: IFitObserver_8cpp.xml
+
+
+// File: IFitObserver_8h.xml
+
+
+// File: IFitStrategy_8cpp.xml
+
+
+// File: IFitStrategy_8h.xml
+
+
+// File: IObserver_8cpp.xml
+
+
+// File: IObserver_8h.xml
 
 
 // File: FormFactorAnisoPyramid_8cpp.xml
@@ -13995,12 +13677,6 @@ Set all element intensities to given value.
 // File: FormFactorCone6_8h.xml
 
 
-// File: FormFactorCrystal_8cpp.xml
-
-
-// File: FormFactorCrystal_8h.xml
-
-
 // File: FormFactorCuboctahedron_8cpp.xml
 
 
@@ -14013,52 +13689,10 @@ Set all element intensities to given value.
 // File: FormFactorCylinder_8h.xml
 
 
-// File: FormFactorDecoratorDebyeWaller_8cpp.xml
-
-
-// File: FormFactorDecoratorDebyeWaller_8h.xml
-
-
-// File: FormFactorDecoratorFactor_8h.xml
-
-
-// File: FormFactorDecoratorMaterial_8cpp.xml
-
-
-// File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorMultiPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorRotation_8cpp.xml
-
-
-// File: FormFactorDecoratorRotation_8h.xml
-
-
 // File: FormFactorDodecahedron_8cpp.xml
 
 
 // File: FormFactorDodecahedron_8h.xml
-
-
-// File: FormFactorDWBA_8cpp.xml
-
-
-// File: FormFactorDWBA_8h.xml
-
-
-// File: FormFactorDWBAPol_8cpp.xml
-
-
-// File: FormFactorDWBAPol_8h.xml
 
 
 // File: FormFactorEllipsoidalCylinder_8cpp.xml
@@ -14077,12 +13711,6 @@ Set all element intensities to given value.
 
 
 // File: FormFactorFullSpheroid_8h.xml
-
-
-// File: FormFactorGauss_8cpp.xml
-
-
-// File: FormFactorGauss_8h.xml
 
 
 // File: FormFactorHemiEllipsoid_8cpp.xml
@@ -14133,12 +13761,6 @@ Set all element intensities to given value.
 // File: FormFactorLongRipple2Lorentz_8h.xml
 
 
-// File: FormFactorLorentz_8cpp.xml
-
-
-// File: FormFactorLorentz_8h.xml
-
-
 // File: FormFactorPolyhedron_8cpp.xml
 %feature("docstring")  I "static const complex_t I(0., 1.)
 
@@ -14184,37 +13806,10 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: FormFactorRipple2_8h.xml
 
 
-// File: FormFactors_8h.xml
-
-
-// File: FormFactorSphereGaussianRadius_8cpp.xml
-
-
-// File: FormFactorSphereGaussianRadius_8h.xml
-
-
-// File: FormFactorSphereLogNormalRadius_8cpp.xml
-
-
-// File: FormFactorSphereLogNormalRadius_8h.xml
-
-
-// File: FormFactorSphereUniformRadius_8cpp.xml
-
-
-// File: FormFactorSphereUniformRadius_8h.xml
-
-
 // File: FormFactorTetrahedron_8cpp.xml
 
 
 // File: FormFactorTetrahedron_8h.xml
-
-
-// File: FormFactorTools_8cpp.xml
-
-
-// File: FormFactorTools_8h.xml
 
 
 // File: FormFactorTriangle_8cpp.xml
@@ -14247,76 +13842,16 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: FormFactorTruncatedSpheroid_8h.xml
 
 
-// File: FormFactorWeighted_8cpp.xml
+// File: FormFactors_8h.xml
 
 
-// File: FormFactorWeighted_8h.xml
+// File: HardParticles_8h.xml
 
 
-// File: IFormFactor_8h.xml
+// File: InterferenceFunctions_8h.xml
 
 
-// File: IFormFactorBorn_8cpp.xml
-
-
-// File: IFormFactorBorn_8h.xml
-
-
-// File: IFormFactorDecorator_8h.xml
-
-
-// File: ParticleShapes_8h.xml
-
-
-// File: WavevectorInfo_8h.xml
-
-
-// File: BasicVector3D_8cpp.xml
-
-
-// File: BasicVector3D_8h.xml
-
-
-// File: Ellipse_8cpp.xml
-
-
-// File: Ellipse_8h.xml
-
-
-// File: InfinitePlane_8cpp.xml
-
-
-// File: InfinitePlane_8h.xml
-
-
-// File: IShape2D_8h.xml
-
-
-// File: Line_8cpp.xml
-
-
-// File: Line_8h.xml
-
-
-// File: Polygon_8cpp.xml
-
-
-// File: Polygon_8h.xml
-
-
-// File: Rectangle_8cpp.xml
-
-
-// File: Rectangle_8h.xml
-
-
-// File: Transform3D_8cpp.xml
-
-
-// File: Transform3D_8h.xml
-
-
-// File: Vectors3D_8h.xml
+// File: SoftParticles_8h.xml
 
 
 // File: boost__streams_8h.xml
@@ -14381,13 +13916,238 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: TiffHandler_8h.xml
 
 
-// File: BAVersion_8h.xml
+// File: Beam_8cpp.xml
 
 
-// File: Crystal_8cpp.xml
+// File: Beam_8h.xml
 
 
-// File: Crystal_8h.xml
+// File: ChiSquaredModule_8cpp.xml
+
+
+// File: ChiSquaredModule_8h.xml
+
+
+// File: ConvolutionDetectorResolution_8cpp.xml
+
+
+// File: ConvolutionDetectorResolution_8h.xml
+
+
+// File: Convolve_8cpp.xml
+
+
+// File: Convolve_8h.xml
+
+
+// File: CumulativeValue_8cpp.xml
+
+
+// File: CumulativeValue_8h.xml
+
+
+// File: DetectionProperties_8cpp.xml
+
+
+// File: DetectionProperties_8h.xml
+
+
+// File: DetectorFunctions_8cpp.xml
+
+
+// File: DetectorFunctions_8h.xml
+
+
+// File: DetectorMask_8cpp.xml
+
+
+// File: DetectorMask_8h.xml
+
+
+// File: FitElement_8cpp.xml
+
+
+// File: FitElement_8h.xml
+
+
+// File: Histogram1D_8cpp.xml
+
+
+// File: Histogram1D_8h.xml
+
+
+// File: Histogram2D_8cpp.xml
+
+
+// File: Histogram2D_8h.xml
+
+
+// File: IChiSquaredModule_8cpp.xml
+
+
+// File: IChiSquaredModule_8h.xml
+
+
+// File: IDetector2D_8cpp.xml
+
+
+// File: IDetector2D_8h.xml
+
+
+// File: IDetectorResolution_8h.xml
+
+
+// File: IHistogram_8cpp.xml
+
+
+// File: IHistogram_8h.xml
+
+
+// File: IIntensityFunction_8cpp.xml
+
+
+// File: IIntensityFunction_8h.xml
+
+
+// File: IIntensityNormalizer_8cpp.xml
+
+
+// File: IIntensityNormalizer_8h.xml
+
+
+// File: Instrument_8cpp.xml
+
+
+// File: Instrument_8h.xml
+
+
+// File: IntensityDataFunctions_8cpp.xml
+
+
+// File: IntensityDataFunctions_8h.xml
+
+
+// File: IResolutionFunction2D_8h.xml
+
+
+// File: IsGISAXSDetector_8cpp.xml
+
+
+// File: IsGISAXSDetector_8h.xml
+
+
+// File: ISquaredFunction_8h.xml
+
+
+// File: LLData_8cpp.xml
+
+
+// File: LLData_8h.xml
+%feature("docstring")  HaveSameDimensions "bool HaveSameDimensions(const LLData< T > &left, const LLData< T > &right)
+";
+
+
+// File: NumpyUtils_8cpp.xml
+
+
+// File: NumpyUtils_8h.xml
+
+
+// File: OutputData_8cpp.xml
+
+
+// File: OutputData_8h.xml
+
+
+// File: OutputDataIterator_8h.xml
+%feature("docstring")  swap "void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+make Swappable 
+";
+
+
+// File: RectangularDetector_8cpp.xml
+
+
+// File: RectangularDetector_8h.xml
+
+
+// File: RegionOfInterest_8cpp.xml
+
+
+// File: RegionOfInterest_8h.xml
+
+
+// File: ResolutionFunction2DGaussian_8cpp.xml
+
+
+// File: ResolutionFunction2DGaussian_8h.xml
+
+
+// File: SimulationArea_8cpp.xml
+
+
+// File: SimulationArea_8h.xml
+
+
+// File: SimulationAreaIterator_8cpp.xml
+
+
+// File: SimulationAreaIterator_8h.xml
+
+
+// File: SphericalDetector_8cpp.xml
+
+
+// File: SphericalDetector_8h.xml
+
+
+// File: ISelectionRule_8h.xml
+
+
+// File: Lattice_8cpp.xml
+
+
+// File: Lattice_8h.xml
+
+
+// File: Lattice1DParameters_8h.xml
+
+
+// File: Lattice2DParameters_8cpp.xml
+
+
+// File: Lattice2DParameters_8h.xml
+
+
+// File: Ellipse_8cpp.xml
+
+
+// File: Ellipse_8h.xml
+
+
+// File: InfinitePlane_8h.xml
+
+
+// File: IShape2D_8h.xml
+
+
+// File: Line_8cpp.xml
+
+
+// File: Line_8h.xml
+
+
+// File: Polygon_8cpp.xml
+
+
+// File: Polygon_8h.xml
+
+
+// File: Rectangle_8cpp.xml
+
+
+// File: Rectangle_8h.xml
 
 
 // File: HomogeneousMagneticMaterial_8cpp.xml
@@ -14399,58 +14159,233 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: HomogeneousMaterial_8h.xml
 
 
-// File: IClusteredParticles_8h.xml
-
-
-// File: ICompositeSample_8cpp.xml
-
-
-// File: ICompositeSample_8h.xml
-
-
-// File: IInterferenceFunction_8h.xml
-
-
-// File: ILayout_8h.xml
-
-
 // File: IMaterial_8cpp.xml
 
 
 // File: IMaterial_8h.xml
 
 
-// File: InterferenceFunction1DLattice_8cpp.xml
+// File: Materials_8cpp.xml
 
 
-// File: InterferenceFunction1DLattice_8h.xml
+// File: Materials_8h.xml
 
 
-// File: InterferenceFunction2DLattice_8cpp.xml
+// File: DecouplingApproximationStrategy_8cpp.xml
 
 
-// File: InterferenceFunction2DLattice_8h.xml
+// File: DecouplingApproximationStrategy_8h.xml
 
 
-// File: InterferenceFunction2DParaCrystal_8cpp.xml
+// File: DWBADiffuseReflection_8cpp.xml
 
 
-// File: InterferenceFunction2DParaCrystal_8h.xml
+// File: DWBADiffuseReflection_8h.xml
 
 
-// File: InterferenceFunctionNone_8cpp.xml
+// File: FormFactorDWBA_8cpp.xml
 
 
-// File: InterferenceFunctionNone_8h.xml
+// File: FormFactorDWBA_8h.xml
 
 
-// File: InterferenceFunctionRadialParaCrystal_8cpp.xml
+// File: FormFactorDWBAPol_8cpp.xml
 
 
-// File: InterferenceFunctionRadialParaCrystal_8h.xml
+// File: FormFactorDWBAPol_8h.xml
 
 
-// File: InterferenceFunctions_8h.xml
+// File: IInterferenceFunctionStrategy_8cpp.xml
+
+
+// File: IInterferenceFunctionStrategy_8h.xml
+
+
+// File: ILayerRTCoefficients_8h.xml
+
+
+// File: IMultiLayerBuilder_8cpp.xml
+
+
+// File: IMultiLayerBuilder_8h.xml
+
+
+// File: IRoughness_8h.xml
+
+
+// File: ISpecularInfoMap_8h.xml
+
+
+// File: Layer_8cpp.xml
+
+
+// File: Layer_8h.xml
+
+
+// File: LayerInterface_8cpp.xml
+
+
+// File: LayerInterface_8h.xml
+
+
+// File: LayerRoughness_8cpp.xml
+
+
+// File: LayerRoughness_8h.xml
+
+
+// File: LayerSpecularInfo_8cpp.xml
+
+
+// File: LayerSpecularInfo_8h.xml
+
+
+// File: LayerStrategyBuilder_8cpp.xml
+
+
+// File: LayerStrategyBuilder_8h.xml
+
+
+// File: MatrixRTCoefficients_8cpp.xml
+
+
+// File: MatrixRTCoefficients_8h.xml
+
+
+// File: MatrixSpecularInfoMap_8cpp.xml
+
+
+// File: MatrixSpecularInfoMap_8h.xml
+
+
+// File: MultiLayer_8cpp.xml
+
+
+// File: MultiLayer_8h.xml
+
+
+// File: ScalarRTCoefficients_8h.xml
+
+
+// File: ScalarSpecularInfoMap_8cpp.xml
+
+
+// File: ScalarSpecularInfoMap_8h.xml
+
+
+// File: SpecularMagnetic_8cpp.xml
+%feature("docstring")  I "static complex_t I(0., 1.)
+";
+
+
+// File: SpecularMagnetic_8h.xml
+
+
+// File: SpecularMatrix_8cpp.xml
+%feature("docstring")  setZeroBelow "void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t &coeff, size_t current_layer)
+";
+
+%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const kvector_t k, size_t layer_index)
+";
+
+
+// File: SpecularMatrix_8h.xml
+
+
+// File: SSCApproximationStrategy_8cpp.xml
+
+
+// File: SSCApproximationStrategy_8h.xml
+
+
+// File: DistributionHandler_8cpp.xml
+
+
+// File: DistributionHandler_8h.xml
+
+
+// File: Distributions_8cpp.xml
+
+
+// File: Distributions_8h.xml
+
+
+// File: IParameter_8h.xml
+
+
+// File: IParameterized_8cpp.xml
+
+
+// File: IParameterized_8h.xml
+
+
+// File: ParameterDistribution_8cpp.xml
+
+
+// File: ParameterDistribution_8h.xml
+
+
+// File: ParameterPattern_8cpp.xml
+
+
+// File: ParameterPattern_8h.xml
+
+
+// File: ParameterPool_8cpp.xml
+
+
+// File: ParameterPool_8h.xml
+
+
+// File: ParameterSample_8h.xml
+
+
+// File: RealParameter_8cpp.xml
+
+
+// File: RealParameter_8h.xml
+
+
+// File: SimulationOptions_8cpp.xml
+
+
+// File: SimulationOptions_8h.xml
+
+
+// File: ThreadInfo_8h.xml
+
+
+// File: Unit_8cpp.xml
+
+
+// File: Unit_8h.xml
+
+
+// File: Units_8h.xml
+
+
+// File: Crystal_8cpp.xml
+
+
+// File: Crystal_8h.xml
+
+
+// File: FormFactorCrystal_8cpp.xml
+
+
+// File: FormFactorCrystal_8h.xml
+
+
+// File: FormFactorWeighted_8cpp.xml
+
+
+// File: FormFactorWeighted_8h.xml
+
+
+// File: IAbstractParticle_8h.xml
+
+
+// File: IClusteredParticles_8h.xml
 
 
 // File: IParticle_8cpp.xml
@@ -14459,7 +14394,55 @@ The mathematics implemented here is described in full detail in a paper by Joach
 // File: IParticle_8h.xml
 
 
-// File: IRoughness_8h.xml
+// File: MesoCrystal_8cpp.xml
+
+
+// File: MesoCrystal_8h.xml
+
+
+// File: Particle_8cpp.xml
+
+
+// File: Particle_8h.xml
+
+
+// File: ParticleComposition_8cpp.xml
+
+
+// File: ParticleComposition_8h.xml
+
+
+// File: ParticleCoreShell_8cpp.xml
+
+
+// File: ParticleCoreShell_8h.xml
+
+
+// File: ParticleDistribution_8cpp.xml
+
+
+// File: ParticleDistribution_8h.xml
+
+
+// File: TRange_8h.xml
+
+
+// File: ICompositeSample_8cpp.xml
+
+
+// File: ICompositeSample_8h.xml
+
+
+// File: IFormFactor_8cpp.xml
+
+
+// File: IFormFactor_8h.xml
+
+
+// File: IFormFactorBorn_8cpp.xml
+
+
+// File: IFormFactorBorn_8h.xml
 
 
 // File: ISample_8cpp.xml
@@ -14490,89 +14473,6 @@ The mathematics implemented here is described in full detail in a paper by Joach
 ";
 
 
-// File: ISelectionRule_8h.xml
-
-
-// File: Lattice_8cpp.xml
-
-
-// File: Lattice_8h.xml
-
-
-// File: Lattice1DParameters_8h.xml
-
-
-// File: Lattice2DParameters_8h.xml
-%feature("docstring")  getUnitCellArea "double getUnitCellArea(const Lattice2DParameters &lattice_params)
-";
-
-
-// File: Layer_8cpp.xml
-
-
-// File: Layer_8h.xml
-
-
-// File: LayerInterface_8cpp.xml
-
-
-// File: LayerInterface_8h.xml
-
-
-// File: LayerRoughness_8cpp.xml
-
-
-// File: LayerRoughness_8h.xml
-
-
-// File: Materials_8cpp.xml
-
-
-// File: Materials_8h.xml
-
-
-// File: MesoCrystal_8cpp.xml
-
-
-// File: MesoCrystal_8h.xml
-
-
-// File: MultiLayer_8cpp.xml
-
-
-// File: MultiLayer_8h.xml
-
-
-// File: Particle_8cpp.xml
-
-
-// File: Particle_8h.xml
-
-
-// File: ParticleComposition_8cpp.xml
-
-
-// File: ParticleComposition_8h.xml
-
-
-// File: ParticleCoreShell_8cpp.xml
-
-
-// File: ParticleCoreShell_8h.xml
-
-
-// File: ParticleDistribution_8cpp.xml
-
-
-// File: ParticleDistribution_8h.xml
-
-
-// File: ParticleLayout_8cpp.xml
-
-
-// File: ParticleLayout_8h.xml
-
-
 // File: Rotations_8cpp.xml
 %feature("docstring")  CreateProduct "IRotation* CreateProduct(const IRotation &left, const IRotation &right)
 
@@ -14587,13 +14487,67 @@ Returns concatenated rotation (first right, then left).
 ";
 
 
-// File: Samples_8h.xml
-
-
 // File: SampleTreeIterator_8cpp.xml
 
 
 // File: SampleTreeIterator_8h.xml
+
+
+// File: StringUsageMap_8h.xml
+
+
+// File: GISASSimulation_8cpp.xml
+
+
+// File: GISASSimulation_8h.xml
+
+
+// File: OffSpecSimulation_8cpp.xml
+
+
+// File: OffSpecSimulation_8h.xml
+
+
+// File: Simulation_8cpp.xml
+
+
+// File: Simulation_8h.xml
+
+
+// File: SpecularSimulation_8cpp.xml
+
+
+// File: SpecularSimulation_8h.xml
+
+
+// File: FormFactorGauss_8cpp.xml
+
+
+// File: FormFactorGauss_8h.xml
+
+
+// File: FormFactorLorentz_8cpp.xml
+
+
+// File: FormFactorLorentz_8h.xml
+
+
+// File: FormFactorSphereGaussianRadius_8cpp.xml
+
+
+// File: FormFactorSphereGaussianRadius_8h.xml
+
+
+// File: FormFactorSphereLogNormalRadius_8cpp.xml
+
+
+// File: FormFactorSphereLogNormalRadius_8h.xml
+
+
+// File: FormFactorSphereUniformRadius_8cpp.xml
+
+
+// File: FormFactorSphereUniformRadius_8h.xml
 
 
 // File: BoxCompositionBuilder_8cpp.xml
@@ -14624,6 +14578,11 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: CylindersBuilder_8h.xml
+
+
+// File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
+";
 
 
 // File: LatticeBuilder_8cpp.xml
@@ -14734,118 +14693,10 @@ Returns concatenated rotation (first right, then left).
 // File: TwoDimLatticeBuilder_8h.xml
 
 
-// File: CoreTest_8cpp.xml
-
-
-// File: CoreTest_8h.xml
-
-
-// File: FunctionalTestInfo_8cpp.xml
-
-
-// File: FunctionalTestInfo_8h.xml
-
-
-// File: FunctionalTestRegistry_8cpp.xml
-
-
-// File: FunctionalTestRegistry_8h.xml
-
-
-// File: FunctionalTestSuite_8cpp.xml
-
-
-// File: FunctionalTestSuite_8h.xml
-
-
-// File: IFunctionalTest_8cpp.xml
-
-
-// File: IFunctionalTest_8h.xml
-
-
-// File: IRegistry_8h.xml
-
-
-// File: PySuiteTest_8cpp.xml
-
-
-// File: PySuiteTest_8h.xml
-
-
-// File: SubtestRegistry_8cpp.xml
-
-
-// File: SubtestRegistry_8h.xml
-
-
-// File: AttLimits_8cpp.xml
-
-
-// File: AttLimits_8h.xml
-
-
-// File: Bin_8h.xml
-
-
-// File: BornAgainNamespace_8h.xml
-
-
-// File: Complex_8h.xml
-%feature("docstring")  mul_I "complex_t mul_I(complex_t z)
-
-Returns product I*z, where I is the imaginary unit. 
-";
-
-%feature("docstring")  exp_I "complex_t exp_I(complex_t z)
-
-Returns exp(I*z), where I is the imaginary unit. 
-";
-
-
-// File: ConstKBinAxis_8cpp.xml
-
-
-// File: ConstKBinAxis_8h.xml
-
-
-// File: Convolve_8cpp.xml
-
-
-// File: Convolve_8h.xml
-
-
-// File: CumulativeValue_8h.xml
-
-
-// File: CustomBinAxis_8cpp.xml
-
-
-// File: CustomBinAxis_8h.xml
-
-
-// File: EigenCore_8h.xml
-
-
-// File: Exceptions_8cpp.xml
-
-
-// File: Exceptions_8h.xml
-
-
-// File: FastVector_8h.xml
-
-
 // File: FileSystem_8cpp.xml
 
 
 // File: FileSystem_8h.xml
-
-
-// File: FixedBinAxis_8cpp.xml
-
-
-// File: FixedBinAxis_8h.xml
 
 
 // File: fp__exception__glibc__extension_8h.xml
@@ -14865,42 +14716,6 @@ David N. Williams
 ";
 
 
-// File: Histogram1D_8cpp.xml
-
-
-// File: Histogram1D_8h.xml
-
-
-// File: Histogram2D_8cpp.xml
-
-
-// File: Histogram2D_8h.xml
-
-
-// File: IAxis_8h.xml
-%feature("docstring")  HaveSameNameAndShape "bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
-
-global helper function for comparison of axes 
-";
-
-
-// File: ICloneable_8h.xml
-
-
-// File: IFactory_8h.xml
-%feature("docstring")  create_new "T* create_new()
-";
-
-
-// File: IHistogram_8cpp.xml
-
-
-// File: IHistogram_8h.xml
-
-
-// File: INamed_8h.xml
-
-
 // File: IntegratorComplex_8h.xml
 %feature("docstring")  make_integrator_complex "P_integrator_complex<T> make_integrator_complex(const T *object, complex_integrand< T > mem_function)
 ";
@@ -14916,51 +14731,10 @@ global helper function for comparison of axes
 ";
 
 
-// File: IntensityDataFunctions_8cpp.xml
-
-
-// File: IntensityDataFunctions_8h.xml
-
-
-// File: IObserver_8cpp.xml
-
-
-// File: IObserver_8h.xml
-
-
-// File: IParameterized_8cpp.xml
-
-
-// File: IParameterized_8h.xml
-
-
-// File: IShareable_8h.xml
-
-
-// File: ISingleton_8h.xml
-
-
-// File: LLData_8cpp.xml
-
-
-// File: LLData_8h.xml
-%feature("docstring")  HaveSameDimensions "bool HaveSameDimensions(const LLData< T > &left, const LLData< T > &right)
-";
-
-
-// File: Macros_8h.xml
-
-
 // File: MathFunctions_8cpp.xml
 
 
 // File: MathFunctions_8h.xml
-
-
-// File: MessageService_8cpp.xml
-
-
-// File: MessageService_8h.xml
 
 
 // File: Numeric_8cpp.xml
@@ -14969,93 +14743,13 @@ global helper function for comparison of axes
 // File: Numeric_8h.xml
 
 
-// File: NumpyUtils_8cpp.xml
-
-
-// File: NumpyUtils_8h.xml
-
-
-// File: OutputData_8cpp.xml
-
-
-// File: OutputData_8h.xml
-
-
-// File: OutputDataFunctions_8cpp.xml
-%feature("docstring")  toFftw3Array "void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
-";
-
-%feature("docstring")  fromFftw3Array "void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
-";
-
-
-// File: OutputDataFunctions_8h.xml
-
-
-// File: OutputDataIterator_8h.xml
-
-
-// File: ParameterDistribution_8cpp.xml
-
-
-// File: ParameterDistribution_8h.xml
-
-
-// File: ParameterPool_8cpp.xml
-
-
-// File: ParameterPool_8h.xml
-
-
 // File: Precomputed_8cpp.xml
 
 
 // File: Precomputed_8h.xml
 
 
-// File: PyGenTools_8cpp.xml
-
-
-// File: PyGenTools_8h.xml
-
-
-// File: PyGenVisitor_8cpp.xml
-
-
-// File: PyGenVisitor_8h.xml
-
-
-// File: RealParameterWrapper_8cpp.xml
-
-
-// File: RealParameterWrapper_8h.xml
-
-
 // File: SafePointerVector_8h.xml
-
-
-// File: SampleLabelHandler_8cpp.xml
-
-
-// File: SampleLabelHandler_8h.xml
-
-
-// File: SampleMaterialVisitor_8cpp.xml
-
-
-// File: SampleMaterialVisitor_8h.xml
-
-
-// File: SamplePrintVisitor_8cpp.xml
-
-
-// File: SamplePrintVisitor_8h.xml
-
-
-// File: TRange_8h.xml
-
-
-// File: Units_8h.xml
 
 
 // File: Utils_8cpp.xml
@@ -15064,50 +14758,109 @@ global helper function for comparison of axes
 // File: Utils_8h.xml
 
 
-// File: VariableBinAxis_8cpp.xml
-
-
-// File: VariableBinAxis_8h.xml
-
-
-// File: VDouble_8h.xml
-
-
 // File: w32pragma_8h.xml
 
 
-// File: WinDllMacros_8h.xml
+// File: BasicVector3D_8cpp.xml
+%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+
+Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+";
 
 
-// File: todo.xml
+// File: BasicVector3D_8h.xml
+%feature("docstring")  vecOfLambdaAlphaPhi "BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
+
+Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+";
 
 
-// File: dir_2ae5eef177fdc4a2f78184a703e9ca35.xml
+// File: EigenCore_8h.xml
 
 
-// File: dir_a5718f9cbd8869dfe6f67ea602e0c081.xml
+// File: Transform3D_8cpp.xml
 
 
-// File: dir_e8b91df279483b3e8e12615e228a1b30.xml
+// File: Transform3D_8h.xml
 
 
-// File: dir_0741ac6d11fd047643bf55f8f8c05919.xml
+// File: Vectors3D_8h.xml
 
 
-// File: dir_f917e00ecc0731a03e57c18530cede59.xml
+// File: WavevectorInfo_8h.xml
 
 
-// File: dir_7fb31f1b073eeae63423bbb2a3a2d187.xml
+// File: dir_52a2c863b7b3435f7dcd40f26828d521.xml
 
 
-// File: dir_844b9b42d96eb52684a7ef26f932da03.xml
+// File: dir_41e08c09ca0aab46c4ada92f12a8c00b.xml
 
 
-// File: dir_6239607a7bd3e9e52745ea8c4706e15f.xml
+// File: dir_4544cbc948815333bef1258cf6b298b8.xml
 
 
-// File: dir_66dafcc1787bb051f9038bca1a02d0ff.xml
+// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
 
 
-// File: dir_0ae786ed4862dcefebd8dd89a60766dc.xml
+// File: dir_404b7d29693a4f046d60c2eccafd1df4.xml
+
+
+// File: dir_c83916cd1ff49c9e86c8a91c5655951d.xml
+
+
+// File: dir_59be1faf7048e95263c2fcba140abda1.xml
+
+
+// File: dir_e746abb3ff095e53619d5a61a48e781a.xml
+
+
+// File: dir_554fcc4911648c79d524724e80d45fa4.xml
+
+
+// File: dir_cc3c45a5d33be920aaf94cb9b9fbdb35.xml
+
+
+// File: dir_9a756f0b2738ef3b5663c172b32b6a4b.xml
+
+
+// File: dir_e8bc32d0cf85ef86a42504cd31af1370.xml
+
+
+// File: dir_8b890ad49a09d8f36525f5af93e5737c.xml
+
+
+// File: dir_9bdb7f774cce5b77ddd3ed60472b168c.xml
+
+
+// File: dir_74beab5553c7ad06e27a6baadceea9c3.xml
+
+
+// File: dir_bcc7f66c041cef9b775368068412e104.xml
+
+
+// File: dir_95667ae48b286f0957284f712e6e3af5.xml
+
+
+// File: dir_4251a3aefb390b6051267154c2f94d1e.xml
+
+
+// File: dir_529c0a19338d84aadf389c7b83eb56b1.xml
+
+
+// File: dir_051c0ff7ebc48614253af3001519ace0.xml
+
+
+// File: dir_f59c6b3c978505a5ca3672a364c1918e.xml
+
+
+// File: dir_871fae137308712382f6192f4445a900.xml
+
+
+// File: dir_44b1a8f39c14c02f6e3c2be419aa97b0.xml
+
+
+// File: dir_1a0696269c107461a4ce8ff1a48cd2f2.xml
+
+
+// File: dir_7f288243cf9c204a176dfbf45ea9d349.xml
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/JobItem.h
-//! @brief     Declares class JobItem
+//! @brief     Defines class JobItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,8 +19,6 @@
 
 #include "SessionItem.h"
 class IntensityDataItem;
-class SampleModel;
-class InstrumentModel;
 class GISASSimulation;
 class MultiLayerItem;
 class InstrumentItem;
@@ -57,7 +55,7 @@ public:
     QString getIdentifier() const;
     void setIdentifier(const QString &identifier);
 
-    IntensityDataItem *getIntensityDataItem();
+    IntensityDataItem *intensityDataItem();
 
     QString getStatus() const;
     void setStatus(const QString &status);
@@ -88,9 +86,9 @@ public:
     bool runImmediately() const;
     bool runInBackground() const;
 
-    MultiLayerItem *getMultiLayerItem();
+    MultiLayerItem *multiLayerItem();
 
-    InstrumentItem *getInstrumentItem();
+    InstrumentItem *instrumentItem();
 
     SimulationOptionsItem *getSimulationOptionsItem();
 
@@ -106,4 +104,4 @@ private:
     const SimulationOptionsItem *getSimulationOptionsItem() const;
 };
 
-#endif // NJOBITEM_H
+#endif // JOBITEM_H

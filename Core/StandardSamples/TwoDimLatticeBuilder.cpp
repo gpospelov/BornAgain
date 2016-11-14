@@ -14,23 +14,59 @@
 // ************************************************************************** //
 
 #include "TwoDimLatticeBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "ParticleComposition.h"
 #include "FormFactorCylinder.h"
-#include "GISASSimulation.h"
-#include "Units.h"
-#include "Materials.h"
+#include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DLattice.h"
-#include "Utils.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleComposition.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
+
+MultiLayer *Basic2DLatticeBuilder::buildSample() const
+{
+    MultiLayer* multi_layer = new MultiLayer();
+
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    std::unique_ptr<InterferenceFunction2DLattice> P_interference_function(
+                new InterferenceFunction2DLattice(5.0*Units::nanometer, 10.0*Units::nanometer,
+                                                  30.0*Units::deg, 10.0*Units::deg));
+
+    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                                100.0*Units::nanometer/2.0/M_PI);
+    P_interference_function->setDecayFunction(pdf);
+
+    // particles
+    ParticleLayout particle_layout;
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    Particle particle(particle_material, ff_cyl);
+    particle_layout.addParticle(particle, 1.0);
+
+    particle_layout.addInterferenceFunction(*P_interference_function);
+
+    air_layer.addLayout(particle_layout);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
 
 
 // -----------------------------------------------------------------------------
 // lattice #1:
 // -----------------------------------------------------------------------------
-ISample *SquareLatticeBuilder::buildSample() const
+MultiLayer* SquareLatticeBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -40,9 +76,9 @@ ISample *SquareLatticeBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
-        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer)};
-    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
-                               100.0*Units::nanometer/2.0/Units::PI);
+        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer) };
+    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                                100.0*Units::nanometer/2.0/M_PI);
     P_interference_function->setDecayFunction(pdf);
 
     // particles
@@ -65,9 +101,9 @@ ISample *SquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #2: centered
 // -----------------------------------------------------------------------------
-ISample *CenteredSquareLatticeBuilder::buildSample() const
+MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -77,9 +113,9 @@ ISample *CenteredSquareLatticeBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DLattice interference_function(10.0*Units::nanometer,
-            10.0*Units::nanometer, Units::PI/2.0);
-    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
-                               100.0*Units::nanometer/2.0/Units::PI);
+            10.0*Units::nanometer, M_PI/2.0);
+    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                                100.0*Units::nanometer/2.0/M_PI);
     interference_function.setDecayFunction(pdf);
 
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
@@ -107,9 +143,9 @@ ISample *CenteredSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #3: rotated
 // -----------------------------------------------------------------------------
-ISample *RotatedSquareLatticeBuilder::buildSample() const
+MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -120,8 +156,8 @@ ISample *RotatedSquareLatticeBuilder::buildSample() const
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
         InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, 30.0 * Units::degree)};
-    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/Units::PI,
-                               100.0*Units::nanometer/2.0/Units::PI);
+    FTDecayFunction2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                               100.0*Units::nanometer/2.0/M_PI);
     pdf.setGamma(30.0*Units::degree);
     P_interference_function->setDecayFunction(pdf);
 
@@ -141,3 +177,4 @@ ISample *RotatedSquareLatticeBuilder::buildSample() const
 
     return multi_layer;
 }
+

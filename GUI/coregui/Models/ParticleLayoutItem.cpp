@@ -15,8 +15,6 @@
 // ************************************************************************** //
 
 #include "ParticleLayoutItem.h"
-#include "ParticleCoreShellItem.h"
-#include "ParticleDistributionItem.h"
 #include "ComboProperty.h"
 
 const QString ParticleLayoutItem::P_APPROX = "Approximation";

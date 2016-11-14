@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaterialEditor/MaterialSvc.h
-//! @brief     Declares class MaterialSvc
+//! @brief     Defines class MaterialSvc
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef MATERIALSVC_H
 #define MATERIALSVC_H
 
-#include "WinDllMacros.h"
 #include "MaterialProperty.h"
+#include "WinDllMacros.h"
 #include <QObject>
 
 class MaterialModel;
@@ -56,6 +56,6 @@ private:
 
 
 
-#endif
+#endif // MATERIALSVC_H
 
 

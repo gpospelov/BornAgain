@@ -13,15 +13,31 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% TeX/LaTeX macros we will overwrite
+\let\ringaccent\r
+
 % Vectors
 \ifolducm
   \def\v#1{\ensuremath{\mathbf{#1}}} % for unicode-math <= 0.7f
 \else
   \def\v#1{\symbf{#1}}
 \fi
-
 % unused \newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
+
+% Tensors
+\ifolducm
+  \def\TENS#1{\ensuremath{\mathbfsf{#1}}} % for unicode-math <= 0.7f
+\else
+  \def\TENS#1{\symbfsf{#1}}
+\fi
+\def\ONE{\TENS{1}}
+
+% Math operators
+\newcommand{\ggll}{\mathrel{\substack{\ll\\[-.05em]\gg}}}
+\newcommand{\llgg}{\mathrel{\substack{\gg\\[-.05em]\ll}}}
 \newcommand{\Nabla}{\v{\nabla}}
+\newcommand{\bra}{\ensuremath{\left\langle}}
+\newcommand{\ket}{\ensuremath{\right\rangle}}
 
 % Curly letters
 \newcommand{\curlf}{\ensuremath{\mathcal{F}}}
@@ -29,49 +45,45 @@
 \def\Sample{\ensuremath{\mathcal{M}}}
 \def\Sphere{\ensuremath{\mathcal{S}}}
 
-% Ensemble average
-\newcommand{\bra}{\ensuremath{\left\langle}}
-\newcommand{\ket}{\ensuremath{\right\rangle}}
-
 % Pair correlation functions
 \newcommand{\ppcf}[3]{\ensuremath{\mathcal{G}_{#1 ,#2}\left( \v{#3}_{#1} , \v{#3}_{#2} \right)}}
 \newcommand{\ppcfb}[3]{\ensuremath{\mathcal{G}_{#1 #2}\left( \v{#3}_{#1 #2} \right)}}
 
 % Fixed-font words
 \newcommand{\Code}[1]{\texttt{#1}}
-\newcommand{\BornAgain}{\Code{Born\discretionary{}{}{}Again}}%
-\newcommand{\Python}{\Code{Python}}%
+\newcommand{\BornAgain}{{Born\discretionary{}{}{}Again}}%
 \newcommand{\IsGISAXS}{\Code{IsGISAXS}}%
 \newcommand{\FitGISAXS}{\Code{FitGISAXS}}%
 
+\def\DS{\displaystyle}
 
 \def\d{\mathup d}
-\def\DS{\displaystyle}
 \def\e{\mathup e}
+\def\eps{\epsilon}
 \def\E#1{\textsl{#1}}
 \def\etal{\E{et al.}}
 \def\FD{\mathcal{F}}
 \def\GD{\mathcal{G}}
 \def\idest{\E{i.e.\ }}
-\def\il{l} % index for layer
 \def\k{\v{k}}
 \def\kD{\k_\text{D}}
+\def\mv{\overline{v}}
 \def\nz{\overline{n^2}}
-\def\nzj{\overline{n_\il^2}}
 \def\plll{\parallel}
 \def\PD{\mathcal{P}}
 \def\q{\v{q}}
 \def\hx{\v{\hat x}}
 \def\hy{\v{\hat y}}
-\let\ringaccent\r
 \def\AA{\ringaccent A}
 \def\r{\v{r}}
 \def\R{\v{R}}
 \def\rD{\r_\text{D}}
 \def\rS{\r_\text{S}}
+\def\se{\text{e}}
+\def\si{\text{i}}
+\def\sf{\text{f}}
 \def\SD{\mathcal{S}}
-\def\ti{\text{i}}
-\def\tf{\text{f}}
+\def\xElas{\frac{\d\sigma}{\d\Omega}}
 
 \renewcommand{\u}[1]{\underline{#1}}
 \newcommand{\uu}[1]{\underline{\underline{#1}}}
@@ -82,4 +94,11 @@
 %	HYPHENATION
 %-------------------------------------------------------------------------------
 
-\hyphenation{ MacOS Schrö-ding-er nano-par-ti-cle nano-par-ti-cles }
+\hyphenation{
+Born-Again
+equi-dis-tant
+MacOS
+nano-par-ti-cle nano-par-ti-cles
+para-crys-tal
+Schrö-ding-er
+wave-num-ber}

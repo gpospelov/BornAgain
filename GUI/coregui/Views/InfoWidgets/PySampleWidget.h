@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/PySampleWidget.h
-//! @brief     Declares class PySampleWidget
+//! @brief     Defines class PySampleWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -71,4 +71,4 @@ private:
     WarningSignWidget *m_warningSign;
 };
 
-#endif
+#endif // PYSAMPLEWIDGET_H

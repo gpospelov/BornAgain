@@ -15,14 +15,14 @@
 // ************************************************************************** //
 
 #include "JobQueueData.h"
+#include "DomainSimulationBuilder.h"
 #include "GISASSimulation.h"
+#include "GUIHelpers.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"
-#include "DomainSimulationBuilder.h"
-#include "GUIHelpers.h"
-#include <QThread>
 #include <QDebug>
+#include <QThread>
 
 JobQueueData::JobQueueData(JobModel *jobModel)
     : m_jobModel(jobModel)
@@ -83,8 +83,8 @@ void JobQueueData::runJob(JobItem *jobItem)
 
     GISASSimulation *simulation(0);
     try{
-        simulation = DomainSimulationBuilder::getSimulation(jobItem->getMultiLayerItem(),
-                                                            jobItem->getInstrumentItem(),
+        simulation = DomainSimulationBuilder::getSimulation(jobItem->multiLayerItem(),
+                                                            jobItem->instrumentItem(),
                                                             jobItem->getSimulationOptionsItem());
     } catch(const std::exception &ex) {
         QString message("JobQueueData::runJob() -> Error. "

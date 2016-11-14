@@ -14,47 +14,41 @@
 // ************************************************************************** //
 
 #include "OutputDataWriter.h"
-#include "OutputDataWriteStrategy.h"
-#include "OutputDataIOHelper.h"
 #include "OutputData.h"
+#include "OutputDataIOHelper.h"
 #include "boost_streams.h"
 #include <fstream>
 
-OutputDataWriter::OutputDataWriter(const std::string &file_name)
+OutputDataWriter::OutputDataWriter(const std::string& file_name)
     : m_file_name(file_name)
 {
 }
 
-void OutputDataWriter::writeOutputData(const OutputData<double >& data)
+void OutputDataWriter::writeOutputData(const OutputData<double>& data)
 {
-    if(!m_write_strategy) {
-        throw NullPointerException("OutputDataWriter::getOutputData() ->"
-                                   " Error! No read strategy defined");
-    }
+    if(!m_write_strategy)
+        throw Exceptions::NullPointerException("OutputDataWriter::getOutputData() ->"
+                                               " Error! No read strategy defined");
     std::ofstream fout;
     std::ios_base::openmode openmode = std::ios::out;
     if(OutputDataIOHelper::isBinaryFile(m_file_name))
         openmode = std::ios::out | std::ios_base::binary;
 
     fout.open(m_file_name.c_str(), openmode );
-    if(!fout.is_open()) {
-        throw FileNotIsOpenException("OutputDataWriter::writeOutputData() -> Error. "
-                                     "Can't open file '"+m_file_name+"' for writing.");
-    }
-    if (!fout.good()) {
-        throw FileIsBadException("OutputDataReader::writeOutputData() -> Error! "
-                                 "File is not good, probably it is a directory.");
-    }
+    if(!fout.is_open())
+        throw Exceptions::FileNotIsOpenException("OutputDataWriter::writeOutputData() -> Error. "
+                                                 "Can't open file '"+m_file_name+"' for writing.");
+    if (!fout.good())
+        throw Exceptions::FileIsBadException("OutputDataReader::writeOutputData() -> Error! "
+                                             "File is not good, probably it is a directory.");
     std::stringstream ss;
     m_write_strategy->writeOutputData(data, ss);
 
     boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
-    if(OutputDataIOHelper::isGZipped(m_file_name)) {
+    if(OutputDataIOHelper::isGZipped(m_file_name))
         input_filtered.push(boost::iostreams::gzip_compressor());
-    }
-    else if(OutputDataIOHelper::isBZipped(m_file_name)) {
+    else if(OutputDataIOHelper::isBZipped(m_file_name))
         input_filtered.push(boost::iostreams::bzip2_compressor());
-    }
     input_filtered.push(ss);
 
     boost::iostreams::copy(input_filtered, fout);
@@ -63,7 +57,7 @@ void OutputDataWriter::writeOutputData(const OutputData<double >& data)
 }
 
 
-void OutputDataWriter::setStrategy(IOutputDataWriteStrategy *write_strategy)
+void OutputDataWriter::setStrategy(IOutputDataWriteStrategy* write_strategy)
 {
     m_write_strategy.reset(write_strategy);
 }

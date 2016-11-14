@@ -15,30 +15,29 @@
 // ************************************************************************** //
 
 #include "DesignerScene.h"
-#include "DesignerHelper.h"
-#include "InstrumentModel.h"
-#include "SampleModel.h"
-#include "SampleViewFactory.h"
-#include "SampleViewAligner.h"
-#include "IView.h"
-#include "LayerView.h"
 #include "ConnectableView.h"
+#include "DesignerHelper.h"
+#include "DesignerMimeData.h"
+#include "FilterPropertyProxy.h"
+#include "GUIExamplesFactory.h"
+#include "IView.h"
+#include "InstrumentModel.h"
 #include "ItemFactory.h"
-#include "SessionGraphicsItem.h"
+#include "LayerView.h"
 #include "NodeEditor.h"
 #include "NodeEditorConnection.h"
-#include "DesignerMimeData.h"
-#include "SampleBuilderFactory.h"
-#include "GUIExamplesFactory.h"
+#include "ParticleCompositionItem.h"
+#include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
-#include "ParticleCoreShellItem.h"
-#include "ParticleCompositionItem.h"
-#include "FilterPropertyProxy.h"
-
-#include <QItemSelection>
+#include "SampleBuilderFactory.h"
+#include "SampleModel.h"
+#include "SampleViewAligner.h"
+#include "SampleViewFactory.h"
+#include "SessionGraphicsItem.h"
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
+#include <QItemSelection>
 #include <QPainter>
 
 DesignerScene::DesignerScene(QObject *parent)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/item_constants.h
-//! @brief     Declares item constants
+//! @brief     Defines item constants
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMCONSTANTS_H
-#define ITEMCONSTANTS_H
+#ifndef ITEM_CONSTANTS_H
+#define ITEM_CONSTANTS_H
 
 #include <QString>
 
@@ -152,14 +152,20 @@ const ModelType VerticalLineMaskType = "VerticalLineMask";
 const ModelType HorizontalLineMaskType = "HorizontalLineMask";
 const ModelType MaskAllType = "MaskAllMask";
 
+const ModelType RegionOfInterestType = "RegionOfInterest";
+
 const ModelType SimulationOptionsType = "SimulationOptions";
 
 const ModelType RealDataType = "RealData";
+const ModelType LinkInstrumentType = "LinkInstrument";
 
 const ModelType MinimizerContainerType = "MinimizerContainer";
-const ModelType MinuitMinimizerType = "MinuitMinimizer";
-const ModelType GSLMinimizerType = "GSLMinimizer";
-const ModelType GeneticMinimizerType = "GeneticMinimizer";
+const ModelType MinuitMinimizerType = "Minuit2";
+const ModelType GSLMultiMinimizerType = "GSLMultiMin";
+const ModelType GSLLMAMinimizerType = "GSLLMA";
+const ModelType GSLSimAnMinimizerType = "GSLSimAn";
+const ModelType GeneticMinimizerType = "Genetic";
+const ModelType TestMinimizerType = "Test";
 
 // --- Groups ------------------------------------------------------------------
 
@@ -227,4 +233,4 @@ const ModelType FITPAR_FREE = "free";
 
 }
 
-#endif
+#endif // ITEM_CONSTANTS_H

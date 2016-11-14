@@ -16,9 +16,6 @@
 
 #include "TestItem.h"
 #include "ComboProperty.h"
-#include "AngleProperty.h"
-#include "Units.h"
-#include <QDebug>
 
 const QString TestItem::P_DISTRIBUTION = "Distribution";
 const QString TestItem::P_VALUE = "Value";

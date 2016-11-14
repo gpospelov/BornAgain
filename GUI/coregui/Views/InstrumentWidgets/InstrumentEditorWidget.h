@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/InstrumentEditorWidget.h
-//! @brief     Declares class InstrumentEditorWidget
+//! @brief     Defines class InstrumentEditorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,14 +14,14 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENT_EDITOR_WIDGET_H
-#define INSTRUMENT_EDITOR_WIDGET_H
+#ifndef INSTRUMENTEDITORWIDGET_H
+#define INSTRUMENTEDITORWIDGET_H
 
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QLabel>
 #include <QMap>
+#include <QWidget>
 
 class SessionItem;
 class DetectorEditorWidget;
@@ -60,4 +60,4 @@ private:
     InstrumentComponentsWidget *m_instrumentComponents;
 };
 
-#endif
+#endif // INSTRUMENTEDITORWIDGET_H

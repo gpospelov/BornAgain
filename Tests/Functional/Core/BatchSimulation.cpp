@@ -1,3 +1,4 @@
+#include "GISASSimulation.h"
 #include "SimulationFactory.h"
 #include "IFunctionalTest.h"
 #include "IntensityDataFunctions.h"
@@ -5,13 +6,13 @@
 #include <iostream>
 #include <memory>
 
-int TestBatchSimulation()
+bool TestBatchSimulation()
 {
     SimulationFactory sim_registry;
     const std::unique_ptr<GISASSimulation> simulation(sim_registry.createItem("MiniGISAS"));
 
     SampleBuilderFactory sampleFactory;
-    std::shared_ptr<class ISampleBuilder> builder(
+    std::shared_ptr<class IMultiLayerBuilder> builder(
         sampleFactory.createItem("CylindersInBABuilder") );
     simulation->setSampleBuilder(builder);
     simulation->runSimulation();
@@ -28,25 +29,21 @@ int TestBatchSimulation()
         threadInfo.n_batches = n_batches;
         threadInfo.current_batch = i_batch;
         batch->getOptions().setThreadInfo(threadInfo);
-
         batch->runSimulation();
-        *result += *batch->getOutputData();
+        std::unique_ptr<OutputData<double>> batchResult(batch->getDetectorIntensity());
+        *result += *batchResult.get();
     }
-
 
     double diff = IntensityDataFunctions::getRelativeDifference(*result, *reference);
 
     std::cout << "BatchSimulation" << " " << "Running simulations in batch mode" << " " << diff
-              << " " << (diff>threshold ? "[FAILED]" : "[OK]") << std::endl;
+              << " " << (diff>threshold ? "[FAILED]" : "[OK]") << "\n";
 
-    if( diff > threshold )
-        return IFunctionalTest::FAILED;
-
-    return IFunctionalTest::SUCCESS;
+    return diff <= threshold;
 }
 
 
 int main(int, char**)
 {
-    return TestBatchSimulation();
+    return TestBatchSimulation() ? 0 : 1;
 }

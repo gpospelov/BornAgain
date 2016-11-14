@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/SampleValidator.h
-//! @brief     Declares class SampleValidator
+//! @brief     Defines class SampleValidator
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,10 +14,9 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLE_VALIDATOR
-#define SAMPLE_VALIDATOR
+#ifndef SAMPLEVALIDATOR_H
+#define SAMPLEVALIDATOR_H
 
-#include <QString>
 #include <QModelIndex>
 
 class SessionItem;
@@ -50,4 +49,4 @@ private:
 };
 
 
-#endif
+#endif // SAMPLEVALIDATOR_H

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapPlot.h
-//! @brief     Declares class ColorMapPlot
+//! @brief     Defines class ColorMapPlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,9 +19,9 @@
 
 #include "WinDllMacros.h"
 #include "qcustomplot.h"
-#include <QWidget>
 #include <QMap>
 #include <QPoint>
+#include <QWidget>
 #include <memory>
 
 class IntensityDataItem;
@@ -142,4 +142,4 @@ private:
 
 
 
-#endif
+#endif // COLORMAPPLOT_H

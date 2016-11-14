@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/InputOutput/TiffHandler.h
-//! @brief     Declares class TiffHandler.
+//! @brief     Defines class TiffHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,9 +18,7 @@
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-#include "WinDllMacros.h"
 #include "OutputData.h"
-#include <string>
 #include <tiffio.h>
 #include <tiffio.hxx>
 #include <memory>
@@ -37,9 +35,9 @@ public:
 
     void read(std::istream& input_stream);
 
-    const OutputData<double> *getOutputData() const;
+    const OutputData<double>* getOutputData() const;
 
-    void write(const OutputData<double> &data, std::ostream &output_stream);
+    void write(const OutputData<double>& data, std::ostream& output_stream);
 
 private:
     void read_header();
@@ -49,13 +47,12 @@ private:
     void close();
     void create_output_data();
 
-    TIFF *m_tiff;
+    TIFF* m_tiff;
     size_t m_width;
     size_t m_height;
-    std::unique_ptr<OutputData<double> > m_data;
+    std::unique_ptr<OutputData<double>> m_data;
 };
 
 #endif // BORNAGAIN_TIFF_SUPPORT
 
-#endif
-
+#endif // TIFFHANDLER_H

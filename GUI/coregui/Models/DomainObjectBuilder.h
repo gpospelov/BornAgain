@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DomainObjectBuilder.h
-//! @brief     Declares class DomainObjectBuilder
+//! @brief     Defines class DomainObjectBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,24 +18,15 @@
 #define DOMAINOBJECTBUILDER_H
 
 #include "WinDllMacros.h"
-
-#include <QString>
 #include <memory>
 
-class ISample;
 class Instrument;
 class MultiLayer;
 class Layer;
 class ParticleLayout;
-class IParticle;
-class Particle;
 class IInterferenceFunction;
 class Beam;
-class ParticleCoreShell;
-class ParticleComposition;
-class ParticleDistribution;
 class SessionItem;
-class LayerRoughness;
 
 class BA_CORE_API_ DomainObjectBuilder
 {

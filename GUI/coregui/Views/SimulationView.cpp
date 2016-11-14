@@ -18,9 +18,7 @@
 #include "SimulationSetupWidget.h"
 #include "StyledToolBar.h"
 #include "mainwindow.h"
-#include <QTabWidget>
 #include <QVBoxLayout>
-#include <QDebug>
 
 SimulationView::SimulationView(MainWindow *mainWindow)
     : QWidget(mainWindow)

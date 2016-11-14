@@ -15,16 +15,16 @@
 // ************************************************************************** //
 
 #include "MultiLayerView.h"
-#include "SessionItem.h"
-#include "DesignerScene.h"
-#include "SampleModel.h"
-#include "LayerView.h"
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
-#include <QPainter>
-#include <QGraphicsSceneMouseEvent>
-#include <QStyleOptionGraphicsItem>
+#include "DesignerScene.h"
+#include "LayerView.h"
+#include "SampleModel.h"
+#include "SessionItem.h"
 #include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 
 

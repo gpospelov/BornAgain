@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef FORMWINDOWBASE_H
-#define FORMWINDOWBASE_H
+#ifndef FORMWINDOWBASE_P_H
+#define FORMWINDOWBASE_P_H
 
 #include "shared_global_p.h"
 
@@ -194,4 +194,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // FORMWINDOWBASE_H
+#endif // FORMWINDOWBASE_P_H

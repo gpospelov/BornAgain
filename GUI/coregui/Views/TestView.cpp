@@ -15,24 +15,15 @@
 // ************************************************************************** //
 
 #include "TestView.h"
-#include "MaskEditor.h"
-#include "mainwindow.h"
-#include "MaterialEditor.h"
-#include "MinimizerSettingsWidget.h"
 #include "AccordionWidget.h"
-#include "MinimizerItem.h"
-#include "item_constants.h"
-#include "SessionModel.h"
-#include "ColorMap.h"
-#include "ColorMapCanvas.h"
 #include "JobModel.h"
-#include "JobItem.h"
-#include "IntensityDataItem.h"
-#include "IntensityDataIOFactory.h"
-#include <QVBoxLayout>
-#include <QLineEdit>
+#include "MaskEditor.h"
+#include "MaterialEditor.h"
+#include "MinimizerItem.h"
+#include "MinimizerSettingsWidget.h"
+#include "mainwindow.h"
 #include <QCheckBox>
-#include <QGridLayout>
+#include <QLineEdit>
 
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -113,8 +104,6 @@ void TestView::test_MaskEditor()
     layout->setSpacing(0);
     layout->addWidget(maskEditor);
     setLayout(layout);
-
-    maskEditor->init_test_model();
 }
 
 void TestView::test_AccordionWidget()

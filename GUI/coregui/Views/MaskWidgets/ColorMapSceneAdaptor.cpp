@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "ColorMapSceneAdaptor.h"
-#include "ColorMapPlot.h"
+#include "ColorMap.h"
 #include <QDebug>
 
 ColorMapSceneAdaptor::ColorMapSceneAdaptor()
@@ -52,7 +52,7 @@ qreal ColorMapSceneAdaptor::fromSceneY(qreal scene_y) const
     return result;
 }
 
-void ColorMapSceneAdaptor::setColorMapPlot(ColorMapPlot *plot)
+void ColorMapSceneAdaptor::setColorMapPlot(ColorMap *plot)
 {
     m_plot = plot;
     if(m_plot) {

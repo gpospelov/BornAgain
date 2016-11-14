@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitComparisonWidget.h
-//! @brief     Declares class FitComparisonWidget
+//! @brief     Defines class FitComparisonWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -85,4 +85,4 @@ private:
     QMap<IntensityDataItem *, LabelBackup> m_labelBackup;
 };
 
-#endif
+#endif // FITCOMPARISONWIDGET_H

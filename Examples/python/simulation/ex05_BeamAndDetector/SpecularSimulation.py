@@ -2,8 +2,6 @@
 R and T coefficients in multilayer, ba.Specular simulation.
 """
 import numpy
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -55,35 +53,45 @@ def get_simulation():
     return simulation
 
 
-def run_simulation():
+def simulate():
     """
-    Run simulation and plot results
+    Runs simulation and returns it.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
+    return simulation
 
-    # plotting results for several selected layers
-    selected_layers = [0, 1, 20, 21]
-    alpha_angles = simulation.getAlphaAxis().getBinCenters()
 
+def coefficientsRT(simulation):
+    """
+    Returns lists R[0:layer_index], L[0:layer_index]
+    """
+    R = [ [ abs(c) for c in simulation.getScalarR(i) ] for i in range(22) ]
+    T = [ [ abs(c) for c in simulation.getScalarT(i) ] for i in range(22) ]
+    return R, T
+
+
+def plot(simulation):
+    """
+    Plots results for several selected layers
+    """
+    import matplotlib
+    from matplotlib import pyplot as plt
     fig = plt.figure(figsize=(12.80, 10.24))
 
+    alpha_angles = simulation.getAlphaAxis().getBinCenters()
+    R, T = coefficientsRT(simulation)
+
+    selected_layers = [0, 1, 20, 21]
     nplot = 1
     for layer_index in selected_layers:
-        R = []
-        for coeff in simulation.getScalarR(layer_index):
-            R.append(numpy.abs(coeff))
-        T = []
-        for coeff in simulation.getScalarT(layer_index):
-            T.append(numpy.abs(coeff))
-
         plt.subplot(2, 2, nplot)
         plt.ylim(ymax=50.0, ymin=1e-06)
         plt.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
-        plt.semilogy(alpha_angles, R)
-        plt.semilogy(alpha_angles, T)
+        plt.semilogy(alpha_angles, [ numpy.abs(coeff) for coeff in R[layer_index] ])
+        plt.semilogy(alpha_angles, [ numpy.abs(coeff) for coeff in T[layer_index] ])
         plt.legend(['|R| layer #'+str(layer_index),
                     '|T| layer #'+str(layer_index)],
                    loc='upper right')
@@ -92,5 +100,10 @@ def run_simulation():
     plt.show()
 
 
+def save(filename, simulation):
+    R, T = coefficientsRT(simulation)
+    ba.yamlDump(filename, { "coeff_R": ba.FlowSeq(R), "coeff_T": ba.FlowSeq(T) })
+
+
 if __name__ == '__main__':
-    run_simulation()
+    ba.simulateThenPlotOrSave(simulate, plot, save)

@@ -2,8 +2,6 @@
 Custom form factor in DWBA.
 """
 import numpy
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 import cmath
@@ -12,24 +10,23 @@ phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
 def sinc(x):
-    if abs(x) == 0.:
+    if abs(x) == 0:
         return 1.
     else:
         return cmath.sin(x)/x
 
+
 class CustomFormFactor(ba.IFormFactorBorn):
     """
-    A custom defined form factor
-    The particle is a polyhedron, whose planar cross section is a "plus" shape
-    with a side length L.
-    H is the height of particle
+    A custom defined form factor.
+    The particle is a prism of height H,
+    with a base in form of a Greek cross ("plus" sign) with side length L.
     """
     def __init__(self, L, H):
         ba.IFormFactorBorn.__init__(self)
         # parameters describing the form factor
         self.L = L
         self.H = H
-
 
     def clone(self):
         """
@@ -48,7 +45,6 @@ class CustomFormFactor(ba.IFormFactorBorn):
         return 0.5*self.H*self.L**2*cmath.exp(complex(0., 1.)*qzhH)*\
                sinc(qzhH)*(sinc(0.5*qyhL)*(sinc(qxhL)-0.5*sinc(0.5*qxhL))+\
                sinc(0.5*qxhL)*sinc(qyhL))
-
 
 
 def get_sample():
@@ -92,27 +88,15 @@ def get_simulation():
 
 def run_simulation():
     """
-    Run simulation and plot results
+    Runs simulation and returns intensity map.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
-
-    # showing the result
-    im = plt.imshow(
-        result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
-        aspect='auto')
-    cb = plt.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.show()
+    return simulation.getIntensityData()
 
 
 if __name__ == '__main__':
-    run_simulation()
+    result = run_simulation()
+    ba.plot_intensity_data(result)

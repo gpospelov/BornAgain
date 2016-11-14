@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/ISceneAdaptor.h
-//! @brief     Declares interface class ISceneAdaptor
+//! @brief     Defines interface class ISceneAdaptor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -61,4 +61,4 @@ public:
 };
 
 
-#endif
+#endif // ISCENEADAPTOR_H

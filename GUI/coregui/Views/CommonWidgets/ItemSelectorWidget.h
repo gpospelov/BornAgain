@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/CommonWidgets/ItemSelectorWidget.h
-//! @brief     Declares class ItemSelectorWidget
+//! @brief     Defines class ItemSelectorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -65,4 +65,4 @@ private:
     SessionModel *m_model;
 };
 
-#endif
+#endif // ITEMSELECTORWIDGET_H

@@ -103,9 +103,8 @@ def run_fitting():
 
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

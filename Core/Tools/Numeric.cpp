@@ -14,23 +14,31 @@
 // ************************************************************************** //
 
 #include "Numeric.h"
+#include <algorithm>
+#include <cmath>
+#include <limits>
 
 //! Floating-point epsilon, tolerances, almost-equal.
 
 namespace Numeric {
 
-//! compare two doubles
-bool areAlmostEqual(double a, double b, double tolerance_factor)
-    { return get_relative_difference(a, b) < tolerance_factor*double_epsilon; }
+//! Returns true if two doubles agree within epsilon*tolerance.
+bool areAlmostEqual(double a, double b, double tolerance)
+{
+    constexpr double eps = std::numeric_limits<double>::epsilon();
+    return std::abs(a-b) <= eps * std::max( tolerance*eps, std::max(1., tolerance)*std::abs(b) );
+}
 
-
-//! calculates safe relative difference |(a-b)/b|
+//! Returns the safe relative difference, which is |(a-b)/b| except in special cases.
 double get_relative_difference(double a, double b)
 {
+    constexpr double eps = std::numeric_limits<double>::epsilon();
     // return 0.0 if relative error smaller than epsilon
-    if (std::abs(a-b) <= double_epsilon*std::abs(b)) return 0.0;
+    if (std::abs(a-b) <= eps*std::abs(b))
+        return 0.0;
     // for small numbers, divide by epsilon (to avoid catastrophic cancellation)
-    if (std::abs(b) <= double_epsilon) return std::abs((a-b)/double_epsilon);
+    if (std::abs(b) <= eps)
+        return std::abs((a-b)/eps);
     return std::abs((a-b)/b);
 }
 

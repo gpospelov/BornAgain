@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/SampleDesigner.h
-//! @brief     Declares class SampleDesigner
+//! @brief     Defines class SampleDesigner
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEEDITOR_H
-#define SAMPLEEDITOR_H
+#ifndef SAMPLEDESIGNER_H
+#define SAMPLEDESIGNER_H
 
+#include "DesignerScene.h"
+#include "DesignerView.h"
 #include <QObject>
 #include <QStackedWidget>
-#include "DesignerView.h"
-#include "DesignerScene.h"
 
 class DesignerScene;
 class DesignerWidgetFactory;
@@ -71,4 +71,4 @@ private:
 
 
 
-#endif // SAMPLEEDITOR_H
+#endif // SAMPLEDESIGNER_H

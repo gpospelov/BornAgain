@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "MessageContainer.h"
-#include "GUIMessage.h"
 #include "GUIHelpers.h"
+#include "GUIMessage.h"
 
 namespace {
 int maximum_number_of_messages = 100;

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/BeamWavelengthItem.h
-//! @brief     Declares class BeamWavelengthItem
+//! @brief     Defines class BeamWavelengthItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,6 @@
 #ifndef BEAMWAVELENGTHITEM_H
 #define BEAMWAVELENGTHITEM_H
 
-#include "WinDllMacros.h"
 #include "BeamDistributionItem.h"
 
 class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem
@@ -28,4 +27,4 @@ public:
     virtual ~BeamWavelengthItem(){}
 };
 
-#endif
+#endif // BEAMWAVELENGTHITEM_H

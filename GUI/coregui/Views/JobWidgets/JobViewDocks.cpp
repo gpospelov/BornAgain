@@ -15,17 +15,17 @@
 // ************************************************************************** //
 
 #include "JobViewDocks.h"
-#include "JobView.h"
-#include "JobModel.h"
-#include "JobSelectorWidget.h"
-#include "JobOutputDataWidget.h"
-#include "JobRealTimeWidget.h"
 #include "FitActivityPanel.h"
 #include "JobMessagePanel.h"
+#include "JobModel.h"
+#include "JobOutputDataWidget.h"
+#include "JobRealTimeWidget.h"
+#include "JobSelectorWidget.h"
+#include "JobView.h"
 #include "JobViewActivities.h"
 #include <QAbstractItemView>
-#include <QDockWidget>
 #include <QAction>
+#include <QDockWidget>
 #include <QTimer>
 
 namespace {

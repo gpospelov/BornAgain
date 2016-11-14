@@ -4,7 +4,7 @@
 #include "ParticleComposition.h"
 #include "Particle.h"
 #include "Materials.h"
-#include "Units.h"
+#include "MathConstants.h"
 #include "HomogeneousMaterial.h"
 #include "FormFactorFullSphere.h"
 #include <iostream>
@@ -107,4 +107,4 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
     delete lbClone;
 }
 
-#endif
+#endif // PARTICLECOMPOSITIONTEST_H

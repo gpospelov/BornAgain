@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskEditorToolBar.h
-//! @brief     Declares class MaskEditorToolBar
+//! @brief     Defines class MaskEditorToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef MASKEDITORTOOLBAR_H
 #define MASKEDITORTOOLBAR_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorFlags.h"
+#include "WinDllMacros.h"
 #include <QToolBar>
 
 class MaskEditorActions;
@@ -34,10 +34,8 @@ public:
 
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
-    void propertyPanelRequest();
     void presentationTypeRequest(MaskEditorFlags::PresentationType);
     void maskValueChanged(MaskEditorFlags::MaskValue);
-    void resetViewRequest();
 
 public slots:
     void onChangeActivityRequest(MaskEditorFlags::Activity value);
@@ -56,7 +54,7 @@ private:
     void setup_extratools_group();
     void add_separator();
 
-    MaskEditorFlags::Activity getCurrentActivity() const;
+    MaskEditorFlags::Activity currentActivity() const;
     void setCurrentActivity(MaskEditorFlags::Activity value);
 
     MaskEditorActions *m_editorActions;
@@ -66,4 +64,4 @@ private:
 };
 
 
-#endif
+#endif // MASKEDITORTOOLBAR_H

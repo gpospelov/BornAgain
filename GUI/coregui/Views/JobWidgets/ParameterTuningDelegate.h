@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/ParameterTuningDelegate.h
-//! @brief     Declares class ParameterTuningDelegate
+//! @brief     Defines class ParameterTuningDelegate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef PARAMETERTUNINGDELEGATE_H
 #define PARAMETERTUNINGDELEGATE_H
 
+#include "RealLimits.h"
 #include <QItemDelegate>
-#include "AttLimits.h"
 #include <memory>
 
 class QDoubleSpinBox;
@@ -35,7 +35,7 @@ public:
     public:
         SliderData();
         void setRangeFactor(double range_factor);
-        void setItemLimits(const AttLimits &item_limits);
+        void setItemLimits(const RealLimits &item_limits);
         int value_to_slider(double value);
         double slider_to_value(int slider);
         int m_smin;
@@ -43,7 +43,7 @@ public:
         double m_rmin;
         double m_rmax;
         double m_range_factor;
-        AttLimits m_item_limits;
+        RealLimits m_item_limits;
     };
 
 
@@ -90,4 +90,4 @@ private:
     bool m_isReadOnly;
 };
 
-#endif //SAMPLETUNINGDELEGATE_H
+#endif // PARAMETERTUNINGDELEGATE_H

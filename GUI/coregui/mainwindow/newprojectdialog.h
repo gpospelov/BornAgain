@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/mainwindow/newprojectdialog.h
-//! @brief     Declares class NewProjectDialog
+//! @brief     Defines class NewProjectDialog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,14 +19,9 @@
 
 #include "WinDllMacros.h"
 #include <QDialog>
-#include <QString>
 #include <QLineEdit>
 
 class QLabel;
-class QPushButton;
-class QStatusBar;
-class QPalette;
-
 
 //! new project dialog window
 class BA_CORE_API_ NewProjectDialog : public QDialog
@@ -67,4 +62,4 @@ private:
     bool m_valid_projectPath;
 };
 
-#endif
+#endif // NEWPROJECTDIALOG_H

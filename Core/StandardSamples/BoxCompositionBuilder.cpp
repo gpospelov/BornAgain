@@ -14,17 +14,15 @@
 // ************************************************************************** //
 
 #include "BoxCompositionBuilder.h"
-#include "FormFactorFullSphere.h"
-#include "InterferenceFunction2DLattice.h"
-#include "ParticleComposition.h"
-#include "Materials.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "FTDistributions.h"
-#include "Units.h"
-#include "Rotations.h"
 #include "FormFactorBox.h"
-
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleComposition.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 BoxCompositionBuilder::BoxCompositionBuilder()
     : m_particleMaterial(new HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7))
@@ -33,7 +31,6 @@ BoxCompositionBuilder::BoxCompositionBuilder()
     , m_width(20.0*Units::nanometer)
     , m_height(10.0*Units::nanometer)
 {
-
 }
 
 BoxCompositionBuilder::~BoxCompositionBuilder()
@@ -41,7 +38,7 @@ BoxCompositionBuilder::~BoxCompositionBuilder()
     delete m_particleMaterial;
 }
 
-MultiLayer *BoxCompositionBuilder::createMultiLayer(const ParticleComposition &composition) const
+MultiLayer* BoxCompositionBuilder::createMultiLayer(const ParticleComposition &composition) const
 {
     HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
     HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);
@@ -55,7 +52,7 @@ MultiLayer *BoxCompositionBuilder::createMultiLayer(const ParticleComposition &c
     middle_layer.addLayout(layout);
     Layer substrate(mSubstrate);
 
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);
@@ -64,7 +61,7 @@ MultiLayer *BoxCompositionBuilder::createMultiLayer(const ParticleComposition &c
 
 // --- BoxCompositionRotateXBuilder ---
 
-ISample *BoxCompositionRotateXBuilder::buildSample() const
+MultiLayer* BoxCompositionRotateXBuilder::buildSample() const
 {
     Particle box(*m_particleMaterial, FormFactorBox(m_length/2.0, m_width, m_height));
     ParticleComposition composition;
@@ -77,7 +74,7 @@ ISample *BoxCompositionRotateXBuilder::buildSample() const
 
 // --- BoxCompositionRotateYBuilder ---
 
-ISample *BoxCompositionRotateYBuilder::buildSample() const
+MultiLayer* BoxCompositionRotateYBuilder::buildSample() const
 {
     Particle box(*m_particleMaterial, FormFactorBox(m_length/2.0, m_width, m_height));
     ParticleComposition composition;
@@ -90,7 +87,7 @@ ISample *BoxCompositionRotateYBuilder::buildSample() const
 
 // --- BoxCompositionRotateZBuilder ---
 
-ISample *BoxCompositionRotateZBuilder::buildSample() const
+MultiLayer* BoxCompositionRotateZBuilder::buildSample() const
 {
     Particle box(*m_particleMaterial, FormFactorBox(m_length/2.0, m_width, m_height));
     ParticleComposition composition;
@@ -103,7 +100,7 @@ ISample *BoxCompositionRotateZBuilder::buildSample() const
 
 // --- BoxCompositionRotateZandYBuilder ---
 
-ISample *BoxCompositionRotateZandYBuilder::buildSample() const
+MultiLayer* BoxCompositionRotateZandYBuilder::buildSample() const
 {
     Particle box(*m_particleMaterial, FormFactorBox(m_length/2.0, m_width, m_height));
     ParticleComposition composition;
@@ -118,7 +115,7 @@ ISample *BoxCompositionRotateZandYBuilder::buildSample() const
 // --- BoxStackCompositionBuilder ---
 
 // Composition of two boxes which gives you the box (10,20,50) with reference point as usual.
-ISample *BoxStackCompositionBuilder::buildSample() const
+MultiLayer* BoxStackCompositionBuilder::buildSample() const
 {
     ParticleComposition composition;
 

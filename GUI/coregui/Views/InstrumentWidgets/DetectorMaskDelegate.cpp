@@ -15,16 +15,16 @@
 // ************************************************************************** //
 
 #include "DetectorMaskDelegate.h"
-#include "InstrumentModel.h"
-#include "MaskModel.h"
-#include "DetectorItems.h"
-#include "IntensityDataItem.h"
-#include "OutputData.h"
 #include "AxesItems.h"
+#include "ComboProperty.h"
+#include "DetectorItems.h"
+#include "GUIHelpers.h"
+#include "InstrumentModel.h"
+#include "IntensityDataItem.h"
 #include "MaskEditor.h"
 #include "MaskItems.h"
-#include "GUIHelpers.h"
-#include "ComboProperty.h"
+#include "MaskModel.h"
+#include "OutputData.h"
 #include <QDebug>
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
@@ -49,11 +49,11 @@ void DetectorMaskDelegate::initMaskEditorContext(
     createIntensityDataItem();
     createMaskContainer();
 
-    Q_ASSERT(m_detectorItem->getMaskContainerItem());
+    Q_ASSERT(m_detectorItem->maskContainerItem());
 
     maskEditor->setMaskContext(
         m_instrumentModel,
-        m_instrumentModel->indexOfItem(m_detectorItem->getMaskContainerItem()),
+        m_instrumentModel->indexOfItem(m_detectorItem->maskContainerItem()),
         m_intensityItem);
 }
 
@@ -95,7 +95,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 void DetectorMaskDelegate::createMaskContainer()
 {
     Q_ASSERT(m_detectorItem);
-    if (!m_detectorItem->getMaskContainerItem()) {
+    if (!m_detectorItem->maskContainerItem()) {
         m_instrumentModel->insertNewItem(
             Constants::MaskContainerType,
             m_instrumentModel->indexOfItem(m_detectorItem));
@@ -172,8 +172,8 @@ DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
 //    const IAxis *axis0 = result->getAxis(0);
 //    const IAxis *axis1 = result->getAxis(1);
 
-//    for(int ix=0; ix<(int)axis0->getSize(); ix+=2) {
-//        for(int iy=0; iy<(int)axis1->getSize(); iy+=2) {
+//    for(int ix=0; ix<(int)axis0.size(); ix+=2) {
+//        for(int iy=0; iy<(int)axis1.size(); iy+=2) {
 //            std::vector<int> indices = {ix, iy};
 //            int index = result->toGlobalIndex(indices);
 //            (*result)[index] = 10;

@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "RunFitManager.h"
-#include "FittingWorker.h"
 #include "FitSuite.h"
+#include "FittingWorker.h"
+#include <QDebug>
 #include <QThread>
 #include <memory>
-#include <QDebug>
 
 RunFitManager::RunFitManager(QObject *parent)
     : QObject(parent)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DomainSimulationBuilder.h
-//! @brief     Declares class DomainSimulationBuilder
+//! @brief     Defines class DomainSimulationBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,19 +17,16 @@
 #ifndef DOMAINSIMULATIONBUILDER_H
 #define DOMAINSIMULATIONBUILDER_H
 
-#include <QString>
+#include "WinDllMacros.h"
 
 class GISASSimulation;
-class SampleModel;
-class InstrumentModel;
 class MultiLayerItem;
 class InstrumentItem;
 class SimulationOptionsItem;
-class DocumentModel;
 
 //! The DomainSimulationBuilder class builds the domain simulation
 //! from instrument and sample models.
-class DomainSimulationBuilder
+class BA_CORE_API_ DomainSimulationBuilder
 {
 public:
     static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem,
@@ -37,4 +34,4 @@ public:
                                           const SimulationOptionsItem *optionsItem = 0);
 };
 
-#endif
+#endif // DOMAINSIMULATIONBUILDER_H

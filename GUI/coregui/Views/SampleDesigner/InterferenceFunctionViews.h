@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/InterferenceFunctionViews.h
-//! @brief     Declares classes InterferenceFunctionViews
+//! @brief     Defines classes InterferenceFunctionViews
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

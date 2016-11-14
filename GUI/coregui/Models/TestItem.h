@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/TestItem.h
-//! @brief     Declares class TestItem
+//! @brief     Defines class TestItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -32,4 +32,4 @@ public:
     virtual ~TestItem(){}
 };
 
-#endif
+#endif // TESTITEM_H

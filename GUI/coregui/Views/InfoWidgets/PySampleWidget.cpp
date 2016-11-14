@@ -15,25 +15,25 @@
 // ************************************************************************** //
 
 #include "PySampleWidget.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "PythonSyntaxHighlighter.h"
-#include "DomainObjectBuilder.h"
-#include "MultiLayer.h"
-#include "PyGenVisitor.h"
-#include "WarningSignWidget.h"
 #include "DesignerHelper.h"
-#include <QVBoxLayout>
-#include <QTextEdit>
-#include <QFile>
-#include <QTextStream>
-#include <QModelIndex>
-#include <QScrollBar>
-#include <QTimer>
-#include <QTextCodec>
+#include "DomainObjectBuilder.h"
+#include "InstrumentModel.h"
+#include "MultiLayer.h"
+#include "ExportToPython.h"
+#include "PythonSyntaxHighlighter.h"
+#include "SampleModel.h"
+#include "WarningSignWidget.h"
 #include <QDebug>
-#include <QPixmap>
+#include <QFile>
+#include <QModelIndex>
 #include <QPainter>
+#include <QPixmap>
+#include <QScrollBar>
+#include <QTextCodec>
+#include <QTextEdit>
+#include <QTextStream>
+#include <QTimer>
+#include <QVBoxLayout>
 
 namespace {
 const int timer_interval_msec = 10;
@@ -230,11 +230,9 @@ QString PySampleWidget::generateCodeSnippet()
 
     foreach(SessionItem *sampleItem, m_sampleModel->topItems()) {
         DomainObjectBuilder builder;
-        PyGenVisitor visitor;
-
         try {
             auto P_multilayer = builder.buildMultiLayer(*sampleItem);
-            VisitSampleTreePostorder(*P_multilayer, visitor);
+            ExportToPython visitor(*P_multilayer);
             std::ostringstream ostr;
             ostr << visitor.defineGetSample();
             if(!result.isEmpty()) result.append("\n");
@@ -251,7 +249,6 @@ QString PySampleWidget::generateCodeSnippet()
             QPoint pos = getPositionForWarningSign();
             m_warningSign->setPosition(pos.x(), pos.y());
             m_warningSign->show();
-
         }
     }
 
@@ -262,7 +259,7 @@ QString PySampleWidget::generateCodeSnippet()
 //! be adjusted according to the visibility of scroll bars
 QPoint PySampleWidget::getPositionForWarningSign()
 {
-    int x = width()-warning_sign_xpos;
+    int x = width() -warning_sign_xpos;
     int y = height()-warning_sign_ypos;
 
     if(QScrollBar *horizontal = m_textEdit->horizontalScrollBar()) {
@@ -274,7 +271,6 @@ QPoint PySampleWidget::getPositionForWarningSign()
         if(vertical->isVisible())
             x -= vertical->width();
     }
-
 
     return QPoint(x, y);
 }
@@ -292,5 +288,3 @@ QString PySampleWidget::getWelcomeMessage()
 
     return result;
 }
-
-

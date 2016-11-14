@@ -121,4 +121,4 @@ inline void TestMapperCases::test_SimulationOptionsComputationToggle()
     QVERIFY(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == true);
 }
 
-#endif
+#endif // TESTMAPPERCASES_H

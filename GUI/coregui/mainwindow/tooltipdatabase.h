@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/mainwindow/tooltipdatabase.h
-//! @brief     Declares class ToolTipDataBase
+//! @brief     Defines class ToolTipDataBase
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,12 +14,11 @@
 //
 // ************************************************************************** //
 
-#ifndef TOOLTIP_DATABASE
-#define TOOLTIP_DATABASE
+#ifndef TOOLTIPDATABASE_H
+#define TOOLTIPDATABASE_H
 
 #include "WinDllMacros.h"
 #include <QObject>
-#include <QMap>
 
 namespace ToolTipsXML {
 const QString modelTag = "ToolTipsData";
@@ -58,7 +57,4 @@ private:
     static QMap<QString, QString > m_tagToToolTip;
 };
 
-
-
-#endif
-
+#endif // TOOLTIPDATABASE_H

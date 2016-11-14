@@ -22,12 +22,12 @@ a_alphamin = 1.0879025216e-04
 a_alphamax = 4.4882507209e-02
 
 
-class MesoSampleBuilder(ISampleBuilder):
+class MesoSampleBuilder(IMultiLayerBuilder):
     """
     Meso crystal sample builder
     """
     def __init__(self):
-        ISampleBuilder.__init__(self)
+        IMultiLayerBuilder.__init__(self)
         self.sample = None
         # parameters describing the sample
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SimulationWidgets/SimulationSetupWidget.h
-//! @brief     Declares class SimulationSetupWidget
+//! @brief     Defines class SimulationSetupWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -56,4 +56,4 @@ private:
     SimulationOptionsWidget *m_simOptionsWidget;
 };
 
-#endif
+#endif // SIMULATIONSETUPWIDGET_H

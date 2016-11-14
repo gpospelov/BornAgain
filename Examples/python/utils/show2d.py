@@ -74,4 +74,3 @@ if __name__ == '__main__':
     print('Maximum value of data: ', a.flatten().max())
 
     PlotNumpyArray(a, zmin, zmax)
-

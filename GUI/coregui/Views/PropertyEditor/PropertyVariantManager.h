@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/PropertyEditor/PropertyVariantManager.h
-//! @brief     Declares class PropertyVariantManager
+//! @brief     Defines class PropertyVariantManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#ifndef OBJECTVARIANTMANAGER_H
-#define OBJECTVARIANTMANAGER_H
+#ifndef PROPERTYVARIANTMANAGER_H
+#define PROPERTYVARIANTMANAGER_H
 
 //! collection of classes extending QtPropertyBrowser functionality
 
-#include <QtVariantPropertyManager>
 #include "ColorProperty.h"
-#include "ScientificDoubleProperty.h"
+#include "ComboProperty.h"
 #include "GroupProperty.h"
 #include "MaterialProperty.h"
-#include "ComboProperty.h"
+#include "ScientificDoubleProperty.h"
+#include <QtVariantPropertyManager>
 
 class QObject;
 
@@ -63,4 +63,4 @@ private:
     QMap<const QtProperty *, ComboProperty> m_theComboValues;
 };
 
-#endif // OBJECTVARIANTMANAGER_H
+#endif // PROPERTYVARIANTMANAGER_H

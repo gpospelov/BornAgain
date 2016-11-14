@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Tools/MathFunctions.h
-//! @brief     Declares functions in namespace MathFunctions.
+//! @brief     Defines functions in namespace MathFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,13 +16,9 @@
 #ifndef MATHFUNCTIONS_H
 #define MATHFUNCTIONS_H
 
+#include "WinDllMacros.h"
 #include "Complex.h"
-#include "Units.h"
-#include "Numeric.h"
-
-#include <cstdlib>
 #include <vector>
-#include <cmath>
 
 //! Various mathematical functions.
 
@@ -81,6 +77,8 @@ namespace MathFunctions
 // ************************************************************************** //
 //  Fourier transform and convolution
 // ************************************************************************** //
+
+    // TODO move elsewhere, and rm #include <vector>
 
     enum EFFTDirection { FORWARD_FFT, BACKWARD_FFT };
 

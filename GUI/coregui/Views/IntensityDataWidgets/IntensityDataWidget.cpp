@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "IntensityDataWidget.h"
+#include "AppSvc.h"
 #include "ColorMapCanvas.h"
 #include "IntensityDataItem.h"
 #include "SavePlotAssistant.h"
-#include "AppSvc.h"
 #include "projectmanager.h"
-#include <QVBoxLayout>
 #include <QAction>
+#include <QVBoxLayout>
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)

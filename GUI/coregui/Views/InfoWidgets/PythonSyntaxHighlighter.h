@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/PythonSyntaxHighlighter.h
-//! @brief     Declares class PythonSyntaxHighlighter
+//! @brief     Defines class PythonSyntaxHighlighter
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -37,8 +37,8 @@ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WIT
 USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef PYTHONSYNTAXHIGHLATER_H
-#define PYTHONSYNTAXHIGHLATER_H
+#ifndef PYTHONSYNTAXHIGHLIGHTER_H
+#define PYTHONSYNTAXHIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
 
@@ -90,6 +90,6 @@ private:
     QRegExp triDoubleQuote;
 };
 
-#endif
+#endif // PYTHONSYNTAXHIGHLIGHTER_H
 
 

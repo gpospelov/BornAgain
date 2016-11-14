@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/DesignerScene.h
-//! @brief     Declares class DesignerScene
+//! @brief     Defines class DesignerScene
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,8 +19,8 @@
 
 #include "WinDllMacros.h"
 #include <QGraphicsScene>
-#include <QModelIndex>
 #include <QMap>
+#include <QModelIndex>
 
 class InstrumentModel;
 class SampleModel;
@@ -116,5 +116,5 @@ private:
 };
 
 
-#endif
+#endif // DESIGNERSCENE_H
 

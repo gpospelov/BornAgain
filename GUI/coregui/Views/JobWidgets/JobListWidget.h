@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobListWidget.h
-//! @brief     Declares class JobListWidget
+//! @brief     Defines class JobListWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,14 +18,16 @@
 #define JOBLISTWIDGET_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QModelIndexList>
+#include <QWidget>
 
 class JobModel;
 class JobListViewDelegate;
 class QItemSelectionModel;
 class ItemSelectorWidget;
 class QModelIndex;
+class JobItem;
+class SessionItem;
 
 //! The JobListWidget class contains list view to select job items.
 
@@ -42,15 +44,17 @@ public:
 
     QItemSelectionModel *selectionModel();
 
+    const JobItem *currentJobItem() const;
+
 signals:
     void contextMenuRequest(const QPoint &point, const QModelIndex &index);
-    void selectionChanged(class JobItem *);
+    void selectionChanged(JobItem *);
 
 public slots:
-    void makeJobItemSelected(class JobItem *jobItem);
+    void makeJobItemSelected(JobItem *jobItem);
 
 private slots:
-    void onItemSelectionChanged(class SessionItem *item);
+    void onItemSelectionChanged(SessionItem *item);
 
 private:
     JobListViewDelegate *m_listViewDelegate;
@@ -58,4 +62,4 @@ private:
     JobModel *m_jobModel;
 };
 
-#endif
+#endif // JOBLISTWIDGET_H

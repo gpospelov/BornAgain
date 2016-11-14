@@ -1,9 +1,10 @@
+
 // ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Tools/IntegratorMCMiser.h
-//! @brief     Declares and implements template class IntegratorMCMiser.
+//! @brief     Defines and implements template class IntegratorMCMiser.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,8 +17,7 @@
 #ifndef INTEGRATORMCMISER_H
 #define INTEGRATORMCMISER_H
 
-#include "gsl/gsl_monte_miser.h"
-
+#include <gsl/gsl_monte_miser.h>
 #include <memory>
 
 //! Alias template for member function with signature double f(double)

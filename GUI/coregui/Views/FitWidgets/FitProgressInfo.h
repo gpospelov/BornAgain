@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitProgressInfo.h
-//! @brief     Declares class FitProgressInfo
+//! @brief     Defines class FitProgressInfo
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -46,4 +46,4 @@ private:
 
 Q_DECLARE_METATYPE(FitProgressInfo)
 
-#endif
+#endif // FITPROGRESSINFO_H

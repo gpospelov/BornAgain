@@ -145,4 +145,51 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
 //}
 
 
-#endif
+TEST_F(IntensityDataFunctionsTest, coordinateToFromBinf)
+{
+    FixedBinAxis axis("axis", 8, -5.0, 3.0);
+    EXPECT_EQ(0.5, IntensityDataFunctions::coordinateToBinf(-4.5, axis));
+    EXPECT_EQ(-4.5, IntensityDataFunctions::coordinateFromBinf(0.5, axis));
+
+    EXPECT_EQ(1.0, IntensityDataFunctions::coordinateToBinf(-4.0, axis));
+    EXPECT_EQ(-4.0, IntensityDataFunctions::coordinateFromBinf(1.0, axis));
+
+    EXPECT_EQ(-0.5, IntensityDataFunctions::coordinateToBinf(-5.5, axis));
+    EXPECT_EQ(-5.5, IntensityDataFunctions::coordinateFromBinf(-0.5, axis));
+
+    EXPECT_EQ(8.0, IntensityDataFunctions::coordinateToBinf(3.0, axis));
+    EXPECT_EQ(3.0, IntensityDataFunctions::coordinateFromBinf(8.0, axis));
+
+    EXPECT_EQ(8.5, IntensityDataFunctions::coordinateToBinf(3.5, axis));
+    EXPECT_EQ(3.5, IntensityDataFunctions::coordinateFromBinf(8.5, axis));
+}
+
+
+//! Transformation of coordinates from one OutputData to another using convertion from axes
+//! coordinates to bin-fraction-coordinates and then to another axes coordinates.
+
+TEST_F(IntensityDataFunctionsTest, outputDataCoordinatesToFromBinf)
+{
+    OutputData<double> data1;
+    data1.addAxis("axis0", 8, -5.0, 3.0);
+    data1.addAxis("axis1", 3, 2.0, 5.0);
+
+    OutputData<double> data2;
+    data2.addAxis("axis0", 8, -10.0, 70.0);
+    data2.addAxis("axis1", 3, -10.0, 20.0);
+
+    double x(-4.5), y(2.5);
+    IntensityDataFunctions::coordinateToBinf(x, y, data1);
+    IntensityDataFunctions::coordinateFromBinf(x, y, data2);
+    EXPECT_FLOAT_EQ(x, -5.0);
+    EXPECT_FLOAT_EQ(y, -5.0);
+
+    x = 3.1; y = 5.1;
+    IntensityDataFunctions::coordinateToBinf(x, y, data1);
+    IntensityDataFunctions::coordinateFromBinf(x, y, data2);
+    EXPECT_FLOAT_EQ(x, 71.0);
+    EXPECT_FLOAT_EQ(y, 21.0);
+
+}
+
+#endif // INTENSITYDATAFUNCTIONSTEST_H

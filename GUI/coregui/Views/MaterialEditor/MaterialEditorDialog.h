@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaterialEditor/MaterialEditorDialog.h
-//! @brief     Declares class MaterialEditorDialog
+//! @brief     Defines class MaterialEditorDialog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -51,4 +51,4 @@ private:
     MaterialEditor *m_materialEditor;
 };
 
-#endif
+#endif // MATERIALEDITORDIALOG_H

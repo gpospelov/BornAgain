@@ -4,11 +4,11 @@ The standard "Cylinders in DWBA" sample is used to setup the simulation.
 """
 import math
 import numpy
-import matplotlib
 import random
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
+import matplotlib
+from matplotlib import pyplot as plt
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -148,7 +148,7 @@ def save_to_file(result):
     result.save("result.txt.bz2")
 
 
-def plot_results(result):
+def plot(result):
     """
     Runs different plotting functions one by one
     to demonstrate trivial data presentation tasks.
@@ -180,16 +180,15 @@ def plot_results(result):
 
 def run_simulation():
     """
-    Run simulation and plot results
+    Runs simulation and returns intensity map.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    result = simulation.getIntensityData()
-
-    plot_results(result)
+    return simulation.getIntensityData()
 
 
 if __name__ == '__main__':
-    run_simulation()
+    result = run_simulation()
+    ba.plot_intensity_data(result, plot)

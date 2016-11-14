@@ -1,10 +1,10 @@
-#ifndef TESTFTDISTRIBUTIONSITEMS_H
-#define TESTFTDISTRIBUTIONSITEMS_H
+#ifndef TESTFTDISTRIBUTIONITEMS_H
+#define TESTFTDISTRIBUTIONITEMS_H
 
 #include <QtTest>
 #include "TransformToDomain.h"
 #include "TransformFromDomain.h"
-#include "FTDistributions.h"
+#include "FTDistributions1D.h"
 #include "FTDistributionItems.h"
 
 class TestFTDistributionItems : public QObject {
@@ -31,4 +31,4 @@ inline void TestFTDistributionItems::test_FTDistribution1DCauchy()
     QVERIFY(item2.getItemValue(FTDistribution1DGaussItem::P_CORR_LENGTH) == 3.0);
 }
 
-#endif
+#endif // TESTFTDISTRIBUTIONITEMS_H

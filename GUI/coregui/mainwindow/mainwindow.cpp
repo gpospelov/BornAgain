@@ -15,41 +15,31 @@
 // ************************************************************************** //
 
 #include "mainwindow.h"
-#include "fancytabwidget.h"
-#include "manhattanstyle.h"
-#include "actionmanager.h"
-
-#include "WelcomeView.h"
-#include "InstrumentView.h"
-#include "SampleView.h"
-#include "ImportDataView.h"
-#include "SimulationView.h"
-#include "JobView.h"
-#include "TestView.h"
-#include "SessionModelView.h"
-#include "TestFitWidgets.h"
-
-#include "JobQueueData.h"
-#include "stylehelper.h"
-#include "JobModel.h"
 #include "ApplicationModels.h"
-#include "mainwindow_constants.h"
-#include "hostosinfo.h"
-#include "projectmanager.h"
-#include "progressbar.h"
-#include "tooltipdatabase.h"
-#include "mainwindow_constants.h"
-#include "aboutapplicationdialog.h"
 #include "GUIHelpers.h"
+#include "ImportDataView.h"
+#include "InstrumentView.h"
+#include "JobModel.h"
+#include "JobView.h"
+#include "SampleView.h"
+#include "SessionModelView.h"
+#include "SimulationView.h"
 #include "UpdateNotifier.h"
-
+#include "WelcomeView.h"
+#include "aboutapplicationdialog.h"
+#include "actionmanager.h"
+#include "fancytabwidget.h"
+#include "hostosinfo.h"
+#include "mainwindow_constants.h"
+#include "manhattanstyle.h"
+#include "progressbar.h"
+#include "projectmanager.h"
+#include "stylehelper.h"
+#include "tooltipdatabase.h"
 #include <QApplication>
-#include <QStatusBar>
-#include <QSettings>
 #include <QCloseEvent>
 #include <QMessageBox>
-#include <QDebug>
-#include <QTimer>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
@@ -76,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 //    m_applicationModels->createTestSample();
 //    m_applicationModels->createTestJob();
+//    m_applicationModels->createTestRealData();
 }
 
 MaterialModel *MainWindow::materialModel()
@@ -204,8 +195,8 @@ void MainWindow::onSessionModelViewActive(bool isActive)
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(jobModel()->hasUnfinishedJobs()) {
-        QMessageBox::warning(this, tr("Can't quite the application."),
-                             "Can't quite the application while jobs are running.\n"
+        QMessageBox::warning(this, "Can't quit the application.",
+                             "Can't quit the application while jobs are running.\n"
                              "Cancel running jobs or wait until they are completed.");
         event->ignore();
         return;

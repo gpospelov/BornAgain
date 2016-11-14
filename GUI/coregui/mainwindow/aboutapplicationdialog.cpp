@@ -17,13 +17,11 @@
 #include "aboutapplicationdialog.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
 #include <QDate>
+#include <QLabel>
+#include <QPushButton>
+#include <QVBoxLayout>
 
-#include <iostream>
 
 AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     : QDialog(parent)
@@ -101,7 +99,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     detailsLayout->addLayout(textLayout);
 
 
-    m_closeButton = new QPushButton(tr("Close"));
+    m_closeButton = new QPushButton("Close");
     connect(m_closeButton, SIGNAL(clicked()), this, SLOT(reject()));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;

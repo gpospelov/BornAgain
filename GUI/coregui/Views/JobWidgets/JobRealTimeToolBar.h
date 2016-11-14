@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobRealTimeToolBar.h
-//! @brief     Declares class JobRealTimeToolBar
+//! @brief     Defines class JobRealTimeToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -35,5 +35,5 @@ private:
     class QToolButton *m_resetParametersButton;
 };
 
-#endif
+#endif // JOBREALTIMETOOLBAR_H
 

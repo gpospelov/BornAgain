@@ -17,9 +17,9 @@
 #include "tooltipdatabase.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"
+#include <QDebug>
 #include <QFile>
 #include <QXmlStreamReader>
-#include <QDebug>
 
 ToolTipDataBase *ToolTipDataBase::m_instance = 0;
 QMap<QString, QString > ToolTipDataBase::m_tagToToolTip = QMap<QString, QString >();

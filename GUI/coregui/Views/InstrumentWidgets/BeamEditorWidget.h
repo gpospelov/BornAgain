@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/BeamEditorWidget.h
-//! @brief     Declares class BeamEditorWidget
+//! @brief     Defines class BeamEditorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,9 +17,9 @@
 #ifndef BEAMEDITORWIDGET_H
 #define BEAMEDITORWIDGET_H
 
+#include "SessionItem.h"
 #include "WinDllMacros.h"
 #include <QWidget>
-#include "SessionItem.h"
 
 class BeamItem;
 class ComponentBoxEditor;
@@ -48,4 +48,4 @@ private:
     BeamItem *m_beamItem;
 };
 
-#endif
+#endif // BEAMEDITORWIDGET_H

@@ -16,14 +16,14 @@
 
 #include "ConnectableView.h"
 #include "DesignerHelper.h"
-#include "NodeEditorPort.h"
-#include "NodeEditorConnection.h"
 #include "GUIHelpers.h"
+#include "NodeEditorConnection.h"
+#include "NodeEditorPort.h"
 #include "SessionItem.h"
-#include <QPainter>
 #include <QDebug>
-#include <QStyleOptionGraphicsItem>
 #include <QObject>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 #include <iostream>
 
 ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)

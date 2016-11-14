@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/IMaskView.h
-//! @brief     Declares interface class IMaskView for all masks on graphics scene
+//! @brief     Defines interface class IMaskView for all masks on graphics scene
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef IMASKVIEW_H
 #define IMASKVIEW_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorHelper.h"
+#include "WinDllMacros.h"
 #include <QGraphicsObject>
 #include <memory>
 
@@ -74,7 +74,5 @@ protected:
     QRectF m_bounding_rect;
 };
 
-
-
-#endif
+#endif // IMASKVIEW_H
 

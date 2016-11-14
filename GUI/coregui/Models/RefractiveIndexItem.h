@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/RefractiveIndexItem.h
-//! @brief     Declares class RefractiveIndexItem
+//! @brief     Defines class RefractiveIndexItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -36,4 +36,4 @@ public:
     void setBeta(double beta);
 };
 
-#endif
+#endif // REFRACTIVEINDEXITEM_H

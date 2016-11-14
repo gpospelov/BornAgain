@@ -16,11 +16,11 @@
 
 #include "RectangularDetectorItem.h"
 #include "AxesItems.h"
-#include "VectorItem.h"
 #include "ComboProperty.h"
+#include "GUIHelpers.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunctionItems.h"
-#include "GUIHelpers.h"
+#include "VectorItem.h"
 #include <QDebug>
 
 namespace {
@@ -100,10 +100,14 @@ RectangularDetectorItem::RectangularDetectorItem()
     item = addGroupProperty(P_DIRECTION, Constants::VectorType);
     item->setItemValue(VectorItem::P_Y, -1.0);
 
-    addProperty(P_U0, default_detector_width/2.)->setToolTip(tooltip_u0);
-    addProperty(P_V0, 0.0)->setToolTip(tooltip_v0);
-    addProperty(P_DBEAM_U0, default_detector_width/2.)->setToolTip(tooltip_dbeam_u0);
-    addProperty(P_DBEAM_V0, 0.0)->setToolTip(tooltip_dbeam_v0);
+    addProperty(P_U0, default_detector_width / 2.)
+        ->setToolTip(tooltip_u0).setLimits(RealLimits::limitless());
+    addProperty(P_V0, 0.0)
+        ->setToolTip(tooltip_v0).setLimits(RealLimits::limitless());
+    addProperty(P_DBEAM_U0, default_detector_width / 2.)
+        ->setToolTip(tooltip_dbeam_u0).setLimits(RealLimits::limitless());
+    addProperty(P_DBEAM_V0, 0.0)
+        ->setToolTip(tooltip_dbeam_v0).setLimits(RealLimits::limitless());
 
     addProperty(P_DISTANCE, default_detector_distance)
         ->setToolTip(QStringLiteral("Distance in [mm] from the sample origin to the detector plane"));
@@ -179,7 +183,7 @@ std::unique_ptr<IResolutionFunction2D> RectangularDetectorItem::createResolution
         getGroupItem(P_RESOLUTION_FUNCTION));
     Q_ASSERT(resfuncItem);
     std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction());
-    return std::move(result);
+    return result;
 }
 
 void RectangularDetectorItem::setDetectorAlignment(const QString &alignment)

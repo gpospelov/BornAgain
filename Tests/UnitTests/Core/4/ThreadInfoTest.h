@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/UnitTests/Core/4/ThreadInfoTest.h
-//! @brief     Declares unit test for ThreadInfo class.
+//! @brief     Defines unit test for ThreadInfo class.
 //!
 //! @homepage  http://bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef THREADINFOTEST_H_
-#define THREADINFOTEST_H_
+#ifndef THREADINFOTEST_H
+#define THREADINFOTEST_H
 
 #include "ThreadInfo.h"
 
@@ -36,4 +36,4 @@ TEST_F(ThreadInfoTest, DefaultValues)
     EXPECT_EQ(0, thread_info.current_thread);
 }
 
-#endif /* THREADINFOTEST_H_ */
+#endif // THREADINFOTEST_H

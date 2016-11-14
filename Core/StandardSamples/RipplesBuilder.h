@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/RipplesBuilder.h
-//! @brief     Declares classes to build various ripples.
+//! @brief     Defines classes to build various ripples.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,17 +16,17 @@
 #ifndef RIPPLESBUILDER_H
 #define RIPPLESBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
 //! @class CosineRippleBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cosine ripple within the 1D-paracrystal model
 
-class BA_CORE_API_ CosineRippleBuilder : public ISampleBuilder
+class BA_CORE_API_ CosineRippleBuilder : public IMultiLayerBuilder
 {
 public:
     CosineRippleBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -46,11 +46,11 @@ private:
 //! @brief Builds sample: triangular ripple within the 1D-paracrystal model
 //! (from PRB 85, 235415, 2012)
 
-class BA_CORE_API_ TriangularRippleBuilder : public ISampleBuilder
+class BA_CORE_API_ TriangularRippleBuilder : public IMultiLayerBuilder
 {
 public:
     TriangularRippleBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();

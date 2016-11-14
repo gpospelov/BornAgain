@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ParticleCoreShellItem.h
-//! @brief     Declares class ParticleCoreShellItem
+//! @brief     Defines class ParticleCoreShellItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,11 +17,9 @@
 #ifndef PARTICLECORESHELLITEM_H
 #define PARTICLECORESHELLITEM_H
 
-#include "ParticleCoreShell.h"
 #include "SessionGraphicsItem.h"
+#include "ParticleCoreShell.h"
 
-#include <QVector>
-#include <memory>
 
 class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem
 {
@@ -36,4 +34,4 @@ public:
 
 };
 
-#endif
+#endif // PARTICLECORESHELLITEM_H

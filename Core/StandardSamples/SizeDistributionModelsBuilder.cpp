@@ -15,18 +15,22 @@
 
 #include "SizeDistributionModelsBuilder.h"
 #include "BornAgainNamespace.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "Units.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
-#include "FormFactorCylinder.h"
 #include "Distributions.h"
+#include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "ParameterPattern.h"
+#include "Particle.h"
 #include "ParticleDistribution.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 using namespace BornAgain;
 
-ISample* SizeDistributionDAModelBuilder::buildSample() const
+MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {
         MultiLayer* multi_layer = new MultiLayer();
 
@@ -69,7 +73,7 @@ ISample* SizeDistributionDAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample* SizeDistributionLMAModelBuilder::buildSample() const
+MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -122,7 +126,7 @@ ISample* SizeDistributionLMAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample* SizeDistributionSSCAModelBuilder::buildSample() const
+MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
@@ -168,7 +172,7 @@ ISample* SizeDistributionSSCAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-ISample* CylindersInSSCABuilder::buildSample() const
+MultiLayer* CylindersInSSCABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

@@ -9,15 +9,22 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
+include(GlobDirectories)
+GLOB_DIRECTORIES(CORE_SUBDIRS)
+
+set(CORE_SOURCE_DIRS "")
+foreach(subdir ${CORE_SUBDIRS})
+    list(APPEND CORE_SOURCE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${subdir}")
+endforeach()
+
+# export for use in functional tests:
+set(CORE_SOURCE_DIRS ${CORE_SOURCE_DIRS} ${EIGEN3_INCLUDE_DIR} PARENT_SCOPE)
+
 set(include_dirs
-    ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/
-    ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Geometry/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Samples/
-    ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples/
-    ${CMAKE_CURRENT_SOURCE_DIR}/TestMachinery/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Tools/
-    ${CMAKE_CURRENT_SOURCE_DIR}/InputOutput
+    ${BUILD_INC_DIR}
+    ${CMAKE_SOURCE_DIR}/Wrap
+    ${CORE_SOURCE_DIRS}
+    ${BornAgainFit_INCLUDE_DIRS}
     )
 
 include_directories(${include_dirs})
@@ -78,20 +85,20 @@ if(BORNAGAIN_PYTHON)
 
     add_custom_target (
         ${library_name}_python
-        COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
+        COMMAND ${CMAKE_COMMAND} -E copy
+            ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
         DEPENDS ${AUTO_DIR}/libBornAgainCore.py
         )
 
-    # manually add: if does not exist, will be created by swig
     list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
-    #list(APPEND include_files "${AUTO_DIR}/libBornAgainCore_wrap.h")
 
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
-    # variable BA_MODULES_IMPORT_PATH must be set
+
     set(BA_MODULES_IMPORT_PATH "..")
     if(BORNAGAIN_APPLE_BUNDLE)
-        set(BA_MODULES_IMPORT_PATH lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
+        set(BA_MODULES_IMPORT_PATH
+            lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
     endif()
     configure_file("${WRAP_DIR}/python/__init__.py.in"
                    "${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py" @ONLY)
@@ -104,11 +111,7 @@ endif()
 
 
 # --- making library ---------
-add_library(
-    ${library_name}
-    SHARED
-    ${source_files} ${include_files}
-    )
+add_library(${library_name} SHARED ${include_files} ${source_files})
 
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
@@ -125,7 +128,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- external dependencies ---------
 
-target_link_libraries(${library_name} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${library_name} ${BornAgainFit_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 
 if(BORNAGAIN_TIFF_SUPPORT)
     add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
@@ -169,6 +172,7 @@ install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/cpp DESTINATION ${destination_ex
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 install (FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by swig
 install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
+install (FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h DESTINATION ${destination_include} COMPONENT Headers)
 
 if(WIN32)
     # python in windows required .pyd extention for the library name

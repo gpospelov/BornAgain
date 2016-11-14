@@ -96,23 +96,22 @@ def run_fitting():
     # setting fitting parameters with starting values
     # Here we select starting values being quite far from true values
     # to puzzle our minimizer's as much as possible
-    fit_suite.addFitParameter(
-        "*Height", 1.*nm, ba.AttLimits.limited(0.01, 30.), 0.04*nm)
-    fit_suite.addFitParameter(
-        "*Radius", 20.*nm, ba.AttLimits.limited(0.01, 30.), 0.06*nm)
+    fit_suite.addFitParameter("*Height", 1.*nm).setLimited(0.01, 30.)\
+        .setStep(0.05*nm)
+    fit_suite.addFitParameter("*Radius", 20.*nm).setLimited(0.01, 30.)\
+        .setStep(0.05*nm)
 
     # Now we create first fig strategy which will run first minimization round
     # using the Genetic minimizer.
     # The Genetic minimizer is able to explore large parameter space
     # without being trapped by some local minima.
-    strategy1 = ba.FitStrategyAdjustMinimizer("Genetic")
-    strategy1.getMinimizerOptions().setMaxIterations(3)
+    strategy1 = ba.AdjustMinimizerStrategy("Genetic", "", "MaxIterations=2")
     fit_suite.addFitStrategy(strategy1)
 
     # Second fit strategy will use another minimizer.
     # It starts from best parameters found in previous minimization
     # and then continues until fit converges.
-    strategy2 = ba.FitStrategyAdjustMinimizer("Minuit2", "Migrad")
+    strategy2 = ba.AdjustMinimizerStrategy("Minuit2", "Migrad")
     fit_suite.addFitStrategy(strategy2)
 
     # running fit
@@ -120,9 +119,8 @@ def run_fitting():
 
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

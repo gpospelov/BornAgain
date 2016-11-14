@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/GroupItem.h
-//! @brief     Declares class GroupItem
+//! @brief     Defines class GroupItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -31,5 +31,5 @@ public:
     SessionItem *currentItem();
 };
 
-#endif
+#endif // GROUPITEM_H
 

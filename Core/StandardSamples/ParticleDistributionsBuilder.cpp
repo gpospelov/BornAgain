@@ -15,14 +15,17 @@
 
 #include "ParticleDistributionsBuilder.h"
 #include "BornAgainNamespace.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "FormFactorCylinder.h"
-#include "Units.h"
-#include "InterferenceFunctionNone.h"
 #include "Distributions.h"
+#include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "ParameterPattern.h"
+#include "Particle.h"
 #include "ParticleDistribution.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 using namespace BornAgain;
 
@@ -36,15 +39,14 @@ CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
 
 void CylindersWithSizeDistributionBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter(BornAgain::Radius, &m_radius);
-    registerParameter(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 
-ISample *CylindersWithSizeDistributionBuilder::buildSample() const
+MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
@@ -92,22 +94,21 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 
 void TwoTypesCylindersDistributionBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("radius1", &m_radius1);
-    registerParameter("radius2", &m_radius2);
-    registerParameter("height1", &m_height1);
-    registerParameter("height2", &m_height2);
-    registerParameter("sigma1_ratio", &m_sigma1_ratio);
-    registerParameter("sigma2_ratio", &m_sigma2_ratio);
+    registerParameter("radius1", &m_radius1).setUnit("nm").setNonnegative();
+    registerParameter("radius2", &m_radius2).setUnit("nm").setNonnegative();
+    registerParameter("height1", &m_height1).setUnit("nm").setNonnegative();
+    registerParameter("height2", &m_height2).setUnit("nm").setNonnegative();
+    registerParameter("sigma1_ratio", &m_sigma1_ratio).setNonnegative();
+    registerParameter("sigma2_ratio", &m_sigma2_ratio).setNonnegative();
 }
 
 
-ISample *TwoTypesCylindersDistributionBuilder::buildSample() const
+MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial particle_material ("Particle", 6e-4, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
 
@@ -147,5 +148,3 @@ ISample *TwoTypesCylindersDistributionBuilder::buildSample() const
 
     return multi_layer;
 }
-
-

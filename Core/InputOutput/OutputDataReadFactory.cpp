@@ -14,12 +14,8 @@
 // ************************************************************************** //
 
 #include "OutputDataReadFactory.h"
-#include "OutputDataReader.h"
-#include "OutputDataReadStrategy.h"
-#include "OutputDataIOHelper.h"
 #include "Exceptions.h"
-#include "FileSystem.h"
-
+#include "OutputDataIOHelper.h"
 
 OutputDataReader* OutputDataReadFactory::getReader(const std::string &file_name)
 {
@@ -31,20 +27,16 @@ OutputDataReader* OutputDataReadFactory::getReader(const std::string &file_name)
 IOutputDataReadStrategy* OutputDataReadFactory::getReadStrategy(const std::string &file_name)
 {
     IOutputDataReadStrategy* result(nullptr);
-    if(OutputDataIOHelper::isIntFile(file_name)) {
+    if(OutputDataIOHelper::isIntFile(file_name))
         result = new OutputDataReadINTStrategy();
-    }
-    else if(OutputDataIOHelper::isTxtFile(file_name)) {
+    else if(OutputDataIOHelper::isTxtFile(file_name))
         result = new OutputDataReadNumpyTXTStrategy();
-    }
 #ifdef BORNAGAIN_TIFF_SUPPORT
-    else if(OutputDataIOHelper::isTiffFile(file_name)) {
+    else if(OutputDataIOHelper::isTiffFile(file_name))
        result = new OutputDataReadTiffStrategy();
-    }
 #endif // BORNAGAIN_TIFF_SUPPORT
-    else {
-        throw LogicErrorException("OutputDataReadFactory::getReader() -> Error. "
+    else
+        throw Exceptions::LogicErrorException("OutputDataReadFactory::getReader() -> Error. "
                 "Don't know how to read file '" + file_name+std::string("'"));
-    }
     return result;
 }

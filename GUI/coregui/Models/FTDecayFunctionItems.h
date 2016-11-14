@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/FTDecayFunctionItems.h
-//! @brief     Declares FTDecayFunction1DItem classes
+//! @brief     Defines FTDecayFunction1DItem classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

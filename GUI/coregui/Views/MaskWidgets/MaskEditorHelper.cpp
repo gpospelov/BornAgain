@@ -16,8 +16,8 @@
 
 #include "MaskEditorHelper.h"
 #include <QBrush>
-#include <QPen>
 #include <QColor>
+#include <QPen>
 #include <QRectF>
 
 QBrush MaskEditorHelper::getSelectionMarkerBrush()

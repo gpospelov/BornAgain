@@ -15,13 +15,12 @@
 // ************************************************************************** //
 
 #include "SampleValidator.h"
-#include "MultiLayerItem.h"
 #include "LayerItem.h"
-#include "ParticleLayoutItem.h"
+#include "MultiLayerItem.h"
 #include "ParticleCompositionItem.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
-#include <QDebug>
+#include "ParticleLayoutItem.h"
 
 SampleValidator::SampleValidator()
     : m_valid_sample(true)

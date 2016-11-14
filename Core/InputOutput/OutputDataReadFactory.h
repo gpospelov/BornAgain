@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/InputOutput/OutputDataReadFactory.h
-//! @brief     Declares class OutputDataReadFactory.
+//! @brief     Defines class OutputDataReadFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,11 +16,8 @@
 #ifndef OUTPUTDATAREADFACTORY_H
 #define OUTPUTDATAREADFACTORY_H
 
-#include <string>
-#include "WinDllMacros.h"
 #include "OutputDataReader.h"
 
-class IOutputDataReadStrategy;
 
 //! @class OutputDataReadFactory
 //! @ingroup input_output_internal
@@ -35,4 +32,4 @@ private:
     static IOutputDataReadStrategy *getReadStrategy(const std::string& file_name);
 };
 
-#endif
+#endif // OUTPUTDATAREADFACTORY_H

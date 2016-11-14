@@ -87,4 +87,4 @@ TEST_F(CumulativeValueTest, Comparison)
 
 
 
-#endif
+#endif // CUMULATIVEVALUETEST_H

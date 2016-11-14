@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Tools/IntegratorReal.h
-//! @brief     Declares and implements class template IntegratorReal.
+//! @brief     Defines and implements class template IntegratorReal.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,7 @@
 #ifndef INTEGRATORREAL_H
 #define INTEGRATORREAL_H
 
-#include "gsl/gsl_integration.h"
+#include <gsl/gsl_integration.h>
 #include <memory>
 
 //! Alias template for member function with signature double f(double)

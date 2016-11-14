@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleView.h
-//! @brief     Declares class SampleView
+//! @brief     Defines class SampleView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,27 +14,20 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLEMANAGER_H
-#define SAMPLEMANAGER_H
+#ifndef SAMPLEVIEW_H
+#define SAMPLEVIEW_H
 
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
-#include <QWidget>
-#include <QMainWindow>
-#include <QDockWidget>
-#include <QTreeView>
 #include <QAction>
 #include <QSignalMapper>
-#include <QItemSelectionModel>
-
+#include <QTreeView>
 
 class MainWindow;
 class SampleModel;
 class InstrumentModel;
-class SampleDesignerInterface;
 class SampleDesigner;
 class SampleToolBar;
-class MaterialBrowser;
 
 
 class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
@@ -110,4 +103,4 @@ private:
 };
 
 
-#endif // SAMPLEMANAGER_H
+#endif // SAMPLEVIEW_H

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/DesignerHelper.h
-//! @brief     Declares class DesignerHelper
+//! @brief     Defines class DesignerHelper
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,11 +18,11 @@
 #define DESIGNERHELPER_H
 
 #include "WinDllMacros.h"
-
-#include <QGradient>
 #include <QColor>
-#include <QRect>
+#include <QGradient>
 #include <QGraphicsItem>
+#include <QRect>
+#include <complex>
 
 //! collection of static methods with SampleDesigner geometry settings
 class BA_CORE_API_ DesignerHelper
@@ -117,9 +117,7 @@ private:
     static double m_current_zoom_level;
 };
 
-#include <complex>
 typedef std::complex<double> complex_t;
 Q_DECLARE_METATYPE(complex_t)
 
-
-#endif // EDITORHELPER_H
+#endif // DESIGNERHELPER_H

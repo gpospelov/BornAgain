@@ -1,0 +1,1221 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\part{Physics}\label{PPHYS}
+
+\chapter{Scattering}  \label{SSca}
+\chaptermark{Scattering}
+
+
+This chapter introduces the basic theory of small-angle scattering (SAS).
+\index{Small-angle scattering}%
+\index{SAS|see{Small-angle scattering}}%
+We specifically consider scalar neutron and X-ray propagation,
+adjourning the notationally more involved
+theory of polarized neutrons to \Cref{SPol}.
+Our exposition is self-contained,
+except for the initial passage from the microscopic
+to the macroscopic Schrödinger equation,
+which we outline only briefly (\Cref{Swave}).
+For X-rays, we obtain the same perturbed Schrödinger equation from Maxwell's equations
+(\Cref{SXray}).
+The standard description of scattering in first-order Born approximation
+(\Cref{SBornApprox})
+is introduced in a way that facilitates the following generalization
+into the distorted-wave Born approximation (DWBA)
+needed for grazing-incidence scattering (\Cref{SDWBA}).
+This chapter finishes with a qualitative discussion
+of coherence lengths (\Cref{Scoherlen}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Neutron propagation}\label{Swave}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{Wave propagation!neutrons|(}%
+\index{Neutrons!wave propagation|(}%
+
+%===============================================================================
+\subsection{Coherent wave equation}\label{ScohWave}
+%===============================================================================
+
+\def\Vmac{\tilde{V}}
+
+\index{Schrodinger@Schrödinger equation!microscopic}%
+The scalar wavefunction $\psi(\r,t)$
+\nomenclature[2t020]{$t$}{Time}%
+\nomenclature[2r040]{$\r$}{Position}%
+\nomenclature[1ψ030 2r040 2t02]{$\psi(\r,t)$}{Microscopic neutron wavefunction}%
+of a free neutron
+is governed by the microscopic Schrödinger equation
+\begin{equation}\label{ESchrodi}
+  i\hbar\partial_t \psi(\r,t)
+  = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
+\end{equation}
+Since BornAgain only supports elastic scattering,
+\index{Elastic scattering}%
+\index{Scattering!elastic}%
+the potential $V(\r)$ must be time independent.
+\index{Time}%
+Therefore we only need to consider monochromatic waves
+\index{Wave!monochromatic}%
+\index{Monochromatic wave}%
+with given frequency~$\omega$.
+\nomenclature[1ω 020]{$\omega$}{Frequency of incident radiation}%
+In consequence, the wave function
+\begin{equation}\label{Estationarywave}
+  \psi(\r,t) = \psi(\r)\e^{-i\omega t}
+\end{equation}
+\nomenclature[1ψ030 2r040 0]{$\psi(\r)$}{Stationary wavefunction}%
+factorizes into a stationary wave and a time-dependent phase factor.%
+\index{Stationary wave function}%
+\index{Phase factor}%
+\footnote
+{The minus sign in the exponent of the phase factor
+is an inevitable consequence of the standard form of the Schrödinger equation,
+and is therefore called the \E{quantum-mechanical sign convention}.
+\index{Wave propagation|seealso {Sign convention}}%
+\index{Convention|see {Sign convention}}%
+\index{Sign convention!wave propagation|(}%
+For electromagnetic radiation
+usage is less uniform.
+While most optics textbooks
+have adopted the quantum-mechanical convention~\cref{Estationarywave},
+\index{Quantum-mechanical convention}%
+in X-ray crystallography
+the conjugate phase factor $\e^{+i\omega t}$ is prefered.
+This \E{crystallographic sign convention}
+\index{Crystallographic sign convention}%
+has also been chosen
+in influential texts on GISAXS (e.g.\ \cite{ReLL09}).
+Here, however, we are concerned not only with X-rays,
+but also with neutrons,
+and therefore need to leave the Schrödinger equation~\cref{ESchrodi} intact.
+Consequently, in this manual, and in the program code of BornAgain,
+the quantum-mechanical sign convention~\cref{Estationarywave}
+\index{Sign convention!wave propagation|)}%
+is chosen.}
+Inserting \cref{Estationarywave} in \cref{ESchrodi},
+we obtain the stationary Schrödinger equation
+\begin{equation}\label{EstatSchrodi}
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r) = 0.
+\end{equation}
+\nomenclature[2m020]{$m$}{Neutron mass}%
+\nomenclature[2v130 2r040]{$V(\r)$}{Microscopic optical potential}%
+\index{Potential|see {Optical potential}}%
+\index{Optical potential!nuclear (microscopic)}%
+The \E{nuclear} (or \E{microscopic})
+\E{optical potential} $V(\r)$,
+in a somewhat ``naive conception'' \cite[p.~7]{Sea89},
+consists of a sum of delta functions,
+representing Fermi's ``pseudopotential''.
+\index{Fermi's pseudopotential}%
+The superposition of the incident wave with the scattered waves
+originating from each illuminated nucleus
+results in \E{coherent forward scattering},
+\index{Coherent forward scattering}%
+in line with Huygens' principle.
+\index{Huygens' principle}%
+
+Coherent superposition also leads to \E{Bragg scattering}.
+\index{Bragg scattering!by atomic lattices}%
+However, Bragg scattering by atomic lattices only occurs at angles
+far above the small-angle range covered in GISAS experiments.
+Accordingly, it can be neglected in the analysis of GISAS data,
+or at most, is taken into account as a loss channel.
+
+Therefore,
+we can neglect the atomic structure of $V(\r)$,
+and perform some coarse graining to
+arrive at a \E{continuum approximation}.
+\index{Continuum approximation!neutron propagation}%
+This is
+similar to the passage from
+the microscopic to the macroscopic Maxwell equations.
+The details are intricate \cite{Sea89,Lax51},
+but the result \cite[eq.~2.8.32]{Sea89} is very simple:
+The macroscopic field equation
+has still the form of a stationary Schrödinger equation,
+\index{Schrodinger@Schrödinger equation!macroscopic}%
+\begin{equation}\label{EmacrSchrodi}
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+\Vmac(\r)-\hbar\omega\right\} \psi(\r) = 0,
+\end{equation}
+\nomenclature[1ψ030 2r040 2t020]{$\psi(\r,t)$}{Coherent wavefunction}%
+\nomenclature[2v131 2r040]{$\Vmac(\r)$}{Macroscopic optical potential}%
+where $\psi$ now stands for the \E{coherent wavefunction}
+\index{Coherent wavefunction}%
+\index{Wave propagation!coherent}%
+obtained by superposition of
+incident and forward scattered states,
+and $\Vmac(\r)$ is the \E{macroscopic optical potential}.
+\index{Optical potential!macroscopic}%
+This potential is weak, and slowly varying compared to atomic length scales.
+In the following it shall be expressed through the
+\E{bound scattering length density} (SLD)
+\index{Bound scattering length|see{Scattering length}}%
+\index{Scattering!length density}%
+\index{SLD|see{Scattering length density}}%
+\cite[eq.\ 2.8.37]{Sea89},
+\nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density (SLD)}%
+\begin{equation}
+  v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r).
+\end{equation}
+
+%===============================================================================
+\subsection{SLD fluctuations}\label{Sfluct}
+%===============================================================================
+
+In the following, we will use~\cref{EmacrSchrodi}
+as a starting point to study scattering by condensed-matter samples
+(we will prefer the brief term \E{sample} over \E{scattering target}).
+\index{Scattering!target|see{Sample}}%
+\index{Sample}%
+To compute scattering cross sections from a perturbation expansion,
+\index{Perturbation expansion}%
+we will need to decompose the SLD as
+\begin{equation}\label{Edecompose_v}
+  v(\r) \coloneqq \mv(\r) + \delta v(\r).
+\end{equation}
+\nomenclature[1d030 2v230 2r040]{$\delta v(\r)$}{Fluctuating part of the scattering length density}%
+\nomenclature[2v021]{$\mv$}{Average scattering length density}%
+For $\r$ outside the finite sample volume, we require $\delta v(\r)=0$.
+Inside the sample, the decomposition~\cref{Edecompose_v} is somewhat arbitrary,
+and can be chosen for analytical convenience.
+The macroscopic Schrödinger equation~\cref{EmacrSchrodi} becomes
+\begin{equation}\label{ESchrodi3}
+  \left\{ \Nabla^2 + \frac{2m\omega}{\hbar} - 4\pi\mv(\r) \right\}\psi(\r)
+  = 4\pi\delta v(\r)\psi(\r).
+\end{equation}
+The left-hand side describes optical wave propagation,
+the right-hand side is a perturbation that causes scattering.
+\index{Scattering potential!neutron}%
+\index{Perturbation potential|see{Scattering potential}}%
+\index{Potential|see{Scattering potential}}%
+Accordingly, $\mv(\r)$ should only contain SLD variations
+that are simple enough to allow an analytical solution.
+The SLD fluctuation~$\delta v(\r)$ then stands for the more irregular
+features of a sample one ultimately wants to study in a scattering experiment.
+
+For brevity, we rewrite~\cref{ESchrodi3} as
+\Emph{
+\begin{equation}\label{ESchrodiK}
+  \left\{ \Nabla^2 + k(\r)^2 \right\}\psi(\r)
+  = 4\pi\delta v(\r)\psi(\r).
+\end{equation}
+\vspace*{-5pt}}
+\index{Perturbed Schrödinger equation}%
+\index{Schrödinger equation!perturbed}%
+This \E{perturbed Schrödinger equation} will be the starting point for all further analyses.
+It contains the material-dependent wavenumber~$k(\r)$, defined by the dispersion relation
+\nomenclature[2k030 2r040]{$k(\r)$}{Wavenumber}%
+\index{Dispersion!neutron in homogeneous medium}%
+\index{Wavenumber!material dependent}%
+\begin{equation}\label{Edispersion}
+  k(\r)^2 \coloneqq \frac{2m\omega}{\hbar} - 4\pi\mv(\r).
+\end{equation}
+Alternatively, we may write
+\begin{equation}\label{Ekkn}
+  k(\r)=K n(\r),
+\end{equation}
+using the vacuum wavenumber~$K\coloneqq 2m\omega/\hbar$
+\nomenclature[2k120]{$K$}{Wavenumber in vacuum}%
+and the neutron optical \E{refractive index}
+\nomenclature[2n020]{$n$}{Refractive index}%
+\index{Refractive index}%
+\index{Index of refraction|see {Refractive index}}%
+\begin{equation}\label{EnRefrIndx}
+  n(\r)\coloneqq \sqrt{1-\frac{4\pi}{K^2}\mv(\r)}.
+\end{equation}
+It is customary to express the complex refractive index of a material
+by two real parameters:
+\begin{equation}\label{Endb1}
+  n =  1-\delta +i\beta.
+\end{equation}
+\nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
+   $n=1-\delta +i\beta$}%
+\nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
+For X-rays and thermal neutrons,
+$\delta$ and $\beta$ are almost always nonnegative,\footnote
+{The plus sign in front of~$i\beta$ is a consequence of
+the quantum-mechanical sign convention;
+in the X-ray crystallography convention it would be a minus sign.
+\index{Refractive index!sign convention}%
+\index{Sign convention!refractive index}}
+and much smaller than~1.
+A nonzero~$\beta$ describes absorption and leads to a damping of propagating waves.
+\index{Absorption}%
+\index{Damping}%
+
+The SLD fluctuation amplitude $|\delta v(\r)|$ is at most of order $1-n$.
+Therefore the right-hand side of the Schrödinger equation~\cref{ESchrodiK}
+is but a weak perturbation.
+This suggests a solution
+by means of a perturbation expansion in powers of $\delta v$,
+\index{Perturbation expansion}%
+known as the \E{Born expansion} or \E{Born series}.\footnote{
+Named after Max Born
+who introduced it in quantum mechanics.
+The idea goes back to Lord Rayleigh
+who devised it for sound,
+and later also applied it to electromagnetic waves,
+which resulted in his famous explanation of the blue sky.}
+The standard first-order Born approximation (BA, \cref{SBornApprox})
+is regularly used  for the analysis of small-angle scattering (SAS) experiments.
+\index{Small-angle scattering}%
+\index{BA|see{Born approximation}}%
+\index{Born approximation}%
+For grazing-incidence small-angle scattering (GISAS),
+one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
+\index{Distorted-wave Born approximation}%
+
+\index{Wave propagation!neutrons|)}%
+\index{Neutrons!wave propagation|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Neutron scattering in Born approximation}\label{SBornApprox}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
+\subsection{The Born expansion}\label{SBornExpans}
+%===============================================================================
+
+\index{Born approximation|(}%
+\index{Scattering!plane wave|(}%
+
+To describe an elastic scattering experiment,
+we need to solve the Schrödinger equation~\cref{ESchrodiK}
+under the asymptotic boundary condition\footnote
+{A more formal variant of this is known as the \E{Sommerfeld radiation condition}.%
+\index{Sommerfeld radiation condition}%
+\index{Radiation condition}%
+}
+\index{Boundary conditions!elastic scattering}%
+\begin{equation}\label{Escabouco}
+  \psi(\r)
+  \simeq \psi_\si(\r) + f(\vartheta,\varphi)\frac{\e^{iKr}}{4\pi r}
+  \text{~for~}r\to\infty,
+\end{equation}
+\nomenclature[1ψ034 2i000 2r040]{$\psi_\si(\r)$}{Incident wavefunction}%
+\nomenclature[2i000]{i}{Subscript ``incident''}%
+\index{Incident radiation!Born approximation}%
+where $\psi_\si(\r)$ is the incident wave
+as prepared by the experimental apparatus,
+and the second term on the right-hand side is
+the outgoing scattered wave
+that carries information in form of the angular distribution
+$f(\vartheta,\varphi)$.
+
+Equation~\cref{ESchrodiK} looks
+like an inhomogeneous differential equation ---
+except that the right-hand side contains the unknown function~$\psi$.
+The key idea of the Born expansion is to overcome this problem by iteration.
+Treating the right-hand side as a given inhomogeneity,
+one can solve~\cref{ESchrodiK} by the Green function method.
+The incident wave~$\psi_\si(\r)$ must be determined from the homogeneous wave equation
+\begin{equation}\label{EHomoK}
+  \left\{\Nabla^2+k(\r)^2\right\}\psi_\si(\r) = 0.
+\end{equation}
+The Green function~$G(\r,\r')$ must fulfill the wave equation with an isolated inhomogeneity,
+\index{Green function}%
+\begin{equation}\label{EGreenK}
+  \left\{\Nabla^2+k(\r)^2\right\}G(\r,\r') = \delta(\r-\r').
+\end{equation}
+\nomenclature[2g134]{$G(\r,\r')$}{Green function}%
+Let us postpone the explicit or asymptotic solution of these two equations
+to later sections (\cref{Sfarfield} for the standard plane-wave case with $k(\r)=K$,
+\cref{SfarDW} for the more generic distorted-wave case).
+Here we only need to assume that solutions $\psi_\si$ and~$G$ exist.
+We can then posit the \E{Lippmann-Schwinger equation}
+\index{Lippmann-Schwinger equation}%
+\begin{equation}\label{EPsiFormal}
+  \psi(\r)
+  = \psi_\si(\r)
+  + \int\!\d^3r'\, G(\r,\r') 4\pi\delta v(\r')\psi(\r').
+\end{equation}
+By operating on both sides with~$\{\Nabla^2+k(\r)^2\}$
+it is easily seen that solutions~$\psi$ of this integral equation
+fulfill the perturbed Schrödinger equation \cref{ESchrodiK}.
+
+The Lippmann-Schwinger equation can be resolved into an infinite series
+by iteratively substituting the full right-hand side of~\cref{EPsiFormal}
+for the occurence of~$\psi$ in the integrand.
+Successive terms in this series contain rising powers of $\delta v$.
+Since $\delta v$ is assumed to be small, the series is likely to converge.
+In \E{first-order Born approximation},
+only the linear order in $\delta v$ is retained,
+\begin{equation}\label{EBorn}
+  \psi(\r)
+  \doteq \psi_\si(\r)
+  + 4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\si(\r').
+\end{equation}
+This is practically always adequate for
+material investigations with X-rays or neutrons,
+where the aim is to
+deduce $\delta v(\r')$ from the scattered intensity ${|\psi(\r)|}^2$.
+Since detectors are always placed at positions $\r$
+that are not illuminated by the incident beam,
+we are only interested in the scattered wave
+\index{Scattered wave}%
+\index{Wave!scattered}%
+\begin{equation}\label{EBornS}
+  \psi_\text{s}(\r)
+  \coloneqq
+  4\pi \int\!\d^3r'\, G(\r,\r') \delta v(\r') \psi_\si(\r').
+\end{equation}
+\nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
+\nomenclature[2s000 0]{s}{Subscript ``scattered''}%
+For brevity and mathematical convenience,
+the integral introduced in~\cref{EPsiFormal} has no bounds
+and therefore formally runs over the entire space.
+However, the scattering potential $\delta v(\r')$ in the integrand is nonzero
+only if $\r'$ lies inside the sample volume.
+On the other hand, we only need to compute the scattered wave~$\psi_\text{s}(\r)$
+at detector positions~$\r$ far outside the sample.
+This is just the condition for \E{Fraunhofer diffraction}:
+\index{Fraunhofer approximation}%
+the distance from the sample to the detector location~$\r$
+must be much larger than the size of the sample.
+In the context of generic scattering theory,
+it is known as the \E{far-field approximation}.
+\index{Far-field approximation}%
+To keep notation light,
+we assume from now on that the coordinate origin
+\index{Coordinate origin}%
+\index{Origin!coordinate system}%
+lies inside the sample.
+Then far-field asymptotes are obtained by taking the limit $r\to\infty$.
+Since we only need the asymptote $\psi_{\text{s}\infty}(\r)$ of the scattered wave,
+it is sufficient to solve~\cref{EGreenK} for the far-field Green function
+\begin{equation}\label{EGinftydef}
+  G_\infty(\r,\r')\coloneqq \lim_{r\to\infty} G(\r,\r').
+\end{equation}
+This will be done in very different ways for plane waves (\cref{Sfarfield})
+and for distorted waves (\cref{SfarDW}).
+
+\index{Scattering!plane wave|)}%
+\index{Born approximation|)}%
+
+%===============================================================================
+\subsection{Vacuum solution}\label{Sfarfield}
+%===============================================================================
+
+\index{Far-field approximation|(}%
+
+As said in connection with~\cref{Edecompose_v},
+there is some freedom in the choice of $\mv(\r)$.
+In the standard variant of the Born expansion,
+one makes the simplest possible choice,
+setting $\mv(\r)$ to the constant vacuum value.
+With~\cref{Edecompose_v},
+all fluctuations in $v(\r)$ are ascribed to the scattering potential~$\delta v(\r)$.
+With~\cref{Edispersion}, we have $k(\r)=K$.
+The homogeneous equation~\cref{EHomoK} reduces to the \E{Helmholtz equation},
+\index{Helmholtz wave equation}%
+\index{Wave propagation!Helmholtz equation}%
+and is solved by plane waves and superpositions thereof.
+In the following we choose the incident plane wave
+\index{Incident radiation!plane wave}%
+\begin{equation}\label{EPsi0Plane}
+  \psi_\si(\r)=\e^{i \k_\si \r}
+\end{equation}
+\nomenclature[2k040]{$\k$}{wavevector}%
+with $k_\si=K$.
+Superposition of plane waves
+\index{Superposition}%
+will be discussed when we come to instrumental resolution effects (\cref{SBeam}).
+\index{Instrument!resolution|see{Resolution}}%
+\index{Resolution}%
+
+The Green function of the inhomogeneous Helmholtz equation~\cref{EGreenK}
+with $k(\r)=K$ is well known:\footnote
+{Verification under the condition $\r\ne0$
+is a straightforward exercise in vector analysis.
+For the special case $\r=0$,
+one encloses the origin in a small sphere
+and integrates by means of the Gauss-Ostrogadsky divergence theorem.
+This explains the appearance of the factor $4\pi$.}
+\index{Green function!homogeneous material}%
+\begin{equation}\label{EGreens1}
+  G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|}.
+\end{equation}
+Read as a function of~$\r$, it is an outgoing spherical wave centered at $\r'$.
+To compute the far-field limit~\cref{EGinftydef},
+we expand for $\r'$ with $r'\ll r$:
+\begin{equation}
+  \left|\r-\r'\right|
+  \doteq \sqrt{r^2-2\r\,\r'}
+  \doteq r - \frac{\r\,\r'}{r}
+  \equiv r - \frac{\k_\sf \r'}{K},
+\end{equation}
+\nomenclature[2f000]{f}{Subscript ``final''}%
+where we have introduced the outgoing wavevector
+$  \k_\sf\coloneqq K \r / r$.
+We apply this to~\cref{EGreens1},
+\index{Green function!homogeneous material}%
+and obtain in leading order the far-field Green function
+\begin{equation}\label{EGreenFar}
+  G_\infty(\r,\r')
+  = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r'),
+\end{equation}
+\nomenclature[2g134 2far]{$G_\infty(\r,\r')$}{Far-field
+   approximation to the Green function $G(\r,\r')$}%
+where
+\begin{equation}\label{EPsisfar}
+  \psi_\sf(\r) \coloneqq  \e^{i\k_\sf \r}
+\end{equation}
+\nomenclature[1ψ034 2f000 2r040]{$\psi_\sf(\r)$}{Plane
+  wave propagating from the sample towards the detector}%
+is a plane wave propagating towards the detector,
+and $\psi^*$ designates the complex conjugate of $\psi$.
+As function of~$\r$, $G_\infty$ is an outgoing spherical wave.
+Inserting \cref{EGreenFar} in \cref{EBornS},
+we obtain the far-field approximation for the scattered wave,
+\index{Scattered wave!far-field}%
+\begin{equation}\label{EsandwichC}
+  \psi_{\text{s}\infty}(\r)
+  = \frac{\e^{iKr}}{r}
+    \bra \psi_\si|\delta v|\psi_\sf\ket^*
+\end{equation}
+\nomenclature[1ψ034 2s000 2far]{$\psi_{\text{s}\infty}(\r)$}{Far-field
+   approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
+with the Dirac notation for the scattering matrix element
+\index{Scattering matrix}%
+\index{Transition matrix|see{Scattering matrix}}%
+\Emph{%
+\begin{equation}\label{Etrama}
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \coloneqq  \int\!\d^3r\, \psi^*_\si(\r)\delta v(\r)\psi_\sf(\r).
+\end{equation}
+\vspace*{-5pt}}
+\nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix
+  element, defined as a volume integral}%
+Since per \cref{EPsi0Plane} and~\cref{EPsisfar} our $\psi_\si$ and~$\psi_\sf$ are plane waves,
+the matrix element can be simplified as
+\begin{equation}\label{Echiq}
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  = \int\!\d^3r\, {\rm e}^{-i\k_\si\r}\delta v(\r){\rm e}^{i\k_\sf\r}
+  = \int\!\d^3r\, {\rm e}^{i\q\r}\delta v(\r)
+  \eqqcolon v(\q),
+\end{equation}
+\nomenclature[2v030 2q040]{$v(\v{q})$}{Fourier
+   transform of the SLD~$\delta v(\r)$}%
+with the \E{scattering vector}\footnote
+{With this choice of sign,
+\index{Sign convention!scattering vector}%
+$\hbar\q$ is the momentum
+\index{Momentum transfer|see {Scattering vector}}%
+\E{gained} by the scattered neutron,
+and \E{lost} by the sample.
+In much of the literature the opposite convention is prefered,
+since it emphasizes the sample physics over the scattering experiment.
+However, when working with two-dimensional detectors
+it is highly desirable to express pixel coordinates
+\index{Coordinate system}
+and scattering vector components
+with respect to equally oriented coordinate axes,
+which can only be achieved by the convention~\cref{Eq}.}
+\index{Scattering!vector}%
+\begin{equation}\label{Eq}
+  \q\coloneqq \k_\sf-\k_\si.
+\end{equation}
+\nomenclature[2q040]{$\q$}{Scattering vector}%
+\Cref{Echiq} summarizes the well-known fact that
+small-angle neutron scattering basically measures
+the Fourier transform $v(\q)$ of the SLD.
+\index{Scattering potential!Fourier transform}%
+\index{Fourier transform!scattering potential}%
+
+\index{Far-field approximation|)}%
+
+
+%===============================================================================
+\subsection{Differential cross section}\label{SdiffCross}
+%===============================================================================
+
+In connection with \cref{EBorn} we mentioned
+that a scattering experiment measures intensities~${|\psi(\r)|}^2$.
+We shall now restate this in a more rigorous way.
+In the case of neutron scattering,
+one actually measures a \E{probability flux}.
+We define it in arbitrary relative units as
+\begin{equation}\label{EdefJ}
+  \v{J}(\r) \coloneqq  \psi^*\frac{\Nabla}{2i}\psi - \psi\frac{\Nabla}{2i}\psi^*.
+\end{equation}
+\nomenclature[2j150 2r040]{$\v{J}(\r)$}{Probability flux}%
+\index{Flux!incident and scattered}%
+The ratio of the scattered flux hitting an infinitesimal detector area
+$r^2\d\Omega$ to the incident flux is expressed as a
+\E{differential cross section}
+\index{Cross section}%
+\index{Scattering!cross section}%
+\index{Elastic scattering cross section}%
+\index{Incident radiation!flux|(}%
+\begin{equation}\label{Exsectiondef}
+  \xElas
+  \coloneqq  \frac{r^2 J(\r)}{J_\si}.
+\end{equation}
+\nomenclature[1ω120]{$\Omega$}{Solid angle}%
+\nomenclature[1σ020]{$\sigma$}{Scattering or absorption cross section}%
+% TODO RESTORE XREF
+% The geometric factors that are needed to
+% convert $\d\sigma/\d\Omega$ into detector counts will be discussed
+% below in \cref{SdetImg}.
+For a plane wave~\cref{EPsi0Plane}, the incident flux is
+\index{Incident radiation!flux|)}%
+\index{Flux!Born approximation}%
+\begin{equation}\label{EJi}
+  \v{J}_\si = \k_\si.
+\end{equation}
+With the far-field result~\cref{EsandwichC}
+and the notation~\cref{Etrama},
+the scattered flux at the detector is
+\begin{equation}\label{EJr}
+  \v{J}(\r)
+  = \v{\hat r}\frac{K}{r^2}
+    {\left|\bra\psi_\si|\delta v|\psi_\sf\ket\right|}^2.
+\end{equation}
+Inserting these into definition~\cref{Exsectiondef},
+we obtain the generic differential cross section
+of elastic scattering in first order Born approximation,
+\index{Born approximation!elastic scattering cross section}%
+\index{Cross section!Born approximation}%
+\index{Scattering!cross section!Born approximation}%
+\index{Elastic scattering cross section!Born approximation}%
+\Emph{
+\begin{equation}\label{Exsection}
+  \xElas
+  =  {\left|\bra\psi_\si|\delta v|\psi_\sf\ket\right|}^2.
+\end{equation}\vspace*{-5pt}
+}
+As we shall see below,
+it holds not only for plane waves governed
+by the Helmholtz equation,
+but also for distorted waves.
+\index{Distorted-wave Born approximation!elastic cross section}%
+In the plane-wave case \cref{Echiq} considered here,
+the differential cross section is just the squared modulus
+of the Fourier transform of the SLD,
+\index{Scattering!length density!Fourier transform}%
+\begin{equation}\label{Ecross1}
+  \xElas
+  = {\left| v(\q) \right|}^2.
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Distorted-wave Born approximation (DWBA)}\label{SDWBA}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Distorted-wave Born approximation|(}%
+\index{DWBA|see {Distorted-wave Born approximation}}%
+
+%===============================================================================
+\subsection{Introduction}\label{SDWBA1}
+%===============================================================================
+
+The standard Born approximation depends on the choice $\mv=\text{const}$,
+which implies that $\psi_\si$ and $\psi_\sf$ are plane waves.
+In the distorted-wave Born approximation (DWBA),\footnote{
+The DWBA was originally devised by Massey and Mott (ca 1933)
+for collisions of charged particles.
+Summaries can be found in some quantum mechanics textbooks (Messiah, Schiff)
+and in monographs on scattering theory (e.~g.\ Newton).
+The first explicit applications to grazing-incidence scattering
+were published in 1982:
+Vineyard \cite{Vin82} discussed X-ray scattering,
+but failed to account for the distortion of the scattered wave;
+Mazur and Mills \cite{MaMi82} deployed heavy formalism
+to compute the inelastic neutron scattering cross section
+of ferromagnetic surface spin waves from scratch.
+A concise derivation of the DWBA cross section
+was provided by Dietrich and Wagner (1984/85)
+for X-rays \cite{DiWa84} and neutrons \cite{DiWa85}.
+Unfortunately, their work was overlooked in much of the later literature,
+which often fell back to less convincing derivations.}
+this requirement is dropped.
+The SLD decomposition~\cref{Edecompose_v}
+is restored to full genericity,
+and it is taken for granted
+that somehow analytical or numerical solutions $\psi_\si$ and~$\psi_\sf$
+of the homogeneous wave equation~\cref{EHomoK}
+have been obtained.
+
+Because these solutions are no longer plane waves,
+we need to work out a terminological and notational distinction
+that is blurred in the standard Born approximation:
+we need to distinguish
+ between the \E{exciting} wave~$\psi_\se$
+\nomenclature[1ψ034 2e000]{$\psi_\se(\r)$}{Exciting wave}%
+and the \E{incident} wave~$\psi_\si$.
+The \E{exciting wave}
+\index{Exciting wave}%
+\index{Wave!exciting}%
+is prepared far
+outside the sample by a radiation source and some optical devices.
+\index{Radiation source}%
+It is a superposition of plane waves,
+as discussed later in the context of instrumental resolution effects
+(\cref{SInstr}).
+Here, while discussing scattering theory,
+it shall be represented by a single plane wave
+$\psi_\se(\r)=\e^{i\k_\se\r}$.
+This function is defined for all~$\r$,
+but is physical only along the primary beam, upstream of the sample.
+
+In contrast, by the \E{incident wave}~$\psi_\si(\r)$
+\index{Incident wave!DWBA}%
+\index{Incident wave!vs exciting wave}%
+\index{Wave!incident}%
+we understand an exact solution of~\cref{EHomoK}.
+Upstream of the sample, along the primary beam, it coincides with the exciting wave.
+Inside the sample, however, it undergoes refraction and reflection,
+and therefore no longer is a plane wave, and no longer equals~$\psi_\se(\r)$.
+This is different from the conventional Born approximation,
+where $\psi_\si$ is a plane wave throughout the sample,
+and therefore must not be distinguished from~$\psi_\se$.
+
+Differently from the above derivation of the Born expansion,
+we will not even attempt to obtain a full solution
+\index{Green function!DWBA}%
+of the Green function equation~\cref{EGreenK}.
+We will use indirect arguments to directly obtain its far-field asymptote $G_\infty$.
+
+%===============================================================================
+\subsection{Reciprocity of the Green function}\label{SReci}
+%===============================================================================
+
+Our computation of~$G_\infty$ will be based on a source-detector \E{reciprocity theorem}
+\index{Reciprocity|(}%
+\index{Green function!reciprocity}%
+for the scalar Schrödinger equation.\footnote
+{There exists a confusing multitude of reciprocity theorems \cite{Pot04}.
+In the end, we found it simpler to provide a derivation taylored for our application case
+than to refer to the literature.}
+The theorem states:
+Any Green function $G(\r,\r')$
+that solves~\cref{EGreenK} and as function of~$\r$ represents an outgoing wave
+[in accord with the Sommerfeld radiation condition,
+\index{Sommerfeld radiation condition}%
+\index{Radiation condition}%
+cf.~\cref{Escabouco}]
+is invariant under an exchange of source location~$\rS$ and detection point~$\rD$:
+\nomenclature[2r041 2d100]{$\rD$}{Position of detector}%
+\nomenclature[2r041 2s100]{$\rD$}{Position of source, locus of scattering}%
+\begin{equation}\label{Erecip}
+  G(\rS,\rD) = G(\rD,\rS).
+\end{equation}
+Readers not interested in mathematical details may skip the following \E{proof}:
+
+We introduce the auxiliary vector field
+\begin{equation}
+  \v{X}(\r,\rS,\rD)\coloneqq G(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla G(\r,\rD).
+\end{equation}
+%\nomenclature[2x150 2r040]{$\v{X}(\r,\rS,\rD)$}{Auxiliary vector field}%
+We inscribe the sample and the detector
+into a sphere $\Sphere$ around the coordinate origin with radius~$R$,
+%\nomenclature[2s180]{$\Sphere$}{Auxiliary spherical volume}%
+%\nomenclature[2r120]{$R$}{Radius of $\Sphere$}%
+and compute the volume integral
+\begin{equation}\label{Eprerecipro}
+    I(\rS,\rD) \coloneqq \displaystyle\int_\Sphere\!\d^3r\,\Nabla \v{X}(\r,\rS,\rD).
+\end{equation}
+After a few steps, not entirely trivial, but not too difficult either,
+we obtain
+\begin{equation}\label{EIBD}
+  I(\rS,\rD) = G(\rS,\rD) - G(\rD,\rS).
+\end{equation}
+Alternatively, we can compute $I$ as a surface integral
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d\v{\sigma}\,\v{X}(\r,\rS,\rD).
+\end{equation}
+On the surface $\partial\Sphere$,
+$G$ is an outgoing solution of the Helmholtz equation.
+As such, it has a well-known series expansion in spherical coordinates
+We send $R\to\infty$ so that we need only to retain the lowest order:
+\begin{equation}
+  \begin{array}{@{}l@{\;}c@{\;}l}
+   G(\r(R,\vartheta,\varphi),\rD)
+   &\doteq&\displaystyle \frac{\e^{iKR}}{4\pi R} a(\vartheta,\varphi),
+   \\[3.8ex]
+   G(\r(R,\vartheta,\varphi),\rS)
+   &\doteq&\displaystyle \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
+  \end{array}
+\end{equation}
+The factorization of $G$ and $B$ and their common $R$ dependence imply that
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d\sigma\,
+       (\text{$R$-dependent})(ab-ba)
+  = 0.
+\end{equation}
+Comparison with \cref{EIBD} yields \cref{Erecip},
+which completes the proof.
+
+\index{Reciprocity|)}%
+
+%===============================================================================
+\subsection{Far-field Green function}\label{SfarDW}
+%===============================================================================
+
+\def\Do{\overset{o}{D}}
+\def\Go{\overset{o}{G}}
+\def\pfo{\overset{o}{\psi}_\sf}
+
+The following derivation of the far-field Green function~$G_\infty$
+\index{Green function!distorted waves, far-field|(}%
+is a simplified rendering of Dietrich and Wagner \cite{DiWa84},
+transcribed from electromagnetic to neutron waves.
+With the differential operators
+\begin{equation}\label{EDDdef}
+  \begin{array}{@{}l}
+    \Do \coloneqq \Nabla^2+K^2, \\[1.4ex]
+    D \coloneqq \Nabla^2+k(\r)^2 = \Do + \delta k(\r)^2,
+  \end{array}
+\end{equation}
+and with $\delta k^2\coloneqq k^2-K^2$,
+we rewrite the homogeneous and inhomogeneous differential equations \cref{EHomoK}
+and~\cref{EGreenK} for plane waves and distorted waves as
+\begin{equation}
+  \begin{array}{l@{\hspace{2em}}l}
+    \Do\pfo  (\r) = 0, &\Do\Go(\r,\r') = \delta(\r-\r'), \\[1.4ex]
+    D\psi_\sf(\r) = 0, &D  G  (\r,\r') = \delta(\r-\r').
+  \end{array}
+\end{equation}
+We now posit an integral equation that determines
+the full Green function $G$ if the vacuum Green function~$\Go$ is given:
+\begin{equation}\label{EGoG}
+  \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, \Go(\rD,\r)\delta k(\r)^2 G(\r,\rS).
+\end{equation}
+It can be verified by operating on both sides with $\Do$.\footnote
+{This is not entirely convincing:
+Equality of the second derivates is not sufficient to prove equality of
+two sides in an equation.
+For a full prove, we also have to show that the two sides, and their first derivatives,
+agree at least in one point~$\rD$.
+Perhaps this point must be chosen in the limit~$r_\text{D}\to\infty$.
+Our source~\cite{DiWa84} provides no clue.}
+We use the reciprocity~\cref{Erecip} to transform~\cref{EGoG} into
+\begin{equation}
+  \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, G(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
+\end{equation}
+Below, we will only need the far-field limit in $\rD$:
+\begin{equation}\label{EGoFF}
+  \Go_\infty(\rD,\rS) = G_\infty(\rD,\rS) + \int\!\d^3r\, G_\infty(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
+\end{equation}
+We also posit an integral equation that determines the distorted wave~$\pfo$
+if the plane wave~$\psi_\sf$ is given:
+\begin{equation}\label{Epfo}
+  \pfo(\rS) = \psi_\sf(\rS) + \int\!\d^3r\, \psi_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
+\end{equation}
+Verification can again be done by operating on both sides with~$\Do$.
+We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
+and rewrite it as
+\begin{equation}
+  \Go_\infty(\rD,\rS) = \phi(\rD)\pfo^*(\rS)
+\end{equation}
+with the far-field prefactor
+\begin{equation}\label{Effphidef}
+  \phi(r) \coloneqq \frac{\e^{iKr}}{4\pi r}.
+\end{equation}
+We take complex conjugate of both sides of~\cref{Epfo},
+ and multiply them with $\phi(\rD)$ to obtain
+\begin{equation}\label{Epfo2}
+  \Go_\infty(\rD,\rS)
+  = \phi(\rD)\psi^*_\sf(\rS) + \int\!\d^3r\, \phi(\rD)\psi^*_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
+\end{equation}
+We compare with~\cref{EGoFF},
+and read off the far-field asymptote of the distorted-waves Green function
+\begin{equation}
+  G_\infty(\rD,\rS) = \phi(\rD)\psi^*_\sf(\rS).
+\end{equation}
+Note that this is formally identical with with \cref{EGreenFar},
+but no longer requires $\psi_\sf$ to be a plane wave.
+\index{Green function!distorted waves, far-field|)}%
+
+\Emph{Accordingly,
+the differential cross section is still given by \cref{Exsection},
+and the scattering matrix element by~\cref{Etrama}.}
+\index{Scattering matrix!distorted waves}%
+\index{Cross section!distorted-wave Born approximation}%
+\index{Scattering!cross section!distorted-wave Born approximation}%
+\index{Elastic scattering cross section!distorted-wave Born approximation}%
+The plane-wave form~\cref{Echiq}, however, does no longer hold.
+Its replacement depends on the distorted wavefunctions
+$\psi_\si$ and $\psi_\sf$,
+is therefore application specific,
+and will be worked out later (\cref{Swave21}).
+
+\index{Distorted-wave Born approximation|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{X-ray scattering}\label{SXray}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{X-ray!scattering theory|(}%
+
+%===============================================================================
+\subsection{Wave equation}\label{SXwave}
+%===============================================================================
+
+The propagation of X-rays is governed by Maxwell's equations,
+\index{Maxwell's equations}%
+\index{Wave propagation!X-rays}%
+\begin{equation}\label{EMaxwell}
+  \begin{array}{@{}l@{\quad}l@{\quad}l}
+    \Nabla\times\v{E}=-\partial_t \v{B},
+   &\Nabla\v{B}=0,
+   &\v{B}=\v{\mu}(\r)\mu_0\v{H},
+   \\[2ex]
+    \Nabla\times\v{H}=+\partial_t \v{D},
+   &\Nabla\v{D}=0,
+   &\v{D}=\v{\eps}(\r)\eps_0\v{E}.
+  \end{array}
+\end{equation}
+\nomenclature[2e150 2r040 2t020]{$\v{E}(\r,t)$}{Electric field}%
+\nomenclature[2h150 2r040 2t020]{$\v{H}(\r,t)$}{Magnetizing field}%
+\nomenclature[2d150 2r040 2t020]{$\v{D}(\r,t)$}{Displacement field}%
+\nomenclature[2b150 2r040 2t020]{$\v{B}(\r,t)$}{Magnetic field}%
+\nomenclature[1ε070 2r040]{$\v\eps(\r)$}{Relative dielectric permittivity tensor}%
+\nomenclature[1μ070 2r040]{$\v\mu(\r)$}{Relative magnetic permeability tensor}%
+\nomenclature[1ε024 00]{$\eps_0$}{Vacuum permittivity, 8.854\ldots As/Vm}%
+\nomenclature[1μ024 00]{$\mu_0$}{Vacuum permeability, 1.256\ldots Vs/Am}%
+Since BornAgain only addresses elastic scattering,
+\index{Elastic scattering}%
+\index{Scattering!elastic}%
+we assume the permeability and permittivity tensors $\v\mu$ and~$\v\eps$
+to be time-independent.
+\index{Time}%
+Therefore, as in~\cref{ScohWave}, we only need to consider monochromatic waves
+\index{Wave!monochromatic}%
+\index{Monochromatic wave}%
+with given frequency~$\omega$,
+and each of the fields $\v{E}$, $\v{D}$, $\v{H}$, $\v{B}$
+factorizes into a stationary field and a time-dependent phase factor.
+\index{Phase factor}%
+In the following, we will concentrate on the electric field
+\index{Electric field}%
+\begin{equation}
+  \v{E}(\r,t) = \v{E}(\r)\e^{-i\omega t}.
+\end{equation}
+The other three fields can be obtained from~$\v{E}$
+by straightforward application of~\cref{EMaxwell}.
+
+Since magnetic refraction or scattering is beyong the scope of BornAgain,
+the relative magnetic permeability tensor is always $\v{\mu}(\r)=1$.
+\index{Permeability}%
+\index{Magnetic permeability}%
+As customary in SAXS and GISAXS,
+\index{Grazing-incidence small-angle scattering!dielectric model}%
+\index{Small-angle scattering!dielectric model}%
+we assume
+that the dielectric properties of the material are those of a polarizable electron cloud.\footnote
+{This is occasionally called the \E{Laue model}
+\index{Laue model}%
+ \cite{Lau31}.}
+Thereby the relative dielectric permittivity tensor~$\v{\eps}$
+\index{Dielectric permittivity}%
+\index{Permittivity}%
+becomes a scalar,
+\begin{equation}
+  \eps(\r)=1-\frac{4\pi r_e}{K^2}\rho(\r),
+\end{equation}
+\nomenclature[1ε030 2r040]{$\eps(\r)$}{Relative dielectric permittivity function}%
+\nomenclature[1ρ030 2r040]{$\rho(\r)$}{Electron number density}%
+with the classical electron radius~$r_e=e^2/mc^2\simeq2.8\cdot10^{-15}$~m,
+\index{Electron radius}%
+\index{Classical electron radius}%
+\nomenclature[2r024 2e000]{$r_e$}{Classical electron radius~$2.817\ldots^{-15}$~m}%
+the electron number density~$\rho(\r)$,
+\index{Electron density}%
+\index{Density!electron}%
+\index{Number density|see{Density}}%
+and the vacuum wavenumber~$K$,
+given by the dispersion relation
+\begin{equation}
+  K^2 = \mu_0\eps_0\omega^2.
+\end{equation}
+\index{Dispersion!X-rays}%
+With these simplifying assumptions about $\v{\eps}$ and~$\v{\mu}$,
+Maxwell's equations yield the wave equation
+\begin{equation}\label{ENabNabE}
+  \Nabla\times\Nabla\times\v{E} = K^2\eps(\r)\v{E}.
+\end{equation}
+\index{Wave equation!X-rays}%
+\index{X-ray!wave equation}%
+To solve this equation by a perturbation expansion,
+\index{Perturbation expansion}%
+we proceed as in \cref{Sfluct},
+and decompose the dielectric permittivity
+into a slowly varying component and a perturbation that fluctuates on atomic scales,
+\begin{equation}
+  \eps(\r) = \overline{\eps}(\r) + \delta\eps(\r).
+\end{equation}
+\nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Slowly varying part of the permittivity~$\eps(\r)$}%
+\nomenclature[1δ030
+  1ε030 2r040]{$\delta\eps(\r)$}{Fast varying part of the permittivity~$\eps(\r)$}%
+In analogy to~\cref{Ekkn} we define the material-dependent wavenumber by
+\index{Wavenumber!material dependent}%
+\begin{equation}
+  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r).
+\end{equation}
+Furthermore, we define the scattering potential by
+\index{Scattering potential!X-ray}%
+\begin{equation}
+  4\pi\delta v(\r) \coloneqq - K^2\delta\eps.
+\end{equation}
+The wave equation~\cref{ENabNabE} then becomes
+\begin{equation}\label{EwaveE3}
+  \left\{-\Nabla\times\Nabla\times\ONE + k(\r)^2\right\}\v{E}(\r)
+  = 4\pi\delta v(\r)\v{E}(\r).
+\end{equation}
+\index{Wave equation!X-rays}%
+\index{X-ray!wave equation}%
+This is very similar to the perturbed Schrödinger equation~\cref{ESchrodiK}.
+\index{Perturbed Schrödinger equation}%
+\index{Schrödinger equation!perturbed}%
+There are only two differences:
+the more complicated differential operator,
+and the fact that $\v{E}(\r)$ is vector valued,
+whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
+
+%===============================================================================
+\subsection{Solution}\label{SXscasol}
+%===============================================================================
+
+\def\TD{\TENS{D}}
+\def\TG{\TENS{G}}
+\def\TDo{\TENS{\overset{o}{D}}}
+\def\TGo{\TENS{\overset{o}{G}}}
+\def\Ef{\v{E}_\sf}
+\def\Efo{\TENS{\overset{o}{\v{E}}}_\sf}
+\def\Efoc{\Efo^*}
+
+The far-field Green function for the wave equation~\cref{EwaveE3}
+can be derived along the lines of~\Cref{SfarDW}
+except that differential operators and Green functions are now dyadic tensors \cite{DiWa84}.
+\Work{This will be worked out soon.}
+As result, the scattering matrix element~\cref{Etrama} of the scalar case
+needs to be multiplied with \E{polarization factors}.
+\index{Polarization!factor (X-ray)}%
+For GISAS geometry, they can be found in equations (92)--(95) of Ref.~\cite{ReLL09}.
+For the usual small scattering angles of GISAS,
+they are close to unity and therefore can be neglected.
+In BornAgain, they are not yet implemented.
+
+\iffalse
+\index{Green function!distorted waves, far-field|(}%
+Instead of \cref{EDDdef}, we will need the differential operators
+\begin{equation}
+  \begin{array}{@{}l}
+    \TDo \coloneqq -\Nabla\times\Nabla\times\ONE+K^2
+          = \Nabla^2-\Nabla\cdot\Nabla+K^2, \\[1.4ex]
+   \TD \coloneqq -\Nabla\times\Nabla\times\ONE+k(\r)^2 = \TDo + \delta k(\r)^2,
+  \end{array}
+\end{equation}
+with $\delta k^2\coloneqq k^2-K^2$ as before.
+Based on~\cref{EwaveE3},
+the homogeneous and inhomogeneous differential equations
+for plane waves and distorted waves are
+\begin{equation}
+  \begin{array}{l@{\hspace{2em}}l}
+    \TDo\Efo  (\r) = 0, &\TDo\TGo(\r,\r') = \ONE\delta(\r-\r'), \\[1.4ex]
+    \TD\Ef(\r) = 0, &\TD  \TG  (\r,\r') = \ONE\delta(\r-\r').
+  \end{array}
+\end{equation}
+\Cref{EGoFF} becomes
+\begin{equation}\label{EXGoFF}
+  \TGo_\infty(\rD,\rS)
+  = \TG_\infty(\rD,\rS) + \int\!\d^3r\, \TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS).
+\end{equation}
+\Cref{Epfo} gets replaced by
+\begin{equation}\label{EXpfo}
+  \Efo(\rS) = \Ef(\rS) + \int\!\d^3r\, \Ef(\r)\delta k(\r)^2 \TGo(\r,\rS).
+\end{equation}
+These equations can be verified by operating on both sides with~$\TDo$.
+We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
+and rewrite it as
+\begin{equation}
+  \TGo_\infty(\rD,\rS) = \phi(\rD)\Efoc(\rS)
+\end{equation}
+with the far-field prefactor $\phi$ as defined in~\cref{Effphidef}.
+We take complex conjugate of both sides of~\cref{EXpfo},
+ and multiply them with $\phi(\rD)$ to obtain
+\begin{equation}\label{EXpfo2}
+  \TGo_\infty(\rD,\rS)
+  = \phi(\rD)\psi^*_\sf(\rS) + \int\!\d^3r\, \phi(\rD)\psi^*_\sf(\r)\delta k(\r)^2 \TGo(\r,\rS).
+\end{equation}
+We compare with~\cref{EXGoFF},
+and read off the far-field asymptote of the distorted-waves Green function
+\begin{equation}
+  \TG_\infty(\rD,\rS) = \phi(\rD)\psi^*_\sf(\rS).
+\end{equation}
+Note that this is formally identical with with \cref{EGreenFar},
+but no longer requires $\Ef$ to be a plane wave.
+\index{Green function!distorted waves, far-field|)}%
+
+\Emph{Accordingly,
+the differential cross section is still given by \cref{Exsection},
+and the scattering matrix element by~\cref{Etrama}.}
+\index{Scattering matrix!distorted waves}%
+\index{Cross section!distorted-wave Born approximation}%
+\index{Scattering!cross section!distorted-wave Born approximation}%
+\index{Elastic scattering cross section!distorted-wave Born approximation}%
+The plane-wave form~\cref{Echiq}, however, does no longer hold.
+Its replacement depends on the distorted wavefunctions
+$\psi_\si$ and $\Ef$,
+is therefore application specific,
+and will be worked out later (\cref{Swave21}).
+\fi
+%% TODO \index{Distorted-wave Born approximation|)}%
+
+\index{X-ray!scattering theory|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Coherent vs incoherent scattering}\label{Scoherlen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%===============================================================================
+\subsection{Coherence length}
+%===============================================================================
+
+Per \cref{Exsection} and~\cref{Etrama},
+\index{Coherence length|(}%
+the matrix element $\bra \psi_\si|\delta v|\psi_\sf\ket$
+is given by a three-dimensional integral
+\begin{equation}\label{Etrama3}
+  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \coloneqq  \int\!\d^3r\, \psi^{*}_\si(\r)\delta v(\r)\psi_\sf(\r).
+\end{equation}
+The integration domain is effectively limited to a finite $z$ interval,
+where $\delta v(\r)$ is nonzero.
+The horizontal integration domain, however, is infinite
+within our formalism,
+which is of course an idealization.
+Obviously, physical integration limits are imposed by the finite
+\index{Sample area}%
+\E{illuminated sample area}.\footnote
+{We assume a well aligned instrument,
+for which the beam footprint and the backtracked detector footprint
+\index{Illumination!beam footprint on sample}%
+\index{Beam footprint}%
+\index{Backtracking!beam footprint}%
+agree within reasonable accuracy.}
+Another limitation comes from the finite \E{coherence length}
+of the instrumental setup,
+which usually is much shorter than the sample width and length
+%This is of importance in neutron scattering
+%where typical sample dimensions of 1\ldots10~mm
+%are much larger than the relevant coherence length,
+%which is of the order 10\ldots100~$\upmu$m
+\cite{HaPR10,MaMM14}.\footnote
+{These two references also make clear that
+  the theoretical description and the experimental determination of
+  coherence lengths are difficult problems and subject of ongoing research.}
+
+While each single neutron is described by a wavefunction
+that allows for \E{coherent} superposition of
+different contributions to the scattered wavefunction,
+the final detector statistics
+\index{Detector statistics}%
+is given by an \E{incoherent} sum
+over the differential cross sections of individual neutrons.
+The finite \E{resolution}
+\index{Resolution|(}%
+of an experimental setup is in part due to the fact that
+different neutrons have different wavenumbers,
+originate\footnote
+{It is reasonable to take the last collision in the moderator
+  as the \E{origin} of a neutron ray,
+  since collisions between neutrons and hydrogen nuclei bound in
+  disordered matter lead to almost perfect decoherence.}
+at different points in the moderator,
+and are detected at slightly different points within one detector pixel.
+This can be modeled by computing expected scattering intensities as
+averages over different neutrons with
+$K$, $\v{\hat k}_\si$, and $\v{\hat k}_\sf$ drawn at random
+from appropriate distributions.
+% TODO RESTORE TEMPORARILY REMOVED XREF as described in \cref{Sresolution}.
+
+However, this is not the full story.
+In the above introduction to the Born approximation
+we have made the standard assumption
+that an incoming neutron can be described by a plane wave
+$\psi_\si=\e^{i\k_\si\r}$.
+The wavefunction $\psi_\sf$ traced back from the detector is also
+approximated by a plane wave.
+In the DWBA we allow these waves to be distorted within the sample,
+but when impinging on the sample they still are plane.
+A plane wave obviously is an idealized concept,
+since it has infinite lateral extension.
+The \E{transverse coherence length} indicates the scale
+beyond which this approximation becomes invalid.
+At larger scales, the wave fronts appear randomly distorted.
+Physical causes of these distortions include
+reflections in the neutron guide,
+diffraction by guide windows and other slits,
+and diffraction by imperfect monochromator crystals.
+Of course the distorted wave still admits a Fourier decomposition
+into plane waves with slightly different wavevectors.
+In practice, it is impossible to distinguish this spread of wavevectors
+from the incoherent spread described in the previous paragraph.
+The instrumental resolution function therefore
+accounts for both causes of wavevector distortion.
+\index{Resolution|)}%
+
+Usually, therefore, a GISANS image is an incoherent average
+over coherent diffraction patterns collected from
+many small subareas of the sample.
+Only horizontal sample structures on scales smaller the coherence length
+yield interference patterns.
+Structure fluctuations on larger scales
+produce said incoherent average of different GISANS images.
+
+The crossover from coherent to incoherent scattering is of course
+a gradual one.
+The coherence length indicates where a certain, somewhat arbitrary degree
+of decoherence is reached.
+Under these reservations
+one defines a \E{coherence spot}
+in the cross section of an approximately plane wave
+as an area where the coherence is above a certain threshold.
+Unless the wave has been prepared in a highly anisotropic guide and slit system,
+this spot is about circular.
+Under grazing incidence conditions however,
+the projection of this spot onto the sample surface
+yields a very elongated ellipse.
+Therefore, the coherence length is much larger in $x$ than
+in $y$ or $z$ direction.\footnote
+{This has nothing to do with the distinction of
+  \E{transverse} and \E{longitudinal} coherence length.
+  Longitudinal coherence has to do with wavelength stability
+  and is of no importance for elastic scattering.
+  We are talking here about \E{horizontal} and \E{vertical}
+  projections of the \E{transverse} coherence length.}
+
+%===============================================================================
+\subsection{Implementation}
+%===============================================================================
+
+
+\Note{\indent Unless otherwise said, \BornAgain\ simulates
+  \E{coherent} diffraction patterns obtained by
+  the linear superposition of scattered waves.
+  To simulate an \E{incoherent} mixture of diffraction patterns,
+  the most generic solution is a script with an outer loop
+  that averages over several coherent computations with
+  appropriately distributed parameters.}
+
+\Warn{\indent Currently, \BornAgain\ does not support interferences
+  between particles in different layers.}
+% TODO: more about implementation !
+
+\index{Coherence length|)}%

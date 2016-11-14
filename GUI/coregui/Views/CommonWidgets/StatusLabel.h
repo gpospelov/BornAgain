@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/CommonWidgets/StatusLabel.h
-//! @brief     Declares class StatusLabel
+//! @brief     Defines class StatusLabel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -50,5 +50,5 @@ private:
     QFont m_font;
 };
 
-#endif
+#endif // STATUSLABEL_H
 

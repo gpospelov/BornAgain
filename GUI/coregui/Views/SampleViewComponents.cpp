@@ -15,8 +15,6 @@
 // ************************************************************************** //
 
 #include "SampleViewComponents.h"
-#include "widgetbox.h"
-#include "SampleDesigner.h"
 #include "FilterPropertyProxy.h"
 
 

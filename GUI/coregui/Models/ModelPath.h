@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ModelPath.h
-//! @brief     Declares class ModelPath
+//! @brief     Defines class ModelPath
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,13 +19,10 @@
 
 #include "WinDllMacros.h"
 #include "ParameterTranslators.h"
-#include <string>
-#include <vector>
 #include <memory>
+#include <vector>
 
 class SessionItem;
-class QString;
-class QStringList;
 class QModelIndex;
 class SessionModel;
 
@@ -49,21 +46,29 @@ public:
 
     static QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
 
-    static SessionItem *getItemFromPath(const QString &relPath, SessionItem *parent);
+    static SessionItem* getItemFromPath(const QString &relPath, SessionItem *parent);
 
     static bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
+
+    static bool isTranslatable(const SessionItem *item, const QString &par_name);
+
+    static const SessionItem *ancestor(const SessionItem *item, const QString& requiredModelType);
 
 private:
 
     static QStringList splitParameterName(const QString& par_name);
 
-    static QString getFirstField(const QString &par_name);
+    static QString getFirstField(const QString& par_name);
 
-    static QString stripFirstField(const QString &par_name);
+    static QString stripFirstField(const QString& par_name);
 
-    static std::string translateSingleName(const QString &name);
+    static std::string translateSingleName(const QString& name);
+
+    static SessionItem* findChild(const SessionItem* item, const QString& first_field);
+
+    static std::string stripDistributionNone(const std::string& name);
 
     static std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
 };
 
-#endif
+#endif // MODELPATH_H

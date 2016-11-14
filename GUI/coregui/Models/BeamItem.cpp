@@ -15,27 +15,20 @@
 // ************************************************************************** //
 
 #include "BeamItem.h"
-#include "InterferenceFunctionItems.h"
-#include "ComboProperty.h"
-#include "AngleProperty.h"
-#include "DistributionItem.h"
-#include "ScientificDoubleProperty.h"
-#include "BeamDistributionItem.h"
-#include "Units.h"
 #include "BeamDistributionItem.h"
 #include "BornAgainNamespace.h"
+#include "ScientificDoubleProperty.h"
 
-#include <QDebug>
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);
-const QString BeamItem::P_INCLINATION_ANGLE = "Inclination Angle";
-const QString BeamItem::P_AZIMUTHAL_ANGLE = "Azimuthal Angle";
+const QString BeamItem::P_INCLINATION_ANGLE = QString::fromStdString(BornAgain::Inclination);
+const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString(BornAgain::Azimuth);
 
 BeamItem::BeamItem() : SessionItem(Constants::BeamType)
 {
     ScientificDoubleProperty intensity(1e+08);
-    addProperty(P_INTENSITY, intensity.getVariant())->setLimits(AttLimits::limited(0.0, 1e+32));
+    addProperty(P_INTENSITY, intensity.getVariant())->setLimits(RealLimits::limited(0.0, 1e+32));
     addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);

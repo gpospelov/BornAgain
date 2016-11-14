@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DomainFittingBuilder.h
-//! @brief     Declares class DomainFittingBuilder
+//! @brief     Defines class DomainFittingBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,6 @@
 #ifndef DOMAINFITTINGBUILDER_H
 #define DOMAINFITTINGBUILDER_H
 
-#include <QString>
 #include <memory>
 
 class JobItem;
@@ -31,4 +30,4 @@ public:
     static std::shared_ptr<FitSuite> createFitSuite(JobItem *jobItem);
 };
 
-#endif
+#endif // DOMAINFITTINGBUILDER_H

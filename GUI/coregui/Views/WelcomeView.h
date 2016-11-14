@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/WelcomeView.h
-//! @brief     Declares class WelcomeView
+//! @brief     Defines class WelcomeView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,6 @@
 #define WELCOMEVIEW_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QLabel>
 
 class QPushButton;

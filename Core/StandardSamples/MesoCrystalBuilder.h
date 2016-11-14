@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/MesoCrystalBuilder.h
-//! @brief     Declares class MesoCrystalBuilder.
+//! @brief     Defines class MesoCrystalBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,30 +16,33 @@
 #ifndef MESOCRYSTALBUILDER_H
 #define MESOCRYSTALBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 #include "Complex.h"
 
-//! @class MesoCrystalBuilder
-//! @ingroup standard_samples
-//! @brief Builds sample: mesocrystals of cylindrical shape composed by
-//! spherical nanoparticles.
+class IFormFactor;
+class ISample;
+class Lattice;
+class MesoCrystal;
 
-class BA_CORE_API_  MesoCrystalBuilder : public ISampleBuilder
+//! Builds sample: mesocrystals of cylindrical shape composed by spherical nanoparticles.
+//! @ingroup standard_samples
+
+class BA_CORE_API_ MesoCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     MesoCrystalBuilder();
 
     virtual ~MesoCrystalBuilder(){}
-    virtual class ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 
 protected:
     virtual void init_parameters();
 
 private:
-    class MesoCrystal* createMesoCrystal(
+    MesoCrystal* createMesoCrystal(
         double stacking_radius_a, double stacking_radius_c,
-        complex_t n_particle, const class IFormFactor* p_meso_form_factor) const;
-    const class Lattice* createLattice(double stacking_radius_a, double stacking_radius_c) const;
+        complex_t n_particle, const IFormFactor* p_meso_form_factor) const;
+    const Lattice* createLattice(double stacking_radius_a, double stacking_radius_c) const;
     double m_lattice_length_a;
     double m_lattice_length_c;
     double m_nanoparticle_radius;

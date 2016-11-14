@@ -14,13 +14,16 @@
 // ************************************************************************** //
 
 #include "MagneticParticlesBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "FormFactorCylinder.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
+#include "Materials.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
-#include "InterferenceFunctionNone.h"
-
 
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and zero magnetic field
@@ -29,23 +32,19 @@
 MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
     :  m_cylinder_radius(5*Units::nanometer)
     ,  m_cylinder_height(5*Units::nanometer)
-
 {
     init_parameters();
 }
 
-
 void MagneticParticleZeroFieldBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-    registerParameter("cylinder_height", &m_cylinder_height);
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
 }
 
-
-ISample *MagneticParticleZeroFieldBuilder::buildSample() const
+MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -77,18 +76,16 @@ MagneticCylindersBuilder::MagneticCylindersBuilder()
     init_parameters();
 }
 
-
 void MagneticCylindersBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-    registerParameter("cylinder_height", &m_cylinder_height);
+
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
 }
 
-
-ISample *MagneticCylindersBuilder::buildSample() const
+MultiLayer* MagneticCylindersBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
@@ -109,4 +106,3 @@ ISample *MagneticCylindersBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
-

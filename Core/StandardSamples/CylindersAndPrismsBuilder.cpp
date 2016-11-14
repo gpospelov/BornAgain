@@ -14,13 +14,15 @@
 // ************************************************************************** //
 
 #include "CylindersAndPrismsBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
-#include "InterferenceFunctionNone.h"
 
 CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
     : m_cylinder_height(5*Units::nanometer)
@@ -34,15 +36,15 @@ CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
 
 void CylindersAndPrismsBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-    registerParameter("prism_height", &m_prism_height);
-    registerParameter("prism_length", &m_prism_length);
-    registerParameter("cylinder_weight", &m_cylinder_weight);
+
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("prism_height", &m_prism_height).setUnit("nm").setNonnegative();
+    registerParameter("prism_length", &m_prism_length).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_weight", &m_cylinder_weight).setNonnegative();
 }
 
-ISample* CylindersAndPrismsBuilder::buildSample() const
+MultiLayer* CylindersAndPrismsBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

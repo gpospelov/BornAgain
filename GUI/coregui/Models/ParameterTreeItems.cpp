@@ -17,6 +17,7 @@
 #include "ParameterTreeItems.h"
 #include "ModelPath.h"
 #include "SessionModel.h"
+#include "FitParameterHelper.h"
 
 // ----------------------------------------------------------------------------
 
@@ -60,13 +61,27 @@ void ParameterItem::propagateValueLink(bool backup)
 
 SessionItem *ParameterItem::getLinkedItem()
 {
-    QString link = getItemValue(P_LINK).toString();
-    SessionItem *cur = this;
-    while (cur && cur->modelType() != Constants::JobItemType) {
-        cur = cur->parent();
-    }
-    link = cur->itemName() + "/" + link;
+    const SessionItem *jobItem = ModelPath::ancestor(this, Constants::JobItemType);
+    Q_ASSERT(jobItem);
+    QString link = jobItem->itemName() + "/" + getItemValue(P_LINK).toString();
     return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
+}
+
+//! Returns true if item can be used to drag-and-drop to FitParameterContainer.
+//! In other words, if translation to domain name is implemented and valid.
+// TODO, item #1623, consider the necessity of method after all fit parameter translations
+// are fixed
+
+bool ParameterItem::isFittable() const
+{
+    const SessionItem *jobItem = ModelPath::ancestor(this, Constants::JobItemType);
+    Q_ASSERT(jobItem);
+    return ModelPath::isTranslatable(jobItem, FitParameterHelper::getParameterItemPath(this));
+
+// TODO, item #1623, consider equivalent implementation instead
+//    if(getItemValue(P_DOMAIN).toString() == Constants::FITPAR_UNFITTABLE)
+//        return false;
+//    return true;
 }
 
 // ----------------------------------------------------------------------------

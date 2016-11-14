@@ -15,12 +15,11 @@
 // ************************************************************************** //
 
 #include "BeamDistributionItem.h"
-#include "DistributionItem.h"
 #include "Distributions.h"
+#include "GUIHelpers.h"
+#include "GroupItem.h"
 #include "ParameterDistribution.h"
 #include "Units.h"
-#include "GroupItem.h"
-#include "GUIHelpers.h"
 #include <QDebug>
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
@@ -67,13 +66,13 @@ BeamDistributionItem::getParameterDistributionForName(const std::string &paramet
                 sigma_factor = distributionItem->getItemValue(
                                                      DistributionItem::P_SIGMA_FACTOR).toInt();
             }
-            AttLimits limits;
+            RealLimits limits;
             SessionItem *distributionNoneValueItem =
                     getGroupItem(P_DISTRIBUTION,Constants::DistributionNoneType)->getItem(DistributionNoneItem::P_VALUE);
             if (modelType() == Constants::BeamWavelengthType) {
                 limits = distributionNoneValueItem->limits();
             } else {
-                AttLimits orig = distributionNoneValueItem->limits();
+                RealLimits orig = distributionNoneValueItem->limits();
                 if (orig.hasLowerLimit())
                     limits.setLowerLimit(Units::deg2rad(orig.getLowerLimit()));
                 if (orig.hasUpperLimit())

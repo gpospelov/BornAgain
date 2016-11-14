@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "JobRealTimeWidget.h"
-#include "JobModel.h"
 #include "JobItem.h"
-#include "ParameterTuningWidget.h"
+#include "JobModel.h"
 #include "JobRealTimeToolBar.h"
+#include "ParameterTuningWidget.h"
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 

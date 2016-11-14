@@ -15,33 +15,33 @@
 // ************************************************************************** //
 
 #include "MaskGraphicsProxy.h"
-#include <QGraphicsSceneMouseEvent>
-#include "ColorMapPlot.h"
 #include "ColorMapSceneAdaptor.h"
+#include "ColorMap.h"
 #include "IntensityDataItem.h"
+#include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
 MaskGraphicsProxy::MaskGraphicsProxy()
-    : m_colorMap(new ColorMapPlot)
+    : m_colorMap(new ColorMap)
     , m_sceneAdaptor(0)
     , m_send_signals_to_colormap(false)
 {
     resize(1200, 1000);
-    setAcceptedMouseButtons(Qt::NoButton);
+    setInZoomMode(true);
 }
 
 MaskGraphicsProxy::~MaskGraphicsProxy()
 {
     // no need to delete m_colorMap, base QGraphicsProxyWidget will take care about it
-    if(m_sceneAdaptor) {
+    if(m_sceneAdaptor)
         m_sceneAdaptor->setColorMapPlot(0);
-    }
 }
 
 void MaskGraphicsProxy::setIntensityItem(IntensityDataItem *intensityDataItem)
 {
     m_colorMap->setItem(intensityDataItem);
-    if(widget() != m_colorMap) setWidget(m_colorMap);
+    if(widget() != m_colorMap)
+        setWidget(m_colorMap);
 }
 
 void MaskGraphicsProxy::setSceneAdaptor(ISceneAdaptor *sceneAdaptor)
@@ -63,10 +63,9 @@ void MaskGraphicsProxy::setInZoomMode(bool value)
     }
 }
 
-void MaskGraphicsProxy::resetView()
+ColorMap *MaskGraphicsProxy::colorMap()
 {
-    Q_ASSERT(m_colorMap);
-    m_colorMap->resetView();
+    return m_colorMap;
 }
 
 void MaskGraphicsProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -92,6 +91,5 @@ void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)";
     if(!m_send_signals_to_colormap) return;
-        qDebug() << "aaa";
     QGraphicsProxyWidget::mouseMoveEvent(event);
 }

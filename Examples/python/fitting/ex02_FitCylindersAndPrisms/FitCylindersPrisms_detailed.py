@@ -6,8 +6,6 @@ Please take a note, that performance here is determined
 by poor performance of matplotlib drawing routines.
 """
 
-import matplotlib
-from matplotlib import pyplot as plt
 import math
 import random
 import bornagain as ba
@@ -69,7 +67,7 @@ def create_real_data():
             noisy_amplitude = 0.1
         real_data.setBinContent(i, noisy_amplitude)
 
-    # ucomment line to save generated data on disk
+    # uncomment line to save generated data on disk
     #IntensityDataIOFactory.writeIntensityData(
     #  real_data, 'refdata_fitcylinderprisms.int')
     return real_data
@@ -95,6 +93,9 @@ class DrawObserver(ba.IFitObserver):
     """
 
     def __init__(self, draw_every_nth=10):
+        import matplotlib
+        from matplotlib import pyplot as plt
+        global matplotlib, plt
         ba.IFitObserver.__init__(self, draw_every_nth)
         self.fig = plt.figure(figsize=(10.25, 7.69))
         self.fig.canvas.draw()
@@ -119,21 +120,18 @@ class DrawObserver(ba.IFitObserver):
         self.plot(fit_suite.getSimulationData(), "Simulated data",
                   nplot=2, min=1.0, max=real_data.getMaximum())
         self.plot(fit_suite.getChiSquaredMap(), "Chi2 map",
-
                   nplot=3, min=0.001, max=10.0)
 
         plt.subplot(2, 2, 4)
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.getNumberOfIterations(),
-                        fit_suite.getMinimizer().getMinimizerName()))
+                 format(fit_suite.numberOfIterations(),
+                        fit_suite.minimizer().minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        fitpars = fit_suite.getFitParameters()
-        for i in range(0, fitpars.size()):
-            plt.text(0.01, 0.55 - i*0.1,
-                     '{:30.30s}: {:6.3f}'.format(fitpars[i].getName(),
-                                                 fitpars[i].getValue()))
+        for index, fitPar in enumerate(fit_suite.fitParameters()):
+            plt.text(0.01, 0.55 - index*0.1,
+                     '{:30.30s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
         plt.draw()
         plt.pause(0.01)
 
@@ -143,7 +141,7 @@ class DrawObserver(ba.IFitObserver):
 
 def run_fitting():
     """
-    main function to run fitting
+    Setup simulation and fit
     """
 
     sample = get_sample()
@@ -161,27 +159,22 @@ def run_fitting():
 
     fit_suite.initPrint(10)
 
+    # setting fitting parameters with starting values
+    fit_suite.addFitParameter("*Cylinder/Height", 4.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Prism3/Height", 4.*nm).setLowerLimited(0.01)
+    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm).setLowerLimited(0.01)
+
     draw_observer = DrawObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
 
-    # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 4.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/Height", 4.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
-    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm,
-                              ba.AttLimits.lowerLimited(0.01))
-
-    # running fit
     fit_suite.runFit()
-
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
+
+    return fit_suite
 
 
 if __name__ == '__main__':

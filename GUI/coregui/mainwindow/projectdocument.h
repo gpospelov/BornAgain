@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/mainwindow/projectdocument.h
-//! @brief     Declares class ProjectDocument
+//! @brief     Defines class ProjectDocument
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,13 +19,9 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
-#include <QString>
 
 class QIODevice;
-class QModelIndex;
 class ApplicationModels;
-class SessionModel;
-class QXmlStreamReader;
 class WarningMessageService;
 
 namespace ProjectDocumentXML
@@ -78,7 +74,7 @@ public:
 
     bool isModified();
 
-    void setMessageService(WarningMessageService *messageService);
+    void setLogger(WarningMessageService *messageService);
 
     EDocumentStatus getDocumentStatus() const;
 
@@ -115,5 +111,5 @@ private:
 };
 
 
-#endif
+#endif // PROJECTDOCUMENT_H
 

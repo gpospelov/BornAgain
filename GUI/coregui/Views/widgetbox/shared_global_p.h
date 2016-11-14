@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef SHARED_GLOBAL_H
-#define SHARED_GLOBAL_H
+#ifndef SHARED_GLOBAL_P_H
+#define SHARED_GLOBAL_P_H
 
 #include <QtCore/qglobal.h>
 
@@ -73,4 +73,4 @@
 #  define QDESIGNER_SHARED_EXPORT
 #endif
 
-#endif // SHARED_GLOBAL_H
+#endif // SHARED_GLOBAL_P_H

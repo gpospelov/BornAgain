@@ -140,25 +140,21 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---------
 include_directories(
-    ${qcustomplot_INCLUDE_DIRS}
-    ${qtpropertybrowser_INCLUDE_DIRS}
+    ${QtAddOn_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
-    ${ManhattanStyle_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
 )
 
 target_link_libraries(${library_name}
-    ${ManhattanStyle_LIBRARY}
-    ${qcustomplot_LIBRARY}
-    ${qtpropertybrowser_LIBRARY}
+    ${QtAddOn_LIBRARIES}
     ${PYTHON_LIBRARIES}
     ${Boost_LIBRARIES}
-    ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
+    ${BornAgainCore_LIBRARY}
 )
 
 target_link_libraries(${library_name}

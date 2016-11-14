@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/JobItemHelper.h
-//! @brief     Declares class JobItemHelper
+//! @brief     Defines class JobItemHelper
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,6 @@
 #ifndef JOBITEMHELPER_H
 #define JOBITEMHELPER_H
 
-#include "WinDllMacros.h"
 #include "IDetector2D.h"
 #include <QMap>
 
@@ -40,14 +39,14 @@ public:
     static void updateDataAxes(IntensityDataItem *intensityItem,
                                const InstrumentItem *instrumentItem);
 
+    static void adjustAxesUnitsToInstrument(IntensityDataItem *intensityDataItem,
+                                                const InstrumentItem *instrumentItem);
+
     //! saves intensity data into project directory
-    static void saveIntensityData(JobItem *jobItem, const QString &projectDir);
+    static void saveIntensityData(IntensityDataItem *intensityItem, const QString &projectDir);
 
     //! load intensity data from project directory
     static void loadIntensityData(JobItem *jobItem, const QString &projectDir);
-
-    //! load intensity data from project directory
-    static void loadRealData(JobItem *jobItem, const QString &projectDir);
 
     //! returns axes units names from their domain counterpart
     static QString getNameFromAxesUnits(IDetector2D::EAxesUnits units);
@@ -58,17 +57,17 @@ public:
     //! converts detector default axes units into units most suitable for GUI
     static IDetector2D::EAxesUnits preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units);
 
-    static void initIntensityItemProperties(IntensityDataItem *intensityItem, const IDetector2D *detector);
+    static void setIntensityItemAxesUnits(IntensityDataItem *intensityItem, const InstrumentItem *instrumentItem);
+    static void setIntensityItemAxesUnits(IntensityDataItem *intensityItem, const IDetector2D *detector);
+
 
     static void updateAxesTitle(IntensityDataItem *intensityItem);
 
     static OutputData<double> *createDefaultDetectorMap(const InstrumentItem *instrumentItem);
 
+
     static OutputData<double> *createDetectorMap(const InstrumentItem *instrumentItem,
                                                  IDetector2D::EAxesUnits units);
-
-    static bool hasSameDimensions(const IntensityDataItem *intensityItem,
-                              const GISASSimulation *simulation);
 
     //!< correspondance of GUI axes units names to their domain counterpart
     static QMap<QString, IDetector2D::EAxesUnits> m_name_to_units;
@@ -79,5 +78,5 @@ public:
 };
 
 
-#endif
+#endif // JOBITEMHELPER_H
 

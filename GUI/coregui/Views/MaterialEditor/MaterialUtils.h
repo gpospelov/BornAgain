@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaterialEditor/MaterialUtils.h
-//! @brief     Declares class MaterialUtils
+//! @brief     Defines class MaterialUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,13 +17,12 @@
 #ifndef MATERIALUTILS_H
 #define MATERIALUTILS_H
 
-#include "MaterialProperty.h"
-#include "MaterialItem.h"
 #include "ColorProperty.h"
-
-#include <memory>
+#include "MaterialItem.h"
+#include "MaterialProperty.h"
 #include <QColor>
 #include <QString>
+#include <memory>
 
 class IMaterial;
 
@@ -38,4 +37,4 @@ BA_CORE_API_ std::unique_ptr<IMaterial> createDomainMaterial(
 }
 
 
-#endif
+#endif // MATERIALUTILS_H

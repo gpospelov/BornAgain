@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/MaterialItem.h
-//! @brief     Declares class MaterialItem
+//! @brief     Defines class MaterialItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,6 @@
 #define MATERIALITEM_H
 
 #include "SessionItem.h"
-#include <QColor>
 
 class IMaterial;
 
@@ -37,4 +36,4 @@ public:
     std::unique_ptr<IMaterial> createMaterial() const;
 };
 
-#endif
+#endif // MATERIALITEM_H

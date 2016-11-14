@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/PropertyEditor/ComponentEditorFlags.h
-//! @brief     Declares class ComponentEditorFlags
+//! @brief     Defines class ComponentEditorFlags
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -42,4 +42,4 @@ public:
 Q_DECLARE_OPERATORS_FOR_FLAGS(ComponentEditorFlags::PresentationType)
 
 
-#endif
+#endif // COMPONENTEDITORFLAGS_H

@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "ParticleCompositionItem.h"
+#include "GUIHelpers.h"
+#include "ModelPath.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
 #include "TransformToDomain.h"
-#include "GUIHelpers.h"
-#include "ModelPath.h"
 
 const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
 
@@ -27,7 +27,7 @@ ParticleCompositionItem::ParticleCompositionItem()
     : SessionGraphicsItem(Constants::ParticleCompositionType)
 {
     addProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
+    getItem(ParticleItem::P_ABUNDANCE)->setLimits(RealLimits::limited(0.0, 1.0));
     getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
     addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;

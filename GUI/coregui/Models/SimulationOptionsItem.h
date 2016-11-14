@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/SimulationOptionsItem.h
-//! @brief     Declares class SimulationOptionsItem
+//! @brief     Defines class SimulationOptionsItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,6 @@
 #define SIMULATIONOPTIONSITEM_H
 
 #include "SessionItem.h"
-#include <QStringList>
 
 //! The SimulationOptionsItem class holds simulation status (run policy, number of threads,
 //! integration flag). Used in SimulationView to define job settings. When job is started,
@@ -50,4 +49,4 @@ private:
     QStringList getCPUUsageOptions();
 };
 
-#endif
+#endif // SIMULATIONOPTIONSITEM_H

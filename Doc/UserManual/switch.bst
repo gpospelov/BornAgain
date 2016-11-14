@@ -19,12 +19,12 @@ INTEGERS { switch sw.lablenauto sw.namemaju sw.yearpos sw.name sw.journit
            sw.titlit sw.journco sw.volbf sw.wutex sw.lang sw.thebib
            sw.title sw.pf sw.names.and
            nameptr namesleft numnames nam_max_voll nam_min_etal }
-STRINGS  { wrd.and wrd.edd sw.namesep sw.namesterm }
+STRINGS  { wrd.and wrd.edd sw.namesep sw.namesterm sw.titleterm }
 
 %=============================================================================%
 
 FUNCTION {choices} {
-   #2 'switch :=       % main style switch
+   #1 'switch :=       % main style switch
    #0 'sw.wutex :=     % my own definitions (from wubib.sty etc.)
    #1 'sw.lang :=      % language (1) engl (2) deutsch
    #1 'sw.thebib :=    % \references (0) or \begin{bibliography} (1)
@@ -40,18 +40,29 @@ FUNCTION {choices} {
 FUNCTION {initialize.switches} {
 
     % default settings
-    #1  'sw.name :=       % author name format (1=Su,Y.;
-    #0  'sw.namemaju :=   % author name capitalized?
+    #1  'sw.name :=       % author name format: 1=Y. Su|2=Su Y.|3=Su Yi|4=Su, Y.
+    #0  'sw.namemaju :=   % author name as small caps?
     "," 'sw.namesep :=    % author names separator
     #1  'sw.names.and :=  % last author separated by wrd.and
     "," 'sw.namesterm :=  % terminates author list
     #0  'sw.title :=      % print title?
     #0  'sw.titlit :=     % titles italicized?
-    #0  'sw.yearpos :=    % year at position (0=final;
+    ". " 'sw.titleterm :=  % terminates title
+    #0  'sw.yearpos :=    % year at position: 0=v,p(y)|1=v(y)p|3=Y,v,p
     #1  'sw.journit :=    % journal in italics?
     #0  'sw.journco :=    % comma after journal
     #1  'sw.volbf :=      % volume boldface?
     #0  'sw.pf :=         % print final page?
+
+    % language-dependent defaults
+    #1 sw.lang = {
+       "and" 'wrd.and :=
+       "edited by" 'wrd.edd :=
+    } {} if$
+    #2 sw.lang = {
+       "und" 'wrd.and :=
+       "hrsg. von" 'wrd.edd :=
+    } {} if$
 
     % PhysRev
     #1 switch = {
@@ -83,14 +94,22 @@ FUNCTION {initialize.switches} {
        "\ " 'sw.namesterm :=
        #0  'sw.names.and :=
     } {} if$
-
-    #1 sw.lang = {
-       "and" 'wrd.and :=
-       "edited by" 'wrd.edd :=
-    } {} if$
-    #2 sw.lang = {
-       "und" 'wrd.and :=
-       "hrsg. von" 'wrd.edd :=
+    % SIAM
+    #6 switch = {
+       #1 'sw.lablenauto :=
+       #1 'sw.yearpos :=
+       #1 'sw.name :=
+       #1  'sw.namemaju :=   % author name as small caps
+       #0 'sw.volbf :=
+       #0  'sw.journit :=    % journal not in italics
+       #1 'sw.title :=
+       #1  'sw.titlit :=     % titles italicized
+       ", " 'sw.titleterm :=  % terminates title
+       #1 'sw.pf :=
+       "," 'sw.namesep :=
+       ", " 'sw.namesterm :=
+       #1  'sw.names.and :=
+       "{\sc and}" 'wrd.and :=
     } {} if$
 
 }
@@ -156,15 +175,15 @@ MACRO {thissue} {"in this issue"}
 % transitioning -> ordering by label (and not by official abbreviation)
 
 MACRO{aasNY}{"Ann.\ NY Acad.\ Sci."}
-MACRO{acsmi}{"ACS Appl. Mater. Interfaces"}
+MACRO{acie} {"Angew.\ Chem.\ Int.\ Ed."}
+MACRO{acsmi}{"ACS Appl.\ Mater.\ Interfaces"}
 MACRO{acp}  {"Adv.\ Chem.\ Phys."}
+MACRO{acsss}{"Am.~Chem.\ Soc.\ Symp.\ Ser."}
+MACRO{aipcp}{"AIP Conf.\ Proc."}
+MACRO{ajp}  {"Am.~J.\ Phys."}
 MACRO{amm}  {"Acta metall.\ mater."}
 MACRO{ammm} {"Am.\ Math.\ Mon."}
 MACRO{amse} {"Adv.\ Mat.\ Sci.\ Eng."}
-MACRO{assp} {"Adv.\ Solid State Phys.\ (Festk\ouml rperprobleme)"}
-% define outside the bibtex environment: \def\ouml{\"o}
-MACRO{acsss}{"Am.~Chem.\ Soc.\ Symp.\ Ser."}
-MACRO{ajp}  {"Am.~J.\ Phys."}
 MACRO{apl}  {"Appl.\ Phys.\ Lett."}
 MACRO{apA}  {"Appl.\ Phys.\ A"}
 MACRO{apLg} {"Ann.\ Phys.\ (Leipzig)"}
@@ -173,6 +192,8 @@ MACRO{apPa} {"Ann.\ Phys.\ (Paris)"} %
 MACRO{arpc} {"Ann.\ Rev.\ Phys.\ Chem."} %
 MACRO{aop}  {"Appl. Optics"}
 MACRO{asp}  {"Appl.\ Spectrosc."}
+MACRO{assp} {"Adv.\ Solid State Phys.\ (Festk\ouml rperprobleme)"}
+% define outside the bibtex environment: \def\ouml{\"o}
 MACRO{avp}  {"Adv.\ Phys."}
 MACRO{avpc} {"Adv.\ Phys.\ Chem."}
 MACRO{ax}   {"Acta Cryst."}
@@ -190,6 +211,7 @@ MACRO{bpj}  {"Biophys.~J."}
 MACRO{bpm}  {"Biopolym."}
 MACRO{cc}   {"Chem.\ Comm."}
 MACRO{cp}   {"Chem.\ Phys."}
+MACRO{cpchem}{"ChemPhysChem"}
 MACRO{cpc}  {"Comput.~Phys.~Comm."}
 MACRO{cpl}  {"Chem.\ Phys.\ Lett."}
 MACRO{crv}  {"Chem.\ Rev."}
@@ -225,6 +247,7 @@ MACRO{jax}  {"J.~Appl.\ Cryst."}
 MACRO{jbp}  {"J.~Biol.\ Phys."}
 MACRO{jcam} {"J.~Comp.\ Appl.\ Math."}
 MACRO{jced} {"J.~Chem.\ Eng.\ Data"}
+MACRO{jcis} {"J.~Coll.\ Interf.\ Sci."}
 MACRO{jcp}  {"J.~Chem.\ Phys."}
 MACRO{jcpF} {"J.~Chim.\ Phys."}
 MACRO{jcsf1}{"J.~Chem.\ Soc., Faraday Trans. 1"}
@@ -278,6 +301,7 @@ MACRO{mplB} {"Mod.\ Phys.\ Lett.\ B"}
 MACRO{mrssp}{"Mat.\ Res.\ Soc.\ Symp.\ Proc."}
 MACRO{mst}  {"Meas.\ Sci.\ Technol."}
 MACRO{nat}  {"Nature"}
+MACRO{natCo}{"Nature Commun."}
 MACRO{natPh}{"Nature Photonics"}
 MACRO{naw}  {"Naturwiss."}
 MACRO{ncD}  {"Nuovo Cimento D"}
@@ -309,6 +333,7 @@ MACRO{pr}   {"Phys.\ Rev."}
 MACRO{prA}  {"Phys.\ Rev.\ A"}
 MACRO{prB}  {"Phys.\ Rev.\ B"}
 MACRO{prE}  {"Phys.\ Rev.\ E"}
+MACRO{prep} {"Phys.\ Reports"}
 MACRO{prl}  {"Phys.\ Rev.\ Lett."}
 MACRO{prsA} {"Proc.\ Roy.\ Soc.\ A"}
 MACRO{pps}  {"Proc.\ Phys.\ Soc."}
@@ -316,6 +341,7 @@ MACRO{ppsB} {"Proc.\ Phys.\ Soc.\ B"}
 MACRO{pcps} {"Progr.\ Coll.\ Polym.\ Sci."}
 MACRO{psc}  {"Phys.\ Script."}
 MACRO{pscT} {"Phys.\ Script.\ T"}
+MACRO{pss}  {"Progr.\ Surf.\ Sci."}
 MACRO{pt}   {"Phys.\ Today"}
 MACRO{ptp}  {"Prog.\ Theor.\ Phys."}
 MACRO{ptps} {"Prog.\ Theor.\ Phys.\ Suppl."}
@@ -705,20 +731,12 @@ FUNCTION {format.vol.pages.date}
     "{\bf " y * "}, " *
     v empty$ {} { v * ", " * } if$
     p empty$ {} { p n.dashify * pf empty$ sw.pf #0 = or {} { "--" * pf * } if$ } if$
-  } {
+  }
+  {
     v empty$
       { "" }
       { sw.volbf { "{\bf " v * "}" * } { v } if$ }
     if$
-%  n empty$
-%    'skip$
-%    { "(" n * ")" * *
-%      v empty$
-%	{ "there'stri a number but no volume in " cite$ * warning$ }
-%	'skip$
-%      if$
-%    }
-%  if$
     sw.yearpos #0 = {
       p empty$
         'skip$
@@ -918,7 +936,7 @@ FUNCTION {Art} % Article
   format.authors "author" output.check
   sw.title #1 = {
     new.block
-    format.title "title" output.check ". " *
+    format.title "title" output.check sw.titleterm *
   } {} if$
   new.block
   crossref missing$ % seems to be always missing (???)

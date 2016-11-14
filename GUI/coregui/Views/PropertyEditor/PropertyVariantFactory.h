@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/PropertyEditor/PropertyVariantFactory.h
-//! @brief     Declares class PropertyVariantFactory
+//! @brief     Defines class PropertyVariantFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,13 +14,12 @@
 //
 // ************************************************************************** //
 
-#ifndef OBJECTVARIANTFACTORY_H
-#define OBJECTVARIANTFACTORY_H
+#ifndef PROPERTYVARIANTFACTORY_H
+#define PROPERTYVARIANTFACTORY_H
 
 //! collection of classes extending QtPropertyBrowser functionality
 
 #include "GroupProperty.h"
-
 #include <QtVariantEditorFactory>
 
 class MaterialPropertyEdit;
@@ -88,4 +87,4 @@ private:
 
 };
 
-#endif // OBJECTVARIANTFACTORY_H
+#endif // PROPERTYVARIANTFACTORY_H

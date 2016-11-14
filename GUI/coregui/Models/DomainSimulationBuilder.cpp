@@ -15,22 +15,16 @@
 // ************************************************************************** //
 
 #include "DomainSimulationBuilder.h"
-#include "SampleModel.h"
-#include "DocumentModel.h"
-#include "InstrumentModel.h"
-#include "Instrument.h"
-#include "InstrumentItem.h"
-#include "MultiLayer.h"
-#include "MultiLayerItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
-#include "TransformToDomain.h"
-#include "SimulationOptionsItem.h"
+#include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include <QDebug>
-#include <memory>
-
+#include "InstrumentItem.h"
+#include "MultiLayer.h"
+#include "MultiLayerItem.h"
+#include "SimulationOptionsItem.h"
+#include "TransformToDomain.h"
 
 //! Creates domain simulation from sample and instrument items.
 GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sampleItem,
@@ -50,11 +44,8 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sa
     result->setSample(*P_multilayer);
     result->setInstrument(*P_instrument);
 
-    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->getBeamItem(),
+    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(),
                                                              result);
-
-    TransformToDomain::addMasksToSimulation(*instrumentItem->getDetectorItem(),
-                                            result);
 
     if(optionsItem)
         TransformToDomain::setSimulationOptions(result, *optionsItem);

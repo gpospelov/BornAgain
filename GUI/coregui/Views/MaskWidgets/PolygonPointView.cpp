@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "PolygonPointView.h"
+#include "ISceneAdaptor.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
-#include "ISceneAdaptor.h"
-#include <QPainter>
-#include <QGraphicsSceneMouseEvent>
 #include <QCursor>
 #include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
 
 PolygonPointView::PolygonPointView()
     : m_on_hover(false)
@@ -45,7 +45,6 @@ void PolygonPointView::update_view()
 {
     update();
 }
-
 
 void PolygonPointView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {

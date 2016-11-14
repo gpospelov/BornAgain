@@ -2,8 +2,12 @@
 #define SPECULARSIMULATIONTEST_H
 
 #include "SpecularSimulation.h"
+#include "HomogeneousMaterial.h"
+#include "IMultiLayerBuilder.h"
 #include "Exceptions.h"
 #include "FixedBinAxis.h"
+#include "Layer.h"
+#include "MultiLayer.h"
 #include "Units.h"
 #include <iostream>
 
@@ -11,19 +15,10 @@ class SpecularSimulationTest : public ::testing::Test
 {
  protected:
     SpecularSimulationTest();
-
-    class SampleBuilder : public ISampleBuilder
-    {
-    public:
-        virtual ISample *buildSample() const { return new Layer(); }
-    };
-
-    std::shared_ptr<class ISampleBuilder> sample_builder;
     MultiLayer multilayer;
 };
 
 SpecularSimulationTest::SpecularSimulationTest()
-    : sample_builder(new SampleBuilder)
 {
     HomogeneousMaterial mat0("ambience", 0.0, 0.0);
     HomogeneousMaterial mat1("PartA", 5e-6, 0.0);
@@ -37,7 +32,6 @@ SpecularSimulationTest::SpecularSimulationTest()
     multilayer.addLayer(layer1);
     multilayer.addLayer(layer2);
 }
-
 
 TEST_F(SpecularSimulationTest, InitialState)
 {
@@ -71,13 +65,13 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
     SpecularSimulation sim;
 
     sim.setBeamParameters(1.0, 10, -2.0, 3.0);
-    EXPECT_EQ(size_t(10), sim.getAlphaAxis()->getSize());
+    EXPECT_EQ(size_t(10), sim.getAlphaAxis()->size());
     EXPECT_EQ(-2.0, sim.getAlphaAxis()->getMin());
     EXPECT_EQ(3.0, sim.getAlphaAxis()->getMax());
 
     FixedBinAxis axis("axis",2, -1.0, 2.0);
     sim.setBeamParameters(1.0, axis);
-    EXPECT_EQ(size_t(2), sim.getAlphaAxis()->getSize());
+    EXPECT_EQ(size_t(2), sim.getAlphaAxis()->size());
     EXPECT_EQ(-1.0, sim.getAlphaAxis()->getMin());
     EXPECT_EQ(2.0, sim.getAlphaAxis()->getMax());
 }
@@ -125,8 +119,6 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     EXPECT_EQ(size_t(10), clone->getScalarR(0).size());
     EXPECT_EQ(size_t(10), clone->getScalarT(0).size());
     EXPECT_EQ(size_t(10), clone->getScalarKz(0).size());
-
 }
 
-
-#endif
+#endif // SPECULARSIMULATIONTEST_H

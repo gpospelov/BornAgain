@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/utils/CustomEventFilters.h
-//! @brief     Declares classes releted to event filtering
+//! @brief     Defines classes releted to event filtering
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,8 +19,6 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
-
-class QEvent;
 
 //! Filter out space bar key events, which is special case for dialog windows.
 
@@ -67,4 +65,4 @@ signals:
 
 
 
-#endif
+#endif // CUSTOMEVENTFILTERS_H

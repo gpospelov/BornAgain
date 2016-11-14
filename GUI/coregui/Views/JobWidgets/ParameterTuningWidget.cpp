@@ -15,30 +15,30 @@
 // ************************************************************************** //
 
 #include "ParameterTuningWidget.h"
-#include "JobQueueData.h"
-#include "JobItem.h"
-#include "SliderSettingsWidget.h"
-#include "ParameterTreeBuilder.h"
+#include "DesignerHelper.h"
 #include "GUIHelpers.h"
-#include "ParameterTuningDelegate.h"
-#include "JobModel.h"
-#include "SampleModel.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
-#include "DesignerHelper.h"
-#include "WarningSignWidget.h"
-#include "ParameterTuningModel.h"
+#include "JobItem.h"
+#include "JobModel.h"
+#include "JobQueueData.h"
+#include "ParameterTreeBuilder.h"
 #include "ParameterTreeItems.h"
+#include "ParameterTuningDelegate.h"
+#include "ParameterTuningModel.h"
+#include "SampleModel.h"
+#include "SliderSettingsWidget.h"
+#include "WarningSignWidget.h"
+#include <QApplication>
+#include <QDebug>
+#include <QItemSelectionModel>
+#include <QKeyEvent>
 #include <QLabel>
-#include <QVBoxLayout>
-#include <QTreeView>
+#include <QScrollBar>
 #include <QStandardItemModel>
 #include <QToolButton>
-#include <QDebug>
-#include <QScrollBar>
-#include <QApplication>
-#include <QKeyEvent>
-#include <QItemSelectionModel>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 namespace {
 const int warning_sign_xpos = 38;
@@ -160,7 +160,7 @@ void ParameterTuningWidget::onSliderValueChanged(double value)
 void ParameterTuningWidget::onLockZValueChanged(bool value)
 {
     if(!m_currentJobItem) return;
-    if(IntensityDataItem *intensityDataItem = m_currentJobItem->getIntensityDataItem()) {
+    if(IntensityDataItem *intensityDataItem = m_currentJobItem->intensityDataItem()) {
         qDebug() << "ModelTuningWidget::onLockZValueChanged(bool value) ->" << value;
         intensityDataItem->setZAxisLocked(value);
     }
@@ -173,7 +173,7 @@ void ParameterTuningWidget::updateParameterModel()
 
     if(!m_currentJobItem) return;
 
-    if(!m_currentJobItem->getMultiLayerItem() || !m_currentJobItem->getInstrumentItem())
+    if(!m_currentJobItem->multiLayerItem() || !m_currentJobItem->instrumentItem())
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/SampleToolBar.h
-//! @brief     Declares class SampleToolBar
+//! @brief     Defines class SampleToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -60,4 +60,4 @@ private:
     QAction *m_zoomOutAction;
 };
 
-#endif
+#endif // SAMPLETOOLBAR_H

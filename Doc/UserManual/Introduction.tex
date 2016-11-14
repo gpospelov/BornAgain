@@ -61,7 +61,7 @@ It is entirely in the responsibility of users
 to convince themselves that their data interpretation
 is physically meaningful and plausible.}
 \Work{\indent\BornAgain\ is still under intense development.
-New major versions are released about every two months.
+New major versions are released about every few months.
 When need arises, bugfix versions are released in between.
 It is strongly recommended that users regularly update their installations.}
 
@@ -71,7 +71,7 @@ it is mandatory to cite the software:
 \index{Citation}%
 %\marginpar{citation}%
 \begin{quote}
-C.~Durniak, M.~Ganeva, G.~Pospelov, W.~Van Herck, J.~Wuttke (2015),\newline
+\authors\ (2013--\the\year),\newline
 BornAgain --- Software for simulating and fitting
 X-ray and neutron small-angle scattering at grazing incidence,
 version [\ldots],\newline
@@ -101,64 +101,67 @@ Adhering to a strict object-oriented design,
 \BornAgain\ provides a solid base for future extensions
 in response to specific user needs.
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\isection{About this Manual}
+\isection{Registration, contact, discussion forum}\label{Snews}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This user manual is complementary to the online documentation
-at \url{http://www.bornagainproject.org}.
-It does not duplicate information that is more conveniently read online.
-Therefore, \cref{sec:online} just contains a few pointers to the web site.
-The remainder of this manual mostly contains background
-on the scattering theory and on the sample models implemented in \BornAgain,
-and some documentation of the corresponding \Python\ functions.
+\index{Registration}
+\index{Newsletter}
+To stay informed about the ongoing development of \BornAgain,
+register on the project homepage \url{http://www.bornagainproject.org}
+(``Create new account'').
+You will then receive our occasional newsletters,
+and be authorized to post to the discussion forum.
 
-\Work{\indent This manual is incomplete.
-Several important chapters are still missing.}
-Specifically,
-we plan to provide documentation on
-\begin{itemize}
-\item X-ray propagation and scattering,
-\index{X-rays!propagation and scattering}%
-\index{Wave propagation!X-rays}%
-\item polarized neutron propagation and magnetic scattering,
-\index{Neutrons!polarization}%
-\index{Wave propagation!neutrons, polarized}%
-\index{Polarized neutron!propagation and magnetic scattering}%
-\item mapping of $\partial\sigma/\partial\Omega$ onto flat detectors,
-\index{Detector!mapping the cross section}%
-\item scattering by rough interfaces,
-\index{Roughness}%
-\item scattering by particle assemblies.
-\index{Particle assemblies}%
-\end{itemize}
-We intend to publish these chapters successively,
-along with new software release.
-To avoid confusion,
-starting with release 1.2 the manual carries
-the same version number as the software,
-even though it is in a less mature state.
+\index{Contact}
+To contact the \BornAgain\ development and maintenance team
+in the Scientific Computing Group
+of Heinz Maier-Leibnitz Zentrum (MLZ) Garching,
+write a mail to \url{contact@bornagainproject.org},
+or fill the form in the \textsc{Contact} section of the
+project web site.
 
-\Emph{\indent We urge users to subscribe to our newsletter
-(see \cref{Snews}),
-and to contact us for any question not answered here
-or in the online documentation.}
+\index{Forum}
+For questions that might be of wider interest,
+please consider posting to the discussion forum,
+accessible through the \textsc{Forums} tab of the project web site.
 
 \index{Bug reports}%
+Please contact us for any question not answered here
+or in the online documentation.
 We are grateful for all kind of feedback:
 criticism, praise, bug reports, feature requests or contributed modules.
 If questions go beyond normal user support,
 we will be glad to discuss a scientific collaboration.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\isection{Typesetting conventions}
+\isection{About this Manual}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this manual, we use the following colored boxes to highlight
+This User Manual is complementary to the online documentation
+at \url{http://www.bornagainproject.org}.
+It does not duplicate information that is more conveniently read online.
+The online documentation covers in particular
+how to download and install \BornAgain.
+
+This User Manual containes of two parts:
+\Cref{PPHYS} provides physics background
+on the scattering theory and on the sample models implemented in \BornAgain.
+\cref{PREF} is a partial reference of the C$++$ and Python interfaces;
+it concentrates on physics related component,
+and thereby complements the automatically generated interface documentation
+that can be found online at \url{http://apps.jcns.fz-juelich.de/doxy/BornAgain/index.html}.
+
+\Work{\indent This manual is incomplete.
+Several important chapters are still incomplete, or only consist of a placeholder.}
+We intend to publish the missing material successively,
+along with new software release.
+
+\pagebreak[3]
+We use the following colored boxes to highlight
 certain information:
 
-\def\demobox#1{\hspace{5em}\begin{minipage}{.75\textwidth}#1
+\def\demobox#1{\noindent\strut\hspace{.2\TW}\begin{minipage}{.75\textwidth}#1
 \end{minipage}\hfill\strut}
 
 \medskip
@@ -170,34 +173,29 @@ with the software or the documentation.}}
 \demobox{\Work{\indent This road sign in the margin indicates \textbf{work in progress}.}}
 
 \medskip
-\demobox{\Emph{\indent Such a box contains
+\demobox{\Emph{\indent A green box highlights
   an \textbf{important fact}, for instance an equation
-  that has a central role in
+  that is central in
   the further development of the theory.}}
 
 \medskip
-\demobox{\Note{\indent Such a box contains
-  an \textbf{implementation note} that explains
+\demobox{\Note{\indent
+  An \textbf{implementation note} explains
   how the theory exposed in this manual is actually used in \BornAgain.}}
 
 \medskip
-\demobox{\Tuto{\indent Such a box provides one or several links
-  to a usages examples in the online tutorial,
-  like the basic script \tuto{52}{cylinders in distorted wave Born approximation}
-  or the long list of \tuto{72}{all available form factors}.}}
+\noindent\strut\hspace{.2\TW}This is a \tuto{1}{link to the online docs}.
 
 \medskip
-Variations of the equation sign
-(as $\equiv$, $\coloneqq$, $\doteq$)
-are explained in the symbol index, page~\pageref{Snomencl}.
-%They are intended to accentuate a line of argument.
-%We hope they are helpful even if their usage is not always consistent.
-\nomenclature[0 000]{$\coloneqq$}{Defines what is on the left}%
-\nomenclature[0 001]{$\eqqcolon$}{Defines what is on the right}%
-\nomenclature[0 002]{$\equiv$}{Equal as result of a definition}%
-\nomenclature[0 010]{$\simeq$}{Asymptotically equal: equal in an implied limit}%
-\nomenclature[0 015]{$\doteq$}{Equal up to first order of a power-law expansion, hence a special case of asymptotic equality}%
-See there as well for less common mathematical functions like the
-cardinal sine function ``sinc''.
-\nomenclature[2s030 2i030 2n030 2c030]{$\sinc$}{Cardinal sine,
-   $\sinc(x)\coloneqq\sin(x)/x$}
+\setCpp
+\begin{lstlisting}[linewidth=.95\TW,xleftmargin=.2\TW]
+C++ code, mainly used for API documentation.
+\end{lstlisting}
+
+\setPy
+\begin{lstlisting}[linewidth=.95\TW,xleftmargin=.2\TW]
+Python code.
+\end{lstlisting}
+
+\bigskip
+Mathematical notations are explained in the symbol index, page~\pageref{Snomencl}.

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleDesigner/ConnectableView.h
-//! @brief     Declares class ConnectableView
+//! @brief     Defines class ConnectableView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#ifndef ISAMPLEVIEW_H
-#define ISAMPLEVIEW_H
+#ifndef CONNECTABLEVIEW_H
+#define CONNECTABLEVIEW_H
 
-#include "WinDllMacros.h"
 #include "IView.h"
 #include "NodeEditorPort.h"
+#include "WinDllMacros.h"
 
 class QPainter;
 class QStyleOptionGraphicsItem;
@@ -91,4 +91,4 @@ private:
 
 
 
-#endif //  ISAMPLEVIEW_H
+#endif // CONNECTABLEVIEW_H

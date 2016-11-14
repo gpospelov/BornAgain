@@ -39,11 +39,11 @@ BasicAxisItem::BasicAxisItem(const QString &type)
 void BasicAxisItem::register_basic_properties()
 {
     addProperty(P_IS_VISIBLE, true)->setVisible(false);
-    addProperty(P_NBINS, 100)->setLimits(AttLimits::limited(1, max_detector_pixels));
+    addProperty(P_NBINS, 100)->setLimits(RealLimits::limited(1, max_detector_pixels));
     addProperty(P_MIN, 0.0)->setDecimals(3);
-    getItem(P_MIN)->setLimits(AttLimits::limitless());
+    getItem(P_MIN)->setLimits(RealLimits::limitless());
     addProperty(P_MAX, -1.0)->setDecimals(3);
-    getItem(P_MAX)->setLimits(AttLimits::limitless());
+    getItem(P_MAX)->setLimits(RealLimits::limitless());
     addProperty(P_TITLE, QString());
 }
 

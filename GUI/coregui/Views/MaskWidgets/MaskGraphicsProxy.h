@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskGraphicsProxy.h
-//! @brief     Declares class MaskGraphicsProxy
+//! @brief     Defines class MaskGraphicsProxy
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,13 +17,14 @@
 #ifndef MASKGRAPHICSPROXY_H
 #define MASKGRAPHICSPROXY_H
 
-#include "ColorMapPlot.h"
 #include "MaskEditorHelper.h"
 #include <QGraphicsProxyWidget>
 
 class SessionItem;
 class ISceneAdaptor;
 class ColorMapSceneAdaptor;
+class ColorMap;
+class IntensityDataItem;
 
 //! Graphics proxy to place QWidget inside QGraphicsScene, used by MaskEditorCanvas.
 
@@ -41,7 +42,7 @@ public:
     void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
     void setInZoomMode(bool value);
 
-    void resetView();
+    ColorMap *colorMap();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -50,9 +51,9 @@ protected:
     void wheelEvent(QGraphicsSceneWheelEvent *event);
 
 private:
-    ColorMapPlot *m_colorMap;
+    ColorMap *m_colorMap;
     ColorMapSceneAdaptor *m_sceneAdaptor;
     bool m_send_signals_to_colormap;
 };
 
-#endif
+#endif // MASKGRAPHICSPROXY_H

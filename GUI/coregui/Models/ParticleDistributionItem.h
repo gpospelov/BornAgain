@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ParticleDistributionItem.h
-//! @brief     Declares class ParticleDistributionItem
+//! @brief     Defines class ParticleDistributionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,12 +17,10 @@
 #ifndef PARTICLEDISTRIBUTIONITEM_H
 #define PARTICLEDISTRIBUTIONITEM_H
 
-#include "ParticleDistribution.h"
 #include "SessionGraphicsItem.h"
+#include "ParticleDistribution.h"
 
-#include <QStringList>
 
-class ParameterPool;
 
 class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
 {

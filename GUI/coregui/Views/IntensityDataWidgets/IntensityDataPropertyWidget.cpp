@@ -15,12 +15,12 @@
 // ************************************************************************** //
 
 #include "IntensityDataPropertyWidget.h"
-#include "JobModel.h"
-#include "IntensityDataItem.h"
 #include "ComponentEditor.h"
-#include <QVBoxLayout>
+#include "IntensityDataItem.h"
+#include "JobModel.h"
 #include <QAction>
 #include <QDebug>
+#include <QVBoxLayout>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     : SessionItemWidget(parent)

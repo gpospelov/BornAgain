@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/TestView.h
-//! @brief     Declares class TestView
+//! @brief     Defines class TestView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,8 +21,6 @@
 #include <QWidget>
 
 class MainWindow;
-class QTabWidget;
-class QAbstractItemModel;
 
 class BA_CORE_API_ TestView : public QWidget
 {
@@ -42,4 +40,4 @@ private:
     MainWindow *m_mainWindow;
 };
 
-#endif
+#endif // TESTVIEW_H

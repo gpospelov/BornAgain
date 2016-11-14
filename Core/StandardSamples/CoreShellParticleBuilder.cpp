@@ -14,19 +14,21 @@
 // ************************************************************************** //
 
 #include "CoreShellParticleBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "Units.h"
 #include "FormFactorBox.h"
-#include "InterferenceFunctionNone.h"
+#include "Layer.h"
+#include "Materials.h"
+#include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleCoreShell.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 // --- CoreShellParticleBuilder ---
 
-ISample *CoreShellParticleBuilder::buildSample() const
+MultiLayer* CoreShellParticleBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
 
@@ -56,7 +58,7 @@ ISample *CoreShellParticleBuilder::buildSample() const
 
 // --- CoreShellBoxRotateZandYBuilder ---
 
-ISample *CoreShellBoxRotateZandYBuilder::buildSample() const
+MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const
 {
     const double layer_thickness(100.0*Units::nanometer);
 
@@ -65,7 +67,6 @@ ISample *CoreShellBoxRotateZandYBuilder::buildSample() const
     HomogeneousMaterial mSubstrate("Substrate", 3.212e-6, 3.244e-8);
     HomogeneousMaterial mCore("Ag", 1.245e-5, 5.419e-7);
     HomogeneousMaterial mShell("AgO2", 8.600e-6, 3.442e-7);
-
 
     // core shell particle
     const double shell_length(50.0*Units::nanometer);
@@ -90,7 +91,7 @@ ISample *CoreShellBoxRotateZandYBuilder::buildSample() const
     middle_layer.addLayout(layout);
     Layer substrate(mSubstrate);
 
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(middle_layer);
     multi_layer->addLayer(substrate);

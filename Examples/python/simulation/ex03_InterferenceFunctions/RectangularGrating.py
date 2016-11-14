@@ -4,8 +4,6 @@ Monte-carlo integration is used to get rid of
 large-particle form factor oscillations.
 """
 import numpy
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -13,7 +11,7 @@ phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
 
-def get_sample(lattice_rotation_angle=45.0*deg):
+def get_sample(lattice_rotation_angle):
     """
     Returns a sample with a grating on a substrate,
     modelled by very long boxes forming a 1D lattice with Cauchy correlations.
@@ -23,8 +21,8 @@ def get_sample(lattice_rotation_angle=45.0*deg):
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    box_length, box_width, box_height = 10*nm, 10000*nm, 10.0*nm
-    lattice_length = 30.0*nm
+    box_length, box_width, box_height = 10*nm, 10000*nm, 10*nm
+    lattice_length = 30*nm
 
     # collection of particles
     interference = ba.InterferenceFunction1DLattice(
@@ -60,33 +58,21 @@ def get_simulation(monte_carlo_integration=True):
                                      200, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
-
     return simulation
 
 
 def run_simulation():
     """
-    Run simulation and plot results
+    Runs simulation and returns intensity map.
     """
-    sample = get_sample(lattice_rotation_angle=45.0*deg)
+    sample = get_sample(lattice_rotation_angle=45*deg)
     simulation = get_simulation(monte_carlo_integration=True)
     simulation.setSample(sample)
+    simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
-    result = simulation.getIntensityData()
-
-    # showing the result
-    im = plt.imshow(
-        result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
-        aspect='auto')
-    cb = plt.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.show()
+    return simulation.getIntensityData()
 
 
 if __name__ == '__main__':
-    run_simulation()
+    result = run_simulation()
+    ba.plot_intensity_data(result)

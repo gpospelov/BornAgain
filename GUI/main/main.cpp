@@ -14,16 +14,17 @@
 //
 // ************************************************************************** //
 
+#include "FitProgressInfo.h"
+#include "SplashScreen.h"
 #include "appoptions.h"
 #include "mainwindow.h"
-#include "SplashScreen.h"
-#include "FitProgressInfo.h"
+#include "ComboProperty.h"
 #include <QApplication>
 #include <QDebug>
-#include <iostream>
-#include <QTime>
 #include <QLocale>
 #include <QMetaType>
+#include <QTime>
+#include <iostream>
 
 void messageHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
 {
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     qRegisterMetaType<QVector<double> >("QVector<double>");
     qRegisterMetaType<FitProgressInfo>("FitProgressInfo");
+//    QMetaType::registerComparators<ComboProperty>();
 
     QApplication a(argc, argv);
 

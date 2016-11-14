@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/ImportDataView.h
-//! @brief     Declares class ImportDataView
+//! @brief     Defines class ImportDataView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,18 +17,14 @@
 #ifndef IMPORTDATAVIEW_H
 #define IMPORTDATAVIEW_H
 
-#include "WinDllMacros.h"
 #include "ItemStackPresenter.h"
 #include "RealDataEditorWidget.h"
-#include <QWidget>
+#include "RealDataMaskWidget.h"
 
 class ImportDataToolBar;
-class ItemSelectorWidget;
 class RealDataModel;
-
-namespace Manhattan {
-    class MiniSplitter;
-}
+class RealDataSelectorWidget;
+namespace Manhattan { class MiniSplitter; }
 
 //! The ImportDataView class is a main view for importing experimental data.
 
@@ -47,9 +43,10 @@ private:
 
     ImportDataToolBar *m_toolBar;
     Manhattan::MiniSplitter *m_splitter;
-    ItemSelectorWidget *m_selectorWidget;
-    ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
+    RealDataSelectorWidget *m_selectorWidget;
+    ItemStackPresenter<RealDataMaskWidget> *m_stackedWidget;
+//    ItemStackPresenter<RealDataEditorWidget> *m_stackedWidget;
     RealDataModel *m_realDataModel;
 };
 
-#endif
+#endif // IMPORTDATAVIEW_H

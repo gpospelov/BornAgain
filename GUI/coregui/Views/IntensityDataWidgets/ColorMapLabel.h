@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapLabel.h
-//! @brief     Declares class ColorMapLabel
+//! @brief     Defines class ColorMapLabel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -55,5 +55,5 @@ private:
     QList<ColorMap *> m_colorMaps;
 };
 
-#endif
+#endif // COLORMAPLABEL_H
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SimulationWidgets/PythonScriptWidget.h
-//! @brief     Declares class PythonScriptWidget
+//! @brief     Defines class PythonScriptWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -59,4 +59,4 @@ private:
     QString m_outputDir;
 };
 
-#endif
+#endif // PYTHONSCRIPTWIDGET_H

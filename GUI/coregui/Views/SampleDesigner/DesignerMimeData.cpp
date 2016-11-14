@@ -15,19 +15,16 @@
 // ************************************************************************** //
 
 #include "DesignerMimeData.h"
-#include <QWidget>
-#include <QDrag>
+#include "DesignerHelper.h"
+#include <QBitmap>
 #include <QByteArray>
 #include <QDataStream>
-#include <QPixmap>
-
-#include <QXmlStreamReader>
+#include <QDrag>
 #include <QPainter>
-#include <QBitmap>
-
+#include <QPixmap>
+#include <QWidget>
+#include <QXmlStreamReader>
 #include <iostream>
-
-#include "DesignerHelper.h"
 
 #if QT_VERSION < 0x050000
 #define QStringLiteral QString
@@ -61,14 +58,12 @@ void DesignerMimeData::read_xmldescr(const QString &xmldescr)
     while (!reader.atEnd()) {
         if (reader.readNext() == QXmlStreamReader::StartElement) {
             const QStringRef name = reader.name();
-            if(widget_found) {
-                reader.raiseError(tr("Unexpected element <%1>").arg(name.toString()));
-            }
-            if (name.compare(QStringLiteral("widget"), Qt::CaseInsensitive) == 0) {
+            if(widget_found)
+                reader.raiseError("Unexpected element <"+name.toString()+">");
+            if (name.compare(QStringLiteral("widget"), Qt::CaseInsensitive) == 0)
                 read_widget(reader);
-            } else {
-                reader.raiseError(tr("Unexpected element <%1>").arg(name.toString()));
-            }
+            else
+                reader.raiseError("Unexpected element <"+name.toString()+">");
         }
     }
 
@@ -117,4 +112,3 @@ QPixmap DesignerMimeData::getPixmap(const QString &name)
 {
     return DesignerHelper::getMimePixmap(name);
 }
-

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/ComponentInfoBox.h
-//! @brief     Declares class ComponentInfoBox
+//! @brief     Defines class ComponentInfoBox
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef COMPONENTINFOBOX_H
 #define COMPONENTINFOBOX_H
 
-#include "WinDllMacros.h"
 #include "GroupInfoBox.h"
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class ComponentBoxEditor;
@@ -51,4 +51,4 @@ private:
     QString m_title;
 };
 
-#endif
+#endif // COMPONENTINFOBOX_H

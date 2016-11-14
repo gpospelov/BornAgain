@@ -13,16 +13,17 @@
 //
 // ************************************************************************** //
 
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
-#include "InterferenceFunction2DParaCrystal.h"
-#include "FormFactorCylinder.h"
-#include "Units.h"
-#include "FTDistributions.h"
-#include "FunctionalTestSuite.h"
 #include "ParaCrystalBuilder.h"
+#include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
+#include "InterferenceFunction2DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)
@@ -34,7 +35,7 @@ RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     init_parameters();
 }
 
-ISample* RadialParaCrystalBuilder::buildSample() const
+MultiLayer* RadialParaCrystalBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -65,12 +66,11 @@ ISample* RadialParaCrystalBuilder::buildSample() const
 
 void RadialParaCrystalBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("corr_peak_distance", &m_corr_peak_distance);
-    registerParameter("corr_width", &m_corr_width);
-    registerParameter("corr_length", &m_corr_length);
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
+    registerParameter("corr_peak_distance", &m_corr_peak_distance).setUnit("nm").setNonnegative();
+    registerParameter("corr_width", &m_corr_width).setUnit("nm").setNonnegative();
+    registerParameter("corr_length", &m_corr_length).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
 }
 
 // -----------------------------------------------------------------------------
@@ -79,16 +79,15 @@ void RadialParaCrystalBuilder::init_parameters()
 
 Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
     : m_pdf1(new FTDistribution2DCauchy(0.1*Units::nanometer, 0.2*Units::nanometer))
+    , m_pdf2(new FTDistribution2DCauchy(0.3*Units::nanometer, 0.4*Units::nanometer))
 {}
 
 Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
 {
-    delete m_pdf1;
 }
 
-ISample* Basic2DParaCrystalBuilder::buildSample() const
+MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
 {
-    const IFTDistribution2D* pdf2 = getFTDistribution2D();
     MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -105,7 +104,11 @@ ISample* Basic2DParaCrystalBuilder::buildSample() const
     interference_function.setDomainSizes(20.0*Units::micrometer,
             40.0*Units::micrometer);
 
-    interference_function.setProbabilityDistributions(*m_pdf1, *pdf2);
+    if(const IFTDistribution2D* pdf2 = getFTDistribution2D())
+        interference_function.setProbabilityDistributions(*m_pdf1, *pdf2);
+    else
+        interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
+
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
 
@@ -138,7 +141,7 @@ HexParaCrystalBuilder::HexParaCrystalBuilder()
     init_parameters();
 }
 
-ISample* HexParaCrystalBuilder::buildSample() const
+MultiLayer* HexParaCrystalBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -171,20 +174,20 @@ ISample* HexParaCrystalBuilder::buildSample() const
 
 void HexParaCrystalBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("m_peak_distance", &m_peak_distance);
-    registerParameter("m_corr_length", &m_corr_length);
-    registerParameter("m_domain_size_1", &m_domain_size_1);
-    registerParameter("m_domain_size_2", &m_domain_size_2);
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
+
+    registerParameter("m_peak_distance", &m_peak_distance).setUnit("nm").setNonnegative();
+    registerParameter("m_corr_length", &m_corr_length).setUnit("nm").setNonnegative();
+    registerParameter("m_domain_size_1", &m_domain_size_1).setUnit("nm").setNonnegative();
+    registerParameter("m_domain_size_2", &m_domain_size_2).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
 }
 
 // -----------------------------------------------------------------------------
 // RectParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
-ISample* RectParaCrystalBuilder::buildSample() const
+MultiLayer* RectParaCrystalBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -223,7 +226,7 @@ ISample* RectParaCrystalBuilder::buildSample() const
 // IsGISAXS08BBuilder
 // -----------------------------------------------------------------------------
 
-ISample* IsGISAXS08BBuilder::buildSample() const
+MultiLayer* IsGISAXS08BBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -235,7 +238,7 @@ ISample* IsGISAXS08BBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     InterferenceFunction2DParaCrystal interference_function(
-        10.0 * Units::nanometer, 10.0 * Units::nanometer, Units::PI / 2.0, 0.0, 0.0);
+        10.0 * Units::nanometer, 10.0 * Units::nanometer, M_PI / 2.0, 0.0, 0.0);
     interference_function.setDomainSizes(20.0*Units::micrometer,
             20.0*Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);

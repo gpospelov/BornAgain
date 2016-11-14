@@ -15,27 +15,19 @@
 // ************************************************************************** //
 
 #include "InstrumentView.h"
-#include "mainwindow.h"
+#include "ExtendedDetectorDialog.h"
+#include "InstrumentEditorWidget.h"
 #include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
-#include "InstrumentEditorWidget.h"
-#include "InstrumentItem.h"
-#include "ExtendedDetectorDialog.h"
-#include "DetectorItems.h"
 #include "StyledToolBar.h"
-#include "minisplitter.h"
+#include "mainwindow.h"
+#include <QAction> // need detected by TeamCity
 #include <QBoxLayout>
+#include <QDebug>
+#include <QDebug>
 #include <QListView>
 #include <QStackedWidget>
-#include <QPushButton>
 #include <QToolButton>
-#include <QMenu>
-#include <QAction>
-#include <QDebug>
-#include <QComboBox>
-#include <QToolBar>
-#include <QRegExp>
-
 
 InstrumentView::InstrumentView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -92,11 +84,13 @@ void InstrumentView::resetView()
 }
 
 
-void InstrumentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected )
+void InstrumentView::onSelectionChanged(
+    const QItemSelection &selected, const QItemSelection &deselected )
 {
     qDebug() << "InstrumentView::onSelectionChanged()" << selected << deselected;
     if(selected.indexes().isEmpty()) {
-        qDebug() << "       InstrumentView::onSelectionChanged() -> no selected" << selected << deselected;
+        qDebug() << "       InstrumentView::onSelectionChanged() -> no selected"
+                 << selected << deselected;
         return;
     }
 
@@ -127,8 +121,10 @@ void InstrumentView::onAddInstrument()
     qDebug() << "InstrumentView::onAddInstrument()";
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
-    m_instrumentModel->insertNewItem(Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(
+        Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
+    m_instrumentModel->insertNewItem(
+        Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
     qDebug() << "       InstrumentView::onAddInstrument() -> clearing selection";
     m_instrumentSelector->getSelectionModel()->clearSelection();
@@ -225,12 +221,12 @@ void InstrumentView::setupActions()
     m_toolBar->addWidget(new QLabel(" "));
 
     m_addInstrumentAction
-        = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), tr("Add new instrument"), this);
+        = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), "Add new instrument", this);
     connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
 
     m_removeInstrumentAction
         = new QAction(QIcon(":/SampleDesigner/images/toolbar_recycle_dark.png"),
-                      tr("Remove currently selected instrument"), this);
+                      "Remove currently selected instrument", this);
     connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
 
     Q_ASSERT(m_instrumentSelector->getListView());
@@ -281,4 +277,3 @@ void InstrumentView::updateMapOfNames()
 //        qDebug() << "XXXXXXXXXXXXXXXX" << name << ncopy << regexp.cap(0);
     }
 }
-

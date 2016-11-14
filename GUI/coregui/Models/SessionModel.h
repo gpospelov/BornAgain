@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/SessionModel.h
-//! @brief     Declares class SessionModel
+//! @brief     Defines class SessionModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,14 +17,12 @@
 #ifndef SESSIONMODEL_H
 #define SESSIONMODEL_H
 
-#include <QAbstractItemModel>
-#include <QtCore/QXmlStreamReader>
-#include <QtCore/QXmlStreamWriter>
 #include "SessionItem.h"
 #include "SessionXML.h"
+#include <QStringList>
+#include <QtCore/QXmlStreamWriter>
 
 class IconProvider;
-class WarningMessageService;
 
 class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {

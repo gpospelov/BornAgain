@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef DEVICEPROFILE_H
-#define DEVICEPROFILE_H
+#ifndef DEVICEPROFILE_P_H
+#define DEVICEPROFILE_P_H
 
 #include "shared_global_p.h"
 
@@ -149,4 +149,4 @@ inline bool operator!=(const DeviceProfile &s1, const DeviceProfile &s2)
 
 QT_END_NAMESPACE
 
-#endif // DEVICEPROFILE_H
+#endif // DEVICEPROFILE_P_H

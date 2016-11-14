@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SessionModelView.h
-//! @brief     Declares class SessionModelView
+//! @brief     Defines class SessionModelView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,6 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <QVector>
 
 class MainWindow;
 class QToolBar;
@@ -70,4 +69,4 @@ private:
     QVector<ModelTree> m_content;
 };
 
-#endif
+#endif // SESSIONMODELVIEW_H

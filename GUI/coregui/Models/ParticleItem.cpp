@@ -15,15 +15,14 @@
 // ************************************************************************** //
 
 #include "ParticleItem.h"
-#include "ParticleCoreShellItem.h"
 #include "FormFactorItems.h"
-#include "MaterialUtils.h"
-#include "VectorItem.h"
-#include "TransformToDomain.h"
 #include "GUIHelpers.h"
+#include "MaterialUtils.h"
 #include "ModelPath.h"
+#include "ParticleCoreShellItem.h"
+#include "TransformToDomain.h"
+#include "VectorItem.h"
 
-#include <QDebug>
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
 const QString ParticleItem::P_ABUNDANCE = "Abundance";
@@ -37,7 +36,7 @@ ParticleItem::ParticleItem()
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     addProperty(P_MATERIAL,
                      MaterialUtils::getDefaultMaterialProperty().getVariant());
-    addProperty(P_ABUNDANCE, 1.0)->setLimits(AttLimits::limited(0.0, 1.0));
+    addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0));
     getItem(P_ABUNDANCE)->setDecimals(3);
     addGroupProperty(P_POSITION, Constants::VectorType);
     PositionTranslator position_translator;

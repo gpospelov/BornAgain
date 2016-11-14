@@ -16,11 +16,10 @@
 
 #include "MaskContainerView.h"
 #include "ISceneAdaptor.h"
-#include <QPainter>
 #include <QBrush>
-#include <QStyleOptionGraphicsItem>
 #include <QDebug>
-
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 MaskContainerView::MaskContainerView()
 {
@@ -30,7 +29,6 @@ MaskContainerView::MaskContainerView()
 
 void MaskContainerView::update_view()
 {
-//    prepareGeometryChange();
     m_bounding_rect = m_adaptor->getViewportRectangle();
     update();
 }

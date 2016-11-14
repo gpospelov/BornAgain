@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ColorProperty.h
-//! @brief     Declares class ColorProperty
+//! @brief     Defines class ColorProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,8 +18,6 @@
 #define COLORPROPERTY_H
 
 #include "WinDllMacros.h"
-#include <QMetaType>
-#include <QColor>
 #include <QPixmap>
 #include <QVariant>
 
@@ -59,4 +57,4 @@ Q_DECLARE_METATYPE(ColorProperty)
 
 
 
-#endif
+#endif // COLORPROPERTY_H

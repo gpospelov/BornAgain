@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/LatticeBuilder.cpp
-//! @brief     Implements class LatticeBuilder.
+//! @brief     Implements class Lattice1DBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,15 +13,17 @@
 //
 // ************************************************************************** //
 
-#include "InterferenceFunction1DLattice.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "FormFactorCylinder.h"
-#include "Units.h"
-#include "FTDistributions.h"
 #include "LatticeBuilder.h"
-
+#include "FTDecayFunctions.h"
+#include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
+#include "InterferenceFunction1DLattice.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 Lattice1DBuilder::Lattice1DBuilder()
     : m_length(20.0*Units::nanometer)
@@ -33,7 +35,7 @@ Lattice1DBuilder::Lattice1DBuilder()
     init_parameters();
 }
 
-ISample* Lattice1DBuilder::buildSample() const
+MultiLayer* Lattice1DBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -49,7 +51,7 @@ ISample* Lattice1DBuilder::buildSample() const
     interference_function.setDecayFunction(pdf);
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
-    Particle cylinder(particle_material,ff_cylinder);
+    Particle cylinder(particle_material, ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
     particle_layout.addInterferenceFunction(interference_function);
@@ -64,10 +66,9 @@ ISample* Lattice1DBuilder::buildSample() const
 
 void Lattice1DBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("lattice_length", &m_length);
-    registerParameter("lattice_rotation", &m_xi);
-    registerParameter("corr_length", &m_corr_length);
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
+    registerParameter("lattice_length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("lattice_rotation", &m_xi).setUnit("rad");
+    registerParameter("corr_length", &m_corr_length).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
 }

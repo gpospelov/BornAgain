@@ -14,16 +14,16 @@
 // ************************************************************************** //
 
 #include "CylindersBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
-#include "FormFactorCylinder.h"
-#include "Units.h"
-#include "InterferenceFunctionNone.h"
-#include "Distributions.h"
-#include "ParticleDistribution.h"
 #include "BornAgainNamespace.h"
-
+#include "FormFactorCylinder.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 // -----------------------------------------------------------------------------
 // Cylinders in DWBA
@@ -35,18 +35,15 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
     init_parameters();
 }
 
-
 void CylindersInDWBABuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter(BornAgain::Radius, &m_radius);
-    registerParameter(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
-
-ISample *CylindersInDWBABuilder::buildSample() const
+MultiLayer* CylindersInDWBABuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -68,7 +65,6 @@ ISample *CylindersInDWBABuilder::buildSample() const
     return multi_layer;
 }
 
-
 // -----------------------------------------------------------------------------
 // Cylinders in BA
 // -----------------------------------------------------------------------------
@@ -79,18 +75,15 @@ CylindersInBABuilder::CylindersInBABuilder()
     init_parameters();
 }
 
-
 void CylindersInBABuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter(BornAgain::Radius, &m_radius);
-    registerParameter(BornAgain::Height, &m_height);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
-
-ISample *CylindersInBABuilder::buildSample() const
+MultiLayer* CylindersInBABuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
@@ -118,18 +111,16 @@ LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
     init_parameters();
 }
 
-
 void LargeCylindersInDWBABuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter(BornAgain::Radius, &m_radius);
-    registerParameter(BornAgain::Height, &m_height);
+
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
-
-ISample *LargeCylindersInDWBABuilder::buildSample() const
+MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);

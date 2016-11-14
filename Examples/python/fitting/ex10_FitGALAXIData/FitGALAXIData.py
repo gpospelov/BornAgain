@@ -37,6 +37,7 @@ def create_simulation():
     simulation.setDetector(create_detector())
     simulation.setBeamParameters(wavelength, alpha_i, 0.0)
     simulation.setBeamIntensity(1.2e7)
+    simulation.setRegionOfInterest(85.0, 70.0, 120.0, 92.)
     # mask on reflected beam
     simulation.addMask(ba.Rectangle(101.9, 82.1, 103.7, 85.2), True)
     # detector resolution function
@@ -49,13 +50,13 @@ def create_simulation():
     return simulation
 
 
-def load_real_data(hist, filename="galaxi_data.tif.gz"):
+def load_real_data(filename="galaxi_data.tif.gz"):
     """
     Fill histogram representing our detector with intensity data from tif file.
     Returns cropped version of it, which represent the area we are interested in.
     """
-    hist.load(filename)
-    return hist.crop(85.0, 70.0, 120.0, 92.)
+    hist = ba.IHistogram.createFrom(filename)
+    return hist
 
 
 def run_fitting():
@@ -63,13 +64,14 @@ def run_fitting():
     sample_builder = MySampleBuilder()
     simulation.setSampleBuilder(sample_builder)
 
-    real_data = load_real_data(simulation.getIntensityData())
+    real_data = load_real_data()
 
     fit_suite = ba.FitSuite()
     draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
     fit_suite.initPrint(10)
     fit_suite.addSimulationAndRealData(simulation, real_data)
+    print("1.8")
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(
@@ -83,13 +85,12 @@ def run_fitting():
 
     use_two_minimizers_strategy = False
     if use_two_minimizers_strategy:
-        strategy1 = ba.FitStrategyAdjustMinimizer("Genetic")
-        strategy1.getMinimizerOptions().setMaxIterations(3)
+        strategy1 = ba.AdjustMinimizerStrategy("Genetic")
         fit_suite.addFitStrategy(strategy1)
 
         # Second fit strategy will use another algorithm.
         # It will use best parameters found from previous minimization round.
-        strategy2 = ba.FitStrategyAdjustMinimizer("Minuit2", "Migrad")
+        strategy2 = ba.AdjustMinimizerStrategy("Minuit2", "Migrad")
         fit_suite.addFitStrategy(strategy2)
 
     # running fit

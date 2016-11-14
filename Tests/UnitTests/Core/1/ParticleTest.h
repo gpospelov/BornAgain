@@ -3,7 +3,7 @@
 
 #include "Particle.h"
 #include "BornAgainNamespace.h"
-#include "Units.h"
+#include "MathConstants.h"
 #include "HomogeneousMaterial.h"
 #include "FormFactorFullSphere.h"
 
@@ -66,7 +66,7 @@ TEST_F(ParticleTest, Constructors)
     FormFactorFullSphere sphere(1.0);
     Particle *p2 = new Particle(mat, sphere);
     EXPECT_EQ(BornAgain::FFFullSphereType, p2->getFormFactor()->getName());
-    EXPECT_EQ(1, p2->getFormFactor()->getRadius());
+    EXPECT_EQ(1, p2->getFormFactor()->getRadialExtension());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(
             p2->createFormFactor()));
     EXPECT_EQ(complex_t(1,0),
@@ -77,7 +77,7 @@ TEST_F(ParticleTest, Constructors)
     FormFactorFullSphere sphere3(1.0);
     Particle *p3 = new Particle(mat, sphere3);
     EXPECT_EQ(sphere3.getName(), p3->getFormFactor()->getName());
-    EXPECT_EQ(sphere3.getRadius(), p3->getFormFactor()->getRadius());
+    EXPECT_EQ(sphere3.getRadialExtension(), p3->getFormFactor()->getRadialExtension());
 
     Particle *p4 = p3->clone();
     EXPECT_EQ(BornAgain::FFFullSphereType, p4->getFormFactor()->getName());
@@ -117,7 +117,7 @@ TEST_F(ParticleTest, SetParam)
 
     particle.setFormFactor(sphere);
     EXPECT_EQ(BornAgain::FFFullSphereType, particle.getFormFactor()->getName());
-    EXPECT_EQ(2.1, particle.getFormFactor()->getRadius());
+    EXPECT_EQ(2.1, particle.getFormFactor()->getRadialExtension());
 
     particle.setRotation(transform);
     EXPECT_TRUE(nullptr != particle.getRotation());
@@ -126,7 +126,7 @@ TEST_F(ParticleTest, SetParam)
     EXPECT_EQ("Air", particle2->getMaterial()->getName());
     EXPECT_EQ(complex_t(1.0), particle2->getRefractiveIndex());
     EXPECT_TRUE(nullptr != particle2->getFormFactor());
-    EXPECT_EQ(2.1, particle2->getFormFactor()->getRadius());
+    EXPECT_EQ(2.1, particle2->getFormFactor()->getRadialExtension());
     EXPECT_TRUE(nullptr != particle2->getRotation());
 
     delete particle2;

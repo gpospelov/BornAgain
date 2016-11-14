@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/ParameterTuningWidget.h
-//! @brief     Declares class ParameterTuningWidget
+//! @brief     Defines class ParameterTuningWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERTUNIGWIDGET_H
-#define PARAMETERTUNIGWIDGET_H
+#ifndef PARAMETERTUNINGWIDGET_H
+#define PARAMETERTUNINGWIDGET_H
 
 #include <QWidget>
 #include <memory>
@@ -79,4 +79,4 @@ private:
     WarningSignWidget *m_warningSign;
 };
 
-#endif
+#endif // PARAMETERTUNINGWIDGET_H

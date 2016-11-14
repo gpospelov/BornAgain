@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/SessionItem.h
-//! @brief     Declares class SessionItem
+//! @brief     Defines class SessionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,22 +14,17 @@
 //
 // ************************************************************************** //
 
-#ifndef SESSIONITEM_H_
-#define SESSIONITEM_H_
+#ifndef SESSIONITEM_H
+#define SESSIONITEM_H
 
-#include "WinDllMacros.h"
-#include "item_constants.h"
+#include "RealLimits.h"
 #include "ModelMapper.h"
-#include "AttLimits.h"
-
+#include "item_constants.h"
+#include <QStringList>
 #include <memory>
-#include <QVector>
-#include <QVariant>
-#include <QMetaType>
 
-Q_DECLARE_METATYPE(AttLimits)
+Q_DECLARE_METATYPE(RealLimits)
 
-class SessionModel;
 class SessionItemData;
 
 class SessionTagInfo
@@ -128,14 +123,14 @@ public:
     bool isEnabled() const;
     bool isEditable() const;
 
-    AttLimits limits() const;
-    void setLimits(const AttLimits &value);
+    RealLimits limits() const;
+    SessionItem& setLimits(const RealLimits &value);
 
     int decimals() const;
-    void setDecimals(int n);
+    SessionItem& setDecimals(int n);
 
     QString toolTip() const;
-    void setToolTip(const QString &tooltip);
+    SessionItem& setToolTip(const QString &tooltip);
 
 
     // helper functions
@@ -161,4 +156,4 @@ private:
 
 Q_DECLARE_METATYPE(SessionItem*) // INVESTIGATE something requires sessionitem be declared as meta type
 
-#endif /* SessionItem_H_ */
+#endif // SESSIONITEM_H

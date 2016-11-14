@@ -16,69 +16,62 @@
 #include "FileSystem.h"
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
-
-std::string Utils::FileSystem::m_argv0_path = std::string();
-std::string Utils::FileSystem::m_reference_data_dir = std::string();
-
-void Utils::FileSystem::SetArgvPath(const std::string& argv0)
-{
-    m_argv0_path = argv0;
-}
-
-std::string Utils::FileSystem::GetArgvPath()
-{
-    return m_argv0_path;
-}
-
-
-//! Returns path to the current (working) directory.
-
-std::string Utils::FileSystem::GetWorkingPath()
-{
-    return boost::filesystem::current_path().string();
-}
-
-//! Returns path to BornAgain home directory.
-
-std::string Utils::FileSystem::GetHomePath()
-{
-    throw NotImplementedException("Utils::FileSystem::GetHomePath()-> Not implemented anymore...");
-}
-
-std::string Utils::FileSystem::GetPathToExecutable(const std::string& argv0)
-{
-    std::string result = boost::filesystem::canonical( argv0.c_str() ).parent_path().string();
-    return result;
-}
-
-
-std::string Utils::FileSystem::GetPathToData(
-    const std::string& rel_data_path, const std::string& argv0)
-{
-    std::string result = (boost::filesystem::canonical( argv0.c_str() ).parent_path() /
-                          boost::filesystem::path(rel_data_path)).string();
-    return result;
-}
+#include <cassert>
+#include <boost/regex.hpp>
+#include <stdexcept>
 
 //! Returns file extension.
 
-std::string Utils::FileSystem::GetFileExtension(const std::string& name)
+std::string FileSystem::GetFileExtension(const std::string& name)
 {
     return boost::filesystem::extension(name.c_str());
 }
 
-
-bool Utils::FileSystem::CreateDirectory(const std::string &dir_name)
+bool FileSystem::CreateDirectory(const std::string& dir_name)
 {
-    boost::filesystem::path dir(dir_name);
-    return boost::filesystem::create_directory(dir);
+    assert(dir_name!="");
+    return boost::filesystem::create_directory(dir_name);
 }
 
-std::string Utils::FileSystem::GetJoinPath(const std::string &spath1, const std::string &spath2)
+    //! Returns filenames of files in directory
+std::vector<std::string> FileSystem::filesInDirectory(const std::string& dir_name)
 {
+    std::vector<std::string> ret;
+    if (!boost::filesystem::exists(dir_name))
+        throw std::runtime_error("FileSystem::filesInDirectory '" + dir_name + "' does not exist");
+    boost::filesystem::directory_iterator end_it; // default construction yields past-the-end
+    for ( boost::filesystem::directory_iterator it( dir_name );
+          it != boost::filesystem::directory_iterator(); ++it ) {
+        if( !boost::filesystem::is_regular_file( it->status() ) )
+            continue;
+        ret.push_back( it->path().filename().string() );
+    }
+    return ret;
+}
+
+std::string FileSystem::GetJoinPath(const std::string& spath1, const std::string& spath2)
+{
+    assert(spath1!="");
+    assert(spath2!="");
     boost::filesystem::path path1(spath1);
     boost::filesystem::path path2(spath2);
     boost::filesystem::path full_path = path1 / path2;
 
     return full_path.string();
+}
+
+//! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
+std::string FileSystem::filename(const std::string& path)
+{
+    return boost::filesystem::path(path).filename().string();
+}
+
+//! Returns file names that agree with a regex glob pattern.
+std::vector<std::string> FileSystem::reglob(const std::string& dir, const std::string& pattern)
+{
+    std::vector<std::string> ret;
+    for (const std::string& fname: filesInDirectory(dir))
+        if (boost::regex_match(fname, boost::regex(pattern)))
+            ret.push_back(fname);
+    return ret;
 }

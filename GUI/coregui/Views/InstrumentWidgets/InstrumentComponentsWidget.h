@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/InstrumentComponentsWidget.h
-//! @brief     Declares class InstrumentComponentsWidget
+//! @brief     Defines class InstrumentComponentsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -46,4 +46,4 @@ private:
     DetectorItem *m_detectorItem;
 };
 
-#endif
+#endif // INSTRUMENTCOMPONENTSWIDGET_H

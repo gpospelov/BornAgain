@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      coregui/Models/ParameterTreeBuilder.cpp
+//! @file      GUI/coregui/Models/ParameterTreeBuilder.cpp
 //! @brief     Implements class ParameterTreeBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "ParameterTreeBuilder.h"
-#include "SampleModel.h"
-#include "JobItem.h"
-#include "MultiLayerItem.h"
-#include "GroupItem.h"
-#include "ModelPath.h"
-#include "ParameterTreeItems.h"
 #include "FitParameterHelper.h"
+#include "GroupItem.h"
+#include "JobItem.h"
+#include "ModelPath.h"
+#include "MultiLayerItem.h"
+#include "ParameterTreeItems.h"
+#include "SampleModel.h"
 #include <QStack>
 
 void ParameterTreeBuilder::createParameterTree(JobItem *item, const QString &tag)
@@ -100,7 +100,8 @@ void ParameterTreeBuilder::populateDomainLinks(JobItem *jobItem, const QString &
     stack.push(current);
     while (!stack.empty()) {
         current = stack.pop();
-        if (current->modelType() == Constants::ParameterLabelType) {
+        if (current->modelType() == Constants::ParameterLabelType
+                || current->modelType() == Constants::ParameterContainerType) {
             for (SessionItem *child : current->getItems()) {
                 stack.push(child);
             }
@@ -108,7 +109,7 @@ void ParameterTreeBuilder::populateDomainLinks(JobItem *jobItem, const QString &
             if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
                 QString parItemPath = FitParameterHelper::getParameterItemPath(parItem);
                 std::string domainPath = ModelPath::translateParameterName(
-                    jobItem->getMultiLayerItem()->parent(), parItemPath);
+                    jobItem, parItemPath);
                 parItem->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(domainPath));
             }
         }

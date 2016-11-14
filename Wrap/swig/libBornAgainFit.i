@@ -2,8 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      PythonAPI/libBornAgainFit.i
+//! @file      Wrap/swig/libBornAgainFit.i
 //! @brief     SWIG interface file for libBornAgainFit
+//!
+//!            Configuration is done in Fit/CMakeLists.txt
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -59,36 +61,14 @@ import_array();
 %import "WinDllMacros.h"
 
 %{
-#include "ChiSquaredModule.h"
-#include "FitObject.h"
-#include "FitOptions.h"
+#include "AttLimits.h"
+#include "IFitParameter.h"
 #include "FitParameter.h"
-#include "FitKernel.h"
-#include "FitSuite.h"
-#include "FitSuiteObjects.h"
-#include "FitSuiteParameters.h"
-#include "IChiSquaredModule.h"
-#include "IFitObserver.h"
-#include "IFitStrategy.h"
-#include "IIntensityFunction.h"
-#include "IIntensityNormalizer.h"
+#include "FitParameterSet.h"
 #include "IMinimizer.h"
-#include "INamed.h"
-#include "IObserver.h"
-#include "ISquaredFunction.h"
-#include "MathFunctions.h"
+#include "MinimizerCatalogue.h"
 #include "MinimizerFactory.h"
-#include "MinimizerOptions.h"
-#include "FitStrategyAdjustMinimizer.h"
-//#include "IFactory.h"
-//#include "StandardFitsFactory.h"
 %}
-
-%import(module="libBornAgainCore") "AttLimits.h"
-%import(module="libBornAgainCore") "ICloneable.h"
-%import(module="libBornAgainCore") "INamed.h"
-%import(module="libBornAgainCore") "IParameterized.h"
-%import(module="libBornAgainCore") "IObserver.h"
 
 // ownership
 %newobject FitSuite::getRealData(size_t i_item = 0) const;
@@ -98,26 +78,12 @@ import_array();
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%include "IFactory.h"
+%include "AttLimits.h"
 %include "IMinimizer.h"
-%include "IChiSquaredModule.h"
-%include "IFitObserver.h"
-%include "IFitStrategy.h"
-%include "IIntensityFunction.h"
-%include "IIntensityNormalizer.h"
-%include "ISquaredFunction.h"
-%include "ChiSquaredModule.h"
-%include "FitObject.h"
-%include "FitOptions.h"
+%include "IFitParameter.h"
 %include "FitParameter.h"
-%include "FitSuite.h"
-%include "FitSuiteObjects.h"
-%include "FitSuiteParameters.h"
-%include "MathFunctions.h"
-%include "MinimizerOptions.h"
+%include "FitParameterSet.h"
+%include "MinimizerCatalogue.h"
 %include "MinimizerFactory.h"
-%include "FitStrategyAdjustMinimizer.h"
- //%include "StandardFitsFactory.h"
- //%template(StandardFitsFactory) IFactory<IStandardFits>;
 
 %include "extendFit.i"

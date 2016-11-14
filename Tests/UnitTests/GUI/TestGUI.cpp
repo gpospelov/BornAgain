@@ -17,10 +17,13 @@
 #include "TestGUIHelpers.h"
 #include "TestFitParameterModel.h"
 #include "TestMaterialModel.h"
+#include "TestComboProperty.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
     Q_UNUSED(app);
+
+    QMetaType::registerComparators<ComboProperty>();
 
     TestFormFactorItems testFormFactorItems;
     TestFTDistributionItems testFTDistributionItems;
@@ -37,6 +40,7 @@ int main(int argc, char** argv) {
     TestGUIHelpers testGUIHelpers;
     TestFitParameterModel testFitParameterModel;
     TestMaterialModel testMaterialModel;
+    TestComboProperty testComboProperty;
 
     bool status(false);
 
@@ -55,8 +59,8 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
     status |= QTest::qExec(&testGUIHelpers, argc, argv);
     status |= QTest::qExec(&testFitParameterModel, argc, argv);
-
     status |= QTest::qExec(&testMaterialModel, argc, argv);
+    status |= QTest::qExec(&testComboProperty, argc, argv);
 
     return status;
 }

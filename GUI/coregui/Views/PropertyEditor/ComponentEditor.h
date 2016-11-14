@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/PropertyEditor/ComponentEditor.h
-//! @brief     Declares class ComponentEditor
+//! @brief     Defines class ComponentEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef COMPONENTEDITOR_H
 #define COMPONENTEDITOR_H
 
-#include "WinDllMacros.h"
 #include "ComponentEditorFlags.h"
+#include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
 
@@ -42,6 +42,8 @@ public:
 
     void clearEditor();
 
+    void setHeaderHidden(bool hide);
+
 public slots:
     virtual void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
     virtual void onRowsInserted(const QModelIndex &parent, int first, int last);
@@ -62,4 +64,4 @@ protected:
 };
 
 
-#endif
+#endif // COMPONENTEDITOR_H

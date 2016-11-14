@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ComboProperty.h
-//! @brief     Declares class ComboProperty
+//! @brief     Defines class ComboProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,12 +14,11 @@
 //
 // ************************************************************************** //
 
-#ifndef COMBO_PROPERTY_H
-#define COMBO_PROPERTY_H
+#ifndef COMBOPROPERTY_H
+#define COMBOPROPERTY_H
 
 #include "WinDllMacros.h"
 #include <QStringList>
-#include <QMetaType>
 #include <QVariant>
 
 //! The ComboProperty defines SessionItem's property with a value
@@ -36,7 +35,6 @@ public:
     QString getValue() const;
 
     void setValue(const QString &name);
-    bool operator!=(const ComboProperty &other);
     bool isDefined();
 
     QStringList getValues() const;
@@ -62,6 +60,10 @@ public:
     bool cacheContainsGUIValue() const;
     void setCacheContainsGUIFlag(bool flag=true);
 
+    bool operator==(const ComboProperty &other) const;
+    bool operator!=(const ComboProperty &other) const { return !(*this == other); }
+    bool operator<(const ComboProperty &other) const;
+
 private:
     QStringList m_values;
     QStringList m_values_tooltips;
@@ -73,11 +75,6 @@ private:
 inline QString ComboProperty::getValue() const
 {
     return m_current_value;
-}
-
-inline bool ComboProperty::operator!=(const ComboProperty &other)
-{
-    return (getValue() != other.getValue());
 }
 
 inline bool ComboProperty::isDefined()
@@ -134,4 +131,4 @@ Q_DECLARE_METATYPE(ComboProperty)
 
 
 
-#endif
+#endif // COMBOPROPERTY_H

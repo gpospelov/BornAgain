@@ -42,4 +42,4 @@ private:
 };
 
 
-#endif
+#endif // UPDATENOTIFIER_H

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/InputOutput/OutputDataWriteStrategy.h
-//! @brief     Declares classes IOutputDataWriteStrategy and OutputDataWriteStreamIMA.
+//! @brief     Defines classes IOutputDataWriteStrategy and OutputDataWriteStreamIMA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,10 +17,9 @@
 #define OUTPUTDATAWRITESTRATEGY_H
 
 #include "WinDllMacros.h"
-#include <string>
+#include <istream>
 
 template <class T> class OutputData;
-
 
 //! @class IOutputDataWriteStrategy
 //! @ingroup input_output_internal
@@ -41,7 +40,7 @@ public:
 class OutputDataWriteINTStrategy : public IOutputDataWriteStrategy
 {
 public:
-    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+    virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 };
 
 //! @class OutputDataWriteNumpyTXTStrategy
@@ -50,9 +49,8 @@ public:
 class OutputDataWriteNumpyTXTStrategy : public IOutputDataWriteStrategy
 {
 public:
-    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+    virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 };
-
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
@@ -66,13 +64,11 @@ class OutputDataWriteTiffStrategy : public IOutputDataWriteStrategy
 public:
     OutputDataWriteTiffStrategy();
     virtual ~OutputDataWriteTiffStrategy();
-    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+    virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 private:
-    TiffHandler *m_d;
+    TiffHandler* m_d;
 };
 
 #endif // BORNAGAIN_TIFF_SUPPORT
 
 #endif // OUTPUTDATAWRITESTRATEGY_H
-
-

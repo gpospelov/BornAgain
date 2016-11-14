@@ -15,21 +15,17 @@
 // ************************************************************************** //
 
 #include "actionmanager.h"
+#include "UpdateNotifier.h"
 #include "hostosinfo.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
-#include "stringutils.h"
-#include "UpdateNotifier.h"
-#include <QMenuBar>
-#include <QMenu>
-#include <QShortcut>
-#include <QSettings>
-#include <QFileInfo>
-#include <QKeySequence>
+#include "qstringutils.h"
 #include <QDebug>
 #include <QDir>
-#include <iostream>
+#include <QMenuBar>
+#include <QSettings>
+#include <QShortcut>
 
 ActionManager::ActionManager(MainWindow *parent)
     : QObject(parent)
@@ -59,45 +55,45 @@ void ActionManager::createActions()
 
     // new project action
 //    QIcon icon = QIcon::fromTheme(QLatin1String("document-new"), QIcon(QLatin1String(Constants::ICON_NEWFILE)));
-    m_newAction = new QAction(tr("&New Project"), m_mainWindow);
+    m_newAction = new QAction("&New Project", m_mainWindow);
     m_newAction->setShortcuts(QKeySequence::New);
-    m_newAction->setStatusTip(tr("Create a new project"));
+    m_newAction->setStatusTip("Create a new project");
     connect(m_newAction, SIGNAL(triggered()), projectManager, SLOT(newProject()) );
 
     // open project action
 //    icon = QIcon::fromTheme(QLatin1String("document-open"), QIcon(QLatin1String(Constants::ICON_OPENFILE)));
-    m_openAction = new QAction(tr("&Open Project"), m_mainWindow);
+    m_openAction = new QAction("&Open Project", m_mainWindow);
     m_openAction->setShortcuts(QKeySequence::Open);
-    m_openAction->setStatusTip(tr("Open an existing project"));
+    m_openAction->setStatusTip("Open an existing project");
     connect(m_openAction, SIGNAL(triggered()), projectManager, SLOT(openProject()) );
 
     // save project action
 //    icon = QIcon::fromTheme(QLatin1String("document-save"), QIcon(QLatin1String(Constants::ICON_SAVEFILE)));
-    m_saveAction = new QAction(tr("&Save Project"), m_mainWindow);
+    m_saveAction = new QAction("&Save Project", m_mainWindow);
     m_saveAction->setShortcuts(QKeySequence::Save);
-    m_saveAction->setStatusTip(tr("Save project"));
+    m_saveAction->setStatusTip("Save project");
     m_saveAction->setShortcutContext(Qt::ApplicationShortcut);
     connect(m_saveAction, SIGNAL(triggered()), projectManager, SLOT(saveProject()) );
 
     // save-as project action
 //    icon = QIcon::fromTheme(QLatin1String("document-save-as"));
-    m_saveAsAction = new QAction(tr("Save &As..."), m_mainWindow);
+    m_saveAsAction = new QAction("Save &As...", m_mainWindow);
     m_saveAsAction->setShortcuts(QKeySequence::SaveAs);
-    m_saveAsAction->setStatusTip(tr("Save project under different name"));
+    m_saveAsAction->setStatusTip("Save project under different name");
     connect(m_saveAsAction, SIGNAL(triggered()), projectManager, SLOT(saveProjectAs()) );
 
     // exit application action
 //    icon = QIcon::fromTheme(QLatin1String("application-exit"));
-    m_exitAction = new QAction(tr("E&xit Application"), this);
+    m_exitAction = new QAction("E&xit Application", this);
     m_exitAction->setShortcuts(QKeySequence::Quit);
-    m_exitAction->setStatusTip(tr("Exit the application"));
+    m_exitAction->setStatusTip("Exit the application");
     connect(m_exitAction, SIGNAL(triggered()), m_mainWindow, SLOT(close()));
 
     // about application action
 //    icon = QIcon::fromTheme(QLatin1String("help-about"));
-    m_aboutAction = new QAction(tr("About &BornAgain"), this);
+    m_aboutAction = new QAction("About &BornAgain", this);
     //m_aboutAction->setShortcuts(QKeySequence::HelpContents);
-    m_aboutAction->setStatusTip(tr("About the application"));
+    m_aboutAction->setStatusTip("About the application");
     connect(m_aboutAction, SIGNAL(triggered()), m_mainWindow, SLOT(onAboutApplication()));
 
 }
@@ -111,7 +107,7 @@ void ActionManager::createMenus()
         m_mainWindow->setMenuBar(m_menuBar);
 
     // File Menu
-    m_fileMenu = m_menuBar->addMenu(tr("&File"));
+    m_fileMenu = m_menuBar->addMenu("&File");
     m_fileMenu->addAction(m_newAction);
     m_fileMenu->addAction(m_openAction);
     connect(m_fileMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowRecentProjects()));
@@ -132,14 +128,14 @@ void ActionManager::createMenus()
     m_menuBar->addMenu(m_settingsMenu);
 
     // Help Menu
-    m_helpMenu = m_menuBar->addMenu(tr("&Help"));
+    m_helpMenu = m_menuBar->addMenu("&Help");
     m_helpMenu->addAction(m_aboutAction);
 }
 
 
 void ActionManager::createGlobalShortcuts()
 {
-    m_runSimulationShortcut =  new QShortcut(QKeySequence(tr("Ctrl+r")), m_mainWindow);
+    m_runSimulationShortcut =  new QShortcut(QKeySequence("Ctrl+r"), m_mainWindow);
     m_runSimulationShortcut->setContext((Qt::ApplicationShortcut));
     connect(m_runSimulationShortcut, SIGNAL(activated()), m_mainWindow, SLOT(onRunSimulationShortcut()));
 }
@@ -172,18 +168,18 @@ void ActionManager::aboutToShowRecentProjects()
 
 void ActionManager::aboutToShowSettings()
 {
-    m_settingsMenu->clear();    
+    m_settingsMenu->clear();
     QSettings settings;
 
     settings.beginGroup(Constants::S_UPDATES);
-    QAction *action = m_settingsMenu->addAction(tr("Check for Updates"));
+    QAction *action = m_settingsMenu->addAction("Check for Updates");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
     connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
     settings.endGroup();
 
     settings.beginGroup(Constants::S_SESSIONMODELVIEW);
-    action = m_settingsMenu->addAction(tr("Model tech view"));
+    action = m_settingsMenu->addAction("Model tech view");
     action->setToolTip("Additional developer's view will appear in left control tab bar");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
@@ -208,5 +204,3 @@ void ActionManager::setSessionModelViewActive(bool status)
     settings.endGroup();
     m_mainWindow->onSessionModelViewActive(status);
 }
-
-

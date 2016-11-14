@@ -2,7 +2,16 @@
 # Tests/Functional/Core/CMakeLists.txt
 ############################################################################
 
-# CoreSuite cases:
+set(CORE_STD_OUT_DIR     ${BUILD_REF_DIR}/StandardSuite)
+set(CORE_STD_REF_DIR     ${REFERENCE_DIR}/StandardSuite)
+set(CORE_SPECIAL_REF_DIR ${REFERENCE_DIR}/Special)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_STD_OUT_DIR=\\\"${CORE_STD_OUT_DIR}\\\"")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_STD_REF_DIR=\\\"${CORE_STD_REF_DIR}\\\"")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_SPECIAL_REF_DIR=\\\"${CORE_SPECIAL_REF_DIR}\\\"")
+
+# CoreStandardTest cases:
 set(test_cases
     ApproximationDA
     ApproximationLMA
@@ -47,6 +56,8 @@ set(test_cases
     TransformBox
     TriangularRipple
     TwoTypesCylindersDistribution
+    SphericalDetWithRoi
+    RectDetWithRoi
     )
 
 # Other tests:
@@ -60,7 +71,9 @@ include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../TestMachinery
+    ${CMAKE_SOURCE_DIR}/Core/Simulation
+    )
 
 # for some reason these flags aren't propagated here by SetUpWindows.cmake
 if(MSVC)
@@ -68,11 +81,12 @@ if(MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
 endif()
 
-# Setup CoreSuite:
-add_executable(CoreSuite CoreSuite.cpp)
-target_link_libraries(CoreSuite BornAgainCore)
+# Setup CoreStandardTest:
+add_executable(CoreStandardTest CoreStandardTest.cpp CoreTest.h CoreTest.cpp)
+target_link_libraries(CoreStandardTest BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
-    add_test(CoreSuite/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/CoreSuite ${test_case})
+    add_test(CoreStandardTest/${test_case}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/CoreStandardTest ${test_case})
 endforeach()
 
 # Setup other tests:

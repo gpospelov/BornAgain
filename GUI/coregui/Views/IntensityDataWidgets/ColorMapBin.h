@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapBin.h
-//! @brief     Declares class ColorMapBin
+//! @brief     Defines class ColorMapBin
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -51,4 +51,4 @@ public:
     double m_x, m_y, m_value;
 };
 
-#endif
+#endif // COLORMAPBIN_H

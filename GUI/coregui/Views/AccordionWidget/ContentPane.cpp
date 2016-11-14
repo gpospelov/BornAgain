@@ -208,8 +208,8 @@ void ContentPane::initAnimations()
     this->closeAnimation->setTargetObject(this->container);
     this->closeAnimation->setPropertyName("maximumHeight");
 
-    this->openAnimation->setDuration(300);
-    this->closeAnimation->setDuration(300);
+    this->openAnimation->setDuration(100);
+    this->closeAnimation->setDuration(100);
     this->openAnimation->setStartValue(0);
     this->closeAnimation->setStartValue(this->containerAnimationMaxHeight);
     this->openAnimation->setEndValue(this->containerAnimationMaxHeight);

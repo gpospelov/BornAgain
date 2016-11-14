@@ -15,11 +15,10 @@
 // ************************************************************************** //
 
 #include "LayerItem.h"
+#include "BornAgainNamespace.h"
 #include "MaterialUtils.h"
-#include "ComboProperty.h"
-#include "ItemFactory.h"
 
-const QString LayerItem::P_THICKNESS = "Thickness";
+const QString LayerItem::P_THICKNESS = QString::fromStdString(BornAgain::Thickness);
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
 const QString LayerItem::T_LAYOUTS = "Layout tag";
@@ -28,7 +27,7 @@ LayerItem::LayerItem()
     : SessionGraphicsItem(Constants::LayerType)
 {
     addProperty(P_THICKNESS, 0.0);
-    getItem(P_THICKNESS)->setLimits(AttLimits::lowerLimited(0.0));
+    getItem(P_THICKNESS)->setLimits(RealLimits::lowerLimited(0.0));
     addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
     addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);

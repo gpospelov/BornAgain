@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskEditorFlags.h
-//! @brief     Declares class MaskEditorFlags
+//! @brief     Defines class MaskEditorFlags
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -33,6 +33,7 @@ public:
         VERTICAL_LINE_MODE,
         HORIZONTAL_LINE_MODE,
         ELLIPSE_MODE,
+        ROI_MODE,
         MASKALL_MODE
     };
     Q_DECLARE_FLAGS(Activity, EActivityType)
@@ -61,4 +62,4 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::Stacking)
 Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::MaskValue)
 Q_DECLARE_OPERATORS_FOR_FLAGS(MaskEditorFlags::PresentationType)
 
-#endif
+#endif // MASKEDITORFLAGS_H

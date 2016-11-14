@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/SizeHandleElement.h
-//! @brief     Declares SizeHandleElement class
+//! @brief     Defines SizeHandleElement class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -37,7 +37,7 @@ public:
         NONE,
         TOPLEFT,     TOPMIDDLE,   TOPRIGHT,
         MIDDLELEFT,               MIDDLERIGHT,
-        BOTTOMRIGHT, BOTTOMMIDLE, BOTTOMLEFT,
+        BOTTOMLEFT, BOTTOMMIDLE, BOTTOMRIGHT,
     };
 
     enum EHandleType
@@ -74,4 +74,4 @@ private:
     static QMap<EHandleLocation, EHandleLocation> m_opposite_handle_location;
 };
 
-#endif
+#endif // SIZEHANDLEELEMENT_H

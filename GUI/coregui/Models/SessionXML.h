@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/SessionXML.h
-//! @brief     Declares reader and writer classes for SessionModel
+//! @brief     Defines reader and writer classes for SessionModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,6 @@
 #define SESSIONXML_H
 
 #include "WinDllMacros.h"
-#include <QString>
 #include <QVariant>
 
 class QXmlStreamWriter;

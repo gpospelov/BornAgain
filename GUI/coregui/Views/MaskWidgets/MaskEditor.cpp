@@ -15,42 +15,42 @@
 // ************************************************************************** //
 
 #include "MaskEditor.h"
+#include "GISASSimulation.h"
+#include "GUIHelpers.h"
+#include "IntensityDataItem.h"
 #include "MaskEditorActions.h"
 #include "MaskEditorCanvas.h"
 #include "MaskEditorPropertyPanel.h"
 #include "MaskEditorToolBar.h"
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
-#include <QBoxLayout>
-#include <QSplitter>
-#include <QContextMenuEvent>
-#include <QMenu>
-#include <QDebug>
-
-#include "SimulationFactory.h"
-
-#include "SampleBuilderFactory.h"
-#include "IntensityDataItem.h"
-#include "SessionModel.h"
 #include "MaskItems.h"
-#include "GUIHelpers.h"
-
+#include "MultiLayer.h"
+#include "SampleBuilderFactory.h"
+#include "SessionModel.h"
+#include "SimulationFactory.h"
+#include "minisplitter.h"
+#include <QBoxLayout>
+#include <QContextMenuEvent>
+#include <QDebug>
+#include <QMenu>
 
 MaskEditor::MaskEditor(QWidget* parent)
     : QMainWindow(parent)
-    , m_itemActions(new MaskEditorActions(this))
-    , m_toolBar(new MaskEditorToolBar(m_itemActions, this))
-    , m_editorPropertyPanel(new MaskEditorPropertyPanel(this))
-    , m_editorCanvas(new MaskEditorCanvas(this))
-    , m_splitter(new QSplitter(this))
+    , m_editorActions(new MaskEditorActions(this))
+    , m_toolBar(new MaskEditorToolBar(m_editorActions))
+    , m_editorPropertyPanel(new MaskEditorPropertyPanel)
+    , m_editorCanvas(new MaskEditorCanvas)
+    , m_splitter(new Manhattan::MiniSplitter)
 {
     setObjectName(QStringLiteral("MaskEditor"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_splitter->addWidget(m_editorCanvas);
     m_splitter->addWidget(m_editorPropertyPanel);
+    m_splitter->setCollapsible(1, true);
 
-    addToolBar(m_toolBar);
+    addToolBar(Qt::RightToolBarArea, m_toolBar);
 
     setCentralWidget(m_splitter);
 
@@ -71,8 +71,8 @@ void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex &maskCont
     m_editorCanvas->setMaskContext(model, maskContainerIndex, intensityItem);
     m_editorCanvas->setSelectionModel(m_editorPropertyPanel->selectionModel());
 
-    m_itemActions->setModel(model, maskContainerIndex);
-    m_itemActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
+    m_editorActions->setModel(model, maskContainerIndex);
+    m_editorActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 }
 
 //! shows/hides right panel with properties
@@ -87,82 +87,36 @@ void MaskEditor::contextMenuEvent(QContextMenuEvent* event)
     Q_UNUSED(event);
 }
 
-void MaskEditor::init_test_model()
+//! Returns list of actions intended for styled toolbar (on the top).
+
+QList<QAction *> MaskEditor::topToolBarActions()
 {
-    SessionModel* maskModel = new SessionModel(SessionXML::MaskModelTag, this);
-
-    SimulationFactory simRegistry;
-    const std::unique_ptr<GISASSimulation> simulation(simRegistry.createItem("BasicGISAS"));
-
-    SampleBuilderFactory sampleFactory;
-    const std::unique_ptr<ISample> sample(sampleFactory.createSample("CylindersAndPrismsBuilder"));
-
-    simulation->setSample(*sample.get());
-    simulation->runSimulation();
-
-    IntensityDataItem* intensityItem = dynamic_cast<IntensityDataItem*>(
-        maskModel->insertNewItem(Constants::IntensityDataType));
-    Q_ASSERT(intensityItem);
-    intensityItem->setOutputData(simulation->getOutputData()->clone());
-
-    // Rectangle
-
-    SessionItem* container = maskModel->insertNewItem(
-        Constants::MaskContainerType, maskModel->indexOfItem(intensityItem));
-    Q_ASSERT(container);
-
-//    RectangleItem* rect = new RectangleItem();
-//    rect->setRegisteredProperty(RectangleItem::P_XLOW, 0.6);
-//    rect->setRegisteredProperty(RectangleItem::P_YLOW, 1.3);
-//    rect->setRegisteredProperty(RectangleItem::P_XUP, 0.9);
-//    rect->setRegisteredProperty(RectangleItem::P_YUP, 1.5);
-//    container->insertChildItem(-1, rect);
-
-
-    // Polygon
-//    SessionItem* poly = m_maskModel->insertNewItem(Constants::PolygonMaskType, m_maskModel->indexOfItem(item));
-
-//    SessionItem* p1 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
-//    p1->setRegisteredProperty(PolygonPointItem::P_POSX, 0.6);
-//    p1->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
-//    SessionItem* p2 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
-//    p2->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
-//    p2->setRegisteredProperty(PolygonPointItem::P_POSY, 1.5);
-//    SessionItem* p3 = m_maskModel->insertNewItem(Constants::PolygonPointType, m_maskModel->indexOfItem(poly));
-//    p3->setRegisteredProperty(PolygonPointItem::P_POSX, 1.0);
-//    p3->setRegisteredProperty(PolygonPointItem::P_POSY, 0.6);
-
-    // Lines
-//   VerticalLineItem* line = new VerticalLineItem();
-//   line->setRegisteredProperty(VerticalLineItem::P_POSX, 0.6);
-//   container->insertChildItem(-1, line);
-
-//   HorizontalLineItem* hline = new HorizontalLineItem();
-//   hline->setRegisteredProperty(HorizontalLineItem::P_POSY, 0.5);
-//   container->insertChildItem(-1, hline);
-
-
-//   SessionItem* line = m_maskModel->insertNewItem(Constants::HorizontalLineMaskType, m_maskModel->indexOfItem(item));
-//   line->setRegisteredProperty(HorizontalLineItem::P_POSY, 1.0);
-
-    // Ellipse
-//    EllipseItem* ellipse = new EllipseItem;
-//    ellipse->setRegisteredProperty(EllipseItem::P_XCENTER, 1.0);
-//    ellipse->setRegisteredProperty(EllipseItem::P_YCENTER, 1.0);
-//    ellipse->setRegisteredProperty(EllipseItem::P_XRADIUS, 0.15);
-//    ellipse->setRegisteredProperty(EllipseItem::P_YRADIUS, 0.1);
-//    ellipse->setRegisteredProperty(EllipseItem::P_ANGLE, 45.);
-//    container->insertChildItem(-1, ellipse);
-
-
-//    MaskAllItem* rect = dynamic_cast<MaskAllItem*>(
-//        m_maskModel->insertNewItem(Constants::MaskAllType, m_maskModel->indexOfItem(item)));
-
-    setMaskContext(maskModel, maskModel->indexOfItem(container), intensityItem);
+    return m_editorActions->topToolBarActions();
 }
 
 void MaskEditor::setup_connections()
 {
+    // reset view request is propagated from editorActions to graphics view
+    connect(m_editorActions,
+            SIGNAL(resetViewRequest()),
+            m_editorCanvas,
+            SLOT(onResetViewRequest())
+            );
+
+    // tool panel request is propagated from editorActions to this MaskEditor
+    connect(m_editorActions,
+            SIGNAL(propertyPanelRequest()),
+            this,
+            SLOT(onPropertyPanelRequest())
+            );
+
+    // save plot request is propagated from editorActions to graphics scene
+    connect(m_editorActions,
+            SIGNAL(savePlotRequest()),
+            m_editorCanvas,
+            SLOT(onSavePlotRequest())
+            );
+
     // selection/drawing activity is propagated from ToolBar to graphics scene
     connect(m_toolBar,
             SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
@@ -177,13 +131,6 @@ void MaskEditor::setup_connections()
             SLOT(onMaskValueChanged(MaskEditorFlags::MaskValue))
             );
 
-    // tool panel request is propagated from ToolBar to this MaskEditor
-    connect(m_toolBar,
-            SIGNAL(propertyPanelRequest()),
-            this,
-            SLOT(onPropertyPanelRequest())
-            );
-
     // show results request is propagated from ToolBar to Canvas
     connect(m_toolBar,
             SIGNAL(presentationTypeRequest(MaskEditorFlags::PresentationType)),
@@ -191,15 +138,8 @@ void MaskEditor::setup_connections()
             SLOT(onPresentationTypeRequest(MaskEditorFlags::PresentationType))
             );
 
-    // reset view request is propagated from ToolBar to graphics view
-    connect(m_toolBar,
-            SIGNAL(resetViewRequest()),
-            m_editorCanvas->getView(),
-            SLOT(onResetViewRequest())
-            );
-
     // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
-    connect(m_editorCanvas->getView(),
+    connect(m_editorCanvas,
             SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
             m_toolBar,
             SLOT(onChangeActivityRequest(MaskEditorFlags::Activity))
@@ -208,15 +148,14 @@ void MaskEditor::setup_connections()
     // context menu request is propagated from graphics scene to MaskEditorActions
     connect(m_editorCanvas->getScene(),
             SIGNAL(itemContextMenuRequest(QPoint)),
-            m_itemActions,
+            m_editorActions,
             SLOT(onItemContextMenuRequest(QPoint))
             );
 
     // context menu request is propagated from PropertyPanel to MaskEditorActions
     connect(m_editorPropertyPanel,
             SIGNAL(itemContextMenuRequest(QPoint)),
-            m_itemActions,
+            m_editorActions,
             SLOT(onItemContextMenuRequest(QPoint))
             );
-
 }

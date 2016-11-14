@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskViewFactory.h
-//! @brief     Declares class MaskViewFactory
+//! @brief     Defines class MaskViewFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -33,4 +33,4 @@ public:
                                      ISceneAdaptor *adaptor = 0);
 };
 
-#endif
+#endif // MASKVIEWFACTORY_H

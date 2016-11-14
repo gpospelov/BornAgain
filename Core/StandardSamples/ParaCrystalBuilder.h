@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/ParaCrystalBuilder.h
-//! @brief     Declares classes of ParaCrystalBuilder family.
+//! @brief     Defines classes of ParaCrystalBuilder family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,18 +16,21 @@
 #ifndef PARACRYSTALBUILDER_H
 #define PARACRYSTALBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
+#include <memory>
+
 class IFTDistribution2D;
+class ISample;
 
 //! @class RadialParaCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4)
 
-class BA_CORE_API_ RadialParaCrystalBuilder : public ISampleBuilder
+class BA_CORE_API_ RadialParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     RadialParaCrystalBuilder();
-    ISample* buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -45,25 +48,26 @@ private:
 //! @brief Builds sample: basic two dimensional paracrystal with various probability
 //! distribution functions (PDF's). They are initialized via component service.
 
-class BA_CORE_API_ Basic2DParaCrystalBuilder : public ISampleBuilder
+class BA_CORE_API_ Basic2DParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     Basic2DParaCrystalBuilder();
     virtual ~Basic2DParaCrystalBuilder();
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 private:
-    IFTDistribution2D* m_pdf1;
+    std::unique_ptr<IFTDistribution2D> m_pdf1;
+    std::unique_ptr<IFTDistribution2D> m_pdf2;
 };
 
 //! @class HexParaCrystalBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with 2DDL structure factor (IsGISAXS example #4)
 
-class BA_CORE_API_ HexParaCrystalBuilder : public ISampleBuilder
+class BA_CORE_API_ HexParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     HexParaCrystalBuilder();
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 
 protected:
     virtual void init_parameters();
@@ -81,11 +85,11 @@ private:
 //! @ingroup standard_samples
 //! @brief Builds sample:  2D paracrystal lattice (IsGISAXS example #8)
 
-class BA_CORE_API_ RectParaCrystalBuilder : public ISampleBuilder
+class BA_CORE_API_ RectParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     RectParaCrystalBuilder(){}
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 };
 
 //! @class IsGISAXS08BBuilder
@@ -93,11 +97,11 @@ public:
 //! @brief Builds sample:  2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8)
 //  TODO remove it completely (why? why not yet done?)
 
-class BA_CORE_API_ IsGISAXS08BBuilder : public ISampleBuilder
+class BA_CORE_API_ IsGISAXS08BBuilder : public IMultiLayerBuilder
 {
 public:
     IsGISAXS08BBuilder(){}
-    virtual ISample* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 };
 
 #endif // PARACRYSTALBUILDER_H

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/SampleBuilderFactory.h
-//! @brief     Declares class SampleBuilderFactory.
+//! @brief     Defines class SampleBuilderFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,19 +16,20 @@
 #ifndef SAMPLEBUILDERFACTORY_H
 #define SAMPLEBUILDERFACTORY_H
 
-#include <memory>
 #include "IFactory.h"
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
+
+class MultiLayer;
 
 //! @class SampleBuilderFactory
 //! @ingroup standard_samples
 //! @brief Factory to create standard pre-defined samples
 
-class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
+class BA_CORE_API_ SampleBuilderFactory : public IFactory<std::string, IMultiLayerBuilder>
 {
 public:
     SampleBuilderFactory();
-    class ISample* createSample(const std::string& name);
+    MultiLayer* createSample(const std::string& name);
 };
 
 #endif // SAMPLEBUILDERFACTORY_H

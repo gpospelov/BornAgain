@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/VectorItem.h
-//! @brief     Declares class VectorItem
+//! @brief     Defines class VectorItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -34,5 +34,5 @@ public:
     kvector_t getVector() const;
 };
 
-#endif
+#endif // VECTORITEM_H
 

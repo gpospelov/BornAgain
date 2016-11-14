@@ -1,0 +1,9 @@
+Convert the manual from PDF to HTML:
+
+Use patched pdf2htmlEX from https://github.com/jwuttke/pdf2htmlEX, branch mktree
+
+Run in this directory:
+pdf2htmlEX --zoom 1.4 --data-dir . /home/jwu/prj/ba/manual-arch/BornAgainManual-1.5.1.pdf
+
+Copy result:
+scp BornAgainManual-1.5.1.html apps@a:/www/apps/src/BornAgain/

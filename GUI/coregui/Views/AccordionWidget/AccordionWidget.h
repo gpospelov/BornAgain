@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/AccordionWidget/AccordionWidget.h
-//! @brief     Declares AccordionWidget class
+//! @brief     Defines AccordionWidget class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -30,27 +30,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef QACCORDION_H
-#define QACCORDION_H
+#ifndef ACCORDIONWIDGET_H
+#define ACCORDIONWIDGET_H
 
-#include <QWidget>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPainter>
-#include <QStyleOption>
-#include <QSpacerItem>
-#include <QString>
-#include <QDebug>
-
-#include <vector>
-#include <memory>
-#include <algorithm>
-#include <iterator>
-
-
+#include "ClickableFrame.h"
 #include "ContentPane.h"
 #include "WinDllMacros.h"
+#include <QDebug>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QPainter>
+#include <QSpacerItem>
+#include <QString>
+#include <QStyleOption>
+#include <QVBoxLayout>
+#include <QWidget>
+#include <algorithm>
+#include <iterator>
+#include <memory>
+#include <vector>
 
 class ContentPane;
 
@@ -397,4 +395,4 @@ protected:
     void paintEvent(ATTR_UNUSED QPaintEvent *event);
 };
 
-#endif // QACCORDION_H
+#endif // ACCORDIONWIDGET_H

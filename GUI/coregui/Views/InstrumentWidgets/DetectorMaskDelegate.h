@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/DetectorMaskDelegate.h
-//! @brief     Declares class DetectorMaskDelegate
+//! @brief     Defines class DetectorMaskDelegate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,8 +18,8 @@
 #define DETECTORMASKDELEGATE_H
 
 #include "WinDllMacros.h"
-#include <QObject>
 #include <QModelIndex>
+#include <QObject>
 
 template <class T> class OutputData;
 
@@ -56,5 +56,5 @@ private:
 };
 
 
-#endif
+#endif // DETECTORMASKDELEGATE_H
 

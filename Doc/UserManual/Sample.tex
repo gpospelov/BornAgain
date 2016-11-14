@@ -1,0 +1,141 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%   BornAgain User Manual
+%%
+%%   homepage:   http://www.bornagainproject.org
+%%
+%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%
+%%   license:    Creative Commons CC-BY-SA
+%%
+%%   authors:    Scientific Computing Group at MLZ Garching
+%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Sample}\label{SRefSam}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Multilayer}\label{SRefMuLay}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Samples in BornAgain are always of type \ttIdx{MultiLayer}.
+
+\setCpp
+\begin{lstlisting}
+class MultiLayer {
+    MultiLayer();
+    void addLayer(const Layer& p_child);
+    void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
+};
+\end{lstlisting}
+
+A \texttt{MultiLayer} consists of one or more layers,
+numbered from top to bottom as shown in~\cref{Fdefz}.
+The function \clFct{MultiLayer}{addLayer} or \clFct{MultiLayer}{addLayerWithTopRoughness}
+inserts one \ttIdx{Layer} at the high-index, low-$z$ end.
+
+The \texttt{Layer} API is documented in~\cref{SRefLayer},
+the \ttIdx{LayerRoughness} in~\cref{SRefRough}.
+
+The following Python code fragment constructs an absolutely minimal sample:
+
+\setPy
+\begin{lstlisting}
+sample = MultiLayer()
+sample.addLayer(air_layer)
+\end{lstlisting}
+
+This sample just consists of an infinite volume of air.
+As such, it is completely inert; it causes neither refraction, nor scattering.
+However, the air layer can be \E{decorated} with a \ttIdx{ParticleLayout},
+which then causes small-angle scattering,
+as demostrated in the tutorial \tuto{51}{Cylinders in Born Approximation}.
+
+The following sample consists of two half-infinite layers,
+substrate under air:
+
+\setPy
+\begin{lstlisting}
+sample = MultiLayer()
+sample.addLayer(air_layer)
+sample.addLayer(substrate_layer)
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Layer}\label{SRefLayer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A \ttIdx{Layer} is constructed through the following API:
+
+\setCpp
+\begin{lstlisting}
+class Layer {
+    Layer();
+    Layer(const IMaterial& material, double thickness=0);
+    void setThickness(double thickness);
+    void setMaterial(const IMaterial& material);
+    void addLayout(const ParticleLayout& decoration);
+};
+\end{lstlisting}
+
+It is obligatory to set a \E{material} (\cref{SRefMat}).
+
+The \E{thickness} must be nonnegative.
+The semi-infinite top and bottom layer must have a \E{pro forma} thickness of~0.
+All other layers should have a thickness larger than~0.
+
+The \texttt{Layer} can be \E{decorated} with any number of \ttIdx{ParticleLayout}s.\footnote
+{The source code only requires the particle decoration to be of type \ttIdx{ILayout}.
+However, since this interface is realized by no other class besides \ttIdx{ParticleLayout},
+we here spell out \texttt{ILayout} as \texttt{ParticleLayout}.}
+Scattering from different layouts adds incoherently.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Material}\label{SRefMat}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Material classes all inherit from the pure virtual interface class \ttIdx{IMaterial}.
+Currently, BornAgain only supports homogeneous materials.
+They can be either nonmagnetic or magnetic.
+A nonmagnetic \ttIdx{HomogeneousMaterial} is created through the API
+
+\setCpp
+\begin{lstlisting}
+class HomogeneousMaterial {
+    HomogeneousMaterial(const std::string &name, const complex_t refractive_index);
+    HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta);
+};
+\end{lstlisting}
+
+The second form of the constructor computes the complex refractive index
+\index{Refractive index!HomogeneousMaterial@\Code{HomogeneousMaterial}}%
+from the two real parameters $\delta$ and~$\beta$ according to~\cref{Endb1}.
+
+Typical usage is:
+
+\setPy
+\begin{lstlisting}
+m_air = HomogeneousMaterial("Air", 0.0, 0.0)
+m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8)
+m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
+\end{lstlisting}
+
+A \ttIdx{HomogeneousMagneticMaterial} has the \E{magnetic field} (in units of Tesla)
+\index{Magnetic field}%
+as additional parameter:
+
+\setCpp
+\begin{lstlisting}
+class HomogeneousMagneticMaterial {
+    HomogeneousMagneticMaterial(const std::string &name, const complex_t refractive_index, const kvector_t magnetic_field);
+    HomogeneousMagneticMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field);
+    void setMagneticField(const kvector_t magnetic_field);
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Roughness}\label{SRefRough}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\MissingSection

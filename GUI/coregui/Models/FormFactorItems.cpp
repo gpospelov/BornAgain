@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "FormFactorItems.h"
-#include "FormFactors.h"
-#include "Units.h"
-#include "GUIHelpers.h"
 #include "BornAgainNamespace.h"
+#include "FormFactors.h"
+#include "GUIHelpers.h"
+#include "Units.h"
 
 /* ------------------------------------------------ */
 
@@ -127,7 +127,7 @@ CuboctahedronItem::CuboctahedronItem()
 {
     addProperty(P_LENGTH, 20.0);
     addProperty(P_HEIGHT, 13.0);
-    addProperty(P_HEIGHT_RATIO, 0.7)->setLimits(AttLimits::lowerLimited(0.0));
+    addProperty(P_HEIGHT_RATIO, 0.7)->setLimits(RealLimits::lowerLimited(0.0));
     addProperty(P_ALPHA, 60.0);
 }
 

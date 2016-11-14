@@ -15,23 +15,22 @@
 // ************************************************************************** //
 
 #include "ImportDataView.h"
-#include "mainwindow.h"
 #include "ImportDataToolBar.h"
 #include "ItemSelectorWidget.h"
 #include "RealDataModel.h"
+#include "RealDataSelectorWidget.h"
+#include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
 #include <QVBoxLayout>
-#include <QSplitter>
-#include <QDebug>
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_toolBar(new ImportDataToolBar)
-//    , m_splitter(new QSplitter)
     , m_splitter(new Manhattan::MiniSplitter)
-    , m_selectorWidget(new ItemSelectorWidget)
-    , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
+    , m_selectorWidget(new RealDataSelectorWidget)
+//    , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
+    , m_stackedWidget(new ItemStackPresenter<RealDataMaskWidget>)
     , m_realDataModel(mainWindow->realDataModel())
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -58,7 +57,7 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
 
     setupConnections();
 
-    m_selectorWidget->setModel(mainWindow->realDataModel());
+    m_selectorWidget->setModels(mainWindow->instrumentModel(), mainWindow->realDataModel());
     m_stackedWidget->setModel(mainWindow->realDataModel());
     m_toolBar->setRealDataModel(mainWindow->realDataModel());
     m_toolBar->setInstrumentModel(mainWindow->instrumentModel());
@@ -72,7 +71,8 @@ void ImportDataView::onSelectionChanged(SessionItem *item)
     bool isNew(false);
     m_stackedWidget->setItem(item, isNew);
     if(isNew) {
-        RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
+//        RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
+        RealDataMaskWidget *widget = m_stackedWidget->currentWidget();
         Q_ASSERT(widget);
         widget->setItem(item);
     }

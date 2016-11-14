@@ -13,29 +13,28 @@
 //
 // ************************************************************************** //
 
-#include <memory>
-#include "ISample.h"
+#include "SampleBuilderFactory.h"
+#include "BoxCompositionBuilder.h"
+#include "CoreShellParticleBuilder.h"
+#include "CustomMorphologyBuilder.h"
 #include "CylindersAndPrismsBuilder.h"
 #include "CylindersBuilder.h"
-#include "ParaCrystalBuilder.h"
 #include "LatticeBuilder.h"
-#include "TwoDimLatticeBuilder.h"
-#include "CustomMorphologyBuilder.h"
-#include "RotatedPyramidsBuilder.h"
-#include "CoreShellParticleBuilder.h"
-#include "MesoCrystalBuilder.h"
-#include "MultipleLayoutBuilder.h"
+#include "LayersWithAbsorptionBuilder.h"
 #include "MagneticParticlesBuilder.h"
+#include "MesoCrystalBuilder.h"
 #include "MultiLayerWithRoughnessBuilder.h"
+#include "MultipleLayoutBuilder.h"
+#include "ParaCrystalBuilder.h"
 #include "ParticleCompositionBuilder.h"
-#include "ParticleInTheAirBuilder.h"
 #include "ParticleDistributionsBuilder.h"
+#include "ParticleInTheAirBuilder.h"
+#include "RealParameter.h"
 #include "RipplesBuilder.h"
+#include "RotatedPyramidsBuilder.h"
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
-#include "BoxCompositionBuilder.h"
-#include "LayersWithAbsorptionBuilder.h"
-#include "SampleBuilderFactory.h"
+#include "TwoDimLatticeBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -91,6 +90,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "RectParaCrystalBuilder",
         create_new<RectParaCrystalBuilder>,
         "Interference function of 2D rectangular paracrystal");
+
+    registerItem(
+        "Basic2DLatticeBuilder",
+        create_new<Basic2DLatticeBuilder>,
+        "Square lattice with arbitrary parameters");
 
     registerItem(
         "SquareLatticeBuilder",
@@ -230,7 +234,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.
 
-ISample *SampleBuilderFactory::createSample(const std::string& name)
+MultiLayer* SampleBuilderFactory::createSample(const std::string& name)
 {
     return createItem(name)->buildSample();
 }

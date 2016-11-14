@@ -16,10 +16,8 @@
 
 #include "DistributionItem.h"
 #include "Distributions.h"
-#include "ComboProperty.h"
 #include "GUIHelpers.h"
-
-#include <QDebug>
+#include <cmath>
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = "Sigma factor";
@@ -61,7 +59,7 @@ const QString DistributionNoneItem::P_VALUE = "Value";
 DistributionNoneItem::DistributionNoneItem()
     : DistributionItem(Constants::DistributionNoneType)
 {
-    addProperty(P_VALUE, 0.1)->setLimits(AttLimits::lowerLimited(1e-4));
+    addProperty(P_VALUE, 0.1)->setLimits(RealLimits::lowerLimited(1e-4));
     getItem(P_VALUE)->setDecimals(4);
 }
 
@@ -83,8 +81,8 @@ const QString DistributionGateItem::P_MAX = "Maximum";
 DistributionGateItem::DistributionGateItem()
     : DistributionItem(Constants::DistributionGateType)
 {
-    addProperty(P_MIN, 0.0)->setLimits(AttLimits::limitless());
-    addProperty(P_MAX, 1.0)->setLimits(AttLimits::limitless());
+    addProperty(P_MIN, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_MAX, 1.0)->setLimits(RealLimits::limitless());
     register_number_of_samples();
     register_sigma_factor();
 }
@@ -112,7 +110,7 @@ const QString DistributionLorentzItem::P_HWHM = "HWHM";
 DistributionLorentzItem::DistributionLorentzItem()
     : DistributionItem(Constants::DistributionLorentzType)
 {
-    addProperty(P_MEAN, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_MEAN, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_HWHM, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -132,7 +130,7 @@ void DistributionLorentzItem::init_distribution(double value)
 
     setItemValue(P_MEAN, value);
     setItemValue(P_HWHM, sigma);
-    getItem(P_HWHM)->setLimits(AttLimits::lowerLimited(0.0));
+    getItem(P_HWHM)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
 /* ------------------------------------------------ */
@@ -143,7 +141,7 @@ const QString DistributionGaussianItem::P_STD_DEV = "Standard deviation";
 DistributionGaussianItem::DistributionGaussianItem()
     : DistributionItem(Constants::DistributionGaussianType)
 {
-    addProperty(P_MEAN, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_MEAN, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_STD_DEV, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -163,7 +161,7 @@ void DistributionGaussianItem::init_distribution(double value)
 
     setItemValue(P_MEAN, value);
     setItemValue(P_STD_DEV, sigma);
-    getItem(P_STD_DEV)->setLimits(AttLimits::lowerLimited(0.0));
+    getItem(P_STD_DEV)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
 /* ------------------------------------------------ */
@@ -194,7 +192,7 @@ void DistributionLogNormalItem::init_distribution(double value)
 
     setItemValue(P_MEDIAN, value);
     setItemValue(P_SCALE_PAR, sigma);
-    getItem(P_SCALE_PAR)->setLimits(AttLimits::lowerLimited(0.0));
+    getItem(P_SCALE_PAR)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
 /* ------------------------------------------------ */
@@ -205,7 +203,7 @@ const QString DistributionCosineItem::P_SIGMA = "Sigma";
 DistributionCosineItem::DistributionCosineItem()
     : DistributionItem(Constants::DistributionCosineType)
 {
-    addProperty(P_MEAN, 0.0)->setLimits(AttLimits::limitless());
+    addProperty(P_MEAN, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_SIGMA, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -225,5 +223,5 @@ void DistributionCosineItem::init_distribution(double value)
 
     setItemValue(P_MEAN, value);
     setItemValue(P_SIGMA, sigma);
-    getItem(P_SIGMA)->setLimits(AttLimits::lowerLimited(0.0));
+    getItem(P_SIGMA)->setLimits(RealLimits::lowerLimited(0.0));
 }

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/SphericalDetectorItem.h
-//! @brief     Declares class SphericalDetectorItem
+//! @brief     Defines class SphericalDetectorItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,6 @@
 #define SPHERICALDETECTORITEM_H
 
 #include "SessionItem.h"
-#include <memory>
 
 class IDetector2D;
 class IResolutionFunction2D;
@@ -36,4 +35,4 @@ public:
 
 };
 
-#endif
+#endif // SPHERICALDETECTORITEM_H

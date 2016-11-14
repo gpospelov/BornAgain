@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "ItemStackWidget.h"
-#include "SessionModel.h"
 #include "GUIHelpers.h"
+#include "SessionModel.h"
+#include <QDebug>
 #include <QStackedWidget>
 #include <QVBoxLayout>
-#include <QDebug>
 
 
 ItemStackWidget::ItemStackWidget(QWidget *parent)

@@ -18,8 +18,8 @@
 #include "GUIHelpers.h"
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 
 ApplicationOptions::ApplicationOptions(int argc, char **argv)

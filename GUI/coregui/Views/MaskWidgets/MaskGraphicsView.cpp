@@ -17,11 +17,11 @@
 #include "MaskGraphicsView.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
-#include <QWheelEvent>
+#include <QDebug>
 #include <QGraphicsScene>
 #include <QScrollBar>
 #include <QTransform>
-#include <QDebug>
+#include <QWheelEvent>
 
 namespace {
 const double min_zoom_value = 1.0;
@@ -36,16 +36,14 @@ MaskGraphicsView::MaskGraphicsView(QGraphicsScene *scene, QWidget *parent)
     setObjectName(QStringLiteral("MaskGraphicsView"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setRenderHints(QPainter::HighQualityAntialiasing|QPainter::TextAntialiasing);
+    setStyleSheet( "QGraphicsView { border-style: none; }" );
     setMouseTracking(true);
 }
 
 //! Reset given view to original zoom state. Also asks graphics scene to do the same with color map.
 void MaskGraphicsView::onResetViewRequest()
 {
-    qDebug() << "MaskGraphicsView::onResetViewRequest()";
     setZoomValue(1.0);
-    MaskGraphicsScene *maskScene = dynamic_cast<MaskGraphicsScene *>(scene());
-    maskScene->onResetViewRequest();
 }
 
 void MaskGraphicsView::wheelEvent(QWheelEvent *event)
@@ -72,14 +70,15 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
 void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
-    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
-        if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
-            proxy->resize(event->size());
-            scene()->setSceneRect(0,0,event->size().width(),event->size().height());
-            proxy->setPos(0,0);
-            qDebug() << "!!! Resizing" << this->size() << event->size();
-        }
-    }
+    updateSize(event->size());
+//    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
+//        if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
+//            proxy->resize(event->size());
+//            scene()->setSceneRect(0,0,event->size().width(),event->size().height());
+//            proxy->setPos(0,0);
+//            qDebug() << "!!! Resizing" << this->size() << event->size();
+//        }
+//    }
 }
 
 void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
@@ -150,6 +149,19 @@ void MaskGraphicsView::increazeZoomValue()
     double zoom_value = m_current_zoom_value + zoom_step;
     if(zoom_value > max_zoom_value) zoom_value = max_zoom_value;
     setZoomValue(zoom_value);
+}
+
+void MaskGraphicsView::updateSize(const QSize &newSize)
+{
+    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
+        if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
+            proxy->resize(newSize);
+            scene()->setSceneRect(0, 0, newSize.width(), newSize.height());
+            proxy->setPos(0,0);
+            qDebug() << "!!! Resizing" << this->size() << newSize;
+        }
+    }
+
 }
 
 

@@ -5,27 +5,27 @@
 %% The original source files were:
 %%
 %% nomencl.dtx  (with options: `idxstyle')
-%% 
+%%
 %% Copyright 1996 Boris Veytsman
 %% Copyright 1999-2001 Bernd Schandl
 %% www http://sarovar.org/projects/nomencl
-%% 
+%%
 %% This file can be redistributed and/or modified under the terms
 %% of the LaTeX Project Public License distributed from CTAN
 %% archives in the directory macros/latex/base/lppl.txt; either
 %% version 1.2 of the license, or (at your option) any later version.
-%% 
-%% 
+%%
+%%
 %% Nomenclature style file for MAKEINDEX.
 %% For nomencl v2.5 (and later)
-%% 
+%%
 %% Formats glossary entries to show, e.g. nomenclature of equations.
-%% 
+%%
 %% Written by Boris Veytsman boris@plmsc.psu.edu
 %% Changed by Bernd Schandl schandl@gmx.net (starting 1999/02/20)
 %% Changed by Lee Netherton ltn100@users.sourceforge.net
 %% (starting 2005/03/31)
-%% 
+%%
 %% Changes:
 %%  2005/04/27. Updates to the documentation, including support for hyperref (LN)
 %%  2005/04/20. Improvements to Italian option, and minor documentation
@@ -37,7 +37,7 @@
 %%              Removed setting of quote to '%' to get its default '"' instead
 %%              Changed group_skip to do nothing; user should use \nomgroup
 %%              Changed spacing in gls file
-%% 
+%%
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -73,3 +73,4 @@ lethead_flag   1
 heading_prefix "\n \\nomgroup{"
 heading_suffix "}\n"
 headings_flag  1
+page_compositor ":"

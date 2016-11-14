@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/InputOutput/OutputDataReadStrategy.h
-//! @brief     Declares IOutputDataReadStrategy and related classes.
+//! @brief     Defines IOutputDataReadStrategy and related classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,8 +16,8 @@
 #ifndef OUTPUTDATAREADSTRATEGY_H
 #define OUTPUTDATAREADSTRATEGY_H
 
-#include <string>
 #include "WinDllMacros.h"
+#include <istream>
 
 template <class T> class OutputData;
 

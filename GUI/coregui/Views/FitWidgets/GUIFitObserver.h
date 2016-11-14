@@ -17,8 +17,8 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include "IFitObserver.h"
 #include "FitProgressInfo.h"
+#include "IFitObserver.h"
 #include <QObject>
 #include <atomic>
 
@@ -65,4 +65,4 @@ private:
     //std::unique_ptr<OutputData<double> > m_chiData;
 };
 
-#endif
+#endif // GUIFITOBSERVER_H

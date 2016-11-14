@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/OverlayLabelWidget.h
-//! @brief     Declares class OverlayLabelWidget
+//! @brief     Defines class OverlayLabelWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#ifndef OVERLAYLABELWIDGET
-#define OVERLAYLABELWIDGET
+#ifndef OVERLAYLABELWIDGET_H
+#define OVERLAYLABELWIDGET_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
-#include <QString>
 #include <QRect>
+#include <QString>
+#include <QWidget>
 
 //! The OverlayLabelWidget is a semi-transparent overlay label to place on top of other
 //! widgets outside of any layout context.
@@ -44,4 +44,4 @@ private:
     QRect m_bounding_rect;
 };
 
-#endif
+#endif // OVERLAYLABELWIDGET_H

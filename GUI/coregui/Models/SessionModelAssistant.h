@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/SessionModelAssistant.h
-//! @brief     Declares class SessionModelAssistant
+//! @brief     Defines class SessionModelAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef SESSIONMODELASSISTANT_H
 #define SESSIONMODELASSISTANT_H
 
-#include <QString>
 #include <QMap>
+#include <QString> // need detected by TeamCity
 
 class SessionItem;
 
@@ -68,4 +68,4 @@ private:
     EOnErrorBehavior m_on_error_behavior;
 };
 
-#endif
+#endif // SESSIONMODELASSISTANT_H

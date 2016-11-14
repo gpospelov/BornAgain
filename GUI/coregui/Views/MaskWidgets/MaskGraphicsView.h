@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskGraphicsView.h
-//! @brief     Declares class MaskGraphicsView
+//! @brief     Defines class MaskGraphicsView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef MASKGRAPHICSVIEW_H
 #define MASKGRAPHICSVIEW_H
 
-#include <QGraphicsView>
 #include "MaskEditorFlags.h"
+#include <QGraphicsView>
 
 class QWheelEvent;
 class MaskGraphicsProxy;
@@ -35,6 +35,8 @@ public:
 
 public slots:
     void onResetViewRequest();
+
+    void updateSize(const QSize &newSize);
 
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
@@ -57,4 +59,4 @@ private:
 };
 
 
-#endif
+#endif // MASKGRAPHICSVIEW_H

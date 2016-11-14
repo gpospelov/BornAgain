@@ -15,10 +15,7 @@
 // ************************************************************************** //
 
 #include "DetectorItems.h"
-#include "AngleProperty.h"
 #include "MaskItems.h"
-#include "ModelMapper.h"
-#include <QDebug>
 
 const QString DetectorItem::P_DETECTOR = "DetectorType";
 const QString DetectorItem::T_MASKS = "Mask tag";
@@ -34,7 +31,7 @@ DetectorItem::DetectorItem()
                 [this] (const QString &name)
     {
         if(name == P_DETECTOR) {
-            if(SessionItem *maskContainer = getMaskContainerItem()) {
+            if(SessionItem *maskContainer = maskContainerItem()) {
                 SessionItem *item = takeRow(rowOfChild(maskContainer));
                 Q_ASSERT(item == maskContainer);
                 delete item;
@@ -44,7 +41,7 @@ DetectorItem::DetectorItem()
     });
 }
 
-MaskContainerItem *DetectorItem::getMaskContainerItem() const
+MaskContainerItem *DetectorItem::maskContainerItem() const
 {
     foreach(SessionItem *item, childItems()) {
         if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {

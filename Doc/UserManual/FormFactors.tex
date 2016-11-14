@@ -13,7 +13,84 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Form factor library}  \label{SFF}
+\chapter{Particle form factors}\label{SPFF}
+
+\iffalse
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Usage}\label{SintroPFF}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor!tutorial}%
+\index{Form factor!examples}%
+\index{Form factor!custom implementation}%
+The online tutorial contains an entire section on
+  \tuto{47}{embedded particles}, including several usage examples
+  and a \tutoNomar{72}{list of all available form factors}.
+  If a particle shape is missing, try to implement a \tutoNomar{107}{custom form factor},
+  or/and contact us.
+
+The particles can be rotated in a different direction by using one of
+the following transformations: \Code{CreateRotateX($\theta$),
+  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
+around the associated axis and $\theta$ is the
+angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
+the $z$-axis:\\
+
+\setPy
+\begin{lstlisting}
+    pyramid_ff = ba.FormFactorPyramid(10*nm, 5*nm, 54.73*deg )
+    pyramid = ba.Particle(m_particle, pyramid_ff)
+    transform = ba.Transform3D.createRotateZ(45*deg)
+    particle_layout = ba.ParticleLayout().addParticle(pyramid, transform)
+\end{lstlisting}
+
+Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.
+
+For particles that are made of different materials,
+the definition % TODO RESTORE ~\cref{EFFdef}
+of the form factor~$F(\q)$
+must be generalized in obvious ways.
+In practice, the most important case is the \E{core-shell particle}.
+\index{Inhomogeneous particles}%
+\index{Core-shell particles}%
+\index{Particle!Core-shell}%
+This is supported in \BornAgain\ through the function
+\index{ParticleCoreShell@\Code{ParticleCoreShell}}
+\setCpp
+\begin{lstlisting}
+    ParticleCoreShell(const Particle& shell, const Particle& core,
+            kvector_t relative_core_position={0., 0., 0.});
+\end{lstlisting}
+where \Code{shell\_particle} is assumed to be inscribed
+in \Code{core\_particle}.
+\Code{rel\_\discretionary{}{}{}position}
+specifies the position of the
+center of the base of the core particle relative
+to center of the base of the shell particle.
+
+See the online tutorial for an example with \tuto{59}{core-shell nanoparticles}.
+
+%===============================================================================
+\index{Polydispersity!embedded particles}%
+\index{Particle!polydispersity}%
+\index{Distribution!of particle parameters}%
+\index{Form factor!parameter distributions}%
+Embedded particles may be \E{polydisperse}, i.~e.\ have statistical distributions
+for some or all their numeric parameters.
+This is supported in \BornAgain\ through the same mechanism
+as for other numeric parameters.
+
+See the online tutorial for the example \tuto{66}{cylinders with size distribution}.
+  The example also shows how two parameters can be tied to each other
+(size distribution with constant ratio radius/height).
+
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Hard particles}\label{SHPFF}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{Form factor!hard particles|(}
 
 % Don't number subfigures in this chapter.
 \makeatletter
@@ -22,9 +99,9 @@
 
 % \lstset{language=python,style=eclipseboxed,numbers=none,nolol}
 
-\def\ffsection#1{\FloatBarrier\clearpage\ifodd\value{page}
-\textit{Page intentionally left blank}\clearpage\else\fi
-\section{#1}}
+\def\ffsection#1{%
+%\FloatBarrier\clearpage\ifodd\value{page}\E{Page intentionally left blank}\clearpage\else\fi
+\subsection{#1}}
 
 
 \BornAgain\ comes with a comprehensive collection of hard-coded
@@ -36,8 +113,8 @@ the real-space geometry is shown in orthogonal projections,
 the parameters of the \BornAgain\ method are defined,
 an analytical expression for the form factor is given,
 and exemplary results for $\left|F(\q)\right|^2$ versus
-$\alpha_\tf,\phi_\tf$ are shown for small-angle scattering conditions
-($\alpha_\ti=\phi_\ti=0$).
+$\alpha_\sf,\phi_\sf$ are shown for small-angle scattering conditions
+($\alpha_\si=\phi_\si=0$).
 
 The computation of $F(\q)$ is based on
 shapes $S(\r)$ given in Cartesian coordinates,
@@ -50,38 +127,18 @@ cause our analytic form factors to trivially deviate
 from expressions given in the \IsGISAXS\ manual \cite[Sec.~2.3]{Laz08}
 or in the literature \cite[Appendix]{ReLL09}.
 
-The particles can be rotated in a different direction by using one of
-the following transformations: \Code{CreateRotateX($\theta$),
-  CreateRotateY($\theta$), CreateRotateZ($\theta$)}, where capital X, Y, Z mark rotations
-around the associated axis and $\theta$ is the
-angle of rotation from this axis. For example, the following \Code{Python}\ script shows how to rotate a pyramid by $45^{\circ}$ around
-the $z$-axis:\\
-
-\begin{lstlisting}[language=python, style=eclipseboxed,numbers=none,nolol]
-    pyramid_ff = FormFactorPyramid(10*nanometer, 5*nanometer, deg2rad(54.73 ) )
-    pyramid = Particle(m_particle, pyramid_ff)
-    angle_around_z = 45.*degree
-    transform = Transform3D.createRotateZ(angle_around_z)
-    particle_layout = ParticleLayout()
-    particle_layout.addParticle(pyramid, transform)
-\end{lstlisting}
-
-\Tuto{Particle rotation is demonstrated in the example~\tuto{61}{rotated pyramids}.}
-
 We recomputed all expressions to make sure
 that they also hold for complex scattering vectors,
 used to describe in order to take any material absorption into account.
 The implementation in \BornAgain\ allows all three components
 of~$\q$ to be complex.\footnote
-{According to \cref{Smulayabs},
-only the vertical components of $\k_\ti$ and $\k_\tf$ can have imaginary parts.
+{Per~\cref{Ekconst},
+only the vertical components of $\k_\si$ and $\k_\sf$ can have imaginary parts.
 However,
 for tilted particles
 $F(\v{\tilde{q}})$ needs to be computed with
 a rotated scattering vector~$\v{\tilde q}$
 that may be complex in all three components.}
-Some background information on the form factor computations is
-given in \cref{SFFcomp}.
 
 The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
@@ -89,7 +146,7 @@ Afterwards, the detailed documentation is in alphabetical order.
 
 %\clearpage\thispagestyle{empty}
 \def\entry#1#2#3#4#5#6{%
-\raisebox{-3.8ex}{\includegraphics[width=5em]{fig/blue/#2.png}} &
+\raisebox{-3.8ex}{\includefinal{5em}{fig/blue/#2.png}} &
  \texttt{#1}& %\newline\textsl{#1} &
 #5 & % symmetry
 #4 & % parameters
@@ -125,8 +182,6 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 \entry{Box}{Box3d}{Box}{$L$, $W$, $H$}{D$_{2\h}$}{Prism2}
 \entry{HemiEllipsoid}{HemiEllipsoid3d}{HemiEllipsoid}{$R_a$, $R_b$, $H$}{C$_{2\v}$}{HemiEllipsoid}
 \entry{AnisoPyramid}{AnistropicPyramid3d}{AnisoPyramid}{$L$, $W$, $H$, $\alpha$}{C$_{2\v}$}{Frustum2}
-\entry{Ripple1}{Ripple13d}{Ripple1}{$L$, $W$, $H$}{C$_{2\v}$}{Sinewave}
-\entry{Ripple2}{Ripple23d}{Ripple2}{$L$, $W$, $H$, $d$}{C$_\text{s}$}{Sawtooth}
 \hline
 \end{longtable}
 \end{center}
@@ -134,7 +189,7 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 
 \index{Rotation of particles}
 \index{Orientation of particles}
-\index{CreateRotateX@\Code{CreateRotateX|Y|Z}}
+\index{CreateRotateX@\Code{CreateRotateX}}
 \index{Transform3D@\Code{Transform3D}}
 
 In the following subsections,
@@ -173,13 +228,13 @@ For polyhedra, see Ref.~\cite{ba:ffp} for a meticulous discussion.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_demo_1quadrants.pdf}
+\includefinal{1\TW}{fig/ff2/ff_demo_1quadrants.pdf}
 \end{center}
-\caption{Normalized intensity $I(\alpha_\tf,\phi_\tf)$
+\caption{Normalized intensity $I(\alpha_\sf,\phi_\sf)$
 for small-angle scattering by a truncated sphere with $R=4.2$~nm and $H=6.1$~nm,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).
 Since $I$ possess the standard symmetry (\protect\ref{EFq4sym}),
-data are only shown for first quadrant $0^\circ\le\phi_\tf,\alpha_\tf\le 5^\circ$.}
+data are only shown for first quadrant $0^\circ\le\phi_\sf,\alpha_\sf\le 5^\circ$.}
 \label{F1quadrants}
 \end{figure}
 
@@ -200,45 +255,61 @@ the particle volume~$V$ is about 250~nm$^3$ (within $\pm5$~\%);
 except ripples, which are chosen with a vertical section $V/L$ of 40~nm$^2$
 and a length of 25~nm.
 The incident wavelength is 1~\AA.
-The incident beam is always in $x$ direction, hence $\alpha_\ti=\phi_\ti=0$.
+The incident beam is always in $x$ direction, hence $\alpha_\si=\phi_\si=0$.
 Simulated detector images are normalized to the maximum scattering intensity at $F(0)=V$,
 \begin{equation}
-  I(\alpha_\tf,\phi_\tf)\coloneqq |F(q(\alpha_\tf,\phi_\tf))|^2/V^2.
+  I(\alpha_\sf,\phi_\sf)\coloneqq |F(q(\alpha_\sf,\phi_\sf))|^2/V^2.
 \end{equation}
 All plots have the same logarithmic color scale,
 extending over ten decades from $10^{-1)}$ to~1.
-Plot ranges in $\alpha_\tf$ and $\phi_\tf$ are also standardized as far as
+Plot ranges in $\alpha_\sf$ and $\phi_\sf$ are also standardized as far as
 reasonably possible.
 For most particle geometries,
 $I$ has horizontal and vertical mirror planes:
 \begin{equation}\label{EFq4sym}
-  I(\alpha_\tf,\phi_\tf)
-  = I(\alpha_\tf,-\phi_\tf)
-  = I(-\alpha_\tf,-\phi_\tf)
-  = I(\alpha_\tf,-\phi_\tf).
+  I(\alpha_\sf,\phi_\sf)
+  = I(\alpha_\sf,-\phi_\sf)
+  = I(-\alpha_\sf,-\phi_\sf)
+  = I(\alpha_\sf,-\phi_\sf).
 \end{equation}
 % TODO RESTORE TEMPORARILY REMOVED XREF
 % The physical origin this symmetry is discussed in \cref{Ssym}.
 For these particles,
-plots of $I$ are restricted to the quadrant $\alpha_\tf\ge0$, $\phi_\tf\ge0$.
+plots of $I$ are restricted to the quadrant $\alpha_\sf\ge0$, $\phi_\sf\ge0$.
 However, it requires some experience to fully appreciate the
 information content of these plots.
 For a demonstration of this,
-try to capture the main features of \cref{F1quadrants}.
+try to grasp the main features of \cref{F1quadrants}.
 Then compare with \cref{F4quadrants}.
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_demo_4quadrants.pdf}
+\includefinal{1\TW}{fig/ff2/ff_demo_4quadrants.pdf}
 \end{center}
 \caption{Same data as in Fig.~\protect\ref{F1quadrants},
-but now shown for all four quadrants ($-5^\circ\le\phi_\tf,\alpha_\tf\le 5^\circ$).
+but now shown for all four quadrants ($-5^\circ\le\phi_\sf,\alpha_\sf\le 5^\circ$).
 The vertical interference pattern,
 which gradually disappears with increasing tilt angle,
  is much more salient in this plot
 than in the preceding one-quadrant representation.}
 \label{F4quadrants}
 \end{figure}
+
+\index{Large particles!numeric difficulty}%
+\index{Numeric difficulty!form factor oscillations}%
+\index{Oscillations!from large particle form factor}%
+\index{Monte-Carlo integration!for large particle form factor}%
+\index{Particle!rapid form factor oscillations}%
+\index{Form factor!rapid oscillations}%
+\index{Form factor!large particles}%
+\Warn{For large particles (typically of order 1000nm),
+  the form factor oscillates rapidly within one detector bin
+  so that analytical calculations (performed for the bin center)
+  may give a completely wrong intensity pattern.}
+
+In this case, the best solution we can currently provide
+  is a Monte-Carlo integration, as shown in the example
+  \tuto{TODO}{large particle form factor}.
 
 \index{Shape transform!catalogue|(}
 \index{Form factor!catalogue|(}
@@ -255,7 +326,7 @@ than in the preceding one-quadrant representation.}
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/AnistropicPyramid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/AnistropicPyramid3d.png}}
 \hfill
 \subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/AnisoPyramid2dxy.pdf}}
 \hfill
@@ -268,7 +339,7 @@ than in the preceding one-quadrant representation.}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorAnisoPyramid(length, width, height, alpha)
+  FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -296,7 +367,7 @@ They must fulfill
 \paragraph{Examples}\strut\\
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_AnisoPyramid.pdf}
+\includefinal{1\TW}{fig/ff2/ff_AnisoPyramid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=13$~nm, $W=8$~nm, $H=4.2$~nm, and $\alpha=60^\circ$,
@@ -327,11 +398,11 @@ and were found to fully agree.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Box3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Box3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Box2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Box2dxz.pdf}}}
 \hfill
 \caption{A rectangular cuboid.}
 \end{figure}
@@ -340,7 +411,7 @@ and were found to fully agree.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorBox(length, width, height)
+  FormFactorBox(double length, double width, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -366,7 +437,7 @@ F= L W H\exp\left(i q_z \frac{H}{2}\right) \sinc\left(q_x \frac{L}{2}\right)
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Box.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Box.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=18$~nm, $W=4.6$~nm, and $H=3$~nm,
@@ -390,18 +461,18 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Cone3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Cone3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Cone2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Cone2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cone2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{3mm}{\includefinal{.3\TW}{fig/cuts/Cone2dxz.pdf}}}
 \hfill
 \caption{A truncated cone with circular base.}
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCone(radius, height, alpha)
+  FormFactorCone(double radius, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -438,7 +509,7 @@ Results:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Cone.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Cone.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=4$~nm, $H=11$~nm, and $\alpha=75^\circ$,
@@ -463,11 +534,11 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Cone63d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Cone63d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Cone62dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Cone62dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cone62dxz.pdf}}}
+\subfigure[Side view]{\raisebox{5mm}{\includefinal{.3\TW}{fig/cuts/Cone62dxz.pdf}}}
 \hfill
 \caption{A truncated pyramid, based on a regular hexagon}
 \end{figure}
@@ -475,7 +546,7 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 \FloatBarrier
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCone6(base_edge,height, alpha)
+  FormFactorCone6(double base_edge, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -507,7 +578,7 @@ The parameters must fulfill
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Cone6.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Cone6.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=6$~nm, $H=5$~nm, and $\alpha=60^\circ$,
@@ -534,11 +605,11 @@ with series expansions near singularities.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Cuboctahedron3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Cuboctahedron3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Cuboctahedron2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Cuboctahedron2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cuboctahedron2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Cuboctahedron2dxz.pdf}}}
 \hfill
 \caption{A compound of two truncated pyramids with a common square base
 and opposite orientations.}
@@ -548,7 +619,7 @@ and opposite orientations.}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCuboctahedron(length, height, height_ratio, alpha)
+  FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -582,7 +653,7 @@ They must fulfill
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Cuboctahedron.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Cuboctahedron.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=8$~nm, $H=5$~nm, $r_H=0.5$, and $\alpha=60^\circ$,
@@ -607,18 +678,18 @@ using the generic polyhedron form factor \cite{ba:ffp}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Cylinder3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Cylinder3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Cylinder2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Cylinder2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-2.5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Cylinder2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-2.5mm}{\includefinal{.3\TW}{fig/cuts/Cylinder2dxz.pdf}}}
 \hfill
 \caption{An upright circular cylinder.}
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorCylinder(radius, height)
+  FormFactorCylinder(double radius, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -651,7 +722,7 @@ Results:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Cylinder.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Cylinder.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=3$~nm and $H=8.8$~nm,
@@ -701,11 +772,11 @@ Integration over~$r$ then yields the in-plane contribution to the form factor~$F
 \begin{figure}[H]
 \strut\hfill
 %\subfigure[Perspective]
-{\includegraphics[width=.24\textwidth]{fig/blue/Dodecahedron3d.png}}
+{\includefinal{.24\TW}{fig/blue/Dodecahedron3d.png}}
 %\hfill
-%\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+%\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Box2dxy.pdf}}
 %\hfill
-%\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+%\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Box2dxz.pdf}}}
 \hfill\strut
 \caption{A regular dodecahedron.}
 \end{figure}
@@ -714,7 +785,7 @@ Integration over~$r$ then yields the in-plane contribution to the form factor~$F
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorDodecahedron(edge)
+  FormFactorDodecahedron(double edge)
 \end{lstlisting}
 with the parameter
 \begin{itemize}
@@ -737,7 +808,7 @@ with the parameter
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Dodecahedron_sym.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Dodecahedron_sym.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $a=3.2$~nm,
@@ -749,7 +820,7 @@ edge in the $xy$ plane and perpendicular to the $x$ axis.}
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Dodecahedron_asy.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Dodecahedron_asy.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $a=3.2$~nm,
@@ -775,18 +846,18 @@ based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/EllipsoidalCylinder3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/EllipsoidalCylinder3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/EllipsoidalCylinder2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/EllipsoidalCylinder2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{4mm}{\includegraphics[width=.30\textwidth]{fig/cuts/EllipsoidalCylinder2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{4mm}{\includefinal{.3\TW}{fig/cuts/EllipsoidalCylinder2dxz.pdf}}}
 \hfill
 \caption{A upright cylinder whose cross section is an ellipse.}
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorEllipsoidalCylinder(radius_a, radius_b, height)
+  FormFactorEllipsoidalCylinder(double radius_a, double radius_b, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -816,7 +887,7 @@ F = 2\pi R_a R_b H \exp\left(i\frac{q_z H}{2}\right)
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_EllipsoidalCylinder.pdf}
+\includefinal{1\TW}{fig/ff2/ff_EllipsoidalCylinder.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R_a=6.3$~nm, $R_b=4.2$~nm and $H=3$~nm,
@@ -840,11 +911,11 @@ or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/FullSphere3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/FullSphere3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/FullSphere2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/FullSphere2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/FullSphere2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-2mm}{\includefinal{.3\TW}{fig/cuts/FullSphere2dxz.pdf}}}
 \hfill
 \caption{A full sphere.}
 \end{figure}
@@ -853,7 +924,7 @@ or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorFullSphere(radius)
+  FormFactorFullSphere(double radius)
 \end{lstlisting}
 with the parameter
 \begin{itemize}
@@ -882,7 +953,7 @@ F = \frac{4\pi}{q^3} \exp(iq_z R)\left[\sin(qR) - qR \cos(qR)\right],
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{fig/ff2/ff_FullSphere.pdf}
+\includefinal{.5\TW}{fig/ff2/ff_FullSphere.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=3.9$~nm.}
@@ -971,11 +1042,11 @@ which is what we wanted to prove.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/FullSpheroid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/FullSpheroid3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/FullSpheroid2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/FullSpheroid2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-3mm}{\includefinal{.3\TW}{fig/cuts/FullSpheroid2dxz.pdf}}}
 \hfill
 \caption{A full spheroid, generated by rotating an ellipse around the vertical axis.}
 \end{figure}
@@ -984,7 +1055,7 @@ which is what we wanted to prove.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorFullSpheroid(radius,height)
+  FormFactorFullSpheroid(double radius, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1014,7 +1085,7 @@ Results:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{fig/ff2/ff_FullSpheroid.pdf}
+\includefinal{.5\TW}{fig/ff2/ff_FullSpheroid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=3.5$~nm and $H=9.8$~nm.}
@@ -1040,18 +1111,18 @@ We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/HemiEllipsoid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/HemiEllipsoid3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/HemiEllipsoid2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/HemiEllipsoid2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/HemiEllipsoid2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{5mm}{\includefinal{.3\TW}{fig/cuts/HemiEllipsoid2dxz.pdf}}}
 \hfill
 \caption{An horizontally oriented ellipsoid, truncated at the central plane.}
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorHemiEllipsoid(radius_a, radius_b, height)
+  FormFactorHemiEllipsoid(double radius_a, double radius_b, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1083,7 +1154,7 @@ Results:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_HemiEllipsoid.pdf}
+\includefinal{1\TW}{fig/ff2/ff_HemiEllipsoid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R_a=10$~nm, $R_b=3.8$~nm and $H=3.2$~nm,
@@ -1109,11 +1180,11 @@ or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 \begin{figure}[H]
 \strut\hfill
 %\subfigure[Perspective]
-{\includegraphics[width=.24\textwidth]{fig/blue/Icosahedron3d.png}}
+{\includefinal{.24\TW}{fig/blue/Icosahedron3d.png}}
 %\hfill
-%\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxy.pdf}}
+%\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Box2dxy.pdf}}
 %\hfill
-%\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Box2dxz.pdf}}}
+%\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Box2dxz.pdf}}}
 \hfill\strut
 \caption{A regular icosahedron.}
 \end{figure}
@@ -1122,7 +1193,7 @@ or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorIcosahedron(edge)
+  FormFactorIcosahedron(double edge)
 \end{lstlisting}
 with the parameter
 \begin{itemize}
@@ -1145,7 +1216,7 @@ with the parameter
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Icosahedron_sym.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Icosahedron_sym.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $a=4.8$~nm,
@@ -1157,7 +1228,7 @@ edge in the $xy$ plane and perpendicular to the $x$ axis.}
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Icosahedron_asy.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Icosahedron_asy.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $a=4.8$~nm,
@@ -1182,11 +1253,11 @@ based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Prism33d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Prism33d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxy.ps}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Prism32dxy.ps}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism32dxz.ps}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Prism32dxz.ps}}
 \hfill
 \caption{A prism based on an equilateral triangle.}
 \end{figure}
@@ -1195,7 +1266,7 @@ based on the generic form factor of the polyhedron~\cite{ba:ffp}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorPrism3(length, height)
+  FormFactorPrism3(double length, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1220,7 +1291,7 @@ computed using the generic form factor of a planar polygon \cite{ba:ffp},
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Prism3.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Prism3.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=13.8$~nm and $H=3$~nm,
@@ -1251,11 +1322,11 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Prism63d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Prism63d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Prism62dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Prism62dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{-3mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Prism62dxz.pdf}}}
+\subfigure[Side view]{\raisebox{-3mm}{\includefinal{.3\TW}{fig/cuts/Prism62dxz.pdf}}}
 \hfill
 \caption{A prism based on a regular hexagon.}
 \end{figure}
@@ -1264,7 +1335,7 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorPrism6(radius, height)
+  FormFactorPrism6(double radius, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1290,7 +1361,7 @@ with two-fold symmetry~($S_2$) \cite{ba:ffp},
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Prism6.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Prism6.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $R=5.7$~nm and $H=3$~nm,
@@ -1320,11 +1391,11 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Pyramid3d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Pyramid3d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Pyramid2dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Pyramid2dxy.pdf}}
 \hfill
-\subfigure[Side view]{\raisebox{2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Pyramid2dxz.pdf}}}
+\subfigure[Side view]{\raisebox{2mm}{\includefinal{.3\TW}{fig/cuts/Pyramid2dxz.pdf}}}
 \hfill
 \caption{A truncated pyramid with a square base.}
 \end{figure}
@@ -1333,7 +1404,7 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorPyramid(length, height, alpha)
+  FormFactorPyramid(double length, double height, double alpha)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1362,7 +1433,7 @@ They must fulfill
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Pyramid.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Pyramid.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=10$~nm, $H=4.2$~nm and $\alpha=60^{\circ}$,
@@ -1381,6 +1452,303 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 
 %===============================================================================
+\ffsection{Tetrahedron} \label{STetrahedron}
+%===============================================================================
+  \index{Tetrahedron (form factor)}
+  \index{Truncated tetrahedron (form factor)}
+  \index{Platonic solids!tetrahedron}
+  \index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\noindent
+Incorrectly named so, since it actually has five, not four surfaces.
+
+\begin{figure}[H]
+\hfill
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Tetrahedron3d.png}}
+\hfill
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Tetrahedron2dxy.ps}}
+\hfill
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Tetrahedron2dxz.ps}}
+\hfill
+\caption{A truncated pyramid, based on an equilateral triangle.}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorTetrahedron(double length, double height, double alpha)
+\end{lstlisting}
+with the parameters
+\begin{itemize}
+\item \texttt{length} of one edge of the equilateral triangular base, $L$,
+\item \texttt{height}, $H$,
+\item \texttt{alpha}, dihedral angle between the base and a side face, $\alpha$.
+\end{itemize}
+They must fulfill
+\begin{displaymath}
+  H\le \frac{\tan{\alpha}}{2\sqrt{3}} L.
+\end{displaymath}
+The orthographic projection also shows the angle~$\beta$ between the base and a side edge.
+It is related to the dihedral angle through $\tan \alpha = 2 \tan \beta$.
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+\begin{equation*}
+  F\text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
+\end{equation*}
+\begin{equation*}
+  V= \dfrac{\tan(\alpha) L^3}{24} \left[1- \left(1 -
+  \dfrac{2\sqrt{3} H}{L \tan(\alpha)} \right)^3\right],
+\end{equation*}
+\begin{equation*}
+  S =\dfrac{\sqrt{3}}{4}L^2.
+\end{equation*}
+
+\paragraph{Examples}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includefinal{1\TW}{fig/ff2/ff_Tetrahedron.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=12$~nm, $H=8$~nm, and $\alpha=75^\circ$,
+for four different angles~$\omega$ of rotation around the $z$ axis.
+The low symmetry requires other angular ranges than used in most other figures.}
+\end{figure}
+
+\paragraph{History}\strut\\
+Previous implementations as \E{Tetrahedron} in \IsGISAXS\
+\cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09},
+and as  \E{Truncated tetrahedron} in \FitGISAXS\ \cite{Bab13}.
+In \BornAgain-1.6,
+redefined to let the $x$ axis lie in a mirror plane
+(rotated by $30^\circ$ with respect to the previous version).
+
+Up to \BornAgain-1.5, we computed the form factor by numeric integration, as in \IsGISAXS.
+Since \BornAgain-1.6 higher speed and accuracy are achieved
+by using the generic polyhedron form factor \cite{ba:ffp},
+with series expansions near singularities.
+
+%===============================================================================
+\ffsection{TruncatedCube} \label{STruncatedCube}
+%===============================================================================
+  \index{Cube (form factor)!facetted}
+  \index{Facetted cube (form factor)}
+  \index{FormFactorTruncatedCube@\Code{FormFactorTruncatedCube}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\hfill
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/TruncatedCube3d.png}}
+\hfill
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Truncatedcube2dxy.pdf}}
+\hfill
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Truncatedcube2dxz.pdf}}
+\hfill
+\caption{A cube whose eight vertices have been removed.
+The truncated part of each vertex is a trirectangular tetrahedron.}
+\end{figure}
+
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorTruncatedCube(double length, double removed_length)
+\end{lstlisting}
+with the parameters
+\begin{itemize}
+\item \texttt{length} of the full cube, $L$,
+\item \texttt{removed\_length}, side length of the trirectangular tetrahedron removed from the cube's vertices, $t$.
+\end{itemize}
+They must fulfill
+\begin{displaymath}
+  t \le L/2.
+\end{displaymath}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+\begin{equation*}
+  F \text{~: computed using the generic form factor of a polyhedron
+             with inversion symmetry~\cite{ba:ffp},}
+\end{equation*}
+\begin{equation*}
+  V = L^3 - \dfrac{4}{3}t^3,
+\end{equation*}
+\begin{equation*}
+  S = L^2.
+\end{equation*}
+
+\paragraph{Examples}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includefinal{1\TW}{fig/ff2/ff_TruncatedCube.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.}
+\end{figure}
+
+\paragraph{History}\strut\\
+Motivated by \cite{HeSS74}.
+Reimplemented in \BornAgain-1.6 using the generic form factor
+of a polygonal prism \cite{ba:ffp}.
+
+
+%===============================================================================
+\ffsection{TruncatedSphere}\label{STruncatedSphere}
+%===============================================================================
+  \index{Sphere (form factor)!truncated}
+  \index{Truncated sphere (form factor)}
+  \index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\hfill
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Sphere3d.png}}
+\hfill
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Sphere2dxy.pdf}}
+\hfill
+\subfigure[Side view]{\raisebox{-2mm}{\includefinal{.3\TW}{fig/cuts/Sphere2dxz.pdf}}}
+\hfill
+\caption{A truncated sphere.}
+\end{figure}
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorTruncatedSphere(double radius, double height)
+\end{lstlisting}
+with the parameters
+\begin{itemize}
+\item \texttt{radius}, $R$,
+\item \texttt{height}, $H$.
+\end{itemize}
+They must fulfill
+\begin{displaymath}
+   0 < H\leq 2R.
+\end{displaymath}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+Notation:
+\begin{equation*}
+  q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2},\quad
+  R_z \coloneqq \sqrt{R^2-z^2}.
+\end{equation*}
+Results:
+\begin{equation*}
+F= 2\pi \exp[i q_z (H-R)]\int_{R-H}^{R}\!\d z\, R_z^2
+       \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
+\end{equation*}
+\begin{equation*}
+  V=\pi R^3 \left[\dfrac{2}{3} + \dfrac{H-R}{R} - \dfrac{1}{3}\left(\dfrac{H-R}{R}\right)^3\right],
+\end{equation*}
+\begin{equation*}
+  S = \left\{\begin{array}{ll} \pi R^2, & H \geq R \\
+         \pi\left(2RH-H^2\right), & H < R \end{array}\right..
+\end{equation*}
+
+\paragraph{Example}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includefinal{1\TW}{fig/ff2/ff_TruncatedSphere.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=4.2$~nm and $H=6.1$~nm,
+for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
+\end{figure}
+
+\paragraph{History}\strut\\
+Agrees with the \IsGISAXS\ form factor
+\E{Sphere} \cite[Eq.~2.33]{Laz08} or
+\E{Truncated sphere} \cite[Eq.~228]{ReLL09}.
+
+
+%===============================================================================
+\ffsection{TruncatedSpheroid} \label{STruncatedSpheroid}
+%===============================================================================
+  \index{Spheroid (form factor)!truncated}
+  \index{Truncated spheroid (form factor)}
+  \index{FormFactorTruncatedSpheroid@\Code{FormFactorTruncatedSpheroid}}
+
+\paragraph{Real-space geometry}\strut\\
+
+\begin{figure}[H]
+\hfill
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Spheroid3d.png}}
+\hfill
+\subfigure[Top view]{\raisebox{5mm}{\includefinal{.3\TW}{fig/cuts/Spheroid2dxy.pdf}}}
+\hfill
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Spheroid2dxz.pdf}}
+\hfill
+\caption{A vertically oriented, horizontally truncated spheroid.}
+\end{figure}
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
+\end{lstlisting}
+with the parameters
+\begin{itemize}
+\item \texttt{radius}, $R$,
+\item \texttt{height}, $H$.
+\item \texttt{height\_flattening}, $f_p$.
+\end{itemize}
+They must fulfill
+\begin{displaymath}
+  0< \dfrac{H}{R}\le 2f_p.
+\end{displaymath}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+Notation:
+\begin{equation*}
+  q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2}, \quad
+  R_z \coloneqq \sqrt{R^2-z^2/f_p^2}.
+\end{equation*}
+Results:
+\begin{equation*}
+F =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H}^{f_p R} \!\d z\,
+     R_z^2\frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \exp(i q_z z)
+\end{equation*}
+\begin{equation*}
+  V = \dfrac{\pi R H^2}{f_p}  \Big(1-\dfrac{H}{3f_p R}\Big),
+\end{equation*}
+\begin{equation*}
+  S = \left\{\begin{array}{ll} \pi R^2, & H \geq f_pR \\
+         \pi\left(\dfrac{2RH}{f_p}-\dfrac{H^2}{f_p^2}\right), & H < R \end{array}\right..
+\end{equation*}
+
+\paragraph{Example}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includefinal{1\TW}{fig/ff2/ff_TruncatedSpheroid.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $R=3.3$~nm, $H=9.8$~nm, and $f_p=1.8$,
+for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
+\end{figure}
+
+\paragraph{History}\strut\\
+Agrees with the \IsGISAXS\ form factor
+\E{Sphere} \cite[Eq.~2.33]{Laz08} or
+\E{TruncatedSpheroid} \cite[Eq.~228]{ReLL09}.
+% Note an erroneous factor~2 in the expression of the volume
+% in the \Code{IsGISAXS} manual.
+
+\index{Shape transform!catalogue|)}
+\index{Form factor!catalogue|)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ripples}\label{SRipple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%===============================================================================
 \ffsection{Ripple1 (sinusoidal)} \label{SRipple1}
 %===============================================================================
   \index{Ripple (form factor)!sinusoidal (Ripple1)}
@@ -1391,18 +1759,18 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Ripple13d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Ripple13d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple12dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Ripple12dxy.pdf}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple12dyz.pdf}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Ripple12dyz.pdf}}
 \hfill
 \caption{A ripple with a sinusoidal profile.}
 \end{figure}
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorRipple1(length, width, height)
+  FormFactorRipple1(double length, double width, double height)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1441,7 +1809,7 @@ $u=\text{arccos}( 2z/H-1)$.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Ripple1.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Ripple1.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=25$~nm, $W=10$~nm and $H=8$~nm,
@@ -1462,11 +1830,11 @@ Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 
 \begin{figure}[H]
 \hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Ripple23d.png}}
+\subfigure[Perspective]{\includefinal{.24\TW}{fig/blue/Ripple23d.png}}
 \hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple22dxy.pdf}}
+\subfigure[Top view]{\includefinal{.3\TW}{fig/cuts/Ripple22dxy.pdf}}
 \hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Ripple22dyz.pdf}}
+\subfigure[Side view]{\includefinal{.3\TW}{fig/cuts/Ripple22dyz.pdf}}
 \hfill
 \caption{A ripple with an asymmetric saw-tooth profile.}
 \end{figure}
@@ -1475,7 +1843,7 @@ Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorRipple2(length, width, height, asymmetry)
+  FormFactorRipple2(double length, double width, double height, asymmetry)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
@@ -1511,7 +1879,7 @@ F &=L W
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Ripple2.pdf}
+\includefinal{1\TW}{fig/ff2/ff_Ripple2.pdf}
 \end{center}
 \caption{Normalized intensity $|F|^2/V^2$,
 computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
@@ -1522,295 +1890,4 @@ The low symmetry requires other angular ranges than used in most other figures.}
 \paragraph{History}\strut\\
 Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 
-
-%===============================================================================
-\ffsection{Tetrahedron} \label{STetrahedron}
-%===============================================================================
-  \index{Tetrahedron (form factor)}
-  \index{Truncated tetrahedron (form factor)}
-  \index{Platonic solids!tetrahedron}
-  \index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
-
-\paragraph{Real-space geometry}\strut\\
-
-\noindent
-Incorrectly named so, since it actually has five, not four surfaces.
-
-\begin{figure}[H]
-\hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Tetrahedron3d.png}}
-\hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxy.ps}}
-\hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Tetrahedron2dxz.ps}}
-\hfill
-\caption{A truncated pyramid, based on an equilateral triangle.}
-\end{figure}
-
-\FloatBarrier
-
-\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}
-  FormFactorTetrahedron(length, height, alpha)
-\end{lstlisting}
-with the parameters
-\begin{itemize}
-\item \texttt{length} of one edge of the equilateral triangular base, $L$,
-\item \texttt{height}, $H$,
-\item \texttt{alpha}, dihedral angle between the base and a side face, $\alpha$.
-\end{itemize}
-They must fulfill
-\begin{displaymath}
-  H\le \frac{\tan{\alpha}}{2\sqrt{3}} L.
-\end{displaymath}
-The orthographic projection also shows the angle~$\beta$ between the base and a side edge.
-It is related to the dihedral angle through $\tan \alpha = 2 \tan \beta$.
-
-\paragraph{Form factor, volume, horizontal section}\strut\\
-\begin{equation*}
-  F\text{~: computed using the generic polyhedron form factor~\cite{ba:ffp},}
-\end{equation*}
-\begin{equation*}
-  V= \dfrac{\tan(\alpha) L^3}{24} \left[1- \left(1 -
-  \dfrac{2\sqrt{3} H}{L \tan(\alpha)} \right)^3\right],
-\end{equation*}
-\begin{equation*}
-  S =\dfrac{\sqrt{3}}{4}L^2.
-\end{equation*}
-
-\paragraph{Examples}\strut
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_Tetrahedron.pdf}
-\end{center}
-\caption{Normalized intensity $|F|^2/V^2$,
-computed with $L=12$~nm, $H=8$~nm, and $\alpha=75^\circ$,
-for four different angles~$\omega$ of rotation around the $z$ axis.
-The low symmetry requires other angular ranges than used in most other figures.}
-\end{figure}
-
-\paragraph{History}\strut\\
-Previous implementations as \E{Tetrahedron} in \IsGISAXS\
-\cite[Eq.~2.30]{Laz08} \cite[Eq.~220]{ReLL09},
-and as  \E{Truncated tetrahedron} in \FitGISAXS\ \cite{Bab13}.
-In \BornAgain-1.6,
-redefined to let the $x$ axis lay in a mirror plane
-(rotated by $30^\circ$ with respect to the previous version).
-
-Up to \BornAgain-1.5, we computed the form factor by numeric integration, as in \IsGISAXS.
-Since \BornAgain-1.6 higher speed and accuracy are achieved
-by using the generic polyhedron form factor \cite{ba:ffp},
-with series expansions near singularities.
-
-%===============================================================================
-\ffsection{TruncatedCube} \label{STruncatedCube}
-%===============================================================================
-  \index{Cube (form factor)!facetted}
-  \index{Facetted cube (form factor)}
-  \index{FormFactorTruncatedCube@\Code{FormFactorTruncatedCube}}
-
-\paragraph{Real-space geometry}\strut\\
-
-\begin{figure}[H]
-\hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/TruncatedCube3d.png}}
-\hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Truncatedcube2dxy.pdf}}
-\hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Truncatedcube2dxz.pdf}}
-\hfill
-\caption{A cube whose eight vertices have been removed.
-The truncated part of each vertex is a trirectangular tetrahedron.}
-\end{figure}
-
-\FloatBarrier
-
-\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}
-  FormFactorTruncatedCube(length, removed_length)
-\end{lstlisting}
-with the parameters
-\begin{itemize}
-\item \texttt{length} of the full cube, $L$,
-\item \texttt{removed\_length}, side length of the trirectangular tetrahedron removed from the cube's vertices, $t$.
-\end{itemize}
-They must fulfill
-\begin{displaymath}
-  t \le L/2.
-\end{displaymath}
-
-\paragraph{Form factor, volume, horizontal section}\strut\\
-\begin{equation*}
-  F \text{~: computed using the generic form factor of a polyhedron
-             with inversion symmetry~\cite{ba:ffp},}
-\end{equation*}
-\begin{equation*}
-  V = L^3 - \dfrac{4}{3}t^3,
-\end{equation*}
-\begin{equation*}
-  S = L^2.
-\end{equation*}
-
-\paragraph{Examples}\strut
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedCube.pdf}
-\end{center}
-\caption{Normalized intensity $|F|^2/V^2$,
-computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
-for four different angles~$\omega$ of rotation around the $z$ axis.}
-\end{figure}
-
-\paragraph{History}\strut\\
-Motivated by \cite{HeSS74}.
-Reimplemented in \BornAgain-1.6 using the generic form factor
-of a polygonal prism \cite{ba:ffp}.
-
-
-%===============================================================================
-\ffsection{TruncatedSphere}\label{STruncatedSphere}
-%===============================================================================
-  \index{Sphere (form factor)!truncated}
-  \index{Truncated sphere (form factor)}
-  \index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
-
-\paragraph{Real-space geometry}\strut\\
-
-\begin{figure}[H]
-\hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Sphere3d.png}}
-\hfill
-\subfigure[Top view]{\includegraphics[width=.30\textwidth]{fig/cuts/Sphere2dxy.pdf}}
-\hfill
-\subfigure[Side view]{\raisebox{-2mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Sphere2dxz.pdf}}}
-\hfill
-\caption{A truncated sphere.}
-\end{figure}
-\FloatBarrier
-
-\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}
-  FormFactorTruncatedSphere(radius, height)
-\end{lstlisting}
-with the parameters
-\begin{itemize}
-\item \texttt{radius}, $R$,
-\item \texttt{height}, $H$.
-\end{itemize}
-They must fulfill
-\begin{displaymath}
-   0 < H\leq 2R.
-\end{displaymath}
-
-\paragraph{Form factor, volume, horizontal section}\strut\\
-Notation:
-\begin{equation*}
-  q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2},\quad
-  R_z \coloneqq \sqrt{R^2-z^2}.
-\end{equation*}
-Results:
-\begin{equation*}
-F= 2\pi \exp[i q_z (H-R)]\int_{R-H}^{R}\!\d z\, R_z^2
-       \frac{J_1(q_{\parallel} R_z) }{q_{\parallel} R_z} \exp(i q_z z) dz,
-\end{equation*}
-\begin{equation*}
-  V=\pi R^3 \left[\dfrac{2}{3} + \dfrac{H-R}{R} - \dfrac{1}{3}\left(\dfrac{H-R}{R}\right)^3\right],
-\end{equation*}
-\begin{equation*}
-  S = \left\{\begin{array}{ll} \pi R^2, & H \geq R \\
-         \pi\left(2RH-H^2\right), & H < R \end{array}\right..
-\end{equation*}
-
-\paragraph{Example}\strut
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedSphere.pdf}
-\end{center}
-\caption{Normalized intensity $|F|^2/V^2$,
-computed with $R=4.2$~nm and $H=6.1$~nm,
-for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
-\end{figure}
-
-\paragraph{History}\strut\\
-Agrees with the \IsGISAXS\ form factor
-\E{Sphere} \cite[Eq.~2.33]{Laz08} or
-\E{Truncated sphere} \cite[Eq.~228]{ReLL09}.
-
-
-%===============================================================================
-\ffsection{TruncatedSpheroid} \label{STruncatedSpheroid}
-%===============================================================================
-  \index{Spheroid (form factor)!truncated}
-  \index{Truncated spheroid (form factor)}
-  \index{FormFactorTruncatedSpheroid@\Code{FormFactorTruncatedSpheroid}}
-
-\paragraph{Real-space geometry}\strut\\
-
-\begin{figure}[H]
-\hfill
-\subfigure[Perspective]{\includegraphics[width=.24\textwidth]{fig/blue/Spheroid3d.png}}
-\hfill
-\subfigure[Top view]{\raisebox{5mm}{\includegraphics[width=.30\textwidth]{fig/cuts/Spheroid2dxy.pdf}}}
-\hfill
-\subfigure[Side view]{\includegraphics[width=.30\textwidth]{fig/cuts/Spheroid2dxz.pdf}}
-\hfill
-\caption{A vertically oriented, horizontally truncated spheroid.}
-\end{figure}
-
-\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
-\begin{lstlisting}
-  FormFactorTruncatedSpheroid(radius, height, height_flattening)
-\end{lstlisting}
-with the parameters
-\begin{itemize}
-\item \texttt{radius}, $R$,
-\item \texttt{height}, $H$.
-\item \texttt{height\_flattening}, $f_p$.
-\end{itemize}
-They must fulfill
-\begin{displaymath}
-  0< \dfrac{H}{R}\le 2f_p.
-\end{displaymath}
-
-\paragraph{Form factor, volume, horizontal section}\strut\\
-Notation:
-\begin{equation*}
-  q_{\parallel} \coloneqq \sqrt{q_x^2+q_y^2}, \quad
-  R_z \coloneqq \sqrt{R^2-z^2/f_p^2}.
-\end{equation*}
-Results:
-\begin{equation*}
-F =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H}^{f_p R} \!\d z\,
-     R_z^2\frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \exp(i q_z z)
-\end{equation*}
-\begin{equation*}
-  V = \dfrac{\pi R H^2}{f_p}  \Big(1-\dfrac{H}{3f_p R}\Big),
-\end{equation*}
-\begin{equation*}
-  S = \left\{\begin{array}{ll} \pi R^2, & H \geq f_pR \\
-         \pi\left(\dfrac{2RH}{f_p}-\dfrac{H^2}{f_p^2}\right), & H < R \end{array}\right..
-\end{equation*}
-
-\paragraph{Example}\strut
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=\textwidth]{fig/ff2/ff_TruncatedSpheroid.pdf}
-\end{center}
-\caption{Normalized intensity $|F|^2/V^2$,
-computed with $R=3.3$~nm, $H=9.8$~nm, and $f_p=1.8$,
-for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
-\end{figure}
-
-\paragraph{History}\strut\\
-Agrees with the \IsGISAXS\ form factor
-\E{Sphere} \cite[Eq.~2.33]{Laz08} or
-\E{TruncatedSpheroid} \cite[Eq.~228]{ReLL09}.
-% Note an erroneous factor~2 in the expression of the volume
-% in the \Code{IsGISAXS} manual.
-
-\index{Shape transform!catalogue|)}
-\index{Form factor!catalogue|)}
+\index{Form factor!hard particles|)}

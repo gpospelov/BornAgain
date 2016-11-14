@@ -14,13 +14,11 @@
 //
 // ************************************************************************** //
 
-#include "Units.h"
 #include "SphericalDetectorItem.h"
 #include "AxesItems.h"
-#include "VectorItem.h"
-#include "GUIHelpers.h"
-#include "SphericalDetector.h"
 #include "ResolutionFunctionItems.h"
+#include "SphericalDetector.h"
+#include "Units.h"
 
 const QString SphericalDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";
@@ -79,5 +77,5 @@ std::unique_ptr<IResolutionFunction2D> SphericalDetectorItem::createResolutionFu
 
     std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction(Units::degree));
 
-    return std::move(result);
+    return result;
 }

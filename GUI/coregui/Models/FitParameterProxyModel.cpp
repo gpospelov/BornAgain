@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/FitParameterAbsModel.cpp
+//! @file      GUI/coregui/Models/FitParameterProxyModel.cpp
 //! @brief     Implements class FitParameterAbsModel
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,17 +15,12 @@
 // ************************************************************************** //
 
 #include "FitParameterProxyModel.h"
-#include "SessionItem.h"
-#include "FitParameterItems.h"
-#include "SessionModel.h"
-#include "JobModel.h"
 #include "FitParameterHelper.h"
-#include "ParameterTreeItems.h"
+#include "FitParameterItems.h"
 #include "GUIHelpers.h"
+#include "JobModel.h"
 #include "ModelPath.h"
-#include <QColor>
 #include <QMimeData>
-#include <QDebug>
 
 
 FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem *fitParContainer, QObject *parent)
@@ -200,8 +195,12 @@ QVariant FitParameterProxyModel::data(const QModelIndex &index, int role) const
                 return item->value();
             }
         }
-        if(role == Qt::TextColorRole && !item->isEditable()) {
+        else if(role == Qt::TextColorRole && !item->isEditable()) {
             return QVariant(QColor(Qt::gray));
+        }
+
+        else if(role == Qt::ToolTipRole && item->displayName() == FitParameterLinkItem::P_LINK) {
+            return item->value();
         }
     }
 

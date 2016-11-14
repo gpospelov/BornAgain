@@ -15,17 +15,17 @@
 // ************************************************************************** //
 
 #include "PolygonView.h"
+#include "ISceneAdaptor.h"
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include "PolygonPointView.h"
-#include "ISceneAdaptor.h"
-#include <QPainter>
 #include <QCursor>
-#include <QRectF>
+#include <QDebug>
 #include <QGraphicsItem>
 #include <QGraphicsPolygonItem>
 #include <QGraphicsSceneMouseEvent>
-#include <QDebug>
+#include <QPainter>
+#include <QRectF>
 
 namespace {
 const double bbox_margins = 5; // additional margins around points to form bounding box

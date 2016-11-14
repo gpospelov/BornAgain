@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/IntensityDataItem.h
-//! @brief     Declares class IntensityDataItem
+//! @brief     Defines class IntensityDataItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,14 +18,10 @@
 #define INTENSITYDATAITEM_H
 
 #include "SessionItem.h"
-#include "OutputData.h"
 #include "IDetector2D.h"
-#include <QMap>
-#include <QPair>
 
-class GISASSimulation;
 class BasicAxisItem;
-
+class MaskContainerItem;
 
 class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
@@ -98,6 +94,8 @@ public:
 
     void resetView();
 
+    MaskContainerItem *maskContainerItem();
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);
@@ -119,5 +117,5 @@ private:
     std::unique_ptr<OutputData<double> > m_data; //!< simulation results
 };
 
-#endif // NINTENSITYDATAITEM_H
+#endif // INTENSITYDATAITEM_H
 

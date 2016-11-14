@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/ComboWidget.h
-//! @brief     Declares class ComboWidget
+//! @brief     Defines class ComboWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -48,4 +48,4 @@ private:
     void setCollapse(bool);
 };
 
-#endif
+#endif // COMBOWIDGET_H

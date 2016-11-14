@@ -16,8 +16,8 @@
 
 #include "MaterialSvc.h"
 #include "MaterialEditorDialog.h"
-#include "MaterialModel.h"
 #include "MaterialItem.h"
+#include "MaterialModel.h"
 #include "MaterialUtils.h"
 #include "SessionModel.h"
 #include <QDebug>

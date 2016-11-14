@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DetectorItems.h
-//! @brief     Declares classes DetectorItems
+//! @brief     Defines classes DetectorItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,12 +14,11 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTOR_ITEMS_H
-#define DETECTOR_ITEMS_H
+#ifndef DETECTORITEMS_H
+#define DETECTORITEMS_H
 
-#include "SessionItem.h"
-#include "SphericalDetectorItem.h"
 #include "RectangularDetectorItem.h"
+#include "SphericalDetectorItem.h"
 
 class MaskContainerItem;
 
@@ -32,7 +31,7 @@ public:
     explicit DetectorItem();
     virtual ~DetectorItem(){}
 
-    MaskContainerItem *getMaskContainerItem() const;
+    MaskContainerItem *maskContainerItem() const;
 };
 
-#endif
+#endif // DETECTORITEMS_H

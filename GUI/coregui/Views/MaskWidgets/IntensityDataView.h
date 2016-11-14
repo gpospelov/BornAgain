@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/IntensityDataView.h
-//! @brief     Declares IntensityDataView class
+//! @brief     Defines IntensityDataView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATDAVIEW_H
-#define INTENSITYDATDAVIEW_H
+#ifndef INTENSITYDATAVIEW_H
+#define INTENSITYDATAVIEW_H
 
 #include "IMaskView.h"
 #include "SizeHandleElement.h"
@@ -41,4 +41,4 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
 };
 
-#endif
+#endif // INTENSITYDATAVIEW_H

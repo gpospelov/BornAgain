@@ -15,25 +15,20 @@
 // ************************************************************************** //
 
 #include "projectmanager.h"
-#include "newprojectdialog.h"
-#include "mainwindow.h"
-#include "projectdocument.h"
-#include "actionmanager.h"
-#include "mainwindow_constants.h"
+#include "AppSvc.h"
+#include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "ProjectLoadWarningDialog.h"
 #include "WarningMessageService.h"
-#include "MessageContainer.h"
-#include "GUIMessage.h"
-#include "ApplicationModels.h"
-#include "AppSvc.h"
-#include <QDir>
-#include <QFileDialog>
-#include <QSettings>
+#include "mainwindow.h"
+#include "mainwindow_constants.h"
+#include "newprojectdialog.h"
+#include "projectdocument.h"
 #include <QDebug>
+#include <QFileDialog>
 #include <QMessageBox>
+#include <QSettings>
 #include <QStandardPaths>
-#include <iostream>
 
 ProjectManager::ProjectManager(MainWindow *parent)
     : m_mainWindow(parent)
@@ -100,7 +95,7 @@ void ProjectManager::createNewProject()
     connect(m_project_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
     m_project_document->setProjectName("Untitled");
     m_project_document->setApplicationModels(m_mainWindow->models());
-    m_project_document->setMessageService(m_messageService);
+    m_project_document->setLogger(m_messageService);
 }
 
 
@@ -149,7 +144,7 @@ bool ProjectManager::saveProject()
 
     bool success = m_project_document->save();
     if(success == false) {
-        QMessageBox::warning(m_mainWindow, tr("Error while saving project"),
+        QMessageBox::warning(m_mainWindow, "Error while saving project",
                              QString("Failed to save project under '%1'.")
                              .arg(m_project_document->getProjectDir()));
         return false;
@@ -186,9 +181,9 @@ void ProjectManager::openProject(QString fileName)
     if( !closeCurrentProject()) return;
 
     if(fileName.isEmpty()) {
-        fileName = QFileDialog::getOpenFileName(m_mainWindow, tr("Open project file"),
+        fileName = QFileDialog::getOpenFileName(m_mainWindow, "Open project file",
                                                     getDefaultWorkingDirectory(),
-                                         tr("BornAgain project Files (*.pro)"));
+                                         "BornAgain project Files (*.pro)");
 
         if(fileName.isEmpty()) return;
 
@@ -343,7 +338,7 @@ void ProjectManager::riseProjectLoadFailedDialog()
     QString details = m_messageService->getMessages(m_project_document);
     message.append(details);
 
-    QMessageBox::warning(m_mainWindow, tr("Error while opening project file"), message);
+    QMessageBox::warning(m_mainWindow, "Error while opening project file", message);
 }
 
 void ProjectManager::riseProjectLoadWarningDialog()

@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "RealDataEditorWidget.h"
-#include "SessionItem.h"
-#include "RealDataItem.h"
 #include "IntensityDataItem.h"
-#include "IntensityDataWidget.h"
 #include "IntensityDataPropertyWidget.h"
-#include <QBoxLayout>
+#include "IntensityDataWidget.h"
+#include "RealDataItem.h"
+#include "SessionItem.h"
 #include <QAction>
+#include <QBoxLayout>
 #include <QDebug>
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)

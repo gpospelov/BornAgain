@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 from bornagain import deg, angstrom, nm
 
 
-class MySampleBuilder(ba.ISampleBuilder):
+class MySampleBuilder(ba.IMultiLayerBuilder):
     """
     Sample builder is used to build complex samples from set of parameters.
     Given builder produces the sample representing spheres at hex lattice
@@ -20,7 +20,7 @@ class MySampleBuilder(ba.ISampleBuilder):
     lattice_constant - hexagonal lattice constant
     """
     def __init__(self):
-        ba.ISampleBuilder.__init__(self)
+        ba.IMultiLayerBuilder.__init__(self)
         self.sample = None
         # parameters describing the sample
         self.radius = ctypes.c_double(5.0*nm)
@@ -54,8 +54,7 @@ class MySampleBuilder(ba.ISampleBuilder):
         multi_layer = ba.MultiLayer()
         multi_layer.addLayer(air_layer)
         multi_layer.addLayer(substrate_layer)
-        self.sample = multi_layer
-        return self.sample
+        return multi_layer
 
 
 def get_simulation():
@@ -101,8 +100,7 @@ def run_fitting():
     main function to run fitting
     """
     simulation = get_simulation()
-    sample_builder = MySampleBuilder()
-    simulation.setSampleBuilder(sample_builder)
+    simulation.setSampleBuilder(MySampleBuilder())
     simulation.printParameters()
 
     real_data = create_real_data()
@@ -124,9 +122,8 @@ def run_fitting():
 
     print("Fitting completed.")
     print("chi2:", fit_suite.getChi2())
-    fitpars = fit_suite.getFitParameters()
-    for i in range(0, fitpars.size()):
-        print(fitpars[i].getName(), fitpars[i].getValue(), fitpars[i].getError())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/DistributionEditor.h
-//! @brief     Declares class DistributionEditor
+//! @brief     Defines class DistributionEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,9 @@
 #ifndef DISTRIBUTIONEDITOR_H
 #define DISTRIBUTIONEDITOR_H
 
-#include <QWidget>
+#include "SessionItem.h"
 #include "qcustomplot.h"
+#include <QWidget>
 #include <memory>
 
 class QGroupBox;
@@ -50,4 +51,4 @@ private:
     QGroupBox *m_box;
 };
 
-#endif
+#endif // DISTRIBUTIONEDITOR_H

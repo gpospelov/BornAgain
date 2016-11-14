@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "RealDataModel.h"
-#include "RealDataItem.h"
 #include "ImportDataAssistant.h"
+#include "RealDataItem.h"
 
 RealDataModel::RealDataModel(QObject *parent)
     : SessionModel(SessionXML::RealDataModelTag, parent)
@@ -41,6 +41,7 @@ void RealDataModel::loadNonXMLData(const QString &projectDir)
             = dynamic_cast<RealDataItem *>(itemForIndex(index(i, 0, QModelIndex())));
         ImportDataAssistant::loadIntensityData(realDataItem, projectDir);
     }
+    emit modelLoaded();
 }
 
 //! Saves JobItem's OutputData to the projectDir

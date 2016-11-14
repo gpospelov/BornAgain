@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/PolygonView.h
-//! @brief     Declares PolygonView class
+//! @brief     Defines PolygonView class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -56,5 +56,4 @@ private:
     bool m_close_polygon_request;
 };
 
-
-#endif
+#endif // POLYGONVIEW_H

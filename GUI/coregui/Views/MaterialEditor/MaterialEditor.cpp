@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "MaterialEditor.h"
-#include "MaterialEditorToolBar.h"
 #include "ComponentEditor.h"
-#include "MaterialModel.h"
+#include "MaterialEditorToolBar.h"
 #include "MaterialItem.h"
+#include "MaterialModel.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/GroupProperty.h
-//! @brief     Declares class GroupProperty
+//! @brief     Defines class GroupProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,12 +18,8 @@
 #define GROUPPROPERTY_H
 
 #include "WinDllMacros.h"
-#include "item_constants.h"
-
-#include <map>
-#include <QString>
-#include <QMetaType>
 #include <QSharedPointer>
+#include <QStringList>
 
 class SessionItem;
 
@@ -66,4 +62,4 @@ private:
 typedef QSharedPointer<GroupProperty> GroupProperty_t;
 Q_DECLARE_METATYPE(GroupProperty_t)
 
-#endif
+#endif // GROUPPROPERTY_H

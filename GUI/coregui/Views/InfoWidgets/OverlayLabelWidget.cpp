@@ -16,9 +16,9 @@
 
 #include "OverlayLabelWidget.h"
 #include "DesignerHelper.h"
-#include <QPainter>
 #include <QColor>
 #include <QFont>
+#include <QPainter>
 
 OverlayLabelWidget::OverlayLabelWidget(QWidget *parent)
     : QWidget(parent)

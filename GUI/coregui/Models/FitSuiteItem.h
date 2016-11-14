@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/FitSuiteItem.h
-//! @brief     Declares class FitSuiteItem
+//! @brief     Defines class FitSuiteItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,6 @@
 
 #include "SessionItem.h"
 
-class FitSuite;
 class FitParameterContainerItem;
 class MinimizerContainerItem;
 
@@ -39,4 +38,4 @@ public:
 //    std::unique_ptr<FitSuite> createFitSuite();
 };
 
-#endif
+#endif // FITSUITEITEM_H

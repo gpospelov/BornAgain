@@ -15,21 +15,21 @@
 // ************************************************************************** //
 
 #include "FitComparisonWidget.h"
+#include "AxesItems.h"
 #include "ColorMapCanvas.h"
+#include "ColorMapLabel.h"
+#include "FitFlowWidget.h"
+#include "IntensityDataFunctions.h"
+#include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
-#include "IntensityDataItem.h"
-#include "IntensityDataFunctions.h"
-#include "FitFlowWidget.h"
-#include "ColorMapLabel.h"
-#include "AxesItems.h"
-#include <QGridLayout>
-#include <QVBoxLayout>
-#include <QVBoxLayout>
 #include <QAction>
-#include <QLabel>
 #include <QDebug>
+#include <QGridLayout>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QVBoxLayout>
 
 namespace {
 const double relative_diff_min = 1e-05;
@@ -103,7 +103,7 @@ void FitComparisonWidget::setJobItem(JobItem *jobItem)
         return;
 
     processJobItemItem(jobItem);
-    setSimulatedDataItem(jobItem->getIntensityDataItem());
+    setSimulatedDataItem(jobItem->intensityDataItem());
 
 
     m_relativeDiffItem = createRelativeDifferenceItem();

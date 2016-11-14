@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/mainwindow/StyledToolBar.h
-//! @brief     Declares class StyledToolBar
+//! @brief     Defines class StyledToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,10 +20,6 @@
 #include "WinDllMacros.h"
 #include <QToolBar>
 
-class QAction;
-class QToolButton;
-class QToolBar;
-
 //! The StyledToolBar class represents our standard narrow toolbar with the height 24 pixels.
 
 class BA_CORE_API_ StyledToolBar : public QToolBar
@@ -36,4 +32,4 @@ public:
     void addStyledExpand();
 };
 
-#endif
+#endif // STYLEDTOOLBAR_H

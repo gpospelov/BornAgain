@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/plot_constants.h
-//! @brief     Declares various constants for plotting
+//! @brief     Defines various constants for plotting
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,4 +26,4 @@ const int plot_colorbar_size=12;
 
 }
 
-#endif
+#endif // PLOT_CONSTANTS_H

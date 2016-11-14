@@ -15,10 +15,7 @@
 // ************************************************************************** //
 
 #include "IconProvider.h"
-#include "item_constants.h"
-#include "SessionItem.h"
 #include "MaterialItem.h"
-#include <QPixmap>
 
 QIcon IconProvider::icon(const SessionItem *item)
 {

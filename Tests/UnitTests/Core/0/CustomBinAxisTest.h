@@ -3,7 +3,7 @@
 
 #include "CustomBinAxis.h"
 #include "OutputDataIOHelper.h"
-#include "Units.h"
+#include "MathConstants.h"
 #include <vector>
 
 class CusomBinAxisTest: public ::testing::Test
@@ -34,4 +34,4 @@ TEST_F(CusomBinAxisTest, IOStream)
 }
 
 
-#endif
+#endif // CUSTOMBINAXISTEST_H

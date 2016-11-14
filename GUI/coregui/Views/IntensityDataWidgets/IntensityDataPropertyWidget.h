@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataPropertyWidget.h
-//! @brief     Declares class IntensityDataPropertyWidget
+//! @brief     Defines class IntensityDataPropertyWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,6 +22,7 @@
 class JobModel;
 class IntensityDataItem;
 class ComponentEditor;
+class SessionItem;
 
 //! The IntensityDataPropertyWidget shows ComponentEditor for given IntensityDataItem.
 
@@ -50,4 +51,4 @@ private:
     ComponentEditor *m_componentEditor;
 };
 
-#endif
+#endif // INTENSITYDATAPROPERTYWIDGET_H

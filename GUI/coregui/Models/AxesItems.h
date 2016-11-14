@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/AxesItems.h
-//! @brief     Declares various axis items
+//! @brief     Defines various axis items
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,6 @@
 #define AXESITEMS_H
 
 #include "SessionItem.h"
-#include "item_constants.h"
 
 class BA_CORE_API_  BasicAxisItem : public SessionItem
 {
@@ -47,4 +46,4 @@ public:
     virtual ~AmplitudeAxisItem(){}
 };
 
-#endif
+#endif // AXESITEMS_H

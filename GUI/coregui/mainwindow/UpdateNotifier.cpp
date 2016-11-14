@@ -15,10 +15,10 @@
 // ************************************************************************** //
 
 #include "UpdateNotifier.h"
-#include "mainwindow_constants.h"
 #include "GUIHelpers.h"
-#include <QtNetwork>
+#include "mainwindow_constants.h"
 #include <QMessageBox>
+#include <QtNetwork>
 
 UpdateNotifier::UpdateNotifier(QObject *parent)
     : QObject(parent), m_networkAccessManager(new QNetworkAccessManager(parent))

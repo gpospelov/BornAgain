@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DocumentModel.h
-//! @brief     Declares class DocumentModel
+//! @brief     Defines class DocumentModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -35,4 +35,4 @@ public:
 
 };
 
-#endif
+#endif // DOCUMENTMODEL_H

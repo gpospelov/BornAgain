@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "MultiLayerWithRoughnessBuilder.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "LayerRoughness.h"
 #include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
+#include "RealParameter.h"
 #include "Units.h"
-#include "IRoughness.h"
 
 MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     : m_thicknessA(2.5*Units::nanometer)
@@ -34,32 +35,27 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
 
 void MultiLayerWithRoughnessBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("thicknessA", &m_thicknessA);
-    registerParameter("thicknessB", &m_thicknessB);
-    registerParameter("sigma", &m_sigma);
+    registerParameter("thicknessA", &m_thicknessA).setUnit("nm").setNonnegative();
+    registerParameter("thicknessB", &m_thicknessB).setUnit("nm").setNonnegative();
+    registerParameter("sigma", &m_sigma).setUnit("nm").setNonnegative();
     registerParameter("hurst", &m_hurst);
-    registerParameter("latteralCorrLength", &m_latteralCorrLength);
-    registerParameter("crossCorrLength", &m_crossCorrLength);
+    registerParameter("latteralCorrLength", &m_latteralCorrLength).setUnit("nm").setNonnegative();
+    registerParameter("crossCorrLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
 }
 
 
-ISample *MultiLayerWithRoughnessBuilder::buildSample() const
+MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
     HomogeneousMaterial air_material("Air", 0., 0.);
     HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
     HomogeneousMaterial part_a_material("PartA", 5e-6, 0.0);
     HomogeneousMaterial part_b_material("PartB", 10e-6, 0.0);
 
-    Layer air_layer;
-    air_layer.setMaterialAndThickness(air_material, 0);
-	Layer partA_layer;
-    partA_layer.setMaterialAndThickness(part_a_material, m_thicknessA);
-	Layer partB_layer;
-    partB_layer.setMaterialAndThickness(part_b_material, m_thicknessB);
-    Layer substrate_layer;
-    substrate_layer.setMaterialAndThickness(substrate_material, 0);
+    Layer air_layer(air_material, 0);
+    Layer partA_layer(part_a_material, m_thicknessA);
+    Layer partB_layer(part_b_material, m_thicknessB);
+    Layer substrate_layer(substrate_material, 0);
 
     LayerRoughness roughness(m_sigma, m_hurst, m_latteralCorrLength);
 
@@ -73,4 +69,3 @@ ISample *MultiLayerWithRoughnessBuilder::buildSample() const
     multi_layer->setCrossCorrLength(m_crossCorrLength);
     return multi_layer;
 }
-

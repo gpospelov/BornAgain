@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/BeamDistributionItem.h
-//! @brief     Declares class BeamDistributionItem
+//! @brief     Defines class BeamDistributionItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,13 +17,10 @@
 #ifndef BEAMDISTRIBUTIONITEM_H
 #define BEAMDISTRIBUTIONITEM_H
 
-#include "SessionItem.h"
 #include "DistributionItem.h"
 
-#include <memory>
 
 class ParameterDistribution;
-class IDistribution1D;
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem
@@ -43,4 +40,4 @@ protected:
     virtual std::unique_ptr<IDistribution1D> createDistribution1D();
 };
 
-#endif
+#endif // BEAMDISTRIBUTIONITEM_H

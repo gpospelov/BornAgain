@@ -15,15 +15,10 @@
 // ************************************************************************** //
 
 #include "MaterialItem.h"
-#include "ColorProperty.h"
-#include "MaterialUtils.h"
-#include "RefractiveIndexItem.h"
-#include "ScientificDoubleProperty.h"
-#include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "HomogeneousMaterial.h"
-#include <QUuid>
-#include <QDebug>
+#include "MaterialUtils.h"
+#include "RefractiveIndexItem.h"
 
 
 const QString MaterialItem::P_COLOR = "Color";
@@ -38,7 +33,7 @@ MaterialItem::MaterialItem()
     ColorProperty color;
     addProperty(P_COLOR, color.getVariant());
     addGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
-    addProperty(P_IDENTIFIER, QUuid::createUuid().toString());
+    addProperty(P_IDENTIFIER, GUIHelpers::createUuid());
     getItem(P_IDENTIFIER)->setVisible(false);
 }
 

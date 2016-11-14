@@ -19,16 +19,11 @@
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include <QApplication>
-#include <QFile>
+#include <QDateTime>
 #include <QDir>
-#include <QRegExp>
 #include <QMessageBox>
 #include <QPushButton>
-#include <QFileInfo>
-#include <QDateTime>
-#include <QDebug>
-
-namespace GUIHelpers {
+#include <QUuid>
 
 namespace {
 QMap<QString, QString> initializeCharacterMap()
@@ -45,8 +40,9 @@ QMap<QString, QString> initializeCharacterMap()
 }
 
 const QMap<QString, QString> invalidCharacterMap = initializeCharacterMap();
+}  // Anonymous namespace
 
-}
+namespace GUIHelpers {
 
 void information(QWidget *parent, const QString &title, const QString &text, const QString &detailedText)
 {
@@ -112,10 +108,8 @@ bool okToDelete(QWidget *parent, const QString &title, const QString &text, cons
     messageBox->setText(text);
     if (!detailedText.isEmpty())
         messageBox->setInformativeText(detailedText);
-    QAbstractButton *deleteButton = messageBox->addButton(
-            QObject::tr("&Delete"), QMessageBox::AcceptRole);
-    messageBox->addButton(QObject::tr("Do &Not Delete"),
-                          QMessageBox::RejectRole);
+    QAbstractButton *deleteButton = messageBox->addButton("&Delete", QMessageBox::AcceptRole);
+    messageBox->addButton("Do &Not Delete", QMessageBox::RejectRole);
     messageBox->setDefaultButton(
             qobject_cast<QPushButton*>(deleteButton));
     messageBox->exec();
@@ -126,9 +120,8 @@ bool okToDelete(QWidget *parent, const QString &title, const QString &text, cons
 int getVariantType(const QVariant &variant)
 {
     int result = variant.type();
-    if (result == QVariant::UserType) {
+    if (result == QVariant::UserType)
         result = variant.userType();
-    }
     return result;
 }
 
@@ -153,22 +146,6 @@ QString getValidFileName(const QString &proposed_name)
         result.replace(it.key(), it.value());
     }
     return result;
-}
-
-//! Constructs file name there intensity data should be stored in the case of JobItem.
-
-QString intensityDataFileName(JobItem *jobItem)
-{
-    QString bodyName = GUIHelpers::getValidFileName(jobItem->itemName());
-    return QString("jobdata_%1_0.int.gz").arg(bodyName);
-}
-
-//! Constructs file name there intensity data should be stored in the case of RealDataItem.
-
-QString intensityDataFileName(RealDataItem *realDataItem)
-{
-    QString bodyName = GUIHelpers::getValidFileName(realDataItem->itemName());
-    return QString("realdata_%1_0.int.gz").arg(bodyName);
 }
 
 //! parses version string into 3 numbers, returns true in the case of success
@@ -219,20 +196,44 @@ QString currentDateTime()
     return QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");;
 }
 
-QStringList fromStdList(const std::list<std::string> &string_list)
-{
-    QStringList result;
-    for(std::string str : string_list) {
-        result.append(QString::fromStdString(str));
-    }
-    return result;
-}
+//QStringList fromStdList(const std::list<std::string> &string_list)
+//{
+//    QStringList result;
+//    for(std::string str : string_list) {
+//        result.append(QString::fromStdString(str));
+//    }
+//    return result;
+//}
 
 QVector<double> fromStdVector(const std::vector<double> &data)
 {
     QVector<double> result;
     result.reserve(int(data.size())); std::copy(data.begin(), data.end(), std::back_inserter(result));
     return result;
+}
+
+QStringList fromStdStrings(const std::vector<std::string> &container)
+{
+    QStringList result;
+    for(std::string str : container) {
+        result.append(QString::fromStdString(str));
+    }
+    return result;
+}
+
+QString createUuid()
+{
+    return  QUuid::createUuid().toString();
+}
+
+bool isTheSame(const QStringList &lhs, const QStringList &rhs)
+{
+    if(lhs.size() != rhs.size()) return false;
+    for(int i=0; i<lhs.size(); ++i)
+        if(lhs.at(i) != rhs.at(i))
+            return false;
+
+    return true;
 }
 
 

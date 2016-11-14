@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskEditorHelper.h
-//! @brief     Declares class MaskEditorHelper
+//! @brief     Defines class MaskEditorHelper
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -32,6 +32,7 @@ class BA_CORE_API_ MaskEditorHelper
 public:
     enum EViewTypes {
         IMASKVIEW = QGraphicsItem::UserType+1, // = 65537
+        RECTANGLEBASE,
         RECTANGLE,
         SIZEHANDLE,
         POLYGON,
@@ -40,6 +41,7 @@ public:
         HORIZONTALLINE,
         ELLIPSE,
         MASKALL,
+        REGIONOFINTEREST,
         MASKGRAPHICSPROXY
     };
 
@@ -51,5 +53,5 @@ public:
 };
 
 
-#endif
+#endif // MASKEDITORHELPER_H
 

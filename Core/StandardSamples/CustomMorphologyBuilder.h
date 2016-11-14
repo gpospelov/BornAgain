@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/CustomMorphologyBuilder.h
-//! @brief     Declares class CustomMorphologyBuilder.
+//! @brief     Defines class CustomMorphologyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,18 +16,19 @@
 #ifndef CUSTOMMORPHOLOGYBUILDER_H
 #define CUSTOMMORPHOLOGYBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
+
+class ISample;
 
 //! @class CustomMorphologyBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: mixture of different particles (IsGISAXS example #7)
 
-class BA_CORE_API_ CustomMorphologyBuilder : public ISampleBuilder
+class BA_CORE_API_ CustomMorphologyBuilder : public IMultiLayerBuilder
 {
 public:
-    CustomMorphologyBuilder();
-    ISample *buildSample() const;
+    CustomMorphologyBuilder() {}
+    MultiLayer* buildSample() const;
 };
 
 #endif // CUSTOMMORPHOLOGYBUILDER_H
-

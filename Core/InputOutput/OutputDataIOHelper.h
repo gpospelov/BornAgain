@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/InputOutput/OutputDataIOHelper.h
-//! @brief     Declares class OutputDataIOFactory.
+//! @brief     Defines class OutputDataIOFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,10 +16,8 @@
 #ifndef OUTPUTDATAIOHELPER_H
 #define OUTPUTDATAIOHELPER_H
 
-
 #include "WinDllMacros.h"
 #include <string>
-#include <iostream>
 #include <vector>
 
 class IAxis;
@@ -75,4 +73,4 @@ std::vector<double> parse_doubles(const std::string& str);
 void readLineOfDoubles(std::vector<double>& buffer, std::istringstream& iss);
 }
 
-#endif
+#endif // OUTPUTDATAIOHELPER_H

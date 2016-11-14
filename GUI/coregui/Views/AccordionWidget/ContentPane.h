@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/AccordionWidget/ContentPane.h
-//! @brief     Declares ContentPane class
+//! @brief     Defines ContentPane class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -33,20 +33,18 @@
 #ifndef CONTENTPANE_H
 #define CONTENTPANE_H
 
-#include <QWidget>
+#include "AccordionWidget.h"
+#include "ClickableFrame.h"
+#include "WinDllMacros.h"
 #include <QFrame>
 #include <QHBoxLayout>
-#include <QStyleOption>
 #include <QPainter>
-#include <QString>
-#include <QPropertyAnimation>
 #include <QPoint>
-
+#include <QPropertyAnimation>
+#include <QString>
+#include <QStyleOption>
+#include <QWidget>
 #include <memory>
-
-#include "WinDllMacros.h"
-#include "ClickableFrame.h"
-#include "AccordionWidget.h"
 
 // TODO: Do i really need to export the ClickableFrame class?
 /**

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/JobModel.h
-//! @brief     Declares class JobModel
+//! @brief     Defines class JobModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,9 +19,6 @@
 #include "SessionModel.h"
 class JobQueueData;
 class JobItem;
-class SampleModel;
-class InstrumentModel;
-class QItemSelection;
 class MultiLayerItem;
 class InstrumentItem;
 class RealDataItem;
@@ -67,12 +64,8 @@ public slots:
 
 private:
     QString generateJobName();
-    QString generateJobIdentifier();
     void restoreItem(SessionItem *item);
-    void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
-    void createFitContainers(JobItem *jobItem);
-
     JobQueueData *m_queue_data;
 };
 
-#endif
+#endif // JOBMODEL_H

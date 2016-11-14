@@ -2,19 +2,16 @@
 #define SPECULARMATRIXTEST_H
 
 #include "SpecularMatrix.h"
+#include "Units.h"
 
 class SpecularMatrixTest : public ::testing :: Test
 {
 protected:
     SpecularMatrixTest();
     virtual ~SpecularMatrixTest(){}
-
 };
 
-SpecularMatrixTest::SpecularMatrixTest()
-{
-
-}
+SpecularMatrixTest::SpecularMatrixTest() {}
 
 TEST_F(SpecularMatrixTest, initial)
 {
@@ -33,4 +30,4 @@ TEST_F(SpecularMatrixTest, initial)
     SpecularMatrix::execute(mLayer, v, coeff);
 }
 
-#endif //SPECULARMATRIXTEST_H
+#endif // SPECULARMATRIXTEST_H

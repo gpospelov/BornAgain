@@ -17,14 +17,14 @@
 #include "ComboWidget.h"
 #include "GUIHelpers.h"
 #include <QBoxLayout>
-#include <QLabel>
-#include <QGroupBox>
 #include <QComboBox>
-#include <QSpinBox>
+#include <QDebug>
 #include <QDoubleSpinBox>
 #include <QGridLayout>
+#include <QGroupBox>
+#include <QLabel>
 #include <QPushButton>
-#include <QDebug>
+#include <QSpinBox>
 
 ComboWidget::ComboWidget(QString item, QGridLayout *layout, QWidget *parent)
     : QWidget(parent)

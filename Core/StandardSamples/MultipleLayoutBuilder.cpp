@@ -14,11 +14,14 @@
 // ************************************************************************** //
 
 #include "MultipleLayoutBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
 
 MultipleLayoutBuilder::MultipleLayoutBuilder()
@@ -31,21 +34,18 @@ MultipleLayoutBuilder::MultipleLayoutBuilder()
     init_parameters();
 }
 
-
 void MultipleLayoutBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("cylinder_height", &m_cylinder_height);
-    registerParameter("cylinder_radius", &m_cylinder_radius);
-    registerParameter("prism_height", &m_prism_height);
-    registerParameter("prism_length", &m_prism_length);
-    registerParameter("cylinder_weight", &m_cylinder_weight);
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("prism_height", &m_prism_height).setUnit("nm").setNonnegative();
+    registerParameter("prism_length", &m_prism_length).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_weight", &m_cylinder_weight).setUnit("nm").setNonnegative();
 }
 
-
-ISample *MultipleLayoutBuilder::buildSample() const
+MultiLayer* MultipleLayoutBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0., 0.);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -73,4 +73,3 @@ ISample *MultipleLayoutBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
 }
-

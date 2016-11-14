@@ -9,24 +9,17 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ------
-set(include_dirs
-    ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel
-    ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
-    )
-include_directories(${include_dirs})
-
-file(GLOB fitkernel_source_files
-    "FitKernel/*.cpp"
-    "StandardFits/*.cpp"
+set(FIT_SOURCE_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/Kernel
+    ${CMAKE_CURRENT_SOURCE_DIR}/Parameters
+    ${CMAKE_CURRENT_SOURCE_DIR}/RootAdapter
     )
 
-file(GLOB fitkernel_include_files
-    "FitKernel/*.h"
-    "StandardFits/*.h"
-    )
+set(include_dirs ${BUILD_INC_DIR} ${CMAKE_SOURCE_DIR}/Wrap ${FIT_SOURCE_DIRS})
 
-set(source_files ${fitkernel_source_files})
-set(include_files ${fitkernel_include_files})
+file(GLOB source_files */*.cpp)
+file(GLOB include_files */*.h)
 
 if(BORNAGAIN_PYTHON)
 
@@ -34,18 +27,8 @@ if(BORNAGAIN_PYTHON)
     file(MAKE_DIRECTORY ${AUTO_DIR})
     include_directories(${AUTO_DIR})
 
-    set(include_dirs
-        ${CMAKE_CURRENT_SOURCE_DIR}/FitKernel/
-        ${CMAKE_CURRENT_SOURCE_DIR}/StandardFits
-        ${CMAKE_SOURCE_DIR}/Core/Algorithms/
-        ${CMAKE_SOURCE_DIR}/Core/FormFactors/
-        ${CMAKE_SOURCE_DIR}/Core/Geometry/
-        ${CMAKE_SOURCE_DIR}/Core/Samples/
-        ${CMAKE_SOURCE_DIR}/Core/StandardSamples
-        ${CMAKE_SOURCE_DIR}/Core/Tools/
-        ${CMAKE_SOURCE_DIR}/Core/InputOutput
-        )
-    include_directories(${include_dirs})
+    set(swig_include_dirs ${CMAKE_SOURCE_DIR}/Wrap ${FIT_SOURCE_DIRS})
+    include_directories(${swig_include_dirs})
 
     if(BORNAGAIN_GENERATE_BINDINGS)
 
@@ -71,10 +54,9 @@ if(BORNAGAIN_PYTHON)
         set(swig_dependencies ${swig_dependencies} ${AUTO_DIR}/doxygen_fit.i)
 
         set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainFit_wrap.cpp;-outdir;${TMP_DIR}")
-        foreach(dir ${include_dirs})
+        foreach(dir ${swig_include_dirs})
             list(APPEND SWIG_FLAGS "-I${dir}")
         endforeach(dir)
-
 
         add_custom_command (
             OUTPUT ${AUTO_DIR}/libBornAgainFit.py
@@ -111,11 +93,7 @@ if(WIN32)
 endif()
 
 # --- making library ---------
-add_library(
-    ${library_name}
-    SHARED
-    ${source_files} ${include_files}
-    )
+add_library(${library_name} SHARED ${include_files} ${source_files})
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 
@@ -129,7 +107,6 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---------
 include_directories(
-    ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${RootMinimizers_INCLUDE_DIRS}
@@ -138,7 +115,6 @@ include_directories(
 
 target_link_libraries(
     ${library_name}
-    ${BornAgainCore_LIBRARY}
     ${Boost_LIBRARIES}
     ${RootMinimizers_LIBRARY}
     ${GSL_LIBRARIES}
@@ -173,10 +149,7 @@ endif()
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     #    set(link_flags "-Wl,-rpath,@loader_path/../..")
     set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
-    set_target_properties(${library_name}
-        PROPERTIES
-        LINK_FLAGS ${link_flags}
-        )
+    set_target_properties(${library_name} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
 
 # -----------------------------------------------
@@ -185,6 +158,7 @@ endif()
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
 install (FILES ${fitkernel_include_files} DESTINATION ${destination_include}  COMPONENT Headers)
 install (FILES ${CMAKE_BINARY_DIR}/lib/lib${library_name}.py DESTINATION ${destination_lib} COMPONENT Libraries) # required by SWIG
+install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)
 
 if(WIN32)
     if(BORNAGAIN_PYTHON)

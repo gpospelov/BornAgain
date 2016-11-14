@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskDrawingContext.h
-//! @brief     Declares class MaskDrawingContext
+//! @brief     Defines class MaskDrawingContext
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef MASKDRAWINGCONTEXT_H
 #define MASKDRAWINGCONTEXT_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorFlags.h"
+#include "WinDllMacros.h"
 
 //! Helper class for MaskGraphicsScene to hold drawing conditions
 
@@ -33,6 +33,7 @@ public:
 
     bool isSelectionMode() const;
     bool isInZoomMode() const;
+    bool isRectangleShapeMode() const;
     bool isRectangleMode() const;
     bool isEllipseMode() const;
     bool isPolygonMode() const;
@@ -40,6 +41,7 @@ public:
     bool isVerticalLineMode() const;
     bool isHorizontalLineMode() const;
     bool isMaskAllMode() const;
+    bool isROIMode() const;
 
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
@@ -47,6 +49,9 @@ public:
     bool getMaskValue() const;
 
     bool isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity);
+
+    QString activityToModelType() const;
+    int activityToRow() const;
 
 private:
 
@@ -56,4 +61,4 @@ private:
 };
 
 
-#endif
+#endif // MASKDRAWINGCONTEXT_H

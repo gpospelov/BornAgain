@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "InfoWidget.h"
-#include "PySampleWidget.h"
 #include "InfoToolBar.h"
+#include "PySampleWidget.h"
+#include <QDebug>
 #include <QResizeEvent>
 #include <QVBoxLayout>
-#include <QDebug>
 
 namespace {
 const int minimum_widget_height = 25; // height of toolbar
@@ -33,8 +33,8 @@ InfoWidget::InfoWidget(QWidget *parent)
     , m_placeHolder(new QWidget(this))
     , m_cached_height(200)
 {
-    setWindowTitle(tr("Python Script Viewer"));
-    setObjectName(tr("PythonScriptViewer"));
+    setWindowTitle("Python Script Viewer");
+    setObjectName("PythonScriptViewer");
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_infoToolBar);

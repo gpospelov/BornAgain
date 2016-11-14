@@ -15,24 +15,21 @@
 // ************************************************************************** //
 
 #include "JobModel.h"
-#include "JobQueueData.h"
-#include "JobItem.h"
-#include "ComboProperty.h"
+#include "FitSuiteItem.h"
 #include "GUIHelpers.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "MultiLayerItem.h"
 #include "InstrumentItem.h"
-#include "RealDataItem.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
+#include "JobItemHelper.h"
+#include "JobQueueData.h"
+#include "MultiLayerItem.h"
 #include "ParameterTreeBuilder.h"
 #include "ParameterTreeItems.h"
+#include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
-#include "JobItemHelper.h"
-#include "IntensityDataItem.h"
-#include "FitSuiteItem.h"
-#include <QUuid>
+#include "JobModelFunctions.h"
+#include "ImportDataAssistant.h"
 #include <QDebug>
-#include <QItemSelection>
 
 
 JobModel::JobModel(QObject *parent)
@@ -88,11 +85,12 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
 
     JobItem *jobItem = dynamic_cast<JobItem *>(insertNewItem(Constants::JobItemType));
     jobItem->setItemName(generateJobName());
-    jobItem->setIdentifier(generateJobIdentifier());
+    jobItem->setIdentifier(GUIHelpers::createUuid());
 
     SessionItem *multilayer = copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
     multilayer->setItemName(Constants::MultiLayerType);
-    copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    SessionItem *instrument = copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    instrument->setItemName(Constants::InstrumentType);
     copyParameterizedItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
@@ -102,10 +100,8 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 
-    if(realDataItem) {
-        copyRealDataItem(jobItem, realDataItem);
-        createFitContainers(jobItem);
-    }
+    if(realDataItem)
+        JobModelFunctions::setupJobItemForFit(jobItem, realDataItem);
 
     return jobItem;
 }
@@ -136,9 +132,11 @@ void JobModel::loadNonXMLData(const QString &projectDir)
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
         JobItemHelper::loadIntensityData(jobItem, projectDir);
-        JobItemHelper::loadRealData(jobItem, projectDir);
+        if(RealDataItem *refItem = jobItem->realDataItem()) {
+            ImportDataAssistant::loadIntensityData(refItem, projectDir);
+            refItem->linkToInstrument(jobItem->instrumentItem());
+        }
     }
-
 }
 
 //! Saves JobItem's OutputData to the projectDir
@@ -147,7 +145,9 @@ void JobModel::saveNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemHelper::saveIntensityData(jobItem, projectDir);
+        JobItemHelper::saveIntensityData(jobItem->intensityDataItem(), projectDir);
+        if(RealDataItem *refItem = jobItem->realDataItem())
+            JobItemHelper::saveIntensityData(refItem->intensityDataItem(), projectDir);
     }
 }
 
@@ -199,13 +199,6 @@ QString JobModel::generateJobName()
     return QString("job")+QString::number(++glob_index);
 }
 
-
-//! generate unique job identifier
-QString JobModel::generateJobIdentifier()
-{
-    return QUuid::createUuid().toString();
-}
-
 void JobModel::restoreItem(SessionItem *item)
 {
     if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item)) {
@@ -215,53 +208,3 @@ void JobModel::restoreItem(SessionItem *item)
         restoreItem(child);
     }
 }
-
-//! Copy RealDataItem to jobItem intended for fitting.
-
-void JobModel::copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem)
-{
-    if(!realDataItem)
-        return;
-
-    RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(
-        copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
-    Q_ASSERT(realDataItemCopy);
-    realDataItemCopy->intensityDataItem()->setOutputData(
-                realDataItem->intensityDataItem()->getOutputData()->clone());
-}
-
-//! Creates necessary fit containers for jobItem intended for fitting.
-
-void JobModel::createFitContainers(JobItem *jobItem)
-{
-    SessionItem *fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
-    if(fitSuiteItem != nullptr) {
-        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
-                                "a second FitSuiteItem.");
-    }
-
-    fitSuiteItem = insertNewItem(Constants::FitSuiteType,
-                                 jobItem->index(), -1, JobItem::T_FIT_SUITE);
-
-    SessionItem *parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
-    if(parsContainerItem != nullptr) {
-        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
-                                "a second FitParameterContainer.");
-    }
-
-    parsContainerItem = insertNewItem(Constants::FitParameterContainerType,
-                                      fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
-
-    // Minimizer settings
-    SessionItem *minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
-    if(minimizerContainerItem != nullptr) {
-        throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
-                                "a second MinimizerContainer.");
-    }
-
-    minimizerContainerItem = insertNewItem(Constants::MinimizerContainerType,
-                                      fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
-
-}
-
-

@@ -15,33 +15,31 @@
 // ************************************************************************** //
 
 #include "PythonScriptWidget.h"
+#include "DesignerHelper.h"
+#include "DomainSimulationBuilder.h"
+#include "GISASSimulation.h"
+#include "InstrumentModel.h"
+#include "PythonFormatting.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "DesignerHelper.h"
-#include "GISASSimulation.h"
-#include "PyGenTools.h"
-#include "DomainSimulationBuilder.h"
-#include "WarningSignWidget.h"
 #include "SimulationOptionsItem.h"
+#include "WarningSignWidget.h"
 #include "projectdocument.h"
 #include "projectmanager.h"
-#include <QScrollBar>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QFileDialog>
 #include <QMessageBox>
-#include <QVBoxLayout>
+#include <QPushButton>
+#include <QScrollBar>
+#include <QStandardPaths>
+#include <QStyle>
+#include <QTextEdit>
+#include <QTextStream>
 #include <QToolBar>
 #include <QToolButton>
-#include <QTextEdit>
-#include <QStyle>
-#include <QPushButton>
-#include <QDir>
-#include <QFileDialog>
-#include <QFile>
-#include <QTextStream>
-#include <QDebug>
-#include <QStandardPaths>
-
-
+#include <QVBoxLayout>
 
 PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     : QDialog(parent)
@@ -103,7 +101,7 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
             DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem, optionItem));
 
         QString code = QString::fromStdString(
-            PyGenTools::genPyScript(P_simulation.get(), "output"));
+            PythonFormatting::simulationToPython(P_simulation.get()));
         m_textEdit->clear();
         m_textEdit->setText(code);
 
@@ -120,7 +118,6 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
         m_warningSign->setPosition(pos.x(), pos.y());
         m_warningSign->show();
     }
-
 }
 
 //! adjusts position of warning label on widget move
@@ -139,8 +136,8 @@ void PythonScriptWidget::onExportToFileButton()
     if(dirname.isEmpty())
         dirname = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 
-    QString file_name = QFileDialog::getSaveFileName(this, tr("Select file"), dirname,
-                            tr("Python scipts (*.py)"), 0,
+    QString file_name = QFileDialog::getSaveFileName(this, "Select file", dirname,
+                            "Python scipts (*.py)", 0,
                             QFileDialog::DontResolveSymlinks);
 
     if(file_name.isEmpty()) return;
@@ -150,7 +147,7 @@ void PythonScriptWidget::onExportToFileButton()
         qDebug() << "PythonScriptWidget::onExportToFileButton: Error! Can't save file";
         QMessageBox warning_dialog(this);
         warning_dialog.setIcon(QMessageBox::Warning);
-        warning_dialog.setText(tr("File could not be opened for writing!"));
+        warning_dialog.setText("File could not be opened for writing!");
         warning_dialog.exec();
         return;
     }

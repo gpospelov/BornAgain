@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/GroupPropertyRegistry.h
-//! @brief     Declares class GroupPropertyRegistry
+//! @brief     Defines class GroupPropertyRegistry
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,14 +17,10 @@
 #ifndef GROUPPROPERTYREGISTRY_H
 #define GROUPPROPERTYREGISTRY_H
 
-#include "WinDllMacros.h"
-#include "item_constants.h"
 #include "GroupProperty.h"
+#include "item_constants.h"
 
-#include <map>
-#include <QString>
 
-class SessionItem;
 
 //! The GroupPropertyRegistry is responsible for constructing GroupProperty objects
 //! according to the given name of the group.
@@ -45,4 +41,4 @@ private:
 };
 
 
-#endif
+#endif // GROUPPROPERTYREGISTRY_H

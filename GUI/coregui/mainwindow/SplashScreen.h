@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/mainwindow/SplashScreen.h
-//! @brief     Declares class SplashScreen
+//! @brief     Defines class SplashScreen
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef SPLASHSCREEN_H
 #define SPLASHSCREEN_H
 
-#include <QSplashScreen>
 #include "WinDllMacros.h"
+#include <QSplashScreen>
 
 class BA_CORE_API_ SplashScreen : public QSplashScreen
 {
@@ -34,8 +34,8 @@ protected:
     void drawContents(QPainter *painter);
 private:
     int m_width, m_height;
-    int m_progress;
+    int m_percentage_done;
 
 };
 
-#endif
+#endif // SPLASHSCREEN_H

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapCanvasEvent.h
-//! @brief     Declares class ColorMapCanvasEvent
+//! @brief     Defines class ColorMapCanvasEvent
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,9 +18,9 @@
 #define COLORMAPCANVASEVENT_H
 
 #include "WinDllMacros.h"
-#include <QObject>
-#include <QMap>
 #include <QFont>
+#include <QMap>
+#include <QObject>
 
 class ColorMapCanvas;
 class QObject;
@@ -49,4 +49,4 @@ private:
     QMap<QString, QFont> m_fonts;
 };
 
-#endif
+#endif // COLORMAPCANVASEVENT_H

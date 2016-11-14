@@ -16,19 +16,17 @@
 
 #include "JobItem.h"
 #include "ComboProperty.h"
-#include "IntensityDataItem.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "MultiLayerItem.h"
-#include "InstrumentItem.h"
-#include "JobItemHelper.h"
-#include "SimulationOptionsItem.h"
-#include "GUIHelpers.h"
 #include "FitSuiteItem.h"
+#include "GUIHelpers.h"
+#include "InstrumentItem.h"
+#include "IntensityDataItem.h"
+#include "JobItemHelper.h"
+#include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
-#include "FitParameterItems.h"
 #include "RealDataItem.h"
-#include <QDateTime>
+#include "SimulationOptionsItem.h"
+#include "IntensityDataItem.h"
+#include "JobItemFunctions.h"
 #include <QDebug>
 
 namespace {
@@ -98,12 +96,10 @@ JobItem::JobItem()
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &name)
     {
-        if (item->modelType() == Constants::IntensityDataType
+        if (item->parent() == this && item->modelType() == Constants::IntensityDataType
             && name == IntensityDataItem::P_AXES_UNITS) {
             auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
-            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
-            qDebug() << "QQQQ" << item->modelType() << name;
-
+            JobItemHelper::updateDataAxes(intensityItem, instrumentItem());
         }
     });
 
@@ -130,7 +126,7 @@ void JobItem::setIdentifier(const QString &identifier)
     setItemValue(JobItem::P_IDENTIFIER, identifier);
 }
 
-IntensityDataItem *JobItem::getIntensityDataItem()
+IntensityDataItem *JobItem::intensityDataItem()
 {
     return dynamic_cast<IntensityDataItem*>(getItem(T_OUTPUT));
 }
@@ -147,7 +143,7 @@ void JobItem::setStatus(const QString &status)
     combo_property.setValue(status);
     setItemValue(P_STATUS, combo_property.getVariant());
     if(status == Constants::STATUS_FAILED) {
-        if(IntensityDataItem *intensityItem = getIntensityDataItem()) {
+        if(IntensityDataItem *intensityItem = intensityDataItem()) {
             if(intensityItem->getOutputData())
                 intensityItem->getOutputData()->setAllTo(0.0);
                 emit intensityItem->emitDataChanged();
@@ -255,21 +251,21 @@ bool JobItem::runInBackground() const
 
 //! Returns MultiLayerItem of this JobItem, if from_backup=true, then backup'ed version of
 //! multilayer will be used
-MultiLayerItem *JobItem::getMultiLayerItem()
+MultiLayerItem *JobItem::multiLayerItem()
 {
     return dynamic_cast<MultiLayerItem*>(getItem(T_SAMPLE));
 }
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
 //! the instrument will be used
-InstrumentItem *JobItem::getInstrumentItem()
+InstrumentItem *JobItem::instrumentItem()
 {
     return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
 }
 
 void JobItem::setResults(const GISASSimulation *simulation)
 {
-    IntensityDataItem *intensityItem = getIntensityDataItem();
+    IntensityDataItem *intensityItem = intensityDataItem();
     Q_ASSERT(intensityItem);
 
     JobItemHelper::setResults(intensityItem, simulation);
@@ -303,10 +299,15 @@ RealDataItem *JobItem::realDataItem()
 
 void JobItem::updateIntensityDataFileName()
 {
-    if(IntensityDataItem *item = getIntensityDataItem()) {
-        QString newFileName = GUIHelpers::intensityDataFileName(this);
-        item->setItemValue(IntensityDataItem::P_FILE_NAME, newFileName);
-    }
+    if(IntensityDataItem *item = intensityDataItem())
+        item->setItemValue(IntensityDataItem::P_FILE_NAME,
+                           JobItemFunctions::jobResultsFileName(*this));
+
+    if(RealDataItem *realItem = realDataItem())
+        if(IntensityDataItem *item = realItem->intensityDataItem())
+            item->setItemValue(IntensityDataItem::P_FILE_NAME,
+                               JobItemFunctions::jobReferenceFileName(*this));
+
 }
 
 SimulationOptionsItem *JobItem::getSimulationOptionsItem()

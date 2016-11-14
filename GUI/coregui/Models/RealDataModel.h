@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/RealDataModel.h
-//! @brief     Declares class RealDataModel
+//! @brief     Defines class RealDataModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -32,6 +32,9 @@ public:
     void loadNonXMLData(const QString &projectDir);
     void saveNonXMLData(const QString &projectDir);
 
+signals:
+    void modelLoaded();
+
 };
 
-#endif
+#endif // REALDATAMODEL_H

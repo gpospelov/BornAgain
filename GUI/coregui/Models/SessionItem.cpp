@@ -14,15 +14,11 @@
 //
 // ************************************************************************** //
 
-#include "SessionItem.h"
-#include "SessionModel.h"
-#include "GroupPropertyRegistry.h"
-#include "GroupProperty.h"
-#include "GroupItem.h"
-#include "ItemFactory.h"
 #include "GUIHelpers.h"
-
-#include <sstream>
+#include "GroupItem.h"
+#include "GroupPropertyRegistry.h"
+#include "ItemFactory.h"
+#include "SessionModel.h"
 #include <QDebug>
 
 class SessionItemData
@@ -50,7 +46,7 @@ SessionItem::SessionItem(const QString &modelType)
     setData(SessionModel::ModelTypeRole, modelType);
     setDisplayName(modelType);
     setDecimals(3);
-    setLimits(AttLimits::lowerLimited(0.0));
+    setLimits(RealLimits::lowerLimited(0.0));
 }
 
 //! Destructor deletes all its children and request parent to delete this item.
@@ -760,14 +756,15 @@ bool SessionItem::isEditable() const
 
 // more roles
 
-AttLimits SessionItem::limits() const
+RealLimits SessionItem::limits() const
 {
-    return data(SessionModel::LimitsRole).value<AttLimits>();
+    return data(SessionModel::LimitsRole).value<RealLimits>();
 }
 
-void SessionItem::setLimits(const AttLimits &value)
+SessionItem& SessionItem::setLimits(const RealLimits &value)
 {
-    this->setData(SessionModel::LimitsRole, QVariant::fromValue<AttLimits>(value));
+    this->setData(SessionModel::LimitsRole, QVariant::fromValue<RealLimits>(value));
+    return *this;
 }
 
 int SessionItem::decimals() const
@@ -775,9 +772,10 @@ int SessionItem::decimals() const
     return data(SessionModel::DecimalRole).toInt();
 }
 
-void SessionItem::setDecimals(int n)
+SessionItem& SessionItem::setDecimals(int n)
 {
     setData(SessionModel::DecimalRole, n);
+    return *this;
 }
 
 QString SessionItem::toolTip() const
@@ -785,9 +783,10 @@ QString SessionItem::toolTip() const
     return data(Qt::ToolTipRole).toString();
 }
 
-void SessionItem::setToolTip(const QString &tooltip)
+SessionItem& SessionItem::setToolTip(const QString &tooltip)
 {
     setData(Qt::ToolTipRole, tooltip);
+    return *this;
 }
 
 //! Returns label of item shown in property editor.

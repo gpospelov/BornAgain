@@ -16,21 +16,21 @@
 
 #include "ProjectLoadWarningDialog.h"
 #include "DesignerHelper.h"
-#include "WarningMessageService.h"
-#include "MessageContainer.h"
-#include "GUIMessage.h"
-#include "SessionModel.h"
 #include "GUIHelpers.h"
+#include "GUIMessage.h"
+#include "MessageContainer.h"
+#include "SessionModel.h"
+#include "WarningMessageService.h"
 #include <QBoxLayout>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QLabel>
+#include <QDebug>
 #include <QFrame>
-#include <QTextEdit>
+#include <QGridLayout>
+#include <QHeaderView>
+#include <QLabel>
+#include <QPushButton>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QHeaderView>
-#include <QDebug>
+#include <QTextEdit>
 
 namespace {
 const int top_panel_height = 80;

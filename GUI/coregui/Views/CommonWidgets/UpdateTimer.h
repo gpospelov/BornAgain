@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/CommonWidgets/UpdateTimer.h
-//! @brief     Declares class UpdateTimer
+//! @brief     Defines class UpdateTimer
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -63,4 +63,4 @@ private:
     QTimer *m_timer;
 };
 
-#endif
+#endif // UPDATETIMER_H

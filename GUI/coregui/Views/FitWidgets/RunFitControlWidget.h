@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/RunFitControlWidget.h
-//! @brief     Declares class RunFitControlWidget
+//! @brief     Defines class RunFitControlWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -75,4 +75,4 @@ private:
     JobMessagePanel *m_jobMessagePanel;
 };
 
-#endif
+#endif // RUNFITCONTROLWIDGET_H

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/ExtendedDetectorDialog.h
-//! @brief     Declares class DistributionDialog
+//! @brief     Defines class DistributionDialog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -48,4 +48,4 @@ private:
     DetectorMaskDelegate *m_detectorMaskDelegate;
 };
 
-#endif
+#endif // EXTENDEDDETECTORDIALOG_H

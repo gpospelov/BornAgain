@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "JobListWidget.h"
-#include "JobModel.h"
+#include "ItemSelectorWidget.h"
 #include "JobItem.h"
 #include "JobListViewDelegate.h"
-#include "ItemSelectorWidget.h"
-#include <QVBoxLayout>
-#include <QListView>
+#include "JobModel.h"
 #include <QItemSelectionModel>
+#include <QListView>
+#include <QVBoxLayout>
 
 
 JobListWidget::JobListWidget(QWidget *parent)
@@ -73,6 +73,16 @@ QItemSelectionModel *JobListWidget::selectionModel()
     return m_listView->selectionModel();
 }
 
+//! Returns currently selected JobItem
+
+const JobItem *JobListWidget::currentJobItem() const
+{
+    QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
+    if(selected.size() == 1)
+        return m_jobModel->getJobItemForIndex(selected.at(0));
+    return nullptr;
+}
+
 
 //! setup context menu for listView
 //void JobListWidget::setupContextMenuActions()
@@ -81,10 +91,10 @@ QItemSelectionModel *JobListWidget::selectionModel()
 //    connect(m_signalMapper, SIGNAL(mapped(int)),
 //            this, SLOT(equalizeSelectedToJob(int)));
 
-//    m_removeJobAction = new QAction(tr("Remove Job"), this);
+//    m_removeJobAction = new QAction("Remove Job", this);
 //    connect(m_removeJobAction, SIGNAL(triggered()), this, SLOT(removeJob()));
 
-//    m_runJobAction = new QAction(tr("Run Job"), this);
+//    m_runJobAction = new QAction("Run Job", this);
 //    connect(m_runJobAction, SIGNAL(triggered()), this, SLOT(runJob()));
 //}
 

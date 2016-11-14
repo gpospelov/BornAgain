@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/UnitTests/Core/S/FormFactorBasicTest.h
+//! @file      Tests/UnitTests/Core/1/FormFactorBasicTest.h
 //! @brief     Trvial and basic unit tests for particle-shape form factors.
 //!
 //! @homepage  http://bornagainproject.org
@@ -13,10 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "Units.h"
+#include "MathConstants.h"
 #include "BornAgainNamespace.h"
 #include "IFormFactorBorn.h"
-#include "ParticleShapes.h"
+#include "HardParticles.h"
 
 class FormFactorBasicTest : public ::testing::Test
 {
@@ -49,7 +49,7 @@ protected:
         V = real(ff0);
         EXPECT_NEAR( p->getVolume(), V, 3e-16*V );
 
-        R = p->getRadius();
+        R = p->getRadialExtension();
         if ( R*R*R<V/20 || R*R*R>20*V ) {
             std::cerr<<"WARNING: very elongated particle, or wrong radius; some tests disabled\n";
             std::cerr<<std::setprecision(16)<<"  V  ="<<V<<"\n  R^3="<<R*R*R<<"\n";
@@ -107,7 +107,7 @@ TEST_F(FormFactorBasicTest, HemiEllipsoid)
     double radius_b = 7.;
     double height = 5.;
 
-    double volume = 2.*Units::PI*radius_a*radius_b*height/3.;
+    double volume = M_TWOPI*radius_a*radius_b*height/3.;
 
     FormFactorHemiEllipsoid hemiellipsoid(radius_a, radius_b, height);
 
@@ -132,7 +132,7 @@ TEST_F(FormFactorBasicTest, Box)
     EXPECT_EQ(BornAgain::FFBoxType, box.getName());
     EXPECT_EQ(7., box.getWidth());
     EXPECT_EQ(5., box.getHeight());
-    EXPECT_EQ(3., box.getRadius());
+    EXPECT_EQ(3., box.getRadialExtension());
     EXPECT_DOUBLE_EQ(volume, box.getVolume());
 
     test_ff( &box );
@@ -145,7 +145,7 @@ TEST_F(FormFactorBasicTest, Cone)
     double alpha = 0.8;
     double tga = std::tan(alpha);
     double HdivRtga = height/tga/radius;
-    double volume = Units::PI/3.*tga*radius*radius*radius*
+    double volume = M_PI/3.*tga*radius*radius*radius*
             (1. - (1.- HdivRtga)*(1.- HdivRtga)*(1.- HdivRtga));
 
     FormFactorCone cone(radius, height, alpha);
@@ -210,7 +210,7 @@ TEST_F(FormFactorBasicTest, Cylinder)
 {
     double radius = 3.;
     double height = 5.;
-    double volume = Units::PI*radius*radius*height;
+    double volume = M_PI*radius*radius*height;
 
     FormFactorCylinder cylinder(radius,height);
 
@@ -240,7 +240,7 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
     double radius_a = 3.;
     double radius_b = 5.;
     double height = 4;
-    double volume = Units::PI*radius_a*radius_b*height;
+    double volume = M_PI*radius_a*radius_b*height;
 
     FormFactorEllipsoidalCylinder ellipscyl(radius_a, radius_b, height);
 
@@ -256,7 +256,7 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
 TEST_F(FormFactorBasicTest, FullSphere)
 {
     double radius = 5.;
-    double volume = 4./3.*Units::PI*radius*radius*radius;
+    double volume = 4./3.*M_PI*radius*radius*radius;
 
     FormFactorFullSphere fullsphere(radius);
     EXPECT_EQ(BornAgain::FFFullSphereType, fullsphere.getName());
@@ -270,7 +270,7 @@ TEST_F(FormFactorBasicTest, FullSpheroid)
 {
     double radius = 3.;
     double height = 5.;
-    double volume = 2./3.*Units::PI*radius*radius*height;
+    double volume = 2./3.*M_PI*radius*radius*height;
 
     FormFactorFullSpheroid fullspheroid(radius,height);
 
@@ -354,7 +354,7 @@ TEST_F(FormFactorBasicTest, TruncatedSphere)
     double radius = 5.;
     double height = 3.;
     double HdivR = height/radius;
-    double volume = Units::PI/3.*radius*radius*radius*
+    double volume = M_PI/3.*radius*radius*radius*
             (3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
 
     FormFactorTruncatedSphere trsphere(radius, height);
@@ -371,7 +371,7 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
     double radius = 3.;
     double height = 5.;
     double flattening = 1.5;
-    double volume = Units::PI*radius*height*height/flattening*
+    double volume = M_PI*radius*height*height/flattening*
             (1.-height/(3.*flattening*radius));
 
     FormFactorTruncatedSpheroid trspheroid(radius, height, flattening);

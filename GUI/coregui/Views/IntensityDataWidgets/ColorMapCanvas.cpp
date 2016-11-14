@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapCanvas.h
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapCanvas.cpp
 //! @brief     Declares class ColorMapCanvas
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -20,9 +20,9 @@
 #include "ColorMapLabel.h"
 #include "IntensityDataItem.h"
 #include "StatusLabel.h"
-#include <QVBoxLayout>
-#include <QLabel>
 #include <QDebug>
+#include <QLabel>
+#include <QVBoxLayout>
 
 
 ColorMapCanvas::ColorMapCanvas(QWidget *parent)

@@ -15,27 +15,29 @@
 // ************************************************************************** //
 
 #include "MaskGraphicsScene.h"
-#include "SessionModel.h"
-#include "IntensityDataItem.h"
-#include "MaskGraphicsProxy.h"
-#include "SessionItem.h"
+#include "ColorMapSceneAdaptor.h"
 #include "IMaskView.h"
 #include "ISceneAdaptor.h"
-#include "ColorMapSceneAdaptor.h"
-#include "MaskViewFactory.h"
+#include "IntensityDataItem.h"
 #include "MaskEditorFlags.h"
+#include "MaskGraphicsProxy.h"
 #include "MaskItems.h"
+#include "MaskViewFactory.h"
 #include "PolygonView.h"
+#include "SessionItem.h"
+#include "SessionModel.h"
 #include "item_constants.h"
-#include <QItemSelection>
+#include "GUIHelpers.h"
 #include <QGraphicsItem>
+#include <QItemSelection>
 #include <QLineF>
+#include <QGraphicsSceneMoveEvent>
+#include <QPainter>
 #include <QDebug>
 
 namespace {
 const QRectF default_scene_rect(0, 0, 800, 600);
 const qreal min_distance_to_create_rect = 10;
-//const QRectF default_scene_rect(0, 0, 2.0, 2.0);
 }
 
 MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
@@ -59,58 +61,41 @@ void MaskGraphicsScene::setMaskContext(SessionModel *model, const QModelIndex &m
     if (model != m_maskModel || m_maskContainerIndex != maskContainerIndex) {
 
         if (m_maskModel) {
-            disconnect(m_maskModel,
-                       SIGNAL(modelAboutToBeReset()),
-                       this,
-                       SLOT(resetScene()));
-            disconnect(m_maskModel,
-                       SIGNAL(rowsInserted(QModelIndex, int, int)),
-                       this,
-                       SLOT(onRowsInserted(QModelIndex, int, int)));
-            disconnect(m_maskModel,
-                       SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)),
-                       this,
-                       SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-            disconnect(m_maskModel,
-                       SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                       this,
-                       SLOT(onRowsRemoved(QModelIndex, int, int)));
-            disconnect(m_maskModel,
-                       SIGNAL(modelReset()),
-                       this,
-                       SLOT(updateScene()));
+            disconnect(m_maskModel, SIGNAL(modelAboutToBeReset()),
+                       this, SLOT(resetScene()));
+            disconnect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                       this, SLOT(onRowsInserted(QModelIndex, int, int)));
+            disconnect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)),
+                       this, SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
+            disconnect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                       this, SLOT(onRowsRemoved(QModelIndex, int, int)));
+            disconnect(m_maskModel, SIGNAL(modelReset()),
+                       this, SLOT(updateScene()));
         }
 
         m_maskModel = model;
+
+        if(m_maskModel->itemForIndex(maskContainerIndex)->modelType() != Constants::MaskContainerType)
+            throw GUIHelpers::Error("MaskGraphicsScene::setMaskContext() -> Error. Not a container");
+
         m_maskContainerIndex = maskContainerIndex;
 
         if(m_maskModel) {
-            connect(m_maskModel,
-                       SIGNAL(modelAboutToBeReset()),
-                       this,
-                       SLOT(resetScene()));
-            connect(m_maskModel,
-                       SIGNAL(rowsInserted(QModelIndex, int, int)),
-                       this,
-                       SLOT(onRowsInserted(QModelIndex, int, int)));
-            connect(m_maskModel,
-                       SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)),
-                       this,
-                       SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-            connect(m_maskModel,
-                       SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                       this,
-                       SLOT(onRowsRemoved(QModelIndex, int, int)));
-            connect(m_maskModel,
-                       SIGNAL(modelReset()),
-                       this,
-                       SLOT(updateScene()));
+            connect(m_maskModel, SIGNAL(modelAboutToBeReset()),
+                    this, SLOT(resetScene()));
+            connect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                    this, SLOT(onRowsInserted(QModelIndex, int, int)));
+            connect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)),
+                    this, SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
+            connect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                    this, SLOT(onRowsRemoved(QModelIndex, int, int)));
+            connect(m_maskModel, SIGNAL(modelReset()),
+                    this, SLOT(updateScene()));
         }
 
         resetScene();
         updateScene();
     }
-
 }
 
 void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
@@ -119,40 +104,35 @@ void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
 
     if (model != m_selectionModel) {
 
-        if (m_selectionModel) {
-            disconnect(m_selectionModel,
-                       SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-                       this,
-                       SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
-        }
+        if (m_selectionModel)
+            disconnect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+                       this, SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
 
         m_selectionModel = model;
 
-        if (m_selectionModel) {
-            connect(m_selectionModel,
-                    SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-                    this,
-                    SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
-        }
+        if (m_selectionModel)
+            connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+                    this, SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
     }
+}
 
+ColorMap *MaskGraphicsScene::colorMap()
+{
+    Q_ASSERT(m_proxy);
+    return m_proxy->colorMap();
 }
 
 void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 {
-    if(!m_proxy) return;
+    if(!m_proxy)
+        return;
 
     qDebug() << "XXX MaskGraphicsScene::onActivityModeChanged";
-    if(m_context.isActivityRequiresDrawingCancel(value)) {
+    if(m_context.isActivityRequiresDrawingCancel(value))
         cancelCurrentDrawing();
-    }
 
     m_context.setActivityType(value);
-    if(m_context.isInZoomMode()) {
-        m_proxy->setInZoomMode(true);
-    } else {
-        m_proxy->setInZoomMode(false);
-    }
+    setInPanAndZoomMode(m_context.isInZoomMode());
 }
 
 void MaskGraphicsScene::onMaskValueChanged(MaskEditorFlags::MaskValue value)
@@ -160,18 +140,8 @@ void MaskGraphicsScene::onMaskValueChanged(MaskEditorFlags::MaskValue value)
     m_context.setMaskValue(value);
 }
 
-//! returns ColorMap view to original state (axes, zoom)
-void MaskGraphicsScene::onResetViewRequest()
+void MaskGraphicsScene::onRowsInserted(const QModelIndex &, int, int)
 {
-    if(!m_proxy) return;
-    m_proxy->resetView();
-}
-
-void MaskGraphicsScene::onRowsInserted(const QModelIndex &parent, int first, int last)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(first);
-    Q_UNUSED(last);
     updateScene();
 }
 
@@ -185,7 +155,7 @@ void MaskGraphicsScene::onRowsAboutToBeRemoved(const QModelIndex &parent, int fi
     m_block_selection = false;
 }
 
-void MaskGraphicsScene::onRowsRemoved(const QModelIndex &, int , int )
+void MaskGraphicsScene::onRowsRemoved(const QModelIndex &, int, int)
 {
     updateScene();
 }
@@ -208,49 +178,46 @@ void MaskGraphicsScene::resetScene()
     m_adaptor.reset(new ColorMapSceneAdaptor);
 }
 
+//! Main method to update scene on various changes in the model.
+
 void MaskGraphicsScene::updateScene()
 {
-    if(!m_maskModel) return;
+    if(!m_maskModel)
+        return;
+
     updateProxyWidget();
-    updateViews(m_maskModel->parent(m_maskContainerIndex));
+    updateViews(m_maskContainerIndex, addViewForItem(m_maskModel->itemForIndex(m_maskContainerIndex)));
     setZValues();
 }
 
-//! Makes invisible all masks in the case of the request for presentation mode
-void MaskGraphicsScene::onPresentationTypeRequest(
-        MaskEditorFlags::PresentationType presentationType)
+//! Makes invisible all masks in the case of the request for presentation mode.
+
+void MaskGraphicsScene::onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType)
 {
-    bool visibility_flag(true);
-    if(presentationType == MaskEditorFlags::MASK_PRESENTER) visibility_flag = false;
-    foreach(IMaskView *view, m_ItemToView.values()) {
-        Q_ASSERT(view);
-        view->setVisible(visibility_flag);
-    }
+    foreach(IMaskView *view, m_ItemToView.values())
+        view->setVisible(presentationType.testFlag(MaskEditorFlags::MASK_EDITOR));
 }
 
-//! propagate selection from model to scene
-void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection & /* selected */,
-                                              const QItemSelection & /* deselected */)
+//! Propagates selection from model to scene.
+
+void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection&, const QItemSelection&)
 {
-    if (m_block_selection) return;
+    if (m_block_selection)
+        return;
 
     m_block_selection = true;
 
-    for (QMap<SessionItem *, IMaskView *>::iterator it = m_ItemToView.begin();
-         it != m_ItemToView.end(); ++it) {
+    for (auto it = m_ItemToView.begin(); it != m_ItemToView.end(); ++it) {
         QModelIndex index = m_maskModel->indexOfItem(it.key());
-        if (index.isValid()) {
-            if (m_selectionModel->isSelected(index)) {
-                it.value()->setSelected(true);
-            } else {
-                it.value()->setSelected(false);
-            }
-        }
+        if (index.isValid())
+            it.value()->setSelected(m_selectionModel->isSelected(index));
     }
+
     m_block_selection = false;
 }
 
-//! propagate selection from scene to model
+//! Propagates selection from scene to model.
+
 void MaskGraphicsScene::onSceneSelectionChanged()
 {
     if (m_block_selection)
@@ -259,17 +226,16 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     m_block_selection = true;
 
     m_selectionModel->clearSelection();
-    QList<QGraphicsItem *> selected = selectedItems();
-    for (int i = 0; i < selected.size(); ++i) {
-        IMaskView *view = dynamic_cast<IMaskView *>(selected[i]);
-        if (view) {
-            SessionItem *maskItem = view->getParameterizedItem();
-            QModelIndex itemIndex = m_maskModel->indexOfItem(maskItem);
+
+    foreach(QGraphicsItem *graphicsItem, selectedItems()) {
+        if (IMaskView *view = dynamic_cast<IMaskView *>(graphicsItem)) {
+            QModelIndex itemIndex = m_maskModel->indexOfItem(view->getParameterizedItem());
             Q_ASSERT(itemIndex.isValid());
             if (!m_selectionModel->isSelected(itemIndex))
                 m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
         }
     }
+
     m_block_selection = false;
 }
 
@@ -300,13 +266,8 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    if(isValidForRectangleDrawing(event)) {
-        processRectangleItem(event);
-        return;
-    }
-
-    if(isValidForEllipseDrawing(event)) {
-        processEllipseItem(event);
+    if(isValidForRectangleShapeDrawing(event)) {
+        processRectangleShapeItem(event);
         return;
     }
 
@@ -315,13 +276,8 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(isDrawingInProgress() && m_context.isRectangleMode()) {
-        processRectangleItem(event);
-        return;
-    }
-
-    if(isDrawingInProgress() && m_context.isEllipseMode()) {
-        processEllipseItem(event);
+    if(isDrawingInProgress() && m_context.isRectangleShapeMode()) {
+        processRectangleShapeItem(event);
         return;
     }
 
@@ -333,12 +289,13 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-//! Finalizes item drawing or pass events to other items
+//! Finalizes item drawing or pass events to other items.
+
 void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before";
     if(isDrawingInProgress()) {
-        if (m_context.isRectangleMode() || m_context.isEllipseMode()) {
+        if (m_context.isRectangleShapeMode()) {
             clearSelection();
             if (m_currentItem) {
                 // drawing ended up with item drawn, let's make it selected
@@ -359,9 +316,18 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
+//! Draws dashed line to the current mouse position in the case of ungoing
+//! line or polygon drawing.
+
 void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
 {
-    if(PolygonView *polygon = getCurrentPolygon()) {
+    if(!isDrawingInProgress())
+        return;
+
+    if(m_currentMousePosition == QPointF())
+        return;
+
+    if(PolygonView *polygon = currentPolygon()) {
         painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
         painter->drawLine(QLineF(polygon->getLastAddedPoint(), m_currentMousePosition));
     } else {
@@ -384,17 +350,19 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
     }
 }
 
-//! creates item context menu if there is IMaskView beneath the mouse right click
+//! Creates item context menu if there is IMaskView beneath the mouse right click.
+
 void MaskGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-    if(isDrawingInProgress()) return;
-    IMaskView *view = dynamic_cast<IMaskView *>(itemAt(event->scenePos(), QTransform()));
-    if(view) {
+    if(isDrawingInProgress())
+        return;
+
+    if(dynamic_cast<IMaskView *>(itemAt(event->scenePos(), QTransform())))
         emit itemContextMenuRequest(event->screenPos());
-    }
 }
 
-//! updates proxy widget for intensity data item
+//! Updates proxy widget for intensity data item.
+
 void MaskGraphicsScene::updateProxyWidget()
 {
     Q_ASSERT(m_intensityItem);
@@ -406,6 +374,8 @@ void MaskGraphicsScene::updateProxyWidget()
     }
 }
 
+//! Recutsively runs through the model and creates corresponding views.
+
 void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *parentView)
 {
     Q_ASSERT(m_maskModel);
@@ -414,9 +384,9 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
         if (SessionItem *item = m_maskModel->itemForIndex(itemIndex)) {
 
-            if (item && (item->modelType() == Constants::GroupItemType || item->modelType() == Constants::PropertyType)) {
+            if (item->modelType() == Constants::GroupItemType ||
+                    item->modelType() == Constants::PropertyType)
                 continue;
-            }
 
             childView = addViewForItem(item);
             if (childView) {
@@ -431,6 +401,8 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
         updateViews(itemIndex, childView);
     }
 }
+
+//! Creates a view for given item.
 
 IMaskView *MaskGraphicsScene::addViewForItem(SessionItem *item)
 {
@@ -447,24 +419,26 @@ IMaskView *MaskGraphicsScene::addViewForItem(SessionItem *item)
     return view;
 }
 
-//! recursive delete of all views corresponding to given index
+//! Recursive delete of all views corresponding to given index.
+
 void MaskGraphicsScene::deleteViews(const QModelIndex &parentIndex)
 {
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
-        if (SessionItem *item = m_maskModel->itemForIndex(itemIndex)) {
+
+        if (SessionItem *item = m_maskModel->itemForIndex(itemIndex))
             removeItemViewFromScene(item);
-        }
+
         deleteViews(itemIndex);
     }
     removeItemViewFromScene(m_maskModel->itemForIndex(parentIndex)); // deleting parent item
 }
 
-//! removes single view from scene
+//! Removes single view from scene.
+
 void MaskGraphicsScene::removeItemViewFromScene(SessionItem *item)
 {
-    for (QMap<SessionItem *, IMaskView *>::iterator it = m_ItemToView.begin();
-         it != m_ItemToView.end(); ++it) {
+    for (auto it = m_ItemToView.begin(); it != m_ItemToView.end(); ++it) {
         if (it.key() == item) {
             IMaskView *view = it.value();
             view->setSelected(false);
@@ -475,33 +449,34 @@ void MaskGraphicsScene::removeItemViewFromScene(SessionItem *item)
     }
 }
 
-//! returns true if left mouse bottom click was inside ColorMap viewport rectangle
+//! Returns true if left mouse bottom click was inside ColorMap viewport rectangle.
+
 bool MaskGraphicsScene::isValidMouseClick(QGraphicsSceneMouseEvent *event)
 {
     if(!m_adaptor) return false;
-
     if(!(event->buttons() & Qt::LeftButton)) return false;
     if(!m_adaptor->getViewportRectangle().contains(event->scenePos())) return false;
     return true;
 }
 
-bool MaskGraphicsScene::isValidForRectangleDrawing(QGraphicsSceneMouseEvent *event)
+//! Returns true if mouse click is valid for rectangular/elliptic/ROI shapes.
+
+bool MaskGraphicsScene::isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent *event)
 {
     if(isDrawingInProgress()) return false;
     if(!isValidMouseClick(event)) return false;
-    if(!m_context.isRectangleMode()) return false;
+    if(!m_context.isRectangleShapeMode()) return false;
     if(isAreaContains(event, MaskEditorHelper::SIZEHANDLE)) return false;
+    if(m_context.isROIMode()) {
+        // only one ROI is allowed
+        foreach(SessionItem *item, m_ItemToView.keys())
+            if(item->modelType() == Constants::RegionOfInterestType)
+                return false;
+    }
     return true;
 }
 
-bool MaskGraphicsScene::isValidForEllipseDrawing(QGraphicsSceneMouseEvent *event)
-{
-    if(isDrawingInProgress()) return false;
-    if(!isValidMouseClick(event)) return false;
-    if(!m_context.isEllipseMode()) return false;
-    if(isAreaContains(event, MaskEditorHelper::SIZEHANDLE)) return false;
-    return true;
-}
+//! Returns true if mouse click is in context suitable for polygon drawing.
 
 bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event)
 {
@@ -512,6 +487,8 @@ bool MaskGraphicsScene::isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event
     }
     return true;
 }
+
+//! Returns true if mouse click is in context suitable for line drawing.
 
 bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 {
@@ -526,25 +503,26 @@ bool MaskGraphicsScene::isValidForLineDrawing(QGraphicsSceneMouseEvent *event)
 }
 
 //! Returns true if MaskAllItem can be drawn. Only one item of such type is allowed.
+
 bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event)
 {
     if(!isValidMouseClick(event)) return false;
     if(isDrawingInProgress()) return false;
     if(!m_context.isMaskAllMode()) return false;
-    foreach(SessionItem *item, m_ItemToView.keys()) {
-        if(item->modelType() == Constants::MaskAllType) return false;
-    }
+    foreach(SessionItem *item, m_ItemToView.keys())
+        if(item->modelType() == Constants::MaskAllType)
+            return false;
     return true;
 }
 
-//! return true if area beneath the mouse contains biews of given type
+//! Return true if area beneath the mouse contains views of given type.
+
 bool MaskGraphicsScene::isAreaContains(QGraphicsSceneMouseEvent *event,
                                        MaskEditorHelper::EViewTypes viewType)
 {
-    QList<QGraphicsItem *> items_beneath = this->items(event->scenePos());
-    foreach(QGraphicsItem *graphicsItem, items_beneath) {
-        if(graphicsItem->type() == viewType) return true;
-    }
+    foreach(QGraphicsItem *graphicsItem, this->items(event->scenePos()))
+        if(graphicsItem->type() == viewType)
+            return true;
     return false;
 }
 
@@ -556,82 +534,72 @@ bool MaskGraphicsScene::isDrawingInProgress() const
 void MaskGraphicsScene::setDrawingInProgress(bool value)
 {
     m_context.setDrawingInProgress(value);
-    if(value == false) {
+    if(value == false)
         m_currentItem = 0;
-    }
+}
+
+//! Sets the state of all views in pan&zoom mode.
+//! In pan&zoom mode, the selection is removed, all items can't receive mouse clicks, and all
+//! events are propagated down to ColorMap plot.
+
+void MaskGraphicsScene::setInPanAndZoomMode(bool value)
+{
+    if(value)
+        m_selectionModel->clearSelection();
+
+    Qt::MouseButtons acceptedButton = (value ? Qt::NoButton : Qt::LeftButton);
+    foreach(IMaskView *view, m_ItemToView.values())
+        view->setAcceptedMouseButtons(acceptedButton);
+
+    m_proxy->setInZoomMode(value);
 }
 
 void MaskGraphicsScene::makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event)
 {
-    if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform())) {
+    if(QGraphicsItem *graphicsItem = itemAt(event->scenePos(), QTransform()))
         graphicsItem->setSelected(true);
-    }
 }
 
-//! Processes RectangleItem drawing
+//! Processes RectangleItem and EllipseItem drawing
 //! If the mouse move distance with left button down is larger than certain threshold,
-//! new RectangleItem will be created. Further, this function will update size and position
+//! new item will be created. Further, this function will update size and position
 //! of current rectangle if mouse keep moving.
-//! FIXME Refactor to handle Ellipses and rectangles in single function
-void MaskGraphicsScene::processRectangleItem(QGraphicsSceneMouseEvent *event)
+
+void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent *event)
 {
-    if(!isDrawingInProgress()) setDrawingInProgress(true);
+    if(!isDrawingInProgress())
+        setDrawingInProgress(true);
 
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
     QPointF mouse_pos = event->scenePos();
     QLineF line(mouse_pos, click_pos);
 
     if(!m_currentItem && line.length() > min_distance_to_create_rect) {
-        m_currentItem = m_maskModel->insertNewItem(Constants::RectangleMaskType,
-                                                   m_maskContainerIndex, 0);
-        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
+        m_currentItem = m_maskModel->insertNewItem(m_context.activityToModelType(),
+                                                   m_maskContainerIndex, m_context.activityToRow());
+        if(!m_context.isROIMode())
+            m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
 
-    if(m_currentItem) {
-        qreal xmin = std::min(click_pos.x(), mouse_pos.x());
-        qreal xmax = std::max(click_pos.x(), mouse_pos.x());
-        qreal ymin = std::min(click_pos.y(), mouse_pos.y());
-        qreal ymax = std::max(click_pos.y(), mouse_pos.y());
+    if(!m_currentItem)
+        return;
 
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_POSX, m_adaptor->fromSceneX(xmin));
-//        m_currentItem->setRegisteredProperty(RectangleItem::P_POSY, m_adaptor->fromSceneY(ymin));
-//        m_currentItem->setRegisteredProperty(
-//            RectangleItem::P_WIDTH, m_adaptor->fromSceneX(xmax) - m_adaptor->fromSceneX(xmin));
-//        m_currentItem->setRegisteredProperty(
-//            RectangleItem::P_HEIGHT, m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax));
+    qreal xmin = std::min(click_pos.x(), mouse_pos.x());
+    qreal xmax = std::max(click_pos.x(), mouse_pos.x());
+    qreal ymin = std::min(click_pos.y(), mouse_pos.y());
+    qreal ymax = std::max(click_pos.y(), mouse_pos.y());
 
+    if(m_currentItem->modelType() == Constants::RectangleMaskType ||
+            m_currentItem->modelType() == Constants::RegionOfInterestType) {
         m_currentItem->setItemValue(RectangleItem::P_XLOW, m_adaptor->fromSceneX(xmin));
         m_currentItem->setItemValue(RectangleItem::P_YLOW, m_adaptor->fromSceneY(ymax));
         m_currentItem->setItemValue(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
         m_currentItem->setItemValue(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
     }
-}
 
-//! Processes EllipseItem drawing
-void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
-{
-    if(!isDrawingInProgress()) setDrawingInProgress(true);
-
-    QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
-    QPointF mouse_pos = event->scenePos();
-    QLineF line(mouse_pos, click_pos);
-
-    if(!m_currentItem && line.length() > min_distance_to_create_rect) {
-        m_currentItem = m_maskModel->insertNewItem(Constants::EllipseMaskType,
-                                                   m_maskContainerIndex, 0);
-        m_currentItem->setItemValue(MaskItem::P_MASK_VALUE,
-                                             m_context.getMaskValue());
-        setItemName(m_currentItem);
-    }
-
-    if(m_currentItem) {
-        qreal xmin = std::min(click_pos.x(), mouse_pos.x());
-        qreal xmax = std::max(click_pos.x(), mouse_pos.x());
-        qreal ymin = std::min(click_pos.y(), mouse_pos.y());
-        qreal ymax = std::max(click_pos.y(), mouse_pos.y());
-
+    else if(m_currentItem->modelType() == Constants::EllipseMaskType){
         m_currentItem->setItemValue(EllipseItem::P_XCENTER,
                                              m_adaptor->fromSceneX(xmin + (xmax-xmin)/2.));
         m_currentItem->setItemValue(EllipseItem::P_YCENTER,
@@ -641,7 +609,6 @@ void MaskGraphicsScene::processEllipseItem(QGraphicsSceneMouseEvent *event)
         m_currentItem->setItemValue(
             EllipseItem::P_YRADIUS, (m_adaptor->fromSceneY(ymin) - m_adaptor->fromSceneY(ymax))/2.);
     }
-
 }
 
 void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
@@ -660,9 +627,10 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
 
     Q_ASSERT(m_currentItem->modelType() == Constants::PolygonMaskType);
 
-    if(PolygonView *currentPolygon = getCurrentPolygon()) {
-        if(currentPolygon->closePolygonIfNecessary()) {
+    if(PolygonView *polygon = currentPolygon()) {
+        if(polygon->closePolygonIfNecessary()) {
             setDrawingInProgress(false);
+            m_currentMousePosition = QPointF();
             return;
         }
     }
@@ -722,40 +690,39 @@ void MaskGraphicsScene::processMaskAllItem(QGraphicsSceneMouseEvent *event)
 }
 
 //! Update Z-values of all IMaskView to reflect stacking order in SessionModel.
-//! Item with irow=0 is the top most on graphics scene.
+//! Item with irow=0 is the top most on graphics scene (and so is having largest z-values).
+
 void MaskGraphicsScene::setZValues()
 {
     Q_ASSERT(m_maskContainerIndex.isValid());
     for(int i = 0; i < m_maskModel->rowCount(m_maskContainerIndex); i++) {
         QModelIndex itemIndex = m_maskModel->index(i, 0, m_maskContainerIndex);
         SessionItem *item =  m_maskModel->itemForIndex(itemIndex);
-        Q_ASSERT(item);
-        if(IMaskView *view = m_ItemToView[item]) {
+        if(IMaskView *view = m_ItemToView[item])
             view->setZValue(m_maskModel->rowCount(m_maskContainerIndex) -  itemIndex.row() + 1);
-        }
     }
 }
 
-//! returns polygon which is currently under the drawing
-PolygonView *MaskGraphicsScene::getCurrentPolygon() const
+//! Returns polygon which is currently under the drawing.
+
+PolygonView *MaskGraphicsScene::currentPolygon() const
 {
     PolygonView *result(0);
     if(isDrawingInProgress() && m_context.isPolygonMode()) {
-        if(m_currentItem) {
-//            if(IMaskView *view = m_ItemToView[m_currentItem]) {
-//                if(view->type() == MaskEditorHelper::POLYGON)
-//                    result = dynamic_cast<PolygonView *>(view);
-//            }
+        if(m_currentItem)
               result = dynamic_cast<PolygonView *>(m_ItemToView[m_currentItem]);
-        }
     }
     return result;
 }
 
 //! Sets item name depending on alreay existent items.
 //! If there is already "Rectangle1", the new name will be "Rectangle2"
+
 void MaskGraphicsScene::setItemName(SessionItem *itemToChange)
 {
+    if(itemToChange->modelType() == Constants::RegionOfInterestType)
+        return;
+
     int glob_index(0);
     for(int i_row = 0; i_row < m_maskModel->rowCount(m_maskContainerIndex); ++i_row) {
          QModelIndex itemIndex = m_maskModel->index( i_row, 0, m_maskContainerIndex );

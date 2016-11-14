@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/mainwindow/projectmanager.h
-//! @brief     Declares class ProjectManager
+//! @brief     Defines class ProjectManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,12 +19,10 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
-#include <QString>
 #include <QStringList>
 
 class MainWindow;
 class ProjectDocument;
-class QSettings;
 class WarningMessageService;
 
 //! handles activity related to opening/save projects
@@ -84,4 +82,4 @@ private:
     WarningMessageService *m_messageService;
 };
 
-#endif
+#endif // PROJECTMANAGER_H

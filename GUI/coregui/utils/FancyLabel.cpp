@@ -16,7 +16,6 @@
 
 #include "FancyLabel.h"
 #include <QTimer>
-#include <QDebug>
 
 FancyLabel::FancyLabel(const QString &text, QWidget *parent)
     : QLabel(text, parent)

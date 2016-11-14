@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "GroupProperty.h"
-#include "GUIHelpers.h"
 #include "ItemFactory.h"
 #include <QDebug>
 

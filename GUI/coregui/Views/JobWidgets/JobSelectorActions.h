@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobSelectorActions.h
-//! @brief     Declares class JobSelectorActions
+//! @brief     Defines class JobSelectorActions
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,8 +18,8 @@
 #define JOBSELECTORACTIONS_H
 
 #include "WinDllMacros.h"
-#include <QObject>
 #include <QModelIndex>
+#include <QObject>
 
 class QAction;
 class JobModel;
@@ -55,5 +55,5 @@ private:
     JobModel *m_jobModel;
 };
 
-#endif
+#endif // JOBSELECTORACTIONS_H
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/MagneticFieldItem.h
-//! @brief     Declares class MagneticFieldItem
+//! @brief     Defines class MagneticFieldItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -34,5 +34,5 @@ public:
 
 
 
-#endif
+#endif // MAGNETICFIELDITEM_H
 

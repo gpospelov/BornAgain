@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskEditorPropertyPanel.h
-//! @brief     Declares class MaskEditorPropertyPanel
+//! @brief     Defines class MaskEditorPropertyPanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,8 +18,8 @@
 #define MASKEDITORPROPERTYPANEL_H
 
 #include "MaskEditorFlags.h"
-#include <QWidget>
 #include <QModelIndex>
+#include <QWidget>
 
 class QListView;
 class SessionModel;
@@ -64,10 +64,10 @@ private:
     QListView *m_listView;
     ComponentEditor *m_maskPropertyEditor;
     ComponentEditor *m_plotPropertyEditor;
+    AccordionWidget *m_accordion;
     SessionModel *m_maskModel;
     QModelIndex m_rootIndex;
     IntensityDataItem *m_intensityDataItem;
 };
 
-
-#endif
+#endif // MASKEDITORPROPERTYPANEL_H

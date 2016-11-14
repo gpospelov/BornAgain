@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/ParticleDistributionsBuilder.h
-//! @brief     Declares classes of with different types of particle distributions.
+//! @brief     Defines classes of with different types of particle distributions.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,17 +16,16 @@
 #ifndef PARTICLEDISTRIBUTIONSBUILDER_H
 #define PARTICLEDISTRIBUTIONSBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
-//! @class CylindersWithSizeDistributionBuilder
+//! Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 //! @ingroup standard_samples
-//! @brief Cylinders in BA with size distributions (IsGISAXS example #3, part II)
 
-class CylindersWithSizeDistributionBuilder : public ISampleBuilder
+class CylindersWithSizeDistributionBuilder : public IMultiLayerBuilder
 {
 public:
     CylindersWithSizeDistributionBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -37,16 +36,14 @@ private:
 };
 
 
-//! @class TwoTypesCylindersDistributionBuilder
+//! Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)
 //! @ingroup standard_samples
-//! @brief Builds sample: mixture cylinder particles with different size
-//! distribution (IsGISAXS example #2)
 
-class BA_CORE_API_ TwoTypesCylindersDistributionBuilder : public ISampleBuilder
+class BA_CORE_API_ TwoTypesCylindersDistributionBuilder : public IMultiLayerBuilder
 {
 public:
     TwoTypesCylindersDistributionBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -59,6 +56,5 @@ private:
     double m_sigma1_ratio;
     double m_sigma2_ratio;
 };
-
 
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

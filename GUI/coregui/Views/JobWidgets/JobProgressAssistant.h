@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobProgressAssistant.h
-//! @brief     Declares class JobProgressAssistant
+//! @brief     Defines class JobProgressAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -37,4 +37,4 @@ private:
     MainWindow *m_mainWindow;
 };
 
-#endif
+#endif // JOBPROGRESSASSISTANT_H

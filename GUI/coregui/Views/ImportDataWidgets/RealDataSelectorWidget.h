@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/RealDataSelectorWidget.h
-//! @brief     Declares class RealDataSelectorWidget
+//! @brief     Defines class RealDataSelectorWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,8 +20,18 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-//! The RealDataSelectorWidget class holds QListView on the left side of ImportDataView to
-//! switch between different RealDataItem's
+class RealDataPropertiesWidget;
+class ItemSelectorWidget;
+class RealDataPropertiesWidget;
+class InstrumentModel;
+class RealDataModel;
+class SessionItem;
+class QItemSelectionModel;
+namespace Manhattan { class MiniSplitter;}
+
+//! The RealDataSelectorWidget represents left panel of ImportDataView. Contains a widget to
+//! select data set (ItemSelectorWidget) and properties of currently selected data
+//! (RealDataPropertiesWidget).
 
 class BA_CORE_API_ RealDataSelectorWidget : public QWidget
 {
@@ -33,8 +43,20 @@ public:
     QSize sizeHint() const { return QSize(200, 400); }
     QSize minimumSizeHint() const { return QSize(128, 200); }
 
+    void setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel);
+
+    QItemSelectionModel *selectionModel();
+
+signals:
+    void selectionChanged(SessionItem *);
+
+public slots:
+    void onSelectionChanged(SessionItem *item);
+
 private:
-    class QListView *m_listView;
+    Manhattan::MiniSplitter *m_splitter;
+    ItemSelectorWidget *m_selectorWidget;
+    RealDataPropertiesWidget *m_propertiesWidget;
 };
 
-#endif
+#endif // REALDATASELECTORWIDGET_H

@@ -15,9 +15,8 @@
 // ************************************************************************** //
 
 #include "WarningMessageService.h"
-#include "MessageContainer.h"
 #include "GUIMessage.h"
-#include "GUIHelpers.h"
+#include "MessageContainer.h"
 #include <QObject>
 
 WarningMessageService::~WarningMessageService()

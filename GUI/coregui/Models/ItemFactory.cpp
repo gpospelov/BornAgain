@@ -15,46 +15,45 @@
 // ************************************************************************** //
 
 #include "ItemFactory.h"
-#include "MultiLayerItem.h"
-#include "LayerItem.h"
-#include "ParticleLayoutItem.h"
-#include "ParticleItem.h"
-#include "TransformationItem.h"
-#include "RotationItems.h"
-#include "ParticleCoreShellItem.h"
-#include "ParticleCompositionItem.h"
-#include "ParticleDistributionItem.h"
-#include "DistributionItem.h"
-#include "InterferenceFunctionItems.h"
-#include "InstrumentItem.h"
-#include "BeamItem.h"
-#include "DetectorItems.h"
-#include "VectorItem.h"
-#include "PropertyItem.h"
-#include "GroupItem.h"
-#include "GUIHelpers.h"
-#include "FormFactorItems.h"
-#include "LayerRoughnessItems.h"
-#include "FTDistributionItems.h"
-#include "FTDecayFunctionItems.h"
-#include "LatticeTypeItems.h"
-#include "MaterialItem.h"
-#include "RefractiveIndexItem.h"
-#include "MagneticFieldItem.h"
-#include "JobItem.h"
-#include "IntensityDataItem.h"
 #include "AxesItems.h"
-#include "ResolutionFunctionItems.h"
-#include "BeamDistributionItem.h"
-#include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
-#include "MaskItems.h"
-#include "ParameterTreeItems.h"
-#include "SimulationOptionsItem.h"
+#include "BeamItem.h"
+#include "BeamWavelengthItem.h"
+#include "DetectorItems.h"
+#include "FTDecayFunctionItems.h"
+#include "FTDistributionItems.h"
 #include "FitParameterItems.h"
 #include "FitSuiteItem.h"
-#include "RealDataItem.h"
+#include "FormFactorItems.h"
+#include "GUIHelpers.h"
+#include "GroupItem.h"
+#include "InstrumentItem.h"
+#include "IntensityDataItem.h"
+#include "InterferenceFunctionItems.h"
+#include "JobItem.h"
+#include "LatticeTypeItems.h"
+#include "LayerItem.h"
+#include "LayerRoughnessItems.h"
+#include "MagneticFieldItem.h"
+#include "MaskItems.h"
+#include "MaterialItem.h"
 #include "MinimizerItem.h"
+#include "MultiLayerItem.h"
+#include "ParameterTreeItems.h"
+#include "ParticleCompositionItem.h"
+#include "ParticleCoreShellItem.h"
+#include "ParticleDistributionItem.h"
+#include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
+#include "PropertyItem.h"
+#include "RealDataItem.h"
+#include "RefractiveIndexItem.h"
+#include "ResolutionFunctionItems.h"
+#include "RotationItems.h"
+#include "SimulationOptionsItem.h"
+#include "TransformationItem.h"
+#include "VectorItem.h"
+#include "LinkInstrumentItem.h"
 #include <QDebug>
 
 namespace {
@@ -178,6 +177,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::EllipseMaskType] = &createInstance<EllipseItem>;
     result[Constants::MaskAllType] = &createInstance<MaskAllItem>;
 
+    result[Constants::RegionOfInterestType] = &createInstance<RegionOfInterestItem>;
+
     result[Constants::GroupItemType] = &createInstance<GroupItem>;
 
     result[Constants::ParameterContainerType] = &createInstance<ParameterContainerItem>;
@@ -192,11 +193,15 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::SimulationOptionsType] = &createInstance<SimulationOptionsItem>;
 
     result[Constants::RealDataType] = &createInstance<RealDataItem>;
+    result[Constants::LinkInstrumentType] = &createInstance<LinkInstrumentItem>;
 
     result[Constants::MinimizerContainerType] = &createInstance<MinimizerContainerItem>;
     result[Constants::MinuitMinimizerType] = &createInstance<MinuitMinimizerItem>;
-    result[Constants::GSLMinimizerType] = &createInstance<GSLMinimizerItem>;
+    result[Constants::GSLMultiMinimizerType] = &createInstance<GSLMultiMinimizerItem>;
     result[Constants::GeneticMinimizerType] = &createInstance<GeneticMinimizerItem>;
+    result[Constants::GSLSimAnMinimizerType] = &createInstance<SimAnMinimizerItem>;
+    result[Constants::GSLLMAMinimizerType] = &createInstance<GSLLMAMinimizerItem>;
+    result[Constants::TestMinimizerType] = &createInstance<TestMinimizerItem>;
 
     return result;
 }
@@ -220,7 +225,7 @@ ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
 SessionItem *ItemFactory::createItem(const QString &model_name,
                                            SessionItem *parent)
 {
-    qDebug() << "ItemFactory::createItem" << model_name;
+    //qDebug() << "ItemFactory::createItem" << model_name;
 
     if(!m_item_map.contains(model_name))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "+model_name);
@@ -229,7 +234,7 @@ SessionItem *ItemFactory::createItem(const QString &model_name,
     if(parent) {
         parent->insertItem(-1, result);
     }
-    qDebug() << "       result:" << result;
+    //qDebug() << "       result:" << result;
     return result;
 }
 

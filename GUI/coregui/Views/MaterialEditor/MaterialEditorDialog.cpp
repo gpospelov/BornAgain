@@ -15,15 +15,15 @@
 // ************************************************************************** //
 
 #include "MaterialEditorDialog.h"
-#include "MaterialModel.h"
 #include "MaterialEditor.h"
+#include "MaterialModel.h"
 #include "MaterialUtils.h"
 #include "mainwindow_constants.h"
-#include <QVBoxLayout>
-#include <QPushButton>
 #include <QAction>
 #include <QDebug>
+#include <QPushButton>
 #include <QSettings>
+#include <QVBoxLayout>
 
 namespace {
 const QSize default_dialog_size(512, 400);
@@ -45,9 +45,9 @@ MaterialEditorDialog::MaterialEditorDialog(MaterialModel *materialModel, QWidget
     layout->setContentsMargins(0,0,0,0);
     layout->addWidget(m_materialEditor);
 
-    QPushButton *okButton = new QPushButton(tr("OK"));
+    QPushButton *okButton = new QPushButton("OK");
     connect(okButton, SIGNAL(clicked()), this, SLOT(onOKButton()));
-    QPushButton *cancelButton = new QPushButton(tr("Cancel"));
+    QPushButton *cancelButton = new QPushButton("Cancel");
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(onCancelButton()));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;

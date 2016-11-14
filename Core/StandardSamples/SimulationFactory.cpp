@@ -13,8 +13,10 @@
 //
 // ************************************************************************** //
 
-#include "StandardSimulations.h"
 #include "SimulationFactory.h"
+#include "GISASSimulation.h"
+#include "RealParameter.h"
+#include "StandardSimulations.h"
 
 SimulationFactory::SimulationFactory()
 {
@@ -96,4 +98,12 @@ SimulationFactory::SimulationFactory()
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2], "
                  "in Monte-Carlo mode");
 
+    // region of interest
+
+    registerItem("SphericalDetWithRoi",
+                 StandardSimulations::SphericalDetWithRoi,
+                 "Spherical detector with ROI and mask");
+    registerItem("RectDetWithRoi",
+                 StandardSimulations::RectDetWithRoi,
+                 "Rectangular detector with ROI and mask");
 }

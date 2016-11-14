@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapCanvas.h
-//! @brief     Declares class ColorMapCanvas
+//! @brief     Defines class ColorMapCanvas
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -57,5 +57,5 @@ private:
     ColorMapLabel *m_statusLabel;
 };
 
-#endif
+#endif // COLORMAPCANVAS_H
 

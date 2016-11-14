@@ -14,13 +14,16 @@
 // ************************************************************************** //
 
 #include "RipplesBuilder.h"
-#include "MultiLayer.h"
-#include "ParticleLayout.h"
-#include "Materials.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
-#include "Units.h"
+#include "HomogeneousMaterial.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "Layer.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleLayout.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 CosineRippleBuilder::CosineRippleBuilder()
     : m_w(20.0*Units::nanometer)
@@ -32,21 +35,18 @@ CosineRippleBuilder::CosineRippleBuilder()
     init_parameters();
 }
 
-
 void CosineRippleBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("width", &m_w);
-    registerParameter("height", &m_h);
-    registerParameter("length", &m_l);
-    registerParameter("interf_distance", &m_interf_distance);
-    registerParameter("interf_width", &m_interf_width);
+    registerParameter("width", &m_w).setUnit("nm").setNonnegative();
+    registerParameter("height", &m_h).setUnit("nm").setNonnegative();
+    registerParameter("length", &m_l).setUnit("nm").setNonnegative();
+    registerParameter("interf_distance", &m_interf_distance).setUnit("nm").setNonnegative();
+    registerParameter("interf_width", &m_interf_width).setUnit("nm").setNonnegative();
 }
 
-
-ISample *CosineRippleBuilder::buildSample() const
+MultiLayer* CosineRippleBuilder::buildSample() const
 {
-    MultiLayer *p_multi_layer = new MultiLayer();
+    MultiLayer* p_multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -87,22 +87,20 @@ TriangularRippleBuilder::TriangularRippleBuilder()
     init_parameters();
 }
 
-
 void TriangularRippleBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("width", &m_w);
-    registerParameter("height", &m_h);
-    registerParameter("length", &m_l);
-    registerParameter("asymetry", &m_d);
-    registerParameter("interf_distance", &m_interf_distance);
-    registerParameter("interf_width", &m_interf_width);
+
+    registerParameter("width", &m_w).setUnit("nm").setNonnegative();
+    registerParameter("height", &m_h).setUnit("nm").setNonnegative();
+    registerParameter("length", &m_l).setUnit("nm").setNonnegative();
+    registerParameter  ("asymetry", &m_d);
+    registerParameter("interf_distance", &m_interf_distance).setUnit("nm").setNonnegative();
+    registerParameter("interf_width", &m_interf_width).setUnit("nm").setNonnegative();
 }
 
-
-ISample *TriangularRippleBuilder::buildSample() const
+MultiLayer* TriangularRippleBuilder::buildSample() const
 {
-    MultiLayer *p_multi_layer = new MultiLayer();
+    MultiLayer* p_multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -129,4 +127,3 @@ ISample *TriangularRippleBuilder::buildSample() const
 
     return p_multi_layer;
 }
-

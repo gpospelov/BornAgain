@@ -16,11 +16,11 @@
 
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
-#include <QGraphicsScene>
-#include <QFontMetrics>
-#include <QPen>
-#include <QPainter>
 #include <QDebug>
+#include <QFontMetrics>
+#include <QGraphicsScene>
+#include <QPainter>
+#include <QPen>
 
 NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
                                NodeEditorPort::EPortDirection direction,

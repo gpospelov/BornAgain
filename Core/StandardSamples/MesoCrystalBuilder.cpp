@@ -13,19 +13,24 @@
 //
 // ************************************************************************** //
 
-#include <memory>
+#include "MesoCrystalBuilder.h"
+#include "Crystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
-#include "MultiLayer.h"
-#include "InterferenceFunctions.h"
-#include "Crystal.h"
-#include "MesoCrystal.h"
-#include "ParticleLayout.h"
-#include "Units.h"
-#include "Materials.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "MesoCrystalBuilder.h"
-
+#include "HomogeneousMaterial.h"
+#include "ISelectionRule.h"
+#include "Layer.h"
+#include "LayerInterface.h"
+#include "LayerRoughness.h"
+#include "MesoCrystal.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleComposition.h"
+#include "ParticleLayout.h"
+#include "MathConstants.h"
+#include "RealParameter.h"
+#include "Units.h"
 
 MesoCrystalBuilder::MesoCrystalBuilder()
     : m_lattice_length_a(6.2091e+00*Units::nanometer)
@@ -44,30 +49,30 @@ MesoCrystalBuilder::MesoCrystalBuilder()
     init_parameters();
 }
 
-
 void MesoCrystalBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("meso_radius", &m_meso_radius);
-    registerParameter("surface_filling_ratio", &m_surface_filling_ratio);
-    registerParameter("meso_height", &m_meso_height);
-    registerParameter("sigma_meso_height", &m_sigma_meso_height);
-    registerParameter("sigma_meso_radius", &m_sigma_meso_radius);
-    registerParameter("lattice_length_a", &m_lattice_length_a);
-    registerParameter("lattice_length_c", &m_lattice_length_c);
-    registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
-    registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
-    registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a);
-    registerParameter("roughness", &m_roughness);
-    registerParameter("nphi_rotations", &m_nphi_rotations);
+    registerParameter("meso_radius", &m_meso_radius).setUnit("nm").setNonnegative();
+    registerParameter("surface_filling_ratio", &m_surface_filling_ratio).setNonnegative();
+    registerParameter("meso_height", &m_meso_height).setUnit("nm").setNonnegative();
+    registerParameter("sigma_meso_height", &m_sigma_meso_height).setUnit("nm").setNonnegative();
+    registerParameter("sigma_meso_radius", &m_sigma_meso_radius).setUnit("nm").setNonnegative();
+    registerParameter("lattice_length_a", &m_lattice_length_a).setUnit("nm").setNonnegative();
+    registerParameter("lattice_length_c", &m_lattice_length_c).setUnit("nm").setNonnegative();
+    registerParameter("nanoparticle_radius", &m_nanoparticle_radius).setUnit("nm").setNonnegative();
+    registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius).
+        setUnit("nm").setNonnegative();
+    registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a).
+        setUnit("nm").setNonnegative();
+    registerParameter("roughness", &m_roughness).setUnit("nm").setNonnegative();
+    registerParameter("nphi_rotations", &m_nphi_rotations).setNonnegative();
 }
 
 
 // create mesocrystal
-ISample* MesoCrystalBuilder::buildSample() const
+MultiLayer* MesoCrystalBuilder::buildSample() const
 {
     // create mesocrystal
-    double surface_density = m_surface_filling_ratio/Units::PI/m_meso_radius/m_meso_radius;
+    double surface_density = m_surface_filling_ratio/M_PI/m_meso_radius/m_meso_radius;
 //    complex_t n_particle(1.0-1.55e-5, 1.37e-6); // data from Artur
     // data from http://henke.lbl.gov/optical_constants/getdb2.html
     complex_t n_particle(1.0-2.84e-5, 4.7e-7);
@@ -100,7 +105,7 @@ ISample* MesoCrystalBuilder::buildSample() const
 //    double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
 //    double alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
 
-    double phi_step = 2*Units::PI/3.0/n_max_phi_rotation_steps;
+    double phi_step = M_TWOPI/3.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {

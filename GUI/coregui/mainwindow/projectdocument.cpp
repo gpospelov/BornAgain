@@ -16,29 +16,11 @@
 
 #include "projectdocument.h"
 #include "ApplicationModels.h"
-#include "DocumentModel.h"
-#include "MaterialModel.h"
-#include "InstrumentModel.h"
-#include "JobQueueData.h"
-#include "JobModel.h"
-#include "JobItem.h"
-#include "IntensityDataItem.h"
-#include "SampleModel.h"
-#include "IntensityDataIOFactory.h"
-#include "BAVersion.h"
+#include "GUIHelpers.h"
 #include "WarningMessageService.h"
-#include "MessageContainer.h"
-#include "GUIHelpers.h"
-#include "JobItemHelper.h"
-#include "GUIHelpers.h"
-#include <QFile>
-#include <QTextStream>
-#include <QFileInfo>
-#include <QDir>
-#include <QModelIndex>
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
 #include <QDebug>
+#include <QDir>
+#include <QXmlStreamReader>
 
 namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
@@ -171,7 +153,7 @@ bool ProjectDocument::isModified()
     return m_modified;
 }
 
-void ProjectDocument::setMessageService(WarningMessageService *messageService)
+void ProjectDocument::setLogger(WarningMessageService *messageService)
 {
     m_messageService = messageService;
 }

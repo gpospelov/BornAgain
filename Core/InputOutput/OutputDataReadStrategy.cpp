@@ -13,15 +13,11 @@
 //
 // ************************************************************************** //
 
-#include <fstream>
-#include <stdexcept>
-
-#include "Complex.h"
-#include "BornAgainNamespace.h"
+#include "OutputDataReadStrategy.h"
 #include "OutputData.h"
 #include "OutputDataIOHelper.h"
 #include "TiffHandler.h"
-#include "OutputDataReadStrategy.h"
+#include <stdexcept> // need overlooked by g++ 5.4
 
 OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& input_stream)
 {
@@ -29,6 +25,12 @@ OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& inpu
     std::string line;
 
     while( std::getline(input_stream, line) ) {
+        if (line.find("reproducibility") != std::string::npos) {
+            std::string line;
+            std::getline(input_stream, line);
+            result->setVariability( std::stod( line ) );
+        }
+
         if (line.find("axis") != std::string::npos) {
             IAxis* axis = OutputDataIOHelper::createAxis(input_stream);
             result->addAxis(*axis);

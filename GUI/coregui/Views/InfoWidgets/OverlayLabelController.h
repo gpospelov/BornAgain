@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/InfoWidgets/OverlayLabelController.h
-//! @brief     Declares class OverlayLabelController
+//! @brief     Defines class OverlayLabelController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -50,4 +50,4 @@ private:
     QString m_text;
 };
 
-#endif
+#endif // OVERLAYLABELCONTROLLER_H

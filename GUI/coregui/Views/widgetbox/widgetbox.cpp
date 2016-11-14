@@ -126,7 +126,7 @@ WidgetBox::WidgetBox(SampleDesignerInterface *core, QWidget *parent, Qt::WindowF
     // Prevent the filter from grabbing focus since Our view has Qt::NoFocus
     QToolBar *toolBar = new QToolBar(this);
     QLineEdit *filterWidget = new WidgetBoxFilterLineEdit(toolBar);
-    filterWidget->setPlaceholderText(tr("Filter"));
+    filterWidget->setPlaceholderText("Filter");
     filterWidget->setClearButtonEnabled(true);
     connect(filterWidget, SIGNAL(textChanged(QString)), m_view, SLOT(filter(QString)));
     toolBar->addWidget(filterWidget);

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitParameterWidget.h
-//! @brief     Declares class FitParameterWidget
+//! @brief     Defines class FitParameterWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -100,4 +100,4 @@ private:
     OverlayLabelController *m_infoLabel;
 };
 
-#endif
+#endif // FITPARAMETERWIDGET_H

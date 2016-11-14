@@ -3,8 +3,6 @@ In this example we demonstrate how to plot simulation results with
 axes in different units (nbins, mm, degs and QyQz).
 """
 import numpy
-import matplotlib
-from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -63,7 +61,6 @@ def plot_as_colormap(hist, Title, xLabel, yLabel):
     """
     Simple plot of intensity data as color map
     """
-
     im = plt.imshow(
         hist.getArray(),
         norm=matplotlib.colors.LogNorm(1.0, hist.getMaximum()),
@@ -76,36 +73,49 @@ def plot_as_colormap(hist, Title, xLabel, yLabel):
     plt.title(Title)
 
 
-def run_simulation():
+def simulate():
     """
-    Run two simulations for two different detectors and plot results
+    Run simulation and returns results for different detectors.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
 
+    result = {}
+    result['mm'] = simulation.getIntensityData()
+    result['bin'] = simulation.getIntensityData(ba.IDetector2D.NBINS)
+    result['deg'] = simulation.getIntensityData(ba.IDetector2D.DEGREES)
+    result['nm-1'] = simulation.getIntensityData(ba.IDetector2D.QYQZ)
+
+    return result
+
+
+def plot(result):
+    """
+    Plots simulation results for different detectors.
+    """
+    import matplotlib
+    from matplotlib import pyplot as plt
+    global matplotlib, plt
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
-    result = simulation.getIntensityData()
-    plot_as_colormap(result, "In default units",
+
+    plot_as_colormap(result['mm'], "In default units",
                      r'$X_{mm}$', r'$Y_{mm}$')
 
     plt.subplot(2, 2, 2)
-    result = simulation.getIntensityData(ba.IDetector2D.NBINS)
-    plot_as_colormap(result, "In number of bins",
+    plot_as_colormap(result['bin'], "In number of bins",
                      r'$X_{nbins}$', r'$Y_{nbins}$')
 
     plt.subplot(2, 2, 3)
-    result = simulation.getIntensityData(ba.IDetector2D.DEGREES)
-    plot_as_colormap(result, "In degs",
+    plot_as_colormap(result['deg'], "In degs",
                      r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
 
     plt.subplot(2, 2, 4)
-    result = simulation.getIntensityData(ba.IDetector2D.QYQZ)
-    plot_as_colormap(result, "Q-space",
+    plot_as_colormap(result['nm-1'], "Q-space",
                      r'$Q_{y} [1/nm]$', r'$Q_{z} [1/nm]$')
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)
@@ -113,4 +123,4 @@ def run_simulation():
 
 
 if __name__ == '__main__':
-    run_simulation()
+    ba.simulateThenPlotOrSave(simulate, plot)

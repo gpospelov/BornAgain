@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/SampleViewComponents.h
-//! @brief     Declares class SampleViewComponents
+//! @brief     Defines class SampleViewComponents
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,15 +17,10 @@
 #ifndef SAMPLEVIEWCOMPONENTS_H
 #define SAMPLEVIEWCOMPONENTS_H
 
-#include <QWidget>
 #include "ItemTreeView.h"
-#include "widgetbox.h"
-
-//#include "SamplePropertyEditor.h"
-#include "SampleWidgetBox.h"
 #include "SampleModel.h"
+#include "SampleWidgetBox.h"
 
-#include <QSortFilterProxyModel>
 
 
 //class BA_CORE_API_ SampleInfoStreamInterface : public QWidget

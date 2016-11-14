@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/mainwindow/mainwindow.h
-//! @brief     Declares class MainWindow
+//! @brief     Defines class MainWindow
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,6 @@
 
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
-#include <QMainWindow>
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -35,7 +34,6 @@ class JobView;
 class SessionModelView;
 
 class MaterialModel;
-class MaterialSvc;
 class SampleModel;
 class InstrumentModel;
 class RealDataModel;
@@ -43,7 +41,6 @@ class JobModel;
 class ApplicationModels;
 class ProjectManager;
 class ActionManager;
-class QSettings;
 class ToolTipDataBase;
 class UpdateNotifier;
 
@@ -110,5 +107,5 @@ private:
     SessionModelView *m_sessionModelView;
 };
 
-#endif
+#endif // MAINWINDOW_H
 

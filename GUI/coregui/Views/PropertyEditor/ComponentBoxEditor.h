@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/PropertyEditor/ComponentBoxEditor.h
-//! @brief     Declares class ComponentBoxEditor
+//! @brief     Defines class ComponentBoxEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,8 @@
 #ifndef COMPONENTBOXEDITOR_H
 #define COMPONENTBOXEDITOR_H
 
-#include "WinDllMacros.h"
 #include "ComponentEditor.h"
+#include "WinDllMacros.h"
 
 //! Special version of editor to show property item as standard qt widgets
 
@@ -41,4 +41,4 @@ public slots:
 };
 
 
-#endif
+#endif // COMPONENTBOXEDITOR_H

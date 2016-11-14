@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/MagneticParticlesBuilder.h
-//! @brief     Declares class to build magnetic samples
+//! @brief     Defines class to build magnetic samples
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,17 +16,19 @@
 #ifndef MAGNETICPARTICLESBUILDER_H
 #define MAGNETICPARTICLESBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
+
+class ISample;
 
 //! @class MagneticParticleZeroFieldBuilder
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with magnetic material and zero magnetic field.
 
-class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public ISampleBuilder
+class BA_CORE_API_ MagneticParticleZeroFieldBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticParticleZeroFieldBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -40,11 +42,11 @@ private:
 //! @ingroup standard_samples
 //! @brief Builds sample: cylinders with magnetic material and non-zero magnetic field.
 
-class BA_CORE_API_ MagneticCylindersBuilder : public ISampleBuilder
+class BA_CORE_API_ MagneticCylindersBuilder : public IMultiLayerBuilder
 {
 public:
     MagneticCylindersBuilder();
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 
 protected:
     void init_parameters();
@@ -53,6 +55,5 @@ private:
     double m_cylinder_radius;
     double m_cylinder_height;
 };
-
 
 #endif // MAGNETICPARTICLESBUILDER_H

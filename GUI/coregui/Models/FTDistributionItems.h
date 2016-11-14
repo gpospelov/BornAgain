@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/FTDistributionItems.h
-//! @brief     Declares FTDistribution1DItem's classes
+//! @brief     Defines FTDistribution1DItem's classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,8 @@
 
 
 #include "SessionItem.h"
-#include "FTDistributions.h"
+#include "FTDistributions1D.h"
+#include "FTDistributions2D.h"
 
 
 class BA_CORE_API_ FTDistribution1DItem : public SessionItem
@@ -86,8 +87,8 @@ class BA_CORE_API_ FTDistribution2DItem : public SessionItem
 {
 
 public:
-    static const QString P_CORR_LENGTH_X;
-    static const QString P_CORR_LENGTH_Y;
+    static const QString P_COHER_LENGTH_X;
+    static const QString P_COHER_LENGTH_Y;
     static const QString P_GAMMA;
     explicit FTDistribution2DItem(const QString name)
         : SessionItem(name) {
@@ -144,5 +145,4 @@ public:
 };
 
 
-#endif
-
+#endif // FTDISTRIBUTIONITEMS_H

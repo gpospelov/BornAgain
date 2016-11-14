@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/BeamItem.h
-//! @brief     Declares class BeamItem
+//! @brief     Defines class BeamItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -43,5 +43,5 @@ public:
     void setAzimuthalAngle(double value, const QString &distribution_name = QString());
 };
 
-#endif
+#endif // BEAMITEM_H
 

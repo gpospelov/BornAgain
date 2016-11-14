@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/PropertyAttribute.h
-//! @brief     Declares class PropertyAttribute
+//! @brief     Defines class PropertyAttribute
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,9 +18,9 @@
 #define PROPERTYATTRIBUTE_H
 
 
-#include <QString>
-#include "AttLimits.h"
+#include "RealLimits.h"
 #include <QMetaType>
+#include <QString>
 
 class SessionItem;
 
@@ -38,19 +38,19 @@ public:
     Q_DECLARE_FLAGS(Appearance, EAppearance)
 
     PropertyAttribute(Appearance appearance = VISIBLE,
-                      const AttLimits &limits = AttLimits::lowerLimited(0.0),
+                      const RealLimits &limits = RealLimits::lowerLimited(0.0),
                       int decimals = 2, const QString &label = QString(),
                       const QString &tooltip = QString());
 
-    PropertyAttribute(const AttLimits &limits, int decimals=2);
+    PropertyAttribute(const RealLimits &limits, int decimals=2);
 
     static PropertyAttribute labeled(const QString &label);
 
     Appearance getAppearance() const;
     void setAppearance(PropertyAttribute::Appearance appearance);
 
-    AttLimits getLimits() const;
-    PropertyAttribute& setLimits(const AttLimits &limits);
+    RealLimits getLimits() const;
+    PropertyAttribute& setLimits(const RealLimits &limits);
     PropertyAttribute& lowerLimited(double value);
     PropertyAttribute& upperLimited(double value);
     PropertyAttribute& limited(double left_bound_value, double right_bound_value);
@@ -82,7 +82,7 @@ public:
 
 private:
     Appearance m_appearance;
-    AttLimits m_limits;
+    RealLimits m_limits;
     int m_decimals; // number of digits
     QString m_label;
     QString m_tooltip;
@@ -91,5 +91,5 @@ private:
 Q_DECLARE_OPERATORS_FOR_FLAGS(PropertyAttribute::Appearance)
 Q_DECLARE_METATYPE(PropertyAttribute)
 
-#endif
+#endif // PROPERTYATTRIBUTE_H
 

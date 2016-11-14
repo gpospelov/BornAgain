@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "MaskDrawingContext.h"
+#include "item_constants.h"
 #include <QDebug>
 
-
 MaskDrawingContext::MaskDrawingContext()
-    : m_current_activity(MaskEditorFlags::SELECTION_MODE)
+    : m_current_activity(MaskEditorFlags::PAN_ZOOM_MODE)
     , m_mask_value(MaskEditorFlags::MASK_ON)
     , m_drawing_in_progress(false)
 {
@@ -50,6 +50,13 @@ bool MaskDrawingContext::isSelectionMode() const
 bool MaskDrawingContext::isInZoomMode() const
 {
     return m_current_activity == MaskEditorFlags::PAN_ZOOM_MODE;
+}
+
+bool MaskDrawingContext::isRectangleShapeMode() const
+{
+    return (m_current_activity == MaskEditorFlags::RECTANGLE_MODE) ||
+           (m_current_activity == MaskEditorFlags::ELLIPSE_MODE) ||
+           (m_current_activity == MaskEditorFlags::ROI_MODE);
 }
 
 bool MaskDrawingContext::isRectangleMode() const
@@ -87,6 +94,11 @@ bool MaskDrawingContext::isMaskAllMode() const
     return m_current_activity == MaskEditorFlags::MASKALL_MODE;
 }
 
+bool MaskDrawingContext::isROIMode() const
+{
+    return m_current_activity == MaskEditorFlags::ROI_MODE;
+}
+
 bool MaskDrawingContext::isDrawingInProgress() const
 {
     return m_drawing_in_progress;
@@ -107,6 +119,25 @@ bool MaskDrawingContext::getMaskValue() const
 bool MaskDrawingContext::isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity)
 {
     if(isDrawingInProgress() && isPolygonMode()
-            && proposed_new_activity > MaskEditorFlags::PAN_ZOOM_MODE) return true;
+            && proposed_new_activity >= MaskEditorFlags::PAN_ZOOM_MODE) return true;
     return false;
+}
+
+//! Returns model type corresponding to current activity.
+
+QString MaskDrawingContext::activityToModelType() const
+{
+    if(isRectangleMode()) return Constants::RectangleMaskType;
+    if(isEllipseMode()) return Constants::EllipseMaskType;
+    if(isROIMode()) return Constants::RegionOfInterestType;
+    return QString();
+}
+
+//! Returns model row corresponding to given activity. All shapes, except ROI, will be added
+//! on top of each other. ROI shape will be added at the bottom.
+
+int MaskDrawingContext::activityToRow() const
+{
+    if(isROIMode()) return -1;
+    return 0;
 }

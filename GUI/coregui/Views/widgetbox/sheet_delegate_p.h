@@ -51,8 +51,8 @@
 //
 
 
-#ifndef SHEET_DELEGATE_H
-#define SHEET_DELEGATE_H
+#ifndef SHEET_DELEGATE_P_H
+#define SHEET_DELEGATE_P_H
 
 #include "shared_global_p.h"
 
@@ -84,4 +84,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // SHEET_DELEGATE_H
+#endif // SHEET_DELEGATE_P_H

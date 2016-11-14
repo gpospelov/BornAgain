@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/AccordionWidget/ClickableFrame.h
-//! @brief     Declares AccordionWidget class
+//! @brief     Defines AccordionWidget class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -35,11 +35,11 @@
 
 #include "WinDllMacros.h"
 #include <QFrame>
-#include <QMouseEvent>
-#include <QString>
+#include <QGraphicsView>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QGraphicsView>
+#include <QMouseEvent>
+#include <QString>
 
 #ifdef __GNUC__
   #define ATTR_UNUSED __attribute__((unused))

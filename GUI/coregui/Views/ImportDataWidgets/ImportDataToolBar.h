@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataToolBar.h
-//! @brief     Declares class ImportDataToolBar
+//! @brief     Defines class ImportDataToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -57,4 +57,4 @@ private:
     QItemSelectionModel *m_selectionModel;
 };
 
-#endif
+#endif // IMPORTDATATOOLBAR_H

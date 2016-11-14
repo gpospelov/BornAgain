@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/CommonWidgets/ItemStackPresenter.h
-//! @brief     Declares class ItemStackPresenter
+//! @brief     Defines class ItemStackPresenter
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,9 +18,9 @@
 #define ITEMSTACKPRESENTER_H
 
 #include "ItemStackWidget.h"
-#include <QStackedWidget>
-#include <QMap>
 #include <QDebug>
+#include <QMap>
+#include <QStackedWidget>
 
 class SessionItem;
 
@@ -110,4 +110,4 @@ private:
 };
 
 
-#endif
+#endif // ITEMSTACKPRESENTER_H

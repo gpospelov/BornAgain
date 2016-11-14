@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "SampleViewAligner.h"
-#include "SampleModel.h"
 #include "DesignerScene.h"
 #include "IView.h"
-#include <QModelIndex>
+#include "SampleModel.h"
 #include <QDebug>
+#include <QModelIndex>
 
 SampleViewAligner::SampleViewAligner(DesignerScene *scene)
     : m_scene(scene)

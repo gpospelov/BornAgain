@@ -17,7 +17,6 @@
 #include "SimulationOptionsItem.h"
 #include "ComboProperty.h"
 #include "Utils.h"
-#include <QDebug>
 
 namespace
 {

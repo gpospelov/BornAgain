@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/CommonWidgets/ItemComboWidget.h
-//! @brief     Declares class ItemComboWidget
+//! @brief     Defines class ItemComboWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,11 +17,11 @@
 #ifndef ITEMCOMBOWIDGET_H
 #define ITEMCOMBOWIDGET_H
 
-#include "WinDllMacros.h"
 #include "IFactory.h"
-#include <QWidget>
-#include <QString>
+#include "WinDllMacros.h"
 #include <QMap>
+#include <QString>
+#include <QWidget>
 
 class SessionItem;
 class SessionItemWidget;
@@ -67,4 +67,4 @@ private:
 
 };
 
-#endif
+#endif // ITEMCOMBOWIDGET_H

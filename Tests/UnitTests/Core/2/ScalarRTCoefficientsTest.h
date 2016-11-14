@@ -1,5 +1,5 @@
-#ifndef SCALARRTCOEFFICIENTS_H
-#define SCALARRTCOEFFICIENTS_H
+#ifndef SCALARRTCOEFFICIENTSTEST_H
+#define SCALARRTCOEFFICIENTSTEST_H
 
 #include "ScalarRTCoefficients.h"
 
@@ -133,4 +133,4 @@ TEST_F(ScalarRTCoefficientsTest, getScalar)
     EXPECT_EQ(complex_t(1.0,1.0), scrtCustom.getScalarKz());
 }
 
-#endif //SCALARRTCOEFFICIENTS_H
+#endif // SCALARRTCOEFFICIENTSTEST_H

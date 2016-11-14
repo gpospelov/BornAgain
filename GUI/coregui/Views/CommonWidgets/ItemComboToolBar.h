@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/CommonWidgets/ItemComboToolBar.h
-//! @brief     Declares class ItemComboToolBar
+//! @brief     Defines class ItemComboToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ITEMCOLBOTOOLBAR_H
-#define ITEMCOLBOTOOLBAR_H
+#ifndef ITEMCOMBOTOOLBAR_H
+#define ITEMCOMBOTOOLBAR_H
 
 #include "StyledToolBar.h"
 #include <QList>
@@ -52,5 +52,5 @@ private:
     QAction *m_comboBoxAction;
 };
 
-#endif
+#endif // ITEMCOMBOTOOLBAR_H
 

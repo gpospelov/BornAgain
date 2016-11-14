@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/utils/hostosinfo.h
-//! @brief     Declares Utils namespace
+//! @brief     Defines Utils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -122,4 +122,3 @@ BA_CORE_API_ bool HostOsInfo::isAnyUnixHost()
 } // namespace Utils
 
 #endif // HOSTOSINFO_H
-

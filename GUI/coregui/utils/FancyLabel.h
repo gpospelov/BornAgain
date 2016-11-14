@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/utils/FancyLabel.h
-//! @brief     Declares class FancyLabel
+//! @brief     Defines class FancyLabel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,6 @@
 
 #include "WinDllMacros.h"
 #include <QLabel>
-#include <QTimer>
 
 //! The FancyLabel class is QLabel-like class with trivail animation, when text slowly
 //! appears on the screen from left to right pretending to be typed
@@ -44,4 +43,4 @@ private:
     int m_current_index;
 };
 
-#endif
+#endif // FANCYLABEL_H

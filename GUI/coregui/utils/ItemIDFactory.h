@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/utils/ItemIDFactory.h
-//! @brief     Declares class ItemIDFactory
+//! @brief     Defines class ItemIDFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,11 +14,11 @@
 //
 // ************************************************************************** //
 
-#ifndef ItemIDFactory_H
-#define ItemIDFactory_H
+#ifndef ITEMIDFACTORY_H
+#define ITEMIDFACTORY_H
 
-#include <QUuid>
 #include <QMap>
+#include <QUuid>
 
 class SessionItem;
 
@@ -47,4 +47,4 @@ private:
     QMap<SessionItem*, QString> ItemtoIDMap;
 };
 
-#endif
+#endif // ITEMIDFACTORY_H

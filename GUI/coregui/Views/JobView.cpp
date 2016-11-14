@@ -15,17 +15,15 @@
 // ************************************************************************** //
 
 #include "JobView.h"
-#include "JobViewDocks.h"
-#include "JobSelectorWidget.h"
-#include "JobOutputDataWidget.h"
-#include "JobRealTimeWidget.h"
-#include "JobProgressAssistant.h"
-#include "JobModel.h"
-#include "mainwindow.h"
 #include "JobActivityStatusBar.h"
 #include "JobItem.h"
+#include "JobModel.h"
+#include "JobOutputDataWidget.h"
+#include "JobProgressAssistant.h"
+#include "JobSelectorWidget.h"
+#include "JobViewDocks.h"
+#include "mainwindow.h"
 #include <QMenu>
-#include <QCursor>
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
@@ -45,6 +43,7 @@ void JobView::onFocusRequest(JobItem *jobItem)
     if(jobItem->runInBackground())
         return;
 
+    setAppropriateActivityForJob(jobItem);
     m_docks->jobSelector()->makeJobItemSelected(jobItem);
 
     emit focusRequest(MainWindow::JOB);
@@ -139,4 +138,16 @@ void JobView::connectJobRelated()
     connect(m_docks->jobSelector(), SIGNAL(selectionChanged(JobItem*)),
             this, SLOT(onSelectionChanged(JobItem*)));
 
+}
+
+//! Sets appropriate activity for new JobItem
+
+void JobView::setAppropriateActivityForJob(JobItem *jobItem)
+{
+    if(m_docks->jobSelector()->currentJobItem() != jobItem) {
+        if(jobItem->isValidForFitting())
+            setActivity(JobViewFlags::FITTING_ACTIVITY);
+//        else
+//            setActivity(JobViewFlags::JOB_VIEW_ACTIVITY);
+    }
 }

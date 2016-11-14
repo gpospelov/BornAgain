@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ParticleItem.h
-//! @brief     Declares class ParticleItem
+//! @brief     Defines class ParticleItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,10 +17,9 @@
 #ifndef PARTICLEITEM_H
 #define PARTICLEITEM_H
 
-#include "Particle.h"
 #include "SessionGraphicsItem.h"
+#include "Particle.h"
 
-#include <memory>
 
 class BA_CORE_API_ ParticleItem : public SessionGraphicsItem
 {

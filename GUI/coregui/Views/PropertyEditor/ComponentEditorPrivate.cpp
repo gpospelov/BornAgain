@@ -15,11 +15,12 @@
 // ************************************************************************** //
 
 #include "ComponentEditorPrivate.h"
-#include "GUIHelpers.h"
 #include "CustomEventFilters.h"
-#include <QString>
+#include "GUIHelpers.h"
 #include <QComboBox>
 #include <QDebug>
+#include <QString>
+#include <cmath>
 
 ComponentEditorPrivate::ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags, QWidget *parent)
     : m_browser(0), m_manager(0), m_read_only_manager(0)
@@ -219,7 +220,7 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
     int type = GUIHelpers::getVariantType(prop_value);
 
     if (type == QVariant::Double) {
-        AttLimits limits = attribute.getLimits();
+        RealLimits limits = attribute.getLimits();
         if (limits.hasLowerLimit())
             property->setAttribute(QStringLiteral("minimum"), limits.getLowerLimit());
         if (limits.hasUpperLimit())
@@ -228,7 +229,7 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
         property->setAttribute(QStringLiteral("singleStep"),
                                1. / std::pow(10., attribute.getDecimals() - 1));
     } else if (type == QVariant::Int) {
-        AttLimits limits = attribute.getLimits();
+        RealLimits limits = attribute.getLimits();
         if (limits.hasLowerLimit())
             property->setAttribute(QStringLiteral("minimum"), int(limits.getLowerLimit()));
         if (limits.hasUpperLimit())

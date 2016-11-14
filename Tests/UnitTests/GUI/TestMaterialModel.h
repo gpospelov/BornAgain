@@ -68,4 +68,4 @@ inline void TestMaterialModel::test_cloneMaterial()
 
 }
 
-#endif
+#endif // TESTMATERIALMODEL_H

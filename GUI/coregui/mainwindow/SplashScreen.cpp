@@ -15,15 +15,11 @@
 // ************************************************************************** //
 
 #include "SplashScreen.h"
-#include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include <QStyleOptionProgressBarV2>
-#include <QFont>
-#include <QPainter>
-#include <QDebug>
 
 SplashScreen::SplashScreen(QWidget *parent) :
-    QSplashScreen(parent),m_progress(0)
+    QSplashScreen(parent),m_percentage_done(0)
 
 {
     m_width = 480;
@@ -40,11 +36,11 @@ SplashScreen::SplashScreen(QWidget *parent) :
 
 void SplashScreen::setProgress(int value)
 {
-    m_progress = value;
-    if (m_progress > 100)
-        m_progress = 100;
-    if (m_progress < 0)
-        m_progress = 0;
+    m_percentage_done = value;
+    if (m_percentage_done > 100)
+        m_percentage_done = 100;
+    if (m_percentage_done < 0)
+        m_percentage_done = 0;
     update();
 }
 
@@ -58,7 +54,7 @@ void SplashScreen::drawContents(QPainter *painter)
     style()->drawItemText(painter, textRect, 0, this->palette(), true, versionText);
 
     QString loadingText("loading . ");
-    for(size_t i=0; i<size_t(m_progress/20); ++i) {
+    for(size_t i=0; i<size_t(m_percentage_done/20); ++i) {
         loadingText.append(". ");
     }
 

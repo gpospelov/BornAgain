@@ -15,12 +15,13 @@
 
 #include "RotatedPyramidsBuilder.h"
 #include "FormFactorPyramid.h"
-#include "InterferenceFunctionNone.h"
-#include "Materials.h"
+#include "HomogeneousMaterial.h"
+#include "Layer.h"
 #include "MultiLayer.h"
+#include "Particle.h"
 #include "ParticleLayout.h"
+#include "RealParameter.h"
 #include "Units.h"
-
 
 RotatedPyramidsBuilder::RotatedPyramidsBuilder()
     : m_length(10*Units::nanometer)
@@ -31,20 +32,17 @@ RotatedPyramidsBuilder::RotatedPyramidsBuilder()
     init_parameters();
 }
 
-
 void RotatedPyramidsBuilder::init_parameters()
 {
-    clearParameterPool();
-    registerParameter("length", &m_length);
-    registerParameter("height", &m_height);
-    registerParameter("alpha", &m_alpha);
-    registerParameter("zangle", &m_zangle);
+    registerParameter("length", &m_length).setUnit("nm").setNonnegative();
+    registerParameter("height", &m_height).setUnit("nm").setNonnegative();
+    registerParameter("alpha", &m_alpha  ).setUnit("rad");
+    registerParameter("zangle", &m_zangle).setUnit("rad");
 }
 
-
-ISample *RotatedPyramidsBuilder::buildSample() const
+MultiLayer* RotatedPyramidsBuilder::buildSample() const
 {
-    MultiLayer *multi_layer = new MultiLayer();
+    MultiLayer* multi_layer = new MultiLayer();
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
@@ -67,7 +65,5 @@ ISample *RotatedPyramidsBuilder::buildSample() const
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
 
-
     return multi_layer;
 }
-

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/MaterialModel.h
-//! @brief     Declares class MaterialModel
+//! @brief     Defines class MaterialModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -42,5 +42,5 @@ public:
     MaterialItem *cloneMaterial(const QModelIndex &index);
 };
 
-#endif
+#endif // MATERIALMODEL_H
 

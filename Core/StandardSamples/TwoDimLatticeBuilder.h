@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/StandardSamples/TwoDimLatticeBuilder.h
-//! @brief     Declares class IsGISAXS06Builder.
+//! @brief     Defines class IsGISAXS06Builder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,44 +13,52 @@
 //
 // ************************************************************************** //
 
-#ifndef ISGISAXS06BUILDER_H
-#define ISGISAXS06BUILDER_H
+#ifndef TWODIMLATTICEBUILDER_H
+#define TWODIMLATTICEBUILDER_H
 
-#include "ISampleBuilder.h"
+#include "IMultiLayerBuilder.h"
 
-
-//! @class SquareLatticeBuilder
+//! Builds sample: 2D lattice with arbitrary angle and different lattice length_1 and length_2.
 //! @ingroup standard_samples
-//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
 
-class BA_CORE_API_ SquareLatticeBuilder : public ISampleBuilder
+class BA_CORE_API_ Basic2DLatticeBuilder : public IMultiLayerBuilder
+{
+public:
+    Basic2DLatticeBuilder(){}
+    MultiLayer* buildSample() const;
+};
+
+
+//! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
+//! @ingroup standard_samples
+
+class BA_CORE_API_ SquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     SquareLatticeBuilder(){}
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
 
-//! @class CenteredSquareLatticeBuilder
+//! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
-//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
 
-class BA_CORE_API_ CenteredSquareLatticeBuilder : public ISampleBuilder
+class BA_CORE_API_ CenteredSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     CenteredSquareLatticeBuilder(){}
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
-//! @class RotatedSquareLatticeBuilder
-//! @ingroup standard_samples
-//! @brief Builds sample: 2D lattice with different disorder (IsGISAXS example #6)
 
-class BA_CORE_API_ RotatedSquareLatticeBuilder : public ISampleBuilder
+//! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
+//! @ingroup standard_samples
+
+class BA_CORE_API_ RotatedSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
     RotatedSquareLatticeBuilder(){}
-    ISample *buildSample() const;
+    MultiLayer* buildSample() const;
 };
 
-#endif // ISGISAXS06BUILDER_H
+#endif // TWODIMLATTICEBUILDER_H

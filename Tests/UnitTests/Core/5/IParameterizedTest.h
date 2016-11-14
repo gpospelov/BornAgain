@@ -2,7 +2,7 @@
 #define IPARAMETERIZEDTEST_H
 
 #include "IParameterized.h"
-
+#include <stdexcept>
 
 class IParameterizedTest : public ::testing::Test
 {
@@ -32,7 +32,7 @@ protected:
 
 TEST_F(IParameterizedTest, InitialState)
 {
-    /* TEMPORARILY DISABLED getParameterPool() 
+    /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ( size_t(0), m_initial_object.getParameterPool()->size() );
     IParameterized obj2(m_initial_object);
     EXPECT_EQ( size_t(0), obj2.getParameterPool()->size() );
@@ -42,7 +42,7 @@ TEST_F(IParameterizedTest, InitialState)
 
 TEST_F(IParameterizedTest, DealingWithPool)
 {
-    /* TEMPORARILY DISABLED getParameterPool() 
+    /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ( size_t(2), m_parameterized.getParameterPool()->size());
     IParameterizedTest::ParameterizedObject obj2 = m_parameterized;
     EXPECT_EQ( size_t(0), obj2.getParameterPool()->size());
@@ -64,14 +64,15 @@ TEST_F(IParameterizedTest, SetParameterValue)
     m_parameterized.setParameterValue("par2", 4.0);
     EXPECT_EQ( double(3.0), m_parameterized.m_real_par1);
     EXPECT_EQ( double(4.0), m_parameterized.m_real_par2);
-    ASSERT_THROW( m_parameterized.setParameterValue("NotExistingParameterName", 4.0), LogicErrorException );
+    ASSERT_THROW( m_parameterized.setParameterValue("NotExistingParameterName", 4.0),
+                  std::runtime_error );
     m_parameterized.setParameterValue("*par*", 5.0);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par1);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par2);
     m_parameterized.setParameterValue("/Parameterized/par1", 7.0);
     EXPECT_EQ( double(7.0), m_parameterized.m_real_par1);
     EXPECT_EQ( double(5.0), m_parameterized.m_real_par2);
-    /* TEMPORARILY DISABLED getParameterPool() 
+    /* TEMPORARILY DISABLED getParameterPool()
     m_parameterized.clearParameterPool();
     EXPECT_EQ( 0.0, m_parameterized.getParameterPool()->size());
     */

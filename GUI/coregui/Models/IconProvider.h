@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/IconProvider.h
-//! @brief     Declares class IconProvider
+//! @brief     Defines class IconProvider
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,12 +14,11 @@
 //
 // ************************************************************************** //
 
-#ifndef ICON_PROVIDER_H
-#define ICON_PROVIDER_H
+#ifndef ICONPROVIDER_H
+#define ICONPROVIDER_H
 
 #include "WinDllMacros.h"
 #include <QIcon>
-#include <QString>
 
 class SessionItem;
 
@@ -35,5 +34,5 @@ public:
 };
 
 
-#endif
+#endif // ICONPROVIDER_H
 

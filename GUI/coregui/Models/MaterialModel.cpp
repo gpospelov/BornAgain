@@ -15,12 +15,10 @@
 // ************************************************************************** //
 
 #include "MaterialModel.h"
-#include "MaterialItem.h"
-#include "RefractiveIndexItem.h"
-#include "MaterialUtils.h"
-#include "MaterialProperty.h"
 #include "IconProvider.h"
-#include <QUuid>
+#include "MaterialUtils.h"
+#include "RefractiveIndexItem.h"
+#include "GUIHelpers.h"
 #include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
@@ -102,7 +100,7 @@ MaterialItem *MaterialModel::cloneMaterial(const QModelIndex &index)
         return nullptr;
 
     SessionItem *clonedMaterial = copyParameterizedItem(origMaterial, 0);
-    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, QUuid::createUuid().toString());
+    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
     clonedMaterial->setItemName(origMaterial->itemName()+" (clone)");
     return dynamic_cast<MaterialItem *>(clonedMaterial);
 }

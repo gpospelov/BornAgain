@@ -15,17 +15,11 @@
 // ************************************************************************** //
 
 #include "IntensityDataItem.h"
-#include "ComboProperty.h"
-#include "AngleProperty.h"
 #include "AxesItems.h"
-#include "Units.h"
-#include "GUIHelpers.h"
-#include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
-#include "IDetector2D.h"
-#include "SphericalDetector.h"
-#include "RectangularDetector.h"
-#include <QDebug>
+#include "ComboProperty.h"
+#include "GUIHelpers.h"
+#include "MaskItems.h"
 
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString IntensityDataItem::P_TITLE = "Title";
@@ -45,8 +39,8 @@ IntensityDataItem::IntensityDataItem()
 {
 //    setItemName(Constants::IntensityDataType);
 
-    ComboProperty units;
-    addProperty(P_AXES_UNITS, units.getVariant())->setVisible(false);
+    ComboProperty units = ComboProperty() << Constants::UnitsNbins;
+    addProperty(P_AXES_UNITS, units.getVariant());
 
     addProperty(P_TITLE, QString())->setVisible(false);
 
@@ -74,6 +68,9 @@ IntensityDataItem::IntensityDataItem()
 
     item = addGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
+
+    setXaxisTitle("X [nbins]");
+    setYaxisTitle("Y [nbins]");
 
     // name of the file used to serialize given IntensityDataItem
     addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
@@ -124,13 +121,13 @@ double IntensityDataItem::getUpperX() const
 double IntensityDataItem::getXmin() const
 {
     Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::X_AXIS_INDEX)->getMin();
+    return m_data->getAxis(BornAgain::X_AXIS_INDEX).getMin();
 }
 
 double IntensityDataItem::getXmax() const
 {
     Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::X_AXIS_INDEX)->getMax();
+    return m_data->getAxis(BornAgain::X_AXIS_INDEX).getMax();
 }
 
 double IntensityDataItem::getLowerY() const
@@ -146,13 +143,13 @@ double IntensityDataItem::getUpperY() const
 double IntensityDataItem::getYmin() const
 {
     Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getMin();
+    return m_data->getAxis(BornAgain::Y_AXIS_INDEX).getMin();
 }
 
 double IntensityDataItem::getYmax() const
 {
     Q_ASSERT(m_data);
-        return m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getMax();
+        return m_data->getAxis(BornAgain::Y_AXIS_INDEX).getMax();
 }
 
 double IntensityDataItem::getLowerZ() const
@@ -299,9 +296,9 @@ void IntensityDataItem::updateAxesZoomLevel()
         setUpperY(getYmax());
     }
 
-    const int nx = static_cast<int>(m_data->getAxis(BornAgain::X_AXIS_INDEX)->getSize());
+    const int nx = static_cast<int>(m_data->getAxis(BornAgain::X_AXIS_INDEX).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
-    const int ny = static_cast<int>(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getSize());
+    const int ny = static_cast<int>(m_data->getAxis(BornAgain::Y_AXIS_INDEX).size());
     yAxisItem()->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 
@@ -310,10 +307,10 @@ void IntensityDataItem::updateAxesZoomLevel()
 void IntensityDataItem::updateAxesLabels()
 {
     if(getXaxisTitle().isEmpty())
-        setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX)->getName()));
+        setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX).getName()));
 
     if(getYaxisTitle().isEmpty())
-        setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX)->getName()));
+        setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX).getName()));
 }
 
 //! Sets min,max values for z-axis, if axes is not locked, and ranges are not yet set.
@@ -374,4 +371,9 @@ void IntensityDataItem::resetView()
     setAxesRangeToData();
     if(!isZAxisLocked())
         computeDataRange();
+}
+
+MaskContainerItem *IntensityDataItem::maskContainerItem()
+{
+    return dynamic_cast<MaskContainerItem *>(getItem(IntensityDataItem::T_MASKS));
 }

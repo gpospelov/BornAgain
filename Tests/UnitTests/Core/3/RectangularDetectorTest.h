@@ -1,14 +1,13 @@
 #ifndef RECTANGULARDETECTORTEST_H
 #define RECTANGULARDETECTORTEST_H
 
-#include "Units.h"
 #include "RectangularDetector.h"
 #include "GISASSimulation.h"
 #include "SimulationElement.h"
 #include "Numeric.h"
+#include "Units.h"
 #include <memory>
 #include <iostream>
-
 
 class RectangularDetectorTest : public ::testing::Test
 {
@@ -264,4 +263,4 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
 }
 
 
-#endif
+#endif // RECTANGULARDETECTORTEST_H

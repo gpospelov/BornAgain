@@ -15,8 +15,8 @@
 // ************************************************************************** //
 
 #include "ParticleCoreShellView.h"
-#include "SessionItem.h"
 #include "ParticleCoreShellItem.h"
+#include "SessionItem.h"
 #include <QDebug>
 
 

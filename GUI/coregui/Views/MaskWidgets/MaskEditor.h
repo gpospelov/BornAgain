@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskEditor.h
-//! @brief     Declares class MaskEditor
+//! @brief     Defines class MaskEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,17 +18,17 @@
 #define MASKEDITOR_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QMainWindow>
 #include <QModelIndex>
+#include <QWidget>
 
 class MaskEditorPropertyPanel;
 class MaskEditorActions;
 class MaskEditorToolBar;
 class MaskEditorCanvas;
-class QSplitter;
 class SessionModel;
 class IntensityDataItem;
+namespace Manhattan { class MiniSplitter; }
 
 //! Main class to draw masks on top of intensity data map
 
@@ -47,7 +47,8 @@ public slots:
                         IntensityDataItem *intensityItem);
 
     void onPropertyPanelRequest();
-    void init_test_model();
+
+    QList<QAction *> topToolBarActions();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -55,12 +56,12 @@ protected:
 private:
     void setup_connections();
 
-    MaskEditorActions *m_itemActions;
+    MaskEditorActions *m_editorActions;
     MaskEditorToolBar *m_toolBar;
     MaskEditorPropertyPanel *m_editorPropertyPanel;
     MaskEditorCanvas *m_editorCanvas;
-    QSplitter *m_splitter;
+    Manhattan::MiniSplitter *m_splitter;
 };
 
 
-#endif
+#endif // MASKEDITOR_H

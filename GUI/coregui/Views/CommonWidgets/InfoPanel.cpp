@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/CommonWidgets/InfoPanel.h
+//! @file      GUI/coregui/Views/CommonWidgets/InfoPanel.cpp
 //! @brief     Declares class InfoPanel
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,10 +16,10 @@
 
 #include "InfoPanel.h"
 #include "InfoPanelToolBar.h"
-#include <QStackedWidget>
-#include <QResizeEvent>
 #include <QBoxLayout>
 #include <QDebug>
+#include <QResizeEvent>
+#include <QStackedWidget>
 
 namespace {
 const int minimum_widget_height = 25; // height of toolbar

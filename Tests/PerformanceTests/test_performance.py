@@ -87,14 +87,14 @@ class FactoryTest:
 
         if simulation_name != None and sample_builder != None:
             self.m_sample_factory = SampleBuilderFactory()
-            self.m_simulation_registry = SimulationRegistry()
-            self.m_simulation = self.m_simulation_registry.createSimulation(self.m_simulation_name)
-            self.m_sample_builder = self.m_sample_factory.createBuilder(self.m_sample_builder_name)
+            self.m_simulation_factory = SimulationFactory()
+            self.m_simulation = self.m_simulation_factory.createItem(self.m_simulation_name)
+            self.m_sample = self.m_sample_factory.createSample(self.m_sample_builder_name)
         else:
             self.m_sample_factory = None
-            self.m_simulation_registry = None
+            self.m_simulation_factory = None
             self.m_simulation = None
-            self.m_sample_builder = None
+            self.m_sample = None
 
     def prepare(self):
         pass
@@ -103,7 +103,7 @@ class FactoryTest:
     def run_loop(self):
         # actual work is done here
         for i in range(self.m_nrepetitions):
-            self.m_simulation.setSampleBuilder(self.m_sample_builder)
+            self.m_simulation.setSample(self.m_sample)
             self.m_simulation.runSimulation()
 
     def run(self):
@@ -197,16 +197,16 @@ class PerformanceTests:
         self.m_pyversion = ""
         self.m_filename = filename
 
-        self.add("MultiLayer",         "MaxiGISAS",    "MultiLayerWithRoughnessBuilder", 1);
-        self.add("CylindersInDWBA",    "MaxiGISAS",    "CylindersInDWBABuilder", 10);
-        self.add("RotatedPyramids",    "MaxiGISAS",    "RotatedPyramidsBuilder", 10);
-        self.add("CoreShell",          "MaxiGISAS",    "CoreShellParticleBuilder", 10);
-        self.add("SquareLattice",      "MaxiGISAS",    "SquareLatticeBuilder", 10);
-        self.add("RadialParaCrystal",  "MaxiGISAS",    "RadialParaCrystalBuilder", 10);
-        self.add("HexParaCrystal",     "BasicGISAS",   "HexParaCrystalBuilder", 1);
-        self.add("SSCA",               "MaxiGISAS",    "SizeDistributionSSCAModelBuilder", 10);
-        self.add("Mesocrystal",        "MaxiGISAS",    "MesoCrystalBuilder", 2);
-        self.add("PolMagCyl",          "MaxiGISAS00",  "MagneticCylindersBuilder", 10);
+        self.add("MultiLayer",         "MaxiGISAS",    "MultiLayerWithRoughnessBuilder", 1)
+        self.add("CylindersInDWBA",    "MaxiGISAS",    "CylindersInDWBABuilder", 10)
+        self.add("RotatedPyramids",    "MaxiGISAS",    "RotatedPyramidsBuilder", 10)
+        self.add("CoreShell",          "MaxiGISAS",    "CoreShellParticleBuilder", 10)
+        self.add("SquareLattice",      "MaxiGISAS",    "SquareLatticeBuilder", 10)
+        self.add("RadialParaCrystal",  "MaxiGISAS",    "RadialParaCrystalBuilder", 10)
+        self.add("HexParaCrystal",     "BasicGISAS",   "HexParaCrystalBuilder", 1)
+        self.add("SSCA",               "MaxiGISAS",    "SizeDistributionSSCAModelBuilder", 10)
+        self.add("Mesocrystal",        "MaxiGISAS",    "MesoCrystalBuilder", 2)
+        self.add("PolMagCyl",          "MaxiGISAS00",  "MagneticCylindersBuilder", 10)
 
         # custom form factor is a special case since it's not in the registry
         self.m_tests.append(CustomTest("Custom FF", 10))
@@ -251,8 +251,8 @@ class PerformanceTests:
         sum_cpu = 0.0
 
         for test in self.m_tests:
-            sum_wall += test.m_wall_time;
-            sum_cpu += test.m_cpu_time;
+            sum_wall += test.m_wall_time
+            sum_cpu += test.m_cpu_time
 
         if record_cpu_time: dictionary["total cpu"] = "%-.4f" % sum_cpu
         dictionary["total wall"] = "%-.4f" % sum_wall
@@ -260,9 +260,9 @@ class PerformanceTests:
         for test in self.m_tests:
             dictionary[test.m_test_name] = "%-.4f" % test.m_wall_time
 
-        write_file.write("\n");
+        write_file.write("\n")
         pretty_write(dictionary, write_file)
-        write_file.write("\n");
+        write_file.write("\n")
         write_file.flush()
 
         if ( self.m_filename != None ):

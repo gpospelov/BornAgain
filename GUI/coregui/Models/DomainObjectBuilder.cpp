@@ -15,32 +15,18 @@
 // ************************************************************************** //
 
 #include "DomainObjectBuilder.h"
-#include "TransformToDomain.h"
-#include "GUIHelpers.h"
-#include "ParticleCoreShellItem.h"
-#include "Samples.h"
-#include "Instrument.h"
-#include "InterferenceFunctions.h"
-#include "SessionItem.h"
-#include "ParticleCoreShell.h"
-#include "LayerItem.h"
-#include "TransformationItem.h"
-#include "VectorItem.h"
-#include "RotationItems.h"
-#include "ParticleDistributionItem.h"
-#include "ParticleDistribution.h"
-#include "Distributions.h"
 #include "ComboProperty.h"
-#include "MultiLayerItem.h"
-#include "DistributionItem.h"
-#include "ParticleItem.h"
-#include "ParticleCompositionItem.h"
+#include "GISASSimulation.h"
+#include "GUIHelpers.h"
+#include "IInterferenceFunction.h"
+#include "LayerItem.h"
+#include "MultiLayer.h"
+#include "ParticleDistributionItem.h"
 #include "ParticleLayoutItem.h"
+#include "TransformToDomain.h"
 
-#include <QDebug>
-#include <memory>
-
-std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem &multilayer_item) const
+std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
+    const SessionItem& multilayer_item) const
 {
     auto P_multilayer = TransformToDomain::createMultiLayer(multilayer_item);
     QVector<SessionItem *> children = multilayer_item.childItems();
@@ -62,7 +48,7 @@ std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionIt
     return P_multilayer;
 }
 
-std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem &item) const
+std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem& item) const
 {
     auto P_layer = TransformToDomain::createLayer(item);
     QVector<SessionItem *> children = item.childItems();
@@ -78,7 +64,7 @@ std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem &item) 
 }
 
 std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
-        const SessionItem &item) const
+        const SessionItem& item) const
 {
     auto P_layout = TransformToDomain::createParticleLayout(item);
     QVector<SessionItem *> children = item.getItems();
@@ -130,14 +116,15 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
 }
 
 std::unique_ptr<IInterferenceFunction>
-DomainObjectBuilder::buildInterferenceFunction(const SessionItem &item) const
+DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item) const
 {
     auto P_iff = TransformToDomain::createInterferenceFunction(item);
     Q_ASSERT(P_iff);
     return P_iff;
 }
 
-std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const SessionItem &instrument_item) const
+std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(
+    const SessionItem& instrument_item) const
 {
     auto P_instrument = TransformToDomain::createInstrument(instrument_item);
     QVector<SessionItem *> children = instrument_item.childItems();
@@ -154,7 +141,7 @@ std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const SessionIt
     return P_instrument;
 }
 
-std::unique_ptr<Beam> DomainObjectBuilder::buildBeam(const SessionItem &item) const
+std::unique_ptr<Beam> DomainObjectBuilder::buildBeam(const SessionItem& item) const
 {
     return TransformToDomain::createBeam(item);
 }

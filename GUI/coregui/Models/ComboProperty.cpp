@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "ComboProperty.h"
+#include "GUIHelpers.h"
 
 
 ComboProperty::ComboProperty(const QStringList &values, const QString &current_value)
@@ -69,4 +70,17 @@ QString ComboProperty::toString(int index) const
 void ComboProperty::setCachedValue(const QString &name)
 {
     m_cached_value = name;
+}
+
+bool ComboProperty::operator==(const ComboProperty &other) const {
+    if(m_current_value != other.m_current_value) return false;
+    if(!GUIHelpers::isTheSame(m_values, other.m_values)) return false;
+//    if(m_cached_value != other.m_cached_value) return false;
+//    if(m_cache_contains_GUI_value != other.m_cache_contains_GUI_value) return false;
+    return true;
+}
+
+bool ComboProperty::operator<(const ComboProperty &other) const
+{
+    return m_current_value < other.m_current_value && m_values.size() < other.m_values.size();
 }

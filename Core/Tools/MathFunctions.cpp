@@ -14,20 +14,17 @@
 // ************************************************************************** //
 
 #include "MathFunctions.h"
-
-#include <cmath>
-#include <cassert>
-#include <cstring>
-#include <stdexcept>
-#include <fftw3.h>
+#include "MathConstants.h"
+#include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_sf_erf.h>
-#include "gsl/gsl_sf_bessel.h"
-#include "gsl/gsl_sf_trig.h"
-#include "gsl/gsl_sf_expint.h"
-#include "gsl/gsl_integration.h"
-#include <random>
+#include <gsl/gsl_sf_expint.h>
+#include <gsl/gsl_sf_trig.h>
+#include <fftw3.h>
 #include <chrono>
-
+#include <cstring>
+#include <limits>
+#include <random>
+#include <stdexcept> // need overlooked by g++ 5.4
 
 // ************************************************************************** //
 //  Various functions
@@ -35,7 +32,7 @@
 
 double MathFunctions::StandardNormal(double x)
 {
-    return std::exp(-x * x / 2.0) / std::sqrt(Units::PI2);
+    return std::exp(-x * x / 2.0) / std::sqrt(M_TWOPI);
 }
 
 double MathFunctions::Gaussian(double x, double average, double std_dev)
@@ -52,7 +49,7 @@ double MathFunctions::IntegratedGaussian(double x, double average, double std_de
 
 double MathFunctions::cot(double x)
 {
-    return tan(Units::PID2-x);
+    return tan(M_PI_2-x);
 }
 
 double MathFunctions::Si(double x)  // int_0^x du Sin(u)/u
@@ -62,7 +59,7 @@ double MathFunctions::Si(double x)  // int_0^x du Sin(u)/u
 
 double MathFunctions::sinc(double x)  // Sin(x)/x
 {
-    return gsl_sf_sinc(x/Units::PI);
+    return gsl_sf_sinc(x/M_PI);
 }
 
 complex_t MathFunctions::sinc(const complex_t z)  // Sin(x)/x
@@ -78,7 +75,7 @@ complex_t MathFunctions::sinc(const complex_t z)  // Sin(x)/x
 
 complex_t MathFunctions::tanhc(const complex_t z)  // tanh(x)/x
 {
-    if(std::abs(z)<Numeric::double_epsilon)
+    if(std::abs(z)<std::numeric_limits<double>::epsilon())
         return 1.0;
     return std::tanh(z)/z;
 }
@@ -87,7 +84,7 @@ complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+
 {
     if (N==0)
         return 1.0;
-    if(std::abs(z)<Numeric::double_epsilon)
+    if(std::abs(z)<std::numeric_limits<double>::epsilon())
         return N+1.0;
     return exp_I(N/2.0*z)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
 }
@@ -191,7 +188,7 @@ complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
             kz = 10; //   "      "     "  12
         else
             kz = 12; //   "      "     "  14
-        complex_t ct1 = z1 - Units::PID4;
+        complex_t ct1 = z1 - M_PI_4;
         complex_t cp0 = 1.0;
         complex_t cq0 = -0.125;
         const complex_t z1m2 = 1. / (z1*z1); // faster than std::pow(z1, -2.0) ??
@@ -263,7 +260,7 @@ complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
             cq1 += b1[k] * ptmp; // division by z1 postponed to final sum
             ptmp *= z1m2;
         }
-        const complex_t ct2 = z1 - 0.75 * Units::PI;
+        const complex_t ct2 = z1 - 0.75 * M_PI;
         cj1 = std::sqrt(M_2_PI / z1) * (cp1 * std::cos(ct2) - cq1/z1 * std::sin(ct2));
     }
     if (std::real(z) < 0.0)
@@ -314,9 +311,8 @@ MathFunctions::FastFourierTransform(const std::vector<complex_t> &data,
     // saving data for user
     std::vector<complex_t> outData;
     outData.resize(npx);
-    for (size_t i = 0; i < npx; i++) {
+    for (size_t i = 0; i < npx; i++)
         outData[i] = scale * complex_t(ftResult[i][0], ftResult[i][1]);
-    }
 
     fftw_destroy_plan(plan);
     fftw_free(ftData);
@@ -329,15 +325,13 @@ MathFunctions::FastFourierTransform(const std::vector<complex_t> &data,
 //!   for the discrete fast Fourier transformation library (fftw3);
 //!   transforms real to complex
 
-std::vector<complex_t>
-MathFunctions::FastFourierTransform(const std::vector<double> &data,
-                                    MathFunctions::EFFTDirection ftCase)
+std::vector<complex_t> MathFunctions::FastFourierTransform(
+    const std::vector<double> &data, MathFunctions::EFFTDirection ftCase)
 {
     std::vector<complex_t> cdata;
     cdata.resize(data.size());
-    for (size_t i = 0; i < data.size(); i++) {
+    for (size_t i = 0; i < data.size(); i++)
         cdata[i] = complex_t(data[i], 0);
-    }
     return MathFunctions::FastFourierTransform(cdata, ftCase);
 }
 
@@ -347,10 +341,9 @@ std::vector<complex_t>
 MathFunctions::ConvolveFFT(const std::vector<double> &signal,
                            const std::vector<double> &resfunc)
 {
-    if (signal.size() != resfunc.size()) {
+    if (signal.size() != resfunc.size())
         throw std::runtime_error("MathFunctions::ConvolveFFT() -> This convolution works only for "
                                  "two vectors of equal size. Use Convolve class instead.");
-    }
     std::vector<complex_t> fft_signal
         = MathFunctions::FastFourierTransform(signal, MathFunctions::FORWARD_FFT);
     std::vector<complex_t> fft_resfunc
@@ -358,9 +351,8 @@ MathFunctions::ConvolveFFT(const std::vector<double> &signal,
 
     std::vector<complex_t> fft_prod;
     fft_prod.resize(fft_signal.size());
-    for (size_t i = 0; i < fft_signal.size(); i++) {
+    for (size_t i = 0; i < fft_signal.size(); i++)
         fft_prod[i] = fft_signal[i] * fft_resfunc[i];
-    }
 
     std::vector<complex_t> result
         = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BACKWARD_FFT);

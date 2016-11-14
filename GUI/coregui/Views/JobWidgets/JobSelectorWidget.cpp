@@ -15,13 +15,13 @@
 // ************************************************************************** //
 
 #include "JobSelectorWidget.h"
-#include "JobModel.h"
-#include "JobSelectorActions.h"
-#include "mainwindow_constants.h"
 #include "JobItem.h"
-#include "JobPropertiesWidget.h"
 #include "JobListWidget.h"
+#include "JobModel.h"
+#include "JobPropertiesWidget.h"
+#include "JobSelectorActions.h"
 #include "StyledToolBar.h"
+#include "mainwindow_constants.h"
 #include "minisplitter.h"
 #include <QHBoxLayout>
 
@@ -67,6 +67,11 @@ void JobSelectorWidget::setModel(JobModel *jobModel)
 {
     m_jobModel = jobModel;
     m_jobListWidget->setModel(m_jobModel);
+}
+
+const JobItem *JobSelectorWidget::currentJobItem() const
+{
+    return m_jobListWidget->currentJobItem();
 }
 
 void JobSelectorWidget::makeJobItemSelected(JobItem *item)

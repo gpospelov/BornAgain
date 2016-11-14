@@ -14,16 +14,16 @@
 // ************************************************************************** //
 
 #include "IntensityDataIOFactory.h"
+#include "IHistogram.h"
 #include "OutputDataReadFactory.h"
 #include "OutputDataWriteFactory.h"
-#include "Exceptions.h"
-#include "Utils.h"
-#include "IHistogram.h"
-
 
 OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name)
 {
-    return OutputDataReadFactory::getReader(file_name)->getOutputData();
+    auto* reader = OutputDataReadFactory::getReader(file_name);
+    auto* result = reader->getOutputData();
+    delete reader;
+    return result;
 }
 
 IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name)
@@ -34,7 +34,9 @@ IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_na
 void IntensityDataIOFactory::writeOutputData(
     const OutputData<double>& data, const std::string& file_name)
 {
-    return OutputDataWriteFactory::getWriter(file_name)->writeOutputData(data);
+    auto *writer = OutputDataWriteFactory::getWriter(file_name);
+    writer->writeOutputData(data);
+    delete writer;
 }
 
 void IntensityDataIOFactory::writeIntensityData(

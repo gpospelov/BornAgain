@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobViewActivities.h
-//! @brief     Declares class JobViewActivities
+//! @brief     Defines class JobViewActivities
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,10 +17,10 @@
 #ifndef JOBVIEWACTIVITIES_H
 #define JOBVIEWACTIVITIES_H
 
-#include "WinDllMacros.h"
 #include "JobViewFlags.h"
-#include <QStringList>
+#include "WinDllMacros.h"
 #include <QMap>
+#include <QStringList>
 #include <QVector>
 
 //! The JobViewActivities class is a helper static class to get info related to JobView activities
@@ -39,4 +39,4 @@ private:
     static activity_map_t m_activityToDocks;
 };
 
-#endif
+#endif // JOBVIEWACTIVITIES_H

@@ -3,6 +3,7 @@
 
 #include "LayerRoughness.h"
 #include "BornAgainNamespace.h"
+#include "ParameterPattern.h"
 
 class LayerRoughnessTest : public ::testing::Test
 {

@@ -239,6 +239,6 @@ inline void TestFitParameterModel::test_addTwoFitParameterAndLinks()
 
 }
 
-#endif
+#endif // TESTFITPARAMETERMODEL_H
 
 

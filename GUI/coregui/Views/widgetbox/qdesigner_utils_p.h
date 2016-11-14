@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QDESIGNER_UTILS_H
-#define QDESIGNER_UTILS_H
+#ifndef QDESIGNER_UTILS_P_H
+#define QDESIGNER_UTILS_P_H
 
 #include "shared_global_p.h"
 
@@ -518,4 +518,4 @@ inline bool isCentralWidget(QDesignerFormWindowInterface *fw, QWidget *widget)
 
 QT_END_NAMESPACE
 
-#endif // QDESIGNER_UTILS_H
+#endif // QDESIGNER_UTILS_P_H

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/InputOutput/OutputDataWriteFactory.h
-//! @brief     Declares class OutputDataWriteFactory.
+//! @brief     Defines class OutputDataWriteFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,11 +16,8 @@
 #ifndef OUTPUTDATAWRITEFACTORY_H
 #define OUTPUTDATAWRITEFACTORY_H
 
-#include <string>
-#include "WinDllMacros.h"
 #include "OutputDataWriter.h"
 
-class IOutputDataWriteStrategy;
 
 //! @class OutputDataWriteFactory
 //! @ingroup input_output_internal
@@ -35,4 +32,4 @@ private:
     static IOutputDataWriteStrategy *getWriteStrategy(const std::string& file_name);
 };
 
-#endif
+#endif // OUTPUTDATAWRITEFACTORY_H

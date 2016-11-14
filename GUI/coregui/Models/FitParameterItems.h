@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/FitParameterItems.h
-//! @brief     Declares class FitParameterItems
+//! @brief     Defines class FitParameterItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,8 +17,7 @@
 #define FITPARAMETERITEMS_H
 
 #include "SessionItem.h"
-
-class AttLimits;
+#include "AttLimits.h"
 
 //! FitParameterItems is a collection of items to define fit parameters in GUI.
 
@@ -47,9 +46,9 @@ public:
     static const QString T_LINK;
     explicit FitParameterItem();
 
-    void initMinMaxValues(const AttLimits &limits);
+    void initMinMaxValues(const RealLimits &limits);
 
-    AttLimits getLimits();
+    AttLimits getAttLimits();
 
 private:
     void onTypeChange();
@@ -76,4 +75,4 @@ public:
                                        class ParameterContainerItem *parameterContainer);
 };
 
-#endif
+#endif // FITPARAMETERITEMS_H

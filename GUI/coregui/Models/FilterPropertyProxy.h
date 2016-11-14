@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/FilterPropertyProxy.h
-//! @brief     Declares class FilterPropertyProxy
+//! @brief     Defines class FilterPropertyProxy
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,6 @@
 #define FILTERPROPERTYPROXY_H
 
 #include "WinDllMacros.h"
-
 #include <QSortFilterProxyModel>
 
 //!
@@ -43,4 +42,4 @@ private:
     int m_columns;
 };
 
-#endif
+#endif // FILTERPROPERTYPROXY_H

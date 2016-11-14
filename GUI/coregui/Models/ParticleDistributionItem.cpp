@@ -15,20 +15,16 @@
 // ************************************************************************** //
 
 #include "ParticleDistributionItem.h"
-#include "ParticleItem.h"
-#include "ParticleDistribution.h"
-#include "Particle.h"
-#include "ParticleCoreShell.h"
-#include "DomainObjectBuilder.h"
-#include "TransformToDomain.h"
-#include "TransformFromDomain.h"
+#include "ComboProperty.h"
 #include "DistributionItem.h"
 #include "Distributions.h"
-#include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
+#include "ParameterPool.h"
+#include "ParticleItem.h"
+#include "TransformFromDomain.h"
+#include "TransformToDomain.h"
 #include <QDebug>
-#include <memory>
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
@@ -39,7 +35,7 @@ ParticleDistributionItem::ParticleDistributionItem()
     : SessionGraphicsItem(Constants::ParticleDistributionType)
 {
     addProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    getItem(ParticleItem::P_ABUNDANCE)->setLimits(AttLimits::limited(0.0, 1.0));
+    getItem(ParticleItem::P_ABUNDANCE)->setLimits(RealLimits::limited(0.0, 1.0));
     getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
 
     addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
@@ -52,14 +48,12 @@ ParticleDistributionItem::ParticleDistributionItem()
     addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
     updateParameterList();
     mapper()->setOnAnyChildChange(
-                [this] (SessionItem* item)
-    {
-        // prevent infinit loop when item changes its own properties
-        if (item && item->modelType()== Constants::PropertyType && item->parent() == this)
-            return;
-        updateParameterList();
-    });
-
+        [this] (SessionItem* item) {
+            // prevent infinit loop when item changes its own properties
+            if (item && item->modelType()== Constants::PropertyType && item->parent() == this)
+                return;
+            updateParameterList();
+        } );
 }
 
 ParticleDistributionItem::~ParticleDistributionItem()
@@ -69,14 +63,12 @@ ParticleDistributionItem::~ParticleDistributionItem()
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
     auto children = childItems();
-    if (children.size() == 0) {
+    if (children.size() == 0)
         return nullptr;
-    }
     std::unique_ptr<IParticle> P_particle = TransformToDomain::createIParticle(*getItem());
-    if (!P_particle) {
+    if (!P_particle)
         throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
                                 " -> Error! No correct particle defined");
-    }
     auto distr_item = getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);
     Q_ASSERT(distr_item);
 
@@ -131,7 +123,7 @@ void ParticleDistributionItem::updateParameterList()
 QStringList ParticleDistributionItem::getChildParameterNames() const
 {
     QStringList result;
-    QVector<SessionItem *> children = getItems();
+    QVector<SessionItem*> children = getItems();
     if (children.size() > 1) {
         Q_ASSERT(0);
         qDebug() << "ParticleDistributionItem::getChildParameterNames(): "

@@ -6,12 +6,12 @@ import bornagain as ba
 import ctypes
 
 
-class MySampleBuilder(ba.ISampleBuilder):
+class MySampleBuilder(ba.IMultiLayerBuilder):
     """
 
     """
     def __init__(self):
-        ba.ISampleBuilder.__init__(self)
+        ba.IMultiLayerBuilder.__init__(self)
         self.sample = None
 
         # parameters describing the sample
@@ -93,5 +93,4 @@ class MySampleBuilder(ba.ISampleBuilder):
         multi_layer.addLayerWithTopRoughness(ptfe_layer, r_ptfe)
         multi_layer.addLayer(substrate_layer)
 
-        self.sample = multi_layer
-        return self.sample
+        return multi_layer

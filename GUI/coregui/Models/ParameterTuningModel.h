@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ParameterTuningModel.h
-//! @brief     Declares class ParameterTuningModel
+//! @brief     Defines class ParameterTuningModel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -53,4 +53,4 @@ inline Qt::DropActions ParameterTuningModel::supportedDropActions() const
     return Qt::IgnoreAction;
 }
 
-#endif
+#endif // PARAMETERTUNINGMODEL_H

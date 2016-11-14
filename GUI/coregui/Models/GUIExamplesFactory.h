@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/GUIExamplesFactory.h
-//! @brief     Declares class GUIExamplesFactory
+//! @brief     Defines class GUIExamplesFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,10 +19,8 @@
 
 #include "WinDllMacros.h"
 #include <QMap>
-#include <QString>
 
 class SessionItem;
-class InstrumentModel;
 class SampleModel;
 
 //! Class that generates GUI model from
@@ -40,5 +38,5 @@ private:
 };
 
 
-#endif
+#endif // GUIEXAMPLESFACTORY_H
 

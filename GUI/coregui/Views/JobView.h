@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/JobView.h
-//! @brief     Declares class JobView
+//! @brief     Defines class JobView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,6 +24,7 @@ class MainWindow;
 class JobViewDocks;
 class JobActivityStatusBar;
 class JobProgressAssistant;
+class JobItem;
 
 //! The JobView class is a main view to show list of jobs, job results and widgets for real time
 //! and fitting activities.
@@ -40,10 +41,10 @@ signals:
     void activityChanged(int activity);
 
 public slots:
-    void onFocusRequest(class JobItem *jobItem);
+    void onFocusRequest(JobItem *jobItem);
     void setActivity(int activity);
     void onDockMenuRequest();
-    void onSelectionChanged(class JobItem *jobItem);
+    void onSelectionChanged(JobItem *jobItem);
 
 protected:
     virtual void showEvent(QShowEvent *);
@@ -55,6 +56,8 @@ private:
     void connectLayoutRelated();
     void connectJobRelated();
 
+    void setAppropriateActivityForJob(JobItem *jobItem);
+
     JobViewDocks *m_docks;
     JobActivityStatusBar *m_jobActivityStatusBar;
     JobProgressAssistant *m_progressAssistant;
@@ -62,4 +65,4 @@ private:
     MainWindow *m_mainWindow;
 };
 
-#endif
+#endif // JOBVIEW_H

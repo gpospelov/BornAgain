@@ -7,11 +7,6 @@ may be of interest when integrating BornAgain into a larger framework.
 In general, however, it is much more convenient to run BornAgain
 through its Python API.
 
-THEREFORE, THIS C++ EXAMPLE DIRECTORY IS CURRENTLY NOT MAINTAINED
-AND MAY BE OUT OF PHASE.
-
 Currently, this directory contains only one example:
 
-SimulateAndRootplot/
-   Simulate a mixture of uncorrelated cylinders and prisms, and
-   plot results using CERN Root.
+CylindersAndPrisms/

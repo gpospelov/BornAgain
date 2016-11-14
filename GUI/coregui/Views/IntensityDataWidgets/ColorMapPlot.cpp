@@ -15,12 +15,12 @@
 // ************************************************************************** //
 
 #include "ColorMapPlot.h"
-#include "ColorMapHelper.h"
-#include "IntensityDataItem.h"
 #include "AxesItems.h"
+#include "ColorMapHelper.h"
 #include "GUIHelpers.h"
+#include "IntensityDataItem.h"
+#include "MathConstants.h"
 #include "UpdateTimer.h"
-#include "Units.h"
 #include <QDebug>
 
 namespace {
@@ -351,15 +351,13 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
         return;
 
     if (property_group == IntensityDataItem::P_XAXIS) {
-        if (property_name == BasicAxisItem::P_MIN) {
+        if (property_name == BasicAxisItem::P_MIN || property_name == BasicAxisItem::P_MAX) {
+            setAxesRangeConnected(false);
             QCPRange range = m_customPlot->xAxis->range();
             range.lower = m_item->getLowerX();
-            m_customPlot->xAxis->setRange(range);
-            replot();
-        } else if (property_name == BasicAxisItem::P_MAX) {
-            QCPRange range = m_customPlot->xAxis->range();
             range.upper = m_item->getUpperX();
             m_customPlot->xAxis->setRange(range);
+            setAxesRangeConnected(true);
             replot();
         } else if (property_name == BasicAxisItem::P_TITLE) {
             m_customPlot->xAxis->setLabel(m_item->getXaxisTitle());
@@ -367,15 +365,13 @@ void ColorMapPlot::onSubItemPropertyChanged(const QString &property_group,
             replot();
         }
     } else if (property_group == IntensityDataItem::P_YAXIS) {
-        if (property_name == BasicAxisItem::P_MIN) {
+        if (property_name == BasicAxisItem::P_MIN || property_name == BasicAxisItem::P_MAX) {
+            setAxesRangeConnected(false);
             QCPRange range = m_customPlot->yAxis->range();
             range.lower = m_item->getLowerY();
-            m_customPlot->yAxis->setRange(range);
-            replot();
-        } else if (property_name == BasicAxisItem::P_MAX) {
-            QCPRange range = m_customPlot->yAxis->range();
             range.upper = m_item->getUpperY();
             m_customPlot->yAxis->setRange(range);
+            setAxesRangeConnected(true);
             replot();
         } else if (property_name == BasicAxisItem::P_TITLE) {
             m_customPlot->yAxis->setLabel(m_item->getYaxisTitle());
@@ -577,11 +573,11 @@ void ColorMapPlot::setAxesRangeFromItem(IntensityDataItem *item)
     m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     m_customPlot->axisRect()->setupFullAxesBox(true);
 
-    const IAxis *axis_x = data->getAxis(0);
-    const IAxis *axis_y = data->getAxis(1);
+    const IAxis &axis_x = data->getAxis(0);
+    const IAxis &axis_y = data->getAxis(1);
 
-    m_colorMap->data()->setSize(static_cast<int>(axis_x->getSize()),
-                                static_cast<int>(axis_y->getSize()));
+    m_colorMap->data()->setSize(static_cast<int>(axis_x.size()),
+                                static_cast<int>(axis_y.size()));
 
     m_colorMap->data()->setRange(ColorMapHelper::itemXrange(item),
                                  ColorMapHelper::itemYrange(item));
@@ -613,13 +609,13 @@ void ColorMapPlot::setDataFromItem(IntensityDataItem *item)
     auto data = item->getOutputData();
     if(!data) return;
 
-    const IAxis *axis_x = data->getAxis(0);
-    const IAxis *axis_y = data->getAxis(1);
+    const IAxis &axis_x = data->getAxis(0);
+    const IAxis &axis_y = data->getAxis(1);
 
-    for(size_t ix=0; ix<axis_x->getSize(); ++ix) {
-        for(size_t iy=0; iy<axis_y->getSize(); ++iy) {
+    for(size_t ix=0; ix<axis_x.size(); ++ix) {
+        for(size_t iy=0; iy<axis_y.size(); ++iy) {
             m_colorMap->data()->setCell(static_cast<int>(ix), static_cast<int>(iy),
-                                        (*data)[iy+axis_y->getSize()*ix]);
+                                        (*data)[iy+axis_y.size()*ix]);
         }
     }
 }

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/ObsoleteIntensityDataPlotWidget.h
-//! @brief     Declares class ObsoleteIntensityDataPlotWidget
+//! @brief     Defines class ObsoleteIntensityDataPlotWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -38,7 +38,7 @@ public:
     ~ObsoleteIntensityDataPlotWidget();
 
     QSize sizeHint() const { return QSize(800, 800); }
-    QSize minimumSizeHint() const { return QSize(512, 512); }
+    QSize minimumSizeHint() const { return QSize(256, 256); }
 
     void setItem(IntensityDataItem *item);
 
@@ -82,4 +82,4 @@ private:
     IntensityDataItem *m_item;
 };
 
-#endif
+#endif // OBSOLETEINTENSITYDATAPLOTWIDGET_H

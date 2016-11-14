@@ -14,34 +14,26 @@
 // ************************************************************************** //
 
 #include "ParticleInTheAirBuilder.h"
-#include "MultiLayer.h"
+#include "Exceptions.h"
 #include "HomogeneousMaterial.h"
+#include "Layer.h"
+#include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "FunctionalTestSuite.h"
-#include "Exceptions.h"
+#include "RealParameter.h"
 
-ParticleInTheAirBuilder::ParticleInTheAirBuilder()
-{
-}
-
-ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
-{
-}
-
-ISample* ParticleInTheAirBuilder::buildSample() const
+MultiLayer* ParticleInTheAirBuilder::buildSample() const
 {
     const IFormFactor* form_factor = getFormFactor();
     if(!form_factor)
-        throw NullPointerException("ParticleInTheAirBuilder::buildSample() -> Error. "
+        throw Exceptions::NullPointerException("ParticleInTheAirBuilder::buildSample() -> Error. "
                                    "Form factor is not initialized.");
     MultiLayer* result = new MultiLayer;
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
-    Layer air_layer;
-    air_layer.setMaterial(air_material);
+    Layer air_layer(air_material);
 
     Particle particle(particle_material, *form_factor);
     ParticleLayout particle_layout(particle);

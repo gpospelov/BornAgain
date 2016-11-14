@@ -209,6 +209,8 @@ def patch_libraries(dir_name):
     for f in libfiles:
         cmd = "install_name_tool -delete_rpath  @loader_path/../../Frameworks " + f
         cmd = "install_name_tool -add_rpath  @loader_path/../Frameworks " + f
+        if "libBornAgainCore" in f:
+            cmd = "install_name_tool -add_rpath  @loader_path/. " + f
         run_command(cmd)
 
     libfiles += glob.glob(os.path.join(dir_name, '*/libboost_python*'))

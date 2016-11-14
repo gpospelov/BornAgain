@@ -22,7 +22,6 @@
 
 namespace {
 
-const int report_width = 80;
 const int column_width = 18;
 
 template<typename T>

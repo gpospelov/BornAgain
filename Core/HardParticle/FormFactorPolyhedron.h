@@ -136,7 +136,7 @@ public:
     FormFactorPolygonalPrism(const double height) : m_height(height) {}
 
     complex_t evaluate_for_q(const cvector_t q) const override final;
-    double getVolume() const;
+    double getVolume() const override final;
     double getHeight() const { return m_height; }
     double getRadialExtension() const override final { return std::sqrt(m_base->area()); }
 

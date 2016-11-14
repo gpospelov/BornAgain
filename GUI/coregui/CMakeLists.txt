@@ -153,8 +153,8 @@ target_link_libraries(${library_name}
     ${QtAddOn_LIBRARIES}
     ${PYTHON_LIBRARIES}
     ${Boost_LIBRARIES}
-    ${BornAgainCore_LIBRARY}
     ${BornAgainFit_LIBRARY}
+    ${BornAgainCore_LIBRARY}
 )
 
 target_link_libraries(${library_name}

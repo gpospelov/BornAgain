@@ -207,9 +207,14 @@ def patch_libraries(dir_name):
     print "--> Patching libraries to rely on '{0}'".format(get_python_shared_library())
     libfiles = glob.glob(os.path.join(dir_name, '*/_libBornAgain*'))
     for f in libfiles:
-        cmd = "install_name_tool -delete_rpath  @loader_path/../../Frameworks " + f
+        if "libBornAgainCore" in f or "libBornAgainFit" in f:
+            cmd = "install_name_tool -delete_rpath  @loader_path/../../Frameworks " + f
+            run_command(cmd)
         cmd = "install_name_tool -add_rpath  @loader_path/../Frameworks " + f
         run_command(cmd)
+        if "libBornAgainCore" in f:
+            cmd = "install_name_tool -add_rpath  @loader_path/. " + f
+            run_command(cmd)
 
     libfiles += glob.glob(os.path.join(dir_name, '*/libboost_python*'))
     for f in libfiles:

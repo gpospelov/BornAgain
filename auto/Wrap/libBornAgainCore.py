@@ -15129,10 +15129,9 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_removeDetectorResolutionFunction(self)
 
 
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission=1.0):
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         """
-        setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission=1.0)
-        setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency)
+        setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission)
 
         void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
 
@@ -16987,10 +16986,9 @@ class IDetector2D(ICloneable, IParameterized):
         return _libBornAgainCore.IDetector2D_getDetectorResolutionFunction(self)
 
 
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission=1.0):
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         """
-        setAnalyzerProperties(IDetector2D self, kvector_t direction, double efficiency, double total_transmission=1.0)
-        setAnalyzerProperties(IDetector2D self, kvector_t direction, double efficiency)
+        setAnalyzerProperties(IDetector2D self, kvector_t direction, double efficiency, double total_transmission)
 
         void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
 
@@ -18743,10 +18741,9 @@ class Instrument(IParameterized):
         return _libBornAgainCore.Instrument_setDetectorResolutionFunction(self, p_resolution_function)
 
 
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission=1.0):
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         """
-        setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission=1.0)
-        setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency)
+        setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)
 
         void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission=1.0)
 

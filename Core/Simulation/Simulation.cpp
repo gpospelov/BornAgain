@@ -80,8 +80,8 @@ void Simulation::removeDetectorResolutionFunction()
 }
 
 //! Sets the polarization analyzer characteristics of the detector
-void Simulation::setAnalyzerProperties(
-    const kvector_t direction, double efficiency, double total_transmission)
+void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
+                                       double total_transmission)
 {
     m_instrument.setAnalyzerProperties(direction, efficiency, total_transmission);
 }

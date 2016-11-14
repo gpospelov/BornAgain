@@ -1,15 +1,80 @@
-BornAgain-1.7
+BornAgain-1.7.0, released 2016.11.14
   > API changes
     1) The one-argument constructors of FormFactorGauss and FormFactorLorentz now accept a length instead of a volume
+    2) GUI project back-compatibility broken
   > Summary:
     1) We moved the source repository from our own server to GitHub,
          https://github.com/scgmlz/BornAgain.
        This makes it easy for external contributors to propose changes in form of pull requests.
        Appveyor and Travis continuous integration server automatize tests.
        Python usage examples are now also covered by tests.
-    2) GUI support for fitting ... masking ...
-       Control parameters for different fit engines unified ...?
+    2) GUI support for fitting real data extended: masking, region of interest, linking dataset to defined instrument.
+       Control parameters for different fit engines unified.
     3) Behind the scenes: many directories, files, classes renamed or reorganized.
+
+  * Bug #1498: Fitting in GUI: values for all fitting parameters are reported as the same
+  * Bug #1499: GUI Segmentation fault if layer is too thick
+  * Bug #1511: Roughness simulations give incorrect scattering contribution below the sample horizon
+  * Bug #1512: GUI crashes when simulating for a lognormal distribution of wavelength with scale parameter zero
+  * Bug #1515: GUI: error in determination of size of imported tiff file causes crash of fitting
+  * Bug #1516: Consider include of ms-win-runtime library into Windows installer
+  * Bug #1520: GUI: global progress bar seems to be not updating
+  * Bug #1558: Memory leakges in Python on Simulation::getIntensityData call
+  * Bug #1559: Restore intensitydata.py functional test
+  * Bug #1571: PyCoreTest overlooks complete obstruction of simulation
+  * Bug #1576: bornagain/__init__.py must not require matplotlib
+  * Bug #1583: PyPersist tests fail if build directory path contains a '.'
+  * Bug #1600: PyPersistenceTest throws an exception from regex
+  * Bug #1603: GUI: Cancel job is not working anymore after the refactoring of ProgressHandler, GUI real-time performance is heavily affected too
+  * Bug #1613: detector.setPerpendicularToReflectedBeam moves detector in the case of the beam divergence
+  * Bug #1621: Broken parameter name translation for certain names in GUI fitting job
+  * Bug #1630: Monte Carlo and multithreading options are not propagated to GUI fitting
+  * Feature #1120: Calculate the specular peak intensity: |R|^2 at the specular pixel
+  * Feature #1238: nicer layout for newsletter@bornagainproject.org (reopened: v1.6.0 round mail still had black bars)
+  * Feature #1475: DOI for BornAgain
+  * Feature #1513: Provide more informational throw message from RealParameterWrapper.
+  * Feature #1543: decouple FitKernel from FitSuite
+  * Feature #1560: Provide simulation running from Python with text version of progress bar
+  * Feature #1561: merge FTDistribution.. and FTDecayFunction..
+  * Feature #1563: Investigate time-of-life of SampleBuilder in Python context
+  * Feature #1564: split "Pi.h" from Units.h
+  * Feature #1573: facilitate plotting from Python scripts exported by PyCore tests.
+  * Feature #1620: Extend numpy support
+  * Documentation #991: Revise and reintegrate chapter on particle distributions
+  * Documentation #1351: Drupal: update installation instructions, tutorials for coming release
+  * Documentation #1412: avoid horizontal scrolling in code examples
+  * Documentation #1517: Add the case with missed msvc2015 runtime library on Windows systems to the troubleshooting section
+  * Documentation #1589: Clone drupal website
+  * Documentation #1590: Update to drupal 8
+  * Refactoring #1419: move test code out of core
+  * Refactoring #1428: Compactify code that handles parameters (use abstract mechanism instead of treating each single parameter explicitly)
+  * Refactoring #1440: cover Python examples by functional tests
+  * Refactoring #1466: Refactor core Minimizer family to match the GUI presentation
+  * Refactoring #1477: Provide more detailed info on Exception thrown from Polyhedron based form factors
+  * Refactoring #1487: GUI: introduce ROI (region of interest) in MaskEditor
+  * Refactoring #1488: GUI: provide integration of ImportDataView and InstrumentView
+  * Refactoring #1497: Agree on new Core directory structure and class renaming to Rename certain classes and methods.
+  * Refactoring #1514: Remove code duplication in Distributions.h and .cpp
+  * Refactoring #1524: "FitSuite" currently used in two different meanings
+  * Refactoring #1526: replace "FunctionalTest" by more specific terms in several test machinery classes
+  * Refactoring #1527: simplify containsMagneticMaterial, printSampleTree, genPyScript
+  * Refactoring #1542: Make ParameterPool and RealParameter independent of IParameterized
+  * Refactoring #1546: disambiguate getRadius()
+  * Refactoring #1550: in .h file header comments, replace »Declares« by »Defines«
+  * Refactoring #1556: FormFactorInfo: remove unused m_pos_x, m_pos_y
+  * Refactoring #1565: to associate units with parameters, use string instead of inheritance
+  * Refactoring #1588: FitSuiteParameters inhibits Python iterator
+  * Refactoring #1593: Remove soft particle constructors that have a volume argument instead of the usual length
+  * Refactoring #1594: Review and possibly refactor IFormFactor class hierarchy
+  * Refactoring #1605: Revise public API of fitting classes
+  * Configuration #1255: MacOS: provide vagrant build configurations for Mavericks
+  * Configuration #1344: MacOS: install buildslave to macmini
+  * Configuration #1447: Migrate to GitHub
+  * Configuration #1483: Fix shuwdown of Windows10 build slave
+  * Configuration #1501: version tag must start with 'v' (change release script or instructions)
+  * Configuration #1502: rebase all branches after release (change release script or instructions)
+  * Configuration #1577: Qt qcreator navigation/recognition is broken for all unit tests
+  * Configuration #1595: Fix Windows builds
 
 BornAgain-1.6.2, released 2016.07.15
   > Hotfix:

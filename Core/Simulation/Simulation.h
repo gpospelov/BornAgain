@@ -60,7 +60,7 @@ public:
     void removeDetectorResolutionFunction();
 
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission = 1.0);
+                               double total_transmission);
 
     void setSample(const MultiLayer& sample);
     MultiLayer* getSample() const { return mP_sample.get(); }

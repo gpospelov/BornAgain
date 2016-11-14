@@ -29,7 +29,7 @@ public:
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission=1.0);
+                               double total_transmission);
 
     //! Gets the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd analyzerOperator() const;

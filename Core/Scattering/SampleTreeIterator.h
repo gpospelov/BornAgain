@@ -96,7 +96,7 @@ public:
     void next();
     const ISample* getCurrent();
     bool isDone() const;
-    size_t getLevel() const;
+    size_t depth() const;
 protected:
     Strategy m_strategy;
     IteratorMemento m_memento_itor;
@@ -134,7 +134,7 @@ inline bool SampleTreeIterator<Strategy>::isDone() const
 }
 
 template <class Strategy>
-inline size_t SampleTreeIterator<Strategy>::getLevel() const
+inline size_t SampleTreeIterator<Strategy>::depth() const
 {
     return m_memento_itor.size();
 }

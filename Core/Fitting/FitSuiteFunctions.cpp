@@ -91,34 +91,37 @@ void FitSuiteGradientFunction::verify_minimizer_logic(
 {
     int index_difference = current_index - m_prev_index;
     if(index_difference != 1 && (current_index!=0 && int(m_prev_index)!= int(m_ndatasize-1) ) ) {
-        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
-                             << "Non sequential access to elements.";
-        msglog(MSG::WARNING) << " current_index:" << current_index
+        msglog(Logging::WARNING)
+            << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+            << "Non sequential access to elements.";
+        msglog(Logging::WARNING) << " current_index:" << current_index
                              << " prev_index:" << m_prev_index;
     }
     if(parameters_have_changed && current_index != 0) {
-        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
-                             << "Parameters have changed while current_index!=0";
-        msglog(MSG::WARNING) << " current_index:" << current_index
+        msglog(Logging::WARNING)
+            << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+            << "Parameters have changed while current_index!=0";
+        msglog(Logging::WARNING) << " current_index:" << current_index
                              << " prev_index:" << m_prev_index;
     }
     if(parameters_have_changed && current_index == m_prev_index) {
-        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
-                             << "Parameters have changed while index remained the same";
-        msglog(MSG::WARNING) << " current_index:" << current_index <<
+        msglog(Logging::WARNING)
+            << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+            << "Parameters have changed while index remained the same";
+        msglog(Logging::WARNING) << " current_index:" << current_index <<
             " prev_index:" << m_prev_index;
     }
     m_prev_index = current_index;
 }
 
-void FitSuiteGradientFunction::calculate_residuals(const std::vector<double> &pars)
+void FitSuiteGradientFunction::calculate_residuals(const std::vector<double>& pars)
 {
     runSimulation(pars);
     for(size_t i_data=0; i_data<m_ndatasize; ++i_data)
         m_residuals[i_data] = m_kernel->fitObjects()->getResidualValue(i_data);
 }
 
-void FitSuiteGradientFunction::calculate_gradients(const std::vector<double> &pars)
+void FitSuiteGradientFunction::calculate_gradients(const std::vector<double>& pars)
 {
     // FIXME get kEps from outside fit_suite->getMinimizer()->getPrecision();
     const double kEps = 1.0E-9; // Good for Fumili

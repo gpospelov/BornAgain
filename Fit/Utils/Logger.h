@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Utils/Logger.h
-//! @brief     Defines MSG namespace and Logger class.
+//! @brief     Defines namespace Logging and class Logger.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,7 +23,7 @@
 
 //! Logging utility.
 
-namespace MSG
+namespace Logging
 {
 
 enum EMessageLevel { VERBOSE, DEBUG2, DEBUG, INFO, WARNING, ERROR, FATAL };
@@ -46,11 +46,11 @@ public:
 
     ~Logger();
 
-    std::string NowTime();
-    const std::string& ToString(EMessageLevel level);
-    static void SetLevel(EMessageLevel level);
-    static void SetLevel(const std::string& levelname);
-    static EMessageLevel GetLevel();
+    std::string nowTime();
+    const std::string& toString(EMessageLevel level);
+    static void setLevel(EMessageLevel level);
+    static void setLevel(const std::string& levelname);
+    static EMessageLevel level();
 
 private:
     static EMessageLevel m_logLevel;
@@ -58,16 +58,13 @@ private:
     std::ostringstream m_buffer;
 };
 
-//inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
-//inline void SetLevel(const std::string& levelname) { Logger::SetLevel(levelname); }
+BA_CORE_API_ void setLevel(EMessageLevel level);
+BA_CORE_API_ void setLevel(const std::string& levelname);
 
-BA_CORE_API_ void SetLevel(EMessageLevel level);
-BA_CORE_API_ void SetLevel(const std::string& levelname);
+} // namespace Logging
 
-} // namespace MSG
-
-#define msglog(level) \
-if (level < MSG::Logger::GetLevel()) ; \
-else MSG::Logger(level)
+#define msglog(_level) \
+if (_level < Logging::Logger::level()) ; \
+else Logging::Logger(_level)
 
 #endif // LOGGER_H

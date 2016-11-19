@@ -6982,28 +6982,14 @@ class ISampleVisitor(_object):
         return _libBornAgainCore.ISampleVisitor_visitLeave(self, arg2)
 
 
-    def getLevel(self):
-        """
-        getLevel(ISampleVisitor self) -> int
-
-        int ISampleVisitor::getLevel() const
-
-        return current level of the visitor in the composite hierarchy 
-
-        """
-        return _libBornAgainCore.ISampleVisitor_getLevel(self)
+    def depth(self):
+        """depth(ISampleVisitor self) -> int"""
+        return _libBornAgainCore.ISampleVisitor_depth(self)
 
 
-    def setLevel(self, level):
-        """
-        setLevel(ISampleVisitor self, int level)
-
-        void ISampleVisitor::setLevel(int level)
-
-        set current level of the visitor in the composite hierarchy 
-
-        """
-        return _libBornAgainCore.ISampleVisitor_setLevel(self, level)
+    def setDepth(self, depth):
+        """setDepth(ISampleVisitor self, int depth)"""
+        return _libBornAgainCore.ISampleVisitor_setDepth(self, depth)
 
 ISampleVisitor_swigregister = _libBornAgainCore.ISampleVisitor_swigregister
 ISampleVisitor_swigregister(ISampleVisitor)
@@ -21105,7 +21091,7 @@ ERROR = _libBornAgainCore.ERROR
 _libBornAgainCore.FATAL_swigconstant(_libBornAgainCore)
 FATAL = _libBornAgainCore.FATAL
 class Logger(_object):
-    """Proxy of C++ MSG::Logger class."""
+    """Proxy of C++ Logging::Logger class."""
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Logger, name, value)
@@ -21114,7 +21100,7 @@ class Logger(_object):
     __repr__ = _swig_repr
 
     def __init__(self, level):
-        """__init__(MSG::Logger self, MSG::EMessageLevel level) -> Logger"""
+        """__init__(Logging::Logger self, Logging::EMessageLevel level) -> Logger"""
         this = _libBornAgainCore.new_Logger(level)
         try:
             self.this.append(this)
@@ -21123,55 +21109,55 @@ class Logger(_object):
     __swig_destroy__ = _libBornAgainCore.delete_Logger
     __del__ = lambda self: None
 
-    def NowTime(self):
-        """NowTime(Logger self) -> std::string"""
-        return _libBornAgainCore.Logger_NowTime(self)
+    def nowTime(self):
+        """nowTime(Logger self) -> std::string"""
+        return _libBornAgainCore.Logger_nowTime(self)
 
 
-    def ToString(self, level):
-        """ToString(Logger self, MSG::EMessageLevel level) -> std::string const &"""
-        return _libBornAgainCore.Logger_ToString(self, level)
+    def toString(self, level):
+        """toString(Logger self, Logging::EMessageLevel level) -> std::string const &"""
+        return _libBornAgainCore.Logger_toString(self, level)
 
 
-    def SetLevel(*args):
+    def setLevel(*args):
         """
-        SetLevel(MSG::EMessageLevel level)
-        SetLevel(std::string const & levelname)
+        setLevel(Logging::EMessageLevel level)
+        setLevel(std::string const & levelname)
         """
-        return _libBornAgainCore.Logger_SetLevel(*args)
+        return _libBornAgainCore.Logger_setLevel(*args)
 
     if _newclass:
-        SetLevel = staticmethod(SetLevel)
-    __swig_getmethods__["SetLevel"] = lambda x: SetLevel
+        setLevel = staticmethod(setLevel)
+    __swig_getmethods__["setLevel"] = lambda x: setLevel
 
-    def GetLevel():
-        """GetLevel() -> MSG::EMessageLevel"""
-        return _libBornAgainCore.Logger_GetLevel()
+    def level():
+        """level() -> Logging::EMessageLevel"""
+        return _libBornAgainCore.Logger_level()
 
     if _newclass:
-        GetLevel = staticmethod(GetLevel)
-    __swig_getmethods__["GetLevel"] = lambda x: GetLevel
+        level = staticmethod(level)
+    __swig_getmethods__["level"] = lambda x: level
 Logger_swigregister = _libBornAgainCore.Logger_swigregister
 Logger_swigregister(Logger)
 
-def Logger_SetLevel(*args):
+def Logger_setLevel(*args):
     """
-    SetLevel(MSG::EMessageLevel level)
-    Logger_SetLevel(std::string const & levelname)
+    setLevel(Logging::EMessageLevel level)
+    Logger_setLevel(std::string const & levelname)
     """
-    return _libBornAgainCore.Logger_SetLevel(*args)
+    return _libBornAgainCore.Logger_setLevel(*args)
 
-def Logger_GetLevel():
-    """Logger_GetLevel() -> MSG::EMessageLevel"""
-    return _libBornAgainCore.Logger_GetLevel()
+def Logger_level():
+    """Logger_level() -> Logging::EMessageLevel"""
+    return _libBornAgainCore.Logger_level()
 
 
-def SetLevel(*args):
+def setLevel(*args):
     """
-    SetLevel(MSG::EMessageLevel level)
-    SetLevel(std::string const & levelname)
+    setLevel(Logging::EMessageLevel level)
+    setLevel(std::string const & levelname)
     """
-    return _libBornAgainCore.SetLevel(*args)
+    return _libBornAgainCore.setLevel(*args)
 class MultiLayer(ICompositeSample):
     """
 

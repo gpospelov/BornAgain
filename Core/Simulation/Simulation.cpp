@@ -242,7 +242,7 @@ void Simulation::runSingleSimulation()
     } else {
         // Multithreading.
 
-        msglog(MSG::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
+        msglog(Logging::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
                            << m_options.getNumberOfThreads()
                            << ", n_batches = " << m_options.getNumberOfBatches()
                            << ", current_batch = " << m_options.getCurrentBatch();

@@ -12497,10 +12497,6 @@ Returns current string.
 ";
 
 
-// File: classUtils_1_1System.xml
-%feature("docstring") Utils::System "";
-
-
 // File: structThreadInfo.xml
 %feature("docstring") ThreadInfo "
 
@@ -13326,14 +13322,17 @@ GISAS simulation with rectangular detector, region of interest and mask.
 
 
 // File: namespaceUtils.xml
-%feature("docstring")  Utils::EnableFloatingPointExceptions "void Utils::EnableFloatingPointExceptions()
+%feature("docstring")  Utils::getCurrentDateAndTime "BA_CORE_API_ std::string Utils::getCurrentDateAndTime()
+";
+
+%feature("docstring")  Utils::enableFloatingPointExceptions "BA_CORE_API_ void Utils::enableFloatingPointExceptions()
 
 enables exception throw in the case of NaN, Inf 
 ";
 
-%feature("docstring")  Utils::getShape "std::pair< size_t, size_t > Utils::getShape(const std::vector< std::vector< double >> &data)
+%feature("docstring")  Utils::getShape "BA_CORE_API_ std::pair<size_t, size_t> Utils::getShape(const std::vector< std::vector< double >> &data)
 
-Returns shape nrows, ncols of 2D array (for numpy) 
+Returns shape nrows, ncols of 2D array. 
 ";
 
 

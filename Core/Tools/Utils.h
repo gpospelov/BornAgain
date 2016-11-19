@@ -21,20 +21,16 @@
 #include <string>
 #include <vector>
 
-namespace Utils {
+namespace Util {
 
-class BA_CORE_API_ System
-{
-public:
-    static std::string getCurrentDateAndTime();
-};
+    BA_CORE_API_ std::string getCurrentDateAndTime();
 
-//! enables exception throw in the case of NaN, Inf
-BA_CORE_API_ void EnableFloatingPointExceptions();
+    //! enables exception throw in the case of NaN, Inf
+    BA_CORE_API_ void enableFloatingPointExceptions();
 
-//! Returns shape nrows, ncols of 2D array (for numpy)
-BA_CORE_API_ std::pair<size_t, size_t> getShape(const std::vector<std::vector<double>>& data);
+    //! Returns shape nrows, ncols of 2D array.
+    BA_CORE_API_ std::pair<size_t, size_t> getShape(const std::vector<std::vector<double>>& data);
 
-} // namespace Utils
+} // namespace Util
 
 #endif // UTILS_H

@@ -23,7 +23,7 @@
 #define NO_IMPORT_ARRAY
 #include <numpy/arrayobject.h>
 
-PyObject* Utils::createNumpyArray(const std::vector<double>& data)
+PyObject* Util::createNumpyArray(const std::vector<double>& data)
 {
     const size_t ndim(1);
     npy_int ndim_numpy = ndim;

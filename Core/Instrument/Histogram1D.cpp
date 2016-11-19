@@ -71,17 +71,17 @@ std::vector<double> Histogram1D::getBinErrors() const
 
 PyObject* Histogram1D::getBinCentersNumpy() const
 {
-    return Utils::createNumpyArray(getBinCenters());
+    return Util::createNumpyArray(getBinCenters());
 }
 
 PyObject* Histogram1D::getBinValuesNumpy() const
 {
-    return Utils::createNumpyArray(getBinValues());
+    return Util::createNumpyArray(getBinValues());
 }
 
 PyObject* Histogram1D::getBinErrorsNumpy() const
 {
-    return Utils::createNumpyArray(getBinErrors());
+    return Util::createNumpyArray(getBinErrors());
 }
 
 #endif // BORNAGAIN_PYTHON

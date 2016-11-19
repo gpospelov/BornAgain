@@ -143,7 +143,7 @@ void TiffHandler::write_header()
 {
     assert(m_tiff);
     TIFFSetField(m_tiff, TIFFTAG_ARTIST, "BornAgain.IOFactory");
-    TIFFSetField(m_tiff, TIFFTAG_DATETIME, Utils::System::getCurrentDateAndTime().c_str());
+    TIFFSetField(m_tiff, TIFFTAG_DATETIME, Util::getCurrentDateAndTime().c_str());
     TIFFSetField(m_tiff, TIFFTAG_IMAGEDESCRIPTION,
            "Image converted from BornAgain intensity file.");
     TIFFSetField(m_tiff, TIFFTAG_SOFTWARE, "BornAgain");

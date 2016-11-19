@@ -45,7 +45,7 @@ Histogram2D::Histogram2D(const OutputData<double>& data)
 
 Histogram2D::Histogram2D(const std::vector<std::vector<double>>& data)
 {
-    auto shape = Utils::getShape(data);
+    auto shape = Util::getShape(data);
     const size_t nrows = shape.first;
     const size_t ncols = shape.second;
 
@@ -138,7 +138,7 @@ void Histogram2D::setContent(const std::vector<std::vector<double> > &data)
 
 void Histogram2D::addContent(const std::vector<std::vector<double> > &data)
 {
-    auto shape = Utils::getShape(data);
+    auto shape = Util::getShape(data);
     const size_t nrows = shape.first;
     const size_t ncols = shape.second;
 

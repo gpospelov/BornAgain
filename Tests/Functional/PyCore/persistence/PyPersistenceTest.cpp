@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "PyPersistenceTest.h"
-#include "FileUtils.h"
+#include "FileSystemUtils.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
@@ -38,14 +38,14 @@ bool PyPersistenceTest::runTest()
 {
     // Remove old output
     for (const std::string& fname:
-             FileUtils::glob(PYPERSIST_OUT_DIR, getName()+"\\.\\w+\\..+")) {
+             FileSystemUtils::glob(PYPERSIST_OUT_DIR, getName()+"\\.\\w+\\..+")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old output " << fname.c_str() << "\n";
     }
 
     // Run Python script
-    std::string pyscript_filename = FileUtils::jointPath(m_directory, getName()+".py");
-    std::string dat_stem = FileUtils::jointPath(PYPERSIST_OUT_DIR, getName());
+    std::string pyscript_filename = FileSystemUtils::jointPath(m_directory, getName()+".py");
+    std::string dat_stem = FileSystemUtils::jointPath(PYPERSIST_OUT_DIR, getName());
     if (!runPython(pyscript_filename + " " + dat_stem))
         return false;
 
@@ -63,8 +63,8 @@ bool PyPersistenceTest::runTest()
     // Compare files one by one
     for (auto const& it: dat)
         if (!compareFilePair(
-                FileUtils::jointPath(PYPERSIST_OUT_DIR, it.second),
-                FileUtils::jointPath(PYPERSIST_REF_DIR, ref[it.first])))
+                FileSystemUtils::jointPath(PYPERSIST_OUT_DIR, it.second),
+                FileSystemUtils::jointPath(PYPERSIST_REF_DIR, ref[it.first])))
             return false;
     return true;
 }
@@ -75,9 +75,9 @@ std::map<const std::string, const std::string>
 PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
 {
     std::map<const std::string, const std::string> ret;
-    for (const std::string& fname: FileUtils::glob(dir, stem+"\\.\\w+\\..+")) {
+    for (const std::string& fname: FileSystemUtils::glob(dir, stem+"\\.\\w+\\..+")) {
         std::vector<std::string> fname_segments =
-            StringUtils::split(FileUtils::filename(fname), ".");
+            StringUtils::split(FileSystemUtils::filename(fname), ".");
         ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fname));
     }
     return ret;
@@ -113,7 +113,7 @@ bool PyPersistenceTest::compareFilePair(
     const std::string& dat_fpath, const std::string& ref_fpath)
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
-    const std::string extension = StringUtils::split(FileUtils::filename(dat_fpath), ".")[2];
+    const std::string extension = StringUtils::split(FileSystemUtils::filename(dat_fpath), ".")[2];
     if ( extension=="int" )
         return compareIntensityPair( dat_fpath, ref_fpath );
     if ( extension=="yaml" )

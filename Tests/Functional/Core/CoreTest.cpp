@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "CoreTest.h"
-#include "FileUtils.h"
+#include "FileSystemUtils.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
@@ -37,7 +37,7 @@ bool CoreTest::runTest()
     // Load reference if available
     try {
         m_reference = IntensityDataIOFactory::readOutputData(
-            FileUtils::jointPath(CORE_STD_REF_DIR, getName() + ".int.gz"));
+            FileSystemUtils::jointPath(CORE_STD_REF_DIR, getName() + ".int.gz"));
     } catch(const std::exception& ex) {
         m_reference = nullptr;
         std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
@@ -55,8 +55,8 @@ bool CoreTest::runTest()
         success = compareIntensityMaps(*result_data.get(), *m_reference);
     // Save simulation if different from reference.
     if (!success) {
-        FileUtils::createDirectory(CORE_STD_OUT_DIR);
-        std::string out_fname = FileUtils::jointPath(CORE_STD_OUT_DIR, getName() + ".int");
+        FileSystemUtils::createDirectory(CORE_STD_OUT_DIR);
+        std::string out_fname = FileSystemUtils::jointPath(CORE_STD_OUT_DIR, getName() + ".int");
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << ".\n"
                   << "To visualize an intensity map, use " << BUILD_BIN_DIR << "/view1.py;"

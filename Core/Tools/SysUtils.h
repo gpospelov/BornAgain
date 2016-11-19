@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/Utils.h
+//! @file      Core/Tools/SysUtils.h
 //! @brief     Defines various stuff in namespace Utils.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef SYSUTILS_H
+#define SYSUTILS_H
 
 #include "WinDllMacros.h"
 #include "StringUtils.h"
@@ -29,4 +29,4 @@ namespace SysUtils {
 
 } // namespace SysUtils
 
-#endif // UTILS_H
+#endif // SYSUTILS_H

@@ -34,7 +34,7 @@ LayerInterface::~LayerInterface()
 
 LayerInterface* LayerInterface::clone() const
 {
-    throw Exception::NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
+    throw Exceptions::NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
 }
 
 LayerInterface* LayerInterface::createSmoothInterface(

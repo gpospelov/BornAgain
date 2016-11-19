@@ -146,7 +146,7 @@ kvector_t ParticleComposition::getParticlePosition(size_t index) const
 
 size_t ParticleComposition::check_index(size_t index) const
 {
-    return index < m_particles.size() ? index : throw Exception::OutOfBoundsException(
+    return index < m_particles.size() ? index : throw Exceptions::OutOfBoundsException(
         "ParticleComposition::check_index() -> Index is out of bounds");
 }
 
@@ -154,7 +154,7 @@ void ParticleComposition::checkParticleType(const IParticle &p_particle)
 {
     const ParticleDistribution* p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
     if (p_distr)
-        throw Exception::ClassInitializationException("ParticleComposition::checkParticleType: "
+        throw Exceptions::ClassInitializationException("ParticleComposition::checkParticleType: "
                                                        "cannot add ParticleDistribution!");
 }
 

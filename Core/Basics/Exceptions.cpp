@@ -16,7 +16,7 @@
 #include "Exceptions.h"
 #include <iostream>
 
-namespace Exception {
+namespace Exceptions {
 
 void LogExceptionMessage(const std::string& message)
 {
@@ -113,4 +113,4 @@ FormatErrorException::FormatErrorException(const std::string& message)
     LogExceptionMessage(message);
 }
 
-} // namespace Exception
+} // namespace Exceptions

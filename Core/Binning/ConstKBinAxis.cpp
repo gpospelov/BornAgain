@@ -31,7 +31,7 @@ ConstKBinAxis::ConstKBinAxis(const std::string &name, size_t nbins, double start
     , m_end(end)
 {
     if(m_start >= m_end)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "ConstKBinAxis::ConstKBinAxis() -> Error. start >= end is not allowed.");
 
     double start_sin = std::sin(m_start);
@@ -54,7 +54,7 @@ ConstKBinAxis* ConstKBinAxis::clone() const
 ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const
 {
     if(left >= right)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "ConstKBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
 
     if(left < getMin()) left = getBin(0).getMidPoint();

@@ -33,7 +33,7 @@ FixedBinAxis *FixedBinAxis::clone() const
 double FixedBinAxis::operator[](size_t index) const
 {
     if(index >= m_nbins)
-        throw Exception::OutOfBoundsException("FixedBinAxis::operator[] -> Error. Wrong index.");
+        throw Exceptions::OutOfBoundsException("FixedBinAxis::operator[] -> Error. Wrong index.");
 
     double step = (m_end - m_start)/m_nbins;
     return m_start + (index + 0.5)*step;
@@ -42,7 +42,7 @@ double FixedBinAxis::operator[](size_t index) const
 Bin1D FixedBinAxis::getBin(size_t index) const
 {
     if(index >= m_nbins)
-        throw Exception::OutOfBoundsException("FixedBinAxis::getBin() -> Error. Wrong index.");
+        throw Exceptions::OutOfBoundsException("FixedBinAxis::getBin() -> Error. Wrong index.");
 
     double step = (m_end - m_start)/m_nbins;
     Bin1D result( m_start + step*index, m_start + step*(index+1) );
@@ -85,7 +85,7 @@ std::vector<double> FixedBinAxis::getBinBoundaries() const
 FixedBinAxis *FixedBinAxis::createClippedAxis(double left, double right) const
 {
     if(left >= right)
-        throw Exception::LogicErrorException("FixedBinAxis::createClippedAxis() -> Error. "
+        throw Exceptions::LogicErrorException("FixedBinAxis::createClippedAxis() -> Error. "
                                   "'left' should be smaller than 'right'");
 
     if(left < getMin()) left = getBin(0).getMidPoint();

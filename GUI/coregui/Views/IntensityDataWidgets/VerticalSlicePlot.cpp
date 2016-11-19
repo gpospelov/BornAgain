@@ -113,7 +113,7 @@ void VerticalSlicePlot::plotItem(IntensityDataItem *intensityItem)
     if(!data) return;
 
     if(data->getRank() != 2) {
-        throw Exception::NullPointerException("NHistogramPlot::plotItem::Draw() -> Error. Zero pointer to the data to draw");
+        throw Exceptions::NullPointerException("NHistogramPlot::plotItem::Draw() -> Error. Zero pointer to the data to draw");
     }
 
     m_customPlot->axisRect()->setupFullAxesBox(true);

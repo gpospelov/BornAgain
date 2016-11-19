@@ -2,12 +2,12 @@
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "SimulationFactory.h"
-#include "FileSystem.h"
+#include "FileUtils.h"
 #include <memory>
 
 int main(int, char**)
 {
-    const std::string trunc = FileSystem::jointPath(CORE_SPECIAL_REF_DIR,
+    const std::string trunc = FileUtils::jointPath(CORE_SPECIAL_REF_DIR,
                                                              "/polmagcylinders2_reference_");
     const std::unique_ptr<OutputData<double> >
         P_reference00(IntensityDataIOFactory::readOutputData(trunc + "00.int.gz"));

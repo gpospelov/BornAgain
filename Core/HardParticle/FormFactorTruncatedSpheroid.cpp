@@ -43,7 +43,7 @@ bool FormFactorTruncatedSpheroid::check_initialization() const
         ostr << " height:" << m_height;
         ostr << " height_flattening:" << m_height_flattening << "\n\n";
         ostr << "Check for 'height <= 2.*radius*height_flattening' failed.";
-        throw Exception::ClassInitializationException(ostr.str());
+        throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
 }

@@ -240,7 +240,7 @@ IHistogram* IHistogram::createHistogram(const OutputData<double>& source)
         message << "IHistogram::createHistogram(const OutputData<double>& source) -> Error. ";
         message << "The rank of source " << source.getRank() << " ";
         message << "is not suitable for creation neither 1-dim nor 2-dim histograms.";
-        throw Exception::LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 }
 
@@ -260,7 +260,7 @@ void IHistogram::check_x_axis() const
         std::ostringstream message;
         message << "IHistogram::check_x_axis() -> Error. X-xis does not exist. ";
         message << "Rank of histogram " << getRank() << "." << std::endl;
-        throw Exception::LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 }
 
@@ -270,7 +270,7 @@ void IHistogram::check_y_axis() const
         std::ostringstream message;
         message << "IHistogram::check_y_axis() -> Error. Y-axis does not exist. ";
         message << "Rank of histogram " << getRank() << "." << std::endl;
-        throw Exception::LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 }
 
@@ -281,7 +281,7 @@ void IHistogram::init_from_data(const OutputData<double>& source)
         message << "IHistogram::IHistogram(const OutputData<double>& data) -> Error. ";
         message << "The dimension of this histogram " << getRank() << " ";
         message << "is differ from the dimension of source " << m_data.getRank() << std::endl;
-        throw Exception::LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 
     m_data.copyShapeFrom(source);
@@ -302,7 +302,7 @@ double IHistogram::getBinData(size_t i, IHistogram::DataType dataType) const
     } else if(dataType == DataType::NENTRIES) {
         return getBinNumberOfEntries(i);
     } else
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "IHistogram::getBinData() -> Error. Unknown data type.");
 }
 
@@ -321,7 +321,7 @@ std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) con
 void IHistogram::copyContentFrom(const IHistogram& other)
 {
     if(!hasSameDimensions(other))
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "IHistogram::copyContentFrom() -> Error. Can't copy the data of different shape.");
     reset();
     for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
@@ -354,7 +354,7 @@ bool IHistogram::hasSameDimensions(const IHistogram& other) const
 const IHistogram& IHistogram::operator+=(const IHistogram& right)
 {
     if(!hasSameDimensions(right))
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "IHistogram::operator+=() -> Error. Histograms have different dimension");
     for(size_t i=0; i<getTotalNumberOfBins(); ++i)
         addBinContent(i, right.getBinContent(i));
@@ -365,7 +365,7 @@ const IHistogram& IHistogram::operator+=(const IHistogram& right)
 IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
 {
     if(!hasSameDimensions(rhs))
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "IHistogram::relativeDifferenceHistogram() -> Error. "
             "Histograms have different dimensions");
 

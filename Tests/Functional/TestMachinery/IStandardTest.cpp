@@ -34,7 +34,7 @@ bool IStandardTest::execute(int argc, char** argv) {
         test_name = std::string(argv[1]);
     m_info = StandardSimulationsRegistry::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
-        throw Exception::RuntimeErrorException("IStandardTest -> Error in look up.");
+        throw Exceptions::RuntimeErrorException("IStandardTest -> Error in look up.");
 
     if (m_info->m_subtest_type == "None")
         return execute_onetest();
@@ -62,7 +62,7 @@ bool IStandardTest::execute_subtests()
     } else if(m_info->m_subtest_type == "FTDistributions2D") {
         subtest_registry = new SubtestRegistryFTDistribution2D;
     } else
-        throw Exception::RuntimeErrorException("IStandardTest -> Error. "
+        throw Exceptions::RuntimeErrorException("IStandardTest -> Error. "
                                     "Unknown factory '"+m_info->m_subtest_type+"'.");
     subtest_names = subtest_registry->keys();
     size_t n_subtests = subtest_names.size();

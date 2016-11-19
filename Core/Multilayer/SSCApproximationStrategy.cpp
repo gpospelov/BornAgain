@@ -45,7 +45,7 @@ complex_t SSCApproximationStrategy::getCharacteristicDistribution(double qp) con
     const InterferenceFunctionRadialParaCrystal *p_iff
         = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(mP_iff.get());
     if (p_iff == 0)
-        throw Exception::ClassInitializationException("Wrong interference function for SSCA");
+        throw Exceptions::ClassInitializationException("Wrong interference function for SSCA");
     return p_iff->FTPDF(qp);
 }
 

@@ -42,7 +42,7 @@ bool FormFactorLongRipple1Lorentz::check_initialization() const
         ostr << " width:" << m_width;
         ostr << " length:" << m_length << "\n\n";
         ostr << "Check for 'height>0.0 && width>0.0 && length>0.0' failed.";
-        throw Exception::ClassInitializationException(ostr.str());
+        throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
 }

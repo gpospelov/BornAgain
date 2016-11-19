@@ -83,7 +83,7 @@ std::string Instrument::addParametersToExternalPool(
 void Instrument::initDetector()
 {
     if(!mP_detector)
-        throw Exception::RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "Instrument::initDetector() -> Error. Detector is not initialized.");
     getDetector()->init(getBeam());
 }

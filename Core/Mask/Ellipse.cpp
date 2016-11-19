@@ -33,7 +33,7 @@ Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius,
     , m_theta(theta)
 {
     if(xradius <= 0.0 || yradius <= 0.0)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius) "
             "-> Error. Radius can't be negative\n");
 }

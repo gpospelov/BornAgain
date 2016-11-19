@@ -50,7 +50,7 @@ Histogram2D::Histogram2D(const std::vector<std::vector<double>>& data)
     const size_t ncols = shape.second;
 
     if(nrows == 0 || ncols == 0)
-        throw Exception::LogicErrorException("Histogram2D::Histogram2D() -> Error. "
+        throw Exceptions::LogicErrorException("Histogram2D::Histogram2D() -> Error. "
                                               "Not a two-dimensional numpy array");
 
     m_data.addAxis(FixedBinAxis("x-axis", ncols, 0.0, static_cast<double>(ncols)));
@@ -149,7 +149,7 @@ void Histogram2D::addContent(const std::vector<std::vector<double> > &data)
              << ", " << ncols << "] doesn't mach histogram axes. "
              << "X-axis size: " << m_data.getAxis(BornAgain::X_AXIS_INDEX).size()
              << "Y-axis size: " << m_data.getAxis(BornAgain::Y_AXIS_INDEX).size();
-        throw Exception::LogicErrorException(ostr.str());
+        throw Exceptions::LogicErrorException(ostr.str());
     }
 
     for(size_t row=0; row<nrows; ++row) {

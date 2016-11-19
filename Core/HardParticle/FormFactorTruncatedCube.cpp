@@ -58,7 +58,7 @@ void FormFactorTruncatedCube::onChange()
         ostr << "with parameters 'length':" << m_length;
         ostr << " 'removed_length':" << m_removed_length << "\n\n";
         ostr << "Check for removed_length <= 0.5*length failed.";
-        throw Exception::ClassInitializationException(ostr.str());
+        throw Exceptions::ClassInitializationException(ostr.str());
     }
 
     double a = m_length/2;

@@ -55,7 +55,7 @@ void DetectorMask::addMask(const Geometry::IShape2D& shape, bool mask_value)
 void DetectorMask::initMaskData(const IDetector2D& detector)
 {
     if(detector.getDimension() != 2)
-        throw Exception::RuntimeErrorException("DetectorMask::initMaskData() -> Error. Attempt "
+        throw Exceptions::RuntimeErrorException("DetectorMask::initMaskData() -> Error. Attempt "
                                                 "to add masks to uninitialized detector.");
 
     assert(m_shapes.size() == m_mask_of_shape.size());
@@ -91,7 +91,7 @@ bool DetectorMask::isMasked(size_t index) const
         return false;
 
     if(index >= m_mask_data.getAllocatedSize())
-        throw Exception::RuntimeErrorException("DetectorMask::isMasked() -> Error. "
+        throw Exceptions::RuntimeErrorException("DetectorMask::isMasked() -> Error. "
                                               "Index is out of range "+std::to_string(index));
     return m_mask_data[index];
 }

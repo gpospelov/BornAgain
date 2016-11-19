@@ -69,7 +69,7 @@ std::string InterferenceFunctionRadialParaCrystal::to_str(int indent) const
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
 {
     if (!mP_pdf)
-        throw Exception::NullPointerException("InterferenceFunctionRadialParaCrystal::"
+        throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
                 "evaluate() -> Error! Probability distribution for "
                 "interference funtion not properly initialized");
     double result=0.0;

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/FileSystem.h
-//! @brief     Defines namespace FileSystem.
+//! @file      Core/Tools/FileUtils.h
+//! @brief     Defines namespace FileUtils.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,7 +22,7 @@
 
 //! Utility functions to deal with file system.
 
-namespace FileSystem {
+namespace FileUtils {
 
     //! Returns extension of given filename.
     BA_CORE_API_ std::string extension(const std::string& fname);
@@ -43,6 +43,6 @@ namespace FileSystem {
     BA_CORE_API_ std::vector<std::string> glob(
         const std::string& dir, const std::string& pattern);
 
-} // namespace FileSystem
+} // namespace FileUtils
 
 #endif // FILESYSTEM_H

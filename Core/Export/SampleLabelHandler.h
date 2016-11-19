@@ -95,7 +95,7 @@ public:
     const std::string& value(const Key& key) {
         typename map_t::const_iterator mit = m_map.find(key);
         if(mit == m_map.end())
-            throw Exception::RuntimeErrorException("LabelMap::value() -> No such key");
+            throw Exceptions::RuntimeErrorException("LabelMap::value() -> No such key");
         const_iterator it = mit->second;
         return it->second;
     }

@@ -103,7 +103,7 @@ void FitObject::process_realdata(const OutputData<double> &real_data)
         message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
                 << "the detector. Real data:" << DetectorFunctions::axesToString(real_data)
                         << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
-        throw Exception::RuntimeErrorException(message.str());
+        throw Exceptions::RuntimeErrorException(message.str());
         }
     } else {
         bool put_masked_areas_to_zero(false);

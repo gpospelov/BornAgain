@@ -76,7 +76,7 @@ void SpecularSimulation::setSample(const ISample &sample)
 void SpecularSimulation::setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder)
 {
     if (!sample_builder)
-        throw Exception::NullPointerException("SpecularSimulation::setSampleBuilder() -> "
+        throw Exceptions::NullPointerException("SpecularSimulation::setSampleBuilder() -> "
                                    "Error! Attempt to set null sample builder.");
 
     mP_sample_builder = sample_builder;
@@ -88,13 +88,13 @@ void SpecularSimulation::prepareSimulation()
     updateSample();
 
     if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
-        throw Exception::ClassInitializationException("SpecularSimulation::checkSimulation() "
+        throw Exceptions::ClassInitializationException("SpecularSimulation::checkSimulation() "
                                            "-> Error. Incoming alpha range not configured.");
     if (m_lambda <= 0.0)
-        throw Exception::ClassInitializationException("SpecularSimulation::checkSimulation() "
+        throw Exceptions::ClassInitializationException("SpecularSimulation::checkSimulation() "
                                            "-> Error. Incoming wavelength <= 0.");
     if (!mP_sample)
-        throw Exception::ClassInitializationException(
+        throw Exceptions::ClassInitializationException(
             "SpecularSimulation::checkSimulation() -> Error. No sample set");
 
     updateCoefficientDataAxes();
@@ -106,7 +106,7 @@ void SpecularSimulation::runSimulation()
 
     MultiLayer *multilayer = dynamic_cast<MultiLayer*>(mP_sample.get());
     if (!multilayer)
-        throw Exception::NullPointerException(
+        throw Exceptions::NullPointerException(
             "SpecularSimulation::runSimulation() -> Error. Not a MultiLayer");
 
     if (multilayer->requiresMatrixRTCoefficients()) {
@@ -185,11 +185,11 @@ SpecularSimulation::LayerRTCoefficients_t
 SpecularSimulation::getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const
 {
     if (i_alpha >= m_data.getAllocatedSize())
-        throw Exception::RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "SpecularSimulation::getLayerRTCoefficients() -> Error. Wrong i_alpha.");
 
     if (i_layer >= m_data[i_alpha].size())
-        throw Exception::RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "SpecularSimulation::getLayerRTCoefficients() -> Error. Wrong layer index.");
 
     return m_data[i_alpha][i_layer];
@@ -230,14 +230,14 @@ void SpecularSimulation::collectRTCoefficientsScalar(const MultiLayer *multilaye
 
 void SpecularSimulation::collectRTCoefficientsMatrix(const MultiLayer * /*multilayer*/)
 {
-    throw Exception::NotImplementedException(
+    throw Exceptions::NotImplementedException(
         "SpecularSimulation::collectRTCoefficientsMatrix() -> Error. Not implemented.");
 }
 
 void SpecularSimulation::checkCoefficients(size_t i_layer) const
 {
     if (m_data.getAllocatedSize() == 1 || m_data[0].size() == 0)
-        throw Exception::ClassInitializationException(
+        throw Exceptions::ClassInitializationException(
             "SpecularSimulation::checkCoefficients() -> Error. "
             "No coefficients found, check that (1) you have set beam parameters "
             "(2) you have run your simulation.");
@@ -247,7 +247,7 @@ void SpecularSimulation::checkCoefficients(size_t i_layer) const
         message << "SpecularSimulation::checkCoefficients() -> Error. Requested layer index "
                 << i_layer << " is large than or equal to the total number of layers "
                 << m_data[0].size() << std::endl;
-        throw Exception::OutOfBoundsException(message.str());
+        throw Exceptions::OutOfBoundsException(message.str());
     }
 }
 

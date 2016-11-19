@@ -19,14 +19,14 @@
 
 IMaterial *IMaterial::clone() const
 {
-    throw Exception::NotImplementedException(
+    throw Exceptions::NotImplementedException(
         "IMaterial is an interface and should not be cloned!");
 }
 
 /*
 const IMaterial *IMaterial::createTransformedMaterial(const IRotation&) const
 {
-    throw Exception::NotImplementedException(
+    throw Exceptions::NotImplementedException(
         "IMaterial is an interface and should not be created!");
 }
 */

@@ -72,7 +72,7 @@ std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instr
                 << "the detector. Real data:" << DetectorFunctions::axesToString(data)
                         << ", detector:"
                         << DetectorFunctions::axesToString(*instrument.getDetector()) << ".";
-        throw Exception::RuntimeErrorException(message.str());
+        throw Exceptions::RuntimeErrorException(message.str());
     }
 
     std::unique_ptr<OutputData<double>> result(instrument.createDetectorMap(units));

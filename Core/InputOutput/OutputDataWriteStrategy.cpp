@@ -73,7 +73,7 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& 
                                                       std::ostream& output_stream)
 {
     if(data.getRank() != 2)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "OutputDataWriteNumpyTXTStrategy::writeOutputData -> Error. "
             "Only 2-dim arrays supported");
 

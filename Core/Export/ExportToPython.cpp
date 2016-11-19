@@ -102,7 +102,7 @@ ExportToPython::ExportToPython(const MultiLayer& multilayer)
     for( auto x: multilayer.containedSubclass<IRotation>() )
         m_label->insertRotation(x);
     if( multilayer.containedSubclass<MesoCrystal>().size() )
-        throw Exception::NotImplementedException(
+        throw Exceptions::NotImplementedException(
             "ExportToPython: class MesoCrystal not yet supported!");
 }
 
@@ -183,7 +183,7 @@ std::string ExportToPython::defineMaterials() const
             const HomogeneousMagneticMaterial* p_mag_material
                 = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
             if (p_mag_material == 0)
-                throw Exception::RuntimeErrorException(
+                throw Exceptions::RuntimeErrorException(
                     "ExportToPython::defineMaterials: "
                     "Non scalar material should be of type HomogeneousMagneticMaterial");
             kvector_t magnetic_field = p_mag_material->getMagneticField();
@@ -479,7 +479,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
         }
 
         else
-            throw Exception::NotImplementedException(
+            throw Exceptions::NotImplementedException(
                 "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
                 "IInterferenceFunction " + interference->getName());
     }
@@ -601,7 +601,7 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
     const IDetector2D* iDetector = simulation->getInstrument().getDetector();
 
     if (iDetector->getDimension() != 2)
-        throw Exception::RuntimeErrorException("ExportToPython::defineDetector: "
+        throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: "
                                                 "detector must be two-dimensional for GISAS");
 
     std::ostringstream result;
@@ -664,13 +664,13 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
                    << printDouble(detector->getDirectBeamV0()) << ")\n";
 
         } else
-            throw Exception::RuntimeErrorException(
+            throw Exceptions::RuntimeErrorException(
                 "ExportToPython::defineDetector: unknown alignment");
 
         result << indent() << "simulation.setDetector(detector)\n";
 
     } else
-        throw Exception::RuntimeErrorException("ExportToPython::defineDetector: unknown detector");
+        throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: unknown detector");
 
     if(iDetector->regionOfInterest()) {
         result << indent() << "simulation.setRegionOfInterest("
@@ -699,12 +699,12 @@ std::string ExportToPython::defineDetectorResolutionFunction(
                 result << printFunc(detector)(resfunc->getSigmaX()) << ", ";
                 result << printFunc(detector)(resfunc->getSigmaY()) << "))\n";
             } else {
-                throw Exception::RuntimeErrorException(
+                throw Exceptions::RuntimeErrorException(
                     "ExportToPython::defineDetectorResolutionFunction() -> Error. "
                     "Unknown detector resolution function");
             }
         } else
-            throw Exception::RuntimeErrorException(
+            throw Exceptions::RuntimeErrorException(
                 "ExportToPython::defineDetectorResolutionFunction() -> Error. "
                 "Not a ConvolutionDetectorResolution function");
     }
@@ -872,7 +872,7 @@ std::function<std::string (double)> printFunc(const IDetector2D *detector)
     } else if(detector->getDefaultAxesUnits() == IDetector2D::RADIANS) {
         result = PythonFormatting::printDegrees;
     } else {
-        throw Exception::RuntimeErrorException("ExportToPython::defineMasks() -> Error. Unknown "
+        throw Exceptions::RuntimeErrorException("ExportToPython::defineMasks() -> Error. Unknown "
                                                 "detector units.");
     }
 

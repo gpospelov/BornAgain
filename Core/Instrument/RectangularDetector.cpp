@@ -217,10 +217,10 @@ void RectangularDetector::print(std::ostream& ostr) const
 IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::createAxis() -> Error! max <= min");
     if (n_bins == 0)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
     return new FixedBinAxis(getAxisName(index), n_bins, min, max);
 }
@@ -270,7 +270,7 @@ std::string RectangularDetector::getAxisName(size_t index) const
     case 1:
         return BornAgain::V_AXIS_NAME;
     default:
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::getAxisName(size_t index) -> Error! index > 1");
     }
 }
@@ -303,7 +303,7 @@ void RectangularDetector::setDistanceAndOffset(double distance, double u0, doubl
         std::ostringstream message;
         message << "RectangularDetector::setPerpendicularToSample() -> Error. "
                 << "Distance to sample can't be negative or zero";
-        throw Exception::LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
     m_distance = distance;
     m_u0 = u0;
@@ -337,7 +337,7 @@ void RectangularDetector::initNormalVector(const kvector_t central_k)
     }
 
     else {
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "RectangularDetector::init() -> Unknown detector arrangement");
     }
 }

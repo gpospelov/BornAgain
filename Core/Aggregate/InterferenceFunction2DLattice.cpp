@@ -90,7 +90,7 @@ void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &p
 double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 {
     if (!mp_pdf)
-        throw Exception::NullPointerException("InterferenceFunction2DLattice::evaluate"
+        throw Exceptions::NullPointerException("InterferenceFunction2DLattice::evaluate"
                                    " -> Error! No probability distribution function defined.");
     double result = 0.0;
     double qxr = q.x();
@@ -138,7 +138,7 @@ void InterferenceFunction2DLattice::onChange()
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
 {
     if (!mp_pdf)
-        throw Exception::NullPointerException(
+        throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
             " -> Error! No probability distribution function defined.");
     double qp1, qp2;
@@ -189,7 +189,7 @@ void InterferenceFunction2DLattice::init_parameters()
 void InterferenceFunction2DLattice::initialize_rec_vectors()
 {
     if (m_lattice_params.m_length_1 == 0 || m_lattice_params.m_length_2 == 0)
-        throw Exception::DivisionByZeroException(
+        throw Exceptions::DivisionByZeroException(
             "InterferenceFunction2DLattice::"
             "initialize_rec_vectors() -> Error! Zero parameters"
             " m_lattice_params.m_length1 or m_lattice_params.m_length_2");
@@ -207,7 +207,7 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
 void InterferenceFunction2DLattice::initialize_calc_factors()
 {
     if (!mp_pdf)
-        throw Exception::NullPointerException(
+        throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::initialize_calc_factors"
             " -> Error! No probability distribution function defined.");
 

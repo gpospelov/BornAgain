@@ -62,7 +62,7 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& p
 double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 {
     if (!mp_pdf)
-        throw Exception::NullPointerException("InterferenceFunction1DLattice::evaluate"
+        throw Exceptions::NullPointerException("InterferenceFunction1DLattice::evaluate"
                                    " -> Error! No probability distribution function defined.");
     double result = 0.0;
     double qxr = q.x();

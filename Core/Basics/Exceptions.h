@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Basics/Exceptions.h
-//! @brief     Defines many exception classes in namespace Exceptions.
+//! @brief     Defines many exception classes in namespace Exceptionss.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -29,7 +29,7 @@
 
 //! Different exceptions, all inheriting from std::exception.
 
-namespace Exception {
+namespace Exceptions {
 
 class BA_CORE_API_ NotImplementedException : public std::logic_error
 {
@@ -123,7 +123,7 @@ public:
 
 void LogExceptionMessage(const std::string& message);
 
-} // namespace Exception;
+} // namespace Exceptions;
 
 #ifdef _WIN32
 #ifdef _MSC_VER

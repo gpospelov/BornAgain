@@ -84,7 +84,7 @@ void FitSuiteObjects::runSimulations()
     if(getSizeOfDataSet() == 0) {
         std::ostringstream message;
         message << "FitSuiteObjects::runSimulations() -> Error. Zero size of dataset.";
-        throw Exception::LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 
     m_fit_elements.clear();
@@ -99,7 +99,7 @@ void FitSuiteObjects::runSimulations()
         message << "FitSuiteObjects::runSimulations() -> Error. Dataset size mismatch. "
                 << " m_fit_elements.size():" << m_fit_elements.size()
                 << " getSizeOfDataset():" << getSizeOfDataSet() << std::endl;
-        throw Exception::LogicErrorException(message.str());
+        throw Exceptions::LogicErrorException(message.str());
     }
 
     m_chi_squared_value = calculateChiSquaredValue();
@@ -108,7 +108,7 @@ void FitSuiteObjects::runSimulations()
 double FitSuiteObjects::getResidualValue(size_t global_index)
 {
     if(global_index >= m_fit_elements.size())
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "FitSuiteObjects::getResidualValue() -> Error. Index exceeds size of dataset.");
     return m_fit_elements[global_index].getResidual();
 }
@@ -155,7 +155,7 @@ double FitSuiteObjects::calculateChiSquaredValue()
 
     int fnorm = m_fit_elements.size() - m_nfree_parameters;
     if (fnorm <= 0)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "FitSuiteObjects::calculateChiSquaredValue() -> Error. Normalization is 0");
     return result / fnorm;
 }
@@ -163,6 +163,6 @@ double FitSuiteObjects::calculateChiSquaredValue()
 size_t FitSuiteObjects::check_index(size_t index) const
 {
     if( index >= m_fit_objects.size() )
-        throw Exception::OutOfBoundsException("FitSuiteKit::check() -> Index outside of range");
+        throw Exceptions::OutOfBoundsException("FitSuiteKit::check() -> Index outside of range");
     return index;
 }

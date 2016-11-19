@@ -96,10 +96,10 @@ void SphericalDetector::print(std::ostream& ostr) const
 IAxis* SphericalDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "SphericalDetector::createAxis() -> Error! max <= min");
     if (n_bins == 0)
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "SphericalDetector::createAxis() -> Error! Number n_bins can't be zero.");
     return new FixedBinAxis(getAxisName(index), n_bins, min, max);
 }
@@ -127,7 +127,7 @@ std::string SphericalDetector::getAxisName(size_t index) const
     case 1:
         return BornAgain::ALPHA_AXIS_NAME;
     default:
-        throw Exception::LogicErrorException(
+        throw Exceptions::LogicErrorException(
             "SphericalDetector::getAxisName(size_t index) -> Error! index > 1");
     }
 }

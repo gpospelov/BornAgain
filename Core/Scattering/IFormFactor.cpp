@@ -22,7 +22,7 @@ IFormFactor::~IFormFactor() {}
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
     // Throws to prevent unanticipated behaviour
-    throw Exception::NotImplementedException(
+    throw Exceptions::NotImplementedException(
         "IFormFactor::evaluatePol: is not implemented by default");
 }
 

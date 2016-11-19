@@ -353,7 +353,7 @@ void StandardSimulationsRegistry::add(
     const std::string& subtest_type, double threshold )
 {
     if( m_catalogue.find(test_name) != m_catalogue.end() )
-        throw Exception::ExistingClassRegistrationException(
+        throw Exceptions::ExistingClassRegistrationException(
             "StandardSimulationsRegistry::add() -> Error. Existing item " + test_name);
     m_catalogue[test_name] = SimulationInfo(
         test_name, test_description, simulation_name,

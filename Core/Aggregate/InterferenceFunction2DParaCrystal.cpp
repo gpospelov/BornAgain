@@ -186,11 +186,11 @@ double InterferenceFunction2DParaCrystal::interference1D(
     double qx, double qy, double xi, size_t index) const
 {
     if (index > 1)
-        throw Exception::OutOfBoundsException("InterferenceFunction2DParaCrystal::"
+        throw Exceptions::OutOfBoundsException("InterferenceFunction2DParaCrystal::"
                 "interference1D() -> Error! Index of interference function "
                 "probability must be < 2");
     if (!m_pdfs[0] || !m_pdfs[1])
-        throw Exception::NullPointerException("InterferenceFunction2DParaCrystal::"
+        throw Exceptions::NullPointerException("InterferenceFunction2DParaCrystal::"
                 "interference1D() -> Error! Probability distributions for "
                 "interference funtion not properly initialized");
     double result;

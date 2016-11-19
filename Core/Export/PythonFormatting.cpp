@@ -118,7 +118,7 @@ std::string representShape2D(const std::string& indent, const Geometry::IShape2D
                << printBool(mask_value) << ")\n";
 
     } else
-        throw Exception::RuntimeErrorException(
+        throw Exceptions::RuntimeErrorException(
             "representShape2D(const IShape2D*) -> Error. Unknown shape");
 
     return result.str();

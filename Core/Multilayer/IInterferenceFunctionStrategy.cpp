@@ -46,7 +46,7 @@ void IInterferenceFunctionStrategy::init(
     const LayerSpecularInfo& specular_info)
 {
     if (weighted_formfactors.size()==0)
-        throw Exception::ClassInitializationException("Bug: Decorated layer has no formfactors.");
+        throw Exceptions::ClassInitializationException("Bug: Decorated layer has no formfactors.");
     m_formfactor_wrappers = weighted_formfactors;
     mP_iff.reset(iff.clone());
 

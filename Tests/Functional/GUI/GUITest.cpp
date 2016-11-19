@@ -42,7 +42,7 @@ GUITest::~GUITest()
 bool GUITest::runTest()
 {
     if (!m_reference_simulation)
-        throw Exception::NullPointerException(
+        throw Exceptions::NullPointerException(
             "GUITest::runTest() -> Error. Uninitialized simulation object.");
 
     m_reference_simulation->runSimulation();

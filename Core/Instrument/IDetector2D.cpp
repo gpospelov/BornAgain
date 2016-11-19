@@ -51,7 +51,7 @@ const IAxis &IDetector2D::getAxis(size_t index) const
 {
     if (isCorrectAxisIndex(index))
         return *m_axes[index];
-    throw Exception::OutOfBoundsException("Not so many axes in this detector.");
+    throw Exceptions::OutOfBoundsException("Not so many axes in this detector.");
 }
 
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -74,7 +74,7 @@ void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
     if (!p_intensity_map)
-        throw Exception::NullPointerException("IDetector2D::applyDetectorResolution() -> "
+        throw Exceptions::NullPointerException("IDetector2D::applyDetectorResolution() -> "
                                    "Error! Null pointer to intensity map");
     if (mP_detector_resolution)
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
@@ -108,7 +108,7 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
 {
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
     if(!detectorMap)
-        throw Exception::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
+        throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
                                     "Can't create detector map.");
 
     setDataToDetectorMap(*detectorMap.get(), elements);
@@ -246,7 +246,7 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
         if(selected_axis == i_axis ) return result;
         remainder /= m_axes[i_axis]->size();
     }
-    throw Exception::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
+    throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
                                           "Error! No axis with given number");
 }
 
@@ -308,7 +308,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         amax = -el_center_top.getQ(0.5, 1.0).z();
 
     } else {
-        throw Exception::RuntimeErrorException("IDetector2D::calculateAxisRange() -> Error. "
+        throw Exceptions::RuntimeErrorException("IDetector2D::calculateAxisRange() -> Error. "
                                                 "Unknown units " +std::to_string(units));
     }
 }

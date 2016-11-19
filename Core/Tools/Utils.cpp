@@ -15,18 +15,12 @@
 
 #include "Utils.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <thread>
 #include <stdexcept>
 
 #ifdef DEBUG_FPE
 #ifdef Q_OS_MAC
 #endif
 #endif
-
-int Utils::System::getThreadHardwareConcurrency()
-{
-    return std::thread::hardware_concurrency();
-}
 
 std::string Utils::System::getCurrentDateAndTime()
 {

@@ -26,7 +26,6 @@ namespace Utils {
 class BA_CORE_API_ System
 {
 public:
-    static int getThreadHardwareConcurrency();
     static std::string getCurrentDateAndTime();
 };
 

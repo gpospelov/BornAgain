@@ -40,7 +40,7 @@ namespace FileSystem {
     BA_CORE_API_ std::string filename(const std::string& path);
 
     //! Returns file names that agree with a regex glob pattern.
-    BA_CORE_API_ std::vector<std::string> reglob(
+    BA_CORE_API_ std::vector<std::string> glob(
         const std::string& dir, const std::string& pattern);
 
 } // namespace FileSystem

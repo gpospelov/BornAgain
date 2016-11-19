@@ -38,7 +38,7 @@ bool PyPersistenceTest::runTest()
 {
     // Remove old output
     for (const std::string& fname:
-             FileSystem::reglob(PYPERSIST_OUT_DIR, getName()+"\\.\\w+\\..+")) {
+             FileSystem::glob(PYPERSIST_OUT_DIR, getName()+"\\.\\w+\\..+")) {
         std::remove( fname.c_str() );
         std::cout << "Removed old output " << fname.c_str() << "\n";
     }
@@ -75,7 +75,7 @@ std::map<const std::string, const std::string>
 PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
 {
     std::map<const std::string, const std::string> ret;
-    for (const std::string& fname: FileSystem::reglob(dir, stem+"\\.\\w+\\..+")) {
+    for (const std::string& fname: FileSystem::glob(dir, stem+"\\.\\w+\\..+")) {
         std::vector<std::string> fname_segments =
             Utils::String::split(FileSystem::filename(fname), ".");
         ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fname));

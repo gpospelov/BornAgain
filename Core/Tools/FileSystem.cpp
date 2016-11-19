@@ -67,7 +67,7 @@ std::string FileSystem::filename(const std::string& path)
 }
 
 //! Returns file names that agree with a regex glob pattern.
-std::vector<std::string> FileSystem::reglob(const std::string& dir, const std::string& pattern)
+std::vector<std::string> FileSystem::glob(const std::string& dir, const std::string& pattern)
 {
     std::vector<std::string> ret;
     for (const std::string& fname: filesInDirectory(dir))

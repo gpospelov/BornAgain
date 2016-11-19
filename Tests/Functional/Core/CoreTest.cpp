@@ -38,7 +38,7 @@ bool CoreTest::runTest()
     // Load reference if available
     try {
         m_reference = IntensityDataIOFactory::readOutputData(
-            FileSystem::GetJoinPath(CORE_STD_REF_DIR, getName() + ".int.gz"));
+            FileSystem::jointPath(CORE_STD_REF_DIR, getName() + ".int.gz"));
     } catch(const std::exception& ex) {
         m_reference = nullptr;
         std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
@@ -57,7 +57,7 @@ bool CoreTest::runTest()
     // Save simulation if different from reference.
     if (!success) {
         FileSystem::createDirectory(CORE_STD_OUT_DIR);
-        std::string out_fname = FileSystem::GetJoinPath(CORE_STD_OUT_DIR, getName() + ".int");
+        std::string out_fname = FileSystem::jointPath(CORE_STD_OUT_DIR, getName() + ".int");
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << ".\n"
                   << "To visualize an intensity map, use " << BUILD_BIN_DIR << "/view1.py;"

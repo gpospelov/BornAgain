@@ -33,8 +33,8 @@ namespace FileSystem {
     //! Returns filenames of files in directory
     BA_CORE_API_ std::vector<std::string> filesInDirectory(const std::string& dir_name);
 
-    //! join paths together
-    BA_CORE_API_ std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
+    //! Returns joint path name.
+    BA_CORE_API_ std::string jointPath(const std::string& spath1, const std::string& spath2);
 
     //! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
     BA_CORE_API_ std::string filename(const std::string& path);

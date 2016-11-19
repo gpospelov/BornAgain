@@ -49,7 +49,7 @@ std::vector<std::string> FileSystem::filesInDirectory(const std::string& dir_nam
     return ret;
 }
 
-std::string FileSystem::GetJoinPath(const std::string& spath1, const std::string& spath2)
+std::string FileSystem::jointPath(const std::string& spath1, const std::string& spath2)
 {
     assert(spath1!="");
     assert(spath2!="");

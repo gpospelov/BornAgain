@@ -44,13 +44,13 @@ PyExportTest::~PyExportTest()
 bool PyExportTest::runTest()
 {
     // Set output data filename, and remove old output files
-    std::string output_name = FileSystem::GetJoinPath(PYEXPORT_TMP_DIR, getName());
+    std::string output_name = FileSystem::jointPath(PYEXPORT_TMP_DIR, getName());
     std::string output_path = output_name + ".ref.int";
     std::remove( output_path.c_str() );
     std::cout << "Removed old output " << output_path << "n";
 
     // Generate Python script
-    std::string pyscript_filename = FileSystem::GetJoinPath(PYEXPORT_TMP_DIR, getName() + ".py");
+    std::string pyscript_filename = FileSystem::jointPath(PYEXPORT_TMP_DIR, getName() + ".py");
     std::ofstream pythonFile(pyscript_filename);
     pythonFile << PythonFormatting::simulationToPython(m_reference_simulation);
     pythonFile.close();

@@ -44,8 +44,8 @@ bool PyPersistenceTest::runTest()
     }
 
     // Run Python script
-    std::string pyscript_filename = FileSystem::GetJoinPath(m_directory, getName()+".py");
-    std::string dat_stem = FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, getName());
+    std::string pyscript_filename = FileSystem::jointPath(m_directory, getName()+".py");
+    std::string dat_stem = FileSystem::jointPath(PYPERSIST_OUT_DIR, getName());
     if (!runPython(pyscript_filename + " " + dat_stem))
         return false;
 
@@ -63,8 +63,8 @@ bool PyPersistenceTest::runTest()
     // Compare files one by one
     for (auto const& it: dat)
         if (!compareFilePair(
-                FileSystem::GetJoinPath(PYPERSIST_OUT_DIR, it.second),
-                FileSystem::GetJoinPath(PYPERSIST_REF_DIR, ref[it.first])))
+                FileSystem::jointPath(PYPERSIST_OUT_DIR, it.second),
+                FileSystem::jointPath(PYPERSIST_REF_DIR, ref[it.first])))
             return false;
     return true;
 }

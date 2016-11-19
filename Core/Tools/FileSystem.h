@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Tools/FileSystem.h
-//! @brief     Defines class FileSystem
+//! @brief     Defines namespace FileSystem.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,22 +25,23 @@
 namespace FileSystem {
 
     //! Returns file extension
-	BA_CORE_API_ std::string GetFileExtension(const std::string& name);
+    BA_CORE_API_ std::string GetFileExtension(const std::string& name);
 
     //! creates directory in current directory
-	BA_CORE_API_ bool CreateDirectory(const std::string& dir_name);
+    BA_CORE_API_ bool CreateDirectory(const std::string& dir_name);
 
     //! Returns filenames of files in directory
-	BA_CORE_API_ std::vector<std::string> filesInDirectory(const std::string &dir_name);
+    BA_CORE_API_ std::vector<std::string> filesInDirectory(const std::string& dir_name);
 
     //! join paths together
-	BA_CORE_API_ std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
+    BA_CORE_API_ std::string GetJoinPath(const std::string& spath1, const std::string& spath2);
 
     //! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
-	BA_CORE_API_ std::string filename(const std::string& path);
+    BA_CORE_API_ std::string filename(const std::string& path);
 
     //! Returns file names that agree with a regex glob pattern.
-	BA_CORE_API_ std::vector<std::string> reglob(const std::string& dir, const std::string& pattern);
+    BA_CORE_API_ std::vector<std::string> reglob(
+        const std::string& dir, const std::string& pattern);
 
 } // namespace FileSystem
 

@@ -16,14 +16,14 @@
 #ifndef PARAMETERSAMPLE_H
 #define PARAMETERSAMPLE_H
 
+//! Represents a sampled parameter value with its weight.
 //! @class ParameterSample
-//! @ingroup algorithms_internal
-//! @brief Represents a sampled parameter value with its weight
+
 class ParameterSample
 {
 public:
-	double value;
-	double weight;
+    double value;
+    double weight;
 };
 
 #endif // PARAMETERSAMPLE_H

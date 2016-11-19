@@ -74,10 +74,10 @@ P_integrator_real<T> make_integrator_real(const T *object, real_integrand<T> mem
 }
 
 template<class T> IntegratorReal<T>::IntegratorReal(
-        const T *p_object, real_integrand<T> p_member_function)
+    const T *p_object, real_integrand<T> p_member_function)
     : mp_gsl_workspace { nullptr }
 {
-	m_cb = CallBackHolder{ p_object, p_member_function };
+    m_cb = CallBackHolder{ p_object, p_member_function };
     mp_gsl_workspace = gsl_integration_workspace_alloc(200);
 }
 
@@ -86,16 +86,14 @@ template<class T> IntegratorReal<T>::~IntegratorReal()
     gsl_integration_workspace_free(mp_gsl_workspace);
 }
 
-template<class T> double IntegratorReal<T>::integrate(
-        double lmin, double lmax)
+template<class T> double IntegratorReal<T>::integrate(double lmin, double lmax)
 {
     gsl_function f;
     f.function = StaticCallBack;
     f.params =&m_cb;
 
     double result, error;
-    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1,
-                        mp_gsl_workspace, &result, &error);
+    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1,  mp_gsl_workspace, &result, &error);
 
     return result;
 }

@@ -23,7 +23,7 @@ SimulationAreaIterator::SimulationAreaIterator(const SimulationArea *area, size_
     , m_element_index(0)
 {
     if(m_index > m_area->totalSize())
-        throw Exceptions::RuntimeErrorException("SimulationAreaIterator::SimulationAreaIterator() "
+        throw Exception::RuntimeErrorException("SimulationAreaIterator::SimulationAreaIterator() "
                                                 "-> Error. Invalid initial index");
 
     if(m_index != m_area->totalSize() && m_area->isMasked(m_index))

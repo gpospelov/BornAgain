@@ -47,15 +47,15 @@ public:
     //! be used when the derived object is really scalar
 #endif
     virtual complex_t getScalarT() const {
-        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
+        throw Exception::NotImplementedException("ILayerRTCoefficients::"
                 "getScalarT(): coefficients are not scalar.");
     }
     virtual complex_t getScalarR() const {
-        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
+        throw Exception::NotImplementedException("ILayerRTCoefficients::"
                 "getScalarR(): coefficients are not scalar.");
     }
     virtual complex_t getScalarKz() const {
-        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
+        throw Exception::NotImplementedException("ILayerRTCoefficients::"
                 "getScalarKz(): coefficients are not scalar.");
     }
 };

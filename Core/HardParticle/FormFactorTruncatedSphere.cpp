@@ -42,7 +42,7 @@ bool FormFactorTruncatedSphere::check_initialization() const
         ostr << "::FormFactorTruncatedSphere() -> Error in class initialization ";
         ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height << "\n\n";
         ostr << "Check for height <= 2.*radius failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw Exception::ClassInitializationException(ostr.str());
     }
     return result;
 }

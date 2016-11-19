@@ -66,7 +66,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
     {
         double kappa = P_interference_function->getKappa();
         if (kappa<=0.0)
-            throw Exceptions::ClassInitializationException(
+            throw Exception::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
                 "with a strictly positive coupling coefficient kappa");
         if (m_polarized)
@@ -76,11 +76,11 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
         break;
     }
     default:
-        throw Exceptions::ClassInitializationException(
+        throw Exception::ClassInitializationException(
             "Unknown interference function approximation");
     }
     if (!p_result)
-        throw Exceptions::ClassInitializationException(
+        throw Exception::ClassInitializationException(
             "Could not create appropriate strategy");
     p_result->init(ff_wrappers, *P_interference_function, *mP_specular_info);
     return p_result;

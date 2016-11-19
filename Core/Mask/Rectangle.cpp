@@ -30,13 +30,13 @@ Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
         std::ostringstream message;
         message << "Rectangle(double xlow, double ylow, double xup, double yup) -> Error. ";
         message << " xup <= xlow" << std::endl;
-        throw Exceptions::LogicErrorException(message.str());
+        throw Exception::LogicErrorException(message.str());
     }
     if(yup <= ylow) {
         std::ostringstream message;
         message << "Rectangle(double xlow, double ylow, double xup, double yup) -> Error. ";
         message << " yup <= ylow" << std::endl;
-        throw Exceptions::LogicErrorException(message.str());
+        throw Exception::LogicErrorException(message.str());
     }
     m_xlow = xlow;
     m_ylow = ylow;

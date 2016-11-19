@@ -26,7 +26,7 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
 {
     const IFormFactor* form_factor = getFormFactor();
     if(!form_factor)
-        throw Exceptions::NullPointerException("ParticleInTheAirBuilder::buildSample() -> Error. "
+        throw Exception::NullPointerException("ParticleInTheAirBuilder::buildSample() -> Error. "
                                    "Form factor is not initialized.");
     MultiLayer* result = new MultiLayer;
 

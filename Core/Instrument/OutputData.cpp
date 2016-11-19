@@ -46,7 +46,7 @@ PyObject* OutputData<double>::getArray() const
     PyObject* pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
     delete [] ndimsizes_numpy;
     if (pyarray == nullptr)
-        throw Exceptions::RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
+        throw Exception::RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
     Py_INCREF(pyarray);
 
     // getting pointer to data buffer of numpy array

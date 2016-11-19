@@ -27,7 +27,9 @@
 #endif
 #endif
 
-namespace Exceptions {
+//! Different exceptions, all inheriting from std::exception.
+
+namespace Exception {
 
 class BA_CORE_API_ NotImplementedException : public std::logic_error
 {
@@ -107,7 +109,6 @@ public:
     FileNotIsOpenException(const std::string& message);
 };
 
-
 class BA_CORE_API_ FileIsBadException : public std::runtime_error
 {
 public:
@@ -122,7 +123,7 @@ public:
 
 void LogExceptionMessage(const std::string& message);
 
-} // namespace Exceptions;
+} // namespace Exception;
 
 #ifdef _WIN32
 #ifdef _MSC_VER

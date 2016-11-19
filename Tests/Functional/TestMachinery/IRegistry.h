@@ -33,7 +33,7 @@ public:
     const ValueType* getItem(const std::string& key) const {
         auto it = m_data.find(key);
         if(it == m_data.end())
-            throw Exceptions::UnknownClassRegistrationException(
+            throw Exception::UnknownClassRegistrationException(
                 "IRegistry::createItem() -> Error. Not existing item key '" + key + "'");
         return it->second.get();
     }
@@ -48,7 +48,7 @@ public:
 protected:
     void add(const std::string& key, ValueType* item) {
         if(m_data.find(key) != m_data.end())
-            throw Exceptions::ExistingClassRegistrationException(
+            throw Exception::ExistingClassRegistrationException(
                 "IRegistry::createItem() -> Error. Already existing item with key '" + key + "'");
         m_data[key] = std::unique_ptr<ValueType>(item);
     }

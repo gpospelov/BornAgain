@@ -77,7 +77,7 @@ std::string Layer::to_str(int indent) const
 void Layer::setThickness(double thickness)
 {
     if (thickness < 0.)
-        throw Exceptions::DomainErrorException("Layer thickness cannot be negative");
+        throw Exception::DomainErrorException("Layer thickness cannot be negative");
     m_thickness = thickness;
 }
 

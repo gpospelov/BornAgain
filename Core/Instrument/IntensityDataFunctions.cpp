@@ -30,7 +30,7 @@ double IntensityDataFunctions::getRelativeDifference(
     diff /= dat.getAllocatedSize();
 
     if (std::isnan(diff))
-        throw Exceptions::RuntimeErrorException("diff=NaN!");
+        throw Exception::RuntimeErrorException("diff=NaN!");
     return diff;
 }
 
@@ -48,7 +48,7 @@ IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& d
                                                      const OutputData<double>& reference)
 {
     if(!data.hasSameDimensions(reference))
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
             "IntensityDataFunctions::createRelativeDifferenceData() -> "
             "Error. Different dimensions of data and reference.");
     OutputData<double> *result = reference.clone();
@@ -62,7 +62,7 @@ OutputData<double>* IntensityDataFunctions::createClippedDataSet(
         const OutputData<double>& origin, double x1, double y1, double x2, double y2)
 {
     if (origin.getRank() != 2)
-        throw Exceptions::LogicErrorException(
+        throw Exception::LogicErrorException(
             "IntensityDataFunctions::createClippedData()"
             " -> Error! Works only on two-dimensional data");
 
@@ -101,7 +101,7 @@ OutputData<double>* IntensityDataFunctions::applyDetectorResolution(
     const OutputData<double>& origin, const IResolutionFunction2D& resolution_function)
 {
     if (origin.getRank() != 2)
-        throw Exceptions::LogicErrorException(
+        throw Exception::LogicErrorException(
             "IntensityDataFunctions::applyDetectorResolution()"
             " -> Error! Works only on two-dimensional data");
     OutputData<double > *result = origin.clone();

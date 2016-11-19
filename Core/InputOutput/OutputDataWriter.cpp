@@ -27,7 +27,7 @@ OutputDataWriter::OutputDataWriter(const std::string& file_name)
 void OutputDataWriter::writeOutputData(const OutputData<double>& data)
 {
     if(!m_write_strategy)
-        throw Exceptions::NullPointerException("OutputDataWriter::getOutputData() ->"
+        throw Exception::NullPointerException("OutputDataWriter::getOutputData() ->"
                                                " Error! No read strategy defined");
     std::ofstream fout;
     std::ios_base::openmode openmode = std::ios::out;
@@ -36,10 +36,10 @@ void OutputDataWriter::writeOutputData(const OutputData<double>& data)
 
     fout.open(m_file_name.c_str(), openmode );
     if(!fout.is_open())
-        throw Exceptions::FileNotIsOpenException("OutputDataWriter::writeOutputData() -> Error. "
+        throw Exception::FileNotIsOpenException("OutputDataWriter::writeOutputData() -> Error. "
                                                  "Can't open file '"+m_file_name+"' for writing.");
     if (!fout.good())
-        throw Exceptions::FileIsBadException("OutputDataReader::writeOutputData() -> Error! "
+        throw Exception::FileIsBadException("OutputDataReader::writeOutputData() -> Error! "
                                              "File is not good, probably it is a directory.");
     std::stringstream ss;
     m_write_strategy->writeOutputData(data, ss);

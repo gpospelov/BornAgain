@@ -41,7 +41,7 @@ ParticleDistribution* ParticleDistribution::clone() const
 
 ParticleDistribution* ParticleDistribution::cloneInvertB() const
 {
-    throw Exceptions::NotImplementedException("ParticleDistribution::"
+    throw Exception::NotImplementedException("ParticleDistribution::"
                                               "cloneInvertB: should never be called");
 }
 
@@ -76,7 +76,7 @@ void ParticleDistribution::generateParticles(
     std::vector<RealParameter*> main_par_matches
         = P_pool->getMatchedParameters(main_par_name);
     if (main_par_matches.size() != 1)
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
             "ParticleDistribution::generateParticles: "
             "main parameter name matches nothing or more than one parameter");
     RealParameter* main_par = main_par_matches[0];
@@ -88,7 +88,7 @@ void ParticleDistribution::generateParticles(
         std::vector<RealParameter*> linked_par_matches
             = P_pool->getMatchedParameters(linked_par_names[i]);
         if (linked_par_matches.size() != 1)
-            throw Exceptions::RuntimeErrorException(
+            throw Exception::RuntimeErrorException(
                 "ParticleDistribution::generateParticles: "
                 "linked parameter name matches nothing or more than one parameter");
         RealParameter* linked_par = linked_par_matches[0];
@@ -103,7 +103,7 @@ void ParticleDistribution::generateParticles(
         std::unique_ptr<ParameterPool> P_new_pool(p_particle_clone->createParameterTree());
         int changed = P_new_pool->setMatchedParametersValue(main_par_name, main_sample.value);
         if (changed != 1)
-            throw Exceptions::RuntimeErrorException(
+            throw Exception::RuntimeErrorException(
                 "ParticleDistribution::generateParticles: "
                 "main parameter name matches nothing or more than one parameter");
         for (std::map<std::string, double>::const_iterator it = linked_par_ratio_map.begin();
@@ -111,7 +111,7 @@ void ParticleDistribution::generateParticles(
             double new_linked_value = main_sample.value * it->second;
             changed = P_new_pool->setMatchedParametersValue(it->first, new_linked_value);
             if (changed != 1)
-                throw Exceptions::RuntimeErrorException(
+                throw Exception::RuntimeErrorException(
                     "ParticleDistribution::generateParticles: "
                     "linked parameter name matches nothing or more than one parameter");
         }

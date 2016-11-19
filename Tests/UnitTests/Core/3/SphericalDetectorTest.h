@@ -49,10 +49,10 @@ TEST_F(SphericalDetectorTest, initialState)
     EXPECT_EQ(nullptr, detector.regionOfInterest());
 
     // behavior
-    ASSERT_THROW(detector.getAxis(0), Exceptions::OutOfBoundsException);
+    ASSERT_THROW(detector.getAxis(0), Exception::OutOfBoundsException);
     OutputData<double>* p_intensity_map(nullptr);
     ASSERT_THROW(detector.applyDetectorResolution(p_intensity_map),
-                 Exceptions::NullPointerException);
+                 Exception::NullPointerException);
 }
 
 //! Construction of the detector with axes.

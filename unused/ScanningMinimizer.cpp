@@ -57,7 +57,7 @@ void ScanningMinimizer::construct_fcnvalues_map()
         }
     }
     if( !m_fcnvalues_map->getRank() )
-        throw Exceptions::LogicErrorException(
+        throw Exception::LogicErrorException(
             "ScanningMinimizer::construct_parameter_map() -> Error! "
             "No parameters with TAttLimit::limited(left,right) attribute were found.");
     m_fcnvalues_map->setAllTo(0.0);

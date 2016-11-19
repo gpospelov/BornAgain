@@ -133,7 +133,7 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
 const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
 {
     if (index>=m_particles.size())
-        throw Exceptions::OutOfBoundsException(
+        throw Exception::OutOfBoundsException(
             "ParticleLayout::getParticle() -> Error! Not so many particles in this decoration.");
     return m_particles[index];
 }

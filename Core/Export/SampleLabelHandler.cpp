@@ -64,7 +64,7 @@ std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle* abspar
         return m_ParticleDistributionLabel[particle];
     if (const auto lattice_basis = dynamic_cast<const ParticleComposition*>(absparticle))
         return m_ParticleCompositionLabel[lattice_basis];
-    throw Exceptions::NotImplementedException(
+    throw Exception::NotImplementedException(
         "SampleLabelHandler::getLabel: called for unknown IParticle type");
 }
 

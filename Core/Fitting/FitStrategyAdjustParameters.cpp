@@ -34,7 +34,7 @@ FitStrategyAdjustParameters::FitStrategyAdjustParameters(const FitStrategyAdjust
 void FitStrategyAdjustParameters::execute()
 {
     if( !m_kernel )
-        throw Exceptions::NullPointerException(
+        throw Exception::NullPointerException(
             "FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
     FitParameterSet* fitParameters = m_kernel->fitParameters();
 

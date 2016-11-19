@@ -58,7 +58,7 @@ bool FormFactorLongRipple2Gauss::check_initialization() const
         ostr << " length:" << m_length;
         ostr << " asymmetry:" << m_d << "\n\n";
         ostr << message;
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw Exception::ClassInitializationException(ostr.str());
     }
     return result;
 }

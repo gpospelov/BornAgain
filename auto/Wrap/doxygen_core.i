@@ -523,10 +523,10 @@ clone method
 ";
 
 
-// File: classExceptions_1_1ClassInitializationException.xml
-%feature("docstring") Exceptions::ClassInitializationException "";
+// File: classException_1_1ClassInitializationException.xml
+%feature("docstring") Exception::ClassInitializationException "";
 
-%feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
+%feature("docstring")  Exception::ClassInitializationException::ClassInitializationException "Exception::ClassInitializationException::ClassInitializationException(const std::string &message)
 ";
 
 
@@ -953,10 +953,10 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classExceptions_1_1DeadReferenceException.xml
-%feature("docstring") Exceptions::DeadReferenceException "";
+// File: classException_1_1DeadReferenceException.xml
+%feature("docstring") Exception::DeadReferenceException "";
 
-%feature("docstring")  Exceptions::DeadReferenceException::DeadReferenceException "Exceptions::DeadReferenceException::DeadReferenceException(const std::string &message)
+%feature("docstring")  Exception::DeadReferenceException::DeadReferenceException "Exception::DeadReferenceException::DeadReferenceException(const std::string &message)
 ";
 
 
@@ -1375,17 +1375,17 @@ signals that the distribution is in the limit case of a delta distribution
 ";
 
 
-// File: classExceptions_1_1DivisionByZeroException.xml
-%feature("docstring") Exceptions::DivisionByZeroException "";
+// File: classException_1_1DivisionByZeroException.xml
+%feature("docstring") Exception::DivisionByZeroException "";
 
-%feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
+%feature("docstring")  Exception::DivisionByZeroException::DivisionByZeroException "Exception::DivisionByZeroException::DivisionByZeroException(const std::string &message)
 ";
 
 
-// File: classExceptions_1_1DomainErrorException.xml
-%feature("docstring") Exceptions::DomainErrorException "";
+// File: classException_1_1DomainErrorException.xml
+%feature("docstring") Exception::DomainErrorException "";
 
-%feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
+%feature("docstring")  Exception::DomainErrorException::DomainErrorException "Exception::DomainErrorException::DomainErrorException(const std::string &message)
 ";
 
 
@@ -1474,10 +1474,10 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 ";
 
 
-// File: classExceptions_1_1ExistingClassRegistrationException.xml
-%feature("docstring") Exceptions::ExistingClassRegistrationException "";
+// File: classException_1_1ExistingClassRegistrationException.xml
+%feature("docstring") Exception::ExistingClassRegistrationException "";
 
-%feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
+%feature("docstring")  Exception::ExistingClassRegistrationException::ExistingClassRegistrationException "Exception::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
 ";
 
 
@@ -1504,17 +1504,17 @@ Returns a Python script that sets up a simulation and runs it if invoked as main
 ";
 
 
-// File: classExceptions_1_1FileIsBadException.xml
-%feature("docstring") Exceptions::FileIsBadException "";
+// File: classException_1_1FileIsBadException.xml
+%feature("docstring") Exception::FileIsBadException "";
 
-%feature("docstring")  Exceptions::FileIsBadException::FileIsBadException "Exceptions::FileIsBadException::FileIsBadException(const std::string &message)
+%feature("docstring")  Exception::FileIsBadException::FileIsBadException "Exception::FileIsBadException::FileIsBadException(const std::string &message)
 ";
 
 
-// File: classExceptions_1_1FileNotIsOpenException.xml
-%feature("docstring") Exceptions::FileNotIsOpenException "";
+// File: classException_1_1FileNotIsOpenException.xml
+%feature("docstring") Exception::FileNotIsOpenException "";
 
-%feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
+%feature("docstring")  Exception::FileNotIsOpenException::FileNotIsOpenException "Exception::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
 ";
 
 
@@ -2411,10 +2411,10 @@ Creates a new clipped axis.
 ";
 
 
-// File: classExceptions_1_1FormatErrorException.xml
-%feature("docstring") Exceptions::FormatErrorException "";
+// File: classException_1_1FormatErrorException.xml
+%feature("docstring") Exception::FormatErrorException "";
 
-%feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
+%feature("docstring")  Exception::FormatErrorException::FormatErrorException "Exception::FormatErrorException::FormatErrorException(const std::string &message)
 ";
 
 
@@ -8961,10 +8961,10 @@ C++ includes: LLData.h
 ";
 
 
-// File: classExceptions_1_1LogicErrorException.xml
-%feature("docstring") Exceptions::LogicErrorException "";
+// File: classException_1_1LogicErrorException.xml
+%feature("docstring") Exception::LogicErrorException "";
 
-%feature("docstring")  Exceptions::LogicErrorException::LogicErrorException "Exceptions::LogicErrorException::LogicErrorException(const std::string &message)
+%feature("docstring")  Exception::LogicErrorException::LogicErrorException "Exception::LogicErrorException::LogicErrorException(const std::string &message)
 ";
 
 
@@ -9358,17 +9358,17 @@ C++ includes: MultipleLayoutBuilder.h
 ";
 
 
-// File: classExceptions_1_1NotImplementedException.xml
-%feature("docstring") Exceptions::NotImplementedException "";
+// File: classException_1_1NotImplementedException.xml
+%feature("docstring") Exception::NotImplementedException "";
 
-%feature("docstring")  Exceptions::NotImplementedException::NotImplementedException "Exceptions::NotImplementedException::NotImplementedException(const std::string &message)
+%feature("docstring")  Exception::NotImplementedException::NotImplementedException "Exception::NotImplementedException::NotImplementedException(const std::string &message)
 ";
 
 
-// File: classExceptions_1_1NullPointerException.xml
-%feature("docstring") Exceptions::NullPointerException "";
+// File: classException_1_1NullPointerException.xml
+%feature("docstring") Exception::NullPointerException "";
 
-%feature("docstring")  Exceptions::NullPointerException::NullPointerException "Exceptions::NullPointerException::NullPointerException(const std::string &message)
+%feature("docstring")  Exception::NullPointerException::NullPointerException "Exception::NullPointerException::NullPointerException(const std::string &message)
 ";
 
 
@@ -9431,10 +9431,10 @@ Adds parameters from local pool to external pool and recursively calls its direc
 ";
 
 
-// File: classExceptions_1_1OutOfBoundsException.xml
-%feature("docstring") Exceptions::OutOfBoundsException "";
+// File: classException_1_1OutOfBoundsException.xml
+%feature("docstring") Exception::OutOfBoundsException "";
 
-%feature("docstring")  Exceptions::OutOfBoundsException::OutOfBoundsException "Exceptions::OutOfBoundsException::OutOfBoundsException(const std::string &message)
+%feature("docstring")  Exception::OutOfBoundsException::OutOfBoundsException "Exception::OutOfBoundsException::OutOfBoundsException(const std::string &message)
 ";
 
 
@@ -11271,10 +11271,10 @@ Sets magnetic reflection/transmission info for specific layer.
 ";
 
 
-// File: classExceptions_1_1RuntimeErrorException.xml
-%feature("docstring") Exceptions::RuntimeErrorException "";
+// File: classException_1_1RuntimeErrorException.xml
+%feature("docstring") Exception::RuntimeErrorException "";
 
-%feature("docstring")  Exceptions::RuntimeErrorException::RuntimeErrorException "Exceptions::RuntimeErrorException::RuntimeErrorException(const std::string &message)
+%feature("docstring")  Exception::RuntimeErrorException::RuntimeErrorException "Exception::RuntimeErrorException::RuntimeErrorException(const std::string &message)
 ";
 
 
@@ -11632,10 +11632,10 @@ Retrieves the amplitude coefficients for the given angles.
 ";
 
 
-// File: classExceptions_1_1SelfReferenceException.xml
-%feature("docstring") Exceptions::SelfReferenceException "";
+// File: classException_1_1SelfReferenceException.xml
+%feature("docstring") Exception::SelfReferenceException "";
 
-%feature("docstring")  Exceptions::SelfReferenceException::SelfReferenceException "Exceptions::SelfReferenceException::SelfReferenceException(const std::string &message)
+%feature("docstring")  Exception::SelfReferenceException::SelfReferenceException "Exception::SelfReferenceException::SelfReferenceException(const std::string &message)
 ";
 
 
@@ -12683,10 +12683,10 @@ C++ includes: Unit.h
 ";
 
 
-// File: classExceptions_1_1UnknownClassRegistrationException.xml
-%feature("docstring") Exceptions::UnknownClassRegistrationException "";
+// File: classException_1_1UnknownClassRegistrationException.xml
+%feature("docstring") Exception::UnknownClassRegistrationException "";
 
-%feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
+%feature("docstring")  Exception::UnknownClassRegistrationException::UnknownClassRegistrationException "Exception::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
 ";
 
 
@@ -12873,8 +12873,8 @@ Creates real data containing original user data clipped to the ROI area of the d
 ";
 
 
-// File: namespaceExceptions.xml
-%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &message)
+// File: namespaceException.xml
+%feature("docstring")  Exception::LogExceptionMessage "void Exception::LogExceptionMessage(const std::string &message)
 ";
 
 
@@ -13214,102 +13214,64 @@ Returns comma-separated list of parameter values, including unit multiplicator (
 
 
 // File: namespaceStandardSimulations.xml
-%feature("docstring")  StandardSimulations::PolarizedDWBAMagCylinders2 "GISASSimulation * StandardSimulations::PolarizedDWBAMagCylinders2()
+%feature("docstring")  StandardSimulations::PolarizedDWBAMagCylinders2 "GISASSimulation* StandardSimulations::PolarizedDWBAMagCylinders2()
 ";
 
-%feature("docstring")  StandardSimulations::BasicGISAS "GISASSimulation * StandardSimulations::BasicGISAS()
-
-Basic GISAS simulation with the detector phi[0,2], theta[0,2]. 
+%feature("docstring")  StandardSimulations::BasicGISAS "GISASSimulation* StandardSimulations::BasicGISAS()
 ";
 
-%feature("docstring")  StandardSimulations::BasicGISAS00 "GISASSimulation * StandardSimulations::BasicGISAS00()
-
-Basic GISAS for polarization studies. 
+%feature("docstring")  StandardSimulations::BasicGISAS00 "GISASSimulation* StandardSimulations::BasicGISAS00()
 ";
 
-%feature("docstring")  StandardSimulations::MiniGISAS "GISASSimulation * StandardSimulations::MiniGISAS()
-
-GISAS simulation with small detector and phi[-2,2], theta[0,2]. 
+%feature("docstring")  StandardSimulations::MiniGISAS "GISASSimulation* StandardSimulations::MiniGISAS()
 ";
 
-%feature("docstring")  StandardSimulations::MiniGISAS_v2 "GISASSimulation * StandardSimulations::MiniGISAS_v2()
-
-GISAS simulation with small detector and phi[-1,1], theta[0,1]. 
+%feature("docstring")  StandardSimulations::MiniGISAS_v2 "GISASSimulation* StandardSimulations::MiniGISAS_v2()
 ";
 
-%feature("docstring")  StandardSimulations::MiniGISASBeamDivergence "GISASSimulation * StandardSimulations::MiniGISASBeamDivergence()
-
-GISAS simulation with beam divergence applied. 
+%feature("docstring")  StandardSimulations::MiniGISASBeamDivergence "GISASSimulation* StandardSimulations::MiniGISASBeamDivergence()
 ";
 
-%feature("docstring")  StandardSimulations::MiniGISASDetectorResolution "GISASSimulation * StandardSimulations::MiniGISASDetectorResolution()
-
-GISAS simulation with detector resolution. 
+%feature("docstring")  StandardSimulations::MiniGISASDetectorResolution "GISASSimulation* StandardSimulations::MiniGISASDetectorResolution()
 ";
 
-%feature("docstring")  StandardSimulations::GISASWithMasks "GISASSimulation * StandardSimulations::GISASWithMasks()
-
-GISAS simulation with multiple masks on the detector plane. 
+%feature("docstring")  StandardSimulations::GISASWithMasks "GISASSimulation* StandardSimulations::GISASWithMasks()
 ";
 
-%feature("docstring")  StandardSimulations::MaxiGISAS "GISASSimulation * StandardSimulations::MaxiGISAS()
-
-GISAS simulation with large detector to test performance. 
+%feature("docstring")  StandardSimulations::MaxiGISAS "GISASSimulation* StandardSimulations::MaxiGISAS()
 ";
 
-%feature("docstring")  StandardSimulations::MaxiGISAS00 "GISASSimulation * StandardSimulations::MaxiGISAS00()
-
-Basic GISAS for polarization studies. 
+%feature("docstring")  StandardSimulations::MaxiGISAS00 "GISASSimulation* StandardSimulations::MaxiGISAS00()
 ";
 
-%feature("docstring")  StandardSimulations::IsGISAXSSimulation1 "GISASSimulation * StandardSimulations::IsGISAXSSimulation1()
-
-Typical IsGISAXS simulation with the detector phi[-1,1], theta[0,2]. 
+%feature("docstring")  StandardSimulations::IsGISAXSSimulation1 "GISASSimulation* StandardSimulations::IsGISAXSSimulation1()
 ";
 
-%feature("docstring")  StandardSimulations::IsGISAXSSimulation2 "GISASSimulation * StandardSimulations::IsGISAXSSimulation2()
-
-Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2]. 
+%feature("docstring")  StandardSimulations::IsGISAXSSimulation2 "GISASSimulation* StandardSimulations::IsGISAXSSimulation2()
 ";
 
-%feature("docstring")  StandardSimulations::RectDetectorGeneric "GISASSimulation * StandardSimulations::RectDetectorGeneric()
-
-GISAS simulation with generic rectangular detector. 
+%feature("docstring")  StandardSimulations::RectDetectorGeneric "GISASSimulation* StandardSimulations::RectDetectorGeneric()
 ";
 
-%feature("docstring")  StandardSimulations::RectDetectorPerpToSample "GISASSimulation * StandardSimulations::RectDetectorPerpToSample()
-
-GISAS simulation with the rectangular detector perpendicular to the sample. 
+%feature("docstring")  StandardSimulations::RectDetectorPerpToSample "GISASSimulation* StandardSimulations::RectDetectorPerpToSample()
 ";
 
-%feature("docstring")  StandardSimulations::RectDetectorPerpToDirectBeam "GISASSimulation * StandardSimulations::RectDetectorPerpToDirectBeam()
-
-GISAS simulation with the rectangular detector perpendicular to the direct beam. 
+%feature("docstring")  StandardSimulations::RectDetectorPerpToDirectBeam "GISASSimulation* StandardSimulations::RectDetectorPerpToDirectBeam()
 ";
 
-%feature("docstring")  StandardSimulations::RectDetectorPerpToReflectedBeam "GISASSimulation * StandardSimulations::RectDetectorPerpToReflectedBeam()
-
-GISAS simulation with the rectangular detector perpendicular to the reflected beam. 
+%feature("docstring")  StandardSimulations::RectDetectorPerpToReflectedBeam "GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeam()
 ";
 
-%feature("docstring")  StandardSimulations::RectDetectorPerpToReflectedBeamDpos "GISASSimulation * StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
-
-GISAS simulation with the rectangular detector perpendicular to the reflected beam when the coordinates of direct beam are known. 
+%feature("docstring")  StandardSimulations::RectDetectorPerpToReflectedBeamDpos "GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
 ";
 
-%feature("docstring")  StandardSimulations::MiniGISASMonteCarlo "GISASSimulation * StandardSimulations::MiniGISASMonteCarlo()
-
-GISAS simulation with Monte-Carlo integration switched ON. 
+%feature("docstring")  StandardSimulations::MiniGISASMonteCarlo "GISASSimulation* StandardSimulations::MiniGISASMonteCarlo()
 ";
 
-%feature("docstring")  StandardSimulations::SphericalDetWithRoi "GISASSimulation * StandardSimulations::SphericalDetWithRoi()
-
-GISAS simulation with spherical detector, region of interest and mask. 
+%feature("docstring")  StandardSimulations::SphericalDetWithRoi "GISASSimulation* StandardSimulations::SphericalDetWithRoi()
 ";
 
-%feature("docstring")  StandardSimulations::RectDetWithRoi "GISASSimulation * StandardSimulations::RectDetWithRoi()
-
-GISAS simulation with rectangular detector, region of interest and mask. 
+%feature("docstring")  StandardSimulations::RectDetWithRoi "GISASSimulation* StandardSimulations::RectDetWithRoi()
 ";
 
 

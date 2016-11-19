@@ -26,7 +26,7 @@ OutputDataReader::OutputDataReader(const std::string& file_name)
 OutputData<double>* OutputDataReader::getOutputData()
 {
     if(!m_read_strategy)
-        throw Exceptions::NullPointerException(
+        throw Exception::NullPointerException(
             "OutputDataReader::getOutputData() -> Error! No read strategy defined");
 
     std::ifstream fin;
@@ -36,11 +36,11 @@ OutputData<double>* OutputDataReader::getOutputData()
 
     fin.open(m_file_name.c_str(), openmode );
     if(!fin.is_open())
-        throw Exceptions::FileNotIsOpenException(
+        throw Exception::FileNotIsOpenException(
             "OutputDataReader::getOutputData() -> Error. Can't open file '"
             + m_file_name + "' for reading.");
     if (!fin.good())
-        throw Exceptions::FileIsBadException(
+        throw Exception::FileIsBadException(
             "OutputDataReader::getOutputData() -> Error! "
             "File is not good, probably it is a directory.");
     OutputData<double>* result = getFromFilteredStream(fin);

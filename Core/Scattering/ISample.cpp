@@ -20,7 +20,7 @@
 
 ISample* ISample::cloneInvertB() const
 {
-    throw Exceptions::NotImplementedException(
+    throw Exception::NotImplementedException(
         "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 

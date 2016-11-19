@@ -21,8 +21,8 @@
 #include <sstream>
 #include <vector>
 
+//! Logging utility.
 
-//! Sets of logging utilities
 namespace MSG
 {
 
@@ -64,14 +64,10 @@ private:
 BA_CORE_API_ void SetLevel(EMessageLevel level);
 BA_CORE_API_ void SetLevel(const std::string& levelname);
 
-}
+} // namespace MSG
 
 #define msglog(level) \
 if (level < MSG::Logger::GetLevel()) ; \
 else MSG::Logger(level)
 
-
-
 #endif // LOGGER_H
-
-

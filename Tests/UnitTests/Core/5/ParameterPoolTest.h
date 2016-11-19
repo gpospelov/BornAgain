@@ -32,7 +32,7 @@ ParameterPoolTest::ParameterPoolTest()
 TEST_F(ParameterPoolTest, InitialState)
 {
     EXPECT_EQ( size_t(0), m_empty_pool.size() );
-    ASSERT_THROW( m_empty_pool.getParameter("NotExistingName"), Exceptions::LogicErrorException );
+    ASSERT_THROW( m_empty_pool.getParameter("NotExistingName"), Exception::LogicErrorException );
 }
 
 
@@ -49,7 +49,7 @@ TEST_F(ParameterPoolTest, registerParameters)
     pars = m_pool.getMatchedParameters("a_par*");
     EXPECT_EQ( size_t(2), pars.size() );
 
-    ASSERT_THROW( m_pool.setParameterValue("NonExistingName", 3.2), Exceptions::LogicErrorException );
+    ASSERT_THROW( m_pool.setParameterValue("NonExistingName", 3.2), Exception::LogicErrorException );
     m_pool.setParameterValue("b_par3", 3.2);
     EXPECT_EQ( double(3.2), m_pool.getParameter("b_par3").getValue());
 
@@ -95,7 +95,7 @@ TEST_F(ParameterPoolTest, SetMatchedParametersValue)
     pool.registerParameter("xx_x", &x);
     pool.registerParameter("xx_y", &y);
     pool.registerParameter("xx_z", &z);
-    EXPECT_THROW( pool.setMatchedParametersValue("zz*", 4.0), Exceptions::LogicErrorException );
+    EXPECT_THROW( pool.setMatchedParametersValue("zz*", 4.0), Exception::LogicErrorException );
     pool.setMatchedParametersValue("xx*", 4.0);
     EXPECT_EQ( double(4.0), pool.getParameter("xx_x").getValue());
     EXPECT_EQ( double(4.0), pool.getParameter("xx_y").getValue());
@@ -107,17 +107,17 @@ TEST_F(ParameterPoolTest, LimitsOnParameterValue)
     double x(0.0);
     ParameterPool pool;
 
-    EXPECT_THROW(pool.registerParameter("xx_x", &x, Limits::limited(1.0, 2.0)), Exceptions::OutOfBoundsException);
+    EXPECT_THROW(pool.registerParameter("xx_x", &x, Limits::limited(1.0, 2.0)), Exception::OutOfBoundsException);
 
     pool.registerParameter("xx_x", &x, Limits::limited(-1.0, 1.0));
 
     EXPECT_TRUE(pool.setParameterValue("xx_x", 0.5));
     EXPECT_EQ(0.5, x);
 
-    EXPECT_THROW(pool.setParameterValue("xx_x", 2.0), Exceptions::LogicErrorException);
+    EXPECT_THROW(pool.setParameterValue("xx_x", 2.0), Exception::LogicErrorException);
     EXPECT_EQ(0.5, x);
 
-    EXPECT_THROW(pool.setMatchedParametersValue("xx*", 2.0), Exceptions::LogicErrorException);
+    EXPECT_THROW(pool.setMatchedParametersValue("xx*", 2.0), Exception::LogicErrorException);
     EXPECT_EQ(0.5, x);
 }
 

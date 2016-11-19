@@ -25,7 +25,7 @@ ICompositeSample::~ICompositeSample() {}
 void ICompositeSample::registerChild(ISample* sample)
 {
     if(!sample)
-        throw Exceptions::NullPointerException(
+        throw Exception::NullPointerException(
             "ICompositeSample::registerChild -> Error. Null pointer.");
     m_samples.push_back(sample);
 }

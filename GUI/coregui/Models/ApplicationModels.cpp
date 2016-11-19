@@ -201,7 +201,7 @@ void ApplicationModels::createTestSample()
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
 // to populate sample with predefined instrument
-//    const std::unique_ptr<GISASSimulation> simulation(StandardSimulations::GISASWithMasks());
+//    const std::unique_ptr<GISASSimulation> simulation(StandardSimulation::GISASWithMasks());
 //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 

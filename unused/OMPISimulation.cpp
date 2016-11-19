@@ -86,7 +86,7 @@ void OMPISimulation::runSimulation(Simulation * simulation)
 
 void OMPISimulation::runSimulation(Simulation * /* simulation */)
 {
-    throw Exceptions::RuntimeErrorException(
+    throw Exception::RuntimeErrorException(
         "OMPISimulation::runSimulation() -> Error! Can't run OpenMPI simulation. "
         "The package was compiled without OpenMPI support (compile with -DBORNAGAIN_OPENMPI=ON)" );
 }

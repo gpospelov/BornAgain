@@ -55,11 +55,11 @@ void IsGISAXSDetector::print(std::ostream &ostr) const
 IAxis *IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min) {
-        throw Exceptions::LogicErrorException(
+        throw Exception::LogicErrorException(
             "IsGISAXSDetector::createAxis() -> Error! max <= min");
     }
     if (n_bins == 0) {
-        throw Exceptions::LogicErrorException(
+        throw Exception::LogicErrorException(
             "IsGISAXSDetector::createAxis() -> Error! Number n_bins can't be zero.");
     }    return new CustomBinAxis(getAxisName(index), n_bins, min, max);
 }

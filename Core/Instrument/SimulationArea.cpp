@@ -27,11 +27,11 @@ SimulationArea::SimulationArea(const IDetector2D *detector)
     , m_max_index(0)
 {
     if(detector == nullptr)
-        throw Exceptions::RuntimeErrorException("SimulationArea::SimulationArea -> Error. "
+        throw Exception::RuntimeErrorException("SimulationArea::SimulationArea -> Error. "
                                                 "Detector nullptr.");
 
     if (m_detector->getDimension()!=2)
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
             "SimulationArea::SimulationArea: detector is not two-dimensional");
 
     if(m_detector->regionOfInterest())
@@ -56,7 +56,7 @@ bool SimulationArea::isMasked(size_t index) const
         std::ostringstream message;
         message << "SimulationArea::isActive() -> Error. Index " << index << " is out of range, "
              << "totalSize=" << totalSize();
-        throw Exceptions::RuntimeErrorException(message.str());
+        throw Exception::RuntimeErrorException(message.str());
     }
 
     return m_detector->getDetectorMask()->isMasked(detectorIndex(index));

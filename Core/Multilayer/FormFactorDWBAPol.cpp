@@ -46,7 +46,7 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
 
 complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo&) const
 {
-    throw Exceptions::NotImplementedException(
+    throw Exception::NotImplementedException(
         "FormFactorDWBAPol::evaluate: should never be called for matrix interactions");
 }
 

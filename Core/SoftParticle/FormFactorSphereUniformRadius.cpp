@@ -26,7 +26,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
     , m_full_width(full_width)
 {
     if(!checkParameters())
-        throw Exceptions::ClassInitializationException(
+        throw Exception::ClassInitializationException(
                 "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius:"
                 " mean radius must be bigger than the half width");
     setName(BornAgain::FormFactorSphereUniformRadiusType);

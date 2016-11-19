@@ -18,7 +18,7 @@
 
 IAxis* IAxis::createDoubleBinSize() const
 {
-    throw Exceptions::NotImplementedException(
+    throw Exception::NotImplementedException(
                 "IAxis::createDoubleBinSize() -> Error. Not implemented.");
 }
 
@@ -37,18 +37,18 @@ bool IAxis::equals(const IAxis& other) const
 
 std::vector<double> IAxis::getBinCenters() const
 {
-    throw Exceptions::NotImplementedException("IAxis::getBinCenters() -> Error. Not implemented.");
+    throw Exception::NotImplementedException("IAxis::getBinCenters() -> Error. Not implemented.");
 }
 
 std::vector<double> IAxis::getBinBoundaries() const
 {
-    throw Exceptions::NotImplementedException(
+    throw Exception::NotImplementedException(
         "IAxis::getBinBoundaries() -> Error. Not implemented.");
 }
 
 IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const
 {
-    throw Exceptions::NotImplementedException(
+    throw Exception::NotImplementedException(
         "IAxis::createClippedAxis() -> Error. Not implemented.");
 }
 

@@ -46,7 +46,7 @@ void IntensityNormalizer::apply(OutputData<double>& data) const
         factor = *it;
     }
     if(factor == 0)
-        throw Exceptions::DivisionByZeroException(
+        throw Exception::DivisionByZeroException(
                 "IntensityNormalizer::apply() -> "
                 "Error! Maximum intensity is 0.");
 

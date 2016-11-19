@@ -131,7 +131,7 @@ void MathFunctions::Convolve::fftconvolve(
     double2d_t result2d;
     fftconvolve(source2d, kernel2d, result2d);
     if(result2d.size() != 1)
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
             "MathFunctions::Convolve::fftconvolve -> Panic in 1d");
     result = result2d[0];
 }
@@ -146,7 +146,7 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
         std::ostringstream os;
         os << "MathFunctions::Convolve::init() -> Panic! Wrong dimensions " <<
             h_src << " " << w_src << " " << h_kernel << " " << w_kernel << std::endl;
-        throw Exceptions::RuntimeErrorException(os.str());
+        throw Exception::RuntimeErrorException(os.str());
     }
 
     ws.clear();
@@ -254,20 +254,20 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
     ws.p_forw_src = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_src,
                                          (fftw_complex*)ws.out_src, FFTW_ESTIMATE);
     if( ws.p_forw_src == nullptr )
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
             "MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_src plan.");
 
     ws.p_forw_kernel = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_kernel,
                                             (fftw_complex*)ws.out_kernel, FFTW_ESTIMATE);
     if( ws.p_forw_kernel == nullptr )
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
             "MathFunctions::Convolve::init() -> Error! Can't initialise p_forw_kernel plan.");
 
     // The backward FFT takes ws.out_kernel as input
     ws.p_back = fftw_plan_dft_c2r_2d(
         ws.h_fftw, ws.w_fftw, (fftw_complex*)ws.out_kernel, ws.dst_fft, FFTW_ESTIMATE);
     if( ws.p_back == nullptr )
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
             "MathFunctions::Convolve::init() -> Error! Can't initialise p_back plan.");
 }
 
@@ -280,7 +280,7 @@ void MathFunctions::Convolve::fftw_circular_convolution(
     const double2d_t& src, const double2d_t& kernel)
 {
     if(ws.h_fftw <= 0 || ws.w_fftw <= 0)
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
             "MathFunctions::Convolve::fftw_convolve() -> Panic! Initialisation is missed.");
 
     double * ptr, *ptr_end, *ptr2;

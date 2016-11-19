@@ -51,7 +51,7 @@ void FormFactorTetrahedron::onChange()
 {
     double cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(cot_alpha) || cot_alpha<0 )
-        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+        throw Exception::OutOfBoundsException("pyramid angle alpha out of bounds");
     double r = cot_alpha * 2*std::sqrt(3.) * m_height / m_base_edge; // L(top)/L(base)
     if ( r > 1 ) {
         std::ostringstream ostr;
@@ -59,7 +59,7 @@ void FormFactorTetrahedron::onChange()
         ostr << "(base_edge=" << m_base_edge;
         ostr << ", height:" << m_height;
         ostr << ", alpha[rad]:" << m_alpha << ")";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw Exception::ClassInitializationException(ostr.str());
     }
 
     double a = m_base_edge;

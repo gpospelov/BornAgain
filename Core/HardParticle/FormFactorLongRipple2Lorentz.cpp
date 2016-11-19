@@ -60,7 +60,7 @@ void FormFactorLongRipple2Lorentz::check_parameters() const
     ostr << " length:" << m_length;
     ostr << " asymmetry:" << m_d << "\n\n";
     ostr << message;
-    throw Exceptions::ClassInitializationException(ostr.str());
+    throw Exception::ClassInitializationException(ostr.str());
 }
 
 double FormFactorLongRipple2Lorentz::getRadialExtension() const

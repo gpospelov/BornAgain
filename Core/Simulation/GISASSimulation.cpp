@@ -46,7 +46,7 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
 void GISASSimulation::prepareSimulation()
 {
     if (m_instrument.getDetectorDimension() != 2)
-        throw Exceptions::LogicErrorException("GISASSimulation::prepareSimulation() "
+        throw Exception::LogicErrorException("GISASSimulation::prepareSimulation() "
                 "-> Error. The detector was not properly configured.");
     getInstrument().initDetector();
     Simulation::prepareSimulation();
@@ -74,7 +74,7 @@ Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_typ
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
     if (wavelength<=0.0)
-        throw Exceptions::ClassInitializationException(
+        throw Exception::ClassInitializationException(
             "Simulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
     m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }

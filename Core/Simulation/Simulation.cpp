@@ -112,7 +112,7 @@ void Simulation::runSimulation()
 {
     updateSample();
     if (!mP_sample)
-        throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
+        throw Exception::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
 
     prepareSimulation();
 
@@ -169,7 +169,7 @@ void Simulation::setSample(const MultiLayer& sample)
 void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
 {
     if (!p_sample_builder)
-        throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "
+        throw Exception::NullPointerException("Simulation::setSampleBuilder() -> "
                                    "Error! Attempt to set null sample builder.");
 
     mP_sample_builder = p_sample_builder;
@@ -235,7 +235,7 @@ void Simulation::runSingleSimulation()
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
             std::string message = P_dwba_simulation->getRunMessage();
-            throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has "
+            throw Exception::RuntimeErrorException("Simulation::runSimulation() -> Simulation has "
                                                     "terminated unexpectedly with following error "
                                                     "message.\n" + message);
         }
@@ -291,7 +291,7 @@ void Simulation::runSingleSimulation()
             delete sim;
         }
         if (failure_messages.size())
-            throw Exceptions::RuntimeErrorException(
+            throw Exception::RuntimeErrorException(
                 "Simulation::runSingleSimulation() -> "
                 "At least one simulation thread has terminated unexpectedly.\n"
                 "Messages: " + StringUtil::join(failure_messages, " --- "));
@@ -346,7 +346,7 @@ void Simulation::imposeConsistencyOfBatchNumbers(int& n_batches, int& current_ba
         current_batch = 0;
     }
     if (current_batch >= n_batches)
-        throw Exceptions::ClassInitializationException(
+        throw Exception::ClassInitializationException(
             "Simulation::imposeConsistencyOfBatchNumbers(): Batch number must be smaller than "
             "number of batches.");
 }

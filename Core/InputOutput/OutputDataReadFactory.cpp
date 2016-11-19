@@ -36,7 +36,7 @@ IOutputDataReadStrategy* OutputDataReadFactory::getReadStrategy(const std::strin
        result = new OutputDataReadTiffStrategy();
 #endif // BORNAGAIN_TIFF_SUPPORT
     else
-        throw Exceptions::LogicErrorException("OutputDataReadFactory::getReader() -> Error. "
+        throw Exception::LogicErrorException("OutputDataReadFactory::getReader() -> Error. "
                 "Don't know how to read file '" + file_name+std::string("'"));
     return result;
 }

@@ -30,7 +30,7 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     setName(BornAgain::FFConeType);
     m_cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(m_cot_alpha) || m_cot_alpha<0 )
-        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+        throw Exception::OutOfBoundsException("pyramid angle alpha out of bounds");
     if(m_cot_alpha*m_height > m_radius) {
         std::ostringstream ostr;
         ostr << "FormFactorCone() -> Error in class initialization ";
@@ -38,7 +38,7 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
         ostr << " m_height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw Exception::ClassInitializationException(ostr.str());
     }
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();

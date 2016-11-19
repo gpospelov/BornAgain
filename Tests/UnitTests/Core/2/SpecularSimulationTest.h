@@ -36,13 +36,13 @@ SpecularSimulationTest::SpecularSimulationTest()
 TEST_F(SpecularSimulationTest, InitialState)
 {
     SpecularSimulation sim;
-    ASSERT_THROW( sim.runSimulation(), Exceptions::ClassInitializationException);
+    ASSERT_THROW( sim.runSimulation(), Exception::ClassInitializationException);
     EXPECT_EQ(nullptr, sim.getAlphaAxis());
     EXPECT_EQ(nullptr, sim.getSample());
     EXPECT_EQ(nullptr, sim.getSampleBuilder().get());
-    ASSERT_THROW( sim.getScalarR(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( sim.getScalarT(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( sim.getScalarKz(0), Exceptions::ClassInitializationException);
+    ASSERT_THROW( sim.getScalarR(0), Exception::ClassInitializationException);
+    ASSERT_THROW( sim.getScalarT(0), Exception::ClassInitializationException);
+    ASSERT_THROW( sim.getScalarKz(0), Exception::ClassInitializationException);
 }
 
 TEST_F(SpecularSimulationTest, CloneOfEmpty)
@@ -50,13 +50,13 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
     SpecularSimulation sim;
 
     SpecularSimulation *clone = sim.clone();
-    ASSERT_THROW( clone->runSimulation(), Exceptions::ClassInitializationException);
+    ASSERT_THROW( clone->runSimulation(), Exception::ClassInitializationException);
     EXPECT_EQ(nullptr, clone->getAlphaAxis());
     EXPECT_EQ(nullptr, clone->getSample());
     EXPECT_EQ(nullptr, clone->getSampleBuilder().get());
-    ASSERT_THROW( clone->getScalarR(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( clone->getScalarT(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( clone->getScalarKz(0), Exceptions::ClassInitializationException);
+    ASSERT_THROW( clone->getScalarR(0), Exception::ClassInitializationException);
+    ASSERT_THROW( clone->getScalarT(0), Exception::ClassInitializationException);
+    ASSERT_THROW( clone->getScalarKz(0), Exception::ClassInitializationException);
     delete clone;
 }
 
@@ -83,18 +83,18 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     sim.setSample(multilayer);
     EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(sim.getSample())->getNumberOfLayers());
 
-    ASSERT_THROW( sim.getScalarR(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( sim.getScalarT(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( sim.getScalarKz(0), Exceptions::ClassInitializationException);
+    ASSERT_THROW( sim.getScalarR(0), Exception::ClassInitializationException);
+    ASSERT_THROW( sim.getScalarT(0), Exception::ClassInitializationException);
+    ASSERT_THROW( sim.getScalarKz(0), Exception::ClassInitializationException);
 
     sim.runSimulation();
     EXPECT_EQ(size_t(10), sim.getScalarR(0).size());
     EXPECT_EQ(size_t(10), sim.getScalarT(0).size());
     EXPECT_EQ(size_t(10), sim.getScalarKz(0).size());
 
-    ASSERT_THROW( sim.getScalarR(3), Exceptions::OutOfBoundsException);
-    ASSERT_THROW( sim.getScalarT(3), Exceptions::OutOfBoundsException);
-    ASSERT_THROW( sim.getScalarKz(3), Exceptions::OutOfBoundsException);
+    ASSERT_THROW( sim.getScalarR(3), Exception::OutOfBoundsException);
+    ASSERT_THROW( sim.getScalarT(3), Exception::OutOfBoundsException);
+    ASSERT_THROW( sim.getScalarKz(3), Exception::OutOfBoundsException);
 
 }
 
@@ -108,9 +108,9 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(clone->getSample())->getNumberOfLayers());
 
-    ASSERT_THROW( clone->getScalarR(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( clone->getScalarT(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( clone->getScalarKz(0), Exceptions::ClassInitializationException);
+    ASSERT_THROW( clone->getScalarR(0), Exception::ClassInitializationException);
+    ASSERT_THROW( clone->getScalarT(0), Exception::ClassInitializationException);
+    ASSERT_THROW( clone->getScalarKz(0), Exception::ClassInitializationException);
     delete clone;
 
     sim.runSimulation();

@@ -29,7 +29,7 @@ void IFitObserver::notify(IObservable* subject)
 {
     FitSuite* fit_suite = dynamic_cast<FitSuite*>(subject);
     if( !fit_suite )
-        throw Exceptions::NullPointerException(
+        throw Exception::NullPointerException(
             "IFitObserver::update() -> Error! Can't access FitSuite");
 
     bool needs_update(false);
@@ -56,6 +56,6 @@ void IFitObserver::notify(IObservable* subject)
 
 void IFitObserver::update(FitSuite*)
 {
-    throw Exceptions::NotImplementedException(
+    throw Exception::NotImplementedException(
         "IFitObserver::update(IObservable *subject) -> Error. Not implemented.");
 }

@@ -26,7 +26,7 @@ void DetectionProperties::setAnalyzerProperties(const kvector_t direction, doubl
                                                double total_transmission)
 {
     if (!checkAnalyzerProperties(direction, efficiency, total_transmission))
-        throw Exceptions::ClassInitializationException("IDetector2D::setAnalyzerProperties: the "
+        throw Exception::ClassInitializationException("IDetector2D::setAnalyzerProperties: the "
                                                        "given properties are not physical");
 
     m_analyzer_operator = calculateAnalyzerOperator(direction, efficiency, total_transmission);

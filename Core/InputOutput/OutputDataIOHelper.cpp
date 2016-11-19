@@ -111,7 +111,7 @@ IAxis *OutputDataIOHelper::createAxis(std::istream& input_stream)
         return createVariableBinAxis(line);
     }
     else {
-        throw Exceptions::LogicErrorException("OutputDataIOHelper::createAxis() -> Error. "
+        throw Exception::LogicErrorException("OutputDataIOHelper::createAxis() -> Error. "
                                               "Unknown axis '"+line+"'");
     }
 }
@@ -130,14 +130,14 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 
     std::istringstream iss(line);
     if( !(iss >> type >> name >> nbins) )
-        throw Exceptions::FormatErrorException(
+        throw Exception::FormatErrorException(
             "OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string.");
 
     std::vector<double> boundaries;
     readLineOfDoubles(boundaries, iss);
 
     if(boundaries.size() != 2)
-        throw Exceptions::FormatErrorException(
+        throw Exception::FormatErrorException(
             "OutputDataIOHelper::createFixedBinAxis() -> Error. Can't parse the string at p2.");
 
     if(type == FixedBinAxisType) {
@@ -150,7 +150,7 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
         return new CustomBinAxis(name, nbins, boundaries[0], boundaries[1]);
     }
     else {
-        throw Exceptions::LogicErrorException(
+        throw Exception::LogicErrorException(
             "OutputDataIOHelper::createOneOfFixedBinAxis() -> Error. Unexpected place.");
     }
 }
@@ -168,12 +168,12 @@ IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
 
     std::istringstream iss(line);
     if( !(iss >> type >> name >> nbins) )
-        throw Exceptions::FormatErrorException(
+        throw Exception::FormatErrorException(
             "OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string.");
     std::vector<double> boundaries;
     readLineOfDoubles(boundaries, iss);
     if(boundaries.size() != nbins+1)
-        throw Exceptions::FormatErrorException(
+        throw Exception::FormatErrorException(
             "OutputDataIOHelper::createVariableBinAxis() -> Error. Can't parse the string at p2.");
     return new VariableBinAxis(name, nbins, boundaries);
 }
@@ -196,7 +196,7 @@ void OutputDataIOHelper::fillOutputData(OutputData<double>* data, std::istream& 
         }
     }
     if(it!= data->end())
-        throw Exceptions::FormatErrorException(
+        throw Exception::FormatErrorException(
             "OutputDataIOHelper::fillOutputData() -> Error while parsing data.");
 }
 

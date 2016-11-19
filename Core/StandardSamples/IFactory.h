@@ -48,7 +48,7 @@ public:
             std::ostringstream message;
             message << "IFactory::createItem() -> Error. Unknown item key '"
                     << item_key << "'";
-            throw Exceptions::RuntimeErrorException(message.str());
+            throw Exception::RuntimeErrorException(message.str());
         }
         return (it->second)();
     }
@@ -60,7 +60,7 @@ public:
             std::ostringstream message;
             message << "IFactory::createItem() -> Error. Already registered item key '"
                     << item_key << "'";
-            throw Exceptions::RuntimeErrorException(message.str());
+            throw Exception::RuntimeErrorException(message.str());
         }
         if (itemDescription!="")
             m_descriptions.insert(make_pair(item_key, itemDescription));

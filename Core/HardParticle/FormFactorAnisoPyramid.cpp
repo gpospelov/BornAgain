@@ -54,7 +54,7 @@ void FormFactorAnisoPyramid::onChange()
 {
     double cot_alpha = MathFunctions::cot(m_alpha);
     if( !std::isfinite(cot_alpha) || cot_alpha<0 )
-        throw Exceptions::OutOfBoundsException("AnisoPyramid: angle alpha out of bounds");
+        throw Exception::OutOfBoundsException("AnisoPyramid: angle alpha out of bounds");
     double r = cot_alpha*2 * m_height / m_length;
     double s = cot_alpha*2 * m_height / m_width;
     if( r>1 || s>1 ) {
@@ -65,7 +65,7 @@ void FormFactorAnisoPyramid::onChange()
         ostr << " height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
         ostr << "Check for '2*height <= (length,width)*tan(alpha)' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw Exception::ClassInitializationException(ostr.str());
     }
 
     double D = m_length/2;

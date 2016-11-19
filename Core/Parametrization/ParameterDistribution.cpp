@@ -30,12 +30,12 @@ ParameterDistribution::ParameterDistribution(const std::string &par_name,
 {
     mP_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0) {
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
                 "ParameterDistribution::ParameterDistribution() -> Error."
                 "sigma factor cannot be negative");
     }
     if(nbr_samples == 0) {
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
                     "ParameterDistribution::ParameterDistribution() -> Error."
                     "Number of samples can't be zero.");
     }
@@ -53,17 +53,17 @@ ParameterDistribution::ParameterDistribution(const std::string &par_name,
 {
     mP_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0) {
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
                 "ParameterDistribution::ParameterDistribution() -> Error."
                 "sigma factor cannot be negative");
     }
     if(nbr_samples == 0) {
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
                     "ParameterDistribution::ParameterDistribution() -> Error."
                     "Number of samples can't be zero.");
     }
     if(xmin >=xmax) {
-        throw Exceptions::RuntimeErrorException(
+        throw Exception::RuntimeErrorException(
                     "ParameterDistribution::ParameterDistribution() -> Error."
                     "xmin>=xmax");
     }

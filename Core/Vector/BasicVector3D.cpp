@@ -90,7 +90,7 @@ BasicVector3D<double> BasicVector3D<double>::unit() const
 {
     double len = mag();
     if ( len==0.0 )
-        throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
+        throw Exception::DivisionByZeroException("Cannot normalize zero vector");
     return BasicVector3D<double>(x()/len, y()/len, z()/len);
 }
 
@@ -99,7 +99,7 @@ BasicVector3D<complex_t> BasicVector3D<complex_t>::unit() const
 {
     double len = mag();
     if ( len==0.0 )
-        throw Exceptions::DivisionByZeroException("Cannot normalize zero vector");
+        throw Exception::DivisionByZeroException("Cannot normalize zero vector");
     return BasicVector3D<complex_t>(x()/len, y()/len, z()/len);
 }
 

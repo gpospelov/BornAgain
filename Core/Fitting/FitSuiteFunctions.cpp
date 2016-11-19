@@ -38,7 +38,7 @@ double FitSuiteChiSquaredFunction::evaluate(const std::vector<double> &pars)
 // (calculations are done for all dataset when index==0, when index!=0 already
 // calculated data just returned
 double FitSuiteGradientFunction::evaluate(
-    const std::vector<double> &pars, unsigned int index, std::vector<double>& gradients)
+    const std::vector<double>& pars, unsigned int index, std::vector<double>& gradients)
 {
     assert(m_kernel != nullptr);
     if (m_kernel->isInterrupted())
@@ -73,17 +73,17 @@ double FitSuiteGradientFunction::evaluate(
 
 void FitSuiteGradientFunction::verify_arrays()
 {
-    if( m_npars != m_kernel->fitParameters()->size() ||
-        m_ndatasize != m_kernel->fitObjects()->getSizeOfDataSet() ) {
-        m_npars = m_kernel->fitParameters()->size();
-        m_ndatasize = m_kernel->fitObjects()->getSizeOfDataSet();
-        m_residuals.clear();
-        m_residuals.resize(m_ndatasize, 0.0);
-        m_gradients.clear();
-        m_gradients.resize(m_npars);
-        for(size_t i_par=0; i_par<m_npars; ++i_par)
-            m_gradients[i_par].resize(m_ndatasize, 0.0);
-    }
+    if ( m_npars == m_kernel->fitParameters()->size() &&
+         m_ndatasize == m_kernel->fitObjects()->getSizeOfDataSet() )
+        return;
+    m_npars = m_kernel->fitParameters()->size();
+    m_ndatasize = m_kernel->fitObjects()->getSizeOfDataSet();
+    m_residuals.clear();
+    m_residuals.resize(m_ndatasize, 0.0);
+    m_gradients.clear();
+    m_gradients.resize(m_npars);
+    for(size_t i_par=0; i_par<m_npars; ++i_par)
+        m_gradients[i_par].resize(m_ndatasize, 0.0);
 }
 
 void FitSuiteGradientFunction::verify_minimizer_logic(
@@ -142,7 +142,6 @@ void FitSuiteGradientFunction::calculate_gradients(const std::vector<double>& pa
     // returning back old parameters
     m_kernel->fitParameters()->setValues(pars);
     runSimulation(pars);
-
 }
 
 void FitSuiteGradientFunction::runSimulation(const std::vector<double> &pars){

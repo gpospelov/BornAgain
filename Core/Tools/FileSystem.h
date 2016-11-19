@@ -20,15 +20,15 @@
 #include <string>
 #include <vector>
 
-//! Utilities to deal with file system.
+//! Utility functions to deal with file system.
 
 namespace FileSystem {
 
-    //! Returns file extension
-    BA_CORE_API_ std::string GetFileExtension(const std::string& name);
+    //! Returns extension of given filename.
+    BA_CORE_API_ std::string extension(const std::string& fname);
 
-    //! creates directory in current directory
-    BA_CORE_API_ bool CreateDirectory(const std::string& dir_name);
+    //! Creates directory in current directory
+    BA_CORE_API_ bool createDirectory(const std::string& dir_name);
 
     //! Returns filenames of files in directory
     BA_CORE_API_ std::vector<std::string> filesInDirectory(const std::string& dir_name);

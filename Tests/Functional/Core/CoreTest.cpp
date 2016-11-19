@@ -56,7 +56,7 @@ bool CoreTest::runTest()
         success = compareIntensityMaps(*result_data.get(), *m_reference);
     // Save simulation if different from reference.
     if (!success) {
-        FileSystem::CreateDirectory(CORE_STD_OUT_DIR);
+        FileSystem::createDirectory(CORE_STD_OUT_DIR);
         std::string out_fname = FileSystem::GetJoinPath(CORE_STD_OUT_DIR, getName() + ".int");
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << ".\n"

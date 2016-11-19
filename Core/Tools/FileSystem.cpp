@@ -22,18 +22,18 @@
 
 //! Returns file extension.
 
-std::string FileSystem::GetFileExtension(const std::string& name)
+std::string FileSystem::extension(const std::string& name)
 {
     return boost::filesystem::extension(name.c_str());
 }
 
-bool FileSystem::CreateDirectory(const std::string& dir_name)
+bool FileSystem::createDirectory(const std::string& dir_name)
 {
     assert(dir_name!="");
     return boost::filesystem::create_directory(dir_name);
 }
 
-    //! Returns filenames of files in directory
+//! Returns filenames of files in directory
 std::vector<std::string> FileSystem::filesInDirectory(const std::string& dir_name)
 {
     std::vector<std::string> ret;

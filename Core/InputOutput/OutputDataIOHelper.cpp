@@ -31,12 +31,12 @@ bool OutputDataIOHelper::isCompressed(const std::string& name)
 
 bool OutputDataIOHelper::isGZipped(const std::string& name)
 {
-    return FileSystem::GetFileExtension(name) == GzipExtention;
+    return FileSystem::extension(name) == GzipExtention;
 }
 
 bool OutputDataIOHelper::isBZipped(const std::string& name)
 {
-    return FileSystem::GetFileExtension(name) == BzipExtention;
+    return FileSystem::extension(name) == BzipExtention;
 }
 
 
@@ -51,7 +51,7 @@ std::string OutputDataIOHelper::GetFileMainExtension(const std::string& name)
     else if(isBZipped(name)) {
         stripped_name = name.substr(0, name.size()-BzipExtention.size());
     }
-    return FileSystem::GetFileExtension(stripped_name);
+    return FileSystem::extension(stripped_name);
 }
 
 bool OutputDataIOHelper::isBinaryFile(const std::string& file_name)

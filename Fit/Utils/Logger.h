@@ -21,7 +21,7 @@
 #include <sstream>
 #include <vector>
 
-//! Logging utility.
+//! Class Logger and utility functions for logging messages.
 
 namespace Logging
 {

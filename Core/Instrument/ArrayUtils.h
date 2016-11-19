@@ -23,6 +23,8 @@
 #include <Python.h>
 #endif // BORNAGAIN_PYTHON
 
+//! Array and Numpy utility functions getShape, createNumpyArray.
+
 namespace ArrayUtils
 {
 

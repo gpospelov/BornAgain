@@ -19,9 +19,8 @@
 #include "IMinimizer.h"
 class FitParameterSet;
 
+//! A trivial minimizer that calls the objective function once. Used to test the whole chain.
 //! @class TestMinimizer
-//! @ingroup fitting_internal
-//! @brief Minimizer which calls minimization function once to test whole chain.
 
 class BA_CORE_API_ TestMinimizer : public IMinimizer
 {

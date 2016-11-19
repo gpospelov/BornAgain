@@ -22,7 +22,7 @@
 
 class FitParameterSet;
 
-//! Pure virtual interface for all kind minimizers
+//! Pure virtual interface for all kind minimizers.
 //! @ingroup fitting_internal
 
 class BA_CORE_API_ IMinimizer

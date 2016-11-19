@@ -37,7 +37,8 @@ std::vector<std::string> FileSystemUtils::filesInDirectory(const std::string& di
 {
     std::vector<std::string> ret;
     if (!boost::filesystem::exists(dir_name))
-        throw std::runtime_error("FileSystemUtils::filesInDirectory '" + dir_name + "' does not exist");
+        throw std::runtime_error(
+            "FileSystemUtils::filesInDirectory '" + dir_name + "' does not exist");
     boost::filesystem::directory_iterator end_it; // default construction yields past-the-end
     for ( boost::filesystem::directory_iterator it( dir_name );
           it != boost::filesystem::directory_iterator(); ++it ) {

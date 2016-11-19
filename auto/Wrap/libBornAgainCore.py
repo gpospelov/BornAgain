@@ -16575,6 +16575,11 @@ class IMaterial(INamed):
         return _libBornAgainCore.IMaterial_clone(self)
 
 
+    def cloneInverted(self):
+        """cloneInverted(IMaterial self) -> IMaterial"""
+        return _libBornAgainCore.IMaterial_cloneInverted(self)
+
+
     def isScalarMaterial(self):
         """
         isScalarMaterial(IMaterial self) -> bool
@@ -16674,6 +16679,11 @@ class HomogeneousMaterial(IMaterial):
         return _libBornAgainCore.HomogeneousMaterial_clone(self)
 
 
+    def cloneInverted(self):
+        """cloneInverted(HomogeneousMaterial self) -> HomogeneousMaterial"""
+        return _libBornAgainCore.HomogeneousMaterial_cloneInverted(self)
+
+
     def getRefractiveIndex(self):
         """
         getRefractiveIndex(HomogeneousMaterial self) -> complex_t
@@ -16754,6 +16764,11 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
 
         """
         return _libBornAgainCore.HomogeneousMagneticMaterial_clone(self)
+
+
+    def cloneInverted(self):
+        """cloneInverted(HomogeneousMagneticMaterial self) -> HomogeneousMagneticMaterial"""
+        return _libBornAgainCore.HomogeneousMagneticMaterial_cloneInverted(self)
 
 
     def getMagneticField(self):

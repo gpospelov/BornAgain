@@ -20,6 +20,8 @@
 #include "StringUtils.h"
 #include <string>
 
+//! Utility functions getCurrentDateAndTime, enableFloatingPointExceptions.
+
 namespace SysUtils {
 
     BA_CORE_API_ std::string getCurrentDateAndTime();

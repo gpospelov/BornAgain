@@ -23,6 +23,8 @@
 class IAxis;
 template <class T> class OutputData;
 
+//! Utility functions for data input and output.
+
 namespace DataFormatUtils {
 
 const std::string FixedBinAxisType = "FixedBinAxis";

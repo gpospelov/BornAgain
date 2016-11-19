@@ -81,7 +81,7 @@ int GSLLevenbergMarquardtMinimizer::maxIterations() const
 
 std::string GSLLevenbergMarquardtMinimizer::statusToString() const
 {
-    return MinimizerUtils::gslErrorDescription(rootMinimizer()->Status());
+    return MinimizerUtil::gslErrorDescription(rootMinimizer()->Status());
 }
 
 std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() const

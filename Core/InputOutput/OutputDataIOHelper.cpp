@@ -123,7 +123,7 @@ IAxis *OutputDataIOHelper::createAxis(std::istream& input_stream)
 IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 {
     std::vector<std::string> to_replace = {",", "\"", "(", ")"};
-    Utils::String::replaceItemsFromString(line, to_replace, " ");
+    StringUtil::replaceItemsFromString(line, to_replace, " ");
 
     std::string type, name;
     size_t nbins(0);
@@ -161,7 +161,7 @@ IAxis *OutputDataIOHelper::createFixedBinAxis(std::string line)
 IAxis *OutputDataIOHelper::createVariableBinAxis(std::string line)
 {
     std::vector<std::string> to_replace = {",", "\"", "(", ")", "[", "]"};
-    Utils::String::replaceItemsFromString(line, to_replace, " ");
+    StringUtil::replaceItemsFromString(line, to_replace, " ");
 
     std::string type, name;
     size_t nbins(0);
@@ -208,7 +208,7 @@ std::vector<double> OutputDataIOHelper::parse_doubles(const std::string& str)
     std::istringstream iss(str);
     OutputDataIOHelper::readLineOfDoubles(result, iss);
     if( result.empty() ) {
-        std::cout << "Utils::String::parse_doubles -> "
+        std::cout << "StringUtil::parse_doubles -> "
             "Warning! No parsed values in 1d vector of doubles." << std::endl;
         std::cout << "Line '" << str << "'" << std::endl;
     }

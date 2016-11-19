@@ -294,7 +294,7 @@ void Simulation::runSingleSimulation()
             throw Exceptions::RuntimeErrorException(
                 "Simulation::runSingleSimulation() -> "
                 "At least one simulation thread has terminated unexpectedly.\n"
-                "Messages: " + Utils::String::join(failure_messages, " --- "));
+                "Messages: " + StringUtil::join(failure_messages, " --- "));
     }
     normalize(batch_start, batch_end);
 }

@@ -117,7 +117,7 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::strin
     std::vector<RealParameter*> selected_parameters;
     // loop over all parameters in the pool
     for (auto* par: m_params)
-        if( Utils::String::matchesPattern( par->getName(), pattern ) )
+        if( StringUtil::matchesPattern( par->getName(), pattern ) )
             selected_parameters.push_back(par);
     if( selected_parameters.empty() )
         report_find_matched_parameters_error(pattern);
@@ -145,7 +145,7 @@ int ParameterPool::setMatchedParametersValue(const std::string& pattern, double 
 {
     int npars(0);
     for (auto* par: m_params) {
-        if( Utils::String::matchesPattern( par->getName(), pattern ) ) {
+        if( StringUtil::matchesPattern( par->getName(), pattern ) ) {
             try {
                 par->setValue(value);
                 npars++;

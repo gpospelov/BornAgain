@@ -77,7 +77,7 @@ PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
     std::map<const std::string, const std::string> ret;
     for (const std::string& fname: FileSystem::glob(dir, stem+"\\.\\w+\\..+")) {
         std::vector<std::string> fname_segments =
-            Utils::String::split(FileSystem::filename(fname), ".");
+            StringUtil::split(FileSystem::filename(fname), ".");
         ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fname));
     }
     return ret;
@@ -113,7 +113,7 @@ bool PyPersistenceTest::compareFilePair(
     const std::string& dat_fpath, const std::string& ref_fpath)
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
-    const std::string extension = Utils::String::split(FileSystem::filename(dat_fpath), ".")[2];
+    const std::string extension = StringUtil::split(FileSystem::filename(dat_fpath), ".")[2];
     if ( extension=="int" )
         return compareIntensityPair( dat_fpath, ref_fpath );
     if ( extension=="yaml" )

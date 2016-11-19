@@ -226,7 +226,7 @@ std::string argumentList(const IParameterized* ip)
     std::vector<std::string> args;
     for(const auto* par: ip->getParameterPool()->getParameters())
         args.push_back( valueTimesUnit(par) );
-    return Utils::String::join( args, ", " );
+    return StringUtil::join( args, ", " );
 }
 
 } // namespace PythonFormatting

@@ -39,7 +39,7 @@ std::string MinimizerResultsHelper::reportResults(const RootMinimizerAdapter *mi
 {
     std::ostringstream result;
 
-    result << MinimizerUtils::sectionString();
+    result << MinimizerUtil::sectionString();
     result << reportDescription(minimizer);
     result << reportOption(minimizer);
     result << reportStatus(minimizer);
@@ -51,7 +51,7 @@ std::string MinimizerResultsHelper::reportResults(const FitParameterSet *paramet
 {
     std::ostringstream result;
 
-    result << MinimizerUtils::sectionString("FitParameters");
+    result << MinimizerUtil::sectionString("FitParameters");
 
     result << "Npar Name        StartValue  Limits           FitValue  Error" << std::endl;
 
@@ -69,7 +69,7 @@ std::string MinimizerResultsHelper::reportResults(const FitParameterSet *paramet
 
     FitParameterSet::corr_matrix_t matrix = parameters->correlationMatrix();
     if(matrix.size()) {
-        result << MinimizerUtils::sectionString("Correlations");
+        result << MinimizerUtil::sectionString("Correlations");
         for(size_t i=0; i<matrix.size(); ++i) {
             result << boost::format("#%-2d       ") %i;
             for(size_t j=0; j<matrix[i].size(); ++j) {
@@ -97,13 +97,13 @@ std::string MinimizerResultsHelper::reportOption(const RootMinimizerAdapter *min
         return std::string();
 
     std::ostringstream result;
-    result << MinimizerUtils::sectionString("Options");
+    result << MinimizerUtil::sectionString("Options");
     for(auto option : minimizer->options()) {
         std::ostringstream opt;
         opt << std::setw(5) << std::left << option->value() << option->description();
         result << reportValue(option->name(), opt.str());
     }
-    result << MinimizerUtils::sectionString("OptionString");
+    result << MinimizerUtil::sectionString("OptionString");
     result << minimizer->options().toOptionString() << std::endl;
 
     return result.str();
@@ -112,7 +112,7 @@ std::string MinimizerResultsHelper::reportOption(const RootMinimizerAdapter *min
 std::string MinimizerResultsHelper::reportStatus(const RootMinimizerAdapter *minimizer) const
 {
     std::ostringstream result;
-    result << MinimizerUtils::sectionString("Status");
+    result << MinimizerUtil::sectionString("Status");
 
     auto status = minimizer->statusMap();
     for(auto it : status) {

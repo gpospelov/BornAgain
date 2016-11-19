@@ -1428,22 +1428,22 @@ returns run time in sec.msec
 // File: namespaceMinimizerNames.xml
 
 
-// File: namespaceMinimizerUtils.xml
-%feature("docstring")  MinimizerUtils::toString "std::string MinimizerUtils::toString(const std::vector< std::string > &v, const std::string &delim=\"\")
+// File: namespaceMinimizerUtil.xml
+%feature("docstring")  MinimizerUtil::toString "std::string MinimizerUtil::toString(const std::vector< std::string > &v, const std::string &delim=\"\")
 ";
 
-%feature("docstring")  MinimizerUtils::gslErrorDescriptionMap "std::map< int, std::string > MinimizerUtils::gslErrorDescriptionMap()
+%feature("docstring")  MinimizerUtil::gslErrorDescriptionMap "std::map< int, std::string > MinimizerUtil::gslErrorDescriptionMap()
 
 Returns translation of GSL error code to string. 
 ";
 
-%feature("docstring")  MinimizerUtils::gslErrorDescription "std::string MinimizerUtils::gslErrorDescription(int errorCode)
+%feature("docstring")  MinimizerUtil::gslErrorDescription "std::string MinimizerUtil::gslErrorDescription(int errorCode)
 ";
 
-%feature("docstring")  MinimizerUtils::numbersDiffer "bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
+%feature("docstring")  MinimizerUtil::numbersDiffer "bool MinimizerUtil::numbersDiffer(double a, double b, double tol)
 ";
 
-%feature("docstring")  MinimizerUtils::sectionString "std::string MinimizerUtils::sectionString(const std::string &sectionName=std::string(), int report_width=80)
+%feature("docstring")  MinimizerUtil::sectionString "std::string MinimizerUtil::sectionString(const std::string &sectionName=std::string(), int report_width=80)
 
 Returns horizontal line of 80 characters length with section name in it. 
 ";
@@ -1460,38 +1460,35 @@ Returns horizontal line of 80 characters length with section name in it.
 // File: namespaceOptionNames.xml
 
 
-// File: namespaceUtils.xml
-
-
-// File: namespaceUtils_1_1String.xml
-%feature("docstring")  Utils::String::matchesPattern "bool Utils::String::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+// File: namespaceStringUtil.xml
+%feature("docstring")  StringUtil::matchesPattern "bool StringUtil::matchesPattern(const std::string &text, const std::string &wildcardPattern)
 
 Returns true if text matches pattern with wildcards '*' and '?'. 
 ";
 
-%feature("docstring")  Utils::String::padRight "std::string Utils::String::padRight(const std::string &name, int length)
+%feature("docstring")  StringUtil::padRight "std::string StringUtil::padRight(const std::string &name, int length)
 
 Returns string right-padded with blanks. 
 ";
 
-%feature("docstring")  Utils::String::split "std::vector< std::string > Utils::String::split(const std::string &text, const std::string &delimeter)
+%feature("docstring")  StringUtil::split "std::vector< std::string > StringUtil::split(const std::string &text, const std::string &delimeter)
 
 Split string into vector of string using delimeter.
 
 Returns token vector obtained by splitting string at delimiters. 
 ";
 
-%feature("docstring")  Utils::String::replaceItemsFromString "void Utils::String::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=std::string(\"\"))
+%feature("docstring")  StringUtil::replaceItemsFromString "void StringUtil::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=std::string(\"\"))
 
-replace all occurences of items from string text with delimeter 
+Replaces all occurences of items from string text with delimiter. 
 ";
 
-%feature("docstring")  Utils::String::join "std::string Utils::String::join(const std::vector< std::string > &joinable, const std::string &joint)
+%feature("docstring")  StringUtil::join "std::string StringUtil::join(const std::vector< std::string > &joinable, const std::string &joint)
 
 Returns string obtain by joining vector elements. 
 ";
 
-%feature("docstring")  Utils::String::removeSubstring "std::string Utils::String::removeSubstring(const std::string &text, const std::string &substr)
+%feature("docstring")  StringUtil::removeSubstring "std::string StringUtil::removeSubstring(const std::string &text, const std::string &substr)
 
 Removes multiple occurences of given substring from a string and returns result. 
 ";

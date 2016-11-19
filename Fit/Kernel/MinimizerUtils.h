@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Kernel/MinimizerUtils.h
-//! @brief     Declares namespace MinimizerUtils.
+//! @brief     Declares namespace MinimizerUtil.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,7 +22,7 @@
 #include <map>
 
 
-namespace MinimizerUtils {
+namespace MinimizerUtil {
 
 BA_CORE_API_ std::string toString(const std::vector<std::string> &v, const std::string &delim = "");
 

@@ -42,7 +42,7 @@ std::string MinimizerCatalogue::toString() const
     for(MinimizerInfo minimizer : m_minimizers) {
         result << boost::format("%-15s| %-64s\n")
                   % minimizer.name()
-                  % MinimizerUtils::toString(minimizer.algorithmNames(), std::string(" "));
+                  % MinimizerUtil::toString(minimizer.algorithmNames(), std::string(" "));
 
     }
     return result.str();

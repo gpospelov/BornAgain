@@ -19,18 +19,14 @@
 #include "WinDllMacros.h"
 #include "StringUtils.h"
 #include <string>
-#include <vector>
 
-namespace Util {
+namespace SysUtils {
 
     BA_CORE_API_ std::string getCurrentDateAndTime();
 
     //! enables exception throw in the case of NaN, Inf
     BA_CORE_API_ void enableFloatingPointExceptions();
 
-    //! Returns shape nrows, ncols of 2D array.
-    BA_CORE_API_ std::pair<size_t, size_t> getShape(const std::vector<std::vector<double>>& data);
-
-} // namespace Util
+} // namespace SysUtils
 
 #endif // UTILS_H

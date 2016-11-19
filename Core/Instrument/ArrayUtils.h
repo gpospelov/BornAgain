@@ -16,17 +16,23 @@
 #ifndef NUMPYUTILS_H
 #define NUMPYUTILS_H
 
-#ifdef BORNAGAIN_PYTHON
-
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#include <Python.h>
 #include <vector>
 
-namespace Util
-{
-    PyObject* createNumpyArray(const std::vector<double>& data);
-}
-
+#ifdef BORNAGAIN_PYTHON
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#include <Python.h>
 #endif // BORNAGAIN_PYTHON
+
+namespace ArrayUtils
+{
+
+    //! Returns shape nrows, ncols of 2D array.
+    BA_CORE_API_ std::pair<size_t, size_t> getShape(const std::vector<std::vector<double>>& data);
+
+#ifdef BORNAGAIN_PYTHON
+    PyObject* createNumpyArray(const std::vector<double>& data);
+#endif // BORNAGAIN_PYTHON
+
+}
 
 #endif // NUMPYUTILS_H

@@ -57,7 +57,7 @@ int GSLMultiMinimizer::maxIterations() const
 
 std::string GSLMultiMinimizer::statusToString() const
 {
-    return MinimizerUtil::gslErrorDescription(rootMinimizer()->Status());
+    return MinimizerUtils::gslErrorDescription(rootMinimizer()->Status());
 }
 
 void GSLMultiMinimizer::propagateOptions()

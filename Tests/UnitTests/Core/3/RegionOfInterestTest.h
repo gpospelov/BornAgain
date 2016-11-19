@@ -39,7 +39,7 @@ TEST_F(RegionOfInterestTest, constructor)
     EXPECT_EQ(roi.roiIndex(9), 2u);
     EXPECT_EQ(roi.roiIndex(21), 8u);
     EXPECT_EQ(roi.roiIndex(22), 9u);
-    EXPECT_THROW(roi.roiIndex(23), Exception::RuntimeErrorException);
+    EXPECT_THROW(roi.roiIndex(23), Exceptions::RuntimeErrorException);
 
     // converting local ro index to global detector index
     EXPECT_EQ(roi.detectorIndex(0), 5u);
@@ -105,7 +105,7 @@ TEST_F(RegionOfInterestTest, clone)
     EXPECT_EQ(clone->roiIndex(9), 2u);
     EXPECT_EQ(clone->roiIndex(21), 8u);
     EXPECT_EQ(clone->roiIndex(22), 9u);
-    EXPECT_THROW(clone->roiIndex(23), Exception::RuntimeErrorException);
+    EXPECT_THROW(clone->roiIndex(23), Exceptions::RuntimeErrorException);
 
     // converting local ro index to global detector index
     EXPECT_EQ(clone->detectorIndex(0), 5u);

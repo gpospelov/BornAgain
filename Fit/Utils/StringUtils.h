@@ -22,7 +22,7 @@
 
 //! Utility functions to analyze or modify strings.
 
-namespace StringUtil {
+namespace StringUtils {
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
 BA_CORE_API_ bool matchesPattern(const std::string& text, const std::string& wildcardPattern);

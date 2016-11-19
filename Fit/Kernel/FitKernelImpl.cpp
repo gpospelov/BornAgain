@@ -89,7 +89,7 @@ std::string FitKernelImpl::reportResults() const
 {
     std::ostringstream result;
     result << std::endl;
-    result << MinimizerUtil::sectionString("FitSuite::printResults");
+    result << MinimizerUtils::sectionString("FitSuite::printResults");
     result << "functionCalls: " << m_objective_function.functionCalls()
            << " (" << m_time_interval.runTime() << " sec total)" << "\n";
     result << m_minimizer->reportResults();

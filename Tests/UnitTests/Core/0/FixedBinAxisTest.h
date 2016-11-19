@@ -27,7 +27,7 @@ TEST_F(FixedBinAxisTest, IndexedAccessor)
     EXPECT_DOUBLE_EQ(-1.0, a2[0]);
     EXPECT_DOUBLE_EQ(0.0, a2[1]);
     EXPECT_DOUBLE_EQ(1.0, a2[2]);
-    ASSERT_THROW( a2[3], Exception::OutOfBoundsException);
+    ASSERT_THROW( a2[3], Exceptions::OutOfBoundsException);
 }
 
 TEST_F(FixedBinAxisTest, VectorOfUnitLength)
@@ -47,7 +47,7 @@ TEST_F(FixedBinAxisTest, FindClosestIndex)
     EXPECT_EQ( size_t(0), v1.findClosestIndex(0.25));
     EXPECT_EQ( size_t(1), v1.findClosestIndex(0.5));
     EXPECT_EQ( size_t(1), v1.findClosestIndex(0.6));
-//    ASSERT_THROW( v1.findClosestIndex(1.0), Exception::OutOfBoundsException);
+//    ASSERT_THROW( v1.findClosestIndex(1.0), Exceptions::OutOfBoundsException);
     EXPECT_EQ( size_t(1), v1.findClosestIndex(1.0));
 
     FixedBinAxis v2("name", 3, -1.5, 1.5);
@@ -57,7 +57,7 @@ TEST_F(FixedBinAxisTest, FindClosestIndex)
     EXPECT_EQ(size_t(1), v2.findClosestIndex(0.0));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(0.5));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.499));
-//    ASSERT_THROW( v2.findClosestIndex(1.5), Exception::OutOfBoundsException);
+//    ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.5));
 }
 
@@ -87,7 +87,7 @@ TEST_F(FixedBinAxisTest, CheckBin)
     EXPECT_DOUBLE_EQ( 9.5, bin19.m_lower);
     EXPECT_DOUBLE_EQ( 10.0, bin19.m_upper);
 
-    ASSERT_THROW( axis.getBin(20), Exception::OutOfBoundsException);
+    ASSERT_THROW( axis.getBin(20), Exceptions::OutOfBoundsException);
 
     FixedBinAxis axis2("name", 3, -1, 2.0);
     EXPECT_DOUBLE_EQ(-0.5, axis2.getBin(0).getMidPoint());

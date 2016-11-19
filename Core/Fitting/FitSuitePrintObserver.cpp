@@ -37,9 +37,9 @@ void FitSuitePrintObserver::update(FitSuite* fit_suite)
     }
 
     if(m_strategy_has_changed) {
-        std::cout << MinimizerUtil::sectionString() << "\n";
+        std::cout << MinimizerUtils::sectionString() << "\n";
         std::cout << (*m_fit_suite->fitStrategies()->currentStrategy()) << std::endl;
-        std::cout << MinimizerUtil::sectionString() << "\n";
+        std::cout << MinimizerUtils::sectionString() << "\n";
     }
 
     printIterationHeader();

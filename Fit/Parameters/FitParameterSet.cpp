@@ -156,7 +156,7 @@ bool FitParameterSet::valuesDifferFrom(const std::vector<double> &pars_values, d
     check_array_size(pars_values);
 
     for (size_t i=0; i<m_parameters.size(); ++i)
-        if (MinimizerUtil::numbersDiffer(m_parameters[i]->value(), pars_values[i], tol))
+        if (MinimizerUtils::numbersDiffer(m_parameters[i]->value(), pars_values[i], tol))
             return true;
     return false;
 }

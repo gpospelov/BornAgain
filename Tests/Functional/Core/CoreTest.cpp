@@ -18,7 +18,6 @@
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
-#include "Utils.h"
 
 CoreTest::CoreTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,

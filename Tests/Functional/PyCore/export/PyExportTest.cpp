@@ -20,7 +20,6 @@
 #include "IntensityDataIOFactory.h"
 #include "PythonFormatting.h"
 #include "SimulationFactory.h"
-#include "Utils.h"
 #include <cassert>
 #include <cstdio>
 #include <fstream>

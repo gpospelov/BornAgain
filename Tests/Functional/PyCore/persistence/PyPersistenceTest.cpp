@@ -20,7 +20,7 @@
 #include "IntensityDataIOFactory.h"
 #include "PythonFormatting.h"
 #include "SimulationFactory.h"
-#include "Utils.h"
+#include "StringUtils.h"
 #include <yaml-cpp/yaml.h>
 #include <cstdio>
 #include <fstream>
@@ -77,7 +77,7 @@ PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
     std::map<const std::string, const std::string> ret;
     for (const std::string& fname: FileUtils::glob(dir, stem+"\\.\\w+\\..+")) {
         std::vector<std::string> fname_segments =
-            StringUtil::split(FileUtils::filename(fname), ".");
+            StringUtils::split(FileUtils::filename(fname), ".");
         ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fname));
     }
     return ret;
@@ -113,7 +113,7 @@ bool PyPersistenceTest::compareFilePair(
     const std::string& dat_fpath, const std::string& ref_fpath)
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
-    const std::string extension = StringUtil::split(FileUtils::filename(dat_fpath), ".")[2];
+    const std::string extension = StringUtils::split(FileUtils::filename(dat_fpath), ".")[2];
     if ( extension=="int" )
         return compareIntensityPair( dat_fpath, ref_fpath );
     if ( extension=="yaml" )

@@ -103,7 +103,7 @@ void ActionManager::createMenus()
 {
     m_menuBar = new QMenuBar(0); // No parent (System menu bar on Mac OS X)
 
-    if (!GUI_OS_Util::HostOsInfo::isMacHost())
+    if (!GUI_OS_Utils::HostOsInfo::isMacHost())
         m_mainWindow->setMenuBar(m_menuBar);
 
     // File Menu
@@ -151,9 +151,9 @@ void ActionManager::aboutToShowRecentProjects()
     bool hasRecentProjects = false;
     foreach(QString file, m_mainWindow->projectManager()->getRecentProjects() ) {
         hasRecentProjects = true;
-        qDebug() << file << QDir::toNativeSeparators(GUI_StringUtil::withTildeHomePath(file));
+        qDebug() << file << QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file));
         QAction *action = m_recentProjectsMenu->addAction(
-            QDir::toNativeSeparators(GUI_StringUtil::withTildeHomePath(file)));
+            QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));
         action->setData(qVariantFromValue(file));
         connect(action, SIGNAL(triggered()), m_mainWindow, SLOT(openRecentProject()));
 

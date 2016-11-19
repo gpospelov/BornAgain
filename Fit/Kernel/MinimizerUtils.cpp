@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Kernel/MinimizerUtil.cpp
-//! @brief     Declares namespace MinimizerUtil.
+//! @brief     Declares namespace MinimizerUtils.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 #include <cmath>
 #include <limits>
 
-std::string MinimizerUtil::toString(const std::vector<std::string> &v, const std::string &delim)
+std::string MinimizerUtils::toString(const std::vector<std::string> &v, const std::string &delim)
 {
     std::stringstream s;
     std::for_each(v.begin(), v.end(), [&s, &delim](const std::string &elem) {s << elem << delim; });
@@ -28,7 +28,7 @@ std::string MinimizerUtil::toString(const std::vector<std::string> &v, const std
 
 //! Returns translation of GSL error code to string.
 
-std::map<int, std::string> MinimizerUtil::gslErrorDescriptionMap()
+std::map<int, std::string> MinimizerUtils::gslErrorDescriptionMap()
 {
     std::map<int, std::string> result;
 
@@ -69,7 +69,7 @@ std::map<int, std::string> MinimizerUtil::gslErrorDescriptionMap()
     return result;
 }
 
-std::string MinimizerUtil::gslErrorDescription(int errorCode)
+std::string MinimizerUtils::gslErrorDescription(int errorCode)
 {
     static std::map<int, std::string> errorDescription = gslErrorDescriptionMap();
 
@@ -80,17 +80,17 @@ std::string MinimizerUtil::gslErrorDescription(int errorCode)
     return std::string("Unknown error");
 }
 
-bool MinimizerUtil::numbersDiffer(double a, double b, double tol)
+bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
 {
     constexpr double eps = std::numeric_limits<double>::epsilon();
     if (tol<1)
-        throw std::runtime_error("MinimizerUtil::numbersDiffer() -> Error.Not intended for tol<1");
+        throw std::runtime_error("MinimizerUtils::numbersDiffer() -> Error.Not intended for tol<1");
     return std::abs(a-b) > eps * std::max( tol*eps, std::abs(b) );
 }
 
 //! Returns horizontal line of 80 characters length with section name in it.
 
-std::string MinimizerUtil::sectionString(const std::string &sectionName, int report_width)
+std::string MinimizerUtils::sectionString(const std::string &sectionName, int report_width)
 {
     std::ostringstream result;
     if(sectionName.empty()) {

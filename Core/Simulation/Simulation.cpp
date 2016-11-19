@@ -21,7 +21,7 @@
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "SimulationElement.h"
-#include "Utils.h"
+#include "StringUtils.h"
 #include <gsl/gsl_errno.h>
 #include <thread>
 #include <iomanip>
@@ -294,7 +294,7 @@ void Simulation::runSingleSimulation()
             throw Exceptions::RuntimeErrorException(
                 "Simulation::runSingleSimulation() -> "
                 "At least one simulation thread has terminated unexpectedly.\n"
-                "Messages: " + StringUtil::join(failure_messages, " --- "));
+                "Messages: " + StringUtils::join(failure_messages, " --- "));
     }
     normalize(batch_start, batch_end);
 }

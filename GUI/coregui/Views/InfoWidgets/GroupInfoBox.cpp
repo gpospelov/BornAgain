@@ -94,7 +94,7 @@ void GroupInfoBox::paintEvent(QPaintEvent*)
 
     // draw groupbox
     int shift(1);
-    if(GUI_OS_Util::HostOsInfo::isLinuxHost())
+    if(GUI_OS_Utils::HostOsInfo::isLinuxHost())
         shift = 3;
 
     paint.drawItemPixmap(option.rect.adjusted(0, shift, 0, 0), Qt::AlignTop | Qt::AlignRight,

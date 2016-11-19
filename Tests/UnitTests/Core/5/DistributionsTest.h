@@ -41,7 +41,7 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 TEST_F(DistributionsTest, DistributionGateConstructor)
 {
     // Throw error when m_min > m_max:
-    EXPECT_THROW(DistributionGate(1.1, 1.0), Exception::ClassInitializationException);
+    EXPECT_THROW(DistributionGate(1.1, 1.0), Exceptions::ClassInitializationException);
 
     // When m_min == m_max, only one sample is generated (the mean):
     DistributionGate distr1(1.0, 1.0);

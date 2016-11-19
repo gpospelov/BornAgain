@@ -224,7 +224,7 @@ void WelcomeView::generateRecentProjectList()
         palette.setColor(QPalette::ButtonText,QColor(41,73,150));
 
         slotButtons[i] = new QCommandLinkButton;
-        slotButtons[i]->setText(GUI_StringUtil::withTildeHomePath(file));
+        slotButtons[i]->setText(GUI_StringUtils::withTildeHomePath(file));
         slotButtons[i]->setFont(font);
         slotButtons[i]->setPalette(palette);
         //slotButtons[i]->setDescription("Recent description");
@@ -250,7 +250,7 @@ QString WelcomeView::getCurrentProjectFancyName()
     QString result("Untitled");
     if(ProjectDocument *projectDocument = m_projectManager->getDocument()) {
         if(projectDocument->hasValidNameAndPath())
-           result = GUI_StringUtil::withTildeHomePath(projectDocument->getProjectFileName());
+           result = GUI_StringUtils::withTildeHomePath(projectDocument->getProjectFileName());
         else
            result = projectDocument->getProjectName();
     }

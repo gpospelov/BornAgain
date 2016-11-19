@@ -38,7 +38,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleLabelHandler.h"
 #include "SphericalDetector.h"
-#include "Utils.h"
+#include "StringUtils.h"
 #include "RegionOfInterest.h"
 #include <iomanip>
 #include <set>
@@ -799,7 +799,7 @@ std::string ExportToPython::definePlot(const GISASSimulation* simulation) const
     for (size_t i=0; i<instrument.getDetectorDimension(); ++ i)
         entries.push_back( printDegrees(instrument.getDetectorAxis(i).getMin()) + ", " +
                            printDegrees(instrument.getDetectorAxis(i).getMax()) );
-    result << StringUtil::join( entries, ", " ) << "]) \n";
+    result << StringUtils::join( entries, ", " ) << "]) \n";
     result <<
         "    plt.colorbar(im)\n"
         "    plt.show()\n\n\n";

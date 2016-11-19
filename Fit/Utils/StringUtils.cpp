@@ -18,7 +18,7 @@
 #include <boost/regex.hpp>
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
-bool StringUtil::matchesPattern(const std::string& text, const std::string& wildcardPattern)
+bool StringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern)
 {
     bool caseSensitive(true);
 
@@ -50,7 +50,7 @@ bool StringUtil::matchesPattern(const std::string& text, const std::string& wild
 }
 
 //! Returns string right-padded with blanks.
-std::string StringUtil::padRight(const std::string& name, int length)
+std::string StringUtils::padRight(const std::string& name, int length)
 {
     std::string result = name;
     result.resize(length,' ');
@@ -58,21 +58,21 @@ std::string StringUtil::padRight(const std::string& name, int length)
 }
 
 //! Returns token vector obtained by splitting string at delimiters.
-std::vector<std::string> StringUtil::split(const std::string& text, const std::string& delimiter)
+std::vector<std::string> StringUtils::split(const std::string& text, const std::string& delimiter)
 {
     std::vector<std::string> tokens;
     boost::split(tokens, text, boost::is_any_of(delimiter));
     return tokens;
 }
 
-void StringUtil::replaceItemsFromString(
+void StringUtils::replaceItemsFromString(
     std::string& text, const std::vector<std::string>& items, const std::string& replacement)
 {
     for(size_t i=0; i<items.size(); ++i)
         boost::replace_all(text, items[i], replacement);
 }
 
-std::string StringUtil::join(const std::vector<std::string>& joinable, const std::string& joint)
+std::string StringUtils::join(const std::vector<std::string>& joinable, const std::string& joint)
 {
     std::string result;
     size_t n = joinable.size();
@@ -82,7 +82,7 @@ std::string StringUtil::join(const std::vector<std::string>& joinable, const std
     return result;
 }
 
-std::string StringUtil::removeSubstring(const std::string &text, const std::string &substr)
+std::string StringUtils::removeSubstring(const std::string &text, const std::string &substr)
 {
     std::string result = text;
     for(std::string::size_type i=result.find(substr); i!=std::string::npos; i=result.find(substr))

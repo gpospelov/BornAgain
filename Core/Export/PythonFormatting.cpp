@@ -31,7 +31,7 @@
 #include "RealParameter.h"
 #include "Rectangle.h"
 #include "MathConstants.h"
-#include "Utils.h"
+#include "StringUtils.h"
 #include "Units.h"
 #include "IDetector2D.h"
 #include <iomanip>
@@ -226,7 +226,7 @@ std::string argumentList(const IParameterized* ip)
     std::vector<std::string> args;
     for(const auto* par: ip->getParameterPool()->getParameters())
         args.push_back( valueTimesUnit(par) );
-    return StringUtil::join( args, ", " );
+    return StringUtils::join( args, ", " );
 }
 
 } // namespace PythonFormatting

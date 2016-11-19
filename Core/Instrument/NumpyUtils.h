@@ -22,7 +22,7 @@
 #include <Python.h>
 #include <vector>
 
-namespace Utils
+namespace Util
 {
     PyObject* createNumpyArray(const std::vector<double>& data);
 }

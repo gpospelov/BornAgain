@@ -13321,16 +13321,16 @@ GISAS simulation with rectangular detector, region of interest and mask.
 ";
 
 
-// File: namespaceUtils.xml
-%feature("docstring")  Utils::getCurrentDateAndTime "BA_CORE_API_ std::string Utils::getCurrentDateAndTime()
+// File: namespaceUtil.xml
+%feature("docstring")  Util::getCurrentDateAndTime "std::string Util::getCurrentDateAndTime()
 ";
 
-%feature("docstring")  Utils::enableFloatingPointExceptions "BA_CORE_API_ void Utils::enableFloatingPointExceptions()
+%feature("docstring")  Util::enableFloatingPointExceptions "void Util::enableFloatingPointExceptions()
 
 enables exception throw in the case of NaN, Inf 
 ";
 
-%feature("docstring")  Utils::getShape "BA_CORE_API_ std::pair<size_t, size_t> Utils::getShape(const std::vector< std::vector< double >> &data)
+%feature("docstring")  Util::getShape "std::pair< size_t, size_t > Util::getShape(const std::vector< std::vector< double >> &data)
 
 Returns shape nrows, ncols of 2D array. 
 ";

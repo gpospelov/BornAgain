@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QString>
 
-namespace Utils
+namespace GUI_StringUtil
 {
 
 BA_CORE_API_ QString withTildeHomePath(const QString &path);

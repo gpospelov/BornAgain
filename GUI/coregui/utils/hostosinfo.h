@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QString>
 
-namespace Utils {
+namespace GUI_OS_Util {
 
 #define QTC_WIN_EXE_SUFFIX ".exe"
 

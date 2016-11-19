@@ -18996,19 +18996,6 @@ SWIGINTERN PyObject *AttLimits_swigregister(PyObject *SWIGUNUSEDPARM(self), PyOb
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IMinimizer *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)":new_IMinimizer")) SWIG_fail;
-  result = (IMinimizer *)new IMinimizer();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IMinimizer, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
@@ -22114,12 +22101,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"delete_AttLimits", _wrap_delete_AttLimits, METH_VARARGS, (char *)"delete_AttLimits(AttLimits self)"},
 	 { (char *)"AttLimits_swigregister", AttLimits_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_IMinimizer", _wrap_new_IMinimizer, METH_VARARGS, (char *)"\n"
-		"new_IMinimizer() -> IMinimizer\n"
-		"\n"
-		"IMinimizer::IMinimizer(const IMinimizer &other)=delete\n"
-		"\n"
-		""},
 	 { (char *)"delete_IMinimizer", _wrap_delete_IMinimizer, METH_VARARGS, (char *)"\n"
 		"delete_IMinimizer(IMinimizer self)\n"
 		"\n"

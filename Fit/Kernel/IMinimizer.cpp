@@ -15,16 +15,6 @@
 
 #include "IMinimizer.h"
 
-std::string IMinimizer::minimizerName() const
-{
-    return std::string();
-}
-
-std::string IMinimizer::algorithmName() const
-{
-    return std::string();
-}
-
 void IMinimizer::minimize()
 {
     throw std::runtime_error("IMinimizer::minimize() -> Not implemented.");
@@ -35,7 +25,7 @@ void IMinimizer::clear()
     throw std::runtime_error("IMinimizer::clear() -> Not implemented.");
 }
 
-void IMinimizer::setParameters(const FitParameterSet & /*parameters*/)
+void IMinimizer::setParameters(const FitParameterSet&)
 {
     throw std::runtime_error("IMinimizer::setParameters() -> Not implemented.");
 }
@@ -50,13 +40,12 @@ std::string IMinimizer::reportResults() const
     throw std::runtime_error("IMinimizer::reportResults() -> Not implemented.");
 }
 
-
-void IMinimizer::propagateResults(FitParameterSet &/*parameters*/)
+void IMinimizer::propagateResults(FitParameterSet&)
 {
-    throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");    
+    throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");
 }
 
-void IMinimizer::setOptions(const std::string &/*options*/)
+void IMinimizer::setOptions(const std::string&)
 {
     throw std::runtime_error("IMinimizer::setOptions() -> Not implemented.");
 }

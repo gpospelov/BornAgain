@@ -22,24 +22,23 @@
 
 class FitParameterSet;
 
-//! @class IMinimizer
+//! Pure virtual interface for all kind minimizers
 //! @ingroup fitting_internal
-//! @brief Common interface for all kind minimizer's
 
 class BA_CORE_API_ IMinimizer
 {
  public:
-    IMinimizer() { }
-    virtual ~IMinimizer() { }
+    IMinimizer() {}
+    virtual ~IMinimizer() {}
 
-    IMinimizer(const IMinimizer &other) = delete;
-    IMinimizer & operator=(const IMinimizer &other) = delete;
+    IMinimizer(const IMinimizer &other) =delete;
+    IMinimizer & operator=(const IMinimizer &other) =delete;
 
     //! return name of the minimizer
-    virtual std::string minimizerName() const;
+    virtual std::string minimizerName() const =0;
 
     //! return name of the minimization algorithm
-    virtual std::string algorithmName() const;
+    virtual std::string algorithmName() const =0;
 
     //! run minimization
     virtual void minimize();
@@ -50,9 +49,9 @@ class BA_CORE_API_ IMinimizer
     //! Sets internal minimizer parameters using external parameter list
     virtual void setParameters(const FitParameterSet& parameters);
 
-    virtual void setObjectiveFunction(objective_function_t ){}
+    virtual void setObjectiveFunction(objective_function_t ) {}
 
-    virtual void setGradientFunction(gradient_function_t, int ){}
+    virtual void setGradientFunction(gradient_function_t, int ) {}
 
     //! Returns minimum function value
     virtual double minValue() const;
@@ -64,7 +63,7 @@ class BA_CORE_API_ IMinimizer
     virtual void propagateResults(FitParameterSet& parameters);
 
     //! Sets option string to the minimizer
-    virtual void setOptions(const std::string &options);
+    virtual void setOptions(const std::string& options);
 };
 
 #endif // IMINIMIZER_H

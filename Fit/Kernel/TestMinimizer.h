@@ -29,7 +29,8 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
     TestMinimizer() : m_min_value(0) {}
     ~TestMinimizer(){}
 
-    virtual std::string minimizerName() const override;
+    std::string minimizerName() const final;
+    std::string algorithmName() const final { return ""; };
 
     void minimize() override;
 

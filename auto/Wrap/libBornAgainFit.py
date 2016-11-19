@@ -1668,20 +1668,10 @@ class IMinimizer(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, IMinimizer, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, IMinimizer, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(IMinimizer self) -> IMinimizer
-
-        IMinimizer::IMinimizer(const IMinimizer &other)=delete
-
-        """
-        this = _libBornAgainFit.new_IMinimizer()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
     __swig_destroy__ = _libBornAgainFit.delete_IMinimizer
     __del__ = lambda self: None
 

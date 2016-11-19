@@ -1,18 +1,31 @@
 #!/usr/bin/env python
 
+"""
+
+"""
+
 import glob, sys
 from io import open
+
+if len(sys.argv)<3:
+    print( """
+Usage: count-line-length <max_mum_chars_per_line> <files>
+
+Returns 1 if any given file
+    - exceeds the given number of characters per line,
+    - or contains a tab.
+Returns 0 otherwise.
+""" )
+    sys.exit(-1)
 
 fworst = ""
 lworst = 0
 totlin = 0
-totbad = 0
+totexc = 0
+tottab = 0
 nftot = 0
-nfbad = 0
-
-if len(sys.argv)<3:
-    print( "Usage: count-line-length <max_mum_chars_per_line> <files>" )
-    sys.exit(-1)
+nfexc = 0
+nftab = 0
 
 limit = int(sys.argv[1])
 flist = sys.argv[2:]
@@ -25,29 +38,43 @@ for fn in flist:
     n = len(txt)
     maxlen = 0
     maxwhere = -1
-    nbadlin = 0
+    nexclin = 0
+    ntablin = 0
     for i in range(n):
-        l = len(txt[i])
+        lin = txt[i]
+        if '\t' in lin:
+            ntablin += 1
+            lin = lin.replace( '\t', '    ' )
+        l = len(lin)
         if l>maxlen:
             maxlen = l
             maxwhere = i
         if l>limit:
-            nbadlin += 1
+            nexclin += 1
 
-    if nbadlin>0:
+    if nexclin>0:
         print( "%s: %i/%i lines too long, line %i longest with %i chars" %
-               (fn, nbadlin, n, maxwhere, maxlen) )
-
-        totbad += nbadlin
-        nfbad += 1
+               (fn, nexclin, n, maxwhere, maxlen) )
+        totexc += nexclin
+        nfexc += 1
+    if ntablin>0:
+        print( "%s: %i/%i lines contain a TAB" % (fn, ntablin, n) )
+        tottab += ntablin
+        nftab += 1
     totlin += n
     nftot += 1
     if maxlen>lworst:
         lworst = maxlen
         fworst = fn
 
-if nfbad>0:
+exitval = 0
+if nfexc>0:
     print( "total: %i/%i lines too long, in %i/%i files, longest in %s with %i chars" %
-           (totbad, totlin, nfbad, nftot, fworst, lworst) )
-    sys.exit(1)
-sys.exit(0)
+           (totexc, totlin, nfexc, nftot, fworst, lworst) )
+    exitval = 1
+if nftab>0:
+    print( "total: %i/%i lines contain a TAB, in %i/%i files" %
+           (tottab, totlin, nftab, nftot) )
+    exitval = 1
+
+sys.exit(exitval)

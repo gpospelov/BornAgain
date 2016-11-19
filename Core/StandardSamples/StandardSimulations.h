@@ -20,7 +20,7 @@ class GISASSimulation;
 
 //! Standard pre-defined simulations.
 
-namespace StandardSimulation {
+namespace StandardSimulations {
 
 // Special tests:
 GISASSimulation* PolarizedDWBAMagCylinders2();
@@ -46,6 +46,6 @@ GISASSimulation* MiniGISASMonteCarlo();
 GISASSimulation* SphericalDetWithRoi();
 GISASSimulation* RectDetWithRoi();
 
-} // namespace StandardSimulation
+} // namespace StandardSimulations
 
 #endif // STANDARDSIMULATIONS_H

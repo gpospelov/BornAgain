@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Tools/FileSystem.cpp
-//! @brief     Implements class FileSystem
+//! @brief     Implements namespace FileSystem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,8 +20,7 @@
 #include <boost/regex.hpp>
 #include <stdexcept>
 
-//! Returns file extension.
-
+//! Returns extension of given filename.
 std::string FileSystem::extension(const std::string& name)
 {
     return boost::filesystem::extension(name.c_str());

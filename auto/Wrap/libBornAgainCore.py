@@ -7446,83 +7446,31 @@ class IDistribution1D(IParameterized):
         return _libBornAgainCore.IDistribution1D_getMean(self)
 
 
-    def generateSamples(self, *args):
+    def equidistantSamples(self, *args):
         """
-        generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
-        generateSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.0) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
-        generateSamples(IDistribution1D self, size_t nbr_samples) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
-        generateSamples(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
-
-        std::vector< ParameterSample > IDistribution1D::generateSamples(size_t nbr_samples, double xmin, double xmax) const
-
-        generate list of sampled values with their weight within given xmin, xmax 
-
+        equidistantSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0., RealLimits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
+        equidistantSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
+        equidistantSamples(IDistribution1D self, size_t nbr_samples) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
         """
-        return _libBornAgainCore.IDistribution1D_generateSamples(self, *args)
+        return _libBornAgainCore.IDistribution1D_equidistantSamples(self, *args)
 
 
-    def generateValueList(self, *args):
+    def equidistantSamplesInRange(self, nbr_samples, xmin, xmax):
+        """equidistantSamplesInRange(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> std::vector< ParameterSample,std::allocator< ParameterSample > >"""
+        return _libBornAgainCore.IDistribution1D_equidistantSamplesInRange(self, nbr_samples, xmin, xmax)
+
+
+    def equidistantPoints(self, *args):
         """
-        generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
-        generateValueList(IDistribution1D self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
-
-        virtual std::vector<double> IDistribution1D::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
-
-        generate list of sample values
-
-        Parameters:
-        -----------
-
-        nbr_samples: 
-        number of values to generate
-
-        sigma_factor: 
-        parameter to derive min,max range for sample values
-
-        limits:
-
-        vector of generated values 
-
+        equidistantPoints(IDistribution1D self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
+        equidistantPoints(IDistribution1D self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
         """
-        return _libBornAgainCore.IDistribution1D_generateValueList(self, *args)
+        return _libBornAgainCore.IDistribution1D_equidistantPoints(self, *args)
 
 
-    def generateValues(self, nbr_samples, xmin, xmax):
-        """
-        generateValues(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> vdouble1d_t
-
-        std::vector< double > IDistribution1D::generateValues(size_t nbr_samples, double xmin, double xmax) const
-
-        Interface.
-
-        generate list of sample values
-
-        Parameters:
-        -----------
-
-        nbr_samples: 
-        number of values to generate
-
-        xmin: 
-        xmax: 
-        start and end value of the generated samples
-
-        vector of generated values 
-
-        """
-        return _libBornAgainCore.IDistribution1D_generateValues(self, nbr_samples, xmin, xmax)
-
-
-    def getMeanSample(self):
-        """
-        getMeanSample(IDistribution1D self) -> ParameterSample
-
-        ParameterSample IDistribution1D::getMeanSample() const
-
-        generate a single sample containing the mean value and weight 1 
-
-        """
-        return _libBornAgainCore.IDistribution1D_getMeanSample(self)
+    def equidistantPointsInRange(self, nbr_samples, xmin, xmax):
+        """equidistantPointsInRange(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> vdouble1d_t"""
+        return _libBornAgainCore.IDistribution1D_equidistantPointsInRange(self, nbr_samples, xmin, xmax)
 
 
     def isDelta(self):
@@ -7635,17 +7583,12 @@ class DistributionGate(IDistribution1D):
         return _libBornAgainCore.DistributionGate_getMax(self)
 
 
-    def generateValueList(self, *args):
+    def equidistantPoints(self, *args):
         """
-        generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
-        generateValueList(DistributionGate self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
-
-        std::vector< double > DistributionGate::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
-
-        Returns list of sample values. 
-
+        equidistantPoints(DistributionGate self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
+        equidistantPoints(DistributionGate self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
         """
-        return _libBornAgainCore.DistributionGate_generateValueList(self, *args)
+        return _libBornAgainCore.DistributionGate_equidistantPoints(self, *args)
 
 
     def isDelta(self):
@@ -7744,17 +7687,12 @@ class DistributionLorentz(IDistribution1D):
         return _libBornAgainCore.DistributionLorentz_getHWHM(self)
 
 
-    def generateValueList(self, *args):
+    def equidistantPoints(self, *args):
         """
-        generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
-        generateValueList(DistributionLorentz self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
-
-        std::vector< double > DistributionLorentz::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
-
-        generate list of sample values 
-
+        equidistantPoints(DistributionLorentz self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
+        equidistantPoints(DistributionLorentz self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
         """
-        return _libBornAgainCore.DistributionLorentz_generateValueList(self, *args)
+        return _libBornAgainCore.DistributionLorentz_equidistantPoints(self, *args)
 
 
     def isDelta(self):
@@ -7855,17 +7793,12 @@ class DistributionGaussian(IDistribution1D):
         return _libBornAgainCore.DistributionGaussian_getStdDev(self)
 
 
-    def generateValueList(self, *args):
+    def equidistantPoints(self, *args):
         """
-        generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
-        generateValueList(DistributionGaussian self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
-
-        std::vector< double > DistributionGaussian::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
-
-        generate list of sample values 
-
+        equidistantPoints(DistributionGaussian self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
+        equidistantPoints(DistributionGaussian self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
         """
-        return _libBornAgainCore.DistributionGaussian_generateValueList(self, *args)
+        return _libBornAgainCore.DistributionGaussian_equidistantPoints(self, *args)
 
 
     def isDelta(self):
@@ -7978,17 +7911,12 @@ class DistributionLogNormal(IDistribution1D):
         return _libBornAgainCore.DistributionLogNormal_getScalePar(self)
 
 
-    def generateValueList(self, *args):
+    def equidistantPoints(self, *args):
         """
-        generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
-        generateValueList(DistributionLogNormal self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
-
-        std::vector< double > DistributionLogNormal::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
-
-        generate list of sample values 
-
+        equidistantPoints(DistributionLogNormal self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
+        equidistantPoints(DistributionLogNormal self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
         """
-        return _libBornAgainCore.DistributionLogNormal_generateValueList(self, *args)
+        return _libBornAgainCore.DistributionLogNormal_equidistantPoints(self, *args)
 
 
     def isDelta(self):
@@ -8089,17 +8017,12 @@ class DistributionCosine(IDistribution1D):
         return _libBornAgainCore.DistributionCosine_getSigma(self)
 
 
-    def generateValueList(self, *args):
+    def equidistantPoints(self, *args):
         """
-        generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
-        generateValueList(DistributionCosine self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
-
-        std::vector< double > DistributionCosine::generateValueList(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
-
-        generate list of sample values 
-
+        equidistantPoints(DistributionCosine self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
+        equidistantPoints(DistributionCosine self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
         """
-        return _libBornAgainCore.DistributionCosine_generateValueList(self, *args)
+        return _libBornAgainCore.DistributionCosine_equidistantPoints(self, *args)
 
 
     def isDelta(self):
@@ -22454,6 +22377,11 @@ class ParameterPool(_object):
         return _libBornAgainCore.ParameterPool_getMatchedParameters(self, wildcards)
 
 
+    def getUniqueMatch(self, pattern):
+        """getUniqueMatch(ParameterPool self, std::string const & pattern) -> RealParameter"""
+        return _libBornAgainCore.ParameterPool_getUniqueMatch(self, pattern)
+
+
     def setParameterValue(self, name, value):
         """
         setParameterValue(ParameterPool self, std::string const & name, double value)
@@ -22476,6 +22404,11 @@ class ParameterPool(_object):
 
         """
         return _libBornAgainCore.ParameterPool_setMatchedParametersValue(self, wildcards, value)
+
+
+    def setUniqueMatchValue(self, pattern, value):
+        """setUniqueMatchValue(ParameterPool self, std::string const & pattern, double value)"""
+        return _libBornAgainCore.ParameterPool_setUniqueMatchValue(self, pattern, value)
 
 
     def getParameterNames(self):
@@ -23074,16 +23007,16 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_getAmbientMaterial(self)
 
 
-    def generateParticles(self, particle_vector):
+    def generateParticles(self):
         """
-        generateParticles(ParticleDistribution self, std::vector< IParticle const *,std::allocator< IParticle const * > > & particle_vector)
+        generateParticles(ParticleDistribution self) -> std::vector< IParticle const *,std::allocator< IParticle const * > >
 
         void ParticleDistribution::generateParticles(std::vector< const IParticle * > &particle_vector) const
 
         Initializes list of new particles generated according to a distribution. 
 
         """
-        return _libBornAgainCore.ParticleDistribution_generateParticles(self, particle_vector)
+        return _libBornAgainCore.ParticleDistribution_generateParticles(self)
 
 
     def getParameterDistribution(self):
@@ -23096,18 +23029,6 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_getParameterDistribution(self)
-
-
-    def createDistributedParameterPool(self):
-        """
-        createDistributedParameterPool(ParticleDistribution self) -> ParameterPool
-
-        ParameterPool * ParticleDistribution::createDistributedParameterPool() const
-
-        Returns the parameter pool that can be used for parameter distributions. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_createDistributedParameterPool(self)
 
 
     def getParticle(self):

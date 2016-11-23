@@ -140,9 +140,9 @@ void DistributionWidget::plotItem()
 
         QVector<double> xBar;
         QVector<double> x;
-        xBar = xBar.fromStdVector(P_distribution->generateValueList(numberOfSamples, sigmafactor));
-        x = x.fromStdVector(P_distribution->generateValueList(number_of_points_for_smooth_plot,
-                                                            sigmafactor_for_smooth_plot));
+        xBar = xBar.fromStdVector(P_distribution->equidistantPoints(numberOfSamples, sigmafactor));
+        x = x.fromStdVector(P_distribution->equidistantPoints(number_of_points_for_smooth_plot,
+                                                              sigmafactor_for_smooth_plot));
         QVector<double> yBar(xBar.size());
         QVector<double> y(x.size());
         double sumOfWeigths(0);
@@ -287,4 +287,3 @@ void DistributionWidget::resizeEvent(QResizeEvent *event)
         m_warningSign->setPosition(pos.x(), pos.y());
     }
 }
-

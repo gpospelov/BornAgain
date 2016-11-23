@@ -30,34 +30,27 @@ public:
     ParticleDistribution(const IParticle& prototype, const ParameterDistribution& par_distr);
 
     virtual ParticleDistribution* clone() const;
-
-    //! Returns a clone with inverted magnetic fields
     virtual ParticleDistribution* cloneInvertB() const;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
 
-    //! Returns textual representation of* this and its descendants.
+    //! Returns textual representation of *this and its descendants.
     virtual std::string to_str(int indent=0) const;
 
-    //! Sets the refractive index of the ambient material (which influences its
-    //! scattering power)
+    //! Sets the refractive index of the ambient material.
     virtual void setAmbientMaterial(const IMaterial& material);
 
     //! Returns particle's material.
     virtual const IMaterial* getAmbientMaterial() const;
 
-    //! Initializes list of new particles generated according to a distribution
-    virtual void generateParticles(std::vector<const IParticle* >& particle_vector) const;
+    //! Returns list of new particles generated according to a distribution.
+    std::vector<const IParticle*> generateParticles() const;
 
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const { return m_par_distribution; }
 
-    //! Returns the parameter pool that can be used for parameter distributions
-    ParameterPool* createDistributedParameterPool() const;
-
     //! Returns particle.
-    const IParticle* getParticle() const;
+    const IParticle* getParticle() const { return mP_particle.get(); }
 
 private:
     std::unique_ptr<IParticle> mP_particle;

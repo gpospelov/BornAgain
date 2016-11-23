@@ -67,7 +67,7 @@ def run_simulation():
     xi_max = 240.0*deg
     total_weight = 0.0
     xi_distr = ba.DistributionGate(xi_min, xi_max)
-    xi_samples = xi_distr.generateValueList(nbins, 0.0)
+    xi_samples = xi_distr.equidistantPoints(nbins, 0.0)
     for i in range(len(xi_samples)):
         xi_value = xi_samples[i]
         probability = xi_distr.probabilityDensity(xi_value)

@@ -64,10 +64,12 @@ public:
     const std::vector<RealParameter*> getParameters() const { return m_params; }
 
     std::vector<RealParameter*> getMatchedParameters(const std::string& wildcards) const;
+    RealParameter* getUniqueMatch(const std::string& pattern) const;
 
     void setParameterValue(const std::string& name, double value);
 
     int setMatchedParametersValue(const std::string& wildcards, double value);
+    void setUniqueMatchValue(const std::string& pattern, double value);
 
     std::vector<std::string> getParameterNames() const;
 

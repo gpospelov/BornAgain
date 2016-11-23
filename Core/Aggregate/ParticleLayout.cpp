@@ -145,8 +145,8 @@ SafePointerVector<const IParticle> ParticleLayout::getParticles() const
     SafePointerVector<const IParticle> particle_vector;
     for (auto particle: m_particles) {
         if (const auto* p_part_distr = dynamic_cast<const ParticleDistribution*>(particle)) {
-            std::vector<const IParticle*> generated_particles;
-            p_part_distr->generateParticles(generated_particles);
+            std::vector<const IParticle*> generated_particles =
+                p_part_distr->generateParticles();
             for (const IParticle* particle: generated_particles)
                 particle_vector.push_back(particle);
         } else if (const auto* p_iparticle = dynamic_cast<const IParticle*>(particle)) {

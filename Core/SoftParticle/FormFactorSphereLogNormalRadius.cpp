@@ -16,6 +16,7 @@
 #include "FormFactorSphereLogNormalRadius.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
+#include "ParameterSample.h"
 #include "RealParameter.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
@@ -32,11 +33,10 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
     // Init vectors:
     m_form_factors.clear();
     m_probabilities.clear();
-    std::vector<ParameterSample> samples = mP_distribution->generateSamples(m_n_samples);
-    for (size_t i=0; i<samples.size(); ++i) {
-        double radius = samples[i].value;
+    for (ParameterSample& sample: mP_distribution->equidistantSamples(m_n_samples)) {
+        double radius = sample.value;
         m_form_factors.push_back(new FormFactorFullSphere(radius));
-        m_probabilities.push_back(samples[i].weight);
+        m_probabilities.push_back(sample.weight);
     }
 }
 

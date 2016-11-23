@@ -60,7 +60,7 @@ void FitKernelImpl::minimize()
         throw std::runtime_error("FitKernelImpl::minimize() -> Error. Minimizer is not defined.");
 
     if(m_fit_parameters.size() == 0)
-        throw std::runtime_error("FitKernelImpl::minimize() -> Error. No fit parameters defined.");
+        return;
 
     m_time_interval.start();
 

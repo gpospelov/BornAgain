@@ -43,8 +43,8 @@ public:
     //! Returns particle's material.
     virtual const IMaterial* getAmbientMaterial() const;
 
-    //! Initializes list of new particles generated according to a distribution.
-    virtual void generateParticles(std::vector<const IParticle*>& particle_vector) const;
+    //! Returns list of new particles generated according to a distribution.
+    std::vector<const IParticle*> generateParticles() const;
 
     //! Returns the distributed parameter data
     ParameterDistribution getParameterDistribution() const { return m_par_distribution; }

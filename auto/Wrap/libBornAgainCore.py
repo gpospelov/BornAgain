@@ -23074,16 +23074,16 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_getAmbientMaterial(self)
 
 
-    def generateParticles(self, particle_vector):
+    def generateParticles(self):
         """
-        generateParticles(ParticleDistribution self, std::vector< IParticle const *,std::allocator< IParticle const * > > & particle_vector)
+        generateParticles(ParticleDistribution self) -> std::vector< IParticle const *,std::allocator< IParticle const * > >
 
         void ParticleDistribution::generateParticles(std::vector< const IParticle * > &particle_vector) const
 
         Initializes list of new particles generated according to a distribution. 
 
         """
-        return _libBornAgainCore.ParticleDistribution_generateParticles(self, particle_vector)
+        return _libBornAgainCore.ParticleDistribution_generateParticles(self)
 
 
     def getParameterDistribution(self):

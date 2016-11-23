@@ -68,6 +68,7 @@ const IMaterial* ParticleDistribution::getAmbientMaterial() const
     return mP_particle->getAmbientMaterial();
 }
 
+//! Initializes list of new particles generated according to a distribution.
 void ParticleDistribution::generateParticles(
         std::vector<const IParticle*>& particle_vector) const
 {

@@ -16,12 +16,13 @@
 #ifndef PARAMETERSAMPLE_H
 #define PARAMETERSAMPLE_H
 
-//! Represents a sampled parameter value with its weight.
-//! @class ParameterSample
+//! A parameter value with a weight, as obtained when sampling from a distribution.
+//! @ingroup algorithms_internal
 
 class ParameterSample
 {
 public:
+    ParameterSample(double _value, double _weight=1.) : value(_value), weight(_weight) {}
     double value;
     double weight;
 };

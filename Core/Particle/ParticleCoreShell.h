@@ -52,8 +52,8 @@ public:
     const Particle* getShellParticle() const { return mp_shell; }
 
 protected:
-    void addAndRegisterCore(const Particle &core, kvector_t relative_core_position);
-    void addAndRegisterShell(const Particle &shell);
+    void addAndRegisterCore(const Particle& core, kvector_t relative_core_position);
+    void addAndRegisterShell(const Particle& shell);
 
     ParticleCoreShell();
     Particle* mp_shell;

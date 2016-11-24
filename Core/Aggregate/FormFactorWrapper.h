@@ -17,6 +17,8 @@
 #define FORMFACTORWRAPPER_H
 
 #include "ICloneable.h"
+#include <memory>
+
 class IFormFactor;
 
 //! Information about particle form factor and abundance.
@@ -25,16 +27,16 @@ class IFormFactor;
 class BA_CORE_API_ FormFactorWrapper : public ICloneable
 {
 public:
-    FormFactorWrapper(IFormFactor* ff, double abundance)
-        : mp_ff(ff), m_abundance(abundance) {}
+    FormFactorWrapper(IFormFactor* ff, double abundance);
     virtual ~FormFactorWrapper();
     virtual FormFactorWrapper* clone() const;
     IFormFactor* formfactor();
     const IFormFactor* formfactor() const;
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);
+    double radialExtension() const;
 private:
-    IFormFactor* mp_ff;
+    std::unique_ptr<IFormFactor> mP_ff;
     double m_abundance;
 };
 

@@ -17,21 +17,26 @@
 #include "IFormFactor.h"
 #include "Exceptions.h"
 
-FormFactorWrapper::~FormFactorWrapper() { delete mp_ff; }
+FormFactorWrapper::FormFactorWrapper(IFormFactor *ff, double abundance)
+: mP_ff(ff), m_abundance(abundance)
+{
+}
+
+FormFactorWrapper::~FormFactorWrapper() {}
 
 FormFactorWrapper* FormFactorWrapper::clone() const
 {
-    return new FormFactorWrapper(mp_ff->clone(), m_abundance);
+    return new FormFactorWrapper(mP_ff->clone(), m_abundance);
 }
 
 IFormFactor *FormFactorWrapper::formfactor()
 {
-    return mp_ff;
+    return mP_ff.get();
 }
 
 const IFormFactor *FormFactorWrapper::formfactor() const
 {
-    return mp_ff;
+    return mP_ff.get();
 }
 
 void FormFactorWrapper::scaleRelativeAbundance(double total_abundance)
@@ -41,5 +46,10 @@ void FormFactorWrapper::scaleRelativeAbundance(double total_abundance)
         return;
     }
     throw Exceptions::LogicErrorException("FormFactorWrapper::scaleRelativeAbundance: "
-                                              "Trying to scale with non strictly positive factor.");
+                                          "Trying to scale with non strictly positive factor.");
+}
+
+double FormFactorWrapper::radialExtension() const
+{
+    return mP_ff->getRadialExtension();
 }

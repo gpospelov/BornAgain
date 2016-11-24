@@ -27,9 +27,9 @@ TEST_F(FormFactorWrapperTest, FormFactor)
 {
     auto p_ff = new FormFactorTrivial();
     FormFactorWrapper ffw(p_ff, 1.0);
-    EXPECT_EQ(0.0, ffw.formfactor()->getRadialExtension());
+    EXPECT_EQ(0.0, ffw.radialExtension());
     ffw.scaleRelativeAbundance(2.0);
-    EXPECT_EQ(0.0, ffw.formfactor()->getRadialExtension());
+    EXPECT_EQ(0.0, ffw.radialExtension());
 }
 
 #endif // FORMFACTORWRAPPERTEST_H

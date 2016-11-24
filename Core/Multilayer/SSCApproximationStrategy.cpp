@@ -35,7 +35,7 @@ void SSCApproximationStrategy::strategy_specific_post_init()
     // Set m_mean_radius to the weighted arithmetic average of the particle radii.
     m_mean_radius = 0.0;
     for (const auto ffw: m_formfactor_wrappers)
-        m_mean_radius += ffw->relativeAbundance() * ffw->formfactor()->getRadialExtension();
+        m_mean_radius += ffw->relativeAbundance() * ffw->radialExtension();
     if (m_total_abundance > 0.0)
         m_mean_radius /= m_total_abundance;
 }
@@ -63,7 +63,7 @@ complex_t SSCApproximationStrategy::calculatePositionOffsetPhase(
     double qp, double kappa, size_t index) const
 {
     return exp_I(kappa * qp *
-                 (m_formfactor_wrappers[index]->formfactor()->getRadialExtension()
+                 (m_formfactor_wrappers[index]->radialExtension()
                   - m_mean_radius));
 }
 

@@ -52,7 +52,7 @@ void IInterferenceFunctionStrategy::init(
 
     m_total_abundance = 0;
     for (const auto ffw: m_formfactor_wrappers)
-        m_total_abundance += ffw->m_abundance;
+        m_total_abundance += ffw->getRelativeAbundance();
 
     if (&specular_info != mP_specular_info.get())
         mP_specular_info.reset(specular_info.clone());

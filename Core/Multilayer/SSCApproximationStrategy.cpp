@@ -35,7 +35,7 @@ void SSCApproximationStrategy::strategy_specific_post_init()
     // Set m_mean_radius to the weighted arithmetic average of the particle radii.
     m_mean_radius = 0.0;
     for (const auto ffw: m_formfactor_wrappers)
-        m_mean_radius += ffw->m_abundance * ffw->mp_ff->getRadialExtension();
+        m_mean_radius += ffw->getRelativeAbundance() * ffw->mp_ff->getRadialExtension();
     if (m_total_abundance > 0.0)
         m_mean_radius /= m_total_abundance;
 }
@@ -54,7 +54,7 @@ complex_t SSCApproximationStrategy::getCharacteristicSizeCoupling(double qp, dou
     size_t n_frs = m_formfactor_wrappers.size();
     complex_t result = complex_t(0.0, 0.0);
     for (size_t i = 0; i < n_frs; ++i)
-        result += m_formfactor_wrappers[i]->m_abundance *
+        result += m_formfactor_wrappers[i]->getRelativeAbundance() *
             calculatePositionOffsetPhase(qp, kappa, i);
     return result / m_total_abundance;
 }
@@ -81,7 +81,7 @@ double SSCApproximationStrategy1::evaluateForList(const SimulationElement& sim_e
         return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         complex_t ff = m_precomputed_ff1[i];
-        double fraction = m_formfactor_wrappers[i]->m_abundance / m_total_abundance;
+        double fraction = m_formfactor_wrappers[i]->getRelativeAbundance() / m_total_abundance;
         diffuse_intensity += fraction * std::norm(ff);
     }
     complex_t mean_ff_norm  = getMeanFormfactorNorm(qp);
@@ -95,7 +95,7 @@ complex_t SSCApproximationStrategy1::getMeanFormfactorNorm(double qp) const
 {
     complex_t ff_orig=0., ff_conj=0.; // original and conjugated mean formfactor
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        complex_t prefac = m_formfactor_wrappers[i]->m_abundance
+        complex_t prefac = m_formfactor_wrappers[i]->getRelativeAbundance()
             * calculatePositionOffsetPhase(qp, m_kappa, i);
         ff_orig += prefac * m_precomputed_ff1[i];
         ff_conj += prefac * std::conj(m_precomputed_ff1[i]);
@@ -120,7 +120,7 @@ double SSCApproximationStrategy2::evaluateForList(const SimulationElement& sim_e
         return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = m_precomputed_ff2[i];
-        double fraction = m_formfactor_wrappers[i]->m_abundance / m_total_abundance;
+        double fraction = m_formfactor_wrappers[i]->getRelativeAbundance() / m_total_abundance;
         diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
     Eigen::Matrix2cd mff_orig, mff_conj; // original and conjugated mean formfactor
@@ -144,7 +144,7 @@ void SSCApproximationStrategy2::getMeanFormfactors(
     ff_orig=Eigen::Matrix2cd::Zero();
     ff_conj=Eigen::Matrix2cd::Zero();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        complex_t prefac = m_formfactor_wrappers[i]->m_abundance
+        complex_t prefac = m_formfactor_wrappers[i]->getRelativeAbundance()
             * calculatePositionOffsetPhase(qp, m_kappa, i);
         ff_orig += prefac * m_precomputed_ff2[i];
         ff_conj += prefac * m_precomputed_ff2[i].adjoint();

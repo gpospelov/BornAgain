@@ -29,7 +29,10 @@ public:
         : mp_ff(ff), m_abundance(abundance) {}
     virtual ~FormFactorWrapper();
     virtual FormFactorWrapper* clone() const;
+    double getRelativeAbundance() const { return m_abundance; }
+    void scaleRelativeAbundance(double total_abundance) { m_abundance /= total_abundance; }
     IFormFactor* mp_ff;
+private:
     double m_abundance;
 };
 

@@ -15,7 +15,10 @@
 
 #include "FormFactorWrapper.h"
 #include "IFormFactor.h"
+#include "SimulationElement.h"
+#include "WavevectorInfo.h"
 #include "LayerSpecularInfo.h"
+#include "ILayerRTCoefficients.h"
 #include "Exceptions.h"
 
 FormFactorWrapper::FormFactorWrapper(IFormFactor *ff, double abundance)
@@ -28,6 +31,34 @@ FormFactorWrapper::~FormFactorWrapper() {}
 FormFactorWrapper* FormFactorWrapper::clone() const
 {
     return new FormFactorWrapper(mP_ff->clone(), m_abundance);
+}
+
+complex_t FormFactorWrapper::evaluate(const SimulationElement &sim_element) const
+{
+    double wavelength = sim_element.getWavelength();
+    double wavevector_scattering_factor = M_PI/wavelength/wavelength;
+    WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
+
+    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
+        mP_specular_info->getInCoefficients(sim_element));
+    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
+        mP_specular_info->getOutCoefficients(sim_element));
+    mP_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+    return wavevector_scattering_factor*mP_ff->evaluate(wavevectors);
+}
+
+Eigen::Matrix2cd FormFactorWrapper::evaluatePol(const SimulationElement &sim_element) const
+{
+    double wavelength = sim_element.getWavelength();
+    double wavevector_scattering_factor = M_PI/wavelength/wavelength;
+    WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
+
+    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
+        mP_specular_info->getInCoefficients(sim_element));
+    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
+        mP_specular_info->getOutCoefficients(sim_element));
+    mP_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+    return wavevector_scattering_factor*mP_ff->evaluatePol(wavevectors);
 }
 
 IFormFactor *FormFactorWrapper::formfactor()

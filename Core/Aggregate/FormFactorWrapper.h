@@ -17,9 +17,12 @@
 #define FORMFACTORWRAPPER_H
 
 #include "ICloneable.h"
+#include "Complex.h"
+#include "EigenCore.h"
 #include <memory>
 
 class IFormFactor;
+class SimulationElement;
 class LayerSpecularInfo;
 
 //! Information about particle form factor and abundance.
@@ -31,6 +34,12 @@ public:
     FormFactorWrapper(IFormFactor* ff, double abundance);
     virtual ~FormFactorWrapper();
     virtual FormFactorWrapper* clone() const;
+
+    complex_t evaluate(const SimulationElement& sim_element) const;
+#ifndef SWIG
+    Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
+#endif
+
     IFormFactor* formfactor();
     const IFormFactor* formfactor() const;
     void setSpecularInfo(const LayerSpecularInfo& specular_info);

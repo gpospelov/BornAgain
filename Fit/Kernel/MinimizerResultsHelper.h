@@ -18,51 +18,27 @@
 
 #include "WinDllMacros.h"
 #include <string>
-#include <sstream>
-#include <iomanip>
 
 class RootMinimizerAdapter;
 class FitParameterSet;
 
-//! @class MinimizerResultsHelper
+//! Contains all logic to generate reports with the result of minimization.
 //! @ingroup fitting_internal
-//! @brief The MinimizerResultsHelper class contains all logic to generate reports with the
-//! result of minimization.
 
 class BA_CORE_API_ MinimizerResultsHelper {
 public:
-    MinimizerResultsHelper(){}
+    MinimizerResultsHelper() {}
 
     //! Reports results of minimization in the form of multi-line string
-    std::string reportResults(const RootMinimizerAdapter *minimizer) const;
+    static std::string reportResults(const RootMinimizerAdapter* minimizer);
 
     //! Reports fit parameters settings and final results
-    std::string reportResults(const FitParameterSet *parameters) const;
+    static std::string reportResults(const FitParameterSet* parameters);
 
 private:
-    std::string reportDescription(const RootMinimizerAdapter *minimizer) const;
-    std::string reportOption(const RootMinimizerAdapter *minimizer) const;
-    std::string reportStatus(const RootMinimizerAdapter *minimizer) const;
+    static std::string reportDescription(const RootMinimizerAdapter* minimizer);
+    static std::string reportOption(const RootMinimizerAdapter* minimizer);
+    static std::string reportStatus(const RootMinimizerAdapter* minimizer);
 };
 
-template <typename T>
-std::string to_string_with_precision(const T a_value, int precision = 10, int width = 0)
-{
-    std::ostringstream out;
-    if(width != 0)
-        out << std::setw(14) << std::left;
-
-    out << std::setprecision(precision) << a_value;
-    return out.str();
-}
-
-template <typename T>
-std::string to_string_scientific(const T a_value, int n = 10)
-{
-    std::ostringstream out;
-    out << std::scientific << std::setprecision(n) << a_value;
-    return out.str();
-}
-
 #endif // MINIMIZERRESULTSHELPER_H
-

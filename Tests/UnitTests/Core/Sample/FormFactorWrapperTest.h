@@ -17,9 +17,9 @@ TEST_F(FormFactorWrapperTest, RelAbundance)
     const double epsilon=1e-12;
     auto p_ff = new FormFactorTrivial();
     FormFactorWrapper ffw(p_ff, 1.0);
-    EXPECT_EQ(1.0, ffw.getRelativeAbundance());
+    EXPECT_EQ(1.0, ffw.relativeAbundance());
     ffw.scaleRelativeAbundance(2.0);
-    EXPECT_NEAR(0.5, ffw.getRelativeAbundance(), epsilon);
+    EXPECT_NEAR(0.5, ffw.relativeAbundance(), epsilon);
     EXPECT_THROW(ffw.scaleRelativeAbundance(0.0), Exceptions::LogicErrorException);
 }
 

@@ -24,6 +24,16 @@ FormFactorWrapper* FormFactorWrapper::clone() const
     return new FormFactorWrapper(mp_ff->clone(), m_abundance);
 }
 
+IFormFactor *FormFactorWrapper::formfactor()
+{
+    return mp_ff;
+}
+
+const IFormFactor *FormFactorWrapper::formfactor() const
+{
+    return mp_ff;
+}
+
 void FormFactorWrapper::scaleRelativeAbundance(double total_abundance)
 {
     if (total_abundance>0.0) {

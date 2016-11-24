@@ -52,7 +52,7 @@ void IInterferenceFunctionStrategy::init(
 
     m_total_abundance = 0;
     for (const auto ffw: m_formfactor_wrappers)
-        m_total_abundance += ffw->getRelativeAbundance();
+        m_total_abundance += ffw->relativeAbundance();
 
     if (&specular_info != mP_specular_info.get())
         mP_specular_info.reset(specular_info.clone());
@@ -107,8 +107,8 @@ void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
     for (auto ffw: m_formfactor_wrappers) {
-        ffw->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        complex_t ff_mat = ffw->mp_ff->evaluate(wavevectors);
+        ffw->formfactor()->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+        complex_t ff_mat = ffw->formfactor()->evaluate(wavevectors);
         m_precomputed_ff1.push_back(wavevector_scattering_factor*ff_mat);
     }
 }
@@ -128,8 +128,8 @@ void IInterferenceFunctionStrategy2::precomputeParticleFormfactors(
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
         mP_specular_info->getOutCoefficients(sim_element));
     for (auto ffw: m_formfactor_wrappers) {
-        ffw->mp_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        Eigen::Matrix2cd ff_mat = ffw->mp_ff->evaluatePol(wavevectors);
+        ffw->formfactor()->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
+        Eigen::Matrix2cd ff_mat = ffw->formfactor()->evaluatePol(wavevectors);
         m_precomputed_ff2.push_back(wavevector_scattering_factor*ff_mat);
     }
 }

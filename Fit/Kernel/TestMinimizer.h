@@ -19,9 +19,8 @@
 #include "IMinimizer.h"
 class FitParameterSet;
 
+//! A trivial minimizer that calls the objective function once. Used to test the whole chain.
 //! @class TestMinimizer
-//! @ingroup fitting_internal
-//! @brief Minimizer which calls minimization function once to test whole chain.
 
 class BA_CORE_API_ TestMinimizer : public IMinimizer
 {
@@ -29,7 +28,8 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
     TestMinimizer() : m_min_value(0) {}
     ~TestMinimizer(){}
 
-    virtual std::string minimizerName() const override;
+    std::string minimizerName() const final;
+    std::string algorithmName() const final { return ""; };
 
     void minimize() override;
 

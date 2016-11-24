@@ -41,6 +41,7 @@ public:
 
     virtual HomogeneousMaterial* clone() const {
         return new HomogeneousMaterial(getName(), getRefractiveIndex()); }
+    virtual HomogeneousMaterial* cloneInverted() const { return clone(); }
 
     virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
     void setRefractiveIndex(const complex_t refractive_index) {

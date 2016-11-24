@@ -68,10 +68,6 @@ public:
     //! Sets z-component in cartesian coordinate system.
     void setZ(const T&a) { v_[2] = a; }
 
-    //! Sets components in cartesian coordinate system.
-    void setXYZ(const T&x1, const T&y1, const T&z1)
-    { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
-
     // -------------------------------------------------------------------------
     // In-place operations
     // -------------------------------------------------------------------------

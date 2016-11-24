@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#include "Exceptions.h"
 #include "ParameterPool.h"
+#include "Exceptions.h"
 #include "RealLimits.h"
 #include "RealParameter.h"
 #include "StringUtils.h"
@@ -118,7 +118,7 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::strin
     std::vector<RealParameter*> selected_parameters;
     // loop over all parameters in the pool
     for (auto* par: m_params)
-        if( Utils::String::matchesPattern( par->getName(), pattern ) )
+        if( StringUtils::matchesPattern( par->getName(), pattern ) )
             selected_parameters.push_back(par);
     if( selected_parameters.empty() )
         report_find_matched_parameters_error(pattern);
@@ -167,6 +167,8 @@ int ParameterPool::setMatchedParametersValue(const std::string& pattern, double 
             report_set_value_error(par->getName(), value);
         }
     }
+    if(npars == 0)
+        report_find_matched_parameters_error(pattern);
     return npars;
 }
 
@@ -204,16 +206,6 @@ void ParameterPool::print(std::ostream& ostr) const
     } else {
         ostr << "POOL_0";
     }
-}
-
-std::string ParameterPool::get_error_message(const std::string& criteria) const
-{
-    std::ostringstream ostr;
-    ostr << "No parameters satisfying  criteria '" << criteria
-       << "' have been found. Existing keys are:\n";
-    for (const auto* par: m_params)
-        ostr << "'" << par->getName() << "'\n";
-    return ostr.str();
 }
 
 //! reports error while finding parameters matching given name.

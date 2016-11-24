@@ -91,4 +91,4 @@ size_t RegionOfInterest::ycoord(size_t index, const std::vector<size_t> &dims) c
     return index % dims[1];
 }
 
-#endif
+#endif // REGIONOFINTEREST_H

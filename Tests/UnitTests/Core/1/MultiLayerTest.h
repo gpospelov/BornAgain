@@ -1,16 +1,15 @@
 #ifndef MULTILAYERTEST_H
 #define MULTILAYERTEST_H
 
-#include "MultiLayer.h"
 #include "BornAgainNamespace.h"
+#include "HomogeneousMagneticMaterial.h"
 #include "Layer.h"
-#include "HomogeneousMaterial.h"
-#include "Materials.h"
-#include "MathConstants.h"
-#include "ParticleLayout.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MathConstants.h"
+#include "MultiLayer.h"
+#include "ParticleLayout.h"
 
 class MultiLayerTest : public ::testing::Test
 {

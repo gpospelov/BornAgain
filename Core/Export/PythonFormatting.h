@@ -28,6 +28,8 @@ class IDistribution1D;
 class IParameterized;
 class RealParameter;
 
+//! Utility functions for writing Python code snippets.
+
 namespace PythonFormatting {
     BA_CORE_API_ std::string simulationToPython(GISASSimulation* simulation);
 

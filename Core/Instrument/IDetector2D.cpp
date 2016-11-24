@@ -79,7 +79,7 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
     if (mP_detector_resolution)
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
     else
-        msglog(MSG::WARNING) << "IDetector2D::applyDetectorResolution() -> "
+        msglog(Logging::WARNING) << "IDetector2D::applyDetectorResolution() -> "
                                 "No detector resolution function found";
 }
 

@@ -168,6 +168,6 @@ void FitSuiteImpl::link_fit_parameters()
                 "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
         linkedPar->addMatchedParametersFromPool(pool.get());
     }
-    msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
-    msglog(MSG::DEBUG2) << *pool;
+    msglog(Logging::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
+    msglog(Logging::DEBUG2) << *pool;
 }

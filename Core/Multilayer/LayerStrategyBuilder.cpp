@@ -100,6 +100,7 @@ SafePointerVector<class FormFactorWrapper> LayerStrategyBuilder::collectFormFact
         FormFactorWrapper* p_weighted_ff;
         p_weighted_ff = createFormFactorWrapper(particle, p_layer_material);
         p_weighted_ff->scaleRelativeAbundance(total_abundance);
+        p_weighted_ff->setSpecularInfo(*mP_specular_info);
         result.push_back(p_weighted_ff);
     }
     return result;

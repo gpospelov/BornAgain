@@ -15,6 +15,7 @@
 
 #include "FormFactorWrapper.h"
 #include "IFormFactor.h"
+#include "LayerSpecularInfo.h"
 #include "Exceptions.h"
 
 FormFactorWrapper::FormFactorWrapper(IFormFactor *ff, double abundance)
@@ -37,6 +38,11 @@ IFormFactor *FormFactorWrapper::formfactor()
 const IFormFactor *FormFactorWrapper::formfactor() const
 {
     return mP_ff.get();
+}
+
+void FormFactorWrapper::setSpecularInfo(const LayerSpecularInfo &specular_info)
+{
+    mP_specular_info.reset(specular_info.clone());
 }
 
 void FormFactorWrapper::scaleRelativeAbundance(double total_abundance)

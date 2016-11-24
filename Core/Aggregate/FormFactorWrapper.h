@@ -20,6 +20,7 @@
 #include <memory>
 
 class IFormFactor;
+class LayerSpecularInfo;
 
 //! Information about particle form factor and abundance.
 //! @ingroup formfactors_internal
@@ -32,11 +33,13 @@ public:
     virtual FormFactorWrapper* clone() const;
     IFormFactor* formfactor();
     const IFormFactor* formfactor() const;
+    void setSpecularInfo(const LayerSpecularInfo& specular_info);
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);
     double radialExtension() const;
 private:
     std::unique_ptr<IFormFactor> mP_ff;
+    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     double m_abundance;
 };
 

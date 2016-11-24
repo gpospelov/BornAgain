@@ -23,4 +23,13 @@ TEST_F(FormFactorWrapperTest, RelAbundance)
     EXPECT_THROW(ffw.scaleRelativeAbundance(0.0), Exceptions::LogicErrorException);
 }
 
+TEST_F(FormFactorWrapperTest, FormFactor)
+{
+    auto p_ff = new FormFactorTrivial();
+    FormFactorWrapper ffw(p_ff, 1.0);
+    EXPECT_EQ(0.0, ffw.formfactor()->getRadialExtension());
+    ffw.scaleRelativeAbundance(2.0);
+    EXPECT_EQ(0.0, ffw.formfactor()->getRadialExtension());
+}
+
 #endif // FORMFACTORWRAPPERTEST_H

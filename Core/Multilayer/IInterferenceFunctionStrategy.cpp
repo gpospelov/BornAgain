@@ -42,8 +42,7 @@ IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 //! Initializes the object with form factors and interference functions
 void IInterferenceFunctionStrategy::init(
     const SafePointerVector<FormFactorWrapper>& weighted_formfactors,
-    const IInterferenceFunction& iff,
-    const LayerSpecularInfo& specular_info)
+    const IInterferenceFunction& iff)
 {
     if (weighted_formfactors.size()==0)
         throw Exceptions::ClassInitializationException("Bug: Decorated layer has no formfactors.");
@@ -53,9 +52,6 @@ void IInterferenceFunctionStrategy::init(
     m_total_abundance = 0;
     for (const auto ffw: m_formfactor_wrappers)
         m_total_abundance += ffw->relativeAbundance();
-
-    if (&specular_info != mP_specular_info.get())
-        mP_specular_info.reset(specular_info.clone());
 
     strategy_specific_post_init();
 }

@@ -82,7 +82,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(ff_wrappers, *P_interference_function, *mP_specular_info);
+    p_result->init(ff_wrappers, *P_interference_function);
     return p_result;
 }
 

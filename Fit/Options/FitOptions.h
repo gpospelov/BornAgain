@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/FitOptions.h
+//! @file      Fit/Options/FitOptions.h
 //! @brief     Defines class FitOptions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -19,7 +19,6 @@
 #include "WinDllMacros.h"
 
 //! General fitting options.
-//! @class FitOptions
 
 class BA_CORE_API_ FitOptions
 {

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/IMinimizer.cpp
+//! @file      Fit/Minimizer/IMinimizer.cpp
 //! @brief     Implements class IMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,29 +15,9 @@
 
 #include "IMinimizer.h"
 
-void IMinimizer::minimize()
-{
-    throw std::runtime_error("IMinimizer::minimize() -> Not implemented.");
-}
-
-void IMinimizer::clear()
-{
-    throw std::runtime_error("IMinimizer::clear() -> Not implemented.");
-}
-
-void IMinimizer::setParameters(const FitParameterSet&)
-{
-    throw std::runtime_error("IMinimizer::setParameters() -> Not implemented.");
-}
-
 double IMinimizer::minValue() const
 {
     throw std::runtime_error("IMinimizer::minValue() -> Not implemented.");
-}
-
-std::string IMinimizer::reportResults() const
-{
-    throw std::runtime_error("IMinimizer::reportResults() -> Not implemented.");
 }
 
 void IMinimizer::propagateResults(FitParameterSet&)

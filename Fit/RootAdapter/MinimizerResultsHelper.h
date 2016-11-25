@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/MinimizerResultsHelper.h
+//! @file      Fit/RootAdapter/MinimizerResultsHelper.h
 //! @brief     Declares class MinimizerResultsHelper.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -30,10 +30,10 @@ public:
     MinimizerResultsHelper() {}
 
     //! Reports results of minimization in the form of multi-line string
-    static std::string reportResults(const RootMinimizerAdapter* minimizer);
+    static std::string reportOutcome(const RootMinimizerAdapter* minimizer);
 
     //! Reports fit parameters settings and final results
-    static std::string reportResults(const FitParameterSet* parameters);
+    static std::string reportParameters(const FitParameterSet* parameters);
 
 private:
     static std::string reportDescription(const RootMinimizerAdapter* minimizer);

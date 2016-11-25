@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/MinimizerResultsHelper.cpp
+//! @file      Fit/RootAdapter/MinimizerResultsHelper.cpp
 //! @brief     Implements class MinimizerResultsHelper.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -37,7 +37,7 @@ namespace {
 } // namespace
 
 
-std::string MinimizerResultsHelper::reportResults(const RootMinimizerAdapter* minimizer)
+std::string MinimizerResultsHelper::reportOutcome(const RootMinimizerAdapter* minimizer)
 {
     std::ostringstream result;
 
@@ -49,7 +49,7 @@ std::string MinimizerResultsHelper::reportResults(const RootMinimizerAdapter* mi
     return result.str();
 }
 
-std::string MinimizerResultsHelper::reportResults(const FitParameterSet* parameters)
+std::string MinimizerResultsHelper::reportParameters(const FitParameterSet* parameters)
 {
     std::ostringstream result;
 
@@ -95,7 +95,7 @@ std::string MinimizerResultsHelper::reportDescription(const RootMinimizerAdapter
 std::string MinimizerResultsHelper::reportOption(const RootMinimizerAdapter* minimizer)
 {
     if(minimizer->options().size() == 0)
-        return std::string();
+        return "";
 
     std::ostringstream result;
     result << MinimizerUtils::sectionString("Options");

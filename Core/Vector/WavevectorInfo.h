@@ -18,6 +18,8 @@
 
 #include "Vectors3D.h"
 
+class Transform3D;
+
 //! Holds all wavevector information relevant for calculating form factors.
 //! @ingroup formfactors_internal
 
@@ -32,6 +34,7 @@ public:
         , m_kf(kf.complex())
         , m_wavelength(wavelength) {}
 
+    WavevectorInfo transformed(const Transform3D& transform) const;
     cvector_t getKi() const { return m_ki; }
     cvector_t getKf() const { return m_kf; }
     cvector_t getQ() const { return m_ki - m_kf; }

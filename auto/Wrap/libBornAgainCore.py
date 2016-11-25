@@ -2788,6 +2788,11 @@ class WavevectorInfo(_object):
         except Exception:
             self.this = this
 
+    def transformed(self, transform):
+        """transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo"""
+        return _libBornAgainCore.WavevectorInfo_transformed(self, transform)
+
+
     def getKi(self):
         """
         getKi(WavevectorInfo self) -> cvector_t

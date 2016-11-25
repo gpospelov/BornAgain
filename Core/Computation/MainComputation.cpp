@@ -14,11 +14,8 @@
 // ************************************************************************** //
 
 #include "MainComputation.h"
-#include "BornAgainNamespace.h"
 #include "DecoratedLayerComputation.h"
 #include "Layer.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
 #include "LayerSpecularInfo.h"
 #include "Logger.h"
 #include "MatrixSpecularInfoMap.h"
@@ -30,10 +27,7 @@
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 #include "SpecularMatrix.h"
-
-#include <algorithm>
-#include <iterator>
-#include <iostream>
+#include <iterator> // needed for back_inserter
 
 MainComputation::MainComputation(
     const MultiLayer* p_multi_layer,

@@ -30,7 +30,9 @@ FormFactorWrapper::~FormFactorWrapper() {}
 
 FormFactorWrapper* FormFactorWrapper::clone() const
 {
-    return new FormFactorWrapper(mP_ff->clone(), m_abundance);
+    auto clone = new FormFactorWrapper(mP_ff->clone(), m_abundance);
+    clone->setSpecularInfo(*mP_specular_info);
+    return clone;
 }
 
 complex_t FormFactorWrapper::evaluate(const SimulationElement &sim_element) const

@@ -97,19 +97,8 @@ void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
     const SimulationElement& sim_element) const
 {
     m_precomputed_ff1.clear();
-
-    double wavelength = sim_element.getWavelength();
-    double wavevector_scattering_factor = M_PI/wavelength/wavelength;
-    WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
-
-    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(sim_element));
-    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element));
     for (auto ffw: m_formfactor_wrappers) {
-        ffw->formfactor()->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        complex_t ff_mat = ffw->formfactor()->evaluate(wavevectors);
-        m_precomputed_ff1.push_back(wavevector_scattering_factor*ff_mat);
+        m_precomputed_ff1.push_back(ffw->evaluate(sim_element));
     }
 }
 
@@ -118,18 +107,7 @@ void IInterferenceFunctionStrategy2::precomputeParticleFormfactors(
     const SimulationElement& sim_element) const
 {
     m_precomputed_ff2.clear();
-
-    double wavelength = sim_element.getWavelength();
-    double wavevector_scattering_factor = M_PI/wavelength/wavelength;
-    WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
-
-    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(sim_element));
-    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element));
     for (auto ffw: m_formfactor_wrappers) {
-        ffw->formfactor()->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-        Eigen::Matrix2cd ff_mat = ffw->formfactor()->evaluatePol(wavevectors);
-        m_precomputed_ff2.push_back(wavevector_scattering_factor*ff_mat);
+        m_precomputed_ff2.push_back(ffw->evaluatePol(sim_element));
     }
 }

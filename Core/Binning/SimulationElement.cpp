@@ -49,9 +49,7 @@ SimulationElement::SimulationElement(SimulationElement &&other) noexcept
     , mP_pixel_map(std::move(other.mP_pixel_map))
     , m_contains_specular(other.m_contains_specular)
 {
-
 }
-
 
 SimulationElement::~SimulationElement() {}
 
@@ -73,24 +71,24 @@ SimulationElement::SimulationElement(const SimulationElement &other, double x, d
     m_analyzer_operator = other.m_analyzer_operator;
 }
 
-kvector_t SimulationElement::getKI() const
+kvector_t SimulationElement::getKi() const
 {
     return vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
 }
 
-kvector_t SimulationElement::getMeanKF() const
+kvector_t SimulationElement::getMeanKf() const
 {
     return mP_pixel_map->getK(0.5, 0.5, m_wavelength);
 }
 
 kvector_t SimulationElement::getMeanQ() const
 {
-    return getKI() - getMeanKF();
+    return getKi() - getMeanKf();
 }
 
 kvector_t SimulationElement::getQ(double x, double y) const
 {
-    return getKI() - mP_pixel_map->getK(x, y, m_wavelength);
+    return getKi() - mP_pixel_map->getK(x, y, m_wavelength);
 }
 
 void SimulationElement::swapContent(SimulationElement &other)
@@ -113,12 +111,12 @@ void SimulationElement::initPolarization()
 
 double SimulationElement::getAlpha(double x, double y) const
 {
-    return M_PI_2 - getK(x,y).theta();
+    return M_PI_2 - getKf(x,y).theta();
 }
 
 double SimulationElement::getPhi(double x, double y) const
 {
-    return getK(x,y).phi();
+    return getKf(x,y).phi();
 }
 
 bool SimulationElement::containsSpecularWavevector() const
@@ -131,7 +129,7 @@ void SimulationElement::setSpecular(bool contains_specular)
     m_contains_specular = contains_specular;
 }
 
-kvector_t SimulationElement::getK(double x, double y) const {
+kvector_t SimulationElement::getKf(double x, double y) const {
     return mP_pixel_map->getK(x, y, m_wavelength);
 }
 

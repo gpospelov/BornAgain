@@ -27,6 +27,11 @@ namespace YAML {
 
 //! A functional test that runs a Python script and compares its output with a reference.
 //!   Invoked from RunPyPersistenceTest.
+//!   Output and reference directories will be determined from environment variables
+//!     PYPERSIST_OUT_DIR and PYPERSIST_REF_DIR set by CMake.
+//!   Output and reference file names are obtained by globbing the directories;
+//!     the stem must be the script name; the extension is arbitrary.
+//!   One script may generate several output files, which must have different extensions.
 
 class PyPersistenceTest : public IReferencedTest
 {

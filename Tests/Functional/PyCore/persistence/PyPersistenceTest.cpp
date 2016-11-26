@@ -69,7 +69,7 @@ bool PyPersistenceTest::runTest()
     return true;
 }
 
-//! Globs for files of form *.<key1>.<key2>[.*], and returns a map with keys of the form
+//! Globs for files of form <stem>.<key1>.<key2>[.*], and returns a map with keys of the form
 //! <key1>.<key2>, and values containing full file paths.
 std::map<const std::string, const std::string>
 PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)

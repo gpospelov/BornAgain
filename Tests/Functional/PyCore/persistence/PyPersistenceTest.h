@@ -25,9 +25,7 @@ namespace YAML {
     class Node;
 }
 
-//! @class PyPersistenceTest
-//! @ingroup standard_samples
-//! @brief A functional test that runs a Python script and compares its output with a reference.
+//! A functional test that runs a Python script and compares its output with a reference.
 //!   Invoked from RunPyPersistenceTest.
 
 class PyPersistenceTest : public IReferencedTest

@@ -71,12 +71,22 @@ lppt("simulation/ex05_BeamAndDetector/SpecularSimulation" 2e-10)
 lppt("simulation/ex06_Miscellaneous/AxesInDifferentUnits" 2e-10)
 lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
-# ppt = python persistence test:
-function(ppt script wrapped_dir wrapped_name tolerance)
+# gppt = generic python persistence test:
+function(gppt script wrapped_dir wrapped_name tolerance)
     configure_file(${PY_EXAMPLES_DIR}/${wrapped_dir}/${wrapped_name}.py
         ${CMAKE_BINARY_DIR}/lib/bornagain/${wrapped_name}.py COPYONLY)
     add_test(PyPersistenceTest/${script} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
         ${CMAKE_CURRENT_SOURCE_DIR}/${script}.py ${script} ${tolerance})
 endfunction()
 
-ppt("ex02_BuriedParticles" "simulation/ex02_LayeredStructures" "BuriedParticles" 2e-10)
+# sppt = standard python persistence test:
+function(sppt script wrapped_dir wrapped_name tolerance)
+    configure_file(${PY_EXAMPLES_DIR}/${wrapped_dir}/${wrapped_name}.py
+        ${CMAKE_BINARY_DIR}/lib/bornagain/${wrapped_name}.py COPYONLY)
+    set(WRAPPED_MODULE ${wrapped_name})
+    configure_file(standard_test.py.in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${script}.py @ONLY)
+    add_test(PyPersistenceTest/${script} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${script}.py ${script} ${tolerance})
+endfunction()
+
+sppt("ex02_BuriedParticles" "simulation/ex02_LayeredStructures" "BuriedParticles" 2e-10)

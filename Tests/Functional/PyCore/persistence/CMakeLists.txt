@@ -50,7 +50,7 @@ set(PY_EXAMPLES
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
-	add_definitions(-DYAML_CPP_DLL)
+    add_definitions(-DYAML_CPP_DLL)
 endif()
 
 include_directories(

@@ -18,7 +18,7 @@
 #include <iostream>
 #include <cstdlib>
 
-//! Compares two intensity maps, and returns true unless they disagree beyond thier variability.
+//! Compares two intensity maps, and returns true unless they disagree beyond their variability.
 bool IReferencedTest::compareIntensityMaps(
     const OutputData<double>& dat, const OutputData<double>& ref)
 {

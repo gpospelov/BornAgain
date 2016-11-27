@@ -5,10 +5,6 @@ import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
-phi_min, phi_max = -1.0, 1.0
-alpha_min, alpha_max = 0.0, 2.0
-
-
 def get_sample():
     """
     Returns a sample with spherical particles in an layer between air and substrate.
@@ -45,13 +41,13 @@ def get_simulation():
     """
     simulation = ba.GISASSimulation()
     simulation.setSample(get_sample())
-    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
-                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(200, -1*deg, +1*deg, 200, 0*deg, +2*deg)
     simulation.setBeamParameters(1.5*angstrom, 0.15*deg, 0.0*deg)
     return simulation
 
 
 if __name__ == '__main__':
     simulation = get_simulation()
-    result = simulation.runSimulation()
+    simulation.runSimulation()
+    result = simulation.getIntensityData()
     ba.plot_intensity_data(result)

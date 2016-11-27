@@ -36,7 +36,7 @@ namespace YAML {
 class PyPersistenceTest : public IReferencedTest
 {
 public:
-    PyPersistenceTest(const std::string& directory, const std::string& name);
+    PyPersistenceTest(const std::string& directory, const std::string& name, double threshold);
     ~PyPersistenceTest() final {}
 
     bool runTest() final;
@@ -50,10 +50,10 @@ private:
     bool compareFileMaps(
         const std::map<const std::string, const std::string>& dat,
         const std::map<const std::string, const std::string>& ref);
-    static bool compareFilePair(
-        const std::string& dat_fname, const std::string& ref_fname);
-    static bool compareIntensityPair(
-        const std::string& dat_fname, const std::string& ref_fname);
+    bool compareFilePair(
+        const std::string& dat_fname, const std::string& ref_fname) const;
+    bool compareIntensityPair(
+        const std::string& dat_fname, const std::string& ref_fname) const;
     static bool compareYamlPair(
         const std::string& dat_fname, const std::string& ref_fname);
     static bool compareYamlNode(

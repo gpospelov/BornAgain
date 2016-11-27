@@ -15244,16 +15244,6 @@ class SimulationOptions(_object):
         return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
 
 
-    def getDefaultVariability(self):
-        """
-        getDefaultVariability(SimulationOptions self) -> double
-
-        double SimulationOptions::getDefaultVariability() const
-
-        """
-        return _libBornAgainCore.SimulationOptions_getDefaultVariability(self)
-
-
     def setIncludeSpecular(self, include_specular):
         """
         setIncludeSpecular(SimulationOptions self, bool include_specular)
@@ -21596,26 +21586,6 @@ class IntensityData(_object):
 
         """
         return _libBornAgainCore.IntensityData_end(self, *args)
-
-
-    def setVariability(self, variability):
-        """
-        setVariability(IntensityData self, double variability)
-
-        void OutputData< T >::setVariability(double variability)
-
-        """
-        return _libBornAgainCore.IntensityData_setVariability(self, variability)
-
-
-    def getVariability(self):
-        """
-        getVariability(IntensityData self) -> double
-
-        double OutputData< T >::getVariability() const
-
-        """
-        return _libBornAgainCore.IntensityData_getVariability(self)
 
 
     def getAxesBinIndices(self, global_index):

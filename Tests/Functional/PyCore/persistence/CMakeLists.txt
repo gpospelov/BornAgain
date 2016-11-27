@@ -44,7 +44,6 @@ lppt("simulation/ex01_BasicParticles/CylindersInDWBA" 2e-10)
 lppt("simulation/ex01_BasicParticles/CylindersWithSizeDistribution" 2e-10)
 lppt("simulation/ex01_BasicParticles/RotatedPyramids" 2e-10)
 lppt("simulation/ex01_BasicParticles/TwoTypesOfCylindersWithSizeDistribution" 2e-10)
-lppt("simulation/ex02_LayeredStructures/BuriedParticles" 2e-10)
 lppt("simulation/ex02_LayeredStructures/CorrelatedRoughness" 2e-10)
 lppt("simulation/ex03_InterferenceFunctions/ApproximationDA" 2e-10)
 lppt("simulation/ex03_InterferenceFunctions/ApproximationLMA" 2e-10)
@@ -72,14 +71,12 @@ lppt("simulation/ex05_BeamAndDetector/SpecularSimulation" 2e-10)
 lppt("simulation/ex06_Miscellaneous/AxesInDifferentUnits" 2e-10)
 lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
-
-SET(PYTHON_INCLUDE_PATH
-    "${PYTHON_INCLUDE_PATH} ${PY_EXAMPLESDIR}/simulation/ex02_LayeredStructures")
-
 # ppt = python persistence test:
-function(ppt script tolerance)
+function(ppt script wrapped_dir wrapped_name tolerance)
+    configure_file(${PY_EXAMPLES_DIR}/${wrapped_dir}/${wrapped_name}.py
+        ${CMAKE_BINARY_DIR}/lib/bornagain/${wrapped_name}.py COPYONLY)
     add_test(PyPersistenceTest/${script} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
         ${CMAKE_CURRENT_SOURCE_DIR}/${script}.py ${script} ${tolerance})
 endfunction()
 
-ppt("ex02_BuriedParticles" 2e-10)
+ppt("ex02_BuriedParticles" "simulation/ex02_LayeredStructures" "BuriedParticles" 2e-10)

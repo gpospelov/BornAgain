@@ -72,6 +72,10 @@ lppt("simulation/ex05_BeamAndDetector/SpecularSimulation" 2e-10)
 lppt("simulation/ex06_Miscellaneous/AxesInDifferentUnits" 2e-10)
 lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
+
+SET(PYTHON_INCLUDE_PATH
+    "${PYTHON_INCLUDE_PATH} ${PY_EXAMPLESDIR}/simulation/ex02_LayeredStructures")
+
 # ppt = python persistence test:
 function(ppt script tolerance)
     add_test(PyPersistenceTest/${script} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest

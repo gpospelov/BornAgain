@@ -152,7 +152,6 @@ def plot_intensity_data(intensity_data, plot=standardIntensityPlot, save=standar
     import sys
     if len(sys.argv) <= 1:
         plot(intensity_data)
-
     else:
         filename = sys.argv[1]
         # save result

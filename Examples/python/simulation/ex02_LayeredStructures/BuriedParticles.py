@@ -41,26 +41,17 @@ def get_sample():
 
 def get_simulation():
     """
-    Returns a GISAXS simulation with beam and detector defined.
+    Returns a GISAXS simulation.
     """
     simulation = ba.GISASSimulation()
+    simulation.setSample(get_sample())
     simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
                                      200, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.5*angstrom, 0.15*deg, 0.0*deg)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    return simulation.getIntensityData()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
+    simulation = get_simulation()
+    result = simulation.runSimulation()
     ba.plot_intensity_data(result)

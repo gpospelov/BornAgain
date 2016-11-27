@@ -1,5 +1,11 @@
+"""
+Turns a Python example into a functional persistence test.
+The example name is given by the environment variable WRAPPED_MODULE.
+CMakeLists.txt turns this template into an example-specific script.
+"""
+
 import bornagain as ba
-from bornagain.BuriedParticles import *
+from bornagain.@WRAPPED_MODULE@ import *
 
 def test_simulation():
     """

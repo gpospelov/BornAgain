@@ -56,7 +56,7 @@ public:
     virtual ~IInterferenceFunctionStrategy();
 
     void init(const SafePointerVector<FormFactorWrapper>& weighted_formfactors,
-              const IInterferenceFunction& iff, const LayerSpecularInfo& specular_info);
+              const IInterferenceFunction& iff);
 
     //! Calculates the intensity for scalar particles/interactions
     double evaluate(const SimulationElement& sim_element) const;
@@ -72,7 +72,6 @@ protected:
     SafePointerVector<FormFactorWrapper> m_formfactor_wrappers;
     std::unique_ptr<IInterferenceFunction> mP_iff;
     SimulationOptions m_options;
-    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 
 private:
     double MCIntegratedEvaluate(const SimulationElement& sim_element) const;

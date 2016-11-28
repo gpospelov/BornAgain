@@ -63,16 +63,6 @@ Eigen::Matrix2cd FormFactorWrapper::evaluatePol(const SimulationElement &sim_ele
     return wavevector_scattering_factor*mP_ff->evaluatePol(wavevectors);
 }
 
-IFormFactor *FormFactorWrapper::formfactor()
-{
-    return mP_ff.get();
-}
-
-const IFormFactor *FormFactorWrapper::formfactor() const
-{
-    return mP_ff.get();
-}
-
 void FormFactorWrapper::setSpecularInfo(const LayerSpecularInfo &specular_info)
 {
     mP_specular_info.reset(specular_info.clone());

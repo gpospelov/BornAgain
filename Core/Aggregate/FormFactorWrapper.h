@@ -40,8 +40,6 @@ public:
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    IFormFactor* formfactor();
-    const IFormFactor* formfactor() const;
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);

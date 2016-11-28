@@ -117,14 +117,6 @@ double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
     return getLayout(layout_index)->getTotalParticleSurfaceDensity();
 }
 
-double Layer::getTotalAbundance() const
-{
-    double total_abundance = 0.0;
-    for (size_t i=0; i<getNumberOfLayouts(); ++i)
-        total_abundance += getLayout(i)->getTotalAbundance();
-    return total_abundance;
-}
-
 void Layer::init_parameters()
 {
     getParameterPool()->clear(); // non-trivially needed

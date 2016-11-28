@@ -93,13 +93,13 @@ SafePointerVector<class FormFactorWrapper> LayerStrategyBuilder::collectFormFact
     SafePointerVector<class FormFactorWrapper> result;
     const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial* p_layer_material = mP_layer->getMaterial();
-    double total_abundance = mP_layer->getTotalAbundance();
-    if (total_abundance<=0.0) // TODO: why this can happen? why not throw error?
-        total_abundance = 1.0;
+    double layout_abundance = p_layout->getTotalAbundance();
+    if (layout_abundance<=0.0) // TODO: why this can happen? why not throw error?
+        layout_abundance = 1.0;
     for (const IParticle* particle: p_layout->getParticles()) {
         FormFactorWrapper* p_weighted_ff;
         p_weighted_ff = createFormFactorWrapper(particle, p_layer_material);
-        p_weighted_ff->m_abundance /= total_abundance;
+        p_weighted_ff->m_abundance /= layout_abundance;
         result.push_back(p_weighted_ff);
     }
     return result;

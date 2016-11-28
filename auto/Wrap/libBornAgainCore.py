@@ -20535,16 +20535,6 @@ class Layer(ICompositeSample):
         return _libBornAgainCore.Layer_getTotalParticleSurfaceDensity(self, layout_index)
 
 
-    def getTotalAbundance(self):
-        """
-        getTotalAbundance(Layer self) -> double
-
-        double Layer::getTotalAbundance() const 
-
-        """
-        return _libBornAgainCore.Layer_getTotalAbundance(self)
-
-
     def setNumberOfLayers(self, n_layers):
         """
         setNumberOfLayers(Layer self, size_t n_layers)

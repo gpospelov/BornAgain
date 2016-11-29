@@ -10,4 +10,4 @@ if(MSVC)
 endif()
 
 option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)
-add_subdirectory(gtest-1.7.0)
+add_subdirectory(gtest-1.8.0)

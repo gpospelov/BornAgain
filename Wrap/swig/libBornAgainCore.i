@@ -190,6 +190,7 @@
 #include "OutputData.h"
 #include "ParameterDistribution.h"
 #include "ParameterPool.h"
+#include "ParameterSample.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleCoreShell.h"
@@ -407,6 +408,8 @@
 %template(IntensityData) OutputData<double>;
 %include "ParameterDistribution.h"
 %include "ParameterPool.h"
+%include "ParameterSample.h"
+%template(ParameterSampleVector) std::vector<ParameterSample>;
 %include "Particle.h"
 %include "ParticleComposition.h"
 %include "ParticleCoreShell.h"

@@ -34,6 +34,8 @@ public:
     std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
             const std::string &parameter_name);
 
+    virtual double meanValue() const;
+
 protected:
     void initDistributionItem();
 

@@ -18,6 +18,7 @@
 #include "BeamDistributionItem.h"
 #include "BornAgainNamespace.h"
 #include "ScientificDoubleProperty.h"
+#include "BeamWavelengthItem.h"
 
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
@@ -51,13 +52,8 @@ void BeamItem::setIntensity(double value)
 
 double BeamItem::getWavelength() const
 {
-    SessionItem *beamWavelength = getItem(P_WAVELENGTH);
-    Q_ASSERT(beamWavelength);
-    SessionItem *distributionNoneValueItem =
-            beamWavelength->getGroupItem(BeamDistributionItem::P_DISTRIBUTION,
-                                         Constants::DistributionNoneType)
-            ->getItem(DistributionNoneItem::P_VALUE);
-    return distributionNoneValueItem->value().toDouble();
+    BeamWavelengthItem *beamWavelength = dynamic_cast<BeamWavelengthItem *>(getItem(P_WAVELENGTH));
+    return beamWavelength->meanValue();
 }
 
 void BeamItem::setWavelength(double value, const QString &distribution_name)

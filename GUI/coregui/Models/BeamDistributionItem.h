@@ -37,7 +37,7 @@ public:
 protected:
     void initDistributionItem();
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution1D();
+    virtual std::unique_ptr<IDistribution1D> createDistribution1D() const;
 };
 
 #endif // BEAMDISTRIBUTIONITEM_H

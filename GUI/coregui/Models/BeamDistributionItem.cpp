@@ -112,7 +112,7 @@ void BeamDistributionItem::initDistributionItem()
 
 }
 
-std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D()
+std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D() const
 {
     std::unique_ptr<IDistribution1D> P_distribution {};
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(

@@ -20,6 +20,8 @@ endif()
 
 set(libs BornAgainCore)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGTEST_LINKED_AS_SHARED_LIBRARY=1")
+
 ADD_GTEST(Core "Axes"        ${libs} 0)
 ADD_GTEST(Core "Sample"        ${libs} 0)
 ADD_GTEST(Core "Fresnel"        ${libs} 0)

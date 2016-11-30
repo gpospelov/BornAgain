@@ -7388,15 +7388,15 @@ class IDistribution1D(IParameterized):
 
     def equidistantSamples(self, *args):
         """
-        equidistantSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0., RealLimits limits) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
-        equidistantSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
-        equidistantSamples(IDistribution1D self, size_t nbr_samples) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
+        equidistantSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0., RealLimits limits) -> ParameterSampleVector
+        equidistantSamples(IDistribution1D self, size_t nbr_samples, double sigma_factor=0.) -> ParameterSampleVector
+        equidistantSamples(IDistribution1D self, size_t nbr_samples) -> ParameterSampleVector
         """
         return _libBornAgainCore.IDistribution1D_equidistantSamples(self, *args)
 
 
     def equidistantSamplesInRange(self, nbr_samples, xmin, xmax):
-        """equidistantSamplesInRange(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> std::vector< ParameterSample,std::allocator< ParameterSample > >"""
+        """equidistantSamplesInRange(IDistribution1D self, size_t nbr_samples, double xmin, double xmax) -> ParameterSampleVector"""
         return _libBornAgainCore.IDistribution1D_equidistantSamplesInRange(self, nbr_samples, xmin, xmax)
 
 
@@ -21927,7 +21927,7 @@ class ParameterDistribution(IParameterized):
 
     def generateSamples(self):
         """
-        generateSamples(ParameterDistribution self) -> std::vector< ParameterSample,std::allocator< ParameterSample > >
+        generateSamples(ParameterDistribution self) -> ParameterSampleVector
 
         std::vector< ParameterSample > ParameterDistribution::generateSamples() const
 
@@ -22180,6 +22180,265 @@ class ParameterPool(_object):
 
 ParameterPool_swigregister = _libBornAgainCore.ParameterPool_swigregister
 ParameterPool_swigregister(ParameterPool)
+
+class ParameterSample(_object):
+    """
+
+
+    Represents a sampled parameter value with its weight.
+
+    C++ includes: ParameterSample.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterSample, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ParameterSample, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, _value=0., _weight=1.):
+        """
+        __init__(ParameterSample self, double _value=0., double _weight=1.) -> ParameterSample
+        __init__(ParameterSample self, double _value=0.) -> ParameterSample
+        __init__(ParameterSample self) -> ParameterSample
+
+
+
+        Represents a sampled parameter value with its weight.
+
+        C++ includes: ParameterSample.h
+
+        """
+        this = _libBornAgainCore.new_ParameterSample(_value, _weight)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_setmethods__["value"] = _libBornAgainCore.ParameterSample_value_set
+    __swig_getmethods__["value"] = _libBornAgainCore.ParameterSample_value_get
+    if _newclass:
+        value = _swig_property(_libBornAgainCore.ParameterSample_value_get, _libBornAgainCore.ParameterSample_value_set)
+    __swig_setmethods__["weight"] = _libBornAgainCore.ParameterSample_weight_set
+    __swig_getmethods__["weight"] = _libBornAgainCore.ParameterSample_weight_get
+    if _newclass:
+        weight = _swig_property(_libBornAgainCore.ParameterSample_weight_get, _libBornAgainCore.ParameterSample_weight_set)
+    __swig_destroy__ = _libBornAgainCore.delete_ParameterSample
+    __del__ = lambda self: None
+ParameterSample_swigregister = _libBornAgainCore.ParameterSample_swigregister
+ParameterSample_swigregister(ParameterSample)
+
+class ParameterSampleVector(_object):
+    """Proxy of C++ std::vector<(ParameterSample)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterSampleVector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ParameterSampleVector, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        """iterator(ParameterSampleVector self) -> SwigPyIterator"""
+        return _libBornAgainCore.ParameterSampleVector_iterator(self)
+
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        """__nonzero__(ParameterSampleVector self) -> bool"""
+        return _libBornAgainCore.ParameterSampleVector___nonzero__(self)
+
+
+    def __bool__(self):
+        """__bool__(ParameterSampleVector self) -> bool"""
+        return _libBornAgainCore.ParameterSampleVector___bool__(self)
+
+
+    def __len__(self):
+        """__len__(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainCore.ParameterSampleVector___len__(self)
+
+
+    def __getslice__(self, i, j):
+        """__getslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j) -> ParameterSampleVector"""
+        return _libBornAgainCore.ParameterSampleVector___getslice__(self, i, j)
+
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)
+        __setslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j, ParameterSampleVector v)
+        """
+        return _libBornAgainCore.ParameterSampleVector___setslice__(self, *args)
+
+
+    def __delslice__(self, i, j):
+        """__delslice__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, std::vector< ParameterSample >::difference_type j)"""
+        return _libBornAgainCore.ParameterSampleVector___delslice__(self, i, j)
+
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i)
+        __delitem__(ParameterSampleVector self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.ParameterSampleVector___delitem__(self, *args)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(ParameterSampleVector self, PySliceObject * slice) -> ParameterSampleVector
+        __getitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i) -> ParameterSample
+        """
+        return _libBornAgainCore.ParameterSampleVector___getitem__(self, *args)
+
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(ParameterSampleVector self, PySliceObject * slice, ParameterSampleVector v)
+        __setitem__(ParameterSampleVector self, PySliceObject * slice)
+        __setitem__(ParameterSampleVector self, std::vector< ParameterSample >::difference_type i, ParameterSample x)
+        """
+        return _libBornAgainCore.ParameterSampleVector___setitem__(self, *args)
+
+
+    def pop(self):
+        """pop(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainCore.ParameterSampleVector_pop(self)
+
+
+    def append(self, x):
+        """append(ParameterSampleVector self, ParameterSample x)"""
+        return _libBornAgainCore.ParameterSampleVector_append(self, x)
+
+
+    def empty(self):
+        """empty(ParameterSampleVector self) -> bool"""
+        return _libBornAgainCore.ParameterSampleVector_empty(self)
+
+
+    def size(self):
+        """size(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainCore.ParameterSampleVector_size(self)
+
+
+    def swap(self, v):
+        """
+        swap(ParameterSampleVector self, ParameterSampleVector v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.ParameterSampleVector_swap(self, v)
+
+
+    def begin(self):
+        """begin(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"""
+        return _libBornAgainCore.ParameterSampleVector_begin(self)
+
+
+    def end(self):
+        """end(ParameterSampleVector self) -> std::vector< ParameterSample >::iterator"""
+        return _libBornAgainCore.ParameterSampleVector_end(self)
+
+
+    def rbegin(self):
+        """rbegin(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"""
+        return _libBornAgainCore.ParameterSampleVector_rbegin(self)
+
+
+    def rend(self):
+        """rend(ParameterSampleVector self) -> std::vector< ParameterSample >::reverse_iterator"""
+        return _libBornAgainCore.ParameterSampleVector_rend(self)
+
+
+    def clear(self):
+        """clear(ParameterSampleVector self)"""
+        return _libBornAgainCore.ParameterSampleVector_clear(self)
+
+
+    def get_allocator(self):
+        """get_allocator(ParameterSampleVector self) -> std::vector< ParameterSample >::allocator_type"""
+        return _libBornAgainCore.ParameterSampleVector_get_allocator(self)
+
+
+    def pop_back(self):
+        """pop_back(ParameterSampleVector self)"""
+        return _libBornAgainCore.ParameterSampleVector_pop_back(self)
+
+
+    def erase(self, *args):
+        """
+        erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos) -> std::vector< ParameterSample >::iterator
+        erase(ParameterSampleVector self, std::vector< ParameterSample >::iterator first, std::vector< ParameterSample >::iterator last) -> std::vector< ParameterSample >::iterator
+        """
+        return _libBornAgainCore.ParameterSampleVector_erase(self, *args)
+
+
+    def __init__(self, *args):
+        """
+        __init__(std::vector<(ParameterSample)> self) -> ParameterSampleVector
+        __init__(std::vector<(ParameterSample)> self, ParameterSampleVector arg2) -> ParameterSampleVector
+        __init__(std::vector<(ParameterSample)> self, std::vector< ParameterSample >::size_type size) -> ParameterSampleVector
+        __init__(std::vector<(ParameterSample)> self, std::vector< ParameterSample >::size_type size, ParameterSample value) -> ParameterSampleVector
+        """
+        this = _libBornAgainCore.new_ParameterSampleVector(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def push_back(self, x):
+        """push_back(ParameterSampleVector self, ParameterSample x)"""
+        return _libBornAgainCore.ParameterSampleVector_push_back(self, x)
+
+
+    def front(self):
+        """front(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainCore.ParameterSampleVector_front(self)
+
+
+    def back(self):
+        """back(ParameterSampleVector self) -> ParameterSample"""
+        return _libBornAgainCore.ParameterSampleVector_back(self)
+
+
+    def assign(self, n, x):
+        """assign(ParameterSampleVector self, std::vector< ParameterSample >::size_type n, ParameterSample x)"""
+        return _libBornAgainCore.ParameterSampleVector_assign(self, n, x)
+
+
+    def resize(self, *args):
+        """
+        resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size)
+        resize(ParameterSampleVector self, std::vector< ParameterSample >::size_type new_size, ParameterSample x)
+        """
+        return _libBornAgainCore.ParameterSampleVector_resize(self, *args)
+
+
+    def insert(self, *args):
+        """
+        insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, ParameterSample x) -> std::vector< ParameterSample >::iterator
+        insert(ParameterSampleVector self, std::vector< ParameterSample >::iterator pos, std::vector< ParameterSample >::size_type n, ParameterSample x)
+        """
+        return _libBornAgainCore.ParameterSampleVector_insert(self, *args)
+
+
+    def reserve(self, n):
+        """reserve(ParameterSampleVector self, std::vector< ParameterSample >::size_type n)"""
+        return _libBornAgainCore.ParameterSampleVector_reserve(self, n)
+
+
+    def capacity(self):
+        """capacity(ParameterSampleVector self) -> std::vector< ParameterSample >::size_type"""
+        return _libBornAgainCore.ParameterSampleVector_capacity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_ParameterSampleVector
+    __del__ = lambda self: None
+ParameterSampleVector_swigregister = _libBornAgainCore.ParameterSampleVector_swigregister
+ParameterSampleVector_swigregister(ParameterSampleVector)
 
 class Particle(IParticle):
     """

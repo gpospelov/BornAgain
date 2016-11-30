@@ -110,7 +110,7 @@ const QString DistributionLorentzItem::P_HWHM = "HWHM";
 DistributionLorentzItem::DistributionLorentzItem()
     : DistributionItem(Constants::DistributionLorentzType)
 {
-    addProperty(P_MEAN, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_MEAN, 1.0)->setLimits(RealLimits::limitless());
     addProperty(P_HWHM, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -141,7 +141,7 @@ const QString DistributionGaussianItem::P_STD_DEV = "Standard deviation";
 DistributionGaussianItem::DistributionGaussianItem()
     : DistributionItem(Constants::DistributionGaussianType)
 {
-    addProperty(P_MEAN, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_MEAN, 1.0)->setLimits(RealLimits::limitless());
     addProperty(P_STD_DEV, 1.0);
     register_number_of_samples();
     register_sigma_factor();
@@ -203,7 +203,7 @@ const QString DistributionCosineItem::P_SIGMA = "Sigma";
 DistributionCosineItem::DistributionCosineItem()
     : DistributionItem(Constants::DistributionCosineType)
 {
-    addProperty(P_MEAN, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_MEAN, 1.0)->setLimits(RealLimits::limitless());
     addProperty(P_SIGMA, 1.0);
     register_number_of_samples();
     register_sigma_factor();

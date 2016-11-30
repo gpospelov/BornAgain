@@ -19,7 +19,7 @@
 #include "BornAgainNamespace.h"
 #include "ScientificDoubleProperty.h"
 #include "BeamWavelengthItem.h"
-
+#include <QDebug>
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);

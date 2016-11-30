@@ -20,3 +20,10 @@ BeamWavelengthItem::BeamWavelengthItem()
     : BeamDistributionItem(Constants::BeamWavelengthType)
 {
 }
+
+//! Returns wavelength. In the case of distribution applied, returns its mean.
+
+double BeamWavelengthItem::wavelength() const
+{
+    return this->meanValue();
+}

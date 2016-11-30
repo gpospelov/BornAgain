@@ -31,6 +31,16 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
     value->setValue(0.2);
 }
 
+//! Returns beam inclination angle. In the case of distribution applied, returns its mean.
+
+double BeamInclinationAngleItem::inclinationAngle() const
+{
+    SessionItem *distributionNoneValueItem =
+            getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
+            ->getItem(DistributionNoneItem::P_VALUE);
+    return distributionNoneValueItem->value().toDouble();
+}
+
 std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D() const
 {
     std::unique_ptr<IDistribution1D> P_distribution {};
@@ -51,6 +61,16 @@ BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     value->setLimits(RealLimits::limited(-90.0, 90.0));
     value->setDecimals(3);
     value->setValue(0.0);
+}
+
+//! Returns beam azimuthal angle. In the case of distribution applied, returns its mean.
+
+double BeamAzimuthalAngleItem::azimuthalAngle() const
+{
+    SessionItem *distributionNoneValueItem =
+            getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
+            ->getItem(DistributionNoneItem::P_VALUE);
+    return distributionNoneValueItem->value().toDouble();
 }
 
 std::unique_ptr<IDistribution1D> BeamAzimuthalAngleItem::createDistribution1D() const

@@ -19,6 +19,7 @@
 #include "BornAgainNamespace.h"
 #include "ScientificDoubleProperty.h"
 #include "BeamWavelengthItem.h"
+#include "BeamAngleItems.h"
 #include <QDebug>
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
@@ -53,7 +54,7 @@ void BeamItem::setIntensity(double value)
 double BeamItem::getWavelength() const
 {
     BeamWavelengthItem *beamWavelength = dynamic_cast<BeamWavelengthItem *>(getItem(P_WAVELENGTH));
-    return beamWavelength->meanValue();
+    return beamWavelength->wavelength();
 }
 
 void BeamItem::setWavelength(double value, const QString &distribution_name)
@@ -69,12 +70,8 @@ void BeamItem::setWavelength(double value, const QString &distribution_name)
 
 double BeamItem::getInclinationAngle() const
 {
-    SessionItem *angleItem = getItem(P_INCLINATION_ANGLE);
-    Q_ASSERT(angleItem);
-    SessionItem *distributionNoneValueItem =
-            angleItem->getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
-            ->getItem(DistributionNoneItem::P_VALUE);
-    return distributionNoneValueItem->value().toDouble();
+    BeamInclinationAngleItem *inclination = dynamic_cast<BeamInclinationAngleItem *>(getItem(P_INCLINATION_ANGLE));
+    return inclination->inclinationAngle();
 }
 
 void BeamItem::setInclinationAngle(double value, const QString &distribution_name)
@@ -90,12 +87,8 @@ void BeamItem::setInclinationAngle(double value, const QString &distribution_nam
 
 double BeamItem::getAzimuthalAngle() const
 {
-    SessionItem *angleItem = getItem(P_AZIMUTHAL_ANGLE);
-    Q_ASSERT(angleItem);
-    SessionItem *distributionNoneValueItem =
-            angleItem->getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
-            ->getItem(DistributionNoneItem::P_VALUE);
-    return distributionNoneValueItem->value().toDouble();
+    BeamAzimuthalAngleItem *inclination = dynamic_cast<BeamAzimuthalAngleItem *>(getItem(P_AZIMUTHAL_ANGLE));
+    return inclination->azimuthalAngle();
 }
 
 void BeamItem::setAzimuthalAngle(double value, const QString &distribution_name)

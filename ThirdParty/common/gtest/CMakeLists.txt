@@ -6,7 +6,7 @@ if(POLICY CMP0042)
 endif()
 
 if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_VARIADIC_MAX=10 -WX:NO")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_VARIADIC_MAX=10 /WX:NO")
 endif()
 
 option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)

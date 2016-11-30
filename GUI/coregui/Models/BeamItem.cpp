@@ -74,6 +74,8 @@ double BeamItem::getInclinationAngle() const
     return inclination->inclinationAngle();
 }
 
+// TODO Move down to BeamAngleItem
+
 void BeamItem::setInclinationAngle(double value, const QString &distribution_name)
 {
     Q_UNUSED(distribution_name);

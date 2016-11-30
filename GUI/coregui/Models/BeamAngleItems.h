@@ -43,6 +43,8 @@ protected:
     virtual std::unique_ptr<IDistribution1D> createDistribution1D() const override;
 };
 
+// TODO Move to anonymous namespace
+
 class BA_CORE_API_ BeamAngleHelper
 {
 public:

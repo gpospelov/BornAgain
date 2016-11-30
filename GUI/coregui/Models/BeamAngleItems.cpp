@@ -35,10 +35,11 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
 
 double BeamInclinationAngleItem::inclinationAngle() const
 {
-    SessionItem *distributionNoneValueItem =
-            getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
-            ->getItem(DistributionNoneItem::P_VALUE);
-    return distributionNoneValueItem->value().toDouble();
+    std::unique_ptr<IDistribution1D> domainDistr = createDistribution1D();
+    if(domainDistr)
+        return Units::rad2deg(domainDistr->getMean());
+    else
+        return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
 }
 
 std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D() const
@@ -67,10 +68,11 @@ BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
 
 double BeamAzimuthalAngleItem::azimuthalAngle() const
 {
-    SessionItem *distributionNoneValueItem =
-            getGroupItem(BeamDistributionItem::P_DISTRIBUTION,Constants::DistributionNoneType)
-            ->getItem(DistributionNoneItem::P_VALUE);
-    return distributionNoneValueItem->value().toDouble();
+    std::unique_ptr<IDistribution1D> domainDistr = createDistribution1D();
+    if(domainDistr)
+        return Units::rad2deg(domainDistr->getMean());
+    else
+        return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
 }
 
 std::unique_ptr<IDistribution1D> BeamAzimuthalAngleItem::createDistribution1D() const

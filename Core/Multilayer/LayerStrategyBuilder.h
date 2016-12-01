@@ -20,7 +20,7 @@
 #include "SimulationOptions.h"
 #include <memory>
 
-class FormFactorWrapper;
+class FormFactorCoherentSum;
 class IInterferenceFunctionStrategy;
 class IMaterial;
 class IParticle;
@@ -44,8 +44,8 @@ public:
     IInterferenceFunctionStrategy* createStrategy() const;
 
 private:
-    SafePointerVector<class FormFactorWrapper> collectFormFactorWrappers() const;
-    FormFactorWrapper* createFormFactorWrapper(
+    SafePointerVector<class FormFactorCoherentSum> collectFormFactorList() const;
+    FormFactorCoherentSum* createFormFactorCoherentSum(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
     std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer

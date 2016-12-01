@@ -66,6 +66,10 @@ MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
 {
     MaterialItem *materialItem
         = MaterialSvc::getMaterial(material_property);
-    Q_ASSERT(materialItem);
+
+    if(!materialItem)
+        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't create "
+                                "material with name '"+material_property.getName()+"'.");
+
     return materialItem->createMaterial();
 }

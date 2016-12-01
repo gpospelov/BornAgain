@@ -17,6 +17,8 @@
 #include "SampleModel.h"
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
+#include "MaterialProperty.h"
+#include "MaterialSvc.h"
 
 SampleModel::SampleModel(QObject *parent)
     : SessionModel(SessionXML::SampleModelTag, parent)
@@ -55,8 +57,14 @@ void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
         if (SessionItem *item = itemForIndex(itemIndex)) {
             if (item->modelType() == Constants::LayerType
                 || item->modelType() == Constants::ParticleType) {
-                // we pretend here that MaterialProperty changed to update IView colors
-                item->getItem(LayerItem::P_MATERIAL)->emitDataChanged();
+                MaterialProperty material_property =
+                        item->getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>();
+                if(!MaterialSvc::getMaterial(material_property)) {
+                    item->setItemValue(LayerItem::P_MATERIAL, MaterialProperty().getVariant());
+                } else {
+                    // we pretend here that MaterialProperty changed to update IView colors
+                    item->getItem(LayerItem::P_MATERIAL)->emitDataChanged();
+                }
             }
         }
         exploreForMaterials(itemIndex);

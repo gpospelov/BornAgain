@@ -178,7 +178,7 @@ void RootMinimizerAdapter::setParameter(size_t index, const FitParameter *par)
                                                            par->limits().upperLimit());
     }
 
-    else if (!par->limits().isLimitless()) {
+    else if (par->limits().isLimitless()) {
         success = rootMinimizer()->SetVariable((int)index, par->name().c_str(), par->value(),
                                                par->step());
     }

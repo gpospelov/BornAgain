@@ -112,7 +112,18 @@ void BeamDistributionItem::initDistributionItem()
 
 }
 
-std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D()
+//! Returns mean value of the distribution.
+
+double BeamDistributionItem::meanValue() const
+{
+    std::unique_ptr<IDistribution1D> domainDistr = createDistribution1D();
+    if(domainDistr)
+        return domainDistr->getMean();
+    else
+        return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
+}
+
+std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D() const
 {
     std::unique_ptr<IDistribution1D> P_distribution {};
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(

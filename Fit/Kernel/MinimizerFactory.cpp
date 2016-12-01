@@ -50,6 +50,10 @@ IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
         result = new GeneticMinimizer();
     }
 
+    else if(minimizerName == MinimizerNames::Test) {
+        result = new TestMinimizer();
+    }
+
     if(!result) {
         std::ostringstream ostr;
         ostr << "MinimizerFactory::MinimizerFactory() -> Error! Can't create minimizer for given "

@@ -57,7 +57,7 @@ public:
     Histogram2D(const OutputData<double>& data);
 
     //! Constructor for 2D histograms from numpy array (thanks to swig)
-    Histogram2D(const std::vector<std::vector<double>>& data);
+    Histogram2D(const std::vector<std::vector<double>> data);
 
     //! Returns clone of other histogram
     Histogram2D* clone() const;

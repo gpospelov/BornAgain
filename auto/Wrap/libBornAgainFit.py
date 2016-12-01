@@ -1840,7 +1840,7 @@ class IFitParameter(_object):
         """
         clone(IFitParameter self) -> IFitParameter
 
-        virtual IFitParameter* IFitParameter::clone() const =0
+        virtual IFitParameter* IFitParameter::clone() const  =0
 
         """
         return _libBornAgainFit.IFitParameter_clone(self)

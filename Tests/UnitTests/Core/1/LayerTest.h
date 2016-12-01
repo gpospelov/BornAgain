@@ -14,29 +14,6 @@ class LayerTest : public ::testing::Test
     virtual ~LayerTest(){}
 };
 
-TEST_F(LayerTest, LayerInitialState)
-{
-    Layer layer;
-    EXPECT_EQ(nullptr, layer.getMaterial());
-    EXPECT_EQ(nullptr, layer.getLayout(0));
-    EXPECT_EQ(0, layer.getThickness());
-    EXPECT_FALSE(layer.hasComputation());
-    EXPECT_EQ(complex_t(1.0, 0.0), layer.getRefractiveIndex());
-    EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
-    EXPECT_EQ("Layer", layer.getName());
-
-    Layer* new_layer = layer.clone();
-    EXPECT_EQ(nullptr, new_layer->getMaterial());
-    EXPECT_EQ(nullptr, new_layer->getLayout(0));
-    EXPECT_EQ(0, new_layer->getThickness());
-    EXPECT_FALSE(new_layer->hasComputation());
-    EXPECT_EQ(complex_t(1.0, 0.0), new_layer->getRefractiveIndex());
-    EXPECT_EQ(0.0, new_layer->getTotalParticleSurfaceDensity(0));
-    EXPECT_EQ("Layer", new_layer->getName());
-
-    delete new_layer;
-}
-
 TEST_F(LayerTest, LayerGetAndSet)
 {
     HomogeneousMaterial air("air",0,0);

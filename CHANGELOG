@@ -1,3 +1,8 @@
+BornAgain-1.7.1, released 2016.12.01
+  > Hotfix:
+  * Bug #1679: Remove leading U+FEFF from FindYamlCpp05.cmake
+  * Bug #1682: hotfix: rm local version of FindBoost.cmake
+
 BornAgain-1.7.0, released 2016.11.14
   > API changes
     1) The one-argument constructors of FormFactorGauss and FormFactorLorentz now accept a length instead of a volume

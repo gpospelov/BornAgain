@@ -21,12 +21,12 @@
 #include "ILayerRTCoefficients.h"
 
 
-FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor *p_ff)
+FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff)
 : mP_ff(p_ff)
 {
 }
 
-FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart &other)
+FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
 : mP_ff(other.mP_ff->clone())
 {
     setSpecularInfo(*other.mP_specular_info);
@@ -34,7 +34,7 @@ FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart &oth
 
 FormFactorCoherentPart::~FormFactorCoherentPart() {}
 
-complex_t FormFactorCoherentPart::evaluate(const SimulationElement &sim_element) const
+complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element) const
 {
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -48,7 +48,7 @@ complex_t FormFactorCoherentPart::evaluate(const SimulationElement &sim_element)
     return wavevector_scattering_factor*mP_ff->evaluate(wavevectors);
 }
 
-Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement &sim_element) const
+Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& sim_element) const
 {
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -62,7 +62,7 @@ Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement &si
     return wavevector_scattering_factor*mP_ff->evaluatePol(wavevectors);
 }
 
-void FormFactorCoherentPart::setSpecularInfo(const LayerSpecularInfo &specular_info)
+void FormFactorCoherentPart::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
     mP_specular_info.reset(specular_info.clone());
 }

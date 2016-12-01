@@ -21,7 +21,7 @@
 #include "ILayerRTCoefficients.h"
 #include "Exceptions.h"
 
-FormFactorCoherentSum::FormFactorCoherentSum(IFormFactor *ff, double abundance)
+FormFactorCoherentSum::FormFactorCoherentSum(IFormFactor* ff, double abundance)
 : m_abundance(abundance)
 {
     m_parts.emplace_back(ff);
@@ -34,7 +34,7 @@ FormFactorCoherentSum* FormFactorCoherentSum::clone() const
     return new FormFactorCoherentSum(m_parts, m_abundance);
 }
 
-complex_t FormFactorCoherentSum::evaluate(const SimulationElement &sim_element) const
+complex_t FormFactorCoherentSum::evaluate(const SimulationElement& sim_element) const
 {
     complex_t result {};
     for (auto& part : m_parts) {
@@ -43,7 +43,7 @@ complex_t FormFactorCoherentSum::evaluate(const SimulationElement &sim_element) 
     return result;
 }
 
-Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement &sim_element) const
+Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim_element) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (auto& part : m_parts) {
@@ -52,7 +52,7 @@ Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement &sim
     return result;
 }
 
-void FormFactorCoherentSum::setSpecularInfo(const LayerSpecularInfo &specular_info)
+void FormFactorCoherentSum::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
     m_parts[0].setSpecularInfo(specular_info);
 }
@@ -72,7 +72,8 @@ double FormFactorCoherentSum::radialExtension() const
     return m_parts[0].radialExtension();
 }
 
-FormFactorCoherentSum::FormFactorCoherentSum(const std::vector<FormFactorCoherentPart> &parts, double abundance)
+FormFactorCoherentSum::FormFactorCoherentSum(const std::vector<FormFactorCoherentPart>& parts,
+                                             double abundance)
 : m_parts(parts), m_abundance(abundance)
 {
 }

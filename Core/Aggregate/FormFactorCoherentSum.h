@@ -20,7 +20,7 @@
 #include "Complex.h"
 #include "EigenCore.h"
 #include "FormFactorCoherentPart.h"
-#include <memory>
+#include <vector>
 
 class IFormFactor;
 class SimulationElement;

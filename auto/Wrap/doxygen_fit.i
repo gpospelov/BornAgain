@@ -1361,6 +1361,11 @@ Sets internal minimizer parameters using external parameter list.
 Prints fit results. 
 ";
 
+%feature("docstring")  TestMinimizer::propagateResults "void TestMinimizer::propagateResults(FitParameterSet &)
+
+Propagates results of minimization to fit parameter set. 
+";
+
 
 // File: classTimeInterval.xml
 %feature("docstring") TimeInterval "";

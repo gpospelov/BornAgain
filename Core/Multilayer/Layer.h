@@ -29,7 +29,6 @@ class IMaterial;
 class BA_CORE_API_ Layer : public ICompositeSample
 {
 public:
-    Layer(); // TODO consider =delete;
     Layer(const IMaterial& material, double thickness = 0);
 
     ~Layer() final;

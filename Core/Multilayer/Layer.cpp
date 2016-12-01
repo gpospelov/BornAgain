@@ -21,12 +21,6 @@
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-Layer::Layer()
-    : mp_material(nullptr), m_thickness(0)
-{
-    initialize();
-}
-
 Layer::Layer(const IMaterial& material, double thickness)
     : mp_material(nullptr), m_thickness(thickness)
 {

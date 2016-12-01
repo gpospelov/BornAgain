@@ -28,9 +28,9 @@
 #include <iomanip>
 
 PyPersistenceTest::PyPersistenceTest(
-    const std::string& directory, const std::string& name)
-    : IReferencedTest(name, "persistence test on script "+name, 2e-10)
-    , m_directory(directory)
+    const std::string& path, const std::string& name, double threshold)
+    : IReferencedTest(name, "persistence test on script "+name, threshold)
+    , m_path(path)
 {}
 
 //! Runs a Python script, and returns true if the output of the script agrees with reference data.
@@ -43,10 +43,9 @@ bool PyPersistenceTest::runTest()
         std::cout << "Removed old output " << fname.c_str() << "\n";
     }
 
-    // Run Python script
-    std::string pyscript_filename = FileSystemUtils::jointPath(m_directory, getName()+".py");
+    // Run Python script, which writes output to PYPERSIST_OUT_DIR.
     std::string dat_stem = FileSystemUtils::jointPath(PYPERSIST_OUT_DIR, getName());
-    if (!runPython(pyscript_filename + " " + dat_stem))
+    if (!runPython(m_path + " " + dat_stem))
         return false;
 
     // Retrieve new output and reference files
@@ -62,14 +61,12 @@ bool PyPersistenceTest::runTest()
 
     // Compare files one by one
     for (auto const& it: dat)
-        if (!compareFilePair(
-                FileSystemUtils::jointPath(PYPERSIST_OUT_DIR, it.second),
-                FileSystemUtils::jointPath(PYPERSIST_REF_DIR, ref[it.first])))
+        if (!compareFilePair(it.second, ref[it.first]))
             return false;
     return true;
 }
 
-//! Globs for files of form *.<key1>.<key2>[.*], and returns a map with keys of the form
+//! Globs for files of form <stem>.<key1>.<key2>[.*], and returns a map with keys of the form
 //! <key1>.<key2>, and values containing full file paths.
 std::map<const std::string, const std::string>
 PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
@@ -78,7 +75,8 @@ PyPersistenceTest::glob2map(const std::string& dir, const std::string& stem)
     for (const std::string& fname: FileSystemUtils::glob(dir, stem+"\\.\\w+\\..+")) {
         std::vector<std::string> fname_segments =
             StringUtils::split(FileSystemUtils::filename(fname), ".");
-        ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2], fname));
+        ret.insert(make_pair(fname_segments[1]+"."+fname_segments[2],
+                             FileSystemUtils::jointPath(dir, fname)));
     }
     return ret;
 }
@@ -92,7 +90,7 @@ bool PyPersistenceTest::compareFileMaps(
     // All dat files present in ref?
     for (auto const& it: dat) {
         if (ref.find(it.first)==ref.end()) {
-            std::cerr << "For test output " << it.second
+            std::cerr << "For test output "  << it.second
                       << " there is no reference file in " << PYPERSIST_REF_DIR << "\n";
             success = false;
         }
@@ -100,7 +98,7 @@ bool PyPersistenceTest::compareFileMaps(
     // All ref files present in dat?
     for (auto const& it: ref) {
         if (dat.find(it.first)==dat.end()) {
-            std::cerr << "For reference file " << it.second
+            std::cerr << "For reference file "  << it.second
                       << " there is no test output in " << PYPERSIST_OUT_DIR << "\n";
             success = false;
         }
@@ -110,7 +108,7 @@ bool PyPersistenceTest::compareFileMaps(
 
 //! Returns true if test output and reference file agree.
 bool PyPersistenceTest::compareFilePair(
-    const std::string& dat_fpath, const std::string& ref_fpath)
+    const std::string& dat_fpath, const std::string& ref_fpath) const
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
     const std::string extension = StringUtils::split(FileSystemUtils::filename(dat_fpath), ".")[2];
@@ -124,7 +122,7 @@ bool PyPersistenceTest::compareFilePair(
 
 //! Returns true if intensity maps from test output and reference file agree reasonably.
 bool PyPersistenceTest::compareIntensityPair(
-    const std::string& dat_fpath, const std::string& ref_fpath)
+    const std::string& dat_fpath, const std::string& ref_fpath) const
 {
     const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fpath );
     const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fpath );

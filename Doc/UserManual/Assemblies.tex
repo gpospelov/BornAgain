@@ -266,9 +266,11 @@ we encode the particle coordinates in a distribution function
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
   \PD(\r,\v\tau,\v\tau')
-  \coloneqq \sum_{jk} \delta(\r-(\R_{j\plll}-\R_{k\plll}))
-  \delta(\v\tau-\v{T}_j)\delta(\v\tau'-\v{T}_k).
+  \coloneqq \sum_{jk} \delta^{2}(\r-(\R_{j\plll}-\R_{k\plll}))
+  \delta^{n}(\v\tau-\v{T}_j)\delta^{n}(\v\tau'-\v{T}_k).
 \end{equation}
+The exponents denote the dimensionalities of the delta-functions;
+$n$~is the dimensionality of~$\v\tau$.
 Its total integral is
 \begin{equation}\label{EPint}
   \int\!\d^2r\, \int\! \d\v{\tau}\, \d\v{\tau}' \PD(\r,\v\tau,\v\tau')
@@ -278,8 +280,7 @@ where~$N_p$ is the number
 \nomenclature[2n122 2p010]{$N_p$}{Number of scattering centers}%
 of particles,
 the integration over $\r$ is restricted to the horizontal plane,
-and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$,
-with $n$~being the dimensionality of~$\v\tau$.
+and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$.
 In later approximations, \cref{EPint} will be a normalization requirement.
 The differential cross section~\cref{Exsection2} can now be written as
 \begin{equation}\label{Epdm1}

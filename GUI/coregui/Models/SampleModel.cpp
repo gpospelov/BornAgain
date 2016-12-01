@@ -16,9 +16,13 @@
 
 #include "SampleModel.h"
 #include "LayerItem.h"
+#include "ParticleItem.h"
 #include "MultiLayerItem.h"
 #include "MaterialProperty.h"
 #include "MaterialSvc.h"
+#include "MaterialUtils.h"
+#include <QDebug>
+
 
 SampleModel::SampleModel(QObject *parent)
     : SessionModel(SessionXML::SampleModelTag, parent)
@@ -55,17 +59,17 @@ void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
     for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = index(i_row, 0, parentIndex);
         if (SessionItem *item = itemForIndex(itemIndex)) {
-            if (item->modelType() == Constants::LayerType
-                || item->modelType() == Constants::ParticleType) {
-                MaterialProperty material_property =
-                        item->getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>();
-                if(!MaterialSvc::getMaterial(material_property)) {
-                    item->setItemValue(LayerItem::P_MATERIAL, MaterialProperty().getVariant());
-                } else {
-                    // we pretend here that MaterialProperty changed to update IView colors
-                    item->getItem(LayerItem::P_MATERIAL)->emitDataChanged();
-                }
+
+            QString materialTag = MaterialUtils::materialTag(*item);
+
+            if(materialTag.size()) {
+                // TODO take care of the case, when material doesn't exist anymore and
+                // we should delete identifier on Layer, Particle side.
+
+                // we pretend here that MaterialProperty changed to update IView colors
+                item->getItem(materialTag)->emitDataChanged();
             }
+
         }
         exploreForMaterials(itemIndex);
     }

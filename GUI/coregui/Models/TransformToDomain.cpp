@@ -64,7 +64,8 @@ std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const Session
     }
     if (!material_property.isDefined())
         throw GUIHelpers::Error(
-            "TransformToDomain::createDomainMaterial() -> Error. Unknown item to create material");
+            "TransformToDomain::createDomainMaterial() -> Error. Can't create material "
+            "for item '"+item.displayName()+"'.");
 
     return MaterialUtils::createDomainMaterial(material_property);
 }

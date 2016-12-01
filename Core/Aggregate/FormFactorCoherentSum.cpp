@@ -22,50 +22,39 @@
 #include "Exceptions.h"
 
 FormFactorCoherentSum::FormFactorCoherentSum(IFormFactor *ff, double abundance)
-: mP_ff(ff), m_abundance(abundance)
+: m_abundance(abundance)
 {
+    m_parts.emplace_back(ff);
 }
 
 FormFactorCoherentSum::~FormFactorCoherentSum() {}
 
 FormFactorCoherentSum* FormFactorCoherentSum::clone() const
 {
-    auto clone = new FormFactorCoherentSum(mP_ff->clone(), m_abundance);
-    clone->setSpecularInfo(*mP_specular_info);
-    return clone;
+    return new FormFactorCoherentSum(m_parts, m_abundance);
 }
 
 complex_t FormFactorCoherentSum::evaluate(const SimulationElement &sim_element) const
 {
-    double wavelength = sim_element.getWavelength();
-    double wavevector_scattering_factor = M_PI/wavelength/wavelength;
-    WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(), wavelength);
-
-    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(sim_element));
-    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element));
-    mP_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-    return wavevector_scattering_factor*mP_ff->evaluate(wavevectors);
+    complex_t result {};
+    for (auto part : m_parts) {
+        result += part.evaluate(sim_element);
+    }
+    return result;
 }
 
 Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement &sim_element) const
 {
-    double wavelength = sim_element.getWavelength();
-    double wavevector_scattering_factor = M_PI/wavelength/wavelength;
-    WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(), wavelength);
-
-    const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(sim_element));
-    const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element));
-    mP_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
-    return wavevector_scattering_factor*mP_ff->evaluatePol(wavevectors);
+    Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
+    for (auto part : m_parts) {
+        result += part.evaluatePol(sim_element);
+    }
+    return result;
 }
 
 void FormFactorCoherentSum::setSpecularInfo(const LayerSpecularInfo &specular_info)
 {
-    mP_specular_info.reset(specular_info.clone());
+    m_parts[0].setSpecularInfo(specular_info);
 }
 
 void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance)
@@ -80,5 +69,10 @@ void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance)
 
 double FormFactorCoherentSum::radialExtension() const
 {
-    return mP_ff->getRadialExtension();
+    return m_parts[0].radialExtension();
+}
+
+FormFactorCoherentSum::FormFactorCoherentSum(const std::vector<FormFactorCoherentPart> &parts, double abundance)
+: m_parts(parts), m_abundance(abundance)
+{
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/FormFactorCoherentSum.h
-//! @brief     Defines class FormFactorCoherentSum.
+//! @file      Core/Aggregate/FormFactorCoherentPart.h
+//! @brief     Defines class FormFactorCoherentPart.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,28 +13,27 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORCOHERENTSUM_H
-#define FORMFACTORCOHERENTSUM_H
+#ifndef FORMFACTORCOHERENTPART_H
+#define FORMFACTORCOHERENTPART_H
 
-#include "ICloneable.h"
 #include "Complex.h"
 #include "EigenCore.h"
-#include "FormFactorCoherentPart.h"
+#include "WinDllMacros.h"
 #include <memory>
 
 class IFormFactor;
 class SimulationElement;
 class LayerSpecularInfo;
 
-//! Information about particle form factor and abundance.
+//! Information about single particle form factor and specular info of the embedding layer.
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ FormFactorCoherentSum : public ICloneable
+class BA_CORE_API_ FormFactorCoherentPart
 {
 public:
-    FormFactorCoherentSum(IFormFactor* ff, double abundance);
-    virtual ~FormFactorCoherentSum();
-    virtual FormFactorCoherentSum* clone() const;
+    FormFactorCoherentPart(IFormFactor* p_ff);
+    FormFactorCoherentPart(const FormFactorCoherentPart& other);
+    virtual ~FormFactorCoherentPart();
 
     complex_t evaluate(const SimulationElement& sim_element) const;
 #ifndef SWIG
@@ -42,14 +41,10 @@ public:
 #endif
 
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
-    double relativeAbundance() const { return m_abundance; }
-    void scaleRelativeAbundance(double total_abundance);
     double radialExtension() const;
 private:
-    FormFactorCoherentSum(const std::vector<FormFactorCoherentPart>& parts,
-                          double abundance);
-    std::vector<FormFactorCoherentPart> m_parts;
-    double m_abundance;
+    std::unique_ptr<IFormFactor> mP_ff;
+    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 };
 
-#endif // FORMFACTORCOHERENTSUM_H
+#endif // FORMFACTORCOHERENTPART_H

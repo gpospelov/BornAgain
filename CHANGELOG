@@ -7,6 +7,7 @@ BornAgain-1.7.1, released 2016.12.01
   * Bug #1687: LMA is incorrectly normalized
   * Bug #1692: GUI and Py: simulation crash when sample contains undefined material
   * Bug #1681: Fitting GUI: free parameter error
+  * Bug #1661: FitSuite doesn't know about TestMinimizer
 
 BornAgain-1.7.0, released 2016.11.14
   > API changes

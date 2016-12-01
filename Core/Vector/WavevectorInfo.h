@@ -18,6 +18,8 @@
 
 #include "Vectors3D.h"
 
+class Transform3D;
+
 //! Holds all wavevector information relevant for calculating form factors.
 //! @ingroup formfactors_internal
 
@@ -26,21 +28,22 @@ class BA_CORE_API_ WavevectorInfo
 public:
     WavevectorInfo() {} // TODO: stop abuse for q=0, then =delete
     WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
-        : m_ki(ki), m_kf(kf), m_wavelength(wavelength) {}
+        : m_ki(ki), m_kf(kf), m_vacuum_wavelength(wavelength) {}
     WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
         : m_ki(ki.complex())
         , m_kf(kf.complex())
-        , m_wavelength(wavelength) {}
+        , m_vacuum_wavelength(wavelength) {}
 
+    WavevectorInfo transformed(const Transform3D& transform) const;
     cvector_t getKi() const { return m_ki; }
     cvector_t getKf() const { return m_kf; }
     cvector_t getQ() const { return m_ki - m_kf; }
-    double getWavelength() const { return m_wavelength; }
+    double getWavelength() const { return m_vacuum_wavelength; }
 
 private:
     cvector_t m_ki;
     cvector_t m_kf;
-    double m_wavelength;
+    double m_vacuum_wavelength;
 };
 
 #endif // WAVEVECTORINFO_H

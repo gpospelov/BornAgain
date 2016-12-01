@@ -16424,7 +16424,7 @@ class Histogram2D(IHistogram):
         __init__(Histogram2D self, IntensityData data) -> Histogram2D
         __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
 
-        Histogram2D::Histogram2D(const std::vector< std::vector< double >> &data)
+        Histogram2D::Histogram2D(const std::vector< std::vector< double >> data)
 
         Constructor for 2D histograms from numpy array (thanks to swig) 
 

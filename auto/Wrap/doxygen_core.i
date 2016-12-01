@@ -5026,7 +5026,7 @@ Constructor for 2D histogram with custom axes.
 Constructor for 2D histograms from basic  OutputData object. 
 ";
 
-%feature("docstring")  Histogram2D::Histogram2D "Histogram2D::Histogram2D(const std::vector< std::vector< double >> &data)
+%feature("docstring")  Histogram2D::Histogram2D "Histogram2D::Histogram2D(const std::vector< std::vector< double >> data)
 
 Constructor for 2D histograms from numpy array (thanks to swig) 
 ";
@@ -10528,7 +10528,7 @@ A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of 
 C++ includes: Polygon.h
 ";
 
-%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(const std::vector< double > &x, const std::vector< double > &y)
+%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(const std::vector< double > x, const std::vector< double > y)
 
 Parameters:
 -----------
@@ -10540,15 +10540,7 @@ y:
 Vector of y-coordinates of polygon points. 
 ";
 
-%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(const std::vector< std::vector< double >> &points)
-
-Polygon defined by two dimensional array with (x,y) coordinates of polygon points. The size of second dimension should be 2. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
-
-Parameters:
------------
-
-points: 
-Two dimensional vector of (x,y) coordinates of polygon points. 
+%feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(const std::vector< std::vector< double >> points)
 ";
 
 %feature("docstring")  Geometry::Polygon::Polygon "Geometry::Polygon::Polygon(const PolygonPrivate *d)

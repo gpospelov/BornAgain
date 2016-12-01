@@ -2,6 +2,10 @@ BornAgain-1.7.1, released 2016.12.01
   > Hotfix:
   * Bug #1679: Remove leading U+FEFF from FindYamlCpp05.cmake
   * Bug #1682: hotfix: rm local version of FindBoost.cmake
+  * Bug #1658: add qt5-svg as a dependency
+  * Feature #1662: Put minimal Qt supported version 5.4 into CMake machinery
+  * Bug #1687: LMA is incorrectly normalized
+  * Bug #1692: GUI and Py: simulation crash when sample contains undefined material
 
 BornAgain-1.7.0, released 2016.11.14
   > API changes

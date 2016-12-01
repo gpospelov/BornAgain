@@ -39,7 +39,7 @@ complex_t FormFactorWrapper::evaluate(const SimulationElement &sim_element) cons
 {
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
-    WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
+    WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(), wavelength);
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(sim_element));
@@ -53,7 +53,7 @@ Eigen::Matrix2cd FormFactorWrapper::evaluatePol(const SimulationElement &sim_ele
 {
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
-    WavevectorInfo wavevectors(sim_element.getKI(), sim_element.getMeanKF(), wavelength);
+    WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(), wavelength);
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
         mP_specular_info->getInCoefficients(sim_element));

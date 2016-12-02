@@ -1441,7 +1441,7 @@ class AttLimits(_object):
     """
 
 
-    The  AttLimits class defines limited/free attribute of fit parameter and provides coupling between them.
+    Attributes and limits of a fit parameter, and coupling between these properties.
 
     C++ includes: AttLimits.h
 
@@ -1526,7 +1526,7 @@ class AttLimits(_object):
         """
         isFixed(AttLimits self) -> bool
 
-        bool AttLimits::isFixed() const
+        bool AttLimits::isFixed() const 
 
         """
         return _libBornAgainFit.AttLimits_isFixed(self)
@@ -1536,7 +1536,7 @@ class AttLimits(_object):
         """
         isLimited(AttLimits self) -> bool
 
-        bool AttLimits::isLimited() const
+        bool AttLimits::isLimited() const 
 
         """
         return _libBornAgainFit.AttLimits_isLimited(self)
@@ -1546,7 +1546,7 @@ class AttLimits(_object):
         """
         isUpperLimited(AttLimits self) -> bool
 
-        bool AttLimits::isUpperLimited() const
+        bool AttLimits::isUpperLimited() const 
 
         """
         return _libBornAgainFit.AttLimits_isUpperLimited(self)
@@ -1556,7 +1556,7 @@ class AttLimits(_object):
         """
         isLowerLimited(AttLimits self) -> bool
 
-        bool AttLimits::isLowerLimited() const
+        bool AttLimits::isLowerLimited() const 
 
         """
         return _libBornAgainFit.AttLimits_isLowerLimited(self)
@@ -1566,7 +1566,7 @@ class AttLimits(_object):
         """
         isLimitless(AttLimits self) -> bool
 
-        bool AttLimits::isLimitless() const
+        bool AttLimits::isLimitless() const 
 
         """
         return _libBornAgainFit.AttLimits_isLimitless(self)
@@ -1576,7 +1576,7 @@ class AttLimits(_object):
         """
         lowerLimit(AttLimits self) -> double
 
-        double AttLimits::lowerLimit() const
+        double AttLimits::lowerLimit() const 
 
         """
         return _libBornAgainFit.AttLimits_lowerLimit(self)
@@ -1586,7 +1586,7 @@ class AttLimits(_object):
         """
         upperLimit(AttLimits self) -> double
 
-        double AttLimits::upperLimit() const
+        double AttLimits::upperLimit() const 
 
         """
         return _libBornAgainFit.AttLimits_upperLimit(self)
@@ -1616,7 +1616,7 @@ class AttLimits(_object):
         """
         toString(AttLimits self) -> std::string
 
-        std::string AttLimits::toString() const
+        std::string AttLimits::toString() const 
 
         """
         return _libBornAgainFit.AttLimits_toString(self)
@@ -1679,7 +1679,7 @@ class IMinimizer(_object):
         """
         minimizerName(IMinimizer self) -> std::string
 
-        virtual std::string IMinimizer::minimizerName() const =0
+        virtual std::string IMinimizer::minimizerName() const  =0
 
         return name of the minimizer 
 
@@ -1691,7 +1691,7 @@ class IMinimizer(_object):
         """
         algorithmName(IMinimizer self) -> std::string
 
-        virtual std::string IMinimizer::algorithmName() const =0
+        virtual std::string IMinimizer::algorithmName() const  =0
 
         return name of the minimization algorithm 
 
@@ -1703,7 +1703,7 @@ class IMinimizer(_object):
         """
         minimize(IMinimizer self)
 
-        void IMinimizer::minimize()
+        virtual void IMinimizer::minimize()=0
 
         run minimization 
 
@@ -1715,7 +1715,7 @@ class IMinimizer(_object):
         """
         clear(IMinimizer self)
 
-        void IMinimizer::clear()
+        virtual void IMinimizer::clear()
 
         clear resources (parameters) for consecutives minimizations 
 
@@ -1727,7 +1727,7 @@ class IMinimizer(_object):
         """
         setParameters(IMinimizer self, FitParameterSet parameters)
 
-        void IMinimizer::setParameters(const FitParameterSet &parameters)
+        virtual void IMinimizer::setParameters(const FitParameterSet &parameters)=0
 
         Sets internal minimizer parameters using external parameter list. 
 
@@ -1768,7 +1768,12 @@ class IMinimizer(_object):
 
 
     def reportOutcome(self):
-        """reportOutcome(IMinimizer self) -> std::string"""
+        """
+        reportOutcome(IMinimizer self) -> std::string
+
+        virtual std::string IMinimizer::reportOutcome() const  =0
+
+        """
         return _libBornAgainFit.IMinimizer_reportOutcome(self)
 
 
@@ -1802,7 +1807,7 @@ class IFitParameter(_object):
     """
 
 
-    The  IFitParameter is a base class for fit parameters.
+    Pure virtual base class for fit parameters.
 
     C++ includes: IFitParameter.h
 
@@ -1823,7 +1828,7 @@ class IFitParameter(_object):
         """
         clone(IFitParameter self) -> IFitParameter
 
-        virtual IFitParameter* IFitParameter::clone() const =0
+        virtual IFitParameter* IFitParameter::clone() const  =0
 
         """
         return _libBornAgainFit.IFitParameter_clone(self)
@@ -1835,7 +1840,7 @@ class FitParameter(IFitParameter):
     """
 
 
-    The  FitParameter represents fittable parameter with value, error, step, and limits.
+    A fittable parameter with value, error, step, and limits.
 
     C++ includes: FitParameter.h
 
@@ -1873,7 +1878,7 @@ class FitParameter(IFitParameter):
         """
         clone(FitParameter self) -> FitParameter
 
-        FitParameter * FitParameter::clone() const
+        FitParameter * FitParameter::clone() const 
 
         """
         return _libBornAgainFit.FitParameter_clone(self)
@@ -1883,7 +1888,7 @@ class FitParameter(IFitParameter):
         """
         name(FitParameter self) -> std::string
 
-        std::string FitParameter::name() const
+        std::string FitParameter::name() const 
 
         """
         return _libBornAgainFit.FitParameter_name(self)
@@ -1893,7 +1898,7 @@ class FitParameter(IFitParameter):
         """
         startValue(FitParameter self) -> double
 
-        double FitParameter::startValue() const
+        double FitParameter::startValue() const 
 
         """
         return _libBornAgainFit.FitParameter_startValue(self)
@@ -1903,7 +1908,7 @@ class FitParameter(IFitParameter):
         """
         value(FitParameter self) -> double
 
-        double FitParameter::value() const
+        double FitParameter::value() const 
 
         """
         return _libBornAgainFit.FitParameter_value(self)
@@ -1923,7 +1928,7 @@ class FitParameter(IFitParameter):
         """
         step(FitParameter self) -> double
 
-        double FitParameter::step() const
+        double FitParameter::step() const 
 
         """
         return _libBornAgainFit.FitParameter_step(self)
@@ -1943,7 +1948,7 @@ class FitParameter(IFitParameter):
         """
         error(FitParameter self) -> double
 
-        double FitParameter::error() const
+        double FitParameter::error() const 
 
         """
         return _libBornAgainFit.FitParameter_error(self)
@@ -2044,7 +2049,7 @@ class FitParameter(IFitParameter):
         """
         toString(FitParameter self) -> std::string
 
-        std::string FitParameter::toString() const
+        std::string FitParameter::toString() const 
 
         """
         return _libBornAgainFit.FitParameter_toString(self)
@@ -2056,7 +2061,7 @@ class FitParameterSet(_object):
     """
 
 
-    The  FitParameterSet represents collection of fit parameters for the minimizer.
+    The set of fit parameters.
 
     C++ includes: FitParameterSet.h
 
@@ -2089,8 +2094,6 @@ class FitParameterSet(_object):
 
         void FitParameterSet::clear()
 
-        container specific
-
         Clears all defined parameters. 
 
         """
@@ -2114,7 +2117,7 @@ class FitParameterSet(_object):
         begin(FitParameterSet self) -> FitParameterSet::iterator
         begin(FitParameterSet self) -> FitParameterSet::const_iterator
 
-        FitParameterSet::const_iterator FitParameterSet::begin() const
+        FitParameterSet::const_iterator FitParameterSet::begin() const 
 
         """
         return _libBornAgainFit.FitParameterSet_begin(self, *args)
@@ -2125,7 +2128,7 @@ class FitParameterSet(_object):
         end(FitParameterSet self) -> FitParameterSet::iterator
         end(FitParameterSet self) -> FitParameterSet::const_iterator
 
-        FitParameterSet::const_iterator FitParameterSet::end() const
+        FitParameterSet::const_iterator FitParameterSet::end() const 
 
         """
         return _libBornAgainFit.FitParameterSet_end(self, *args)
@@ -2136,8 +2139,6 @@ class FitParameterSet(_object):
         addFitParameter(FitParameterSet self, FitParameter par)
 
         void FitParameterSet::addFitParameter(FitParameter *par)
-
-        adding fit parameters
 
         Adds fit parameter. 
 
@@ -2161,8 +2162,6 @@ class FitParameterSet(_object):
         values(FitParameterSet self) -> vdouble1d_t
 
         std::vector< double > FitParameterSet::values() const
-
-        fit parameter's values and errors
 
         Returns values of all defined parameters. 
 
@@ -2225,8 +2224,6 @@ class FitParameterSet(_object):
 
         size_t FitParameterSet::freeFitParameterCount() const
 
-        Make parameters fixed and free.
-
         Returns number of free parameters. 
 
         """
@@ -2273,9 +2270,7 @@ class FitParameterSet(_object):
         """
         parametersToString(FitParameterSet self) -> std::string
 
-        std::string FitParameterSet::parametersToString() const
-
-        Printing and reporting. 
+        std::string FitParameterSet::parametersToString() const 
 
         """
         return _libBornAgainFit.FitParameterSet_parametersToString(self)
@@ -2285,7 +2280,7 @@ class FitParameterSet(_object):
         """
         correlationMatrix(FitParameterSet self) -> vdouble2d_t
 
-        corr_matrix_t FitParameterSet::correlationMatrix() const
+        corr_matrix_t FitParameterSet::correlationMatrix() const 
 
         """
         return _libBornAgainFit.FitParameterSet_correlationMatrix(self)
@@ -2331,7 +2326,7 @@ class MinimizerCatalogue(_object):
     """
 
 
-    The  MinimizerCatalogue class contains information over all minimizers available.
+    Hard-coded information about all minimizers available.
 
     C++ includes: MinimizerCatalogue.h
 
@@ -2402,10 +2397,6 @@ class MinimizerFactory(_object):
 
     Factory to create minimizers.
 
-    Minimizer | Algorithms
-
-    Minuit2 | Migrad Simplex Combined Scan Fumili GSLMultiMin | SteepestDescent ConjugateFR ConjugatePR BFGS BFGS2 GSLLMA | Default GSLSimAn | Default Genetic | Default
-
     C++ includes: MinimizerFactory.h
 
     """
@@ -2459,10 +2450,6 @@ class MinimizerFactory(_object):
 
 
         Factory to create minimizers.
-
-        Minimizer | Algorithms
-
-        Minuit2 | Migrad Simplex Combined Scan Fumili GSLMultiMin | SteepestDescent ConjugateFR ConjugatePR BFGS BFGS2 GSLLMA | Default GSLSimAn | Default Genetic | Default
 
         C++ includes: MinimizerFactory.h
 

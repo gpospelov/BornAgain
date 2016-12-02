@@ -5627,7 +5627,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -22024,43 +22024,43 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AttLimits_isFixed", _wrap_AttLimits_isFixed, METH_VARARGS, (char *)"\n"
 		"AttLimits_isFixed(AttLimits self) -> bool\n"
 		"\n"
-		"bool AttLimits::isFixed() const\n"
+		"bool AttLimits::isFixed() const \n"
 		"\n"
 		""},
 	 { (char *)"AttLimits_isLimited", _wrap_AttLimits_isLimited, METH_VARARGS, (char *)"\n"
 		"AttLimits_isLimited(AttLimits self) -> bool\n"
 		"\n"
-		"bool AttLimits::isLimited() const\n"
+		"bool AttLimits::isLimited() const \n"
 		"\n"
 		""},
 	 { (char *)"AttLimits_isUpperLimited", _wrap_AttLimits_isUpperLimited, METH_VARARGS, (char *)"\n"
 		"AttLimits_isUpperLimited(AttLimits self) -> bool\n"
 		"\n"
-		"bool AttLimits::isUpperLimited() const\n"
+		"bool AttLimits::isUpperLimited() const \n"
 		"\n"
 		""},
 	 { (char *)"AttLimits_isLowerLimited", _wrap_AttLimits_isLowerLimited, METH_VARARGS, (char *)"\n"
 		"AttLimits_isLowerLimited(AttLimits self) -> bool\n"
 		"\n"
-		"bool AttLimits::isLowerLimited() const\n"
+		"bool AttLimits::isLowerLimited() const \n"
 		"\n"
 		""},
 	 { (char *)"AttLimits_isLimitless", _wrap_AttLimits_isLimitless, METH_VARARGS, (char *)"\n"
 		"AttLimits_isLimitless(AttLimits self) -> bool\n"
 		"\n"
-		"bool AttLimits::isLimitless() const\n"
+		"bool AttLimits::isLimitless() const \n"
 		"\n"
 		""},
 	 { (char *)"AttLimits_lowerLimit", _wrap_AttLimits_lowerLimit, METH_VARARGS, (char *)"\n"
 		"AttLimits_lowerLimit(AttLimits self) -> double\n"
 		"\n"
-		"double AttLimits::lowerLimit() const\n"
+		"double AttLimits::lowerLimit() const \n"
 		"\n"
 		""},
 	 { (char *)"AttLimits_upperLimit", _wrap_AttLimits_upperLimit, METH_VARARGS, (char *)"\n"
 		"AttLimits_upperLimit(AttLimits self) -> double\n"
 		"\n"
-		"double AttLimits::upperLimit() const\n"
+		"double AttLimits::upperLimit() const \n"
 		"\n"
 		""},
 	 { (char *)"AttLimits_setFixed", _wrap_AttLimits_setFixed, METH_VARARGS, (char *)"\n"
@@ -22074,7 +22074,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AttLimits_toString", _wrap_AttLimits_toString, METH_VARARGS, (char *)"\n"
 		"AttLimits_toString(AttLimits self) -> std::string\n"
 		"\n"
-		"std::string AttLimits::toString() const\n"
+		"std::string AttLimits::toString() const \n"
 		"\n"
 		""},
 	 { (char *)"delete_AttLimits", _wrap_delete_AttLimits, METH_VARARGS, (char *)"delete_AttLimits(AttLimits self)"},
@@ -22088,7 +22088,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_minimizerName", _wrap_IMinimizer_minimizerName, METH_VARARGS, (char *)"\n"
 		"IMinimizer_minimizerName(IMinimizer self) -> std::string\n"
 		"\n"
-		"virtual std::string IMinimizer::minimizerName() const =0\n"
+		"virtual std::string IMinimizer::minimizerName() const  =0\n"
 		"\n"
 		"return name of the minimizer \n"
 		"\n"
@@ -22096,7 +22096,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_algorithmName", _wrap_IMinimizer_algorithmName, METH_VARARGS, (char *)"\n"
 		"IMinimizer_algorithmName(IMinimizer self) -> std::string\n"
 		"\n"
-		"virtual std::string IMinimizer::algorithmName() const =0\n"
+		"virtual std::string IMinimizer::algorithmName() const  =0\n"
 		"\n"
 		"return name of the minimization algorithm \n"
 		"\n"
@@ -22104,7 +22104,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_minimize", _wrap_IMinimizer_minimize, METH_VARARGS, (char *)"\n"
 		"IMinimizer_minimize(IMinimizer self)\n"
 		"\n"
-		"void IMinimizer::minimize()\n"
+		"virtual void IMinimizer::minimize()=0\n"
 		"\n"
 		"run minimization \n"
 		"\n"
@@ -22112,7 +22112,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"\n"
 		"IMinimizer_clear(IMinimizer self)\n"
 		"\n"
-		"void IMinimizer::clear()\n"
+		"virtual void IMinimizer::clear()\n"
 		"\n"
 		"clear resources (parameters) for consecutives minimizations \n"
 		"\n"
@@ -22120,7 +22120,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_setParameters", _wrap_IMinimizer_setParameters, METH_VARARGS, (char *)"\n"
 		"IMinimizer_setParameters(IMinimizer self, FitParameterSet parameters)\n"
 		"\n"
-		"void IMinimizer::setParameters(const FitParameterSet &parameters)\n"
+		"virtual void IMinimizer::setParameters(const FitParameterSet &parameters)=0\n"
 		"\n"
 		"Sets internal minimizer parameters using external parameter list. \n"
 		"\n"
@@ -22145,7 +22145,12 @@ static PyMethodDef SwigMethods[] = {
 		"Returns minimum function value. \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_reportOutcome", _wrap_IMinimizer_reportOutcome, METH_VARARGS, (char *)"IMinimizer_reportOutcome(IMinimizer self) -> std::string"},
+	 { (char *)"IMinimizer_reportOutcome", _wrap_IMinimizer_reportOutcome, METH_VARARGS, (char *)"\n"
+		"IMinimizer_reportOutcome(IMinimizer self) -> std::string\n"
+		"\n"
+		"virtual std::string IMinimizer::reportOutcome() const  =0\n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"
 		"IMinimizer_propagateResults(IMinimizer self, FitParameterSet parameters)\n"
 		"\n"
@@ -22172,7 +22177,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IFitParameter_clone", _wrap_IFitParameter_clone, METH_VARARGS, (char *)"\n"
 		"IFitParameter_clone(IFitParameter self) -> IFitParameter\n"
 		"\n"
-		"virtual IFitParameter* IFitParameter::clone() const =0\n"
+		"virtual IFitParameter* IFitParameter::clone() const  =0\n"
 		"\n"
 		""},
 	 { (char *)"IFitParameter_swigregister", IFitParameter_swigregister, METH_VARARGS, NULL},
@@ -22194,25 +22199,25 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitParameter_clone", _wrap_FitParameter_clone, METH_VARARGS, (char *)"\n"
 		"FitParameter_clone(FitParameter self) -> FitParameter\n"
 		"\n"
-		"FitParameter * FitParameter::clone() const\n"
+		"FitParameter * FitParameter::clone() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameter_name", _wrap_FitParameter_name, METH_VARARGS, (char *)"\n"
 		"FitParameter_name(FitParameter self) -> std::string\n"
 		"\n"
-		"std::string FitParameter::name() const\n"
+		"std::string FitParameter::name() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameter_startValue", _wrap_FitParameter_startValue, METH_VARARGS, (char *)"\n"
 		"FitParameter_startValue(FitParameter self) -> double\n"
 		"\n"
-		"double FitParameter::startValue() const\n"
+		"double FitParameter::startValue() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameter_value", _wrap_FitParameter_value, METH_VARARGS, (char *)"\n"
 		"FitParameter_value(FitParameter self) -> double\n"
 		"\n"
-		"double FitParameter::value() const\n"
+		"double FitParameter::value() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameter_setValue", _wrap_FitParameter_setValue, METH_VARARGS, (char *)"\n"
@@ -22224,7 +22229,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitParameter_step", _wrap_FitParameter_step, METH_VARARGS, (char *)"\n"
 		"FitParameter_step(FitParameter self) -> double\n"
 		"\n"
-		"double FitParameter::step() const\n"
+		"double FitParameter::step() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameter_setStep", _wrap_FitParameter_setStep, METH_VARARGS, (char *)"\n"
@@ -22236,7 +22241,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitParameter_error", _wrap_FitParameter_error, METH_VARARGS, (char *)"\n"
 		"FitParameter_error(FitParameter self) -> double\n"
 		"\n"
-		"double FitParameter::error() const\n"
+		"double FitParameter::error() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameter_setError", _wrap_FitParameter_setError, METH_VARARGS, (char *)"\n"
@@ -22297,7 +22302,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitParameter_toString", _wrap_FitParameter_toString, METH_VARARGS, (char *)"\n"
 		"FitParameter_toString(FitParameter self) -> std::string\n"
 		"\n"
-		"std::string FitParameter::toString() const\n"
+		"std::string FitParameter::toString() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameter_swigregister", FitParameter_swigregister, METH_VARARGS, NULL},
@@ -22318,8 +22323,6 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"void FitParameterSet::clear()\n"
 		"\n"
-		"container specific\n"
-		"\n"
 		"Clears all defined parameters. \n"
 		"\n"
 		""},
@@ -22335,22 +22338,20 @@ static PyMethodDef SwigMethods[] = {
 		"begin() -> FitParameterSet::iterator\n"
 		"FitParameterSet_begin(FitParameterSet self) -> FitParameterSet::const_iterator\n"
 		"\n"
-		"FitParameterSet::const_iterator FitParameterSet::begin() const\n"
+		"FitParameterSet::const_iterator FitParameterSet::begin() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameterSet_end", _wrap_FitParameterSet_end, METH_VARARGS, (char *)"\n"
 		"end() -> FitParameterSet::iterator\n"
 		"FitParameterSet_end(FitParameterSet self) -> FitParameterSet::const_iterator\n"
 		"\n"
-		"FitParameterSet::const_iterator FitParameterSet::end() const\n"
+		"FitParameterSet::const_iterator FitParameterSet::end() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameterSet_addFitParameter", _wrap_FitParameterSet_addFitParameter, METH_VARARGS, (char *)"\n"
 		"FitParameterSet_addFitParameter(FitParameterSet self, FitParameter par)\n"
 		"\n"
 		"void FitParameterSet::addFitParameter(FitParameter *par)\n"
-		"\n"
-		"adding fit parameters\n"
 		"\n"
 		"Adds fit parameter. \n"
 		"\n"
@@ -22366,8 +22367,6 @@ static PyMethodDef SwigMethods[] = {
 		"FitParameterSet_values(FitParameterSet self) -> vdouble1d_t\n"
 		"\n"
 		"std::vector< double > FitParameterSet::values() const\n"
-		"\n"
-		"fit parameter's values and errors\n"
 		"\n"
 		"Returns values of all defined parameters. \n"
 		"\n"
@@ -22410,8 +22409,6 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"size_t FitParameterSet::freeFitParameterCount() const\n"
 		"\n"
-		"Make parameters fixed and free.\n"
-		"\n"
 		"Returns number of free parameters. \n"
 		"\n"
 		""},
@@ -22442,15 +22439,13 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitParameterSet_parametersToString", _wrap_FitParameterSet_parametersToString, METH_VARARGS, (char *)"\n"
 		"FitParameterSet_parametersToString(FitParameterSet self) -> std::string\n"
 		"\n"
-		"std::string FitParameterSet::parametersToString() const\n"
-		"\n"
-		"Printing and reporting. \n"
+		"std::string FitParameterSet::parametersToString() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameterSet_correlationMatrix", _wrap_FitParameterSet_correlationMatrix, METH_VARARGS, (char *)"\n"
 		"FitParameterSet_correlationMatrix(FitParameterSet self) -> vdouble2d_t\n"
 		"\n"
-		"corr_matrix_t FitParameterSet::correlationMatrix() const\n"
+		"corr_matrix_t FitParameterSet::correlationMatrix() const \n"
 		"\n"
 		""},
 	 { (char *)"FitParameterSet_setCorrelationMatrix", _wrap_FitParameterSet_setCorrelationMatrix, METH_VARARGS, (char *)"\n"
@@ -22518,10 +22513,6 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"\n"
 		"Factory to create minimizers.\n"
-		"\n"
-		"Minimizer | Algorithms\n"
-		"\n"
-		"Minuit2 | Migrad Simplex Combined Scan Fumili GSLMultiMin | SteepestDescent ConjugateFR ConjugatePR BFGS BFGS2 GSLLMA | Default GSLSimAn | Default Genetic | Default\n"
 		"\n"
 		"C++ includes: MinimizerFactory.h\n"
 		"\n"

@@ -14,6 +14,10 @@ environment:
 build:
   parallel: true
 
+init:  
+- echo "Starting BornAgain build"
+- echo %PATH%
+  
 before_build:
 - python -m pip install numpy
 - python -m pip install pyyaml

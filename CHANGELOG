@@ -3,11 +3,12 @@ BornAgain-1.7.1, released 2016.12.01
   * Bug #1679: Remove leading U+FEFF from FindYamlCpp05.cmake
   * Bug #1682: hotfix: rm local version of FindBoost.cmake
   * Bug #1658: add qt5-svg as a dependency
-  * Feature #1662: Put minimal Qt supported version 5.4 into CMake machinery
+  * Bug #1662: CMake: require Qt version 5.4
   * Bug #1687: LMA is incorrectly normalized
   * Bug #1692: GUI and Py: simulation crash when sample contains undefined material
   * Bug #1681: Fitting GUI: free parameter error
   * Bug #1661: FitSuite doesn't know about TestMinimizer
+  * Bug #1639: GUI: crash if fitting parameter removed
 
 BornAgain-1.7.0, released 2016.11.14
   > API changes

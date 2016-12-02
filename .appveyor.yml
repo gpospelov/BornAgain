@@ -9,9 +9,11 @@ platform:
 # http://www.appveyor.com/docs/installed-software
 environment:
   QTDIR: "C:\\Qt\\5.7\\msvc2015_64"
-  MYCONDA: "C:\\Miniconda-x64"
+  MYCONDA: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Scripts;C:\\Miniconda-x64\\Library\\bin"
   MYGIT: "C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\usr\\bin;"
-  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYCONDA%\\Scripts;%MYCONDA%\\Library\\bin;%MYGIT%;C:\\Program Files\\7-Zip"
+  MYOTHER: "C:\\Program Files (x86)\\CMake\\bin;C:\\Program Files\\7-Zip"
+  MYMSVC: "C:\\Program Files (x86)\\MSBuild\\14.0\\Bin;"
+  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYGIT%;%MYOTHER%"
 build:
   parallel: true
 

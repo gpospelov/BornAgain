@@ -16,6 +16,11 @@
 #include "HomogeneousMagneticMaterial.h"
 #include "Transform3D.h"
 
+// this prefactor is equal to m_n*g_n*mu_N / (hbar^2), with
+// m_n: neutron mass
+// g_n: neutron g-factor
+// mu_N: nuclear magneton
+// hbar: reduced Planck constant
 const double HomogeneousMagneticMaterial::m_magnetic_prefactor = -2.91042993836710484e-3;
 
 HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(

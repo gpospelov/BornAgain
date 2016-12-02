@@ -16,7 +16,7 @@
 
 #include "SSCApproximationStrategy.h"
 #include "Exceptions.h"
-#include "FormFactorWrapper.h"
+#include "FormFactorCoherentSum.h"
 #include "IFormFactor.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "RealParameter.h"

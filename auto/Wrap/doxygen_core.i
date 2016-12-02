@@ -4339,7 +4339,7 @@ Calculates and returns a polarized form factor calculation in DWBA.
 
 Information about particle form factor and abundance.
 
-C++ includes: FormFactorWrapper.h
+C++ includes: FormFactorCoherentSum.h
 ";
 
 %feature("docstring")  FormFactorWrapper::FormFactorWrapper "FormFactorWrapper::FormFactorWrapper(IFormFactor *ff, double abundance)

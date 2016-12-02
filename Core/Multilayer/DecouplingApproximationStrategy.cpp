@@ -16,7 +16,7 @@
 
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
-#include "FormFactorWrapper.h"
+#include "FormFactorCoherentSum.h"
 #include "IInterferenceFunction.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"

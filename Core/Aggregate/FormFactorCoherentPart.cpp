@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/FormFactorWrapper.cpp
-//! @brief     Implements class FormFactorWrapper.
+//! @file      Core/Aggregate/FormFactorCoherentPart.cpp
+//! @brief     Implements class FormFactorCoherentPart.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,29 +13,28 @@
 //
 // ************************************************************************** //
 
-#include "FormFactorWrapper.h"
+#include "FormFactorCoherentPart.h"
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
 #include "LayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
-#include "Exceptions.h"
 
-FormFactorWrapper::FormFactorWrapper(IFormFactor *ff, double abundance)
-: mP_ff(ff), m_abundance(abundance)
+
+FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff)
+: mP_ff(p_ff)
 {
 }
 
-FormFactorWrapper::~FormFactorWrapper() {}
-
-FormFactorWrapper* FormFactorWrapper::clone() const
+FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
+: mP_ff(other.mP_ff->clone())
 {
-    auto clone = new FormFactorWrapper(mP_ff->clone(), m_abundance);
-    clone->setSpecularInfo(*mP_specular_info);
-    return clone;
+    setSpecularInfo(*other.mP_specular_info);
 }
 
-complex_t FormFactorWrapper::evaluate(const SimulationElement &sim_element) const
+FormFactorCoherentPart::~FormFactorCoherentPart() {}
+
+complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element) const
 {
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -49,7 +48,7 @@ complex_t FormFactorWrapper::evaluate(const SimulationElement &sim_element) cons
     return wavevector_scattering_factor*mP_ff->evaluate(wavevectors);
 }
 
-Eigen::Matrix2cd FormFactorWrapper::evaluatePol(const SimulationElement &sim_element) const
+Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& sim_element) const
 {
     double wavelength = sim_element.getWavelength();
     double wavevector_scattering_factor = M_PI/wavelength/wavelength;
@@ -63,32 +62,12 @@ Eigen::Matrix2cd FormFactorWrapper::evaluatePol(const SimulationElement &sim_ele
     return wavevector_scattering_factor*mP_ff->evaluatePol(wavevectors);
 }
 
-IFormFactor *FormFactorWrapper::formfactor()
-{
-    return mP_ff.get();
-}
-
-const IFormFactor *FormFactorWrapper::formfactor() const
-{
-    return mP_ff.get();
-}
-
-void FormFactorWrapper::setSpecularInfo(const LayerSpecularInfo &specular_info)
+void FormFactorCoherentPart::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
     mP_specular_info.reset(specular_info.clone());
 }
 
-void FormFactorWrapper::scaleRelativeAbundance(double total_abundance)
-{
-    if (total_abundance>0.0) {
-        m_abundance /= total_abundance;
-        return;
-    }
-    throw Exceptions::LogicErrorException("FormFactorWrapper::scaleRelativeAbundance: "
-                                          "Trying to scale with non strictly positive factor.");
-}
-
-double FormFactorWrapper::radialExtension() const
+double FormFactorCoherentPart::radialExtension() const
 {
     return mP_ff->getRadialExtension();
 }

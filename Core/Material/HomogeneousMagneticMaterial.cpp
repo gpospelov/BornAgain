@@ -21,6 +21,7 @@
 // g_n: neutron g-factor
 // mu_N: nuclear magneton
 // hbar: reduced Planck constant
+// Units are: 1/(nm^2 * T)
 const double HomogeneousMagneticMaterial::m_magnetic_prefactor = -2.91042993836710484e-3;
 
 HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(

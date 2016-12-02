@@ -97,11 +97,11 @@ SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectForm
     if (layout_abundance<=0.0) // TODO: why this can happen? why not throw error?
         layout_abundance = 1.0;
     for (const IParticle* particle: p_layout->getParticles()) {
-        FormFactorCoherentSum* p_weighted_ff;
-        p_weighted_ff = createFormFactorCoherentSum(particle, p_layer_material);
-        p_weighted_ff->scaleRelativeAbundance(layout_abundance);
-        p_weighted_ff->setSpecularInfo(*mP_specular_info);
-        result.push_back(p_weighted_ff);
+        FormFactorCoherentSum* p_ff_coh;
+        p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
+        p_ff_coh->scaleRelativeAbundance(layout_abundance);
+        p_ff_coh->setSpecularInfo(*mP_specular_info);
+        result.push_back(p_ff_coh);
     }
     return result;
 }

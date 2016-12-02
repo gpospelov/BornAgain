@@ -11,7 +11,7 @@ environment:
   QTDIR: "C:\\Qt\\5.7\\msvc2015_64"
   MYCONDA: "C:\\Miniconda-x64"
   MYGIT: "C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\usr\\bin;"
-  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYCONDA%\\Scripts;%MYCONDA%\\Library\\bin;%MYGIT%"
+  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYCONDA%\\Scripts;%MYCONDA%\\Library\\bin;%MYGIT%;C:\\Program Files\\7-Zip"
 build:
   parallel: true
 

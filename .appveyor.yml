@@ -9,10 +9,8 @@ platform:
 # http://www.appveyor.com/docs/installed-software
 #  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYCONDA%\\Scripts;%MYCONDA%\\Library\\bin;%PATH%"
 environment:
-  echo "BornAgain init 2"
   QTDIR: "C:\\Qt\\5.7\\msvc2015_64"
   MYCONDA: "C:\\Miniconda-x64"
-  echo %PATH%
 build:
   parallel: true
 

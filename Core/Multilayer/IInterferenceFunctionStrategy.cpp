@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
-#include "FormFactorWrapper.h"
+#include "FormFactorCoherentSum.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
@@ -41,7 +41,7 @@ IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 
 //! Initializes the object with form factors and interference functions
 void IInterferenceFunctionStrategy::init(
-    const SafePointerVector<FormFactorWrapper>& weighted_formfactors,
+    const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction& iff)
 {
     if (weighted_formfactors.size()==0)

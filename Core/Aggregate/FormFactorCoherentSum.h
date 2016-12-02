@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/FormFactorWrapper.h
-//! @brief     Defines class FormFactorWrapper.
+//! @file      Core/Aggregate/FormFactorCoherentSum.h
+//! @brief     Defines class FormFactorCoherentSum.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,13 +13,14 @@
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORWRAPPER_H
-#define FORMFACTORWRAPPER_H
+#ifndef FORMFACTORCOHERENTSUM_H
+#define FORMFACTORCOHERENTSUM_H
 
 #include "ICloneable.h"
 #include "Complex.h"
 #include "EigenCore.h"
-#include <memory>
+#include "FormFactorCoherentPart.h"
+#include <vector>
 
 class IFormFactor;
 class SimulationElement;
@@ -28,28 +29,27 @@ class LayerSpecularInfo;
 //! Information about particle form factor and abundance.
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ FormFactorWrapper : public ICloneable
+class BA_CORE_API_ FormFactorCoherentSum : public ICloneable
 {
 public:
-    FormFactorWrapper(IFormFactor* ff, double abundance);
-    virtual ~FormFactorWrapper();
-    virtual FormFactorWrapper* clone() const;
+    FormFactorCoherentSum(IFormFactor* ff, double abundance);
+    virtual ~FormFactorCoherentSum();
+    virtual FormFactorCoherentSum* clone() const;
 
     complex_t evaluate(const SimulationElement& sim_element) const;
 #ifndef SWIG
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    IFormFactor* formfactor();
-    const IFormFactor* formfactor() const;
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);
     double radialExtension() const;
 private:
-    std::unique_ptr<IFormFactor> mP_ff;
-    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    FormFactorCoherentSum(const std::vector<FormFactorCoherentPart>& parts,
+                          double abundance);
+    std::vector<FormFactorCoherentPart> m_parts;
     double m_abundance;
 };
 
-#endif // FORMFACTORWRAPPER_H
+#endif // FORMFACTORCOHERENTSUM_H

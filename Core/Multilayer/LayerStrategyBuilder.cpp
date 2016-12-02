@@ -15,7 +15,7 @@
 
 #include "LayerStrategyBuilder.h"
 #include "Exceptions.h"
-#include "FormFactorWrapper.h"
+#include "FormFactorCoherentSum.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
 #include "ILayout.h"
@@ -49,7 +49,7 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 {
     assert(mP_layer->getNumberOfLayouts()>0);
-    SafePointerVector<class FormFactorWrapper> ff_wrappers = collectFormFactorWrappers();
+    SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
     std::unique_ptr<class IInterferenceFunction> P_interference_function{
         mP_layer->getLayout(m_layout_index)->cloneInterferenceFunction()};
 
@@ -87,18 +87,18 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 }
 
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
-SafePointerVector<class FormFactorWrapper> LayerStrategyBuilder::collectFormFactorWrappers() const
+SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectFormFactorList() const
 {
     assert(mP_layer->getNumberOfLayouts()>0);
-    SafePointerVector<class FormFactorWrapper> result;
+    SafePointerVector<class FormFactorCoherentSum> result;
     const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial* p_layer_material = mP_layer->getMaterial();
     double total_abundance = mP_layer->getTotalAbundance();
     if (total_abundance<=0.0) // TODO: why this can happen? why not throw error?
         total_abundance = 1.0;
     for (const IParticle* particle: p_layout->getParticles()) {
-        FormFactorWrapper* p_weighted_ff;
-        p_weighted_ff = createFormFactorWrapper(particle, p_layer_material);
+        FormFactorCoherentSum* p_weighted_ff;
+        p_weighted_ff = createFormFactorCoherentSum(particle, p_layer_material);
         p_weighted_ff->scaleRelativeAbundance(total_abundance);
         p_weighted_ff->setSpecularInfo(*mP_specular_info);
         result.push_back(p_weighted_ff);
@@ -107,7 +107,7 @@ SafePointerVector<class FormFactorWrapper> LayerStrategyBuilder::collectFormFact
 }
 
 //! Returns a new formfactor wrapper for a given particle in given ambient material.
-FormFactorWrapper* LayerStrategyBuilder::createFormFactorWrapper(
+FormFactorCoherentSum* LayerStrategyBuilder::createFormFactorCoherentSum(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
     const std::unique_ptr<IParticle> P_particle_clone{ particle->clone() };
@@ -123,5 +123,5 @@ FormFactorWrapper* LayerStrategyBuilder::createFormFactorWrapper(
     } else
         p_ff_framework = P_ff_particle->clone();
 
-    return new FormFactorWrapper(p_ff_framework, particle->getAbundance());
+    return new FormFactorCoherentSum(p_ff_framework, particle->getAbundance());
 }

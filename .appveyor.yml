@@ -15,10 +15,12 @@ build:
   parallel: true
 
 init:  
-- echo "Starting BornAgain build"
+- echo "BornAgain init"
 - echo %PATH%
   
 before_build:
+- echo "BornAgain before_build"
+- echo %PATH%
 - python -m pip install numpy
 - python -m pip install pyyaml
 - C:\cygwin\bin\wget -q http://apps.jcns.fz-juelich.de/redmine/attachments/download/279/local_x64.zip -O %temp%\local_x64.zip

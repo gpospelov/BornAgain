@@ -42,8 +42,8 @@ of coherence lengths (\Cref{Scoherlen}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron propagation}\label{Swave}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\index{Wave propagation!neutrons|(}%
-\index{Neutrons!wave propagation|(}%
+\index{Wave propagation!neutron|(}%
+\index{Neutron!wave propagation|(}%
 
 %===============================================================================
 \subsection{Coherent wave equation}\label{ScohWave}
@@ -227,7 +227,7 @@ Alternatively, we may write
 \begin{equation}\label{Ekkn}
   k(\r)=K n(\r),
 \end{equation}
-using the vacuum wavenumber~$K\coloneqq 2m\omega/\hbar$
+using the vacuum wavenumber~$K\coloneqq \sqrt{2m\omega/\hbar}$
 \nomenclature[2k120]{$K$}{Wavenumber in vacuum}%
 and the neutron optical \E{refractive index}
 \nomenclature[2n020]{$n$}{Refractive index}%
@@ -278,8 +278,8 @@ For grazing-incidence small-angle scattering (GISAS),
 one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
 \index{Distorted-wave Born approximation}%
 
-\index{Wave propagation!neutrons|)}%
-\index{Neutrons!wave propagation|)}%
+\index{Wave propagation!neutron|)}%
+\index{Neutron!wave propagation|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron scattering in Born approximation}\label{SBornApprox}
@@ -521,6 +521,7 @@ since it emphasizes the sample physics over the scattering experiment.
 However, when working with two-dimensional detectors
 it is highly desirable to express pixel coordinates
 \index{Coordinate system}
+\index{Detector!pixel coordinate}
 and scattering vector components
 with respect to equally oriented coordinate axes,
 which can only be achieved by the convention~\cref{Eq}.}
@@ -778,8 +779,8 @@ transcribed from electromagnetic to neutron waves.
 With the differential operators
 \begin{equation}\label{EDDdef}
   \begin{array}{@{}l}
-    \Do \coloneqq \Nabla^2+K^2, \\[1.4ex]
-    D \coloneqq \Nabla^2+k(\r)^2 = \Do + \delta k(\r)^2,
+    \Do(\r) \coloneqq \Nabla^2+K^2, \\[1.4ex]
+    D(\r) \coloneqq \Nabla^2+k(\r)^2 = \Do + \delta k(\r)^2,
   \end{array}
 \end{equation}
 and with $\delta k^2\coloneqq k^2-K^2$,
@@ -787,8 +788,8 @@ we rewrite the homogeneous and inhomogeneous differential equations \cref{EHomoK
 and~\cref{EGreenK} for plane waves and distorted waves as
 \begin{equation}
   \begin{array}{l@{\hspace{2em}}l}
-    \Do\pfo  (\r) = 0, &\Do\Go(\r,\r') = \delta(\r-\r'), \\[1.4ex]
-    D\psi_\sf(\r) = 0, &D  G  (\r,\r') = \delta(\r-\r').
+    \Do(\r)\pfo  (\r) = 0, &\Do(\r)\Go(\r,\r') = \delta(\r-\r'), \\[1.4ex]
+    D(\r)\psi_\sf(\r) = 0, &D(\r)  G  (\r,\r') = \delta(\r-\r').
   \end{array}
 \end{equation}
 We now posit an integral equation that determines
@@ -796,7 +797,7 @@ the full Green function $G$ if the vacuum Green function~$\Go$ is given:
 \begin{equation}\label{EGoG}
   \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, \Go(\rD,\r)\delta k(\r)^2 G(\r,\rS).
 \end{equation}
-It can be verified by operating on both sides with $\Do$.\footnote
+It can be verified by operating on both sides with $\Do(\rD)$.\footnote
 {This is not entirely convincing:
 Equality of the second derivates is not sufficient to prove equality of
 two sides in an equation.
@@ -817,7 +818,7 @@ if the plane wave~$\psi_\sf$ is given:
 \begin{equation}\label{Epfo}
   \pfo(\rS) = \psi_\sf(\rS) + \int\!\d^3r\, \psi_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
 \end{equation}
-Verification can again be done by operating on both sides with~$\Do$.
+Verification can be done by operating on both sides with~$\Do(\rS)$.
 We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
 and rewrite it as
 \begin{equation}
@@ -827,7 +828,7 @@ with the far-field prefactor
 \begin{equation}\label{Effphidef}
   \phi(r) \coloneqq \frac{\e^{iKr}}{4\pi r}.
 \end{equation}
-We take complex conjugate of both sides of~\cref{Epfo},
+We take the complex conjugates of both sides of~\cref{Epfo},
  and multiply them with $\phi(\rD)$ to obtain
 \begin{equation}\label{Epfo2}
   \Go_\infty(\rD,\rS)
@@ -868,7 +869,7 @@ and will be worked out later (\cref{Swave21}).
 
 The propagation of X-rays is governed by Maxwell's equations,
 \index{Maxwell's equations}%
-\index{Wave propagation!X-rays}%
+\index{Wave propagation!X-ray}%
 \begin{equation}\label{EMaxwell}
   \begin{array}{@{}l@{\quad}l@{\quad}l}
     \Nabla\times\v{E}=-\partial_t \v{B},
@@ -943,13 +944,13 @@ given by the dispersion relation
 \begin{equation}
   K^2 = \mu_0\eps_0\omega^2.
 \end{equation}
-\index{Dispersion!X-rays}%
+\index{Dispersion!X-ray}%
 With these simplifying assumptions about $\v{\eps}$ and~$\v{\mu}$,
 Maxwell's equations yield the wave equation
 \begin{equation}\label{ENabNabE}
   \Nabla\times\Nabla\times\v{E} = K^2\eps(\r)\v{E}.
 \end{equation}
-\index{Wave equation!X-rays}%
+\index{Wave equation!X-ray}%
 \index{X-ray!wave equation}%
 To solve this equation by a perturbation expansion,
 \index{Perturbation expansion}%
@@ -977,7 +978,7 @@ The wave equation~\cref{ENabNabE} then becomes
   \left\{-\Nabla\times\Nabla\times\ONE + k(\r)^2\right\}\v{E}(\r)
   = 4\pi\delta v(\r)\v{E}(\r).
 \end{equation}
-\index{Wave equation!X-rays}%
+\index{Wave equation!X-ray}%
 \index{X-ray!wave equation}%
 This is very similar to the perturbed Schrödinger equation~\cref{ESchrodiK}.
 \index{Perturbed Schrödinger equation}%

@@ -114,14 +114,14 @@ FormFactorCoherentSum* LayerStrategyBuilder::createFormFactorCoherentSum(
     P_particle_clone->setAmbientMaterial(*p_ambient_material);
 
     const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
-    IFormFactor* p_ff_framework;
+    std::unique_ptr<IFormFactor> P_ff_framework;
     if (mP_layer->getNumberOfLayers()>1) {
         if (m_polarized)
-            p_ff_framework = new FormFactorDWBAPol(*P_ff_particle);
+            P_ff_framework.reset(new FormFactorDWBAPol(*P_ff_particle));
         else
-            p_ff_framework = new FormFactorDWBA(*P_ff_particle);
+            P_ff_framework.reset(new FormFactorDWBA(*P_ff_particle));
     } else
-        p_ff_framework = P_ff_particle->clone();
+        P_ff_framework.reset(P_ff_particle->clone());
 
-    return new FormFactorCoherentSum(p_ff_framework, particle->getAbundance());
+    return new FormFactorCoherentSum(P_ff_framework.release(), particle->getAbundance());
 }

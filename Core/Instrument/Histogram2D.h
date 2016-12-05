@@ -108,6 +108,7 @@ public:
 
     //! Add to values in histograms channels from numpy array,
     void addContent(const std::vector<std::vector<double>>& data);
+    void addContent(const std::vector<std::vector<int>>& data);
 
 protected:
     template<typename T>

@@ -16471,16 +16471,15 @@ class Histogram2D(IHistogram):
         return _libBornAgainCore.Histogram2D_setContent(self, data)
 
 
-    def addContent(self, data):
+    def addContent(self, *args):
         """
         addContent(Histogram2D self, vdouble2d_t data)
+        addContent(Histogram2D self, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & data)
 
-        void Histogram2D::addContent(const std::vector< std::vector< double >> &data)
-
-        Add to values in histograms channels from numpy array,. 
+        void Histogram2D::addContent(const std::vector< std::vector< int >> &data)
 
         """
-        return _libBornAgainCore.Histogram2D_addContent(self, data)
+        return _libBornAgainCore.Histogram2D_addContent(self, *args)
 
 
     def dynamicCast(pHistogram):

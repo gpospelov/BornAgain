@@ -5148,6 +5148,9 @@ Sets the values in histograms channels from numpy array,.
 Add to values in histograms channels from numpy array,. 
 ";
 
+%feature("docstring")  Histogram2D::addContent "void Histogram2D::addContent(const std::vector< std::vector< int >> &data)
+";
+
 
 // File: classHomogeneousMagneticMaterial.xml
 %feature("docstring") HomogeneousMagneticMaterial "

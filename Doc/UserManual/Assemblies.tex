@@ -26,12 +26,12 @@
 \def\sm{\text{m}}
 \def\mz{\overline{z}}
 
-\index{Nanoparticles|see {Particles}}%
-\index{Mesoparticles|see {Particles}}%
+\index{Nanoparticle|see {Particle}}%
+\index{Mesoparticle|see {Particle}}%
 In many important GISAS applications,
 fluctuations of the refractive index are due to
 \E{droplets}, \E{islands}, \E{inclusions} or \E{holes}
-\index{Droplets}%
+\index{Droplet}%
 \index{Island}%
 \index{Inclusion}%
 \index{Hole}%
@@ -217,7 +217,6 @@ introducing the standard form factor
 \end{equation}
 
 BornAgain comes with a comprehensive library of form factors.
-For general usage instructions, see~\Cref{SintroPFF}.
 Hard-particle form factors are Fourier shape transforms.
 They are available for various spheroids, cylinders, cones, prisms, and polyhedra,
 as listed in~\Cref{SHPFF}.
@@ -267,9 +266,11 @@ we encode the particle coordinates in a distribution function
 \index{Statistics!particle distribution}%
 \begin{equation}\label{EPDdeltas}
   \PD(\r,\v\tau,\v\tau')
-  \coloneqq \sum_{jk} \delta(\r-(\R_{j\plll}-\R_{k\plll}))
-  \delta(\v\tau-\v{T}_j)\delta(\v\tau'-\v{T}_k).
+  \coloneqq \sum_{jk} \delta^{2}(\r-(\R_{j\plll}-\R_{k\plll}))
+  \delta^{n}(\v\tau-\v{T}_j)\delta^{n}(\v\tau'-\v{T}_k).
 \end{equation}
+The exponents denote the dimensionalities of the delta-functions;
+$n$~is the dimensionality of~$\v\tau$.
 Its total integral is
 \begin{equation}\label{EPint}
   \int\!\d^2r\, \int\! \d\v{\tau}\, \d\v{\tau}' \PD(\r,\v\tau,\v\tau')
@@ -279,8 +280,7 @@ where~$N_p$ is the number
 \nomenclature[2n122 2p010]{$N_p$}{Number of scattering centers}%
 of particles,
 the integration over $\r$ is restricted to the horizontal plane,
-and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$,
-with $n$~being the dimensionality of~$\v\tau$.
+and the differential $\d\v{\tau}$ is to be understood as $\d^n\tau$.
 In later approximations, \cref{EPint} will be a normalization requirement.
 The differential cross section~\cref{Exsection2} can now be written as
 \begin{equation}\label{Epdm1}
@@ -395,19 +395,16 @@ and the
 \index{SSCA|see {Size-spacing correlation approximation}}%
 We can now disentangle this skew trichotomy:
 The LMA is opposite to coherent superposition;
-it describes the incoherent average of
-scattering from different coherence domains.
+it describes the incoherent sum
+\index{Incoherent sum}%
+of scattering from different coherence domains.
 In \BornAgain,
 it can be emulated by averaging over different simulated GISAS images
 (as described in \cref{Scoherlen}),
 or by attaching different \texttt{ParticleLayout}s to a \texttt{Layer}.
 The SSCA is an alternative to the R-T decoupling approximation.
 In \IsGISAXS, and similarly in \BornAgain,
-it is only available for paracrystals
-% TODO RESTORE TEMPORARILY REMOVED XREF
-(to be documented later).
-% and will therefore be discussed later (\cref{}).
-}
+it is only available for paracrystals (\cref{SPara}).}
 In BornAgain, R-T decoupling is the default.
 Only a few models explicitly introduce some size-position coupling.
 The following sections are therefore mostly concerned with models for~$\SD(\q)$.
@@ -572,11 +569,11 @@ which is equivalent to $h(0)=1$.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Paracrystals}
+\section{Paracrystals}\label{SPara}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %===============================================================================
-\subsection{The one-dimensional paracrystal} \label{sec:sect:1dparacrystal}
+\subsection{The one-dimensional paracrystal} \label{SPara1}
 %===============================================================================
 
 A paracrystal, originally developed by Hosemann \cite{Hos51},
@@ -632,7 +629,7 @@ cumulative disorder.
 }
 
 %===============================================================================
-\subsection{The radial paracrystal} \label{sec:sect:radialparacrystal}
+\subsection{The radial paracrystal} \label{SParaR}
 %===============================================================================
 In the radial paracrystal model, the interference function of the one-dimensional paracrystal is used directly, but applied to
 the radial component of $\q_\plll$. The resulting interference function, which is radially symmetric, is then given by
@@ -665,7 +662,7 @@ For the radial paracrystal, there is also an extension available in \BornAgain\ 
 the inter-particle distance. This approximation is discussed in more detail in \ref{sec:sect:sscaparacrystal}.
 
 %===============================================================================
-\subsection{The two-dimensional paracrystal} \label{sec:sect:2dparacrystal}
+\subsection{The two-dimensional paracrystal} \label{SPara2}
 %===============================================================================
 The two-dimensional paracrystal model in \BornAgain\ is implemented as a simple convolution of the two one-dimensional paracrystals along the
 lattice basis vectors. The calculation of the interference function results in a simple product of two one-dimensional interference functions:

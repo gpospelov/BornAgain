@@ -128,7 +128,7 @@ public:
     virtual ~RectangularPixel() {}
 
     RectangularPixel* clone() const override;
-    RectangularPixel* createZeroSizeMap(double x, double y) const override;
+    RectangularPixel* createZeroSizePixel(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;

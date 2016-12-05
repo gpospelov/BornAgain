@@ -55,7 +55,7 @@ public:
     EAxesUnits getDefaultAxesUnits() const override;
 
 protected:
-    //! Create an IPixelMap for the given OutputData object and index
+    //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
     void print(std::ostream& ostr) const override;
@@ -86,7 +86,7 @@ public:
     virtual ~SphericalPixel() {}
 
     SphericalPixel* clone() const override;
-    SphericalPixel* createZeroSizeMap(double x, double y) const override;
+    SphericalPixel* createZeroSizePixel(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;

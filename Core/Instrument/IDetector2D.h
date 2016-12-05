@@ -148,7 +148,7 @@ public:
 protected:
     IDetector2D(const IDetector2D& other);
 
-    //! Create an IPixelMap for the given OutputData object and index
+    //! Create an IPixel for the given OutputData object and index
     virtual IPixel* createPixel(size_t index) const=0;
 
     //! Registers some class members for later access via parameter pool.

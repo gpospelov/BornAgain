@@ -19,12 +19,12 @@
 #include <vector>
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
-                                     std::unique_ptr<IPixel> pixelmap)
+                                     std::unique_ptr<IPixel> pixel)
     : m_wavelength(wavelength)
     , m_alpha_i(alpha_i)
     , m_phi_i(phi_i)
     , m_intensity(0.0)
-    , mP_pixel_map(std::move(pixelmap))
+    , mP_pixel(std::move(pixel))
     , m_contains_specular(false)
 {
     initPolarization();
@@ -34,7 +34,7 @@ SimulationElement::SimulationElement(const SimulationElement& other)
     : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
     , m_intensity(other.m_intensity), m_contains_specular(other.m_contains_specular)
 {
-    mP_pixel_map.reset(other.mP_pixel_map->clone());
+    mP_pixel.reset(other.mP_pixel->clone());
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
@@ -43,7 +43,7 @@ SimulationElement::SimulationElement(const SimulationElement& other, double x, d
     : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
     , m_intensity(other.m_intensity), m_contains_specular(other.m_contains_specular)
 {
-    mP_pixel_map.reset(other.mP_pixel_map->createZeroSizeMap(x, y));
+    mP_pixel.reset(other.mP_pixel->createZeroSizePixel(x, y));
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
@@ -55,7 +55,7 @@ SimulationElement::SimulationElement(SimulationElement&& other) noexcept
     , m_intensity(other.m_intensity)
     , m_polarization(std::move(other.m_polarization))
     , m_analyzer_operator(std::move(other.m_analyzer_operator))
-    , mP_pixel_map(std::move(other.mP_pixel_map))
+    , mP_pixel(std::move(other.mP_pixel))
     , m_contains_specular(other.m_contains_specular)
 {
 }
@@ -78,13 +78,13 @@ kvector_t SimulationElement::getKi() const
 
 kvector_t SimulationElement::getMeanKf() const
 {
-    return mP_pixel_map->getK(0.5, 0.5, m_wavelength);
+    return mP_pixel->getK(0.5, 0.5, m_wavelength);
 }
 
 //! Returns outgoing wavevector Kf for in-pixel coordinates x,y.
 //! In-pixel coordinates take values from 0 to 1.
 kvector_t SimulationElement::getKf(double x, double y) const {
-    return mP_pixel_map->getK(x, y, m_wavelength);
+    return mP_pixel->getK(x, y, m_wavelength);
 }
 
 kvector_t SimulationElement::getMeanQ() const
@@ -96,7 +96,7 @@ kvector_t SimulationElement::getMeanQ() const
 //! In-pixel coordinates take values from 0 to 1.
 kvector_t SimulationElement::getQ(double x, double y) const
 {
-    return getKi() - mP_pixel_map->getK(x, y, m_wavelength);
+    return getKi() - mP_pixel->getK(x, y, m_wavelength);
 }
 
 void SimulationElement::swapContent(SimulationElement &other)
@@ -107,7 +107,7 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(m_intensity, other.m_intensity);
     std::swap(m_polarization, other.m_polarization);
     std::swap(m_analyzer_operator, other.m_analyzer_operator);
-    std::swap(mP_pixel_map, other.mP_pixel_map);
+    std::swap(mP_pixel, other.mP_pixel);
     std::swap(m_contains_specular, other.m_contains_specular);
 }
 
@@ -138,11 +138,11 @@ void SimulationElement::setSpecular(bool contains_specular)
 }
 
 double SimulationElement::getIntegrationFactor(double x, double y) const {
-    return mP_pixel_map->getIntegrationFactor(x, y);
+    return mP_pixel->getIntegrationFactor(x, y);
 }
 
 double SimulationElement::getSolidAngle() const {
-    return mP_pixel_map->getSolidAngle();
+    return mP_pixel->getSolidAngle();
 }
 
 void addElementsWithWeight(std::vector<SimulationElement>::const_iterator first,

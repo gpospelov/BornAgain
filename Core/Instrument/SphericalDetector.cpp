@@ -161,7 +161,7 @@ SphericalPixel* SphericalPixel::clone() const
     return new SphericalPixel(alpha_bin, phi_bin);
 }
 
-SphericalPixel* SphericalPixel::createZeroSizeMap(double x, double y) const
+SphericalPixel* SphericalPixel::createZeroSizePixel(double x, double y) const
 {
     double phi = m_phi + x*m_dphi;
     double alpha = m_alpha + y*m_dalpha;

@@ -373,7 +373,7 @@ RectangularPixel *RectangularPixel::clone() const
     return new RectangularPixel(m_corner_pos, m_width, m_height);
 }
 
-RectangularPixel *RectangularPixel::createZeroSizeMap(double x, double y) const
+RectangularPixel *RectangularPixel::createZeroSizePixel(double x, double y) const
 {
     kvector_t position = m_corner_pos + x*m_width + y*m_height;
     kvector_t null_vector;

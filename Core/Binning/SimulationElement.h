@@ -32,7 +32,7 @@ class BA_CORE_API_ SimulationElement
 {
 public:
     SimulationElement(double wavelength, double alpha_i, double phi_i,
-                      std::unique_ptr<IPixel> pixelmap);
+                      std::unique_ptr<IPixel> pixel);
     SimulationElement(const SimulationElement &other);
     SimulationElement &operator=(const SimulationElement &other);
 
@@ -98,7 +98,7 @@ private:
     Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
-    std::unique_ptr<IPixel> mP_pixel_map;
+    std::unique_ptr<IPixel> mP_pixel;
     bool m_contains_specular;
 };
 

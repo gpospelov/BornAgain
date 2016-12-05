@@ -16070,6 +16070,7 @@ class IHistogram(_object):
         """
         createFrom(std::string const & filename) -> IHistogram
         createFrom(vdouble2d_t data) -> IHistogram
+        createFrom(std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & data) -> IHistogram
         """
         return _libBornAgainCore.IHistogram_createFrom(*args)
 
@@ -16166,7 +16167,8 @@ def IHistogram_createHistogram(source):
 def IHistogram_createFrom(*args):
     """
     createFrom(std::string const & filename) -> IHistogram
-    IHistogram_createFrom(vdouble2d_t data) -> IHistogram
+    createFrom(vdouble2d_t data) -> IHistogram
+    IHistogram_createFrom(std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & data) -> IHistogram
     """
     return _libBornAgainCore.IHistogram_createFrom(*args)
 
@@ -16351,10 +16353,9 @@ class Histogram2D(IHistogram):
         __init__(Histogram2D self, IAxis axis_x, IAxis axis_y) -> Histogram2D
         __init__(Histogram2D self, IntensityData data) -> Histogram2D
         __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
+        __init__(Histogram2D self, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const data) -> Histogram2D
 
-        Histogram2D::Histogram2D(const std::vector< std::vector< double >> &data)
-
-        Constructor for 2D histograms from numpy array (thanks to swig) 
+        Histogram2D::Histogram2D(const std::vector< std::vector< int >> data)
 
         """
         this = _libBornAgainCore.new_Histogram2D(*args)

@@ -1331,6 +1331,11 @@ Sets internal minimizer parameters using external parameter list.
 %feature("docstring")  TestMinimizer::reportOutcome "std::string TestMinimizer::reportOutcome() const  override
 ";
 
+%feature("docstring")  TestMinimizer::propagateResults "void TestMinimizer::propagateResults(FitParameterSet &)
+
+Propagates results of minimization to fit parameter set. 
+";
+
 
 // File: classTimeInterval.xml
 %feature("docstring") TimeInterval "";

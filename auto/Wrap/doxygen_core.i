@@ -2496,6 +2496,72 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
+// File: classFormFactorCoherentPart.xml
+%feature("docstring") FormFactorCoherentPart "
+
+Information about single particle form factor and specular info of the embedding layer.
+
+C++ includes: FormFactorCoherentPart.h
+";
+
+%feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor *p_ff)
+";
+
+%feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart &other)
+";
+
+%feature("docstring")  FormFactorCoherentPart::~FormFactorCoherentPart "FormFactorCoherentPart::~FormFactorCoherentPart()
+";
+
+%feature("docstring")  FormFactorCoherentPart::evaluate "complex_t FormFactorCoherentPart::evaluate(const SimulationElement &sim_element) const 
+";
+
+%feature("docstring")  FormFactorCoherentPart::evaluatePol "Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement &sim_element) const 
+";
+
+%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const LayerSpecularInfo &specular_info)
+";
+
+%feature("docstring")  FormFactorCoherentPart::radialExtension "double FormFactorCoherentPart::radialExtension() const 
+";
+
+
+// File: classFormFactorCoherentSum.xml
+%feature("docstring") FormFactorCoherentSum "
+
+Information about particle form factor and abundance.
+
+C++ includes: FormFactorCoherentSum.h
+";
+
+%feature("docstring")  FormFactorCoherentSum::FormFactorCoherentSum "FormFactorCoherentSum::FormFactorCoherentSum(IFormFactor *ff, double abundance)
+";
+
+%feature("docstring")  FormFactorCoherentSum::~FormFactorCoherentSum "FormFactorCoherentSum::~FormFactorCoherentSum()
+";
+
+%feature("docstring")  FormFactorCoherentSum::clone "FormFactorCoherentSum * FormFactorCoherentSum::clone() const 
+";
+
+%feature("docstring")  FormFactorCoherentSum::evaluate "complex_t FormFactorCoherentSum::evaluate(const SimulationElement &sim_element) const 
+";
+
+%feature("docstring")  FormFactorCoherentSum::evaluatePol "Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement &sim_element) const 
+";
+
+%feature("docstring")  FormFactorCoherentSum::setSpecularInfo "void FormFactorCoherentSum::setSpecularInfo(const LayerSpecularInfo &specular_info)
+";
+
+%feature("docstring")  FormFactorCoherentSum::relativeAbundance "double FormFactorCoherentSum::relativeAbundance() const 
+";
+
+%feature("docstring")  FormFactorCoherentSum::scaleRelativeAbundance "void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance)
+";
+
+%feature("docstring")  FormFactorCoherentSum::radialExtension "double FormFactorCoherentSum::radialExtension() const 
+";
+
+
 // File: classFormFactorCone.xml
 %feature("docstring") FormFactorCone "
 
@@ -4334,48 +4400,6 @@ Calculates and returns a polarized form factor calculation in DWBA.
 ";
 
 
-// File: classFormFactorWrapper.xml
-%feature("docstring") FormFactorWrapper "
-
-Information about particle form factor and abundance.
-
-C++ includes: FormFactorCoherentSum.h
-";
-
-%feature("docstring")  FormFactorWrapper::FormFactorWrapper "FormFactorWrapper::FormFactorWrapper(IFormFactor *ff, double abundance)
-";
-
-%feature("docstring")  FormFactorWrapper::~FormFactorWrapper "FormFactorWrapper::~FormFactorWrapper()
-";
-
-%feature("docstring")  FormFactorWrapper::clone "FormFactorWrapper * FormFactorWrapper::clone() const 
-";
-
-%feature("docstring")  FormFactorWrapper::evaluate "complex_t FormFactorWrapper::evaluate(const SimulationElement &sim_element) const 
-";
-
-%feature("docstring")  FormFactorWrapper::evaluatePol "Eigen::Matrix2cd FormFactorWrapper::evaluatePol(const SimulationElement &sim_element) const 
-";
-
-%feature("docstring")  FormFactorWrapper::formfactor "IFormFactor * FormFactorWrapper::formfactor()
-";
-
-%feature("docstring")  FormFactorWrapper::formfactor "const IFormFactor * FormFactorWrapper::formfactor() const 
-";
-
-%feature("docstring")  FormFactorWrapper::setSpecularInfo "void FormFactorWrapper::setSpecularInfo(const LayerSpecularInfo &specular_info)
-";
-
-%feature("docstring")  FormFactorWrapper::relativeAbundance "double FormFactorWrapper::relativeAbundance() const 
-";
-
-%feature("docstring")  FormFactorWrapper::scaleRelativeAbundance "void FormFactorWrapper::scaleRelativeAbundance(double total_abundance)
-";
-
-%feature("docstring")  FormFactorWrapper::radialExtension "double FormFactorWrapper::radialExtension() const 
-";
-
-
 // File: classFTDecayFunction1DCauchy.xml
 %feature("docstring") FTDecayFunction1DCauchy "
 
@@ -5026,9 +5050,12 @@ Constructor for 2D histogram with custom axes.
 Constructor for 2D histograms from basic  OutputData object. 
 ";
 
-%feature("docstring")  Histogram2D::Histogram2D "Histogram2D::Histogram2D(const std::vector< std::vector< double >> &data)
+%feature("docstring")  Histogram2D::Histogram2D "Histogram2D::Histogram2D(const std::vector< std::vector< double >> data)
 
 Constructor for 2D histograms from numpy array (thanks to swig) 
+";
+
+%feature("docstring")  Histogram2D::Histogram2D "Histogram2D::Histogram2D(const std::vector< std::vector< int >> data)
 ";
 
 %feature("docstring")  Histogram2D::clone "Histogram2D * Histogram2D::clone() const
@@ -6577,7 +6604,7 @@ C++ includes: IInterferenceFunctionStrategy.h
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorWrapper > &weighted_formfactors, const IInterferenceFunction &iff)
+%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction &iff)
 
 Initializes the object with form factors and interference functions. 
 ";
@@ -8570,9 +8597,6 @@ A layer, with thickness (in nanometer) and material.
 C++ includes: Layer.h
 ";
 
-%feature("docstring")  Layer::Layer "Layer::Layer()
-";
-
 %feature("docstring")  Layer::Layer "Layer::Layer(const IMaterial &material, double thickness=0)
 ";
 
@@ -8640,9 +8664,6 @@ Returns true if decoration is present.
 ";
 
 %feature("docstring")  Layer::getTotalParticleSurfaceDensity "double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const 
-";
-
-%feature("docstring")  Layer::getTotalAbundance "double Layer::getTotalAbundance() const 
 ";
 
 %feature("docstring")  Layer::setNumberOfLayers "void Layer::setNumberOfLayers(size_t n_layers)
@@ -10479,7 +10500,7 @@ A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of 
 C++ includes: Polygon.h
 ";
 
-%feature("docstring")  Polygon::Polygon "Polygon::Polygon(const std::vector< double > &x, const std::vector< double > &y)
+%feature("docstring")  Polygon::Polygon "Polygon::Polygon(const std::vector< double > x, const std::vector< double > y)
 
 Parameters:
 -----------
@@ -10491,15 +10512,7 @@ y:
 Vector of y-coordinates of polygon points. 
 ";
 
-%feature("docstring")  Polygon::Polygon "Polygon::Polygon(const std::vector< std::vector< double >> &points)
-
-Polygon defined by two dimensional array with (x,y) coordinates of polygon points. The size of second dimension should be 2. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
-
-Parameters:
------------
-
-points: 
-Two dimensional vector of (x,y) coordinates of polygon points. 
+%feature("docstring")  Polygon::Polygon "Polygon::Polygon(const std::vector< std::vector< double >> points)
 ";
 
 %feature("docstring")  Polygon::Polygon "Polygon::Polygon(const PolygonPrivate *d)
@@ -12771,32 +12784,35 @@ C++ includes: WavevectorInfo.h
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0D139.xml
+// File: namespace_0D141.xml
 
 
-// File: namespace_0D182.xml
+// File: namespace_0D184.xml
 
 
-// File: namespace_0D273.xml
+// File: namespace_0D210.xml
 
 
-// File: namespace_0D301.xml
+// File: namespace_0D275.xml
 
 
 // File: namespace_0D303.xml
 
 
-// File: namespace_0D426.xml
+// File: namespace_0D305.xml
 
 
-// File: namespace_0D56.xml
+// File: namespace_0D428.xml
 
 
-// File: namespace_0D71.xml
+// File: namespace_0D58.xml
+
+
+// File: namespace_0D73.xml
 
 
 // File: namespaceArrayUtils.xml
-%feature("docstring")  ArrayUtils::getShape "std::pair< size_t, size_t > ArrayUtils::getShape(const std::vector< std::vector< double >> &data)
+%feature("docstring")  ArrayUtils::getShape "BA_CORE_API_ std::pair< size_t, size_t > ArrayUtils::getShape(const T &data)
 
 Returns shape nrows, ncols of 2D array. 
 ";
@@ -13282,10 +13298,16 @@ enables exception throw in the case of NaN, Inf
 ";
 
 
-// File: FormFactorWrapper_8cpp.xml
+// File: FormFactorCoherentPart_8cpp.xml
 
 
-// File: FormFactorWrapper_8h.xml
+// File: FormFactorCoherentPart_8h.xml
+
+
+// File: FormFactorCoherentSum_8cpp.xml
+
+
+// File: FormFactorCoherentSum_8h.xml
 
 
 // File: FTDecayFunctions_8cpp.xml

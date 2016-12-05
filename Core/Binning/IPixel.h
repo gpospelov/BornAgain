@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/IPixelMap.h
-//! @brief     Defines interface IPixelMap.
+//! @file      Core/Binning/IPixel.h
+//! @brief     Defines interface IPixel.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,24 +13,24 @@
 //
 // ************************************************************************** //
 
-#ifndef IPIXELMAP_H
-#define IPIXELMAP_H
+#ifndef IPIXEL_H
+#define IPIXEL_H
 
 #include "Vectors3D.h"
 
 //! Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 //! @ingroup simulation
 
-class IPixelMap
+class IPixel
 {
 public:
-    virtual ~IPixelMap() {}
+    virtual ~IPixel() {}
 
-    virtual IPixelMap* clone() const=0;
-    virtual IPixelMap* createZeroSizeMap(double x, double y) const=0;
+    virtual IPixel* clone() const=0;
+    virtual IPixel* createZeroSizeMap(double x, double y) const=0;
     virtual kvector_t getK(double x, double y, double wavelength) const=0;
     virtual double getIntegrationFactor(double x, double y) const=0;
     virtual double getSolidAngle() const=0;
 };
 
-#endif // IPIXELMAP_H
+#endif // IPIXEL_H

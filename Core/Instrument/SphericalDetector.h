@@ -17,7 +17,7 @@
 #define SPHERICALDETECTOR_H
 
 #include "IDetector2D.h"
-#include "IPixelMap.h"
+#include "IPixel.h"
 
 //! A spherical detector with axes and resolution function.
 //! SphericalDetector
@@ -56,7 +56,7 @@ public:
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
-    IPixelMap* createPixelMap(size_t index) const override;
+    IPixel* createPixelMap(size_t index) const override;
 
     void print(std::ostream& ostr) const override;
 
@@ -79,7 +79,7 @@ protected:
     size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
-class AngularPixelMap : public IPixelMap
+class AngularPixelMap : public IPixel
 {
 public:
     AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin);

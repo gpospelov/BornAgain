@@ -16,7 +16,7 @@
 #include "SphericalDetector.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
-#include "IPixelMap.h"
+#include "IPixel.h"
 #include "SimulationElement.h"
 #include "Units.h"
 #include "MathConstants.h"
@@ -74,7 +74,7 @@ IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
     return IDetector2D::RADIANS;
 }
 
-IPixelMap* SphericalDetector::createPixelMap(size_t index) const
+IPixel* SphericalDetector::createPixelMap(size_t index) const
 {
     const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);

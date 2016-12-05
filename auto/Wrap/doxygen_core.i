@@ -7741,7 +7741,7 @@ Applies extra translation by adding it to the current one.
 
 Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 
-C++ includes: IPixelMap.h
+C++ includes: IPixel.h
 ";
 
 %feature("docstring")  IPixelMap::~IPixelMap "virtual IPixelMap::~IPixelMap()

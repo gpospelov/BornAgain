@@ -14,12 +14,12 @@
 // ************************************************************************** //
 
 #include "SimulationElement.h"
-#include "IPixelMap.h"
+#include "IPixel.h"
 #include "MathConstants.h"
 #include <vector>
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
-                                     std::unique_ptr<IPixelMap> pixelmap)
+                                     std::unique_ptr<IPixel> pixelmap)
     : m_wavelength(wavelength)
     , m_alpha_i(alpha_i)
     , m_phi_i(phi_i)

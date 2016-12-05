@@ -17,7 +17,7 @@
 #define RECTANGULARDETECTOR_H
 
 #include "IDetector2D.h"
-#include "IPixelMap.h"
+#include "IPixel.h"
 
 //! A flat rectangular detector with axes and resolution function.
 //! @ingroup simulation
@@ -82,7 +82,7 @@ public:
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
-    IPixelMap* createPixelMap(size_t index) const override;
+    IPixel* createPixelMap(size_t index) const override;
 
     void print(std::ostream& ostr) const override;
 
@@ -121,7 +121,7 @@ private:
     kvector_t m_v_unit;
 };
 
-class RectPixelMap : public IPixelMap
+class RectPixelMap : public IPixel
 {
 public:
     RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height);

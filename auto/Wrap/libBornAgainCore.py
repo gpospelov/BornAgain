@@ -19707,78 +19707,46 @@ class InterferenceFunctionNone(IInterferenceFunction):
 InterferenceFunctionNone_swigregister = _libBornAgainCore.InterferenceFunctionNone_swigregister
 InterferenceFunctionNone_swigregister(InterferenceFunctionNone)
 
-class IPixelMap(_object):
-    """
-
-
-    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
-
-    C++ includes: IPixelMap.h
-
-    """
+class IPixel(_object):
+    """Proxy of C++ IPixel class."""
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IPixelMap, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IPixel, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, IPixelMap, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, IPixel, name)
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IPixelMap
+    __swig_destroy__ = _libBornAgainCore.delete_IPixel
     __del__ = lambda self: None
 
     def clone(self):
-        """
-        clone(IPixelMap self) -> IPixelMap
-
-        virtual IPixelMap* IPixelMap::clone() const  =0
-
-        """
-        return _libBornAgainCore.IPixelMap_clone(self)
+        """clone(IPixel self) -> IPixel"""
+        return _libBornAgainCore.IPixel_clone(self)
 
 
     def createZeroSizeMap(self, x, y):
-        """
-        createZeroSizeMap(IPixelMap self, double x, double y) -> IPixelMap
-
-        virtual IPixelMap* IPixelMap::createZeroSizeMap(double x, double y) const  =0
-
-        """
-        return _libBornAgainCore.IPixelMap_createZeroSizeMap(self, x, y)
+        """createZeroSizeMap(IPixel self, double x, double y) -> IPixel"""
+        return _libBornAgainCore.IPixel_createZeroSizeMap(self, x, y)
 
 
     def getK(self, x, y, wavelength):
-        """
-        getK(IPixelMap self, double x, double y, double wavelength) -> kvector_t
-
-        virtual kvector_t IPixelMap::getK(double x, double y, double wavelength) const  =0
-
-        """
-        return _libBornAgainCore.IPixelMap_getK(self, x, y, wavelength)
+        """getK(IPixel self, double x, double y, double wavelength) -> kvector_t"""
+        return _libBornAgainCore.IPixel_getK(self, x, y, wavelength)
 
 
     def getIntegrationFactor(self, x, y):
-        """
-        getIntegrationFactor(IPixelMap self, double x, double y) -> double
-
-        virtual double IPixelMap::getIntegrationFactor(double x, double y) const  =0
-
-        """
-        return _libBornAgainCore.IPixelMap_getIntegrationFactor(self, x, y)
+        """getIntegrationFactor(IPixel self, double x, double y) -> double"""
+        return _libBornAgainCore.IPixel_getIntegrationFactor(self, x, y)
 
 
     def getSolidAngle(self):
-        """
-        getSolidAngle(IPixelMap self) -> double
+        """getSolidAngle(IPixel self) -> double"""
+        return _libBornAgainCore.IPixel_getSolidAngle(self)
 
-        virtual double IPixelMap::getSolidAngle() const  =0
-
-        """
-        return _libBornAgainCore.IPixelMap_getSolidAngle(self)
-
-IPixelMap_swigregister = _libBornAgainCore.IPixelMap_swigregister
-IPixelMap_swigregister(IPixelMap)
+IPixel_swigregister = _libBornAgainCore.IPixel_swigregister
+IPixel_swigregister(IPixel)
 
 class SphericalDetector(IDetector2D):
     """
@@ -19853,15 +19821,15 @@ class SphericalDetector(IDetector2D):
 SphericalDetector_swigregister = _libBornAgainCore.SphericalDetector_swigregister
 SphericalDetector_swigregister(SphericalDetector)
 
-class AngularPixelMap(IPixelMap):
+class AngularPixelMap(IPixel):
     """Proxy of C++ AngularPixelMap class."""
 
     __swig_setmethods__ = {}
-    for _s in [IPixelMap]:
+    for _s in [IPixel]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, AngularPixelMap, name, value)
     __swig_getmethods__ = {}
-    for _s in [IPixelMap]:
+    for _s in [IPixel]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, AngularPixelMap, name)
     __repr__ = _swig_repr
@@ -24148,15 +24116,15 @@ class RectangularDetector(IDetector2D):
 RectangularDetector_swigregister = _libBornAgainCore.RectangularDetector_swigregister
 RectangularDetector_swigregister(RectangularDetector)
 
-class RectPixelMap(IPixelMap):
+class RectPixelMap(IPixel):
     """Proxy of C++ RectPixelMap class."""
 
     __swig_setmethods__ = {}
-    for _s in [IPixelMap]:
+    for _s in [IPixel]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, RectPixelMap, name, value)
     __swig_getmethods__ = {}
-    for _s in [IPixelMap]:
+    for _s in [IPixel]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, RectPixelMap, name)
     __repr__ = _swig_repr

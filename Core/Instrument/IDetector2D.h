@@ -28,7 +28,7 @@ class Beam;
 class DetectionProperties;
 class IAxis;
 class IDetectorResolution;
-class IPixelMap;
+class IPixel;
 class IShape2D;
 class RegionOfInterest;
 class SimulationElement;
@@ -149,7 +149,7 @@ protected:
     IDetector2D(const IDetector2D& other);
 
     //! Create an IPixelMap for the given OutputData object and index
-    virtual IPixelMap* createPixelMap(size_t index) const=0;
+    virtual IPixel* createPixelMap(size_t index) const=0;
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}

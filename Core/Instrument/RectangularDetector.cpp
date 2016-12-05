@@ -102,7 +102,7 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
     m_dbeam_v0 = v0;
 }
 
-IPixel *RectangularDetector::createPixelMap(size_t index) const
+IPixel *RectangularDetector::createPixel(size_t index) const
 {
     const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);

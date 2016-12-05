@@ -56,7 +56,7 @@ public:
 
 protected:
     //! Create an IPixelMap for the given OutputData object and index
-    IPixel* createPixelMap(size_t index) const override;
+    IPixel* createPixel(size_t index) const override;
 
     void print(std::ostream& ostr) const override;
 

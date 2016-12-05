@@ -74,7 +74,7 @@ IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
     return IDetector2D::RADIANS;
 }
 
-IPixel* SphericalDetector::createPixelMap(size_t index) const
+IPixel* SphericalDetector::createPixel(size_t index) const
 {
     const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);

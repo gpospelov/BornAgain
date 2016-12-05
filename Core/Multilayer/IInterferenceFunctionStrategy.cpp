@@ -49,10 +49,6 @@ void IInterferenceFunctionStrategy::init(
     m_formfactor_wrappers = weighted_formfactors;
     mP_iff.reset(iff.clone());
 
-    m_total_abundance = 0;
-    for (const auto ffw: m_formfactor_wrappers)
-        m_total_abundance += ffw->relativeAbundance();
-
     strategy_specific_post_init();
 }
 

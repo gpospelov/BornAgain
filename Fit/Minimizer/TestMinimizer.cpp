@@ -46,3 +46,8 @@ std::string TestMinimizer::reportOutcome() const
            << m_min_value << std::endl;
     return result.str();
 }
+
+void TestMinimizer::propagateResults(FitParameterSet &)
+{
+    // nothing to do
+}

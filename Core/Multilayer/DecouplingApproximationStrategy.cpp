@@ -30,20 +30,18 @@ double DecouplingApproximationStrategy1::evaluateForList(
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
-    if (m_total_abundance <= 0.0)
-        return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         complex_t ff = m_precomputed_ff1[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
-        double fraction = m_formfactor_wrappers[i]->relativeAbundance() / m_total_abundance;
+        double fraction = m_formfactor_wrappers[i]->relativeAbundance();
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
-    return m_total_abundance * (intensity + amplitude_norm * (itf_function - 1.0));
+    return intensity + amplitude_norm * (itf_function - 1.0);
 }
 
 //! Returns the total incoherent and coherent scattering intensity for given kf and
@@ -57,15 +55,13 @@ double DecouplingApproximationStrategy2::evaluateForList(
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
-    if (m_total_abundance <= 0.0)
-        return 0.0;
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = m_precomputed_ff2[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> "
                 "Error! Form factor contains NaN or infinite");
-        double fraction = m_formfactor_wrappers[i]->relativeAbundance() / m_total_abundance;
+        double fraction = m_formfactor_wrappers[i]->relativeAbundance();
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }
@@ -75,5 +71,5 @@ double DecouplingApproximationStrategy2::evaluateForList(
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
-    return m_total_abundance * (intensity_trace + amplitude_trace * (itf_function - 1.0));
+    return intensity_trace + amplitude_trace * (itf_function - 1.0);
 }

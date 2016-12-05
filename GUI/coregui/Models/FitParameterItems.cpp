@@ -257,16 +257,16 @@ void FitParameterContainerItem::setValuesInParameterContainer(
 
     QVector<SessionItem*> fitPars = getItems(FitParameterContainerItem::T_FIT_PARAMETERS);
 
-    if(fitPars.size() != values.size())
-        throw GUIHelpers::Error(" FitParameterContainerItem::setValuesInParameterContainer() -> "
-                                "Error. Wrong size of value vector.");
-
+    size_t index(0);
     for(int i=0; i<fitPars.size(); ++i) {
-        foreach(SessionItem* linkItem, fitPars[i]->getItems(FitParameterItem::T_LINK)) {
+        auto link_list = fitPars[i]->getItems(FitParameterItem::T_LINK);
+        if(link_list.size()==0)
+            continue;
+        foreach(SessionItem* linkItem, link_list) {
             QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
             SessionItem* itemInTuningTree = ModelPath::getItemFromPath(parPath, parameterContainer);
             Q_ASSERT(itemInTuningTree);
-            itemInTuningTree->setValue(values[i]);
+            itemInTuningTree->setValue(values[index++]);
         }
     }
 }

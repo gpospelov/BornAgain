@@ -24,6 +24,8 @@
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "RefractiveIndexItem.h"
+#include "ParticleItem.h"
+#include "LayerItem.h"
 #include <QDebug>
 
 
@@ -66,6 +68,23 @@ MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
 {
     MaterialItem *materialItem
         = MaterialSvc::getMaterial(material_property);
-    Q_ASSERT(materialItem);
+
+    if(!materialItem)
+        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't create "
+                                "material with name '"+material_property.getName()+"'.");
+
     return materialItem->createMaterial();
+}
+
+//! Returns material tag for given item. Returns empty string, if item doesn't have materials.
+
+QString MaterialUtils::materialTag(const SessionItem &item)
+{
+    QString result;
+    if (item.modelType() == Constants::ParticleType) {
+        result = ParticleItem::P_MATERIAL;
+    } else if (item.modelType() == Constants::LayerType) {
+        result = LayerItem::P_MATERIAL;
+    }
+    return result;
 }

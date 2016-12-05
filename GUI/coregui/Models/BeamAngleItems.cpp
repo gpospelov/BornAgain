@@ -31,7 +31,18 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
     value->setValue(0.2);
 }
 
-std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D()
+//! Returns beam inclination angle. In the case of distribution applied, returns its mean.
+
+double BeamInclinationAngleItem::inclinationAngle() const
+{
+    std::unique_ptr<IDistribution1D> domainDistr = createDistribution1D();
+    if(domainDistr)
+        return Units::rad2deg(domainDistr->getMean());
+    else
+        return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
+}
+
+std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D() const
 {
     std::unique_ptr<IDistribution1D> P_distribution {};
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getGroupItem(P_DISTRIBUTION))) {
@@ -53,7 +64,18 @@ BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     value->setValue(0.0);
 }
 
-std::unique_ptr<IDistribution1D> BeamAzimuthalAngleItem::createDistribution1D()
+//! Returns beam azimuthal angle. In the case of distribution applied, returns its mean.
+
+double BeamAzimuthalAngleItem::azimuthalAngle() const
+{
+    std::unique_ptr<IDistribution1D> domainDistr = createDistribution1D();
+    if(domainDistr)
+        return Units::rad2deg(domainDistr->getMean());
+    else
+        return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
+}
+
+std::unique_ptr<IDistribution1D> BeamAzimuthalAngleItem::createDistribution1D() const
 {
     std::unique_ptr<IDistribution1D> P_distribution {};
     if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(getGroupItem(P_DISTRIBUTION))) {

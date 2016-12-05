@@ -68,7 +68,6 @@ protected:
     //! Evaluates the intensity for given list of evaluated form factors
     virtual double evaluateForList(const SimulationElement& sim_element) const =0;
 
-    double m_total_abundance; //!< cached sum of particle abundances, computed by init()
     SafePointerVector<FormFactorCoherentSum> m_formfactor_wrappers;
     std::unique_ptr<IInterferenceFunction> mP_iff;
     SimulationOptions m_options;

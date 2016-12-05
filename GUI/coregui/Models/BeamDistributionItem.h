@@ -34,10 +34,12 @@ public:
     std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
             const std::string &parameter_name);
 
+    virtual double meanValue() const;
+
 protected:
     void initDistributionItem();
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution1D();
+    virtual std::unique_ptr<IDistribution1D> createDistribution1D() const;
 };
 
 #endif // BEAMDISTRIBUTIONITEM_H

@@ -30,8 +30,8 @@ class PolygonPrivate;
 
 class BA_CORE_API_ Polygon : public IShape2D {
 public:
-    Polygon(const std::vector<double>& x, const std::vector<double>& y);
-    Polygon(const std::vector<std::vector<double>>& points);
+    Polygon(const std::vector<double> x, const std::vector<double> y);
+    Polygon(const std::vector<std::vector<double>> points);
     Polygon(const PolygonPrivate* d);
 
     virtual ~Polygon();

@@ -79,14 +79,14 @@ protected:
     size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
-class AngularPixelMap : public IPixel
+class SphericalPixel : public IPixel
 {
 public:
-    AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin);
-    virtual ~AngularPixelMap() {}
+    SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin);
+    virtual ~SphericalPixel() {}
 
-    AngularPixelMap* clone() const override;
-    AngularPixelMap* createZeroSizeMap(double x, double y) const override;
+    SphericalPixel* clone() const override;
+    SphericalPixel* createZeroSizeMap(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;

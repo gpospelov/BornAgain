@@ -121,14 +121,14 @@ private:
     kvector_t m_v_unit;
 };
 
-class RectPixelMap : public IPixel
+class RectangularPixel : public IPixel
 {
 public:
-    RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height);
-    virtual ~RectPixelMap() {}
+    RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height);
+    virtual ~RectangularPixel() {}
 
-    RectPixelMap* clone() const override;
-    RectPixelMap* createZeroSizeMap(double x, double y) const override;
+    RectangularPixel* clone() const override;
+    RectangularPixel* createZeroSizeMap(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;

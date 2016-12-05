@@ -584,7 +584,7 @@ C++ includes: IFitParameter.h
 %feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter(const IFitParameter &)=delete
 ";
 
-%feature("docstring")  IFitParameter::clone "virtual IFitParameter* IFitParameter::clone() const =0
+%feature("docstring")  IFitParameter::clone "virtual IFitParameter* IFitParameter::clone() const  =0
 ";
 
 
@@ -1125,33 +1125,33 @@ C++ includes: RootMinimizerAdapter.h
 run minimization 
 ";
 
-%feature("docstring")  RootMinimizerAdapter::minimizerName "std::string RootMinimizerAdapter::minimizerName() const overridefinal
+%feature("docstring")  RootMinimizerAdapter::minimizerName "std::string RootMinimizerAdapter::minimizerName() const  override final
 
 Returns name of the minimizer. 
 ";
 
-%feature("docstring")  RootMinimizerAdapter::algorithmName "std::string RootMinimizerAdapter::algorithmName() const overridefinal
+%feature("docstring")  RootMinimizerAdapter::algorithmName "std::string RootMinimizerAdapter::algorithmName() const  override final
 
 Returns name of the minimization algorithm. 
 ";
 
-%feature("docstring")  RootMinimizerAdapter::setParameters "void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters) overridefinal
+%feature("docstring")  RootMinimizerAdapter::setParameters "void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters) override final
 
 Sets internal minimizer parameters using external parameter list. 
 ";
 
-%feature("docstring")  RootMinimizerAdapter::setObjectiveFunction "void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func) overridefinal
+%feature("docstring")  RootMinimizerAdapter::setObjectiveFunction "void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func) override final
 ";
 
-%feature("docstring")  RootMinimizerAdapter::setGradientFunction "void RootMinimizerAdapter::setGradientFunction(gradient_function_t func, int ndatasize) overridefinal
+%feature("docstring")  RootMinimizerAdapter::setGradientFunction "void RootMinimizerAdapter::setGradientFunction(gradient_function_t func, int ndatasize) override final
 ";
 
-%feature("docstring")  RootMinimizerAdapter::minValue "double RootMinimizerAdapter::minValue() const overridefinal
+%feature("docstring")  RootMinimizerAdapter::minValue "double RootMinimizerAdapter::minValue() const  override final
 
 Returns minimum function value. 
 ";
 
-%feature("docstring")  RootMinimizerAdapter::reportResults "std::string RootMinimizerAdapter::reportResults() const overridefinal
+%feature("docstring")  RootMinimizerAdapter::reportResults "std::string RootMinimizerAdapter::reportResults() const  override final
 
 Prints fit results. 
 ";
@@ -1182,7 +1182,7 @@ Returns map of string representing different minimizer statuses.
 Propagates results of minimization to fit parameter set. 
 ";
 
-%feature("docstring")  RootMinimizerAdapter::setOptions "void RootMinimizerAdapter::setOptions(const std::string &optionString) overridefinal
+%feature("docstring")  RootMinimizerAdapter::setOptions "void RootMinimizerAdapter::setOptions(const std::string &optionString) override final
 
 Sets option string to the minimizer. 
 ";
@@ -1338,7 +1338,7 @@ C++ includes: TestMinimizer.h
 %feature("docstring")  TestMinimizer::~TestMinimizer "TestMinimizer::~TestMinimizer()
 ";
 
-%feature("docstring")  TestMinimizer::minimizerName "std::string TestMinimizer::minimizerName() const override
+%feature("docstring")  TestMinimizer::minimizerName "std::string TestMinimizer::minimizerName() const  override
 
 return name of the minimizer 
 ";
@@ -1356,9 +1356,14 @@ Sets internal minimizer parameters using external parameter list.
 %feature("docstring")  TestMinimizer::setObjectiveFunction "void TestMinimizer::setObjectiveFunction(objective_function_t func) override
 ";
 
-%feature("docstring")  TestMinimizer::reportResults "std::string TestMinimizer::reportResults() const override
+%feature("docstring")  TestMinimizer::reportResults "std::string TestMinimizer::reportResults() const  override
 
 Prints fit results. 
+";
+
+%feature("docstring")  TestMinimizer::propagateResults "void TestMinimizer::propagateResults(FitParameterSet &)
+
+Propagates results of minimization to fit parameter set. 
 ";
 
 
@@ -1484,6 +1489,11 @@ replace all occurences of items from string text with delimeter
 %feature("docstring")  Utils::String::join "std::string Utils::String::join(const std::vector< std::string > &joinable, const std::string &joint)
 
 Returns string obtain by joining vector elements. 
+";
+
+%feature("docstring")  Utils::String::removeSubstring "std::string Utils::String::removeSubstring(const std::string &text, const std::string &substr)
+
+Removes multiple occurences of given substring from a string and returns result. 
 ";
 
 

@@ -50,10 +50,6 @@ void IInterferenceFunctionStrategy::init(
     m_formfactor_wrappers = weighted_formfactors;
     mP_iff.reset(iff.clone());
 
-    m_total_abundance = 0;
-    for (const auto ffw: m_formfactor_wrappers)
-        m_total_abundance += ffw->m_abundance;
-
     if (&specular_info != mP_specular_info.get())
         mP_specular_info.reset(specular_info.clone());
 

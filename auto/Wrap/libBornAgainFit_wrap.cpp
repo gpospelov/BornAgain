@@ -5627,7 +5627,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -22220,7 +22220,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IFitParameter_clone", _wrap_IFitParameter_clone, METH_VARARGS, (char *)"\n"
 		"IFitParameter_clone(IFitParameter self) -> IFitParameter\n"
 		"\n"
-		"virtual IFitParameter* IFitParameter::clone() const =0\n"
+		"virtual IFitParameter* IFitParameter::clone() const  =0\n"
 		"\n"
 		""},
 	 { (char *)"IFitParameter_swigregister", IFitParameter_swigregister, METH_VARARGS, NULL},

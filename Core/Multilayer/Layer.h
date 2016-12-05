@@ -29,7 +29,6 @@ class IMaterial;
 class BA_CORE_API_ Layer : public ICompositeSample
 {
 public:
-    Layer(); // TODO consider =delete;
     Layer(const IMaterial& material, double thickness = 0);
 
     ~Layer() final;
@@ -58,8 +57,6 @@ public:
     bool hasComputation() const { return m_layouts.size()>0; }
 
     double getTotalParticleSurfaceDensity(size_t layout_index) const;
-
-    double getTotalAbundance() const;
 
     void setNumberOfLayers(size_t n_layers) { mn_layers = n_layers; }
     size_t getNumberOfLayers() const { return mn_layers; }

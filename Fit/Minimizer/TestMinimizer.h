@@ -38,6 +38,8 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
 
     std::string reportOutcome() const override;
 
+    void propagateResults(FitParameterSet&);
+
  private:
     double m_min_value;
     std::vector<double> m_parameter_values;

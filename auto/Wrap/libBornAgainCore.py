@@ -20302,16 +20302,15 @@ class Layer(ICompositeSample):
     __getattr__ = lambda self, name: _swig_getattr(self, Layer, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, material, thickness=0):
         """
-        __init__(Layer self) -> Layer
         __init__(Layer self, IMaterial material, double thickness=0) -> Layer
         __init__(Layer self, IMaterial material) -> Layer
 
         Layer::Layer(const IMaterial &material, double thickness=0)
 
         """
-        this = _libBornAgainCore.new_Layer(*args)
+        this = _libBornAgainCore.new_Layer(material, thickness)
         try:
             self.this.append(this)
         except Exception:
@@ -20486,16 +20485,6 @@ class Layer(ICompositeSample):
 
         """
         return _libBornAgainCore.Layer_getTotalParticleSurfaceDensity(self, layout_index)
-
-
-    def getTotalAbundance(self):
-        """
-        getTotalAbundance(Layer self) -> double
-
-        double Layer::getTotalAbundance() const 
-
-        """
-        return _libBornAgainCore.Layer_getTotalAbundance(self)
 
 
     def setNumberOfLayers(self, n_layers):

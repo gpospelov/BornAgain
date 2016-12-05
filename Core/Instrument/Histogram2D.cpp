@@ -43,7 +43,7 @@ Histogram2D::Histogram2D(const OutputData<double>& data)
     init_from_data(data);
 }
 
-Histogram2D::Histogram2D(const std::vector<std::vector<double>>& data)
+Histogram2D::Histogram2D(const std::vector<std::vector<double> > data)
 {
     auto shape = ArrayUtils::getShape(data);
     const size_t nrows = shape.first;

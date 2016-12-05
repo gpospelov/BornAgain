@@ -252,6 +252,8 @@ void FitSuiteWidget::updateLog(const FitProgressInfo &info)
     QVector<double> values = info.parValues();
     foreach(SessionItem *item,
             fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        if(item->getItems(FitParameterItem::T_LINK).size()==0)
+            continue;
         QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index++]);
         message.append(parinfo);
     }

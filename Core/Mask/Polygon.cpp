@@ -65,7 +65,7 @@ void PolygonPrivate::get_points(std::vector<double>& xpos, std::vector<double>& 
 
 // IMPORTANT Input parameters are not "const reference" to be able to work from python
 // (auto convertion of python list to vector<double>).
-Polygon::Polygon(const std::vector<double>& x, const std::vector<double>& y)
+Polygon::Polygon(const std::vector<double> x, const std::vector<double> y)
     : IShape2D("Polygon"), m_d(new PolygonPrivate)
 {
     m_d->init_from(x, y);
@@ -77,7 +77,7 @@ Polygon::Polygon(const std::vector<double>& x, const std::vector<double>& y)
     //! The size of second dimension should be 2. If polygon is unclosed (the last point
     //! doesn't repeat the first one), it will be closed automatically.
     //! @param points Two dimensional vector of (x,y) coordinates of polygon points.
-Polygon::Polygon(const std::vector<std::vector<double>>& points)
+Polygon::Polygon(const std::vector<std::vector<double> > points)
     : IShape2D("Polygon"), m_d(new PolygonPrivate)
 {
     std::vector<double> x;

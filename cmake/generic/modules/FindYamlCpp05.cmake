@@ -1,4 +1,4 @@
-﻿# Find libyaml-cpp with API version 0.5
+# Find libyaml-cpp with API version 0.5
 #
 # Usage:
 #   find_package(YamlCpp05 [REQUIRED] [QUIET])

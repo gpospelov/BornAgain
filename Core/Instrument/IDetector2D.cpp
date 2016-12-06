@@ -214,8 +214,8 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
 
     SimulationArea area(this);
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        SimulationElement sim_element(wavelength, alpha_i, phi_i, std::unique_ptr<IPixelMap>(
-                                          createPixelMap(it.detectorIndex())));
+        SimulationElement sim_element(wavelength, alpha_i, phi_i, std::unique_ptr<IPixel>(
+                                          createPixel(it.detectorIndex())));
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         if (it.index()==spec_index) {
@@ -233,7 +233,7 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
     return SimulationElement(wavelength, alpha_i, phi_i,
-                             std::unique_ptr<IPixelMap>(createPixelMap(index)));
+                             std::unique_ptr<IPixel>(createPixel(index)));
 }
 
 size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const

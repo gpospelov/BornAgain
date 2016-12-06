@@ -22088,7 +22088,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_minimizerName", _wrap_IMinimizer_minimizerName, METH_VARARGS, (char *)"\n"
 		"IMinimizer_minimizerName(IMinimizer self) -> std::string\n"
 		"\n"
-		"virtual std::string IMinimizer::minimizerName() const  =0\n"
+		"virtual std::string IMinimizer::minimizerName() const =0\n"
 		"\n"
 		"return name of the minimizer \n"
 		"\n"
@@ -22096,7 +22096,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_algorithmName", _wrap_IMinimizer_algorithmName, METH_VARARGS, (char *)"\n"
 		"IMinimizer_algorithmName(IMinimizer self) -> std::string\n"
 		"\n"
-		"virtual std::string IMinimizer::algorithmName() const  =0\n"
+		"virtual std::string IMinimizer::algorithmName() const =0\n"
 		"\n"
 		"return name of the minimization algorithm \n"
 		"\n"
@@ -22148,7 +22148,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_reportOutcome", _wrap_IMinimizer_reportOutcome, METH_VARARGS, (char *)"\n"
 		"IMinimizer_reportOutcome(IMinimizer self) -> std::string\n"
 		"\n"
-		"virtual std::string IMinimizer::reportOutcome() const  =0\n"
+		"virtual std::string IMinimizer::reportOutcome() const =0\n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"
@@ -22177,7 +22177,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IFitParameter_clone", _wrap_IFitParameter_clone, METH_VARARGS, (char *)"\n"
 		"IFitParameter_clone(IFitParameter self) -> IFitParameter\n"
 		"\n"
-		"virtual IFitParameter* IFitParameter::clone() const  =0\n"
+		"virtual IFitParameter* IFitParameter::clone() const =0\n"
 		"\n"
 		""},
 	 { (char *)"IFitParameter_swigregister", IFitParameter_swigregister, METH_VARARGS, NULL},

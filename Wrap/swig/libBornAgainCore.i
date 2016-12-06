@@ -389,7 +389,7 @@
 %include "InterferenceFunction2DLattice.h"
 %include "InterferenceFunction2DParaCrystal.h"
 %include "InterferenceFunctionNone.h"
-%include "IPixelMap.h"
+%include "IPixel.h"
 %include "SphericalDetector.h"
 %include "IsGISAXSDetector.h"
 %include "Lattice.h"

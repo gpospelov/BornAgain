@@ -16,7 +16,7 @@
 #include "SphericalDetector.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
-#include "IPixelMap.h"
+#include "IPixel.h"
 #include "SimulationElement.h"
 #include "Units.h"
 #include "MathConstants.h"
@@ -74,7 +74,7 @@ IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const
     return IDetector2D::RADIANS;
 }
 
-IPixelMap* SphericalDetector::createPixelMap(size_t index) const
+IPixel* SphericalDetector::createPixel(size_t index) const
 {
     const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
@@ -83,7 +83,7 @@ IPixelMap* SphericalDetector::createPixelMap(size_t index) const
 
     Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
     Bin1D phi_bin = phi_axis.getBin(phi_index);
-    return new AngularPixelMap(alpha_bin, phi_bin);
+    return new SphericalPixel(alpha_bin, phi_bin);
 }
 
 void SphericalDetector::print(std::ostream& ostr) const
@@ -147,44 +147,44 @@ size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
     return getTotalSize();
 }
 
-AngularPixelMap::AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
+SphericalPixel::SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin)
     : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower),
       m_dalpha(alpha_bin.getBinSize()), m_dphi(phi_bin.getBinSize())
 {
     m_solid_angle = std::abs(m_dphi*(std::sin(m_alpha+m_dalpha) - std::sin(m_alpha)));
 }
 
-AngularPixelMap* AngularPixelMap::clone() const
+SphericalPixel* SphericalPixel::clone() const
 {
     Bin1D alpha_bin(m_alpha, m_alpha+m_dalpha);
     Bin1D phi_bin(m_phi, m_phi+m_dphi);
-    return new AngularPixelMap(alpha_bin, phi_bin);
+    return new SphericalPixel(alpha_bin, phi_bin);
 }
 
-AngularPixelMap* AngularPixelMap::createZeroSizeMap(double x, double y) const
+SphericalPixel* SphericalPixel::createZeroSizePixel(double x, double y) const
 {
     double phi = m_phi + x*m_dphi;
     double alpha = m_alpha + y*m_dalpha;
     Bin1D alpha_bin(alpha, alpha);
     Bin1D phi_bin(phi, phi);
-    return new AngularPixelMap(alpha_bin, phi_bin);
+    return new SphericalPixel(alpha_bin, phi_bin);
 }
 
-kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const
+kvector_t SphericalPixel::getK(double x, double y, double wavelength) const
 {
     double phi = m_phi + x*m_dphi;
     double alpha = m_alpha + y*m_dalpha;
     return vecOfLambdaAlphaPhi(wavelength, alpha, phi);
 }
 
-double AngularPixelMap::getIntegrationFactor(double /* x */, double y) const
+double SphericalPixel::getIntegrationFactor(double /* x */, double y) const
 {
     if (m_dalpha==0.0) return 1.0;
     double alpha = m_alpha + y*m_dalpha;
     return std::cos(alpha)*m_dalpha/(std::sin(m_alpha+m_dalpha)-std::sin(m_alpha));
 }
 
-double AngularPixelMap::getSolidAngle() const
+double SphericalPixel::getSolidAngle() const
 {
     if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;

@@ -5055,9 +5055,6 @@ Constructor for 2D histograms from basic  OutputData object.
 Constructor for 2D histograms from numpy array (thanks to swig) 
 ";
 
-%feature("docstring")  Histogram2D::Histogram2D "Histogram2D::Histogram2D(const std::vector< std::vector< int >> data)
-";
-
 %feature("docstring")  Histogram2D::clone "Histogram2D * Histogram2D::clone() const
 
 Returns clone of other histogram. 
@@ -5146,9 +5143,6 @@ Sets the values in histograms channels from numpy array,.
 %feature("docstring")  Histogram2D::addContent "void Histogram2D::addContent(const std::vector< std::vector< double >> &data)
 
 Add to values in histograms channels from numpy array,. 
-";
-
-%feature("docstring")  Histogram2D::addContent "void Histogram2D::addContent(const std::vector< std::vector< int >> &data)
 ";
 
 

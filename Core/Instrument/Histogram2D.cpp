@@ -59,10 +59,10 @@ Histogram2D::Histogram2D(const std::vector<std::vector<double> > data)
     this->setContent(data);
 }
 
-Histogram2D::Histogram2D(const std::vector<std::vector<int> > data)
-    : Histogram2D(convertToDouble(data))
-{
-}
+//Histogram2D::Histogram2D(const std::vector<std::vector<int> > data)
+//    : Histogram2D(convertToDouble(data))
+//{
+//}
 
 Histogram2D* Histogram2D::clone() const
 {
@@ -165,10 +165,10 @@ void Histogram2D::addContent(const std::vector<std::vector<double> > &data)
     }
 }
 
-void Histogram2D::addContent(const std::vector<std::vector<int> > &data)
-{
-    addContent(convertToDouble(data));
-}
+//void Histogram2D::addContent(const std::vector<std::vector<int> > &data)
+//{
+//    addContent(convertToDouble(data));
+//}
 
 Histogram1D* Histogram2D::create_projectionX(int ybinlow, int ybinup)
 {

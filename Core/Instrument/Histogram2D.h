@@ -59,7 +59,7 @@ public:
 
     //! Constructor for 2D histograms from numpy array (thanks to swig)
     Histogram2D(const std::vector<std::vector<double>> data);
-    Histogram2D(const std::vector<std::vector<int>> data);
+//    Histogram2D(const std::vector<std::vector<int>> data);
 
     //! Returns clone of other histogram
     Histogram2D* clone() const;
@@ -108,7 +108,7 @@ public:
 
     //! Add to values in histograms channels from numpy array,
     void addContent(const std::vector<std::vector<double>>& data);
-    void addContent(const std::vector<std::vector<int>>& data);
+//    void addContent(const std::vector<std::vector<int>>& data);
 
 protected:
     template<typename T>

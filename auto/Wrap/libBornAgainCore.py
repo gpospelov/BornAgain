@@ -16070,7 +16070,6 @@ class IHistogram(_object):
         """
         createFrom(std::string const & filename) -> IHistogram
         createFrom(vdouble2d_t data) -> IHistogram
-        createFrom(std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & data) -> IHistogram
         """
         return _libBornAgainCore.IHistogram_createFrom(*args)
 
@@ -16167,8 +16166,7 @@ def IHistogram_createHistogram(source):
 def IHistogram_createFrom(*args):
     """
     createFrom(std::string const & filename) -> IHistogram
-    createFrom(vdouble2d_t data) -> IHistogram
-    IHistogram_createFrom(std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & data) -> IHistogram
+    IHistogram_createFrom(vdouble2d_t data) -> IHistogram
     """
     return _libBornAgainCore.IHistogram_createFrom(*args)
 
@@ -16353,9 +16351,10 @@ class Histogram2D(IHistogram):
         __init__(Histogram2D self, IAxis axis_x, IAxis axis_y) -> Histogram2D
         __init__(Histogram2D self, IntensityData data) -> Histogram2D
         __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
-        __init__(Histogram2D self, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const data) -> Histogram2D
 
-        Histogram2D::Histogram2D(const std::vector< std::vector< int >> data)
+        Histogram2D::Histogram2D(const std::vector< std::vector< double >> data)
+
+        Constructor for 2D histograms from numpy array (thanks to swig) 
 
         """
         this = _libBornAgainCore.new_Histogram2D(*args)
@@ -16471,15 +16470,16 @@ class Histogram2D(IHistogram):
         return _libBornAgainCore.Histogram2D_setContent(self, data)
 
 
-    def addContent(self, *args):
+    def addContent(self, data):
         """
         addContent(Histogram2D self, vdouble2d_t data)
-        addContent(Histogram2D self, std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const & data)
 
-        void Histogram2D::addContent(const std::vector< std::vector< int >> &data)
+        void Histogram2D::addContent(const std::vector< std::vector< double >> &data)
+
+        Add to values in histograms channels from numpy array,. 
 
         """
-        return _libBornAgainCore.Histogram2D_addContent(self, *args)
+        return _libBornAgainCore.Histogram2D_addContent(self, data)
 
 
     def dynamicCast(pHistogram):

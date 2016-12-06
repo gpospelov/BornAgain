@@ -254,10 +254,10 @@ IHistogram* IHistogram::createFrom(const std::vector<std::vector<double>>& data)
     return new Histogram2D(data);
 }
 
-IHistogram* IHistogram::createFrom(const std::vector<std::vector<int>>& data)
-{
-    return new Histogram2D(data);
-}
+//IHistogram* IHistogram::createFrom(const std::vector<std::vector<int>>& data)
+//{
+//    return new Histogram2D(data);
+//}
 
 void IHistogram::check_x_axis() const
 {

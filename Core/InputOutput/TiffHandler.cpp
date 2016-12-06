@@ -20,9 +20,9 @@
 #include "SysUtils.h"
 
 namespace {
-size_t supported_bitPerSample = 32;
-size_t supported_samplesPerPixel = 1;
-size_t size_of_int = 4;
+const size_t supported_bitPerSample    = 32;
+const size_t supported_samplesPerPixel = 1;
+const size_t supported_sampleSize      = 4;
 }
 
 TiffHandler::TiffHandler()
@@ -107,11 +107,31 @@ void TiffHandler::read_data()
 {
     assert(m_tiff);
 
+    uint16 sampleFormat(0);
+    if (!TIFFGetField(m_tiff, TIFFTAG_SAMPLEFORMAT, &sampleFormat))
+        sampleFormat = 1;
+
+    static_assert(
+          supported_sampleSize == sizeof(uint32) &&
+          supported_sampleSize == sizeof(int32)  &&
+          supported_sampleSize == sizeof(float),
+          "sanity check failed");
+
+    switch (sampleFormat) {
+    case 1: // unsigned int
+    case 2: // signed int
+    case 3: // IEEE float
+      break;
+    default:
+      throw Exceptions::FormatErrorException("TiffHandler: unexpected sample format");
+    }
+
     tmsize_t buf_size = TIFFScanlineSize(m_tiff);
-    tmsize_t expected_size = size_of_int*m_width;
+    tmsize_t expected_size = supported_sampleSize * m_width;
     if(buf_size != expected_size)
         throw Exceptions::FormatErrorException(
             "TiffHandler::read_data() -> Error. Wrong scanline size.");
+
     tdata_t buf = _TIFFmalloc(buf_size);
     if(!buf)
         throw Exceptions::FormatErrorException(
@@ -119,20 +139,39 @@ void TiffHandler::read_data()
 
     create_output_data();
 
-    std::vector<int> line_buf;
+    std::vector<int32> line_buf;
     line_buf.resize(m_width, 0);
-    std::vector<int> axes_indices(2);
+
+    std::vector<int32> axes_indices(2);
+
     for (uint32 row = 0; row < (uint32) m_height; row++) {
         if(TIFFReadScanline(m_tiff, buf, row) < 0)
             throw Exceptions::FormatErrorException(
                 "TiffHandler::read_data() -> Error. Error in scanline.");
+
         memcpy(&line_buf[0], buf, buf_size);
+
         for(size_t col=0; col<line_buf.size(); ++col) {
-//            std::cout << "row:" << row << " col:" << col << " " << line_buf[col] << std::endl;
             axes_indices[0] = col;
             axes_indices[1] = m_height - 1 - row;
             size_t global_index = m_data->toGlobalIndex(axes_indices);
-            (*m_data)[global_index] = (double)line_buf[col];
+
+            void *incoming = &line_buf[col];
+            double sample;
+
+            switch (sampleFormat) {
+            case 1: // unsigned int
+              sample = *reinterpret_cast<uint32*>(incoming);
+              break;
+            case 2: // signed int
+              sample = *reinterpret_cast<int32*>(incoming);
+              break;
+            case 3: // IEEE float
+              sample = double(*reinterpret_cast<float*>(incoming));
+              break;
+            }
+
+            (*m_data)[global_index] = sample;
         }
     }
     _TIFFfree(buf);
@@ -162,7 +201,7 @@ void TiffHandler::write_header()
 
 void TiffHandler::write_data()
 {
-    tmsize_t buf_size = size_of_int*m_width;;
+    tmsize_t buf_size = supported_sampleSize * m_width;;
     tdata_t buf = _TIFFmalloc(buf_size);
     if(!buf)
         throw Exceptions::FormatErrorException(

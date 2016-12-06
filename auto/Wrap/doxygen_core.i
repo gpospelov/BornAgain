@@ -25,31 +25,6 @@ C++ includes: AdjustMinimizerStrategy.h
 ";
 
 
-// File: classAngularPixelMap.xml
-%feature("docstring") AngularPixelMap "";
-
-%feature("docstring")  AngularPixelMap::AngularPixelMap "AngularPixelMap::AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
-";
-
-%feature("docstring")  AngularPixelMap::~AngularPixelMap "virtual AngularPixelMap::~AngularPixelMap()
-";
-
-%feature("docstring")  AngularPixelMap::clone "AngularPixelMap * AngularPixelMap::clone() const  override
-";
-
-%feature("docstring")  AngularPixelMap::createZeroSizeMap "AngularPixelMap * AngularPixelMap::createZeroSizeMap(double x, double y) const  override
-";
-
-%feature("docstring")  AngularPixelMap::getK "kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const  override
-";
-
-%feature("docstring")  AngularPixelMap::getIntegrationFactor "double AngularPixelMap::getIntegrationFactor(double x, double y) const  override
-";
-
-%feature("docstring")  AngularPixelMap::getSolidAngle "double AngularPixelMap::getSolidAngle() const  override
-";
-
-
 // File: classBasic2DLatticeBuilder.xml
 %feature("docstring") Basic2DLatticeBuilder "
 
@@ -464,21 +439,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -7760,30 +7735,30 @@ Applies extra translation by adding it to the current one.
 ";
 
 
-// File: classIPixelMap.xml
-%feature("docstring") IPixelMap "
+// File: classIPixel.xml
+%feature("docstring") IPixel "
 
 Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 
-C++ includes: IPixelMap.h
+C++ includes: IPixel.h
 ";
 
-%feature("docstring")  IPixelMap::~IPixelMap "virtual IPixelMap::~IPixelMap()
+%feature("docstring")  IPixel::~IPixel "virtual IPixel::~IPixel()
 ";
 
-%feature("docstring")  IPixelMap::clone "virtual IPixelMap* IPixelMap::clone() const  =0
+%feature("docstring")  IPixel::clone "virtual IPixel* IPixel::clone() const  =0
 ";
 
-%feature("docstring")  IPixelMap::createZeroSizeMap "virtual IPixelMap* IPixelMap::createZeroSizeMap(double x, double y) const  =0
+%feature("docstring")  IPixel::createZeroSizePixel "virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const  =0
 ";
 
-%feature("docstring")  IPixelMap::getK "virtual kvector_t IPixelMap::getK(double x, double y, double wavelength) const  =0
+%feature("docstring")  IPixel::getK "virtual kvector_t IPixel::getK(double x, double y, double wavelength) const  =0
 ";
 
-%feature("docstring")  IPixelMap::getIntegrationFactor "virtual double IPixelMap::getIntegrationFactor(double x, double y) const  =0
+%feature("docstring")  IPixel::getIntegrationFactor "virtual double IPixel::getIntegrationFactor(double x, double y) const  =0
 ";
 
-%feature("docstring")  IPixelMap::getSolidAngle "virtual double IPixelMap::getSolidAngle() const  =0
+%feature("docstring")  IPixel::getSolidAngle "virtual double IPixel::getSolidAngle() const  =0
 ";
 
 
@@ -10924,6 +10899,31 @@ return default axes units
 ";
 
 
+// File: classRectangularPixel.xml
+%feature("docstring") RectangularPixel "";
+
+%feature("docstring")  RectangularPixel::RectangularPixel "RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
+";
+
+%feature("docstring")  RectangularPixel::~RectangularPixel "virtual RectangularPixel::~RectangularPixel()
+";
+
+%feature("docstring")  RectangularPixel::clone "RectangularPixel * RectangularPixel::clone() const  override
+";
+
+%feature("docstring")  RectangularPixel::createZeroSizePixel "RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const  override
+";
+
+%feature("docstring")  RectangularPixel::getK "kvector_t RectangularPixel::getK(double x, double y, double wavelength) const  override
+";
+
+%feature("docstring")  RectangularPixel::getIntegrationFactor "double RectangularPixel::getIntegrationFactor(double x, double y) const  override
+";
+
+%feature("docstring")  RectangularPixel::getSolidAngle "double RectangularPixel::getSolidAngle() const  override
+";
+
+
 // File: classRectParaCrystalBuilder.xml
 %feature("docstring") RectParaCrystalBuilder "
 
@@ -10936,31 +10936,6 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 %feature("docstring")  RectParaCrystalBuilder::buildSample "MultiLayer * RectParaCrystalBuilder::buildSample() const 
-";
-
-
-// File: classRectPixelMap.xml
-%feature("docstring") RectPixelMap "";
-
-%feature("docstring")  RectPixelMap::RectPixelMap "RectPixelMap::RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height)
-";
-
-%feature("docstring")  RectPixelMap::~RectPixelMap "virtual RectPixelMap::~RectPixelMap()
-";
-
-%feature("docstring")  RectPixelMap::clone "RectPixelMap * RectPixelMap::clone() const  override
-";
-
-%feature("docstring")  RectPixelMap::createZeroSizeMap "RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const  override
-";
-
-%feature("docstring")  RectPixelMap::getK "kvector_t RectPixelMap::getK(double x, double y, double wavelength) const  override
-";
-
-%feature("docstring")  RectPixelMap::getIntegrationFactor "double RectPixelMap::getIntegrationFactor(double x, double y) const  override
-";
-
-%feature("docstring")  RectPixelMap::getSolidAngle "double RectPixelMap::getSolidAngle() const  override
 ";
 
 
@@ -11811,7 +11786,7 @@ Data stucture containing both input and output of a single detector cell.
 C++ includes: SimulationElement.h
 ";
 
-%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixelMap > pixelmap)
+%feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i, std::unique_ptr< IPixel > pixel)
 ";
 
 %feature("docstring")  SimulationElement::SimulationElement "SimulationElement::SimulationElement(const SimulationElement &other)
@@ -12238,6 +12213,31 @@ returns vector of valid axes units
 %feature("docstring")  SphericalDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const  override
 
 return default axes units 
+";
+
+
+// File: classSphericalPixel.xml
+%feature("docstring") SphericalPixel "";
+
+%feature("docstring")  SphericalPixel::SphericalPixel "SphericalPixel::SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin)
+";
+
+%feature("docstring")  SphericalPixel::~SphericalPixel "virtual SphericalPixel::~SphericalPixel()
+";
+
+%feature("docstring")  SphericalPixel::clone "SphericalPixel * SphericalPixel::clone() const  override
+";
+
+%feature("docstring")  SphericalPixel::createZeroSizePixel "SphericalPixel * SphericalPixel::createZeroSizePixel(double x, double y) const  override
+";
+
+%feature("docstring")  SphericalPixel::getK "kvector_t SphericalPixel::getK(double x, double y, double wavelength) const  override
+";
+
+%feature("docstring")  SphericalPixel::getIntegrationFactor "double SphericalPixel::getIntegrationFactor(double x, double y) const  override
+";
+
+%feature("docstring")  SphericalPixel::getSolidAngle "double SphericalPixel::getSolidAngle() const  override
 ";
 
 
@@ -13448,7 +13448,7 @@ global helper function for comparison of axes
 ";
 
 
-// File: IPixelMap_8h.xml
+// File: IPixel_8h.xml
 
 
 // File: SimulationElement_8cpp.xml

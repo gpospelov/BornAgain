@@ -19919,78 +19919,78 @@ class InterferenceFunctionNone(IInterferenceFunction):
 InterferenceFunctionNone_swigregister = _libBornAgainCore.InterferenceFunctionNone_swigregister
 InterferenceFunctionNone_swigregister(InterferenceFunctionNone)
 
-class IPixelMap(_object):
+class IPixel(_object):
     """
 
 
     Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 
-    C++ includes: IPixelMap.h
+    C++ includes: IPixel.h
 
     """
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IPixelMap, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IPixel, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, IPixelMap, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, IPixel, name)
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IPixelMap
+    __swig_destroy__ = _libBornAgainCore.delete_IPixel
     __del__ = lambda self: None
 
     def clone(self):
         """
-        clone(IPixelMap self) -> IPixelMap
+        clone(IPixel self) -> IPixel
 
-        virtual IPixelMap* IPixelMap::clone() const  =0
-
-        """
-        return _libBornAgainCore.IPixelMap_clone(self)
-
-
-    def createZeroSizeMap(self, x, y):
-        """
-        createZeroSizeMap(IPixelMap self, double x, double y) -> IPixelMap
-
-        virtual IPixelMap* IPixelMap::createZeroSizeMap(double x, double y) const  =0
+        virtual IPixel* IPixel::clone() const  =0
 
         """
-        return _libBornAgainCore.IPixelMap_createZeroSizeMap(self, x, y)
+        return _libBornAgainCore.IPixel_clone(self)
+
+
+    def createZeroSizePixel(self, x, y):
+        """
+        createZeroSizePixel(IPixel self, double x, double y) -> IPixel
+
+        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const  =0
+
+        """
+        return _libBornAgainCore.IPixel_createZeroSizePixel(self, x, y)
 
 
     def getK(self, x, y, wavelength):
         """
-        getK(IPixelMap self, double x, double y, double wavelength) -> kvector_t
+        getK(IPixel self, double x, double y, double wavelength) -> kvector_t
 
-        virtual kvector_t IPixelMap::getK(double x, double y, double wavelength) const  =0
+        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const  =0
 
         """
-        return _libBornAgainCore.IPixelMap_getK(self, x, y, wavelength)
+        return _libBornAgainCore.IPixel_getK(self, x, y, wavelength)
 
 
     def getIntegrationFactor(self, x, y):
         """
-        getIntegrationFactor(IPixelMap self, double x, double y) -> double
+        getIntegrationFactor(IPixel self, double x, double y) -> double
 
-        virtual double IPixelMap::getIntegrationFactor(double x, double y) const  =0
+        virtual double IPixel::getIntegrationFactor(double x, double y) const  =0
 
         """
-        return _libBornAgainCore.IPixelMap_getIntegrationFactor(self, x, y)
+        return _libBornAgainCore.IPixel_getIntegrationFactor(self, x, y)
 
 
     def getSolidAngle(self):
         """
-        getSolidAngle(IPixelMap self) -> double
+        getSolidAngle(IPixel self) -> double
 
-        virtual double IPixelMap::getSolidAngle() const  =0
+        virtual double IPixel::getSolidAngle() const  =0
 
         """
-        return _libBornAgainCore.IPixelMap_getSolidAngle(self)
+        return _libBornAgainCore.IPixel_getSolidAngle(self)
 
-IPixelMap_swigregister = _libBornAgainCore.IPixelMap_swigregister
-IPixelMap_swigregister(IPixelMap)
+IPixel_swigregister = _libBornAgainCore.IPixel_swigregister
+IPixel_swigregister(IPixel)
 
 class SphericalDetector(IDetector2D):
     """
@@ -20065,85 +20065,85 @@ class SphericalDetector(IDetector2D):
 SphericalDetector_swigregister = _libBornAgainCore.SphericalDetector_swigregister
 SphericalDetector_swigregister(SphericalDetector)
 
-class AngularPixelMap(IPixelMap):
-    """Proxy of C++ AngularPixelMap class."""
+class SphericalPixel(IPixel):
+    """Proxy of C++ SphericalPixel class."""
 
     __swig_setmethods__ = {}
-    for _s in [IPixelMap]:
+    for _s in [IPixel]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, AngularPixelMap, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SphericalPixel, name, value)
     __swig_getmethods__ = {}
-    for _s in [IPixelMap]:
+    for _s in [IPixel]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, AngularPixelMap, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, SphericalPixel, name)
     __repr__ = _swig_repr
 
     def __init__(self, alpha_bin, phi_bin):
         """
-        __init__(AngularPixelMap self, Bin1D alpha_bin, Bin1D phi_bin) -> AngularPixelMap
+        __init__(SphericalPixel self, Bin1D alpha_bin, Bin1D phi_bin) -> SphericalPixel
 
-        AngularPixelMap::AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin)
+        SphericalPixel::SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin)
 
         """
-        this = _libBornAgainCore.new_AngularPixelMap(alpha_bin, phi_bin)
+        this = _libBornAgainCore.new_SphericalPixel(alpha_bin, phi_bin)
         try:
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_AngularPixelMap
+    __swig_destroy__ = _libBornAgainCore.delete_SphericalPixel
     __del__ = lambda self: None
 
     def clone(self):
         """
-        clone(AngularPixelMap self) -> AngularPixelMap
+        clone(SphericalPixel self) -> SphericalPixel
 
-        AngularPixelMap * AngularPixelMap::clone() const  override
-
-        """
-        return _libBornAgainCore.AngularPixelMap_clone(self)
-
-
-    def createZeroSizeMap(self, x, y):
-        """
-        createZeroSizeMap(AngularPixelMap self, double x, double y) -> AngularPixelMap
-
-        AngularPixelMap * AngularPixelMap::createZeroSizeMap(double x, double y) const  override
+        SphericalPixel * SphericalPixel::clone() const  override
 
         """
-        return _libBornAgainCore.AngularPixelMap_createZeroSizeMap(self, x, y)
+        return _libBornAgainCore.SphericalPixel_clone(self)
+
+
+    def createZeroSizePixel(self, x, y):
+        """
+        createZeroSizePixel(SphericalPixel self, double x, double y) -> SphericalPixel
+
+        SphericalPixel * SphericalPixel::createZeroSizePixel(double x, double y) const  override
+
+        """
+        return _libBornAgainCore.SphericalPixel_createZeroSizePixel(self, x, y)
 
 
     def getK(self, x, y, wavelength):
         """
-        getK(AngularPixelMap self, double x, double y, double wavelength) -> kvector_t
+        getK(SphericalPixel self, double x, double y, double wavelength) -> kvector_t
 
-        kvector_t AngularPixelMap::getK(double x, double y, double wavelength) const  override
+        kvector_t SphericalPixel::getK(double x, double y, double wavelength) const  override
 
         """
-        return _libBornAgainCore.AngularPixelMap_getK(self, x, y, wavelength)
+        return _libBornAgainCore.SphericalPixel_getK(self, x, y, wavelength)
 
 
     def getIntegrationFactor(self, x, y):
         """
-        getIntegrationFactor(AngularPixelMap self, double x, double y) -> double
+        getIntegrationFactor(SphericalPixel self, double x, double y) -> double
 
-        double AngularPixelMap::getIntegrationFactor(double x, double y) const  override
+        double SphericalPixel::getIntegrationFactor(double x, double y) const  override
 
         """
-        return _libBornAgainCore.AngularPixelMap_getIntegrationFactor(self, x, y)
+        return _libBornAgainCore.SphericalPixel_getIntegrationFactor(self, x, y)
 
 
     def getSolidAngle(self):
         """
-        getSolidAngle(AngularPixelMap self) -> double
+        getSolidAngle(SphericalPixel self) -> double
 
-        double AngularPixelMap::getSolidAngle() const  override
+        double SphericalPixel::getSolidAngle() const  override
 
         """
-        return _libBornAgainCore.AngularPixelMap_getSolidAngle(self)
+        return _libBornAgainCore.SphericalPixel_getSolidAngle(self)
 
-AngularPixelMap_swigregister = _libBornAgainCore.AngularPixelMap_swigregister
-AngularPixelMap_swigregister(AngularPixelMap)
+SphericalPixel_swigregister = _libBornAgainCore.SphericalPixel_swigregister
+SphericalPixel_swigregister(SphericalPixel)
 
 class IsGISAXSDetector(SphericalDetector):
     """
@@ -24360,85 +24360,85 @@ class RectangularDetector(IDetector2D):
 RectangularDetector_swigregister = _libBornAgainCore.RectangularDetector_swigregister
 RectangularDetector_swigregister(RectangularDetector)
 
-class RectPixelMap(IPixelMap):
-    """Proxy of C++ RectPixelMap class."""
+class RectangularPixel(IPixel):
+    """Proxy of C++ RectangularPixel class."""
 
     __swig_setmethods__ = {}
-    for _s in [IPixelMap]:
+    for _s in [IPixel]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, RectPixelMap, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RectangularPixel, name, value)
     __swig_getmethods__ = {}
-    for _s in [IPixelMap]:
+    for _s in [IPixel]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, RectPixelMap, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, RectangularPixel, name)
     __repr__ = _swig_repr
 
     def __init__(self, corner_pos, width, height):
         """
-        __init__(RectPixelMap self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectPixelMap
+        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
 
-        RectPixelMap::RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height)
+        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
 
         """
-        this = _libBornAgainCore.new_RectPixelMap(corner_pos, width, height)
+        this = _libBornAgainCore.new_RectangularPixel(corner_pos, width, height)
         try:
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_RectPixelMap
+    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
     __del__ = lambda self: None
 
     def clone(self):
         """
-        clone(RectPixelMap self) -> RectPixelMap
+        clone(RectangularPixel self) -> RectangularPixel
 
-        RectPixelMap * RectPixelMap::clone() const  override
-
-        """
-        return _libBornAgainCore.RectPixelMap_clone(self)
-
-
-    def createZeroSizeMap(self, x, y):
-        """
-        createZeroSizeMap(RectPixelMap self, double x, double y) -> RectPixelMap
-
-        RectPixelMap * RectPixelMap::createZeroSizeMap(double x, double y) const  override
+        RectangularPixel * RectangularPixel::clone() const  override
 
         """
-        return _libBornAgainCore.RectPixelMap_createZeroSizeMap(self, x, y)
+        return _libBornAgainCore.RectangularPixel_clone(self)
+
+
+    def createZeroSizePixel(self, x, y):
+        """
+        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
+
+        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const  override
+
+        """
+        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
 
 
     def getK(self, x, y, wavelength):
         """
-        getK(RectPixelMap self, double x, double y, double wavelength) -> kvector_t
+        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
 
-        kvector_t RectPixelMap::getK(double x, double y, double wavelength) const  override
+        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const  override
 
         """
-        return _libBornAgainCore.RectPixelMap_getK(self, x, y, wavelength)
+        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
 
 
     def getIntegrationFactor(self, x, y):
         """
-        getIntegrationFactor(RectPixelMap self, double x, double y) -> double
+        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
 
-        double RectPixelMap::getIntegrationFactor(double x, double y) const  override
+        double RectangularPixel::getIntegrationFactor(double x, double y) const  override
 
         """
-        return _libBornAgainCore.RectPixelMap_getIntegrationFactor(self, x, y)
+        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
 
 
     def getSolidAngle(self):
         """
-        getSolidAngle(RectPixelMap self) -> double
+        getSolidAngle(RectangularPixel self) -> double
 
-        double RectPixelMap::getSolidAngle() const  override
+        double RectangularPixel::getSolidAngle() const  override
 
         """
-        return _libBornAgainCore.RectPixelMap_getSolidAngle(self)
+        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
 
-RectPixelMap_swigregister = _libBornAgainCore.RectPixelMap_swigregister
-RectPixelMap_swigregister(RectPixelMap)
+RectangularPixel_swigregister = _libBornAgainCore.RectangularPixel_swigregister
+RectangularPixel_swigregister(RectangularPixel)
 
 class ResolutionFunction2DGaussian(IResolutionFunction2D):
     """

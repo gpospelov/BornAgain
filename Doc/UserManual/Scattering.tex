@@ -172,7 +172,7 @@ In the following it shall be expressed through the
 \end{equation}
 In the following, we will characterize the incoming radiation
 not by its energy~$\hbar\omega$,
-but by it \E{vacuum wavenumber}
+but by its \E{vacuum wavenumber}
 \index{Vacuum!neutron wavenumber}%
 \index{Wavenumber!neutron}%
 \nomenclature[2k120]{$K$}{Wavenumber in vacuum}%
@@ -259,9 +259,19 @@ A nonzero~$\beta$ describes absorption and leads to a damping of propagating wav
 \index{Absorption}%
 \index{Damping}%
 
-The SLD fluctuation amplitude $|\delta v(\r)|$ is at most of order $1-n$.
-Therefore the right-hand side of the Schrödinger equation~\cref{ESchrodiK}
-is but a weak perturbation.
+The SLD fluctuations can typically written as a sum over different materials~$p$,
+\begin{equation}
+  \delta v(\r) = \sum_p (v_p-\mv(\r)) \chi_p(\r),
+\end{equation}
+where $v_p$ is the SLD of the bulk material~$p$,
+and $\chi_p$ is dimensionless function that takes values between 0 and~1.
+Internally, BornAgain computes $v_p$ from the material's refractive index,
+\begin{equation}
+  v_p = \frac{K^2}{4\pi}(1-n_p).
+\end{equation}
+Since all $n_p$ are very close to~1,
+the right-hand side of the Schrödinger equation~\cref{ESchrodiK}
+is a weak perturbation.
 This suggests a solution
 by means of a perturbation expansion in powers of $\delta v$,
 \index{Perturbation expansion}%

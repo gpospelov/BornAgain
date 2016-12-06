@@ -38,7 +38,7 @@ namespace ArrayUtils
 
 }
 
-template<class T> BA_CORE_API_ std::pair<size_t, size_t> ArrayUtils::getShape(const T& data){
+template<class T>  std::pair<size_t, size_t> ArrayUtils::getShape(const T& data){
     size_t nrows = data.size();
     size_t ncols(0);
     if(nrows) ncols = data[0].size();

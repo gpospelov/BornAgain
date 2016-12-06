@@ -843,6 +843,218 @@ class vector_integer_t(_object):
 vector_integer_t_swigregister = _libBornAgainCore.vector_integer_t_swigregister
 vector_integer_t_swigregister(vector_integer_t)
 
+class vinteger2d_t(_object):
+    """Proxy of C++ std::vector<(std::vector<(int)>)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, vinteger2d_t, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, vinteger2d_t, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        """iterator(vinteger2d_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.vinteger2d_t_iterator(self)
+
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        """__nonzero__(vinteger2d_t self) -> bool"""
+        return _libBornAgainCore.vinteger2d_t___nonzero__(self)
+
+
+    def __bool__(self):
+        """__bool__(vinteger2d_t self) -> bool"""
+        return _libBornAgainCore.vinteger2d_t___bool__(self)
+
+
+    def __len__(self):
+        """__len__(vinteger2d_t self) -> std::vector< std::vector< int > >::size_type"""
+        return _libBornAgainCore.vinteger2d_t___len__(self)
+
+
+    def __getslice__(self, i, j):
+        """__getslice__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, std::vector< std::vector< int > >::difference_type j) -> vinteger2d_t"""
+        return _libBornAgainCore.vinteger2d_t___getslice__(self, i, j)
+
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, std::vector< std::vector< int > >::difference_type j)
+        __setslice__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, std::vector< std::vector< int > >::difference_type j, vinteger2d_t v)
+        """
+        return _libBornAgainCore.vinteger2d_t___setslice__(self, *args)
+
+
+    def __delslice__(self, i, j):
+        """__delslice__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, std::vector< std::vector< int > >::difference_type j)"""
+        return _libBornAgainCore.vinteger2d_t___delslice__(self, i, j)
+
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i)
+        __delitem__(vinteger2d_t self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.vinteger2d_t___delitem__(self, *args)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(vinteger2d_t self, PySliceObject * slice) -> vinteger2d_t
+        __getitem__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i) -> vector_integer_t
+        """
+        return _libBornAgainCore.vinteger2d_t___getitem__(self, *args)
+
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(vinteger2d_t self, PySliceObject * slice, vinteger2d_t v)
+        __setitem__(vinteger2d_t self, PySliceObject * slice)
+        __setitem__(vinteger2d_t self, std::vector< std::vector< int > >::difference_type i, vector_integer_t x)
+        """
+        return _libBornAgainCore.vinteger2d_t___setitem__(self, *args)
+
+
+    def pop(self):
+        """pop(vinteger2d_t self) -> vector_integer_t"""
+        return _libBornAgainCore.vinteger2d_t_pop(self)
+
+
+    def append(self, x):
+        """append(vinteger2d_t self, vector_integer_t x)"""
+        return _libBornAgainCore.vinteger2d_t_append(self, x)
+
+
+    def empty(self):
+        """empty(vinteger2d_t self) -> bool"""
+        return _libBornAgainCore.vinteger2d_t_empty(self)
+
+
+    def size(self):
+        """size(vinteger2d_t self) -> std::vector< std::vector< int > >::size_type"""
+        return _libBornAgainCore.vinteger2d_t_size(self)
+
+
+    def swap(self, v):
+        """
+        swap(vinteger2d_t self, vinteger2d_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.vinteger2d_t_swap(self, v)
+
+
+    def begin(self):
+        """begin(vinteger2d_t self) -> std::vector< std::vector< int > >::iterator"""
+        return _libBornAgainCore.vinteger2d_t_begin(self)
+
+
+    def end(self):
+        """end(vinteger2d_t self) -> std::vector< std::vector< int > >::iterator"""
+        return _libBornAgainCore.vinteger2d_t_end(self)
+
+
+    def rbegin(self):
+        """rbegin(vinteger2d_t self) -> std::vector< std::vector< int > >::reverse_iterator"""
+        return _libBornAgainCore.vinteger2d_t_rbegin(self)
+
+
+    def rend(self):
+        """rend(vinteger2d_t self) -> std::vector< std::vector< int > >::reverse_iterator"""
+        return _libBornAgainCore.vinteger2d_t_rend(self)
+
+
+    def clear(self):
+        """clear(vinteger2d_t self)"""
+        return _libBornAgainCore.vinteger2d_t_clear(self)
+
+
+    def get_allocator(self):
+        """get_allocator(vinteger2d_t self) -> std::vector< std::vector< int > >::allocator_type"""
+        return _libBornAgainCore.vinteger2d_t_get_allocator(self)
+
+
+    def pop_back(self):
+        """pop_back(vinteger2d_t self)"""
+        return _libBornAgainCore.vinteger2d_t_pop_back(self)
+
+
+    def erase(self, *args):
+        """
+        erase(vinteger2d_t self, std::vector< std::vector< int > >::iterator pos) -> std::vector< std::vector< int > >::iterator
+        erase(vinteger2d_t self, std::vector< std::vector< int > >::iterator first, std::vector< std::vector< int > >::iterator last) -> std::vector< std::vector< int > >::iterator
+        """
+        return _libBornAgainCore.vinteger2d_t_erase(self, *args)
+
+
+    def __init__(self, *args):
+        """
+        __init__(std::vector<(std::vector<(int)>)> self) -> vinteger2d_t
+        __init__(std::vector<(std::vector<(int)>)> self, vinteger2d_t arg2) -> vinteger2d_t
+        __init__(std::vector<(std::vector<(int)>)> self, std::vector< std::vector< int > >::size_type size) -> vinteger2d_t
+        __init__(std::vector<(std::vector<(int)>)> self, std::vector< std::vector< int > >::size_type size, vector_integer_t value) -> vinteger2d_t
+        """
+        this = _libBornAgainCore.new_vinteger2d_t(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def push_back(self, x):
+        """push_back(vinteger2d_t self, vector_integer_t x)"""
+        return _libBornAgainCore.vinteger2d_t_push_back(self, x)
+
+
+    def front(self):
+        """front(vinteger2d_t self) -> vector_integer_t"""
+        return _libBornAgainCore.vinteger2d_t_front(self)
+
+
+    def back(self):
+        """back(vinteger2d_t self) -> vector_integer_t"""
+        return _libBornAgainCore.vinteger2d_t_back(self)
+
+
+    def assign(self, n, x):
+        """assign(vinteger2d_t self, std::vector< std::vector< int > >::size_type n, vector_integer_t x)"""
+        return _libBornAgainCore.vinteger2d_t_assign(self, n, x)
+
+
+    def resize(self, *args):
+        """
+        resize(vinteger2d_t self, std::vector< std::vector< int > >::size_type new_size)
+        resize(vinteger2d_t self, std::vector< std::vector< int > >::size_type new_size, vector_integer_t x)
+        """
+        return _libBornAgainCore.vinteger2d_t_resize(self, *args)
+
+
+    def insert(self, *args):
+        """
+        insert(vinteger2d_t self, std::vector< std::vector< int > >::iterator pos, vector_integer_t x) -> std::vector< std::vector< int > >::iterator
+        insert(vinteger2d_t self, std::vector< std::vector< int > >::iterator pos, std::vector< std::vector< int > >::size_type n, vector_integer_t x)
+        """
+        return _libBornAgainCore.vinteger2d_t_insert(self, *args)
+
+
+    def reserve(self, n):
+        """reserve(vinteger2d_t self, std::vector< std::vector< int > >::size_type n)"""
+        return _libBornAgainCore.vinteger2d_t_reserve(self, n)
+
+
+    def capacity(self):
+        """capacity(vinteger2d_t self) -> std::vector< std::vector< int > >::size_type"""
+        return _libBornAgainCore.vinteger2d_t_capacity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_vinteger2d_t
+    __del__ = lambda self: None
+vinteger2d_t_swigregister = _libBornAgainCore.vinteger2d_t_swigregister
+vinteger2d_t_swigregister(vinteger2d_t)
+
 class vector_longinteger_t(_object):
     """Proxy of C++ std::vector<(unsigned long)> class."""
 
@@ -16352,7 +16564,7 @@ class Histogram2D(IHistogram):
         __init__(Histogram2D self, IntensityData data) -> Histogram2D
         __init__(Histogram2D self, vdouble2d_t data) -> Histogram2D
 
-        Histogram2D::Histogram2D(const std::vector< std::vector< double >> &data)
+        Histogram2D::Histogram2D(std::vector< std::vector< double >> data)
 
         Constructor for 2D histograms from numpy array (thanks to swig) 
 

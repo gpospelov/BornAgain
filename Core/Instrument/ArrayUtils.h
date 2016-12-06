@@ -30,7 +30,7 @@ namespace ArrayUtils
 {
 
     //! Returns shape nrows, ncols of 2D array.
-    template<class T> BA_CORE_API_ std::pair<size_t, size_t> getShape(const T& data);
+    template<class T> std::pair<size_t, size_t> getShape(const T& data);
 
 #ifdef BORNAGAIN_PYTHON
     PyObject* createNumpyArray(const std::vector<double>& data);

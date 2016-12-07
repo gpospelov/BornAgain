@@ -4118,6 +4118,16 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_containedMaterials(self)
 
 
+    def registerChild(self, sample):
+        """registerChild(ISample self, ISample sample)"""
+        return _libBornAgainCore.ISample_registerChild(self, sample)
+
+
+    def deregisterChild(self, sample):
+        """deregisterChild(ISample self, ISample sample)"""
+        return _libBornAgainCore.ISample_deregisterChild(self, sample)
+
+
     def getChildren(self):
         """
         getChildren(ISample self) -> swig_dummy_type_const_isample_vector
@@ -7247,68 +7257,6 @@ class ICompositeSample(ISample):
     __repr__ = _swig_repr
     __swig_destroy__ = _libBornAgainCore.delete_ICompositeSample
     __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(ICompositeSample self) -> ICompositeSample
-
-        virtual ICompositeSample* ICompositeSample::clone() const  =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(ICompositeSample self, ISampleVisitor visitor)
-
-        virtual void ICompositeSample::accept(ISampleVisitor *visitor) const  =0
-
-        Calls the  ISampleVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_accept(self, visitor)
-
-
-    def registerChild(self, sample):
-        """
-        registerChild(ICompositeSample self, ISample sample)
-
-        void ICompositeSample::registerChild(ISample *sample)
-
-        Registers child in the container. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_registerChild(self, sample)
-
-
-    def deregisterChild(self, sample):
-        """
-        deregisterChild(ICompositeSample self, ISample sample)
-
-        void ICompositeSample::deregisterChild(ISample *sample)
-
-        Removes registered child from the container.
-
-        remove registered child from the container 
-
-        """
-        return _libBornAgainCore.ICompositeSample_deregisterChild(self, sample)
-
-
-    def getChildren(self):
-        """
-        getChildren(ICompositeSample self) -> swig_dummy_type_const_isample_vector
-
-        std::vector< const ISample * > ICompositeSample::getChildren() const  final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.ICompositeSample_getChildren(self)
-
 ICompositeSample_swigregister = _libBornAgainCore.ICompositeSample_swigregister
 ICompositeSample_swigregister(ICompositeSample)
 

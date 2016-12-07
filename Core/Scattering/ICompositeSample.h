@@ -28,28 +28,7 @@ class BA_CORE_API_ ICompositeSample : public ISample
 {
 public:
     ICompositeSample() {}
-    virtual ~ICompositeSample();
-
-    virtual ICompositeSample* clone() const =0;
-
-    virtual void accept(ISampleVisitor* visitor) const =0;
-
-    //! Registers child in the container.
-    void registerChild(ISample* sample);
-
-    //! Removes registered child from the container
-    void deregisterChild(ISample* sample);
-
-    //! Returns a vector of children (const).
-    std::vector<const ISample*> getChildren() const final;
-
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
-private:
-    //! List of registered children.
-    std::vector<ISample*> m_samples;
+    virtual ~ICompositeSample(){}
 };
 
 #endif // ICOMPOSITESAMPLE_H

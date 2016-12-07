@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DecoratedLayerComputation.cpp
-//! @brief     Implements class DecoratedLayerComputation.
+//! @file      Core/Computation/ParticleLayoutComputation.cpp
+//! @brief     Implements class ParticleLayoutComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "DecoratedLayerComputation.h"
+#include "ParticleLayoutComputation.h"
 #include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "Layer.h"
@@ -24,18 +24,18 @@
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
-DecoratedLayerComputation::DecoratedLayerComputation(const Layer* p_layer, size_t layout_index)
+ParticleLayoutComputation::ParticleLayoutComputation(const Layer* p_layer, size_t layout_index)
     : mp_layer(p_layer), m_layout_index(layout_index)
 {}
 
-void DecoratedLayerComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
+void ParticleLayoutComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
 {
     if (&specular_info != mP_specular_info.get())
         mP_specular_info.reset(specular_info.clone());
 }
 
 //! Computes scattering intensity for given range of simulation elements.
-void DecoratedLayerComputation::eval(
+void ParticleLayoutComputation::eval(
     const SimulationOptions& options,
     ProgressHandler* progress,
     bool polarized,

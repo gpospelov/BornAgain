@@ -20,16 +20,6 @@
 #include "ArrayUtils.h"
 #include <memory>
 
-namespace {
-std::vector<std::vector<double>> convertToDouble(const std::vector<std::vector<int>>& data)
-{
-    std::vector<std::vector<double>> result;
-    for(size_t i=0; i<data.size(); ++i)
-        result.push_back(std::vector<double>(data[i].begin(), data[i].end()));
-    return result;
-}
-}
-
 Histogram2D::Histogram2D(int nbinsx, double xlow, double xup, int nbinsy, double ylow, double yup)
 {
     m_data.addAxis(FixedBinAxis("x-axis", nbinsx, xlow, xup));

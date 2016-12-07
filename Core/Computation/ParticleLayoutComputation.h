@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DecoratedLayerComputation.h
-//! @brief     Defines class DecoratedLayerComputation.
+//! @file      Core/Computation/ParticleLayoutComputation.h
+//! @brief     Defines class ParticleLayoutComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DECORATEDLAYERCOMPUTATION_H
-#define DECORATEDLAYERCOMPUTATION_H
+#ifndef PARTICLELAYOUTCOMPUTATION_H
+#define PARTICLELAYOUTCOMPUTATION_H
 
 #include "InnerCounter.h"
 #include <vector>
@@ -29,14 +29,14 @@ class ProgressHandler;
 class SimulationElement;
 class SimulationOptions;
 
-//! Computes the scattering contribution from one layer with particles in/on it.
+//! Computes the scattering contribution from one particle layout.
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class DecoratedLayerComputation
+class ParticleLayoutComputation
 {
 public:
-    DecoratedLayerComputation(const Layer* p_layer, size_t layout_index=0);
+    ParticleLayoutComputation(const Layer* p_layer, size_t layout_index=0);
 
     void setSpecularInfo(const LayerSpecularInfo& specular_info);
 
@@ -52,4 +52,4 @@ private:
     size_t m_layout_index;
 };
 
-#endif // DECORATEDLAYERCOMPUTATION_H
+#endif // PARTICLELAYOUTCOMPUTATION_H

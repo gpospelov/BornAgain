@@ -23,7 +23,7 @@
 #include <vector>
 
 class MultiLayer;
-class DecoratedLayerComputation;
+class ParticleLayoutComputation;
 class RoughMultiLayerComputation;
 class SpecularComputation;
 class ProgressHandler;
@@ -67,7 +67,7 @@ private:
 
     RoughMultiLayerComputation* mp_roughness_computation;
     SpecularComputation *mp_specular_computation;
-    std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
+    std::vector<std::vector<ParticleLayoutComputation*>> m_layer_computation;
 
     ComputationOutcome m_outcome;
 };

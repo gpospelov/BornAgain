@@ -101,6 +101,9 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
+    virtual void accept(ISampleVisitor *p_visitor) const;
+    virtual std::string to_str(int arg0) const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
 
 /* Internal director utilities */
 public:
@@ -131,7 +134,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[2];
+    mutable swig::SwigVar_PyObject vtable[5];
 #endif
 
 };
@@ -153,12 +156,12 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *p_visitor) const;
     virtual std::string to_str(int indent = 0) const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
-    virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
 
 /* Internal director utilities */
 public:
@@ -348,12 +351,12 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
     virtual std::string to_str(int indent = 0) const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
-    virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -411,12 +414,12 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
     virtual std::string to_str(int indent = 0) const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
-    virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;

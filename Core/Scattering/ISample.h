@@ -35,9 +35,6 @@ public:
     //! Returns a clone with inverted magnetic fields.
     virtual ISample* cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method.
-    virtual void accept(ISampleVisitor* p_visitor) const=0;
-
     //! Returns textual representation of this and its descendants.
     virtual std::string to_str(int indent=0) const;
 
@@ -51,24 +48,6 @@ public:
     std::vector<const IMaterial*> containedMaterials() const;
 
     template<class T> std::vector<const T*> containedSubclass() const;
-
-    //! Registers child in the container.
-    void registerChild(ISample* sample);
-
-    //! Removes registered child from the container
-    void deregisterChild(ISample* sample);
-
-    //! Returns a vector of children (const).
-    virtual std::vector<const ISample*> getChildren() const;
-
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
-private:
-    //! List of registered children.
-    std::vector<ISample*> m_samples;
-
 };
 
 //! Returns vector of children of type T.
@@ -78,9 +57,12 @@ std::vector<const T*> ISample::containedSubclass() const
     std::vector<const T*> result;
     if( const T* t = dynamic_cast<const T*>(this) )
         result.push_back( t );
-    for( const ISample* child: getChildren() )
-        for( const T* t: child->containedSubclass<T>() )
-            result.push_back( t );
+    for(auto child: getChildren() ) {
+        if(const ISample *sample = dynamic_cast<const ISample *>(child)) {
+            for( const T* t: sample->containedSubclass<T>() )
+                result.push_back( t );
+        }
+    }
     return result;
 }
 

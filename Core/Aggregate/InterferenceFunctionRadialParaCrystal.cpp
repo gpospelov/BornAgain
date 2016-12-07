@@ -59,7 +59,7 @@ std::string InterferenceFunctionRadialParaCrystal::to_str(int indent) const
     std::stringstream ss;
     ss << std::string(4*indent, '.') << " " << getName() << " " << *getParameterPool() << "\n";
     ss << std::string(4*(indent+1), '.') << " pdf: " << *getProbabilityDistribution() << "\n";
-    for( const ISample* child: getChildren() )
+    for(auto child: getChildren() )
         ss << child->to_str(indent+1);
     return ss.str();
 }

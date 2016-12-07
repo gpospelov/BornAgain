@@ -2014,6 +2014,31 @@ class INode(IParameterized):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_INode
     __del__ = lambda self: None
+
+    def accept(self, p_visitor):
+        """accept(INode self, ISampleVisitor p_visitor)"""
+        return _libBornAgainCore.INode_accept(self, p_visitor)
+
+
+    def to_str(self, arg0):
+        """to_str(INode self, int arg0) -> std::string"""
+        return _libBornAgainCore.INode_to_str(self, arg0)
+
+
+    def registerChild(self, sample):
+        """registerChild(INode self, INode sample)"""
+        return _libBornAgainCore.INode_registerChild(self, sample)
+
+
+    def deregisterChild(self, sample):
+        """deregisterChild(INode self, INode sample)"""
+        return _libBornAgainCore.INode_deregisterChild(self, sample)
+
+
+    def getChildren(self):
+        """getChildren(INode self) -> std::vector< INode const *,std::allocator< INode const * > >"""
+        return _libBornAgainCore.INode_getChildren(self)
+
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_INode(self)
@@ -4100,18 +4125,6 @@ class ISample(ICloneable, INode):
         return _libBornAgainCore.ISample_cloneInvertB(self)
 
 
-    def accept(self, p_visitor):
-        """
-        accept(ISample self, ISampleVisitor p_visitor)
-
-        virtual void ISample::accept(ISampleVisitor *p_visitor) const  =0
-
-        Calls the  ISampleVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ISample_accept(self, p_visitor)
-
-
     def to_str(self, indent=0):
         """
         to_str(ISample self, int indent=0) -> std::string
@@ -4159,28 +4172,6 @@ class ISample(ICloneable, INode):
 
         """
         return _libBornAgainCore.ISample_containedMaterials(self)
-
-
-    def registerChild(self, sample):
-        """registerChild(ISample self, ISample sample)"""
-        return _libBornAgainCore.ISample_registerChild(self, sample)
-
-
-    def deregisterChild(self, sample):
-        """deregisterChild(ISample self, ISample sample)"""
-        return _libBornAgainCore.ISample_deregisterChild(self, sample)
-
-
-    def getChildren(self):
-        """
-        getChildren(ISample self) -> swig_dummy_type_const_isample_vector
-
-        virtual std::vector<const ISample*> ISample::getChildren() const
-
-        Returns a vector of children. 
-
-        """
-        return _libBornAgainCore.ISample_getChildren(self)
 
 
     def __init__(self):
@@ -7136,6 +7127,7 @@ class ISampleVisitor(_object):
 
     def visit(self, *args):
         """
+        visit(ISampleVisitor self, INode arg2)
         visit(ISampleVisitor self, ISample arg2)
         visit(ISampleVisitor self, IClusteredParticles arg2)
         visit(ISampleVisitor self, Crystal arg2)

@@ -27,7 +27,7 @@ public:
 
     virtual ISampleIteratorStrategy* clone() const=0;
 
-    virtual IteratorMemento first(const ISample* p_root)=0;
+    virtual IteratorMemento first(const INode* p_root)=0;
     virtual void next(IteratorMemento &iterator_stack) const=0;
     virtual bool isDone(IteratorMemento &iterator_stack) const=0;
 };
@@ -40,7 +40,7 @@ public:
     virtual SampleIteratorPreorderStrategy* clone() const;
 
     virtual ~SampleIteratorPreorderStrategy();
-    virtual IteratorMemento first(const ISample* p_root);
+    virtual IteratorMemento first(const INode* p_root);
     virtual void next(IteratorMemento &iterator_stack) const;
     virtual bool isDone(IteratorMemento &iterator_stack) const;
 };
@@ -53,7 +53,7 @@ public:
     virtual SampleIteratorPostorderStrategy* clone() const;
 
     virtual ~SampleIteratorPostorderStrategy();
-    virtual IteratorMemento first(const ISample* p_root);
+    virtual IteratorMemento first(const INode* p_root);
     virtual void next(IteratorMemento &iterator_stack) const;
     virtual bool isDone(IteratorMemento &iterator_stack) const;
 };

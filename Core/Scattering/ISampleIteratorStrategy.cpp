@@ -30,7 +30,7 @@ SampleIteratorPreorderStrategy::~SampleIteratorPreorderStrategy()
 {
 }
 
-IteratorMemento SampleIteratorPreorderStrategy::first(const ISample *p_root)
+IteratorMemento SampleIteratorPreorderStrategy::first(const INode *p_root)
 {
     IteratorMemento iterator_stack;
     iterator_stack.push_state( IteratorState(p_root) );
@@ -39,12 +39,12 @@ IteratorMemento SampleIteratorPreorderStrategy::first(const ISample *p_root)
 
 void SampleIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) const
 {
-    const ISample *p_sample = iterator_stack.getCurrent();
+    const INode *p_sample = iterator_stack.getCurrent();
     if( !p_sample ) {
         throw Exceptions::NullPointerException("CompositeIteratorPreorderStrategy::next(): "
                                    "Error! Null object in the tree of objects");
     }
-    std::vector<const ISample*> children = p_sample->getChildren();
+    std::vector<const INode*> children = p_sample->getChildren();
     if (children.size()>0) {
         iterator_stack.push_state( IteratorState(children) );
         return;
@@ -76,11 +76,11 @@ SampleIteratorPostorderStrategy::~SampleIteratorPostorderStrategy()
 {
 }
 
-IteratorMemento SampleIteratorPostorderStrategy::first(const ISample *p_root)
+IteratorMemento SampleIteratorPostorderStrategy::first(const INode *p_root)
 {
     IteratorMemento iterator_stack;
     iterator_stack.push_state( IteratorState(p_root) );
-    std::vector<const ISample *> children = p_root->getChildren();
+    std::vector<const INode *> children = p_root->getChildren();
     while (children.size()>0) {
         iterator_stack.push_state( IteratorState(children) );
         children = iterator_stack.getCurrent()->getChildren();
@@ -96,7 +96,7 @@ void SampleIteratorPostorderStrategy::next(IteratorMemento &iterator_stack) cons
         iterator_stack.pop_state();
         return;
     }
-    std::vector<const ISample *> children = iterator_stack.getCurrent()->getChildren();
+    std::vector<const INode *> children = iterator_stack.getCurrent()->getChildren();
     while (children.size()>0) {
         iterator_stack.push_state( IteratorState(children) );
         children = iterator_stack.getCurrent()->getChildren();

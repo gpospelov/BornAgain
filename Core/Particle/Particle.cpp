@@ -87,7 +87,7 @@ std::string Particle::to_str(int indent) const
     ss << std::string(4*indent, '.') << " " << getName() << " "
        << (getMaterial() ? getMaterial()->getName() : "0_MATERIAL") << " "
        << getRefractiveIndex() << "\n";
-    for( const ISample* child: getChildren() )
+    for(auto child: getChildren() )
         ss << child->to_str(indent+1);
     return ss.str();
 }

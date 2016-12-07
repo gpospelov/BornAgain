@@ -16,7 +16,7 @@
 #ifndef ICLUSTEREDPARTICLES_H
 #define ICLUSTEREDPARTICLES_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include "Vectors3D.h"
 
 class IFormFactor;
@@ -25,7 +25,7 @@ class IRotation;
 //! An ordered assembly of particles. Currently, the only child class is Crystal.
 //! @ingroup samples_internal
 
-class BA_CORE_API_ IClusteredParticles : public ICompositeSample
+class BA_CORE_API_ IClusteredParticles : public ISample
 {
 public:
     IClusteredParticles() {}

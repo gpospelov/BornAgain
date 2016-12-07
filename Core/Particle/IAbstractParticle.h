@@ -16,7 +16,7 @@
 #ifndef IABSTRACTPARTICLE_H
 #define IABSTRACTPARTICLE_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include "Vectors3D.h"
 #include <memory>
 
@@ -28,7 +28,7 @@ class IMaterial;
 
 //! @ingroup samples
 
-class BA_CORE_API_ IAbstractParticle : public ICompositeSample
+class BA_CORE_API_ IAbstractParticle : public ISample
 {
 public:
     IAbstractParticle() : m_abundance(1.0) {}

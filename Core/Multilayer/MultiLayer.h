@@ -16,7 +16,7 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include "Vectors3D.h"
 
 class Layer;
@@ -37,7 +37,7 @@ class LayerRoughness;
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 
 
-class BA_CORE_API_ MultiLayer : public ICompositeSample
+class BA_CORE_API_ MultiLayer : public ISample
 {
 public:
     MultiLayer();

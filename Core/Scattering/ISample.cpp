@@ -53,7 +53,7 @@ void ISample::registerChild(ISample* sample)
 {
     if(!sample)
         throw Exceptions::NullPointerException(
-            "ICompositeSample::registerChild -> Error. Null pointer.");
+            "ISample::registerChild -> Error. Null pointer.");
     m_samples.push_back(sample);
 }
 

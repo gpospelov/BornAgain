@@ -20,7 +20,6 @@
 #include "Transform3D.h"
 
 //! Pure virtual interface for rotations.
-//! Must be subclass of sample, because it can be registered as a child in ICompositeSample.
 //! @ingroup samples
 
 class BA_CORE_API_ IRotation : public ISample

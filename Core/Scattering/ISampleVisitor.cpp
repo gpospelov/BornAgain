@@ -47,12 +47,6 @@ void ISampleVisitor::visit(const ISample*)
         "ISampleVisitor::visit(const ISample*) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const ICompositeSample*)
-{
-    throw Exceptions::NotImplementedException(
-        "ISampleVisitor::visit(const ICompositeSample*) -> Error. Not implemented.");
-}
-
 void ISampleVisitor::visit(const IClusteredParticles*)
 {
     throw Exceptions::NotImplementedException(
@@ -457,19 +451,4 @@ void ISampleVisitor::visit(const RotationEuler*)
 {
     throw Exceptions::NotImplementedException(
         "ISampleVisitor::visit(const RotationEuler*) -> Error. Not implemented.");
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-bool ISampleVisitor::visitEnter(const ICompositeSample*)
-{
-    m_depth++;
-    return false;
-}
-
-bool ISampleVisitor::visitLeave(const ICompositeSample*)
-{
-    m_depth--;
-    return false;
 }

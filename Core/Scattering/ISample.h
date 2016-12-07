@@ -24,15 +24,6 @@
 class IMaterial;
 
 //! Pure virtual base class for sample components and properties related to scattering.
-//!
-//! Inherited by ICompositeSample, IFormFactor, IInterferenceFunction, IRoughness, IRotation.
-//! So it is much more basic and abstract than the name "ISample" suggests.
-//!
-//! Since ICompositeSample contains a vector of ISample's, we provide here some machinery
-//! for iterating through a tree (getMaterial, containedMaterials, containedSubclasses, ..).
-//! The functions getChildren and size, completely trivial here, become meaningful
-//! through their overloads in ICompositeSample.
-
 //! @ingroup samples_internal
 
 class BA_CORE_API_ ISample : public ICloneable, public IParameterized
@@ -59,13 +50,25 @@ public:
     //! Returns set of unique materials contained in this ISample.
     std::vector<const IMaterial*> containedMaterials() const;
 
-    //! Returns a vector of children.
-    virtual std::vector<const ISample*> getChildren() const { return {}; }
-
-    //! Returns number of children.
-    virtual size_t size() const { return 0; }
-
     template<class T> std::vector<const T*> containedSubclass() const;
+
+    //! Registers child in the container.
+    void registerChild(ISample* sample);
+
+    //! Removes registered child from the container
+    void deregisterChild(ISample* sample);
+
+    //! Returns a vector of children (const).
+    virtual std::vector<const ISample*> getChildren() const;
+
+    //! Adds parameters from local pool to external pool and recursively calls its direct children.
+    virtual std::string addParametersToExternalPool(
+        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
+
+private:
+    //! List of registered children.
+    std::vector<ISample*> m_samples;
+
 };
 
 //! Returns vector of children of type T.

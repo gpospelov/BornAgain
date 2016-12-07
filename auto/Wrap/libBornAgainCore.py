@@ -4118,6 +4118,16 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_containedMaterials(self)
 
 
+    def registerChild(self, sample):
+        """registerChild(ISample self, ISample sample)"""
+        return _libBornAgainCore.ISample_registerChild(self, sample)
+
+
+    def deregisterChild(self, sample):
+        """deregisterChild(ISample self, ISample sample)"""
+        return _libBornAgainCore.ISample_deregisterChild(self, sample)
+
+
     def getChildren(self):
         """
         getChildren(ISample self) -> swig_dummy_type_const_isample_vector
@@ -4128,18 +4138,6 @@ class ISample(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.ISample_getChildren(self)
-
-
-    def size(self):
-        """
-        size(ISample self) -> size_t
-
-        virtual size_t ISample::size() const
-
-        Returns number of children. 
-
-        """
-        return _libBornAgainCore.ISample_size(self)
 
 
     def __init__(self):
@@ -7096,7 +7094,6 @@ class ISampleVisitor(_object):
     def visit(self, *args):
         """
         visit(ISampleVisitor self, ISample arg2)
-        visit(ISampleVisitor self, ICompositeSample arg2)
         visit(ISampleVisitor self, IClusteredParticles arg2)
         visit(ISampleVisitor self, Crystal arg2)
         visit(ISampleVisitor self, ILayout arg2)
@@ -7169,26 +7166,6 @@ class ISampleVisitor(_object):
         return _libBornAgainCore.ISampleVisitor_visit(self, *args)
 
 
-    def visitEnter(self, arg2):
-        """
-        visitEnter(ISampleVisitor self, ICompositeSample arg2) -> bool
-
-        bool ISampleVisitor::visitEnter(const ICompositeSample *)
-
-        """
-        return _libBornAgainCore.ISampleVisitor_visitEnter(self, arg2)
-
-
-    def visitLeave(self, arg2):
-        """
-        visitLeave(ISampleVisitor self, ICompositeSample arg2) -> bool
-
-        bool ISampleVisitor::visitLeave(const ICompositeSample *)
-
-        """
-        return _libBornAgainCore.ISampleVisitor_visitLeave(self, arg2)
-
-
     def depth(self):
         """
         depth(ISampleVisitor self) -> int
@@ -7233,110 +7210,7 @@ def VisitSampleTreePostorder(sample, visitor):
 
     """
     return _libBornAgainCore.VisitSampleTreePostorder(sample, visitor)
-class ICompositeSample(ISample):
-    """
-
-
-    Pure virtual base class for tree-like composite samples.
-
-    Inherited by  IAbstractParticle, IClusteredParticle,  ILayout, ILayer, IMultiLayer.
-
-    C++ includes: ICompositeSample.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [ISample]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ICompositeSample, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ISample]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, ICompositeSample, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ICompositeSample
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(ICompositeSample self) -> ICompositeSample
-
-        virtual ICompositeSample* ICompositeSample::clone() const  =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(ICompositeSample self, ISampleVisitor visitor)
-
-        virtual void ICompositeSample::accept(ISampleVisitor *visitor) const  =0
-
-        Calls the  ISampleVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_accept(self, visitor)
-
-
-    def registerChild(self, sample):
-        """
-        registerChild(ICompositeSample self, ISample sample)
-
-        void ICompositeSample::registerChild(ISample *sample)
-
-        Registers child in the container. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_registerChild(self, sample)
-
-
-    def deregisterChild(self, sample):
-        """
-        deregisterChild(ICompositeSample self, ISample sample)
-
-        void ICompositeSample::deregisterChild(ISample *sample)
-
-        Removes registered child from the container.
-
-        remove registered child from the container 
-
-        """
-        return _libBornAgainCore.ICompositeSample_deregisterChild(self, sample)
-
-
-    def getChildren(self):
-        """
-        getChildren(ICompositeSample self) -> swig_dummy_type_const_isample_vector
-
-        std::vector< const ISample * > ICompositeSample::getChildren() const  final
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.ICompositeSample_getChildren(self)
-
-
-    def size(self):
-        """
-        size(ICompositeSample self) -> size_t
-
-        size_t ICompositeSample::size() const  final
-
-        Returns number of children. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_size(self)
-
-ICompositeSample_swigregister = _libBornAgainCore.ICompositeSample_swigregister
-ICompositeSample_swigregister(ICompositeSample)
-
-class IClusteredParticles(ICompositeSample):
+class IClusteredParticles(ISample):
     """
 
 
@@ -7347,11 +7221,11 @@ class IClusteredParticles(ICompositeSample):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IClusteredParticles, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IClusteredParticles, name)
 
@@ -17528,7 +17402,7 @@ class IInterferenceFunction(ISample):
 IInterferenceFunction_swigregister = _libBornAgainCore.IInterferenceFunction_swigregister
 IInterferenceFunction_swigregister(IInterferenceFunction)
 
-class ILayout(ICompositeSample):
+class ILayout(ISample):
     """
 
 
@@ -17539,11 +17413,11 @@ class ILayout(ICompositeSample):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ILayout, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ILayout, name)
 
@@ -17723,7 +17597,7 @@ class ILayout(ICompositeSample):
 ILayout_swigregister = _libBornAgainCore.ILayout_swigregister
 ILayout_swigregister(ILayout)
 
-class IAbstractParticle(ICompositeSample):
+class IAbstractParticle(ISample):
     """
 
 
@@ -17736,11 +17610,11 @@ class IAbstractParticle(ICompositeSample):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IAbstractParticle, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IAbstractParticle, name)
 
@@ -20494,7 +20368,7 @@ class Lattice2DParameters(_object):
 Lattice2DParameters_swigregister = _libBornAgainCore.Lattice2DParameters_swigregister
 Lattice2DParameters_swigregister(Lattice2DParameters)
 
-class Layer(ICompositeSample):
+class Layer(ISample):
     """
 
 
@@ -20505,11 +20379,11 @@ class Layer(ICompositeSample):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, Layer, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Layer, name)
     __repr__ = _swig_repr
@@ -21346,7 +21220,7 @@ def setLevel(*args):
     setLevel(std::string const & levelname)
     """
     return _libBornAgainCore.setLevel(*args)
-class MultiLayer(ICompositeSample):
+class MultiLayer(ISample):
     """
 
 
@@ -21359,11 +21233,11 @@ class MultiLayer(ICompositeSample):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, MultiLayer, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICompositeSample]:
+    for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, MultiLayer, name)
     __repr__ = _swig_repr

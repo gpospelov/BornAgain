@@ -28,7 +28,7 @@ Layer::Layer(const IMaterial& material, double thickness)
     initialize();
 }
 
-Layer::Layer(const Layer& other) : ICompositeSample()
+Layer::Layer(const Layer& other) : ISample()
 {
     m_thickness = other.m_thickness;
     mp_material = nullptr;
@@ -119,7 +119,7 @@ void Layer::init_parameters()
 //! Prints description.
 void Layer::print(std::ostream& ostr) const
 {
-    ICompositeSample::print(ostr);
+    ISample::print(ostr);
     ostr << "-->Layer{" <<  *getMaterial() << "}";
 }
 

@@ -16,7 +16,7 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include "Complex.h"
 #include "SafePointerVector.h"
 
@@ -26,7 +26,7 @@ class IMaterial;
 //! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
 
-class BA_CORE_API_ Layer : public ICompositeSample
+class BA_CORE_API_ Layer : public ISample
 {
 public:
     Layer(const IMaterial& material, double thickness = 0);

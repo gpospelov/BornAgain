@@ -16,7 +16,7 @@
 #ifndef ILAYOUT_H
 #define ILAYOUT_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include "SafePointerVector.h"
 
 class IAbstractParticle;
@@ -31,7 +31,7 @@ class ILayout;
 //   reference to particles could be removed in ILayout,
 //   at the cost of a big refactoring of LayerStrategyBuilder.
 
-class BA_CORE_API_ ILayout : public ICompositeSample
+class BA_CORE_API_ ILayout : public ISample
 {
 public:
     enum EInterferenceApproximation { DA, SSCA };

@@ -109,7 +109,6 @@ public:
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
-    virtual size_t size() const;
 
 /* Internal director utilities */
 public:
@@ -140,7 +139,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[12];
+    mutable swig::SwigVar_PyObject vtable[11];
 #endif
 
 };
@@ -305,7 +304,6 @@ public:
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
-    virtual size_t size() const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -341,7 +339,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[16];
 #endif
 
 };
@@ -369,7 +367,6 @@ public:
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
-    virtual size_t size() const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -406,7 +403,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[17];
 #endif
 
 };

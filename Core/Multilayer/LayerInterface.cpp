@@ -71,6 +71,6 @@ void LayerInterface::setRoughness(const LayerRoughness& roughness)
 
 void LayerInterface::print(std::ostream& ostr) const
 {
-    ICompositeSample::print(ostr);
+    ISample::print(ostr);
     ostr << "-->LayerI'face{top=" << getLayerTop() << ", bottom=" << getLayerBottom() << "}";
 }

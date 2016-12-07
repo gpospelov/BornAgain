@@ -16,7 +16,7 @@
 #ifndef SAMPLETREEITERATOR_H
 #define SAMPLETREEITERATOR_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include <ostream>
 #include <stack>
 

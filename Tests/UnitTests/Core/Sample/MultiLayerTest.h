@@ -512,19 +512,21 @@ TEST_F(MultiLayerTest, MultiLayerCompositeTest)
     mLayer.addLayer(layer3);
     mLayer.addLayer(layer4);
 
-    std::vector<Layer *> layer_buffer;
-    std::vector<LayerInterface *> interface_buffer;
+    std::vector<const Layer *> layer_buffer;
+    std::vector<const LayerInterface *> interface_buffer;
     int counter(0);
-    for(size_t index=0; index<mLayer.size();++index)
+
+    std::vector<const ISample*> children = mLayer.getChildren();
+    for(size_t index=0; index<children.size();++index)
     {
-        ISample *sample = mLayer[index];
+        const ISample *sample = children[index];
         if(counter%2 == 1)
         {
-            LayerInterface *interface = dynamic_cast<LayerInterface *>(sample);
+            const LayerInterface *interface = dynamic_cast<const LayerInterface *>(sample);
             EXPECT_TRUE(nullptr != interface);
             interface_buffer.push_back(interface);
         } else {
-            Layer *layer = dynamic_cast<Layer *>(sample);
+            const Layer *layer = dynamic_cast<const Layer *>(sample);
             EXPECT_TRUE(nullptr != layer);
             layer_buffer.push_back(layer);
         }

@@ -39,20 +39,6 @@ void ICompositeSample::deregisterChild(ISample* sample)
         m_samples.erase(it);
 }
 
-ISample* ICompositeSample::operator[](size_t index)
-{
-    if (childIndexInRange(index))
-        return m_samples[index];
-    return nullptr;
-}
-
-const ISample* ICompositeSample::operator[](size_t index) const
-{
-    if (childIndexInRange(index))
-        return m_samples[index];
-    return nullptr;
-}
-
 std::vector<const ISample*> ICompositeSample::getChildren() const
 {
     std::vector<const ISample*> result;

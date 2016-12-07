@@ -4130,18 +4130,6 @@ class ISample(ICloneable, IParameterized):
         return _libBornAgainCore.ISample_getChildren(self)
 
 
-    def size(self):
-        """
-        size(ISample self) -> size_t
-
-        virtual size_t ISample::size() const
-
-        Returns number of children. 
-
-        """
-        return _libBornAgainCore.ISample_size(self)
-
-
     def __init__(self):
         """
         __init__(ISample self) -> ISample
@@ -7320,18 +7308,6 @@ class ICompositeSample(ISample):
 
         """
         return _libBornAgainCore.ICompositeSample_getChildren(self)
-
-
-    def size(self):
-        """
-        size(ICompositeSample self) -> size_t
-
-        size_t ICompositeSample::size() const  final
-
-        Returns number of children. 
-
-        """
-        return _libBornAgainCore.ICompositeSample_size(self)
 
 ICompositeSample_swigregister = _libBornAgainCore.ICompositeSample_swigregister
 ICompositeSample_swigregister(ICompositeSample)

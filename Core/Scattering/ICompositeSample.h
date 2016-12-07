@@ -40,26 +40,14 @@ public:
     //! Removes registered child from the container
     void deregisterChild(ISample* sample);
 
-    //! Returns child pointer by index (with range checking)
-    ISample* operator[](size_t index);
-
-    //! Returns child pointer by index (with range checking)
-    const ISample* operator[](size_t index) const;
-
     //! Returns a vector of children (const).
     std::vector<const ISample*> getChildren() const final;
-
-    //! Returns number of children.
-    size_t size() const final { return m_samples.size(); }
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
 
 private:
-    //! Check child index
-    bool childIndexInRange(size_t index) const { return index<m_samples.size(); }
-
     //! List of registered children.
     std::vector<ISample*> m_samples;
 };

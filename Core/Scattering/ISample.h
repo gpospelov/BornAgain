@@ -62,9 +62,6 @@ public:
     //! Returns a vector of children.
     virtual std::vector<const ISample*> getChildren() const { return {}; }
 
-    //! Returns number of children.
-    virtual size_t size() const { return 0; }
-
     template<class T> std::vector<const T*> containedSubclass() const;
 };
 

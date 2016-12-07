@@ -1014,9 +1014,18 @@ whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 \def\TG{\TENS{G}}
 \def\TDo{\TENS{\overset{o}{D}}}
 \def\TGo{\TENS{\overset{o}{G}}}
+\def\Ei{\v{E}_\si}
+\def\Eic{\Ei^*}
 \def\Ef{\v{E}_\sf}
-\def\Efo{\TENS{\overset{o}{\v{E}}}_\sf}
-\def\Efoc{\Efo^*}
+\def\Efc{\Ef^*}
+\def\Eo{\TENS{\overset{o}{\v{E}}}}
+\def\Efo{\Eo_\sf}
+\def\Efoc{\Eo\vphantom{E}^*_\sf}
+%\def\EA{{\v{\cal E}}}
+\def\he{\v{\hat e}}
+\def\hef{\he_\sf}
+\def\hei{\he_\si}
+\def\sif{\text{i,f}}
 
 The far-field Green function for the wave equation~\cref{EwaveE3}
 can be derived \cite{DiWa84} along the lines of~\Cref{SfarDW}
@@ -1031,82 +1040,90 @@ In place of \cref{EDDdef}, we will need the tensorial operators
 \end{equation}
 with $\delta k^2\coloneqq k^2-K^2$ as before.
 Based on~\cref{EwaveE3},
-we posit homogeneous differential equations for plane waves and distorted waves,
-and corresponding equations for singular inhomogeneities,
+we posit homogeneous differential equations for plane waves $\Eo_\sif$ and
+distorted waves $\v{E}_\sif$,
+and inhomogeneous equations that determine the corresponding Green functions:
 \begin{equation}
   \begin{array}{l@{\hspace{2em}}l}
-    \TDo\Efo  (\r) = 0, &\TDo\TGo(\r,\r') = \ONE\delta(\r-\r'), \\[1.4ex]
-    \TD\Ef(\r) = 0, &\TD  \TG  (\r,\r') = \ONE\delta(\r-\r').
+    \TDo\Eo_\sif  (\r) = 0, &\TDo\TGo(\r,\r') = \ONE\delta(\r-\r'), \\[1.4ex]
+    \TD\v{E}_\sif(\r) = 0, &\TD  \TG  (\r,\r') = \ONE\delta(\r-\r').
   \end{array}
 \end{equation}
-\Cref{EGoFF} becomes
+In analogy with \cref{EGoFF,Epfo},
+vacuum and generic solutions are related to each other through
 \begin{equation}\label{EXGoFF}
   \TGo_\infty(\rD,\rS)
-  = \TG_\infty(\rD,\rS) + \int\!\d^3r\, \TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS).
+  = \TG_\infty(\rD,\rS) + \int\!\d^3r\, \TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS)
 \end{equation}
-\Cref{Epfo} gets replaced by
+and
 \begin{equation}\label{EXpfo}
-  \Efo(\rS) = \Ef(\rS) + \int\!\d^3r\, \Ef(\r)\delta k(\r)^2 \TGo(\r,\rS).
+  \Efoc(\rS) = \Efc(\rS) + \int\!\d^3r\, \Efc(\r)\delta k(\r)^2 \TGo(\r,\rS),
 \end{equation}
-These equations can be verified by operating on both sides with~$\TDo$.
+as can be verified by operating on both sides with~$\TDo$.
+
+We only consider vacuum waves with unit amplitudes $\he_\sif$,
+\begin{equation}\label{EXee}
+  \Eo_\si(\r) = \he_\si\,\e^{i\k_\si\r}
+\text{\strut~and~\strut}
+  \Efoc(\r) = \he_\sf\,\e^{-i\k_\sf\r}
+\end{equation}
+The amplitudes must be perpendicular to the propagation directions, $\he\k=0$.
 The vacuum Green function is
-\begin{equation}
+\begin{equation}\label{EXGoIE}
   \TGo(\rD,\rS) = \left( \ONE - K^{-2}\Nabla\cdot\Nabla \right) \Go(\rD,\rS),
 \end{equation}
 where $\Go$ is the scalar vacuum Green function that satisfies~\cref{EHIDG}.
 We will only need the far-field limit
-\begin{equation}
+\begin{equation}\label{EXGoff}
   \TGo_\infty(\rD,\rS)
    = \left( \ONE - \v{\hat k}_\sf\cdot\v{\hat k}_\sf \right) \phi(r_\text{D})\e^{-i\k_\sf\rS}
 \end{equation}
 with the spherical wave~$\phi$ from~\cref{Effphidef}.
 
-\Work{Work in progress \ldots} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
-and rewrite it as
-\begin{equation}
-  \TGo_\infty(\rD,\rS) = \phi(\rD)\Efoc(\rS)
+We multiply both sides of~\cref{EXGoFF} from the left with $\hef$,
+and both sides of~\cref{EXpfo} with~$\phi(\rD)$ to obtain
+\begin{equation}\label{EXGoFF2}
+  \hef\phi(\rD)\e^{-i\k_\sf\rS}
+  = \hef\TG_\infty(\rD,\rS) + \int\!\d^3r\, \hef\TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS)
 \end{equation}
-with the far-field prefactor $\phi$ as defined in~\cref{Effphidef}.
-We take complex conjugate of both sides of~\cref{EXpfo},
- and multiply them with $\phi(\rD)$ to obtain
+and
 \begin{equation}\label{EXpfo2}
-  \TGo_\infty(\rD,\rS)
-  = \phi(\rD)\psi^*_\sf(\rS) + \int\!\d^3r\, \phi(\rD)\psi^*_\sf(\r)\delta k(\r)^2 \TGo(\r,\rS).
+  \hef\phi(\rD)\e^{-i\k_\sf\rS}
+  = \phi(\rD)\Efc(\rS) + \int\!\d^3r\, \phi(\rD)\Efc(\r)\delta k(\r)^2 \TGo(\r,\rS).
 \end{equation}
-We compare with~\cref{EXGoFF},
-and read off the far-field asymptote of the distorted-waves Green function
+Comparing both equations, we read off
+\begin{equation}\label{EGpE}
+  \hef\TG_\infty(\rD,\rS) = \phi(\rD)\Efc(\rS).
+\end{equation}
+This is analogous to~\cref{Epfo},
+and means that we can determine the scattered far field at the detector position~$\rD$
+by backtracking the detected plane wave $\Efc$ into the sample,
+where it differs from the vacuum wave~$\Efoc$.
+
+In analogy to~\cref{EBornS}, the scattered electrical field is
+\begin{equation}\label{EBornX}
+  \v{E}_{\text{s}}(\r)
+  = 4\pi\int\!\d^3r'\, \TG(\r,\r')\delta v(\r')\v{E}_\si(\r').
+\end{equation}
+The far-field component in polarization direction~$\hef$ is
 \begin{equation}
-  \TG_\infty(\rD,\rS) = \phi(\rD)\psi^*_\sf(\rS).
+  \hef\v{E}_{\text{s}\infty}(\r)
+  = \phi(r) \int\!\d^3r'\, \Efc(\r')\delta v(\r')\v{E}_\si(\r').
 \end{equation}
-Note that this is formally identical with with \cref{EGreenFar},
-but no longer requires $\Ef$ to be a plane wave.
-\index{Green function!distorted waves, far-field|)}%
-
-\Emph{Accordingly,
-the differential cross section is still given by \cref{Exsection},
-and the scattering matrix element by~\cref{Etrama}.}
+The transcription of \Cref{SdiffCross} from quantum-mechanical probability flux
+to the electrodynamical Poynting vector provides no new insights,
+and shall be skipped.
+The X-ray scattering cross section for given incoming and detected polarization is
+\begin{equation}\label{Exsection}
+  \xElas
+  =  {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2
+\end{equation}
+with the scattering matrix element
 \index{Scattering!matrix}%
-\index{Cross section!distorted-wave Born approximation}%
-\index{Scattering!cross section}%
-\index{Elastic scattering!cross section}%
-The plane-wave form~\cref{Echiq}, however, does no longer hold.
-Its replacement depends on the distorted wavefunctions
-$\psi_\si$ and $\Ef$,
-is therefore application specific,
-and will be worked out later (\cref{Swave21}).
-%% TODO \index{Distorted-wave Born approximation|)}%
-
-\Work{Conclusion to be revised \ldots} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-As result, the scattering matrix element~\cref{Etrama} of the scalar case
-needs to be multiplied with \E{polarization factors}.
-\index{Polarization!factor (X-ray)}%
-For GISAS geometry, they can be found in equations (92)--(95) of Ref.~\cite{ReLL09}.
-For the usual small scattering angles of GISAS,
-they are close to unity and therefore can be neglected.
-In BornAgain, they are not yet implemented.
-
+\begin{equation}\label{Etrama}
+  \bra \Ei|\delta v|\Ef\ket
+  \coloneqq  \int\!\d^3r\, \Eic(\r)\delta v(\r)\Ef(\r).
+\end{equation}
 \index{X-ray!scattering theory|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

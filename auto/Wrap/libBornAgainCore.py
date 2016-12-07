@@ -1988,6 +1988,49 @@ class IParameterized(INamed):
 IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
 
+class INode(IParameterized):
+    """Proxy of C++ INode class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, INode, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, INode, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(INode self) -> INode"""
+        if self.__class__ == INode:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_INode(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_INode
+    __del__ = lambda self: None
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_INode(self)
+        return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(INode self)"""
+        return _libBornAgainCore.INode_onChange(self)
+
+
+    def _print(self, ostr):
+        """_print(INode self, std::ostream & ostr)"""
+        return _libBornAgainCore.INode__print(self, ostr)
+
+INode_swigregister = _libBornAgainCore.INode_swigregister
+INode_swigregister(INode)
+
 class kvector_t(_object):
     """
 
@@ -4009,7 +4052,7 @@ class IShape2D(ICloneable, INamed):
 IShape2D_swigregister = _libBornAgainCore.IShape2D_swigregister
 IShape2D_swigregister(IShape2D)
 
-class ISample(ICloneable, IParameterized):
+class ISample(ICloneable, INode):
     """
 
 
@@ -4024,11 +4067,11 @@ class ISample(ICloneable, IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ISample, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ISample, name)
     __repr__ = _swig_repr

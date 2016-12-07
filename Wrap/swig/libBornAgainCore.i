@@ -150,6 +150,7 @@
 #include "ILayout.h"
 #include "IMaterial.h"
 #include "INamed.h"
+#include "INode.h"
 #include "INoncopyable.h"
 #include "IObserver.h"
 #include "IParameterized.h"
@@ -253,6 +254,7 @@
 %include "ICloneable.h"
 %include "INamed.h"
 %include "IParameterized.h"
+%include "INode.h"
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) BasicVector3D<double>;

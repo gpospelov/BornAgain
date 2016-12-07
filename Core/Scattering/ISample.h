@@ -17,7 +17,7 @@
 #define ISAMPLE_H
 
 #include "ICloneable.h"
-#include "IParameterized.h"
+#include "INode.h"
 #include "ISampleVisitor.h"
 #include <vector>
 
@@ -26,7 +26,7 @@ class IMaterial;
 //! Pure virtual base class for sample components and properties related to scattering.
 //! @ingroup samples_internal
 
-class BA_CORE_API_ ISample : public ICloneable, public IParameterized
+class BA_CORE_API_ ISample : public ICloneable, public INode
 {
 public:
     //! Returns a clone of this ISample object.

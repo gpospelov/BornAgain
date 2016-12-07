@@ -169,6 +169,8 @@ void TiffHandler::read_data()
             case 3: // IEEE float
               sample = double(*reinterpret_cast<float*>(incoming));
               break;
+            default:
+              throw Exceptions::FormatErrorException("TiffHandler: unexpected sample format");
             }
 
             (*m_data)[global_index] = sample;

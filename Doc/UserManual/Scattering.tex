@@ -799,7 +799,7 @@ With the differential operators
 and with $\delta k^2\coloneqq k^2-K^2$,
 we rewrite the homogeneous and inhomogeneous differential equations \cref{EHomoK}
 and~\cref{EGreenK} for plane waves and distorted waves as
-\begin{equation}
+\begin{equation}\label{EHIDG}
   \begin{array}{l@{\hspace{2em}}l}
     \Do(\r)\pfo  (\r) = 0, &\Do(\r)\Go(\r,\r') = \delta(\r-\r'), \\[1.4ex]
     D(\r)\psi_\sf(\r) = 0, &D(\r)  G  (\r,\r') = \delta(\r-\r').
@@ -960,11 +960,15 @@ given by the dispersion relation
 \index{Dispersion!X-ray}%
 With these simplifying assumptions about $\v{\eps}$ and~$\v{\mu}$,
 Maxwell's equations yield the wave equation
-\begin{equation}\label{ENabNabE}
+\begin{equation}\label{ENabCrossNabE}
   \Nabla\times\Nabla\times\v{E} = K^2\eps(\r)\v{E}.
 \end{equation}
 \index{Wave equation!X-ray}%
 \index{X-ray!wave equation}%
+Using a standard identity from vector analysis, it can be brought into the more tractable form
+\begin{equation}\label{ENabNabE}
+  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2\eps(\r)\right\}\v{E}.
+\end{equation}
 To solve this equation by a perturbation expansion,
 \index{Perturbation expansion}%
 we proceed as in \cref{Sfluct},
@@ -976,19 +980,20 @@ into a slowly varying component and a perturbation that fluctuates on atomic sca
 \nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Slowly varying part of the permittivity~$\eps(\r)$}%
 \nomenclature[1δ030
   1ε030 2r040]{$\delta\eps(\r)$}{Fast varying part of the permittivity~$\eps(\r)$}%
-In analogy to~\cref{EnkK} we define the material-dependent wavenumber by
+We define the material-dependent wavenumber by
 \index{Wavenumber!material dependent}%
 \begin{equation}
   k(\r)^2 \coloneqq K^2 \overline{\eps}(\r).
 \end{equation}
-Furthermore, we define the scattering potential by
+The scattering potential
 \index{Scattering!potential!X-ray}%
 \begin{equation}
-  4\pi\delta v(\r) \coloneqq - K^2\delta\eps.
+  4\pi\delta v(\r) \coloneqq - K^2\delta\eps
 \end{equation}
+takes the place of the neutron scattering length distribution.
 The wave equation~\cref{ENabNabE} then becomes
 \begin{equation}\label{EwaveE3}
-  \left\{-\Nabla\times\Nabla\times\ONE + k(\r)^2\right\}\v{E}(\r)
+  \left\{\Nabla^2-\Nabla\cdot\Nabla + k(\r)^2\right\}\v{E}(\r)
   = 4\pi\delta v(\r)\v{E}(\r).
 \end{equation}
 \index{Wave equation!X-ray}%
@@ -997,7 +1002,7 @@ This is very similar to the perturbed Schrödinger equation~\cref{ESchrodiK}.
 \index{Perturbed Schrödinger equation}%
 \index{Schrodinger@Schrödinger equation!perturbed}%
 There are only two differences:
-the more complicated differential operator,
+the appearance of the dyadic differential operator $\Nabla\cdot\Nabla$,
 and the fact that $\v{E}(\r)$ is vector valued,
 whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 
@@ -1014,25 +1019,14 @@ whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 \def\Efoc{\Efo^*}
 
 The far-field Green function for the wave equation~\cref{EwaveE3}
-can be derived along the lines of~\Cref{SfarDW}
-except that differential operators and Green functions are now dyadic tensors \cite{DiWa84}.
-\Work{This will be worked out soon.}
-As result, the scattering matrix element~\cref{Etrama} of the scalar case
-needs to be multiplied with \E{polarization factors}.
-\index{Polarization!factor (X-ray)}%
-For GISAS geometry, they can be found in equations (92)--(95) of Ref.~\cite{ReLL09}.
-For the usual small scattering angles of GISAS,
-they are close to unity and therefore can be neglected.
-In BornAgain, they are not yet implemented.
-
-\iffalse
+can be derived \cite{DiWa84} along the lines of~\Cref{SfarDW}
+except that differential operators and Green functions are now dyadic tensors.
 \index{Green function!distorted waves, far-field|(}%
 Instead of \cref{EDDdef}, we will need the differential operators
 \begin{equation}
   \begin{array}{@{}l}
-    \TDo \coloneqq -\Nabla\times\Nabla\times\ONE+K^2
-          = \Nabla^2-\Nabla\cdot\Nabla+K^2, \\[1.4ex]
-   \TD \coloneqq -\Nabla\times\Nabla\times\ONE+k(\r)^2 = \TDo + \delta k(\r)^2,
+    \TDo \coloneqq \ONE(\Nabla^2+K^2)-\Nabla\cdot\Nabla, \\[1.4ex]
+    \TD  \coloneqq \TDo + \ONE\delta k(\r)^2,
   \end{array}
 \end{equation}
 with $\delta k^2\coloneqq k^2-K^2$ as before.
@@ -1055,6 +1049,13 @@ for plane waves and distorted waves are
   \Efo(\rS) = \Ef(\rS) + \int\!\d^3r\, \Ef(\r)\delta k(\r)^2 \TGo(\r,\rS).
 \end{equation}
 These equations can be verified by operating on both sides with~$\TDo$.
+The vacuum Green function is
+\begin{equation}
+  \TGo(\rD,\rS) = \left( \ONE - K^{-2}\Nabla\cdot\Nabla \right) \Go(\rD,\rS),
+\end{equation}
+where $\Go$ is the scalar Green function that satisfies~\cref{EHIDG}.
+
+\Work{Work in progress \ldots} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
 and rewrite it as
 \begin{equation}
@@ -1088,8 +1089,17 @@ Its replacement depends on the distorted wavefunctions
 $\psi_\si$ and $\Ef$,
 is therefore application specific,
 and will be worked out later (\cref{Swave21}).
-\fi
 %% TODO \index{Distorted-wave Born approximation|)}%
+
+\Work{Conclusion to be revised \ldots} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+As result, the scattering matrix element~\cref{Etrama} of the scalar case
+needs to be multiplied with \E{polarization factors}.
+\index{Polarization!factor (X-ray)}%
+For GISAS geometry, they can be found in equations (92)--(95) of Ref.~\cite{ReLL09}.
+For the usual small scattering angles of GISAS,
+they are close to unity and therefore can be neglected.
+In BornAgain, they are not yet implemented.
 
 \index{X-ray!scattering theory|)}%
 

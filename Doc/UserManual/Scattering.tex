@@ -837,7 +837,7 @@ and rewrite it as
 \begin{equation}
   \Go_\infty(\rD,\rS) = \phi(\rD)\pfo^*(\rS)
 \end{equation}
-with the far-field prefactor
+with the spherical wave
 \begin{equation}\label{Effphidef}
   \phi(r) \coloneqq \frac{\e^{iKr}}{4\pi r}.
 \end{equation}
@@ -1022,7 +1022,7 @@ The far-field Green function for the wave equation~\cref{EwaveE3}
 can be derived \cite{DiWa84} along the lines of~\Cref{SfarDW}
 except that differential operators and Green functions are now dyadic tensors.
 \index{Green function!distorted waves, far-field|(}%
-Instead of \cref{EDDdef}, we will need the differential operators
+In place of \cref{EDDdef}, we will need the tensorial operators
 \begin{equation}
   \begin{array}{@{}l}
     \TDo \coloneqq \ONE(\Nabla^2+K^2)-\Nabla\cdot\Nabla, \\[1.4ex]
@@ -1031,8 +1031,8 @@ Instead of \cref{EDDdef}, we will need the differential operators
 \end{equation}
 with $\delta k^2\coloneqq k^2-K^2$ as before.
 Based on~\cref{EwaveE3},
-the homogeneous and inhomogeneous differential equations
-for plane waves and distorted waves are
+we posit homogeneous differential equations for plane waves and distorted waves,
+and corresponding equations for singular inhomogeneities,
 \begin{equation}
   \begin{array}{l@{\hspace{2em}}l}
     \TDo\Efo  (\r) = 0, &\TDo\TGo(\r,\r') = \ONE\delta(\r-\r'), \\[1.4ex]
@@ -1053,7 +1053,13 @@ The vacuum Green function is
 \begin{equation}
   \TGo(\rD,\rS) = \left( \ONE - K^{-2}\Nabla\cdot\Nabla \right) \Go(\rD,\rS),
 \end{equation}
-where $\Go$ is the scalar Green function that satisfies~\cref{EHIDG}.
+where $\Go$ is the scalar vacuum Green function that satisfies~\cref{EHIDG}.
+We will only need the far-field limit
+\begin{equation}
+  \TGo_\infty(\rD,\rS)
+   = \left( \ONE - \v{\hat k}_\sf\cdot\v{\hat k}_\sf \right) \phi(r_\text{D})\e^{-i\k_\sf\rS}
+\end{equation}
+with the spherical wave~$\phi$ from~\cref{Effphidef}.
 
 \Work{Work in progress \ldots} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},

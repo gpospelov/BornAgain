@@ -16,7 +16,13 @@
 #include "INode.h"
 #include "StringUsageMap.h"
 #include "Exceptions.h"
+#include "NodeUtils.h"
 #include <algorithm>
+
+std::string INode::to_my_str() const
+{
+    return NodeUtils::nodeToString(*this);
+}
 
 void INode::registerChild(INode *sample)
 {

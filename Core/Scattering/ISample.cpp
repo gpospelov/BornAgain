@@ -27,15 +27,6 @@ ISample* ISample::cloneInvertB() const
         "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 
-std::string ISample::to_str(int indent) const
-{
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " " << *getParameterPool() << "\n";
-    for(auto child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
-}
-
 std::vector<const IMaterial*> ISample::containedMaterials() const
 {
     std::vector<const IMaterial*> result;

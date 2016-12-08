@@ -55,17 +55,6 @@ Layer* Layer::cloneInvertB() const
     return p_clone;
 }
 
-std::string Layer::to_str(int indent) const
-{
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " "
-       << (getMaterial() ? getMaterial()->getName() : "0_MATERIAL") << " "
-       << getRefractiveIndex() << " " << *getParameterPool() << "\n";
-    for(auto child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
-}
-
 //! Sets layer thickness in nanometers.
 void Layer::setThickness(double thickness)
 {

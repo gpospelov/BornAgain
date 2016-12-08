@@ -19,7 +19,7 @@
 #include "NodeUtils.h"
 #include <algorithm>
 
-std::string INode::to_my_str() const
+std::string INode::to_str() const
 {
     return NodeUtils::nodeToString(*this);
 }

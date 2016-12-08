@@ -35,9 +35,6 @@ public:
     //! Returns a clone with inverted magnetic fields.
     virtual ISample* cloneInvertB() const;
 
-    //! Returns textual representation of this and its descendants.
-    virtual std::string to_str(int indent=0) const;
-
     //! Returns nullptr, unless overwritten to return a specific material.
     virtual const IMaterial* getMaterial() const { return nullptr; }
 

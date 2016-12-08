@@ -31,7 +31,7 @@ namespace {
     }
 
     // Returns multiline string representing pool parameters of given node.
-    std::string poolToString(const INode &node, int depth) {
+    std::string poolToMultiString(const INode &node, int depth) {
         std::ostringstream result;
 
         for(auto par : node.getParameterPool()->getParameters())
@@ -41,11 +41,33 @@ namespace {
         return result.str();
     }
 
+    // Returns single line string representing pool parameters of given node.
+    std::string poolToString(const INode &node) {
+        std::ostringstream result;
+
+        const std::vector<RealParameter*> pars = node.getParameterPool()->getParameters();
+        if(pars.size())
+            result << " (";
+
+        size_t index(0);
+        for(auto par : pars) {
+            result << "'" << par->getName() << "':" << par->getValue();
+            ++index;
+            if(index!=pars.size())
+                result << " ";
+        }
+
+        if(pars.size())
+            result << ")";
+
+        return result.str();
+    }
+
     // Returns a string representing given node.
     std::string nodeString(const INode& node, int depth) {
         std::ostringstream result;
-        result << s_indent(depth) << node.getName() << "\n";
-        result << poolToString(node, depth+1);
+        //result << s_indent(depth) << node.getName() << "\n" << poolToMultiString(node, depth+1);
+        result << s_indent(depth) << node.getName() << poolToString(node) << "\n";
         return result.str();
     }
 }

@@ -68,17 +68,6 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() co
     return result;
 }
 
-std::string InterferenceFunction2DParaCrystal::to_str(int indent) const
-{
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " " << *getParameterPool() << "\n";
-    std::vector<const IFTDistribution2D*> pdfs = getProbabilityDistributions();
-    ss << std::string(4*(indent+1), '.') << " pdfs: " << *pdfs[0] << " " << *pdfs[1] << "\n";
-    for(auto child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
-}
-
 //! Sets the probability distributions (Fourier transformed) for the two lattice directions.
 //! @param pdf_1: probability distribution in first lattice direction
 //! @param pdf_2: probability distribution in second lattice direction

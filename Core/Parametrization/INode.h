@@ -33,12 +33,8 @@ public:
     //! Calls the ISampleVisitor's visit method.
     virtual void accept(ISampleVisitor* p_visitor) const=0;
 
-    std::string to_my_str() const;
-
-    virtual std::string to_str(int /*indent*/) const
-    {
-        return std::string("FIXME");
-    }
+    //! Returns multiline string representing tree structure below the node.
+    virtual std::string to_str() const;
 
     //! Registers child in the container.
     void registerChild(INode* sample);

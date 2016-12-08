@@ -81,17 +81,6 @@ Particle* Particle::cloneInvertB() const
     return p_result;
 }
 
-std::string Particle::to_str(int indent) const
-{
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " "
-       << (getMaterial() ? getMaterial()->getName() : "0_MATERIAL") << " "
-       << getRefractiveIndex() << "\n";
-    for(auto child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
-}
-
 void Particle::setAmbientMaterial(const IMaterial& material)
 {
     if(mP_ambient_material.get() != &material)

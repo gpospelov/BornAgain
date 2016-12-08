@@ -102,7 +102,7 @@ public:
       IParameterized::print(ostr);
     }
     virtual void accept(ISampleVisitor *p_visitor) const;
-    virtual std::string to_str(int arg0) const;
+    virtual std::string to_str() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
 
 /* Internal director utilities */
@@ -157,7 +157,7 @@ public:
       IParameterized::print(ostr);
     }
     virtual void accept(ISampleVisitor *p_visitor) const;
-    virtual std::string to_str(int indent = 0) const;
+    virtual std::string to_str() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
@@ -192,7 +192,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[11];
+    mutable swig::SwigVar_PyObject vtable[10];
 #endif
 
 };
@@ -352,7 +352,7 @@ public:
       IParameterized::print(ostr);
     }
     virtual void accept(ISampleVisitor *visitor) const;
-    virtual std::string to_str(int indent = 0) const;
+    virtual std::string to_str() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
@@ -392,7 +392,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[16];
+    mutable swig::SwigVar_PyObject vtable[15];
 #endif
 
 };
@@ -415,7 +415,7 @@ public:
       IParameterized::print(ostr);
     }
     virtual void accept(ISampleVisitor *visitor) const;
-    virtual std::string to_str(int indent = 0) const;
+    virtual std::string to_str() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
@@ -456,7 +456,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[16];
 #endif
 
 };

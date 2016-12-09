@@ -28,7 +28,7 @@ namespace {
 void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer);
 
 bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
-                          const kvector_t k, size_t layer_index);
+                          const double kmag, size_t layer_index);
 
 //! Computes refraction angles and transmission/reflection coefficients
 //! for given coherent wave propagation in a multilayer.
@@ -70,7 +70,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiL
     // Calculate transmission/refraction coefficients t_r for each layer,
     // from bottom to top.
     size_t start_layer_index = N-2;
-    while (!calculateUpFromLayer(coeff, sample, k, start_layer_index)) {
+    while (!calculateUpFromLayer(coeff, sample, k.mag(), start_layer_index)) {
         setZeroBelow(coeff, start_layer_index);
         coeff[start_layer_index].t_r(0) = 1.0;
         coeff[start_layer_index].t_r(1) = 0.0;
@@ -102,8 +102,9 @@ void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer
 }
 
 bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
-                          const kvector_t k, size_t layer_index)
+                          const double kmag, size_t layer_index)
 {
+    double kfactor = std::pow(M_PI_2, 1.5)*kmag;
     for (int i=layer_index; i>=0; --i) {
         complex_t roughness_factor = 1;
         if (sample.getLayerInterface(i)->getRoughness()) {
@@ -111,7 +112,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
             if(sigma > 0.0) {
                 // since there is a roughness, compute one diagonal matrix element p00;
                 // the other element is p11 = 1/p00.
-                double sigeff = std::pow(M_PI_2, 1.5)*sigma*k.mag();
+                double sigeff = kfactor*sigma;
                 roughness_factor = sqrt(
                             MathFunctions::tanhc(sigeff*coeff[i+1].lambda) /
                             MathFunctions::tanhc(sigeff*coeff[i  ].lambda) );
@@ -121,7 +122,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
 
         complex_t lambda_rough = coeff[i  ].lambda / roughness_factor;
         complex_t lambda_below = coeff[i+1].lambda * roughness_factor;
-        complex_t exp_fac = exp_I(k.mag() * sample.getLayer(i)->getThickness() * lambda);
+        complex_t exp_fac = exp_I(kmag * sample.getLayer(i)->getThickness() * lambda);
         coeff[i].t_r(0) = (
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
                     (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda/exp_fac;

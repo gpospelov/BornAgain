@@ -20,6 +20,7 @@
 #include "MathFunctions.h"
 #include "MultiLayer.h"
 #include "MathConstants.h"
+#include <stdexcept>
 
 namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);
@@ -29,6 +30,10 @@ void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer
 
 bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
                           const double kmag, size_t layer_index);
+
+size_t bisectRTcomputation(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+                           const double kmag,
+                           const size_t lgood, const size_t lbad, const size_t l);
 
 //! Computes refraction angles and transmission/reflection coefficients
 //! for given coherent wave propagation in a multilayer.
@@ -53,12 +58,12 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiL
         coeff[i].lambda = sqrt(rad);
         coeff[i].kz = sign_kz_out * k.mag()*coeff[i].lambda;
     }
-    // In the bottom layer, there is no upward travelling wave.
-    coeff[N-1].t_r(0) = 1.0;
-    coeff[N-1].t_r(1) = 0.0;
-
     // If only one layer present, there's nothing left to calculate
-    if( N==1) return;
+    if( N==1) {
+        coeff[N-1].t_r(0) = 1.0;
+        coeff[N-1].t_r(1) = 0.0;
+        return;
+    }
 
     // If lambda in layer 0 is zero, R0 = -T0 and all other R, T coefficients become zero
     if (coeff[0].lambda == 0.0) {
@@ -69,10 +74,10 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiL
     }
     // Calculate transmission/refraction coefficients t_r for each layer, from bottom to top.
     size_t start_layer_index = N-2;
-    while (!calculateUpFromLayer(coeff, sample, k.mag(), start_layer_index)) {
-        coeff[start_layer_index].t_r(0) = 1.0;
-        coeff[start_layer_index].t_r(1) = 0.0;
-        --start_layer_index;
+    if (!calculateUpFromLayer(coeff, sample, k.mag(), start_layer_index)) {
+        // If excessive damping leads to infinite amplitudes, then use bisection to determine
+        // the maximum number of layers for which results remain finite.
+        start_layer_index = bisectRTcomputation(coeff, sample, k.mag(), 0, N-2, (N-2)/2);
     }
     setZeroBelow(coeff, start_layer_index+1);
 
@@ -103,6 +108,8 @@ void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer
 bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
                           const double kmag, size_t layer_index)
 {
+    coeff[layer_index+1].t_r(0) = 1.0;
+    coeff[layer_index+1].t_r(1) = 0.0;
     double kfactor = std::pow(M_PI_2, 1.5)*kmag;
     for (int i=layer_index; i>=0; --i) {
         complex_t roughness_factor = 1;
@@ -134,4 +141,21 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
         }
     }
     return true;
+}
+
+size_t bisectRTcomputation(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+                           const double kmag,
+                           const size_t lgood, const size_t lbad, const size_t l)
+{
+    if (calculateUpFromLayer(coeff, sample, kmag, l)) {
+        // success => highest valid l must be in l..lbad-1
+        if (l+1==lbad)
+            return l;
+        return bisectRTcomputation(coeff, sample, kmag, l, lbad, (l+lbad)/2);
+    } else {
+        // failure => highest valid l must be in lgood..l-1
+        if (l-1==lgood)
+            return l-1;
+        return bisectRTcomputation(coeff, sample, kmag, lgood, l, (lgood+l)/2);
+    }
 }

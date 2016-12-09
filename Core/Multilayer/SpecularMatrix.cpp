@@ -27,13 +27,12 @@ namespace {
 }
 
 void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer);
-
-bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
-                          const double kmag, size_t layer_index);
-
-size_t bisectRTcomputation(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
-                           const double kmag,
-                           const size_t lgood, const size_t lbad, const size_t l);
+bool calculateUpFromLayer(
+    SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+    const double kmag, size_t layer_index);
+size_t bisectRTcomputation(
+    SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+    const double kmag, const size_t lgood, const size_t lbad, const size_t l);
 
 //! Computes refraction angles and transmission/reflection coefficients
 //! for given coherent wave propagation in a multilayer.
@@ -97,6 +96,8 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiL
     }
 }
 
+//! Sets coeff to zero for all layers below current_layer.
+
 void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer)
 {
     size_t N = coeff.size();
@@ -104,6 +105,9 @@ void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer
         coeff[i].t_r.setZero();
     }
 }
+
+//! Computes RT coefficients coeff, starting from layer number layer_index.
+//! Returns true if no overflow happens.
 
 bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
                           const double kmag, size_t layer_index)
@@ -135,17 +139,18 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
         coeff[i].t_r(1) = (
                     (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda*exp_fac;
-        // If T overflowed, return false, so the calculation can restart from a layer higher
-        if (std::isinf(std::abs(coeff[i].getScalarT()))) {
-            return false;
-        }
+        if (std::isinf(std::abs(coeff[i].getScalarT())))
+            return false; // overflow => retry calulation starting from a higher layer
     }
-    return true;
+    return true; // no overflow => result is definitive
 }
 
-size_t bisectRTcomputation(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
-                           const double kmag,
-                           const size_t lgood, const size_t lbad, const size_t l)
+//! Recursive bisection to determine the number of the deepest layer where RT computation
+//! can be started without running into overflow.
+
+size_t bisectRTcomputation(
+    SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+    const double kmag, const size_t lgood, const size_t lbad, const size_t l)
 {
     if (calculateUpFromLayer(coeff, sample, kmag, l)) {
         // success => highest valid l must be in l..lbad-1

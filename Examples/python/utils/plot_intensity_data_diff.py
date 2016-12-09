@@ -35,4 +35,6 @@ if __name__ == '__main__':
     intensity_other = ba.IntensityDataIOFactory.readIntensityData(sys.argv[2])
     data = 2 * numpy.abs(intensity_ref.getArray() - intensity_other.getArray()) \
            / (numpy.abs(intensity_ref.getArray())+numpy.abs(intensity_other.getArray()))
+    if data.max()==0:
+        exit("Both data sets are equal, there is nothing to plot.")
     plot_intensity_data(intensity_ref, data)

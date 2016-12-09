@@ -35,7 +35,7 @@ std::vector<const IMaterial*> ISample::containedMaterials() const
     if( const IMaterial* material = getAmbientMaterial() )
         result.push_back( material );
     for(auto child: getChildren() ) {
-        if(const ISample *sample = dynamic_cast<const ISample *>(child)) {
+        if(const ISample* sample = dynamic_cast<const ISample *>(child)) {
             for( const IMaterial* material: sample->containedMaterials() )
                 result.push_back( material );
         }

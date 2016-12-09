@@ -7,9 +7,9 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -30,13 +30,11 @@ public:
     INode(){}
     virtual ~INode(){}
 
-    //! Calls the ISampleVisitor's visit method.
     virtual void accept(ISampleVisitor* p_visitor) const=0;
 
     //! Returns multiline string representing tree structure below the node.
     virtual std::string to_str() const;
 
-    //! Registers child in the container.
     void registerChild(INode* sample);
 
     //! Removes registered child from the container

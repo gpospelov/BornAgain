@@ -34,7 +34,7 @@ namespace {
     std::string poolToMultiString(const INode &node, int depth) {
         std::ostringstream result;
 
-        for(auto par : node.getParameterPool()->getParameters())
+        for (auto par : node.getParameterPool()->getParameters())
             result << s_indent(depth)
                    << "'" << par->getName() << "':" << par->getValue() << "\n";
 
@@ -46,19 +46,18 @@ namespace {
         std::ostringstream result;
 
         const std::vector<RealParameter*> pars = node.getParameterPool()->getParameters();
-        if(pars.size())
-            result << " (";
+        if (pars.empty())
+            return {};
 
+        result << " (";
         size_t index(0);
-        for(auto par : pars) {
+        for (auto par : pars) {
             result << "'" << par->getName() << "':" << par->getValue();
             ++index;
-            if(index!=pars.size())
+            if (index!=pars.size())
                 result << " ";
         }
-
-        if(pars.size())
-            result << ")";
+        result << ")";
 
         return result.str();
     }

@@ -67,15 +67,14 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiL
         setZeroBelow(coeff, 0);
         return;
     }
-    // Calculate transmission/refraction coefficients t_r for each layer,
-    // from bottom to top.
+    // Calculate transmission/refraction coefficients t_r for each layer, from bottom to top.
     size_t start_layer_index = N-2;
     while (!calculateUpFromLayer(coeff, sample, k.mag(), start_layer_index)) {
-        setZeroBelow(coeff, start_layer_index);
         coeff[start_layer_index].t_r(0) = 1.0;
         coeff[start_layer_index].t_r(1) = 0.0;
         --start_layer_index;
     }
+    setZeroBelow(coeff, start_layer_index+1);
 
     // Normalize to incoming downward travelling amplitude = 1.
     complex_t T0 = coeff[0].getScalarT();

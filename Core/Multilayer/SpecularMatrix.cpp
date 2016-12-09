@@ -121,15 +121,13 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
 
         complex_t lambda_rough = coeff[i  ].lambda / roughness_factor;
         complex_t lambda_below = coeff[i+1].lambda * roughness_factor;
-        complex_t ikd = imag_unit * k.mag() * sample.getLayer(i)->getThickness();
+        complex_t exp_fac = exp_I(k.mag() * sample.getLayer(i)->getThickness() * lambda);
         coeff[i].t_r(0) = (
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
-                    (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
-                    std::exp(-ikd*lambda);
+                    (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda/exp_fac;
         coeff[i].t_r(1) = (
                     (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
-                    (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda *
-                    std::exp( ikd*lambda);
+                    (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda*exp_fac;
         // If T overflowed, return false, so the calculation can restart from a layer higher
         if (std::isinf(std::abs(coeff[i].getScalarT()))) {
             return false;

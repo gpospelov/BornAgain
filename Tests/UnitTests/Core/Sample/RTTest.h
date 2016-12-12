@@ -11,13 +11,13 @@
 #include "ParticleLayout.h"
 #include "SpecularMatrix.h"
 
-#include <iostream> // TODO remove when stable
+#include <iostream> // for debug phases
 
 class RTTest : public ::testing::Test
 {
 protected:
     RTTest() {}
-    void printCoeffs(const std::vector<ScalarRTCoefficients>& coeffs) {
+    void printCoeffs(const std::vector<ScalarRTCoefficients>& coeffs) { // for debug phases
         for (size_t i=0; i<coeffs.size(); ++i) {
             const ScalarRTCoefficients& coeff = coeffs[i];
             std::cout << i << " " << coeff.t_r(0) << " " << coeff.t_r(1) << "\n";
@@ -33,7 +33,7 @@ protected:
     }
     const HomogeneousMaterial air {"air", 1e-8, 1e-8};
     const HomogeneousMaterial amat {"material A", 2e-6, 8e-7};
-    const HomogeneousMaterial bmat {"material B (high absorption)", 3e-6, 2e-4};
+    const HomogeneousMaterial bmat {"material B (high absorption)", 3e-5, 2e-4};
     const HomogeneousMaterial stone {"substrate material", 1e-6, 1e-7};
     const Layer topLayer {air, 0};
     const Layer substrate {stone, 0};
@@ -65,4 +65,43 @@ TEST_F(RTTest, SplitLayer)
     compareCoeffs(coeffs1[0], coeffs2[0]);
     compareCoeffs(coeffs1[1], coeffs2[1]);
     compareCoeffs(coeffs1.back(), coeffs2.back());
+}
+
+
+TEST_F(RTTest, SplitBilayers)
+{
+    // With exaggerated values of #layers, layer thickness, and absorption
+    // so that we also test correct handling of floating-point overflow.
+    const int n = 400;
+
+    sample1.addLayer( topLayer );
+    for (size_t i=0; i<n; ++i) {
+        sample1.addLayer( Layer(amat, 100) );
+        sample1.addLayer( Layer(bmat, 200) );
+    }
+    sample1.addLayer( substrate );
+
+    sample2.addLayer( topLayer );
+    for (size_t i=0; i<n; ++i) {
+        sample2.addLayer( Layer(amat, 100) );
+        sample2.addLayer( Layer(bmat, 100) );
+        sample2.addLayer( Layer(amat,   0) );
+        sample2.addLayer( Layer(bmat, 100) );
+    }
+    sample2.addLayer( substrate );
+
+    SpecularMatrix::execute(sample1, k, coeffs1);
+    SpecularMatrix::execute(sample2, k, coeffs2);
+
+    // printCoeffs( coeffs1 );
+    // printCoeffs( coeffs2 );
+
+    compareCoeffs(coeffs1[0], coeffs2[0]);
+    compareCoeffs(coeffs1[1], coeffs2[1]);
+
+    // If floating-point overflow is handled correctly, amplitudes at bottom must be strictly zero.
+    EXPECT_EQ(complex_t(), coeffs1[coeffs1.size()-2].t_r(0));
+    EXPECT_EQ(complex_t(), coeffs1[coeffs1.size()-2].t_r(1));
+    EXPECT_EQ(complex_t(), coeffs2[coeffs2.size()-2].t_r(0));
+    EXPECT_EQ(complex_t(), coeffs2[coeffs2.size()-2].t_r(1));
 }

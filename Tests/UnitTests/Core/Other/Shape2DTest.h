@@ -1,6 +1,3 @@
-#ifndef SHAPE2DTEST_H
-#define SHAPE2DTEST_H
-
 #include "Rectangle.h"
 #include "Ellipse.h"
 #include "Line.h"
@@ -104,5 +101,3 @@ TEST_F(Shape2DTest, HorizontalLine)
     EXPECT_TRUE(line.contains(Bin1D(0.0, 1.0), Bin1D(0.5, 1.5)));
     EXPECT_FALSE(line.contains(Bin1D(0.0, 1.0), Bin1D(1.01, 2.0)));
 }
-
-#endif // SHAPE2DTEST_H

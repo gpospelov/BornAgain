@@ -1,6 +1,3 @@
-#ifndef TESTFITPARAMETERMODEL_H
-#define TESTFITPARAMETERMODEL_H
-
 #include <QtTest>
 #include "JobModel.h"
 #include "FitParameterProxyModel.h"
@@ -238,7 +235,5 @@ inline void TestFitParameterModel::test_addTwoFitParameterAndLinks()
 //    QModelIndex linkIndex1 = proxy.index(0, 0, index1);
 
 }
-
-#endif // TESTFITPARAMETERMODEL_H
 
 

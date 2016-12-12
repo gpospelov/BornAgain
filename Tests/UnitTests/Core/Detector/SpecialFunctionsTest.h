@@ -13,9 +13,6 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECIALFUNCTIONSTEST_H
-#define SPECIALFUNCTIONSTEST_H
-
 #include "MathFunctions.h"
 #include "MathConstants.h"
 
@@ -93,5 +90,3 @@ TEST_F(SpecialFunctionsTest, csinc)
         z=std::polar(1e-3,ph); EXPECT_CNEAR( MathFunctions::sinc(z), 1.-z*z/6.*(1.-z*z/20.), eps );
     }
 }
-
-#endif // SPECIALFUNCTIONSTEST_H

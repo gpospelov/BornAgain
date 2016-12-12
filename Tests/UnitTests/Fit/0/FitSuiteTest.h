@@ -1,6 +1,3 @@
-#ifndef FITSUITETEST_H
-#define FITSUITETEST_H
-
 #include "FitSuite.h"
 #include "FitParameter.h"
 #include "gtest/gtest.h"
@@ -47,5 +44,3 @@ TEST_F(FitSuiteTest, addFitParameter)
     EXPECT_EQ(4.0, par3.value());
     EXPECT_TRUE(par3.limits().isFixed());
 }
-
-#endif

@@ -1,6 +1,3 @@
-#ifndef TESTSESSIONMODEL_H
-#define TESTSESSIONMODEL_H
-
 #include <QtTest>
 #include "SessionModel.h"
 #include "SampleModel.h"
@@ -171,7 +168,4 @@ inline void TestSessionModel::test_copyParameterizedItem()
     delete instrumentModel;
     delete jobModel;
 }
-
-
-#endif // TESTSESSIONMODEL_H
 

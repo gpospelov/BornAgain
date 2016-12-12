@@ -1,6 +1,3 @@
-#ifndef CVECTORTEST_H
-#define CVECTORTEST_H
-
 #include "Vectors3D.h"
 #include "EigenCore.h"
 #include "Complex.h"
@@ -45,5 +42,3 @@ TEST_F(CVectorTest, BasicArithmetics)
     EXPECT_EQ( vec_e+complex_t(0,1)*vec_f,
                cvector_t(complex_t(1.,5.), complex_t(2.,6), complex_t(3,7)) );
 }
-
-#endif // CVECTORTEST_H

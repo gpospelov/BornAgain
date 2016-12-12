@@ -1,6 +1,3 @@
-#ifndef LABELMAPTEST_H
-#define LABELMAPTEST_H
-
 #include "SampleLabelHandler.h"
 #include "INamed.h"
 #include <map>
@@ -152,5 +149,3 @@ TEST_F(LabelMapTest, LabelMapReInsert)
     EXPECT_EQ(omap.size(), size_t(3));
     EXPECT_EQ(omap.value(P_n2.get()), "99.0");
 }
-
-#endif // LABELMAPTEST_H

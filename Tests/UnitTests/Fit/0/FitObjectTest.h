@@ -1,6 +1,3 @@
-#ifndef FITOBJECTTEST_H
-#define FITOBJECTTEST_H
-
 #include "FitObject.h"
 #include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
@@ -99,5 +96,3 @@ TEST_F(FitObjectTest, RoiPair)
     EXPECT_EQ(obj.chiSquaredMap().getAxis(1).getMin(), roi_ymin);
     EXPECT_EQ(obj.chiSquaredMap().getAxis(1).getMax(), roi_ymax);
 }
-
-#endif // FITOBJECTTEST_H

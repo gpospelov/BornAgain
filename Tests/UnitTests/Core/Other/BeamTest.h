@@ -1,6 +1,3 @@
-#ifndef BEAMTEST_H
-#define BEAMTEST_H
-
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "MathConstants.h"
@@ -57,6 +54,3 @@ TEST_F(BeamTest, BeamAssignment)
     EXPECT_EQ(complex_t(0.4, 0.0), beam_copy.getPolarization()(1, 1));
     */
 }
-
-
-#endif // BEAMTEST_H

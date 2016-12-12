@@ -13,9 +13,6 @@
 //
 // ************************************************************************** //
 
-#ifndef VERIFY_THROW_MACRO_H
-#define VERIFY_THROW_MACRO_H
-
 #include <QTest>
 
 #define QVERIFY_THROW(expression, ExpectedExceptionType) \
@@ -28,6 +25,3 @@ catch (...) {} \
 if (!QTest::qVerify(caught_, #expression ", " #ExpectedExceptionType, "", __FILE__, __LINE__))\
 return; \
 } while(0)
-
-
-#endif // VERIFY_THROW_MACRO_H

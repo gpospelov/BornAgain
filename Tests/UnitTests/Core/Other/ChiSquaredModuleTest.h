@@ -1,6 +1,3 @@
-#ifndef CHISQUAREDMODULETEST_H
-#define CHISQUAREDMODULETEST_H
-
 #include "ChiSquaredModule.h"
 #include "ISquaredFunction.h"
 #include "BornAgainNamespace.h"
@@ -108,8 +105,6 @@ TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
 ////    m_chi_isgisaxs.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
 ////    EXPECT_FLOAT_EQ( double(0.005), m_chi_isgisaxs.calculateChiSquared());
 //}
-
-#endif // CHISQUAREDMODULETEST_H
 
 
 

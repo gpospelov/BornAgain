@@ -1,7 +1,3 @@
-#ifndef TESTSESSIONITEM_H
-#define TESTSESSIONITEM_H
-
-
 #include <QtTest>
 #include "SessionItem.h"
 #include "GUIHelpers.h"
@@ -227,6 +223,3 @@ inline void TestSessionItem::test_model_types()
 ////    SessionItem item;
 ////    QCOMPARE(item.getSubItems().size(), 0);
 //}
-
-
-#endif // TESTSESSIONITEM_H

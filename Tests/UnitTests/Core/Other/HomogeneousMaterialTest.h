@@ -1,6 +1,3 @@
-#ifndef HOMOGENEOUSMATERIALTEST_H
-#define HOMOGENEOUSMATERIALTEST_H
-
 #include "HomogeneousMaterial.h"
 #include "Rotations.h"
 #include "Units.h"
@@ -104,5 +101,3 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
     delete tMaterial;
     delete clone;
 }
-
-#endif // HOMOGENEOUSMATERIALTEST_H

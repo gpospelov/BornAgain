@@ -1,6 +1,3 @@
-#ifndef TESTCOMBOPROPERTY_H
-#define TESTCOMBOPROPERTY_H
-
 #include <QtTest>
 #include "ComboProperty.h"
 #include <QDebug>
@@ -54,5 +51,3 @@ inline void TestComboProperty::test_VariantEquality()
     c1.setValue("a2");
     QVERIFY(c1.getVariant() == c2.getVariant());
 }
-
-#endif // TESTCOMBOPROPERTY_H

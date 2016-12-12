@@ -1,6 +1,3 @@
-#ifndef CUMULATIVEVALUETEST_H
-#define CUMULATIVEVALUETEST_H
-
 #include "CumulativeValue.h"
 
 
@@ -84,7 +81,3 @@ TEST_F(CumulativeValueTest, Comparison)
     EXPECT_TRUE(cv1 < cv2);
 
 }
-
-
-
-#endif // CUMULATIVEVALUETEST_H

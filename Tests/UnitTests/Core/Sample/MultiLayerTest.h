@@ -1,8 +1,5 @@
 //! Trivial construct/clone/get tests for class MultiLayer. No physics tested here.
 
-#ifndef MULTILAYERTEST_H
-#define MULTILAYERTEST_H
-
 #include "BornAgainNamespace.h"
 #include "HomogeneousMagneticMaterial.h"
 #include "Layer.h"
@@ -579,5 +576,3 @@ TEST_F(MultiLayerTest, MultiLayerZtoIndex)
     EXPECT_EQ(size_t(3), mLayer.zToLayerIndex(-60.0));
     EXPECT_EQ(size_t(4), mLayer.zToLayerIndex(-61.0));
 }
-
-#endif // MULTILAYERTEST_H

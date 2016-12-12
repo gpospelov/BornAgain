@@ -1,6 +1,3 @@
-#ifndef LIMITSTEST_H
-#define LIMITSTEST_H
-
 #include "RealLimits.h"
 #include <limits>
 
@@ -170,5 +167,3 @@ TEST_F(RealLimitsTest, CopyConstructor)
     EXPECT_TRUE(lim1 == lim3);
     EXPECT_FALSE(lim1 != lim3);
 }
-
-#endif

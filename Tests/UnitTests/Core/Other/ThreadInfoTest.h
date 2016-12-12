@@ -13,9 +13,6 @@
 //
 // ************************************************************************** //
 
-#ifndef THREADINFOTEST_H
-#define THREADINFOTEST_H
-
 #include "ThreadInfo.h"
 
 
@@ -35,5 +32,3 @@ TEST_F(ThreadInfoTest, DefaultValues)
     EXPECT_EQ(0, thread_info.n_threads);
     EXPECT_EQ(0, thread_info.current_thread);
 }
-
-#endif // THREADINFOTEST_H

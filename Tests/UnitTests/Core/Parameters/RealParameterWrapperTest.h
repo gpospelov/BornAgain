@@ -1,6 +1,3 @@
-#ifndef REALPARAMETERWRAPPERTEST_H
-#define REALPARAMETERWRAPPERTEST_H
-
 #include "IParameterized.h"
 #include "RealParameter.h"
 #include <stdexcept>
@@ -98,5 +95,3 @@ TEST_F(RealParameterTest, LimitedParameter)
     EXPECT_EQ(par1->getValue(), 11.);
 }
 */
-
-#endif // REALPARAMETERWRAPPERTEST_H

@@ -1,6 +1,3 @@
-#ifndef MATRIXRTCOEFFICIENTSTEST_H
-#define MATRIXRTCOEFFICIENTSTEST_H
-
 #include "MatrixRTCoefficients.h"
 
 class MatrixRTCoefficientsTest : public ::testing :: Test
@@ -79,5 +76,3 @@ TEST_F(MatrixRTCoefficientsTest, getKz)
     EXPECT_EQ(complex_t(0.0,0.0), vector(0));
     EXPECT_EQ(complex_t(0.0,0.0), vector(1));
 }
-
-#endif // MATRIXRTCOEFFICIENTSTEST_H

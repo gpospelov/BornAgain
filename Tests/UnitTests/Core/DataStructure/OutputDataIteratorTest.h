@@ -1,6 +1,3 @@
-#ifndef OUTPUTDATAITERATORTEST_H
-#define OUTPUTDATAITERATORTEST_H
-
 #include "OutputDataIterator.h"
 
 class OutputDataIteratorTest : public ::testing::Test
@@ -60,5 +57,3 @@ TEST_F(OutputDataIteratorTest, ConstIterate)
     ++it;
     EXPECT_EQ(it, p_data->end());
 }
-
-#endif // OUTPUTDATAITERATORTEST_H

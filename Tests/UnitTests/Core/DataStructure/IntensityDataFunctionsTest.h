@@ -1,8 +1,3 @@
-#ifndef INTENSITYDATAFUNCTIONSTEST_H
-#define INTENSITYDATAFUNCTIONSTEST_H
-
-
-
 #include "IntensityDataFunctions.h"
 #include "VariableBinAxis.h"
 
@@ -191,5 +186,3 @@ TEST_F(IntensityDataFunctionsTest, outputDataCoordinatesToFromBinf)
     EXPECT_FLOAT_EQ(y, 21.0);
 
 }
-
-#endif // INTENSITYDATAFUNCTIONSTEST_H

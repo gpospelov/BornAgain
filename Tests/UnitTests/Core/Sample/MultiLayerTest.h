@@ -1,3 +1,5 @@
+//! Trivial construct/clone/get tests for class MultiLayer. No physics tested here.
+
 #ifndef MULTILAYERTEST_H
 #define MULTILAYERTEST_H
 
@@ -45,7 +47,7 @@ TEST_F(MultiLayerTest, BasicProperty)
 
     //set parameter
     mLayer.setParameterValue(BornAgain::CrossCorrelationLength, 2.54);
-    EXPECT_EQ(2.54,mLayer.getCrossCorrLength());
+    EXPECT_EQ(2.54, mLayer.getCrossCorrLength());
 
     // adding layers
     mLayer.addLayer(topLayer);

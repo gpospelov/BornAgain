@@ -1,6 +1,3 @@
-#ifndef PARTICLELAYOUTTEST_H
-#define PARTICLELAYOUTTEST_H
-
 #include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
 
@@ -235,5 +232,3 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
 
     EXPECT_TRUE(nullptr!=particleDecoration.getInterferenceFunction());
 }
-
-#endif // PARTICLELAYOUTTEST_H

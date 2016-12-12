@@ -1,6 +1,3 @@
-#ifndef IPARAMETERIZEDTEST_H
-#define IPARAMETERIZEDTEST_H
-
 #include "IParameterized.h"
 #include <stdexcept>
 
@@ -77,6 +74,3 @@ TEST_F(IParameterizedTest, SetParameterValue)
     EXPECT_EQ( 0.0, m_parameterized.getParameterPool()->size());
     */
 }
-
-
-#endif // IPARAMETERIZEDTEST_H

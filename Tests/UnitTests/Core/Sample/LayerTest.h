@@ -1,6 +1,3 @@
-#ifndef LAYERTEST_H
-#define LAYERTEST_H
-
 #include "Layer.h"
 #include "HomogeneousMaterial.h"
 #include "ParticleLayout.h"
@@ -60,5 +57,3 @@ TEST_F(LayerTest, LayerAndDecoration)
     layer.addLayout(layout2);
     EXPECT_EQ("ParticleLayout", layer.getLayout(1)->getName());
 }
-
-#endif // LAYERTEST_H

@@ -1,6 +1,3 @@
-#ifndef SPECULARMATRIXTEST_H
-#define SPECULARMATRIXTEST_H
-
 #include "SpecularMatrix.h"
 #include "Units.h"
 
@@ -29,5 +26,3 @@ TEST_F(SpecularMatrixTest, initial)
 
     SpecularMatrix::execute(mLayer, v, coeff);
 }
-
-#endif // SPECULARMATRIXTEST_H

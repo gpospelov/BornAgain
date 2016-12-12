@@ -1,7 +1,3 @@
-#ifndef TESTPARAMETERIZEDITEM_H
-#define TESTPARAMETERIZEDITEM_H
-
-
 #include <QtTest>
 #include "SessionItem.h"
 #include "GUIHelpers.h"
@@ -68,7 +64,4 @@ inline void TestParameterizedItem::test_SelectableGroupProperty()
 //    SessionItem item;
 //    QCOMPARE(item.getSubItems().size(), 0);
 }
-
-
-#endif // TESTPARAMETERIZEDITEM_H
 

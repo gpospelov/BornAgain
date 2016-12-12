@@ -1,6 +1,3 @@
-#ifndef FITPARAMETERSETTEST_H
-#define FITPARAMETERSETTEST_H
-
 #include "FitParameter.h"
 #include "FitParameterSet.h"
 #include "gtest/gtest.h"
@@ -125,5 +122,3 @@ TEST_F(FitParameterSetTest, fixRelease)
     EXPECT_FALSE(par2->limits().isFixed());
     EXPECT_TRUE(par3->limits().isFixed());
 }
-
-#endif

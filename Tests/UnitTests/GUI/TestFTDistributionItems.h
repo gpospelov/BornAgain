@@ -1,6 +1,3 @@
-#ifndef TESTFTDISTRIBUTIONITEMS_H
-#define TESTFTDISTRIBUTIONITEMS_H
-
 #include <QtTest>
 #include "TransformToDomain.h"
 #include "TransformFromDomain.h"
@@ -30,5 +27,3 @@ inline void TestFTDistributionItems::test_FTDistribution1DCauchy()
     item2.setItemValue(FTDistribution1DGaussItem::P_CORR_LENGTH, pdf2.getOmega());
     QVERIFY(item2.getItemValue(FTDistribution1DGaussItem::P_CORR_LENGTH) == 3.0);
 }
-
-#endif // TESTFTDISTRIBUTIONITEMS_H

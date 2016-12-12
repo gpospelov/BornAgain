@@ -1,6 +1,3 @@
-#ifndef POLYGONTEST_H
-#define POLYGONTEST_H
-
 #include "Polygon.h"
 #include <memory>
 
@@ -135,6 +132,3 @@ TEST_F(PolygonTest, ConstructFrom2DArray)
 //    }
 
 //}
-
-
-#endif // POLYGONTEST_H

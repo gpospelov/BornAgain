@@ -1,6 +1,3 @@
-#ifndef HISTOGRAM2DTEST_H
-#define HISTOGRAM2DTEST_H
-
 #include "Histogram2D.h"
 #include <memory>
 
@@ -436,5 +433,3 @@ TEST_F(Histogram2DTest, GetMaximumGetMinimum)
     EXPECT_EQ(59.0, hist.getMaximum());
     EXPECT_EQ(size_t(49), hist.getMaximumBinIndex());
 }
-
-#endif // HISTOGRAM2DTEST_H

@@ -4,6 +4,7 @@
 #include "FormFactorCoherentSumTest.h"
 #include "LayerTest.h"
 #include "MultiLayerTest.h"
+#include "RTTest.h"
 #include "ParticleCoreShellTest.h"
 #include "LayerRoughnessTest.h"
 #include "ParticleTest.h"

@@ -1,6 +1,3 @@
-#ifndef SPHERICALDETECTORTEST_H
-#define SPHERICALDETECTORTEST_H
-
 #include "SphericalDetector.h"
 #include "Exceptions.h"
 #include "OutputData.h"
@@ -366,5 +363,3 @@ TEST_F(SphericalDetectorTest, Clone)
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
 }
-
-#endif // SPHERICALDETECTORTEST_H

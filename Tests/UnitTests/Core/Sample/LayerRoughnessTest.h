@@ -1,6 +1,3 @@
-#ifndef LAYERROUGHNESSTEST_H
-#define LAYERROUGHNESSTEST_H
-
 #include "LayerRoughness.h"
 #include "BornAgainNamespace.h"
 #include "ParameterPattern.h"
@@ -72,5 +69,3 @@ TEST_F(LayerRoughnessTest , LayerRoughnessPool)
     EXPECT_EQ(4.3, roughnessPool.getLatteralCorrLength());
     EXPECT_EQ(BornAgain::LayerBasicRoughnessType, roughnessPool.getName());
 }
-
-#endif // LAYERROUGHNESSTEST_H

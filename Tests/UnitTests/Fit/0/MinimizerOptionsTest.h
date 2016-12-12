@@ -1,6 +1,3 @@
-#ifndef MINIMIZEROPTIONSTEST_H
-#define MINIMIZEROPTIONSTEST_H
-
 #include "MinimizerOptions.h"
 #include "gtest/gtest.h"
 #include <exception>
@@ -45,5 +42,3 @@ TEST_F(MinimizerOptionsTest, setOptionsFromString)
 
     EXPECT_THROW(options.setOptionString("Strategy=5;XXX=y;Tolerance=0.0001;"), std::runtime_error);
 }
-
-#endif

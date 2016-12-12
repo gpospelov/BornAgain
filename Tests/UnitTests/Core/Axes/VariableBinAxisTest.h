@@ -1,6 +1,3 @@
-#ifndef VARIABLEBINAXISTEST_H
-#define VARIABLEBINAXISTEST_H
-
 #include "VariableBinAxis.h"
 #include "DataFormatUtils.h"
 
@@ -252,7 +249,3 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
 
 
 }
-
-
-
-#endif // VARIABLEBINAXISTEST_H

@@ -1,6 +1,3 @@
-#ifndef INSTRUMENTTEST_H
-#define INSTRUMENTTEST_H
-
 #include "MathConstants.h"
 #include "Instrument.h"
 #include "BornAgainNamespace.h"
@@ -54,5 +51,3 @@ TEST_F(InstrumentTest, InstrumentClone)
     EXPECT_EQ( size_t(0), clone.getDetectorDimension() );
     EXPECT_EQ( 0.0, clone.getBeamIntensity() );
 }
-
-#endif // INSTRUMENTTEST_H

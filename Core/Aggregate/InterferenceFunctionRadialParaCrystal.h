@@ -32,8 +32,6 @@ public:
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    std::string to_str(int indent=0) const final;
-
     void setKappa(double kappa) { m_kappa = kappa; }
     double getKappa() const final { return m_kappa; }
 

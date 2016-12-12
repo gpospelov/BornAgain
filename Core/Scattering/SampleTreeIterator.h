@@ -16,9 +16,10 @@
 #ifndef SAMPLETREEITERATOR_H
 #define SAMPLETREEITERATOR_H
 
-#include "ISample.h"
+#include "INode.h"
 #include <ostream>
 #include <stack>
+#include <vector>
 
 //! Holds state of iterator at single level for SampleTreeIterator.
 //! @ingroup samples_internal
@@ -26,12 +27,12 @@
 class IteratorState
 {
 public:
-    IteratorState(const ISample* single_element);
-    IteratorState(std::vector<const ISample*> samples);
+    IteratorState(const INode* single_element);
+    IteratorState(std::vector<const INode*> samples);
 
     virtual ~IteratorState() {}
 
-    const ISample* getCurrent() const { return m_samples[m_position]; }
+    const INode* getCurrent() const { return m_samples[m_position]; }
     bool isEnd() const { return m_position>=m_samples.size(); }
     void next() { ++m_position; }
 
@@ -41,7 +42,7 @@ public:
                              << iterator_state.m_samples.size(); }
 
 private:
-    std::vector<const ISample*> m_samples;
+    std::vector<const INode*> m_samples;
     size_t m_position;
 
     IteratorState();
@@ -61,7 +62,7 @@ public:
     IteratorState& get_state() { return m_state_stack.top(); }
     bool empty() const { return m_state_stack.empty(); }
     void reset() { while(!m_state_stack.empty()) m_state_stack.pop(); }
-    const ISample* getCurrent() { return m_state_stack.top().getCurrent(); }
+    const INode* getCurrent() { return m_state_stack.top().getCurrent(); }
     void next() { m_state_stack.top().next(); }
     size_t size() const { return m_state_stack.size(); }
 protected:
@@ -69,13 +70,13 @@ protected:
 };
 
 
-//! Iterator through ISample tree of objects inside ISample object.
+//! Iterator through INode tree of objects.
 //!
 //! Usage example:
 //!    SampleTreeIterator<Strategy> it(&sample);
 //!    it.first();
 //!    while( !it.is_done() ) {
-//!        ISample *p_sample = it.get_current();
+//!        INode *p_sample = it.get_current();
 //!        it.next();
 //!     }
 //! @ingroup samples_internal
@@ -84,22 +85,22 @@ template <class Strategy>
 class BA_CORE_API_ SampleTreeIterator
 {
 public:
-    SampleTreeIterator(const ISample *root);
+    SampleTreeIterator(const INode *root);
     virtual ~SampleTreeIterator() {}
 
     void first();
     void next();
-    const ISample* getCurrent();
+    const INode* getCurrent();
     bool isDone() const;
     size_t depth() const;
 protected:
     Strategy m_strategy;
     IteratorMemento m_memento_itor;
-    const ISample* mp_root;
+    const INode* mp_root;
 };
 
 template <class Strategy>
-inline SampleTreeIterator<Strategy>::SampleTreeIterator(const ISample *root)
+inline SampleTreeIterator<Strategy>::SampleTreeIterator(const INode *root)
     : mp_root(root)
 {
 }
@@ -117,7 +118,7 @@ inline void SampleTreeIterator<Strategy>::next()
 }
 
 template <class Strategy>
-inline const ISample *SampleTreeIterator<Strategy>::getCurrent()
+inline const INode *SampleTreeIterator<Strategy>::getCurrent()
 {
     return m_memento_itor.getCurrent();
 }

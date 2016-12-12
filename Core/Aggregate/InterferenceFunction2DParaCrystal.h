@@ -40,8 +40,6 @@ public:
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    std::string to_str(int indent=0) const final;
-
     static InterferenceFunction2DParaCrystal* createSquare(double peak_distance,
                                                            double damping_length = 0.0,
                                                            double domain_size_1 = 0.0,

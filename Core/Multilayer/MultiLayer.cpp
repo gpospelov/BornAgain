@@ -35,11 +35,6 @@ MultiLayer::~MultiLayer()
     clear();
 }
 
-std::string MultiLayer::to_str(int indent) const
-{
-    return std::string(80, '-') + "\n" + ISample::to_str(indent);
-}
-
 void MultiLayer::init_parameters()
 {
     getParameterPool()->clear(); // non-trivially needed

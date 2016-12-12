@@ -516,10 +516,10 @@ TEST_F(MultiLayerTest, MultiLayerCompositeTest)
     std::vector<const LayerInterface *> interface_buffer;
     int counter(0);
 
-    std::vector<const ISample*> children = mLayer.getChildren();
+    std::vector<const INode*> children = mLayer.getChildren();
     for(size_t index=0; index<children.size();++index)
     {
-        const ISample *sample = children[index];
+        const INode *sample = children[index];
         if(counter%2 == 1)
         {
             const LayerInterface *interface = dynamic_cast<const LayerInterface *>(sample);

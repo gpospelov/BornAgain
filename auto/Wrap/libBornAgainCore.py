@@ -1988,6 +1988,74 @@ class IParameterized(INamed):
 IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
 
+class INode(IParameterized):
+    """Proxy of C++ INode class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, INode, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IParameterized]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, INode, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(INode self) -> INode"""
+        if self.__class__ == INode:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_INode(_self, )
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_INode
+    __del__ = lambda self: None
+
+    def accept(self, p_visitor):
+        """accept(INode self, ISampleVisitor p_visitor)"""
+        return _libBornAgainCore.INode_accept(self, p_visitor)
+
+
+    def to_str(self):
+        """to_str(INode self) -> std::string"""
+        return _libBornAgainCore.INode_to_str(self)
+
+
+    def registerChild(self, sample):
+        """registerChild(INode self, INode sample)"""
+        return _libBornAgainCore.INode_registerChild(self, sample)
+
+
+    def deregisterChild(self, sample):
+        """deregisterChild(INode self, INode sample)"""
+        return _libBornAgainCore.INode_deregisterChild(self, sample)
+
+
+    def getChildren(self):
+        """getChildren(INode self) -> std::vector< INode const *,std::allocator< INode const * > >"""
+        return _libBornAgainCore.INode_getChildren(self)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_INode(self)
+        return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(INode self)"""
+        return _libBornAgainCore.INode_onChange(self)
+
+
+    def _print(self, ostr):
+        """_print(INode self, std::ostream & ostr)"""
+        return _libBornAgainCore.INode__print(self, ostr)
+
+INode_swigregister = _libBornAgainCore.INode_swigregister
+INode_swigregister(INode)
+
 class kvector_t(_object):
     """
 
@@ -4009,7 +4077,7 @@ class IShape2D(ICloneable, INamed):
 IShape2D_swigregister = _libBornAgainCore.IShape2D_swigregister
 IShape2D_swigregister(IShape2D)
 
-class ISample(ICloneable, IParameterized):
+class ISample(ICloneable, INode):
     """
 
 
@@ -4024,11 +4092,11 @@ class ISample(ICloneable, IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ISample, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ISample, name)
     __repr__ = _swig_repr
@@ -4055,31 +4123,6 @@ class ISample(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.ISample_cloneInvertB(self)
-
-
-    def accept(self, p_visitor):
-        """
-        accept(ISample self, ISampleVisitor p_visitor)
-
-        virtual void ISample::accept(ISampleVisitor *p_visitor) const  =0
-
-        Calls the  ISampleVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.ISample_accept(self, p_visitor)
-
-
-    def to_str(self, indent=0):
-        """
-        to_str(ISample self, int indent=0) -> std::string
-        to_str(ISample self) -> std::string
-
-        std::string ISample::to_str(int indent=0) const
-
-        Returns textual representation of this and its descendants. 
-
-        """
-        return _libBornAgainCore.ISample_to_str(self, indent)
 
 
     def getMaterial(self):
@@ -4116,28 +4159,6 @@ class ISample(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.ISample_containedMaterials(self)
-
-
-    def registerChild(self, sample):
-        """registerChild(ISample self, ISample sample)"""
-        return _libBornAgainCore.ISample_registerChild(self, sample)
-
-
-    def deregisterChild(self, sample):
-        """deregisterChild(ISample self, ISample sample)"""
-        return _libBornAgainCore.ISample_deregisterChild(self, sample)
-
-
-    def getChildren(self):
-        """
-        getChildren(ISample self) -> swig_dummy_type_const_isample_vector
-
-        virtual std::vector<const ISample*> ISample::getChildren() const
-
-        Returns a vector of children. 
-
-        """
-        return _libBornAgainCore.ISample_getChildren(self)
 
 
     def __init__(self):
@@ -7093,6 +7114,7 @@ class ISampleVisitor(_object):
 
     def visit(self, *args):
         """
+        visit(ISampleVisitor self, INode arg2)
         visit(ISampleVisitor self, ISample arg2)
         visit(ISampleVisitor self, IClusteredParticles arg2)
         visit(ISampleVisitor self, Crystal arg2)
@@ -19168,19 +19190,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
 
 
-    def to_str(self, indent=0):
-        """
-        to_str(InterferenceFunctionRadialParaCrystal self, int indent=0) -> std::string
-        to_str(InterferenceFunctionRadialParaCrystal self) -> std::string
-
-        std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const  final
-
-        Returns textual representation of this and its descendants. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_to_str(self, indent)
-
-
     def setKappa(self, kappa):
         """
         setKappa(InterferenceFunctionRadialParaCrystal self, double kappa)
@@ -19533,19 +19542,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
-
-
-    def to_str(self, indent=0):
-        """
-        to_str(InterferenceFunction2DParaCrystal self, int indent=0) -> std::string
-        to_str(InterferenceFunction2DParaCrystal self) -> std::string
-
-        std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const  final
-
-        Returns textual representation of this and its descendants. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_to_str(self, indent)
 
 
     def createSquare(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
@@ -20440,19 +20436,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_accept(self, visitor)
 
 
-    def to_str(self, indent=0):
-        """
-        to_str(Layer self, int indent=0) -> std::string
-        to_str(Layer self) -> std::string
-
-        std::string Layer::to_str(int indent=0) const  final
-
-        Returns textual representation of this and its descendants. 
-
-        """
-        return _libBornAgainCore.Layer_to_str(self, indent)
-
-
     def setThickness(self, thickness):
         """
         setThickness(Layer self, double thickness)
@@ -21267,19 +21250,6 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_accept(self, visitor)
-
-
-    def to_str(self, indent=0):
-        """
-        to_str(MultiLayer self, int indent=0) -> std::string
-        to_str(MultiLayer self) -> std::string
-
-        std::string MultiLayer::to_str(int indent=0) const
-
-        Returns textual representation of this and its descendants. 
-
-        """
-        return _libBornAgainCore.MultiLayer_to_str(self, indent)
 
 
     def getNumberOfLayers(self):
@@ -22849,19 +22819,6 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_accept(self, visitor)
 
 
-    def to_str(self, indent=0):
-        """
-        to_str(Particle self, int indent=0) -> std::string
-        to_str(Particle self) -> std::string
-
-        std::string Particle::to_str(int indent=0) const
-
-        Returns textual representation of this and its descendants. 
-
-        """
-        return _libBornAgainCore.Particle_to_str(self, indent)
-
-
     def setAmbientMaterial(self, material):
         """
         setAmbientMaterial(Particle self, IMaterial material)
@@ -23322,19 +23279,6 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
-
-
-    def to_str(self, indent=0):
-        """
-        to_str(ParticleDistribution self, int indent=0) -> std::string
-        to_str(ParticleDistribution self) -> std::string
-
-        std::string ParticleDistribution::to_str(int indent=0) const  final
-
-        Returns textual representation of *this and its descendants. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_to_str(self, indent)
 
 
     def setAmbientMaterial(self, material):

@@ -23,7 +23,7 @@ void VisitSampleTreePreorder(const ISample& sample, ISampleVisitor& visitor)
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());
-        const ISample *child = it.getCurrent();
+        const INode *child = it.getCurrent();
         child->accept(&visitor);
         it.next();
     }
@@ -35,7 +35,7 @@ void VisitSampleTreePostorder(const ISample& sample, ISampleVisitor& visitor)
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());
-        const ISample *child = it.getCurrent();
+        const INode *child = it.getCurrent();
         child->accept(&visitor);
         it.next();
     }
@@ -45,6 +45,12 @@ void ISampleVisitor::visit(const ISample*)
 {
     throw Exceptions::NotImplementedException(
         "ISampleVisitor::visit(const ISample*) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const INode*)
+{
+    throw Exceptions::NotImplementedException(
+        "ISampleVisitor::visit(const INode*) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const IClusteredParticles*)

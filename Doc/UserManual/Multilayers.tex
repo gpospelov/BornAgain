@@ -254,15 +254,22 @@ which adds to the complexity of GISAS patterns.
 
 BornAgain supports multilayer samples
 with refractive index discontinuities at layer interfaces.
-Conventions for layer numbers and interface coordinates are
-introduced in~\Cref{Fdefz}.
-A multilayer sample consists of a finite sequence of discrete layers
-$l=0,\ldots,N$
+Conventions for layer numbers and interface coordinates are introduced in~\Cref{Fdefz}.
+\index{Convention!layer numbering}%
+\index{Convention!interface coordinate}%
+\index{Coordinate!interface}%
+\index{Interface!coordinate}%
+\index{Layer!numbering}%
+A sample has $N$ layers,
+including the semi-infinite bottom and top layers.
+Numbering is from top to bottom,
+and from 0 to $N-1$ as imposed by the programming languages C$++$ and Python.
+Each layer~$l$
 \nomenclature[2l010]{$l$}{Layer index}%
-with constant refractive indices $n_l$
+has a constant refractive index $n_l$
 \nomenclature[2k022 2l010]{$k_l$}{Wavenumber in layer~$l$}%
 \nomenclature[2n020 2l010]{$n_l$}{Refractive index of layer~$l$}%
-and wavenumber $k_l\coloneqq K_\text{vac} n_l$.
+and a constant wavenumber $k_l\coloneqq K_\text{vac} n_l$.
 Any up- or downward travelling solution of the wave equation shall be written
 as a sum over partial wavefunctions,
 \begin{equation}\label{Epsipmsuml}
@@ -286,12 +293,14 @@ The DWBA matrix element~\cref{Edwba} then takes the form
 \begin{center}
 \includegraphics[width=0.4\textwidth]{fig/drawing/multilayer_z_conventions.ps}
 \end{center}
-\caption{Conventions for layer numbers and interface coordinates:
+\caption{Conventions for layer numbers and interface coordinates.
+A sample has $N$ layers,
+including the semi-infinite bottom and top layers.
+\nomenclature[2n120]{$N$}{A multilayer sample has $N$ layers, including the
+  semi-infinite bottom and top layers}
 Layers are numbered from top to bottom.
 The top vacuum (or air) layer (which extends to $z\to+\infty$) has number~0,
-the substrate (extending to $z\to-\infty$) is layer~$N$.
-\nomenclature[2n120]{$N$}{A multilayer sample has $N+1$ layers, including the
-  semi-infinite bottom and top layers}
+the substrate (extending to $z\to-\infty$) is layer~$N-1$.
 \index{Multilayer!numbering}%
 \index{Layer!index}%
 \index{Convention!layer number}%
@@ -448,7 +457,7 @@ which is the thickness of layer~$l$,
 except for $l=0$,
 where the special definition of $z_0$ (\cref{Fdefz}) implies $d_0=0$.
 We consider the interface between layers $l$ and $l-1$,
-with~$l=1,\ldots,N$, as shown in \cref{Fboundary}.
+with~$l=1,\ldots,N-1$, as shown in \cref{Fboundary}.
 This interface has the vertical coordinate $z_l=z_{l-1}-d_{l-1}$.
 Accordingly, the continuity conditions at the interface are
 \begin{equation}\label{Econtcond}
@@ -518,14 +527,14 @@ plane-wave amplitudes are subject to two boundary conditions.
 Let us assume that the source or the sink is located at $z>0$.
 Then in the top layer, $A^-_{0}=1$ is given by the
 incident or back-traced final plane wave.
-In the substrate, $A^+_{N}=0$ because there is no radiation
+In the substrate, $A^+_{N-1}=0$ because there is no radiation
 coming from $z\to-\infty$.
 This leaves us with two unkown amplitudes,
-the overall coefficients of transmission~$A^-_N$ and reflection~$A^+_0$.
+the overall coefficients of transmission~$A^-_{N-1}$ and reflection~$A^+_0$.
 These two unknowns are connected by a system of two linear equations,
 \begin{equation}\label{E1Ap}
   \left( \begin{array}{c}1\\ A^+_0\end{array} \right)
-  = M_1 \cdots M_{N} \left( \begin{array}{c}A^-_N\\0\end{array} \right).
+  = M_1 \cdots M_{N-1} \left( \begin{array}{c}A^-_{N-1}\\0\end{array} \right).
 \end{equation}
 While it is possible in principle
 to solve this as a matrix equation,
@@ -537,7 +546,7 @@ interface by interface,
 yielding unnormalized amplitudes
 \begin{equation}\label{EAtildel}
   \left( \begin{array}{c}\tilde A^-_l\\ \tilde A^+_l\end{array} \right)
-  \coloneqq M_{l+1}\cdots M_{N} \left( \begin{array}{c}1\\0\end{array} \right).
+  \coloneqq M_{l+1}\cdots M_{N-1} \left( \begin{array}{c}1\\0\end{array} \right).
 \end{equation}
 When the top layer is reached,
 the obtained values are normalized
@@ -550,7 +559,7 @@ For GISAS detection in transmission geometry
 \index{Detector!transmission geometry}%
 (sink location $z<0$) all the development
 following \cref{EMil} holds with exchanged order of layers:
-$(0,\ldots, N) \mapsto (N,\ldots,0)$.
+$(0,\ldots, N-1) \mapsto (N-1,\ldots,0)$.
 
 \Work{GISAS in transmission geometry is not yet implemented in \BornAgain,
   but high on our agenda.}
@@ -637,7 +646,6 @@ The first two terms describe the exponential intensity decrease
 due to absorption, while
 the oscillatory term in square brackets
 is responsible for waveguide effects in layers with finite thickness.
-
 The flux can also be written in terms of the one-dimensional wavefunctions $\phi^{\pm}(z)$:
 \begin{equation}\label{EJ2}
   \begin{array}{@{}l@{\;}l}

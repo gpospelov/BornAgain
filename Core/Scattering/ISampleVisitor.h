@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 
+class INode;
 class ISample;
 // - the order according to the hierarchy as reported by IDE
 class IClusteredParticles;
@@ -116,6 +117,7 @@ public:
 
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
+    virtual void visit(const INode*);
     virtual void visit(const ISample*);
 
     virtual void visit(const IClusteredParticles*);

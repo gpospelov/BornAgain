@@ -45,8 +45,6 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
-    virtual std::string to_str(int indent=0) const;
-
     size_t getNumberOfLayers() const { return m_layers.size(); }
     size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
 

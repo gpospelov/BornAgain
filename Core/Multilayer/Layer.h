@@ -38,8 +38,6 @@ public:
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    std::string to_str(int indent=0) const final;
-
     void setThickness(double thickness);
     double getThickness() const { return m_thickness; }
 

@@ -87,6 +87,59 @@ private:
 };
 
 
+class SwigDirector_INode : public INode, public Swig::Director {
+
+public:
+    SwigDirector_INode(PyObject *self);
+    virtual ~SwigDirector_INode();
+    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
+    virtual void print(std::ostream &ostr) const;
+    virtual void printSwigPublic(std::ostream &ostr) const {
+      IParameterized::print(ostr);
+    }
+    virtual void accept(ISampleVisitor *p_visitor) const;
+    virtual std::string to_str() const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class INode doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[5];
+#endif
+
+};
+
+
 class SwigDirector_ISample : public ISample, public Swig::Director {
 
 public:
@@ -103,13 +156,12 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *p_visitor) const;
-    virtual std::string to_str(int indent = 0) const;
+    virtual std::string to_str() const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
-    virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
-    virtual size_t size() const;
 
 /* Internal director utilities */
 public:
@@ -140,7 +192,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[12];
+    mutable swig::SwigVar_PyObject vtable[10];
 #endif
 
 };
@@ -299,13 +351,12 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
-    virtual std::string to_str(int indent = 0) const;
+    virtual std::string to_str() const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
-    virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
-    virtual size_t size() const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -341,7 +392,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[15];
 #endif
 
 };
@@ -363,13 +414,12 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual ISample *cloneInvertB() const;
     virtual void accept(ISampleVisitor *visitor) const;
-    virtual std::string to_str(int indent = 0) const;
+    virtual std::string to_str() const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
-    virtual std::vector< ISample const *,std::allocator< ISample const * > > getChildren() const;
-    virtual size_t size() const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -406,7 +456,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[16];
 #endif
 
 };

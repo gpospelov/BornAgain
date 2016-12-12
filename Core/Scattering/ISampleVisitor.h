@@ -18,10 +18,9 @@
 
 #include "WinDllMacros.h"
 
+class INode;
 class ISample;
 // - the order according to the hierarchy as reported by IDE
-class ICompositeSample;
-// -
 class IClusteredParticles;
 class Crystal;
 // -
@@ -118,9 +117,8 @@ public:
 
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
+    virtual void visit(const INode*);
     virtual void visit(const ISample*);
-
-    virtual void visit(const ICompositeSample*);
 
     virtual void visit(const IClusteredParticles*);
     virtual void visit(const Crystal*);
@@ -200,9 +198,6 @@ public:
     virtual void visit(const RotationY*);
     virtual void visit(const RotationZ*);
     virtual void visit(const RotationEuler*);
-
-    bool visitEnter(const ICompositeSample*);
-    bool visitLeave(const ICompositeSample*);
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

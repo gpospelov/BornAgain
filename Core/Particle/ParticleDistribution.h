@@ -34,9 +34,6 @@ public:
 
     void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Returns textual representation of *this and its descendants.
-    std::string to_str(int indent=0) const final;
-
     //! Sets the refractive index of the ambient material.
     void setAmbientMaterial(const IMaterial& material) final;
 

@@ -40,8 +40,6 @@ public:
 
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
 
-    virtual std::string to_str(int indent=0) const;
-
     void setAmbientMaterial(const IMaterial& material) final;
     const IMaterial* getAmbientMaterial() const final { return mP_ambient_material.get(); }
 

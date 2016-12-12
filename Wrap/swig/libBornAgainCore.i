@@ -38,8 +38,9 @@
 %include "directors.i"
 
 %template(vdouble1d_t) std::vector<double>;
-%template(vdouble2d_t) std::vector< std::vector<double>>;
+%template(vdouble2d_t) std::vector<std::vector<double>>;
 %template(vector_integer_t) std::vector<int>;
+%template(vinteger2d_t) std::vector<std::vector<int>>;
 %template(vector_longinteger_t) std::vector<unsigned long int>;
 %template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
@@ -138,7 +139,6 @@
 #include "IAbstractParticle.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
-#include "ICompositeSample.h"
 #include "IDetector2D.h"
 #include "IDetectorResolution.h"
 #include "IFitObserver.h"
@@ -150,6 +150,7 @@
 #include "ILayout.h"
 #include "IMaterial.h"
 #include "INamed.h"
+#include "INode.h"
 #include "INoncopyable.h"
 #include "IObserver.h"
 #include "IParameterized.h"
@@ -253,6 +254,7 @@
 %include "ICloneable.h"
 %include "INamed.h"
 %include "IParameterized.h"
+%include "INode.h"
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) BasicVector3D<double>;
@@ -298,7 +300,6 @@
 %include "IFactory.h"
 %include "IMultiLayerBuilder.h"
 %include "ISampleVisitor.h"
-%include "ICompositeSample.h"
 %include "IClusteredParticles.h"
 %include "Crystal.h"
 %include "Distributions.h"

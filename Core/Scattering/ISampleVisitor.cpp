@@ -23,7 +23,7 @@ void VisitSampleTreePreorder(const ISample& sample, ISampleVisitor& visitor)
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());
-        const ISample *child = it.getCurrent();
+        const INode *child = it.getCurrent();
         child->accept(&visitor);
         it.next();
     }
@@ -35,7 +35,7 @@ void VisitSampleTreePostorder(const ISample& sample, ISampleVisitor& visitor)
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());
-        const ISample *child = it.getCurrent();
+        const INode *child = it.getCurrent();
         child->accept(&visitor);
         it.next();
     }
@@ -47,10 +47,10 @@ void ISampleVisitor::visit(const ISample*)
         "ISampleVisitor::visit(const ISample*) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const ICompositeSample*)
+void ISampleVisitor::visit(const INode*)
 {
     throw Exceptions::NotImplementedException(
-        "ISampleVisitor::visit(const ICompositeSample*) -> Error. Not implemented.");
+        "ISampleVisitor::visit(const INode*) -> Error. Not implemented.");
 }
 
 void ISampleVisitor::visit(const IClusteredParticles*)
@@ -457,19 +457,4 @@ void ISampleVisitor::visit(const RotationEuler*)
 {
     throw Exceptions::NotImplementedException(
         "ISampleVisitor::visit(const RotationEuler*) -> Error. Not implemented.");
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-bool ISampleVisitor::visitEnter(const ICompositeSample*)
-{
-    m_depth++;
-    return false;
-}
-
-bool ISampleVisitor::visitLeave(const ICompositeSample*)
-{
-    m_depth--;
-    return false;
 }

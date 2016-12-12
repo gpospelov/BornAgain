@@ -28,7 +28,7 @@ Layer::Layer(const IMaterial& material, double thickness)
     initialize();
 }
 
-Layer::Layer(const Layer& other) : ICompositeSample()
+Layer::Layer(const Layer& other) : ISample()
 {
     m_thickness = other.m_thickness;
     mp_material = nullptr;
@@ -53,17 +53,6 @@ Layer* Layer::cloneInvertB() const
     p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
-}
-
-std::string Layer::to_str(int indent) const
-{
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " "
-       << (getMaterial() ? getMaterial()->getName() : "0_MATERIAL") << " "
-       << getRefractiveIndex() << " " << *getParameterPool() << "\n";
-    for( const ISample* child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
 }
 
 //! Sets layer thickness in nanometers.
@@ -119,7 +108,7 @@ void Layer::init_parameters()
 //! Prints description.
 void Layer::print(std::ostream& ostr) const
 {
-    ICompositeSample::print(ostr);
+    ISample::print(ostr);
     ostr << "-->Layer{" <<  *getMaterial() << "}";
 }
 

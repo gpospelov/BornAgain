@@ -16,21 +16,15 @@
 #include "ISample.h"
 #include "Exceptions.h"
 #include "ParameterPool.h"
+#include "Exceptions.h"
+#include "StringUsageMap.h"
+#include <algorithm>
 #include <sstream>
 
 ISample* ISample::cloneInvertB() const
 {
     throw Exceptions::NotImplementedException(
         "ISample::cloneInvertB() -> Error! Method is not implemented");
-}
-
-std::string ISample::to_str(int indent) const
-{
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " " << *getParameterPool() << "\n";
-    for( const ISample* child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
 }
 
 std::vector<const IMaterial*> ISample::containedMaterials() const
@@ -40,8 +34,11 @@ std::vector<const IMaterial*> ISample::containedMaterials() const
         result.push_back( material );
     if( const IMaterial* material = getAmbientMaterial() )
         result.push_back( material );
-    for( const ISample* child: getChildren() )
-        for( const IMaterial* material: child->containedMaterials() )
-            result.push_back( material );
+    for(auto child: getChildren() ) {
+        if(const ISample* sample = dynamic_cast<const ISample *>(child)) {
+            for( const IMaterial* material: sample->containedMaterials() )
+                result.push_back( material );
+        }
+    }
     return result;
 }

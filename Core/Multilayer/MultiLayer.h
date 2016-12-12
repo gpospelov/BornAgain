@@ -16,7 +16,7 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include "Vectors3D.h"
 
 class Layer;
@@ -37,15 +37,13 @@ class LayerRoughness;
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 
 
-class BA_CORE_API_ MultiLayer : public ICompositeSample
+class BA_CORE_API_ MultiLayer : public ISample
 {
 public:
     MultiLayer();
     virtual ~MultiLayer();
 
     virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
-
-    virtual std::string to_str(int indent=0) const;
 
     size_t getNumberOfLayers() const { return m_layers.size(); }
     size_t getNumberOfInterfaces() const { return m_interfaces.size(); }

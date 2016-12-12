@@ -17,13 +17,13 @@
 
 
 
-IteratorState::IteratorState(const ISample *single_element)
+IteratorState::IteratorState(const INode *single_element)
     : m_position(0)
 {
     m_samples.push_back(single_element);
 }
 
-IteratorState::IteratorState(std::vector<const ISample *> samples)
+IteratorState::IteratorState(std::vector<const INode *> samples)
     : m_samples(samples)
     , m_position(0)
 {

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/UnitTests/Core/3/SpecialFunctionsTest.h
+//! @file      Tests/UnitTests/Core/Detector/SpecialFunctionsTest.h
 //! @brief     Defines unit test for Form factors.
 //!
 //! @homepage  http://bornagainproject.org

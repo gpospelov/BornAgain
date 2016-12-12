@@ -538,8 +538,8 @@ These two unknowns are connected by a system of two linear equations,
 \end{equation}
 While it is possible in principle
 to solve this as a matrix equation,
-the actual implementation in \BornAgain\
-%\footnote{SpectralMatrix.cpp: SpectralMatrix::execute()}
+the actual implementation in \BornAgain\footnote
+{In file \SRC{Core/Multilayer}{SpecularMatrix.cpp}, function \T{SpecularMatrix::execute}.}
 starts with a unit vector in the substrate,
 and then carries out the propagation step \cref{EcMc}
 interface by interface,

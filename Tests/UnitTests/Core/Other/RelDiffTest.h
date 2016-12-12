@@ -1,6 +1,3 @@
-#ifndef RELDIFFTEST_H
-#define RELDIFFTEST_H
-
 #include "Numeric.h"
 #include <algorithm>
 
@@ -25,5 +22,3 @@ TEST_F(RelDiffTest, RelDiffAlmostEq)
 //    EXPECT_FALSE( Numeric::areAlmostEqual(-1e-120, 0, 1.) );
     EXPECT_FALSE( Numeric::areAlmostEqual(-1e+120, 0, 1.) );
 }
-
-#endif // RELDIFFTEST_H

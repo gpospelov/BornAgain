@@ -1,6 +1,3 @@
-#ifndef DISTRIBUTIONSTEST_H
-#define DISTRIBUTIONSTEST_H
-
 #include "MathConstants.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
@@ -400,5 +397,3 @@ TEST_F(DistributionsTest, DistributionCosineClone)
     EXPECT_EQ(1-M_PI, list2[0]);
     EXPECT_EQ(1+M_PI, list2[1]);
 }
-
-#endif // DISTRIBUTIONSTEST_H

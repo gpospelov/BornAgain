@@ -1,6 +1,3 @@
-#ifndef FITPARAMETERLINKEDTEST_H
-#define FITPARAMETERLINKEDTEST_H
-
 #include "IParameterized.h"
 #include "RealParameter.h"
 #include "ParameterPool.h"
@@ -103,5 +100,3 @@ TEST_F(FitParameterLinkedTest, FitParameterLinkedParamPool)
     EXPECT_EQ(obj3.getParameter("2"), 2.3);
     */
 }
-
-#endif // FITPARAMETERLINKEDTEST_H

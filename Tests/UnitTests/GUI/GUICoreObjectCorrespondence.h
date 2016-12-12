@@ -1,6 +1,3 @@
-#ifndef GUICOREOBJECTCORRESPONDENCE_H
-#define GUICOREOBJECTCORRESPONDENCE_H
-
 #include "SessionItem.h"
 #include "IParameterized.h"
 
@@ -27,5 +24,3 @@ inline void GUICoreObjectCorrespondence(const SessionItem& gui_object,
     }
     */
 }
-
-#endif // GUICOREOBJECTCORRESPONDENCE_H

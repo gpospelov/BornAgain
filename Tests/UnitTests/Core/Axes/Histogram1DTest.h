@@ -1,6 +1,3 @@
-#ifndef HISTOGRAM1DTEST_H
-#define HISTOGRAM1DTEST_H
-
 #include "Histogram1D.h"
 #include "Exceptions.h"
 #include <memory>
@@ -248,5 +245,3 @@ TEST_F(Histogram1DTest, Addition)
         EXPECT_EQ(3.0, hist1.getBinContent(i));
     }
 }
-
-#endif // HISTOGRAM1DTEST_H

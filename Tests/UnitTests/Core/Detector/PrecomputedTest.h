@@ -1,6 +1,3 @@
-#ifndef PRECOMPUTEDTEST_H
-#define PRECOMPUTEDTEST_H
-
 #include "Precomputed.h"
 #include <memory>
 
@@ -25,5 +22,3 @@ TEST_F(PrecomputedTest, Factorial)
     */
     EXPECT_NEAR(precomputed.factorial[150], 5.71338395644585459e262, 4*eps*precomputed.factorial[150]);
 }
-
-#endif // PRECOMPUTEDTEST_H

@@ -1,6 +1,3 @@
-#ifndef CONSTKBINAXISTEST_H
-#define CONSTKBINAXISTEST_H
-
 #include "ConstKBinAxis.h"
 #include "DataFormatUtils.h"
 #include "Units.h"
@@ -95,5 +92,3 @@ TEST_F(ConstKBinAxisTest, ClippedAxis)
     }
     delete clip2;
 }
-
-#endif // CONSTKBINAXISTEST_H

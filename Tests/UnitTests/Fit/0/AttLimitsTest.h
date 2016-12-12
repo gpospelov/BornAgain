@@ -1,6 +1,3 @@
-#ifndef ATTLIMITSTEST_H
-#define ATTLIMITSTEST_H
-
 #include "AttLimits.h"
 #include "gtest/gtest.h"
 
@@ -78,5 +75,3 @@ TEST_F(AttLimitsTest, Limited)
     EXPECT_EQ(0.0, limits.lowerLimit());
     EXPECT_EQ(0.0, limits.upperLimit());
 }
-
-#endif

@@ -1,6 +1,3 @@
-#ifndef FORMFACTORWRAPPERTEST_H
-#define FORMFACTORWRAPPERTEST_H
-
 #include "FormFactorCoherentSum.h"
 #include "FormFactorTrivial.h"
 #include "Exceptions.h"
@@ -31,5 +28,3 @@ TEST_F(FormFactorCoherentSumTest, FormFactor)
     ffw.scaleRelativeAbundance(2.0);
     EXPECT_EQ(0.0, ffw.radialExtension());
 }
-
-#endif // FORMFACTORWRAPPERTEST_H

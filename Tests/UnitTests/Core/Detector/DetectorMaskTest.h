@@ -1,6 +1,3 @@
-#ifndef DETECTORMASKTEST_H
-#define DETECTORMASKTEST_H
-
 #include "DetectorMask.h"
 #include "SphericalDetector.h"
 #include "Polygon.h"
@@ -164,6 +161,3 @@ TEST_F(DetectorMaskTest, CopyConstructor)
         }
     }
 }
-
-
-#endif // DETECTORMASKTEST_H

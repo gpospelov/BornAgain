@@ -1,6 +1,3 @@
-#ifndef DISTRIBUTIONHANDLERTEST_H
-#define DISTRIBUTIONHANDLERTEST_H
-
 #include "IParameterized.h"
 #include "DistributionHandler.h"
 #include "Distributions.h"
@@ -42,6 +39,3 @@ TEST_F(DistributionHandlerTest, DistributionHandlerConstructor)
     delete parameterPool;
     */
 }
-
-
-#endif // DISTRIBUTIONHANDLERTEST_H

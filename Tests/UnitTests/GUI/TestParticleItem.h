@@ -1,7 +1,3 @@
-#ifndef TESTPARTICLEITEM_H
-#define TESTPARTICLEITEM_H
-
-
 #include <QtTest>
 #include "SampleModel.h"
 #include "SessionItem.h"
@@ -122,7 +118,3 @@ inline void TestParticleItem::test_InitialState()
 
 
 //}
-
-
-
-#endif // TESTPARTICLEITEM_H

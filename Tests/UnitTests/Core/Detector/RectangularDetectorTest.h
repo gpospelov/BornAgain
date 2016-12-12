@@ -1,6 +1,3 @@
-#ifndef RECTANGULARDETECTORTEST_H
-#define RECTANGULARDETECTORTEST_H
-
 #include "RectangularDetector.h"
 #include "GISASSimulation.h"
 #include "SimulationElement.h"
@@ -261,6 +258,3 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     EXPECT_DOUBLE_EQ(phi(k), phi(element));
     EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 }
-
-
-#endif // RECTANGULARDETECTORTEST_H

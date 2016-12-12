@@ -1,7 +1,3 @@
-#ifndef TESTPARTICLEDISTRIBUTIONITEM_H
-#define TESTPARTICLEDISTRIBUTIONITEM_H
-
-
 #include <QtTest>
 #include "SampleModel.h"
 #include "ParticleDistributionItem.h"
@@ -51,6 +47,3 @@ inline void TestParticleDistributionItem::test_AddParticle()
     qDebug() << prop.getValues();
 
 }
-
-
-#endif // TESTPARTICLEDISTRIBUTIONITEM_H

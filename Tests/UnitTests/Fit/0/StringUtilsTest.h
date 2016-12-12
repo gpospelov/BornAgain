@@ -1,6 +1,3 @@
-#ifndef STRINGUTILSTEST_H
-#define STRINGUTILSTEST_H
-
 #include "StringUtils.h"
 
 
@@ -18,6 +15,3 @@ TEST_F(StringUtilsTest, removeSubstring)
     std::string result = StringUtils::removeSubstring(target, "one");
     EXPECT_EQ(result, " two three five ");
 }
-
-#endif
-

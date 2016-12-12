@@ -1,5 +1,4 @@
-#ifndef MULTILAYERTEST_H
-#define MULTILAYERTEST_H
+//! Trivial construct/clone/get tests for class MultiLayer. No physics tested here.
 
 #include "BornAgainNamespace.h"
 #include "HomogeneousMagneticMaterial.h"
@@ -15,10 +14,11 @@ class MultiLayerTest : public ::testing::Test
 {
 protected:
     MultiLayerTest()
-        : air("air", 0, 1.0)
-        , iron("iron", 0, 1.51)
-        , chromium("chromium", 0, 3.68)
-        , stone("stone", 0, 1.6)
+        // The following delta, beta are all unphysical. Values don't matter here.
+        : air("air", 1e-6, 9e-4)
+        , iron("iron", 2e-5, 8e-5)
+        , chromium("chromium", 3e-7, 7e-6)
+        , stone("stone", 4e-4, 8e-7)
         , topLayer(air, 0*Units::nanometer)
         , layer1(iron, 20*Units::nanometer)
         , layer2(chromium, 40*Units::nanometer)
@@ -45,7 +45,7 @@ TEST_F(MultiLayerTest, BasicProperty)
 
     //set parameter
     mLayer.setParameterValue(BornAgain::CrossCorrelationLength, 2.54);
-    EXPECT_EQ(2.54,mLayer.getCrossCorrLength());
+    EXPECT_EQ(2.54, mLayer.getCrossCorrLength());
 
     // adding layers
     mLayer.addLayer(topLayer);
@@ -576,5 +576,3 @@ TEST_F(MultiLayerTest, MultiLayerZtoIndex)
     EXPECT_EQ(size_t(3), mLayer.zToLayerIndex(-60.0));
     EXPECT_EQ(size_t(4), mLayer.zToLayerIndex(-61.0));
 }
-
-#endif // MULTILAYERTEST_H

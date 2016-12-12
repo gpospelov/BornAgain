@@ -1,6 +1,3 @@
-#ifndef CUSTOMBINAXISTEST_H
-#define CUSTOMBINAXISTEST_H
-
 #include "CustomBinAxis.h"
 #include "DataFormatUtils.h"
 #include "MathConstants.h"
@@ -32,6 +29,3 @@ TEST_F(CusomBinAxisTest, IOStream)
     EXPECT_TRUE(m_axis == *result);
     delete result;
 }
-
-
-#endif // CUSTOMBINAXISTEST_H

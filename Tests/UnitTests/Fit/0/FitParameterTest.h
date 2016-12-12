@@ -1,6 +1,3 @@
-#ifndef FITPARAMETERTEST_H
-#define FITPARAMETERTEST_H
-
 #include "FitParameter.h"
 #include "gtest/gtest.h"
 #include <memory>
@@ -120,5 +117,3 @@ TEST_F(FitParameterTest, Clone)
     EXPECT_EQ(lim1, clone->limits().lowerLimit());
     EXPECT_EQ(lim2, clone->limits().upperLimit());
 }
-
-#endif

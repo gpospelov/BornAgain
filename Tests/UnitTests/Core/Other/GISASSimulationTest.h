@@ -1,6 +1,3 @@
-#ifndef GISASSIMULATIONTEST_H
-#define GISASSIMULATIONTEST_H
-
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "GISASSimulation.h"
@@ -87,5 +84,3 @@ TEST_F(GISASSimulationTest, SimulationClone)
 
 //    delete clonedSimulation;
 }
-
-#endif // GISASSIMULATIONTEST_H

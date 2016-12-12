@@ -1,6 +1,3 @@
-#ifndef TRANGETEST_H
-#define TRANGETEST_H
-
 #include "TRange.h"
 #include <algorithm>
 
@@ -91,5 +88,3 @@ TEST_F(TRangeTest, TSampledRangeNSamples)
     EXPECT_EQ(5000u, floatSampledRange->getNSamples());
     EXPECT_EQ(6000u, doubleSampledRange->getNSamples());
 }
-
-#endif // TRANGETEST_H

@@ -1,6 +1,3 @@
-#ifndef SPECULARSIMULATIONTEST_H
-#define SPECULARSIMULATIONTEST_H
-
 #include "SpecularSimulation.h"
 #include "HomogeneousMaterial.h"
 #include "IMultiLayerBuilder.h"
@@ -120,5 +117,3 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     EXPECT_EQ(size_t(10), clone->getScalarT(0).size());
     EXPECT_EQ(size_t(10), clone->getScalarKz(0).size());
 }
-
-#endif // SPECULARSIMULATIONTEST_H

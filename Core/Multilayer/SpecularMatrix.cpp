@@ -81,16 +81,20 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiL
     setZeroBelow(coeff, start_layer_index+1);
 
     // Normalize to incoming downward travelling amplitude = 1.
-    complex_t T0 = coeff[0].getScalarT();
+    complex_t T0 = coeff[0].t_r(0);
     // This trick is used to avoid overflows in the intermediate steps of
     // complex division:
     double tmax = std::max(std::abs(T0.real()), std::abs(T0.imag()));
+    if (std::isinf(tmax))
+        throw std::runtime_error("Unexpected tmax=infty");
     for (size_t i=0; i<N; ++i) {
         coeff[i].t_r(0) /= tmax;
         coeff[i].t_r(1) /= tmax;
     }
     // Now the real normalization to T_0 proceeds
-    T0 = coeff[0].getScalarT();
+    T0 = coeff[0].t_r(0);
+    if (std::isinf(abs(T0)))
+        throw std::runtime_error("Unexpected tmax=infty");
     for (size_t i=0; i<N; ++i) {
         coeff[i].t_r = coeff[i].t_r/T0;
     }
@@ -139,7 +143,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
         coeff[i].t_r(1) = (
                     (lambda_rough-lambda_below)*coeff[i+1].t_r(0) +
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda*exp_fac;
-        if (std::isinf(std::abs(coeff[i].getScalarT())))
+        if (std::isinf(abs(coeff[i].t_r(0))))
             return false; // overflow => retry calulation starting from a higher layer
     }
     return true; // no overflow => result is definitive
@@ -147,6 +151,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
 
 //! Recursive bisection to determine the number of the deepest layer where RT computation
 //! can be started without running into overflow.
+//! Computes coeff, and returns largest possible start layer index.
 
 size_t bisectRTcomputation(
     SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
@@ -159,8 +164,12 @@ size_t bisectRTcomputation(
         return bisectRTcomputation(coeff, sample, kmag, l, lbad, (l+lbad)/2);
     } else {
         // failure => highest valid l must be in lgood..l-1
-        if (l-1==lgood)
+        if (l-1==lgood) {
+            if (!calculateUpFromLayer(coeff, sample, kmag, l-1))
+                throw std::runtime_error(
+                    "Bisection failed: Unexpected non-monotonicity in RT computation");
             return l-1;
+        }
         return bisectRTcomputation(coeff, sample, kmag, lgood, l, (lgood+l)/2);
     }
 }

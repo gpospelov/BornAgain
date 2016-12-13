@@ -2381,8 +2381,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::accept "void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::getLength "double FormFactorAnisoPyramid::getLength() const 
@@ -2427,8 +2425,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorBox::accept "void FormFactorBox::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorBox::getLength "double FormFactorBox::getLength() const 
@@ -2546,8 +2542,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorCone::accept "void FormFactorCone::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorCone::getHeight "double FormFactorCone::getHeight() const 
@@ -2599,8 +2593,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorCone6::accept "void FormFactorCone6::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorCone6::getBaseEdge "double FormFactorCone6::getBaseEdge() const 
@@ -2633,8 +2625,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorCrystal::accept "void FormFactorCrystal::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorCrystal::getVolume "double FormFactorCrystal::getVolume() const overridefinal
@@ -2690,8 +2680,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::accept "void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::getLength "double FormFactorCuboctahedron::getLength() const 
@@ -2724,8 +2712,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorCylinder::accept "void FormFactorCylinder::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorCylinder::getHeight "double FormFactorCylinder::getHeight() const 
@@ -2769,8 +2755,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorDecoratorDebyeWaller::accept "void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorDecoratorDebyeWaller::evaluate "complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const overridefinal
@@ -2801,8 +2785,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorDecoratorFactor::accept "void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const override
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorDecoratorFactor::evaluate "complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo &wavevectors) const override
@@ -2836,8 +2818,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorDecoratorMaterial::accept "void FormFactorDecoratorMaterial::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorDecoratorMaterial::setMaterial "void FormFactorDecoratorMaterial::setMaterial(const IMaterial &material)
@@ -2876,8 +2856,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::accept "void FormFactorDecoratorPositionFactor::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const overridefinal
@@ -2910,8 +2888,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorDecoratorRotation::accept "void FormFactorDecoratorRotation::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const overridefinal
@@ -2950,8 +2926,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorDodecahedron::accept "void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorDodecahedron::getEdge "double FormFactorDodecahedron::getEdge() const 
@@ -2978,8 +2952,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorDWBA::accept "void FormFactorDWBA::accept(ISampleVisitor *visitor) const override
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const override
@@ -3023,8 +2995,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorDWBAPol::accept "void FormFactorDWBAPol::accept(ISampleVisitor *visitor) const override
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
@@ -3081,8 +3051,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::accept "void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::getRadiusX "double FormFactorEllipsoidalCylinder::getRadiusX() const 
@@ -3122,8 +3090,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorFullSphere::accept "void FormFactorFullSphere::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorFullSphere::getRadius "double FormFactorFullSphere::getRadius() const 
@@ -3166,8 +3132,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorFullSpheroid::accept "void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorFullSpheroid::getHeight "double FormFactorFullSpheroid::getHeight() const 
@@ -3207,8 +3171,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorGauss::accept "void FormFactorGauss::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorGauss::getWidth "double FormFactorGauss::getWidth() const 
@@ -3260,8 +3222,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::accept "void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::getHeight "double FormFactorHemiEllipsoid::getHeight() const 
@@ -3301,8 +3261,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorIcosahedron::accept "void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorIcosahedron::getEdge "double FormFactorIcosahedron::getEdge() const 
@@ -3340,8 +3298,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorLongBoxGauss::accept "void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorLongBoxGauss::getLength "double FormFactorLongBoxGauss::getLength() const 
@@ -3395,8 +3351,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorLongBoxLorentz::accept "void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorLongBoxLorentz::getLength "double FormFactorLongBoxLorentz::getLength() const 
@@ -3450,8 +3404,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorLongRipple1Gauss::accept "void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorLongRipple1Gauss::getHeight "double FormFactorLongRipple1Gauss::getHeight() const 
@@ -3505,8 +3457,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorLongRipple1Lorentz::accept "void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorLongRipple1Lorentz::getRadialExtension "double FormFactorLongRipple1Lorentz::getRadialExtension() const overridefinal
@@ -3563,8 +3513,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorLongRipple2Gauss::accept "void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorLongRipple2Gauss::getHeight "double FormFactorLongRipple2Gauss::getHeight() const 
@@ -3622,8 +3570,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorLongRipple2Lorentz::accept "void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorLongRipple2Lorentz::getHeight "double FormFactorLongRipple2Lorentz::getHeight() const 
@@ -3669,8 +3615,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorLorentz::accept "void FormFactorLorentz::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorLorentz::getWidth "double FormFactorLorentz::getWidth() const 
@@ -3801,8 +3745,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorPrism3::accept "void FormFactorPrism3::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorPrism3::getBaseEdge "double FormFactorPrism3::getBaseEdge() const 
@@ -3826,8 +3768,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorPrism6::accept "void FormFactorPrism6::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorPrism6::getBaseEdge "double FormFactorPrism6::getBaseEdge() const 
@@ -3863,8 +3803,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorPyramid::accept "void FormFactorPyramid::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorPyramid::getHeight "double FormFactorPyramid::getHeight() const 
@@ -3908,8 +3846,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorRipple1::accept "void FormFactorRipple1::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorRipple1::getLength "double FormFactorRipple1::getLength() const 
@@ -3966,8 +3902,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorRipple2::accept "void FormFactorRipple2::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorRipple2::getHeight "double FormFactorRipple2::getHeight() const 
@@ -4010,8 +3944,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorSphereGaussianRadius::accept "void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorSphereGaussianRadius::getRadialExtension "double FormFactorSphereGaussianRadius::getRadialExtension() const overridefinal
@@ -4042,8 +3974,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorSphereLogNormalRadius::accept "void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorSphereLogNormalRadius::getRadialExtension "double FormFactorSphereLogNormalRadius::getRadialExtension() const overridefinal
@@ -4074,8 +4004,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorSphereUniformRadius::accept "void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorSphereUniformRadius::getRadialExtension "double FormFactorSphereUniformRadius::getRadialExtension() const overridefinal
@@ -4118,8 +4046,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorTetrahedron::accept "void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorTetrahedron::getBaseEdge "double FormFactorTetrahedron::getBaseEdge() const 
@@ -4149,8 +4075,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorTriangle::accept "void FormFactorTriangle::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorTriangle::getBaseEdge "double FormFactorTriangle::getBaseEdge() const 
@@ -4174,8 +4098,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorTrivial::accept "void FormFactorTrivial::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorTrivial::getRadialExtension "double FormFactorTrivial::getRadialExtension() const overridefinal
@@ -4215,8 +4137,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::accept "void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::getLength "double FormFactorTruncatedCube::getLength() const 
@@ -4243,8 +4163,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::accept "void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::getHeight "double FormFactorTruncatedSphere::getHeight() const 
@@ -4281,8 +4199,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::accept "void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::getRadius "double FormFactorTruncatedSpheroid::getRadius() const 
@@ -4327,8 +4243,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorWeighted::accept "void FormFactorWeighted::accept(ISampleVisitor *visitor) const overridefinal
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  FormFactorWeighted::getRadialExtension "double FormFactorWeighted::getRadialExtension() const overridefinal
@@ -5255,9 +5169,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  IAbstractParticle::accept "virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const
-
-Calls the  ISampleVisitor's visit method. 
+%feature("docstring")  IAbstractParticle::accept "virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const 
 ";
 
 %feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)=0
@@ -5868,8 +5780,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  IFormFactor::accept "void IFormFactor::accept(ISampleVisitor *visitor) const override=0
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
@@ -5962,8 +5872,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  IFormFactorDecorator::accept "void IFormFactorDecorator::accept(ISampleVisitor *visitor) const override=0
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material) override
@@ -6463,8 +6371,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  IInterferenceFunction::accept "virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const =0
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
@@ -6805,6 +6711,49 @@ C++ includes: InnerCounter.h
 %feature("docstring")  InnerCounter::stepProgress "void InnerCounter::stepProgress(ProgressHandler *progress)
 
 Increments progress count; at regular intervals updates main progress handler. 
+";
+
+
+// File: classINode.xml
+%feature("docstring") INode "
+
+Base class for tree-like structures containing parameterized objects.
+
+C++ includes: INode.h
+";
+
+%feature("docstring")  INode::INode "INode::INode()
+";
+
+%feature("docstring")  INode::~INode "virtual INode::~INode()
+";
+
+%feature("docstring")  INode::accept "virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+";
+
+%feature("docstring")  INode::to_str "std::string INode::to_str() const
+
+Returns multiline string representing tree structure below the node. 
+";
+
+%feature("docstring")  INode::registerChild "void INode::registerChild(INode *sample)
+";
+
+%feature("docstring")  INode::deregisterChild "void INode::deregisterChild(INode *sample)
+
+Removes registered child from the container.
+
+remove registered child from the container 
+";
+
+%feature("docstring")  INode::getChildren "std::vector< const INode * > INode::getChildren() const
+
+Returns a vector of children (const). 
+";
+
+%feature("docstring")  INode::addParametersToExternalPool "std::string INode::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
+
+Adds parameters from local pool to external pool and recursively calls its direct children. 
 ";
 
 
@@ -7157,8 +7106,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const final
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::setDecayFunction "void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &pdf)
@@ -7211,8 +7158,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const final
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::setDecayFunction "void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
@@ -7278,13 +7223,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const final
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  InterferenceFunction2DParaCrystal::to_str "std::string InterferenceFunction2DParaCrystal::to_str(int indent=0) const final
-
-Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::setDomainSizes "void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)
@@ -7366,8 +7304,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const final
-
-Calls the  ISampleVisitor's visit method. 
 ";
 
 %feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t) const final
@@ -7393,13 +7329,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const final
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::to_str "std::string InterferenceFunctionRadialParaCrystal::to_str(int indent=0) const final
-
-Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setKappa "void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
@@ -7746,26 +7675,6 @@ Returns true if roation matrix is identity matrix (no rotations)
 ";
 
 
-// File: classIRoughness.xml
-%feature("docstring") IRoughness "
-
-Interface to equip an interface with a roughness.
-
-C++ includes: IRoughness.h
-";
-
-%feature("docstring")  IRoughness::IRoughness "IRoughness::IRoughness()
-";
-
-%feature("docstring")  IRoughness::~IRoughness "virtual IRoughness::~IRoughness()
-";
-
-%feature("docstring")  IRoughness::accept "virtual void IRoughness::accept(ISampleVisitor *visitor) const
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-
 // File: classISample.xml
 %feature("docstring") ISample "
 
@@ -7782,16 +7691,6 @@ Returns a clone of this  ISample object.
 %feature("docstring")  ISample::cloneInvertB "ISample * ISample::cloneInvertB() const
 
 Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  ISample::accept "virtual void ISample::accept(ISampleVisitor *p_visitor) const =0
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  ISample::to_str "std::string ISample::to_str(int indent=0) const
-
-Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  ISample::getMaterial "virtual const IMaterial* ISample::getMaterial() const
@@ -7814,28 +7713,6 @@ Returns set of unique materials contained in this  ISample.
 Returns vector of children of type T. 
 ";
 
-%feature("docstring")  ISample::registerChild "void ISample::registerChild(ISample *sample)
-
-Registers child in the container. 
-";
-
-%feature("docstring")  ISample::deregisterChild "void ISample::deregisterChild(ISample *sample)
-
-Removes registered child from the container.
-
-remove registered child from the container 
-";
-
-%feature("docstring")  ISample::getChildren "std::vector< const ISample * > ISample::getChildren() const
-
-Returns a vector of children (const). 
-";
-
-%feature("docstring")  ISample::addParametersToExternalPool "std::string ISample::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
-
-Adds parameters from local pool to external pool and recursively calls its direct children. 
-";
-
 
 // File: classISampleIteratorStrategy.xml
 %feature("docstring") ISampleIteratorStrategy "";
@@ -7846,7 +7723,7 @@ Adds parameters from local pool to external pool and recursively calls its direc
 %feature("docstring")  ISampleIteratorStrategy::clone "virtual ISampleIteratorStrategy* ISampleIteratorStrategy::clone() const =0
 ";
 
-%feature("docstring")  ISampleIteratorStrategy::first "virtual IteratorMemento ISampleIteratorStrategy::first(const ISample *p_root)=0
+%feature("docstring")  ISampleIteratorStrategy::first "virtual IteratorMemento ISampleIteratorStrategy::first(const INode *p_root)=0
 ";
 
 %feature("docstring")  ISampleIteratorStrategy::next "virtual void ISampleIteratorStrategy::next(IteratorMemento &iterator_stack) const =0
@@ -7870,6 +7747,9 @@ C++ includes: ISampleVisitor.h
 ";
 
 %feature("docstring")  ISampleVisitor::~ISampleVisitor "virtual ISampleVisitor::~ISampleVisitor()
+";
+
+%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const INode *)
 ";
 
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const ISample *)
@@ -8053,9 +7933,6 @@ C++ includes: ISampleVisitor.h
 ";
 
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const InterferenceFunctionNone *)
-";
-
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const IRoughness *)
 ";
 
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const LayerRoughness *)
@@ -8259,7 +8136,7 @@ C++ includes: SampleTreeIterator.h
 %feature("docstring")  IteratorMemento::reset "void IteratorMemento::reset()
 ";
 
-%feature("docstring")  IteratorMemento::getCurrent "const ISample* IteratorMemento::getCurrent()
+%feature("docstring")  IteratorMemento::getCurrent "const INode* IteratorMemento::getCurrent()
 ";
 
 %feature("docstring")  IteratorMemento::next "void IteratorMemento::next()
@@ -8277,16 +8154,16 @@ Holds state of iterator at single level for  SampleTreeIterator.
 C++ includes: SampleTreeIterator.h
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const ISample *single_element)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const ISample * > samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
 ";
 
-%feature("docstring")  IteratorState::getCurrent "const ISample* IteratorState::getCurrent() const 
+%feature("docstring")  IteratorState::getCurrent "const INode* IteratorState::getCurrent() const 
 ";
 
 %feature("docstring")  IteratorState::isEnd "bool IteratorState::isEnd() const 
@@ -8509,13 +8386,6 @@ Returns a clone with inverted magnetic fields.
 ";
 
 %feature("docstring")  Layer::accept "void Layer::accept(ISampleVisitor *visitor) const final
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  Layer::to_str "std::string Layer::to_str(int indent=0) const final
-
-Returns textual representation of this and its descendants. 
 ";
 
 %feature("docstring")  Layer::setThickness "void Layer::setThickness(double thickness)
@@ -8584,9 +8454,7 @@ C++ includes: LayerInterface.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  LayerInterface::accept "virtual void LayerInterface::accept(ISampleVisitor *visitor) const
-
-Calls the  ISampleVisitor's visit method. 
+%feature("docstring")  LayerInterface::accept "virtual void LayerInterface::accept(ISampleVisitor *visitor) const 
 ";
 
 %feature("docstring")  LayerInterface::setLayerTop "void LayerInterface::setLayerTop(const Layer *p_layer_top)
@@ -8646,9 +8514,7 @@ C++ includes: LayerRoughness.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  LayerRoughness::accept "virtual void LayerRoughness::accept(ISampleVisitor *visitor) const
-
-Calls the  ISampleVisitor's visit method. 
+%feature("docstring")  LayerRoughness::accept "virtual void LayerRoughness::accept(ISampleVisitor *visitor) const 
 ";
 
 %feature("docstring")  LayerRoughness::getSpectralFun "double LayerRoughness::getSpectralFun(const kvector_t kvec) const
@@ -9064,14 +8930,7 @@ C++ includes: MultiLayer.h
 %feature("docstring")  MultiLayer::~MultiLayer "MultiLayer::~MultiLayer()
 ";
 
-%feature("docstring")  MultiLayer::accept "virtual void MultiLayer::accept(ISampleVisitor *visitor) const
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  MultiLayer::to_str "std::string MultiLayer::to_str(int indent=0) const
-
-Returns textual representation of this and its descendants. 
+%feature("docstring")  MultiLayer::accept "virtual void MultiLayer::accept(ISampleVisitor *visitor) const 
 ";
 
 %feature("docstring")  MultiLayer::getNumberOfLayers "size_t MultiLayer::getNumberOfLayers() const 
@@ -9989,11 +9848,6 @@ Returns a clone with inverted magnetic fields.
 calls the  ISampleVisitor's visit method 
 ";
 
-%feature("docstring")  Particle::to_str "std::string Particle::to_str(int indent=0) const
-
-Returns textual representation of this and its descendants. 
-";
-
 %feature("docstring")  Particle::setAmbientMaterial "void Particle::setAmbientMaterial(const IMaterial &material) final
 
 Sets the refractive index of the ambient material (which influences its scattering power) 
@@ -10195,13 +10049,6 @@ Returns a clone with inverted magnetic fields.
 ";
 
 %feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(ISampleVisitor *visitor) const final
-
-Calls the  ISampleVisitor's visit method. 
-";
-
-%feature("docstring")  ParticleDistribution::to_str "std::string ParticleDistribution::to_str(int indent=0) const final
-
-Returns textual representation of *this and its descendants. 
 ";
 
 %feature("docstring")  ParticleDistribution::setAmbientMaterial "void ParticleDistribution::setAmbientMaterial(const IMaterial &material) final
@@ -11238,7 +11085,7 @@ Retrieves a SampleBuilder from the registry, does the build, and returns the res
 %feature("docstring")  SampleIteratorPostorderStrategy::~SampleIteratorPostorderStrategy "SampleIteratorPostorderStrategy::~SampleIteratorPostorderStrategy()
 ";
 
-%feature("docstring")  SampleIteratorPostorderStrategy::first "IteratorMemento SampleIteratorPostorderStrategy::first(const ISample *p_root)
+%feature("docstring")  SampleIteratorPostorderStrategy::first "IteratorMemento SampleIteratorPostorderStrategy::first(const INode *p_root)
 ";
 
 %feature("docstring")  SampleIteratorPostorderStrategy::next "void SampleIteratorPostorderStrategy::next(IteratorMemento &iterator_stack) const 
@@ -11260,7 +11107,7 @@ Retrieves a SampleBuilder from the registry, does the build, and returns the res
 %feature("docstring")  SampleIteratorPreorderStrategy::~SampleIteratorPreorderStrategy "SampleIteratorPreorderStrategy::~SampleIteratorPreorderStrategy()
 ";
 
-%feature("docstring")  SampleIteratorPreorderStrategy::first "IteratorMemento SampleIteratorPreorderStrategy::first(const ISample *p_root)
+%feature("docstring")  SampleIteratorPreorderStrategy::first "IteratorMemento SampleIteratorPreorderStrategy::first(const INode *p_root)
 ";
 
 %feature("docstring")  SampleIteratorPreorderStrategy::next "void SampleIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) const 
@@ -11393,14 +11240,14 @@ C++ includes: SampleLabelHandler.h
 // File: classSampleTreeIterator.xml
 %feature("docstring") SampleTreeIterator "
 
-Iterator through  ISample tree of objects inside  ISample object.
+Iterator through  INode tree of objects.
 
-Usage example: SampleTreeIterator<Strategy> it(&sample); it.first(); while( !it.is_done() ) {  ISample *p_sample = it.get_current(); it.next(); }
+Usage example: SampleTreeIterator<Strategy> it(&sample); it.first(); while( !it.is_done() ) {  INode *p_sample = it.get_current(); it.next(); }
 
 C++ includes: SampleTreeIterator.h
 ";
 
-%feature("docstring")  SampleTreeIterator::SampleTreeIterator "SampleTreeIterator< Strategy >::SampleTreeIterator(const ISample *root)
+%feature("docstring")  SampleTreeIterator::SampleTreeIterator "SampleTreeIterator< Strategy >::SampleTreeIterator(const INode *root)
 ";
 
 %feature("docstring")  SampleTreeIterator::~SampleTreeIterator "virtual SampleTreeIterator< Strategy >::~SampleTreeIterator()
@@ -11412,7 +11259,7 @@ C++ includes: SampleTreeIterator.h
 %feature("docstring")  SampleTreeIterator::next "void SampleTreeIterator< Strategy >::next()
 ";
 
-%feature("docstring")  SampleTreeIterator::getCurrent "const ISample * SampleTreeIterator< Strategy >::getCurrent()
+%feature("docstring")  SampleTreeIterator::getCurrent "const INode * SampleTreeIterator< Strategy >::getCurrent()
 ";
 
 %feature("docstring")  SampleTreeIterator::isDone "bool SampleTreeIterator< Strategy >::isDone() const 
@@ -11965,6 +11812,21 @@ C++ includes: SizeDistributionModelsBuilder.h
 ";
 
 %feature("docstring")  SizeDistributionSSCAModelBuilder::buildSample "MultiLayer * SizeDistributionSSCAModelBuilder::buildSample() const 
+";
+
+
+// File: classSlice.xml
+%feature("docstring") Slice "
+
+Represents a single slice, constructed from the division of a layer into (possibly) multiple slices.
+
+C++ includes: Slice.h
+";
+
+%feature("docstring")  Slice::Slice "Slice::Slice(const IMaterial &material, double thickness, const LayerRoughness *top_roughness=nullptr)
+";
+
+%feature("docstring")  Slice::~Slice "Slice::~Slice()
 ";
 
 
@@ -12724,13 +12586,13 @@ C++ includes: WavevectorInfo.h
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0D141.xml
+// File: namespace_0D142.xml
 
 
-// File: namespace_0D184.xml
+// File: namespace_0D185.xml
 
 
-// File: namespace_0D275.xml
+// File: namespace_0D276.xml
 
 
 // File: namespace_0D303.xml
@@ -12739,13 +12601,16 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D305.xml
 
 
-// File: namespace_0D426.xml
+// File: namespace_0D318.xml
+
+
+// File: namespace_0D430.xml
 
 
 // File: namespace_0D58.xml
 
 
-// File: namespace_0D73.xml
+// File: namespace_0D74.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -13053,6 +12918,13 @@ convolution of two real vectors of equal size
 ";
 
 %feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+";
+
+
+// File: namespaceNodeUtils.xml
+%feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode &node)
+
+Returns multiline string representing tree structure starting from given node. 
 ";
 
 
@@ -13442,6 +13314,9 @@ Add element vector to element vector with weight.
 
 
 // File: RoughMultiLayerComputation_8h.xml
+
+
+// File: Slice_8h.xml
 
 
 // File: SpecularComputation_8cpp.xml
@@ -14116,9 +13991,6 @@ make Swappable
 // File: IMultiLayerBuilder_8h.xml
 
 
-// File: IRoughness_8h.xml
-
-
 // File: ISpecularInfoMap_8h.xml
 
 
@@ -14214,6 +14086,12 @@ make Swappable
 // File: Distributions_8h.xml
 
 
+// File: INode_8cpp.xml
+
+
+// File: INode_8h.xml
+
+
 // File: IParameter_8h.xml
 
 
@@ -14221,6 +14099,12 @@ make Swappable
 
 
 // File: IParameterized_8h.xml
+
+
+// File: NodeUtils_8cpp.xml
+
+
+// File: NodeUtils_8h.xml
 
 
 // File: ParameterDistribution_8cpp.xml

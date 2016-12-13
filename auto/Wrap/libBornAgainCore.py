@@ -1989,7 +1989,14 @@ IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
 
 class INode(IParameterized):
-    """Proxy of C++ INode class."""
+    """
+
+
+    Base class for tree-like structures containing parameterized objects.
+
+    C++ includes: INode.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IParameterized]:
@@ -2002,7 +2009,12 @@ class INode(IParameterized):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(INode self) -> INode"""
+        """
+        __init__(INode self) -> INode
+
+        INode::INode()
+
+        """
         if self.__class__ == INode:
             _self = None
         else:
@@ -2016,22 +2028,46 @@ class INode(IParameterized):
     __del__ = lambda self: None
 
     def accept(self, p_visitor):
-        """accept(INode self, ISampleVisitor p_visitor)"""
+        """
+        accept(INode self, ISampleVisitor p_visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
         return _libBornAgainCore.INode_accept(self, p_visitor)
 
 
     def to_str(self):
-        """to_str(INode self) -> std::string"""
+        """
+        to_str(INode self) -> std::string
+
+        std::string INode::to_str() const
+
+        Returns multiline string representing tree structure below the node. 
+
+        """
         return _libBornAgainCore.INode_to_str(self)
 
 
     def registerChild(self, sample):
-        """registerChild(INode self, INode sample)"""
+        """
+        registerChild(INode self, INode sample)
+
+        void INode::registerChild(INode *sample)
+
+        """
         return _libBornAgainCore.INode_registerChild(self, sample)
 
 
     def getChildren(self):
-        """getChildren(INode self) -> swig_dummy_type_const_inode_vector"""
+        """
+        getChildren(INode self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
         return _libBornAgainCore.INode_getChildren(self)
 
     def __disown__(self):
@@ -7161,7 +7197,6 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, InterferenceFunction2DLattice arg2)
         visit(ISampleVisitor self, InterferenceFunction2DParaCrystal arg2)
         visit(ISampleVisitor self, InterferenceFunctionNone arg2)
-        visit(ISampleVisitor self, IRoughness arg2)
         visit(ISampleVisitor self, LayerRoughness arg2)
         visit(ISampleVisitor self, IRotation arg2)
         visit(ISampleVisitor self, RotationX arg2)
@@ -7445,9 +7480,9 @@ class Crystal(IClusteredParticles):
         """
         getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.Crystal_getChildren(self)
@@ -10113,8 +10148,6 @@ class IFormFactor(ISample):
 
         void IFormFactor::accept(ISampleVisitor *visitor) const override=0
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.IFormFactor_accept(self, visitor)
 
@@ -10544,8 +10577,6 @@ class IFormFactorDecorator(IFormFactor):
         accept(IFormFactorDecorator self, ISampleVisitor visitor)
 
         void IFormFactorDecorator::accept(ISampleVisitor *visitor) const override=0
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.IFormFactorDecorator_accept(self, visitor)
@@ -11211,8 +11242,6 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
 
         void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorAnisoPyramid_accept(self, visitor)
 
@@ -11323,8 +11352,6 @@ class FormFactorBox(IFormFactorBorn):
         accept(FormFactorBox self, ISampleVisitor visitor)
 
         void FormFactorBox::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorBox_accept(self, visitor)
@@ -11451,8 +11478,6 @@ class FormFactorCone(IFormFactorBorn):
 
         void FormFactorCone::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorCone_accept(self, visitor)
 
@@ -11578,8 +11603,6 @@ class FormFactorCone6(FormFactorPolyhedron):
 
         void FormFactorCone6::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorCone6_accept(self, visitor)
 
@@ -11670,8 +11693,6 @@ class FormFactorCrystal(IFormFactor):
         accept(FormFactorCrystal self, ISampleVisitor visitor)
 
         void FormFactorCrystal::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCrystal_accept(self, visitor)
@@ -11781,8 +11802,6 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
 
         void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorCuboctahedron_accept(self, visitor)
 
@@ -11881,8 +11900,6 @@ class FormFactorCylinder(IFormFactorBorn):
         accept(FormFactorCylinder self, ISampleVisitor visitor)
 
         void FormFactorCylinder::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorCylinder_accept(self, visitor)
@@ -11990,8 +12007,6 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
 
         void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorDecoratorDebyeWaller_accept(self, visitor)
 
@@ -12070,8 +12085,6 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         accept(FormFactorDodecahedron self, ISampleVisitor visitor)
 
         void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorDodecahedron_accept(self, visitor)
@@ -12152,8 +12165,6 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         accept(FormFactorEllipsoidalCylinder self, ISampleVisitor visitor)
 
         void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_accept(self, visitor)
@@ -12268,8 +12279,6 @@ class FormFactorFullSphere(IFormFactorBorn):
 
         void FormFactorFullSphere::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorFullSphere_accept(self, visitor)
 
@@ -12371,8 +12380,6 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         accept(FormFactorFullSpheroid self, ISampleVisitor visitor)
 
         void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorFullSpheroid_accept(self, visitor)
@@ -12477,8 +12484,6 @@ class FormFactorGauss(IFormFactorBorn):
         accept(FormFactorGauss self, ISampleVisitor visitor)
 
         void FormFactorGauss::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorGauss_accept(self, visitor)
@@ -12597,8 +12602,6 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
         void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorHemiEllipsoid_accept(self, visitor)
 
@@ -12710,8 +12713,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
 
         void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorIcosahedron_accept(self, visitor)
 
@@ -12794,8 +12795,6 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         accept(FormFactorLongBoxGauss self, ISampleVisitor visitor)
 
         void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_accept(self, visitor)
@@ -12924,8 +12923,6 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 
         void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_accept(self, visitor)
 
@@ -13053,8 +13050,6 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
 
         void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_accept(self, visitor)
 
@@ -13181,8 +13176,6 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         accept(FormFactorLongRipple1Lorentz self, ISampleVisitor visitor)
 
         void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_accept(self, visitor)
@@ -13313,8 +13306,6 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         accept(FormFactorLongRipple2Gauss self, ISampleVisitor visitor)
 
         void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_accept(self, visitor)
@@ -13454,8 +13445,6 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
 
         void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_accept(self, visitor)
 
@@ -13580,8 +13569,6 @@ class FormFactorLorentz(IFormFactorBorn):
 
         void FormFactorLorentz::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorLorentz_accept(self, visitor)
 
@@ -13685,8 +13672,6 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
 
         void FormFactorPrism3::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorPrism3_accept(self, visitor)
 
@@ -13755,8 +13740,6 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         accept(FormFactorPrism6 self, ISampleVisitor visitor)
 
         void FormFactorPrism6::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorPrism6_accept(self, visitor)
@@ -13838,8 +13821,6 @@ class FormFactorPyramid(FormFactorPolyhedron):
         accept(FormFactorPyramid self, ISampleVisitor visitor)
 
         void FormFactorPyramid::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorPyramid_accept(self, visitor)
@@ -13943,8 +13924,6 @@ class FormFactorRipple1(IFormFactorBorn):
         accept(FormFactorRipple1 self, ISampleVisitor visitor)
 
         void FormFactorRipple1::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorRipple1_accept(self, visitor)
@@ -14076,8 +14055,6 @@ class FormFactorRipple2(IFormFactorBorn):
 
         void FormFactorRipple2::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorRipple2_accept(self, visitor)
 
@@ -14201,8 +14178,6 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
 
         void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorSphereGaussianRadius_accept(self, visitor)
 
@@ -14286,8 +14261,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 
         void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_accept(self, visitor)
 
@@ -14370,8 +14343,6 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         accept(FormFactorSphereUniformRadius self, ISampleVisitor visitor)
 
         void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorSphereUniformRadius_accept(self, visitor)
@@ -14468,8 +14439,6 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
 
         void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorTetrahedron_accept(self, visitor)
 
@@ -14558,8 +14527,6 @@ class FormFactorTrivial(IFormFactorBorn):
         accept(FormFactorTrivial self, ISampleVisitor visitor)
 
         void FormFactorTrivial::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorTrivial_accept(self, visitor)
@@ -14653,8 +14620,6 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
 
         void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const overridefinal
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.FormFactorTruncatedCube_accept(self, visitor)
 
@@ -14733,8 +14698,6 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         accept(FormFactorTruncatedSphere self, ISampleVisitor visitor)
 
         void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_accept(self, visitor)
@@ -14838,8 +14801,6 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         accept(FormFactorTruncatedSpheroid self, ISampleVisitor visitor)
 
         void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_accept(self, visitor)
@@ -14957,8 +14918,6 @@ class FormFactorWeighted(IFormFactor):
         accept(FormFactorWeighted self, ISampleVisitor visitor)
 
         void FormFactorWeighted::accept(ISampleVisitor *visitor) const overridefinal
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.FormFactorWeighted_accept(self, visitor)
@@ -17379,8 +17338,6 @@ class IInterferenceFunction(ISample):
 
         virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const =0
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.IInterferenceFunction_accept(self, visitor)
 
@@ -17673,9 +17630,7 @@ class IAbstractParticle(ISample):
         """
         accept(IAbstractParticle self, ISampleVisitor visitor)
 
-        virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const
-
-        Calls the  ISampleVisitor's visit method. 
+        virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const 
 
         """
         return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
@@ -17969,9 +17924,9 @@ class IParticle(IAbstractParticle):
         """
         getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.IParticle_getChildren(self)
@@ -19093,8 +19048,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
 
         void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const final
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_accept(self, visitor)
 
@@ -19194,8 +19147,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         accept(InterferenceFunctionRadialParaCrystal self, ISampleVisitor visitor)
 
         void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const final
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
@@ -19378,8 +19329,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const final
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_accept(self, visitor)
 
@@ -19548,8 +19497,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         accept(InterferenceFunction2DParaCrystal self, ISampleVisitor visitor)
 
         void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const final
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
@@ -19777,8 +19724,6 @@ class InterferenceFunctionNone(IInterferenceFunction):
         accept(InterferenceFunctionNone self, ISampleVisitor visitor)
 
         void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const final
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
@@ -20441,8 +20386,6 @@ class Layer(ISample):
 
         void Layer::accept(ISampleVisitor *visitor) const final
 
-        Calls the  ISampleVisitor's visit method. 
-
         """
         return _libBornAgainCore.Layer_accept(self, visitor)
 
@@ -20591,9 +20534,9 @@ class Layer(ISample):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.Layer_getChildren(self)
@@ -20601,46 +20544,7 @@ class Layer(ISample):
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 
-class IRoughness(ISample):
-    """
-
-
-    Interface to equip an interface with a roughness.
-
-    C++ includes: IRoughness.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [ISample]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IRoughness, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ISample]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IRoughness, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IRoughness
-    __del__ = lambda self: None
-
-    def accept(self, visitor):
-        """
-        accept(IRoughness self, ISampleVisitor visitor)
-
-        virtual void IRoughness::accept(ISampleVisitor *visitor) const
-
-        Calls the  ISampleVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IRoughness_accept(self, visitor)
-
-IRoughness_swigregister = _libBornAgainCore.IRoughness_swigregister
-IRoughness_swigregister(IRoughness)
-
-class LayerRoughness(IRoughness):
+class LayerRoughness(ISample):
     """
 
 
@@ -20653,11 +20557,11 @@ class LayerRoughness(IRoughness):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IRoughness]:
+    for _s in [ISample]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, LayerRoughness, name, value)
     __swig_getmethods__ = {}
-    for _s in [IRoughness]:
+    for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, LayerRoughness, name)
     __repr__ = _swig_repr
@@ -20692,9 +20596,7 @@ class LayerRoughness(IRoughness):
         """
         accept(LayerRoughness self, ISampleVisitor visitor)
 
-        virtual void LayerRoughness::accept(ISampleVisitor *visitor) const
-
-        Calls the  ISampleVisitor's visit method. 
+        virtual void LayerRoughness::accept(ISampleVisitor *visitor) const 
 
         """
         return _libBornAgainCore.LayerRoughness_accept(self, visitor)
@@ -21139,9 +21041,9 @@ class MesoCrystal(IParticle):
         """
         getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.MesoCrystal_getChildren(self)
@@ -21279,9 +21181,7 @@ class MultiLayer(ISample):
         """
         accept(MultiLayer self, ISampleVisitor visitor)
 
-        virtual void MultiLayer::accept(ISampleVisitor *visitor) const
-
-        Calls the  ISampleVisitor's visit method. 
+        virtual void MultiLayer::accept(ISampleVisitor *visitor) const 
 
         """
         return _libBornAgainCore.MultiLayer_accept(self, visitor)
@@ -21567,9 +21467,9 @@ class MultiLayer(ISample):
         """
         getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.MultiLayer_getChildren(self)
@@ -22958,9 +22858,9 @@ class Particle(IParticle):
         """
         getChildren(Particle self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.Particle_getChildren(self)
@@ -23139,9 +23039,9 @@ class ParticleComposition(IParticle):
         """
         getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.ParticleComposition_getChildren(self)
@@ -23271,9 +23171,9 @@ class ParticleCoreShell(IParticle):
         """
         getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.ParticleCoreShell_getChildren(self)
@@ -23343,8 +23243,6 @@ class ParticleDistribution(IAbstractParticle):
         accept(ParticleDistribution self, ISampleVisitor visitor)
 
         void ParticleDistribution::accept(ISampleVisitor *visitor) const final
-
-        Calls the  ISampleVisitor's visit method. 
 
         """
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
@@ -23416,9 +23314,9 @@ class ParticleDistribution(IAbstractParticle):
         """
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.ParticleDistribution_getChildren(self)
@@ -23643,9 +23541,9 @@ class ParticleLayout(ILayout):
         """
         getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
 
-        virtual std::vector<const ISample*> ISample::getChildren() const
+        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children. 
+        Returns a vector of children (const). 
 
         """
         return _libBornAgainCore.ParticleLayout_getChildren(self)

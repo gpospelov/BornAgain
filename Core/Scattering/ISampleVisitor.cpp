@@ -417,12 +417,6 @@ void ISampleVisitor::visit(const InterferenceFunctionNone*)
         "ISampleVisitor::visit(const InterferenceFunctionNone*) -> Error. Not implemented.");
 }
 
-void ISampleVisitor::visit(const IRoughness*)
-{
-    throw Exceptions::NotImplementedException(
-        "ISampleVisitor::visit(const IRoughness*) -> Error. Not implemented.");
-}
-
 void ISampleVisitor::visit(const LayerRoughness*)
 {
     throw Exceptions::NotImplementedException(

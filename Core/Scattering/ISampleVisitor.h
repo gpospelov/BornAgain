@@ -95,7 +95,6 @@ class InterferenceFunction2DLattice;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionNone;
 // -
-class IRoughness;
 class LayerRoughness;
 // -
 class IRotation;
@@ -190,7 +189,6 @@ public:
     virtual void visit(const InterferenceFunction2DParaCrystal*);
     virtual void visit(const InterferenceFunctionNone*);
 
-    virtual void visit(const IRoughness*);
     virtual void visit(const LayerRoughness*);
 
     virtual void visit(const IRotation*);

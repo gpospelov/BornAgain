@@ -18,10 +18,7 @@
 #include "Exceptions.h"
 #include "LayerRoughness.h"
 
-LayerInterface::LayerInterface()
-    : m_roughness(nullptr)
-    , m_topLayer(nullptr)
-    , m_bottomLayer(nullptr)
+LayerInterface::LayerInterface() : m_topLayer(nullptr), m_bottomLayer(nullptr)
 {
     setName(BornAgain::LayerInterfaceType);
 }
@@ -52,15 +49,6 @@ LayerInterface* LayerInterface::createRoughInterface(const Layer* top_layer,
     return result;
 }
 
-void LayerInterface::setLayersTopBottom(const Layer* top_layer, const Layer* bottom_layer)
-{
-    if(top_layer == nullptr || bottom_layer == nullptr)
-        throw Exceptions::RuntimeErrorException("LayerInterface::setLayersTopBottom() -> Error. "
-                                                "Attempt to set nullptr.");
-    m_topLayer = top_layer;
-    m_bottomLayer = bottom_layer;
-}
-
 void LayerInterface::setRoughness(const LayerRoughness& roughness)
 {
     m_roughness.reset(roughness.clone());
@@ -70,7 +58,18 @@ void LayerInterface::setRoughness(const LayerRoughness& roughness)
 std::vector<const INode*> LayerInterface::getChildren() const
 {
     std::vector<const INode*> result;
-    if(m_roughness)
+    if (m_roughness)
         result.push_back(m_roughness.get());
     return result;
+}
+
+//! Sets links to the layers above and below the interface.
+
+void LayerInterface::setLayersTopBottom(const Layer* top_layer, const Layer* bottom_layer)
+{
+    if (top_layer == nullptr || bottom_layer == nullptr)
+        throw Exceptions::RuntimeErrorException("LayerInterface::setLayersTopBottom() -> Error. "
+                                                "Attempt to set nullptr.");
+    m_topLayer = top_layer;
+    m_bottomLayer = bottom_layer;
 }

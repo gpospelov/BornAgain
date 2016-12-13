@@ -55,7 +55,6 @@ public:
 private:
     void runProtected();
 
-    //! calculates intensity map for samples with magnetization
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
 

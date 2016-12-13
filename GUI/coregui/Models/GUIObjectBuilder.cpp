@@ -224,12 +224,12 @@ void GUIObjectBuilder::visit(const Particle* sample)
         const ParticleCoreShell* coreshell
             = dynamic_cast<const ParticleCoreShell*>(m_itemToSample[parent]);
         Q_ASSERT(coreshell);
-        if (sample == coreshell->getCoreParticle()) {
+        if (sample == coreshell->coreParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                                         m_sampleModel->indexOfItem(parent), -1,
                                                         ParticleCoreShellItem::T_CORE);
             Q_ASSERT(particleItem);
-        } else if (sample == coreshell->getShellParticle()) {
+        } else if (sample == coreshell->shellParticle()) {
             particleItem = m_sampleModel->insertNewItem(Constants::ParticleType,
                                                         m_sampleModel->indexOfItem(parent), -1,
                                                         ParticleCoreShellItem::T_SHELL);

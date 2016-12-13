@@ -45,11 +45,9 @@ public:
     IFormFactor* createTransformedFormFactor(
         const IRotation* p_rotation, kvector_t translation) const final;
 
-    //! Returns the core particle
-    const Particle* getCoreParticle() const { return mp_core.get(); }
+    const Particle* coreParticle() const;
 
-    //! Returns the shell particle
-    const Particle* getShellParticle() const { return mp_shell.get(); }
+    const Particle* shellParticle() const;
 
     std::vector<const INode*> getChildren() const;
 
@@ -61,5 +59,15 @@ protected:
     std::unique_ptr<Particle> mp_shell;
     std::unique_ptr<Particle> mp_core;
 };
+
+inline const Particle* ParticleCoreShell::coreParticle() const
+{
+    return mp_core.get();
+}
+
+inline const Particle* ParticleCoreShell::shellParticle() const
+{
+    return mp_shell.get();
+}
 
 #endif // PARTICLECORESHELL_H

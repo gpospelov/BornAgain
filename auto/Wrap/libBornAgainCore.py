@@ -23270,28 +23270,14 @@ class ParticleCoreShell(IParticle):
         return _libBornAgainCore.ParticleCoreShell_createTransformedFormFactor(self, p_rotation, translation)
 
 
-    def getCoreParticle(self):
-        """
-        getCoreParticle(ParticleCoreShell self) -> Particle
-
-        const Particle* ParticleCoreShell::getCoreParticle() const
-
-        Returns the core particle. 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_getCoreParticle(self)
+    def coreParticle(self):
+        """coreParticle(ParticleCoreShell self) -> Particle"""
+        return _libBornAgainCore.ParticleCoreShell_coreParticle(self)
 
 
-    def getShellParticle(self):
-        """
-        getShellParticle(ParticleCoreShell self) -> Particle
-
-        const Particle* ParticleCoreShell::getShellParticle() const
-
-        Returns the shell particle. 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_getShellParticle(self)
+    def shellParticle(self):
+        """shellParticle(ParticleCoreShell self) -> Particle"""
+        return _libBornAgainCore.ParticleCoreShell_shellParticle(self)
 
 
     def getChildren(self):

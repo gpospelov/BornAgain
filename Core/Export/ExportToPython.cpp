@@ -275,8 +275,8 @@ std::string ExportToPython::defineCoreShellParticles() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ParticleCoreShell* p_coreshell = it->first;
         result << "\n" << indent() << it->second << " = ba.ParticleCoreShell("
-               << m_label->getLabelParticle(p_coreshell->getShellParticle()) << ", "
-               << m_label->getLabelParticle(p_coreshell->getCoreParticle()) << ")\n";
+               << m_label->getLabelParticle(p_coreshell->shellParticle()) << ", "
+               << m_label->getLabelParticle(p_coreshell->coreParticle()) << ")\n";
         std::string core_shell_name = it->second;
         setRotationInformation(p_coreshell, core_shell_name, result);
         setPositionInformation(p_coreshell, core_shell_name, result);

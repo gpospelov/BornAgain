@@ -1,6 +1,3 @@
-#ifndef TESTLAYERROUGHNESSITEMS_H
-#define TESTLAYERROUGHNESSITEMS_H
-
 #include <QtTest>
 #include "LayerRoughness.h"
 #include "LayerRoughnessItems.h"
@@ -40,7 +37,4 @@ inline void TestLayerRoughnessItems::test_LayerRoughnessFromDomain()
     QCOMPARE(roughness.getHurstParameter(), roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble());
     QCOMPARE(roughness.getLatteralCorrLength(), roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
 }
-
-
-#endif // TESTLAYERROUGHNESSITEMS_H
 

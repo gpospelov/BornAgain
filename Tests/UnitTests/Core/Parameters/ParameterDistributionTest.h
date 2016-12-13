@@ -1,6 +1,3 @@
-#ifndef PARAMETERDISTRIBUTIONTEST_H
-#define PARAMETERDISTRIBUTIONTEST_H
-
 #include "ParameterDistribution.h"
 #include "Distributions.h"
 #include "Exceptions.h"
@@ -140,6 +137,3 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
     EXPECT_EQ(sample_values[1].value, xmin + (xmax-xmin)/2.0);
     EXPECT_EQ(sample_values[2].value, xmax);
 }
-
-
-#endif // PARAMETERDISTRIBUTIONTEST_H

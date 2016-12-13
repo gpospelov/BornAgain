@@ -1,6 +1,3 @@
-#ifndef PARTICLECOMPOSITIONTEST_H
-#define PARTICLECOMPOSITIONTEST_H
-
 #include "FormFactorFullSphere.h"
 #include "HomogeneousMaterial.h"
 #include "MathConstants.h"
@@ -105,5 +102,3 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
     delete lb;
     delete lbClone;
 }
-
-#endif // PARTICLECOMPOSITIONTEST_H

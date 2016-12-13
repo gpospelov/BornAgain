@@ -1,6 +1,3 @@
-#ifndef TESTMAPPERCASES_H
-#define TESTMAPPERCASES_H
-
 #include "SessionItem.h"
 #include "SampleModel.h"
 #include "InstrumentModel.h"
@@ -120,5 +117,3 @@ inline void TestMapperCases::test_SimulationOptionsComputationToggle()
     item->setItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD, combo.getVariant());
     QVERIFY(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == true);
 }
-
-#endif // TESTMAPPERCASES_H

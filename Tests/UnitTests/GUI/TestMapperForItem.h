@@ -1,6 +1,3 @@
-#ifndef TESTMAPPERFORITEM_H
-#define TESTMAPPERFORITEM_H
-
 #include "SessionItem.h"
 #include "SampleModel.h"
 #include "LayerItem.h"
@@ -341,7 +338,3 @@ inline void TestMapperForItem::test_TwoWidgetsSubscription()
     QCOMPARE(w2.m_onPropertyChangeCount, 2);
 
 }
-
-
-
-#endif // TESTMAPPERFORITEM_H

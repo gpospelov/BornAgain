@@ -1,6 +1,3 @@
-#ifndef PARAMETERPOOLTEST_H
-#define PARAMETERPOOLTEST_H
-
 #include "ParameterPool.h"
 
 /* TEMPORARILY DISABLED
@@ -122,4 +119,3 @@ TEST_F(ParameterPoolTest, LimitsOnParameterValue)
 }
 
 */
-#endif // PARAMETERPOOLTEST_H

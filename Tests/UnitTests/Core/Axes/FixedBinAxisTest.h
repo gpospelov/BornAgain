@@ -1,6 +1,3 @@
-#ifndef FIXEDBINAXISTEST_H
-#define FIXEDBINAXISTEST_H
-
 #include "FixedBinAxis.h"
 #include "Exceptions.h"
 #include "DataFormatUtils.h"
@@ -175,6 +172,3 @@ TEST_F(FixedBinAxisTest, ClippedAxis)
     EXPECT_TRUE(*clip2 != axis);
     delete clip2;
 }
-
-
-#endif // FIXEDBINAXISTEST_H

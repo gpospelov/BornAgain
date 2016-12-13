@@ -1,6 +1,3 @@
-#ifndef KVECTORTEST_H
-#define KVECTORTEST_H
-
 #include "Vectors3D.h"
 #include "Transform3D.h"
 
@@ -126,5 +123,3 @@ TEST_F(KVectorTest, BasicTransformation)
     ASSERT_NEAR( v.y(), a.y(), epsilon );
     ASSERT_NEAR( v.z(), a.z(), epsilon );
 }
-
-#endif // KVECTORTEST_H

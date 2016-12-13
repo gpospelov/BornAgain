@@ -1,6 +1,3 @@
-#ifndef LLDATATEST_H
-#define LLDATATEST_H
-
 #include "LLData.h"
 #include <algorithm>
 #include "IMaterial.h"
@@ -389,6 +386,3 @@ TEST_F(LLDataTest, Accessors) {
     delete [] coordinate2d;
 
 }
-
-
-#endif // LLDATATEST_H

@@ -1,6 +1,3 @@
-#ifndef PARTICLETEST_H
-#define PARTICLETEST_H
-
 #include "Particle.h"
 #include "BornAgainNamespace.h"
 #include "MathConstants.h"
@@ -131,5 +128,3 @@ TEST_F(ParticleTest, SetParam)
 
     delete particle2;
 }
-
-#endif // PARTICLETEST_H

@@ -1,6 +1,3 @@
-#ifndef PARTICLECORESHELLTEST_H
-#define PARTICLECORESHELLTEST_H
-
 #include "HardParticles.h"
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
@@ -110,5 +107,3 @@ TEST_F(ParticleCoreShellTest, ComplexCoreShellClone)
     EXPECT_EQ(coreshell.getCoreParticle()->getPosition(), relative_pos);
     EXPECT_EQ(clone->getCoreParticle()->getPosition(), relative_pos);
 }
-
-#endif // PARTICLECORESHELLTEST_H

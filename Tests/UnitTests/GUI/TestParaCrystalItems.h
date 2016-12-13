@@ -1,6 +1,3 @@
-#ifndef TESTPARACRYSTALITEMS_H
-#define TESTPARACRYSTALITEMS_H
-
 #include <QtTest>
 #include "InterferenceFunctionItems.h"
 #include "GroupProperty.h"
@@ -63,6 +60,4 @@ inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
         QCOMPARE(pdfItem->modelType(), pdf_name);
     }
 }
-
-#endif // TESTPARACRYSTALITEMS_H
 

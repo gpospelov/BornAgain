@@ -1,6 +1,3 @@
-#ifndef FTDISTRIBUTIONSTEST_H
-#define FTDISTRIBUTIONSTEST_H
-
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
 #include "BornAgainNamespace.h"
@@ -288,5 +285,3 @@ TEST_F(FTDistributionsTest, FTDistribution2DVoigtClone)
     EXPECT_EQ(BornAgain::FTDistribution2DVoigtType, P_clone->getName());
     EXPECT_NEAR(-0.6635305, P_clone->evaluate(0.2, 0.5),0.000001);
 }
-
-#endif // FTDISTRIBUTIONSTEST_H

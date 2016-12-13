@@ -1,6 +1,3 @@
-#ifndef HOMOGENEOUSMAGNETICMATERIALTEST_H
-#define HOMOGENEOUSMAGNETICMATERIALTEST_H
-
 #include "HomogeneousMagneticMaterial.h"
 #include "Rotations.h"
 #include "Units.h"
@@ -121,5 +118,3 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialClone)
     delete tMaterial;
     delete clone;
 }
-
-#endif // HOMOGENEOUSMAGNETICMATERIALTEST_H

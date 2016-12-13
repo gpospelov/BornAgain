@@ -1,6 +1,3 @@
-#ifndef SCALARRTCOEFFICIENTSTEST_H
-#define SCALARRTCOEFFICIENTSTEST_H
-
 #include "ScalarRTCoefficients.h"
 
 class ScalarRTCoefficientsTest : public ::testing :: Test
@@ -132,5 +129,3 @@ TEST_F(ScalarRTCoefficientsTest, getScalar)
     EXPECT_EQ(complex_t(1.0,0.5), scrtCustom.getScalarR());
     EXPECT_EQ(complex_t(1.0,1.0), scrtCustom.getScalarKz());
 }
-
-#endif // SCALARRTCOEFFICIENTSTEST_H

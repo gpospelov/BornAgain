@@ -1,6 +1,3 @@
-#ifndef TESTFORMFACTORITEMS_H
-#define TESTFORMFACTORITEMS_H
-
 #include <QtTest>
 #include "FormFactors.h"
 #include "FormFactorItems.h"
@@ -32,5 +29,3 @@ inline void TestFormFactorItems::test_AnisoPyramidItem()
     QVERIFY(p_ff->getHeight() == 13.0);
     QVERIFY( Numeric::areAlmostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
 }
-
-#endif // TESTFORMFACTORITEMS_H

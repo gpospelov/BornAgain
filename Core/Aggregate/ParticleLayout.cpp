@@ -184,6 +184,16 @@ double ParticleLayout::getTotalParticleSurfaceDensity() const
     return iff_density > 0.0 ? iff_density : m_total_particle_density;
 }
 
+std::vector<const INode*> ParticleLayout::getChildren() const
+{
+    std::vector<const INode*> result;
+    for(auto particle : m_particles)
+        result.push_back(particle);
+    if(mP_interference_function)
+        result.push_back(mP_interference_function.get());
+    return result;
+}
+
 //! Adds particle information with simultaneous registration in parent class.
 void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle* child)
 {

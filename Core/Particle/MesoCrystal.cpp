@@ -88,6 +88,16 @@ IFormFactor* MesoCrystal::createTransformedFormFactor(
     return p_result;
 }
 
+std::vector<const INode*> MesoCrystal::getChildren() const
+{
+    std::vector<const INode*> result = IParticle::getChildren();
+    if(mp_particle_structure)
+        result.push_back(mp_particle_structure);
+    if(mp_meso_form_factor)
+        result.push_back(mp_meso_form_factor);
+    return result;
+}
+
 IFormFactor* MesoCrystal::createTransformationDecoratedFormFactor(
     const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const
 {

@@ -63,6 +63,8 @@ public:
     //! Returns bottom layer.
     const Layer *getLayerBottom() const { return m_LayerBottom; }
 
+    std::vector<const INode*> getChildren() const;
+
 protected:
     void print(std::ostream& ostr) const;
 

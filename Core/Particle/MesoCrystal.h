@@ -50,6 +50,8 @@ public:
     //! space (e.g. an infinite crystal)
     const IClusteredParticles* getClusteredParticles() const { return mp_particle_structure; }
 
+    std::vector<const INode*> getChildren() const;
+
 private:
     //! Creates a form factor decorated with the IParticle's position/rotation
     IFormFactor* createTransformationDecoratedFormFactor(

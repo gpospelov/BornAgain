@@ -69,6 +69,14 @@ void LayerInterface::setRoughness(const LayerRoughness& roughness)
     registerChild(m_roughness);
 }
 
+std::vector<const INode*> LayerInterface::getChildren() const
+{
+    std::vector<const INode*> result;
+    if(m_roughness)
+        result.push_back(m_roughness);
+    return result;
+}
+
 void LayerInterface::print(std::ostream& ostr) const
 {
     ISample::print(ostr);

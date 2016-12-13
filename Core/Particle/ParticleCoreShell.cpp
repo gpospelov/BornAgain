@@ -101,6 +101,16 @@ IFormFactor* ParticleCoreShell::createTransformedFormFactor(
     return P_result.release();
 }
 
+std::vector<const INode*> ParticleCoreShell::getChildren() const
+{
+    std::vector<const INode*> result = IParticle::getChildren();
+    if(mp_core)
+        result.push_back(mp_core);
+    if(mp_shell)
+        result.push_back(mp_shell);
+    return result;
+}
+
 void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relative_core_position)
 {
     if(mp_core) {

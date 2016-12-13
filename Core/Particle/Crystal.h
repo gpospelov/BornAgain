@@ -51,6 +51,8 @@ public:
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
+    std::vector<const INode*> getChildren() const;
+
 private:
     //! Private constructor
     Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice);

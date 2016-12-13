@@ -7453,6 +7453,18 @@ class Crystal(IClusteredParticles):
         """
         return _libBornAgainCore.Crystal_setDWFactor(self, dw_factor)
 
+
+    def getChildren(self):
+        """
+        getChildren(Crystal self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.Crystal_getChildren(self)
+
 Crystal_swigregister = _libBornAgainCore.Crystal_swigregister
 Crystal_swigregister(Crystal)
 
@@ -17965,6 +17977,18 @@ class IParticle(IAbstractParticle):
         """
         return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
 
+
+    def getChildren(self):
+        """
+        getChildren(IParticle self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.IParticle_getChildren(self)
+
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)
 
@@ -20575,6 +20599,18 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_getNumberOfLayers(self)
 
+
+    def getChildren(self):
+        """
+        getChildren(Layer self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.Layer_getChildren(self)
+
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 
@@ -21111,6 +21147,18 @@ class MesoCrystal(IParticle):
         """
         return _libBornAgainCore.MesoCrystal_getClusteredParticles(self)
 
+
+    def getChildren(self):
+        """
+        getChildren(MesoCrystal self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.MesoCrystal_getChildren(self)
+
 MesoCrystal_swigregister = _libBornAgainCore.MesoCrystal_swigregister
 MesoCrystal_swigregister(MesoCrystal)
 
@@ -21526,6 +21574,18 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(MultiLayer self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.MultiLayer_getChildren(self)
 
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
@@ -22906,6 +22966,18 @@ class Particle(IParticle):
         """
         return _libBornAgainCore.Particle_getFormFactor(self)
 
+
+    def getChildren(self):
+        """
+        getChildren(Particle self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.Particle_getChildren(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_Particle
     __del__ = lambda self: None
 Particle_swigregister = _libBornAgainCore.Particle_swigregister
@@ -23075,6 +23147,18 @@ class ParticleComposition(IParticle):
         """
         return _libBornAgainCore.ParticleComposition_getParticlePosition(self, index)
 
+
+    def getChildren(self):
+        """
+        getChildren(ParticleComposition self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_getChildren(self)
+
 ParticleComposition_swigregister = _libBornAgainCore.ParticleComposition_swigregister
 ParticleComposition_swigregister(ParticleComposition)
 
@@ -23209,6 +23293,18 @@ class ParticleCoreShell(IParticle):
         """
         return _libBornAgainCore.ParticleCoreShell_getShellParticle(self)
 
+
+    def getChildren(self):
+        """
+        getChildren(ParticleCoreShell self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.ParticleCoreShell_getChildren(self)
+
 ParticleCoreShell_swigregister = _libBornAgainCore.ParticleCoreShell_swigregister
 ParticleCoreShell_swigregister(ParticleCoreShell)
 
@@ -23341,6 +23437,18 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_getParticle(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(ParticleDistribution self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_getChildren(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_ParticleDistribution
     __del__ = lambda self: None
@@ -23556,6 +23664,18 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
+
+
+    def getChildren(self):
+        """
+        getChildren(ParticleLayout self) -> std::vector< INode const *,std::allocator< INode const * > >
+
+        virtual std::vector<const ISample*> ISample::getChildren() const
+
+        Returns a vector of children. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_getChildren(self)
 
 ParticleLayout_swigregister = _libBornAgainCore.ParticleLayout_swigregister
 ParticleLayout_swigregister(ParticleLayout)

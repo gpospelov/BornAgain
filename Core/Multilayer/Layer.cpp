@@ -99,6 +99,14 @@ double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
     return getLayout(layout_index)->getTotalParticleSurfaceDensity();
 }
 
+std::vector<const INode*> Layer::getChildren() const
+{
+    std::vector<const INode*> result;
+    for(auto layout : m_layouts)
+        result.push_back(layout);
+    return result;
+}
+
 void Layer::init_parameters()
 {
     getParameterPool()->clear(); // non-trivially needed

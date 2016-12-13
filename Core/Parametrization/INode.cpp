@@ -43,10 +43,11 @@ void INode::deregisterChild(INode* sample)
 
 std::vector<const INode *> INode::getChildren() const
 {
-    std::vector<const INode*> result;
-    for (size_t i=0; i<m_samples.size(); ++i)
-        result.push_back(m_samples[i]);
-    return result;
+    return {};
+//    std::vector<const INode*> result;
+//    for (size_t i=0; i<m_samples.size(); ++i)
+//        result.push_back(m_samples[i]);
+//    return result;
 }
 
 std::string INode::addParametersToExternalPool(

@@ -144,6 +144,14 @@ kvector_t ParticleComposition::getParticlePosition(size_t index) const
     return m_particles[check_index(index)]->getPosition();
 }
 
+std::vector<const INode*> ParticleComposition::getChildren() const
+{
+    std::vector<const INode*> result = IParticle::getChildren();
+    for(auto particle : m_particles)
+        result.push_back(particle);
+    return result;
+}
+
 size_t ParticleComposition::check_index(size_t index) const
 {
     return index < m_particles.size() ? index : throw Exceptions::OutOfBoundsException(

@@ -64,6 +64,8 @@ public:
     void setTotalParticleSurfaceDensity(double particle_density) final {
         m_total_particle_density = particle_density; }
 
+    std::vector<const INode*> getChildren() const;
+
 private:
     void addAndRegisterAbstractParticle(IAbstractParticle* child);
 

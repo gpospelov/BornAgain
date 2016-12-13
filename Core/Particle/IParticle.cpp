@@ -48,6 +48,14 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
+std::vector<const INode*> IParticle::getChildren() const
+{
+    std::vector<const INode*> result;
+    if(mP_rotation)
+        result.push_back(mP_rotation.get());
+    return result;
+}
+
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {

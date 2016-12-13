@@ -79,6 +79,13 @@ Lattice Crystal::getTransformedLattice(const IRotation* p_rotation) const
         return m_lattice;
 }
 
+std::vector<const INode*> Crystal::getChildren() const
+{
+    std::vector<const INode*> result;
+    result.push_back(mp_lattice_basis);
+    return result;
+}
+
 Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {

@@ -71,4 +71,18 @@ std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
     return v_node;
 }
 
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
+                                             const std::vector<const INode*>& other)
+{
+    v_node.insert(v_node.end(), other.begin(), other.end());
+    return v_node;
+}
+
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
+                                             const std::vector<const INode*>& other)
+{
+    v_node.insert(v_node.end(), other.begin(), other.end());
+    return v_node;
+}
+
 #endif // INODE_H

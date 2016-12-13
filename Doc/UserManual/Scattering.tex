@@ -756,15 +756,13 @@ On the surface $\partial\Sphere$,
 $G$ is an outgoing solution of the Helmholtz equation.
 As such, it has a well-known series expansion in spherical coordinates
 We send $R\to\infty$ so that we need only to retain the lowest order:
-\begin{equation}
-  \begin{array}{@{}l@{\;}c@{\;}l}
+\begin{align}
    G(\r(R,\vartheta,\varphi),\rD)
-   &\doteq&\displaystyle \frac{\e^{iKR}}{4\pi R} a(\vartheta,\varphi),
+   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} a(\vartheta,\varphi),
    \\[3.8ex]
    G(\r(R,\vartheta,\varphi),\rS)
-   &\doteq&\displaystyle \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
-  \end{array}
-\end{equation}
+   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
+\end{align}
 The factorization of $G$ and $B$ and their common $R$ dependence imply that
 \begin{equation}
   I(\rS,\rD)
@@ -790,21 +788,17 @@ The following derivation of the far-field Green function~$G_\infty$
 is a simplified rendering of Dietrich and Wagner \cite{DiWa84},
 transcribed from electromagnetic to neutron waves.
 With the differential operators
-\begin{equation}\label{EDDdef}
-  \begin{array}{@{}l}
-    \Do(\r) \coloneqq \Nabla^2+K^2, \\[1.4ex]
-    D(\r) \coloneqq \Nabla^2+k(\r)^2 = \Do + \delta k(\r)^2,
-  \end{array}
-\end{equation}
+\begin{align}
+    \Do(\r) &\coloneqq \Nabla^2+K^2, \label{EDDefVac} \\[1.2ex]
+    D(\r) &\coloneqq \Nabla^2+k(\r)^2 = \Do + \delta k(\r)^2, \label{EDDefFul}
+\end{align}
 and with $\delta k^2\coloneqq k^2-K^2$,
 we rewrite the homogeneous and inhomogeneous differential equations \cref{EHomoK}
 and~\cref{EGreenK} for plane waves and distorted waves as
-\begin{equation}\label{EHIDG}
-  \begin{array}{l@{\hspace{2em}}l}
-    \Do(\r)\pfo  (\r) = 0, &\Do(\r)\Go(\r,\r') = \delta(\r-\r'), \\[1.4ex]
-    D(\r)\psi_\sf(\r) = 0, &D(\r)  G  (\r,\r') = \delta(\r-\r').
-  \end{array}
-\end{equation}
+\begin{align}\label{EHIDG}
+    \Do(\r)\pfo  (\r) = 0, &\quad \Do(\r)\Go(\r,\r') = \delta(\r-\r'), \\[1.2ex]
+    D(\r)\psi_\sf(\r) = 0, &\quad D(\r)  G  (\r,\r') = \delta(\r-\r').
+\end{align}
 We now posit an integral equation that determines
 the full Green function $G$ if the vacuum Green function~$\Go$ is given:
 \begin{equation}\label{EGoG}
@@ -1027,28 +1021,51 @@ whereas unpolarized neutrons are described by a scalar wave function~$\psi(\r)$.
 \def\hei{\he_\si}
 \def\sif{\text{i,f}}
 
-The far-field Green function for the wave equation~\cref{EwaveE3}
-can be derived \cite{DiWa84} along the lines of~\Cref{SfarDW}
-except that differential operators and Green functions are now dyadic tensors.
-\index{Green function!distorted waves, far-field|(}%
-In place of \cref{EDDdef}, we will need the tensorial operators
-\begin{equation}
-  \begin{array}{@{}l}
-    \TDo \coloneqq \ONE(\Nabla^2+K^2)-\Nabla\cdot\Nabla, \\[1.4ex]
-    \TD  \coloneqq \TDo + \ONE\delta k(\r)^2,
-  \end{array}
-\end{equation}
+To solve~\cref{EwaveE3}, we proceed along the lines of~\Cref{SfarDW},
+based on Dietrich and Wagner~\cite{DiWa84}.
+In place of \cref{EDDefVac,EDDefFul}, we will need the tensorial operators
+\begin{align}
+    \TDo(\r) &\coloneqq \Nabla^2+K^2-\Nabla\cdot\Nabla, \\[1.2ex]
+    \TD(\r)  &\coloneqq \TDo(\r) + \delta k(\r)^2,
+\end{align}
 with $\delta k^2\coloneqq k^2-K^2$ as before.
-Based on~\cref{EwaveE3},
-we posit homogeneous differential equations for plane waves $\Eo_\sif$ and
-distorted waves $\v{E}_\sif$,
-and inhomogeneous equations that determine the corresponding Green functions:
-\begin{equation}
-  \begin{array}{l@{\hspace{2em}}l}
-    \TDo\Eo_\sif  (\r) = 0, &\TDo\TGo(\r,\r') = \ONE\delta(\r-\r'), \\[1.4ex]
-    \TD\v{E}_\sif(\r) = 0, &\TD  \TG  (\r,\r') = \ONE\delta(\r-\r').
-  \end{array}
+To describe wave propagation without scattering,
+we let $\delta v(\r)=0$,
+so that~\cref{EwaveE3} becomes a homogeneous wave equation:
+\begin{align}
+    \TDo\Eo_\sif  (\r) = 0 &\text{\strut~~in vacuum,} \label{EDGEVac}\\[1.2ex]
+    \TD\v{E}_\sif(\r) = 0 &\text{\strut~~everywhere}. \label{EDGEFul}
+\end{align}
+The incident radiation, as prepared ahead of the sample, is a solution of~\cref{EDGEVac},
+and will be assumed to have the form of a polarized plane wave,
+\begin{equation}\label{EEoi}
+   \Eo_\si(r) = \v{e}_\si\, \e^{i\k_\si\r}.
 \end{equation}
+Per the divergence theorem,
+the polarization vector~$\v{e}_\si$ must be perpendicular to the wavevector~$k_\si$.
+The actual incident radiation field~$\Ei(\r)$ inside the sample
+must be obtained by solving~\cref{EDGEFul}
+under the boundary condition that it must match~\cref{EEoi}
+in the vacuum upstream of the sample.
+
+Ultimately, the scatttered radiation will be put in relation to
+a polarized plane wave
+\begin{equation}\label{EEof}
+   \Eo_\sf(r) = \v{e}_\sf\, \e^{i\k_\sf\r}.
+\end{equation}
+In the logic of~\Cref{SfarDW},
+we need to track back this wave into the scattering medium.
+It is designated~$\Ef(\r)$, and obtained by solving~\cref{EDGEFul} under
+the boundary condition that it must match~\cref{EEof}
+in the vacuum downstream of the sample.
+
+To determine the far-field solution of the inhomogeneous wave equation~\cref{EwaveE3},
+we will use tensorial Green functions that fulfill
+\index{Green function!distorted waves, far-field|(}%
+\begin{align}
+    \TDo\TGo(\r,\r') &= \ONE\delta(\r-\r'), \\[1.2ex]
+    \TD  \TG  (\r,\r') &= \ONE\delta(\r-\r').
+\end{align}
 In analogy with \cref{EGoFF,Epfo},
 vacuum and generic solutions are related to each other through
 \begin{equation}\label{EXGoFF}
@@ -1057,17 +1074,9 @@ vacuum and generic solutions are related to each other through
 \end{equation}
 and
 \begin{equation}\label{EXpfo}
-  \Efoc(\rS) = \Efc(\rS) + \int\!\d^3r\, \Efc(\r)\delta k(\r)^2 \TGo(\r,\rS),
+  \Efoc(\rS) = \Efc(\rS) + \int\!\d^3r\, \Efc(\r)\delta k(\r)^2 \TGo(\r,\rS).
 \end{equation}
-as can be verified by operating on both sides with~$\TDo$.
-
-We only consider vacuum waves with unit amplitudes $\he_\sif$,
-\begin{equation}\label{EXee}
-  \Eo_\si(\r) = \he_\si\,\e^{i\k_\si\r}
-\text{\strut~and~\strut}
-  \Efoc(\r) = \he_\sf\,\e^{-i\k_\sf\r}
-\end{equation}
-The amplitudes must be perpendicular to the propagation directions, $\he\k=0$.
+For a quick plausibility check, operate on both sides of either equation with~$\TDo$.
 The vacuum Green function is
 \begin{equation}\label{EXGoIE}
   \TGo(\rD,\rS) = \left( \ONE - K^{-2}\Nabla\cdot\Nabla \right) \Go(\rD,\rS),
@@ -1079,27 +1088,24 @@ We will only need the far-field limit
    = \left( \ONE - \v{\hat k}_\sf\cdot\v{\hat k}_\sf \right) \phi(r_\text{D})\e^{-i\k_\sf\rS}
 \end{equation}
 with the spherical wave~$\phi$ from~\cref{Effphidef}.
-
-We multiply both sides of~\cref{EXGoFF} from the left with $\hef$,
+We multiply both sides of~\cref{EXGoFF} from the left with the polarization vector~$\v{e}_\sf$,
 and both sides of~\cref{EXpfo} with~$\phi(\rD)$ to obtain
 \begin{equation}\label{EXGoFF2}
-  \hef\phi(\rD)\e^{-i\k_\sf\rS}
-  = \hef\TG_\infty(\rD,\rS) + \int\!\d^3r\, \hef\TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS)
+  \v{e}_\sf\phi(\rD)\e^{-i\k_\sf\rS}
+  = \v{e}_\sf\TG_\infty(\rD,\rS) + \int\!\d^3r\, \hef\TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS)
 \end{equation}
 and
 \begin{equation}\label{EXpfo2}
-  \hef\phi(\rD)\e^{-i\k_\sf\rS}
+  \v{e}_\sf\phi(\rD)\e^{-i\k_\sf\rS}
   = \phi(\rD)\Efc(\rS) + \int\!\d^3r\, \phi(\rD)\Efc(\r)\delta k(\r)^2 \TGo(\r,\rS).
 \end{equation}
 Comparing both equations, we read off
 \begin{equation}\label{EGpE}
-  \hef\TG_\infty(\rD,\rS) = \phi(\rD)\Efc(\rS).
+  \v{e}_\sf\TG_\infty(\rD,\rS) = \phi(\rD)\Efc(\rS).
 \end{equation}
 This is analogous to~\cref{Epfo},
-and means that we can determine the scattered far field at the detector position~$\rD$
-by backtracking the detected plane wave $\Efc$ into the sample,
-where it differs from the vacuum wave~$\Efoc$.
-
+and confirms that we can determine the scattered far field at the detector position~$\rD$
+by backtracking the detected plane wave $\Efc$ into the sample.
 In analogy to~\cref{EBornS}, the scattered electrical field is
 \begin{equation}\label{EBornX}
   \v{E}_{\text{s}}(\r)
@@ -1108,15 +1114,16 @@ In analogy to~\cref{EBornS}, the scattered electrical field is
 The far-field component in polarization direction~$\hef$ is
 \begin{equation}
   \hef\v{E}_{\text{s}\infty}(\r)
-  = \phi(r) \int\!\d^3r'\, \Efc(\r')\delta v(\r')\v{E}_\si(\r').
+  = {|\v{e}_\sf|}^{-1}\phi(r) \int\!\d^3r'\, \Efc(\r')\delta v(\r')\v{E}_\si(\r').
 \end{equation}
-The transcription of \Cref{SdiffCross} from quantum-mechanical probability flux
-to the electrodynamical Poynting vector provides no new insights,
-and shall be skipped.
-The X-ray scattering cross section for given incoming and detected polarization is
-\begin{equation}\label{Exsection}
+The differential cross section
+is defined as in \cref{Exsectiondef},
+namely as the ratio of scattered flux through the unit sphere to incident flux.
+For electromagnetic waves in vacuum, the flux is proportional to~$|\v{E}|^2$.
+So the X-ray scattering cross section for given incoming and detected polarization is
+\begin{equation}\label{ExsectionXlong}
   \xElas
-  =  {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2
+  =  \frac{ {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2 }{|\v{e}_\si|^2\,|\v{e}_\sf|^2}
 \end{equation}
 with the scattering matrix element
 \index{Scattering!matrix}%
@@ -1124,6 +1131,22 @@ with the scattering matrix element
   \bra \Ei|\delta v|\Ef\ket
   \coloneqq  \int\!\d^3r\, \Eic(\r)\delta v(\r)\Ef(\r).
 \end{equation}
+For lighter notation,
+it is convenient to choose the vacuum plane waves \cref{EEoi,EEof} from the onset
+with normalized polarization vectors,
+\begin{equation}
+  \Eo_\si(r) = \hei\, \e^{i\k_\si\r}, \text{~and~}
+  \Eo_\sf(r) = \hef\, \e^{i\k_\sf\r},
+\end{equation}
+so that~\cref{ExsectionXlong}
+takes the simple form
+\Emph{
+\begin{equation}\label{ExsectionX}
+  \xElas
+  =  {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2
+\end{equation}
+\vspace*{-5pt}}
+in full analogy with~\cref{Exsection}.
 \index{X-ray!scattering theory|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

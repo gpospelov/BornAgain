@@ -57,10 +57,7 @@ void LayerInterface::setRoughness(const LayerRoughness& roughness)
 
 std::vector<const INode*> LayerInterface::getChildren() const
 {
-    std::vector<const INode*> result;
-    if (m_roughness)
-        result.push_back(m_roughness.get());
-    return result;
+    return std::vector<const INode*>() << m_roughness;
 }
 
 //! Sets links to the layers above and below the interface.

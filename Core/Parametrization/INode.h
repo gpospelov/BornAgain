@@ -18,6 +18,7 @@
 
 #include "IParameterized.h"
 #include <vector>
+#include <memory>
 
 class ISampleVisitor;
 
@@ -51,5 +52,23 @@ private:
     //! List of registered children.
     std::vector<INode*> m_samples;
 };
+
+template <class T>
+std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
+                                      const std::unique_ptr<T>& node)
+{
+    if (node)
+        v_node.push_back(node.get());
+    return v_node;
+}
+
+template <class T>
+std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
+                                      const std::unique_ptr<T>& node)
+{
+    if (node)
+        v_node.push_back(node.get());
+    return v_node;
+}
 
 #endif // INODE_H

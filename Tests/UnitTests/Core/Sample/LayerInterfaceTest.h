@@ -2,6 +2,7 @@
 #include "LayerInterface.h"
 #include "HomogeneousMaterial.h"
 #include "LayerRoughness.h"
+#include "BornAgainNamespace.h"
 #include <memory>
 
 class LayerInterfaceTest : public ::testing::Test
@@ -38,5 +39,5 @@ TEST_F(LayerInterfaceTest, createRoughInterface)
     EXPECT_EQ(interface->getRoughness()->getSigma(), 1.0);
     std::vector<const INode*> children =interface->getChildren();
     EXPECT_EQ(children.size(), 1u);
-    EXPECT_TRUE(dynamic_cast<const LayerRoughness*>(children.at(0)) != nullptr);
+    EXPECT_EQ(children.at(0)->getName(), BornAgain::LayerBasicRoughnessType);
 }

@@ -46,20 +46,20 @@ public:
         const IRotation* p_rotation, kvector_t translation) const final;
 
     //! Returns the core particle
-    const Particle* getCoreParticle() const { return mp_core; }
+    const Particle* getCoreParticle() const { return mp_core.get(); }
 
     //! Returns the shell particle
-    const Particle* getShellParticle() const { return mp_shell; }
+    const Particle* getShellParticle() const { return mp_shell.get(); }
 
     std::vector<const INode*> getChildren() const;
 
 protected:
     void addAndRegisterCore(const Particle& core, kvector_t relative_core_position);
     void addAndRegisterShell(const Particle& shell);
-
     ParticleCoreShell();
-    Particle* mp_shell;
-    Particle* mp_core;
+
+    std::unique_ptr<Particle> mp_shell;
+    std::unique_ptr<Particle> mp_core;
 };
 
 #endif // PARTICLECORESHELL_H

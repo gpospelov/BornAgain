@@ -107,3 +107,28 @@ TEST_F(ParticleCoreShellTest, ComplexCoreShellClone)
     EXPECT_EQ(coreshell.getCoreParticle()->getPosition(), relative_pos);
     EXPECT_EQ(clone->getCoreParticle()->getPosition(), relative_pos);
 }
+
+TEST_F(ParticleCoreShellTest, getChildren)
+{
+    HomogeneousMaterial mat("mat", 0.0, 0.0);
+    Particle core(mat, FormFactorBox(1.0, 1.0, 1.0));
+    Particle shell(mat, FormFactorFullSphere(1.0));
+    ParticleCoreShell coreshell(shell, core);
+
+    std::vector<const INode*> children = coreshell.getChildren();
+    EXPECT_EQ(children.size(), 2u);
+    EXPECT_EQ(dynamic_cast<const Particle*>(
+                  children.at(0))->getFormFactor()->getName(), BornAgain::FFBoxType);
+    EXPECT_EQ(dynamic_cast<const Particle*>(
+                  children.at(1))->getFormFactor()->getName(), BornAgain::FFFullSphereType);
+
+    // adding rotation and checking children again
+    coreshell.setRotation(RotationZ(0.1));
+    children = coreshell.getChildren();
+    EXPECT_EQ(children.size(), 3u);
+    EXPECT_EQ(children.at(0)->getName(), BornAgain::ZRotationType);
+    EXPECT_EQ(dynamic_cast<const Particle*>(
+                  children.at(1))->getFormFactor()->getName(), BornAgain::FFBoxType);
+    EXPECT_EQ(dynamic_cast<const Particle*>(
+                  children.at(2))->getFormFactor()->getName(), BornAgain::FFFullSphereType);
+}

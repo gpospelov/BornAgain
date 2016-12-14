@@ -11,4 +11,5 @@
 #include "ParticleCompositionTest.h"
 #include "ParticleLayoutTest.h"
 #include "LayerInterfaceTest.h"
+#include "ParticleDistributionTest.h"
 

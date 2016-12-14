@@ -28,7 +28,7 @@ class BA_CORE_API_ MesoCrystal : public IParticle
 {
 public:
     MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor);
-    MesoCrystal(const IClusteredParticles& particle_structure, IFormFactor& form_factor);
+    MesoCrystal(const IClusteredParticles& particle_structure, const IFormFactor& form_factor);
 
     virtual ~MesoCrystal();
     virtual MesoCrystal* clone() const;

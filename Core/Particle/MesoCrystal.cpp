@@ -25,7 +25,8 @@ MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor*
     initialize();
 }
 
-MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure, IFormFactor& form_factor)
+MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
+                         const IFormFactor& form_factor)
     : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
 {
     initialize();

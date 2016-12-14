@@ -38,9 +38,6 @@ public:
 
     void registerChild(INode* sample);
 
-    //! Removes registered child from the container
-    void deregisterChild(INode *sample);
-
     //! Returns a vector of children (const).
     virtual std::vector<const INode*> getChildren() const;
 

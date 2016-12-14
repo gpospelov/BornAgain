@@ -32,15 +32,6 @@ void INode::registerChild(INode *sample)
     m_samples.push_back(sample);
 }
 
-//! remove registered child from the container
-
-void INode::deregisterChild(INode* sample)
-{
-    auto it = std::find(m_samples.begin(), m_samples.end(), sample);
-    if (it != m_samples.end())
-        m_samples.erase(it);
-}
-
 std::vector<const INode *> INode::getChildren() const
 {
     return {};

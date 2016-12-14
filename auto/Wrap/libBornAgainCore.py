@@ -2030,11 +2030,6 @@ class INode(IParameterized):
         return _libBornAgainCore.INode_registerChild(self, sample)
 
 
-    def deregisterChild(self, sample):
-        """deregisterChild(INode self, INode sample)"""
-        return _libBornAgainCore.INode_deregisterChild(self, sample)
-
-
     def getChildren(self):
         """getChildren(INode self) -> std::vector< INode const *,std::allocator< INode const * > >"""
         return _libBornAgainCore.INode_getChildren(self)

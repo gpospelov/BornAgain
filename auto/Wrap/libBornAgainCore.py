@@ -2031,7 +2031,7 @@ class INode(IParameterized):
 
 
     def getChildren(self):
-        """getChildren(INode self) -> std::vector< INode const *,std::allocator< INode const * > >"""
+        """getChildren(INode self) -> swig_dummy_type_const_inode_vector"""
         return _libBornAgainCore.INode_getChildren(self)
 
     def __disown__(self):
@@ -2050,6 +2050,430 @@ class INode(IParameterized):
 
 INode_swigregister = _libBornAgainCore.INode_swigregister
 INode_swigregister(INode)
+
+class swig_dummy_type_inode_vector(_object):
+    """Proxy of C++ std::vector<(p.INode)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, swig_dummy_type_inode_vector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, swig_dummy_type_inode_vector, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        """iterator(swig_dummy_type_inode_vector self) -> SwigPyIterator"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_iterator(self)
+
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        """__nonzero__(swig_dummy_type_inode_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector___nonzero__(self)
+
+
+    def __bool__(self):
+        """__bool__(swig_dummy_type_inode_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector___bool__(self)
+
+
+    def __len__(self):
+        """__len__(swig_dummy_type_inode_vector self) -> std::vector< INode * >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector___len__(self)
+
+
+    def __getslice__(self, i, j):
+        """__getslice__(swig_dummy_type_inode_vector self, std::vector< INode * >::difference_type i, std::vector< INode * >::difference_type j) -> swig_dummy_type_inode_vector"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector___getslice__(self, i, j)
+
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(swig_dummy_type_inode_vector self, std::vector< INode * >::difference_type i, std::vector< INode * >::difference_type j)
+        __setslice__(swig_dummy_type_inode_vector self, std::vector< INode * >::difference_type i, std::vector< INode * >::difference_type j, swig_dummy_type_inode_vector v)
+        """
+        return _libBornAgainCore.swig_dummy_type_inode_vector___setslice__(self, *args)
+
+
+    def __delslice__(self, i, j):
+        """__delslice__(swig_dummy_type_inode_vector self, std::vector< INode * >::difference_type i, std::vector< INode * >::difference_type j)"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector___delslice__(self, i, j)
+
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(swig_dummy_type_inode_vector self, std::vector< INode * >::difference_type i)
+        __delitem__(swig_dummy_type_inode_vector self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.swig_dummy_type_inode_vector___delitem__(self, *args)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(swig_dummy_type_inode_vector self, PySliceObject * slice) -> swig_dummy_type_inode_vector
+        __getitem__(swig_dummy_type_inode_vector self, std::vector< INode * >::difference_type i) -> INode
+        """
+        return _libBornAgainCore.swig_dummy_type_inode_vector___getitem__(self, *args)
+
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(swig_dummy_type_inode_vector self, PySliceObject * slice, swig_dummy_type_inode_vector v)
+        __setitem__(swig_dummy_type_inode_vector self, PySliceObject * slice)
+        __setitem__(swig_dummy_type_inode_vector self, std::vector< INode * >::difference_type i, INode x)
+        """
+        return _libBornAgainCore.swig_dummy_type_inode_vector___setitem__(self, *args)
+
+
+    def pop(self):
+        """pop(swig_dummy_type_inode_vector self) -> INode"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_pop(self)
+
+
+    def append(self, x):
+        """append(swig_dummy_type_inode_vector self, INode x)"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_append(self, x)
+
+
+    def empty(self):
+        """empty(swig_dummy_type_inode_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_empty(self)
+
+
+    def size(self):
+        """size(swig_dummy_type_inode_vector self) -> std::vector< INode * >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_size(self)
+
+
+    def swap(self, v):
+        """
+        swap(swig_dummy_type_inode_vector self, swig_dummy_type_inode_vector v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.swig_dummy_type_inode_vector_swap(self, v)
+
+
+    def begin(self):
+        """begin(swig_dummy_type_inode_vector self) -> std::vector< INode * >::iterator"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_begin(self)
+
+
+    def end(self):
+        """end(swig_dummy_type_inode_vector self) -> std::vector< INode * >::iterator"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_end(self)
+
+
+    def rbegin(self):
+        """rbegin(swig_dummy_type_inode_vector self) -> std::vector< INode * >::reverse_iterator"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_rbegin(self)
+
+
+    def rend(self):
+        """rend(swig_dummy_type_inode_vector self) -> std::vector< INode * >::reverse_iterator"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_rend(self)
+
+
+    def clear(self):
+        """clear(swig_dummy_type_inode_vector self)"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_clear(self)
+
+
+    def get_allocator(self):
+        """get_allocator(swig_dummy_type_inode_vector self) -> std::vector< INode * >::allocator_type"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_get_allocator(self)
+
+
+    def pop_back(self):
+        """pop_back(swig_dummy_type_inode_vector self)"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_pop_back(self)
+
+
+    def erase(self, *args):
+        """
+        erase(swig_dummy_type_inode_vector self, std::vector< INode * >::iterator pos) -> std::vector< INode * >::iterator
+        erase(swig_dummy_type_inode_vector self, std::vector< INode * >::iterator first, std::vector< INode * >::iterator last) -> std::vector< INode * >::iterator
+        """
+        return _libBornAgainCore.swig_dummy_type_inode_vector_erase(self, *args)
+
+
+    def __init__(self, *args):
+        """
+        __init__(std::vector<(p.INode)> self) -> swig_dummy_type_inode_vector
+        __init__(std::vector<(p.INode)> self, swig_dummy_type_inode_vector arg2) -> swig_dummy_type_inode_vector
+        __init__(std::vector<(p.INode)> self, std::vector< INode * >::size_type size) -> swig_dummy_type_inode_vector
+        __init__(std::vector<(p.INode)> self, std::vector< INode * >::size_type size, INode value) -> swig_dummy_type_inode_vector
+        """
+        this = _libBornAgainCore.new_swig_dummy_type_inode_vector(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def push_back(self, x):
+        """push_back(swig_dummy_type_inode_vector self, INode x)"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_push_back(self, x)
+
+
+    def front(self):
+        """front(swig_dummy_type_inode_vector self) -> INode"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_front(self)
+
+
+    def back(self):
+        """back(swig_dummy_type_inode_vector self) -> INode"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_back(self)
+
+
+    def assign(self, n, x):
+        """assign(swig_dummy_type_inode_vector self, std::vector< INode * >::size_type n, INode x)"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_assign(self, n, x)
+
+
+    def resize(self, *args):
+        """
+        resize(swig_dummy_type_inode_vector self, std::vector< INode * >::size_type new_size)
+        resize(swig_dummy_type_inode_vector self, std::vector< INode * >::size_type new_size, INode x)
+        """
+        return _libBornAgainCore.swig_dummy_type_inode_vector_resize(self, *args)
+
+
+    def insert(self, *args):
+        """
+        insert(swig_dummy_type_inode_vector self, std::vector< INode * >::iterator pos, INode x) -> std::vector< INode * >::iterator
+        insert(swig_dummy_type_inode_vector self, std::vector< INode * >::iterator pos, std::vector< INode * >::size_type n, INode x)
+        """
+        return _libBornAgainCore.swig_dummy_type_inode_vector_insert(self, *args)
+
+
+    def reserve(self, n):
+        """reserve(swig_dummy_type_inode_vector self, std::vector< INode * >::size_type n)"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_reserve(self, n)
+
+
+    def capacity(self):
+        """capacity(swig_dummy_type_inode_vector self) -> std::vector< INode * >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_inode_vector_capacity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_swig_dummy_type_inode_vector
+    __del__ = lambda self: None
+swig_dummy_type_inode_vector_swigregister = _libBornAgainCore.swig_dummy_type_inode_vector_swigregister
+swig_dummy_type_inode_vector_swigregister(swig_dummy_type_inode_vector)
+
+class swig_dummy_type_const_inode_vector(_object):
+    """Proxy of C++ std::vector<(p.q(const).INode)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, swig_dummy_type_const_inode_vector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, swig_dummy_type_const_inode_vector, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        """iterator(swig_dummy_type_const_inode_vector self) -> SwigPyIterator"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_iterator(self)
+
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        """__nonzero__(swig_dummy_type_const_inode_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___nonzero__(self)
+
+
+    def __bool__(self):
+        """__bool__(swig_dummy_type_const_inode_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___bool__(self)
+
+
+    def __len__(self):
+        """__len__(swig_dummy_type_const_inode_vector self) -> std::vector< INode const * >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___len__(self)
+
+
+    def __getslice__(self, i, j):
+        """__getslice__(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::difference_type i, std::vector< INode const * >::difference_type j) -> swig_dummy_type_const_inode_vector"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___getslice__(self, i, j)
+
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::difference_type i, std::vector< INode const * >::difference_type j)
+        __setslice__(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::difference_type i, std::vector< INode const * >::difference_type j, swig_dummy_type_const_inode_vector v)
+        """
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___setslice__(self, *args)
+
+
+    def __delslice__(self, i, j):
+        """__delslice__(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::difference_type i, std::vector< INode const * >::difference_type j)"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___delslice__(self, i, j)
+
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::difference_type i)
+        __delitem__(swig_dummy_type_const_inode_vector self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___delitem__(self, *args)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(swig_dummy_type_const_inode_vector self, PySliceObject * slice) -> swig_dummy_type_const_inode_vector
+        __getitem__(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::difference_type i) -> INode
+        """
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___getitem__(self, *args)
+
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(swig_dummy_type_const_inode_vector self, PySliceObject * slice, swig_dummy_type_const_inode_vector v)
+        __setitem__(swig_dummy_type_const_inode_vector self, PySliceObject * slice)
+        __setitem__(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::difference_type i, INode x)
+        """
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector___setitem__(self, *args)
+
+
+    def pop(self):
+        """pop(swig_dummy_type_const_inode_vector self) -> INode"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_pop(self)
+
+
+    def append(self, x):
+        """append(swig_dummy_type_const_inode_vector self, INode x)"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_append(self, x)
+
+
+    def empty(self):
+        """empty(swig_dummy_type_const_inode_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_empty(self)
+
+
+    def size(self):
+        """size(swig_dummy_type_const_inode_vector self) -> std::vector< INode const * >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_size(self)
+
+
+    def swap(self, v):
+        """
+        swap(swig_dummy_type_const_inode_vector self, swig_dummy_type_const_inode_vector v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_swap(self, v)
+
+
+    def begin(self):
+        """begin(swig_dummy_type_const_inode_vector self) -> std::vector< INode const * >::iterator"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_begin(self)
+
+
+    def end(self):
+        """end(swig_dummy_type_const_inode_vector self) -> std::vector< INode const * >::iterator"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_end(self)
+
+
+    def rbegin(self):
+        """rbegin(swig_dummy_type_const_inode_vector self) -> std::vector< INode const * >::reverse_iterator"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_rbegin(self)
+
+
+    def rend(self):
+        """rend(swig_dummy_type_const_inode_vector self) -> std::vector< INode const * >::reverse_iterator"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_rend(self)
+
+
+    def clear(self):
+        """clear(swig_dummy_type_const_inode_vector self)"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_clear(self)
+
+
+    def get_allocator(self):
+        """get_allocator(swig_dummy_type_const_inode_vector self) -> std::vector< INode const * >::allocator_type"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_get_allocator(self)
+
+
+    def pop_back(self):
+        """pop_back(swig_dummy_type_const_inode_vector self)"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_pop_back(self)
+
+
+    def erase(self, *args):
+        """
+        erase(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::iterator pos) -> std::vector< INode const * >::iterator
+        erase(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::iterator first, std::vector< INode const * >::iterator last) -> std::vector< INode const * >::iterator
+        """
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_erase(self, *args)
+
+
+    def __init__(self, *args):
+        """
+        __init__(std::vector<(p.q(const).INode)> self) -> swig_dummy_type_const_inode_vector
+        __init__(std::vector<(p.q(const).INode)> self, swig_dummy_type_const_inode_vector arg2) -> swig_dummy_type_const_inode_vector
+        __init__(std::vector<(p.q(const).INode)> self, std::vector< INode const * >::size_type size) -> swig_dummy_type_const_inode_vector
+        __init__(std::vector<(p.q(const).INode)> self, std::vector< INode const * >::size_type size, INode value) -> swig_dummy_type_const_inode_vector
+        """
+        this = _libBornAgainCore.new_swig_dummy_type_const_inode_vector(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def push_back(self, x):
+        """push_back(swig_dummy_type_const_inode_vector self, INode x)"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_push_back(self, x)
+
+
+    def front(self):
+        """front(swig_dummy_type_const_inode_vector self) -> INode"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_front(self)
+
+
+    def back(self):
+        """back(swig_dummy_type_const_inode_vector self) -> INode"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_back(self)
+
+
+    def assign(self, n, x):
+        """assign(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::size_type n, INode x)"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_assign(self, n, x)
+
+
+    def resize(self, *args):
+        """
+        resize(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::size_type new_size)
+        resize(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::size_type new_size, INode x)
+        """
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_resize(self, *args)
+
+
+    def insert(self, *args):
+        """
+        insert(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::iterator pos, INode x) -> std::vector< INode const * >::iterator
+        insert(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::iterator pos, std::vector< INode const * >::size_type n, INode x)
+        """
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_insert(self, *args)
+
+
+    def reserve(self, n):
+        """reserve(swig_dummy_type_const_inode_vector self, std::vector< INode const * >::size_type n)"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_reserve(self, n)
+
+
+    def capacity(self):
+        """capacity(swig_dummy_type_const_inode_vector self) -> std::vector< INode const * >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_const_inode_vector_capacity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_swig_dummy_type_const_inode_vector
+    __del__ = lambda self: None
+swig_dummy_type_const_inode_vector_swigregister = _libBornAgainCore.swig_dummy_type_const_inode_vector_swigregister
+swig_dummy_type_const_inode_vector_swigregister(swig_dummy_type_const_inode_vector)
 
 class kvector_t(_object):
     """
@@ -4198,430 +4622,6 @@ class ISample(ICloneable, INode):
 
 ISample_swigregister = _libBornAgainCore.ISample_swigregister
 ISample_swigregister(ISample)
-
-class swig_dummy_type_isample_vector(_object):
-    """Proxy of C++ std::vector<(p.ISample)> class."""
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, swig_dummy_type_isample_vector, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, swig_dummy_type_isample_vector, name)
-    __repr__ = _swig_repr
-
-    def iterator(self):
-        """iterator(swig_dummy_type_isample_vector self) -> SwigPyIterator"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_iterator(self)
-
-    def __iter__(self):
-        return self.iterator()
-
-    def __nonzero__(self):
-        """__nonzero__(swig_dummy_type_isample_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector___nonzero__(self)
-
-
-    def __bool__(self):
-        """__bool__(swig_dummy_type_isample_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector___bool__(self)
-
-
-    def __len__(self):
-        """__len__(swig_dummy_type_isample_vector self) -> std::vector< ISample * >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector___len__(self)
-
-
-    def __getslice__(self, i, j):
-        """__getslice__(swig_dummy_type_isample_vector self, std::vector< ISample * >::difference_type i, std::vector< ISample * >::difference_type j) -> swig_dummy_type_isample_vector"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector___getslice__(self, i, j)
-
-
-    def __setslice__(self, *args):
-        """
-        __setslice__(swig_dummy_type_isample_vector self, std::vector< ISample * >::difference_type i, std::vector< ISample * >::difference_type j)
-        __setslice__(swig_dummy_type_isample_vector self, std::vector< ISample * >::difference_type i, std::vector< ISample * >::difference_type j, swig_dummy_type_isample_vector v)
-        """
-        return _libBornAgainCore.swig_dummy_type_isample_vector___setslice__(self, *args)
-
-
-    def __delslice__(self, i, j):
-        """__delslice__(swig_dummy_type_isample_vector self, std::vector< ISample * >::difference_type i, std::vector< ISample * >::difference_type j)"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector___delslice__(self, i, j)
-
-
-    def __delitem__(self, *args):
-        """
-        __delitem__(swig_dummy_type_isample_vector self, std::vector< ISample * >::difference_type i)
-        __delitem__(swig_dummy_type_isample_vector self, PySliceObject * slice)
-        """
-        return _libBornAgainCore.swig_dummy_type_isample_vector___delitem__(self, *args)
-
-
-    def __getitem__(self, *args):
-        """
-        __getitem__(swig_dummy_type_isample_vector self, PySliceObject * slice) -> swig_dummy_type_isample_vector
-        __getitem__(swig_dummy_type_isample_vector self, std::vector< ISample * >::difference_type i) -> ISample
-        """
-        return _libBornAgainCore.swig_dummy_type_isample_vector___getitem__(self, *args)
-
-
-    def __setitem__(self, *args):
-        """
-        __setitem__(swig_dummy_type_isample_vector self, PySliceObject * slice, swig_dummy_type_isample_vector v)
-        __setitem__(swig_dummy_type_isample_vector self, PySliceObject * slice)
-        __setitem__(swig_dummy_type_isample_vector self, std::vector< ISample * >::difference_type i, ISample x)
-        """
-        return _libBornAgainCore.swig_dummy_type_isample_vector___setitem__(self, *args)
-
-
-    def pop(self):
-        """pop(swig_dummy_type_isample_vector self) -> ISample"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_pop(self)
-
-
-    def append(self, x):
-        """append(swig_dummy_type_isample_vector self, ISample x)"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_append(self, x)
-
-
-    def empty(self):
-        """empty(swig_dummy_type_isample_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_empty(self)
-
-
-    def size(self):
-        """size(swig_dummy_type_isample_vector self) -> std::vector< ISample * >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_size(self)
-
-
-    def swap(self, v):
-        """
-        swap(swig_dummy_type_isample_vector self, swig_dummy_type_isample_vector v)
-
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
-        return _libBornAgainCore.swig_dummy_type_isample_vector_swap(self, v)
-
-
-    def begin(self):
-        """begin(swig_dummy_type_isample_vector self) -> std::vector< ISample * >::iterator"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_begin(self)
-
-
-    def end(self):
-        """end(swig_dummy_type_isample_vector self) -> std::vector< ISample * >::iterator"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_end(self)
-
-
-    def rbegin(self):
-        """rbegin(swig_dummy_type_isample_vector self) -> std::vector< ISample * >::reverse_iterator"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_rbegin(self)
-
-
-    def rend(self):
-        """rend(swig_dummy_type_isample_vector self) -> std::vector< ISample * >::reverse_iterator"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_rend(self)
-
-
-    def clear(self):
-        """clear(swig_dummy_type_isample_vector self)"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_clear(self)
-
-
-    def get_allocator(self):
-        """get_allocator(swig_dummy_type_isample_vector self) -> std::vector< ISample * >::allocator_type"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_get_allocator(self)
-
-
-    def pop_back(self):
-        """pop_back(swig_dummy_type_isample_vector self)"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_pop_back(self)
-
-
-    def erase(self, *args):
-        """
-        erase(swig_dummy_type_isample_vector self, std::vector< ISample * >::iterator pos) -> std::vector< ISample * >::iterator
-        erase(swig_dummy_type_isample_vector self, std::vector< ISample * >::iterator first, std::vector< ISample * >::iterator last) -> std::vector< ISample * >::iterator
-        """
-        return _libBornAgainCore.swig_dummy_type_isample_vector_erase(self, *args)
-
-
-    def __init__(self, *args):
-        """
-        __init__(std::vector<(p.ISample)> self) -> swig_dummy_type_isample_vector
-        __init__(std::vector<(p.ISample)> self, swig_dummy_type_isample_vector arg2) -> swig_dummy_type_isample_vector
-        __init__(std::vector<(p.ISample)> self, std::vector< ISample * >::size_type size) -> swig_dummy_type_isample_vector
-        __init__(std::vector<(p.ISample)> self, std::vector< ISample * >::size_type size, ISample value) -> swig_dummy_type_isample_vector
-        """
-        this = _libBornAgainCore.new_swig_dummy_type_isample_vector(*args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def push_back(self, x):
-        """push_back(swig_dummy_type_isample_vector self, ISample x)"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_push_back(self, x)
-
-
-    def front(self):
-        """front(swig_dummy_type_isample_vector self) -> ISample"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_front(self)
-
-
-    def back(self):
-        """back(swig_dummy_type_isample_vector self) -> ISample"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_back(self)
-
-
-    def assign(self, n, x):
-        """assign(swig_dummy_type_isample_vector self, std::vector< ISample * >::size_type n, ISample x)"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_assign(self, n, x)
-
-
-    def resize(self, *args):
-        """
-        resize(swig_dummy_type_isample_vector self, std::vector< ISample * >::size_type new_size)
-        resize(swig_dummy_type_isample_vector self, std::vector< ISample * >::size_type new_size, ISample x)
-        """
-        return _libBornAgainCore.swig_dummy_type_isample_vector_resize(self, *args)
-
-
-    def insert(self, *args):
-        """
-        insert(swig_dummy_type_isample_vector self, std::vector< ISample * >::iterator pos, ISample x) -> std::vector< ISample * >::iterator
-        insert(swig_dummy_type_isample_vector self, std::vector< ISample * >::iterator pos, std::vector< ISample * >::size_type n, ISample x)
-        """
-        return _libBornAgainCore.swig_dummy_type_isample_vector_insert(self, *args)
-
-
-    def reserve(self, n):
-        """reserve(swig_dummy_type_isample_vector self, std::vector< ISample * >::size_type n)"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_reserve(self, n)
-
-
-    def capacity(self):
-        """capacity(swig_dummy_type_isample_vector self) -> std::vector< ISample * >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_isample_vector_capacity(self)
-
-    __swig_destroy__ = _libBornAgainCore.delete_swig_dummy_type_isample_vector
-    __del__ = lambda self: None
-swig_dummy_type_isample_vector_swigregister = _libBornAgainCore.swig_dummy_type_isample_vector_swigregister
-swig_dummy_type_isample_vector_swigregister(swig_dummy_type_isample_vector)
-
-class swig_dummy_type_const_isample_vector(_object):
-    """Proxy of C++ std::vector<(p.q(const).ISample)> class."""
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, swig_dummy_type_const_isample_vector, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, swig_dummy_type_const_isample_vector, name)
-    __repr__ = _swig_repr
-
-    def iterator(self):
-        """iterator(swig_dummy_type_const_isample_vector self) -> SwigPyIterator"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_iterator(self)
-
-    def __iter__(self):
-        return self.iterator()
-
-    def __nonzero__(self):
-        """__nonzero__(swig_dummy_type_const_isample_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___nonzero__(self)
-
-
-    def __bool__(self):
-        """__bool__(swig_dummy_type_const_isample_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___bool__(self)
-
-
-    def __len__(self):
-        """__len__(swig_dummy_type_const_isample_vector self) -> std::vector< ISample const * >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___len__(self)
-
-
-    def __getslice__(self, i, j):
-        """__getslice__(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::difference_type i, std::vector< ISample const * >::difference_type j) -> swig_dummy_type_const_isample_vector"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___getslice__(self, i, j)
-
-
-    def __setslice__(self, *args):
-        """
-        __setslice__(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::difference_type i, std::vector< ISample const * >::difference_type j)
-        __setslice__(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::difference_type i, std::vector< ISample const * >::difference_type j, swig_dummy_type_const_isample_vector v)
-        """
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___setslice__(self, *args)
-
-
-    def __delslice__(self, i, j):
-        """__delslice__(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::difference_type i, std::vector< ISample const * >::difference_type j)"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___delslice__(self, i, j)
-
-
-    def __delitem__(self, *args):
-        """
-        __delitem__(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::difference_type i)
-        __delitem__(swig_dummy_type_const_isample_vector self, PySliceObject * slice)
-        """
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___delitem__(self, *args)
-
-
-    def __getitem__(self, *args):
-        """
-        __getitem__(swig_dummy_type_const_isample_vector self, PySliceObject * slice) -> swig_dummy_type_const_isample_vector
-        __getitem__(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::difference_type i) -> ISample
-        """
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___getitem__(self, *args)
-
-
-    def __setitem__(self, *args):
-        """
-        __setitem__(swig_dummy_type_const_isample_vector self, PySliceObject * slice, swig_dummy_type_const_isample_vector v)
-        __setitem__(swig_dummy_type_const_isample_vector self, PySliceObject * slice)
-        __setitem__(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::difference_type i, ISample x)
-        """
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector___setitem__(self, *args)
-
-
-    def pop(self):
-        """pop(swig_dummy_type_const_isample_vector self) -> ISample"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_pop(self)
-
-
-    def append(self, x):
-        """append(swig_dummy_type_const_isample_vector self, ISample x)"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_append(self, x)
-
-
-    def empty(self):
-        """empty(swig_dummy_type_const_isample_vector self) -> bool"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_empty(self)
-
-
-    def size(self):
-        """size(swig_dummy_type_const_isample_vector self) -> std::vector< ISample const * >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_size(self)
-
-
-    def swap(self, v):
-        """
-        swap(swig_dummy_type_const_isample_vector self, swig_dummy_type_const_isample_vector v)
-
-        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
-
-        make Swappable 
-
-        """
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_swap(self, v)
-
-
-    def begin(self):
-        """begin(swig_dummy_type_const_isample_vector self) -> std::vector< ISample const * >::iterator"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_begin(self)
-
-
-    def end(self):
-        """end(swig_dummy_type_const_isample_vector self) -> std::vector< ISample const * >::iterator"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_end(self)
-
-
-    def rbegin(self):
-        """rbegin(swig_dummy_type_const_isample_vector self) -> std::vector< ISample const * >::reverse_iterator"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_rbegin(self)
-
-
-    def rend(self):
-        """rend(swig_dummy_type_const_isample_vector self) -> std::vector< ISample const * >::reverse_iterator"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_rend(self)
-
-
-    def clear(self):
-        """clear(swig_dummy_type_const_isample_vector self)"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_clear(self)
-
-
-    def get_allocator(self):
-        """get_allocator(swig_dummy_type_const_isample_vector self) -> std::vector< ISample const * >::allocator_type"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_get_allocator(self)
-
-
-    def pop_back(self):
-        """pop_back(swig_dummy_type_const_isample_vector self)"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_pop_back(self)
-
-
-    def erase(self, *args):
-        """
-        erase(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::iterator pos) -> std::vector< ISample const * >::iterator
-        erase(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::iterator first, std::vector< ISample const * >::iterator last) -> std::vector< ISample const * >::iterator
-        """
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_erase(self, *args)
-
-
-    def __init__(self, *args):
-        """
-        __init__(std::vector<(p.q(const).ISample)> self) -> swig_dummy_type_const_isample_vector
-        __init__(std::vector<(p.q(const).ISample)> self, swig_dummy_type_const_isample_vector arg2) -> swig_dummy_type_const_isample_vector
-        __init__(std::vector<(p.q(const).ISample)> self, std::vector< ISample const * >::size_type size) -> swig_dummy_type_const_isample_vector
-        __init__(std::vector<(p.q(const).ISample)> self, std::vector< ISample const * >::size_type size, ISample value) -> swig_dummy_type_const_isample_vector
-        """
-        this = _libBornAgainCore.new_swig_dummy_type_const_isample_vector(*args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def push_back(self, x):
-        """push_back(swig_dummy_type_const_isample_vector self, ISample x)"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_push_back(self, x)
-
-
-    def front(self):
-        """front(swig_dummy_type_const_isample_vector self) -> ISample"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_front(self)
-
-
-    def back(self):
-        """back(swig_dummy_type_const_isample_vector self) -> ISample"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_back(self)
-
-
-    def assign(self, n, x):
-        """assign(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::size_type n, ISample x)"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_assign(self, n, x)
-
-
-    def resize(self, *args):
-        """
-        resize(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::size_type new_size)
-        resize(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::size_type new_size, ISample x)
-        """
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_resize(self, *args)
-
-
-    def insert(self, *args):
-        """
-        insert(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::iterator pos, ISample x) -> std::vector< ISample const * >::iterator
-        insert(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::iterator pos, std::vector< ISample const * >::size_type n, ISample x)
-        """
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_insert(self, *args)
-
-
-    def reserve(self, n):
-        """reserve(swig_dummy_type_const_isample_vector self, std::vector< ISample const * >::size_type n)"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_reserve(self, n)
-
-
-    def capacity(self):
-        """capacity(swig_dummy_type_const_isample_vector self) -> std::vector< ISample const * >::size_type"""
-        return _libBornAgainCore.swig_dummy_type_const_isample_vector_capacity(self)
-
-    __swig_destroy__ = _libBornAgainCore.delete_swig_dummy_type_const_isample_vector
-    __del__ = lambda self: None
-swig_dummy_type_const_isample_vector_swigregister = _libBornAgainCore.swig_dummy_type_const_isample_vector_swigregister
-swig_dummy_type_const_isample_vector_swigregister(swig_dummy_type_const_isample_vector)
 
 class IChiSquaredModule(ICloneable):
     """
@@ -7451,7 +7451,7 @@ class Crystal(IClusteredParticles):
 
     def getChildren(self):
         """
-        getChildren(Crystal self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -17975,7 +17975,7 @@ class IParticle(IAbstractParticle):
 
     def getChildren(self):
         """
-        getChildren(IParticle self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -20597,7 +20597,7 @@ class Layer(ISample):
 
     def getChildren(self):
         """
-        getChildren(Layer self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(Layer self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -21145,7 +21145,7 @@ class MesoCrystal(IParticle):
 
     def getChildren(self):
         """
-        getChildren(MesoCrystal self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -21573,7 +21573,7 @@ class MultiLayer(ISample):
 
     def getChildren(self):
         """
-        getChildren(MultiLayer self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -22964,7 +22964,7 @@ class Particle(IParticle):
 
     def getChildren(self):
         """
-        getChildren(Particle self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(Particle self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -23145,7 +23145,7 @@ class ParticleComposition(IParticle):
 
     def getChildren(self):
         """
-        getChildren(ParticleComposition self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -23277,7 +23277,7 @@ class ParticleCoreShell(IParticle):
 
     def getChildren(self):
         """
-        getChildren(ParticleCoreShell self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -23422,7 +23422,7 @@ class ParticleDistribution(IAbstractParticle):
 
     def getChildren(self):
         """
-        getChildren(ParticleDistribution self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 
@@ -23649,7 +23649,7 @@ class ParticleLayout(ILayout):
 
     def getChildren(self):
         """
-        getChildren(ParticleLayout self) -> std::vector< INode const *,std::allocator< INode const * > >
+        getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
 
         virtual std::vector<const ISample*> ISample::getChildren() const
 

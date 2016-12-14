@@ -29,6 +29,7 @@ void INode::registerChild(INode *sample)
     if(!sample)
         throw Exceptions::NullPointerException(
             "ISample::registerChild -> Error. Null pointer.");
+    // TODO sample->setParent(this) here
 }
 
 std::vector<const INode *> INode::getChildren() const

@@ -256,6 +256,10 @@
 %include "IParameterized.h"
 %include "INode.h"
 
+// need to tell SWIG explicitly to instantiate these templates with given types
+%template(swig_dummy_type_inode_vector) std::vector<INode*>;
+%template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
+
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) BasicVector3D<double>;
 %template(vector_kvector_t) std::vector<BasicVector3D<double>>;
@@ -277,11 +281,6 @@
 
 %include "IShape2D.h"
 %include "ISample.h"
-
-// need to tell SWIG explicitly to instantiate these templates with given types
-%template(swig_dummy_type_isample_vector) std::vector<ISample*>;
-%template(swig_dummy_type_const_isample_vector) std::vector<const ISample*>;
-
 %include "IChiSquaredModule.h"
 %include "IObserver.h"
 %include "IFitObserver.h"

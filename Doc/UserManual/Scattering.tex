@@ -704,89 +704,20 @@ of the Green function equation~\cref{EGreenK}.
 We will use indirect arguments to directly obtain its far-field asymptote $G_\infty$.
 
 %===============================================================================
-\subsection{Reciprocity of the Green function}\label{SReci}
-%===============================================================================
-
-Our computation of~$G_\infty$ will be based on a source-detector \E{reciprocity theorem}
-\index{Reciprocity|(}%
-\index{Green function!reciprocity}%
-for the scalar Schrödinger equation.\footnote
-{There exists a confusing multitude of reciprocity theorems \cite{Pot04}.
-In the end, we found it simpler to provide a derivation taylored for our application case
-than to refer to the literature.}
-The theorem states:
-Any Green function $G(\r,\r')$
-that solves~\cref{EGreenK} and as function of~$\r$ represents an outgoing wave
-[in accord with the Sommerfeld radiation condition,
-\index{Sommerfeld radiation condition}%
-\index{Radiation condition}%
-cf.~\cref{Escabouco}]
-is invariant under an exchange of source location~$\rS$ and detection point~$\rD$:
-\nomenclature[2r041 2d100]{$\rD$}{Position of detector}%
-\nomenclature[2r041 2s100]{$\rD$}{Position of source, locus of scattering}%
-\begin{equation}\label{Erecip}
-  G(\rS,\rD) = G(\rD,\rS).
-\end{equation}
-Readers not interested in mathematical details may skip the following \E{proof}:
-
-We introduce the auxiliary vector field
-\begin{equation}
-  \v{X}(\r,\rS,\rD)\coloneqq G(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla G(\r,\rD).
-\end{equation}
-%\nomenclature[2x150 2r040]{$\v{X}(\r,\rS,\rD)$}{Auxiliary vector field}%
-We inscribe the sample and the detector
-into a sphere $\Sphere$ around the coordinate origin with radius~$R$,
-%\nomenclature[2s180]{$\Sphere$}{Auxiliary spherical volume}%
-%\nomenclature[2r120]{$R$}{Radius of $\Sphere$}%
-and compute the volume integral
-\begin{equation}\label{Eprerecipro}
-    I(\rS,\rD) \coloneqq \displaystyle\int_\Sphere\!\d^3r\,\Nabla \v{X}(\r,\rS,\rD).
-\end{equation}
-After a few steps, not entirely trivial, but not too difficult either,
-we obtain
-\begin{equation}\label{EIBD}
-  I(\rS,\rD) = G(\rS,\rD) - G(\rD,\rS).
-\end{equation}
-Alternatively, we can compute $I$ as a surface integral
-\begin{equation}
-  I(\rS,\rD)
-  =\displaystyle\int_{\partial\Sphere}\d\v{\sigma}\,\v{X}(\r,\rS,\rD).
-\end{equation}
-On the surface $\partial\Sphere$,
-$G$ is an outgoing solution of the Helmholtz equation.
-As such, it has a well-known series expansion in spherical coordinates
-We send $R\to\infty$ so that we need only to retain the lowest order:
-\begin{align}
-   G(\r(R,\vartheta,\varphi),\rD)
-   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} a(\vartheta,\varphi),
-   \\[3.8ex]
-   G(\r(R,\vartheta,\varphi),\rS)
-   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
-\end{align}
-The factorization of $G$ and $B$ and their common $R$ dependence imply that
-\begin{equation}
-  I(\rS,\rD)
-  =\displaystyle\int_{\partial\Sphere}\d\sigma\,
-       (\text{$R$-dependent})(ab-ba)
-  = 0.
-\end{equation}
-Comparison with \cref{EIBD} yields \cref{Erecip},
-which completes the proof.
-
-\index{Reciprocity|)}%
-
-%===============================================================================
 \subsection{Far-field Green function}\label{SfarDW}
 %===============================================================================
 
 \def\Do{\overset{o}{D}}
 \def\Go{\overset{o}{G}}
 \def\pfo{\overset{o}{\psi}_\sf}
+\def\pfoc{\overset{o}{\psi}\vphantom{\psi}^*_\sf}
 
 The following derivation of the far-field Green function~$G_\infty$
 \index{Green function!distorted waves, far-field|(}%
-is a simplified rendering of Dietrich and Wagner \cite{DiWa84},
-transcribed from electromagnetic to neutron waves.
+is based Dietrich and Wagner \cite{DiWa84,DiWa16},
+transcribed from electromagnetic to neutron waves,
+written out without algebraic operator formalism,
+rearranged and simplified.
 With the differential operators
 \begin{align}
     \Do(\r) &\coloneqq \Nabla^2+K^2, \label{EDDefVac} \\[1.2ex]
@@ -799,52 +730,64 @@ and~\cref{EGreenK} for plane waves and distorted waves as
     \Do(\r)\pfo  (\r) = 0, &\quad \Do(\r)\Go(\r,\r') = \delta(\r-\r'), \\[1.2ex]
     D(\r)\psi_\sf(\r) = 0, &\quad D(\r)  G  (\r,\r') = \delta(\r-\r').
 \end{align}
-We now posit an integral equation that determines
-the full Green function $G$ if the vacuum Green function~$\Go$ is given:
-\begin{equation}\label{EGoG}
-  \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, \Go(\rD,\r)\delta k(\r)^2 G(\r,\rS).
-\end{equation}
-It can be verified by operating on both sides with $\Do(\rD)$.\footnote
-{This is not entirely convincing:
-Equality of the second derivates is not sufficient to prove equality of
-two sides in an equation.
-For a full prove, we also have to show that the two sides, and their first derivatives,
-agree at least in one point~$\rD$.
-Perhaps this point must be chosen in the limit~$r_\text{D}\to\infty$.
-Our source~\cite{DiWa84} provides no clue.}
-We use the reciprocity~\cref{Erecip} to transform~\cref{EGoG} into
+To derive a relation between the backwards propagating waves $\pfoc$ and $\psi^*_\sf$ we start from%
 \begin{equation}
-  \Go(\rD,\rS) = G(\rD,\rS) + \int\!\d^3r\, G(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
+  0 = D(\r)\psi^*_\sf(\r) - \Do(\r)\pfoc(\r).
 \end{equation}
-Below, we will only need the far-field limit in $\rD$:
+We multiply with a Green function and integrate:
+\begin{equation}
+  0 = \int\!\d^3r\,\Go(\r,\rS)
+         \left\{\Do(\r)\psi^*_\sf(\r) + \delta k(\r)^2\psi^*_\sf(\r)- \Do(\r)\pfoc(\r)\right\}
+\end{equation}
+To let $D$ and $\Do$ operate to the left
+we use partial integration.
+%\footnote{In the literature \cite{DiWa84},
+%instead of this explicit partial integration, the reciprocity theorem is invoked,
+%which, however, involves partial integration in its proof.}
+The surface integrals cancel because the flux through a surface that fully encloses the sample
+is the same for $\pfoc$ and~$\psi^*_\sf$.
+So we obtain
+\begin{equation}\label{EPsiPfo}
+  \pfoc(\rS) = \psi^*_\sf(\rS) + \int\!\d^3r\;\Go(\r,\rS)\delta k(\r)^2\psi^*_\sf(\r).
+\end{equation}
+In the same way, starting from
+\begin{equation}
+  0 = D(\r)G(\r,\rD) - \Do(\r)\Go(\r,\rD),
+\end{equation}
+we derive a relation between the vacuum and the full Green function:
+\begin{equation}
+  \Go(\rS,\rD) = G(\rS,\rD) + \int\!\d^3r\;\Go(\r,\rS)\delta k(\r)^2G(\r,\rD).
+\end{equation}
+We will only need the far-field limit in $\rD$:
 \begin{equation}\label{EGoFF}
-  \Go_\infty(\rD,\rS) = G_\infty(\rD,\rS) + \int\!\d^3r\, G_\infty(\rD,\r)\delta k(\r)^2 \Go(\r,\rS).
+  \Go_\infty(\rS,\rD) = G_\infty(\rS,\rD) + \int\!\d^3r\, \Go(\r,\rS)\delta k(\r)^2 G_\infty(\r,\rD).
 \end{equation}
-We also posit an integral equation that determines the distorted wave~$\pfo$
-if the plane wave~$\psi_\sf$ is given:
-\begin{equation}\label{Epfo}
-  \pfo(\rS) = \psi_\sf(\rS) + \int\!\d^3r\, \psi_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
-\end{equation}
-Verification can be done by operating on both sides with~$\Do(\rS)$.
-We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar},
-and rewrite it as
+We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar}:
 \begin{equation}
-  \Go_\infty(\rD,\rS) = \phi(\rD)\pfo^*(\rS)
+  \Go_\infty(\rD,\rS) = \phi(\rD)\pfoc(\rS)
 \end{equation}
-with the spherical wave
+with the spherical wave.
 \begin{equation}\label{Effphidef}
   \phi(r) \coloneqq \frac{\e^{iKr}}{4\pi r}.
 \end{equation}
-We take the complex conjugates of both sides of~\cref{Epfo},
- and multiply them with $\phi(\rD)$ to obtain
+Since the derivation of~\cref{EGreenFar} is invariant under an exchange of $\r$ and $\r'$,
+there holds a source-detector reciprocity,\footnote
+{This is a special case of a generic source-detector reciprocity theorem \cite{Pot04},
+\index{Reciprocity}%
+$G(\rS,\rD)=G(\rD,\rS)$, which was proven in older versions of this Manual (until 1.7.1),
+but is no longer needed in the present derivation of the DWBA cross section.}
+\begin{equation}
+  \Go_\infty(\rS,\rD) = \Go_\infty(\rD,\rS)
+\end{equation}
+We multiply both sides of~\cref{EPsiPfo} with $\phi(\rD)$ to obtain
 \begin{equation}\label{Epfo2}
-  \Go_\infty(\rD,\rS)
-  = \phi(\rD)\psi^*_\sf(\rS) + \int\!\d^3r\, \phi(\rD)\psi^*_\sf(\r)\delta k(\r)^2 \Go(\r,\rS).
+  \Go_\infty(\rS,\rD)
+  = \psi^*_\sf(\rS)\phi(\rD) + \int\!\d^3r\, \Go(\rS,\r)\delta k(\r)^2 \psi^*_\sf(\r)\phi(\rD).
 \end{equation}
 We compare with~\cref{EGoFF},
 and read off the far-field asymptote of the distorted-waves Green function
 \begin{equation}
-  G_\infty(\rD,\rS) = \phi(\rD)\psi^*_\sf(\rS).
+  G_\infty(\rS,\rD) = \psi^*_\sf(\rS)\phi(\rD).
 \end{equation}
 Note that this is formally identical with with \cref{EGreenFar},
 but no longer requires $\psi_\sf$ to be a plane wave.

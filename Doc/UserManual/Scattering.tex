@@ -844,7 +844,7 @@ with the spherical wave.
 We multiply both sides of~\cref{EPsiPfo1} with $\phi(\rD)$,
 compare with~\cref{EGoFF},
 and read off the far-field asymptote of the distorted-waves Green function:
-\begin{equation}
+\begin{equation}\label{EGiDWBA}
   G_\infty(\rD,\rS) = \phi(\rD)\psi^*_\sf(\rS).
 \end{equation}
 This is formally identical with with \cref{EGreenFar},
@@ -1067,7 +1067,7 @@ we will use tensorial Green functions that fulfill
     \TDo\TGo(\r,\r') &= \ONE\delta(\r-\r'), \\[1.2ex]
     \TD  \TG  (\r,\r') &= \ONE\delta(\r-\r').
 \end{align}
-In analogy with \cref{EGoFF,Epfo},
+In analogy with \cref{EGoFF,EPsiPfo1},
 vacuum and generic solutions are related to each other through
 \begin{equation}\label{EXGoFF}
   \TGo_\infty(\rD,\rS)
@@ -1104,7 +1104,7 @@ Comparing both equations, we read off
 \begin{equation}\label{EGpE}
   \v{e}_\sf\TG_\infty(\rD,\rS) = \phi(\rD)\Efc(\rS).
 \end{equation}
-This is analogous to~\cref{Epfo},
+This is analogous to~\cref{EGiDWBA},
 and confirms that we can determine the scattered far field at the detector position~$\rD$
 by backtracking the detected plane wave $\Efc$ into the sample.
 In analogy to~\cref{EBornS}, the scattered electrical field is
@@ -1128,7 +1128,7 @@ So the X-ray scattering cross section for given incoming and detected polarizati
 \end{equation}
 with the scattering matrix element
 \index{Scattering!matrix}%
-\begin{equation}\label{Etrama}
+\begin{equation}\label{EtramaE}
   \bra \Ei|\delta v|\Ef\ket
   \coloneqq  \int\!\d^3r\, \Eic(\r)\delta v(\r)\Ef(\r).
 \end{equation}

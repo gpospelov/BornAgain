@@ -25,13 +25,6 @@ MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor*
     initialize();
 }
 
-MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
-                         const IFormFactor& form_factor)
-    : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
-{
-    initialize();
-}
-
 MesoCrystal::~MesoCrystal()
 {
     delete mp_meso_form_factor;
@@ -97,6 +90,13 @@ std::vector<const INode*> MesoCrystal::getChildren() const
     if(mp_meso_form_factor)
         result.push_back(mp_meso_form_factor);
     return result;
+}
+
+MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
+                         const IFormFactor& form_factor)
+    : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
+{
+    initialize();
 }
 
 IFormFactor* MesoCrystal::createTransformationDecoratedFormFactor(

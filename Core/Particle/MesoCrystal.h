@@ -27,7 +27,6 @@ class IMaterial;
 class BA_CORE_API_ MesoCrystal : public IParticle
 {
 public:
-    MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor);
     MesoCrystal(const IClusteredParticles& particle_structure, const IFormFactor& form_factor);
 
     virtual ~MesoCrystal();
@@ -53,13 +52,14 @@ public:
     std::vector<const INode*> getChildren() const;
 
 private:
+    MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor);
     //! Creates a form factor decorated with the IParticle's position/rotation
     IFormFactor* createTransformationDecoratedFormFactor(
         const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const;
+    void initialize();
 
     IClusteredParticles* mp_particle_structure; //!< Currently, always of type Crystal
     IFormFactor* mp_meso_form_factor; //!< Outer shape of this mesocrystal
-    void initialize();
 };
 
 #endif // MESOCRYSTAL_H

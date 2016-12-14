@@ -113,13 +113,6 @@ void Layer::init_parameters()
     registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
 }
 
-//! Prints description.
-void Layer::print(std::ostream& ostr) const
-{
-    ISample::print(ostr);
-    ostr << "-->Layer{" <<  *getMaterial() << "}";
-}
-
 void Layer::addLayoutPtr(ILayout* layout)
 {
     if( !layout )

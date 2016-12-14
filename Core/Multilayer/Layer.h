@@ -66,8 +66,6 @@ private:
 
     void init_parameters();
 
-    void print(std::ostream& ostr) const;
-
     //! adds particle layout (separate pointer version due to python-bindings)
     void addLayoutPtr(ILayout* layout);
 

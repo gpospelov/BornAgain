@@ -44,10 +44,6 @@ public:
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
-private:
-    //! List of registered children.
-    std::vector<INode*> m_samples;
 };
 
 template <class T>

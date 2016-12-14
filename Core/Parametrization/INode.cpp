@@ -29,16 +29,11 @@ void INode::registerChild(INode *sample)
     if(!sample)
         throw Exceptions::NullPointerException(
             "ISample::registerChild -> Error. Null pointer.");
-    m_samples.push_back(sample);
 }
 
 std::vector<const INode *> INode::getChildren() const
 {
     return {};
-//    std::vector<const INode*> result;
-//    for (size_t i=0; i<m_samples.size(); ++i)
-//        result.push_back(m_samples[i]);
-//    return result;
 }
 
 std::string INode::addParametersToExternalPool(
@@ -50,14 +45,14 @@ std::string INode::addParametersToExternalPool(
     // We need a mechanism to handle cases with multiple children with the same name.
     // First run through all direct children and save their names
     StringUsageMap strUsageMap;
-    for (size_t i = 0; i < m_samples.size(); ++i)
-        strUsageMap.add(new_path + m_samples[i]->getName()); // saving child names
+    for(auto child : getChildren())
+        strUsageMap.add(new_path + child->getName()); // saving child names
 
     // Now run through the direct children again and assign a copy number for
     // all children with the same name
     StringUsageMap strUsageMap2;
-    for (size_t i = 0; i < m_samples.size(); ++i) {
-        std::string child_name = new_path + m_samples[i]->getName();
+    for(auto child : getChildren()) {
+        std::string child_name = new_path + child->getName();
         strUsageMap2.add(child_name);
         // Copy number starts from 0:
         int ncopy = strUsageMap2[child_name] - 1;
@@ -66,7 +61,7 @@ std::string INode::addParametersToExternalPool(
         if (strUsageMap[child_name] == 1)
             ncopy = -1;
 
-        m_samples[i]->addParametersToExternalPool(new_path, external_pool, ncopy);
+        child->addParametersToExternalPool(new_path, external_pool, ncopy);
     }
     return new_path;
 }

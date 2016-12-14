@@ -24,7 +24,7 @@ class Particle;
 class ParticleComposition;
 
 //! A crystal structure with a ParticleComposition as a basis.
-//!   Used in MesoCrystal, where it is given an outer shape.
+//! Used in MesoCrystal, where it is given an outer shape.
 //! @ingroup samples
 
 class BA_CORE_API_ Crystal : public IClusteredParticles
@@ -47,18 +47,17 @@ public:
 
     Lattice getTransformedLattice(const IRotation* p_rotation) const;
 
-    const ParticleComposition* getLatticeBasis() const { return mp_lattice_basis; }
+    const ParticleComposition* getLatticeBasis() const { return mp_lattice_basis.get(); }
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
     std::vector<const INode*> getChildren() const;
 
 private:
-    //! Private constructor
     Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice);
 
     Lattice m_lattice;
-    ParticleComposition* mp_lattice_basis;
+    std::unique_ptr<ParticleComposition> mp_lattice_basis;
     double m_dw_factor;
 };
 

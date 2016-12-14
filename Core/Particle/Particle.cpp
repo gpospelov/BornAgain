@@ -141,10 +141,7 @@ void Particle::setFormFactor(const IFormFactor& form_factor)
 
 std::vector<const INode*> Particle::getChildren() const
 {
-    std::vector<const INode*> result = IParticle::getChildren();
-    if(mP_form_factor)
-        result.push_back(mP_form_factor.get());
-    return result;
+    return std::vector<const INode*>() << IParticle::getChildren() << mP_form_factor;
 }
 
 void Particle::initialize()

@@ -71,8 +71,6 @@ private:
 
     void setAndRegisterInterferenceFunction(IInterferenceFunction* child);
 
-    void print(std::ostream& ostr) const;
-
     SafePointerVector<IAbstractParticle> m_particles; //!< Vector of particle types
     std::unique_ptr<IInterferenceFunction> mP_interference_function;
     double m_total_particle_density;

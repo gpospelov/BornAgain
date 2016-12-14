@@ -1,5 +1,7 @@
 #include "ParticleLayout.h"
 #include "InterferenceFunctionNone.h"
+#include "InterferenceFunction1DLattice.h"
+#include "BornAgainNamespace.h"
 
 class ParticleLayoutTest : public :: testing :: Test {
 
@@ -231,4 +233,20 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
     particleDecoration.addInterferenceFunction(iff_none);
 
     EXPECT_TRUE(nullptr!=particleDecoration.getInterferenceFunction());
+}
+
+TEST_F(ParticleLayoutTest, getChildren)
+{
+    ParticleLayout layout;
+    std::vector<const INode*> children = layout.getChildren();
+    EXPECT_EQ(children.size(), 0u);
+
+    layout.addParticle(Particle());
+    layout.addInterferenceFunction(InterferenceFunction1DLattice(1.0, 2.0));
+    children = layout.getChildren();
+    EXPECT_EQ(children.size(), 2u);
+    EXPECT_EQ(children.at(0)->getName(), BornAgain::ParticleType);
+    EXPECT_EQ(children.at(1)->getName(), BornAgain::InterferenceFunction1DLatticeType);
+
+
 }

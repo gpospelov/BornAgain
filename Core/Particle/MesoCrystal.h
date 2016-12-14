@@ -47,7 +47,7 @@ public:
 
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (e.g. an infinite crystal)
-    const IClusteredParticles* getClusteredParticles() const { return mp_particle_structure; }
+    const IClusteredParticles* getClusteredParticles() const { return mp_particle_structure.get(); }
 
     std::vector<const INode*> getChildren() const;
 
@@ -58,8 +58,8 @@ private:
         const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const;
     void initialize();
 
-    IClusteredParticles* mp_particle_structure; //!< Currently, always of type Crystal
-    IFormFactor* mp_meso_form_factor; //!< Outer shape of this mesocrystal
+    std::unique_ptr<IClusteredParticles> mp_particle_structure; //!< Crystal  structure
+    std::unique_ptr<IFormFactor> mp_meso_form_factor; //!< Outer shape of this mesocrystal
 };
 
 #endif // MESOCRYSTAL_H

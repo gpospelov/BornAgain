@@ -660,7 +660,7 @@ In the case of a semi-infinite layer, the vertical component becomes zero and
 \index{Total reflection}%
 
 %===============================================================================
-\subsection{Polarization factors for X-rays}\label{SXpolfac}
+\subsection{Modifications for X-rays}\label{SmulayX}
 %===============================================================================
 
 \def\Ep{\v{\Phi}}
@@ -678,14 +678,6 @@ the vertical wavefunction is
 \begin{equation}
   \Ep^\pm_l(z) = \v{A}^\pm_l \e^{\pm ik_\perp(z-z_l)}\chi_l(z).
 \end{equation}
-The DWBA matrix element is
-\begin{equation}\label{Edwba_mlE}
-  \bra \v{E}_\si|\delta v|\v{E}_\sf\ket
-  = \sum_l \sum_{u} C^u_l \delta v_l(\q_l^u).
-\end{equation}
-in full analogy with~\cref{Edwba_ml},
-but the coefficients are now scalar products
-$C^1=\v{A}^{-*}_\si\v{A}^{+}_\sf$ etc.\ instead of the products of scalar factors in~\cref{Eudef}.
 
 %--------------------------------------------------------------------------------
 \begin{figure}[tb]
@@ -704,17 +696,15 @@ In either case, $\v{E}$ is perpendicular to the wavevector~$\k$.}
 \end{figure}
 %--------------------------------------------------------------------------------
 
-Furthermore, the vectorial character of $\v{A}^\pm_{wl}$ will also require
-changes in~\cref{Sacrolay}.
+The vectorial character of $\v{A}^\pm_{wl}$ will require changes in~\cref{Sacrolay}.
 For electromagnetic radiation in nonmagnetic media,
-the boundary conditions at an interface with normal $\hn$ are\footnote
-{See textbooks like Jackson \cite[eq. 7.37]{Jac75}, Born \& Wolf \cite[ch.~1.1.3]{BoWo99}, or
-Hecht \cite[ch.~4.6.1]{Hec02}.}
+the boundary conditions at an interface with normal $\hn$ are \cite[eq. 7.37]{Jac75}
+% , Born \& Wolf \cite[ch.~1.1.3]{BoWo99}, or Hecht \cite[ch.~4.6.1]{Hec02}.}
 \nomenclature[2n04]{$\hn$}{Normal vector of an interface}
 \begin{align}
-  &\sum_\pm\overline{\epsilon}\v{E}^\pm\hn = \text{const}, \label{EbcE1}\\[1.4ex]
-  &\sum_\pm\v{E}^\pm\times\hn = \text{const}, \label{EbcE2}\\[1.4ex]
-  &\sum_\pm\left(\k^\pm_l\times\v{E}^\pm\right)\hn = \text{const}. \label{EbcE3}
+  &\sum_\pm\,\overline{\epsilon}\,\v{E}^\pm\,\hn = \text{const}, \label{EbcE1}\\[1.4ex]
+  &\sum_\pm\,\v{E}^\pm\times\hn = \text{const}, \label{EbcE2}\\[1.4ex]
+  &\sum_\pm\,\k^\pm_l\times\v{E}^\pm = \text{const}. \label{EbcE3}
 \end{align}
 We will only consider the two polarization directions,
 \index{Convention!p- and s-polarization}%
@@ -728,10 +718,66 @@ meaning that if both incoming fields $\v{E}^-_{l-1}$ and~$\v{E}^+_l$ are strictl
 polarized in either $p$ or $s$ direction,
 then the outgoing fields $\v{E}^+_{l-1}$ and~$\v{E}^-_l$
 are polarized in the same direction.
+Conversely, if the incoming fields are mixtures of $p$ and $s$ polarization,
+then the outgoing fields will be, in general, mixed differently.
+Therefore if polarization factors are quantitatively important in an experiment,
+one should strive to accurately polarize the incident beam in $p$ or $s$ direction
+in order to avoid the extra complication of variably mixed polarizations.
 
-In the simpler case of~$s$ polarization,
+Further algebra on \cref{EbcE1,EbcE2,EbcE3} replicates the
+reflection law that relates $\k^-$ and $k^+$
+and Snell's law~\cref{ESnell}.
+Taking these for granted,
+we only retain equations that are needed to determine the field amplitudes~$E^\pm$.
+For $p$~polarization they yield
+\begin{equation}
+  \left(\begin{array}{cc}k&k\\
+       -k_\perp/k&k_\perp/k\end{array}\right)
+  \left(\begin{array}{c}E^-\\
+       E^+\end{array}\right) = \text{const},
+\end{equation}
+and for $s$~polarization
+\begin{equation}
+  \left(\begin{array}{cc}1&1\\
+       -k_\perp&k_\perp\end{array}\right)
+  \left(\begin{array}{c}E^-\\
+       E^+\end{array}\right) = \text{const}.
+\end{equation}
+The latter equation can be brought into the form~\cref{Econt2}.
+In consequence,
+$s$-polarized X-rays are refracted and reflected in
+exactly the same ways as unpolarized neutrons.
+For $p$ polarization, the transfer matrix~\cref{EMil}
+must be replaced by
+\begin{equation}
+  M_l^{\text(p)} = TODO,
+\end{equation}
+\Work{In BornAgain, this modified transfer matrix is not yet implemented;
+only $s$ polarized X-rays are currently supported.}
 
-\Work{In BornAgain, the $p$ polarization factors are not yet implemented.}
+\Work{The following paragraph on polarization factors shall be worked out next:}
+In $s$~geometry the coefficients $C^u_l$ of \Cref{Edwba_mlE}
+are given by simple products of scalar amplitudes as in~\cref{Eudef}.
+
+The DWBA matrix element is
+\begin{equation}\label{Edwba_mlE}
+  \bra \v{E}_\si|\delta v|\v{E}_\sf\ket
+  = \sum_l \sum_{u} C^u_l \delta v_l(\q_l^u).
+\end{equation}
+in full analogy with~\cref{Edwba_ml},
+but the coefficients are now scalar products
+$C^1=\v{A}^{-*}_\si\v{A}^{+}_\sf$ etc.\ instead of the products of scalar factors in~\cref{Eudef}.
+
+and the coefficients of \Cref{Edwba_mlE} are
+\begin{equation}
+  \begin{array}{@{}lcl}
+    C^1 &=& A^{-*}_\si A^+_\sf,\\
+    C^2 &=& A^{-*}_\si A^-_\sf\cos(\alpha_-+\alpha_+),\\
+    C^3 &=& A^{+*}_\si A^+_\sf\cos(\alpha_-+\alpha_+),\\
+    C^4 &=& A^{+*}_\si A^-_\sf.
+  \end{array}
+\end{equation}
+\Work{In BornAgain, polarization factors are not yet implemented.}
 
 
 %===============================================================================

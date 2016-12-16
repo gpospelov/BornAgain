@@ -1,4 +1,7 @@
 %!PS-Adobe-1.0 EPSF-1.0
+%%BoundingBox:    79   683   420   803
+%%Comment: Bounding box extracted by bboxx
+%%+:       A program by Dov Grobgeld 2003
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  FRIDA: fast reliable interactive data analysis                           %%
@@ -1602,6 +1605,7 @@ setPalatino
 1 dup stdred
 7 -6 setnewpage newpage
 
+/Ecolor    {255   0  83 setRGBcolor } def
 /darkgreen { 13 133  13 setRGBcolor } def
 /litegreen {202 253 222 setRGBcolor } def
 /darkblue  { 13  13 133 setRGBcolor } def
@@ -1619,19 +1623,59 @@ setPalatino
 litebrown  0 L 0 H     { fill } execRect3
 darkbrown  0 L 0 H neg { fill } execRect3
 
+% Left margin
 /h  H 2 div def
 /xx 1.5 def
 black
 xx h     {(layer l-1)} textLM
 xx h neg {(layer l)} textLM
 
+% Definitions for main part
 /yTitle H neg 1 sub def
+/xx 5 def
+/kvecs {
+    darkblue 3 [] lset
+    xx neg h     -30 .6 4 pfeiL
+    xx neg h neg  20 .6 4 pfeiL
+    xx     h      30 .6 4 Pfeil
+    xx     h neg -20 .6 4 Pfeil
+} def
 
-16 0 offset
-0 yTitle {(p polarization)} textCM
+% Main part
+15 0 offset
+black 0 yTitle {(p polarization)} textCM
+kvecs
+Ecolor 3 [] lset
+xx neg h     +60 .6 2 pfeiL
+xx neg h neg 110 .6 2 pfeiL
+xx     h     120 .6 2 pfeiL
+xx     h neg  70 .6 2 pfeiL
 
-16 0 offset
-0 yTitle {(s polarization)} textCM
+21 setbol
+darkblue
+-.9 2. {(k)} textCM
+Ecolor
+-3  4.6 {(E)} textCM
+
+18 0 offset
+black 0 yTitle {(s polarization)} textCM
+Ecolor 2 [] lset
+/spol {
+   2 copy
+   np .3 0 360 arc cp fill
+   np .6 0 360 arc cp st
+} def
+xx neg h     spol
+xx neg h neg spol
+xx     h     spol
+xx     h neg spol
+kvecs
+
+21 setbol
+darkblue
+-.9 2. {(k)} textCM
+Ecolor
+-4  4. {(E)} textCM
 
 showpage
 end % WuGdict...

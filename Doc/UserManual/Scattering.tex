@@ -121,6 +121,7 @@ consists of a sum of delta functions,
 representing Fermi's ``pseudopotential''.
 \index{Fermi's pseudopotential}%
 The superposition of the incident wave with the scattered waves
+\index{Scattering!coherent forward}%
 originating from each illuminated nucleus
 results in \E{coherent forward scattering},
 \index{Coherent forward scattering}%
@@ -155,8 +156,7 @@ has still the form of a stationary Schrödinger equation,
 where $\psi$ now stands for the \E{coherent wavefunction}
 \index{Coherent wavefunction}%
 \index{Wave propagation!coherent}%
-obtained by superposition of
-incident and forward scattered states,
+obtained by superposition of incident and forward scattered states,
 and $\Vmac(\r)$ is the \E{macroscopic optical potential}.
 \index{Optical potential!macroscopic}%
 This potential is weak, and slowly varying compared to atomic length scales.
@@ -327,6 +327,7 @@ where $\psi_\si(\r)$ is the incident wave
 as prepared by the experimental apparatus,
 and the second term on the right-hand side is
 the outgoing scattered wave
+\index{Scattered radiation!Sommerfeld condition}
 that carries information in form of the angular distribution
 $f(\vartheta,\varphi)$.
 
@@ -389,6 +390,7 @@ we are only interested in the scattered wave
 \end{equation}
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
 \nomenclature[2s000 0]{s}{Subscript ``scattered''}%
+\index{Scattered radiation!Born approximation}
 For brevity and mathematical convenience,
 the integral introduced in~\cref{EPsiFormal} has no bounds
 and therefore formally runs over the entire space.
@@ -410,6 +412,7 @@ we assume from now on that the coordinate origin
 lies inside the sample.
 Then far-field asymptotes are obtained by taking the limit $r\to\infty$.
 Since we only need the asymptote $\psi_{\text{s}\infty}(\r)$ of the scattered wave,
+\index{Scattered radiation!far field}
 it is sufficient to solve~\cref{EGreenK} for the far-field Green function
 \begin{equation}\label{EGinftydef}
   G_\infty(\r,\r')\coloneqq \lim_{r\to\infty} G(\r,\r').
@@ -495,7 +498,7 @@ and $\psi^*$ designates the complex conjugate of $\psi$.
 As function of~$\r$, $G_\infty$ is an outgoing spherical wave.
 Inserting \cref{EGreenFar} in \cref{EBornS},
 we obtain the far-field approximation for the scattered wave,
-\index{Scattered wave!far-field}%
+\index{Scattered radiation!far-field}%
 \begin{equation}\label{EsandwichC}
   \psi_{\text{s}\infty}(\r)
   = \frac{\e^{iKr}}{r}
@@ -600,6 +603,7 @@ the scattered flux at the detector is
   = \v{\hat r}\frac{K}{r^2}
     {\left|\bra\psi_\si|\delta v|\psi_\sf\ket\right|}^2.
 \end{equation}
+\index{Scattered radiation!flux}%
 Inserting these into definition~\cref{Exsectiondef},
 we obtain the generic differential cross section
 of elastic scattering in first order Born approximation,
@@ -1108,8 +1112,11 @@ Comparing both equations, we read off
 \end{equation}
 This is analogous to~\cref{EGiDWBA},
 and confirms that we can determine the scattered far field at the detector position~$\rD$
+\index{Scattered radiation!backtracking}%
 by backtracking the detected plane wave $\Efc$ into the sample.
 In analogy to~\cref{EBornS}, the scattered electrical field is
+\index{Scattered radiation!electromagnetic}%
+\index{Scattered radiation!X-ray}%
 \begin{equation}\label{EBornX}
   \v{E}_{\text{s}}(\r)
   = 4\pi\int\!\d^3r'\, \TG(\r,\r')\delta v(\r')\v{E}_\si(\r').
@@ -1122,6 +1129,10 @@ The far-field component in polarization direction~$\hef$ is
 The differential cross section
 is defined as in \cref{Exsectiondef},
 namely as the ratio of scattered flux through the unit sphere to incident flux.
+\index{Born approximation!elastic scattering cross section}%
+\index{Cross section!Born approximation}%
+\index{Scattering!cross section}%
+\index{Elastic scattering!cross section}%
 For electromagnetic waves in vacuum, the flux is proportional to~$|\v{E}|^2$.
 So the X-ray scattering cross section for given incoming and detected polarization is
 \begin{equation}\label{ExsectionXlong}
@@ -1138,18 +1149,43 @@ with the scattering matrix element
 For lighter notation,
 it is convenient to choose the vacuum plane waves \cref{EEoi,EEof} from the onset
 with normalized polarization vectors,
-\begin{equation}
+\begin{equation}\label{EbcE}
   \Eo_\si(r) = \hei\, \e^{i\k_\si\r}, \text{~and~}
   \Eo_\sf(r) = \hef\, \e^{i\k_\sf\r},
 \end{equation}
 so that~\cref{ExsectionXlong}
 takes the simple form
-\Emph{
 \begin{equation}\label{ExsectionX}
   \xElas
   =  {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2
-\end{equation}\vspace*{-5pt}}
+\end{equation}
 in full analogy with~\cref{Exsection}.
+Typically, scattered radiation is detected without polarization analysis.
+\index{Polarization!analysis}%
+\index{Scattered radiation!detection}%
+\index{Scattered radiation!polarization}%
+\index{Detector!polarization}%
+Then the measured cross section is an incoherent sum
+\index{Incoherent sum!polarization}%
+\index{Polarization!incoherent sum}%
+\index{Born approximation!elastic scattering cross section}%
+\index{Cross section!Born approximation}%
+\index{Scattering!cross section}%
+\index{Elastic scattering!cross section}%
+\Emph{
+\begin{equation}\label{ExsectionX}
+  \xElas
+  =  \sum_{\hef} {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2.
+\end{equation}\vspace*{-5pt}}
+In this equation,
+the dependence of $\Ef$ on $\hef$ is implicit,
+mediated through the boundary condition
+that $\Ef(\r)$ must match $\Eo_\sf(\r)$ at the detector.
+If the incident radiation is not fully polarized,
+\index{Polarization!incident}%
+an additional summation is performed over~$\hei$,
+weighted with relative intensities.
+
 \index{X-ray!scattering theory|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1198,7 +1234,7 @@ While each single neutron is described by a wavefunction
 that allows for \E{coherent} superposition of
 different contributions to the scattered wavefunction,
 the final detector statistics
-\index{Detector statistics}%
+\index{Detector!statistics}%
 is given by an \E{incoherent} sum
 over the differential cross sections of individual neutrons.
 The finite \E{resolution}

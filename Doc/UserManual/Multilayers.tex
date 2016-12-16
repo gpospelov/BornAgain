@@ -27,10 +27,10 @@ so that only the remaining fluctuations $\delta v(\r)$ cause scattering.
 In this chapter, we consider wave propagation in a multilayer system for which
 $\overline{v}(\r)=\overline{v}(z)$.
 In \Cref{Swave21} we introduce notation,
-factorize the wave function into an in-plane and a perpendicular function,
+factorize the wavefunction into an in-plane and a perpendicular function,
 and derive the notorious four-term DWBA cross section~\cref{Edwba4}.
 In \Cref{SLayHomo} we specialize to a stack of homogeneous layers,
-and describe how the vertical wave function is computed in BornAgain.
+and describe how the vertical wavefunction is computed in BornAgain.
 
 
 
@@ -337,8 +337,8 @@ BornAgain currently only supports layers with a homogenous matrix.
 In terms of~\cref{Edecompose_vz} this means that
 $\mv(z)\eqqcolon v_l$ must be constant within a layer.
 
-Within the layer, $\psi^\pm_l$ is a plane wave
-that factorizes as in~\cref{Ekpar}.
+Within the layer, the directional neutron wavefunction~$\psi^\pm_l$
+is a plane wave and factorizes as in~\cref{Ekpar}.
 Its amplitude~$A_l^\pm$ is determined recursively
 by Fresnel's transmission and reflection coefficients
 \index{Fresnel coefficients}%
@@ -450,7 +450,7 @@ such that the wavefunction $\phi(\r)$ and its first derivative
 $\Nabla\phi(\r)$ evolve continuously.
 
 % TODO REPLACE BY TEXT BELOW
-\Note{Support for rough interfaces is already implemented in \BornAgain,
+\Work{Support for rough interfaces is already implemented in \BornAgain,
 but documentation is adjourned to a later edition of this manual.}
 %Unless layer interfaces are smooth,
 %their roughness causes extra contribution to the total scattering.
@@ -659,6 +659,80 @@ In the case of a semi-infinite layer, the vertical component becomes zero and
  all incoming radiation at the top of the layer undergoes \E{total reflection}.
 \index{Total reflection}%
 
+%===============================================================================
+\subsection{Polarization factors for X-rays}\label{SXpolfac}
+%===============================================================================
+
+\def\Ep{\v{\Phi}}
+\def\hn{\v{n}}
+
+We shall now translate the above results from unpolarized neutrons to X-rays.
+The vectorial amplitude of the electromagnetic field will require
+nontrivial modifications.
+In place of the factorization~\cref{Ekpar}, we write
+\begin{equation}
+  \v{E}(\r)=\e^{i\k_\plll\r}\Ep(z).
+\end{equation}
+In place of~\cref{Ephizwj},
+the vertical wavefunction is
+\begin{equation}
+  \Ep^\pm_l(z) = \v{A}^\pm_l \e^{\pm ik_\perp(z-z_l)}\chi_l(z).
+\end{equation}
+The DWBA matrix element is
+\begin{equation}\label{Edwba_mlE}
+  \bra \v{E}_\si|\delta v|\v{E}_\sf\ket
+  = \sum_l \sum_{u} C^u_l \delta v_l(\q_l^u).
+\end{equation}
+in full analogy with~\cref{Edwba_ml},
+but the coefficients are now scalar products
+$C^1=\v{A}^{-*}_\si\v{A}^{+}_\sf$ etc.\ instead of the products of scalar factors in~\cref{Eudef}.
+
+%--------------------------------------------------------------------------------
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig/drawing/s-vs-p-polarization.ps}
+\end{center}
+\caption{Conventions for polarization directions relative to a refracting interface:
+\index{Convention!p- and s-polarization}%
+\index{Polarization!p and s}%
+\index{p-Polarization}%
+\index{s-Polarization}%
+For $p$ polarization, the electric field vector~$\v{E}$ is parallel to the interface normal~$\hn$;
+for $s$ polarization, it is perpendicular (\E{senkrecht} in German).
+In either case, $\v{E}$ is perpendicular to the wavevector~$\k$.}
+\label{Fsppol}
+\end{figure}
+%--------------------------------------------------------------------------------
+
+Furthermore, the vectorial character of $\v{A}^\pm_{wl}$ will also require
+changes in~\cref{Sacrolay}.
+For electromagnetic radiation in nonmagnetic media,
+the boundary conditions at an interface with normal $\hn$ are\footnote
+{See textbooks like Jackson \cite[eq. 7.37]{Jac75}, Born \& Wolf \cite[ch.~1.1.3]{BoWo99}, or
+Hecht \cite[ch.~4.6.1]{Hec02}.}
+\nomenclature[2n04]{$\hn$}{Normal vector of an interface}
+\begin{align}
+  &\sum_\pm\overline{\epsilon}\v{E}^\pm\hn = \text{const}, \label{EbcE1}\\[1.4ex]
+  &\sum_\pm\v{E}^\pm\times\hn = \text{const}, \label{EbcE2}\\[1.4ex]
+  &\sum_\pm\left(\k^\pm_l\times\v{E}^\pm\right)\hn = \text{const}. \label{EbcE3}
+\end{align}
+We will only consider the two polarization directions,
+\index{Convention!p- and s-polarization}%
+\index{Polarization!p and s}%
+\index{p-Polarization}%
+\index{s-Polarization}%
+conventionally designated as $p$ and~$s$, defined in \Cref{Fsppol}.
+As some algebra on \cref{EbcE1,EbcE2,EbcE3} would show,
+these are \E{principal axes},
+meaning that if both incoming fields $\v{E}^-_{l-1}$ and~$\v{E}^+_l$ are strictly
+polarized in either $p$ or $s$ direction,
+then the outgoing fields $\v{E}^+_{l-1}$ and~$\v{E}^-_l$
+are polarized in the same direction.
+
+In the simpler case of~$s$ polarization,
+
+\Work{In BornAgain, the $p$ polarization factors are not yet implemented.}
+
 
 %===============================================================================
 \iffalse
@@ -692,58 +766,5 @@ See any textbook on quantum mechanics.}
 \index{Phase integral method|see {WKB method}}%
 
 \fi
-
-%===============================================================================
-\section{Polarization factors for X-rays}\label{SXpolfac}
-%===============================================================================
-
-
-%--------------------------------------------------------------------------------
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{fig/drawing/s-vs-p-polarization.ps}
-\end{center}
-\caption{Conventions for polarization directions relative to a refracting interface:
-\index{Convention!p- and s-polarization}%
-\index{Polarization!p and s}%
-\index{p-Polarization}%
-\index{s-Polarization}%
-For $p$ polarization, the electric field vector is parallel to the interface normal;
-for $s$ polarization, it is perpendicular (\E{senkrecht} in German).}
-\label{Fboundary}
-\end{figure}
-%--------------------------------------------------------------------------------
-
-At this point,
-it may be an interesting exercise to make
- a connection with a well known textbook result.
-Consider a system
-with a single interface between two semi-infinite,
-non-absorbing media. The incoming wave is assumed to be above the
-critical angle, ensuring all $f_l$ are real.
-The reflected flux,
-normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$, is
-\index{Reflected flux}%
-\begin{equation}\label{EJrefl}
-  \frac{J_{0\perp}^+}{J_{0\perp}^-}
-  = - \left(\frac{f_0-f_1}{f_0+f_1}\right)^2,
-\end{equation}
-and the transmitted flux
-\index{Transmitted flux}%
-\begin{equation}\label{EJtran}
-  \frac{J_{1\perp}^-}{J_{0\perp}^-}
-  = \frac{4f_0 f_1}{(f_0+f_1)^2}.
-\end{equation}
-This satisfies particle number conservation, $J_{0\perp}^-+J_{0\perp}^+=J_{1\perp}^-$,
-and agrees with Fresnel's result for $s$-polarized light.\footnote
-{See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
-  or Hecht \cite[ch.~4.6.2]{Hec02}.}
-
-OLD STUFF:
-\index{Polarization!factor (X-ray)}%
-For GISAS geometry, they can be found in equations (92)--(95) of Ref.~\cite{ReLL09}.
-For the usual small scattering angles of GISAS,
-they are close to unity and therefore can be neglected.
-In BornAgain, they are not yet implemented.
 
 \index{Multilayer|)}%

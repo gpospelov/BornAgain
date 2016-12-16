@@ -28,7 +28,7 @@
 %%  Framework:
 
 % For interleaving applications, isolate what follows in a dictionary
-/WuGdict11a 400 dict def 
+/WuGdict11a 400 dict def
 WuGdict11a begin
 
 
@@ -82,14 +82,14 @@ WuGdict11a begin
 %    upper left corner.  Therefore we need a vertical translation,
 %    depending on the paper size.  A4 is 210x297 mm^2.  By this occasion,
 %    we also provide a border of 7 mm.
-/cmtranslate { % x y cmtranslate | - 
+/cmtranslate { % x y cmtranslate | -
    cm x cm x translate } bind def
 /originUpperLeft_A4{ .7 28.3 cmtranslate } bind def
 /goffsetA4 { ungscale originUpperLeft_A4 gscale } def
 /EdgeLeftDIN{ originUpperLeft_A4 } bind def % OBSOLETE since 11a
 
 % set absolute global scale and relative symbol size
-/defsiz { % size(cm) symbolsize(rel) | - 
+/defsiz { % size(cm) symbolsize(rel) | -
    /ftot x def
    /gsiz x cm 10 div def
    gscale % within 'size', coordinates run from 0 to 10
@@ -118,14 +118,14 @@ WuGdict11a begin
 /geld {0.759836 mul} bind def /Geld {0.759836 div} bind def % sqrt(sqrt(3))
 /gald {0.817765 mul} bind def /Gald {0.817765 div} bind def % sqrt sqrt sqrt 5
 
-% define frame coordinates 
+% define frame coordinates
 /defred { % x_reduction y_reduction label_reduction | -
-   /fmm x ftot mul def 
-   /ymm x def 
+   /fmm x ftot mul def
+   /ymm x def
    /xmm x def
 
    % conversion frame_coordinate -> global_coord
-   /xm {xmm mul} bind def 
+   /xm {xmm mul} bind def
    /ym {ymm mul} bind def
    /fm {fmm mul} bind def
    /xym {ym x xm x} bind def
@@ -238,7 +238,7 @@ WuGdict11a begin
    } def
 /iCol3 { % i i_max | - : siemens
    div /icnow x def
-   165 1 icnow sub mul 
+   165 1 icnow sub mul
    102   icnow     mul
     33 120 icnow mul add setRGBcolor
    } def
@@ -259,7 +259,7 @@ WuGdict11a begin
    0 max aCol length 1 sub min % offset safe_idx
    dup 1 add aCol length 1 sub min % offset i i+1
    aCol x get exec
-   4 3 roll aCol x get exec colormix setRGBcolor 
+   4 3 roll aCol x get exec colormix setRGBcolor
    } def
 
 
@@ -304,15 +304,15 @@ WuGdict11a begin
    {  30  30 130 } % 20
    ] def
 /aCol3 [ % siemenscolors
-   { 165   0  33 } % siemensred    
-   {  33 153 102 } % siemensgreen  
-   { 0   102 153 } % siemensblue   
-   {   0  51 102 } % siemenstext   
-   { 255 153   0 } % siemensorange 
-   { 102 102 102 } % siemensdark   
-   { 255 221   0 } % siemensyellow 
-   { 221 221 221 } % siemensgrey   
-   { 221 102 102 } % siemenspink   
+   { 165   0  33 } % siemensred
+   {  33 153 102 } % siemensgreen
+   { 0   102 153 } % siemensblue
+   {   0  51 102 } % siemenstext
+   { 255 153   0 } % siemensorange
+   { 102 102 102 } % siemensdark
+   { 255 221   0 } % siemensyellow
+   { 221 221 221 } % siemensgrey
+   { 221 102 102 } % siemenspink
    ] def
 /aCol4 [ % green-blue-brown
    { 120 160  60 }
@@ -345,7 +345,7 @@ WuGdict11a begin
    {   0 255 255 } % cyan
    { 160  82  45 } % sienna
    { 255 165   0 } % orange
-   { 255 127  80 } % coral  
+   { 255 127  80 } % coral
    ] def
 
 
@@ -403,12 +403,18 @@ WuGdict11a begin
 /Helvetica-Bold        /HelveticaLatin1-Bold        ISOLatin1Encoding ReEncode
 /Helvetica-BoldOblique /HelveticaLatin1-BoldOblique ISOLatin1Encoding ReEncode
 
+/setPalatino {
+/Palatino             /MyFont             ISOLatin1Encoding ReEncode
+/Palatino-Italic      /MyFont-Oblique     ISOLatin1Encoding ReEncode
+/Palatino-Bold        /MyFont-Bold        ISOLatin1Encoding ReEncode
+/Palatino-BoldItalic  /MyFont-BoldOblique ISOLatin1Encoding ReEncode
+} def
 
 %% Preset standard styles:
 
 % scale and set font; define fontsize, fontheight
-/setfontandsize { % font size | - 
-   dup 0 le { pop 100 } if % fontsize <= 0 not allowed ! 
+/setfontandsize { % font size | -
+   dup 0 le { pop 100 } if % fontsize <= 0 not allowed !
    /fontnonnil true def
    pt fm dup /fontsize x def
    x findfont
@@ -423,14 +429,14 @@ WuGdict11a begin
    } def
 
 % standard settings for labelling axes
-/setnum { /HelveticaLatin1            24 setfontandsize } def
-/setlab { /HelveticaLatin1            24 setfontandsize } def
+/setnum { /MyFont            24 setfontandsize } def
+/setlab { /MyFont            24 setfontandsize } def
 
 % user commands (free choice of fontsize, but fixed font family)
-/setown { /HelveticaLatin1             x setfontandsize } def
-/setbol { /HelveticaLatin1-Bold        x setfontandsize } def
-/setboq { /HelveticaLatin1-BoldOblique x setfontandsize } def
-/setobl { /HelveticaLatin1-Oblique     x setfontandsize } def
+/setown { /MyFont             x setfontandsize } def
+/setbol { /MyFont-Bold        x setfontandsize } def
+/setboq { /MyFont-BoldOblique x setfontandsize } def
+/setobl { /MyFont-Oblique     x setfontandsize } def
 
 
 %%  String treatment:
@@ -487,12 +493,12 @@ WuGdict11a begin
 /gbuild { % string xrel yrel obj | - : plot obj above/below string
    /obj x def /yrelbui x def /xrelbui x def
    /Symbol findfont fontsize scalefont setfont
-   dup showif 
+   dup showif
    prepare
       { pop regularfont setfont }
       { stringwidth pop xrelbui neg mul fontheight yrelbui mul % relpos for obj
         currentpoint 4 2 roll % save position after string
-        regularfont setfont 
+        regularfont setfont
       rm obj pop       % obj must end with () that will be pop'ed
       mv               % back to saved position
       }
@@ -506,11 +512,11 @@ WuGdict11a begin
    x showif
    .8 .65 {(\136) show ()} gbuild
    } def
-/tilde { 
+/tilde {
    x showif
    1. .6 {(~) show ()} build
    } def
-/gtilde { 
+/gtilde {
    x showif
    1. .6 {(~) show ()} gbuild
    } def
@@ -520,26 +526,26 @@ WuGdict11a begin
 
 % the following macros use the symbol/curve plotting mechanism
 /pins { % string symins - ; symbol must be selected by pset
-   showif 
+   showif
    ( ) showif ( ) .5 .5 { currentxy 0 p black ()} build ( ) showif
    } def
 /clenins { % string len clenins - ; curve must be selected by cset
    x showif % I suppose that pins is preceeded by 8 spaces
-   dup ( ) stringwidth pop mul 2 add /xstrich x xmm div def 
-            % length of inserted curve : 
+   dup ( ) stringwidth pop mul 2 add /xstrich x xmm div def
+            % length of inserted curve :
             % -1 space : curve begins and ends in  middle of ( )
             % +3 spaces: pins requires 3 times ( )
-   ( ) 0 .5 { currentxy currentxy 0 ci x xstrich add x 0 cf () } build 
+   ( ) 0 .5 { currentxy currentxy 0 ci x xstrich add x 0 cf () } build
    2 add {( ) showif} repeat
    } def
 /cins { % string symins - ; curve must be selected by cset
    showif 8 % I suppose that pins is preceeded by 8 spaces
    dup ( ) stringwidth pop mul 2 add /xstrich x xmm div 10 div def
    % nov03, ohne zu verstehen, "10 div" eingefuegt
-            % length of inserted curve : 
+            % length of inserted curve :
             % -1 space : curve begins and ends in  middle of ( )
             % +3 spaces: pins requires 3 times ( )
-   ( ) 0 .5 { currentxy currentxy 0 ci x xstrich add x 0 cf () } build 
+   ( ) 0 .5 { currentxy currentxy 0 ci x xstrich add x 0 cf () } build
    2 add {( ) showif} repeat
    } def
 
@@ -551,10 +557,10 @@ WuGdict11a begin
     blabla endall % first pass : determine xwidth
    boxif { /boxwidth  xwidth (M) stringwidth pop boxxr mul 2 mul add def
            /boxheight fontheight 1 boxyr 2 mul add mul def
-           np xpos xwidth xrel mul sub boxwidth xwidth sub 2 div sub 
-           ypos fontheight .5 boxyr add mul sub mv 
+           np xpos xwidth xrel mul sub boxwidth xwidth sub 2 div sub
+           ypos fontheight .5 boxyr add mul sub mv
            boxwidth 0 rl 0 boxheight rl boxwidth neg 0 rl cp
-           boxproc 
+           boxproc
     } if
     xpos xwidth xrel mul sub ypos fontheight yrel mul sub mv
     /prepare false def
@@ -584,7 +590,7 @@ WuGdict11a begin
    xwidth % has been determined
    } def
 /textw { % obj textW y : dito, in 0..10-units
-   textW xmm div 
+   textW xmm div
    } def
 
 % horizontal text: x y ob | -
@@ -628,8 +634,8 @@ WuGdict11a begin
 
 %%  Layout presets:
 
-/xyTicLen {0.10 fm} def 
-/xyTacLen {0.20 fm} def 
+/xyTicLen {0.10 fm} def
+/xyTacLen {0.20 fm} def
 /txllen {0.20 fm} def
 /tyllen {0.20 fm} def
 /linsetAxx {black 0.7 setline} def
@@ -687,9 +693,9 @@ WuGdict11a begin
 } def
 
 
-/zValues { pop pop } def 
+/zValues { pop pop } def
 /plotafter {} def
-/whiteframe { 1 0 0 10 10 graybox } def 
+/whiteframe { 1 0 0 10 10 graybox } def
 /plotframes { xPlotFrame yPlotFrame } def
 /plotbefore { plotframes } def
 
@@ -703,21 +709,21 @@ WuGdict11a begin
 
 % set tick array - internal macros
 /tiputs { % rel_pos_of_tick | pos_of_tick : innermost routine for /taproc
-   tastep mul taloop add 
-   } def 
+   tastep mul taloop add
+   } def
 /taproclin { % (#tick/tack) | - : define /taproc for use in SetVec
    1 x div /tistep x def
    /taproc { 0 tistep .999 { tiputs } for } def
    } def
 /taproclog { % (#ticks/tacks) | - : define /taproc for use in SetVec
-      dup 3 gt { pop /taproc { 1 1 9 { log tiputs } for } def 
-   }{ dup 1 gt { pop /taproc { 0 tiputs 2 log tiputs 5 log tiputs } def 
-   }{ dup 0 gt { pop /taproc { 0 tiputs } def 
-   }{            neg taproclin  
+      dup 3 gt { pop /taproc { 1 1 9 { log tiputs } for } def
+   }{ dup 1 gt { pop /taproc { 0 tiputs 2 log tiputs 5 log tiputs } def
+   }{ dup 0 gt { pop /taproc { 0 tiputs } def
+   }{            neg taproclin
    } ifelse } ifelse } ifelse
    } def
 /SetVec { % tafro tatoo nta /vector | - : set /vector
-   4 1 roll 
+   4 1 roll
    /nta x def /tatoo x def /tafro x def
    /tastep tatoo tafro sub nta 1 sub div def
    [
@@ -728,8 +734,8 @@ WuGdict11a begin
       ] def
    } def
 % set tick array - user commands
-/SetTicVecLin { taproclin /TicVec SetVec } def 
-/SetTicVecLog { taproclog /TicVec SetVec } def 
+/SetTicVecLin { taproclin /TicVec SetVec } def
+/SetTicVecLog { taproclog /TicVec SetVec } def
 
 % set tack-and-number array
 /SetTacVec { % [ pos {label} pos {label} ... ] | -
@@ -740,7 +746,7 @@ WuGdict11a begin
    % note on angles : 0 = x-axis, 90 = y-axis
 /OneAxx { % fro to xpos ypos aang tang | - : presets for Axx, Tic, Tac, Num
    % store arguments
-   /tAng x def /aAng x def 
+   /tAng x def /aAng x def
    /yPos x def /xPos x def
    /aTo x def /aFro x def
    % set constants
@@ -795,7 +801,7 @@ WuGdict11a begin
    } def
 /TicProc { % aPos | - : default procedure to plot one tick
    np
-   xPos yPos xym mv 
+   xPos yPos xym mv
    dup xAng mul x yAng mul xym rm % eat argument, go to start pos.
    xTicLen yTicLen rl st
    } def
@@ -814,7 +820,7 @@ WuGdict11a begin
    linsetGri
    TicVec {
       3 copy dup 5 -1 roll aFro lt x aTo gt or {pop pop pop} {
-         dup % x1 x2 y y 
+         dup % x1 x2 y y
          4 -1 roll x xym np mv % x2 y
          xym li st
          } ifelse
@@ -841,7 +847,7 @@ WuGdict11a begin
    } def
 /Tac {
    linsetTac
-   { pop xPos yPos xym mv 
+   { pop xPos yPos xym mv
       aPos dup xAng mul x yAng mul xym rm
       xTacLen yTacLen rl st
       } TacExe
@@ -874,7 +880,7 @@ WuGdict11a begin
    setnum
    fontheight ymm div yDisRel mul tAng sin mul /yDist x def
    { dup textW xDisRel mul tAng cos mul /xDist x def
-     xPos aPos xAng mul add xDist sub 
+     xPos aPos xAng mul add xDist sub
      yPos aPos yAng mul add yDist sub 3 2 roll textCM } TacExe
    } def
 /setnumDisRel { % xDisRel yDisRel | - : adjust just a little bit
@@ -882,19 +888,19 @@ WuGdict11a begin
    } def
 1.2 1.2 setnumDisRel % default setting
 % explicit Num routines for rectangular case
-/xNumL { % : numbers on low x axis 
+/xNumL { % : numbers on low x axis
    setnum
    { fontheight ymm div % conversion -> user_scale
      dup /xNumHeightL x def
      -.6 mul yPos add aPos x 3 2 roll textCT } TacExe
    } def
-/xNumH { % : numbers on high x axis 
+/xNumH { % : numbers on high x axis
    setnum
    { fontheight ymm div % conversion -> user_scale
      dup /xNumHeightH x def
      .6 mul yPos add aPos x 3 2 roll textCB } TacExe
    } def
-/yNumL { % : numbers on low y axis 
+/yNumL { % : numbers on low y axis
    setnum
    { fontsize -.3 mul xmm div xPos add aPos 3 2 roll textRM
      xwidth dup yNumLengthL gt {/yNumLengthL x def} {pop} ifelse
@@ -909,7 +915,7 @@ WuGdict11a begin
    setnum
    textW dup yNumLengthL gt {/yNumLengthL x def} {pop} ifelse
    } def
-/yNumH { % : numbers on high y axis 
+/yNumH { % : numbers on high y axis
    setnum
    { fontsize .3 mul xmm div xPos add aPos 3 2 roll textLM
      xwidth dup yNumLengthH gt {/yNumLengthH x def} {pop} ifelse
@@ -967,7 +973,7 @@ WuGdict11a begin
    grestore
    } def
 
-   
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Data Plotting (Symbols and Curves)                                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -986,7 +992,7 @@ WuGdict11a begin
    /serrglo x def % plot error bars? 0=never, 1=always, 2=as_given_in_pset
    /slinglo x def % symbol linewidth multiplier
    /sradglo x def % symbol size multiplier
-   } def            
+   } def
 
 
 %%  Retrieve presets from style array:
@@ -998,7 +1004,7 @@ WuGdict11a begin
    3 2 roll % A n i
    dup 0 le {
       pop pop pop ostyle % chosen_number<=0 means: don't plot
-      } { 
+      } {
       1 sub x % A i-1 n
       mod get % A(i-1)
       exec
@@ -1010,7 +1016,7 @@ WuGdict11a begin
 
 /pset { % styp sfill serr srad slin | -
    % arg -> symbol linewidth
-   /slin x slinglo mul def   
+   /slin x slinglo mul def
    % arg -> symbol size
    /srad x fm 0.16 mul sradglo mul def
    % arg -> plot error bar?
@@ -1019,7 +1025,7 @@ WuGdict11a begin
    % arg -> fill the symbol? (0=open, 1=full, 2=colored_with_black_border)
    /sfill x def
    % adjust srad: it's the _outer_ radius
-   % TROUBLE sfill 1 ne {/srad srad slin fm pt sub def} if 
+   % TROUBLE sfill 1 ne {/srad srad slin fm pt sub def} if
    % arg -> symbol type
    /ps {ps_nil} def % default: don't plot (maybe we only want an error bar)
    dup  1 eq {/ps {ps_square}     def} if
@@ -1037,9 +1043,9 @@ WuGdict11a begin
    dup 13 eq {/ps {ps_star}       def} if
    dup 14 eq {/ps {ps_pentagon}   def} if
    pop
-   % 
+   %
    /t { % x y d[- d+] | -  : plot a symbol and eventually an error bar.
-       err_asy not { dup } if   
+       err_asy not { dup } if
        4 copy pop pop plot_symbol
        plot_errorbar
       } bind def
@@ -1072,7 +1078,7 @@ WuGdict11a begin
    /ti { nopoint } def
    /t  { nopoint } def
    /tf { nopoint } def
-} def   
+} def
 /nopoint { % x y d[- d+] | -
    pop pop pop err_asy { pop } if
 } def
@@ -1126,7 +1132,7 @@ WuGdict11a begin
 
 /ps_nil {
     } bind def
-    
+
 /ps_square {
    .5 .5 np mv
    0 -1 rl
@@ -1205,7 +1211,7 @@ WuGdict11a begin
    .7 dup 120 pol2xy np mv 300 pol2xy li st
    .7 dup 240 pol2xy np mv  60 pol2xy li st
    } bind def
-   
+
 
 %%  Set column plotting (use this instead of pset) - BROKEN in 11a or earlier
 
@@ -1243,7 +1249,7 @@ WuGdict11a begin
       fontheight ymm div nl_advance mul mul /nl_yins x nl_yins x sub def
       } def
    } def
-/newlist { 1.65 NewList } def 
+/newlist { 1.65 NewList } def
 /TxLine { % text TxLine -
    nl_xins nl_yins 3 -1 roll textLM newline
    } bind def
@@ -1260,50 +1266,50 @@ WuGdict11a begin
    newline
    } bind def
 /PtPtCvTxLine { % pstyle pstyle cstyle text | -
-   4 3 roll pstyle nl_xins nl_yins 0 t 
-   3 2 roll pstyle nl_xins nl_xshift add nl_yins 0 t 
+   4 3 roll pstyle nl_xins nl_yins 0 t
+   3 2 roll pstyle nl_xins nl_xshift add nl_yins 0 t
    x cstyle
-   nl_xins nl_xshift 2 mul add 
-   dup dup nl_xshift nl_xrline mul sub nl_yins 0 ti 
+   nl_xins nl_xshift 2 mul add
+   dup dup nl_xshift nl_xrline mul sub nl_yins 0 ti
    nl_xshift nl_xrline mul add nl_yins 0 tf
    nl_xshift add nl_yins 3 2 roll black textLM
    newline
    } bind def
 /PtCvTxLine { % pstyle cstyle text | -
-   3 2 roll pstyle nl_xins nl_yins 0 t 
+   3 2 roll pstyle nl_xins nl_yins 0 t
    x cstyle
-   nl_xins nl_xshift 1 mul add 
-   dup dup nl_xshift -.33 mul add nl_yins 0 ti 
+   nl_xins nl_xshift 1 mul add
+   dup dup nl_xshift -.33 mul add nl_yins 0 ti
    nl_xshift 0.33 mul add nl_yins 0 tf
    nl_xshift add nl_yins 3 2 roll black textLM
    newline
    } bind def
 /PtPtTxLine { % pstyle pstyle text | -
-   3 2 roll pstyle nl_xins nl_yins 0 t 
+   3 2 roll pstyle nl_xins nl_yins 0 t
    x pstyle nl_xins nl_xshift add nl_yins 0 t
    black nl_xins nl_xshift 2 mul add nl_yins 3 2 roll textLM
    newline
    } bind def
 /CvTxLine { % cstyle text | -
-   x cstyle 
-   nl_xins fontsize xmm div nl_xrline mul 0 mul sub nl_yins 0 ti 
-   nl_xins fontsize xmm div nl_xrline mul 3 mul add nl_yins 0 tf  
+   x cstyle
+   nl_xins fontsize xmm div nl_xrline mul 0 mul sub nl_yins 0 ti
+   nl_xins fontsize xmm div nl_xrline mul 3 mul add nl_yins 0 tf
    black nl_xins nl_xshift 1.5 mul add nl_yins 3 2 roll textLM
    newline
    } bind def
 /Cv2TxLine { % cstyle text | -
-   x cstyle 
-   nl_xins fontsize xmm div nl_xrline mul sub nl_yins 0 ti 
-   nl_xins fontsize xmm div nl_xrline mul add nl_xshift add nl_yins 0 tf  
+   x cstyle
+   nl_xins fontsize xmm div nl_xrline mul sub nl_yins 0 ti
+   nl_xins fontsize xmm div nl_xrline mul add nl_xshift add nl_yins 0 tf
    black nl_xins nl_xshift 2 mul add nl_yins 3 2 roll textLM
    newline
    } bind def
 /PCTxLine { % pstyle(with plset) text | -
-   x pstyle 
-   nl_xins fontsize xmm div nl_xrline 2 mul mul sub nl_yins 0 ci 
-   nl_xins fontsize xmm div nl_xrline 2 mul mul add nl_yins 0 cf  
+   x pstyle
+   nl_xins fontsize xmm div nl_xrline 2 mul mul sub nl_yins 0 ci
+   nl_xins fontsize xmm div nl_xrline 2 mul mul add nl_yins 0 cf
    nl_xins yins 0 t
-   black nl_xins 
+   black nl_xins
       fontsize xmm div 1.9 mul % instead of xshift
       add nl_yins 3 2 roll textLM
    newline
@@ -1345,7 +1351,7 @@ WuGdict11a begin
    cp
    } def
 /execOval { %  xl yl dx dy dr { proc } | - % works only in quadratic grid
-   x 6 2 roll 
+   x 6 2 roll
    4 2 roll % proc dr dx dy xl yl
    gsave
       xym translate
@@ -1491,24 +1497,24 @@ WuGdict11a begin
        grestore
      grestore
 } def
-  
-/knautschy { % x0 y0 y_knau y_tot knautschy - : insert an S in dived y-axis 
+
+/knautschy { % x0 y0 y_knau y_tot knautschy - : insert an S in dived y-axis
    % the total height of the generated object is y_tot
    % of which y_knau(.le. y_tot) is for the real knautsch,
    % the remainder is for vertical prolongations.
-   x ym 4 div dup /tmpy x def 5 sqrt mul /tmpx x def 
+   x ym 4 div dup /tmpy x def 5 sqrt mul /tmpx x def
    /tmpa x ym tmpy 4 mul sub 2 div def
-   np ym x xm x mv 0 tmpa rl tmpx tmpy rl tmpx -2 mul tmpy 2 mul rl 
+   np ym x xm x mv 0 tmpa rl tmpx tmpy rl tmpx -2 mul tmpy 2 mul rl
    tmpx tmpy rl 0 tmpa rl st
    } def
-/separy { % x0 y0 sep lng ang lin - : insert an // in dived y-axis 
+/separy { % x0 y0 sep lng ang lin - : insert an // in dived y-axis
    setline
-   /spang x def 
+   /spang x def
    /splng x def
    /spsep x def
-   2 copy spsep sub gsave offset spang rotate 
+   2 copy spsep sub gsave offset spang rotate
       splng -.5 mul fm 0 np mv splng fm 0 rl st grestore
-   spsep add gsave offset spang rotate 
+   spsep add gsave offset spang rotate
       splng -.5 mul fm 0 np mv splng fm 0 rl st grestore
    } def
 
@@ -1532,7 +1538,7 @@ WuGdict11a begin
     4 1 roll 0 3 2 roll bmszRT x rtextCM % hlw dx/2
     dup 2 mul 3 1 roll x sub dup % dx len len
     0 0 180 4 -1 roll bmszSZ bmszTH arrow % dx len
-    x 0 0 4 -1 roll  bmszSZ bmszTH arrow 
+    x 0 0 4 -1 roll  bmszSZ bmszTH arrow
     grestore
    } def
 
@@ -1569,7 +1575,7 @@ WuGdict11a begin
 /ueV{ grec (m) endgr (eV) showif} bind def
 /inueV { showif (\() grec (m) endgr (eV\)) showif } bind def
 /inmeVr { showif (\(meV) supsc (-1) endsc (\)) showif } bind def
-/inueVr { showif (\() grec (m) endgr (eV) 
+/inueVr { showif (\() grec (m) endgr (eV)
           supsc (-1) endsc (\)) showif } bind def
 /inGHzr { showif (\(GHz) (-1) sp (\)) showif } def
 
@@ -1603,6 +1609,7 @@ end % WuGdict...
 %%  Mark "ewu", the end of the wups.. macro definition file                  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 WuGdict11a begin
+setPalatino
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Customizable plot setup, copied from g3.ps (editör: use latin-1)

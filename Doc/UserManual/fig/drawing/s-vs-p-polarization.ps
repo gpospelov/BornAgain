@@ -1,12 +1,9 @@
 %!PS-Adobe-1.0 EPSF-1.0
-%%BoundingBox:    38   386   389   718
-%%Comment: Bounding box extracted by bboxx
-%%+:       A program by Dov Grobgeld 2003
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  FRIDA: fast reliable interactive data analysis                           %%
 %%  wups11a.ps: graphic macros                                               %%
-%%  (C) Joachim Wuttke 1990-2011                                             %%
+%%  (C) Joachim Wuttke 1990-2016                                             %%
 %%  http://www.messen-und-deuten.de/frida                                    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -303,7 +300,7 @@ WuGdict11a begin
    {  10  10 150 } % 19
    {  30  30 130 } % 20
    ] def
-/aCol3 [ % siemenscolors
+/aCol3 [ % [fixed size: 9] siemenscolors
    { 165   0  33 } % siemensred
    {  33 153 102 } % siemensgreen
    { 0   102 153 } % siemensblue
@@ -337,7 +334,7 @@ WuGdict11a begin
    { 120  80  30 }
    { 100  60  20 }
    ] def
-/aCol5 [ % gnuplot default (see man gnuplot and rgb.txt)
+/aCol5 [ % [fixed size: 8] gnuplot default (see man gnuplot and rgb.txt)
    { 255   0   0 } % red
    {   0 255   0 } % green
    {   0   0 255 } % blue
@@ -398,10 +395,10 @@ WuGdict11a begin
    } def
 
 % we assume that image scripts are Latin1 encoded
-/Helvetica             /HelveticaLatin1             ISOLatin1Encoding ReEncode
-/Helvetica-Oblique     /HelveticaLatin1-Oblique     ISOLatin1Encoding ReEncode
-/Helvetica-Bold        /HelveticaLatin1-Bold        ISOLatin1Encoding ReEncode
-/Helvetica-BoldOblique /HelveticaLatin1-BoldOblique ISOLatin1Encoding ReEncode
+/Helvetica             /MyFont             ISOLatin1Encoding ReEncode
+/Helvetica-Oblique     /MyFont-Oblique     ISOLatin1Encoding ReEncode
+/Helvetica-Bold        /MyFont-Bold        ISOLatin1Encoding ReEncode
+/Helvetica-BoldOblique /MyFont-BoldOblique ISOLatin1Encoding ReEncode
 
 /setPalatino {
 /Palatino             /MyFont             ISOLatin1Encoding ReEncode
@@ -409,7 +406,6 @@ WuGdict11a begin
 /Palatino-Bold        /MyFont-Bold        ISOLatin1Encoding ReEncode
 /Palatino-BoldItalic  /MyFont-BoldOblique ISOLatin1Encoding ReEncode
 } def
-
 
 %% Preset standard styles:
 
@@ -590,7 +586,7 @@ WuGdict11a begin
    blabla endall
    xwidth % has been determined
    } def
-/textw { % obj textW y : dito, in 0..10-units
+/textw { % obj | y : dito, in 0..10-units
    textW xmm div
    } def
 
@@ -1043,6 +1039,8 @@ WuGdict11a begin
    dup 12 eq {/ps {ps_cross}      def} if
    dup 13 eq {/ps {ps_star}       def} if
    dup 14 eq {/ps {ps_pentagon}   def} if
+   dup 15 eq {/ps {ps_horiz}      def} if
+   dup 16 eq {/ps {ps_verti}      def} if
    pop
    %
    /t { % x y d[- d+] | -  : plot a symbol and eventually an error bar.
@@ -1088,19 +1086,22 @@ WuGdict11a begin
 %%  Plot an asymmetric vertical error bar:
 
 /errorbar { % x y d- d+ | -
-   3 copy pop pop
-   dup 0 gt x 10 lt and {
-      4 copy
-      x pop add 10. 2 copy gt { x } if pop ym x xm x
-      2 copy x .05 sub x np mv .1 0 rl st
-      np mv
-      pop sub 0. 2 copy lt { x } if pop ym x xm x
-      2 copy lineto st
-      x .05 sub x np mv .1 0 rl st
-      } {
-      pop pop pop pop
-      } ifelse
-   } def
+   gsave
+      slin setline
+      3 copy pop pop
+      dup 0 gt x 10 lt and {
+         4 copy
+         x pop add 10. 2 copy gt { x } if pop ym x xm x
+         2 copy x .05 sub x np mv .1 0 rl st
+         np mv
+         pop sub 0. 2 copy lt { x } if pop ym x xm x
+         2 copy lineto st
+         x .05 sub x np mv .1 0 rl st
+         } {
+         pop pop pop pop
+         } ifelse
+      grestore
+} def
 
 
 %%  Plot a data symbol:
@@ -1109,7 +1110,7 @@ WuGdict11a begin
     gsave
        offset
        srad dup scale
-       slin srad div setline % Faktor 1/div unverstanden, aber noetig
+       slin srad div setline % factor 1/srad compensates "scale"
        ps % the actual plot symbol, defined by 'pset'
        grestore
    } def
@@ -1213,6 +1214,16 @@ WuGdict11a begin
    .7 dup 240 pol2xy np mv  60 pol2xy li st
    } bind def
 
+/ps_horiz {
+   -.7 0 np mv
+   1.4 0 rl st
+   } bind def
+
+/ps_verti {
+   0 -.7 np mv
+   0 1.4 rl st
+   } bind def
+
 
 %%  Set column plotting (use this instead of pset) - BROKEN in 11a or earlier
 
@@ -1263,6 +1274,17 @@ WuGdict11a begin
 /PtTxLine { % pstyle text | -
    x pstyle
    nl_xins nl_xshift .5 mul add nl_yins 0 t
+   black nl_xins nl_xshift 1.5 mul add nl_yins 3 2 roll textLM
+   newline
+   } bind def
+/PttttTxLine { % pstyle text | - %% chain of very small symbols
+   x pstyle
+   nl_xins nl_xshift .10 mul add nl_yins 0 t
+   nl_xins nl_xshift .26 mul add nl_yins 0 t
+   nl_xins nl_xshift .42 mul add nl_yins 0 t
+   nl_xins nl_xshift .58 mul add nl_yins 0 t
+   nl_xins nl_xshift .74 mul add nl_yins 0 t
+   nl_xins nl_xshift .90 mul add nl_yins 0 t
    black nl_xins nl_xshift 1.5 mul add nl_yins 3 2 roll textLM
    newline
    } bind def
@@ -1332,47 +1354,40 @@ WuGdict11a begin
 
 %%  gray areas (mainly applied with grayval=1 for blank areas) [longtime grey..]
 
-/graybox { % grayval x_L y_B dx dy | - %%% OBSOLETE
-   boxit
-   cp gsave setgray fill grestore
-   } def
-/boxit { %  x_L y_B dx dy | - %%% OBSOLETE
-   4 2 roll
-   np ym x xm x mv % corner Left Bottom
-   ym dup 0 x rl   % line up
-   x xm 0 rl       % line right
-   neg 0 x rl      % line down
-   } def
-/boxLLHH { % xl yl xh yh | - %%% INCOMPATIBLE with boxit, contains cp
-   4 copy 8 copy
-   pop pop np mv
-   3 1 roll pop pop li
-   li pop pop
-   4 1 roll exch li pop pop
-   cp
-   } def
-/execOval { %  xl yl dx dy dr { proc } | - % works only in quadratic grid
-   x 6 2 roll
-   4 2 roll % proc dr dx dy xl yl
+/execOval3 { %  xl xh yl yh dr { proc } | -
    gsave
-      xym translate
-      gsave
-         xym scale % BAD: now dr is scale dependent
-         dup neg 0 np mv
-         0 1 rl
-         dup 0 1 3 2 roll 180 90 arcn
-         1 0 rl
-         dup 1 1 3 2 roll 90 0 arcn
-         0 -1 rl
-         dup 1 0 3 2 roll 0 -90 arcn
-         -1 0 rl
-         dup 0 0 3 2 roll -90 -180 arcn
-         pop
-         exec
-         grestore
-      grestore
+   6 1 roll
+   fm /qqdr x def
+   ym /qqyh x def
+   ym /qqyl x def
+   xm /qqxh x def
+   xm /qqxl x def
+   qqxl qqyl qqdr add np mv
+   qqxl qqyh qqdr sub li
+   qqxl qqdr add qqyh qqdr sub qqdr 180 90 arcn
+   qqxh qqdr sub qqyh li
+   qqxh qqdr sub qqyh qqdr sub qqdr 90 0 arcn
+   qqxh qqyl qqdr add li
+   qqxh qqdr sub qqyl qqdr add qqdr 0 -90 arcn
+   qqxl qqdr add qqyl li
+   qqxl qqdr add qqyl qqdr add qqdr -90 -180 arcn
+   cp exec grestore
    } def
-/execRectangle { % xl xh yl yh (all in user coords) {proc} | -
+/execRect3 { % xl xh yl yh {proc} | -
+   5 1 roll
+   gsave
+   ym /qqyh x def
+   ym /qqyl x def
+   xm /qqxh x def
+   xm /qqxl x def
+   np
+   qqxl qqyl mv
+   qqxh qqyl li
+   qqxh qqyh li
+   qqxl qqyh li
+   cp exec grestore
+   } def
+/execRectangle { % OBSOLETE
    5 1 roll
    gsave
    wy /qqyh x def
@@ -1403,26 +1418,6 @@ WuGdict11a begin
    qqxl qqyl qqdr add xym li
    cp exec grestore
    } def
-/execTrueOval { % xl xh yl yh dr {proc} | -
-   6 1 roll
-   gsave
-   /qqdr x def
-   /qqyh x def
-   /qqyl x def
-   /qqxh x def
-   /qqxl x def
-   np
-   qqxl qqdr add qqyl xym mv
-   qqxh qqdr sub qqyl xym li
-   qqxh qqdr sub qqyl qqdr add qqdr -90 0 arc
-   qqxh qqyh qqdr sub xym li
-   qqxh qqdr sub qqyh qqdr sub qqdr 0 90 arc
-   qqxl qqdr add qqyh xym li
-   qqxl qqdr add qqyh qqdr sub qqdr 90 180 arc
-   qqxl qqyl qqdr add xym li
-   qqxl qqdr add qqyl qqdr add qqdr 180 270 arc
-   cp exec grestore
-   } def
 /coordRectangle { % xl xh yl yh (all in plot coords) {proc} | -
    5 1 roll
    gsave
@@ -1441,13 +1436,15 @@ WuGdict11a begin
 
 %%  special objects
 
+/pfeilangle 36.87 def
 /pfeilspitze { % x[local] y[local] rot siz
    % draw with current linestyle, as set e.g. by linsetAxx
    x 4 2 roll % siz rot x y
    gsave
      xym translate 180 add rotate dup dup dup
      [] 0 setdash
-     .8 mul x .6 mul np mv 0 0 li .8 mul x -.6 mul li st
+     pfeilangle cos mul x pfeilangle sin mul np mv
+     0 0 li pfeilangle cos mul x pfeilangle sin neg mul li st
    grestore
    } def
 /pfeiL { % (arrow anchored at base) x y rot siz len
@@ -1519,27 +1516,15 @@ WuGdict11a begin
       splng -.5 mul fm 0 np mv splng fm 0 rl st grestore
    } def
 
-% broken:
-/setBemasz { % textsize textspace arrowsize arrowthick | -
-    /bmszTH x def
-    /bmszSZ x def
-    /bmszSP x def
-    /bmszOW x def
-   } def
-18 .2 .5 .01 setBemasz
-/Bemasz { % x y dx ang text_ang text | -
+/bemasz { % x y L ang text | - %% precede by '24 setown 1 [] lset /pfeilangle 90 def'
     gsave
-    6 4 roll offset % consumes x and y
-    3 2 roll rotate % consumes ang | dx text_ang text
-    bmszOW setown
-    x /bmszRT x def
-    x 2 div x 2 copy % dx/2 text dx/2 text
-    textw 2 div bmszSP add % dx/2 text dx/2 halflabelwidth
-       % ACHTUNG: fuer bmszRT <> 0 ist textw NOCH FALSCH
-    4 1 roll 0 3 2 roll bmszRT x rtextCM % hlw dx/2
-    dup 2 mul 3 1 roll x sub dup % dx len len
-    0 0 180 4 -1 roll bmszSZ bmszTH arrow % dx len
-    x 0 0 4 -1 roll  bmszSZ bmszTH arrow
+    5 3 roll offset % consumes x and y
+    x rotate % consumes ang | L text
+    dup textw .5 mul fontheight .4 mul add /bmszDT x def % => half text width
+    0 0 3 2 roll textCM % L
+    .5 mul /bmszDX x def % => half bemasz length
+    bmszDX     0   0 fontheight .67 mul bmszDX bmszDT sub Pfeil
+    bmszDX neg 0 180 fontheight .67 mul bmszDX bmszDT sub Pfeil
     grestore
    } def
 
@@ -1580,7 +1565,7 @@ WuGdict11a begin
           supsc (-1) endsc (\)) showif } bind def
 /inGHzr { showif (\(GHz) (-1) sp (\)) showif } def
 
-%% home-made Angstr is obsolete; use \375 or Å
+%% home-made Angstr is obsolete; use \305 (more reliable than Å)
 /Angstr {
    showif
    (A) .5 1.23 {
@@ -1588,10 +1573,10 @@ WuGdict11a begin
       fontheight .14 mul 0 360 arc st ()
    } build
 } bind def
-/Angr { Angstr () supsc (-1) endsc } bind def
+/Angr { showif (\305) supsc (-1) endsc } bind def
 /inAngr { showif (\() Angr (\)) showif } bind def
-/Angrr { Angstr () supsc (-2) endsc } bind def
-/inAngrr { showif (\() Angr (\)) showif } bind def
+/Angrr { showif (\305) supsc (-2) endsc } bind def
+/inAngrr { showif (\() Angrr (\)) showif } bind def
 /wmin {grec (w) endgr () subsc (min) endsc} def
 /winpi { grec (w) endgr ( / 2) grec (p) endgr } def
 /Celsius { showif (\26x)g(C) showif } bind def
@@ -1609,157 +1594,44 @@ end % WuGdict...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Mark "ewu", the end of the wups.. macro definition file                  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 WuGdict11a begin
 setPalatino
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Customizable plot setup, copied from g3.ps (edit�r: use latin-1)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%  Position and scale:
-
-iFrame 0 eq
-{
-10 dup autolabel defsiz
+3 dup autolabel defsiz
 1 dup stdred
-3 -13 setnewpage newpage
-1 1 13 -14 setpagegrid
+7 -6 setnewpage newpage
 
-2 8 24 abcset % usage: {(text)} abc
-/EndFrame { nextFrame end } def
+/darkgreen { 13 133  13 setRGBcolor } def
+/litegreen {202 253 222 setRGBcolor } def
+/darkblue  { 13  13 133 setRGBcolor } def
+/liteblue  {202 202 255 setRGBcolor } def
+/darkbrown {215 175 135 setRGBcolor } def
+/litebrown {255 235 215 setRGBcolor } def
 
-1 1 language
-1 1 InfSet % plot fnam, info
-1 dup 2 SymGSet % srad slin serr(2=from pset) : graph symbols, global preset
-% /setboxbackgroundcolor { 0.93 setgray } def % default is white
+% /execRect3 { % xl xh yl yh {proc} | -
 
-F /pcol x def % black&white on/off
-{ 8 aCol5 iColA } /ipCol x bind def % number of colours and colour style
-/pStyles [
-{ pcol {  1 1 0 1. 1. pset } { 11 0 0 1. 1. pset  0 ipCol } ifelse }
-{ pcol {  1 0 0 1. 1. pset } { 12 1 0 1. 1. pset  1 ipCol } ifelse }
-{ pcol {  2 1 0 1. 1. pset } { 13 1 0 1. 1. pset  2 ipCol } ifelse }
-{ pcol {  2 0 0 1. 1. pset } {  1 0 0 1. 1. pset  3 ipCol } ifelse }
-{ pcol {  3 1 0 1. 1. pset } {  1 1 0 .7 1. pset  4 ipCol } ifelse }
-{ pcol {  3 0 0 1. 1. pset } {  3 0 0 1. 1. pset  5 ipCol } ifelse }
-{ pcol {  4 1 0 1. 1. pset } {  3 1 0 .7 1. pset  6 ipCol } ifelse }
-{ pcol {  4 0 0 1. 1. pset } {  4 0 0 1. 1. pset  7 ipCol } ifelse }
-{ pcol {  5 1 0 1. 1. pset } {  4 1 0 .7 1. pset  0 ipCol } ifelse }
-{ pcol {  5 0 0 1. 1. pset } {  5 0 0 1. 1. pset  1 ipCol } ifelse }
-{ pcol {  5 0 0 1. 1. pset } {  5 1 0 .7 1. pset  2 ipCol } ifelse }
-{ pcol {  3 0 0 1. 1. pset } {  2 0 0 1. 1. pset  3 ipCol } ifelse }
-{ pcol {  4 1 0 1. 1. pset } {  2 1 0 .7 1. pset  4 ipCol } ifelse }
-] def
+21 setown
+/H 6 def
+/L 40 def
 
-T /ccol x def % black&white on/off
-{ 8 aCol2 iColA } /icCol x bind def % number of colours and colour style
-/cStyles [
-{ ccol { 1. [          ] lset } { 1. [] lset  0 icCol } ifelse }
-] def
+% Layers
+litebrown  0 L 0 H     { fill } execRect3
+darkbrown  0 L 0 H neg { fill } execRect3
 
-} if % iFrame==0
-
-%%  Clear frame:
-
-Resets
-BoxBackground
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Mark "ecu", end of the customization section
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% output created by frida2
-
-0 -0.5 0.5 xSetCoord
-0 -0.5 0.5 ySetCoord
-% 0 0 0 0 zSetCoord
-
-/fuy {
-    /fcz x def
-    /fcy x def
-    1 fcz dup mul add sqrt
-    fcy 1 fcy dup mul sub sqrt div mul
-} def
-
-/fuz {
-    /fcz x def
-    /fcy x def
-    1 fcy dup mul add sqrt
-    fcz 1 fcz dup mul sub sqrt div mul
-} def
-
-%% real-space detector coordinates
-/plotframes {
-  [
-    -.4 wx {(-0.4)}
-    -.2 wx {(-0.2)}
-     0  wx {(0)}
-     .2 wx {(0.2)}
-     .4 wx {(0.4)}
-  ] SetTacVec
-  0 10 11 1 SetTicVecLin
-  {(y / L)}
-   0 10   0  0     0  90 OneAxx Axx  Tic Tac xNumL %% low x axis
-   0 10   0 10     0 270 OneAxx Axx  Tic Tac       %% top x axis
-  xCL
-
-  [
-    -.4 wy {(-0.4)}
-    -.2 wy {(-0.2)}
-     0  wy {(0)}
-     .2 wy {(0.2)}
-     .4 wy {(0.4)}
-  ] SetTacVec
-  0 10 11 1 SetTicVecLin
-   {(z / L)}
-   0 10   0  0    90   0 OneAxx Axx Tic Tac yNumL %% left y axis
-   0 10  10  0    90 180 OneAxx Axx Tic Tac       %% right y axis
-  yCL
-} def
-
-siemensblue
-1 cstyle
--.4 .1 .49 {
-    /dqz x def
-    /t { np txy mv /t { txy li } def } def
-    -.5 .01 .5 {
-        /dcy x def
-	dcy dcy dqz fuz wxy 0 t
-    } for
-    st
-} for
-
-siemensred
-1 cstyle
--.4 .1 .49 {
-    /dqy x def
-    /t { np txy mv /t { txy li } def } def
-    -.5 .01 .5 {
-        /dcz x def
-	dqy dcz fuy dcz wxy 0 t
-    } for
-    st
-} for
-
-/bgx 2.3 def
-/bgy .5 def
-/bg {
-    4 1 roll /angl x def
-    { translate angl rotate 1.0 bgx -.5 mul bgy -.5 mul bgx bgy graybox
-    0 0 3 2 roll textCM } G
-} def
-
+/h  H 2 div def
+/xx 1.5 def
 black
-18 setown
--.30 dup .4 fuz     wxy -6   {(q)(z)sb( = 0.4 K)} bg
--.30 dup .2 fuz     wxy -2.8 {(q)(z)sb( = 0.2 K)} bg
--.30 dup 0  fuz     wxy  0   {(q)(z)sb( = 0.0 K)} bg
- .30 dup 0. x fuy x wxy 90   {(q)(y)sb( = 0.0 K)} bg
- .30 dup .2 x fuy x wxy 87.2 {(q)(y)sb( = 0.2 K)} bg
- .30 dup .4 x fuy x wxy 84   {(q)(y)sb( = 0.4 K)} bg
+xx h     {(layer l-1)} textLM
+xx h neg {(layer l)} textLM
 
-plotframes
+/yTitle H neg 1 sub def
 
-black
-np 0 0 wxy .3 0 360 arc cp fill
-EndFrame
+16 0 offset
+0 yTitle {(p polarization)} textCM
+
+16 0 offset
+0 yTitle {(s polarization)} textCM
+
+showpage
+end % WuGdict...

@@ -199,12 +199,14 @@ we will need to decompose the SLD as
 \begin{equation}\label{Edecompose_v}
   v(\r) \coloneqq \mv(\r) + \delta v(\r).
 \end{equation}
-\nomenclature[1d030 2v230 2r040]{$\delta v(\r)$}{Fluctuating part of the scattering length density}%
-\nomenclature[2v021]{$\mv$}{Average scattering length density}%
+\nomenclature[1d030 2v230 2r040]{$\delta v(\r)$}{Part
+ of the scattering length density that causes scattering}%
+\nomenclature[2v021]{$\mv$}{Part
+ of the scattering length density that can be handled analytically}%
 For $\r$ outside the finite sample volume, we require $\delta v(\r)=0$.
 Inside the sample, the decomposition~\cref{Edecompose_v} is somewhat arbitrary,
 and can be chosen for analytical convenience.
-The slowly varying part $\mv(\r)$ should only contain SLD variations
+The part $\mv(\r)$ should only contain SLD variations
 that are simple enough to allow an analytical solution.
 The fluctuating part~$\delta v(\r)$ stands for the more irregular
 features of a sample one ultimately wants to study in a scattering experiment.
@@ -968,13 +970,13 @@ To solve this equation by a perturbation expansion,
 \index{Perturbation expansion}%
 we proceed as in \cref{Sfluct},
 and decompose the dielectric permittivity
-into a slowly varying component and a perturbation that fluctuates on atomic scales,
+into a two components:
 \begin{equation}
   \eps(\r) = \overline{\eps}(\r) + \delta\eps(\r).
 \end{equation}
-\nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Slowly varying part of the permittivity~$\eps(\r)$}%
+\nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that can be analytically handled}%
 \nomenclature[1δ030
-  1ε030 2r040]{$\delta\eps(\r)$}{Fast varying part of the permittivity~$\eps(\r)$}%
+  1ε030 2r040]{$\delta\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that causes scattering}%
 We define the material-dependent wavenumber by
 \index{Wavenumber!material dependent}%
 \begin{equation}
@@ -1128,10 +1130,11 @@ So the X-ray scattering cross section for given incoming and detected polarizati
 \end{equation}
 with the scattering matrix element
 \index{Scattering!matrix}%
+\Emph{
 \begin{equation}\label{EtramaE}
   \bra \Ei|\delta v|\Ef\ket
   \coloneqq  \int\!\d^3r\, \Eic(\r)\delta v(\r)\Ef(\r).
-\end{equation}
+\end{equation}\vspace*{-5pt}}
 For lighter notation,
 it is convenient to choose the vacuum plane waves \cref{EEoi,EEof} from the onset
 with normalized polarization vectors,
@@ -1145,8 +1148,7 @@ takes the simple form
 \begin{equation}\label{ExsectionX}
   \xElas
   =  {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2
-\end{equation}
-\vspace*{-5pt}}
+\end{equation}\vspace*{-5pt}}
 in full analogy with~\cref{Exsection}.
 \index{X-ray!scattering theory|)}%
 

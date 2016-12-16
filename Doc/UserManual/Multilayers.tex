@@ -19,24 +19,19 @@
 \index{Multilayer|(}%
 \index{Layer structures|see {Multilayer}}
 
-Wave propagation through thin layers requires
-a special formalism that accounts for
-refraction and reflection (\cref{Swave21}).
-The so obtained distorted plane waves are the base
-for the reformulation of Born's scattering theory
-in the distorted wave Born approximation (\cref{SDWBA}).
-% TODO RESTORE XREF We also discuss the limits of coherent superposition (\cref{Scoherlen}),
+The distorted-wave ansatz of \Cref{SSca} started from the decomposition~\cref{Edecompose_v}
+of the scattering-length density~$v(\r)$.
+It was assumed that propagation of distorted waves can be computed analytically for
+a function~$\overline{v}(\r)$,
+so that only the remaining fluctuations $\delta v(\r)$ cause scattering.
+In this chapter, we consider wave propagation in a multilayer system for which
+$\overline{v}(\r)=\overline{v}(z)$.
+In \Cref{Swave21} we introduce notation,
+factorize the wave function into an in-plane and a perpendicular function,
+and derive the notorious four-term DWBA cross section~\cref{Edwba4}.
+In \Cref{SLayHomo} we specialize to a stack of homogeneous layers,
+and describe how the vertical wave function is computed in BornAgain.
 
-
-\Work{TODO: derive polarization factors; integrate the following text fragment} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-As result, the scattering matrix element~\cref{Etrama} of the scalar case
-needs to be multiplied with \E{polarization factors}.
-\index{Polarization!factor (X-ray)}%
-For GISAS geometry, they can be found in equations (92)--(95) of Ref.~\cite{ReLL09}.
-For the usual small scattering angles of GISAS,
-they are close to unity and therefore can be neglected.
-In BornAgain, they are not yet implemented.
 
 
 \index{GISAS|see{Grazing-incidence small-angle scattering}}
@@ -107,7 +102,7 @@ where the sample normal is horizontal in laboratory space.
 \index{Reflectometer!vertical vs horizontal}%
 
 Scattering from such systems will be studied in distorted-wave Born approximation.
-To determine the cross section~\cref{Exsection},
+To determine the neutron scattering cross section~\cref{Exsection},
 we need to determine the incident and final wavefunctions
 $\psi_\si$ and~$\psi_\sf$.
 Vertical variations of the refractive index $n(z)$
@@ -316,6 +311,19 @@ of the air or vacuum layer~0.}
 \label{Fdefz}
 \end{figure}
 %--------------------------------------------------------------------------------
+
+All the above can be easily transcribed to electromagnetic waves.
+The scattering matrix element~\cref{EtramaE}
+becomes a four-term some over field components $\v{E}^{\pm}_{\text i,f}$.
+In full analogy with~\cref{Edwbal},
+the sum over layers is
+\Emph{%
+\begin{equation}\label{EdwbalE}
+  \bra \v{E}_\si|\delta v|\v{E}_\sf\ket
+  = \sum_l \sum_{\pm_\si} \sum_{\pm_\sf}
+    \bra \v{E}^\pm_{\si l}|\delta v|\v{E}^\pm_{\sf l}\ket.
+\end{equation}%
+\vspace*{-5pt}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Homogeneous layers}\label{SLayHomo}
@@ -564,31 +572,6 @@ $(0,\ldots, N-1) \mapsto (N-1,\ldots,0)$.
 \Work{GISAS in transmission geometry is not yet implemented in \BornAgain,
   but high on our agenda.}
 
-At this point,
-it may be an interesting exercise to make
- a connection with a well known textbook result.
-Consider a system
-with a single interface between two semi-infinite,
-non-absorbing media. The incoming wave is assumed to be above the
-critical angle, ensuring all $f_l$ are real.
-The reflected flux,
-normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$, is
-\index{Reflected flux}%
-\begin{equation}\label{EJrefl}
-  \frac{J_{0\perp}^+}{J_{0\perp}^-}
-  = - \left(\frac{f_0-f_1}{f_0+f_1}\right)^2,
-\end{equation}
-and the transmitted flux
-\index{Transmitted flux}%
-\begin{equation}\label{EJtran}
-  \frac{J_{1\perp}^-}{J_{0\perp}^-}
-  = \frac{4f_0 f_1}{(f_0+f_1)^2}.
-\end{equation}
-This satisfies particle number conservation, $J_{0\perp}^-+J_{0\perp}^+=J_{1\perp}^-$,
-and agrees with Fresnel's result for $s$-polarized light.\footnote
-{See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
-  or Hecht \cite[ch.~4.6.2]{Hec02}.}
-
 The above algorithm fails if $f_l\to0$
 because $M_{l+1}$ becomes singular.
 The general solution of \cref{Ewavez} will be a linear function of $z$:
@@ -709,5 +692,58 @@ See any textbook on quantum mechanics.}
 \index{Phase integral method|see {WKB method}}%
 
 \fi
+
+%===============================================================================
+\section{Polarization factors for X-rays}\label{SXpolfac}
+%===============================================================================
+
+
+%--------------------------------------------------------------------------------
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig/drawing/s-vs-p-polarization.ps}
+\end{center}
+\caption{Conventions for polarization directions relative to a refracting interface:
+\index{Convention!p- and s-polarization}%
+\index{Polarization!p and s}%
+\index{p-Polarization}%
+\index{s-Polarization}%
+For $p$ polarization, the electric field vector is parallel to the interface normal;
+for $s$ polarization, it is perpendicular (\E{senkrecht} in German).}
+\label{Fboundary}
+\end{figure}
+%--------------------------------------------------------------------------------
+
+At this point,
+it may be an interesting exercise to make
+ a connection with a well known textbook result.
+Consider a system
+with a single interface between two semi-infinite,
+non-absorbing media. The incoming wave is assumed to be above the
+critical angle, ensuring all $f_l$ are real.
+The reflected flux,
+normalized to the incident vertical flux $J_{0\perp}^-=-Kf_0$, is
+\index{Reflected flux}%
+\begin{equation}\label{EJrefl}
+  \frac{J_{0\perp}^+}{J_{0\perp}^-}
+  = - \left(\frac{f_0-f_1}{f_0+f_1}\right)^2,
+\end{equation}
+and the transmitted flux
+\index{Transmitted flux}%
+\begin{equation}\label{EJtran}
+  \frac{J_{1\perp}^-}{J_{0\perp}^-}
+  = \frac{4f_0 f_1}{(f_0+f_1)^2}.
+\end{equation}
+This satisfies particle number conservation, $J_{0\perp}^-+J_{0\perp}^+=J_{1\perp}^-$,
+and agrees with Fresnel's result for $s$-polarized light.\footnote
+{See any optics textbook, e.g.\ Born~\&~Wolf \cite[ch.~1.5.2]{BoWo99}
+  or Hecht \cite[ch.~4.6.2]{Hec02}.}
+
+OLD STUFF:
+\index{Polarization!factor (X-ray)}%
+For GISAS geometry, they can be found in equations (92)--(95) of Ref.~\cite{ReLL09}.
+For the usual small scattering angles of GISAS,
+they are close to unity and therefore can be neglected.
+In BornAgain, they are not yet implemented.
 
 \index{Multilayer|)}%

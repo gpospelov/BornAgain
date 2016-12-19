@@ -72,7 +72,7 @@ TEST_F(RTTest, SplitBilayers)
 {
     // With exaggerated values of #layers, layer thickness, and absorption
     // so that we also test correct handling of floating-point overflow.
-    const int n = 400;
+    const int n = 200;
 
     sample1.addLayer( topLayer );
     for (size_t i=0; i<n; ++i) {

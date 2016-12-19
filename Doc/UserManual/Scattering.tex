@@ -760,7 +760,7 @@ Alternatively, we can compute $I$ as a surface integral
 \end{equation}
 On the surface $\partial\Sphere$,
 $G$ is an outgoing solution of the Helmholtz equation.
-As such, it has a well-known series expansion in spherical coordinates
+As such, it has a well-known series expansion in spherical coordinates.
 We send $R\to\infty$ so that we need only to retain the lowest order:
 \begin{align}
    G(\r(R,\vartheta,\varphi),\rD)
@@ -798,9 +798,9 @@ and written out without algebraic operator formalism.
 With the differential operators
 \begin{align}
     \Do(\r) &\coloneqq \Nabla^2+K^2, \label{EDDefVac} \\[1.2ex]
-    D(\r) &\coloneqq \Nabla^2+k(\r)^2 = \Do + \delta k(\r)^2, \label{EDDefFul}
+    D(\r) &\coloneqq \Nabla^2+k(\r)^2 = \Do + \Lambda(\r), \label{EDDefFul}
 \end{align}
-and with $\delta k^2\coloneqq k^2-K^2$,
+and with $\Lambda\coloneqq k^2-K^2$,
 we rewrite the homogeneous and inhomogeneous differential equations \cref{EHomoK}
 and~\cref{EGreenK} for plane waves and distorted waves as
 \begin{align}\label{EHIDG}
@@ -814,7 +814,7 @@ To derive a relation between the backwards propagating waves $\pfoc$ and $\psi^*
 We multiply with a Green function and integrate:
 \begin{equation}
   0 = \int\!\d^3r\,\Go(\r,\rS)
-         \left\{\Do(\r)\psi^*_\sf(\r) + \delta k(\r)^2\psi^*_\sf(\r)- \Do(\r)\pfoc(\r)\right\}
+         \left\{\Do(\r)\psi^*_\sf(\r) + \Lambda(\r)\psi^*_\sf(\r)- \Do(\r)\pfoc(\r)\right\}
 \end{equation}
 To let $D$ and $\Do$ operate to the left
 we use partial integration.
@@ -825,7 +825,7 @@ The surface integrals cancel because the flux through a surface that fully enclo
 is the same for $\pfoc$ and~$\psi^*_\sf$.
 So we obtain
 \begin{equation}\label{EPsiPfo1}
-  \pfoc(\rS) = \psi^*_\sf(\rS) + \int\!\d^3r\;\Go(\r,\rS)\delta k(\r)^2\psi^*_\sf(\r).
+  \pfoc(\rS) = \psi^*_\sf(\rS) + \int\!\d^3r\;\Go(\r,\rS)\Lambda(\r)\psi^*_\sf(\r).
 \end{equation}
 In the same way, starting from
 \begin{equation}
@@ -833,11 +833,11 @@ In the same way, starting from
 \end{equation}
 we derive a relation between the vacuum and the full Green function:
 \begin{equation}\label{EGGo1}
-  \Go(\rS,\rD) = G(\rS,\rD) + \int\!\d^3r\;\Go(\r,\rS)\delta k(\r)^2G(\r,\rD).
+  \Go(\rS,\rD) = G(\rS,\rD) + \int\!\d^3r\;\Go(\r,\rS)\Lambda(\r)G(\r,\rD).
 \end{equation}
 We apply the reciprocity theorem~\cref{Erecip} and take the far-field limit in $\rD$:
 \begin{equation}\label{EGoFF}
-  \Go_\infty(\rD,\rS) = G_\infty(\rD,\rS) + \int\!\d^3r\, \Go(\r,\rS)\delta k(\r)^2 G_\infty(\rD,\r).
+  \Go_\infty(\rD,\rS) = G_\infty(\rD,\rS) + \int\!\d^3r\, \Go(\r,\rS)\Lambda(\r) G_\infty(\rD,\r).
 \end{equation}
 We recall the far-field asymptote of the vacuum Green function from~\cref{EGreenFar}:
 \begin{equation}
@@ -1033,9 +1033,9 @@ based on Dietrich and Wagner~\cite{DiWa84}.
 In place of \cref{EDDefVac,EDDefFul}, we will need the tensorial operators
 \begin{align}
     \TDo(\r) &\coloneqq \Nabla^2+K^2-\Nabla\cdot\Nabla, \\[1.2ex]
-    \TD(\r)  &\coloneqq \TDo(\r) + \delta k(\r)^2,
+    \TD(\r)  &\coloneqq \TDo(\r) + \Lambda(\r),
 \end{align}
-with $\delta k^2\coloneqq k^2-K^2$ as before.
+with $\Lambda\coloneqq k^2-K^2$ as before.
 To describe wave propagation without scattering,
 we let $\delta v(\r)=0$,
 so that~\cref{EwaveE3} becomes a homogeneous wave equation:
@@ -1077,11 +1077,11 @@ In analogy with \cref{EGoFF,EPsiPfo1},
 vacuum and generic solutions are related to each other through
 \begin{equation}\label{EXGoFF}
   \TGo_\infty(\rD,\rS)
-  = \TG_\infty(\rD,\rS) + \int\!\d^3r\, \TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS)
+  = \TG_\infty(\rD,\rS) + \int\!\d^3r\, \TG_\infty(\rD,\r)\Lambda(\r) \TGo(\r,\rS)
 \end{equation}
 and
 \begin{equation}\label{EXpfo}
-  \Efoc(\rS) = \Efc(\rS) + \int\!\d^3r\, \Efc(\r)\delta k(\r)^2 \TGo(\r,\rS).
+  \Efoc(\rS) = \Efc(\rS) + \int\!\d^3r\, \Efc(\r)\Lambda(\r) \TGo(\r,\rS).
 \end{equation}
 For a quick plausibility check, operate on both sides of either equation with~$\TDo$.
 The vacuum Green function is
@@ -1099,12 +1099,12 @@ We multiply both sides of~\cref{EXGoFF} from the left with the polarization vect
 and both sides of~\cref{EXpfo} with~$\phi(\rD)$ to obtain
 \begin{equation}\label{EXGoFF2}
   \v{e}_\sf\phi(\rD)\e^{-i\k_\sf\rS}
-  = \v{e}_\sf\TG_\infty(\rD,\rS) + \int\!\d^3r\, \hef\TG_\infty(\rD,\r)\delta k(\r)^2 \TGo(\r,\rS)
+  = \v{e}_\sf\TG_\infty(\rD,\rS) + \int\!\d^3r\, \hef\TG_\infty(\rD,\r)\Lambda(\r) \TGo(\r,\rS)
 \end{equation}
 and
 \begin{equation}\label{EXpfo2}
   \v{e}_\sf\phi(\rD)\e^{-i\k_\sf\rS}
-  = \phi(\rD)\Efc(\rS) + \int\!\d^3r\, \phi(\rD)\Efc(\r)\delta k(\r)^2 \TGo(\r,\rS).
+  = \phi(\rD)\Efc(\rS) + \int\!\d^3r\, \phi(\rD)\Efc(\r)\Lambda(\r) \TGo(\r,\rS).
 \end{equation}
 Comparing both equations, we read off
 \begin{equation}\label{EGpE}

@@ -24,5 +24,6 @@ the symbol/letter
 1 decorated
 2 indexed
 4 subscripted
+8 superscripted
 
 [followed by subscript - index - decoration - funcarg]

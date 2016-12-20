@@ -19,17 +19,20 @@
 #include "NodeUtils.h"
 #include <algorithm>
 
+INode::INode() : m_parent(nullptr)
+{
+}
+
 std::string INode::to_str() const
 {
     return NodeUtils::nodeToString(*this);
 }
 
-void INode::registerChild(INode *sample)
+void INode::registerChild(INode *node)
 {
-    if(!sample)
-        throw Exceptions::NullPointerException(
-            "ISample::registerChild -> Error. Null pointer.");
-    // TODO sample->setParent(this) here
+    if(!node)
+        throw Exceptions::NullPointerException("INode::registerChild -> Error. Null pointer.");
+    node->setParent(this);
 }
 
 std::vector<const INode *> INode::getChildren() const
@@ -65,4 +68,14 @@ std::string INode::addParametersToExternalPool(
         child->addParametersToExternalPool(new_path, external_pool, ncopy);
     }
     return new_path;
+}
+
+void INode::setParent(const INode* parent)
+{
+    m_parent = parent;
+}
+
+const INode* INode::parent() const
+{
+    return m_parent;
 }

@@ -13,12 +13,26 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def\Do{\overset{o}{D}}
+\def\Go{\overset{o}{G}}
+\def\TD{\TENS{D}}
+\def\TG{\TENS{G}}
+\def\TDo{\TENS{\overset{o}{D}}}
+\def\TGo{\TENS{\overset{o}{G}}}
+\def\Psio{\TENS{\overset{o}{\Psi}}}
+
+\def\pfo{\overset{o}{\psi}_\sf}
+\def\pfoc{\overset{o}{\psi}\vphantom{\psi}^*_\sf}
+
+\index{Scattering!target|see{Sample}}%
+\index{Elastic scattering|seealso{Cross section}}%
+
 \part{Physics}\label{PPHYS}
 
 \chapter{Scattering}  \label{SSca}
 \chaptermark{Scattering}
 
-
+TODO: REWRITE
 This chapter introduces the basic theory of small-angle scattering (SAS).
 \index{Small-angle scattering}%
 \index{SAS|see{Small-angle scattering}}%
@@ -58,13 +72,13 @@ The scalar wavefunction $\psi(\r,t)$
 \nomenclature[2r040]{$\r$}{Position}%
 \nomenclature[1ψ030 2r040 2t02]{$\psi(\r,t)$}{Microscopic neutron wavefunction}%
 of a free neutron
+in absence of a magnetic field
 is governed by the microscopic Schrödinger equation
 \begin{equation}\label{ESchrodi}
   i\hbar\partial_t \psi(\r,t)
   = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
 \end{equation}
 Since BornAgain only supports elastic scattering,
-\index{Elastic scattering}%
 \index{Scattering!elastic}%
 the potential $V(\r)$ must be time independent.
 \index{Time}%
@@ -152,7 +166,7 @@ has still the form of a stationary Schrödinger equation,
 \begin{equation}\label{EmacrSchrodi}
   \left\{-\frac{\hbar^2}{2m}\Nabla^2+\Vmac(\r)-\hbar\omega\right\} \psi(\r) = 0,
 \end{equation}
-\nomenclature[1ψ030 2r040 2t020]{$\psi(\r,t)$}{Coherent wavefunction}%
+\nomenclature[1ψ030 2r040]{$\psi(\r)$}{Stationary coherent wavefunction}%
 \nomenclature[2v131 2r040]{$\Vmac(\r)$}{Macroscopic optical potential}%
 where $\psi$ now stands for the \E{coherent wavefunction}
 \index{Coherent wavefunction}%
@@ -167,8 +181,8 @@ In the following it shall be expressed through the
 \index{Scattering!length density}%
 \index{SLD|see{Scattering length density}}%
 \cite[eq.\ 2.8.37]{Sea89},
-\nomenclature[2v020 2r040]{$v(\r)$}{Scattering length density (SLD)}%
-\begin{equation}
+\nomenclature[2v030 2r040]{$v(\r)$}{Scattering length density (SLD)}%
+\begin{equation}\label{Edefv}
   v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r).
 \end{equation}
 In the following, we will characterize the incoming radiation
@@ -181,17 +195,88 @@ but by its \E{vacuum wavenumber}
   K \coloneqq \sqrt{\frac{2m\omega}{\hbar}}.
 \end{equation}
 The macroscopic Schrödinger equation~\cref{EmacrSchrodi} then takes the simple form
+\Emph{
 \begin{equation}\label{ESchrodi2}
-  \left\{-\Nabla^2+4\pi v(\r)-K^2\right\} \psi(\r) = 0.
+  \left\{\Nabla^2+K^2-4\pi v(\r)\right\} \psi(\r) = 0.
 \end{equation}
+\vspace*{-5pt}}
+
+%===============================================================================
+\subsection{Neutrons in a magnetic field}\label{Snpwave}
+%===============================================================================
+
+\index{Neutron!spin|(}%
+\index{Spin|(}%
+\index{Magnetic field!neutron propagation|(}%
+
+\index{Field!magnetic|see{Magnetic field}}%
+\index{H Field@$H$ Field|see{Magnetizing field}}%
+\index{B Field@$H$ Field|see{Magnetizing field}}%
+
+In presence of a magnetic field,
+the propagation of free neutrons becomes spin dependent.
+Therefore the scalar wavefunction of \cref{ScohWave}
+must be replaced by spinor $\v\Psi$.
+\index{Spinor}%
+The magnetic moment of the neutron couples to the magnetizing field~$\v{H}$ \cite{Mez86}.
+\nomenclature[2h150 2r040 2t020]{$\v{H}(\r,t)$}{Magnetizing field}%
+\index{Magnetizing field!coupling to neutron moment}%
+With the coupling term, the macroscopic Schrödinger equation~\cref{EmacrSchrodi}
+\index{Schrodinger@Schrödinger equation!macroscopic}%
+becomes
+\begin{equation}\label{EHSchrodi}
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+\Vmac(\r)
+         +\mu_0\mu_\text{n}\v{H}(\r)\v{\sigma}-\hbar\omega\right\}
+      \v\Psi(\r) = 0,
+\end{equation}
+\nomenclature[1ψ150 2r040]{$\v\Psi(\r)$}{Stationary coherent spinor wavefunction}%
+where $\mu_0$ is the vacuum permeability,
+\nomenclature[1μ024 00]{$\mu_0$}{Vacuum permeability, $4\pi\cdot10^{-7}$ Vs/Am}%
+\index{Permeability}%
+\index{Magnetic permeability}%
+$\mu_\text{n}$ is the magnetic moment of the neutron,
+\nomenclature[1μ024 2n000]{$\mu_\text{n}$}{Magnetic moment of the neutron}
+\index{Neutron!magnetic moment}%
+\index{Magnetic moment!neutron}%
+and ${\v\sigma}$ is the Pauli vector, composed of the three Pauli matrices.
+\nomenclature[1σ04]{$\v\sigma$}{Pauli
+    vector, composed of the three Pauli matrices: $\v\sigma=(\sigma_x,\sigma_y,\sigma_z)$}%
+\index{Pauli vector}%
+\index{Pauli matrix}%
+The magnetic coupling can cause Larmor precession of the neutron spin,
+\index{Neutron!Larmor precession}%
+\index{Larmor precession}%
+\index{Spin!Larmor precession}%
+well known from uses in spin-echo techniques.
+\index{Spin!echo}%
+If the field is inhomogeneous,
+it causes a beam splitting
+as in the Stern-Gerlach experiment \cite{ShSB54}.
+\index{Neutron!Stern-Gerlach splitting}%
+\index{Stern-Gerlach splitting}%
+
+We introduce the reduced field
+\begin{equation}
+  \v{h} \coloneqq \frac{m\mu_0\mu_\text{n}}{2\pi\hbar^2}\v{H},
+\end{equation}
+\nomenclature[2h050 2r040]{$\v{h}(\r)$}{Rescaled
+   field $\v{h}=(m\mu_0\mu_\text{n}/2\pi\hbar^2)\v{H}$}%
+\index{Magnetizing field!reduced}%
+to rewrite the macroscopic Schrödinger equation in analogy to~\cref{ESchrodi2} as
+\index{Schrodinger@Schrödinger equation!macroscopic}%
+\Emph{
+\begin{equation}\label{ESchrodi2H}
+  \left\{\Nabla^2+K^2-4\pi v(\r)-\v{h}(\r)\v{\sigma}\right\} \v\Psi(\r) = 0.
+\end{equation}
+\vspace*{-5pt}}
+
+
+\index{Spin|(}%
+\index{Neutron!spin|)}%
+\index{Magnetic field!neutron propagation|)}%
 
 \index{Wave propagation!neutron|)}%
 \index{Neutron!wave propagation|)}%
-
-%===============================================================================
-\subsection{Polarized neutrons}\label{Snpwave}
-%===============================================================================
-
 
 %===============================================================================
 \subsection{X-ray propagation}\label{SXwave}
@@ -213,13 +298,11 @@ The propagation of X-rays is governed by Maxwell's equations,
   \end{array}
 \end{equation}
 \nomenclature[2e150 2r040 2t020]{$\v{E}(\r,t)$}{Electric field}%
-\nomenclature[2h150 2r040 2t020]{$\v{H}(\r,t)$}{Magnetizing field}%
 \nomenclature[2d150 2r040 2t020]{$\v{D}(\r,t)$}{Displacement field}%
 \nomenclature[2b150 2r040 2t020]{$\v{B}(\r,t)$}{Magnetic field}%
 \nomenclature[1ε070 2r040]{$\v\eps(\r)$}{Relative dielectric permittivity tensor}%
 \nomenclature[1μ070 2r040]{$\v\mu(\r)$}{Relative magnetic permeability tensor}%
 \nomenclature[1ε024 00]{$\eps_0$}{Vacuum permittivity, 8.854\ldots As/Vm}%
-\nomenclature[1μ024 00]{$\mu_0$}{Vacuum permeability, 1.256\ldots Vs/Am}%
 Since BornAgain only addresses elastic scattering,
 \index{Elastic scattering}%
 \index{Scattering!elastic}%
@@ -284,79 +367,112 @@ Maxwell's equations yield the wave equation
 \index{Wave equation!X-ray}%
 \index{X-ray!wave equation}%
 Using a standard identity from vector analysis, it can be brought into the more tractable form
+\Emph{
 \begin{equation}\label{ENabNabE}
-  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2\eps(\r)\right\}\v{E}.
+  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2\eps(\r)\right\}\v{E}(\r)=0,
 \end{equation}
-To solve this equation by a perturbation expansion,
-\index{Perturbation expansion}%
-we proceed as in \cref{Sfluct},
-and decompose the dielectric permittivity
-into a two components:
-\begin{equation}
-  \eps(\r) = \overline{\eps}(\r) + \delta\eps(\r).
-\end{equation}
-\nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that can be analytically handled}%
-\nomenclature[1δ030
-  1ε030 2r040]{$\delta\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that causes scattering}%
-We define the material-dependent wavenumber by
-\index{Wavenumber!material dependent}%
-\begin{equation}
-  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r).
-\end{equation}
-The scattering potential
-\index{Scattering!potential!X-ray}%
-\begin{equation}
-  4\pi\delta v(\r) \coloneqq - K^2\delta\eps
-\end{equation}
-takes the place of the neutron scattering length distribution.
-The wave equation~\cref{ENabNabE} then becomes
-\begin{equation}\label{EwaveE3}
-  \left\{\Nabla^2-\Nabla\cdot\Nabla + k(\r)^2\right\}\v{E}(\r)
-  = 4\pi\delta v(\r)\v{E}(\r).
-\end{equation}
-\index{Wave equation!X-ray}%
-\index{X-ray!wave equation}%
-This is very similar to the perturbed Schrödinger equation~\cref{ESchrodiK}.
-\index{Perturbed Schrödinger equation}%
-\index{Schrodinger@Schrödinger equation!perturbed}%
-There are only two differences:
-the appearance of the dyadic differential operator $\Nabla\cdot\Nabla$,
-and the fact that $\v{E}(\r)$ is vector valued,
-whereas unpolarized neutrons are described by a scalar wavefunction~$\psi(\r)$.
+\vspace*{-5pt}}
+which closely ressembles the macroscopic Schrödinger equation~\cref{ESchrodi2},
+except for the additional dyadic differential operator $\Nabla\cdot\Nabla$,
+and for the transverse vector character of the electric field~$\E(\r)$.
 
 \index{Wave propagation!X-ray|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Perturbed wave equation}\label{SPWE}
+\section{Distorted-wave Born approximation}\label{SDWBA}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %===============================================================================
-\subsection{SLD fluctuations}\label{Sfluct}
+\subsection{Perturbed wave equation}\label{Sfluct}
 %===============================================================================
 
-In the following, we will use~\cref{ESchrodi2}
-as a starting point to study scattering by condensed-matter samples
+We now begin to study scattering by condensed-matter samples
 (we will prefer the brief term \E{sample} over \E{scattering target}).
-\index{Scattering!target|see{Sample}}%
 \index{Sample}%
-To compute scattering cross sections from a perturbation expansion,
+We will determine scattering cross sections
+\index{Cross section}%
+\index{Scattering!cross section}%
+by solving the wave equations \cref{ESchrodi2,ESchrodi2H,ENabNabE}
+through a perturbation expansion.
 \index{Perturbation expansion}%
-we will need to decompose the SLD as
-\begin{equation}\label{Edecompose_v}
-  v(\r) \coloneqq \mv(\r) + \delta v(\r).
-\end{equation}
-\nomenclature[1d030 2v230 2r040]{$\delta v(\r)$}{Part
- of the scattering length density that causes scattering}%
-\nomenclature[2v021]{$\mv$}{Part
- of the scattering length density that can be handled analytically}%
-For $\r$ outside the finite sample volume, we require $\delta v(\r)=0$.
-Inside the sample, the decomposition~\cref{Edecompose_v} is somewhat arbitrary,
-and can be chosen for analytical convenience.
-The part $\mv(\r)$ should only contain SLD variations
-that are simple enough to allow an analytical solution.
-The fluctuating part~$\delta v(\r)$ stands for the more irregular
-features of a sample one ultimately wants to study in a scattering experiment.
+However, to achieve rapid convergence
+we must not treat \E{all} of $v(\r)$, $\v{h}(\r)$ or $\epsilon(\r)$
+as a perturbation.
+Rather, we will decompose each of these fields into a more \E{regular}
+and a more \E{fluctuating} part:
+\begin{align}
+  v(\r) &= \mv(\r) + \delta v(\r),\\
+  \v{h}(\r) &= \overline{\v{h}}(\r) + \delta\v{h}(r),\\
+  \epsilon(\r) &= \overline\epsilon(\r) + \delta\epsilon(\r).
+\end{align}
+The fluctuating parts stand for the more irregular features of a sample
+one ultimately wants to study in a scattering experiment.
+If they are zero,
+then the remaining wave equations shall be simple enough to allow
+for analytical solutions.
+These solutions will be called \E{distorted waves}.
+\index{Distorted wave}%
+\index{Wave!distorted}%
+They are distorted with respect to the plane \E{vacuum waves}
+\index{Vacuum!wave}%
+\index{Wave!vacuum}%
+\index{Plane!wave}%
+\index{Wave!plane}%
+that are obtained as solution of the wave equations
+for $\r$ outside the finite sample,
+under the vacuum conditions $v=0$, $\v{h}=0$, $\epsilon=1$.
 
+In the following,
+we develop a generic formalism for the scattering of distorted neutron or X-ray waves.
+Wave propagation in vacuum shall be denoted by an overset $o$.
+The wave equation in vacuum shall be written as
+\Emph{
+\begin{equation}\label{EDPsi0}
+  \TDo\,\Psio(\r)=0.
+\end{equation}
+\vspace*{-5pt}}
+Literally, this is an equation for the neutron spinor wavefunction.
+It is, however, equally applicable for scalar neutron wavefunctions~$\psi(\r)$
+or electric fields~$\v{E}(\r)$.
+The differential operator in~\cref{EDPsi0} is
+\begin{align}
+  \Do &\coloneqq \Nabla^2 + K^2 &\text{ neutron (scalar),}\\
+  \TDo &\coloneqq \Nabla^2 + K^2 &\text{ neutron (spinorial),}\\
+  \TDo &\coloneqq \Nabla^2 - \Nabla\cdot\Nabla + K^2 &\text{ X-rays.}
+\end{align}
+\nomenclature[2d138 2r040]{$\Do(\r)$}{Differential operator in the vacuum wave equation}%
+Distorted-wave propagation is described by the differential operator
+\begin{equation}
+  \TD(\r) \coloneqq \TDo + \TENS{\Lambda}(\r)
+\end{equation}
+with the distortion field
+\begin{align}
+  \Lambda(\r) &\coloneqq \mv(\r)  &\text{ neutron (scalar),}\\
+  \TENS{\Lambda}(\r) &\coloneqq \mv(\r)+\overline{\v{h}}(\r)\v\sigma &\text{ neutron (spinorial),}\\
+  \TENS{\Lambda}(\r) &\coloneqq K^2(\epsilon(\r)-1) &\text{ X-rays.}
+\end{align}
+The full wave equation, valid inside and outside the sample,
+can then be written as
+\Emph{
+\begin{equation}\label{EDPsi}
+  \TD(\r)\v\Psi(\r) = 4\pi\TENS{U}(\r)
+\end{equation}
+\vspace*{-5pt}}
+with
+\begin{align}
+  U(\r) &\coloneqq \delta v(\r)  &\text{ neutron (scalar),}\\
+  \TENS{U}(\r) &\coloneqq \delta v(\r)+\delta{\v{h}}(\r)\v\sigma &\text{ neutron (spinorial),}\\
+  \TENS{U}(\r) &\coloneqq K^2\delta \epsilon(\r) &\text{ X-rays.}
+\end{align}
+
+%===============================================================================
+\subsection{Refractive index}\label{Srefridx}
+%===============================================================================
+
+We pause here to mention an alternative parametrization of scattering length densities
+or dielectric permittivities, namely the index of refraction.
+
+TODO REINTEGRATE
 With the material-dependent wavenumber~$k(\r)$,
 defined by the dispersion relation
 \nomenclature[2k030 2r040]{$k(\r)$}{Wavenumber}%
@@ -721,7 +837,6 @@ $r^2\d\Omega$ to the incident flux is expressed as a
 \E{differential cross section}
 \index{Cross section}%
 \index{Scattering!cross section}%
-\index{Elastic scattering!cross section}%
 \index{Incident radiation!flux|(}%
 \begin{equation}\label{Exsectiondef}
   \xElas
@@ -754,7 +869,6 @@ of elastic scattering in first order Born approximation,
 \index{Born approximation!elastic scattering cross section}%
 \index{Cross section!Born approximation}%
 \index{Scattering!cross section}%
-\index{Elastic scattering!cross section}%
 \Emph{
 \begin{equation}\label{Exsection}
   \xElas
@@ -929,10 +1043,6 @@ which completes the proof.
 \subsection{Far-field Green function}\label{SfarDW}
 %===============================================================================
 
-\def\Do{\overset{o}{D}}
-\def\Go{\overset{o}{G}}
-\def\pfo{\overset{o}{\psi}_\sf}
-\def\pfoc{\overset{o}{\psi}\vphantom{\psi}^*_\sf}
 
 The following derivation of the far-field Green function~$G_\infty$
 \index{Green function!distorted waves, far-field|(}%
@@ -944,7 +1054,6 @@ With the differential operators
     \Do(\r) &\coloneqq \Nabla^2+K^2, \label{EDDefVac} \\[1.2ex]
     D(\r) &\coloneqq \Nabla^2+k(\r)^2 = \Do + \Lambda(\r), \label{EDDefFul}
 \end{align}
-\nomenclature[2d138 2r040]{$\Do(\r)$}{Differential operator in the vacuum wave equation}%
 \nomenclature[2d130 2r040]{$D(\r)$}{Differential operator in the full wave equation}%
 and with $\Lambda(\r)\coloneqq k(\r)^2-K^2=-4\pi\mv(\r)$,
 \nomenclature[1λ130 2r040]{$\Lambda(\r)$}{Proportional
@@ -1011,7 +1120,6 @@ and the scattering matrix element by~\cref{Etrama}.}
 \index{Scattering!matrix}%
 \index{Cross section!distorted-wave Born approximation}%
 \index{Scattering!cross section}%
-\index{Elastic scattering!cross section}%
 The plane-wave form~\cref{Echiq}, however, does no longer hold.
 Its replacement depends on the distorted wavefunctions
 $\psi_\si$ and $\psi_\sf$,
@@ -1030,10 +1138,6 @@ and will be worked out later (\cref{Swave21}).
 \subsection{DWBA scattering cross section}\label{SXscasol}
 %===============================================================================
 
-\def\TD{\TENS{D}}
-\def\TG{\TENS{G}}
-\def\TDo{\TENS{\overset{o}{D}}}
-\def\TGo{\TENS{\overset{o}{G}}}
 \def\Ei{\v{E}_\si}
 \def\Eic{\Ei^*}
 \def\Ef{\v{E}_\sf}
@@ -1151,7 +1255,6 @@ namely as the ratio of scattered flux through the unit sphere to incident flux.
 \index{Born approximation!elastic scattering cross section}%
 \index{Cross section!Born approximation}%
 \index{Scattering!cross section}%
-\index{Elastic scattering!cross section}%
 For electromagnetic waves in vacuum, the flux is proportional to~$|\v{E}|^2$.
 So the X-ray scattering cross section for given incoming and detected polarization is
 \begin{equation}\label{ExsectionXlong}
@@ -1190,7 +1293,6 @@ Then the measured cross section is an incoherent sum
 \index{Born approximation!elastic scattering cross section}%
 \index{Cross section!Born approximation}%
 \index{Scattering!cross section}%
-\index{Elastic scattering!cross section}%
 \Emph{
 \begin{equation}\label{ExsectionXsum}
   \xElas
@@ -1347,3 +1449,65 @@ in $y$ or $z$ direction.\footnote
 % TODO: more about implementation !
 
 \index{Coherence length|)}%
+
+
+
+
+\section{OLD STUFF}
+
+we define the dielectric scattering potential
+\index{Potential!dielectric scattering}%
+\index{Dielectric scattering potential}%
+\begin{equation}
+  4\pi v(\r)\coloneqq-K^2(\epsilon(\r)-1).
+\end{equation}
+So we obtain the wave equation
+\begin{equation}\label{ENabNabE}
+  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2-4\pi v(\r)\right\}\v{E}(\r)=0.
+\end{equation}
+
+
+To solve this equation by a perturbation expansion,
+\index{Perturbation expansion}%
+we proceed as in \cref{Sfluct},
+and decompose the dielectric permittivity
+into a two components:
+\begin{equation}
+  \eps(\r) = \overline{\eps}(\r) + \delta\eps(\r).
+\end{equation}
+\nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that can be analytically handled}%
+\nomenclature[1δ030
+  1ε030 2r040]{$\delta\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that causes scattering}%
+We define the material-dependent wavenumber by
+\index{Wavenumber!material dependent}%
+\begin{equation}
+  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r).
+\end{equation}
+The scattering potential
+\index{Scattering!potential!X-ray}%
+\begin{equation}
+  4\pi\delta v(\r) \coloneqq - K^2\delta\eps
+\end{equation}
+takes the place of the neutron scattering length distribution.
+The wave equation~\cref{ENabNabE} then becomes
+\begin{equation}\label{EwaveE3}
+  \left\{\Nabla^2-\Nabla\cdot\Nabla + k(\r)^2\right\}\v{E}(\r)
+  = 4\pi\delta v(\r)\v{E}(\r).
+\end{equation}
+\index{Wave equation!X-ray}%
+\index{X-ray!wave equation}%
+This is very similar to the perturbed Schrödinger equation~\cref{ESchrodiK}.
+\index{Perturbed Schrödinger equation}%
+\index{Schrodinger@Schrödinger equation!perturbed}%
+There are only two differences:
+the appearance of the dyadic differential operator $\Nabla\cdot\Nabla$,
+and the fact that $\v{E}(\r)$ is vector valued,
+whereas unpolarized neutrons are described by a scalar wavefunction~$\psi(\r)$.
+
+and the reduced tensor potential
+\index{Potential!tensor}%
+\index{Tensor potential}%
+\begin{equation}
+  4\pi\TENS{w}(\r)\coloneqq4\pi v(\r) + \v{h}(\r)\v{\sigma},
+\end{equation}
+\nomenclature[2w050 2r040]{$\TENS{w}(\r)$}{Tensorial potential}%,

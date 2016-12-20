@@ -79,3 +79,31 @@ const INode* INode::parent() const
 {
     return m_parent;
 }
+
+int INode::copyNumber(const INode* node) const
+{
+    if(node->parent() != this)
+        return -1;
+
+    int result(-1), count(0);
+    for (auto child : getChildren()) {
+        if (child == node)
+            result = count;
+
+        if (child->getName() == node->getName())
+            ++count;
+    }
+
+    return count > 1 ? result : -1;
+}
+
+std::string INode::displayName() const
+{
+    std::string result = getName();
+    if (m_parent) {
+        int index = m_parent->copyNumber(this);
+        if (index >= 0)
+            result = result + std::to_string(index);
+    }
+    return result;
+}

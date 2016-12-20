@@ -2025,14 +2025,34 @@ class INode(IParameterized):
         return _libBornAgainCore.INode_to_str(self)
 
 
-    def registerChild(self, sample):
-        """registerChild(INode self, INode sample)"""
-        return _libBornAgainCore.INode_registerChild(self, sample)
+    def registerChild(self, node):
+        """registerChild(INode self, INode node)"""
+        return _libBornAgainCore.INode_registerChild(self, node)
 
 
     def getChildren(self):
         """getChildren(INode self) -> swig_dummy_type_const_inode_vector"""
         return _libBornAgainCore.INode_getChildren(self)
+
+
+    def setParent(self, parent):
+        """setParent(INode self, INode parent)"""
+        return _libBornAgainCore.INode_setParent(self, parent)
+
+
+    def parent(self):
+        """parent(INode self) -> INode"""
+        return _libBornAgainCore.INode_parent(self)
+
+
+    def copyNumber(self, node):
+        """copyNumber(INode self, INode node) -> int"""
+        return _libBornAgainCore.INode_copyNumber(self, node)
+
+
+    def displayName(self):
+        """displayName(INode self) -> std::string"""
+        return _libBornAgainCore.INode_displayName(self)
 
     def __disown__(self):
         self.this.disown()

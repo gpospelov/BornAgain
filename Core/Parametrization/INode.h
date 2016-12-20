@@ -48,6 +48,12 @@ public:
     void setParent(const INode* parent);
     const INode* parent() const;
 
+    //! Returns copyNumber of child, which takes into account existence of children with same name.
+    int copyNumber(const INode* node) const;
+
+    //! Returns display name, composed from the name of node and it's copy number.
+    std::string displayName() const;
+
 private:
     const INode *m_parent;
 };

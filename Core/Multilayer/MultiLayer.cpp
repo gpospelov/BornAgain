@@ -244,6 +244,17 @@ size_t MultiLayer::totalNofLayouts() const
     return ret;
 }
 
+std::vector<const INode*> MultiLayer::getChildren() const
+{
+    std::vector<const INode*> result;
+    for(auto layer : m_layers) {
+        result.push_back(layer);
+        if(const LayerInterface *interface = getLayerBottomInterface(getIndexOfLayer(layer)))
+            result.push_back(interface);
+    }
+    return result;
+}
+
 void MultiLayer::print(std::ostream& ostr) const
 {
     ostr << "MultiLayer:" << getName() << "<" << this << "> : {\n";

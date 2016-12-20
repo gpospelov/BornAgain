@@ -162,7 +162,7 @@ MesoCrystal* MesoCrystalBuilder::createMesoCrystal(
     delete p_lat;
     double dw_factor = m_sigma_lattice_length_a*m_sigma_lattice_length_a/6.0;
     npc.setDWFactor(dw_factor);
-    return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
+    return new MesoCrystal(npc, *p_meso_form_factor);
 }
 
 const Lattice* MesoCrystalBuilder::createLattice(

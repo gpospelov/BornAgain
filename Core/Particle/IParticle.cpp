@@ -25,8 +25,6 @@ IFormFactor* IParticle::createFormFactor() const
 
 void IParticle::setRotation(const IRotation& rotation)
 {
-    if (mP_rotation)
-        deregisterChild(mP_rotation.get());
     mP_rotation.reset(rotation.clone());
     registerChild(mP_rotation.get());
 }
@@ -34,7 +32,6 @@ void IParticle::setRotation(const IRotation& rotation)
 void IParticle::applyRotation(const IRotation& rotation)
 {
     if (mP_rotation) {
-        deregisterChild(mP_rotation.get());
         mP_rotation.reset(createProduct(rotation, *mP_rotation));
     } else {
         mP_rotation.reset(rotation.clone());
@@ -46,6 +43,11 @@ void IParticle::applyRotation(const IRotation& rotation)
 void IParticle::applyTranslation(kvector_t displacement)
 {
     m_position += displacement;
+}
+
+std::vector<const INode*> IParticle::getChildren() const
+{
+    return std::vector<const INode*>() << mP_rotation;
 }
 
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const

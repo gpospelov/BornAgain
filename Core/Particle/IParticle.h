@@ -67,6 +67,8 @@ public:
     //! Applies extra translation by adding it to the current one
     void applyTranslation(kvector_t displacement);
 
+    std::vector<const INode*> getChildren() const;
+
 protected:
     //! Creates a composed IRotation object
     IRotation* createComposedRotation(const IRotation* p_rotation) const;

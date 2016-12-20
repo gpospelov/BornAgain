@@ -118,6 +118,8 @@ public:
 
     size_t totalNofLayouts() const;
 
+    std::vector<const INode*> getChildren() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

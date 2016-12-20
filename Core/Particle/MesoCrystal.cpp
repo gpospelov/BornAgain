@@ -25,16 +25,8 @@ MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor*
     initialize();
 }
 
-MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure, IFormFactor& form_factor)
-    : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
-{
-    initialize();
-}
-
 MesoCrystal::~MesoCrystal()
 {
-    delete mp_meso_form_factor;
-    delete mp_particle_structure;
 }
 
 MesoCrystal* MesoCrystal::clone() const
@@ -88,6 +80,19 @@ IFormFactor* MesoCrystal::createTransformedFormFactor(
     return p_result;
 }
 
+std::vector<const INode*> MesoCrystal::getChildren() const
+{
+    return std::vector<const INode*>() <<  IParticle::getChildren()
+                                       << mp_particle_structure << mp_meso_form_factor;
+}
+
+MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
+                         const IFormFactor& form_factor)
+    : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
+{
+    initialize();
+}
+
 IFormFactor* MesoCrystal::createTransformationDecoratedFormFactor(
     const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const
 {
@@ -111,6 +116,6 @@ void MesoCrystal::initialize()
 {
     setName(BornAgain::MesoCrystalType);
     registerPosition();
-    registerChild(mp_particle_structure);
-    registerChild(mp_meso_form_factor);
+    registerChild(mp_particle_structure.get());
+    registerChild(mp_meso_form_factor.get());
 }

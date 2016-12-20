@@ -184,6 +184,15 @@ double ParticleLayout::getTotalParticleSurfaceDensity() const
     return iff_density > 0.0 ? iff_density : m_total_particle_density;
 }
 
+std::vector<const INode*> ParticleLayout::getChildren() const
+{
+    std::vector<const INode*> result;
+    for(auto particle : m_particles)
+        result.push_back(particle);
+    result << mP_interference_function;
+    return result;
+}
+
 //! Adds particle information with simultaneous registration in parent class.
 void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle* child)
 {
@@ -194,18 +203,6 @@ void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle* child)
 //! Sets interference function with simultaneous registration in parent class
 void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* child)
 {
-    if (mP_interference_function)
-        deregisterChild(mP_interference_function.get());
     mP_interference_function.reset(child);
     registerChild(child);
-}
-
-void ParticleLayout::print(std::ostream& ostr) const
-{
-    ILayout::print(ostr);
-    ostr << "-->ParticleLayout<" << this << ">{\n";
-    for( size_t i=0; i<m_particles.size(); ++i )
-        ostr << "      - particle " << std::left << std::setw(2) << i << " { "
-             << *(m_particles[i]) << "}\n";
-    ostr << "}";
 }

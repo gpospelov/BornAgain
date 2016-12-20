@@ -83,3 +83,8 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
     }
     return result;
 }
+
+std::vector<const INode*> ParticleDistribution::getChildren() const
+{
+    return std::vector<const INode*>() << mP_particle;
+}

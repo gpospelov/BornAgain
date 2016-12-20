@@ -64,12 +64,12 @@ public:
     void setTotalParticleSurfaceDensity(double particle_density) final {
         m_total_particle_density = particle_density; }
 
+    std::vector<const INode*> getChildren() const;
+
 private:
     void addAndRegisterAbstractParticle(IAbstractParticle* child);
 
     void setAndRegisterInterferenceFunction(IInterferenceFunction* child);
-
-    void print(std::ostream& ostr) const;
 
     SafePointerVector<IAbstractParticle> m_particles; //!< Vector of particle types
     std::unique_ptr<IInterferenceFunction> mP_interference_function;

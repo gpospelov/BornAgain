@@ -21,7 +21,6 @@
 
 ParticleCoreShell::ParticleCoreShell(
     const Particle& shell, const Particle& core, kvector_t relative_core_position)
-    : mp_shell { nullptr }, mp_core { nullptr }
 {
     setName(BornAgain::ParticleCoreShellType);
     registerPosition();
@@ -31,8 +30,6 @@ ParticleCoreShell::ParticleCoreShell(
 
 ParticleCoreShell::~ParticleCoreShell()
 {
-    delete mp_shell;
-    delete mp_core;
 }
 
 ParticleCoreShell* ParticleCoreShell::clone() const
@@ -51,8 +48,8 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
 {
     ParticleCoreShell* p_result = new ParticleCoreShell();
     p_result->setAbundance(m_abundance);
-    p_result->mp_shell = mp_shell->cloneInvertB();
-    p_result->mp_core = mp_core->cloneInvertB();
+    p_result->mp_shell.reset(mp_shell->cloneInvertB());
+    p_result->mp_core.reset(mp_core->cloneInvertB());
     if ( const IMaterial* ambientMaterial = getAmbientMaterial() )
         p_result->setAmbientMaterial(*ambientMaterial->cloneInverted());
     if (mP_rotation.get())
@@ -101,26 +98,22 @@ IFormFactor* ParticleCoreShell::createTransformedFormFactor(
     return P_result.release();
 }
 
-void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relative_core_position)
+std::vector<const INode*> ParticleCoreShell::getChildren() const
 {
-    if(mp_core) {
-        deregisterChild(mp_core);
-        delete mp_core;
-    }
-    mp_core = core.clone();
-    mp_core->applyTranslation(relative_core_position);
-    registerChild(mp_core);
+    return std::vector<const INode*>() << IParticle::getChildren() << mp_core << mp_shell;
 }
 
+void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relative_core_position)
+{
+    mp_core.reset(core.clone());
+    mp_core->applyTranslation(relative_core_position);
+    registerChild(mp_core.get());
+}
 
 void ParticleCoreShell::addAndRegisterShell(const Particle& shell)
 {
-    if(mp_shell) {
-        deregisterChild(mp_shell);
-        delete mp_shell;
-    }
-    mp_shell = shell.clone();
-    registerChild(mp_shell);
+    mp_shell.reset(shell.clone());
+    registerChild(mp_shell.get());
 }
 
 ParticleCoreShell::ParticleCoreShell()

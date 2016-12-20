@@ -58,6 +58,8 @@ public:
 
     kvector_t getParticlePosition(size_t index) const;
 
+    std::vector<const INode*> getChildren() const;
+
 private:
     size_t check_index(size_t index) const;
 

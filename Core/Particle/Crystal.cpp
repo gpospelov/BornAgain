@@ -24,13 +24,12 @@ Crystal::Crystal(const ParticleComposition& lattice_basis, const Lattice& lattic
     : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName(BornAgain::CrystalType);
-    mp_lattice_basis = lattice_basis.clone();
-    registerChild(mp_lattice_basis);
+    mp_lattice_basis.reset(lattice_basis.clone());
+    registerChild(mp_lattice_basis.get());
 }
 
 Crystal::~Crystal()
 {
-    delete mp_lattice_basis;
 }
 
 Crystal* Crystal::clone() const
@@ -79,10 +78,15 @@ Lattice Crystal::getTransformedLattice(const IRotation* p_rotation) const
         return m_lattice;
 }
 
+std::vector<const INode*> Crystal::getChildren() const
+{
+    return std::vector<const INode*>() << mp_lattice_basis;
+}
+
 Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName(BornAgain::CrystalType);
-    mp_lattice_basis = p_lattice_basis;
-    registerChild(mp_lattice_basis);
+    mp_lattice_basis.reset(p_lattice_basis);
+    registerChild(mp_lattice_basis.get());
 }

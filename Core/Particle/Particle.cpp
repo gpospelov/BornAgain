@@ -132,11 +132,14 @@ complex_t Particle::getRefractiveIndex() const
 void Particle::setFormFactor(const IFormFactor& form_factor)
 {
     if (&form_factor != mP_form_factor.get()) {
-        if (mP_form_factor)
-            deregisterChild(mP_form_factor.get());
         mP_form_factor.reset(form_factor.clone());
         registerChild(mP_form_factor.get());
     }
+}
+
+std::vector<const INode*> Particle::getChildren() const
+{
+    return std::vector<const INode*>() << IParticle::getChildren() << mP_form_factor;
 }
 
 void Particle::initialize()

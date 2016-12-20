@@ -10,3 +10,7 @@
 #include "ParticleTest.h"
 #include "ParticleCompositionTest.h"
 #include "ParticleLayoutTest.h"
+#include "LayerInterfaceTest.h"
+#include "ParticleDistributionTest.h"
+#include "CrystalTest.h"
+#include "MesoCrystalTest.h"

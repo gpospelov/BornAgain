@@ -40,14 +40,15 @@ This chapter finishes with a qualitative discussion
 of coherence lengths (\Cref{Scoherlen}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Neutron propagation}\label{Swave}
+\section{Wave propagation}\label{Swave}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\index{Wave propagation!neutron|(}%
-\index{Neutron!wave propagation|(}%
+\index{Wave propagation|(}%
 
 %===============================================================================
-\subsection{Coherent wave equation}\label{ScohWave}
+\subsection{Coherent neutron wave}\label{ScohWave}
 %===============================================================================
+\index{Wave propagation!neutron|(}%
+\index{Neutron!wave propagation|(}%
 
 \def\Vmac{\tilde{V}}
 
@@ -184,6 +185,151 @@ The macroscopic Schrödinger equation~\cref{EmacrSchrodi} then takes the simple 
   \left\{-\Nabla^2+4\pi v(\r)-K^2\right\} \psi(\r) = 0.
 \end{equation}
 
+\index{Wave propagation!neutron|)}%
+\index{Neutron!wave propagation|)}%
+
+%===============================================================================
+\subsection{Polarized neutrons}\label{Snpwave}
+%===============================================================================
+
+
+%===============================================================================
+\subsection{X-ray propagation}\label{SXwave}
+%===============================================================================
+
+\index{Wave propagation!X-ray|(}%
+
+The propagation of X-rays is governed by Maxwell's equations,
+\index{Maxwell's equations}%
+\begin{equation}\label{EMaxwell}
+  \begin{array}{@{}l@{\quad}l@{\quad}l}
+    \Nabla\times\v{E}=-\partial_t \v{B},
+   &\Nabla\v{B}=0,
+   &\v{B}=\v{\mu}(\r)\mu_0\v{H},
+   \\[2ex]
+    \Nabla\times\v{H}=+\partial_t \v{D},
+   &\Nabla\v{D}=0,
+   &\v{D}=\v{\eps}(\r)\eps_0\v{E}.
+  \end{array}
+\end{equation}
+\nomenclature[2e150 2r040 2t020]{$\v{E}(\r,t)$}{Electric field}%
+\nomenclature[2h150 2r040 2t020]{$\v{H}(\r,t)$}{Magnetizing field}%
+\nomenclature[2d150 2r040 2t020]{$\v{D}(\r,t)$}{Displacement field}%
+\nomenclature[2b150 2r040 2t020]{$\v{B}(\r,t)$}{Magnetic field}%
+\nomenclature[1ε070 2r040]{$\v\eps(\r)$}{Relative dielectric permittivity tensor}%
+\nomenclature[1μ070 2r040]{$\v\mu(\r)$}{Relative magnetic permeability tensor}%
+\nomenclature[1ε024 00]{$\eps_0$}{Vacuum permittivity, 8.854\ldots As/Vm}%
+\nomenclature[1μ024 00]{$\mu_0$}{Vacuum permeability, 1.256\ldots Vs/Am}%
+Since BornAgain only addresses elastic scattering,
+\index{Elastic scattering}%
+\index{Scattering!elastic}%
+we assume the permeability and permittivity tensors $\v\mu$ and~$\v\eps$
+to be time-independent.
+\index{Time}%
+Therefore, as in~\cref{ScohWave}, we only need to consider monochromatic waves
+\index{Wave!monochromatic}%
+\index{Monochromatic wave}%
+with given frequency~$\omega$,
+and each of the fields $\v{E}$, $\v{D}$, $\v{H}$, $\v{B}$
+factorizes into a stationary field and a time-dependent phase factor.
+\index{Phase factor}%
+In the following, we will concentrate on the electric field
+\index{Electric field}%
+\begin{equation}
+  \v{E}(\r,t) = \v{E}(\r)\e^{-i\omega t}.
+\end{equation}
+The other three fields can be obtained from~$\v{E}$
+by straightforward application of~\cref{EMaxwell}.
+
+Since magnetic refraction or scattering is beyong the scope of BornAgain,
+the relative magnetic permeability tensor is always $\v{\mu}(\r)=1$.
+\index{Permeability}%
+\index{Magnetic permeability}%
+As customary in SAXS and GISAXS,
+\index{Grazing-incidence small-angle scattering!dielectric model}%
+\index{Small-angle scattering!dielectric model}%
+we assume
+that the dielectric properties of the material are those of a polarizable electron cloud.\footnote
+{This is occasionally called the \E{Laue model}
+\index{Laue model}%
+ \cite{Lau31}.}
+Thereby the relative dielectric permittivity tensor~$\v{\eps}$
+\index{Dielectric permittivity}%
+\index{Permittivity}%
+becomes a scalar,
+\begin{equation}
+  \eps(\r)=1-\frac{4\pi r_e}{K^2}\rho(\r),
+\end{equation}
+\nomenclature[1ε030 2r040]{$\eps(\r)$}{Relative dielectric permittivity function}%
+\nomenclature[1ρ030 2r040]{$\rho(\r)$}{Electron number density}%
+with the classical electron radius~$r_e=e^2/mc^2\simeq2.8\cdot10^{-15}$~m,
+\index{Electron radius}%
+\index{Classical electron radius}%
+\nomenclature[2r024 2e000]{$r_e$}{Classical electron radius~$2.817\ldots^{-15}$~m}%
+the electron number density~$\rho(\r)$,
+\index{Electron density}%
+\index{Density!electron}%
+\index{Number density|see{Density}}%
+and the vacuum wavenumber~$K$,
+given by the dispersion relation
+\begin{equation}
+  K^2 = \mu_0\eps_0\omega^2.
+\end{equation}
+\index{Dispersion!X-ray}%
+With these simplifying assumptions about $\v{\eps}$ and~$\v{\mu}$,
+Maxwell's equations yield the wave equation
+\begin{equation}\label{ENabCrossNabE}
+  \Nabla\times\Nabla\times\v{E} = K^2\eps(\r)\v{E}.
+\end{equation}
+\index{Wave equation!X-ray}%
+\index{X-ray!wave equation}%
+Using a standard identity from vector analysis, it can be brought into the more tractable form
+\begin{equation}\label{ENabNabE}
+  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2\eps(\r)\right\}\v{E}.
+\end{equation}
+To solve this equation by a perturbation expansion,
+\index{Perturbation expansion}%
+we proceed as in \cref{Sfluct},
+and decompose the dielectric permittivity
+into a two components:
+\begin{equation}
+  \eps(\r) = \overline{\eps}(\r) + \delta\eps(\r).
+\end{equation}
+\nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that can be analytically handled}%
+\nomenclature[1δ030
+  1ε030 2r040]{$\delta\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that causes scattering}%
+We define the material-dependent wavenumber by
+\index{Wavenumber!material dependent}%
+\begin{equation}
+  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r).
+\end{equation}
+The scattering potential
+\index{Scattering!potential!X-ray}%
+\begin{equation}
+  4\pi\delta v(\r) \coloneqq - K^2\delta\eps
+\end{equation}
+takes the place of the neutron scattering length distribution.
+The wave equation~\cref{ENabNabE} then becomes
+\begin{equation}\label{EwaveE3}
+  \left\{\Nabla^2-\Nabla\cdot\Nabla + k(\r)^2\right\}\v{E}(\r)
+  = 4\pi\delta v(\r)\v{E}(\r).
+\end{equation}
+\index{Wave equation!X-ray}%
+\index{X-ray!wave equation}%
+This is very similar to the perturbed Schrödinger equation~\cref{ESchrodiK}.
+\index{Perturbed Schrödinger equation}%
+\index{Schrodinger@Schrödinger equation!perturbed}%
+There are only two differences:
+the appearance of the dyadic differential operator $\Nabla\cdot\Nabla$,
+and the fact that $\v{E}(\r)$ is vector valued,
+whereas unpolarized neutrons are described by a scalar wavefunction~$\psi(\r)$.
+
+\index{Wave propagation!X-ray|)}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Perturbed wave equation}\label{SPWE}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %===============================================================================
 \subsection{SLD fluctuations}\label{Sfluct}
 %===============================================================================
@@ -293,8 +439,6 @@ For grazing-incidence small-angle scattering (GISAS),
 one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
 \index{Distorted-wave Born approximation}%
 
-\index{Wave propagation!neutron|)}%
-\index{Neutron!wave propagation|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron scattering in Born approximation}\label{SBornApprox}
@@ -881,135 +1025,6 @@ and will be worked out later (\cref{Swave21}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{X-ray!scattering theory|(}%
 
-%===============================================================================
-\subsection{Wave equation}\label{SXwave}
-%===============================================================================
-
-The propagation of X-rays is governed by Maxwell's equations,
-\index{Maxwell's equations}%
-\index{Wave propagation!X-ray}%
-\begin{equation}\label{EMaxwell}
-  \begin{array}{@{}l@{\quad}l@{\quad}l}
-    \Nabla\times\v{E}=-\partial_t \v{B},
-   &\Nabla\v{B}=0,
-   &\v{B}=\v{\mu}(\r)\mu_0\v{H},
-   \\[2ex]
-    \Nabla\times\v{H}=+\partial_t \v{D},
-   &\Nabla\v{D}=0,
-   &\v{D}=\v{\eps}(\r)\eps_0\v{E}.
-  \end{array}
-\end{equation}
-\nomenclature[2e150 2r040 2t020]{$\v{E}(\r,t)$}{Electric field}%
-\nomenclature[2h150 2r040 2t020]{$\v{H}(\r,t)$}{Magnetizing field}%
-\nomenclature[2d150 2r040 2t020]{$\v{D}(\r,t)$}{Displacement field}%
-\nomenclature[2b150 2r040 2t020]{$\v{B}(\r,t)$}{Magnetic field}%
-\nomenclature[1ε070 2r040]{$\v\eps(\r)$}{Relative dielectric permittivity tensor}%
-\nomenclature[1μ070 2r040]{$\v\mu(\r)$}{Relative magnetic permeability tensor}%
-\nomenclature[1ε024 00]{$\eps_0$}{Vacuum permittivity, 8.854\ldots As/Vm}%
-\nomenclature[1μ024 00]{$\mu_0$}{Vacuum permeability, 1.256\ldots Vs/Am}%
-Since BornAgain only addresses elastic scattering,
-\index{Elastic scattering}%
-\index{Scattering!elastic}%
-we assume the permeability and permittivity tensors $\v\mu$ and~$\v\eps$
-to be time-independent.
-\index{Time}%
-Therefore, as in~\cref{ScohWave}, we only need to consider monochromatic waves
-\index{Wave!monochromatic}%
-\index{Monochromatic wave}%
-with given frequency~$\omega$,
-and each of the fields $\v{E}$, $\v{D}$, $\v{H}$, $\v{B}$
-factorizes into a stationary field and a time-dependent phase factor.
-\index{Phase factor}%
-In the following, we will concentrate on the electric field
-\index{Electric field}%
-\begin{equation}
-  \v{E}(\r,t) = \v{E}(\r)\e^{-i\omega t}.
-\end{equation}
-The other three fields can be obtained from~$\v{E}$
-by straightforward application of~\cref{EMaxwell}.
-
-Since magnetic refraction or scattering is beyong the scope of BornAgain,
-the relative magnetic permeability tensor is always $\v{\mu}(\r)=1$.
-\index{Permeability}%
-\index{Magnetic permeability}%
-As customary in SAXS and GISAXS,
-\index{Grazing-incidence small-angle scattering!dielectric model}%
-\index{Small-angle scattering!dielectric model}%
-we assume
-that the dielectric properties of the material are those of a polarizable electron cloud.\footnote
-{This is occasionally called the \E{Laue model}
-\index{Laue model}%
- \cite{Lau31}.}
-Thereby the relative dielectric permittivity tensor~$\v{\eps}$
-\index{Dielectric permittivity}%
-\index{Permittivity}%
-becomes a scalar,
-\begin{equation}
-  \eps(\r)=1-\frac{4\pi r_e}{K^2}\rho(\r),
-\end{equation}
-\nomenclature[1ε030 2r040]{$\eps(\r)$}{Relative dielectric permittivity function}%
-\nomenclature[1ρ030 2r040]{$\rho(\r)$}{Electron number density}%
-with the classical electron radius~$r_e=e^2/mc^2\simeq2.8\cdot10^{-15}$~m,
-\index{Electron radius}%
-\index{Classical electron radius}%
-\nomenclature[2r024 2e000]{$r_e$}{Classical electron radius~$2.817\ldots^{-15}$~m}%
-the electron number density~$\rho(\r)$,
-\index{Electron density}%
-\index{Density!electron}%
-\index{Number density|see{Density}}%
-and the vacuum wavenumber~$K$,
-given by the dispersion relation
-\begin{equation}
-  K^2 = \mu_0\eps_0\omega^2.
-\end{equation}
-\index{Dispersion!X-ray}%
-With these simplifying assumptions about $\v{\eps}$ and~$\v{\mu}$,
-Maxwell's equations yield the wave equation
-\begin{equation}\label{ENabCrossNabE}
-  \Nabla\times\Nabla\times\v{E} = K^2\eps(\r)\v{E}.
-\end{equation}
-\index{Wave equation!X-ray}%
-\index{X-ray!wave equation}%
-Using a standard identity from vector analysis, it can be brought into the more tractable form
-\begin{equation}\label{ENabNabE}
-  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2\eps(\r)\right\}\v{E}.
-\end{equation}
-To solve this equation by a perturbation expansion,
-\index{Perturbation expansion}%
-we proceed as in \cref{Sfluct},
-and decompose the dielectric permittivity
-into a two components:
-\begin{equation}
-  \eps(\r) = \overline{\eps}(\r) + \delta\eps(\r).
-\end{equation}
-\nomenclature[1ε031 2r040]{$\overline\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that can be analytically handled}%
-\nomenclature[1δ030
-  1ε030 2r040]{$\delta\eps(\r)$}{Part of the permittivity~$\eps(\r)$ that causes scattering}%
-We define the material-dependent wavenumber by
-\index{Wavenumber!material dependent}%
-\begin{equation}
-  k(\r)^2 \coloneqq K^2 \overline{\eps}(\r).
-\end{equation}
-The scattering potential
-\index{Scattering!potential!X-ray}%
-\begin{equation}
-  4\pi\delta v(\r) \coloneqq - K^2\delta\eps
-\end{equation}
-takes the place of the neutron scattering length distribution.
-The wave equation~\cref{ENabNabE} then becomes
-\begin{equation}\label{EwaveE3}
-  \left\{\Nabla^2-\Nabla\cdot\Nabla + k(\r)^2\right\}\v{E}(\r)
-  = 4\pi\delta v(\r)\v{E}(\r).
-\end{equation}
-\index{Wave equation!X-ray}%
-\index{X-ray!wave equation}%
-This is very similar to the perturbed Schrödinger equation~\cref{ESchrodiK}.
-\index{Perturbed Schrödinger equation}%
-\index{Schrodinger@Schrödinger equation!perturbed}%
-There are only two differences:
-the appearance of the dyadic differential operator $\Nabla\cdot\Nabla$,
-and the fact that $\v{E}(\r)$ is vector valued,
-whereas unpolarized neutrons are described by a scalar wavefunction~$\psi(\r)$.
 
 %===============================================================================
 \subsection{DWBA scattering cross section}\label{SXscasol}

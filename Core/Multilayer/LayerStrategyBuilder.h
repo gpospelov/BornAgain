@@ -28,7 +28,7 @@ class Layer;
 class LayerSpecularInfo;
 class MultiLayer;
 
-//! Methods to generate a simulation strategy for DecoratedLayerComputation.
+//! Methods to generate a simulation strategy for a ParticleLayoutComputation.
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ LayerStrategyBuilder

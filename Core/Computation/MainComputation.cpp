@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MainComputation.h"
-#include "DecoratedLayerComputation.h"
+#include "ParticleLayoutComputation.h"
 #include "Layer.h"
 #include "LayerSpecularInfo.h"
 #include "Logger.h"
@@ -50,7 +50,7 @@ MainComputation::MainComputation(
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mp_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
-            m_layer_computation[i].push_back( new DecoratedLayerComputation(layer, j) );
+            m_layer_computation[i].push_back( new ParticleLayoutComputation(layer, j) );
     }
     // scattering from rough surfaces in DWBA
     if (mp_multi_layer->hasRoughness())
@@ -64,7 +64,7 @@ MainComputation::~MainComputation()
     delete mp_roughness_computation;
     delete mp_specular_computation;
     for (auto& layer_comp: m_layer_computation)
-        for (DecoratedLayerComputation* comp: layer_comp)
+        for (ParticleLayoutComputation* comp: layer_comp)
             delete comp;
 }
 
@@ -99,7 +99,7 @@ void MainComputation::runProtected()
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     bool polarized = mp_multi_layer->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
-        for (const DecoratedLayerComputation* comp: layer_comp) {
+        for (const ParticleLayoutComputation* comp: layer_comp) {
             if (!m_progress->alive())
                 return;
             comp->eval(m_sim_options, m_progress, polarized,
@@ -130,7 +130,7 @@ void MainComputation::collectRTCoefficientsScalar()
         layer_coeff_map.addRTCoefficients(new ScalarSpecularInfoMap(mp_multi_layer, i));
 
         // layer DWBA simulation
-        for(DecoratedLayerComputation* comp: m_layer_computation[i])
+        for(ParticleLayoutComputation* comp: m_layer_computation[i])
             comp->setSpecularInfo(layer_coeff_map);
 
         // layer roughness DWBA
@@ -151,7 +151,7 @@ void MainComputation::collectRTCoefficientsMatrix()
         layer_coeff_map.addRTCoefficients(new MatrixSpecularInfoMap(mp_multi_layer, i));
 
         // layer DWBA simulation
-        for(DecoratedLayerComputation* comp: m_layer_computation[i])
+        for(ParticleLayoutComputation* comp: m_layer_computation[i])
             comp->setSpecularInfo(layer_coeff_map);
     }
 }

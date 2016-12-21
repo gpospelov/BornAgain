@@ -44,7 +44,7 @@ class SimulationElement;
 //! counterparts).
 //!
 //! Instantiation of child classes takes place in LayerStrategyBuilder::createStrategy,
-//! which is called from DecoratedLayerComputation::eval.
+//! which is called from ParticleLayoutComputation::eval.
 //!
 //! @ingroup algorithms_internal
 

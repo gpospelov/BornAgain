@@ -28,10 +28,10 @@ Layer::Layer(const IMaterial& material, double thickness)
     initialize();
 }
 
-Layer::Layer(const Layer& other) : ISample()
+Layer::Layer(const Layer& other)
+    : ISample(), mp_material(nullptr)
 {
     m_thickness = other.m_thickness;
-    mp_material = nullptr;
     if (other.mp_material)
         mp_material = other.mp_material->clone();
     for (size_t i=0; i<other.getNumberOfLayouts();++i)

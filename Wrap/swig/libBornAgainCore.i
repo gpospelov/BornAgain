@@ -395,7 +395,6 @@
 %include "Lattice1DParameters.h"
 %include "Lattice2DParameters.h"
 %include "Layer.h"
-%include "IRoughness.h"
 %include "LayerRoughness.h"
 %include "Line.h"
 %include "MathFunctions.h"

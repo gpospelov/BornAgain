@@ -28,7 +28,7 @@ void SpecularComputation::eval(
         const std::vector<SimulationElement>::iterator& end_it)
 {
     if (polarized) return;
-    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
+    for (auto it = begin_it; it != end_it; ++it) {
         if (it->containsSpecularWavevector()) {
             complex_t R = mP_specular_info->getInCoefficients(*it)->getScalarR();
             double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));

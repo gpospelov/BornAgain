@@ -2061,11 +2061,6 @@ class INode(IParameterized):
         """
         return _libBornAgainCore.INode_createParameterTree(self)
 
-
-    def createParameterTreeNew(self):
-        """createParameterTreeNew(INode self) -> ParameterPool"""
-        return _libBornAgainCore.INode_createParameterTreeNew(self)
-
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_INode(self)

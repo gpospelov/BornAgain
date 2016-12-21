@@ -113,14 +113,6 @@ std::string INode::displayName() const
 
 ParameterPool* INode::createParameterTree()
 {
-    auto P_new_pool = new ParameterPool(getName(), std::bind(&IParameterized::onChange, this) );
-    addParametersToExternalPool("/", P_new_pool);
-    return P_new_pool;
-//    return createParameterTreeNew();
-}
-
-ParameterPool* INode::createParameterTreeNew()
-{
     std::unique_ptr<ParameterPool> result(
                 new ParameterPool(getName(), std::bind(&IParameterized::onChange, this) ));
 

@@ -146,14 +146,14 @@ TEST_F(INodeTest, createParameterTree)
 {
     INodeTest::TestClass root("root");
 
-    std::unique_ptr<ParameterPool> pool(root.createParameterTreeNew());
+    std::unique_ptr<ParameterPool> pool(root.createParameterTree());
     EXPECT_EQ(pool->size(), 1u);
     EXPECT_EQ(pool->getParameter("/root/par1")->getValue(), test_par1_value);
 
     // adding first child
     INodeTest::TestClass *child0 = new INodeTest::TestClass("child", 99.0);
     root.appendChild(child0);
-    pool.reset(root.createParameterTreeNew());
+    pool.reset(root.createParameterTree());
 
     EXPECT_EQ(pool->size(), 2u);
     EXPECT_EQ(pool->getParameter("/root/par1")->getValue(), test_par1_value);
@@ -174,7 +174,7 @@ TEST_F(INodeTest, createChildParameterTree)
     INodeTest::TestClass *grandgrand = new INodeTest::TestClass("grandgrand", 3.0);
     grand->appendChild(grandgrand);
 
-    std::unique_ptr<ParameterPool> pool(grand->createParameterTreeNew());
+    std::unique_ptr<ParameterPool> pool(grand->createParameterTree());
     EXPECT_EQ(pool->size(), 2u);
     EXPECT_EQ(pool->getParameter("/grand/par1")->getValue(), 2.0);
     EXPECT_EQ(pool->getParameter("/grand/grandgrand/par1")->getValue(), 3.0);

@@ -450,9 +450,12 @@ Distorted-wave propagation is described by the differential operator
 \end{equation}
 with the distortion field
 \begin{align}
-  \Lambda(\r) &\coloneqq \mv(\r)  &\text{ neutron (scalar),}\\
-  \TENS{\Lambda}(\r) &\coloneqq \mv(\r)+\overline{\v{h}}(\r)\v\sigma &\text{ neutron (spinorial),}\\
-  \Lambda(\r) &\coloneqq K^2(\epsilon(\r)-1) &\text{ X-rays.}
+  \Lambda(\r) &\coloneqq 4\pi\mv(\r)
+      &\text{ neutron (scalar),}\\
+  \TENS{\Lambda}(\r) &\coloneqq 4\pi\mv(\r)+\overline{\v{h}}(\r)\v\sigma
+      &\text{ neutron (spinorial),}\\
+  \Lambda(\r) &\coloneqq K^2(\epsilon(\r)-1)
+      &\text{ X-rays.}
 \end{align}
 The full wave equation, valid inside and outside the sample,
 can then be written as
@@ -463,9 +466,12 @@ can then be written as
 \vspace*{-5pt}}
 with
 \begin{align}
-  U(\r) &\coloneqq \delta v(\r)  &\text{ neutron (scalar),}\\
-  \TENS{U}(\r) &\coloneqq \delta v(\r)+\delta{\v{h}}(\r)\v\sigma &\text{ neutron (spinorial),}\\
-  \TENS{U}(\r) &\coloneqq K^2\delta \epsilon(\r) &\text{ X-rays.}
+  U(\r) &\coloneqq \delta v(\r)
+      &\text{ neutron (scalar),}\\
+  \TENS{U}(\r) &\coloneqq \delta v(\r)+\delta{\v{h}}(\r)\v\sigma/(4\pi)
+      &\text{ neutron (spinorial),}\\
+  U(\r) &\coloneqq K^2\delta \epsilon(\r)/(4\pi)
+      &\text{ X-rays.}
 \end{align}
 \Cref{EDPsi} is the base for computing scattering cross sections in
 distorted-wave Born approximation (DWBA).
@@ -482,20 +488,24 @@ which corresponds to the special case~$\v\Lambda(\r)=0$.
 \index{Index of refraction|see {Refractive index}}%
 
 We pause here to mention an alternative parametrization of scattering length densities
-or dielectric permittivities, namely the refractive index.
-In neutron optics,
-it is customary to express $\mv(\r)$ by the \E{refractive index}
+or dielectric permittivities, namely the \E{refractive index},
+which is defined if the distortion field~$\Lambda(\r)$ is scalar:
 \begin{equation}\label{EnkK}
-  n(\r)\coloneqq\sqrt{1-\frac{4\pi\mv(\r)}{K^2}}.
+  n(\r)\coloneqq\sqrt{1-\frac{\Lambda(\r)}{K^2}}.
 \end{equation}
 \nomenclature[2n020]{$n$}{Refractive index}%
-For electromagnetic waves,
-the refractive index is simply
+This generic expression comprises the standard definitions from neutron optics,
+\begin{equation}\label{EnkK}
+  n(\r)\coloneqq\sqrt{1-\frac{4\pi\mv(\r)}{K^2}},
+\end{equation}
+and from electromagnetism,
 \begin{equation}
   n(\r)\coloneqq\sqrt{\epsilon(\r)}.
 \end{equation}
-
-It is complex, and conventionally parameterized by two real numbers:
+If $\mv(\r)$ or $\epsilon(\r)$ has an imaginary part, describing absorption,
+\index{Absorption}%
+then $n(\r)$ is a complex number.
+Conventionally, $n$ is parameterized by two real numbers:
 \begin{equation}\label{Endb1}
   n \eqqcolon  1-\delta +i\beta.
 \end{equation}
@@ -510,41 +520,11 @@ in the X-ray crystallography convention it would be a minus sign.
 \index{Refractive index!sign convention}%
 \index{Sign convention!refractive index}}
 and much smaller than~1.
-A nonzero~$\beta$ describes absorption and leads to a damping of propagating waves.
-\index{Absorption}%
-\index{Damping}%
-
-The SLD fluctuations can typically written as a sum over different materials~$p$,
-\begin{equation}
-  \delta v(\r) = \sum_p (v_p-\mv(\r)) \chi_p(\r),
-\end{equation}
-where $v_p$ is the SLD of the bulk material~$p$,
-and $\chi_p$ is dimensionless function that takes values between 0 and~1.
-Internally, BornAgain computes $v_p$ from the material's refractive index,
-\begin{equation}
-  v_p = \frac{K^2}{4\pi}(1-n_p).
-\end{equation}
-Since all $n_p$ are very close to~1,
-the right-hand side of the Schrödinger equation~\cref{ESchrodiK}
-is a weak perturbation.
-This suggests a solution
-by means of a perturbation expansion in powers of $\delta v$,
-\index{Perturbation expansion}%
-known as the \E{Born expansion} or \E{Born series}.\footnote{
-Named after Max Born
-who introduced it in quantum mechanics.
-The idea goes back to Lord Rayleigh
-who devised it for sound,
-and later also applied it to electromagnetic waves,
-which resulted in his famous explanation of the blue sky.}
-The standard first-order Born approximation (BA, \cref{SBornApprox})
-is regularly used  for the analysis of small-angle scattering (SAS) experiments.
-\index{Small-angle scattering}%
-\index{BA|see{Born approximation}}%
-\index{Born approximation}%
-For grazing-incidence small-angle scattering (GISAS),
-one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
-\index{Distorted-wave Born approximation}%
+Since the field~$U(\r)$ on the right-hand side of \cref{EDPsi}
+is due to fluations of $n(\r)$,
+its absolute value is also much smaller than~1.
+This explains why \cref{EDPsi} can be solved by a perturbation expansion.
+\index{Perturbation expansion}.
 
 \index{Refractive index|)}%
 
@@ -626,6 +606,25 @@ which completes the proof.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron scattering in Born approximation}\label{SBornApprox}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+a solution
+by means of a perturbation expansion in powers of $\delta v$,
+\index{Perturbation expansion}%
+known as the \E{Born expansion} or \E{Born series}.\footnote{
+Named after Max Born
+who introduced it in quantum mechanics.
+The idea goes back to Lord Rayleigh
+who devised it for sound,
+and later also applied it to electromagnetic waves,
+which resulted in his famous explanation of the blue sky.}
+The standard first-order Born approximation (BA, \cref{SBornApprox})
+is regularly used  for the analysis of small-angle scattering (SAS) experiments.
+\index{Small-angle scattering}%
+\index{BA|see{Born approximation}}%
+\index{Born approximation}%
+For grazing-incidence small-angle scattering (GISAS),
+one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
+\index{Distorted-wave Born approximation}%
 
 %===============================================================================
 \subsection{The Born expansion}\label{SBornExpans}
@@ -1456,10 +1455,6 @@ we define the dielectric scattering potential
 \begin{equation}
   4\pi v(\r)\coloneqq-K^2(\epsilon(\r)-1).
 \end{equation}
-So we obtain the wave equation
-\begin{equation}\label{ENabNabE}
-  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2-4\pi v(\r)\right\}\v{E}(\r)=0.
-\end{equation}
 
 
 To solve this equation by a perturbation expansion,
@@ -1506,3 +1501,14 @@ and the reduced tensor potential
   4\pi\TENS{w}(\r)\coloneqq4\pi v(\r) + \v{h}(\r)\v{\sigma},
 \end{equation}
 \nomenclature[2w050 2r040]{$\TENS{w}(\r)$}{Tensorial potential}%,
+
+The SLD fluctuations can typically written as a sum over different materials~$p$,
+\begin{equation}
+  \delta v(\r) = \sum_p (v_p-\mv(\r)) \chi_p(\r),
+\end{equation}
+where $v_p$ is the SLD of the bulk material~$p$,
+and $\chi_p$ is dimensionless function that takes values between 0 and~1.
+Internally, BornAgain computes $v_p$ from the material's refractive index,
+\begin{equation}
+  v_p = \frac{K^2}{4\pi}(1-n_p).
+\end{equation}

@@ -54,8 +54,11 @@ public:
     //! Returns display name, composed from the name of node and it's copy number.
     std::string displayName() const;
 
+    //! Creates new parameter pool, with all local parameters and those of its children.
+    ParameterPool* createParameterTreeNew();
+
 private:
-    const INode *m_parent;
+    const INode* m_parent;
 };
 
 template <class T>

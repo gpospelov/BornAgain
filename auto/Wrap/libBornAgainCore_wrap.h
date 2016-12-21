@@ -44,9 +44,6 @@ public:
     virtual ~SwigDirector_IParameterized();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -94,9 +91,6 @@ public:
     virtual ~SwigDirector_INode();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -149,9 +143,6 @@ public:
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -291,9 +282,6 @@ public:
     virtual ~SwigDirector_IMultiLayerBuilder();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -344,9 +332,6 @@ public:
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -407,9 +392,6 @@ public:
     virtual void transferToCPP();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);

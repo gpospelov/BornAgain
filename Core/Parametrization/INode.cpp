@@ -17,6 +17,9 @@
 #include "StringUsageMap.h"
 #include "Exceptions.h"
 #include "NodeUtils.h"
+#include "SampleTreeIterator.h"
+#include "ISampleIteratorStrategy.h"
+#include "ParameterPool.h"
 #include <algorithm>
 
 INode::INode() : m_parent(nullptr)
@@ -106,4 +109,20 @@ std::string INode::displayName() const
             result = result + std::to_string(index);
     }
     return result;
+}
+
+ParameterPool* INode::createParameterTreeNew()
+{
+    std::unique_ptr<ParameterPool> result(
+                new ParameterPool(getName(), std::bind(&IParameterized::onChange, this) ));
+
+    SampleTreeIterator<SampleIteratorPreorderStrategy> it(this);
+    it.first();
+    while (!it.isDone()) {
+        const INode *child = it.getCurrent();
+        child->getParameterPool()->copyToExternalPool(NodeUtils::nodePath(*child)+"/", result.get());
+        it.next();
+    }
+
+    return result.release();
 }

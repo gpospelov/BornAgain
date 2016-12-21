@@ -4,11 +4,14 @@
 #include "INode.h"
 #include "NodeUtils.h"
 #include "Exceptions.h"
+#include "ParameterPool.h"
+#include "RealParameter.h"
 #include <memory>
 
 namespace {
     const std::string test_class_name = "TestClass";
     const std::string another_test_class_name = "AnotherTestClass";
+    const double test_par1_value(1.0);
 }
 
 class INodeTest : public ::testing::Test
@@ -16,16 +19,29 @@ class INodeTest : public ::testing::Test
 public:
     class TestClass : public INode {
     public:        
-        TestClass(const std::string& name = test_class_name) { setName(name); }
-        virtual ~TestClass() {for(auto child : m_nodes) delete child;}
+        TestClass(const std::string& name = test_class_name, double value = test_par1_value)
+            : m_parameter1(value)
+        {
+            setName(name);
+            registerParameter("par1", &m_parameter1);
+        }
+
+        virtual ~TestClass()
+        {
+            for(auto child : m_nodes)
+                delete child;
+        }
         void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+
         void appendChild(INode *node) { m_nodes.push_back(node); registerChild(node); }
+
         virtual std::vector<const INode*> getChildren() const
         {
             return {m_nodes.begin(), m_nodes.end()};
         }
 
         std::vector<INode *> m_nodes;
+        double m_parameter1;
     };
 
 protected:
@@ -92,6 +108,9 @@ TEST_F(INodeTest, displayName)
     EXPECT_EQ(child2->displayName(), another_test_class_name);
 }
 
+//! Checking the path of the node, which is a path composed of node's displayName,
+//! starting from root node.
+
 TEST_F(INodeTest, nodePath)
 {
     INodeTest::TestClass root("root");
@@ -112,6 +131,27 @@ TEST_F(INodeTest, nodePath)
     INodeTest::TestClass *grandchild = new INodeTest::TestClass("grandchild");
     child0->appendChild(grandchild);
     EXPECT_EQ(NodeUtils::nodePath(*grandchild), "/root/child0/grandchild");
+}
+
+//! Checking parameter tree for INode structure
+
+TEST_F(INodeTest, createParameterTreeNew)
+{
+    INodeTest::TestClass root("root");
+
+    std::unique_ptr<ParameterPool> pool(root.createParameterTreeNew());
+    EXPECT_EQ(pool->size(), 1u);
+    EXPECT_EQ(pool->getParameter("/root/par1")->getValue(), test_par1_value);
+
+    // adding first child
+    INodeTest::TestClass *child0 = new INodeTest::TestClass("child", 99.0);
+    root.appendChild(child0);
+    pool.reset(root.createParameterTreeNew());
+
+    EXPECT_EQ(pool->size(), 2u);
+    EXPECT_EQ(pool->getParameter("/root/par1")->getValue(), test_par1_value);
+    EXPECT_EQ(pool->getParameter("/root/child/par1")->getValue(), 99.0);
+
 }
 
 

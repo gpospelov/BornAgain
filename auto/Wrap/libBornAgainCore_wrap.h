@@ -42,6 +42,7 @@ public:
     SwigDirector_IParameterized(PyObject *self, std::string const &name = "");
     SwigDirector_IParameterized(PyObject *self, IParameterized const &other);
     virtual ~SwigDirector_IParameterized();
+    virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void print(std::ostream &ostr) const;
@@ -89,6 +90,7 @@ class SwigDirector_INode : public INode, public Swig::Director {
 public:
     SwigDirector_INode(PyObject *self);
     virtual ~SwigDirector_INode();
+    virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void print(std::ostream &ostr) const;
@@ -141,6 +143,7 @@ public:
     virtual ~SwigDirector_ISample();
     virtual ISample *clone() const;
     virtual void transferToCPP();
+    virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void print(std::ostream &ostr) const;
@@ -280,6 +283,7 @@ class SwigDirector_IMultiLayerBuilder : public IMultiLayerBuilder, public Swig::
 public:
     SwigDirector_IMultiLayerBuilder(PyObject *self);
     virtual ~SwigDirector_IMultiLayerBuilder();
+    virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void print(std::ostream &ostr) const;
@@ -330,6 +334,7 @@ public:
     virtual ~SwigDirector_IFormFactor();
     virtual IFormFactor *clone() const;
     virtual void transferToCPP();
+    virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void print(std::ostream &ostr) const;
@@ -390,6 +395,7 @@ public:
     virtual ~SwigDirector_IFormFactorBorn();
     virtual IFormFactorBorn *clone() const;
     virtual void transferToCPP();
+    virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void print(std::ostream &ostr) const;

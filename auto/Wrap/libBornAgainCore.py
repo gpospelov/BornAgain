@@ -1972,11 +1972,6 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
-    def onChange(self):
-        """onChange(IParameterized self)"""
-        return _libBornAgainCore.IParameterized_onChange(self)
-
-
     def _print(self, ostr):
         """_print(IParameterized self, std::ostream & ostr)"""
         return _libBornAgainCore.IParameterized__print(self, ostr)
@@ -2053,6 +2048,18 @@ class INode(IParameterized):
     def displayName(self):
         """displayName(INode self) -> std::string"""
         return _libBornAgainCore.INode_displayName(self)
+
+
+    def createParameterTree(self):
+        """
+        createParameterTree(INode self) -> ParameterPool
+
+        ParameterPool * IParameterized::createParameterTree()
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
+        return _libBornAgainCore.INode_createParameterTree(self)
 
 
     def createParameterTreeNew(self):

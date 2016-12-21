@@ -187,12 +187,15 @@ In the following it shall be expressed through the
 \end{equation}
 In the following, we will characterize the incoming radiation
 not by its energy~$\hbar\omega$,
-but by its \E{vacuum wavenumber}
+but by its \E{vacuum wavenumber}~$K$,
 \index{Vacuum!neutron wavenumber}%
 \index{Wavenumber!neutron}%
 \nomenclature[2k120]{$K$}{Wavenumber in vacuum}%
+given by the dispersion relation
+\index{Dispersion relation!neutron}%
+\index{Neutron!dispersion relation}%
 \begin{equation}
-  K \coloneqq \sqrt{\frac{2m\omega}{\hbar}}.
+  \hbar\omega = \frac{(\hbar K)^2}{2m}.
 \end{equation}
 The macroscopic Schrödinger equation~\cref{EmacrSchrodi} then takes the simple form
 \Emph{
@@ -424,7 +427,7 @@ under the vacuum conditions $v=0$, $\v{h}=0$, $\epsilon=1$.
 
 In the following,
 we develop a generic formalism for the scattering of distorted neutron or X-ray waves.
-Wave propagation in vacuum shall be denoted by an overset $o$.
+Wave propagation in vacuum shall be denoted by an overset circle.
 The wave equation in vacuum shall be written as
 \Emph{
 \begin{equation}\label{EDPsi0}
@@ -464,6 +467,12 @@ with
   \TENS{U}(\r) &\coloneqq \delta v(\r)+\delta{\v{h}}(\r)\v\sigma &\text{ neutron (spinorial),}\\
   \TENS{U}(\r) &\coloneqq K^2\delta \epsilon(\r) &\text{ X-rays.}
 \end{align}
+\Cref{EDPsi} is the base for computing scattering cross sections in
+distorted-wave Born approximation (DWBA).
+\index{Distorted-wave Born approximation}%
+The DWBA generalizes the standard Born approximation,
+\index{Born approximation}%
+which corresponds to the special case~$\v\Lambda(\r)=0$.
 
 %===============================================================================
 \subsection{Refractive index}\label{Srefridx}
@@ -471,31 +480,6 @@ with
 
 We pause here to mention an alternative parametrization of scattering length densities
 or dielectric permittivities, namely the index of refraction.
-
-TODO REINTEGRATE
-With the material-dependent wavenumber~$k(\r)$,
-defined by the dispersion relation
-\nomenclature[2k030 2r040]{$k(\r)$}{Wavenumber}%
-\index{Dispersion!neutron in homogeneous medium}%
-\index{Wavenumber!material dependent}%
-\begin{equation}\label{Edispersion}
-  k(\r)^2 \coloneqq K^2 - 4\pi\mv(\r),
-\end{equation}
-we rewrite the macroscopic Schrödinger equation~\cref{ESchrodi2} as
-\Emph{
-\begin{equation}\label{ESchrodiK}
-  \left\{ \Nabla^2 + k(\r)^2 \right\}\psi(\r)
-  = 4\pi\delta v(\r)\psi(\r).
-\end{equation}
-\vspace*{-5pt}}
-\index{Perturbed Schrödinger equation}%
-\index{Schrodinger@Schrödinger equation!perturbed}%
-This \E{perturbed Schrödinger equation} will be the starting point for all further analyses.
-The left-hand side describes optical wave propagation,
-the right-hand side is a perturbation that causes scattering.
-\index{Scattering!potential!neutron}%
-\index{Perturbation potential|see{Scattering potential}}%
-\index{Potential|see{Scattering potential}}%
 
 It is customary to express $\mv(\r)$ by the neutron optical \E{refractive index}
 \begin{equation}\label{EnkK}
@@ -554,6 +538,80 @@ is regularly used  for the analysis of small-angle scattering (SAS) experiments.
 For grazing-incidence small-angle scattering (GISAS),
 one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
 \index{Distorted-wave Born approximation}%
+
+%===============================================================================
+\subsection{Reciprocity of the Green function}\label{SReci}
+%===============================================================================
+
+\index{Reciprocity|(}%
+\index{Green function!reciprocity|(}%
+
+Our computation of~$G_\infty$ will be based on a source-detector \E{reciprocity theorem}
+for the scalar Schrödinger equation.\footnote
+{There exists a confusing multitude of reciprocity theorems \cite{Pot04}.
+In the end, we found it simpler to provide a derivation taylored for our application case
+than to refer to the literature.}
+The theorem states:
+Any Green function $G(\r,\r')$
+that solves~\cref{EGreenK} and as function of~$\r$ represents an outgoing wave
+[in accord with the Sommerfeld radiation condition,
+\index{Sommerfeld radiation condition}%
+\index{Radiation condition}%
+cf.~\cref{Escabouco}]
+is invariant under an exchange of source location~$\rS$ and detection point~$\rD$:
+\nomenclature[2r041 2d100]{$\rD$}{Position of detector}%
+\nomenclature[2r041 2s100]{$\rD$}{Position of source, locus of scattering}%
+\begin{equation}\label{Erecip}
+  G(\rS,\rD) = G(\rD,\rS).
+\end{equation}
+Readers not interested in mathematical details may skip the following \E{proof}:
+
+We introduce the auxiliary vector field
+\begin{equation}
+  \v{X}(\r,\rS,\rD)\coloneqq G(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla G(\r,\rD).
+\end{equation}
+%\nomenclature[2x150 2r040]{$\v{X}(\r,\rS,\rD)$}{Auxiliary vector field}%
+We inscribe the sample and the detector
+into a sphere $\Sphere$ around the coordinate origin with radius~$R$,
+%\nomenclature[2s180]{$\Sphere$}{Auxiliary spherical volume}%
+%\nomenclature[2r120]{$R$}{Radius of $\Sphere$}%
+and compute the volume integral
+\begin{equation}\label{Eprerecipro}
+    I(\rS,\rD) \coloneqq \displaystyle\int_\Sphere\!\d^3r\,\Nabla \v{X}(\r,\rS,\rD).
+\end{equation}
+After a few steps, not entirely trivial, but not too difficult either,
+we obtain
+\begin{equation}\label{EIBD}
+  I(\rS,\rD) = G(\rS,\rD) - G(\rD,\rS).
+\end{equation}
+Alternatively, we can compute $I$ as a surface integral
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d\v{\sigma}\,\v{X}(\r,\rS,\rD).
+\end{equation}
+On the surface $\partial\Sphere$,
+$G$ is an outgoing solution of the Helmholtz equation.
+As such, it has a well-known series expansion in spherical coordinates.
+We send $R\to\infty$ so that we need only to retain the lowest order:
+\begin{align}
+   G(\r(R,\vartheta,\varphi),\rD)
+   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} a(\vartheta,\varphi),
+   \\[3.8ex]
+   G(\r(R,\vartheta,\varphi),\rS)
+   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
+\end{align}
+The factorization of $G$ and $B$ and their common $R$ dependence imply that
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d\sigma\,
+       (\text{$R$-dependent})(ab-ba)
+  = 0.
+\end{equation}
+Comparison with \cref{EIBD} yields \cref{Erecip},
+which completes the proof.
+
+\index{Reciprocity|)}%
+\index{Green function!reciprocity|)}%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -966,78 +1024,6 @@ we will not even attempt to obtain a full solution
 \index{Green function!DWBA}%
 of the Green function equation~\cref{EGreenK}.
 We will use indirect arguments to directly obtain its far-field asymptote $G_\infty$.
-
-%===============================================================================
-\subsection{Reciprocity of the Green function}\label{SReci}
-%===============================================================================
-
-Our computation of~$G_\infty$ will be based on a source-detector \E{reciprocity theorem}
-\index{Reciprocity|(}%
-\index{Green function!reciprocity}%
-for the scalar Schrödinger equation.\footnote
-{There exists a confusing multitude of reciprocity theorems \cite{Pot04}.
-In the end, we found it simpler to provide a derivation taylored for our application case
-than to refer to the literature.}
-The theorem states:
-Any Green function $G(\r,\r')$
-that solves~\cref{EGreenK} and as function of~$\r$ represents an outgoing wave
-[in accord with the Sommerfeld radiation condition,
-\index{Sommerfeld radiation condition}%
-\index{Radiation condition}%
-cf.~\cref{Escabouco}]
-is invariant under an exchange of source location~$\rS$ and detection point~$\rD$:
-\nomenclature[2r041 2d100]{$\rD$}{Position of detector}%
-\nomenclature[2r041 2s100]{$\rD$}{Position of source, locus of scattering}%
-\begin{equation}\label{Erecip}
-  G(\rS,\rD) = G(\rD,\rS).
-\end{equation}
-Readers not interested in mathematical details may skip the following \E{proof}:
-
-We introduce the auxiliary vector field
-\begin{equation}
-  \v{X}(\r,\rS,\rD)\coloneqq G(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla G(\r,\rD).
-\end{equation}
-%\nomenclature[2x150 2r040]{$\v{X}(\r,\rS,\rD)$}{Auxiliary vector field}%
-We inscribe the sample and the detector
-into a sphere $\Sphere$ around the coordinate origin with radius~$R$,
-%\nomenclature[2s180]{$\Sphere$}{Auxiliary spherical volume}%
-%\nomenclature[2r120]{$R$}{Radius of $\Sphere$}%
-and compute the volume integral
-\begin{equation}\label{Eprerecipro}
-    I(\rS,\rD) \coloneqq \displaystyle\int_\Sphere\!\d^3r\,\Nabla \v{X}(\r,\rS,\rD).
-\end{equation}
-After a few steps, not entirely trivial, but not too difficult either,
-we obtain
-\begin{equation}\label{EIBD}
-  I(\rS,\rD) = G(\rS,\rD) - G(\rD,\rS).
-\end{equation}
-Alternatively, we can compute $I$ as a surface integral
-\begin{equation}
-  I(\rS,\rD)
-  =\displaystyle\int_{\partial\Sphere}\d\v{\sigma}\,\v{X}(\r,\rS,\rD).
-\end{equation}
-On the surface $\partial\Sphere$,
-$G$ is an outgoing solution of the Helmholtz equation.
-As such, it has a well-known series expansion in spherical coordinates.
-We send $R\to\infty$ so that we need only to retain the lowest order:
-\begin{align}
-   G(\r(R,\vartheta,\varphi),\rD)
-   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} a(\vartheta,\varphi),
-   \\[3.8ex]
-   G(\r(R,\vartheta,\varphi),\rS)
-   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
-\end{align}
-The factorization of $G$ and $B$ and their common $R$ dependence imply that
-\begin{equation}
-  I(\rS,\rD)
-  =\displaystyle\int_{\partial\Sphere}\d\sigma\,
-       (\text{$R$-dependent})(ab-ba)
-  = 0.
-\end{equation}
-Comparison with \cref{EIBD} yields \cref{Erecip},
-which completes the proof.
-
-\index{Reciprocity|)}%
 
 %===============================================================================
 \subsection{Far-field Green function}\label{SfarDW}

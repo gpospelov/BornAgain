@@ -452,7 +452,7 @@ with the distortion field
 \begin{align}
   \Lambda(\r) &\coloneqq \mv(\r)  &\text{ neutron (scalar),}\\
   \TENS{\Lambda}(\r) &\coloneqq \mv(\r)+\overline{\v{h}}(\r)\v\sigma &\text{ neutron (spinorial),}\\
-  \TENS{\Lambda}(\r) &\coloneqq K^2(\epsilon(\r)-1) &\text{ X-rays.}
+  \Lambda(\r) &\coloneqq K^2(\epsilon(\r)-1) &\text{ X-rays.}
 \end{align}
 The full wave equation, valid inside and outside the sample,
 can then be written as
@@ -478,16 +478,23 @@ which corresponds to the special case~$\v\Lambda(\r)=0$.
 \subsection{Refractive index}\label{Srefridx}
 %===============================================================================
 
-We pause here to mention an alternative parametrization of scattering length densities
-or dielectric permittivities, namely the index of refraction.
+\index{Refractive index|(}%
+\index{Index of refraction|see {Refractive index}}%
 
-It is customary to express $\mv(\r)$ by the neutron optical \E{refractive index}
+We pause here to mention an alternative parametrization of scattering length densities
+or dielectric permittivities, namely the refractive index.
+In neutron optics,
+it is customary to express $\mv(\r)$ by the \E{refractive index}
 \begin{equation}\label{EnkK}
-  n(\r)\coloneqq\frac{k(\r)}{K} = \sqrt{1-\frac{4\pi\mv(\r)}{K^2}}.
+  n(\r)\coloneqq\sqrt{1-\frac{4\pi\mv(\r)}{K^2}}.
 \end{equation}
 \nomenclature[2n020]{$n$}{Refractive index}%
-\index{Refractive index}%
-\index{Index of refraction|see {Refractive index}}%
+For electromagnetic waves,
+the refractive index is simply
+\begin{equation}
+  n(\r)\coloneqq\sqrt{\epsilon(\r)}.
+\end{equation}
+
 It is complex, and conventionally parameterized by two real numbers:
 \begin{equation}\label{Endb1}
   n \eqqcolon  1-\delta +i\beta.
@@ -538,6 +545,8 @@ is regularly used  for the analysis of small-angle scattering (SAS) experiments.
 For grazing-incidence small-angle scattering (GISAS),
 one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
 \index{Distorted-wave Born approximation}%
+
+\index{Refractive index|)}%
 
 %===============================================================================
 \subsection{Reciprocity of the Green function}\label{SReci}

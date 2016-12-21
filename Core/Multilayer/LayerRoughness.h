@@ -16,7 +16,7 @@
 #ifndef LAYERROUGHNESS_H
 #define LAYERROUGHNESS_H
 
-#include "IRoughness.h"
+#include "ISample.h"
 #include "Vectors3D.h"
 
 //! A Roughness of interface between two layers.
@@ -27,7 +27,7 @@
 //!
 //! @ingroup samples
 
-class BA_CORE_API_ LayerRoughness : public IRoughness
+class BA_CORE_API_ LayerRoughness : public ISample
 {
 public:
     LayerRoughness();

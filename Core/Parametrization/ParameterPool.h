@@ -16,7 +16,7 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
-#include "WinDllMacros.h"
+#include "ICloneable.h"
 #include <functional>
 #include <ostream>
 #include <string>
@@ -34,16 +34,13 @@ class RealParameter;
 //!
 //! Parameter names must be unique since we use them as map keys.
 
-class BA_CORE_API_ ParameterPool
+class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
     explicit ParameterPool(const std::string& name, const std::function<void()>& onChange);
-    ParameterPool(const ParameterPool&) = delete;
-    ParameterPool& operator=(const ParameterPool&) = delete;
     virtual ~ParameterPool();
 
     ParameterPool* clone() const;
-    ParameterPool* cloneWithPrefix(const std::string& prefix) const;
 
     void copyToExternalPool(const std::string& prefix, ParameterPool* external_pool) const;
 

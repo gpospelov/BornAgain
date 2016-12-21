@@ -45,15 +45,6 @@ ParameterPool* ParameterPool::clone() const
     return new_pool;
 }
 
-//! Returns a clone with _prefix_ prepended to every parameter key.
-
-ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
-{
-    ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
-    copyToExternalPool( prefix, new_pool );
-    return new_pool;
-}
-
 //! Clears the parameter map.
 
 void ParameterPool::clear()

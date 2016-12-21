@@ -22227,7 +22227,7 @@ class ParameterDistribution(IParameterized):
 ParameterDistribution_swigregister = _libBornAgainCore.ParameterDistribution_swigregister
 ParameterDistribution_swigregister(ParameterDistribution)
 
-class ParameterPool(_object):
+class ParameterPool(ICloneable):
     """
 
 
@@ -22240,8 +22240,12 @@ class ParameterPool(_object):
     """
 
     __swig_setmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterPool, name, value)
     __swig_getmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
@@ -22270,18 +22274,6 @@ class ParameterPool(_object):
 
         """
         return _libBornAgainCore.ParameterPool_clone(self)
-
-
-    def cloneWithPrefix(self, prefix):
-        """
-        cloneWithPrefix(ParameterPool self, std::string const & prefix) -> ParameterPool
-
-        ParameterPool * ParameterPool::cloneWithPrefix(const std::string &prefix) const
-
-        Returns a clone with  prefix prepended to every parameter key. 
-
-        """
-        return _libBornAgainCore.ParameterPool_cloneWithPrefix(self, prefix)
 
 
     def copyToExternalPool(self, prefix, external_pool):

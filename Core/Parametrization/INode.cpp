@@ -128,7 +128,8 @@ ParameterPool* INode::createParameterTreeNew()
     it.first();
     while (!it.isDone()) {
         const INode *child = it.getCurrent();
-        child->getParameterPool()->copyToExternalPool(NodeUtils::nodePath(*child)+"/", result.get());
+        const std::string path = NodeUtils::nodePath(*child, this->parent()) + "/";
+        child->getParameterPool()->copyToExternalPool(path, result.get());
         it.next();
     }
 

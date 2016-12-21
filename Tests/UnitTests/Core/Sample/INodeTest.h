@@ -108,8 +108,8 @@ TEST_F(INodeTest, displayName)
     EXPECT_EQ(child2->displayName(), another_test_class_name);
 }
 
-//! Checking the path of the node, which is a path composed of node's displayName,
-//! starting from root node.
+//! Checking the path of the node, which is a path composed of node's displayName and
+//! the displayName of parent.
 
 TEST_F(INodeTest, nodePath)
 {
@@ -131,11 +131,18 @@ TEST_F(INodeTest, nodePath)
     INodeTest::TestClass *grandchild = new INodeTest::TestClass("grandchild");
     child0->appendChild(grandchild);
     EXPECT_EQ(NodeUtils::nodePath(*grandchild), "/root/child0/grandchild");
+
+    // Now check path of grandchild wrt it's direct parent
+    EXPECT_EQ(NodeUtils::nodePath(*grandchild, child0), "/grandchild");
+
+    // Check if exception is thrown when grandchild doesn't belong to child's branch
+    EXPECT_THROW(NodeUtils::nodePath(*grandchild, child1), Exceptions::RuntimeErrorException);
+
 }
 
-//! Checking parameter tree for INode structure
+//! Checking parameter tree for INode structure.
 
-TEST_F(INodeTest, createParameterTreeNew)
+TEST_F(INodeTest, createParameterTree)
 {
     INodeTest::TestClass root("root");
 
@@ -151,8 +158,26 @@ TEST_F(INodeTest, createParameterTreeNew)
     EXPECT_EQ(pool->size(), 2u);
     EXPECT_EQ(pool->getParameter("/root/par1")->getValue(), test_par1_value);
     EXPECT_EQ(pool->getParameter("/root/child/par1")->getValue(), 99.0);
-
 }
 
+//! Checking parameter tree for INode structure (for one of children).
+
+TEST_F(INodeTest, createChildParameterTree)
+{
+    INodeTest::TestClass root("root");
+    INodeTest::TestClass *child = new INodeTest::TestClass("child", 1.0);
+    root.appendChild(child);
+
+    INodeTest::TestClass *grand = new INodeTest::TestClass("grand", 2.0);
+    child->appendChild(grand);
+
+    INodeTest::TestClass *grandgrand = new INodeTest::TestClass("grandgrand", 3.0);
+    grand->appendChild(grandgrand);
+
+    std::unique_ptr<ParameterPool> pool(grand->createParameterTreeNew());
+    EXPECT_EQ(pool->size(), 2u);
+    EXPECT_EQ(pool->getParameter("/grand/par1")->getValue(), 2.0);
+    EXPECT_EQ(pool->getParameter("/grand/grandgrand/par1")->getValue(), 3.0);
+}
 
 #endif // INODETEST_H

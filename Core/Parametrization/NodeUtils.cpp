@@ -19,6 +19,7 @@
 #include "RealParameter.h"
 #include "ParameterPool.h"
 #include "INode.h"
+#include "Exceptions.h"
 #include <functional>
 #include <algorithm>
 #include <iterator>
@@ -88,15 +89,21 @@ std::string NodeUtils::nodeToString(const INode& node)
     return result.str();
 }
 
-std::string NodeUtils::nodePath(const INode& node)
+std::string NodeUtils::nodePath(const INode& node, const INode* root)
 {
     std::vector<std::string> pathElements;
     const INode* current = &node;
-    while(current) {
+    while (current && current != root) {
         pathElements.push_back(current->displayName());
         pathElements.push_back("/");
         current = current->parent();
     }
+
+    if (root != nullptr && current != root) {
+        throw Exceptions::RuntimeErrorException("NodeUtils::nodePath() -> Error. Node doesn't "
+                                                "belong to root's branch");
+    }
+
     std::reverse(pathElements.begin(), pathElements.end());
     std::ostringstream result;
     std::copy(pathElements.begin(), pathElements.end(), std::ostream_iterator<std::string>(result));

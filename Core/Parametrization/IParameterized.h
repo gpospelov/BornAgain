@@ -38,7 +38,7 @@ public:
     ParameterPool* getParameterPool() const { return m_pool; }
 
     //! Creates new parameter pool, with all local parameters and those of its children.
-    ParameterPool* createParameterTree();
+    virtual ParameterPool* createParameterTree();
 
     void printParameters();
 
@@ -55,9 +55,10 @@ public:
     virtual std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number=-1) const;
 
-protected:
     //! Action to be taken in inherited class when a parameter has changed.
     virtual void onChange() {}
+
+protected:
 
     //! Prints a representation of this IParameterized object to the given output stream.
     //! default implementation prints "IParameterized:" and the parameter pool

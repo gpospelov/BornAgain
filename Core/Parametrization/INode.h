@@ -28,7 +28,7 @@ class ISampleVisitor;
 class BA_CORE_API_ INode : public IParameterized
 {
 public:
-    INode(){}
+    INode();
     virtual ~INode(){}
 
     virtual void accept(ISampleVisitor* p_visitor) const=0;
@@ -36,7 +36,7 @@ public:
     //! Returns multiline string representing tree structure below the node.
     virtual std::string to_str() const;
 
-    void registerChild(INode* sample);
+    void registerChild(INode* node);
 
     //! Returns a vector of children (const).
     virtual std::vector<const INode*> getChildren() const;
@@ -44,6 +44,21 @@ public:
     //! Adds parameters from local pool to external pool and recursively calls its direct children.
     virtual std::string addParametersToExternalPool(
         const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
+
+    void setParent(const INode* parent);
+    const INode* parent() const;
+
+    //! Returns copyNumber of child, which takes into account existence of children with same name.
+    int copyNumber(const INode* node) const;
+
+    //! Returns display name, composed from the name of node and it's copy number.
+    std::string displayName() const;
+
+    //! Creates new parameter pool, with all local parameters and those of its children.
+    ParameterPool* createParameterTree() override;
+
+private:
+    const INode* m_parent;
 };
 
 template <class T>

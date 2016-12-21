@@ -17,19 +17,25 @@
 #include "StringUsageMap.h"
 #include "Exceptions.h"
 #include "NodeUtils.h"
+#include "SampleTreeIterator.h"
+#include "ISampleIteratorStrategy.h"
+#include "ParameterPool.h"
 #include <algorithm>
+
+INode::INode() : m_parent(nullptr)
+{
+}
 
 std::string INode::to_str() const
 {
     return NodeUtils::nodeToString(*this);
 }
 
-void INode::registerChild(INode *sample)
+void INode::registerChild(INode *node)
 {
-    if(!sample)
-        throw Exceptions::NullPointerException(
-            "ISample::registerChild -> Error. Null pointer.");
-    // TODO sample->setParent(this) here
+    if(!node)
+        throw Exceptions::NullPointerException("INode::registerChild -> Error. Null pointer.");
+    node->setParent(this);
 }
 
 std::vector<const INode *> INode::getChildren() const
@@ -65,4 +71,59 @@ std::string INode::addParametersToExternalPool(
         child->addParametersToExternalPool(new_path, external_pool, ncopy);
     }
     return new_path;
+}
+
+void INode::setParent(const INode* parent)
+{
+    m_parent = parent;
+}
+
+const INode* INode::parent() const
+{
+    return m_parent;
+}
+
+int INode::copyNumber(const INode* node) const
+{
+    if(node->parent() != this)
+        return -1;
+
+    int result(-1), count(0);
+    for (auto child : getChildren()) {
+        if (child == node)
+            result = count;
+
+        if (child->getName() == node->getName())
+            ++count;
+    }
+
+    return count > 1 ? result : -1;
+}
+
+std::string INode::displayName() const
+{
+    std::string result = getName();
+    if (m_parent) {
+        int index = m_parent->copyNumber(this);
+        if (index >= 0)
+            result = result + std::to_string(index);
+    }
+    return result;
+}
+
+ParameterPool* INode::createParameterTree()
+{
+    std::unique_ptr<ParameterPool> result(
+                new ParameterPool(getName(), std::bind(&IParameterized::onChange, this) ));
+
+    SampleTreeIterator<SampleIteratorPreorderStrategy> it(this);
+    it.first();
+    while (!it.isDone()) {
+        const INode *child = it.getCurrent();
+        const std::string path = NodeUtils::nodePath(*child, this->parent()) + "/";
+        child->getParameterPool()->copyToExternalPool(path, result.get());
+        it.next();
+    }
+
+    return result.release();
 }

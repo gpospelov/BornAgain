@@ -96,19 +96,19 @@ const RealParameter* ParameterPool::getParameter(const std::string& name) const
     for (const auto* par: m_params )
         if( par->getName()==name )
             return par;
-    throw std::runtime_error(
-        "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
+
+    std::ostringstream message;
+    message << "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'\n"
+            << "Available parameters:" << *this;
+    throw std::runtime_error(message.str());
 }
 
 //! Returns parameter with given _name_.
 
 RealParameter* ParameterPool::getParameter(const std::string& name)
 {
-    for (auto* par: m_params )
-        if( par->getName()==name )
-            return par;
-    throw std::runtime_error(
-        "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
+    return const_cast<RealParameter *>(
+                static_cast<const ParameterPool *>(this)->getParameter(name));
 }
 
 //! Returns nonempty vector of parameters that match the _pattern_ ('*' allowed), or throws.
@@ -191,21 +191,8 @@ std::vector<std::string> ParameterPool::getParameterNames() const
 
 void ParameterPool::print(std::ostream& ostr) const
 {
-    const size_t number_of_pars_in_line(12);
-    if( m_params.size() ) {
-        if(m_params.size() < number_of_pars_in_line) { // print in one line
-            ostr << "POOL_" << m_params.size();
-            ostr << "(";
-            for (const auto* par: m_params)
-                ostr << "'" << par->getName() << "'" << ":" << par->getValue() << " " ;
-            ostr << ")";
-        } else { // print in several lines
-            for (const auto* par: m_params)
-                ostr << "'" << par->getName() << "'" << ":" << par->getValue() << "\n";
-        }
-    } else {
-        ostr << "POOL_0";
-    }
+    for (const auto* par: m_params)
+        ostr << "'" << par->getName() << "'" << ":" << par->getValue() << "\n";
 }
 
 //! reports error while finding parameters matching given name.

@@ -26,6 +26,9 @@ namespace NodeUtils {
     //! Returns multiline string representing tree structure starting from given node.
     BA_CORE_API_ std::string nodeToString(const INode& node);
 
+    //! Returns path composed of node's displayName, starting from root node
+    BA_CORE_API_ std::string nodePath(const INode& node);
+
 } //namespace NodeUtils
 
 #endif // NODEUTILS_H

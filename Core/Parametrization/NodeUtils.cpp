@@ -20,6 +20,8 @@
 #include "ParameterPool.h"
 #include "INode.h"
 #include <functional>
+#include <algorithm>
+#include <iterator>
 #include <sstream>
 
 namespace {
@@ -83,5 +85,20 @@ std::string NodeUtils::nodeToString(const INode& node)
         it.next();
     }
 
+    return result.str();
+}
+
+std::string NodeUtils::nodePath(const INode& node)
+{
+    std::vector<std::string> pathElements;
+    const INode* current = &node;
+    while(current) {
+        pathElements.push_back(current->displayName());
+        pathElements.push_back("/");
+        current = current->parent();
+    }
+    std::reverse(pathElements.begin(), pathElements.end());
+    std::ostringstream result;
+    std::copy(pathElements.begin(), pathElements.end(), std::ostream_iterator<std::string>(result));
     return result.str();
 }

@@ -2,6 +2,7 @@
 #define INODETEST_H
 
 #include "INode.h"
+#include "NodeUtils.h"
 #include "Exceptions.h"
 #include <memory>
 
@@ -14,8 +15,9 @@ class INodeTest : public ::testing::Test
 {
 public:
     class TestClass : public INode {
-    public:
-        TestClass() { setName(test_class_name); }
+    public:        
+        TestClass(const std::string& name = test_class_name) { setName(name); }
+        virtual ~TestClass() {for(auto child : m_nodes) delete child;}
         void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
         void appendChild(INode *node) { m_nodes.push_back(node); registerChild(node); }
         virtual std::vector<const INode*> getChildren() const
@@ -24,11 +26,6 @@ public:
         }
 
         std::vector<INode *> m_nodes;
-    };
-
-    class AnotherTestClass : public TestClass {
-    public:
-        AnotherTestClass() { setName(another_test_class_name); }
     };
 
 protected:
@@ -66,10 +63,8 @@ TEST_F(INodeTest, parentship)
     EXPECT_EQ(node.parent(), nullptr);
 
     INodeTest::TestClass *child = new INodeTest::TestClass();
-    node.registerChild(child);
+    node.appendChild(child);
     EXPECT_EQ(child->parent(), &node);
-
-    delete child;
 }
 
 //! Checks the display name.
@@ -92,9 +87,32 @@ TEST_F(INodeTest, displayName)
     EXPECT_EQ(child1->displayName(), test_class_name+"1");
 
     // Adding second child with another name and checking
-    INodeTest::AnotherTestClass *child2 = new INodeTest::AnotherTestClass();
+    INodeTest::TestClass *child2 = new INodeTest::TestClass(another_test_class_name);
     node.appendChild(child2);
     EXPECT_EQ(child2->displayName(), another_test_class_name);
 }
+
+TEST_F(INodeTest, nodePath)
+{
+    INodeTest::TestClass root("root");
+    EXPECT_EQ(NodeUtils::nodePath(root), "/root");
+
+    // adding first child
+    INodeTest::TestClass *child0 = new INodeTest::TestClass("child");
+    root.appendChild(child0);
+    EXPECT_EQ(NodeUtils::nodePath(*child0), "/root/child");
+
+    // adding second child with the same name
+    INodeTest::TestClass *child1 = new INodeTest::TestClass("child");
+    root.appendChild(child1);
+    EXPECT_EQ(NodeUtils::nodePath(*child0), "/root/child0");
+    EXPECT_EQ(NodeUtils::nodePath(*child1), "/root/child1");
+
+    // adding grandchild
+    INodeTest::TestClass *grandchild = new INodeTest::TestClass("grandchild");
+    child0->appendChild(grandchild);
+    EXPECT_EQ(NodeUtils::nodePath(*grandchild), "/root/child0/grandchild");
+}
+
 
 #endif // INODETEST_H

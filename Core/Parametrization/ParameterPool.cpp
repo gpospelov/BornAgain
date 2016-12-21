@@ -26,9 +26,7 @@
 
 //! Constructs an empty parameter pool.
 
-ParameterPool::ParameterPool(const std::string& name, const std::function<void()>& onChange)
-    : m_name(name)
-    , m_onChange(onChange)
+ParameterPool::ParameterPool()
 {}
 
 ParameterPool::~ParameterPool()
@@ -40,7 +38,7 @@ ParameterPool::~ParameterPool()
 
 ParameterPool* ParameterPool::clone() const
 {
-    ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
+    ParameterPool* new_pool = new ParameterPool();
     new_pool->m_params = m_params;
     return new_pool;
 }
@@ -64,7 +62,7 @@ RealParameter& ParameterPool::addParameter(RealParameter* newPar)
     for (const auto* par: m_params )
         if( par->getName()==newPar->getName() )
             throw std::runtime_error(
-                "Bug in ParameterPool::addParameter(): "
+                "ParameterPool::addParameter() -> Error. "
                 "Parameter '"+newPar->getName()+"' is already registered");
     m_params.push_back(newPar);
     return *newPar;

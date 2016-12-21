@@ -22249,14 +22249,14 @@ class ParameterPool(ICloneable):
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
-    def __init__(self, name, onChange):
+    def __init__(self):
         """
-        __init__(ParameterPool self, std::string const & name, std::function< void () > const & onChange) -> ParameterPool
+        __init__(ParameterPool self) -> ParameterPool
 
         ParameterPool::ParameterPool(const ParameterPool &)=delete
 
         """
-        this = _libBornAgainCore.new_ParameterPool(name, onChange)
+        this = _libBornAgainCore.new_ParameterPool()
         try:
             self.this.append(this)
         except Exception:
@@ -22298,16 +22298,6 @@ class ParameterPool(ICloneable):
 
         """
         return _libBornAgainCore.ParameterPool_clear(self)
-
-
-    def getName(self):
-        """
-        getName(ParameterPool self) -> std::string
-
-        std::string ParameterPool::getName() const 
-
-        """
-        return _libBornAgainCore.ParameterPool_getName(self)
 
 
     def size(self):

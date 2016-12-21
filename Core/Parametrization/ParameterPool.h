@@ -17,7 +17,6 @@
 #define PARAMETERPOOL_H
 
 #include "ICloneable.h"
-#include <functional>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -37,7 +36,7 @@ class RealParameter;
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
-    explicit ParameterPool(const std::string& name, const std::function<void()>& onChange);
+    ParameterPool();
     virtual ~ParameterPool();
 
     ParameterPool* clone() const;
@@ -45,8 +44,6 @@ public:
     void copyToExternalPool(const std::string& prefix, ParameterPool* external_pool) const;
 
     void clear();
-
-    std::string getName() const { return m_name; }
 
     //! Returns number of parameters in the pool.
     size_t size() const { return m_params.size(); }
@@ -73,21 +70,13 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
         obj.print(ostr); return ostr; }
 
-protected:
-    //! Called from RealParameter, calls back to owning IParameterized.
-    void onChange() const { m_onChange(); }
-
 private:
     virtual void print(std::ostream& ostr) const;
 
     void report_find_matched_parameters_error(const std::string& pattern) const;
     void report_set_value_error(const std::string& parname, double value) const;
 
-    std::string m_name; //!< The name of this pool, should be that of the owning IParameterized.
     std::vector<RealParameter*> m_params;     //!< The parameters in this pool.
-    std::function<void()> m_onChange; //!< To be called whenever a parameter has changed.
-
-    friend RealParameter; //!< allow call of onChange().
 };
 
 #endif // PARAMETERPOOL_H

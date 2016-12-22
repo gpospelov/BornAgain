@@ -167,14 +167,30 @@ has still the form of a stationary Schrödinger equation,
   \left\{-\frac{\hbar^2}{2m}\Nabla^2+\Vmac(\r)-\hbar\omega\right\} \psi(\r) = 0,
 \end{equation}
 \nomenclature[1ψ030 2r040]{$\psi(\r)$}{Stationary coherent wavefunction}%
-\nomenclature[2v131 2r040]{$\Vmac(\r)$}{Macroscopic optical potential}%
 where $\psi$ now stands for the \E{coherent wavefunction}
 \index{Coherent wavefunction}%
 \index{Wave propagation!coherent}%
-obtained by superposition of incident and forward scattered states,
-and $\Vmac(\r)$ is the \E{macroscopic optical potential}.
+obtained by superposition of incident and forward scattered states.
+The \E{macroscopic optical potential}.
+\nomenclature[2v131 2r040]{$\Vmac(\r)$}{Macroscopic optical potential}%
 \index{Optical potential!macroscopic}%
-This potential is weak, and slowly varying compared to atomic length scales.
+\begin{equation}
+  \Vmac(\r) = \frac{2\pi\hbar^2}{m}\left\langle b(\r) \right\rangle
+\end{equation}
+depends on the \E{bound scattering length density}
+\begin{equation}
+  b(\r) = \sum_j b_j\delta(\r-\r_j).
+\end{equation}
+The \E{bound scattering length} $b_j$ is isotope specific;
+values are tabulated \cite{Sea92}.
+For a monatomic system
+(with no correlation between nuclear spin or isotopic composition and position),
+\begin{equation}
+  \left\langle b(\r) \right\rangle = b_\text{c} \left\langle\rho(\r)\right\rangle
+\end{equation}
+with the \E{bound coherent scattering length} $b_\text{c}$ and the number density~$\rho(\r)$.
+
+The macroscopic optical potential is weak, and slowly varying compared to atomic length scales.
 In the following it shall be expressed through the
 \E{bound scattering length density} (SLD)
 \index{Bound scattering length|see{Scattering length}}%
@@ -183,7 +199,9 @@ In the following it shall be expressed through the
 \cite[eq.\ 2.8.37]{Sea89},
 \nomenclature[2v030 2r040]{$v(\r)$}{Scattering length density (SLD)}%
 \begin{equation}\label{Edefv}
-  v(\r)\coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r).
+  v(\r)
+  \coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r)
+  = \left\langle b(\r) \right\rangle
 \end{equation}
 In the following, we will characterize the incoming radiation
 not by its energy~$\hbar\omega$,
@@ -272,14 +290,14 @@ and ${\v\sigma}$ is the Pauli vector, composed of the three Pauli matrices.
     vector, composed of the three Pauli matrices: $\v\sigma=(\sigma_x,\sigma_y,\sigma_z)$}%
 \index{Pauli vector}%
 \index{Pauli matrix}%
-The magnetic coupling can cause Larmor precession of the neutron spin,
+The magnetic coupling is responsible for Larmor precession of the neutron spin,
 \index{Neutron!Larmor precession}%
 \index{Larmor precession}%
 \index{Spin!Larmor precession}%
 well known from uses in spin-echo techniques.
 \index{Spin!echo}%
 If the field is inhomogeneous,
-it causes a beam splitting
+it can split a beam
 as in the Stern-Gerlach experiment \cite{ShSB54}.
 \index{Neutron!Stern-Gerlach splitting}%
 \index{Stern-Gerlach splitting}%

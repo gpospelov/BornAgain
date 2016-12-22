@@ -51,7 +51,7 @@ public:
 #endif
 
 private:
-    complex_t getRefractiveIndexFactor() const;
+    complex_t getRefractiveIndexFactor(const WavevectorInfo& wavevectors) const;
 
     std::unique_ptr<IMaterial> mP_material;
     std::unique_ptr<IMaterial> mP_ambient_material;

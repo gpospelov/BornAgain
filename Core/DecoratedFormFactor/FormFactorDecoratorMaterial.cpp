@@ -58,7 +58,7 @@ complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
 
 complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return getRefractiveIndexFactor()*mp_form_factor->evaluate(wavevectors);
+    return getRefractiveIndexFactor(wavevectors)*mp_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -75,12 +75,12 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
     return mp_form_factor->evaluate(wavevectors) * V_eff;
 }
 
-complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor() const
+complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor(
+        const WavevectorInfo& wavevectors) const
 {
     if (mP_material && mP_ambient_material) {
-        complex_t particle_index = mP_material->getRefractiveIndex();
-        complex_t ambient_index = mP_ambient_material->getRefractiveIndex();
-        return particle_index * particle_index - ambient_index * ambient_index;
+        return mP_material->getNuclearSLD(wavevectors)
+                - mP_ambient_material->getNuclearSLD(wavevectors);
     } else
         return 1.0;
 }

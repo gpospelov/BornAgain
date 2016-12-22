@@ -1972,6 +1972,11 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
+    def onChange(self):
+        """onChange(IParameterized self)"""
+        return _libBornAgainCore.IParameterized_onChange(self)
+
+
     def _print(self, ostr):
         """_print(IParameterized self, std::ostream & ostr)"""
         return _libBornAgainCore.IParameterized__print(self, ostr)
@@ -2101,6 +2106,11 @@ class INode(IParameterized):
         self.this.disown()
         _libBornAgainCore.disown_INode(self)
         return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(INode self)"""
+        return _libBornAgainCore.INode_onChange(self)
+
 
     def _print(self, ostr):
         """_print(INode self, std::ostream & ostr)"""
@@ -4661,6 +4671,11 @@ class ISample(ICloneable, INode):
         _libBornAgainCore.disown_ISample(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(ISample self)"""
+        return _libBornAgainCore.ISample_onChange(self)
+
+
     def _print(self, ostr):
         """_print(ISample self, std::ostream & ostr)"""
         return _libBornAgainCore.ISample__print(self, ostr)
@@ -7102,6 +7117,11 @@ class IMultiLayerBuilder(IParameterized):
         self.this.disown()
         _libBornAgainCore.disown_IMultiLayerBuilder(self)
         return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(IMultiLayerBuilder self)"""
+        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
+
 
     def _print(self, ostr):
         """_print(IMultiLayerBuilder self, std::ostream & ostr)"""
@@ -10228,6 +10248,11 @@ class IFormFactor(ISample):
         _libBornAgainCore.disown_IFormFactor(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(IFormFactor self)"""
+        return _libBornAgainCore.IFormFactor_onChange(self)
+
+
     def _print(self, ostr):
         """_print(IFormFactor self, std::ostream & ostr)"""
         return _libBornAgainCore.IFormFactor__print(self, ostr)
@@ -10527,6 +10552,11 @@ class IFormFactorBorn(IFormFactor):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
         return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(IFormFactorBorn self)"""
+        return _libBornAgainCore.IFormFactorBorn_onChange(self)
+
 
     def _print(self, ostr):
         """_print(IFormFactorBorn self, std::ostream & ostr)"""

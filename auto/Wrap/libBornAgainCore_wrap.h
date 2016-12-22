@@ -45,6 +45,9 @@ public:
     virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -79,7 +82,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[2];
+    mutable swig::SwigVar_PyObject vtable[3];
 #endif
 
 };
@@ -93,6 +96,9 @@ public:
     virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -130,7 +136,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[5];
+    mutable swig::SwigVar_PyObject vtable[6];
 #endif
 
 };
@@ -146,6 +152,9 @@ public:
     virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -186,7 +195,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[10];
+    mutable swig::SwigVar_PyObject vtable[11];
 #endif
 
 };
@@ -286,6 +295,9 @@ public:
     virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -321,7 +333,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[3];
+    mutable swig::SwigVar_PyObject vtable[4];
 #endif
 
 };
@@ -337,6 +349,9 @@ public:
     virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -382,7 +397,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[15];
+    mutable swig::SwigVar_PyObject vtable[16];
 #endif
 
 };
@@ -398,6 +413,9 @@ public:
     virtual ParameterPool *createParameterTree();
     virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
+    virtual void onChangeSwigPublic() {
+      IParameterized::onChange();
+    }
     virtual void print(std::ostream &ostr) const;
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
@@ -444,7 +462,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[16];
+    mutable swig::SwigVar_PyObject vtable[17];
 #endif
 
 };

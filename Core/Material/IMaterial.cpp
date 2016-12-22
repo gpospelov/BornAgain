@@ -18,9 +18,10 @@
 #include "HomogeneousMagneticMaterial.h"
 #include "WavevectorInfo.h"
 
-Eigen::Matrix2cd IMaterial::getScatteringMatrix(const WavevectorInfo&) const
+std::ostream& operator<<(std::ostream& ostr, const IMaterial& m)
 {
-    return Eigen::Matrix2cd::Identity();
+    m.print(ostr);
+    return ostr;
 }
 
 #ifndef SWIG

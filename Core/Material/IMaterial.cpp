@@ -16,10 +16,10 @@
 #include "IMaterial.h"
 #include "Exceptions.h"
 #include "HomogeneousMagneticMaterial.h"
+#include "WavevectorInfo.h"
 
-Eigen::Matrix2cd IMaterial::getScatteringMatrix(double k_mag2) const
+Eigen::Matrix2cd IMaterial::getScatteringMatrix(const WavevectorInfo&) const
 {
-    (void)k_mag2;
     return Eigen::Matrix2cd::Identity();
 }
 
@@ -27,9 +27,10 @@ Eigen::Matrix2cd IMaterial::getScatteringMatrix(double k_mag2) const
 Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
 {
     Eigen::Matrix2cd result;
+    WavevectorInfo wavevectors(k, k, 2.0*M_PI/k.mag());
     double k_mag2 = k.mag2();
     double xy_proj2 = k.magxy2() / k_mag2;
-    result = getScatteringMatrix(k_mag2) - xy_proj2 * Eigen::Matrix2cd::Identity();
+    result = getScatteringMatrix(wavevectors) - xy_proj2 * Eigen::Matrix2cd::Identity();
     return result;
 }
 #endif // SWIG

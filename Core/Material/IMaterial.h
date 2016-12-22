@@ -22,6 +22,7 @@
 #include "EigenCore.h"
 
 class Transform3D;
+class WavevectorInfo;
 
 //! Interface to a named material.
 //! @ingroup materials_internal
@@ -56,7 +57,7 @@ public:
 
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
-    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
+    virtual Eigen::Matrix2cd getScatteringMatrix(const WavevectorInfo& wavevectors) const;
 #endif
 
     //! Create a new material that is transformed with respect to this one

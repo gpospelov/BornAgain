@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "HomogeneousMagneticMaterial.h"
+#include "WavevectorInfo.h"
 #include "Transform3D.h"
 
 // this prefactor is equal to m_n*g_n*mu_N / (hbar^2), with
@@ -54,9 +55,11 @@ HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::cloneInverted() const
 }
 
 Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
-        double k_mag2) const
+        const WavevectorInfo& wavevectors) const
 {
     Eigen::Matrix2cd result;
+    double wavelength = wavevectors.getWavelength();
+    double k_mag2 = 4.0 * M_PI * M_PI / wavelength / wavelength;
     double factor = m_magnetic_prefactor/k_mag2;
     complex_t unit_factor = m_refractive_index*m_refractive_index;
     result = unit_factor*m_unit_matrix

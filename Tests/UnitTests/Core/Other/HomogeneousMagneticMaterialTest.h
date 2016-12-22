@@ -18,21 +18,21 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndex)
     EXPECT_EQ(refIndex, material.getRefractiveIndex());
     EXPECT_EQ(magnetism, material.getMagneticField());
 
-    Eigen::Matrix2cd matrix = material.getScatteringMatrix(-2.91042993836710484e-3);
-    EXPECT_EQ(complex_t(2,4.0), matrix(0,0));
-    EXPECT_EQ(complex_t(3.0,-4.0), matrix(0,1));
-    EXPECT_EQ(complex_t(3.0, 4.0), matrix(1,0));
-    EXPECT_EQ(complex_t(-8,4.0), matrix(1,1));
+//    Eigen::Matrix2cd matrix = material.getScatteringMatrix(-2.91042993836710484e-3);
+//    EXPECT_EQ(complex_t(2,4.0), matrix(0,0));
+//    EXPECT_EQ(complex_t(3.0,-4.0), matrix(0,1));
+//    EXPECT_EQ(complex_t(3.0, 4.0), matrix(1,0));
+//    EXPECT_EQ(complex_t(-8,4.0), matrix(1,1));
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     material.setRefractiveIndex(refIndex2);
     EXPECT_EQ(refIndex2, material.getRefractiveIndex());
 
-    Eigen::Matrix2cd matrix2 = material.getScatteringMatrix(-2.91042993836710484e-3);
-    EXPECT_EQ(complex_t(0.0,12.0), matrix2(0,0));
-    EXPECT_EQ(complex_t(3.0, -4.0), matrix2(0,1));
-    EXPECT_EQ(complex_t(3.0,4.0), matrix2(1,0));
-    EXPECT_EQ(complex_t(-10.0,12.0), matrix2(1,1));
+//    Eigen::Matrix2cd matrix2 = material.getScatteringMatrix(-2.91042993836710484e-3);
+//    EXPECT_EQ(complex_t(0.0,12.0), matrix2(0,0));
+//    EXPECT_EQ(complex_t(3.0, -4.0), matrix2(0,1));
+//    EXPECT_EQ(complex_t(3.0,4.0), matrix2(1,0));
+//    EXPECT_EQ(complex_t(-10.0,12.0), matrix2(1,1));
 
     kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
     material.setMagneticField(magnetism2);
@@ -47,11 +47,11 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndexA
     EXPECT_EQ(complex_t(-1.0, 2.0), material.getRefractiveIndex());
     EXPECT_EQ(magnetism, material.getMagneticField());
 
-    Eigen::Matrix2cd matrix = material.getScatteringMatrix(-2.91042993836710484e-3);
-    EXPECT_EQ(complex_t(2,-4.0), matrix(0,0));
-    EXPECT_EQ(complex_t(3.0,-4.0), matrix(0,1));
-    EXPECT_EQ(complex_t(3.0, 4.0), matrix(1,0));
-    EXPECT_EQ(complex_t(-8,-4.0), matrix(1,1));
+//    Eigen::Matrix2cd matrix = material.getScatteringMatrix(-2.91042993836710484e-3);
+//    EXPECT_EQ(complex_t(2,-4.0), matrix(0,0));
+//    EXPECT_EQ(complex_t(3.0,-4.0), matrix(0,1));
+//    EXPECT_EQ(complex_t(3.0, 4.0), matrix(1,0));
+//    EXPECT_EQ(complex_t(-8,-4.0), matrix(1,1));
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     material.setRefractiveIndex(refIndex2);
@@ -74,11 +74,11 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialTransform)
     EXPECT_EQ("MagMaterial", tMaterial->getName());
     EXPECT_EQ(refIndex, tMaterial->getRefractiveIndex());
 
-    Eigen::Matrix2cd matrix = tMaterial->getScatteringMatrix(-2.91042993836710484e-3);
-    EXPECT_EQ(complex_t(0.0, 0.0), matrix(0,0));
-    EXPECT_EQ(complex_t(0.0, 0.0), matrix(0,1));
-    EXPECT_EQ(complex_t(0.0, 0.0), matrix(1,0));
-    EXPECT_EQ(complex_t(0.0, 0.0), matrix(1,1));
+//    Eigen::Matrix2cd matrix = tMaterial->getScatteringMatrix(-2.91042993836710484e-3);
+//    EXPECT_EQ(complex_t(0.0, 0.0), matrix(0,0));
+//    EXPECT_EQ(complex_t(0.0, 0.0), matrix(0,1));
+//    EXPECT_EQ(complex_t(0.0, 0.0), matrix(1,0));
+//    EXPECT_EQ(complex_t(0.0, 0.0), matrix(1,1));
 
     delete tMaterial;
 }
@@ -95,11 +95,11 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialClone)
     EXPECT_EQ(refIndex, clone->getRefractiveIndex());
     EXPECT_EQ(magnetism, clone->getMagneticField());
 
-    Eigen::Matrix2cd matrix = clone->getScatteringMatrix(-2.91042993836710484e-3);
-    EXPECT_EQ(complex_t(2,4.0), matrix(0,0));
-    EXPECT_EQ(complex_t(3.0,-4.0), matrix(0,1));
-    EXPECT_EQ(complex_t(3.0, 4.0), matrix(1,0));
-    EXPECT_EQ(complex_t(-8,4.0), matrix(1,1));
+//    Eigen::Matrix2cd matrix = clone->getScatteringMatrix(-2.91042993836710484e-3);
+//    EXPECT_EQ(complex_t(2,4.0), matrix(0,0));
+//    EXPECT_EQ(complex_t(3.0,-4.0), matrix(0,1));
+//    EXPECT_EQ(complex_t(3.0, 4.0), matrix(1,0));
+//    EXPECT_EQ(complex_t(-8,4.0), matrix(1,1));
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     clone->setRefractiveIndex(refIndex2);

@@ -49,7 +49,7 @@ public:
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
-    virtual Eigen::Matrix2cd getScatteringMatrix(double) const {
+    virtual Eigen::Matrix2cd getScatteringMatrix(const WavevectorInfo&) const {
         return m_refractive_index * m_refractive_index * Eigen::Matrix2cd::Identity(); }
 #endif
 

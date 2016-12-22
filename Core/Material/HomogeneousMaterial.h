@@ -42,6 +42,9 @@ public:
     void setRefractiveIndex(const complex_t refractive_index) {
         m_refractive_index = refractive_index; }
 
+
+    virtual complex_t getNuclearSLD(const WavevectorInfo& wavevectors) const;
+
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.

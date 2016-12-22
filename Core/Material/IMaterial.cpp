@@ -24,17 +24,6 @@ std::ostream& operator<<(std::ostream& ostr, const IMaterial& m)
     return ostr;
 }
 
-#ifndef SWIG
-Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
-{
-    Eigen::Matrix2cd result;
-    WavevectorInfo wavevectors(k, k, 2.0*M_PI/k.mag());
-    result = (4.0*M_PI*getScatteringMatrix(wavevectors)
-              - k.magxy2() * Eigen::Matrix2cd::Identity())/k.mag2();
-    return result;
-}
-#endif // SWIG
-
 //! Returns true if *this agrees with other in all parameters.
 bool IMaterial::operator==(const IMaterial& other) const
 {

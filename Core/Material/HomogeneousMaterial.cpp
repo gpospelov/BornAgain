@@ -19,12 +19,16 @@ HomogeneousMaterial*HomogeneousMaterial::cloneInverted() const
     return clone();
 }
 
-Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(const WavevectorInfo& wavevectors) const
+complex_t HomogeneousMaterial::getNuclearSLD(const WavevectorInfo& wavevectors) const
 {
-    Eigen::Matrix2cd mn2 = m_refractive_index * m_refractive_index * Eigen::Matrix2cd::Identity();
     double wavelength = wavevectors.getWavelength();
     double prefactor = M_PI/wavelength/wavelength;
-    return prefactor*mn2;
+    return prefactor*m_refractive_index * m_refractive_index;
+}
+
+Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(const WavevectorInfo& wavevectors) const
+{
+    return getNuclearSLD(wavevectors)*Eigen::Matrix2cd::Identity();
 }
 
 const IMaterial*HomogeneousMaterial::createTransformedMaterial(const Transform3D&) const

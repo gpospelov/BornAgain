@@ -53,7 +53,8 @@ void RealParameter::setValue(double value)
     if(m_attr.isFixed())
         throw std::runtime_error("Parameter "+fullName()+" is fixed");
     *m_data = value;
-    m_onChange();
+    if(m_onChange)
+        m_onChange();
 }
 
 RealParameter& RealParameter::setLimited(double lower, double upper)

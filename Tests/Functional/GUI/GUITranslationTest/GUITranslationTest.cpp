@@ -158,7 +158,7 @@ bool GUITranslationTest::checkMissedTranslations()
                                 "Empty list of translations.");
 
     std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
-    std::vector<std::string> domainNames = pool->getParameterNames();
+    std::vector<std::string> domainNames = pool->parameterNames();
     std::vector<std::string> missedNames;
     for(auto name : domainNames) {
         std::string domainName = "*" + StringUtils::removeSubstring(name, "/GISASSimulation");

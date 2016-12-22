@@ -22441,14 +22441,9 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_setUniqueMatchValue(self, pattern, value)
 
 
-    def getParameterNames(self):
-        """
-        getParameterNames(ParameterPool self) -> vector_string_t
-
-        std::vector< std::string > ParameterPool::getParameterNames() const 
-
-        """
-        return _libBornAgainCore.ParameterPool_getParameterNames(self)
+    def parameterNames(self):
+        """parameterNames(ParameterPool self) -> vector_string_t"""
+        return _libBornAgainCore.ParameterPool_parameterNames(self)
 
 ParameterPool_swigregister = _libBornAgainCore.ParameterPool_swigregister
 ParameterPool_swigregister(ParameterPool)
@@ -23672,6 +23667,8 @@ class RealParameter(IParameterReal):
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits, Attributes attr) -> RealParameter
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double volatile * par) -> RealParameter
 
         RealParameter::RealParameter(const std::string &name, volatile double *par, const std::string &parent_name, const std::function< void()> &onChange, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 

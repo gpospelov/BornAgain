@@ -1,121 +1,141 @@
 #include "ParameterPool.h"
+#include "RealParameter.h"
+#include "Exceptions.h"
 
-/* TEMPORARILY DISABLED
 class ParameterPoolTest : public ::testing::Test
 {
  protected:
-    ParameterPoolTest();
+    ParameterPoolTest(){}
     virtual ~ParameterPoolTest(){}
-
-    ParameterPool m_empty_pool;
-    ParameterPool m_pool;
-    double m_real_par1;
-    double m_real_par2;
-    double m_real_par3;
-    double m_real_par4;
 };
 
-
-ParameterPoolTest::ParameterPoolTest()
-    : m_real_par1(1.0), m_real_par2(2.0), m_real_par3(3.0), m_real_par4(4.0)
+TEST_F(ParameterPoolTest, initialState)
 {
-    m_pool.registerParameter("a_par1",&m_real_par1);
-    m_pool.registerParameter("a_par2",&m_real_par2);
-    ParameterPool::parameter_t poolpar(&m_real_par3);
-    m_pool.addParameter("b_par3",poolpar);
-}
-
-
-TEST_F(ParameterPoolTest, InitialState)
-{
-    EXPECT_EQ( size_t(0), m_empty_pool.size() );
-    ASSERT_THROW( m_empty_pool.getParameter("NotExistingName"), Exceptions::LogicErrorException );
-}
-
-
-TEST_F(ParameterPoolTest, registerParameters)
-{
-    EXPECT_EQ( size_t(3), m_pool.size() );
-    EXPECT_EQ( double(1.0), m_pool.getParameter("a_par1").getValue());
-    EXPECT_EQ( double(2.0), m_pool.getParameter("a_par2").getValue());
-    EXPECT_EQ( double(3.0), m_pool.getParameter("b_par3").getValue());
-    m_real_par3 = 3.1;
-    EXPECT_EQ( double(3.1), m_pool.getParameter("b_par3").getValue());
-    std::vector<ParameterPool::parameter_t > pars = m_pool.getMatchedParameters("*par*");
-    EXPECT_EQ( size_t(3), pars.size() );
-    pars = m_pool.getMatchedParameters("a_par*");
-    EXPECT_EQ( size_t(2), pars.size() );
-
-    ASSERT_THROW( m_pool.setParameterValue("NonExistingName", 3.2), Exceptions::LogicErrorException );
-    m_pool.setParameterValue("b_par3", 3.2);
-    EXPECT_EQ( double(3.2), m_pool.getParameter("b_par3").getValue());
-
-    EXPECT_EQ( int(3), m_pool.setMatchedParametersValue("*par*",5.0));
-    EXPECT_EQ( double(5.0), m_real_par1);
-    EXPECT_EQ( double(5.0), m_real_par2);
-    EXPECT_EQ( double(5.0), m_real_par3);
-}
-
-
-TEST_F(ParameterPoolTest, PoolClone)
-{
-    ParameterPool *clone = m_pool.clone();
-    EXPECT_EQ( size_t(3), clone->size() );
-    EXPECT_EQ( double(1.0), clone->getParameter("a_par1").getValue());
-    EXPECT_EQ( double(2.0), clone->getParameter("a_par2").getValue());
-    EXPECT_EQ( double(3.0), clone->getParameter("b_par3").getValue());
-    delete clone;
-}
-
-
-TEST_F(ParameterPoolTest, CopyToExternalPool)
-{
-    m_real_par1 = 1.0;
-    m_real_par2 = 2.0;
-    m_real_par3 = 3.0;
-    m_real_par4 = 4.0;
-    ParameterPool external_pool;
-    external_pool.registerParameter("par4",&m_real_par4);
-    m_pool.copyToExternalPool("Another/",&external_pool);
-//    std::cout << external_pool << std::endl;
-    EXPECT_EQ( double(1.0), external_pool.getParameter("Another/a_par1").getValue());
-    EXPECT_EQ( double(2.0), external_pool.getParameter("Another/a_par2").getValue());
-    EXPECT_EQ( double(3.0), external_pool.getParameter("Another/b_par3").getValue());
-    EXPECT_EQ( double(4.0), external_pool.getParameter("par4").getValue());
-}
-
-
-TEST_F(ParameterPoolTest, SetMatchedParametersValue)
-{
-    double x(1.0), y(2.0), z(3.0);
     ParameterPool pool;
-    pool.registerParameter("xx_x", &x);
-    pool.registerParameter("xx_y", &y);
-    pool.registerParameter("xx_z", &z);
-    EXPECT_THROW( pool.setMatchedParametersValue("zz*", 4.0), Exceptions::LogicErrorException );
-    pool.setMatchedParametersValue("xx*", 4.0);
-    EXPECT_EQ( double(4.0), pool.getParameter("xx_x").getValue());
-    EXPECT_EQ( double(4.0), pool.getParameter("xx_y").getValue());
-    EXPECT_EQ( double(4.0), pool.getParameter("xx_z").getValue());
+    EXPECT_EQ(pool.size(), 0u);
+    EXPECT_EQ(pool.parameterNames().size(), 0u);
 }
 
-TEST_F(ParameterPoolTest, LimitsOnParameterValue)
+TEST_F(ParameterPoolTest, addParameter)
 {
-    double x(0.0);
+    double par1(1.0), par2(2.0);
+    ParameterPool pool;
+    RealParameter *rp1 = new RealParameter("rp1", &par1);
+    RealParameter *rp2 = new RealParameter("rp2", &par2);
+
+    EXPECT_EQ(&pool.addParameter(rp1), rp1);
+    EXPECT_EQ(&pool.addParameter(rp2), rp2);
+    EXPECT_EQ(pool.size(), 2u);
+
+    // attempt to add same parameter twice
+    EXPECT_THROW(pool.addParameter(rp1), Exceptions::RuntimeErrorException);
+
+    // getting parameters
+    EXPECT_EQ(pool.getParameter("rp1"), rp1);
+    EXPECT_EQ(pool.getParameter("rp2"), rp2);
+
+    // getting non-existing parameters
+    EXPECT_THROW(pool.getParameter("rp3"), Exceptions::RuntimeErrorException);
+
+    // vector of parameter names
+    std::vector<std::string> names{"rp1","rp2"};
+    EXPECT_EQ(pool.parameterNames(), names);
+
+    // cleaning the pool
+    pool.clear();
+    EXPECT_EQ(pool.size(), 0u);
+}
+
+TEST_F(ParameterPoolTest, matchedParameters)
+{
+    double par1(1.0), par2(2.0), par3(3.0);
+    ParameterPool pool;
+    RealParameter *rp1 = new RealParameter("par1", &par1);
+    RealParameter *rp2 = new RealParameter("xxx", &par2);
+    RealParameter *rp3 = new RealParameter("par3", &par3);
+
+    pool.addParameter(rp1);
+    pool.addParameter(rp2);
+    pool.addParameter(rp3);
+
+    auto matched = pool.getMatchedParameters("*par*");
+    EXPECT_EQ(matched.size(), 2u);
+    EXPECT_EQ(matched.at(0), rp1);
+    EXPECT_EQ(matched.at(1), rp3);
+
+    // unique match
+    EXPECT_EQ(rp2, pool.getUniqueMatch("*xxx*"));
+    EXPECT_THROW(pool.getUniqueMatch("*par*"), Exceptions::RuntimeErrorException);
+}
+
+TEST_F(ParameterPoolTest, setValue)
+{
+    double par1(1.0), par2(2.0), par3(3.0);
     ParameterPool pool;
 
-    EXPECT_THROW(pool.registerParameter("xx_x", &x, Limits::limited(1.0, 2.0)), Exceptions::OutOfBoundsException);
+    pool.addParameter(new RealParameter("par1", &par1));
+    pool.addParameter(new RealParameter("xxx", &par2));
+    pool.addParameter(new RealParameter("par3", &par3));
 
-    pool.registerParameter("xx_x", &x, Limits::limited(-1.0, 1.0));
+    // set single parameter value
+    pool.setParameterValue("par1", 10.0);
+    EXPECT_EQ(par1, 10.0);
+    EXPECT_THROW(pool.setParameterValue("non-existing", 10.0), Exceptions::RuntimeErrorException);
 
-    EXPECT_TRUE(pool.setParameterValue("xx_x", 0.5));
-    EXPECT_EQ(0.5, x);
+    // set matched parameter values
+    EXPECT_EQ(pool.setMatchedParametersValue("*par*", 99.0), 2);
+    EXPECT_EQ(par1, 99.0);
+    EXPECT_EQ(par3, 99.0);
+    EXPECT_THROW(pool.setMatchedParametersValue("*non-existing*", 10.0),
+                 Exceptions::RuntimeErrorException);
 
-    EXPECT_THROW(pool.setParameterValue("xx_x", 2.0), Exceptions::LogicErrorException);
-    EXPECT_EQ(0.5, x);
-
-    EXPECT_THROW(pool.setMatchedParametersValue("xx*", 2.0), Exceptions::LogicErrorException);
-    EXPECT_EQ(0.5, x);
+    // set unique match value
+    pool.setUniqueMatchValue("*xxx*", 88.0);
+    EXPECT_EQ(par2, 88.0);
+    EXPECT_THROW(pool.setUniqueMatchValue("*non-existing*", 10.0),
+                 Exceptions::RuntimeErrorException);
 }
 
-*/
+TEST_F(ParameterPoolTest, clone)
+{
+    double par1(1.0), par2(2.0), par3(3.0);
+    ParameterPool *pool = new ParameterPool;
+    pool->addParameter(new RealParameter("par1", &par1));
+    pool->addParameter(new RealParameter("xxx", &par2));
+    pool->addParameter(new RealParameter("par3", &par3));
+
+    std::unique_ptr<ParameterPool> clone(pool->clone());
+
+    // deleting original, and checking that clone points to the same parameters
+    delete pool;
+
+    EXPECT_EQ(clone->size(), 3u);
+    EXPECT_EQ(double(1.0), clone->getParameter("par1")->getValue());
+    EXPECT_EQ(double(2.0), clone->getParameter("xxx")->getValue());
+    EXPECT_EQ(double(3.0), clone->getParameter("par3")->getValue());
+}
+
+TEST_F(ParameterPoolTest, copyToExternalPool)
+{
+    double par1(1.0), par2(2.0);
+    ParameterPool *pool = new ParameterPool;
+    pool->addParameter(new RealParameter("par1", &par1));
+    pool->addParameter(new RealParameter("par2", &par2));
+
+    double par3(3.0);
+    ParameterPool externalPool;
+    externalPool.addParameter(new RealParameter("par3", &par3));
+
+    pool->copyToExternalPool("prefix/", &externalPool);
+    delete pool;
+
+    EXPECT_EQ(externalPool.size(), 3u);
+    EXPECT_EQ(double(1.0), externalPool.getParameter("prefix/par1")->getValue());
+    EXPECT_EQ(double(2.0), externalPool.getParameter("prefix/par2")->getValue());
+    EXPECT_EQ(double(3.0), externalPool.getParameter("par3")->getValue());
+
+    std::vector<std::string> names{"par3", "prefix/par1", "prefix/par2"};
+    EXPECT_EQ(externalPool.parameterNames(), names);
+}
+
+

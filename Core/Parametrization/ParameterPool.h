@@ -24,14 +24,8 @@
 class RealLimits;
 class RealParameter;
 
-//! Holds a map of pointers to parameters.
+//! Container with parameters for IParameterized object.
 //! @ingroup tools_internal
-
-//! Used in IParameterized, which has a member ParameterPool* m_pool.
-//! So this is pimpl (pointer to implementation) idiom, with ParameterPool providing the
-//! implementation of all the nontrivial functionality of IParameterized.
-//!
-//! Parameter names must be unique since we use them as map keys.
 
 class BA_CORE_API_ ParameterPool : public ICloneable
 {
@@ -65,18 +59,17 @@ public:
     int setMatchedParametersValue(const std::string& wildcards, double value);
     void setUniqueMatchValue(const std::string& pattern, double value);
 
-    std::vector<std::string> getParameterNames() const;
+    std::vector<std::string> parameterNames() const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
         obj.print(ostr); return ostr; }
 
 private:
     virtual void print(std::ostream& ostr) const;
-
     void report_find_matched_parameters_error(const std::string& pattern) const;
     void report_set_value_error(const std::string& parname, double value) const;
 
-    std::vector<RealParameter*> m_params;     //!< The parameters in this pool.
+    std::vector<RealParameter*> m_params;
 };
 
 #endif // PARAMETERPOOL_H

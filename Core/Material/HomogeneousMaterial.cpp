@@ -1,4 +1,5 @@
 #include "HomogeneousMaterial.h"
+#include "WavevectorInfo.h"
 
 
 HomogeneousMaterial::HomogeneousMaterial(const std::string& name, double refractive_index_delta,
@@ -18,9 +19,12 @@ HomogeneousMaterial*HomogeneousMaterial::cloneInverted() const
     return clone();
 }
 
-Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(const WavevectorInfo&) const
+Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(const WavevectorInfo& wavevectors) const
 {
-    return m_refractive_index * m_refractive_index * Eigen::Matrix2cd::Identity();
+    Eigen::Matrix2cd mn2 = m_refractive_index * m_refractive_index * Eigen::Matrix2cd::Identity();
+    double wavelength = wavevectors.getWavelength();
+    double prefactor = M_PI/wavelength/wavelength;
+    return prefactor*mn2;
 }
 
 const IMaterial*HomogeneousMaterial::createTransformedMaterial(const Transform3D&) const

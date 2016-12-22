@@ -16947,16 +16947,16 @@ class HomogeneousMaterial(IMaterial):
         return _libBornAgainCore.HomogeneousMaterial_setRefractiveIndex(self, refractive_index)
 
 
-    def createTransformedMaterial(self, arg2):
+    def createTransformedMaterial(self, transform):
         """
-        createTransformedMaterial(HomogeneousMaterial self, Transform3D const & arg2) -> IMaterial
+        createTransformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> IMaterial
 
         virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Transform3D &) const
 
         Create a new material that is transformed with respect to this one. 
 
         """
-        return _libBornAgainCore.HomogeneousMaterial_createTransformedMaterial(self, arg2)
+        return _libBornAgainCore.HomogeneousMaterial_createTransformedMaterial(self, transform)
 
 HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
 HomogeneousMaterial_swigregister(HomogeneousMaterial)

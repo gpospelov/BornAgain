@@ -29,9 +29,8 @@ Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
 {
     Eigen::Matrix2cd result;
     WavevectorInfo wavevectors(k, k, 2.0*M_PI/k.mag());
-    double k_mag2 = k.mag2();
-    double xy_proj2 = k.magxy2() / k_mag2;
-    result = getScatteringMatrix(wavevectors) - xy_proj2 * Eigen::Matrix2cd::Identity();
+    result = (4.0*M_PI*getScatteringMatrix(wavevectors)
+              - k.magxy2() * Eigen::Matrix2cd::Identity())/k.mag2();
     return result;
 }
 #endif // SWIG

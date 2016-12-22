@@ -20,7 +20,7 @@
 #include "WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)
-    : FormFactorDecoratorFactor(form_factor, 1.0),
+    : IFormFactorDecorator(form_factor),
       mP_material{nullptr},
       mP_ambient_material{nullptr}
 {
@@ -43,19 +43,22 @@ void FormFactorDecoratorMaterial::setMaterial(const IMaterial& material)
 {
     if (mP_material.get() != &material)
         mP_material.reset(material.clone());
-    m_factor = getRefractiveIndexFactor();
 }
 
 void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial& material)
 {
     if (mP_ambient_material.get() != &material)
         mP_ambient_material.reset(material.clone());
-    m_factor = getRefractiveIndexFactor();
 }
 
 complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
 {
     return mP_ambient_material ? mP_ambient_material->getRefractiveIndex() : 1.0;
+}
+
+complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
+{
+    return getRefractiveIndexFactor()*mp_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const

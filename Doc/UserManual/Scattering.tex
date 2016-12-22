@@ -203,6 +203,32 @@ The macroscopic Schrödinger equation~\cref{EmacrSchrodi} then takes the simple 
   \left\{\Nabla^2+K^2-4\pi v(\r)\right\} \psi(\r) = 0.
 \end{equation}
 \vspace*{-5pt}}
+In neutron optical applications, like wave propagation through multilayers,
+it is convenient to parametrize $\mv(\r)$ in terms of the \E{refractive index}
+\begin{equation}\label{EnkK}
+  n(\r)\coloneqq\sqrt{1-\frac{4\pi\mv(\r)}{K^2}}.
+\end{equation}
+\nomenclature[2n020]{$n$}{Refractive index}%
+\index{Refractive index!neutron}%
+\index{Index of refraction|see {Refractive index}}%
+If $\mv(\r)$ has an imaginary part, describing absorption,
+\index{Absorption}%
+then $n(\r)$ is a complex number.
+Conventionally, $n$ is parameterized by two real numbers:
+\begin{equation}\label{Endb1}
+  n \eqqcolon  1-\delta +i\beta.
+\end{equation}
+\nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
+   $n=1-\delta +i\beta$}%
+\nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
+For thermal neutrons,
+$\delta$ and $\beta$ are almost always nonnegative,\footnote
+{The plus sign in front of~$i\beta$ is a consequence of
+the quantum-mechanical sign convention;
+in the X-ray crystallography convention it would be a minus sign.
+\index{Refractive index!sign convention}%
+\index{Sign convention!refractive index}}
+and much smaller than~1.
 
 %===============================================================================
 \subsection{Neutrons in a magnetic field}\label{Snpwave}
@@ -362,6 +388,15 @@ given by the dispersion relation
   K^2 = \mu_0\eps_0\omega^2.
 \end{equation}
 \index{Dispersion!X-ray}%
+The refractive index
+\begin{equation}\label{EnX}
+  n(\r)\coloneqq\sqrt{\epsilon(\r)} \eqqcolon 1-\delta+i\beta
+\end{equation}
+\index{Refractive index!X-rays}%
+can be parametrized as in~\cref{Endb1}.
+For X-rays, as for thermal neutrons, the parameters $\delta$ and~$\beta$ are nonnegative,
+and much smaller than~1.
+
 With these simplifying assumptions about $\v{\eps}$ and~$\v{\mu}$,
 Maxwell's equations yield the wave equation
 \begin{equation}\label{ENabCrossNabE}
@@ -457,6 +492,13 @@ with the distortion field
   \Lambda(\r) &\coloneqq K^2(\epsilon(\r)-1)
       &\text{ X-rays.}
 \end{align}
+If it is scalar, then it can be expressed through the refractive index,
+defined in \cref{EnkK} or~\cref{EnX}:
+\index{Refractive index}%
+\begin{equation}\label{EnkK}
+  n(\r)\coloneqq\sqrt{1-\frac{\Lambda(\r)}{K^2}}.
+\end{equation}
+
 The full wave equation, valid inside and outside the sample,
 can then be written as
 \Emph{
@@ -473,60 +515,16 @@ with
   U(\r) &\coloneqq K^2\delta \epsilon(\r)/(4\pi)
       &\text{ X-rays.}
 \end{align}
-\Cref{EDPsi} is the base for computing scattering cross sections in
-distorted-wave Born approximation (DWBA).
-\index{Distorted-wave Born approximation}%
-The DWBA generalizes the standard Born approximation,
-\index{Born approximation}%
-which corresponds to the special case~$\v\Lambda(\r)=0$.
-
-%===============================================================================
-\subsection{Refractive index}\label{Srefridx}
-%===============================================================================
-
-\index{Refractive index|(}%
-\index{Index of refraction|see {Refractive index}}%
-
-We pause here to mention an alternative parametrization of scattering length densities
-or dielectric permittivities, namely the \E{refractive index},
-which is defined if the distortion field~$\Lambda(\r)$ is scalar:
-\begin{equation}\label{EnkK}
-  n(\r)\coloneqq\sqrt{1-\frac{\Lambda(\r)}{K^2}}.
-\end{equation}
-\nomenclature[2n020]{$n$}{Refractive index}%
-This generic expression comprises the standard definitions from neutron optics,
-\begin{equation}\label{EnkK}
-  n(\r)\coloneqq\sqrt{1-\frac{4\pi\mv(\r)}{K^2}},
-\end{equation}
-and from electromagnetism,
-\begin{equation}
-  n(\r)\coloneqq\sqrt{\epsilon(\r)}.
-\end{equation}
-If $\mv(\r)$ or $\epsilon(\r)$ has an imaginary part, describing absorption,
-\index{Absorption}%
-then $n(\r)$ is a complex number.
-Conventionally, $n$ is parameterized by two real numbers:
-\begin{equation}\label{Endb1}
-  n \eqqcolon  1-\delta +i\beta.
-\end{equation}
-\nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
-   $n=1-\delta +i\beta$}%
-\nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
-For X-rays and thermal neutrons,
-$\delta$ and $\beta$ are almost always nonnegative,\footnote
-{The plus sign in front of~$i\beta$ is a consequence of
-the quantum-mechanical sign convention;
-in the X-ray crystallography convention it would be a minus sign.
-\index{Refractive index!sign convention}%
-\index{Sign convention!refractive index}}
-and much smaller than~1.
 Since the field~$U(\r)$ on the right-hand side of \cref{EDPsi}
 is due to fluations of $n(\r)$,
-its absolute value is also much smaller than~1.
-This explains why \cref{EDPsi} can be solved by a perturbation expansion.
-\index{Perturbation expansion}.
-
-\index{Refractive index|)}%
+its absolute values are always much smaller than~1.
+This enables us to solve \cref{EDPsi} by a first-order perturbation theory,
+\index{Perturbation expansion}%
+the \E{distorted-wave Born approximation} (DWBA).
+\index{Distorted-wave Born approximation}%
+The DWBA generalizes the standard \E{Born approximation},
+\index{Born approximation}%
+which corresponds to the special case~$\v\Lambda(\r)=0$.
 
 %===============================================================================
 \subsection{Reciprocity of the Green function}\label{SReci}

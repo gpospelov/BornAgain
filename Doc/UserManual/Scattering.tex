@@ -110,31 +110,6 @@ In consequence, the wavefunction
 factorizes into a stationary wave and a time-dependent phase factor.%
 \index{Stationary wavefunction}%
 \index{Phase factor}%
-\footnote
-{The minus sign in the exponent of the phase factor
-is an inevitable consequence of the standard form of the Schrödinger equation,
-and is therefore called the \E{quantum-mechanical sign convention}.
-\index{Wave propagation|seealso {Sign convention}}%
-\index{Convention!sign convention}%
-\index{Sign convention!wave propagation|(}%
-For electromagnetic radiation
-usage is less uniform.
-While most optics textbooks
-have adopted the quantum-mechanical convention~\cref{Estationarywave},
-\index{Quantum-mechanical convention}%
-in X-ray crystallography
-the conjugate phase factor $\e^{+i\omega t}$ is prefered.
-This \E{crystallographic sign convention}
-\index{Crystallographic sign convention}%
-has also been chosen
-in influential texts on GISAXS (e.g.\ \cite{ReLL09}).
-Here, however, we are concerned not only with X-rays,
-but also with neutrons,
-and therefore need to leave the Schrödinger equation~\cref{ESchrodi} intact.
-Consequently, in this manual, and in the program code of BornAgain,
-the quantum-mechanical sign convention~\cref{Estationarywave}
-\index{Sign convention!wave propagation|)}%
-is chosen.}
 Inserting \cref{Estationarywave} in \cref{ESchrodi},
 we obtain the stationary Schrödinger equation
 \begin{equation}\label{EstatSchrodi}
@@ -375,11 +350,26 @@ Therefore, as in~\cref{ScohWave}, we only need to consider monochromatic waves
 \index{Monochromatic wave}%
 with given frequency~$\omega$,
 and each of the fields $\v{E}$, $\v{D}$, $\v{H}$, $\v{B}$
-factorizes into a stationary field and a time-dependent phase factor.
+factorizes into a stationary field and a time-dependent phase factor.\footnote
+{This phase factor can be defined with a plus or a minus sign in the exponent.
+Most texts on X-ray crystallography,
+including influential texts on GISAXS \cite{ReLL09},
+prefer the \E{crystallographic convention} with a plus sign.
+\index{Wave propagation|seealso {Sign convention}}%
+\index{Convention!sign convention}%
+\index{Sign convention!wave propagation|(}%
+\index{Crystallographic sign convention}%
+In BornAgain, we prefer the opposite \E{quantum-mechanical convention}
+\index{Quantum-mechanical convention}%
+for consistency with the neutron case \cref{Estationarywave},
+where the minus sign is an inevitable consequence
+of the standard form of the Schrödinger equation.%
+\index{Sign convention!wave propagation|)}%
+}
 \index{Phase factor}%
 In the following, we will concentrate on the electric field
 \index{Electric field}%
-\begin{equation}
+\begin{equation}\label{EstationaryX}
   \v{E}(\r,t) = \v{E}(\r)\e^{-i\omega t}.
 \end{equation}
 The other three fields can be obtained from~$\v{E}$

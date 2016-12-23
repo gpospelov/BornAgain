@@ -459,7 +459,7 @@ The differential operator in~\cref{EDPsi0} is
 \begin{align}
   \Do &\coloneqq \Nabla^2 + K^2 &\text{ neutron (scalar),}\\
   \TDo &\coloneqq \Nabla^2 + K^2 &\text{ neutron (spinorial),}\\
-  \TDo &\coloneqq \Nabla^2 - \Nabla\cdot\Nabla + K^2 &\text{ X-rays.}
+  \TDo &\coloneqq \Nabla^2 - \Nabla\cdot\Nabla + K^2 &\text{ X-ray.}
 \end{align}
 \nomenclature[2d138 2r040]{$\Do(\r)$}{Differential operator in the vacuum wave equation}%
 Distorted-wave propagation is described by the differential operator
@@ -473,24 +473,21 @@ with the distortion field
   \TENS{\Lambda}(\r) &\coloneqq 4\pi\mv(\r)+\overline{\v{h}}(\r)\v\sigma
       &\text{ neutron (spinorial),}\\
   \Lambda(\r) &\coloneqq K^2(\epsilon(\r)-1)
-      &\text{ X-rays.}
+      &\text{ X-ray.}
 \end{align}
-If it is scalar, then it can be expressed through the refractive index,
-defined in \cref{EnkK} or~\cref{EnX}:
+If it is scalar, then it can be expressed through the \E{refractive index}
 \index{Refractive index}%
-\begin{equation}\label{EnkK}
-  n(\r)\coloneqq\sqrt{1-\frac{\Lambda(\r)}{K^2}}.
-\end{equation}
-TODO
-In neutron optical applications, like wave propagation through multilayers,
-it is convenient to parametrize $\mv(\r)$ in terms of the \E{refractive index}
-\begin{equation}\label{EnkK}
-  n(\r)\coloneqq\sqrt{1-\frac{4\pi\mv(\r)}{K^2}}.
-\end{equation}
-\nomenclature[2n020]{$n$}{Refractive index}%
-\index{Refractive index!neutron}%
 \index{Index of refraction|see {Refractive index}}%
-If $\mv(\r)$ has an imaginary part, describing absorption,
+\nomenclature[2n020]{$n$}{Refractive index}%
+\begin{equation}\label{EnkK}
+  n(\r)
+  \coloneqq\sqrt{1-\frac{\Lambda(\r)}{K^2}}
+  = \left\{\begin{array}{lr}
+       \sqrt{1-4\pi\mv(\r)/K^2} &\text{ neutron (scalar),}\\
+       \sqrt{\epsilon(\r)} &\text{ X-ray.}
+    \end{array}\right.
+\end{equation}
+If $\mv(\r)$ or $\epsilon(\r)$ has an imaginary part, describing absorption,
 \index{Absorption}%
 then $n(\r)$ is a complex number.
 Conventionally, $n$ is parameterized by two real numbers:
@@ -500,7 +497,7 @@ Conventionally, $n$ is parameterized by two real numbers:
 \nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
    $n=1-\delta +i\beta$}%
 \nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
-For thermal neutrons,
+For thermal neutrons and X-rays,
 $\delta$ and $\beta$ are almost always nonnegative,\footnote
 {The plus sign in front of~$i\beta$ is a consequence of
 the quantum-mechanical sign convention;
@@ -508,16 +505,6 @@ in the X-ray crystallography convention it would be a minus sign.
 \index{Refractive index!sign convention}%
 \index{Sign convention!refractive index}}
 and much smaller than~1.
-TODO
-The refractive index
-\begin{equation}\label{EnX}
-  n(\r)\coloneqq\sqrt{\epsilon(\r)} \eqqcolon 1-\delta+i\beta
-\end{equation}
-\index{Refractive index!X-rays}%
-can be parametrized as in~\cref{Endb1}.
-For X-rays, as for thermal neutrons, the parameters $\delta$ and~$\beta$ are nonnegative,
-and much smaller than~1.
-
 
 The full wave equation, valid inside and outside the sample,
 can then be written as
@@ -535,16 +522,6 @@ with
   U(\r) &\coloneqq K^2\delta \epsilon(\r)/(4\pi)
       &\text{ X-rays.}
 \end{align}
-Since the field~$U(\r)$ on the right-hand side of \cref{EDPsi}
-is due to fluations of $n(\r)$,
-its absolute values are always much smaller than~1.
-This enables us to solve \cref{EDPsi} by a first-order perturbation theory,
-\index{Perturbation expansion}%
-the \E{distorted-wave Born approximation} (DWBA).
-\index{Distorted-wave Born approximation}%
-The DWBA generalizes the standard \E{Born approximation},
-\index{Born approximation}%
-which corresponds to the special case~$\v\Lambda(\r)=0$.
 
 %===============================================================================
 \subsection{Reciprocity of the Green function}\label{SReci}
@@ -1530,3 +1507,12 @@ Internally, BornAgain computes $v_p$ from the material's refractive index,
 \begin{equation}
   v_p = \frac{K^2}{4\pi}(1-n_p).
 \end{equation}
+
+Absolute values of~$U(\r)$ are always much smaller than~1.
+This enables us to solve \cref{EDPsi} by a first-order perturbation theory,
+\index{Perturbation expansion}%
+the \E{distorted-wave Born approximation} (DWBA).
+\index{Distorted-wave Born approximation}%
+The DWBA generalizes the standard \E{Born approximation},
+\index{Born approximation}%
+which corresponds to the special case~$\v\Lambda(\r)=0$.

@@ -48,7 +48,7 @@ public:
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
-    virtual Eigen::Matrix2cd getScatteringMatrix(const WavevectorInfo& wavevectors) const =0;
+    virtual Eigen::Matrix2cd getPolarizedSLD(const WavevectorInfo& wavevectors) const;
 #endif
 
     //! Create a new material that is transformed with respect to this one

@@ -19,11 +19,6 @@ HomogeneousMaterial*HomogeneousMaterial::cloneInverted() const
     return clone();
 }
 
-Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(const WavevectorInfo& wavevectors) const
-{
-    return getNuclearSLD(wavevectors)*Eigen::Matrix2cd::Identity();
-}
-
 const IMaterial*HomogeneousMaterial::createTransformedMaterial(const Transform3D&) const
 {
     return new HomogeneousMaterial(getName(), getRefractiveIndex());

@@ -19,7 +19,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndex)
 
 //    cvector_t k(1.0, 0.0, 0.0);
 //    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
-//    Eigen::Matrix2cd matrix = material.getScatteringMatrix(wavevectors);
+//    Eigen::Matrix2cd matrix = material.getPolarizedSLD(wavevectors);
 //    EXPECT_EQ(complex_t(-3.0,4.0), matrix(0,0));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix(0,1));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix(1,0));
@@ -29,7 +29,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndex)
     material.setRefractiveIndex(refIndex2);
     EXPECT_EQ(refIndex2, material.getRefractiveIndex());
 
-//    Eigen::Matrix2cd matrix2 = material.getScatteringMatrix(wavevectors);
+//    Eigen::Matrix2cd matrix2 = material.getPolarizedSLD(wavevectors);
 //    EXPECT_EQ(complex_t(-5.0,12.0), matrix2(0,0));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix2(0,1));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix2(1,0));
@@ -44,7 +44,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndexParam)
 
 //    cvector_t k(1.0, 0.0, 0.0);
 //    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
-//    Eigen::Matrix2cd matrix = material.getScatteringMatrix(wavevectors);
+//    Eigen::Matrix2cd matrix = material.getPolarizedSLD(wavevectors);
 //    EXPECT_EQ(complex_t(-3.0,-4.0), matrix(0,0));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix(0,1));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix(1,0));
@@ -64,7 +64,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialTransform)
 
 //    cvector_t k(1.0, 0.0, 0.0);
 //    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
-//    Eigen::Matrix2cd matrix = tMaterial->getScatteringMatrix(wavevectors);
+//    Eigen::Matrix2cd matrix = tMaterial->getPolarizedSLD(wavevectors);
 //    EXPECT_EQ(complex_t(-3.0,4.0), matrix(0,0));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix(0,1));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix(1,0));
@@ -85,7 +85,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
 
 //    cvector_t k(1.0, 0.0, 0.0);
 //    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
-//    Eigen::Matrix2cd matrix = clone->getScatteringMatrix(wavevectors);
+//    Eigen::Matrix2cd matrix = clone->getPolarizedSLD(wavevectors);
 //    EXPECT_EQ(complex_t(-3.0,4.0), matrix(0,0));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix(0,1));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix(1,0));
@@ -95,7 +95,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
     clone->setRefractiveIndex(refIndex2);
     EXPECT_EQ(refIndex2, clone->getRefractiveIndex());
 
-//    Eigen::Matrix2cd matrix2 = clone->getScatteringMatrix(wavevectors);
+//    Eigen::Matrix2cd matrix2 = clone->getPolarizedSLD(wavevectors);
 //    EXPECT_EQ(complex_t(-5.0,12.0), matrix2(0,0));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix2(0,1));
 //    EXPECT_EQ(complex_t(0.0,0.0), matrix2(1,0));

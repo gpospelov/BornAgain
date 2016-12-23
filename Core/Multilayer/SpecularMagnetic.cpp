@@ -44,7 +44,7 @@ void SpecularMagnetic::calculateEigenvalues(
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<coeff.size(); ++i) {
         coeff[i].m_scatt_matrix =
-                (4.0*M_PI*sample.getLayer(i)->getMaterial()->getScatteringMatrix(wavevectors)
+                (4.0*M_PI*sample.getLayer(i)->getMaterial()->getPolarizedSLD(wavevectors)
                  - k.magxy2() * Eigen::Matrix2cd::Identity()) / k.mag2();
         coeff[i].m_kt = mag_k*sample.getLayer(i)->getThickness();
         coeff[i].m_a = coeff[i].m_scatt_matrix.trace()/2.0;

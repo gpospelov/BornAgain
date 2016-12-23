@@ -2048,7 +2048,7 @@ class INode(IParameterized):
         """
         registerChild(INode self, INode node)
 
-        void INode::registerChild(INode *sample)
+        void INode::registerChild(INode *node)
 
         """
         return _libBornAgainCore.INode_registerChild(self, node)
@@ -2067,22 +2067,46 @@ class INode(IParameterized):
 
 
     def setParent(self, parent):
-        """setParent(INode self, INode parent)"""
+        """
+        setParent(INode self, INode parent)
+
+        void INode::setParent(const INode *parent)
+
+        """
         return _libBornAgainCore.INode_setParent(self, parent)
 
 
     def parent(self):
-        """parent(INode self) -> INode"""
+        """
+        parent(INode self) -> INode
+
+        const INode * INode::parent() const 
+
+        """
         return _libBornAgainCore.INode_parent(self)
 
 
     def copyNumber(self, node):
-        """copyNumber(INode self, INode node) -> int"""
+        """
+        copyNumber(INode self, INode node) -> int
+
+        int INode::copyNumber(const INode *node) const
+
+        Returns copyNumber of child, which takes into account existence of children with same name. 
+
+        """
         return _libBornAgainCore.INode_copyNumber(self, node)
 
 
     def displayName(self):
-        """displayName(INode self) -> std::string"""
+        """
+        displayName(INode self) -> std::string
+
+        std::string INode::displayName() const
+
+        Returns display name, composed from the name of node and it's copy number. 
+
+        """
         return _libBornAgainCore.INode_displayName(self)
 
 
@@ -2090,7 +2114,7 @@ class INode(IParameterized):
         """
         createParameterTree(INode self) -> ParameterPool
 
-        ParameterPool * IParameterized::createParameterTree()
+        ParameterPool * INode::createParameterTree() override
 
         Creates new parameter pool, with all local parameters and those of its children. 
 
@@ -7491,7 +7515,7 @@ class Crystal(IClusteredParticles):
         """
         getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > Crystal::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -16643,7 +16667,14 @@ class IMaterial(INamed):
 
 
     def getNuclearSLD(self, wavevectors):
-        """getNuclearSLD(IMaterial self, WavevectorInfo wavevectors) -> complex_t"""
+        """
+        getNuclearSLD(IMaterial self, WavevectorInfo wavevectors) -> complex_t
+
+        complex_t IMaterial::getNuclearSLD(const WavevectorInfo &wavevectors) const
+
+        Returns true if *this agrees with other in all parameters. 
+
+        """
         return _libBornAgainCore.IMaterial_getNuclearSLD(self, wavevectors)
 
 
@@ -16708,7 +16739,7 @@ class HomogeneousMaterial(IMaterial):
         """
         clone(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        virtual HomogeneousMaterial* HomogeneousMaterial::clone() const 
+        HomogeneousMaterial * HomogeneousMaterial::clone() const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_clone(self)
@@ -16718,7 +16749,7 @@ class HomogeneousMaterial(IMaterial):
         """
         cloneInverted(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        virtual HomogeneousMaterial* HomogeneousMaterial::cloneInverted() const 
+        HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_cloneInverted(self)
@@ -16748,7 +16779,7 @@ class HomogeneousMaterial(IMaterial):
         """
         createTransformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> IMaterial
 
-        virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Transform3D &) const
+        const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const
 
         Create a new material that is transformed with respect to this one. 
 
@@ -17930,7 +17961,7 @@ class IParticle(IAbstractParticle):
         """
         getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > IParticle::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -20540,7 +20571,7 @@ class Layer(ISample):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > Layer::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -20948,7 +20979,7 @@ class MesoCrystal(IParticle):
         """
         __init__(MesoCrystal self, IClusteredParticles particle_structure, IFormFactor form_factor) -> MesoCrystal
 
-        MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor)
+        MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)
 
         """
         this = _libBornAgainCore.new_MesoCrystal(particle_structure, form_factor)
@@ -21047,7 +21078,7 @@ class MesoCrystal(IParticle):
         """
         getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > MesoCrystal::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -21473,7 +21504,7 @@ class MultiLayer(ISample):
         """
         getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > MultiLayer::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -22864,7 +22895,7 @@ class Particle(IParticle):
         """
         getChildren(Particle self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > Particle::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -23045,7 +23076,7 @@ class ParticleComposition(IParticle):
         """
         getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > ParticleComposition::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -23164,12 +23195,22 @@ class ParticleCoreShell(IParticle):
 
 
     def coreParticle(self):
-        """coreParticle(ParticleCoreShell self) -> Particle"""
+        """
+        coreParticle(ParticleCoreShell self) -> Particle
+
+        const Particle * ParticleCoreShell::coreParticle() const 
+
+        """
         return _libBornAgainCore.ParticleCoreShell_coreParticle(self)
 
 
     def shellParticle(self):
-        """shellParticle(ParticleCoreShell self) -> Particle"""
+        """
+        shellParticle(ParticleCoreShell self) -> Particle
+
+        const Particle * ParticleCoreShell::shellParticle() const 
+
+        """
         return _libBornAgainCore.ParticleCoreShell_shellParticle(self)
 
 
@@ -23177,7 +23218,7 @@ class ParticleCoreShell(IParticle):
         """
         getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > ParticleCoreShell::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -23320,7 +23361,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > ParticleDistribution::getChildren() const
 
         Returns a vector of children (const). 
 
@@ -23547,7 +23588,7 @@ class ParticleLayout(ILayout):
         """
         getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > ParticleLayout::getChildren() const
 
         Returns a vector of children (const). 
 

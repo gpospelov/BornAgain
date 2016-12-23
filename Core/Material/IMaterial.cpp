@@ -27,6 +27,11 @@ complex_t IMaterial::getNuclearSLD(const WavevectorInfo& wavevectors) const
     return prefactor * refractive_index * refractive_index;
 }
 
+Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo& wavevectors) const
+{
+    return getNuclearSLD(wavevectors)*Eigen::Matrix2cd::Identity();
+}
+
 bool IMaterial::operator==(const IMaterial& other) const
 {
     if( getName()!=other.getName() )

@@ -54,7 +54,7 @@ HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::cloneInverted() const
         getName()+"_inv", getRefractiveIndex(), -getMagneticField());
 }
 
-Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(
+Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLD(
         const WavevectorInfo& wavevectors) const
 {
     Eigen::Matrix2cd result;

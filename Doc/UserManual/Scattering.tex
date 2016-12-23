@@ -73,15 +73,30 @@ The scalar wavefunction $\psi(\r,t)$
 \nomenclature[1ψ030 2r040 2t02]{$\psi(\r,t)$}{Microscopic neutron wavefunction}%
 of a free neutron
 in absence of a magnetic field
-is governed by the microscopic Schrödinger equation
+is governed by the Schrödinger equation
 \begin{equation}\label{ESchrodi}
   i\hbar\partial_t \psi(\r,t)
   = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
 \end{equation}
-Since BornAgain only supports elastic scattering,
+Since BornAgain only aims at modelling elastic scattering,
 \index{Scattering!elastic}%
-the potential $V(\r)$ must be time independent.
-\index{Time}%
+any time dependence of the potential is averaged out in the definition
+\index{Potential!neutron}%
+\index{Neutron!potential}%
+$V(\r)\coloneqq \langle V(\r,t)\rangle$.
+\nomenclature[2v130 2r040]{$V(\r)$}{Neutron potential}%
+\index{Time dependence!neutron potential}%
+Inelastic scattering,
+\index{Inelastic scattering}%
+\index{Scattering!inelastic}%
+\index{Damping!inelastic scattering}%
+\index{Loss terms|see {Damping}}%
+in principle, can be accounted for by an extra contribution
+damping.\footnote
+{This is not explicitly supported in the software,
+but users are free to increase the imaginary part of the refractive index
+\index{Refractive index!emulate inelastic scattering}%
+to emulate damping by inelastic losses.}
 Therefore we only need to consider monochromatic waves
 \index{Wave!monochromatic}%
 \index{Monochromatic wave}%
@@ -126,7 +141,6 @@ we obtain the stationary Schrödinger equation
   \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r) = 0.
 \end{equation}
 \nomenclature[2m020]{$m$}{Neutron mass}%
-\nomenclature[2v130 2r040]{$V(\r)$}{Microscopic optical potential}%
 \index{Potential|see {Optical potential}}%
 \index{Optical potential!nuclear (microscopic)}%
 The \E{nuclear} (or \E{microscopic})
@@ -355,7 +369,7 @@ Since BornAgain only addresses elastic scattering,
 \index{Scattering!elastic}%
 we assume the permeability and permittivity tensors $\v\mu$ and~$\v\eps$
 to be time-independent.
-\index{Time}%
+\index{Time dependence!dielectric permittivity}%
 Therefore, as in~\cref{ScohWave}, we only need to consider monochromatic waves
 \index{Wave!monochromatic}%
 \index{Monochromatic wave}%

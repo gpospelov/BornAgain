@@ -59,7 +59,7 @@ of coherence lengths (\Cref{Scoherlen}).
 \index{Wave propagation|(}%
 
 %===============================================================================
-\subsection{Coherent neutron wave}\label{ScohWave}
+\subsection{Neutrons}\label{ScohWave}
 %===============================================================================
 \index{Wave propagation!neutron|(}%
 \index{Neutron!wave propagation|(}%
@@ -74,7 +74,7 @@ The scalar wavefunction $\psi(\r,t)$
 of a free neutron
 in absence of a magnetic field
 is governed by the Schrödinger equation
-\begin{equation}\label{ESchrodi}
+\begin{equation}\label{ESchrodi1}
   i\hbar\partial_t \psi(\r,t)
   = \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)\right\} \psi(\r,t).
 \end{equation}
@@ -95,8 +95,8 @@ in principle, can be accounted for by an extra contribution
 damping.\footnote
 {This is not explicitly supported in the software,
 but users are free to increase the imaginary part of the refractive index
-\index{Refractive index!emulate inelastic scattering}%
-to emulate damping by inelastic losses.}
+\index{Refractive index!losses from inelastic scattering}%
+to emulate damping by inelastic losses.\label{Flosses}}
 Therefore we only need to consider monochromatic waves
 \index{Wave!monochromatic}%
 \index{Monochromatic wave}%
@@ -107,91 +107,9 @@ In consequence, the wavefunction
   \psi(\r,t) = \psi(\r)\e^{-i\omega t}
 \end{equation}
 \nomenclature[1ψ030 2r040 0]{$\psi(\r)$}{Stationary wavefunction}%
-factorizes into a stationary wave and a time-dependent phase factor.%
+factorizes into a stationary wave and a time-dependent phase factor.
 \index{Stationary wavefunction}%
 \index{Phase factor}%
-Inserting \cref{Estationarywave} in \cref{ESchrodi},
-we obtain the stationary Schrödinger equation
-\begin{equation}\label{EstatSchrodi}
-  \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)-\hbar\omega\right\} \psi(\r) = 0.
-\end{equation}
-\nomenclature[2m020]{$m$}{Neutron mass}%
-\index{Potential|see {Optical potential}}%
-\index{Optical potential!nuclear (microscopic)}%
-The \E{nuclear} (or \E{microscopic})
-\E{optical potential} $V(\r)$,
-in a somewhat ``naive conception'' \cite[p.~7]{Sea89},
-consists of a sum of delta functions,
-representing Fermi's ``pseudopotential''.
-\index{Fermi's pseudopotential}%
-The superposition of the incident wave with the scattered waves
-\index{Scattering!coherent forward}%
-originating from each illuminated nucleus
-results in \E{coherent forward scattering},
-\index{Coherent forward scattering}%
-in line with Huygens' principle.
-\index{Huygens' principle}%
-
-Coherent superposition also leads to \E{Bragg scattering}.
-\index{Bragg scattering!by atomic lattices}%
-However, Bragg scattering by atomic lattices only occurs at angles
-far above the small-angle range covered in GISAS experiments.
-Accordingly, it can be neglected in the analysis of GISAS data,
-or at most, is taken into account as a loss channel.
-
-Therefore,
-we can neglect the atomic structure of $V(\r)$,
-and perform some coarse graining to
-arrive at a \E{continuum approximation}.
-\index{Continuum approximation!neutron propagation}%
-This is
-similar to the passage from
-the microscopic to the macroscopic Maxwell equations.
-The details are intricate \cite{Sea89,Lax51},
-but the result \cite[eq.~2.8.32]{Sea89} is very simple:
-The macroscopic field equation
-has still the form of a stationary Schrödinger equation,
-\index{Schrodinger@Schrödinger equation!macroscopic}%
-\begin{equation}\label{EmacrSchrodi}
-  \left\{-\frac{\hbar^2}{2m}\Nabla^2+\Vmac(\r)-\hbar\omega\right\} \psi(\r) = 0,
-\end{equation}
-\nomenclature[1ψ030 2r040]{$\psi(\r)$}{Stationary coherent wavefunction}%
-where $\psi$ now stands for the \E{coherent wavefunction}
-\index{Coherent wavefunction}%
-\index{Wave propagation!coherent}%
-obtained by superposition of incident and forward scattered states.
-The \E{macroscopic optical potential}.
-\nomenclature[2v131 2r040]{$\Vmac(\r)$}{Macroscopic optical potential}%
-\index{Optical potential!macroscopic}%
-\begin{equation}
-  \Vmac(\r) = \frac{2\pi\hbar^2}{m}\left\langle b(\r) \right\rangle
-\end{equation}
-depends on the \E{bound scattering length density}
-\begin{equation}
-  b(\r) = \sum_j b_j\delta(\r-\r_j).
-\end{equation}
-The \E{bound scattering length} $b_j$ is isotope specific;
-values are tabulated \cite{Sea92}.
-For a monatomic system
-(with no correlation between nuclear spin or isotopic composition and position),
-\begin{equation}
-  \left\langle b(\r) \right\rangle = b_\text{c} \left\langle\rho(\r)\right\rangle
-\end{equation}
-with the \E{bound coherent scattering length} $b_\text{c}$ and the number density~$\rho(\r)$.
-
-The macroscopic optical potential is weak, and slowly varying compared to atomic length scales.
-In the following it shall be expressed through the
-\E{bound scattering length density} (SLD)
-\index{Bound scattering length|see{Scattering length}}%
-\index{Scattering!length density}%
-\index{SLD|see{Scattering length density}}%
-\cite[eq.\ 2.8.37]{Sea89},
-\nomenclature[2v030 2r040]{$v(\r)$}{Scattering length density (SLD)}%
-\begin{equation}\label{Edefv}
-  v(\r)
-  \coloneqq\frac{m}{2\pi \hbar^2}\Vmac(\r)
-  = \left\langle b(\r) \right\rangle
-\end{equation}
 In the following, we will characterize the incoming radiation
 not by its energy~$\hbar\omega$,
 but by its \E{vacuum wavenumber}~$K$,
@@ -204,38 +122,92 @@ given by the dispersion relation
 \begin{equation}
   \hbar\omega = \frac{(\hbar K)^2}{2m}.
 \end{equation}
-The macroscopic Schrödinger equation~\cref{EmacrSchrodi} then takes the simple form
+The macroscopic Schrödinger equation~\cref{ESchrodi1} then takes the simple form
 \Emph{
 \begin{equation}\label{ESchrodi2}
-  \left\{\Nabla^2+K^2-4\pi v(\r)\right\} \psi(\r) = 0.
+  \left\{\Nabla^2+K^2-4\pi v(\r)\right\} \psi(\r) = 0
 \end{equation}
 \vspace*{-5pt}}
-In neutron optical applications, like wave propagation through multilayers,
-it is convenient to parametrize $\mv(\r)$ in terms of the \E{refractive index}
-\begin{equation}\label{EnkK}
-  n(\r)\coloneqq\sqrt{1-\frac{4\pi\mv(\r)}{K^2}}.
+with the rescaled form of Fermi's pseudopotential\footnote
+{For words of caution about this ``naive conception''
+see Sears \cite[p.~7]{Sea89}.}
+\index{Fermi's pseudopotential}%
+\index{Pseudopotential!Fermi's}%
+\index{Potential!neutron}%
+\index{Neutron!potential}%
+\begin{equation}\label{Evrraw}
+  v(\r)
+  \coloneqq \frac{m}{2\pi\hbar^2} V(\r)
+  = \sum_j\left\langle b_j \delta\left(\r-\r_j(t)\right)\right\rangle.
 \end{equation}
-\nomenclature[2n020]{$n$}{Refractive index}%
-\index{Refractive index!neutron}%
-\index{Index of refraction|see {Refractive index}}%
-If $\mv(\r)$ has an imaginary part, describing absorption,
-\index{Absorption}%
-then $n(\r)$ is a complex number.
-Conventionally, $n$ is parameterized by two real numbers:
-\begin{equation}\label{Endb1}
-  n \eqqcolon  1-\delta +i\beta.
+The sum runs over all nuclei in the \E{scattering target},
+\index{Scattering target|see{Sample}}%
+\index{Target!scattering}%
+or \E{sample},
+\index{Sample}%
+as we will call it henceforth.
+The \E{bound scattering length}~$b_j$
+\index{Scattering length}%
+\index{Bound scattering length|see{Scattering length}}%
+\nomenclature[2b0]{$b$}{Bound scattering length}%
+is isotope specific;
+\index{Isotope}%
+values are tabulated \cite{Sea92}.
+
+In \E{small-angle scattering},
+\index{Scattering!small-angle}%
+\index{Small-angle scattering}%
+as elsewhere in \E{neutron optics} \cite{Sea89},
+\index{Neutron!optics}%
+\index{Optics!neutron}%
+the potential can be coarse-grained by spatially averaging over at least a few atomic diameters,
+\begin{equation}\label{Evrcoarse}
+  v(\r)
+  = \sum_s b_s \rho_s(\r),
 \end{equation}
-\nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
-   $n=1-\delta +i\beta$}%
-\nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
-For thermal neutrons,
-$\delta$ and $\beta$ are almost always nonnegative,\footnote
-{The plus sign in front of~$i\beta$ is a consequence of
-the quantum-mechanical sign convention;
-in the X-ray crystallography convention it would be a minus sign.
-\index{Refractive index!sign convention}%
-\index{Sign convention!refractive index}}
-and much smaller than~1.
+\nomenclature[2v030 2r040]{$v(\r)$}{Rescaled neutron potential, scattering length density (SLD)}%
+where the sum now runs over chemical elements,
+$b_s\coloneqq\langle b_j\rangle_{j\in s}$ is the bound \E{coherent} scattering length,
+\index{Coherent scattering length}%
+\index{Scattering length!coherent}%
+and $\rho_s$ is a number density.
+\index{Number density}%
+\index{Density}%
+\nomenclature[1ρ032 2s010]{$\rho_s$}{Number density of chemical element~$s$}%
+In passing from \cref{Evrraw} to \cref{Evrcoarse},
+we neglected \E{Bragg scattering}
+\index{Scattering!Bragg}%
+\index{Bragg scattering}%
+from atomic-scale correlation,
+\index{Atomic scale}%
+\index{Correlation!atomic scale}%
+and \E{incoherent scattering} from spin or isotope related fluctuations of $b_j$.
+\index{Scattering!incoherent}%
+\index{Incoherent scattering}%
+\index{Isotope}%
+\index{Spin!neutron}%
+\index{Neutron!spin}%
+In small-angle experiments,
+ these types of scattering only matter as loss channels.\footnote
+{Same remark as in \Cref{Flosses}: To model these losses, use the
+\index{Refractive index!losses from Bragg scattering}%
+\index{Refractive index!losses from incoherent scattering}%
+imaginary part of the refractive index.}
+Furthermore, incoherent scattering, as inelastic scattering,
+ contributes to the diffuse background in the detector.
+\index{Scattering!diffuse}%
+\index{Scattering!inelastic}%
+\index{Inelastic scattering}%
+\index{Background!diffuse}%
+\index{Detector!background}%
+In conclusion, the coarse-grained neutron optical potential~\cref{Evrcoarse}
+\index{Potential!optical}%
+\index{Neutron!optical potential}%
+\index{Neutron!potential}%
+is just a \E{scattering length density} (SLD)
+\index{Scattering length density}%
+\index{SLD|see{Scattering length density}}%
+\cite[eq.\ 2.8.37]{Sea89}.
 
 %===============================================================================
 \subsection{Neutrons in a magnetic field}\label{Snpwave}
@@ -257,11 +229,11 @@ must be replaced by spinor $\v\Psi$.
 The magnetic moment of the neutron couples to the magnetizing field~$\v{H}$ \cite{Mez86}.
 \nomenclature[2h150 2r040 2t020]{$\v{H}(\r,t)$}{Magnetizing field}%
 \index{Magnetizing field!coupling to neutron moment}%
-With the coupling term, the macroscopic Schrödinger equation~\cref{EmacrSchrodi}
+With the coupling term, the Schrödinger equation~\cref{ESchrodi1}
 \index{Schrodinger@Schrödinger equation!macroscopic}%
 becomes
 \begin{equation}\label{EHSchrodi}
-  \left\{-\frac{\hbar^2}{2m}\Nabla^2+\Vmac(\r)
+  \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)
          +\mu_0\mu_\text{n}\v{H}(\r)\v{\sigma}-\hbar\omega\right\}
       \v\Psi(\r) = 0,
 \end{equation}
@@ -290,7 +262,6 @@ it can split a beam
 as in the Stern-Gerlach experiment \cite{ShSB54}.
 \index{Neutron!Stern-Gerlach splitting}%
 \index{Stern-Gerlach splitting}%
-
 We introduce the reduced field
 \begin{equation}
   \v{h} \coloneqq \frac{m\mu_0\mu_\text{n}}{2\pi\hbar^2}\v{H},
@@ -298,7 +269,7 @@ We introduce the reduced field
 \nomenclature[2h050 2r040]{$\v{h}(\r)$}{Rescaled
    field $\v{h}=(m\mu_0\mu_\text{n}/2\pi\hbar^2)\v{H}$}%
 \index{Magnetizing field!reduced}%
-to rewrite the macroscopic Schrödinger equation in analogy to~\cref{ESchrodi2} as
+to rewrite the Schrödinger equation in analogy to~\cref{ESchrodi2} as
 \index{Schrodinger@Schrödinger equation!macroscopic}%
 \Emph{
 \begin{equation}\label{ESchrodi2H}
@@ -315,7 +286,7 @@ to rewrite the macroscopic Schrödinger equation in analogy to~\cref{ESchrodi2} 
 \index{Neutron!wave propagation|)}%
 
 %===============================================================================
-\subsection{X-ray propagation}\label{SXwave}
+\subsection{X-rays}\label{SXwave}
 %===============================================================================
 
 \index{Wave propagation!X-ray|(}%
@@ -410,14 +381,6 @@ given by the dispersion relation
   K^2 = \mu_0\eps_0\omega^2.
 \end{equation}
 \index{Dispersion!X-ray}%
-The refractive index
-\begin{equation}\label{EnX}
-  n(\r)\coloneqq\sqrt{\epsilon(\r)} \eqqcolon 1-\delta+i\beta
-\end{equation}
-\index{Refractive index!X-rays}%
-can be parametrized as in~\cref{Endb1}.
-For X-rays, as for thermal neutrons, the parameters $\delta$ and~$\beta$ are nonnegative,
-and much smaller than~1.
 
 With these simplifying assumptions about $\v{\eps}$ and~$\v{\mu}$,
 Maxwell's equations yield the wave equation
@@ -447,8 +410,6 @@ and for the transverse vector character of the electric field~$\E(\r)$.
 %===============================================================================
 
 We now begin to study scattering by condensed-matter samples
-(we will prefer the brief term \E{sample} over \E{scattering target}).
-\index{Sample}%
 We will determine scattering cross sections
 \index{Cross section}%
 \index{Scattering!cross section}%
@@ -520,6 +481,43 @@ defined in \cref{EnkK} or~\cref{EnX}:
 \begin{equation}\label{EnkK}
   n(\r)\coloneqq\sqrt{1-\frac{\Lambda(\r)}{K^2}}.
 \end{equation}
+TODO
+In neutron optical applications, like wave propagation through multilayers,
+it is convenient to parametrize $\mv(\r)$ in terms of the \E{refractive index}
+\begin{equation}\label{EnkK}
+  n(\r)\coloneqq\sqrt{1-\frac{4\pi\mv(\r)}{K^2}}.
+\end{equation}
+\nomenclature[2n020]{$n$}{Refractive index}%
+\index{Refractive index!neutron}%
+\index{Index of refraction|see {Refractive index}}%
+If $\mv(\r)$ has an imaginary part, describing absorption,
+\index{Absorption}%
+then $n(\r)$ is a complex number.
+Conventionally, $n$ is parameterized by two real numbers:
+\begin{equation}\label{Endb1}
+  n \eqqcolon  1-\delta +i\beta.
+\end{equation}
+\nomenclature[1δ020]{$\delta$}{Small parameter in the refractive index
+   $n=1-\delta +i\beta$}%
+\nomenclature[1β020]{$\beta$}{Imaginary part of the refractive index}%
+For thermal neutrons,
+$\delta$ and $\beta$ are almost always nonnegative,\footnote
+{The plus sign in front of~$i\beta$ is a consequence of
+the quantum-mechanical sign convention;
+in the X-ray crystallography convention it would be a minus sign.
+\index{Refractive index!sign convention}%
+\index{Sign convention!refractive index}}
+and much smaller than~1.
+TODO
+The refractive index
+\begin{equation}\label{EnX}
+  n(\r)\coloneqq\sqrt{\epsilon(\r)} \eqqcolon 1-\delta+i\beta
+\end{equation}
+\index{Refractive index!X-rays}%
+can be parametrized as in~\cref{Endb1}.
+For X-rays, as for thermal neutrons, the parameters $\delta$ and~$\beta$ are nonnegative,
+and much smaller than~1.
+
 
 The full wave equation, valid inside and outside the sample,
 can then be written as

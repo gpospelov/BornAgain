@@ -16666,16 +16666,16 @@ class IMaterial(INamed):
         return _libBornAgainCore.IMaterial_getRefractiveIndex(self)
 
 
-    def getNuclearSLD(self, wavevectors):
+    def getScalarSLD(self, wavevectors):
         """
-        getNuclearSLD(IMaterial self, WavevectorInfo wavevectors) -> complex_t
+        getScalarSLD(IMaterial self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t IMaterial::getNuclearSLD(const WavevectorInfo &wavevectors) const
+        complex_t IMaterial::getScalarSLD(const WavevectorInfo &wavevectors) const
 
         Returns true if *this agrees with other in all parameters. 
 
         """
-        return _libBornAgainCore.IMaterial_getNuclearSLD(self, wavevectors)
+        return _libBornAgainCore.IMaterial_getScalarSLD(self, wavevectors)
 
 
     def createTransformedMaterial(self, transform):

@@ -5078,11 +5078,6 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 %feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 ";
 
-%feature("docstring")  HomogeneousMaterial::getPolarizedSLD "Eigen::Matrix2cd HomogeneousMaterial::getPolarizedSLD(const WavevectorInfo &wavevectors) const
-
-Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
-";
-
 %feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const
 
 Create a new material that is transformed with respect to this one. 
@@ -6588,12 +6583,12 @@ Indicates whether the interaction with the material is scalar. This means that d
 %feature("docstring")  IMaterial::getRefractiveIndex "virtual complex_t IMaterial::getRefractiveIndex() const 
 ";
 
-%feature("docstring")  IMaterial::getNuclearSLD "complex_t IMaterial::getNuclearSLD(const WavevectorInfo &wavevectors) const
+%feature("docstring")  IMaterial::getScalarSLD "complex_t IMaterial::getScalarSLD(const WavevectorInfo &wavevectors) const
 
 Returns true if *this agrees with other in all parameters. 
 ";
 
-%feature("docstring")  IMaterial::getPolarizedSLD "virtual Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo &wavevectors) const =0
+%feature("docstring")  IMaterial::getPolarizedSLD "Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo &wavevectors) const
 
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";

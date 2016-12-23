@@ -43,7 +43,7 @@ public:
 
     virtual complex_t getRefractiveIndex() const { return 1.0; }
 
-    complex_t getNuclearSLD(const WavevectorInfo& wavevectors) const;
+    complex_t getScalarSLD(const WavevectorInfo& wavevectors) const;
 
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.

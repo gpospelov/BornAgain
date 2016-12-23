@@ -19,7 +19,7 @@
 #include "WavevectorInfo.h"
 
 //! Returns true if *this agrees with other in all parameters.
-complex_t IMaterial::getNuclearSLD(const WavevectorInfo& wavevectors) const
+complex_t IMaterial::getScalarSLD(const WavevectorInfo& wavevectors) const
 {
     double wavelength = wavevectors.getWavelength();
     double prefactor = M_PI/wavelength/wavelength;
@@ -29,7 +29,7 @@ complex_t IMaterial::getNuclearSLD(const WavevectorInfo& wavevectors) const
 
 Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo& wavevectors) const
 {
-    return getNuclearSLD(wavevectors)*Eigen::Matrix2cd::Identity();
+    return getScalarSLD(wavevectors)*Eigen::Matrix2cd::Identity();
 }
 
 bool IMaterial::operator==(const IMaterial& other) const

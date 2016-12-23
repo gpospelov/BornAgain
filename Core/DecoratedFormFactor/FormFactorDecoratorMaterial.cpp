@@ -79,8 +79,8 @@ complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor(
         const WavevectorInfo& wavevectors) const
 {
     if (mP_material && mP_ambient_material) {
-        return mP_material->getNuclearSLD(wavevectors)
-                - mP_ambient_material->getNuclearSLD(wavevectors);
+        return mP_material->getScalarSLD(wavevectors)
+                - mP_ambient_material->getScalarSLD(wavevectors);
     } else
         return 1.0;
 }

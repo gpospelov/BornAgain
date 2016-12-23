@@ -1972,6 +1972,11 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_getParameter(self, name)
 
 
+    def onChange(self):
+        """onChange(IParameterized self)"""
+        return _libBornAgainCore.IParameterized_onChange(self)
+
+
     def _print(self, ostr):
         """_print(IParameterized self, std::ostream & ostr)"""
         return _libBornAgainCore.IParameterized__print(self, ostr)
@@ -2101,6 +2106,11 @@ class INode(IParameterized):
         self.this.disown()
         _libBornAgainCore.disown_INode(self)
         return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(INode self)"""
+        return _libBornAgainCore.INode_onChange(self)
+
 
     def _print(self, ostr):
         """_print(INode self, std::ostream & ostr)"""
@@ -4661,6 +4671,11 @@ class ISample(ICloneable, INode):
         _libBornAgainCore.disown_ISample(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(ISample self)"""
+        return _libBornAgainCore.ISample_onChange(self)
+
+
     def _print(self, ostr):
         """_print(ISample self, std::ostream & ostr)"""
         return _libBornAgainCore.ISample__print(self, ostr)
@@ -7102,6 +7117,11 @@ class IMultiLayerBuilder(IParameterized):
         self.this.disown()
         _libBornAgainCore.disown_IMultiLayerBuilder(self)
         return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(IMultiLayerBuilder self)"""
+        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
+
 
     def _print(self, ostr):
         """_print(IMultiLayerBuilder self, std::ostream & ostr)"""
@@ -10228,6 +10248,11 @@ class IFormFactor(ISample):
         _libBornAgainCore.disown_IFormFactor(self)
         return weakref_proxy(self)
 
+    def onChange(self):
+        """onChange(IFormFactor self)"""
+        return _libBornAgainCore.IFormFactor_onChange(self)
+
+
     def _print(self, ostr):
         """_print(IFormFactor self, std::ostream & ostr)"""
         return _libBornAgainCore.IFormFactor__print(self, ostr)
@@ -10527,6 +10552,11 @@ class IFormFactorBorn(IFormFactor):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
         return weakref_proxy(self)
+
+    def onChange(self):
+        """onChange(IFormFactorBorn self)"""
+        return _libBornAgainCore.IFormFactorBorn_onChange(self)
+
 
     def _print(self, ostr):
         """_print(IFormFactorBorn self, std::ostream & ostr)"""
@@ -22227,7 +22257,7 @@ class ParameterDistribution(IParameterized):
 ParameterDistribution_swigregister = _libBornAgainCore.ParameterDistribution_swigregister
 ParameterDistribution_swigregister(ParameterDistribution)
 
-class ParameterPool(_object):
+class ParameterPool(ICloneable):
     """
 
 
@@ -22240,19 +22270,23 @@ class ParameterPool(_object):
     """
 
     __swig_setmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ParameterPool, name, value)
     __swig_getmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ParameterPool, name)
     __repr__ = _swig_repr
 
-    def __init__(self, name, onChange):
+    def __init__(self):
         """
-        __init__(ParameterPool self, std::string const & name, std::function< void () > const & onChange) -> ParameterPool
+        __init__(ParameterPool self) -> ParameterPool
 
         ParameterPool::ParameterPool(const ParameterPool &)=delete
 
         """
-        this = _libBornAgainCore.new_ParameterPool(name, onChange)
+        this = _libBornAgainCore.new_ParameterPool()
         try:
             self.this.append(this)
         except Exception:
@@ -22270,18 +22304,6 @@ class ParameterPool(_object):
 
         """
         return _libBornAgainCore.ParameterPool_clone(self)
-
-
-    def cloneWithPrefix(self, prefix):
-        """
-        cloneWithPrefix(ParameterPool self, std::string const & prefix) -> ParameterPool
-
-        ParameterPool * ParameterPool::cloneWithPrefix(const std::string &prefix) const
-
-        Returns a clone with  prefix prepended to every parameter key. 
-
-        """
-        return _libBornAgainCore.ParameterPool_cloneWithPrefix(self, prefix)
 
 
     def copyToExternalPool(self, prefix, external_pool):
@@ -22306,16 +22328,6 @@ class ParameterPool(_object):
 
         """
         return _libBornAgainCore.ParameterPool_clear(self)
-
-
-    def getName(self):
-        """
-        getName(ParameterPool self) -> std::string
-
-        std::string ParameterPool::getName() const 
-
-        """
-        return _libBornAgainCore.ParameterPool_getName(self)
 
 
     def size(self):
@@ -22429,14 +22441,9 @@ class ParameterPool(_object):
         return _libBornAgainCore.ParameterPool_setUniqueMatchValue(self, pattern, value)
 
 
-    def getParameterNames(self):
-        """
-        getParameterNames(ParameterPool self) -> vector_string_t
-
-        std::vector< std::string > ParameterPool::getParameterNames() const 
-
-        """
-        return _libBornAgainCore.ParameterPool_getParameterNames(self)
+    def parameterNames(self):
+        """parameterNames(ParameterPool self) -> vector_string_t"""
+        return _libBornAgainCore.ParameterPool_parameterNames(self)
 
 ParameterPool_swigregister = _libBornAgainCore.ParameterPool_swigregister
 ParameterPool_swigregister(ParameterPool)
@@ -23660,6 +23667,8 @@ class RealParameter(IParameterReal):
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits, Attributes attr) -> RealParameter
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
         __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double volatile * par) -> RealParameter
 
         RealParameter::RealParameter(const std::string &name, volatile double *par, const std::string &parent_name, const std::function< void()> &onChange, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 

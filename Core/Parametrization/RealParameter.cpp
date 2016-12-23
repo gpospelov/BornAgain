@@ -44,6 +44,11 @@ void RealParameter::setValue(double value)
 {
     if(value == *m_data)
         return; // nothing to do
+
+    if(isNull())
+        throw std::runtime_error("RealParameter::setValue() -> Error. Non-initialized parameter '"
+                                 +fullName()+"'");
+
     if(!m_limits.isInRange(value)) {
         std::ostringstream message;
         message << "Cannot set parameter " << fullName() << " to value " << value
@@ -53,7 +58,8 @@ void RealParameter::setValue(double value)
     if(m_attr.isFixed())
         throw std::runtime_error("Parameter "+fullName()+" is fixed");
     *m_data = value;
-    m_onChange();
+    if(m_onChange)
+        m_onChange();
 }
 
 RealParameter& RealParameter::setLimited(double lower, double upper)

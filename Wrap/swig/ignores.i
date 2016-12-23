@@ -32,7 +32,6 @@
 // need this to play nicely with ctypes
 %ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
 %ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*) const;
-%ignore IParameterized::onChange();
 %ignore IMultiLayerBuilder::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
 %ignore IMultiLayerBuilder::addParametersToExternalPool(const std::string&, ParameterPool*) const;
 

@@ -143,7 +143,7 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
 QStringList ParticleDistributionItem::extractFromParameterPool(const ParameterPool *pool) const
 {
     QStringList result;
-    std::vector<std::string> par_names = pool->getParameterNames();
+    std::vector<std::string> par_names = pool->parameterNames();
     for (size_t i = 0; i < par_names.size(); ++i) {
         result << QString(par_names[i].c_str());
     }

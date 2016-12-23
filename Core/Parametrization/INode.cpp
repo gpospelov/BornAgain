@@ -113,8 +113,7 @@ std::string INode::displayName() const
 
 ParameterPool* INode::createParameterTree()
 {
-    std::unique_ptr<ParameterPool> result(
-                new ParameterPool(getName(), std::bind(&IParameterized::onChange, this) ));
+    std::unique_ptr<ParameterPool> result(new ParameterPool);
 
     SampleTreeIterator<SampleIteratorPreorderStrategy> it(this);
     it.first();

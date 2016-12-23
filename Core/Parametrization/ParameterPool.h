@@ -16,8 +16,7 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
-#include "WinDllMacros.h"
-#include <functional>
+#include "ICloneable.h"
 #include <ostream>
 #include <string>
 #include <vector>
@@ -25,31 +24,20 @@
 class RealLimits;
 class RealParameter;
 
-//! Holds a map of pointers to parameters.
+//! Container with parameters for IParameterized object.
 //! @ingroup tools_internal
 
-//! Used in IParameterized, which has a member ParameterPool* m_pool.
-//! So this is pimpl (pointer to implementation) idiom, with ParameterPool providing the
-//! implementation of all the nontrivial functionality of IParameterized.
-//!
-//! Parameter names must be unique since we use them as map keys.
-
-class BA_CORE_API_ ParameterPool
+class BA_CORE_API_ ParameterPool : public ICloneable
 {
 public:
-    explicit ParameterPool(const std::string& name, const std::function<void()>& onChange);
-    ParameterPool(const ParameterPool&) = delete;
-    ParameterPool& operator=(const ParameterPool&) = delete;
+    ParameterPool();
     virtual ~ParameterPool();
 
     ParameterPool* clone() const;
-    ParameterPool* cloneWithPrefix(const std::string& prefix) const;
 
     void copyToExternalPool(const std::string& prefix, ParameterPool* external_pool) const;
 
     void clear();
-
-    std::string getName() const { return m_name; }
 
     //! Returns number of parameters in the pool.
     size_t size() const { return m_params.size(); }
@@ -71,26 +59,17 @@ public:
     int setMatchedParametersValue(const std::string& wildcards, double value);
     void setUniqueMatchValue(const std::string& pattern, double value);
 
-    std::vector<std::string> getParameterNames() const;
+    std::vector<std::string> parameterNames() const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
         obj.print(ostr); return ostr; }
 
-protected:
-    //! Called from RealParameter, calls back to owning IParameterized.
-    void onChange() const { m_onChange(); }
-
 private:
     virtual void print(std::ostream& ostr) const;
-
     void report_find_matched_parameters_error(const std::string& pattern) const;
     void report_set_value_error(const std::string& parname, double value) const;
 
-    std::string m_name; //!< The name of this pool, should be that of the owning IParameterized.
-    std::vector<RealParameter*> m_params;     //!< The parameters in this pool.
-    std::function<void()> m_onChange; //!< To be called whenever a parameter has changed.
-
-    friend RealParameter; //!< allow call of onChange().
+    std::vector<RealParameter*> m_params;
 };
 
 #endif // PARAMETERPOOL_H

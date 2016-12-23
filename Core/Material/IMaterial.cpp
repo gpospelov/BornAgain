@@ -18,13 +18,15 @@
 #include "HomogeneousMagneticMaterial.h"
 #include "WavevectorInfo.h"
 
-std::ostream& operator<<(std::ostream& ostr, const IMaterial& m)
+//! Returns true if *this agrees with other in all parameters.
+complex_t IMaterial::getNuclearSLD(const WavevectorInfo& wavevectors) const
 {
-    m.print(ostr);
-    return ostr;
+    double wavelength = wavevectors.getWavelength();
+    double prefactor = M_PI/wavelength/wavelength;
+    complex_t refractive_index = getRefractiveIndex();
+    return prefactor * refractive_index * refractive_index;
 }
 
-//! Returns true if *this agrees with other in all parameters.
 bool IMaterial::operator==(const IMaterial& other) const
 {
     if( getName()!=other.getName() )
@@ -40,4 +42,10 @@ bool IMaterial::operator==(const IMaterial& other) const
     if (p_this && p_other && p_this->getMagneticField() != p_other->getMagneticField() )
         return false;
     return true;
+}
+
+std::ostream& operator<<(std::ostream& ostr, const IMaterial& m)
+{
+    m.print(ostr);
+    return ostr;
 }

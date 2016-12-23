@@ -41,11 +41,9 @@ public:
 
     bool isMagneticMaterial() const { return !isScalarMaterial(); }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IMaterial& m);
-
     virtual complex_t getRefractiveIndex() const { return 1.0; }
 
-    virtual complex_t getNuclearSLD(const WavevectorInfo& wavevectors) const =0;
+    complex_t getNuclearSLD(const WavevectorInfo& wavevectors) const;
 
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
@@ -58,6 +56,7 @@ public:
 
     bool operator==(const IMaterial& other) const;
 
+    friend std::ostream& operator<<(std::ostream& ostr, const IMaterial& m);
 protected:
     virtual void print(std::ostream& ostr) const {
         ostr << "IMat:" << getName() << "<" << this << ">"; }

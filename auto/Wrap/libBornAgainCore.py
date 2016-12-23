@@ -16744,11 +16744,6 @@ class HomogeneousMaterial(IMaterial):
         return _libBornAgainCore.HomogeneousMaterial_setRefractiveIndex(self, refractive_index)
 
 
-    def getNuclearSLD(self, wavevectors):
-        """getNuclearSLD(HomogeneousMaterial self, WavevectorInfo wavevectors) -> complex_t"""
-        return _libBornAgainCore.HomogeneousMaterial_getNuclearSLD(self, wavevectors)
-
-
     def createTransformedMaterial(self, transform):
         """
         createTransformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> IMaterial

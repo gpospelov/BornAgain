@@ -19,13 +19,6 @@ HomogeneousMaterial*HomogeneousMaterial::cloneInverted() const
     return clone();
 }
 
-complex_t HomogeneousMaterial::getNuclearSLD(const WavevectorInfo& wavevectors) const
-{
-    double wavelength = wavevectors.getWavelength();
-    double prefactor = M_PI/wavelength/wavelength;
-    return prefactor*m_refractive_index * m_refractive_index;
-}
-
 Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(const WavevectorInfo& wavevectors) const
 {
     return getNuclearSLD(wavevectors)*Eigen::Matrix2cd::Identity();

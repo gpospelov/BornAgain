@@ -19,7 +19,7 @@
 \def\TG{\TENS{G}}
 \def\TDo{\TENS{\overset{o}{D}}}
 \def\TGo{\TENS{\overset{o}{G}}}
-\def\Psio{\TENS{\overset{o}{\Psi}}}
+\def\Psio{\v{\overset{o}{\Psi}}}
 
 \def\pfo{\overset{o}{\psi}_\sf}
 \def\pfoc{\overset{o}{\psi}\vphantom{\psi}^*_\sf}
@@ -122,7 +122,7 @@ given by the dispersion relation
 \begin{equation}
   \hbar\omega = \frac{(\hbar K)^2}{2m}.
 \end{equation}
-The macroscopic Schrödinger equation~\cref{ESchrodi1} then takes the simple form
+The Schrödinger equation~\cref{ESchrodi1} then takes the simple form
 \Emph{
 \begin{equation}\label{ESchrodi2}
   \left\{\Nabla^2+K^2-4\pi v(\r)\right\} \psi(\r) = 0
@@ -273,7 +273,7 @@ to rewrite the Schrödinger equation in analogy to~\cref{ESchrodi2} as
 \index{Schrodinger@Schrödinger equation!macroscopic}%
 \Emph{
 \begin{equation}\label{ESchrodi2H}
-  \left\{\Nabla^2+K^2-4\pi v(\r)-\v{h}(\r)\v{\sigma}\right\} \v\Psi(\r) = 0.
+  \left\{\Nabla^2+K^2-4\pi v(\r)-4\pi\v{h}(\r)\v{\sigma}\right\} \v\Psi(\r) = 0.
 \end{equation}
 \vspace*{-5pt}}
 
@@ -392,12 +392,9 @@ Maxwell's equations yield the wave equation
 Using a standard identity from vector analysis, it can be brought into the more tractable form
 \Emph{
 \begin{equation}\label{ENabNabE}
-  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2\eps(\r)\right\}\v{E}(\r)=0,
+  \left\{\Nabla^2-\Nabla\cdot\Nabla+ K^2\eps(\r)\right\}\v{E}(\r)=0.
 \end{equation}
 \vspace*{-5pt}}
-which closely ressembles the macroscopic Schrödinger equation~\cref{ESchrodi2},
-except for the additional dyadic differential operator $\Nabla\cdot\Nabla$,
-and for the transverse vector character of the electric field~$\E(\r)$.
 
 \index{Wave propagation!X-ray|)}%
 
@@ -409,7 +406,7 @@ and for the transverse vector character of the electric field~$\E(\r)$.
 \subsection{Perturbed wave equation}\label{Sfluct}
 %===============================================================================
 
-We now begin to study scattering by condensed-matter samples
+We now begin to study scattering by condensed-matter samples.
 We will determine scattering cross sections
 \index{Cross section}%
 \index{Scattering!cross section}%
@@ -421,70 +418,89 @@ we must not treat \E{all} of $v(\r)$, $\v{h}(\r)$ or $\epsilon(\r)$
 as a perturbation.
 Rather, we will decompose each of these fields into a more \E{regular}
 and a more \E{fluctuating} part:
-\begin{align}
-  v(\r) &= \mv(\r) + \delta v(\r),\\
-  \v{h}(\r) &= \overline{\v{h}}(\r) + \delta\v{h}(r),\\
-  \epsilon(\r) &= \overline\epsilon(\r) + \delta\epsilon(\r).
-\end{align}
-The fluctuating parts stand for the more irregular features of a sample
-one ultimately wants to study in a scattering experiment.
-If they are zero,
-then the remaining wave equations shall be simple enough to allow
-for analytical solutions.
-These solutions will be called \E{distorted waves}.
+\begin{subequations}
+\begin{alignat}{2}
+  &v(\r)        &&\eqqcolon \mv(\r) + \delta v(\r),\\
+  &\v{h}(\r)    &&\eqqcolon \overline{\v{h}}(\r) + \delta\v{h}(r),\\
+  &\epsilon(\r) &&\eqqcolon \overline\epsilon(\r) + \delta\epsilon(\r).
+\end{alignat}
+\end{subequations}
+If the fluctuating part is zero,
+then the remaining wave equation must allow for an analytical solution.
+This solution will be called the \E{distorted wave},
 \index{Distorted wave}%
 \index{Wave!distorted}%
-They are distorted with respect to the plane \E{vacuum waves}
-\index{Vacuum!wave}%
-\index{Wave!vacuum}%
+since it is distorted with respect to the \E{plane wave} solution
 \index{Plane!wave}%
 \index{Wave!plane}%
-that are obtained as solution of the wave equations
-for $\r$ outside the finite sample,
-under the vacuum conditions $v=0$, $\v{h}=0$, $\epsilon=1$.
+that is obtained outside the sample
+under the vacuum
+\index{Vacuum}%
+condition $v=0$, $\v{h}=0$, or $\epsilon=1$.
+The fluctuating part stands for the more irregular features of the sample
+one ultimately wants to study in a scattering experiment.
 
 In the following,
 we develop a generic formalism for the scattering of distorted neutron or X-ray waves.
-Wave propagation in vacuum shall be denoted by an overset circle.
-The wave equation in vacuum shall be written as
+The generic wave amplitude $\v{\Psi}$
+\nomenclature[1ψ150 2r040]{$\v\Psi(\r)$}{Generic wave amplitude,
+  representing either a scalar or spinorial neutron wavefunction or an electric field}%
+shall represent
+the scalar neutron wavefunction~$\psi$,
+the spinor $\v{\Psi}$, or the electric field~$\v{E}$, as applicable.
+The generic wave equation is
 \Emph{
-\begin{equation}\label{EDPsi0}
-  \TDo\,\Psio(\r)=0.
+\begin{equation}\label{EDPsi}
+  \TD(\r)\v\Psi(\r) = 4\pi\TENS{U}(\r).
 \end{equation}
 \vspace*{-5pt}}
-Literally, this is an equation for the neutron spinor wavefunction.
-It is, however, equally applicable for scalar neutron wavefunctions~$\psi(\r)$
-or electric fields~$\v{E}(\r)$.
-The differential operator in~\cref{EDPsi0} is
-\begin{align}
-  \Do &\coloneqq \Nabla^2 + K^2 &\text{ neutron (scalar),}\\
-  \TDo &\coloneqq \Nabla^2 + K^2 &\text{ neutron (spinorial),}\\
-  \TDo &\coloneqq \Nabla^2 - \Nabla\cdot\Nabla + K^2 &\text{ X-ray.}
-\end{align}
-\nomenclature[2d138 2r040]{$\Do(\r)$}{Differential operator in the vacuum wave equation}%
-Distorted-wave propagation is described by the differential operator
+\nomenclature[2d138 2r040]{$\TD(\r)$}{Differential operator in the wave equation}%
+The wave propagation operator
 \begin{equation}
   \TD(\r) \coloneqq \TDo + \TENS{\Lambda}(\r)
 \end{equation}
-with the distortion field
-\begin{align}
+is composed of the vacuum wave propagation operator
+\begin{subequations}
+\begin{alignat}{2}
+  \Do &\coloneqq \Nabla^2 + K^2 &&\text{~~~for neutrons,}\\
+  \TDo &\coloneqq \Nabla^2 - \Nabla\cdot\Nabla + K^2 &&\text{~~~for X-rays}
+\end{alignat}
+\end{subequations}
+\nomenclature[2d138 0 2r040]{$\Do(\r)$}{Differential operator in the vacuum wave equation}%
+and the distortion field
+\begin{subequations}
+\begin{alignat}{2}
   \Lambda(\r) &\coloneqq 4\pi\mv(\r)
-      &\text{ neutron (scalar),}\\
-  \TENS{\Lambda}(\r) &\coloneqq 4\pi\mv(\r)+\overline{\v{h}}(\r)\v\sigma
-      &\text{ neutron (spinorial),}\\
+      &&\text{~~~for neutrons (scalar),}\\
+  \TENS{\Lambda}(\r) &\coloneqq 4\pi\left(\mv(\r)+\overline{\v{h}}(\r)\v\sigma\right)
+      &&\text{~~~for neutrons (spinorial),}\\
   \Lambda(\r) &\coloneqq K^2(\epsilon(\r)-1)
-      &\text{ X-ray.}
-\end{align}
-If it is scalar, then it can be expressed through the \E{refractive index}
+      &&\text{~~~for X-rays.}
+\end{alignat}
+\end{subequations}
+Furthermore, the wave equation contains the perturbation
+\begin{subequations}
+\begin{alignat}{2}
+  U(\r) &\coloneqq \delta v(\r)
+      &&\text{~~~for neutrons (scalar),}\\
+  \TENS{U}(\r) &\coloneqq \delta v(\r)+\delta{\v{h}}(\r)\v\sigma
+      &&\text{~~~for neutrons (spinorial),}\\
+  U(\r) &\coloneqq K^2\delta \epsilon(\r)/(4\pi)
+      &&\text{~~~for X-rays.}
+\end{alignat}
+\end{subequations}
+
+If the distortion field is scalar,
+then it can be expressed through the \E{refractive index}
 \index{Refractive index}%
 \index{Index of refraction|see {Refractive index}}%
 \nomenclature[2n020]{$n$}{Refractive index}%
 \begin{equation}\label{EnkK}
   n(\r)
   \coloneqq\sqrt{1-\frac{\Lambda(\r)}{K^2}}
-  = \left\{\begin{array}{lr}
-       \sqrt{1-4\pi\mv(\r)/K^2} &\text{ neutron (scalar),}\\
-       \sqrt{\epsilon(\r)} &\text{ X-ray.}
+  = \left\{\begin{array}{ll}
+       \sqrt{1-4\pi\mv(\r)/K^2} &\text{ for neutrons,}\\
+       \sqrt{\epsilon(\r)} &\text{ for X-rays.}
     \end{array}\right.
 \end{equation}
 If $\mv(\r)$ or $\epsilon(\r)$ has an imaginary part, describing absorption,
@@ -506,22 +522,6 @@ in the X-ray crystallography convention it would be a minus sign.
 \index{Sign convention!refractive index}}
 and much smaller than~1.
 
-The full wave equation, valid inside and outside the sample,
-can then be written as
-\Emph{
-\begin{equation}\label{EDPsi}
-  \TD(\r)\v\Psi(\r) = 4\pi\TENS{U}(\r)
-\end{equation}
-\vspace*{-5pt}}
-with
-\begin{align}
-  U(\r) &\coloneqq \delta v(\r)
-      &\text{ neutron (scalar),}\\
-  \TENS{U}(\r) &\coloneqq \delta v(\r)+\delta{\v{h}}(\r)\v\sigma/(4\pi)
-      &\text{ neutron (spinorial),}\\
-  U(\r) &\coloneqq K^2\delta \epsilon(\r)/(4\pi)
-      &\text{ X-rays.}
-\end{align}
 
 %===============================================================================
 \subsection{Reciprocity of the Green function}\label{SReci}

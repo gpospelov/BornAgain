@@ -22,7 +22,8 @@
 \def\TL{\TENS{\Lambda}}
 \def\TDo{\TENS{\overset{o}{D}}}
 \def\TGo{\TENS{\overset{o}{G}}}
-\def\Psio{\v{\overset{o}{\Psi}}}
+\def\vGo{\v{\overset{o}{G}}\vphantom{\v{G}}}
+\def\Psio{\v{\overset{o}{\Psi}}\vphantom{\Psi}}
 \def\ue{\v{\hat u}}
 
 \def\pfo{\overset{o}{\psi}_\sf}
@@ -615,15 +616,15 @@ We choose the coordinate origin
 \index{Coordinate system!origin}%
 \index{Origin!coordinate system}%
 inside the sample so that the far-field asymptote corresponds to the limit $r\to\infty$.
-To determine the far-field asymptote $\v\Psi_{\text{s}\infty}(\r)$
+To determine the far-field asymptote $\v\Psi_\text{s}^\infty(\r)$
 of the scattered wave~$\v\Psi_\text{s}$ from~\cref{EBornS},
 \index{Scattered radiation!far field}
 it is sufficient to solve~\cref{EGREEN} for the far-field Green function
 \begin{equation}\label{EGinftydef}
-  \TG_\infty(\r,\r')\coloneqq \lim_{r\to\infty} \TG(\r,\r').
+  \TG^\infty(\r,\r')\coloneqq \lim_{r\to\infty} \TG(\r,\r').
 \end{equation}
 
-In deriving~$\TG_\infty$, it is preferable to work with well-defined
+In deriving~$\TG^\infty$, it is preferable to work with well-defined
 \E{polarization states}.
 \index{Polarization!state}%
 For either neutron spinors or electric fields,
@@ -646,10 +647,10 @@ Similarly, we introduce the vectorial Green function with final polarization sta
    \v{G}^\alpha(\r,\r')
    \coloneqq \ue_\alpha^* \TG(\r,\r').
 \end{equation}
-Its far-field limit has the simple generic form
+Its far-field limit has the simple form
 \Emph{
 \begin{equation}\label{EmyG}
-  \v{G}_\infty^\alpha(\r,\r') = \phi(r) \v\Psi_\alpha^*(\r'),
+  \v{G}^\infty_\alpha(\r,\r') = \phi(r) \v\Psi_\alpha^*(\r'),
 \end{equation}
 \vspace*{-5pt}}
 where $\phi$ is an outgoing spherical wave with
@@ -664,6 +665,40 @@ with the boundary condition
 \begin{equation}
   \Psi_\alpha(\r) = \ue_\alpha\text{~~for }r\to\infty.
 \end{equation}
+We now outline a proof for~\cref{EmyG}.
+We first consider wave propagation in vacuum,
+denoted by an overset circle.
+Exact Green functions
+are known.
+The far-field must be taken explicitly,
+and in all cases
+\begin{equation}
+  \vGo_\alpha^\infty(\r,\r') = \phi(r)\Psio_\alpha^*(\r')
+\end{equation}
+is obtained.
+Following Dietrich and Wagner \cite{DiWa84,DiWa85,DiWa16},
+we write Lippmann-Schwinger equations for a distorted wave
+\begin{equation}\label{ELS2Psi}
+   \Psio_\alpha(\r)
+   = \int\!\d^3r''\, \left( \delta(\r-\r'') + \vGo_\alpha(\r,\r'')\TL(\r'') \right)
+                     \v\Psi_\alpha(\r''),
+\end{equation}
+and for the Green function
+\begin{equation}\label{ELS2G}
+   \vGo_\alpha(\r,\r')
+   = \int\!\d^3r''\, \left( \delta(\r-\r'') + \vGo_\alpha(\r,\r'')\TL(\r'') \right)
+                     \v{G}_\alpha(\r'',\r').
+\end{equation}
+Operate on both sides with~$\TDo(\r)$ to verify that
+\begin{equation}
+  \TDo(\r)\TGo(\r,\r') = \Td(\r-\r') \text{ and } \TDo(\r)\Psio(r)=0
+\end{equation}
+imply
+\begin{equation}
+  \TD(\r)\TG(\r,\r') = \Td(\r-\r') \text{ and } \TD(\r)\v\Psi(r)=0
+\end{equation}
+Multiply~\cref{ELS2Psi} with~$\phi(r')$,
+take the limit
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neutron scattering in Born approximation}\label{SBornApprox}

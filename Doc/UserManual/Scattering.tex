@@ -30,7 +30,6 @@
 \def\pfo{\overset{o}{\psi}_\sf}
 \def\pfoc{\overset{o}{\psi}\vphantom{\psi}^*_\sf}
 
-\index{Scattering!target|see{Sample}}%
 \index{Elastic scattering|seealso{Cross section}}%
 
 \part{Physics}\label{PPHYS}
@@ -41,8 +40,8 @@
 This chapter provides a self-contained introduction
 into the theory of neutron and X-ray scattering,
 as needed for the analysis of grazing-incidence small-angle scattering (GISAS) experiments.
-\index{Scattering!grazing-incidence}%
 \index{Grazing-incidence small-angle scattering}%
+\index{Scattering!grazing incidence|see{Grazing-incidence small-angle scattering}}%
 \index{GISAS|see{Grazing-incidence small-angle scattering}}%
 In \Cref{Swave},
 a generic wave equation is derived.
@@ -144,12 +143,7 @@ with the rescaled form of Fermi's pseudopotential
   \coloneqq \frac{m}{2\pi\hbar^2} V(\r)
   = \sum_j\left\langle b_j \delta\left(\r-\r_j(t)\right)\right\rangle.
 \end{equation}
-The sum runs over all nuclei in the \E{scattering target},
-\index{Scattering target|see{Sample}}%
-\index{Target!scattering}%
-or \E{sample},
-\index{Sample}%
-as we will call it henceforth.
+The sum runs over all nuclei exposed to~$\psi$.
 The \E{bound scattering length}~$b_j$
 \index{Scattering length}%
 \index{Bound scattering length|see{Scattering length}}%
@@ -224,7 +218,7 @@ is just a \E{scattering length density} (SLD)
 
 \index{Field!magnetic|see{Magnetic field}}%
 \index{H Field@$H$ Field|see{Magnetizing field}}%
-\index{B Field@$H$ Field|see{Magnetizing field}}%
+\index{B Field@$B$ Field|see{Magnetic field}}%
 
 In presence of a magnetic field,
 the propagation of free neutrons becomes spin dependent.
@@ -310,8 +304,11 @@ The propagation of X-rays is governed by Maxwell's equations,
   \end{array}
 \end{equation}
 \nomenclature[2e150 2r040 2t020]{$\v{E}(\r,t)$}{Electric field}%
+\index{Electric field}
 \nomenclature[2d150 2r040 2t020]{$\v{D}(\r,t)$}{Displacement field}%
 \nomenclature[2b150 2r040 2t020]{$\v{B}(\r,t)$}{Magnetic field}%
+\index{Magnetic field}
+\index{Magnetizing field}
 \nomenclature[1ε070 2r040]{$\v\eps(\r)$}{Relative dielectric permittivity tensor}%
 \nomenclature[1μ070 2r040]{$\v\mu(\r)$}{Relative magnetic permeability tensor}%
 \nomenclature[1ε024 00]{$\eps_0$}{Vacuum permittivity, 8.854\ldots As/Vm}%
@@ -410,14 +407,14 @@ Using a standard identity from vector analysis, it can be brought into the more 
 We combine all the above in a unified wave equation
 \index{Wave equation!generic}%
 \Emph{
-\begin{equation}\label{EUniWave}
+\begin{equation}\label{EWAVE}
   \left( \TDo(\r) - 4\pi\TV(\r) \right) \v\Psi(\r) = 0
 \end{equation}
 \vspace*{-5pt}}
-with the vacuum wave propagation operator
-\index{Vacuum!wave propagation operator}%
-\index{Wave!propagation operator}%
-\begin{equation}
+with the vacuum wave operator
+\index{Vacuum!wave operator}%
+\index{Wave!operator!vacuum}%
+\begin{equation}\label{EDo}
   \TDo \coloneqq \left\{ \begin{array}{ll}
       \Nabla^2 + K^2                     &\text{~~~for neutrons,}\\
       \Nabla^2 - \Nabla\cdot\Nabla + K^2 &\text{~~~for X-rays}
@@ -427,7 +424,7 @@ with the vacuum wave propagation operator
 and the potential
 \index{Potential!generic}%
 \nomenclature[2v170 2r040]{$\TV(\r)$}{Generic potential}%
-\begin{equation}
+\begin{equation}\label{ETV}
   \TV(\r) \coloneqq \left\{ \begin{array}{ll}
       v(\r)                         &\text{~~~for neutrons (scalar),}\\
       v(\r)+\v{h}(\r)\v\sigma       &\text{~~~for neutrons (spinorial),}\\
@@ -446,93 +443,112 @@ the spinor $\v{\Psi}$, or the electric field~$\v{E}$, as applicable.
 \section{Distorted-wave Born approximation}\label{SDWBA}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To
+To describe scattering from a condensed-matter sample,
+\index{Scattering!target|see{Sample}}%
+\index{Target|see{Sample}}%
+\index{Sample}%
+the wave equation is solved through a perturbation expansion.
+The ordinary form of this expansion, the \E{Born approximation} (BA),
+\index{BA|see{Born approximation}}%
+\index{Born approximation}%
+is derived in many textbooks.\footnote
+{For a particularly detailed derivation
+see Schober's lecture notes on neutron scattering~\cite{Sch14}.}
+%E.~g.\ \cite{} for neutrons;
+%\cite[Sect 9.7]{Jac75} for electromagnetic radiation}
+For scattering under grazing-incidence,
+\index{Grazing-incidence small-angle scattering}%
+however, the more generic
+\index{Distorted-wave Born approximation}%
+\E{distorted-wave Born approximation} (DWBA)\footnote
+{The DWBA was originally devised by Massey and Mott (ca 1933)
+for collisions of charged particles.
+Summaries can be found in some quantum mechanics textbooks (Messiah, Schiff)
+and in monographs on scattering theory (e.~g.\ Newton).
+The first explicit applications to grazing-incidence scattering
+were published in 1982:
+Vineyard \cite{Vin82} discussed X-ray scattering,
+but failed to account for the distortion of the scattered wave;
+Mazur and Mills \cite{MaMi82} deployed heavy formalism
+to compute the inelastic neutron scattering cross section
+of ferromagnetic surface spin waves from scratch.
+A concise derivation of the DWBA cross section
+was provided by Dietrich and Wagner (1984/85)
+for X-rays \cite{DiWa84} and neutrons \cite{DiWa85}.
+Unfortunately, their work was overlooked in much of the later literature,
+which often fell back to less convincing derivations.}
+is required.
+In this section, we provide a self-contained derivation
+based on the unified neutron and X-ray wave equation~\cref{EWAVE}.
+
 %===============================================================================
-\subsection{Perturbed wave equation}\label{Sfluct}
+\subsection{Distortion versus perturbation}\label{Sdecompose}
 %===============================================================================
 
-We now begin to study scattering by condensed-matter samples.
-We will determine scattering cross sections
-\index{Cross section}%
-\index{Scattering!cross section}%
-by solving the wave equations \cref{ESchrodi2,ESchrodi2H,ENabNabE}
-through a perturbation expansion.
-\index{Perturbation expansion}%
-However, to achieve rapid convergence
-we must not treat \E{all} of $v(\r)$, $\v{h}(\r)$ or $\epsilon(\r)$
-as a perturbation.
-Rather, we will decompose each of these fields into a more \E{regular}
-and a more \E{fluctuating} part:
-\begin{subequations}
-\begin{alignat}{2}
-  &v(\r)        &&\eqqcolon \mv(\r) + \delta v(\r),\\
-  &\v{h}(\r)    &&\eqqcolon \overline{\v{h}}(\r) + \delta\v{h}(r),\\
-  &\epsilon(\r) &&\eqqcolon \overline\epsilon(\r) + \delta\epsilon(\r).
-\end{alignat}
-\end{subequations}
-If the fluctuating part is zero,
-then the remaining wave equation must allow for an analytical solution.
-This solution will be called the \E{distorted wave},
-\index{Distorted wave}%
-\index{Wave!distorted}%
-since it is distorted with respect to the \E{plane wave} solution
-\index{Plane!wave}%
-\index{Wave!plane}%
-that is obtained outside the sample
-under the vacuum
-\index{Vacuum}%
-condition $v=0$, $\v{h}=0$, or $\epsilon=1$.
-The fluctuating part stands for the more irregular features of the sample
+To get started,
+we decompose the potential \cref{ETV}
+into a more \E{regular} and a more \E{fluctuating} part:
+\begin{equation}\label{Edecompose}
+  \TV(\r) \eqqcolon \TL(\r) + \TU(\r).
+\end{equation}
+The \E{distortion field}~$\TL$
+\index{Distortion field}%
+\nomenclature[1λ170 2r040]{$\TL(\r)$}{Distortion field}%
+comprises regular, well-known features of the sample.
+The \E{perturbation potential}~$\TU$
+\index{Perturbation potential}%
+\index{Potential!perturbation}%
+\nomenclature[2u170 2r040]{$\TU(\r)$}{Perturbation potential}%
+stands for the more irregular, unknown features of the sample
 one ultimately wants to study in a scattering experiment.
+This is vague,
+and in certain situations the decomposition~\cref{Edecompose} is indeed
+to some extent arbitrary.
+However, in most practical cases $\TL$ and $\TU$ are clearly determined by
+the following basic idea of DWBA:
 
-The generic wave equation is
-\index{Wave equation!generic}%
+The wave equation~\cref{EWAVE} shall henceforth be written as
 \Emph{
 \begin{equation}\label{EDPsi}
-  \TD(\r)\v\Psi(\r) = 4\pi\TENS{U}(\r).
+  \TD(\r)\v\Psi(\r) = 4\pi\TENS{U}(\r)
 \end{equation}
 \vspace*{-5pt}}
+with the \E{distorted wave operator}
+\index{Distorted wave!operator}%
+\index{Wave!operator!distorted}%
 \nomenclature[2d138 2r040]{$\TD(\r)$}{Differential operator in the wave equation}%
-The wave propagation operator
 \begin{equation}
-  \TD(\r) \coloneqq \TDo - \TL(\r)
+  \TD(\r) \coloneqq \TDo - 4\pi\TL(\r).
 \end{equation}
-is composed of the vacuum wave propagation operator ...
-and the distortion field
-\begin{subequations}
-\begin{alignat}{2}
-  \Lambda(\r) &\coloneqq 4\pi\mv(\r)
-      &&\text{~~~for neutrons (scalar),}\\
-  \TL(\r) &\coloneqq 4\pi\left(\mv(\r)+\overline{\v{h}}(\r)\v\sigma\right)
-      &&\text{~~~for neutrons (spinorial),}\\
-  \Lambda(\r) &\coloneqq K^2(\epsilon(\r)-1)
-      &&\text{~~~for X-rays.}
-\end{alignat}
-\end{subequations}
-Furthermore, the wave equation contains the perturbation
-\begin{subequations}
-\begin{alignat}{2}
-  U(\r) &\coloneqq \delta v(\r)
-      &&\text{~~~for neutrons (scalar),}\\
-  \TENS{U}(\r) &\coloneqq \delta v(\r)+\delta{\v{h}}(\r)\v\sigma
-      &&\text{~~~for neutrons (spinorial),}\\
-  U(\r) &\coloneqq K^2\delta \epsilon(\r)/(4\pi)
-      &&\text{~~~for X-rays.}
-\end{alignat}
-\end{subequations}
+Only $\TENS{U}$ shall be treated as a \E{perturbation}.
+The propagation of incident and scattered waves under the influence of~$\TL$,
+in contrast,
+shall be handled \E{exactly},
+through analytical solution of the \E{unperturbed distorted wave equation}
+\index{Unperturbed distorted wave equation}%
+\index{Distorted wave!wave equation}%
+\index{Wave equation!unperturbed distorted}%
+\begin{equation}\label{EDPsi0}
+  \TD(\r)\v\Psi(\r) = 0.
+\end{equation}
+The solutions are called \E{distorted}
+\index{Distorted wave}%
+\index{Wave!distorted}%
+because they differ from the \E{plane} waves
+\index{Plane!wave}%
+\index{Wave!plane}%
+obtained in the \E{vacuum} case $\TL=0$.
+\index{Vacuum}%
 
-%===============================================================================
-\subsection{Unperturbed distorted wave}\label{Sudw}
-%===============================================================================
-
-If the distortion field is scalar,
-then it can be expressed through the \E{refractive index}
+Except for neutrons in a magnetic field
+the distortion field is scalar so
+that it can be expressed through the \E{refractive index}
 \index{Refractive index}%
 \index{Index of refraction|see {Refractive index}}%
 \nomenclature[2n020]{$n$}{Refractive index}%
 \begin{equation}\label{EnkK}
   n(\r)
-  \coloneqq\sqrt{1-\frac{\Lambda(\r)}{K^2}}
+  \coloneqq\sqrt{1-\frac{4\pi\Lambda(\r)}{K^2}}
   = \left\{\begin{array}{ll}
        \sqrt{1-4\pi\mv(\r)/K^2} &\text{ for neutrons,}\\
        \sqrt{\epsilon(\r)} &\text{ for X-rays.}
@@ -556,46 +572,66 @@ in the X-ray crystallography convention it would be a minus sign.
 \index{Refractive index!sign convention}%
 \index{Sign convention!refractive index}}
 and much smaller than~1.
+This explains why in most scattering geometries
+\index{Scattering!geometry}%
+the ordinary Born approximation
+\index{Born approximation}%
+with $\TL\equiv0$ is perfectly adequate.
+In layered samples under grazing incidence,
+\index{Grazing incidence}%
+however, even small differences in~$n$ can cause substantial
+\E{refraction} and \E{reflection}.
+\index{Refraction}%
+\index{Reflection}%
+To model GISAS, therefore,
+it is necessary to use DWBA,
+\index{Distorted-wave Born approximation}%
+and to let $\TL$ represent
+the average vertical refractive index profile~$\overline{n}(z)$.
+\index{Refractive index!profile}%
 
-TO INTEGRATE:
+%===============================================================================
+\subsection{The Rayleigh-Born expansion}\label{SBornExpans}
+%===============================================================================
 
-Because these solutions are no longer plane waves,
-we need to work out a terminological and notational distinction
-that is blurred in the standard Born approximation:
-we need to distinguish
- between the \E{exciting} wave~$\psi_\se$
-\nomenclature[1ψ034 2e000]{$\psi_\se(\r)$}{Exciting wave}%
-and the \E{incident} wave~$\psi_\si$.
-The \E{exciting wave}
+The solution of the wave equation~\cref{EDPsi}
+starts with the determination of the \E{incident} wave~$\v\Psi_\si$.
+\nomenclature[1ψ074 2i000 2r040]{$\v\Psi_\si(\r)$}{Incident wavefunction}%
+\nomenclature[2i000]{i}{Subscript ``incident''}%
+\index{Incident radiation!Born approximation}%
+\index{Wave!incident}%
+\index{Radiation|seealso{Wave}}%
+\index{Incident wave!DWBA}%
+\index{Incident wave!vs exciting wave}%
+It is important to distinguish the \E{incident} from the \E{exciting} wave.
 \index{Exciting wave}%
 \index{Wave!exciting}%
+They coincide in ordinary Born approximation, but not in DWBA.
+\index{Born approximation}%,
+
+The \E{exciting wave}
 is prepared far
 outside the sample by a radiation source and some optical devices.
 \index{Radiation source}%
 It is a superposition of plane waves,
 as discussed later in the context of instrumental resolution effects
 (\cref{SInstr}).
-Here, while discussing scattering theory,
-it shall be represented by a single plane wave
-$\psi_\se(\r)=\e^{i\k_\se\r}$.
+While discussing scattering theory,
+it is usually represented by a single plane wave
+$\v\Psi_\se(\r)=\e^{i\k_\se\r}$.
+\nomenclature[1ψ134 2e000]{$\v\Psi_\se(\r)$}{Exciting wave}%
 This function is defined for all~$\r$,
 but is physical only along the primary beam, upstream of the sample.
 
-In contrast, by the \E{incident wave}~$\psi_\si(\r)$
+The \E{incident wave}~$\v\Psi_\si$
 \index{Incident wave!DWBA}%
 \index{Incident wave!vs exciting wave}%
 \index{Wave!incident}%
-we understand an exact solution of~\cref{EHomoK}.
-Upstream of the sample, along the primary beam, it coincides with the exciting wave.
-Inside the sample, however, it undergoes refraction and reflection,
-and therefore no longer is a plane wave, and no longer equals~$\psi_\se(\r)$.
-This is different from the conventional Born approximation,
-where $\psi_\si$ is a plane wave throughout the sample,
-and therefore must not be distinguished from~$\psi_\se$.
-
-%===============================================================================
-\subsection{The Born expansion}\label{SBornExpans}
-%===============================================================================
+is an exact solution of~\cref{EDPsi0}
+under the boundary condition that it must match~$\v\Psi_\se$
+upstream of the sample.
+Inside the sample it undergoes refraction and reflection
+or other modifications under the influence of the distortion field~$\TL$.
 
 A formal solution of the wave equation~\cref{EDPsi} is provided
 by the \E{Lippmann-Schwinger equation}
@@ -605,25 +641,15 @@ by the \E{Lippmann-Schwinger equation}
   = \v\Psi_\si(\r)
   + \int\!\d^3r'\, \TG(\r,\r') \TU(\r')\v\Psi(\r').
 \end{equation}
-It involves the incident wave~$\v\Psi_\si$, governed by the unperturbed distorted wave equation
-\index{Wave equation!unperturbed}%
-\nomenclature[1ψ074 2i000 2r040]{$\v\Psi_\si(\r)$}{Incident wavefunction}%
-\nomenclature[2i000]{i}{Subscript ``incident''}%
-\index{Incident radiation!Born approximation}%
-\index{Wave!incident}%
-\index{Radiation|seealso{Wave}}%
-\begin{equation}\label{EDPsii}
-  \TD(\r)\v\Psi_\si(\r) = 0,
-\end{equation}
-and the Green function~$\TG$,
+It involves the Green function~$\TG$,
 \index{Green function}%
-\nomenclature[2g170 2r020 2r021]{$G(\r,\r')$}{Generic (possibly tensorial) Green function}%
+\nomenclature[2g170 2r020 2r021]{$\TG(\r,\r')$}{Generic (possibly tensorial) Green function}%
 which must fulfill
 \begin{equation}\label{EGREEN}
   \TD(\r)\v\TG(\r,\r') = \ONE \delta(\r-\r') \eqqcolon \Td(\r-\r').
 \end{equation}
 To see that the Lippmann-Schwinger equation solves indeed the perturbed wave equation~\cref{EDPsi},
-operate on both sides of\cref{EPsiLS} with~$\TD(\r)$.
+operate on both sides of~\cref{EPsiLS} with~$\TD(\r)$.
 The Lippmann-Schwinger equation can be resolved into an infinite series
 by iteratively substituting the full right-hand side of~\cref{EPsiLS}
 for the occurence of~$\v\Psi$ in the integrand.
@@ -652,11 +678,13 @@ that are not illuminated by the incident beam,
 we are only interested in the scattered wave
 \index{Scattered radiation!Born approximation}%
 \index{Wave!scattered}%
+\Emph{
 \begin{equation}\label{EBornS}
   \v\Psi_\text{s}(\r)
   \coloneqq
   \int\!\d^3r'\, \TG(\r,\r') \TU(\r') \v\Psi_\si(\r').
 \end{equation}
+\vspace*{-5pt}}
 \nomenclature[1ψ034 2s000 0 2r040]{$\psi_\text{s}(\r)$}{Scattered wavefunction}%
 \nomenclature[2s000 0]{s}{Subscript ``scattered''}%
 For brevity and mathematical convenience,
@@ -688,6 +716,8 @@ it is sufficient to solve~\cref{EGREEN} for the far-field Green function
 \begin{equation}\label{EGinftydef}
   \TG^\infty(\r,\r')\coloneqq \lim_{r\to\infty} \TG(\r,\r').
 \end{equation}
+\nomenclature[2g174 2far]{$\TG^\infty(\r,\r')$}{Far-field
+   approximation to the Green function $G(\r,\r')$}%
 
 In deriving~$\TG^\infty$, it is preferable to work with well-defined
 \E{polarization states}.
@@ -746,13 +776,13 @@ Following Dietrich and Wagner \cite{DiWa84,DiWa85,DiWa16},
 we write Lippmann-Schwinger equations for a distorted wave
 \begin{equation}\label{ELS2Psi}
    \Psio_\alpha(\r)
-   = \int\!\d^3r''\, \left( \delta(\r-\r'') + \vGo_\alpha(\r,\r'')\TL(\r'') \right)
+   = \int\!\d^3r''\, \left( \delta(\r-\r'') + \vGo_\alpha(\r,\r'')4\pi\TL(\r'') \right)
                      \v\Psi_\alpha(\r''),
 \end{equation}
 and for the Green function
 \begin{equation}\label{ELS2G}
    \vGo_\alpha(\r,\r')
-   = \int\!\d^3r''\, \left( \delta(\r-\r'') + \vGo_\alpha(\r,\r'')\TL(\r'') \right)
+   = \int\!\d^3r''\, \left( \delta(\r-\r'') + \vGo_\alpha(\r,\r'')4\pi\TL(\r'') \right)
                      \v{G}_\alpha(\r'',\r').
 \end{equation}
 Operate on both sides with~$\TDo(\r)$ to verify that
@@ -770,7 +800,7 @@ To continue, use the reciprocity of the Green function (proven in \cref{SReci}),
 and take the far-field limit to transform~\cref{ELS2G} into
 \begin{equation}\label{ELS2G2}
    \phi(r')\Psio_\alpha^*(\r)
-   = \int\!\d^3r''\, \left( \delta(\r-\r'') + \vGo_\alpha(\r,\r'')\TL(\r'') \right)
+   = \int\!\d^3r''\, \left( \delta(\r-\r'') + \vGo_\alpha(\r,\r'')4\pi\TL(\r'') \right)
                      \v{G}_\alpha^\infty(\r',\r'').
 \end{equation}
 Take the complex conjugate of~\cref{ELS2Psi},
@@ -795,11 +825,9 @@ In the end, we found it simpler to provide a derivation taylored for our applica
 than to refer to the literature.}
 The theorem states:
 Any Green function $G(\r,\r')$
-that solves~\cref{EGreenK} and as function of~$\r$ represents an outgoing wave
-[in accord with the Sommerfeld radiation condition,
-\index{Sommerfeld radiation condition}%
-\index{Radiation condition}%
-cf.~\cref{Escabouco}]
+that solves~\cref{EGREEN} and as function of~$\r$ represents an outgoing wave
+%(in accord with the Sommerfeld radiation condition)
+%\index{Sommerfeld radiation condition}%
 is invariant under an exchange of source location~$\rS$ and detection point~$\rD$:
 \nomenclature[2r041 2d100]{$\rD$}{Position of detector}%
 \nomenclature[2r041 2s100]{$\rD$}{Position of source, locus of scattering}%
@@ -1129,18 +1157,6 @@ This explains the appearance of the factor $4\pi$.}
   G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|}.
 \end{equation}
 
-\subsection{Neutron scattering in Born approximation}%\label{SBornApprox}
-
-The standard first-order Born approximation (BA, \cref{SBornApprox})
-is regularly used  for the analysis of small-angle scattering (SAS) experiments.
-\index{Small-angle scattering}%
-\index{BA|see{Born approximation}}%
-\index{Born approximation}%
-For grazing-incidence small-angle scattering (GISAS),
-one uses the slightly more generic distorted wave Born approximation (DWBA, \Cref{SDWBA}).
-\index{Distorted-wave Born approximation}%
-
-
 %===============================================================================
 \subsection{Vacuum solution}%\label{Sfarfield}
 %===============================================================================
@@ -1164,8 +1180,6 @@ and obtain in leading order the far-field Green function
   G_\infty(\r,\r')
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r'),
 \end{equation}
-\nomenclature[2g134 2far]{$G_\infty(\r,\r')$}{Far-field
-   approximation to the Green function $G(\r,\r')$}%
 where
 \begin{equation}%\label{EPsisfar}
   \psi_\sf(\r) \coloneqq  \e^{i\k_\sf \r}
@@ -1234,49 +1248,6 @@ the Fourier transform $v(\q)$ of the SLD.
 \index{Fourier transform!scattering potential}%
 
 \index{Far-field approximation|)}%
-
-%===============================================================================
-\subsection{Distorted-wave Born approximation (DWBA)}%\label{SDWBA}
-%===============================================================================
-
-\index{Distorted-wave Born approximation|(}%
-
-The standard Born approximation depends on the choice $\mv=\text{const}$,
-which implies that $\psi_\si$ and $\psi_\sf$ are plane waves.
-In the distorted-wave Born approximation (DWBA),\footnote{
-The DWBA was originally devised by Massey and Mott (ca 1933)
-for collisions of charged particles.
-Summaries can be found in some quantum mechanics textbooks (Messiah, Schiff)
-and in monographs on scattering theory (e.~g.\ Newton).
-The first explicit applications to grazing-incidence scattering
-were published in 1982:
-Vineyard \cite{Vin82} discussed X-ray scattering,
-but failed to account for the distortion of the scattered wave;
-Mazur and Mills \cite{MaMi82} deployed heavy formalism
-to compute the inelastic neutron scattering cross section
-of ferromagnetic surface spin waves from scratch.
-A concise derivation of the DWBA cross section
-was provided by Dietrich and Wagner (1984/85)
-for X-rays \cite{DiWa84} and neutrons \cite{DiWa85}.
-Unfortunately, their work was overlooked in much of the later literature,
-which often fell back to less convincing derivations.}
-this requirement is dropped.
-The SLD decomposition~\cref{Edecompose_v}
-is restored to full genericity,
-and it is taken for granted
-that somehow analytical or numerical solutions $\psi_\si$ and~$\psi_\sf$
-of the homogeneous wave equation~\cref{EHomoK}
-have been obtained.
-
-
-Differently from the above derivation of the Born expansion,
-we will not even attempt to obtain a full solution
-\index{Green function!DWBA}%
-of the Green function equation~\cref{EGreenK}.
-We will use indirect arguments to directly obtain its far-field asymptote $G_\infty$.
-
-
-\index{Distorted-wave Born approximation|)}%
 
 %===============================================================================
 \subsection{X-ray scattering cross section}%\label{SXscasol}

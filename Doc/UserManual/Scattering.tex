@@ -742,7 +742,10 @@ Similarly, we introduce the vectorial Green function with final polarization sta
    \v{G}^\alpha(\r,\r')
    \coloneqq \ue_\alpha^* \TG(\r,\r').
 \end{equation}
-Its far-field limit has the simple form
+The main result of this entire chapter\footnote
+{To our knowledge, \cref{EmyG} has never before been stated.
+Informations about similar expressions anywhere in the literature would be highly welcome.}
+is the following simple expression for its far-field:
 \Emph{
 \begin{equation}\label{EmyG}
   \v{G}^\infty_\alpha(\r,\r') = \phi(r) \v\Psi_\alpha^*(\r'),
@@ -758,8 +761,13 @@ and $\v\Psi_\alpha$ is a solution of the unperturbed distorted wave equation
 \end{equation}
 with the boundary condition
 \begin{equation}
-  \Psi_\alpha(\r) = \ue_\alpha\text{~~for }r\to\infty.
+  \v\Psi_\alpha(\r) = \ue_\alpha\e^{i\k_\sf\r}
 \end{equation}
+for $r\to\infty$ and
+with an outgoing wavevector
+\nomenclature[2f000]{f}{Subscript ``final''}%
+$\k_\sf\coloneqq K \r / r$.
+
 
 We now outline a proof for~\cref{EmyG}.
 We first consider wave propagation in vacuum,

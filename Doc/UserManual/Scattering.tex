@@ -428,7 +428,7 @@ and the potential
   \TV(\r) \coloneqq \left\{ \begin{array}{ll}
       v(\r)                         &\text{~~~for neutrons (scalar),}\\
       v(\r)+\v{h}(\r)\v\sigma       &\text{~~~for neutrons (spinorial),}\\
-      K^2\delta \epsilon(\r)/(4\pi) &\text{~~~for X-rays.}
+      K^2(\epsilon(\r)-1)/(4\pi) &\text{~~~for X-rays.}
   \end{array}\right.
 \end{equation}
 The generic wave amplitude $\v{\Psi}$
@@ -742,10 +742,10 @@ Similarly, we introduce the vectorial Green function with final polarization sta
    \v{G}^\alpha(\r,\r')
    \coloneqq \ue_\alpha^* \TG(\r,\r').
 \end{equation}
-The main result of this entire chapter\footnote
-{To our knowledge, \cref{EmyG} has never before been stated.
-Informations about similar expressions anywhere in the literature would be highly welcome.}
-is the following simple expression for its far-field:
+In the far-field limit, it is given by\footnote
+{To our knowledge,
+the simple expression \cref{EmyG} has never before been stated.
+Informations about similar results anywhere in the literature would be highly welcome.}
 \Emph{
 \begin{equation}\label{EmyG}
   \v{G}^\infty_\alpha(\r,\r') = \phi(r) \v\Psi_\alpha^*(\r'),
@@ -768,8 +768,11 @@ with an outgoing wavevector
 \nomenclature[2f000]{f}{Subscript ``final''}%
 $\k_\sf\coloneqq K \r / r$.
 
-
 We now outline a proof for~\cref{EmyG}.
+We take for granted that Green functions obye \E{source-detector reciprocity} \cite{Pot04},
+\begin{equation}
+  \TG(\r,\r') = \TG(\r',\r).
+\end{equation}
 We first consider wave propagation in vacuum,
 denoted by an overset circle.
 Exact Green functions
@@ -801,10 +804,7 @@ imply
 \begin{equation}
   \TD(\r)\TG(\r,\r') = \Td(\r-\r') \text{ and } \TD(\r)\v\Psi(r)=0.
 \end{equation}
-To continue, use the reciprocity of the Green function (proven in \cref{SReci}),
-\begin{equation}
-  \TG(\r,\r') = \TG(\r',\r),
-\end{equation}
+To continue, use the reciprocity of the Green function,
 and take the far-field limit to transform~\cref{ELS2G} into
 \begin{equation}\label{ELS2G2}
    \phi(r')\Psio_\alpha^*(\r)
@@ -820,6 +820,7 @@ to read off
 which is~\cref{EmyG}.
 
 %===============================================================================
+\iffalse
 \subsection{Reciprocity of the Green function}\label{SReci}
 %===============================================================================
 
@@ -890,8 +891,7 @@ which completes the proof.
 
 \index{Reciprocity|)}%
 \index{Green function!reciprocity|)}%
-
-
+\fi
 
 %===============================================================================
 \subsection{Differential cross section}\label{SdiffCross}

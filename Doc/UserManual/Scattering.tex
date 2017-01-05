@@ -38,34 +38,34 @@
 \chapter{Scattering}  \label{SSca}
 \chaptermark{Scattering}
 
-TODO: REWRITE
-This chapter introduces the basic theory of small-angle scattering (SAS).
-\index{Small-angle scattering}%
-\index{SAS|see{Small-angle scattering}}%
-We specifically consider scalar neutron and X-ray propagation,
-adjourning the notationally more involved
-theory of polarized neutrons to \Cref{SPol}.
-Our exposition is self-contained,
-except for the initial passage from the microscopic
-to the macroscopic Schrödinger equation,
-which we outline only briefly (\Cref{Swave}).
-For X-rays, we obtain the same perturbed Schrödinger equation from Maxwell's equations
-(\Cref{SXray}).
-The standard description of scattering in first-order Born approximation
-(\Cref{SBornApprox})
-is introduced in a way that facilitates the following generalization
-into the distorted-wave Born approximation (DWBA)
-needed for grazing-incidence scattering (\Cref{SDWBA}).
-This chapter finishes with a qualitative discussion
-of coherence lengths (\Cref{Scoherlen}).
+This chapter provides a self-contained introduction
+into the theory of neutron and X-ray scattering,
+as needed for the analysis of grazing-incidence small-angle scattering (GISAS) experiments.
+\index{Scattering!grazing-incidence}%
+\index{Grazing-incidence small-angle scattering}%
+\index{GISAS|see{Grazing-incidence small-angle scattering}}%
+In \Cref{Swave},
+a generic wave equation is derived.
+In \Cref{SDWBA},
+it is solved in first-order distorted-wave Born approximation (DWBA).
+\index{DWBA|see {Distorted-wave Born approximation}}%
+\index{Distorted-wave Born approximation}%
+The chapter finishes with a qualitative discussion
+of coherence lengths in \Cref{Scoherlen}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Wave propagation}\label{Swave}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Wave propagation|(}%
 
+In this section, we review the wave equations that describe the propagation
+of neutrons (\cref{SnScalar,SnSpinor}) and X-rays (\cref{SXwave}) in matter,
+and combine them into a unified wave equation (\cref{SuniWave})
+that is the base for the all following analysis.
+
 %===============================================================================
-\subsection{Neutrons}\label{ScohWave}
+\subsection{Neutrons}\label{SnScalar}
 %===============================================================================
 \index{Wave propagation!neutron|(}%
 \index{Neutron!wave propagation|(}%
@@ -161,6 +161,7 @@ values are tabulated \cite{Sea92}.
 In \E{small-angle scattering},
 \index{Scattering!small-angle}%
 \index{Small-angle scattering}%
+\index{SAS|see{Small-angle scattering}}%
 as elsewhere in \E{neutron optics} \cite{Sea89},
 \index{Neutron!optics}%
 \index{Optics!neutron}%
@@ -214,7 +215,7 @@ is just a \E{scattering length density} (SLD)
 \cite[eq.\ 2.8.37]{Sea89}.
 
 %===============================================================================
-\subsection{Neutrons in a magnetic field}\label{Snpwave}
+\subsection{Neutrons in a magnetic field}\label{SnSpinor}
 %===============================================================================
 
 \index{Neutron!spin|(}%
@@ -227,7 +228,7 @@ is just a \E{scattering length density} (SLD)
 
 In presence of a magnetic field,
 the propagation of free neutrons becomes spin dependent.
-Therefore the scalar wavefunction of \cref{ScohWave}
+Therefore the scalar wavefunction of \cref{SnScalar}
 must be replaced by spinor $\v\Psi$.
 \index{Spinor}%
 The magnetic moment of the neutron couples to the magnetizing field~$\v{H}$ \cite{Mez86}.
@@ -320,7 +321,7 @@ Since BornAgain only addresses elastic scattering,
 we assume the permeability and permittivity tensors $\v\mu$ and~$\v\eps$
 to be time-independent.
 \index{Time dependence!dielectric permittivity}%
-Therefore, as in~\cref{ScohWave}, we only need to consider monochromatic waves
+Therefore, as in~\cref{SnScalar}, we only need to consider monochromatic waves
 \index{Wave!monochromatic}%
 \index{Monochromatic wave}%
 with given frequency~$\omega$,
@@ -403,7 +404,7 @@ Using a standard identity from vector analysis, it can be brought into the more 
 \index{Wave propagation!X-ray|)}%
 
 %===============================================================================
-\subsection{Unified wave equation}\label{SUniWave}
+\subsection{Unified wave equation}\label{SuniWave}
 %===============================================================================
 
 We combine all the above in a unified wave equation
@@ -440,10 +441,12 @@ shall represent
 the scalar neutron wavefunction~$\psi$,
 the spinor $\v{\Psi}$, or the electric field~$\v{E}$, as applicable.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Distorted-wave Born approximation}\label{SDWBA}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+To
 %===============================================================================
 \subsection{Perturbed wave equation}\label{Sfluct}
 %===============================================================================
@@ -1107,7 +1110,7 @@ under the asymptotic boundary condition\footnote
 \index{Radiation condition}%
 }
 \index{Boundary conditions!elastic scattering}%
-\begin{equation}\label{Escabouco}
+\begin{equation}%\label{Escabouco}
   \psi(\r)
   \simeq \psi_\si(\r) + f(\vartheta,\varphi)\frac{\e^{iKr}}{4\pi r}
   \text{~for~}r\to\infty,
@@ -1122,11 +1125,11 @@ one encloses the origin in a small sphere
 and integrates by means of the Gauss-Ostrogadsky divergence theorem.
 This explains the appearance of the factor $4\pi$.}
 \index{Green function!homogeneous material}%
-\begin{equation}\label{EGreens1}
+\begin{equation}%\label{EGreens1}
   G(\r,\r') = \frac{\e^{iK|\r-\r'|}}{4\pi |\r-\r'|}.
 \end{equation}
 
-\subsection{Neutron scattering in Born approximation}\label{SBornApprox}
+\subsection{Neutron scattering in Born approximation}%\label{SBornApprox}
 
 The standard first-order Born approximation (BA, \cref{SBornApprox})
 is regularly used  for the analysis of small-angle scattering (SAS) experiments.
@@ -1139,7 +1142,7 @@ one uses the slightly more generic distorted wave Born approximation (DWBA, \Cre
 
 
 %===============================================================================
-\subsection{Vacuum solution}\label{Sfarfield}
+\subsection{Vacuum solution}%\label{Sfarfield}
 %===============================================================================
 
 Read as a function of~$\r$, it is an outgoing spherical wave centered at $\r'$.
@@ -1157,14 +1160,14 @@ $  \k_\sf\coloneqq K \r / r$.
 We apply this to~\cref{EGreens1},
 \index{Green function!homogeneous material}%
 and obtain in leading order the far-field Green function
-\begin{equation}\label{EGreenFar}
+\begin{equation}%\label{EGreenFar}
   G_\infty(\r,\r')
   = \frac{\e^{iKr}}{4\pi r}\psi^*_\sf(\r'),
 \end{equation}
 \nomenclature[2g134 2far]{$G_\infty(\r,\r')$}{Far-field
    approximation to the Green function $G(\r,\r')$}%
 where
-\begin{equation}\label{EPsisfar}
+\begin{equation}%\label{EPsisfar}
   \psi_\sf(\r) \coloneqq  \e^{i\k_\sf \r}
 \end{equation}
 \nomenclature[1ψ034 2f000 2r040]{$\psi_\sf(\r)$}{Plane
@@ -1175,7 +1178,7 @@ As function of~$\r$, $G_\infty$ is an outgoing spherical wave.
 Inserting \cref{EGreenFar} in \cref{EBornS},
 we obtain the far-field approximation for the scattered wave,
 \index{Scattered radiation!far-field}%
-\begin{equation}\label{EsandwichC}
+\begin{equation}%\label{EsandwichC}
   \psi_{\text{s}\infty}(\r)
   = \frac{\e^{iKr}}{r}
     \bra \psi_\si|\delta v|\psi_\sf\ket^*
@@ -1186,7 +1189,7 @@ with the Dirac notation for the scattering matrix element
 \index{Scattering!matrix}%
 \index{Transition matrix|see{Scattering matrix}}%
 \Emph{%
-\begin{equation}\label{Etrama}
+\begin{equation}%\label{Etrama}
   \bra \psi_\si|\delta v|\psi_\sf\ket
   \coloneqq  \int\!\d^3r\, \psi^*_\si(\r)\delta v(\r)\psi_\sf(\r).
 \end{equation}
@@ -1195,7 +1198,7 @@ with the Dirac notation for the scattering matrix element
   element, defined as a volume integral}%
 Since per \cref{EPsi0Plane} and~\cref{EPsisfar} our $\psi_\si$ and~$\psi_\sf$ are plane waves,
 the matrix element can be simplified as
-\begin{equation}\label{Echiq}
+\begin{equation}%\label{Echiq}
   \bra \psi_\si|\delta v|\psi_\sf\ket
   = \int\!\d^3r\, {\rm e}^{-i\k_\si\r}\delta v(\r){\rm e}^{i\k_\sf\r}
   = \int\!\d^3r\, {\rm e}^{i\q\r}\delta v(\r)
@@ -1220,7 +1223,7 @@ and scattering vector components
 with respect to equally oriented coordinate axes,
 which can only be achieved by the convention~\cref{Eq}.}
 \index{Scattering!vector}%
-\begin{equation}\label{Eq}
+\begin{equation}%\label{Eq}
   \q\coloneqq \k_\sf-\k_\si.
 \end{equation}
 \nomenclature[2q040]{$\q$}{Scattering vector}%
@@ -1233,11 +1236,10 @@ the Fourier transform $v(\q)$ of the SLD.
 \index{Far-field approximation|)}%
 
 %===============================================================================
-\subsection{Distorted-wave Born approximation (DWBA)}\label{SDWBA}
+\subsection{Distorted-wave Born approximation (DWBA)}%\label{SDWBA}
 %===============================================================================
 
 \index{Distorted-wave Born approximation|(}%
-\index{DWBA|see {Distorted-wave Born approximation}}%
 
 The standard Born approximation depends on the choice $\mv=\text{const}$,
 which implies that $\psi_\si$ and $\psi_\sf$ are plane waves.
@@ -1277,7 +1279,7 @@ We will use indirect arguments to directly obtain its far-field asymptote $G_\in
 \index{Distorted-wave Born approximation|)}%
 
 %===============================================================================
-\subsection{X-ray scattering cross section}\label{SXscasol}
+\subsection{X-ray scattering cross section}%\label{SXscasol}
 %===============================================================================
 
 \def\Ei{\v{E}_\si}
@@ -1301,27 +1303,27 @@ namely as the ratio of scattered flux through the unit sphere to incident flux.
 \index{Scattering!cross section}%
 For electromagnetic waves in vacuum, the flux is proportional to~$|\v{E}|^2$.
 So the X-ray scattering cross section for given incoming and detected polarization is
-\begin{equation}\label{ExsectionXlong}
+\begin{equation}%\label{ExsectionXlong}
   \xElas
   =  \frac{ {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2 }{|\v{e}_\si|^2\,|\v{e}_\sf|^2}
 \end{equation}
 with the scattering matrix element
 \index{Scattering!matrix}%
 \Emph{
-\begin{equation}\label{EtramaE}
+\begin{equation}%\label{EtramaE}
   \bra \Ei|\delta v|\Ef\ket
   \coloneqq  \int\!\d^3r\, \Eic(\r)\delta v(\r)\Ef(\r).
 \end{equation}\vspace*{-5pt}}
 For lighter notation,
 it is convenient to choose the vacuum plane waves \cref{EEoi,EEof} from the onset
 with normalized polarization vectors,
-\begin{equation}\label{EbcE}
+\begin{equation}%\label{EbcE}
   \Eo_\si(r) = \hei\, \e^{i\k_\si\r}, \text{~and~}
   \Eo_\sf(r) = \hef\, \e^{i\k_\sf\r},
 \end{equation}
 so that~\cref{ExsectionXlong}
 takes the simple form
-\begin{equation}\label{ExsectionX}
+\begin{equation}%\label{ExsectionX}
   \xElas
   =  {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2
 \end{equation}
@@ -1338,7 +1340,7 @@ Then the measured cross section is an incoherent sum
 \index{Cross section!Born approximation}%
 \index{Scattering!cross section}%
 \Emph{
-\begin{equation}\label{ExsectionXsum}
+\begin{equation}%\label{ExsectionXsum}
   \xElas
   =  \sum_{\hef} {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2.
 \end{equation}\vspace*{-5pt}}
@@ -1352,3 +1354,5 @@ an additional summation is performed over~$\hei$,
 weighted with relative intensities.
 
 \index{X-ray!scattering theory|)}%
+
+\index{Small-angle scattering}%

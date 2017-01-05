@@ -19,6 +19,7 @@
 \def\Td{\TENS{\delta}}
 \def\TG{\TENS{G}}
 \def\TU{\TENS{U}}
+\def\TV{\TENS{V}}
 \def\TL{\TENS{\Lambda}}
 \def\TDo{\TENS{\overset{o}{D}}}
 \def\TGo{\TENS{\overset{o}{G}}}
@@ -133,9 +134,7 @@ The Schrödinger equation~\cref{ESchrodi1} then takes the simple form
   \left\{\Nabla^2+K^2-4\pi v(\r)\right\} \psi(\r) = 0
 \end{equation}
 \vspace*{-5pt}}
-with the rescaled form of Fermi's pseudopotential\footnote
-{For words of caution about this ``naive conception''
-see Sears \cite[p.~7]{Sea89}.}
+with the rescaled form of Fermi's pseudopotential
 \index{Fermi's pseudopotential}%
 \index{Pseudopotential!Fermi's}%
 \index{Potential!neutron}%
@@ -403,6 +402,44 @@ Using a standard identity from vector analysis, it can be brought into the more 
 
 \index{Wave propagation!X-ray|)}%
 
+%===============================================================================
+\subsection{Unified wave equation}\label{SUniWave}
+%===============================================================================
+
+We combine all the above in a unified wave equation
+\index{Wave equation!generic}%
+\Emph{
+\begin{equation}\label{EUniWave}
+  \left( \TDo(\r) - 4\pi\TV(\r) \right) \v\Psi(\r) = 0
+\end{equation}
+\vspace*{-5pt}}
+with the vacuum wave propagation operator
+\index{Vacuum!wave propagation operator}%
+\index{Wave!propagation operator}%
+\begin{equation}
+  \TDo \coloneqq \left\{ \begin{array}{ll}
+      \Nabla^2 + K^2                     &\text{~~~for neutrons,}\\
+      \Nabla^2 - \Nabla\cdot\Nabla + K^2 &\text{~~~for X-rays}
+  \end{array}\right.
+\end{equation}
+\nomenclature[2d138 0 2r040]{$\TDo(\r)$}{Differential operator in the vacuum wave equation}%
+and the potential
+\index{Potential!generic}%
+\nomenclature[2v170 2r040]{$\TV(\r)$}{Generic potential}%
+\begin{equation}
+  \TV(\r) \coloneqq \left\{ \begin{array}{ll}
+      v(\r)                         &\text{~~~for neutrons (scalar),}\\
+      v(\r)+\v{h}(\r)\v\sigma       &\text{~~~for neutrons (spinorial),}\\
+      K^2\delta \epsilon(\r)/(4\pi) &\text{~~~for X-rays.}
+  \end{array}\right.
+\end{equation}
+The generic wave amplitude $\v{\Psi}$
+\nomenclature[1ψ150 2r040]{$\v\Psi(\r)$}{Generic wave amplitude,
+  possibly vectorial or spinorial}%
+shall represent
+the scalar neutron wavefunction~$\psi$,
+the spinor $\v{\Psi}$, or the electric field~$\v{E}$, as applicable.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Distorted-wave Born approximation}\label{SDWBA}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -445,14 +482,6 @@ condition $v=0$, $\v{h}=0$, or $\epsilon=1$.
 The fluctuating part stands for the more irregular features of the sample
 one ultimately wants to study in a scattering experiment.
 
-In the following,
-we develop a generic formalism for the scattering of distorted neutron or X-ray waves.
-The generic wave amplitude $\v{\Psi}$
-\nomenclature[1ψ150 2r040]{$\v\Psi(\r)$}{Generic wave amplitude,
-  possibly vectorial or spinorial}%
-shall represent
-the scalar neutron wavefunction~$\psi$,
-the spinor $\v{\Psi}$, or the electric field~$\v{E}$, as applicable.
 The generic wave equation is
 \index{Wave equation!generic}%
 \Emph{
@@ -463,16 +492,9 @@ The generic wave equation is
 \nomenclature[2d138 2r040]{$\TD(\r)$}{Differential operator in the wave equation}%
 The wave propagation operator
 \begin{equation}
-  \TD(\r) \coloneqq \TDo + \TL(\r)
+  \TD(\r) \coloneqq \TDo - \TL(\r)
 \end{equation}
-is composed of the vacuum wave propagation operator
-\begin{subequations}
-\begin{alignat}{2}
-  \Do &\coloneqq \Nabla^2 + K^2 &&\text{~~~for neutrons,}\\
-  \TDo &\coloneqq \Nabla^2 - \Nabla\cdot\Nabla + K^2 &&\text{~~~for X-rays}
-\end{alignat}
-\end{subequations}
-\nomenclature[2d138 0 2r040]{$\Do(\r)$}{Differential operator in the vacuum wave equation}%
+is composed of the vacuum wave propagation operator ...
 and the distortion field
 \begin{subequations}
 \begin{alignat}{2}
@@ -738,7 +760,7 @@ imply
 \begin{equation}
   \TD(\r)\TG(\r,\r') = \Td(\r-\r') \text{ and } \TD(\r)\v\Psi(r)=0.
 \end{equation}
-To continue, use the reciprocity of the Green function,
+To continue, use the reciprocity of the Green function (proven in \cref{SReci}),
 \begin{equation}
   \TG(\r,\r') = \TG(\r',\r),
 \end{equation}
@@ -755,6 +777,81 @@ to read off
    \v{G}_\alpha^\infty(\r',\r'') = \phi(r')\v\Psi_\alpha(\r''),
 \end{equation}
 which is~\cref{EmyG}.
+
+%===============================================================================
+\subsection{Reciprocity of the Green function}\label{SReci}
+%===============================================================================
+
+\index{Reciprocity|(}%
+\index{Green function!reciprocity|(}%
+
+Our computation of~$G_\infty$ will be based on a source-detector \E{reciprocity theorem}
+for the scalar Schrödinger equation.\footnote
+{There exists a confusing multitude of reciprocity theorems \cite{Pot04}.
+In the end, we found it simpler to provide a derivation taylored for our application case
+than to refer to the literature.}
+The theorem states:
+Any Green function $G(\r,\r')$
+that solves~\cref{EGreenK} and as function of~$\r$ represents an outgoing wave
+[in accord with the Sommerfeld radiation condition,
+\index{Sommerfeld radiation condition}%
+\index{Radiation condition}%
+cf.~\cref{Escabouco}]
+is invariant under an exchange of source location~$\rS$ and detection point~$\rD$:
+\nomenclature[2r041 2d100]{$\rD$}{Position of detector}%
+\nomenclature[2r041 2s100]{$\rD$}{Position of source, locus of scattering}%
+\begin{equation}\label{Erecip}
+  G(\rS,\rD) = G(\rD,\rS).
+\end{equation}
+Readers not interested in mathematical details may skip the following \E{proof}:
+
+We introduce the auxiliary vector field
+\begin{equation}
+  \v{X}(\r,\rS,\rD)\coloneqq G(\r,\rD)\Nabla G(\r,\rS) - G(\r,\rS)\Nabla G(\r,\rD).
+\end{equation}
+%\nomenclature[2x150 2r040]{$\v{X}(\r,\rS,\rD)$}{Auxiliary vector field}%
+We inscribe the sample and the detector
+into a sphere $\Sphere$ around the coordinate origin with radius~$R$,
+%\nomenclature[2s180]{$\Sphere$}{Auxiliary spherical volume}%
+%\nomenclature[2r120]{$R$}{Radius of $\Sphere$}%
+and compute the volume integral
+\begin{equation}\label{Eprerecipro}
+    I(\rS,\rD) \coloneqq \displaystyle\int_\Sphere\!\d^3r\,\Nabla \v{X}(\r,\rS,\rD).
+\end{equation}
+After a few steps, not entirely trivial, but not too difficult either,
+we obtain
+\begin{equation}\label{EIBD}
+  I(\rS,\rD) = G(\rS,\rD) - G(\rD,\rS).
+\end{equation}
+Alternatively, we can compute $I$ as a surface integral
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d\v{\sigma}\,\v{X}(\r,\rS,\rD).
+\end{equation}
+On the surface $\partial\Sphere$,
+$G$ is an outgoing solution of the Helmholtz equation.
+As such, it has a well-known series expansion in spherical coordinates.
+We send $R\to\infty$ so that we need only to retain the lowest order:
+\begin{align}
+   G(\r(R,\vartheta,\varphi),\rD)
+   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} a(\vartheta,\varphi),
+   \\[3.8ex]
+   G(\r(R,\vartheta,\varphi),\rS)
+   &\doteq\displaystyle \frac{\e^{iKR}}{4\pi R} b(\vartheta,\varphi).
+\end{align}
+The factorization of $G$ and $B$ and their common $R$ dependence imply that
+\begin{equation}
+  I(\rS,\rD)
+  =\displaystyle\int_{\partial\Sphere}\d\sigma\,
+       (\text{$R$-dependent})(ab-ba)
+  = 0.
+\end{equation}
+Comparison with \cref{EIBD} yields \cref{Erecip},
+which completes the proof.
+
+\index{Reciprocity|)}%
+\index{Green function!reciprocity|)}%
+
 
 
 %===============================================================================

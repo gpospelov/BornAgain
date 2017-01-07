@@ -5,21 +5,6 @@ Compute radiation trajectories through multilayer sample
 for use in figure that explains the Green function.
 '''
 
-import math, sys
-
-def inside( y, mi, ma ):
-    return mi<=y and y<=ma
-
-def xsum( a0, Y, D ):
-    n = len(Y)
-    if len(D) != n:
-        sys.stderr.write( "Bug: inconsistent array lengths\n" )
-        exit(1)
-    ret = 0
-    for i in range(n):
-        ret += Y[i]/(1+D[i])
-    return ret
-
 d = 30   # detector
 s = 1.5 # source located at -s
 T = [ 3, 3 ] # layer thickness
@@ -36,6 +21,21 @@ PP = [
     [ -sd, -T[1], T[1], -T[1], T[1], T[0], d ],
     [ -sd, -T[1], T[1], T[0], -T[0], T[0], d ],
 ]
+
+import math, scipy.optimize, sys
+
+def inside( y, mi, ma ):
+    return mi<=y and y<=ma
+
+def xsum( a0, Y, D ):
+    n = len(Y)
+    if len(D) != n:
+        sys.stderr.write( "Bug: inconsistent array lengths\n" )
+        exit(1)
+    ret = 0
+    for i in range(n):
+        ret += Y[i]/(1-a0*D[i])
+    return ret-xtot
 
 for P in PP:
     y = -s
@@ -56,4 +56,5 @@ for P in PP:
         exit(1)
     Y = [ abs(dy) for dy in P ]
 
-    print( xsum( .3, Y, DeltaPath ) )
+    a = scipy.optimize.newton( xsum, .3, args = ( Y, DeltaPath ) )
+    print( a, xsum(a,Y,DeltaPath) )

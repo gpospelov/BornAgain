@@ -1613,30 +1613,77 @@ setPalatino
 % /execRect3 { % xl xh yl yh {proc} | -
 
 /H 6 def
-/L 40 def
-/h  H 2 div def
+/L 44 def
 
 % Layers
-litebrown  0 L 0 H     { fill } execRect3
-darkbrown  0 L 0 H neg { fill } execRect3
+litebrown  0 L H -1 mul H  0 mul { fill } execRect3
+darkbrown  0 L H -2 mul H -1 mul { fill } execRect3
 
 % Source
 24 setbol black
 /DOT { .4 0 360 np arc cp fill } def
-{ 4 h offset 0 0 DOT -2 0 {(S)} textCM } G
+{ 4 H -.5 mul offset 0 0 DOT -2 0 {(S)} textCM } G
 
 % Detector
-{ 60 30 offset 0 0 DOT 2 0 {(D)} textCM } G
+{ 60 20 offset 0 0 DOT 2 0 {(D)} textCM } G
 
 
 % Main part
-15 0 offset
 darkblue 3 [] lset
-/xx 5 def
-xx neg h     +60 .6 2 pfeiL
-xx neg h neg 110 .6 2 pfeiL
-xx     h     120 .6 2 pfeiL
-xx     h neg  70 .6 2 pfeiL
+     4     -3 np mv
+  14.7      0 li
+    60     20 li
+st
+
+     4     -3 np mv
+  10.9     -6 li
+  24.6      0 li
+    60     20 li
+st
+
+     4     -3 np mv
+  9.31      0 li
+  19.9     -6 li
+  30.6      0 li
+    60     20 li
+st
+
+     4     -3 np mv
+  8.39     -6 li
+  17.2      0 li
+  25.9     -6 li
+  34.7      0 li
+    60     20 li
+st
+
+     4     -3 np mv
+  8.12     -6 li
+  17.9    -12 li
+  27.8     -6 li
+    36      0 li
+    60     20 li
+st
+
+     4     -3 np mv
+   7.1     -6 li
+  14.1    -12 li
+  21.1     -6 li
+  28.1    -12 li
+  35.1     -6 li
+  41.3      0 li
+    60     20 li
+st
+
+     4     -3 np mv
+  7.19     -6 li
+  14.4    -12 li
+  21.6     -6 li
+    28      0 li
+  34.4     -6 li
+  40.8      0 li
+    60     20 li
+st
+
 
 showpage
 end % WuGdict...

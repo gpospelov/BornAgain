@@ -9,7 +9,7 @@ d = 30   # detector
 s = 1.5 # source located at -s
 T = [ 3, 3 ] # layer thickness
 sd = T[0]-s # distance from source to lower interface
-DeltaLayer = [ .1, .2 ] # refractive index parameter delta, per layer
+DeltaLayer = [ .01, .02 ] # refractive index parameter delta, per layer
 xtot = 60 # determine angles so that sum dx matches this
 
 PP = [
@@ -34,7 +34,8 @@ def xsum( a0, Y, D ):
         exit(1)
     ret = 0
     for i in range(n):
-        ret += Y[i]/(1-a0*D[i])
+        a = math.acos( math.cos(a0) / (1-D[i]) )
+        ret += Y[i]/math.tan(a)
     return ret-xtot
 
 for P in PP:

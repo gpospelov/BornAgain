@@ -23,7 +23,7 @@ PP = [
     [ -sd, -T[1], T[1], T[0], -T[0], T[0], d ],
 ]
 
-import math, scipy.optimize, sys
+import math, re, scipy.optimize, sys
 
 def inside( y, mi, ma ):
     return mi<=y and y<=ma
@@ -38,6 +38,10 @@ def xsum( a0, P, D ):
         a = math.acos( math.cos(a0) / (1-D[i]) )
         ret += abs(P[i])/math.tan(a)
     return ret-xtot
+
+cmd1 = ""
+cmd2 = ""
+b0 = .8
 
 for P in PP:
     y = -s
@@ -59,11 +63,31 @@ for P in PP:
 
     a0 = scipy.optimize.newton( xsum, .5, args = ( P, DeltaPath ) )
     y = -s
-    x =  x0
-    print( "%6.3g %6.3g np mv" % ( x, y ) )
+    x1 =  x0
+    x2 =  x0
+    wgt = 4 - len(P)/2
+    cmd1 += "%1i [] lset\n" % (wgt)
+    cmd2 += "%1i [] lset\n" % (wgt)
+    cmd1 += "%6.3g %6.3g np mv\n" % ( x1, y )
+    cmd2 += "%6.3g %6.3g np mv\n" % ( x2, y )
     for i in range(len(P)):
         a = math.acos( math.cos(a0) / (1-DeltaPath[i]) )
-        x += abs(P[i])/math.tan(a)
+        x1 += abs(P[i])/math.tan(a)
+        b = math.acos( math.cos(b0) / (1-DeltaPath[i]) )
+        x2 += abs(P[i])/math.tan(b)
         y += P[i]
-        print( "%6.3g %6.3g li" % ( x, y ) )
-    print( "st\n" )
+        cmd1 += "%6.3g %6.3g li\n" % ( x1, y )
+        cmd2 += "%6.3g %6.3g li\n" % ( x2, y )
+    cmd1 += "st\n\n"
+    cmd2 += "st\n\n"
+
+fd = open( "Green1.ps.in", 'r' )
+t = fd.read()
+fd.close
+
+t = re.sub( r'%#1', cmd1, t )
+t = re.sub( r'%#2', cmd2, t )
+
+fd = open( "Green1.ps", 'w' )
+fd.write( t )
+fd.close

@@ -1615,32 +1615,36 @@ setPalatino
 /H 6 def
 /L 44 def
 
-% Layers
-litebrown  0 L H -1 mul H  0 mul { fill } execRect3
-darkbrown  0 L H -2 mul H -1 mul { fill } execRect3
-
-% Source
-24 setbol black
 /DOT { .4 0 360 np arc cp fill } def
-{ 4 H -.5 mul offset 0 0 DOT -2 0 {(S)} textCM } G
 
+/Sample {
+    % Layers
+    litebrown  0 L H -1 mul H  0 mul { fill } execRect3
+    darkbrown  0 L H -2 mul H -1 mul { fill } execRect3
+    % Source
+    24 setbol black
+    { 4 H -.5 mul offset 0 0 DOT -2 0 {(S)} textCM } G
+} def
+
+Sample
 % Detector
 { 60 20 offset 0 0 DOT 2 0 {(D)} textCM } G
-
-
 % Main part
-darkblue 3 [] lset
+darkblue
+3 [] lset
      4     -3 np mv
   14.7      0 li
     60     20 li
 st
 
+2 [] lset
      4     -3 np mv
   10.9     -6 li
   24.6      0 li
     60     20 li
 st
 
+2 [] lset
      4     -3 np mv
   9.31      0 li
   19.9     -6 li
@@ -1648,6 +1652,7 @@ st
     60     20 li
 st
 
+1 [] lset
      4     -3 np mv
   8.39     -6 li
   17.2      0 li
@@ -1656,6 +1661,7 @@ st
     60     20 li
 st
 
+1 [] lset
      4     -3 np mv
   8.12     -6 li
   17.9    -12 li
@@ -1664,6 +1670,7 @@ st
     60     20 li
 st
 
+0 [] lset
      4     -3 np mv
    7.1     -6 li
   14.1    -12 li
@@ -1674,6 +1681,7 @@ st
     60     20 li
 st
 
+0 [] lset
      4     -3 np mv
   7.19     -6 li
   14.4    -12 li
@@ -1683,6 +1691,73 @@ st
   40.8      0 li
     60     20 li
 st
+
+
+
+0 -40 offset
+Sample
+darkblue
+3 [] lset
+     4     -3 np mv
+  7.24      0 li
+  26.7     20 li
+st
+
+2 [] lset
+     4     -3 np mv
+  7.24     -6 li
+  13.7      0 li
+  33.1     20 li
+st
+
+2 [] lset
+     4     -3 np mv
+  7.24      0 li
+  13.7     -6 li
+  20.2      0 li
+  39.6     20 li
+st
+
+1 [] lset
+     4     -3 np mv
+  7.24     -6 li
+  13.7      0 li
+  20.2     -6 li
+  26.7      0 li
+  46.1     20 li
+st
+
+1 [] lset
+     4     -3 np mv
+  7.24     -6 li
+  14.6    -12 li
+  21.9     -6 li
+  28.4      0 li
+  47.8     20 li
+st
+
+0 [] lset
+     4     -3 np mv
+  7.24     -6 li
+  14.6    -12 li
+  21.9     -6 li
+  29.2    -12 li
+  36.6     -6 li
+  43.1      0 li
+  62.5     20 li
+st
+
+0 [] lset
+     4     -3 np mv
+  7.24     -6 li
+  14.6    -12 li
+  21.9     -6 li
+  28.4      0 li
+  34.9     -6 li
+  41.3      0 li
+  60.8     20 li
+st
+
 
 
 showpage

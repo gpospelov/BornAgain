@@ -1598,7 +1598,7 @@ end % WuGdict...
 WuGdict11a begin
 setPalatino
 
-2 dup autolabel defsiz
+1.5 dup autolabel defsiz
 1 dup stdred
 2 -40 setnewpage newpage
 
@@ -1611,6 +1611,8 @@ setPalatino
 /litebrown {235 205 175 setRGBcolor } def
 
 % /execRect3 { % xl xh yl yh {proc} | -
+
+%#0
 
 /H 6 def
 /L 44 def
@@ -1626,15 +1628,19 @@ setPalatino
     { 4 H -.5 mul offset 0 0 DOT -2 0 {(S)} textCM } G
 } def
 
+black 32 setown 0 15 {((a))} textLM
 Sample
 % Detector
-{ 60 20 offset 0 0 DOT 2 0 {(D)} textCM } G
+{ xd yd offset 0 0 DOT 2 0 {(D)} textCM } G
 % Main part
 darkblue
 %#1
 
-0 -40 offset
+60 0 offset
+black 32 setown 0 15 {((b))} textLM
 Sample
+xd 3 add yd {(D)} textCM
+3 [] lset xd yd b0 1.2 5 pfeiL
 darkblue
 %#2
 

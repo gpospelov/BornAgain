@@ -1598,7 +1598,7 @@ end % WuGdict...
 WuGdict11a begin
 setPalatino
 
-2 dup autolabel defsiz
+1.5 dup autolabel defsiz
 1 dup stdred
 2 -40 setnewpage newpage
 
@@ -1611,6 +1611,11 @@ setPalatino
 /litebrown {235 205 175 setRGBcolor } def
 
 % /execRect3 { % xl xh yl yh {proc} | -
+
+/xd     52 def
+/yd     10 def
+/b0    45.8 def
+
 
 /H 6 def
 /L 44 def
@@ -1626,117 +1631,121 @@ setPalatino
     { 4 H -.5 mul offset 0 0 DOT -2 0 {(S)} textCM } G
 } def
 
+black 32 setown 0 15 {((a))} textLM
 Sample
 % Detector
-{ 60 20 offset 0 0 DOT 2 0 {(D)} textCM } G
+{ xd yd offset 0 0 DOT 2 0 {(D)} textCM } G
 % Main part
 darkblue
+4 [] lset
+     4     -3 np mv
+  24.5      0 li
+st
+  24.5      0      20 .8   21.3 pfeiL
+
 3 [] lset
      4     -3 np mv
-  14.7      0 li
-    60     20 li
+    13     -6 li
+  31.1      0 li
 st
+  31.1      0    25.6 .8   15.1 pfeiL
+
+3 [] lset
+     4     -3 np mv
+  10.3      0 li
+  22.8     -6 li
+  35.4      0 li
+st
+  35.4      0      31 .8   11.4 pfeiL
 
 2 [] lset
      4     -3 np mv
-  10.9     -6 li
-  24.6      0 li
-    60     20 li
+  8.89     -6 li
+  18.7      0 li
+  28.4     -6 li
+  38.2      0 li
 st
+  38.2      0    35.9 .8   9.04 pfeiL
 
 2 [] lset
      4     -3 np mv
-  9.31      0 li
-  19.9     -6 li
-  30.6      0 li
-    60     20 li
+  8.46     -6 li
+  19.4    -12 li
+  30.3     -6 li
+  39.2      0 li
 st
+  39.2      0      38 .8   8.26 pfeiL
 
 1 [] lset
-     4     -3 np mv
-  8.39     -6 li
-  17.2      0 li
-  25.9     -6 li
-  34.7      0 li
-    60     20 li
-st
-
-1 [] lset
-     4     -3 np mv
-  8.12     -6 li
-  17.9    -12 li
-  27.8     -6 li
-    36      0 li
-    60     20 li
-st
-
-0 [] lset
-     4     -3 np mv
-   7.1     -6 li
-  14.1    -12 li
-  21.1     -6 li
-  28.1    -12 li
-  35.1     -6 li
-  41.3      0 li
-    60     20 li
-st
-
-0 [] lset
      4     -3 np mv
   7.19     -6 li
   14.4    -12 li
   21.6     -6 li
-    28      0 li
-  34.4     -6 li
-  40.8      0 li
-    60     20 li
+  28.8    -12 li
+    36     -6 li
+  42.4      0 li
 st
+  42.4      0    46.2 .8   5.85 pfeiL
+
+1 [] lset
+     4     -3 np mv
+   7.3     -6 li
+  14.8    -12 li
+  22.3     -6 li
+  28.9      0 li
+  35.5     -6 li
+  42.1      0 li
+st
+  42.1      0    45.3 .8   6.06 pfeiL
 
 
 
-0 -40 offset
+60 0 offset
+black 32 setown 0 15 {((b))} textLM
 Sample
+xd 3 add yd {(D)} textCM
+3 [] lset xd yd b0 1.2 5 pfeiL
 darkblue
-3 [] lset
+4 [] lset
      4     -3 np mv
   7.24      0 li
-  26.7     20 li
 st
+  7.24      0    45.8 .8      7 pfeiL
 
-2 [] lset
+3 [] lset
      4     -3 np mv
   7.24     -6 li
   13.7      0 li
-  33.1     20 li
 st
+  13.7      0    45.8 .8      7 pfeiL
 
-2 [] lset
+3 [] lset
      4     -3 np mv
   7.24      0 li
   13.7     -6 li
   20.2      0 li
-  39.6     20 li
 st
+  20.2      0    45.8 .8      7 pfeiL
 
-1 [] lset
+2 [] lset
      4     -3 np mv
   7.24     -6 li
   13.7      0 li
   20.2     -6 li
   26.7      0 li
-  46.1     20 li
 st
+  26.7      0    45.8 .8      7 pfeiL
 
-1 [] lset
+2 [] lset
      4     -3 np mv
   7.24     -6 li
   14.6    -12 li
   21.9     -6 li
   28.4      0 li
-  47.8     20 li
 st
+  28.4      0    45.8 .8      7 pfeiL
 
-0 [] lset
+1 [] lset
      4     -3 np mv
   7.24     -6 li
   14.6    -12 li
@@ -1744,10 +1753,10 @@ st
   29.2    -12 li
   36.6     -6 li
   43.1      0 li
-  62.5     20 li
 st
+  43.1      0    45.8 .8      7 pfeiL
 
-0 [] lset
+1 [] lset
      4     -3 np mv
   7.24     -6 li
   14.6    -12 li
@@ -1755,8 +1764,8 @@ st
   28.4      0 li
   34.9     -6 li
   41.3      0 li
-  60.8     20 li
 st
+  41.3      0    45.8 .8      7 pfeiL
 
 
 

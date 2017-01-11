@@ -31,7 +31,7 @@ HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
 : HomogeneousMaterial(name, refractive_index)
 , m_magnetic_field(magnetic_field)
 {
-    initializePrivateMemebers();
+    initializePrivateMembers();
 }
 
 HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
@@ -40,7 +40,7 @@ HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
     : HomogeneousMaterial(name, refractive_index_delta, refractive_index_beta)
     , m_magnetic_field(magnetic_field)
 {
-    initializePrivateMemebers();
+    initializePrivateMembers();
 }
 
 HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::clone() const
@@ -77,7 +77,7 @@ const IMaterial* HomogeneousMagneticMaterial::createTransformedMaterial(
             mag_field_transformed);
 }
 
-void HomogeneousMagneticMaterial::initializePrivateMemebers()
+void HomogeneousMagneticMaterial::initializePrivateMembers()
 {
     m_unit_matrix.setIdentity();
     m_pauli_operator.clear();

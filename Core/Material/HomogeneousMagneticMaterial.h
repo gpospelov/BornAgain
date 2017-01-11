@@ -65,7 +65,7 @@ protected:
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
 private:
     //! Function to initialize some private members
-    void initializePrivateMemebers();
+    void initializePrivateMembers();
     //! This prefactor contains planck's constant, the neutron mass and
     //! its magnetic moment (units nm^-2 T^-1)
     static const double m_magnetic_prefactor;

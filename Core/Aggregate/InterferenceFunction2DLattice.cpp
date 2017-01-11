@@ -104,31 +104,15 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
     return result;
 }
 
-std::string InterferenceFunction2DLattice::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string  new_path = IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-
-    // add parameters of the probability density function
-    if (mp_pdf)
-        mp_pdf->addParametersToExternalPool(new_path, external_pool, -1);
-    return new_path;
-}
-
 double InterferenceFunction2DLattice::getParticleDensity() const
 {
     double area = m_lattice_params.getUnitCellArea();
-    if (area == 0.0)
-        return 0.0;
-    return 1.0/area;
+    return area == 0.0 ? 0.0 : 1.0/area;
 }
 
 std::vector<const INode*> InterferenceFunction2DLattice::getChildren() const
 {
-//    return std::vector<const INode*>() << mp_pdf;
-    return std::vector<const INode*>();
+    return std::vector<const INode*>() << mp_pdf;
 }
 
 void InterferenceFunction2DLattice::onChange()

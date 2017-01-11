@@ -25,6 +25,7 @@ class InstrumentModel;
 class SampleModel;
 class SessionItem;
 class DocumentModel;
+class GISASSimulation;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
 class BA_CORE_API_ GUIObjectBuilder : public ISampleVisitor
@@ -34,7 +35,7 @@ public:
     virtual ~GUIObjectBuilder(){}
 
     SessionItem* populateSampleModel(SampleModel* sampleModel,
-                                     const class GISASSimulation &simulation,
+                                     const GISASSimulation &simulation,
                                      const QString &sampleName=QString());
 
     SessionItem* populateSampleModel(SampleModel* sampleModel,
@@ -42,11 +43,11 @@ public:
                                      const QString &sampleName=QString());
 
     SessionItem* populateInstrumentModel(InstrumentModel* instrumentModel,
-                                         const class GISASSimulation &simulation,
+                                         const GISASSimulation &simulation,
                                                const QString &instrumentName=QString());
 
     SessionItem* populateDocumentModel(DocumentModel* documentModel,
-                                       const class GISASSimulation &simulation);
+                                       const GISASSimulation &simulation);
 
 
     using ISampleVisitor::visit;
@@ -90,9 +91,6 @@ public:
     void visit(const InterferenceFunction2DParaCrystal*);
     void visit(const InterferenceFunction1DLattice*);
     void visit(const InterferenceFunction2DLattice*);
-    void visit(const InterferenceFunctionNone*);
-
-    void visit(const LayerRoughness*);
 
     void visit(const RotationX*);
     void visit(const RotationY*);

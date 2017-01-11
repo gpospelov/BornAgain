@@ -576,17 +576,6 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DLattice* sample)
     m_levelToParentItem[depth()] = item;
 }
 
-void GUIObjectBuilder::visit(const InterferenceFunctionNone*)
-{
-    qDebug() << "GUIObjectBuilder::visit(const InterferenceFunctionNone*)"
-             << depth();
-}
-
-void GUIObjectBuilder::visit(const LayerRoughness*)
-{
-    qDebug() << "GUIObjectBuilder::visit(const LayerRoughness*)" << depth();
-}
-
 void GUIObjectBuilder::visit(const RotationX* sample)
 {
     qDebug() << "GUIObjectBuilder::visit(const RotationX*)" << depth();

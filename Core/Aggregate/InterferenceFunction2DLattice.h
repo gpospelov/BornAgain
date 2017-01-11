@@ -38,7 +38,7 @@ public:
 
     void setDecayFunction(const IFTDecayFunction2D& pdf);
 
-    const IFTDecayFunction2D* getDecayFunction() const { return mp_pdf; }
+    const IFTDecayFunction2D* getDecayFunction() const { return mp_pdf.get(); }
 
     double evaluate(const kvector_t q) const final;
 
@@ -50,6 +50,8 @@ public:
 
     //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;
+
+    std::vector<const INode*> getChildren() const;
 
 protected:
     void onChange() override final;
@@ -67,10 +69,6 @@ private:
     void calculateReciprocalVectorFraction(double qx, double qy,
                                            double& qx_frac, double& qy_frac) const;
 
-    Lattice2DParameters m_lattice_params;
-    IFTDecayFunction2D* mp_pdf;
-    static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
-
     InterferenceFunction2DLattice(const Lattice2DParameters& lattice_params);
 
     void init_parameters();
@@ -81,6 +79,9 @@ private:
     //! Initializes factors needed in each calculation
     void initialize_calc_factors();
 
+    Lattice2DParameters m_lattice_params;
+    std::unique_ptr<IFTDecayFunction2D> mp_pdf;
+    static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use

@@ -31,7 +31,7 @@ GCC_DIAG_ON(unused-parameter)
 //! @param xi rotation of lattice with respect to x-axis
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     double length_1, double length_2, double angle, double xi)
-    : mp_pdf(0), m_na(0), m_nb(0)
+    : m_na(0), m_nb(0)
 {
     m_lattice_params.m_length_1 = length_1;
     m_lattice_params.m_length_2 = length_2;
@@ -44,7 +44,6 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
 
 InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
 {
-    delete mp_pdf;
 }
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
@@ -79,9 +78,8 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
 
 void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
 {
-    if (mp_pdf != &pdf)
-        delete mp_pdf;
-    mp_pdf = pdf.clone();
+    mp_pdf.reset(pdf.clone());
+    registerChild(mp_pdf.get());
     initialize_calc_factors();
 }
 
@@ -127,6 +125,12 @@ double InterferenceFunction2DLattice::getParticleDensity() const
     return 1.0/area;
 }
 
+std::vector<const INode*> InterferenceFunction2DLattice::getChildren() const
+{
+//    return std::vector<const INode*>() << mp_pdf;
+    return std::vector<const INode*>();
+}
+
 void InterferenceFunction2DLattice::onChange()
 {
     initialize_rec_vectors();
@@ -169,7 +173,7 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     const Lattice2DParameters& lattice_params)
-    : m_lattice_params(lattice_params), mp_pdf(0), m_na(0), m_nb(0)
+    : m_lattice_params(lattice_params), m_na(0), m_nb(0)
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
     init_parameters();

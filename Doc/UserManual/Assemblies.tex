@@ -81,7 +81,7 @@ $\delta v_l(\r)=0$.
 With the factorization~\cref{Ekpar},
 the scattering matrix element~\cref{Etrama} becomes
 \begin{equation}\label{Escamatrix2}
-  \bra\psi_\si|\delta v|\psi_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
   = \int\!\d^2 r_\plll\, \e^{i\q_\plll \r_\plll}
     \int\!\d z\, \phi^*_\si(z) \delta v(\r) \phi_\sf(z).
 \end{equation}
@@ -111,7 +111,7 @@ With the \E{DWBA form factor}
 \end{equation}
 the scattering matrix element~\cref{Escamatrix2} becomes
 \begin{equation}\label{EsumRF}
-  \bra\psi_\si|\delta v|\psi_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
   = \sum_j \e^{i\q_\plll \R_{j\plll}}  \FD_{\si\sf}(\q_\plll,\v{T}_j).
 \end{equation}
 The elastic scattering cross section~\cref{Exsection} can be written as
@@ -300,7 +300,7 @@ are independent and identically distributed (\E{i.i.d.}) random variables.
 They all have the same distribution~$p(\v\tau)$.
 Averages under this distribution shall be denoted as
 \begin{equation}\label{Epavg}
-  \bra f\ket \coloneqq  \int\!\d\v\tau\,p(\v\tau)f(\tau).
+  \braket{f} \coloneqq  \int\!\d\v\tau\,p(\v\tau)f(\tau).
 \end{equation}
 Pairs of particles have the distribution~$p(\v\tau)p(\v\tau')$,
 except if the two particles are identical.
@@ -325,7 +325,7 @@ with the \E{diffuse} and \E{coherent} scattering intensities
 \Emph
 {\begin{eqnarray}
   I_\text{d}\label{EIddef}
-  &\coloneqq& \bra\left|\FD\right|^2\ket-\left|\bra\FD\ket\right|^2,
+  &\coloneqq& \braket{\left|\FD\right|^2}-\left|\braket{\FD}\right|^2,
 \\[2ex]
   I_\text{c}\label{EIcdef}
   &\coloneqq&
@@ -336,7 +336,7 @@ with the \E{diffuse} and \E{coherent} scattering intensities
 The diffuse intensity can be rewritten as
 \begin{equation}\label{EIdDiff}
   I_\text{d}
-  = \bra\left|\FD-\bra\FD\ket\right|^2\ket,
+  = \braket{\left|\FD-\braket{\FD}\right|^2},
 \end{equation}
 which shows that it is due to fluctuations of the single-particle form factor.
 
@@ -369,7 +369,7 @@ the atomic \E{static structure factor}
 The coherent scattering intensity then takes the simple form
 \Emph
 {\begin{equation}\label{EIcFac}
-  I_\text{c} = \SD(\q) \left|\bra\FD\ket\right|^2.
+  I_\text{c} = \SD(\q) \left|\braket{\FD}\right|^2.
 \end{equation}\vskip -5pt}
 Together, the T-T and R-T decoupling
 make up the \E{decoupling approximation}
@@ -414,7 +414,7 @@ $I_\text{c}$ then cancels the second term in~\cref{EIddef},
 so that the cross section~\cref{EIdIc} reduces to the incoherent sum
 \begin{equation}\label{EIdInc}
   \frac{1}{N_p}\xElas
-  = \bra\left|\FD\right|^2\ket
+  = \braket{\left|\FD\right|^2}
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -814,7 +814,7 @@ layer which corresponds to \texttt{depth}=0.}
 
 Since in most experimental conditions only the statistical properties of the particles are known, one can consider the probabilistic value of this cross-section \idest its expectation value. Assuming that the particles' shapes are determined by their class $\alpha$, with the abundance ratio $p_\alpha \equiv N_\alpha / N$, and defining the particle density as $\rho_V \equiv N/V$, the expectation value becomes:
 \begin{align*}
-  \bra \xElas(\q) \ket  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\q)\right\rvert ^2 + \frac{\rho_V}{V}\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\q)F_\beta^*(\q)  \\
+  \braket{\xElas(\q)}  & = \sum_\alpha p_\alpha \left\lvert F_\alpha(\q)\right\rvert ^2 + \frac{\rho_V}{V}\sum_{\alpha,\beta} p_\alpha p_\beta F_\alpha (\q)F_\beta^*(\q)  \\
   & \times \iint_V d^3\v{R}_\alpha d^3\v{R}_\beta \ppcf{\alpha}{\beta}{R} \exp \left[ i\q\cdot (\v{R}_\alpha - \v{R}_\beta ) \right],
 \end{align*}
 
@@ -824,7 +824,7 @@ where $\ppcf{\alpha}{\beta}{R}$ is called the \emph{partial pair correlation fun
 TO MERGE IN:
 
 \begin{align*}
-  & \bra \xElas(\k_\si,\k_\sf) \ket_{\text{Off-specular}}  \\
+  & \braket{\xElas(\k_\si,\k_\sf)}_{\text{Off-specular}}  \\
   & = \sum_\alpha p_\alpha \left\lvert \curlf_\alpha(\k_{j,i},\k_{j,f}, R_{\alpha,z})\right\rvert ^2 + \frac{\rho_S}{S}\sum_{\alpha,\beta} p_\alpha p_\beta \curlf_\alpha (\k_{j,i},\k_{j,f}, R_{\alpha,z})\curlf_\beta^*(\k_{j,i},\k_{j,f}, R_{\beta,z}) \\
   & \times \iint_S d^2r_\alpha^\plll d^2r_\beta^\plll \ppcf{\alpha}{\beta}{R^\plll} \exp \left[ i\v{q}_{j\plll}\cdot (\r_\alpha^\plll - \r_\beta^\plll ) \right].
 \end{align*}
@@ -833,20 +833,19 @@ TO MERGE IN:
 TO MERGE IN:
 This expression can be split into a diffuse part, which by definition should be zero for the case of only one particle type, and a coherent part, resulting from the coherent superposition of scattering amplitudes for particles at different positions:
 \begin{equation*}
-  \bra \xElas(\q) \ket
-  = I_d(\q) + {\bra F_\alpha (\q ) S_{\alpha\beta} (\q) F_\beta^* (\q)
-               \ket}_{\alpha\beta},
+  \braket{\xElas(\q)}
+  = I_d(\q) + \braket{F_\alpha (\q ) S_{\alpha\beta} (\q) F_\beta^* (\q)}_{\alpha\beta},
 \end{equation*}
 where
 \begin{align*}
   I_d(\q) &
-  \equiv {\bra\left\rvert F_\alpha (\q) \right\rvert^2\ket}_{\alpha}
-       - \left\lvert {\bra F_\alpha (\q)\ket}_{\alpha} \right\rvert^2, \\
+  \equiv \braket\left\rvert F_\alpha (\q) \right\rvert^2}_{\alpha}
+       - \left\lvert \braket{F_\alpha (\q)}_{\alpha} \right\rvert^2, \\
   S_{\alpha\beta} (\q) &\equiv 1 + \rho_V \int_V \d^3\r\mathcal{G}_{\alpha\beta}(\r)
                        \exp \left[ i\q\cdot \r \right].
 \end{align*}
 $S_{\alpha\beta} (\q)$ is called the \emph{interference function},
-and $\bra\dotso\ket_\alpha$ is the expectation value over the classes $\lbrace \alpha\rbrace$.
+and $\braket{\dotso}_\alpha$ is the expectation value over the classes $\lbrace \alpha\rbrace$.
 
 
 TO MERGE IN:
@@ -955,13 +954,13 @@ The scattered intensity can also be calculated as the Fourier transform of the P
 \end{equation*}
 For a sample where only the statistical properties of particle positions and shape/size are known, the scattered intensity per scattering particle becomes average over an ensemble of the Fourier transform of the Patterson function:
 \begin{equation*}
-  I(\q ) = \frac{1}{N}\bra\curlf (\curlp (\r ))\ket,
+  I(\q ) = \frac{1}{N}\braket{\curlf (\curlp (\r ))},
 \end{equation*}
 where $\curlf$ denotes the Fourier transform.
 
 The ensemble averaged Patterson function will be denoted as:
 \begin{equation*}
-  Z(r) \equiv \frac{1}{N}\bra\curlp (\r )\ket.
+  Z(r) \equiv \frac{1}{N}\braket{\curlp (\r )}.
 \end{equation*}
 In the case of systems where the particles are aligned in one dimension, this autocorrelation function can be further split into nearest neighbor probabilities. First, it is split into terms for negative, zero or positive distance:
 \begin{equation*}
@@ -994,7 +993,7 @@ where $D(\alpha_0,\alpha_1) = D_0 + \kappa \left[ \Delta R(\alpha_0) + \Delta R(
 In momentum space, the sum of convolutions can be written as a geometric series, which can be exactly calculated to be:
 \begin{equation}
 \label{Esscainf}
-I(\q ) = {\bra\left| F_\alpha(\q ) \right| ^2\ket}_{\alpha}
+I(\q ) = \braket{\left| F_\alpha(\q ) \right| ^2}_{\alpha}
 + 2 \Re \left\lbrace \widetilde{\curlf_\kappa}(\q )
  \widetilde{\curlf_\kappa^*}(\q ) \cdot
  \frac{\Omega_\kappa(\q )}{\tilde{p}_{2\kappa}(\q )\left
@@ -1019,14 +1018,14 @@ The intensity in \cref{Esscainf} will contain a Dirac delta function contributio
 Another way of dealing with this infinity at $\q =0$ consists of taking only a finite number of terms, in which case the geometric series still has an analytic solution, but becomes a bit more cumbersome:
 \begin{equation*}
 \begin{split}
-  I(\q ) &= {\bra\left| F_\alpha(\q ) \right| ^2\ket}_\alpha
+  I(\q ) &= \bra{\left| F_\alpha(\q ) \right| ^2}_\alpha
    + 2 \Re \Biggl\lbrace \frac{1}{\tilde{p}_{2\kappa}(\q )}\widetilde{\curlf_\kappa}(\q )\widetilde{\curlf_\kappa^*}(\q ) \\
   & \times \left[ \left( 1 - \frac{1}{N}\right) \frac{\Omega_\kappa(\q )}{1 - \Omega_\kappa(\q ) } - \frac{1}{N}\frac{\Omega_\kappa^2(\q )\left( 1- \Omega_\kappa^{N-1}(\q )\right) }{\left( 1 - \Omega_\kappa(\q ) \right) ^2 } \right] \Biggr\rbrace.
 \end{split}
 \end{equation*}
 This expression has a well-defined limit for $\Omega_\kappa(\q ) \rightarrow 1$ (when $\q \rightarrow 0$), namely:
 \begin{equation*}
-  \lim_{\q \rightarrow 0} I(\q ) = {\bra\left| F_\alpha(0 ) \right| ^2\ket}_{\alpha} + \left( N-1 \right) \left| {\bra F_\alpha(0 )\ket}_{\alpha} \right|^2.
+  \lim_{\q \rightarrow 0} I(\q ) = \bra{\left| F_\alpha(0)\right| ^2}_{\alpha} + \left( N-1 \right) \left| \bra{F_\alpha(0)}_{\alpha} \right|^2.
 \end{equation*}
 
 

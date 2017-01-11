@@ -208,6 +208,56 @@ is just a \E{scattering length density} (SLD)
 \index{SLD|see{Scattering length density}}%
 \cite[eq.\ 2.8.37]{Sea89}.
 
+In general, the incident neutron beam in a scattering experiment
+is not a \E{pure} quantum state,
+\index{Pure quantum state}%
+\index{Quantum state!pure vs mixed}%
+but a statistical mixture of such states,
+\index{Mixed quantum state}%
+and must therefore be described by a density matrix,
+\index{Density matrix}%
+\nomenclature[1ρ020]{$\hat\rho$}{Density matrix operator}%
+\begin{equation}\label{EdefRho}
+  \hat\rho \coloneqq \sum_j p_j \ket{\psi_j}\bra{\psi_j},
+\end{equation}
+where $p_j$ is the probability of pure state~$\psi_j$.
+\nomenclature[2p022 2j000]{$p_j$}{Probability of state~$j$}%
+With the operator
+\begin{equation}\label{EdefJop}
+  \v{\hat J} \coloneqq  \ket{\r}\bra{\r}\v{\hat p} + \v{\hat p}^\dagger\ket{\r}\bra{\r}
+\end{equation}
+the current density, or \E{flux},
+\index{Flux!neutron}%
+\index{Current density|see{Flux}}%
+is given by
+\begin{equation}\label{EdefJ}
+  \v{J}(\r)
+  \coloneqq \Tr\{\hat\rho \hat{\v{J}}\}
+  \propto \sum_j p_j\left\{ \psi_j(\r)^*\frac{\Nabla}{2i}\psi_j(\r)
+                        - \psi_j(\r)\frac{\Nabla}{2i}\psi_j(\r)^*\right\}.
+\end{equation}
+\nomenclature[2j150 2r040]{$\v{J}(\r)$}{Flux}%
+This is in arbitrary units,
+\index{Unit!neutron wavefunction}%
+since we do not impose a specific normalization
+\index{Normalization!neutron wavefunction}%
+on the unbound wavefunction~$\psi$.
+To compute scattering cross sections,
+\index{Cross section}%
+\index{Scattering!cross section}%
+we will only need the \E{ratio} of scattered to incident flux.
+Mostly we will assume pure states to be \E{plane waves}
+\index{Plane wave}%
+\index{Wave!plane}%
+\begin{equation}\label{EplaneWave}
+  \psi_\k(\r)\coloneqq\e^{i\k\r}.
+\end{equation}
+In this case, the sum in~\cref{EdefRho} must be replaced by an integral,
+and the flux is simply
+\begin{equation}
+  \v{J}(\r) = \int\!\d^3k\; p_\k\, \k.
+\end{equation}
+
 %===============================================================================
 \subsection{Neutrons in a magnetic field}\label{SnSpinor}
 %===============================================================================
@@ -276,9 +326,16 @@ to rewrite the Schrödinger equation in analogy to~\cref{ESchrodi2} as
 \end{equation}
 \vspace*{-5pt}}
 
-
-\index{Spin|(}%
+The density matrix~\cref{EdefRho} becomes
+\begin{equation}\label{EdefRhoSpinor}
+  \hat\rho \coloneqq \sum_i p_i \ket{\v\Psi_i}\bra{\v\Psi_i}.
+\end{equation}
+The total flux is still given by \cref{EdefJ,EdefJop}.
+This formalism also covers experiments with a polarization analyzer,
+\index{Polarization!analysis}%
+which must be described as modifying the density matrix.
 \index{Neutron!spin|)}%
+\index{Spin|)}%
 \index{Magnetic field!neutron propagation|)}%
 
 \index{Wave propagation!neutron|)}%
@@ -289,6 +346,7 @@ to rewrite the Schrödinger equation in analogy to~\cref{ESchrodi2} as
 %===============================================================================
 
 \index{Wave propagation!X-ray|(}%
+\index{X-ray!wave propagation|(}%
 
 The propagation of X-rays is governed by Maxwell's equations,
 \index{Maxwell's equations}%
@@ -398,7 +456,15 @@ Using a standard identity from vector analysis, it can be brought into the more 
 \end{equation}
 \vspace*{-5pt}}
 
+Flux given by Poynting's vector
+\index{Poynting's vector}%
+\index{X-ray!flux}
+\begin{equation}
+   \v{E}\times\v{H}
+\end{equation}
+
 \index{Wave propagation!X-ray|)}%
+\index{X-ray!wave propagation|)}%
 
 %===============================================================================
 \subsection{Unified wave equation}\label{SuniWave}
@@ -921,16 +987,9 @@ which completes the proof.
 \subsection{Differential cross section}\label{SdiffCross}
 %===============================================================================
 
-In connection with \cref{EBorn} we mentioned
+TO REVISE: In connection with \cref{EBorn} we mentioned
 that a scattering experiment measures intensities~${|\psi(\r)|}^2$.
-We shall now restate this in a more rigorous way.
-In the case of neutron scattering,
-one actually measures a \E{probability flux}.
-We define it in arbitrary relative units as
-\begin{equation}\label{EdefJ}
-  \v{J}(\r) \coloneqq  \psi^*\frac{\Nabla}{2i}\psi - \psi\frac{\Nabla}{2i}\psi^*.
-\end{equation}
-\nomenclature[2j150 2r040]{$\v{J}(\r)$}{Probability flux}%
+
 \index{Flux!incident and scattered}%
 The ratio of the scattered flux hitting an infinitesimal detector area
 $r^2\d\Omega$ to the incident flux is expressed as a
@@ -960,7 +1019,7 @@ the scattered flux at the detector is
 \begin{equation}\label{EJr}
   \v{J}(\r)
   = \v{\hat r}\frac{K}{r^2}
-    {\left|\bra\psi_\si|\delta v|\psi_\sf\ket\right|}^2.
+    {\left|\braket{\psi_\si|\delta v|\psi_\sf}\right|}^2.
 \end{equation}
 \index{Scattered radiation!flux}%
 Inserting these into definition~\cref{Exsectiondef},
@@ -972,7 +1031,7 @@ of elastic scattering in first order Born approximation,
 \Emph{
 \begin{equation}\label{Exsection}
   \xElas
-  =  {\left|\bra\psi_\si|\delta v|\psi_\sf\ket\right|}^2.
+  =  {\left|\braket{\psi_\si|\delta v|\psi_\sf}\right|}^2.
 \end{equation}\vspace*{-5pt}
 }
 As we shall see below,
@@ -999,10 +1058,10 @@ of the Fourier transform of the SLD,
 
 Per \cref{Exsection} and~\cref{Etrama},
 \index{Coherence length|(}%
-the matrix element $\bra \psi_\si|\delta v|\psi_\sf\ket$
+the matrix element $\braket{\psi_\si|\delta v|\psi_\sf}$
 is given by a three-dimensional integral
 \begin{equation}\label{Etrama3}
-  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
   \coloneqq  \int\!\d^3r\, \psi^{*}_\si(\r)\delta v(\r)\psi_\sf(\r).
 \end{equation}
 The integration domain is effectively limited to a finite $z$ interval,
@@ -1227,7 +1286,7 @@ we obtain the far-field approximation for the scattered wave,
 \begin{equation}%\label{EsandwichC}
   \psi_{\text{s}\infty}(\r)
   = \frac{\e^{iKr}}{r}
-    \bra \psi_\si|\delta v|\psi_\sf\ket^*
+    \braket{\psi_\si|\delta v|\psi_\sf}^*
 \end{equation}
 \nomenclature[1ψ034 2s000 2far]{$\psi_{\text{s}\infty}(\r)$}{Far-field
    approximation to the scattered wavefunction $\psi_\text{s}(\r)$}%
@@ -1236,16 +1295,16 @@ with the Dirac notation for the scattering matrix element
 \index{Transition matrix|see{Scattering matrix}}%
 \Emph{%
 \begin{equation}%\label{Etrama}
-  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \bra{\psi_\si|\delta v|\psi_\sf}
   \coloneqq  \int\!\d^3r\, \psi^*_\si(\r)\delta v(\r)\psi_\sf(\r).
 \end{equation}
 \vspace*{-5pt}}
-\nomenclature[0$\langle$0]{{$\bra\ldots\vert\ldots\vert\ldots\ket$}}{Matrix
+\nomenclature[0$\langle$0]{{$\braket{\ldots|\ldots|\ldots}$}}{Matrix
   element, defined as a volume integral}%
 Since per \cref{EPsi0Plane} and~\cref{EPsisfar} our $\psi_\si$ and~$\psi_\sf$ are plane waves,
 the matrix element can be simplified as
 \begin{equation}%\label{Echiq}
-  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
   = \int\!\d^3r\, {\rm e}^{-i\k_\si\r}\delta v(\r){\rm e}^{i\k_\sf\r}
   = \int\!\d^3r\, {\rm e}^{i\q\r}\delta v(\r)
   \eqqcolon v(\q),
@@ -1306,13 +1365,13 @@ For electromagnetic waves in vacuum, the flux is proportional to~$|\v{E}|^2$.
 So the X-ray scattering cross section for given incoming and detected polarization is
 \begin{equation}%\label{ExsectionXlong}
   \xElas
-  =  \frac{ {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2 }{|\v{e}_\si|^2\,|\v{e}_\sf|^2}
+  =  \frac{ {\left|\braket{\Ei|\delta v|\Ef}\right|}^2 }{|\v{e}_\si|^2\,|\v{e}_\sf|^2}
 \end{equation}
 with the scattering matrix element
 \index{Scattering!matrix}%
 \Emph{
 \begin{equation}%\label{EtramaE}
-  \bra \Ei|\delta v|\Ef\ket
+  \braket{\Ei|\delta v|\Ef}
   \coloneqq  \int\!\d^3r\, \Eic(\r)\delta v(\r)\Ef(\r).
 \end{equation}\vspace*{-5pt}}
 For lighter notation,
@@ -1326,7 +1385,7 @@ so that~\cref{ExsectionXlong}
 takes the simple form
 \begin{equation}%\label{ExsectionX}
   \xElas
-  =  {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2
+  =  {\left|\braket{\Ei|\delta v|\Ef}\right|}^2
 \end{equation}
 in full analogy with~\cref{Exsection}.
 Typically, scattered radiation is detected without polarization analysis.
@@ -1343,7 +1402,7 @@ Then the measured cross section is an incoherent sum
 \Emph{
 \begin{equation}%\label{ExsectionXsum}
   \xElas
-  =  \sum_{\hef} {\left|\bra\Ei|\delta v|\Ef\ket\right|}^2.
+  =  \sum_{\hef} {\left|\braket{\Ei|\delta v|\Ef}\right|}^2.
 \end{equation}\vspace*{-5pt}}
 In this equation,
 the dependence of $\Ef$ on $\hef$ is implicit,

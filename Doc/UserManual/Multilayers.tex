@@ -221,25 +221,25 @@ involves two incident and two final partial wavefunctions.
 The resulting sum
 \index{Wave propagation!in multilayer|)}
 \begin{equation}\label{Edwba4}
-  \bra \psi_\si|\delta v|\psi_\sf\ket
-  = \bra \psi^-_\si|\delta v|\psi^-_\sf\ket
-  + \bra \psi^-_\si|\delta v|\psi^+_\sf\ket
-  + \bra \psi^+_\si|\delta v|\psi^-_\sf\ket
-  + \bra \psi^+_\si|\delta v|\psi^+_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
+  = \braket{\psi^-_\si|\delta v|\psi^-_\sf}
+  + \braket{\psi^-_\si|\delta v|\psi^+_\sf}
+  + \braket{\psi^+_\si|\delta v|\psi^-_\sf}
+  + \braket{\psi^+_\si|\delta v|\psi^+_\sf}
 \end{equation}
 is depicted in \Cref{Fdwba4terms}.
 It can be written in an obvious shorthand notation
 \Emph{%
 \begin{equation}\label{Edwba}
-  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
   = \sum_{\pm_\si} \sum_{\pm_\sf}
-    \bra \psi^\pm_\si|\delta v|\psi^\pm_\sf\ket.
+    \bra{\psi^\pm_\si|\delta v|\psi^\pm_\sf}.
 \end{equation}%
 \vspace*{-5pt}}
 This equation contains the essence of
 the DWBA for GISAS,
 and is the base for all scattering models implemented in \BornAgain.
-Since $\bra \psi_\si|\delta v|\psi_\sf\ket$
+Since $\braket{\psi_\si|\delta v|\psi_\sf}$
 appears as a squared modulus
 in the differential cross section~\cref{Exsection},
 the four terms of \cref{Edwba} can interfere with each other,
@@ -278,9 +278,9 @@ with the requirement
 The DWBA matrix element~\cref{Edwba} then takes the form
 \Emph{%
 \begin{equation}\label{Edwbal}
-  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
   = \sum_l \sum_{\pm_\si} \sum_{\pm_\sf}
-    \bra \psi^\pm_{\si l}|\delta v|\psi^\pm_{\sf l}\ket.
+    \braket{\psi^\pm_{\si l}|\delta v|\psi^\pm_{\sf l}}.
 \end{equation}%
 \vspace*{-5pt}}
 
@@ -322,9 +322,9 @@ In full analogy with~\cref{Edwbal},
 the sum over layers is
 \Emph{%
 \begin{equation}\label{EdwbalE}
-  \bra \v{E}_\si|\delta v|\v{E}_\sf\ket
+  \braket{\v{E}_\si|\delta v|\v{E}_\sf}
   = \sum_l \sum_{\pm_\si} \sum_{\pm_\sf}
-    \bra \v{E}^\pm_{\si l}|\delta v|\v{E}^\pm_{\sf l}\ket.
+    \braket{\v{E}^\pm_{\si l}|\delta v|\v{E}^\pm_{\sf l}}.
 \end{equation}%
 \vspace*{-5pt}}
 
@@ -398,7 +398,7 @@ The offset~$z_l$ has been included in the phase factor for later convenience.
 The DWBA transition matrix element~\cref{Edwba} is
 \index{Distorted-wave Born approximation!multilayer}%
 \begin{equation}\label{Edwba_ml0}
-  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
   = \sum_l \sum_{\pm_\si} \sum_{\pm_\sf}
     A^{\pm *}_{\si l} A^\pm_{\sf l}
      \delta v_l(\k^\pm_{\sf l}-\k^\pm_{\si l})
@@ -426,7 +426,7 @@ and define the corresponding wavenumbers and amplitude factors and as
 Accordingly, we can write \cref{Edwba_ml0} as
 \Emph{
 \begin{equation}\label{Edwba_ml}
-  \bra \psi_\si|\delta v|\psi_\sf\ket
+  \braket{\psi_\si|\delta v|\psi_\sf}
   = \sum_l \sum_{u} C^u_l \delta v_l(\q_l^u).
 \end{equation}
 \vspace*{-5pt}}
@@ -771,7 +771,7 @@ are given by simple products of scalar amplitudes as in~\cref{Eudef}.
 
 The DWBA matrix element is
 \begin{equation}\label{Edwba_mlE}
-  \bra \v{E}_\si|\delta v|\v{E}_\sf\ket
+  \braket{\v{E}_\si|\delta v|\v{E}_\sf}
   = \sum_l \sum_{u} C^u_l \delta v_l(\q_l^u).
 \end{equation}
 in full analogy with~\cref{Edwba_ml},

@@ -379,6 +379,48 @@ void ISampleVisitor::visit(const FormFactorDecoratorRotation*)
         "*) -> Error. Not implemented.");
 }
 
+void ISampleVisitor::visit(const FTDecayFunction1DCauchy*)
+{
+    throw Exceptions::NotImplementedException(
+        "ISampleVisitor::visit(const FTDecayFunction1DCauchy*) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FTDecayFunction1DGauss*)
+{
+    throw Exceptions::NotImplementedException(
+        "ISampleVisitor::visit(const FTDecayFunction1DGauss*) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FTDecayFunction1DTriangle*)
+{
+    throw Exceptions::NotImplementedException(
+        "ISampleVisitor::visit(const FTDecayFunction1DTriangle*) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FTDecayFunction1DVoigt*)
+{
+    throw Exceptions::NotImplementedException(
+        "ISampleVisitor::visit(const FTDecayFunction1DVoigt*) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FTDecayFunction2DCauchy*)
+{
+    throw Exceptions::NotImplementedException(
+        "ISampleVisitor::visit(const FTDecayFunction2DCauchy*) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FTDecayFunction2DGauss*)
+{
+    throw Exceptions::NotImplementedException(
+        "ISampleVisitor::visit(const FTDecayFunction2DGauss*) -> Error. Not implemented.");
+}
+
+void ISampleVisitor::visit(const FTDecayFunction2DVoigt*)
+{
+    throw Exceptions::NotImplementedException(
+        "ISampleVisitor::visit(const FTDecayFunction2DVoigt*) -> Error. Not implemented.");
+}
+
 void ISampleVisitor::visit(const IInterferenceFunction*)
 {
     throw Exceptions::NotImplementedException(

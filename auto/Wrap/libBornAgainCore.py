@@ -7223,6 +7223,13 @@ class ISampleVisitor(_object):
         visit(ISampleVisitor self, FormFactorDecoratorMaterial const * arg2)
         visit(ISampleVisitor self, FormFactorDecoratorPositionFactor const * arg2)
         visit(ISampleVisitor self, FormFactorDecoratorRotation const * arg2)
+        visit(ISampleVisitor self, FTDecayFunction1DCauchy arg2)
+        visit(ISampleVisitor self, FTDecayFunction1DGauss arg2)
+        visit(ISampleVisitor self, FTDecayFunction1DTriangle arg2)
+        visit(ISampleVisitor self, FTDecayFunction1DVoigt arg2)
+        visit(ISampleVisitor self, FTDecayFunction2DCauchy arg2)
+        visit(ISampleVisitor self, FTDecayFunction2DGauss arg2)
+        visit(ISampleVisitor self, FTDecayFunction2DVoigt arg2)
         visit(ISampleVisitor self, IInterferenceFunction arg2)
         visit(ISampleVisitor self, InterferenceFunction1DLattice arg2)
         visit(ISampleVisitor self, InterferenceFunctionRadialParaCrystal arg2)
@@ -8480,7 +8487,7 @@ class Ellipse(IShape2D):
 Ellipse_swigregister = _libBornAgainCore.Ellipse_swigregister
 Ellipse_swigregister(Ellipse)
 
-class IFTDecayFunction1D(IParameterized):
+class IFTDecayFunction1D(ICloneable, INode):
     """
 
 
@@ -8491,11 +8498,11 @@ class IFTDecayFunction1D(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IFTDecayFunction1D, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFTDecayFunction1D, name)
 
@@ -8590,6 +8597,16 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
         return _libBornAgainCore.FTDecayFunction1DCauchy_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(FTDecayFunction1DCauchy self, ISampleVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDecayFunction1DCauchy_accept(self, visitor)
+
+
     def evaluate(self, q):
         """
         evaluate(FTDecayFunction1DCauchy self, double q) -> double
@@ -8645,6 +8662,16 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
 
         """
         return _libBornAgainCore.FTDecayFunction1DGauss_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FTDecayFunction1DGauss self, ISampleVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDecayFunction1DGauss_accept(self, visitor)
 
 
     def evaluate(self, q):
@@ -8704,6 +8731,16 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
         return _libBornAgainCore.FTDecayFunction1DTriangle_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(FTDecayFunction1DTriangle self, ISampleVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDecayFunction1DTriangle_accept(self, visitor)
+
+
     def evaluate(self, q):
         """
         evaluate(FTDecayFunction1DTriangle self, double q) -> double
@@ -8761,6 +8798,16 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         return _libBornAgainCore.FTDecayFunction1DVoigt_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(FTDecayFunction1DVoigt self, ISampleVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDecayFunction1DVoigt_accept(self, visitor)
+
+
     def evaluate(self, q):
         """
         evaluate(FTDecayFunction1DVoigt self, double q) -> double
@@ -8785,7 +8832,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
 FTDecayFunction1DVoigt_swigregister = _libBornAgainCore.FTDecayFunction1DVoigt_swigregister
 FTDecayFunction1DVoigt_swigregister(FTDecayFunction1DVoigt)
 
-class IFTDecayFunction2D(IParameterized):
+class IFTDecayFunction2D(ICloneable, INode):
     """
 
 
@@ -8796,11 +8843,11 @@ class IFTDecayFunction2D(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IFTDecayFunction2D, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFTDecayFunction2D, name)
 
@@ -8951,6 +8998,16 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         return _libBornAgainCore.FTDecayFunction2DCauchy_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(FTDecayFunction2DCauchy self, ISampleVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDecayFunction2DCauchy_accept(self, visitor)
+
+
     def evaluate(self, qx, qy):
         """
         evaluate(FTDecayFunction2DCauchy self, double qx, double qy) -> double
@@ -9012,6 +9069,16 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         return _libBornAgainCore.FTDecayFunction2DGauss_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(FTDecayFunction2DGauss self, ISampleVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDecayFunction2DGauss_accept(self, visitor)
+
+
     def evaluate(self, qx, qy):
         """
         evaluate(FTDecayFunction2DGauss self, double qx, double qy) -> double
@@ -9071,6 +9138,16 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
 
         """
         return _libBornAgainCore.FTDecayFunction2DVoigt_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FTDecayFunction2DVoigt self, ISampleVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDecayFunction2DVoigt_accept(self, visitor)
 
 
     def evaluate(self, qx, qy):

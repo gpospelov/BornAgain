@@ -88,6 +88,14 @@ class FormFactorDecoratorMaterial;
 class FormFactorDecoratorPositionFactor;
 class FormFactorDecoratorRotation;
 // -
+class FTDecayFunction1DCauchy;
+class FTDecayFunction1DGauss;
+class FTDecayFunction1DTriangle;
+class FTDecayFunction1DVoigt;
+class FTDecayFunction2DCauchy;
+class FTDecayFunction2DGauss;
+class FTDecayFunction2DVoigt;
+// -
 class IInterferenceFunction;
 class InterferenceFunction1DLattice;
 class InterferenceFunctionRadialParaCrystal;
@@ -181,6 +189,14 @@ public:
     virtual void visit(const FormFactorDecoratorMaterial*);
     virtual void visit(const FormFactorDecoratorPositionFactor*);
     virtual void visit(const FormFactorDecoratorRotation*);
+
+    virtual void visit(const FTDecayFunction1DCauchy*);
+    virtual void visit(const FTDecayFunction1DGauss*);
+    virtual void visit(const FTDecayFunction1DTriangle*);
+    virtual void visit(const FTDecayFunction1DVoigt*);
+    virtual void visit(const FTDecayFunction2DCauchy*);
+    virtual void visit(const FTDecayFunction2DGauss*);
+    virtual void visit(const FTDecayFunction2DVoigt*);
 
     virtual void visit(const IInterferenceFunction*);
     virtual void visit(const InterferenceFunction1DLattice*);

@@ -18,7 +18,6 @@
 
 #include "ICloneable.h"
 #include "INode.h"
-#include "INodeVisitor.h"
 #include "MathConstants.h"
 
 //! Interface for a one-dimensional decay function,

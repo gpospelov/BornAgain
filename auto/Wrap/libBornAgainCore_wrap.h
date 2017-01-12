@@ -103,7 +103,7 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual void accept(INodeVisitor *p_visitor) const;
+    virtual void accept(INodeVisitor *visitor) const;
     virtual std::string to_str() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
 
@@ -159,7 +159,7 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual void accept(INodeVisitor *p_visitor) const;
+    virtual void accept(INodeVisitor *visitor) const;
     virtual std::string to_str() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
@@ -356,7 +356,7 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual void accept(INodeVisitor *p_visitor) const;
+    virtual void accept(INodeVisitor *visitor) const;
     virtual std::string to_str() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
@@ -420,7 +420,7 @@ public:
     virtual void printSwigPublic(std::ostream &ostr) const {
       IParameterized::print(ostr);
     }
-    virtual void accept(INodeVisitor *p_visitor) const;
+    virtual void accept(INodeVisitor *visitor) const;
     virtual std::string to_str() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;

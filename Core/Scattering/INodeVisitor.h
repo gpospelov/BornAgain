@@ -95,6 +95,11 @@ class FTDecayFunction1DVoigt;
 class FTDecayFunction2DCauchy;
 class FTDecayFunction2DGauss;
 class FTDecayFunction2DVoigt;
+class FTDistribution2DCauchy;
+class FTDistribution2DGauss;
+class FTDistribution2DGate;
+class FTDistribution2DCone;
+class FTDistribution2DVoigt;
 // -
 class IInterferenceFunction;
 class InterferenceFunction1DLattice;
@@ -197,6 +202,12 @@ public:
     virtual void visit(const FTDecayFunction2DCauchy*) {}
     virtual void visit(const FTDecayFunction2DGauss*) {}
     virtual void visit(const FTDecayFunction2DVoigt*) {}
+
+    virtual void visit(const FTDistribution2DCauchy*) {}
+    virtual void visit(const FTDistribution2DGauss*) {}
+    virtual void visit(const FTDistribution2DGate*) {}
+    virtual void visit(const FTDistribution2DCone*) {}
+    virtual void visit(const FTDistribution2DVoigt*) {}
 
     virtual void visit(const IInterferenceFunction*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}

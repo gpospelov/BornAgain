@@ -47,7 +47,11 @@ public:
 
     virtual ConvolutionDetectorResolution *clone() const;
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     const IResolutionFunction2D *getResolutionFunction2D() const;
+
+    std::vector<const INode*> getChildren() const;
 
 protected:
     ConvolutionDetectorResolution(const ConvolutionDetectorResolution& other);
@@ -55,6 +59,7 @@ protected:
     virtual void init_parameters();
 
 private:
+    void setResolutionFunction(IResolutionFunction2D *resFunc);
     void apply1dConvolution(OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(OutputData<double> *p_intensity_map) const;
     double getIntegratedPDF1d(double x, double step) const;
@@ -62,12 +67,12 @@ private:
 
     size_t m_dimension;
     cumulative_DF_1d m_res_function_1d;
-    IResolutionFunction2D *mp_res_function_2d;
+    std::unique_ptr<IResolutionFunction2D> mp_res_function_2d;
 };
 
 inline const IResolutionFunction2D *ConvolutionDetectorResolution::getResolutionFunction2D() const
 {
-    return mp_res_function_2d;
+    return mp_res_function_2d.get();
 }
 
 #endif // CONVOLUTIONDETECTORRESOLUTION_H

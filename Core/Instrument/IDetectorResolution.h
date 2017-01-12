@@ -16,14 +16,15 @@
 #ifndef IDETECTORRESOLUTION_H
 #define IDETECTORRESOLUTION_H
 
-#include "IParameterized.h"
+#include "INode.h"
+#include "ICloneable.h"
 #include "OutputData.h"
 #include "ICloneable.h"
 
 //! Interface for detector resolution algorithms
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ IDetectorResolution : public ICloneable, public IParameterized
+class BA_CORE_API_ IDetectorResolution : public ICloneable, public INode
 {
 public:
     virtual ~IDetectorResolution() {}

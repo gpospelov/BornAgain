@@ -16,7 +16,8 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "IParameterized.h"
+#include "INode.h"
+#include "ICloneable.h"
 #include "Beam.h"
 #include "DetectorMask.h"
 #include "SafePointerVector.h"
@@ -36,7 +37,7 @@ class SimulationElement;
 //! Pure virtual detector interface.
 //! @ingroup simulation
 
-class BA_CORE_API_ IDetector2D : public ICloneable, public IParameterized
+class BA_CORE_API_ IDetector2D :  public ICloneable, public INode
 {
 public:
     enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
@@ -144,6 +145,8 @@ public:
 
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
+
+    std::vector<const INode*> getChildren() const;
 
 protected:
     IDetector2D(const IDetector2D& other);

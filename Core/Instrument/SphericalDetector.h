@@ -42,6 +42,8 @@ public:
 
     SphericalDetector* clone() const override;
 
+    void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+
     ~SphericalDetector() override {}
 
     //! Adds parameters from local pool to external pool and recursively calls its direct children.

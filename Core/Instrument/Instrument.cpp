@@ -94,6 +94,11 @@ std::vector<SimulationElement> Instrument::createSimulationElements()
     return mP_detector->createSimulationElements(m_beam);
 }
 
+// TODO Remove pointer version of
+// Instrument::setDetectorResolutionFunction
+// ConvolutionDetectorResolution(IResolutionFunction2D *p_res_function_2d)
+
+
 void Instrument::setDetectorResolutionFunction(IResolutionFunction2D* p_resolution_function)
 {
     if (p_resolution_function) {

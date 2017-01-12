@@ -21,7 +21,6 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     cumulative_DF_1d res_function_1d)
     : m_dimension(1)
     , m_res_function_1d(res_function_1d)
-    , mp_res_function_2d(0)
 {
     setName("ConvolutionDetectorResolution");
 }
@@ -30,40 +29,42 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     IResolutionFunction2D* p_res_function_2d)
     : m_dimension(2)
     , m_res_function_1d(0)
-    , mp_res_function_2d(p_res_function_2d)
 {
     setName("ConvolutionDetectorResolution");
+    setResolutionFunction(p_res_function_2d);
 }
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     const IResolutionFunction2D &p_res_function_2d)
     : m_dimension(2)
     , m_res_function_1d(0)
-    , mp_res_function_2d(p_res_function_2d.clone())
 {
     setName("ConvolutionDetectorResolution");
+    setResolutionFunction(p_res_function_2d.clone());
 }
 
 
 ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
 {
-    delete mp_res_function_2d;
 }
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
-    const ConvolutionDetectorResolution& other) : IDetectorResolution()
-//    : IDetectorResolution(other)
+    const ConvolutionDetectorResolution& other)
 {
     m_dimension = other.m_dimension;
     m_res_function_1d=other.m_res_function_1d;
-    mp_res_function_2d = other.mp_res_function_2d->clone();
+    setResolutionFunction(other.mp_res_function_2d->clone());
     setName(other.getName());
-
 }
 
 ConvolutionDetectorResolution* ConvolutionDetectorResolution::clone() const
 {
     return new ConvolutionDetectorResolution(*this);
+}
+
+std::vector<const INode*> ConvolutionDetectorResolution::getChildren() const
+{
+    return std::vector<const INode*>() << mp_res_function_2d;
 }
 
 void ConvolutionDetectorResolution::applyDetectorResolution(
@@ -104,6 +105,16 @@ std::string ConvolutionDetectorResolution::addParametersToExternalPool(
 
 void ConvolutionDetectorResolution::init_parameters()
 {
+}
+
+void ConvolutionDetectorResolution::setResolutionFunction(IResolutionFunction2D* resFunc)
+{
+    if (!resFunc)
+        throw Exceptions::RuntimeErrorException(
+                "ConvolutionDetectorResolution::setResolutionFunction() -> Error. Nullptr");
+
+    mp_res_function_2d.reset(resFunc);
+    registerChild(mp_res_function_2d.get());
 }
 
 void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_intensity_map) const

@@ -7156,6 +7156,11 @@ class INodeVisitor(_object):
     def visit(self, *args):
         """
         visit(INodeVisitor self, INode arg2)
+        visit(INodeVisitor self, RectangularDetector arg2)
+        visit(INodeVisitor self, SphericalDetector arg2)
+        visit(INodeVisitor self, IsGISAXSDetector arg2)
+        visit(INodeVisitor self, ResolutionFunction2DGaussian arg2)
+        visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)
         visit(INodeVisitor self, ISample arg2)
         visit(INodeVisitor self, IClusteredParticles arg2)
         visit(INodeVisitor self, Crystal arg2)
@@ -16985,7 +16990,7 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
 HomogeneousMagneticMaterial_swigregister = _libBornAgainCore.HomogeneousMagneticMaterial_swigregister
 HomogeneousMagneticMaterial_swigregister(HomogeneousMagneticMaterial)
 
-class IDetector2D(ICloneable, IParameterized):
+class IDetector2D(ICloneable, INode):
     """
 
 
@@ -16996,11 +17001,11 @@ class IDetector2D(ICloneable, IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IDetector2D, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IDetector2D, name)
 
@@ -17368,10 +17373,22 @@ class IDetector2D(ICloneable, IParameterized):
         """
         return _libBornAgainCore.IDetector2D_numberOfSimulationElements(self)
 
+
+    def getChildren(self):
+        """
+        getChildren(IDetector2D self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.IDetector2D_getChildren(self)
+
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
 IDetector2D_swigregister(IDetector2D)
 
-class IDetectorResolution(ICloneable, IParameterized):
+class IDetectorResolution(ICloneable, INode):
     """
 
 
@@ -17382,11 +17399,11 @@ class IDetectorResolution(ICloneable, IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IDetectorResolution, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IDetectorResolution, name)
 
@@ -18059,7 +18076,7 @@ class IParticle(IAbstractParticle):
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)
 
-class IResolutionFunction2D(IParameterized):
+class IResolutionFunction2D(ICloneable, INode):
     """
 
 
@@ -18070,11 +18087,11 @@ class IResolutionFunction2D(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IResolutionFunction2D, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IResolutionFunction2D, name)
 
@@ -20011,6 +20028,16 @@ class SphericalDetector(IDetector2D):
         """
         return _libBornAgainCore.SphericalDetector_clone(self)
 
+
+    def accept(self, visitor):
+        """
+        accept(SphericalDetector self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.SphericalDetector_accept(self, visitor)
+
     __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
     __del__ = lambda self: None
 
@@ -20163,6 +20190,16 @@ class IsGISAXSDetector(SphericalDetector):
 
         """
         return _libBornAgainCore.IsGISAXSDetector_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(IsGISAXSDetector self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.IsGISAXSDetector_accept(self, visitor)
 
     __swig_destroy__ = _libBornAgainCore.delete_IsGISAXSDetector
     __del__ = lambda self: None
@@ -24083,6 +24120,16 @@ class RectangularDetector(IDetector2D):
         """
         return _libBornAgainCore.RectangularDetector_clone(self)
 
+
+    def accept(self, visitor):
+        """
+        accept(RectangularDetector self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.RectangularDetector_accept(self, visitor)
+
     __swig_destroy__ = _libBornAgainCore.delete_RectangularDetector
     __del__ = lambda self: None
 
@@ -24428,6 +24475,16 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
 
         """
         return _libBornAgainCore.ResolutionFunction2DGaussian_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(ResolutionFunction2DGaussian self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.ResolutionFunction2DGaussian_accept(self, visitor)
 
 
     def getSigmaX(self):

@@ -31,6 +31,8 @@ public:
 
     IsGISAXSDetector* clone() const override;
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
 protected:
     void print(std::ostream &ostr) const override;
 

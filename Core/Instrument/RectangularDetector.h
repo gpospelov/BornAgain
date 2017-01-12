@@ -44,6 +44,8 @@ public:
 
     RectangularDetector* clone() const override;
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     ~RectangularDetector();
 
     void init(const Beam& beam) override;

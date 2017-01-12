@@ -18,9 +18,17 @@
 
 #include "WinDllMacros.h"
 
-class INode;
-class ISample;
 // - the order according to the hierarchy as reported by IDE
+class INode;
+// -
+class RectangularDetector;
+class SphericalDetector;
+class IsGISAXSDetector;
+class ResolutionFunction2DGaussian;
+class ConvolutionDetectorResolution;
+// -
+class ISample;
+// -
 class IClusteredParticles;
 class Crystal;
 // -
@@ -116,6 +124,8 @@ class RotationY;
 class RotationZ;
 class RotationEuler;
 
+
+
 //! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
 
@@ -130,6 +140,13 @@ public:
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
     virtual void visit(const INode*) {}
+
+    virtual void visit(const RectangularDetector*) {}
+    virtual void visit(const SphericalDetector*) {}
+    virtual void visit(const IsGISAXSDetector*) {}
+    virtual void visit(const ResolutionFunction2DGaussian*) {}
+    virtual void visit(const ConvolutionDetectorResolution*) {}
+
     virtual void visit(const ISample*) {}
 
     virtual void visit(const IClusteredParticles*) {}

@@ -32,8 +32,7 @@ IDetector2D::IDetector2D()
 }
 
 IDetector2D::IDetector2D(const IDetector2D &other)
-    : IParameterized()
-    , m_axes(other.m_axes)
+    : m_axes(other.m_axes)
     , m_detector_mask(other.m_detector_mask)
     , m_detection_properties(other.m_detection_properties)
 {
@@ -259,6 +258,11 @@ size_t IDetector2D::numberOfSimulationElements() const
     return result;
 }
 
+std::vector<const INode*> IDetector2D::getChildren() const
+{
+    return std::vector<const INode*>() << mP_detector_resolution;
+}
+
 std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,
                                                   IDetector2D::EAxesUnits units) const
 {
@@ -361,6 +365,9 @@ void IDetector2D::setDetectorResolution(IDetectorResolution* p_detector_resoluti
     if (mP_detector_resolution.get()!=p_detector_resolution) {
         mP_detector_resolution.reset(p_detector_resolution);
     }
+
+    if(mP_detector_resolution)
+        registerChild(mP_detector_resolution.get());
 }
 
 const IDetectorResolution* IDetector2D::getDetectorResolutionFunction() const

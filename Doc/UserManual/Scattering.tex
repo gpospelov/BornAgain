@@ -250,12 +250,14 @@ Mostly we will assume pure states to be \E{plane waves}
 \index{Plane wave}%
 \index{Wave!plane}%
 \begin{equation}\label{EplaneWave}
-  \psi_\k(\r)\coloneqq\e^{i\k\r}.
+  \psi_\k(\r)\coloneqq\e^{i\k\r},
 \end{equation}
-In this case, the sum in~\cref{EdefRho} must be replaced by an integral,
-and the flux is simply
+where the wavevector~$\k$ is allowed to have an imaginary part that describes damping.
+\index{Damping}%
+We replace the sum in~\cref{EdefRho} by an integral,
+and find that the flux is simply
 \begin{equation}
-  \v{J}(\r) = \int\!\d^3k\; p_\k\, \k.
+  \v{J}(\r) = \int\!\d^3k\; p_\k\, |\psi_\k(\r)|^2 \Re\k.
 \end{equation}
 
 %===============================================================================
@@ -398,7 +400,7 @@ of the standard form of the Schrödinger equation.%
 \index{Sign convention!wave propagation|)}%
 }
 \index{Phase factor}%
-In the following, we will concentrate on the electric field
+We will formulate the following in terms of the electric field
 \index{Electric field}%
 \begin{equation}\label{EstationaryX}
   \v{E}(\r,t) = \v{E}(\r)\e^{-i\omega t}.
@@ -456,22 +458,38 @@ Using a standard identity from vector analysis, it can be brought into the more 
 \end{equation}
 \vspace*{-5pt}}
 
-Electromagnetic flux is given by Poynting's vector
-\begin{equation}
-  \v{S}\coloneqq \v{E}\times\v{H}.
-\end{equation}
-Under our assumptions $\omega=\text{const}$ and $\TENS\mu(\r)=1$,
-the $H$~field is
-\begin{equation}
-  \v{H} = \frac{i}{\omega\mu_0}\Nabla\times\v{E}.
-\end{equation}
-For the vacuum field (which
-It is very unusual to describe a classical electromagnetic field by a density matrix,
-but nonetheless useful.
-
-\index{Poynting's vector}%
+It is well known that the electromagnetic energy flux is given by the Poynting vector.
+\index{Poynting vector}%
 \index{X-ray!flux}%
 \index{Flux!X-rays}%
+However, its standard definition, $\v{S}\coloneqq\v{E}\times\v{H}$,
+is not applicable here because it only holds for \E{real} fields.
+With our complex notation, it must be replaced by
+\begin{equation}
+  \v{S}\coloneqq \Re\v E(\r,t)\times\Re\v H(\r,t).
+\end{equation}
+\nomenclature[2s150]{$\v S$}{Poyinting vector}%
+For stationary oscillations~\cref{EstationaryX},
+the time average is
+\begin{equation}
+  \braket{\v S} = \frac{1}{4}\braket{\v E(\r) \times \v H(\r)^* + \text{c.~c.}}.
+\end{equation}
+\nomenclature[2c000 2c000]{$\text{c.~c.}$}{Complex conjugate}%
+We specialize to vacuum with $\TENS\mu(\r)=1$ and $\TENS\eps(\r)=1$,
+and obtain
+\begin{equation}
+  \braket{\v S}
+  = \frac{1}{4i\omega\mu_0}
+    \left( \v E^*(\r)\times\left(\Nabla\times\v{E}(\r)\right) + \text{c.~c.} \right).
+\end{equation}
+For a plane wave $\v E(\r)=\v E_\k \e^{i\k\r}$, we find
+\begin{equation}
+  \braket{\v S}
+  = \frac{1}{2\omega\mu_0} |\v E|^2 \Re \k,
+\end{equation}
+which confirms the common knowledge that the radiation intensity
+counted in a detector is proportional to the squared electric field amplitude.
+
 
 \index{Wave propagation!X-ray|)}%
 \index{X-ray!wave propagation|)}%

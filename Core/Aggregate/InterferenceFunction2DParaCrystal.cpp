@@ -70,7 +70,9 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
         const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2)
 {
     m_pdf1.reset(pdf_1.clone());
+    registerChild(m_pdf1.get());
     m_pdf2.reset(pdf_2.clone());
+    registerChild(m_pdf2.get());
 }
 
 double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
@@ -85,9 +87,12 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
 double InterferenceFunction2DParaCrystal::getParticleDensity() const
 {
     double area = m_lattice_params.getUnitCellArea();
-    if (area == 0.0)
-        return 0.0;
-    return 1.0/area;
+    return area == 0.0 ? 0.0 : 1.0/area;
+}
+
+std::vector<const INode*> InterferenceFunction2DParaCrystal::getChildren() const
+{
+    return std::vector<const INode*>() << m_pdf1 << m_pdf2;
 }
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSquare(

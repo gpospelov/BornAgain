@@ -67,6 +67,8 @@ public:
 
     double getParticleDensity() const final;
 
+    std::vector<const INode*> getChildren() const;
+
 private:
     void init_parameters();
     double interferenceForXi(double xi) const;

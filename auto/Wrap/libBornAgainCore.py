@@ -19790,6 +19790,18 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getParticleDensity(self)
 
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunction2DParaCrystal self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getChildren(self)
+
 InterferenceFunction2DParaCrystal_swigregister = _libBornAgainCore.InterferenceFunction2DParaCrystal_swigregister
 InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
 

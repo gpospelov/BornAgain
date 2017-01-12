@@ -21,6 +21,8 @@
 // - the order according to the hierarchy as reported by IDE
 class INode;
 // -
+class Beam;
+// -
 class RectangularDetector;
 class SphericalDetector;
 class IsGISAXSDetector;
@@ -140,6 +142,8 @@ public:
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
     virtual void visit(const INode*) {}
+
+    virtual void visit(const Beam*) {}
 
     virtual void visit(const RectangularDetector*) {}
     virtual void visit(const SphericalDetector*) {}

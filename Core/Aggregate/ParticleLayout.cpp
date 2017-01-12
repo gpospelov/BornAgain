@@ -18,7 +18,6 @@
 #include "Exceptions.h"
 #include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
-#include "ISampleVisitor.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "RealParameter.h"

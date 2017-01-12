@@ -33,7 +33,7 @@ public:
 
     FormFactorDWBAPol* clone() const override;
 
-    void accept(ISampleVisitor* visitor) const override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Throws not-implemented exception
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;

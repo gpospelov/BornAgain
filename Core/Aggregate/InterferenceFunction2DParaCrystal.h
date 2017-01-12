@@ -38,7 +38,7 @@ public:
 
     InterferenceFunction2DParaCrystal* clone() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     static InterferenceFunction2DParaCrystal* createSquare(double peak_distance,
                                                            double damping_length = 0.0,

@@ -30,7 +30,7 @@ public:
 
     FormFactorTruncatedSpheroid* clone() const override final {
         return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }
     double getHeight() const { return m_height; }

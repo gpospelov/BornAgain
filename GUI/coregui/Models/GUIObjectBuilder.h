@@ -17,7 +17,7 @@
 #ifndef GUIOBJECTBUILDER_H
 #define GUIOBJECTBUILDER_H
 
-#include "ISampleVisitor.h"
+#include "INodeVisitor.h"
 #include "MaterialProperty.h"
 
 class IMaterial;
@@ -28,7 +28,7 @@ class DocumentModel;
 class GISASSimulation;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
-class BA_CORE_API_ GUIObjectBuilder : public ISampleVisitor
+class BA_CORE_API_ GUIObjectBuilder : public INodeVisitor
 {
 public:
     GUIObjectBuilder();
@@ -50,7 +50,7 @@ public:
                                        const GISASSimulation &simulation);
 
 
-    using ISampleVisitor::visit;
+    using INodeVisitor::visit;
 
     void visit(const ParticleLayout *);
 

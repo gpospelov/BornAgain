@@ -28,7 +28,7 @@ public:
 
     FormFactorTrivial* clone() const override final { return new FormFactorTrivial(); }
 
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadialExtension() const override final { return 0; }
 

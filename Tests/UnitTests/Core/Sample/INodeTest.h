@@ -31,7 +31,7 @@ public:
             for(auto child : m_nodes)
                 delete child;
         }
-        void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+        void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
         void appendChild(INode *node) { m_nodes.push_back(node); registerChild(node); }
 

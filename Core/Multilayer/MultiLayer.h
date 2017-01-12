@@ -43,7 +43,7 @@ public:
     MultiLayer();
     virtual ~MultiLayer();
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     size_t getNumberOfLayers() const { return m_layers.size(); }
     size_t getNumberOfInterfaces() const { return m_interfaces.size(); }

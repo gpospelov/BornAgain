@@ -17,10 +17,9 @@
 #define INODE_H
 
 #include "IParameterized.h"
+#include "INodeVisitor.h"
 #include <vector>
 #include <memory>
-
-class ISampleVisitor;
 
 //! Base class for tree-like structures containing parameterized objects.
 //! @ingroup tools_internal
@@ -31,7 +30,8 @@ public:
     INode();
     virtual ~INode(){}
 
-    virtual void accept(ISampleVisitor* p_visitor) const=0;
+    //! Calls the INodeVisitor's visit method
+    virtual void accept(INodeVisitor* visitor) const=0;
 
     //! Returns multiline string representing tree structure below the node.
     virtual std::string to_str() const;

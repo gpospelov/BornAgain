@@ -28,7 +28,7 @@ public:
 
     FormFactorCuboctahedron *clone() const override final {
         return new FormFactorCuboctahedron(m_length, m_height, m_height_ratio, m_alpha); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }

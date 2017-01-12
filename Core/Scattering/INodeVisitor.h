@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Scattering/ISampleVisitor.h
-//! @brief     Defines interface class ISampleVisitor.
+//! @file      Core/Scattering/INodeVisitor.h
+//! @brief     Defines interface class INodeVisitor.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISAMPLEVISITOR_H
-#define ISAMPLEVISITOR_H
+#ifndef INODEVISITOR_H
+#define INODEVISITOR_H
 
 #include "WinDllMacros.h"
 
@@ -116,11 +116,11 @@ class RotationEuler;
 
 //! From visitor pattern to achieve double dispatch.
 
-class BA_CORE_API_ ISampleVisitor
+class BA_CORE_API_ INodeVisitor
 {
 public:
-    ISampleVisitor() : m_depth(0) {}
-    virtual ~ISampleVisitor(){}
+    INodeVisitor() : m_depth(0) {}
+    virtual ~INodeVisitor(){}
 
     // visiting methods (the order according to the hierarchy as reported by IDE)
 
@@ -223,7 +223,7 @@ private:
     int m_depth;
 };
 
-BA_CORE_API_ void VisitSampleTreePreorder(const ISample& sample, ISampleVisitor& visitor);
-BA_CORE_API_ void VisitSampleTreePostorder(const ISample& sample, ISampleVisitor& visitor);
+BA_CORE_API_ void VisitSampleTreePreorder(const INode& node, INodeVisitor& visitor);
+BA_CORE_API_ void VisitSampleTreePostorder(const INode& node, INodeVisitor& visitor);
 
 #endif // ISAMPLEVISITOR_H

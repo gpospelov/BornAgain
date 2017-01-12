@@ -31,7 +31,7 @@ public:
 
     InterferenceFunction2DLattice* clone() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi = 0.0);
     static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi = 0.0);

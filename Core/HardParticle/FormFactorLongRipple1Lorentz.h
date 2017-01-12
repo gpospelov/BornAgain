@@ -33,7 +33,7 @@ public:
 
     FormFactorLongRipple1Lorentz* clone() const override final {
         return new FormFactorLongRipple1Lorentz(m_length, m_width, m_height); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadialExtension() const override final;
 

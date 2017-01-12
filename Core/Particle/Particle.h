@@ -38,7 +38,7 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual Particle* cloneInvertB() const;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     void setAmbientMaterial(const IMaterial& material) final;
     const IMaterial* getAmbientMaterial() const final { return mP_ambient_material.get(); }

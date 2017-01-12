@@ -16,7 +16,6 @@
 #include "FormFactorDecoratorMaterial.h"
 #include "BornAgainNamespace.h"
 #include "IMaterial.h"
-#include "ISampleVisitor.h"
 #include "MathConstants.h"
 #include "WavevectorInfo.h"
 

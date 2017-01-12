@@ -51,7 +51,7 @@ MesoCrystal* MesoCrystal::cloneInvertB() const
     return p_result;
 }
 
-void MesoCrystal::accept(ISampleVisitor* visitor) const
+void MesoCrystal::accept(INodeVisitor* visitor) const
 {
     visitor->visit(this);
 }

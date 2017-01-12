@@ -29,7 +29,7 @@ public:
 
     FormFactorFullSpheroid* clone() const override final {
         return new FormFactorFullSpheroid(m_radius, m_height); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }

@@ -41,7 +41,6 @@ public:
     IFormFactor() {}
     ~IFormFactor() override;
     IFormFactor* clone() const override=0;
-    void accept(ISampleVisitor* visitor) const override=0;
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) {}

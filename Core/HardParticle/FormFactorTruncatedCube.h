@@ -28,7 +28,7 @@ public:
 
     FormFactorTruncatedCube*clone() const override final {
         return new FormFactorTruncatedCube(m_length, m_removed_length); }
-    void accept(ISampleVisitor*visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor*visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getRemovedLength() const { return m_removed_length; }

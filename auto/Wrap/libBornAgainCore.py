@@ -2029,7 +2029,7 @@ class INode(IParameterized):
 
     def accept(self, p_visitor):
         """
-        accept(INode self, ISampleVisitor p_visitor)
+        accept(INode self, INodeVisitor p_visitor)
 
         virtual void INode::accept(ISampleVisitor *p_visitor) const =0
 
@@ -7134,165 +7134,136 @@ def IMultiLayerBuilder_isPythonBuilder():
     """IMultiLayerBuilder_isPythonBuilder() -> bool"""
     return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder()
 
-class ISampleVisitor(_object):
-    """
-
-
-    From visitor pattern to achieve double dispatch.
-
-    Visitor interface to visit  ISample objects.
-
-    C++ includes: ISampleVisitor.h
-
-    """
+class INodeVisitor(_object):
+    """Proxy of C++ INodeVisitor class."""
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ISampleVisitor, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, INodeVisitor, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, ISampleVisitor, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, INodeVisitor, name)
     __repr__ = _swig_repr
 
     def __init__(self):
-        """
-        __init__(ISampleVisitor self) -> ISampleVisitor
-
-        ISampleVisitor::ISampleVisitor()
-
-        """
-        this = _libBornAgainCore.new_ISampleVisitor()
+        """__init__(INodeVisitor self) -> INodeVisitor"""
+        this = _libBornAgainCore.new_INodeVisitor()
         try:
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_ISampleVisitor
+    __swig_destroy__ = _libBornAgainCore.delete_INodeVisitor
     __del__ = lambda self: None
 
     def visit(self, *args):
         """
-        visit(ISampleVisitor self, INode arg2)
-        visit(ISampleVisitor self, ISample arg2)
-        visit(ISampleVisitor self, IClusteredParticles arg2)
-        visit(ISampleVisitor self, Crystal arg2)
-        visit(ISampleVisitor self, ILayout arg2)
-        visit(ISampleVisitor self, ParticleLayout arg2)
-        visit(ISampleVisitor self, Layer arg2)
-        visit(ISampleVisitor self, LayerInterface const * arg2)
-        visit(ISampleVisitor self, MultiLayer arg2)
-        visit(ISampleVisitor self, IAbstractParticle arg2)
-        visit(ISampleVisitor self, IParticle arg2)
-        visit(ISampleVisitor self, Particle arg2)
-        visit(ISampleVisitor self, ParticleDistribution arg2)
-        visit(ISampleVisitor self, ParticleComposition arg2)
-        visit(ISampleVisitor self, MesoCrystal arg2)
-        visit(ISampleVisitor self, ParticleCoreShell arg2)
-        visit(ISampleVisitor self, IFormFactor arg2)
-        visit(ISampleVisitor self, IFormFactorBorn arg2)
-        visit(ISampleVisitor self, IFormFactorDecorator arg2)
-        visit(ISampleVisitor self, FormFactorAnisoPyramid arg2)
-        visit(ISampleVisitor self, FormFactorBox arg2)
-        visit(ISampleVisitor self, FormFactorCone arg2)
-        visit(ISampleVisitor self, FormFactorCone6 arg2)
-        visit(ISampleVisitor self, FormFactorCuboctahedron arg2)
-        visit(ISampleVisitor self, FormFactorCrystal arg2)
-        visit(ISampleVisitor self, FormFactorCylinder arg2)
-        visit(ISampleVisitor self, FormFactorDodecahedron arg2)
-        visit(ISampleVisitor self, FormFactorEllipsoidalCylinder arg2)
-        visit(ISampleVisitor self, FormFactorFullSphere arg2)
-        visit(ISampleVisitor self, FormFactorFullSpheroid arg2)
-        visit(ISampleVisitor self, FormFactorGauss arg2)
-        visit(ISampleVisitor self, FormFactorHemiEllipsoid arg2)
-        visit(ISampleVisitor self, FormFactorIcosahedron arg2)
-        visit(ISampleVisitor self, FormFactorLongBoxGauss arg2)
-        visit(ISampleVisitor self, FormFactorLongBoxLorentz arg2)
-        visit(ISampleVisitor self, FormFactorLorentz arg2)
-        visit(ISampleVisitor self, FormFactorPrism3 arg2)
-        visit(ISampleVisitor self, FormFactorPrism6 arg2)
-        visit(ISampleVisitor self, FormFactorPyramid arg2)
-        visit(ISampleVisitor self, FormFactorRipple1 arg2)
-        visit(ISampleVisitor self, FormFactorRipple2 arg2)
-        visit(ISampleVisitor self, FormFactorSphereGaussianRadius arg2)
-        visit(ISampleVisitor self, FormFactorSphereLogNormalRadius arg2)
-        visit(ISampleVisitor self, FormFactorTetrahedron arg2)
-        visit(ISampleVisitor self, FormFactorTrivial arg2)
-        visit(ISampleVisitor self, FormFactorTruncatedCube arg2)
-        visit(ISampleVisitor self, FormFactorTruncatedSphere arg2)
-        visit(ISampleVisitor self, FormFactorTruncatedSpheroid arg2)
-        visit(ISampleVisitor self, FormFactorWeighted arg2)
-        visit(ISampleVisitor self, FormFactorDecoratorDebyeWaller arg2)
-        visit(ISampleVisitor self, FormFactorDecoratorFactor const * arg2)
-        visit(ISampleVisitor self, FormFactorDecoratorMaterial const * arg2)
-        visit(ISampleVisitor self, FormFactorDecoratorPositionFactor const * arg2)
-        visit(ISampleVisitor self, FormFactorDecoratorRotation const * arg2)
-        visit(ISampleVisitor self, FTDecayFunction1DCauchy arg2)
-        visit(ISampleVisitor self, FTDecayFunction1DGauss arg2)
-        visit(ISampleVisitor self, FTDecayFunction1DTriangle arg2)
-        visit(ISampleVisitor self, FTDecayFunction1DVoigt arg2)
-        visit(ISampleVisitor self, FTDecayFunction2DCauchy arg2)
-        visit(ISampleVisitor self, FTDecayFunction2DGauss arg2)
-        visit(ISampleVisitor self, FTDecayFunction2DVoigt arg2)
-        visit(ISampleVisitor self, IInterferenceFunction arg2)
-        visit(ISampleVisitor self, InterferenceFunction1DLattice arg2)
-        visit(ISampleVisitor self, InterferenceFunctionRadialParaCrystal arg2)
-        visit(ISampleVisitor self, InterferenceFunction2DLattice arg2)
-        visit(ISampleVisitor self, InterferenceFunction2DParaCrystal arg2)
-        visit(ISampleVisitor self, InterferenceFunctionNone arg2)
-        visit(ISampleVisitor self, LayerRoughness arg2)
-        visit(ISampleVisitor self, IRotation arg2)
-        visit(ISampleVisitor self, RotationX arg2)
-        visit(ISampleVisitor self, RotationY arg2)
-        visit(ISampleVisitor self, RotationZ arg2)
-        visit(ISampleVisitor self, RotationEuler arg2)
-
-        void ISampleVisitor::visit(const RotationEuler *)
-
+        visit(INodeVisitor self, INode arg2)
+        visit(INodeVisitor self, ISample arg2)
+        visit(INodeVisitor self, IClusteredParticles arg2)
+        visit(INodeVisitor self, Crystal arg2)
+        visit(INodeVisitor self, ILayout arg2)
+        visit(INodeVisitor self, ParticleLayout arg2)
+        visit(INodeVisitor self, Layer arg2)
+        visit(INodeVisitor self, LayerInterface const * arg2)
+        visit(INodeVisitor self, MultiLayer arg2)
+        visit(INodeVisitor self, IAbstractParticle arg2)
+        visit(INodeVisitor self, IParticle arg2)
+        visit(INodeVisitor self, Particle arg2)
+        visit(INodeVisitor self, ParticleDistribution arg2)
+        visit(INodeVisitor self, ParticleComposition arg2)
+        visit(INodeVisitor self, MesoCrystal arg2)
+        visit(INodeVisitor self, ParticleCoreShell arg2)
+        visit(INodeVisitor self, IFormFactor arg2)
+        visit(INodeVisitor self, IFormFactorBorn arg2)
+        visit(INodeVisitor self, IFormFactorDecorator arg2)
+        visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
+        visit(INodeVisitor self, FormFactorBox arg2)
+        visit(INodeVisitor self, FormFactorCone arg2)
+        visit(INodeVisitor self, FormFactorCone6 arg2)
+        visit(INodeVisitor self, FormFactorCuboctahedron arg2)
+        visit(INodeVisitor self, FormFactorCrystal arg2)
+        visit(INodeVisitor self, FormFactorCylinder arg2)
+        visit(INodeVisitor self, FormFactorDodecahedron arg2)
+        visit(INodeVisitor self, FormFactorEllipsoidalCylinder arg2)
+        visit(INodeVisitor self, FormFactorFullSphere arg2)
+        visit(INodeVisitor self, FormFactorFullSpheroid arg2)
+        visit(INodeVisitor self, FormFactorGauss arg2)
+        visit(INodeVisitor self, FormFactorHemiEllipsoid arg2)
+        visit(INodeVisitor self, FormFactorIcosahedron arg2)
+        visit(INodeVisitor self, FormFactorLongBoxGauss arg2)
+        visit(INodeVisitor self, FormFactorLongBoxLorentz arg2)
+        visit(INodeVisitor self, FormFactorLorentz arg2)
+        visit(INodeVisitor self, FormFactorPrism3 arg2)
+        visit(INodeVisitor self, FormFactorPrism6 arg2)
+        visit(INodeVisitor self, FormFactorPyramid arg2)
+        visit(INodeVisitor self, FormFactorRipple1 arg2)
+        visit(INodeVisitor self, FormFactorRipple2 arg2)
+        visit(INodeVisitor self, FormFactorSphereGaussianRadius arg2)
+        visit(INodeVisitor self, FormFactorSphereLogNormalRadius arg2)
+        visit(INodeVisitor self, FormFactorTetrahedron arg2)
+        visit(INodeVisitor self, FormFactorTrivial arg2)
+        visit(INodeVisitor self, FormFactorTruncatedCube arg2)
+        visit(INodeVisitor self, FormFactorTruncatedSphere arg2)
+        visit(INodeVisitor self, FormFactorTruncatedSpheroid arg2)
+        visit(INodeVisitor self, FormFactorDWBA const * arg2)
+        visit(INodeVisitor self, FormFactorDWBAPol const * arg2)
+        visit(INodeVisitor self, FormFactorWeighted arg2)
+        visit(INodeVisitor self, FormFactorDecoratorDebyeWaller arg2)
+        visit(INodeVisitor self, FormFactorDecoratorFactor const * arg2)
+        visit(INodeVisitor self, FormFactorDecoratorMaterial const * arg2)
+        visit(INodeVisitor self, FormFactorDecoratorPositionFactor const * arg2)
+        visit(INodeVisitor self, FormFactorDecoratorRotation const * arg2)
+        visit(INodeVisitor self, FTDecayFunction1DCauchy arg2)
+        visit(INodeVisitor self, FTDecayFunction1DGauss arg2)
+        visit(INodeVisitor self, FTDecayFunction1DTriangle arg2)
+        visit(INodeVisitor self, FTDecayFunction1DVoigt arg2)
+        visit(INodeVisitor self, FTDecayFunction2DCauchy arg2)
+        visit(INodeVisitor self, FTDecayFunction2DGauss arg2)
+        visit(INodeVisitor self, FTDecayFunction2DVoigt arg2)
+        visit(INodeVisitor self, IInterferenceFunction arg2)
+        visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
+        visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
+        visit(INodeVisitor self, InterferenceFunctionNone arg2)
+        visit(INodeVisitor self, LayerRoughness arg2)
+        visit(INodeVisitor self, IRotation arg2)
+        visit(INodeVisitor self, RotationX arg2)
+        visit(INodeVisitor self, RotationY arg2)
+        visit(INodeVisitor self, RotationZ arg2)
+        visit(INodeVisitor self, RotationEuler arg2)
         """
-        return _libBornAgainCore.ISampleVisitor_visit(self, *args)
+        return _libBornAgainCore.INodeVisitor_visit(self, *args)
 
 
     def depth(self):
-        """
-        depth(ISampleVisitor self) -> int
-
-        int ISampleVisitor::depth() const
-
-        Returns depth of the visitor in the composite hierarchy. 
-
-        """
-        return _libBornAgainCore.ISampleVisitor_depth(self)
+        """depth(INodeVisitor self) -> int"""
+        return _libBornAgainCore.INodeVisitor_depth(self)
 
 
     def setDepth(self, depth):
-        """
-        setDepth(ISampleVisitor self, int depth)
+        """setDepth(INodeVisitor self, int depth)"""
+        return _libBornAgainCore.INodeVisitor_setDepth(self, depth)
 
-        void ISampleVisitor::setDepth(int depth)
-
-        Sets depth of the visitor in the composite hierarchy. 
-
-        """
-        return _libBornAgainCore.ISampleVisitor_setDepth(self, depth)
-
-ISampleVisitor_swigregister = _libBornAgainCore.ISampleVisitor_swigregister
-ISampleVisitor_swigregister(ISampleVisitor)
+INodeVisitor_swigregister = _libBornAgainCore.INodeVisitor_swigregister
+INodeVisitor_swigregister(INodeVisitor)
 
 
-def VisitSampleTreePreorder(sample, visitor):
+def VisitSampleTreePreorder(node, visitor):
     """
-    VisitSampleTreePreorder(ISample sample, ISampleVisitor visitor)
+    VisitSampleTreePreorder(INode node, INodeVisitor visitor)
 
     BA_CORE_API_ void VisitSampleTreePreorder(const ISample &sample, ISampleVisitor &visitor)
 
     """
-    return _libBornAgainCore.VisitSampleTreePreorder(sample, visitor)
+    return _libBornAgainCore.VisitSampleTreePreorder(node, visitor)
 
-def VisitSampleTreePostorder(sample, visitor):
+def VisitSampleTreePostorder(node, visitor):
     """
-    VisitSampleTreePostorder(ISample sample, ISampleVisitor visitor)
+    VisitSampleTreePostorder(INode node, INodeVisitor visitor)
 
     BA_CORE_API_ void VisitSampleTreePostorder(const ISample &sample, ISampleVisitor &visitor)
 
     """
-    return _libBornAgainCore.VisitSampleTreePostorder(sample, visitor)
+    return _libBornAgainCore.VisitSampleTreePostorder(node, visitor)
 class IClusteredParticles(ISample):
     """
 
@@ -7342,7 +7313,7 @@ class IClusteredParticles(ISample):
 
     def accept(self, visitor):
         """
-        accept(IClusteredParticles self, ISampleVisitor visitor)
+        accept(IClusteredParticles self, INodeVisitor visitor)
 
         virtual void IClusteredParticles::accept(ISampleVisitor *visitor) const =0
 
@@ -7451,7 +7422,7 @@ class Crystal(IClusteredParticles):
 
     def accept(self, visitor):
         """
-        accept(Crystal self, ISampleVisitor visitor)
+        accept(Crystal self, INodeVisitor visitor)
 
         void Crystal::accept(ISampleVisitor *visitor) const final
 
@@ -8599,7 +8570,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
 
     def accept(self, visitor):
         """
-        accept(FTDecayFunction1DCauchy self, ISampleVisitor visitor)
+        accept(FTDecayFunction1DCauchy self, INodeVisitor visitor)
 
         virtual void INode::accept(ISampleVisitor *p_visitor) const =0
 
@@ -8666,7 +8637,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
 
     def accept(self, visitor):
         """
-        accept(FTDecayFunction1DGauss self, ISampleVisitor visitor)
+        accept(FTDecayFunction1DGauss self, INodeVisitor visitor)
 
         virtual void INode::accept(ISampleVisitor *p_visitor) const =0
 
@@ -8733,7 +8704,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
 
     def accept(self, visitor):
         """
-        accept(FTDecayFunction1DTriangle self, ISampleVisitor visitor)
+        accept(FTDecayFunction1DTriangle self, INodeVisitor visitor)
 
         virtual void INode::accept(ISampleVisitor *p_visitor) const =0
 
@@ -8800,7 +8771,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
 
     def accept(self, visitor):
         """
-        accept(FTDecayFunction1DVoigt self, ISampleVisitor visitor)
+        accept(FTDecayFunction1DVoigt self, INodeVisitor visitor)
 
         virtual void INode::accept(ISampleVisitor *p_visitor) const =0
 
@@ -9000,7 +8971,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
 
     def accept(self, visitor):
         """
-        accept(FTDecayFunction2DCauchy self, ISampleVisitor visitor)
+        accept(FTDecayFunction2DCauchy self, INodeVisitor visitor)
 
         virtual void INode::accept(ISampleVisitor *p_visitor) const =0
 
@@ -9071,7 +9042,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
 
     def accept(self, visitor):
         """
-        accept(FTDecayFunction2DGauss self, ISampleVisitor visitor)
+        accept(FTDecayFunction2DGauss self, INodeVisitor visitor)
 
         virtual void INode::accept(ISampleVisitor *p_visitor) const =0
 
@@ -9142,7 +9113,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
 
     def accept(self, visitor):
         """
-        accept(FTDecayFunction2DVoigt self, ISampleVisitor visitor)
+        accept(FTDecayFunction2DVoigt self, INodeVisitor visitor)
 
         virtual void INode::accept(ISampleVisitor *p_visitor) const =0
 
@@ -10251,16 +10222,6 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_clone(self)
 
 
-    def accept(self, visitor):
-        """
-        accept(IFormFactor self, ISampleVisitor visitor)
-
-        void IFormFactor::accept(ISampleVisitor *visitor) const override=0
-
-        """
-        return _libBornAgainCore.IFormFactor_accept(self, visitor)
-
-
     def setAmbientMaterial(self, arg0):
         """
         setAmbientMaterial(IFormFactor self, IMaterial arg0)
@@ -10683,7 +10644,7 @@ class IFormFactorDecorator(IFormFactor):
 
     def accept(self, visitor):
         """
-        accept(IFormFactorDecorator self, ISampleVisitor visitor)
+        accept(IFormFactorDecorator self, INodeVisitor visitor)
 
         void IFormFactorDecorator::accept(ISampleVisitor *visitor) const override=0
 
@@ -11347,7 +11308,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
 
     def accept(self, visitor):
         """
-        accept(FormFactorAnisoPyramid self, ISampleVisitor visitor)
+        accept(FormFactorAnisoPyramid self, INodeVisitor visitor)
 
         void FormFactorAnisoPyramid::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -11458,7 +11419,7 @@ class FormFactorBox(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorBox self, ISampleVisitor visitor)
+        accept(FormFactorBox self, INodeVisitor visitor)
 
         void FormFactorBox::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -11583,7 +11544,7 @@ class FormFactorCone(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorCone self, ISampleVisitor visitor)
+        accept(FormFactorCone self, INodeVisitor visitor)
 
         void FormFactorCone::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -11708,7 +11669,7 @@ class FormFactorCone6(FormFactorPolyhedron):
 
     def accept(self, visitor):
         """
-        accept(FormFactorCone6 self, ISampleVisitor visitor)
+        accept(FormFactorCone6 self, INodeVisitor visitor)
 
         void FormFactorCone6::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -11799,7 +11760,7 @@ class FormFactorCrystal(IFormFactor):
 
     def accept(self, visitor):
         """
-        accept(FormFactorCrystal self, ISampleVisitor visitor)
+        accept(FormFactorCrystal self, INodeVisitor visitor)
 
         void FormFactorCrystal::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -11907,7 +11868,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
 
     def accept(self, visitor):
         """
-        accept(FormFactorCuboctahedron self, ISampleVisitor visitor)
+        accept(FormFactorCuboctahedron self, INodeVisitor visitor)
 
         void FormFactorCuboctahedron::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12006,7 +11967,7 @@ class FormFactorCylinder(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorCylinder self, ISampleVisitor visitor)
+        accept(FormFactorCylinder self, INodeVisitor visitor)
 
         void FormFactorCylinder::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12112,7 +12073,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
 
     def accept(self, visitor):
         """
-        accept(FormFactorDecoratorDebyeWaller self, ISampleVisitor visitor)
+        accept(FormFactorDecoratorDebyeWaller self, INodeVisitor visitor)
 
         void FormFactorDecoratorDebyeWaller::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12191,7 +12152,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
 
     def accept(self, visitor):
         """
-        accept(FormFactorDodecahedron self, ISampleVisitor visitor)
+        accept(FormFactorDodecahedron self, INodeVisitor visitor)
 
         void FormFactorDodecahedron::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12271,7 +12232,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorEllipsoidalCylinder self, ISampleVisitor visitor)
+        accept(FormFactorEllipsoidalCylinder self, INodeVisitor visitor)
 
         void FormFactorEllipsoidalCylinder::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12384,7 +12345,7 @@ class FormFactorFullSphere(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorFullSphere self, ISampleVisitor visitor)
+        accept(FormFactorFullSphere self, INodeVisitor visitor)
 
         void FormFactorFullSphere::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12486,7 +12447,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorFullSpheroid self, ISampleVisitor visitor)
+        accept(FormFactorFullSpheroid self, INodeVisitor visitor)
 
         void FormFactorFullSpheroid::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12590,7 +12551,7 @@ class FormFactorGauss(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorGauss self, ISampleVisitor visitor)
+        accept(FormFactorGauss self, INodeVisitor visitor)
 
         void FormFactorGauss::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12707,7 +12668,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorHemiEllipsoid self, ISampleVisitor visitor)
+        accept(FormFactorHemiEllipsoid self, INodeVisitor visitor)
 
         void FormFactorHemiEllipsoid::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12818,7 +12779,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
 
     def accept(self, visitor):
         """
-        accept(FormFactorIcosahedron self, ISampleVisitor visitor)
+        accept(FormFactorIcosahedron self, INodeVisitor visitor)
 
         void FormFactorIcosahedron::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -12901,7 +12862,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorLongBoxGauss self, ISampleVisitor visitor)
+        accept(FormFactorLongBoxGauss self, INodeVisitor visitor)
 
         void FormFactorLongBoxGauss::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13028,7 +12989,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorLongBoxLorentz self, ISampleVisitor visitor)
+        accept(FormFactorLongBoxLorentz self, INodeVisitor visitor)
 
         void FormFactorLongBoxLorentz::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13155,7 +13116,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorLongRipple1Gauss self, ISampleVisitor visitor)
+        accept(FormFactorLongRipple1Gauss self, INodeVisitor visitor)
 
         void FormFactorLongRipple1Gauss::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13282,7 +13243,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorLongRipple1Lorentz self, ISampleVisitor visitor)
+        accept(FormFactorLongRipple1Lorentz self, INodeVisitor visitor)
 
         void FormFactorLongRipple1Lorentz::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13412,7 +13373,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorLongRipple2Gauss self, ISampleVisitor visitor)
+        accept(FormFactorLongRipple2Gauss self, INodeVisitor visitor)
 
         void FormFactorLongRipple2Gauss::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13550,7 +13511,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorLongRipple2Lorentz self, ISampleVisitor visitor)
+        accept(FormFactorLongRipple2Lorentz self, INodeVisitor visitor)
 
         void FormFactorLongRipple2Lorentz::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13674,7 +13635,7 @@ class FormFactorLorentz(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorLorentz self, ISampleVisitor visitor)
+        accept(FormFactorLorentz self, INodeVisitor visitor)
 
         void FormFactorLorentz::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13777,7 +13738,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
 
     def accept(self, visitor):
         """
-        accept(FormFactorPrism3 self, ISampleVisitor visitor)
+        accept(FormFactorPrism3 self, INodeVisitor visitor)
 
         void FormFactorPrism3::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13846,7 +13807,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
 
     def accept(self, visitor):
         """
-        accept(FormFactorPrism6 self, ISampleVisitor visitor)
+        accept(FormFactorPrism6 self, INodeVisitor visitor)
 
         void FormFactorPrism6::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -13927,7 +13888,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
 
     def accept(self, visitor):
         """
-        accept(FormFactorPyramid self, ISampleVisitor visitor)
+        accept(FormFactorPyramid self, INodeVisitor visitor)
 
         void FormFactorPyramid::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14030,7 +13991,7 @@ class FormFactorRipple1(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorRipple1 self, ISampleVisitor visitor)
+        accept(FormFactorRipple1 self, INodeVisitor visitor)
 
         void FormFactorRipple1::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14160,7 +14121,7 @@ class FormFactorRipple2(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorRipple2 self, ISampleVisitor visitor)
+        accept(FormFactorRipple2 self, INodeVisitor visitor)
 
         void FormFactorRipple2::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14283,7 +14244,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorSphereGaussianRadius self, ISampleVisitor visitor)
+        accept(FormFactorSphereGaussianRadius self, INodeVisitor visitor)
 
         void FormFactorSphereGaussianRadius::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14366,7 +14327,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorSphereLogNormalRadius self, ISampleVisitor visitor)
+        accept(FormFactorSphereLogNormalRadius self, INodeVisitor visitor)
 
         void FormFactorSphereLogNormalRadius::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14449,7 +14410,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorSphereUniformRadius self, ISampleVisitor visitor)
+        accept(FormFactorSphereUniformRadius self, INodeVisitor visitor)
 
         void FormFactorSphereUniformRadius::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14544,7 +14505,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
 
     def accept(self, visitor):
         """
-        accept(FormFactorTetrahedron self, ISampleVisitor visitor)
+        accept(FormFactorTetrahedron self, INodeVisitor visitor)
 
         void FormFactorTetrahedron::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14633,7 +14594,7 @@ class FormFactorTrivial(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorTrivial self, ISampleVisitor visitor)
+        accept(FormFactorTrivial self, INodeVisitor visitor)
 
         void FormFactorTrivial::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14725,7 +14686,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
 
     def accept(self, visitor):
         """
-        accept(FormFactorTruncatedCube self, ISampleVisitor visitor)
+        accept(FormFactorTruncatedCube self, INodeVisitor visitor)
 
         void FormFactorTruncatedCube::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14804,7 +14765,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorTruncatedSphere self, ISampleVisitor visitor)
+        accept(FormFactorTruncatedSphere self, INodeVisitor visitor)
 
         void FormFactorTruncatedSphere::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -14907,7 +14868,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 
     def accept(self, visitor):
         """
-        accept(FormFactorTruncatedSpheroid self, ISampleVisitor visitor)
+        accept(FormFactorTruncatedSpheroid self, INodeVisitor visitor)
 
         void FormFactorTruncatedSpheroid::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -15024,7 +14985,7 @@ class FormFactorWeighted(IFormFactor):
 
     def accept(self, visitor):
         """
-        accept(FormFactorWeighted self, ISampleVisitor visitor)
+        accept(FormFactorWeighted self, INodeVisitor visitor)
 
         void FormFactorWeighted::accept(ISampleVisitor *visitor) const overridefinal
 
@@ -17443,7 +17404,7 @@ class IInterferenceFunction(ISample):
 
     def accept(self, visitor):
         """
-        accept(IInterferenceFunction self, ISampleVisitor visitor)
+        accept(IInterferenceFunction self, INodeVisitor visitor)
 
         virtual void IInterferenceFunction::accept(ISampleVisitor *visitor) const =0
 
@@ -17530,7 +17491,7 @@ class ILayout(ISample):
 
     def accept(self, visitor):
         """
-        accept(ILayout self, ISampleVisitor visitor)
+        accept(ILayout self, INodeVisitor visitor)
 
         virtual void ILayout::accept(ISampleVisitor *visitor) const =0
 
@@ -17737,7 +17698,7 @@ class IAbstractParticle(ISample):
 
     def accept(self, visitor):
         """
-        accept(IAbstractParticle self, ISampleVisitor visitor)
+        accept(IAbstractParticle self, INodeVisitor visitor)
 
         virtual void IAbstractParticle::accept(ISampleVisitor *visitor) const 
 
@@ -17922,7 +17883,7 @@ class IParticle(IAbstractParticle):
 
     def accept(self, visitor):
         """
-        accept(IParticle self, ISampleVisitor visitor)
+        accept(IParticle self, INodeVisitor visitor)
 
         virtual void IParticle::accept(ISampleVisitor *visitor) const
 
@@ -18161,7 +18122,7 @@ class IRotation(ISample):
 
     def accept(self, visitor):
         """
-        accept(IRotation self, ISampleVisitor visitor)
+        accept(IRotation self, INodeVisitor visitor)
 
         void IRotation::accept(ISampleVisitor *visitor) const
 
@@ -18264,7 +18225,7 @@ class RotationX(IRotation):
 
     def accept(self, visitor):
         """
-        accept(RotationX self, ISampleVisitor visitor)
+        accept(RotationX self, INodeVisitor visitor)
 
         void RotationX::accept(ISampleVisitor *visitor) const
 
@@ -18352,7 +18313,7 @@ class RotationY(IRotation):
 
     def accept(self, visitor):
         """
-        accept(RotationY self, ISampleVisitor visitor)
+        accept(RotationY self, INodeVisitor visitor)
 
         void RotationY::accept(ISampleVisitor *visitor) const
 
@@ -18441,7 +18402,7 @@ class RotationZ(IRotation):
 
     def accept(self, visitor):
         """
-        accept(RotationZ self, ISampleVisitor visitor)
+        accept(RotationZ self, INodeVisitor visitor)
 
         void RotationZ::accept(ISampleVisitor *visitor) const
 
@@ -18529,7 +18490,7 @@ class RotationEuler(IRotation):
 
     def accept(self, visitor):
         """
-        accept(RotationEuler self, ISampleVisitor visitor)
+        accept(RotationEuler self, INodeVisitor visitor)
 
         void RotationEuler::accept(ISampleVisitor *visitor) const
 
@@ -19153,7 +19114,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
 
     def accept(self, visitor):
         """
-        accept(InterferenceFunction1DLattice self, ISampleVisitor visitor)
+        accept(InterferenceFunction1DLattice self, INodeVisitor visitor)
 
         void InterferenceFunction1DLattice::accept(ISampleVisitor *visitor) const final
 
@@ -19253,7 +19214,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
     def accept(self, visitor):
         """
-        accept(InterferenceFunctionRadialParaCrystal self, ISampleVisitor visitor)
+        accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
 
         void InterferenceFunctionRadialParaCrystal::accept(ISampleVisitor *visitor) const final
 
@@ -19434,7 +19395,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
     def accept(self, visitor):
         """
-        accept(InterferenceFunction2DLattice self, ISampleVisitor visitor)
+        accept(InterferenceFunction2DLattice self, INodeVisitor visitor)
 
         void InterferenceFunction2DLattice::accept(ISampleVisitor *visitor) const final
 
@@ -19516,6 +19477,18 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_getParticleDensity(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_getChildren(self)
 
 InterferenceFunction2DLattice_swigregister = _libBornAgainCore.InterferenceFunction2DLattice_swigregister
 InterferenceFunction2DLattice_swigregister(InterferenceFunction2DLattice)
@@ -19603,7 +19576,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
     def accept(self, visitor):
         """
-        accept(InterferenceFunction2DParaCrystal self, ISampleVisitor visitor)
+        accept(InterferenceFunction2DParaCrystal self, INodeVisitor visitor)
 
         void InterferenceFunction2DParaCrystal::accept(ISampleVisitor *visitor) const final
 
@@ -19830,7 +19803,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
 
     def accept(self, visitor):
         """
-        accept(InterferenceFunctionNone self, ISampleVisitor visitor)
+        accept(InterferenceFunctionNone self, INodeVisitor visitor)
 
         void InterferenceFunctionNone::accept(ISampleVisitor *visitor) const final
 
@@ -20491,7 +20464,7 @@ class Layer(ISample):
 
     def accept(self, visitor):
         """
-        accept(Layer self, ISampleVisitor visitor)
+        accept(Layer self, INodeVisitor visitor)
 
         void Layer::accept(ISampleVisitor *visitor) const final
 
@@ -20703,7 +20676,7 @@ class LayerRoughness(ISample):
 
     def accept(self, visitor):
         """
-        accept(LayerRoughness self, ISampleVisitor visitor)
+        accept(LayerRoughness self, INodeVisitor visitor)
 
         virtual void LayerRoughness::accept(ISampleVisitor *visitor) const 
 
@@ -21088,7 +21061,7 @@ class MesoCrystal(IParticle):
 
     def accept(self, visitor):
         """
-        accept(MesoCrystal self, ISampleVisitor visitor)
+        accept(MesoCrystal self, INodeVisitor visitor)
 
         void MesoCrystal::accept(ISampleVisitor *visitor) const
 
@@ -21288,7 +21261,7 @@ class MultiLayer(ISample):
 
     def accept(self, visitor):
         """
-        accept(MultiLayer self, ISampleVisitor visitor)
+        accept(MultiLayer self, INodeVisitor visitor)
 
         virtual void MultiLayer::accept(ISampleVisitor *visitor) const 
 
@@ -22842,7 +22815,7 @@ class Particle(IParticle):
 
     def accept(self, visitor):
         """
-        accept(Particle self, ISampleVisitor visitor)
+        accept(Particle self, INodeVisitor visitor)
 
         virtual void Particle::accept(ISampleVisitor *visitor) const
 
@@ -23020,7 +22993,7 @@ class ParticleComposition(IParticle):
 
     def accept(self, visitor):
         """
-        accept(ParticleComposition self, ISampleVisitor visitor)
+        accept(ParticleComposition self, INodeVisitor visitor)
 
         virtual void ParticleComposition::accept(ISampleVisitor *visitor) const
 
@@ -23197,7 +23170,7 @@ class ParticleCoreShell(IParticle):
 
     def accept(self, visitor):
         """
-        accept(ParticleCoreShell self, ISampleVisitor visitor)
+        accept(ParticleCoreShell self, INodeVisitor visitor)
 
         void ParticleCoreShell::accept(ISampleVisitor *visitor) const final
 
@@ -23326,7 +23299,7 @@ class ParticleDistribution(IAbstractParticle):
 
     def accept(self, visitor):
         """
-        accept(ParticleDistribution self, ISampleVisitor visitor)
+        accept(ParticleDistribution self, INodeVisitor visitor)
 
         void ParticleDistribution::accept(ISampleVisitor *visitor) const final
 
@@ -23475,7 +23448,7 @@ class ParticleLayout(ILayout):
 
     def accept(self, visitor):
         """
-        accept(ParticleLayout self, ISampleVisitor visitor)
+        accept(ParticleLayout self, INodeVisitor visitor)
 
         void ParticleLayout::accept(ISampleVisitor *visitor) const final
 

@@ -30,7 +30,7 @@ public:
     InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0);
     InterferenceFunctionRadialParaCrystal* clone() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setKappa(double kappa) { m_kappa = kappa; }
     double getKappa() const final { return m_kappa; }

@@ -18,7 +18,6 @@
 
 #include "ICloneable.h"
 #include "INode.h"
-#include "ISampleVisitor.h"
 #include <vector>
 
 class IMaterial;

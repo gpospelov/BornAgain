@@ -16,7 +16,6 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "ISampleVisitor.h"
 #include "IntegratorReal.h"
 #include "ParameterPool.h"
 #include "MathConstants.h"

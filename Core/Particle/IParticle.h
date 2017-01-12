@@ -36,8 +36,7 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual IParticle* cloneInvertB() const =0;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     //! Create a form factor for this particle
     IFormFactor* createFormFactor() const;

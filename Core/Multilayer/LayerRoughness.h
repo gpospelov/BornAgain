@@ -35,7 +35,7 @@ public:
 
     LayerRoughness* clone() const {
         return new LayerRoughness(m_sigma, m_hurstParameter, m_lateralCorrLength); }
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t kvec) const;

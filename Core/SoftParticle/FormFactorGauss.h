@@ -29,7 +29,7 @@ public:
 
     FormFactorGauss* clone() const override final {
         return new FormFactorGauss(m_width, m_height); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getWidth() const { return m_width; }
     double getHeight() const { return m_height; }

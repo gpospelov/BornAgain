@@ -28,7 +28,7 @@ public:
 
     FormFactorEllipsoidalCylinder* clone() const override final {
         return new FormFactorEllipsoidalCylinder(m_radius_x, m_radius_y, m_height); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadiusX() const { return m_radius_x; }
     double getRadiusY() const { return m_radius_y; }

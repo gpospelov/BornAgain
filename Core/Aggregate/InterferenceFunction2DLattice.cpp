@@ -17,7 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "Macros.h"
-#include "ISampleVisitor.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 

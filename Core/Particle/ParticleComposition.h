@@ -37,7 +37,7 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual ParticleComposition* cloneInvertB() const;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     void addParticle(const IParticle& particle);
     void addParticle(const IParticle& particle, kvector_t  position);

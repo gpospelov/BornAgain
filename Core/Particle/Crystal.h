@@ -36,7 +36,7 @@ public:
     Crystal* clone() const final;
     Crystal* cloneInvertB() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setAmbientMaterial(const IMaterial& material) final;
     const IMaterial* getAmbientMaterial() const final;

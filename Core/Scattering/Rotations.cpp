@@ -15,7 +15,6 @@
 
 #include "Rotations.h"
 #include "BornAgainNamespace.h"
-#include "ISampleVisitor.h"
 #include "RealParameter.h"
 
 IRotation* IRotation::createRotation(const Transform3D& transform)

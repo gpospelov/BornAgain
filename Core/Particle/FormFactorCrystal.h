@@ -32,7 +32,7 @@ public:
     FormFactorCrystal* clone() const override final {
         return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor); }
 
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getVolume() const override final { return mp_meso_form_factor->getVolume(); }
     double getRadialExtension() const override final {

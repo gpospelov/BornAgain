@@ -33,7 +33,6 @@ public:
     ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
 
     //! Constructor taking a 2 dimensional resolution function as argument.
-    ConvolutionDetectorResolution(IResolutionFunction2D *p_res_function_2d);
     ConvolutionDetectorResolution(const IResolutionFunction2D &p_res_function_2d);
 
     virtual ~ConvolutionDetectorResolution();
@@ -59,7 +58,7 @@ protected:
     virtual void init_parameters();
 
 private:
-    void setResolutionFunction(IResolutionFunction2D *resFunc);
+    void setResolutionFunction(const IResolutionFunction2D& resFunc);
     void apply1dConvolution(OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(OutputData<double> *p_intensity_map) const;
     double getIntegratedPDF1d(double x, double step) const;

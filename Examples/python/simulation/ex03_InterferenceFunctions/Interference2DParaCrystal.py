@@ -54,6 +54,8 @@ def get_simulation():
     simulation.setDetectorParameters(80, phi_min*deg, phi_max*deg,
                                      80, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorResolutionFunction(
+        ba.ResolutionFunction2DGaussian(0.0025, 0.0025))
     return simulation
 
 
@@ -65,6 +67,14 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.setTerminalProgressMonitor()
+
+    # print(simulation.to_str())
+    simulation.printParameters()
+
+    print(simulation.getInstrument().getDetector().to_str())
+    simulation.getInstrument().getDetector().printParameters()
+
+
     simulation.runSimulation()
     return simulation.getIntensityData()
 

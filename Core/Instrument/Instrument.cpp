@@ -94,24 +94,16 @@ std::vector<SimulationElement> Instrument::createSimulationElements()
     return mP_detector->createSimulationElements(m_beam);
 }
 
-// TODO Remove pointer version of
-// Instrument::setDetectorResolutionFunction
-// ConvolutionDetectorResolution(IResolutionFunction2D *p_res_function_2d)
-
-
-void Instrument::setDetectorResolutionFunction(IResolutionFunction2D* p_resolution_function)
-{
-    if (p_resolution_function) {
-        mP_detector->setDetectorResolution(
-            new ConvolutionDetectorResolution(p_resolution_function));
-    } else {
-        mP_detector->setDetectorResolution(0);
-    }
-}
-
 void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function)
 {
-    mP_detector->setDetectorResolution(new ConvolutionDetectorResolution(p_resolution_function));
+    std::unique_ptr<IDetectorResolution> detRes(
+                new ConvolutionDetectorResolution(p_resolution_function));
+    mP_detector->setDetectorResolution(*detRes);
+}
+
+void Instrument::removeDetectorResolution()
+{
+    mP_detector->removeDetectorResolution();
 }
 
 void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) const

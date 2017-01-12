@@ -26,21 +26,12 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
 }
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
-    IResolutionFunction2D* p_res_function_2d)
-    : m_dimension(2)
-    , m_res_function_1d(0)
-{
-    setName("ConvolutionDetectorResolution");
-    setResolutionFunction(p_res_function_2d);
-}
-
-ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     const IResolutionFunction2D &p_res_function_2d)
     : m_dimension(2)
     , m_res_function_1d(0)
 {
     setName("ConvolutionDetectorResolution");
-    setResolutionFunction(p_res_function_2d.clone());
+    setResolutionFunction(p_res_function_2d);
 }
 
 
@@ -53,7 +44,8 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
 {
     m_dimension = other.m_dimension;
     m_res_function_1d=other.m_res_function_1d;
-    setResolutionFunction(other.mp_res_function_2d->clone());
+    if(other.mp_res_function_2d)
+        setResolutionFunction(*other.mp_res_function_2d);
     setName(other.getName());
 }
 
@@ -107,13 +99,9 @@ void ConvolutionDetectorResolution::init_parameters()
 {
 }
 
-void ConvolutionDetectorResolution::setResolutionFunction(IResolutionFunction2D* resFunc)
+void ConvolutionDetectorResolution::setResolutionFunction(const IResolutionFunction2D& resFunc)
 {
-    if (!resFunc)
-        throw Exceptions::RuntimeErrorException(
-                "ConvolutionDetectorResolution::setResolutionFunction() -> Error. Nullptr");
-
-    mp_res_function_2d.reset(resFunc);
+    mp_res_function_2d.reset(resFunc.clone());
     registerChild(mp_res_function_2d.get());
 }
 

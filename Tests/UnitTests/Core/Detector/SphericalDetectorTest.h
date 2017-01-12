@@ -331,8 +331,8 @@ TEST_F(SphericalDetectorTest, Clone)
     detector.setRegionOfInterest(0.1*Units::deg, 1.1*Units::deg, 3.0*Units::deg, 2.9*Units::deg);
     detector.addMask(Rectangle(-0.9*Units::deg, 0.1*Units::deg, 0.9*Units::deg, 1.9*Units::deg), true);
     detector.addMask(Rectangle(3.1*Units::deg, 2.1*Units::deg, 4.9*Units::deg, 3.9*Units::deg), true);
-    detector.setDetectorResolution(new ConvolutionDetectorResolution(
-            new ResolutionFunction2DGaussian(1,1)));
+    detector.setDetectorResolution(ConvolutionDetectorResolution(
+            ResolutionFunction2DGaussian(1,1)));
 
     std::unique_ptr<SphericalDetector> clone(detector.clone());
 

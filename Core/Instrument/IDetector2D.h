@@ -67,7 +67,10 @@ public:
     void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
 
     //! Sets the detector resolution
-    void setDetectorResolution(IDetectorResolution* p_detector_resolution);
+    void setDetectorResolution(const IDetectorResolution& p_detector_resolution);
+
+    //! Removes detector resolution function.
+    void removeDetectorResolution();
 
     //! Applies the detector resolution to the given intensity maps
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;

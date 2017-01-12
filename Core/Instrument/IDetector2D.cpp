@@ -37,8 +37,8 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     , m_detection_properties(other.m_detection_properties)
 {
     setName(other.getName());
-    if (other.mP_detector_resolution)
-        mP_detector_resolution.reset(other.mP_detector_resolution->clone());
+    if(other.mP_detector_resolution)
+        setDetectorResolution(*other.mP_detector_resolution);
     if(other.regionOfInterest())
         m_region_of_interest.reset(other.regionOfInterest()->clone());
     init_parameters();
@@ -360,14 +360,15 @@ void IDetector2D::clear()
     m_axes.clear();
 }
 
-void IDetector2D::setDetectorResolution(IDetectorResolution* p_detector_resolution)
+void IDetector2D::setDetectorResolution(const IDetectorResolution& p_detector_resolution)
 {
-    if (mP_detector_resolution.get()!=p_detector_resolution) {
-        mP_detector_resolution.reset(p_detector_resolution);
-    }
+    mP_detector_resolution.reset(p_detector_resolution.clone());
+    registerChild(mP_detector_resolution.get());
+}
 
-    if(mP_detector_resolution)
-        registerChild(mP_detector_resolution.get());
+void IDetector2D::removeDetectorResolution()
+{
+    mP_detector_resolution.reset();
 }
 
 const IDetectorResolution* IDetector2D::getDetectorResolutionFunction() const

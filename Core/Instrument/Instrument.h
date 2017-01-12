@@ -77,8 +77,10 @@ public:
     void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
 
     //! Sets detector resolution function
-    void setDetectorResolutionFunction(IResolutionFunction2D* p_resolution_function);
     void setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function);
+
+    //! Removes detector resolution function.
+    void removeDetectorResolution();
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,

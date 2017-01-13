@@ -127,6 +127,7 @@ class RotationZ;
 class RotationEuler;
 //-
 class Instrument;
+class FitSuite;
 class FitObject;
 class GISASSimulation;
 class OffSpecSimulation;
@@ -249,6 +250,7 @@ public:
     virtual void visit(const RotationEuler*) {}
 
     virtual void visit(const Instrument*) {}
+    virtual void visit(const FitSuite*) {}
     virtual void visit(const FitObject*) {}
 
     virtual void visit(const GISASSimulation*) {}

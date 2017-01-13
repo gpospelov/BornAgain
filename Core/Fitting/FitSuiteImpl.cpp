@@ -51,10 +51,10 @@ void FitSuiteImpl::clear()
 }
 
 //! Adds pair of (simulation, real data) for consecutive simulation
-void FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulation,
+FitObject* FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulation,
                                          const OutputData<double>& real_data, double weight)
 {
-    m_fit_objects.add(simulation, real_data, weight);
+    return m_fit_objects.add(simulation, real_data, weight);
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
@@ -149,7 +149,7 @@ const FitKernel* FitSuiteImpl::kernel() const
 
 bool FitSuiteImpl::check_prerequisites() const
 {
-    if( !m_fit_objects.getNumberOfFitObjects() ) throw Exceptions::LogicErrorException(
+    if( !m_fit_objects.size() ) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
     if( m_fit_objects.getSizeOfDataSet() == 0) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No elements to fit. "

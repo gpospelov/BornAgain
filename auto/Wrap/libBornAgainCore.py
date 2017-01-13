@@ -6185,7 +6185,7 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
 FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
 FitParameterLinked_swigregister(FitParameterLinked)
 
-class FitSuite(IObservable):
+class FitSuite(INode, IObservable):
     """
 
 
@@ -6196,11 +6196,11 @@ class FitSuite(IObservable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IObservable]:
+    for _s in [INode, IObservable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuite, name, value)
     __swig_getmethods__ = {}
-    for _s in [IObservable]:
+    for _s in [INode, IObservable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitSuite, name)
     __repr__ = _swig_repr
@@ -6219,6 +6219,16 @@ class FitSuite(IObservable):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_FitSuite
     __del__ = lambda self: None
+
+    def accept(self, visitor):
+        """
+        accept(FitSuite self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FitSuite_accept(self, visitor)
+
 
     def addSimulationAndRealData(self, *args):
         """
@@ -6586,6 +6596,18 @@ class FitSuite(IObservable):
         """
         return _libBornAgainCore.FitSuite_getChiSquaredOutputData(self, i_item)
 
+
+    def getChildren(self):
+        """
+        getChildren(FitSuite self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.FitSuite_getChildren(self)
+
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
@@ -6626,8 +6648,8 @@ class FitSuiteObjects(IParameterized, INoncopyable):
 
     def add(self, simulation, real_data, weight=1.0):
         """
-        add(FitSuiteObjects self, GISASSimulation simulation, IntensityData real_data, double weight=1.0)
-        add(FitSuiteObjects self, GISASSimulation simulation, IntensityData real_data)
+        add(FitSuiteObjects self, GISASSimulation simulation, IntensityData real_data, double weight=1.0) -> FitObject
+        add(FitSuiteObjects self, GISASSimulation simulation, IntensityData real_data) -> FitObject
 
         void FitSuiteObjects::add(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1.0)
 
@@ -6635,18 +6657,6 @@ class FitSuiteObjects(IParameterized, INoncopyable):
 
         """
         return _libBornAgainCore.FitSuiteObjects_add(self, simulation, real_data, weight)
-
-
-    def getNumberOfFitObjects(self):
-        """
-        getNumberOfFitObjects(FitSuiteObjects self) -> size_t
-
-        size_t FitSuiteObjects::getNumberOfFitObjects() const
-
-        Returns number of fit objects (simulation/real data pairs) 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_getNumberOfFitObjects(self)
 
 
     def getSizeOfDataSet(self):
@@ -6796,6 +6806,21 @@ class FitSuiteObjects(IParameterized, INoncopyable):
 
         """
         return _libBornAgainCore.FitSuiteObjects_clear(self)
+
+
+    def size(self):
+        """size(FitSuiteObjects self) -> size_t"""
+        return _libBornAgainCore.FitSuiteObjects_size(self)
+
+
+    def begin(self):
+        """begin(FitSuiteObjects self) -> FitSuiteObjects::iterator"""
+        return _libBornAgainCore.FitSuiteObjects_begin(self)
+
+
+    def end(self):
+        """end(FitSuiteObjects self) -> FitSuiteObjects::iterator"""
+        return _libBornAgainCore.FitSuiteObjects_end(self)
 
 FitSuiteObjects_swigregister = _libBornAgainCore.FitSuiteObjects_swigregister
 FitSuiteObjects_swigregister(FitSuiteObjects)
@@ -7274,6 +7299,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, RotationZ arg2)
         visit(INodeVisitor self, RotationEuler arg2)
         visit(INodeVisitor self, Instrument arg2)
+        visit(INodeVisitor self, FitSuite arg2)
         visit(INodeVisitor self, FitObject arg2)
         visit(INodeVisitor self, GISASSimulation arg2)
         visit(INodeVisitor self, OffSpecSimulation arg2)

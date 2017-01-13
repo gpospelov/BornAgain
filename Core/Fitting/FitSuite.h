@@ -16,6 +16,7 @@
 #ifndef FITSUITE_H
 #define FITSUITE_H
 
+#include "INode.h"
 #include "IObserver.h"
 #include "OutputData.h"
 #include "AttLimits.h"
@@ -36,13 +37,15 @@ class FitParameterLinked;
 //! @brief User interface class that wraps all fit methods.
 //! @ingroup fitting
 
-class BA_CORE_API_ FitSuite : public IObservable
+class BA_CORE_API_ FitSuite : public INode, public IObservable
 {
 public:
     FitSuite();
     FitSuite(const FitSuite&) = delete;
     FitSuite& operator=(const FitSuite&) = delete;
     ~FitSuite();
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     // ------------------------------------------------------------------------
     // Fitting setup
@@ -152,6 +155,8 @@ public:
     const OutputData<double>* getRealOutputData(size_t i_item = 0) const;
     const OutputData<double>* getSimulationOutputData(size_t i_item = 0) const;
     const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
+
+    std::vector<const INode*> getChildren() const;
 
 private:
     std::unique_ptr<FitSuiteImpl> m_impl;

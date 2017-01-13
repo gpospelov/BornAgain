@@ -27,16 +27,14 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
 {
  public:
     typedef SafePointerVector<FitObject> FitObjects_t;
+    typedef FitObjects_t::iterator iterator;
 
     FitSuiteObjects();
     virtual ~FitSuiteObjects();
 
     //! Adds to kit pair of (simulation, real data) for consecutive simulation
-    void add(const GISASSimulation& simulation, const OutputData<double>& real_data,
+    FitObject* add(const GISASSimulation& simulation, const OutputData<double>& real_data,
              double weight = 1.0);
-
-    //! Returns number of fit objects (simulation/real data pairs)
-    size_t getNumberOfFitObjects() const { return m_fit_objects.size(); }
 
     //! Returns total number of data points (number of all non-masked channels in all fit objects)
     size_t getSizeOfDataSet() const;
@@ -74,6 +72,10 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
 
     //! clear all data
     void clear();
+
+    size_t size() const { return m_fit_objects.size(); }
+    iterator begin() { return m_fit_objects.begin(); }
+    iterator end() { return m_fit_objects.end(); }
 
  protected:
     //! Registers some class members for later access via parameter pool

@@ -31,13 +31,14 @@ FitSuiteObjects::~FitSuiteObjects()
 {
 }
 
-void FitSuiteObjects::add(
+FitObject* FitSuiteObjects::add(
     const GISASSimulation& simulation, const OutputData<double>& real_data, double weight)
 {
     m_total_weight += weight;
-    FitObject *fitObject = new FitObject(simulation, real_data, weight);
-    m_fit_elements_count += fitObject->numberOfFitElements();
-    m_fit_objects.push_back(fitObject);
+    FitObject *result = new FitObject(simulation, real_data, weight);
+    m_fit_elements_count += result->numberOfFitElements();
+    m_fit_objects.push_back(result);
+    return result;
 }
 
 //! Returns total number of data points

@@ -47,7 +47,7 @@ class BA_CORE_API_ FitSuiteImpl
     void clear();
 
     //! Adds pair of (simulation, real data) for consecutive simulation
-    void addSimulationAndRealData(const GISASSimulation& simulation,
+    FitObject* addSimulationAndRealData(const GISASSimulation& simulation,
                                   const OutputData<double>& real_data,
                                   double weight);
 

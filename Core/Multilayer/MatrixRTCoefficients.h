@@ -48,23 +48,14 @@ public:
 private:
     void calculateTRMatrices();
     void initializeBottomLayerPhiPsi();
-    void initializeBottomLayerRT();
     void calculateTRWithoutMagnetization();
 
     // NOTE: exceptionally, this class has member variables without prefix m_
 
     Eigen::Vector2cd kz; //!< z-part of the two wavevector eigenmodes
-    Eigen::Vector2cd lambda; // positive eigenvalues of transfer matrix
+    Eigen::Vector2cd lambda; //!< positive eigenvalues of transfer matrix
     Eigen::Vector4cd phi_psi_plus; //!< boundary values for up-polarization
     Eigen::Vector4cd phi_psi_min; //!< boundary values for down-polarization
-//    Eigen::Vector2cd t1_plus;  //!< boundary value for up-polarization
-//    Eigen::Vector2cd t2_plus;  //!< boundary value for up-polarization
-//    Eigen::Vector2cd r1_plus;  //!< boundary value for up-polarization
-//    Eigen::Vector2cd r2_plus;  //!< boundary value for up-polarization
-//    Eigen::Vector2cd t1_min;  //!< boundary value for down-polarization
-//    Eigen::Vector2cd t2_min;  //!< boundary value for down-polarization
-//    Eigen::Vector2cd r1_min;  //!< boundary value for down-polarization
-//    Eigen::Vector2cd r2_min;  //!< boundary value for down-polarization
     Eigen::Matrix4cd T1m; //!< matrix selecting the transmitted part of
                           //!< the first eigenmode
     Eigen::Matrix4cd R1m; //!< matrix selecting the reflected part of

@@ -23,15 +23,17 @@
 #include "BornAgainNamespace.h"
 
 Instrument::Instrument()
+    : mP_detector(new SphericalDetector)
 {
     setName(BornAgain::InstrumentType);
-    mP_detector.reset(new SphericalDetector());
+    registerChild(mP_detector.get());
     init_parameters();
 }
 
 Instrument::Instrument(const Instrument &other) : m_beam(other.m_beam)
 {
-    mP_detector.reset(other.mP_detector->clone());
+    if(other.mP_detector)
+        setDetector(*other.mP_detector);
     setName(other.getName());
     init_parameters();
 }
@@ -42,7 +44,8 @@ Instrument &Instrument::operator=(const Instrument &other)
 {
     if (this != &other) {
         m_beam = other.m_beam;
-        mP_detector.reset(other.mP_detector->clone());
+        if(other.mP_detector)
+            setDetector(*other.mP_detector);
         init_parameters();
     }
     return *this;
@@ -51,6 +54,7 @@ Instrument &Instrument::operator=(const Instrument &other)
 void Instrument::setDetector(const IDetector2D& detector)
 {
     mP_detector.reset(detector.clone());
+    registerChild(mP_detector.get());
     initDetector();
 }
 

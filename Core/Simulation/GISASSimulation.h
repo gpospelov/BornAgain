@@ -37,6 +37,8 @@ public:
 
     GISASSimulation* clone() const { return new GISASSimulation(*this); }
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     //! Put into a clean state for running a simulation
     void prepareSimulation() final;
 

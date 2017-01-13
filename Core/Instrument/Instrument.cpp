@@ -27,6 +27,7 @@ Instrument::Instrument()
 {
     setName(BornAgain::InstrumentType);
     registerChild(mP_detector.get());
+    registerChild(&m_beam);
     init_parameters();
 }
 
@@ -34,6 +35,7 @@ Instrument::Instrument(const Instrument &other) : m_beam(other.m_beam)
 {
     if(other.mP_detector)
         setDetector(*other.mP_detector);
+    registerChild(&m_beam);
     setName(other.getName());
     init_parameters();
 }
@@ -44,6 +46,7 @@ Instrument &Instrument::operator=(const Instrument &other)
 {
     if (this != &other) {
         m_beam = other.m_beam;
+        registerChild(&m_beam);
         if(other.mP_detector)
             setDetector(*other.mP_detector);
         init_parameters();

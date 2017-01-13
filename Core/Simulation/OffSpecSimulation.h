@@ -33,6 +33,8 @@ public:
 
     OffSpecSimulation* clone() const { return new OffSpecSimulation(*this); }
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     //! Put into a clean state for running a simulation
     void prepareSimulation() final;
 

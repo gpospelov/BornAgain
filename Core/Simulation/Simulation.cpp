@@ -28,21 +28,24 @@
 #include <iostream>
 
 Simulation::Simulation()
-{}
+{
+    registerChild(&m_instrument);
+}
 
 Simulation::Simulation(const MultiLayer& p_sample)
 {
-    mP_sample.reset(p_sample.clone());
+    setSample(p_sample);
+    registerChild(&m_instrument);
 }
 
 Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : mP_sample_builder(p_sample_builder)
-{}
+{
+    registerChild(&m_instrument);
+}
 
 Simulation::Simulation(const Simulation& other)
-    : ICloneable()
-    , IParameterized(other)
-    , mP_sample_builder(other.mP_sample_builder)
+    : mP_sample_builder(other.mP_sample_builder)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
@@ -50,7 +53,8 @@ Simulation::Simulation(const Simulation& other)
     , m_intensity_map()
 {
     if (other.mP_sample)
-        mP_sample.reset(other.mP_sample->clone());
+        setSample(*other.mP_sample);
+    registerChild(&m_instrument);
     m_intensity_map.copyFrom(other.m_intensity_map);
 }
 
@@ -66,7 +70,7 @@ void Simulation::setTerminalProgressMonitor()
             else // wipe out
                 std::cout << "\r... 100%\n";
             return true;
-        } );
+    } );
 }
 
 void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
@@ -164,6 +168,7 @@ void Simulation::setInstrument(const Instrument& instrument)
 void Simulation::setSample(const MultiLayer& sample)
 {
     mP_sample.reset(sample.clone());
+    registerChild(mP_sample.get());
 }
 
 void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
@@ -188,6 +193,15 @@ std::string Simulation::addSimulationParametersToExternalPool(
     }
 
     return new_path;
+}
+
+std::vector<const INode*> Simulation::getChildren() const
+{
+    std::vector<const INode*> result;
+    result.push_back(&m_instrument);
+    if(mP_sample)
+        result.push_back(mP_sample.get());
+    return result;
 }
 
 void Simulation::addParameterDistribution(const std::string& param_name,

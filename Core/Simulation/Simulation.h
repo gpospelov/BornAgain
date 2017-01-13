@@ -16,6 +16,7 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include "INode.h"
 #include "DistributionHandler.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
@@ -31,7 +32,7 @@ class IMultiLayerBuilder;
 //! holds common infrastructure to run a simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
+class BA_CORE_API_ Simulation : public ICloneable, public INode
 {
 public:
     Simulation();
@@ -90,6 +91,8 @@ public:
 
     void subscribe(ProgressHandler::Callback_t inform) { m_progress.subscribe(inform); }
     void setTerminalProgressMonitor();
+
+    std::vector<const INode*> getChildren() const;
 
 protected:
     Simulation(const Simulation& other);

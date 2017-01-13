@@ -5883,7 +5883,7 @@ class ChiSquaredModule(IChiSquaredModule):
 ChiSquaredModule_swigregister = _libBornAgainCore.ChiSquaredModule_swigregister
 ChiSquaredModule_swigregister(ChiSquaredModule)
 
-class FitObject(IParameterized, INoncopyable):
+class FitObject(INode, INoncopyable):
     """
 
 
@@ -5894,11 +5894,11 @@ class FitObject(IParameterized, INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized, INoncopyable]:
+    for _s in [INode, INoncopyable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitObject, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized, INoncopyable]:
+    for _s in [INode, INoncopyable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
@@ -5935,6 +5935,16 @@ class FitObject(IParameterized, INoncopyable):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_FitObject
     __del__ = lambda self: None
+
+    def accept(self, visitor):
+        """
+        accept(FitObject self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FitObject_accept(self, visitor)
+
 
     def realData(self):
         """
@@ -6031,6 +6041,18 @@ class FitObject(IParameterized, INoncopyable):
 
         """
         return _libBornAgainCore.FitObject_transferToChi2Map(self, first, last)
+
+
+    def getChildren(self):
+        """
+        getChildren(FitObject self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.FitObject_getChildren(self)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)
@@ -7252,6 +7274,9 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, RotationZ arg2)
         visit(INodeVisitor self, RotationEuler arg2)
         visit(INodeVisitor self, Instrument arg2)
+        visit(INodeVisitor self, FitObject arg2)
+        visit(INodeVisitor self, GISASSimulation arg2)
+        visit(INodeVisitor self, OffSpecSimulation arg2)
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
 
@@ -15114,7 +15139,7 @@ class FormFactorWeighted(IFormFactor):
 FormFactorWeighted_swigregister = _libBornAgainCore.FormFactorWeighted_swigregister
 FormFactorWeighted_swigregister(FormFactorWeighted)
 
-class Simulation(ICloneable, IParameterized):
+class Simulation(ICloneable, INode):
     """
 
 
@@ -15125,11 +15150,11 @@ class Simulation(ICloneable, IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, Simulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICloneable, IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Simulation, name)
 
@@ -15403,6 +15428,18 @@ class Simulation(ICloneable, IParameterized):
         return _libBornAgainCore.Simulation_setTerminalProgressMonitor(self)
 
 
+    def getChildren(self):
+        """
+        getChildren(Simulation self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.Simulation_getChildren(self)
+
+
     def setSampleBuilder(self, ptr):
         self.samplebuilder = ptr
         self.setSampleBuilderCpp(ptr)
@@ -15629,6 +15666,16 @@ class GISASSimulation(Simulation):
 
         """
         return _libBornAgainCore.GISASSimulation_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(GISASSimulation self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.GISASSimulation_accept(self, visitor)
 
 
     def prepareSimulation(self):
@@ -21752,6 +21799,16 @@ class OffSpecSimulation(Simulation):
 
         """
         return _libBornAgainCore.OffSpecSimulation_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(OffSpecSimulation self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.OffSpecSimulation_accept(self, visitor)
 
 
     def prepareSimulation(self):

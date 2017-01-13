@@ -127,7 +127,9 @@ class RotationZ;
 class RotationEuler;
 //-
 class Instrument;
-
+class FitObject;
+class GISASSimulation;
+class OffSpecSimulation;
 
 //! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
@@ -247,6 +249,10 @@ public:
     virtual void visit(const RotationEuler*) {}
 
     virtual void visit(const Instrument*) {}
+    virtual void visit(const FitObject*) {}
+
+    virtual void visit(const GISASSimulation*) {}
+    virtual void visit(const OffSpecSimulation*) {}
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

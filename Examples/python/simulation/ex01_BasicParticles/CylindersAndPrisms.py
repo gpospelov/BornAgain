@@ -36,8 +36,7 @@ def get_sample():
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
-    multi_layer.printParameters()
-    print(multi_layer.to_str())
+    print(multi_layer.treeToString())
     return multi_layer
 
 

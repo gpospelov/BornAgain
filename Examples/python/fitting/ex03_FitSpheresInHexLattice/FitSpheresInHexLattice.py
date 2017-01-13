@@ -79,8 +79,9 @@ def run_fitting():
     """
     simulation = get_simulation()
     sample = get_sample()
-    sample.printParameters()
     simulation.setSample(sample)
+    print(simulation.treeToString())
+    print(simulation.parametersToString())
 
     real_data = create_real_data()
 

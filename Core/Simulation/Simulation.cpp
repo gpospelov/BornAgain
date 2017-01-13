@@ -42,6 +42,7 @@ Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builde
     : mP_sample_builder(p_sample_builder)
 {
     registerChild(&m_instrument);
+    registerChild(p_sample_builder.get());
 }
 
 Simulation::Simulation(const Simulation& other)
@@ -55,6 +56,8 @@ Simulation::Simulation(const Simulation& other)
     if (other.mP_sample)
         setSample(*other.mP_sample);
     registerChild(&m_instrument);
+    if(mP_sample_builder)
+        registerChild(mP_sample_builder.get());
     m_intensity_map.copyFrom(other.m_intensity_map);
 }
 
@@ -178,6 +181,7 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
                                    "Error! Attempt to set null sample builder.");
 
     mP_sample_builder = p_sample_builder;
+    registerChild(mP_sample_builder.get());
     mP_sample.reset(nullptr);
 }
 
@@ -185,7 +189,9 @@ std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;
     result.push_back(&m_instrument);
-    if(mP_sample)
+    if(mP_sample_builder)
+        result.push_back(mP_sample_builder.get());
+    else
         result.push_back(mP_sample.get());
     return result;
 }

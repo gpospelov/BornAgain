@@ -168,6 +168,10 @@ def run_fitting():
     fit_suite.addFitParameter("*/HemiEllipsoid/RadiusY", 6.*nm).setFixed()
     fit_suite.addFitParameter("*/HemiEllipsoid/Height", 4.*nm).setLimited(2., 10.)
 
+    print("XXX")
+    print(fit_suite.treeToString())
+    fit_suite.printParameters()
+
     # running fit
     fit_suite.runFit()
 

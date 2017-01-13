@@ -282,6 +282,9 @@ public:
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
     }
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual MultiLayer *buildSample() const;
 
 /* Internal director utilities */
@@ -313,7 +316,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[3];
+    mutable swig::SwigVar_PyObject vtable[6];
 #endif
 
 };

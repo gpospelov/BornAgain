@@ -40,8 +40,6 @@ def get_sample():
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
-    print(multi_layer.to_str())
-    multi_layer.printParameters()
     return multi_layer
 
 
@@ -54,8 +52,6 @@ def get_simulation():
     simulation.setDetectorParameters(80, phi_min*deg, phi_max*deg,
                                      80, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setDetectorResolutionFunction(
-        ba.ResolutionFunction2DGaussian(0.0025, 0.0025))
     return simulation
 
 
@@ -67,13 +63,6 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.setTerminalProgressMonitor()
-
-    # print(simulation.to_str())
-    simulation.printParameters()
-
-    print(simulation.getInstrument().to_str())
-    simulation.getInstrument().printParameters()
-
 
     simulation.runSimulation()
     return simulation.getIntensityData()

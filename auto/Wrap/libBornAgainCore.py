@@ -1930,14 +1930,9 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_createParameterTree(self)
 
 
-    def printParameters(self):
-        """
-        printParameters(IParameterized self)
-
-        void IParameterized::printParameters()
-
-        """
-        return _libBornAgainCore.IParameterized_printParameters(self)
+    def parametersToString(self):
+        """parametersToString(IParameterized self) -> std::string"""
+        return _libBornAgainCore.IParameterized_parametersToString(self)
 
 
     def registerParameter(self, name, parpointer):
@@ -1975,11 +1970,6 @@ class IParameterized(INamed):
     def onChange(self):
         """onChange(IParameterized self)"""
         return _libBornAgainCore.IParameterized_onChange(self)
-
-
-    def _print(self, ostr):
-        """_print(IParameterized self, std::ostream & ostr)"""
-        return _libBornAgainCore.IParameterized__print(self, ostr)
 
     def __disown__(self):
         self.this.disown()
@@ -2037,16 +2027,9 @@ class INode(IParameterized):
         return _libBornAgainCore.INode_accept(self, visitor)
 
 
-    def to_str(self):
-        """
-        to_str(INode self) -> std::string
-
-        std::string INode::to_str() const
-
-        Returns multiline string representing tree structure below the node. 
-
-        """
-        return _libBornAgainCore.INode_to_str(self)
+    def treeToString(self):
+        """treeToString(INode self) -> std::string"""
+        return _libBornAgainCore.INode_treeToString(self)
 
 
     def registerChild(self, node):
@@ -2110,11 +2093,6 @@ class INode(IParameterized):
     def onChange(self):
         """onChange(INode self)"""
         return _libBornAgainCore.INode_onChange(self)
-
-
-    def _print(self, ostr):
-        """_print(INode self, std::ostream & ostr)"""
-        return _libBornAgainCore.INode__print(self, ostr)
 
 INode_swigregister = _libBornAgainCore.INode_swigregister
 INode_swigregister(INode)
@@ -4685,11 +4663,6 @@ class ISample(ICloneable, INode):
         """onChange(ISample self)"""
         return _libBornAgainCore.ISample_onChange(self)
 
-
-    def _print(self, ostr):
-        """_print(ISample self, std::ostream & ostr)"""
-        return _libBornAgainCore.ISample__print(self, ostr)
-
 ISample_swigregister = _libBornAgainCore.ISample_swigregister
 ISample_swigregister(ISample)
 
@@ -6587,9 +6560,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_getChiSquaredOutputData(self, i_item)
 
 
-    def printParameters(self):
-        """printParameters(FitSuite self)"""
-        return _libBornAgainCore.FitSuite_printParameters(self)
+    def parametersToString(self):
+        """parametersToString(FitSuite self) -> std::string"""
+        return _libBornAgainCore.FitSuite_parametersToString(self)
 
 
     def treeToString(self):
@@ -7080,7 +7053,7 @@ class AdjustMinimizerStrategy(IFitStrategy):
 AdjustMinimizerStrategy_swigregister = _libBornAgainCore.AdjustMinimizerStrategy_swigregister
 AdjustMinimizerStrategy_swigregister(AdjustMinimizerStrategy)
 
-class IMultiLayerBuilder(IParameterized):
+class IMultiLayerBuilder(INode):
     """
 
 
@@ -7091,11 +7064,11 @@ class IMultiLayerBuilder(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IMultiLayerBuilder, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IMultiLayerBuilder, name)
     __repr__ = _swig_repr
@@ -7118,6 +7091,16 @@ class IMultiLayerBuilder(IParameterized):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
     __del__ = lambda self: None
+
+    def accept(self, visitor):
+        """
+        accept(IMultiLayerBuilder self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_accept(self, visitor)
+
 
     def buildSample(self):
         """
@@ -7163,6 +7146,18 @@ class IMultiLayerBuilder(IParameterized):
         return _libBornAgainCore.IMultiLayerBuilder_getFTDistribution2D(self)
 
 
+    def getChildren(self):
+        """
+        getChildren(IMultiLayerBuilder self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_getChildren(self)
+
+
     def registerParameter(self, name, parpointer):
         """registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter"""
         return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
@@ -7188,11 +7183,6 @@ class IMultiLayerBuilder(IParameterized):
     def onChange(self):
         """onChange(IMultiLayerBuilder self)"""
         return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
-
-
-    def _print(self, ostr):
-        """_print(IMultiLayerBuilder self, std::ostream & ostr)"""
-        return _libBornAgainCore.IMultiLayerBuilder__print(self, ostr)
 
 IMultiLayerBuilder_swigregister = _libBornAgainCore.IMultiLayerBuilder_swigregister
 IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
@@ -10423,11 +10413,6 @@ class IFormFactor(ISample):
         """onChange(IFormFactor self)"""
         return _libBornAgainCore.IFormFactor_onChange(self)
 
-
-    def _print(self, ostr):
-        """_print(IFormFactor self, std::ostream & ostr)"""
-        return _libBornAgainCore.IFormFactor__print(self, ostr)
-
 IFormFactor_swigregister = _libBornAgainCore.IFormFactor_swigregister
 IFormFactor_swigregister(IFormFactor)
 
@@ -10727,11 +10712,6 @@ class IFormFactorBorn(IFormFactor):
     def onChange(self):
         """onChange(IFormFactorBorn self)"""
         return _libBornAgainCore.IFormFactorBorn_onChange(self)
-
-
-    def _print(self, ostr):
-        """_print(IFormFactorBorn self, std::ostream & ostr)"""
-        return _libBornAgainCore.IFormFactorBorn__print(self, ostr)
 
 IFormFactorBorn_swigregister = _libBornAgainCore.IFormFactorBorn_swigregister
 IFormFactorBorn_swigregister(IFormFactorBorn)

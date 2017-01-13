@@ -106,7 +106,7 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # print all defined parameters for sample and simulation
-    fit_suite.fitObjects().printParameters()
+    print(fit_suite.parametersToString())
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nm,

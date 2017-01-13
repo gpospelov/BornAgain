@@ -41,10 +41,6 @@ public:
     //! Returns a vector of children (const).
     virtual std::vector<const INode*> getChildren() const;
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
     void setParent(const INode* parent);
     const INode* parent() const;
 
@@ -55,7 +51,7 @@ public:
     std::string displayName() const;
 
     //! Creates new parameter pool, with all local parameters and those of its children.
-    ParameterPool* createParameterTree() override;
+    ParameterPool* createParameterTree();
 
 private:
     const INode* m_parent;

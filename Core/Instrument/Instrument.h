@@ -104,10 +104,6 @@ public:
     std::vector<SimulationElement> createSimulationElements();
 #endif
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
     //! init detector with beam settings
     void initDetector();
 

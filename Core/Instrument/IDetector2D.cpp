@@ -88,19 +88,6 @@ void IDetector2D::setAnalyzerProperties(const kvector_t direction, double effici
     m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-std::string IDetector2D::addParametersToExternalPool(
-    const std::string& path, ParameterPool *external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path
-        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-
-    // add parameters of the resolution function
-    if (mP_detector_resolution)
-        mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
-    return new_path;
-}
-
 OutputData<double> *IDetector2D::createDetectorIntensity(
         const std::vector<SimulationElement> &elements,
         const Beam &beam, IDetector2D::EAxesUnits units_type) const

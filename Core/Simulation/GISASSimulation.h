@@ -81,10 +81,6 @@ public:
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
-
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
 

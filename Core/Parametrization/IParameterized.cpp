@@ -17,6 +17,7 @@
 #include "RealLimits.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include "Exceptions.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -42,27 +43,9 @@ IParameterized::~IParameterized()
 
 ParameterPool* IParameterized::createParameterTree()
 {
-    auto P_new_pool = new ParameterPool;
-    addParametersToExternalPool("/", P_new_pool);
-    return P_new_pool;
-}
-
-//! Copies local parameters to external_pool, under name "path/<name>copy_number/"
-
-std::string IParameterized::addParametersToExternalPool(
-    const std::string& _path, ParameterPool* external_pool, int copy_number) const
-{
-    std::string path = _path;
-    if( path[path.length()-1] != '/' )
-        path += "/";
-    path += getName();
-    if(copy_number >=0)
-        path += std::to_string(copy_number);
-    path += "/";
-
-    m_pool->copyToExternalPool(path, external_pool);
-
-    return path;
+    std::unique_ptr<ParameterPool> result(new ParameterPool);
+    m_pool->copyToExternalPool("/"+getName()+"/", result.get());
+    return result.release();
 }
 
 void IParameterized::printParameters()

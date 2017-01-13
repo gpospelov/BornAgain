@@ -59,10 +59,6 @@ public:
     void setPerpendicularToReflectedBeam(double distance, double u0 = 0.0, double v0 = 0.0);
     void setDirectBeamPosition(double u0, double v0);
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const override;
-
     double getWidth() const;
     double getHeight() const;
     size_t getNbinsX() const;

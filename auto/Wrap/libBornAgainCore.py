@@ -6611,7 +6611,7 @@ class FitSuite(INode, IObservable):
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
-class FitSuiteObjects(IParameterized, INoncopyable):
+class FitSuiteObjects(INode, INoncopyable):
     """
 
 
@@ -6622,11 +6622,11 @@ class FitSuiteObjects(IParameterized, INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized, INoncopyable]:
+    for _s in [INode, INoncopyable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuiteObjects, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized, INoncopyable]:
+    for _s in [INode, INoncopyable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitSuiteObjects, name)
     __repr__ = _swig_repr
@@ -6645,6 +6645,16 @@ class FitSuiteObjects(IParameterized, INoncopyable):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_FitSuiteObjects
     __del__ = lambda self: None
+
+    def accept(self, visitor):
+        """
+        accept(FitSuiteObjects self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FitSuiteObjects_accept(self, visitor)
+
 
     def add(self, simulation, real_data, weight=1.0):
         """
@@ -6821,6 +6831,18 @@ class FitSuiteObjects(IParameterized, INoncopyable):
     def end(self):
         """end(FitSuiteObjects self) -> FitSuiteObjects::iterator"""
         return _libBornAgainCore.FitSuiteObjects_end(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(FitSuiteObjects self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.FitSuiteObjects_getChildren(self)
 
 FitSuiteObjects_swigregister = _libBornAgainCore.FitSuiteObjects_swigregister
 FitSuiteObjects_swigregister(FitSuiteObjects)
@@ -15374,18 +15396,6 @@ class Simulation(ICloneable, INode):
 
         """
         return _libBornAgainCore.Simulation_getDetectorIntensity(self, *args)
-
-
-    def addSimulationParametersToExternalPool(self, path, external_pool):
-        """
-        addSimulationParametersToExternalPool(Simulation self, std::string const & path, ParameterPool external_pool) -> std::string
-
-        std::string Simulation::addSimulationParametersToExternalPool(const std::string &path, ParameterPool *external_pool) const
-
-        Adds parameters defined in this class the to external pool. 
-
-        """
-        return _libBornAgainCore.Simulation_addSimulationParametersToExternalPool(self, path, external_pool)
 
 
     def addParameterDistribution(self, *args):

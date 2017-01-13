@@ -43,7 +43,6 @@ public:
     SwigDirector_IParameterized(PyObject *self, IParameterized const &other);
     virtual ~SwigDirector_IParameterized();
     virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
@@ -94,7 +93,6 @@ public:
     SwigDirector_INode(PyObject *self);
     virtual ~SwigDirector_INode();
     virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
@@ -150,7 +148,6 @@ public:
     virtual ISample *clone() const;
     virtual void transferToCPP();
     virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
@@ -293,7 +290,6 @@ public:
     SwigDirector_IMultiLayerBuilder(PyObject *self);
     virtual ~SwigDirector_IMultiLayerBuilder();
     virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
@@ -347,7 +343,6 @@ public:
     virtual IFormFactor *clone() const;
     virtual void transferToCPP();
     virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
@@ -411,7 +406,6 @@ public:
     virtual IFormFactorBorn *clone() const;
     virtual void transferToCPP();
     virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();

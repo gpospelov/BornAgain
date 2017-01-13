@@ -47,19 +47,6 @@ SphericalDetector* SphericalDetector::clone() const
     return new SphericalDetector(*this);
 }
 
-std::string SphericalDetector::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path
-        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-
-    // add parameters of the resolution function
-    if (mP_detector_resolution)
-        mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
-    return new_path;
-}
-
 std::vector<IDetector2D::EAxesUnits> SphericalDetector::getValidAxesUnits() const
 {
     std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();

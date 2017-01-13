@@ -38,6 +38,7 @@ FitObject* FitSuiteObjects::add(
     FitObject *result = new FitObject(simulation, real_data, weight);
     m_fit_elements_count += result->numberOfFitElements();
     m_fit_objects.push_back(result);
+    registerChild(result);
     return result;
 }
 
@@ -114,36 +115,24 @@ double FitSuiteObjects::getResidualValue(size_t global_index)
     return m_fit_elements[global_index].getResidual();
 }
 
-//! Adds parameters from local pool to external pool
-std::string FitSuiteObjects::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    // top object in our chain, and its without parameters, lets not include its name in path
-    std::string new_path = IParameterized::addParametersToExternalPool(
-        path, external_pool, copy_number);
-    //std::string new_path = path;
-
-    int ncopy(0);
-    // if we have only one object, lets get rid from copy number
-    if(m_fit_objects.size()==1)
-        ncopy=-1;
-    for(auto it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it, ++ncopy)
-        (*it)->addParametersToExternalPool(new_path, external_pool, ncopy);
-
-    if(m_chi2_module) {
-        const IIntensityNormalizer* data_normalizer = m_chi2_module->getIntensityNormalizer();
-        if(data_normalizer)
-            data_normalizer->addParametersToExternalPool(new_path, external_pool, -1);
-    }
-
-    return new_path;
-}
-
 void FitSuiteObjects::clear()
 {
     m_fit_objects.clear();
     m_fit_elements.clear();
+}
+
+std::vector<const INode*> FitSuiteObjects::getChildren() const
+{
+    //    if(m_chi2_module) {
+    //        const IIntensityNormalizer* data_normalizer = m_chi2_module->getIntensityNormalizer();
+    //        if(data_normalizer)
+    //            data_normalizer->addParametersToExternalPool(new_path, external_pool, -1);
+    //    }
+
+    std::vector<const INode*> result;
+    for(auto fitObject : m_fit_objects)
+        result.push_back(fitObject);
+    return result;
 }
 
 double FitSuiteObjects::calculateChiSquaredValue()

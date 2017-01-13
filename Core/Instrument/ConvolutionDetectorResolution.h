@@ -40,10 +40,6 @@ public:
     //! Convolve given intensities with the encapsulated resolution.
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
-    //! Adds parameters from local pool to external pool and recursively call children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool *external_pool, int copy_number = -1) const;
-
     virtual ConvolutionDetectorResolution *clone() const;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

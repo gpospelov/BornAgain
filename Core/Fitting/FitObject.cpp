@@ -58,22 +58,6 @@ const GISASSimulation& FitObject::simulation() const
     return *m_simulation.get();
 }
 
-//! Adds parameters from local pool to external pool
-
-std::string FitObject::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(
-        path, external_pool, copy_number);
-
-    // add parameters of the simulation
-    if(m_simulation)
-        m_simulation->addParametersToExternalPool(new_path, external_pool, -1);
-
-    return new_path;
-}
-
 std::vector<const INode*> FitObject::getChildren() const
 {
     return std::vector<const INode*>() << m_simulation;

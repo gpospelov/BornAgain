@@ -68,10 +68,6 @@ public:
     void transferToChi2Map(std::vector<FitElement>::const_iterator first,
                            std::vector<FitElement>::const_iterator last) const;
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
     std::vector<const INode*> getChildren() const;
 
 protected:

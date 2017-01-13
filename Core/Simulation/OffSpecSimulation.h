@@ -56,10 +56,6 @@ public:
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
-
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
 

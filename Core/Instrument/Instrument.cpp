@@ -72,22 +72,6 @@ void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
     mP_detector->setDetectorAxes(axis0, axis1);
 }
 
-std::string Instrument::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(
-        path, external_pool, copy_number);
-
-    // add parameters of the beam
-    m_beam.addParametersToExternalPool(new_path, external_pool, -1);
-
-    // add parameters of the detector
-    mP_detector->addParametersToExternalPool(new_path, external_pool, -1);
-
-    return new_path;
-}
-
 void Instrument::initDetector()
 {
     if(!mP_detector)

@@ -111,10 +111,6 @@ public:
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 #endif
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
             const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;

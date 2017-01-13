@@ -118,19 +118,6 @@ IPixel *RectangularDetector::createPixel(size_t index) const
     return new RectangularPixel(corner_position, width, height);
 }
 
-std::string RectangularDetector::addParametersToExternalPool(
-    const std::string& path, ParameterPool *external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path
-        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-
-    // add parameters of the resolution function
-    if (mP_detector_resolution)
-        mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
-    return new_path;
-}
-
 double RectangularDetector::getWidth() const
 {
     const IAxis& axis = getAxis(BornAgain::X_AXIS_INDEX);

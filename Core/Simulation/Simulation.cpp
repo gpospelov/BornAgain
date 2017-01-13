@@ -181,20 +181,6 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
     mP_sample.reset(nullptr);
 }
 
-std::string Simulation::addSimulationParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool) const
-{
-    std::string new_path = path;
-
-    if (mP_sample_builder) {
-        new_path = mP_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
-    } else if (mP_sample) {
-        new_path = mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
-    }
-
-    return new_path;
-}
-
 std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;

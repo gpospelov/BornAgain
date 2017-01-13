@@ -33,16 +33,14 @@ FitSuite::~FitSuite()
 void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
                                         const OutputData<double>& real_data, double weight)
 {
-    FitObject* object = m_impl->addSimulationAndRealData(simulation, real_data, weight);
-    registerChild(object);
+    m_impl->addSimulationAndRealData(simulation, real_data, weight);
 }
 
 void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
                                         const IHistogram& real_data, double weight)
 {
     const std::unique_ptr<OutputData<double>> data(real_data.createOutputData());
-    FitObject* object = m_impl->addSimulationAndRealData(simulation, *data, weight);
-    registerChild(object);
+    m_impl->addSimulationAndRealData(simulation, *data, weight);
 }
 
 void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
@@ -136,12 +134,8 @@ const OutputData<double>* FitSuite::getChiSquaredOutputData(size_t i_item) const
 
 std::vector<const INode*> FitSuite::getChildren() const
 {
-    std::vector<const INode*> result;
-    for(auto fitObject : *m_impl->fitObjects())
-        result.push_back(fitObject);
-    return result;
+    return m_impl->fitObjects()->getChildren();
 }
-
 
 FitSuiteObjects* FitSuite::fitObjects()
 {

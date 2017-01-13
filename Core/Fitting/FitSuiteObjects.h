@@ -23,7 +23,7 @@ class IChiSquaredModule;
 //! Holds vector of FitObject's (simulation and real data) to fit
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
+class BA_CORE_API_ FitSuiteObjects : public INode, public INoncopyable
 {
  public:
     typedef SafePointerVector<FitObject> FitObjects_t;
@@ -31,6 +31,8 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
 
     FitSuiteObjects();
     virtual ~FitSuiteObjects();
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     //! Adds to kit pair of (simulation, real data) for consecutive simulation
     FitObject* add(const GISASSimulation& simulation, const OutputData<double>& real_data,
@@ -64,10 +66,6 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
     //! @param global_index index accross all element in FitElement vector
     double getResidualValue(size_t global_index);
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number=-1) const;
-
     void setNfreeParameters(int nfree_parameters) { m_nfree_parameters = nfree_parameters; }
 
     //! clear all data
@@ -76,6 +74,8 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
     size_t size() const { return m_fit_objects.size(); }
     iterator begin() { return m_fit_objects.begin(); }
     iterator end() { return m_fit_objects.end(); }
+
+    std::vector<const INode*> getChildren() const;
 
  protected:
     //! Registers some class members for later access via parameter pool

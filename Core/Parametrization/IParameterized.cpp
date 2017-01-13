@@ -41,17 +41,19 @@ IParameterized::~IParameterized()
     delete m_pool;
 }
 
-ParameterPool* IParameterized::createParameterTree()
+ParameterPool* IParameterized::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
     m_pool->copyToExternalPool("/"+getName()+"/", result.get());
     return result.release();
 }
 
-void IParameterized::printParameters()
+std::string IParameterized::parametersToString() const
 {
+    std::ostringstream result;
     std::unique_ptr<ParameterPool> P_pool( createParameterTree() );
-    std::cout << *P_pool << std::endl;
+    result << *P_pool << "\n";
+    return result.str();
 }
 
 RealParameter& IParameterized::registerParameter(const std::string& name, double* data)
@@ -77,9 +79,4 @@ void IParameterized::setParameterValue(const std::string& name, double value)
 //! Returns parameter with given 'name'.
 RealParameter* IParameterized::getParameter(const std::string& name) const {
     return m_pool->getParameter(name);
-}
-
-void IParameterized::print(std::ostream& ostr) const
-{
-    ostr << "IParameterized:" << getName() << " " << *m_pool;
 }

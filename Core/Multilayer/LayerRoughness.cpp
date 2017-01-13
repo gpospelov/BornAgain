@@ -70,15 +70,3 @@ double LayerRoughness::getCorrFun(const kvector_t k) const
     double R = sqrt(k.x()*k.x() + k.y()*k.y());
     return m_sigma*m_sigma*std::exp( -1.0*std::pow(R/clength, 2.*H) );
 }
-
-std::ostream &operator<<(std::ostream &ostr, LayerRoughness &m)
-{
-    m.print(ostr);
-    return ostr;
-}
-
-void LayerRoughness::print(std::ostream& ostr) const
-{
-    ISample::print(ostr);
-    ostr << "-->LayerRoughness{ sigma=" << m_sigma << "}";
-}

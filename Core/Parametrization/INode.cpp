@@ -25,7 +25,7 @@ INode::INode() : m_parent(nullptr)
 {
 }
 
-std::string INode::to_str() const
+std::string INode::treeToString() const
 {
     return NodeUtils::nodeToString(*this);
 }
@@ -80,7 +80,7 @@ std::string INode::displayName() const
     return result;
 }
 
-ParameterPool* INode::createParameterTree()
+ParameterPool* INode::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 

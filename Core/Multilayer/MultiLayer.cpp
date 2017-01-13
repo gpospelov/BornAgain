@@ -255,21 +255,6 @@ std::vector<const INode*> MultiLayer::getChildren() const
     return result;
 }
 
-void MultiLayer::print(std::ostream& ostr) const
-{
-    ostr << "MultiLayer:" << getName() << "<" << this << "> : {\n";
-    for (size_t i=0; i<getNumberOfLayers(); i++) {
-        ostr << " layer " << std::left << std::setw(2) << i << " { "
-             << *getLayer(i) << " }\n";
-        const LayerInterface* interface = getLayerBottomInterface(i);
-        if (interface)
-            ostr << " int.face {" << *interface << " }\n";
-        else
-            ostr << " int.face: NONE" << "\n";
-    }
-    ostr << "}";
-}
-
 void MultiLayer::addAndRegisterLayer(Layer* child)
 {
     m_layers.push_back(child);

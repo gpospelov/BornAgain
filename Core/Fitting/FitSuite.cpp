@@ -132,23 +132,14 @@ const OutputData<double>* FitSuite::getChiSquaredOutputData(size_t i_item) const
     return &m_impl->fitObjects()->getChiSquaredMap(i_item);
 }
 
-//std::vector<const INode*> FitSuite::getChildren() const
-//{
-//    return m_impl->fitObjects()->getChildren();
-//}
-
-void FitSuite::printParameters()
+std::string FitSuite::parametersToString() const
 {
-    m_impl->fitObjects()->printParameters();
+    return m_impl->fitObjects()->parametersToString();
 }
-
-//std::string FitSuite::parametersToString() const
-//{
-//}
 
 std::string FitSuite::treeToString() const
 {
-    return m_impl->fitObjects()->to_str();
+    return m_impl->fitObjects()->treeToString();
 }
 
 FitSuiteObjects* FitSuite::fitObjects()

@@ -194,13 +194,6 @@ IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
     return IDetector2D::MM;
 }
 
-void RectangularDetector::print(std::ostream& ostr) const
-{
-    ostr << "RectangularDetector: '" << getName() << "' " << getParameterPool();
-    for (size_t i = 0; i < m_axes.size(); ++i)
-        ostr << "    IAxis:" << *m_axes[i] << std::endl;
-}
-
 IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min)

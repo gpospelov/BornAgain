@@ -34,7 +34,7 @@ public:
     virtual void accept(INodeVisitor* visitor) const=0;
 
     //! Returns multiline string representing tree structure below the node.
-    virtual std::string to_str() const;
+    virtual std::string treeToString() const;
 
     void registerChild(INode* node);
 
@@ -51,7 +51,7 @@ public:
     std::string displayName() const;
 
     //! Creates new parameter pool, with all local parameters and those of its children.
-    ParameterPool* createParameterTree();
+    ParameterPool* createParameterTree() const;
 
 private:
     const INode* m_parent;

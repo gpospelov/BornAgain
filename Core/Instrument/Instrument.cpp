@@ -123,13 +123,6 @@ OutputData<double> *Instrument::createDetectorMap(IDetector2D::EAxesUnits units)
     return mP_detector->createDetectorMap(m_beam, units);
 }
 
-void Instrument::print(std::ostream& ostr) const
-{
-    ostr << "Instrument: '" << getName() << "' " << getParameterPool() << std::endl;
-    ostr << "    " << m_beam << std::endl;
-    ostr << "    " << *mP_detector << std::endl;
-}
-
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
     m_beam.setCentralK(wavelength, alpha_i, phi_i);

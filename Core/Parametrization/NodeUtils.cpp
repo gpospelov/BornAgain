@@ -69,7 +69,7 @@ namespace {
     std::string nodeString(const INode& node, int depth) {
         std::ostringstream result;
         //result << s_indent(depth) << node.getName() << "\n" << poolToMultiString(node, depth+1);
-        result << s_indent(depth) << node.getName() << poolToString(node) << "\n";
+        result << s_indent(depth) << node.displayName() << poolToString(node) << "\n";
         return result.str();
     }
 }

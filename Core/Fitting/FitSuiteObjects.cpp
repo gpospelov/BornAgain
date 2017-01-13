@@ -23,7 +23,7 @@ FitSuiteObjects::FitSuiteObjects()
   , m_chi2_module(new ChiSquaredModule())
   , m_fit_elements_count(0)
 {
-    setName("FitSuiteObjects");
+    setName("FitSuite"); // deliberately made as in FitSuite
     init_parameters();
 }
 
@@ -36,9 +36,9 @@ FitObject* FitSuiteObjects::add(
 {
     m_total_weight += weight;
     FitObject *result = new FitObject(simulation, real_data, weight);
+    registerChild(result);
     m_fit_elements_count += result->numberOfFitElements();
     m_fit_objects.push_back(result);
-    registerChild(result);
     return result;
 }
 

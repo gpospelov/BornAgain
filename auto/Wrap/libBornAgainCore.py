@@ -6185,7 +6185,7 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
 FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
 FitParameterLinked_swigregister(FitParameterLinked)
 
-class FitSuite(INode, IObservable):
+class FitSuite(IObservable):
     """
 
 
@@ -6196,11 +6196,11 @@ class FitSuite(INode, IObservable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INode, IObservable]:
+    for _s in [IObservable]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuite, name, value)
     __swig_getmethods__ = {}
-    for _s in [INode, IObservable]:
+    for _s in [IObservable]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitSuite, name)
     __repr__ = _swig_repr
@@ -6219,16 +6219,6 @@ class FitSuite(INode, IObservable):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_FitSuite
     __del__ = lambda self: None
-
-    def accept(self, visitor):
-        """
-        accept(FitSuite self, INodeVisitor visitor)
-
-        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
-
-        """
-        return _libBornAgainCore.FitSuite_accept(self, visitor)
-
 
     def addSimulationAndRealData(self, *args):
         """
@@ -6597,16 +6587,14 @@ class FitSuite(INode, IObservable):
         return _libBornAgainCore.FitSuite_getChiSquaredOutputData(self, i_item)
 
 
-    def getChildren(self):
-        """
-        getChildren(FitSuite self) -> swig_dummy_type_const_inode_vector
+    def printParameters(self):
+        """printParameters(FitSuite self)"""
+        return _libBornAgainCore.FitSuite_printParameters(self)
 
-        std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.FitSuite_getChildren(self)
+    def treeToString(self):
+        """treeToString(FitSuite self) -> std::string"""
+        return _libBornAgainCore.FitSuite_treeToString(self)
 
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
@@ -7321,7 +7309,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, RotationZ arg2)
         visit(INodeVisitor self, RotationEuler arg2)
         visit(INodeVisitor self, Instrument arg2)
-        visit(INodeVisitor self, FitSuite arg2)
+        visit(INodeVisitor self, FitSuiteObjects arg2)
         visit(INodeVisitor self, FitObject arg2)
         visit(INodeVisitor self, GISASSimulation arg2)
         visit(INodeVisitor self, OffSpecSimulation arg2)

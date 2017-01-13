@@ -160,7 +160,7 @@ bool FitSuiteImpl::check_prerequisites() const
 //! link FitMultiParameters with simulation parameters
 void FitSuiteImpl::link_fit_parameters()
 {
-    const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
+    std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
     for (auto par: *m_kernel->fitParameters()) {
         FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
         if( !linkedPar )
@@ -168,6 +168,4 @@ void FitSuiteImpl::link_fit_parameters()
                 "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
         linkedPar->addMatchedParametersFromPool(pool.get());
     }
-    msglog(Logging::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
-    msglog(Logging::DEBUG2) << *pool;
 }

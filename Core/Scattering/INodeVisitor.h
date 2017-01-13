@@ -125,7 +125,8 @@ class RotationX;
 class RotationY;
 class RotationZ;
 class RotationEuler;
-
+//-
+class Instrument;
 
 
 //! Visitor interface to visit ISample objects.
@@ -244,6 +245,8 @@ public:
     virtual void visit(const RotationY*) {}
     virtual void visit(const RotationZ*) {}
     virtual void visit(const RotationEuler*) {}
+
+    virtual void visit(const Instrument*) {}
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

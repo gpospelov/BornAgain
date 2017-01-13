@@ -16,7 +16,7 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
-#include "IParameterized.h"
+#include "INode.h"
 #include "Beam.h"
 #include "IDetector2D.h"
 #include <memory>
@@ -29,7 +29,7 @@ class SimulationElement;
 //! Assembles beam, detector and their relative positions wrt the sample.
 //! @ingroup simulation_internal
 
-class BA_CORE_API_ Instrument : public IParameterized
+class BA_CORE_API_ Instrument : public INode
 {
 public:
     Instrument();
@@ -37,6 +37,8 @@ public:
     Instrument& operator=(const Instrument& other);
 
     virtual ~Instrument();
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     Beam& getBeam() { return m_beam; }
     const Beam& getBeam() const { return m_beam; }
@@ -109,6 +111,8 @@ public:
     //! init detector with beam settings
     void initDetector();
 
+    std::vector<const INode*> getChildren() const;
+
 protected:
     virtual void print(std::ostream& ostr) const;
 
@@ -116,7 +120,7 @@ protected:
     virtual void init_parameters() {}
 
     std::unique_ptr<IDetector2D> mP_detector;
-    Beam m_beam; // TODO -> pointer
+    Beam m_beam;
 };
 
 #endif // INSTRUMENT_H

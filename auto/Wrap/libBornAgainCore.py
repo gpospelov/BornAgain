@@ -3624,7 +3624,7 @@ deg = cvar.deg
 tesla = cvar.tesla
 gauss = cvar.gauss
 
-class Beam(IParameterized):
+class Beam(INode):
     """
 
 
@@ -3635,11 +3635,11 @@ class Beam(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, Beam, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Beam, name)
     __repr__ = _swig_repr
@@ -3748,6 +3748,16 @@ class Beam(IParameterized):
 
         """
         return _libBornAgainCore.Beam_getPhi(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(Beam self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.Beam_accept(self, visitor)
 
 Beam_swigregister = _libBornAgainCore.Beam_swigregister
 Beam_swigregister(Beam)
@@ -7156,6 +7166,7 @@ class INodeVisitor(_object):
     def visit(self, *args):
         """
         visit(INodeVisitor self, INode arg2)
+        visit(INodeVisitor self, Beam arg2)
         visit(INodeVisitor self, RectangularDetector arg2)
         visit(INodeVisitor self, SphericalDetector arg2)
         visit(INodeVisitor self, IsGISAXSDetector arg2)
@@ -7240,6 +7251,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, RotationY arg2)
         visit(INodeVisitor self, RotationZ arg2)
         visit(INodeVisitor self, RotationEuler arg2)
+        visit(INodeVisitor self, Instrument arg2)
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
 
@@ -17119,6 +17131,11 @@ class IDetector2D(ICloneable, INode):
         return _libBornAgainCore.IDetector2D_setDetectorResolution(self, p_detector_resolution)
 
 
+    def removeDetectorResolution(self):
+        """removeDetectorResolution(IDetector2D self)"""
+        return _libBornAgainCore.IDetector2D_removeDetectorResolution(self)
+
+
     def applyDetectorResolution(self, p_intensity_map):
         """
         applyDetectorResolution(IDetector2D self, IntensityData p_intensity_map)
@@ -18718,7 +18735,7 @@ class SimpleSelectionRule(ISelectionRule):
 SimpleSelectionRule_swigregister = _libBornAgainCore.SimpleSelectionRule_swigregister
 SimpleSelectionRule_swigregister(SimpleSelectionRule)
 
-class Instrument(IParameterized):
+class Instrument(INode):
     """
 
 
@@ -18729,11 +18746,11 @@ class Instrument(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, Instrument, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Instrument, name)
     __repr__ = _swig_repr
@@ -18753,6 +18770,16 @@ class Instrument(IParameterized):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_Instrument
     __del__ = lambda self: None
+
+    def accept(self, visitor):
+        """
+        accept(Instrument self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.Instrument_accept(self, visitor)
+
 
     def getBeam(self, *args):
         """
@@ -18914,6 +18941,11 @@ class Instrument(IParameterized):
         return _libBornAgainCore.Instrument_setDetectorResolutionFunction(self, p_resolution_function)
 
 
+    def removeDetectorResolution(self):
+        """removeDetectorResolution(Instrument self)"""
+        return _libBornAgainCore.Instrument_removeDetectorResolution(self)
+
+
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         """
         setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)
@@ -18974,6 +19006,18 @@ class Instrument(IParameterized):
 
         """
         return _libBornAgainCore.Instrument_initDetector(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(Instrument self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.Instrument_getChildren(self)
 
 Instrument_swigregister = _libBornAgainCore.Instrument_swigregister
 Instrument_swigregister(Instrument)

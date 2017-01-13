@@ -71,8 +71,8 @@ def run_simulation():
     # print(simulation.to_str())
     simulation.printParameters()
 
-    print(simulation.getInstrument().getDetector().to_str())
-    simulation.getInstrument().getDetector().printParameters()
+    print(simulation.getInstrument().to_str())
+    simulation.getInstrument().printParameters()
 
 
     simulation.runSimulation()

@@ -20,15 +20,16 @@
 #include "IResolutionFunction2D.h"
 #include "SimulationElement.h"
 #include "SphericalDetector.h"
+#include "BornAgainNamespace.h"
 
 Instrument::Instrument()
-    : IParameterized("Instrument")
 {
+    setName(BornAgain::InstrumentType);
     mP_detector.reset(new SphericalDetector());
     init_parameters();
 }
 
-Instrument::Instrument(const Instrument &other) : IParameterized(), m_beam(other.m_beam)
+Instrument::Instrument(const Instrument &other) : m_beam(other.m_beam)
 {
     mP_detector.reset(other.mP_detector->clone());
     setName(other.getName());
@@ -86,6 +87,15 @@ void Instrument::initDetector()
         throw Exceptions::RuntimeErrorException(
             "Instrument::initDetector() -> Error. Detector is not initialized.");
     getDetector()->init(getBeam());
+}
+
+std::vector<const INode*> Instrument::getChildren() const
+{
+    std::vector<const INode*> result;
+    result.push_back(&m_beam);
+    if(mP_detector)
+        result.push_back(mP_detector.get());
+    return result;
 }
 
 

@@ -21,16 +21,6 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     cumulative_DF_1d res_function_1d)
     : m_dimension(1)
     , m_res_function_1d(res_function_1d)
-    , mp_res_function_2d(0)
-{
-    setName("ConvolutionDetectorResolution");
-}
-
-ConvolutionDetectorResolution::ConvolutionDetectorResolution(
-    IResolutionFunction2D* p_res_function_2d)
-    : m_dimension(2)
-    , m_res_function_1d(0)
-    , mp_res_function_2d(p_res_function_2d)
 {
     setName("ConvolutionDetectorResolution");
 }
@@ -39,31 +29,34 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     const IResolutionFunction2D &p_res_function_2d)
     : m_dimension(2)
     , m_res_function_1d(0)
-    , mp_res_function_2d(p_res_function_2d.clone())
 {
     setName("ConvolutionDetectorResolution");
+    setResolutionFunction(p_res_function_2d);
 }
 
 
 ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
 {
-    delete mp_res_function_2d;
 }
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
-    const ConvolutionDetectorResolution& other) : IDetectorResolution()
-//    : IDetectorResolution(other)
+    const ConvolutionDetectorResolution& other)
 {
     m_dimension = other.m_dimension;
     m_res_function_1d=other.m_res_function_1d;
-    mp_res_function_2d = other.mp_res_function_2d->clone();
+    if(other.mp_res_function_2d)
+        setResolutionFunction(*other.mp_res_function_2d);
     setName(other.getName());
-
 }
 
 ConvolutionDetectorResolution* ConvolutionDetectorResolution::clone() const
 {
     return new ConvolutionDetectorResolution(*this);
+}
+
+std::vector<const INode*> ConvolutionDetectorResolution::getChildren() const
+{
+    return std::vector<const INode*>() << mp_res_function_2d;
 }
 
 void ConvolutionDetectorResolution::applyDetectorResolution(
@@ -88,22 +81,14 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
     }
 }
 
-std::string ConvolutionDetectorResolution::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path =
-        IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-
-    // add parameters of the 2D resolution function
-    if (mp_res_function_2d)
-        mp_res_function_2d->addParametersToExternalPool(new_path, external_pool, -1);
-
-    return new_path;
-}
-
 void ConvolutionDetectorResolution::init_parameters()
 {
+}
+
+void ConvolutionDetectorResolution::setResolutionFunction(const IResolutionFunction2D& resFunc)
+{
+    mp_res_function_2d.reset(resFunc.clone());
+    registerChild(mp_res_function_2d.get());
 }
 
 void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_intensity_map) const

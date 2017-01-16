@@ -89,21 +89,6 @@ void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double
     m_instrument.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
-std::string GISASSimulation::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-
-    // add parameters of the instrument
-    m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
-
-    new_path = addSimulationParametersToExternalPool(new_path, external_pool);
-
-    return new_path;
-}
-
 void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
     m_instrument.getDetector()->setRegionOfInterest(xlow, ylow, xup, yup);

@@ -42,15 +42,10 @@ public:
     SwigDirector_IParameterized(PyObject *self, std::string const &name = "");
     SwigDirector_IParameterized(PyObject *self, IParameterized const &other);
     virtual ~SwigDirector_IParameterized();
-    virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
-    }
-    virtual void print(std::ostream &ostr) const;
-    virtual void printSwigPublic(std::ostream &ostr) const {
-      IParameterized::print(ostr);
     }
 
 /* Internal director utilities */
@@ -82,7 +77,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[3];
+    mutable swig::SwigVar_PyObject vtable[2];
 #endif
 
 };
@@ -93,18 +88,13 @@ class SwigDirector_INode : public INode, public Swig::Director {
 public:
     SwigDirector_INode(PyObject *self);
     virtual ~SwigDirector_INode();
-    virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
     }
-    virtual void print(std::ostream &ostr) const;
-    virtual void printSwigPublic(std::ostream &ostr) const {
-      IParameterized::print(ostr);
-    }
-    virtual void accept(ISampleVisitor *p_visitor) const;
-    virtual std::string to_str() const;
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
 
 /* Internal director utilities */
@@ -136,7 +126,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[6];
+    mutable swig::SwigVar_PyObject vtable[5];
 #endif
 
 };
@@ -149,18 +139,13 @@ public:
     virtual ~SwigDirector_ISample();
     virtual ISample *clone() const;
     virtual void transferToCPP();
-    virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
     }
-    virtual void print(std::ostream &ostr) const;
-    virtual void printSwigPublic(std::ostream &ostr) const {
-      IParameterized::print(ostr);
-    }
-    virtual void accept(ISampleVisitor *p_visitor) const;
-    virtual std::string to_str() const;
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
@@ -195,7 +180,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[11];
+    mutable swig::SwigVar_PyObject vtable[10];
 #endif
 
 };
@@ -292,16 +277,14 @@ class SwigDirector_IMultiLayerBuilder : public IMultiLayerBuilder, public Swig::
 public:
     SwigDirector_IMultiLayerBuilder(PyObject *self);
     virtual ~SwigDirector_IMultiLayerBuilder();
-    virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
     }
-    virtual void print(std::ostream &ostr) const;
-    virtual void printSwigPublic(std::ostream &ostr) const {
-      IParameterized::print(ostr);
-    }
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual MultiLayer *buildSample() const;
 
 /* Internal director utilities */
@@ -333,7 +316,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[4];
+    mutable swig::SwigVar_PyObject vtable[6];
 #endif
 
 };
@@ -346,18 +329,13 @@ public:
     virtual ~SwigDirector_IFormFactor();
     virtual IFormFactor *clone() const;
     virtual void transferToCPP();
-    virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
     }
-    virtual void print(std::ostream &ostr) const;
-    virtual void printSwigPublic(std::ostream &ostr) const {
-      IParameterized::print(ostr);
-    }
-    virtual void accept(ISampleVisitor *visitor) const;
-    virtual std::string to_str() const;
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
@@ -397,7 +375,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[16];
+    mutable swig::SwigVar_PyObject vtable[15];
 #endif
 
 };
@@ -410,18 +388,13 @@ public:
     virtual ~SwigDirector_IFormFactorBorn();
     virtual IFormFactorBorn *clone() const;
     virtual void transferToCPP();
-    virtual ParameterPool *createParameterTree();
-    virtual std::string addParametersToExternalPool(std::string const &path, ParameterPool *external_pool, int copy_number = -1) const;
+    virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual void onChangeSwigPublic() {
       IParameterized::onChange();
     }
-    virtual void print(std::ostream &ostr) const;
-    virtual void printSwigPublic(std::ostream &ostr) const {
-      IParameterized::print(ostr);
-    }
-    virtual void accept(ISampleVisitor *visitor) const;
-    virtual std::string to_str() const;
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
@@ -462,7 +435,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[16];
 #endif
 
 };

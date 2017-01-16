@@ -63,6 +63,7 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.setTerminalProgressMonitor()
+
     simulation.runSimulation()
     return simulation.getIntensityData()
 

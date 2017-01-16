@@ -30,7 +30,7 @@ public:
     FormFactorSphereGaussianRadius* clone() const override final {
         return new FormFactorSphereGaussianRadius(m_mean, m_sigma); }
 
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadialExtension() const override final { return m_mean; }
 

@@ -16,7 +16,6 @@
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "ISampleVisitor.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <limits>

@@ -36,7 +36,7 @@ public:
     Layer* clone() const final { return new Layer(*this); }
     Layer* cloneInvertB() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setThickness(double thickness);
     double getThickness() const { return m_thickness; }

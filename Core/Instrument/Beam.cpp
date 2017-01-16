@@ -28,7 +28,7 @@ Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(0.0)
 }
 
 Beam::Beam(const Beam& other)
-    : IParameterized(), m_wavelength(other.m_wavelength), m_alpha(other.m_alpha),
+    : m_wavelength(other.m_wavelength), m_alpha(other.m_alpha),
       m_phi(other.m_phi), m_intensity(other.m_intensity), m_polarization(other.m_polarization)
 {
     setName(other.getName());
@@ -105,9 +105,4 @@ void Beam::initPolarization()
 {
     kvector_t zero;
     setPolarization(zero);
-}
-
-void Beam::print(std::ostream& ostr) const
-{
-    ostr << "Beam: '" << getName() << "' " << getParameterPool();
 }

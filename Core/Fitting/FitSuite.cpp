@@ -19,11 +19,13 @@
 #include "FitSuitePrintObserver.h"
 #include "IHistogram.h"
 #include "MinimizerFactory.h"
+#include "ParameterPool.h"
 #include <iostream>
 
 FitSuite::FitSuite()
     : m_impl(new FitSuiteImpl(std::bind(&FitSuite::notifyObservers, this)))
-{}
+{
+}
 
 FitSuite::~FitSuite()
 {}
@@ -97,7 +99,7 @@ void FitSuite::runFit()
 
 int FitSuite::numberOfFitObjects() const
 {
-    return m_impl->fitObjects()->getNumberOfFitObjects();
+    return m_impl->fitObjects()->size();
 }
 
 IHistogram* FitSuite::getRealData(size_t i_item) const
@@ -130,6 +132,15 @@ const OutputData<double>* FitSuite::getChiSquaredOutputData(size_t i_item) const
     return &m_impl->fitObjects()->getChiSquaredMap(i_item);
 }
 
+std::string FitSuite::parametersToString() const
+{
+    return m_impl->fitObjects()->parametersToString();
+}
+
+std::string FitSuite::treeToString() const
+{
+    return m_impl->fitObjects()->treeToString();
+}
 
 FitSuiteObjects* FitSuite::fitObjects()
 {

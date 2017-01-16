@@ -32,7 +32,7 @@ public:
 
     FormFactorDWBA* clone() const override;
 
-    void accept(ISampleVisitor* visitor) const override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Calculates and returns a form factor calculation in DWBA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;

@@ -32,7 +32,7 @@ public:
 
     FormFactorCone* clone() const override final {
         return new FormFactorCone(m_radius, m_height, m_alpha); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getAlpha() const { return m_alpha; }

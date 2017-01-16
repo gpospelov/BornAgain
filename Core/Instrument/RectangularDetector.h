@@ -44,6 +44,8 @@ public:
 
     RectangularDetector* clone() const override;
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     ~RectangularDetector();
 
     void init(const Beam& beam) override;
@@ -56,10 +58,6 @@ public:
     void setPerpendicularToDirectBeam(double distance, double u0, double v0);
     void setPerpendicularToReflectedBeam(double distance, double u0 = 0.0, double v0 = 0.0);
     void setDirectBeamPosition(double u0, double v0);
-
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const override;
 
     double getWidth() const;
     double getHeight() const;
@@ -83,8 +81,6 @@ public:
 protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
-
-    void print(std::ostream& ostr) const override;
 
     //! Registers some class members for later access via parameter pool.
     void init_parameters() override {}

@@ -27,7 +27,7 @@ public:
 
     FormFactorPrism6 *clone() const override final {
         return new FormFactorPrism6(m_base_edge, m_height); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
 

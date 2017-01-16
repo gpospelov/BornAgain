@@ -16,7 +16,7 @@
 #ifndef IMULTILAYERBUILDER_H
 #define IMULTILAYERBUILDER_H
 
-#include "IParameterized.h"
+#include "INode.h"
 
 class MultiLayer;
 class IFormFactor;
@@ -25,11 +25,13 @@ class IFTDistribution2D;
 //! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
 
-class BA_CORE_API_ IMultiLayerBuilder : public IParameterized
+class BA_CORE_API_ IMultiLayerBuilder : public INode
 {
 public:
-    IMultiLayerBuilder() : IParameterized("SampleBuilder") , m_subtest_item(0) {}
+    IMultiLayerBuilder() : m_subtest_item(0) {setName("SampleBuilder");}
     virtual ~IMultiLayerBuilder() {}
+
+    void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     virtual MultiLayer* buildSample() const =0;
 
@@ -42,6 +44,10 @@ public:
     // this method is extended in the Python wrappers (needed to solve ownership issues with
     // the created sample in buildSample()
     static bool isPythonBuilder() { return false; }
+
+    // Without this PythonBindings doesn't work
+    std::vector<const INode*> getChildren() const { return{}; }
+
 };
 
 #endif // IMULTILAYERBUILDER_H

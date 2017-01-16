@@ -16,6 +16,7 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include "INode.h"
 #include "DistributionHandler.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
@@ -31,7 +32,7 @@ class IMultiLayerBuilder;
 //! holds common infrastructure to run a simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
+class BA_CORE_API_ Simulation : public ICloneable, public INode
 {
 public:
     Simulation();
@@ -74,10 +75,6 @@ public:
     virtual OutputData<double>* getDetectorIntensity(
         IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const=0;
 
-    //! Adds parameters defined in this class the to external pool.
-    std::string addSimulationParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool) const;
-
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
         double sigma_factor=0.0, const RealLimits& limits = RealLimits());
@@ -90,6 +87,8 @@ public:
 
     void subscribe(ProgressHandler::Callback_t inform) { m_progress.subscribe(inform); }
     void setTerminalProgressMonitor();
+
+    std::vector<const INode*> getChildren() const;
 
 protected:
     Simulation(const Simulation& other);

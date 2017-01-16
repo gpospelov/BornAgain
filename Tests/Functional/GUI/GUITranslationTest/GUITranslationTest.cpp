@@ -64,7 +64,7 @@ bool GUITranslationTest::runTest()
         std::cout << "GUITranslationTest failed: " << m_simulationName
                   << " " << m_sampleName << std::endl;
         std::cout << "Available simulation parameters" << std::endl;
-        m_simulation->printParameters();
+        std::cout << m_simulation->parametersToString() << std::endl;
     }
 
     return success;

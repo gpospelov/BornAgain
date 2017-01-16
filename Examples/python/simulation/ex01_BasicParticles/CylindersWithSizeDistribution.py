@@ -63,7 +63,7 @@ def run_simulation():
     Runs simulation and returns intensity map.
     """
     sample = get_sample()
-    print( sample.to_str() ) # print tree structure of sample
+    print(sample.treeToString())
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()

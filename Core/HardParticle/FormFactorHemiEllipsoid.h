@@ -31,7 +31,7 @@ public:
 
     FormFactorHemiEllipsoid* clone() const override final {
         return new FormFactorHemiEllipsoid(m_radius_x, m_radius_y, m_height); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadiusX() const { return m_radius_x; }

@@ -34,8 +34,7 @@ public:
     ParticleCoreShell* clone() const final;
     ParticleCoreShell* cloneInvertB() const final;
 
-    //! Calls the ISampleVisitor's visit method
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     void setAmbientMaterial(const IMaterial& material) final;

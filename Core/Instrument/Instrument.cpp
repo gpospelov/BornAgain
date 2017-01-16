@@ -20,17 +20,22 @@
 #include "IResolutionFunction2D.h"
 #include "SimulationElement.h"
 #include "SphericalDetector.h"
+#include "BornAgainNamespace.h"
 
 Instrument::Instrument()
-    : IParameterized("Instrument")
+    : mP_detector(new SphericalDetector)
 {
-    mP_detector.reset(new SphericalDetector());
+    setName(BornAgain::InstrumentType);
+    registerChild(mP_detector.get());
+    registerChild(&m_beam);
     init_parameters();
 }
 
-Instrument::Instrument(const Instrument &other) : IParameterized(), m_beam(other.m_beam)
+Instrument::Instrument(const Instrument &other) : m_beam(other.m_beam)
 {
-    mP_detector.reset(other.mP_detector->clone());
+    if(other.mP_detector)
+        setDetector(*other.mP_detector);
+    registerChild(&m_beam);
     setName(other.getName());
     init_parameters();
 }
@@ -41,7 +46,9 @@ Instrument &Instrument::operator=(const Instrument &other)
 {
     if (this != &other) {
         m_beam = other.m_beam;
-        mP_detector.reset(other.mP_detector->clone());
+        registerChild(&m_beam);
+        if(other.mP_detector)
+            setDetector(*other.mP_detector);
         init_parameters();
     }
     return *this;
@@ -50,6 +57,7 @@ Instrument &Instrument::operator=(const Instrument &other)
 void Instrument::setDetector(const IDetector2D& detector)
 {
     mP_detector.reset(detector.clone());
+    registerChild(mP_detector.get());
     initDetector();
 }
 
@@ -64,22 +72,6 @@ void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
     mP_detector->setDetectorAxes(axis0, axis1);
 }
 
-std::string Instrument::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(
-        path, external_pool, copy_number);
-
-    // add parameters of the beam
-    m_beam.addParametersToExternalPool(new_path, external_pool, -1);
-
-    // add parameters of the detector
-    mP_detector->addParametersToExternalPool(new_path, external_pool, -1);
-
-    return new_path;
-}
-
 void Instrument::initDetector()
 {
     if(!mP_detector)
@@ -88,25 +80,31 @@ void Instrument::initDetector()
     getDetector()->init(getBeam());
 }
 
+std::vector<const INode*> Instrument::getChildren() const
+{
+    std::vector<const INode*> result;
+    result.push_back(&m_beam);
+    if(mP_detector)
+        result.push_back(mP_detector.get());
+    return result;
+}
+
 
 std::vector<SimulationElement> Instrument::createSimulationElements()
 {
     return mP_detector->createSimulationElements(m_beam);
 }
 
-void Instrument::setDetectorResolutionFunction(IResolutionFunction2D* p_resolution_function)
-{
-    if (p_resolution_function) {
-        mP_detector->setDetectorResolution(
-            new ConvolutionDetectorResolution(p_resolution_function));
-    } else {
-        mP_detector->setDetectorResolution(0);
-    }
-}
-
 void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function)
 {
-    mP_detector->setDetectorResolution(new ConvolutionDetectorResolution(p_resolution_function));
+    std::unique_ptr<IDetectorResolution> detRes(
+                new ConvolutionDetectorResolution(p_resolution_function));
+    mP_detector->setDetectorResolution(*detRes);
+}
+
+void Instrument::removeDetectorResolution()
+{
+    mP_detector->removeDetectorResolution();
 }
 
 void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) const
@@ -123,13 +121,6 @@ OutputData<double> *Instrument::createDetectorIntensity(
 OutputData<double> *Instrument::createDetectorMap(IDetector2D::EAxesUnits units) const
 {
     return mP_detector->createDetectorMap(m_beam, units);
-}
-
-void Instrument::print(std::ostream& ostr) const
-{
-    ostr << "Instrument: '" << getName() << "' " << getParameterPool() << std::endl;
-    ostr << "    " << m_beam << std::endl;
-    ostr << "    " << *mP_detector << std::endl;
 }
 
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)

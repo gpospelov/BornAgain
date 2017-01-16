@@ -99,9 +99,15 @@ def run_fitting():
     """
     main function to run fitting
     """
+    # print("1.1")
+    # builder = MySampleBuilder()
+    # print(builder.parametersToString())
+    # print("1.2")
+
+
     simulation = get_simulation()
     simulation.setSampleBuilder(MySampleBuilder())
-    simulation.printParameters()
+    print(simulation.parametersToString())
 
     real_data = create_real_data()
 
@@ -116,6 +122,9 @@ def run_fitting():
     fit_suite.addFitParameter("*radius", 8.*nm, ba.AttLimits.limited(4., 12.))
     fit_suite.addFitParameter("*lattice_constant",
                               8.*nm, ba.AttLimits.limited(4., 12.))
+
+    print(fit_suite.treeToString())
+    print(fit_suite.parametersToString())
 
     # running fit
     fit_suite.runFit()

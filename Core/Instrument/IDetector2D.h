@@ -16,7 +16,8 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "IParameterized.h"
+#include "INode.h"
+#include "ICloneable.h"
 #include "Beam.h"
 #include "DetectorMask.h"
 #include "SafePointerVector.h"
@@ -36,7 +37,7 @@ class SimulationElement;
 //! Pure virtual detector interface.
 //! @ingroup simulation
 
-class BA_CORE_API_ IDetector2D : public ICloneable, public IParameterized
+class BA_CORE_API_ IDetector2D :  public ICloneable, public INode
 {
 public:
     enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
@@ -66,7 +67,10 @@ public:
     void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
 
     //! Sets the detector resolution
-    void setDetectorResolution(IDetectorResolution* p_detector_resolution);
+    void setDetectorResolution(const IDetectorResolution& p_detector_resolution);
+
+    //! Removes detector resolution function.
+    void removeDetectorResolution();
 
     //! Applies the detector resolution to the given intensity maps
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
@@ -107,10 +111,6 @@ public:
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 #endif
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
             const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
@@ -144,6 +144,8 @@ public:
 
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
+
+    std::vector<const INode*> getChildren() const;
 
 protected:
     IDetector2D(const IDetector2D& other);

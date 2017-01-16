@@ -28,7 +28,7 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
     ~TestMinimizer(){}
 
     std::string minimizerName() const final;
-    std::string algorithmName() const final { return ""; };
+    std::string algorithmName() const final { return ""; }
 
     void minimize() override;
 
@@ -38,7 +38,7 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
 
     std::string reportOutcome() const override;
 
-    void propagateResults(FitParameterSet&);
+    void propagateResults(FitParameterSet&) override;
 
  private:
     double m_min_value;

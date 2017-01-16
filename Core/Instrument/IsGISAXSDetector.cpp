@@ -44,14 +44,6 @@ IsGISAXSDetector *IsGISAXSDetector::clone() const
     return new IsGISAXSDetector(*this);
 }
 
-void IsGISAXSDetector::print(std::ostream &ostr) const
-{
-    ostr << "IsGISAXSDetector: '" << getName() << "' " << getParameterPool();
-    for (size_t i = 0; i < m_axes.size(); ++i) {
-        ostr << "    IAxis:" << *m_axes[i] << std::endl;
-    }
-}
-
 IAxis *IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min) {

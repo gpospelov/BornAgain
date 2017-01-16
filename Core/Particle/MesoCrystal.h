@@ -35,8 +35,7 @@ public:
     //! Returns a clone with inverted magnetic fields
     virtual MesoCrystal* cloneInvertB() const;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const;
+    virtual void accept(INodeVisitor* visitor) const;
 
     virtual void setAmbientMaterial(const IMaterial& material);
     virtual const IMaterial* getAmbientMaterial() const;

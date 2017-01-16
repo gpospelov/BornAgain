@@ -35,7 +35,7 @@ public:
 
     LayerRoughness* clone() const {
         return new LayerRoughness(m_sigma, m_hurstParameter, m_lateralCorrLength); }
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t kvec) const;
@@ -58,15 +58,11 @@ public:
     //! Returns lateral correlation length
     double getLatteralCorrLength() const { return m_lateralCorrLength; }
 
-    //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, /*const*/ LayerRoughness& m);
-
 protected:
-    void print(std::ostream& ostr) const;
-
     double m_sigma;                //!< rms of roughness
     double m_hurstParameter;   //!< Hurst parameter which describes how jagged the interface, 0<H<=1
     double m_lateralCorrLength;   //!< lateral correlation length of the roughness
+
 private:
     void initialize();
 };

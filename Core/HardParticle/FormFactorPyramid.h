@@ -28,7 +28,7 @@ public:
 
     FormFactorPyramid* clone() const override final {
         return new FormFactorPyramid(m_base_edge, m_height, m_alpha); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getBaseEdge() const { return m_base_edge; }

@@ -32,7 +32,7 @@ public:
 
     InterferenceFunction1DLattice* clone() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setDecayFunction(const IFTDecayFunction1D& pdf);
 

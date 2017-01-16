@@ -31,6 +31,8 @@ public:
     ResolutionFunction2DGaussian* clone() const {
         return new ResolutionFunction2DGaussian(m_sigma_x, m_sigma_y); }
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     double getSigmaX() const { return m_sigma_x; }
     double getSigmaY() const { return m_sigma_y; }
 

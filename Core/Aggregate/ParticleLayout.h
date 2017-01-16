@@ -38,7 +38,7 @@ public:
     ParticleLayout* clone() const final;
     ParticleLayout* cloneInvertB() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void addParticle(const IAbstractParticle& particle);
     void addParticle(const IAbstractParticle& particle, double abundance); // TODO delete this

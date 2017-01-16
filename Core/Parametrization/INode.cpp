@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "INode.h"
-#include "StringUsageMap.h"
 #include "Exceptions.h"
 #include "NodeUtils.h"
 #include "SampleTreeIterator.h"
@@ -26,7 +25,7 @@ INode::INode() : m_parent(nullptr)
 {
 }
 
-std::string INode::to_str() const
+std::string INode::treeToString() const
 {
     return NodeUtils::nodeToString(*this);
 }
@@ -41,36 +40,6 @@ void INode::registerChild(INode *node)
 std::vector<const INode *> INode::getChildren() const
 {
     return {};
-}
-
-std::string INode::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    std::string new_path
-        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-
-    // We need a mechanism to handle cases with multiple children with the same name.
-    // First run through all direct children and save their names
-    StringUsageMap strUsageMap;
-    for(auto child : getChildren())
-        strUsageMap.add(new_path + child->getName()); // saving child names
-
-    // Now run through the direct children again and assign a copy number for
-    // all children with the same name
-    StringUsageMap strUsageMap2;
-    for(auto child : getChildren()) {
-        std::string child_name = new_path + child->getName();
-        strUsageMap2.add(child_name);
-        // Copy number starts from 0:
-        int ncopy = strUsageMap2[child_name] - 1;
-
-        // If the child is the only one with that name, we do not want any copy number:
-        if (strUsageMap[child_name] == 1)
-            ncopy = -1;
-
-        child->addParametersToExternalPool(new_path, external_pool, ncopy);
-    }
-    return new_path;
 }
 
 void INode::setParent(const INode* parent)
@@ -111,7 +80,7 @@ std::string INode::displayName() const
     return result;
 }
 
-ParameterPool* INode::createParameterTree()
+ParameterPool* INode::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 

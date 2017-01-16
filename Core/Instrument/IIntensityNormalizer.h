@@ -17,14 +17,14 @@
 #ifndef IINTENSITYNORMALIZER_H
 #define IINTENSITYNORMALIZER_H
 
-#include "IParameterized.h"
+#include "ICloneable.h"
+#include "INode.h"
 #include "OutputData.h"
-
 
 //! Interface to OutputData normalizers.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ IIntensityNormalizer : public IParameterized
+class BA_CORE_API_ IIntensityNormalizer : public ICloneable, public INode
 {
 public:
     virtual ~IIntensityNormalizer() {}
@@ -57,6 +57,8 @@ public:
 
     virtual IntensityNormalizer* clone() const;
 
+    void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+
     virtual OutputData<double>* createNormalizedData(const OutputData<double >& data) const;
 
     void apply(OutputData<double>& data) const final;
@@ -84,6 +86,8 @@ public:
         : IntensityNormalizer(scale, shift) { m_max_intensity = 1.0; }
 
     ~IntensityScaleAndShiftNormalizer() final {}
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setMaximumIntensity(double) final {}
 

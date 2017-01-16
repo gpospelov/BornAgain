@@ -15,7 +15,6 @@
 
 #include "IFormFactorBorn.h"
 #include "Exceptions.h"
-#include "ISampleVisitor.h"
 #include "WavevectorInfo.h"
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const

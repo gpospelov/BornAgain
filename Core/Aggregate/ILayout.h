@@ -41,8 +41,7 @@ public:
 
     virtual ILayout* clone() const =0;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const=0;
+    virtual void accept(INodeVisitor* visitor) const=0;
 
     //! Returns a clone with inverted magnetic fields
     virtual ILayout* cloneInvertB() const =0;

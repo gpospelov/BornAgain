@@ -29,7 +29,7 @@ public:
     FormFactorBox* clone() const override final {
         return new FormFactorBox(m_length, m_width, m_height); }
 
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }

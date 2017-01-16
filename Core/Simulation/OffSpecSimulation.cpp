@@ -87,21 +87,6 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
     updateIntensityMap();
 }
 
-std::string OffSpecSimulation::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-
-    // add parameters of the instrument
-    m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
-
-    new_path = addSimulationParametersToExternalPool(new_path, external_pool);
-
-    return new_path;
-}
-
 void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();

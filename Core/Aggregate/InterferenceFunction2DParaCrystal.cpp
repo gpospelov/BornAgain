@@ -16,7 +16,6 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "ISampleVisitor.h"
 #include "IntegratorReal.h"
 #include "ParameterPool.h"
 #include "MathConstants.h"
@@ -38,8 +37,6 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     m_lattice_params.m_length_2 = length_2;
     m_lattice_params.m_angle = alpha_lattice;
     m_lattice_params.m_xi = xi;
-    m_pdfs[0] = 0;
-    m_pdfs[1] = 0;
     m_domain_sizes[0] = 0.0;
     m_domain_sizes[1] = 0.0;
     setName(BornAgain::InterferenceFunction2DParaCrystalType);
@@ -52,8 +49,6 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
 
 InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
 {
-    for (size_t i=0; i<2; ++i)
-        delete m_pdfs[i];
 }
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() const
@@ -62,8 +57,8 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() co
         m_lattice_params.m_length_1, m_lattice_params.m_length_2, m_lattice_params.m_angle,
         m_lattice_params.m_xi, m_damping_length);
     result->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
-    if (m_pdfs[0] && m_pdfs[1])
-        result->setProbabilityDistributions(*m_pdfs[0], *m_pdfs[1]);
+    if (m_pdf1 && m_pdf2)
+        result->setProbabilityDistributions(*m_pdf1, *m_pdf2);
     result->setIntegrationOverXi(m_integrate_xi);
     return result;
 }
@@ -74,10 +69,10 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() co
 void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
         const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2)
 {
-    for (size_t i=0; i<2; ++i)
-        delete m_pdfs[i];
-    m_pdfs[0] = pdf_1.clone();
-    m_pdfs[1] = pdf_2.clone();
+    m_pdf1.reset(pdf_1.clone());
+    registerChild(m_pdf1.get());
+    m_pdf2.reset(pdf_2.clone());
+    registerChild(m_pdf2.get());
 }
 
 double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
@@ -89,27 +84,15 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
     return mP_integrator->integrate(0.0, M_TWOPI)/M_TWOPI;
 }
 
-std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string  new_path = IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-
-    // add parameters of the probability density functions
-    if (m_pdfs[0])
-        m_pdfs[0]->addParametersToExternalPool(new_path, external_pool, 0);
-    if (m_pdfs[1])
-        m_pdfs[1]->addParametersToExternalPool(new_path, external_pool, 1);
-    return new_path;
-}
-
 double InterferenceFunction2DParaCrystal::getParticleDensity() const
 {
     double area = m_lattice_params.getUnitCellArea();
-    if (area == 0.0)
-        return 0.0;
-    return 1.0/area;
+    return area == 0.0 ? 0.0 : 1.0/area;
+}
+
+std::vector<const INode*> InterferenceFunction2DParaCrystal::getChildren() const
+{
+    return std::vector<const INode*>() << m_pdf1 << m_pdf2;
 }
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSquare(
@@ -176,7 +159,7 @@ double InterferenceFunction2DParaCrystal::interference1D(
         throw Exceptions::OutOfBoundsException("InterferenceFunction2DParaCrystal::"
                 "interference1D() -> Error! Index of interference function "
                 "probability must be < 2");
-    if (!m_pdfs[0] || !m_pdfs[1])
+    if (!m_pdf1 || !m_pdf2)
         throw Exceptions::NullPointerException("InterferenceFunction2DParaCrystal::"
                 "interference1D() -> Error! Probability distributions for "
                 "interference funtion not properly initialized");
@@ -213,14 +196,15 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(
     double qx, double qy, double xi, size_t index) const
 {
     double length = (index ? m_lattice_params.m_length_2 : m_lattice_params.m_length_1);
+    const IFTDistribution2D* pdf = (index ? m_pdf2.get() : m_pdf1.get());
     double qa = qx*length*std::cos(xi) + qy*length*std::sin(xi);
     complex_t phase = exp_I(qa);
     // transform q to principal axes:
     double qp1, qp2;
-    double gamma = xi + m_pdfs[index]->getGamma();
-    double delta = m_pdfs[index]->getDelta();
+    double gamma = xi + pdf->getGamma();
+    double delta = pdf->getDelta();
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
-    double amplitude = m_pdfs[index]->evaluate(qp1, qp2);
+    double amplitude = pdf->evaluate(qp1, qp2);
     complex_t result = phase*amplitude;
     if (m_use_damping_length)
         result *= std::exp(-length/m_damping_length);
@@ -229,19 +213,11 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(
 
 std::vector<double> InterferenceFunction2DParaCrystal::getDomainSizes() const
 {
-    std::vector<double> result;
-    result.resize(2);
-    result[0] = m_domain_sizes[0];
-    result[1] = m_domain_sizes[1];
-    return result;
+    return {m_domain_sizes[0], m_domain_sizes[1]};
 }
 
 std::vector<const IFTDistribution2D*>
 InterferenceFunction2DParaCrystal::getProbabilityDistributions() const
 {
-    std::vector<const IFTDistribution2D*>  result;
-    result.resize(2);
-    result[0] = m_pdfs[0];
-    result[1] = m_pdfs[1];
-    return result;
+    return {m_pdf1.get(), m_pdf2.get()};
 }

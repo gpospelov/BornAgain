@@ -31,7 +31,7 @@ public:
 
     FormFactorSphereLogNormalRadius* clone() const override final {
         return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadialExtension() const override final { return m_mean; }
 

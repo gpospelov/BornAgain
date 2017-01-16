@@ -47,19 +47,6 @@ SphericalDetector* SphericalDetector::clone() const
     return new SphericalDetector(*this);
 }
 
-std::string SphericalDetector::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path
-        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-
-    // add parameters of the resolution function
-    if (mP_detector_resolution)
-        mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
-    return new_path;
-}
-
 std::vector<IDetector2D::EAxesUnits> SphericalDetector::getValidAxesUnits() const
 {
     std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
@@ -84,13 +71,6 @@ IPixel* SphericalDetector::createPixel(size_t index) const
     Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
     Bin1D phi_bin = phi_axis.getBin(phi_index);
     return new SphericalPixel(alpha_bin, phi_bin);
-}
-
-void SphericalDetector::print(std::ostream& ostr) const
-{
-    ostr << "SphericalDetector: '" << getName() << "' " << getParameterPool();
-    for (size_t i = 0; i < m_axes.size(); ++i)
-        ostr << "    IAxis:" << *m_axes[i] << std::endl;
 }
 
 IAxis* SphericalDetector::createAxis(size_t index, size_t n_bins, double min, double max) const

@@ -42,11 +42,9 @@ public:
 
     SphericalDetector* clone() const override;
 
-    ~SphericalDetector() override {}
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const override;
+    ~SphericalDetector() override {}
 
     //! returns vector of valid axes units
     std::vector<EAxesUnits> getValidAxesUnits() const override;
@@ -57,8 +55,6 @@ public:
 protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
-
-    void print(std::ostream& ostr) const override;
 
     //! Registers some class members for later access via parameter pool.
     void init_parameters() override {}

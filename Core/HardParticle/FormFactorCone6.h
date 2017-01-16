@@ -28,7 +28,7 @@ public:
 
     FormFactorCone6* clone() const override final {
         return new FormFactorCone6(m_base_edge, m_height, m_alpha); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
     double getHeight() const { return m_height; }

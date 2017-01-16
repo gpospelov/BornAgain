@@ -29,7 +29,7 @@ public:
     FormFactorDecoratorFactor* clone() const override {
         return new FormFactorDecoratorFactor(*mp_form_factor, m_factor); }
 
-    void accept(ISampleVisitor* visitor) const override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 #ifndef SWIG

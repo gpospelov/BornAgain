@@ -38,9 +38,10 @@ public:
     ParameterPool* getParameterPool() const { return m_pool; }
 
     //! Creates new parameter pool, with all local parameters and those of its children.
-    virtual ParameterPool* createParameterTree();
+    virtual ParameterPool* createParameterTree() const;
 
-    void printParameters();
+    //! Returns multiline string representing available parameters.
+    std::string parametersToString() const;
 
     RealParameter& registerParameter(const std::string& name, double* parpointer);
 
@@ -48,20 +49,9 @@ public:
 
     RealParameter* getParameter(const std::string& name) const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IParameterized& m) {
-        m.print(ostr); return ostr; }
-
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number=-1) const;
-
 protected:
     //! Action to be taken in inherited class when a parameter has changed.
     virtual void onChange() {}
-
-    //! Prints a representation of this IParameterized object to the given output stream.
-    //! default implementation prints "IParameterized:" and the parameter pool
-    virtual void print(std::ostream& ostr) const;
 
 private:
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)

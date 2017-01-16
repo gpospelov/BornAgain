@@ -37,7 +37,7 @@ public:
     virtual IAbstractParticle* clone() const =0;
     virtual IAbstractParticle* cloneInvertB() const =0;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientMaterial(const IMaterial&) =0;

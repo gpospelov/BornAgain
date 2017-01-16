@@ -17,7 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "Macros.h"
-#include "ISampleVisitor.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 
@@ -31,7 +30,7 @@ GCC_DIAG_ON(unused-parameter)
 //! @param xi rotation of lattice with respect to x-axis
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     double length_1, double length_2, double angle, double xi)
-    : mp_pdf(0), m_na(0), m_nb(0)
+    : m_na(0), m_nb(0)
 {
     m_lattice_params.m_length_1 = length_1;
     m_lattice_params.m_length_2 = length_2;
@@ -44,7 +43,6 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
 
 InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
 {
-    delete mp_pdf;
 }
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
@@ -79,9 +77,8 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
 
 void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
 {
-    if (mp_pdf != &pdf)
-        delete mp_pdf;
-    mp_pdf = pdf.clone();
+    mp_pdf.reset(pdf.clone());
+    registerChild(mp_pdf.get());
     initialize_calc_factors();
 }
 
@@ -106,25 +103,15 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
     return result;
 }
 
-std::string InterferenceFunction2DLattice::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string  new_path = IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-
-    // add parameters of the probability density function
-    if (mp_pdf)
-        mp_pdf->addParametersToExternalPool(new_path, external_pool, -1);
-    return new_path;
-}
-
 double InterferenceFunction2DLattice::getParticleDensity() const
 {
     double area = m_lattice_params.getUnitCellArea();
-    if (area == 0.0)
-        return 0.0;
-    return 1.0/area;
+    return area == 0.0 ? 0.0 : 1.0/area;
+}
+
+std::vector<const INode*> InterferenceFunction2DLattice::getChildren() const
+{
+    return std::vector<const INode*>() << mp_pdf;
 }
 
 void InterferenceFunction2DLattice::onChange()
@@ -169,7 +156,7 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     const Lattice2DParameters& lattice_params)
-    : m_lattice_params(lattice_params), mp_pdf(0), m_na(0), m_nb(0)
+    : m_lattice_params(lattice_params), m_na(0), m_nb(0)
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
     init_parameters();

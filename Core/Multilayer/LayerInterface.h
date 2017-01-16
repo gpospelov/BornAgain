@@ -31,7 +31,7 @@ public:
 
     LayerInterface* clone() const;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     //! Creates smooth interface between two layers
     static LayerInterface* createSmoothInterface(const Layer* top_layer, const Layer* bottom_layer);

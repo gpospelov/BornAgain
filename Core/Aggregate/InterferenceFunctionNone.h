@@ -28,7 +28,7 @@ public:
 
     InterferenceFunctionNone* clone() const final { return new InterferenceFunctionNone(); }
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double evaluate(const kvector_t) const final { return 1; }
 };

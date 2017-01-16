@@ -32,7 +32,7 @@ public:
     ParticleDistribution* clone() const final;
     ParticleDistribution* cloneInvertB() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material.
     void setAmbientMaterial(const IMaterial& material) final;

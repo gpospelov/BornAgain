@@ -33,8 +33,7 @@ public:
     virtual IClusteredParticles* clone() const =0;
     virtual IClusteredParticles* cloneInvertB() const =0;
 
-    //! calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const =0;
+    virtual void accept(INodeVisitor* visitor) const =0;
 
     virtual void setAmbientMaterial(const IMaterial& material) =0;
     virtual const IMaterial* getAmbientMaterial() const =0;

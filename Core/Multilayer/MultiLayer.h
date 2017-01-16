@@ -43,7 +43,7 @@ public:
     MultiLayer();
     virtual ~MultiLayer();
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     size_t getNumberOfLayers() const { return m_layers.size(); }
     size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
@@ -99,10 +99,6 @@ public:
     //! Sets thickness of layer.
     void setLayerThickness(size_t i_layer, double thickness); // TODO: remove this function!
 
-    //! Prints class
-    friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m) {
-        m.print(ostr); return ostr; }
-
     //! returns layer index
     int getIndexOfLayer(const Layer* layer) const;
 
@@ -123,8 +119,6 @@ public:
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
-    //! Prints class
-    void print(std::ostream& ostr) const;
 
 private:
     //! Adds the layer with simultaneous registration in parent class

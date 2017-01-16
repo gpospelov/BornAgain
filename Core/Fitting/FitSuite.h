@@ -153,6 +153,12 @@ public:
     const OutputData<double>* getSimulationOutputData(size_t i_item = 0) const;
     const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
 
+    //! Returns multiline string representing possible fit parameters.
+    std::string parametersToString() const;
+
+    //! Returns multiline string representing tree structure of fit components.
+    std::string treeToString() const;
+
 private:
     std::unique_ptr<FitSuiteImpl> m_impl;
 };

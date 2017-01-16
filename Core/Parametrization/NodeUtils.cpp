@@ -33,17 +33,6 @@ namespace {
         return std::string(multiplier*depth, '.');
     }
 
-    // Returns multiline string representing pool parameters of given node.
-    std::string poolToMultiString(const INode &node, int depth) {
-        std::ostringstream result;
-
-        for (auto par : node.getParameterPool()->getParameters())
-            result << s_indent(depth)
-                   << "'" << par->getName() << "':" << par->getValue() << "\n";
-
-        return result.str();
-    }
-
     // Returns single line string representing pool parameters of given node.
     std::string poolToString(const INode &node) {
         std::ostringstream result;
@@ -68,7 +57,6 @@ namespace {
     // Returns a string representing given node.
     std::string nodeString(const INode& node, int depth) {
         std::ostringstream result;
-        //result << s_indent(depth) << node.getName() << "\n" << poolToMultiString(node, depth+1);
         result << s_indent(depth) << node.displayName() << poolToString(node) << "\n";
         return result.str();
     }

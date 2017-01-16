@@ -47,7 +47,7 @@ public:
     //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override;
 
 protected:
     void onChange() override final;

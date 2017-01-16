@@ -42,7 +42,7 @@ public:
 
     SphericalDetector* clone() const override;
 
-    void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     ~SphericalDetector() override {}
 

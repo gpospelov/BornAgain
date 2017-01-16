@@ -127,11 +127,11 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
     for(auto fitObject : m_fit_objects)
         result.push_back(fitObject);
 
-//    if(m_chi2_module) {
-//        const IIntensityNormalizer* data_normalizer = m_chi2_module->getIntensityNormalizer();
-//        if(data_normalizer)
-//            data_normalizer->addParametersToExternalPool(new_path, external_pool, -1);
-//    }
+    if(m_chi2_module) {
+        const IIntensityNormalizer* data_normalizer = m_chi2_module->getIntensityNormalizer();
+        if(data_normalizer)
+            result.push_back(data_normalizer);
+    }
 
     return result;
 }

@@ -131,6 +131,8 @@ class FitSuiteObjects;
 class FitObject;
 class GISASSimulation;
 class OffSpecSimulation;
+class IntensityNormalizer;
+class IntensityScaleAndShiftNormalizer;
 
 //! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
@@ -255,6 +257,9 @@ public:
 
     virtual void visit(const GISASSimulation*) {}
     virtual void visit(const OffSpecSimulation*) {}
+
+    virtual void visit(const IntensityNormalizer*) {}
+    virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

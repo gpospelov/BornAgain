@@ -5241,7 +5241,7 @@ class IntensityFunctionSqrt(IIntensityFunction):
 IntensityFunctionSqrt_swigregister = _libBornAgainCore.IntensityFunctionSqrt_swigregister
 IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
 
-class IIntensityNormalizer(IParameterized):
+class IIntensityNormalizer(ICloneable, INode):
     """
 
 
@@ -5252,11 +5252,11 @@ class IIntensityNormalizer(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IIntensityNormalizer, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IIntensityNormalizer, name)
 
@@ -5355,6 +5355,16 @@ class IntensityNormalizer(IIntensityNormalizer):
         return _libBornAgainCore.IntensityNormalizer_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(IntensityNormalizer self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.IntensityNormalizer_accept(self, visitor)
+
+
     def createNormalizedData(self, data):
         """
         createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
@@ -5423,6 +5433,16 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_IntensityScaleAndShiftNormalizer
     __del__ = lambda self: None
+
+    def accept(self, visitor):
+        """
+        accept(IntensityScaleAndShiftNormalizer self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.IntensityScaleAndShiftNormalizer_accept(self, visitor)
+
 
     def setMaximumIntensity(self, arg2):
         """
@@ -7303,6 +7323,8 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FitObject arg2)
         visit(INodeVisitor self, GISASSimulation arg2)
         visit(INodeVisitor self, OffSpecSimulation arg2)
+        visit(INodeVisitor self, IntensityNormalizer arg2)
+        visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
 

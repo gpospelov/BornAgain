@@ -23,6 +23,7 @@ MultiLayer*MagneticSubstrateZeroFieldBuilder::buildSample() const
     kvector_t particle_field(0.1, 0.0, 0.0);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMagneticMaterial substrate_material("Substrate", 7e-6, 2e-8, substr_field);
+//    HomogeneousMaterial substrate_material("Substrate", 7e-6, 2e-8);
     HomogeneousMagneticMaterial particle_material("MagParticle", 6e-4, 2e-8, particle_field);
 
     ParticleLayout particle_layout;

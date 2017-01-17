@@ -44,6 +44,10 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::MiniGISASDetectorResolution,
                  "GISAS simulation with small detector and detector resolution");
 
+    registerItem("MiniGISASPolarizationPP",
+                 StandardSimulations::MiniGISASPolarizationPP,
+                 "GISAS simulation measuring plus-plus polarization");
+
     registerItem("GISASWithMasks",
                  StandardSimulations::GISASWithMasks,
                  "GISAS simulation with small detector and various masks");

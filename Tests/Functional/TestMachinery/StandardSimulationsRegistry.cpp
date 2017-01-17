@@ -274,7 +274,7 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
 
     add("MagneticSubstrateZeroField",
         "Magnetic substrate with zero field",
-        "MiniGISAS",
+        "MiniGISASPolarizationPP",
         "MagneticSubstrateZeroFieldBuilder",
         "None",
         2e-10);

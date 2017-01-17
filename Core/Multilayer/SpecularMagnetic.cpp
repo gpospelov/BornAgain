@@ -75,6 +75,8 @@ void SpecularMagnetic::calculateTransferAndBoundary(
 
     // First, initialize bottom layer values to have no reflection
     coeff[N-1].initializeBottomLayerPhiPsi();
+    if (N>1)
+        coeff[N-1].calculateTRMatrices();
 
     coeff[0].calculateTRMatrices();
     for (int i=(int)N-2; i>0; --i) {

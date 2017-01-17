@@ -177,3 +177,23 @@ TEST_F(FitParameterLinkedTest, addPattern)
     EXPECT_EQ(par4, newValue);
 }
 
+//! Checks if two FitParameterLinked have intersection in their fit patterns.
+
+TEST_F(FitParameterLinkedTest, patternIntersection)
+{
+    FitParameterLinked link1;
+    link1.addPattern("pattern3").addPattern("pattern2").addPattern("pattern1");
+
+    FitParameterLinked link2;
+    link1.addPattern("pattern4");
+
+    auto patternIntersection = link1.patternIntersection(link2);
+    EXPECT_EQ(patternIntersection.size(), 0u);
+
+    link2.addPattern("pattern1").addPattern("pattern3");
+    patternIntersection = link1.patternIntersection(link2);
+    EXPECT_EQ(patternIntersection.size(), 2u);
+    std::vector<std::string> expected{"pattern1", "pattern3"};
+    EXPECT_EQ(patternIntersection, expected);
+}
+

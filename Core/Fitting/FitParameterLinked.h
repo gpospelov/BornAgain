@@ -27,13 +27,13 @@ class RealParameter;
 
 class BA_CORE_API_ FitParameterLinked : public FitParameter
 {
- public:
+public:
     FitParameterLinked() {}
     FitParameterLinked(const std::string& pattern, double value,
-        const AttLimits& lim=AttLimits::limitless(), double step = 0.0);
+                       const AttLimits& lim = AttLimits::limitless(), double step = 0.0);
     ~FitParameterLinked() final;
 
-    FitParameterLinked *clone() const;
+    FitParameterLinked* clone() const;
 
     void setValue(double value) final;
 
@@ -45,10 +45,12 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
 
     std::vector<std::string> matchedParameterNames() const;
 
- private:
+    std::vector<std::string> patternIntersection(const FitParameterLinked& other) const;
+
+private:
     FitParameterLinked(const FitParameterLinked& other);
     std::vector<RealParameter*> m_pool_parameters; //!< linked parameters from pools
-    std::vector<std::string> m_patterns; //!< list of patterns to match from pool
+    std::vector<std::string> m_patterns;           //!< list of patterns to match from pool
 };
 
 #endif // FITPARAMETERLINKED_H

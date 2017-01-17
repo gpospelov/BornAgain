@@ -18,6 +18,9 @@
 #include "RealParameter.h"
 #include <stdexcept>
 #include <algorithm>
+#include <set>
+#include <sstream>
+
 
 FitParameterLinked::FitParameterLinked(const std::string& pattern, double value,
                                        const AttLimits& lim, double step)
@@ -89,6 +92,19 @@ std::vector<std::string> FitParameterLinked::matchedParameterNames() const
     std::transform(m_pool_parameters.begin(), m_pool_parameters.end(), std::back_inserter(result),
                    [](RealParameter* par){return par->getName();});
     return result;
+}
+
+//! Returns vector containing patterns existing in both FitParametersLinked.
+
+std::vector<std::string>
+FitParameterLinked::patternIntersection(const FitParameterLinked& other) const
+{
+    std::set<std::string> set1(m_patterns.begin(), m_patterns.end());
+    std::set<std::string> set2(other.m_patterns.begin(), other.m_patterns.end());
+    std::vector<std::string> intersection;
+    std::set_intersection(set1.begin(), set1.end(), set2.begin(), set2.end(),
+                          std::back_inserter(intersection));
+    return intersection;
 }
 
 FitParameterLinked::FitParameterLinked(const FitParameterLinked& other)

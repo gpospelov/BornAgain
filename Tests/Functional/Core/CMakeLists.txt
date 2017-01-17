@@ -38,6 +38,7 @@ set(test_cases
     LargeCylindersMonteCarlo
     Lattice1D
     MagneticParticleZeroField
+    MagneticSubstrateZeroField
     MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout

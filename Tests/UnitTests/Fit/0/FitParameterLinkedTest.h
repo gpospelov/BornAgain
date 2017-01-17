@@ -2,7 +2,7 @@
 #include "RealParameter.h"
 #include "ParameterPool.h"
 #include "FitParameterLinked.h"
-
+#include <string>
 #include "gtest/gtest.h"
 
 class FitParameterLinkedTest : public ::testing::Test
@@ -88,7 +88,7 @@ TEST_F(FitParameterLinkedTest, addMatchedParameters)
 
     double newValue(42.0);
     FitParameterLinked link1("/MultiLayer/Layer/thickness", 0.0, AttLimits::limitless());
-    link1.addMatchedParameters(&pool);
+    link1.addMatchedParameters(pool);
     link1.setValue(newValue);
     EXPECT_EQ(link1.value(), newValue);
     EXPECT_EQ(par1, 0.0);
@@ -98,7 +98,7 @@ TEST_F(FitParameterLinkedTest, addMatchedParameters)
     newValue = 100.0;
     par1 = par2 = par3 = 0.0;
     FitParameterLinked link2("*/Particle/*", 0.0, AttLimits::limitless());
-    link2.addMatchedParameters(&pool);
+    link2.addMatchedParameters(pool);
     link2.setValue(newValue);
     EXPECT_EQ(link2.value(), newValue);
     EXPECT_EQ(par1, newValue);
@@ -119,7 +119,7 @@ TEST_F(FitParameterLinkedTest, clone)
     const std::string pattern("*/Particle/*");
     FitParameterLinked *link = new FitParameterLinked(
                 pattern, value, AttLimits::limited(lim1, lim2), step);
-    link->addMatchedParameters(&pool);
+    link->addMatchedParameters(pool);
     link->setValue(value);
 
     // deleting original and checking that clone is pointing to the same real parameters
@@ -140,3 +140,40 @@ TEST_F(FitParameterLinkedTest, clone)
     EXPECT_EQ(par2, newValue);
     EXPECT_EQ(par3, 0.0);
 }
+
+//! Tests adding of multiple patterns to a single FitParameterLinked
+
+TEST_F(FitParameterLinkedTest, addPattern)
+{
+    ParameterPool pool;
+    double par1(0.0), par2(0.0), par3(0.0), par4(0.0);
+
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/Particle/height", &par1));
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/Particle/width", &par2));
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/thickness", &par3));
+    pool.addParameter(new RealParameter("/Something/thickness", &par4));
+
+    FitParameterLinked *link =
+            new FitParameterLinked("/Something/thickness", 1.0, AttLimits::limitless());
+
+    // adding second pattern
+    link->addPattern("*/Particle/*").setName("par1");
+    EXPECT_THROW(link->addPattern("*/Particle/*"), std::runtime_error);
+    EXPECT_EQ(link->name(), std::string("par1"));
+
+    // linking with pool and cheking that corresponding parameters change their values
+    link->addMatchedParameters(pool);
+    const double newValue(42.0);
+    link->setValue(newValue);
+
+    std::vector<std::string> expected{"/Something/thickness", "/MultiLayer/Layer/Particle/height",
+                                     "/MultiLayer/Layer/Particle/width"};
+    EXPECT_EQ(link->matchedParameterNames(), expected);
+
+    EXPECT_EQ(link->value(), newValue);
+    EXPECT_EQ(par1, newValue);
+    EXPECT_EQ(par2, newValue);
+    EXPECT_EQ(par3, 0.0);
+    EXPECT_EQ(par4, newValue);
+}
+

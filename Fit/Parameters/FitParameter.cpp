@@ -45,6 +45,12 @@ FitParameter *FitParameter::clone() const
 
 std::string FitParameter::name() const { return m_name; }
 
+FitParameter& FitParameter::setName(const std::string& name)
+{
+    m_name = name;
+    return *this;
+}
+
 double FitParameter::startValue() const { return m_start_value; }
 
 double FitParameter::value() const { return m_value; }

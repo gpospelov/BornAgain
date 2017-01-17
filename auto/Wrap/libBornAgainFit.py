@@ -1894,6 +1894,11 @@ class FitParameter(IFitParameter):
         return _libBornAgainFit.FitParameter_name(self)
 
 
+    def setName(self, name):
+        """setName(FitParameter self, std::string const & name) -> FitParameter"""
+        return _libBornAgainFit.FitParameter_setName(self, name)
+
+
     def startValue(self):
         """
         startValue(FitParameter self) -> double

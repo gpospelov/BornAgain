@@ -6114,9 +6114,9 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
     def __init__(self, *args):
         """
         __init__(FitParameterLinked self) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim, double step=0.0) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & name, double value) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & pattern, double value, AttLimits lim, double step=0.0) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & pattern, double value, AttLimits lim) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & pattern, double value) -> FitParameterLinked
 
         FitParameterLinked::FitParameterLinked(const std::string &name, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
 
@@ -6151,6 +6151,11 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
         return _libBornAgainCore.FitParameterLinked_setValue(self, value)
 
 
+    def addPattern(self, pattern):
+        """addPattern(FitParameterLinked self, std::string const & pattern) -> FitParameterLinked"""
+        return _libBornAgainCore.FitParameterLinked_addPattern(self, pattern)
+
+
     def addParameter(self, par):
         """
         addParameter(FitParameterLinked self, RealParameter par)
@@ -6163,12 +6168,14 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
         return _libBornAgainCore.FitParameterLinked_addParameter(self, par)
 
 
-    def addMatchedParameters(self, *args):
-        """
-        addMatchedParameters(FitParameterLinked self, ParameterPool pool, std::string const & wildcard)
-        addMatchedParameters(FitParameterLinked self, ParameterPool pool)
-        """
-        return _libBornAgainCore.FitParameterLinked_addMatchedParameters(self, *args)
+    def addMatchedParameters(self, pool):
+        """addMatchedParameters(FitParameterLinked self, ParameterPool pool)"""
+        return _libBornAgainCore.FitParameterLinked_addMatchedParameters(self, pool)
+
+
+    def matchedParameterNames(self):
+        """matchedParameterNames(FitParameterLinked self) -> vector_string_t"""
+        return _libBornAgainCore.FitParameterLinked_matchedParameterNames(self)
 
 FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
 FitParameterLinked_swigregister(FitParameterLinked)

@@ -98,17 +98,3 @@ FitParameterLinked::FitParameterLinked(const FitParameterLinked& other)
         m_pool_parameters.push_back(par->clone());
     m_patterns = other.m_patterns;
 }
-
-void FitParameterLinked::print(std::ostream& ostr) const
-{
-    ostr << FitParameter::toString();
-    ostr << "FitParameterLinked '" << name() << "'"
-         << " value:" << value() << " collsize:" << m_pool_parameters.size();
-    //    if(m_parametercoll.size() ) {
-    //        ostr << " addresses: ";
-    //        for(auto it=m_parametercoll.begin(); it!=m_parametercoll.end(); it++) {
-    //            parameter_t par = (*it);
-    //            ostr << par << " ";
-    //        }
-    //    }
-}

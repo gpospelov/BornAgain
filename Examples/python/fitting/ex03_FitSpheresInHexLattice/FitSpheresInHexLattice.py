@@ -1,5 +1,7 @@
 """
 Two parameter fit of spheres in a hex lattice.
+See FitSpheresInHexLattice_builder.py example which performs same fitting task
+using advanced sample construction techniques.
 """
 
 from matplotlib import pyplot as plt

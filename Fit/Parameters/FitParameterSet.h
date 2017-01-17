@@ -79,6 +79,7 @@ class BA_CORE_API_ FitParameterSet
     bool isExistingName(const std::string& name) const;
 
 private:
+    std::string suggestParameterName() const;
     size_t check_index(size_t index) const;
     void check_array_size(const std::vector<double>& values) const;
     container_t m_parameters; //!< collection of fit parameters

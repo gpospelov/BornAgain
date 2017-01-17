@@ -64,7 +64,7 @@ public:
                                   double weight=1);
 
     //! Adds fit parameter
-    //! @param name The name of fit parameter
+    //! @param name The name of sample parameter(s) to fit (may contain wildcards).
     //! @param value Parameter's starting value
     //! @param limits Limits attribute
     //! @param step Initial parameter's step (some minimizers don't use it)

@@ -58,13 +58,13 @@ FitObject* FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulat
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-FitParameterLinked* FitSuiteImpl::addFitParameter(const std::string& name, double value,
+FitParameterLinked* FitSuiteImpl::addFitParameter(const std::string& pattern, double value,
                                   const AttLimits& limits, double step)
 {
     if(step <=0.0)
         step = value * getOptions().stepFactor();
 
-    FitParameterLinked* result = new FitParameterLinked(name, value, limits, step);
+    FitParameterLinked* result = new FitParameterLinked(pattern, value, limits, step);
     m_kernel->fitParameters()->addFitParameter(result);
     return result;
 }

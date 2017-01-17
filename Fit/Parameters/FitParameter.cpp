@@ -119,7 +119,7 @@ std::string FitParameter::toString() const
 {
     std::ostringstream ostr;
 
-    const int max_length_of_name(40);
+    const int max_length_of_name(10);
     std::string adjusted_name = m_name;
     adjusted_name.resize(max_length_of_name,' ');
     ostr << adjusted_name << std::scientific << std::setprecision(8) << m_value << "  ";

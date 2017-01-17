@@ -31,7 +31,7 @@ FitParameterLinked::~FitParameterLinked()
 
 FitParameterLinked *FitParameterLinked::clone() const
 {
-    throw std::runtime_error("FitParameterLinked::clone() -> Not yet implemented;");
+    return new FitParameterLinked(*this);
 }
 
 //! Sets given value for all bound parameters
@@ -42,16 +42,16 @@ void FitParameterLinked::setValue(double value) {
 }
 
 //! Adds real parameter to the collection
-void FitParameterLinked::addParameter(RealParameter* par)
+void FitParameterLinked::addParameter(const RealParameter& par)
 {
-    if( par->isNull() )
+    if( par.isNull() )
         throw std::runtime_error(
-            "FitMultiParameter::addParameter() -> Attempt to add null parameter");
-    m_pool_parameters.push_back(par->clone());
+            "FitParameterLinked::addParameter() -> Attempt to add null parameter");
+    m_pool_parameters.push_back(par.clone());
 }
 
 //! Adds parameters from pool which match given wildcard
-void FitParameterLinked::addMatchedParametersFromPool(
+void FitParameterLinked::addMatchedParameters(
     const ParameterPool* pool, const std::string& wildcard)
 {
     std::string wildcard_to_use = name();
@@ -63,6 +63,13 @@ void FitParameterLinked::addMatchedParametersFromPool(
         throw std::runtime_error(
             "FitMultiParameter::addMatchedParametersFromPool() -> Error! "
             "Failed to add anything from pool using wildcard '"+wildcard_to_use+"'");
+}
+
+FitParameterLinked::FitParameterLinked(const FitParameterLinked& other)
+    : FitParameter(other)
+{
+    for(auto par : other.m_pool_parameters)
+        m_pool_parameters.push_back(par->clone());
 }
 
 void FitParameterLinked::print(std::ostream& ostr) const

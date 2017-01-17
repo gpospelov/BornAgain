@@ -37,15 +37,17 @@ class BA_CORE_API_ FitParameterLinked : public FitParameter
 
     void setValue(double value) final;
 
-    void addParameter(RealParameter* par);
+    void addParameter(const RealParameter& par);
 
-    void addMatchedParametersFromPool(
-        const ParameterPool* pool, const std::string& wildcard = std::string());
+    void addMatchedParameters(const ParameterPool* pool,
+                              const std::string& wildcard = std::string());
 
     friend std::ostream& operator<<(std::ostream& ostr, const FitParameterLinked& m) {
         m.print(ostr); return ostr; }
 
  private:
+    FitParameterLinked(const FitParameterLinked& other);
+
     void print(std::ostream& ostr) const;
 
     std::vector<RealParameter*> m_pool_parameters; //!< linked parameters from pools

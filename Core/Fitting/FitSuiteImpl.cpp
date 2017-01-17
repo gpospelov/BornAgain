@@ -166,6 +166,6 @@ void FitSuiteImpl::link_fit_parameters()
         if( !linkedPar )
             throw std::runtime_error(
                 "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
-        linkedPar->addMatchedParametersFromPool(pool.get());
+        linkedPar->addMatchedParameters(pool.get());
     }
 }

@@ -4,7 +4,7 @@
 
 class FitParameterTest : public ::testing::Test
 {
- protected:
+protected:
     FitParameterTest(){}
     virtual ~FitParameterTest(){}
 };

@@ -6163,17 +6163,12 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
         return _libBornAgainCore.FitParameterLinked_addParameter(self, par)
 
 
-    def addMatchedParametersFromPool(self, *args):
+    def addMatchedParameters(self, *args):
         """
-        addMatchedParametersFromPool(FitParameterLinked self, ParameterPool pool, std::string const & wildcard)
-        addMatchedParametersFromPool(FitParameterLinked self, ParameterPool pool)
-
-        void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard=std::string())
-
-        Adds parameters from pool which match given wildcard. 
-
+        addMatchedParameters(FitParameterLinked self, ParameterPool pool, std::string const & wildcard)
+        addMatchedParameters(FitParameterLinked self, ParameterPool pool)
         """
-        return _libBornAgainCore.FitParameterLinked_addMatchedParametersFromPool(self, *args)
+        return _libBornAgainCore.FitParameterLinked_addMatchedParameters(self, *args)
 
 FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
 FitParameterLinked_swigregister(FitParameterLinked)

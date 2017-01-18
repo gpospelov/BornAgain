@@ -17987,14 +17987,9 @@ class IParameterReal(INamed, INoncopyable):
         return _libBornAgainCore.IParameterReal_setData(self, data)
 
 
-    def __eq__(self, other):
-        """__eq__(IParameterReal self, IParameterReal other) -> bool"""
-        return _libBornAgainCore.IParameterReal___eq__(self, other)
-
-
-    def __ne__(self, other):
-        """__ne__(IParameterReal self, IParameterReal other) -> bool"""
-        return _libBornAgainCore.IParameterReal___ne__(self, other)
+    def hasSameData(self, other):
+        """hasSameData(IParameterReal self, IParameterReal other) -> bool"""
+        return _libBornAgainCore.IParameterReal_hasSameData(self, other)
 
     __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
     __del__ = lambda self: None
@@ -24050,11 +24045,6 @@ class RealParameter(IParameterReal):
 
         """
         return _libBornAgainCore.RealParameter_setNonnegative(self)
-
-
-    def __eq__(self, other):
-        """__eq__(RealParameter self, RealParameter other) -> bool"""
-        return _libBornAgainCore.RealParameter___eq__(self, other)
 
 
     def setUnit(self, name):

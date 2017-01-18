@@ -33,11 +33,7 @@ class BA_CORE_API_ IParameter : public INamed, public INoncopyable {
 public:
     IParameter() =delete;
     IParameter(const std::string& name, volatile T* data, const std::string& parent_name,
-               const std::function<void()>& onChange)
-        : INamed(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange) {
-            if(!m_data)
-                throw std::runtime_error(
-                    "Bug: attempt to construct an IParameter with null data pointer"); }
+               const std::function<void()>& onChange);
 
     virtual IParameter* clone( const std::string& new_name="" ) const =0;
 
@@ -47,12 +43,7 @@ public:
     volatile T& getData() const { return *m_data; }
     void setData(volatile T& data) { m_data = &data; m_onChange(); }
 
-    //! Prints the parameter's address to an output stream
-    friend std::ostream& operator<<(std::ostream& ostr, const IParameter& p) {
-        ostr << p.m_data; return ostr; }
-
-    bool operator==(const IParameter &other) const { return m_data == other.m_data; }
-    bool operator!=(const IParameter &other) const { return !(*this == other); }
+    bool hasSameData(const IParameter& other);
 
 protected:
     volatile T* m_data;
@@ -62,5 +53,27 @@ protected:
     //! For use in error messages
     std::string fullName() { return m_parent_name + "/" + getName(); }
 };
+
+template<class T>
+IParameter<T>::IParameter(const std::string& name, volatile T* data,
+                          const std::string& parent_name,
+                          const std::function<void ()>& onChange)
+    : INamed(name)
+    , m_data(data)
+    , m_parent_name(parent_name)
+    , m_onChange(onChange)
+{
+
+    if(!m_data)
+        throw std::runtime_error("Attempt to construct an IParameter with null data pointer");
+}
+
+//! Returns true if two parameters are pointing to the same raw data.
+
+template<class T>
+bool IParameter<T>::hasSameData(const IParameter<T>& other)
+{
+    return &getData() == &other.getData();
+}
 
 #endif // IPARAMETER_H

@@ -6,4 +6,4 @@
 #include "DistributionsTest.h"
 #include "FTDistributionsTest.h"
 #include "ParameterPoolTest.h"
-#include "RealParameterWrapperTest.h"
+#include "RealParameterTest.h"

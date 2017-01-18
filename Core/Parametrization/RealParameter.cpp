@@ -79,3 +79,4 @@ RealParameter& RealParameter::setNonnegative()
     setLimits( RealLimits::nonnegative() );
     return *this;
 }
+

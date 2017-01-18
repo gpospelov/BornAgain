@@ -2,6 +2,7 @@
 #include "RealParameter.h"
 #include "ParameterPool.h"
 #include "FitParameterLinked.h"
+#include "FitSuiteUtils.h"
 #include <string>
 #include "gtest/gtest.h"
 
@@ -32,7 +33,7 @@ TEST_F(FitParameterLinkedTest, fullConstructor)
     AttLimits limits = AttLimits::limited(-10.0, 2.0);
     FitParameterLinked fitParameter("FitPL", 2.0, limits, 0.2);
 
-    EXPECT_EQ("FitPL", fitParameter.name());
+    EXPECT_EQ("noname", fitParameter.name());
     EXPECT_EQ(2.0, fitParameter.value());
     EXPECT_EQ(0.2, fitParameter.step());
     EXPECT_EQ(-10.0, fitParameter.limits().lowerLimit());
@@ -126,7 +127,7 @@ TEST_F(FitParameterLinkedTest, clone)
     std::unique_ptr<FitParameterLinked> clone(link->clone());
     delete link;
 
-    EXPECT_EQ(clone->name(), pattern);
+    EXPECT_EQ(clone->name(), "noname");
     EXPECT_EQ(clone->value(), value);
     EXPECT_EQ(clone->startValue(), value);
     EXPECT_EQ(clone->step(), step);
@@ -199,6 +200,8 @@ TEST_F(FitParameterLinkedTest, repetitiveMatch)
     std::vector<std::string> expected{"/Something/thickness", "/MultiLayer/Layer/Particle/height",
                                      "/MultiLayer/Layer/Particle/width"};
     EXPECT_EQ(link.matchedParameterNames(), expected);
+
+    std::cout << FitSuiteUtils::linkToString(link) << std::endl;
 }
 
 //! Checks if two FitParameterLinked have intersection in their fit patterns.

@@ -24,7 +24,7 @@
 
 FitParameterLinked::FitParameterLinked(const std::string& pattern, double value,
                                        const AttLimits& lim, double step)
-    : FitParameter(pattern, value, lim, step)
+    : FitParameter("noname", value, lim, step)
 {
     addPattern(pattern);
 }

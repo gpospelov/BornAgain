@@ -32,7 +32,7 @@ template<class T>
 class BA_CORE_API_ IParameter : public INamed, public INoncopyable {
 public:
     IParameter() =delete;
-    IParameter(const std::string& name, volatile T* data, const std::string& parent_name,
+    IParameter(const std::string& name, T* data, const std::string& parent_name,
                const std::function<void()>& onChange);
 
     virtual IParameter* clone( const std::string& new_name="" ) const =0;
@@ -40,13 +40,13 @@ public:
     //! Returns true if wrapped parameter was not initialized with proper real value
     virtual bool isNull() const { return m_data ? false : true; }
 
-    volatile T& getData() const { return *m_data; }
-    void setData(volatile T& data) { m_data = &data; m_onChange(); }
+    T& getData() const { return *m_data; }
+    void setData(T& data) { m_data = &data; m_onChange(); }
 
     bool hasSameData(const IParameter& other);
 
 protected:
-    volatile T* m_data;
+    T* m_data;
     std::string m_parent_name;
     std::function<void()> m_onChange;
 
@@ -55,7 +55,7 @@ protected:
 };
 
 template<class T>
-IParameter<T>::IParameter(const std::string& name, volatile T* data,
+IParameter<T>::IParameter(const std::string& name, T* data,
                           const std::string& parent_name,
                           const std::function<void ()>& onChange)
     : INamed(name)

@@ -17969,7 +17969,7 @@ class IParameterReal(INamed, INoncopyable):
 
     def getData(self):
         """
-        getData(IParameterReal self) -> double volatile &
+        getData(IParameterReal self) -> double &
 
         volatile T& IParameter< T >::getData() const 
 
@@ -17979,7 +17979,7 @@ class IParameterReal(INamed, INoncopyable):
 
     def setData(self, data):
         """
-        setData(IParameterReal self, double volatile & data)
+        setData(IParameterReal self, double & data)
 
         void IParameter< T >::setData(volatile T &data)
 
@@ -23947,11 +23947,11 @@ class RealParameter(IParameterReal):
 
     def __init__(self, *args):
         """
-        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits, Attributes attr) -> RealParameter
-        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
-        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
-        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name) -> RealParameter
-        __init__(RealParameter self, std::string const & name, double volatile * par) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits, Attributes attr) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par) -> RealParameter
 
         RealParameter::RealParameter(const std::string &name, volatile double *par, const std::string &parent_name, const std::function< void()> &onChange, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 

@@ -17,7 +17,7 @@
 #include <sstream>
 
 RealParameter::RealParameter(
-    const std::string& name, volatile double* par,
+    const std::string& name, double* par,
     const std::string& parent_name, const std::function<void()>& onChange,
     const RealLimits& limits, const Attributes& attr)
     : IParameter<double>(name, par, parent_name, onChange)

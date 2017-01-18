@@ -49,8 +49,8 @@ public:
 
 private:
     void calculateTRMatrices();
-    void initializeBottomLayerPhiPsi();
     void calculateTRWithoutMagnetization();
+    void initializeBottomLayerPhiPsi();
 
     // NOTE: exceptionally, this class has member variables without prefix m_
 

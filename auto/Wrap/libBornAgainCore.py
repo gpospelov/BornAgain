@@ -6173,6 +6173,11 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
         return _libBornAgainCore.FitParameterLinked_addMatchedParameters(self, pool)
 
 
+    def patterns(self):
+        """patterns(FitParameterLinked self) -> vector_string_t"""
+        return _libBornAgainCore.FitParameterLinked_patterns(self)
+
+
     def matchedParameterNames(self):
         """matchedParameterNames(FitParameterLinked self) -> vector_string_t"""
         return _libBornAgainCore.FitParameterLinked_matchedParameterNames(self)
@@ -6181,6 +6186,11 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
     def patternIntersection(self, other):
         """patternIntersection(FitParameterLinked self, FitParameterLinked other) -> vector_string_t"""
         return _libBornAgainCore.FitParameterLinked_patternIntersection(self, other)
+
+
+    def isConflicting(self, other):
+        """isConflicting(FitParameterLinked self, FitParameterLinked other) -> bool"""
+        return _libBornAgainCore.FitParameterLinked_isConflicting(self, other)
 
 FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
 FitParameterLinked_swigregister(FitParameterLinked)

@@ -197,3 +197,31 @@ TEST_F(FitParameterLinkedTest, patternIntersection)
     EXPECT_EQ(patternIntersection, expected);
 }
 
+//! Creating parameter pool, matching fit parameters to it and checking conflicts.
+
+TEST_F(FitParameterLinkedTest, isConflicting)
+{
+    ParameterPool pool;
+    double par1(0.0), par2(0.0), par3(0.0), par4(0.0);
+
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/Particle/height", &par1));
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/Particle/width", &par2));
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/thickness", &par3));
+    pool.addParameter(new RealParameter("/Something/thickness", &par4));
+
+    // creating first FitParameterLink
+    FitParameterLinked link1("*/Particle/*", 1.0, AttLimits::limitless());
+    link1.addMatchedParameters(pool);
+
+    // creating second FitParameterLink (without conflict)
+    FitParameterLinked link2("/Something/thickness", 1.0, AttLimits::limitless());
+    link2.addMatchedParameters(pool);
+
+    EXPECT_FALSE(link1.isConflicting(link2));
+
+    // creating third conflicting FitParameterLink
+    FitParameterLinked link3("*height", 1.0, AttLimits::limitless());
+    link3.addMatchedParameters(pool);
+
+    EXPECT_TRUE(link1.isConflicting(link3));
+}

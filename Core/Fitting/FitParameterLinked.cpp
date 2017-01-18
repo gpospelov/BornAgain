@@ -84,6 +84,11 @@ void FitParameterLinked::addMatchedParameters(const ParameterPool& pool)
     }
 }
 
+std::vector<std::string> FitParameterLinked::patterns() const
+{
+    return m_patterns;
+}
+
 //! Returns vector of strings with names of all matched parameters.
 
 std::vector<std::string> FitParameterLinked::matchedParameterNames() const
@@ -105,6 +110,22 @@ FitParameterLinked::patternIntersection(const FitParameterLinked& other) const
     std::set_intersection(set1.begin(), set1.end(), set2.begin(), set2.end(),
                           std::back_inserter(intersection));
     return intersection;
+}
+
+//! Returns true if two FitParameterLinked are intended to steer same RealParameter.
+
+bool FitParameterLinked::isConflicting(const FitParameterLinked& other) const
+{
+    if(patternIntersection(other).size())
+        return true;
+
+    // analyze two pool of parameters and check if they are conflicting
+    bool isConflicting(false);
+    for (auto par1 : m_pool_parameters) {
+        for_each(other.m_pool_parameters.begin(), other.m_pool_parameters.end(),
+            [&](RealParameter* par2) { if (par1->hasSameData(*par2)) isConflicting = true;});
+    }
+    return isConflicting;
 }
 
 FitParameterLinked::FitParameterLinked(const FitParameterLinked& other)

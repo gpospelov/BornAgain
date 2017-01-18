@@ -43,9 +43,13 @@ public:
 
     void addMatchedParameters(const ParameterPool& pool);
 
+    std::vector<std::string> patterns() const;
+
     std::vector<std::string> matchedParameterNames() const;
 
     std::vector<std::string> patternIntersection(const FitParameterLinked& other) const;
+
+    bool isConflicting(const FitParameterLinked& other) const;
 
 private:
     FitParameterLinked(const FitParameterLinked& other);

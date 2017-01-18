@@ -69,16 +69,11 @@ class BA_CORE_API_ FitParameterSet
     void releaseAll();
     void setFixed(const std::vector<std::string>& pars, bool is_fixed);
 
-    // Printing and reporting
-
-    std::string parametersToString() const;
-
     corr_matrix_t correlationMatrix() const { return m_corr_matrix; }
     void setCorrelationMatrix(const corr_matrix_t& matrix);
 
-    bool isExistingName(const std::string& name) const;
-
 private:
+    bool isExistingName(const std::string& name) const;
     std::string suggestParameterName() const;
     size_t check_index(size_t index) const;
     void check_array_size(const std::vector<double>& values) const;

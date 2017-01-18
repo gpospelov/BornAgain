@@ -31,6 +31,7 @@ public:
     void update(FitSuite* fit_suite);
 
 protected:
+    void printFitSuiteHeader();
     void printIterationHeader();
     void printWallTime();
     void printParameters();

@@ -2,7 +2,6 @@
 #include "RealParameter.h"
 #include "ParameterPool.h"
 #include "FitParameterLinked.h"
-#include "FitSuiteUtils.h"
 #include <string>
 #include "gtest/gtest.h"
 
@@ -200,8 +199,6 @@ TEST_F(FitParameterLinkedTest, repetitiveMatch)
     std::vector<std::string> expected{"/Something/thickness", "/MultiLayer/Layer/Particle/height",
                                      "/MultiLayer/Layer/Particle/width"};
     EXPECT_EQ(link.matchedParameterNames(), expected);
-
-    std::cout << FitSuiteUtils::linkToString(link) << std::endl;
 }
 
 //! Checks if two FitParameterLinked have intersection in their fit patterns.

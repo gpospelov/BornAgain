@@ -2271,16 +2271,6 @@ class FitParameterSet(_object):
         return _libBornAgainFit.FitParameterSet_setFixed(self, pars, is_fixed)
 
 
-    def parametersToString(self):
-        """
-        parametersToString(FitParameterSet self) -> std::string
-
-        std::string FitParameterSet::parametersToString() const 
-
-        """
-        return _libBornAgainFit.FitParameterSet_parametersToString(self)
-
-
     def correlationMatrix(self):
         """
         correlationMatrix(FitParameterSet self) -> vdouble2d_t
@@ -2299,18 +2289,6 @@ class FitParameterSet(_object):
 
         """
         return _libBornAgainFit.FitParameterSet_setCorrelationMatrix(self, matrix)
-
-
-    def isExistingName(self, name):
-        """
-        isExistingName(FitParameterSet self, std::string const & name) -> bool
-
-        bool FitParameterSet::isExistingName(const std::string &name) const
-
-        Returns true if parameter with such name exists. 
-
-        """
-        return _libBornAgainFit.FitParameterSet_isExistingName(self, name)
 
 
     def __getitem__(self, *args):

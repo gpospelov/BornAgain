@@ -218,14 +218,7 @@ void FitParameterSet::setFixed(const std::vector<std::string>& pars, bool is_fix
         fitParameter(par)->limits().setFixed(is_fixed);
 }
 
-
-std::string FitParameterSet::parametersToString() const
-{
-    std::ostringstream result;
-    for (auto par: m_parameters)
-        result << "   # " << par->toString() << "\n";
-    return result.str();
-}
+//! Sets resulting correlation matrix.
 
 void FitParameterSet::setCorrelationMatrix(const FitParameterSet::corr_matrix_t& matrix)
 {

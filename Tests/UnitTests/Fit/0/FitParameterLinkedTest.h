@@ -177,6 +177,30 @@ TEST_F(FitParameterLinkedTest, addPattern)
     EXPECT_EQ(par4, newValue);
 }
 
+//! Checking repetitive match. We match parameter with the pool, change pattern, and match again.
+//! Test checks that RealParameter are not added twice.
+
+TEST_F(FitParameterLinkedTest, repetitiveMatch)
+{
+    ParameterPool pool;
+    double par1(0.0), par2(0.0), par3(0.0), par4(0.0);
+
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/Particle/height", &par1));
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/Particle/width", &par2));
+    pool.addParameter(new RealParameter("/MultiLayer/Layer/thickness", &par3));
+    pool.addParameter(new RealParameter("/Something/thickness", &par4));
+
+    FitParameterLinked link("/Something/thickness", 1.0, AttLimits::limitless());
+    link.addMatchedParameters(pool);
+
+    link.addPattern("*/Particle/*");
+    link.addMatchedParameters(pool);
+
+    std::vector<std::string> expected{"/Something/thickness", "/MultiLayer/Layer/Particle/height",
+                                     "/MultiLayer/Layer/Particle/width"};
+    EXPECT_EQ(link.matchedParameterNames(), expected);
+}
+
 //! Checks if two FitParameterLinked have intersection in their fit patterns.
 
 TEST_F(FitParameterLinkedTest, patternIntersection)

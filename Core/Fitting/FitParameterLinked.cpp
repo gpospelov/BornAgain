@@ -75,8 +75,10 @@ void FitParameterLinked::addParameter(const RealParameter& par)
 void FitParameterLinked::addMatchedParameters(const ParameterPool& pool)
 {
     for (auto wildcard : m_patterns) {
-        for (auto* par : pool.getMatchedParameters(wildcard))
-            m_pool_parameters.push_back(par->clone());
+        for (auto par : pool.getMatchedParameters(wildcard)) {
+            if(!isLinked(*par))
+                m_pool_parameters.push_back(par->clone());
+        }
         if (m_pool_parameters.empty())
             throw std::runtime_error("FitParameterLinked::addMatchedParameters() -> Error! "
                                      "Failed to add anything from pool using wildcard '"
@@ -134,4 +136,21 @@ FitParameterLinked::FitParameterLinked(const FitParameterLinked& other)
     for (auto par : other.m_pool_parameters)
         m_pool_parameters.push_back(par->clone());
     m_patterns = other.m_patterns;
+}
+
+//! Returns true if clone of given RealParameter was already added.
+
+bool FitParameterLinked::isLinked(const RealParameter& newPar)
+{
+    for (auto par : m_pool_parameters) {
+        if(par->getName() == newPar.getName() && par->hasSameData(newPar))
+            return true;
+
+        if(par->getName() != newPar.getName() && par->hasSameData(newPar))
+            throw std::runtime_error("FitParameterLinked::isLinked() -> This is confusing.");
+        if(par->getName() == newPar.getName() && !par->hasSameData(newPar))
+            throw std::runtime_error("FitParameterLinked::isLinked() -> This is confusing.");
+    }
+
+    return  false;
 }

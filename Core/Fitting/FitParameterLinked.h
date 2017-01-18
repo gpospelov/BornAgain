@@ -53,6 +53,7 @@ public:
 
 private:
     FitParameterLinked(const FitParameterLinked& other);
+    bool isLinked(const RealParameter& newPar);
     std::vector<RealParameter*> m_pool_parameters; //!< linked parameters from pools
     std::vector<std::string> m_patterns;           //!< list of patterns to match from pool
 };

@@ -22,6 +22,7 @@
 #include "ParameterPool.h"
 #include "IMinimizer.h"
 #include "FitKernel.h"
+#include "FitSuiteUtils.h"
 #include <stdexcept>
 
 FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
@@ -160,12 +161,18 @@ bool FitSuiteImpl::check_prerequisites() const
 //! link FitMultiParameters with simulation parameters
 void FitSuiteImpl::link_fit_parameters()
 {
-    std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    for (auto par: *m_kernel->fitParameters()) {
-        FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
-        if( !linkedPar )
-            throw std::runtime_error(
-                "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
-        linkedPar->addMatchedParameters(*pool);
+    std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());    
+    auto parameters = FitSuiteUtils::linkedParameters(*m_kernel->fitParameters());
+    for (auto par: parameters)
+        par->addMatchedParameters(*pool);
+
+    if(FitSuiteUtils::hasConflicts(*m_kernel->fitParameters())) {
+        std::ostringstream message;
+        message << "FitSuite::runFit() -> Error. Fit parameters are conflicting with each other, "
+                << "meaning that one sample parameter can be controled by "
+                << "two different fit parameters.\n";
+        message << FitSuiteUtils::fitParameterSettingsToString(*m_kernel->fitParameters());
+        throw Exceptions::RuntimeErrorException(message.str());
     }
+
 }

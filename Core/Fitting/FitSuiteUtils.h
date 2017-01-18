@@ -18,17 +18,26 @@
 
 #include "WinDllMacros.h"
 #include <string>
+#include <vector>
 
 class FitParameterLinked;
 class FitParameterSet;
 
 namespace FitSuiteUtils {
 
+//! Returns vector of linked parameters.
+BA_CORE_API_ std::vector<FitParameterLinked*> linkedParameters(const FitParameterSet& fitParameters);
+
 //! Returns multiline string representing linked sample parameters.
 BA_CORE_API_ std::string linkToString(const FitParameterLinked& par);
 
 //! Returns multiline string representing fit parameter definition.
 BA_CORE_API_ std::string fitParameterSettingsToString(const FitParameterSet& fitParameters);
+
+//! Validates all fit parameters for conflicts (steering same sample parameters).
+BA_CORE_API_ bool hasConflicts(const FitParameterSet& fitParameters);
+
+
 }
 
 #endif

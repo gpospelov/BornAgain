@@ -19,20 +19,18 @@
 #include <boost/format.hpp>
 #include <sstream>
 
-namespace {
-std::vector<const FitParameterLinked*> linkedParameters(const FitParameterSet& fitParameters)
+std::vector<FitParameterLinked*>
+FitSuiteUtils::linkedParameters(const FitParameterSet& fitParameters)
 {
-    std::vector<const FitParameterLinked*> result;
+    std::vector<FitParameterLinked*> result;
     for(auto par : fitParameters) {
-        if(const FitParameterLinked *linked = dynamic_cast<FitParameterLinked*>(par))
+        if(FitParameterLinked *linked = dynamic_cast<FitParameterLinked*>(par))
             result.push_back(linked);
         else
             throw std::runtime_error("FitSuiteUtils::linkedParameters() -> Error. Can't cast");
     }
 
     return result;
-}
-
 }
 
 std::string FitSuiteUtils::linkToString(const FitParameterLinked& par)
@@ -50,9 +48,9 @@ std::string FitSuiteUtils::linkToString(const FitParameterLinked& par)
     }
     result << std::endl;
 
-    for(auto link : par.matchedParameterNames()) {
+    for(auto link : par.matchedParameterNames())
         result << boost::format("%-10s : '%s'\n") % "linked to" % link;
-    }
+
     return result.str();
 }
 
@@ -60,12 +58,27 @@ std::string FitSuiteUtils::fitParameterSettingsToString(const FitParameterSet& f
 {
     std::ostringstream result;
     size_t index(0);
-    for(auto par : linkedParameters(fitParameters)) {
+    auto parameters = FitSuiteUtils::linkedParameters(fitParameters);
+    for(auto par : parameters) {
         result << FitSuiteUtils::linkToString(*par);
         ++index;
-        if(index != linkedParameters(fitParameters).size())
+        if(index != parameters.size())
             result << std::endl;
     }
 
     return result.str();
+}
+
+bool FitSuiteUtils::hasConflicts(const FitParameterSet& fitParameters)
+{
+    std::vector<FitParameterLinked*> parameters = FitSuiteUtils::linkedParameters(fitParameters);
+    for(auto par1 : parameters) {
+        for(auto par2 : parameters) {
+            if(par1 != par2)
+                if(par1->isConflicting(*par2))
+                    return true;
+        }
+    }
+
+    return false;
 }

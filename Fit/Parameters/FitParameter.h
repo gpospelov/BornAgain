@@ -16,19 +16,20 @@
 #ifndef FITPARAMETER_H
 #define FITPARAMETER_H
 
-#include "IFitParameter.h"
+#include "WinDllMacros.h"
 #include "AttLimits.h"
 #include <string>
 
 //! A fittable parameter with value, error, step, and limits.
 //! @ingroup fitting
 
-class BA_CORE_API_ FitParameter : public IFitParameter
+class BA_CORE_API_ FitParameter
 {
 public:
     FitParameter();
     FitParameter(const std::string& name, double value,
                  const AttLimits& limits=AttLimits::limitless(), double step=0.0);
+    FitParameter& operator=(const FitParameter&) = delete;
     virtual ~FitParameter(){}
 
     FitParameter* clone() const;
@@ -64,7 +65,7 @@ public:
 protected:
     FitParameter(const FitParameter& other);
 
-private:
+private:    
     std::string m_name;
     double m_start_value;
     double m_value;

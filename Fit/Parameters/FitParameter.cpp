@@ -127,7 +127,7 @@ std::string FitParameter::toString() const
     return ostr.str();
 }
 
-FitParameter::FitParameter(const FitParameter &other) : IFitParameter()
+FitParameter::FitParameter(const FitParameter &other)
 {
     m_name = other.m_name;
     m_start_value = other.m_start_value;

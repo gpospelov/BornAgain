@@ -1803,40 +1803,7 @@ class IMinimizer(_object):
 IMinimizer_swigregister = _libBornAgainFit.IMinimizer_swigregister
 IMinimizer_swigregister(IMinimizer)
 
-class IFitParameter(_object):
-    """
-
-
-    Pure virtual base class for fit parameters.
-
-    C++ includes: IFitParameter.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IFitParameter, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, IFitParameter, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainFit.delete_IFitParameter
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(IFitParameter self) -> IFitParameter
-
-        virtual IFitParameter* IFitParameter::clone() const =0
-
-        """
-        return _libBornAgainFit.IFitParameter_clone(self)
-
-IFitParameter_swigregister = _libBornAgainFit.IFitParameter_swigregister
-IFitParameter_swigregister(IFitParameter)
-
-class FitParameter(IFitParameter):
+class FitParameter(_object):
     """
 
 
@@ -1847,12 +1814,8 @@ class FitParameter(IFitParameter):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IFitParameter]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [IFitParameter]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
     __repr__ = _swig_repr
 

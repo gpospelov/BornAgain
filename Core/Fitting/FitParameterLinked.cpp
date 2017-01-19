@@ -147,9 +147,12 @@ bool FitParameterLinked::isLinked(const RealParameter& newPar)
             return true;
 
         if(par->getName() != newPar.getName() && par->hasSameData(newPar))
-            throw std::runtime_error("FitParameterLinked::isLinked() -> This is confusing.");
+            throw std::runtime_error("FitParameterLinked::isLinked() -> Error. Different "
+                                     "parameter with same data.");
+
         if(par->getName() == newPar.getName() && !par->hasSameData(newPar))
-            throw std::runtime_error("FitParameterLinked::isLinked() -> This is confusing.");
+            throw std::runtime_error("FitParameterLinked::isLinked() ->Error. Same parameter "
+                                     "name with different data.");
     }
 
     return  false;

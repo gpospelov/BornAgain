@@ -6578,6 +6578,11 @@ class FitSuite(IObservable):
         """treeToString(FitSuite self) -> std::string"""
         return _libBornAgainCore.FitSuite_treeToString(self)
 
+
+    def setupToString(self):
+        """setupToString(FitSuite self) -> std::string"""
+        return _libBornAgainCore.FitSuite_setupToString(self)
+
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 

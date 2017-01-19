@@ -106,6 +106,9 @@ class BA_CORE_API_ FitSuiteImpl
 
     const FitKernel* kernel() const;
 
+    //! Returns multiline string representing fit setup
+    std::string setupToString();
+
 private:
     bool check_prerequisites() const;
     void link_fit_parameters();

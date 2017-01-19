@@ -154,7 +154,18 @@ std::string FitSuiteImpl::reportResults() const
 
 const FitKernel* FitSuiteImpl::kernel() const
 {
-   return m_kernel.get();
+    return m_kernel.get();
+}
+
+// method is not const because we have to link fit parameters with the sample,
+// to know what is going to be fitted
+std::string FitSuiteImpl::setupToString()
+{
+    check_prerequisites();
+    link_fit_parameters();
+    std::stringstream result;
+    result << FitSuiteUtils::fitParameterSettingsToString(*m_kernel->fitParameters());
+    return result.str();
 }
 
 bool FitSuiteImpl::check_prerequisites() const

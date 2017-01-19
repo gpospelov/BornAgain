@@ -163,6 +163,8 @@ public:
     //! Returns multiline string representing tree structure of fit components.
     std::string treeToString() const;
 
+    //! Returns multiline string representing fit setup
+    std::string setupToString();
 private:
     std::unique_ptr<FitSuiteImpl> m_impl;
 };

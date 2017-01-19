@@ -147,6 +147,11 @@ std::string FitSuite::treeToString() const
     return m_impl->fitObjects()->treeToString();
 }
 
+std::string FitSuite::setupToString()
+{
+    return m_impl->setupToString();
+}
+
 FitSuiteObjects* FitSuite::fitObjects()
 {
     return m_impl->fitObjects();

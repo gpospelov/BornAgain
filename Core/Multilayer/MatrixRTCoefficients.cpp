@@ -23,8 +23,9 @@ MatrixRTCoefficients *MatrixRTCoefficients::clone() const
 Eigen::Vector2cd MatrixRTCoefficients::T1plus() const
 {
     Eigen::Vector2cd result;
-    result(0) = T1m.row(2).dot(phi_psi_plus);
-    result(1) = T1m.row(3).dot(phi_psi_plus);
+    Eigen::Matrix<complex_t, 4, 1> m = T1m*phi_psi_plus;
+    result(0) = m(2);
+    result(1) = m(3);
     if (lambda(0)==0.0 && result==Eigen::Vector2cd::Zero())
         result(0) = 0.5;
     return result;
@@ -33,9 +34,11 @@ Eigen::Vector2cd MatrixRTCoefficients::T1plus() const
 Eigen::Vector2cd MatrixRTCoefficients::R1plus() const
 {
     Eigen::Vector2cd result;
-    result(0) = R1m.row(2).dot(phi_psi_plus);
-    result(1) = R1m.row(3).dot(phi_psi_plus);
-    if (lambda(0)==0.0 && T1m.row(2).dot(phi_psi_plus)==0.0 && T1m.row(3).dot(phi_psi_plus)==0.0)
+    Eigen::Matrix<complex_t, 4, 1> m = R1m*phi_psi_plus;
+    result(0) = m(2);
+    result(1) = m(3);
+    Eigen::Matrix<complex_t, 4, 1> mT = T1m*phi_psi_plus;
+    if (lambda(0)==0.0 && mT(2)==0.0 && mT(3)==0.0)
         result(0) = -0.5;
     return result;
 }
@@ -43,8 +46,9 @@ Eigen::Vector2cd MatrixRTCoefficients::R1plus() const
 Eigen::Vector2cd MatrixRTCoefficients::T2plus() const
 {
     Eigen::Vector2cd result;
-    result(0) = T2m.row(2).dot(phi_psi_plus);
-    result(1) = T2m.row(3).dot(phi_psi_plus);
+    Eigen::Matrix<complex_t, 4, 1> m = T2m*phi_psi_plus;
+    result(0) = m(2);
+    result(1) = m(3);
     if (lambda(1)==0.0 && result==Eigen::Vector2cd::Zero())
         result(0) = 0.5;
     return result;
@@ -53,9 +57,11 @@ Eigen::Vector2cd MatrixRTCoefficients::T2plus() const
 Eigen::Vector2cd MatrixRTCoefficients::R2plus() const
 {
     Eigen::Vector2cd result;
-    result(0) = R2m.row(2).dot(phi_psi_plus);
-    result(1) = R2m.row(3).dot(phi_psi_plus);
-    if (lambda(1)==0.0 && T2m.row(2).dot(phi_psi_plus)==0.0 && T2m.row(3).dot(phi_psi_plus)==0.0)
+    Eigen::Matrix<complex_t, 4, 1> m = R2m*phi_psi_plus;
+    result(0) = m(2);
+    result(1) = m(3);
+    Eigen::Matrix<complex_t, 4, 1> mT = T2m*phi_psi_plus;
+    if (lambda(1)==0.0 && mT(2)==0.0 && mT(3)==0.0)
         result(0) = -0.5;
     return result;
 }
@@ -63,8 +69,9 @@ Eigen::Vector2cd MatrixRTCoefficients::R2plus() const
 Eigen::Vector2cd MatrixRTCoefficients::T1min() const
 {
     Eigen::Vector2cd result;
-    result(0) = T1m.row(2).dot(phi_psi_min);
-    result(1) = T1m.row(3).dot(phi_psi_min);
+    Eigen::Matrix<complex_t, 4, 1> m = T1m*phi_psi_min;
+    result(0) = m(2);
+    result(1) = m(3);
     if (lambda(0)==0.0 && result==Eigen::Vector2cd::Zero())
         result(1) = 0.5;
     return result;
@@ -73,9 +80,11 @@ Eigen::Vector2cd MatrixRTCoefficients::T1min() const
 Eigen::Vector2cd MatrixRTCoefficients::R1min() const
 {
     Eigen::Vector2cd result;
-    result(0) = R1m.row(2).dot(phi_psi_min);
-    result(1) = R1m.row(3).dot(phi_psi_min);
-    if (lambda(0)==0.0 && T1m.row(2).dot(phi_psi_min)==0.0 && T1m.row(3).dot(phi_psi_min)==0.0)
+    Eigen::Matrix<complex_t, 4, 1> m = R1m*phi_psi_min;
+    result(0) = m(2);
+    result(1) = m(3);
+    Eigen::Matrix<complex_t, 4, 1> mT = T1m*phi_psi_min;
+    if (lambda(0)==0.0 && mT(2)==0.0 && mT(3)==0.0)
         result(1) = -0.5;
     return result;
 }
@@ -83,8 +92,9 @@ Eigen::Vector2cd MatrixRTCoefficients::R1min() const
 Eigen::Vector2cd MatrixRTCoefficients::T2min() const
 {
     Eigen::Vector2cd result;
-    result(0) = T2m.row(2).dot(phi_psi_min);
-    result(1) = T2m.row(3).dot(phi_psi_min);
+    Eigen::Matrix<complex_t, 4, 1> m = T2m*phi_psi_min;
+    result(0) = m(2);
+    result(1) = m(3);
     if (lambda(1)==0.0 && result==Eigen::Vector2cd::Zero())
         result(1) = 0.5;
     return result;
@@ -93,9 +103,11 @@ Eigen::Vector2cd MatrixRTCoefficients::T2min() const
 Eigen::Vector2cd MatrixRTCoefficients::R2min() const
 {
     Eigen::Vector2cd result;
-    result(0) = R2m.row(2).dot(phi_psi_min);
-    result(1) = R2m.row(3).dot(phi_psi_min);
-    if (lambda(1)==0.0 && T2m.row(2).dot(phi_psi_min)==0.0 && T2m.row(3).dot(phi_psi_min)==0.0)
+    Eigen::Matrix<complex_t, 4, 1> m = R2m*phi_psi_min;
+    result(0) = m(2);
+    result(1) = m(3);
+    Eigen::Matrix<complex_t, 4, 1> mT = T2m*phi_psi_min;
+    if (lambda(1)==0.0 && mT(2)==0.0 && mT(3)==0.0)
         result(1) = -0.5;
     return result;
 }

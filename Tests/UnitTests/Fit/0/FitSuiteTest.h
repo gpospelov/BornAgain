@@ -44,3 +44,17 @@ TEST_F(FitSuiteTest, addFitParameter)
     EXPECT_EQ(4.0, par3.value());
     EXPECT_TRUE(par3.limits().isFixed());
 }
+
+TEST_F(FitSuiteTest, addConstructedFitParameter)
+{
+    std::unique_ptr<FitSuite> fitSuite(new FitSuite);
+
+    FitParameterLinked par("pattern1", 1.0, AttLimits::limited(0.0, 2.0));
+
+    FitParameterLinked *clone = fitSuite->addFitParameter(par);
+    EXPECT_EQ(clone->value(), 1.0);
+    EXPECT_EQ(clone->startValue(), 1.0);
+    EXPECT_EQ(clone->limits(), AttLimits::limited(0.0, 2.0));
+    EXPECT_EQ(clone->step(), 0.01); // step invented by FitSuite
+    EXPECT_EQ(clone->patterns(), std::vector<std::string>() = {"pattern1"});
+}

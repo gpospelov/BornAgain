@@ -58,6 +58,11 @@ FitParameterLinked *FitSuite::addFitParameter(const std::string& name, double va
     return m_impl->addFitParameter(name, value, limits, step);
 }
 
+FitParameterLinked* FitSuite::addFitParameter(const FitParameterLinked& fitPar)
+{
+    return m_impl->addFitParameter(fitPar);
+}
+
 void FitSuite::setMinimizer(const std::string& minimizer_name, const std::string& algorithm_name,
                             const std::string& minimizer_options)
 {

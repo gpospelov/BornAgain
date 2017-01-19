@@ -55,6 +55,9 @@ class BA_CORE_API_ FitSuiteImpl
     FitParameterLinked* addFitParameter(const std::string& pattern, double value,
                                         const AttLimits& limits, double step = 0.0);
 
+    //! Adds fit parameter
+    FitParameterLinked* addFitParameter(const FitParameterLinked& fitPar);
+
     //! Adds fit strategy
     void addFitStrategy(const IFitStrategy& strategy);
 

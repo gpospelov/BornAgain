@@ -71,6 +71,10 @@ public:
     FitParameterLinked* addFitParameter(const std::string& name, double value,
                          const AttLimits& limits=AttLimits::limitless(), double step = 0.0);
 
+    //! Adds fit parameter
+    //! @param fitPar Fully constructed fit parameter.
+    FitParameterLinked* addFitParameter(const FitParameterLinked& fitPar);
+
     //! Sets minimizer with given name and algorithm type
     //! @param minimizer_name The name of the minimizer
     //! @param algorithm_name Optional name of the minimizer's algorithm

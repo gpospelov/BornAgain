@@ -6252,6 +6252,7 @@ class FitSuite(IObservable):
         addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits, double step=0.0) -> FitParameterLinked
         addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits) -> FitParameterLinked
         addFitParameter(FitSuite self, std::string const & name, double value) -> FitParameterLinked
+        addFitParameter(FitSuite self, FitParameterLinked fitPar) -> FitParameterLinked
 
         FitParameterLinked * FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
 

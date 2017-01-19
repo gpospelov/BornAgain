@@ -70,6 +70,16 @@ FitParameterLinked* FitSuiteImpl::addFitParameter(const std::string& pattern, do
     return result;
 }
 
+FitParameterLinked* FitSuiteImpl::addFitParameter(const FitParameterLinked& fitPar)
+{
+    FitParameterLinked* result = fitPar.clone();
+    if(result->step() <= 0.0)
+        result->setStep(result->value() * getOptions().stepFactor());
+
+    m_kernel->fitParameters()->addFitParameter(result);
+    return result;
+}
+
 void FitSuiteImpl::addFitStrategy(const IFitStrategy& strategy)
 {
     m_fit_strategies.addStrategy(strategy);

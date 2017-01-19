@@ -38,6 +38,9 @@ std::string FitSuiteUtils::linkToString(const FitParameter& par)
     std::ostringstream result;
 
     result << boost::format("%-10s : '%-s'\n") % "name" % par.name();
+    result << boost::format("%-10s : startValue=%-7.4f, currentValue=%-7.4f, step=%-6.3f\n")
+              % "value" % par.startValue() % par.value()% par.step();
+    result << boost::format("%-10s : %-s\n") % "limits" % par.limits().toString();
     result << boost::format("%-10s : ") % "pattern";
     size_t index(0);
     for(auto pattern : par.patterns()) {
@@ -47,6 +50,7 @@ std::string FitSuiteUtils::linkToString(const FitParameter& par)
             result << ", ";
     }
     result << std::endl;
+
 
     for(auto link : par.matchedParameterNames())
         result << boost::format("%-10s : '%s'\n") % "linked to" % link;

@@ -29,7 +29,7 @@
 //! @ingroup tools_internal
 
 template<class T>
-class BA_CORE_API_ IParameter : public INamed, public INoncopyable {
+class IParameter : public INamed, public INoncopyable {
 public:
     IParameter() =delete;
     IParameter(const std::string& name, T* data, const std::string& parent_name,

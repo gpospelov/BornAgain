@@ -2,14 +2,14 @@
 #include "gtest/gtest.h"
 #include <memory>
 
-class FitParameterTest : public ::testing::Test
+class IFitParameterTest : public ::testing::Test
 {
 protected:
-    FitParameterTest(){}
-    virtual ~FitParameterTest(){}
+    IFitParameterTest(){}
+    virtual ~IFitParameterTest(){}
 };
 
-TEST_F(FitParameterTest, Initial)
+TEST_F(IFitParameterTest, Initial)
 {
     IFitParameter par;
     EXPECT_EQ(std::string(), par.name());
@@ -20,7 +20,7 @@ TEST_F(FitParameterTest, Initial)
     EXPECT_TRUE(par.limits().isLimitless());
 }
 
-TEST_F(FitParameterTest, Constructors)
+TEST_F(IFitParameterTest, Constructors)
 {
     const std::string name("name");
     const double value(1.0);
@@ -45,7 +45,7 @@ TEST_F(FitParameterTest, Constructors)
     EXPECT_EQ(limits, par2.limits());
 }
 
-TEST_F(FitParameterTest, Setters)
+TEST_F(IFitParameterTest, Setters)
 {
     const std::string name("name");
     const double start_value(1.0);
@@ -70,7 +70,7 @@ TEST_F(FitParameterTest, Setters)
     EXPECT_EQ(step, par.step());
 }
 
-TEST_F(FitParameterTest, CompoundSetters)
+TEST_F(IFitParameterTest, CompoundSetters)
 {
     const std::string name("name");
     const double start_value(1.0);
@@ -101,7 +101,7 @@ TEST_F(FitParameterTest, CompoundSetters)
     EXPECT_EQ(par.limits().upperLimit(), 0.0);
 }
 
-TEST_F(FitParameterTest, Clone)
+TEST_F(IFitParameterTest, Clone)
 {
     const double start_value(1.0), value(2.0), error(0.1), step(0.01), lim1(10.0), lim2(10.0);
     IFitParameter par("par1", start_value, AttLimits::limited(lim1, lim2), step);

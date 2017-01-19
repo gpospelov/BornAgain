@@ -31,7 +31,7 @@ class FitSuiteStrategies;
 class FitOptions;
 class FitSuiteImpl;
 class IMinimizer;
-class FitParameterLinked;
+class FitParameter;
 
 //! @brief User interface class that wraps all fit methods.
 //! @ingroup fitting
@@ -68,12 +68,12 @@ public:
     //! @param value Parameter's starting value
     //! @param limits Limits attribute
     //! @param step Initial parameter's step (some minimizers don't use it)
-    FitParameterLinked* addFitParameter(const std::string& name, double value,
+    FitParameter* addFitParameter(const std::string& name, double value,
                          const AttLimits& limits=AttLimits::limitless(), double step = 0.0);
 
     //! Adds fit parameter
     //! @param fitPar Fully constructed fit parameter.
-    FitParameterLinked* addFitParameter(const FitParameterLinked& fitPar);
+    FitParameter* addFitParameter(const FitParameter& fitPar);
 
     //! Sets minimizer with given name and algorithm type
     //! @param minimizer_name The name of the minimizer

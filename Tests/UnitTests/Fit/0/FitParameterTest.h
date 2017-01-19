@@ -1,20 +1,20 @@
 #include "IParameterized.h"
 #include "RealParameter.h"
 #include "ParameterPool.h"
-#include "FitParameterLinked.h"
+#include "FitParameter.h"
 #include <string>
 #include "gtest/gtest.h"
 
-class FitParameterLinkedTest : public ::testing::Test
+class FitParameterTest : public ::testing::Test
 {
  protected:
-    FitParameterLinkedTest(){}
-    virtual ~FitParameterLinkedTest(){}
+    FitParameterTest(){}
+    virtual ~FitParameterTest(){}
 };
 
-TEST_F(FitParameterLinkedTest, defaultConstructor)
+TEST_F(FitParameterTest, defaultConstructor)
 {
-    FitParameterLinked fitParameterLinked;
+    FitParameter fitParameterLinked;
 
     EXPECT_EQ("", fitParameterLinked.name());
     EXPECT_EQ(0.0, fitParameterLinked.value());
@@ -27,10 +27,10 @@ TEST_F(FitParameterLinkedTest, defaultConstructor)
     EXPECT_FALSE(fitParameterLinked.limits().isFixed());
 }
 
-TEST_F(FitParameterLinkedTest, fullConstructor)
+TEST_F(FitParameterTest, fullConstructor)
 {
     AttLimits limits = AttLimits::limited(-10.0, 2.0);
-    FitParameterLinked fitParameter("FitPL", 2.0, limits, 0.2);
+    FitParameter fitParameter("FitPL", 2.0, limits, 0.2);
 
     EXPECT_EQ("noname", fitParameter.name());
     EXPECT_EQ(2.0, fitParameter.value());
@@ -39,7 +39,7 @@ TEST_F(FitParameterLinkedTest, fullConstructor)
     EXPECT_EQ(2.0, fitParameter.limits().upperLimit());
 }
 
-TEST_F(FitParameterLinkedTest, addParameter)
+TEST_F(FitParameterTest, addParameter)
 {
     class ParametrizedObject : public IParameterized
     {
@@ -58,7 +58,7 @@ TEST_F(FitParameterLinkedTest, addParameter)
     const RealParameter* par11 = obj1.getParameter("par1");
     const RealParameter* par21 = obj2.getParameter("par2");
 
-    FitParameterLinked linked;
+    FitParameter linked;
     linked.addParameter(*par11);
     linked.addParameter(*par21);
 
@@ -77,7 +77,7 @@ TEST_F(FitParameterLinkedTest, addParameter)
     EXPECT_EQ(obj2.m_par2, newValue);
 }
 
-TEST_F(FitParameterLinkedTest, addMatchedParameters)
+TEST_F(FitParameterTest, addMatchedParameters)
 {
     ParameterPool pool;
     double par1(0.0), par2(0.0), par3(0.0);
@@ -87,7 +87,7 @@ TEST_F(FitParameterLinkedTest, addMatchedParameters)
     pool.addParameter(new RealParameter("/MultiLayer/Layer/thickness", &par3));
 
     double newValue(42.0);
-    FitParameterLinked link1("/MultiLayer/Layer/thickness", 0.0, AttLimits::limitless());
+    FitParameter link1("/MultiLayer/Layer/thickness", 0.0, AttLimits::limitless());
     link1.addMatchedParameters(pool);
     link1.setValue(newValue);
     EXPECT_EQ(link1.value(), newValue);
@@ -97,7 +97,7 @@ TEST_F(FitParameterLinkedTest, addMatchedParameters)
 
     newValue = 100.0;
     par1 = par2 = par3 = 0.0;
-    FitParameterLinked link2("*/Particle/*", 0.0, AttLimits::limitless());
+    FitParameter link2("*/Particle/*", 0.0, AttLimits::limitless());
     link2.addMatchedParameters(pool);
     link2.setValue(newValue);
     EXPECT_EQ(link2.value(), newValue);
@@ -106,7 +106,7 @@ TEST_F(FitParameterLinkedTest, addMatchedParameters)
     EXPECT_EQ(par3, 0.0);
 }
 
-TEST_F(FitParameterLinkedTest, clone)
+TEST_F(FitParameterTest, clone)
 {
     ParameterPool pool;
     double par1(0.0), par2(0.0), par3(0.0);
@@ -117,13 +117,13 @@ TEST_F(FitParameterLinkedTest, clone)
 
     const double value(1.0), step(0.1), lim1(0.2), lim2(10.0);
     const std::string pattern("*/Particle/*");
-    FitParameterLinked *link = new FitParameterLinked(
+    FitParameter *link = new FitParameter(
                 pattern, value, AttLimits::limited(lim1, lim2), step);
     link->addMatchedParameters(pool);
     link->setValue(value);
 
     // deleting original and checking that clone is pointing to the same real parameters
-    std::unique_ptr<FitParameterLinked> clone(link->clone());
+    std::unique_ptr<FitParameter> clone(link->clone());
     delete link;
 
     EXPECT_EQ(clone->name(), "noname");
@@ -143,7 +143,7 @@ TEST_F(FitParameterLinkedTest, clone)
 
 //! Tests adding of multiple patterns to a single FitParameterLinked
 
-TEST_F(FitParameterLinkedTest, addPattern)
+TEST_F(FitParameterTest, addPattern)
 {
     ParameterPool pool;
     double par1(0.0), par2(0.0), par3(0.0), par4(0.0);
@@ -153,8 +153,8 @@ TEST_F(FitParameterLinkedTest, addPattern)
     pool.addParameter(new RealParameter("/MultiLayer/Layer/thickness", &par3));
     pool.addParameter(new RealParameter("/Something/thickness", &par4));
 
-    FitParameterLinked *link =
-            new FitParameterLinked("/Something/thickness", 1.0, AttLimits::limitless());
+    FitParameter *link =
+            new FitParameter("/Something/thickness", 1.0, AttLimits::limitless());
 
     // adding second pattern
     link->addPattern("*/Particle/*").setName("par1");
@@ -180,7 +180,7 @@ TEST_F(FitParameterLinkedTest, addPattern)
 //! Checking repetitive match. We match parameter with the pool, change pattern, and match again.
 //! Test checks that RealParameter are not added twice.
 
-TEST_F(FitParameterLinkedTest, repetitiveMatch)
+TEST_F(FitParameterTest, repetitiveMatch)
 {
     ParameterPool pool;
     double par1(0.0), par2(0.0), par3(0.0), par4(0.0);
@@ -190,7 +190,7 @@ TEST_F(FitParameterLinkedTest, repetitiveMatch)
     pool.addParameter(new RealParameter("/MultiLayer/Layer/thickness", &par3));
     pool.addParameter(new RealParameter("/Something/thickness", &par4));
 
-    FitParameterLinked link("/Something/thickness", 1.0, AttLimits::limitless());
+    FitParameter link("/Something/thickness", 1.0, AttLimits::limitless());
     link.addMatchedParameters(pool);
 
     link.addPattern("*/Particle/*");
@@ -203,12 +203,12 @@ TEST_F(FitParameterLinkedTest, repetitiveMatch)
 
 //! Checks if two FitParameterLinked have intersection in their fit patterns.
 
-TEST_F(FitParameterLinkedTest, patternIntersection)
+TEST_F(FitParameterTest, patternIntersection)
 {
-    FitParameterLinked link1;
+    FitParameter link1;
     link1.addPattern("pattern3").addPattern("pattern2").addPattern("pattern1");
 
-    FitParameterLinked link2;
+    FitParameter link2;
     link1.addPattern("pattern4");
 
     auto patternIntersection = link1.patternIntersection(link2);
@@ -223,7 +223,7 @@ TEST_F(FitParameterLinkedTest, patternIntersection)
 
 //! Creating parameter pool, matching fit parameters to it and checking conflicts.
 
-TEST_F(FitParameterLinkedTest, isConflicting)
+TEST_F(FitParameterTest, isConflicting)
 {
     ParameterPool pool;
     double par1(0.0), par2(0.0), par3(0.0), par4(0.0);
@@ -234,17 +234,17 @@ TEST_F(FitParameterLinkedTest, isConflicting)
     pool.addParameter(new RealParameter("/Something/thickness", &par4));
 
     // creating first FitParameterLink
-    FitParameterLinked link1("*/Particle/*", 1.0, AttLimits::limitless());
+    FitParameter link1("*/Particle/*", 1.0, AttLimits::limitless());
     link1.addMatchedParameters(pool);
 
     // creating second FitParameterLink (without conflict)
-    FitParameterLinked link2("/Something/thickness", 1.0, AttLimits::limitless());
+    FitParameter link2("/Something/thickness", 1.0, AttLimits::limitless());
     link2.addMatchedParameters(pool);
 
     EXPECT_FALSE(link1.isConflicting(link2));
 
     // creating third conflicting FitParameterLink
-    FitParameterLinked link3("*height", 1.0, AttLimits::limitless());
+    FitParameter link3("*height", 1.0, AttLimits::limitless());
     link3.addMatchedParameters(pool);
 
     EXPECT_TRUE(link1.isConflicting(link3));

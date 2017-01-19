@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitParameterLinked.h
-//! @brief     Defines class FitParameterLinked.
+//! @file      Core/Fitting/FitParameter.h
+//! @brief     Defines class FitParameter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITPARAMETERLINKED_H
-#define FITPARAMETERLINKED_H
+#ifndef FITPARAMETER_H
+#define FITPARAMETER_H
 
 #include "IFitParameter.h"
 #include <vector>
@@ -25,19 +25,19 @@ class RealParameter;
 //! Fittable parameter, linked to other parameters from pools.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitParameterLinked : public IFitParameter
+class BA_CORE_API_ FitParameter : public IFitParameter
 {
 public:
-    FitParameterLinked() {}
-    FitParameterLinked(const std::string& pattern, double value,
+    FitParameter() {}
+    FitParameter(const std::string& pattern, double value,
                        const AttLimits& lim = AttLimits::limitless(), double step = 0.0);
-    ~FitParameterLinked() final;
+    ~FitParameter() final;
 
-    FitParameterLinked* clone() const;
+    FitParameter* clone() const;
 
     void setValue(double value) final;
 
-    FitParameterLinked& addPattern(const std::string& pattern);
+    FitParameter& addPattern(const std::string& pattern);
 
     void addParameter(const RealParameter& par);
 
@@ -47,15 +47,15 @@ public:
 
     std::vector<std::string> matchedParameterNames() const;
 
-    std::vector<std::string> patternIntersection(const FitParameterLinked& other) const;
+    std::vector<std::string> patternIntersection(const FitParameter& other) const;
 
-    bool isConflicting(const FitParameterLinked& other) const;
+    bool isConflicting(const FitParameter& other) const;
 
 private:
-    FitParameterLinked(const FitParameterLinked& other);
+    FitParameter(const FitParameter& other);
     bool isLinked(const RealParameter& newPar);
     std::vector<RealParameter*> m_pool_parameters; //!< linked parameters from pools
     std::vector<std::string> m_patterns;           //!< list of patterns to match from pool
 };
 
-#endif // FITPARAMETERLINKED_H
+#endif // FITPARAMETER_H

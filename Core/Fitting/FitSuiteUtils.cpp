@@ -14,17 +14,17 @@
 // ************************************************************************** //
 
 #include "FitSuiteUtils.h"
-#include "FitParameterLinked.h"
+#include "FitParameter.h"
 #include "FitParameterSet.h"
 #include <boost/format.hpp>
 #include <sstream>
 
-std::vector<FitParameterLinked*>
+std::vector<FitParameter*>
 FitSuiteUtils::linkedParameters(const FitParameterSet& fitParameters)
 {
-    std::vector<FitParameterLinked*> result;
+    std::vector<FitParameter*> result;
     for(auto par : fitParameters) {
-        if(FitParameterLinked *linked = dynamic_cast<FitParameterLinked*>(par))
+        if(FitParameter *linked = dynamic_cast<FitParameter*>(par))
             result.push_back(linked);
         else
             throw std::runtime_error("FitSuiteUtils::linkedParameters() -> Error. Can't cast");
@@ -33,7 +33,7 @@ FitSuiteUtils::linkedParameters(const FitParameterSet& fitParameters)
     return result;
 }
 
-std::string FitSuiteUtils::linkToString(const FitParameterLinked& par)
+std::string FitSuiteUtils::linkToString(const FitParameter& par)
 {
     std::ostringstream result;
 
@@ -71,7 +71,7 @@ std::string FitSuiteUtils::fitParameterSettingsToString(const FitParameterSet& f
 
 bool FitSuiteUtils::hasConflicts(const FitParameterSet& fitParameters)
 {
-    std::vector<FitParameterLinked*> parameters = FitSuiteUtils::linkedParameters(fitParameters);
+    std::vector<FitParameter*> parameters = FitSuiteUtils::linkedParameters(fitParameters);
     for(auto par1 : parameters) {
         for(auto par2 : parameters) {
             if(par1 != par2)

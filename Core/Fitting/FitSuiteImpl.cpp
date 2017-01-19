@@ -16,7 +16,7 @@
 #include "FitSuiteImpl.h"
 #include "RealLimits.h"
 #include "IFitParameter.h"
-#include "FitParameterLinked.h"
+#include "FitParameter.h"
 #include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
@@ -59,20 +59,20 @@ FitObject* FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulat
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-FitParameterLinked* FitSuiteImpl::addFitParameter(const std::string& pattern, double value,
+FitParameter* FitSuiteImpl::addFitParameter(const std::string& pattern, double value,
                                   const AttLimits& limits, double step)
 {
     if(step <=0.0)
         step = value * getOptions().stepFactor();
 
-    FitParameterLinked* result = new FitParameterLinked(pattern, value, limits, step);
+    FitParameter* result = new FitParameter(pattern, value, limits, step);
     m_kernel->fitParameters()->addFitParameter(result);
     return result;
 }
 
-FitParameterLinked* FitSuiteImpl::addFitParameter(const FitParameterLinked& fitPar)
+FitParameter* FitSuiteImpl::addFitParameter(const FitParameter& fitPar)
 {
-    FitParameterLinked* result = fitPar.clone();
+    FitParameter* result = fitPar.clone();
     if(result->step() <= 0.0)
         result->setStep(result->value() * getOptions().stepFactor());
 

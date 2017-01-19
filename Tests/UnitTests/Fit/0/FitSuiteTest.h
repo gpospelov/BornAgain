@@ -49,9 +49,9 @@ TEST_F(FitSuiteTest, addConstructedFitParameter)
 {
     std::unique_ptr<FitSuite> fitSuite(new FitSuite);
 
-    FitParameterLinked par("pattern1", 1.0, AttLimits::limited(0.0, 2.0));
+    FitParameter par("pattern1", 1.0, AttLimits::limited(0.0, 2.0));
 
-    FitParameterLinked *clone = fitSuite->addFitParameter(par);
+    FitParameter *clone = fitSuite->addFitParameter(par);
     EXPECT_EQ(clone->value(), 1.0);
     EXPECT_EQ(clone->startValue(), 1.0);
     EXPECT_EQ(clone->limits(), AttLimits::limited(0.0, 2.0));

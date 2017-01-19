@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/FitParameterLinked.cpp
-//! @brief     Implements class FitParameterLinked.
+//! @file      Core/Fitting/FitParameter.cpp
+//! @brief     Implements class FitParameter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "FitParameterLinked.h"
+#include "FitParameter.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <stdexcept>
@@ -22,27 +22,27 @@
 #include <sstream>
 #include <iterator>
 
-FitParameterLinked::FitParameterLinked(const std::string& pattern, double value,
+FitParameter::FitParameter(const std::string& pattern, double value,
                                        const AttLimits& lim, double step)
     : IFitParameter("noname", value, lim, step)
 {
     addPattern(pattern);
 }
 
-FitParameterLinked::~FitParameterLinked()
+FitParameter::~FitParameter()
 {
     for (auto* par : m_pool_parameters)
         delete par;
 }
 
-FitParameterLinked* FitParameterLinked::clone() const
+FitParameter* FitParameter::clone() const
 {
-    return new FitParameterLinked(*this);
+    return new FitParameter(*this);
 }
 
 //! Sets given value for all bound parameters
 
-void FitParameterLinked::setValue(double value)
+void FitParameter::setValue(double value)
 {
     IFitParameter::setValue(value);
     for (auto* par : m_pool_parameters)
@@ -51,7 +51,7 @@ void FitParameterLinked::setValue(double value)
 
 //! Adds pattern to the list for later usage in parameter pool matching.
 
-FitParameterLinked& FitParameterLinked::addPattern(const std::string& pattern)
+FitParameter& FitParameter::addPattern(const std::string& pattern)
 {
     if (std::find(m_patterns.begin(), m_patterns.end(), pattern) != m_patterns.end())
         throw std::runtime_error("FitParameterLinked::addPattern() -> Error. Already contain '"
@@ -62,7 +62,7 @@ FitParameterLinked& FitParameterLinked::addPattern(const std::string& pattern)
 
 //! Adds real parameter to the collection
 
-void FitParameterLinked::addParameter(const RealParameter& par)
+void FitParameter::addParameter(const RealParameter& par)
 {
     if (par.isNull())
         throw std::runtime_error("FitParameterLinked::addParameter() -> Error. "
@@ -72,7 +72,7 @@ void FitParameterLinked::addParameter(const RealParameter& par)
 
 //! Adds parameters from pool which match given wildcard
 
-void FitParameterLinked::addMatchedParameters(const ParameterPool& pool)
+void FitParameter::addMatchedParameters(const ParameterPool& pool)
 {
     for (auto wildcard : m_patterns) {
         for (auto par : pool.getMatchedParameters(wildcard)) {
@@ -86,14 +86,14 @@ void FitParameterLinked::addMatchedParameters(const ParameterPool& pool)
     }
 }
 
-std::vector<std::string> FitParameterLinked::patterns() const
+std::vector<std::string> FitParameter::patterns() const
 {
     return m_patterns;
 }
 
 //! Returns vector of strings with names of all matched parameters.
 
-std::vector<std::string> FitParameterLinked::matchedParameterNames() const
+std::vector<std::string> FitParameter::matchedParameterNames() const
 {
     std::vector<std::string> result;
     std::transform(m_pool_parameters.begin(), m_pool_parameters.end(), std::back_inserter(result),
@@ -104,7 +104,7 @@ std::vector<std::string> FitParameterLinked::matchedParameterNames() const
 //! Returns vector containing patterns existing in both FitParametersLinked.
 
 std::vector<std::string>
-FitParameterLinked::patternIntersection(const FitParameterLinked& other) const
+FitParameter::patternIntersection(const FitParameter& other) const
 {
     std::set<std::string> set1(m_patterns.begin(), m_patterns.end());
     std::set<std::string> set2(other.m_patterns.begin(), other.m_patterns.end());
@@ -116,7 +116,7 @@ FitParameterLinked::patternIntersection(const FitParameterLinked& other) const
 
 //! Returns true if two FitParameterLinked are intended to steer same RealParameter.
 
-bool FitParameterLinked::isConflicting(const FitParameterLinked& other) const
+bool FitParameter::isConflicting(const FitParameter& other) const
 {
     if(patternIntersection(other).size())
         return true;
@@ -130,7 +130,7 @@ bool FitParameterLinked::isConflicting(const FitParameterLinked& other) const
     return isConflicting;
 }
 
-FitParameterLinked::FitParameterLinked(const FitParameterLinked& other)
+FitParameter::FitParameter(const FitParameter& other)
     : IFitParameter(other)
 {
     for (auto par : other.m_pool_parameters)
@@ -140,7 +140,7 @@ FitParameterLinked::FitParameterLinked(const FitParameterLinked& other)
 
 //! Returns true if clone of given RealParameter was already added.
 
-bool FitParameterLinked::isLinked(const RealParameter& newPar)
+bool FitParameter::isLinked(const RealParameter& newPar)
 {
     for (auto par : m_pool_parameters) {
         if(par->getName() == newPar.getName() && par->hasSameData(newPar))

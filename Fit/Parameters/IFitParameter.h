@@ -42,6 +42,8 @@ public:
     double value() const;
     virtual void setValue(double value);
 
+    virtual IFitParameter& addPattern(const std::string& pattern);
+
     double step() const;
     IFitParameter& setStep(double value);
 
@@ -52,7 +54,6 @@ public:
     AttLimits& limits();
 
     IFitParameter& setLimits(const AttLimits& limits);
-
     IFitParameter& setLowerLimited(double bound_value);
     IFitParameter& setPositive();
     IFitParameter& setNonnegative();

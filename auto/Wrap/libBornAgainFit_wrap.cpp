@@ -19760,6 +19760,44 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IFitParameter_addPattern(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IFitParameter *arg1 = (IFitParameter *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  IFitParameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IFitParameter_addPattern",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IFitParameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFitParameter_addPattern" "', argument " "1"" of type '" "IFitParameter *""'"); 
+  }
+  arg1 = reinterpret_cast< IFitParameter * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFitParameter_addPattern" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFitParameter_addPattern" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = (IFitParameter *) &(arg1)->addPattern((std::string const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFitParameter, 0 |  0 );
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IFitParameter_step(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IFitParameter *arg1 = (IFitParameter *) 0 ;
@@ -22120,6 +22158,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IFitParameter_startValue", _wrap_IFitParameter_startValue, METH_VARARGS, (char *)"IFitParameter_startValue(IFitParameter self) -> double"},
 	 { (char *)"IFitParameter_value", _wrap_IFitParameter_value, METH_VARARGS, (char *)"IFitParameter_value(IFitParameter self) -> double"},
 	 { (char *)"IFitParameter_setValue", _wrap_IFitParameter_setValue, METH_VARARGS, (char *)"IFitParameter_setValue(IFitParameter self, double value)"},
+	 { (char *)"IFitParameter_addPattern", _wrap_IFitParameter_addPattern, METH_VARARGS, (char *)"IFitParameter_addPattern(IFitParameter self, std::string const & pattern) -> IFitParameter"},
 	 { (char *)"IFitParameter_step", _wrap_IFitParameter_step, METH_VARARGS, (char *)"IFitParameter_step(IFitParameter self) -> double"},
 	 { (char *)"IFitParameter_setStep", _wrap_IFitParameter_setStep, METH_VARARGS, (char *)"IFitParameter_setStep(IFitParameter self, double value) -> IFitParameter"},
 	 { (char *)"IFitParameter_error", _wrap_IFitParameter_error, METH_VARARGS, (char *)"IFitParameter_error(IFitParameter self) -> double"},

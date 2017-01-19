@@ -1872,6 +1872,11 @@ class IFitParameter(_object):
         return _libBornAgainFit.IFitParameter_setValue(self, value)
 
 
+    def addPattern(self, pattern):
+        """addPattern(IFitParameter self, std::string const & pattern) -> IFitParameter"""
+        return _libBornAgainFit.IFitParameter_addPattern(self, pattern)
+
+
     def step(self):
         """step(IFitParameter self) -> double"""
         return _libBornAgainFit.IFitParameter_step(self)

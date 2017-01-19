@@ -16,6 +16,7 @@
 #include "IFitParameter.h"
 #include <iomanip>
 #include <sstream>
+#include <stdexcept>
 
 IFitParameter::IFitParameter()
     : m_start_value(0.0)
@@ -56,6 +57,12 @@ double IFitParameter::startValue() const { return m_start_value; }
 double IFitParameter::value() const { return m_value; }
 
 void IFitParameter::setValue(double value) { m_value = value; }
+
+// non-elegant way to provide chain of setters for derived FitParameter
+IFitParameter& IFitParameter::addPattern(const std::string& /*pattern*/)
+{
+    throw std::runtime_error("IFitParameter::addPattern() -> Error. Not implemented");
+}
 
 double IFitParameter::step() const { return m_step; }
 

@@ -20,7 +20,7 @@
 #include <algorithm>
 #include <set>
 #include <sstream>
-
+#include <iterator>
 
 FitParameterLinked::FitParameterLinked(const std::string& pattern, double value,
                                        const AttLimits& lim, double step)

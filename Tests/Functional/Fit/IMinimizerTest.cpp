@@ -43,6 +43,12 @@ IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
 {
 }
 
+IMinimizerTest::~IMinimizerTest()
+{
+    for(auto par : m_parameters)
+        delete par;
+}
+
 
 bool IMinimizerTest::runTest()
 {
@@ -68,12 +74,12 @@ bool IMinimizerTest::runTest()
     bool success = true;
     for (size_t i = 0; i < m_parameters.size(); ++i) {
         double foundValue = valuesAtMinimum[i];
-        double diff = std::abs(foundValue - m_parameters[i].m_expected_value)
-                      / m_parameters[i].m_expected_value;
+        double diff = std::abs(foundValue - m_parameters[i]->expectedValue())
+                      / m_parameters[i]->expectedValue();
         if (diff > m_parameter_tolerance)
             success = false;
         std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) %s\n") %
-            m_parameters[i].m_name % foundValue % diff %
+            m_parameters[i]->m_name % foundValue % diff %
             (success ? "OK" : "FAILED");
     }
     return success;
@@ -83,10 +89,10 @@ bool IMinimizerTest::runTest()
 
 void IMinimizerTest::initParameterPlan() {
   m_parameters.clear();
-  m_parameters.push_back(FitParameterPlan("*Height", 4.5 * Units::nanometer,
+  m_parameters.push_back(new FitParameterPlan("*Height", 4.5 * Units::nanometer,
                                           5.0 * Units::nanometer,
                                           AttLimits::lowerLimited(0.01), 0.01));
-  m_parameters.push_back(FitParameterPlan("*Radius", 5.5 * Units::nanometer,
+  m_parameters.push_back(new FitParameterPlan("*Radius", 5.5 * Units::nanometer,
                                           5.0 * Units::nanometer,
                                           AttLimits::lowerLimited(0.01), 0.01));
 }
@@ -101,8 +107,8 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
 
     for (size_t i = 0; i < m_parameters.size(); ++i)
         result->addFitParameter(
-            m_parameters[i].m_name, m_parameters[i].m_start_value,
-            m_parameters[i].m_limits, m_parameters[i].m_start_value / 100.);
+            m_parameters[i]->m_name, m_parameters[i]->m_start_value,
+            m_parameters[i]->m_limits, m_parameters[i]->m_start_value / 100.);
     return result;
 }
 
@@ -111,7 +117,7 @@ std::unique_ptr<MultiLayer> IMinimizerTest::createSample()
     SampleBuilderFactory builderFactory;
     std::unique_ptr<MultiLayer> result(builderFactory.createSample(m_sample_builder_name));
     for (size_t i = 0; i < m_parameters.size(); ++i)
-        result->setParameterValue(m_parameters[i].m_name, m_parameters[i].m_expected_value);
+        result->setParameterValue(m_parameters[i]->m_name, m_parameters[i]->m_expected_value);
     return result;
 }
 

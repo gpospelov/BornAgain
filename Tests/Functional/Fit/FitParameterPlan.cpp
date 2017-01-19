@@ -15,17 +15,6 @@
 
 #include "FitParameterPlan.h"
 
-FitParameterPlan::FitParameterPlan()
-    : m_name(std::string())
-    , m_start_value(0.0)
-    , m_expected_value(0.0)
-    , m_limits(AttLimits::limitless())
-    , m_step(0.0)
-    , m_threshold(0.0)
-{
-
-}
-
 FitParameterPlan::FitParameterPlan(const std::string &name, double start_value,
                                    double expected_value,
                                    const AttLimits &limits, double step)
@@ -36,5 +25,17 @@ FitParameterPlan::FitParameterPlan(const std::string &name, double start_value,
     , m_step(step)
     , m_threshold(0.01)
 {
+    m_parameter.reset(new FitParameter(name, start_value, limits, step));
+}
 
+FitParameterPlan::FitParameterPlan(const FitParameter& param, double expected_value)
+    : m_parameter(param.clone())
+    , m_expected_value(expected_value)
+{
+
+}
+
+const FitParameter& FitParameterPlan::fitParameter() const
+{
+    return *m_parameter;
 }

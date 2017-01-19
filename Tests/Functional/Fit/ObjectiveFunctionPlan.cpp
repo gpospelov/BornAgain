@@ -24,11 +24,24 @@ ObjectiveFunctionPlan::ObjectiveFunctionPlan(const std::string &name, objective_
 
 }
 
+ObjectiveFunctionPlan::~ObjectiveFunctionPlan()
+{
+    for(auto par : m_parameters)
+        delete par;
+
+}
+
 void ObjectiveFunctionPlan::addParameter(double start_value, double expected_value,
                                          const AttLimits &limits, double step)
 {
     std::string name = "par"+std::to_string(m_parameters.size());
-    m_parameters.push_back(FitParameterPlan(name, start_value, expected_value, limits, step));
+    m_parameters.push_back(new FitParameterPlan(name, start_value, expected_value, limits, step));
+}
+
+std::vector<const FitParameterPlan*> ObjectiveFunctionPlan::parameterPlan() const
+{
+    std::vector<const FitParameterPlan*> result{m_parameters.begin(), m_parameters.end()};
+    return result;
 }
 
 //! Plan for finding rosenbrock function minimum

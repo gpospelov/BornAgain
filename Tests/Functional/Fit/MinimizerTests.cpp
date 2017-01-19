@@ -62,7 +62,7 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
     result->setMinimizer(minimizer);
     for (const auto& par: m_parameters)
         result->addFitParameter(
-            par.m_name, par.m_start_value, AttLimits::limited(4.0, 6.0), par.m_start_value/100.);
+            par->m_name, par->m_start_value, AttLimits::limited(4.0, 6.0), par->m_start_value/100.);
     return result;
 }
 
@@ -86,6 +86,6 @@ std::unique_ptr<FitSuite> GeneticTest::createFitSuite()
     result->setMinimizer(minimizer);
     for (const auto& par: m_parameters)
         result->addFitParameter(
-            par.m_name, par.m_start_value, AttLimits::limited(4.0, 6.0), par.m_start_value/100.);
+            par->m_name, par->m_start_value, AttLimits::limited(4.0, 6.0), par->m_start_value/100.);
     return result;
 }

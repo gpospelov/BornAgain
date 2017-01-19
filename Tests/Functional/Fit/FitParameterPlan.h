@@ -17,6 +17,8 @@
 #define FITPARAMETERPLAN_H
 
 #include "AttLimits.h"
+#include "FitParameter.h"
+#include <memory>
 
 //! @class FitParameterPlan
 //! @ingroup standard_samples
@@ -26,10 +28,19 @@
 class FitParameterPlan
 {
 public:
-    FitParameterPlan();
     FitParameterPlan(const std::string &name, double start_value, double expected_value,
                      const AttLimits &limits, double step);
+    FitParameterPlan(const FitParameter& param, double expected_value);
 
+    FitParameterPlan(const FitParameterPlan& other) = delete;
+    FitParameterPlan& operator=(const FitParameterPlan& other) = delete;
+
+    const FitParameter& fitParameter() const;
+
+    double expectedValue() const { return m_expected_value; }
+    double threshold() const { return m_threshold; }
+
+    std::unique_ptr<FitParameter> m_parameter;
     std::string m_name;
     double m_start_value; //!< starting value of fit parameter
     double m_expected_value; //!< expected value to find in the fit

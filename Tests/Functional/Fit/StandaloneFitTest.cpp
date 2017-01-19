@@ -52,8 +52,8 @@ bool StandaloneFitTest::runPlan(std::shared_ptr<StandaloneFitPlan> plan)
     fitKernel->setMinimizer(plan->minimizerName(), plan->algorithmName());
 
     int index(0);
-    for(FitParameterPlan p : plan->parameterPlan())
-        fitKernel->addFitParameter("par"+std::to_string(index++), p.m_start_value, p.m_limits, p.m_step);
+    for(auto p : plan->parameterPlan())
+        fitKernel->addFitParameter("par"+std::to_string(index++), p->m_start_value, p->m_limits, p->m_step);
 
     fitKernel->setObjectiveFunction(plan->objectiveFunction());
     fitKernel->minimize();

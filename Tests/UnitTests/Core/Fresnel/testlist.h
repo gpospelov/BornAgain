@@ -6,3 +6,4 @@
 #include "MatrixRTCoefficientsTest.h"
 #include "SpecularSimulationTest.h"
 #include "SpecularMatrixTest.h"
+#include "SpecularMagneticTest.h"

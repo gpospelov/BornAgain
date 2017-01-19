@@ -16,7 +16,7 @@
 #include "FitKernel.h"
 #include "FitKernelImpl.h"
 #include "MinimizerFactory.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 
 namespace {
     const std::string default_minimizer = "Minuit2";
@@ -65,7 +65,7 @@ void FitKernel::addFitParameter(
     if(step <= 0.0)
         throw std::runtime_error("FitKernel::addFitParameter() -> Error. Step can't be <= 0.0.");
 
-    m_impl->addFitParameter(new FitParameter(name, value, limits, step));
+    m_impl->addFitParameter(new IFitParameter(name, value, limits, step));
 }
 
 

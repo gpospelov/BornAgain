@@ -20,7 +20,7 @@
 #include <vector>
 #include <string>
 
-class FitParameter;
+class IFitParameter;
 
 //! The set of fit parameters.
 //! @ingroup fitting_internal
@@ -28,7 +28,7 @@ class FitParameter;
 class BA_CORE_API_ FitParameterSet
 {
  public:
-    typedef std::vector<FitParameter*> container_t;
+    typedef std::vector<IFitParameter*> container_t;
     typedef container_t::iterator iterator;
     typedef container_t::const_iterator const_iterator;
     typedef std::vector<std::vector<double>> corr_matrix_t;
@@ -43,16 +43,16 @@ class BA_CORE_API_ FitParameterSet
     iterator end();
     const_iterator end() const;
 
-    void addFitParameter(FitParameter* par);
+    void addFitParameter(IFitParameter* par);
 
     // Access fit parameters
 
-    const FitParameter* fitParameter(const std::string& name) const;
-    FitParameter* fitParameter(const std::string& name);
-    const FitParameter* operator[](const std::string& name) const;
-    FitParameter* operator[](const std::string& name);
-    const FitParameter* operator[](size_t index) const;
-    FitParameter* operator[](size_t index);
+    const IFitParameter* fitParameter(const std::string& name) const;
+    IFitParameter* fitParameter(const std::string& name);
+    const IFitParameter* operator[](const std::string& name) const;
+    IFitParameter* operator[](const std::string& name);
+    const IFitParameter* operator[](size_t index) const;
+    IFitParameter* operator[](size_t index);
 
     // Fit parameter's values and errors
 

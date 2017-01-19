@@ -1,4 +1,4 @@
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "gtest/gtest.h"
 #include <memory>
 
@@ -11,7 +11,7 @@ protected:
 
 TEST_F(FitParameterTest, Initial)
 {
-    FitParameter par;
+    IFitParameter par;
     EXPECT_EQ(std::string(), par.name());
     EXPECT_EQ(0.0, par.value());
     EXPECT_EQ(0.0, par.startValue());
@@ -25,7 +25,7 @@ TEST_F(FitParameterTest, Constructors)
     const std::string name("name");
     const double value(1.0);
 
-    FitParameter par(name, value);
+    IFitParameter par(name, value);
     EXPECT_EQ(name, par.name());
     EXPECT_EQ(value, par.value());
     EXPECT_EQ(value, par.startValue());
@@ -36,7 +36,7 @@ TEST_F(FitParameterTest, Constructors)
     const AttLimits limits = AttLimits::limited(1.0, 2.0);
     const double step(0.01);
 
-    FitParameter par2(name, value, limits, step);
+    IFitParameter par2(name, value, limits, step);
     EXPECT_EQ(name, par2.name());
     EXPECT_EQ(value, par2.value());
     EXPECT_EQ(value, par2.startValue());
@@ -54,7 +54,7 @@ TEST_F(FitParameterTest, Setters)
     const double error(0.02);
     const double step(0.01);
 
-    FitParameter par(name, start_value);
+    IFitParameter par(name, start_value);
     par.setValue(value);
 
     EXPECT_EQ(value, par.value());
@@ -77,7 +77,7 @@ TEST_F(FitParameterTest, CompoundSetters)
     const double step(0.1);
     const double lim1(1.0), lim2(2.0);
 
-    FitParameter par(name, start_value);
+    IFitParameter par(name, start_value);
 
     par.setStep(step).setLowerLimited(lim1);
     EXPECT_EQ(step, par.step());
@@ -104,10 +104,10 @@ TEST_F(FitParameterTest, CompoundSetters)
 TEST_F(FitParameterTest, Clone)
 {
     const double start_value(1.0), value(2.0), error(0.1), step(0.01), lim1(10.0), lim2(10.0);
-    FitParameter par("par1", start_value, AttLimits::limited(lim1, lim2), step);
+    IFitParameter par("par1", start_value, AttLimits::limited(lim1, lim2), step);
     par.setValue(value);
     par.setError(error);
-    std::unique_ptr<FitParameter> clone(par.clone());
+    std::unique_ptr<IFitParameter> clone(par.clone());
 
     EXPECT_EQ("par1", clone->name());
     EXPECT_EQ(start_value, clone->startValue());

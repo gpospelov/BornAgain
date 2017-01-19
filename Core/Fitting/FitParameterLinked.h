@@ -16,7 +16,7 @@
 #ifndef FITPARAMETERLINKED_H
 #define FITPARAMETERLINKED_H
 
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include <vector>
 
 class ParameterPool;
@@ -25,7 +25,7 @@ class RealParameter;
 //! Fittable parameter, linked to other parameters from pools.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitParameterLinked : public FitParameter
+class BA_CORE_API_ FitParameterLinked : public IFitParameter
 {
 public:
     FitParameterLinked() {}

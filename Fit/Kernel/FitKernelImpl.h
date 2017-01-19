@@ -24,7 +24,7 @@
 #include <memory>
 
 class IMinimizer;
-class FitParameter;
+class IFitParameter;
 
 //! The implementation of class FitKernel.
 //! @ingroup fitting_internal
@@ -41,7 +41,7 @@ public:
     void setMinimizer(IMinimizer* minimizer);
 
     //! Adds fit parameter
-    void addFitParameter(FitParameter* par);
+    void addFitParameter(IFitParameter* par);
 
     void setObjectiveFunction(objective_function_t func);
 

@@ -51,7 +51,7 @@ public:
     void setRandomSeed(int value);
     int randomSeed() const;
 
-    void setParameter(size_t index, const FitParameter* par);
+    void setParameter(size_t index, const IFitParameter* par);
 
     std::string statusToString() const;
     std::map<std::string, std::string> statusMap() const;

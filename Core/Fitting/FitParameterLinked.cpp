@@ -24,7 +24,7 @@
 
 FitParameterLinked::FitParameterLinked(const std::string& pattern, double value,
                                        const AttLimits& lim, double step)
-    : FitParameter("noname", value, lim, step)
+    : IFitParameter("noname", value, lim, step)
 {
     addPattern(pattern);
 }
@@ -44,7 +44,7 @@ FitParameterLinked* FitParameterLinked::clone() const
 
 void FitParameterLinked::setValue(double value)
 {
-    FitParameter::setValue(value);
+    IFitParameter::setValue(value);
     for (auto* par : m_pool_parameters)
         par->setValue(value);
 }
@@ -131,7 +131,7 @@ bool FitParameterLinked::isConflicting(const FitParameterLinked& other) const
 }
 
 FitParameterLinked::FitParameterLinked(const FitParameterLinked& other)
-    : FitParameter(other)
+    : IFitParameter(other)
 {
     for (auto par : other.m_pool_parameters)
         m_pool_parameters.push_back(par->clone());

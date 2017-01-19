@@ -4,7 +4,7 @@
 #include "FitObjectTest.h"
 #include "FitParameterLinkedTest.h"
 #include "FitParameterSetTest.h"
-#include "FitParameterTest.h"
+#include "IFitParameterTest.h"
 #include "FitSuiteTest.h"
 #include "MinimizerOptionsTest.h"
 #include "MultiOptionTest.h"

@@ -6091,7 +6091,7 @@ class FitOptions(_object):
 FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
 FitOptions_swigregister(FitOptions)
 
-class FitParameterLinked(libBornAgainFit.FitParameter):
+class FitParameterLinked(libBornAgainFit.IFitParameter):
     """
 
 
@@ -6102,11 +6102,11 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
     """
 
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.FitParameter]:
+    for _s in [libBornAgainFit.IFitParameter]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameterLinked, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.FitParameter]:
+    for _s in [libBornAgainFit.IFitParameter]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitParameterLinked, name)
     __repr__ = _swig_repr

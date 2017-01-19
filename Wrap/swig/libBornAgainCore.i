@@ -245,7 +245,7 @@
 %import(module="libBornAgainFit") "AttLimits.h"
 %import(module="libBornAgainFit") "Attributes.h"
 %import(module="libBornAgainFit") "RealLimits.h"
-%import(module="libBornAgainFit") "FitParameter.h"
+%import(module="libBornAgainFit") "IFitParameter.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"

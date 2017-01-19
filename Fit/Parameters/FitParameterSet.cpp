@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "FitParameterSet.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "MinimizerUtils.h"
 #include <cmath>
 #include <iostream>
@@ -66,7 +66,7 @@ FitParameterSet::const_iterator FitParameterSet::end() const
 
 //! Adds fit parameter.
 
-void FitParameterSet::addFitParameter(FitParameter* par)
+void FitParameterSet::addFitParameter(IFitParameter* par)
 {
     for (auto fitPar: m_parameters)
         if(fitPar == par)
@@ -83,7 +83,7 @@ void FitParameterSet::addFitParameter(FitParameter* par)
 
 //! Returns fit parameter by given name.
 
-const FitParameter* FitParameterSet::fitParameter(const std::string& name) const
+const IFitParameter* FitParameterSet::fitParameter(const std::string& name) const
 {
     for (auto par: m_parameters)
         if (par->name() == name)
@@ -92,33 +92,33 @@ const FitParameter* FitParameterSet::fitParameter(const std::string& name) const
                              "Error. No parameter with name '"+name+"'");
 }
 
-FitParameter* FitParameterSet::fitParameter(const std::string& name)
+IFitParameter* FitParameterSet::fitParameter(const std::string& name)
 {
-    return const_cast<FitParameter*>(static_cast<const FitParameterSet*>(this)
+    return const_cast<IFitParameter*>(static_cast<const FitParameterSet*>(this)
                                       ->fitParameter(name));
 }
 
 //! Indexed access to parameters.
 
-const FitParameter* FitParameterSet::operator[](const std::string& name) const
+const IFitParameter* FitParameterSet::operator[](const std::string& name) const
 {
     return fitParameter(name);
 }
 
-FitParameter* FitParameterSet::operator[](const std::string& name)
+IFitParameter* FitParameterSet::operator[](const std::string& name)
 {
-    return const_cast<FitParameter*>(static_cast<const FitParameterSet*>(this)
+    return const_cast<IFitParameter*>(static_cast<const FitParameterSet*>(this)
                                       ->operator[](name));
 }
 
-const FitParameter* FitParameterSet::operator[](size_t index) const
+const IFitParameter* FitParameterSet::operator[](size_t index) const
 {
     return m_parameters[check_index(index)];
 }
 
-FitParameter* FitParameterSet::operator[](size_t index)
+IFitParameter* FitParameterSet::operator[](size_t index)
 {
-    return const_cast<FitParameter*>(static_cast<const FitParameterSet*>(this)
+    return const_cast<IFitParameter*>(static_cast<const FitParameterSet*>(this)
                                       ->operator[](index));
 }
 

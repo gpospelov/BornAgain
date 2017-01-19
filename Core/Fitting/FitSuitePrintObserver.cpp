@@ -18,7 +18,7 @@
 #include "FitParameterSet.h"
 #include "FitSuiteStrategies.h"
 #include "MinimizerUtils.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "FitSuiteUtils.h"
 #include <iostream>
 #include <iomanip>

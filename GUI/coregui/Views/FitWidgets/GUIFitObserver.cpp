@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "GUIFitObserver.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "FitProgressInfo.h"
 #include "FitSuite.h"
 #include "FitParameterSet.h"

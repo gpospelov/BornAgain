@@ -15,7 +15,7 @@
 
 #include "FitStrategyAdjustParameters.h"
 #include "FitSuiteImpl.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "FitParameterSet.h"
 #include "Logger.h"
 #include "Exceptions.h"

@@ -15,7 +15,7 @@
 
 #include "FitSuiteImpl.h"
 #include "RealLimits.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "FitParameterLinked.h"
 #include "Logger.h"
 #include "MinimizerFactory.h"

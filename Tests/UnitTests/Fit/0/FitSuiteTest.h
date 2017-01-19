@@ -1,5 +1,5 @@
 #include "FitSuite.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "gtest/gtest.h"
 #include <memory>
 
@@ -14,7 +14,7 @@ TEST_F(FitSuiteTest, addFitParameter)
 {
     std::unique_ptr<FitSuite> fitSuite(new FitSuite);
 
-    FitParameter *par = fitSuite->addFitParameter("pattern1", 1.0);
+    IFitParameter *par = fitSuite->addFitParameter("pattern1", 1.0);
     EXPECT_EQ("par0", par->name());
     EXPECT_EQ(1.0, par->value());
     EXPECT_EQ(0.0, par->error());
@@ -30,7 +30,7 @@ TEST_F(FitSuiteTest, addFitParameter)
     EXPECT_EQ(10.0, par->limits().lowerLimit());
     EXPECT_EQ(20.0, par->limits().upperLimit());
 
-    FitParameter &par2 = fitSuite->addFitParameter("pattern3", 3.0)->
+    IFitParameter &par2 = fitSuite->addFitParameter("pattern3", 3.0)->
             setStep(0.03).setLowerLimited(30.0);
     EXPECT_EQ("par2", par2.name());
     EXPECT_EQ(3.0, par2.value());
@@ -39,7 +39,7 @@ TEST_F(FitSuiteTest, addFitParameter)
     EXPECT_TRUE(par2.limits().isLowerLimited());
     EXPECT_EQ(30.0, par2.limits().lowerLimit());
 
-    FitParameter &par3 = fitSuite->addFitParameter("pattern4", 4.0)->setFixed();
+    IFitParameter &par3 = fitSuite->addFitParameter("pattern4", 4.0)->setFixed();
     EXPECT_EQ("par3", par3.name());
     EXPECT_EQ(4.0, par3.value());
     EXPECT_TRUE(par3.limits().isFixed());

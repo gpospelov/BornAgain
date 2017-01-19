@@ -55,18 +55,15 @@ std::string MinimizerResultsHelper::reportParameters(const FitParameterSet* para
 
     result << MinimizerUtils::sectionString("FitParameters");
 
-    result << "Npar Name        StartValue  Limits           FitValue  Error" << std::endl;
+    result << "Name       StartValue  Limits           FitValue  Error" << std::endl;
 
-    int npar(0);
     for(const FitParameter* par : *parameters) {
-        result << boost::format("#%-2d  %-10s  %-6.4f      %-15s  %-6.4f    %5.4f \n")
-                  % npar
+        result << boost::format("# %-8s %-7.4f     %-15s  %-6.4f    %5.4f \n")
                   % par->name()
                   % par->startValue()
                   % par->limits().toString()
                   % par->value()
                   % par->error();
-        ++npar;
     }
 
     FitParameterSet::corr_matrix_t matrix = parameters->correlationMatrix();

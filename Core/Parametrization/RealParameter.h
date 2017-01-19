@@ -31,12 +31,11 @@ class ParameterPool;
 
 class BA_CORE_API_ RealParameter : public IParameter<double> {
 public:
-    RealParameter(
-        const std::string& name, volatile double* par,
-        const std::string& parent_name = std::string(),
-        const std::function<void()>& onChange=std::function<void()>(),
-        const RealLimits& limits=RealLimits::limitless(),
-        const Attributes& attr=Attributes::free());
+    RealParameter(const std::string& name, double* par,
+                  const std::string& parent_name = std::string(),
+                  const std::function<void()>& onChange=std::function<void()>(),
+                  const RealLimits& limits=RealLimits::limitless(),
+                  const Attributes& attr=Attributes::free());
 
     RealParameter* clone( const std::string& new_name="" ) const;
 
@@ -52,11 +51,6 @@ public:
     RealParameter& setLimited(double lower, double upper);
     RealParameter& setPositive();
     RealParameter& setNonnegative();
-
-    bool operator==(const RealParameter& other) const {
-        return m_limits == other.m_limits &&
-        m_attr == other.m_attr &&
-        *static_cast<const IParameter*>(this)==*static_cast<const IParameter*>(&other); }
 
     RealParameter& setUnit(const std::string& name) { m_unit.setUnit(name); return *this; }
     std::string unit() const { return m_unit.getName(); }

@@ -18,6 +18,8 @@
 #include "FitParameterSet.h"
 #include "FitSuiteStrategies.h"
 #include "MinimizerUtils.h"
+#include "FitParameter.h"
+#include "FitSuiteUtils.h"
 #include <iostream>
 #include <iomanip>
 
@@ -34,6 +36,7 @@ void FitSuitePrintObserver::update(FitSuite* fit_suite)
     if(fit_suite->numberOfIterations() == 0) {
         m_run_time.start();
         m_last_call_time.start();
+        printFitSuiteHeader();
     }
 
     if(m_strategy_has_changed) {
@@ -48,6 +51,13 @@ void FitSuitePrintObserver::update(FitSuite* fit_suite)
 
     if(fit_suite->isLastIteration())
         printFitResults();
+}
+
+void FitSuitePrintObserver::printFitSuiteHeader()
+{
+    std::cout << MinimizerUtils::sectionString("Fit parameter settings");
+    std::cout << FitSuiteUtils::fitParameterSettingsToString(*m_fit_suite->fitParameters());
+    std::cout << MinimizerUtils::sectionString();
 }
 
 void FitSuitePrintObserver::printIterationHeader()
@@ -69,7 +79,8 @@ void FitSuitePrintObserver::printWallTime()
 
 void FitSuitePrintObserver::printParameters()
 {
-    std::cout << m_fit_suite->fitParameters()->parametersToString() << std::endl;
+    for(auto par : *m_fit_suite->fitParameters())
+        std::cout << "   # " << par->toString() << "\n";
 }
 
 void FitSuitePrintObserver::printFitResults()

@@ -6114,9 +6114,9 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
     def __init__(self, *args):
         """
         __init__(FitParameterLinked self) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim, double step=0.0) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & name, double value, AttLimits lim) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & name, double value) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & pattern, double value, AttLimits lim, double step=0.0) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & pattern, double value, AttLimits lim) -> FitParameterLinked
+        __init__(FitParameterLinked self, std::string const & pattern, double value) -> FitParameterLinked
 
         FitParameterLinked::FitParameterLinked(const std::string &name, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
 
@@ -6151,6 +6151,11 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
         return _libBornAgainCore.FitParameterLinked_setValue(self, value)
 
 
+    def addPattern(self, pattern):
+        """addPattern(FitParameterLinked self, std::string const & pattern) -> FitParameterLinked"""
+        return _libBornAgainCore.FitParameterLinked_addPattern(self, pattern)
+
+
     def addParameter(self, par):
         """
         addParameter(FitParameterLinked self, RealParameter par)
@@ -6163,17 +6168,29 @@ class FitParameterLinked(libBornAgainFit.FitParameter):
         return _libBornAgainCore.FitParameterLinked_addParameter(self, par)
 
 
-    def addMatchedParametersFromPool(self, *args):
-        """
-        addMatchedParametersFromPool(FitParameterLinked self, ParameterPool pool, std::string const & wildcard)
-        addMatchedParametersFromPool(FitParameterLinked self, ParameterPool pool)
+    def addMatchedParameters(self, pool):
+        """addMatchedParameters(FitParameterLinked self, ParameterPool pool)"""
+        return _libBornAgainCore.FitParameterLinked_addMatchedParameters(self, pool)
 
-        void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard=std::string())
 
-        Adds parameters from pool which match given wildcard. 
+    def patterns(self):
+        """patterns(FitParameterLinked self) -> vector_string_t"""
+        return _libBornAgainCore.FitParameterLinked_patterns(self)
 
-        """
-        return _libBornAgainCore.FitParameterLinked_addMatchedParametersFromPool(self, *args)
+
+    def matchedParameterNames(self):
+        """matchedParameterNames(FitParameterLinked self) -> vector_string_t"""
+        return _libBornAgainCore.FitParameterLinked_matchedParameterNames(self)
+
+
+    def patternIntersection(self, other):
+        """patternIntersection(FitParameterLinked self, FitParameterLinked other) -> vector_string_t"""
+        return _libBornAgainCore.FitParameterLinked_patternIntersection(self, other)
+
+
+    def isConflicting(self, other):
+        """isConflicting(FitParameterLinked self, FitParameterLinked other) -> bool"""
+        return _libBornAgainCore.FitParameterLinked_isConflicting(self, other)
 
 FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
 FitParameterLinked_swigregister(FitParameterLinked)
@@ -17962,7 +17979,7 @@ class IParameterReal(INamed, INoncopyable):
 
     def getData(self):
         """
-        getData(IParameterReal self) -> double volatile &
+        getData(IParameterReal self) -> double &
 
         volatile T& IParameter< T >::getData() const 
 
@@ -17972,7 +17989,7 @@ class IParameterReal(INamed, INoncopyable):
 
     def setData(self, data):
         """
-        setData(IParameterReal self, double volatile & data)
+        setData(IParameterReal self, double & data)
 
         void IParameter< T >::setData(volatile T &data)
 
@@ -17980,14 +17997,9 @@ class IParameterReal(INamed, INoncopyable):
         return _libBornAgainCore.IParameterReal_setData(self, data)
 
 
-    def __eq__(self, other):
-        """__eq__(IParameterReal self, IParameterReal other) -> bool"""
-        return _libBornAgainCore.IParameterReal___eq__(self, other)
-
-
-    def __ne__(self, other):
-        """__ne__(IParameterReal self, IParameterReal other) -> bool"""
-        return _libBornAgainCore.IParameterReal___ne__(self, other)
+    def hasSameData(self, other):
+        """hasSameData(IParameterReal self, IParameterReal other) -> bool"""
+        return _libBornAgainCore.IParameterReal_hasSameData(self, other)
 
     __swig_destroy__ = _libBornAgainCore.delete_IParameterReal
     __del__ = lambda self: None
@@ -23945,11 +23957,11 @@ class RealParameter(IParameterReal):
 
     def __init__(self, *args):
         """
-        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits, Attributes attr) -> RealParameter
-        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
-        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
-        __init__(RealParameter self, std::string const & name, double volatile * par, std::string const & parent_name) -> RealParameter
-        __init__(RealParameter self, std::string const & name, double volatile * par) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits, Attributes attr) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name, std::function< void () > const & onChange, RealLimits limits) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name, std::function< void () > const & onChange) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par, std::string const & parent_name) -> RealParameter
+        __init__(RealParameter self, std::string const & name, double * par) -> RealParameter
 
         RealParameter::RealParameter(const std::string &name, volatile double *par, const std::string &parent_name, const std::function< void()> &onChange, const RealLimits &limits=RealLimits::limitless(), const Attributes &attr=Attributes::free())
 
@@ -24043,11 +24055,6 @@ class RealParameter(IParameterReal):
 
         """
         return _libBornAgainCore.RealParameter_setNonnegative(self)
-
-
-    def __eq__(self, other):
-        """__eq__(RealParameter self, RealParameter other) -> bool"""
-        return _libBornAgainCore.RealParameter___eq__(self, other)
 
 
     def setUnit(self, name):

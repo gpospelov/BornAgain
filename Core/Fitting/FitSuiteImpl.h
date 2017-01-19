@@ -52,7 +52,7 @@ class BA_CORE_API_ FitSuiteImpl
                                   double weight);
 
     //! Adds fit parameter
-    FitParameterLinked* addFitParameter(const std::string& name, double value,
+    FitParameterLinked* addFitParameter(const std::string& pattern, double value,
                                         const AttLimits& limits, double step = 0.0);
 
     //! Adds fit strategy

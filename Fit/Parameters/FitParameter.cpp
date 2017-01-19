@@ -45,6 +45,12 @@ FitParameter *FitParameter::clone() const
 
 std::string FitParameter::name() const { return m_name; }
 
+FitParameter& FitParameter::setName(const std::string& name)
+{
+    m_name = name;
+    return *this;
+}
+
 double FitParameter::startValue() const { return m_start_value; }
 
 double FitParameter::value() const { return m_value; }
@@ -113,7 +119,7 @@ std::string FitParameter::toString() const
 {
     std::ostringstream ostr;
 
-    const int max_length_of_name(40);
+    const int max_length_of_name(10);
     std::string adjusted_name = m_name;
     adjusted_name.resize(max_length_of_name,' ');
     ostr << adjusted_name << std::scientific << std::setprecision(8) << m_value << "  ";

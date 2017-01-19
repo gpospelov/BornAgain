@@ -97,7 +97,7 @@ private:
 
 //! A polyhedron, for form factor computation.
 
-class FormFactorPolyhedron : public IFormFactorBorn {
+class BA_CORE_API_ FormFactorPolyhedron : public IFormFactorBorn {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC
     static void setLimits( double _q, int _n );

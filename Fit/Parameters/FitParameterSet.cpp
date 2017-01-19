@@ -68,14 +68,16 @@ FitParameterSet::const_iterator FitParameterSet::end() const
 
 void FitParameterSet::addFitParameter(FitParameter* par)
 {
-    if(isExistingName(par->name()))
-        throw std::runtime_error("FitParameterSet::addFitParameter() -> Error. Parameter with "
-                                 "the name '"+par->name()+"' already exist.");
-
     for (auto fitPar: m_parameters)
         if(fitPar == par)
             throw std::runtime_error("FitParameterSet::addFitParameter() -> Error. Attempt to add "
                                      "same fit parameter twice.");
+
+    par->setName(suggestParameterName());
+    if(isExistingName(par->name()))
+        throw std::runtime_error("FitParameterSet::addFitParameter() -> Error. Parameter with "
+                                 "the name '"+par->name()+"' already exist.");
+
     m_parameters.push_back(par);
 }
 
@@ -216,15 +218,7 @@ void FitParameterSet::setFixed(const std::vector<std::string>& pars, bool is_fix
         fitParameter(par)->limits().setFixed(is_fixed);
 }
 
-
-std::string FitParameterSet::parametersToString() const
-{
-    std::ostringstream result;
-    int npar = 0;
-    for (auto par: m_parameters)
-        result << "   # "<< npar++ << " " << par->toString() << "\n";
-    return result.str();
-}
+//! Sets resulting correlation matrix.
 
 void FitParameterSet::setCorrelationMatrix(const FitParameterSet::corr_matrix_t& matrix)
 {
@@ -242,6 +236,13 @@ bool FitParameterSet::isExistingName(const std::string& name) const
         if (par->name() == name)
             return true;
     return false;
+}
+
+//! Returns parameter name basing on fixed prefix 'par' and number of parameters.
+
+std::string FitParameterSet::suggestParameterName() const
+{
+    return std::string("par")+std::to_string(m_parameters.size());
 }
 
 //! Checks if index corresponds with the number of fit parameters.

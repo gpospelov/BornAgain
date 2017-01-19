@@ -34,6 +34,7 @@ public:
     FitParameter* clone() const;
 
     std::string name() const;
+    FitParameter& setName(const std::string& name);
 
     double startValue() const;
 

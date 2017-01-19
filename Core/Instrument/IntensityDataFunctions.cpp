@@ -116,7 +116,7 @@ OutputData<double>* IntensityDataFunctions::applyDetectorResolution(
 
 double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis& axis)
 {
-    int index = axis.findClosestIndex(coordinate);
+    size_t index = axis.findClosestIndex(coordinate);
     Bin1D bin = axis.getBin(index);
     double f = (coordinate - bin.m_lower)/bin.getBinSize();
     return static_cast<double>(index) + f;

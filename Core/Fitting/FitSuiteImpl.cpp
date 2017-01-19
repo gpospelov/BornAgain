@@ -22,6 +22,7 @@
 #include "ParameterPool.h"
 #include "IMinimizer.h"
 #include "FitKernel.h"
+#include "FitSuiteUtils.h"
 #include <stdexcept>
 
 FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
@@ -58,13 +59,13 @@ FitObject* FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulat
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-FitParameterLinked* FitSuiteImpl::addFitParameter(const std::string& name, double value,
+FitParameterLinked* FitSuiteImpl::addFitParameter(const std::string& pattern, double value,
                                   const AttLimits& limits, double step)
 {
     if(step <=0.0)
         step = value * getOptions().stepFactor();
 
-    FitParameterLinked* result = new FitParameterLinked(name, value, limits, step);
+    FitParameterLinked* result = new FitParameterLinked(pattern, value, limits, step);
     m_kernel->fitParameters()->addFitParameter(result);
     return result;
 }
@@ -160,12 +161,18 @@ bool FitSuiteImpl::check_prerequisites() const
 //! link FitMultiParameters with simulation parameters
 void FitSuiteImpl::link_fit_parameters()
 {
-    std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    for (auto par: *m_kernel->fitParameters()) {
-        FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
-        if( !linkedPar )
-            throw std::runtime_error(
-                "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
-        linkedPar->addMatchedParametersFromPool(pool.get());
+    std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());    
+    auto parameters = FitSuiteUtils::linkedParameters(*m_kernel->fitParameters());
+    for (auto par: parameters)
+        par->addMatchedParameters(*pool);
+
+    if(FitSuiteUtils::hasConflicts(*m_kernel->fitParameters())) {
+        std::ostringstream message;
+        message << "FitSuite::runFit() -> Error. Fit parameters are conflicting with each other, "
+                << "meaning that one sample parameter can be controled by "
+                << "two different fit parameters.\n";
+        message << FitSuiteUtils::fitParameterSettingsToString(*m_kernel->fitParameters());
+        throw Exceptions::RuntimeErrorException(message.str());
     }
+
 }

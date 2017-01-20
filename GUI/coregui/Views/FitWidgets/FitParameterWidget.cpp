@@ -196,11 +196,15 @@ void FitParameterWidget::onRemoveFitParAction()
 
     // retrieve both, selected FitParameterItem and FitParameterItemLink
     QVector<FitParameterLinkItem *> linksToRemove = selectedFitParameterLinks();
-    QVector<FitParameterItem *> itemsToRemove = selectedFitParameters();
 
     foreach(FitParameterLinkItem *item, linksToRemove) {
         container->model()->removeRow(item->index().row(), item->index().parent());
     }
+
+    QVector<FitParameterItem *> itemsToRemove = selectedFitParameters();
+    //  By uncommenting line below, removing link from fit parameter will lead to fit parameter
+    // removal too (if it doesn't have other links)
+    //  QVector<FitParameterItem *> itemsToRemove = selectedFitParameters()+emptyFitParameters();
 
     foreach(FitParameterItem *item, itemsToRemove) {
         container->model()->removeRow(item->index().row(), item->index().parent());
@@ -370,6 +374,18 @@ QVector<FitParameterItem *> FitParameterWidget::selectedFitParameters()
             }
         }
     }
+    return result;
+}
+
+//! Returns list of FitParameterItem's which doesn't have any links attached.
+
+QVector<FitParameterItem*> FitParameterWidget::emptyFitParameters()
+{
+    QVector<FitParameterItem *> result;
+    for(auto fitParItem : m_jobItem->fitParameterContainerItem()->fitParameterItems())
+        if(fitParItem->getItems(FitParameterItem::T_LINK).empty())
+            result.push_back(fitParItem);
+
     return result;
 }
 

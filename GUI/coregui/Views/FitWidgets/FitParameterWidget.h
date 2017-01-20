@@ -82,6 +82,7 @@ private:
     void connectFitParametersSelection(bool active);
 
     QVector<FitParameterItem *> selectedFitParameters();
+    QVector<FitParameterItem *> emptyFitParameters();
     QVector<FitParameterLinkItem *> selectedFitParameterLinks();
 
     void spanParameters();

@@ -266,7 +266,8 @@ void FitParameterContainerItem::setValuesInParameterContainer(
             QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
             SessionItem* itemInTuningTree = ModelPath::getItemFromPath(parPath, parameterContainer);
             Q_ASSERT(itemInTuningTree);
-            itemInTuningTree->setValue(values[index++]);
+            itemInTuningTree->setValue(values[index]);
         }
+        index++;
     }
 }

@@ -13,6 +13,7 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
+
 #include "DomainFittingBuilder.h"
 #include "DomainSimulationBuilder.h"
 #include "FitParameterItems.h"
@@ -24,16 +25,12 @@
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "MinimizerItem.h"
-#include "ModelPath.h"
-#include "MultiLayerItem.h"
 #include "RealDataItem.h"
 #include "FitParameter.h"
 
-// FIXME make unique_ptr all along
-
 std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 {
-    std::shared_ptr<FitSuite> result(new FitSuite());
+    std::shared_ptr<FitSuite> result(new FitSuite);
 
     FitSuiteItem *fitSuiteItem = jobItem->fitSuiteItem();
     Q_ASSERT(fitSuiteItem);
@@ -43,8 +40,10 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
     FitParameterContainerItem *container = fitSuiteItem->fitParameterContainerItem();
     Q_ASSERT(container);
 
-    foreach(FitParameterItem *parItem, container->fitParameterItems())
-        result->addFitParameter(*parItem->fitParameter());
+    foreach(FitParameterItem *parItem, container->fitParameterItems()) {
+        if(auto fitPar = parItem->createFitParameter())
+            result->addFitParameter(*fitPar);
+    }
 
     DomainSimulationBuilder builder;
     const std::unique_ptr<GISASSimulation> simulation(

@@ -30,7 +30,7 @@ class BA_CORE_API_ FitParameter : public IFitParameter
 public:
     FitParameter() {}
     FitParameter(const std::string& pattern, double value,
-                       const AttLimits& lim = AttLimits::limitless(), double step = 0.0);
+                 const AttLimits& lim = AttLimits::limitless(), double step = 0.0);
     ~FitParameter() final;
 
     FitParameter* clone() const;

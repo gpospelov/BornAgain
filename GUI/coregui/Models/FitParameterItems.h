@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/FitParameterItems.h
-//! @brief     Defines class FitParameterItems
+//! @brief     Defines FitParameterItems family of classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,6 +13,7 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
+
 #ifndef FITPARAMETERITEMS_H
 #define FITPARAMETERITEMS_H
 
@@ -31,7 +32,7 @@ class BA_CORE_API_ FitParameterLinkItem : public SessionItem
 public:
     static const QString P_LINK;
     static const QString P_DOMAIN;
-    explicit FitParameterLinkItem();
+    FitParameterLinkItem();
 };
 
 //! The FitParameterItem class represents a fit parameter in GUI. Contains links to corresponding
@@ -46,14 +47,14 @@ public:
     static const QString P_MIN;
     static const QString P_MAX;
     static const QString T_LINK;
-    explicit FitParameterItem();
+    FitParameterItem();
 
     void initMinMaxValues(const RealLimits &limits);
 
-    AttLimits getAttLimits() const;
+    std::unique_ptr<FitParameter> createFitParameter() const;
 
-    std::unique_ptr<FitParameter> fitParameter() const;
 private:
+    AttLimits attLimits() const;
     void onTypeChange();
     void setLimitEnabled(const QString &name, bool enabled);
     bool isLimited() const;
@@ -70,8 +71,8 @@ class BA_CORE_API_ FitParameterContainerItem : public SessionItem
 
 public:
     static const QString T_FIT_PARAMETERS;
-    explicit FitParameterContainerItem();
-    FitParameterItem *getFitParameterItem(const QString &link);
+    FitParameterContainerItem();
+    FitParameterItem *fitParameterItem(const QString &link);
     QVector<FitParameterItem *> fitParameterItems();
     bool isEmpty();
     void setValuesInParameterContainer(const QVector<double> &values,

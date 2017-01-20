@@ -88,7 +88,7 @@ FitParameterItem *FitParameterHelper::getFitParameterItem(FitParameterContainerI
                                                       ParameterItem *parameterItem)
 {
     Q_ASSERT(container);
-    return container->getFitParameterItem(getParameterItemPath(parameterItem));
+    return container->fitParameterItem(getParameterItemPath(parameterItem));
 }
 
 //! Returns list of fit parameter display names

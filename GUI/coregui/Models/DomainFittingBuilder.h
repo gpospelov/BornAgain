@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DomainFittingBuilder.h
-//! @brief     Defines class DomainFittingBuilder
+//! @brief     Defines DomainFittingBuilder namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,17 +17,19 @@
 #ifndef DOMAINFITTINGBUILDER_H
 #define DOMAINFITTINGBUILDER_H
 
+#include "WinDllMacros.h"
 #include <memory>
 
 class JobItem;
 class FitSuite;
 
-//! The DomainFittingBuilder class builds the domain FitSuite using JobItem
+//! The DomainFittingBuilder namespace
 
-class DomainFittingBuilder
-{
-public:
-    static std::shared_ptr<FitSuite> createFitSuite(JobItem *jobItem);
-};
+namespace DomainFittingBuilder {
+
+    //! Creates domain's fitSuite from JobItem
+    BA_CORE_API_ std::shared_ptr<FitSuite> createFitSuite(JobItem *jobItem);
+
+}
 
 #endif // DOMAINFITTINGBUILDER_H

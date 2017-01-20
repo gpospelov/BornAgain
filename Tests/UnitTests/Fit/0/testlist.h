@@ -2,9 +2,9 @@
 
 #include "AttLimitsTest.h"
 #include "FitObjectTest.h"
-#include "FitParameterLinkedTest.h"
-#include "FitParameterSetTest.h"
+#include "IFitParameterTest.h"
 #include "FitParameterTest.h"
+#include "FitParameterSetTest.h"
 #include "FitSuiteTest.h"
 #include "MinimizerOptionsTest.h"
 #include "MultiOptionTest.h"

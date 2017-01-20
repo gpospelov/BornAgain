@@ -23,7 +23,7 @@
 #include <memory>
 
 class RootObjectiveFunctionAdapter;
-class FitParameter;
+class IFitParameter;
 
 namespace BA_ROOT { namespace Math { class Minimizer; } }
 
@@ -77,7 +77,7 @@ protected:
     RootMinimizerAdapter(const MinimizerInfo& minimizerInfo);
 
     virtual bool isGradientBasedAgorithm() { return false;}
-    virtual void setParameter(size_t index, const FitParameter *par);
+    virtual void setParameter(size_t index, const IFitParameter *par);
     int fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;
     std::vector<double> parErrorsAtMinimum() const;

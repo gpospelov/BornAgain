@@ -20,16 +20,16 @@
 #include <string>
 #include <vector>
 
-class FitParameterLinked;
+class FitParameter;
 class FitParameterSet;
 
 namespace FitSuiteUtils {
 
 //! Returns vector of linked parameters.
-BA_CORE_API_ std::vector<FitParameterLinked*> linkedParameters(const FitParameterSet& fitParameters);
+BA_CORE_API_ std::vector<FitParameter*> linkedParameters(const FitParameterSet& fitParameters);
 
 //! Returns multiline string representing linked sample parameters.
-BA_CORE_API_ std::string linkToString(const FitParameterLinked& par);
+BA_CORE_API_ std::string linkToString(const FitParameter& par);
 
 //! Returns multiline string representing fit parameter definition.
 BA_CORE_API_ std::string fitParameterSettingsToString(const FitParameterSet& fitParameters);

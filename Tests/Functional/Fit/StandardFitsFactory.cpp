@@ -18,6 +18,7 @@
 #include "RectDetectorFitTest.h"
 #include "AdjustMinimizerStrategyTest.h"
 #include "StandaloneFitTest.h"
+#include "MultiPatternFitTest.h"
 #include <boost/format.hpp>
 
 StandardFitsFactory::StandardFitsFactory()
@@ -68,10 +69,14 @@ StandardFitsFactory::StandardFitsFactory()
         "Test of minimizer chain: genetic -> minuit2");
 
     registerItem(
+        "MultiPatternFit",
+        create_new<MultiPatternFitTest>,
+        "Test of multipattern fit");
+
+    registerItem(
         "StandaloneFit",
         create_new<StandaloneFitTest>,
         "Test of standalone fit of arbitrary functions");
-
 }
 
 IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)

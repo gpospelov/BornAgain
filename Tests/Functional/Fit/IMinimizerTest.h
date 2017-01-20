@@ -34,11 +34,9 @@ class IMinimizerTest : public IFunctionalTest
 public:
     IMinimizerTest(const std::string &minimizer_name,
                    const std::string &minimizer_algorithm = std::string());
-    virtual ~IMinimizerTest(){}
+    virtual ~IMinimizerTest();
 
     bool runTest() final;
-
-    void setParameterTolerance(double value) { m_parameter_tolerance = value; }
 
 protected:
     virtual void initParameterPlan();
@@ -47,12 +45,11 @@ protected:
     virtual std::unique_ptr<GISASSimulation> createSimulation();
     virtual std::unique_ptr<OutputData<double>> createOutputData(const GISASSimulation* simulation);
 
-    std::vector<FitParameterPlan> m_parameters;
+    std::vector<FitParameterPlan*> m_parplans;
     std::string m_minimizer_name;
     std::string m_minimizer_algorithm;
     std::string m_simulation_name;
     std::string m_sample_builder_name;
-    double m_parameter_tolerance;
 };
 
 #endif // IMINIMIZERTEST_H

@@ -196,11 +196,15 @@ void FitParameterWidget::onRemoveFitParAction()
 
     // retrieve both, selected FitParameterItem and FitParameterItemLink
     QVector<FitParameterLinkItem *> linksToRemove = selectedFitParameterLinks();
-    QVector<FitParameterItem *> itemsToRemove = selectedFitParameters();
 
     foreach(FitParameterLinkItem *item, linksToRemove) {
         container->model()->removeRow(item->index().row(), item->index().parent());
     }
+
+    QVector<FitParameterItem *> itemsToRemove = selectedFitParameters();
+    //  By uncommenting line below, removing link from fit parameter will lead to fit parameter
+    // removal too (if it doesn't have other links)
+    //  QVector<FitParameterItem *> itemsToRemove = selectedFitParameters()+emptyFitParameters();
 
     foreach(FitParameterItem *item, itemsToRemove) {
         container->model()->removeRow(item->index().row(), item->index().parent());
@@ -268,21 +272,22 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
     addToFitParMenu->setDisabled(true);
     Q_UNUSED(addToFitParMenu);
 
-    // --> TODO REDMINE #1478 Uncomment, when issue is solved
+    const bool allow_one_fit_parameter_to_have_more_than_one_link = true;
+    if (allow_one_fit_parameter_to_have_more_than_one_link) {
+        QStringList fitParNames
+            = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+        if (fitParNames.isEmpty() || canCreateFitParameter() == false) {
+            addToFitParMenu->setEnabled(false);
+        }
 
-//    QStringList fitParNames
-//        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
-//    if(fitParNames.isEmpty() || canCreateFitParameter()==false) {
-//        addToFitParMenu->setEnabled(false);
-//    }
-
-//    for(int i =0; i<fitParNames.count(); ++i) {
-//        QAction *action = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
-//        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
-//        m_signalMapper->setMapping(action, i);
-//        addToFitParMenu->addAction(action);
-//    }
-    // <-- end of uncomment
+        for (int i = 0; i < fitParNames.count(); ++i) {
+            QAction* action
+                = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
+            connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+            m_signalMapper->setMapping(action, i);
+            addToFitParMenu->addAction(action);
+        }
+    }
 
     menu.addSeparator();
     menu.addAction(m_removeFromFitParAction);
@@ -369,6 +374,18 @@ QVector<FitParameterItem *> FitParameterWidget::selectedFitParameters()
             }
         }
     }
+    return result;
+}
+
+//! Returns list of FitParameterItem's which doesn't have any links attached.
+
+QVector<FitParameterItem*> FitParameterWidget::emptyFitParameters()
+{
+    QVector<FitParameterItem *> result;
+    for(auto fitParItem : m_jobItem->fitParameterContainerItem()->fitParameterItems())
+        if(fitParItem->getItems(FitParameterItem::T_LINK).empty())
+            result.push_back(fitParItem);
+
     return result;
 }
 

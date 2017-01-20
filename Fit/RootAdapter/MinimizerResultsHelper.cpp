@@ -16,7 +16,7 @@
 #include "MinimizerResultsHelper.h"
 #include "RootMinimizerAdapter.h"
 #include "FitParameterSet.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "MinimizerUtils.h"
 #include <boost/format.hpp>
 #include <iomanip>
@@ -55,10 +55,10 @@ std::string MinimizerResultsHelper::reportParameters(const FitParameterSet* para
 
     result << MinimizerUtils::sectionString("FitParameters");
 
-    result << "Name       StartValue  Limits           FitValue  Error" << std::endl;
+    result << "Name       StartValue  Limits                FitValue  Error" << std::endl;
 
-    for(const FitParameter* par : *parameters) {
-        result << boost::format("# %-8s %-7.4f     %-15s  %-6.4f    %5.4f \n")
+    for(const IFitParameter* par : *parameters) {
+        result << boost::format("# %-8s %-7.4f     %-20s  %-6.4f    %5.4f \n")
                   % par->name()
                   % par->startValue()
                   % par->limits().toString()

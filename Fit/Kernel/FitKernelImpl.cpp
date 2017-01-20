@@ -34,7 +34,7 @@ void FitKernelImpl::setMinimizer(IMinimizer* minimizer)
     m_minimizer.reset(minimizer);
 }
 
-void FitKernelImpl::addFitParameter(FitParameter* par)
+void FitKernelImpl::addFitParameter(IFitParameter* par)
 {
     m_fit_parameters.addFitParameter(par);
 }

@@ -9,11 +9,10 @@ used for fitting.
     The example doesn't contain any fitting and serve as a gentle introduction
     to other fitting examples.
 
---- ex02_FitCylindersAndPrisms ---
-    The model "mixture of cylinders and prisms without interference"
-    will be used to fit real data.
-    FitCylindersAndPrisms.py shows minimal fitting example
-    FitCylindersAndPrisms_detailed.py is more detailed version + some graphical output
+--- ex02_FitBasics ---
+    FitCylindersAndPrisms.py - shows minimal fitting example
+    FitCylindersAndPrisms_detailed.py - is more detailed version + some graphical output
+    FitCylindersInSquareLattice.py - demonstrates how to fit many sample parameters with one fit parameter
 
 --- ex03_FitSpheresInHexLattice ---
     Two parameter fit of spheres in a hex lattice.

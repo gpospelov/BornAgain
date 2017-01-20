@@ -39,7 +39,7 @@ public:
 
     objective_function_t objectiveFunction() const;
 
-    const std::vector<FitParameterPlan>& parameterPlan() const;
+    std::vector<const FitParameterPlan*> parameterPlan() const;
 
     bool planSucceeded(const std::vector<double> &foundParValues);
 

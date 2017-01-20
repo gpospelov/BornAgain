@@ -15,12 +15,13 @@
 // ************************************************************************** //
 
 #include "GUIFitObserver.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "FitProgressInfo.h"
 #include "FitSuite.h"
 #include "FitParameterSet.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
+#include "MinimizerUtils.h"
 #include <QDebug>
 #include <QVector>
 
@@ -65,6 +66,8 @@ void GUIFitObserver::update(FitSuite *subject)
         }
     }
 
+    if(subject->numberOfIterations() == 0)
+        emit logInfoUpdate(QString::fromStdString(subject->setupToString()));
 
     if(canUpdatePlots(subject)) {
         m_block_update_plots = true;
@@ -73,16 +76,16 @@ void GUIFitObserver::update(FitSuite *subject)
         info.m_chi2 = subject->getChi2();
         info.m_iteration_count = (int)subject->numberOfIterations();
         info.m_values = GUIHelpers::fromStdVector(subject->fitParameters()->values());
+
         qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
         emit progressInfoUpdate(info);
 
         m_simData.reset(subject->getSimulationOutputData()->clone());
         emit plotsUpdate();
-    }
-
+    }    
 
     if (subject->isLastIteration())
-        emit logInfoUpdate(QString::fromStdString(subject->reportResults()));
+        emit logInfoUpdate(reportToString(subject));
 
 }
 
@@ -109,6 +112,16 @@ bool GUIFitObserver::canUpdateProgressInfo(FitSuite *fitSuite)
     if(fitSuite->numberOfIterations() % m_update_interval == 0) return true;
     if(fitSuite->isLastIteration()) return true;
     return false;
+}
+
+//! Return string representing results of the minimization.
+
+QString GUIFitObserver::reportToString(FitSuite* fitSuite)
+{
+    QString result = QString::fromStdString(MinimizerUtils::sectionString("Fit parameter setup"));
+    result += QString::fromStdString(fitSuite->setupToString());
+    result += QString::fromStdString(fitSuite->reportResults());
+    return result;
 }
 
 //! Informs observer that FitSuiteWidget has finished plotting and is ready for next plot

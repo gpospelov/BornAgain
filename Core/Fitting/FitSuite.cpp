@@ -52,10 +52,15 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
 }
 
 
-FitParameterLinked *FitSuite::addFitParameter(const std::string& name, double value,
+FitParameter *FitSuite::addFitParameter(const std::string& name, double value,
                                const AttLimits& limits, double step)
 {
     return m_impl->addFitParameter(name, value, limits, step);
+}
+
+FitParameter* FitSuite::addFitParameter(const FitParameter& fitPar)
+{
+    return m_impl->addFitParameter(fitPar);
 }
 
 void FitSuite::setMinimizer(const std::string& minimizer_name, const std::string& algorithm_name,
@@ -140,6 +145,11 @@ std::string FitSuite::parametersToString() const
 std::string FitSuite::treeToString() const
 {
     return m_impl->fitObjects()->treeToString();
+}
+
+std::string FitSuite::setupToString()
+{
+    return m_impl->setupToString();
 }
 
 FitSuiteObjects* FitSuite::fitObjects()

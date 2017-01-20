@@ -30,7 +30,7 @@ class AttLimits;
 class GISASSimulation;
 class IMinimizer;
 class FitKernel;
-class FitParameterLinked;
+class FitParameter;
 
 //! Fitting kernel for FitSuite.
 //! @ingroup fitting_internal
@@ -52,8 +52,11 @@ class BA_CORE_API_ FitSuiteImpl
                                   double weight);
 
     //! Adds fit parameter
-    FitParameterLinked* addFitParameter(const std::string& pattern, double value,
+    FitParameter* addFitParameter(const std::string& pattern, double value,
                                         const AttLimits& limits, double step = 0.0);
+
+    //! Adds fit parameter
+    FitParameter* addFitParameter(const FitParameter& fitPar);
 
     //! Adds fit strategy
     void addFitStrategy(const IFitStrategy& strategy);
@@ -102,6 +105,9 @@ class BA_CORE_API_ FitSuiteImpl
     bool isInterrupted() const { return m_is_interrupted; }
 
     const FitKernel* kernel() const;
+
+    //! Returns multiline string representing fit setup
+    std::string setupToString();
 
 private:
     bool check_prerequisites() const;

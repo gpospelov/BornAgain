@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "RootMinimizerAdapter.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "FitParameterSet.h"
 #include "Math/Minimizer.h"
 #include "MinimizerResultsHelper.h"
@@ -143,7 +143,7 @@ void RootMinimizerAdapter::setOptions(const std::string &optionString)
 
 //! Propagate fit parameter down to ROOT minimizer.
 
-void RootMinimizerAdapter::setParameter(size_t index, const FitParameter *par)
+void RootMinimizerAdapter::setParameter(size_t index, const IFitParameter *par)
 {
     bool success;
     if (par->limits().isFixed()) {

@@ -1,4 +1,4 @@
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "FitParameterSet.h"
 #include "gtest/gtest.h"
 
@@ -13,7 +13,7 @@ TEST_F(FitParameterSetTest, addFitParameter)
 {
     FitParameterSet parameters;
 
-    FitParameter *par = new FitParameter("pattern1", 1.0);
+    IFitParameter *par = new IFitParameter("pattern1", 1.0);
     parameters.addFitParameter(par);
     EXPECT_EQ(parameters.size(), 1u);
     EXPECT_EQ(par->name(), "par0"); // names are fixed
@@ -21,7 +21,7 @@ TEST_F(FitParameterSetTest, addFitParameter)
     // attempt to add same fit parameter twice
     EXPECT_THROW(parameters.addFitParameter(par), std::runtime_error);
 
-    FitParameter *par2 = new FitParameter("pattern2", 1.0);
+    IFitParameter *par2 = new IFitParameter("pattern2", 1.0);
     parameters.addFitParameter(par2);
     EXPECT_EQ(parameters.size(), 2u);
     EXPECT_EQ(par2->name(), "par1");
@@ -34,9 +34,9 @@ TEST_F(FitParameterSetTest, getFitParameter)
 {
     FitParameterSet parameters;
 
-    FitParameter *par1 = new FitParameter("pattern1", 1.0);
+    IFitParameter *par1 = new IFitParameter("pattern1", 1.0);
     parameters.addFitParameter(par1);
-    FitParameter *par2 = new FitParameter("pattern2", 1.0);
+    IFitParameter *par2 = new IFitParameter("pattern2", 1.0);
     parameters.addFitParameter(par2);
 
     EXPECT_EQ(parameters.fitParameter("par0"), par1);
@@ -54,9 +54,9 @@ TEST_F(FitParameterSetTest, getFitParameter)
 TEST_F(FitParameterSetTest, parameterValues)
 {
     FitParameterSet parameters;
-    parameters.addFitParameter(new FitParameter("pattern1", 1.0));
-    parameters.addFitParameter(new FitParameter("pattern2", 2.0));
-    parameters.addFitParameter(new FitParameter("pattern3", 3.0));
+    parameters.addFitParameter(new IFitParameter("pattern1", 1.0));
+    parameters.addFitParameter(new IFitParameter("pattern2", 2.0));
+    parameters.addFitParameter(new IFitParameter("pattern3", 3.0));
     std::vector<double> values{1.0, 2.0, 3.0};
     EXPECT_EQ(parameters.values(), values);
 
@@ -77,8 +77,8 @@ TEST_F(FitParameterSetTest, parameterValues)
 TEST_F(FitParameterSetTest, parameterErrors)
 {
     FitParameterSet parameters;
-    FitParameter *par1 = new FitParameter("pattern1", 1.0, AttLimits::limitless(), 0.01);
-    FitParameter *par2 = new FitParameter("pattern2", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par1 = new IFitParameter("pattern1", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par2 = new IFitParameter("pattern2", 1.0, AttLimits::limitless(), 0.01);
 
     parameters.addFitParameter(par1);
     parameters.addFitParameter(par2);
@@ -96,9 +96,9 @@ TEST_F(FitParameterSetTest, parameterErrors)
 TEST_F(FitParameterSetTest, fixRelease)
 {
     FitParameterSet parameters;
-    FitParameter *par1 = new FitParameter("pattern1", 1.0, AttLimits::limitless(), 0.01);
-    FitParameter *par2 = new FitParameter("pattern2", 1.0, AttLimits::limitless(), 0.01);
-    FitParameter *par3 = new FitParameter("pattern3", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par1 = new IFitParameter("pattern1", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par2 = new IFitParameter("pattern2", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par3 = new IFitParameter("pattern3", 1.0, AttLimits::limitless(), 0.01);
 
     parameters.addFitParameter(par1);
     parameters.addFitParameter(par2);

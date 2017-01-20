@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Parameters/IFitParameter.h
-//! @brief     Defines class IFitParameter.
+//! @file      Fit/Parameters/FitParameter.h
+//! @brief     Defines class FitParameter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,21 +17,63 @@
 #define IFITPARAMETER_H
 
 #include "WinDllMacros.h"
+#include "AttLimits.h"
+#include <string>
 
-//! Pure virtual base class for fit parameters.
-//! @ingroup fitting_internal
-
-// TODO: Either explain future usages, or merge with its sole child class FitParameter.
+//! A fittable parameter with value, error, step, and limits.
+//! @ingroup fitting
 
 class BA_CORE_API_ IFitParameter
 {
 public:
-    IFitParameter() {}
-    virtual ~IFitParameter() {}
-    IFitParameter(const IFitParameter&) = delete;
+    IFitParameter();
+    IFitParameter(const std::string& name, double value,
+                 const AttLimits& limits=AttLimits::limitless(), double step=0.0);
     IFitParameter& operator=(const IFitParameter&) = delete;
+    virtual ~IFitParameter(){}
 
-    virtual IFitParameter* clone() const = 0;
+    IFitParameter* clone() const;
+
+    std::string name() const;
+    IFitParameter& setName(const std::string& name);
+
+    double startValue() const;
+    void setStartValue(double value);
+
+    double value() const;
+    virtual void setValue(double value);
+
+    virtual IFitParameter& addPattern(const std::string& pattern);
+
+    double step() const;
+    IFitParameter& setStep(double value);
+
+    double error() const;
+    void setError(double value);
+
+    const AttLimits& limits() const;
+    AttLimits& limits();
+
+    IFitParameter& setLimits(const AttLimits& limits);
+    IFitParameter& setLowerLimited(double bound_value);
+    IFitParameter& setPositive();
+    IFitParameter& setNonnegative();
+    IFitParameter& setUpperLimited(double bound_value);
+    IFitParameter& setLimited(double left_bound_value, double right_bound_value);
+    IFitParameter& setFixed();
+
+    virtual std::string toString() const;
+
+protected:
+    IFitParameter(const IFitParameter& other);
+
+private:    
+    std::string m_name;
+    double m_start_value;
+    double m_value;
+    double m_step;
+    double m_error;
+    AttLimits m_limits;
 };
 
 #endif // IFITPARAMETER_H

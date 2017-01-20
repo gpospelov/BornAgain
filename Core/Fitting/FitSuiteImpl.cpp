@@ -16,7 +16,6 @@
 #include "FitSuiteImpl.h"
 #include "RealLimits.h"
 #include "FitParameter.h"
-#include "FitParameterLinked.h"
 #include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
@@ -59,13 +58,23 @@ FitObject* FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulat
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-FitParameterLinked* FitSuiteImpl::addFitParameter(const std::string& pattern, double value,
+FitParameter* FitSuiteImpl::addFitParameter(const std::string& pattern, double value,
                                   const AttLimits& limits, double step)
 {
     if(step <=0.0)
         step = value * getOptions().stepFactor();
 
-    FitParameterLinked* result = new FitParameterLinked(pattern, value, limits, step);
+    FitParameter* result = new FitParameter(pattern, value, limits, step);
+    m_kernel->fitParameters()->addFitParameter(result);
+    return result;
+}
+
+FitParameter* FitSuiteImpl::addFitParameter(const FitParameter& fitPar)
+{
+    FitParameter* result = fitPar.clone();
+    if(result->step() <= 0.0)
+        result->setStep(result->value() * getOptions().stepFactor());
+
     m_kernel->fitParameters()->addFitParameter(result);
     return result;
 }
@@ -145,7 +154,18 @@ std::string FitSuiteImpl::reportResults() const
 
 const FitKernel* FitSuiteImpl::kernel() const
 {
-   return m_kernel.get();
+    return m_kernel.get();
+}
+
+// method is not const because we have to link fit parameters with the sample,
+// to know what is going to be fitted
+std::string FitSuiteImpl::setupToString()
+{
+    check_prerequisites();
+    link_fit_parameters();
+    std::stringstream result;
+    result << FitSuiteUtils::fitParameterSettingsToString(*m_kernel->fitParameters());
+    return result.str();
 }
 
 bool FitSuiteImpl::check_prerequisites() const

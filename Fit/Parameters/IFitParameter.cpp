@@ -54,6 +54,12 @@ IFitParameter& IFitParameter::setName(const std::string& name)
 
 double IFitParameter::startValue() const { return m_start_value; }
 
+void IFitParameter::setStartValue(double value)
+{
+    m_start_value = value;
+    setValue(value);
+}
+
 double IFitParameter::value() const { return m_value; }
 
 void IFitParameter::setValue(double value) { m_value = value; }

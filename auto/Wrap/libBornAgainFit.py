@@ -1862,6 +1862,11 @@ class IFitParameter(_object):
         return _libBornAgainFit.IFitParameter_startValue(self)
 
 
+    def setStartValue(self, value):
+        """setStartValue(IFitParameter self, double value)"""
+        return _libBornAgainFit.IFitParameter_setStartValue(self, value)
+
+
     def value(self):
         """value(IFitParameter self) -> double"""
         return _libBornAgainFit.IFitParameter_value(self)

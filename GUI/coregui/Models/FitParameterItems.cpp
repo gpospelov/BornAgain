@@ -18,6 +18,7 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
+#include "FitParameter.h"
 #include "ParameterTreeItems.h"
 #include <cmath>
 
@@ -112,7 +113,7 @@ void FitParameterItem::initMinMaxValues(const RealLimits &limits)
 
 //! Constructs Limits correspodning to current GUI settings.
 
-AttLimits FitParameterItem::getAttLimits()
+AttLimits FitParameterItem::getAttLimits() const
 {
     if(isFixed()) {
         return AttLimits::fixed();
@@ -137,6 +138,25 @@ AttLimits FitParameterItem::getAttLimits()
     else {
         throw GUIHelpers::Error("FitParameterItem::getLimits() -> Error. Unknown limit type");
     }
+}
+
+std::unique_ptr<FitParameter> FitParameterItem::fitParameter() const
+{
+    std::unique_ptr<FitParameter> result(new FitParameter);
+    result->setStartValue(getItemValue(FitParameterItem::P_START_VALUE).toDouble());
+    result->setLimits(getAttLimits());
+
+    const SessionItem *jobItem = ModelPath::ancestor(this, Constants::JobItemType);
+    Q_ASSERT(jobItem);
+
+    foreach(SessionItem *linkItem, getItems(FitParameterItem::T_LINK)) {
+        QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
+        std::string domainPath = "*" + ModelPath::translateParameterName(jobItem, link);
+        linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
+        result->addPattern(domainPath);
+    }
+
+    return result;
 }
 
 //! Enables/disables min, max properties on FitParameterItem's type

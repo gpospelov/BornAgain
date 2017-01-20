@@ -27,6 +27,7 @@
 #include "ModelPath.h"
 #include "MultiLayerItem.h"
 #include "RealDataItem.h"
+#include "FitParameter.h"
 
 // FIXME make unique_ptr all along
 
@@ -42,17 +43,8 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
     FitParameterContainerItem *container = fitSuiteItem->fitParameterContainerItem();
     Q_ASSERT(container);
 
-    foreach(FitParameterItem *parItem, container->fitParameterItems()) {
-        double value = parItem->getItemValue(FitParameterItem::P_START_VALUE).toDouble();
-        foreach(SessionItem *linkItem, parItem->getItems(FitParameterItem::T_LINK)) {
-            QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-            std::string domainPath = "*" + ModelPath::translateParameterName(jobItem, link);
-            linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
-            result->addFitParameter(domainPath, value, parItem->getAttLimits());
-            //FIXME only one link is possible at the time due to limitations in FitCore
-            break;
-        }
-    }
+    foreach(FitParameterItem *parItem, container->fitParameterItems())
+        result->addFitParameter(*parItem->fitParameter());
 
     DomainSimulationBuilder builder;
     const std::unique_ptr<GISASSimulation> simulation(

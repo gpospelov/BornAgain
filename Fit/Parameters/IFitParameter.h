@@ -38,6 +38,7 @@ public:
     IFitParameter& setName(const std::string& name);
 
     double startValue() const;
+    void setStartValue(double value);
 
     double value() const;
     virtual void setValue(double value);

@@ -58,6 +58,7 @@ signals:
 private:
     bool canUpdatePlots(FitSuite *fitSuite);
     bool canUpdateProgressInfo(FitSuite *fitSuite);
+    QString reportToString(FitSuite *fitSuite);
 
     std::atomic<bool> m_block_update_plots;
     int m_update_interval;

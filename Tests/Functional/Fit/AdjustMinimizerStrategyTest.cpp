@@ -34,7 +34,6 @@ void AdjustMinimizerStrategyTest::initParameterPlan()
     m_parameters.push_back(new FitParameterPlan("*Radius", 10.0 * Units::nanometer,
                                             5.0 * Units::nanometer,
                                             AttLimits::limited(0.01, 30.0), 0.05));
-
 }
 
 std::unique_ptr<FitSuite> AdjustMinimizerStrategyTest::createFitSuite() {
@@ -45,7 +44,7 @@ std::unique_ptr<FitSuite> AdjustMinimizerStrategyTest::createFitSuite() {
       MinimizerNames::Genetic, std::string(), "MaxIterations=2;RandomSeed=1"));
 
   result->addFitStrategy(AdjustMinimizerStrategy(MinimizerNames::Minuit2,
-                                                    AlgorithmNames::Migrad));
+                                                 AlgorithmNames::Migrad));
 
   for (size_t i = 0; i < m_parameters.size(); ++i)
     result->addFitParameter(m_parameters[i]->fitParameter());

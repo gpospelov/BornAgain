@@ -25,13 +25,9 @@
 #include <boost/format.hpp>
 #include <memory>
 
-//IMinimizerTest::TestParameter::TestParameter(const std::string &name,
-//                                             double real_value,
-//                                             double start_value)
-//    : m_name(name)
-//    , m_real_value(real_value)
-//    , m_start_value(start_value)
-//    , m_found_value(0.0) {}
+namespace {
+    const double default_parameter_tolerance = 0.01;
+}
 
 IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
                                const std::string& minimizer_algorithm)
@@ -39,7 +35,6 @@ IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
     , m_minimizer_algorithm(minimizer_algorithm)
     , m_simulation_name("MiniGISAS")
     , m_sample_builder_name("CylindersInBABuilder")
-    , m_parameter_tolerance(0.01)
 {
 }
 
@@ -76,10 +71,10 @@ bool IMinimizerTest::runTest()
         double foundValue = valuesAtMinimum[i];
         double diff = std::abs(foundValue - m_parameters[i]->expectedValue())
                       / m_parameters[i]->expectedValue();
-        if (diff > m_parameter_tolerance)
+        if (diff > m_parameters[i]->tolerance())
             success = false;
         std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) %s\n") %
-            m_parameters[i]->m_name % foundValue % diff %
+            m_parameters[i]->fitParameter().name() % foundValue % diff %
             (success ? "OK" : "FAILED");
     }
     return success;
@@ -95,6 +90,10 @@ void IMinimizerTest::initParameterPlan() {
   m_parameters.push_back(new FitParameterPlan("*Radius", 5.5 * Units::nanometer,
                                           5.0 * Units::nanometer,
                                           AttLimits::lowerLimited(0.01), 0.01));
+
+  for(auto par : m_parameters)
+      par->setTolerance(default_parameter_tolerance);
+
 }
 
 std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
@@ -105,10 +104,9 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
                 m_minimizer_name, m_minimizer_algorithm);
     result->setMinimizer(minimizer);
 
-    for (size_t i = 0; i < m_parameters.size(); ++i)
-        result->addFitParameter(
-            m_parameters[i]->m_name, m_parameters[i]->m_start_value,
-            m_parameters[i]->m_limits, m_parameters[i]->m_start_value / 100.);
+    for(auto plan : m_parameters)
+        result->addFitParameter(plan->fitParameter());
+
     return result;
 }
 
@@ -116,8 +114,9 @@ std::unique_ptr<MultiLayer> IMinimizerTest::createSample()
 {
     SampleBuilderFactory builderFactory;
     std::unique_ptr<MultiLayer> result(builderFactory.createSample(m_sample_builder_name));
-    for (size_t i = 0; i < m_parameters.size(); ++i)
-        result->setParameterValue(m_parameters[i]->m_name, m_parameters[i]->m_expected_value);
+    for(auto plan : m_parameters)
+        for(auto pattern : plan->fitParameter().patterns())
+            result->setParameterValue(pattern, plan->expectedValue());
     return result;
 }
 

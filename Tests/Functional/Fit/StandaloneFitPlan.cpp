@@ -59,7 +59,7 @@ bool StandaloneFitPlan::planSucceeded(const std::vector<double> &foundParValues)
     for(size_t i=0; i<foundParValues.size(); ++i) {
         double expected_value = parameterPlan()[i]->expectedValue();
         double diff = std::abs(foundParValues[i] - expected_value)/expected_value;
-        if (diff > parameterPlan()[i]->threshold())
+        if (diff > parameterPlan()[i]->tolerance())
             success = false;
 
         std::string name = "par"+std::to_string(i);

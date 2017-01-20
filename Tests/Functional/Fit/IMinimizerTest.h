@@ -38,8 +38,6 @@ public:
 
     bool runTest() final;
 
-    void setParameterTolerance(double value) { m_parameter_tolerance = value; }
-
 protected:
     virtual void initParameterPlan();
     virtual std::unique_ptr<FitSuite> createFitSuite();
@@ -52,7 +50,6 @@ protected:
     std::string m_minimizer_algorithm;
     std::string m_simulation_name;
     std::string m_sample_builder_name;
-    double m_parameter_tolerance;
 };
 
 #endif // IMINIMIZERTEST_H

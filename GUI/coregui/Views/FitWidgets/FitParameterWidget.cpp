@@ -268,21 +268,22 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
     addToFitParMenu->setDisabled(true);
     Q_UNUSED(addToFitParMenu);
 
-    // --> TODO REDMINE #1478 Uncomment, when issue is solved
+    const bool allow_one_fit_parameter_to_have_more_than_one_link = true;
+    if (allow_one_fit_parameter_to_have_more_than_one_link) {
+        QStringList fitParNames
+            = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+        if (fitParNames.isEmpty() || canCreateFitParameter() == false) {
+            addToFitParMenu->setEnabled(false);
+        }
 
-//    QStringList fitParNames
-//        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
-//    if(fitParNames.isEmpty() || canCreateFitParameter()==false) {
-//        addToFitParMenu->setEnabled(false);
-//    }
-
-//    for(int i =0; i<fitParNames.count(); ++i) {
-//        QAction *action = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
-//        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
-//        m_signalMapper->setMapping(action, i);
-//        addToFitParMenu->addAction(action);
-//    }
-    // <-- end of uncomment
+        for (int i = 0; i < fitParNames.count(); ++i) {
+            QAction* action
+                = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
+            connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+            m_signalMapper->setMapping(action, i);
+            addToFitParMenu->addAction(action);
+        }
+    }
 
     menu.addSeparator();
     menu.addAction(m_removeFromFitParAction);

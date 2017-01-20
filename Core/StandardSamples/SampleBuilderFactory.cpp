@@ -22,6 +22,7 @@
 #include "LatticeBuilder.h"
 #include "LayersWithAbsorptionBuilder.h"
 #include "MagneticParticlesBuilder.h"
+#include "MagneticLayersBuilder.h"
 #include "MesoCrystalBuilder.h"
 #include "MultiLayerWithRoughnessBuilder.h"
 #include "MultipleLayoutBuilder.h"
@@ -164,6 +165,11 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "MagneticCylindersBuilder",
         create_new<MagneticCylindersBuilder>,
+        "Polarized DWBA with non-zero magnetic field");
+
+    registerItem(
+        "MagneticSubstrateZeroFieldBuilder",
+        create_new<MagneticSubstrateZeroFieldBuilder>,
         "Polarized DWBA with non-zero magnetic field");
 
     registerItem(

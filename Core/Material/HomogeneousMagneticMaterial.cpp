@@ -18,7 +18,7 @@
 
 // this prefactor is equal to m_n*g_n*mu_N / (hbar^2), with
 // m_n: neutron mass
-// g_n: neutron g-factor
+// g_n: neutron g-factor (-3.826)
 // mu_N: nuclear magneton
 // hbar: reduced Planck constant
 // Units are: 1/(nm^2 * T)

@@ -272,6 +272,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "None",
         2e-10);
 
+    add("MagneticSubstrateZeroField",
+        "Magnetic substrate with zero field",
+        "MiniGISASPolarizationPP",
+        "MagneticSubstrateZeroFieldBuilder",
+        "None",
+        2e-10);
+
     add("TransformBox",
         "Rotated/translated box in 3 layers system",
         "MiniGISAS",

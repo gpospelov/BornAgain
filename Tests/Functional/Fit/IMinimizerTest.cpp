@@ -61,6 +61,9 @@ bool IMinimizerTest::runTest()
     fitSuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
 
     // run fit
+    std::cout << fitSuite->treeToString() << std::endl;
+    std::cout << fitSuite->parametersToString() << std::endl;
+    std::cout << fitSuite->setupToString() << std::endl;
     fitSuite->runFit();
 
     std::vector<double> valuesAtMinimum = fitSuite->fitParameters()->values();
@@ -69,12 +72,13 @@ bool IMinimizerTest::runTest()
     bool success = true;
     size_t index(0);
     for(auto plan : m_parplans) {
-        double foundValue = valuesAtMinimum[index++];
+        double foundValue = valuesAtMinimum[index];
         double diff = std::abs(foundValue - plan->expectedValue()) / plan->expectedValue();
         if (diff > plan->tolerance())
             success = false;
         std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) %s\n") %
-            plan->fitParameter().name() % foundValue % diff % (success ? "OK" : "FAILED");
+            ("par"+std::to_string(index)) % foundValue % diff % (success ? "OK" : "FAILED");
+        ++index;
     }
 
     return success;

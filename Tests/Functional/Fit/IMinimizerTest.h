@@ -45,7 +45,7 @@ protected:
     virtual std::unique_ptr<GISASSimulation> createSimulation();
     virtual std::unique_ptr<OutputData<double>> createOutputData(const GISASSimulation* simulation);
 
-    std::vector<FitParameterPlan*> m_parameters;
+    std::vector<FitParameterPlan*> m_parplans;
     std::string m_minimizer_name;
     std::string m_minimizer_algorithm;
     std::string m_simulation_name;

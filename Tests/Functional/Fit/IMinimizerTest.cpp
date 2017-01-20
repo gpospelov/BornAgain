@@ -40,7 +40,7 @@ IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
 
 IMinimizerTest::~IMinimizerTest()
 {
-    for(auto par : m_parameters)
+    for(auto par : m_parplans)
         delete par;
 }
 
@@ -67,33 +67,32 @@ bool IMinimizerTest::runTest()
 
     // analyze results
     bool success = true;
-    for (size_t i = 0; i < m_parameters.size(); ++i) {
-        double foundValue = valuesAtMinimum[i];
-        double diff = std::abs(foundValue - m_parameters[i]->expectedValue())
-                      / m_parameters[i]->expectedValue();
-        if (diff > m_parameters[i]->tolerance())
+    size_t index(0);
+    for(auto plan : m_parplans) {
+        double foundValue = valuesAtMinimum[index++];
+        double diff = std::abs(foundValue - plan->expectedValue()) / plan->expectedValue();
+        if (diff > plan->tolerance())
             success = false;
         std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) %s\n") %
-            m_parameters[i]->fitParameter().name() % foundValue % diff %
-            (success ? "OK" : "FAILED");
+            plan->fitParameter().name() % foundValue % diff % (success ? "OK" : "FAILED");
     }
+
     return success;
 }
 
 //! Creates plan with initial/real values of fit parameters.
 
 void IMinimizerTest::initParameterPlan() {
-  m_parameters.clear();
-  m_parameters.push_back(new FitParameterPlan("*Height", 4.5 * Units::nanometer,
+  m_parplans.clear();
+  m_parplans.push_back(new FitParameterPlan("*Height", 4.5 * Units::nanometer,
                                           5.0 * Units::nanometer,
                                           AttLimits::lowerLimited(0.01), 0.01));
-  m_parameters.push_back(new FitParameterPlan("*Radius", 5.5 * Units::nanometer,
+  m_parplans.push_back(new FitParameterPlan("*Radius", 5.5 * Units::nanometer,
                                           5.0 * Units::nanometer,
                                           AttLimits::lowerLimited(0.01), 0.01));
 
-  for(auto par : m_parameters)
-      par->setTolerance(default_parameter_tolerance);
-
+  for(auto plan : m_parplans)
+      plan->setTolerance(default_parameter_tolerance);
 }
 
 std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
@@ -104,7 +103,7 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
                 m_minimizer_name, m_minimizer_algorithm);
     result->setMinimizer(minimizer);
 
-    for(auto plan : m_parameters)
+    for(auto plan : m_parplans)
         result->addFitParameter(plan->fitParameter());
 
     return result;
@@ -114,7 +113,7 @@ std::unique_ptr<MultiLayer> IMinimizerTest::createSample()
 {
     SampleBuilderFactory builderFactory;
     std::unique_ptr<MultiLayer> result(builderFactory.createSample(m_sample_builder_name));
-    for(auto plan : m_parameters)
+    for(auto plan : m_parplans)
         for(auto pattern : plan->fitParameter().patterns())
             result->setParameterValue(pattern, plan->expectedValue());
     return result;

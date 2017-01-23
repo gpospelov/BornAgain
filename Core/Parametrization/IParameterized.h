@@ -49,7 +49,6 @@ public:
 
     RealParameter* getParameter(const std::string& name) const;
 
-protected:
     //! Action to be taken in inherited class when a parameter has changed.
     virtual void onChange() {}
 

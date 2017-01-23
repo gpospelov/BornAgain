@@ -19669,6 +19669,11 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DLattice_getLatticeParameters(self)
 
 
+    def setLattice(self, lattice):
+        """setLattice(InterferenceFunction2DLattice self, Lattice2D lattice)"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_setLattice(self, lattice)
+
+
     def getParticleDensity(self):
         """
         getParticleDensity(InterferenceFunction2DLattice self) -> double

@@ -36,6 +36,9 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     m_lattice_params.m_length_2 = length_2;
     m_lattice_params.m_angle = angle;
     m_lattice_params.m_xi = xi;
+
+    setLattice(BasicLattice(length_1, length_2, angle, xi));
+
     setName(BornAgain::InterferenceFunction2DLatticeType);
     init_parameters();
     initialize_rec_vectors();
@@ -47,10 +50,7 @@ InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
 {
-    InterferenceFunction2DLattice* result = new InterferenceFunction2DLattice(m_lattice_params);
-    if (mp_pdf)
-        result->setDecayFunction(*mp_pdf);
-    return result;
+    return new InterferenceFunction2DLattice(*this);
 }
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(
@@ -61,7 +61,9 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(
     lattice_params.m_length_2 = lattice_length;
     lattice_params.m_angle = M_PI / 2.0;
     lattice_params.m_xi = xi;
-    return new InterferenceFunction2DLattice(lattice_params);
+    auto result = new InterferenceFunction2DLattice(lattice_params);
+    result->setLattice(SquareLattice(lattice_length, xi));
+    return result;
 }
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
@@ -72,7 +74,10 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
     lattice_params.m_length_2 = lattice_length;
     lattice_params.m_angle = M_TWOPI / 3.0;
     lattice_params.m_xi = xi;
-    return new InterferenceFunction2DLattice(lattice_params);
+
+    auto result = new InterferenceFunction2DLattice(lattice_params);
+    result->setLattice(HexagonalLattice(lattice_length, xi));
+    return result;
 }
 
 void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
@@ -103,6 +108,13 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
     return result;
 }
 
+void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
+{
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
+    initialize_rec_vectors();
+}
+
 double InterferenceFunction2DLattice::getParticleDensity() const
 {
     double area = m_lattice_params.getUnitCellArea();
@@ -111,7 +123,7 @@ double InterferenceFunction2DLattice::getParticleDensity() const
 
 std::vector<const INode*> InterferenceFunction2DLattice::getChildren() const
 {
-    return std::vector<const INode*>() << mp_pdf;
+    return std::vector<const INode*>() << mp_pdf << m_lattice;
 }
 
 void InterferenceFunction2DLattice::onChange()
@@ -159,6 +171,20 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     : m_lattice_params(lattice_params), m_na(0), m_nb(0)
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
+    init_parameters();
+    initialize_rec_vectors();
+}
+
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(
+        const InterferenceFunction2DLattice& other)
+{
+    setName(other.getName());
+    m_lattice_params = other.m_lattice_params;
+    if(other.mp_pdf)
+        setDecayFunction(*other.mp_pdf);
+    if(other.m_lattice)
+        setLattice(*other.m_lattice);
+
     init_parameters();
     initialize_rec_vectors();
 }

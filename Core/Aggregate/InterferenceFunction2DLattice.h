@@ -43,6 +43,8 @@ public:
     double evaluate(const kvector_t q) const final;
 
     Lattice2DParameters getLatticeParameters() const { return m_lattice_params; }
+    void setLattice(const Lattice2D& lattice);
+
 
     //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;
@@ -66,6 +68,7 @@ private:
                                            double& qx_frac, double& qy_frac) const;
 
     InterferenceFunction2DLattice(const Lattice2DParameters& lattice_params);
+    InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
 
     void init_parameters();
 
@@ -77,6 +80,7 @@ private:
 
     Lattice2DParameters m_lattice_params;
     std::unique_ptr<IFTDecayFunction2D> mp_pdf;
+    std::unique_ptr<Lattice2D> m_lattice;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*

@@ -45,10 +45,16 @@ public:
 
     complex_t getScalarSLD(const WavevectorInfo& wavevectors) const;
 
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    complex_t getScalarFresnel(const kvector_t k) const;
+
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
     virtual Eigen::Matrix2cd getPolarizedSLD(const WavevectorInfo& wavevectors) const;
+
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k) const;
 #endif
 
     //! Create a new material that is transformed with respect to this one

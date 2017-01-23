@@ -6136,109 +6136,80 @@ class FitOptions(_object):
 FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
 FitOptions_swigregister(FitOptions)
 
-class FitParameterLinked(libBornAgainFit.FitParameter):
-    """
-
-
-    Fittable parameter, linked to other parameters from pools.
-
-    C++ includes: FitParameterLinked.h
-
-    """
+class FitParameter(libBornAgainFit.IFitParameter):
+    """Proxy of C++ FitParameter class."""
 
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.FitParameter]:
+    for _s in [libBornAgainFit.IFitParameter]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameterLinked, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.FitParameter]:
+    for _s in [libBornAgainFit.IFitParameter]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FitParameterLinked, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         """
-        __init__(FitParameterLinked self) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & pattern, double value, AttLimits lim, double step=0.0) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & pattern, double value, AttLimits lim) -> FitParameterLinked
-        __init__(FitParameterLinked self, std::string const & pattern, double value) -> FitParameterLinked
-
-        FitParameterLinked::FitParameterLinked(const std::string &name, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
-
+        __init__(FitParameter self) -> FitParameter
+        __init__(FitParameter self, std::string const & pattern, double value, AttLimits lim, double step=0.0) -> FitParameter
+        __init__(FitParameter self, std::string const & pattern, double value, AttLimits lim) -> FitParameter
+        __init__(FitParameter self, std::string const & pattern, double value) -> FitParameter
         """
-        this = _libBornAgainCore.new_FitParameterLinked(*args)
+        this = _libBornAgainCore.new_FitParameter(*args)
         try:
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitParameterLinked
+    __swig_destroy__ = _libBornAgainCore.delete_FitParameter
     __del__ = lambda self: None
 
     def clone(self):
-        """
-        clone(FitParameterLinked self) -> FitParameterLinked
-
-        FitParameterLinked * FitParameterLinked::clone() const 
-
-        """
-        return _libBornAgainCore.FitParameterLinked_clone(self)
+        """clone(FitParameter self) -> FitParameter"""
+        return _libBornAgainCore.FitParameter_clone(self)
 
 
     def setValue(self, value):
-        """
-        setValue(FitParameterLinked self, double value)
-
-        void FitParameterLinked::setValue(double value) final
-
-        Sets given value for all bound parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterLinked_setValue(self, value)
+        """setValue(FitParameter self, double value)"""
+        return _libBornAgainCore.FitParameter_setValue(self, value)
 
 
     def addPattern(self, pattern):
-        """addPattern(FitParameterLinked self, std::string const & pattern) -> FitParameterLinked"""
-        return _libBornAgainCore.FitParameterLinked_addPattern(self, pattern)
+        """addPattern(FitParameter self, std::string const & pattern) -> FitParameter"""
+        return _libBornAgainCore.FitParameter_addPattern(self, pattern)
 
 
     def addParameter(self, par):
-        """
-        addParameter(FitParameterLinked self, RealParameter par)
-
-        void FitParameterLinked::addParameter(RealParameter *par)
-
-        Adds real parameter to the collection. 
-
-        """
-        return _libBornAgainCore.FitParameterLinked_addParameter(self, par)
+        """addParameter(FitParameter self, RealParameter par)"""
+        return _libBornAgainCore.FitParameter_addParameter(self, par)
 
 
     def addMatchedParameters(self, pool):
-        """addMatchedParameters(FitParameterLinked self, ParameterPool pool)"""
-        return _libBornAgainCore.FitParameterLinked_addMatchedParameters(self, pool)
+        """addMatchedParameters(FitParameter self, ParameterPool pool)"""
+        return _libBornAgainCore.FitParameter_addMatchedParameters(self, pool)
 
 
     def patterns(self):
-        """patterns(FitParameterLinked self) -> vector_string_t"""
-        return _libBornAgainCore.FitParameterLinked_patterns(self)
+        """patterns(FitParameter self) -> vector_string_t"""
+        return _libBornAgainCore.FitParameter_patterns(self)
 
 
     def matchedParameterNames(self):
-        """matchedParameterNames(FitParameterLinked self) -> vector_string_t"""
-        return _libBornAgainCore.FitParameterLinked_matchedParameterNames(self)
+        """matchedParameterNames(FitParameter self) -> vector_string_t"""
+        return _libBornAgainCore.FitParameter_matchedParameterNames(self)
 
 
     def patternIntersection(self, other):
-        """patternIntersection(FitParameterLinked self, FitParameterLinked other) -> vector_string_t"""
-        return _libBornAgainCore.FitParameterLinked_patternIntersection(self, other)
+        """patternIntersection(FitParameter self, FitParameter other) -> vector_string_t"""
+        return _libBornAgainCore.FitParameter_patternIntersection(self, other)
 
 
     def isConflicting(self, other):
-        """isConflicting(FitParameterLinked self, FitParameterLinked other) -> bool"""
-        return _libBornAgainCore.FitParameterLinked_isConflicting(self, other)
+        """isConflicting(FitParameter self, FitParameter other) -> bool"""
+        return _libBornAgainCore.FitParameter_isConflicting(self, other)
 
-FitParameterLinked_swigregister = _libBornAgainCore.FitParameterLinked_swigregister
-FitParameterLinked_swigregister(FitParameterLinked)
+FitParameter_swigregister = _libBornAgainCore.FitParameter_swigregister
+FitParameter_swigregister(FitParameter)
 
 class FitSuite(IObservable):
     """
@@ -6294,9 +6265,10 @@ class FitSuite(IObservable):
 
     def addFitParameter(self, *args):
         """
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits, double step=0.0) -> FitParameterLinked
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits) -> FitParameterLinked
-        addFitParameter(FitSuite self, std::string const & name, double value) -> FitParameterLinked
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits, double step=0.0) -> FitParameter
+        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits) -> FitParameter
+        addFitParameter(FitSuite self, std::string const & name, double value) -> FitParameter
+        addFitParameter(FitSuite self, FitParameter fitPar) -> FitParameter
 
         FitParameterLinked * FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
 
@@ -6650,6 +6622,11 @@ class FitSuite(IObservable):
     def treeToString(self):
         """treeToString(FitSuite self) -> std::string"""
         return _libBornAgainCore.FitSuite_treeToString(self)
+
+
+    def setupToString(self):
+        """setupToString(FitSuite self) -> std::string"""
+        return _libBornAgainCore.FitSuite_setupToString(self)
 
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
@@ -16949,6 +16926,11 @@ class IMaterial(INamed):
 
         """
         return _libBornAgainCore.IMaterial_getScalarSLD(self, wavevectors)
+
+
+    def getScalarFresnel(self, k):
+        """getScalarFresnel(IMaterial self, kvector_t k) -> complex_t"""
+        return _libBornAgainCore.IMaterial_getScalarFresnel(self, k)
 
 
     def createTransformedMaterial(self, transform):

@@ -135,5 +135,3 @@ void HomogeneousMagneticMaterial::initializePrivateMembers()
     sigma(1,1) = -1.0;
     m_pauli_operator.push_back(sigma);
 }
-
-cvector_t OrthogonalToBaseVector(const cvector_t base, const kvector_t vector);

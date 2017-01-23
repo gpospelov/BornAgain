@@ -16,25 +16,33 @@
 #include "IMaterial.h"
 #include "Exceptions.h"
 #include "HomogeneousMagneticMaterial.h"
-
-Eigen::Matrix2cd IMaterial::getScatteringMatrix(double k_mag2) const
-{
-    (void)k_mag2;
-    return Eigen::Matrix2cd::Identity();
-}
-
-#ifndef SWIG
-Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
-{
-    Eigen::Matrix2cd result;
-    double k_mag2 = k.mag2();
-    double xy_proj2 = k.magxy2() / k_mag2;
-    result = getScatteringMatrix(k_mag2) - xy_proj2 * Eigen::Matrix2cd::Identity();
-    return result;
-}
-#endif // SWIG
+#include "WavevectorInfo.h"
 
 //! Returns true if *this agrees with other in all parameters.
+complex_t IMaterial::getScalarSLD(const WavevectorInfo& wavevectors) const
+{
+    double wavelength = wavevectors.getWavelength();
+    double prefactor = M_PI/wavelength/wavelength;
+    complex_t refractive_index = getRefractiveIndex();
+    return prefactor * refractive_index * refractive_index;
+}
+
+complex_t IMaterial::getScalarFresnel(const kvector_t k) const
+{
+    complex_t refractive_index = getRefractiveIndex();
+    return refractive_index*refractive_index - k.sin2Theta();
+}
+
+Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo& wavevectors) const
+{
+    return getScalarSLD(wavevectors)*Eigen::Matrix2cd::Identity();
+}
+
+Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k) const
+{
+    return getScalarFresnel(k)*Eigen::Matrix2cd::Identity();
+}
+
 bool IMaterial::operator==(const IMaterial& other) const
 {
     if( getName()!=other.getName() )
@@ -50,4 +58,10 @@ bool IMaterial::operator==(const IMaterial& other) const
     if (p_this && p_other && p_this->getMagneticField() != p_other->getMagneticField() )
         return false;
     return true;
+}
+
+std::ostream& operator<<(std::ostream& ostr, const IMaterial& m)
+{
+    m.print(ostr);
+    return ostr;
 }

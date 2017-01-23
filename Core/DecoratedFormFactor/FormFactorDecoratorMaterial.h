@@ -16,7 +16,7 @@
 #ifndef FORMFACTORDECORATORMATERIAL_H
 #define FORMFACTORDECORATORMATERIAL_H
 
-#include "FormFactorDecoratorFactor.h"
+#include "IFormFactorDecorator.h"
 #include <memory>
 
 class IMaterial;
@@ -25,7 +25,7 @@ class IMaterial;
 //! refractive index and that of its surrounding material.
 //! @ingroup formfactors_decorations
 
-class BA_CORE_API_ FormFactorDecoratorMaterial : public FormFactorDecoratorFactor
+class BA_CORE_API_ FormFactorDecoratorMaterial : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorMaterial(const IFormFactor& form_factor);
@@ -44,13 +44,14 @@ public:
 
     complex_t getAmbientRefractiveIndex() const;
 
+    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
 #endif
 
 private:
-    complex_t getRefractiveIndexFactor() const;
+    complex_t getRefractiveIndexFactor(const WavevectorInfo& wavevectors) const;
 
     std::unique_ptr<IMaterial> mP_material;
     std::unique_ptr<IMaterial> mP_ambient_material;

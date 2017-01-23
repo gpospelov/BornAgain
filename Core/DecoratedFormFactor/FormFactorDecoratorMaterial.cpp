@@ -20,7 +20,7 @@
 #include "WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)
-    : FormFactorDecoratorFactor(form_factor, 1.0),
+    : IFormFactorDecorator(form_factor),
       mP_material{nullptr},
       mP_ambient_material{nullptr}
 {
@@ -43,19 +43,22 @@ void FormFactorDecoratorMaterial::setMaterial(const IMaterial& material)
 {
     if (mP_material.get() != &material)
         mP_material.reset(material.clone());
-    m_factor = getRefractiveIndexFactor();
 }
 
 void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial& material)
 {
     if (mP_ambient_material.get() != &material)
         mP_ambient_material.reset(material.clone());
-    m_factor = getRefractiveIndexFactor();
 }
 
 complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
 {
     return mP_ambient_material ? mP_ambient_material->getRefractiveIndex() : 1.0;
+}
+
+complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
+{
+    return getRefractiveIndexFactor(wavevectors)*mp_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -66,20 +69,18 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
     time_reverse_conj(0, 1) = 1.0;
     time_reverse_conj(1, 0) = -1.0;
     // the interaction and time reversal taken together:
-    double wavelength = wavevectors.getWavelength();
-    double k_mag2 = 4.0 * M_PI * M_PI / wavelength / wavelength;
     Eigen::Matrix2cd V_eff = time_reverse_conj
-                             * (mP_material->getScatteringMatrix(k_mag2)
-                                - mP_ambient_material->getScatteringMatrix(k_mag2));
+                             * (mP_material->getPolarizedSLD(wavevectors)
+                                - mP_ambient_material->getPolarizedSLD(wavevectors));
     return mp_form_factor->evaluate(wavevectors) * V_eff;
 }
 
-complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor() const
+complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor(
+        const WavevectorInfo& wavevectors) const
 {
     if (mP_material && mP_ambient_material) {
-        complex_t particle_index = mP_material->getRefractiveIndex();
-        complex_t ambient_index = mP_ambient_material->getRefractiveIndex();
-        return particle_index * particle_index - ambient_index * ambient_index;
+        return mP_material->getScalarSLD(wavevectors)
+                - mP_ambient_material->getScalarSLD(wavevectors);
     } else
         return 1.0;
 }

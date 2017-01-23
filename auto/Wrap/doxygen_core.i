@@ -752,6 +752,11 @@ Creates a total form factor for the mesocrystal with a specific shape and conten
 %feature("docstring")  Crystal::setDWFactor "void Crystal::setDWFactor(double dw_factor)
 ";
 
+%feature("docstring")  Crystal::getChildren "std::vector< const INode * > Crystal::getChildren() const
+
+Returns a vector of children (const). 
+";
+
 
 // File: classCumulativeValue.xml
 %feature("docstring") CumulativeValue "
@@ -2768,36 +2773,6 @@ Returns scattering amplitude for matrix interactions.
 ";
 
 
-// File: classFormFactorDecoratorFactor.xml
-%feature("docstring") FormFactorDecoratorFactor "
-
-Decorates a formfactor with a constant factor. Base class of  FormFactorDecoratorMaterial.
-
-C++ includes: FormFactorDecoratorFactor.h
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::FormFactorDecoratorFactor "FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t factor)
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::clone "FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::accept "void FormFactorDecoratorFactor::accept(ISampleVisitor *visitor) const override
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::evaluate "complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorFactor::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
 // File: classFormFactorDecoratorMaterial.xml
 %feature("docstring") FormFactorDecoratorMaterial "
 
@@ -2831,6 +2806,11 @@ Sets the ambient material.
 ";
 
 %feature("docstring")  FormFactorDecoratorMaterial::getAmbientRefractiveIndex "complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const 
+";
+
+%feature("docstring")  FormFactorDecoratorMaterial::evaluate "complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo &wavevectors) const override
+
+Returns scattering amplitude for complex wavevectors ki, kf. 
 ";
 
 %feature("docstring")  FormFactorDecoratorMaterial::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
@@ -5054,7 +5034,7 @@ Set the magnetic field (in Tesla)
 Indicates that the material is not scalar. This means that different polarization states will be diffracted differently 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::getScatteringMatrix "Eigen::Matrix2cd HomogeneousMagneticMaterial::getScatteringMatrix(double k_mag2) const
+%feature("docstring")  HomogeneousMagneticMaterial::getPolarizedSLD "Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLD(const WavevectorInfo &wavevectors) const
 
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
@@ -5086,10 +5066,10 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 %feature("docstring")  HomogeneousMaterial::~HomogeneousMaterial "virtual HomogeneousMaterial::~HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial::clone "virtual HomogeneousMaterial* HomogeneousMaterial::clone() const 
+%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::cloneInverted "virtual HomogeneousMaterial* HomogeneousMaterial::cloneInverted() const 
+%feature("docstring")  HomogeneousMaterial::cloneInverted "HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const 
 ";
 
 %feature("docstring")  HomogeneousMaterial::getRefractiveIndex "virtual complex_t HomogeneousMaterial::getRefractiveIndex() const 
@@ -5098,12 +5078,7 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 %feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 ";
 
-%feature("docstring")  HomogeneousMaterial::getScatteringMatrix "virtual Eigen::Matrix2cd HomogeneousMaterial::getScatteringMatrix(double) const
-
-Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
-";
-
-%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "virtual const IMaterial* HomogeneousMaterial::createTransformedMaterial(const Transform3D &) const
+%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -6608,12 +6583,12 @@ Indicates whether the interaction with the material is scalar. This means that d
 %feature("docstring")  IMaterial::getRefractiveIndex "virtual complex_t IMaterial::getRefractiveIndex() const 
 ";
 
-%feature("docstring")  IMaterial::getSpecularScatteringMatrix "Eigen::Matrix2cd IMaterial::getSpecularScatteringMatrix(const kvector_t k) const
+%feature("docstring")  IMaterial::getScalarSLD "complex_t IMaterial::getScalarSLD(const WavevectorInfo &wavevectors) const
 
-Get the effective scattering matrix from the refractive index and a given wavevector used for the specular calculation. This matrix appears in the one-dimensional Schroedinger equation in the z-direction 
+Returns true if *this agrees with other in all parameters. 
 ";
 
-%feature("docstring")  IMaterial::getScatteringMatrix "Eigen::Matrix2cd IMaterial::getScatteringMatrix(double k_mag2) const
+%feature("docstring")  IMaterial::getPolarizedSLD "Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo &wavevectors) const
 
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
@@ -6736,14 +6711,7 @@ C++ includes: INode.h
 Returns multiline string representing tree structure below the node. 
 ";
 
-%feature("docstring")  INode::registerChild "void INode::registerChild(INode *sample)
-";
-
-%feature("docstring")  INode::deregisterChild "void INode::deregisterChild(INode *sample)
-
-Removes registered child from the container.
-
-remove registered child from the container 
+%feature("docstring")  INode::registerChild "void INode::registerChild(INode *node)
 ";
 
 %feature("docstring")  INode::getChildren "std::vector< const INode * > INode::getChildren() const
@@ -6754,6 +6722,27 @@ Returns a vector of children (const).
 %feature("docstring")  INode::addParametersToExternalPool "std::string INode::addParametersToExternalPool(const std::string &path, ParameterPool *external_pool, int copy_number=-1) const
 
 Adds parameters from local pool to external pool and recursively calls its direct children. 
+";
+
+%feature("docstring")  INode::setParent "void INode::setParent(const INode *parent)
+";
+
+%feature("docstring")  INode::parent "const INode * INode::parent() const 
+";
+
+%feature("docstring")  INode::copyNumber "int INode::copyNumber(const INode *node) const
+
+Returns copyNumber of child, which takes into account existence of children with same name. 
+";
+
+%feature("docstring")  INode::displayName "std::string INode::displayName() const
+
+Returns display name, composed from the name of node and it's copy number. 
+";
+
+%feature("docstring")  INode::createParameterTree "ParameterPool * INode::createParameterTree() override
+
+Creates new parameter pool, with all local parameters and those of its children. 
 ";
 
 
@@ -7515,6 +7504,11 @@ Adds parameters from local pool to external pool and recursively calls its direc
 Copies local parameters to external_pool, under name \"path/<name>copy_number/\". 
 ";
 
+%feature("docstring")  IParameterized::onChange "virtual void IParameterized::onChange()
+
+Action to be taken in inherited class when a parameter has changed. 
+";
+
 
 // File: classIParticle.xml
 %feature("docstring") IParticle "
@@ -7585,6 +7579,11 @@ Applies transformation by composing it with the existing one.
 %feature("docstring")  IParticle::applyTranslation "void IParticle::applyTranslation(kvector_t displacement)
 
 Applies extra translation by adding it to the current one. 
+";
+
+%feature("docstring")  IParticle::getChildren "std::vector< const INode * > IParticle::getChildren() const
+
+Returns a vector of children (const). 
 ";
 
 
@@ -7903,9 +7902,6 @@ C++ includes: ISampleVisitor.h
 ";
 
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorDebyeWaller *)
-";
-
-%feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorFactor *)
 ";
 
 %feature("docstring")  ISampleVisitor::visit "void ISampleVisitor::visit(const FormFactorDecoratorMaterial *)
@@ -8437,6 +8433,11 @@ Returns true if decoration is present.
 %feature("docstring")  Layer::getNumberOfLayers "size_t Layer::getNumberOfLayers() const 
 ";
 
+%feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const
+
+Returns a vector of children (const). 
+";
+
 
 // File: classLayerInterface.xml
 %feature("docstring") LayerInterface "
@@ -8457,39 +8458,25 @@ Returns a clone of this  ISample object.
 %feature("docstring")  LayerInterface::accept "virtual void LayerInterface::accept(ISampleVisitor *visitor) const 
 ";
 
-%feature("docstring")  LayerInterface::setLayerTop "void LayerInterface::setLayerTop(const Layer *p_layer_top)
-
-Sets link to the layer above the interface. 
-";
-
-%feature("docstring")  LayerInterface::setLayerBottom "void LayerInterface::setLayerBottom(const Layer *p_layer_bottom)
-
-Sets link to the layer below the interface. 
-";
-
-%feature("docstring")  LayerInterface::setLayersTopBottom "void LayerInterface::setLayersTopBottom(const Layer *p_layer_top, const Layer *p_layer_bottom)
-
-Sets links to the layers above and below the interface. 
-";
-
 %feature("docstring")  LayerInterface::setRoughness "void LayerInterface::setRoughness(const LayerRoughness &roughness)
 
 Sets roughness of the interface. 
 ";
 
-%feature("docstring")  LayerInterface::getRoughness "const LayerRoughness* LayerInterface::getRoughness() const
+%feature("docstring")  LayerInterface::getRoughness "const LayerRoughness * LayerInterface::getRoughness() const
 
 Returns roughness of the interface. 
 ";
 
-%feature("docstring")  LayerInterface::getLayerTop "const Layer* LayerInterface::getLayerTop() const
-
-Returns top layer. 
+%feature("docstring")  LayerInterface::topLayer "const Layer * LayerInterface::topLayer() const 
 ";
 
-%feature("docstring")  LayerInterface::getLayerBottom "const Layer* LayerInterface::getLayerBottom() const
+%feature("docstring")  LayerInterface::bottomLayer "const Layer * LayerInterface::bottomLayer() const 
+";
 
-Returns bottom layer. 
+%feature("docstring")  LayerInterface::getChildren "std::vector< const INode * > LayerInterface::getChildren() const
+
+Returns a vector of children (const). 
 ";
 
 
@@ -8851,10 +8838,7 @@ A particle with an internal structure of smaller particles.
 C++ includes: MesoCrystal.h
 ";
 
-%feature("docstring")  MesoCrystal::MesoCrystal "MesoCrystal::MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor)
-";
-
-%feature("docstring")  MesoCrystal::MesoCrystal "MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor)
+%feature("docstring")  MesoCrystal::MesoCrystal "MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)
 ";
 
 %feature("docstring")  MesoCrystal::~MesoCrystal "MesoCrystal::~MesoCrystal()
@@ -8893,6 +8877,11 @@ Create a form factor for this particle with an extra scattering factor.
 %feature("docstring")  MesoCrystal::getClusteredParticles "const IClusteredParticles* MesoCrystal::getClusteredParticles() const
 
 get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
+";
+
+%feature("docstring")  MesoCrystal::getChildren "std::vector< const INode * > MesoCrystal::getChildren() const
+
+Returns a vector of children (const). 
 ";
 
 
@@ -9046,6 +9035,11 @@ returns layer index corresponding to given global z coordinate
 ";
 
 %feature("docstring")  MultiLayer::totalNofLayouts "size_t MultiLayer::totalNofLayouts() const 
+";
+
+%feature("docstring")  MultiLayer::getChildren "std::vector< const INode * > MultiLayer::getChildren() const
+
+Returns a vector of children (const). 
 ";
 
 
@@ -9880,6 +9874,11 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  Particle::getFormFactor "const IFormFactor* Particle::getFormFactor() const 
 ";
 
+%feature("docstring")  Particle::getChildren "std::vector< const INode * > Particle::getChildren() const
+
+Returns a vector of children (const). 
+";
+
 
 // File: classParticleComposition.xml
 %feature("docstring") ParticleComposition "
@@ -9956,6 +9955,11 @@ Returns particle with given index.
 %feature("docstring")  ParticleComposition::getParticlePosition "kvector_t ParticleComposition::getParticlePosition(size_t index) const 
 ";
 
+%feature("docstring")  ParticleComposition::getChildren "std::vector< const INode * > ParticleComposition::getChildren() const
+
+Returns a vector of children (const). 
+";
+
 
 // File: classParticleCompositionBuilder.xml
 %feature("docstring") ParticleCompositionBuilder "
@@ -10016,14 +10020,15 @@ Returns nullptr, unless overwritten to return a specific material.
 Create a form factor for this particle with an extra scattering factor. 
 ";
 
-%feature("docstring")  ParticleCoreShell::getCoreParticle "const Particle* ParticleCoreShell::getCoreParticle() const
-
-Returns the core particle. 
+%feature("docstring")  ParticleCoreShell::coreParticle "const Particle * ParticleCoreShell::coreParticle() const 
 ";
 
-%feature("docstring")  ParticleCoreShell::getShellParticle "const Particle* ParticleCoreShell::getShellParticle() const
+%feature("docstring")  ParticleCoreShell::shellParticle "const Particle * ParticleCoreShell::shellParticle() const 
+";
 
-Returns the shell particle. 
+%feature("docstring")  ParticleCoreShell::getChildren "std::vector< const INode * > ParticleCoreShell::getChildren() const
+
+Returns a vector of children (const). 
 ";
 
 
@@ -10076,6 +10081,11 @@ Returns the distributed parameter data.
 %feature("docstring")  ParticleDistribution::getParticle "const IParticle* ParticleDistribution::getParticle() const
 
 Returns particle. 
+";
+
+%feature("docstring")  ParticleDistribution::getChildren "std::vector< const INode * > ParticleDistribution::getChildren() const
+
+Returns a vector of children (const). 
 ";
 
 
@@ -10231,6 +10241,11 @@ Returns surface density of all particles.
 %feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final
 
 Sets surface density of all particles. 
+";
+
+%feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const
+
+Returns a vector of children (const). 
 ";
 
 
@@ -12586,31 +12601,31 @@ C++ includes: WavevectorInfo.h
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0D142.xml
+// File: namespace_0D140.xml
 
 
-// File: namespace_0D185.xml
+// File: namespace_0D183.xml
 
 
-// File: namespace_0D276.xml
+// File: namespace_0D275.xml
 
 
-// File: namespace_0D303.xml
+// File: namespace_0D302.xml
 
 
-// File: namespace_0D305.xml
+// File: namespace_0D304.xml
 
 
-// File: namespace_0D318.xml
+// File: namespace_0D317.xml
 
 
-// File: namespace_0D430.xml
+// File: namespace_0D429.xml
 
 
 // File: namespace_0D58.xml
 
 
-// File: namespace_0D74.xml
+// File: namespace_0D72.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -12925,6 +12940,11 @@ convolution of two real vectors of equal size
 %feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode &node)
 
 Returns multiline string representing tree structure starting from given node. 
+";
+
+%feature("docstring")  NodeUtils::nodePath "std::string NodeUtils::nodePath(const INode &node, const INode *root=nullptr)
+
+Returns path composed of node's displayName, with respect to root node. 
 ";
 
 
@@ -13329,12 +13349,6 @@ Add element vector to element vector with weight.
 
 
 // File: FormFactorDecoratorDebyeWaller_8h.xml
-
-
-// File: FormFactorDecoratorFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorFactor_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml
@@ -13943,6 +13957,9 @@ make Swappable
 // File: HomogeneousMagneticMaterial_8h.xml
 
 
+// File: HomogeneousMaterial_8cpp.xml
+
+
 // File: HomogeneousMaterial_8h.xml
 
 
@@ -14059,9 +14076,18 @@ make Swappable
 
 // File: SpecularMatrix_8cpp.xml
 %feature("docstring")  setZeroBelow "void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t &coeff, size_t current_layer)
+
+Sets coeff to zero for all layers below current_layer. 
 ";
 
-%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const kvector_t k, size_t layer_index)
+%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const double kmag, size_t layer_index)
+
+Computes RT coefficients coeff, starting from layer number layer_index. Returns true if no overflow happens. 
+";
+
+%feature("docstring")  bisectRTcomputation "size_t bisectRTcomputation(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const double kmag, const size_t lgood, const size_t lbad, const size_t l)
+
+Recursive bisection to determine the number of the deepest layer where RT computation can be started without running into overflow. Computes coeff, and returns largest possible start layer index. 
 ";
 
 

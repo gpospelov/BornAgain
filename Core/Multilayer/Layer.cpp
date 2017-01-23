@@ -75,6 +75,7 @@ complex_t Layer::getRefractiveIndex() const
     return mp_material ? mp_material->getRefractiveIndex() : 1.0;
 }
 
+//TODO: remove this in favor of the IMaterial methods (or rename)
 complex_t Layer::getRefractiveIndex2() const
 {
     return getRefractiveIndex()*getRefractiveIndex();

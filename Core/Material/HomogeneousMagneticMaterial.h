@@ -51,7 +51,13 @@ public:
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
     //! This matrix appears in the full three-dimensional Schroedinger equation.
-    virtual Eigen::Matrix2cd getScatteringMatrix(double k_mag2) const;
+    virtual Eigen::Matrix2cd getPolarizedSLD(const WavevectorInfo& wavevectors) const;
+
+    //! Get the scattering matrix for a material defined by its magnetization (experimental)
+    Eigen::Matrix2cd getPolarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
+
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k) const;
 #endif
 
     //! Create a new material that is transformed with respect to this one
@@ -65,7 +71,7 @@ protected:
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
 private:
     //! Function to initialize some private members
-    void initializePrivateMemebers();
+    void initializePrivateMembers();
     //! This prefactor contains planck's constant, the neutron mass and
     //! its magnetic moment (units nm^-2 T^-1)
     static const double m_magnetic_prefactor;

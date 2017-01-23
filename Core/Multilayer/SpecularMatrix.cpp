@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "SpecularMatrix.h"
+#include "IMaterial.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -49,10 +50,8 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiL
 
     // Calculate refraction angle, expressed as lambda or k_z, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
-    // TODO: is n^2 is needed here? If so, add it also to specularmagnetic.cpp
-    complex_t r2ref = sample.getLayer(0)->getRefractiveIndex2() * k.sin2Theta();
     for(size_t i=0; i<N; ++i) {
-        complex_t rad = sample.getLayer(i)->getRefractiveIndex2() - r2ref;
+        complex_t rad = sample.getLayer(i)->getMaterial()->getScalarFresnel(k);
         // use small absorptive component for layers with i>0 if radicand becomes very small:
         if (i>0 && std::abs(rad)<1e-40) rad = imag_unit*1e-40;
         coeff[i].lambda = sqrt(rad);

@@ -20777,10 +20777,68 @@ class SquareLattice(Lattice2D):
         """
         return _libBornAgainCore.SquareLattice_accept(self, visitor)
 
+
+    def length2(self):
+        """length2(SquareLattice self) -> double"""
+        return _libBornAgainCore.SquareLattice_length2(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_SquareLattice
     __del__ = lambda self: None
 SquareLattice_swigregister = _libBornAgainCore.SquareLattice_swigregister
 SquareLattice_swigregister(SquareLattice)
+
+class HexagonalLattice(Lattice2D):
+    """Proxy of C++ HexagonalLattice class."""
+
+    __swig_setmethods__ = {}
+    for _s in [Lattice2D]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, HexagonalLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Lattice2D]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, HexagonalLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, length, rotation_angle=0.0):
+        """
+        __init__(HexagonalLattice self, double length, double rotation_angle=0.0) -> HexagonalLattice
+        __init__(HexagonalLattice self, double length) -> HexagonalLattice
+        """
+        this = _libBornAgainCore.new_HexagonalLattice(length, rotation_angle)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(HexagonalLattice self) -> HexagonalLattice
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.HexagonalLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(HexagonalLattice self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.HexagonalLattice_accept(self, visitor)
+
+
+    def length2(self):
+        """length2(HexagonalLattice self) -> double"""
+        return _libBornAgainCore.HexagonalLattice_length2(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_HexagonalLattice
+    __del__ = lambda self: None
+HexagonalLattice_swigregister = _libBornAgainCore.HexagonalLattice_swigregister
+HexagonalLattice_swigregister(HexagonalLattice)
 
 class Layer(ISample):
     """

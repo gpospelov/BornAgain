@@ -54,7 +54,7 @@ const INode* INode::parent() const
 
 INode* INode::parent()
 {
-    return m_parent;
+    return const_cast<INode*>(m_parent);
 }
 
 int INode::copyNumber(const INode* node) const

@@ -53,6 +53,9 @@ public:
     //! This matrix appears in the full three-dimensional Schroedinger equation.
     virtual Eigen::Matrix2cd getPolarizedSLD(const WavevectorInfo& wavevectors) const;
 
+    //! Get the scattering matrix for a material defined by its magnetization (experimental)
+    Eigen::Matrix2cd getPolarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
+
     //! Return the potential term that is used in the one-dimensional Fresnel calculations
     virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k) const;
 #endif

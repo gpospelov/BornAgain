@@ -69,6 +69,18 @@ Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLD(
     return result;
 }
 
+Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedFresnel(const kvector_t k) const
+{
+    Eigen::Matrix2cd result;
+    double factor = m_magnetic_prefactor/k.mag2();
+    complex_t unit_factor = getScalarFresnel(k);
+    result = unit_factor*m_unit_matrix
+            + factor*m_pauli_operator[0]*m_magnetic_field[0]
+            + factor*m_pauli_operator[1]*m_magnetic_field[1]
+            + factor*m_pauli_operator[2]*m_magnetic_field[2];
+    return result;
+}
+
 const IMaterial* HomogeneousMagneticMaterial::createTransformedMaterial(
         const Transform3D& transform) const
 {

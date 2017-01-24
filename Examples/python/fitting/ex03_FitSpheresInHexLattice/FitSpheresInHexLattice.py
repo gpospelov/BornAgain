@@ -95,9 +95,8 @@ def run_fitting():
     draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
 
-    # this fit parameter will change both length_1 and length_2 simultaneously
     fit_suite.addFitParameter(
-        "*2DLattice/LatticeLength*", 8.*nm, ba.AttLimits.limited(4., 12.))
+        "*HexagonalLattice/LatticeLength", 8.*nm, ba.AttLimits.limited(4., 12.))
     fit_suite.addFitParameter(
         "*/FullSphere/Radius", 8.*nm, ba.AttLimits.limited(4., 12.))
 

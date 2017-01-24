@@ -20,10 +20,6 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 
-GCC_DIAG_OFF(unused-parameter)
-#include <boost/math/special_functions/round.hpp>
-GCC_DIAG_ON(unused-parameter)
-
 //! @param length_1 Lattice length 1
 //! @param length_2 Lattice length 2
 //! @param angle angle between lattice vectors
@@ -163,9 +159,8 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
     double xi = m_lattice->rotationAngle();
     double xialpha = xi + m_lattice->latticeAngle();
 
-    int qa_int = boost::math::iround(a * (qx * std::cos(xi) + qy * std::sin(xi)) / M_TWOPI);
-    int qb_int
-        = boost::math::iround(b * (qx * std::cos(xialpha) + qy * std::sin(xialpha)) / M_TWOPI);
+    int qa_int = std::lround(a * (qx * std::cos(xi) + qy * std::sin(xi)) / M_TWOPI);
+    int qb_int = std::lround(b * (qx * std::cos(xialpha) + qy * std::sin(xialpha)) / M_TWOPI);
     qx_frac = qx - qa_int * m_asx - qb_int * m_bsx;
     qy_frac = qy - qa_int * m_asy - qb_int * m_bsy;
 }
@@ -204,6 +199,6 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
     mp_pdf->transformToStarBasis(nmax / coherence_length_x, nmax / coherence_length_y,
                                  m_lattice->latticeAngle(), m_lattice->length1(),
                                  m_lattice->length2(), qa_max, qb_max);
-    m_na = boost::math::iround(std::abs(qa_max));
-    m_nb = boost::math::iround(std::abs(qb_max));
+    m_na = std::lround(std::abs(qa_max));
+    m_nb = std::lround(std::abs(qb_max));
 }

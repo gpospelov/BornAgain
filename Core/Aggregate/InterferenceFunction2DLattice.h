@@ -42,19 +42,21 @@ public:
 
     double evaluate(const kvector_t q) const final;
 
-    Lattice2DParameters getLatticeParameters() const { return m_lattice_params; }
-    void setLattice(const Lattice2D& lattice);
-
+    const Lattice2D& lattice() const;
 
     //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;
 
     std::vector<const INode*> getChildren() const override;
 
-protected:
     void onChange() override final;
 
 private:
+    InterferenceFunction2DLattice(const Lattice2D& lattice);
+    InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
+
+    void setLattice(const Lattice2D& lattice);
+
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
@@ -67,18 +69,12 @@ private:
     void calculateReciprocalVectorFraction(double qx, double qy,
                                            double& qx_frac, double& qy_frac) const;
 
-    InterferenceFunction2DLattice(const Lattice2DParameters& lattice_params);
-    InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
-
-    void init_parameters();
-
     //! Initializes the x,y coordinates of the a*,b* reciprocal bases
     void initialize_rec_vectors();
 
     //! Initializes factors needed in each calculation
     void initialize_calc_factors();
 
-    Lattice2DParameters m_lattice_params;
     std::unique_ptr<IFTDecayFunction2D> mp_pdf;
     std::unique_ptr<Lattice2D> m_lattice;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday

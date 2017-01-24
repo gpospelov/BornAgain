@@ -30,18 +30,10 @@ GCC_DIAG_ON(unused-parameter)
 //! @param xi rotation of lattice with respect to x-axis
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     double length_1, double length_2, double angle, double xi)
-    : m_na(0), m_nb(0)
+    : m_asx(0.0), m_asy(0.0), m_bsx(0.0), m_bsy(0.0), m_na(0), m_nb(0)
 {
-    m_lattice_params.m_length_1 = length_1;
-    m_lattice_params.m_length_2 = length_2;
-    m_lattice_params.m_angle = angle;
-    m_lattice_params.m_xi = xi;
-
-    setLattice(BasicLattice(length_1, length_2, angle, xi));
-
     setName(BornAgain::InterferenceFunction2DLatticeType);
-    init_parameters();
-    initialize_rec_vectors();
+    setLattice(BasicLattice(length_1, length_2, angle, xi));
 }
 
 InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
@@ -54,30 +46,15 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
 }
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(
-    double lattice_length, double xi)
+double lattice_length, double xi)
 {
-    Lattice2DParameters lattice_params;
-    lattice_params.m_length_1 = lattice_length;
-    lattice_params.m_length_2 = lattice_length;
-    lattice_params.m_angle = M_PI / 2.0;
-    lattice_params.m_xi = xi;
-    auto result = new InterferenceFunction2DLattice(lattice_params);
-    result->setLattice(SquareLattice(lattice_length, xi));
-    return result;
+    return new InterferenceFunction2DLattice(SquareLattice(lattice_length, xi));
 }
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
     double lattice_length, double xi)
 {
-    Lattice2DParameters lattice_params;
-    lattice_params.m_length_1 = lattice_length;
-    lattice_params.m_length_2 = lattice_length;
-    lattice_params.m_angle = M_TWOPI / 3.0;
-    lattice_params.m_xi = xi;
-
-    auto result = new InterferenceFunction2DLattice(lattice_params);
-    result->setLattice(HexagonalLattice(lattice_length, xi));
-    return result;
+    return new InterferenceFunction2DLattice(HexagonalLattice(lattice_length, xi));
 }
 
 void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
@@ -108,16 +85,16 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
     return result;
 }
 
-void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
+const Lattice2D& InterferenceFunction2DLattice::lattice() const
 {
-    m_lattice.reset(lattice.clone());
-    registerChild(m_lattice.get());
-    initialize_rec_vectors();
+    if(!m_lattice)
+        throw std::runtime_error("InterferenceFunction2DLattice::lattice() -> Error. No "
+                                 "lattice defined.");
+    return *m_lattice;
 }
 
 double InterferenceFunction2DLattice::getParticleDensity() const
 {
-//    double area = m_lattice_params.getUnitCellArea();
     double area = m_lattice->unitCellArea();
     return area == 0.0 ? 0.0 : 1.0/area;
 }
@@ -133,6 +110,31 @@ void InterferenceFunction2DLattice::onChange()
     initialize_calc_factors();
 }
 
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
+{
+    setName(BornAgain::InterferenceFunction2DLatticeType);
+    setLattice(lattice);
+}
+
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(
+        const InterferenceFunction2DLattice& other)
+{
+    setName(other.getName());
+
+    if(other.m_lattice)
+        setLattice(*other.m_lattice);
+
+    if(other.mp_pdf)
+        setDecayFunction(*other.mp_pdf);
+}
+
+void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
+{
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
+    initialize_rec_vectors();
+}
+
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
 {
     if (!mp_pdf)
@@ -140,7 +142,6 @@ double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx
             "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
             " -> Error! No probability distribution function defined.");
     double qp1, qp2;
-//    double gamma = m_lattice_params.m_xi + mp_pdf->getGamma();
     double gamma = m_lattice->rotationAngle() + mp_pdf->getGamma();
     double delta = mp_pdf->getDelta();
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
@@ -157,10 +158,6 @@ void InterferenceFunction2DLattice::transformToPrincipalAxes(
 void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
     double qx, double qy, double &qx_frac, double &qy_frac) const
 {
-//    double a = m_lattice_params.m_length_1;
-//    double b = m_lattice_params.m_length_2;
-//    double xi = m_lattice_params.m_xi;
-//    double xialpha = xi + m_lattice_params.m_angle;
     double a = m_lattice->length1();
     double b = m_lattice->length2();
     double xi = m_lattice->rotationAngle();
@@ -173,54 +170,8 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
     qy_frac = qy - qa_int * m_asy - qb_int * m_bsy;
 }
 
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(
-    const Lattice2DParameters& lattice_params)
-    : m_lattice_params(lattice_params), m_na(0), m_nb(0)
-{
-    setName(BornAgain::InterferenceFunction2DLatticeType);
-    init_parameters();
-    setLattice(BasicLattice(m_lattice_params.m_length_1, m_lattice_params.m_length_2,
-                            m_lattice_params.m_angle, m_lattice_params.m_xi));
-    initialize_rec_vectors();
-}
-
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(
-        const InterferenceFunction2DLattice& other)
-{
-    setName(other.getName());
-    m_lattice_params = other.m_lattice_params;
-    if(other.m_lattice)
-        setLattice(*other.m_lattice);
-    if(other.mp_pdf)
-        setDecayFunction(*other.mp_pdf);
-
-    init_parameters();
-    initialize_rec_vectors();
-}
-
-void InterferenceFunction2DLattice::init_parameters()
-{
-//    registerParameter(BornAgain::LatticeLength1,
-//                      &m_lattice_params.m_length_1).setUnit("nm").setPositive();
-//    registerParameter(BornAgain::LatticeLength2,
-//                      &m_lattice_params.m_length_2).setUnit("nm").setPositive();
-//    registerParameter(BornAgain::Alpha, &m_lattice_params.m_angle).setUnit("rad");
-//    registerParameter(BornAgain::Xi,    &m_lattice_params.m_xi   ).setUnit("rad");
-}
-
 void InterferenceFunction2DLattice::initialize_rec_vectors()
 {
-//    if (m_lattice_params.m_length_1 == 0 || m_lattice_params.m_length_2 == 0)
-//        throw Exceptions::DivisionByZeroException(
-//            "InterferenceFunction2DLattice::"
-//            "initialize_rec_vectors() -> Error! Zero parameters"
-//            " m_lattice_params.m_length1 or m_lattice_params.m_length_2");
-//    double sinalpha = std::sin(m_lattice_params.m_angle);
-//    double ainv = M_TWOPI / m_lattice_params.m_length_1 / sinalpha;
-//    double binv = M_TWOPI / m_lattice_params.m_length_2 / sinalpha;
-//    double xi = m_lattice_params.m_xi;
-//    double xialpha = xi + m_lattice_params.m_angle;
-
     if(!m_lattice)
         throw std::runtime_error("InterferenceFunction2DLattice::initialize_rec_vectors() -> "
                                  "Error. No lattice defined yet");
@@ -249,9 +200,7 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
 
     // number of reciprocal lattice points to use
     double qa_max(0.0), qb_max(0.0);
-//    mp_pdf->transformToStarBasis(nmax / coherence_length_x, nmax / coherence_length_y,
-//                                 m_lattice_params.m_angle, m_lattice_params.m_length_1,
-//                                 m_lattice_params.m_length_2, qa_max, qb_max);
+
     mp_pdf->transformToStarBasis(nmax / coherence_length_x, nmax / coherence_length_y,
                                  m_lattice->latticeAngle(), m_lattice->length1(),
                                  m_lattice->length2(), qa_max, qb_max);

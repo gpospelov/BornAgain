@@ -19671,19 +19671,9 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DLattice_evaluate(self, q)
 
 
-    def getLatticeParameters(self):
-        """
-        getLatticeParameters(InterferenceFunction2DLattice self) -> Lattice2DParameters
-
-        Lattice2DParameters InterferenceFunction2DLattice::getLatticeParameters() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_getLatticeParameters(self)
-
-
-    def setLattice(self, lattice):
-        """setLattice(InterferenceFunction2DLattice self, Lattice2D lattice)"""
-        return _libBornAgainCore.InterferenceFunction2DLattice_setLattice(self, lattice)
+    def lattice(self):
+        """lattice(InterferenceFunction2DLattice self) -> Lattice2D"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_lattice(self)
 
 
     def getParticleDensity(self):
@@ -19708,6 +19698,18 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_getChildren(self)
+
+
+    def onChange(self):
+        """
+        onChange(InterferenceFunction2DLattice self)
+
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_onChange(self)
 
 InterferenceFunction2DLattice_swigregister = _libBornAgainCore.InterferenceFunction2DLattice_swigregister
 InterferenceFunction2DLattice_swigregister(InterferenceFunction2DLattice)

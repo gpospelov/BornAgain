@@ -409,12 +409,12 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
         else if (const auto* twoDLattice
                  = dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
-            const Lattice2DParameters latticeParameters = twoDLattice->getLatticeParameters();
+            const Lattice2D& lattice = twoDLattice->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
-                   << printNm(latticeParameters.m_length_1) << ", "
-                   << printNm(latticeParameters.m_length_2) << ", "
-                   << printDegrees(latticeParameters.m_angle) << ", "
-                   << printDegrees(latticeParameters.m_xi) << ")\n";
+                   << printNm(lattice.length1()) << ", "
+                   << printNm(lattice.length2()) << ", "
+                   << printDegrees(lattice.latticeAngle()) << ", "
+                   << printDegrees(lattice.rotationAngle()) << ")\n";
 
             const IFTDecayFunction2D* pdf = twoDLattice->getDecayFunction();
 

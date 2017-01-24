@@ -29,7 +29,14 @@ Lattice2D::Lattice2D(double length1, double length2, double angle, double rotati
     , m_angle(angle)
     , m_xi(rotation_angle)
 {
+    if(m_length1 <= 0.0 || m_length2 <= 0.0)
+        throw std::runtime_error("Lattice2D::Lattice2D() -> Error. Lattice length can't be "
+                                 "negative or zero.");
+}
 
+double Lattice2D::unitCellArea() const
+{
+    return std::abs(m_length1*m_length2*std::sin(m_angle));
 }
 
 void Lattice2D::onChange()

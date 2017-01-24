@@ -46,6 +46,8 @@ public:
     double latticeAngle() const { return m_angle; }
     double rotationAngle() const { return m_xi; }
 
+    double unitCellArea() const;
+
 protected:
     virtual void onChange();
     Lattice2D(const Lattice2D& other);

@@ -20705,6 +20705,11 @@ class Lattice2D(ICloneable, INode):
         """unitCellArea(Lattice2D self) -> double"""
         return _libBornAgainCore.Lattice2D_unitCellArea(self)
 
+
+    def reciprocalBases(self):
+        """reciprocalBases(Lattice2D self) -> Lattice2D::ReciprocalBases"""
+        return _libBornAgainCore.Lattice2D_reciprocalBases(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_Lattice2D
     __del__ = lambda self: None
 Lattice2D_swigregister = _libBornAgainCore.Lattice2D_swigregister

@@ -39,6 +39,20 @@ double Lattice2D::unitCellArea() const
     return std::abs(m_length1*m_length2*std::sin(m_angle));
 }
 
+Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const
+{
+    double sinalpha = std::sin(latticeAngle());
+    double ainv = M_TWOPI / length1() / sinalpha;
+    double binv = M_TWOPI / length2() / sinalpha;
+    double xi = rotationAngle();
+    double xialpha = xi + latticeAngle();
+
+    return {+ainv * std::sin(xialpha),
+            -ainv * std::cos(xialpha),
+            -binv * std::sin(xi),
+            +binv * std::cos(xi)};
+}
+
 void Lattice2D::onChange()
 {
     if(parent())

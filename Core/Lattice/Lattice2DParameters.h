@@ -41,12 +41,19 @@ public:
     Lattice2D(double length1, double length2, double angle, double rotation_angle = 0.0);
     Lattice2D* clone() const = 0;
 
+    struct ReciprocalBases {
+        double m_asx, m_asy; //!< x,y coordinates of a*
+        double m_bsx, m_bsy; //!< x,y coordinates of b*
+    };
+
     double length1() const { return m_length1; }
     virtual double length2() const { return m_length2; }
     double latticeAngle() const { return m_angle; }
     double rotationAngle() const { return m_xi; }
 
     double unitCellArea() const;
+
+    ReciprocalBases reciprocalBases() const;
 
 protected:
     virtual void onChange();

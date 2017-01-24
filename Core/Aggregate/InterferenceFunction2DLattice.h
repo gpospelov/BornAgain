@@ -77,9 +77,8 @@ private:
 
     std::unique_ptr<IFTDecayFunction2D> mp_pdf;
     std::unique_ptr<Lattice2D> m_lattice;
+    Lattice2D::ReciprocalBases m_sbase;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
-    double m_asx, m_asy; //!< x,y coordinates of a*
-    double m_bsx, m_bsy; //!< x,y coordinates of b*
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
 };
 

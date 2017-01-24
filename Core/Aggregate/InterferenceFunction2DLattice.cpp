@@ -26,7 +26,7 @@
 //! @param xi rotation of lattice with respect to x-axis
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     double length_1, double length_2, double angle, double xi)
-    : m_asx(0.0), m_asy(0.0), m_bsx(0.0), m_bsy(0.0), m_na(0), m_nb(0)
+    : m_na(0), m_nb(0)
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
     setLattice(BasicLattice(length_1, length_2, angle, xi));
@@ -73,8 +73,8 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 
     for (int i = -m_na - 1; i < m_na + 2; ++i) {
         for (int j = -m_nb - 1; j < m_nb + 2; ++j) {
-            double qx = qx_frac + i * m_asx + j * m_bsx;
-            double qy = qy_frac + i * m_asy + j * m_bsy;
+            double qx = qx_frac + i * m_sbase.m_asx + j * m_sbase.m_bsx;
+            double qy = qy_frac + i * m_sbase.m_asy + j * m_sbase.m_bsy;
             result += interferenceAtOneRecLatticePoint(qx, qy);
         }
     }
@@ -161,8 +161,8 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
 
     int qa_int = std::lround(a * (qx * std::cos(xi) + qy * std::sin(xi)) / M_TWOPI);
     int qb_int = std::lround(b * (qx * std::cos(xialpha) + qy * std::sin(xialpha)) / M_TWOPI);
-    qx_frac = qx - qa_int * m_asx - qb_int * m_bsx;
-    qy_frac = qy - qa_int * m_asy - qb_int * m_bsy;
+    qx_frac = qx - qa_int * m_sbase.m_asx - qb_int * m_sbase.m_bsx;
+    qy_frac = qy - qa_int * m_sbase.m_asy - qb_int * m_sbase.m_bsy;
 }
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()
@@ -171,16 +171,7 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
         throw std::runtime_error("InterferenceFunction2DLattice::initialize_rec_vectors() -> "
                                  "Error. No lattice defined yet");
 
-    double sinalpha = std::sin(m_lattice->latticeAngle());
-    double ainv = M_TWOPI / m_lattice->length1() / sinalpha;
-    double binv = M_TWOPI / m_lattice->length2() / sinalpha;
-    double xi = m_lattice->rotationAngle();
-    double xialpha = xi + m_lattice->latticeAngle();
-
-    m_asx = +ainv * std::sin(xialpha);
-    m_asy = -ainv * std::cos(xialpha);
-    m_bsx = -binv * std::sin(xi);
-    m_bsy = +binv * std::cos(xi);
+    m_sbase = m_lattice->reciprocalBases();
 }
 
 void InterferenceFunction2DLattice::initialize_calc_factors()

@@ -45,8 +45,9 @@ public:
     // the created sample in buildSample()
     static bool isPythonBuilder() { return false; }
 
-    // Without this PythonBindings doesn't work
+    // Without duplication below PythonBindings doesn't work for shared_ptr<IMultiLayerBuilder>
     std::vector<const INode*> getChildren() const { return{}; }
+    virtual void onChange() {}
 
 };
 

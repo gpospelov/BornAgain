@@ -7194,6 +7194,18 @@ class IMultiLayerBuilder(INode):
         return _libBornAgainCore.IMultiLayerBuilder_getChildren(self)
 
 
+    def onChange(self):
+        """
+        onChange(IMultiLayerBuilder self)
+
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
+
+
     def registerParameter(self, name, parpointer):
         """registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter"""
         return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
@@ -20685,6 +20697,11 @@ class Lattice2D(ICloneable, INode):
     def rotationAngle(self):
         """rotationAngle(Lattice2D self) -> double"""
         return _libBornAgainCore.Lattice2D_rotationAngle(self)
+
+
+    def unitCellArea(self):
+        """unitCellArea(Lattice2D self) -> double"""
+        return _libBornAgainCore.Lattice2D_unitCellArea(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_Lattice2D
     __del__ = lambda self: None

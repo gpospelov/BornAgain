@@ -70,6 +70,9 @@ public:
     std::vector<const INode*> getChildren() const;
 
 private:
+    InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal& other);
+    void setLattice(const Lattice2D& lattice);
+
     void init_parameters();
     double interferenceForXi(double xi) const;
     double interference1D(double qx, double qy, double xi, size_t index) const;
@@ -80,6 +83,7 @@ private:
     Lattice2DParameters m_lattice_params; //!< Lattice parameters
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<IFTDistribution2D> m_pdf1, m_pdf2;
+    std::unique_ptr<Lattice2D> m_lattice;
     double m_damping_length; //!< Damping length for removing delta function singularity at q=0.
     bool m_use_damping_length; //!< Flag that determines if the damping length should be used.
     double m_domain_sizes[2]; //!< Coherence domain sizes

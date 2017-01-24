@@ -33,13 +33,18 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     , m_damping_length(damping_length)
     , m_use_damping_length(true)
 {
+    setName(BornAgain::InterferenceFunction2DParaCrystalType);
+
     m_lattice_params.m_length_1 = length_1;
     m_lattice_params.m_length_2 = length_2;
     m_lattice_params.m_angle = alpha_lattice;
     m_lattice_params.m_xi = xi;
+
+    setLattice(BasicLattice(length_1, length_2, alpha_lattice, xi));
+
     m_domain_sizes[0] = 0.0;
     m_domain_sizes[1] = 0.0;
-    setName(BornAgain::InterferenceFunction2DParaCrystalType);
+
     if (m_damping_length==0.0)
         m_use_damping_length = false;
     init_parameters();
@@ -53,14 +58,15 @@ InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() const
 {
-    InterferenceFunction2DParaCrystal* result = new InterferenceFunction2DParaCrystal(
-        m_lattice_params.m_length_1, m_lattice_params.m_length_2, m_lattice_params.m_angle,
-        m_lattice_params.m_xi, m_damping_length);
-    result->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
-    if (m_pdf1 && m_pdf2)
-        result->setProbabilityDistributions(*m_pdf1, *m_pdf2);
-    result->setIntegrationOverXi(m_integrate_xi);
-    return result;
+//    InterferenceFunction2DParaCrystal* result = new InterferenceFunction2DParaCrystal(
+//        m_lattice_params.m_length_1, m_lattice_params.m_length_2, m_lattice_params.m_angle,
+//        m_lattice_params.m_xi, m_damping_length);
+//    result->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
+//    if (m_pdf1 && m_pdf2)
+//        result->setProbabilityDistributions(*m_pdf1, *m_pdf2);
+//    result->setIntegrationOverXi(m_integrate_xi);
+//    return result;
+    return new InterferenceFunction2DParaCrystal(*this);
 }
 
 //! Sets the probability distributions (Fourier transformed) for the two lattice directions.
@@ -93,6 +99,36 @@ double InterferenceFunction2DParaCrystal::getParticleDensity() const
 std::vector<const INode*> InterferenceFunction2DParaCrystal::getChildren() const
 {
     return std::vector<const INode*>() << m_pdf1 << m_pdf2;
+}
+
+InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
+        const InterferenceFunction2DParaCrystal& other)
+{
+    setName(other.getName());
+
+    m_lattice_params = other.m_lattice_params;
+    m_damping_length = other.m_damping_length;
+    m_use_damping_length = other.m_use_damping_length;
+
+    if(other.m_lattice)
+        setLattice(*other.m_lattice);
+
+    if (other.m_pdf1 && other.m_pdf2)
+        setProbabilityDistributions(*other.m_pdf1, *other.m_pdf2);
+
+    setDomainSizes(other.m_domain_sizes[0], other.m_domain_sizes[1]);
+    setIntegrationOverXi(other.m_integrate_xi);
+
+    mP_integrator = make_integrator_real(
+        this, &InterferenceFunction2DParaCrystal::interferenceForXi);
+
+    init_parameters();
+}
+
+void InterferenceFunction2DParaCrystal::setLattice(const Lattice2D& lattice)
+{
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
 }
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSquare(

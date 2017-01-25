@@ -32,7 +32,7 @@
 #include "InfinitePlane.h"
 #include "InterferenceFunctionItems.h"
 #include "InterferenceFunctions.h"
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerItem.h"
@@ -709,19 +709,19 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
     if (lattice.getName() == BornAgain::SquareLatticeType) {
         SessionItem* latticeItem = item->setGroupProperty(
             InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::SquareLatticeType);
-        latticeItem->setItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH, lattice.length1());
+        latticeItem->setItemValue(SquareLatticeItem::P_LATTICE_LENGTH, lattice.length1());
 
     } else if (lattice.getName() == BornAgain::HexagonalLatticeType) {
         SessionItem* latticeItem = item->setGroupProperty(
             InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::HexagonalLatticeType);
-        latticeItem->setItemValue(HexagonalLatticeTypeItem::P_LATTICE_LENGTH, lattice.length1());
+        latticeItem->setItemValue(HexagonalLatticeItem::P_LATTICE_LENGTH, lattice.length1());
 
     } else {
         SessionItem* latticeItem = item->setGroupProperty(
             InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::BasicLatticeType);
-        latticeItem->setItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1, lattice.length1());
-        latticeItem->setItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2, lattice.length2());
-        latticeItem->setItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE,
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH1, lattice.length1());
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH2, lattice.length2());
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_ANGLE,
                                   Units::rad2deg(lattice.latticeAngle()));
     }
     item->setItemValue(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE,

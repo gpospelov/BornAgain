@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/LatticeTypeItems.cpp
-//! @brief     Implements classes LatticeTypeItems
+//! @file      GUI/coregui/Models/Lattice2DItems.cpp
+//! @brief     Implements classes Lattice2DItems
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,18 +14,25 @@
 //
 // ************************************************************************** //
 
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include "BornAgainNamespace.h"
 
-const QString BasicLatticeTypeItem::P_LATTICE_LENGTH1
+Lattice2DItem::Lattice2DItem(const QString& modelType)
+    : SessionItem(modelType)
+{
+
+}
+
+
+const QString BasicLatticeItem::P_LATTICE_LENGTH1
     = QString::fromStdString(BornAgain::LatticeLength1);
-const QString BasicLatticeTypeItem::P_LATTICE_LENGTH2
+const QString BasicLatticeItem::P_LATTICE_LENGTH2
     = QString::fromStdString(BornAgain::LatticeLength2);
-const QString BasicLatticeTypeItem::P_LATTICE_ANGLE
+const QString BasicLatticeItem::P_LATTICE_ANGLE
     = QString::fromStdString(BornAgain::LatticeAngle);
 
-BasicLatticeTypeItem::BasicLatticeTypeItem()
-    : SessionItem(Constants::BasicLatticeType)
+BasicLatticeItem::BasicLatticeItem()
+    : Lattice2DItem(Constants::BasicLatticeType)
 {
     addProperty(P_LATTICE_LENGTH1, 20.0);
     addProperty(P_LATTICE_LENGTH2, 20.0);
@@ -34,22 +41,23 @@ BasicLatticeTypeItem::BasicLatticeTypeItem()
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString SquareLatticeTypeItem::P_LATTICE_LENGTH
+const QString SquareLatticeItem::P_LATTICE_LENGTH
     = QString::fromStdString(BornAgain::LatticeLength);
 
-SquareLatticeTypeItem::SquareLatticeTypeItem()
-    : SessionItem(Constants::SquareLatticeType)
+SquareLatticeItem::SquareLatticeItem()
+    : Lattice2DItem(Constants::SquareLatticeType)
 {
     addProperty(P_LATTICE_LENGTH, 20.0);
 }
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString HexagonalLatticeTypeItem::P_LATTICE_LENGTH
+const QString HexagonalLatticeItem::P_LATTICE_LENGTH
     = QString::fromStdString(BornAgain::LatticeLength);
 
-HexagonalLatticeTypeItem::HexagonalLatticeTypeItem()
-    : SessionItem(Constants::HexagonalLatticeType)
+HexagonalLatticeItem::HexagonalLatticeItem()
+    : Lattice2DItem(Constants::HexagonalLatticeType)
 {
     addProperty(P_LATTICE_LENGTH, 20.0);
 }
+

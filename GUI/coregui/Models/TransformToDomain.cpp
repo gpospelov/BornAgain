@@ -32,7 +32,7 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionItems.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
@@ -183,21 +183,21 @@ TransformToDomain::createInterferenceFunction(const SessionItem& item)
         Q_ASSERT(latticeItem);
         double length_1 {0.0}, length_2 {0.0}, alpha_lattice {0.0};
         if (latticeItem->modelType() == Constants::BasicLatticeType) {
-            length_1 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1)
+            length_1 = latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_LENGTH1)
                            .toDouble();
-            length_2 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2)
+            length_2 = latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_LENGTH2)
                            .toDouble();
             alpha_lattice = Units::deg2rad(
-                latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE)
+                latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_ANGLE)
                     .toDouble());
         } else if (latticeItem->modelType() == Constants::SquareLatticeType) {
-            length_1 = latticeItem->getItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH)
+            length_1 = latticeItem->getItemValue(SquareLatticeItem::P_LATTICE_LENGTH)
                            .toDouble();
             length_2 = length_1;
             alpha_lattice = M_PI / 2.0;
         } else if (latticeItem->modelType() == Constants::HexagonalLatticeType) {
             length_1 = latticeItem->getItemValue(
-                                        HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+                                        HexagonalLatticeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             alpha_lattice = M_TWOPI / 3.0;
         } else {
@@ -254,21 +254,21 @@ TransformToDomain::createInterferenceFunction(const SessionItem& item)
 
         double length_1 {0.0}, length_2 {0.0}, angle {0.0};
         if (latticeItem->modelType() == Constants::BasicLatticeType) {
-            length_1 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1)
+            length_1 = latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_LENGTH1)
                            .toDouble();
-            length_2 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2)
+            length_2 = latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_LENGTH2)
                            .toDouble();
             angle = Units::deg2rad(
-                latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE)
+                latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_ANGLE)
                     .toDouble());
         } else if (latticeItem->modelType() == Constants::SquareLatticeType) {
-            length_1 = latticeItem->getItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH)
+            length_1 = latticeItem->getItemValue(SquareLatticeItem::P_LATTICE_LENGTH)
                            .toDouble();
             length_2 = length_1;
             angle = M_PI / 2.0;
         } else if (latticeItem->modelType() == Constants::HexagonalLatticeType) {
             length_1 = latticeItem->getItemValue(
-                                        HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
+                                        HexagonalLatticeItem::P_LATTICE_LENGTH).toDouble();
             length_2 = length_1;
             angle = M_TWOPI / 3.0;
         } else {

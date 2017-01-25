@@ -31,7 +31,7 @@
 #include "IntensityDataItem.h"
 #include "InterferenceFunctionItems.h"
 #include "JobItem.h"
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
 #include "MagneticFieldItem.h"
@@ -143,9 +143,9 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::FTDecayFunction2DGaussType] = &createInstance<FTDecayFunction2DGaussItem>;
     result[Constants::FTDecayFunction2DVoigtType] = &createInstance<FTDecayFunction2DVoigtItem>;
 
-    result[Constants::BasicLatticeType] = &createInstance<BasicLatticeTypeItem>;
-    result[Constants::SquareLatticeType] = &createInstance<SquareLatticeTypeItem>;
-    result[Constants::HexagonalLatticeType] = &createInstance<HexagonalLatticeTypeItem>;
+    result[Constants::BasicLatticeType] = &createInstance<BasicLatticeItem>;
+    result[Constants::SquareLatticeType] = &createInstance<SquareLatticeItem>;
+    result[Constants::HexagonalLatticeType] = &createInstance<HexagonalLatticeItem>;
 
     result[Constants::MaterialType] = &createInstance<MaterialItem>;
 

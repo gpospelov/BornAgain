@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Lattice/Lattice2DParameters.h
-//! @brief     Defines class Lattice2DParameters.
+//! @file      Core/Lattice/Lattice2D.h
+//! @brief     Defines classes of Lattice2D family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef LATTICE2DPARAMETERS_H
-#define LATTICE2DPARAMETERS_H
+#ifndef LATTICE2D_H
+#define LATTICE2D_H
 
 #include "ICloneable.h"
 #include "INode.h"
@@ -85,4 +85,4 @@ private:
     void init_parameters();
 };
 
-#endif // LATTICE2DPARAMETERS_H
+#endif // LATTICE2D_H

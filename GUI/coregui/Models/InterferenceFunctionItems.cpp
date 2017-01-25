@@ -17,9 +17,13 @@
 #include "InterferenceFunctionItems.h"
 #include "BornAgainNamespace.h"
 #include "ParameterTranslators.h"
+#include "Lattice2DItems.h"
 #include "ModelPath.h"
 #include "GUIHelpers.h"
 #include "Units.h"
+#include "FTDecayFunctionItems.h"
+#include "FTDecayFunctions.h"
+#include "InterferenceFunction2DLattice.h"
 
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
@@ -51,7 +55,7 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
     addGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
 }
 
-std::unique_ptr<InterferenceFunction>
+std::unique_ptr<IInterferenceFunction>
 InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
 {
     throw GUIHelpers::Error("RadialParaCrystalItem::createInterferenceFunction() -> Error. "
@@ -101,7 +105,7 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     });
 }
 
-std::unique_ptr<InterferenceFunction>
+std::unique_ptr<IInterferenceFunction>
 InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
 {
     throw GUIHelpers::Error("2DParaCrystalItem::createInterferenceFunction() -> Error. "
@@ -124,7 +128,7 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
     addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction1DGroup);
 }
 
-std::unique_ptr<InterferenceFunction>
+std::unique_ptr<IInterferenceFunction>
 InterferenceFunction1DLatticeItem::createInterferenceFunction() const
 {
     throw GUIHelpers::Error("1DLatticeItem::createInterferenceFunction() -> Error. "
@@ -148,10 +152,15 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
     ModelPath::addParameterTranslator(lattice_translator);
 }
 
-std::unique_ptr<InterferenceFunction>
+std::unique_ptr<IInterferenceFunction>
 InterferenceFunction2DLatticeItem::createInterferenceFunction() const
 {
-    throw GUIHelpers::Error("2DLatticeItem::createInterferenceFunction() -> Error. "
-                            "Not implemented.");
-}
+    auto latticeItem = dynamic_cast<Lattice2DItem*>(getGroupItem(P_LATTICE_TYPE));
+    std::unique_ptr<InterferenceFunction2DLattice> result(
+        new InterferenceFunction2DLattice(*latticeItem->createLattice()));
 
+    auto pdfItem = dynamic_cast<FTDecayFunction2DItem*>(getGroupItem(P_DECAY_FUNCTION));
+    result->setDecayFunction(*pdfItem->createFTDecayFunction());
+
+    return std::move(result);
+}

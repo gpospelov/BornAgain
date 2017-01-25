@@ -18,14 +18,14 @@
 #define INTERFERENCEFUNCTIONITEMS_H
 
 #include "SessionGraphicsItem.h"
-class InterferenceFunction;
+class IInterferenceFunction;
 
 class BA_CORE_API_ InterferenceFunctionItem  : public SessionGraphicsItem
 {
 public:
     explicit InterferenceFunctionItem(const QString& modelType);
     virtual ~InterferenceFunctionItem();
-    virtual std::unique_ptr<InterferenceFunction> createInterferenceFunction() const=0;
+    virtual std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const=0;
 };
 
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public InterferenceFunctionItem
@@ -38,7 +38,7 @@ public:
     static const QString P_KAPPA;
     static const QString P_PDF;
     InterferenceFunctionRadialParaCrystalItem();
-    std::unique_ptr<InterferenceFunction> createInterferenceFunction() const;
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 };
 
 class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public InterferenceFunctionItem
@@ -53,7 +53,7 @@ public:
     static const QString P_PDF1;
     static const QString P_PDF2;
     InterferenceFunction2DParaCrystalItem();
-    std::unique_ptr<InterferenceFunction> createInterferenceFunction() const;
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 };
 
 class BA_CORE_API_ InterferenceFunction1DLatticeItem : public InterferenceFunctionItem
@@ -64,7 +64,7 @@ public:
     static const QString P_ROTATION_ANGLE;
     static const QString P_DECAY_FUNCTION;
     InterferenceFunction1DLatticeItem();
-    std::unique_ptr<InterferenceFunction> createInterferenceFunction() const;
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 };
 
 class BA_CORE_API_ InterferenceFunction2DLatticeItem : public InterferenceFunctionItem
@@ -75,7 +75,7 @@ public:
     static const QString P_ROTATION_ANGLE;
     static const QString P_DECAY_FUNCTION;
     InterferenceFunction2DLatticeItem();
-    std::unique_ptr<InterferenceFunction> createInterferenceFunction() const;
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 };
 
 #endif // INTERFERENCEFUNCTIONITEMS_H

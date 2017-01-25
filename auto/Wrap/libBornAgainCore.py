@@ -19569,9 +19569,9 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
     def __init__(self, *args):
         """
+        __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
         __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle, double xi=0.0) -> InterferenceFunction2DLattice
         __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle) -> InterferenceFunction2DLattice
-        __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
 
         InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0)
 

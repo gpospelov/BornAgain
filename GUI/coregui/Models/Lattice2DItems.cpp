@@ -42,6 +42,7 @@ BasicLatticeItem::BasicLatticeItem()
     addProperty(P_LATTICE_LENGTH1, 20.0);
     addProperty(P_LATTICE_LENGTH2, 20.0);
     addProperty(P_LATTICE_ANGLE, 90.0);
+    addProperty(Lattice2DItem::P_LATTICE_ROTATION_ANGLE, 0.0);
 }
 
 std::unique_ptr<Lattice2D> BasicLatticeItem::createLattice() const
@@ -63,6 +64,7 @@ SquareLatticeItem::SquareLatticeItem()
     : Lattice2DItem(Constants::SquareLatticeType)
 {
     addProperty(P_LATTICE_LENGTH, 20.0);
+    addProperty(Lattice2DItem::P_LATTICE_ROTATION_ANGLE, 0.0);
 }
 
 std::unique_ptr<Lattice2D> SquareLatticeItem::createLattice() const
@@ -82,6 +84,7 @@ HexagonalLatticeItem::HexagonalLatticeItem()
     : Lattice2DItem(Constants::HexagonalLatticeType)
 {
     addProperty(P_LATTICE_LENGTH, 20.0);
+    addProperty(Lattice2DItem::P_LATTICE_ROTATION_ANGLE, 0.0);
 }
 
 std::unique_ptr<Lattice2D> HexagonalLatticeItem::createLattice() const

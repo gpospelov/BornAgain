@@ -20,6 +20,13 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 
+
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
+{
+    setName(BornAgain::InterferenceFunction2DLatticeType);
+    setLattice(lattice);
+}
+
 //! @param length_1 Lattice length 1
 //! @param length_2 Lattice length 2
 //! @param angle angle between lattice vectors
@@ -104,12 +111,6 @@ void InterferenceFunction2DLattice::onChange()
 {
     initialize_rec_vectors();
     initialize_calc_factors();
-}
-
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
-{
-    setName(BornAgain::InterferenceFunction2DLatticeType);
-    setLattice(lattice);
 }
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(

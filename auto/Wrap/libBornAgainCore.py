@@ -19567,10 +19567,11 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction2DLattice, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length_1, length_2, angle, xi=0.0):
+    def __init__(self, *args):
         """
         __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle, double xi=0.0) -> InterferenceFunction2DLattice
         __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle) -> InterferenceFunction2DLattice
+        __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
 
         InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0)
 
@@ -19590,7 +19591,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         rotation of lattice with respect to x-axis 
 
         """
-        this = _libBornAgainCore.new_InterferenceFunction2DLattice(length_1, length_2, angle, xi)
+        this = _libBornAgainCore.new_InterferenceFunction2DLattice(*args)
         try:
             self.this.append(this)
         except Exception:

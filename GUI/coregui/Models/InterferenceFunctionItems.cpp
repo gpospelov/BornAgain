@@ -67,8 +67,6 @@ InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE =
-        QString::fromStdString(BornAgain::Xi);
 const QString InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH =
         QString::fromStdString(BornAgain::DampingLength);
 const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1 =
@@ -82,30 +80,34 @@ const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction2DParaCrystalType)
 {
-    addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                          Constants::LatticeGroup);
+    addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::LatticeGroup);
+    getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE)->setEnabled(false);
+    addProperty(P_XI_INTEGRATION, true);
+
     addProperty(P_DAMPING_LENGTH, 0.0);
     addProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
     addProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
-    addProperty(P_XI_INTEGRATION, true);
-    addProperty(P_ROTATION_ANGLE, 0.0);
-    getItem(P_ROTATION_ANGLE)->setEnabled(false);
     addGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
     addGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
 
     LatticeTypeTranslator lattice_translator;
     ModelPath::addParameterTranslator(lattice_translator);
 
-//    mapper()->setOnPropertyChange(
-//        [this](const QString &name) {
-//            if(name == P_XI_INTEGRATION && isTag(P_ROTATION_ANGLE)) {
-//                if(getItemValue(P_XI_INTEGRATION).toBool()) {
-//                    getItem(P_ROTATION_ANGLE)->setEnabled(false);
-//                } else {
-//                    getItem(P_ROTATION_ANGLE)->setEnabled(true);
-//                }
-//            }
-//    });
+    mapper()->setOnPropertyChange(
+        [this](const QString &name) {
+            if(name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
+                update_rotation_availability();
+            }
+    });
+
+    mapper()->setOnChildPropertyChange(
+                [this](SessionItem* item, const QString &)
+    {
+        if(item->modelType() == Constants::GroupItemType) {
+            update_rotation_availability();
+        }
+    });
+
 }
 
 std::unique_ptr<IInterferenceFunction>
@@ -130,6 +132,16 @@ InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
                                         *pdf2Item->createFTDistribution());
 
     return std::move(result);
+}
+
+//! Sets rotation property of the lattice enabled/disabled depending on integration flag.
+
+void InterferenceFunction2DParaCrystalItem::update_rotation_availability()
+{
+    SessionItem *angleItem = getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
+            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
+
+    angleItem->setEnabled(!getItemValue(P_XI_INTEGRATION).toBool());
 }
 
 // --------------------------------------------------------------------------------------------- //

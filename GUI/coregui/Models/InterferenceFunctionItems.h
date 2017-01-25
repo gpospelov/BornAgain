@@ -45,7 +45,6 @@ class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public InterferenceFu
 {
 
 public:
-    static const QString P_ROTATION_ANGLE;
     static const QString P_DAMPING_LENGTH;
     static const QString P_DOMAIN_SIZE1;
     static const QString P_DOMAIN_SIZE2;
@@ -54,6 +53,8 @@ public:
     static const QString P_PDF2;
     InterferenceFunction2DParaCrystalItem();
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+private:
+    void update_rotation_availability();
 };
 
 class BA_CORE_API_ InterferenceFunction1DLatticeItem : public InterferenceFunctionItem

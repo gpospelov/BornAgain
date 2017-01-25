@@ -10,6 +10,7 @@
 #include "ComboProperty.h"
 #include "DocumentModel.h"
 #include "SimulationOptionsItem.h"
+#include "Lattice2DItems.h"
 #include <memory>
 #include <QtTest>
 
@@ -53,17 +54,24 @@ inline void TestMapperCases::test_Inference2DRotationAngleToggle()
     SessionItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
     SessionItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
 
-    SessionItem *inference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType,
+    SessionItem *interference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType,
                                                        layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
 
-    // TODO repair!!!
-//    // rotation (xi) should be disabled if integration is on
-//    inference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
-//    QVERIFY(inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
+    // rotation (xi) should be disabled if integration is on
+    interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
 
-//    // rotation (xi) should be enabled if integration is off
-//    inference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
-//    QVERIFY(!inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
+    SessionItem *angleItem = interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
+            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
+
+    QVERIFY(angleItem->isEnabled() == false);
+
+    // rotation (xi) should be enabled if integration is off
+    interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
+
+    angleItem = interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
+            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
+
+    QVERIFY(angleItem->isEnabled() == true);
 
 }
 

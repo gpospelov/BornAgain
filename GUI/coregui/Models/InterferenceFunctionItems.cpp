@@ -18,7 +18,18 @@
 #include "BornAgainNamespace.h"
 #include "ParameterTranslators.h"
 #include "ModelPath.h"
+#include "GUIHelpers.h"
 #include "Units.h"
+
+InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
+    : SessionGraphicsItem(modelType)
+{
+
+}
+
+InterferenceFunctionItem::~InterferenceFunctionItem(){}
+
+// --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE =
         QString::fromStdString(BornAgain::PeakDistance);
@@ -29,6 +40,25 @@ const QString InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE =
 const QString InterferenceFunctionRadialParaCrystalItem::P_KAPPA =
         QString::fromStdString(BornAgain::SizeSpaceCoupling);
 const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
+
+InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem()
+    : InterferenceFunctionItem(Constants::InterferenceFunctionRadialParaCrystalType)
+{
+    addProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
+    addProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
+    addProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer);
+    addProperty(P_KAPPA, 0.0);
+    addGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
+}
+
+std::unique_ptr<InterferenceFunction>
+InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
+{
+    throw GUIHelpers::Error("RadialParaCrystalItem::createInterferenceFunction() -> Error. "
+                            "Not implemented.");
+}
+
+// --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE =
         QString::fromStdString(BornAgain::Xi);
@@ -42,32 +72,8 @@ const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION = "Integra
 const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 
-const QString InterferenceFunction1DLatticeItem::P_LENGTH =
-        QString::fromStdString(BornAgain::Length);
-const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
-        QString::fromStdString(BornAgain::Xi);
-const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
-
-const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE = "Lattice_type";
-const QString InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE =
-        QString::fromStdString(BornAgain::Xi);
-const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
-
-
-InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem(
-        )
-    : SessionGraphicsItem(Constants::InterferenceFunctionRadialParaCrystalType)
-{
-    addProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
-    addProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
-    addProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer);
-    addProperty(P_KAPPA, 0.0);
-    addGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
-}
-
-InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
-        )
-    : SessionGraphicsItem(Constants::InterferenceFunction2DParaCrystalType)
+InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
+    : InterferenceFunctionItem(Constants::InterferenceFunction2DParaCrystalType)
 {
     addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
                           Constants::LatticeGroup);
@@ -95,17 +101,45 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem(
     });
 }
 
+std::unique_ptr<InterferenceFunction>
+InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
+{
+    throw GUIHelpers::Error("2DParaCrystalItem::createInterferenceFunction() -> Error. "
+                            "Not implemented.");
+}
+
+// --------------------------------------------------------------------------------------------- //
+
+const QString InterferenceFunction1DLatticeItem::P_LENGTH =
+        QString::fromStdString(BornAgain::Length);
+const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
+        QString::fromStdString(BornAgain::Xi);
+const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
+
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
-    : SessionGraphicsItem(Constants::InterferenceFunction1DLatticeType)
+    : InterferenceFunctionItem(Constants::InterferenceFunction1DLatticeType)
 {
     addProperty(P_LENGTH, 20.0*Units::nanometer);
     addProperty(P_ROTATION_ANGLE, 0.0);
     addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction1DGroup);
 }
 
-InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
-        )
-    : SessionGraphicsItem(Constants::InterferenceFunction2DLatticeType)
+std::unique_ptr<InterferenceFunction>
+InterferenceFunction1DLatticeItem::createInterferenceFunction() const
+{
+    throw GUIHelpers::Error("1DLatticeItem::createInterferenceFunction() -> Error. "
+                            "Not implemented.");
+}
+
+// --------------------------------------------------------------------------------------------- //
+
+const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE = "Lattice_type";
+const QString InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE =
+        QString::fromStdString(BornAgain::Xi);
+const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
+
+InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
+    : InterferenceFunctionItem(Constants::InterferenceFunction2DLatticeType)
 {
     addGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
     addProperty(P_ROTATION_ANGLE, 0.0);
@@ -113,3 +147,11 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem(
     LatticeTypeTranslator lattice_translator;
     ModelPath::addParameterTranslator(lattice_translator);
 }
+
+std::unique_ptr<InterferenceFunction>
+InterferenceFunction2DLatticeItem::createInterferenceFunction() const
+{
+    throw GUIHelpers::Error("2DLatticeItem::createInterferenceFunction() -> Error. "
+                            "Not implemented.");
+}
+

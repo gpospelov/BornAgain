@@ -23,7 +23,9 @@ class Lattice2D;
 class BA_CORE_API_ Lattice2DItem : public SessionItem
 {
 public:
+    static const QString P_LATTICE_ROTATION_ANGLE;
     explicit Lattice2DItem(const QString& modelType);
+    virtual std::unique_ptr<Lattice2D> createLattice() const=0;
 };
 
 
@@ -34,6 +36,7 @@ public:
     static const QString P_LATTICE_LENGTH2;
     static const QString P_LATTICE_ANGLE;
     BasicLatticeItem();
+    std::unique_ptr<Lattice2D> createLattice() const;
 };
 
 class BA_CORE_API_ SquareLatticeItem : public Lattice2DItem
@@ -41,6 +44,7 @@ class BA_CORE_API_ SquareLatticeItem : public Lattice2DItem
 public:
     static const QString P_LATTICE_LENGTH;
     SquareLatticeItem();
+    std::unique_ptr<Lattice2D> createLattice() const;
 };
 
 class BA_CORE_API_ HexagonalLatticeItem : public Lattice2DItem
@@ -48,6 +52,7 @@ class BA_CORE_API_ HexagonalLatticeItem : public Lattice2DItem
 public:
     static const QString P_LATTICE_LENGTH;
     HexagonalLatticeItem();
+    std::unique_ptr<Lattice2D> createLattice() const;
 };
 
 #endif // LATTICE2DITEMS_H

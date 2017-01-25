@@ -23,7 +23,10 @@
 #include "Units.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDecayFunctions.h"
+#include "FTDistributionItems.h"
+#include "FTDistributions2D.h"
 #include "InterferenceFunction2DLattice.h"
+#include "InterferenceFunction2DParaCrystal.h"
 
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
@@ -93,23 +96,40 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     LatticeTypeTranslator lattice_translator;
     ModelPath::addParameterTranslator(lattice_translator);
 
-    mapper()->setOnPropertyChange(
-        [this](const QString &name) {
-            if(name == P_XI_INTEGRATION && isTag(P_ROTATION_ANGLE)) {
-                if(getItemValue(P_XI_INTEGRATION).toBool()) {
-                    getItem(P_ROTATION_ANGLE)->setEnabled(false);
-                } else {
-                    getItem(P_ROTATION_ANGLE)->setEnabled(true);
-                }
-            }
-    });
+//    mapper()->setOnPropertyChange(
+//        [this](const QString &name) {
+//            if(name == P_XI_INTEGRATION && isTag(P_ROTATION_ANGLE)) {
+//                if(getItemValue(P_XI_INTEGRATION).toBool()) {
+//                    getItem(P_ROTATION_ANGLE)->setEnabled(false);
+//                } else {
+//                    getItem(P_ROTATION_ANGLE)->setEnabled(true);
+//                }
+//            }
+//    });
 }
 
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
 {
-    throw GUIHelpers::Error("2DParaCrystalItem::createInterferenceFunction() -> Error. "
-                            "Not implemented.");
+    auto latticeItem = dynamic_cast<Lattice2DItem*>(
+        getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE));
+
+    std::unique_ptr<InterferenceFunction2DParaCrystal> result(
+        new InterferenceFunction2DParaCrystal(*latticeItem->createLattice()));
+
+    result->setDampingLength(getItemValue(P_DAMPING_LENGTH).toDouble());
+    result->setDomainSizes(getItemValue(P_DOMAIN_SIZE1).toDouble(),
+                           getItemValue(P_DOMAIN_SIZE2).toDouble());
+    result->setIntegrationOverXi(getItemValue(P_XI_INTEGRATION).toBool());
+
+    auto pdf1Item = dynamic_cast<FTDistribution2DItem*>(
+        getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF1));
+    auto pdf2Item = dynamic_cast<FTDistribution2DItem*>(
+        getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF2));
+    result->setProbabilityDistributions(*pdf1Item->createFTDistribution(),
+                                        *pdf2Item->createFTDistribution());
+
+    return std::move(result);
 }
 
 // --------------------------------------------------------------------------------------------- //

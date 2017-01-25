@@ -31,6 +31,10 @@ class IFTDistribution2D;
 class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
 public:
+    InterferenceFunction2DParaCrystal(const Lattice2D& lattice, double damping_length = 0.0,
+                                      double domain_size_1 = 0.0,
+                                      double domain_size_2 = 0.0);
+
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice,
                                       double xi = 0.0, double damping_length = 0.0);
 
@@ -72,7 +76,6 @@ public:
     std::vector<const INode*> getChildren() const;
 
 private:
-    InterferenceFunction2DParaCrystal();
     InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal& other);
     void setLattice(const Lattice2D& lattice);
 

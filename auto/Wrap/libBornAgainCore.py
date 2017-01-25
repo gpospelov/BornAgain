@@ -19752,8 +19752,12 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction2DParaCrystal, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length_1, length_2, alpha_lattice, xi=0.0, damping_length=0.0):
+    def __init__(self, *args):
         """
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice, double xi=0.0) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice) -> InterferenceFunction2DParaCrystal
@@ -19779,7 +19783,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         Damping length for removing delta function singularity at q=0. 
 
         """
-        this = _libBornAgainCore.new_InterferenceFunction2DParaCrystal(length_1, length_2, alpha_lattice, xi, damping_length)
+        this = _libBornAgainCore.new_InterferenceFunction2DParaCrystal(*args)
         try:
             self.this.append(this)
         except Exception:

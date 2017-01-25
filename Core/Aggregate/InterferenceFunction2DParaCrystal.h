@@ -19,7 +19,7 @@
 #include "IInterferenceFunction.h"
 #include "Complex.h"
 #include "FTDistributions2D.h"
-#include "Lattice2DParameters.h"
+#include "Lattice2D.h"
 #include <memory>
 
 template <class T> class IntegratorReal;
@@ -65,7 +65,6 @@ public:
     bool getIntegrationOverXi() const { return m_integrate_xi; }
     double getDampingLength() const { return m_damping_length; }
 
-//    Lattice2DParameters getLatticeParameters() const;
     const Lattice2D& lattice() const;
 
     double getParticleDensity() const final;
@@ -84,7 +83,6 @@ private:
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double& q_pa_1,
                                   double& q_pa_2) const;
 
-//    Lattice2DParameters m_lattice_params; //!< Lattice parameters
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<IFTDistribution2D> m_pdf1, m_pdf2;
     std::unique_ptr<Lattice2D> m_lattice;

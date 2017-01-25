@@ -15,4 +15,4 @@
 #include "CrystalTest.h"
 #include "MesoCrystalTest.h"
 #include "INodeTest.h"
-#include "LatticeTest.h"
+#include "Lattice2DTest.h"

@@ -18,22 +18,6 @@
 
 #include "ICloneable.h"
 #include "INode.h"
-#include <cmath>
-
-//! Additional parameters for 2D lattice.
-//! @ingroup samples
-
-class Lattice2DParameters
-{
-public:
-    Lattice2DParameters() : m_length_1(0), m_length_2(0), m_angle(0), m_xi(0) {}
-
-    double getUnitCellArea() const;
-
-    double m_length_1, m_length_2;
-    double m_angle;
-    double m_xi;
-};
 
 class Lattice2D : public ICloneable, public INode
 {

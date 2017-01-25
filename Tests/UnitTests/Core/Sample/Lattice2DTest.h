@@ -1,16 +1,16 @@
-#include "Lattice2DParameters.h"
+#include "Lattice2D.h"
 #include "BornAgainNamespace.h"
 
 #include <iostream>
 
-class LatticeTest : public ::testing::Test
+class Lattice2DTest : public ::testing::Test
 {
 protected:
-    LatticeTest(){}
+    Lattice2DTest(){}
 };
 
 
-TEST_F(LatticeTest, basicLattice)
+TEST_F(Lattice2DTest, basicLattice)
 {
     const double length1(1.0), length2(2.0), angle(3.0);
     BasicLattice lattice(length1, length2, angle);
@@ -31,7 +31,7 @@ TEST_F(LatticeTest, basicLattice)
     EXPECT_EQ(lattice.rotationAngle(), new_value);
 }
 
-TEST_F(LatticeTest, basicLatticeClone)
+TEST_F(Lattice2DTest, basicLatticeClone)
 {
     const double length1(1.0), length2(2.0), angle(3.0), xi(4.0);
     BasicLattice lattice(length1, length2, angle, xi);
@@ -44,7 +44,7 @@ TEST_F(LatticeTest, basicLatticeClone)
     EXPECT_EQ(clone->getName(), BornAgain::BasicLatticeType);
 }
 
-TEST_F(LatticeTest, squareLatticeClone)
+TEST_F(Lattice2DTest, squareLatticeClone)
 {
     const double length(1.0), xi(4.0);
     SquareLattice lattice(length, xi);
@@ -65,7 +65,7 @@ TEST_F(LatticeTest, squareLatticeClone)
     EXPECT_EQ(clone->rotationAngle(), new_value);
 }
 
-TEST_F(LatticeTest, hexagonalLatticeClone)
+TEST_F(Lattice2DTest, hexagonalLatticeClone)
 {
     const double length(1.0), xi(4.0);
     HexagonalLattice lattice(length, xi);
@@ -86,7 +86,7 @@ TEST_F(LatticeTest, hexagonalLatticeClone)
     EXPECT_EQ(clone->rotationAngle(), new_value);
 }
 
-TEST_F(LatticeTest, onChange)
+TEST_F(Lattice2DTest, onChange)
 {
     class Parent : public INode{
     public:

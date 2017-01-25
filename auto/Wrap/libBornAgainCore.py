@@ -7348,6 +7348,9 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, OffSpecSimulation arg2)
         visit(INodeVisitor self, IntensityNormalizer arg2)
         visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
+        visit(INodeVisitor self, BasicLattice arg2)
+        visit(INodeVisitor self, SquareLattice arg2)
+        visit(INodeVisitor self, HexagonalLattice arg2)
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
 
@@ -20595,65 +20598,6 @@ class Lattice1DParameters(_object):
     __del__ = lambda self: None
 Lattice1DParameters_swigregister = _libBornAgainCore.Lattice1DParameters_swigregister
 Lattice1DParameters_swigregister(Lattice1DParameters)
-
-class Lattice2DParameters(_object):
-    """
-
-
-    Additional parameters for 2D lattice.
-
-    C++ includes: Lattice2DParameters.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Lattice2DParameters, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Lattice2DParameters, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(Lattice2DParameters self) -> Lattice2DParameters
-
-        Lattice2DParameters::Lattice2DParameters()
-
-        """
-        this = _libBornAgainCore.new_Lattice2DParameters()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def getUnitCellArea(self):
-        """
-        getUnitCellArea(Lattice2DParameters self) -> double
-
-        double Lattice2DParameters::getUnitCellArea() const 
-
-        """
-        return _libBornAgainCore.Lattice2DParameters_getUnitCellArea(self)
-
-    __swig_setmethods__["m_length_1"] = _libBornAgainCore.Lattice2DParameters_m_length_1_set
-    __swig_getmethods__["m_length_1"] = _libBornAgainCore.Lattice2DParameters_m_length_1_get
-    if _newclass:
-        m_length_1 = _swig_property(_libBornAgainCore.Lattice2DParameters_m_length_1_get, _libBornAgainCore.Lattice2DParameters_m_length_1_set)
-    __swig_setmethods__["m_length_2"] = _libBornAgainCore.Lattice2DParameters_m_length_2_set
-    __swig_getmethods__["m_length_2"] = _libBornAgainCore.Lattice2DParameters_m_length_2_get
-    if _newclass:
-        m_length_2 = _swig_property(_libBornAgainCore.Lattice2DParameters_m_length_2_get, _libBornAgainCore.Lattice2DParameters_m_length_2_set)
-    __swig_setmethods__["m_angle"] = _libBornAgainCore.Lattice2DParameters_m_angle_set
-    __swig_getmethods__["m_angle"] = _libBornAgainCore.Lattice2DParameters_m_angle_get
-    if _newclass:
-        m_angle = _swig_property(_libBornAgainCore.Lattice2DParameters_m_angle_get, _libBornAgainCore.Lattice2DParameters_m_angle_set)
-    __swig_setmethods__["m_xi"] = _libBornAgainCore.Lattice2DParameters_m_xi_set
-    __swig_getmethods__["m_xi"] = _libBornAgainCore.Lattice2DParameters_m_xi_get
-    if _newclass:
-        m_xi = _swig_property(_libBornAgainCore.Lattice2DParameters_m_xi_get, _libBornAgainCore.Lattice2DParameters_m_xi_set)
-    __swig_destroy__ = _libBornAgainCore.delete_Lattice2DParameters
-    __del__ = lambda self: None
-Lattice2DParameters_swigregister = _libBornAgainCore.Lattice2DParameters_swigregister
-Lattice2DParameters_swigregister(Lattice2DParameters)
 
 class Lattice2D(ICloneable, INode):
     """Proxy of C++ Lattice2D class."""

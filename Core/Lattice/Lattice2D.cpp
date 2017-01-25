@@ -13,15 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "Lattice2DParameters.h"
+#include "Lattice2D.h"
 #include "BornAgainNamespace.h"
 #include "RealParameter.h"
 #include "MathConstants.h"
-
-double Lattice2DParameters::getUnitCellArea() const
-{
-    return std::abs(m_length_1*m_length_2*std::sin(m_angle));
-}
+#include <cmath>
 
 Lattice2D::Lattice2D(double length1, double length2, double angle, double rotation_angle)
     : m_length1(length1)

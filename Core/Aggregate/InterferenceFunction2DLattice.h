@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h"
 #include "FTDecayFunctions.h"
-#include "Lattice2DParameters.h"
+#include "Lattice2D.h"
 
 //! Interference function of 2D lattice.
 //! @ingroup interference

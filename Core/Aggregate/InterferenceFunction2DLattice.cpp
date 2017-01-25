@@ -84,8 +84,8 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 const Lattice2D& InterferenceFunction2DLattice::lattice() const
 {
     if(!m_lattice)
-        throw std::runtime_error("InterferenceFunction2DLattice::lattice() -> Error. No "
-                                 "lattice defined.");
+        throw std::runtime_error("InterferenceFunction2DLattice::lattice() -> Error. "
+                                 "No lattice defined.");
     return *m_lattice;
 }
 

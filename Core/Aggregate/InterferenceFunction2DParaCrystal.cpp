@@ -35,10 +35,10 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
 {
     setName(BornAgain::InterferenceFunction2DParaCrystalType);
 
-    m_lattice_params.m_length_1 = length_1;
-    m_lattice_params.m_length_2 = length_2;
-    m_lattice_params.m_angle = alpha_lattice;
-    m_lattice_params.m_xi = xi;
+//    m_lattice_params.m_length_1 = length_1;
+//    m_lattice_params.m_length_2 = length_2;
+//    m_lattice_params.m_angle = alpha_lattice;
+//    m_lattice_params.m_xi = xi;
 
     setLattice(BasicLattice(length_1, length_2, alpha_lattice, xi));
 
@@ -92,20 +92,23 @@ double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
 {
     m_qx = q.x();
     m_qy = q.y();
+//    if (!m_integrate_xi)
+//        return interferenceForXi(m_lattice_params.m_xi);
     if (!m_integrate_xi)
-        return interferenceForXi(m_lattice_params.m_xi);
+        return interferenceForXi(m_lattice->rotationAngle());
     return mP_integrator->integrate(0.0, M_TWOPI)/M_TWOPI;
 }
 
 double InterferenceFunction2DParaCrystal::getParticleDensity() const
 {
-    double area = m_lattice_params.getUnitCellArea();
+//    double area = m_lattice_params.getUnitCellArea();
+    double area = m_lattice->unitCellArea();
     return area == 0.0 ? 0.0 : 1.0/area;
 }
 
 std::vector<const INode*> InterferenceFunction2DParaCrystal::getChildren() const
 {
-    return std::vector<const INode*>() << m_pdf1 << m_pdf2;
+    return std::vector<const INode*>() << m_pdf1 << m_pdf2 << m_lattice;
 }
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal()
@@ -129,7 +132,7 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
 {
     setName(other.getName());
 
-    m_lattice_params = other.m_lattice_params;
+//    m_lattice_params = other.m_lattice_params;
     m_damping_length = other.m_damping_length;
     m_use_damping_length = other.m_use_damping_length;
 
@@ -193,10 +196,10 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(
 
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
-    registerParameter(BornAgain::LatticeLength1, &m_lattice_params.m_length_1).setUnit("nm");
-    registerParameter(BornAgain::LatticeLength2, &m_lattice_params.m_length_2).setUnit("nm");
-    registerParameter(BornAgain::LatticeAngle, &m_lattice_params.m_angle).setUnit("rad");
-    registerParameter(BornAgain::Xi, &m_lattice_params.m_xi).setUnit("rad");
+//    registerParameter(BornAgain::LatticeLength1, &m_lattice_params.m_length_1).setUnit("nm");
+//    registerParameter(BornAgain::LatticeLength2, &m_lattice_params.m_length_2).setUnit("nm");
+//    registerParameter(BornAgain::LatticeAngle, &m_lattice_params.m_angle).setUnit("rad");
+//    registerParameter(BornAgain::Xi, &m_lattice_params.m_xi).setUnit("rad");
     registerParameter(BornAgain::DampingLength, &m_damping_length).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::DomainSize1, &m_domain_sizes[0]).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::DomainSize2, &m_domain_sizes[1]).setUnit("nm").setNonnegative();
@@ -205,8 +208,10 @@ void InterferenceFunction2DParaCrystal::init_parameters()
 //! Returns interference function for fixed angle xi.
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
 {
+//    double result = interference1D(m_qx, m_qy, xi, 0)*
+//        interference1D(m_qx, m_qy, xi + m_lattice_params.m_angle, 1);
     double result = interference1D(m_qx, m_qy, xi, 0)*
-        interference1D(m_qx, m_qy, xi + m_lattice_params.m_angle, 1);
+        interference1D(m_qx, m_qy, xi + m_lattice->latticeAngle(), 1);
     return result;
 }
 
@@ -223,7 +228,8 @@ double InterferenceFunction2DParaCrystal::interference1D(
                 "interference1D() -> Error! Probability distributions for "
                 "interference funtion not properly initialized");
     double result;
-    double length = index ? m_lattice_params.m_length_2 : m_lattice_params.m_length_1;
+//    double length = index ? m_lattice_params.m_length_2 : m_lattice_params.m_length_1;
+    double length = index ? m_lattice->length2() : m_lattice->length1();
     int n = (int)std::abs(m_domain_sizes[index]/length);
     double nd = (double)n;
     complex_t fp = FTPDF(qx, qy, xi, index);
@@ -254,7 +260,9 @@ double InterferenceFunction2DParaCrystal::interference1D(
 complex_t InterferenceFunction2DParaCrystal::FTPDF(
     double qx, double qy, double xi, size_t index) const
 {
-    double length = (index ? m_lattice_params.m_length_2 : m_lattice_params.m_length_1);
+//    double length = (index ? m_lattice_params.m_length_2 : m_lattice_params.m_length_1);
+    double length = (index ? m_lattice->length2() : m_lattice->length1());
+
     const IFTDistribution2D* pdf = (index ? m_pdf2.get() : m_pdf1.get());
     double qa = qx*length*std::cos(xi) + qy*length*std::sin(xi);
     complex_t phase = exp_I(qa);
@@ -279,4 +287,22 @@ std::vector<const IFTDistribution2D*>
 InterferenceFunction2DParaCrystal::getProbabilityDistributions() const
 {
     return {m_pdf1.get(), m_pdf2.get()};
+}
+
+Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const
+{
+    Lattice2DParameters result;
+    result.m_length_1 = m_lattice->length1();
+    result.m_length_2 = m_lattice->length2();
+    result.m_angle = m_lattice->latticeAngle();
+    result.m_xi = m_lattice->rotationAngle();
+    return result;
+}
+
+const Lattice2D&InterferenceFunction2DParaCrystal::lattice() const
+{
+    if(!m_lattice)
+        throw std::runtime_error("InterferenceFunction2DParaCrystal::lattice() -> Error. "
+                                 "No lattice defined.");
+    return *m_lattice;
 }

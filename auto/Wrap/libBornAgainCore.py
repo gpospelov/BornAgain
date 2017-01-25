@@ -19950,6 +19950,11 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getLatticeParameters(self)
 
 
+    def lattice(self):
+        """lattice(InterferenceFunction2DParaCrystal self) -> Lattice2D"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_lattice(self)
+
+
     def getParticleDensity(self):
         """
         getParticleDensity(InterferenceFunction2DParaCrystal self) -> double

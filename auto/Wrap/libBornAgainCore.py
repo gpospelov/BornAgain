@@ -19940,16 +19940,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getDampingLength(self)
 
 
-    def getLatticeParameters(self):
-        """
-        getLatticeParameters(InterferenceFunction2DParaCrystal self) -> Lattice2DParameters
-
-        Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getLatticeParameters(self)
-
-
     def lattice(self):
         """lattice(InterferenceFunction2DParaCrystal self) -> Lattice2D"""
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_lattice(self)

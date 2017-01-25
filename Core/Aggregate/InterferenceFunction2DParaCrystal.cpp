@@ -289,15 +289,15 @@ InterferenceFunction2DParaCrystal::getProbabilityDistributions() const
     return {m_pdf1.get(), m_pdf2.get()};
 }
 
-Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const
-{
-    Lattice2DParameters result;
-    result.m_length_1 = m_lattice->length1();
-    result.m_length_2 = m_lattice->length2();
-    result.m_angle = m_lattice->latticeAngle();
-    result.m_xi = m_lattice->rotationAngle();
-    return result;
-}
+//Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const
+//{
+//    Lattice2DParameters result;
+//    result.m_length_1 = m_lattice->length1();
+//    result.m_length_2 = m_lattice->length2();
+//    result.m_angle = m_lattice->latticeAngle();
+//    result.m_xi = m_lattice->rotationAngle();
+//    return result;
+//}
 
 const Lattice2D&InterferenceFunction2DParaCrystal::lattice() const
 {

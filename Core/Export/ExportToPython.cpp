@@ -40,6 +40,7 @@
 #include "SphericalDetector.h"
 #include "StringUtils.h"
 #include "RegionOfInterest.h"
+#include "BornAgainNamespace.h"
 #include <iomanip>
 #include <set>
 #include <functional>
@@ -426,39 +427,39 @@ std::string ExportToPython::defineInterferenceFunctions() const
         else if (const auto* twoDParaCrystal
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
             std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
-            if (isSquare(twoDParaCrystal->getLatticeParameters().m_length_1,
-                                     twoDParaCrystal->getLatticeParameters().m_length_2,
-                                     twoDParaCrystal->getLatticeParameters().m_angle)) {
+            const Lattice2D& lattice = twoDParaCrystal->lattice();
+
+            if(lattice.getName() == BornAgain::SquareLatticeType) {
                 result << indent() << it->second
                        << " = ba.InterferenceFunction2DParaCrystal.createSquare("
-                       << printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << printNm(lattice.length1())
                        << ", "
                        << printNm(twoDParaCrystal->getDampingLength()) << ", "
                        << printNm(domainSize[0]) << ", "
                        << printNm(domainSize[1]) << ")\n";
+
             }
 
-            else if (isHexagonal(twoDParaCrystal->getLatticeParameters().m_length_1,
-                                             twoDParaCrystal->getLatticeParameters().m_length_2,
-                                             twoDParaCrystal->getLatticeParameters().m_angle)) {
+            else if(lattice.getName() == BornAgain::HexagonalLatticeType) {
                 result << indent() << it->second
                        << " = ba.InterferenceFunction2DParaCrystal.createHexagonal("
-                       << printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << printNm(lattice.length1())
                        << ", "
                        << printNm(twoDParaCrystal->getDampingLength()) << ", "
                        << printNm(domainSize[0]) << ", "
                        << printNm(domainSize[1]) << ")\n";
+
             }
 
             else {
                 result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                       << printNm(twoDParaCrystal->getLatticeParameters().m_length_1)
+                       << printNm(lattice.length1())
                        << ", "
-                       << printNm(twoDParaCrystal->getLatticeParameters().m_length_2)
+                       << printNm(lattice.length2())
                        << ", "
-                       << printDegrees(twoDParaCrystal->getLatticeParameters().m_angle)
+                       << printDegrees(lattice.latticeAngle())
                        << ", "
-                       << printDegrees(twoDParaCrystal->getLatticeParameters().m_xi)
+                       << printDegrees(lattice.rotationAngle())
                        << ", "
                        << printNm(twoDParaCrystal->getDampingLength()) << ")\n";
 

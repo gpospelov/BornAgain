@@ -65,7 +65,7 @@ public:
     bool getIntegrationOverXi() const { return m_integrate_xi; }
     double getDampingLength() const { return m_damping_length; }
 
-    Lattice2DParameters getLatticeParameters() const;
+//    Lattice2DParameters getLatticeParameters() const;
     const Lattice2D& lattice() const;
 
     double getParticleDensity() const final;

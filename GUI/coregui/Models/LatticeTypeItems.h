@@ -26,8 +26,7 @@ public:
     static const QString P_LATTICE_LENGTH1;
     static const QString P_LATTICE_LENGTH2;
     static const QString P_LATTICE_ANGLE;
-    explicit BasicLatticeTypeItem();
-    virtual ~BasicLatticeTypeItem(){}
+    BasicLatticeTypeItem();
 };
 
 class BA_CORE_API_ SquareLatticeTypeItem : public SessionItem
@@ -35,8 +34,7 @@ class BA_CORE_API_ SquareLatticeTypeItem : public SessionItem
 
 public:
     static const QString P_LATTICE_LENGTH;
-    explicit SquareLatticeTypeItem();
-    virtual ~SquareLatticeTypeItem(){}
+    SquareLatticeTypeItem();
 };
 
 class BA_CORE_API_ HexagonalLatticeTypeItem : public SessionItem
@@ -44,8 +42,7 @@ class BA_CORE_API_ HexagonalLatticeTypeItem : public SessionItem
 
 public:
     static const QString P_LATTICE_LENGTH;
-    explicit HexagonalLatticeTypeItem();
-    virtual ~HexagonalLatticeTypeItem(){}
+    HexagonalLatticeTypeItem();
 };
 
 #endif // LATTICETYPEITEMS_H

@@ -23,28 +23,33 @@ const QString BasicLatticeTypeItem::P_LATTICE_LENGTH2
     = QString::fromStdString(BornAgain::LatticeLength2);
 const QString BasicLatticeTypeItem::P_LATTICE_ANGLE
     = QString::fromStdString(BornAgain::LatticeAngle);
-const QString SquareLatticeTypeItem::P_LATTICE_LENGTH
-    = QString::fromStdString(BornAgain::LatticeLength);
-const QString HexagonalLatticeTypeItem::P_LATTICE_LENGTH
-    = QString::fromStdString(BornAgain::LatticeLength);
-
 
 BasicLatticeTypeItem::BasicLatticeTypeItem()
-    : SessionItem(QString("BasicLatticeType"))
+    : SessionItem(Constants::BasicLatticeType)
 {
     addProperty(P_LATTICE_LENGTH1, 20.0);
     addProperty(P_LATTICE_LENGTH2, 20.0);
     addProperty(P_LATTICE_ANGLE, 90.0);
 }
 
+// --------------------------------------------------------------------------------------------- //
+
+const QString SquareLatticeTypeItem::P_LATTICE_LENGTH
+    = QString::fromStdString(BornAgain::LatticeLength);
+
 SquareLatticeTypeItem::SquareLatticeTypeItem()
-    : SessionItem(QString("SquareLatticeType"))
+    : SessionItem(Constants::SquareLatticeType)
 {
     addProperty(P_LATTICE_LENGTH, 20.0);
 }
 
+// --------------------------------------------------------------------------------------------- //
+
+const QString HexagonalLatticeTypeItem::P_LATTICE_LENGTH
+    = QString::fromStdString(BornAgain::LatticeLength);
+
 HexagonalLatticeTypeItem::HexagonalLatticeTypeItem()
-    : SessionItem(QString("HexagonalLatticeType"))
+    : SessionItem(Constants::HexagonalLatticeType)
 {
     addProperty(P_LATTICE_LENGTH, 20.0);
 }

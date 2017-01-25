@@ -54,6 +54,8 @@ public:
     void setProbabilityDistributions(const IFTDistribution2D& pdf_1,
                                      const IFTDistribution2D& pdf_2);
 
+    void setDampingLength(double damping_length);
+
     double evaluate(const kvector_t q) const final;
 
     std::vector<double> getDomainSizes() const;
@@ -70,6 +72,7 @@ public:
     std::vector<const INode*> getChildren() const;
 
 private:
+    InterferenceFunction2DParaCrystal();
     InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal& other);
     void setLattice(const Lattice2D& lattice);
 

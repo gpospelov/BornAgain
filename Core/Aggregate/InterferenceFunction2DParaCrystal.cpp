@@ -81,6 +81,13 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
     registerChild(m_pdf2.get());
 }
 
+void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
+{
+    m_damping_length = damping_length;
+    if (m_damping_length==0.0)
+        m_use_damping_length = false;
+}
+
 double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
 {
     m_qx = q.x();
@@ -100,6 +107,22 @@ std::vector<const INode*> InterferenceFunction2DParaCrystal::getChildren() const
 {
     return std::vector<const INode*>() << m_pdf1 << m_pdf2;
 }
+
+InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal()
+    : m_integrate_xi(false)
+    , m_damping_length(0.0)
+    , m_use_damping_length(false)
+{
+    setName(BornAgain::InterferenceFunction2DParaCrystalType);
+
+    m_domain_sizes[0] = 0.0;
+    m_domain_sizes[1] = 0.0;
+
+    mP_integrator = make_integrator_real(
+        this, &InterferenceFunction2DParaCrystal::interferenceForXi);
+    init_parameters();
+}
+
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
         const InterferenceFunction2DParaCrystal& other)

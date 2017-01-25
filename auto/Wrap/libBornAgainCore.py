@@ -19873,6 +19873,11 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setProbabilityDistributions(self, pdf_1, pdf_2)
 
 
+    def setDampingLength(self, damping_length):
+        """setDampingLength(InterferenceFunction2DParaCrystal self, double damping_length)"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDampingLength(self, damping_length)
+
+
     def evaluate(self, q):
         """
         evaluate(InterferenceFunction2DParaCrystal self, kvector_t q) -> double

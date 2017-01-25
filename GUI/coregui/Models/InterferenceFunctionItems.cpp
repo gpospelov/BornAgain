@@ -16,7 +16,6 @@
 
 #include "InterferenceFunctionItems.h"
 #include "BornAgainNamespace.h"
-#include "ParameterTranslators.h"
 #include "Lattice2DItems.h"
 #include "ModelPath.h"
 #include "GUIHelpers.h"
@@ -89,9 +88,6 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     addProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
     addGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
     addGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
-
-    LatticeTypeTranslator lattice_translator;
-    ModelPath::addParameterTranslator(lattice_translator);
 
     mapper()->setOnPropertyChange(
         [this](const QString &name) {

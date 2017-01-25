@@ -52,40 +52,6 @@ std::string PositionTranslator::translate(const QString& name) const
     return {};
 }
 
-std::string LatticeTypeTranslator::translate(const QString& name) const
-{
-    std::string separator {"/"};
-    QStringList name_list = name.split("/");
-    if (name_list.size() != 2) return {};
-    if (name_list[0] == Constants::BasicLatticeType) {
-
-        if (name_list[1] == BasicLatticeItem::P_LATTICE_LENGTH1) {
-            return BornAgain::BasicLatticeType + separator + BornAgain::LatticeLength1;
-        }
-        if (name_list[1] == BasicLatticeItem::P_LATTICE_LENGTH2) {
-            return BornAgain::BasicLatticeType + separator + BornAgain::LatticeLength2;
-        }
-
-        if (name_list[1] == BasicLatticeItem::P_LATTICE_ANGLE) {
-            return BornAgain::BasicLatticeType + separator + BornAgain::LatticeAngle;
-        }
-    }
-
-    else if(name_list[0] == Constants::SquareLatticeType) {
-        if (name_list[1] == SquareLatticeItem::P_LATTICE_LENGTH) {
-            return BornAgain::SquareLatticeType + separator + BornAgain::LatticeLength;
-        }
-    }
-
-    else if(name_list[0] == Constants::HexagonalLatticeType) {
-        if (name_list[1] == HexagonalLatticeItem::P_LATTICE_LENGTH) {
-            return BornAgain::HexagonalLatticeType + separator + BornAgain::LatticeLength;
-        }
-    }
-
-    return {};
-}
-
 std::string RotationTranslator::translate(const QString& name) const
 {
     QStringList name_list = name.split("/");

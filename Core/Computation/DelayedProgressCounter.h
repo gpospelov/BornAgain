@@ -27,7 +27,7 @@ class DelayedProgressCounter: public INoncopyable
 {
 public:
     DelayedProgressCounter(size_t interval) : m_interval(interval), m_count(0) {}
-    ~DelayedProgressCounter() final override;
+    ~DelayedProgressCounter();
 
     //! Increments inner counter; at regular intervals updates progress handler.
     void stepProgress(ProgressHandler* progress);

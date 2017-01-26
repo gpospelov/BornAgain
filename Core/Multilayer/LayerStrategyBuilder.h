@@ -22,6 +22,7 @@
 
 class FormFactorCoherentSum;
 class IInterferenceFunctionStrategy;
+class ILayout;
 class IMaterial;
 class IParticle;
 class Layer;
@@ -52,7 +53,7 @@ private:
     std::unique_ptr<class MultiLayer> mP_sample;               //!< sample
     SimulationOptions m_sim_params;                            //!< simulation parameters
     std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
-    size_t m_layout_index;                      //!< index for the layout to be used in the layer
+    const ILayout* mp_layout;                   //!< layout
     bool m_polarized;                           //!< polarized computation required?
 };
 

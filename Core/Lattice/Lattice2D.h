@@ -19,7 +19,7 @@
 #include "ICloneable.h"
 #include "INode.h"
 
-class Lattice2D : public ICloneable, public INode
+class BA_CORE_API_ Lattice2D : public ICloneable, public INode
 {
 public:
     Lattice2D(double length1, double length2, double angle, double rotation_angle = 0.0);
@@ -47,7 +47,7 @@ protected:
     double m_xi;
 };
 
-class BasicLattice : public Lattice2D
+class BA_CORE_API_ BasicLattice : public Lattice2D
 {
 public:
     BasicLattice(double length1, double length2, double angle, double rotation_angle = 0.0);
@@ -59,7 +59,7 @@ private:
     void init_parameters();
 };
 
-class SquareLattice : public Lattice2D
+class BA_CORE_API_ SquareLattice : public Lattice2D
 {
 public:
     explicit SquareLattice(double length, double rotation_angle = 0.0);
@@ -72,7 +72,7 @@ private:
     void init_parameters();
 };
 
-class HexagonalLattice : public Lattice2D
+class BA_CORE_API_ HexagonalLattice : public Lattice2D
 {
 public:
     explicit HexagonalLattice(double length, double rotation_angle = 0.0);

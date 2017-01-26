@@ -44,9 +44,6 @@ public:
     virtual ~SwigDirector_IParameterized();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
 
 /* Internal director utilities */
 public:
@@ -90,9 +87,6 @@ public:
     virtual ~SwigDirector_INode();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
@@ -141,9 +135,6 @@ public:
     virtual void transferToCPP();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
@@ -279,9 +270,6 @@ public:
     virtual ~SwigDirector_IMultiLayerBuilder();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
@@ -331,9 +319,6 @@ public:
     virtual void transferToCPP();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
@@ -390,9 +375,6 @@ public:
     virtual void transferToCPP();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
-    virtual void onChangeSwigPublic() {
-      IParameterized::onChange();
-    }
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;

@@ -10,6 +10,7 @@
 #include "ComboProperty.h"
 #include "DocumentModel.h"
 #include "SimulationOptionsItem.h"
+#include "Lattice2DItems.h"
 #include <memory>
 #include <QtTest>
 
@@ -18,7 +19,6 @@ class TestMapperCases : public QObject {
 
 private slots:
     void test_ParticeleCompositionUpdate();
-    void test_Inference2DRotationAngleToggle();
     void test_instrumentAlignmentPropertyVisibility();
     void test_removeMaskOnDetectorChange();
     void test_SimulationOptionsComputationToggle();
@@ -43,26 +43,6 @@ inline void TestMapperCases::test_ParticeleCompositionUpdate()
     composition = distribution->takeRow(composition->parentRow());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     delete composition;
-
-}
-
-inline void TestMapperCases::test_Inference2DRotationAngleToggle()
-{
-    SampleModel model;
-    SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
-    SessionItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
-
-    SessionItem *inference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType,
-                                                       layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
-
-    // rotation (xi) should be disabled if integration is on
-    inference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
-    QVERIFY(inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
-
-    // rotation (xi) should be enabled if integration is off
-    inference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
-    QVERIFY(!inference->getItem(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)->isEnabled() == false);
 
 }
 

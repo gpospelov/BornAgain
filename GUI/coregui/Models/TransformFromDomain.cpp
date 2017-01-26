@@ -32,7 +32,7 @@
 #include "InfinitePlane.h"
 #include "InterferenceFunctionItems.h"
 #include "InterferenceFunctions.h"
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerItem.h"
@@ -61,8 +61,8 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
 void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* pdf, QString group_name);
 void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QString group_name);
 
-void set2DLatticeParameters(SessionItem* item, Lattice2DParameters lattice_params,
-                            SessionItem* lattice_item);
+void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice);
+
 void setDistribution(SessionItem* item, ParameterDistribution par_distr,
                      QString group_name, double factor = 1.0);
 
@@ -87,9 +87,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const InterferenceFunction2DParaCrystal* sample)
 {
-    SessionItem* lattice_item(0);
-    Lattice2DParameters lattice_params = sample->getLatticeParameters();
-    set2DLatticeParameters(item, lattice_params, lattice_item);
+    set2DLatticeParameters(item, sample->lattice());
 
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH,
                                 sample->getDampingLength());
@@ -128,9 +126,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const InterferenceFunction2DLattice* sample)
 {
-    SessionItem* lattice_item(0);
-    Lattice2DParameters lattice_params = sample->getLatticeParameters();
-    set2DLatticeParameters(item, lattice_params, lattice_item);
+    set2DLatticeParameters(item, sample->lattice());
 
     const IFTDecayFunction2D* p_pdf = sample->getDecayFunction();
     QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
@@ -191,16 +187,6 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
         && roughness->getLatteralCorrLength() == 0.0)
         return false;
     return true;
-}
-
-bool TransformFromDomain::isSquareLattice(double length1, double length2, double angle)
-{
-    return length1 == length2 && Numeric::areAlmostEqual(angle, M_PI / 2.0);
-}
-
-bool TransformFromDomain::isHexagonalLattice(double length1, double length2, double angle)
-{
-    return length1 == length2 && Numeric::areAlmostEqual(angle, M_TWOPI / 3.0);
 }
 
 void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimulation& simulation)
@@ -718,33 +704,29 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
     }
 }
 
-void set2DLatticeParameters(SessionItem* item, Lattice2DParameters lattice_params,
-                            SessionItem* lattice_item)
+void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
 {
-    if (TransformFromDomain::isSquareLattice(lattice_params.m_length_1, lattice_params.m_length_2,
-                                             lattice_params.m_angle)) {
-        lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                                 Constants::SquareLatticeType);
-        lattice_item->setItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH,
-                                               lattice_params.m_length_1);
-    } else if (TransformFromDomain::isHexagonalLattice(
-                   lattice_params.m_length_1, lattice_params.m_length_2, lattice_params.m_angle)) {
-        lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                                 Constants::HexagonalLatticeType);
-        lattice_item->setItemValue(HexagonalLatticeTypeItem::P_LATTICE_LENGTH,
-                                               lattice_params.m_length_1);
+    SessionItem* latticeItem(0);
+    if (lattice.getName() == BornAgain::SquareLatticeType) {
+        latticeItem = item->setGroupProperty(
+            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::SquareLatticeType);
+        latticeItem->setItemValue(SquareLatticeItem::P_LATTICE_LENGTH, lattice.length1());
+
+    } else if (lattice.getName() == BornAgain::HexagonalLatticeType) {
+        latticeItem = item->setGroupProperty(
+            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::HexagonalLatticeType);
+        latticeItem->setItemValue(HexagonalLatticeItem::P_LATTICE_LENGTH, lattice.length1());
+
     } else {
-        lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                                 Constants::BasicLatticeType);
-        lattice_item->setItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1,
-                                               lattice_params.m_length_1);
-        lattice_item->setItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2,
-                                               lattice_params.m_length_2);
-        lattice_item->setItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE,
-                                               Units::rad2deg(lattice_params.m_angle));
+        latticeItem = item->setGroupProperty(
+            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::BasicLatticeType);
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH1, lattice.length1());
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH2, lattice.length2());
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_ANGLE,
+                                  Units::rad2deg(lattice.latticeAngle()));
     }
-    item->setItemValue(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE,
-                                Units::rad2deg(lattice_params.m_xi));
+    latticeItem->setItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE,
+                       Units::rad2deg(lattice.rotationAngle()));
 }
 
 void setDistribution(SessionItem* item, ParameterDistribution par_distr,

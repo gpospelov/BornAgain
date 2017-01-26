@@ -18,9 +18,17 @@
 #define INTERFERENCEFUNCTIONITEMS_H
 
 #include "SessionGraphicsItem.h"
+class IInterferenceFunction;
 
+class BA_CORE_API_ InterferenceFunctionItem  : public SessionGraphicsItem
+{
+public:
+    explicit InterferenceFunctionItem(const QString& modelType);
+    virtual ~InterferenceFunctionItem();
+    virtual std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const=0;
+};
 
-class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public SessionGraphicsItem
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public InterferenceFunctionItem
 {
 
 public:
@@ -29,48 +37,45 @@ public:
     static const QString P_DOMAIN_SIZE;
     static const QString P_KAPPA;
     static const QString P_PDF;
-    explicit InterferenceFunctionRadialParaCrystalItem();
-    virtual ~InterferenceFunctionRadialParaCrystalItem(){}
+    InterferenceFunctionRadialParaCrystalItem();
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 };
 
-
-class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public SessionGraphicsItem
+class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public InterferenceFunctionItem
 {
 
 public:
-    static const QString P_ROTATION_ANGLE;
     static const QString P_DAMPING_LENGTH;
     static const QString P_DOMAIN_SIZE1;
     static const QString P_DOMAIN_SIZE2;
     static const QString P_XI_INTEGRATION;
     static const QString P_PDF1;
     static const QString P_PDF2;
-    explicit InterferenceFunction2DParaCrystalItem();
-    virtual ~InterferenceFunction2DParaCrystalItem(){}
+    InterferenceFunction2DParaCrystalItem();
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+private:
+    void update_rotation_availability();
 };
 
-
-class BA_CORE_API_ InterferenceFunction1DLatticeItem : public SessionGraphicsItem
+class BA_CORE_API_ InterferenceFunction1DLatticeItem : public InterferenceFunctionItem
 {
 
 public:
     static const QString P_LENGTH;
     static const QString P_ROTATION_ANGLE;
     static const QString P_DECAY_FUNCTION;
-    explicit InterferenceFunction1DLatticeItem();
-    virtual ~InterferenceFunction1DLatticeItem(){}
+    InterferenceFunction1DLatticeItem();
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 };
 
-
-class BA_CORE_API_ InterferenceFunction2DLatticeItem : public SessionGraphicsItem
+class BA_CORE_API_ InterferenceFunction2DLatticeItem : public InterferenceFunctionItem
 {
 
 public:
     static const QString P_LATTICE_TYPE;
-    static const QString P_ROTATION_ANGLE;
     static const QString P_DECAY_FUNCTION;
-    explicit InterferenceFunction2DLatticeItem();
-    virtual ~InterferenceFunction2DLatticeItem(){}
+    InterferenceFunction2DLatticeItem();
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 };
 
 #endif // INTERFERENCEFUNCTIONITEMS_H

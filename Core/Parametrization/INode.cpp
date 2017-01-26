@@ -52,6 +52,11 @@ const INode* INode::parent() const
     return m_parent;
 }
 
+INode* INode::parent()
+{
+    return const_cast<INode*>(m_parent);
+}
+
 int INode::copyNumber(const INode* node) const
 {
     if(node->parent() != this)

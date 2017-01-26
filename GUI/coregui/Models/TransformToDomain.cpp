@@ -32,7 +32,7 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionItems.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
@@ -178,62 +178,9 @@ TransformToDomain::createInterferenceFunction(const SessionItem& item)
         P_iff->setProbabilityDistribution(*P_pdf);
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DParaCrystalType) {
-        auto latticeItem
-                = item.getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
-        Q_ASSERT(latticeItem);
-        double length_1 {0.0}, length_2 {0.0}, alpha_lattice {0.0};
-        if (latticeItem->modelType() == Constants::BasicLatticeType) {
-            length_1 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1)
-                           .toDouble();
-            length_2 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2)
-                           .toDouble();
-            alpha_lattice = Units::deg2rad(
-                latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE)
-                    .toDouble());
-        } else if (latticeItem->modelType() == Constants::SquareLatticeType) {
-            length_1 = latticeItem->getItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH)
-                           .toDouble();
-            length_2 = length_1;
-            alpha_lattice = M_PI / 2.0;
-        } else if (latticeItem->modelType() == Constants::HexagonalLatticeType) {
-            length_1 = latticeItem->getItemValue(
-                                        HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
-            length_2 = length_1;
-            alpha_lattice = M_TWOPI / 3.0;
-        } else {
-            throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
-        }
+        auto interfItem = dynamic_cast<const InterferenceFunction2DParaCrystalItem*>(&item);
+        P_result = interfItem->createInterferenceFunction();
 
-        auto P_iff = GUIHelpers::make_unique<InterferenceFunction2DParaCrystal>(
-            length_1, length_2, alpha_lattice,
-            Units::deg2rad(
-                item.getItemValue(InterferenceFunction2DParaCrystalItem::P_ROTATION_ANGLE)
-                    .toDouble()),
-            item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH)
-                .toDouble());
-        P_iff->setDomainSizes(
-            item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1)
-                .toDouble(),
-            item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2)
-                .toDouble());
-        P_iff->setIntegrationOverXi(
-            item.getItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION)
-                .toBool());
-
-        auto pdf1Item = item.getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF1);
-        Q_ASSERT(pdf1Item);
-        std::unique_ptr<IFTDistribution2D> P_pdf1(
-            dynamic_cast<FTDistribution2DItem*>(pdf1Item)->createFTDistribution());
-        Q_ASSERT(P_pdf1.get());
-
-        auto pdf2Item = item.getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF2);
-        Q_ASSERT(pdf2Item);
-        std::unique_ptr<IFTDistribution2D> P_pdf2(
-            dynamic_cast<FTDistribution2DItem*>(pdf2Item)->createFTDistribution());
-        Q_ASSERT(P_pdf2.get());
-
-        P_iff->setProbabilityDistributions(*P_pdf1, *P_pdf2);
-        P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction1DLatticeType) {
         double length =
                 item.getItemValue(InterferenceFunction1DLatticeItem::P_LENGTH).toDouble();
@@ -249,43 +196,9 @@ TransformToDomain::createInterferenceFunction(const SessionItem& item)
         P_iff->setDecayFunction(*P_pdf);
         P_result = std::move(P_iff);
     } else if (item.modelType() == Constants::InterferenceFunction2DLatticeType) {
-        auto latticeItem = item.getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
-        Q_ASSERT(latticeItem);
+        auto interfItem = dynamic_cast<const InterferenceFunction2DLatticeItem*>(&item);
+        P_result = interfItem->createInterferenceFunction();
 
-        double length_1 {0.0}, length_2 {0.0}, angle {0.0};
-        if (latticeItem->modelType() == Constants::BasicLatticeType) {
-            length_1 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1)
-                           .toDouble();
-            length_2 = latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2)
-                           .toDouble();
-            angle = Units::deg2rad(
-                latticeItem->getItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE)
-                    .toDouble());
-        } else if (latticeItem->modelType() == Constants::SquareLatticeType) {
-            length_1 = latticeItem->getItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH)
-                           .toDouble();
-            length_2 = length_1;
-            angle = M_PI / 2.0;
-        } else if (latticeItem->modelType() == Constants::HexagonalLatticeType) {
-            length_1 = latticeItem->getItemValue(
-                                        HexagonalLatticeTypeItem::P_LATTICE_LENGTH).toDouble();
-            length_2 = length_1;
-            angle = M_TWOPI / 3.0;
-        } else {
-            throw GUIHelpers::Error("TransformToDomain::createInterferenceFunction() -> Error");
-        }
-        double xi = Units::deg2rad(
-            item.getItemValue(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE)
-                .toDouble());
-        auto P_iff
-            = GUIHelpers::make_unique<InterferenceFunction2DLattice>(length_1, length_2, angle, xi);
-        auto pdfItem = item.getGroupItem(InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION);
-        Q_ASSERT(pdfItem);
-        std::unique_ptr<IFTDecayFunction2D> P_pdf(
-            dynamic_cast<FTDecayFunction2DItem*>(pdfItem)->createFTDecayFunction());
-        Q_ASSERT(P_pdf);
-        P_iff->setDecayFunction(*P_pdf);
-        P_result = std::move(P_iff);
     }
     return P_result;
 }

@@ -108,9 +108,9 @@ const ModelType FTDecayFunction2DCauchyType = "FTDecayFunction2DCauchy";
 const ModelType FTDecayFunction2DGaussType = "FTDecayFunction2DGauss";
 const ModelType FTDecayFunction2DVoigtType = "FTDecayFunction2DVoigt";
 
-const ModelType BasicLatticeType = "BasicLatticeType";
-const ModelType SquareLatticeType = "SquareLatticeType";
-const ModelType HexagonalLatticeType = "HexagonalLatticeType";
+const ModelType BasicLatticeType = "BasicLattice";
+const ModelType SquareLatticeType = "SquareLattice";
+const ModelType HexagonalLatticeType = "HexagonalLattice";
 
 const ModelType MaterialType = "Material";
 const ModelType HomogeneousMaterialType = "Homogeneous Material";

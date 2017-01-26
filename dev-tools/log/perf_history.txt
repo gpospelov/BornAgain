@@ -574,3 +574,10 @@
 # after removing volatile from IParameter
 | 2017-01-18 12:19:30 | scgsun   | Linux x86_64 | 2.7    | 118.2139  | 17.7676    | 2.4074     | 0.5639          | 3.1969          | 0.3977    | 2.1772        | 0.5731            | 3.1873         | 0.9855 | 1.7713      | 1.6826    | 0.8246    |
 
+# before migrating to Lattice2D family
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2017-01-23 17:31:16 | scgsun   | Linux x86_64 | 2.7    | 118.3371  | 18.6758    | 2.5766     | 0.5958          | 3.3604          | 0.4292    | 2.2796        | 0.6037            | 3.2815         | 0.9989 | 1.8764      | 1.7708    | 0.9028    |
+# before moving InterferenceFunction2D to to Lattice2D family
+| 2017-01-24 16:20:17 | scgsun   | Linux x86_64 | 2.7    | 118.5575  | 18.4619    | 2.4920     | 0.5836          | 3.2596          | 0.4187    | 2.2849        | 0.6467            | 3.2747         | 0.9935 | 1.8567      | 1.7464    | 0.9052    |
+# after moving InterferenceFunction2D to to Lattice2D family
+| 2017-01-26 14:13:03 | scgsun   | Linux x86_64 | 2.7    | 119.2852  | 18.5108    | 2.4588     | 0.6091          | 3.2656          | 0.4516    | 2.2932        | 0.6232            | 3.2866         | 1.0145 | 1.8147      | 1.7602    | 0.9332    |

@@ -57,6 +57,10 @@ const std::string TransformationType = "Rotation";
 const std::string LayerBasicRoughnessType = "LayerBasicRoughness";
 const std::string LayerZeroRoughnessType = "LayerZeroRoughness";
 
+const std::string BasicLatticeType = "BasicLattice";
+const std::string SquareLatticeType = "SquareLattice";
+const std::string HexagonalLatticeType = "HexagonalLattice";
+
 const std::string InterferenceFunctionNoneType = "InterferenceNone";
 const std::string InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
 const std::string InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";

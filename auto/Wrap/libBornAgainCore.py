@@ -2071,14 +2071,15 @@ class INode(IParameterized):
         return _libBornAgainCore.INode_setParent(self, parent)
 
 
-    def parent(self):
+    def parent(self, *args):
         """
+        parent(INode self) -> INode
         parent(INode self) -> INode
 
         const INode * INode::parent() const 
 
         """
-        return _libBornAgainCore.INode_parent(self)
+        return _libBornAgainCore.INode_parent(self, *args)
 
 
     def copyNumber(self, node):
@@ -2120,18 +2121,6 @@ class INode(IParameterized):
         self.this.disown()
         _libBornAgainCore.disown_INode(self)
         return weakref_proxy(self)
-
-    def onChange(self):
-        """
-        onChange(INode self)
-
-        virtual void IParameterized::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.INode_onChange(self)
-
 INode_swigregister = _libBornAgainCore.INode_swigregister
 INode_swigregister(INode)
 
@@ -4696,18 +4685,6 @@ class ISample(ICloneable, INode):
         self.this.disown()
         _libBornAgainCore.disown_ISample(self)
         return weakref_proxy(self)
-
-    def onChange(self):
-        """
-        onChange(ISample self)
-
-        virtual void IParameterized::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.ISample_onChange(self)
-
 ISample_swigregister = _libBornAgainCore.ISample_swigregister
 ISample_swigregister(ISample)
 
@@ -7217,6 +7194,18 @@ class IMultiLayerBuilder(INode):
         return _libBornAgainCore.IMultiLayerBuilder_getChildren(self)
 
 
+    def onChange(self):
+        """
+        onChange(IMultiLayerBuilder self)
+
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
+
+
     def registerParameter(self, name, parpointer):
         """registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter"""
         return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
@@ -7238,18 +7227,6 @@ class IMultiLayerBuilder(INode):
         self.this.disown()
         _libBornAgainCore.disown_IMultiLayerBuilder(self)
         return weakref_proxy(self)
-
-    def onChange(self):
-        """
-        onChange(IMultiLayerBuilder self)
-
-        virtual void IParameterized::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
-
 IMultiLayerBuilder_swigregister = _libBornAgainCore.IMultiLayerBuilder_swigregister
 IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
 
@@ -7371,6 +7348,9 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, OffSpecSimulation arg2)
         visit(INodeVisitor self, IntensityNormalizer arg2)
         visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
+        visit(INodeVisitor self, BasicLattice arg2)
+        visit(INodeVisitor self, SquareLattice arg2)
+        visit(INodeVisitor self, HexagonalLattice arg2)
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
 
@@ -10476,18 +10456,6 @@ class IFormFactor(ISample):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactor(self)
         return weakref_proxy(self)
-
-    def onChange(self):
-        """
-        onChange(IFormFactor self)
-
-        virtual void IParameterized::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.IFormFactor_onChange(self)
-
 IFormFactor_swigregister = _libBornAgainCore.IFormFactor_swigregister
 IFormFactor_swigregister(IFormFactor)
 
@@ -10783,18 +10751,6 @@ class IFormFactorBorn(IFormFactor):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
         return weakref_proxy(self)
-
-    def onChange(self):
-        """
-        onChange(IFormFactorBorn self)
-
-        virtual void IParameterized::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.IFormFactorBorn_onChange(self)
-
 IFormFactorBorn_swigregister = _libBornAgainCore.IFormFactorBorn_swigregister
 IFormFactorBorn_swigregister(IFormFactorBorn)
 
@@ -19611,8 +19567,9 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction2DLattice, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length_1, length_2, angle, xi=0.0):
+    def __init__(self, *args):
         """
+        __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
         __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle, double xi=0.0) -> InterferenceFunction2DLattice
         __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle) -> InterferenceFunction2DLattice
 
@@ -19634,7 +19591,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         rotation of lattice with respect to x-axis 
 
         """
-        this = _libBornAgainCore.new_InterferenceFunction2DLattice(length_1, length_2, angle, xi)
+        this = _libBornAgainCore.new_InterferenceFunction2DLattice(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -19718,14 +19675,9 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DLattice_evaluate(self, q)
 
 
-    def getLatticeParameters(self):
-        """
-        getLatticeParameters(InterferenceFunction2DLattice self) -> Lattice2DParameters
-
-        Lattice2DParameters InterferenceFunction2DLattice::getLatticeParameters() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_getLatticeParameters(self)
+    def lattice(self):
+        """lattice(InterferenceFunction2DLattice self) -> Lattice2D"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_lattice(self)
 
 
     def getParticleDensity(self):
@@ -19750,6 +19702,18 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_getChildren(self)
+
+
+    def onChange(self):
+        """
+        onChange(InterferenceFunction2DLattice self)
+
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_onChange(self)
 
 InterferenceFunction2DLattice_swigregister = _libBornAgainCore.InterferenceFunction2DLattice_swigregister
 InterferenceFunction2DLattice_swigregister(InterferenceFunction2DLattice)
@@ -19788,8 +19752,12 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction2DParaCrystal, name)
     __repr__ = _swig_repr
 
-    def __init__(self, length_1, length_2, alpha_lattice, xi=0.0, damping_length=0.0):
+    def __init__(self, *args):
         """
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice, double xi=0.0) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice) -> InterferenceFunction2DParaCrystal
@@ -19815,7 +19783,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         Damping length for removing delta function singularity at q=0. 
 
         """
-        this = _libBornAgainCore.new_InterferenceFunction2DParaCrystal(length_1, length_2, alpha_lattice, xi, damping_length)
+        this = _libBornAgainCore.new_InterferenceFunction2DParaCrystal(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -19913,6 +19881,11 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setProbabilityDistributions(self, pdf_1, pdf_2)
 
 
+    def setDampingLength(self, damping_length):
+        """setDampingLength(InterferenceFunction2DParaCrystal self, double damping_length)"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDampingLength(self, damping_length)
+
+
     def evaluate(self, q):
         """
         evaluate(InterferenceFunction2DParaCrystal self, kvector_t q) -> double
@@ -19975,14 +19948,9 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getDampingLength(self)
 
 
-    def getLatticeParameters(self):
-        """
-        getLatticeParameters(InterferenceFunction2DParaCrystal self) -> Lattice2DParameters
-
-        Lattice2DParameters InterferenceFunction2DParaCrystal::getLatticeParameters() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getLatticeParameters(self)
+    def lattice(self):
+        """lattice(InterferenceFunction2DParaCrystal self) -> Lattice2D"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_lattice(self)
 
 
     def getParticleDensity(self):
@@ -20636,64 +20604,219 @@ class Lattice1DParameters(_object):
 Lattice1DParameters_swigregister = _libBornAgainCore.Lattice1DParameters_swigregister
 Lattice1DParameters_swigregister(Lattice1DParameters)
 
-class Lattice2DParameters(_object):
-    """
-
-
-    Additional parameters for 2D lattice.
-
-    C++ includes: Lattice2DParameters.h
-
-    """
+class Lattice2D(ICloneable, INode):
+    """Proxy of C++ Lattice2D class."""
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Lattice2DParameters, name, value)
+    for _s in [ICloneable, INode]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Lattice2D, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Lattice2DParameters, name)
+    for _s in [ICloneable, INode]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, Lattice2D, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def clone(self):
         """
-        __init__(Lattice2DParameters self) -> Lattice2DParameters
+        clone(Lattice2D self) -> Lattice2D
 
-        Lattice2DParameters::Lattice2DParameters()
+        virtual ICloneable* ICloneable::clone() const =0
 
         """
-        this = _libBornAgainCore.new_Lattice2DParameters()
+        return _libBornAgainCore.Lattice2D_clone(self)
+
+
+    def length1(self):
+        """length1(Lattice2D self) -> double"""
+        return _libBornAgainCore.Lattice2D_length1(self)
+
+
+    def length2(self):
+        """length2(Lattice2D self) -> double"""
+        return _libBornAgainCore.Lattice2D_length2(self)
+
+
+    def latticeAngle(self):
+        """latticeAngle(Lattice2D self) -> double"""
+        return _libBornAgainCore.Lattice2D_latticeAngle(self)
+
+
+    def rotationAngle(self):
+        """rotationAngle(Lattice2D self) -> double"""
+        return _libBornAgainCore.Lattice2D_rotationAngle(self)
+
+
+    def unitCellArea(self):
+        """unitCellArea(Lattice2D self) -> double"""
+        return _libBornAgainCore.Lattice2D_unitCellArea(self)
+
+
+    def reciprocalBases(self):
+        """reciprocalBases(Lattice2D self) -> Lattice2D::ReciprocalBases"""
+        return _libBornAgainCore.Lattice2D_reciprocalBases(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_Lattice2D
+    __del__ = lambda self: None
+Lattice2D_swigregister = _libBornAgainCore.Lattice2D_swigregister
+Lattice2D_swigregister(Lattice2D)
+
+class BasicLattice(Lattice2D):
+    """Proxy of C++ BasicLattice class."""
+
+    __swig_setmethods__ = {}
+    for _s in [Lattice2D]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, BasicLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Lattice2D]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, BasicLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, length1, length2, angle, rotation_angle=0.0):
+        """
+        __init__(BasicLattice self, double length1, double length2, double angle, double rotation_angle=0.0) -> BasicLattice
+        __init__(BasicLattice self, double length1, double length2, double angle) -> BasicLattice
+        """
+        this = _libBornAgainCore.new_BasicLattice(length1, length2, angle, rotation_angle)
         try:
             self.this.append(this)
         except Exception:
             self.this = this
 
-    def getUnitCellArea(self):
+    def clone(self):
         """
-        getUnitCellArea(Lattice2DParameters self) -> double
+        clone(BasicLattice self) -> BasicLattice
 
-        double Lattice2DParameters::getUnitCellArea() const 
+        virtual ICloneable* ICloneable::clone() const =0
 
         """
-        return _libBornAgainCore.Lattice2DParameters_getUnitCellArea(self)
+        return _libBornAgainCore.BasicLattice_clone(self)
 
-    __swig_setmethods__["m_length_1"] = _libBornAgainCore.Lattice2DParameters_m_length_1_set
-    __swig_getmethods__["m_length_1"] = _libBornAgainCore.Lattice2DParameters_m_length_1_get
-    if _newclass:
-        m_length_1 = _swig_property(_libBornAgainCore.Lattice2DParameters_m_length_1_get, _libBornAgainCore.Lattice2DParameters_m_length_1_set)
-    __swig_setmethods__["m_length_2"] = _libBornAgainCore.Lattice2DParameters_m_length_2_set
-    __swig_getmethods__["m_length_2"] = _libBornAgainCore.Lattice2DParameters_m_length_2_get
-    if _newclass:
-        m_length_2 = _swig_property(_libBornAgainCore.Lattice2DParameters_m_length_2_get, _libBornAgainCore.Lattice2DParameters_m_length_2_set)
-    __swig_setmethods__["m_angle"] = _libBornAgainCore.Lattice2DParameters_m_angle_set
-    __swig_getmethods__["m_angle"] = _libBornAgainCore.Lattice2DParameters_m_angle_get
-    if _newclass:
-        m_angle = _swig_property(_libBornAgainCore.Lattice2DParameters_m_angle_get, _libBornAgainCore.Lattice2DParameters_m_angle_set)
-    __swig_setmethods__["m_xi"] = _libBornAgainCore.Lattice2DParameters_m_xi_set
-    __swig_getmethods__["m_xi"] = _libBornAgainCore.Lattice2DParameters_m_xi_get
-    if _newclass:
-        m_xi = _swig_property(_libBornAgainCore.Lattice2DParameters_m_xi_get, _libBornAgainCore.Lattice2DParameters_m_xi_set)
-    __swig_destroy__ = _libBornAgainCore.delete_Lattice2DParameters
+
+    def accept(self, visitor):
+        """
+        accept(BasicLattice self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.BasicLattice_accept(self, visitor)
+
+    __swig_destroy__ = _libBornAgainCore.delete_BasicLattice
     __del__ = lambda self: None
-Lattice2DParameters_swigregister = _libBornAgainCore.Lattice2DParameters_swigregister
-Lattice2DParameters_swigregister(Lattice2DParameters)
+BasicLattice_swigregister = _libBornAgainCore.BasicLattice_swigregister
+BasicLattice_swigregister(BasicLattice)
+
+class SquareLattice(Lattice2D):
+    """Proxy of C++ SquareLattice class."""
+
+    __swig_setmethods__ = {}
+    for _s in [Lattice2D]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SquareLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Lattice2D]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SquareLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, length, rotation_angle=0.0):
+        """
+        __init__(SquareLattice self, double length, double rotation_angle=0.0) -> SquareLattice
+        __init__(SquareLattice self, double length) -> SquareLattice
+        """
+        this = _libBornAgainCore.new_SquareLattice(length, rotation_angle)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(SquareLattice self) -> SquareLattice
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.SquareLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(SquareLattice self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.SquareLattice_accept(self, visitor)
+
+
+    def length2(self):
+        """length2(SquareLattice self) -> double"""
+        return _libBornAgainCore.SquareLattice_length2(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_SquareLattice
+    __del__ = lambda self: None
+SquareLattice_swigregister = _libBornAgainCore.SquareLattice_swigregister
+SquareLattice_swigregister(SquareLattice)
+
+class HexagonalLattice(Lattice2D):
+    """Proxy of C++ HexagonalLattice class."""
+
+    __swig_setmethods__ = {}
+    for _s in [Lattice2D]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, HexagonalLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Lattice2D]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, HexagonalLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, length, rotation_angle=0.0):
+        """
+        __init__(HexagonalLattice self, double length, double rotation_angle=0.0) -> HexagonalLattice
+        __init__(HexagonalLattice self, double length) -> HexagonalLattice
+        """
+        this = _libBornAgainCore.new_HexagonalLattice(length, rotation_angle)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(HexagonalLattice self) -> HexagonalLattice
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.HexagonalLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(HexagonalLattice self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.HexagonalLattice_accept(self, visitor)
+
+
+    def length2(self):
+        """length2(HexagonalLattice self) -> double"""
+        return _libBornAgainCore.HexagonalLattice_length2(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_HexagonalLattice
+    __del__ = lambda self: None
+HexagonalLattice_swigregister = _libBornAgainCore.HexagonalLattice_swigregister
+HexagonalLattice_swigregister(HexagonalLattice)
 
 class Layer(ISample):
     """

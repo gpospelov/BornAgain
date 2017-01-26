@@ -39,16 +39,6 @@ public:
 };
 
 
-class LatticeTypeTranslator final : public IParameterTranslator {
-public:
-    ~LatticeTypeTranslator() override {}
-
-    LatticeTypeTranslator* clone() const override { return new LatticeTypeTranslator {}; }
-
-    std::string translate(const QString &name) const override;
-};
-
-
 class RotationTranslator final : public IParameterTranslator {
 public:
     ~RotationTranslator() override {}

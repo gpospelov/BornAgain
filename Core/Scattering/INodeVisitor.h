@@ -134,6 +134,10 @@ class OffSpecSimulation;
 class IntensityNormalizer;
 class IntensityScaleAndShiftNormalizer;
 
+class BasicLattice;
+class SquareLattice;
+class HexagonalLattice;
+
 //! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
 
@@ -260,6 +264,10 @@ public:
 
     virtual void visit(const IntensityNormalizer*) {}
     virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
+
+    virtual void visit(const BasicLattice*) {}
+    virtual void visit(const SquareLattice*) {}
+    virtual void visit(const HexagonalLattice*) {}
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

@@ -43,6 +43,7 @@ public:
 
     void setParent(const INode* parent);
     const INode* parent() const;
+    INode* parent();
 
     //! Returns copyNumber of child, which takes into account existence of children with same name.
     int copyNumber(const INode* node) const;

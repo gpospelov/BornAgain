@@ -20,7 +20,7 @@
 #include "RotationItems.h"
 #include "VectorItem.h"
 #include "InterferenceFunctionItems.h"
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include <QDebug>
 
 QStringList IParameterTranslator::split(const QString &par_name) const
@@ -47,33 +47,6 @@ std::string PositionTranslator::translate(const QString& name) const
         }
         if (name_list[1] == VectorItem::P_Z) {
             return BornAgain::PositionZ;
-        }
-    }
-    return {};
-}
-
-std::string LatticeTypeTranslator::translate(const QString& name) const
-{
-    QStringList name_list = name.split("/");
-    if (name_list.size() != 2) return {};
-    if (name_list[0] == Constants::BasicLatticeType) {
-
-        if (name_list[1] == BasicLatticeTypeItem::P_LATTICE_LENGTH1) {
-            return BornAgain::LatticeLength1;
-        }
-        if (name_list[1] == BasicLatticeTypeItem::P_LATTICE_LENGTH2) {
-            return BornAgain::LatticeLength2;
-        }
-
-        if (name_list[1] == BasicLatticeTypeItem::P_LATTICE_ANGLE) {
-            return BornAgain::LatticeAngle;
-        }
-    }
-
-    else if(name_list[0] == Constants::SquareLatticeType
-            || name_list[0] == Constants::HexagonalLatticeType) {
-        if (name_list[1] == SquareLatticeTypeItem::P_LATTICE_LENGTH) {
-            return SquareLatticeTypeItem::P_LATTICE_LENGTH.toStdString() + std::string("*");
         }
     }
     return {};

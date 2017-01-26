@@ -18,7 +18,7 @@
 
 #include "IInterferenceFunction.h"
 #include "FTDecayFunctions.h"
-#include "Lattice2DParameters.h"
+#include "Lattice2D.h"
 
 //! Interference function of 2D lattice.
 //! @ingroup interference
@@ -26,6 +26,7 @@
 class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
+    InterferenceFunction2DLattice(const Lattice2D& lattice);
     InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0);
     ~InterferenceFunction2DLattice() final;
 
@@ -42,17 +43,19 @@ public:
 
     double evaluate(const kvector_t q) const final;
 
-    Lattice2DParameters getLatticeParameters() const { return m_lattice_params; }
+    const Lattice2D& lattice() const;
 
     //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;
 
     std::vector<const INode*> getChildren() const override;
 
-protected:
     void onChange() override final;
 
 private:
+    InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
+    void setLattice(const Lattice2D& lattice);
+
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
@@ -65,21 +68,16 @@ private:
     void calculateReciprocalVectorFraction(double qx, double qy,
                                            double& qx_frac, double& qy_frac) const;
 
-    InterferenceFunction2DLattice(const Lattice2DParameters& lattice_params);
-
-    void init_parameters();
-
     //! Initializes the x,y coordinates of the a*,b* reciprocal bases
     void initialize_rec_vectors();
 
     //! Initializes factors needed in each calculation
     void initialize_calc_factors();
 
-    Lattice2DParameters m_lattice_params;
     std::unique_ptr<IFTDecayFunction2D> mp_pdf;
+    std::unique_ptr<Lattice2D> m_lattice;
+    Lattice2D::ReciprocalBases m_sbase;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
-    double m_asx, m_asy; //!< x,y coordinates of a*
-    double m_bsx, m_bsy; //!< x,y coordinates of b*
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
 };
 

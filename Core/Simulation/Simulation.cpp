@@ -237,7 +237,7 @@ void Simulation::runSingleSimulation()
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
         std::unique_ptr<MainComputation> P_dwba_simulation(
-            new MainComputation(mP_sample.get(), m_options, m_progress, batch_start, batch_end));
+            new MainComputation(*mP_sample, m_options, m_progress, batch_start, batch_end));
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
             std::string message = P_dwba_simulation->errorMessage();
@@ -275,8 +275,7 @@ void Simulation::runSingleSimulation()
             else
                 end_it = batch_start + end_thread_index;
             simulations.push_back(
-                new MainComputation(
-                    mP_sample.get(), m_options, m_progress, begin_it, end_it));
+                new MainComputation(*mP_sample, m_options, m_progress, begin_it, end_it));
         }
 
         // Run simulations in n threads.

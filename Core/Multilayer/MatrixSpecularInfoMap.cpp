@@ -16,44 +16,35 @@
 #include "MatrixSpecularInfoMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MatrixRTCoefficients.h"
-#include "ISpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 
-MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* multilayer, int layer)
-    : m_layer(layer)
-{
-    if (multilayer) {
-        mP_multilayer.reset((multilayer->clone()));
-        mP_inverted_multilayer.reset(multilayer->cloneInvertB());
-    }
-}
+MatrixSpecularInfoMap::MatrixSpecularInfoMap(
+        const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer,
+        size_t layer_index)
+    : mp_multilayer(p_multilayer)
+    , mp_inverted_multilayer(p_inverted_multilayer)
+    , m_layer_index(layer_index)
+{}
 
 MatrixSpecularInfoMap* MatrixSpecularInfoMap::clone() const
 {
-    MatrixSpecularInfoMap* result = new MatrixSpecularInfoMap(nullptr, m_layer);
-    if (mP_multilayer)  {
-        result->mP_multilayer.reset(mP_multilayer->clone());
-        result->mP_inverted_multilayer.reset(mP_inverted_multilayer->clone());
-    }
-    return result;
+    return new MatrixSpecularInfoMap(mp_multilayer, mp_inverted_multilayer, m_layer_index);
 }
-
-// TODO factor out common private function as done in the Scalar.. case ?
 
 const ILayerRTCoefficients* MatrixSpecularInfoMap::getOutCoefficients(
         const SimulationElement& sim_element) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
-    SpecularMagnetic::execute(*mP_inverted_multilayer, -sim_element.getMeanKf(), coeffs);
-    return new MatrixRTCoefficients(coeffs[m_layer]);
+    SpecularMagnetic::execute(*mp_inverted_multilayer, -sim_element.getMeanKf(), coeffs);
+    return new MatrixRTCoefficients(coeffs[m_layer_index]);
 }
 
 const ILayerRTCoefficients* MatrixSpecularInfoMap::getInCoefficients(
         const SimulationElement& sim_element) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
-    SpecularMagnetic::execute(*mP_multilayer, sim_element.getKi(), coeffs);
-    return new MatrixRTCoefficients(coeffs[m_layer]);
+    SpecularMagnetic::execute(*mp_multilayer, sim_element.getKi(), coeffs);
+    return new MatrixRTCoefficients(coeffs[m_layer_index]);
 }

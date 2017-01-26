@@ -35,7 +35,7 @@ Layer::Layer(const Layer& other)
     if (other.mp_material)
         mp_material = other.mp_material->clone();
     for (size_t i=0; i<other.getNumberOfLayouts();++i)
-        addLayoutPtr(other.getLayout(i)->clone());
+        addLayout(*other.getLayout(i));
     setNumberOfLayers(other.getNumberOfLayers());
     initialize();
 }
@@ -48,8 +48,6 @@ Layer::~Layer()
 Layer* Layer::cloneInvertB() const
 {
     Layer* p_clone = new Layer(*mp_material->cloneInverted(), m_thickness);
-    for (size_t i=0; i<getNumberOfLayouts(); ++i)
-        p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
     p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
@@ -81,9 +79,11 @@ complex_t Layer::getRefractiveIndex2() const
     return getRefractiveIndex()*getRefractiveIndex();
 }
 
-void Layer::addLayout(const ILayout& decoration)
+void Layer::addLayout(const ILayout& layout)
 {
-    addLayoutPtr(decoration.clone());
+	ILayout* clone = layout.clone();
+	m_layouts.push_back(clone);
+	registerChild(clone);
 }
 
 const ILayout* Layer::getLayout(size_t i) const
@@ -112,14 +112,6 @@ void Layer::init_parameters()
 {
     getParameterPool()->clear(); // non-trivially needed
     registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
-}
-
-void Layer::addLayoutPtr(ILayout* layout)
-{
-    if( !layout )
-        return;
-    m_layouts.push_back(layout);
-    registerChild(layout);
 }
 
 void Layer::initialize()

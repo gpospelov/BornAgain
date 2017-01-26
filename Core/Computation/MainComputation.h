@@ -16,10 +16,11 @@
 #ifndef MAINCOMPUTATION_H
 #define MAINCOMPUTATION_H
 
-#include "ComputationOutcome.h"
+#include "ComputationStatus.h"
 #include "Complex.h"
 #include "INoncopyable.h"
 #include "SimulationOptions.h"
+#include <memory>
 #include <vector>
 
 class MultiLayer;
@@ -40,7 +41,7 @@ class MainComputation final : public INoncopyable
 {
 public:
     MainComputation(
-        const MultiLayer* p_multi_layer,
+        const MultiLayer& p_multi_layer,
         const SimulationOptions& options,
         ProgressHandler& progress,
         const std::vector<SimulationElement>::iterator& begin_it,
@@ -49,8 +50,8 @@ public:
 
     void run();
 
-    bool isCompleted() const { return m_outcome.isCompleted(); }
-    std::string getRunMessage() const { return m_outcome.getRunMessage(); }
+    bool isCompleted() const { return m_status.isCompleted(); }
+    std::string errorMessage() const { return m_status.errorMessage(); }
 
 private:
     void runProtected();
@@ -58,7 +59,8 @@ private:
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
 
-    MultiLayer* mp_multi_layer;
+    std::unique_ptr<MultiLayer> mP_multi_layer;
+    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
     SimulationOptions m_sim_options;
     ProgressHandler* m_progress;
     //! these iterators define the span of detector bins this simulation will work on
@@ -68,7 +70,7 @@ private:
     SpecularComputation *mp_specular_computation;
     std::vector<std::vector<ParticleLayoutComputation*>> m_layer_computation;
 
-    ComputationOutcome m_outcome;
+    ComputationStatus m_status;
 };
 
 #endif // MAINCOMPUTATION_H

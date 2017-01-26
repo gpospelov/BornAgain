@@ -15,7 +15,7 @@
 
 #include "SpecularComputation.h"
 #include "SimulationElement.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
 
 SpecularComputation::SpecularComputation()
@@ -44,7 +44,7 @@ void SpecularComputation::eval(
     return;
 }
 
-void SpecularComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
+void SpecularComputation::setSpecularInfo(const ILayerSpecularInfo &specular_info)
 {
     if (mP_specular_info.get() != &specular_info)
         mP_specular_info.reset(specular_info.clone());

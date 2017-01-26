@@ -66,12 +66,9 @@ private:
 
     void init_parameters();
 
-    //! adds particle layout (separate pointer version due to python-bindings)
-    void addLayoutPtr(ILayout* layout);
-
     IMaterial* mp_material;   //!< pointer to the material
     double m_thickness;       //!< layer thickness in nanometers
-    SafePointerVector<class ILayout> m_layouts; //!< independent layouts in this layer
+    SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
 
     void initialize();

@@ -8554,7 +8554,7 @@ Returns lateral correlation length.
 
 Holds the amplitude information of the radiation wavefunction in a specific layer for different incoming (outgoing) angles of the beam in the top layer (these amplitudes correspond to the specular part of the neutron wavefunction).
 
-C++ includes: LayerSpecularInfo.h
+C++ includes: ILayerSpecularInfo.h
 ";
 
 %feature("docstring")  LayerSpecularInfo::LayerSpecularInfo "LayerSpecularInfo::LayerSpecularInfo()

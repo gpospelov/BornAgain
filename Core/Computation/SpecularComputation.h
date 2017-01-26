@@ -21,7 +21,7 @@
 #include <memory>
 
 class MultiLayer;
-class LayerSpecularInfo;
+class ILayerSpecularInfo;
 class ProgressHandler;
 class SimulationElement;
 class SimulationOptions;
@@ -39,10 +39,10 @@ public:
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it);
-    void setSpecularInfo(const LayerSpecularInfo& specular_info);
+    void setSpecularInfo(const ILayerSpecularInfo& specular_info);
 
 private:
-    std::unique_ptr<LayerSpecularInfo> mP_specular_info;
+    std::unique_ptr<ILayerSpecularInfo> mP_specular_info;
 };
 
 

@@ -19,7 +19,7 @@
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include "ScalarRTCoefficients.h"

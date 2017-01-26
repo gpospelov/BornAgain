@@ -17,7 +17,7 @@
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
 
 
@@ -60,7 +60,7 @@ Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& si
     return mP_ff->evaluatePol(wavevectors);
 }
 
-void FormFactorCoherentPart::setSpecularInfo(const LayerSpecularInfo& specular_info)
+void FormFactorCoherentPart::setSpecularInfo(const ILayerSpecularInfo& specular_info)
 {
     mP_specular_info.reset(specular_info.clone());
 }

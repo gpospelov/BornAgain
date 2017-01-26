@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/ComputationOutcome.h
-//! @brief     Defines and implements interface class ComputationOutcome.
+//! @file      Core/Computation/ComputationStatus.h
+//! @brief     Defines and implements interface class ComputationStatus.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,35 +13,32 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPUTATIONOUTCOME_H
-#define COMPUTATIONOUTCOME_H
+#ifndef COMPUTATIONSTATUS_H
+#define COMPUTATIONSTATUS_H
 
-#include "WinDllMacros.h" // TODO can probably be removed here
 #include <string>
 
 //! Completion status (flag and text) of a numeric computation.
-//! Pure virtual base class for our model evaluation routines.
-//! Currently, the only child is Computations, which is the base for some more classes.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ComputationOutcome
+class ComputationStatus
 {
 public:
-    ComputationOutcome() : m_status(IDLE) {}
+    ComputationStatus() : m_status(IDLE) {}
 
     bool isCompleted() const { return m_status == COMPLETED; }
-    std::string getRunMessage() const { return m_run_message; }
+    std::string errorMessage() const { return m_error_message; }
 
     void setRunning()   { m_status = RUNNING; }
     void setCompleted() { m_status = COMPLETED; }
     void setFailed()    { m_status = FAILED; }
-    void setRunMessage(const std::string& message) { m_run_message = message; }
+    void setErrorMessage(const std::string& message) { m_error_message = message; }
 
 private:
     enum ESimulationStatus { IDLE, RUNNING, COMPLETED, FAILED };
 
     ESimulationStatus m_status;
-    std::string m_run_message;
+    std::string m_error_message;
 };
 
-#endif // COMPUTATIONOUTCOME_H
+#endif // COMPUTATIONSTATUS_H

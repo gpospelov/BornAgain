@@ -240,7 +240,7 @@ void Simulation::runSingleSimulation()
             new MainComputation(mP_sample.get(), m_options, m_progress, batch_start, batch_end));
         P_dwba_simulation->run(); // the work is done here
         if (!P_dwba_simulation->isCompleted()) {
-            std::string message = P_dwba_simulation->getRunMessage();
+            std::string message = P_dwba_simulation->errorMessage();
             throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has "
                                                     "terminated unexpectedly with following error "
                                                     "message.\n" + message);
@@ -293,7 +293,7 @@ void Simulation::runSingleSimulation()
         std::vector<std::string> failure_messages;
         for (auto sim: simulations) {
             if (!sim->isCompleted())
-                failure_messages.push_back(sim->getRunMessage());
+                failure_messages.push_back(sim->errorMessage());
             delete sim;
         }
         if (failure_messages.size())

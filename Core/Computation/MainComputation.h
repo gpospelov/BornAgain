@@ -16,7 +16,7 @@
 #ifndef MAINCOMPUTATION_H
 #define MAINCOMPUTATION_H
 
-#include "ComputationOutcome.h"
+#include "ComputationStatus.h"
 #include "Complex.h"
 #include "INoncopyable.h"
 #include "SimulationOptions.h"
@@ -49,8 +49,8 @@ public:
 
     void run();
 
-    bool isCompleted() const { return m_outcome.isCompleted(); }
-    std::string getRunMessage() const { return m_outcome.getRunMessage(); }
+    bool isCompleted() const { return m_status.isCompleted(); }
+    std::string errorMessage() const { return m_status.errorMessage(); }
 
 private:
     void runProtected();
@@ -68,7 +68,7 @@ private:
     SpecularComputation *mp_specular_computation;
     std::vector<std::vector<ParticleLayoutComputation*>> m_layer_computation;
 
-    ComputationOutcome m_outcome;
+    ComputationStatus m_status;
 };
 
 #endif // MAINCOMPUTATION_H

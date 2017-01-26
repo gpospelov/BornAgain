@@ -70,13 +70,13 @@ MainComputation::~MainComputation()
 
 void MainComputation::run()
 {
-    m_outcome.setRunning();
+    m_status.setRunning();
     try {
         runProtected();
-        m_outcome.setCompleted();
+        m_status.setCompleted();
     } catch(const std::exception &ex) {
-        m_outcome.setRunMessage(std::string(ex.what()));
-        m_outcome.setFailed();
+        m_status.setErrorMessage(std::string(ex.what()));
+        m_status.setFailed();
     }
 }
 

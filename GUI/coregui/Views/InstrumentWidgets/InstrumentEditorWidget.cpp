@@ -24,7 +24,6 @@
 #include "SessionItem.h"
 #include <QBoxLayout>
 #include <QComboBox>
-#include <QDebug>
 #include <QEvent>
 #include <QGroupBox>
 #include <QLineEdit>
@@ -146,16 +145,13 @@ void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
 
 void InstrumentEditorWidget::onChangedEditor(const QString &)
 {
-    qDebug() << "InstrumentEditorWidget::onChangedEditor() ->";
     Q_ASSERT(m_currentItem);
     if(m_block_signals) return;
-    qDebug() << "          InstrumentEditorWidget::onChangedEditor(): " << m_nameLineEdit->text();
     m_currentItem->setItemName(m_nameLineEdit->text());
 }
 
 void InstrumentEditorWidget::onPropertyChanged(const QString &)
 {
-    qDebug() << "InstrumentEditorWidget::onPropertyChanged() ->";
 }
 
 //! top block with instrument name and type
@@ -179,7 +175,6 @@ QLayout *InstrumentEditorWidget::create_NameAndTypeLayout()
 
 void InstrumentEditorWidget::updateWidgets()
 {
-    qDebug() << "InstrumentEditorWidget::updateWidgets() ->";
     Q_ASSERT(m_currentItem);
     m_block_signals = true;
     m_nameLineEdit->setText(m_currentItem->itemName());

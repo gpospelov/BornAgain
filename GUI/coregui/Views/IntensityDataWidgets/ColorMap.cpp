@@ -23,7 +23,6 @@
 #include "MathConstants.h"
 #include "UpdateTimer.h"
 #include "plot_constants.h"
-#include <QDebug>
 
 namespace {
 const int replot_update_interval = 10;

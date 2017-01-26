@@ -26,7 +26,6 @@
 #include "RefractiveIndexItem.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
-#include <QDebug>
 
 
 QColor MaterialUtils::suggestMaterialColor(const QString &name)

@@ -25,7 +25,6 @@
 #include "SessionModel.h"
 #include <QAction>
 #include <QBoxLayout>
-#include <QDebug>
 
 RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
     : SessionItemWidget(parent)

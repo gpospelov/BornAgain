@@ -26,8 +26,6 @@
 #include "ParticleView.h"
 #include "TransformationView.h"
 #include "item_constants.h"
-#include <QDebug>
-
 
 QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::MultiLayerType
@@ -93,7 +91,6 @@ IView *SampleViewFactory::createSampleView(const QString &name)
         return new InterferenceFunction2DLatticeView();
     }
     else {
-        //qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;
 //        throw GUIHelpers::Error("SampleViewFactory::createSampleView() -> Error! Can't create a view for " + name);
     }
 

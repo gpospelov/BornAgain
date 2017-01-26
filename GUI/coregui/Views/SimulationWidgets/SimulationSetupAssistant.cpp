@@ -17,7 +17,6 @@
 #include "SimulationSetupAssistant.h"
 #include "SampleValidator.h"
 #include "ImportDataAssistant.h"
-#include <QDebug>
 #include <QMessageBox>
 
 //! Returns true if given setup is valid for submitting the job

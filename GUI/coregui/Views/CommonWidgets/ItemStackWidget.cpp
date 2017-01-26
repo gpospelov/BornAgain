@@ -17,7 +17,6 @@
 #include "ItemStackWidget.h"
 #include "GUIHelpers.h"
 #include "SessionModel.h"
-#include <QDebug>
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
@@ -66,20 +65,17 @@ void ItemStackWidget::setSizeHint(const QSize &size_hint)
 
 void ItemStackWidget::onModelAboutToBeReset()
 {
-    qDebug() << "ItemStackWidget::onModelAboutToBeReset()";
     removeWidgets();
 }
 
 void ItemStackWidget::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int)
 {
-    qDebug() << "ItemStackWidget::onRowsAboutToBeRemoved()";
     SessionItem *item = m_model->itemForIndex(m_model->index(first, 0, parent));
     removeWidgetForItem(item);
 }
 
 void ItemStackWidget::onSelectionChanged(SessionItem *item)
 {
-    if(item) qDebug() << "ItemStackWidget::onSelectionChanged(SessionItem *item)" << item->displayName();
     bool isNew(false);
     setItem(item, isNew);
 }
@@ -122,7 +118,6 @@ void ItemStackWidget::validateItem(SessionItem *item)
                                     "Attempt to use items from different models.");
         }
     } else {
-        qDebug() << "ItemStackPresenter::setItem() -> Warning, model is not initialized.";
         setModel(item->model());
     }
 }

@@ -19,7 +19,6 @@
 #include "MaterialSvc.h"
 #include <QColorDialog>
 #include <QComboBox>
-#include <QDebug>
 #include <QDoubleValidator>
 #include <QFileDialog>
 #include <QFocusEvent>
@@ -107,7 +106,6 @@ GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
 
 GroupPropertyEdit::~GroupPropertyEdit()
 {
-    qDebug() << "GroupPropertyEdit::~GroupPropertyEdit() -> destroyed" << this;
 }
 
 void GroupPropertyEdit::setGroupProperty(
@@ -121,7 +119,6 @@ void GroupPropertyEdit::setGroupProperty(
 
 void GroupPropertyEdit::processGroup()
 {
-    qDebug() << "GroupPropertyEdit::processGroup()";
     disconnect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)));
 
@@ -137,7 +134,6 @@ void GroupPropertyEdit::processGroup()
 
 void GroupPropertyEdit::indexChanged(int index)
 {
-    qDebug() << "GroupPropertyEdit::textChanged() -> " << index;
     m_groupProperty->setCurrentType(m_groupProperty->toString(index));
 }
 
@@ -307,13 +303,11 @@ ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
 
 //ComboPropertyEdit::~ComboPropertyEdit()
 //{
-//    qDebug() << "ComboPropertyEdit::~ComboPropertyEdit()" << this;
 //}
 
 void ComboPropertyEdit::setComboProperty(
         const ComboProperty &combo_property)
 {
-    qDebug() << "ComboPropertyEdit::setComboProperty() this=" << this;
     m_combo_property = combo_property;
 //    if (!m_comboBox) {
 //        m_comboBox = new QComboBox(this);
@@ -360,10 +354,8 @@ QString ComboPropertyEdit::comboValueText()
 
 void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {
-    qDebug() << "ComboPropertyEdit::onCurrentIndexChanged(QString current_value)" << current_value;
     m_combo_property.setValue(current_value);
     m_combo_property.setCachedValue(current_value);
-    qDebug() << "       ComboPropertyEdit::onCurrentIndexChanged(QString current_value) -> emitting combo property";
     emit comboPropertyChanged(m_combo_property);
 }
 

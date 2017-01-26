@@ -35,13 +35,11 @@ inline void TestSessionModel::test_SampleModel_CreateCopy()
     QString buffer1;
     QXmlStreamWriter writer1(&buffer1);
     model1->writeTo(&writer1);
-    qDebug() << buffer1;
 
     SampleModel *model2 = model1->createCopy();
     QString buffer2;
     QXmlStreamWriter writer2(&buffer2);
     model2->writeTo(&writer2);
-    qDebug() << buffer2;
 
     QCOMPARE(buffer1, buffer2);
 
@@ -88,13 +86,11 @@ inline void TestSessionModel::test_InstrumentModel_CreateCopy()
     QString buffer1;
     QXmlStreamWriter writer1(&buffer1);
     model1->writeTo(&writer1);
-    qDebug() << buffer1;
 
     InstrumentModel *model2 = model1->createCopy();
     QString buffer2;
     QXmlStreamWriter writer2(&buffer2);
     model2->writeTo(&writer2);
-    qDebug() << buffer2;
 
     QCOMPARE(buffer1, buffer2);
 
@@ -118,7 +114,6 @@ inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
 //    QString buffer1;
 //    QXmlStreamWriter writer1(&buffer1);
 //    model1->writeTo(&writer1);
-//    qDebug() << buffer1;
 
     // this method seems not implemented even before
     InstrumentModel *model2 = model1->createCopy(instrument2);
@@ -126,7 +121,6 @@ inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
 //    QString buffer2;
 //    QXmlStreamWriter writer2(&buffer2);
 //    model2->writeTo(&writer2);
-//    qDebug() << buffer2;
 
     SessionItem *result = model2->itemForIndex(model2->index(0,0,QModelIndex()));
 

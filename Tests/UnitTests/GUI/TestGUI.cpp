@@ -1,6 +1,5 @@
 #include <QtTest>
 #include <QString>
-#include <QDebug>
 #include <QCoreApplication>
 #include "TestMapperCases.h"
 #include "TestFormFactorItems.h"

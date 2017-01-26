@@ -18,7 +18,6 @@
 #include "MaskItems.h"
 #include "SessionModel.h"
 #include <QAction>
-#include <QDebug>
 #include <QItemSelectionModel>
 #include <QMenu>
 

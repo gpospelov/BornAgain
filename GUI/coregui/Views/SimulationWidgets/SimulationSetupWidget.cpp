@@ -25,7 +25,6 @@
 #include "SimulationOptionsWidget.h"
 #include "SimulationSetupAssistant.h"
 #include "projectmanager.h"
-#include <QDebug>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>

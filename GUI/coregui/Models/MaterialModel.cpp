@@ -19,7 +19,6 @@
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
@@ -65,7 +64,6 @@ MaterialItem *MaterialModel::getMaterial(const QModelIndex &index)
 
 MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
 {
-    qDebug() << "MaterialModel::getMaterial()";
     QModelIndex parentIndex;
     for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = index( i_row, 0, parentIndex );
@@ -79,7 +77,6 @@ MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
 
 MaterialItem *MaterialModel::getMaterial(const QString &material_name)
 {
-    qDebug() << "MaterialModel::getMaterial()";
     QModelIndex parentIndex;
     for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = index( i_row, 0, parentIndex );

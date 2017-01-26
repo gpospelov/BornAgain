@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
+#include <QMap>
 
 namespace ToolTipsXML {
 const QString modelTag = "ToolTipsData";

@@ -17,7 +17,6 @@
 #include "SizeHandleElement.h"
 #include "ISceneAdaptor.h"
 #include "MaskEditorHelper.h"
-#include <QDebug>
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 

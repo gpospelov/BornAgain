@@ -27,11 +27,8 @@ GroupItem::GroupItem()
 //    mapper()->setOnChildPropertyChange(
 //                [this](SessionItem* item, const QString &name)
 //    {
-//        qDebug() << "QQQQ" << item->itemLabel() << name;
 //        group()->setCurrentLabel(item->itemLabel());
-////        qDebug() << "emmiting..." << modelType();
 ////        emitDataChanged();
-////        qDebug() << "...emmited";
 //    });
 
 }

@@ -24,7 +24,6 @@
 #include "ScientificDoubleProperty.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
-#include <QDebug>
 
 namespace
 {
@@ -150,8 +149,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                               WarningMessageService *messageService)
 {
     bool isTopItem = true;
-    qDebug() << "SessionModel::readItems()  item:" << item << "topTag:" << topTag;
-    if(item) qDebug() << "  item" << item->modelType();
     const QString modelType = item->model()->getModelTag();
     while (!reader->atEnd()) {
         reader->readNext();
@@ -230,7 +227,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     item = item->parent();
                 } else {
                     // handling the case when reading obsolete project file, when SubItem doesn't exist anymore
-                    qDebug() << "!!";
                     Q_ASSERT(0);
                 }
             }
@@ -246,9 +242,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
 QString SessionReader::readProperty(QXmlStreamReader *reader,
         SessionItem *item, WarningMessageService *messageService)
 {
-//    qDebug() << "SessionModel::readProperty() for" << item;
-    if (item)
-        qDebug() << item->modelType();
     const QString parameter_name
         = reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
     const QString parameter_type

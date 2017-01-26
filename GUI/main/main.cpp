@@ -20,7 +20,6 @@
 #include "mainwindow.h"
 #include "ComboProperty.h"
 #include <QApplication>
-#include <QDebug>
 #include <QLocale>
 #include <QMetaType>
 #include <QTime>

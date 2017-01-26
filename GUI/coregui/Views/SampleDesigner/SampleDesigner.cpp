@@ -20,7 +20,6 @@
 #include "FilterPropertyProxy.h"
 #include "ISample.h"
 #include "MultiLayerView.h"
-#include <QDebug>
 
 SampleDesigner::SampleDesigner(QWidget *parent)
     : SampleDesignerInterface(parent)
@@ -56,6 +55,5 @@ void SampleDesigner::setSelectionModel(QItemSelectionModel *model, FilterPropert
 
 void SampleDesigner::onSmartAlign()
 {
-    qDebug() << "SampleDesigner::onSmartAlign()";
     m_designerScene->onSmartAlign();
 }

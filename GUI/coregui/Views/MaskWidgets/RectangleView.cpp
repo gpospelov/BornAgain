@@ -16,7 +16,6 @@
 
 #include "RectangleView.h"
 #include "MaskItems.h"
-#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 

@@ -18,7 +18,6 @@
 #define ITEMSTACKPRESENTER_H
 
 #include "ItemStackWidget.h"
-#include <QDebug>
 #include <QMap>
 #include <QStackedWidget>
 
@@ -77,8 +76,6 @@ protected:
         T *widget = m_itemToWidget[item];
         if(!widget) return;
 
-        qDebug() << "ItemStackPresenter::removeWidgetForItem";
-
         typename QMap<SessionItem *, T *>::iterator it = m_itemToWidget.begin();
         while(it!=m_itemToWidget.end()) {
             if(it.value() == widget) {
@@ -95,7 +92,6 @@ protected:
     }
 
     void removeWidgets() {
-        qDebug() << "ItemStackPresenter::removeWidgets";
         typename QMap<SessionItem *, T *>::iterator it = m_itemToWidget.begin();
         while(it!=m_itemToWidget.end()) {
             m_stackedWidget->removeWidget(it.value());

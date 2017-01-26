@@ -25,7 +25,6 @@
 #include "MaskItems.h"
 #include "MaskModel.h"
 #include "OutputData.h"
-#include <QDebug>
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
     : QObject(parent)

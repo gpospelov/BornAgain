@@ -20,7 +20,6 @@
 #include "NodeEditorConnection.h"
 #include "NodeEditorPort.h"
 #include "SessionItem.h"
-#include <QDebug>
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -171,7 +170,6 @@ int ConnectableView::getNumberOfInputPorts()
 
 void ConnectableView::update_appearance()
 {
-    qDebug() << "AAAA COnnectableView " << m_item->modelType() << m_item->displayName();
     setLabel( hyphenate(m_item->displayName()) );
     IView::update_appearance();
 }

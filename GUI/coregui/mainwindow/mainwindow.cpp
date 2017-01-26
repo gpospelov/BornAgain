@@ -148,7 +148,6 @@ void MainWindow::openRecentProject()
 {
     if (const QAction *action = qobject_cast<const QAction*>(sender())) {
         QString file = action->data().value<QString>();
-        qDebug() << "MainWindow::openRecentProject() -> " << file;
         m_projectManager->openProject(file);
     }
 }
@@ -168,8 +167,6 @@ void MainWindow::onAboutApplication()
 //! This SessionModelView will be known for the tab under MAXVIEWCOUNT id (so it is the last one)
 void MainWindow::onSessionModelViewActive(bool isActive)
 {
-    qDebug() << "MainWindow::onSessionModelViewActive" << isActive;
-
     if(isActive) {
         if(m_sessionModelView)
             return;

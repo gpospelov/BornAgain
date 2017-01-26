@@ -16,7 +16,6 @@
 
 #include "StatusLabel.h"
 #include <QColor>
-#include <QDebug>
 #include <QFont>
 #include <QPainter>
 

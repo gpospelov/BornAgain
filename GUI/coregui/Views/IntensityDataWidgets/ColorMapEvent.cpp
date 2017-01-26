@@ -16,7 +16,6 @@
 
 #include "ColorMapEvent.h"
 #include "ColorMap.h"
-#include <QDebug>
 #include <QMouseEvent>
 
 ColorMapEvent::ColorMapEvent(ColorMap *colorMap)

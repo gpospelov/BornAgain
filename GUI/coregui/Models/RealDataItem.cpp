@@ -24,7 +24,6 @@
 #include "ImportDataAssistant.h"
 #include "MaskUnitsConverter.h"
 #include "JobItemFunctions.h"
-#include <QDebug>
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";

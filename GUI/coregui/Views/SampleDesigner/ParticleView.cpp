@@ -19,7 +19,6 @@
 #include "GroupItem.h"
 #include "GroupProperty.h"
 #include "ParticleItem.h"
-#include <QDebug>
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>

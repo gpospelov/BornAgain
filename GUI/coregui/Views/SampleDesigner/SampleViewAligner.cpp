@@ -18,7 +18,6 @@
 #include "DesignerScene.h"
 #include "IView.h"
 #include "SampleModel.h"
-#include <QDebug>
 #include <QModelIndex>
 
 SampleViewAligner::SampleViewAligner(DesignerScene *scene)

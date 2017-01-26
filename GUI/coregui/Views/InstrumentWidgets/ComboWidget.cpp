@@ -18,7 +18,6 @@
 #include "GUIHelpers.h"
 #include <QBoxLayout>
 #include <QComboBox>
-#include <QDebug>
 #include <QDoubleSpinBox>
 #include <QGridLayout>
 #include <QGroupBox>

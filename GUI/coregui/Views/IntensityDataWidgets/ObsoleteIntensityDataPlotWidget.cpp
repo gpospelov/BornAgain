@@ -21,7 +21,6 @@
 #include "SavePlotAssistant.h"
 #include "VerticalSlicePlot.h"
 #include "qcustomplot.h"
-#include <QDebug>
 #include <QLabel>
 #include <QSplitter>
 #include <QVBoxLayout>

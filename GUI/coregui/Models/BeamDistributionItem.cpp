@@ -20,7 +20,6 @@
 #include "GroupItem.h"
 #include "ParameterDistribution.h"
 #include "Units.h"
-#include <QDebug>
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 
@@ -32,9 +31,8 @@ BeamDistributionItem::BeamDistributionItem(const QString name)
 
 
     mapper()->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString &name)
+                [this](SessionItem* item, const QString &)
     {
-        qDebug() << "AAAAA" << item->modelType() << name;
         if(item->modelType() == Constants::GroupItemType) {
             initDistributionItem();
         }
@@ -42,7 +40,6 @@ BeamDistributionItem::BeamDistributionItem(const QString name)
 //            && name == IntensityDataItem::P_AXES_UNITS) {
 //            auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
 //            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
-//            qDebug() << "QQQQ" << item->modelType() << name;
 
 //        }
     });

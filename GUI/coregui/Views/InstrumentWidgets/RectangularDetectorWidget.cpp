@@ -22,7 +22,6 @@
 #include "ExtendedDetectorDialog.h"
 #include "GroupInfoBox.h"
 #include "columnresizer.h"
-#include <QDebug>
 #include <QGroupBox>
 #include <QVBoxLayout>
 
@@ -82,7 +81,6 @@ void RectangularDetectorWidget::setDetectorItem(RectangularDetectorItem *detecto
 
 void RectangularDetectorWidget::onPropertyChanged(const QString &propertyName)
 {
-    qDebug() << "RectangularDetectorWidget::onPropertyChanged()" << propertyName;
     if(propertyName == RectangularDetectorItem::P_ALIGNMENT) {
         init_alignment_editors();
     }

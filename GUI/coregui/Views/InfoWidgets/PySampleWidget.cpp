@@ -23,7 +23,6 @@
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "WarningSignWidget.h"
-#include <QDebug>
 #include <QFile>
 #include <QModelIndex>
 #include <QPainter>
@@ -130,7 +129,6 @@ void PySampleWidget::onDataChanged(const QModelIndex &, const QModelIndex &)
 void PySampleWidget::scheduleUpdate()
 {
     m_n_of_sceduled_updates++;
-    qDebug() << "PySampleWidget::scheduleUpdate()" << m_n_of_sceduled_updates;
     if(!m_timer->isActive()) m_timer->start();
 }
 
@@ -143,7 +141,6 @@ void PySampleWidget::updateEditor()
     }
 
     Q_ASSERT(!m_timer->isActive());
-    qDebug() << "PySampleWidget::updateEditor() -> begin" << m_n_of_sceduled_updates;
     m_n_of_sceduled_updates = 0;
 
     const int old_scrollbar_value = m_textEdit->verticalScrollBar()->value();
@@ -200,8 +197,6 @@ void PySampleWidget::enableEditor()
 //! Triggers the update of the editor
 void PySampleWidget::onTimerTimeout()
 {
-    qDebug() << "PySampleWidget::onTimerTimeout()" << m_time_to_update
-             << "scheduled updates" << m_n_of_sceduled_updates;
     m_time_to_update -= timer_interval_msec;
 
     if(m_time_to_update < 0) {

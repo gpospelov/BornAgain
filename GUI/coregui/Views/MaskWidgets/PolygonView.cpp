@@ -20,7 +20,6 @@
 #include "MaskItems.h"
 #include "PolygonPointView.h"
 #include <QCursor>
-#include <QDebug>
 #include <QGraphicsItem>
 #include <QGraphicsPolygonItem>
 #include <QGraphicsSceneMouseEvent>
@@ -121,7 +120,6 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
 QVariant PolygonView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
-    qDebug() << "PolygonView::itemChange" << change << value << this->isSelected();
     if(change == QGraphicsItem::ItemSelectedHasChanged) {
         if(this->isSelected()) {
             setChildrenVisible(true);

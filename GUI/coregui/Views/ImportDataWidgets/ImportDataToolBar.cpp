@@ -31,7 +31,6 @@
 #include "SessionItem.h"
 #include "SphericalDetectorItem.h"
 #include <QAction>
-#include <QDebug>
 #include <QItemSelectionModel>
 
 ImportDataToolBar::ImportDataToolBar(QWidget *parent)
@@ -103,7 +102,6 @@ void ImportDataToolBar::setActionList(const QList<QAction *> &actionList)
 
 void ImportDataToolBar::onImportDataAction()
 {
-    qDebug() << "ImportDataToolBar::onImportDataAction()";
     Q_ASSERT(m_realDataModel);
     ImportDataAssistant assistant;
     QString baseNameOfImportedFile;
@@ -139,7 +137,6 @@ void ImportDataToolBar::onImportDataAction()
 //        intensityDataItem->setOutputData(data);
 //        m_selectionModel->clearSelection();
 //        m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
-//        qDebug() << "baseNameOfImportedFile" << baseNameOfImportedFile;
 
 //        //matchAxesToInstrument(realDataItem);
 //    }
@@ -148,18 +145,14 @@ void ImportDataToolBar::onImportDataAction()
 
 void ImportDataToolBar::onCloneDataAction()
 {
-    qDebug() << "ImportDataToolBar::onCloneDataAction()";
-
 }
 
 void ImportDataToolBar::onRemoveDataAction()
 {
-    qDebug() << "ImportDataToolBar::onRemoveDataAction()";
     Q_ASSERT(m_realDataModel);
     Q_ASSERT(m_selectionModel);
 
     QModelIndex currentIndex = m_selectionModel->currentIndex();
-    qDebug() << "InstrumentView::onRemoveInstrument()" <<  currentIndex;
     if(currentIndex.isValid())
         m_realDataModel->removeRows(currentIndex.row(), 1, currentIndex.parent());
 

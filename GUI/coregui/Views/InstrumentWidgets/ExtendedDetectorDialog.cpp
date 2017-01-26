@@ -20,7 +20,6 @@
 #include "MaskEditor.h"
 #include "MaskModel.h"
 #include "mainwindow_constants.h"
-#include <QDebug>
 #include <QKeyEvent>
 #include <QModelIndex>
 #include <QPushButton>

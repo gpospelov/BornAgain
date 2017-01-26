@@ -19,7 +19,6 @@
 #include "FitSuiteItem.h"
 #include "JobItem.h"
 #include "MinimizerItem.h"
-#include <QDebug>
 #include <QPushButton>
 #include <QVBoxLayout>
 

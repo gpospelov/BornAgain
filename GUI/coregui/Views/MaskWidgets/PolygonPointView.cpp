@@ -19,7 +19,6 @@
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include <QCursor>
-#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 

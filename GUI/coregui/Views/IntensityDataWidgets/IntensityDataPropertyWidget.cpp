@@ -19,7 +19,6 @@
 #include "IntensityDataItem.h"
 #include "JobModel.h"
 #include <QAction>
-#include <QDebug>
 #include <QVBoxLayout>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)

@@ -2,7 +2,6 @@
 #include "SampleModel.h"
 #include "ParticleDistributionItem.h"
 #include "ComboProperty.h"
-#include <QDebug>
 
 class TestParticleDistributionItem : public QObject {
     Q_OBJECT
@@ -44,6 +43,5 @@ inline void TestParticleDistributionItem::test_AddParticle()
 
     ComboProperty prop = item->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
-    qDebug() << prop.getValues();
 
 }

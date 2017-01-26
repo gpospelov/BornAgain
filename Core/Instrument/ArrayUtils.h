@@ -18,11 +18,7 @@
 
 #include <vector>
 #include "WinDllMacros.h"
-
-#ifdef BORNAGAIN_PYTHON
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#include <Python.h>
-#endif // BORNAGAIN_PYTHON
+#include "PythonCore.h"
 
 //! Array and Numpy utility functions getShape, createNumpyArray.
 

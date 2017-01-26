@@ -30,7 +30,6 @@
 #include "SliderSettingsWidget.h"
 #include "WarningSignWidget.h"
 #include <QApplication>
-#include <QDebug>
 #include <QItemSelectionModel>
 #include <QKeyEvent>
 #include <QLabel>
@@ -138,15 +137,12 @@ QVector<ParameterItem *> ParameterTuningWidget::getSelectedParameters()
 
 void ParameterTuningWidget::onCurrentLinkChanged(SessionItem *item)
 {
-    qDebug() << "ModelTuningWidget::onCurrentLinkChanged";
     Q_ASSERT(m_currentJobItem);
 
     if(m_currentJobItem->isRunning())
         return;
 
     if (item) {
-        qDebug() << "ModelTuningWidget::onCurrentLinkChanged() -> Starting to tune model";
-//                 << link.getItem()->modelType() << link.getPropertyName();
 //        link.updateItem();
         m_jobModel->runJob(m_currentJobItem->index());
     }
@@ -161,7 +157,6 @@ void ParameterTuningWidget::onLockZValueChanged(bool value)
 {
     if(!m_currentJobItem) return;
     if(IntensityDataItem *intensityDataItem = m_currentJobItem->intensityDataItem()) {
-        qDebug() << "ModelTuningWidget::onLockZValueChanged(bool value) ->" << value;
         intensityDataItem->setZAxisLocked(value);
     }
 }
@@ -169,7 +164,6 @@ void ParameterTuningWidget::onLockZValueChanged(bool value)
 void ParameterTuningWidget::updateParameterModel()
 {
     Q_ASSERT(m_jobModel);
-    qDebug() << "ModelTuningWidget::updateParameterModel()";
 
     if(!m_currentJobItem) return;
 

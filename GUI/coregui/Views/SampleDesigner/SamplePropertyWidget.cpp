@@ -17,7 +17,6 @@
 #include "SamplePropertyWidget.h"
 #include "ComponentEditor.h"
 #include "SessionItem.h"
-#include <QDebug>
 #include <QItemSelection>
 #include <QModelIndexList>
 #include <QSortFilterProxyModel>
@@ -67,7 +66,6 @@ void SamplePropertyWidget::setSelectionModel(QItemSelectionModel *selection_mode
 void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
                                             const QItemSelection & deselected)
 {
-    qDebug() << "SamplePropertyWidget::selectionChanged" << selected << deselected;
     (void)deselected;
     QModelIndexList indices = selected.indexes();
 

@@ -21,7 +21,6 @@
 #include "JobMessagePanel.h"
 #include "WarningSignWidget.h"
 #include "mainwindow_constants.h"
-#include <QDebug>
 #include <QFont>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -182,7 +181,6 @@ void RunFitControlWidget::setItem(JobItem *item)
 
 void RunFitControlWidget::onSliderValueChanged(int value)
 {
-    qDebug() << "RunFitControlWidget::onSliderValueChanged(int value)";
     int interval = sliderValueToUpdateInterval(value);
     m_updateIntervalLabel->setText(QString::number(interval));
     if(fitSuiteItem())

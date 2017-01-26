@@ -21,7 +21,6 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"
-#include <QDebug>
 #include <QThread>
 
 JobQueueData::JobQueueData(JobModel *jobModel)
@@ -73,10 +72,8 @@ bool JobQueueData::hasUnfinishedJobs()
 void JobQueueData::runJob(JobItem *jobItem)
 {
     QString identifier = jobItem->getIdentifier();
-    if(getThread(identifier)) {
-        qDebug() << "JobQueueData::runInThread() -> Thread is already running";
+    if(getThread(identifier))
         return;
-    }
 
     if(getSimulation(identifier))
         throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");

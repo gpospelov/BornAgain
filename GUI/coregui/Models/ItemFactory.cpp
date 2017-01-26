@@ -54,7 +54,6 @@
 #include "TransformationItem.h"
 #include "VectorItem.h"
 #include "LinkInstrumentItem.h"
-#include <QDebug>
 
 namespace {
 template<typename T> SessionItem *createInstance() { return new T; }
@@ -225,8 +224,6 @@ ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
 SessionItem *ItemFactory::createItem(const QString &model_name,
                                            SessionItem *parent)
 {
-    //qDebug() << "ItemFactory::createItem" << model_name;
-
     if(!m_item_map.contains(model_name))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "+model_name);
 
@@ -234,7 +231,7 @@ SessionItem *ItemFactory::createItem(const QString &model_name,
     if(parent) {
         parent->insertItem(-1, result);
     }
-    //qDebug() << "       result:" << result;
+
     return result;
 }
 

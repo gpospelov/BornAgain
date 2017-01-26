@@ -23,7 +23,6 @@
 #include "RealDataModel.h"
 #include "SampleModel.h"
 #include <QComboBox>
-#include <QDebug>
 #include <QFileDialog>
 #include <QGroupBox>
 #include <QLabel>

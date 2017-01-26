@@ -31,6 +31,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "AccordionWidget.h"
+#include <QDebug>
 
 
 AccordionWidget::AccordionWidget(QWidget *parent) : QWidget(parent)

@@ -16,8 +16,6 @@
 
 #include "GroupProperty.h"
 #include "ItemFactory.h"
-#include <QDebug>
-
 
 GroupProperty::GroupProperty(QString group_name)
     : m_group_name(std::move(group_name))
@@ -27,7 +25,6 @@ GroupProperty::GroupProperty(QString group_name)
 
 SessionItem *GroupProperty::getCurrentItem()
 {
-    qDebug() << "GroupProperty::getCurrentItem()" << m_groupItem;
     if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
     return 0;
 }

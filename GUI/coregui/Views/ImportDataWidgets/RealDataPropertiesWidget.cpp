@@ -24,7 +24,6 @@
 #include <QComboBox>
 #include <QDataWidgetMapper>
 #include <QLabel>
-#include <QDebug>
 
 namespace {
 const QString instrumentNameTooltip = "Name of real data";

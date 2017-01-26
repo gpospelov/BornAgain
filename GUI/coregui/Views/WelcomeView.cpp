@@ -23,7 +23,6 @@
 #include "projectmanager.h"
 #include "qstringutils.h"
 #include <QCommandLinkButton>
-#include <QDebug>
 #include <QDesktopServices>
 #include <QSignalMapper>
 #include <QUrl>
@@ -277,7 +276,6 @@ void WelcomeView::onNewUser()
 
 void WelcomeView::updateRecentProjectPanel()
 {
-    qDebug() << "WelcomeView::updateRecentProjectPanel called";
     this->clearLayout(m_recentProjectLayout);
     this->generateRecentProjectList();
     update();

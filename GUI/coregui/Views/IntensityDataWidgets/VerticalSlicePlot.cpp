@@ -66,14 +66,12 @@ void VerticalSlicePlot::setItem(IntensityDataItem *item)
 
 void VerticalSlicePlot::plotData(const QVector<double> &x, const QVector<double> &y)
 {
-    //qDebug() << "NHistogramPlot::plotData(const QVector<double> &x, const QVector<double> &y)";
     m_bars->setData(x, y);
     m_customPlot->replot();
 }
 
 void VerticalSlicePlot::onSubItemPropertyChanged(const QString &property_group, const QString &property_name)
 {
-    qDebug() << "HorizontalSlicePlot::onSubItemPropertyChanged(const QString &property_name)" << property_group << property_name;
     if(property_group == IntensityDataItem::P_XAXIS) {
         if(property_name == BasicAxisItem::P_MIN) {
             setXmin(m_item->getLowerX());
@@ -106,7 +104,6 @@ void VerticalSlicePlot::onSubItemPropertyChanged(const QString &property_group, 
 
 void VerticalSlicePlot::plotItem(IntensityDataItem *intensityItem)
 {
-    //qDebug() << "NHistogramPlot::plotItem(NIntensityDataItem *intensityItem)";
     Q_ASSERT(intensityItem);
 
     const OutputData<double> *data = intensityItem->getOutputData();

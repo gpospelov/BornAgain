@@ -20,7 +20,6 @@
 #include "MaterialModel.h"
 #include "MaterialUtils.h"
 #include "SessionModel.h"
-#include <QDebug>
 
 MaterialSvc *MaterialSvc::m_instance = 0;
 
@@ -54,7 +53,6 @@ MaterialSvc::selectMaterialProperty(const MaterialProperty &previousMaterial)
 MaterialProperty
 MaterialSvc::this_selectMaterialProperty(const MaterialProperty &previousMaterial)
 {
-    qDebug() << "MaterialEditor::this_getMaterialProperty()";
     MaterialEditorDialog dialog(m_materialModel);
     dialog.setInitialMaterialProperty(previousMaterial);
     if(dialog.exec() == QDialog::Accepted) {

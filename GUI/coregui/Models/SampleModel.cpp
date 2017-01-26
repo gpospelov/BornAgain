@@ -21,8 +21,6 @@
 #include "MaterialProperty.h"
 #include "MaterialSvc.h"
 #include "MaterialUtils.h"
-#include <QDebug>
-
 
 SampleModel::SampleModel(QObject *parent)
     : SessionModel(SessionXML::SampleModelTag, parent)

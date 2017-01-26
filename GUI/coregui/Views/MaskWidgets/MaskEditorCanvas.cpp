@@ -27,7 +27,6 @@
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
 #include "MaskItems.h"
-#include <QDebug>
 #include <QGraphicsRectItem>
 #include <QModelIndex>
 #include <QVBoxLayout>

@@ -18,7 +18,6 @@
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "WarningMessageService.h"
-#include <QDebug>
 #include <QDir>
 #include <QXmlStreamReader>
 
@@ -100,7 +99,6 @@ bool ProjectDocument::save()
 
     QFile file(filename);
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text)) {
-        qDebug() << "ProjectDocument::save() -> Error! Can't save file";
         return false;
     }
     writeTo(&file);

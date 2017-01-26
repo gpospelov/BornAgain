@@ -22,7 +22,6 @@
 #include "SessionModel.h"
 #include "WarningMessageService.h"
 #include <QBoxLayout>
-#include <QDebug>
 #include <QFrame>
 #include <QGridLayout>
 #include <QHeaderView>

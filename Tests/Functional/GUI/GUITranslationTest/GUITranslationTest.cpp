@@ -31,8 +31,6 @@
 #include "GUIHelpers.h"
 #include "StringUtils.h"
 #include <QStack>
-#include <QDebug>
-
 
 GUITranslationTest::GUITranslationTest(const std::string &simName, const std::string &sampleName)
     : m_models(new ApplicationModels(0))

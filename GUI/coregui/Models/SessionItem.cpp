@@ -19,7 +19,6 @@
 #include "GroupPropertyRegistry.h"
 #include "ItemFactory.h"
 #include "SessionModel.h"
-#include <QDebug>
 
 class SessionItemData
 {
@@ -350,7 +349,6 @@ bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
         if (item->parent() == nullptr) {
             item->setParentAndModel(this, m_model);
         } else {
-            qDebug() << "Double insertion of item";
             return false;
         }
     }
@@ -498,7 +496,6 @@ SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type)
 
 SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
 {
-    qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
     if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
         GroupProperty_t group_property = item->group();
         group_property->setCurrentType(value);
@@ -612,9 +609,6 @@ bool SessionItem::setValue(QVariant value)
     QVariant previous_variant = this->value();
     if (previous_variant.isValid() && GUIHelpers::getVariantType(previous_variant)
             != GUIHelpers::getVariantType(value)) {
-        qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new "
-                    "variant does not coincide.";
-        qDebug() << "New variant" << value << ", previous " << previous_variant;
         throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
                                 "previous and new variant does not coincide.");
     }

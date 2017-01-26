@@ -17,7 +17,6 @@
 #include "InfoWidget.h"
 #include "InfoToolBar.h"
 #include "PySampleWidget.h"
-#include <QDebug>
 #include <QResizeEvent>
 #include <QVBoxLayout>
 
@@ -75,7 +74,6 @@ QSize InfoWidget::sizeHint() const
     } else {
         result.setHeight(m_pySampleWidget->height() + m_infoToolBar->height() );
     }
-    qDebug() << "InfoWidget::sizeHint()" << result;
     return result;
 }
 
@@ -86,7 +84,6 @@ QSize InfoWidget::minimumSizeHint() const
 
 void InfoWidget::onDockVisibilityChange(bool is_visible)
 {
-    qDebug() << "InfoWidget::onDockVisibilityChange(bool status)" << is_visible << isEditorVisible();
     Q_ASSERT(m_pySampleWidget);
     if(isEditorVisible()) {
         if(!is_visible) {
@@ -104,7 +101,6 @@ void InfoWidget::onDockVisibilityChange(bool is_visible)
 
 void InfoWidget::onExpandButtonClicked()
 {
-    qDebug() << "InfoWidget::onExpandButtonClicked()" << m_cached_height;
     setEditorVisible(!isEditorVisible(), true);
 }
 

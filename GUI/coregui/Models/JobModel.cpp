@@ -29,8 +29,6 @@
 #include "SimulationOptionsItem.h"
 #include "JobModelFunctions.h"
 #include "ImportDataAssistant.h"
-#include <QDebug>
-
 
 JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
@@ -163,13 +161,11 @@ void JobModel::runJob(const QModelIndex &index)
 
 void JobModel::cancelJob(const QModelIndex &index)
 {
-    qDebug() << "JobModel::cancelJob(const QModelIndex &index)";
     m_queue_data->cancelJob(getJobItemForIndex(index)->getIdentifier());
 }
 
 void JobModel::removeJob(const QModelIndex &index)
 {
-    qDebug() << "NJobModel::removeJob(const QModelIndex &index)";
     JobItem *jobItem = getJobItemForIndex(index);
     Q_ASSERT(jobItem);
     m_queue_data->removeJob(jobItem->getIdentifier());

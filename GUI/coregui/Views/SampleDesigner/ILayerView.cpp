@@ -23,7 +23,6 @@
 #include "MultiLayerView.h"
 #include "SampleModel.h"
 #include "SessionItem.h"
-#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 
 QLineF MultiLayerCandidate::getInterfaceToScene()
@@ -116,9 +115,6 @@ void ILayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 //! request to SessionModel.
 void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "ILayerView::mouseReleaseEvent()  this:" << this
-             << getItem()->itemName() << " parentItem: " << parentItem();
-
     DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
     Q_ASSERT(designerScene);
     designerScene->setLayerInterfaceLine(); // removing drop area hint from the scene
@@ -132,12 +128,8 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     MultiLayerView *requested_parent = candidate.multilayer;
     int requested_row = candidate.row;
 
-//    qDebug() << "ILayerView::mouseReleaseEvent()  requested_parent:" << requested_parent
-//             << " requested_row:" << requested_row;
-
     // Simple move of lonely layer across the scene: let it be.
     if (requested_parent == 0 && parentItem() == 0) {
-        qDebug() << "ILayerView::mouseReleaseEvent() simple move of lonely layer";
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -145,7 +137,6 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // Layer was moved on top of MultiLayer but not in the right drop area:
     // returning layer back to starting position.
     if (requested_parent && requested_row == -1) {
-        qDebug() << "1.1 Layer->MultiLayer, wrong drop area.";
         setPos(m_drag_start_position);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
@@ -156,7 +147,6 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // Layer was moved only slightly, to the same row of his own MultiLayer: returning back.
     if (requested_parent == parentItem()
         && requested_row == getItem()->parent()->getItems().indexOf(getItem())) {
-        qDebug() << "1.2 Layer->MultiLayer (same), same drop area";
         setPos(m_drag_start_position);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
@@ -165,7 +155,6 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // Layer was moved from MultiLayer it belongs to, to an empty place of
     // the scene: changing ownership.
     if (parentItem() && !requested_parent) {
-        qDebug() << "1.3 Layer->Scene";
         QPointF newPos = mapToScene(event->pos()) - event->pos();
 //        setPos(newPos);
         this->getItem()->setItemValue(SessionGraphicsItem::P_XPOS, newPos.x());
@@ -179,7 +168,6 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // Layer was moved either from one MultiLayer to another, or is moved inside
     // one multilayer: changing ownership or row within same ownership.
     if (requested_parent) {
-        qDebug() << "1.4 ILayerView->MultiLayer";
         model->moveParameterizedItem(this->getItem(),
                                      requested_parent->getItem(), requested_row);
         QGraphicsItem::mouseReleaseEvent(event);
@@ -205,8 +193,6 @@ void ILayerView::update_appearance()
 //! to the distance between drop area and ILayerVIew center
 MultiLayerCandidate ILayerView::getMultiLayerCandidate()
 {
-    // qDebug() << "ILayerView::getMultiLayerCandidate()";
-
     QVector<MultiLayerCandidate> candidates;
 
     QRectF layerRect = mapRectToScene(boundingRect());
@@ -233,11 +219,6 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
     // sorting MultiLayerView candidates to find one whose drop area is closer
     if (candidates.size()) {
         qSort(candidates.begin(), candidates.end());
-        // foreach(MultiLayerCandidate candidate, candidates) {
-        //    qDebug() << "ILayerView::getMultiLayerCandidate() -> " << candidate.multilayer <<
-        //    candidate.distance << candidate.row;
-        //}
-
         return candidates.back();
     }
     return MultiLayerCandidate();

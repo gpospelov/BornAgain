@@ -16,7 +16,6 @@
 
 #include "SliderSettingsWidget.h"
 #include <QCheckBox>
-#include <QDebug>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>

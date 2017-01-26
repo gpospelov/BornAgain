@@ -19,7 +19,6 @@
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
 #include <QGraphicsSceneMouseEvent>
-#include <QDebug>
 
 MaskGraphicsProxy::MaskGraphicsProxy()
     : m_colorMap(new ColorMap)
@@ -89,7 +88,6 @@ void MaskGraphicsProxy::wheelEvent(QGraphicsSceneWheelEvent *event)
 
 void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)";
     if(!m_send_signals_to_colormap) return;
     QGraphicsProxyWidget::mouseMoveEvent(event);
 }

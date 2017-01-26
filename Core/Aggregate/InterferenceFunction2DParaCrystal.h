@@ -90,7 +90,6 @@ private:
     std::unique_ptr<IFTDistribution2D> m_pdf1, m_pdf2;
     std::unique_ptr<Lattice2D> m_lattice;
     double m_damping_length; //!< Damping length for removing delta function singularity at q=0.
-    bool m_use_damping_length; //!< Flag that determines if the damping length should be used.
     double m_domain_sizes[2]; //!< Coherence domain sizes
     mutable double m_qx;
     mutable double m_qy;

@@ -25,12 +25,10 @@
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D& lattice,
     double damping_length, double domain_size_1, double domain_size_2)
     : m_integrate_xi(false)
-    , m_damping_length(0.0)
-    , m_use_damping_length(false)
+    , m_damping_length(damping_length)
 {
     setName(BornAgain::InterferenceFunction2DParaCrystalType);
     setLattice(lattice);
-    setDampingLength(damping_length);
     setDomainSizes(domain_size_1, domain_size_2);
     init_parameters();
 }
@@ -43,12 +41,10 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Latti
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     double length_1, double length_2, double alpha_lattice, double xi, double damping_length)
     : m_integrate_xi(false)
-    , m_damping_length(0.0)
-    , m_use_damping_length(false)
+    , m_damping_length(damping_length)
 {
     setName(BornAgain::InterferenceFunction2DParaCrystalType);
     setLattice(BasicLattice(length_1, length_2, alpha_lattice, xi));
-    setDampingLength(damping_length);
     setDomainSizes(0.0, 0.0);
     init_parameters();
 }
@@ -77,7 +73,6 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDis
 void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
 {
     m_damping_length = damping_length;
-    m_use_damping_length = m_damping_length == 0.0 ? false : true;
 }
 
 double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
@@ -106,7 +101,6 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     setName(other.getName());
 
     m_damping_length = other.m_damping_length;
-    m_use_damping_length = other.m_use_damping_length;
 
     if (other.m_lattice)
         setLattice(*other.m_lattice);
@@ -124,9 +118,6 @@ void InterferenceFunction2DParaCrystal::setLattice(const Lattice2D& lattice)
 {
     m_lattice.reset(lattice.clone());
     registerChild(m_lattice.get());
-    if (lattice.getName() == BornAgain::SquareLatticeType
-        || lattice.getName() == BornAgain::HexagonalLatticeType)
-        setIntegrationOverXi(true);
 }
 
 InterferenceFunction2DParaCrystal*
@@ -245,7 +236,7 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double 
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
     double amplitude = pdf->evaluate(qp1, qp2);
     complex_t result = phase * amplitude;
-    if (m_use_damping_length)
+    if (m_damping_length != 0.0)
         result *= std::exp(-length / m_damping_length);
     return result;
 }

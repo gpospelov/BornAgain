@@ -55,3 +55,6 @@
 %ignore DecoratedLayerComputation;
 %ignore RoughMultiLayerComputation;
 %ignore SpecularComputation;
+
+%ignore Lattice2D::ReciprocalBases;
+%ignore Lattice2D::reciprocalBases();

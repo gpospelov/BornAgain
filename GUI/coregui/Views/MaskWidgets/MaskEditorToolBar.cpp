@@ -17,7 +17,6 @@
 #include "MaskEditorToolBar.h"
 #include "MaskEditorActions.h"
 #include <QButtonGroup>
-#include <QDebug>
 #include <QLabel>
 #include <QRadioButton>
 #include <QStyle>

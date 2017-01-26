@@ -17,10 +17,10 @@
 #define ROUGHMULTILAYERCOMPUTATION_H
 
 #include "Complex.h"
-#include "InnerCounter.h"
+#include "DelayedProgressCounter.h"
 #include <vector>
 
-class LayerSpecularInfo;
+class ILayerSpecularInfo;
 class MultiLayer;
 class ProgressHandler;
 class SimulationElement;
@@ -40,7 +40,7 @@ public:
               const std::vector<SimulationElement>::iterator& end_it);
 
     //! Sets magnetic reflection/transmission info for specific layer
-    void setSpecularInfo(size_t i_layer, const LayerSpecularInfo& specular_info);
+    void setSpecularInfo(size_t i_layer, const ILayerSpecularInfo& specular_info);
 
     // evaluate
     double evaluate(const SimulationElement& sim_element);
@@ -50,7 +50,7 @@ private:
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);
 
     const MultiLayer* mp_multi_layer;
-    std::vector<LayerSpecularInfo*> mp_specular_info_vector;
+    std::vector<ILayerSpecularInfo*> mp_specular_info_vector;
 };
 
 #endif // ROUGHMULTILAYERCOMPUTATION_H

@@ -19,7 +19,7 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "MultiLayer.h"
 #include "MathConstants.h"
 #include "ProgressHandler.h"
@@ -57,7 +57,7 @@ void RoughMultiLayerComputation::eval(
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
 {
-    InnerCounter counter;
+    DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
             return;
@@ -165,7 +165,7 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
 }
 
 void RoughMultiLayerComputation::setSpecularInfo(size_t i_layer,
-        const LayerSpecularInfo& specular_info)
+        const ILayerSpecularInfo& specular_info)
 {
     delete mp_specular_info_vector[i_layer];
     mp_specular_info_vector[i_layer] = specular_info.clone();

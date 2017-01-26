@@ -17,7 +17,7 @@
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
 #include "Exceptions.h"
 
@@ -52,7 +52,7 @@ Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim
     return result;
 }
 
-void FormFactorCoherentSum::setSpecularInfo(const LayerSpecularInfo& specular_info)
+void FormFactorCoherentSum::setSpecularInfo(const ILayerSpecularInfo& specular_info)
 {
     m_parts[0].setSpecularInfo(specular_info);
 }

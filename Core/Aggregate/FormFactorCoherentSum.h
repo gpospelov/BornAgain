@@ -24,7 +24,7 @@
 
 class IFormFactor;
 class SimulationElement;
-class LayerSpecularInfo;
+class ILayerSpecularInfo;
 
 //! Information about particle form factor and abundance.
 //! @ingroup formfactors_internal
@@ -41,7 +41,7 @@ public:
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    void setSpecularInfo(const LayerSpecularInfo& specular_info);
+    void setSpecularInfo(const ILayerSpecularInfo& specular_info);
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);
     double radialExtension() const;

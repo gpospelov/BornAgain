@@ -17,8 +17,10 @@
 #define MULTILAYER_H
 
 #include "ISample.h"
+#include "SafePointerVector.h"
 #include "Vectors3D.h"
 
+class ILayout;
 class Layer;
 class LayerInterface;
 class LayerRoughness;
@@ -72,6 +74,12 @@ public:
 
     //! Returns bottom interface of layer
     const LayerInterface* getLayerBottomInterface(size_t i_layer) const;
+
+	//! Adds a layout of particles to the whole multilayer (particles can be in different layers)
+	void addLayout(const ILayout& layout);
+
+	size_t getNumberOfLayouts() const { return m_layouts.size(); }
+	const ILayout* getLayout(size_t i) const;
 
     //! Destructs allocated objects
     void clear();
@@ -143,6 +151,8 @@ private:
     std::vector<LayerInterface*> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
+	//! independent layouts in this multilayer
+	SafePointerVector<ILayout> m_layouts;
 };
 
 #endif // MULTILAYER_H

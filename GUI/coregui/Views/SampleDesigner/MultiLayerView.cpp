@@ -57,7 +57,6 @@ void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
 void MultiLayerView::addView(IView *childView, int row)
 {
-    qDebug() << "MultiLayerView::addView() " << m_item->itemName() << childView->getItem()->itemName() << "row" << row;
     ILayerView *layer = dynamic_cast<ILayerView *>(childView);
     Q_ASSERT(layer);
 
@@ -75,7 +74,6 @@ void MultiLayerView::addView(IView *childView, int row)
 
 void MultiLayerView::addNewLayer(ILayerView *layer, int row)
 {
-    qDebug() << "MultiLayerView::addNewLayer(), row" << row;
     m_layers.insert(row, layer);
     connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()), Qt::UniqueConnection);
     connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()), Qt::UniqueConnection);
@@ -85,7 +83,6 @@ void MultiLayerView::addNewLayer(ILayerView *layer, int row)
 
 void MultiLayerView::onLayerAboutToBeDeleted()
 {
-    qDebug() << "MultiLayerView::onLayerAboutToBeDeleted()";
     ILayerView *layer = qobject_cast<ILayerView *>(sender());
     Q_ASSERT(layer);
     removeLayer(layer);
@@ -94,7 +91,6 @@ void MultiLayerView::onLayerAboutToBeDeleted()
 
 void MultiLayerView::removeLayer(ILayerView *layer)
 {
-    qDebug() << "MultiLayerView::removeLayer()";
     Q_ASSERT(m_layers.contains(layer));
     disconnect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
     disconnect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()) );
@@ -114,8 +110,6 @@ void MultiLayerView::updateGeometry()
 //! Updates MultiLayer height, sets y-positions of children, defines new drop areas.
 void MultiLayerView::updateHeight()
 {
-    qDebug() << "MultiLayerView::updateHeight()";
-
     // drop areas are rectangles covering the area of layer interfaces
     m_drop_areas.clear();
     m_interfaces.clear();
@@ -251,7 +245,6 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
         if(designerScene) {
             SampleModel *sampleModel = designerScene->getSampleModel();
 
-            qDebug() << "\n XXX" << getDropArea(event->scenePos()) << event->scenePos();
             sampleModel->insertNewItem(
                         mimeData->getClassName(),
                         sampleModel->indexOfItem(this->getItem()),
@@ -275,7 +268,6 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
             && getItem()->acceptsAsDefaultItem(mimeData->getClassName())
             && row!=-1 ) {
 
-        qDebug() << "MultiLayerView::checkDragEvent -> yes"  << row << getDropAreaRectangle(row);
         event->setAccepted(true);
     } else {
         event->setAccepted(false);

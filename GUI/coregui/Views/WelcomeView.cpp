@@ -277,7 +277,6 @@ void WelcomeView::onNewUser()
 
 void WelcomeView::updateRecentProjectPanel()
 {
-    qDebug() << "WelcomeView::updateRecentProjectPanel called";
     this->clearLayout(m_recentProjectLayout);
     this->generateRecentProjectList();
     update();

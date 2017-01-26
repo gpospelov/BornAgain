@@ -76,7 +76,6 @@ void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 //            proxy->resize(event->size());
 //            scene()->setSceneRect(0,0,event->size().width(),event->size().height());
 //            proxy->setPos(0,0);
-//            qDebug() << "!!! Resizing" << this->size() << event->size();
 //        }
 //    }
 }
@@ -158,7 +157,6 @@ void MaskGraphicsView::updateSize(const QSize &newSize)
             proxy->resize(newSize);
             scene()->setSceneRect(0, 0, newSize.width(), newSize.height());
             proxy->setPos(0,0);
-            qDebug() << "!!! Resizing" << this->size() << newSize;
         }
     }
 

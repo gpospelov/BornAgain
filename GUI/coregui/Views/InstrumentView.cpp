@@ -64,15 +64,12 @@ InstrumentView::InstrumentView(MainWindow *mainWindow)
 
 void InstrumentView::updateView()
 {
-    qDebug() << "InstrumentView::updateView()";
     m_instrumentSelector->updateSelection();
 }
 
 
 void InstrumentView::resetView()
 {
-    qDebug() << "InstrumentView::resetView()";
-
     QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
     while(it!=m_instrumentToEditor.end()) {
         m_stackWidget->removeWidget(it.value());
@@ -85,17 +82,12 @@ void InstrumentView::resetView()
 
 
 void InstrumentView::onSelectionChanged(
-    const QItemSelection &selected, const QItemSelection &deselected )
+    const QItemSelection &selected, const QItemSelection &)
 {
-    qDebug() << "InstrumentView::onSelectionChanged()" << selected << deselected;
-    if(selected.indexes().isEmpty()) {
-        qDebug() << "       InstrumentView::onSelectionChanged() -> no selected"
-                 << selected << deselected;
+    if(selected.indexes().isEmpty())
         return;
-    }
 
     SessionItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
-    qDebug() << "InstrumentView::onSelectionChanged()" << instrument->itemName();
 
     InstrumentEditorWidget *widget = m_instrumentToEditor[instrument];
 
@@ -118,7 +110,6 @@ void InstrumentView::onSelectionChanged(
 
 void InstrumentView::onAddInstrument()
 {
-    qDebug() << "InstrumentView::onAddInstrument()";
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
     m_instrumentModel->insertNewItem(
@@ -126,18 +117,14 @@ void InstrumentView::onAddInstrument()
     m_instrumentModel->insertNewItem(
         Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
-    qDebug() << "       InstrumentView::onAddInstrument() -> clearing selection";
     m_instrumentSelector->getSelectionModel()->clearSelection();
-    qDebug() << "       InstrumentView::onAddInstrument() -> clearing selection -> done.";
     m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
 }
 
 
 void InstrumentView::onRemoveInstrument()
 {
-    qDebug() << "InstrumentView::onRemoveInstrument()";
     QModelIndex currentIndex = m_instrumentSelector->getSelectionModel()->currentIndex();
-    qDebug() << "InstrumentView::onRemoveInstrument()" <<  currentIndex;
     if(currentIndex.isValid())
         m_instrumentModel->removeRows(currentIndex.row(), 1, QModelIndex());
 }
@@ -145,7 +132,6 @@ void InstrumentView::onRemoveInstrument()
 
 void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /* last */)
 {
-    qDebug() << "InstrumentView::onRowsAboutToBeRemoved()";
     SessionItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
     Q_ASSERT(item);
     InstrumentEditorWidget *widget = m_instrumentToEditor[item];
@@ -243,7 +229,6 @@ QString InstrumentView::getNewInstrumentName(const QString &name)
     updateMapOfNames();
 
     int ncopies = m_name_to_copy[name];
-    qDebug() << "   InstrumentView::getNewInstrumentName()" << ncopies;
     if(ncopies == 0) {
         m_name_to_copy[name]=1;
         return name;
@@ -273,7 +258,5 @@ void InstrumentView::updateMapOfNames()
         name.replace(regexp.cap(0),"");
         name = name.trimmed();
         m_name_to_copy[name] = ncopy;
-//        qDebug() << " ";
-//        qDebug() << "XXXXXXXXXXXXXXXX" << name << ncopy << regexp.cap(0);
     }
 }

@@ -161,9 +161,6 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
         result->setPerpendicularToDirectBeam(distance, dbeam_u0, dbeam_v0);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
-        qDebug() << n_x << n_y << width << height << " xx " << distance << u0 << v0;
-//        Q_ASSERT(0);
-
         result->setPerpendicularToSampleX(distance, u0, v0);
 
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {

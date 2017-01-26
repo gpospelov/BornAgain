@@ -127,7 +127,6 @@ void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
     if(!m_proxy)
         return;
 
-    qDebug() << "XXX MaskGraphicsScene::onActivityModeChanged";
     if(m_context.isActivityRequiresDrawingCancel(value))
         cancelCurrentDrawing();
 
@@ -293,7 +292,6 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "MaskGraphicsScene::mouseReleaseEvent() -> before";
     if(isDrawingInProgress()) {
         if (m_context.isRectangleShapeMode()) {
             clearSelection();
@@ -390,12 +388,8 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
 
             childView = addViewForItem(item);
             if (childView) {
-                if (parentView) {
-                    qDebug() << "       DesignerScene::updateViews() -> adding child "
-                             << item->modelType() << " to parent"
-                             << parentView->getParameterizedItem()->modelType();
+                if (parentView)
                     parentView->addView(childView, i_row);
-                }
             }
         }
         updateViews(itemIndex, childView);

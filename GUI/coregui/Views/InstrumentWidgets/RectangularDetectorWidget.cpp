@@ -82,7 +82,6 @@ void RectangularDetectorWidget::setDetectorItem(RectangularDetectorItem *detecto
 
 void RectangularDetectorWidget::onPropertyChanged(const QString &propertyName)
 {
-    qDebug() << "RectangularDetectorWidget::onPropertyChanged()" << propertyName;
     if(propertyName == RectangularDetectorItem::P_ALIGNMENT) {
         init_alignment_editors();
     }

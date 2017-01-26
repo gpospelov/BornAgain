@@ -79,7 +79,6 @@ void DesignerView::onCenterView()
 
 void DesignerView::onChangeScale(double new_scale)
 {
-    qDebug() << "DesignerView::onScaleChanged()" << new_scale;
     QMatrix oldMatrix = matrix();
     resetMatrix();
     translate(oldMatrix.dx(), oldMatrix.dy());
@@ -96,12 +95,10 @@ void DesignerView::deleteSelectedItems()
 
 void DesignerView::zoomIn()
 {
-    qDebug() << "DesignerView::zoomIn() -> Not implemented";
 }
 
 void DesignerView::zoomOut()
 {
-    qDebug() << "DesignerView::zoomOut() -> Not implemented";
 }
 
 void DesignerView::keyPressEvent(QKeyEvent *event)
@@ -112,7 +109,6 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Space:
         if (getSelectionMode() != HAND_DRAG && !event->isAutoRepeat()) {
             onSelectionMode(HAND_DRAG);
-            qDebug() << "  space pressed" << event->isAutoRepeat();
         }
         break;
     case Qt::Key_Delete:
@@ -132,8 +128,7 @@ void DesignerView::keyReleaseEvent(QKeyEvent *event)
     case Qt::Key_Space:
 
         if (getSelectionMode() != RUBBER_SELECTION && !event->isAutoRepeat()) {
-            onSelectionMode(RUBBER_SELECTION);
-            qDebug() << "  space released" << event->isAutoRepeat();
+            onSelectionMode(RUBBER_SELECTION); // space released
         }
         break;
     default:

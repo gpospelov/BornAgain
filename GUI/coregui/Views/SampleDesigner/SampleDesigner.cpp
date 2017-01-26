@@ -56,6 +56,5 @@ void SampleDesigner::setSelectionModel(QItemSelectionModel *model, FilterPropert
 
 void SampleDesigner::onSmartAlign()
 {
-    qDebug() << "SampleDesigner::onSmartAlign()";
     m_designerScene->onSmartAlign();
 }

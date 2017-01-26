@@ -243,7 +243,6 @@ void ParameterTuningDelegate::sliderValueChanged(int position)
 
 void ParameterTuningDelegate::editorValueChanged(double value)
 {
-    qDebug() << "ModelTuningDelegate::editorValueChanged " << value;
     disconnect(m_slider, SIGNAL(valueChanged(int)),this, SLOT(sliderValueChanged(int)));
 
     updateSlider(value);

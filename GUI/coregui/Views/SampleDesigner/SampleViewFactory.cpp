@@ -93,7 +93,6 @@ IView *SampleViewFactory::createSampleView(const QString &name)
         return new InterferenceFunction2DLatticeView();
     }
     else {
-        //qDebug() << "SampleViewFactory::createSampleView() -> Error! Can't create a view for" << name;
 //        throw GUIHelpers::Error("SampleViewFactory::createSampleView() -> Error! Can't create a view for " + name);
     }
 

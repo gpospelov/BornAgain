@@ -54,7 +54,6 @@ MaterialSvc::selectMaterialProperty(const MaterialProperty &previousMaterial)
 MaterialProperty
 MaterialSvc::this_selectMaterialProperty(const MaterialProperty &previousMaterial)
 {
-    qDebug() << "MaterialEditor::this_getMaterialProperty()";
     MaterialEditorDialog dialog(m_materialModel);
     dialog.setInitialMaterialProperty(previousMaterial);
     if(dialog.exec() == QDialog::Accepted) {

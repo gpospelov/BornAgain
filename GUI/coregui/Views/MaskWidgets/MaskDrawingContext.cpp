@@ -38,7 +38,6 @@ void MaskDrawingContext::setActivityType(MaskEditorFlags::Activity value)
 
 void MaskDrawingContext::setMaskValue(MaskEditorFlags::MaskValue value)
 {
-    qDebug() << "MaskDrawingContext::setMaskValue" << value;
     m_mask_value = value;
 }
 

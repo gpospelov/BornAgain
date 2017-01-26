@@ -49,6 +49,5 @@ void ParticleCoreShellView::addView(IView *childView, int /* row */)
     } else {
         index = 2;
     }
-    qDebug() << "ParticleCoreShellView::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

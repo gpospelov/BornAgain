@@ -124,7 +124,6 @@ void JobModelFunctions::cropRealData(JobItem *jobItem) {
 
     IDetector2D::EAxesUnits requested_units
         = JobItemHelper::getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
-    qDebug() << "AAAAAAa" << requested_units << intensityItem->getSelectedAxesUnits();
 
     std::unique_ptr<OutputData<double>> adjustedData = DetectorFunctions::createDataSet(
                 *instrument.get(), *intensityItem->getOutputData(), true, requested_units);

@@ -56,8 +56,6 @@ public:
 
     void visit(const Layer*);
 
-    void visit(const LayerInterface*);
-
     void visit(const MultiLayer*);
 
     void visit(const Particle*);

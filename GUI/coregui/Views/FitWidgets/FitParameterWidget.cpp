@@ -147,8 +147,6 @@ void FitParameterWidget::onTuningWidgetSelectionChanged(const QItemSelection &se
 
 void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &selection)
 {
-    Q_UNUSED(selection);
-    qDebug() << "onFitParametersSelectionChanged ->";
     if (selection.indexes().isEmpty())
         return;
 
@@ -159,7 +157,6 @@ void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &s
             QString link = item->parent()->getItemValue(FitParameterLinkItem::P_LINK).toString();
             m_tuningWidget->makeSelected(FitParameterHelper::getParameterItem(m_jobItem->fitParameterContainerItem(), link));
         }
-        qDebug() << "XXX index" << index << item->modelType();
 
     }
 
@@ -225,7 +222,6 @@ void FitParameterWidget::onAddToFitParAction(int ipar)
 
 void FitParameterWidget::onFitParameterModelChange()
 {
-    qDebug() << "FitParameterWidget::onFitParameterModelChange()";
     spanParameters();
     updateInfoLabel();
 }

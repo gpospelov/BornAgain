@@ -129,7 +129,6 @@ void ProjectManager::newProject()
 bool ProjectManager::saveProject()
 {
     Q_ASSERT(m_project_document);
-    qDebug() << "ProjectManager::saveProject()";
 
     if(!m_project_document->hasValidNameAndPath()) {
         NewProjectDialog dialog(m_mainWindow, getDefaultWorkingDirectory(), getUntitledProjectName());
@@ -177,7 +176,6 @@ bool ProjectManager::saveProjectAs()
 //! Opens existing project. If fileName is empty, will popup file selection dialog
 void ProjectManager::openProject(QString fileName)
 {
-    qDebug() << "ProjectManager::openProject()" << fileName;
     if( !closeCurrentProject()) return;
 
     if(fileName.isEmpty()) {

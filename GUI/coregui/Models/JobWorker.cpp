@@ -33,7 +33,6 @@ JobWorker::JobWorker(QString identifier, GISASSimulation *simulation)
 
 void JobWorker::start()
 {
-    qDebug() << "JobRunner::start() " << m_simulation;
     m_terminate_request_flag = false;
     m_simulation_duration = 0;
     emit started();
@@ -88,7 +87,6 @@ bool JobWorker::simulationInformsUs(int percentage_done)
 //! set request for JobRunner to terminate underlying domain simulation
 void JobWorker::terminate()
 {
-    qDebug() << "JobRunner::terminate()";
     m_terminate_request_flag = true;
     m_job_status = Constants::STATUS_CANCELED;
 }

@@ -141,7 +141,6 @@ SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* documentMode
 
 void GUIObjectBuilder::visit(const ParticleLayout* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleLayout*)"  << depth();
     SessionItem* parent = m_levelToParentItem[depth()-1];
     SessionItem* item(0);
     if (parent) {
@@ -175,7 +174,6 @@ void GUIObjectBuilder::visit(const ParticleLayout* sample)
 
 void GUIObjectBuilder::visit(const Layer* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const Layer*)"  << depth();
     SessionItem* parent = m_levelToParentItem[depth()-1];
     Q_ASSERT(parent);
 
@@ -195,15 +193,8 @@ void GUIObjectBuilder::visit(const Layer* sample)
     m_levelToParentItem[depth()] = layerItem;
 }
 
-void GUIObjectBuilder::visit(const LayerInterface*)
-{
-    qDebug() << "GUIObjectBuilder::visit(const LayerInterface*)" << depth();
-}
-
 void GUIObjectBuilder::visit(const MultiLayer* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const MultiLayer*)" << depth();
-
     SessionItem* item =
             m_sampleModel->insertNewItem(Constants::MultiLayerType);
     item->setItemName(sample->getName().c_str());
@@ -214,8 +205,6 @@ void GUIObjectBuilder::visit(const MultiLayer* sample)
 
 void GUIObjectBuilder::visit(const Particle* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const Particle*)" << depth();
-
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
 
@@ -259,8 +248,6 @@ void GUIObjectBuilder::visit(const Particle* sample)
 
 void GUIObjectBuilder::visit(const ParticleDistribution* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleDistribution*)" << depth();
-
     SessionItem* layoutItem = m_levelToParentItem[depth() - 1];
     Q_ASSERT(layoutItem);
     SessionItem* particle_distribution_item = m_sampleModel->insertNewItem(
@@ -275,8 +262,6 @@ void GUIObjectBuilder::visit(const ParticleDistribution* sample)
 
 void GUIObjectBuilder::visit(const ParticleCoreShell* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleCoreShell*)" << depth();
-
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
 
@@ -292,8 +277,6 @@ void GUIObjectBuilder::visit(const ParticleCoreShell* sample)
 
 void GUIObjectBuilder::visit(const ParticleComposition* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const ParticleComposition*)" << depth();
-
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
     SessionItem* particle_composition_item = m_sampleModel->insertNewItem(
@@ -578,8 +561,6 @@ void GUIObjectBuilder::visit(const InterferenceFunction2DLattice* sample)
 
 void GUIObjectBuilder::visit(const RotationX* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const RotationX*)" << depth();
-
     SessionItem* parent = m_levelToParentItem[depth()-1];
     Q_ASSERT(parent);
 
@@ -595,8 +576,6 @@ void GUIObjectBuilder::visit(const RotationX* sample)
 
 void GUIObjectBuilder::visit(const RotationY* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const RotationY*)" << depth();
-
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     Q_ASSERT(parent);
 
@@ -611,8 +590,6 @@ void GUIObjectBuilder::visit(const RotationY* sample)
 
 void GUIObjectBuilder::visit(const RotationZ* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const RotationZ*)" << depth();
-
     SessionItem* parent = m_levelToParentItem[depth()-1];
     Q_ASSERT(parent);
 
@@ -627,8 +604,6 @@ void GUIObjectBuilder::visit(const RotationZ* sample)
 
 void GUIObjectBuilder::visit(const RotationEuler* sample)
 {
-    qDebug() << "GUIObjectBuilder::visit(const RotationEuler*)" << depth();
-
     SessionItem* parent = m_levelToParentItem[depth()-1];
     Q_ASSERT(parent);
 

@@ -53,7 +53,6 @@ DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget
 
 DetectorEditorWidget::~DetectorEditorWidget()
 {
-    qDebug() << "DetectorEditorWidget::~DetectorEditorWidget()";
 }
 
 void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
@@ -80,9 +79,6 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
         init_SubDetector_Widget();
     }
 
-
-
-//    qDebug() << "DetectorEditorWidget::setDetectorItem() -> XXX";
 //    m_detectorItem = detectorItem;
 //    if(!m_detectorItem) return;
 

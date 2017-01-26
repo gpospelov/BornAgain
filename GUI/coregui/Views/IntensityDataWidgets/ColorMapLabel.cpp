@@ -71,8 +71,6 @@ void ColorMapLabel::onColorMapStatusString(const QString &text)
 
 //void ColorMapLabel::resizeEvent(QResizeEvent *event)
 //{
-//    qDebug() << "ColorMapLabel::resizeEvent(QResizeEvent *event)" << event->size();
-
 //}
 
 //! Enables/disables showing of label for given color map.

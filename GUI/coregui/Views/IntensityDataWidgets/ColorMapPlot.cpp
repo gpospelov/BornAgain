@@ -168,7 +168,6 @@ void ColorMapPlot::showLinesOverTheMap(bool isVisible)
 double ColorMapPlot::xAxisCoordToPixel(double axis_coordinate) const
 {
     double result = m_customPlot->xAxis->coordToPixel(axis_coordinate);
-//    qDebug() << "ColorMapPlot::xAxisCoordToPixel axis_coordinate:" << axis_coordinate << "result:" << result;
     return result;
 }
 

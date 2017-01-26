@@ -150,7 +150,6 @@ int DesignerHelper::nanometerToScreen(double nanometer)
 
 QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
 {
-    qDebug() << "    getDefaultBoundingRect " << name;
     if (name == Constants::MultiLayerType) {
         return QRectF(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
     } else if (name == Constants::LayerType) {

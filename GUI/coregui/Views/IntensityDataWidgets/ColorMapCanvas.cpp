@@ -63,7 +63,6 @@ void ColorMapCanvas::setItem(IntensityDataItem *intensityDataItem)
 //    onTitleChanged(intensityDataItem->getItemValue(IntensityDataItem::P_TITLE).toString());
 //    ("Monospace", default_text_size, QFont::Normal, false)
     QFont font = m_colorMap->customPlot()->xAxis->labelFont();
-    qDebug() << "FFFFF" << font;
 //    m_colorMap->customPlot()->xAxis->setLabelFont();
 }
 

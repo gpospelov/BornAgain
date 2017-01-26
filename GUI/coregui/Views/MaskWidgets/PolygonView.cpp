@@ -121,7 +121,6 @@ void PolygonView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
 
 QVariant PolygonView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
-    qDebug() << "PolygonView::itemChange" << change << value << this->isSelected();
     if(change == QGraphicsItem::ItemSelectedHasChanged) {
         if(this->isSelected()) {
             setChildrenVisible(true);

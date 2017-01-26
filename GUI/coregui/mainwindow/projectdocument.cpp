@@ -100,7 +100,6 @@ bool ProjectDocument::save()
 
     QFile file(filename);
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text)) {
-        qDebug() << "ProjectDocument::save() -> Error! Can't save file";
         return false;
     }
     writeTo(&file);

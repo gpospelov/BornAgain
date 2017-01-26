@@ -144,7 +144,6 @@ void PythonScriptWidget::onExportToFileButton()
 
     QFile file(file_name);
     if (!file.open(QIODevice::WriteOnly)) {
-        qDebug() << "PythonScriptWidget::onExportToFileButton: Error! Can't save file";
         QMessageBox warning_dialog(this);
         warning_dialog.setIcon(QMessageBox::Warning);
         warning_dialog.setText("File could not be opened for writing!");

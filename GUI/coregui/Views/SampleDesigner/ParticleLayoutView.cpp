@@ -36,14 +36,10 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
 
 ParticleLayoutView::~ParticleLayoutView()
 {
-    qDebug() << "ParticleLayoutView::~ParticleLayoutView()";
 }
 
 void ParticleLayoutView::addView(IView *childView, int /* row */)
 {
-    qDebug() << "ParticleLayoutView::addView() xxx " << m_item->itemName()
-             << childView->getItem()->itemName() << childView->type()
-             << DesignerHelper::PARTICLE;
     if(childView->type() == DesignerHelper::PARTICLE) {
         connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
     }

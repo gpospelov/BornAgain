@@ -60,7 +60,6 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
 
 SphericalDetectorWidget::~SphericalDetectorWidget()
 {
-    qDebug() << "SphericalDetectorWidget::~SphericalDetectorWidget()";
     m_phiAxisEditor->clearEditor();
     m_alphaAxisEditor->clearEditor();
     m_resolutionFunctionEditor->clearEditor();

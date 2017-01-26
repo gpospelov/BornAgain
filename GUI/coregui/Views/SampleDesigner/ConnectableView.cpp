@@ -171,7 +171,6 @@ int ConnectableView::getNumberOfInputPorts()
 
 void ConnectableView::update_appearance()
 {
-    qDebug() << "AAAA COnnectableView " << m_item->modelType() << m_item->displayName();
     setLabel( hyphenate(m_item->displayName()) );
     IView::update_appearance();
 }

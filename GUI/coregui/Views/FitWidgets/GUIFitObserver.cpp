@@ -49,7 +49,6 @@ void GUIFitObserver::update(FitSuite *subject)
 //        info.m_chi2 = subject->getChi2();
 //        info.m_iteration_count = (int)subject->getNumberOfIterations();
 //        info.m_values = GUIHelpers::fromStdVector(subject->getFitParameters()->getValues());
-//        qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
 //        emit progressInfoUpdate(info);
 //    }
 
@@ -77,7 +76,6 @@ void GUIFitObserver::update(FitSuite *subject)
         info.m_iteration_count = (int)subject->numberOfIterations();
         info.m_values = GUIHelpers::fromStdVector(subject->fitParameters()->values());
 
-        qDebug() << "Emitting progressInfoUpdate" << info.m_iteration_count;
         emit progressInfoUpdate(info);
 
         m_simData.reset(subject->getSimulationOutputData()->clone());

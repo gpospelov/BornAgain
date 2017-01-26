@@ -27,7 +27,6 @@ GroupProperty::GroupProperty(QString group_name)
 
 SessionItem *GroupProperty::getCurrentItem()
 {
-    qDebug() << "GroupProperty::getCurrentItem()" << m_groupItem;
     if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
     return 0;
 }

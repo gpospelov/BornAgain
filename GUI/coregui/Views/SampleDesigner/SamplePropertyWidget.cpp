@@ -67,7 +67,6 @@ void SamplePropertyWidget::setSelectionModel(QItemSelectionModel *selection_mode
 void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
                                             const QItemSelection & deselected)
 {
-    qDebug() << "SamplePropertyWidget::selectionChanged" << selected << deselected;
     (void)deselected;
     QModelIndexList indices = selected.indexes();
 

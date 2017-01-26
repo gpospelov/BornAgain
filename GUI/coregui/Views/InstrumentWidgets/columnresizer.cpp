@@ -129,7 +129,6 @@ ColumnResizer::ColumnResizer(QObject* parent)
 
 ColumnResizer::~ColumnResizer()
 {
-    qDebug() << "ColumnResizer::~ColumnResizer() ->";
     delete d;
 }
 
@@ -144,10 +143,8 @@ void ColumnResizer::addWidget(QWidget* widget)
 void ColumnResizer::updateWidth()
 {
     if(d->block_update) return;
-    qDebug() << "ColumnResizer::updateWidth()";
     int width = 0;
     Q_FOREACH(QWidget* widget, d->m_widgets) {
-        qDebug() << "       ColumnResizer::updateWidth()" << widget;
         width = qMax(widget->sizeHint().width(), width);
     }
     Q_FOREACH(FormLayoutWidgetItem* item, d->m_wrWidgetItemList) {
@@ -234,7 +231,6 @@ void ColumnResizer::addWidgetsFromFormLayout(QFormLayout* layout, QFormLayout::I
 
 void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout *layout)
 {
-    qDebug() << "ColumnResizer::dropWidgetsFromGridLayout";
 //    d->block_update = true;
     // removing all widgets from being supervised
     for (int row = 0; row < layout->rowCount(); ++row) {

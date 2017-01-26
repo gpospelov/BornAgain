@@ -116,9 +116,8 @@ QStringList ItemComboWidget::getValidPresentationList(SessionItem *item)
 
 //}
 
-void ItemComboWidget::onComboChanged(const QString &name)
+void ItemComboWidget::onComboChanged(const QString &)
 {
-    qDebug() << "ItemComboWidget::onWidgetChangeRequest" << name;
     setPresentation(currentPresentation());
 }
 

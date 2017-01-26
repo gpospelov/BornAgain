@@ -176,10 +176,6 @@ void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem *instrument, 
     if(child == nullptr)
         return;
 
-    qDebug() << "SSS 1.1" << child->modelType() << child->itemName();
-    qDebug() << "SSS 1.1" << child->parent()->modelType() << child->parent()->itemName();
-
-
     if(child->itemName() == BasicAxisItem::P_NBINS ||
        child->parent()->itemName() == DetectorItem::P_DETECTOR) {
         onInstrumentBinningChange(instrument);
@@ -287,7 +283,6 @@ void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem *changedIns
 {
     foreach(RealDataItem *realDataItem, linkedItems(changedInstrument)) {
         if(!ImportDataAssistant::hasSameDimensions(changedInstrument, realDataItem)) {
-            qDebug() << "Breaking the link ";
             realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
         }
     }
@@ -298,10 +293,8 @@ void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem *changedIns
 
 void LinkInstrumentManager::onInstrumentLayoutChange(InstrumentItem *changedInstrument)
 {
-    foreach(RealDataItem *realDataItem, linkedItems(changedInstrument)) {
-        qDebug() << "Changing layout";
+    foreach(RealDataItem *realDataItem, linkedItems(changedInstrument))
         realDataItem->linkToInstrument(changedInstrument);
-    }
 }
 
 //! Returns list of RealDataItem's linked to given instrument.

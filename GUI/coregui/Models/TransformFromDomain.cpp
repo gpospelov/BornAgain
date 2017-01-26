@@ -80,7 +80,6 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 
     const IFTDistribution1D* ipdf = sample->getProbabilityDistribution();
     QString group_name = InterferenceFunctionRadialParaCrystalItem::P_PDF;
-    qDebug() << "    group_name" << group_name;
     SetPDF1D(item, ipdf, group_name);
 }
 
@@ -102,10 +101,8 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     QStringList group_names;
     group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
                 << InterferenceFunction2DParaCrystalItem::P_PDF2;
-    for (size_t i = 0; i < pdfs.size(); ++i) {
-        qDebug() << "    group_name" << group_names[i];
+    for (size_t i = 0; i < pdfs.size(); ++i)
         setPDF2D(item, pdfs[i], group_names[i]);
-    }
 }
 
 void TransformFromDomain::setItemFromSample(SessionItem* item,
@@ -119,7 +116,6 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 
     const IFTDecayFunction1D* pdf = sample->getDecayFunction();
     QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;
-    qDebug() << "    group_name" << group_name;
     SetDecayFunction1D(item, pdf, group_name);
 }
 
@@ -130,7 +126,6 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 
     const IFTDecayFunction2D* p_pdf = sample->getDecayFunction();
     QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
-    qDebug() << "    group_name" << group_name;
     SetDecayFunction2D(item, p_pdf, group_name);
 }
 

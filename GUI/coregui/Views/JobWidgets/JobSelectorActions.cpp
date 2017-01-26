@@ -67,7 +67,6 @@ void JobSelectorActions::onRunJob()
 
 void JobSelectorActions::onRemoveJob()
 {
-    qDebug() << "JobSelectorActions::onRemoveJob()";
     Q_ASSERT(m_selectionModel);
     QModelIndexList indexList = m_selectionModel->selectedIndexes();
 

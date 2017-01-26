@@ -144,14 +144,11 @@ void ActionManager::createGlobalShortcuts()
 
 void ActionManager::aboutToShowRecentProjects()
 {
-    qDebug() << "ActionManager::aboutToShowRecentProjects() ->"
-             << m_mainWindow->projectManager()->getRecentProjects();
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
     foreach(QString file, m_mainWindow->projectManager()->getRecentProjects() ) {
         hasRecentProjects = true;
-        qDebug() << file << QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file));
         QAction *action = m_recentProjectsMenu->addAction(
             QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));
         action->setData(qVariantFromValue(file));

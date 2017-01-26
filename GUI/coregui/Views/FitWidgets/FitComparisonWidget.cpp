@@ -125,7 +125,6 @@ void FitComparisonWidget::setJobItem(JobItem *jobItem)
 void FitComparisonWidget::showEvent(QShowEvent *)
 {
     if(isVisible()) {
-        qDebug() << "!!! visible";
         removeLabels(m_realDataItem);
         removeLabels(m_simulatedDataItem);
     }
@@ -136,7 +135,6 @@ void FitComparisonWidget::showEvent(QShowEvent *)
 void FitComparisonWidget::hideEvent(QHideEvent *)
 {
     if(isHidden()) {
-        qDebug() << "!!! hidden";
         restoreLabels(m_realDataItem);
         restoreLabels(m_simulatedDataItem);
     }
@@ -174,7 +172,6 @@ void FitComparisonWidget::processJobItemItem(JobItem *jobItem)
 
 void FitComparisonWidget::onResetViewAction()
 {
-    qDebug() << "FitComparisonWidget::onResetViewAction()";
     m_realDataItem->resetView();
     m_simulatedDataItem->resetView();
     m_relativeDiffItem->resetView();

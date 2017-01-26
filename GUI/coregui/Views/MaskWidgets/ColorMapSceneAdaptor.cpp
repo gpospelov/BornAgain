@@ -63,11 +63,9 @@ void ColorMapSceneAdaptor::setColorMapPlot(ColorMap *plot)
 bool ColorMapSceneAdaptor::eventFilter(QObject *object, QEvent *event)
 {
     Q_UNUSED(object);
-    qDebug() << "ColorMapSceneAdaptor::eventFilter" << event->type();
     if (event->type() == QEvent::Resize || event->type() == QEvent::UpdateRequest) {
         m_viewport_rectangle = m_plot->getViewportRectangleInWidgetCoordinates();
         emit update_request();
-        qDebug() << "ColorMapSceneAdaptor::eventFilter" << event->type();
         return false;
     }
 //    return QObject::eventFilter(object, event);

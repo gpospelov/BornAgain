@@ -126,8 +126,6 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
     QVector<SessionItem*> children = getItems();
     if (children.size() > 1) {
         Q_ASSERT(0);
-        qDebug() << "ParticleDistributionItem::getChildParameterNames(): "
-                 << "More than one child item";
         return result;
     }
     if (children.size() == 0) {

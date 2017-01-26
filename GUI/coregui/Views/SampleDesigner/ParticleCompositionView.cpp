@@ -40,6 +40,5 @@ void ParticleCompositionView::addView(IView *childView, int /* row */)
 //                    .toInt();
     if (this->getItem()->tagFromItem(childView->getItem()) == ParticleItem::T_TRANSFORMATION)
         index = 1;
-    qDebug() << "ParticleCompositionView::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

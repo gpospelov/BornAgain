@@ -37,6 +37,5 @@ void ParticleDistributionView::addView(IView *childView, int /* row */)
     int index = 0;//int(childView->getParameterizedItem()->port());
 //                    ->getRegisteredProperty(ParameterizedItem::OBSOLETE_P_PORT)
 //                    .toInt();
-    qDebug() << "ParticleDistributionType::addView()" << index;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

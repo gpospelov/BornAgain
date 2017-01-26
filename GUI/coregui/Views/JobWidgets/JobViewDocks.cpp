@@ -116,8 +116,6 @@ void JobViewDocks::onToggleJobSelector()
 
 void JobViewDocks::setDockHeightForWidget(int height)
 {
-    qDebug() << "JobViewDocks::setDockHeightForWidget(int)" << height;
-
     QWidget *widget = qobject_cast<QWidget *>(sender());
     Q_ASSERT(widget);
     QDockWidget *dock = findDock(widget);
@@ -150,7 +148,6 @@ void JobViewDocks::setDockHeightForWidget(int height)
 
 void JobViewDocks::onWidgetCloseRequest()
 {
-    qDebug() << "JobViewDocks::onWidgetCloseRequest()";
     QWidget *widget = qobject_cast<QWidget *>(sender());
     Q_ASSERT(widget);
     QDockWidget *dock = findDock(widget);

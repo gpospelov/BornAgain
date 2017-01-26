@@ -131,7 +131,6 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 
 void SampleToolBar::onViewSelectionMode(int mode)
 {
-    qDebug() << "SampleToolBar::onViewSelectionMode" << mode;
     if(mode == DesignerView::RUBBER_SELECTION || mode == DesignerView::HAND_DRAG)
         m_pointerModeGroup->button(mode)->setChecked(true);
 }
@@ -145,6 +144,4 @@ void SampleToolBar::onScaleComboChanged(const QString &scale_string)
 void SampleToolBar::onMaterialEditorCall()
 {
     MaterialProperty mp = MaterialSvc::selectMaterialProperty();
-    qDebug() << "SampleToolBar::materialBrowserCall()" << mp.getName() << mp.getColor();
-
 }

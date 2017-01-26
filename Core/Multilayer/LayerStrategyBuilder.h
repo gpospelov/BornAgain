@@ -36,9 +36,8 @@ class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
-        const Layer& decorated_layer, bool polarized,
-        const SimulationOptions& sim_params, size_t layout_index,
-        const LayerSpecularInfo* specular_info);
+        const Layer& decorated_layer, const ILayout* p_layout, bool polarized,
+        const SimulationOptions& sim_params, const LayerSpecularInfo* specular_info);
 
     ~LayerStrategyBuilder();
 

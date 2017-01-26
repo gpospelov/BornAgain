@@ -28,18 +28,17 @@
 #include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer& decorated_layer, bool polarized,
-    const SimulationOptions& sim_params, size_t layout_index,
-    const LayerSpecularInfo* specular_info)
+    const Layer& decorated_layer, const ILayout* p_layout, bool polarized,
+    const SimulationOptions& sim_params, const LayerSpecularInfo* specular_info)
     : m_sim_params {sim_params}
     , mP_specular_info {nullptr}
+    , mp_layout(p_layout)
     , m_polarized {polarized}
 {
     mP_layer.reset(decorated_layer.clone());
     assert(mP_layer->getNumberOfLayouts() > 0);
     assert(specular_info);
     mP_specular_info.reset(specular_info->clone());
-    mp_layout = mP_layer->getLayout(layout_index);
 }
 
 LayerStrategyBuilder::~LayerStrategyBuilder()

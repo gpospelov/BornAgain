@@ -43,8 +43,8 @@ void ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(*mp_layer, polarized, options, m_layout_index, mP_specular_info.get()).
-            createStrategy() };
+        LayerStrategyBuilder(*mp_layer, mp_layer->getLayout(m_layout_index), polarized, options,
+                             mP_specular_info.get()).createStrategy() };
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     DelayedProgressCounter counter(100);

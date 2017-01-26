@@ -21,7 +21,6 @@
 #include "JobMessagePanel.h"
 #include "WarningSignWidget.h"
 #include "mainwindow_constants.h"
-#include <QDebug>
 #include <QFont>
 #include <QHBoxLayout>
 #include <QLabel>

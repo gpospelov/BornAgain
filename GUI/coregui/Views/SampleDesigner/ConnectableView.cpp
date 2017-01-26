@@ -20,7 +20,6 @@
 #include "NodeEditorConnection.h"
 #include "NodeEditorPort.h"
 #include "SessionItem.h"
-#include <QDebug>
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>

@@ -30,7 +30,6 @@
 #include "SliderSettingsWidget.h"
 #include "WarningSignWidget.h"
 #include <QApplication>
-#include <QDebug>
 #include <QItemSelectionModel>
 #include <QKeyEvent>
 #include <QLabel>

@@ -23,7 +23,6 @@
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "WarningSignWidget.h"
-#include <QDebug>
 #include <QFile>
 #include <QModelIndex>
 #include <QPainter>

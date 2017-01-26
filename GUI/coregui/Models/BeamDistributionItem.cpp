@@ -20,7 +20,6 @@
 #include "GroupItem.h"
 #include "ParameterDistribution.h"
 #include "Units.h"
-#include <QDebug>
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 

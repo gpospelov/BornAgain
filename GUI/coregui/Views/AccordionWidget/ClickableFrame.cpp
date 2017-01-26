@@ -31,7 +31,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ClickableFrame.h"
-#include <QDebug>
 #include <QStyleOption>
 
 ClickableFrame::ClickableFrame(QString header, QWidget *parent,

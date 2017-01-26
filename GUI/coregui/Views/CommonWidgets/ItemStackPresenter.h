@@ -18,7 +18,6 @@
 #define ITEMSTACKPRESENTER_H
 
 #include "ItemStackWidget.h"
-#include <QDebug>
 #include <QMap>
 #include <QStackedWidget>
 

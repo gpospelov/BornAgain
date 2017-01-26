@@ -32,7 +32,6 @@
 #include "ParameterTreeItems.h"
 #include "RunFitManager.h"
 #include "mainwindow_constants.h"
-#include <QDebug>
 #include <QMessageBox>
 #include <QTabWidget>
 #include <QVBoxLayout>

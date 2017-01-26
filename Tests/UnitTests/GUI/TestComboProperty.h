@@ -1,6 +1,5 @@
 #include <QtTest>
 #include "ComboProperty.h"
-#include <QDebug>
 
 class TestComboProperty : public QObject {
     Q_OBJECT

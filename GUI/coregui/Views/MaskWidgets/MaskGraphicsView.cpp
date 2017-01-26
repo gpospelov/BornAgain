@@ -17,7 +17,6 @@
 #include "MaskGraphicsView.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
-#include <QDebug>
 #include <QGraphicsScene>
 #include <QScrollBar>
 #include <QTransform>

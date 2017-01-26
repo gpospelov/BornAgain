@@ -19,8 +19,6 @@
 #include "GUIHelpers.h"
 #include "ParticleView.h"
 #include "SessionItem.h"
-#include <QDebug>
-
 
 ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     : ConnectableView(parent)

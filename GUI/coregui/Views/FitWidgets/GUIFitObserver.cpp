@@ -22,9 +22,8 @@
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "MinimizerUtils.h"
-#include <QDebug>
 #include <QVector>
-
+#include <QDebug>
 
 GUIFitObserver::GUIFitObserver(QObject *parent)
     : QObject(parent)

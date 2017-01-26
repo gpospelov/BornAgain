@@ -20,12 +20,12 @@
  */
 #include "columnresizer.h"
 
-#include <QDebug>
 #include <QEvent>
 #include <QFormLayout>
 #include <QGridLayout>
 #include <QTimer>
 #include <QWidget>
+#include <QDebug>
 
 class FormLayoutWidgetItem : public QWidgetItem
 {

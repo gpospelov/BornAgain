@@ -54,7 +54,6 @@
 #include "TransformationItem.h"
 #include "VectorItem.h"
 #include "LinkInstrumentItem.h"
-#include <QDebug>
 
 namespace {
 template<typename T> SessionItem *createInstance() { return new T; }

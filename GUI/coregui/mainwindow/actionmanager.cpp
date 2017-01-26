@@ -21,7 +21,6 @@
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
-#include <QDebug>
 #include <QDir>
 #include <QMenuBar>
 #include <QSettings>

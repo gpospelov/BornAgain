@@ -24,7 +24,6 @@
 #include "RectangularDetectorWidget.h"
 #include "SphericalDetectorWidget.h"
 #include "columnresizer.h"
-#include <QDebug>
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>

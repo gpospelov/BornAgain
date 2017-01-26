@@ -18,7 +18,6 @@
 #include "GISASSimulation.h"
 #include "item_constants.h"
 #include <QDateTime>
-#include <QDebug>
 #include <memory>
 
 JobWorker::JobWorker(QString identifier, GISASSimulation *simulation)

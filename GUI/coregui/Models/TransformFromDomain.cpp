@@ -53,7 +53,6 @@
 #include "SphericalDetector.h"
 #include "Units.h"
 #include "VectorItem.h"
-#include <QDebug>
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);

@@ -21,7 +21,6 @@
 #include "VectorItem.h"
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
-#include <QDebug>
 
 QStringList IParameterTranslator::split(const QString &par_name) const
 {

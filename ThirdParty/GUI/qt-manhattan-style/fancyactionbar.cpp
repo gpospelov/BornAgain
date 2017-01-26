@@ -47,7 +47,6 @@
 #include <QEvent>
 #include <QAnimationGroup>
 #include <QPropertyAnimation>
-#include <QDebug>
 
 using namespace Manhattan;
 

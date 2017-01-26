@@ -17,7 +17,6 @@
 #include "tooltipdatabase.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"
-#include <QDebug>
 #include <QFile>
 #include <QXmlStreamReader>
 

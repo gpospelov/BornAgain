@@ -23,7 +23,6 @@
 #include "projectmanager.h"
 #include "qstringutils.h"
 #include <QCommandLinkButton>
-#include <QDebug>
 #include <QDesktopServices>
 #include <QSignalMapper>
 #include <QUrl>

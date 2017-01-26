@@ -20,7 +20,6 @@
 #include "BornAgainNamespace.h"
 #include "IntensityDataFunctions.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
 MaskUnitsConverter::MaskUnitsConverter()
     : mp_data(0)

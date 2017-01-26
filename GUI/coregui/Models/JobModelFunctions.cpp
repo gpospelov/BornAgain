@@ -31,7 +31,6 @@
 #include "JobItemHelper.h"
 #include "IDetector2D.h"
 #include "JobItemFunctions.h"
-#include <QDebug>
 
 namespace JobModelFunctions {
 void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);

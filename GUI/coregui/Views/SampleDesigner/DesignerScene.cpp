@@ -35,7 +35,6 @@
 #include "SampleViewAligner.h"
 #include "SampleViewFactory.h"
 #include "SessionGraphicsItem.h"
-#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QItemSelection>
 #include <QPainter>

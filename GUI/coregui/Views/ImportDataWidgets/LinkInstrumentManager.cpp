@@ -25,7 +25,6 @@
 #include "MaskItems.h"
 #include <QMessageBox>
 #include <QPushButton>
-#include <QDebug>
 
 namespace {
 const QString undefinedInstrumentName = "Undefined";

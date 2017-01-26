@@ -24,7 +24,6 @@
 #include "GroupInfoBox.h"
 #include "LayerItem.h"
 #include <QComboBox>
-#include <QDebug>
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>

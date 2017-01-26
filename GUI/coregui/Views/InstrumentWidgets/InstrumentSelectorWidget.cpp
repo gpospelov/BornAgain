@@ -18,7 +18,6 @@
 #include "InstrumentModel.h"
 #include "SessionItem.h"
 #include <QAction>
-#include <QDebug>
 #include <QListView>
 #include <QMenu>
 #include <QPushButton>

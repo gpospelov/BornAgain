@@ -20,7 +20,6 @@
 #include "ExtendedDetectorDialog.h"
 #include "GroupInfoBox.h"
 #include "columnresizer.h"
-#include <QDebug>
 #include <QGroupBox>
 #include <QVBoxLayout>
 

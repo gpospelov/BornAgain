@@ -24,7 +24,6 @@
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
 #include "projectdocument.h"
-#include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSettings>

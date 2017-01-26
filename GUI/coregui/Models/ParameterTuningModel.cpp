@@ -18,7 +18,6 @@
 #include "FitParameterHelper.h"
 #include "ParameterTreeItems.h"
 #include "SessionModel.h"
-#include <QDebug>
 #include <QMimeData>
 
 ParameterTuningModel::ParameterTuningModel(QObject *parent)

@@ -27,7 +27,6 @@
 #include "SimulationOptionsItem.h"
 #include "IntensityDataItem.h"
 #include "JobItemFunctions.h"
-#include <QDebug>
 
 namespace {
     QVariant createStatusVariant() {

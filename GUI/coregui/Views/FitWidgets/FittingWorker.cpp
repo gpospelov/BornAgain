@@ -17,7 +17,6 @@
 #include "FittingWorker.h"
 #include "FitSuite.h"
 #include <QDateTime>
-#include <QDebug>
 
 void FittingWorker::startFit()
 {

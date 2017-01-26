@@ -26,7 +26,6 @@
 #include "WarningSignWidget.h"
 #include "projectdocument.h"
 #include "projectmanager.h"
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>

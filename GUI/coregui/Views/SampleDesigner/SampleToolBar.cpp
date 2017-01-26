@@ -21,7 +21,6 @@
 #include <QAction>
 #include <QButtonGroup>
 #include <QComboBox>
-#include <QDebug>
 #include <QIcon>
 #include <QLabel>
 #include <QMenu>

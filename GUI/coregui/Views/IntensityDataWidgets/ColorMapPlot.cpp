@@ -21,7 +21,6 @@
 #include "IntensityDataItem.h"
 #include "MathConstants.h"
 #include "UpdateTimer.h"
-#include <QDebug>
 
 namespace {
 const int replot_update_interval = 10;

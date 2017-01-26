@@ -19,7 +19,6 @@
 #include "MaskItems.h"
 #include "SessionItem.h"
 #include <QAction>
-#include <QDebug>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 #include <QPainter>

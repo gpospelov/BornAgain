@@ -19,7 +19,6 @@
 #include "JobModel.h"
 #include "StyledToolBar.h"
 #include <QAction>
-#include <QDebug>
 #include <QItemSelectionModel>
 #include <QMenu>
 

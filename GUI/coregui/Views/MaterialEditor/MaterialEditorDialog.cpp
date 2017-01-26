@@ -20,7 +20,6 @@
 #include "MaterialUtils.h"
 #include "mainwindow_constants.h"
 #include <QAction>
-#include <QDebug>
 #include <QPushButton>
 #include <QSettings>
 #include <QVBoxLayout>

@@ -36,7 +36,6 @@
 #include "ClickableFrame.h"
 #include "ContentPane.h"
 #include "WinDllMacros.h"
-#include <QDebug>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QPainter>

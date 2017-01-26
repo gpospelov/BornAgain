@@ -20,7 +20,6 @@
 #include "ColorMapLabel.h"
 #include "IntensityDataItem.h"
 #include "StatusLabel.h"
-#include <QDebug>
 #include <QLabel>
 #include <QVBoxLayout>
 

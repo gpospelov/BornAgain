@@ -32,7 +32,6 @@
 #include "qtcassert.h"
 
 #include <QEvent>
-#include <QDebug>
 #include <QString>
 #include <QPropertyAnimation>
 #include <QApplication>

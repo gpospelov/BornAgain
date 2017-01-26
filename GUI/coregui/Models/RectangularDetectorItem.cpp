@@ -21,7 +21,6 @@
 #include "RectangularDetector.h"
 #include "ResolutionFunctionItems.h"
 #include "VectorItem.h"
-#include <QDebug>
 
 namespace {
 const double default_detector_width = 20.0;

@@ -23,7 +23,6 @@
 #include "SampleToolBar.h"
 #include "SampleViewComponents.h"
 #include "mainwindow.h"
-#include <QDebug>
 #include <QDockWidget>
 #include <QMenu>
 #include <QTimer>

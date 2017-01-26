@@ -18,7 +18,6 @@
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "mainwindow_constants.h"
-#include <QDebug>
 #include <QListView>
 #include <QVBoxLayout>
 

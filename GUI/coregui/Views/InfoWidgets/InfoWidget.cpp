@@ -17,7 +17,6 @@
 #include "InfoWidget.h"
 #include "InfoToolBar.h"
 #include "PySampleWidget.h"
-#include <QDebug>
 #include <QResizeEvent>
 #include <QVBoxLayout>
 

@@ -51,7 +51,6 @@
 #include "TransformationItem.h"
 #include "Units.h"
 #include "VectorItem.h"
-#include <QDebug>
 
 GUIObjectBuilder::GUIObjectBuilder()
     : m_sampleModel(0)

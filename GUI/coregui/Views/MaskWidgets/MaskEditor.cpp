@@ -32,7 +32,6 @@
 #include "minisplitter.h"
 #include <QBoxLayout>
 #include <QContextMenuEvent>
-#include <QDebug>
 #include <QMenu>
 
 MaskEditor::MaskEditor(QWidget* parent)

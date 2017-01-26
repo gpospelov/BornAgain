@@ -23,7 +23,6 @@
 #include "MultiLayerView.h"
 #include "SampleModel.h"
 #include "SessionItem.h"
-#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 
 QLineF MultiLayerCandidate::getInterfaceToScene()

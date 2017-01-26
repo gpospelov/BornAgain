@@ -19,7 +19,6 @@
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
 #include <QGraphicsSceneMouseEvent>
-#include <QDebug>
 
 MaskGraphicsProxy::MaskGraphicsProxy()
     : m_colorMap(new ColorMap)

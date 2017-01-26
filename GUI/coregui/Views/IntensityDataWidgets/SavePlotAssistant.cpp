@@ -18,7 +18,6 @@
 #include "ColorMapPlot.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
-#include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
 

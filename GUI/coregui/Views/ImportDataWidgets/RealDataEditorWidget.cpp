@@ -22,7 +22,6 @@
 #include "SessionItem.h"
 #include <QAction>
 #include <QBoxLayout>
-#include <QDebug>
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     : SessionItemWidget(parent)

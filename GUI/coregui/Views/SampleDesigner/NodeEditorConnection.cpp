@@ -18,7 +18,6 @@
 #include "ConnectableView.h"
 #include "NodeEditorPort.h"
 #include <QBrush>
-#include <QDebug>
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QPen>

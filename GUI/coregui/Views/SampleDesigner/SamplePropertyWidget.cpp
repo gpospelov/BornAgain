@@ -17,7 +17,6 @@
 #include "SamplePropertyWidget.h"
 #include "ComponentEditor.h"
 #include "SessionItem.h"
-#include <QDebug>
 #include <QItemSelection>
 #include <QModelIndexList>
 #include <QSortFilterProxyModel>

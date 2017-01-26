@@ -19,7 +19,6 @@
 #include "GroupPropertyRegistry.h"
 #include "ItemFactory.h"
 #include "SessionModel.h"
-#include <QDebug>
 
 class SessionItemData
 {

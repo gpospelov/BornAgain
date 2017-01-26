@@ -2,7 +2,6 @@
 #include "SampleModel.h"
 #include "ParticleDistributionItem.h"
 #include "ComboProperty.h"
-#include <QDebug>
 
 class TestParticleDistributionItem : public QObject {
     Q_OBJECT

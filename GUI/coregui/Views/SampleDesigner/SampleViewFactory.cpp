@@ -26,8 +26,6 @@
 #include "ParticleView.h"
 #include "TransformationView.h"
 #include "item_constants.h"
-#include <QDebug>
-
 
 QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::MultiLayerType

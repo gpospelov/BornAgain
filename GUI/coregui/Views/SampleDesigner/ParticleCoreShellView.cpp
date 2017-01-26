@@ -17,8 +17,6 @@
 #include "ParticleCoreShellView.h"
 #include "ParticleCoreShellItem.h"
 #include "SessionItem.h"
-#include <QDebug>
-
 
 ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
     : ConnectableView(parent)

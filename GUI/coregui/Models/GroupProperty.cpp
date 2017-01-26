@@ -16,8 +16,6 @@
 
 #include "GroupProperty.h"
 #include "ItemFactory.h"
-#include <QDebug>
-
 
 GroupProperty::GroupProperty(QString group_name)
     : m_group_name(std::move(group_name))

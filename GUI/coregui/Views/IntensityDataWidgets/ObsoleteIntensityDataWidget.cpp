@@ -23,7 +23,6 @@
 #include "ObsoleteIntensityDataPlotWidget.h"
 #include "ObsoleteIntensityDataWidgetActions.h"
 #include "projectmanager.h"
-#include <QDebug>
 #include <QVBoxLayout>
 
 

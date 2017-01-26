@@ -25,7 +25,6 @@
 #include "RealDataItem.h"
 #include "SessionModel.h"
 #include <QAction>
-#include <QDebug>
 #include <QGridLayout>
 #include <QLabel>
 #include <QVBoxLayout>

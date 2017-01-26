@@ -20,7 +20,6 @@
 #include "MaskItems.h"
 #include "PolygonPointView.h"
 #include <QCursor>
-#include <QDebug>
 #include <QGraphicsItem>
 #include <QGraphicsPolygonItem>
 #include <QGraphicsSceneMouseEvent>

@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "UpdateTimer.h"
-#include <QDebug>
 #include <QTimer>
 
 namespace {

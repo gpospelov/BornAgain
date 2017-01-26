@@ -18,7 +18,6 @@
 #include "ColorMap.h"
 #include "ColorMapCanvas.h"
 #include "qcustomplot.h"
-#include <QDebug>
 #include <QLabel>
 #include <QRect>
 #include <QResizeEvent>

@@ -19,7 +19,6 @@
 #include "SessionItemWidget.h"
 #include "GUIHelpers.h"
 #include <QComboBox>
-#include <QDebug>
 #include <QEvent>
 #include <QStackedWidget>
 #include <QVBoxLayout>

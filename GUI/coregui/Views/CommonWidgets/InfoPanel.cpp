@@ -17,7 +17,6 @@
 #include "InfoPanel.h"
 #include "InfoPanelToolBar.h"
 #include <QBoxLayout>
-#include <QDebug>
 #include <QResizeEvent>
 #include <QStackedWidget>
 

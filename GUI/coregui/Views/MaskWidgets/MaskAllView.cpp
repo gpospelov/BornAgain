@@ -19,7 +19,6 @@
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include <QBrush>
-#include <QDebug>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 

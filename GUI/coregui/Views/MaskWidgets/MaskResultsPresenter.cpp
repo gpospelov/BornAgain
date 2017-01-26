@@ -22,7 +22,6 @@
 #include "OutputData.h"
 #include "SessionModel.h"
 #include "RegionOfInterest.h"
-#include <QDebug>
 #include <QVBoxLayout>
 
 MaskResultsPresenter::MaskResultsPresenter(QWidget *parent)

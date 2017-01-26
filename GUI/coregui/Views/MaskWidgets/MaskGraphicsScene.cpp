@@ -33,7 +33,6 @@
 #include <QLineF>
 #include <QGraphicsSceneMoveEvent>
 #include <QPainter>
-#include <QDebug>
 
 namespace {
 const QRectF default_scene_rect(0, 0, 800, 600);

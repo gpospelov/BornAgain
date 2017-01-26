@@ -19,7 +19,6 @@
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include "SizeHandleElement.h"
-#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QMarginsF>
 #include <QPainter>

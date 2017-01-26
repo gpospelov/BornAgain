@@ -24,7 +24,6 @@
 #include "SessionItem.h"
 #include <QBoxLayout>
 #include <QComboBox>
-#include <QDebug>
 #include <QEvent>
 #include <QGroupBox>
 #include <QLineEdit>

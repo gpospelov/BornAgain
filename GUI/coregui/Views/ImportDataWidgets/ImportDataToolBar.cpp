@@ -31,7 +31,6 @@
 #include "SessionItem.h"
 #include "SphericalDetectorItem.h"
 #include <QAction>
-#include <QDebug>
 #include <QItemSelectionModel>
 
 ImportDataToolBar::ImportDataToolBar(QWidget *parent)

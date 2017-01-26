@@ -16,7 +16,6 @@
 
 #include "MaskDrawingContext.h"
 #include "item_constants.h"
-#include <QDebug>
 
 MaskDrawingContext::MaskDrawingContext()
     : m_current_activity(MaskEditorFlags::PAN_ZOOM_MODE)

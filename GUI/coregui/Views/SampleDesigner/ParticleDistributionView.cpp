@@ -16,8 +16,6 @@
 
 #include "ParticleDistributionView.h"
 #include "SessionItem.h"
-#include <QDebug>
-
 
 ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
     : ConnectableView(parent)

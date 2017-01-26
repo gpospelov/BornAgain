@@ -17,7 +17,6 @@
 #include "MaskContainerView.h"
 #include "ISceneAdaptor.h"
 #include <QBrush>
-#include <QDebug>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 

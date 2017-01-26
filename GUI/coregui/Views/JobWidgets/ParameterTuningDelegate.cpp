@@ -22,7 +22,6 @@
 #include "SessionModel.h"
 #include <QAbstractItemModel>
 #include <QApplication>
-#include <QDebug>
 #include <QDoubleSpinBox>
 #include <QHBoxLayout>
 #include <QItemSelectionModel>

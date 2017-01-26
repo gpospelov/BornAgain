@@ -16,7 +16,6 @@
 
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
-#include <QDebug>
 #include <QFontMetrics>
 #include <QGraphicsScene>
 #include <QPainter>

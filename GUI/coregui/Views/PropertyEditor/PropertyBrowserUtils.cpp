@@ -19,7 +19,6 @@
 #include "MaterialSvc.h"
 #include <QColorDialog>
 #include <QComboBox>
-#include <QDebug>
 #include <QDoubleValidator>
 #include <QFileDialog>
 #include <QFocusEvent>

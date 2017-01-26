@@ -21,7 +21,6 @@
 #include "LayerView.h"
 #include "SampleModel.h"
 #include "SessionItem.h"
-#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>

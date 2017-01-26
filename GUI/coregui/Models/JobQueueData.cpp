@@ -21,7 +21,6 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"
-#include <QDebug>
 #include <QThread>
 
 JobQueueData::JobQueueData(JobModel *jobModel)

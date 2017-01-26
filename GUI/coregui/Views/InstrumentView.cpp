@@ -23,8 +23,6 @@
 #include "mainwindow.h"
 #include <QAction> // need detected by TeamCity
 #include <QBoxLayout>
-#include <QDebug>
-#include <QDebug>
 #include <QListView>
 #include <QStackedWidget>
 #include <QToolButton>

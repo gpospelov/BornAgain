@@ -24,7 +24,6 @@
 #include "ScientificDoubleProperty.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
-#include <QDebug>
 
 namespace
 {

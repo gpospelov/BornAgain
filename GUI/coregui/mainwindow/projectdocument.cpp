@@ -18,7 +18,6 @@
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "WarningMessageService.h"
-#include <QDebug>
 #include <QDir>
 #include <QXmlStreamReader>
 

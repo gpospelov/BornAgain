@@ -19,7 +19,6 @@
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)

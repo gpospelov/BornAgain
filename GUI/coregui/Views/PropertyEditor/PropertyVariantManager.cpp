@@ -17,7 +17,6 @@
 #include "PropertyVariantManager.h"
 #include "DesignerHelper.h"
 #include "SessionItem.h"
-#include <QDebug>
 
 PropertyVariantManager::PropertyVariantManager(QObject *parent)
     : QtVariantPropertyManager(parent)

@@ -19,7 +19,6 @@
 #include "DesignerMimeData.h"
 #include "DesignerScene.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 #include <QDragEnterEvent>
 #include <QGraphicsScene>
 #include <QGraphicsView>

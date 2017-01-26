@@ -16,7 +16,6 @@
 
 #include "DesignerHelper.h"
 #include "item_constants.h"
-#include <QDebug>
 #include <QPainter>
 #include <QtGlobal>
 #include <cmath>

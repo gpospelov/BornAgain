@@ -24,7 +24,6 @@
 #include "ParticleItem.h"
 #include "TransformFromDomain.h"
 #include "TransformToDomain.h"
-#include <QDebug>
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";

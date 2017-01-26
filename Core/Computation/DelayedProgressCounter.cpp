@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/InnerCounter.cpp
-//! @brief     Implements class InnerCounter.
+//! @file      Core/Computation/DelayedProgressCounter.cpp
+//! @brief     Implements class DelayedProgressCounter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,14 +14,16 @@
 // ************************************************************************** //
 
 #include "ProgressHandler.h"
-#include "InnerCounter.h"
+#include "DelayedProgressCounter.h"
 
-//! Increments progress count; at regular intervals updates main progress handler.
-void InnerCounter::stepProgress(ProgressHandler* progress)
+// To emit vtable in this translation unit (see warning weak-vtables):
+DelayedProgressCounter::~DelayedProgressCounter() {}
+
+void DelayedProgressCounter::stepProgress(ProgressHandler* progress)
 {
     ++m_count;
-    if( m_count==bundle ) {
-        progress->incrementDone(bundle);
+    if( m_count==m_interval ) {
+        progress->incrementDone(m_interval);
         m_count = 0;
     }
 }

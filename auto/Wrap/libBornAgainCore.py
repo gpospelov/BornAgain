@@ -21684,6 +21684,21 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_getLayerBottomInterface(self, i_layer)
 
 
+    def addLayout(self, layout):
+        """addLayout(MultiLayer self, ILayout layout)"""
+        return _libBornAgainCore.MultiLayer_addLayout(self, layout)
+
+
+    def getNumberOfLayouts(self):
+        """getNumberOfLayouts(MultiLayer self) -> size_t"""
+        return _libBornAgainCore.MultiLayer_getNumberOfLayouts(self)
+
+
+    def getLayout(self, i):
+        """getLayout(MultiLayer self, size_t i) -> ILayout"""
+        return _libBornAgainCore.MultiLayer_getLayout(self, i)
+
+
     def clear(self):
         """
         clear(MultiLayer self)

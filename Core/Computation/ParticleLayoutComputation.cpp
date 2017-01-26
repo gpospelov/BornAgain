@@ -47,7 +47,7 @@ void ParticleLayoutComputation::eval(
             createStrategy() };
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
-    InnerCounter counter;
+    DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
             return;

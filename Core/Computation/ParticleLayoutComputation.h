@@ -16,7 +16,7 @@
 #ifndef PARTICLELAYOUTCOMPUTATION_H
 #define PARTICLELAYOUTCOMPUTATION_H
 
-#include "InnerCounter.h"
+#include "DelayedProgressCounter.h"
 #include <vector>
 #include <memory>
 

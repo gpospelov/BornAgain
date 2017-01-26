@@ -17,7 +17,7 @@
 #define ROUGHMULTILAYERCOMPUTATION_H
 
 #include "Complex.h"
-#include "InnerCounter.h"
+#include "DelayedProgressCounter.h"
 #include <vector>
 
 class LayerSpecularInfo;

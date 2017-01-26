@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/InnerCounter.h
-//! @brief     Defines class InnerCounter.
+//! @file      Core/Computation/DelayedProgressCounter.h
+//! @brief     Defines class DelayedProgressCounter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,23 +13,27 @@
 //
 // ************************************************************************** //
 
-#ifndef INNERCOUNTER_H
-#define INNERCOUNTER_H
+#ifndef DELAYEDPROGRESSCOUNTER_H
+#define DELAYEDPROGRESSCOUNTER_H
 
 #include "INoncopyable.h"
+#include <cstddef>
 
 class ProgressHandler;
 
-//! Base class for threaded computation; keeps count of progress.
+//! Counter for reporting progress (with delay interval) in a threaded computation.
 
-class InnerCounter: public INoncopyable
+class DelayedProgressCounter: public INoncopyable
 {
 public:
-    InnerCounter() : m_count(0) {}
+    DelayedProgressCounter(size_t interval) : m_interval(interval), m_count(0) {}
+    ~DelayedProgressCounter() final override;
+
+    //! Increments inner counter; at regular intervals updates progress handler.
     void stepProgress(ProgressHandler* progress);
 private:
-    const int bundle = 100;
-    int m_count;
+    const size_t m_interval;
+    size_t m_count;
 };
 
-#endif // INNERCOUNTER_H
+#endif // DELAYEDPROGRESSCOUNTER_H

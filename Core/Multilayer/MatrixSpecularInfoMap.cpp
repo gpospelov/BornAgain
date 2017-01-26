@@ -16,12 +16,11 @@
 #include "MatrixSpecularInfoMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MatrixRTCoefficients.h"
-#include "ISpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 
-MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* multilayer, int layer)
+MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* multilayer, size_t layer)
     : m_layer(layer)
 {
     if (multilayer) {

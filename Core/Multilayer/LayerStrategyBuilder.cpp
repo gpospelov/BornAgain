@@ -23,13 +23,13 @@
 #include "InterferenceFunctionNone.h"
 #include "MultiLayer.h"
 #include "Layer.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "DecouplingApproximationStrategy.h"
 #include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
     const Layer& decorated_layer, const ILayout* p_layout, bool polarized,
-    const SimulationOptions& sim_params, const LayerSpecularInfo* specular_info)
+    const SimulationOptions& sim_params, const ILayerSpecularInfo* specular_info)
     : m_sim_params {sim_params}
     , mP_specular_info {nullptr}
     , mp_layout(p_layout)

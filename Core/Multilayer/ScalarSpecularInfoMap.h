@@ -16,7 +16,7 @@
 #ifndef SCALARSPECULARINFOMAP_H
 #define SCALARSPECULARINFOMAP_H
 
-#include "ISpecularInfoMap.h"
+#include "ILayerSpecularInfo.h"
 #include "Vectors3D.h"
 
 class MultiLayer;
@@ -27,10 +27,10 @@ class SimulationElement;
 //! Implementation of ISpecularInfoMap for scalar valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ScalarSpecularInfoMap : public ISpecularInfoMap
+class BA_CORE_API_ ScalarSpecularInfoMap : public ILayerSpecularInfo
 {
 public:
-    ScalarSpecularInfoMap(const MultiLayer* multilayer, int layer);
+    ScalarSpecularInfoMap(const MultiLayer* multilayer, size_t layer);
     ~ScalarSpecularInfoMap() final {}
 
     ScalarSpecularInfoMap* clone() const final {
@@ -38,15 +38,15 @@ public:
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients (
-        const SimulationElement& sim_element) const final;
+        const SimulationElement& sim_element) const final override;
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getInCoefficients(
-        const SimulationElement& sim_element) const final;
+        const SimulationElement& sim_element) const final override;
 
 private:
     const MultiLayer* mp_multilayer;
-    const int m_layer;
+    const size_t m_layer;
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec) const;
 };
 

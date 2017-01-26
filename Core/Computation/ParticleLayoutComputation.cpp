@@ -17,7 +17,7 @@
 #include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "Layer.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
 #include "MultiLayer.h"
@@ -28,7 +28,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(const Layer* p_layer, size_
     : mp_layer(p_layer), m_layout_index(layout_index)
 {}
 
-void ParticleLayoutComputation::setSpecularInfo(const LayerSpecularInfo& specular_info)
+void ParticleLayoutComputation::setSpecularInfo(const ILayerSpecularInfo& specular_info)
 {
     if (&specular_info != mP_specular_info.get())
         mP_specular_info.reset(specular_info.clone());

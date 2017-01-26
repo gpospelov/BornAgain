@@ -26,7 +26,7 @@ class ILayout;
 class IMaterial;
 class IParticle;
 class Layer;
-class LayerSpecularInfo;
+class ILayerSpecularInfo;
 class MultiLayer;
 
 //! Methods to generate a simulation strategy for a ParticleLayoutComputation.
@@ -37,7 +37,7 @@ class BA_CORE_API_ LayerStrategyBuilder
 public:
     LayerStrategyBuilder(
         const Layer& decorated_layer, const ILayout* p_layout, bool polarized,
-        const SimulationOptions& sim_params, const LayerSpecularInfo* specular_info);
+        const SimulationOptions& sim_params, const ILayerSpecularInfo* specular_info);
 
     ~LayerStrategyBuilder();
 
@@ -51,7 +51,7 @@ private:
     std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer
     std::unique_ptr<class MultiLayer> mP_sample;               //!< sample
     SimulationOptions m_sim_params;                            //!< simulation parameters
-    std::unique_ptr<class LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    std::unique_ptr<class ILayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
     const ILayout* mp_layout;                   //!< layout
     bool m_polarized;                           //!< polarized computation required?
 };

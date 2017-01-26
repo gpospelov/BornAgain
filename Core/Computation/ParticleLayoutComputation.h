@@ -23,7 +23,7 @@
 using std::size_t;
 
 class Layer;
-class LayerSpecularInfo;
+class ILayerSpecularInfo;
 class MultiLayer;
 class ProgressHandler;
 class SimulationElement;
@@ -38,7 +38,7 @@ class ParticleLayoutComputation
 public:
     ParticleLayoutComputation(const Layer* p_layer, size_t layout_index=0);
 
-    void setSpecularInfo(const LayerSpecularInfo& specular_info);
+    void setSpecularInfo(const ILayerSpecularInfo& specular_info);
 
     void eval(const SimulationOptions& options,
               ProgressHandler* progress,
@@ -48,7 +48,7 @@ public:
 
 private:
     const Layer* mp_layer;
-    std::unique_ptr<LayerSpecularInfo> mP_specular_info;
+    std::unique_ptr<ILayerSpecularInfo> mP_specular_info;
     size_t m_layout_index;
 };
 

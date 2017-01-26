@@ -16,7 +16,7 @@
 #include "MainComputation.h"
 #include "ParticleLayoutComputation.h"
 #include "Layer.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "Logger.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
@@ -126,19 +126,18 @@ void MainComputation::collectRTCoefficientsScalar()
     // run through layers and construct T,R functions
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         msglog(Logging::DEBUG2) << "MainComputation::run() -> Layer " << i;
-        LayerSpecularInfo layer_coeff_map;
-        layer_coeff_map.addRTCoefficients(new ScalarSpecularInfoMap(mp_multi_layer, i));
+        ScalarSpecularInfoMap layer_fresnel_map(mp_multi_layer, i);
 
         // layer DWBA simulation
         for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(layer_coeff_map);
+            comp->setSpecularInfo(layer_fresnel_map);
 
         // layer roughness DWBA
         if (mp_roughness_computation)
-            mp_roughness_computation->setSpecularInfo(i, layer_coeff_map);
+            mp_roughness_computation->setSpecularInfo(i, layer_fresnel_map);
 
         if (i==0)
-            mp_specular_computation->setSpecularInfo(layer_coeff_map);
+            mp_specular_computation->setSpecularInfo(layer_fresnel_map);
     }
 }
 
@@ -147,8 +146,7 @@ void MainComputation::collectRTCoefficientsMatrix()
     // run through layers and construct T,R functions
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         msglog(Logging::DEBUG2) << "MainComputation::runMagnetic() -> Layer " << i;
-        LayerSpecularInfo layer_coeff_map;
-        layer_coeff_map.addRTCoefficients(new MatrixSpecularInfoMap(mp_multi_layer, i));
+        MatrixSpecularInfoMap layer_coeff_map(mp_multi_layer, i);
 
         // layer DWBA simulation
         for(ParticleLayoutComputation* comp: m_layer_computation[i])

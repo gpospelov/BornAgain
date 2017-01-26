@@ -23,7 +23,7 @@
 
 class IFormFactor;
 class SimulationElement;
-class LayerSpecularInfo;
+class ILayerSpecularInfo;
 
 //! Information about single particle form factor and specular info of the embedding layer.
 //! @ingroup formfactors_internal
@@ -40,11 +40,11 @@ public:
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    void setSpecularInfo(const LayerSpecularInfo& specular_info);
+    void setSpecularInfo(const ILayerSpecularInfo& specular_info);
     double radialExtension() const;
 private:
     std::unique_ptr<IFormFactor> mP_ff;
-    std::unique_ptr<LayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    std::unique_ptr<ILayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
 };
 
 #endif // FORMFACTORCOHERENTPART_H

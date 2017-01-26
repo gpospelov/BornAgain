@@ -14,13 +14,12 @@
 // ************************************************************************** //
 
 #include "ScalarSpecularInfoMap.h"
-#include "ISpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "SpecularMatrix.h"
 
-ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer* multilayer, int layer)
+ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer* multilayer, size_t layer)
     : mp_multilayer(multilayer)
     , m_layer(layer)
 {}
@@ -41,6 +40,5 @@ const ScalarRTCoefficients* ScalarSpecularInfoMap::getCoefficients(kvector_t kve
 {
     SpecularMatrix::MultiLayerCoeff_t coeffs;
     SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
-    auto layer_coeffs = coeffs[m_layer];
-    return new ScalarRTCoefficients(layer_coeffs);
+    return new ScalarRTCoefficients(coeffs[m_layer]);
 }

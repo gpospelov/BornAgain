@@ -20,6 +20,7 @@
 #include "Complex.h"
 #include "INoncopyable.h"
 #include "SimulationOptions.h"
+#include <memory>
 #include <vector>
 
 class MultiLayer;
@@ -58,7 +59,8 @@ private:
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
 
-    MultiLayer* mp_multi_layer;
+    std::unique_ptr<MultiLayer> mP_multi_layer;
+    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
     SimulationOptions m_sim_options;
     ProgressHandler* m_progress;
     //! these iterators define the span of detector bins this simulation will work on

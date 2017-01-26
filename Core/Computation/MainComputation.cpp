@@ -35,32 +35,31 @@ MainComputation::MainComputation(
     ProgressHandler& progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
-    : m_sim_options(options)
+    : mP_multi_layer(multi_layer.clone())
+    , mP_inverted_multilayer(nullptr)
+    , m_sim_options(options)
     , m_progress(&progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
     , mp_roughness_computation(nullptr)
 {
-    mp_multi_layer = multi_layer.clone();
-
     msglog(Logging::DEBUG2) << "MainComputation::init()";
 
-    size_t nLayers = mp_multi_layer->getNumberOfLayers();
+    size_t nLayers = mP_multi_layer->getNumberOfLayers();
     m_layer_computation.resize( nLayers );
     for (size_t i=0; i<nLayers; ++i) {
-        const Layer* layer = mp_multi_layer->getLayer(i);
+        const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
             m_layer_computation[i].push_back( new ParticleLayoutComputation(layer, j) );
     }
     // scattering from rough surfaces in DWBA
-    if (mp_multi_layer->hasRoughness())
-        mp_roughness_computation = new RoughMultiLayerComputation(mp_multi_layer);
+    if (mP_multi_layer->hasRoughness())
+        mp_roughness_computation = new RoughMultiLayerComputation(mP_multi_layer.get());
     mp_specular_computation = new SpecularComputation();
 }
 
 MainComputation::~MainComputation()
 {
-    delete mp_multi_layer;
     delete mp_roughness_computation;
     delete mp_specular_computation;
     for (auto& layer_comp: m_layer_computation)
@@ -89,7 +88,7 @@ void MainComputation::runProtected()
 {
     msglog(Logging::DEBUG2) << "MainComputation::runProtected()";
 
-    if (mp_multi_layer->requiresMatrixRTCoefficients())
+    if (mP_multi_layer->requiresMatrixRTCoefficients())
         collectRTCoefficientsMatrix();
     else
         collectRTCoefficientsScalar();
@@ -97,7 +96,7 @@ void MainComputation::runProtected()
     // run through layers and run layer simulations
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
-    bool polarized = mp_multi_layer->containsMagneticMaterial();
+    bool polarized = mP_multi_layer->containsMagneticMaterial();
     for (auto& layer_comp: m_layer_computation) {
         for (const ParticleLayoutComputation* comp: layer_comp) {
             if (!m_progress->alive())
@@ -108,7 +107,7 @@ void MainComputation::runProtected()
         }
     }
 
-    if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
+    if (!mP_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
         msglog(Logging::DEBUG2) << "MainComputation::run() -> roughness";
         if (!m_progress->alive())
             return;
@@ -124,9 +123,9 @@ void MainComputation::runProtected()
 void MainComputation::collectRTCoefficientsScalar()
 {
     // run through layers and construct T,R functions
-    for(size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
+    for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         msglog(Logging::DEBUG2) << "MainComputation::run() -> Layer " << i;
-        ScalarSpecularInfoMap layer_fresnel_map(mp_multi_layer, i);
+        ScalarSpecularInfoMap layer_fresnel_map(mP_multi_layer.get(), i);
 
         // layer DWBA simulation
         for(ParticleLayoutComputation* comp: m_layer_computation[i])
@@ -143,10 +142,12 @@ void MainComputation::collectRTCoefficientsScalar()
 
 void MainComputation::collectRTCoefficientsMatrix()
 {
+    mP_inverted_multilayer.reset(mP_multi_layer->cloneInvertB());
     // run through layers and construct T,R functions
-    for(size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
+    for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         msglog(Logging::DEBUG2) << "MainComputation::runMagnetic() -> Layer " << i;
-        MatrixSpecularInfoMap layer_coeff_map(mp_multi_layer, i);
+        MatrixSpecularInfoMap layer_coeff_map(
+                    mP_multi_layer.get(), mP_inverted_multilayer.get(), i);
 
         // layer DWBA simulation
         for(ParticleLayoutComputation* comp: m_layer_computation[i])

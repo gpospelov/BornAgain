@@ -30,11 +30,11 @@ class SimulationElement;
 class BA_CORE_API_ ScalarSpecularInfoMap : public ILayerSpecularInfo
 {
 public:
-    ScalarSpecularInfoMap(const MultiLayer* multilayer, size_t layer);
+    ScalarSpecularInfoMap(const MultiLayer* multilayer, size_t layer_index);
     ~ScalarSpecularInfoMap() final {}
 
-    ScalarSpecularInfoMap* clone() const final {
-        return new ScalarSpecularInfoMap(mp_multilayer, m_layer); }
+    ScalarSpecularInfoMap* clone() const final override {
+        return new ScalarSpecularInfoMap(mp_multilayer, m_layer_index); }
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients (
@@ -46,7 +46,7 @@ public:
 
 private:
     const MultiLayer* mp_multilayer;
-    const size_t m_layer;
+    const size_t m_layer_index;
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec) const;
 };
 

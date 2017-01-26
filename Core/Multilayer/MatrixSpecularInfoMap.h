@@ -17,7 +17,7 @@
 #define MATRIXSPECULARINFOMAP_H
 
 #include "ILayerSpecularInfo.h"
-#include <memory>
+#include <cstddef>
 
 class ILayerRTCoefficients;
 class MultiLayer;
@@ -29,23 +29,24 @@ class SimulationElement;
 class BA_CORE_API_ MatrixSpecularInfoMap : public ILayerSpecularInfo
 {
 public:
-    MatrixSpecularInfoMap(const MultiLayer* multilayer, size_t layer);
+    MatrixSpecularInfoMap(const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer,
+                          size_t layer_index);
     ~MatrixSpecularInfoMap() final {}
 
-    MatrixSpecularInfoMap* clone() const final;
+    MatrixSpecularInfoMap* clone() const final override;
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients(
-        const SimulationElement& sim_element) const final;
+        const SimulationElement& sim_element) const final override;
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getInCoefficients(
-        const SimulationElement& sim_element) const final;
+        const SimulationElement& sim_element) const final override;
 
 private:
-    std::unique_ptr<MultiLayer> mP_multilayer;
-    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
-    const size_t m_layer;
+    const MultiLayer* mp_multilayer;
+    const MultiLayer* mp_inverted_multilayer;
+    const size_t m_layer_index;
 };
 
 #endif // MATRIXSPECULARINFOMAP_H

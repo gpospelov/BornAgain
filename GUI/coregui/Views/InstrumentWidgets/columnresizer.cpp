@@ -18,7 +18,7 @@
  * Copyright 2011 Aurélien Gâteau <agateau@kde.org>
  * License: LGPL v2.1 or later (see COPYING)
  */
-#include <columnresizer.h>
+#include "columnresizer.h"
 
 #include <QDebug>
 #include <QEvent>
@@ -287,5 +287,5 @@ void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout *layout)
 //    d->block_update = false;
 //}
 
-#include <columnresizer.moc>
+//#include <columnresizer.moc>
 // vi: ts=4 sw=4 et

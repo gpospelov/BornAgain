@@ -62,7 +62,7 @@ private:
 class SquareLattice : public Lattice2D
 {
 public:
-    SquareLattice(double length, double rotation_angle = 0.0);
+    explicit SquareLattice(double length, double rotation_angle = 0.0);
     SquareLattice* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double length2() const { return m_length1; } // m_length2 is not used
@@ -75,7 +75,7 @@ private:
 class HexagonalLattice : public Lattice2D
 {
 public:
-    HexagonalLattice(double length, double rotation_angle = 0.0);
+    explicit HexagonalLattice(double length, double rotation_angle = 0.0);
     HexagonalLattice* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double length2() const { return m_length1; } // m_length2 is not used

@@ -22,9 +22,8 @@
 #include "RealParameter.h"
 #include <limits>
 
-InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D& lattice, double damping_length,
-                                                                    double domain_size_1,
-                                                                     double domain_size_2)
+InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D& lattice,
+    double damping_length, double domain_size_1, double domain_size_2)
     : m_integrate_xi(false)
     , m_damping_length(0.0)
     , m_use_damping_length(false)
@@ -44,18 +43,13 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Latti
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     double length_1, double length_2, double alpha_lattice, double xi, double damping_length)
     : m_integrate_xi(false)
-    , m_damping_length(damping_length)
-    , m_use_damping_length(true)
+    , m_damping_length(0.0)
+    , m_use_damping_length(false)
 {
     setName(BornAgain::InterferenceFunction2DParaCrystalType);
     setLattice(BasicLattice(length_1, length_2, alpha_lattice, xi));
-
-    m_domain_sizes[0] = 0.0;
-    m_domain_sizes[1] = 0.0;
-
-    if (m_damping_length == 0.0)
-        m_use_damping_length = false;
-
+    setDampingLength(damping_length);
+    setDomainSizes(0.0, 0.0);
     init_parameters();
 }
 
@@ -83,8 +77,7 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDis
 void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
 {
     m_damping_length = damping_length;
-    if (m_damping_length == 0.0)
-        m_use_damping_length = false;
+    m_use_damping_length = m_damping_length == 0.0 ? false : true;
 }
 
 double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
@@ -131,20 +124,27 @@ void InterferenceFunction2DParaCrystal::setLattice(const Lattice2D& lattice)
 {
     m_lattice.reset(lattice.clone());
     registerChild(m_lattice.get());
+    if (lattice.getName() == BornAgain::SquareLatticeType
+        || lattice.getName() == BornAgain::HexagonalLatticeType)
+        setIntegrationOverXi(true);
 }
 
-InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSquare(double peak_distance, double damping_length,
+InterferenceFunction2DParaCrystal*
+InterferenceFunction2DParaCrystal::createSquare(double peak_distance, double damping_length,
                                                 double domain_size_1, double domain_size_2)
 {
-    auto result = new InterferenceFunction2DParaCrystal(SquareLattice(peak_distance), damping_length, domain_size_1, domain_size_2);
+    auto result = new InterferenceFunction2DParaCrystal(
+        SquareLattice(peak_distance), damping_length, domain_size_1, domain_size_2);
     result->setIntegrationOverXi(true);
     return result;
 }
 
-InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexagonal(double peak_distance, double damping_length,
+InterferenceFunction2DParaCrystal*
+InterferenceFunction2DParaCrystal::createHexagonal(double peak_distance, double damping_length,
                                                    double domain_size_1, double domain_size_2)
 {
-    auto result = new InterferenceFunction2DParaCrystal(HexagonalLattice(peak_distance), damping_length, domain_size_1, domain_size_2);
+    auto result = new InterferenceFunction2DParaCrystal(
+        HexagonalLattice(peak_distance), damping_length, domain_size_1, domain_size_2);
     result->setIntegrationOverXi(true);
     return result;
 }

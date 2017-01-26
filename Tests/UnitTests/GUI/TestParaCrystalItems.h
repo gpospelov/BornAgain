@@ -1,63 +1,108 @@
 #include <QtTest>
 #include "InterferenceFunctionItems.h"
 #include "GroupProperty.h"
+#include "InterferenceFunction2DParaCrystal.h"
+#include "FTDistributions2D.h"
+#include "FTDistributionItems.h"
+#include "TransformFromDomain.h"
+#include "Lattice2D.h"
+#include "Lattice2DItems.h"
+#include "SampleModel.h"
+#include "Units.h"
 
 class TestParaCrystalItems : public QObject {
     Q_OBJECT
 
 private slots:
-    void test_Para1D_InitialState();
-    void test_Para1D_PDFGroupProperty();
 
+    void test_Para2D_fromToDomain();
+    void test_Inference2DRotationAngleToggle();
 };
 
-inline void TestParaCrystalItems::test_Para1D_InitialState()
+inline void TestParaCrystalItems::test_Para2D_fromToDomain()
 {
-    InterferenceFunctionRadialParaCrystalItem item;
-    QCOMPARE(item.modelType(), Constants::InterferenceFunctionRadialParaCrystalType);
-    QCOMPARE(item.itemName(), Constants::InterferenceFunctionRadialParaCrystalType);
-    QCOMPARE(item.getChildrenOfType(Constants::GroupItemType).size(), 1);
+    double length1(10.0), length2(20.0), angle(45.0), xi(90.0);
+    double damping_length(1000.0), domain_size1(50.0), domain_size2(100.0);
 
-    QCOMPARE(item.getItemValue(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE).toDouble(), 20.0*Units::nanometer);
-    QCOMPARE(item.getItemValue(InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH).toDouble(), 1000.0*Units::micrometer);
-    QCOMPARE(item.getItemValue(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE).toDouble(), 20.0*Units::micrometer);
-    QCOMPARE(item.getItemValue(InterferenceFunctionRadialParaCrystalItem::P_KAPPA).toDouble(), 0.0);
+    InterferenceFunction2DParaCrystal orig(length1, length2, angle * Units::deg, xi * Units::deg,
+                                           damping_length);
+    orig.setDomainSizes(domain_size1, domain_size2);
 
-    QCOMPARE(item.getGroupItem(InterferenceFunctionRadialParaCrystalItem::P_PDF)->modelType(), Constants::FTDistribution1DCauchyType);
+    double clength_x(1.0), clength_y(2.0), gamma(3.0);
+    orig.setProbabilityDistributions(
+        FTDistribution2DCauchy(clength_x, clength_y, gamma * Units::deg),
+        FTDistribution2DGauss(clength_x, clength_y, gamma * Units::deg));
+
+    // from domain
+    InterferenceFunction2DParaCrystalItem item;
+    TransformFromDomain::setItemFromSample(&item, &orig);
+
+    QCOMPARE(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH).toDouble(),
+             orig.getDampingLength());
+    QCOMPARE(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1).toDouble(),
+             orig.getDomainSizes()[0]);
+    QCOMPARE(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2).toDouble(),
+             orig.getDomainSizes()[1]);
+    QCOMPARE(orig.getIntegrationOverXi(), false);
+    QCOMPARE(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION).toBool(),
+             orig.getIntegrationOverXi());
+
+    SessionItem* latticeItem = item.getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
+    QCOMPARE(latticeItem->modelType(), Constants::BasicLatticeType);
+    QCOMPARE(latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_LENGTH1).toDouble(), length1);
+    QCOMPARE(latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_LENGTH2).toDouble(), length2);
+    QCOMPARE(latticeItem->getItemValue(BasicLatticeItem::P_LATTICE_ANGLE).toDouble(), angle);
+    QCOMPARE(latticeItem->getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble(), xi);
+
+    SessionItem* pdfItem1 = item.getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF1);
+    QCOMPARE(pdfItem1->modelType(), Constants::FTDistribution2DCauchyType);
+    QCOMPARE(pdfItem1->getItemValue(FTDistribution2DItem::P_COHER_LENGTH_X).toDouble(), clength_x);
+    QCOMPARE(pdfItem1->getItemValue(FTDistribution2DItem::P_COHER_LENGTH_Y).toDouble(), clength_y);
+    QCOMPARE(pdfItem1->getItemValue(FTDistribution2DItem::P_GAMMA).toDouble(), gamma);
+
+    SessionItem* pdfItem2 = item.getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF2);
+    QCOMPARE(pdfItem2->modelType(), Constants::FTDistribution2DGaussType);
+    QCOMPARE(pdfItem2->getItemValue(FTDistribution2DItem::P_COHER_LENGTH_X).toDouble(), clength_x);
+    QCOMPARE(pdfItem2->getItemValue(FTDistribution2DItem::P_COHER_LENGTH_Y).toDouble(), clength_y);
+    QCOMPARE(pdfItem2->getItemValue(FTDistribution2DItem::P_GAMMA).toDouble(), gamma);
+
+    // to domain
+    auto ifun = item.createInterferenceFunction();
+    std::unique_ptr<InterferenceFunction2DParaCrystal> domain(
+        dynamic_cast<InterferenceFunction2DParaCrystal*>(ifun->clone()));
+    QCOMPARE(domain->getIntegrationOverXi(), orig.getIntegrationOverXi());
+    QCOMPARE(domain->getDomainSizes(), orig.getDomainSizes());
+    QCOMPARE(domain->getDampingLength(), orig.getDampingLength());
+    QCOMPARE(domain->lattice().length1(), orig.lattice().length1());
+    QCOMPARE(domain->lattice().length2(), orig.lattice().length2());
+    QCOMPARE(domain->lattice().latticeAngle(), orig.lattice().latticeAngle());
+    QCOMPARE(domain->lattice().rotationAngle(), orig.lattice().rotationAngle());
 }
 
-inline void TestParaCrystalItems::test_Para1D_PDFGroupProperty()
+inline void TestParaCrystalItems::test_Inference2DRotationAngleToggle()
 {
-    InterferenceFunctionRadialParaCrystalItem item;
+    SampleModel model;
+    SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
+    SessionItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
+    SessionItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
 
-    // check that request for new subItem generates item of correct modelType and
-    // correct signals (one propertyItemChanged, and no propertyChanged)
-    QStringList pdfs;
-    pdfs << Constants::FTDistribution1DCauchyType
-         << Constants::FTDistribution1DGaussType
-         << Constants::FTDistribution1DGateType
-         << Constants::FTDistribution1DTriangleType
-         << Constants::FTDistribution1DCosineType
-         << Constants::FTDistribution1DVoigtType;
+    SessionItem *interference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType,
+                                                       layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
 
-    foreach(QString pdf_name, pdfs) {
-//        QSignalSpy spyItem(&item, SIGNAL(propertyChanged(QString)));
-//        QSignalSpy spyPropertyItem(&item, SIGNAL(subItemChanged(QString)));
-        SessionItem *pdfItem = item.setGroupProperty(InterferenceFunctionRadialParaCrystalItem::P_PDF, pdf_name);
-        QVERIFY(pdfItem);
-        QCOMPARE(item.getChildrenOfType(Constants::GroupItemType).size(), 1);
-        QCOMPARE(pdfItem, item.getGroupItem(InterferenceFunctionRadialParaCrystalItem::P_PDF));
+    // rotation (xi) should be disabled if integration is on
+    interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
 
-//        QCOMPARE(spyItem.count(), 0);
-        if(pdf_name == Constants::FTDistribution1DCauchyType) { // default ff
-//            QCOMPARE(spyPropertyItem.count(), 0);
-        } else {
-//            QCOMPARE(spyPropertyItem.count(), 1);
-//            QList<QVariant> arguments = spyPropertyItem.takeFirst(); // take the first signal
-//            QCOMPARE(arguments.at(0).toString(), InterferenceFunctionRadialParaCrystalItem::P_PDF);
-        }
+    SessionItem *angleItem = interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
+            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
 
-        QCOMPARE(pdfItem->modelType(), pdf_name);
-    }
+    QVERIFY(angleItem->isEnabled() == false);
+
+    // rotation (xi) should be enabled if integration is off
+    interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
+
+    angleItem = interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
+            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
+
+    QVERIFY(angleItem->isEnabled() == true);
+
 }
-

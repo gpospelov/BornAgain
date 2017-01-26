@@ -19,7 +19,6 @@ class TestMapperCases : public QObject {
 
 private slots:
     void test_ParticeleCompositionUpdate();
-    void test_Inference2DRotationAngleToggle();
     void test_instrumentAlignmentPropertyVisibility();
     void test_removeMaskOnDetectorChange();
     void test_SimulationOptionsComputationToggle();
@@ -44,34 +43,6 @@ inline void TestMapperCases::test_ParticeleCompositionUpdate()
     composition = distribution->takeRow(composition->parentRow());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     delete composition;
-
-}
-
-inline void TestMapperCases::test_Inference2DRotationAngleToggle()
-{
-    SampleModel model;
-    SessionItem *multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem *layer = model.insertNewItem(Constants::LayerType, multilayer->index());
-    SessionItem *layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
-
-    SessionItem *interference = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType,
-                                                       layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
-
-    // rotation (xi) should be disabled if integration is on
-    interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
-
-    SessionItem *angleItem = interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
-            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
-
-    QVERIFY(angleItem->isEnabled() == false);
-
-    // rotation (xi) should be enabled if integration is off
-    interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, false);
-
-    angleItem = interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
-            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
-
-    QVERIFY(angleItem->isEnabled() == true);
 
 }
 

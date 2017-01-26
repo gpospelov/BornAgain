@@ -23,17 +23,16 @@
 #include "InterferenceFunctionNone.h"
 #include "MultiLayer.h"
 #include "Layer.h"
-#include "LayerSpecularInfo.h"
+#include "ILayerSpecularInfo.h"
 #include "DecouplingApproximationStrategy.h"
 #include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer& decorated_layer, bool polarized,
-    const SimulationOptions& sim_params, size_t layout_index,
-    const LayerSpecularInfo* specular_info)
+    const Layer& decorated_layer, const ILayout* p_layout, bool polarized,
+    const SimulationOptions& sim_params, const ILayerSpecularInfo* specular_info)
     : m_sim_params {sim_params}
     , mP_specular_info {nullptr}
-    , m_layout_index {layout_index}
+    , mp_layout(p_layout)
     , m_polarized {polarized}
 {
     mP_layer.reset(decorated_layer.clone());
@@ -51,10 +50,10 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
     assert(mP_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
     std::unique_ptr<class IInterferenceFunction> P_interference_function{
-        mP_layer->getLayout(m_layout_index)->cloneInterferenceFunction()};
+        mp_layout->cloneInterferenceFunction()};
 
     IInterferenceFunctionStrategy* p_result = nullptr;
-    switch (mP_layer->getLayout(m_layout_index)->getApproximation())
+    switch (mp_layout->getApproximation())
     {
     case ILayout::DA:
         if (m_polarized)
@@ -91,12 +90,11 @@ SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectForm
 {
     assert(mP_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> result;
-    const ILayout* p_layout = mP_layer->getLayout(m_layout_index);
     const IMaterial* p_layer_material = mP_layer->getMaterial();
-    double layout_abundance = p_layout->getTotalAbundance();
+    double layout_abundance = mp_layout->getTotalAbundance();
     if (layout_abundance<=0.0) // TODO: why this can happen? why not throw error?
         layout_abundance = 1.0;
-    for (const IParticle* particle: p_layout->getParticles()) {
+    for (const IParticle* particle: mp_layout->getParticles()) {
         FormFactorCoherentSum* p_ff_coh;
         p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);

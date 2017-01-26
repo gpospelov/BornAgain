@@ -16,6 +16,7 @@
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "ILayout.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -40,6 +41,13 @@ void MultiLayer::init_parameters()
     getParameterPool()->clear(); // non-trivially needed
     registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength).
         setUnit("nm").setNonnegative();
+}
+
+const ILayout * MultiLayer::getLayout(size_t i) const
+{
+	if (i >= m_layouts.size())
+		return nullptr;
+	return m_layouts[i];
 }
 
 void MultiLayer::clear() // TODO: understand need
@@ -135,6 +143,13 @@ const LayerInterface* MultiLayer::getLayerTopInterface(size_t i_layer) const
 const LayerInterface* MultiLayer::getLayerBottomInterface(size_t i_layer) const
 {
     return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
+}
+
+void MultiLayer::addLayout(const ILayout & layout)
+{
+	ILayout *clone = layout.clone();
+	m_layouts.push_back(clone);
+	registerChild(clone);
 }
 
 //! Adds layer with top roughness

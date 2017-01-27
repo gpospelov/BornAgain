@@ -155,14 +155,14 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
         if(!m_currentItem)
             return nullptr;
 
-        RealLimits limits = m_currentItem->getLinkedItem()->limits();
+        RealLimits limits = m_currentItem->linkedItem()->limits();
 
         // initializing value box
         m_valueBox = new QDoubleSpinBox();
         m_valueBox->setKeyboardTracking(false);
         m_valueBox->setFixedWidth(80);
-        m_valueBox->setDecimals(m_currentItem->getLinkedItem()->decimals());
-        m_valueBox->setSingleStep(1./std::pow(10.,m_currentItem->getLinkedItem()->decimals()-1));
+        m_valueBox->setDecimals(m_currentItem->linkedItem()->decimals());
+        m_valueBox->setSingleStep(1./std::pow(10.,m_currentItem->linkedItem()->decimals()-1));
 
         if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.getLowerLimit());
@@ -279,8 +279,7 @@ void ParameterTuningDelegate::setModelData(QWidget *editor,
 void ParameterTuningDelegate::emitSignals(double value)
 {
     if(m_currentItem) {
-        m_currentItem->setValue(value);
-        m_currentItem->propagateValueLink();
+        m_currentItem->propagateValueToLink(value);
         emit currentLinkChanged(m_currentItem);
     }
 }

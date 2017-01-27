@@ -197,10 +197,9 @@ QString JobModel::generateJobName()
 
 void JobModel::restoreItem(SessionItem *item)
 {
-    if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item)) {
-        parameter->propagateValueLink(true);
-    }
-    for (auto child : item->childItems()) {
+    if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item))
+        parameter->restoreFromBackup();
+
+    for (auto child : item->childItems())
         restoreItem(child);
-    }
 }

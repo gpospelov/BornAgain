@@ -36,24 +36,31 @@ class ApplicationModels;
 class GUITranslationTest : public IFunctionalTest
 {
 public:
-    GUITranslationTest(const std::string &simName, const std::string &sampleName);
+    GUITranslationTest(const std::string& simName, const std::string& sampleName);
 
     ~GUITranslationTest();
     bool runTest();
 
 private:
-    struct name_pair {
-        std::string guiName;
-        std::string translatedName;
+    struct ParItem {
+        std::string sampleParLink; //!< Link to GUI sample parameter
+        std::string parPath; //!< Path of corresponding ParameterItem
+        std::string translatedName; //!< It's name translated to domain name
     };
 
     void processParameterTree();
+
+    std::string translationResultsToString() const;
+
+    bool isValidDomainName(const std::string& domainName) const;
+
     bool checkExistingTranslations();
     bool checkMissedTranslations();
+
     std::unique_ptr<GISASSimulation> m_simulation;
     std::unique_ptr<ApplicationModels> m_models;
     //!< Vector of GUI parameter names and their translations to domain parameter names.
-    std::vector<name_pair> m_translations;
+    std::vector<ParItem> m_translations;
     std::string m_simulationName, m_sampleName;
 };
 

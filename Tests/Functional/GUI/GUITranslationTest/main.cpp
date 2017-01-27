@@ -21,19 +21,18 @@ bool run_tests() {
 
     std::vector<std::pair<std::string, std::string>> conditions = {
         {"BasicGISAS", "CylindersAndPrismsBuilder"},
-        {"BasicGISAS", "RadialParaCrystalBuilder"},
-        {"BasicGISAS", "Lattice1DBuilder"},
+//        {"BasicGISAS", "RadialParaCrystalBuilder"},
+//        {"BasicGISAS", "Lattice1DBuilder"},
         //{"BasicGISAS", "Basic2DParaCrystalBuilder"},
-        {"BasicGISAS", "Basic2DLatticeBuilder"},
-        {"BasicGISAS", "SquareLatticeBuilder"},
+//        {"BasicGISAS", "Basic2DLatticeBuilder"},
+//        {"BasicGISAS", "SquareLatticeBuilder"},
     };
 
     bool success(true);
     for(auto pair: conditions)
         success &= GUITranslationTest(pair.first, pair.second).runTest();
 
-    if(!success)
-        std::cout << "Failure!" << std::endl;
+    std::cout << (success ? "Success" : "Failure") << std::endl;
 
     return success;
 }

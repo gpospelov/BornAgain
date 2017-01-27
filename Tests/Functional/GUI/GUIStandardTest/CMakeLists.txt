@@ -68,10 +68,10 @@ include_directories(
     ${BornAgainGUI_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../TestMachinery
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
 )
 
-add_executable(GUIStandardTest GUIStandardTest.cpp GUITest.cpp GUITest.h )
+add_executable(GUIStandardTest main.cpp GUIReferencedTest.cpp GUIReferencedTest.h )
 target_link_libraries(GUIStandardTest BornAgainCore BornAgainGUI BornAgainTestMachinery)
 qt5_use_modules(GUIStandardTest Widgets Core Gui Designer PrintSupport Network)
 foreach(test_case ${test_cases})

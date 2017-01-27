@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "IStandardTest.h"
-#include "GUITest.h"
+#include "GUIReferencedTest.h"
 
 //! Provides a GUITest through a callback mechanism explained in IStandardTest.h.
 class GUIStandardTest : public IStandardTest
@@ -23,7 +23,7 @@ class GUIStandardTest : public IStandardTest
 public:
     GUIStandardTest() : IStandardTest("GUIStandardTest") {}
     std::unique_ptr<IFunctionalTest> getTest() const { return std::unique_ptr<IFunctionalTest>
-            (new GUITest(getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
+            (new GUIReferencedTest(getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
 };
 
 //! Runs GUITest on a standard simulation indicated by argv[1].

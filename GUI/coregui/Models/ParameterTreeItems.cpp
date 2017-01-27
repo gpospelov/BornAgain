@@ -18,6 +18,7 @@
 #include "ModelPath.h"
 #include "SessionModel.h"
 #include "FitParameterHelper.h"
+#include "ScientificDoubleProperty.h"
 
 // ----------------------------------------------------------------------------
 
@@ -53,8 +54,16 @@ void ParameterItem::propagateValueLink(bool backup)
     if (backup)
         setValue(getItemValue(P_BACKUP));
     SessionItem *item = getLinkedItem();
-    if (item)
-        item->setValue(value());
+    if (item) {
+
+        if(item->value().typeName() == QString("ScientificDoubleProperty")) {
+            ScientificDoubleProperty intensity = item->value().value<ScientificDoubleProperty>();
+            intensity.setValue(value().toDouble());
+            item->setValue(intensity.getVariant());
+        } else {
+            item->setValue(value());
+        }
+    }
 }
 
 //! Returns corresponding linked item in MultiLayerItem/IsntrumentItem

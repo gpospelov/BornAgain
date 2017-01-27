@@ -22,6 +22,7 @@
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
 #include "SampleModel.h"
+#include "ScientificDoubleProperty.h"
 #include <QStack>
 
 void ParameterTreeBuilder::createParameterTree(JobItem *item, const QString &tag)
@@ -54,12 +55,19 @@ void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
 
     else if (tree->modelType() == Constants::ParameterType) {
         tree->setDisplayName(source->itemName());
-        tree->setValue(source->value());
+
+        double sourceValue = source->value().toDouble();
+        if(source->value().typeName() == QString("ScientificDoubleProperty")) {
+            ScientificDoubleProperty intensity = source->value().value<ScientificDoubleProperty>();
+            sourceValue=intensity.getValue();
+        }
+
+        tree->setValue(QVariant(sourceValue));
         QString path = ModelPath::getPathFromIndex(source->index());
         int firstSlash = path.indexOf('/');
         path = path.mid(firstSlash + 1);
-        tree->setItemValue(ParameterItem::P_LINK, path);
-        tree->setItemValue(ParameterItem::P_BACKUP, source->value());
+        tree->setItemValue(ParameterItem::P_LINK, path);        
+        tree->setItemValue(ParameterItem::P_BACKUP, sourceValue);
         return;
     }
 
@@ -75,6 +83,13 @@ void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
                         = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
                     handleItem(branch, child);
                 }
+                else if (child->value().typeName() == QString("ScientificDoubleProperty")) {
+                    SessionItem *branch
+                        = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
+                    handleItem(branch, child);
+
+                }
+
             } else if (child->modelType() == Constants::GroupItemType) {
                 SessionItem *currentItem
                     = dynamic_cast<GroupItem *>(child)->group()->getCurrentItem();

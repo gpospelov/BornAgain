@@ -17,6 +17,9 @@
 #ifndef SCIENTIFICDOUBLEPROPERTY_H
 #define SCIENTIFICDOUBLEPROPERTY_H
 
+#include "WinDllMacros.h"
+#include <QString>
+#include <QVariant>
 
 //! The ScientificDoubleProperty for SessionItem and PropertyEditor
 //!

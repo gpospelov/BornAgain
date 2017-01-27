@@ -68,8 +68,7 @@ InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
     result->setKappa(getItemValue(P_KAPPA).toDouble());
 
     auto pdfItem = dynamic_cast<FTDistribution1DItem*>(getGroupItem(P_PDF));
-    std::unique_ptr<IFTDistribution1D> P_pdf(pdfItem->createFTDistribution());
-    result->setProbabilityDistribution(*P_pdf);
+    result->setProbabilityDistribution(*pdfItem->createFTDistribution());
     return std::move(result);
 }
 

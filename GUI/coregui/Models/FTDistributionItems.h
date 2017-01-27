@@ -17,132 +17,110 @@
 #ifndef FTDISTRIBUTIONITEMS_H
 #define FTDISTRIBUTIONITEMS_H
 
-
 #include "SessionItem.h"
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
 
-
 class BA_CORE_API_ FTDistribution1DItem : public SessionItem
 {
-
 public:
     static const QString P_CORR_LENGTH;
-    explicit FTDistribution1DItem(const QString name)
-        : SessionItem(name){}
-    virtual IFTDistribution1D *createFTDistribution() const { return 0;}
+    explicit FTDistribution1DItem(const QString& name);
+    virtual std::unique_ptr<IFTDistribution1D> createFTDistribution() const=0;
     virtual ~FTDistribution1DItem(){}
 };
 
 class BA_CORE_API_ FTDistribution1DCauchyItem : public FTDistribution1DItem
 {
-
 public:
-    explicit FTDistribution1DCauchyItem();
-    virtual IFTDistribution1D *createFTDistribution() const;
+    FTDistribution1DCauchyItem();
+    std::unique_ptr<IFTDistribution1D> createFTDistribution() const;
 };
 
 class BA_CORE_API_ FTDistribution1DGaussItem : public FTDistribution1DItem
 {
-
 public:
-    explicit FTDistribution1DGaussItem();
-    virtual IFTDistribution1D *createFTDistribution() const;
+    FTDistribution1DGaussItem();
+    std::unique_ptr<IFTDistribution1D> createFTDistribution() const;
 };
 
 class BA_CORE_API_ FTDistribution1DGateItem : public FTDistribution1DItem
 {
-
 public:
-    explicit FTDistribution1DGateItem();
-    virtual IFTDistribution1D *createFTDistribution() const;
+    FTDistribution1DGateItem();
+    std::unique_ptr<IFTDistribution1D> createFTDistribution() const;
 };
 
 class BA_CORE_API_ FTDistribution1DTriangleItem : public FTDistribution1DItem
 {
-
 public:
-    explicit FTDistribution1DTriangleItem();
-    virtual IFTDistribution1D *createFTDistribution() const;
+    FTDistribution1DTriangleItem();
+    std::unique_ptr<IFTDistribution1D> createFTDistribution() const;
 };
 
 class BA_CORE_API_ FTDistribution1DCosineItem : public FTDistribution1DItem
 {
-
 public:
-    explicit FTDistribution1DCosineItem();
-    virtual IFTDistribution1D *createFTDistribution() const;
+    FTDistribution1DCosineItem();
+    std::unique_ptr<IFTDistribution1D> createFTDistribution() const;
 };
 
 class BA_CORE_API_ FTDistribution1DVoigtItem : public FTDistribution1DItem
 {
-
 public:
     static const QString P_ETA;
-    explicit FTDistribution1DVoigtItem();
-    virtual IFTDistribution1D *createFTDistribution() const;
+    FTDistribution1DVoigtItem();
+    std::unique_ptr<IFTDistribution1D> createFTDistribution() const;
 };
+
+// --------------------------------------------------------------------------------------------- //
 
 class BA_CORE_API_ FTDistribution2DItem : public SessionItem
 {
-
 public:
     static const QString P_COHER_LENGTH_X;
     static const QString P_COHER_LENGTH_Y;
     static const QString P_GAMMA;
-    explicit FTDistribution2DItem(const QString name)
-        : SessionItem(name) {
-        addProperty(P_GAMMA, 0.0);
-    }
-    virtual IFTDistribution2D *createFTDistribution() const { return 0;}
+    explicit FTDistribution2DItem(const QString& name);
+    virtual std::unique_ptr<IFTDistribution2D> createFTDistribution() const=0;
     virtual ~FTDistribution2DItem(){}
 };
 
-
 class BA_CORE_API_ FTDistribution2DCauchyItem : public FTDistribution2DItem
 {
-
 public:
-    explicit FTDistribution2DCauchyItem();
-    virtual IFTDistribution2D *createFTDistribution() const;
+    FTDistribution2DCauchyItem();
+    std::unique_ptr<IFTDistribution2D> createFTDistribution() const;
 };
-
 
 class BA_CORE_API_ FTDistribution2DGaussItem : public FTDistribution2DItem
 {
-
 public:
-    explicit FTDistribution2DGaussItem();
-    virtual IFTDistribution2D *createFTDistribution() const;
+    FTDistribution2DGaussItem();
+    std::unique_ptr<IFTDistribution2D> createFTDistribution() const;
 };
-
 
 class BA_CORE_API_ FTDistribution2DGateItem : public FTDistribution2DItem
 {
-
 public:
-    explicit FTDistribution2DGateItem();
-    virtual IFTDistribution2D *createFTDistribution() const;
+    FTDistribution2DGateItem();
+    std::unique_ptr<IFTDistribution2D> createFTDistribution() const;
 };
-
 
 class BA_CORE_API_ FTDistribution2DConeItem : public FTDistribution2DItem
 {
-
 public:
-    explicit FTDistribution2DConeItem();
-    virtual IFTDistribution2D *createFTDistribution() const;
+    FTDistribution2DConeItem();
+    std::unique_ptr<IFTDistribution2D> createFTDistribution() const;
 };
-
 
 class BA_CORE_API_ FTDistribution2DVoigtItem : public FTDistribution2DItem
 {
 
 public:
     static const QString P_ETA;
-    explicit FTDistribution2DVoigtItem();
-    virtual IFTDistribution2D *createFTDistribution() const;
+    FTDistribution2DVoigtItem();
+    std::unique_ptr<IFTDistribution2D> createFTDistribution() const;
 };
-
 
 #endif // FTDISTRIBUTIONITEMS_H

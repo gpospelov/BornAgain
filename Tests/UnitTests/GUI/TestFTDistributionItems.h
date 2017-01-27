@@ -17,9 +17,9 @@ inline void TestFTDistributionItems::test_FTDistribution1DCauchy()
     // to domain
     FTDistribution1DCauchyItem item;
     item.setItemValue(FTDistribution1DItem::P_CORR_LENGTH, 2.0);
-    FTDistribution1DCauchy *pdf = dynamic_cast<FTDistribution1DCauchy *>(item.createFTDistribution());
-    QVERIFY(pdf->getOmega() == 2.0);
-    delete pdf;
+    auto pdf = item.createFTDistribution();
+    const FTDistribution1DCauchy *cauchy = dynamic_cast<FTDistribution1DCauchy *>(pdf.get());
+    QVERIFY(cauchy->getOmega() == 2.0);
 
     // from domain
     FTDistribution1DCauchy pdf2(3.0);

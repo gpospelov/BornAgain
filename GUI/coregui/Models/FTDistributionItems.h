@@ -24,7 +24,7 @@
 class BA_CORE_API_ FTDistribution1DItem : public SessionItem
 {
 public:
-    static const QString P_CORR_LENGTH;
+    static const QString P_OMEGA;
     explicit FTDistribution1DItem(const QString& name);
     virtual std::unique_ptr<IFTDistribution1D> createFTDistribution() const=0;
     virtual ~FTDistribution1DItem(){}

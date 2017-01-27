@@ -19,7 +19,7 @@
 #include "BornAgainNamespace.h"
 #include "GUIHelpers.h"
 
-const QString FTDistribution1DItem::P_CORR_LENGTH = "Corr_length";
+const QString FTDistribution1DItem::P_OMEGA = QString::fromStdString(BornAgain::Omega);
 
 FTDistribution1DItem::FTDistribution1DItem(const QString& name)
     : SessionItem(name)
@@ -32,12 +32,12 @@ FTDistribution1DItem::FTDistribution1DItem(const QString& name)
 FTDistribution1DCauchyItem::FTDistribution1DCauchyItem()
     : FTDistribution1DItem(Constants::FTDistribution1DCauchyType)
 {
-    addProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_OMEGA, 1.0);
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DCauchyItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DCauchy>(getItemValue(P_CORR_LENGTH).toDouble());
+    return GUIHelpers::make_unique<FTDistribution1DCauchy>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -45,12 +45,12 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DCauchyItem::createFTDistribut
 FTDistribution1DGaussItem::FTDistribution1DGaussItem()
     : FTDistribution1DItem(Constants::FTDistribution1DGaussType)
 {
-    addProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_OMEGA, 1.0);
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DGaussItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DGauss>(getItemValue(P_CORR_LENGTH).toDouble());
+    return GUIHelpers::make_unique<FTDistribution1DGauss>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -58,12 +58,12 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DGaussItem::createFTDistributi
 FTDistribution1DGateItem::FTDistribution1DGateItem()
     : FTDistribution1DItem(Constants::FTDistribution1DGateType)
 {
-    addProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_OMEGA, 1.0);
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DGateItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DGate>(getItemValue(P_CORR_LENGTH).toDouble());
+    return GUIHelpers::make_unique<FTDistribution1DGate>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -71,13 +71,13 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DGateItem::createFTDistributio
 FTDistribution1DTriangleItem::FTDistribution1DTriangleItem()
     : FTDistribution1DItem(Constants::FTDistribution1DTriangleType)
 {
-    addProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_OMEGA, 1.0);
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DTriangleItem::createFTDistribution() const
 {
     return GUIHelpers::make_unique<FTDistribution1DTriangle>(
-                getItemValue(P_CORR_LENGTH).toDouble());
+                getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -85,28 +85,28 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DTriangleItem::createFTDistrib
 FTDistribution1DCosineItem::FTDistribution1DCosineItem()
     : FTDistribution1DItem(Constants::FTDistribution1DCosineType)
 {
-    addProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_OMEGA, 1.0);
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DCosineItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DCosine>(getItemValue(P_CORR_LENGTH).toDouble());
+    return GUIHelpers::make_unique<FTDistribution1DCosine>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDistribution1DVoigtItem::P_ETA = "Eta";
+const QString FTDistribution1DVoigtItem::P_ETA = QString::fromStdString(BornAgain::Eta);
 
 FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
     : FTDistribution1DItem(Constants::FTDistribution1DVoigtType)
 {
-    addProperty(P_CORR_LENGTH, 1.0);
+    addProperty(P_OMEGA, 1.0);
     addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DVoigt>(getItemValue(P_CORR_LENGTH).toDouble(),
+    return GUIHelpers::make_unique<FTDistribution1DVoigt>(getItemValue(P_OMEGA).toDouble(),
                                                           getItemValue(P_ETA).toDouble());
 }
 
@@ -196,7 +196,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DConeItem::createFTDistributio
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDistribution2DVoigtItem::P_ETA = "Eta";
+const QString FTDistribution2DVoigtItem::P_ETA = QString::fromStdString(BornAgain::Eta);
 
 FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
     : FTDistribution2DItem(Constants::FTDistribution2DVoigtType)

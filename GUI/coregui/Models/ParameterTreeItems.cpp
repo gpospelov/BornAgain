@@ -56,7 +56,7 @@ void ParameterItem::propagateValueLink(bool backup)
     SessionItem *item = getLinkedItem();
     if (item) {
 
-        if(item->value().typeName() == QString("ScientificDoubleProperty")) {
+        if(item->value().typeName() == Constants::ScientificDoublePropertyType) {
             ScientificDoubleProperty intensity = item->value().value<ScientificDoubleProperty>();
             intensity.setValue(value().toDouble());
             item->setValue(intensity.getVariant());

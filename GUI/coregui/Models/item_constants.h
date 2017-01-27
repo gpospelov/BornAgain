@@ -185,6 +185,7 @@ const ModelType ResolutionFunctionGroup = "Resolution function group";
 const ModelType MinimizerLibraryGroup = "Minimizer library group";
 
 // --- Units&Constants----------------------------------------------------------
+
 const ModelType UnitsNbins = "nbins";
 const ModelType UnitsRadians = "Radians";
 const ModelType UnitsDegrees = "Degrees";
@@ -230,6 +231,15 @@ const ModelType FITPAR_LIMITED = "limited";
 const ModelType FITPAR_LOWERLIMITED = "lower limited";
 const ModelType FITPAR_UPPERLIMITED = "upper limited";
 const ModelType FITPAR_FREE = "free";
+
+// --- Custom variants ----------------------------------------------------------
+
+const ModelType ScientificDoublePropertyType = "ScientificDoubleProperty";
+const ModelType MaterialPropertyType = "MaterialProperty";
+const ModelType ComboPropertyType = "ComboProperty";
+const ModelType ColorPropertyType = "ColorProperty";
+const ModelType GroupPropertyType = "GroupProperty_t";
+const ModelType AnglePropertyType = "AngleProperty";
 
 }
 

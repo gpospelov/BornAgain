@@ -57,7 +57,7 @@ void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
         tree->setDisplayName(source->itemName());
 
         double sourceValue = source->value().toDouble();
-        if(source->value().typeName() == QString("ScientificDoubleProperty")) {
+        if(source->value().typeName() == Constants::ScientificDoublePropertyType) {
             ScientificDoubleProperty intensity = source->value().value<ScientificDoubleProperty>();
             sourceValue=intensity.getValue();
         }
@@ -83,7 +83,7 @@ void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
                         = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
                     handleItem(branch, child);
                 }
-                else if (child->value().typeName() == QString("ScientificDoubleProperty")) {
+                else if (child->value().typeName() == Constants::ScientificDoublePropertyType) {
                     SessionItem *branch
                         = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
                     handleItem(branch, child);

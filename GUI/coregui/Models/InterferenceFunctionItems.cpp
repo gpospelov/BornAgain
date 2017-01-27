@@ -170,8 +170,7 @@ InterferenceFunction1DLatticeItem::createInterferenceFunction() const
         Units::deg2rad(getItemValue(P_ROTATION_ANGLE).toDouble()));
     auto pdfItem = dynamic_cast<FTDecayFunction1DItem*>(
         getGroupItem(InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION));
-    std::unique_ptr<IFTDecayFunction1D> P_pdf(pdfItem->createFTDecayFunction());
-    result->setDecayFunction(*P_pdf);
+    result->setDecayFunction(*pdfItem->createFTDecayFunction());
     return std::move(result);
 }
 

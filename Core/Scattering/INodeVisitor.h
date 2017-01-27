@@ -138,6 +138,13 @@ class BasicLattice;
 class SquareLattice;
 class HexagonalLattice;
 
+class FTDistribution1DCauchy;
+class FTDistribution1DGauss;
+class FTDistribution1DGate;
+class FTDistribution1DTriangle;
+class FTDistribution1DCosine;
+class FTDistribution1DVoigt;
+
 //! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
 
@@ -268,6 +275,13 @@ public:
     virtual void visit(const BasicLattice*) {}
     virtual void visit(const SquareLattice*) {}
     virtual void visit(const HexagonalLattice*) {}
+
+    virtual void visit(const FTDistribution1DCauchy*) {}
+    virtual void visit(const FTDistribution1DGauss*) {}
+    virtual void visit(const FTDistribution1DGate*) {}
+    virtual void visit(const FTDistribution1DTriangle*) {}
+    virtual void visit(const FTDistribution1DCosine*) {}
+    virtual void visit(const FTDistribution1DVoigt*) {}
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

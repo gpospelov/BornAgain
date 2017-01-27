@@ -7351,6 +7351,12 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, BasicLattice arg2)
         visit(INodeVisitor self, SquareLattice arg2)
         visit(INodeVisitor self, HexagonalLattice arg2)
+        visit(INodeVisitor self, FTDistribution1DCauchy arg2)
+        visit(INodeVisitor self, FTDistribution1DGauss arg2)
+        visit(INodeVisitor self, FTDistribution1DGate arg2)
+        visit(INodeVisitor self, FTDistribution1DTriangle arg2)
+        visit(INodeVisitor self, FTDistribution1DCosine arg2)
+        visit(INodeVisitor self, FTDistribution1DVoigt arg2)
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
 
@@ -9268,7 +9274,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
 FTDecayFunction2DVoigt_swigregister = _libBornAgainCore.FTDecayFunction2DVoigt_swigregister
 FTDecayFunction2DVoigt_swigregister(FTDecayFunction2DVoigt)
 
-class IFTDistribution1D(IParameterized):
+class IFTDistribution1D(ICloneable, INode):
     """
 
 
@@ -9279,11 +9285,11 @@ class IFTDistribution1D(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IFTDistribution1D, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IFTDistribution1D, name)
 
@@ -9380,6 +9386,16 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         return _libBornAgainCore.FTDistribution1DCauchy_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(FTDistribution1DCauchy self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDistribution1DCauchy_accept(self, visitor)
+
+
     def evaluate(self, q):
         """
         evaluate(FTDistribution1DCauchy self, double q) -> double
@@ -9439,6 +9455,16 @@ class FTDistribution1DGauss(IFTDistribution1D):
         return _libBornAgainCore.FTDistribution1DGauss_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(FTDistribution1DGauss self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDistribution1DGauss_accept(self, visitor)
+
+
     def evaluate(self, q):
         """
         evaluate(FTDistribution1DGauss self, double q) -> double
@@ -9496,6 +9522,16 @@ class FTDistribution1DGate(IFTDistribution1D):
 
         """
         return _libBornAgainCore.FTDistribution1DGate_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FTDistribution1DGate self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDistribution1DGate_accept(self, visitor)
 
 
     def evaluate(self, q):
@@ -9559,6 +9595,16 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         return _libBornAgainCore.FTDistribution1DTriangle_clone(self)
 
 
+    def accept(self, visitor):
+        """
+        accept(FTDistribution1DTriangle self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDistribution1DTriangle_accept(self, visitor)
+
+
     def evaluate(self, q):
         """
         evaluate(FTDistribution1DTriangle self, double q) -> double
@@ -9614,6 +9660,16 @@ class FTDistribution1DCosine(IFTDistribution1D):
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FTDistribution1DCosine self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDistribution1DCosine_accept(self, visitor)
 
 
     def evaluate(self, q):
@@ -9673,6 +9729,16 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FTDistribution1DVoigt self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.FTDistribution1DVoigt_accept(self, visitor)
 
 
     def evaluate(self, q):
@@ -19541,6 +19607,18 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDampingLength(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getChildren(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
     __del__ = lambda self: None

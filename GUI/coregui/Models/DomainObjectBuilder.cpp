@@ -23,6 +23,7 @@
 #include "MultiLayer.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleLayoutItem.h"
+#include "InterferenceFunctionItems.h"
 #include "TransformToDomain.h"
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
@@ -118,9 +119,9 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
 std::unique_ptr<IInterferenceFunction>
 DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item) const
 {
-    auto P_iff = TransformToDomain::createInterferenceFunction(item);
-    Q_ASSERT(P_iff);
-    return P_iff;
+    auto iffItem = dynamic_cast<const InterferenceFunctionItem*>(&item);
+    Q_ASSERT(iffItem);
+    return iffItem->createInterferenceFunction();
 }
 
 std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(

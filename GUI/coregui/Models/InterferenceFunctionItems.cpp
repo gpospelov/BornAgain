@@ -26,6 +26,8 @@
 #include "FTDistributions2D.h"
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
+#include "InterferenceFunction1DLattice.h"
 
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
@@ -60,8 +62,15 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
 {
-    throw GUIHelpers::Error("RadialParaCrystalItem::createInterferenceFunction() -> Error. "
-                            "Not implemented.");
+    auto result = GUIHelpers::make_unique<InterferenceFunctionRadialParaCrystal>(
+        getItemValue(P_PEAK_DISTANCE).toDouble(), getItemValue(P_DAMPING_LENGTH).toDouble());
+    result->setDomainSize(getItemValue(P_DOMAIN_SIZE).toDouble());
+    result->setKappa(getItemValue(P_KAPPA).toDouble());
+
+    auto pdfItem = dynamic_cast<FTDistribution1DItem*>(getGroupItem(P_PDF));
+    std::unique_ptr<IFTDistribution1D> P_pdf(pdfItem->createFTDistribution());
+    result->setProbabilityDistribution(*P_pdf);
+    return std::move(result);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -80,30 +89,27 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction2DParaCrystalType)
 {
     addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::LatticeGroup);
-    getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE)->setEnabled(false);
+    getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
+        ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE)->setEnabled(false);
     addProperty(P_XI_INTEGRATION, true);
 
     addProperty(P_DAMPING_LENGTH, 0.0);
-    addProperty(P_DOMAIN_SIZE1, 20.0*Units::micrometer);
-    addProperty(P_DOMAIN_SIZE2, 20.0*Units::micrometer);
+    addProperty(P_DOMAIN_SIZE1, 20.0 * Units::micrometer);
+    addProperty(P_DOMAIN_SIZE2, 20.0 * Units::micrometer);
     addGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
     addGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
 
-    mapper()->setOnPropertyChange(
-        [this](const QString &name) {
-            if(name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
-                update_rotation_availability();
-            }
-    });
-
-    mapper()->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString &)
-    {
-        if(item->modelType() == Constants::GroupItemType) {
+    mapper()->setOnPropertyChange([this](const QString& name) {
+        if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
             update_rotation_availability();
         }
     });
 
+    mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString&) {
+        if (item->modelType() == Constants::GroupItemType) {
+            update_rotation_availability();
+        }
+    });
 }
 
 std::unique_ptr<IInterferenceFunction>
@@ -151,7 +157,7 @@ const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = "Decay Funct
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction1DLatticeType)
 {
-    addProperty(P_LENGTH, 20.0*Units::nanometer);
+    addProperty(P_LENGTH, 20.0 * Units::nanometer);
     addProperty(P_ROTATION_ANGLE, 0.0);
     addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction1DGroup);
 }
@@ -159,8 +165,14 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunction1DLatticeItem::createInterferenceFunction() const
 {
-    throw GUIHelpers::Error("1DLatticeItem::createInterferenceFunction() -> Error. "
-                            "Not implemented.");
+    auto result = GUIHelpers::make_unique<InterferenceFunction1DLattice>(
+        getItemValue(P_LENGTH).toDouble(),
+        Units::deg2rad(getItemValue(P_ROTATION_ANGLE).toDouble()));
+    auto pdfItem = dynamic_cast<FTDecayFunction1DItem*>(
+        getGroupItem(InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION));
+    std::unique_ptr<IFTDecayFunction1D> P_pdf(pdfItem->createFTDecayFunction());
+    result->setDecayFunction(*P_pdf);
+    return std::move(result);
 }
 
 // --------------------------------------------------------------------------------------------- //

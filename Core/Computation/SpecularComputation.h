@@ -18,7 +18,6 @@
 
 #include "INoncopyable.h"
 #include <vector>
-#include <memory>
 
 class MultiLayer;
 class ILayerSpecularInfo;
@@ -39,10 +38,10 @@ public:
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it);
-    void setSpecularInfo(const ILayerSpecularInfo& specular_info);
+    void setSpecularInfo(const ILayerSpecularInfo* p_specular_info);
 
 private:
-    std::unique_ptr<ILayerSpecularInfo> mP_specular_info;
+    const ILayerSpecularInfo* mp_specular_info;
 };
 
 

@@ -40,7 +40,7 @@ public:
               const std::vector<SimulationElement>::iterator& end_it);
 
     //! Sets magnetic reflection/transmission info for specific layer
-    void setSpecularInfo(size_t i_layer, const ILayerSpecularInfo& specular_info);
+    void setSpecularInfo(size_t i_layer, const ILayerSpecularInfo* p_specular_info);
 
     // evaluate
     double evaluate(const SimulationElement& sim_element);
@@ -50,7 +50,7 @@ private:
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);
 
     const MultiLayer* mp_multi_layer;
-    std::vector<ILayerSpecularInfo*> mp_specular_info_vector;
+    std::vector<const ILayerSpecularInfo*> mp_specular_info_vector;
 };
 
 #endif // ROUGHMULTILAYERCOMPUTATION_H

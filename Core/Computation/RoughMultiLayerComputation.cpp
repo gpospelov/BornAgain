@@ -42,13 +42,11 @@ namespace {
 RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
     : mp_multi_layer(p_multi_layer)
 {
-    mp_specular_info_vector.resize(p_multi_layer->getNumberOfLayers(), 0);
+    mp_specular_info_vector.resize(p_multi_layer->getNumberOfLayers(), nullptr);
 }
 
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
 {
-    for(size_t i=0; i<mp_specular_info_vector.size(); ++i)
-        delete mp_specular_info_vector[i];
 }
 
 //! Calls evaluate on range of simulation elements; returns true if computation shall continue
@@ -165,8 +163,7 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
 }
 
 void RoughMultiLayerComputation::setSpecularInfo(size_t i_layer,
-        const ILayerSpecularInfo& specular_info)
+        const ILayerSpecularInfo* p_specular_info)
 {
-    delete mp_specular_info_vector[i_layer];
-    mp_specular_info_vector[i_layer] = specular_info.clone();
+    mp_specular_info_vector[i_layer] = p_specular_info;
 }

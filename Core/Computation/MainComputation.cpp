@@ -134,10 +134,10 @@ void MainComputation::collectRTCoefficientsScalar()
 
         // layer roughness DWBA
         if (mp_roughness_computation)
-            mp_roughness_computation->setSpecularInfo(i, *m_fresnel_info.back());
+            mp_roughness_computation->setSpecularInfo(i, m_fresnel_info.back());
 
         if (i==0)
-            mp_specular_computation->setSpecularInfo(*m_fresnel_info.back());
+            mp_specular_computation->setSpecularInfo(m_fresnel_info.back());
     }
 }
 

@@ -18,6 +18,7 @@
 
 #include "Complex.h"
 #include "DelayedProgressCounter.h"
+#include "SafePointerVector.h"
 #include <vector>
 
 class ILayerSpecularInfo;
@@ -39,8 +40,8 @@ public:
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it);
 
-    //! Sets magnetic reflection/transmission info for specific layer
-    void setSpecularInfo(size_t i_layer, const ILayerSpecularInfo* p_specular_info);
+    //! Sets magnetic reflection/transmission info for all layers
+    void setSpecularInfo(const SafePointerVector<ILayerSpecularInfo>* p_specular_info);
 
     // evaluate
     double evaluate(const SimulationElement& sim_element);
@@ -50,7 +51,7 @@ private:
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);
 
     const MultiLayer* mp_multi_layer;
-    std::vector<const ILayerSpecularInfo*> mp_specular_info_vector;
+    const SafePointerVector<ILayerSpecularInfo>* mp_specular_info_map;
 };
 
 #endif // ROUGHMULTILAYERCOMPUTATION_H

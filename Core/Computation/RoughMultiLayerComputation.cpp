@@ -41,8 +41,8 @@ namespace {
 
 RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
     : mp_multi_layer(p_multi_layer)
+    , mp_specular_info_map(nullptr)
 {
-    mp_specular_info_vector.resize(p_multi_layer->getNumberOfLayers());
 }
 
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
@@ -114,14 +114,14 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
     size_t ilayer, const SimulationElement& sim_element)
 {
     const std::unique_ptr<const ILayerRTCoefficients> P_in_plus(
-        mp_specular_info_vector[ilayer]->getInCoefficients(sim_element));
+        (*mp_specular_info_map)[ilayer]->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_plus(
-        mp_specular_info_vector[ilayer]->getOutCoefficients(sim_element));
+        (*mp_specular_info_map)[ilayer]->getOutCoefficients(sim_element));
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_minus(
-        mp_specular_info_vector[ilayer + 1]->getInCoefficients(sim_element));
+        (*mp_specular_info_map)[ilayer + 1]->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_minus(
-        mp_specular_info_vector[ilayer + 1]->getOutCoefficients(sim_element));
+        (*mp_specular_info_map)[ilayer + 1]->getOutCoefficients(sim_element));
 
     complex_t kiz_plus = P_in_plus->getScalarKz();
     complex_t kfz_plus = P_out_plus->getScalarKz();
@@ -162,8 +162,8 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
     return term1 + term2 + term3 + term4 + term5 + term6 + term7 + term8;
 }
 
-void RoughMultiLayerComputation::setSpecularInfo(size_t i_layer,
-        const ILayerSpecularInfo* p_specular_info)
+void RoughMultiLayerComputation::setSpecularInfo(
+        const SafePointerVector<ILayerSpecularInfo>* p_specular_info)
 {
-    mp_specular_info_vector[i_layer] = p_specular_info;
+    mp_specular_info_map = p_specular_info;
 }

@@ -132,13 +132,12 @@ void MainComputation::collectRTCoefficientsScalar()
         for(ParticleLayoutComputation* comp: m_layer_computation[i])
             comp->setSpecularInfo(m_fresnel_info.back());
 
-        // layer roughness DWBA
-        if (mp_roughness_computation)
-            mp_roughness_computation->setSpecularInfo(i, m_fresnel_info.back());
-
         if (i==0)
             mp_specular_computation->setSpecularInfo(m_fresnel_info.back());
     }
+    // layer roughness DWBA
+    if (mp_roughness_computation)
+        mp_roughness_computation->setSpecularInfo(&m_fresnel_info);
 }
 
 void MainComputation::collectRTCoefficientsMatrix()

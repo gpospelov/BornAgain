@@ -57,7 +57,8 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
             p_result = new DecouplingApproximationStrategy1(m_sim_params);
         break;
     case ILayout::SSCA:
-        double kappa = mp_layout->getInterferenceFunction()->getKappa();
+        double kappa = mp_layout ? mp_layout->getInterferenceFunction()->getKappa()
+                                 : 0.0;
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "

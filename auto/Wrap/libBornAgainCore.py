@@ -20998,16 +20998,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_hasComputation(self)
 
 
-    def getTotalParticleSurfaceDensity(self, layout_index):
-        """
-        getTotalParticleSurfaceDensity(Layer self, size_t layout_index) -> double
-
-        double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const 
-
-        """
-        return _libBornAgainCore.Layer_getTotalParticleSurfaceDensity(self, layout_index)
-
-
     def setNumberOfLayers(self, n_layers):
         """
         setNumberOfLayers(Layer self, size_t n_layers)

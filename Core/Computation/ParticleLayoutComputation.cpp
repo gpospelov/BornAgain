@@ -18,17 +18,19 @@
 #include "IInterferenceFunctionStrategy.h"
 #include "Layer.h"
 #include "ILayerSpecularInfo.h"
+#include "ILayout.h"
 #include "LayerStrategyBuilder.h"
 #include "Logger.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
-ParticleLayoutComputation::ParticleLayoutComputation(const Layer* p_layer, size_t layout_index)
+ParticleLayoutComputation::ParticleLayoutComputation(const Layer* p_layer, const ILayout* p_layout)
     : mp_layer(p_layer)
+    , mp_layout(p_layout)
     , mp_specular_info(nullptr)
-    , m_layout_index(layout_index)
-{}
+{
+}
 
 void ParticleLayoutComputation::setSpecularInfo(const ILayerSpecularInfo* p_specular_info)
 {
@@ -44,9 +46,9 @@ void ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(mp_layer, mp_layer->getLayout(m_layout_index), mp_specular_info,
+        LayerStrategyBuilder(mp_layer, mp_layout, mp_specular_info,
                              polarized, options).createStrategy() };
-    double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
+    double total_surface_density = mp_layout->getTotalParticleSurfaceDensity();
 
     DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {

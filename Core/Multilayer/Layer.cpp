@@ -81,9 +81,9 @@ complex_t Layer::getRefractiveIndex2() const
 
 void Layer::addLayout(const ILayout& layout)
 {
-	ILayout* clone = layout.clone();
-	m_layouts.push_back(clone);
-	registerChild(clone);
+    ILayout* clone = layout.clone();
+    m_layouts.push_back(clone);
+    registerChild(clone);
 }
 
 const ILayout* Layer::getLayout(size_t i) const
@@ -91,13 +91,6 @@ const ILayout* Layer::getLayout(size_t i) const
     if (i>=m_layouts.size())
         return nullptr;
     return m_layouts[i];
-}
-
-double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
-{
-    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts())
-        return 0.0;
-    return getLayout(layout_index)->getTotalParticleSurfaceDensity();
 }
 
 std::vector<const INode*> Layer::getChildren() const

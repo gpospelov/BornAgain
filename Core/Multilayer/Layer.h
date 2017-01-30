@@ -54,8 +54,6 @@ public:
     //! Returns true if decoration is present
     bool hasComputation() const { return m_layouts.size()>0; }
 
-    double getTotalParticleSurfaceDensity(size_t layout_index) const;
-
     void setNumberOfLayers(size_t n_layers) { mn_layers = n_layers; }
     size_t getNumberOfLayers() const { return mn_layers; }
 

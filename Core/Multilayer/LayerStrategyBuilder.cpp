@@ -62,7 +62,6 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
             p_result = new DecouplingApproximationStrategy1(m_sim_params);
         break;
     case ILayout::SSCA:
-    {
         double kappa = P_interference_function->getKappa();
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
@@ -73,10 +72,6 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
         else
             p_result = new SSCApproximationStrategy1(m_sim_params, kappa);
         break;
-    }
-    default:
-        throw Exceptions::ClassInitializationException(
-            "Unknown interference function approximation");
     }
     if (!p_result)
         throw Exceptions::ClassInitializationException(

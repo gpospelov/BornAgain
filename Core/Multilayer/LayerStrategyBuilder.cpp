@@ -28,15 +28,16 @@
 #include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer* p_layer, const ILayout* p_layout, const ILayerSpecularInfo* p_specular_info,
-    bool polarized, const SimulationOptions& sim_params)
-    : mp_layer(p_layer)
+    const MultiLayer* p_multilayer, const ILayout* p_layout,
+    const ILayerSpecularInfo* p_specular_info, bool polarized,
+    const SimulationOptions& sim_params, size_t layer_index)
+    : mp_multilayer(p_multilayer)
     , mp_layout(p_layout)
     , mp_specular_info (p_specular_info)
     , m_polarized {polarized}
     , m_sim_params (sim_params)
-{
-}
+    , m_layer_index(layer_index)
+{}
 
 LayerStrategyBuilder::~LayerStrategyBuilder()
 {} // needs class definitions => don't move to .h
@@ -44,7 +45,6 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 {
-    assert(mp_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
 
     IInterferenceFunctionStrategy* p_result = nullptr;
@@ -79,9 +79,8 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
 SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectFormFactorList() const
 {
-    assert(mp_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> result;
-    const IMaterial* p_layer_material = mp_layer->getMaterial();
+    const IMaterial* p_layer_material = mp_multilayer->getLayer(m_layer_index)->getMaterial();
     double layout_abundance = mp_layout->getTotalAbundance();
     if (layout_abundance<=0.0) // TODO: why this can happen? why not throw error?
         layout_abundance = 1.0;
@@ -104,7 +103,7 @@ FormFactorCoherentSum* LayerStrategyBuilder::createFormFactorCoherentSum(
 
     const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
     std::unique_ptr<IFormFactor> P_ff_framework;
-    if (mp_layer->getNumberOfLayers()>1) {
+    if (mp_multilayer->getNumberOfLayers()>1) {
         if (m_polarized)
             P_ff_framework.reset(new FormFactorDWBAPol(*P_ff_particle));
         else

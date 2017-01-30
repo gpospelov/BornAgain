@@ -20988,26 +20988,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_hasComputation(self)
 
 
-    def setNumberOfLayers(self, n_layers):
-        """
-        setNumberOfLayers(Layer self, size_t n_layers)
-
-        void Layer::setNumberOfLayers(size_t n_layers)
-
-        """
-        return _libBornAgainCore.Layer_setNumberOfLayers(self, n_layers)
-
-
-    def getNumberOfLayers(self):
-        """
-        getNumberOfLayers(Layer self) -> size_t
-
-        size_t Layer::getNumberOfLayers() const 
-
-        """
-        return _libBornAgainCore.Layer_getNumberOfLayers(self)
-
-
     def getChildren(self):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector

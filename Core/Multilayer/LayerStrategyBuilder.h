@@ -25,7 +25,6 @@ class IInterferenceFunctionStrategy;
 class ILayout;
 class IMaterial;
 class IParticle;
-class Layer;
 class ILayerSpecularInfo;
 class MultiLayer;
 
@@ -36,8 +35,9 @@ class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
-        const Layer* p_layer, const ILayout* p_layout, const ILayerSpecularInfo* p_specular_info,
-        bool polarized, const SimulationOptions& sim_params);
+        const MultiLayer* p_multilayer, const ILayout* p_layout,
+        const ILayerSpecularInfo* p_specular_info, bool polarized,
+        const SimulationOptions& sim_params, size_t layer_index);
 
     ~LayerStrategyBuilder();
 
@@ -48,11 +48,12 @@ private:
     FormFactorCoherentSum* createFormFactorCoherentSum(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
-    const Layer* mp_layer;                     //!< decorated layer
+    const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;                   //!< layout
     const ILayerSpecularInfo* mp_specular_info; //!< R and T coefficients for DWBA
     bool m_polarized;                           //!< polarized computation required?
     SimulationOptions m_sim_params;                            //!< simulation parameters
+    size_t m_layer_index;
 };
 
 #endif // LAYERSTRATEGYBUILDER_H

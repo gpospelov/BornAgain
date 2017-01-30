@@ -16,7 +16,6 @@
 #include "ParticleLayoutComputation.h"
 #include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
-#include "Layer.h"
 #include "ILayerSpecularInfo.h"
 #include "ILayout.h"
 #include "LayerStrategyBuilder.h"
@@ -27,9 +26,10 @@
 
 ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
                                                      const ILayout* p_layout, size_t layer_index)
-    : mp_layer(p_multilayer->getLayer(layer_index))
+    : mp_multilayer(p_multilayer)
     , mp_layout(p_layout)
     , mp_specular_info(nullptr)
+    , m_layer_index(layer_index)
 {}
 
 void ParticleLayoutComputation::setSpecularInfo(const ILayerSpecularInfo* p_specular_info)
@@ -46,8 +46,8 @@ void ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(mp_layer, mp_layout, mp_specular_info,
-                             polarized, options).createStrategy() };
+        LayerStrategyBuilder(mp_multilayer, mp_layout, mp_specular_info,
+                             polarized, options, m_layer_index).createStrategy() };
     double total_surface_density = mp_layout->getTotalParticleSurfaceDensity();
 
     DelayedProgressCounter counter(100);
@@ -55,7 +55,7 @@ void ParticleLayoutComputation::eval(
         if (!progress->alive())
             return;
         double alpha_f = it->getAlphaMean();
-        size_t n_layers = mp_layer->getNumberOfLayers();
+        size_t n_layers = mp_multilayer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0)  // skip transmission for multilayers (n>1)
             continue;
         it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);

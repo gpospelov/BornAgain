@@ -36,7 +36,6 @@ Layer::Layer(const Layer& other)
         mp_material = other.mp_material->clone();
     for (size_t i=0; i<other.getNumberOfLayouts();++i)
         addLayout(*other.getLayout(i));
-    setNumberOfLayers(other.getNumberOfLayers());
     initialize();
 }
 
@@ -48,7 +47,6 @@ Layer::~Layer()
 Layer* Layer::cloneInvertB() const
 {
     Layer* p_clone = new Layer(*mp_material->cloneInverted(), m_thickness);
-    p_clone->setNumberOfLayers(getNumberOfLayers());
     p_clone->init_parameters();
     return p_clone;
 }

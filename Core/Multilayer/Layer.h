@@ -54,9 +54,6 @@ public:
     //! Returns true if decoration is present
     bool hasComputation() const { return m_layouts.size()>0; }
 
-    void setNumberOfLayers(size_t n_layers) { mn_layers = n_layers; }
-    size_t getNumberOfLayers() const { return mn_layers; }
-
     std::vector<const INode*> getChildren() const;
 
 private:

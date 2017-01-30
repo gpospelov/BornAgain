@@ -22,7 +22,6 @@
 
 using std::size_t;
 
-class Layer;
 class ILayerSpecularInfo;
 class ILayout;
 class MultiLayer;
@@ -49,9 +48,10 @@ public:
               const std::vector<SimulationElement>::iterator& end_it) const;
 
 private:
-    const Layer* mp_layer;
+    const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;
     const ILayerSpecularInfo* mp_specular_info;
+    size_t m_layer_index;
 };
 
 #endif // PARTICLELAYOUTCOMPUTATION_H

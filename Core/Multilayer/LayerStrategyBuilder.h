@@ -36,8 +36,8 @@ class BA_CORE_API_ LayerStrategyBuilder
 {
 public:
     LayerStrategyBuilder(
-        const Layer& decorated_layer, const ILayout* p_layout, bool polarized,
-        const SimulationOptions& sim_params, const ILayerSpecularInfo* specular_info);
+        const Layer* p_layer, const ILayout* p_layout, const ILayerSpecularInfo* p_specular_info,
+        bool polarized, const SimulationOptions& sim_params);
 
     ~LayerStrategyBuilder();
 
@@ -48,12 +48,11 @@ private:
     FormFactorCoherentSum* createFormFactorCoherentSum(
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
-    std::unique_ptr<class Layer> mP_layer;                     //!< decorated layer
-    std::unique_ptr<class MultiLayer> mP_sample;               //!< sample
-    SimulationOptions m_sim_params;                            //!< simulation parameters
-    std::unique_ptr<class ILayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    const Layer* mp_layer;                     //!< decorated layer
     const ILayout* mp_layout;                   //!< layout
+    const ILayerSpecularInfo* mp_specular_info; //!< R and T coefficients for DWBA
     bool m_polarized;                           //!< polarized computation required?
+    SimulationOptions m_sim_params;                            //!< simulation parameters
 };
 
 #endif // LAYERSTRATEGYBUILDER_H

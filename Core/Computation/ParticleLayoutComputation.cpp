@@ -25,13 +25,14 @@
 #include "SimulationElement.h"
 
 ParticleLayoutComputation::ParticleLayoutComputation(const Layer* p_layer, size_t layout_index)
-    : mp_layer(p_layer), m_layout_index(layout_index)
+    : mp_layer(p_layer)
+    , mp_specular_info(nullptr)
+    , m_layout_index(layout_index)
 {}
 
-void ParticleLayoutComputation::setSpecularInfo(const ILayerSpecularInfo& specular_info)
+void ParticleLayoutComputation::setSpecularInfo(const ILayerSpecularInfo* p_specular_info)
 {
-    if (&specular_info != mP_specular_info.get())
-        mP_specular_info.reset(specular_info.clone());
+    mp_specular_info = p_specular_info;
 }
 
 //! Computes scattering intensity for given range of simulation elements.
@@ -43,8 +44,8 @@ void ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(*mp_layer, mp_layer->getLayout(m_layout_index), polarized, options,
-                             mP_specular_info.get()).createStrategy() };
+        LayerStrategyBuilder(mp_layer, mp_layer->getLayout(m_layout_index), mp_specular_info,
+                             polarized, options).createStrategy() };
     double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
 
     DelayedProgressCounter counter(100);

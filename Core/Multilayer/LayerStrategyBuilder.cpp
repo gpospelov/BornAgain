@@ -28,17 +28,14 @@
 #include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer& decorated_layer, const ILayout* p_layout, bool polarized,
-    const SimulationOptions& sim_params, const ILayerSpecularInfo* specular_info)
-    : m_sim_params {sim_params}
-    , mP_specular_info {nullptr}
+    const Layer* p_layer, const ILayout* p_layout, const ILayerSpecularInfo* p_specular_info,
+    bool polarized, const SimulationOptions& sim_params)
+    : mp_layer(p_layer)
     , mp_layout(p_layout)
+    , mp_specular_info (p_specular_info)
     , m_polarized {polarized}
+    , m_sim_params (sim_params)
 {
-    mP_layer.reset(decorated_layer.clone());
-    assert(mP_layer->getNumberOfLayouts() > 0);
-    assert(specular_info);
-    mP_specular_info.reset(specular_info->clone());
 }
 
 LayerStrategyBuilder::~LayerStrategyBuilder()
@@ -47,7 +44,7 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 {
-    assert(mP_layer->getNumberOfLayouts()>0);
+    assert(mp_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
     std::unique_ptr<class IInterferenceFunction> P_interference_function{
         mp_layout->cloneInterferenceFunction()};
@@ -83,9 +80,9 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
 SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectFormFactorList() const
 {
-    assert(mP_layer->getNumberOfLayouts()>0);
+    assert(mp_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> result;
-    const IMaterial* p_layer_material = mP_layer->getMaterial();
+    const IMaterial* p_layer_material = mp_layer->getMaterial();
     double layout_abundance = mp_layout->getTotalAbundance();
     if (layout_abundance<=0.0) // TODO: why this can happen? why not throw error?
         layout_abundance = 1.0;
@@ -93,7 +90,7 @@ SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectForm
         FormFactorCoherentSum* p_ff_coh;
         p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
-        p_ff_coh->setSpecularInfo(*mP_specular_info);
+        p_ff_coh->setSpecularInfo(*mp_specular_info);
         result.push_back(p_ff_coh);
     }
     return result;
@@ -108,7 +105,7 @@ FormFactorCoherentSum* LayerStrategyBuilder::createFormFactorCoherentSum(
 
     const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
     std::unique_ptr<IFormFactor> P_ff_framework;
-    if (mP_layer->getNumberOfLayers()>1) {
+    if (mp_layer->getNumberOfLayers()>1) {
         if (m_polarized)
             P_ff_framework.reset(new FormFactorDWBAPol(*P_ff_particle));
         else

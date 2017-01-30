@@ -42,7 +42,7 @@ namespace {
 RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
     : mp_multi_layer(p_multi_layer)
 {
-    mp_specular_info_vector.resize(p_multi_layer->getNumberOfLayers(), nullptr);
+    mp_specular_info_vector.resize(p_multi_layer->getNumberOfLayers());
 }
 
 RoughMultiLayerComputation::~RoughMultiLayerComputation()

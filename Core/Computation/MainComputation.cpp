@@ -122,35 +122,37 @@ void MainComputation::runProtected()
 
 void MainComputation::collectRTCoefficientsScalar()
 {
+    if (m_fresnel_info.size()!=0) return;
     // run through layers and construct T,R functions
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         msglog(Logging::DEBUG2) << "MainComputation::run() -> Layer " << i;
-        ScalarSpecularInfoMap layer_fresnel_map(mP_multi_layer.get(), i);
+        m_fresnel_info.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
 
         // layer DWBA simulation
         for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(layer_fresnel_map);
+            comp->setSpecularInfo(*m_fresnel_info.back());
 
         // layer roughness DWBA
         if (mp_roughness_computation)
-            mp_roughness_computation->setSpecularInfo(i, layer_fresnel_map);
+            mp_roughness_computation->setSpecularInfo(i, *m_fresnel_info.back());
 
         if (i==0)
-            mp_specular_computation->setSpecularInfo(layer_fresnel_map);
+            mp_specular_computation->setSpecularInfo(*m_fresnel_info.back());
     }
 }
 
 void MainComputation::collectRTCoefficientsMatrix()
 {
+    if (m_fresnel_info.size()!=0) return;
     mP_inverted_multilayer.reset(mP_multi_layer->cloneInvertB());
     // run through layers and construct T,R functions
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         msglog(Logging::DEBUG2) << "MainComputation::runMagnetic() -> Layer " << i;
-        MatrixSpecularInfoMap layer_coeff_map(
-                    mP_multi_layer.get(), mP_inverted_multilayer.get(), i);
+        m_fresnel_info.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
+                                                           mP_inverted_multilayer.get(), i));
 
         // layer DWBA simulation
         for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(layer_coeff_map);
+            comp->setSpecularInfo(*m_fresnel_info.back());
     }
 }

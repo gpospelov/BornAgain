@@ -19,16 +19,18 @@
 #include "ComputationStatus.h"
 #include "Complex.h"
 #include "INoncopyable.h"
+#include "SafePointerVector.h"
 #include "SimulationOptions.h"
 #include <memory>
 #include <vector>
 
+class ILayerSpecularInfo;
 class MultiLayer;
 class ParticleLayoutComputation;
-class RoughMultiLayerComputation;
-class SpecularComputation;
 class ProgressHandler;
+class RoughMultiLayerComputation;
 class SimulationElement;
+class SpecularComputation;
 
 //! Performs a single-threaded DWBA computation with given sample and simulation parameters,
 //! for a given span of detector bins.
@@ -69,6 +71,9 @@ private:
     RoughMultiLayerComputation* mp_roughness_computation;
     SpecularComputation *mp_specular_computation;
     std::vector<std::vector<ParticleLayoutComputation*>> m_layer_computation;
+
+    //! contains the information, necessary to calculate the Fresnel coefficients
+    SafePointerVector<ILayerSpecularInfo> m_fresnel_info;
 
     ComputationStatus m_status;
 };

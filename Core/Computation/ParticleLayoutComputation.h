@@ -37,7 +37,8 @@ class SimulationOptions;
 class ParticleLayoutComputation
 {
 public:
-    ParticleLayoutComputation(const Layer* p_layer, const ILayout* p_layout);
+    ParticleLayoutComputation(const MultiLayer* p_multilayer, const ILayout* p_layout,
+                              size_t layer_index);
 
     void setSpecularInfo(const ILayerSpecularInfo* p_specular_info);
 

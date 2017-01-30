@@ -50,8 +50,9 @@ MainComputation::MainComputation(
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
-            m_layer_computation[i].push_back( new ParticleLayoutComputation(layer,
-                                                                            layer->getLayout(j)));
+            m_layer_computation[i].push_back(
+                        new ParticleLayoutComputation(mP_multi_layer.get(),
+                                                      layer->getLayout(j), i));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())

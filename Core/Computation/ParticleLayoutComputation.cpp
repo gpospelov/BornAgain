@@ -25,12 +25,12 @@
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
-ParticleLayoutComputation::ParticleLayoutComputation(const Layer* p_layer, const ILayout* p_layout)
-    : mp_layer(p_layer)
+ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
+                                                     const ILayout* p_layout, size_t layer_index)
+    : mp_layer(p_multilayer->getLayer(layer_index))
     , mp_layout(p_layout)
     , mp_specular_info(nullptr)
-{
-}
+{}
 
 void ParticleLayoutComputation::setSpecularInfo(const ILayerSpecularInfo* p_specular_info)
 {

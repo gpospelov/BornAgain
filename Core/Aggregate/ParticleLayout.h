@@ -54,9 +54,7 @@ public:
 
     double getAbundanceOfParticle(size_t index) const;
 
-    const IInterferenceFunction* getInterferenceFunction() const final {
-        return mP_interference_function.get(); }
-    IInterferenceFunction* cloneInterferenceFunction() const final;
+    const IInterferenceFunction* getInterferenceFunction() const final;
     void addInterferenceFunction(const IInterferenceFunction& interference_function);
     // TODO add -> set (there can be at most 1 interference function)
 

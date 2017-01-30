@@ -56,9 +56,8 @@ void ParticleLayoutComputation::eval(
             return;
         double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_layer->getNumberOfLayers();
-        if (n_layers > 1 && alpha_f < 0)
+        if (n_layers > 1 && alpha_f < 0)  // skip transmission for multilayers (n>1)
             continue;
-        // each ffdwba: one call to getOutCoeffs
         it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
         counter.stepProgress(progress);
     }

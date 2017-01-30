@@ -46,8 +46,6 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 {
     assert(mp_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
-    std::unique_ptr<class IInterferenceFunction> P_interference_function{
-        mp_layout->cloneInterferenceFunction()};
 
     IInterferenceFunctionStrategy* p_result = nullptr;
     switch (mp_layout->getApproximation())
@@ -59,7 +57,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
             p_result = new DecouplingApproximationStrategy1(m_sim_params);
         break;
     case ILayout::SSCA:
-        double kappa = P_interference_function->getKappa();
+        double kappa = mp_layout->getInterferenceFunction()->getKappa();
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
@@ -73,7 +71,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(ff_wrappers, *P_interference_function);
+    p_result->init(ff_wrappers, mp_layout->getInterferenceFunction());
     return p_result;
 }
 

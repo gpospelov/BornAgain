@@ -64,7 +64,6 @@ public:
 
     //! Returns interference function
     virtual const IInterferenceFunction* getInterferenceFunction() const =0;
-    virtual IInterferenceFunction* cloneInterferenceFunction() const =0;
 
     //! Returns surface density of all particles
     virtual double getTotalParticleSurfaceDensity() const =0;

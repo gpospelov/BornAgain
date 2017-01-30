@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
+#include "InterferenceFunctionNone.h"
 #include "FormFactorCoherentSum.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
@@ -42,12 +43,15 @@ IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 //! Initializes the object with form factors and interference functions
 void IInterferenceFunctionStrategy::init(
     const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
-    const IInterferenceFunction& iff)
+    const IInterferenceFunction* p_iff)
 {
     if (weighted_formfactors.size()==0)
         throw Exceptions::ClassInitializationException("Bug: Decorated layer has no formfactors.");
     m_formfactor_wrappers = weighted_formfactors;
-    mP_iff.reset(iff.clone());
+    if (p_iff)
+        mP_iff.reset(p_iff->clone());
+    else
+        mP_iff.reset(new InterferenceFunctionNone());
 
     strategy_specific_post_init();
 }

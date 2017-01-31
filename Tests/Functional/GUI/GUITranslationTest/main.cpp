@@ -21,9 +21,9 @@ bool run_tests() {
 
     std::vector<std::pair<std::string, std::string>> conditions = {
 //        {"BasicGISAS", "CylindersAndPrismsBuilder"},
-        {"BasicGISAS", "RadialParaCrystalBuilder"},
+//        {"BasicGISAS", "RadialParaCrystalBuilder"},
+        {"BasicGISAS", "Basic2DParaCrystalBuilder"},
 //        {"BasicGISAS", "Lattice1DBuilder"},
-        //{"BasicGISAS", "Basic2DParaCrystalBuilder"},
 //        {"BasicGISAS", "Basic2DLatticeBuilder"},
 //        {"BasicGISAS", "SquareLatticeBuilder"},
     };

@@ -25,6 +25,49 @@
 #include "ScientificDoubleProperty.h"
 #include <QStack>
 
+namespace
+{
+int copyNumberOfChild(const SessionItem* parent, const SessionItem* item)
+{
+    if (!item)
+        return -1;
+    int result = -1;
+    int count = 0;
+    QString itemName = item->displayName();
+    // check child items:
+    for (auto p_child_item : parent->childItems()) {
+        QString childName = p_child_item->displayName();
+        if (p_child_item == item)
+            result = count;
+        if (childName == itemName)
+            ++count;
+    }
+    if (count > 1)
+        return result;
+    return -1;
+}
+
+void fixDisplayName(SessionItem *parent) {
+    QVector<int> copyNumber;
+    for (SessionItem *child : parent->childItems()) {
+        copyNumber.push_back(copyNumberOfChild(parent, child));
+    }
+
+    int index(0);
+    for (SessionItem *child : parent->childItems()) {
+        if(copyNumber[index] >= 0)
+            child->setDisplayName( child->displayName() + QString::number(copyNumber[index]));
+        ++index;
+    }
+
+    for (SessionItem *child : parent->childItems()) {
+        fixDisplayName(child);
+    }
+
+}
+
+}
+
 void ParameterTreeBuilder::createParameterTree(JobItem *item, const QString &tag)
 {
     SessionItem *container
@@ -38,12 +81,15 @@ void ParameterTreeBuilder::createParameterTree(JobItem *item, const QString &tag
         = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
     handleItem(instrument, item->getItem(JobItem::T_INSTRUMENT));
 
+//    fixDisplayName(container);
+
 #ifndef NDEBUG
     // Provides all items in "JobItem/Parameter Tree Container" with domain links already
     // at the stage of ParameterTree creation. It is necessary for validation, in Release mode
     // it will lead for unnecessary large project files.
     populateDomainLinks(item, tag);
 #endif
+
 }
 
 void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)

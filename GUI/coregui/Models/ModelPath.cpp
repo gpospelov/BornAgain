@@ -252,7 +252,7 @@ bool ModelPath::isTranslatable(const SessionItem *item, const QString &par_name)
         return false;
     if(par_name.contains("FTDecayFunction1D"))
         return false;
-    if(par_name.contains("FTDistribution2D") || par_name.contains("FTDecayFunction2D"))
+    if(par_name.contains("FTDecayFunction2D"))
         return false;
     return true;
 }

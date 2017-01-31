@@ -22,6 +22,7 @@
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "GUIHelpers.h"
+#include <QDebug>
 
 QStringList IParameterTranslator::split(const QString &par_name) const
 {
@@ -98,5 +99,18 @@ QStringList NewPositionTranslator::translate(const QStringList& list) const
         GUIHelpers::Error("NewPositionTranslator::translate() -> Unexpected list structure");
     }
 
+    return result;
+}
+
+QStringList NewRotationTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != Constants::TransformationType)
+        return list;
+
+    qDebug() << list;
+
+    Q_ASSERT(list.size() == 3);
+    QStringList result = list;
+    result.removeLast();
     return result;
 }

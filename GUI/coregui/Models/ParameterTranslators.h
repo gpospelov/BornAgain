@@ -68,5 +68,14 @@ public:
     virtual QStringList translate(const QStringList& list) const;
 };
 
+class NewRotationTranslator : public IPathTranslator {
+public:
+    ~NewRotationTranslator() override {}
+
+    NewRotationTranslator* clone() const override { return new NewRotationTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const;
+};
+
 
 #endif // PARAMETERTRANSLATORS_H

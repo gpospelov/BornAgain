@@ -48,3 +48,9 @@ SessionItem *GroupItem::currentItem()
 {
     return group()->getCurrentItem();
 }
+
+QStringList GroupItem::translateList(const QStringList& list) const
+{
+    // we do not add here the name of itself
+    return list;
+}

@@ -29,6 +29,9 @@ public:
     void setGroup(GroupProperty_t group);
     GroupProperty_t group() const;
     SessionItem *currentItem();
+
+    QStringList translateList(const QStringList& list) const;
+
 };
 
 #endif // GROUPITEM_H

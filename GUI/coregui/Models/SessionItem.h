@@ -138,7 +138,7 @@ public:
     virtual QString itemLabel() const;
     ModelMapper *mapper();
 
-    QStringList translateList(const QStringList& list) const;
+    virtual QStringList translateList(const QStringList& list) const;
     void addTranslator(const IPathTranslator& translator);
 
 private:

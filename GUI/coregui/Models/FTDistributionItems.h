@@ -81,9 +81,12 @@ public:
     static const QString P_COHER_LENGTH_X;
     static const QString P_COHER_LENGTH_Y;
     static const QString P_GAMMA;
+    static const QString P_DELTA;
     explicit FTDistribution2DItem(const QString& name);
     virtual std::unique_ptr<IFTDistribution2D> createFTDistribution() const=0;
     virtual ~FTDistribution2DItem(){}
+protected:
+    void add_properties();
 };
 
 class BA_CORE_API_ FTDistribution2DCauchyItem : public FTDistribution2DItem

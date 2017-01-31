@@ -48,4 +48,25 @@ public:
     std::string translate(const QString &name) const override;
 };
 
+class IPathTranslator {
+public:
+//    IPathTranslator(const IPathTranslator&) = delete;
+//    IPathTranslator& operator=(const IPathTranslator&) = delete;
+    virtual ~IPathTranslator()=default;
+
+    virtual IPathTranslator* clone() const=0;
+
+    virtual QStringList translate(const QStringList& list) const=0;
+};
+
+class NewPositionTranslator : public IPathTranslator {
+public:
+    ~NewPositionTranslator() override {}
+
+    NewPositionTranslator* clone() const override { return new NewPositionTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const;
+};
+
+
 #endif // PARAMETERTRANSLATORS_H

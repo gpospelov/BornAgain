@@ -54,6 +54,8 @@ public:
 
     static const SessionItem *ancestor(const SessionItem *item, const QString& requiredModelType);
 
+    static QString itemPathTranslation(const SessionItem& item, const SessionItem* topItem=0);
+
 private:
 
     static QStringList splitParameterName(const QString& par_name);

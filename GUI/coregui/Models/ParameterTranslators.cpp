@@ -21,6 +21,7 @@
 #include "VectorItem.h"
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
+#include "GUIHelpers.h"
 
 QStringList IParameterTranslator::split(const QString &par_name) const
 {
@@ -77,4 +78,25 @@ std::string RotationTranslator::translate(const QString& name) const
         }
     }
     return {};
+}
+
+QStringList NewPositionTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != ParticleItem::P_POSITION)
+        return list;
+
+    Q_ASSERT(list.size() == 2);
+
+    QStringList result;
+    if (list.front() == VectorItem::P_X) {
+        result << QString::fromStdString(BornAgain::PositionX);
+    } else if (list.front() == VectorItem::P_Y) {
+        result << QString::fromStdString(BornAgain::PositionY);
+    } else if (list.front() == VectorItem::P_Z) {
+        result << QString::fromStdString(BornAgain::PositionZ);
+    } else {
+        GUIHelpers::Error("NewPositionTranslator::translate() -> Unexpected list structure");
+    }
+
+    return result;
 }

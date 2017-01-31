@@ -268,3 +268,17 @@ const SessionItem* ModelPath::ancestor(const SessionItem *item, const QString &r
 
     return cur;
 }
+
+//! Returns translation of item path to domain name
+
+QString ModelPath::itemPathTranslation(const SessionItem& item, const SessionItem* topItem)
+{
+    QStringList pathList;
+    const SessionItem *current(&item);
+    while (current && current!=topItem) {
+        pathList = current->translateList(pathList);
+        current = current->parent();
+    }
+    std::reverse(pathList.begin(), pathList.end());
+    return pathList.join("/");
+}

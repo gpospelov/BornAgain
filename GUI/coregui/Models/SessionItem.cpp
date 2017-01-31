@@ -19,6 +19,7 @@
 #include "GroupPropertyRegistry.h"
 #include "ItemFactory.h"
 #include "SessionModel.h"
+#include "ParameterTranslators.h"
 
 class SessionItemData
 {
@@ -65,6 +66,9 @@ SessionItem::~SessionItem()
     m_children.clear();
     if (m_parent && m_model)
         m_parent->childDeleted(this);
+
+    for(IPathTranslator* translator : m_translators)
+        delete translator;
 }
 
 //! internal
@@ -799,4 +803,18 @@ ModelMapper *SessionItem::mapper()
         m_mapper->setItem(this);
     }
     return m_mapper.get();
+}
+
+QStringList SessionItem::translateList(const QStringList& list) const
+{
+    QStringList result = list;
+    for(const IPathTranslator* translator : m_translators)
+        result = translator->translate(result);
+    result << displayName();
+    return result;
+}
+
+void SessionItem::addTranslator(const IPathTranslator& translator)
+{
+    m_translators.push_back(translator.clone());
 }

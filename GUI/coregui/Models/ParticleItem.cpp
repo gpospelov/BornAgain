@@ -47,6 +47,8 @@ ParticleItem::ParticleItem()
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
 
+    addTranslator(NewPositionTranslator());
+
     mapper()->setOnParentChange(
                 [this](SessionItem* parentItem) {
         if (parentItem) {

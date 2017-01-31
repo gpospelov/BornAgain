@@ -17,17 +17,19 @@ inline void TestGroupProperty::test_CreateGroup()
     GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
         "MyGroupProperty", Constants::DistributionGroup);
 
-    QCOMPARE(property->getCurrentType(), Constants::DistributionCosineType);
+    QCOMPARE(property->currentType(), Constants::DistributionCosineType);
 
     GroupItem groupItem;
     QCOMPARE(groupItem.childItems().size(), 0);
     QVERIFY(groupItem.currentItem() == nullptr);
 
-    // setting group property
+    // setting group property and checking currentItem
     groupItem.setGroup(property);
     QCOMPARE(groupItem.childItems().size(), 1);
     QCOMPARE(groupItem.childItems()[0], groupItem.currentItem());
-    QCOMPARE(groupItem.currentItem()->modelType(), Constants::DistributionCosineType);
+    SessionItem *cosineItem = groupItem.currentItem();
+    QCOMPARE(cosineItem->modelType(), Constants::DistributionCosineType);
+    QCOMPARE(property->currentItem(), cosineItem);
 
     // setting group property twice
     QVERIFY_THROW(groupItem.setGroup(property), GUIHelpers::Error);
@@ -37,6 +39,12 @@ inline void TestGroupProperty::test_CreateGroup()
     QCOMPARE(newItem, groupItem.currentItem());
     QCOMPARE(newItem->modelType(), Constants::DistributionNoneType);
     QCOMPARE(groupItem.childItems().size(), 2);
+
+    // returning back to previous item
+    QCOMPARE(groupItem.setCurrentType(Constants::DistributionCosineType), cosineItem);
+    QCOMPARE(groupItem.currentItem(), cosineItem);
+    QCOMPARE(groupItem.childItems().size(), 2);
+
 
 }
 

@@ -121,7 +121,7 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         }
 
         else if (type_name == Constants::GroupPropertyType) {
-            QString ff_name = variant.value<GroupProperty_t>()->getCurrentType();
+            QString ff_name = variant.value<GroupProperty_t>()->currentType();
             writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
         }
 

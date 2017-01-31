@@ -138,7 +138,7 @@ void ParameterTreeBuilder::handleItem(SessionItem *tree, SessionItem *source)
 
             } else if (child->modelType() == Constants::GroupItemType) {
                 SessionItem *currentItem
-                    = dynamic_cast<GroupItem *>(child)->group()->getCurrentItem();
+                    = dynamic_cast<GroupItem *>(child)->currentItem();
                 if (currentItem && currentItem->rowCount() > 0) {
                     SessionItem *branch = tree->model()->insertNewItem(
                         Constants::ParameterLabelType, tree->index());

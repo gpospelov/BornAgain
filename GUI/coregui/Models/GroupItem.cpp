@@ -34,20 +34,26 @@ void GroupItem::setGroup(GroupProperty_t group)
     setValue(QVariant::fromValue(group));
 }
 
-GroupProperty_t GroupItem::group() const
+GroupProperty_t GroupItem::groupProperty() const
 {
     return value().value<GroupProperty_t>();
 }
 
-SessionItem* GroupItem::currentItem()
+SessionItem* GroupItem::currentItem() const
 {
-    return value().isValid() ? group()->getCurrentItem() : nullptr;
+    return value().isValid() ? groupProperty()->currentItem() : nullptr;
+}
+
+QString GroupItem::currentType() const
+{
+    return groupProperty()->currentType();
 }
 
 SessionItem* GroupItem::setCurrentType(const QString& modelType)
 {
-    GroupProperty_t group_property = group();
+    GroupProperty_t group_property = groupProperty();
     group_property->setCurrentType(modelType);
+
     return currentItem();
 }
 

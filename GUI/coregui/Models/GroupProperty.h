@@ -29,14 +29,12 @@ class SessionItem;
 class BA_CORE_API_ GroupProperty
 {
 public:
-    void setGroupItem(SessionItem *groupItem);
+    void setGroupItem(SessionItem* groupItem);
 
-    SessionItem *getCurrentItem();
+    SessionItem* currentItem();
 
-    SessionItem *createCorrespondingItem();
-
-    QString getCurrentType() const;
-    void setCurrentType(const QString &type);
+    QString currentType() const;
+    void setCurrentType(const QString& type);
 
     QString getCurrentLabel() const;
 
@@ -44,7 +42,7 @@ public:
     QStringList getLabels() const;
 
     int index() const;
-    int toIndex(const QString &type) const;
+    int toIndex(const QString& type) const;
     QString toString(int index) const;
 
     friend class GroupPropertyRegistry;
@@ -52,11 +50,12 @@ public:
 private:
     GroupProperty(QString group_name);
     void setGroupMap(std::map<QString, QString> group_map);
+    SessionItem* createCorrespondingItem();
 
     QString m_group_name;
-    SessionItem *m_groupItem;
+    SessionItem* m_groupItem;
     QString m_current_type;
-    std::map<QString, QString > m_type_label_map;
+    std::map<QString, QString> m_type_label_map;
 };
 
 typedef QSharedPointer<GroupProperty> GroupProperty_t;

@@ -18,53 +18,46 @@
 #include "ItemFactory.h"
 
 GroupProperty::GroupProperty(QString group_name)
-    : m_group_name(std::move(group_name))
-    , m_groupItem(0)
+    : m_group_name(std::move(group_name)), m_groupItem(0)
 {
 }
 
-SessionItem *GroupProperty::getCurrentItem()
+SessionItem* GroupProperty::currentItem()
 {
-    if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
-    return nullptr;
+    return m_groupItem ? m_groupItem->getChildByName(this->currentType()) : nullptr;
 }
 
-void GroupProperty::setGroupItem(SessionItem *groupItem)
+void GroupProperty::setGroupItem(SessionItem* groupItem)
 {
     Q_ASSERT(groupItem);
     m_groupItem = groupItem;
-    SessionItem *item = createCorrespondingItem();
+    SessionItem* item = createCorrespondingItem();
     m_groupItem->insertItem(-1, item);
 }
 
-SessionItem *GroupProperty::createCorrespondingItem()
-{
-    SessionItem *result = ItemFactory::createItem(getCurrentType());
-    return result;
-}
-
-QString GroupProperty::getCurrentType() const
+QString GroupProperty::currentType() const
 {
     return m_current_type;
 }
 
-void GroupProperty::setCurrentType(const QString &type)
+void GroupProperty::setCurrentType(const QString& type)
 {
-    if(type == getCurrentType()) return;
+    if (type == currentType())
+        return;
 
-    SessionItem *prevItem = getCurrentItem();
+    SessionItem* prevItem = currentItem();
     m_current_type = type;
 
-    if(m_groupItem) {
+    if (m_groupItem) {
         if (auto item = m_groupItem->getChildByName(m_current_type)) {
             item->setVisible(true);
             item->setEnabled(true);
         } else {
-            SessionItem *new_item = createCorrespondingItem();
+            SessionItem* new_item = createCorrespondingItem();
             m_groupItem->insertItem(-1, new_item);
         }
 
-        if(prevItem) {
+        if (prevItem) {
             prevItem->setVisible(false);
             prevItem->setEnabled(false);
         }
@@ -81,18 +74,18 @@ QString GroupProperty::getCurrentLabel() const
 QStringList GroupProperty::getTypes() const
 {
     QStringList result;
-    for (const auto& key_value_pair : m_type_label_map) {
+    for (const auto& key_value_pair : m_type_label_map)
         result << key_value_pair.first;
-    }
+
     return result;
 }
 
 QStringList GroupProperty::getLabels() const
 {
     QStringList result;
-    for (const auto& key_value_pair : m_type_label_map) {
+    for (const auto& key_value_pair : m_type_label_map)
         result << key_value_pair.second;
-    }
+
     return result;
 }
 
@@ -101,13 +94,12 @@ int GroupProperty::index() const
     return toIndex(m_current_type);
 }
 
-int GroupProperty::toIndex(const QString &type) const
+int GroupProperty::toIndex(const QString& type) const
 {
     QStringList name_list = getTypes();
     for (int i = 0; i < name_list.size(); ++i) {
-        if (type == name_list[i]) {
+        if (type == name_list[i])
             return i;
-        }
     }
     return -1;
 }
@@ -115,9 +107,9 @@ int GroupProperty::toIndex(const QString &type) const
 QString GroupProperty::toString(int index) const
 {
     QStringList name_list = getTypes();
-    if (index<0 || index>=name_list.size()) {
+    if (index < 0 || index >= name_list.size())
         return QString();
-    }
+
     return name_list[index];
 }
 
@@ -125,4 +117,9 @@ void GroupProperty::setGroupMap(std::map<QString, QString> group_map)
 {
     m_type_label_map = std::move(group_map);
     setCurrentType(m_type_label_map.begin()->first);
+}
+
+SessionItem* GroupProperty::createCorrespondingItem()
+{
+    return ItemFactory::createItem(currentType());
 }

@@ -40,7 +40,7 @@ QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString pre
                 if(p_child->isVisible()) {
                     if (p_child->modelType() ==  Constants::GroupItemType) {
                         if (const GroupItem *groupItem = dynamic_cast<const GroupItem*>(p_child)) {
-                            if (const SessionItem *subItem = groupItem->group()->getCurrentItem()) {
+                            if (const SessionItem *subItem = groupItem->currentItem()) {
                                 QString child_prefix = prefix + subItem->itemName() + QString("/");
                                 result << getParameterTreeList(subItem, child_prefix);
                             }
@@ -215,8 +215,8 @@ SessionItem* ModelPath::findChild(const SessionItem *item, const QString& first_
         auto groupItems = item->getChildrenOfType(Constants::GroupItemType);
         for (SessionItem* groupItem : groupItems) {
             if (GroupItem *gItem = dynamic_cast<GroupItem*>(groupItem)) {
-                if (gItem->group()->getCurrentType() == first_field) {
-                    p_child = gItem->group()->getCurrentItem();
+                if (gItem->currentType() == first_field) {
+                    p_child = gItem->currentItem();
                     break;
                 }
             }

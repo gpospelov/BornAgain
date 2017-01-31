@@ -19,6 +19,7 @@
 #include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "ParameterDistribution.h"
+#include "ParameterTranslators.h"
 #include "Units.h"
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
@@ -29,6 +30,7 @@ BeamDistributionItem::BeamDistributionItem(const QString name)
     addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
     setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 
+    addTranslator(DistributionNoneTranslator());
 
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &)

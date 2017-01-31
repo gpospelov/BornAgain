@@ -5,6 +5,9 @@
 #include "ModelPath.h"
 #include "TransformationItem.h"
 #include "RotationItems.h"
+#include "BeamItem.h"
+#include "BeamDistributionItem.h"
+#include "DistributionItem.h"
 #include <QDebug>
 
 class TestTranslations : public QObject {
@@ -13,6 +16,7 @@ class TestTranslations : public QObject {
 private slots:
     void test_TranslatePosition();
     void test_TranslateRotation();
+    void test_BeamDistributionNone();
 };
 
 inline void TestTranslations::test_TranslatePosition()
@@ -47,4 +51,27 @@ inline void TestTranslations::test_TranslateRotation()
     SessionItem *angleItem = rotationItem->getItem(XRotationItem::P_ANGLE);
     QCOMPARE(ModelPath::itemPathTranslation(*angleItem, multilayer->parent()),
              QString("MultiLayer/Layer/ParticleLayout/Particle/XRotation/Angle"));
+}
+
+inline void TestTranslations::test_BeamDistributionNone()
+{
+    SampleModel model;
+    SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
+    SessionItem *beam = model.insertNewItem(Constants::BeamType, instrument->index());
+
+    SessionItem* wavelength = beam->getItem(BeamItem::P_WAVELENGTH);
+
+    SessionItem* distr = wavelength->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
+    QCOMPARE(distr->modelType(), Constants::DistributionNoneType);
+    SessionItem* value = distr->getItem(DistributionNoneItem::P_VALUE);
+
+    QCOMPARE(ModelPath::itemPathTranslation(*value, instrument->parent()),
+             QString("Instrument/Beam/Wavelength"));
+
+    SessionItem* inclinationAngle = beam->getItem(BeamItem::P_INCLINATION_ANGLE);
+    distr = inclinationAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
+    value = distr->getItem(DistributionNoneItem::P_VALUE);
+
+    QCOMPARE(ModelPath::itemPathTranslation(*value, instrument->parent()),
+             QString("Instrument/Beam/InclinationAngle"));
 }

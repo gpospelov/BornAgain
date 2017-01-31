@@ -32,6 +32,7 @@
 #include "GUIHelpers.h"
 #include "StringUtils.h"
 #include "MultiLayer.h"
+#include "ModelPath.h"
 #include <QStack>
 
 namespace {
@@ -111,6 +112,11 @@ void GUITranslationTest::processParameterTree()
 
                     std::string domainName = std::string("*") +
                             parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
+
+                    // new way of translating
+                    QString translation = ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
+                    domainName = std::string("*/") + translation.toStdString();
+
                     m_translations.push_back({sampleParLink, parPath, domainName});
                 }
             }

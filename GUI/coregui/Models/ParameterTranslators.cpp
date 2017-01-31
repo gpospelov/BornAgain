@@ -107,10 +107,17 @@ QStringList NewRotationTranslator::translate(const QStringList& list) const
     if(list.back() != Constants::TransformationType)
         return list;
 
-    qDebug() << list;
-
     Q_ASSERT(list.size() == 3);
     QStringList result = list;
     result.removeLast();
     return result;
+}
+
+QStringList DistributionNoneTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != Constants::DistributionNoneType)
+        return list;
+
+    Q_UNUSED(list);
+    return QStringList(); // removing "DistributionNone/Value"
 }

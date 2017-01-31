@@ -77,5 +77,14 @@ public:
     virtual QStringList translate(const QStringList& list) const;
 };
 
+class DistributionNoneTranslator : public IPathTranslator {
+public:
+    ~DistributionNoneTranslator() override {}
+
+    DistributionNoneTranslator* clone() const override { return new DistributionNoneTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const;
+};
+
 
 #endif // PARAMETERTRANSLATORS_H

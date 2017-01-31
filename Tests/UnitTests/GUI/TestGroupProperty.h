@@ -10,6 +10,7 @@ class TestGroupProperty : public QObject {
 
 private slots:
     void test_CreateGroup();
+    void test_groupPropertyWithDisplayNames();
 };
 
 inline void TestGroupProperty::test_CreateGroup()
@@ -44,10 +45,21 @@ inline void TestGroupProperty::test_CreateGroup()
     QCOMPARE(groupItem.setCurrentType(Constants::DistributionCosineType), cosineItem);
     QCOMPARE(groupItem.currentItem(), cosineItem);
     QCOMPARE(groupItem.childItems().size(), 2);
-
-
 }
 
-//GroupProperty_t group_property = item->group();
-//group_property->setCurrentType(value);
-//return group_property->getCurrentItem();
+//! Checking that GroupProperty stays functional if displayName of currentItem is changed.
+
+inline void TestGroupProperty::test_groupPropertyWithDisplayNames()
+{
+    GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
+        "MyGroupProperty", Constants::DistributionGroup);
+
+    GroupItem groupItem;
+    groupItem.setGroup(property);
+
+    SessionItem *cosineItem = groupItem.currentItem();
+    cosineItem->setDisplayName(Constants::DistributionCosineType+QString::number(0));
+
+    QCOMPARE(groupItem.currentItem(), cosineItem);
+}
+

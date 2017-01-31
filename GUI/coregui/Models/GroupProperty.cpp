@@ -24,7 +24,7 @@ GroupProperty::GroupProperty(QString group_name)
 
 SessionItem* GroupProperty::currentItem()
 {
-    return m_groupItem ? m_groupItem->getChildByName(this->currentType()) : nullptr;
+    return m_groupItem ? m_groupItem->getChildOfType(this->currentType()) : nullptr;
 }
 
 void GroupProperty::setGroupItem(SessionItem* groupItem)
@@ -49,7 +49,7 @@ void GroupProperty::setCurrentType(const QString& type)
     m_current_type = type;
 
     if (m_groupItem) {
-        if (auto item = m_groupItem->getChildByName(m_current_type)) {
+        if (auto item = m_groupItem->getChildOfType(m_current_type)) {
             item->setVisible(true);
             item->setEnabled(true);
         } else {

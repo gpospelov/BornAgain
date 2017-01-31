@@ -28,6 +28,8 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunction1DLattice.h"
+#include "GroupItem.h"
+#include <QDebug>
 
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
@@ -104,10 +106,15 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
         }
     });
 
-    mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString&) {
-        if (item->modelType() == Constants::GroupItemType) {
+    mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& property) {
+        if (item->modelType() == Constants::GroupItemType && item->displayName() ==
+            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
             update_rotation_availability();
         }
+//        if (item->modelType() == Constants::GroupItemType && property == GroupItem::T_ITEMS && isTag(P_PDF1) && isTag(P_PDF2)) {
+//            qDebug() << item->modelType() << property;
+//            update_distribution_displaynames();
+//        }
     });
 }
 
@@ -144,6 +151,29 @@ void InterferenceFunction2DParaCrystalItem::update_rotation_availability()
 
     angleItem->setEnabled(!getItemValue(P_XI_INTEGRATION).toBool());
 }
+
+//void InterferenceFunction2DParaCrystalItem::update_distribution_displaynames()
+//{
+//    GroupItem *group1 = dynamic_cast<GroupItem*>(getItem(P_PDF1));
+//    GroupItem *group2 = dynamic_cast<GroupItem*>(getItem(P_PDF2));
+
+//    if(!group1 || !group2)
+//        return;
+
+//    SessionItem *pdf1 = group1->currentItem();
+//    SessionItem *pdf2 = group2->currentItem();
+
+//    if(pdf1 && pdf2) {
+//        qDebug() << pdf1->displayName() << pdf2->displayName();
+//        if(pdf1->modelType() == pdf2->modelType()) {
+//            pdf1->setDisplayName(pdf1->modelType()+QString::number(0));
+//            pdf2->setDisplayName(pdf2->modelType()+QString::number(1));
+//        } else {
+//            pdf1->setDisplayName(pdf1->modelType());
+//            pdf2->setDisplayName(pdf2->modelType());
+//        }
+//    }
+//}
 
 // --------------------------------------------------------------------------------------------- //
 

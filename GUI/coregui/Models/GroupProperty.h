@@ -36,7 +36,7 @@ public:
     SessionItem *createCorrespondingItem();
 
     QString getCurrentType() const;
-    void setCurrentType(const QString &type, bool = true);
+    void setCurrentType(const QString &type);
 
     QString getCurrentLabel() const;
 

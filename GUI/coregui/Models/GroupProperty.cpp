@@ -26,7 +26,7 @@ GroupProperty::GroupProperty(QString group_name)
 SessionItem *GroupProperty::getCurrentItem()
 {
     if(m_groupItem) return m_groupItem->getChildByName(this->getCurrentType());
-    return 0;
+    return nullptr;
 }
 
 void GroupProperty::setGroupItem(SessionItem *groupItem)
@@ -48,7 +48,7 @@ QString GroupProperty::getCurrentType() const
     return m_current_type;
 }
 
-void GroupProperty::setCurrentType(const QString &type, bool)
+void GroupProperty::setCurrentType(const QString &type)
 {
     if(type == getCurrentType()) return;
 

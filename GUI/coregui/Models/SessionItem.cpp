@@ -500,11 +500,9 @@ SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type)
 
 SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
 {
-    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
-        GroupProperty_t group_property = item->group();
-        group_property->setCurrentType(value);
-        return group_property->getCurrentItem();
-    }
+    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name)))
+        return item->setCurrentType(value);
+
     return nullptr;
 }
 

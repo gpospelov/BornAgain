@@ -55,6 +55,7 @@ public:
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 private:
     void update_rotation_availability();
+//    void update_distribution_displaynames();
 };
 
 class BA_CORE_API_ InterferenceFunction1DLatticeItem : public InterferenceFunctionItem

@@ -138,4 +138,17 @@ TEST_F(ParameterPoolTest, copyToExternalPool)
     EXPECT_EQ(externalPool.parameterNames(), names);
 }
 
+TEST_F(ParameterPoolTest, removeParameter)
+{
+    double par1(1.0), par2(2.0);
+    ParameterPool pool ;
+    pool.addParameter(new RealParameter("par1", &par1));
+    pool.addParameter(new RealParameter("par2", &par2));
+    EXPECT_EQ(pool.size(), 2u);
+
+    EXPECT_FALSE(pool.getParameter("par1") == nullptr);
+    pool.removeParameter("par1");
+    EXPECT_EQ(pool.size(), 1u);
+    EXPECT_TRUE(pool.getParameter("par1") == nullptr);
+}
 

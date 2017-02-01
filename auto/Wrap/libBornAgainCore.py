@@ -23026,6 +23026,11 @@ class ParameterPool(ICloneable):
         """parameterNames(ParameterPool self) -> vector_string_t"""
         return _libBornAgainCore.ParameterPool_parameterNames(self)
 
+
+    def removeParameter(self, name):
+        """removeParameter(ParameterPool self, std::string const & name)"""
+        return _libBornAgainCore.ParameterPool_removeParameter(self, name)
+
 ParameterPool_swigregister = _libBornAgainCore.ParameterPool_swigregister
 ParameterPool_swigregister(ParameterPool)
 

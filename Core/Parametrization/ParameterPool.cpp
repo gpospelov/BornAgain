@@ -23,6 +23,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <algorithm>
 
 //! Constructs an empty parameter pool.
 
@@ -176,6 +177,16 @@ std::vector<std::string> ParameterPool::parameterNames() const
     for (const auto* par: m_params)
         result.push_back(par->getName());
     return result;
+}
+
+//! Removes parameter with given name from the pool.
+
+void ParameterPool::removeParameter(const std::string& name)
+{
+    if(RealParameter *par = getParameter(name)) {
+        m_params.erase(std::remove(m_params.begin(), m_params.end(), par), m_params.end());
+        delete par;
+    }
 }
 
 void ParameterPool::print(std::ostream& ostr) const

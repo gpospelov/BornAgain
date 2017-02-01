@@ -15,16 +15,17 @@
 // ************************************************************************** //
 
 #include "LayerRoughnessItems.h"
-
+#include "BornAgainNamespace.h"
 
 LayerZeroRoughnessItem::LayerZeroRoughnessItem()
     : SessionItem(Constants::LayerZeroRoughnessType)
 {
 }
 
-const QString LayerBasicRoughnessItem::P_SIGMA = "Sigma";
-const QString LayerBasicRoughnessItem::P_HURST = "Hurst parameter";
-const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH = "Lateral corr length";
+const QString LayerBasicRoughnessItem::P_SIGMA = QString::fromStdString(BornAgain::Sigma);
+const QString LayerBasicRoughnessItem::P_HURST = QString::fromStdString(BornAgain::Hurst);
+const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH
+    = QString::fromStdString(BornAgain::CorrelationLength);
 
 LayerBasicRoughnessItem::LayerBasicRoughnessItem()
     : SessionItem(Constants::LayerBasicRoughnessType)

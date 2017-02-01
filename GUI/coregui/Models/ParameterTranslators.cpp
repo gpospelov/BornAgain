@@ -22,7 +22,14 @@
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "GUIHelpers.h"
+#include "MultiLayerItem.h"
 #include <QDebug>
+
+namespace {
+const QStringList expectedRoughnessPars = QStringList() << QString::fromStdString(BornAgain::Sigma)
+    << QString::fromStdString(BornAgain::Hurst)
+    << QString::fromStdString(BornAgain::CorrelationLength);
+}
 
 QStringList IParameterTranslator::split(const QString &par_name) const
 {
@@ -120,4 +127,34 @@ QStringList DistributionNoneTranslator::translate(const QStringList& list) const
 
     Q_UNUSED(list);
     return QStringList(); // removing "DistributionNone/Value"
+}
+
+//! Converts "/Layer1/LayerBasicRoughness/Sigma" into "/LayerInterface0/LayerBasicRoughness/Sigma"
+
+QStringList RoughnessTranslator::translate(const QStringList& list) const
+{
+    if (!list.back().contains(Constants::LayerType)
+        || !expectedRoughnessPars.contains(list.front()))
+        return list;
+
+    QStringList result = list;
+
+    QString layerName = result.takeLast();
+    int layerIndex = getLayerIndex(layerName);
+
+    result.push_back(QString::fromStdString(BornAgain::LayerInterfaceType)
+                     + QString::number(layerIndex - 1));
+    return result;
+}
+
+//! Extract layer index from the string "Layer11"
+
+int RoughnessTranslator::getLayerIndex(QString layerName) const
+{
+    layerName.remove(Constants::LayerType);
+    bool ok(true);
+    int layerIndex = layerName.toInt(&ok);
+    if(!ok)
+        throw GUIHelpers::Error("RoughnessTranslator::getLayerIndex() -> Error. Can't parse.");
+    return layerIndex;
 }

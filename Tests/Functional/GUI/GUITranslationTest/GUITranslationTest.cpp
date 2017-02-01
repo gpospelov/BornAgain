@@ -135,8 +135,10 @@ std::string GUITranslationTest::translationResultsToString() const
     ostr << m_sampleName << "\n";
     ostr << header() << "\n";
 
+    ostr << m_simulation->treeToString();
+
     auto domainPars = m_simulation->parametersToString();
-    domainPars.pop_back();
+    domainPars.pop_back(); // to remove extra "\n"
     ostr << domainPars;
     ostr << header(10) << "\n";
 

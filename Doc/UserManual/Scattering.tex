@@ -250,14 +250,14 @@ Mostly we will assume pure states to be \E{plane waves}
 \index{Plane wave}%
 \index{Wave!plane}%
 \begin{equation}\label{EplaneWave}
-  \psi_\k(\r)\coloneqq\e^{i\k\r},
+  \psi_\k(\r)\coloneqq\e^{i\k\r}.
 \end{equation}
-where the wavevector~$\k$ is allowed to have an imaginary part that describes damping.
+In vacuum, the wavevector~$\k$ purely real.
 \index{Damping}%
 We replace the sum in~\cref{EdefRho} by an integral,
 and find that the flux is simply
 \begin{equation}
-  \v{J}(\r) = \int\!\d^3k\; p_\k\, |\psi_\k(\r)|^2 \Re\k.
+  \v{J}(\r) = \int\!\d^3k\; p_\k\, |\psi_\k(\r)|^2 \k.
 \end{equation}
 
 %===============================================================================
@@ -485,7 +485,7 @@ and obtain
 For a plane wave $\v E(\r)=\v E_\k \e^{i\k\r}$, we find
 \begin{equation}
   \braket{\v S}
-  = \frac{1}{2\omega\mu_0} |\v E|^2 \Re \k,
+  = \frac{1}{2\omega\mu_0} |\v E_\k|^2 \Re \k,
 \end{equation}
 which confirms the common knowledge that the radiation intensity
 counted in a detector is proportional to the squared electric field amplitude.

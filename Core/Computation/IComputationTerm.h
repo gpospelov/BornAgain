@@ -16,7 +16,7 @@
 #ifndef ICOMPUTATIONTERM_H
 #define ICOMPUTATIONTERM_H
 
-#include "SafePointerVector.h"
+#include "FullFresnelMap.h"
 #include <vector>
 
 
@@ -38,7 +38,7 @@ public:
     virtual ~IComputationTerm();
 
     //! Sets magnetic reflection/transmission info for all layers
-    void setSpecularInfo(const SafePointerVector<ILayerSpecularInfo>* p_specular_info);
+    void setSpecularInfo(const FullFresnelMap* p_full_map);
 
     //! Calculate scattering intensity for each SimulationElement
     //! returns false if nothing needed to be calculated
@@ -51,7 +51,7 @@ public:
 protected:
     const ILayerSpecularInfo* layerFresnelMap(size_t index) const;
     const MultiLayer* mp_multilayer;
-    const SafePointerVector<ILayerSpecularInfo>* mp_specular_info_map;
+    const FullFresnelMap* mp_full_fresnel_map;
 };
 
 #endif // ICOMPUTATIONTERM_H

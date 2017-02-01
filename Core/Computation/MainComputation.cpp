@@ -101,23 +101,23 @@ void MainComputation::runProtected()
 
 void MainComputation::collectFresnelScalar()
 {
-    if (m_fresnel_info.size()!=0) return;
+    if (m_full_fresnel_map.size()!=0) return;
 
     // run through layers and construct T,R maps
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        m_fresnel_info.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
+        m_full_fresnel_map.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
     }
     passFresnelInfo();
 }
 
 void MainComputation::collectFresnelMatrix()
 {
-    if (m_fresnel_info.size()!=0) return;
+    if (m_full_fresnel_map.size()!=0) return;
     mP_inverted_multilayer.reset(mP_multi_layer->cloneInvertB());
 
     // run through layers and construct T,R maps
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        m_fresnel_info.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
+        m_full_fresnel_map.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
                                                            mP_inverted_multilayer.get(), i));
     }
     passFresnelInfo();
@@ -126,6 +126,6 @@ void MainComputation::collectFresnelMatrix()
 void MainComputation::passFresnelInfo()
 {
     for (IComputationTerm* comp: m_computation_terms) {
-        comp->setSpecularInfo(&m_fresnel_info);
+        comp->setSpecularInfo(&m_full_fresnel_map);
     }
 }

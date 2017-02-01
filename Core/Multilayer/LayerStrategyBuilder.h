@@ -16,6 +16,7 @@
 #ifndef LAYERSTRATEGYBUILDER_H
 #define LAYERSTRATEGYBUILDER_H
 
+#include "FullFresnelMap.h"
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
 #include <memory>
@@ -36,7 +37,7 @@ class BA_CORE_API_ LayerStrategyBuilder
 public:
     LayerStrategyBuilder(
         const MultiLayer* p_multilayer, const ILayout* p_layout,
-        const SafePointerVector<ILayerSpecularInfo>* p_specular_info, bool polarized,
+        const FullFresnelMap* p_full_map, bool polarized,
         const SimulationOptions& sim_params, size_t layer_index);
 
     ~LayerStrategyBuilder();
@@ -51,7 +52,7 @@ private:
     const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;
     //! R and T coefficients for DWBA
-    const SafePointerVector<ILayerSpecularInfo>* mp_specular_info_map;
+    const FullFresnelMap* mp_full_fresnel_map;
     bool m_polarized;  //!< polarized computation required?
     SimulationOptions m_sim_params;
     size_t m_layer_index;

@@ -23,10 +23,12 @@ class ILayerSpecularInfo;
 class FullFresnelMap
 {
 public:
-    FullFresnelMap() {}
-    ~FullFresnelMap() {}
+    FullFresnelMap();
+    ~FullFresnelMap();
 
     void push_back(ILayerSpecularInfo* layer_map);
+
+    size_t size() const;
 
     const ILayerSpecularInfo* layerFresnelMap(size_t index) const;
 private:

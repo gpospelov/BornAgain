@@ -29,11 +29,11 @@
 
 LayerStrategyBuilder::LayerStrategyBuilder(
     const MultiLayer* p_multilayer, const ILayout* p_layout,
-    const SafePointerVector<ILayerSpecularInfo>* p_specular_info, bool polarized,
+    const FullFresnelMap* p_full_map, bool polarized,
     const SimulationOptions& sim_params, size_t layer_index)
     : mp_multilayer(p_multilayer)
     , mp_layout(p_layout)
-    , mp_specular_info_map(p_specular_info)
+    , mp_full_fresnel_map(p_full_map)
     , m_polarized {polarized}
     , m_sim_params (sim_params)
     , m_layer_index(layer_index)
@@ -88,7 +88,7 @@ SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectForm
         FormFactorCoherentSum* p_ff_coh;
         p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
-        p_ff_coh->setSpecularInfo(*(*mp_specular_info_map)[m_layer_index]);
+        p_ff_coh->setSpecularInfo(*mp_full_fresnel_map->layerFresnelMap(m_layer_index));
         result.push_back(p_ff_coh);
     }
     return result;

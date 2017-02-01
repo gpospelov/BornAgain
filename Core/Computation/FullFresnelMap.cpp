@@ -16,9 +16,20 @@
 #include "FullFresnelMap.h"
 #include "ILayerSpecularInfo.h"
 
+FullFresnelMap::FullFresnelMap()
+{}
+
+FullFresnelMap::~FullFresnelMap()
+{}
+
 void FullFresnelMap::push_back(ILayerSpecularInfo* p_layer_map)
 {
     m_full_map.push_back(p_layer_map);
+}
+
+size_t FullFresnelMap::size() const
+{
+    return m_full_map.size();
 }
 
 const ILayerSpecularInfo*FullFresnelMap::layerFresnelMap(size_t index) const

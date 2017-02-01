@@ -19,7 +19,7 @@
 #include "ComputationStatus.h"
 #include "Complex.h"
 #include "INoncopyable.h"
-#include "SafePointerVector.h"
+#include "FullFresnelMap.h"
 #include "SimulationOptions.h"
 #include <memory>
 #include <vector>
@@ -69,7 +69,7 @@ private:
     std::vector<IComputationTerm*> m_computation_terms;
 
     //! contains the information, necessary to calculate the Fresnel coefficients
-    SafePointerVector<ILayerSpecularInfo> m_fresnel_info;
+    FullFresnelMap m_full_fresnel_map;
 
     ComputationStatus m_status;
 };

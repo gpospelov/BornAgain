@@ -18,19 +18,19 @@
 
 IComputationTerm::IComputationTerm(const MultiLayer* p_multilayer)
     : mp_multilayer(p_multilayer)
-    , mp_specular_info_map(nullptr)
+    , mp_full_fresnel_map(nullptr)
 {}
 
 IComputationTerm::~IComputationTerm()
 {}
 
 void IComputationTerm::setSpecularInfo(
-        const SafePointerVector<ILayerSpecularInfo>* p_specular_info)
+        const FullFresnelMap* p_full_map)
 {
-    mp_specular_info_map = p_specular_info;
+    mp_full_fresnel_map = p_full_map;
 }
 
 const ILayerSpecularInfo* IComputationTerm::layerFresnelMap(size_t index) const
 {
-    return (*mp_specular_info_map)[index];
+    return mp_full_fresnel_map->layerFresnelMap(index);
 }

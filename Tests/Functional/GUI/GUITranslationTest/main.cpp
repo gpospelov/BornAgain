@@ -27,8 +27,8 @@ bool run_tests() {
 //            {"BasicGISAS", "MultiLayerWithRoughnessBuilder"},
 //            {"BasicGISAS", "SquareLatticeBuilder"},
 //            {"BasicGISAS", "RotatedPyramidsBuilder"},
-    //            {"BasicGISAS", "CylindersWithSizeDistributionBuilder"},
-            {"BasicGISAS", "ParticleCompositionBuilder"},
+                {"BasicGISAS", "CylindersWithSizeDistributionBuilder"},
+//            {"BasicGISAS", "ParticleCompositionBuilder"},
 //        {"BasicGISAS", "Basic2DParaCrystalBuilder"},
 //            {"BasicGISAS", "Lattice1DBuilder"},
 //            {"BasicGISAS", "Basic2DLatticeBuilder"}

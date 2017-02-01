@@ -16,7 +16,8 @@
 #ifndef DISTRIBUTIONS_H
 #define DISTRIBUTIONS_H
 
-#include "IParameterized.h"
+#include "ICloneable.h"
+#include "INode.h"
 #include "RealLimits.h"
 #include <vector>
 
@@ -29,7 +30,7 @@ class ParameterSample;
 //! Interface for one-dimensional distributions.
 //! @ingroup distribution_internal
 
-class BA_CORE_API_ IDistribution1D : public IParameterized
+class BA_CORE_API_ IDistribution1D : public ICloneable, public INode
 {
 public:
     IDistribution1D() {}
@@ -103,6 +104,8 @@ public:
 
     bool isDelta() const final;
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
@@ -136,6 +139,8 @@ public:
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -171,6 +176,8 @@ public:
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -208,6 +215,8 @@ public:
 
     bool isDelta() const final;
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
@@ -241,6 +250,8 @@ public:
         size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 protected:
     //! Registers some class members for later access via parameter pool

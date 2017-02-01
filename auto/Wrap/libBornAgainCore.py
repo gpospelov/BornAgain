@@ -7362,6 +7362,11 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FTDistribution1DTriangle arg2)
         visit(INodeVisitor self, FTDistribution1DCosine arg2)
         visit(INodeVisitor self, FTDistribution1DVoigt arg2)
+        visit(INodeVisitor self, DistributionGate arg2)
+        visit(INodeVisitor self, DistributionLorentz arg2)
+        visit(INodeVisitor self, DistributionGaussian arg2)
+        visit(INodeVisitor self, DistributionLogNormal arg2)
+        visit(INodeVisitor self, DistributionCosine arg2)
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
 
@@ -7632,7 +7637,7 @@ class Crystal(IClusteredParticles):
 Crystal_swigregister = _libBornAgainCore.Crystal_swigregister
 Crystal_swigregister(Crystal)
 
-class IDistribution1D(IParameterized):
+class IDistribution1D(ICloneable, INode):
     """
 
 
@@ -7643,11 +7648,11 @@ class IDistribution1D(IParameterized):
     """
 
     __swig_setmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IDistribution1D, name, value)
     __swig_getmethods__ = {}
-    for _s in [IParameterized]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IDistribution1D, name)
 
@@ -7870,6 +7875,16 @@ class DistributionGate(IDistribution1D):
         """
         return _libBornAgainCore.DistributionGate_isDelta(self)
 
+
+    def accept(self, visitor):
+        """
+        accept(DistributionGate self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.DistributionGate_accept(self, visitor)
+
 DistributionGate_swigregister = _libBornAgainCore.DistributionGate_swigregister
 DistributionGate_swigregister(DistributionGate)
 
@@ -7977,6 +7992,16 @@ class DistributionLorentz(IDistribution1D):
         """
         return _libBornAgainCore.DistributionLorentz_isDelta(self)
 
+
+    def accept(self, visitor):
+        """
+        accept(DistributionLorentz self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.DistributionLorentz_accept(self, visitor)
+
 DistributionLorentz_swigregister = _libBornAgainCore.DistributionLorentz_swigregister
 DistributionLorentz_swigregister(DistributionLorentz)
 
@@ -8083,6 +8108,16 @@ class DistributionGaussian(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionGaussian_isDelta(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(DistributionGaussian self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.DistributionGaussian_accept(self, visitor)
 
 DistributionGaussian_swigregister = _libBornAgainCore.DistributionGaussian_swigregister
 DistributionGaussian_swigregister(DistributionGaussian)
@@ -8201,6 +8236,16 @@ class DistributionLogNormal(IDistribution1D):
         """
         return _libBornAgainCore.DistributionLogNormal_isDelta(self)
 
+
+    def accept(self, visitor):
+        """
+        accept(DistributionLogNormal self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.DistributionLogNormal_accept(self, visitor)
+
 DistributionLogNormal_swigregister = _libBornAgainCore.DistributionLogNormal_swigregister
 DistributionLogNormal_swigregister(DistributionLogNormal)
 
@@ -8307,6 +8352,16 @@ class DistributionCosine(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionCosine_isDelta(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(DistributionCosine self, INodeVisitor visitor)
+
+        virtual void INode::accept(ISampleVisitor *p_visitor) const =0
+
+        """
+        return _libBornAgainCore.DistributionCosine_accept(self, visitor)
 
 DistributionCosine_swigregister = _libBornAgainCore.DistributionCosine_swigregister
 DistributionCosine_swigregister(DistributionCosine)

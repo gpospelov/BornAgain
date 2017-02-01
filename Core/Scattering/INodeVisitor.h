@@ -145,6 +145,12 @@ class FTDistribution1DTriangle;
 class FTDistribution1DCosine;
 class FTDistribution1DVoigt;
 
+class DistributionGate;
+class DistributionLorentz;
+class DistributionGaussian;
+class DistributionLogNormal;
+class DistributionCosine;
+
 //! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
 
@@ -282,6 +288,12 @@ public:
     virtual void visit(const FTDistribution1DTriangle*) {}
     virtual void visit(const FTDistribution1DCosine*) {}
     virtual void visit(const FTDistribution1DVoigt*) {}
+
+    virtual void visit(const DistributionGate*) {}
+    virtual void visit(const DistributionLorentz*) {}
+    virtual void visit(const DistributionGaussian*) {}
+    virtual void visit(const DistributionLogNormal*) {}
+    virtual void visit(const DistributionCosine*) {}
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

@@ -23,6 +23,19 @@
 #include "RealParameter.h"
 #include <iomanip>
 
+namespace {
+
+//! Returns true if interference function is able to calculate particle density automatically,
+//! which is the case for 2D functions.
+bool provideParticleDensity(const IInterferenceFunction &iff)
+{
+    if(iff.getName() == BornAgain::InterferenceFunction2DLatticeType ||
+       iff.getName() == BornAgain::InterferenceFunction2DParaCrystalType)
+        return true;
+    return false;
+}
+}
+
 ParticleLayout::ParticleLayout()
     : mP_interference_function {nullptr}
     , m_total_particle_density {1.0}
@@ -204,4 +217,14 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
 {
     mP_interference_function.reset(child);
     registerChild(child);
+    if(!provideParticleDensity(*mP_interference_function))
+        registerParticleDensity();
+}
+
+void ParticleLayout::registerParticleDensity()
+{
+    if(getParameter(BornAgain::ParticleDensity))
+        return;
+
+    registerParameter(BornAgain::ParticleDensity, &m_total_particle_density);
 }

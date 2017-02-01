@@ -132,7 +132,7 @@ void MainComputation::collectRTCoefficientsScalar()
 
         // layer DWBA simulation
         for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(m_fresnel_info.back());
+            comp->setSpecularInfo(&m_fresnel_info);
 
         if (i==0)
             mp_specular_computation->setSpecularInfo(m_fresnel_info.back());
@@ -154,6 +154,6 @@ void MainComputation::collectRTCoefficientsMatrix()
 
         // layer DWBA simulation
         for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(m_fresnel_info.back());
+            comp->setSpecularInfo(&m_fresnel_info);
     }
 }

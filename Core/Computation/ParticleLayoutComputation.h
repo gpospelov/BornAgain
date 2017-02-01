@@ -17,8 +17,8 @@
 #define PARTICLELAYOUTCOMPUTATION_H
 
 #include "DelayedProgressCounter.h"
+#include "SafePointerVector.h"
 #include <vector>
-#include <memory>
 
 using std::size_t;
 
@@ -39,7 +39,8 @@ public:
     ParticleLayoutComputation(const MultiLayer* p_multilayer, const ILayout* p_layout,
                               size_t layer_index);
 
-    void setSpecularInfo(const ILayerSpecularInfo* p_specular_info);
+    //! Sets magnetic reflection/transmission info for all layers
+    void setSpecularInfo(const SafePointerVector<ILayerSpecularInfo>* p_specular_info);
 
     void eval(const SimulationOptions& options,
               ProgressHandler* progress,
@@ -50,7 +51,7 @@ public:
 private:
     const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;
-    const ILayerSpecularInfo* mp_specular_info;
+    const SafePointerVector<ILayerSpecularInfo>* mp_specular_info_map;
     size_t m_layer_index;
 };
 

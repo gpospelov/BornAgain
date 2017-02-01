@@ -64,6 +64,12 @@ void RoughMultiLayerComputation::eval(
     }
 }
 
+void RoughMultiLayerComputation::setSpecularInfo(
+        const SafePointerVector<ILayerSpecularInfo>* p_specular_info)
+{
+    mp_specular_info_map = p_specular_info;
+}
+
 double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element)
 {
     if (sim_element.getAlphaMean()<0.0)
@@ -160,10 +166,4 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
                       * h_min(qz4_minus*sigma);
 
     return term1 + term2 + term3 + term4 + term5 + term6 + term7 + term8;
-}
-
-void RoughMultiLayerComputation::setSpecularInfo(
-        const SafePointerVector<ILayerSpecularInfo>* p_specular_info)
-{
-    mp_specular_info_map = p_specular_info;
 }

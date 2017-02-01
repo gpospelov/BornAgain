@@ -26,7 +26,7 @@
 
 class ILayerSpecularInfo;
 class MultiLayer;
-class ParticleLayoutComputation;
+class IComputationTerm;
 class ProgressHandler;
 class RoughMultiLayerComputation;
 class SimulationElement;
@@ -68,9 +68,8 @@ private:
     //! these iterators define the span of detector bins this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
-    RoughMultiLayerComputation* mp_roughness_computation;
+    std::vector<IComputationTerm*> m_computation_terms;
     SpecularComputation *mp_specular_computation;
-    std::vector<ParticleLayoutComputation*> m_layer_computation;
 
     //! contains the information, necessary to calculate the Fresnel coefficients
     SafePointerVector<ILayerSpecularInfo> m_fresnel_info;

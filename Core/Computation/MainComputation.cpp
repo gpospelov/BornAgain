@@ -41,7 +41,6 @@ MainComputation::MainComputation(
     , m_progress(&progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
-    , mp_roughness_computation(nullptr)
 {
     msglog(Logging::DEBUG2) << "MainComputation::init()";
 
@@ -49,22 +48,21 @@ MainComputation::MainComputation(
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
-            m_layer_computation.push_back(
+            m_computation_terms.push_back(
                         new ParticleLayoutComputation(mP_multi_layer.get(),
                                                       layer->getLayout(j), i));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
-        mp_roughness_computation = new RoughMultiLayerComputation(mP_multi_layer.get());
+        m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get()));
     mp_specular_computation = new SpecularComputation();
 }
 
 MainComputation::~MainComputation()
 {
-    delete mp_roughness_computation;
-    delete mp_specular_computation;
-    for (ParticleLayoutComputation* comp: m_layer_computation)
+    for (IComputationTerm* comp: m_computation_terms)
         delete comp;
+    delete mp_specular_computation;
 }
 
 void MainComputation::run()
@@ -93,11 +91,11 @@ void MainComputation::runProtected()
     else
         collectRTCoefficientsScalar();
 
-    // run through layers and run layer simulations
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     bool polarized = mP_multi_layer->containsMagneticMaterial();
-    for (const ParticleLayoutComputation* comp: m_layer_computation) {
+    // add all IComputationTerms:
+    for (const IComputationTerm* comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
         comp->eval(m_sim_options, m_progress, polarized,
@@ -105,15 +103,7 @@ void MainComputation::runProtected()
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 
-    if (!mP_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
-        msglog(Logging::DEBUG2) << "MainComputation::run() -> roughness";
-        if (!m_progress->alive())
-            return;
-        mp_roughness_computation->eval(m_sim_options, m_progress, polarized,
-                                       layer_elements.begin(), layer_elements.end());
-        addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
-    }
-
+    // Specular computation currently overwrites the pixel value (intended behaviour)
     if (m_sim_options.includeSpecular())
         mp_specular_computation->eval(m_sim_options, m_progress, polarized, m_begin_it, m_end_it);
 }
@@ -128,15 +118,12 @@ void MainComputation::collectRTCoefficientsScalar()
         m_fresnel_info.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
     }
 
-    // layer DWBA simulation
-    for (ParticleLayoutComputation* comp: m_layer_computation) {
+    // IComputationTerm simulation
+    for (IComputationTerm* comp: m_computation_terms) {
         comp->setSpecularInfo(&m_fresnel_info);
     }
     // specular simulation (R^2 at top layer)
     mp_specular_computation->setSpecularInfo(&m_fresnel_info);
-    // layer roughness DWBA
-    if (mp_roughness_computation)
-        mp_roughness_computation->setSpecularInfo(&m_fresnel_info);
 }
 
 void MainComputation::collectRTCoefficientsMatrix()
@@ -151,8 +138,8 @@ void MainComputation::collectRTCoefficientsMatrix()
                                                            mP_inverted_multilayer.get(), i));
     }
 
-    // layer DWBA simulation
-    for (ParticleLayoutComputation* comp: m_layer_computation) {
+    // IComputationTerm simulation
+    for (IComputationTerm* comp: m_computation_terms) {
         comp->setSpecularInfo(&m_fresnel_info);
     }
 }

@@ -75,6 +75,9 @@ protected:
     //! Gets a composed translation vector
     kvector_t getComposedTranslation(const IRotation* p_rotation, kvector_t translation) const;
 
+    //! Registers abundance and position
+    void registerParticleProperties();
+
     //! Registers the three components of its position
     void registerPosition();
 

@@ -175,5 +175,5 @@ void ParticleComposition::addParticlePointer(IParticle* p_particle)
 void ParticleComposition::initialize()
 {
     setName(BornAgain::ParticleCompositionType);
-    registerPosition();
+    registerParticleProperties();
 }

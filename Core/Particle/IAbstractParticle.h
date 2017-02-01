@@ -18,6 +18,7 @@
 
 #include "ISample.h"
 #include "Vectors3D.h"
+#include "BornAgainNamespace.h"
 #include <memory>
 
 class IMaterial;
@@ -48,7 +49,14 @@ public:
     virtual const IMaterial* getAmbientMaterial() const =0;
 
 protected:
+    void registerAbundance();
+
     double m_abundance;
 };
+
+inline void IAbstractParticle::registerAbundance()
+{
+    registerParameter(BornAgain::Abundance, &m_abundance);
+}
 
 #endif // IABSTRACTPARTICLE_H

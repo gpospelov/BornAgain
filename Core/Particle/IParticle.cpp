@@ -76,6 +76,12 @@ kvector_t IParticle::getComposedTranslation(
     }
 }
 
+void IParticle::registerParticleProperties()
+{
+    registerAbundance();
+    registerPosition();
+}
+
 void IParticle::registerPosition()
 {
     registerParameter(BornAgain::PositionX, &m_position[0]).setUnit("nm");

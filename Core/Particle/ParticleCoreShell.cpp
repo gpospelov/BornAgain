@@ -23,7 +23,7 @@ ParticleCoreShell::ParticleCoreShell(
     const Particle& shell, const Particle& core, kvector_t relative_core_position)
 {
     setName(BornAgain::ParticleCoreShellType);
-    registerPosition();
+    registerParticleProperties();
     addAndRegisterCore(core, relative_core_position);
     addAndRegisterShell(shell);
 }

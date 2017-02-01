@@ -82,8 +82,7 @@ void ParticleComposition::addParticle(const IParticle &particle)
 {
     checkParticleType(particle);
     IParticle* np = particle.clone();
-    registerChild(np);
-    m_particles.push_back(np);
+    addParticlePointer(np);
 }
 
 void ParticleComposition::addParticle(const IParticle& particle, kvector_t position)
@@ -91,8 +90,7 @@ void ParticleComposition::addParticle(const IParticle& particle, kvector_t posit
     checkParticleType(particle);
     IParticle* np = particle.clone();
     np->applyTranslation(position);
-    registerChild(np);
-    m_particles.push_back(np);
+    addParticlePointer(np);
 }
 
 // Please note, that positions is not const reference here. This is intentionally to
@@ -168,6 +166,7 @@ void ParticleComposition::checkParticleType(const IParticle &p_particle)
 
 void ParticleComposition::addParticlePointer(IParticle* p_particle)
 {
+    p_particle->registerAbundance(false);
     registerChild(p_particle);
     m_particles.push_back(p_particle);
 }

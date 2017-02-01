@@ -17,7 +17,6 @@
 #include "ParticleLayoutComputation.h"
 #include "Layer.h"
 #include "ILayerSpecularInfo.h"
-#include "Logger.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
@@ -42,8 +41,6 @@ MainComputation::MainComputation(
     , m_begin_it(begin_it)
     , m_end_it(end_it)
 {
-    msglog(Logging::DEBUG2) << "MainComputation::init()";
-
     size_t nLayers = mP_multi_layer->getNumberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->getLayer(i);
@@ -84,8 +81,6 @@ void MainComputation::run()
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
-    msglog(Logging::DEBUG2) << "MainComputation::runProtected()";
-
     if (mP_multi_layer->requiresMatrixRTCoefficients())
         collectRTCoefficientsMatrix();
     else
@@ -110,7 +105,6 @@ void MainComputation::collectRTCoefficientsScalar()
 
     // run through layers and construct T,R functions
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        msglog(Logging::DEBUG2) << "MainComputation::run() -> Layer " << i;
         m_fresnel_info.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
     }
 
@@ -127,7 +121,6 @@ void MainComputation::collectRTCoefficientsMatrix()
 
     // run through layers and construct T,R functions
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        msglog(Logging::DEBUG2) << "MainComputation::runMagnetic() -> Layer " << i;
         m_fresnel_info.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
                                                            mP_inverted_multilayer.get(), i));
     }

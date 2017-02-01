@@ -20,7 +20,6 @@
 #include "ILayerSpecularInfo.h"
 #include "ILayout.h"
 #include "LayerStrategyBuilder.h"
-#include "Logger.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"

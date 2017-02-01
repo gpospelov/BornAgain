@@ -40,7 +40,7 @@ bool ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(mp_multilayer, mp_layout, layerFresnelMap(m_layer_index),
+        LayerStrategyBuilder(mp_multilayer, mp_layout, mp_specular_info_map,
                              polarized, options, m_layer_index).createStrategy() };
     double total_surface_density = mp_layout->getTotalParticleSurfaceDensity();
 

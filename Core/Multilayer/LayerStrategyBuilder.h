@@ -36,7 +36,7 @@ class BA_CORE_API_ LayerStrategyBuilder
 public:
     LayerStrategyBuilder(
         const MultiLayer* p_multilayer, const ILayout* p_layout,
-        const ILayerSpecularInfo* p_specular_info, bool polarized,
+        const SafePointerVector<ILayerSpecularInfo>* p_specular_info, bool polarized,
         const SimulationOptions& sim_params, size_t layer_index);
 
     ~LayerStrategyBuilder();
@@ -49,10 +49,11 @@ private:
         const IParticle* particle, const IMaterial* p_ambient_material) const;
 
     const MultiLayer* mp_multilayer;
-    const ILayout* mp_layout;                   //!< layout
-    const ILayerSpecularInfo* mp_specular_info; //!< R and T coefficients for DWBA
-    bool m_polarized;                           //!< polarized computation required?
-    SimulationOptions m_sim_params;                            //!< simulation parameters
+    const ILayout* mp_layout;
+    //! R and T coefficients for DWBA
+    const SafePointerVector<ILayerSpecularInfo>* mp_specular_info_map;
+    bool m_polarized;  //!< polarized computation required?
+    SimulationOptions m_sim_params;
     size_t m_layer_index;
 };
 

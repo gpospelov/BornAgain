@@ -232,6 +232,8 @@ const ModelType FITPAR_LOWERLIMITED = "lower limited";
 const ModelType FITPAR_UPPERLIMITED = "upper limited";
 const ModelType FITPAR_FREE = "free";
 
+const ModelType DistributionSigmaFactor = "Sigma factor";
+
 // --- Custom variants ----------------------------------------------------------
 
 const ModelType ScientificDoublePropertyType = "ScientificDoubleProperty";

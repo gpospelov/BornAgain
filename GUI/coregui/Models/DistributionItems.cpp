@@ -21,7 +21,7 @@
 #include <cmath>
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
-const QString DistributionItem::P_SIGMA_FACTOR = "Sigma factor";
+const QString DistributionItem::P_SIGMA_FACTOR = Constants::DistributionSigmaFactor;
 const QString DistributionItem::P_IS_INITIALIZED = "is initialized";
 
 DistributionItem::DistributionItem(const QString name) : SessionItem(name)

@@ -33,6 +33,7 @@ ParticleDistribution::ParticleDistribution(const IParticle& prototype,
     mP_particle->registerAbundance(false);
     if(auto dist = m_par_distribution.getDistribution())
         registerChild(dist);
+    registerParameter(BornAgain::Abundance, &m_abundance);
 }
 
 ParticleDistribution* ParticleDistribution::clone() const

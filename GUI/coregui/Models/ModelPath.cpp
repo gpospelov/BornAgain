@@ -246,6 +246,8 @@ bool ModelPath::isTranslatable(const SessionItem *item, const QString &par_name)
     Q_UNUSED(item);
     if(par_name.contains(Constants::DetectorType))
         return false;
+    if(par_name.contains(Constants::DistributionSigmaFactor))
+        return false;
     return true;
 }
 

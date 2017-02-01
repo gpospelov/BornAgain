@@ -22,7 +22,7 @@
 // --------------------------------------------------------------------------------------------- //
 
 const QString FTDecayFunction1DItem::P_DECAY_LENGTH
-    = QString::fromStdString(BornAgain::DecayLengthX);
+    = QString::fromStdString(BornAgain::DecayLength);
 
 FTDecayFunction1DItem::FTDecayFunction1DItem(const QString& name)
     : SessionItem(name)

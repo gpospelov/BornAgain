@@ -22861,14 +22861,15 @@ class ParameterDistribution(IParameterized):
         return _libBornAgainCore.ParameterDistribution_getSigmaFactor(self)
 
 
-    def getDistribution(self):
+    def getDistribution(self, *args):
         """
+        getDistribution(ParameterDistribution self) -> IDistribution1D
         getDistribution(ParameterDistribution self) -> IDistribution1D
 
         const IDistribution1D * ParameterDistribution::getDistribution() const 
 
         """
-        return _libBornAgainCore.ParameterDistribution_getDistribution(self)
+        return _libBornAgainCore.ParameterDistribution_getDistribution(self, *args)
 
 
     def generateSamples(self):

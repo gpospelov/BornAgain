@@ -126,3 +126,8 @@ const IDistribution1D* ParameterDistribution::getDistribution() const
 {
     return mP_distribution.get();
 }
+
+IDistribution1D* ParameterDistribution::getDistribution()
+{
+    return mP_distribution.get();
+}

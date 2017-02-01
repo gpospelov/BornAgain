@@ -18,7 +18,7 @@ TEST_F(ParticleDistributionTest, getChildren)
 
     std::vector<const INode*> children = distr.getChildren();
 
-    EXPECT_EQ(children.size(), 1u);
+    EXPECT_EQ(children.size(), 2u);
     EXPECT_EQ(children.at(0)->getName(), BornAgain::ParticleType);
 }
 

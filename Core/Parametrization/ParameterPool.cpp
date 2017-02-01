@@ -86,10 +86,7 @@ const RealParameter* ParameterPool::getParameter(const std::string& name) const
         if( par->getName()==name )
             return par;
 
-    std::ostringstream message;
-    message << "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'\n"
-            << "Available parameters:" << *this;
-    throw Exceptions::RuntimeErrorException(message.str());
+    return nullptr;
 }
 
 //! Returns parameter with given _name_.
@@ -132,11 +129,17 @@ RealParameter* ParameterPool::getUniqueMatch(const std::string& pattern) const
 
 void ParameterPool::setParameterValue(const std::string& name, double value)
 {
-    RealParameter* par = getParameter(name);
-    try {
-        par->setValue(value);
-    } catch (std::runtime_error) {
-        report_set_value_error(name, value);
+    if(RealParameter* par = getParameter(name)) {
+        try {
+            par->setValue(value);
+        } catch (std::runtime_error) {
+            report_set_value_error(name, value);
+        }
+    } else {
+        std::ostringstream message;
+        message << "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'\n"
+                << "Available parameters:" << *this;
+        throw Exceptions::RuntimeErrorException(message.str());
     }
 }
 

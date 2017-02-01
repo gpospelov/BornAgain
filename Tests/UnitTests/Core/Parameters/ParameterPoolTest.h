@@ -35,7 +35,7 @@ TEST_F(ParameterPoolTest, addParameter)
     EXPECT_EQ(pool.getParameter("rp2"), rp2);
 
     // getting non-existing parameters
-    EXPECT_THROW(pool.getParameter("rp3"), Exceptions::RuntimeErrorException);
+    EXPECT_EQ(pool.getParameter("rp3"), nullptr);
 
     // vector of parameter names
     std::vector<std::string> names{"rp1","rp2"};

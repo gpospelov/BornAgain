@@ -82,9 +82,9 @@ void MainComputation::run()
 void MainComputation::runProtected()
 {
     if (mP_multi_layer->requiresMatrixRTCoefficients())
-        collectRTCoefficientsMatrix();
+        collectFresnelMatrix();
     else
-        collectRTCoefficientsScalar();
+        collectFresnelScalar();
 
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
@@ -99,23 +99,23 @@ void MainComputation::runProtected()
     }
 }
 
-void MainComputation::collectRTCoefficientsScalar()
+void MainComputation::collectFresnelScalar()
 {
     if (m_fresnel_info.size()!=0) return;
 
-    // run through layers and construct T,R functions
+    // run through layers and construct T,R maps
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         m_fresnel_info.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
     }
     passFresnelInfo();
 }
 
-void MainComputation::collectRTCoefficientsMatrix()
+void MainComputation::collectFresnelMatrix()
 {
     if (m_fresnel_info.size()!=0) return;
     mP_inverted_multilayer.reset(mP_multi_layer->cloneInvertB());
 
-    // run through layers and construct T,R functions
+    // run through layers and construct T,R maps
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         m_fresnel_info.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
                                                            mP_inverted_multilayer.get(), i));

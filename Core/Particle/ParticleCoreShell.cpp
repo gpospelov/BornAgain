@@ -108,12 +108,15 @@ void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relat
     mp_core.reset(core.clone());
     mp_core->applyTranslation(relative_core_position);
     registerChild(mp_core.get());
+    mp_core->registerAbundance(false);
 }
 
 void ParticleCoreShell::addAndRegisterShell(const Particle& shell)
 {
     mp_shell.reset(shell.clone());
     registerChild(mp_shell.get());
+    mp_shell->registerAbundance(false);
+    mp_shell->registerPosition(false);
 }
 
 ParticleCoreShell::ParticleCoreShell()

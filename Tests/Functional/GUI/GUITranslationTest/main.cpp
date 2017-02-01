@@ -23,8 +23,8 @@ bool run_tests() {
         //    {"BasicGISAS", "CylindersAndPrismsBuilder"},
 //    {"BasicGISAS", "RotatedPyramidsBuilder"},
 //    {"BasicGISAS", "RadialParaCrystalBuilder"},
-    {"BasicGISAS", "Basic2DParaCrystalBuilder"},
-//    {"BasicGISAS", "Lattice1DBuilder"},
+//    {"BasicGISAS", "Basic2DParaCrystalBuilder"},
+    {"BasicGISAS", "Lattice1DBuilder"},
 //    {"BasicGISAS", "Basic2DLatticeBuilder"},
 //    {"BasicGISAS", "SquareLatticeBuilder"},
     };

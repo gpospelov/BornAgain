@@ -19446,6 +19446,18 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_evaluate(self, q)
 
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction1DLattice_getChildren(self)
+
 InterferenceFunction1DLattice_swigregister = _libBornAgainCore.InterferenceFunction1DLattice_swigregister
 InterferenceFunction1DLattice_swigregister(InterferenceFunction1DLattice)
 

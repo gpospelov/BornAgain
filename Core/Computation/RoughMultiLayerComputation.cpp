@@ -55,7 +55,7 @@ void RoughMultiLayerComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     if (mp_multilayer->requiresMatrixRTCoefficients()) {
-        for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
+        for (auto it = begin_it; it != end_it; ++it) {
             it->setIntensity(0.0);
         }
         return;

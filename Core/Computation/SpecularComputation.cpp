@@ -17,19 +17,20 @@
 #include "SimulationElement.h"
 #include "ILayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
+#include "MultiLayer.h"
 
-SpecularComputation::SpecularComputation()
-    : IComputationTerm(nullptr)
+SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer)
+    : IComputationTerm(p_multi_layer)
 {}
 
 void SpecularComputation::eval(
-    const SimulationOptions&,
-    ProgressHandler*,
-    bool polarized,
+    const SimulationOptions&, ProgressHandler*, bool,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
-    if (polarized) return;
+    if (mp_multilayer->requiresMatrixRTCoefficients())
+        return;
+
     for (auto it = begin_it; it != end_it; ++it) {
         if (it->containsSpecularWavevector()) {
             complex_t R = (*mp_specular_info_map)[0]->getInCoefficients(*it)->getScalarR();

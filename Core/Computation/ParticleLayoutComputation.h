@@ -26,7 +26,7 @@ class ILayout;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class ParticleLayoutComputation : public IComputationTerm
+class ParticleLayoutComputation final : public IComputationTerm
 {
 public:
     ParticleLayoutComputation(const MultiLayer* p_multilayer, const ILayout* p_layout,

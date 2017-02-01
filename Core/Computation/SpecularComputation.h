@@ -25,7 +25,7 @@
 class SpecularComputation final : public IComputationTerm
 {
 public:
-    SpecularComputation();
+    SpecularComputation(const MultiLayer* p_multi_layer);
 
     void eval(const SimulationOptions& options,
               ProgressHandler* progress,

@@ -19,6 +19,7 @@
 #include "ILayerRTCoefficients.h"
 
 SpecularComputation::SpecularComputation()
+    : IComputationTerm(nullptr)
 {}
 
 void SpecularComputation::eval(
@@ -30,7 +31,7 @@ void SpecularComputation::eval(
     if (polarized) return;
     for (auto it = begin_it; it != end_it; ++it) {
         if (it->containsSpecularWavevector()) {
-            complex_t R = mp_specular_info->getInCoefficients(*it)->getScalarR();
+            complex_t R = (*mp_specular_info_map)[0]->getInCoefficients(*it)->getScalarR();
             double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
             if (sin_alpha_i==0.0)
                 sin_alpha_i = 1.0;
@@ -42,9 +43,4 @@ void SpecularComputation::eval(
         }
     }
     return;
-}
-
-void SpecularComputation::setSpecularInfo(const ILayerSpecularInfo* p_specular_info)
-{
-    mp_specular_info = p_specular_info;
 }

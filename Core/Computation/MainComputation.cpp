@@ -134,9 +134,9 @@ void MainComputation::collectRTCoefficientsScalar()
         for(ParticleLayoutComputation* comp: m_layer_computation[i])
             comp->setSpecularInfo(&m_fresnel_info);
 
-        if (i==0)
-            mp_specular_computation->setSpecularInfo(m_fresnel_info.back());
     }
+    // specular simulation (R^2 at top layer)
+    mp_specular_computation->setSpecularInfo(&m_fresnel_info);
     // layer roughness DWBA
     if (mp_roughness_computation)
         mp_roughness_computation->setSpecularInfo(&m_fresnel_info);

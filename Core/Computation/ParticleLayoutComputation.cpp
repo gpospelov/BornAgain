@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParticleLayoutComputation.h"
+#include "DelayedProgressCounter.h"
 #include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "ILayerSpecularInfo.h"
@@ -26,17 +27,10 @@
 
 ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
                                                      const ILayout* p_layout, size_t layer_index)
-    : mp_multilayer(p_multilayer)
+    : IComputationTerm(p_multilayer)
     , mp_layout(p_layout)
-    , mp_specular_info_map(nullptr)
     , m_layer_index(layer_index)
 {}
-
-void ParticleLayoutComputation::setSpecularInfo(
-        const SafePointerVector<ILayerSpecularInfo>* p_specular_info)
-{
-    mp_specular_info_map = p_specular_info;
-}
 
 //! Computes scattering intensity for given range of simulation elements.
 void ParticleLayoutComputation::eval(

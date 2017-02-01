@@ -250,8 +250,6 @@ bool ModelPath::isTranslatable(const SessionItem *item, const QString &par_name)
         return false;
     if(par_name.contains(ParticleLayoutItem::P_TOTAL_DENSITY))
         return false;
-    if(par_name.contains("FTDecayFunction2D"))
-        return false;
     return true;
 }
 

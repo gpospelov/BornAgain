@@ -66,9 +66,13 @@ public:
     static const QString P_DECAY_LENGTH_X;
     static const QString P_DECAY_LENGTH_Y;
     static const QString P_GAMMA;
+    static const QString P_DELTA;
     explicit FTDecayFunction2DItem(const QString& name);
     virtual std::unique_ptr<IFTDecayFunction2D> createFTDecayFunction() const=0;
     virtual ~FTDecayFunction2DItem(){}
+protected:
+    void add_decay_property();
+    void add_gammadelta_property();
 };
 
 class BA_CORE_API_ FTDecayFunction2DCauchyItem : public FTDecayFunction2DItem

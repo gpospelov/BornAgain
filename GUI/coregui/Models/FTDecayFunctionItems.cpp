@@ -95,10 +95,24 @@ const QString FTDecayFunction2DItem::P_DECAY_LENGTH_Y
     = QString::fromStdString(BornAgain::DecayLengthY);
 const QString FTDecayFunction2DItem::P_GAMMA
     = QString::fromStdString(BornAgain::Gamma);
+const QString FTDecayFunction2DItem::P_DELTA
+    = QString::fromStdString(BornAgain::Delta);
 
 FTDecayFunction2DItem::FTDecayFunction2DItem(const QString& name)
-    : SessionItem(name) {
+    : SessionItem(name)
+{
+}
+
+void FTDecayFunction2DItem::add_decay_property()
+{
+    addProperty(P_DECAY_LENGTH_X, 1000.0);
+    addProperty(P_DECAY_LENGTH_Y, 1000.0);
+}
+
+void FTDecayFunction2DItem::add_gammadelta_property()
+{
     addProperty(P_GAMMA, 0.0);
+    addProperty(P_DELTA, 90.0);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -106,15 +120,17 @@ FTDecayFunction2DItem::FTDecayFunction2DItem(const QString& name)
 FTDecayFunction2DCauchyItem::FTDecayFunction2DCauchyItem()
     : FTDecayFunction2DItem(Constants::FTDecayFunction2DCauchyType)
 {
-    addProperty(P_DECAY_LENGTH_X, 1000.0);
-    addProperty(P_DECAY_LENGTH_Y, 1000.0);
+    add_decay_property();
+    add_gammadelta_property();
 }
 
 std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DCauchyItem::createFTDecayFunction() const
 {
     auto result = GUIHelpers::make_unique<FTDecayFunction2DCauchy>(
-        getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble());
-    result->setGamma(Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
+        getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
+        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+
     return std::move(result);
 }
 
@@ -123,15 +139,17 @@ std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DCauchyItem::createFTDecayFu
 FTDecayFunction2DGaussItem::FTDecayFunction2DGaussItem()
     : FTDecayFunction2DItem(Constants::FTDecayFunction2DGaussType)
 {
-    addProperty(P_DECAY_LENGTH_X, 1000.0);
-    addProperty(P_DECAY_LENGTH_Y, 1000.0);
+    add_decay_property();
+    add_gammadelta_property();
 }
 
 std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DGaussItem::createFTDecayFunction() const
 {
     auto result = GUIHelpers::make_unique<FTDecayFunction2DGauss>(
-        getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble());
-    result->setGamma(Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
+        getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
+        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+
     return std::move(result);
 }
 
@@ -142,16 +160,18 @@ const QString FTDecayFunction2DVoigtItem::P_ETA = QString::fromStdString(BornAga
 FTDecayFunction2DVoigtItem::FTDecayFunction2DVoigtItem()
     : FTDecayFunction2DItem(Constants::FTDecayFunction2DVoigtType)
 {
-    addProperty(P_DECAY_LENGTH_X, 1000.0);
-    addProperty(P_DECAY_LENGTH_Y, 1000.0);
+    add_decay_property();
     addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
+    add_gammadelta_property();
 }
 
 std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DVoigtItem::createFTDecayFunction() const
 {
     auto result = GUIHelpers::make_unique<FTDecayFunction2DVoigt>(
         getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
-        getItemValue(P_ETA).toDouble());
-    result->setGamma(Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
+        getItemValue(P_ETA).toDouble(),
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
+        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+
     return std::move(result);
 }

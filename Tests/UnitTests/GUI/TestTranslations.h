@@ -7,7 +7,7 @@
 #include "RotationItems.h"
 #include "BeamItem.h"
 #include "BeamDistributionItem.h"
-#include "DistributionItem.h"
+#include "DistributionItems.h"
 #include <QDebug>
 
 class TestTranslations : public QObject {

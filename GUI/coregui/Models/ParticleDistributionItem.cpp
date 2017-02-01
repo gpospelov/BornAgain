@@ -16,7 +16,7 @@
 
 #include "ParticleDistributionItem.h"
 #include "ComboProperty.h"
-#include "DistributionItem.h"
+#include "DistributionItems.h"
 #include "Distributions.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"

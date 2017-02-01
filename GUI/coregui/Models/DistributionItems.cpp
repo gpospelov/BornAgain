@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/DistributionItem.cpp
+//! @file      GUI/coregui/Models/DistributionItems.cpp
 //! @brief     Implements class DistributionItem and several subclasses
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "DistributionItem.h"
+#include "DistributionItems.h"
 #include "Distributions.h"
 #include "GUIHelpers.h"
 #include <cmath>

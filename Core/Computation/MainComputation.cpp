@@ -55,14 +55,14 @@ MainComputation::MainComputation(
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
         m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get()));
-    mp_specular_computation = new SpecularComputation(mP_multi_layer.get());
+    if (m_sim_options.includeSpecular())
+        m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get()));
 }
 
 MainComputation::~MainComputation()
 {
     for (IComputationTerm* comp: m_computation_terms)
         delete comp;
-    delete mp_specular_computation;
 }
 
 void MainComputation::run()
@@ -102,10 +102,6 @@ void MainComputation::runProtected()
                    layer_elements.begin(), layer_elements.end());
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
-
-    // Specular computation currently overwrites the pixel value (intended behaviour)
-    if (m_sim_options.includeSpecular())
-        mp_specular_computation->eval(m_sim_options, m_progress, polarized, m_begin_it, m_end_it);
 }
 
 void MainComputation::collectRTCoefficientsScalar()
@@ -122,8 +118,6 @@ void MainComputation::collectRTCoefficientsScalar()
     for (IComputationTerm* comp: m_computation_terms) {
         comp->setSpecularInfo(&m_fresnel_info);
     }
-    // specular simulation (R^2 at top layer)
-    mp_specular_computation->setSpecularInfo(&m_fresnel_info);
 }
 
 void MainComputation::collectRTCoefficientsMatrix()

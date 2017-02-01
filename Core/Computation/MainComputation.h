@@ -28,9 +28,7 @@ class ILayerSpecularInfo;
 class MultiLayer;
 class IComputationTerm;
 class ProgressHandler;
-class RoughMultiLayerComputation;
 class SimulationElement;
-class SpecularComputation;
 
 //! Performs a single-threaded DWBA computation with given sample and simulation parameters,
 //! for a given span of detector bins.
@@ -69,7 +67,6 @@ private:
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
     std::vector<IComputationTerm*> m_computation_terms;
-    SpecularComputation *mp_specular_computation;
 
     //! contains the information, necessary to calculate the Fresnel coefficients
     SafePointerVector<ILayerSpecularInfo> m_fresnel_info;

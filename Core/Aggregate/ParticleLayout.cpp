@@ -222,7 +222,7 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
     mP_interference_function.reset(child);
     registerChild(child);
     if(provideParticleDensity(*mP_interference_function))
-        getParameterPool()->removeParameter(BornAgain::TotalParticleDensity);
+        removeParameter(BornAgain::TotalParticleDensity);
     else
         registerParticleDensity();
 }

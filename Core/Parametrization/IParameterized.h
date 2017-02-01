@@ -52,6 +52,8 @@ public:
     //! Action to be taken in inherited class when a parameter has changed.
     virtual void onChange() {}
 
+    void removeParameter(const std::string& name);
+
 private:
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };

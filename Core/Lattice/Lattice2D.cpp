@@ -74,7 +74,7 @@ void Lattice2D::setRotationEnabled(bool enabled)
         registerParameter(BornAgain::Xi, &m_xi).setUnit("rad");
 
     } else {
-        getParameterPool()->removeParameter(BornAgain::Xi);
+        removeParameter(BornAgain::Xi);
     }
 }
 

@@ -1978,6 +1978,11 @@ class IParameterized(INamed):
         """
         return _libBornAgainCore.IParameterized_onChange(self)
 
+
+    def removeParameter(self, name):
+        """removeParameter(IParameterized self, std::string const & name)"""
+        return _libBornAgainCore.IParameterized_removeParameter(self, name)
+
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IParameterized(self)

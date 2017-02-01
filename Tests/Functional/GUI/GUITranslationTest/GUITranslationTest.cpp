@@ -149,19 +149,11 @@ std::string GUITranslationTest::translationResultsToString() const
 }
 
 //! Returns true, if it makes sence to look for GUI translation for given domain name.
-//! For example, thickness of top and bottom layers is not shown in the list of GUI's fit
-//! parameters, but still present in the list of ISample::parametersToString.
-//!
+//! Intended to supress warnings about not-yet implemented translations.
+
 bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 {
-    if(domainName.find("Layer0/Thickness") != std::string::npos)
-        return false;
-
-    size_t layerCount = m_simulation->getSample()->getNumberOfLayers();
-    std::string lastLayerName = "Layer"+std::to_string(layerCount-1)+"/Thickness";
-    if(domainName.find(lastLayerName) != std::string::npos)
-        return false;
-
+    (void)domainName;
     return true;
 }
 

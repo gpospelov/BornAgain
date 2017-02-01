@@ -21,13 +21,14 @@
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "RealParameter.h"
+#include "ParameterPool.h"
 #include <iomanip>
 
 namespace {
 
 //! Returns true if interference function is able to calculate particle density automatically,
 //! which is the case for 2D functions.
-bool provideParticleDensity(const IInterferenceFunction &iff)
+bool provideParticleDensity(const IInterferenceFunction& iff)
 {
     if(iff.getName() == BornAgain::InterferenceFunction2DLatticeType ||
        iff.getName() == BornAgain::InterferenceFunction2DParaCrystalType)
@@ -41,6 +42,7 @@ ParticleLayout::ParticleLayout()
     , m_total_particle_density {1.0}
 {
     setName(BornAgain::ParticleLayoutType);
+    registerParticleDensity();
 }
 
 ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
@@ -51,6 +53,7 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle)
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle);
+    registerParticleDensity();
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
@@ -59,6 +62,7 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
+    registerParticleDensity();
 }
 
 ParticleLayout* ParticleLayout::clone() const
@@ -217,7 +221,9 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
 {
     mP_interference_function.reset(child);
     registerChild(child);
-    if(!provideParticleDensity(*mP_interference_function))
+    if(provideParticleDensity(*mP_interference_function))
+        getParameterPool()->removeParameter(BornAgain::TotalParticleDensity);
+    else
         registerParticleDensity();
 }
 

@@ -168,10 +168,14 @@ void ParameterTreeBuilder::populateDomainLinks(JobItem *jobItem, const QString &
             }
         } else {
             if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
-                QString parItemPath = FitParameterHelper::getParameterItemPath(parItem);
-                std::string domainPath = ModelPath::translateParameterName(
-                    jobItem, parItemPath);
-                parItem->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(domainPath));
+//                QString parItemPath = FitParameterHelper::getParameterItemPath(parItem);
+//                std::string domainPath = ModelPath::translateParameterName(
+//                    jobItem, parItemPath);
+//                parItem->setItemValue(ParameterItem::P_DOMAIN, QString::fromStdString(domainPath));
+
+                // new way of translating
+                QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
+                parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
             }
         }
     }

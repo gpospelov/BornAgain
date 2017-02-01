@@ -70,7 +70,7 @@ private:
 
     RoughMultiLayerComputation* mp_roughness_computation;
     SpecularComputation *mp_specular_computation;
-    std::vector<std::vector<ParticleLayoutComputation*>> m_layer_computation;
+    std::vector<ParticleLayoutComputation*> m_layer_computation;
 
     //! contains the information, necessary to calculate the Fresnel coefficients
     SafePointerVector<ILayerSpecularInfo> m_fresnel_info;

@@ -46,11 +46,10 @@ MainComputation::MainComputation(
     msglog(Logging::DEBUG2) << "MainComputation::init()";
 
     size_t nLayers = mP_multi_layer->getNumberOfLayers();
-    m_layer_computation.resize( nLayers );
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
-            m_layer_computation[i].push_back(
+            m_layer_computation.push_back(
                         new ParticleLayoutComputation(mP_multi_layer.get(),
                                                       layer->getLayout(j), i));
     }
@@ -64,9 +63,8 @@ MainComputation::~MainComputation()
 {
     delete mp_roughness_computation;
     delete mp_specular_computation;
-    for (auto& layer_comp: m_layer_computation)
-        for (ParticleLayoutComputation* comp: layer_comp)
-            delete comp;
+    for (ParticleLayoutComputation* comp: m_layer_computation)
+        delete comp;
 }
 
 void MainComputation::run()
@@ -99,14 +97,12 @@ void MainComputation::runProtected()
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     bool polarized = mP_multi_layer->containsMagneticMaterial();
-    for (auto& layer_comp: m_layer_computation) {
-        for (const ParticleLayoutComputation* comp: layer_comp) {
-            if (!m_progress->alive())
-                return;
-            comp->eval(m_sim_options, m_progress, polarized,
-                       layer_elements.begin(), layer_elements.end());
-            addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
-        }
+    for (const ParticleLayoutComputation* comp: m_layer_computation) {
+        if (!m_progress->alive())
+            return;
+        comp->eval(m_sim_options, m_progress, polarized,
+                   layer_elements.begin(), layer_elements.end());
+        addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 
     if (!mP_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
@@ -125,15 +121,16 @@ void MainComputation::runProtected()
 void MainComputation::collectRTCoefficientsScalar()
 {
     if (m_fresnel_info.size()!=0) return;
+
     // run through layers and construct T,R functions
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         msglog(Logging::DEBUG2) << "MainComputation::run() -> Layer " << i;
         m_fresnel_info.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
+    }
 
-        // layer DWBA simulation
-        for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(&m_fresnel_info);
-
+    // layer DWBA simulation
+    for (ParticleLayoutComputation* comp: m_layer_computation) {
+        comp->setSpecularInfo(&m_fresnel_info);
     }
     // specular simulation (R^2 at top layer)
     mp_specular_computation->setSpecularInfo(&m_fresnel_info);
@@ -146,14 +143,16 @@ void MainComputation::collectRTCoefficientsMatrix()
 {
     if (m_fresnel_info.size()!=0) return;
     mP_inverted_multilayer.reset(mP_multi_layer->cloneInvertB());
+
     // run through layers and construct T,R functions
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         msglog(Logging::DEBUG2) << "MainComputation::runMagnetic() -> Layer " << i;
         m_fresnel_info.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
                                                            mP_inverted_multilayer.get(), i));
+    }
 
-        // layer DWBA simulation
-        for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(&m_fresnel_info);
+    // layer DWBA simulation
+    for (ParticleLayoutComputation* comp: m_layer_computation) {
+        comp->setSpecularInfo(&m_fresnel_info);
     }
 }

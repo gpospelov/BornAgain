@@ -252,6 +252,12 @@ InterferenceFunction2DParaCrystal::getProbabilityDistributions() const
     return {m_pdf1.get(), m_pdf2.get()};
 }
 
+void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
+{
+    m_integrate_xi = integrate_xi;
+    m_lattice->setRotationEnabled(!m_integrate_xi); // deregister Xi in the case of integration
+}
+
 const Lattice2D& InterferenceFunction2DParaCrystal::lattice() const
 {
     if (!m_lattice)

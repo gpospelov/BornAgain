@@ -20749,6 +20749,11 @@ class Lattice2D(ICloneable, INode):
         """reciprocalBases(Lattice2D self) -> Lattice2D::ReciprocalBases"""
         return _libBornAgainCore.Lattice2D_reciprocalBases(self)
 
+
+    def setRotationEnabled(self, enabled):
+        """setRotationEnabled(Lattice2D self, bool enabled)"""
+        return _libBornAgainCore.Lattice2D_setRotationEnabled(self, enabled)
+
     __swig_destroy__ = _libBornAgainCore.delete_Lattice2D
     __del__ = lambda self: None
 Lattice2D_swigregister = _libBornAgainCore.Lattice2D_swigregister

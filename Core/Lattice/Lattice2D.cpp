@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "RealParameter.h"
 #include "MathConstants.h"
+#include "ParameterPool.h"
 #include <cmath>
 
 Lattice2D::Lattice2D(double length1, double length2, double angle, double rotation_angle)
@@ -64,6 +65,19 @@ Lattice2D::Lattice2D(const Lattice2D& other)
     setName(other.getName());
 }
 
+void Lattice2D::setRotationEnabled(bool enabled)
+{
+    if(enabled) {
+        if(getParameter(BornAgain::Xi))
+            return;
+
+        registerParameter(BornAgain::Xi, &m_xi).setUnit("rad");
+
+    } else {
+        getParameterPool()->removeParameter(BornAgain::Xi);
+    }
+}
+
 // --------------------------------------------------------------------------------------------- //
 
 BasicLattice::BasicLattice(double length1, double length2, double angle, double rotation_angle)
@@ -89,7 +103,7 @@ void BasicLattice::init_parameters()
     registerParameter(BornAgain::LatticeLength1, &m_length1).setUnit("nm").setPositive();
     registerParameter(BornAgain::LatticeLength2, &m_length2).setUnit("nm").setPositive();
     registerParameter(BornAgain::LatticeAngle, &m_angle).setUnit("rad");
-    registerParameter(BornAgain::Xi,    &m_xi   ).setUnit("rad");
+    registerParameter(BornAgain::Xi, &m_xi).setUnit("rad");
 }
 
 // --------------------------------------------------------------------------------------------- //

@@ -39,6 +39,8 @@ public:
 
     ReciprocalBases reciprocalBases() const;
 
+    void setRotationEnabled(bool enabled);
+
 protected:
     virtual void onChange();
     Lattice2D(const Lattice2D& other);

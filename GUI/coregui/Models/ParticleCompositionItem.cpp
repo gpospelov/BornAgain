@@ -40,6 +40,9 @@ ParticleCompositionItem::ParticleCompositionItem()
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
 
+    addTranslator(NewPositionTranslator());
+    addTranslator(NewRotationTranslator());
+
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {
         if (parent && (parent->modelType() == Constants::ParticleCompositionType

@@ -24,20 +24,22 @@
 Layer::Layer(const IMaterial& material, double thickness)
     : mp_material(nullptr), m_thickness(thickness)
 {
+    setName(BornAgain::LayerType);
     setMaterial(material);
-    initialize();
+    registerThickness();
 }
 
 Layer::Layer(const Layer& other)
     : ISample(), mp_material(nullptr)
 {
+    setName(other.getName());
     m_thickness = other.m_thickness;
     if (other.mp_material)
         mp_material = other.mp_material->clone();
     for (size_t i=0; i<other.getNumberOfLayouts();++i)
         addLayout(*other.getLayout(i));
     setNumberOfLayers(other.getNumberOfLayers());
-    initialize();
+    registerThickness();
 }
 
 Layer::~Layer()
@@ -49,7 +51,6 @@ Layer* Layer::cloneInvertB() const
 {
     Layer* p_clone = new Layer(*mp_material->cloneInverted(), m_thickness);
     p_clone->setNumberOfLayers(getNumberOfLayers());
-    p_clone->init_parameters();
     return p_clone;
 }
 
@@ -108,14 +109,12 @@ std::vector<const INode*> Layer::getChildren() const
     return result;
 }
 
-void Layer::init_parameters()
+void Layer::registerThickness(bool make_registered)
 {
-    getParameterPool()->clear(); // non-trivially needed
-    registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
-}
-
-void Layer::initialize()
-{
-    setName(BornAgain::LayerType);
-    init_parameters();
+    if(make_registered) {
+        if(!getParameter(BornAgain::Thickness))
+            registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
+    } else {
+        removeParameter(BornAgain::Thickness);
+    }
 }

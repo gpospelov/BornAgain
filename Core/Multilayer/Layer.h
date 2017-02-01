@@ -61,17 +61,15 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+    void registerThickness(bool make_registered = true);
+
 private:
     Layer(const Layer& other);
-
-    void init_parameters();
 
     IMaterial* mp_material;   //!< pointer to the material
     double m_thickness;       //!< layer thickness in nanometers
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
     size_t mn_layers;
-
-    void initialize();
 };
 
 #endif // LAYER_H

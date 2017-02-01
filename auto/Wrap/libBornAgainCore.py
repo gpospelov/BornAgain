@@ -21155,6 +21155,14 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_getChildren(self)
 
+
+    def registerThickness(self, make_registered=True):
+        """
+        registerThickness(Layer self, bool make_registered=True)
+        registerThickness(Layer self)
+        """
+        return _libBornAgainCore.Layer_registerThickness(self, make_registered)
+
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 

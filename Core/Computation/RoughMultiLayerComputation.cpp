@@ -49,11 +49,10 @@ RoughMultiLayerComputation::~RoughMultiLayerComputation()
 {
 }
 
-//! Calls evaluate on range of simulation elements; returns true if computation shall continue
 void RoughMultiLayerComputation::eval(
-    ProgressHandler* progress,
+    const SimulationOptions&, ProgressHandler* progress, bool,
     const std::vector<SimulationElement>::iterator& begin_it,
-    const std::vector<SimulationElement>::iterator& end_it)
+    const std::vector<SimulationElement>::iterator& end_it) const
 {
     DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
@@ -64,7 +63,7 @@ void RoughMultiLayerComputation::eval(
     }
 }
 
-double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element)
+double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element) const
 {
     if (sim_element.getAlphaMean()<0.0)
         return 0.0;
@@ -111,7 +110,7 @@ complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer) const
 }
 
 complex_t RoughMultiLayerComputation::get_sum8terms(
-    size_t ilayer, const SimulationElement& sim_element)
+    size_t ilayer, const SimulationElement& sim_element) const
 {
     const std::unique_ptr<const ILayerRTCoefficients> P_in_plus(
         (*mp_specular_info_map)[ilayer]->getInCoefficients(sim_element));

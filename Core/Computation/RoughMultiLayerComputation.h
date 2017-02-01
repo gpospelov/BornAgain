@@ -33,14 +33,16 @@ public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer);
     ~RoughMultiLayerComputation();
 
-    void eval(ProgressHandler* progress,
+    void eval(const SimulationOptions& options,
+              ProgressHandler* progress,
+              bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it);
+              const std::vector<SimulationElement>::iterator& end_it) const override;
 
 private:
-    double evaluate(const SimulationElement& sim_element);
+    double evaluate(const SimulationElement& sim_element) const;
     complex_t get_refractive_term(size_t ilayer) const;
-    complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);
+    complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element) const;
 };
 
 #endif // ROUGHMULTILAYERCOMPUTATION_H

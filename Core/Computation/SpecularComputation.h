@@ -17,10 +17,6 @@
 #define SPECULARCOMPUTATION_H
 
 #include "IComputationTerm.h"
-#include <vector>
-
-class ProgressHandler;
-class SimulationElement;
 
 //! Computes the specular scattering.
 //! Controlled by MainComputation.
@@ -31,11 +27,11 @@ class SpecularComputation final : public IComputationTerm
 public:
     SpecularComputation();
 
-    void eval(ProgressHandler* progress,
+    void eval(const SimulationOptions& options,
+              ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it);
+              const std::vector<SimulationElement>::iterator& end_it) const override;
 };
-
 
 #endif // SPECULARCOMPUTATION_H

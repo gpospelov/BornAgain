@@ -113,13 +113,13 @@ void MainComputation::runProtected()
         msglog(Logging::DEBUG2) << "MainComputation::run() -> roughness";
         if (!m_progress->alive())
             return;
-        mp_roughness_computation->eval(
-            m_progress, layer_elements.begin(), layer_elements.end());
+        mp_roughness_computation->eval(m_sim_options, m_progress, polarized,
+                                       layer_elements.begin(), layer_elements.end());
         addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 
     if (m_sim_options.includeSpecular())
-        mp_specular_computation->eval(m_progress, polarized, m_begin_it, m_end_it);
+        mp_specular_computation->eval(m_sim_options, m_progress, polarized, m_begin_it, m_end_it);
 }
 
 void MainComputation::collectRTCoefficientsScalar()

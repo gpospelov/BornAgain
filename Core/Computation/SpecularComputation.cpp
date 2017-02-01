@@ -23,10 +23,11 @@ SpecularComputation::SpecularComputation()
 {}
 
 void SpecularComputation::eval(
-        ProgressHandler* /*unused*/,
-        bool polarized,
-        const std::vector<SimulationElement>::iterator& begin_it,
-        const std::vector<SimulationElement>::iterator& end_it)
+    const SimulationOptions&,
+    ProgressHandler*,
+    bool polarized,
+    const std::vector<SimulationElement>::iterator& begin_it,
+    const std::vector<SimulationElement>::iterator& end_it) const
 {
     if (polarized) return;
     for (auto it = begin_it; it != end_it; ++it) {

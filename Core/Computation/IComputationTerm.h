@@ -22,9 +22,9 @@
 
 class ILayerSpecularInfo;
 class MultiLayer;
-//class ProgressHandler;
-//class SimulationElement;
-//class SimulationOptions;
+class ProgressHandler;
+class SimulationElement;
+class SimulationOptions;
 
 //! Computes an independent term of the scattering intensity.
 //! Controlled by MainComputation, which adds up all contributions from subclasses
@@ -40,11 +40,11 @@ public:
     //! Sets magnetic reflection/transmission info for all layers
     void setSpecularInfo(const SafePointerVector<ILayerSpecularInfo>* p_specular_info);
 
-//    void eval(const SimulationOptions& options,
-//              ProgressHandler* progress,
-//              bool polarized,
-//              const std::vector<SimulationElement>::iterator& begin_it,
-//              const std::vector<SimulationElement>::iterator& end_it) const;
+    virtual void eval(const SimulationOptions& options,
+              ProgressHandler* progress,
+              bool polarized,
+              const std::vector<SimulationElement>::iterator& begin_it,
+              const std::vector<SimulationElement>::iterator& end_it) const =0;
 
 protected:
     const MultiLayer* mp_multilayer;

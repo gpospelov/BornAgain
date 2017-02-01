@@ -17,14 +17,10 @@
 #define PARTICLELAYOUTCOMPUTATION_H
 
 #include "IComputationTerm.h"
-#include <vector>
 
 using std::size_t;
 
 class ILayout;
-class ProgressHandler;
-class SimulationElement;
-class SimulationOptions;
 
 //! Computes the scattering contribution from one particle layout.
 //! Controlled by MainComputation.
@@ -40,7 +36,7 @@ public:
               ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const;
+              const std::vector<SimulationElement>::iterator& end_it) const override;
 
 private:
     const ILayout* mp_layout;

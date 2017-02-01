@@ -42,6 +42,8 @@ bool SpecularComputation::eval(
                 continue;
             double intensity = std::norm(R)*sin_alpha_i/solid_angle;
             it->setIntensity(intensity);
+        } else {
+            it->setIntensity(0.0);
         }
     }
     return true;

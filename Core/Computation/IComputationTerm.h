@@ -40,7 +40,9 @@ public:
     //! Sets magnetic reflection/transmission info for all layers
     void setSpecularInfo(const SafePointerVector<ILayerSpecularInfo>* p_specular_info);
 
-    virtual void eval(const SimulationOptions& options,
+    //! Calculate scattering intensity for each SimulationElement
+    //! returns false if nothing needed to be calculated
+    virtual bool eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,

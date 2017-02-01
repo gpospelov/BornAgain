@@ -32,7 +32,7 @@ public:
     ParticleLayoutComputation(const MultiLayer* p_multilayer, const ILayout* p_layout,
                               size_t layer_index);
 
-    void eval(const SimulationOptions& options,
+    bool eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,

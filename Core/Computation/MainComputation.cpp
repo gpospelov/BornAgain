@@ -98,9 +98,9 @@ void MainComputation::runProtected()
     for (const IComputationTerm* comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
-        comp->eval(m_sim_options, m_progress, polarized,
-                   layer_elements.begin(), layer_elements.end());
-        addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
+        if (comp->eval(m_sim_options, m_progress, polarized,
+                       layer_elements.begin(), layer_elements.end()) )
+            addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
 }
 

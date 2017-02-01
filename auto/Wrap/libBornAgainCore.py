@@ -18262,6 +18262,22 @@ class IParticle(IAbstractParticle):
         """
         return _libBornAgainCore.IParticle_getChildren(self)
 
+
+    def registerAbundance(self, make_registered=True):
+        """
+        registerAbundance(IParticle self, bool make_registered=True)
+        registerAbundance(IParticle self)
+        """
+        return _libBornAgainCore.IParticle_registerAbundance(self, make_registered)
+
+
+    def registerPosition(self, make_registered=True):
+        """
+        registerPosition(IParticle self, bool make_registered=True)
+        registerPosition(IParticle self)
+        """
+        return _libBornAgainCore.IParticle_registerPosition(self, make_registered)
+
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)
 

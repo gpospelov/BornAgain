@@ -17,14 +17,14 @@
 #include "DistributionItems.h"
 #include "Distributions.h"
 #include "GUIHelpers.h"
+#include "BornAgainNamespace.h"
 #include <cmath>
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = "Sigma factor";
 const QString DistributionItem::P_IS_INITIALIZED = "is initialized";
 
-DistributionItem::DistributionItem(const QString name)
-    : SessionItem(name)
+DistributionItem::DistributionItem(const QString name) : SessionItem(name)
 {
     addProperty(P_IS_INITIALIZED, false)->setVisible(false);
 }
@@ -35,7 +35,7 @@ DistributionItem::DistributionItem(const QString name)
 
 void DistributionItem::init_parameters(double value)
 {
-    if(getItemValue(P_IS_INITIALIZED).toBool())
+    if (getItemValue(P_IS_INITIALIZED).toBool())
         return;
 
     init_distribution(value);
@@ -52,12 +52,11 @@ void DistributionItem::register_sigma_factor()
     addProperty(P_SIGMA_FACTOR, 2.0);
 }
 
-/* ------------------------------------------------ */
+// --------------------------------------------------------------------------------------------- //
 
 const QString DistributionNoneItem::P_VALUE = "Value";
 
-DistributionNoneItem::DistributionNoneItem()
-    : DistributionItem(Constants::DistributionNoneType)
+DistributionNoneItem::DistributionNoneItem() : DistributionItem(Constants::DistributionNoneType)
 {
     addProperty(P_VALUE, 0.1)->setLimits(RealLimits::lowerLimited(1e-4));
     getItem(P_VALUE)->setDecimals(4);
@@ -73,13 +72,12 @@ void DistributionNoneItem::init_distribution(double value)
     setItemValue(DistributionNoneItem::P_VALUE, value);
 }
 
-/* ------------------------------------------------ */
+// --------------------------------------------------------------------------------------------- //
 
-const QString DistributionGateItem::P_MIN = "Minimum";
-const QString DistributionGateItem::P_MAX = "Maximum";
+const QString DistributionGateItem::P_MIN = QString::fromStdString(BornAgain::Minimum);
+const QString DistributionGateItem::P_MAX = QString::fromStdString(BornAgain::Maximum);
 
-DistributionGateItem::DistributionGateItem()
-    : DistributionItem(Constants::DistributionGateType)
+DistributionGateItem::DistributionGateItem() : DistributionItem(Constants::DistributionGateType)
 {
     addProperty(P_MIN, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_MAX, 1.0)->setLimits(RealLimits::limitless());
@@ -96,16 +94,17 @@ std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution() cons
 
 void DistributionGateItem::init_distribution(double value)
 {
-    double sigma(0.1*std::abs(value));
-    if(sigma == 0.0) sigma = 0.1;
+    double sigma(0.1 * std::abs(value));
+    if (sigma == 0.0)
+        sigma = 0.1;
     setItemValue(P_MIN, value - sigma);
     setItemValue(P_MAX, value + sigma);
 }
 
-/* ------------------------------------------------ */
+// --------------------------------------------------------------------------------------------- //
 
-const QString DistributionLorentzItem::P_MEAN = "Mean";
-const QString DistributionLorentzItem::P_HWHM = "HWHM";
+const QString DistributionLorentzItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
+const QString DistributionLorentzItem::P_HWHM = QString::fromStdString(BornAgain::HWHM);
 
 DistributionLorentzItem::DistributionLorentzItem()
     : DistributionItem(Constants::DistributionLorentzType)
@@ -125,18 +124,19 @@ std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution() c
 
 void DistributionLorentzItem::init_distribution(double value)
 {
-    double sigma(0.1*std::abs(value));
-    if(sigma == 0.0) sigma = 0.1;
+    double sigma(0.1 * std::abs(value));
+    if (sigma == 0.0)
+        sigma = 0.1;
 
     setItemValue(P_MEAN, value);
     setItemValue(P_HWHM, sigma);
     getItem(P_HWHM)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
-/* ------------------------------------------------ */
+// --------------------------------------------------------------------------------------------- //
 
-const QString DistributionGaussianItem::P_MEAN = "Mean";
-const QString DistributionGaussianItem::P_STD_DEV = "Standard deviation";
+const QString DistributionGaussianItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
+const QString DistributionGaussianItem::P_STD_DEV = QString::fromStdString(BornAgain::StdDeviation);
 
 DistributionGaussianItem::DistributionGaussianItem()
     : DistributionItem(Constants::DistributionGaussianType)
@@ -156,18 +156,20 @@ std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution() 
 
 void DistributionGaussianItem::init_distribution(double value)
 {
-    double sigma(0.1*std::abs(value));
-    if(sigma == 0.0) sigma = 0.1;
+    double sigma(0.1 * std::abs(value));
+    if (sigma == 0.0)
+        sigma = 0.1;
 
     setItemValue(P_MEAN, value);
     setItemValue(P_STD_DEV, sigma);
     getItem(P_STD_DEV)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
-/* ------------------------------------------------ */
+// --------------------------------------------------------------------------------------------- //
 
-const QString DistributionLogNormalItem::P_MEDIAN = "Median";
-const QString DistributionLogNormalItem::P_SCALE_PAR = "Scale parameter";
+const QString DistributionLogNormalItem::P_MEDIAN = QString::fromStdString(BornAgain::Median);
+const QString DistributionLogNormalItem::P_SCALE_PAR
+    = QString::fromStdString(BornAgain::ScaleParameter);
 
 DistributionLogNormalItem::DistributionLogNormalItem()
     : DistributionItem(Constants::DistributionLogNormalType)
@@ -187,18 +189,19 @@ std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution()
 
 void DistributionLogNormalItem::init_distribution(double value)
 {
-    double sigma(0.1*std::abs(value));
-    if(sigma == 0.0) sigma = 0.1;
+    double sigma(0.1 * std::abs(value));
+    if (sigma == 0.0)
+        sigma = 0.1;
 
     setItemValue(P_MEDIAN, value);
     setItemValue(P_SCALE_PAR, sigma);
     getItem(P_SCALE_PAR)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
-/* ------------------------------------------------ */
+// --------------------------------------------------------------------------------------------- //
 
-const QString DistributionCosineItem::P_MEAN = "Mean";
-const QString DistributionCosineItem::P_SIGMA = "Sigma";
+const QString DistributionCosineItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
+const QString DistributionCosineItem::P_SIGMA = QString::fromStdString(BornAgain::Sigma);
 
 DistributionCosineItem::DistributionCosineItem()
     : DistributionItem(Constants::DistributionCosineType)
@@ -218,8 +221,9 @@ std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution() co
 
 void DistributionCosineItem::init_distribution(double value)
 {
-    double sigma(0.1*std::abs(value));
-    if(sigma == 0.0) sigma = 0.1;
+    double sigma(0.1 * std::abs(value));
+    if (sigma == 0.0)
+        sigma = 0.1;
 
     setItemValue(P_MEAN, value);
     setItemValue(P_SIGMA, sigma);

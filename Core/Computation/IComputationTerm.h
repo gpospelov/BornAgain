@@ -49,6 +49,7 @@ public:
               const std::vector<SimulationElement>::iterator& end_it) const =0;
 
 protected:
+    const ILayerSpecularInfo* layerFresnelMap(size_t index) const;
     const MultiLayer* mp_multilayer;
     const SafePointerVector<ILayerSpecularInfo>* mp_specular_info_map;
 };

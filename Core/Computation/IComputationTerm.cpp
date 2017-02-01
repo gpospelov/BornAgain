@@ -29,3 +29,8 @@ void IComputationTerm::setSpecularInfo(
 {
     mp_specular_info_map = p_specular_info;
 }
+
+const ILayerSpecularInfo* IComputationTerm::layerFresnelMap(size_t index) const
+{
+    return (*mp_specular_info_map)[index];
+}

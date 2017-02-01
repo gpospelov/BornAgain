@@ -117,14 +117,14 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
     size_t ilayer, const SimulationElement& sim_element) const
 {
     const std::unique_ptr<const ILayerRTCoefficients> P_in_plus(
-        (*mp_specular_info_map)[ilayer]->getInCoefficients(sim_element));
+        layerFresnelMap(ilayer)->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_plus(
-        (*mp_specular_info_map)[ilayer]->getOutCoefficients(sim_element));
+        layerFresnelMap(ilayer)->getOutCoefficients(sim_element));
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_minus(
-        (*mp_specular_info_map)[ilayer + 1]->getInCoefficients(sim_element));
+        layerFresnelMap(ilayer+1)->getInCoefficients(sim_element));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_minus(
-        (*mp_specular_info_map)[ilayer + 1]->getOutCoefficients(sim_element));
+        layerFresnelMap(ilayer+1)->getOutCoefficients(sim_element));
 
     complex_t kiz_plus = P_in_plus->getScalarKz();
     complex_t kfz_plus = P_out_plus->getScalarKz();

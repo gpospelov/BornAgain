@@ -16,9 +16,11 @@
 
 #include "ParticleLayoutItem.h"
 #include "ComboProperty.h"
+#include "BornAgainNamespace.h"
 
 const QString ParticleLayoutItem::P_APPROX = "Approximation";
-const QString ParticleLayoutItem::P_TOTAL_DENSITY = "Total particle density";
+const QString ParticleLayoutItem::P_TOTAL_DENSITY
+    = QString::fromStdString(BornAgain::TotalParticleDensity);
 const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
 const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 

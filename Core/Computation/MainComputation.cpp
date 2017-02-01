@@ -107,11 +107,7 @@ void MainComputation::collectRTCoefficientsScalar()
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         m_fresnel_info.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
     }
-
-    // IComputationTerm simulation
-    for (IComputationTerm* comp: m_computation_terms) {
-        comp->setSpecularInfo(&m_fresnel_info);
-    }
+    passFresnelInfo();
 }
 
 void MainComputation::collectRTCoefficientsMatrix()
@@ -124,8 +120,11 @@ void MainComputation::collectRTCoefficientsMatrix()
         m_fresnel_info.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
                                                            mP_inverted_multilayer.get(), i));
     }
+    passFresnelInfo();
+}
 
-    // IComputationTerm simulation
+void MainComputation::passFresnelInfo()
+{
     for (IComputationTerm* comp: m_computation_terms) {
         comp->setSpecularInfo(&m_fresnel_info);
     }

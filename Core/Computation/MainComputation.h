@@ -55,9 +55,9 @@ public:
 
 private:
     void runProtected();
-
     void collectRTCoefficientsScalar();
     void collectRTCoefficientsMatrix();
+    void passFresnelInfo();
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;

@@ -17,10 +17,11 @@
 #ifndef ROTATIONITEMS_H
 #define ROTATIONITEMS_H
 
+#include "WinDllMacros.h"
 #include "SessionItem.h"
 #include "Rotations.h"
 
-class RotationItem : public SessionItem
+class BA_CORE_API_ RotationItem : public SessionItem
 {
 
 public:
@@ -30,7 +31,7 @@ public:
 };
 
 
-class XRotationItem : public RotationItem
+class BA_CORE_API_ XRotationItem : public RotationItem
 {
 
 public:
@@ -39,7 +40,7 @@ public:
     IRotation *createRotation() const;
 };
 
-class YRotationItem : public RotationItem
+class BA_CORE_API_ YRotationItem : public RotationItem
 {
 
 public:
@@ -48,7 +49,7 @@ public:
     IRotation *createRotation() const;
 };
 
-class ZRotationItem : public RotationItem
+class BA_CORE_API_ ZRotationItem : public RotationItem
 {
 
 public:
@@ -57,7 +58,7 @@ public:
     IRotation *createRotation() const;
 };
 
-class EulerRotationItem : public RotationItem
+class BA_CORE_API_ EulerRotationItem : public RotationItem
 {
 
 public:

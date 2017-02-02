@@ -273,6 +273,7 @@ std::vector<const INode*> MultiLayer::getChildren() const
 void MultiLayer::addAndRegisterLayer(Layer* child)
 {
     m_layers.push_back(child);
+    handleLayerThicknessRegistration();
     registerChild(child);
 }
 

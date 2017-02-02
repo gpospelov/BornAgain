@@ -17,11 +17,9 @@
 #define ROUGHMULTILAYERCOMPUTATION_H
 
 #include "Complex.h"
-#include "DelayedProgressCounter.h"
+#include "IComputationTerm.h"
 #include <vector>
 
-class ILayerSpecularInfo;
-class MultiLayer;
 class ProgressHandler;
 class SimulationElement;
 
@@ -29,28 +27,22 @@ class SimulationElement;
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class RoughMultiLayerComputation
+class RoughMultiLayerComputation final : public IComputationTerm
 {
 public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer);
     ~RoughMultiLayerComputation();
 
-    void eval(ProgressHandler* progress,
+    bool eval(const SimulationOptions& options,
+              ProgressHandler* progress,
+              bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it);
-
-    //! Sets magnetic reflection/transmission info for specific layer
-    void setSpecularInfo(size_t i_layer, const ILayerSpecularInfo& specular_info);
-
-    // evaluate
-    double evaluate(const SimulationElement& sim_element);
+              const std::vector<SimulationElement>::iterator& end_it) const override;
 
 private:
+    double evaluate(const SimulationElement& sim_element) const;
     complex_t get_refractive_term(size_t ilayer) const;
-    complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element);
-
-    const MultiLayer* mp_multi_layer;
-    std::vector<ILayerSpecularInfo*> mp_specular_info_vector;
+    complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element) const;
 };
 
 #endif // ROUGHMULTILAYERCOMPUTATION_H

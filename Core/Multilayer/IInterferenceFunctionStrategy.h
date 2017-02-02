@@ -56,7 +56,7 @@ public:
     virtual ~IInterferenceFunctionStrategy();
 
     void init(const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
-              const IInterferenceFunction& iff);
+              const IInterferenceFunction* p_iff);
 
     //! Calculates the intensity for scalar particles/interactions
     double evaluate(const SimulationElement& sim_element) const;

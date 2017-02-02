@@ -153,7 +153,7 @@ C++ includes: FitKernelImpl.h
 Sets minimizer. 
 ";
 
-%feature("docstring")  FitKernelImpl::addFitParameter "void FitKernelImpl::addFitParameter(FitParameter *par)
+%feature("docstring")  FitKernelImpl::addFitParameter "void FitKernelImpl::addFitParameter(IFitParameter *par)
 
 Adds fit parameter. 
 ";
@@ -211,81 +211,6 @@ C++ includes: FitOptions.h
 ";
 
 
-// File: classFitParameter.xml
-%feature("docstring") FitParameter "
-
-A fittable parameter with value, error, step, and limits.
-
-C++ includes: FitParameter.h
-";
-
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter()
-";
-
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
-";
-
-%feature("docstring")  FitParameter::~FitParameter "virtual FitParameter::~FitParameter()
-";
-
-%feature("docstring")  FitParameter::clone "FitParameter * FitParameter::clone() const 
-";
-
-%feature("docstring")  FitParameter::name "std::string FitParameter::name() const 
-";
-
-%feature("docstring")  FitParameter::startValue "double FitParameter::startValue() const 
-";
-
-%feature("docstring")  FitParameter::value "double FitParameter::value() const 
-";
-
-%feature("docstring")  FitParameter::setValue "void FitParameter::setValue(double value)
-";
-
-%feature("docstring")  FitParameter::step "double FitParameter::step() const 
-";
-
-%feature("docstring")  FitParameter::setStep "FitParameter & FitParameter::setStep(double value)
-";
-
-%feature("docstring")  FitParameter::error "double FitParameter::error() const 
-";
-
-%feature("docstring")  FitParameter::setError "void FitParameter::setError(double value)
-";
-
-%feature("docstring")  FitParameter::limits "const AttLimits & FitParameter::limits() const 
-";
-
-%feature("docstring")  FitParameter::limits "AttLimits & FitParameter::limits()
-";
-
-%feature("docstring")  FitParameter::setLimits "FitParameter & FitParameter::setLimits(const AttLimits &limits)
-";
-
-%feature("docstring")  FitParameter::setLowerLimited "FitParameter & FitParameter::setLowerLimited(double bound_value)
-";
-
-%feature("docstring")  FitParameter::setPositive "FitParameter & FitParameter::setPositive()
-";
-
-%feature("docstring")  FitParameter::setNonnegative "FitParameter & FitParameter::setNonnegative()
-";
-
-%feature("docstring")  FitParameter::setUpperLimited "FitParameter & FitParameter::setUpperLimited(double bound_value)
-";
-
-%feature("docstring")  FitParameter::setLimited "FitParameter & FitParameter::setLimited(double left_bound_value, double right_bound_value)
-";
-
-%feature("docstring")  FitParameter::setFixed "FitParameter & FitParameter::setFixed()
-";
-
-%feature("docstring")  FitParameter::toString "std::string FitParameter::toString() const 
-";
-
-
 // File: classFitParameterSet.xml
 %feature("docstring") FitParameterSet "
 
@@ -324,17 +249,17 @@ Container iterators.
 %feature("docstring")  FitParameterSet::end "FitParameterSet::const_iterator FitParameterSet::end() const 
 ";
 
-%feature("docstring")  FitParameterSet::addFitParameter "void FitParameterSet::addFitParameter(FitParameter *par)
+%feature("docstring")  FitParameterSet::addFitParameter "void FitParameterSet::addFitParameter(IFitParameter *par)
 
 Adds fit parameter. 
 ";
 
-%feature("docstring")  FitParameterSet::fitParameter "const FitParameter * FitParameterSet::fitParameter(const std::string &name) const
+%feature("docstring")  FitParameterSet::fitParameter "const IFitParameter * FitParameterSet::fitParameter(const std::string &name) const
 
 Returns fit parameter by given name. 
 ";
 
-%feature("docstring")  FitParameterSet::fitParameter "FitParameter * FitParameterSet::fitParameter(const std::string &name)
+%feature("docstring")  FitParameterSet::fitParameter "IFitParameter * FitParameterSet::fitParameter(const std::string &name)
 ";
 
 %feature("docstring")  FitParameterSet::values "std::vector< double > FitParameterSet::values() const
@@ -382,18 +307,12 @@ Release all parameters.
 Set fixed flag for parameters from the list. 
 ";
 
-%feature("docstring")  FitParameterSet::parametersToString "std::string FitParameterSet::parametersToString() const 
-";
-
 %feature("docstring")  FitParameterSet::correlationMatrix "corr_matrix_t FitParameterSet::correlationMatrix() const 
 ";
 
 %feature("docstring")  FitParameterSet::setCorrelationMatrix "void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)
-";
 
-%feature("docstring")  FitParameterSet::isExistingName "bool FitParameterSet::isExistingName(const std::string &name) const
-
-Returns true if parameter with such name exists. 
+Sets resulting correlation matrix. 
 ";
 
 
@@ -451,7 +370,7 @@ Sets random seed.
 %feature("docstring")  GeneticMinimizer::randomSeed "int GeneticMinimizer::randomSeed() const 
 ";
 
-%feature("docstring")  GeneticMinimizer::setParameter "void GeneticMinimizer::setParameter(size_t index, const FitParameter *par)
+%feature("docstring")  GeneticMinimizer::setParameter "void GeneticMinimizer::setParameter(size_t index, const IFitParameter *par)
 
 Sets minimizer parameter. Overload is required to check that parameter is properly limited. 
 ";
@@ -555,7 +474,7 @@ Returns string representation of current minimizer status.
 // File: classIFitParameter.xml
 %feature("docstring") IFitParameter "
 
-Pure virtual base class for fit parameters.
+A fittable parameter with value, error, step, and limits.
 
 C++ includes: IFitParameter.h
 ";
@@ -563,13 +482,76 @@ C++ includes: IFitParameter.h
 %feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter()
 ";
 
+%feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
+";
+
 %feature("docstring")  IFitParameter::~IFitParameter "virtual IFitParameter::~IFitParameter()
 ";
 
-%feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter(const IFitParameter &)=delete
+%feature("docstring")  IFitParameter::clone "IFitParameter * IFitParameter::clone() const 
 ";
 
-%feature("docstring")  IFitParameter::clone "virtual IFitParameter* IFitParameter::clone() const =0
+%feature("docstring")  IFitParameter::name "std::string IFitParameter::name() const 
+";
+
+%feature("docstring")  IFitParameter::setName "IFitParameter & IFitParameter::setName(const std::string &name)
+";
+
+%feature("docstring")  IFitParameter::startValue "double IFitParameter::startValue() const 
+";
+
+%feature("docstring")  IFitParameter::setStartValue "void IFitParameter::setStartValue(double value)
+";
+
+%feature("docstring")  IFitParameter::value "double IFitParameter::value() const 
+";
+
+%feature("docstring")  IFitParameter::setValue "void IFitParameter::setValue(double value)
+";
+
+%feature("docstring")  IFitParameter::addPattern "IFitParameter & IFitParameter::addPattern(const std::string &pattern)
+";
+
+%feature("docstring")  IFitParameter::step "double IFitParameter::step() const 
+";
+
+%feature("docstring")  IFitParameter::setStep "IFitParameter & IFitParameter::setStep(double value)
+";
+
+%feature("docstring")  IFitParameter::error "double IFitParameter::error() const 
+";
+
+%feature("docstring")  IFitParameter::setError "void IFitParameter::setError(double value)
+";
+
+%feature("docstring")  IFitParameter::limits "const AttLimits & IFitParameter::limits() const 
+";
+
+%feature("docstring")  IFitParameter::limits "AttLimits & IFitParameter::limits()
+";
+
+%feature("docstring")  IFitParameter::setLimits "IFitParameter & IFitParameter::setLimits(const AttLimits &limits)
+";
+
+%feature("docstring")  IFitParameter::setLowerLimited "IFitParameter & IFitParameter::setLowerLimited(double bound_value)
+";
+
+%feature("docstring")  IFitParameter::setPositive "IFitParameter & IFitParameter::setPositive()
+";
+
+%feature("docstring")  IFitParameter::setNonnegative "IFitParameter & IFitParameter::setNonnegative()
+";
+
+%feature("docstring")  IFitParameter::setUpperLimited "IFitParameter & IFitParameter::setUpperLimited(double bound_value)
+";
+
+%feature("docstring")  IFitParameter::setLimited "IFitParameter & IFitParameter::setLimited(double left_bound_value, double right_bound_value)
+";
+
+%feature("docstring")  IFitParameter::setFixed "IFitParameter & IFitParameter::setFixed()
+";
+
+%feature("docstring")  IFitParameter::toString "std::string IFitParameter::toString() const 
 ";
 
 
@@ -658,27 +640,6 @@ C++ includes: MinimizerInfo.h
 ";
 
 %feature("docstring")  InfoItem::description "std::string InfoItem::description() const 
-";
-
-
-// File: classLogging_1_1Logger.xml
-%feature("docstring") Logging::Logger "
-
-Message service, used through macro msglog.
-
-C++ includes: Logger.h
-";
-
-%feature("docstring")  Logging::Logger::Logger "Logging::Logger::Logger(EMessageLevel level)
-";
-
-%feature("docstring")  Logging::Logger::~Logger "Logging::Logger::~Logger()
-";
-
-%feature("docstring")  Logging::Logger::nowTime "std::string Logging::Logger::nowTime()
-";
-
-%feature("docstring")  Logging::Logger::toString "const std::string & Logging::Logger::toString(EMessageLevel level)
 ";
 
 
@@ -1331,7 +1292,7 @@ Sets internal minimizer parameters using external parameter list.
 %feature("docstring")  TestMinimizer::reportOutcome "std::string TestMinimizer::reportOutcome() const override
 ";
 
-%feature("docstring")  TestMinimizer::propagateResults "void TestMinimizer::propagateResults(FitParameterSet &)
+%feature("docstring")  TestMinimizer::propagateResults "void TestMinimizer::propagateResults(FitParameterSet &) override
 
 Propagates results of minimization to fit parameter set. 
 ";
@@ -1371,16 +1332,16 @@ returns run time in sec.msec
 // File: namespace_0D19.xml
 
 
-// File: namespace_0D35.xml
+// File: namespace_0D34.xml
 
 
-// File: namespace_0D37.xml
+// File: namespace_0D36.xml
 
 
-// File: namespace_0D41.xml
+// File: namespace_0D40.xml
 
 
-// File: namespace_0D43.xml
+// File: namespace_0D42.xml
 
 
 // File: namespaceAlgorithmNames.xml
@@ -1393,14 +1354,6 @@ returns run time in sec.msec
 
 
 // File: namespaceBA__ROOT_1_1Minuit2.xml
-
-
-// File: namespaceLogging.xml
-%feature("docstring")  Logging::setLevel "BA_CORE_API_ void Logging::setLevel(EMessageLevel level)
-";
-
-%feature("docstring")  Logging::setLevel "BA_CORE_API_ void Logging::setLevel(const std::string &levelname)
-";
 
 
 // File: namespaceMinimizerNames.xml
@@ -1553,16 +1506,13 @@ Returns scientific string representing given value of any numeric type.
 // File: Attributes_8h.xml
 
 
-// File: FitParameter_8cpp.xml
-
-
-// File: FitParameter_8h.xml
-
-
 // File: FitParameterSet_8cpp.xml
 
 
 // File: FitParameterSet_8h.xml
+
+
+// File: IFitParameter_8cpp.xml
 
 
 // File: IFitParameter_8h.xml
@@ -1623,12 +1573,6 @@ Returns scientific string representing given value of any numeric type.
 
 
 // File: SimAnMinimizer_8h.xml
-
-
-// File: Logger_8cpp.xml
-
-
-// File: Logger_8h.xml
 
 
 // File: MinimizerUtils_8cpp.xml

@@ -104,7 +104,7 @@ void ParticleDistributionItem::updateParameterList()
         }
     }
     QString selected_par = combo_prop.getValue();
-    QStringList par_names = getChildParameterNames();
+    QStringList par_names = childParameterNames();
     par_names.removeAll(ParticleItem::P_ABUNDANCE);
     auto updated_prop = ComboProperty(par_names);
     updated_prop.setCachedValue(cached_par);
@@ -119,7 +119,7 @@ void ParticleDistributionItem::updateParameterList()
     setItemValue(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
 }
 
-QStringList ParticleDistributionItem::getChildParameterNames() const
+QStringList ParticleDistributionItem::childParameterNames() const
 {
     QStringList result;
     QVector<SessionItem*> children = getItems();
@@ -134,15 +134,5 @@ QStringList ParticleDistributionItem::getChildParameterNames() const
     QString prefix = children.front()->displayName() + QString("/");
     result = ModelPath::getParameterTreeList(children.front(), prefix);
     result.prepend(NO_SELECTION);
-    return result;
-}
-
-QStringList ParticleDistributionItem::extractFromParameterPool(const ParameterPool *pool) const
-{
-    QStringList result;
-    std::vector<std::string> par_names = pool->parameterNames();
-    for (size_t i = 0; i < par_names.size(); ++i) {
-        result << QString(par_names[i].c_str());
-    }
     return result;
 }

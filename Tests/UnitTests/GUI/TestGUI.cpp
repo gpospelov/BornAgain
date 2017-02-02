@@ -37,13 +37,13 @@ int main(int argc, char** argv) {
     TestSessionItem testSessionItem;
     TestMapperCases testMapperCases;
     TestMapperForItem testMapperForItem;
-    TestParticleDistributionItem testParticleDistributionItem;
     TestGUIHelpers testGUIHelpers;
     TestFitParameterModel testFitParameterModel;
     TestMaterialModel testMaterialModel;
     TestComboProperty testComboProperty;
     TestTranslations testTranslations;
     TestGroupProperty testGroupProperty;
+    TestParticleDistributionItem testParticleDistributionItem;
 
     bool status(false);
 
@@ -59,13 +59,13 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testMapperCases, argc, argv);
     status |= QTest::qExec(&testSessionModel, argc, argv);
     status |= QTest::qExec(&testMapperForItem, argc, argv);
-    status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
     status |= QTest::qExec(&testGUIHelpers, argc, argv);
     status |= QTest::qExec(&testFitParameterModel, argc, argv);
     status |= QTest::qExec(&testMaterialModel, argc, argv);
     status |= QTest::qExec(&testComboProperty, argc, argv);
     status |= QTest::qExec(&testTranslations, argc, argv);
     status |= QTest::qExec(&testGroupProperty, argc, argv);
+    status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
 
     return status;
 }

@@ -21,7 +21,6 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(10, layer.getThickness());
     EXPECT_FALSE(layer.hasComputation());
     EXPECT_EQ(complex_t(1,0), layer.getRefractiveIndex());
-    EXPECT_EQ(0.0, layer.getTotalParticleSurfaceDensity(0));
     EXPECT_EQ(BornAgain::LayerType, layer.getName());
 
     layer.setThickness(20.0);
@@ -37,7 +36,6 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(20, clone->getThickness());
     EXPECT_FALSE(clone->hasComputation());
     EXPECT_EQ(complex_t(1,0.5), clone->getRefractiveIndex());
-    EXPECT_EQ(0.0, clone->getTotalParticleSurfaceDensity(0));
     EXPECT_EQ(BornAgain::LayerType, clone->getName());
 }
 

@@ -45,9 +45,9 @@ void MultiLayer::init_parameters()
 
 const ILayout * MultiLayer::getLayout(size_t i) const
 {
-	if (i >= m_layouts.size())
-		return nullptr;
-	return m_layouts[i];
+    if (i >= m_layouts.size())
+        return nullptr;
+    return m_layouts[i];
 }
 
 void MultiLayer::clear() // TODO: understand need
@@ -147,9 +147,9 @@ const LayerInterface* MultiLayer::getLayerBottomInterface(size_t i_layer) const
 
 void MultiLayer::addLayout(const ILayout & layout)
 {
-	ILayout *clone = layout.clone();
-	m_layouts.push_back(clone);
-	registerChild(clone);
+    ILayout *clone = layout.clone();
+    m_layouts.push_back(clone);
+    registerChild(clone);
 }
 
 //! Adds layer with top roughness
@@ -273,7 +273,6 @@ std::vector<const INode*> MultiLayer::getChildren() const
 void MultiLayer::addAndRegisterLayer(Layer* child)
 {
     m_layers.push_back(child);
-    setNLayersInLayers();
     registerChild(child);
 }
 
@@ -283,11 +282,10 @@ void MultiLayer::addAndRegisterInterface(LayerInterface* child)
     registerChild(child);
 }
 
-void MultiLayer::setNLayersInLayers() const
+void MultiLayer::handleLayerThicknessRegistration() const
 {
     size_t n_layers = getNumberOfLayers();
     for (size_t i=0; i<getNumberOfLayers(); ++i) {
-        m_layers[i]->setNumberOfLayers(n_layers);
         if(i == 0 || i == n_layers-1) {
             m_layers[i]->registerThickness(false);
         } else {

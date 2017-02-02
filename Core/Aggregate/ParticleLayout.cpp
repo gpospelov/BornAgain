@@ -178,13 +178,9 @@ double ParticleLayout::getAbundanceOfParticle(size_t index) const
     return m_particles[index]->getAbundance();
 }
 
-//! Returns a clone, or an InterferenceFunctionNone.
-IInterferenceFunction* ParticleLayout::cloneInterferenceFunction() const
+const IInterferenceFunction*ParticleLayout::getInterferenceFunction() const
 {
-    if( const IInterferenceFunction* p_iff = mP_interference_function.get() )
-        return p_iff->clone();
-    else
-        return new InterferenceFunctionNone();
+    return mP_interference_function.get();
 }
 
 //! Adds interference functions

@@ -5626,7 +5626,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -22168,7 +22168,7 @@ static PyMethodDef SwigMethods[] = {
 		"IFitParameter(std::string const & name, double value, AttLimits limits)\n"
 		"new_IFitParameter(std::string const & name, double value) -> IFitParameter\n"
 		"\n"
-		"IFitParameter::IFitParameter(const IFitParameter &)=delete\n"
+		"IFitParameter::IFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)\n"
 		"\n"
 		""},
 	 { (char *)"delete_IFitParameter", _wrap_delete_IFitParameter, METH_VARARGS, (char *)"\n"
@@ -22180,32 +22180,130 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IFitParameter_clone", _wrap_IFitParameter_clone, METH_VARARGS, (char *)"\n"
 		"IFitParameter_clone(IFitParameter self) -> IFitParameter\n"
 		"\n"
-		"virtual IFitParameter* IFitParameter::clone() const =0\n"
+		"IFitParameter * IFitParameter::clone() const \n"
 		"\n"
 		""},
-	 { (char *)"IFitParameter_name", _wrap_IFitParameter_name, METH_VARARGS, (char *)"IFitParameter_name(IFitParameter self) -> std::string"},
-	 { (char *)"IFitParameter_setName", _wrap_IFitParameter_setName, METH_VARARGS, (char *)"IFitParameter_setName(IFitParameter self, std::string const & name) -> IFitParameter"},
-	 { (char *)"IFitParameter_startValue", _wrap_IFitParameter_startValue, METH_VARARGS, (char *)"IFitParameter_startValue(IFitParameter self) -> double"},
-	 { (char *)"IFitParameter_setStartValue", _wrap_IFitParameter_setStartValue, METH_VARARGS, (char *)"IFitParameter_setStartValue(IFitParameter self, double value)"},
-	 { (char *)"IFitParameter_value", _wrap_IFitParameter_value, METH_VARARGS, (char *)"IFitParameter_value(IFitParameter self) -> double"},
-	 { (char *)"IFitParameter_setValue", _wrap_IFitParameter_setValue, METH_VARARGS, (char *)"IFitParameter_setValue(IFitParameter self, double value)"},
-	 { (char *)"IFitParameter_addPattern", _wrap_IFitParameter_addPattern, METH_VARARGS, (char *)"IFitParameter_addPattern(IFitParameter self, std::string const & pattern) -> IFitParameter"},
-	 { (char *)"IFitParameter_step", _wrap_IFitParameter_step, METH_VARARGS, (char *)"IFitParameter_step(IFitParameter self) -> double"},
-	 { (char *)"IFitParameter_setStep", _wrap_IFitParameter_setStep, METH_VARARGS, (char *)"IFitParameter_setStep(IFitParameter self, double value) -> IFitParameter"},
-	 { (char *)"IFitParameter_error", _wrap_IFitParameter_error, METH_VARARGS, (char *)"IFitParameter_error(IFitParameter self) -> double"},
-	 { (char *)"IFitParameter_setError", _wrap_IFitParameter_setError, METH_VARARGS, (char *)"IFitParameter_setError(IFitParameter self, double value)"},
+	 { (char *)"IFitParameter_name", _wrap_IFitParameter_name, METH_VARARGS, (char *)"\n"
+		"IFitParameter_name(IFitParameter self) -> std::string\n"
+		"\n"
+		"std::string IFitParameter::name() const \n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setName", _wrap_IFitParameter_setName, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setName(IFitParameter self, std::string const & name) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setName(const std::string &name)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_startValue", _wrap_IFitParameter_startValue, METH_VARARGS, (char *)"\n"
+		"IFitParameter_startValue(IFitParameter self) -> double\n"
+		"\n"
+		"double IFitParameter::startValue() const \n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setStartValue", _wrap_IFitParameter_setStartValue, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setStartValue(IFitParameter self, double value)\n"
+		"\n"
+		"void IFitParameter::setStartValue(double value)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_value", _wrap_IFitParameter_value, METH_VARARGS, (char *)"\n"
+		"IFitParameter_value(IFitParameter self) -> double\n"
+		"\n"
+		"double IFitParameter::value() const \n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setValue", _wrap_IFitParameter_setValue, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setValue(IFitParameter self, double value)\n"
+		"\n"
+		"void IFitParameter::setValue(double value)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_addPattern", _wrap_IFitParameter_addPattern, METH_VARARGS, (char *)"\n"
+		"IFitParameter_addPattern(IFitParameter self, std::string const & pattern) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::addPattern(const std::string &pattern)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_step", _wrap_IFitParameter_step, METH_VARARGS, (char *)"\n"
+		"IFitParameter_step(IFitParameter self) -> double\n"
+		"\n"
+		"double IFitParameter::step() const \n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setStep", _wrap_IFitParameter_setStep, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setStep(IFitParameter self, double value) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setStep(double value)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_error", _wrap_IFitParameter_error, METH_VARARGS, (char *)"\n"
+		"IFitParameter_error(IFitParameter self) -> double\n"
+		"\n"
+		"double IFitParameter::error() const \n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setError", _wrap_IFitParameter_setError, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setError(IFitParameter self, double value)\n"
+		"\n"
+		"void IFitParameter::setError(double value)\n"
+		"\n"
+		""},
 	 { (char *)"IFitParameter_limits", _wrap_IFitParameter_limits, METH_VARARGS, (char *)"\n"
 		"limits() -> AttLimits\n"
 		"IFitParameter_limits(IFitParameter self) -> AttLimits\n"
+		"\n"
+		"AttLimits & IFitParameter::limits()\n"
+		"\n"
 		""},
-	 { (char *)"IFitParameter_setLimits", _wrap_IFitParameter_setLimits, METH_VARARGS, (char *)"IFitParameter_setLimits(IFitParameter self, AttLimits limits) -> IFitParameter"},
-	 { (char *)"IFitParameter_setLowerLimited", _wrap_IFitParameter_setLowerLimited, METH_VARARGS, (char *)"IFitParameter_setLowerLimited(IFitParameter self, double bound_value) -> IFitParameter"},
-	 { (char *)"IFitParameter_setPositive", _wrap_IFitParameter_setPositive, METH_VARARGS, (char *)"IFitParameter_setPositive(IFitParameter self) -> IFitParameter"},
-	 { (char *)"IFitParameter_setNonnegative", _wrap_IFitParameter_setNonnegative, METH_VARARGS, (char *)"IFitParameter_setNonnegative(IFitParameter self) -> IFitParameter"},
-	 { (char *)"IFitParameter_setUpperLimited", _wrap_IFitParameter_setUpperLimited, METH_VARARGS, (char *)"IFitParameter_setUpperLimited(IFitParameter self, double bound_value) -> IFitParameter"},
-	 { (char *)"IFitParameter_setLimited", _wrap_IFitParameter_setLimited, METH_VARARGS, (char *)"IFitParameter_setLimited(IFitParameter self, double left_bound_value, double right_bound_value) -> IFitParameter"},
-	 { (char *)"IFitParameter_setFixed", _wrap_IFitParameter_setFixed, METH_VARARGS, (char *)"IFitParameter_setFixed(IFitParameter self) -> IFitParameter"},
-	 { (char *)"IFitParameter_toString", _wrap_IFitParameter_toString, METH_VARARGS, (char *)"IFitParameter_toString(IFitParameter self) -> std::string"},
+	 { (char *)"IFitParameter_setLimits", _wrap_IFitParameter_setLimits, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setLimits(IFitParameter self, AttLimits limits) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setLimits(const AttLimits &limits)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setLowerLimited", _wrap_IFitParameter_setLowerLimited, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setLowerLimited(IFitParameter self, double bound_value) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setLowerLimited(double bound_value)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setPositive", _wrap_IFitParameter_setPositive, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setPositive(IFitParameter self) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setPositive()\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setNonnegative", _wrap_IFitParameter_setNonnegative, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setNonnegative(IFitParameter self) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setNonnegative()\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setUpperLimited", _wrap_IFitParameter_setUpperLimited, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setUpperLimited(IFitParameter self, double bound_value) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setUpperLimited(double bound_value)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setLimited", _wrap_IFitParameter_setLimited, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setLimited(IFitParameter self, double left_bound_value, double right_bound_value) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setLimited(double left_bound_value, double right_bound_value)\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_setFixed", _wrap_IFitParameter_setFixed, METH_VARARGS, (char *)"\n"
+		"IFitParameter_setFixed(IFitParameter self) -> IFitParameter\n"
+		"\n"
+		"IFitParameter & IFitParameter::setFixed()\n"
+		"\n"
+		""},
+	 { (char *)"IFitParameter_toString", _wrap_IFitParameter_toString, METH_VARARGS, (char *)"\n"
+		"IFitParameter_toString(IFitParameter self) -> std::string\n"
+		"\n"
+		"std::string IFitParameter::toString() const \n"
+		"\n"
+		""},
 	 { (char *)"IFitParameter_swigregister", IFitParameter_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_FitParameterSet", _wrap_new_FitParameterSet, METH_VARARGS, (char *)"\n"
 		"new_FitParameterSet() -> FitParameterSet\n"
@@ -22252,7 +22350,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FitParameterSet_addFitParameter", _wrap_FitParameterSet_addFitParameter, METH_VARARGS, (char *)"\n"
 		"FitParameterSet_addFitParameter(FitParameterSet self, IFitParameter par)\n"
 		"\n"
-		"void FitParameterSet::addFitParameter(FitParameter *par)\n"
+		"void FitParameterSet::addFitParameter(IFitParameter *par)\n"
 		"\n"
 		"Adds fit parameter. \n"
 		"\n"
@@ -22261,7 +22359,7 @@ static PyMethodDef SwigMethods[] = {
 		"fitParameter(std::string const & name) -> IFitParameter\n"
 		"FitParameterSet_fitParameter(FitParameterSet self, std::string const & name) -> IFitParameter\n"
 		"\n"
-		"FitParameter * FitParameterSet::fitParameter(const std::string &name)\n"
+		"IFitParameter * FitParameterSet::fitParameter(const std::string &name)\n"
 		"\n"
 		""},
 	 { (char *)"FitParameterSet_values", _wrap_FitParameterSet_values, METH_VARARGS, (char *)"\n"
@@ -22347,6 +22445,8 @@ static PyMethodDef SwigMethods[] = {
 		"FitParameterSet_setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)\n"
 		"\n"
 		"void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)\n"
+		"\n"
+		"Sets resulting correlation matrix. \n"
 		"\n"
 		""},
 	 { (char *)"FitParameterSet___getitem__", _wrap_FitParameterSet___getitem__, METH_VARARGS, (char *)"\n"

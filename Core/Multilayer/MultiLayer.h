@@ -75,11 +75,11 @@ public:
     //! Returns bottom interface of layer
     const LayerInterface* getLayerBottomInterface(size_t i_layer) const;
 
-	//! Adds a layout of particles to the whole multilayer (particles can be in different layers)
-	void addLayout(const ILayout& layout);
+    //! Adds a layout of particles to the whole multilayer (particles can be in different layers)
+    void addLayout(const ILayout& layout);
 
-	size_t getNumberOfLayouts() const { return m_layouts.size(); }
-	const ILayout* getLayout(size_t i) const;
+    size_t getNumberOfLayouts() const { return m_layouts.size(); }
+    const ILayout* getLayout(size_t i) const;
 
     //! Destructs allocated objects
     void clear();
@@ -135,7 +135,8 @@ private:
     //! Adds the interface with simultaneous registration in parent class
     void addAndRegisterInterface(LayerInterface* child);
 
-    void setNLayersInLayers() const;
+    //! Handles correct registration of layer thicknesses (not needed for top and bottom layer)
+    void handleLayerThicknessRegistration() const;
 
     //! Checks index of layer w.r.t. vector length
     size_t check_layer_index(size_t i_layer) const;
@@ -151,8 +152,8 @@ private:
     std::vector<LayerInterface*> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
-	//! independent layouts in this multilayer
-	SafePointerVector<ILayout> m_layouts;
+    //! independent layouts in this multilayer
+    SafePointerVector<ILayout> m_layouts;
 };
 
 #endif // MULTILAYER_H

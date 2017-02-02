@@ -38,7 +38,6 @@ Layer::Layer(const Layer& other)
         mp_material = other.mp_material->clone();
     for (size_t i=0; i<other.getNumberOfLayouts();++i)
         addLayout(*other.getLayout(i));
-    setNumberOfLayers(other.getNumberOfLayers());
     registerThickness();
 }
 
@@ -50,7 +49,6 @@ Layer::~Layer()
 Layer* Layer::cloneInvertB() const
 {
     Layer* p_clone = new Layer(*mp_material->cloneInverted(), m_thickness);
-    p_clone->setNumberOfLayers(getNumberOfLayers());
     return p_clone;
 }
 
@@ -82,9 +80,9 @@ complex_t Layer::getRefractiveIndex2() const
 
 void Layer::addLayout(const ILayout& layout)
 {
-	ILayout* clone = layout.clone();
-	m_layouts.push_back(clone);
-	registerChild(clone);
+    ILayout* clone = layout.clone();
+    m_layouts.push_back(clone);
+    registerChild(clone);
 }
 
 const ILayout* Layer::getLayout(size_t i) const
@@ -92,13 +90,6 @@ const ILayout* Layer::getLayout(size_t i) const
     if (i>=m_layouts.size())
         return nullptr;
     return m_layouts[i];
-}
-
-double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
-{
-    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts())
-        return 0.0;
-    return getLayout(layout_index)->getTotalParticleSurfaceDensity();
 }
 
 std::vector<const INode*> Layer::getChildren() const

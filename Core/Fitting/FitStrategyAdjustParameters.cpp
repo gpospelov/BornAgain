@@ -17,7 +17,6 @@
 #include "FitSuiteImpl.h"
 #include "IFitParameter.h"
 #include "FitParameterSet.h"
-#include "Logger.h"
 #include "Exceptions.h"
 
 FitStrategyAdjustParameters::FitStrategyAdjustParameters(const FitStrategyAdjustParameters &other)
@@ -47,22 +46,17 @@ void FitStrategyAdjustParameters::execute()
     // releasing all parameters
     if( m_release_all ) {
         for(auto par: *fitParameters) {
-            msglog(Logging::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing "
-                                << par->name();
             par->limits().setFixed(false);
         }
     }
 
     // fixing dedicated list of fit parameters
     for(auto name: m_pars_to_fix) {
-        msglog(Logging::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << name;
         fitParameters->fitParameter(name)->limits().setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
     for(auto name: m_pars_to_release) {
-        msglog(Logging::DEBUG2) << "FitSuiteStrategyAdjustParameters::execute() -> releasing "
-                                << name;
         fitParameters->fitParameter(name)->limits().setFixed(false);
     }
 

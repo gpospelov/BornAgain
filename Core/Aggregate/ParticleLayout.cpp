@@ -28,7 +28,7 @@ namespace {
 
 //! Returns true if interference function is able to calculate particle density automatically,
 //! which is the case for 2D functions.
-bool provideParticleDensity(const IInterferenceFunction& iff)
+bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 {
     if(iff.getName() == BornAgain::InterferenceFunction2DLatticeType ||
        iff.getName() == BornAgain::InterferenceFunction2DParaCrystalType)
@@ -221,16 +221,19 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
 {
     mP_interference_function.reset(child);
     registerChild(child);
-    if(provideParticleDensity(*mP_interference_function))
-        removeParameter(BornAgain::TotalParticleDensity);
+
+    if(particleDensityIsProvidedByInterference(*mP_interference_function))
+        registerParticleDensity(false);
     else
-        registerParticleDensity();
+        registerParticleDensity(true);
 }
 
-void ParticleLayout::registerParticleDensity()
+void ParticleLayout::registerParticleDensity(bool make_registered)
 {
-    if(getParameter(BornAgain::TotalParticleDensity))
-        return;
-
-    registerParameter(BornAgain::TotalParticleDensity, &m_total_particle_density);
+    if(make_registered) {
+        if(!getParameter(BornAgain::TotalParticleDensity))
+            registerParameter(BornAgain::TotalParticleDensity, &m_total_particle_density);
+    } else {
+        removeParameter(BornAgain::TotalParticleDensity);
+    }
 }

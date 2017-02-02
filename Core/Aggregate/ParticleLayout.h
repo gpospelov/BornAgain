@@ -70,7 +70,7 @@ private:
     void addAndRegisterAbstractParticle(IAbstractParticle* child);
     void setAndRegisterInterferenceFunction(IInterferenceFunction* child);
 
-    void registerParticleDensity();
+    void registerParticleDensity(bool make_registered = true);
 
     SafePointerVector<IAbstractParticle> m_particles; //!< Vector of particle types
     std::unique_ptr<IInterferenceFunction> mP_interference_function;

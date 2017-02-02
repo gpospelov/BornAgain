@@ -16,40 +16,31 @@
 #ifndef PARTICLELAYOUTCOMPUTATION_H
 #define PARTICLELAYOUTCOMPUTATION_H
 
-#include "DelayedProgressCounter.h"
-#include <vector>
-#include <memory>
+#include "IComputationTerm.h"
 
 using std::size_t;
 
-class Layer;
-class ILayerSpecularInfo;
-class MultiLayer;
-class ProgressHandler;
-class SimulationElement;
-class SimulationOptions;
+class ILayout;
 
 //! Computes the scattering contribution from one particle layout.
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class ParticleLayoutComputation
+class ParticleLayoutComputation final : public IComputationTerm
 {
 public:
-    ParticleLayoutComputation(const Layer* p_layer, size_t layout_index=0);
+    ParticleLayoutComputation(const MultiLayer* p_multilayer, const ILayout* p_layout,
+                              size_t layer_index);
 
-    void setSpecularInfo(const ILayerSpecularInfo& specular_info);
-
-    void eval(const SimulationOptions& options,
+    bool eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const;
+              const std::vector<SimulationElement>::iterator& end_it) const override;
 
 private:
-    const Layer* mp_layer;
-    std::unique_ptr<ILayerSpecularInfo> mP_specular_info;
-    size_t m_layout_index;
+    const ILayout* mp_layout;
+    size_t m_layer_index;
 };
 
 #endif // PARTICLELAYOUTCOMPUTATION_H

@@ -28,18 +28,16 @@
 #include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
-    const Layer& decorated_layer, const ILayout* p_layout, bool polarized,
-    const SimulationOptions& sim_params, const ILayerSpecularInfo* specular_info)
-    : m_sim_params {sim_params}
-    , mP_specular_info {nullptr}
+    const MultiLayer* p_multilayer, const ILayout* p_layout,
+    const FullFresnelMap* p_full_map, bool polarized,
+    const SimulationOptions& sim_params, size_t layer_index)
+    : mp_multilayer(p_multilayer)
     , mp_layout(p_layout)
+    , mp_full_fresnel_map(p_full_map)
     , m_polarized {polarized}
-{
-    mP_layer.reset(decorated_layer.clone());
-    assert(mP_layer->getNumberOfLayouts() > 0);
-    assert(specular_info);
-    mP_specular_info.reset(specular_info->clone());
-}
+    , m_sim_params (sim_params)
+    , m_layer_index(layer_index)
+{}
 
 LayerStrategyBuilder::~LayerStrategyBuilder()
 {} // needs class definitions => don't move to .h
@@ -47,10 +45,7 @@ LayerStrategyBuilder::~LayerStrategyBuilder()
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 {
-    assert(mP_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
-    std::unique_ptr<class IInterferenceFunction> P_interference_function{
-        mp_layout->cloneInterferenceFunction()};
 
     IInterferenceFunctionStrategy* p_result = nullptr;
     switch (mp_layout->getApproximation())
@@ -62,8 +57,8 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
             p_result = new DecouplingApproximationStrategy1(m_sim_params);
         break;
     case ILayout::SSCA:
-    {
-        double kappa = P_interference_function->getKappa();
+        double kappa = mp_layout ? mp_layout->getInterferenceFunction()->getKappa()
+                                 : 0.0;
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
@@ -74,23 +69,18 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
             p_result = new SSCApproximationStrategy1(m_sim_params, kappa);
         break;
     }
-    default:
-        throw Exceptions::ClassInitializationException(
-            "Unknown interference function approximation");
-    }
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(ff_wrappers, *P_interference_function);
+    p_result->init(ff_wrappers, mp_layout->getInterferenceFunction());
     return p_result;
 }
 
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
 SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectFormFactorList() const
 {
-    assert(mP_layer->getNumberOfLayouts()>0);
     SafePointerVector<class FormFactorCoherentSum> result;
-    const IMaterial* p_layer_material = mP_layer->getMaterial();
+    const IMaterial* p_layer_material = mp_multilayer->getLayer(m_layer_index)->getMaterial();
     double layout_abundance = mp_layout->getTotalAbundance();
     if (layout_abundance<=0.0) // TODO: why this can happen? why not throw error?
         layout_abundance = 1.0;
@@ -98,7 +88,7 @@ SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectForm
         FormFactorCoherentSum* p_ff_coh;
         p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
-        p_ff_coh->setSpecularInfo(*mP_specular_info);
+        p_ff_coh->setSpecularInfo(*mp_full_fresnel_map->layerFresnelMap(m_layer_index));
         result.push_back(p_ff_coh);
     }
     return result;
@@ -113,7 +103,7 @@ FormFactorCoherentSum* LayerStrategyBuilder::createFormFactorCoherentSum(
 
     const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
     std::unique_ptr<IFormFactor> P_ff_framework;
-    if (mP_layer->getNumberOfLayers()>1) {
+    if (mp_multilayer->getNumberOfLayers()>1) {
         if (m_polarized)
             P_ff_framework.reset(new FormFactorDWBAPol(*P_ff_particle));
         else

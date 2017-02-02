@@ -14,28 +14,25 @@
 // ************************************************************************** //
 
 #include "ParticleLayoutComputation.h"
+#include "DelayedProgressCounter.h"
 #include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
-#include "Layer.h"
 #include "ILayerSpecularInfo.h"
+#include "ILayout.h"
 #include "LayerStrategyBuilder.h"
-#include "Logger.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
-ParticleLayoutComputation::ParticleLayoutComputation(const Layer* p_layer, size_t layout_index)
-    : mp_layer(p_layer), m_layout_index(layout_index)
+ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
+                                                     const ILayout* p_layout, size_t layer_index)
+    : IComputationTerm(p_multilayer)
+    , mp_layout(p_layout)
+    , m_layer_index(layer_index)
 {}
 
-void ParticleLayoutComputation::setSpecularInfo(const ILayerSpecularInfo& specular_info)
-{
-    if (&specular_info != mP_specular_info.get())
-        mP_specular_info.reset(specular_info.clone());
-}
-
 //! Computes scattering intensity for given range of simulation elements.
-void ParticleLayoutComputation::eval(
+bool ParticleLayoutComputation::eval(
     const SimulationOptions& options,
     ProgressHandler* progress,
     bool polarized,
@@ -43,20 +40,22 @@ void ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(*mp_layer, mp_layer->getLayout(m_layout_index), polarized, options,
-                             mP_specular_info.get()).createStrategy() };
-    double total_surface_density = mp_layer->getTotalParticleSurfaceDensity(m_layout_index);
+        LayerStrategyBuilder(mp_multilayer, mp_layout, mp_full_fresnel_map,
+                             polarized, options, m_layer_index).createStrategy() };
+    double total_surface_density = mp_layout->getTotalParticleSurfaceDensity();
 
     DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
-            return;
+            return false;
         double alpha_f = it->getAlphaMean();
-        size_t n_layers = mp_layer->getNumberOfLayers();
-        if (n_layers > 1 && alpha_f < 0)
-            continue;
-        // each ffdwba: one call to getOutCoeffs
-        it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
+        size_t n_layers = mp_multilayer->getNumberOfLayers();
+        if (n_layers > 1 && alpha_f < 0) {
+            it->setIntensity(0.0); // zero for transmission with multilayers (n>1)
+        } else {
+            it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
+        }
         counter.stepProgress(progress);
     }
+    return true;
 }

@@ -17,7 +17,6 @@
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "MainComputation.h"
-#include "Logger.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "SimulationElement.h"
@@ -247,12 +246,6 @@ void Simulation::runSingleSimulation()
         }
     } else {
         // Multithreading.
-
-        msglog(Logging::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
-                           << m_options.getNumberOfThreads()
-                           << ", n_batches = " << m_options.getNumberOfBatches()
-                           << ", current_batch = " << m_options.getCurrentBatch();
-
         std::vector<std::thread*> threads;
         std::vector<MainComputation*> simulations;
 

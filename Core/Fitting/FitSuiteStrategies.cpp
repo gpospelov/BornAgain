@@ -55,8 +55,6 @@ void FitSuiteStrategies::minimize()
          m_kernel->minimize();
     } else {
         for(auto it=m_strategies.begin(); it!=m_strategies.end(); ++it) {
-            //msglog(Logging::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #"
-            // << m_current_strategy_index << " '" << (*it)->getName() << "'";
             (*it)->execute();
             ++m_current_strategy_index;
         }

@@ -19,14 +19,14 @@
 #include "ComputationStatus.h"
 #include "Complex.h"
 #include "INoncopyable.h"
+#include "FullFresnelMap.h"
 #include "SimulationOptions.h"
 #include <memory>
 #include <vector>
 
+class ILayerSpecularInfo;
 class MultiLayer;
-class ParticleLayoutComputation;
-class RoughMultiLayerComputation;
-class SpecularComputation;
+class IComputationTerm;
 class ProgressHandler;
 class SimulationElement;
 
@@ -55,9 +55,9 @@ public:
 
 private:
     void runProtected();
-
-    void collectRTCoefficientsScalar();
-    void collectRTCoefficientsMatrix();
+    void collectFresnelScalar();
+    void collectFresnelMatrix();
+    void passFresnelInfo();
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;
@@ -66,9 +66,10 @@ private:
     //! these iterators define the span of detector bins this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
-    RoughMultiLayerComputation* mp_roughness_computation;
-    SpecularComputation *mp_specular_computation;
-    std::vector<std::vector<ParticleLayoutComputation*>> m_layer_computation;
+    std::vector<IComputationTerm*> m_computation_terms;
+
+    //! contains the information, necessary to calculate the Fresnel coefficients
+    FullFresnelMap m_full_fresnel_map;
 
     ComputationStatus m_status;
 };

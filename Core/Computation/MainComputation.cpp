@@ -17,7 +17,6 @@
 #include "ParticleLayoutComputation.h"
 #include "Layer.h"
 #include "ILayerSpecularInfo.h"
-#include "Logger.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
@@ -41,30 +40,26 @@ MainComputation::MainComputation(
     , m_progress(&progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
-    , mp_roughness_computation(nullptr)
 {
-    msglog(Logging::DEBUG2) << "MainComputation::init()";
-
     size_t nLayers = mP_multi_layer->getNumberOfLayers();
-    m_layer_computation.resize( nLayers );
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
-            m_layer_computation[i].push_back( new ParticleLayoutComputation(layer, j) );
+            m_computation_terms.push_back(
+                        new ParticleLayoutComputation(mP_multi_layer.get(),
+                                                      layer->getLayout(j), i));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
-        mp_roughness_computation = new RoughMultiLayerComputation(mP_multi_layer.get());
-    mp_specular_computation = new SpecularComputation();
+        m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get()));
+    if (m_sim_options.includeSpecular())
+        m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get()));
 }
 
 MainComputation::~MainComputation()
 {
-    delete mp_roughness_computation;
-    delete mp_specular_computation;
-    for (auto& layer_comp: m_layer_computation)
-        for (ParticleLayoutComputation* comp: layer_comp)
-            delete comp;
+    for (IComputationTerm* comp: m_computation_terms)
+        delete comp;
 }
 
 void MainComputation::run()
@@ -86,71 +81,51 @@ void MainComputation::run()
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
-    msglog(Logging::DEBUG2) << "MainComputation::runProtected()";
-
     if (mP_multi_layer->requiresMatrixRTCoefficients())
-        collectRTCoefficientsMatrix();
+        collectFresnelMatrix();
     else
-        collectRTCoefficientsScalar();
+        collectFresnelScalar();
 
-    // run through layers and run layer simulations
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     bool polarized = mP_multi_layer->containsMagneticMaterial();
-    for (auto& layer_comp: m_layer_computation) {
-        for (const ParticleLayoutComputation* comp: layer_comp) {
-            if (!m_progress->alive())
-                return;
-            comp->eval(m_sim_options, m_progress, polarized,
-                       layer_elements.begin(), layer_elements.end());
-            addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
-        }
-    }
-
-    if (!mP_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
-        msglog(Logging::DEBUG2) << "MainComputation::run() -> roughness";
+    // add all IComputationTerms:
+    for (const IComputationTerm* comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
-        mp_roughness_computation->eval(
-            m_progress, layer_elements.begin(), layer_elements.end());
-        addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
+        if (comp->eval(m_sim_options, m_progress, polarized,
+                       layer_elements.begin(), layer_elements.end()) )
+            addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
     }
-
-    if (m_sim_options.includeSpecular())
-        mp_specular_computation->eval(m_progress, polarized, m_begin_it, m_end_it);
 }
 
-void MainComputation::collectRTCoefficientsScalar()
+void MainComputation::collectFresnelScalar()
 {
-    // run through layers and construct T,R functions
+    if (m_full_fresnel_map.size()!=0) return;
+
+    // run through layers and construct T,R maps
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        msglog(Logging::DEBUG2) << "MainComputation::run() -> Layer " << i;
-        ScalarSpecularInfoMap layer_fresnel_map(mP_multi_layer.get(), i);
-
-        // layer DWBA simulation
-        for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(layer_fresnel_map);
-
-        // layer roughness DWBA
-        if (mp_roughness_computation)
-            mp_roughness_computation->setSpecularInfo(i, layer_fresnel_map);
-
-        if (i==0)
-            mp_specular_computation->setSpecularInfo(layer_fresnel_map);
+        m_full_fresnel_map.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
     }
+    passFresnelInfo();
 }
 
-void MainComputation::collectRTCoefficientsMatrix()
+void MainComputation::collectFresnelMatrix()
 {
+    if (m_full_fresnel_map.size()!=0) return;
     mP_inverted_multilayer.reset(mP_multi_layer->cloneInvertB());
-    // run through layers and construct T,R functions
-    for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        msglog(Logging::DEBUG2) << "MainComputation::runMagnetic() -> Layer " << i;
-        MatrixSpecularInfoMap layer_coeff_map(
-                    mP_multi_layer.get(), mP_inverted_multilayer.get(), i);
 
-        // layer DWBA simulation
-        for(ParticleLayoutComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(layer_coeff_map);
+    // run through layers and construct T,R maps
+    for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
+        m_full_fresnel_map.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
+                                                           mP_inverted_multilayer.get(), i));
+    }
+    passFresnelInfo();
+}
+
+void MainComputation::passFresnelInfo()
+{
+    for (IComputationTerm* comp: m_computation_terms) {
+        comp->setSpecularInfo(&m_full_fresnel_map);
     }
 }

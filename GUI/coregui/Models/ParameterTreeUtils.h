@@ -30,8 +30,11 @@ class SessionItem;
 namespace ParameterTreeUtils
 {
 
-BA_CORE_API_ void createParameterTree(JobItem* item, const QString& tag = QString());
-BA_CORE_API_ void populateDomainLinks(JobItem* jobItem, const QString& tag);
+BA_CORE_API_ void createParameterTree(JobItem* jobItem);
+
+BA_CORE_API_ void populateParameterContainer(SessionItem* container, const SessionItem* source);
+
+BA_CORE_API_ void populateDomainLinks(SessionItem* container);
 
 }
 

@@ -23,38 +23,53 @@
 #include "ParameterTreeItems.h"
 #include "SampleModel.h"
 #include "ScientificDoubleProperty.h"
+#include "GUIHelpers.h"
 #include <QStack>
 
 namespace {
-    void handleItem(SessionItem* tree, SessionItem* source);
+    void handleItem(SessionItem* tree, const SessionItem* source);
 }
 
-void ParameterTreeUtils::createParameterTree(JobItem* item, const QString& tag)
+void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
 {
-    SessionItem* container
-        = item->model()->insertNewItem(Constants::ParameterContainerType, item->index(), -1, tag);
+    SessionItem* container = jobItem->model()->insertNewItem(Constants::ParameterContainerType,
+        jobItem->index(), -1, JobItem::T_PARAMETER_TREE);
 
-    SessionItem* multiLayer
-        = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
-    handleItem(multiLayer, item->getItem(JobItem::T_SAMPLE));
+    populateParameterContainer(container, jobItem->getItem(JobItem::T_SAMPLE));
 
-    SessionItem* instrument
-        = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
-    handleItem(instrument, item->getItem(JobItem::T_INSTRUMENT));
+    populateParameterContainer(container, jobItem->getItem(JobItem::T_INSTRUMENT));
 
 #ifndef NDEBUG
     // Provides all items in "JobItem/Parameter Tree Container" with domain links already
     // at the stage of ParameterTree creation. It is necessary for validation, in Release mode
     // it will lead for unnecessary large project files.
-    ParameterTreeUtils::populateDomainLinks(item, tag);
+    ParameterTreeUtils::populateDomainLinks(container);
 #endif
 }
 
-//! For every ParameterItem in JobItem's ParameterTree container creates a link to domain.
+//! Populates ParameterContainer with ParameterItem's corresponding to all properties found
+//! in a source item.
 
-void ParameterTreeUtils::populateDomainLinks(JobItem* jobItem, const QString& tag)
+void ParameterTreeUtils::populateParameterContainer(SessionItem* container, const SessionItem* source)
 {
-    SessionItem* current = jobItem->getItem(tag); // this is container
+    if(container->modelType() != Constants::ParameterContainerType)
+        throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
+                                "Not a ParameterContainerType.");
+
+    SessionItem* sourceLabel
+        = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
+    handleItem(sourceLabel, source);
+}
+
+//! For every ParameterItem in a container creates a link to the domain.
+
+void ParameterTreeUtils::populateDomainLinks(SessionItem* container)
+{
+    if(container->modelType() != Constants::ParameterContainerType)
+        throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
+                                "Not a ParameterContainerType.");
+
+    SessionItem* current(container);
     QStack<SessionItem*> stack;
     stack.push(current);
     while (!stack.empty()) {
@@ -67,7 +82,7 @@ void ParameterTreeUtils::populateDomainLinks(JobItem* jobItem, const QString& ta
         } else {
             if (ParameterItem* parItem = dynamic_cast<ParameterItem*>(current)) {
                 QString translation
-                    = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
+                    = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), container);
                 parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
             }
         }
@@ -76,7 +91,7 @@ void ParameterTreeUtils::populateDomainLinks(JobItem* jobItem, const QString& ta
 
 namespace {
 
-void handleItem(SessionItem* tree, SessionItem* source)
+void handleItem(SessionItem* tree, const SessionItem* source)
 {
     if (tree->modelType() == Constants::ParameterLabelType) {
         tree->setDisplayName(source->itemName());
@@ -135,3 +150,4 @@ void handleItem(SessionItem* tree, SessionItem* source)
 }
 
 } // namespace
+

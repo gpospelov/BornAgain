@@ -94,7 +94,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
-    ParameterTreeUtils::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
+    ParameterTreeUtils::createParameterTree(jobItem);
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 

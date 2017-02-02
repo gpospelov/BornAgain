@@ -89,7 +89,7 @@ void GUITranslationTest::processParameterTree()
                 0,
                 m_models->documentModel()->getSimulationOptionsItem());
 
-    ParameterTreeUtils::populateDomainLinks(jobItem, JobItem::T_PARAMETER_TREE);
+    ParameterTreeUtils::populateDomainLinks(jobItem->parameterContainerItem());
 
     SessionItem *current = jobItem->getItem(JobItem::T_PARAMETER_TREE);
 

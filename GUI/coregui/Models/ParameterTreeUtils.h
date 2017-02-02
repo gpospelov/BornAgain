@@ -18,10 +18,12 @@
 #define PARAMETERTREEUTILS_H
 
 #include "WinDllMacros.h"
+#include <functional>
 #include <QString>
 
 class JobItem;
 class SessionItem;
+class ParameterItem;
 
 //! The ParameterTreeBuilder namespace contains helper functions to create container
 //! with ParameterItems. The ParameterItem appears in RealTimeView and provides real
@@ -33,6 +35,9 @@ namespace ParameterTreeUtils
 BA_CORE_API_ void createParameterTree(JobItem* jobItem);
 
 BA_CORE_API_ void populateParameterContainer(SessionItem* container, const SessionItem* source);
+
+BA_CORE_API_ void visitParameterContainer(SessionItem* container,
+                                          std::function<void(ParameterItem*)> fun);
 
 BA_CORE_API_ void populateDomainLinks(SessionItem* container);
 

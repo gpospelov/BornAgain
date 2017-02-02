@@ -50,7 +50,8 @@ void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
 //! Populates ParameterContainer with ParameterItem's corresponding to all properties found
 //! in a source item.
 
-void ParameterTreeUtils::populateParameterContainer(SessionItem* container, const SessionItem* source)
+void ParameterTreeUtils::populateParameterContainer(SessionItem* container,
+                                                    const SessionItem* source)
 {
     if(container->modelType() != Constants::ParameterContainerType)
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
@@ -61,6 +62,27 @@ void ParameterTreeUtils::populateParameterContainer(SessionItem* container, cons
     handleItem(sourceLabel, source);
 }
 
+//! Visit all ParameterItem in container and execute user function.
+
+void ParameterTreeUtils::visitParameterContainer(SessionItem* container,
+                                                 std::function<void(ParameterItem*)> fun)
+{
+    SessionItem* current(container);
+    QStack<SessionItem*> stack;
+    stack.push(current);
+    while (!stack.empty()) {
+        current = stack.pop();
+        if (current->modelType() == Constants::ParameterLabelType
+            || current->modelType() == Constants::ParameterContainerType) {
+            for (SessionItem* child : current->getItems())
+                stack.push(child);
+        } else {
+            if (ParameterItem* parItem = dynamic_cast<ParameterItem*>(current))
+                fun(parItem);
+        }
+    }
+}
+
 //! For every ParameterItem in a container creates a link to the domain.
 
 void ParameterTreeUtils::populateDomainLinks(SessionItem* container)
@@ -69,24 +91,12 @@ void ParameterTreeUtils::populateDomainLinks(SessionItem* container)
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
                                 "Not a ParameterContainerType.");
 
-    SessionItem* current(container);
-    QStack<SessionItem*> stack;
-    stack.push(current);
-    while (!stack.empty()) {
-        current = stack.pop();
-        if (current->modelType() == Constants::ParameterLabelType
-            || current->modelType() == Constants::ParameterContainerType) {
-            for (SessionItem* child : current->getItems()) {
-                stack.push(child);
-            }
-        } else {
-            if (ParameterItem* parItem = dynamic_cast<ParameterItem*>(current)) {
-                QString translation
-                    = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), container);
-                parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
-            }
-        }
-    }
+    visitParameterContainer(container, [container](ParameterItem* parItem)
+    {
+        QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(),
+                                                                    container->parent());
+        parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
+    });
 }
 
 namespace {
@@ -150,4 +160,5 @@ void handleItem(SessionItem* tree, const SessionItem* source)
 }
 
 } // namespace
+
 

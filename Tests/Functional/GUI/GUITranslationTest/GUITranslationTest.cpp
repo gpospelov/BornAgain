@@ -89,40 +89,24 @@ void GUITranslationTest::processParameterTree()
                 0,
                 m_models->documentModel()->getSimulationOptionsItem());
 
-    ParameterTreeUtils::populateDomainLinks(jobItem->parameterContainerItem());
+    SessionItem *container = jobItem->parameterContainerItem();
 
-    SessionItem *current = jobItem->getItem(JobItem::T_PARAMETER_TREE);
+    ParameterTreeUtils::visitParameterContainer(container, [&](ParameterItem *parItem){
+        if(parItem->isFittable()) {
+            std::string sampleParLink =
+                    parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
 
-    QStack<SessionItem *> stack;
-    stack.push(current);
-    while (!stack.empty()) {
-        current = stack.pop();
-        if (current->modelType() == Constants::ParameterLabelType
-                || current->modelType() == Constants::ParameterContainerType) {
-            for (SessionItem *child : current->getItems())
-                stack.push(child);
+            std::string parPath = FitParameterHelper::getParameterItemPath(parItem).toStdString();
 
-        } else {
-            if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
-                if(parItem->isFittable()) {
-                    std::string sampleParLink =
-                            parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
+            std::string domainName = std::string("*") +
+                    parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
 
-                    std::string parPath = FitParameterHelper::getParameterItemPath(parItem).toStdString();
+            QString translation = ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
+            domainName = std::string("*/") + translation.toStdString();
 
-                    std::string domainName = std::string("*") +
-                            parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
-
-                    // new way of translating
-                    QString translation = ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
-                    domainName = std::string("*/") + translation.toStdString();
-
-                    m_translations.push_back({sampleParLink, parPath, domainName});
-                }
-            }
+            m_translations.push_back({sampleParLink, parPath, domainName});
         }
-    }
-
+    });
 }
 
 //! Returns multiline string representing results of translation

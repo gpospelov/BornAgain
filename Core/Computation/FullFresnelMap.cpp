@@ -32,7 +32,7 @@ size_t FullFresnelMap::size() const
     return m_full_map.size();
 }
 
-const ILayerSpecularInfo*FullFresnelMap::layerFresnelMap(size_t index) const
+const ILayerSpecularInfo* FullFresnelMap::layerFresnelMap(size_t index) const
 {
     return m_full_map[index];
 }

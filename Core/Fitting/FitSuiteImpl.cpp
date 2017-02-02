@@ -16,7 +16,6 @@
 #include "FitSuiteImpl.h"
 #include "RealLimits.h"
 #include "FitParameter.h"
-#include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
 #include "IMinimizer.h"
@@ -181,7 +180,7 @@ bool FitSuiteImpl::check_prerequisites() const
 //! link FitMultiParameters with simulation parameters
 void FitSuiteImpl::link_fit_parameters()
 {
-    std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());    
+    std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
     auto parameters = FitSuiteUtils::linkedParameters(*m_kernel->fitParameters());
     for (auto par: parameters)
         par->addMatchedParameters(*pool);

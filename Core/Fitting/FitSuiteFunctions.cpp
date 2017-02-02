@@ -15,8 +15,8 @@
 
 #include "FitSuiteFunctions.h"
 #include "FitSuiteImpl.h"
-#include "Logger.h"
 #include <cassert>
+#include <iostream>
 #include <stdexcept>
 
 //! evaluate chi squared value
@@ -89,28 +89,26 @@ void FitSuiteGradientFunction::verify_arrays()
 void FitSuiteGradientFunction::verify_minimizer_logic(
     bool parameters_have_changed, int current_index)
 {
-    int index_difference = current_index - m_prev_index;
-    if(index_difference != 1 && (current_index!=0 && int(m_prev_index)!= int(m_ndatasize-1) ) ) {
-        msglog(Logging::WARNING)
-            << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
-            << "Non sequential access to elements.";
-        msglog(Logging::WARNING) << " current_index:" << current_index
-                             << " prev_index:" << m_prev_index;
-    }
-    if(parameters_have_changed && current_index != 0) {
-        msglog(Logging::WARNING)
-            << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
-            << "Parameters have changed while current_index!=0";
-        msglog(Logging::WARNING) << " current_index:" << current_index
-                             << " prev_index:" << m_prev_index;
-    }
-    if(parameters_have_changed && current_index == m_prev_index) {
-        msglog(Logging::WARNING)
-            << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
-            << "Parameters have changed while index remained the same";
-        msglog(Logging::WARNING) << " current_index:" << current_index <<
-            " prev_index:" << m_prev_index;
-    }
+    // FIXME: only outputs warnings; is it necessary and if so, prefer exceptions?
+//    int index_difference = current_index - m_prev_index;
+//    if(index_difference != 1 && (current_index!=0 && int(m_prev_index)!= int(m_ndatasize-1) ) ) {
+//        std::cout << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+//                  << "Non sequential access to elements.";
+//        std::cout << " current_index:" << current_index
+//                  << " prev_index:" << m_prev_index;
+//    }
+//    if(parameters_have_changed && current_index != 0) {
+//        std::cout << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+//                  << "Parameters have changed while current_index!=0";
+//        std::cout << " current_index:" << current_index
+//                  << " prev_index:" << m_prev_index;
+//    }
+//    if(parameters_have_changed && current_index == m_prev_index) {
+//        std::cout << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! "
+//                  << "Parameters have changed while index remained the same";
+//        std::cout << " current_index:" << current_index
+//                  << " prev_index:" << m_prev_index;
+//    }
     m_prev_index = current_index;
 }
 

@@ -1807,7 +1807,7 @@ class IFitParameter(_object):
     """
 
 
-    Pure virtual base class for fit parameters.
+    A fittable parameter with value, error, step, and limits.
 
     C++ includes: IFitParameter.h
 
@@ -1826,7 +1826,7 @@ class IFitParameter(_object):
         __init__(IFitParameter self, std::string const & name, double value, AttLimits limits) -> IFitParameter
         __init__(IFitParameter self, std::string const & name, double value) -> IFitParameter
 
-        IFitParameter::IFitParameter(const IFitParameter &)=delete
+        IFitParameter::IFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
 
         """
         this = _libBornAgainFit.new_IFitParameter(*args)
@@ -1841,64 +1841,119 @@ class IFitParameter(_object):
         """
         clone(IFitParameter self) -> IFitParameter
 
-        virtual IFitParameter* IFitParameter::clone() const =0
+        IFitParameter * IFitParameter::clone() const 
 
         """
         return _libBornAgainFit.IFitParameter_clone(self)
 
 
     def name(self):
-        """name(IFitParameter self) -> std::string"""
+        """
+        name(IFitParameter self) -> std::string
+
+        std::string IFitParameter::name() const 
+
+        """
         return _libBornAgainFit.IFitParameter_name(self)
 
 
     def setName(self, name):
-        """setName(IFitParameter self, std::string const & name) -> IFitParameter"""
+        """
+        setName(IFitParameter self, std::string const & name) -> IFitParameter
+
+        IFitParameter & IFitParameter::setName(const std::string &name)
+
+        """
         return _libBornAgainFit.IFitParameter_setName(self, name)
 
 
     def startValue(self):
-        """startValue(IFitParameter self) -> double"""
+        """
+        startValue(IFitParameter self) -> double
+
+        double IFitParameter::startValue() const 
+
+        """
         return _libBornAgainFit.IFitParameter_startValue(self)
 
 
     def setStartValue(self, value):
-        """setStartValue(IFitParameter self, double value)"""
+        """
+        setStartValue(IFitParameter self, double value)
+
+        void IFitParameter::setStartValue(double value)
+
+        """
         return _libBornAgainFit.IFitParameter_setStartValue(self, value)
 
 
     def value(self):
-        """value(IFitParameter self) -> double"""
+        """
+        value(IFitParameter self) -> double
+
+        double IFitParameter::value() const 
+
+        """
         return _libBornAgainFit.IFitParameter_value(self)
 
 
     def setValue(self, value):
-        """setValue(IFitParameter self, double value)"""
+        """
+        setValue(IFitParameter self, double value)
+
+        void IFitParameter::setValue(double value)
+
+        """
         return _libBornAgainFit.IFitParameter_setValue(self, value)
 
 
     def addPattern(self, pattern):
-        """addPattern(IFitParameter self, std::string const & pattern) -> IFitParameter"""
+        """
+        addPattern(IFitParameter self, std::string const & pattern) -> IFitParameter
+
+        IFitParameter & IFitParameter::addPattern(const std::string &pattern)
+
+        """
         return _libBornAgainFit.IFitParameter_addPattern(self, pattern)
 
 
     def step(self):
-        """step(IFitParameter self) -> double"""
+        """
+        step(IFitParameter self) -> double
+
+        double IFitParameter::step() const 
+
+        """
         return _libBornAgainFit.IFitParameter_step(self)
 
 
     def setStep(self, value):
-        """setStep(IFitParameter self, double value) -> IFitParameter"""
+        """
+        setStep(IFitParameter self, double value) -> IFitParameter
+
+        IFitParameter & IFitParameter::setStep(double value)
+
+        """
         return _libBornAgainFit.IFitParameter_setStep(self, value)
 
 
     def error(self):
-        """error(IFitParameter self) -> double"""
+        """
+        error(IFitParameter self) -> double
+
+        double IFitParameter::error() const 
+
+        """
         return _libBornAgainFit.IFitParameter_error(self)
 
 
     def setError(self, value):
-        """setError(IFitParameter self, double value)"""
+        """
+        setError(IFitParameter self, double value)
+
+        void IFitParameter::setError(double value)
+
+        """
         return _libBornAgainFit.IFitParameter_setError(self, value)
 
 
@@ -1906,47 +1961,90 @@ class IFitParameter(_object):
         """
         limits(IFitParameter self) -> AttLimits
         limits(IFitParameter self) -> AttLimits
+
+        AttLimits & IFitParameter::limits()
+
         """
         return _libBornAgainFit.IFitParameter_limits(self, *args)
 
 
     def setLimits(self, limits):
-        """setLimits(IFitParameter self, AttLimits limits) -> IFitParameter"""
+        """
+        setLimits(IFitParameter self, AttLimits limits) -> IFitParameter
+
+        IFitParameter & IFitParameter::setLimits(const AttLimits &limits)
+
+        """
         return _libBornAgainFit.IFitParameter_setLimits(self, limits)
 
 
     def setLowerLimited(self, bound_value):
-        """setLowerLimited(IFitParameter self, double bound_value) -> IFitParameter"""
+        """
+        setLowerLimited(IFitParameter self, double bound_value) -> IFitParameter
+
+        IFitParameter & IFitParameter::setLowerLimited(double bound_value)
+
+        """
         return _libBornAgainFit.IFitParameter_setLowerLimited(self, bound_value)
 
 
     def setPositive(self):
-        """setPositive(IFitParameter self) -> IFitParameter"""
+        """
+        setPositive(IFitParameter self) -> IFitParameter
+
+        IFitParameter & IFitParameter::setPositive()
+
+        """
         return _libBornAgainFit.IFitParameter_setPositive(self)
 
 
     def setNonnegative(self):
-        """setNonnegative(IFitParameter self) -> IFitParameter"""
+        """
+        setNonnegative(IFitParameter self) -> IFitParameter
+
+        IFitParameter & IFitParameter::setNonnegative()
+
+        """
         return _libBornAgainFit.IFitParameter_setNonnegative(self)
 
 
     def setUpperLimited(self, bound_value):
-        """setUpperLimited(IFitParameter self, double bound_value) -> IFitParameter"""
+        """
+        setUpperLimited(IFitParameter self, double bound_value) -> IFitParameter
+
+        IFitParameter & IFitParameter::setUpperLimited(double bound_value)
+
+        """
         return _libBornAgainFit.IFitParameter_setUpperLimited(self, bound_value)
 
 
     def setLimited(self, left_bound_value, right_bound_value):
-        """setLimited(IFitParameter self, double left_bound_value, double right_bound_value) -> IFitParameter"""
+        """
+        setLimited(IFitParameter self, double left_bound_value, double right_bound_value) -> IFitParameter
+
+        IFitParameter & IFitParameter::setLimited(double left_bound_value, double right_bound_value)
+
+        """
         return _libBornAgainFit.IFitParameter_setLimited(self, left_bound_value, right_bound_value)
 
 
     def setFixed(self):
-        """setFixed(IFitParameter self) -> IFitParameter"""
+        """
+        setFixed(IFitParameter self) -> IFitParameter
+
+        IFitParameter & IFitParameter::setFixed()
+
+        """
         return _libBornAgainFit.IFitParameter_setFixed(self)
 
 
     def toString(self):
-        """toString(IFitParameter self) -> std::string"""
+        """
+        toString(IFitParameter self) -> std::string
+
+        std::string IFitParameter::toString() const 
+
+        """
         return _libBornAgainFit.IFitParameter_toString(self)
 
 IFitParameter_swigregister = _libBornAgainFit.IFitParameter_swigregister
@@ -2033,7 +2131,7 @@ class FitParameterSet(_object):
         """
         addFitParameter(FitParameterSet self, IFitParameter par)
 
-        void FitParameterSet::addFitParameter(FitParameter *par)
+        void FitParameterSet::addFitParameter(IFitParameter *par)
 
         Adds fit parameter. 
 
@@ -2046,7 +2144,7 @@ class FitParameterSet(_object):
         fitParameter(FitParameterSet self, std::string const & name) -> IFitParameter
         fitParameter(FitParameterSet self, std::string const & name) -> IFitParameter
 
-        FitParameter * FitParameterSet::fitParameter(const std::string &name)
+        IFitParameter * FitParameterSet::fitParameter(const std::string &name)
 
         """
         return _libBornAgainFit.FitParameterSet_fitParameter(self, *args)
@@ -2176,6 +2274,8 @@ class FitParameterSet(_object):
         setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)
 
         void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)
+
+        Sets resulting correlation matrix. 
 
         """
         return _libBornAgainFit.FitParameterSet_setCorrelationMatrix(self, matrix)

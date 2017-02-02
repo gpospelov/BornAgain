@@ -17,7 +17,6 @@
 #include "Beam.h"
 #include "IDetectorResolution.h"
 #include "InfinitePlane.h"
-#include "Logger.h"
 #include "SimulationElement.h"
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
@@ -77,9 +76,6 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
                                    "Error! Null pointer to intensity map");
     if (mP_detector_resolution)
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
-    else
-        msglog(Logging::WARNING) << "IDetector2D::applyDetectorResolution() -> "
-                                "No detector resolution function found";
 }
 
 void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency,

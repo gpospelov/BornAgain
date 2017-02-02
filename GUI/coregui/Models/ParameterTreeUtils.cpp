@@ -24,6 +24,8 @@
 #include "SampleModel.h"
 #include "ScientificDoubleProperty.h"
 #include "GUIHelpers.h"
+#include "FitParameterHelper.h"
+#include "SampleModel.h"
 #include <QStack>
 
 namespace {
@@ -59,6 +61,7 @@ void ParameterTreeUtils::populateParameterContainer(SessionItem* container,
 
     SessionItem* sourceLabel
         = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
+
     handleItem(sourceLabel, source);
 }
 
@@ -81,6 +84,27 @@ void ParameterTreeUtils::visitParameterContainer(SessionItem* container,
                 fun(parItem);
         }
     }
+}
+
+//! Creates list with parameter names of source item.
+
+QStringList ParameterTreeUtils::parameterTreeList(const SessionItem* source)
+{
+    QStringList result;
+
+    SampleModel model;
+    SessionItem* container = model.insertNewItem(Constants::ParameterContainerType);
+
+    populateParameterContainer(container, source);
+
+    visitParameterContainer(container, [&](ParameterItem* parItem)
+    {
+        result.push_back(FitParameterHelper::getParameterItemPath(parItem));
+    });
+
+    std::reverse(result.begin(), result.end());
+
+    return result;
 }
 
 //! For every ParameterItem in a container creates a link to the domain.

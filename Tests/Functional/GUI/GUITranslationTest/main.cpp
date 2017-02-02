@@ -22,18 +22,28 @@ bool run_tests() {
     std::vector<std::pair<std::string, std::string>> conditions = {
         {"BasicGISAS", "CylindersAndPrismsBuilder"},
         {"BasicGISAS", "RadialParaCrystalBuilder"},
-        {"BasicGISAS", "Lattice1DBuilder"},
-        //{"BasicGISAS", "Basic2DParaCrystalBuilder"},
-        {"BasicGISAS", "Basic2DLatticeBuilder"},
+        {"BasicGISAS", "HexParaCrystalBuilder"},
+        {"BasicGISAS", "CoreShellParticleBuilder"},
+        {"BasicGISAS", "MultiLayerWithRoughnessBuilder"},
         {"BasicGISAS", "SquareLatticeBuilder"},
+        {"BasicGISAS", "RotatedPyramidsBuilder"},
+        {"BasicGISAS", "CylindersWithSizeDistributionBuilder"},
+        {"BasicGISAS", "ParticleCompositionBuilder"},
+        {"BasicGISAS", "Basic2DParaCrystalBuilder"},
+        {"BasicGISAS", "Lattice1DBuilder"},
+        {"BasicGISAS", "Basic2DLatticeBuilder"}
     };
 
     bool success(true);
-    for(auto pair: conditions)
-        success &= GUITranslationTest(pair.first, pair.second).runTest();
+    for(auto pair: conditions) {
+        bool current = GUITranslationTest(pair.first, pair.second).runTest();
+        std::cout << "Sample: " << pair.second
+                  << " --> " << (current ? "Success" : "Failure") << std::endl;
+        success &= current;
+    }
 
-    if(!success)
-        std::cout << "Failure!" << std::endl;
+    std::cout << std::string(80, '-') << std::endl;
+    std::cout << "Summary: " << (success ? "Success" : "Failure") << std::endl;
 
     return success;
 }

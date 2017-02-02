@@ -65,7 +65,7 @@ public:
     std::vector<double> getDomainSizes() const;
     std::vector<const IFTDistribution2D*> getProbabilityDistributions() const;
 
-    void setIntegrationOverXi(bool integrate_xi) { m_integrate_xi = integrate_xi; }
+    void setIntegrationOverXi(bool integrate_xi);
     bool getIntegrationOverXi() const { return m_integrate_xi; }
     double getDampingLength() const { return m_damping_length; }
 

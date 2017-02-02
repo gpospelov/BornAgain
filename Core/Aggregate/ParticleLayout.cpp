@@ -21,13 +21,28 @@
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "RealParameter.h"
+#include "ParameterPool.h"
 #include <iomanip>
+
+namespace {
+
+//! Returns true if interference function is able to calculate particle density automatically,
+//! which is the case for 2D functions.
+bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
+{
+    if(iff.getName() == BornAgain::InterferenceFunction2DLatticeType ||
+       iff.getName() == BornAgain::InterferenceFunction2DParaCrystalType)
+        return true;
+    return false;
+}
+}
 
 ParticleLayout::ParticleLayout()
     : mP_interference_function {nullptr}
     , m_total_particle_density {1.0}
 {
     setName(BornAgain::ParticleLayoutType);
+    registerParticleDensity();
 }
 
 ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
@@ -38,6 +53,7 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle)
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle);
+    registerParticleDensity();
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
@@ -46,6 +62,7 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
+    registerParticleDensity();
 }
 
 ParticleLayout* ParticleLayout::clone() const
@@ -204,4 +221,19 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
 {
     mP_interference_function.reset(child);
     registerChild(child);
+
+    if(particleDensityIsProvidedByInterference(*mP_interference_function))
+        registerParticleDensity(false);
+    else
+        registerParticleDensity(true);
+}
+
+void ParticleLayout::registerParticleDensity(bool make_registered)
+{
+    if(make_registered) {
+        if(!getParameter(BornAgain::TotalParticleDensity))
+            registerParameter(BornAgain::TotalParticleDensity, &m_total_particle_density);
+    } else {
+        removeParameter(BornAgain::TotalParticleDensity);
+    }
 }

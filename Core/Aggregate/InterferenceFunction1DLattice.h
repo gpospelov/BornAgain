@@ -38,16 +38,18 @@ public:
 
     Lattice1DParameters getLatticeParameters() const { return m_lattice_params; }
 
-    const IFTDecayFunction1D* getDecayFunction() const { return mp_pdf; }
+    const IFTDecayFunction1D* getDecayFunction() const { return mp_pdf.get(); }
 
     double evaluate(const kvector_t q) const final;
+
+    std::vector<const INode*> getChildren() const override;
 
 private:
     InterferenceFunction1DLattice(const Lattice1DParameters& lattice_params);
     void init_parameters();
 
     Lattice1DParameters m_lattice_params;
-    IFTDecayFunction1D* mp_pdf;
+    std::unique_ptr<IFTDecayFunction1D> mp_pdf;
     int m_na; //!< determines the number of reciprocal lattice points to use
 
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday

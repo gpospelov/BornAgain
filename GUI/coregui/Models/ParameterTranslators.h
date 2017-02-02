@@ -18,6 +18,8 @@
 
 #include <QStringList>
 
+class SessionItem;
+
 class IParameterTranslator {
 public:
     virtual ~IParameterTranslator()=default;
@@ -47,5 +49,55 @@ public:
 
     std::string translate(const QString &name) const override;
 };
+
+class IPathTranslator {
+public:
+//    IPathTranslator(const IPathTranslator&) = delete;
+//    IPathTranslator& operator=(const IPathTranslator&) = delete;
+    virtual ~IPathTranslator()=default;
+
+    virtual IPathTranslator* clone() const=0;
+
+    virtual QStringList translate(const QStringList& list) const=0;
+};
+
+class NewPositionTranslator : public IPathTranslator {
+public:
+    ~NewPositionTranslator() override {}
+
+    NewPositionTranslator* clone() const override { return new NewPositionTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const;
+};
+
+class NewRotationTranslator : public IPathTranslator {
+public:
+    ~NewRotationTranslator() override {}
+
+    NewRotationTranslator* clone() const override { return new NewRotationTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const;
+};
+
+class DistributionNoneTranslator : public IPathTranslator {
+public:
+    ~DistributionNoneTranslator() override {}
+
+    DistributionNoneTranslator* clone() const override { return new DistributionNoneTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const;
+};
+
+class RoughnessTranslator : public IPathTranslator {
+public:
+    ~RoughnessTranslator() override {}
+
+    RoughnessTranslator* clone() const override { return new RoughnessTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const;
+private:
+    int getLayerIndex(QString layerName) const;
+};
+
 
 #endif // PARAMETERTRANSLATORS_H

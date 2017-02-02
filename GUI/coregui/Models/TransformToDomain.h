@@ -37,8 +37,6 @@ namespace TransformToDomain
 {
 BA_CORE_API_ std::unique_ptr<Beam> createBeam(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<IDistribution1D> createDistribution(const SessionItem& item);
-BA_CORE_API_ std::unique_ptr<IInterferenceFunction> createInterferenceFunction(
-    const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<IMaterial> createDomainMaterial(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<IParticle> createIParticle(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<Instrument> createInstrument(const SessionItem& item);

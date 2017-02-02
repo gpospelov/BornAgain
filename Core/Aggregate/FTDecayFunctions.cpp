@@ -30,7 +30,7 @@ void IFTDecayFunction1D::print(std::ostream &ostr) const
 
 void IFTDecayFunction1D::init_parameters()
 {
-    registerParameter(BornAgain::Omega, &m_omega);
+    registerParameter(BornAgain::DecayLength, &m_omega);
 }
 
 FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)

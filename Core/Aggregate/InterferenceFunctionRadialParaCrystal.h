@@ -49,6 +49,8 @@ public:
 
     double getDampingLength() const { return m_damping_length; }
 
+    std::vector<const INode*> getChildren() const override;
+
 private:
     void init_parameters();
 

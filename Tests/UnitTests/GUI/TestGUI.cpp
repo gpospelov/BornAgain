@@ -17,6 +17,8 @@
 #include "TestFitParameterModel.h"
 #include "TestMaterialModel.h"
 #include "TestComboProperty.h"
+#include "TestTranslations.h"
+#include "TestGroupProperty.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -40,6 +42,8 @@ int main(int argc, char** argv) {
     TestFitParameterModel testFitParameterModel;
     TestMaterialModel testMaterialModel;
     TestComboProperty testComboProperty;
+    TestTranslations testTranslations;
+    TestGroupProperty testGroupProperty;
 
     bool status(false);
 
@@ -60,6 +64,8 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testFitParameterModel, argc, argv);
     status |= QTest::qExec(&testMaterialModel, argc, argv);
     status |= QTest::qExec(&testComboProperty, argc, argv);
+    status |= QTest::qExec(&testTranslations, argc, argv);
+    status |= QTest::qExec(&testGroupProperty, argc, argv);
 
     return status;
 }

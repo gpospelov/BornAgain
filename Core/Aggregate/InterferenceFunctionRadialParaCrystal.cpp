@@ -105,6 +105,11 @@ complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 
 void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 {
-    if (mP_pdf.get() != &pdf)
-        mP_pdf.reset(pdf.clone());
+    mP_pdf.reset(pdf.clone());
+    registerChild(mP_pdf.get());
+}
+
+std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const
+{
+    return std::vector<const INode*>() << mP_pdf;
 }

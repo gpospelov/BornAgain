@@ -54,6 +54,7 @@ public:
     double getSigmaFactor() const { return m_sigma_factor; }
 
     const IDistribution1D* getDistribution() const;
+    IDistribution1D* getDistribution();
 
     //! generate list of sampled values with their weight
     std::vector<ParameterSample> generateSamples() const;

@@ -21,6 +21,15 @@
 #include "VectorItem.h"
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
+#include "GUIHelpers.h"
+#include "MultiLayerItem.h"
+#include <QDebug>
+
+namespace {
+const QStringList expectedRoughnessPars = QStringList() << QString::fromStdString(BornAgain::Sigma)
+    << QString::fromStdString(BornAgain::Hurst)
+    << QString::fromStdString(BornAgain::CorrelationLength);
+}
 
 QStringList IParameterTranslator::split(const QString &par_name) const
 {
@@ -77,4 +86,75 @@ std::string RotationTranslator::translate(const QString& name) const
         }
     }
     return {};
+}
+
+QStringList NewPositionTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != ParticleItem::P_POSITION)
+        return list;
+
+    Q_ASSERT(list.size() == 2);
+
+    QStringList result;
+    if (list.front() == VectorItem::P_X) {
+        result << QString::fromStdString(BornAgain::PositionX);
+    } else if (list.front() == VectorItem::P_Y) {
+        result << QString::fromStdString(BornAgain::PositionY);
+    } else if (list.front() == VectorItem::P_Z) {
+        result << QString::fromStdString(BornAgain::PositionZ);
+    } else {
+        GUIHelpers::Error("NewPositionTranslator::translate() -> Unexpected list structure");
+    }
+
+    return result;
+}
+
+QStringList NewRotationTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != Constants::TransformationType)
+        return list;
+
+    Q_ASSERT(list.size() == 3);
+    QStringList result = list;
+    result.removeLast();
+    return result;
+}
+
+QStringList DistributionNoneTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != Constants::DistributionNoneType)
+        return list;
+
+    Q_UNUSED(list);
+    return QStringList(); // removing "DistributionNone/Value"
+}
+
+//! Converts "/Layer1/LayerBasicRoughness/Sigma" into "/LayerInterface0/LayerBasicRoughness/Sigma"
+
+QStringList RoughnessTranslator::translate(const QStringList& list) const
+{
+    if (!list.back().contains(Constants::LayerType)
+        || !expectedRoughnessPars.contains(list.front()))
+        return list;
+
+    QStringList result = list;
+
+    QString layerName = result.takeLast();
+    int layerIndex = getLayerIndex(layerName);
+
+    result.push_back(QString::fromStdString(BornAgain::LayerInterfaceType)
+                     + QString::number(layerIndex - 1));
+    return result;
+}
+
+//! Extract layer index from the string "Layer11"
+
+int RoughnessTranslator::getLayerIndex(QString layerName) const
+{
+    layerName.remove(Constants::LayerType);
+    bool ok(true);
+    int layerIndex = layerName.toInt(&ok);
+    if(!ok)
+        throw GUIHelpers::Error("RoughnessTranslator::getLayerIndex() -> Error. Can't parse.");
+    return layerIndex;
 }

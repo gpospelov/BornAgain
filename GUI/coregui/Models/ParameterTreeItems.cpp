@@ -18,6 +18,7 @@
 #include "ModelPath.h"
 #include "SessionModel.h"
 #include "FitParameterHelper.h"
+#include "ScientificDoubleProperty.h"
 
 // ----------------------------------------------------------------------------
 
@@ -48,23 +49,38 @@ ParameterItem::ParameterItem()
 
 //! Sets current value to the original PropertyItem of MultiLayerItem/InstrumentItem.
 
-void ParameterItem::propagateValueLink(bool backup)
+void ParameterItem::propagateValueToLink(double newValue)
 {
-    if (backup)
-        setValue(getItemValue(P_BACKUP));
-    SessionItem *item = getLinkedItem();
-    if (item)
-        item->setValue(value());
+    setValue(newValue);
+
+    if (SessionItem *item = linkedItem()) {
+        if(item->value().typeName() == Constants::ScientificDoublePropertyType) {
+            ScientificDoubleProperty intensity = item->value().value<ScientificDoubleProperty>();
+            intensity.setValue(newValue);
+            item->setValue(intensity.getVariant());
+
+        } else {
+            item->setValue(newValue);
+        }
+    }
 }
 
 //! Returns corresponding linked item in MultiLayerItem/IsntrumentItem
 
-SessionItem *ParameterItem::getLinkedItem()
+SessionItem *ParameterItem::linkedItem()
 {
     const SessionItem *jobItem = ModelPath::ancestor(this, Constants::JobItemType);
     Q_ASSERT(jobItem);
     QString link = jobItem->itemName() + "/" + getItemValue(P_LINK).toString();
     return model()->itemForIndex(ModelPath::getIndexFromPath(model(), link));
+}
+
+//! Restore the value from backup and propagate it to the linked item.
+
+void ParameterItem::restoreFromBackup()
+{
+    double newValue = getItemValue(P_BACKUP).toDouble();
+    propagateValueToLink(newValue);
 }
 
 //! Returns true if item can be used to drag-and-drop to FitParameterContainer.

@@ -19,6 +19,7 @@
 #include "GroupPropertyRegistry.h"
 #include "ItemFactory.h"
 #include "SessionModel.h"
+#include "ParameterTranslators.h"
 
 class SessionItemData
 {
@@ -65,6 +66,9 @@ SessionItem::~SessionItem()
     m_children.clear();
     if (m_parent && m_model)
         m_parent->childDeleted(this);
+
+    for(IPathTranslator* translator : m_translators)
+        delete translator;
 }
 
 //! internal
@@ -479,13 +483,13 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
 SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type) const
 {
     if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
-        GroupProperty_t group_property = item->group();
+        GroupProperty_t group_property = item->groupProperty();
         if (type.isEmpty()) {
-            return group_property->getCurrentItem();
+            return group_property->currentItem();
         }
-        QString backup = group_property->getCurrentType();
+        QString backup = group_property->currentType();
         group_property->setCurrentType(type);
-        SessionItem *value = group_property->getCurrentItem();
+        SessionItem *value = group_property->currentItem();
         group_property->setCurrentType(backup);
         return value;
     }
@@ -496,11 +500,9 @@ SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type)
 
 SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
 {
-    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
-        GroupProperty_t group_property = item->group();
-        group_property->setCurrentType(value);
-        return group_property->getCurrentItem();
-    }
+    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name)))
+        return item->setCurrentType(value);
+
     return nullptr;
 }
 
@@ -799,4 +801,18 @@ ModelMapper *SessionItem::mapper()
         m_mapper->setItem(this);
     }
     return m_mapper.get();
+}
+
+QStringList SessionItem::translateList(const QStringList& list) const
+{
+    QStringList result = list;
+    for(const IPathTranslator* translator : m_translators)
+        result = translator->translate(result);
+    result << displayName();
+    return result;
+}
+
+void SessionItem::addTranslator(const IPathTranslator& translator)
+{
+    m_translators.push_back(translator.clone());
 }

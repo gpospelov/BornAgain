@@ -80,3 +80,8 @@ void IParameterized::setParameterValue(const std::string& name, double value)
 RealParameter* IParameterized::getParameter(const std::string& name) const {
     return m_pool->getParameter(name);
 }
+
+void IParameterized::removeParameter(const std::string& name)
+{
+    m_pool->removeParameter(name);
+}

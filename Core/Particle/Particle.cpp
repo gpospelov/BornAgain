@@ -145,5 +145,5 @@ std::vector<const INode*> Particle::getChildren() const
 void Particle::initialize()
 {
     setName(BornAgain::ParticleType);
-    registerPosition();
+    registerParticleProperties();
 }

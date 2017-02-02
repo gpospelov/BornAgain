@@ -26,6 +26,7 @@
 Q_DECLARE_METATYPE(RealLimits)
 
 class SessionItemData;
+class IPathTranslator;
 
 class SessionTagInfo
 {
@@ -137,6 +138,9 @@ public:
     virtual QString itemLabel() const;
     ModelMapper *mapper();
 
+    virtual QStringList translateList(const QStringList& list) const;
+    void addTranslator(const IPathTranslator& translator);
+
 private:
     void childDeleted(SessionItem *child);
     void setParentAndModel(SessionItem *parent, SessionModel *model);
@@ -152,6 +156,7 @@ private:
     QVector<SessionItemData> m_values;
     QVector<SessionTagInfo> m_tags;
     std::unique_ptr<ModelMapper> m_mapper;
+    QVector<IPathTranslator*> m_translators;
 };
 
 Q_DECLARE_METATYPE(SessionItem*) // INVESTIGATE something requires sessionitem be declared as meta type

@@ -126,10 +126,15 @@ std::unique_ptr<FitParameter> FitParameterItem::createFitParameter() const
     Q_ASSERT(jobItem);
 
     foreach (SessionItem* linkItem, getItems(FitParameterItem::T_LINK)) {
-        QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-        std::string domainPath = "*" + ModelPath::translateParameterName(jobItem, link);
-        linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
-        result->addPattern(domainPath);
+//        QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
+//        std::string domainPath = "*" + ModelPath::translateParameterName(jobItem, link);
+//        linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
+
+        ParameterItem *parItem = dynamic_cast<ParameterItem*>(linkItem);
+        QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
+        parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
+
+        result->addPattern(translation.toStdString());
     }
 
     return result;

@@ -25,7 +25,7 @@
 
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
-const QString ParticleItem::P_ABUNDANCE = "Abundance";
+const QString ParticleItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
 const QString ParticleItem::P_MATERIAL = "Material";
 const QString ParticleItem::P_POSITION = "Position Offset";
 const QString ParticleItem::T_TRANSFORMATION = "Transformation Tag";
@@ -46,6 +46,9 @@ ParticleItem::ParticleItem()
     setDefaultTag(T_TRANSFORMATION);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
+
+    addTranslator(NewPositionTranslator());
+    addTranslator(NewRotationTranslator());
 
     mapper()->setOnParentChange(
                 [this](SessionItem* parentItem) {

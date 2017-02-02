@@ -20,6 +20,7 @@
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "RealParameter.h"
+#include "Distributions.h"
 #include <map>
 
 ParticleDistribution::ParticleDistribution(const IParticle& prototype,
@@ -29,6 +30,10 @@ ParticleDistribution::ParticleDistribution(const IParticle& prototype,
     setName(BornAgain::ParticleDistributionType);
     mP_particle.reset(prototype.clone());
     registerChild(mP_particle.get());
+    mP_particle->registerAbundance(false);
+    if(auto dist = m_par_distribution.getDistribution())
+        registerChild(dist);
+    registerParameter(BornAgain::Abundance, &m_abundance);
 }
 
 ParticleDistribution* ParticleDistribution::clone() const
@@ -86,5 +91,8 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
 
 std::vector<const INode*> ParticleDistribution::getChildren() const
 {
-    return std::vector<const INode*>() << mP_particle;
+    std::vector<const INode*> result = std::vector<const INode*>() << mP_particle;
+    if(auto dist = m_par_distribution.getDistribution())
+        result.push_back(dist);
+    return result;
 }

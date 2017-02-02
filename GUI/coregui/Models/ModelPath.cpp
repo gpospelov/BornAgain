@@ -40,7 +40,7 @@ QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString pre
                 if(p_child->isVisible()) {
                     if (p_child->modelType() ==  Constants::GroupItemType) {
                         if (const GroupItem *groupItem = dynamic_cast<const GroupItem*>(p_child)) {
-                            if (const SessionItem *subItem = groupItem->group()->getCurrentItem()) {
+                            if (const SessionItem *subItem = groupItem->currentItem()) {
                                 QString child_prefix = prefix + subItem->itemName() + QString("/");
                                 result << getParameterTreeList(subItem, child_prefix);
                             }
@@ -215,8 +215,8 @@ SessionItem* ModelPath::findChild(const SessionItem *item, const QString& first_
         auto groupItems = item->getChildrenOfType(Constants::GroupItemType);
         for (SessionItem* groupItem : groupItems) {
             if (GroupItem *gItem = dynamic_cast<GroupItem*>(groupItem)) {
-                if (gItem->group()->getCurrentType() == first_field) {
-                    p_child = gItem->group()->getCurrentItem();
+                if (gItem->currentType() == first_field) {
+                    p_child = gItem->currentItem();
                     break;
                 }
             }
@@ -246,13 +246,7 @@ bool ModelPath::isTranslatable(const SessionItem *item, const QString &par_name)
     Q_UNUSED(item);
     if(par_name.contains(Constants::DetectorType))
         return false;
-    if(par_name.contains(ParticleItem::P_ABUNDANCE))
-        return false;
-    if(par_name.contains(ParticleLayoutItem::P_TOTAL_DENSITY))
-        return false;
-    if(par_name.contains("FTDistribution1D") || par_name.contains("FTDecayFunction1D"))
-        return false;
-    if(par_name.contains("FTDistribution2D") || par_name.contains("FTDecayFunction2D"))
+    if(par_name.contains(Constants::DistributionSigmaFactor))
         return false;
     return true;
 }
@@ -267,4 +261,18 @@ const SessionItem* ModelPath::ancestor(const SessionItem *item, const QString &r
         cur = cur->parent();
 
     return cur;
+}
+
+//! Returns translation of item path to domain name
+
+QString ModelPath::itemPathTranslation(const SessionItem& item, const SessionItem* topItem)
+{
+    QStringList pathList;
+    const SessionItem *current(&item);
+    while (current && current!=topItem) {
+        pathList = current->translateList(pathList);
+        current = current->parent();
+    }
+    std::reverse(pathList.begin(), pathList.end());
+    return pathList.join("/");
 }

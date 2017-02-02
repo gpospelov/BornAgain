@@ -18,6 +18,7 @@
 
 #include "ISample.h"
 #include "Vectors3D.h"
+#include "BornAgainNamespace.h"
 #include <memory>
 
 class IMaterial;

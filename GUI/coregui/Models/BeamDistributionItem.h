@@ -17,7 +17,7 @@
 #ifndef BEAMDISTRIBUTIONITEM_H
 #define BEAMDISTRIBUTIONITEM_H
 
-#include "DistributionItem.h"
+#include "DistributionItems.h"
 
 
 class ParameterDistribution;

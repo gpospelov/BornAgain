@@ -286,8 +286,14 @@ void MultiLayer::addAndRegisterInterface(LayerInterface* child)
 void MultiLayer::setNLayersInLayers() const
 {
     size_t n_layers = getNumberOfLayers();
-    for (size_t i=0; i<getNumberOfLayers(); ++i)
+    for (size_t i=0; i<getNumberOfLayers(); ++i) {
         m_layers[i]->setNumberOfLayers(n_layers);
+        if(i == 0 || i == n_layers-1) {
+            m_layers[i]->registerThickness(false);
+        } else {
+            m_layers[i]->registerThickness(true);
+        }
+    }
 }
 
 size_t MultiLayer::check_layer_index(size_t i_layer) const

@@ -115,7 +115,7 @@ IFormFactor* MesoCrystal::createTransformationDecoratedFormFactor(
 void MesoCrystal::initialize()
 {
     setName(BornAgain::MesoCrystalType);
-    registerPosition();
+    registerParticleProperties();
     registerChild(mp_particle_structure.get());
     registerChild(mp_meso_form_factor.get());
 }

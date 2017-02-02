@@ -38,6 +38,10 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     RotationTranslator rotation_translator;
     ModelPath::addParameterTranslator(rotation_translator);
+
+    addTranslator(NewPositionTranslator());
+    addTranslator(NewRotationTranslator());
+
     mapper()->setOnParentChange(
                 [this](SessionItem*)
     {
@@ -49,6 +53,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
             }
         }
     });
+
 }
 
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const

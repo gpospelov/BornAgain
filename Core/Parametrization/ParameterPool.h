@@ -64,6 +64,7 @@ public:
     friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
         obj.print(ostr); return ostr; }
 
+    void removeParameter(const std::string& name);
 private:
     virtual void print(std::ostream& ostr) const;
     void report_find_matched_parameters_error(const std::string& pattern) const;

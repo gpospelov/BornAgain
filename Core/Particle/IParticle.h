@@ -68,6 +68,11 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+    void registerAbundance(bool make_registered = true);
+
+    //! Registers the three components of its position
+    void registerPosition(bool make_registered = true);
+
 protected:
     //! Creates a composed IRotation object
     IRotation* createComposedRotation(const IRotation* p_rotation) const;
@@ -75,8 +80,8 @@ protected:
     //! Gets a composed translation vector
     kvector_t getComposedTranslation(const IRotation* p_rotation, kvector_t translation) const;
 
-    //! Registers the three components of its position
-    void registerPosition();
+    //! Registers abundance and position
+    void registerParticleProperties();
 
     kvector_t m_position;
     std::unique_ptr<IRotation> mP_rotation;

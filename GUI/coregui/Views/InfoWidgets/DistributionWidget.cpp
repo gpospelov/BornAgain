@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "DistributionWidget.h"
-#include "DistributionItem.h"
+#include "DistributionItems.h"
 #include "Distributions.h"
 #include "qcustomplot.h"
 #include <QLabel>

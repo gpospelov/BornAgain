@@ -62,7 +62,9 @@ class BA_CORE_API_ EulerRotationItem : public RotationItem
 {
 
 public:
-    static const QString P_ALPHA, P_BETA, P_GAMMA;
+    static const QString P_ALPHA;
+    static const QString P_BETA;
+    static const QString P_GAMMA;
     explicit EulerRotationItem();
     IRotation *createRotation() const;
 };

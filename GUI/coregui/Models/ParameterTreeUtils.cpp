@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/ParameterTreeBuilder.cpp
-//! @brief     Implements ParameterTreeBuilder namespace
+//! @file      GUI/coregui/Models/ParameterTreeUtils.cpp
+//! @brief     Implements ParameterTreeUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "ParameterTreeBuilder.h"
+#include "ParameterTreeUtils.h"
 #include "FitParameterHelper.h"
 #include "GroupItem.h"
 #include "JobItem.h"
@@ -29,7 +29,7 @@ namespace {
     void handleItem(SessionItem* tree, SessionItem* source);
 }
 
-void ParameterTreeBuilder::createParameterTree(JobItem* item, const QString& tag)
+void ParameterTreeUtils::createParameterTree(JobItem* item, const QString& tag)
 {
     SessionItem* container
         = item->model()->insertNewItem(Constants::ParameterContainerType, item->index(), -1, tag);
@@ -46,13 +46,13 @@ void ParameterTreeBuilder::createParameterTree(JobItem* item, const QString& tag
     // Provides all items in "JobItem/Parameter Tree Container" with domain links already
     // at the stage of ParameterTree creation. It is necessary for validation, in Release mode
     // it will lead for unnecessary large project files.
-    ParameterTreeBuilder::populateDomainLinks(item, tag);
+    ParameterTreeUtils::populateDomainLinks(item, tag);
 #endif
 }
 
 //! For every ParameterItem in JobItem's ParameterTree container creates a link to domain.
 
-void ParameterTreeBuilder::populateDomainLinks(JobItem* jobItem, const QString& tag)
+void ParameterTreeUtils::populateDomainLinks(JobItem* jobItem, const QString& tag)
 {
     SessionItem* current = jobItem->getItem(tag); // this is container
     QStack<SessionItem*> stack;

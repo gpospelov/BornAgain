@@ -25,7 +25,7 @@
 #include "JobModel.h"
 #include "DocumentModel.h"
 #include "JobItem.h"
-#include "ParameterTreeBuilder.h"
+#include "ParameterTreeUtils.h"
 #include "ParameterTreeItems.h"
 #include "ParameterPool.h"
 #include "FitParameterHelper.h"
@@ -89,7 +89,7 @@ void GUITranslationTest::processParameterTree()
                 0,
                 m_models->documentModel()->getSimulationOptionsItem());
 
-    ParameterTreeBuilder::populateDomainLinks(jobItem, JobItem::T_PARAMETER_TREE);
+    ParameterTreeUtils::populateDomainLinks(jobItem, JobItem::T_PARAMETER_TREE);
 
     SessionItem *current = jobItem->getItem(JobItem::T_PARAMETER_TREE);
 

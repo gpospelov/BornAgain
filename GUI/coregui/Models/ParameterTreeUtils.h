@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/ParameterTreeBuilder.h
-//! @brief     Defines ParameterTreeBuilder namespace
+//! @file      GUI/coregui/Models/ParameterTreeUtils.h
+//! @brief     Defines ParameterTreeUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PARAMETERTREEBUILDER_H
-#define PARAMETERTREEBUILDER_H
+#ifndef PARAMETERTREEUTILS_H
+#define PARAMETERTREEUTILS_H
 
 #include "WinDllMacros.h"
 #include <QString>
@@ -27,7 +27,7 @@ class SessionItem;
 //! with ParameterItems. The ParameterItem appears in RealTimeView and provides real
 //! time tuning of MultiLayerItem and InstrumentItem.
 
-namespace ParameterTreeBuilder
+namespace ParameterTreeUtils
 {
 
 BA_CORE_API_ void createParameterTree(JobItem* item, const QString& tag = QString());
@@ -35,4 +35,4 @@ BA_CORE_API_ void populateDomainLinks(JobItem* jobItem, const QString& tag);
 
 }
 
-#endif // PARAMETERTREEBUILDER_H
+#endif // PARAMETERTREEUTILS_H

@@ -22,7 +22,7 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobQueueData.h"
-#include "ParameterTreeBuilder.h"
+#include "ParameterTreeUtils.h"
 #include "ParameterTreeItems.h"
 #include "ParameterTuningDelegate.h"
 #include "ParameterTuningModel.h"

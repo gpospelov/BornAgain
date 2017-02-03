@@ -92,7 +92,7 @@ void MainComputation::runProtected()
 }
 
 IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
-                                                      const MultiLayer* p_inverted_multilayer)
+                                               const MultiLayer* p_inverted_multilayer)
 {
         if (!p_multilayer->requiresMatrixRTCoefficients())
             return new ScalarFresnelMap(p_multilayer);

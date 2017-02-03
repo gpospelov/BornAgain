@@ -16,8 +16,10 @@
 #ifndef SCALARFRESNELMAP_H
 #define SCALARFRESNELMAP_H
 
+#include "HashKVector.h"
 #include "IFresnelMap.h"
-#include "Vectors3D.h"
+#include <unordered_map>
+#include <vector>
 
 class MultiLayer;
 class ILayerRTCoefficients;
@@ -31,7 +33,7 @@ class BA_CORE_API_ ScalarFresnelMap : public IFresnelMap
 {
 public:
     ScalarFresnelMap(const MultiLayer* multilayer);
-    ~ScalarFresnelMap() final {}
+    ~ScalarFresnelMap() final;
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients (
@@ -44,6 +46,8 @@ public:
 private:
     const MultiLayer* mp_multilayer;
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;
+    mutable std::unordered_map<kvector_t, std::vector<ScalarRTCoefficients>,
+                               HashKVector> m_hash_table;
 };
 
 #endif // SCALARFRESNELMAP_H

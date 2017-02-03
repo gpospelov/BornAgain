@@ -23,6 +23,9 @@ ScalarFresnelMap::ScalarFresnelMap(const MultiLayer* multilayer)
     : mp_multilayer(multilayer)
 {}
 
+ScalarFresnelMap::~ScalarFresnelMap()
+{}
+
 const ILayerRTCoefficients* ScalarFresnelMap::getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
@@ -38,7 +41,15 @@ const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
 const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         kvector_t kvec, size_t layer_index) const
 {
-    SpecularMatrix::MultiLayerCoeff_t coeffs;
-    SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
-    return new ScalarRTCoefficients(coeffs[layer_index]);
+    ScalarRTCoefficients* result;
+    auto it = m_hash_table.find(kvec);
+    if (it != m_hash_table.end())
+        result = new ScalarRTCoefficients(it->second[layer_index]);
+    else {
+        std::vector<ScalarRTCoefficients> coeffs;
+        SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
+        result = new ScalarRTCoefficients(coeffs[layer_index]);
+        m_hash_table[kvec] = std::move(coeffs);
+    }
+    return result;
 }

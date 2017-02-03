@@ -55,7 +55,7 @@ public:
 private:
     void runProtected();
     static IFresnelMap* createFresnelMap(const MultiLayer* p_multilayer,
-                                                const MultiLayer* p_inverted_multilayer);
+                                         const MultiLayer* p_inverted_multilayer);
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;

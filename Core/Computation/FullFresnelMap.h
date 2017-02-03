@@ -16,7 +16,7 @@
 #ifndef FULLFRESNELMAP_H
 #define FULLFRESNELMAP_H
 
-#include "SafePointerVector.h"
+#include <memory>
 
 class ILayerRTCoefficients;
 class ILayerSpecularInfo;
@@ -28,9 +28,7 @@ public:
     FullFresnelMap();
     ~FullFresnelMap();
 
-    void push_back(ILayerSpecularInfo* layer_map);
-
-    size_t size() const;
+    void setMap(ILayerSpecularInfo* p_layer_map);
 
     //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
     const ILayerRTCoefficients* getOutCoefficients(const SimulationElement& sim_element,
@@ -40,10 +38,8 @@ public:
     const ILayerRTCoefficients* getInCoefficients(const SimulationElement& sim_element,
                                                   size_t layer_index) const;
 
-
-    const ILayerSpecularInfo* layerFresnelMap(size_t index) const;
 private:
-    SafePointerVector<ILayerSpecularInfo> m_full_map;
+    std::unique_ptr<ILayerSpecularInfo> mP_map;
 };
 
 #endif // FULLFRESNELMAP_H

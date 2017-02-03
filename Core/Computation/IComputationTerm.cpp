@@ -29,8 +29,3 @@ void IComputationTerm::setSpecularInfo(
 {
     mp_full_fresnel_map = p_full_map;
 }
-
-const ILayerSpecularInfo* IComputationTerm::layerFresnelMap(size_t index) const
-{
-    return mp_full_fresnel_map->layerFresnelMap(index);
-}

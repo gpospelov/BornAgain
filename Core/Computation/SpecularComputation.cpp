@@ -33,7 +33,7 @@ bool SpecularComputation::eval(
 
     for (auto it = begin_it; it != end_it; ++it) {
         if (it->containsSpecularWavevector()) {
-            complex_t R = layerFresnelMap(0)->getInCoefficients(*it, 0)->getScalarR();
+            complex_t R = mp_full_fresnel_map->getInCoefficients(*it, 0)->getScalarR();
             double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
             if (sin_alpha_i==0.0)
                 sin_alpha_i = 1.0;

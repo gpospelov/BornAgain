@@ -94,21 +94,27 @@ void ParticleDistributionItem::updateParameterList()
         return;
     QVariant par_prop = getItemValue(P_DISTRIBUTED_PARAMETER);
     auto combo_prop = par_prop.value<ComboProperty>();
-    QString cached_par = combo_prop.getCachedValue();
-    if (!combo_prop.cacheContainsGUIValue()) {
-        auto gui_name = translateParameterNameToGUI(cached_par);
+    QString cached_par = domainCacheName();
+
+    if (!cacheContainsGUIValue()) {
+        auto gui_name = translateParameterNameToGUI(domainCacheName());
         if (!gui_name.isEmpty()) {
             cached_par = gui_name;
             combo_prop.setCachedValue(cached_par);
             combo_prop.setCacheContainsGUIFlag();
+            setDomainCacheName(QString());
         }
     }
+
     QString selected_par = combo_prop.getValue();
+
     QStringList par_names = QStringList() << NO_SELECTION << childParameterNames();
     par_names.removeAll(ParticleItem::P_ABUNDANCE);
+
     auto updated_prop = ComboProperty(par_names);
     updated_prop.setCachedValue(cached_par);
     updated_prop.setCacheContainsGUIFlag(combo_prop.cacheContainsGUIValue());
+
     if (updated_prop.getValues().contains(cached_par) ) {
         updated_prop.setValue(cached_par);
     } else if (updated_prop.getValues().contains(selected_par)) {
@@ -117,6 +123,25 @@ void ParticleDistributionItem::updateParameterList()
         updated_prop.setValue(NO_SELECTION);
     }
     setItemValue(P_DISTRIBUTED_PARAMETER, updated_prop.getVariant());
+}
+
+void ParticleDistributionItem::setDomainCacheName(const QString& name)
+{
+    m_domain_cache_name = name;
+}
+
+bool ParticleDistributionItem::cacheContainsGUIValue() const
+{
+    QVariant par_prop = getItemValue(P_DISTRIBUTED_PARAMETER);
+    auto combo_prop = par_prop.value<ComboProperty>();
+    return combo_prop.cacheContainsGUIValue();
+}
+
+QString ParticleDistributionItem::domainCacheName() const
+{
+    QVariant par_prop = getItemValue(P_DISTRIBUTED_PARAMETER);
+    auto combo_prop = par_prop.value<ComboProperty>();
+    return combo_prop.getCachedValue();
 }
 
 QStringList ParticleDistributionItem::childParameterNames() const

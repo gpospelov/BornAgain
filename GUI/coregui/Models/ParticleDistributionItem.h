@@ -33,9 +33,15 @@ public:
 
     void updateParameterList();
 
+    void setDomainCacheName(const QString& name);
+
+    bool cacheContainsGUIValue() const;
+    QString domainCacheName() const;
+
 private:
     QStringList childParameterNames() const;
     QString translateParameterNameToGUI(const QString& domainName);
+    QString m_domain_cache_name;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

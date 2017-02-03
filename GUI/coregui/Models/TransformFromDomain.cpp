@@ -166,6 +166,10 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
               .value<ComboProperty>();
     combo_property.setCachedValue(main_distr_par_name);
     combo_property.setCacheContainsGUIFlag(false);
+
+    ParticleDistributionItem *distItem = dynamic_cast<ParticleDistributionItem*>(item);
+    distItem->setDomainCacheName(main_distr_par_name);
+
     item->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
                                 combo_property.getVariant());
 

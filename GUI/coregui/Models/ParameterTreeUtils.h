@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <functional>
 #include <QString>
+#include <QPair>
 
 class JobItem;
 class SessionItem;
@@ -42,6 +43,14 @@ BA_CORE_API_ void visitParameterContainer(SessionItem* container,
 BA_CORE_API_ QStringList parameterTreeNames(const SessionItem* source);
 
 BA_CORE_API_ QStringList translatedParameterTreeNames(const SessionItem* source);
+
+BA_CORE_API_ QStringList translateParameterName(const QString& name, const SessionItem* source);
+
+BA_CORE_API_ QVector<QPair<QString, QString>> parameterNameTranslation(const SessionItem* source);
+
+BA_CORE_API_ QString domainNameToParameterName(const QString& domainName, const SessionItem* source);
+
+BA_CORE_API_ QString parameterNameToDomainName(const QString& parName, const SessionItem* source);
 
 BA_CORE_API_ void populateDomainLinks(SessionItem* container);
 

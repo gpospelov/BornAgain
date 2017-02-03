@@ -29,10 +29,6 @@ class SessionModel;
 class BA_CORE_API_ ModelPath
 {
 public:
-    //! retrieves a list of all parameter names in the SessionItem tree starting
-    //! with this node and prefixes them
-    static QStringList getParameterTreeList(const SessionItem *item, QString prefix = "");
-
     //! retrieve value of given parameter name
     static double getParameterValue(const SessionItem *item, const QString &name);
 

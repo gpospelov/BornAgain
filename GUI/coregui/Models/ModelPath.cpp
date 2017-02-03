@@ -25,38 +25,6 @@ using std::string;
 
 std::vector<std::unique_ptr<IParameterTranslator>> ModelPath::m_special_translators {};
 
-QStringList ModelPath::getParameterTreeList(const SessionItem *item, QString prefix)
-{
-    QStringList result;
-    if (item->modelType() ==  Constants::PropertyType
-            && item->value().type() == QVariant::Double && item->itemName() != ParticleItem::P_ABUNDANCE) {
-        if (prefix.endsWith("/"))
-            prefix = prefix.mid(0, prefix.size()-1);
-        result << prefix;
-    }
-    else {
-        if (item->hasChildren()) {
-            for (auto p_child : item->childItems()) {
-                if(p_child->isVisible()) {
-                    if (p_child->modelType() ==  Constants::GroupItemType) {
-                        if (const GroupItem *groupItem = dynamic_cast<const GroupItem*>(p_child)) {
-                            if (const SessionItem *subItem = groupItem->currentItem()) {
-                                QString child_prefix = prefix + subItem->itemName() + QString("/");
-                                result << getParameterTreeList(subItem, child_prefix);
-                            }
-                        }
-                    } else {
-                        QString child_name = p_child->itemName();
-                        QString child_prefix = prefix + child_name + QString("/");
-                        result << getParameterTreeList(p_child, child_prefix);
-                    }
-                }
-            }
-        }
-    }
-    return result;
-}
-
 double ModelPath::getParameterValue(const SessionItem *item, const QString &name)
 {
     QString head = getFirstField(name);

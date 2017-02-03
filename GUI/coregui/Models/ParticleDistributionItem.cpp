@@ -56,10 +56,6 @@ ParticleDistributionItem::ParticleDistributionItem()
         } );
 }
 
-ParticleDistributionItem::~ParticleDistributionItem()
-{
-}
-
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
     auto children = childItems();
@@ -77,7 +73,10 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     auto prop = getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
     QString par_name = prop.getValue();
-    std::string domain_par = ModelPath::translateParameterName(this, par_name);
+
+    std::string domain_par = ParameterTreeUtils::parameterNameToDomainName(
+        par_name, getItems(T_PARTICLES).front()).toStdString();
+
     int nbr_samples
         = distr_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor
@@ -97,7 +96,7 @@ void ParticleDistributionItem::updateParameterList()
     auto combo_prop = par_prop.value<ComboProperty>();
     QString cached_par = combo_prop.getCachedValue();
     if (!combo_prop.cacheContainsGUIValue()) {
-        auto gui_name = translateParameterNameToGUI_V2(cached_par);
+        auto gui_name = translateParameterNameToGUI(cached_par);
         if (!gui_name.isEmpty()) {
             cached_par = gui_name;
             combo_prop.setCachedValue(cached_par);
@@ -105,7 +104,7 @@ void ParticleDistributionItem::updateParameterList()
         }
     }
     QString selected_par = combo_prop.getValue();
-    QStringList par_names = childParameterNames();
+    QStringList par_names = QStringList() << NO_SELECTION << childParameterNames();
     par_names.removeAll(ParticleItem::P_ABUNDANCE);
     auto updated_prop = ComboProperty(par_names);
     updated_prop.setCachedValue(cached_par);
@@ -122,59 +121,21 @@ void ParticleDistributionItem::updateParameterList()
 
 QStringList ParticleDistributionItem::childParameterNames() const
 {
-    QStringList result;
-    QVector<SessionItem*> children = getItems();
-    if (children.size() > 1) {
-        Q_ASSERT(0);
-        return result;
-    }
-    if (children.size() == 0) {
-        result << NO_SELECTION;
-        return result;
-    }
-//    QString prefix = children.front()->displayName() + QString("/");
-//    result = ModelPath::getParameterTreeList(children.front(), prefix);
-    result = ParameterTreeUtils::parameterTreeNames(children.front());
-
-    result.prepend(NO_SELECTION);
-    return result;
-}
-
-QString ParticleDistributionItem::translateParameterNameToGUI(const QString& par_name)
-{
-    QStringList gui_par_list = ModelPath::getParameterTreeList(this);
-    for (QString gui_par_name : gui_par_list) {
-        QString domain_par_name = QString::fromStdString(
-                    ModelPath::translateParameterName(this, gui_par_name));
-        if (domain_par_name == par_name) {
-            return gui_par_name;
-        }
-    }
-    return {};
-}
-
-QString ParticleDistributionItem::translateParameterNameToGUI_V2(const QString& par_name)
-{
-    QString domainName = par_name;
-    int firstSlash = par_name.indexOf('/');
-    if(firstSlash==0)
-        domainName = domainName.mid(firstSlash + 1);
-
-    QStringList parameterNames = childParameterNames();
-    parameterNames.removeAll(NO_SELECTION);
-    if(parameterNames.isEmpty())
+    if(getItems(T_PARTICLES).size() == 0)
         return {};
 
-    QStringList translatedNames
-            = ParameterTreeUtils::translatedParameterTreeNames(getItems(T_PARTICLES).front());
-    Q_ASSERT(parameterNames.size() == translatedNames.size());
+    Q_ASSERT(getItems(T_PARTICLES).size() == 1);
 
-    int index(0);
-    for(QString translation : translatedNames) {
-        if(translation == domainName)
-            return parameterNames.at(index);
-        ++index;
-    }
-    return {};
+    return ParameterTreeUtils::parameterTreeNames(getItems(T_PARTICLES).front());
+}
+
+QString ParticleDistributionItem::translateParameterNameToGUI(const QString& domainName)
+{
+    if(getItems(T_PARTICLES).size() == 0)
+        return {};
+
+    Q_ASSERT(getItems(T_PARTICLES).size() > 0);
+
+    return ParameterTreeUtils::domainNameToParameterName(domainName, getItems(T_PARTICLES).front());
 }
 

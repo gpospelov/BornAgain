@@ -27,10 +27,15 @@
 #include "FitParameterHelper.h"
 #include "SampleModel.h"
 #include <QStack>
-#include <QDebug>
 
 namespace {
-    void handleItem(SessionItem* tree, const SessionItem* source);
+
+QString removeLeadingSlash(const QString& name )
+{
+    return name.indexOf('/') == 0 ? name.mid(1) : name;
+}
+
+void handleItem(SessionItem* tree, const SessionItem* source);
 }
 
 void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
@@ -91,20 +96,10 @@ void ParameterTreeUtils::visitParameterContainer(SessionItem* container,
 
 QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source)
 {
-    Q_ASSERT(source);
     QStringList result;
 
-    SampleModel model;
-    SessionItem* container = model.insertNewItem(Constants::ParameterContainerType);
-
-    populateParameterContainer(container, source);
-
-    visitParameterContainer(container, [&](ParameterItem* parItem)
-    {
-        result.push_back(FitParameterHelper::getParameterItemPath(parItem));
-    });
-
-    std::reverse(result.begin(), result.end());
+    for(auto pair : parameterNameTranslation(source))
+        result << pair.first;
 
     return result;
 }
@@ -113,28 +108,75 @@ QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source)
 
 QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* source)
 {
-    Q_ASSERT(source);
     QStringList result;
 
+    for(auto pair : parameterNameTranslation(source))
+        result << pair.second;
+
+    return result;
+}
+
+//! Correspondance of parameter name to translated name for all properties found in source
+//! in its children.
+
+QVector<QPair<QString, QString>>
+ParameterTreeUtils::parameterNameTranslation(const SessionItem* source)
+{
+    Q_ASSERT(source);
+
+    QVector<QPair<QString, QString>> result;
+
+    // Create container with ParameterItem's of given source item
     SampleModel model;
     SessionItem* container = model.insertNewItem(Constants::ParameterContainerType);
-
     populateParameterContainer(container, source);
 
+    // Iterate through all ParameterItems and retrieve necessary data.
     visitParameterContainer(container, [&](ParameterItem* parItem)
     {
+         // TODO replace with the method from ModelPath
+        QString parPath = FitParameterHelper::getParameterItemPath(parItem);
+
         QString relPath = source->displayName() + "/"
                 + parItem->getItemValue(ParameterItem::P_LINK).toString();
         SessionItem *linkedItem = ModelPath::getItemFromPath(relPath, source);
-        result.push_back(ModelPath::itemPathTranslation(*linkedItem, source->parent()));
-    });
+        QString translation = ModelPath::itemPathTranslation(*linkedItem, source->parent());
 
+        result.push_back(QPair<QString, QString>(parPath, translation));
+
+    });
     std::reverse(result.begin(), result.end());
 
     return result;
-
 }
 
+//! Converts domain name to parameterItem name. Parameter name should belong to item or
+//! one of its children.
+
+QString ParameterTreeUtils::domainNameToParameterName(const QString& domainName,
+                                                      const SessionItem* source)
+{
+    QString domain = removeLeadingSlash(domainName);
+    for(auto pair : parameterNameTranslation(source)) {// parName, domainName
+        if(pair.second == domain)
+            return pair.first;
+    }
+
+    return {};
+}
+
+//! Converts parameter name to domain name. Parameter name should belong to item or
+//! one of its children.
+
+QString ParameterTreeUtils::parameterNameToDomainName(const QString& parName,
+                                                      const SessionItem* source)
+{
+    for(auto pair : parameterNameTranslation(source)) // parName, domainName
+        if(pair.first == parName)
+            return "/"+pair.second;
+
+    return {};
+}
 
 //! For every ParameterItem in a container creates a link to the domain.
 
@@ -213,6 +255,3 @@ void handleItem(SessionItem* tree, const SessionItem* source)
 }
 
 } // namespace
-
-
-

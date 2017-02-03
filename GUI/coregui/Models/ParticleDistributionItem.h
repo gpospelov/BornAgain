@@ -28,16 +28,14 @@ public:
     static const QString NO_SELECTION;
     static const QString T_PARTICLES;
     ParticleDistributionItem();
-    virtual ~ParticleDistributionItem();
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
-    QString translateParameterNameToGUI(const QString& par_name);
-    QString translateParameterNameToGUI_V2(const QString& par_name);
 
     void updateParameterList();
 
 private:
     QStringList childParameterNames() const;
+    QString translateParameterNameToGUI(const QString& domainName);
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

@@ -17,7 +17,7 @@
 
 
 IComputationTerm::IComputationTerm(const MultiLayer* p_multilayer,
-                                   const ILayerSpecularInfo* p_fresnel_map)
+                                   const IFresnelMap* p_fresnel_map)
     : mp_multilayer(p_multilayer)
     , mp_fresnel_map(p_fresnel_map)
 {}

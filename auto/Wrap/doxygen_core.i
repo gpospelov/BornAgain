@@ -2615,7 +2615,7 @@ C++ includes: FormFactorCoherentPart.h
 %feature("docstring")  FormFactorCoherentPart::evaluatePol "Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement &sim_element) const 
 ";
 
-%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const ILayerSpecularInfo *p_fresnel_map, size_t layer_index)
+%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap *p_fresnel_map, size_t layer_index)
 ";
 
 %feature("docstring")  FormFactorCoherentPart::radialExtension "double FormFactorCoherentPart::radialExtension() const 
@@ -2645,7 +2645,7 @@ C++ includes: FormFactorCoherentSum.h
 %feature("docstring")  FormFactorCoherentSum::evaluatePol "Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement &sim_element) const 
 ";
 
-%feature("docstring")  FormFactorCoherentSum::setSpecularInfo "void FormFactorCoherentSum::setSpecularInfo(const ILayerSpecularInfo *p_fresnel_map, size_t layer_index)
+%feature("docstring")  FormFactorCoherentSum::setSpecularInfo "void FormFactorCoherentSum::setSpecularInfo(const IFresnelMap *p_fresnel_map, size_t layer_index)
 ";
 
 %feature("docstring")  FormFactorCoherentSum::relativeAbundance "double FormFactorCoherentSum::relativeAbundance() const 
@@ -5759,15 +5759,10 @@ Computes an independent term of the scattering intensity. Controlled by  MainCom
 C++ includes: IComputationTerm.h
 ";
 
-%feature("docstring")  IComputationTerm::IComputationTerm "IComputationTerm::IComputationTerm(const MultiLayer *p_multilayer)
+%feature("docstring")  IComputationTerm::IComputationTerm "IComputationTerm::IComputationTerm(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map)
 ";
 
 %feature("docstring")  IComputationTerm::~IComputationTerm "IComputationTerm::~IComputationTerm()
-";
-
-%feature("docstring")  IComputationTerm::setSpecularInfo "void IComputationTerm::setSpecularInfo(const ILayerSpecularInfo *p_full_map)
-
-Sets magnetic reflection/transmission info for all layers. 
 ";
 
 %feature("docstring")  IComputationTerm::eval "virtual bool IComputationTerm::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const =0
@@ -6263,6 +6258,31 @@ Returns the total volume of the particle of this form factor's shape.
 %feature("docstring")  IFormFactorDecorator::getRadialExtension "double IFormFactorDecorator::getRadialExtension() const override
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+
+// File: classIFresnelMap.xml
+%feature("docstring") IFresnelMap "
+
+Holds the necessary information to calculate the radiation wavefunction in a specific layer for different incoming (outgoing) angles of the beam in the top layer (these amplitudes correspond to the specular part of the wavefunction).
+
+C++ includes: IFresnelMap.h
+";
+
+%feature("docstring")  IFresnelMap::IFresnelMap "IFresnelMap::IFresnelMap()
+";
+
+%feature("docstring")  IFresnelMap::~IFresnelMap "IFresnelMap::~IFresnelMap()
+";
+
+%feature("docstring")  IFresnelMap::getOutCoefficients "virtual const ILayerRTCoefficients* IFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
+
+Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
+";
+
+%feature("docstring")  IFresnelMap::getInCoefficients "virtual const ILayerRTCoefficients* IFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
+
+Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
 
@@ -6869,31 +6889,6 @@ Scalar value getters; these throw errors by default as they should only be used 
 ";
 
 %feature("docstring")  ILayerRTCoefficients::getScalarKz "virtual complex_t ILayerRTCoefficients::getScalarKz() const 
-";
-
-
-// File: classILayerSpecularInfo.xml
-%feature("docstring") ILayerSpecularInfo "
-
-Holds the necessary information to calculate the radiation wavefunction in a specific layer for different incoming (outgoing) angles of the beam in the top layer (these amplitudes correspond to the specular part of the wavefunction).
-
-C++ includes: ILayerSpecularInfo.h
-";
-
-%feature("docstring")  ILayerSpecularInfo::ILayerSpecularInfo "ILayerSpecularInfo::ILayerSpecularInfo()
-";
-
-%feature("docstring")  ILayerSpecularInfo::~ILayerSpecularInfo "ILayerSpecularInfo::~ILayerSpecularInfo()
-";
-
-%feature("docstring")  ILayerSpecularInfo::getOutCoefficients "virtual const ILayerRTCoefficients* ILayerSpecularInfo::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
-
-Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
-";
-
-%feature("docstring")  ILayerSpecularInfo::getInCoefficients "virtual const ILayerRTCoefficients* ILayerSpecularInfo::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
-
-Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
 
@@ -9162,7 +9157,7 @@ Methods to generate a simulation strategy for a  ParticleLayoutComputation.
 C++ includes: LayerStrategyBuilder.h
 ";
 
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const ILayerSpecularInfo *p_fresnel_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
+%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const IFresnelMap *p_fresnel_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
 ";
 
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
@@ -10846,7 +10841,7 @@ Computes the scattering contribution from one particle layout. Controlled by  Ma
 C++ includes: ParticleLayoutComputation.h
 ";
 
-%feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer *p_multilayer, const ILayout *p_layout, size_t layer_index)
+%feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map, const ILayout *p_layout, size_t layer_index)
 ";
 
 %feature("docstring")  ParticleLayoutComputation::eval "bool ParticleLayoutComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
@@ -11586,7 +11581,7 @@ Computes the diffuse reflection from the rough interfaces of a multilayer. Contr
 C++ includes: RoughMultiLayerComputation.h
 ";
 
-%feature("docstring")  RoughMultiLayerComputation::RoughMultiLayerComputation "RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
+%feature("docstring")  RoughMultiLayerComputation::RoughMultiLayerComputation "RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
 ";
 
 %feature("docstring")  RoughMultiLayerComputation::~RoughMultiLayerComputation "RoughMultiLayerComputation::~RoughMultiLayerComputation()
@@ -12437,7 +12432,7 @@ Computes the specular scattering. Controlled by  MainComputation.
 C++ includes: SpecularComputation.h
 ";
 
-%feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer *p_multi_layer)
+%feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
 ";
 
 %feature("docstring")  SpecularComputation::eval "bool SpecularComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
@@ -14607,6 +14602,12 @@ make Swappable
 // File: FormFactorDWBAPol_8h.xml
 
 
+// File: IFresnelMap_8cpp.xml
+
+
+// File: IFresnelMap_8h.xml
+
+
 // File: IInterferenceFunctionStrategy_8cpp.xml
 
 
@@ -14614,12 +14615,6 @@ make Swappable
 
 
 // File: ILayerRTCoefficients_8h.xml
-
-
-// File: ILayerSpecularInfo_8cpp.xml
-
-
-// File: ILayerSpecularInfo_8h.xml
 
 
 // File: IMultiLayerBuilder_8cpp.xml

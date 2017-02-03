@@ -31,7 +31,7 @@ class RoughMultiLayerComputation final : public IComputationTerm
 {
 public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer,
-                               const ILayerSpecularInfo* p_fresnel_map);
+                               const IFresnelMap* p_fresnel_map);
     ~RoughMultiLayerComputation();
 
     bool eval(const SimulationOptions& options,

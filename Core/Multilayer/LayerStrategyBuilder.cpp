@@ -23,13 +23,13 @@
 #include "InterferenceFunctionNone.h"
 #include "MultiLayer.h"
 #include "Layer.h"
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "DecouplingApproximationStrategy.h"
 #include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
     const MultiLayer* p_multilayer, const ILayout* p_layout,
-    const ILayerSpecularInfo* p_fresnel_map, bool polarized,
+    const IFresnelMap* p_fresnel_map, bool polarized,
     const SimulationOptions& sim_params, size_t layer_index)
     : mp_multilayer(p_multilayer)
     , mp_layout(p_layout)

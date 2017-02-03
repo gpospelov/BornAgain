@@ -16,7 +16,7 @@
 #ifndef MATRIXSPECULARINFOMAP_H
 #define MATRIXSPECULARINFOMAP_H
 
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include <cstddef>
 
 class ILayerRTCoefficients;
@@ -26,7 +26,7 @@ class SimulationElement;
 //! Implementation of ISpecularInfoMap for matrix valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MatrixSpecularInfoMap : public ILayerSpecularInfo
+class BA_CORE_API_ MatrixSpecularInfoMap : public IFresnelMap
 {
 public:
     MatrixSpecularInfoMap(const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer);

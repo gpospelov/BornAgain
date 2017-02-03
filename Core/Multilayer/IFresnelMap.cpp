@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/ILayerSpecularInfo.cpp
-//! @brief     Implements class ILayerSpecularInfo.
+//! @file      Core/Multilayer/IFresnelMap.cpp
+//! @brief     Implements class IFresnelMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 
-ILayerSpecularInfo::ILayerSpecularInfo() {}
-ILayerSpecularInfo::~ILayerSpecularInfo() {}
+IFresnelMap::IFresnelMap() {}
+IFresnelMap::~IFresnelMap() {}

@@ -16,7 +16,7 @@
 #include "MainComputation.h"
 #include "ParticleLayoutComputation.h"
 #include "Layer.h"
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "MatrixSpecularInfoMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
@@ -97,7 +97,7 @@ void MainComputation::runProtected()
     }
 }
 
-ILayerSpecularInfo* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
+IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
                                                       const MultiLayer* p_inverted_multilayer)
 {
         if (!p_multilayer->requiresMatrixRTCoefficients())

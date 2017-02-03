@@ -16,7 +16,7 @@
 #ifndef SCALARSPECULARINFOMAP_H
 #define SCALARSPECULARINFOMAP_H
 
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "Vectors3D.h"
 
 class MultiLayer;
@@ -27,7 +27,7 @@ class SimulationElement;
 //! Implementation of ISpecularInfoMap for scalar valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ScalarSpecularInfoMap : public ILayerSpecularInfo
+class BA_CORE_API_ ScalarSpecularInfoMap : public IFresnelMap
 {
 public:
     ScalarSpecularInfoMap(const MultiLayer* multilayer);

@@ -25,7 +25,7 @@
 class SpecularComputation final : public IComputationTerm
 {
 public:
-    SpecularComputation(const MultiLayer* p_multi_layer, const ILayerSpecularInfo* p_fresnel_map);
+    SpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
     bool eval(const SimulationOptions& options,
               ProgressHandler* progress,

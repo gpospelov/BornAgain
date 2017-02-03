@@ -23,7 +23,7 @@
 #include <memory>
 #include <vector>
 
-class ILayerSpecularInfo;
+class IFresnelMap;
 class MultiLayer;
 class IComputationTerm;
 class ProgressHandler;
@@ -54,7 +54,7 @@ public:
 
 private:
     void runProtected();
-    static ILayerSpecularInfo* createFresnelMap(const MultiLayer* p_multilayer,
+    static IFresnelMap* createFresnelMap(const MultiLayer* p_multilayer,
                                                 const MultiLayer* p_inverted_multilayer);
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
@@ -65,7 +65,7 @@ private:
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
     //! contains the information, necessary to calculate the Fresnel coefficients
-    std::unique_ptr<ILayerSpecularInfo> mP_fresnel_map;
+    std::unique_ptr<IFresnelMap> mP_fresnel_map;
 
     std::vector<IComputationTerm*> m_computation_terms;
     ComputationStatus m_status;

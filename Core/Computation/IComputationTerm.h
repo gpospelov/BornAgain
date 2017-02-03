@@ -18,7 +18,7 @@
 
 #include <vector>
 
-class ILayerSpecularInfo;
+class IFresnelMap;
 class MultiLayer;
 class ProgressHandler;
 class SimulationElement;
@@ -32,7 +32,7 @@ class SimulationOptions;
 class IComputationTerm
 {
 public:
-    IComputationTerm(const MultiLayer* p_multilayer, const ILayerSpecularInfo* p_fresnel_map);
+    IComputationTerm(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map);
     virtual ~IComputationTerm();
 
     //! Calculate scattering intensity for each SimulationElement
@@ -45,7 +45,7 @@ public:
 
 protected:
     const MultiLayer* mp_multilayer;
-    const ILayerSpecularInfo* mp_fresnel_map;
+    const IFresnelMap* mp_fresnel_map;
 };
 
 #endif // ICOMPUTATIONTERM_H

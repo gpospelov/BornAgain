@@ -15,12 +15,12 @@
 
 #include "SpecularComputation.h"
 #include "SimulationElement.h"
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
 
 SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer,
-                                         const ILayerSpecularInfo* p_fresnel_map)
+                                         const IFresnelMap* p_fresnel_map)
     : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 

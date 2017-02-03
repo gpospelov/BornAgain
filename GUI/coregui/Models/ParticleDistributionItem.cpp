@@ -97,7 +97,7 @@ void ParticleDistributionItem::updateParameterList()
     auto combo_prop = par_prop.value<ComboProperty>();
     QString cached_par = combo_prop.getCachedValue();
     if (!combo_prop.cacheContainsGUIValue()) {
-        auto gui_name = translateParameterNameToGUI(cached_par);
+        auto gui_name = translateParameterNameToGUI_V2(cached_par);
         if (!gui_name.isEmpty()) {
             cached_par = gui_name;
             combo_prop.setCachedValue(cached_par);
@@ -132,9 +132,9 @@ QStringList ParticleDistributionItem::childParameterNames() const
         result << NO_SELECTION;
         return result;
     }
-    QString prefix = children.front()->displayName() + QString("/");
-    result = ModelPath::getParameterTreeList(children.front(), prefix);
-//    result = ParameterTreeUtils::parameterTreeList(children.front());
+//    QString prefix = children.front()->displayName() + QString("/");
+//    result = ModelPath::getParameterTreeList(children.front(), prefix);
+    result = ParameterTreeUtils::parameterTreeNames(children.front());
 
     result.prepend(NO_SELECTION);
     return result;
@@ -152,3 +152,29 @@ QString ParticleDistributionItem::translateParameterNameToGUI(const QString& par
     }
     return {};
 }
+
+QString ParticleDistributionItem::translateParameterNameToGUI_V2(const QString& par_name)
+{
+    QString domainName = par_name;
+    int firstSlash = par_name.indexOf('/');
+    if(firstSlash==0)
+        domainName = domainName.mid(firstSlash + 1);
+
+    QStringList parameterNames = childParameterNames();
+    parameterNames.removeAll(NO_SELECTION);
+    if(parameterNames.isEmpty())
+        return {};
+
+    QStringList translatedNames
+            = ParameterTreeUtils::translatedParameterTreeNames(getItems(T_PARTICLES).front());
+    Q_ASSERT(parameterNames.size() == translatedNames.size());
+
+    int index(0);
+    for(QString translation : translatedNames) {
+        if(translation == domainName)
+            return parameterNames.at(index);
+        ++index;
+    }
+    return {};
+}
+

@@ -91,6 +91,7 @@ void ParameterTreeUtils::visitParameterContainer(SessionItem* container,
 
 QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source)
 {
+    Q_ASSERT(source);
     QStringList result;
 
     SampleModel model;
@@ -112,6 +113,7 @@ QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source)
 
 QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* source)
 {
+    Q_ASSERT(source);
     QStringList result;
 
     SampleModel model;

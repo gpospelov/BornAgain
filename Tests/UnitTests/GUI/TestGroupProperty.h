@@ -1,5 +1,4 @@
 #include <QtTest>
-#include <QDebug>
 #include "GroupItem.h"
 #include "GroupPropertyRegistry.h"
 #include "GUIHelpers.h"

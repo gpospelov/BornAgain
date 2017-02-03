@@ -54,7 +54,6 @@
 #include "Units.h"
 #include "VectorItem.h"
 #include "ParameterTreeUtils.h"
-#include <QDebug>
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
@@ -154,7 +153,6 @@ void TransformFromDomain::setItemFromSample(SessionItem* item, const LayerRoughn
                                 sample->getLatteralCorrLength());
 }
 
-#include <QDebug>
 //! Initialization of ParticleDistributionItem
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const ParticleDistribution* sample)

@@ -31,7 +31,6 @@ private slots:
     void test_InitialState();
     void test_AddParticle();
     void test_FromDomain();
-//    void test_ToDomain();
 };
 
 inline void TestParticleDistributionItem::test_InitialState()
@@ -93,6 +92,7 @@ inline void TestParticleDistributionItem::test_FromDomain()
     Particle particle(HomogeneousMaterial("Particle", 6e-4, 2e-8), cylinder);
     DistributionGaussian gauss(1.0, 0.1);
     ParameterDistribution par_distr(pattern, gauss, 100, 3.0);
+
     ParticleDistribution particle_collection(particle, par_distr);
 
     // creating GUI distribution
@@ -115,27 +115,3 @@ inline void TestParticleDistributionItem::test_FromDomain()
 
     QCOMPARE(prop.getValue(), QString::fromStdString(pattern));
 }
-
-//inline void TestParticleDistributionItem::test_ToDomain()
-//{
-//    MaterialModel materialModel;
-//    MaterialEditor editor(&materialModel);
-//    SampleModel model;
-//    SessionItem *distItem = model.insertNewItem(Constants::ParticleDistributionType);
-//    model.insertNewItem(Constants::ParticleType, distItem->index());
-
-//    ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
-//                    .value<ComboProperty>();
-
-//    prop.setValue("Particle/AnisoPyramid/Height");
-//    distItem->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
-//                                prop.getVariant());
-
-//    // building domasin object
-//    auto domainDist = dynamic_cast<ParticleDistributionItem*>(distItem)->createParticleDistribution();
-//    ParameterDistribution parDist = domainDist->getParameterDistribution();
-
-//    QCOMPARE(QString::fromStdString(parDist.getMainParameterName()),
-//             QString("Particle/AnisoPyramid/Height"));
-
-//}

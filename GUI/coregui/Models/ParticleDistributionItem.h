@@ -32,6 +32,7 @@ public:
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
     QString translateParameterNameToGUI(const QString& par_name);
+    QString translateParameterNameToGUI_V2(const QString& par_name);
 
     void updateParameterList();
 

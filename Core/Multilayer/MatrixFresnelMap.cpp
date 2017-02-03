@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/MatrixSpecularInfoMap.cpp
-//! @brief     Implements class ScalarSpecularInfoMap.
+//! @file      Core/Multilayer/MatrixFresnelMap.cpp
+//! @brief     Implements class MatrixFresnelMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,20 +13,20 @@
 //
 // ************************************************************************** //
 
-#include "MatrixSpecularInfoMap.h"
+#include "MatrixFresnelMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MatrixRTCoefficients.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 
-MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* p_multilayer,
+MatrixFresnelMap::MatrixFresnelMap(const MultiLayer* p_multilayer,
                                              const MultiLayer* p_inverted_multilayer)
     : mp_multilayer(p_multilayer)
     , mp_inverted_multilayer(p_inverted_multilayer)
 {}
 
-const ILayerRTCoefficients* MatrixSpecularInfoMap::getOutCoefficients(
+const ILayerRTCoefficients* MatrixFresnelMap::getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
@@ -34,7 +34,7 @@ const ILayerRTCoefficients* MatrixSpecularInfoMap::getOutCoefficients(
     return new MatrixRTCoefficients(coeffs[layer_index]);
 }
 
-const ILayerRTCoefficients* MatrixSpecularInfoMap::getInCoefficients(
+const ILayerRTCoefficients* MatrixFresnelMap::getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;

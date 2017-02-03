@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/MatrixSpecularInfoMap.h
-//! @brief     Defines class MatrixSpecularInfoMap.
+//! @file      Core/Multilayer/MatrixFresnelMap.h
+//! @brief     Defines class MatrixFresnelMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATRIXSPECULARINFOMAP_H
-#define MATRIXSPECULARINFOMAP_H
+#ifndef MATRIXFRESNELMAP_H
+#define MATRIXFRESNELMAP_H
 
 #include "IFresnelMap.h"
 #include <cstddef>
@@ -23,14 +23,14 @@ class ILayerRTCoefficients;
 class MultiLayer;
 class SimulationElement;
 
-//! Implementation of ISpecularInfoMap for matrix valued reflection/transmission coefficients.
+//! Implementation of IFresnelMap for matrix valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MatrixSpecularInfoMap : public IFresnelMap
+class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
-    MatrixSpecularInfoMap(const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer);
-    ~MatrixSpecularInfoMap() final {}
+    MatrixFresnelMap(const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer);
+    ~MatrixFresnelMap() final {}
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients(
@@ -45,4 +45,4 @@ private:
     const MultiLayer* mp_inverted_multilayer;
 };
 
-#endif // MATRIXSPECULARINFOMAP_H
+#endif // MATRIXFRESNELMAP_H

@@ -6264,7 +6264,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 // File: classIFresnelMap.xml
 %feature("docstring") IFresnelMap "
 
-Holds the necessary information to calculate the radiation wavefunction in a specific layer for different incoming (outgoing) angles of the beam in the top layer (these amplitudes correspond to the specular part of the wavefunction).
+Holds the necessary information to calculate the radiation wavefunction in every layer for different incoming (outgoing) angles of the beam in the top layer (these amplitudes correspond to the specular part of the wavefunction).
 
 C++ includes: IFresnelMap.h
 ";
@@ -9335,6 +9335,31 @@ C++ includes: MainComputation.h
 ";
 
 
+// File: classMatrixFresnelMap.xml
+%feature("docstring") MatrixFresnelMap "
+
+Implementation of  IFresnelMap for matrix valued reflection/transmission coefficients.
+
+C++ includes: MatrixFresnelMap.h
+";
+
+%feature("docstring")  MatrixFresnelMap::MatrixFresnelMap "MatrixFresnelMap::MatrixFresnelMap(const MultiLayer *p_multilayer, const MultiLayer *p_inverted_multilayer)
+";
+
+%feature("docstring")  MatrixFresnelMap::~MatrixFresnelMap "MatrixFresnelMap::~MatrixFresnelMap() final
+";
+
+%feature("docstring")  MatrixFresnelMap::getOutCoefficients "const ILayerRTCoefficients * MatrixFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
+
+Retrieves the amplitude coefficients for the given angles. 
+";
+
+%feature("docstring")  MatrixFresnelMap::getInCoefficients "const ILayerRTCoefficients * MatrixFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
+
+Retrieves the amplitude coefficients for the given angles. 
+";
+
+
 // File: classMatrixRTCoefficients.xml
 %feature("docstring") MatrixRTCoefficients "
 
@@ -9381,31 +9406,6 @@ The following functions return the transmitted and reflected amplitudes for diff
 %feature("docstring")  MatrixRTCoefficients::getKz "virtual Eigen::Vector2cd MatrixRTCoefficients::getKz() const
 
 Returns z-part of the two wavevector eigenmodes. 
-";
-
-
-// File: classMatrixSpecularInfoMap.xml
-%feature("docstring") MatrixSpecularInfoMap "
-
-Implementation of ISpecularInfoMap for matrix valued reflection/transmission coefficients.
-
-C++ includes: MatrixSpecularInfoMap.h
-";
-
-%feature("docstring")  MatrixSpecularInfoMap::MatrixSpecularInfoMap "MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *p_multilayer, const MultiLayer *p_inverted_multilayer)
-";
-
-%feature("docstring")  MatrixSpecularInfoMap::~MatrixSpecularInfoMap "MatrixSpecularInfoMap::~MatrixSpecularInfoMap() final
-";
-
-%feature("docstring")  MatrixSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * MatrixSpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
-
-Retrieves the amplitude coefficients for the given angles. 
-";
-
-%feature("docstring")  MatrixSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * MatrixSpecularInfoMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
-
-Retrieves the amplitude coefficients for the given angles. 
 ";
 
 
@@ -11866,6 +11866,31 @@ C++ includes: SampleTreeIterator.h
 ";
 
 
+// File: classScalarFresnelMap.xml
+%feature("docstring") ScalarFresnelMap "
+
+Implementation of  IFresnelMap for scalar valued reflection/transmission coefficients.
+
+C++ includes: ScalarFresnelMap.h
+";
+
+%feature("docstring")  ScalarFresnelMap::ScalarFresnelMap "ScalarFresnelMap::ScalarFresnelMap(const MultiLayer *multilayer)
+";
+
+%feature("docstring")  ScalarFresnelMap::~ScalarFresnelMap "ScalarFresnelMap::~ScalarFresnelMap() final
+";
+
+%feature("docstring")  ScalarFresnelMap::getOutCoefficients "const ILayerRTCoefficients * ScalarFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
+
+Retrieves the amplitude coefficients for the given angles. 
+";
+
+%feature("docstring")  ScalarFresnelMap::getInCoefficients "const ILayerRTCoefficients * ScalarFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
+
+Retrieves the amplitude coefficients for the given angles. 
+";
+
+
 // File: classScalarRTCoefficients.xml
 %feature("docstring") ScalarRTCoefficients "
 
@@ -11923,31 +11948,6 @@ Scalar value getters; these throw errors by default as they should only be used 
 ";
 
 %feature("docstring")  ScalarRTCoefficients::getScalarKz "virtual complex_t ScalarRTCoefficients::getScalarKz() const 
-";
-
-
-// File: classScalarSpecularInfoMap.xml
-%feature("docstring") ScalarSpecularInfoMap "
-
-Implementation of ISpecularInfoMap for scalar valued reflection/transmission coefficients.
-
-C++ includes: ScalarSpecularInfoMap.h
-";
-
-%feature("docstring")  ScalarSpecularInfoMap::ScalarSpecularInfoMap "ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer)
-";
-
-%feature("docstring")  ScalarSpecularInfoMap::~ScalarSpecularInfoMap "ScalarSpecularInfoMap::~ScalarSpecularInfoMap() final
-";
-
-%feature("docstring")  ScalarSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
-
-Retrieves the amplitude coefficients for the given angles. 
-";
-
-%feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
-
-Retrieves the amplitude coefficients for the given angles. 
 ";
 
 
@@ -14647,16 +14647,16 @@ make Swappable
 // File: LayerStrategyBuilder_8h.xml
 
 
+// File: MatrixFresnelMap_8cpp.xml
+
+
+// File: MatrixFresnelMap_8h.xml
+
+
 // File: MatrixRTCoefficients_8cpp.xml
 
 
 // File: MatrixRTCoefficients_8h.xml
-
-
-// File: MatrixSpecularInfoMap_8cpp.xml
-
-
-// File: MatrixSpecularInfoMap_8h.xml
 
 
 // File: MultiLayer_8cpp.xml
@@ -14665,13 +14665,13 @@ make Swappable
 // File: MultiLayer_8h.xml
 
 
+// File: ScalarFresnelMap_8cpp.xml
+
+
+// File: ScalarFresnelMap_8h.xml
+
+
 // File: ScalarRTCoefficients_8h.xml
-
-
-// File: ScalarSpecularInfoMap_8cpp.xml
-
-
-// File: ScalarSpecularInfoMap_8h.xml
 
 
 // File: SpecularMagnetic_8cpp.xml

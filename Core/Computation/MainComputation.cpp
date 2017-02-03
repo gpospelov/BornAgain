@@ -17,15 +17,13 @@
 #include "ParticleLayoutComputation.h"
 #include "Layer.h"
 #include "IFresnelMap.h"
-#include "MatrixSpecularInfoMap.h"
+#include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
 #include "SpecularComputation.h"
-#include "ScalarSpecularInfoMap.h"
+#include "ScalarFresnelMap.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
-#include "SpecularMagnetic.h"
-#include "SpecularMatrix.h"
 #include <iterator> // needed for back_inserter
 
 MainComputation::MainComputation(
@@ -101,7 +99,7 @@ IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
                                                       const MultiLayer* p_inverted_multilayer)
 {
         if (!p_multilayer->requiresMatrixRTCoefficients())
-            return new ScalarSpecularInfoMap(p_multilayer);
+            return new ScalarFresnelMap(p_multilayer);
         else
-            return new MatrixSpecularInfoMap(p_multilayer, p_inverted_multilayer);
+            return new MatrixFresnelMap(p_multilayer, p_inverted_multilayer);
 }

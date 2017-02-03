@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/ScalarSpecularInfoMap.h
-//! @brief     Defines class ScalarSpecularInfoMap.
+//! @file      Core/Multilayer/ScalarFresnelMap.h
+//! @brief     Defines class ScalarFresnelMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SCALARSPECULARINFOMAP_H
-#define SCALARSPECULARINFOMAP_H
+#ifndef SCALARFRESNELMAP_H
+#define SCALARFRESNELMAP_H
 
 #include "IFresnelMap.h"
 #include "Vectors3D.h"
@@ -24,14 +24,14 @@ class ILayerRTCoefficients;
 class ScalarRTCoefficients;
 class SimulationElement;
 
-//! Implementation of ISpecularInfoMap for scalar valued reflection/transmission coefficients.
+//! Implementation of IFresnelMap for scalar valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ScalarSpecularInfoMap : public IFresnelMap
+class BA_CORE_API_ ScalarFresnelMap : public IFresnelMap
 {
 public:
-    ScalarSpecularInfoMap(const MultiLayer* multilayer);
-    ~ScalarSpecularInfoMap() final {}
+    ScalarFresnelMap(const MultiLayer* multilayer);
+    ~ScalarFresnelMap() final {}
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients (
@@ -46,4 +46,4 @@ private:
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;
 };
 
-#endif // SCALARSPECULARINFOMAP_H
+#endif // SCALARFRESNELMAP_H

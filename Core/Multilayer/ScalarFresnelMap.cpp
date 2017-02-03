@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/ScalarSpecularInfoMap.cpp
-//! @brief     Implements class ScalarSpecularInfoMap.
+//! @file      Core/Multilayer/ScalarFresnelMap.cpp
+//! @brief     Implements class ScalarFresnelMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,29 +13,29 @@
 //
 // ************************************************************************** //
 
-#include "ScalarSpecularInfoMap.h"
+#include "ScalarFresnelMap.h"
 #include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "SpecularMatrix.h"
 
-ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer* multilayer)
+ScalarFresnelMap::ScalarFresnelMap(const MultiLayer* multilayer)
     : mp_multilayer(multilayer)
 {}
 
-const ILayerRTCoefficients* ScalarSpecularInfoMap::getOutCoefficients(
+const ILayerRTCoefficients* ScalarFresnelMap::getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
     return getCoefficients(-sim_element.getMeanKf(), layer_index);
 }
 
-const ILayerRTCoefficients* ScalarSpecularInfoMap::getInCoefficients(
+const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
     return getCoefficients(sim_element.getKi(), layer_index);
 }
 
-const ScalarRTCoefficients* ScalarSpecularInfoMap::getCoefficients(
+const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         kvector_t kvec, size_t layer_index) const
 {
     SpecularMatrix::MultiLayerCoeff_t coeffs;

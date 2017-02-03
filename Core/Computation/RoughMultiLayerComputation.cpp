@@ -20,7 +20,6 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "ILayerSpecularInfo.h"
 #include "MultiLayer.h"
 #include "MathConstants.h"
 #include "ProgressHandler.h"
@@ -117,14 +116,14 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
     size_t ilayer, const SimulationElement& sim_element) const
 {
     const std::unique_ptr<const ILayerRTCoefficients> P_in_plus(
-        layerFresnelMap(ilayer)->getInCoefficients(sim_element));
+                mp_full_fresnel_map->getInCoefficients(sim_element, ilayer));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_plus(
-        layerFresnelMap(ilayer)->getOutCoefficients(sim_element));
+                mp_full_fresnel_map->getOutCoefficients(sim_element, ilayer));
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_minus(
-        layerFresnelMap(ilayer+1)->getInCoefficients(sim_element));
+                mp_full_fresnel_map->getInCoefficients(sim_element, ilayer+1));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_minus(
-        layerFresnelMap(ilayer+1)->getOutCoefficients(sim_element));
+                mp_full_fresnel_map->getOutCoefficients(sim_element, ilayer));
 
     complex_t kiz_plus = P_in_plus->getScalarKz();
     complex_t kfz_plus = P_out_plus->getScalarKz();

@@ -16,10 +16,13 @@
 #ifndef MATRIXFRESNELMAP_H
 #define MATRIXFRESNELMAP_H
 
+#include "HashKVector.h"
 #include "IFresnelMap.h"
-#include <cstddef>
+#include <unordered_map>
+#include <vector>
 
 class ILayerRTCoefficients;
+class MatrixRTCoefficients;
 class MultiLayer;
 class SimulationElement;
 
@@ -30,7 +33,7 @@ class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
     MatrixFresnelMap(const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer);
-    ~MatrixFresnelMap() final {}
+    ~MatrixFresnelMap() final;
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients(
@@ -43,6 +46,10 @@ public:
 private:
     const MultiLayer* mp_multilayer;
     const MultiLayer* mp_inverted_multilayer;
+    mutable std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>,
+                               HashKVector> m_hash_table_out;
+    mutable std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>,
+                               HashKVector> m_hash_table_in;
 };
 
 #endif // MATRIXFRESNELMAP_H

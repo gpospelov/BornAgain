@@ -21,8 +21,8 @@
 #include <unordered_map>
 #include <vector>
 
-class MultiLayer;
 class ILayerRTCoefficients;
+class MultiLayer;
 class ScalarRTCoefficients;
 class SimulationElement;
 

@@ -21,23 +21,44 @@
 #include "SpecularMagnetic.h"
 
 MatrixFresnelMap::MatrixFresnelMap(const MultiLayer* p_multilayer,
-                                             const MultiLayer* p_inverted_multilayer)
+                                   const MultiLayer* p_inverted_multilayer)
     : mp_multilayer(p_multilayer)
     , mp_inverted_multilayer(p_inverted_multilayer)
+{}
+
+MatrixFresnelMap::~MatrixFresnelMap()
 {}
 
 const ILayerRTCoefficients* MatrixFresnelMap::getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
-    std::vector<MatrixRTCoefficients> coeffs;
-    SpecularMagnetic::execute(*mp_inverted_multilayer, -sim_element.getMeanKf(), coeffs);
-    return new MatrixRTCoefficients(coeffs[layer_index]);
+    MatrixRTCoefficients* result;
+    kvector_t kvec = -sim_element.getMeanKf();
+    auto it = m_hash_table_out.find(kvec);
+    if (it != m_hash_table_out.end())
+        result = new MatrixRTCoefficients(it->second[layer_index]);
+    else {
+        std::vector<MatrixRTCoefficients> coeffs;
+        SpecularMagnetic::execute(*mp_inverted_multilayer, kvec, coeffs);
+        result = new MatrixRTCoefficients(coeffs[layer_index]);
+        m_hash_table_out[kvec] = std::move(coeffs);
+    }
+    return result;
 }
 
 const ILayerRTCoefficients* MatrixFresnelMap::getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
-    std::vector<MatrixRTCoefficients> coeffs;
-    SpecularMagnetic::execute(*mp_multilayer, sim_element.getKi(), coeffs);
-    return new MatrixRTCoefficients(coeffs[layer_index]);
+    MatrixRTCoefficients* result;
+    kvector_t kvec = sim_element.getKi();
+    auto it = m_hash_table_in.find(kvec);
+    if (it != m_hash_table_in.end())
+        result = new MatrixRTCoefficients(it->second[layer_index]);
+    else {
+        std::vector<MatrixRTCoefficients> coeffs;
+        SpecularMagnetic::execute(*mp_multilayer, kvec, coeffs);
+        result = new MatrixRTCoefficients(coeffs[layer_index]);
+        m_hash_table_in[kvec] = std::move(coeffs);
+    }
+    return result;
 }

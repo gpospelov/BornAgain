@@ -18,7 +18,9 @@
 
 #include "SafePointerVector.h"
 
+class ILayerRTCoefficients;
 class ILayerSpecularInfo;
+class SimulationElement;
 
 class FullFresnelMap
 {
@@ -29,6 +31,15 @@ public:
     void push_back(ILayerSpecularInfo* layer_map);
 
     size_t size() const;
+
+    //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
+    const ILayerRTCoefficients* getOutCoefficients(const SimulationElement& sim_element,
+                                                   size_t layer_index) const;
+
+    //! Retrieves the amplitude coefficients for an incoming wavevector.
+    const ILayerRTCoefficients* getInCoefficients(const SimulationElement& sim_element,
+                                                  size_t layer_index) const;
+
 
     const ILayerSpecularInfo* layerFresnelMap(size_t index) const;
 private:

@@ -28,19 +28,19 @@ class SessionModel;
 
 namespace ModelPath
 {
-    QString getPathFromIndex(const QModelIndex &index);
+    BA_CORE_API_ QString getPathFromIndex(const QModelIndex &index);
 
-    QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
+    BA_CORE_API_ QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
 
-    SessionItem* getItemFromPath(const QString &relPath, const SessionItem* parent);
+    BA_CORE_API_ SessionItem* getItemFromPath(const QString &relPath, const SessionItem* parent);
 
-    bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
+    BA_CORE_API_ bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
 
-    bool isTranslatable(const SessionItem *item, const QString &par_name);
+    BA_CORE_API_ bool isTranslatable(const SessionItem *item, const QString &par_name);
 
-    const SessionItem *ancestor(const SessionItem *item, const QString& requiredModelType);
+    BA_CORE_API_ const SessionItem *ancestor(const SessionItem *item, const QString& requiredModelType);
 
-    QString itemPathTranslation(const SessionItem& item, const SessionItem* topItem=0);
+    BA_CORE_API_ QString itemPathTranslation(const SessionItem& item, const SessionItem* topItem=0);
 }
 
 #endif // MODELPATH_H namespace

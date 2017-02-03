@@ -15789,9 +15789,9 @@ class Simulation(ICloneable, INode):
 
     def numberOfSimulationElements(self):
         """
-        numberOfSimulationElements(Simulation self) -> int
+        numberOfSimulationElements(Simulation self) -> size_t
 
-        virtual int Simulation::numberOfSimulationElements() const =0
+        virtual size_t Simulation::numberOfSimulationElements() const =0
 
         """
         return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
@@ -16142,9 +16142,9 @@ class GISASSimulation(Simulation):
 
     def numberOfSimulationElements(self):
         """
-        numberOfSimulationElements(GISASSimulation self) -> int
+        numberOfSimulationElements(GISASSimulation self) -> size_t
 
-        int GISASSimulation::numberOfSimulationElements() const final
+        size_t GISASSimulation::numberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -22554,9 +22554,9 @@ class OffSpecSimulation(Simulation):
 
     def numberOfSimulationElements(self):
         """
-        numberOfSimulationElements(OffSpecSimulation self) -> int
+        numberOfSimulationElements(OffSpecSimulation self) -> size_t
 
-        int OffSpecSimulation::numberOfSimulationElements() const final
+        size_t OffSpecSimulation::numberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 

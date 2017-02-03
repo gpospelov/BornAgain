@@ -82,16 +82,12 @@ void MainComputation::run()
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
-    std::vector<SimulationElement> layer_elements;
-    std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     bool polarized = mP_multi_layer->containsMagneticMaterial();
     // add all IComputationTerms:
     for (const IComputationTerm* comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
-        if (comp->eval(m_sim_options, m_progress, polarized,
-                       layer_elements.begin(), layer_elements.end()) )
-            addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
+        comp->eval(m_sim_options, m_progress, polarized, m_begin_it, m_end_it );
     }
 }
 

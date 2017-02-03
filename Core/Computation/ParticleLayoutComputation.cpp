@@ -33,7 +33,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multila
 {}
 
 //! Computes scattering intensity for given range of simulation elements.
-bool ParticleLayoutComputation::eval(
+void ParticleLayoutComputation::eval(
     const SimulationOptions& options,
     ProgressHandler* progress,
     bool polarized,
@@ -48,15 +48,14 @@ bool ParticleLayoutComputation::eval(
     DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
-            return false;
+            return;
         double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_multilayer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0) {
-            it->setIntensity(0.0); // zero for transmission with multilayers (n>1)
+            continue; // zero for transmission with multilayers (n>1)
         } else {
-            it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
+            it->addIntensity(p_strategy->evaluate(*it) * total_surface_density);
         }
         counter.stepProgress(progress);
     }
-    return true;
 }

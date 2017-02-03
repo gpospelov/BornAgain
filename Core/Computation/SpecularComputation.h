@@ -27,7 +27,7 @@ class SpecularComputation final : public IComputationTerm
 public:
     SpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
-    bool eval(const SimulationOptions& options,
+    void eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,

@@ -24,13 +24,13 @@ SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer,
     : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-bool SpecularComputation::eval(
+void SpecularComputation::eval(
     const SimulationOptions&, ProgressHandler*, bool,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     if (mp_multilayer->requiresMatrixRTCoefficients())
-        return false;
+        return;
 
     for (auto it = begin_it; it != end_it; ++it) {
         if (it->containsSpecularWavevector()) {
@@ -43,9 +43,6 @@ bool SpecularComputation::eval(
                 continue;
             double intensity = std::norm(R)*sin_alpha_i/solid_angle;
             it->setIntensity(intensity);
-        } else {
-            it->setIntensity(0.0);
         }
     }
-    return true;
 }

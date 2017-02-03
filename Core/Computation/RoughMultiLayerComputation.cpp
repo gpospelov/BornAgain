@@ -48,22 +48,21 @@ RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
 {}
 
-bool RoughMultiLayerComputation::eval(
+void RoughMultiLayerComputation::eval(
     const SimulationOptions&, ProgressHandler* progress, bool,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     if (mp_multilayer->requiresMatrixRTCoefficients()) {
-        return false;
+        return;
     }
     DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
-            return false;
-        it->setIntensity(evaluate(*it));
+            return;
+        it->addIntensity(evaluate(*it));
         counter.stepProgress(progress);
     }
-    return true;
 }
 
 double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element) const

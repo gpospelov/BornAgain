@@ -37,7 +37,7 @@ public:
 
     //! Calculate scattering intensity for each SimulationElement
     //! returns false if nothing needed to be calculated
-    virtual bool eval(const SimulationOptions& options,
+    virtual void eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,

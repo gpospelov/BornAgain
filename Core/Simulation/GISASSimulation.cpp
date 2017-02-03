@@ -52,7 +52,7 @@ void GISASSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-int GISASSimulation::numberOfSimulationElements() const
+size_t GISASSimulation::numberOfSimulationElements() const
 {
     return getInstrument().getDetector()->numberOfSimulationElements();
 }

@@ -69,7 +69,7 @@ public:
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
     std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mP_sample_builder; }
 
-    virtual int numberOfSimulationElements() const=0;
+    virtual size_t numberOfSimulationElements() const=0;
 
     //! Clone simulated intensity map
     virtual OutputData<double>* getDetectorIntensity(

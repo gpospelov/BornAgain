@@ -33,7 +33,7 @@ public:
         const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map,
         const ILayout* p_layout, size_t layer_index);
 
-    bool eval(const SimulationOptions& options,
+    void eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,

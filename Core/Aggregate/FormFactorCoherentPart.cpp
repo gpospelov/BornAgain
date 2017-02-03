@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCoherentPart.h"
+#include "FullFresnelMap.h"
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
@@ -22,14 +23,14 @@
 
 
 FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff)
-: mP_ff(p_ff)
+    : mP_ff(p_ff)
 {
 }
 
 FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
-: mP_ff(other.mP_ff->clone())
+    : mP_ff(other.mP_ff->clone())
+    , mP_specular_info(other.mP_specular_info->clone())
 {
-    setSpecularInfo(*other.mP_specular_info);
 }
 
 FormFactorCoherentPart::~FormFactorCoherentPart() {}
@@ -60,9 +61,9 @@ Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& si
     return mP_ff->evaluatePol(wavevectors);
 }
 
-void FormFactorCoherentPart::setSpecularInfo(const ILayerSpecularInfo& specular_info)
+void FormFactorCoherentPart::setSpecularInfo(const FullFresnelMap* p_full_map, size_t layer_index)
 {
-    mP_specular_info.reset(specular_info.clone());
+    mP_specular_info.reset(p_full_map->layerFresnelMap(layer_index)->clone());
 }
 
 double FormFactorCoherentPart::radialExtension() const

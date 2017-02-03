@@ -55,7 +55,7 @@ Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim
 
 void FormFactorCoherentSum::setSpecularInfo(const FullFresnelMap* p_full_map, size_t layer_index)
 {
-    m_parts[0].setSpecularInfo(*p_full_map->layerFresnelMap(layer_index));
+    m_parts[0].setSpecularInfo(p_full_map, layer_index);
 }
 
 void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance)

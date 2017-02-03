@@ -21,9 +21,10 @@
 #include "WinDllMacros.h"
 #include <memory>
 
+class FullFresnelMap;
 class IFormFactor;
-class SimulationElement;
 class ILayerSpecularInfo;
+class SimulationElement;
 
 //! Information about single particle form factor and specular info of the embedding layer.
 //! @ingroup formfactors_internal
@@ -40,7 +41,7 @@ public:
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    void setSpecularInfo(const ILayerSpecularInfo& specular_info);
+    void setSpecularInfo(const FullFresnelMap* p_full_map, size_t layer_index);
     double radialExtension() const;
 private:
     std::unique_ptr<IFormFactor> mP_ff;

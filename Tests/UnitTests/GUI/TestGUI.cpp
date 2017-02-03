@@ -44,8 +44,8 @@ int main(int argc, char** argv) {
 //    TestComboProperty testComboProperty;
 //    TestTranslations testTranslations;
 //    TestGroupProperty testGroupProperty;
-//    TestParticleDistributionItem testParticleDistributionItem;
-    TestParameterTreeUtils testParameterTreeUtils;
+    TestParticleDistributionItem testParticleDistributionItem;
+//    TestParameterTreeUtils testParameterTreeUtils;
 
     bool status(false);
 
@@ -67,8 +67,8 @@ int main(int argc, char** argv) {
 //    status |= QTest::qExec(&testComboProperty, argc, argv);
 //    status |= QTest::qExec(&testTranslations, argc, argv);
 //    status |= QTest::qExec(&testGroupProperty, argc, argv);
-//    status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
-    status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
+    status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
+//    status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
 
     return status;
 }

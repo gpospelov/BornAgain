@@ -53,6 +53,8 @@
 #include "SphericalDetector.h"
 #include "Units.h"
 #include "VectorItem.h"
+#include "ParameterTreeUtils.h"
+#include <QDebug>
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
@@ -152,6 +154,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item, const LayerRoughn
                                 sample->getLatteralCorrLength());
 }
 
+#include <QDebug>
 //! Initialization of ParticleDistributionItem
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const ParticleDistribution* sample)
@@ -521,20 +524,6 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributi
     }
     QString group_name = BeamDistributionItem::P_DISTRIBUTION;
     setDistribution(beamDistributionItem, parameterDistribution, group_name, unit_factor);
-}
-
-QString TransformFromDomain::translateParameterNameToGUI(SessionItem* item,
-                                                         const QString& par_name)
-{
-    QStringList gui_par_list = ModelPath::getParameterTreeList(item);
-    for (QString gui_par_name : gui_par_list) {
-        QString domain_par_name = QString::fromStdString(
-                    ModelPath::translateParameterName(item, gui_par_name));
-        if (domain_par_name == par_name) {
-            return gui_par_name;
-        }
-    }
-    return {};
 }
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)

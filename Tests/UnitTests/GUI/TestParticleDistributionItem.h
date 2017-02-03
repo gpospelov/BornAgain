@@ -3,6 +3,13 @@
 #include "ParticleDistributionItem.h"
 #include "ComboProperty.h"
 #include "ParticleItem.h"
+#include "Distributions.h"
+#include "ParticleDistribution.h"
+#include "TransformFromDomain.h"
+#include "Particle.h"
+#include "HomogeneousMaterial.h"
+#include "MaterialModel.h"
+#include "MaterialEditor.h"
 
 namespace {
     const QStringList expectedAnisoParams = {
@@ -23,6 +30,8 @@ class TestParticleDistributionItem : public QObject {
 private slots:
     void test_InitialState();
     void test_AddParticle();
+    void test_FromDomain();
+//    void test_ToDomain();
 };
 
 inline void TestParticleDistributionItem::test_InitialState()
@@ -66,12 +75,67 @@ inline void TestParticleDistributionItem::test_AddParticle()
     QCOMPARE(prop.getValue(), QStringLiteral("None"));
 
     // changing formfactor of the particle
-    particle->getGroupItem(ParticleItem::P_FORM_FACTOR, Constants::BoxType);
+    particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::BoxType);
 
-    qDebug() << expectedBoxParams << prop.getValues();
     prop = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
 
-    QCOMPARE(prop.getValues(), expectedAnisoParams);
+    QCOMPARE(prop.getValues(), expectedBoxParams);
     QCOMPARE(prop.getValue(), QStringLiteral("None"));
 }
+
+inline void TestParticleDistributionItem::test_FromDomain()
+{
+    const std::string pattern("Particle/Cylinder/Radius");
+
+    // creating domain distribution
+    FormFactorCylinder cylinder(1.0, 2.0);
+    Particle particle(HomogeneousMaterial("Particle", 6e-4, 2e-8), cylinder);
+    DistributionGaussian gauss(1.0, 0.1);
+    ParameterDistribution par_distr(pattern, gauss, 100, 3.0);
+    ParticleDistribution particle_collection(particle, par_distr);
+
+    // creating GUI distribution
+    SampleModel model;
+    SessionItem *distItem = model.insertNewItem(Constants::ParticleDistributionType);
+    SessionItem *particleItem = model.insertNewItem(Constants::ParticleType, distItem->index());
+
+    // Sets it from domain
+    TransformFromDomain::setItemFromSample(distItem, &particle_collection);
+
+    ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                    .value<ComboProperty>();
+
+    QCOMPARE(prop.getValue(), QStringLiteral("None"));
+
+    // changing particle type and check that distribution picked up domain name
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
+    prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                    .value<ComboProperty>();
+
+    QCOMPARE(prop.getValue(), QString::fromStdString(pattern));
+}
+
+//inline void TestParticleDistributionItem::test_ToDomain()
+//{
+//    MaterialModel materialModel;
+//    MaterialEditor editor(&materialModel);
+//    SampleModel model;
+//    SessionItem *distItem = model.insertNewItem(Constants::ParticleDistributionType);
+//    model.insertNewItem(Constants::ParticleType, distItem->index());
+
+//    ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+//                    .value<ComboProperty>();
+
+//    prop.setValue("Particle/AnisoPyramid/Height");
+//    distItem->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
+//                                prop.getVariant());
+
+//    // building domasin object
+//    auto domainDist = dynamic_cast<ParticleDistributionItem*>(distItem)->createParticleDistribution();
+//    ParameterDistribution parDist = domainDist->getParameterDistribution();
+
+//    QCOMPARE(QString::fromStdString(parDist.getMainParameterName()),
+//             QString("Particle/AnisoPyramid/Height"));
+
+//}

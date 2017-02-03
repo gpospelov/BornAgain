@@ -89,7 +89,6 @@ BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
                                     const ParameterDistribution &parameterDistribution);
 
-BA_CORE_API_ QString translateParameterNameToGUI(SessionItem *item, const QString &par_name);
 }
 
 #endif // TRANSFORMFROMDOMAIN_H

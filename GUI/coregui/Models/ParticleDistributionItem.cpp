@@ -24,6 +24,7 @@
 #include "ParticleItem.h"
 #include "TransformFromDomain.h"
 #include "TransformToDomain.h"
+#include "ParameterTreeUtils.h"
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
@@ -96,7 +97,7 @@ void ParticleDistributionItem::updateParameterList()
     auto combo_prop = par_prop.value<ComboProperty>();
     QString cached_par = combo_prop.getCachedValue();
     if (!combo_prop.cacheContainsGUIValue()) {
-        auto gui_name = TransformFromDomain::translateParameterNameToGUI(this, cached_par);
+        auto gui_name = translateParameterNameToGUI(cached_par);
         if (!gui_name.isEmpty()) {
             cached_par = gui_name;
             combo_prop.setCachedValue(cached_par);
@@ -133,6 +134,21 @@ QStringList ParticleDistributionItem::childParameterNames() const
     }
     QString prefix = children.front()->displayName() + QString("/");
     result = ModelPath::getParameterTreeList(children.front(), prefix);
+//    result = ParameterTreeUtils::parameterTreeList(children.front());
+
     result.prepend(NO_SELECTION);
     return result;
+}
+
+QString ParticleDistributionItem::translateParameterNameToGUI(const QString& par_name)
+{
+    QStringList gui_par_list = ModelPath::getParameterTreeList(this);
+    for (QString gui_par_name : gui_par_list) {
+        QString domain_par_name = QString::fromStdString(
+                    ModelPath::translateParameterName(this, gui_par_name));
+        if (domain_par_name == par_name) {
+            return gui_par_name;
+        }
+    }
+    return {};
 }

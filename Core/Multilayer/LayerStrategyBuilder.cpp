@@ -88,7 +88,7 @@ SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectForm
         FormFactorCoherentSum* p_ff_coh;
         p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
-        p_ff_coh->setSpecularInfo(*mp_full_fresnel_map->layerFresnelMap(m_layer_index));
+        p_ff_coh->setSpecularInfo(mp_full_fresnel_map, m_layer_index);
         result.push_back(p_ff_coh);
     }
     return result;

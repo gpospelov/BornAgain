@@ -22,9 +22,9 @@
 #include "FormFactorCoherentPart.h"
 #include <vector>
 
+class FullFresnelMap;
 class IFormFactor;
 class SimulationElement;
-class ILayerSpecularInfo;
 
 //! Information about particle form factor and abundance.
 //! @ingroup formfactors_internal
@@ -41,7 +41,8 @@ public:
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    void setSpecularInfo(const ILayerSpecularInfo& specular_info);
+    void setSpecularInfo(const FullFresnelMap* p_full_map, size_t layer_index);
+
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);
     double radialExtension() const;

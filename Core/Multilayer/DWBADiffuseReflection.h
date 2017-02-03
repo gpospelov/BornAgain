@@ -49,8 +49,8 @@ private:
     complex_t get_sum4terms(size_t ilayer);
 
     const MultiLayer* m_sample;
-    SpecularMatrix::MultiLayerCoeff_t m_fcoeff_i;
-    SpecularMatrix::MultiLayerCoeff_t m_fcoeff_f;
+    std::vector<ScalarRTCoefficients> m_fcoeff_i;
+    std::vector<ScalarRTCoefficients> m_fcoeff_f;
     double m_diffuse_autocorr;
     double m_diffuse_crosscorr;
 

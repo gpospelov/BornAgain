@@ -27,12 +27,12 @@ namespace {
     const complex_t imag_unit = complex_t(0.0, 1.0);
 }
 
-void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer);
+void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer);
 bool calculateUpFromLayer(
-    SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+    std::vector<ScalarRTCoefficients>& coeff, const MultiLayer& sample,
     const double kmag, size_t layer_index);
 size_t bisectRTcomputation(
-    SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+    std::vector<ScalarRTCoefficients>& coeff, const MultiLayer& sample,
     const double kmag, const size_t lgood, const size_t lbad, const size_t l);
 
 //! Computes refraction angles and transmission/reflection coefficients
@@ -40,7 +40,8 @@ size_t bisectRTcomputation(
 //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
 //! k : length: wavenumber in vacuum, direction: defined in layer 0.
 
-void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
+void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
+                             std::vector<ScalarRTCoefficients>& coeff)
 {
     size_t N = sample.getNumberOfLayers();
     assert(N>0);
@@ -102,7 +103,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k, MultiL
 
 //! Sets coeff to zero for all layers below current_layer.
 
-void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer)
+void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer)
 {
     size_t N = coeff.size();
     for (size_t i=current_layer+1; i<N; ++i) {
@@ -113,7 +114,7 @@ void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t& coeff, size_t current_layer
 //! Computes RT coefficients coeff, starting from layer number layer_index.
 //! Returns true if no overflow happens.
 
-bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff, const MultiLayer& sample,
                           const double kmag, size_t layer_index)
 {
     coeff[layer_index+1].t_r(0) = 1.0;
@@ -154,7 +155,7 @@ bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiL
 //! Computes coeff, and returns largest possible start layer index.
 
 size_t bisectRTcomputation(
-    SpecularMatrix::MultiLayerCoeff_t& coeff, const MultiLayer& sample,
+    std::vector<ScalarRTCoefficients>& coeff, const MultiLayer& sample,
     const double kmag, const size_t lgood, const size_t lbad, const size_t l)
 {
     if (calculateUpFromLayer(coeff, sample, kmag, l)) {

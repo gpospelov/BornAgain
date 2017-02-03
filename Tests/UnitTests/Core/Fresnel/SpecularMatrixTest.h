@@ -14,7 +14,7 @@ TEST_F(SpecularMatrixTest, initial)
 {
     MultiLayer mLayer;
     kvector_t v;
-    SpecularMatrix::MultiLayerCoeff_t coeff;
+    std::vector<ScalarRTCoefficients> coeff;
 
     // @Error: Throws exception (Layer index is out of bounds)
     //matrix.execute(mLayer, v, coeff);

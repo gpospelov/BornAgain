@@ -5077,6 +5077,16 @@ Resets region of interest making whole detector plane available for the simulati
 ";
 
 
+// File: classHashKVector.xml
+%feature("docstring") HashKVector "";
+
+%feature("docstring")  HashKVector::HashKVector "HashKVector::HashKVector()
+";
+
+%feature("docstring")  HashKVector::~HashKVector "HashKVector::~HashKVector()
+";
+
+
 // File: classHexagonalLattice.xml
 %feature("docstring") HexagonalLattice "";
 
@@ -13179,16 +13189,16 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D280.xml
 
 
-// File: namespace_0D306.xml
-
-
 // File: namespace_0D308.xml
 
 
-// File: namespace_0D321.xml
+// File: namespace_0D310.xml
 
 
-// File: namespace_0D434.xml
+// File: namespace_0D323.xml
+
+
+// File: namespace_0D436.xml
 
 
 // File: namespace_0D60.xml
@@ -14602,6 +14612,12 @@ make Swappable
 // File: FormFactorDWBAPol_8h.xml
 
 
+// File: HashKVector_8cpp.xml
+
+
+// File: HashKVector_8h.xml
+
+
 // File: IFresnelMap_8cpp.xml
 
 
@@ -14681,17 +14697,17 @@ make Swappable
 
 
 // File: SpecularMatrix_8cpp.xml
-%feature("docstring")  setZeroBelow "void setZeroBelow(SpecularMatrix::MultiLayerCoeff_t &coeff, size_t current_layer)
+%feature("docstring")  setZeroBelow "void setZeroBelow(std::vector< ScalarRTCoefficients > &coeff, size_t current_layer)
 
 Sets coeff to zero for all layers below current_layer. 
 ";
 
-%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const double kmag, size_t layer_index)
+%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(std::vector< ScalarRTCoefficients > &coeff, const MultiLayer &sample, const double kmag, size_t layer_index)
 
 Computes RT coefficients coeff, starting from layer number layer_index. Returns true if no overflow happens. 
 ";
 
-%feature("docstring")  bisectRTcomputation "size_t bisectRTcomputation(SpecularMatrix::MultiLayerCoeff_t &coeff, const MultiLayer &sample, const double kmag, const size_t lgood, const size_t lbad, const size_t l)
+%feature("docstring")  bisectRTcomputation "size_t bisectRTcomputation(std::vector< ScalarRTCoefficients > &coeff, const MultiLayer &sample, const double kmag, const size_t lgood, const size_t lbad, const size_t l)
 
 Recursive bisection to determine the number of the deepest layer where RT computation can be started without running into overflow. Computes coeff, and returns largest possible start layer index. 
 ";

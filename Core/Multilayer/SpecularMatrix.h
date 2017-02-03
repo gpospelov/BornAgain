@@ -27,13 +27,10 @@
 class BA_CORE_API_ SpecularMatrix
 {
 public:
-    //! Layer coefficients describing refraction and transmission/reflection.
-    typedef std::vector<ScalarRTCoefficients> MultiLayerCoeff_t;
-
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
-    static void execute(
-        const class MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
+    static void execute(const class MultiLayer& sample, const kvector_t k,
+                        std::vector<ScalarRTCoefficients>& coeff);
 };
 
 #endif // SPECULARMATRIX_H

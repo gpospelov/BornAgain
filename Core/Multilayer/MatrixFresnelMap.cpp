@@ -29,7 +29,7 @@ MatrixFresnelMap::MatrixFresnelMap(const MultiLayer* p_multilayer,
 const ILayerRTCoefficients* MatrixFresnelMap::getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
-    SpecularMagnetic::MultiLayerCoeff_t coeffs;
+    std::vector<MatrixRTCoefficients> coeffs;
     SpecularMagnetic::execute(*mp_inverted_multilayer, -sim_element.getMeanKf(), coeffs);
     return new MatrixRTCoefficients(coeffs[layer_index]);
 }
@@ -37,7 +37,7 @@ const ILayerRTCoefficients* MatrixFresnelMap::getOutCoefficients(
 const ILayerRTCoefficients* MatrixFresnelMap::getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
-    SpecularMagnetic::MultiLayerCoeff_t coeffs;
+    std::vector<MatrixRTCoefficients> coeffs;
     SpecularMagnetic::execute(*mp_multilayer, sim_element.getKi(), coeffs);
     return new MatrixRTCoefficients(coeffs[layer_index]);
 }

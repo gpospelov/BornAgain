@@ -16,20 +16,18 @@
 
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
-ComboProperty::ComboProperty(const QStringList &values, const QString &current_value)
-    : m_values(values)
-    , m_current_value(current_value)
+ComboProperty::ComboProperty(const QStringList& values, const QString& current_value)
+    : m_values(values), m_current_value(current_value)
 {
-    if(!m_values.contains(m_current_value))
+    if (!m_values.contains(m_current_value))
         throw GUIHelpers::Error("ComboProperty::ComboProperty() -> Error. Attempt to construct "
                                 "property with initial values not from the list.");
 }
 
-void ComboProperty::setValue(const QString &name)
+void ComboProperty::setValue(const QString& name)
 {
-    if(!m_values.contains(name))
+    if (!m_values.contains(name))
         throw GUIHelpers::Error("ComboProperty::setValue() -> Error. Combo doesn't contain "
                                 "value " + name);
     m_current_value = name;
@@ -41,7 +39,7 @@ QStringList ComboProperty::getToolTips() const
     return m_values_tooltips;
 }
 
-void ComboProperty::setToolTips(const QStringList &tooltips)
+void ComboProperty::setToolTips(const QStringList& tooltips)
 {
     m_values_tooltips = tooltips;
 }
@@ -51,7 +49,7 @@ int ComboProperty::index() const
     return toIndex(m_current_value);
 }
 
-int ComboProperty::toIndex(const QString &value) const
+int ComboProperty::toIndex(const QString& value) const
 {
     QStringList name_list = getValues();
     for (int i = 0; i < name_list.size(); ++i) {
@@ -65,25 +63,29 @@ int ComboProperty::toIndex(const QString &value) const
 QString ComboProperty::toString(int index) const
 {
     QStringList name_list = getValues();
-    if (index<0 || index>=name_list.size()) {
+    if (index < 0 || index >= name_list.size()) {
         return QString();
     }
     return name_list[index];
 }
 
-void ComboProperty::setCachedValue(const QString &name)
+void ComboProperty::setCachedValue(const QString& name)
 {
     m_cached_value = name;
 }
 
-bool ComboProperty::operator==(const ComboProperty &other) const {
-    if(m_current_value != other.m_current_value) return false;
-    if(!GUIHelpers::isTheSame(m_values, other.m_values)) return false;
-    if(m_cached_value != other.m_cached_value) return false;
+bool ComboProperty::operator==(const ComboProperty& other) const
+{
+    if (m_current_value != other.m_current_value)
+        return false;
+    if (!GUIHelpers::isTheSame(m_values, other.m_values))
+        return false;
+    if (m_cached_value != other.m_cached_value)
+        return false;
     return true;
 }
 
-bool ComboProperty::operator<(const ComboProperty &other) const
+bool ComboProperty::operator<(const ComboProperty& other) const
 {
     return m_current_value < other.m_current_value && m_values.size() < other.m_values.size();
 }

@@ -54,7 +54,6 @@ inline void TestParticleDistributionItem::test_InitialState()
                     .value<ComboProperty>();
     QCOMPARE(prop.getValues(), QStringList() << QStringLiteral("None"));
     QCOMPARE(prop.getValue(), QStringLiteral("None"));
-    QVERIFY(prop.getCachedValue().isEmpty());
 }
 
 inline void TestParticleDistributionItem::test_AddParticle()

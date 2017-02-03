@@ -73,8 +73,7 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     QString par_name = prop.getValue();
 
     std::string domain_par
-        = ParameterTreeUtils::parameterNameToDomainName(par_name, getItems(T_PARTICLES).front())
-              .toStdString();
+        = ParameterTreeUtils::parameterNameToDomainName(par_name, childParticle()).toStdString();
 
     int nbr_samples = distr_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor = distr_item->getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();

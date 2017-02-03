@@ -16,18 +16,22 @@
 
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
-
+#include <QDebug>
 
 ComboProperty::ComboProperty(const QStringList &values, const QString &current_value)
     : m_values(values)
     , m_current_value(current_value)
-    , m_cache_contains_GUI_value(true)
 {
+    if(!m_values.contains(m_current_value))
+        throw GUIHelpers::Error("ComboProperty::ComboProperty() -> Error. Attempt to construct "
+                                "property with initial values not from the list.");
 }
 
 void ComboProperty::setValue(const QString &name)
 {
-    Q_ASSERT(m_values.contains(name));
+    if(!m_values.contains(name))
+        throw GUIHelpers::Error("ComboProperty::setValue() -> Error. Combo doesn't contain "
+                                "value " + name);
     m_current_value = name;
 }
 
@@ -76,7 +80,6 @@ bool ComboProperty::operator==(const ComboProperty &other) const {
     if(m_current_value != other.m_current_value) return false;
     if(!GUIHelpers::isTheSame(m_values, other.m_values)) return false;
     if(m_cached_value != other.m_cached_value) return false;
-    if(m_cache_contains_GUI_value != other.m_cache_contains_GUI_value) return false;
     return true;
 }
 

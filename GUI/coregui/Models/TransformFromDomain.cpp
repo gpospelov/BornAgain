@@ -157,24 +157,18 @@ void TransformFromDomain::setItemFromSample(SessionItem* item, const LayerRoughn
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const ParticleDistribution* sample)
 {
-    item->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    ParticleDistributionItem *distItem = dynamic_cast<ParticleDistributionItem*>(item);
+    Q_ASSERT(distItem);
+
+    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
 
     ParameterDistribution par_distr = sample->getParameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
-    ComboProperty combo_property
-        = item->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
-              .value<ComboProperty>();
-    combo_property.setCachedValue(main_distr_par_name);
-    combo_property.setCacheContainsGUIFlag(false);
 
-    ParticleDistributionItem *distItem = dynamic_cast<ParticleDistributionItem*>(item);
     distItem->setDomainCacheName(main_distr_par_name);
 
-    item->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
-                                combo_property.getVariant());
-
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
-    setDistribution(item, par_distr, group_name);
+    setDistribution(distItem, par_distr, group_name);
 }
 
 //! Returns true if given roughness is non-zero roughness

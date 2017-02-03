@@ -29,8 +29,8 @@ class BA_CORE_API_ ComboProperty
 {
 public:
 
-    ComboProperty(const QStringList &values = QStringList(),
-                  const QString &current_value = QString("Undefined"));
+    ComboProperty(){}
+    ComboProperty(const QStringList &values, const QString &current_value);
     virtual ~ComboProperty() {}
     QString getValue() const;
 
@@ -57,9 +57,6 @@ public:
     QString getCachedValue() const;
     void setCachedValue(const QString &name);
 
-    bool cacheContainsGUIValue() const;
-    void setCacheContainsGUIFlag(bool flag=true);
-
     bool operator==(const ComboProperty &other) const;
     bool operator!=(const ComboProperty &other) const { return !(*this == other); }
     bool operator<(const ComboProperty &other) const;
@@ -69,7 +66,6 @@ private:
     QStringList m_values_tooltips;
     QString m_current_value;
     QString m_cached_value;  // for comboboxes with dynamically generated value lists
-    bool m_cache_contains_GUI_value;
 };
 
 inline QString ComboProperty::getValue() const
@@ -115,16 +111,6 @@ inline int ComboProperty::getIndex() const
 inline QString ComboProperty::getCachedValue() const
 {
     return m_cached_value;
-}
-
-inline bool ComboProperty::cacheContainsGUIValue() const
-{
-    return m_cache_contains_GUI_value;
-}
-
-inline void ComboProperty::setCacheContainsGUIFlag(bool flag)
-{
-    m_cache_contains_GUI_value = flag;
 }
 
 Q_DECLARE_METATYPE(ComboProperty)

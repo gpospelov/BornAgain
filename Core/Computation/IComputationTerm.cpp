@@ -16,15 +16,11 @@
 #include "IComputationTerm.h"
 
 
-IComputationTerm::IComputationTerm(const MultiLayer* p_multilayer)
+IComputationTerm::IComputationTerm(const MultiLayer* p_multilayer,
+                                   const ILayerSpecularInfo* p_fresnel_map)
     : mp_multilayer(p_multilayer)
-    , mp_fresnel_map(nullptr)
+    , mp_fresnel_map(p_fresnel_map)
 {}
 
 IComputationTerm::~IComputationTerm()
 {}
-
-void IComputationTerm::setSpecularInfo(const ILayerSpecularInfo* p_full_map)
-{
-    mp_fresnel_map = p_full_map;
-}

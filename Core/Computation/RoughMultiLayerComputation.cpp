@@ -40,14 +40,13 @@ namespace {
     }
 }
 
-RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
-    : IComputationTerm(p_multi_layer)
-{
-}
+RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer,
+                                                       const ILayerSpecularInfo* p_fresnel_map)
+    : IComputationTerm(p_multi_layer, p_fresnel_map)
+{}
 
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
-{
-}
+{}
 
 bool RoughMultiLayerComputation::eval(
     const SimulationOptions&, ProgressHandler* progress, bool,

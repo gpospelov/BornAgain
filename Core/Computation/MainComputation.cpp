@@ -47,15 +47,16 @@ MainComputation::MainComputation(
         const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
             m_computation_terms.push_back(
-                        new ParticleLayoutComputation(mP_multi_layer.get(),
+                        new ParticleLayoutComputation(mP_multi_layer.get(), mP_fresnel_map.get(),
                                                       layer->getLayout(j), i));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
-        m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get()));
+        m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
+                                                                     mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
-        m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get()));
-    passFresnelInfo();
+        m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get(),
+                                                              mP_fresnel_map.get()));
 }
 
 MainComputation::~MainComputation()
@@ -93,13 +94,6 @@ void MainComputation::runProtected()
         if (comp->eval(m_sim_options, m_progress, polarized,
                        layer_elements.begin(), layer_elements.end()) )
             addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
-    }
-}
-
-void MainComputation::passFresnelInfo()
-{
-    for (IComputationTerm* comp: m_computation_terms) {
-        comp->setSpecularInfo(mP_fresnel_map.get());
     }
 }
 

@@ -25,8 +25,9 @@
 #include "SimulationElement.h"
 
 ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
+                                                     const ILayerSpecularInfo* p_fresnel_map,
                                                      const ILayout* p_layout, size_t layer_index)
-    : IComputationTerm(p_multilayer)
+    : IComputationTerm(p_multilayer, p_fresnel_map)
     , mp_layout(p_layout)
     , m_layer_index(layer_index)
 {}

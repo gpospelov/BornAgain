@@ -18,7 +18,6 @@
 
 #include <vector>
 
-
 class ILayerSpecularInfo;
 class MultiLayer;
 class ProgressHandler;
@@ -33,11 +32,8 @@ class SimulationOptions;
 class IComputationTerm
 {
 public:
-    IComputationTerm(const MultiLayer* p_multilayer);
+    IComputationTerm(const MultiLayer* p_multilayer, const ILayerSpecularInfo* p_fresnel_map);
     virtual ~IComputationTerm();
-
-    //! Sets magnetic reflection/transmission info for all layers
-    void setSpecularInfo(const ILayerSpecularInfo* p_full_map);
 
     //! Calculate scattering intensity for each SimulationElement
     //! returns false if nothing needed to be calculated

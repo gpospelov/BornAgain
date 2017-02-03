@@ -54,7 +54,6 @@ public:
 
 private:
     void runProtected();
-    void passFresnelInfo();
     static ILayerSpecularInfo* createFresnelMap(const MultiLayer* p_multilayer,
                                                 const MultiLayer* p_inverted_multilayer);
 

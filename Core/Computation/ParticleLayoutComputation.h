@@ -29,8 +29,9 @@ class ILayout;
 class ParticleLayoutComputation final : public IComputationTerm
 {
 public:
-    ParticleLayoutComputation(const MultiLayer* p_multilayer, const ILayout* p_layout,
-                              size_t layer_index);
+    ParticleLayoutComputation(
+        const MultiLayer* p_multilayer, const ILayerSpecularInfo* p_fresnel_map,
+        const ILayout* p_layout, size_t layer_index);
 
     bool eval(const SimulationOptions& options,
               ProgressHandler* progress,

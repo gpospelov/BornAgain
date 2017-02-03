@@ -19,8 +19,9 @@
 #include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
 
-SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer)
-    : IComputationTerm(p_multi_layer)
+SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer,
+                                         const ILayerSpecularInfo* p_fresnel_map)
+    : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
 bool SpecularComputation::eval(

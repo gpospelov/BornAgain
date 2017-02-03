@@ -29,24 +29,22 @@ class SimulationElement;
 class BA_CORE_API_ MatrixSpecularInfoMap : public ILayerSpecularInfo
 {
 public:
-    MatrixSpecularInfoMap(const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer,
-                          size_t layer_index);
+    MatrixSpecularInfoMap(const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer);
     ~MatrixSpecularInfoMap() final {}
 
     MatrixSpecularInfoMap* clone() const final override;
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients(
-        const SimulationElement& sim_element) const final override;
+        const SimulationElement& sim_element, size_t layer_index) const final override;
 
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getInCoefficients(
-        const SimulationElement& sim_element) const final override;
+        const SimulationElement& sim_element, size_t layer_index) const final override;
 
 private:
     const MultiLayer* mp_multilayer;
     const MultiLayer* mp_inverted_multilayer;
-    const size_t m_layer_index;
 };
 
 #endif // MATRIXSPECULARINFOMAP_H

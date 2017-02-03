@@ -19,26 +19,26 @@
 #include "SimulationElement.h"
 #include "SpecularMatrix.h"
 
-ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer* multilayer, size_t layer_index)
+ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer* multilayer)
     : mp_multilayer(multilayer)
-    , m_layer_index(layer_index)
 {}
 
 const ILayerRTCoefficients* ScalarSpecularInfoMap::getOutCoefficients(
-        const SimulationElement& sim_element) const
+        const SimulationElement& sim_element, size_t layer_index) const
 {
-    return getCoefficients(-sim_element.getMeanKf());
+    return getCoefficients(-sim_element.getMeanKf(), layer_index);
 }
 
 const ILayerRTCoefficients* ScalarSpecularInfoMap::getInCoefficients(
-        const SimulationElement& sim_element) const
+        const SimulationElement& sim_element, size_t layer_index) const
 {
-    return getCoefficients(sim_element.getKi());
+    return getCoefficients(sim_element.getKi(), layer_index);
 }
 
-const ScalarRTCoefficients* ScalarSpecularInfoMap::getCoefficients(kvector_t kvec) const
+const ScalarRTCoefficients* ScalarSpecularInfoMap::getCoefficients(
+        kvector_t kvec, size_t layer_index) const
 {
     SpecularMatrix::MultiLayerCoeff_t coeffs;
     SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
-    return new ScalarRTCoefficients(coeffs[m_layer_index]);
+    return new ScalarRTCoefficients(coeffs[layer_index]);
 }

@@ -17,6 +17,7 @@
 #define ILAYERSPECULARINFO_H
 
 #include "ICloneable.h"
+#include <cstddef>
 
 class ILayerRTCoefficients;
 class SimulationElement;
@@ -36,11 +37,11 @@ public:
 
     //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
     virtual const ILayerRTCoefficients* getOutCoefficients(
-            const SimulationElement& sim_element) const =0;
+            const SimulationElement& sim_element, size_t layer_index) const =0;
 
     //! Retrieves the amplitude coefficients for an incoming wavevector.
     virtual const ILayerRTCoefficients* getInCoefficients(
-            const SimulationElement& sim_element) const =0;
+            const SimulationElement& sim_element, size_t layer_index) const =0;
 };
 
 #endif // ILAYERSPECULARINFO_H

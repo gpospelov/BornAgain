@@ -20,31 +20,29 @@
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 
-MatrixSpecularInfoMap::MatrixSpecularInfoMap(
-        const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer,
-        size_t layer_index)
+MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* p_multilayer,
+                                             const MultiLayer* p_inverted_multilayer)
     : mp_multilayer(p_multilayer)
     , mp_inverted_multilayer(p_inverted_multilayer)
-    , m_layer_index(layer_index)
 {}
 
 MatrixSpecularInfoMap* MatrixSpecularInfoMap::clone() const
 {
-    return new MatrixSpecularInfoMap(mp_multilayer, mp_inverted_multilayer, m_layer_index);
+    return new MatrixSpecularInfoMap(mp_multilayer, mp_inverted_multilayer);
 }
 
 const ILayerRTCoefficients* MatrixSpecularInfoMap::getOutCoefficients(
-        const SimulationElement& sim_element) const
+        const SimulationElement& sim_element, size_t layer_index) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
     SpecularMagnetic::execute(*mp_inverted_multilayer, -sim_element.getMeanKf(), coeffs);
-    return new MatrixRTCoefficients(coeffs[m_layer_index]);
+    return new MatrixRTCoefficients(coeffs[layer_index]);
 }
 
 const ILayerRTCoefficients* MatrixSpecularInfoMap::getInCoefficients(
-        const SimulationElement& sim_element) const
+        const SimulationElement& sim_element, size_t layer_index) const
 {
     SpecularMagnetic::MultiLayerCoeff_t coeffs;
     SpecularMagnetic::execute(*mp_multilayer, sim_element.getKi(), coeffs);
-    return new MatrixRTCoefficients(coeffs[m_layer_index]);
+    return new MatrixRTCoefficients(coeffs[layer_index]);
 }

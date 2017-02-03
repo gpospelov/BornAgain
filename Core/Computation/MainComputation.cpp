@@ -105,7 +105,7 @@ void MainComputation::collectFresnelScalar()
 
     // run through layers and construct T,R maps
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        m_full_fresnel_map.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
+        m_full_fresnel_map.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get()));
     }
     passFresnelInfo();
 }
@@ -118,7 +118,7 @@ void MainComputation::collectFresnelMatrix()
     // run through layers and construct T,R maps
     for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
         m_full_fresnel_map.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
-                                                           mP_inverted_multilayer.get(), i));
+                                                               mP_inverted_multilayer.get()));
     }
     passFresnelInfo();
 }

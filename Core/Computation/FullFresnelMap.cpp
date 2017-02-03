@@ -35,13 +35,13 @@ size_t FullFresnelMap::size() const
 const ILayerRTCoefficients*FullFresnelMap::getOutCoefficients(
     const SimulationElement& sim_element, size_t layer_index) const
 {
-    return layerFresnelMap(layer_index)->getOutCoefficients(sim_element);
+    return layerFresnelMap(layer_index)->getOutCoefficients(sim_element, layer_index);
 }
 
 const ILayerRTCoefficients*FullFresnelMap::getInCoefficients(
     const SimulationElement& sim_element, size_t layer_index) const
 {
-    return layerFresnelMap(layer_index)->getInCoefficients(sim_element);
+    return layerFresnelMap(layer_index)->getInCoefficients(sim_element, layer_index);
 }
 
 const ILayerSpecularInfo* FullFresnelMap::layerFresnelMap(size_t index) const

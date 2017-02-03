@@ -5,30 +5,49 @@
 #include "SampleModel.h"
 
 namespace {
-    const QStringList expectedForParticle = {
+    const QStringList expectedParticleParameterNames = {
         "Particle/AnisoPyramid/Length", "Particle/AnisoPyramid/Width",
         "Particle/AnisoPyramid/Height", "Particle/AnisoPyramid/Alpha",
         "Particle/Abundance", "Particle/Position Offset/X",
         "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
-}
 
+    const QStringList expectedParticleParameterTranslations = {
+        "Particle/AnisoPyramid/Length", "Particle/AnisoPyramid/Width",
+        "Particle/AnisoPyramid/Height", "Particle/AnisoPyramid/Alpha",
+        "Particle/Abundance", "Particle/PositionX",
+        "Particle/PositionY", "Particle/PositionZ"};
+}
 
 class TestParameterTreeUtils : public QObject {
     Q_OBJECT
 
 private slots:
-    void test_parameterTreeList();
+    void test_parameterTreeNames();
+    void test_parameterTranslatedNames();
 };
 
-//! Tests function returning list of names representing properties of given item.
+//! Tests parameter names of given item.
 
-inline void TestParameterTreeUtils::test_parameterTreeList()
+inline void TestParameterTreeUtils::test_parameterTreeNames()
 {
     SampleModel model;
 
     SessionItem *layer = model.insertNewItem(Constants::LayerType);
-    QCOMPARE(ParameterTreeUtils::parameterTreeList(layer), QStringList() << "Layer/Thickness");
+    QCOMPARE(ParameterTreeUtils::parameterTreeNames(layer), QStringList() << "Layer/Thickness");
 
     SessionItem *particle = model.insertNewItem(Constants::ParticleType);
-    QCOMPARE(ParameterTreeUtils::parameterTreeList(particle), expectedForParticle);
+    QCOMPARE(ParameterTreeUtils::parameterTreeNames(particle), expectedParticleParameterNames);
+}
+
+//! Tests translated parameter names of given item.
+
+inline void TestParameterTreeUtils::test_parameterTranslatedNames()
+{
+    QCOMPARE(1,1);
+    SampleModel model;
+
+    SessionItem *particle = model.insertNewItem(Constants::ParticleType);
+
+    QCOMPARE(ParameterTreeUtils::translatedParameterTreeNames(particle),
+             expectedParticleParameterTranslations);
 }

@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 //    TestTranslations testTranslations;
 //    TestGroupProperty testGroupProperty;
     TestParticleDistributionItem testParticleDistributionItem;
-//    TestParameterTreeUtils testParameterTreeUtils;
+    TestParameterTreeUtils testParameterTreeUtils;
 
     bool status(false);
 
@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
 //    status |= QTest::qExec(&testTranslations, argc, argv);
 //    status |= QTest::qExec(&testGroupProperty, argc, argv);
     status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
-//    status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
+    status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
 
     return status;
 }

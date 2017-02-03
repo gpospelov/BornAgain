@@ -27,6 +27,7 @@
 #include "FitParameterHelper.h"
 #include "SampleModel.h"
 #include <QStack>
+#include <QDebug>
 
 namespace {
     void handleItem(SessionItem* tree, const SessionItem* source);
@@ -88,7 +89,7 @@ void ParameterTreeUtils::visitParameterContainer(SessionItem* container,
 
 //! Creates list with parameter names of source item.
 
-QStringList ParameterTreeUtils::parameterTreeList(const SessionItem* source)
+QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source)
 {
     QStringList result;
 
@@ -106,6 +107,32 @@ QStringList ParameterTreeUtils::parameterTreeList(const SessionItem* source)
 
     return result;
 }
+
+//! Creates domain translated list of parameter names for source item.
+
+QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* source)
+{
+    QStringList result;
+
+    SampleModel model;
+    SessionItem* container = model.insertNewItem(Constants::ParameterContainerType);
+
+    populateParameterContainer(container, source);
+
+    visitParameterContainer(container, [&](ParameterItem* parItem)
+    {
+        QString relPath = source->displayName() + "/"
+                + parItem->getItemValue(ParameterItem::P_LINK).toString();
+        SessionItem *linkedItem = ModelPath::getItemFromPath(relPath, source);
+        result.push_back(ModelPath::itemPathTranslation(*linkedItem, source->parent()));
+    });
+
+    std::reverse(result.begin(), result.end());
+
+    return result;
+
+}
+
 
 //! For every ParameterItem in a container creates a link to the domain.
 
@@ -184,5 +211,6 @@ void handleItem(SessionItem* tree, const SessionItem* source)
 }
 
 } // namespace
+
 
 

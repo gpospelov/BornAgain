@@ -39,7 +39,9 @@ BA_CORE_API_ void populateParameterContainer(SessionItem* container, const Sessi
 BA_CORE_API_ void visitParameterContainer(SessionItem* container,
                                           std::function<void(ParameterItem*)> fun);
 
-BA_CORE_API_ QStringList parameterTreeList(const SessionItem* source);
+BA_CORE_API_ QStringList parameterTreeNames(const SessionItem* source);
+
+BA_CORE_API_ QStringList translatedParameterTreeNames(const SessionItem* source);
 
 BA_CORE_API_ void populateDomainLinks(SessionItem* container);
 

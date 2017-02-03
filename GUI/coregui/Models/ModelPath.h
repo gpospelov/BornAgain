@@ -46,7 +46,7 @@ public:
 
     static QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
 
-    static SessionItem* getItemFromPath(const QString &relPath, SessionItem *parent);
+    static SessionItem* getItemFromPath(const QString &relPath, const SessionItem* parent);
 
     static bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
 

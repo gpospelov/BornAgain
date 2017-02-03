@@ -135,7 +135,7 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel *model, const QString
 }
 
 //! returns an item from relative path wrt to given parent
-SessionItem *ModelPath::getItemFromPath(const QString &relPath, SessionItem *parent)
+SessionItem *ModelPath::getItemFromPath(const QString &relPath, const SessionItem *parent)
 {
     Q_ASSERT(parent);
     QString fullPath = getPathFromIndex(parent->index()) + "/" + relPath;

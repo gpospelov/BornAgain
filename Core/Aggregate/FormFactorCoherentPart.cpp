@@ -18,7 +18,6 @@
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
-#include "ILayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
 
 
@@ -29,7 +28,8 @@ FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff)
 
 FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
     : mP_ff(other.mP_ff->clone())
-    , mP_specular_info(other.mP_specular_info->clone())
+    , mp_full_fresnel_map(other.mp_full_fresnel_map)
+    , m_layer_index(other.m_layer_index)
 {
 }
 
@@ -41,9 +41,9 @@ complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element)
                                sim_element.getWavelength());
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(sim_element));
+        mp_full_fresnel_map->getInCoefficients(sim_element, m_layer_index));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element));
+        mp_full_fresnel_map->getOutCoefficients(sim_element, m_layer_index));
     mP_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
     return mP_ff->evaluate(wavevectors);
 }
@@ -54,16 +54,17 @@ Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& si
                                sim_element.getWavelength());
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(sim_element));
+        mp_full_fresnel_map->getInCoefficients(sim_element, m_layer_index));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element));
+        mp_full_fresnel_map->getOutCoefficients(sim_element, m_layer_index));
     mP_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
     return mP_ff->evaluatePol(wavevectors);
 }
 
 void FormFactorCoherentPart::setSpecularInfo(const FullFresnelMap* p_full_map, size_t layer_index)
 {
-    mP_specular_info.reset(p_full_map->layerFresnelMap(layer_index)->clone());
+    mp_full_fresnel_map = p_full_map;
+    m_layer_index = layer_index;
 }
 
 double FormFactorCoherentPart::radialExtension() const

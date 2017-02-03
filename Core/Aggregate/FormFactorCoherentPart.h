@@ -23,7 +23,6 @@
 
 class FullFresnelMap;
 class IFormFactor;
-class ILayerSpecularInfo;
 class SimulationElement;
 
 //! Information about single particle form factor and specular info of the embedding layer.
@@ -45,7 +44,8 @@ public:
     double radialExtension() const;
 private:
     std::unique_ptr<IFormFactor> mP_ff;
-    std::unique_ptr<ILayerSpecularInfo> mP_specular_info; //!< R and T coefficients for DWBA
+    const FullFresnelMap* mp_full_fresnel_map;
+    size_t m_layer_index;
 };
 
 #endif // FORMFACTORCOHERENTPART_H

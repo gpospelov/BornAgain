@@ -20,40 +20,8 @@
 
 class SessionItem;
 
-class IParameterTranslator {
-public:
-    virtual ~IParameterTranslator()=default;
-
-    virtual IParameterTranslator* clone() const=0;
-
-    virtual QStringList split(const QString &par_name) const;
-    virtual std::string translate(const QString &name) const=0;
-};
-
-
-class PositionTranslator final : public IParameterTranslator {
-public:
-    ~PositionTranslator() override {}
-
-    PositionTranslator* clone() const override { return new PositionTranslator {}; }
-
-    std::string translate(const QString &name) const override;
-};
-
-
-class RotationTranslator final : public IParameterTranslator {
-public:
-    ~RotationTranslator() override {}
-
-    RotationTranslator* clone() const override { return new RotationTranslator {}; }
-
-    std::string translate(const QString &name) const override;
-};
-
 class IPathTranslator {
 public:
-//    IPathTranslator(const IPathTranslator&) = delete;
-//    IPathTranslator& operator=(const IPathTranslator&) = delete;
     virtual ~IPathTranslator()=default;
 
     virtual IPathTranslator* clone() const=0;
@@ -61,20 +29,20 @@ public:
     virtual QStringList translate(const QStringList& list) const=0;
 };
 
-class NewPositionTranslator : public IPathTranslator {
+class PositionTranslator : public IPathTranslator {
 public:
-    ~NewPositionTranslator() override {}
+    ~PositionTranslator() override {}
 
-    NewPositionTranslator* clone() const override { return new NewPositionTranslator; }
+    PositionTranslator* clone() const override { return new PositionTranslator; }
 
     virtual QStringList translate(const QStringList& list) const;
 };
 
-class NewRotationTranslator : public IPathTranslator {
+class RotationTranslator : public IPathTranslator {
 public:
-    ~NewRotationTranslator() override {}
+    ~RotationTranslator() override {}
 
-    NewRotationTranslator* clone() const override { return new NewRotationTranslator; }
+    RotationTranslator* clone() const override { return new RotationTranslator; }
 
     virtual QStringList translate(const QStringList& list) const;
 };
@@ -98,6 +66,5 @@ public:
 private:
     int getLayerIndex(QString layerName) const;
 };
-
 
 #endif // PARAMETERTRANSLATORS_H

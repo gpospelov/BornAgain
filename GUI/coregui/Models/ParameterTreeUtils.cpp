@@ -36,6 +36,9 @@ QString removeLeadingSlash(const QString& name )
 }
 
 void handleItem(SessionItem* tree, const SessionItem* source);
+
+void populateDomainLinks(SessionItem* container);
+
 }
 
 void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
@@ -51,7 +54,7 @@ void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
     // Provides all items in "JobItem/Parameter Tree Container" with domain links already
     // at the stage of ParameterTree creation. It is necessary for validation, in Release mode
     // it will lead for unnecessary large project files.
-    ParameterTreeUtils::populateDomainLinks(container);
+    populateDomainLinks(container);
 #endif
 }
 
@@ -178,23 +181,23 @@ QString ParameterTreeUtils::parameterNameToDomainName(const QString& parName,
     return {};
 }
 
+namespace {
+
 //! For every ParameterItem in a container creates a link to the domain.
 
-void ParameterTreeUtils::populateDomainLinks(SessionItem* container)
+void populateDomainLinks(SessionItem* container)
 {
     if(container->modelType() != Constants::ParameterContainerType)
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
                                 "Not a ParameterContainerType.");
 
-    visitParameterContainer(container, [container](ParameterItem* parItem)
+    ParameterTreeUtils::visitParameterContainer(container, [container](ParameterItem* parItem)
     {
         QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(),
                                                                     container->parent());
         parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
     });
 }
-
-namespace {
 
 void handleItem(SessionItem* tree, const SessionItem* source)
 {

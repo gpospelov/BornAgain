@@ -52,8 +52,6 @@ BA_CORE_API_ QString domainNameToParameterName(const QString& domainName, const 
 
 BA_CORE_API_ QString parameterNameToDomainName(const QString& parName, const SessionItem* source);
 
-BA_CORE_API_ void populateDomainLinks(SessionItem* container);
-
 }
 
 #endif // PARAMETERTREEUTILS_H

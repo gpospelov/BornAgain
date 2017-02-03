@@ -33,9 +33,6 @@ public:
     ScalarSpecularInfoMap(const MultiLayer* multilayer);
     ~ScalarSpecularInfoMap() final {}
 
-    ScalarSpecularInfoMap* clone() const final override {
-        return new ScalarSpecularInfoMap(mp_multilayer); }
-
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients (
         const SimulationElement& sim_element, size_t layer_index) const final override;

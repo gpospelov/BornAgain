@@ -32,8 +32,6 @@ public:
     MatrixSpecularInfoMap(const MultiLayer* p_multilayer, const MultiLayer* p_inverted_multilayer);
     ~MatrixSpecularInfoMap() final {}
 
-    MatrixSpecularInfoMap* clone() const final override;
-
     //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;

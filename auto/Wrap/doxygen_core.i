@@ -1134,6 +1134,11 @@ generate list of sample values
 Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 ";
 
+%feature("docstring")  DistributionCosine::accept "void DistributionCosine::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
 
 // File: classDistributionGate.xml
 %feature("docstring") DistributionGate "
@@ -1181,6 +1186,11 @@ Returns list of sample values.
 Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 ";
 
+%feature("docstring")  DistributionGate::accept "void DistributionGate::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
 
 // File: classDistributionGaussian.xml
 %feature("docstring") DistributionGaussian "
@@ -1223,6 +1233,11 @@ generate list of sample values
 %feature("docstring")  DistributionGaussian::isDelta "bool DistributionGaussian::isDelta() const final
 
 Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionGaussian::accept "void DistributionGaussian::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
 ";
 
 
@@ -1308,6 +1323,11 @@ generate list of sample values
 Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 ";
 
+%feature("docstring")  DistributionLogNormal::accept "void DistributionLogNormal::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
 
 // File: classDistributionLorentz.xml
 %feature("docstring") DistributionLorentz "
@@ -1350,6 +1370,11 @@ generate list of sample values
 %feature("docstring")  DistributionLorentz::isDelta "bool DistributionLorentz::isDelta() const final
 
 Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionLorentz::accept "void DistributionLorentz::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
 ";
 
 
@@ -2590,7 +2615,7 @@ C++ includes: FormFactorCoherentPart.h
 %feature("docstring")  FormFactorCoherentPart::evaluatePol "Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement &sim_element) const 
 ";
 
-%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const ILayerSpecularInfo &specular_info)
+%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const ILayerSpecularInfo *p_fresnel_map, size_t layer_index)
 ";
 
 %feature("docstring")  FormFactorCoherentPart::radialExtension "double FormFactorCoherentPart::radialExtension() const 
@@ -2620,7 +2645,7 @@ C++ includes: FormFactorCoherentSum.h
 %feature("docstring")  FormFactorCoherentSum::evaluatePol "Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement &sim_element) const 
 ";
 
-%feature("docstring")  FormFactorCoherentSum::setSpecularInfo "void FormFactorCoherentSum::setSpecularInfo(const ILayerSpecularInfo &specular_info)
+%feature("docstring")  FormFactorCoherentSum::setSpecularInfo "void FormFactorCoherentSum::setSpecularInfo(const ILayerSpecularInfo *p_fresnel_map, size_t layer_index)
 ";
 
 %feature("docstring")  FormFactorCoherentSum::relativeAbundance "double FormFactorCoherentSum::relativeAbundance() const 
@@ -4663,6 +4688,11 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const final
 ";
 
+%feature("docstring")  FTDistribution1DCauchy::accept "void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
 %feature("docstring")  FTDistribution1DCauchy::evaluate "double FTDistribution1DCauchy::evaluate(double q) const final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
@@ -4681,6 +4711,11 @@ C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine* FTDistribution1DCosine::clone() const final
+";
+
+%feature("docstring")  FTDistribution1DCosine::accept "void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
 ";
 
 %feature("docstring")  FTDistribution1DCosine::evaluate "double FTDistribution1DCosine::evaluate(double q) const final
@@ -4703,6 +4738,11 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate* FTDistribution1DGate::clone() const final
 ";
 
+%feature("docstring")  FTDistribution1DGate::accept "void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
 %feature("docstring")  FTDistribution1DGate::evaluate "double FTDistribution1DGate::evaluate(double q) const final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
@@ -4721,6 +4761,11 @@ C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss* FTDistribution1DGauss::clone() const final
+";
+
+%feature("docstring")  FTDistribution1DGauss::accept "void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
 ";
 
 %feature("docstring")  FTDistribution1DGauss::evaluate "double FTDistribution1DGauss::evaluate(double q) const final
@@ -4746,6 +4791,11 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const final
 ";
 
+%feature("docstring")  FTDistribution1DTriangle::accept "void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
 %feature("docstring")  FTDistribution1DTriangle::evaluate "double FTDistribution1DTriangle::evaluate(double q) const final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
@@ -4764,6 +4814,11 @@ C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const final
+";
+
+%feature("docstring")  FTDistribution1DVoigt::accept "void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::evaluate "double FTDistribution1DVoigt::evaluate(double q) const final
@@ -4900,25 +4955,6 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::getEta "double FTDistribution2DVoigt::getEta() const 
-";
-
-
-// File: classFullFresnelMap.xml
-%feature("docstring") FullFresnelMap "";
-
-%feature("docstring")  FullFresnelMap::FullFresnelMap "FullFresnelMap::FullFresnelMap()
-";
-
-%feature("docstring")  FullFresnelMap::~FullFresnelMap "FullFresnelMap::~FullFresnelMap()
-";
-
-%feature("docstring")  FullFresnelMap::push_back "void FullFresnelMap::push_back(ILayerSpecularInfo *layer_map)
-";
-
-%feature("docstring")  FullFresnelMap::size "size_t FullFresnelMap::size() const 
-";
-
-%feature("docstring")  FullFresnelMap::layerFresnelMap "const ILayerSpecularInfo * FullFresnelMap::layerFresnelMap(size_t index) const 
 ";
 
 
@@ -5729,7 +5765,7 @@ C++ includes: IComputationTerm.h
 %feature("docstring")  IComputationTerm::~IComputationTerm "IComputationTerm::~IComputationTerm()
 ";
 
-%feature("docstring")  IComputationTerm::setSpecularInfo "void IComputationTerm::setSpecularInfo(const FullFresnelMap *p_full_map)
+%feature("docstring")  IComputationTerm::setSpecularInfo "void IComputationTerm::setSpecularInfo(const ILayerSpecularInfo *p_full_map)
 
 Sets magnetic reflection/transmission info for all layers. 
 ";
@@ -6850,15 +6886,12 @@ C++ includes: ILayerSpecularInfo.h
 %feature("docstring")  ILayerSpecularInfo::~ILayerSpecularInfo "ILayerSpecularInfo::~ILayerSpecularInfo()
 ";
 
-%feature("docstring")  ILayerSpecularInfo::clone "ILayerSpecularInfo* ILayerSpecularInfo::clone() const =0
-";
-
-%feature("docstring")  ILayerSpecularInfo::getOutCoefficients "virtual const ILayerRTCoefficients* ILayerSpecularInfo::getOutCoefficients(const SimulationElement &sim_element) const =0
+%feature("docstring")  ILayerSpecularInfo::getOutCoefficients "virtual const ILayerRTCoefficients* ILayerSpecularInfo::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
 
 Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
 ";
 
-%feature("docstring")  ILayerSpecularInfo::getInCoefficients "virtual const ILayerRTCoefficients* ILayerSpecularInfo::getInCoefficients(const SimulationElement &sim_element) const =0
+%feature("docstring")  ILayerSpecularInfo::getInCoefficients "virtual const ILayerRTCoefficients* ILayerSpecularInfo::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
 
 Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
@@ -7450,6 +7483,39 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const HexagonalLattice *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DCauchy *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DGauss *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DGate *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DTriangle *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DCosine *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DVoigt *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionGate *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionLorentz *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionGaussian *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionLogNormal *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionCosine *)
+";
+
 %feature("docstring")  INodeVisitor::depth "int INodeVisitor::depth() const
 
 Returns depth of the visitor in the composite hierarchy. 
@@ -7845,6 +7911,11 @@ Calls the  INodeVisitor's visit method.
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
+%feature("docstring")  InterferenceFunction1DLattice::getChildren "std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override
+
+Returns a vector of children (const). 
+";
+
 
 // File: classInterferenceFunction2DLattice.xml
 %feature("docstring") InterferenceFunction2DLattice "
@@ -8110,6 +8181,11 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getDampingLength "double InterferenceFunctionRadialParaCrystal::getDampingLength() const 
 ";
 
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getChildren "std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
+
+Returns a vector of children (const). 
+";
+
 
 // File: classIObservable.xml
 %feature("docstring") IObservable "
@@ -8265,6 +8341,9 @@ Returns parameter with given 'name'.
 Action to be taken in inherited class when a parameter has changed. 
 ";
 
+%feature("docstring")  IParameterized::removeParameter "void IParameterized::removeParameter(const std::string &name)
+";
+
 
 // File: classIParticle.xml
 %feature("docstring") IParticle "
@@ -8340,6 +8419,14 @@ Applies extra translation by adding it to the current one.
 %feature("docstring")  IParticle::getChildren "std::vector< const INode * > IParticle::getChildren() const
 
 Returns a vector of children (const). 
+";
+
+%feature("docstring")  IParticle::registerAbundance "void IParticle::registerAbundance(bool make_registered=true)
+";
+
+%feature("docstring")  IParticle::registerPosition "void IParticle::registerPosition(bool make_registered=true)
+
+Registers the three components of its position. 
 ";
 
 
@@ -8840,7 +8927,7 @@ length:
  Lattice constant.
 
 xi: 
-TODO: seems unused; explain or remove 
+ Lattice rotation angle. 
 ";
 
 
@@ -8869,6 +8956,9 @@ TODO: seems unused; explain or remove
 ";
 
 %feature("docstring")  Lattice2D::reciprocalBases "Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const 
+";
+
+%feature("docstring")  Lattice2D::setRotationEnabled "void Lattice2D::setRotationEnabled(bool enabled)
 ";
 
 
@@ -8944,6 +9034,9 @@ Returns true if decoration is present.
 %feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const
 
 Returns a vector of children (const). 
+";
+
+%feature("docstring")  Layer::registerThickness "void Layer::registerThickness(bool make_registered=true)
 ";
 
 
@@ -9069,7 +9162,7 @@ Methods to generate a simulation strategy for a  ParticleLayoutComputation.
 C++ includes: LayerStrategyBuilder.h
 ";
 
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const FullFresnelMap *p_full_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
+%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const ILayerSpecularInfo *p_fresnel_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
 ";
 
 %feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
@@ -9304,21 +9397,18 @@ Implementation of ISpecularInfoMap for matrix valued reflection/transmission coe
 C++ includes: MatrixSpecularInfoMap.h
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::MatrixSpecularInfoMap "MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *p_multilayer, const MultiLayer *p_inverted_multilayer, size_t layer_index)
+%feature("docstring")  MatrixSpecularInfoMap::MatrixSpecularInfoMap "MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer *p_multilayer, const MultiLayer *p_inverted_multilayer)
 ";
 
 %feature("docstring")  MatrixSpecularInfoMap::~MatrixSpecularInfoMap "MatrixSpecularInfoMap::~MatrixSpecularInfoMap() final
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::clone "MatrixSpecularInfoMap * MatrixSpecularInfoMap::clone() const finaloverride
-";
-
-%feature("docstring")  MatrixSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * MatrixSpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element) const finaloverride
+%feature("docstring")  MatrixSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * MatrixSpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
 
-%feature("docstring")  MatrixSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * MatrixSpecularInfoMap::getInCoefficients(const SimulationElement &sim_element) const finaloverride
+%feature("docstring")  MatrixSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * MatrixSpecularInfoMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
@@ -10158,6 +10248,9 @@ get the sigma factor
 %feature("docstring")  ParameterDistribution::getDistribution "const IDistribution1D * ParameterDistribution::getDistribution() const 
 ";
 
+%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D * ParameterDistribution::getDistribution()
+";
+
 %feature("docstring")  ParameterDistribution::generateSamples "std::vector< ParameterSample > ParameterDistribution::generateSamples() const
 
 generate list of sampled values with their weight 
@@ -10286,6 +10379,11 @@ Sets value of the one parameter that matches  pattern ('*' allowed), or throws.
 ";
 
 %feature("docstring")  ParameterPool::parameterNames "std::vector< std::string > ParameterPool::parameterNames() const 
+";
+
+%feature("docstring")  ParameterPool::removeParameter "void ParameterPool::removeParameter(const std::string &name)
+
+Removes parameter with given name from the pool. 
 ";
 
 
@@ -11841,21 +11939,18 @@ Implementation of ISpecularInfoMap for scalar valued reflection/transmission coe
 C++ includes: ScalarSpecularInfoMap.h
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::ScalarSpecularInfoMap "ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer, size_t layer_index)
+%feature("docstring")  ScalarSpecularInfoMap::ScalarSpecularInfoMap "ScalarSpecularInfoMap::ScalarSpecularInfoMap(const MultiLayer *multilayer)
 ";
 
 %feature("docstring")  ScalarSpecularInfoMap::~ScalarSpecularInfoMap "ScalarSpecularInfoMap::~ScalarSpecularInfoMap() final
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::clone "ScalarSpecularInfoMap* ScalarSpecularInfoMap::clone() const finaloverride
-";
-
-%feature("docstring")  ScalarSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element) const finaloverride
+%feature("docstring")  ScalarSpecularInfoMap::getOutCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
 
-%feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(const SimulationElement &sim_element) const finaloverride
+%feature("docstring")  ScalarSpecularInfoMap::getInCoefficients "const ILayerRTCoefficients * ScalarSpecularInfoMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
 Retrieves the amplitude coefficients for the given angles. 
 ";
@@ -13074,34 +13169,37 @@ C++ includes: WavevectorInfo.h
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0D147.xml
+// File: namespace_0D145.xml
 
 
-// File: namespace_0D190.xml
+// File: namespace_0D188.xml
 
 
-// File: namespace_0D270.xml
+// File: namespace_0D22.xml
 
 
-// File: namespace_0D282.xml
+// File: namespace_0D268.xml
+
+
+// File: namespace_0D280.xml
+
+
+// File: namespace_0D306.xml
 
 
 // File: namespace_0D308.xml
 
 
-// File: namespace_0D310.xml
+// File: namespace_0D321.xml
 
 
-// File: namespace_0D323.xml
+// File: namespace_0D434.xml
 
 
-// File: namespace_0D436.xml
+// File: namespace_0D60.xml
 
 
-// File: namespace_0D62.xml
-
-
-// File: namespace_0D77.xml
+// File: namespace_0D75.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -13811,12 +13909,6 @@ Add element vector to element vector with weight.
 
 
 // File: DelayedProgressCounter_8h.xml
-
-
-// File: FullFresnelMap_8cpp.xml
-
-
-// File: FullFresnelMap_8h.xml
 
 
 // File: IComputationTerm_8cpp.xml

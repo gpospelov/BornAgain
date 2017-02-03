@@ -16,7 +16,7 @@
 #ifndef ILAYERSPECULARINFO_H
 #define ILAYERSPECULARINFO_H
 
-#include "ICloneable.h"
+#include "INoncopyable.h"
 #include <cstddef>
 
 class ILayerRTCoefficients;
@@ -27,13 +27,11 @@ class SimulationElement;
 //! (these amplitudes correspond to the specular part of the wavefunction).
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ILayerSpecularInfo : public ICloneable
+class BA_CORE_API_ ILayerSpecularInfo : public INoncopyable
 {
 public:
     ILayerSpecularInfo();
     ~ILayerSpecularInfo();
-
-    ILayerSpecularInfo* clone() const =0;
 
     //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
     virtual const ILayerRTCoefficients* getOutCoefficients(

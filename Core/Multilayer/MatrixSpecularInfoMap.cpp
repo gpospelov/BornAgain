@@ -26,11 +26,6 @@ MatrixSpecularInfoMap::MatrixSpecularInfoMap(const MultiLayer* p_multilayer,
     , mp_inverted_multilayer(p_inverted_multilayer)
 {}
 
-MatrixSpecularInfoMap* MatrixSpecularInfoMap::clone() const
-{
-    return new MatrixSpecularInfoMap(mp_multilayer, mp_inverted_multilayer);
-}
-
 const ILayerRTCoefficients* MatrixSpecularInfoMap::getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {

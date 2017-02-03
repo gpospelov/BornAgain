@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "FormFactorCoherentSum.h"
-#include "FullFresnelMap.h"
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
@@ -53,9 +52,9 @@ Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim
     return result;
 }
 
-void FormFactorCoherentSum::setSpecularInfo(const FullFresnelMap* p_full_map, size_t layer_index)
+void FormFactorCoherentSum::setSpecularInfo(const ILayerSpecularInfo* p_fresnel_map, size_t layer_index)
 {
-    m_parts[0].setSpecularInfo(p_full_map, layer_index);
+    m_parts[0].setSpecularInfo(p_fresnel_map, layer_index);
 }
 
 void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance)

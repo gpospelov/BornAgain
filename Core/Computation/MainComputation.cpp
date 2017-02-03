@@ -35,11 +35,12 @@ MainComputation::MainComputation(
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
     : mP_multi_layer(multi_layer.clone())
-    , mP_inverted_multilayer(nullptr)
+    , mP_inverted_multilayer(multi_layer.cloneInvertB())
     , m_sim_options(options)
     , m_progress(&progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
+    , mP_fresnel_map(createFresnelMap(mP_multi_layer.get(), mP_inverted_multilayer.get()))
 {
     size_t nLayers = mP_multi_layer->getNumberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
@@ -54,6 +55,7 @@ MainComputation::MainComputation(
         m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get()));
     if (m_sim_options.includeSpecular())
         m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get()));
+    passFresnelInfo();
 }
 
 MainComputation::~MainComputation()
@@ -81,11 +83,6 @@ void MainComputation::run()
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
-    if (mP_multi_layer->requiresMatrixRTCoefficients())
-        collectFresnelMatrix();
-    else
-        collectFresnelScalar();
-
     std::vector<SimulationElement> layer_elements;
     std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     bool polarized = mP_multi_layer->containsMagneticMaterial();
@@ -99,26 +96,18 @@ void MainComputation::runProtected()
     }
 }
 
-void MainComputation::collectFresnelScalar()
-{
-    // set a scalar map
-    m_full_fresnel_map.setMap(new ScalarSpecularInfoMap(mP_multi_layer.get()));
-    passFresnelInfo();
-}
-
-void MainComputation::collectFresnelMatrix()
-{
-    mP_inverted_multilayer.reset(mP_multi_layer->cloneInvertB());
-
-    // set a matrix map
-    m_full_fresnel_map.setMap(new MatrixSpecularInfoMap(mP_multi_layer.get(),
-                                                               mP_inverted_multilayer.get()));
-    passFresnelInfo();
-}
-
 void MainComputation::passFresnelInfo()
 {
     for (IComputationTerm* comp: m_computation_terms) {
-        comp->setSpecularInfo(&m_full_fresnel_map);
+        comp->setSpecularInfo(mP_fresnel_map.get());
     }
+}
+
+ILayerSpecularInfo* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
+                                                      const MultiLayer* p_inverted_multilayer)
+{
+        if (!p_multilayer->requiresMatrixRTCoefficients())
+            return new ScalarSpecularInfoMap(p_multilayer);
+        else
+            return new MatrixSpecularInfoMap(p_multilayer, p_inverted_multilayer);
 }

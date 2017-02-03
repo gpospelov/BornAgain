@@ -75,8 +75,8 @@ void ComboProperty::setCachedValue(const QString &name)
 bool ComboProperty::operator==(const ComboProperty &other) const {
     if(m_current_value != other.m_current_value) return false;
     if(!GUIHelpers::isTheSame(m_values, other.m_values)) return false;
-//    if(m_cached_value != other.m_cached_value) return false;
-//    if(m_cache_contains_GUI_value != other.m_cache_contains_GUI_value) return false;
+    if(m_cached_value != other.m_cached_value) return false;
+    if(m_cache_contains_GUI_value != other.m_cache_contains_GUI_value) return false;
     return true;
 }
 

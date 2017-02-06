@@ -24,7 +24,7 @@
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 
-BeamDistributionItem::BeamDistributionItem(const QString name)
+BeamDistributionItem::BeamDistributionItem(const QString& name)
     : SessionItem(name)
 {
     addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
@@ -35,15 +35,8 @@ BeamDistributionItem::BeamDistributionItem(const QString name)
     mapper()->setOnChildPropertyChange(
                 [this](SessionItem* item, const QString &)
     {
-        if(item->modelType() == Constants::GroupItemType) {
+        if(item->modelType() == Constants::GroupItemType)
             initDistributionItem();
-        }
-//        if (item->modelType() == Constants::IntensityDataType
-//            && name == IntensityDataItem::P_AXES_UNITS) {
-//            auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
-//            JobItemHelper::updateDataAxes(intensityItem, getInstrumentItem());
-
-//        }
     });
 
 }

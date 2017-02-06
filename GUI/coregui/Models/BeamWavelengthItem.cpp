@@ -19,6 +19,12 @@
 BeamWavelengthItem::BeamWavelengthItem()
     : BeamDistributionItem(Constants::BeamWavelengthType)
 {
+    SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
+    Q_ASSERT(distribution);
+    auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
+    value->setLimits(RealLimits::positive());
+    value->setDecimals(4);
+    value->setValue(0.1);
 }
 
 //! Returns wavelength. In the case of distribution applied, returns its mean.

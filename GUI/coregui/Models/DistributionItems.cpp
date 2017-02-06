@@ -65,7 +65,7 @@ const QString DistributionNoneItem::P_VALUE = "Value";
 
 DistributionNoneItem::DistributionNoneItem() : DistributionItem(Constants::DistributionNoneType)
 {
-    addProperty(P_VALUE, 0.1)->setLimits(RealLimits::lowerLimited(1e-4));
+    addProperty(P_VALUE, 0.1)->setLimits(RealLimits::limitless());
     getItem(P_VALUE)->setDecimals(4);
 }
 

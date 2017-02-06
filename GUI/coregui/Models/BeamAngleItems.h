@@ -22,8 +22,7 @@
 class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem
 {
 public:
-    explicit BeamAzimuthalAngleItem();
-    virtual ~BeamAzimuthalAngleItem(){}
+    BeamAzimuthalAngleItem();
 
     double azimuthalAngle() const;
 
@@ -34,8 +33,7 @@ protected:
 class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
 {
 public:
-    explicit BeamInclinationAngleItem();
-    virtual ~BeamInclinationAngleItem(){}
+    BeamInclinationAngleItem();
 
     double inclinationAngle() const;
 

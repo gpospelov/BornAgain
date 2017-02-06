@@ -20,3 +20,8 @@ size_t HashKVector::operator()(kvector_t kvec) const noexcept
 {
     return m_double_hash(kvec.x()) ^ m_double_hash(kvec.y()) ^ m_double_hash(kvec.z());
 }
+
+size_t Hash2Doubles::operator()(std::pair<double, double> doubles) const noexcept
+{
+    return m_double_hash(doubles.first) ^ m_double_hash(doubles.second);
+}

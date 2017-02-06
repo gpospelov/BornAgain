@@ -18,6 +18,7 @@
 
 #include "Vectors3D.h"
 #include <functional>
+#include <utility>
 
 class HashKVector
 {
@@ -26,6 +27,17 @@ public:
     ~HashKVector() {}
 
     size_t operator()(kvector_t kvec) const noexcept;
+private:
+    std::hash<double> m_double_hash;
+};
+
+class Hash2Doubles
+{
+public:
+    Hash2Doubles() {}
+    ~Hash2Doubles() {}
+
+    size_t operator()(std::pair<double, double> doubles) const noexcept;
 private:
     std::hash<double> m_double_hash;
 };

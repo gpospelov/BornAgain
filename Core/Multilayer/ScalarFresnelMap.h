@@ -19,6 +19,7 @@
 #include "HashKVector.h"
 #include "IFresnelMap.h"
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 class ILayerRTCoefficients;
@@ -46,8 +47,8 @@ public:
 private:
     const MultiLayer* mp_multilayer;
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;
-    mutable std::unordered_map<kvector_t, std::vector<ScalarRTCoefficients>,
-                               HashKVector> m_hash_table;
+    mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
+                               Hash2Doubles> m_hash_table;
 };
 
 #endif // SCALARFRESNELMAP_H

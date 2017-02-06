@@ -42,14 +42,15 @@ const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         kvector_t kvec, size_t layer_index) const
 {
     ScalarRTCoefficients* result;
-    auto it = m_hash_table.find(kvec);
+    std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
+    auto it = m_hash_table.find(k2_theta);
     if (it != m_hash_table.end())
         result = new ScalarRTCoefficients(it->second[layer_index]);
     else {
         std::vector<ScalarRTCoefficients> coeffs;
         SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
         result = new ScalarRTCoefficients(coeffs[layer_index]);
-        m_hash_table[kvec] = std::move(coeffs);
+        m_hash_table[k2_theta] = std::move(coeffs);
     }
     return result;
 }

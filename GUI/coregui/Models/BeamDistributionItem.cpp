@@ -124,10 +124,8 @@ double BeamDistributionItem::meanValue() const
 
 std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D() const
 {
-    std::unique_ptr<IDistribution1D> P_distribution {};
-    if(DistributionItem *distributionItem = dynamic_cast<DistributionItem *>(
-                getGroupItem(P_DISTRIBUTION))) {
-        P_distribution = distributionItem->createDistribution();
-    }
-    return P_distribution;
+    if(auto distItem = dynamic_cast<DistributionItem *>(getGroupItem(P_DISTRIBUTION)))
+        return distItem->createDistribution();
+
+    return {};
 }

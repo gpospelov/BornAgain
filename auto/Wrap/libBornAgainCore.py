@@ -1987,7 +1987,12 @@ class IParameterized(INamed):
 
 
     def removeParameter(self, name):
-        """removeParameter(IParameterized self, std::string const & name)"""
+        """
+        removeParameter(IParameterized self, std::string const & name)
+
+        void IParameterized::removeParameter(const std::string &name)
+
+        """
         return _libBornAgainCore.IParameterized_removeParameter(self, name)
 
     def __disown__(self):
@@ -7506,7 +7511,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, DistributionLogNormal arg2)
         visit(INodeVisitor self, DistributionCosine arg2)
 
-        virtual void INodeVisitor::visit(const HexagonalLattice *)
+        virtual void INodeVisitor::visit(const DistributionCosine *)
 
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
@@ -8035,7 +8040,7 @@ class DistributionGate(IDistribution1D):
         """
         accept(DistributionGate self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void DistributionGate::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8154,7 +8159,7 @@ class DistributionLorentz(IDistribution1D):
         """
         accept(DistributionLorentz self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void DistributionLorentz::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8273,7 +8278,7 @@ class DistributionGaussian(IDistribution1D):
         """
         accept(DistributionGaussian self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void DistributionGaussian::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8402,7 +8407,7 @@ class DistributionLogNormal(IDistribution1D):
         """
         accept(DistributionLogNormal self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void DistributionLogNormal::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8521,7 +8526,7 @@ class DistributionCosine(IDistribution1D):
         """
         accept(DistributionCosine self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void DistributionCosine::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9629,7 +9634,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         accept(FTDistribution1DCauchy self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9700,7 +9705,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         accept(FTDistribution1DGauss self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9771,7 +9776,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         accept(FTDistribution1DGate self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9844,7 +9849,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         accept(FTDistribution1DTriangle self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9913,7 +9918,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         accept(FTDistribution1DCosine self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9984,7 +9989,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         accept(FTDistribution1DVoigt self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15784,9 +15789,9 @@ class Simulation(ICloneable, INode):
 
     def numberOfSimulationElements(self):
         """
-        numberOfSimulationElements(Simulation self) -> int
+        numberOfSimulationElements(Simulation self) -> size_t
 
-        virtual int Simulation::numberOfSimulationElements() const =0
+        virtual size_t Simulation::numberOfSimulationElements() const =0
 
         """
         return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
@@ -16137,9 +16142,9 @@ class GISASSimulation(Simulation):
 
     def numberOfSimulationElements(self):
         """
-        numberOfSimulationElements(GISASSimulation self) -> int
+        numberOfSimulationElements(GISASSimulation self) -> size_t
 
-        int GISASSimulation::numberOfSimulationElements() const final
+        size_t GISASSimulation::numberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -18614,6 +18619,9 @@ class IParticle(IAbstractParticle):
         """
         registerAbundance(IParticle self, bool make_registered=True)
         registerAbundance(IParticle self)
+
+        void IParticle::registerAbundance(bool make_registered=true)
+
         """
         return _libBornAgainCore.IParticle_registerAbundance(self, make_registered)
 
@@ -18622,6 +18630,11 @@ class IParticle(IAbstractParticle):
         """
         registerPosition(IParticle self, bool make_registered=True)
         registerPosition(IParticle self)
+
+        void IParticle::registerPosition(bool make_registered=true)
+
+        Registers the three components of its position. 
+
         """
         return _libBornAgainCore.IParticle_registerPosition(self, make_registered)
 
@@ -19832,7 +19845,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -20008,7 +20021,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > INode::getChildren() const
+        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -21081,7 +21094,7 @@ class Lattice1DParameters(_object):
          Lattice constant.
 
         xi: 
-        TODO: seems unused; explain or remove 
+         Lattice rotation angle. 
 
         """
         this = _libBornAgainCore.new_Lattice1DParameters(*args)
@@ -21189,7 +21202,12 @@ class Lattice2D(ICloneable, INode):
 
 
     def setRotationEnabled(self, enabled):
-        """setRotationEnabled(Lattice2D self, bool enabled)"""
+        """
+        setRotationEnabled(Lattice2D self, bool enabled)
+
+        void Lattice2D::setRotationEnabled(bool enabled)
+
+        """
         return _libBornAgainCore.Lattice2D_setRotationEnabled(self, enabled)
 
     __swig_destroy__ = _libBornAgainCore.delete_Lattice2D
@@ -21574,6 +21592,9 @@ class Layer(ISample):
         """
         registerThickness(Layer self, bool make_registered=True)
         registerThickness(Layer self)
+
+        void Layer::registerThickness(bool make_registered=true)
+
         """
         return _libBornAgainCore.Layer_registerThickness(self, make_registered)
 
@@ -22533,9 +22554,9 @@ class OffSpecSimulation(Simulation):
 
     def numberOfSimulationElements(self):
         """
-        numberOfSimulationElements(OffSpecSimulation self) -> int
+        numberOfSimulationElements(OffSpecSimulation self) -> size_t
 
-        int OffSpecSimulation::numberOfSimulationElements() const final
+        size_t OffSpecSimulation::numberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -23159,7 +23180,7 @@ class ParameterDistribution(IParameterized):
         getDistribution(ParameterDistribution self) -> IDistribution1D
         getDistribution(ParameterDistribution self) -> IDistribution1D
 
-        const IDistribution1D * ParameterDistribution::getDistribution() const 
+        IDistribution1D * ParameterDistribution::getDistribution()
 
         """
         return _libBornAgainCore.ParameterDistribution_getDistribution(self, *args)
@@ -23416,7 +23437,14 @@ class ParameterPool(ICloneable):
 
 
     def removeParameter(self, name):
-        """removeParameter(ParameterPool self, std::string const & name)"""
+        """
+        removeParameter(ParameterPool self, std::string const & name)
+
+        void ParameterPool::removeParameter(const std::string &name)
+
+        Removes parameter with given name from the pool. 
+
+        """
         return _libBornAgainCore.ParameterPool_removeParameter(self, name)
 
 ParameterPool_swigregister = _libBornAgainCore.ParameterPool_swigregister

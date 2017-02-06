@@ -4,7 +4,7 @@
 #include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "MatrixRTCoefficients.h"
-#include "MatrixSpecularInfoMap.h"
+#include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "MathConstants.h"
 #include "SimulationElement.h"

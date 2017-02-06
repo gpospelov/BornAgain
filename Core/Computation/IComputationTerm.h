@@ -16,11 +16,9 @@
 #ifndef ICOMPUTATIONTERM_H
 #define ICOMPUTATIONTERM_H
 
-#include "FullFresnelMap.h"
 #include <vector>
 
-
-class ILayerSpecularInfo;
+class IFresnelMap;
 class MultiLayer;
 class ProgressHandler;
 class SimulationElement;
@@ -34,24 +32,20 @@ class SimulationOptions;
 class IComputationTerm
 {
 public:
-    IComputationTerm(const MultiLayer* p_multilayer);
+    IComputationTerm(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map);
     virtual ~IComputationTerm();
-
-    //! Sets magnetic reflection/transmission info for all layers
-    void setSpecularInfo(const FullFresnelMap* p_full_map);
 
     //! Calculate scattering intensity for each SimulationElement
     //! returns false if nothing needed to be calculated
-    virtual bool eval(const SimulationOptions& options,
+    virtual void eval(const SimulationOptions& options,
               ProgressHandler* progress,
               bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const =0;
 
 protected:
-    const ILayerSpecularInfo* layerFresnelMap(size_t index) const;
     const MultiLayer* mp_multilayer;
-    const FullFresnelMap* mp_full_fresnel_map;
+    const IFresnelMap* mp_fresnel_map;
 };
 
 #endif // ICOMPUTATIONTERM_H

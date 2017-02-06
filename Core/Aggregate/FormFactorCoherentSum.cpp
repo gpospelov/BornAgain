@@ -17,7 +17,7 @@
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
 #include "Exceptions.h"
 
@@ -52,9 +52,9 @@ Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim
     return result;
 }
 
-void FormFactorCoherentSum::setSpecularInfo(const ILayerSpecularInfo& specular_info)
+void FormFactorCoherentSum::setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index)
 {
-    m_parts[0].setSpecularInfo(specular_info);
+    m_parts[0].setSpecularInfo(p_fresnel_map, layer_index);
 }
 
 void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance)

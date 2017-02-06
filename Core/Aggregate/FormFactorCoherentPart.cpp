@@ -14,22 +14,23 @@
 // ************************************************************************** //
 
 #include "FormFactorCoherentPart.h"
+#include "IFresnelMap.h"
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
-#include "ILayerSpecularInfo.h"
 #include "ILayerRTCoefficients.h"
 
 
 FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff)
-: mP_ff(p_ff)
+    : mP_ff(p_ff)
 {
 }
 
 FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
-: mP_ff(other.mP_ff->clone())
+    : mP_ff(other.mP_ff->clone())
+    , mp_fresnel_map(other.mp_fresnel_map)
+    , m_layer_index(other.m_layer_index)
 {
-    setSpecularInfo(*other.mP_specular_info);
 }
 
 FormFactorCoherentPart::~FormFactorCoherentPart() {}
@@ -40,9 +41,9 @@ complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element)
                                sim_element.getWavelength());
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(sim_element));
+        mp_fresnel_map->getInCoefficients(sim_element, m_layer_index));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element));
+        mp_fresnel_map->getOutCoefficients(sim_element, m_layer_index));
     mP_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
     return mP_ff->evaluate(wavevectors);
 }
@@ -53,16 +54,17 @@ Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& si
                                sim_element.getWavelength());
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_coeffs(
-        mP_specular_info->getInCoefficients(sim_element));
+        mp_fresnel_map->getInCoefficients(sim_element, m_layer_index));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_coeffs(
-        mP_specular_info->getOutCoefficients(sim_element));
+        mp_fresnel_map->getOutCoefficients(sim_element, m_layer_index));
     mP_ff->setSpecularInfo(P_in_coeffs.get(), P_out_coeffs.get());
     return mP_ff->evaluatePol(wavevectors);
 }
 
-void FormFactorCoherentPart::setSpecularInfo(const ILayerSpecularInfo& specular_info)
+void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index)
 {
-    mP_specular_info.reset(specular_info.clone());
+    mp_fresnel_map = p_fresnel_map;
+    m_layer_index = layer_index;
 }
 
 double FormFactorCoherentPart::radialExtension() const

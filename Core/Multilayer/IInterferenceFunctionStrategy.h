@@ -29,7 +29,7 @@ template <class T> class IntegratorMCMiser;
 class Bin1DCVector;
 class FormFactorCoherentSum;
 class IInterferenceFunction;
-class ILayerSpecularInfo;
+class IFresnelMap;
 class SimulationElement;
 
 //! Pure virtual base class of all interference function strategy classes.

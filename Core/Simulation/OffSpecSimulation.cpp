@@ -55,7 +55,7 @@ void OffSpecSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-int OffSpecSimulation::numberOfSimulationElements() const
+size_t OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
     return getInstrument().getDetector()->numberOfSimulationElements()*mp_alpha_i_axis->size();

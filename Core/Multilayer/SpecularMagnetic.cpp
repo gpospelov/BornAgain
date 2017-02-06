@@ -26,7 +26,7 @@ namespace {
 }
 
 void SpecularMagnetic::execute(
-    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
+    const MultiLayer& sample, const kvector_t k, std::vector<MatrixRTCoefficients>& coeff)
 {
     coeff.clear();
     coeff.resize(sample.getNumberOfLayers());
@@ -37,7 +37,7 @@ void SpecularMagnetic::execute(
 }
 
 void SpecularMagnetic::calculateEigenvalues(
-    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
+    const MultiLayer& sample, const kvector_t k, std::vector<MatrixRTCoefficients>& coeff)
 {
     double mag_k = k.mag();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
@@ -64,7 +64,7 @@ void SpecularMagnetic::calculateEigenvalues(
 
 // todo: avoid overflows (see SpecularMatrix.cpp)
 void SpecularMagnetic::calculateTransferAndBoundary(
-    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
+    const MultiLayer& sample, const kvector_t k, std::vector<MatrixRTCoefficients>& coeff)
 {
     (void)k;
     size_t N = coeff.size();
@@ -127,7 +127,7 @@ void SpecularMagnetic::calculateTransferAndBoundary(
     }
 }
 
-void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff)
+void SpecularMagnetic::setForNoTransmission(std::vector<MatrixRTCoefficients>& coeff)
 {
     size_t N = coeff.size();
     for (size_t i=0; i<N; ++i) {

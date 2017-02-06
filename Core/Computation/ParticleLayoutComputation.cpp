@@ -17,7 +17,7 @@
 #include "DelayedProgressCounter.h"
 #include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "ILayout.h"
 #include "LayerStrategyBuilder.h"
 #include "MultiLayer.h"
@@ -25,14 +25,15 @@
 #include "SimulationElement.h"
 
 ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
+                                                     const IFresnelMap* p_fresnel_map,
                                                      const ILayout* p_layout, size_t layer_index)
-    : IComputationTerm(p_multilayer)
+    : IComputationTerm(p_multilayer, p_fresnel_map)
     , mp_layout(p_layout)
     , m_layer_index(layer_index)
 {}
 
 //! Computes scattering intensity for given range of simulation elements.
-bool ParticleLayoutComputation::eval(
+void ParticleLayoutComputation::eval(
     const SimulationOptions& options,
     ProgressHandler* progress,
     bool polarized,
@@ -40,22 +41,21 @@ bool ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(mp_multilayer, mp_layout, mp_full_fresnel_map,
+        LayerStrategyBuilder(mp_multilayer, mp_layout, mp_fresnel_map,
                              polarized, options, m_layer_index).createStrategy() };
     double total_surface_density = mp_layout->getTotalParticleSurfaceDensity();
 
     DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
-            return false;
+            return;
         double alpha_f = it->getAlphaMean();
         size_t n_layers = mp_multilayer->getNumberOfLayers();
         if (n_layers > 1 && alpha_f < 0) {
-            it->setIntensity(0.0); // zero for transmission with multilayers (n>1)
+            continue; // zero for transmission with multilayers (n>1)
         } else {
-            it->setIntensity(p_strategy->evaluate(*it) * total_surface_density);
+            it->addIntensity(p_strategy->evaluate(*it) * total_surface_density);
         }
         counter.stepProgress(progress);
     }
-    return true;
 }

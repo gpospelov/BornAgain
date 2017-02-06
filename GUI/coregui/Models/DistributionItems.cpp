@@ -25,7 +25,7 @@ const QString DistributionItem::P_SIGMA_FACTOR = Constants::DistributionSigmaFac
 const QString DistributionItem::P_IS_INITIALIZED = "is initialized";
 const QString DistributionItem::P_LIMITS = "Limits";
 
-DistributionItem::DistributionItem(const QString name) : SessionItem(name)
+DistributionItem::DistributionItem(const QString& name) : SessionItem(name)
 {
     addProperty(P_IS_INITIALIZED, false)->setVisible(false);
 }
@@ -69,8 +69,9 @@ DistributionNoneItem::DistributionNoneItem() : DistributionItem(Constants::Distr
     getItem(P_VALUE)->setDecimals(4);
 }
 
-std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution(double scale) const
 {
+    Q_UNUSED(scale);
     return nullptr;
 }
 
@@ -91,11 +92,11 @@ DistributionGateItem::DistributionGateItem() : DistributionItem(Constants::Distr
     register_number_of_samples();
 }
 
-std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution(double scale) const
 {
     double min = getItemValue(P_MIN).toDouble();
     double max = getItemValue(P_MAX).toDouble();
-    return GUIHelpers::make_unique<DistributionGate>(min, max);
+    return GUIHelpers::make_unique<DistributionGate>(scale*min, scale*max);
 }
 
 void DistributionGateItem::init_distribution(double value)
@@ -122,11 +123,11 @@ DistributionLorentzItem::DistributionLorentzItem()
     register_limits();
 }
 
-std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution(double scale) const
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double hwhm = getItemValue(P_HWHM).toDouble();
-    return GUIHelpers::make_unique<DistributionLorentz>(mean, hwhm);
+    return GUIHelpers::make_unique<DistributionLorentz>(scale*mean, scale*hwhm);
 }
 
 void DistributionLorentzItem::init_distribution(double value)
@@ -155,11 +156,11 @@ DistributionGaussianItem::DistributionGaussianItem()
     register_limits();
 }
 
-std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution(double scale) const
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double std_dev = getItemValue(P_STD_DEV).toDouble();
-    return GUIHelpers::make_unique<DistributionGaussian>(mean, std_dev);
+    return GUIHelpers::make_unique<DistributionGaussian>(scale*mean, scale*std_dev);
 }
 
 void DistributionGaussianItem::init_distribution(double value)
@@ -189,11 +190,11 @@ DistributionLogNormalItem::DistributionLogNormalItem()
     register_limits();
 }
 
-std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution(double scale) const
 {
     double median = getItemValue(P_MEDIAN).toDouble();
     double scale_par = getItemValue(P_SCALE_PAR).toDouble();
-    return GUIHelpers::make_unique<DistributionLogNormal>(median, scale_par);
+    return GUIHelpers::make_unique<DistributionLogNormal>(scale*median, scale_par);
 }
 
 void DistributionLogNormalItem::init_distribution(double value)
@@ -222,11 +223,11 @@ DistributionCosineItem::DistributionCosineItem()
     register_limits();
 }
 
-std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution() const
+std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution(double scale) const
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double sigma = getItemValue(P_SIGMA).toDouble();
-    return GUIHelpers::make_unique<DistributionCosine>(mean, sigma);
+    return GUIHelpers::make_unique<DistributionCosine>(scale*mean, scale*sigma);
 }
 
 void DistributionCosineItem::init_distribution(double value)

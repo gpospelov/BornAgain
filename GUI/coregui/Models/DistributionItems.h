@@ -28,9 +28,9 @@ public:
     static const QString P_SIGMA_FACTOR;
     static const QString P_IS_INITIALIZED;
     static const QString P_LIMITS;
-    explicit DistributionItem(const QString name);
+    explicit DistributionItem(const QString& name);
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution() const=0;
+    virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const=0;
     void init_parameters(double);
 
 protected:
@@ -47,7 +47,7 @@ public:
     static const QString P_VALUE;
     DistributionNoneItem();
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const;
     virtual void init_distribution(double value);
 };
 
@@ -58,7 +58,7 @@ public:
     static const QString P_MAX;
     DistributionGateItem();
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const;
     virtual void init_distribution(double value);
 };
 
@@ -70,7 +70,7 @@ public:
     static const QString P_HWHM;
     DistributionLorentzItem();
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const;
     virtual void init_distribution(double value);
 };
 
@@ -81,7 +81,7 @@ public:
     static const QString P_STD_DEV;
     DistributionGaussianItem();
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const;
     virtual void init_distribution(double value);
 };
 
@@ -93,7 +93,7 @@ public:
     static const QString P_SCALE_PAR;
     DistributionLogNormalItem();
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const;
     virtual void init_distribution(double value);
 };
 
@@ -105,7 +105,7 @@ public:
     static const QString P_SIGMA;
     DistributionCosineItem();
 
-    virtual std::unique_ptr<IDistribution1D> createDistribution() const;
+    virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const;
     virtual void init_distribution(double value);
 };
 

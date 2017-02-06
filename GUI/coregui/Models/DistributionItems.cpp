@@ -23,6 +23,7 @@
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = Constants::DistributionSigmaFactor;
 const QString DistributionItem::P_IS_INITIALIZED = "is initialized";
+const QString DistributionItem::P_LIMITS = "Limits";
 
 DistributionItem::DistributionItem(const QString name) : SessionItem(name)
 {
@@ -50,6 +51,12 @@ void DistributionItem::register_number_of_samples()
 void DistributionItem::register_sigma_factor()
 {
     addProperty(P_SIGMA_FACTOR, 2.0);
+}
+
+void DistributionItem::register_limits()
+{
+    addGroupProperty(P_LIMITS, Constants::RealLimitsGroup);
+    setGroupProperty(P_LIMITS, Constants::RealLimitsLimitlessType);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -82,7 +89,6 @@ DistributionGateItem::DistributionGateItem() : DistributionItem(Constants::Distr
     addProperty(P_MIN, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_MAX, 1.0)->setLimits(RealLimits::limitless());
     register_number_of_samples();
-    register_sigma_factor();
 }
 
 std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution() const
@@ -113,6 +119,7 @@ DistributionLorentzItem::DistributionLorentzItem()
     addProperty(P_HWHM, 1.0);
     register_number_of_samples();
     register_sigma_factor();
+    register_limits();
 }
 
 std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution() const
@@ -145,6 +152,7 @@ DistributionGaussianItem::DistributionGaussianItem()
     addProperty(P_STD_DEV, 1.0);
     register_number_of_samples();
     register_sigma_factor();
+    register_limits();
 }
 
 std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution() const
@@ -178,6 +186,7 @@ DistributionLogNormalItem::DistributionLogNormalItem()
     addProperty(P_SCALE_PAR, 1.0);
     register_number_of_samples();
     register_sigma_factor();
+    register_limits();
 }
 
 std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution() const
@@ -210,6 +219,7 @@ DistributionCosineItem::DistributionCosineItem()
     addProperty(P_SIGMA, 1.0);
     register_number_of_samples();
     register_sigma_factor();
+    register_limits();
 }
 
 std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution() const

@@ -27,6 +27,7 @@ public:
     static const QString P_NUMBER_OF_SAMPLES;
     static const QString P_SIGMA_FACTOR;
     static const QString P_IS_INITIALIZED;
+    static const QString P_LIMITS;
     explicit DistributionItem(const QString name);
 
     virtual std::unique_ptr<IDistribution1D> createDistribution() const=0;
@@ -36,6 +37,7 @@ protected:
     virtual void init_distribution(double){}
     void register_number_of_samples();
     void register_sigma_factor();
+    void register_limits();
 };
 
 class BA_CORE_API_ DistributionNoneItem : public DistributionItem

@@ -54,6 +54,7 @@
 #include "TransformationItem.h"
 #include "VectorItem.h"
 #include "LinkInstrumentItem.h"
+#include "RealLimitsItems.h"
 
 namespace {
 template<typename T> SessionItem *createInstance() { return new T; }
@@ -201,6 +202,10 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::GSLSimAnMinimizerType] = &createInstance<SimAnMinimizerItem>;
     result[Constants::GSLLMAMinimizerType] = &createInstance<GSLLMAMinimizerItem>;
     result[Constants::TestMinimizerType] = &createInstance<TestMinimizerItem>;
+
+    result[Constants::RealLimitsLimitlessType] = &createInstance<LimitlessItem>;
+    result[Constants::RealLimitsPositiveType] = &createInstance<PositiveItem>;
+    result[Constants::RealLimitsLimitedType] = &createInstance<LimitedItem>;
 
     return result;
 }

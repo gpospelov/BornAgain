@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/HashKVector.h
-//! @brief     Defines class HashKVector.
+//! @file      Core/Computation/Hash2Doubles.cpp
+//! @brief     Implements class Hash2Doubles.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,22 +13,10 @@
 //
 // ************************************************************************** //
 
-#ifndef HASHKVECTOR_H
-#define HASHKVECTOR_H
+#include "Hash2Doubles.h"
 
-#include "Vectors3D.h"
-#include <functional>
-#include <utility>
-
-class HashKVector
+// Simple exclusive or of the std::hash<double> of its parts
+size_t Hash2Doubles::operator()(std::pair<double, double> doubles) const noexcept
 {
-public:
-    HashKVector() {}
-    ~HashKVector() {}
-
-    size_t operator()(kvector_t kvec) const noexcept;
-private:
-    std::hash<double> m_double_hash;
-};
-
-#endif // HASHKVECTOR_H
+    return m_double_hash(doubles.first) ^ m_double_hash(doubles.second);
+}

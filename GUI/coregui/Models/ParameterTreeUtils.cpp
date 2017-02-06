@@ -101,7 +101,7 @@ QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source)
 {
     QStringList result;
 
-    for(auto pair : parameterNameTranslation(source))
+    for(auto pair : parameterDictionary(source))
         result << pair.first;
 
     return result;
@@ -113,7 +113,7 @@ QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* 
 {
     QStringList result;
 
-    for(auto pair : parameterNameTranslation(source))
+    for(auto pair : parameterDictionary(source))
         result << pair.second;
 
     return result;
@@ -123,7 +123,7 @@ QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* 
 //! in its children.
 
 QVector<QPair<QString, QString>>
-ParameterTreeUtils::parameterNameTranslation(const SessionItem* source)
+ParameterTreeUtils::parameterDictionary(const SessionItem* source)
 {
     Q_ASSERT(source);
 
@@ -160,7 +160,7 @@ QString ParameterTreeUtils::domainNameToParameterName(const QString& domainName,
                                                       const SessionItem* source)
 {
     QString domain = removeLeadingSlash(domainName);
-    for(auto pair : parameterNameTranslation(source)) {// parName, domainName
+    for(auto pair : parameterDictionary(source)) {// parName, domainName
         if(pair.second == domain)
             return pair.first;
     }
@@ -174,7 +174,7 @@ QString ParameterTreeUtils::domainNameToParameterName(const QString& domainName,
 QString ParameterTreeUtils::parameterNameToDomainName(const QString& parName,
                                                       const SessionItem* source)
 {
-    for(auto pair : parameterNameTranslation(source)) // parName, domainName
+    for(auto pair : parameterDictionary(source)) // parName, domainName
         if(pair.first == parName)
             return "/"+pair.second;
 

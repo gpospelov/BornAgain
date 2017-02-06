@@ -44,9 +44,7 @@ BA_CORE_API_ QStringList parameterTreeNames(const SessionItem* source);
 
 BA_CORE_API_ QStringList translatedParameterTreeNames(const SessionItem* source);
 
-BA_CORE_API_ QStringList translateParameterName(const QString& name, const SessionItem* source);
-
-BA_CORE_API_ QVector<QPair<QString, QString>> parameterNameTranslation(const SessionItem* source);
+BA_CORE_API_ QVector<QPair<QString, QString>> parameterDictionary(const SessionItem* source);
 
 BA_CORE_API_ QString domainNameToParameterName(const QString& domainName, const SessionItem* source);
 

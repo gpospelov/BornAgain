@@ -49,8 +49,10 @@ RealLimits PositiveItem::createRealLimits() const
 LimitedItem::LimitedItem()
     : RealLimitsItem(Constants::RealLimitsLimitedType)
 {
-    addProperty(P_XMIN, 0.0)->setToolTip("Minimum allowed value");
-    addProperty(P_XMAX, 1.0)->setToolTip("Maximum allowed value");
+    addProperty(P_XMIN, 0.0)->setToolTip("Minimum allowed value")
+        .setLimits(RealLimits::limitless());
+    addProperty(P_XMAX, 1.0)->setToolTip("Maximum allowed value")
+        .setLimits(RealLimits::limitless());
 }
 
 RealLimits LimitedItem::createRealLimits() const

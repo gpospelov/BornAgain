@@ -23,6 +23,7 @@
 #include "TransformFromDomain.h"
 #include "TransformToDomain.h"
 #include "ParameterTreeUtils.h"
+#include "RealLimitsItems.h"
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
@@ -67,6 +68,13 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
                 getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
     Q_ASSERT(distr_item);
 
+    RealLimits limits = RealLimits::limitless();
+    if(distr_item->isTag(DistributionItem::P_LIMITS)) {
+        auto limitsItem = dynamic_cast<RealLimitsItem*>(
+                    distr_item->getGroupItem(DistributionItem::P_LIMITS));
+        limits = limitsItem->createRealLimits();
+    }
+
     auto P_distribution = distr_item->createDistribution();
 
     auto prop
@@ -78,7 +86,7 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
 
     int nbr_samples = distr_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor = distr_item->getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
-    ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor);
+    ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor, limits);
     auto result = GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     result->setAbundance(abundance);

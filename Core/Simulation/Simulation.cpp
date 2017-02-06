@@ -125,9 +125,9 @@ void Simulation::runSimulation()
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
     m_progress.reset();
-    int prefac = ( mP_sample->totalNofLayouts()>0 ? 1 : 0 )
+    size_t prefactor = ( mP_sample->totalNofLayouts()>0 ? 1 : 0 )
         + ( mP_sample->hasRoughness() ? 1 : 0 );
-    m_progress.setExpectedNTicks(prefac*param_combinations*numberOfSimulationElements());
+    m_progress.setExpectedNTicks(prefactor*param_combinations*numberOfSimulationElements());
 
     // no averaging needed:
     if (param_combinations == 1) {

@@ -16,11 +16,11 @@
 #include "RoughMultiLayerComputation.h"
 #include "DelayedProgressCounter.h"
 #include "ILayerRTCoefficients.h"
+#include "IFresnelMap.h"
 #include "Faddeeva.hh"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "ILayerSpecularInfo.h"
 #include "MultiLayer.h"
 #include "MathConstants.h"
 #include "ProgressHandler.h"
@@ -40,31 +40,29 @@ namespace {
     }
 }
 
-RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer)
-    : IComputationTerm(p_multi_layer)
-{
-}
+RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer,
+                                                       const IFresnelMap* p_fresnel_map)
+    : IComputationTerm(p_multi_layer, p_fresnel_map)
+{}
 
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
-{
-}
+{}
 
-bool RoughMultiLayerComputation::eval(
+void RoughMultiLayerComputation::eval(
     const SimulationOptions&, ProgressHandler* progress, bool,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     if (mp_multilayer->requiresMatrixRTCoefficients()) {
-        return false;
+        return;
     }
     DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
-            return false;
-        it->setIntensity(evaluate(*it));
+            return;
+        it->addIntensity(evaluate(*it));
         counter.stepProgress(progress);
     }
-    return true;
 }
 
 double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element) const
@@ -117,14 +115,14 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
     size_t ilayer, const SimulationElement& sim_element) const
 {
     const std::unique_ptr<const ILayerRTCoefficients> P_in_plus(
-        layerFresnelMap(ilayer)->getInCoefficients(sim_element));
+                mp_fresnel_map->getInCoefficients(sim_element, ilayer));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_plus(
-        layerFresnelMap(ilayer)->getOutCoefficients(sim_element));
+                mp_fresnel_map->getOutCoefficients(sim_element, ilayer));
 
     const std::unique_ptr<const ILayerRTCoefficients> P_in_minus(
-        layerFresnelMap(ilayer+1)->getInCoefficients(sim_element));
+                mp_fresnel_map->getInCoefficients(sim_element, ilayer+1));
     const std::unique_ptr<const ILayerRTCoefficients> P_out_minus(
-        layerFresnelMap(ilayer+1)->getOutCoefficients(sim_element));
+                mp_fresnel_map->getOutCoefficients(sim_element, ilayer+1));
 
     complex_t kiz_plus = P_in_plus->getScalarKz();
     complex_t kfz_plus = P_out_plus->getScalarKz();

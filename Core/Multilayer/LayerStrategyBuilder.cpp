@@ -23,17 +23,17 @@
 #include "InterferenceFunctionNone.h"
 #include "MultiLayer.h"
 #include "Layer.h"
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "DecouplingApproximationStrategy.h"
 #include "SSCApproximationStrategy.h"
 
 LayerStrategyBuilder::LayerStrategyBuilder(
     const MultiLayer* p_multilayer, const ILayout* p_layout,
-    const FullFresnelMap* p_full_map, bool polarized,
+    const IFresnelMap* p_fresnel_map, bool polarized,
     const SimulationOptions& sim_params, size_t layer_index)
     : mp_multilayer(p_multilayer)
     , mp_layout(p_layout)
-    , mp_full_fresnel_map(p_full_map)
+    , mp_fresnel_map(p_fresnel_map)
     , m_polarized {polarized}
     , m_sim_params (sim_params)
     , m_layer_index(layer_index)
@@ -88,7 +88,7 @@ SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectForm
         FormFactorCoherentSum* p_ff_coh;
         p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
-        p_ff_coh->setSpecularInfo(*mp_full_fresnel_map->layerFresnelMap(m_layer_index));
+        p_ff_coh->setSpecularInfo(mp_fresnel_map, m_layer_index);
         result.push_back(p_ff_coh);
     }
     return result;

@@ -15,25 +15,26 @@
 
 #include "SpecularComputation.h"
 #include "SimulationElement.h"
-#include "ILayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
 
-SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer)
-    : IComputationTerm(p_multi_layer)
+SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer,
+                                         const IFresnelMap* p_fresnel_map)
+    : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-bool SpecularComputation::eval(
+void SpecularComputation::eval(
     const SimulationOptions&, ProgressHandler*, bool,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     if (mp_multilayer->requiresMatrixRTCoefficients())
-        return false;
+        return;
 
     for (auto it = begin_it; it != end_it; ++it) {
         if (it->containsSpecularWavevector()) {
-            complex_t R = layerFresnelMap(0)->getInCoefficients(*it)->getScalarR();
+            complex_t R = mp_fresnel_map->getInCoefficients(*it, 0)->getScalarR();
             double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
             if (sin_alpha_i==0.0)
                 sin_alpha_i = 1.0;
@@ -42,9 +43,6 @@ bool SpecularComputation::eval(
                 continue;
             double intensity = std::norm(R)*sin_alpha_i/solid_angle;
             it->setIntensity(intensity);
-        } else {
-            it->setIntensity(0.0);
         }
     }
-    return true;
 }

@@ -16,16 +16,14 @@
 #include "MainComputation.h"
 #include "ParticleLayoutComputation.h"
 #include "Layer.h"
-#include "ILayerSpecularInfo.h"
-#include "MatrixSpecularInfoMap.h"
+#include "IFresnelMap.h"
+#include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
 #include "SpecularComputation.h"
-#include "ScalarSpecularInfoMap.h"
+#include "ScalarFresnelMap.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
-#include "SpecularMagnetic.h"
-#include "SpecularMatrix.h"
 #include <iterator> // needed for back_inserter
 
 MainComputation::MainComputation(
@@ -35,25 +33,28 @@ MainComputation::MainComputation(
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
     : mP_multi_layer(multi_layer.clone())
-    , mP_inverted_multilayer(nullptr)
+    , mP_inverted_multilayer(multi_layer.cloneInvertB())
     , m_sim_options(options)
     , m_progress(&progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
+    , mP_fresnel_map(createFresnelMap(mP_multi_layer.get(), mP_inverted_multilayer.get()))
 {
     size_t nLayers = mP_multi_layer->getNumberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
             m_computation_terms.push_back(
-                        new ParticleLayoutComputation(mP_multi_layer.get(),
+                        new ParticleLayoutComputation(mP_multi_layer.get(), mP_fresnel_map.get(),
                                                       layer->getLayout(j), i));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
-        m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get()));
+        m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
+                                                                     mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
-        m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get()));
+        m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get(),
+                                                              mP_fresnel_map.get()));
 }
 
 MainComputation::~MainComputation()
@@ -81,51 +82,20 @@ void MainComputation::run()
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
-    if (mP_multi_layer->requiresMatrixRTCoefficients())
-        collectFresnelMatrix();
-    else
-        collectFresnelScalar();
-
-    std::vector<SimulationElement> layer_elements;
-    std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
     bool polarized = mP_multi_layer->containsMagneticMaterial();
     // add all IComputationTerms:
     for (const IComputationTerm* comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
-        if (comp->eval(m_sim_options, m_progress, polarized,
-                       layer_elements.begin(), layer_elements.end()) )
-            addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
+        comp->eval(m_sim_options, m_progress, polarized, m_begin_it, m_end_it );
     }
 }
 
-void MainComputation::collectFresnelScalar()
+IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
+                                               const MultiLayer* p_inverted_multilayer)
 {
-    if (m_full_fresnel_map.size()!=0) return;
-
-    // run through layers and construct T,R maps
-    for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        m_full_fresnel_map.push_back(new ScalarSpecularInfoMap(mP_multi_layer.get(), i));
-    }
-    passFresnelInfo();
-}
-
-void MainComputation::collectFresnelMatrix()
-{
-    if (m_full_fresnel_map.size()!=0) return;
-    mP_inverted_multilayer.reset(mP_multi_layer->cloneInvertB());
-
-    // run through layers and construct T,R maps
-    for(size_t i=0; i<mP_multi_layer->getNumberOfLayers(); ++i) {
-        m_full_fresnel_map.push_back(new MatrixSpecularInfoMap(mP_multi_layer.get(),
-                                                           mP_inverted_multilayer.get(), i));
-    }
-    passFresnelInfo();
-}
-
-void MainComputation::passFresnelInfo()
-{
-    for (IComputationTerm* comp: m_computation_terms) {
-        comp->setSpecularInfo(&m_full_fresnel_map);
-    }
+        if (!p_multilayer->requiresMatrixRTCoefficients())
+            return new ScalarFresnelMap(p_multilayer);
+        else
+            return new MatrixFresnelMap(p_multilayer, p_inverted_multilayer);
 }

@@ -16,7 +16,7 @@ TEST_F(SpecularMagneticTest, initial)
 {
     MultiLayer mLayer;
     kvector_t v;
-    SpecularMagnetic::MultiLayerCoeff_t coeff;
+    std::vector<MatrixRTCoefficients> coeff;
 
     // @Error: Throws exception (Layer index is out of bounds)
     //matrix.execute(mLayer, v, coeff);
@@ -45,14 +45,14 @@ TEST_F(SpecularMagneticTest, zerofield)
     Layer substr_layer_scalar(substr_material_scalar);
     multi_layer_scalar.addLayer(air_layer);
     multi_layer_scalar.addLayer(substr_layer_scalar);
-    SpecularMatrix::MultiLayerCoeff_t coeffs_scalar;
+    std::vector<ScalarRTCoefficients> coeffs_scalar;
 
     MultiLayer multi_layer_zerofield;
     HomogeneousMagneticMaterial substr_material_zerofield("Substrate", 7e-6, 2e-8, substr_field);
     Layer substr_layer_zerofield(substr_material_zerofield);
     multi_layer_zerofield.addLayer(air_layer);
     multi_layer_zerofield.addLayer(substr_layer_zerofield);
-    SpecularMagnetic::MultiLayerCoeff_t coeffs_zerofield;
+    std::vector<MatrixRTCoefficients> coeffs_zerofield;
 
     // k1
     SpecularMatrix::execute(multi_layer_scalar, k1, coeffs_scalar);

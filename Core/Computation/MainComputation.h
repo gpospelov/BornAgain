@@ -19,12 +19,11 @@
 #include "ComputationStatus.h"
 #include "Complex.h"
 #include "INoncopyable.h"
-#include "FullFresnelMap.h"
 #include "SimulationOptions.h"
 #include <memory>
 #include <vector>
 
-class ILayerSpecularInfo;
+class IFresnelMap;
 class MultiLayer;
 class IComputationTerm;
 class ProgressHandler;
@@ -55,9 +54,8 @@ public:
 
 private:
     void runProtected();
-    void collectFresnelScalar();
-    void collectFresnelMatrix();
-    void passFresnelInfo();
+    static IFresnelMap* createFresnelMap(const MultiLayer* p_multilayer,
+                                         const MultiLayer* p_inverted_multilayer);
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;
@@ -66,11 +64,10 @@ private:
     //! these iterators define the span of detector bins this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
-    std::vector<IComputationTerm*> m_computation_terms;
-
     //! contains the information, necessary to calculate the Fresnel coefficients
-    FullFresnelMap m_full_fresnel_map;
+    std::unique_ptr<IFresnelMap> mP_fresnel_map;
 
+    std::vector<IComputationTerm*> m_computation_terms;
     ComputationStatus m_status;
 };
 

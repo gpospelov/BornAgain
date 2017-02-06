@@ -27,20 +27,17 @@
 class BA_CORE_API_ SpecularMagnetic
 {
 public:
-    //! Layer coefficients describing refraction and reflection/transmission.
-    typedef std::vector<MatrixRTCoefficients> MultiLayerCoeff_t;
-
     //! Computes refraction angle reflection/transmission coefficients
     //! for given multilayer and wavevector k
-    static void execute(
-        const class MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
+    static void execute(const class MultiLayer& sample, const kvector_t k,
+                        std::vector<MatrixRTCoefficients>& coeff);
 
 private:
-    static void calculateEigenvalues(
-        const class MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
-    static void calculateTransferAndBoundary(
-        const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff);
-    static void setForNoTransmission(MultiLayerCoeff_t& coeff);
+    static void calculateEigenvalues(const class MultiLayer& sample, const kvector_t k,
+                                     std::vector<MatrixRTCoefficients>& coeff);
+    static void calculateTransferAndBoundary(const MultiLayer& sample, const kvector_t k,
+                                             std::vector<MatrixRTCoefficients>& coeff);
+    static void setForNoTransmission(std::vector<MatrixRTCoefficients>& coeff);
     static complex_t getImExponential(complex_t exponent);
 };
 

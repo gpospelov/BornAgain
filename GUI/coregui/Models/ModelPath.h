@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/ModelPath.h
-//! @brief     Defines class ModelPath
+//! @brief     Defines ModelPath namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,51 +26,21 @@ class SessionItem;
 class QModelIndex;
 class SessionModel;
 
-class BA_CORE_API_ ModelPath
+namespace ModelPath
 {
-public:
-    //! retrieves a list of all parameter names in the SessionItem tree starting
-    //! with this node and prefixes them
-    static QStringList getParameterTreeList(const SessionItem *item, QString prefix = "");
+    BA_CORE_API_ QString getPathFromIndex(const QModelIndex &index);
 
-    //! retrieve value of given parameter name
-    static double getParameterValue(const SessionItem *item, const QString &name);
+    BA_CORE_API_ QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
 
-    //! translates the given parameter name to a domain parameter name
-    //! name should start with a child/subitem name or be a direct parameter name
-    static std::string translateParameterName(const SessionItem *item, const QString &par_name);
+    BA_CORE_API_ SessionItem* getItemFromPath(const QString &relPath, const SessionItem* parent);
 
-    static void addParameterTranslator(const IParameterTranslator &translator);
+    BA_CORE_API_ bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
 
-    static QString getPathFromIndex(const QModelIndex &index);
+    BA_CORE_API_ bool isTranslatable(const SessionItem *item, const QString &par_name);
 
-    static QModelIndex getIndexFromPath(const SessionModel *model, const QString &path);
+    BA_CORE_API_ const SessionItem *ancestor(const SessionItem *item, const QString& requiredModelType);
 
-    static SessionItem* getItemFromPath(const QString &relPath, SessionItem *parent);
+    BA_CORE_API_ QString itemPathTranslation(const SessionItem& item, const SessionItem* topItem=0);
+}
 
-    static bool isValidItem(SessionModel *model, SessionItem *item, const QModelIndex &parent);
-
-    static bool isTranslatable(const SessionItem *item, const QString &par_name);
-
-    static const SessionItem *ancestor(const SessionItem *item, const QString& requiredModelType);
-
-    static QString itemPathTranslation(const SessionItem& item, const SessionItem* topItem=0);
-
-private:
-
-    static QStringList splitParameterName(const QString& par_name);
-
-    static QString getFirstField(const QString& par_name);
-
-    static QString stripFirstField(const QString& par_name);
-
-    static std::string translateSingleName(const QString& name);
-
-    static SessionItem* findChild(const SessionItem* item, const QString& first_field);
-
-    static std::string stripDistributionNone(const std::string& name);
-
-    static std::vector<std::unique_ptr<IParameterTranslator>> m_special_translators;
-};
-
-#endif // MODELPATH_H
+#endif // MODELPATH_H namespace

@@ -7,6 +7,7 @@ class TestComboProperty : public QObject {
 private slots:
     void test_ComboEquality();
     void test_VariantEquality();
+    void test_setValue();
 };
 
 inline void TestComboProperty::test_ComboEquality()
@@ -50,3 +51,12 @@ inline void TestComboProperty::test_VariantEquality()
     c1.setValue("a2");
     QVERIFY(c1.getVariant() == c2.getVariant());
 }
+
+inline void TestComboProperty::test_setValue()
+{
+    QStringList expectedValues = QStringList() << "a1" << "a2";
+    ComboProperty combo = ComboProperty() << expectedValues;
+
+    QCOMPARE(combo.getValue(), QString("a1"));
+}
+

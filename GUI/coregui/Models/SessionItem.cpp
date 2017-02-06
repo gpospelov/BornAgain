@@ -479,6 +479,7 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
 }
 
 //! Access subitem of group item. If not existing, new item will be created by group property.
+//! Returns new item, but preserves current type of GroupItem (where it used FIXME?).
 
 SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type) const
 {

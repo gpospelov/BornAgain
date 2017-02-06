@@ -53,6 +53,7 @@
 #include "SphericalDetector.h"
 #include "Units.h"
 #include "VectorItem.h"
+#include "ParameterTreeUtils.h"
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
@@ -156,20 +157,18 @@ void TransformFromDomain::setItemFromSample(SessionItem* item, const LayerRoughn
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const ParticleDistribution* sample)
 {
-    item->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    ParticleDistributionItem *distItem = dynamic_cast<ParticleDistributionItem*>(item);
+    Q_ASSERT(distItem);
+
+    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
 
     ParameterDistribution par_distr = sample->getParameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
-    ComboProperty combo_property
-        = item->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
-              .value<ComboProperty>();
-    combo_property.setCachedValue(main_distr_par_name);
-    combo_property.setCacheContainsGUIFlag(false);
-    item->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
-                                combo_property.getVariant());
+
+    distItem->setDomainCacheName(main_distr_par_name);
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
-    setDistribution(item, par_distr, group_name);
+    setDistribution(distItem, par_distr, group_name);
 }
 
 //! Returns true if given roughness is non-zero roughness
@@ -521,20 +520,6 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributi
     }
     QString group_name = BeamDistributionItem::P_DISTRIBUTION;
     setDistribution(beamDistributionItem, parameterDistribution, group_name, unit_factor);
-}
-
-QString TransformFromDomain::translateParameterNameToGUI(SessionItem* item,
-                                                         const QString& par_name)
-{
-    QStringList gui_par_list = ModelPath::getParameterTreeList(item);
-    for (QString gui_par_name : gui_par_list) {
-        QString domain_par_name = QString::fromStdString(
-                    ModelPath::translateParameterName(item, gui_par_name));
-        if (domain_par_name == par_name) {
-            return gui_par_name;
-        }
-    }
-    return {};
 }
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)

@@ -39,16 +39,12 @@ ParticleItem::ParticleItem()
     addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0));
     getItem(P_ABUNDANCE)->setDecimals(3);
     addGroupProperty(P_POSITION, Constants::VectorType);
-    PositionTranslator position_translator;
-    ModelPath::addParameterTranslator(position_translator);
 
     registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     setDefaultTag(T_TRANSFORMATION);
-    RotationTranslator rotation_translator;
-    ModelPath::addParameterTranslator(rotation_translator);
 
-    addTranslator(NewPositionTranslator());
-    addTranslator(NewRotationTranslator());
+    addTranslator(PositionTranslator());
+    addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(
                 [this](SessionItem* parentItem) {

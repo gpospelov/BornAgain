@@ -744,7 +744,8 @@ void setDistribution(SessionItem* item, ParameterDistribution par_distr,
     if (pdfItem) {
         pdfItem->setItemValue(DistributionItem::P_NUMBER_OF_SAMPLES,
                                        (int)par_distr.getNbrSamples());
-        pdfItem->setItemValue(DistributionItem::P_SIGMA_FACTOR,
+        if(pdfItem->isTag(DistributionItem::P_SIGMA_FACTOR))
+            pdfItem->setItemValue(DistributionItem::P_SIGMA_FACTOR,
                                        par_distr.getSigmaFactor());
     }
 }

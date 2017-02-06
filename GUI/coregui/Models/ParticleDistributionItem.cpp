@@ -63,10 +63,11 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     if (!P_particle)
         throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
                                 " -> Error! No correct particle defined");
-    auto distr_item = getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);
+    auto distr_item = dynamic_cast<DistributionItem*>(
+                getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
     Q_ASSERT(distr_item);
 
-    auto P_distribution = TransformToDomain::createDistribution(*distr_item);
+    auto P_distribution = distr_item->createDistribution();
 
     auto prop
         = getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER).value<ComboProperty>();

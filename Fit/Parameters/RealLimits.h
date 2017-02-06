@@ -89,9 +89,11 @@ class BA_CORE_API_ RealLimits
     //! Creates an object withoud bounds (default)
     static RealLimits limitless() { return RealLimits(); }
 
+    std::string toString() const;
+
     //! Prints class
     friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m)
-    { m.print(ostr); return ostr; }
+    { ostr << m.toString(); return ostr; }
 
     bool operator==(const RealLimits &other) const;
     bool operator!=(const RealLimits &other) const { return !(*this == other); }
@@ -107,8 +109,6 @@ class BA_CORE_API_ RealLimits
     bool   m_has_upper_limit; //! parameter has upper bound
     double m_lower_limit; //! minimum allowed value
     double m_upper_limit; //! maximum allowed value
-
-    void print(std::ostream& ostr) const;
 };
 
 #endif // REALLIMITS_H

@@ -213,6 +213,6 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     std::ostringstream ostr;
     ostr << "ParameterPool::set_value_error() -> Attempt to set value " << value;
     ostr << " for parameter '" << parname << "' failed. Out of bounds?";
-    ostr << " Parameter limits " << getParameter(parname)->getLimits() << ".\n";
+    ostr << " Parameter limits: '" << getParameter(parname)->getLimits() << "'.\n";
     throw Exceptions::RuntimeErrorException(ostr.str());
 }

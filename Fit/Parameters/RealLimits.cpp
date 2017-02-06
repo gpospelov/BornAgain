@@ -17,6 +17,42 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <sstream>
+
+namespace {
+
+bool isLimitless(const RealLimits& lim)
+{
+    return !lim.hasLowerLimit() && !lim.hasUpperLimit();
+}
+
+bool isPositive(const RealLimits& lim)
+{
+    return lim.hasLowerLimit() && !lim.hasUpperLimit() &&
+           lim.getLowerLimit() == std::numeric_limits<double>::min();
+}
+
+bool isNonnegative(const RealLimits& lim)
+{
+    return lim.hasLowerLimit() && !lim.hasUpperLimit() && lim.getLowerLimit() == 0.0;
+}
+
+bool isLowerLimited(const RealLimits& lim)
+{
+    return lim.hasLowerLimit() && !lim.hasUpperLimit();
+}
+
+bool isUpperLimited(const RealLimits& lim)
+{
+    return !lim.hasLowerLimit() && lim.hasUpperLimit();
+}
+
+bool isLimited(const RealLimits& lim)
+{
+    return lim.hasLowerLimit() && lim.hasUpperLimit();
+}
+
+}
 
 //! Creates an object which can have only positive values (>0., zero is not included)
 RealLimits RealLimits::positive()
@@ -24,18 +60,36 @@ RealLimits RealLimits::positive()
     return lowerLimited(std::numeric_limits<double>::min());
 }
 
-//! Prints class
-void RealLimits::print(std::ostream& ostr) const
+std::string RealLimits::toString() const
 {
-    if      (!hasLowerLimit() && !hasUpperLimit())
-        ostr << "unlimited";
-    else if (hasLowerLimit() && !hasUpperLimit())
-        ostr << "lim("  << std::fixed <<std::setprecision(2) << m_lower_limit << ",)";
-    else if (hasUpperLimit() && !hasLowerLimit())
-        ostr << "lim(," << std::fixed <<std::setprecision(2) << m_upper_limit << ",)";
-    else if (hasLowerAndUpperLimits())
-        ostr << "lim(" << std::fixed <<std::setprecision(2) << m_lower_limit << "," <<
-            std::fixed <<std::setprecision(2) << m_upper_limit << ")";
+    std::ostringstream result;
+
+    if (isLimitless(*this)) {
+        result << "unlimited";
+    }
+
+    else if(isPositive(*this)) {
+        result << "positive";
+    }
+
+    else if(isNonnegative(*this)) {
+        result << "nonnegative";
+    }
+
+    else if(isLowerLimited(*this)) {
+        result << "lowerLimited("  << std::fixed <<std::setprecision(2) << getLowerLimit() << ")";
+    }
+
+    else if(isUpperLimited(*this)) {
+        result << "upperLimited(" << std::fixed <<std::setprecision(2) << getUpperLimit() << ")";
+    }
+
+    else if(isLimited(*this)) {
+        result << "limited(" << std::fixed <<std::setprecision(2) << getLowerLimit() << "," <<
+            std::fixed <<std::setprecision(2) << getUpperLimit() << ")";
+    }
+
+    return result.str();
 }
 
 bool RealLimits::isInRange(double value) const

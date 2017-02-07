@@ -18,6 +18,7 @@
 #include "DistributionItems.h"
 #include "Distributions.h"
 #include "qcustomplot.h"
+#include "RealLimitsItems.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <sstream>
@@ -138,11 +139,18 @@ void DistributionWidget::plotItem()
         double sigmafactor
             = m_item->getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
 
+        RealLimits limits;
+        if(m_item->isTag(DistributionItem::P_LIMITS)) {
+            auto limitsItem = dynamic_cast<RealLimitsItem*>(
+                        m_item->getGroupItem(DistributionItem::P_LIMITS));
+            limits = limitsItem->createRealLimits();
+        }
+
         QVector<double> xBar;
         QVector<double> x;
-        xBar = xBar.fromStdVector(P_distribution->equidistantPoints(numberOfSamples, sigmafactor));
+        xBar = xBar.fromStdVector(P_distribution->equidistantPoints(numberOfSamples, sigmafactor, limits));
         x = x.fromStdVector(P_distribution->equidistantPoints(number_of_points_for_smooth_plot,
-                                                              sigmafactor_for_smooth_plot));
+                                                              sigmafactor_for_smooth_plot, limits));
         QVector<double> yBar(xBar.size());
         QVector<double> y(x.size());
         double sumOfWeigths(0);

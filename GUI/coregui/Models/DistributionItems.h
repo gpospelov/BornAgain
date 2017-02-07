@@ -31,9 +31,10 @@ public:
     explicit DistributionItem(const QString& name);
 
     virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const=0;
-    void init_parameters(double);
+    void init_parameters(double, const RealLimits& limits=RealLimits::limitless());
 
 protected:
+    void init_limits_group(const RealLimits& limits);
     virtual void init_distribution(double){}
     void register_number_of_samples();
     void register_sigma_factor();

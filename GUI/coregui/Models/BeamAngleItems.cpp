@@ -22,13 +22,14 @@
 BeamInclinationAngleItem::BeamInclinationAngleItem()
     : BeamDistributionItem(Constants::BeamInclinationAngleType)
 {
+    register_distribution_group();
 
-    SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
-    Q_ASSERT(distribution);
-    auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
-    value->setLimits(RealLimits::limited(0.0, 90.0));
-    value->setDecimals(3);
-    value->setValue(0.2);
+    SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_VALUE);
+    valueItem->setLimits(RealLimits::limited(0.0, 90.0));
+    valueItem->setDecimals(3);
+    valueItem->setValue(0.2);
+
+    initDistributionItem();
 }
 
 //! Returns beam inclination angle. In the case of distribution applied, returns its mean.
@@ -55,12 +56,14 @@ std::unique_ptr<IDistribution1D> BeamInclinationAngleItem::createDistribution1D(
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     : BeamDistributionItem(Constants::BeamAzimuthalAngleType)
 {
-    SessionItem *distribution = dynamic_cast<DistributionNoneItem *>(getGroupItem(P_DISTRIBUTION));
-    Q_ASSERT(distribution);
-    auto value = distribution->getItem(DistributionNoneItem::P_VALUE);
-    value->setLimits(RealLimits::limited(-90.0, 90.0));
-    value->setDecimals(3);
-    value->setValue(0.0);
+    register_distribution_group();
+
+    SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_VALUE);
+    valueItem->setLimits(RealLimits::limited(-90.0, 90.0));
+    valueItem->setDecimals(3);
+    valueItem->setValue(0.0);
+
+    initDistributionItem();
 }
 
 //! Returns beam azimuthal angle. In the case of distribution applied, returns its mean.

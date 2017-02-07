@@ -19,7 +19,6 @@
 
 #include "DistributionItems.h"
 
-
 class ParameterDistribution;
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
@@ -29,7 +28,6 @@ class BA_CORE_API_ BeamDistributionItem : public SessionItem
 public:
     static const QString P_DISTRIBUTION;
     explicit BeamDistributionItem(const QString& name);
-    virtual ~BeamDistributionItem(){}
 
     std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
             const std::string &parameter_name);
@@ -37,7 +35,7 @@ public:
     virtual double meanValue() const;
 
 protected:
-//    virtual RealLimits limits() const;
+    void register_distribution_group();
     void initDistributionItem();
 
     virtual std::unique_ptr<IDistribution1D> createDistribution1D() const;

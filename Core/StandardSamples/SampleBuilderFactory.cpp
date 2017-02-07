@@ -170,7 +170,12 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "MagneticSubstrateZeroFieldBuilder",
         create_new<MagneticSubstrateZeroFieldBuilder>,
-        "Polarized DWBA with non-zero magnetic field");
+        "Polarized DWBA with zero field substrate");
+
+    registerItem(
+        "MagneticRotationBuilder",
+        create_new<MagneticRotationBuilder>,
+        "Rotated magnetic particle in magnetic substrate");
 
     registerItem(
         "MultiLayerWithRoughnessBuilder",

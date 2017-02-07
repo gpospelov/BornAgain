@@ -279,6 +279,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "None",
         2e-10);
 
+    add("MagneticRotation",
+        "Rotated magnetic particle in magnetic substrate",
+        "MiniGISASSpinFlipZ",
+        "MagneticRotationBuilder",
+        "None",
+        2e-10);
+
     add("TransformBox",
         "Rotated/translated box in 3 layers system",
         "MiniGISAS",

@@ -459,21 +459,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -5077,6 +5077,16 @@ Resets region of interest making whole detector plane available for the simulati
 ";
 
 
+// File: classHash2Doubles.xml
+%feature("docstring") Hash2Doubles "";
+
+%feature("docstring")  Hash2Doubles::Hash2Doubles "Hash2Doubles::Hash2Doubles()
+";
+
+%feature("docstring")  Hash2Doubles::~Hash2Doubles "Hash2Doubles::~Hash2Doubles()
+";
+
+
 // File: classHashKVector.xml
 %feature("docstring") HashKVector "";
 
@@ -9304,6 +9314,21 @@ C++ includes: MagneticParticlesBuilder.h
 ";
 
 
+// File: classMagneticRotationBuilder.xml
+%feature("docstring") MagneticRotationBuilder "
+
+Builds sample: rotated magnetic spheres in substrate layer with a unit magnetic field.
+
+C++ includes: MagneticLayersBuilder.h
+";
+
+%feature("docstring")  MagneticRotationBuilder::MagneticRotationBuilder "MagneticRotationBuilder::MagneticRotationBuilder()
+";
+
+%feature("docstring")  MagneticRotationBuilder::buildSample "MultiLayer * MagneticRotationBuilder::buildSample() const 
+";
+
+
 // File: classMagneticSubstrateZeroFieldBuilder.xml
 %feature("docstring") MagneticSubstrateZeroFieldBuilder "
 
@@ -13189,16 +13214,16 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D280.xml
 
 
-// File: namespace_0D308.xml
-
-
 // File: namespace_0D310.xml
 
 
-// File: namespace_0D323.xml
+// File: namespace_0D312.xml
 
 
-// File: namespace_0D436.xml
+// File: namespace_0D325.xml
+
+
+// File: namespace_0D438.xml
 
 
 // File: namespace_0D60.xml
@@ -14610,6 +14635,12 @@ make Swappable
 
 
 // File: FormFactorDWBAPol_8h.xml
+
+
+// File: Hash2Doubles_8cpp.xml
+
+
+// File: Hash2Doubles_8h.xml
 
 
 // File: HashKVector_8cpp.xml

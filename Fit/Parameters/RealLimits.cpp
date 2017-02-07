@@ -21,17 +21,6 @@
 
 namespace {
 
-bool isLimitless(const RealLimits& lim)
-{
-    return !lim.hasLowerLimit() && !lim.hasUpperLimit();
-}
-
-bool isPositive(const RealLimits& lim)
-{
-    return lim.hasLowerLimit() && !lim.hasUpperLimit() &&
-           lim.getLowerLimit() == std::numeric_limits<double>::min();
-}
-
 bool isNonnegative(const RealLimits& lim)
 {
     return lim.hasLowerLimit() && !lim.hasUpperLimit() && lim.getLowerLimit() == 0.0;
@@ -47,11 +36,6 @@ bool isUpperLimited(const RealLimits& lim)
     return !lim.hasLowerLimit() && lim.hasUpperLimit();
 }
 
-bool isLimited(const RealLimits& lim)
-{
-    return lim.hasLowerLimit() && lim.hasUpperLimit();
-}
-
 }
 
 //! Creates an object which can have only positive values (>0., zero is not included)
@@ -64,11 +48,11 @@ std::string RealLimits::toString() const
 {
     std::ostringstream result;
 
-    if (isLimitless(*this)) {
+    if (isLimitless()) {
         result << "unlimited";
     }
 
-    else if(isPositive(*this)) {
+    else if(isPositive()) {
         result << "positive";
     }
 
@@ -84,7 +68,7 @@ std::string RealLimits::toString() const
         result << "upperLimited(" << std::fixed <<std::setprecision(2) << getUpperLimit() << ")";
     }
 
-    else if(isLimited(*this)) {
+    else if(isLimited()) {
         result << "limited(" << std::fixed <<std::setprecision(2) << getLowerLimit() << "," <<
             std::fixed <<std::setprecision(2) << getUpperLimit() << ")";
     }
@@ -94,15 +78,32 @@ std::string RealLimits::toString() const
 
 bool RealLimits::isInRange(double value) const
 {
-    if(hasLowerLimit() && value < m_lower_limit) return false;
-    if(hasUpperLimit() && value >= m_upper_limit) return false;
+    if (hasLowerLimit() && value < m_lower_limit)
+        return false;
+    if (hasUpperLimit() && value >= m_upper_limit)
+        return false;
     return true;
 }
 
 bool RealLimits::operator==(const RealLimits& other) const
 {
-    return (m_has_lower_limit == other.m_has_lower_limit) &&
-            (m_has_upper_limit == other.m_has_upper_limit) &&
-            (m_lower_limit == other.m_lower_limit) &&
-            (m_upper_limit == other.m_upper_limit);
+    return (m_has_lower_limit == other.m_has_lower_limit)
+           && (m_has_upper_limit == other.m_has_upper_limit)
+           && (m_lower_limit == other.m_lower_limit) && (m_upper_limit == other.m_upper_limit);
+}
+
+bool RealLimits::isLimitless() const
+{
+    return !hasLowerLimit() && !hasUpperLimit();
+}
+
+bool RealLimits::isPositive() const
+{
+    return hasLowerLimit() && !hasUpperLimit()
+           && getLowerLimit() == std::numeric_limits<double>::min();
+}
+
+bool RealLimits::isLimited() const
+{
+    return hasLowerLimit() && hasUpperLimit();
 }

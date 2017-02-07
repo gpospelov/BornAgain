@@ -21,27 +21,6 @@
 #include "RealLimitsItems.h"
 #include <cmath>
 
-
-namespace {
-
-bool isLimitless(const RealLimits& lim)
-{
-    return !lim.hasLowerLimit() && !lim.hasUpperLimit();
-}
-
-bool isPositive(const RealLimits& lim)
-{
-    return lim.hasLowerLimit() && !lim.hasUpperLimit() &&
-           lim.getLowerLimit() == std::numeric_limits<double>::min();
-}
-
-bool isLimited(const RealLimits& lim)
-{
-    return lim.hasLowerLimit() && lim.hasUpperLimit();
-}
-
-}
-
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = Constants::DistributionSigmaFactor;
 const QString DistributionItem::P_IS_INITIALIZED = "is initialized";
@@ -71,11 +50,11 @@ void DistributionItem::init_limits_group(const RealLimits& limits)
     if (!isTag(P_LIMITS))
         return;
 
-    if (isPositive(limits)) {
+    if (limits.isPositive()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsPositiveType);
-    } else if (isLimitless(limits)) {
+    } else if (limits.isLimitless()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsLimitlessType);
-    } else if (isLimited(limits)) {
+    } else if (limits.isLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLimitedType);
         lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit());
         lim->setItemValue(RealLimitsItem::P_XMAX, limits.getUpperLimit());

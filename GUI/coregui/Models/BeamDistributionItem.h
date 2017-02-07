@@ -23,6 +23,7 @@ class ParameterDistribution;
 
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem
+
 class BA_CORE_API_ BeamDistributionItem : public SessionItem
 {
 public:
@@ -35,6 +36,7 @@ public:
     virtual double meanValue() const;
 
 protected:
+    virtual double scaleFactor() const;
     void register_distribution_group();
     void initDistributionItem();
 

@@ -33,5 +33,5 @@ BeamWavelengthItem::BeamWavelengthItem()
 
 double BeamWavelengthItem::wavelength() const
 {
-    return this->meanValue();
+    return BeamDistributionItem::meanValue();
 }

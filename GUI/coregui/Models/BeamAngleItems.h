@@ -27,7 +27,7 @@ public:
     double azimuthalAngle() const;
 
 protected:
-    virtual std::unique_ptr<IDistribution1D> createDistribution1D() const override;
+    virtual double scaleFactor() const;
 };
 
 class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
@@ -38,7 +38,7 @@ public:
     double inclinationAngle() const;
 
 protected:
-    virtual std::unique_ptr<IDistribution1D> createDistribution1D() const override;
+    virtual double scaleFactor() const;
 };
 
 #endif // BEAMANGLEITEMS_H

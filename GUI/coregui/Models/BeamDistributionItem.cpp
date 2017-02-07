@@ -55,21 +55,20 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
                 sigma_factor
                     = distributionItem->getItemValue(DistributionItem::P_SIGMA_FACTOR).toInt();
             }
-            RealLimits limits;
-            SessionItem* distributionNoneValueItem
-                = getGroupItem(P_DISTRIBUTION, Constants::DistributionNoneType)
-                      ->getItem(DistributionNoneItem::P_VALUE);
-            if (modelType() == Constants::BeamWavelengthType) {
-                limits = distributionNoneValueItem->limits();
-            } else {
-                RealLimits orig = distributionNoneValueItem->limits();
-                if (orig.hasLowerLimit())
-                    limits.setLowerLimit(Units::deg2rad(orig.getLowerLimit()));
-                if (orig.hasUpperLimit())
-                    limits.setUpperLimit(Units::deg2rad(orig.getUpperLimit()));
-            }
+
+            SessionItem* valueItem = getGroupItem(P_DISTRIBUTION, Constants::DistributionNoneType)
+                    ->getItem(DistributionNoneItem::P_VALUE);
+
+            RealLimits origLimits = valueItem->limits();
+
+            RealLimits domainLimits;
+            if (origLimits.hasLowerLimit())
+                domainLimits.setLowerLimit(origLimits.getLowerLimit()/scaleFactor());
+            if (origLimits.hasUpperLimit())
+                domainLimits.setUpperLimit(origLimits.getUpperLimit()/scaleFactor());
+
             P_par_distr = GUIHelpers::make_unique<ParameterDistribution>(
-                parameter_name, *P_distribution, nbr_samples, sigma_factor, limits);
+                parameter_name, *P_distribution, nbr_samples, sigma_factor, domainLimits);
         }
     }
     return P_par_distr;
@@ -114,9 +113,17 @@ double BeamDistributionItem::meanValue() const
 {
     std::unique_ptr<IDistribution1D> domainDistr = createDistribution1D();
     if (domainDistr)
-        return domainDistr->getMean();
+        return scaleFactor()*domainDistr->getMean();
     else
         return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
+}
+
+//! Scales the values provided by distribution (to perform deg->rad convertion in the case
+//! of AngleDistributionItems.
+
+double BeamDistributionItem::scaleFactor() const
+{
+    return 1.0;
 }
 
 void BeamDistributionItem::register_distribution_group()
@@ -128,7 +135,7 @@ void BeamDistributionItem::register_distribution_group()
 std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D() const
 {
     if (auto distItem = dynamic_cast<DistributionItem*>(getGroupItem(P_DISTRIBUTION)))
-        return distItem->createDistribution();
+        return distItem->createDistribution(scaleFactor());
 
     return {};
 }

@@ -129,9 +129,13 @@ double DistributionGate::probabilityDensity(double x) const
 }
 
 std::vector<double> DistributionGate::equidistantPoints(
-    size_t nbr_samples, double, const RealLimits&) const
+    size_t nbr_samples, double sigma_factor, const RealLimits& limits) const
 {
-    return equidistantPointsInRange(nbr_samples, m_min, m_max);
+    (void)sigma_factor;
+    double xmin = m_min;
+    double xmax = m_max;
+    adjustMinMaxForLimits(xmin, xmax, limits);
+    return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
 void DistributionGate::init_parameters()

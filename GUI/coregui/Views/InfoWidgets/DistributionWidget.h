@@ -37,6 +37,7 @@ class DistributionWidget : public QWidget
 
 public:
     DistributionWidget(QWidget *parent = 0);
+    ~DistributionWidget();
 
     void setItem(DistributionItem *item);
     void plotItem();

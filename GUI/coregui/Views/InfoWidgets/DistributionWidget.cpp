@@ -66,6 +66,12 @@ DistributionWidget::DistributionWidget(QWidget *parent)
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
 }
 
+DistributionWidget::~DistributionWidget()
+{
+    if(m_item)
+        m_item->mapper()->unsubscribe(this);
+}
+
 void DistributionWidget::setItem(DistributionItem *item)
 {
     if (m_item == item) {
@@ -86,6 +92,11 @@ void DistributionWidget::setItem(DistributionItem *item)
                     [this](QString)
         {
             plotItem();
+        }, this);
+
+        m_item->mapper()->setOnItemDestroy(
+                    [this](SessionItem *) {
+            m_item = 0;
         }, this);
 
     }

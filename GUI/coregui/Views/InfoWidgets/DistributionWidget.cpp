@@ -63,8 +63,7 @@ DistributionWidget::DistributionWidget(QWidget *parent)
 
     setStyleSheet("background-color:white;");
     connect(m_plot, SIGNAL(mousePress(QMouseEvent *)), this, SLOT(onMousePress(QMouseEvent *)));
-    connect(m_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
-    connect(m_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
+    connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
 }
 
 void DistributionWidget::setItem(DistributionItem *item)
@@ -196,7 +195,6 @@ void DistributionWidget::plotItem()
         setVerticalDashedLine(xPos[0], 0, xPos[xPos.size() - 1], m_plot->yAxis->range().upper);
     }
     m_plot->replot();
-    connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
 }
 
 double DistributionWidget::getWidthOfBars(double min, double max, int samples)

@@ -172,6 +172,19 @@ GISASSimulation*StandardSimulations::MiniGISASPolarizationPP()
     return result;
 }
 
+GISASSimulation*StandardSimulations::MiniGISASSpinFlipZ()
+{
+    GISASSimulation* result = MiniGISAS();
+    result->getOptions().setNumberOfThreads(1);
+
+    kvector_t analyzer_dir(0.0, 0.0, -1.0);
+    kvector_t beampol(0.0, 0.0, 1.0);
+
+    result->setBeamPolarization(beampol);
+    result->setAnalyzerProperties(analyzer_dir, 1.0, 0.5);
+    return result;
+}
+
 //! GISAS simulation with large detector to test performance.
 
 GISASSimulation* StandardSimulations::MaxiGISAS()
@@ -327,4 +340,3 @@ GISASSimulation* StandardSimulations::RectDetWithRoi()
     result->setRegionOfInterest(2.0, 3.0, 18.0, 15.0);
     return result;
 }
-

@@ -26,6 +26,7 @@ class QLabel;
 class QCustomPlot;
 class DistributionItem;
 class QAction;
+class RealLimits;
 
 //! The DistributionWidget class plots 1d functions corresponding to domain's Distribution1D
 class DistributionWidget : public QWidget
@@ -38,9 +39,7 @@ public:
 
     void setItem(DistributionItem *item);
     void plotItem();
-    void plotVerticalLine(double xMin, double yMin, double xMax, double yMax);
     void setXAxisName(const QString& xAxisName);
-    QPoint positionForWarningSign();
 
 public slots:
     void onMouseMove(QMouseEvent *event);
@@ -60,6 +59,10 @@ private:
     void setPlotRange(const QPair<double, double>& xRange, const QPair<double, double>& yRange);
     void plotBars(const QVector<double>& xbars, const QVector<double>& ybars);
     void plotFunction(const QVector<double>& xFunc, const QVector<double>& ybars);
+    void plotVerticalLine(double xMin, double yMin, double xMax, double yMax,
+                          const QColor& color = Qt::blue);
+    void plotLimits(const RealLimits& limits);
+    QPoint positionForWarningSign();
 
     QCustomPlot *m_plot;
     DistributionItem *m_item;

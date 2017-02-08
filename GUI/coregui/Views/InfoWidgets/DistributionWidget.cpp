@@ -127,19 +127,6 @@ void DistributionWidget::plotItem()
     m_plot->replot();
 }
 
-void DistributionWidget::plotVerticalLine(double xMin, double yMin, double xMax, double yMax)
-{
-    QCPItemLine *line = new QCPItemLine(m_plot);
-
-    QPen pen(Qt::blue, 1, Qt::DashLine);
-    line->setPen(pen);
-    line->setSelectable(true);
-
-    m_plot->addItem(line);
-    line->start->setCoords(xMin, yMin);
-    line->end->setCoords(xMax, yMax);
-}
-
 //! Generates label with current mouse position.
 
 void DistributionWidget::onMouseMove(QMouseEvent *event)
@@ -235,6 +222,7 @@ void DistributionWidget::plot_multiple_values()
             = dynamic_cast<RealLimitsItem*>(m_item->getGroupItem(DistributionItem::P_LIMITS));
         limits = limitsItem->createRealLimits();
     }
+    plotLimits(limits);
 
     auto dist = m_item->createDistribution();
 
@@ -255,7 +243,7 @@ void DistributionWidget::plot_multiple_values()
 
     // calculating function points (for interval, bigger than bars)
     auto xRange = xRangeForValues(xBar);
-    const int number_of_points = 100;
+    const int number_of_points = 400;
     std::vector<double> xf
         = dist->equidistantPointsInRange(number_of_points, xRange.first, xRange.second);
     std::vector<double> yf(xf.size());
@@ -287,7 +275,11 @@ void DistributionWidget::plotBars(const QVector<double>& xbars, const QVector<do
     auto yRange = yRangeForValues(ybars);
     setPlotRange(xRange, yRange);
 
-    double barWidth = optimalBarWidth(xRange.first, xRange.second, xbars.size());
+    double barWidth(0.0);
+    if(xbars.size() == 1)
+        barWidth = optimalBarWidth(xRange.first, xRange.second, xbars.size());
+    else
+        barWidth = optimalBarWidth(xbars.front(), xbars.back(), xbars.size());
 
     QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
 
@@ -306,21 +298,42 @@ void DistributionWidget::plotFunction(const QVector<double>& xFunc, const QVecto
     m_plot->graph(0)->setData(xFunc, yFunc);
 }
 
+void DistributionWidget::plotVerticalLine(double xMin, double yMin, double xMax, double yMax,
+                                          const QColor& color)
+{
+    QCPItemLine* line = new QCPItemLine(m_plot);
+
+    QPen pen(color, 1, Qt::DashLine);
+    line->setPen(pen);
+    line->setSelectable(true);
+
+    m_plot->addItem(line);
+    line->start->setCoords(xMin, yMin);
+    line->end->setCoords(xMax, yMax);
+}
+
+//! Plots red line denoting lower and upper limits, if any.
+
+void DistributionWidget::plotLimits(const RealLimits& limits)
+{
+    if(limits.hasLowerLimit()) {
+        double value = limits.getLowerLimit();
+        plotVerticalLine(value, default_yrange.first, value, default_yrange.second, Qt::red);
+    }
+
+    if(limits.hasUpperLimit()) {
+        double value = limits.getUpperLimit();
+        plotVerticalLine(value, default_yrange.first, value, default_yrange.second, Qt::red);
+    }
+}
+
 void DistributionWidget::setXAxisName(const QString& xAxisName)
 {
     m_plot->xAxis->setLabel(xAxisName);
 }
 
-//! Returns position for warning sign at the bottom right corner of the editor. The position will
-//! be adjusted according to the visibility of scroll bars
-QPoint DistributionWidget::positionForWarningSign()
-{
-    int x = m_plot->geometry().topRight().x() - warning_sign_xpos;
-    int y = m_plot->geometry().topRight().y() + warning_sign_ypos;
-    return QPoint(x, y);
-}
-
 //! adjusts position of warning label on widget move
+
 void DistributionWidget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
@@ -328,6 +341,16 @@ void DistributionWidget::resizeEvent(QResizeEvent *event)
         QPoint pos = positionForWarningSign();
         m_warningSign->setPosition(pos.x(), pos.y());
     }
+}
+
+//! Returns position for warning sign at the bottom right corner of the editor. The position will
+//! be adjusted according to the visibility of scroll bars
+
+QPoint DistributionWidget::positionForWarningSign()
+{
+    int x = m_plot->geometry().topRight().x() - warning_sign_xpos;
+    int y = m_plot->geometry().topRight().y() + warning_sign_ypos;
+    return QPoint(x, y);
 }
 
 namespace {

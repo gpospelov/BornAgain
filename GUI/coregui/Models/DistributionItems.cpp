@@ -63,7 +63,7 @@ void DistributionItem::init_limits_group(const RealLimits& limits)
 
 void DistributionItem::register_number_of_samples()
 {
-    addProperty(P_NUMBER_OF_SAMPLES, 5);
+    addProperty(P_NUMBER_OF_SAMPLES, 5)->setLimits(RealLimits::lowerLimited(1.0));
 }
 
 void DistributionItem::register_sigma_factor()
@@ -108,6 +108,7 @@ DistributionGateItem::DistributionGateItem() : DistributionItem(Constants::Distr
     addProperty(P_MIN, 0.0)->setLimits(RealLimits::limitless());
     addProperty(P_MAX, 1.0)->setLimits(RealLimits::limitless());
     register_number_of_samples();
+    register_limits();
 }
 
 std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution(double scale) const

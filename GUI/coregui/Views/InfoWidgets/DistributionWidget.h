@@ -20,14 +20,11 @@
 #include "WarningSignWidget.h"
 #include "qcustomplot.h"
 #include <QWidget>
-#include <memory>
 
 class SessionItem;
-class AwesomePropertyEditor;
 class QLabel;
 class QCustomPlot;
 class DistributionItem;
-class QCPRange;
 class QAction;
 
 //! The DistributionWidget class plots 1d functions corresponding to domain's Distribution1D
@@ -41,11 +38,9 @@ public:
 
     void setItem(DistributionItem *item);
     void plotItem();
-    double getWidthOfBars(double min, double max, int samples);
-    void setVerticalDashedLine(double xMin, double yMin, double xMax, double yMax);
-    int getMaxYPosition(int y);
-    void setXAxisName(QString xAxisName);
-    QPoint getPositionForWarningSign();
+    void plotVerticalLine(double xMin, double yMin, double xMax, double yMax);
+    void setXAxisName(const QString& xAxisName);
+    QPoint positionForWarningSign();
 
 public slots:
     void onMouseMove(QMouseEvent *event);
@@ -53,16 +48,24 @@ public slots:
 
 protected:
     void resizeEvent(QResizeEvent *event);
+
 private slots:
     void resetView();
 
 private:
+    void init_plot();
+    void plot_distributions();
+    void plot_single_value();
+    void plot_multiple_values();
+    void setPlotRange(const QPair<double, double>& xRange, const QPair<double, double>& yRange);
+    void plotBars(const QVector<double>& xbars, const QVector<double>& ybars);
+    void plotFunction(const QVector<double>& xFunc, const QVector<double>& ybars);
+
     QCustomPlot *m_plot;
     DistributionItem *m_item;
     QLabel *m_label;
     QAction *m_resetAction;
-    QCPRange *m_xRange;
-    QCPRange *m_yRange;
+    QCPRange m_xRange, m_yRange;
     WarningSignWidget *m_warningSign;
 };
 

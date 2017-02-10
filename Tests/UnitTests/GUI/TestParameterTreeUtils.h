@@ -3,6 +3,9 @@
 #include "ParameterTreeUtils.h"
 #include "LayerItem.h"
 #include "SampleModel.h"
+#include "ParticleItem.h"
+#include "FormFactorItems.h"
+#include "VectorItem.h"
 
 namespace {
     const QStringList expectedParticleParameterNames = {
@@ -24,6 +27,7 @@ class TestParameterTreeUtils : public QObject {
 private slots:
     void test_parameterTreeNames();
     void test_parameterTranslatedNames();
+    void test_linkItemFromParameterName();
 };
 
 //! Tests parameter names of given item.
@@ -50,4 +54,27 @@ inline void TestParameterTreeUtils::test_parameterTranslatedNames()
 
     QCOMPARE(ParameterTreeUtils::translatedParameterTreeNames(particle),
              expectedParticleParameterTranslations);
+}
+
+//! Tests translated parameter names of given item.
+
+inline void TestParameterTreeUtils::test_linkItemFromParameterName()
+{
+    QCOMPARE(1, 1);
+    SampleModel model;
+
+    SessionItem* particle = model.insertNewItem(Constants::ParticleType);
+
+    auto ffItem = static_cast<FormFactorItem*>(particle->getGroupItem(ParticleItem::P_FORM_FACTOR));
+    Q_ASSERT(ffItem);
+    QCOMPARE(ffItem->modelType(), Constants::AnisoPyramidType);
+
+    QCOMPARE(
+        ffItem->getItem(AnisoPyramidItem::P_LENGTH),
+        ParameterTreeUtils::parameterNameToLinkedItem("Particle/AnisoPyramid/Length", particle));
+    QCOMPARE(
+        ffItem->getItem(AnisoPyramidItem::P_WIDTH),
+        ParameterTreeUtils::parameterNameToLinkedItem("Particle/AnisoPyramid/Width", particle));
+    QCOMPARE(particle->getItem(ParticleItem::P_POSITION)->getItem(VectorItem::P_X),
+             ParameterTreeUtils::parameterNameToLinkedItem("Particle/Position Offset/X", particle));
 }

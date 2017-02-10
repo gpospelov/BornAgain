@@ -32,7 +32,7 @@ class TestParticleDistributionItem : public QObject {
 private slots:
     void test_InitialState();
     void test_AddParticle();
-    void test_LimitsSetup();
+//    void test_LimitsSetup();
     void test_FromDomain();
     void test_FromDomainWithLimits();
 };
@@ -89,45 +89,43 @@ inline void TestParticleDistributionItem::test_AddParticle()
 //! Here we check, that ParticleDistributionItem pick up limits from childParticle.
 //! Namely, if we choose Cylinder/Radisu as a parameter, than limits will be nonnegative()
 
-inline void TestParticleDistributionItem::test_LimitsSetup()
-{
-    SampleModel model;
-    SessionItem *dist = model.insertNewItem(Constants::ParticleDistributionType);
+//inline void TestParticleDistributionItem::test_LimitsSetup()
+//{
+//    SampleModel model;
+//    SessionItem *dist = model.insertNewItem(Constants::ParticleDistributionType);
 
-    // adding default particle and checking list of available parameters
-    model.insertNewItem(Constants::ParticleType, dist->index());
+//    // adding default particle and checking list of available parameters
+//    model.insertNewItem(Constants::ParticleType, dist->index());
 
-    QCOMPARE(dist->getItems().size(), 1);
+//    QCOMPARE(dist->getItems().size(), 1);
 
-    ComboProperty prop = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
-                    .value<ComboProperty>();
+//    ComboProperty prop = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+//                    .value<ComboProperty>();
 
-    QCOMPARE(prop.getValues(), expectedAnisoParams);
-    QCOMPARE(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+//    QCOMPARE(prop.getValues(), expectedAnisoParams);
+//    QCOMPARE(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
-    // Checking initial limits
-    DistributionItem* distItem = dynamic_cast<DistributionItem*>(
-                dist->getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
-    QVERIFY(distItem != nullptr);
+//    // Checking initial limits
+//    DistributionItem* distItem = dynamic_cast<DistributionItem*>(
+//                dist->getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
+//    QVERIFY(distItem != nullptr);
 
-    RealLimitsItem* limitsItem = dynamic_cast<RealLimitsItem*>(
-                distItem->getGroupItem(DistributionItem::P_LIMITS));
-    QVERIFY(limitsItem != nullptr);
+//    RealLimitsItem* limitsItem = dynamic_cast<RealLimitsItem*>(
+//                distItem->getGroupItem(DistributionItem::P_LIMITS));
+//    QVERIFY(limitsItem != nullptr);
 
-    QVERIFY(limitsItem->createRealLimits() == RealLimits::limitless());
+//    QVERIFY(limitsItem->createRealLimits() == RealLimits::limitless());
 
-    // Choosing parameter and checking that limits have been changed
-    prop.setValue("Particle/AnisoPyramid/Length");
-    dist->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER, prop.getVariant());
+//    // Choosing parameter and checking that limits have been changed
+//    prop.setValue("Particle/AnisoPyramid/Length");
+//    dist->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER, prop.getVariant());
 
-    limitsItem = dynamic_cast<RealLimitsItem*>(
-                distItem->getGroupItem(DistributionItem::P_LIMITS));
-    QVERIFY(limitsItem != nullptr);
+//    limitsItem = dynamic_cast<RealLimitsItem*>(
+//                distItem->getGroupItem(DistributionItem::P_LIMITS));
+//    QVERIFY(limitsItem != nullptr);
 
-    QVERIFY(limitsItem->createRealLimits() == RealLimits::nonnegative());
-}
-
-
+//    QVERIFY(limitsItem->createRealLimits() == RealLimits::nonnegative());
+//}
 
 inline void TestParticleDistributionItem::test_FromDomain()
 {

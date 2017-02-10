@@ -39,6 +39,7 @@ set(test_cases
     Lattice1D
     MagneticParticleZeroField
     MagneticSubstrateZeroField
+    MagneticRotation
     MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout

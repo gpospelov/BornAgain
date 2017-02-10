@@ -48,6 +48,10 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::MiniGISASPolarizationPP,
                  "GISAS simulation measuring plus-plus polarization");
 
+    registerItem("MiniGISASSpinFlipZ",
+                 StandardSimulations::MiniGISASSpinFlipZ,
+                 "GISAS simulation measuring spin flip channel");
+
     registerItem("GISASWithMasks",
                  StandardSimulations::GISASWithMasks,
                  "GISAS simulation with small detector and various masks");

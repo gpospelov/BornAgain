@@ -438,7 +438,6 @@ QVariant SessionItem::getItemValue(const QString &tag) const
 
 void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
 {
-    // check if variant of previous property coincides with new one
     if (!isTag(tag))
         throw GUIHelpers::Error("Property not existing!");
 
@@ -615,6 +614,11 @@ bool SessionItem::setValue(QVariant value)
         throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
                                 "previous and new variant does not coincide.");
     }
+
+    // TODO If QVariant contains ComboProperty, the comparison will be always true.
+    if(previous_variant == value)
+        return true;
+
     return setData(Qt::DisplayRole, value);
 }
 

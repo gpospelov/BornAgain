@@ -18,8 +18,6 @@ def get_sample():
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    nparticles = 150
-    nfwhm = 3.0
 
     # collection of particles #1
     radius1 = 5.0*nm
@@ -31,8 +29,14 @@ def get_sample():
 
     gauss_distr1 = ba.DistributionGaussian(radius1, sigma1)
 
+    nparticles = 150
+    sigma_factor = 3.0
+
+    # limits will assure, that generated Radius'es are >=0
+    limits = ba.RealLimits.nonnegative()
+
     par_distr1 = ba.ParameterDistribution(
-        "/Particle/Cylinder/Radius", gauss_distr1, nparticles, nfwhm)
+        "/Particle/Cylinder/Radius", gauss_distr1, nparticles, sigma_factor, limits)
     part_coll1 = ba.ParticleDistribution(cylinder1, par_distr1)
 
     # collection of particles #2
@@ -46,7 +50,7 @@ def get_sample():
     gauss_distr2 = ba.DistributionGaussian(radius2, sigma2)
 
     par_distr2 = ba.ParameterDistribution(
-        "/Particle/Cylinder/Radius", gauss_distr2, nparticles, nfwhm)
+        "/Particle/Cylinder/Radius", gauss_distr2, nparticles, sigma_factor, limits)
     part_coll2 = ba.ParticleDistribution(cylinder2, par_distr2)
 
     # assembling the sample

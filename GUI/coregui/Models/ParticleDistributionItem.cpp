@@ -55,11 +55,11 @@ ParticleDistributionItem::ParticleDistributionItem()
         updateParameterList();
     });
 
-//    mapper()->setOnPropertyChange([this](const QString &name)
-//    {
-//        if(name == P_DISTRIBUTED_PARAMETER)
-//            initDistributionItem();
-//    }, this);
+    mapper()->setOnPropertyChange([this](const QString &name)
+    {
+        if(name == P_DISTRIBUTED_PARAMETER)
+            initDistributionItem();
+    }, this);
 
 }
 
@@ -118,45 +118,54 @@ void ParticleDistributionItem::updateParameterList()
     par_names.removeAll(ParticleItem::P_ABUNDANCE);
     ComboProperty newProp = ComboProperty(par_names, NO_SELECTION);
 
+    bool make_cache_clear(false);
     if (!m_domain_cache_name.isEmpty()) {
         QString guiName = translateParameterNameToGUI(m_domain_cache_name);
         if (!guiName.isEmpty()) { // might be empty because item was not fully constructed yet
             currentValue = guiName;
-            m_domain_cache_name.clear();
+            make_cache_clear = true;
         }
     }
 
     if (newProp.getValues().contains(currentValue))
         newProp.setValue(currentValue);
 
+    // we first set parameter, and then clear the cache name, to not to allow
+    // initDistributionItem to override limits obtained from the domain
+
     if(prop != newProp)
         setItemValue(P_DISTRIBUTED_PARAMETER, newProp.getVariant());
+
+    if(make_cache_clear)
+        m_domain_cache_name.clear();
 }
 
 //! Provides reasonable initialization of the distribution item (mean value of the distributed
 //! parameter, limits). Called on every distributed parameter name change.
 
-//void ParticleDistributionItem::initDistributionItem()
-//{
+void ParticleDistributionItem::initDistributionItem()
+{
+    if(!m_domain_cache_name.isEmpty())
+        return;
 
-//    ComboProperty prop = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
-//    if(prop.getValue() == NO_SELECTION)
-//        return;
+    ComboProperty prop = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
+    if(prop.getValue() == NO_SELECTION)
+        return;
 
-//    SessionItem *linkedItem = ParameterTreeUtils::parameterNameToLinkedItem(prop.getValue(),
-//                                                                            childParticle());
-//    Q_ASSERT(linkedItem);
+    SessionItem *linkedItem = ParameterTreeUtils::parameterNameToLinkedItem(prop.getValue(),
+                                                                            childParticle());
+    Q_ASSERT(linkedItem);
 
-//    double value = linkedItem->value().toDouble();
-//    RealLimits limits = linkedItem->limits();
+    double value = linkedItem->value().toDouble();
+    RealLimits limits = linkedItem->limits();
 
-//    auto distr_item = dynamic_cast<DistributionItem*>(
-//                getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
-//    Q_ASSERT(distr_item);
+    auto distr_item = dynamic_cast<DistributionItem*>(
+                getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
+    Q_ASSERT(distr_item);
 
-//    distr_item->setItemValue(DistributionItem::P_IS_INITIALIZED, false);
-//    distr_item->init_parameters(value, limits);
-//}
+    distr_item->setItemValue(DistributionItem::P_IS_INITIALIZED, false);
+    distr_item->init_parameters(value, limits);
+}
 
 QStringList ParticleDistributionItem::childParameterNames() const
 {

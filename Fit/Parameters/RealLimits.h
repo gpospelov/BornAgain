@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <ostream>
+#include <string>
 
 //! Limits for a real fit parameter.
 //! @ingroup fitting

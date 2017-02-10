@@ -12,6 +12,7 @@
 #include "DistributionItems.h"
 #include "MaterialEditor.h"
 #include "RealLimitsItems.h"
+#include "MaterialSvc.h"
 
 namespace {
     const QStringList expectedAnisoParams = {
@@ -35,6 +36,7 @@ private slots:
 //    void test_LimitsSetup();
     void test_FromDomain();
     void test_FromDomainWithLimits();
+    void test_Clone();
 };
 
 inline void TestParticleDistributionItem::test_InitialState()
@@ -189,4 +191,25 @@ inline void TestParticleDistributionItem::test_FromDomainWithLimits()
     Q_ASSERT(limitsItem);
 
     QCOMPARE(limitsItem->createRealLimits(), domainLimits);
+}
+
+inline void TestParticleDistributionItem::test_Clone()
+{
+    std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
+    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc(P_materialModel.get()));
+
+    SampleModel model1;
+    SessionItem *dist = model1.insertNewItem(Constants::ParticleDistributionType);
+    model1.insertNewItem(Constants::ParticleType, dist->index());
+
+    QString buffer1;
+    QXmlStreamWriter writer1(&buffer1);
+    model1.writeTo(&writer1);
+
+    std::unique_ptr<SampleModel> model2(model1.createCopy());
+    QString buffer2;
+    QXmlStreamWriter writer2(&buffer2);
+    model2->writeTo(&writer2);
+
+    QCOMPARE(buffer1, buffer2);
 }

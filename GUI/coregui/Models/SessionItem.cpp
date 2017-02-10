@@ -46,7 +46,7 @@ SessionItem::SessionItem(const QString &modelType)
     setData(SessionModel::ModelTypeRole, modelType);
     setDisplayName(modelType);
     setDecimals(3);
-    setLimits(RealLimits::lowerLimited(0.0));
+    setLimits(RealLimits::nonnegative());
 }
 
 //! Destructor deletes all its children and request parent to delete this item.

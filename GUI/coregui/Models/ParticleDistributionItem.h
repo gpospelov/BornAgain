@@ -31,11 +31,11 @@ public:
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
 
-    void updateParameterList();
-
     void setDomainCacheName(const QString& name);
 
 private:
+    void updateParameterList();
+//    void initDistributionItem();
     QStringList childParameterNames() const;
     QString translateParameterNameToGUI(const QString& domainName);
     const SessionItem* childParticle() const;

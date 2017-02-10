@@ -708,44 +708,51 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
                        Units::rad2deg(lattice.rotationAngle()));
 }
 
-void setDistribution(SessionItem* item, ParameterDistribution par_distr,
+void setDistribution(SessionItem* partDistrItem, ParameterDistribution par_distr,
                      QString group_name, double factor)
 {
     const IDistribution1D* p_distribution = par_distr.getDistribution();
-    SessionItem* pdfItem = 0;
+
+    SessionItem* item = 0;
     if (const DistributionGate* distr = dynamic_cast<const DistributionGate*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionGateType);
-        pdfItem->setItemValue(DistributionGateItem::P_MIN, factor*distr->getMin());
-        pdfItem->setItemValue(DistributionGateItem::P_MAX, factor*distr->getMax());
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionGateType);
+        item->setItemValue(DistributionGateItem::P_MIN, factor*distr->getMin());
+        item->setItemValue(DistributionGateItem::P_MAX, factor*distr->getMax());
     } else if (const DistributionLorentz* distr
                = dynamic_cast<const DistributionLorentz*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionLorentzType);
-        pdfItem->setItemValue(DistributionLorentzItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setItemValue(DistributionLorentzItem::P_HWHM, factor*distr->getHWHM());
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionLorentzType);
+        item->setItemValue(DistributionLorentzItem::P_MEAN, factor*distr->getMean());
+        item->setItemValue(DistributionLorentzItem::P_HWHM, factor*distr->getHWHM());
     } else if (const DistributionGaussian* distr
                = dynamic_cast<const DistributionGaussian*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionGaussianType);
-        pdfItem->setItemValue(DistributionGaussianItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setItemValue(DistributionGaussianItem::P_STD_DEV, factor*distr->getStdDev());
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionGaussianType);
+        item->setItemValue(DistributionGaussianItem::P_MEAN, factor*distr->getMean());
+        item->setItemValue(DistributionGaussianItem::P_STD_DEV, factor*distr->getStdDev());
     } else if (const DistributionLogNormal* distr
                = dynamic_cast<const DistributionLogNormal*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionLogNormalType);
-        pdfItem->setItemValue(DistributionLogNormalItem::P_MEDIAN, factor*distr->getMedian());
-        pdfItem->setItemValue(DistributionLogNormalItem::P_SCALE_PAR,
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionLogNormalType);
+        item->setItemValue(DistributionLogNormalItem::P_MEDIAN, factor*distr->getMedian());
+        item->setItemValue(DistributionLogNormalItem::P_SCALE_PAR,
                                        distr->getScalePar());
     } else if (const DistributionCosine* distr
                = dynamic_cast<const DistributionCosine*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionCosineType);
-        pdfItem->setItemValue(DistributionCosineItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setItemValue(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionCosineType);
+        item->setItemValue(DistributionCosineItem::P_MEAN, factor*distr->getMean());
+        item->setItemValue(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setDistribution: -> unknown distribution");
     }
-    if (pdfItem) {
-        pdfItem->setItemValue(DistributionItem::P_NUMBER_OF_SAMPLES,
-                                       (int)par_distr.getNbrSamples());
-        if(pdfItem->isTag(DistributionItem::P_SIGMA_FACTOR))
-            pdfItem->setItemValue(DistributionItem::P_SIGMA_FACTOR,
-                                       par_distr.getSigmaFactor());
-    }
+
+    DistributionItem *distItem = dynamic_cast<DistributionItem*>(item);
+    Q_ASSERT(distItem);
+
+    distItem->setItemValue(DistributionItem::P_NUMBER_OF_SAMPLES, (int)par_distr.getNbrSamples());
+
+    if(distItem->isTag(DistributionItem::P_SIGMA_FACTOR))
+        distItem->setItemValue(DistributionItem::P_SIGMA_FACTOR, par_distr.getSigmaFactor());
+
+    // TODO It's wrong if domain distribution made for angles.
+    if(distItem->isTag(DistributionItem::P_LIMITS))
+        distItem->init_limits_group(par_distr.getLimits());
+
 }

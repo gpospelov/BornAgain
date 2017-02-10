@@ -24,6 +24,7 @@
 #include "TransformToDomain.h"
 #include "ParameterTreeUtils.h"
 #include "RealLimitsItems.h"
+#include <QDebug>
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
@@ -53,6 +54,13 @@ ParticleDistributionItem::ParticleDistributionItem()
             return;
         updateParameterList();
     });
+
+//    mapper()->setOnPropertyChange([this](const QString &name)
+//    {
+//        if(name == P_DISTRIBUTED_PARAMETER)
+//            initDistributionItem();
+//    }, this);
+
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
@@ -93,6 +101,11 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     return result;
 }
 
+void ParticleDistributionItem::setDomainCacheName(const QString& name)
+{
+    m_domain_cache_name = name;
+}
+
 void ParticleDistributionItem::updateParameterList()
 {
     if (!isTag(P_DISTRIBUTED_PARAMETER))
@@ -116,13 +129,34 @@ void ParticleDistributionItem::updateParameterList()
     if (newProp.getValues().contains(currentValue))
         newProp.setValue(currentValue);
 
-    setItemValue(P_DISTRIBUTED_PARAMETER, newProp.getVariant());
+    if(prop != newProp)
+        setItemValue(P_DISTRIBUTED_PARAMETER, newProp.getVariant());
 }
 
-void ParticleDistributionItem::setDomainCacheName(const QString& name)
-{
-    m_domain_cache_name = name;
-}
+//! Provides reasonable initialization of the distribution item (mean value of the distributed
+//! parameter, limits). Called on every distributed parameter name change.
+
+//void ParticleDistributionItem::initDistributionItem()
+//{
+
+//    ComboProperty prop = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
+//    if(prop.getValue() == NO_SELECTION)
+//        return;
+
+//    SessionItem *linkedItem = ParameterTreeUtils::parameterNameToLinkedItem(prop.getValue(),
+//                                                                            childParticle());
+//    Q_ASSERT(linkedItem);
+
+//    double value = linkedItem->value().toDouble();
+//    RealLimits limits = linkedItem->limits();
+
+//    auto distr_item = dynamic_cast<DistributionItem*>(
+//                getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
+//    Q_ASSERT(distr_item);
+
+//    distr_item->setItemValue(DistributionItem::P_IS_INITIALIZED, false);
+//    distr_item->init_parameters(value, limits);
+//}
 
 QStringList ParticleDistributionItem::childParameterNames() const
 {

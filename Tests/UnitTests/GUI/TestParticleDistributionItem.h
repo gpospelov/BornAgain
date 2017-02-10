@@ -9,7 +9,9 @@
 #include "Particle.h"
 #include "HomogeneousMaterial.h"
 #include "MaterialModel.h"
+#include "DistributionItems.h"
 #include "MaterialEditor.h"
+#include "RealLimitsItems.h"
 
 namespace {
     const QStringList expectedAnisoParams = {
@@ -31,6 +33,7 @@ private slots:
     void test_InitialState();
     void test_AddParticle();
     void test_FromDomain();
+    void test_FromDomainWithLimits();
 };
 
 inline void TestParticleDistributionItem::test_InitialState()
@@ -52,8 +55,8 @@ inline void TestParticleDistributionItem::test_InitialState()
 
     ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
-    QCOMPARE(prop.getValues(), QStringList() << QStringLiteral("None"));
-    QCOMPARE(prop.getValue(), QStringLiteral("None"));
+    QCOMPARE(prop.getValues(), QStringList() << ParticleDistributionItem::NO_SELECTION);
+    QCOMPARE(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 }
 
 inline void TestParticleDistributionItem::test_AddParticle()
@@ -70,7 +73,7 @@ inline void TestParticleDistributionItem::test_AddParticle()
                     .value<ComboProperty>();
 
     QCOMPARE(prop.getValues(), expectedAnisoParams);
-    QCOMPARE(prop.getValue(), QStringLiteral("None"));
+    QCOMPARE(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
     // changing formfactor of the particle
     particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::BoxType);
@@ -79,7 +82,7 @@ inline void TestParticleDistributionItem::test_AddParticle()
                     .value<ComboProperty>();
 
     QCOMPARE(prop.getValues(), expectedBoxParams);
-    QCOMPARE(prop.getValue(), QStringLiteral("None"));
+    QCOMPARE(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 }
 
 inline void TestParticleDistributionItem::test_FromDomain()
@@ -105,7 +108,7 @@ inline void TestParticleDistributionItem::test_FromDomain()
     ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
 
-    QCOMPARE(prop.getValue(), QStringLiteral("None"));
+    QCOMPARE(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
     // changing particle type and check that distribution picked up domain name
     particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
@@ -114,3 +117,35 @@ inline void TestParticleDistributionItem::test_FromDomain()
 
     QCOMPARE(prop.getValue(), QString::fromStdString(pattern));
 }
+
+inline void TestParticleDistributionItem::test_FromDomainWithLimits()
+{
+    const std::string pattern("Particle/Cylinder/Radius");
+
+    // creating domain distribution
+    FormFactorCylinder cylinder(1.0, 2.0);
+    Particle particle(HomogeneousMaterial("Particle", 6e-4, 2e-8), cylinder);
+    DistributionGaussian gauss(1.0, 0.1);
+
+    RealLimits domainLimits = RealLimits::limited(1.0, 2.0);
+    ParameterDistribution par_distr(pattern, gauss, 100, 3.0, domainLimits);
+
+    ParticleDistribution particle_collection(particle, par_distr);
+
+    // creating GUI distribution
+    SampleModel model;
+    SessionItem *partDistItem = model.insertNewItem(Constants::ParticleDistributionType);
+    model.insertNewItem(Constants::ParticleType, partDistItem->index());
+
+//    // Sets it from domain
+    TransformFromDomain::setItemFromSample(partDistItem, &particle_collection);
+
+    SessionItem *distItem = partDistItem->getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);
+    Q_ASSERT(distItem);
+    RealLimitsItem* limitsItem = dynamic_cast<RealLimitsItem*>(
+            distItem->getGroupItem(DistributionItem::P_LIMITS));
+    Q_ASSERT(limitsItem);
+
+    QCOMPARE(limitsItem->createRealLimits(), domainLimits);
+}
+

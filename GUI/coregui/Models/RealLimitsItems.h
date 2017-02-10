@@ -27,49 +27,49 @@ public:
     static const QString P_XMAX;
     RealLimitsItem(const QString& name);
     virtual ~RealLimitsItem(){}
-    virtual RealLimits createRealLimits() const=0;
+    virtual RealLimits createRealLimits(double scale_factor = 1.0) const=0;
 };
 
 class BA_CORE_API_ LimitlessItem : public RealLimitsItem
 {
 public:
     LimitlessItem();
-    RealLimits createRealLimits() const;
+    RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
 class BA_CORE_API_ PositiveItem : public RealLimitsItem
 {
 public:
     PositiveItem();
-    RealLimits createRealLimits() const;
+    RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
 class BA_CORE_API_ NonnegativeItem : public RealLimitsItem
 {
 public:
     NonnegativeItem();
-    RealLimits createRealLimits() const;
+    RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
 class BA_CORE_API_ LowerLimitedItem : public RealLimitsItem
 {
 public:
     LowerLimitedItem();
-    RealLimits createRealLimits() const;
+    RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
 class BA_CORE_API_ UpperLimitedItem : public RealLimitsItem
 {
 public:
     UpperLimitedItem();
-    RealLimits createRealLimits() const;
+    RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
 class BA_CORE_API_ LimitedItem : public RealLimitsItem
 {
 public:
     LimitedItem();
-    RealLimits createRealLimits() const;
+    RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
 #endif // REALLIMITSITEMS_H

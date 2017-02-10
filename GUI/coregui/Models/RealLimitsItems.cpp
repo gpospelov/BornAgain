@@ -37,7 +37,7 @@ LimitlessItem::LimitlessItem()
 
 }
 
-RealLimits LimitlessItem::createRealLimits() const
+RealLimits LimitlessItem::createRealLimits(double /*scale_factor*/) const
 {
     return RealLimits();
 }
@@ -50,7 +50,7 @@ PositiveItem::PositiveItem()
 
 }
 
-RealLimits PositiveItem::createRealLimits() const
+RealLimits PositiveItem::createRealLimits(double /*scale_factor*/) const
 {
     return RealLimits::positive();
 }
@@ -63,7 +63,7 @@ NonnegativeItem::NonnegativeItem()
 
 }
 
-RealLimits NonnegativeItem::createRealLimits() const
+RealLimits NonnegativeItem::createRealLimits(double /*scale_factor*/) const
 {
     return RealLimits::nonnegative();
 }
@@ -77,9 +77,9 @@ LowerLimitedItem::LowerLimitedItem()
         .setLimits(RealLimits::limitless());
 }
 
-RealLimits LowerLimitedItem::createRealLimits() const
+RealLimits LowerLimitedItem::createRealLimits(double scale_factor) const
 {
-    return RealLimits::lowerLimited(getItemValue(P_XMIN).toDouble());
+    return RealLimits::lowerLimited(scale_factor*getItemValue(P_XMIN).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -91,9 +91,9 @@ UpperLimitedItem::UpperLimitedItem()
         .setLimits(RealLimits::limitless());
 }
 
-RealLimits UpperLimitedItem::createRealLimits() const
+RealLimits UpperLimitedItem::createRealLimits(double scale_factor) const
 {
-    return RealLimits::upperLimited(getItemValue(P_XMAX).toDouble());
+    return RealLimits::upperLimited(scale_factor*getItemValue(P_XMAX).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -107,7 +107,8 @@ LimitedItem::LimitedItem()
         .setLimits(RealLimits::limitless());
 }
 
-RealLimits LimitedItem::createRealLimits() const
+RealLimits LimitedItem::createRealLimits(double scale_factor) const
 {
-    return RealLimits::limited(getItemValue(P_XMIN).toDouble(), getItemValue(P_XMAX).toDouble());
+    return RealLimits::limited(scale_factor*getItemValue(P_XMIN).toDouble(),
+                               scale_factor*getItemValue(P_XMAX).toDouble());
 }

@@ -23,6 +23,7 @@
 #include "RealLimitsItems.h"
 #include "Units.h"
 
+
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 
 BeamDistributionItem::BeamDistributionItem(const QString& name)
@@ -56,19 +57,14 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
                     = distributionItem->getItemValue(DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 
-            SessionItem* valueItem = getGroupItem(P_DISTRIBUTION, Constants::DistributionNoneType)
-                    ->getItem(DistributionNoneItem::P_VALUE);
+            RealLimitsItem* limitsItem = dynamic_cast<RealLimitsItem*>(
+                        distributionItem->getGroupItem(DistributionItem::P_LIMITS));
+            Q_ASSERT(limitsItem);
 
-            RealLimits origLimits = valueItem->limits();
-
-            RealLimits domainLimits;
-            if (origLimits.hasLowerLimit())
-                domainLimits.setLowerLimit(origLimits.getLowerLimit()/scaleFactor());
-            if (origLimits.hasUpperLimit())
-                domainLimits.setUpperLimit(origLimits.getUpperLimit()/scaleFactor());
+            RealLimits limits = limitsItem->createRealLimits(scaleFactor());
 
             P_par_distr = GUIHelpers::make_unique<ParameterDistribution>(
-                parameter_name, *P_distribution, nbr_samples, sigma_factor, domainLimits);
+                parameter_name, *P_distribution, nbr_samples, sigma_factor, limits);
         }
     }
     return P_par_distr;

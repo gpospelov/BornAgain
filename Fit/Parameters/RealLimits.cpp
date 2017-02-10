@@ -19,25 +19,6 @@
 #include <limits>
 #include <sstream>
 
-namespace {
-
-bool isNonnegative(const RealLimits& lim)
-{
-    return lim.hasLowerLimit() && !lim.hasUpperLimit() && lim.getLowerLimit() == 0.0;
-}
-
-bool isLowerLimited(const RealLimits& lim)
-{
-    return lim.hasLowerLimit() && !lim.hasUpperLimit();
-}
-
-bool isUpperLimited(const RealLimits& lim)
-{
-    return !lim.hasLowerLimit() && lim.hasUpperLimit();
-}
-
-}
-
 //! Creates an object which can have only positive values (>0., zero is not included)
 RealLimits RealLimits::positive()
 {
@@ -56,15 +37,15 @@ std::string RealLimits::toString() const
         result << "positive";
     }
 
-    else if(isNonnegative(*this)) {
+    else if(isNonnegative()) {
         result << "nonnegative";
     }
 
-    else if(isLowerLimited(*this)) {
+    else if(isLowerLimited()) {
         result << "lowerLimited("  << std::fixed <<std::setprecision(2) << getLowerLimit() << ")";
     }
 
-    else if(isUpperLimited(*this)) {
+    else if(isUpperLimited()) {
         result << "upperLimited(" << std::fixed <<std::setprecision(2) << getUpperLimit() << ")";
     }
 
@@ -100,7 +81,22 @@ bool RealLimits::isLimitless() const
 bool RealLimits::isPositive() const
 {
     return hasLowerLimit() && !hasUpperLimit()
-           && getLowerLimit() == std::numeric_limits<double>::min();
+            && getLowerLimit() == std::numeric_limits<double>::min();
+}
+
+bool RealLimits::isNonnegative() const
+{
+    return hasLowerLimit() && !hasUpperLimit() && getLowerLimit() == 0.0;
+}
+
+bool RealLimits::isLowerLimited() const
+{
+    return hasLowerLimit() && !hasUpperLimit();
+}
+
+bool RealLimits::isUpperLimited() const
+{
+    return !hasLowerLimit() && hasUpperLimit();
 }
 
 bool RealLimits::isLimited() const

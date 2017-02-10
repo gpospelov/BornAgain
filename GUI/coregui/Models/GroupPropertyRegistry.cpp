@@ -135,6 +135,9 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     std::map<QString, QString> limits;
     limits[Constants::RealLimitsLimitlessType] = "Unlimited";
     limits[Constants::RealLimitsPositiveType] = "Positive";
+    limits[Constants::RealLimitsNonnegativeType] = "Nonnegative";
+    limits[Constants::RealLimitsLowerLimitedType] = "LowerLimited";
+    limits[Constants::RealLimitsUpperLimitedType] = "UpperLimited";
     limits[Constants::RealLimitsLimitedType] = "Limited";
     result[Constants::RealLimitsGroup] = limits;
 

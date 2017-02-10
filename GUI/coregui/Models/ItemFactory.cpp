@@ -205,6 +205,9 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::RealLimitsLimitlessType] = &createInstance<LimitlessItem>;
     result[Constants::RealLimitsPositiveType] = &createInstance<PositiveItem>;
+    result[Constants::RealLimitsNonnegativeType] = &createInstance<NonnegativeItem>;
+    result[Constants::RealLimitsLowerLimitedType] = &createInstance<LowerLimitedItem>;
+    result[Constants::RealLimitsUpperLimitedType] = &createInstance<UpperLimitedItem>;
     result[Constants::RealLimitsLimitedType] = &createInstance<LimitedItem>;
 
     return result;

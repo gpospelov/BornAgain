@@ -47,7 +47,6 @@ inline void TestParameterTreeUtils::test_parameterTreeNames()
 
 inline void TestParameterTreeUtils::test_parameterTranslatedNames()
 {
-    QCOMPARE(1,1);
     SampleModel model;
 
     SessionItem *particle = model.insertNewItem(Constants::ParticleType);
@@ -60,7 +59,6 @@ inline void TestParameterTreeUtils::test_parameterTranslatedNames()
 
 inline void TestParameterTreeUtils::test_linkItemFromParameterName()
 {
-    QCOMPARE(1, 1);
     SampleModel model;
 
     SessionItem* particle = model.insertNewItem(Constants::ParticleType);

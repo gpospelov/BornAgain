@@ -50,11 +50,30 @@ void DistributionItem::init_limits_group(const RealLimits& limits)
     if (!isTag(P_LIMITS))
         return;
 
-    if (limits.isPositive()) {
-        setGroupProperty(P_LIMITS, Constants::RealLimitsPositiveType);
-    } else if (limits.isLimitless()) {
+    if (limits.isLimitless()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsLimitlessType);
-    } else if (limits.isLimited()) {
+
+    }
+
+    else if (limits.isPositive()) {
+        setGroupProperty(P_LIMITS, Constants::RealLimitsPositiveType);
+    }
+
+    else if (limits.isNonnegative()) {
+        setGroupProperty(P_LIMITS, Constants::RealLimitsNonnegativeType);
+    }
+
+    else if (limits.isLowerLimited()) {
+        SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLowerLimitedType);
+        lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit());
+    }
+
+    else if (limits.isUpperLimited()) {
+        SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsUpperLimitedType);
+        lim->setItemValue(RealLimitsItem::P_XMAX, limits.getUpperLimit());
+    }
+
+    else if (limits.isLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLimitedType);
         lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit());
         lim->setItemValue(RealLimitsItem::P_XMAX, limits.getUpperLimit());

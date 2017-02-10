@@ -44,6 +44,27 @@ public:
     RealLimits createRealLimits() const;
 };
 
+class BA_CORE_API_ NonnegativeItem : public RealLimitsItem
+{
+public:
+    NonnegativeItem();
+    RealLimits createRealLimits() const;
+};
+
+class BA_CORE_API_ LowerLimitedItem : public RealLimitsItem
+{
+public:
+    LowerLimitedItem();
+    RealLimits createRealLimits() const;
+};
+
+class BA_CORE_API_ UpperLimitedItem : public RealLimitsItem
+{
+public:
+    UpperLimitedItem();
+    RealLimits createRealLimits() const;
+};
+
 class BA_CORE_API_ LimitedItem : public RealLimitsItem
 {
 public:

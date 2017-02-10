@@ -169,8 +169,10 @@ const ModelType TestMinimizerType = "Test";
 
 const ModelType RealLimitsLimitlessType = "RealLimitsLimitless";
 const ModelType RealLimitsPositiveType = "RealLimitsPositive";
+const ModelType RealLimitsNonnegativeType = "RealLimitsNonnegative";
+const ModelType RealLimitsLowerLimitedType = "RealLimitsLowerLimited";
+const ModelType RealLimitsUpperLimitedType = "RealLimitsUpperLimited";
 const ModelType RealLimitsLimitedType = "RealLimitsLimited";
-
 
 // --- Groups ------------------------------------------------------------------
 

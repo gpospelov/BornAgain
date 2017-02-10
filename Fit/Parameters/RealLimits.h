@@ -99,9 +99,10 @@ class BA_CORE_API_ RealLimits
     bool operator!=(const RealLimits &other) const { return !(*this == other); }
 
     bool isLimitless() const;
-
     bool isPositive() const;
-
+    bool isNonnegative() const;
+    bool isLowerLimited() const;
+    bool isUpperLimited() const;
     bool isLimited() const;
 
  protected:

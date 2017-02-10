@@ -220,6 +220,9 @@ IntensityDataItem *FitComparisonWidget::createRelativeDifferenceItem()
 
 void FitComparisonWidget::calculateRelativeDifference()
 {
+    if(!m_simulatedDataItem->getOutputData()) // job failed
+        return;
+
     Q_ASSERT(m_realDataItem);
     Q_ASSERT(m_simulatedDataItem);
     Q_ASSERT(m_relativeDiffItem);

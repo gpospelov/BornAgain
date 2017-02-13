@@ -49,6 +49,7 @@ private:
     QString m_warning_message;
     WarningSignWidget* m_warningWidget;
     QWidget *m_area;
+    bool m_clear_just_had_happened;
 };
 
 #endif // WARNINGSIGN_H

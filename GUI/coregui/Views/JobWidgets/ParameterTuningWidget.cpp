@@ -108,6 +108,7 @@ void ParameterTuningWidget::setItem(JobItem *item)
             onPropertyChanged(name);
         }, this);
 
+        onPropertyChanged(JobItem::P_STATUS);
     }
 }
 

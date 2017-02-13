@@ -86,17 +86,11 @@ void InfoWidget::onDockVisibilityChange(bool is_visible)
 {
     Q_ASSERT(m_pySampleWidget);
     if(isEditorVisible()) {
-        if(!is_visible) {
-            m_pySampleWidget->disableEditor();
-        } else {
-            //m_pySampleWidget->scheduleUpdate();
-            m_pySampleWidget->enableEditor();
-        }
+        if(!is_visible)
+            m_pySampleWidget->setEditorConnected(false);
+        else
+            m_pySampleWidget->setEditorConnected(true);
     }
-
-
-//    if(status != isEditorVisible())
-//        m_pySampleWidget->setEditorEnabled(status);
 }
 
 void InfoWidget::onExpandButtonClicked()
@@ -116,11 +110,11 @@ void InfoWidget::setEditorVisible(bool editor_status, bool dock_notify)
         }
         m_placeHolder->hide();
         m_pySampleWidget->show();
-        m_pySampleWidget->enableEditor();
+        m_pySampleWidget->setEditorConnected(true);
     } else {
         m_cached_height = height();
         m_pySampleWidget->hide();
-        m_pySampleWidget->disableEditor();
+        m_pySampleWidget->setEditorConnected(false);
         m_placeHolder->show();
         if(dock_notify) emit widgetHeightRequest(minimum_widget_height);
     }

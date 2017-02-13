@@ -22,13 +22,12 @@
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "WarningSign.h"
+#include "UpdateTimer.h"
 #include <QScrollBar>
 #include <QTextEdit>
-#include <QTimer>
 #include <QVBoxLayout>
 
 namespace {
-const int timer_interval_msec = 10;
 const int accumulate_updates_during_msec = 20.;
 
 const QString welcome_message =
@@ -60,9 +59,8 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     , m_textEdit(new QTextEdit)
     , m_sampleModel(0)
     , m_instrumentModel(0)
-    , m_time_to_update(accumulate_updates_during_msec)
-    , m_n_of_sceduled_updates(-1)
     , m_highlighter(0)
+    , m_updateTimer(new UpdateTimer(accumulate_updates_during_msec, this))
     , m_warningSign(new WarningSign(m_textEdit))
 {
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -72,10 +70,6 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     mainLayout->addWidget(m_textEdit);
 
     setLayout(mainLayout);
-
-    m_timer = new QTimer(this);
-    m_timer->setInterval(timer_interval_msec);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
 
     m_textEdit->setHtml(welcomeMessage());
     m_textEdit->setReadOnly(true);
@@ -94,7 +88,7 @@ void PySampleWidget::setSampleModel(SampleModel* sampleModel)
     Q_ASSERT(sampleModel);
     if (sampleModel != m_sampleModel) {
         if (m_sampleModel)
-            disableEditor();
+            setEditorConnected(false);
         m_sampleModel = sampleModel;
     }
 }
@@ -107,20 +101,12 @@ void PySampleWidget::setInstrumentModel(InstrumentModel* instrumentModel)
 
 void PySampleWidget::onModifiedRow(const QModelIndex&, int, int)
 {
-    scheduleUpdate();
+    m_updateTimer->scheduleUpdate();
 }
 
 void PySampleWidget::onDataChanged(const QModelIndex&, const QModelIndex&)
 {
-    scheduleUpdate();
-}
-
-//! Schedule subsequent update of the editor
-void PySampleWidget::scheduleUpdate()
-{
-    m_n_of_sceduled_updates++;
-    if (!m_timer->isActive())
-        m_timer->start();
+    m_updateTimer->scheduleUpdate();
 }
 
 //! Update the editor with the script content
@@ -131,71 +117,43 @@ void PySampleWidget::updateEditor()
         m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
     }
 
-    Q_ASSERT(!m_timer->isActive());
-    m_n_of_sceduled_updates = 0;
-
     const int old_scrollbar_value = m_textEdit->verticalScrollBar()->value();
 
     QString code_snippet = generateCodeSnippet();
 
-    if (m_warningSign->isShown())
+    if (!code_snippet.isEmpty())
+        m_textEdit->setText(code_snippet);
+    else
         m_textEdit->clear();
 
-    if (!code_snippet.isEmpty()) {
-        m_textEdit->setText(code_snippet);
-    }
-
     m_textEdit->verticalScrollBar()->setValue(old_scrollbar_value);
-
-    m_time_to_update = accumulate_updates_during_msec;
 }
 
-//! Disconnect from all signals to prevent editor update
-
-void PySampleWidget::disableEditor()
+void PySampleWidget::setEditorConnected(bool isConnected)
 {
-    Q_ASSERT(m_sampleModel);
-    m_timer->stop();
-    disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-               SLOT(onModifiedRow(QModelIndex, int, int)));
-    disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-               SLOT(onModifiedRow(QModelIndex, int, int)));
-    disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-               SLOT(onDataChanged(QModelIndex, QModelIndex)));
-    disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
-}
+    if (isConnected) {
+        connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
+                SLOT(onModifiedRow(QModelIndex, int, int)), Qt::UniqueConnection);
+        connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                SLOT(onModifiedRow(QModelIndex, int, int)), Qt::UniqueConnection);
+        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+                SLOT(onDataChanged(QModelIndex, QModelIndex)), Qt::UniqueConnection);
+        connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()),
+                Qt::UniqueConnection);
 
-void PySampleWidget::enableEditor()
-{
-    Q_ASSERT(m_sampleModel);
+        connect(m_updateTimer, SIGNAL(timeToUpdate()), this, SLOT(updateEditor()),
+                Qt::UniqueConnection);
 
-    if (m_sampleModel->topItems().isEmpty()) {
-        // negative number would mean that editor was never used and still contains welcome message
-        // which we want to keep
-        if (m_n_of_sceduled_updates >= 0)
-            updateEditor();
     } else {
-        updateEditor();
-    }
+        disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
+                   SLOT(onModifiedRow(QModelIndex, int, int)));
+        disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                   SLOT(onModifiedRow(QModelIndex, int, int)));
+        disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+                   SLOT(onDataChanged(QModelIndex, QModelIndex)));
+        disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
 
-    connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-            SLOT(onModifiedRow(QModelIndex, int, int)), Qt::UniqueConnection);
-    connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-            SLOT(onModifiedRow(QModelIndex, int, int)), Qt::UniqueConnection);
-    connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-            SLOT(onDataChanged(QModelIndex, QModelIndex)), Qt::UniqueConnection);
-    connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()), Qt::UniqueConnection);
-}
-
-//! Triggers the update of the editor
-
-void PySampleWidget::onTimerTimeout()
-{
-    m_time_to_update -= timer_interval_msec;
-
-    if (m_time_to_update < 0) {
-        m_timer->stop();
-        updateEditor();
+        disconnect(m_updateTimer, SIGNAL(timeToUpdate()), this, SLOT(updateEditor()));
     }
 }
 
@@ -206,7 +164,7 @@ QString PySampleWidget::generateCodeSnippet()
     m_warningSign->clear();
     QString result;
 
-    foreach (SessionItem* sampleItem, m_sampleModel->topItems()) {
+    foreach (SessionItem* sampleItem, m_sampleModel->topItems(Constants::MultiLayerType)) {
         DomainObjectBuilder builder;
         try {
             auto P_multilayer = builder.buildMultiLayer(*sampleItem);

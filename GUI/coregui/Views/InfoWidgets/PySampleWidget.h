@@ -24,8 +24,8 @@ class SampleModel;
 class InstrumentModel;
 class QTextEdit;
 class QModelIndex;
-class QTimer;
 class PythonSyntaxHighlighter;
+class UpdateTimer;
 class WarningSign;
 
 //! The PySampleWidget displays Python script representing a MultiLayer at the bottom of SampleView
@@ -44,14 +44,8 @@ public slots:
     void onModifiedRow(const QModelIndex&, int, int);
     void onDataChanged(const QModelIndex&, const QModelIndex&);
 
-    void scheduleUpdate();
     void updateEditor();
-
-    void disableEditor();
-    void enableEditor();
-
-private slots:
-    void onTimerTimeout();
+    void setEditorConnected(bool isConnected);
 
 private:
     QString generateCodeSnippet();
@@ -60,10 +54,8 @@ private:
     QTextEdit* m_textEdit;
     SampleModel* m_sampleModel;
     InstrumentModel* m_instrumentModel;
-    QTimer* m_timer;
-    int m_time_to_update;
-    int m_n_of_sceduled_updates;
     PythonSyntaxHighlighter* m_highlighter;
+    UpdateTimer* m_updateTimer;
     WarningSign* m_warningSign;
 };
 

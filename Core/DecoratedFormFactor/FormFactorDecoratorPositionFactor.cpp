@@ -15,6 +15,7 @@
 
 #include "FormFactorDecoratorPositionFactor.h"
 #include "BornAgainNamespace.h"
+#include "Rotations.h"
 #include "WavevectorInfo.h"
 
 FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
@@ -22,6 +23,13 @@ FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
     : IFormFactorDecorator(form_factor), m_position(position)
 {
     setName(BornAgain::FormFactorDecoratorPositionFactorType);
+}
+
+double FormFactorDecoratorPositionFactor::getZBottom(const IRotation& rotation) const
+{
+    Transform3D transform = rotation.getTransform3D();
+    kvector_t rotated_translation = transform.transformed(m_position);
+    return mp_form_factor->getZBottom(rotation) + rotated_translation.z();
 }
 
 complex_t FormFactorDecoratorPositionFactor::evaluate(

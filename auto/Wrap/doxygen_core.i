@@ -6812,7 +6812,7 @@ If defined by this interference function's parameters, returns the particle dens
 
 Pure virtual base class of all interference function strategy classes. Provides an 'evaluate' function that computes the total scattering intensity from a decorated layer, taking into account a specific inter-particle interference function. This function uses low-level functions precomputeParticleFormfactors, evaluateForList that are implemented differently in different inheriting classes. Multiple inheritance is used to support scalar and polarized scattering (through  IInterferenceFunctionStrategy1,  IInterferenceFunctionStrategy2) and to implement different approximation schemes ( DecouplingApproximationStrategy1,  SSCApproximationStrategy1, and their polarized counterparts).
 
-Instantiation of child classes takes place in  LayerStrategyBuilder::createStrategy, which is called from  ParticleLayoutComputation::eval.
+Instantiation of child classes takes place in  LayoutStrategyBuilder::createStrategy, which is called from  ParticleLayoutComputation::eval.
 
 C++ includes: IInterferenceFunctionStrategy.h
 ";
@@ -9169,26 +9169,6 @@ Returns lateral correlation length.
 ";
 
 
-// File: classLayerStrategyBuilder.xml
-%feature("docstring") LayerStrategyBuilder "
-
-Methods to generate a simulation strategy for a  ParticleLayoutComputation.
-
-C++ includes: LayerStrategyBuilder.h
-";
-
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const IFresnelMap *p_fresnel_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
-";
-
-%feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
-";
-
-%feature("docstring")  LayerStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayerStrategyBuilder::createStrategy() const
-
-Returns a new strategy object that is able to calculate the scattering for fixed k_f. 
-";
-
-
 // File: classLayersWithAbsorptionBuilder.xml
 %feature("docstring") LayersWithAbsorptionBuilder "
 
@@ -9204,6 +9184,26 @@ C++ includes: LayersWithAbsorptionBuilder.h
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::buildSample "MultiLayer * LayersWithAbsorptionBuilder::buildSample() const 
+";
+
+
+// File: classLayoutStrategyBuilder.xml
+%feature("docstring") LayoutStrategyBuilder "
+
+Methods to generate a simulation strategy for a  ParticleLayoutComputation.
+
+C++ includes: LayoutStrategyBuilder.h
+";
+
+%feature("docstring")  LayoutStrategyBuilder::LayoutStrategyBuilder "LayoutStrategyBuilder::LayoutStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const IFresnelMap *p_fresnel_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
+";
+
+%feature("docstring")  LayoutStrategyBuilder::~LayoutStrategyBuilder "LayoutStrategyBuilder::~LayoutStrategyBuilder()
+";
+
+%feature("docstring")  LayoutStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayoutStrategyBuilder::createStrategy() const
+
+Returns a new strategy object that is able to calculate the scattering for fixed k_f. 
 ";
 
 
@@ -13672,6 +13672,9 @@ GISAS simulation with detector resolution.
 %feature("docstring")  StandardSimulations::MiniGISASPolarizationPP "GISASSimulation * StandardSimulations::MiniGISASPolarizationPP()
 ";
 
+%feature("docstring")  StandardSimulations::MiniGISASSpinFlipZ "GISASSimulation * StandardSimulations::MiniGISASSpinFlipZ()
+";
+
 %feature("docstring")  StandardSimulations::GISASWithMasks "GISASSimulation * StandardSimulations::GISASWithMasks()
 
 GISAS simulation with multiple masks on the detector plane. 
@@ -14688,10 +14691,10 @@ make Swappable
 // File: LayerRoughness_8h.xml
 
 
-// File: LayerStrategyBuilder_8cpp.xml
+// File: LayoutStrategyBuilder_8cpp.xml
 
 
-// File: LayerStrategyBuilder_8h.xml
+// File: LayoutStrategyBuilder_8h.xml
 
 
 // File: MatrixFresnelMap_8cpp.xml

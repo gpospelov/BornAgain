@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/LayerStrategyBuilder.cpp
-//! @brief     Implements class LayerStrategyBuilder.
+//! @file      Core/Multilayer/LayoutStrategyBuilder.cpp
+//! @brief     Implements class LayoutStrategyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "LayerStrategyBuilder.h"
+#include "LayoutStrategyBuilder.h"
 #include "Exceptions.h"
 #include "FormFactorCoherentSum.h"
 #include "FormFactorDWBA.h"
@@ -27,7 +27,7 @@
 #include "DecouplingApproximationStrategy.h"
 #include "SSCApproximationStrategy.h"
 
-LayerStrategyBuilder::LayerStrategyBuilder(
+LayoutStrategyBuilder::LayoutStrategyBuilder(
     const MultiLayer* p_multilayer, const ILayout* p_layout,
     const IFresnelMap* p_fresnel_map, bool polarized,
     const SimulationOptions& sim_params, size_t layer_index)
@@ -39,11 +39,11 @@ LayerStrategyBuilder::LayerStrategyBuilder(
     , m_layer_index(layer_index)
 {}
 
-LayerStrategyBuilder::~LayerStrategyBuilder()
+LayoutStrategyBuilder::~LayoutStrategyBuilder()
 {} // needs class definitions => don't move to .h
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
-IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
+IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
 {
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
 
@@ -77,7 +77,7 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 }
 
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
-SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectFormFactorList() const
+SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFormFactorList() const
 {
     SafePointerVector<class FormFactorCoherentSum> result;
     const IMaterial* p_layer_material = mp_multilayer->getLayer(m_layer_index)->getMaterial();
@@ -95,7 +95,7 @@ SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectForm
 }
 
 //! Returns a new formfactor wrapper for a given particle in given ambient material.
-FormFactorCoherentSum* LayerStrategyBuilder::createFormFactorCoherentSum(
+FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     const IParticle* particle, const IMaterial* p_ambient_material) const
 {
     const std::unique_ptr<IParticle> P_particle_clone{ particle->clone() };

@@ -35,9 +35,9 @@ FormFactorCrystal::~FormFactorCrystal()
     delete mp_meso_form_factor;
 }
 
-double FormFactorCrystal::getZBottom(const IRotation& rotation) const
+double FormFactorCrystal::bottomZ(const IRotation& rotation) const
 {
-    return mp_meso_form_factor->getZBottom(rotation);
+    return mp_meso_form_factor->bottomZ(rotation);
 }
 
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const

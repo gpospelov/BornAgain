@@ -43,8 +43,8 @@ public:
     double getRadialExtension() const override {
         return mp_form_factor->getRadialExtension(); }
 
-    double getZBottom(const IRotation& rotation) const override {
-        return mp_form_factor->getZBottom(rotation); }
+    double bottomZ(const IRotation& rotation) const override {
+        return mp_form_factor->bottomZ(rotation); }
 
 protected:
     IFormFactor* mp_form_factor;

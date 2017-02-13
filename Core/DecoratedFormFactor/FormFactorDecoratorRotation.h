@@ -32,7 +32,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getZBottom(const IRotation& rotation) const override final;
+    double bottomZ(const IRotation& rotation) const override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 #ifndef SWIG

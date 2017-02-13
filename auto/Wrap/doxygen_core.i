@@ -2788,7 +2788,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorCrystal::getZBottom "double FormFactorCrystal::getZBottom(const IRotation &rotation) const override
+%feature("docstring")  FormFactorCrystal::bottomZ "double FormFactorCrystal::bottomZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -2999,7 +2999,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::getZBottom "double FormFactorDecoratorPositionFactor::getZBottom(const IRotation &rotation) const overridefinal
+%feature("docstring")  FormFactorDecoratorPositionFactor::bottomZ "double FormFactorDecoratorPositionFactor::bottomZ(const IRotation &rotation) const overridefinal
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -3038,7 +3038,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::getZBottom "double FormFactorDecoratorRotation::getZBottom(const IRotation &rotation) const overridefinal
+%feature("docstring")  FormFactorDecoratorRotation::bottomZ "double FormFactorDecoratorRotation::bottomZ(const IRotation &rotation) const overridefinal
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -3126,7 +3126,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorDWBA::getZBottom "double FormFactorDWBA::getZBottom(const IRotation &rotation) const override
+%feature("docstring")  FormFactorDWBA::bottomZ "double FormFactorDWBA::bottomZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -3181,7 +3181,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::getZBottom "double FormFactorDWBAPol::getZBottom(const IRotation &rotation) const override
+%feature("docstring")  FormFactorDWBAPol::bottomZ "double FormFactorDWBAPol::bottomZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -4475,7 +4475,7 @@ Calls the  INodeVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorWeighted::getZBottom "double FormFactorWeighted::getZBottom(const IRotation &rotation) const overridefinal
+%feature("docstring")  FormFactorWeighted::bottomZ "double FormFactorWeighted::bottomZ(const IRotation &rotation) const overridefinal
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -6194,7 +6194,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  IFormFactor::getZBottom "double IFormFactor::getZBottom(const IRotation &rotation) const
+%feature("docstring")  IFormFactor::bottomZ "double IFormFactor::bottomZ(const IRotation &rotation) const
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -6236,7 +6236,7 @@ Returns scattering amplitude for complex wavevectors ki, kf.
 Returns scattering amplitude for matrix interactions. 
 ";
 
-%feature("docstring")  IFormFactorBorn::getZBottom "double IFormFactorBorn::getZBottom(const IRotation &rotation) const override
+%feature("docstring")  IFormFactorBorn::bottomZ "double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -6288,7 +6288,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  IFormFactorDecorator::getZBottom "double IFormFactorDecorator::getZBottom(const IRotation &rotation) const override
+%feature("docstring")  IFormFactorDecorator::bottomZ "double IFormFactorDecorator::bottomZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";

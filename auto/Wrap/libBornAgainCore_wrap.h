@@ -329,7 +329,7 @@ public:
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
     virtual double getRadialExtension() const;
-    virtual double getZBottom(IRotation const &rotation) const;
+    virtual double bottomZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
 
 /* Internal director utilities */
@@ -386,7 +386,7 @@ public:
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
     virtual double getRadialExtension() const;
-    virtual double getZBottom(IRotation const &rotation) const;
+    virtual double bottomZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
     virtual complex_t evaluate_for_q(cvector_t const q) const;
 

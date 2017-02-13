@@ -25,11 +25,11 @@ FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
     setName(BornAgain::FormFactorDecoratorPositionFactorType);
 }
 
-double FormFactorDecoratorPositionFactor::getZBottom(const IRotation& rotation) const
+double FormFactorDecoratorPositionFactor::bottomZ(const IRotation& rotation) const
 {
     Transform3D transform = rotation.getTransform3D();
     kvector_t rotated_translation = transform.transformed(m_position);
-    return mp_form_factor->getZBottom(rotation) + rotated_translation.z();
+    return mp_form_factor->bottomZ(rotation) + rotated_translation.z();
 }
 
 complex_t FormFactorDecoratorPositionFactor::evaluate(

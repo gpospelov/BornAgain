@@ -27,7 +27,7 @@ Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors)
     return evaluate_for_q_pol(wavevectors.getQ());
 }
 
-double IFormFactorBorn::getZBottom(const IRotation&) const
+double IFormFactorBorn::bottomZ(const IRotation&) const
 {
     // TODO: remove this oversimplification!
     return 0.0;

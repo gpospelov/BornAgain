@@ -38,7 +38,7 @@ public:
 
     double getRadialExtension() const override final;
 
-    double getZBottom(const IRotation& rotation) const override final;
+    double bottomZ(const IRotation& rotation) const override final;
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 

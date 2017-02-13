@@ -62,7 +62,7 @@ public:
     virtual double getRadialExtension() const=0;
 
     //! Returns the z-coordinate of the lowest point in this shape after a given rotation
-    virtual double getZBottom(const IRotation& rotation) const;
+    virtual double bottomZ(const IRotation& rotation) const;
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}

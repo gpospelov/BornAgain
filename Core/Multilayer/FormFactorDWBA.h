@@ -41,7 +41,7 @@ public:
 
     double getRadialExtension() const override { return mP_form_factor->getRadialExtension(); }
 
-    double getZBottom(const IRotation& rotation) const override;
+    double bottomZ(const IRotation& rotation) const override;
 
     void setSpecularInfo (const ILayerRTCoefficients* p_in_coeffs,
                           const ILayerRTCoefficients* p_out_coeffs) override;

@@ -21,8 +21,8 @@
 #include <QScrollBar>
 
 namespace {
-const int xpos_offset = 38;
-const int ypos_offset = 38;
+const int xpos_offset = 40;
+const int ypos_offset = 40;
 }
 
 WarningSign::WarningSign(QWidget* parent)

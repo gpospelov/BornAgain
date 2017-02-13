@@ -182,6 +182,10 @@ void FitSuiteImpl::link_fit_parameters()
 {
     std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
     auto parameters = FitSuiteUtils::linkedParameters(*m_kernel->fitParameters());
+
+    if(parameters.empty())
+        throw Exceptions::RuntimeErrorException("No fit Parameters defined.");
+
     for (auto par: parameters)
         par->addMatchedParameters(*pool);
 

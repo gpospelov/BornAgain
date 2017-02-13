@@ -19,7 +19,7 @@
 #include "FitSuiteItem.h"
 #include "JobItem.h"
 #include "JobMessagePanel.h"
-#include "WarningSignWidget.h"
+#include "WarningSign.h"
 #include "mainwindow_constants.h"
 #include <QFont>
 #include <QHBoxLayout>
@@ -28,8 +28,6 @@
 #include <QSlider>
 
 namespace {
-const int warning_sign_xpos = 42;
-const int warning_sign_ypos = 42;
 const int default_update_interval = 10;
 const std::vector<int> slider_to_interval = {1,2,3,4,5,10,15,20,25,30,50,100,200,500,1000};
 const QString slider_tooltip = "Updates fit progress every Nth iteration";
@@ -43,7 +41,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     , m_updateIntervalLabel(new QLabel("25"))
     , m_iterationsCountLabel(new QLabel)
     , m_currentItem(0)
-    , m_warningSign(0)
+    , m_warningSign(new WarningSign(this))
     , m_jobMessagePanel(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -103,7 +101,7 @@ void RunFitControlWidget::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
 void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
 {
     m_currentItem = jobItem;
-    clearWarningSign();
+    m_warningSign->clear();
     m_startButton->setEnabled(false);
     m_stopButton->setEnabled(true);
 
@@ -138,19 +136,13 @@ void RunFitControlWidget::onFittingFinished(JobItem *jobItem)
 
 void RunFitControlWidget::onFittingError(const QString &what)
 {
-    clearWarningSign();
+    m_warningSign->clear();
     m_iterationsCountLabel->setText("");
 
     QString message;
     message.append("Current settings cause fitting failure.\n\n");
     message.append(what);
-
-    m_warningSign = new WarningSignWidget(this);
     m_warningSign->setWarningMessage(message);
-    QPoint pos = getPositionForWarningSign();
-    m_warningSign->setPosition(pos.x(), pos.y());
-    m_warningSign->show();
-
     m_jobMessagePanel->onMessage(message, QColor(Qt::darkRed));
 }
 
@@ -193,29 +185,6 @@ void RunFitControlWidget::onFitSuitePropertyChange(const QString &name)
         int niter = fitSuiteItem()->getItemValue(FitSuiteItem::P_ITERATION_COUNT).toInt();
         m_iterationsCountLabel->setText(QString::number(niter));
     }
-}
-
-void RunFitControlWidget::resizeEvent(QResizeEvent *event)
-{
-    Q_UNUSED(event);
-    if(m_warningSign) {
-        QPoint pos = getPositionForWarningSign();
-        m_warningSign->setPosition(pos.x(),pos.y());
-    }
-    QWidget::resizeEvent(event);
-}
-
-QPoint RunFitControlWidget::getPositionForWarningSign()
-{
-    int x = width()-warning_sign_xpos;
-    int y = height()-warning_sign_ypos;
-    return QPoint(x, y);
-}
-
-void RunFitControlWidget::clearWarningSign()
-{
-    delete m_warningSign;
-    m_warningSign = 0;
 }
 
 int RunFitControlWidget::sliderUpdateInterval()

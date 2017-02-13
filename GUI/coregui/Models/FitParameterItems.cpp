@@ -20,6 +20,7 @@
 #include "ModelPath.h"
 #include "FitParameter.h"
 #include "ParameterTreeItems.h"
+#include "JobItem.h"
 #include <cmath>
 
 namespace
@@ -122,15 +123,16 @@ std::unique_ptr<FitParameter> FitParameterItem::createFitParameter() const
     result->setStartValue(getItemValue(FitParameterItem::P_START_VALUE).toDouble());
     result->setLimits(attLimits());
 
-    const SessionItem* jobItem = ModelPath::ancestor(this, Constants::JobItemType);
+    const JobItem* jobItem = dynamic_cast<const JobItem*>(ModelPath::ancestor(this, Constants::JobItemType));
     Q_ASSERT(jobItem);
 
     foreach (SessionItem* linkItem, getItems(FitParameterItem::T_LINK)) {
-//        QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-//        std::string domainPath = "*" + ModelPath::translateParameterName(jobItem, link);
-//        linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
+        QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
 
-        ParameterItem *parItem = dynamic_cast<ParameterItem*>(linkItem);
+        ParameterItem *parItem = dynamic_cast<ParameterItem*>(
+                    ModelPath::getItemFromPath(link, jobItem->parameterContainerItem()));
+        Q_ASSERT(parItem);
+
         QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
         parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
 

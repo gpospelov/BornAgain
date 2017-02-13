@@ -39,7 +39,7 @@ public:
     //! Returns transformation.
     virtual Transform3D getTransform3D() const=0;
 
-    //! Returns true if roation matrix is identity matrix (no rotations)
+    //! Returns true if rotation matrix is identity matrix (no rotations)
     virtual bool isIdentity() const;
 };
 

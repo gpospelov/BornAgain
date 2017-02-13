@@ -2586,6 +2586,11 @@ Calls the  INodeVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  FormFactorBox::bottomZ "double FormFactorBox::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const overridefinal
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 

@@ -11993,6 +11993,18 @@ class FormFactorBox(IFormFactorBorn):
         return _libBornAgainCore.FormFactorBox_getRadialExtension(self)
 
 
+    def bottomZ(self, rotation):
+        """
+        bottomZ(FormFactorBox self, IRotation rotation) -> double
+
+        double FormFactorBox::bottomZ(const IRotation &rotation) const overridefinal
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorBox_bottomZ(self, rotation)
+
+
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t

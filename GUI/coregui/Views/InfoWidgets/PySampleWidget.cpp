@@ -144,6 +144,8 @@ void PySampleWidget::setEditorConnected(bool isConnected)
         connect(m_updateTimer, SIGNAL(timeToUpdate()), this, SLOT(updateEditor()),
                 Qt::UniqueConnection);
 
+        m_updateTimer->scheduleUpdate();
+
     } else {
         disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
                    SLOT(onModifiedRow(QModelIndex, int, int)));

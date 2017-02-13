@@ -167,6 +167,13 @@ const ModelType GSLSimAnMinimizerType = "GSLSimAn";
 const ModelType GeneticMinimizerType = "Genetic";
 const ModelType TestMinimizerType = "Test";
 
+const ModelType RealLimitsLimitlessType = "RealLimitsLimitless";
+const ModelType RealLimitsPositiveType = "RealLimitsPositive";
+const ModelType RealLimitsNonnegativeType = "RealLimitsNonnegative";
+const ModelType RealLimitsLowerLimitedType = "RealLimitsLowerLimited";
+const ModelType RealLimitsUpperLimitedType = "RealLimitsUpperLimited";
+const ModelType RealLimitsLimitedType = "RealLimitsLimited";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -183,6 +190,7 @@ const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";
 const ModelType MinimizerLibraryGroup = "Minimizer library group";
+const ModelType RealLimitsGroup = "RealLimits group";
 
 // --- Units&Constants----------------------------------------------------------
 

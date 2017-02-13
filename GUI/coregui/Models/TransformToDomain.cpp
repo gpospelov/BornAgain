@@ -142,14 +142,6 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
     return P_part_distr;
 }
 
-std::unique_ptr<IDistribution1D>
-TransformToDomain::createDistribution(const SessionItem& item)
-{
-    auto distr_item = dynamic_cast<const DistributionItem*>(&item);
-    Q_ASSERT(distr_item);
-    return distr_item->createDistribution();
-}
-
 std::unique_ptr<Instrument> TransformToDomain::createInstrument(const SessionItem& item)
 {
     Q_UNUSED(item);

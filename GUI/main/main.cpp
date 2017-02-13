@@ -39,6 +39,9 @@ int main(int argc, char *argv[])
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     qRegisterMetaType<QVector<double> >("QVector<double>");
     qRegisterMetaType<FitProgressInfo>("FitProgressInfo");
+
+//  If uncomment line below, we will be able to compare QVariant containig ComboProperty
+//  but the program will be unstable.
 //    QMetaType::registerComparators<ComboProperty>();
 
     QApplication a(argc, argv);

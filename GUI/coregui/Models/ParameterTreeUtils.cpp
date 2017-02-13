@@ -181,6 +181,32 @@ QString ParameterTreeUtils::parameterNameToDomainName(const QString& parName,
     return {};
 }
 
+//! Converts parameter item name to the corresponding item in the tree below the source.
+
+SessionItem* ParameterTreeUtils::parameterNameToLinkedItem(const QString& parName,
+                                                     const SessionItem* source)
+{
+    SampleModel model;
+    SessionItem* container = model.insertNewItem(Constants::ParameterContainerType);
+    populateParameterContainer(container, source);
+
+    // Iterate through all ParameterItems and retrieve necessary data.
+    SessionItem* result(nullptr);
+    visitParameterContainer(container, [&](ParameterItem* parItem)
+    {
+         // TODO replace with the method from ModelPath
+        QString parPath = FitParameterHelper::getParameterItemPath(parItem);
+        if(parPath == parName) {
+            QString relPath = source->displayName() + "/"
+                    + parItem->getItemValue(ParameterItem::P_LINK).toString();
+            result = ModelPath::getItemFromPath(relPath, source);
+        }
+
+    });
+
+    return result;
+}
+
 namespace {
 
 //! For every ParameterItem in a container creates a link to the domain.
@@ -258,3 +284,4 @@ void handleItem(SessionItem* tree, const SessionItem* source)
 }
 
 } // namespace
+

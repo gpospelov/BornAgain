@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <ostream>
+#include <string>
 
 //! Limits for a real fit parameter.
 //! @ingroup fitting
@@ -89,12 +90,21 @@ class BA_CORE_API_ RealLimits
     //! Creates an object withoud bounds (default)
     static RealLimits limitless() { return RealLimits(); }
 
+    std::string toString() const;
+
     //! Prints class
     friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m)
-    { m.print(ostr); return ostr; }
+    { ostr << m.toString(); return ostr; }
 
     bool operator==(const RealLimits &other) const;
     bool operator!=(const RealLimits &other) const { return !(*this == other); }
+
+    bool isLimitless() const;
+    bool isPositive() const;
+    bool isNonnegative() const;
+    bool isLowerLimited() const;
+    bool isUpperLimited() const;
+    bool isLimited() const;
 
  protected:
     RealLimits(bool has_lower_limit, bool has_upper_limit, double lower_limit, double upper_limit)
@@ -107,8 +117,6 @@ class BA_CORE_API_ RealLimits
     bool   m_has_upper_limit; //! parameter has upper bound
     double m_lower_limit; //! minimum allowed value
     double m_upper_limit; //! maximum allowed value
-
-    void print(std::ostream& ostr) const;
 };
 
 #endif // REALLIMITS_H

@@ -132,6 +132,15 @@ GroupPropertyRegistry::SelectableGroupMap_t initializeSelectableGroupMap()
     minimizers[Constants::TestMinimizerType] = "Test minimizer";
     result[Constants::MinimizerLibraryGroup] = minimizers;
 
+    std::map<QString, QString> limits;
+    limits[Constants::RealLimitsLimitlessType] = "Unlimited";
+    limits[Constants::RealLimitsPositiveType] = "Positive";
+    limits[Constants::RealLimitsNonnegativeType] = "Nonnegative";
+    limits[Constants::RealLimitsLowerLimitedType] = "LowerLimited";
+    limits[Constants::RealLimitsUpperLimitedType] = "UpperLimited";
+    limits[Constants::RealLimitsLimitedType] = "Limited";
+    result[Constants::RealLimitsGroup] = limits;
+
     return result;
 }
 }

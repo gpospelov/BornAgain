@@ -21,10 +21,8 @@
 
 class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem
 {
-
 public:
-    explicit BeamWavelengthItem();
-    virtual ~BeamWavelengthItem(){}
+    BeamWavelengthItem();
 
     double wavelength() const;
 };

@@ -31,6 +31,7 @@ public:
 
     void setPosition(int x, int y);
 
+    void setWarningHeader(const QString &message);
     void setWarningMessage(const QString &message) {m_warning_message = message;}
 
 protected:
@@ -39,6 +40,7 @@ protected:
 
 private:
     QPixmap m_pixmap;
+    QString m_warning_header;
     QString m_warning_message;
 };
 

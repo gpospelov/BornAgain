@@ -21,14 +21,11 @@
 
 WarningSignWidget::WarningSignWidget(QWidget * parent)
     : QWidget(parent)
+    , m_pixmap(QStringLiteral(":/images/warning@2x.png"))
+    , m_warning_header(QStringLiteral("Houston, we have a problem."))
 {
     setAttribute(Qt::WA_NoSystemBackground);
-    //setAttribute(Qt::WA_TransparentForMouseEvents);
-    m_pixmap = QPixmap(":/images/warning@2x.png");
-    setToolTip(QString(
-        "Houston, we have a problem.\n"
-        "Click to see details."
-                   ));
+    setToolTip(m_warning_header+"\nClick to see details.");
 }
 
 void WarningSignWidget::paintEvent(QPaintEvent *event) {
@@ -41,11 +38,17 @@ void WarningSignWidget::paintEvent(QPaintEvent *event) {
 void WarningSignWidget::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    QMessageBox::warning(this, "Houston, we have a problem.", m_warning_message);
+    QMessageBox::warning(this, m_warning_header, m_warning_message);
 }
 
 //! set geometry of widget around center point
 void WarningSignWidget::setPosition(int x, int y)
 {
     setGeometry(x, y, m_pixmap.width(), m_pixmap.height());
+}
+
+void WarningSignWidget::setWarningHeader(const QString& message)
+{
+    m_warning_header = message;
+    setToolTip(m_warning_header+"\nClick to see details.");
 }

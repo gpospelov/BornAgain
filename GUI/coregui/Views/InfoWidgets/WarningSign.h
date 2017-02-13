@@ -38,6 +38,8 @@ public:
 
     void setArea(QWidget *area);
 
+    bool isShown() const;
+
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 

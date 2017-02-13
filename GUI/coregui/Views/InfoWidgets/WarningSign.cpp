@@ -83,6 +83,11 @@ void WarningSign::setArea(QWidget* area)
     m_area->installEventFilter(this);
 }
 
+bool WarningSign::isShown() const
+{
+    return (m_warningWidget == nullptr ? false : true);
+}
+
 bool WarningSign::eventFilter(QObject* obj, QEvent* event)
 {
     if (event->type() == QEvent::Resize)

@@ -19,6 +19,7 @@
 #include "Distributions.h"
 #include "qcustomplot.h"
 #include "RealLimitsItems.h"
+#include "WarningSign.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <algorithm>
@@ -27,8 +28,6 @@ namespace
 {
 const QPair<double, double> default_xrange(-0.1, 0.1);
 const QPair<double, double> default_yrange(0.0, 1.1);
-const int warning_sign_xpos = 50;
-const int warning_sign_ypos = 18;
 
 QPair<double, double> xRangeForValue(double value);
 QPair<double, double> xRangeForValues(double value1, double value2);
@@ -44,7 +43,7 @@ DistributionWidget::DistributionWidget(QWidget *parent)
     , m_item(0)
     , m_label(new QLabel)
     , m_resetAction(new QAction(this))
-    , m_warningSign(0)
+    , m_warningSign(new WarningSign(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -113,15 +112,9 @@ void DistributionWidget::plotItem()
     } catch (const std::exception &ex) {
         init_plot();
 
-        m_warningSign = new WarningSignWidget(this);
-
         QString message
-            = QString("Wrong parameters\n").append(QString::fromStdString(ex.what()));
-
+            = QString("Wrong parameters\n\n").append(QString::fromStdString(ex.what()));
         m_warningSign->setWarningMessage(message);
-        QPoint pos = positionForWarningSign();
-        m_warningSign->setPosition(pos.x(), pos.y());
-        m_warningSign->show();
     }
 
     m_plot->replot();
@@ -164,8 +157,7 @@ void DistributionWidget::resetView()
 
 void DistributionWidget::init_plot()
 {
-    delete m_warningSign;
-    m_warningSign = 0;
+    m_warningSign->clear();
 
     m_plot->clearGraphs();
     m_plot->clearItems();
@@ -330,27 +322,6 @@ void DistributionWidget::plotLimits(const RealLimits& limits)
 void DistributionWidget::setXAxisName(const QString& xAxisName)
 {
     m_plot->xAxis->setLabel(xAxisName);
-}
-
-//! adjusts position of warning label on widget move
-
-void DistributionWidget::resizeEvent(QResizeEvent *event)
-{
-    Q_UNUSED(event);
-    if (m_warningSign) {
-        QPoint pos = positionForWarningSign();
-        m_warningSign->setPosition(pos.x(), pos.y());
-    }
-}
-
-//! Returns position for warning sign at the bottom right corner of the editor. The position will
-//! be adjusted according to the visibility of scroll bars
-
-QPoint DistributionWidget::positionForWarningSign()
-{
-    int x = m_plot->geometry().topRight().x() - warning_sign_xpos;
-    int y = m_plot->geometry().topRight().y() + warning_sign_ypos;
-    return QPoint(x, y);
 }
 
 namespace {

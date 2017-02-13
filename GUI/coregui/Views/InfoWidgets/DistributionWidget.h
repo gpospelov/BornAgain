@@ -17,7 +17,6 @@
 #ifndef DISTRIBUTIONWIDGET_H
 #define DISTRIBUTIONWIDGET_H
 
-#include "WarningSignWidget.h"
 #include "qcustomplot.h"
 #include <QWidget>
 
@@ -27,6 +26,7 @@ class QCustomPlot;
 class DistributionItem;
 class QAction;
 class RealLimits;
+class WarningSign;
 
 //! The DistributionWidget class plots 1d functions corresponding to domain's Distribution1D
 class DistributionWidget : public QWidget
@@ -44,9 +44,6 @@ public:
 public slots:
     void onMouseMove(QMouseEvent *event);
     void onMousePress(QMouseEvent *event);
-
-protected:
-    void resizeEvent(QResizeEvent *event);
 
 private slots:
     void resetView();
@@ -69,7 +66,7 @@ private:
     QLabel *m_label;
     QAction *m_resetAction;
     QCPRange m_xRange, m_yRange;
-    WarningSignWidget *m_warningSign;
+    WarningSign *m_warningSign;
 };
 
 #endif // DISTRIBUTIONWIDGET_H

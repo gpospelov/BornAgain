@@ -38,7 +38,12 @@ void WarningSignWidget::paintEvent(QPaintEvent *event) {
 void WarningSignWidget::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    QMessageBox::warning(this, m_warning_header, m_warning_message);
+    QMessageBox box;
+    box.setWindowTitle(m_warning_header);
+    box.setInformativeText(m_warning_message);
+    box.setStandardButtons(QMessageBox::Ok);
+    box.setDefaultButton(QMessageBox::Ok);
+    box.exec();
 }
 
 //! set geometry of widget around center point

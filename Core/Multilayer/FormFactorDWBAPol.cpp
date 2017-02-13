@@ -198,7 +198,12 @@ Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo& wavevector
         M11_S + M11_RS + M11_SR + M11_RSR +
         M12_S + M12_RS + M12_SR + M12_RSR +
         M21_S + M21_RS + M21_SR + M21_RSR +
-        M22_S + M22_RS + M22_SR + M22_RSR;
+            M22_S + M22_RS + M22_SR + M22_RSR;
+}
+
+double FormFactorDWBAPol::getZBottom(const IRotation& rotation) const
+{
+    return mP_form_factor->getZBottom(rotation);
 }
 
 void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,

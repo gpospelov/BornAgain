@@ -459,21 +459,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -2788,6 +2788,11 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  FormFactorCrystal::getZBottom "double FormFactorCrystal::getZBottom(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorCrystal::evaluate "complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
 Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -2920,38 +2925,6 @@ Returns scattering amplitude for complex wavevectors ki, kf.
 ";
 
 %feature("docstring")  FormFactorDecoratorDebyeWaller::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorDebyeWaller::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
-// File: classFormFactorDecoratorFactor.xml
-%feature("docstring") FormFactorDecoratorFactor "
-
-Decorates a formfactor with a constant factor. Base class of  FormFactorDecoratorMaterial.
-
-C++ includes: FormFactorDecoratorFactor.h
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::FormFactorDecoratorFactor "FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t factor)
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::clone "FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::accept "void FormFactorDecoratorFactor::accept(INodeVisitor *visitor) const override
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::evaluate "complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorFactor::evaluatePol(const WavevectorInfo &wavevectors) const override
 
 Returns scattering amplitude for matrix interactions. 
 ";
@@ -3143,9 +3116,14 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  FormFactorDWBA::getZBottom "double FormFactorDWBA::getZBottom(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
 
-Sets reflection/transmission info for scalar DWBA simulation. 
+Sets reflection/transmission info. 
 ";
 
 
@@ -3193,9 +3171,14 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  FormFactorDWBAPol::getZBottom "double FormFactorDWBAPol::getZBottom(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
 
-Sets reflection/transmission info for scalar DWBA simulation. 
+Sets reflection/transmission info. 
 ";
 
 
@@ -4480,6 +4463,11 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FormFactorWeighted::getRadialExtension "double FormFactorWeighted::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorWeighted::getZBottom "double FormFactorWeighted::getZBottom(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorWeighted::addFormFactor "void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
@@ -6196,6 +6184,11 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  IFormFactor::getZBottom "double IFormFactor::getZBottom(const IRotation &rotation) const
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  IFormFactor::setSpecularInfo "virtual void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *, const ILayerRTCoefficients *)
 
 Sets reflection/transmission info. 
@@ -6231,6 +6224,11 @@ Returns scattering amplitude for complex wavevectors ki, kf.
 %feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const override
 
 Returns scattering amplitude for matrix interactions. 
+";
+
+%feature("docstring")  IFormFactorBorn::getZBottom "double IFormFactorBorn::getZBottom(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
@@ -6278,6 +6276,11 @@ Returns the total volume of the particle of this form factor's shape.
 %feature("docstring")  IFormFactorDecorator::getRadialExtension "double IFormFactorDecorator::getRadialExtension() const override
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IFormFactorDecorator::getZBottom "double IFormFactorDecorator::getZBottom(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 
@@ -7382,9 +7385,6 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorDebyeWaller *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorFactor *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorMaterial *)
@@ -13199,37 +13199,37 @@ C++ includes: WavevectorInfo.h
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0D145.xml
+// File: namespace_0D144.xml
 
 
-// File: namespace_0D188.xml
+// File: namespace_0D187.xml
 
 
 // File: namespace_0D22.xml
 
 
-// File: namespace_0D268.xml
+// File: namespace_0D267.xml
 
 
-// File: namespace_0D280.xml
+// File: namespace_0D279.xml
 
 
-// File: namespace_0D310.xml
+// File: namespace_0D309.xml
 
 
-// File: namespace_0D312.xml
+// File: namespace_0D311.xml
 
 
-// File: namespace_0D325.xml
+// File: namespace_0D324.xml
 
 
-// File: namespace_0D438.xml
+// File: namespace_0D437.xml
 
 
 // File: namespace_0D60.xml
 
 
-// File: namespace_0D75.xml
+// File: namespace_0D74.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -13987,9 +13987,6 @@ Add element vector to element vector with weight.
 
 
 // File: FormFactorDecoratorDebyeWaller_8h.xml
-
-
-// File: FormFactorDecoratorFactor_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml

@@ -82,8 +82,6 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
     SafePointerVector<class FormFactorCoherentSum> result;
     const IMaterial* p_layer_material = mp_multilayer->getLayer(m_layer_index)->getMaterial();
     double layout_abundance = mp_layout->getTotalAbundance();
-    if (layout_abundance<=0.0) // TODO: why this can happen? why not throw error?
-        layout_abundance = 1.0;
     for (const IParticle* particle: mp_layout->getParticles()) {
         FormFactorCoherentSum* p_ff_coh;
         p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);

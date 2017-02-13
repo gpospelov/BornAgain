@@ -93,7 +93,6 @@ class IFormFactorDecorator;
 // -
 class FormFactorDWBA;
 class FormFactorDecoratorDebyeWaller;
-class FormFactorDecoratorFactor;
 class FormFactorDecoratorMaterial;
 class FormFactorDecoratorPositionFactor;
 class FormFactorDecoratorRotation;
@@ -234,7 +233,6 @@ public:
     virtual void visit(const FormFactorDWBAPol*) {}
     virtual void visit(const FormFactorWeighted*) {}
     virtual void visit(const FormFactorDecoratorDebyeWaller*) {}
-    virtual void visit(const FormFactorDecoratorFactor*) {}
     virtual void visit(const FormFactorDecoratorMaterial*) {}
     virtual void visit(const FormFactorDecoratorPositionFactor*) {}
     virtual void visit(const FormFactorDecoratorRotation*) {}

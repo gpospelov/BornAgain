@@ -41,6 +41,8 @@ public:
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 #endif
 
+    double getZBottom(const IRotation& rotation) const override;
+
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     //! This method is public only for convenience of plotting form factors in Python.
     virtual complex_t evaluate_for_q(const cvector_t q) const=0;

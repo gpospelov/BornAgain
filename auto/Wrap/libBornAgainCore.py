@@ -7461,7 +7461,6 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FormFactorDWBAPol const * arg2)
         visit(INodeVisitor self, FormFactorWeighted arg2)
         visit(INodeVisitor self, FormFactorDecoratorDebyeWaller arg2)
-        visit(INodeVisitor self, FormFactorDecoratorFactor const * arg2)
         visit(INodeVisitor self, FormFactorDecoratorMaterial const * arg2)
         visit(INodeVisitor self, FormFactorDecoratorPositionFactor const * arg2)
         visit(INodeVisitor self, FormFactorDecoratorRotation const * arg2)
@@ -10773,6 +10772,18 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_getRadialExtension(self)
 
 
+    def getZBottom(self, rotation):
+        """
+        getZBottom(IFormFactor self, IRotation rotation) -> double
+
+        double IFormFactor::getZBottom(const IRotation &rotation) const
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactor_getZBottom(self, rotation)
+
+
     def setSpecularInfo(self, arg0, arg1):
         """
         setSpecularInfo(IFormFactor self, ILayerRTCoefficients const * arg0, ILayerRTCoefficients const * arg1)
@@ -11068,6 +11079,18 @@ class IFormFactorBorn(IFormFactor):
         return _libBornAgainCore.IFormFactorBorn_evaluate(self, wavevectors)
 
 
+    def getZBottom(self, rotation):
+        """
+        getZBottom(IFormFactorBorn self, IRotation rotation) -> double
+
+        double IFormFactorBorn::getZBottom(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_getZBottom(self, rotation)
+
+
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
@@ -11171,6 +11194,18 @@ class IFormFactorDecorator(IFormFactor):
 
         """
         return _libBornAgainCore.IFormFactorDecorator_getRadialExtension(self)
+
+
+    def getZBottom(self, rotation):
+        """
+        getZBottom(IFormFactorDecorator self, IRotation rotation) -> double
+
+        double IFormFactorDecorator::getZBottom(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_getZBottom(self, rotation)
 
 IFormFactorDecorator_swigregister = _libBornAgainCore.IFormFactorDecorator_swigregister
 IFormFactorDecorator_swigregister(IFormFactorDecorator)
@@ -12285,6 +12320,18 @@ class FormFactorCrystal(IFormFactor):
 
         """
         return _libBornAgainCore.FormFactorCrystal_getRadialExtension(self)
+
+
+    def getZBottom(self, rotation):
+        """
+        getZBottom(FormFactorCrystal self, IRotation rotation) -> double
+
+        double FormFactorCrystal::getZBottom(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_getZBottom(self, rotation)
 
 
     def evaluate(self, wavevectors):
@@ -15560,6 +15607,18 @@ class FormFactorWeighted(IFormFactor):
 
         """
         return _libBornAgainCore.FormFactorWeighted_getRadialExtension(self)
+
+
+    def getZBottom(self, rotation):
+        """
+        getZBottom(FormFactorWeighted self, IRotation rotation) -> double
+
+        double FormFactorWeighted::getZBottom(const IRotation &rotation) const overridefinal
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_getZBottom(self, rotation)
 
 
     def addFormFactor(self, form_factor, weight=1.0):

@@ -22,6 +22,7 @@
 
 class IMaterial;
 class ILayerRTCoefficients;
+class IRotation;
 class WavevectorInfo;
 
 //! Pure virtual base class for all form factors.
@@ -59,6 +60,9 @@ public:
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
     virtual double getRadialExtension() const=0;
+
+    //! Returns the z-coordinate of the lowest point in this shape after a given rotation
+    virtual double getZBottom(const IRotation& rotation) const;
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}

@@ -41,14 +41,12 @@ public:
     //! Calculates and returns a polarized form factor calculation in DWBA
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
-    //! Returns the total volume of the particle of this form factor's shape
     double getVolume() const override { return mP_form_factor->getVolume(); }
 
-    //! Returns the (approximate in some cases) radial size of the particle of this
-    //! form factor's shape. This is used for SSCA calculations
     double getRadialExtension() const override { return mP_form_factor->getRadialExtension(); }
 
-    //! Sets reflection/transmission info for scalar DWBA simulation
+    double getZBottom(const IRotation& rotation) const override;
+
     void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
                          const ILayerRTCoefficients* p_out_coeffs) override;
 

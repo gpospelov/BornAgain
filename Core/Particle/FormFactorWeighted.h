@@ -38,6 +38,8 @@ public:
 
     double getRadialExtension() const override final;
 
+    double getZBottom(const IRotation& rotation) const override final;
+
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 
     void setAmbientMaterial(const IMaterial& material) override final;

@@ -218,3 +218,29 @@ bool Transform3D::isZRotation() const
     if (m_matrix(2,1) != 0.0) return false;
     return true;
 }
+
+double BottomZ(std::vector<kvector_t> vertices, Transform3D rotation)
+{
+    if (vertices.size()==0)
+        throw std::runtime_error("BottomZ() error: no vertices passed!");
+    kvector_t vertex_rot = rotation.transformed(vertices[0]);
+    double zmin = vertex_rot.z();
+    for (size_t index=1; index<vertices.size(); ++index) {
+        vertex_rot = rotation.transformed(vertices[index]);
+        zmin = std::min(zmin, vertex_rot.z());
+    }
+    return zmin;
+}
+
+double TopZ(std::vector<kvector_t> vertices, Transform3D rotation)
+{
+    if (vertices.size()==0)
+        throw std::runtime_error("TopZ() error: no vertices passed!");
+    kvector_t vertex_rot = rotation.transformed(vertices[0]);
+    double zmax = vertex_rot.z();
+    for (size_t index=1; index<vertices.size(); ++index) {
+        vertex_rot = rotation.transformed(vertices[index]);
+        zmax = std::max(zmax, vertex_rot.z());
+    }
+    return zmax;
+}

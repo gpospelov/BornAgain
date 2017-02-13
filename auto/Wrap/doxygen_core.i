@@ -15262,9 +15262,27 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: Transform3D_8cpp.xml
+%feature("docstring")  BottomZ "double BottomZ(std::vector< kvector_t > vertices, Transform3D rotation)
+
+Calculates the z-coordinate of the lowest vertex after rotation. 
+";
+
+%feature("docstring")  TopZ "double TopZ(std::vector< kvector_t > vertices, Transform3D rotation)
+
+Calculates the z-coordinate of the highest vertex after rotation. 
+";
 
 
 // File: Transform3D_8h.xml
+%feature("docstring")  BottomZ "double BottomZ(std::vector< kvector_t > vertices, Transform3D rotation)
+
+Calculates the z-coordinate of the lowest vertex after rotation. 
+";
+
+%feature("docstring")  TopZ "double TopZ(std::vector< kvector_t > vertices, Transform3D rotation)
+
+Calculates the z-coordinate of the highest vertex after rotation. 
+";
 
 
 // File: Vectors3D_8h.xml

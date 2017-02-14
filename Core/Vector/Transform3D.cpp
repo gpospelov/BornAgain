@@ -219,7 +219,7 @@ bool Transform3D::isZRotation() const
     return true;
 }
 
-double BottomZ(std::vector<kvector_t> vertices, Transform3D rotation)
+double BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation)
 {
     if (vertices.size()==0)
         throw std::runtime_error("BottomZ() error: no vertices passed!");
@@ -232,7 +232,7 @@ double BottomZ(std::vector<kvector_t> vertices, Transform3D rotation)
     return zmin;
 }
 
-double TopZ(std::vector<kvector_t> vertices, Transform3D rotation)
+double TopZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation)
 {
     if (vertices.size()==0)
         throw std::runtime_error("TopZ() error: no vertices passed!");

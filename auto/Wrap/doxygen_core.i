@@ -7439,6 +7439,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorTruncatedSpheroid *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCoreShell *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBA *)
 ";
 
@@ -15277,24 +15280,24 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: Transform3D_8cpp.xml
-%feature("docstring")  BottomZ "double BottomZ(std::vector< kvector_t > vertices, Transform3D rotation)
+%feature("docstring")  BottomZ "double BottomZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
 
 Calculates the z-coordinate of the lowest vertex after rotation. 
 ";
 
-%feature("docstring")  TopZ "double TopZ(std::vector< kvector_t > vertices, Transform3D rotation)
+%feature("docstring")  TopZ "double TopZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
 
 Calculates the z-coordinate of the highest vertex after rotation. 
 ";
 
 
 // File: Transform3D_8h.xml
-%feature("docstring")  BottomZ "double BottomZ(std::vector< kvector_t > vertices, Transform3D rotation)
+%feature("docstring")  BottomZ "double BottomZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
 
 Calculates the z-coordinate of the lowest vertex after rotation. 
 ";
 
-%feature("docstring")  TopZ "double TopZ(std::vector< kvector_t > vertices, Transform3D rotation)
+%feature("docstring")  TopZ "double TopZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
 
 Calculates the z-coordinate of the highest vertex after rotation. 
 ";

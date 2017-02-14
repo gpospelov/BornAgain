@@ -53,10 +53,6 @@ class ParticleCoreShell;
 // -
 class IFormFactor;
 // -
-class FormFactorDWBAPol;
-// -
-class FormFactorWeighted;
-// -
 class IFormFactorBorn;
 // -
 class FormFactorAnisoPyramid;
@@ -91,7 +87,10 @@ class FormFactorTruncatedSpheroid;
 // -
 class IFormFactorDecorator;
 // -
+class FormFactorCoreShell;
 class FormFactorDWBA;
+class FormFactorDWBAPol;
+class FormFactorWeighted;
 class FormFactorDecoratorDebyeWaller;
 class FormFactorDecoratorMaterial;
 class FormFactorDecoratorPositionFactor;
@@ -229,6 +228,7 @@ public:
     virtual void visit(const FormFactorTruncatedSphere*) {}
     virtual void visit(const FormFactorTruncatedSpheroid*) {}
 
+    virtual void visit(const FormFactorCoreShell*) {}
     virtual void visit(const FormFactorDWBA*) {}
     virtual void visit(const FormFactorDWBAPol*) {}
     virtual void visit(const FormFactorWeighted*) {}

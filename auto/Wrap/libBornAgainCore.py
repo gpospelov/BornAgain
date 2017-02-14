@@ -7457,6 +7457,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FormFactorTruncatedCube arg2)
         visit(INodeVisitor self, FormFactorTruncatedSphere arg2)
         visit(INodeVisitor self, FormFactorTruncatedSpheroid arg2)
+        visit(INodeVisitor self, FormFactorCoreShell const * arg2)
         visit(INodeVisitor self, FormFactorDWBA const * arg2)
         visit(INodeVisitor self, FormFactorDWBAPol const * arg2)
         visit(INodeVisitor self, FormFactorWeighted arg2)

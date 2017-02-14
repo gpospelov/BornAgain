@@ -106,9 +106,9 @@ private:
 };
 
 //! Calculates the z-coordinate of the lowest vertex after rotation
-double BottomZ(std::vector<kvector_t> vertices, Transform3D rotation);
+double BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
 
 //! Calculates the z-coordinate of the highest vertex after rotation
-double TopZ(std::vector<kvector_t> vertices, Transform3D rotation);
+double TopZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
 
 #endif // TRANSFORM3D_H

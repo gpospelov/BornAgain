@@ -31,8 +31,3 @@ double IFormFactor::getVolume() const
     WavevectorInfo zero_wavevectors;
     return std::abs(evaluate(zero_wavevectors));
 }
-
-double IFormFactor::bottomZ(const IRotation&) const
-{
-    return 0.0;
-}

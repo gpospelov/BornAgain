@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/ImportDataWidgets/RealDataEditorWidget.h
-//! @brief     Defines class RealDataEditorWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.h
+//! @brief     Defines class IntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALDATAEDITORWIDGET_H
-#define REALDATAEDITORWIDGET_H
+#ifndef INTENSITYDATAWIDGET_H
+#define INTENSITYDATAWIDGET_H
 
 #include "SessionItemWidget.h"
 
@@ -25,26 +25,24 @@ class IntensityDataPropertyWidget;
 class IntensityDataItem;
 class QAction;
 
-//! The RealDataEditorWidget class provides editing/presenation of RealDataItem in ImportDataView.
+//! A common widget to display color map (IntensityDataCanvas) and properties
+//! (IntensityDataPropertyWidget) of intensity data item.
 
-class BA_CORE_API_ RealDataEditorWidget : public SessionItemWidget
+class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
 {
     Q_OBJECT
 
 public:
-    RealDataEditorWidget(QWidget *parent = 0);
+    IntensityDataWidget(QWidget* parent = 0);
 
-//    QSize sizeHint() const { return QSize(200, 400); }
-//    QSize minimumSizeHint() const { return QSize(200, 200); }
+    void setItem(SessionItem* item);
 
-    void setItem(class SessionItem *item);
-
-    QList<QAction *> actionList();
+    QList<QAction*> actionList();
 
 private:
-    IntensityDataCanvas *m_intensityWidget;
-    IntensityDataPropertyWidget *m_propertyWidget;
-    IntensityDataItem *m_currentItem;
+    IntensityDataCanvas* m_intensityWidget;
+    IntensityDataPropertyWidget* m_propertyWidget;
+    IntensityDataItem* m_currentItem;
 };
 
-#endif // REALDATAEDITORWIDGET_H
+#endif // INTENSITYDATAWIDGET_H

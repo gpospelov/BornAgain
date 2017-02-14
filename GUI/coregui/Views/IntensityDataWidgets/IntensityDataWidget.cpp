@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/ImportDataWidgets/RealDataEditorWidget.cpp
-//! @brief     Declares class RealDataEditorWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.cpp
+//! @brief     Implements class IntensityDataWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "RealDataEditorWidget.h"
+#include "IntensityDataWidget.h"
 #include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataCanvas.h"
@@ -23,7 +23,7 @@
 #include <QAction>
 #include <QBoxLayout>
 
-RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
+IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)
     , m_intensityWidget(new IntensityDataCanvas)
     , m_propertyWidget(new IntensityDataPropertyWidget)
@@ -46,14 +46,14 @@ RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
 
 }
 
-void RealDataEditorWidget::setItem(SessionItem *item)
+void IntensityDataWidget::setItem(SessionItem *item)
 {
-    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(item->getItem(RealDataItem::T_INTENSITY_DATA));
+    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(item);
     m_intensityWidget->setItem(intensityData);
     m_propertyWidget->setItem(intensityData);
 }
 
-QList<QAction *> RealDataEditorWidget::actionList()
+QList<QAction *> IntensityDataWidget::actionList()
 {
     return m_intensityWidget->actionList() + m_propertyWidget->actionList();
 }

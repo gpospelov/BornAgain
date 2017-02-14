@@ -85,7 +85,6 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
         FormFactorCoherentSum* p_ff_coh;
         p_ff_coh = createFormFactorCoherentSum(particle);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
-        p_ff_coh->setSpecularInfo(mp_fresnel_map, m_layer_index);
         result.push_back(p_ff_coh);
     }
     return result;
@@ -112,6 +111,7 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     const IMaterial* p_layer_material = mp_multilayer->getLayer(layer_index)->getMaterial();
     P_ff_framework->setAmbientMaterial(*p_layer_material);
     auto part = FormFactorCoherentPart(P_ff_framework.release());
+    part.setSpecularInfo(mp_fresnel_map, layer_index);
     std::unique_ptr<FormFactorCoherentSum> P_result(
                 new FormFactorCoherentSum(particle->getAbundance()));
     P_result->addCoherentPart(part);

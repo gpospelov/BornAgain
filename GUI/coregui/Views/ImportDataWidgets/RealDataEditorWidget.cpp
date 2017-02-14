@@ -17,7 +17,7 @@
 #include "RealDataEditorWidget.h"
 #include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
-#include "IntensityDataWidget.h"
+#include "IntensityDataCanvas.h"
 #include "RealDataItem.h"
 #include "SessionItem.h"
 #include <QAction>
@@ -25,7 +25,7 @@
 
 RealDataEditorWidget::RealDataEditorWidget(QWidget *parent)
     : SessionItemWidget(parent)
-    , m_intensityWidget(new IntensityDataWidget)
+    , m_intensityWidget(new IntensityDataCanvas)
     , m_propertyWidget(new IntensityDataPropertyWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

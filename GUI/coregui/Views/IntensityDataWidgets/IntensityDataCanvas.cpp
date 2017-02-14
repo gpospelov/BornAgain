@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.cpp
-//! @brief     Implements class IntensityDataWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataCanvas.cpp
+//! @brief     Implements class IntensityDataCanvas
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "IntensityDataWidget.h"
+#include "IntensityDataCanvas.h"
 #include "AppSvc.h"
 #include "ColorMapCanvas.h"
 #include "IntensityDataItem.h"
@@ -23,11 +23,11 @@
 #include <QAction>
 #include <QVBoxLayout>
 
-IntensityDataWidget::IntensityDataWidget(QWidget *parent)
+IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
     : SessionItemWidget(parent)
     , m_colorMap(new ColorMapCanvas(this))
-    , m_resetViewAction(0)
-    , m_savePlotAction(0)
+    , m_resetViewAction(nullptr)
+    , m_savePlotAction(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -42,37 +42,47 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     initActions();
 }
 
-void IntensityDataWidget::setItem(SessionItem *item)
+void IntensityDataCanvas::setItem(SessionItem* item)
 {
-    IntensityDataItem *intensityItem = dynamic_cast<IntensityDataItem *>(item);
+    IntensityDataItem* intensityItem = dynamic_cast<IntensityDataItem*>(item);
     Q_ASSERT(intensityItem);
     setIntensityData(intensityItem);
 }
 
-void IntensityDataWidget::setIntensityData(IntensityDataItem *intensityItem)
+QSize IntensityDataCanvas::sizeHint() const
 {
-    m_currentItem = intensityItem;
-    m_colorMap->setItem(intensityItem);
+    return QSize(500, 400);
 }
 
-QList<QAction *> IntensityDataWidget::actionList()
+QSize IntensityDataCanvas::minimumSizeHint() const
 {
-    return QList<QAction *>() << m_resetViewAction << m_savePlotAction;
+    return QSize(128, 128);
 }
 
-void IntensityDataWidget::onResetViewAction()
+QList<QAction*> IntensityDataCanvas::actionList()
+{
+    return QList<QAction*>() << m_resetViewAction << m_savePlotAction;
+}
+
+void IntensityDataCanvas::onResetViewAction()
 {
     m_currentItem->resetView();
 }
 
-void IntensityDataWidget::onSavePlotAction()
+void IntensityDataCanvas::onSavePlotAction()
 {
     QString dirname = AppSvc::projectManager()->userExportDir();
     SavePlotAssistant saveAssistant;
     saveAssistant.savePlot(dirname, m_colorMap->customPlot(), m_currentItem);
 }
 
-void IntensityDataWidget::initActions()
+void IntensityDataCanvas::setIntensityData(IntensityDataItem* intensityItem)
+{
+    m_currentItem = intensityItem;
+    m_colorMap->setItem(intensityItem);
+}
+
+void IntensityDataCanvas::initActions()
 {
     m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset");
@@ -86,4 +96,3 @@ void IntensityDataWidget::initActions()
     m_savePlotAction->setToolTip("Save Plot");
     connect(m_savePlotAction, SIGNAL(triggered()), this, SLOT(onSavePlotAction()));
 }
-

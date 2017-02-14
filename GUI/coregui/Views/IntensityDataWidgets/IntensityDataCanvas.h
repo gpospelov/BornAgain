@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataWidget.h
-//! @brief     Defines class IntensityDataWidget
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataCanvas.h
+//! @brief     Defines class IntensityDataCanvas
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAWIDGET_H
-#define INTENSITYDATAWIDGET_H
+#ifndef INTENSITYDATACANVAS_H
+#define INTENSITYDATACANVAS_H
 
 #include "SessionItemWidget.h"
 
@@ -24,34 +24,34 @@ class IntensityDataItem;
 class ColorMapCanvas;
 class QAction;
 
-//! The IntensityDataWidget class represents IntensityDataItem as color map,
+//! The IntensityDataCanvas class represents IntensityDataItem as color map,
 //! provides standard actions (reset view, save as) for external toolbars and context menus.
 
-class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
+class BA_CORE_API_ IntensityDataCanvas : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit IntensityDataWidget(QWidget *parent = 0);
+    explicit IntensityDataCanvas(QWidget* parent = 0);
 
-    void setItem(SessionItem *item);
-    void setIntensityData(IntensityDataItem *intensityItem);
+    void setItem(SessionItem* item);
 
-    QSize sizeHint() const { return QSize(500, 400); }
-    QSize minimumSizeHint() const { return QSize(128, 128); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
-    QList<QAction *> actionList();
+    QList<QAction*> actionList();
 
 public slots:
     void onResetViewAction();
     void onSavePlotAction();
 
 private:
+    void setIntensityData(IntensityDataItem* intensityItem);
     void initActions();
 
-    ColorMapCanvas *m_colorMap;
-    IntensityDataItem *m_currentItem;
-    QAction *m_resetViewAction;
-    QAction *m_savePlotAction;
+    ColorMapCanvas* m_colorMap;
+    IntensityDataItem* m_currentItem;
+    QAction* m_resetViewAction;
+    QAction* m_savePlotAction;
 };
 
-#endif // INTENSITYDATAWIDGET_H
+#endif // INTENSITYDATACANVAS_H

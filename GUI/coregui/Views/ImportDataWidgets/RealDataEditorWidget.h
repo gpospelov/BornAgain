@@ -20,7 +20,7 @@
 #include "SessionItemWidget.h"
 
 class SessionItem;
-class IntensityDataWidget;
+class IntensityDataCanvas;
 class IntensityDataPropertyWidget;
 class IntensityDataItem;
 class QAction;
@@ -42,7 +42,7 @@ public:
     QList<QAction *> actionList();
 
 private:
-    IntensityDataWidget *m_intensityWidget;
+    IntensityDataCanvas *m_intensityWidget;
     IntensityDataPropertyWidget *m_propertyWidget;
     IntensityDataItem *m_currentItem;
 };

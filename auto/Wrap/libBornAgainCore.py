@@ -18858,7 +18858,7 @@ class IRotation(ISample):
 
         bool IRotation::isIdentity() const
 
-        Returns true if roation matrix is identity matrix (no rotations) 
+        Returns true if rotation matrix is identity matrix (no rotations) 
 
         """
         return _libBornAgainCore.IRotation_isIdentity(self)

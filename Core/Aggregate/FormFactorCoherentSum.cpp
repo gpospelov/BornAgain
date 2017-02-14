@@ -21,10 +21,9 @@
 #include "ILayerRTCoefficients.h"
 #include "Exceptions.h"
 
-FormFactorCoherentSum::FormFactorCoherentSum(IFormFactor* ff, double abundance)
+FormFactorCoherentSum::FormFactorCoherentSum(double abundance)
 : m_abundance(abundance)
 {
-    m_parts.emplace_back(ff);
 }
 
 FormFactorCoherentSum::~FormFactorCoherentSum() {}
@@ -32,6 +31,11 @@ FormFactorCoherentSum::~FormFactorCoherentSum() {}
 FormFactorCoherentSum* FormFactorCoherentSum::clone() const
 {
     return new FormFactorCoherentSum(m_parts, m_abundance);
+}
+
+void FormFactorCoherentSum::addFormFactor(IFormFactor* p_ff)
+{
+    m_parts.emplace_back(p_ff);
 }
 
 complex_t FormFactorCoherentSum::evaluate(const SimulationElement& sim_element) const

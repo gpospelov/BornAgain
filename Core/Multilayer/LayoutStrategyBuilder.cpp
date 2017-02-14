@@ -109,5 +109,8 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     } else
         P_ff_framework.reset(P_ff_particle->clone());
 
-    return new FormFactorCoherentSum(P_ff_framework.release(), particle->getAbundance());
+    std::unique_ptr<FormFactorCoherentSum> P_result(
+                new FormFactorCoherentSum(particle->getAbundance()));
+    P_result->addFormFactor(P_ff_framework.release());
+    return P_result.release();
 }

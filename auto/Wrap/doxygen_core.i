@@ -2635,13 +2635,16 @@ Information about particle form factor and abundance.
 C++ includes: FormFactorCoherentSum.h
 ";
 
-%feature("docstring")  FormFactorCoherentSum::FormFactorCoherentSum "FormFactorCoherentSum::FormFactorCoherentSum(IFormFactor *ff, double abundance)
+%feature("docstring")  FormFactorCoherentSum::FormFactorCoherentSum "FormFactorCoherentSum::FormFactorCoherentSum(double abundance)
 ";
 
 %feature("docstring")  FormFactorCoherentSum::~FormFactorCoherentSum "FormFactorCoherentSum::~FormFactorCoherentSum()
 ";
 
 %feature("docstring")  FormFactorCoherentSum::clone "FormFactorCoherentSum * FormFactorCoherentSum::clone() const 
+";
+
+%feature("docstring")  FormFactorCoherentSum::addFormFactor "void FormFactorCoherentSum::addFormFactor(IFormFactor *p_ff)
 ";
 
 %feature("docstring")  FormFactorCoherentSum::evaluate "complex_t FormFactorCoherentSum::evaluate(const SimulationElement &sim_element) const 
@@ -8543,7 +8546,7 @@ Returns transformation.
 
 %feature("docstring")  IRotation::isIdentity "bool IRotation::isIdentity() const
 
-Returns true if roation matrix is identity matrix (no rotations) 
+Returns true if rotation matrix is identity matrix (no rotations) 
 ";
 
 

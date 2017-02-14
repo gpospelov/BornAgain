@@ -6243,7 +6243,7 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  IFormFactor::bottomZ "double IFormFactor::bottomZ(const IRotation &rotation) const
+%feature("docstring")  IFormFactor::bottomZ "virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";

@@ -10732,7 +10732,7 @@ class IFormFactor(ISample):
         """
         bottomZ(IFormFactor self, IRotation rotation) -> double
 
-        double IFormFactor::bottomZ(const IRotation &rotation) const
+        virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 

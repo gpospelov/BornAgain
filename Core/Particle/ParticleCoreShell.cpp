@@ -36,8 +36,6 @@ ParticleCoreShell* ParticleCoreShell::clone() const
 {
     ParticleCoreShell* p_result = new ParticleCoreShell(*mp_shell, *mp_core);
     p_result->setAbundance(m_abundance);
-    if ( const IMaterial* ambientMaterial = getAmbientMaterial() )
-        p_result->setAmbientMaterial(*ambientMaterial);
     if (mP_rotation.get())
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -50,24 +48,10 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     p_result->setAbundance(m_abundance);
     p_result->mp_shell.reset(mp_shell->cloneInvertB());
     p_result->mp_core.reset(mp_core->cloneInvertB());
-    if ( const IMaterial* ambientMaterial = getAmbientMaterial() )
-        p_result->setAmbientMaterial(*ambientMaterial->cloneInverted());
     if (mP_rotation.get())
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
     return p_result;
-}
-
-void ParticleCoreShell::setAmbientMaterial(const IMaterial& material)
-{
-    mp_shell->setAmbientMaterial(material);
-}
-
-const IMaterial* ParticleCoreShell::getAmbientMaterial() const
-{
-    if (!mp_shell)
-        return nullptr;
-    return mp_shell->getAmbientMaterial();
 }
 
 IFormFactor* ParticleCoreShell::createTransformedFormFactor(
@@ -99,7 +83,8 @@ std::vector<const INode*> ParticleCoreShell::getChildren() const
     return std::vector<const INode*>() << IParticle::getChildren() << mp_core << mp_shell;
 }
 
-void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relative_core_position)
+void ParticleCoreShell::addAndRegisterCore(const Particle& core,
+                                           kvector_t relative_core_position)
 {
     mp_core.reset(core.clone());
     mp_core->applyTranslation(relative_core_position);

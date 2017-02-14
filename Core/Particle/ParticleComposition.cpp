@@ -56,7 +56,6 @@ ParticleComposition* ParticleComposition::clone() const
     p_result->setAbundance(m_abundance);
     for (size_t index=0; index<m_particles.size(); ++index)
         p_result->addParticle(*m_particles[index]);
-    p_result->setAmbientMaterial(*getAmbientMaterial());
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -70,8 +69,6 @@ ParticleComposition* ParticleComposition::cloneInvertB() const
     for (size_t index=0; index<m_particles.size(); ++index)
         p_result->addParticlePointer(m_particles[index]->cloneInvertB());
 
-    if (getAmbientMaterial())
-        p_result->setAmbientMaterial(*getAmbientMaterial()->cloneInverted());
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -102,21 +99,8 @@ void ParticleComposition::addParticles(const IParticle& particle,
         addParticle(particle, positions[i]);
 }
 
-void ParticleComposition::setAmbientMaterial(const IMaterial& material)
-{
-    for (size_t index=0; index<m_particles.size(); ++index)
-        m_particles[index]->setAmbientMaterial(material);
-}
-
-const IMaterial* ParticleComposition::getAmbientMaterial() const
-{
-    if (m_particles.size()==0) return 0;
-    return m_particles[0]->getAmbientMaterial();
-}
-
-IFormFactor*
-ParticleComposition::createTransformedFormFactor(const IRotation* p_rotation,
-                                                 kvector_t translation) const
+IFormFactor* ParticleComposition::createTransformedFormFactor(
+    const IRotation* p_rotation, kvector_t translation) const
 {
     if (m_particles.size() == 0)
         return 0;

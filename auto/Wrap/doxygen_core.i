@@ -459,21 +459,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -750,14 +750,6 @@ Returns a clone with inverted magnetic fields.
 %feature("docstring")  Crystal::accept "void Crystal::accept(INodeVisitor *visitor) const final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  Crystal::setAmbientMaterial "void Crystal::setAmbientMaterial(const IMaterial &material) final
-";
-
-%feature("docstring")  Crystal::getAmbientMaterial "const IMaterial * Crystal::getAmbientMaterial() const final
-
-Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
@@ -2644,7 +2636,7 @@ C++ includes: FormFactorCoherentSum.h
 %feature("docstring")  FormFactorCoherentSum::clone "FormFactorCoherentSum * FormFactorCoherentSum::clone() const 
 ";
 
-%feature("docstring")  FormFactorCoherentSum::addFormFactor "void FormFactorCoherentSum::addFormFactor(IFormFactor *p_ff)
+%feature("docstring")  FormFactorCoherentSum::addCoherentPart "void FormFactorCoherentSum::addCoherentPart(const FormFactorCoherentPart &part)
 ";
 
 %feature("docstring")  FormFactorCoherentSum::evaluate "complex_t FormFactorCoherentSum::evaluate(const SimulationElement &sim_element) const 
@@ -2762,6 +2754,58 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classFormFactorCoreShell.xml
+%feature("docstring") FormFactorCoreShell "
+
+Form Factor for a core shell particle.
+
+Used by  ParticleCoreShell.
+
+C++ includes: FormFactorCoreShell.h
+";
+
+%feature("docstring")  FormFactorCoreShell::FormFactorCoreShell "FormFactorCoreShell::FormFactorCoreShell(IFormFactor *core, IFormFactor *shell)
+";
+
+%feature("docstring")  FormFactorCoreShell::~FormFactorCoreShell "FormFactorCoreShell::~FormFactorCoreShell() overridefinal
+";
+
+%feature("docstring")  FormFactorCoreShell::clone "FormFactorCoreShell * FormFactorCoreShell::clone() const overridefinal
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorCoreShell::accept "void FormFactorCoreShell::accept(INodeVisitor *visitor) const overridefinal
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorCoreShell::getRadialExtension "double FormFactorCoreShell::getRadialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorCoreShell::bottomZ "double FormFactorCoreShell::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorCoreShell::setAmbientMaterial "void FormFactorCoreShell::setAmbientMaterial(const IMaterial &material) overridefinal
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
+";
+
+%feature("docstring")  FormFactorCoreShell::evaluate "complex_t FormFactorCoreShell::evaluate(const WavevectorInfo &wavevectors) const overridefinal
+
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  FormFactorCoreShell::evaluatePol "Eigen::Matrix2cd FormFactorCoreShell::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
+
+Calculates and returns a polarized form factor calculation in DWBA. 
+";
+
+
 // File: classFormFactorCrystal.xml
 %feature("docstring") FormFactorCrystal "
 
@@ -2784,6 +2828,11 @@ Returns a clone of this  ISample object.
 %feature("docstring")  FormFactorCrystal::accept "void FormFactorCrystal::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorCrystal::setAmbientMaterial "void FormFactorCrystal::setAmbientMaterial(const IMaterial &material) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
 %feature("docstring")  FormFactorCrystal::getVolume "double FormFactorCrystal::getVolume() const overridefinal
@@ -3119,6 +3168,11 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  FormFactorDWBA::setAmbientMaterial "void FormFactorDWBA::setAmbientMaterial(const IMaterial &material) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
+";
+
 %feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const override
 
 Calculates and returns a form factor calculation in DWBA. 
@@ -3167,6 +3221,11 @@ Returns a clone of this  ISample object.
 %feature("docstring")  FormFactorDWBAPol::accept "void FormFactorDWBAPol::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorDWBAPol::setAmbientMaterial "void FormFactorDWBAPol::setAmbientMaterial(const IMaterial &material) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
 %feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
@@ -4457,7 +4516,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 
 Coherent sum of different scalar  IFormFactor's with different weights.
 
-Used by  ParticleComposition and  ParticleCoreShell. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
+Used by  ParticleComposition. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
 C++ includes: FormFactorWeighted.h
 ";
@@ -5545,20 +5604,10 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)=0
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
 %feature("docstring")  IAbstractParticle::getAbundance "double IAbstractParticle::getAbundance() const 
 ";
 
 %feature("docstring")  IAbstractParticle::setAbundance "void IAbstractParticle::setAbundance(double abundance)
-";
-
-%feature("docstring")  IAbstractParticle::getAmbientMaterial "virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
-
-Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 
@@ -5756,14 +5805,6 @@ Returns a clone with inverted magnetic fields.
 %feature("docstring")  IClusteredParticles::accept "virtual void IClusteredParticles::accept(INodeVisitor *visitor) const =0
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  IClusteredParticles::setAmbientMaterial "virtual void IClusteredParticles::setAmbientMaterial(const IMaterial &material)=0
-";
-
-%feature("docstring")  IClusteredParticles::getAmbientMaterial "virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
-
-Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
@@ -6177,7 +6218,7 @@ C++ includes: IFormFactor.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
+%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)=0
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -6232,6 +6273,11 @@ C++ includes: IFormFactorBorn.h
 %feature("docstring")  IFormFactorBorn::clone "IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
 Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(const IMaterial &) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
@@ -9491,16 +9537,6 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  MesoCrystal::setAmbientMaterial "void MesoCrystal::setAmbientMaterial(const IMaterial &material)
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
-%feature("docstring")  MesoCrystal::getAmbientMaterial "const IMaterial * MesoCrystal::getAmbientMaterial() const
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  MesoCrystal::createTransformedFormFactor "IFormFactor * MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
 
 Create a form factor for this particle with an extra scattering factor. 
@@ -9582,6 +9618,11 @@ Returns layer with given index.
 %feature("docstring")  MultiLayer::getLayerInterface "const LayerInterface* MultiLayer::getLayerInterface(size_t i_interface) const
 
 Returns layer with given index. 
+";
+
+%feature("docstring")  MultiLayer::getLayerTopZ "double MultiLayer::getLayerTopZ(size_t i_layer) const
+
+Returns z-coordinate of the layer's bottom. 
 ";
 
 %feature("docstring")  MultiLayer::getLayerBottomZ "double MultiLayer::getLayerBottomZ(size_t i_layer) const
@@ -9668,9 +9709,9 @@ returns layer index
 returns true if contains magnetic materials and matrix calculations are required 
 ";
 
-%feature("docstring")  MultiLayer::zToLayerIndex "size_t MultiLayer::zToLayerIndex(double z_value)
+%feature("docstring")  MultiLayer::zToLayerIndex "size_t MultiLayer::zToLayerIndex(double z_value) const
 
-returns layer index corresponding to given global z coordinate 
+returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
 ";
 
 %feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const 
@@ -10482,16 +10523,6 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  Particle::setAmbientMaterial "void Particle::setAmbientMaterial(const IMaterial &material) final
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
-%feature("docstring")  Particle::getAmbientMaterial "const IMaterial* Particle::getAmbientMaterial() const final
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  Particle::createTransformedFormFactor "IFormFactor * Particle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
 
 Create a form factor for this particle with an extra scattering factor. 
@@ -10567,16 +10598,6 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  ParticleComposition::addParticles "void ParticleComposition::addParticles(const IParticle &particle, std::vector< kvector_t > positions)
 ";
 
-%feature("docstring")  ParticleComposition::setAmbientMaterial "void ParticleComposition::setAmbientMaterial(const IMaterial &material)
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
-%feature("docstring")  ParticleComposition::getAmbientMaterial "const IMaterial * ParticleComposition::getAmbientMaterial() const
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  ParticleComposition::createTransformedFormFactor "IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
 
 Create a form factor for this particle with an extra scattering factor. 
@@ -10645,16 +10666,6 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ParticleCoreShell::setAmbientMaterial "void ParticleCoreShell::setAmbientMaterial(const IMaterial &material) final
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
-%feature("docstring")  ParticleCoreShell::getAmbientMaterial "const IMaterial * ParticleCoreShell::getAmbientMaterial() const final
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  ParticleCoreShell::createTransformedFormFactor "IFormFactor * ParticleCoreShell::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const final
 
 Create a form factor for this particle with an extra scattering factor. 
@@ -10696,16 +10707,6 @@ Returns a clone with inverted magnetic fields.
 %feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  ParticleDistribution::setAmbientMaterial "void ParticleDistribution::setAmbientMaterial(const IMaterial &material) final
-
-Sets the refractive index of the ambient material. 
-";
-
-%feature("docstring")  ParticleDistribution::getAmbientMaterial "const IMaterial * ParticleDistribution::getAmbientMaterial() const final
-
-Returns particle's material. 
 ";
 
 %feature("docstring")  ParticleDistribution::generateParticles "std::vector< const IParticle * > ParticleDistribution::generateParticles() const
@@ -13241,7 +13242,7 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D324.xml
 
 
-// File: namespace_0D437.xml
+// File: namespace_0D439.xml
 
 
 // File: namespace_0D60.xml
@@ -14853,6 +14854,12 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 
 
 // File: Crystal_8h.xml
+
+
+// File: FormFactorCoreShell_8cpp.xml
+
+
+// File: FormFactorCoreShell_8h.xml
 
 
 // File: FormFactorCrystal_8cpp.xml

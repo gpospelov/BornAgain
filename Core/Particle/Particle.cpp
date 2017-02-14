@@ -55,8 +55,6 @@ Particle* Particle::clone() const
         p_result->setFormFactor(*mP_form_factor);
     if (mP_material)
         p_result->setMaterial(*mP_material);
-    if (mP_ambient_material)
-        p_result->setAmbientMaterial(*mP_ambient_material);
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -72,19 +70,11 @@ Particle* Particle::cloneInvertB() const
         p_result->setFormFactor(*mP_form_factor);
     if (mP_material)
         p_result->mP_material.reset(mP_material->cloneInverted());
-    if (mP_ambient_material)
-        p_result->mP_ambient_material.reset(mP_ambient_material->cloneInverted());
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
 
     return p_result;
-}
-
-void Particle::setAmbientMaterial(const IMaterial& material)
-{
-    if(mP_ambient_material.get() != &material)
-        mP_ambient_material.reset(material.clone());
 }
 
 IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
@@ -113,8 +103,6 @@ IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
         } else
             p_ff->setMaterial(*mP_material);
     }
-    if (mP_ambient_material)
-        p_ff->setAmbientMaterial(*mP_ambient_material);
     return p_ff;
 }
 

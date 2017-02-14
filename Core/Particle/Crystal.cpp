@@ -46,16 +46,6 @@ Crystal* Crystal::cloneInvertB() const
     return p_new;
 }
 
-void Crystal::setAmbientMaterial(const IMaterial& material)
-{
-    mp_lattice_basis->setAmbientMaterial(material);
-}
-
-const IMaterial* Crystal::getAmbientMaterial() const
-{
-    return mp_lattice_basis->getAmbientMaterial();
-}
-
 IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
                                             const IRotation* p_rotation,
                                             const kvector_t& translation) const

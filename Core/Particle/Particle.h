@@ -40,9 +40,6 @@ public:
 
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
-    void setAmbientMaterial(const IMaterial& material) final;
-    const IMaterial* getAmbientMaterial() const final { return mP_ambient_material.get(); }
-
     //! Create a form factor for this particle with an extra scattering factor
     virtual IFormFactor* createTransformedFormFactor(
         const IRotation* p_rotation, kvector_t translation) const;
@@ -59,7 +56,6 @@ public:
 
 protected:
     std::unique_ptr<IMaterial> mP_material;
-    std::unique_ptr<IMaterial> mP_ambient_material;
     std::unique_ptr<IFormFactor> mP_form_factor;
 private:
     void initialize();

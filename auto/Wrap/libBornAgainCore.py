@@ -7619,28 +7619,6 @@ class IClusteredParticles(ISample):
         return _libBornAgainCore.IClusteredParticles_accept(self, visitor)
 
 
-    def setAmbientMaterial(self, material):
-        """
-        setAmbientMaterial(IClusteredParticles self, IMaterial material)
-
-        virtual void IClusteredParticles::setAmbientMaterial(const IMaterial &material)=0
-
-        """
-        return _libBornAgainCore.IClusteredParticles_setAmbientMaterial(self, material)
-
-
-    def getAmbientMaterial(self):
-        """
-        getAmbientMaterial(IClusteredParticles self) -> IMaterial
-
-        virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_getAmbientMaterial(self)
-
-
     def createTotalFormFactor(self, arg2, arg3, arg4):
         """
         createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
@@ -7726,28 +7704,6 @@ class Crystal(IClusteredParticles):
 
         """
         return _libBornAgainCore.Crystal_accept(self, visitor)
-
-
-    def setAmbientMaterial(self, material):
-        """
-        setAmbientMaterial(Crystal self, IMaterial material)
-
-        void Crystal::setAmbientMaterial(const IMaterial &material) final
-
-        """
-        return _libBornAgainCore.Crystal_setAmbientMaterial(self, material)
-
-
-    def getAmbientMaterial(self):
-        """
-        getAmbientMaterial(Crystal self) -> IMaterial
-
-        const IMaterial * Crystal::getAmbientMaterial() const final
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.Crystal_getAmbientMaterial(self)
 
 
     def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
@@ -10728,7 +10684,7 @@ class IFormFactor(ISample):
         """
         setAmbientMaterial(IFormFactor self, IMaterial arg0)
 
-        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
+        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)=0
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -11071,7 +11027,7 @@ class IFormFactorBorn(IFormFactor):
         """
         setAmbientMaterial(IFormFactorBorn self, IMaterial arg0)
 
-        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
+        void IFormFactorBorn::setAmbientMaterial(const IMaterial &) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -12326,7 +12282,7 @@ class FormFactorCrystal(IFormFactor):
         """
         setAmbientMaterial(FormFactorCrystal self, IMaterial material)
 
-        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
+        void FormFactorCrystal::setAmbientMaterial(const IMaterial &material) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -15578,7 +15534,7 @@ class FormFactorWeighted(IFormFactor):
 
     Coherent sum of different scalar  IFormFactor's with different weights.
 
-    Used by  ParticleComposition and  ParticleCoreShell. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
+    Used by  ParticleComposition. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
     C++ includes: FormFactorWeighted.h
 
@@ -18412,18 +18368,6 @@ class IAbstractParticle(ISample):
         return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
 
 
-    def setAmbientMaterial(self, arg2):
-        """
-        setAmbientMaterial(IAbstractParticle self, IMaterial arg2)
-
-        virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)=0
-
-        Sets the refractive index of the ambient material (which influences its scattering power) 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_setAmbientMaterial(self, arg2)
-
-
     def getAbundance(self):
         """
         getAbundance(IAbstractParticle self) -> double
@@ -18442,18 +18386,6 @@ class IAbstractParticle(ISample):
 
         """
         return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
-
-
-    def getAmbientMaterial(self):
-        """
-        getAmbientMaterial(IAbstractParticle self) -> IMaterial
-
-        virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_getAmbientMaterial(self)
 
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
@@ -22155,30 +22087,6 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_accept(self, visitor)
 
 
-    def setAmbientMaterial(self, material):
-        """
-        setAmbientMaterial(MesoCrystal self, IMaterial material)
-
-        void MesoCrystal::setAmbientMaterial(const IMaterial &material)
-
-        Sets the refractive index of the ambient material (which influences its scattering power) 
-
-        """
-        return _libBornAgainCore.MesoCrystal_setAmbientMaterial(self, material)
-
-
-    def getAmbientMaterial(self):
-        """
-        getAmbientMaterial(MesoCrystal self) -> IMaterial
-
-        const IMaterial * MesoCrystal::getAmbientMaterial() const
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.MesoCrystal_getAmbientMaterial(self)
-
-
     def createTransformedFormFactor(self, p_rotation, translation):
         """
         createTransformedFormFactor(MesoCrystal self, IRotation p_rotation, kvector_t translation) -> IFormFactor
@@ -22337,7 +22245,14 @@ class MultiLayer(ISample):
 
 
     def getLayerTopZ(self, i_layer):
-        """getLayerTopZ(MultiLayer self, size_t i_layer) -> double"""
+        """
+        getLayerTopZ(MultiLayer self, size_t i_layer) -> double
+
+        double MultiLayer::getLayerTopZ(size_t i_layer) const
+
+        Returns z-coordinate of the layer's bottom. 
+
+        """
         return _libBornAgainCore.MultiLayer_getLayerTopZ(self, i_layer)
 
 
@@ -22541,9 +22456,9 @@ class MultiLayer(ISample):
         """
         zToLayerIndex(MultiLayer self, double z_value) -> size_t
 
-        size_t MultiLayer::zToLayerIndex(double z_value)
+        size_t MultiLayer::zToLayerIndex(double z_value) const
 
-        returns layer index corresponding to given global z coordinate 
+        returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
 
         """
         return _libBornAgainCore.MultiLayer_zToLayerIndex(self, z_value)
@@ -23889,30 +23804,6 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_accept(self, visitor)
 
 
-    def setAmbientMaterial(self, material):
-        """
-        setAmbientMaterial(Particle self, IMaterial material)
-
-        void Particle::setAmbientMaterial(const IMaterial &material) final
-
-        Sets the refractive index of the ambient material (which influences its scattering power) 
-
-        """
-        return _libBornAgainCore.Particle_setAmbientMaterial(self, material)
-
-
-    def getAmbientMaterial(self):
-        """
-        getAmbientMaterial(Particle self) -> IMaterial
-
-        const IMaterial* Particle::getAmbientMaterial() const final
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.Particle_getAmbientMaterial(self)
-
-
     def createTransformedFormFactor(self, p_rotation, translation):
         """
         createTransformedFormFactor(Particle self, IRotation p_rotation, kvector_t translation) -> IFormFactor
@@ -24088,30 +23979,6 @@ class ParticleComposition(IParticle):
         return _libBornAgainCore.ParticleComposition_addParticles(self, particle, positions)
 
 
-    def setAmbientMaterial(self, material):
-        """
-        setAmbientMaterial(ParticleComposition self, IMaterial material)
-
-        void ParticleComposition::setAmbientMaterial(const IMaterial &material)
-
-        Sets the refractive index of the ambient material (which influences its scattering power) 
-
-        """
-        return _libBornAgainCore.ParticleComposition_setAmbientMaterial(self, material)
-
-
-    def getAmbientMaterial(self):
-        """
-        getAmbientMaterial(ParticleComposition self) -> IMaterial
-
-        const IMaterial * ParticleComposition::getAmbientMaterial() const
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_getAmbientMaterial(self)
-
-
     def createTransformedFormFactor(self, p_rotation, translation):
         """
         createTransformedFormFactor(ParticleComposition self, IRotation p_rotation, kvector_t translation) -> IFormFactor
@@ -24244,30 +24111,6 @@ class ParticleCoreShell(IParticle):
         return _libBornAgainCore.ParticleCoreShell_accept(self, visitor)
 
 
-    def setAmbientMaterial(self, material):
-        """
-        setAmbientMaterial(ParticleCoreShell self, IMaterial material)
-
-        void ParticleCoreShell::setAmbientMaterial(const IMaterial &material) final
-
-        Sets the refractive index of the ambient material (which influences its scattering power) 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_setAmbientMaterial(self, material)
-
-
-    def getAmbientMaterial(self):
-        """
-        getAmbientMaterial(ParticleCoreShell self) -> IMaterial
-
-        const IMaterial * ParticleCoreShell::getAmbientMaterial() const final
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_getAmbientMaterial(self)
-
-
     def createTransformedFormFactor(self, p_rotation, translation):
         """
         createTransformedFormFactor(ParticleCoreShell self, IRotation p_rotation, kvector_t translation) -> IFormFactor
@@ -24381,30 +24224,6 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
-
-
-    def setAmbientMaterial(self, material):
-        """
-        setAmbientMaterial(ParticleDistribution self, IMaterial material)
-
-        void ParticleDistribution::setAmbientMaterial(const IMaterial &material) final
-
-        Sets the refractive index of the ambient material. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_setAmbientMaterial(self, material)
-
-
-    def getAmbientMaterial(self):
-        """
-        getAmbientMaterial(ParticleDistribution self) -> IMaterial
-
-        const IMaterial * ParticleDistribution::getAmbientMaterial() const final
-
-        Returns particle's material. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_getAmbientMaterial(self)
 
 
     def generateParticles(self):

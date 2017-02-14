@@ -39,6 +39,9 @@ public:
 
     QList<QAction*> actionList();
 
+private slots:
+    void onContextMenuRequest(const QPoint& point);
+
 private:
     IntensityDataCanvas* m_intensityWidget;
     IntensityDataPropertyWidget* m_propertyWidget;

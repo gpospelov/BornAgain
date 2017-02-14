@@ -43,6 +43,7 @@ public:
 public slots:
     void onResetViewAction();
     void onSavePlotAction();
+    void onMousePress(QMouseEvent *event);
 
 private:
     void setIntensityData(IntensityDataItem* intensityItem);

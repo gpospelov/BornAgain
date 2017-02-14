@@ -16,12 +16,14 @@
 
 #include "IntensityDataCanvas.h"
 #include "AppSvc.h"
+#include "ColorMap.h"
 #include "ColorMapCanvas.h"
 #include "IntensityDataItem.h"
 #include "SavePlotAssistant.h"
 #include "projectmanager.h"
 #include <QAction>
 #include <QVBoxLayout>
+#include <QMouseEvent>
 
 IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
     : SessionItemWidget(parent)
@@ -40,6 +42,9 @@ IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
     m_colorMap->setStatusLabelEnabled(true);
 
     initActions();
+
+    connect(m_colorMap->customPlot(), SIGNAL(mousePress(QMouseEvent*)),
+            this, SLOT(onMousePress(QMouseEvent*)), Qt::UniqueConnection);
 }
 
 void IntensityDataCanvas::setItem(SessionItem* item)
@@ -73,6 +78,12 @@ void IntensityDataCanvas::onSavePlotAction()
     QString dirname = AppSvc::projectManager()->userExportDir();
     SavePlotAssistant saveAssistant;
     saveAssistant.savePlot(dirname, m_colorMap->customPlot(), m_currentItem);
+}
+
+void IntensityDataCanvas::onMousePress(QMouseEvent* event)
+{
+    if(event->button() == Qt::RightButton)
+        emit customContextMenuRequested(event->globalPos());
 }
 
 void IntensityDataCanvas::setIntensityData(IntensityDataItem* intensityItem)

@@ -20,9 +20,10 @@
 #include "IntensityDataCanvas.h"
 #include "RealDataItem.h"
 #include "SessionItem.h"
+#include "JobItem.h"
 #include <QAction>
 #include <QBoxLayout>
-#include "JobItem.h"
+#include <QMenu>
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)
@@ -45,6 +46,8 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     mainLayout->addLayout(hlayout);
     setLayout(mainLayout);
 
+    connect(m_intensityWidget, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onContextMenuRequest(const QPoint &)));
 }
 
 void IntensityDataWidget::setItem(SessionItem *item)
@@ -60,3 +63,12 @@ QList<QAction *> IntensityDataWidget::actionList()
 {
     return m_intensityWidget->actionList() + m_propertyWidget->actionList();
 }
+
+void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
+{
+    QMenu menu;
+    for(auto action : actionList())
+        menu.addAction(action);
+    menu.exec(point);
+}
+

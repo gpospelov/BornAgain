@@ -19,7 +19,6 @@ TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
     std::vector<kvector_t> positions;
     positions.push_back(kvector_t(0.0, 0.0, 0.0));
     EXPECT_EQ(BornAgain::ParticleCompositionType, composition->getName());
-    EXPECT_EQ(nullptr, composition->getAmbientMaterial());
     EXPECT_EQ(0u, composition->getNbrParticles());
 }
 
@@ -34,19 +33,12 @@ TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithOneParameter)
     EXPECT_EQ(BornAgain::ParticleCompositionType, composition->getName());
     composition->addParticle(particle, position1);
 
-    EXPECT_EQ(particle.getMaterial(), composition->getParticle(0)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(), composition->getParticle(0)->getName());
     EXPECT_EQ(particle.getRotation(), composition->getParticle(0)->getRotation());
-    EXPECT_EQ(particle.getMaterial(), composition->getParticle(1)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(), composition->getParticle(1)->getName());
     EXPECT_EQ(particle.getRotation(), composition->getParticle(1)->getRotation());
     EXPECT_EQ(position0, composition->getParticlePosition(0));
     EXPECT_EQ(position1, composition->getParticlePosition(1));
-
-    HomogeneousMaterial material("Air", 0.0, 0.0);
-    composition->setAmbientMaterial(material);
-    EXPECT_EQ("Air", composition->getAmbientMaterial()->getName());
-    EXPECT_EQ(1.0, composition->getAmbientMaterial()->getRefractiveIndex());
 }
 
 TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithTwoParameter)
@@ -57,19 +49,13 @@ TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithTwoParameter)
 
     EXPECT_EQ(BornAgain::ParticleCompositionType, composition->getName());
     composition->addParticle(particle, position);
-    EXPECT_EQ(particle.getMaterial(), composition->getParticle(0)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(), composition->getParticle(0)->getName());
     EXPECT_EQ(particle.getRotation(), composition->getParticle(0)->getRotation());
-    EXPECT_EQ(particle.getMaterial(), composition->getParticle(1)->getAmbientMaterial());
     EXPECT_EQ(particle.getName(), composition->getParticle(1)->getName());
     EXPECT_EQ(particle.getRotation(), composition->getParticle(1)->getRotation());
     EXPECT_EQ(position, composition->getParticlePosition(0));
     EXPECT_EQ(position, composition->getParticlePosition(1));
 
-    HomogeneousMaterial material("Air", 0.0, 0.0);
-    composition->setAmbientMaterial(material);
-    EXPECT_EQ("Air", composition->getAmbientMaterial()->getName());
-    EXPECT_EQ(1.0, composition->getAmbientMaterial()->getRefractiveIndex());
 }
 
 TEST_F(ParticleCompositionTest, ParticleCompositionClone)
@@ -79,20 +65,15 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
     kvector_t position = kvector_t(1.0, 1.0, 1.0);
     HomogeneousMaterial material("Air", 0.0, 0.0);
     composition.addParticle(particle, position);
-    composition.setAmbientMaterial(material);
 
     std::unique_ptr<ParticleComposition> clone(composition.clone());
 
     EXPECT_EQ(clone->getName(), composition.getName());
 
-    EXPECT_EQ(clone->getParticle(0)->getAmbientMaterial()->getRefractiveIndex(),
-              composition.getParticle(0)->getAmbientMaterial()->getRefractiveIndex());
     EXPECT_EQ(clone->getParticle(0)->getName(), composition.getParticle(0)->getName());
     EXPECT_EQ(clone->getParticle(0)->getRotation(), nullptr);
     EXPECT_EQ(position, clone->getParticlePosition(0));
 
-    EXPECT_EQ("Air", clone->getAmbientMaterial()->getName());
-    EXPECT_EQ(1.0, clone->getAmbientMaterial()->getRefractiveIndex());
 }
 
 TEST_F(ParticleCompositionTest, getChildren)

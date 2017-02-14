@@ -32,9 +32,11 @@ class SimulationElement;
 class BA_CORE_API_ FormFactorCoherentSum : public ICloneable
 {
 public:
-    FormFactorCoherentSum(IFormFactor* ff, double abundance);
+    FormFactorCoherentSum(double abundance);
     virtual ~FormFactorCoherentSum();
     virtual FormFactorCoherentSum* clone() const;
+
+    void addCoherentPart(const FormFactorCoherentPart& part);
 
     complex_t evaluate(const SimulationElement& sim_element) const;
 #ifndef SWIG

@@ -37,9 +37,12 @@ public:
 
     double getRadialExtension() const override final { return m_length/2.0; }
 
+    double bottomZ(const IRotation& rotation) const override final;
+
     complex_t evaluate_for_q(const cvector_t q) const override final;
 
 private:
+    std::vector<kvector_t> vertices() const;
     double m_length;
     double m_width;
     double m_height;

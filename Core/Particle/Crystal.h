@@ -38,9 +38,6 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    void setAmbientMaterial(const IMaterial& material) final;
-    const IMaterial* getAmbientMaterial() const final;
-
     virtual IFormFactor* createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         const IRotation* p_rotation, const kvector_t& translation) const;

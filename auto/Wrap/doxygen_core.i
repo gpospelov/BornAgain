@@ -752,14 +752,6 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  Crystal::setAmbientMaterial "void Crystal::setAmbientMaterial(const IMaterial &material) final
-";
-
-%feature("docstring")  Crystal::getAmbientMaterial "const IMaterial * Crystal::getAmbientMaterial() const final
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
@@ -2586,6 +2578,11 @@ Calls the  INodeVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  FormFactorBox::bottomZ "double FormFactorBox::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const overridefinal
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
@@ -2630,13 +2627,16 @@ Information about particle form factor and abundance.
 C++ includes: FormFactorCoherentSum.h
 ";
 
-%feature("docstring")  FormFactorCoherentSum::FormFactorCoherentSum "FormFactorCoherentSum::FormFactorCoherentSum(IFormFactor *ff, double abundance)
+%feature("docstring")  FormFactorCoherentSum::FormFactorCoherentSum "FormFactorCoherentSum::FormFactorCoherentSum(double abundance)
 ";
 
 %feature("docstring")  FormFactorCoherentSum::~FormFactorCoherentSum "FormFactorCoherentSum::~FormFactorCoherentSum()
 ";
 
 %feature("docstring")  FormFactorCoherentSum::clone "FormFactorCoherentSum * FormFactorCoherentSum::clone() const 
+";
+
+%feature("docstring")  FormFactorCoherentSum::addCoherentPart "void FormFactorCoherentSum::addCoherentPart(const FormFactorCoherentPart &part)
 ";
 
 %feature("docstring")  FormFactorCoherentSum::evaluate "complex_t FormFactorCoherentSum::evaluate(const SimulationElement &sim_element) const 
@@ -2754,6 +2754,58 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classFormFactorCoreShell.xml
+%feature("docstring") FormFactorCoreShell "
+
+Form Factor for a core shell particle.
+
+Used by  ParticleCoreShell.
+
+C++ includes: FormFactorCoreShell.h
+";
+
+%feature("docstring")  FormFactorCoreShell::FormFactorCoreShell "FormFactorCoreShell::FormFactorCoreShell(IFormFactor *core, IFormFactor *shell)
+";
+
+%feature("docstring")  FormFactorCoreShell::~FormFactorCoreShell "FormFactorCoreShell::~FormFactorCoreShell() overridefinal
+";
+
+%feature("docstring")  FormFactorCoreShell::clone "FormFactorCoreShell * FormFactorCoreShell::clone() const overridefinal
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorCoreShell::accept "void FormFactorCoreShell::accept(INodeVisitor *visitor) const overridefinal
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorCoreShell::getRadialExtension "double FormFactorCoreShell::getRadialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorCoreShell::bottomZ "double FormFactorCoreShell::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorCoreShell::setAmbientMaterial "void FormFactorCoreShell::setAmbientMaterial(const IMaterial &material) overridefinal
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
+";
+
+%feature("docstring")  FormFactorCoreShell::evaluate "complex_t FormFactorCoreShell::evaluate(const WavevectorInfo &wavevectors) const overridefinal
+
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  FormFactorCoreShell::evaluatePol "Eigen::Matrix2cd FormFactorCoreShell::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
+
+Calculates and returns a polarized form factor calculation in DWBA. 
+";
+
+
 // File: classFormFactorCrystal.xml
 %feature("docstring") FormFactorCrystal "
 
@@ -2778,6 +2830,11 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  FormFactorCrystal::setAmbientMaterial "void FormFactorCrystal::setAmbientMaterial(const IMaterial &material) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
+";
+
 %feature("docstring")  FormFactorCrystal::getVolume "double FormFactorCrystal::getVolume() const overridefinal
 
 Returns the total volume of the particle of this form factor's shape. 
@@ -2786,6 +2843,11 @@ Returns the total volume of the particle of this form factor's shape.
 %feature("docstring")  FormFactorCrystal::getRadialExtension "double FormFactorCrystal::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorCrystal::bottomZ "double FormFactorCrystal::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorCrystal::evaluate "complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const overridefinal
@@ -2925,38 +2987,6 @@ Returns scattering amplitude for matrix interactions.
 ";
 
 
-// File: classFormFactorDecoratorFactor.xml
-%feature("docstring") FormFactorDecoratorFactor "
-
-Decorates a formfactor with a constant factor. Base class of  FormFactorDecoratorMaterial.
-
-C++ includes: FormFactorDecoratorFactor.h
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::FormFactorDecoratorFactor "FormFactorDecoratorFactor::FormFactorDecoratorFactor(const IFormFactor &form_factor, const complex_t factor)
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::clone "FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::accept "void FormFactorDecoratorFactor::accept(INodeVisitor *visitor) const override
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::evaluate "complex_t FormFactorDecoratorFactor::evaluate(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactorDecoratorFactor::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorFactor::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-
 // File: classFormFactorDecoratorMaterial.xml
 %feature("docstring") FormFactorDecoratorMaterial "
 
@@ -3026,6 +3056,11 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  FormFactorDecoratorPositionFactor::bottomZ "double FormFactorDecoratorPositionFactor::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
 Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -3058,6 +3093,11 @@ Returns a clone of this  ISample object.
 %feature("docstring")  FormFactorDecoratorRotation::accept "void FormFactorDecoratorRotation::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorDecoratorRotation::bottomZ "double FormFactorDecoratorRotation::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorDecoratorRotation::evaluate "complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo &wavevectors) const overridefinal
@@ -3128,6 +3168,11 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  FormFactorDWBA::setAmbientMaterial "void FormFactorDWBA::setAmbientMaterial(const IMaterial &material) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
+";
+
 %feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const override
 
 Calculates and returns a form factor calculation in DWBA. 
@@ -3143,9 +3188,14 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  FormFactorDWBA::bottomZ "double FormFactorDWBA::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
 
-Sets reflection/transmission info for scalar DWBA simulation. 
+Sets reflection/transmission info. 
 ";
 
 
@@ -3173,6 +3223,11 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  FormFactorDWBAPol::setAmbientMaterial "void FormFactorDWBAPol::setAmbientMaterial(const IMaterial &material) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
+";
+
 %feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
 
 Throws not-implemented exception. 
@@ -3193,9 +3248,14 @@ Returns the total volume of the particle of this form factor's shape.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  FormFactorDWBAPol::bottomZ "double FormFactorDWBAPol::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
 
-Sets reflection/transmission info for scalar DWBA simulation. 
+Sets reflection/transmission info. 
 ";
 
 
@@ -4456,7 +4516,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 
 Coherent sum of different scalar  IFormFactor's with different weights.
 
-Used by  ParticleComposition and  ParticleCoreShell. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
+Used by  ParticleComposition. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
 C++ includes: FormFactorWeighted.h
 ";
@@ -4480,6 +4540,11 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FormFactorWeighted::getRadialExtension "double FormFactorWeighted::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorWeighted::bottomZ "double FormFactorWeighted::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorWeighted::addFormFactor "void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
@@ -5539,20 +5604,10 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  IAbstractParticle::setAmbientMaterial "virtual void IAbstractParticle::setAmbientMaterial(const IMaterial &)=0
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
 %feature("docstring")  IAbstractParticle::getAbundance "double IAbstractParticle::getAbundance() const 
 ";
 
 %feature("docstring")  IAbstractParticle::setAbundance "void IAbstractParticle::setAbundance(double abundance)
-";
-
-%feature("docstring")  IAbstractParticle::getAmbientMaterial "virtual const IMaterial* IAbstractParticle::getAmbientMaterial() const =0
-
-Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 
@@ -5750,14 +5805,6 @@ Returns a clone with inverted magnetic fields.
 %feature("docstring")  IClusteredParticles::accept "virtual void IClusteredParticles::accept(INodeVisitor *visitor) const =0
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  IClusteredParticles::setAmbientMaterial "virtual void IClusteredParticles::setAmbientMaterial(const IMaterial &material)=0
-";
-
-%feature("docstring")  IClusteredParticles::getAmbientMaterial "virtual const IMaterial* IClusteredParticles::getAmbientMaterial() const =0
-
-Returns nullptr, unless overwritten to return a specific material. 
 ";
 
 %feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
@@ -6171,7 +6218,7 @@ C++ includes: IFormFactor.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
+%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)=0
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -6194,6 +6241,11 @@ Returns the total volume of the particle of this form factor's shape.
 %feature("docstring")  IFormFactor::getRadialExtension "virtual double IFormFactor::getRadialExtension() const =0
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IFormFactor::bottomZ "virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  IFormFactor::setSpecularInfo "virtual void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *, const ILayerRTCoefficients *)
@@ -6223,6 +6275,11 @@ C++ includes: IFormFactorBorn.h
 Returns a clone of this  ISample object. 
 ";
 
+%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(const IMaterial &) override
+
+Passes the refractive index of the ambient material in which this particle is embedded. 
+";
+
 %feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
 
 Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -6231,6 +6288,11 @@ Returns scattering amplitude for complex wavevectors ki, kf.
 %feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const override
 
 Returns scattering amplitude for matrix interactions. 
+";
+
+%feature("docstring")  IFormFactorBorn::bottomZ "double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
@@ -6278,6 +6340,11 @@ Returns the total volume of the particle of this form factor's shape.
 %feature("docstring")  IFormFactorDecorator::getRadialExtension "double IFormFactorDecorator::getRadialExtension() const override
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IFormFactorDecorator::bottomZ "double IFormFactorDecorator::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 
@@ -6812,7 +6879,7 @@ If defined by this interference function's parameters, returns the particle dens
 
 Pure virtual base class of all interference function strategy classes. Provides an 'evaluate' function that computes the total scattering intensity from a decorated layer, taking into account a specific inter-particle interference function. This function uses low-level functions precomputeParticleFormfactors, evaluateForList that are implemented differently in different inheriting classes. Multiple inheritance is used to support scalar and polarized scattering (through  IInterferenceFunctionStrategy1,  IInterferenceFunctionStrategy2) and to implement different approximation schemes ( DecouplingApproximationStrategy1,  SSCApproximationStrategy1, and their polarized counterparts).
 
-Instantiation of child classes takes place in  LayerStrategyBuilder::createStrategy, which is called from  ParticleLayoutComputation::eval.
+Instantiation of child classes takes place in  LayoutStrategyBuilder::createStrategy, which is called from  ParticleLayoutComputation::eval.
 
 C++ includes: IInterferenceFunctionStrategy.h
 ";
@@ -7372,6 +7439,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorTruncatedSpheroid *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCoreShell *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBA *)
 ";
 
@@ -7382,9 +7452,6 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorDebyeWaller *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorFactor *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorMaterial *)
@@ -8528,7 +8595,7 @@ Returns transformation.
 
 %feature("docstring")  IRotation::isIdentity "bool IRotation::isIdentity() const
 
-Returns true if roation matrix is identity matrix (no rotations) 
+Returns true if rotation matrix is identity matrix (no rotations) 
 ";
 
 
@@ -9169,26 +9236,6 @@ Returns lateral correlation length.
 ";
 
 
-// File: classLayerStrategyBuilder.xml
-%feature("docstring") LayerStrategyBuilder "
-
-Methods to generate a simulation strategy for a  ParticleLayoutComputation.
-
-C++ includes: LayerStrategyBuilder.h
-";
-
-%feature("docstring")  LayerStrategyBuilder::LayerStrategyBuilder "LayerStrategyBuilder::LayerStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const IFresnelMap *p_fresnel_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
-";
-
-%feature("docstring")  LayerStrategyBuilder::~LayerStrategyBuilder "LayerStrategyBuilder::~LayerStrategyBuilder()
-";
-
-%feature("docstring")  LayerStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayerStrategyBuilder::createStrategy() const
-
-Returns a new strategy object that is able to calculate the scattering for fixed k_f. 
-";
-
-
 // File: classLayersWithAbsorptionBuilder.xml
 %feature("docstring") LayersWithAbsorptionBuilder "
 
@@ -9204,6 +9251,26 @@ C++ includes: LayersWithAbsorptionBuilder.h
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::buildSample "MultiLayer * LayersWithAbsorptionBuilder::buildSample() const 
+";
+
+
+// File: classLayoutStrategyBuilder.xml
+%feature("docstring") LayoutStrategyBuilder "
+
+Methods to generate a simulation strategy for a  ParticleLayoutComputation.
+
+C++ includes: LayoutStrategyBuilder.h
+";
+
+%feature("docstring")  LayoutStrategyBuilder::LayoutStrategyBuilder "LayoutStrategyBuilder::LayoutStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const IFresnelMap *p_fresnel_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
+";
+
+%feature("docstring")  LayoutStrategyBuilder::~LayoutStrategyBuilder "LayoutStrategyBuilder::~LayoutStrategyBuilder()
+";
+
+%feature("docstring")  LayoutStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayoutStrategyBuilder::createStrategy() const
+
+Returns a new strategy object that is able to calculate the scattering for fixed k_f. 
 ";
 
 
@@ -9473,16 +9540,6 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  MesoCrystal::setAmbientMaterial "void MesoCrystal::setAmbientMaterial(const IMaterial &material)
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
-%feature("docstring")  MesoCrystal::getAmbientMaterial "const IMaterial * MesoCrystal::getAmbientMaterial() const
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  MesoCrystal::createTransformedFormFactor "IFormFactor * MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
 
 Create a form factor for this particle with an extra scattering factor. 
@@ -9564,6 +9621,11 @@ Returns layer with given index.
 %feature("docstring")  MultiLayer::getLayerInterface "const LayerInterface* MultiLayer::getLayerInterface(size_t i_interface) const
 
 Returns layer with given index. 
+";
+
+%feature("docstring")  MultiLayer::getLayerTopZ "double MultiLayer::getLayerTopZ(size_t i_layer) const
+
+Returns z-coordinate of the layer's bottom. 
 ";
 
 %feature("docstring")  MultiLayer::getLayerBottomZ "double MultiLayer::getLayerBottomZ(size_t i_layer) const
@@ -9650,9 +9712,9 @@ returns layer index
 returns true if contains magnetic materials and matrix calculations are required 
 ";
 
-%feature("docstring")  MultiLayer::zToLayerIndex "size_t MultiLayer::zToLayerIndex(double z_value)
+%feature("docstring")  MultiLayer::zToLayerIndex "size_t MultiLayer::zToLayerIndex(double z_value) const
 
-returns layer index corresponding to given global z coordinate 
+returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
 ";
 
 %feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const 
@@ -10464,16 +10526,6 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  Particle::setAmbientMaterial "void Particle::setAmbientMaterial(const IMaterial &material) final
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
-%feature("docstring")  Particle::getAmbientMaterial "const IMaterial* Particle::getAmbientMaterial() const final
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  Particle::createTransformedFormFactor "IFormFactor * Particle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
 
 Create a form factor for this particle with an extra scattering factor. 
@@ -10549,16 +10601,6 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  ParticleComposition::addParticles "void ParticleComposition::addParticles(const IParticle &particle, std::vector< kvector_t > positions)
 ";
 
-%feature("docstring")  ParticleComposition::setAmbientMaterial "void ParticleComposition::setAmbientMaterial(const IMaterial &material)
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
-%feature("docstring")  ParticleComposition::getAmbientMaterial "const IMaterial * ParticleComposition::getAmbientMaterial() const
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  ParticleComposition::createTransformedFormFactor "IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
 
 Create a form factor for this particle with an extra scattering factor. 
@@ -10627,16 +10669,6 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ParticleCoreShell::setAmbientMaterial "void ParticleCoreShell::setAmbientMaterial(const IMaterial &material) final
-
-Sets the refractive index of the ambient material (which influences its scattering power) 
-";
-
-%feature("docstring")  ParticleCoreShell::getAmbientMaterial "const IMaterial * ParticleCoreShell::getAmbientMaterial() const final
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  ParticleCoreShell::createTransformedFormFactor "IFormFactor * ParticleCoreShell::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const final
 
 Create a form factor for this particle with an extra scattering factor. 
@@ -10678,16 +10710,6 @@ Returns a clone with inverted magnetic fields.
 %feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  ParticleDistribution::setAmbientMaterial "void ParticleDistribution::setAmbientMaterial(const IMaterial &material) final
-
-Sets the refractive index of the ambient material. 
-";
-
-%feature("docstring")  ParticleDistribution::getAmbientMaterial "const IMaterial * ParticleDistribution::getAmbientMaterial() const final
-
-Returns particle's material. 
 ";
 
 %feature("docstring")  ParticleDistribution::generateParticles "std::vector< const IParticle * > ParticleDistribution::generateParticles() const
@@ -13199,37 +13221,37 @@ C++ includes: WavevectorInfo.h
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0D145.xml
+// File: namespace_0D144.xml
 
 
-// File: namespace_0D188.xml
+// File: namespace_0D187.xml
 
 
 // File: namespace_0D22.xml
 
 
-// File: namespace_0D268.xml
+// File: namespace_0D267.xml
 
 
-// File: namespace_0D280.xml
+// File: namespace_0D279.xml
 
 
-// File: namespace_0D310.xml
+// File: namespace_0D309.xml
 
 
-// File: namespace_0D312.xml
+// File: namespace_0D311.xml
 
 
-// File: namespace_0D325.xml
+// File: namespace_0D324.xml
 
 
-// File: namespace_0D438.xml
+// File: namespace_0D439.xml
 
 
 // File: namespace_0D60.xml
 
 
-// File: namespace_0D75.xml
+// File: namespace_0D74.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -13672,6 +13694,9 @@ GISAS simulation with detector resolution.
 %feature("docstring")  StandardSimulations::MiniGISASPolarizationPP "GISASSimulation * StandardSimulations::MiniGISASPolarizationPP()
 ";
 
+%feature("docstring")  StandardSimulations::MiniGISASSpinFlipZ "GISASSimulation * StandardSimulations::MiniGISASSpinFlipZ()
+";
+
 %feature("docstring")  StandardSimulations::GISASWithMasks "GISASSimulation * StandardSimulations::GISASWithMasks()
 
 GISAS simulation with multiple masks on the detector plane. 
@@ -13984,9 +14009,6 @@ Add element vector to element vector with weight.
 
 
 // File: FormFactorDecoratorDebyeWaller_8h.xml
-
-
-// File: FormFactorDecoratorFactor_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml
@@ -14688,10 +14710,10 @@ make Swappable
 // File: LayerRoughness_8h.xml
 
 
-// File: LayerStrategyBuilder_8cpp.xml
+// File: LayoutStrategyBuilder_8cpp.xml
 
 
-// File: LayerStrategyBuilder_8h.xml
+// File: LayoutStrategyBuilder_8h.xml
 
 
 // File: MatrixFresnelMap_8cpp.xml
@@ -14835,6 +14857,12 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 
 
 // File: Crystal_8h.xml
+
+
+// File: FormFactorCoreShell_8cpp.xml
+
+
+// File: FormFactorCoreShell_8h.xml
 
 
 // File: FormFactorCrystal_8cpp.xml
@@ -15252,9 +15280,27 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: Transform3D_8cpp.xml
+%feature("docstring")  BottomZ "double BottomZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
+
+Calculates the z-coordinate of the lowest vertex after rotation. 
+";
+
+%feature("docstring")  TopZ "double TopZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
+
+Calculates the z-coordinate of the highest vertex after rotation. 
+";
 
 
 // File: Transform3D_8h.xml
+%feature("docstring")  BottomZ "double BottomZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
+
+Calculates the z-coordinate of the lowest vertex after rotation. 
+";
+
+%feature("docstring")  TopZ "double TopZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
+
+Calculates the z-coordinate of the highest vertex after rotation. 
+";
 
 
 // File: Vectors3D_8h.xml

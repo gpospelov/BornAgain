@@ -16,9 +16,11 @@
 #ifndef TRANSFORM3D_H
 #define TRANSFORM3D_H
 
-#include "BasicVector3D.h"
+#include "Vectors3D.h"
 #include "Complex.h"
 #include "EigenCore.h"
+
+#include <vector>
 
 //! Vector transformations in three dimensions.
 //! @ingroup tools_internal
@@ -102,5 +104,11 @@ private:
     bool isYRotation() const;
     bool isZRotation() const;
 };
+
+//! Calculates the z-coordinate of the lowest vertex after rotation
+double BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
+
+//! Calculates the z-coordinate of the highest vertex after rotation
+double TopZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
 
 #endif // TRANSFORM3D_H

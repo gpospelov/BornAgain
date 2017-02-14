@@ -21,7 +21,7 @@ IRotation* IRotation::createRotation(const Transform3D& transform)
 {
     double alpha, beta, gamma;
     transform.calculateEulerAngles(&alpha, &beta, &gamma);
-    Transform3D::ERotationType rot_type = transform.getRotationType();
+    auto rot_type = transform.getRotationType();
     switch (rot_type) {
     case Transform3D::XAXIS:
         if (alpha>0.0) beta = -beta;
@@ -31,9 +31,15 @@ IRotation* IRotation::createRotation(const Transform3D& transform)
         return new RotationY(beta);
     case Transform3D::ZAXIS:
         return new RotationZ(alpha);
-    default:
+    case Transform3D::EULER:
         return new RotationEuler(alpha, beta, gamma);
     }
+    throw std::runtime_error("IRotation::createRotation error: unknown rotation type.");
+}
+
+IRotation* IRotation::createIdentity()
+{
+    return new RotationZ(0.0);
 }
 
 bool IRotation::isIdentity() const

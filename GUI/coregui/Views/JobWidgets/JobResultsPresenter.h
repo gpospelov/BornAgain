@@ -33,9 +33,8 @@ class BA_CORE_API_ JobResultsPresenter : public ItemComboWidget
 public:
     explicit JobResultsPresenter(QWidget *parent = 0);
 
-protected:
+protected:    
     virtual QStringList getValidPresentationList(SessionItem *item);
-
 };
 
 #endif // JOBRESULTSPRESENTER_H

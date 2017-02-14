@@ -22,6 +22,7 @@
 #include "SessionItem.h"
 #include <QAction>
 #include <QBoxLayout>
+#include "JobItem.h"
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)
@@ -48,7 +49,9 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
 
 void IntensityDataWidget::setItem(SessionItem *item)
 {
-    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(item);
+    JobItem *jobItem = dynamic_cast<JobItem *>(item);
+    Q_ASSERT(jobItem);
+    IntensityDataItem *intensityData = jobItem->intensityDataItem();
     m_intensityWidget->setItem(intensityData);
     m_propertyWidget->setItem(intensityData);
 }

@@ -45,7 +45,6 @@ IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
 void IntensityDataCanvas::setItem(SessionItem* item)
 {
     IntensityDataItem* intensityItem = dynamic_cast<IntensityDataItem*>(item);
-    Q_ASSERT(intensityItem);
     setIntensityData(intensityItem);
 }
 

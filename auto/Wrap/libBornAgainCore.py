@@ -15203,6 +15203,18 @@ class FormFactorTrivial(IFormFactorBorn):
         return _libBornAgainCore.FormFactorTrivial_getRadialExtension(self)
 
 
+    def bottomZ(self, arg2):
+        """
+        bottomZ(FormFactorTrivial self, IRotation arg2) -> double
+
+        double FormFactorTrivial::bottomZ(const IRotation &) const overridefinal
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorTrivial_bottomZ(self, arg2)
+
+
     def evaluate_for_q(self, arg2):
         """
         evaluate_for_q(FormFactorTrivial self, cvector_t arg2) -> complex_t

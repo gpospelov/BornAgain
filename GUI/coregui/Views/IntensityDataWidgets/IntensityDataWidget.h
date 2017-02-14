@@ -19,11 +19,26 @@
 
 #include "SessionItemWidget.h"
 
+class TestWidget : public NewSessionItemWidget
+{
+    Q_OBJECT
+
+public:
+    TestWidget(QWidget* parent=0);
+
+protected:
+    virtual void subscribeToItem();
+
+private:
+    class QLabel *m_label;
+};
+
 class SessionItem;
 class IntensityDataCanvas;
 class IntensityDataPropertyWidget;
 class IntensityDataItem;
 class QAction;
+class TestWidget;
 
 //! A common widget to display color map (IntensityDataCanvas) and properties
 //! (IntensityDataPropertyWidget) of intensity data item.
@@ -45,7 +60,7 @@ private slots:
 private:
     IntensityDataCanvas* m_intensityWidget;
     IntensityDataPropertyWidget* m_propertyWidget;
-    IntensityDataItem* m_currentItem;
+    TestWidget* m_testWidget;
 };
 
 #endif // INTENSITYDATAWIDGET_H

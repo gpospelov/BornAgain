@@ -34,5 +34,39 @@ public:
 
 };
 
+class SessionItem;
+class QShowEvent;
+class QHideEvent;
+
+//! The NewSessionItemWidget class is a base for all widgets representing the content
+//! of SessionItem. It provides subscribe/unsibscribe mechanism on show/hide events.
+//! The main purpose is to save performance, when item keeps changing its properties, while
+//! widget is hidden.
+
+class BA_CORE_API_ NewSessionItemWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit NewSessionItemWidget(QWidget* parent = 0);
+    virtual ~NewSessionItemWidget();
+
+    virtual void setItem(SessionItem* item);
+    virtual QList<QAction*> actionList();
+
+    SessionItem* currentItem() { return m_currentItem; }
+
+protected:
+    virtual void subscribeToItem() {}
+    virtual void unsubscribeFromItem() {}
+    virtual void showEvent(QShowEvent*);
+    virtual void hideEvent(QHideEvent*);
+
+private:
+    void subscribe();
+    void unsubscribe();
+    SessionItem* m_currentItem;
+    bool is_subscribed;
+};
+
 #endif // SESSIONITEMWIDGET_H
 

@@ -105,15 +105,22 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     } else
         P_ff_framework.reset(P_ff_particle->clone());
 
-    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
-    double zmin = P_ff_framework->bottomZ(*P_rot) + mp_multilayer->getLayerTopZ(m_layer_index);
-    size_t layer_index = mp_multilayer->zToLayerIndex(zmin);
+    size_t layer_index = findLayerIndex(*P_ff_framework);
     const IMaterial* p_layer_material = mp_multilayer->getLayer(layer_index)->getMaterial();
     P_ff_framework->setAmbientMaterial(*p_layer_material);
+
     auto part = FormFactorCoherentPart(P_ff_framework.release());
     part.setSpecularInfo(mp_fresnel_map, layer_index);
+
     std::unique_ptr<FormFactorCoherentSum> P_result(
                 new FormFactorCoherentSum(particle->getAbundance()));
     P_result->addCoherentPart(part);
     return P_result.release();
+}
+
+size_t LayoutStrategyBuilder::findLayerIndex(const IFormFactor& ff) const
+{
+    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
+    double zmin = ff.bottomZ(*P_rot) + mp_multilayer->getLayerTopZ(m_layer_index);
+    return mp_multilayer->zToLayerIndex(zmin);
 }

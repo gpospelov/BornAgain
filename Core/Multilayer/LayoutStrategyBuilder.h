@@ -21,6 +21,7 @@
 #include <memory>
 
 class FormFactorCoherentSum;
+class IFormFactor;
 class IInterferenceFunctionStrategy;
 class ILayout;
 class IMaterial;
@@ -46,6 +47,7 @@ public:
 private:
     SafePointerVector<class FormFactorCoherentSum> collectFormFactorList() const;
     FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle) const;
+    size_t findLayerIndex(const IFormFactor& ff) const;
 
     const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;

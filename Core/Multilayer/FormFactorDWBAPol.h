@@ -35,6 +35,10 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
+    void setAmbientMaterial(const IMaterial& material) override {
+        mP_form_factor->setAmbientMaterial(material);
+    }
+
     //! Throws not-implemented exception
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 

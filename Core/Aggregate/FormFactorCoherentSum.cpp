@@ -33,9 +33,9 @@ FormFactorCoherentSum* FormFactorCoherentSum::clone() const
     return new FormFactorCoherentSum(m_parts, m_abundance);
 }
 
-void FormFactorCoherentSum::addFormFactor(IFormFactor* p_ff)
+void FormFactorCoherentSum::addCoherentPart(const FormFactorCoherentPart& part)
 {
-    m_parts.emplace_back(p_ff);
+    m_parts.push_back(part);
 }
 
 complex_t FormFactorCoherentSum::evaluate(const SimulationElement& sim_element) const

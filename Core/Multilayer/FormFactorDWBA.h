@@ -34,6 +34,10 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
+    void setAmbientMaterial(const IMaterial& material) override {
+        mP_form_factor->setAmbientMaterial(material);
+    }
+
     //! Calculates and returns a form factor calculation in DWBA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 

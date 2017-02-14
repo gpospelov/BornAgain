@@ -80,11 +80,10 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
 SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFormFactorList() const
 {
     SafePointerVector<class FormFactorCoherentSum> result;
-    const IMaterial* p_layer_material = mp_multilayer->getLayer(m_layer_index)->getMaterial();
     double layout_abundance = mp_layout->getTotalAbundance();
     for (const IParticle* particle: mp_layout->getParticles()) {
         FormFactorCoherentSum* p_ff_coh;
-        p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
+        p_ff_coh = createFormFactorCoherentSum(particle);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
         p_ff_coh->setSpecularInfo(mp_fresnel_map, m_layer_index);
         result.push_back(p_ff_coh);
@@ -94,11 +93,9 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
 
 //! Returns a new formfactor wrapper for a given particle in given ambient material.
 FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
-    const IParticle* particle, const IMaterial* p_ambient_material) const
+    const IParticle* particle) const
 {
     const std::unique_ptr<IParticle> P_particle_clone{ particle->clone() };
-    P_particle_clone->setAmbientMaterial(*p_ambient_material);
-
     const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
     std::unique_ptr<IFormFactor> P_ff_framework;
     if (mp_multilayer->getNumberOfLayers()>1) {
@@ -109,8 +106,14 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     } else
         P_ff_framework.reset(P_ff_particle->clone());
 
+    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
+    double zmin = P_ff_framework->bottomZ(*P_rot) + mp_multilayer->getLayerTopZ(m_layer_index);
+    size_t layer_index = mp_multilayer->zToLayerIndex(zmin);
+    const IMaterial* p_layer_material = mp_multilayer->getLayer(layer_index)->getMaterial();
+    P_ff_framework->setAmbientMaterial(*p_layer_material);
+    auto part = FormFactorCoherentPart(P_ff_framework.release());
     std::unique_ptr<FormFactorCoherentSum> P_result(
                 new FormFactorCoherentSum(particle->getAbundance()));
-    P_result->addFormFactor(P_ff_framework.release());
+    P_result->addCoherentPart(part);
     return P_result.release();
 }

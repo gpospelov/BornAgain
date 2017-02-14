@@ -36,7 +36,7 @@ public:
     virtual ~FormFactorCoherentSum();
     virtual FormFactorCoherentSum* clone() const;
 
-    void addFormFactor(IFormFactor* p_ff);
+    void addCoherentPart(const FormFactorCoherentPart& part);
 
     complex_t evaluate(const SimulationElement& sim_element) const;
 #ifndef SWIG

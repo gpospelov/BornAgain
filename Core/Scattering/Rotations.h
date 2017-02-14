@@ -26,6 +26,7 @@ class BA_CORE_API_ IRotation : public ISample
 {
 public:
     static IRotation* createRotation(const Transform3D& transform);
+    static IRotation* createIdentity();
     virtual ~IRotation() {}
 
     virtual IRotation* clone() const=0;

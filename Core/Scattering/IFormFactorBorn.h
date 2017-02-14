@@ -35,6 +35,8 @@ public:
 
     IFormFactorBorn* clone() const override=0;
 
+    void setAmbientMaterial(const IMaterial&) override {}
+
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
 #ifndef SWIG

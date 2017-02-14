@@ -11067,6 +11067,18 @@ class IFormFactorBorn(IFormFactor):
         return _libBornAgainCore.IFormFactorBorn_clone(self)
 
 
+    def setAmbientMaterial(self, arg0):
+        """
+        setAmbientMaterial(IFormFactorBorn self, IMaterial arg0)
+
+        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
+
+        Passes the refractive index of the ambient material in which this particle is embedded. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_setAmbientMaterial(self, arg0)
+
+
     def evaluate(self, wavevectors):
         """
         evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
@@ -12308,6 +12320,18 @@ class FormFactorCrystal(IFormFactor):
 
         """
         return _libBornAgainCore.FormFactorCrystal_accept(self, visitor)
+
+
+    def setAmbientMaterial(self, material):
+        """
+        setAmbientMaterial(FormFactorCrystal self, IMaterial material)
+
+        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)
+
+        Passes the refractive index of the ambient material in which this particle is embedded. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_setAmbientMaterial(self, material)
 
 
     def getVolume(self):
@@ -18789,6 +18813,14 @@ class IRotation(ISample):
     if _newclass:
         createRotation = staticmethod(createRotation)
     __swig_getmethods__["createRotation"] = lambda x: createRotation
+
+    def createIdentity():
+        """createIdentity() -> IRotation"""
+        return _libBornAgainCore.IRotation_createIdentity()
+
+    if _newclass:
+        createIdentity = staticmethod(createIdentity)
+    __swig_getmethods__["createIdentity"] = lambda x: createIdentity
     __swig_destroy__ = _libBornAgainCore.delete_IRotation
     __del__ = lambda self: None
 
@@ -18869,6 +18901,10 @@ IRotation_swigregister(IRotation)
 def IRotation_createRotation(transform):
     """IRotation_createRotation(Transform3D const & transform) -> IRotation"""
     return _libBornAgainCore.IRotation_createRotation(transform)
+
+def IRotation_createIdentity():
+    """IRotation_createIdentity() -> IRotation"""
+    return _libBornAgainCore.IRotation_createIdentity()
 
 
 def createProduct(left, right):
@@ -22298,6 +22334,11 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_getLayerInterface(self, i_interface)
+
+
+    def getLayerTopZ(self, i_layer):
+        """getLayerTopZ(MultiLayer self, size_t i_layer) -> double"""
+        return _libBornAgainCore.MultiLayer_getLayerTopZ(self, i_layer)
 
 
     def getLayerBottomZ(self, i_layer):

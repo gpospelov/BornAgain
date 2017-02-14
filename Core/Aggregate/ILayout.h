@@ -29,7 +29,7 @@ class ILayout;
 
 // TODO: CONSIDER REFACTORING:
 //   reference to particles could be removed in ILayout,
-//   at the cost of a big refactoring of LayerStrategyBuilder.
+//   at the cost of a big refactoring of LayoutStrategyBuilder.
 
 class BA_CORE_API_ ILayout : public ISample
 {

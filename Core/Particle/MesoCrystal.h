@@ -37,9 +37,6 @@ public:
 
     virtual void accept(INodeVisitor* visitor) const;
 
-    virtual void setAmbientMaterial(const IMaterial& material);
-    virtual const IMaterial* getAmbientMaterial() const;
-
     //! Create a form factor for this particle with an extra scattering factor
     virtual IFormFactor* createTransformedFormFactor(
         const IRotation* p_rotation, kvector_t translation) const;

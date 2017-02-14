@@ -1015,6 +1015,27 @@ remove limits
 returns true if proposed value is in limits range 
 ";
 
+%feature("docstring")  RealLimits::toString "std::string RealLimits::toString() const 
+";
+
+%feature("docstring")  RealLimits::isLimitless "bool RealLimits::isLimitless() const 
+";
+
+%feature("docstring")  RealLimits::isPositive "bool RealLimits::isPositive() const 
+";
+
+%feature("docstring")  RealLimits::isNonnegative "bool RealLimits::isNonnegative() const 
+";
+
+%feature("docstring")  RealLimits::isLowerLimited "bool RealLimits::isLowerLimited() const 
+";
+
+%feature("docstring")  RealLimits::isUpperLimited "bool RealLimits::isUpperLimited() const 
+";
+
+%feature("docstring")  RealLimits::isLimited "bool RealLimits::isLimited() const 
+";
+
 
 // File: classRootGradientFunction.xml
 %feature("docstring") RootGradientFunction "

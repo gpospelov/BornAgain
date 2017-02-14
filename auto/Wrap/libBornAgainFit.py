@@ -1659,7 +1659,12 @@ class RealLimits(_object):
     __swig_getmethods__["limitless"] = lambda x: limitless
 
     def toString(self):
-        """toString(RealLimits self) -> std::string"""
+        """
+        toString(RealLimits self) -> std::string
+
+        std::string RealLimits::toString() const 
+
+        """
         return _libBornAgainFit.RealLimits_toString(self)
 
 
@@ -1674,32 +1679,62 @@ class RealLimits(_object):
 
 
     def isLimitless(self):
-        """isLimitless(RealLimits self) -> bool"""
+        """
+        isLimitless(RealLimits self) -> bool
+
+        bool RealLimits::isLimitless() const 
+
+        """
         return _libBornAgainFit.RealLimits_isLimitless(self)
 
 
     def isPositive(self):
-        """isPositive(RealLimits self) -> bool"""
+        """
+        isPositive(RealLimits self) -> bool
+
+        bool RealLimits::isPositive() const 
+
+        """
         return _libBornAgainFit.RealLimits_isPositive(self)
 
 
     def isNonnegative(self):
-        """isNonnegative(RealLimits self) -> bool"""
+        """
+        isNonnegative(RealLimits self) -> bool
+
+        bool RealLimits::isNonnegative() const 
+
+        """
         return _libBornAgainFit.RealLimits_isNonnegative(self)
 
 
     def isLowerLimited(self):
-        """isLowerLimited(RealLimits self) -> bool"""
+        """
+        isLowerLimited(RealLimits self) -> bool
+
+        bool RealLimits::isLowerLimited() const 
+
+        """
         return _libBornAgainFit.RealLimits_isLowerLimited(self)
 
 
     def isUpperLimited(self):
-        """isUpperLimited(RealLimits self) -> bool"""
+        """
+        isUpperLimited(RealLimits self) -> bool
+
+        bool RealLimits::isUpperLimited() const 
+
+        """
         return _libBornAgainFit.RealLimits_isUpperLimited(self)
 
 
     def isLimited(self):
-        """isLimited(RealLimits self) -> bool"""
+        """
+        isLimited(RealLimits self) -> bool
+
+        bool RealLimits::isLimited() const 
+
+        """
         return _libBornAgainFit.RealLimits_isLimited(self)
 
     __swig_destroy__ = _libBornAgainFit.delete_RealLimits

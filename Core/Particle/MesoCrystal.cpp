@@ -56,16 +56,6 @@ void MesoCrystal::accept(INodeVisitor* visitor) const
     visitor->visit(this);
 }
 
-void MesoCrystal::setAmbientMaterial(const IMaterial& material)
-{
-    mp_particle_structure->setAmbientMaterial(material);
-}
-
-const IMaterial* MesoCrystal::getAmbientMaterial() const
-{
-    return mp_particle_structure ? mp_particle_structure->getAmbientMaterial() : nullptr;
-}
-
 IFormFactor* MesoCrystal::createTransformedFormFactor(
     const IRotation* p_rotation, kvector_t translation) const
 {

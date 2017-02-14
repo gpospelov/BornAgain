@@ -43,9 +43,6 @@ public:
     void addParticle(const IParticle& particle, kvector_t  position);
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
-    virtual void setAmbientMaterial(const IMaterial& material);
-    virtual const IMaterial* getAmbientMaterial() const;
-
     //! Create a form factor for this particle with an extra scattering factor
     virtual IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
                                                      kvector_t translation) const;

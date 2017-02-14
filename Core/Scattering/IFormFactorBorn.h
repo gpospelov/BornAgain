@@ -35,11 +35,15 @@ public:
 
     IFormFactorBorn* clone() const override=0;
 
+    void setAmbientMaterial(const IMaterial&) override {}
+
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
 #ifndef SWIG
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 #endif
+
+    double bottomZ(const IRotation& rotation) const override;
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     //! This method is public only for convenience of plotting form factors in Python.

@@ -19,7 +19,7 @@
 #include "IInterferenceFunctionStrategy.h"
 #include "IFresnelMap.h"
 #include "ILayout.h"
-#include "LayerStrategyBuilder.h"
+#include "LayoutStrategyBuilder.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
@@ -41,7 +41,7 @@ void ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& end_it) const
 {
     const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayerStrategyBuilder(mp_multilayer, mp_layout, mp_fresnel_map,
+        LayoutStrategyBuilder(mp_multilayer, mp_layout, mp_fresnel_map,
                              polarized, options, m_layer_index).createStrategy() };
     double total_surface_density = mp_layout->getTotalParticleSurfaceDensity();
 

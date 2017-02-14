@@ -20,7 +20,7 @@
 
 //! Coherent sum of different scalar IFormFactor's with different weights.
 //!
-//! Used by ParticleComposition and ParticleCoreShell.
+//! Used by ParticleComposition.
 //! If same particles are at different positions, then consider
 //! FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
@@ -37,6 +37,8 @@ public:
     void accept(INodeVisitor* visitor) const override  final { visitor->visit(this); }
 
     double getRadialExtension() const override final;
+
+    double bottomZ(const IRotation& rotation) const override final;
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 

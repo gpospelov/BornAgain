@@ -34,9 +34,15 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
+    void setAmbientMaterial(const IMaterial& material) override {
+        mp_basis_form_factor->setAmbientMaterial(material);
+    }
+
     double getVolume() const override final { return mp_meso_form_factor->getVolume(); }
     double getRadialExtension() const override final {
         return mp_meso_form_factor->getRadialExtension(); }
+
+    double bottomZ(const IRotation& rotation) const override;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 #ifndef SWIG

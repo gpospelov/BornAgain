@@ -64,6 +64,9 @@ public:
         return m_interfaces[check_interface_index(i_interface)]; }
 
     //! Returns z-coordinate of the layer's bottom
+    double getLayerTopZ(size_t i_layer) const;
+
+    //! Returns z-coordinate of the layer's bottom
     double getLayerBottomZ(size_t i_layer) const;
 
     //! Returns thickness of layer
@@ -114,7 +117,8 @@ public:
     bool requiresMatrixRTCoefficients() const;
 
     //! returns layer index corresponding to given global z coordinate
-    size_t zToLayerIndex(double z_value);
+    //! The top interface position of a layer is considered to belong to the layer above
+    size_t zToLayerIndex(double z_value) const;
 
     bool containsMagneticMaterial() const;
 

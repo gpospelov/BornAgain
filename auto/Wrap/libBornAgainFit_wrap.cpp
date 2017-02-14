@@ -5627,7 +5627,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -22792,15 +22792,50 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"RealLimits_upperLimited", _wrap_RealLimits_upperLimited, METH_VARARGS, (char *)"RealLimits_upperLimited(double bound_value) -> RealLimits"},
 	 { (char *)"RealLimits_limited", _wrap_RealLimits_limited, METH_VARARGS, (char *)"RealLimits_limited(double left_bound_value, double right_bound_value) -> RealLimits"},
 	 { (char *)"RealLimits_limitless", _wrap_RealLimits_limitless, METH_VARARGS, (char *)"RealLimits_limitless() -> RealLimits"},
-	 { (char *)"RealLimits_toString", _wrap_RealLimits_toString, METH_VARARGS, (char *)"RealLimits_toString(RealLimits self) -> std::string"},
+	 { (char *)"RealLimits_toString", _wrap_RealLimits_toString, METH_VARARGS, (char *)"\n"
+		"RealLimits_toString(RealLimits self) -> std::string\n"
+		"\n"
+		"std::string RealLimits::toString() const \n"
+		"\n"
+		""},
 	 { (char *)"RealLimits___eq__", _wrap_RealLimits___eq__, METH_VARARGS, (char *)"RealLimits___eq__(RealLimits self, RealLimits other) -> bool"},
 	 { (char *)"RealLimits___ne__", _wrap_RealLimits___ne__, METH_VARARGS, (char *)"RealLimits___ne__(RealLimits self, RealLimits other) -> bool"},
-	 { (char *)"RealLimits_isLimitless", _wrap_RealLimits_isLimitless, METH_VARARGS, (char *)"RealLimits_isLimitless(RealLimits self) -> bool"},
-	 { (char *)"RealLimits_isPositive", _wrap_RealLimits_isPositive, METH_VARARGS, (char *)"RealLimits_isPositive(RealLimits self) -> bool"},
-	 { (char *)"RealLimits_isNonnegative", _wrap_RealLimits_isNonnegative, METH_VARARGS, (char *)"RealLimits_isNonnegative(RealLimits self) -> bool"},
-	 { (char *)"RealLimits_isLowerLimited", _wrap_RealLimits_isLowerLimited, METH_VARARGS, (char *)"RealLimits_isLowerLimited(RealLimits self) -> bool"},
-	 { (char *)"RealLimits_isUpperLimited", _wrap_RealLimits_isUpperLimited, METH_VARARGS, (char *)"RealLimits_isUpperLimited(RealLimits self) -> bool"},
-	 { (char *)"RealLimits_isLimited", _wrap_RealLimits_isLimited, METH_VARARGS, (char *)"RealLimits_isLimited(RealLimits self) -> bool"},
+	 { (char *)"RealLimits_isLimitless", _wrap_RealLimits_isLimitless, METH_VARARGS, (char *)"\n"
+		"RealLimits_isLimitless(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::isLimitless() const \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_isPositive", _wrap_RealLimits_isPositive, METH_VARARGS, (char *)"\n"
+		"RealLimits_isPositive(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::isPositive() const \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_isNonnegative", _wrap_RealLimits_isNonnegative, METH_VARARGS, (char *)"\n"
+		"RealLimits_isNonnegative(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::isNonnegative() const \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_isLowerLimited", _wrap_RealLimits_isLowerLimited, METH_VARARGS, (char *)"\n"
+		"RealLimits_isLowerLimited(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::isLowerLimited() const \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_isUpperLimited", _wrap_RealLimits_isUpperLimited, METH_VARARGS, (char *)"\n"
+		"RealLimits_isUpperLimited(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::isUpperLimited() const \n"
+		"\n"
+		""},
+	 { (char *)"RealLimits_isLimited", _wrap_RealLimits_isLimited, METH_VARARGS, (char *)"\n"
+		"RealLimits_isLimited(RealLimits self) -> bool\n"
+		"\n"
+		"bool RealLimits::isLimited() const \n"
+		"\n"
+		""},
 	 { (char *)"delete_RealLimits", _wrap_delete_RealLimits, METH_VARARGS, (char *)"delete_RealLimits(RealLimits self)"},
 	 { (char *)"RealLimits_swigregister", RealLimits_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_AttLimits", _wrap_new_AttLimits, METH_VARARGS, (char *)"\n"

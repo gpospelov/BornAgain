@@ -108,6 +108,7 @@ const std::string FormFactorTrivialType = "FormFactorTrivial";
 const std::string FormFactorDWBAType = "FormFactorDWBA";
 const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 
+const std::string FormFactorCoreShellType = "FormFactorCoreShell";
 const std::string FormFactorDecoratorPositionFactorType = "FormFactorDecoratorPositionFactor";
 const std::string FormFactorDecoratorRotationType = "FormFactorDecoratorRotation";
 const std::string FormFactorDecoratorDebyeWallerType = "FormFactorDecoratorDebyeWaller";

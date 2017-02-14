@@ -2,45 +2,43 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/FormFactorWeighted.h
-//! @brief     Defines class FormFactorWeighted.
+//! @file      Core/Particle/FormFactorCoreShell.h
+//! @brief     Defines class FormFactorCoreShell.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @copyright Forschungszentrum Jülich GmbH 2017
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
-#ifndef FORMFACTORWEIGHTED_H
-#define FORMFACTORWEIGHTED_H
+#ifndef FORMFACTORCORESHELL_H
+#define FORMFACTORCORESHELL_H
 
 #include "IFormFactor.h"
 
-//! Coherent sum of different scalar IFormFactor's with different weights.
+#include <memory>
+
+//! Form Factor for a core shell particle.
 //!
-//! Used by ParticleComposition.
-//! If same particles are at different positions, then consider
-//! FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
+//! Used by ParticleCoreShell.
 
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ FormFactorWeighted : public IFormFactor
+class BA_CORE_API_ FormFactorCoreShell : public IFormFactor
 {
 public:
-    FormFactorWeighted();
-    ~FormFactorWeighted() override final;
+    FormFactorCoreShell(IFormFactor* core, IFormFactor* shell);
+    ~FormFactorCoreShell() override final;
 
-    FormFactorWeighted* clone() const override final;
+    FormFactorCoreShell* clone() const override final;
 
     void accept(INodeVisitor* visitor) const override  final { visitor->visit(this); }
 
     double getRadialExtension() const override final;
 
     double bottomZ(const IRotation& rotation) const override final;
-
-    void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 
     void setAmbientMaterial(const IMaterial& material) override final;
 
@@ -52,8 +50,8 @@ public:
 #endif
 
 protected:
-    std::vector<IFormFactor*> m_form_factors;
-    std::vector<double> m_weights;
+    std::unique_ptr<IFormFactor> mP_core;
+    std::unique_ptr<IFormFactor> mP_shell;
 };
 
-#endif // FORMFACTORWEIGHTED_H
+#endif // FORMFACTORCORESHELL_H

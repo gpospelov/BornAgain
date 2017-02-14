@@ -17,28 +17,18 @@
 #include "PySampleWidget.h"
 #include "DesignerHelper.h"
 #include "DomainObjectBuilder.h"
-#include "InstrumentModel.h"
 #include "MultiLayer.h"
 #include "ExportToPython.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
-#include "WarningSignWidget.h"
-#include <QFile>
-#include <QModelIndex>
-#include <QPainter>
-#include <QPixmap>
+#include "WarningSign.h"
+#include "UpdateTimer.h"
 #include <QScrollBar>
-#include <QTextCodec>
 #include <QTextEdit>
-#include <QTextStream>
-#include <QTimer>
 #include <QVBoxLayout>
 
 namespace {
-const int timer_interval_msec = 10;
 const int accumulate_updates_during_msec = 20.;
-const int warning_sign_xpos = 38;
-const int warning_sign_ypos = 38;
 
 const QString welcome_message =
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">"
@@ -69,10 +59,9 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     , m_textEdit(new QTextEdit)
     , m_sampleModel(0)
     , m_instrumentModel(0)
-    , m_time_to_update(accumulate_updates_during_msec)
-    , m_n_of_sceduled_updates(-1)
     , m_highlighter(0)
-    , m_warningSign(0)
+    , m_updateTimer(new UpdateTimer(accumulate_updates_during_msec, this))
+    , m_warningSign(new WarningSign(m_textEdit))
 {
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -82,11 +71,7 @@ PySampleWidget::PySampleWidget(QWidget *parent)
 
     setLayout(mainLayout);
 
-    m_timer = new QTimer(this);
-    m_timer->setInterval(timer_interval_msec);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
-
-    m_textEdit->setHtml(getWelcomeMessage());
+    m_textEdit->setHtml(welcomeMessage());
     m_textEdit->setReadOnly(true);
     QFont textFont("Monospace");
     m_textEdit->setFont(textFont);
@@ -98,188 +83,125 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     //m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
 }
 
-void PySampleWidget::setSampleModel(SampleModel *sampleModel)
+void PySampleWidget::setSampleModel(SampleModel* sampleModel)
 {
     Q_ASSERT(sampleModel);
-    if(sampleModel != m_sampleModel) {
-        if(m_sampleModel) disableEditor();
+    if (sampleModel != m_sampleModel) {
+        if (m_sampleModel)
+            setEditorConnected(false);
         m_sampleModel = sampleModel;
     }
 }
 
-void PySampleWidget::setInstrumentModel(InstrumentModel *instrumentModel)
+void PySampleWidget::setInstrumentModel(InstrumentModel* instrumentModel)
 {
     Q_ASSERT(instrumentModel);
     m_instrumentModel = instrumentModel;
 }
 
-void PySampleWidget::onModifiedRow(const QModelIndex &, int, int)
+void PySampleWidget::onModifiedRow(const QModelIndex&, int, int)
 {
-    //if(m_sampleModel->getSampleMap().empty()) return;
-    scheduleUpdate();
+    m_updateTimer->scheduleUpdate();
 }
 
-void PySampleWidget::onDataChanged(const QModelIndex &, const QModelIndex &)
+void PySampleWidget::onDataChanged(const QModelIndex&, const QModelIndex&)
 {
-    //if(m_sampleModel->getSampleMap().empty()) return;
-    scheduleUpdate();
-}
-
-//! Schedule subsequent update of the editor
-void PySampleWidget::scheduleUpdate()
-{
-    m_n_of_sceduled_updates++;
-    if(!m_timer->isActive()) m_timer->start();
+    m_updateTimer->scheduleUpdate();
 }
 
 //! Update the editor with the script content
 void PySampleWidget::updateEditor()
 {
-    if(!m_highlighter) {
+    if (!m_highlighter) {
         m_highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
         m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
     }
 
-    Q_ASSERT(!m_timer->isActive());
-    m_n_of_sceduled_updates = 0;
-
     const int old_scrollbar_value = m_textEdit->verticalScrollBar()->value();
 
     QString code_snippet = generateCodeSnippet();
-    if(!m_warningSign) m_textEdit->clear();
 
-    if(!code_snippet.isEmpty()) {
+    if (!code_snippet.isEmpty())
         m_textEdit->setText(code_snippet);
-    }
+    else
+        m_textEdit->clear();
 
     m_textEdit->verticalScrollBar()->setValue(old_scrollbar_value);
-
-    m_time_to_update = accumulate_updates_during_msec;
 }
 
-//! Disconnect from all signals to prevent editor update
-void PySampleWidget::disableEditor()
+void PySampleWidget::setEditorConnected(bool isConnected)
 {
-    Q_ASSERT(m_sampleModel);
-    m_timer->stop();
-    disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)),
-               this, SLOT(onModifiedRow(QModelIndex,int,int)));
-    disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)),
-               this, SLOT(onModifiedRow(QModelIndex,int,int)));
-    disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-               this, SLOT(onDataChanged(QModelIndex,QModelIndex)));
-    disconnect(m_sampleModel, SIGNAL(modelReset()),
-               this, SLOT(updateEditor()));
-}
+    if (isConnected) {
+        connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
+                SLOT(onModifiedRow(QModelIndex, int, int)), Qt::UniqueConnection);
+        connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                SLOT(onModifiedRow(QModelIndex, int, int)), Qt::UniqueConnection);
+        connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+                SLOT(onDataChanged(QModelIndex, QModelIndex)), Qt::UniqueConnection);
+        connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()),
+                Qt::UniqueConnection);
 
-void PySampleWidget::enableEditor()
-{
-    Q_ASSERT(m_sampleModel);
+        connect(m_updateTimer, SIGNAL(timeToUpdate()), this, SLOT(updateEditor()),
+                Qt::UniqueConnection);
 
-    if(m_sampleModel->topItems().isEmpty()) {
-        // negative number would mean that editor was never used and still contains welcome message
-        // which we want to keep
-        if(m_n_of_sceduled_updates >= 0) updateEditor();
+        m_updateTimer->scheduleUpdate();
+
     } else {
-        updateEditor();
-    }
+        disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
+                   SLOT(onModifiedRow(QModelIndex, int, int)));
+        disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
+                   SLOT(onModifiedRow(QModelIndex, int, int)));
+        disconnect(m_sampleModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+                   SLOT(onDataChanged(QModelIndex, QModelIndex)));
+        disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateEditor()));
 
-    connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int,int)),
-            this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
-    connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int,int)),
-            this, SLOT(onModifiedRow(QModelIndex,int,int)), Qt::UniqueConnection);
-    connect(m_sampleModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            this, SLOT(onDataChanged(QModelIndex,QModelIndex)), Qt::UniqueConnection);
-    connect(m_sampleModel, SIGNAL(modelReset()),
-            this, SLOT(updateEditor()), Qt::UniqueConnection);
-}
-
-//! Triggers the update of the editor
-void PySampleWidget::onTimerTimeout()
-{
-    m_time_to_update -= timer_interval_msec;
-
-    if(m_time_to_update < 0) {
-        m_timer->stop();
-        updateEditor();
-    }
-}
-
-//! adjusts position of warning label on widget move
-void PySampleWidget::resizeEvent(QResizeEvent *event)
-{
-    Q_UNUSED(event);
-    if(m_warningSign) {
-        QPoint pos = getPositionForWarningSign();
-        m_warningSign->setPosition(pos.x(),pos.y());
+        disconnect(m_updateTimer, SIGNAL(timeToUpdate()), this, SLOT(updateEditor()));
     }
 }
 
 //! generates string representing code snippet for all multi layers in the model
+
 QString PySampleWidget::generateCodeSnippet()
 {
-    delete m_warningSign;
-    m_warningSign = 0;
-
+    m_warningSign->clear();
     QString result;
 
-    foreach(SessionItem *sampleItem, m_sampleModel->topItems()) {
+    foreach (SessionItem* sampleItem, m_sampleModel->topItems(Constants::MultiLayerType)) {
         DomainObjectBuilder builder;
         try {
             auto P_multilayer = builder.buildMultiLayer(*sampleItem);
             ExportToPython visitor(*P_multilayer);
             std::ostringstream ostr;
             ostr << visitor.defineGetSample();
-            if(!result.isEmpty()) result.append("\n");
+            if (!result.isEmpty())
+                result.append("\n");
             result.append(QString::fromStdString(ostr.str()));
-        } catch(const std::exception &ex) {
-            m_warningSign = new WarningSignWidget(this);
-
-            QString message = QString(
-                "Generation of Python Script failed. Code is not complete.\n\n"
-                "It can happen if sample requires further assembling or some of sample parameters "
-                "are not valid. See details below.\n\n%1").arg(QString::fromStdString(ex.what()));
+        } catch (const std::exception& ex) {
+            QString message
+                = QString("Generation of Python Script failed. Code is not complete.\n\n"
+                          "It can happen if sample requires further assembling or some of sample "
+                          "parameters "
+                          "are not valid. See details below.\n\n%1")
+                      .arg(QString::fromStdString(ex.what()));
 
             m_warningSign->setWarningMessage(message);
-            QPoint pos = getPositionForWarningSign();
-            m_warningSign->setPosition(pos.x(), pos.y());
-            m_warningSign->show();
         }
     }
 
     return result;
 }
 
-//! Returns position for warning sign at the bottom right corner of the editor. The position will
-//! be adjusted according to the visibility of scroll bars
-QPoint PySampleWidget::getPositionForWarningSign()
-{
-    int x = width() -warning_sign_xpos;
-    int y = height()-warning_sign_ypos;
-
-    if(QScrollBar *horizontal = m_textEdit->horizontalScrollBar()) {
-        if(horizontal->isVisible())
-            y -= horizontal->height();
-    }
-
-    if(QScrollBar *vertical = m_textEdit->verticalScrollBar()) {
-        if(vertical->isVisible())
-            x -= vertical->width();
-    }
-
-    return QPoint(x, y);
-}
-
 //! returns welcome message with fonts adjusted to the system
-QString PySampleWidget::getWelcomeMessage()
+
+QString PySampleWidget::welcomeMessage()
 {
     QString result = welcome_message;
 
-    result.replace("font-size:10pt;", QString("font-size:%1pt;")
-                   .arg(DesignerHelper::getPythonEditorFontSize()));
+    result.replace("font-size:10pt;",
+                   QString("font-size:%1pt;").arg(DesignerHelper::getPythonEditorFontSize()));
 
-    result.replace("font-size:14pt;", QString("font-size:%1pt;")
-                   .arg(DesignerHelper::getPythonEditorFontSize()+2));
+    result.replace("font-size:14pt;",
+                   QString("font-size:%1pt;").arg(DesignerHelper::getPythonEditorFontSize() + 2));
 
     return result;
 }

@@ -273,14 +273,14 @@ void JobQueueData::processFinishedJob(JobWorker *runner, JobItem *jobItem)
     jobItem->setDuration(runner->getSimulationDuration());
 
     // propagating status of runner
-    jobItem->setStatus(runner->getStatus());
-    if(jobItem->isFailed()) {
+    if(runner->getStatus() == Constants::STATUS_FAILED) {
         jobItem->setComments(runner->getFailureMessage());
     } else {
         // propagating simulation results
         GISASSimulation *simulation = getSimulation(runner->getIdentifier());
         jobItem->setResults(simulation);
     }
+    jobItem->setStatus(runner->getStatus());
 
     // fixing job progress (if job was successfull, but due to wrong estimation, progress not 100%)
     if(jobItem->isCompleted())

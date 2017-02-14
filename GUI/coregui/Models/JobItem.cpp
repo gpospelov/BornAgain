@@ -276,7 +276,13 @@ FitSuiteItem *JobItem::fitSuiteItem()
     return dynamic_cast<FitSuiteItem *>(getItem(JobItem::T_FIT_SUITE));
 }
 
-ParameterContainerItem *JobItem::parameterContainerItem()
+ParameterContainerItem* JobItem::parameterContainerItem()
+{
+    return const_cast<ParameterContainerItem*>(
+        static_cast<const JobItem*>(this)->parameterContainerItem());
+}
+
+const ParameterContainerItem *JobItem::parameterContainerItem() const
 {
     return dynamic_cast<ParameterContainerItem *>(getItem(JobItem::T_PARAMETER_TREE));
 }

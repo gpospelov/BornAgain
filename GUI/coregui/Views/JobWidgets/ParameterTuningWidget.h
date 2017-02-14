@@ -28,7 +28,7 @@ class ParameterTuningDelegate;
 class ParameterTuningModel;
 class SliderSettingsWidget;
 class QTreeView;
-class WarningSignWidget;
+class WarningSign;
 class ParameterItem;
 
 class ParameterTuningWidget : public QWidget
@@ -64,7 +64,6 @@ private slots:
     void onCustomContextMenuRequested(const QPoint &point);
 
 private:
-    QPoint getPositionForWarningSign();
     void updateDragAndDropSettings();
 
     void setTuningDelegateEnabled(bool enabled);
@@ -76,7 +75,7 @@ private:
     SliderSettingsWidget *m_sliderSettingsWidget;
     QTreeView *m_treeView;
     ParameterTuningDelegate *m_delegate;
-    WarningSignWidget *m_warningSign;
+    WarningSign *m_warningSign;
 };
 
 #endif // PARAMETERTUNINGWIDGET_H

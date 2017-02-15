@@ -15,6 +15,7 @@
 
 #include "FormFactorCylinder.h"
 #include "BornAgainNamespace.h"
+#include "DoubleEllipse.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
@@ -25,6 +26,7 @@ FormFactorCylinder::FormFactorCylinder(double radius, double height)
     setName(BornAgain::FFCylinderType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    mP_shape.reset(new DoubleEllipse(radius, radius, height, radius, radius));
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const

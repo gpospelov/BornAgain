@@ -56,3 +56,20 @@ std::vector<kvector_t> HexagonVertices(double length, double z)
     result[5] = kvector_t(length/2.0, -length*sqrt3/2.0, z);
     return result;
 }
+
+std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
+{
+    // Value of 24 ensures that real points stick out of the convex hull at most
+    // 1% of the radius for the case r_x==r_y
+    static constexpr size_t n_points = 24;
+    static constexpr double delta_angle = M_2_PI/n_points;
+    std::vector<kvector_t> result(n_points);
+    for (size_t i=0; i<n_points; ++i)
+    {
+        double angle = i*delta_angle;
+        double x = r_x*std::cos(angle);
+        double y = r_y*std::sin(angle);
+        result[i] = kvector_t(x, y, z);
+    }
+    return result;
+}

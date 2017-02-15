@@ -15,6 +15,7 @@
 
 #include "FormFactorEllipsoidalCylinder.h"
 #include "BornAgainNamespace.h"
+#include "DoubleEllipse.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
@@ -30,6 +31,7 @@ FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(
     registerParameter(BornAgain::RadiusX, &m_radius_x).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    mP_shape.reset(new DoubleEllipse(radius_x, radius_y, height, radius_x, radius_y));
 }
 
 double FormFactorEllipsoidalCylinder::getRadialExtension() const

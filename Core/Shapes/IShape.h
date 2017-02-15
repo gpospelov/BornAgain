@@ -50,4 +50,7 @@ std::vector<kvector_t> TriangleVertices(double length, double z);
 //! Generate vertices of centered regular hexagon with vertex on x-axis at height z
 std::vector<kvector_t> HexagonVertices(double length, double z);
 
+//! Generate vertices of centered ellipse with given semi-axes at height z
+std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z);
+
 #endif // ISHAPE_H

@@ -20,8 +20,6 @@
 #include "SessionItemWidget.h"
 
 class SessionItem;
-//class IntensityDataWidget;
-//class IntensityDataPropertyWidget;
 class MaskEditor;
 class IntensityDataItem;
 class QAction;
@@ -29,24 +27,22 @@ class MaskContainerItem;
 
 //! The RealDataMaskWidget class provides mask editing for RealDataItem on ImportDataView.
 
-class BA_CORE_API_ RealDataMaskWidget : public SessionItemWidget
+class BA_CORE_API_ RealDataMaskWidget : public NewSessionItemWidget
 {
     Q_OBJECT
 
 public:
-    RealDataMaskWidget(QWidget *parent = 0);
+    RealDataMaskWidget(QWidget* parent = 0);
 
-    void setItem(class SessionItem *item);
+    void setItem(SessionItem* realDataItem);
 
-    QList<QAction *> actionList();
+    QList<QAction*> actionList();
 
 private:
-    MaskContainerItem* createMaskContainer(IntensityDataItem *intensityData);
+    IntensityDataItem* intensityDataItem();
+    MaskContainerItem* createMaskContainer(IntensityDataItem* intensityData);
 
-//    IntensityDataWidget *m_intensityWidget;
-//    IntensityDataPropertyWidget *m_propertyWidget;
-    MaskEditor *m_maskEditor;
-    IntensityDataItem *m_currentItem;
+    MaskEditor* m_maskEditor;
 };
 
 #endif // REALDATAMASKWIDGET_H

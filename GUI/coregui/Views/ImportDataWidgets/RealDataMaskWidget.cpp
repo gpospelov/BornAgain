@@ -16,20 +16,15 @@
 
 #include "RealDataMaskWidget.h"
 #include "IntensityDataItem.h"
-//#include "IntensityDataPropertyWidget.h"
-//#include "IntensityDataWidget.h"
 #include "MaskEditor.h"
 #include "RealDataItem.h"
-#include "SessionItem.h"
 #include "MaskItems.h"
 #include "SessionModel.h"
 #include <QAction>
 #include <QBoxLayout>
 
 RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
-    : SessionItemWidget(parent)
-//    , m_intensityWidget(new IntensityDataWidget)
-//    , m_propertyWidget(new IntensityDataPropertyWidget)
+    : NewSessionItemWidget(parent)
     , m_maskEditor(new MaskEditor)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -38,8 +33,6 @@ RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
 
-//    hlayout->addWidget(m_intensityWidget);
-//    hlayout->addWidget(m_propertyWidget);
     hlayout->addWidget(m_maskEditor);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -50,33 +43,36 @@ RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-void RealDataMaskWidget::setItem(SessionItem *item)
+void RealDataMaskWidget::setItem(SessionItem* realDataItem)
 {
-    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(item->getItem(RealDataItem::T_INTENSITY_DATA));
-    Q_ASSERT(intensityData);
-    MaskContainerItem *container = createMaskContainer(intensityData);
-//    m_intensityWidget->setItem(intensityData);
-//    m_propertyWidget->setItem(intensityData);
+    NewSessionItemWidget::setItem(realDataItem);
 
-    m_maskEditor->setMaskContext(intensityData->model(), container->index(), intensityData);
+    auto intensityItem = intensityDataItem();
+    auto container = createMaskContainer(intensityItem);
+    m_maskEditor->setMaskContext(intensityItem->model(), container->index(), intensityItem);
     m_maskEditor->update();
-
 }
 
-QList<QAction *> RealDataMaskWidget::actionList()
+QList<QAction*> RealDataMaskWidget::actionList()
 {
     return m_maskEditor->topToolBarActions();
 }
 
-MaskContainerItem *RealDataMaskWidget::createMaskContainer(IntensityDataItem *intensityData)
+IntensityDataItem* RealDataMaskWidget::intensityDataItem()
 {
-    MaskContainerItem *result = dynamic_cast<MaskContainerItem *>(
-                intensityData->getItem(IntensityDataItem::T_MASKS));
-
-    if(!result)
-        result = dynamic_cast<MaskContainerItem *>(
-            intensityData->model()->insertNewItem(Constants::MaskContainerType, intensityData->index()));
-
+    IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(
+                currentItem()->getItem(RealDataItem::T_INTENSITY_DATA));
     Q_ASSERT(result);
+    return result;
+}
+
+MaskContainerItem* RealDataMaskWidget::createMaskContainer(IntensityDataItem* intensityData)
+{
+    auto containerItem = intensityData->getItem(IntensityDataItem::T_MASKS);
+    if (!containerItem)
+        containerItem = intensityData->model()->insertNewItem(Constants::MaskContainerType,
+                                                              intensityData->index());
+
+    MaskContainerItem* result = dynamic_cast<MaskContainerItem*>(containerItem);
     return result;
 }

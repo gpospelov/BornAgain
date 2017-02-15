@@ -25,42 +25,11 @@
 #include <QBoxLayout>
 #include <QMenu>
 #include <QLabel>
-#include <QDebug>
-
-TestWidget::TestWidget(QWidget* parent) : NewSessionItemWidget(parent), m_label(new QLabel("XXX"))
-{
-    QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->setMargin(0);
-    hlayout->setSpacing(0);
-
-    hlayout->addWidget(m_label);
-    setLayout(hlayout);
-}
-
-void TestWidget::subscribeToItem()
-{
-    Q_ASSERT(currentItem());
-
-    qDebug() << "TestWidget::subscribeToItem()" << currentItem()->modelType();
-    currentItem()->mapper()->setOnPropertyChange(
-                 [this](const QString &name)
-    {
-        qDebug() << "TestWidget::lambda()" << name;
-    }, this);
-
-    currentItem()->mapper()->setOnChildPropertyChange(
-                 [this](SessionItem* item, const QString &name)
-    {
-        qDebug() << "TestWidget::lambda() 2" << item->modelType() << name;
-    }, this);
-
-}
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)
     , m_intensityWidget(new IntensityDataCanvas)
     , m_propertyWidget(new IntensityDataPropertyWidget)
-    , m_testWidget(new TestWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -70,7 +39,6 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
 
     hlayout->addWidget(m_intensityWidget);
     hlayout->addWidget(m_propertyWidget);
-    hlayout->addWidget(m_testWidget);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -90,7 +58,6 @@ void IntensityDataWidget::setItem(SessionItem *item)
     IntensityDataItem *intensityData = jobItem->intensityDataItem();
     m_intensityWidget->setItem(intensityData);
     m_propertyWidget->setItem(intensityData);
-    m_testWidget->setItem(intensityData);
 }
 
 QList<QAction *> IntensityDataWidget::actionList()

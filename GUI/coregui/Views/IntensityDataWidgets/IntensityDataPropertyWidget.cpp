@@ -67,12 +67,16 @@ void IntensityDataPropertyWidget::onTogglePanelAction()
     setVisible(!isVisible());
 }
 
+#include <QDebug>
+
 void IntensityDataPropertyWidget::subscribeToItem()
 {
+    qDebug() << "IntensityDataPropertyWidget::subscribeToItem()" << currentItem();
     m_componentEditor->setItem(currentItem());
 }
 
 void IntensityDataPropertyWidget::unsubscribeFromItem()
 {
+    qDebug() << "IntensityDataPropertyWidget::unsubscribeFromItem()" << currentItem();
     m_componentEditor->setItem(nullptr);
 }

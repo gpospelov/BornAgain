@@ -17,12 +17,11 @@
 #ifndef COLORMAP_H
 #define COLORMAP_H
 
+#include "SessionItemWidget.h"
 #include "ColorMapBin.h"
-#include "WinDllMacros.h"
 #include "qcustomplot.h"
 #include <QMap>
 #include <QPoint>
-#include <QWidget>
 #include <memory>
 
 class IntensityDataItem;
@@ -37,17 +36,14 @@ class ColorMapEvent;
 //! Provides a minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. This is a replacement for ColorMapPlot.
 
-class BA_CORE_API_ ColorMap : public QWidget {
+class BA_CORE_API_ ColorMap : public SessionItemWidget {
     Q_OBJECT
 
 public:
     explicit ColorMap(QWidget *parent = 0);
-    ~ColorMap();
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
-
-    void setItem(IntensityDataItem *item);
 
     QCustomPlot *customPlot() { return m_customPlot; }
     const QCustomPlot *customPlot() const { return m_customPlot; }
@@ -89,6 +85,10 @@ private slots:
     void replot();
     void onTimeToReplot();
 
+protected:
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
+
 private:
     void initColorMap();
 
@@ -109,16 +109,14 @@ private:
 
     void setColorScaleVisible(bool visibility_flag);
 
-    void resetColorMap();
+    IntensityDataItem* intensityItem();
 
     QCustomPlot *m_customPlot;
     QCPColorMap *m_colorMap;
     QCPColorScale *m_colorScale;
-
     UpdateTimer *m_updateTimer;
     ColorMapEvent *m_colorMapEvent;
 
-    IntensityDataItem *m_item;
     bool m_block_update;
 };
 

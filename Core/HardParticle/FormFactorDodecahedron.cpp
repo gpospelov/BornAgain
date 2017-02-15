@@ -15,6 +15,7 @@
 
 #include "FormFactorDodecahedron.h"
 #include "BornAgainNamespace.h"
+#include "Dodecahedron.h"
 #include "RealParameter.h"
 
 const PolyhedralTopology FormFactorDodecahedron::topology = {
@@ -45,6 +46,7 @@ FormFactorDodecahedron::FormFactorDodecahedron(double edge)
     setName(BornAgain::FFDodecahedronType);
     registerParameter(BornAgain::Edge, &m_edge).setUnit("nm").setNonnegative();
     onChange();
+    mP_shape.reset(new Dodecahedron(edge));
 }
 
 void FormFactorDodecahedron::onChange()

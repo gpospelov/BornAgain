@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "RealParameter.h"
+#include "TruncatedCube.h"
 
 const PolyhedralTopology FormFactorTruncatedCube::topology = {
     {
@@ -48,6 +49,7 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_l
     registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::RemovedLength, &m_removed_length).setUnit("nm").setNonnegative();
     onChange();
+    mP_shape.reset(new TruncatedCube(length, removed_length));
 }
 
 void FormFactorTruncatedCube::onChange()

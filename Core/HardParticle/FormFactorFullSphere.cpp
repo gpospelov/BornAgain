@@ -17,12 +17,14 @@
 #include "BornAgainNamespace.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
     : m_radius(radius)
 {
     setName(BornAgain::FFFullSphereType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    mP_shape.reset(new TruncatedEllipsoid(radius, radius, radius, 2.0*radius));
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const

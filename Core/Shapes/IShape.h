@@ -34,6 +34,7 @@ public:
 
     //! Retrieves a list of the vertices constituting this concrete shape
     virtual std::vector<kvector_t> vertices() const;
+    static const size_t N_Circle;
 protected:
     //! List of vertices initialized during construction
     std::vector<kvector_t> m_vertices;

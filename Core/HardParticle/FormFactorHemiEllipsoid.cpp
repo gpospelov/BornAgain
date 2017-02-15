@@ -18,6 +18,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 #include <limits>
 
 //! @param radius_x half length of one horizontal main axes
@@ -31,6 +32,7 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_
     registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorHemiEllipsoid::Integrand);
+    mP_shape.reset(new TruncatedEllipsoid(radius_x, radius_y, height, height));
 }
 
 double FormFactorHemiEllipsoid::getRadialExtension() const

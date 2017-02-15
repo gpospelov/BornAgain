@@ -20,6 +20,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 #include <limits>
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
@@ -30,6 +31,7 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
+    mP_shape.reset(new TruncatedEllipsoid(radius, radius, radius, height));
 }
 
 bool FormFactorTruncatedSphere::check_initialization() const

@@ -17,6 +17,9 @@
 
 #include <cmath>
 
+// Value of 24 ensures that real points stick out of the convex hull at most
+// 1% of the radius
+const size_t IShape::N_Circle = 24;
 
 std::vector<kvector_t> IShape::vertices() const
 {
@@ -59,12 +62,9 @@ std::vector<kvector_t> HexagonVertices(double length, double z)
 
 std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
 {
-    // Value of 24 ensures that real points stick out of the convex hull at most
-    // 1% of the radius for the case r_x==r_y
-    static constexpr size_t n_points = 24;
-    static constexpr double delta_angle = M_2_PI/n_points;
-    std::vector<kvector_t> result(n_points);
-    for (size_t i=0; i<n_points; ++i)
+    static constexpr double delta_angle = M_2_PI/IShape::N_Circle;
+    std::vector<kvector_t> result(IShape::N_Circle);
+    for (size_t i=0; i<IShape::N_Circle; ++i)
     {
         double angle = i*delta_angle;
         double x = r_x*std::cos(angle);

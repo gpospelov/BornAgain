@@ -15,6 +15,7 @@
 
 #include "FormFactorIcosahedron.h"
 #include "BornAgainNamespace.h"
+#include "Icosahedron.h"
 #include "RealParameter.h"
 
 const PolyhedralTopology FormFactorIcosahedron::topology = {
@@ -55,6 +56,7 @@ FormFactorIcosahedron::FormFactorIcosahedron(double edge)
     setName(BornAgain::FFIcosahedronType);
     registerParameter(BornAgain::Edge, &m_edge).setUnit("nm").setNonnegative();
     onChange();
+    mP_shape.reset(new Icosahedron(edge));
 }
 
 void FormFactorIcosahedron::onChange()

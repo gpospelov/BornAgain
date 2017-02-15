@@ -23,20 +23,15 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-
 ColorMapCanvas::ColorMapCanvas(QWidget *parent)
-    : QWidget(parent)
-//    , m_titleLabel(new StatusLabel)
+    : SessionItemWidget(parent)
     , m_colorMap(new ColorMap)
     , m_canvasEvent(new ColorMapCanvasEvent(this))
     , m_statusLabel(new ColorMapLabel(m_colorMap, this))
 {
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
-
-//    m_titleLabel->setAlignment(Qt::AlignBottom| Qt::AlignHCenter);
-//    layout->addWidget(m_titleLabel);
 
     layout->addWidget(m_colorMap);
     layout->addWidget(m_statusLabel);
@@ -46,31 +41,19 @@ ColorMapCanvas::ColorMapCanvas(QWidget *parent)
     setStatusLabelEnabled(false);
 }
 
-
-void ColorMapCanvas::setItem(IntensityDataItem *intensityDataItem)
+void ColorMapCanvas::setItem(SessionItem* intensityDataItem)
 {
-    m_colorMap->setItem(intensityDataItem);
-
-//    intensityDataItem->mapper()->setOnPropertyChange(
-//                [this, intensityDataItem](const QString &name)
-//    {
-//        if(name == IntensityDataItem::P_TITLE) {
-//            onTitleChanged(intensityDataItem->getItemValue(IntensityDataItem::P_TITLE).toString());
-//        }
-//    }, this);
-
-//    onTitleChanged(intensityDataItem->getItemValue(IntensityDataItem::P_TITLE).toString());
-//    ("Monospace", default_text_size, QFont::Normal, false)
-    QFont font = m_colorMap->customPlot()->xAxis->labelFont();
-//    m_colorMap->customPlot()->xAxis->setLabelFont();
+    SessionItemWidget::setItem(intensityDataItem);
+    m_colorMap->setItem(dynamic_cast<IntensityDataItem*>(intensityDataItem));
 }
 
-ColorMap *ColorMapCanvas::colorMap()
+ColorMap* ColorMapCanvas::colorMap()
 {
     return m_colorMap;
 }
 
-QCustomPlot *ColorMapCanvas::customPlot() {
+QCustomPlot* ColorMapCanvas::customPlot()
+{
     return m_colorMap->customPlot();
 }
 
@@ -80,24 +63,7 @@ void ColorMapCanvas::setStatusLabelEnabled(bool flag)
     m_statusLabel->setHidden(!flag);
 }
 
-//QLabel *ColorMapCanvas::statusLabel()
-//{
-//    return m_statusLabel;
-//}
-
-void ColorMapCanvas::onStatusString(const QString &name)
+void ColorMapCanvas::onStatusString(const QString& name)
 {
     m_statusLabel->setText(name);
 }
-
-//void ColorMapCanvas::onTitleChanged(const QString &title)
-//{
-//    if(title.isEmpty()) {
-//        m_titleLabel->hide();
-//    } else {
-//        m_titleLabel->show();
-//        m_titleLabel->setText(title);
-//    }
-//}
-
-

@@ -36,7 +36,7 @@ class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
 public:
     IntensityDataWidget(QWidget* parent = 0);
 
-    void setItem(SessionItem* item);
+    void setItem(SessionItem* jobItem);
 
     QList<QAction*> actionList();
 
@@ -44,7 +44,9 @@ private slots:
     void onContextMenuRequest(const QPoint& point);
 
 private:
-    IntensityDataCanvas* m_intensityWidget;
+    IntensityDataItem* intensityDataItem();
+
+    IntensityDataCanvas* m_intensityCanvas;
     IntensityDataPropertyWidget* m_propertyWidget;
 };
 

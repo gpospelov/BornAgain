@@ -28,7 +28,7 @@
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)
-    , m_intensityWidget(new IntensityDataCanvas)
+    , m_intensityCanvas(new IntensityDataCanvas)
     , m_propertyWidget(new IntensityDataPropertyWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -37,7 +37,7 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
 
-    hlayout->addWidget(m_intensityWidget);
+    hlayout->addWidget(m_intensityCanvas);
     hlayout->addWidget(m_propertyWidget);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -47,28 +47,34 @@ IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     mainLayout->addLayout(hlayout);
     setLayout(mainLayout);
 
-    connect(m_intensityWidget, SIGNAL(customContextMenuRequested(const QPoint &)),
+    connect(m_intensityCanvas, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onContextMenuRequest(const QPoint &)));
 }
 
-void IntensityDataWidget::setItem(SessionItem *item)
+void IntensityDataWidget::setItem(SessionItem* jobItem)
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(item);
-    Q_ASSERT(jobItem);
-    IntensityDataItem *intensityData = jobItem->intensityDataItem();
-    m_intensityWidget->setItem(intensityData);
-    m_propertyWidget->setItem(intensityData);
+    SessionItemWidget::setItem(jobItem);
+    m_intensityCanvas->setItem(intensityDataItem());
+    m_propertyWidget->setItem(intensityDataItem());
 }
 
-QList<QAction *> IntensityDataWidget::actionList()
+QList<QAction*> IntensityDataWidget::actionList()
 {
-    return m_intensityWidget->actionList() + m_propertyWidget->actionList();
+    return m_intensityCanvas->actionList() + m_propertyWidget->actionList();
 }
 
 void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
 {
     QMenu menu;
-    for(auto action : actionList())
+    for (auto action : actionList())
         menu.addAction(action);
     menu.exec(point);
+}
+
+IntensityDataItem* IntensityDataWidget::intensityDataItem()
+{
+    IntensityDataItem* result
+        = dynamic_cast<IntensityDataItem*>(currentItem()->getItem(JobItem::T_OUTPUT));
+    Q_ASSERT(result);
+    return result;
 }

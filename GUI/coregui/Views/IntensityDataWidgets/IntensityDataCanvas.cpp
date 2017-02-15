@@ -26,7 +26,7 @@
 #include <QMouseEvent>
 
 IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
-    : NewSessionItemWidget(parent)
+    : SessionItemWidget(parent)
     , m_colorMap(new ColorMapCanvas(this))
     , m_resetViewAction(nullptr)
     , m_savePlotAction(nullptr)
@@ -49,7 +49,7 @@ IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
 
 void IntensityDataCanvas::setItem(SessionItem* intensityItem)
 {
-    NewSessionItemWidget::setItem(intensityItem);
+    SessionItemWidget::setItem(intensityItem);
     m_colorMap->setItem(intensityDataItem());
 }
 

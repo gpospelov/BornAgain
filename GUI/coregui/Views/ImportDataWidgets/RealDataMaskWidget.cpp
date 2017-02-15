@@ -24,7 +24,7 @@
 #include <QBoxLayout>
 
 RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
-    : NewSessionItemWidget(parent)
+    : SessionItemWidget(parent)
     , m_maskEditor(new MaskEditor)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -45,7 +45,7 @@ RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
 
 void RealDataMaskWidget::setItem(SessionItem* realDataItem)
 {
-    NewSessionItemWidget::setItem(realDataItem);
+    SessionItemWidget::setItem(realDataItem);
 
     auto intensityItem = intensityDataItem();
     auto container = createMaskContainer(intensityItem);

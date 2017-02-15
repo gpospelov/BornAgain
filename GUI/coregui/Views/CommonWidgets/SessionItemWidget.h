@@ -20,35 +20,21 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-//! The SessionItemWidget class is a base for all widgets representing the content of SessionItem.
-
-class BA_CORE_API_ SessionItemWidget : public QWidget
-{
-    Q_OBJECT
-
-public:
-    explicit SessionItemWidget(QWidget *parent = 0);
-
-    virtual void setItem(class SessionItem *item) = 0;
-    virtual QList<QAction *> actionList();
-
-};
-
 class SessionItem;
 class QShowEvent;
 class QHideEvent;
 
-//! The NewSessionItemWidget class is a base for all widgets representing the content
+//! The SessionItemWidget class is a base for all widgets representing the content
 //! of SessionItem. It provides subscribe/unsibscribe mechanism on show/hide events.
 //! The main purpose is to save performance, when item keeps changing its properties, while
 //! widget is hidden.
 
-class BA_CORE_API_ NewSessionItemWidget : public QWidget
+class BA_CORE_API_ SessionItemWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NewSessionItemWidget(QWidget* parent = 0);
-    virtual ~NewSessionItemWidget();
+    explicit SessionItemWidget(QWidget* parent = 0);
+    virtual ~SessionItemWidget();
 
     virtual void setItem(SessionItem* item);
     virtual QList<QAction*> actionList();

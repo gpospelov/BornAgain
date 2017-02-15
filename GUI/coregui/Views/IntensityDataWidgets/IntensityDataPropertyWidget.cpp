@@ -22,7 +22,7 @@
 #include <QVBoxLayout>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
-    : NewSessionItemWidget(parent)
+    : SessionItemWidget(parent)
     , m_togglePanelAction(0)
     , m_componentEditor(0)
 {

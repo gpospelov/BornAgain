@@ -17,23 +17,9 @@
 #include "SessionItemWidget.h"
 #include "SessionItem.h"
 
-
-SessionItemWidget::SessionItemWidget(QWidget *parent)
-    : QWidget(parent)
-{
-
-}
-
-QList<QAction *> SessionItemWidget::actionList()
-{
-    return QList<QAction *>();
-}
-
-// --------------------------------------------------------------------------------------------- //
-
 #include <QDebug>
 
-NewSessionItemWidget::NewSessionItemWidget(QWidget* parent)
+SessionItemWidget::SessionItemWidget(QWidget* parent)
     : QWidget(parent)
     , m_currentItem(nullptr)
     , is_subscribed(false)
@@ -41,12 +27,12 @@ NewSessionItemWidget::NewSessionItemWidget(QWidget* parent)
 
 }
 
-NewSessionItemWidget::~NewSessionItemWidget()
+SessionItemWidget::~SessionItemWidget()
 {
     unsubscribe();
 }
 
-void NewSessionItemWidget::setItem(SessionItem* item)
+void SessionItemWidget::setItem(SessionItem* item)
 {
     qDebug() << "NewSessionItemWidget::setItem(SessionItem* item)" << item;
 
@@ -62,24 +48,24 @@ void NewSessionItemWidget::setItem(SessionItem* item)
    subscribe();
 }
 
-QList<QAction*> NewSessionItemWidget::actionList()
+QList<QAction*> SessionItemWidget::actionList()
 {
     return QList<QAction *>();
 }
 
-void NewSessionItemWidget::showEvent(QShowEvent*)
+void SessionItemWidget::showEvent(QShowEvent*)
 {
     qDebug() << "NewSessionItemWidget::showEvent 1.1 was shown?";
     subscribe();
 }
 
-void NewSessionItemWidget::hideEvent(QHideEvent*)
+void SessionItemWidget::hideEvent(QHideEvent*)
 {
     qDebug() << "NewSessionItemWidget::hideEvent 1.1 was hidden?";
     unsubscribe();
 }
 
-void NewSessionItemWidget::subscribe()
+void SessionItemWidget::subscribe()
 {
     qDebug() << "NewSessionItemWidget::subscribe()" << m_currentItem;
 
@@ -93,7 +79,7 @@ void NewSessionItemWidget::subscribe()
     is_subscribed = true;
 }
 
-void NewSessionItemWidget::unsubscribe()
+void SessionItemWidget::unsubscribe()
 {
     qDebug() << "NewSessionItemWidget::unsubscribe()" << m_currentItem;
     if (m_currentItem)

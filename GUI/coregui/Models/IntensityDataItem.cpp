@@ -26,7 +26,6 @@ const QString IntensityDataItem::P_TITLE = "Title";
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
 const QString IntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
 const QString IntensityDataItem::P_GRADIENT = "Gradient";
-const QString IntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
 const QString IntensityDataItem::P_XAXIS = "x-axis";
 const QString IntensityDataItem::P_YAXIS = "y-axis";
 const QString IntensityDataItem::P_ZAXIS = "color-axis";
@@ -57,8 +56,6 @@ IntensityDataItem::IntensityDataItem()
              << Constants::GRADIENT_JET << Constants::GRADIENT_HUES;
     gradient.setValue(Constants::GRADIENT_JET);
     addProperty(P_GRADIENT, gradient.getVariant());
-
-    addProperty(P_PROPERTY_PANEL_FLAG, false)->setVisible(false);
 
     SessionItem *item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);

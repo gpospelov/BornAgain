@@ -33,7 +33,6 @@ public:
     static const QString P_ZAXIS_MIN;
     static const QString P_ZAXIS_MAX;
     static const QString P_AXES_UNITS;
-    static const QString P_PROPERTY_PANEL_FLAG;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;

@@ -20,6 +20,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "RippleCosine.h"
 
 FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
@@ -30,6 +31,7 @@ FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorRipple1::Integrand);
+    mP_shape.reset(new RippleCosine(length, width, height));
 }
 
 bool FormFactorRipple1::check_initialization() const

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/Box.h
-//! @brief     Implements class Box.
+//! @file      Core/Particle/AnisoPyramid.h
+//! @brief     Implements class AnisoPyramid.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,18 +13,21 @@
 //
 // ************************************************************************** //
 
-#include "Box.h"
+#include "AnisoPyramid.h"
+#include "MathFunctions.h"
 
 #include <algorithm>
 
-Box::Box(double length, double width, double height)
+AnisoPyramid::AnisoPyramid(double length, double width, double height, double alpha)
 {
     m_vertices.resize(8);
+    double cot_alpha = MathFunctions::cot(alpha);
+    double delta = 2.0*height*cot_alpha;
     auto bottom_face = RectangleVertices(length, width, 0.0);
-    auto top_face = RectangleVertices(length, width, height);
+    auto top_face = RectangleVertices(length-delta, width-delta, height);
     std::move(bottom_face.begin(), bottom_face.end(), m_vertices.begin());
     std::move(top_face.begin(), top_face.end(), m_vertices.begin()+4);
 }
 
-Box::~Box()
+AnisoPyramid::~AnisoPyramid()
 {}

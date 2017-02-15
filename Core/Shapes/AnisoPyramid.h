@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/IShape.h
-//! @brief     Implements default methods of interface IShape.
+//! @file      Core/Particle/AnisoPyramid.h
+//! @brief     Defines class AnisoPyramid.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,20 +13,16 @@
 //
 // ************************************************************************** //
 
+#ifndef ANISOPYRAMID_H
+#define ANISOPYRAMID_H
+
 #include "IShape.h"
 
-
-std::vector<kvector_t> IShape::vertices() const
+class AnisoPyramid : public IShape
 {
-    return m_vertices;
-}
+public:
+    AnisoPyramid(double length, double width, double height, double alpha);
+    ~AnisoPyramid();
+};
 
-std::vector<kvector_t> RectangleVertices(double length, double width, double z)
-{
-    std::vector<kvector_t> result(4);
-    result[0] = kvector_t(length/2.0, width/2.0, z);
-    result[1] = kvector_t(-length/2.0, width/2.0, z);
-    result[2] = kvector_t(-length/2.0, -width/2.0, z);
-    result[3] = kvector_t(length/2.0, -width/2.0, z);
-    return result;
-}
+#endif // ANISOPYRAMID_H

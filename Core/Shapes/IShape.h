@@ -19,6 +19,13 @@
 #include "Vectors3D.h"
 #include <vector>
 
+//! Pure virtual base class for different shapes.
+//!
+//! In contrast to the form factors, these shapes only provide an intereface
+//! for returning a set of vertices.
+
+//! @ingroup shapes_internal
+
 class IShape
 {
 public:
@@ -31,5 +38,8 @@ protected:
     //! List of vertices initialized during construction
     std::vector<kvector_t> m_vertices;
 };
+
+//! Helper functions to construct lists of vertices
+std::vector<kvector_t> RectangleVertices(double length, double width, double z);
 
 #endif // ISHAPE_H

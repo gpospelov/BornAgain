@@ -17,7 +17,6 @@
 #include "JobResultsPresenter.h"
 #include "FitComparisonWidget.h"
 #include "JobItem.h"
-#include "ObsoleteIntensityDataWidget.h"
 #include "IntensityDataWidget.h"
 #include "mainwindow_constants.h"
 #include <QBoxLayout>
@@ -25,9 +24,6 @@
 JobResultsPresenter::JobResultsPresenter(QWidget *parent)
     : ItemComboWidget(parent)
 {
-    registerWidget(Constants::ObsoleteIntensityDataWidgetName,
-                   create_new<ObsoleteIntensityDataWidget>);
-
     registerWidget(Constants::IntensityDataWidgetName,
                    create_new<IntensityDataWidget>);
 
@@ -43,8 +39,7 @@ QStringList JobResultsPresenter::getValidPresentationList(SessionItem *item)
     JobItem *jobItem = dynamic_cast<JobItem *>(item);
     Q_ASSERT(jobItem);
 
-    QStringList result = QStringList() << Constants::ObsoleteIntensityDataWidgetName
-                                       << Constants::IntensityDataWidgetName;
+    QStringList result = QStringList() << Constants::IntensityDataWidgetName;
 
     if(jobItem->isValidForFitting())
         result << Constants::FitComparisonWidgetName;

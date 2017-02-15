@@ -76,8 +76,7 @@ const QString JobRealTimeActivityName = "Real Time Activity";
 const QString JobFittingActivityName = "Fitting Activity";
 
 //
-const QString ObsoleteIntensityDataWidgetName = "Color Map";
-const QString IntensityDataWidgetName = "New Map";
+const QString IntensityDataWidgetName = "Color Map";
 const QString FitComparisonWidgetName = "Fit Data";
 
 }

@@ -19,7 +19,6 @@
 #include "JobModel.h"
 #include "JobResultsPresenter.h"
 #include "JobViewFlags.h"
-#include "ObsoleteIntensityDataWidget.h"
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 
@@ -70,9 +69,9 @@ void JobOutputDataWidget::onActivityChanged(int activity)
         if(activity == JobViewFlags::FITTING_ACTIVITY) {
             widget->setPresentation(Constants::FitComparisonWidgetName);
         } else if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-            widget->setPresentation(Constants::ObsoleteIntensityDataWidgetName);
+            widget->setPresentation(Constants::IntensityDataWidgetName);
         } else if(activity == JobViewFlags::JOB_VIEW_ACTIVITY) {
-            widget->setPresentation(Constants::ObsoleteIntensityDataWidgetName);
+            widget->setPresentation(Constants::IntensityDataWidgetName);
         }
     }
 }

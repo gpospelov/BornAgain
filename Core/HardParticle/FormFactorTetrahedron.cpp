@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
+#include "Pyramid3.h"
 #include "RealParameter.h"
 
 const PolyhedralTopology FormFactorTetrahedron::topology = {
@@ -45,6 +46,7 @@ FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, do
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
+    mP_shape.reset(new Pyramid3(base_edge, height, alpha));
 }
 
 void FormFactorTetrahedron::onChange()

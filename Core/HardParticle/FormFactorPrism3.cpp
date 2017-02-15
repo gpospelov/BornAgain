@@ -15,6 +15,7 @@
 
 #include "FormFactorPrism3.h"
 #include "BornAgainNamespace.h"
+#include "Pyramid3.h"
 #include "RealParameter.h"
 #include <iostream>
 
@@ -25,6 +26,7 @@ FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     onChange();
+    mP_shape.reset(new Pyramid3(base_edge, height, M_PI_2));
 }
 
 void FormFactorPrism3::onChange()

@@ -15,6 +15,7 @@
 
 #include "FormFactorPrism6.h"
 #include "BornAgainNamespace.h"
+#include "Pyramid6.h"
 #include "RealParameter.h"
 
 FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
@@ -25,6 +26,7 @@ FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     onChange();
+    mP_shape.reset(new Pyramid6(base_edge, height, M_PI_2));
 }
 
 void FormFactorPrism6::onChange()

@@ -43,3 +43,16 @@ std::vector<kvector_t> TriangleVertices(double length, double z)
     result[2] = kvector_t(-L/2.0, -length/2.0, z);
     return result;
 }
+
+std::vector<kvector_t> HexagonVertices(double length, double z)
+{
+    static const double sqrt3 = std::sqrt(3.0);
+    std::vector<kvector_t> result(6);
+    result[0] = kvector_t(length, 0.0, z);
+    result[1] = kvector_t(length/2.0, length*sqrt3/2.0, z);
+    result[2] = kvector_t(-length/2.0, length*sqrt3/2.0, z);
+    result[3] = kvector_t(-length, 0.0, z);
+    result[4] = kvector_t(-length/2.0, -length*sqrt3/2.0, z);
+    result[5] = kvector_t(length/2.0, -length*sqrt3/2.0, z);
+    return result;
+}

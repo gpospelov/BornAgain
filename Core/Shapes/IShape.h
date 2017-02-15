@@ -47,4 +47,7 @@ std::vector<kvector_t> RectangleVertices(double length, double width, double z);
 //! Generate vertices of centered regular triangle with vertex on x-axis at height z
 std::vector<kvector_t> TriangleVertices(double length, double z);
 
+//! Generate vertices of centered regular hexagon with vertex on x-axis at height z
+std::vector<kvector_t> HexagonVertices(double length, double z);
+
 #endif // ISHAPE_H

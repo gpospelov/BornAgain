@@ -71,6 +71,6 @@ QCPRange ColorMapUtils::itemYrange(const IntensityDataItem* item)
 
 QCPRange ColorMapUtils::itemDataRange(const IntensityDataItem* item)
 {
-    QPair<double, double> range = item->getDataRange();
+    QPair<double, double> range = item->dataRange();
     return QCPRange(range.first, range.second);
 }

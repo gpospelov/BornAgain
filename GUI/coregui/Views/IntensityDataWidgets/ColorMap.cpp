@@ -265,9 +265,6 @@ void ColorMap::subscribeToItem()
 {
     qDebug() << "ColorMap::subscribeToItem() ";
 
-    if (intensityItem()->getOutputData() == nullptr)
-        return;
-
     setColorMapFromItem(intensityItem());
 
     intensityItem()->mapper()->setOnPropertyChange(
@@ -386,18 +383,9 @@ void ColorMap::setColorMapFromItem(IntensityDataItem* intensityItem)
 
 void ColorMap::setAxesRangeFromItem(IntensityDataItem* item)
 {
-    auto data = item->getOutputData();
-    if (!data)
-        return;
-
     m_customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     m_customPlot->axisRect()->setupFullAxesBox(true);
-
-    const IAxis& axis_x = data->getAxis(0);
-    const IAxis& axis_y = data->getAxis(1);
-
-    m_colorMap->data()->setSize(static_cast<int>(axis_x.size()), static_cast<int>(axis_y.size()));
-
+    m_colorMap->data()->setSize(item->getNbinsX(), item->getNbinsY());
     m_colorMap->data()->setRange(ColorMapUtils::itemXrange(item), ColorMapUtils::itemYrange(item));
 }
 
@@ -427,15 +415,11 @@ void ColorMap::setDataFromItem(IntensityDataItem* item)
     if (!data)
         return;
 
-    const IAxis& axis_x = data->getAxis(0);
-    const IAxis& axis_y = data->getAxis(1);
-
-    for (size_t ix = 0; ix < axis_x.size(); ++ix) {
-        for (size_t iy = 0; iy < axis_y.size(); ++iy) {
-            m_colorMap->data()->setCell(static_cast<int>(ix), static_cast<int>(iy),
-                                        (*data)[iy + axis_y.size() * ix]);
-        }
-    }
+    int nx(item->getNbinsX()); // outside of the loop because of slow retrieval
+    int ny(item->getNbinsY());
+    for (int ix = 0; ix < nx; ++ix)
+        for (int iy = 0; iy < ny; ++iy)
+            m_colorMap->data()->setCell(ix, iy, (*data)[iy + ny * ix]);
 }
 
 //! Sets the appearance of color scale (visibility, gradient type) from intensity item.

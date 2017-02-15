@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 #include <limits>
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
@@ -32,6 +33,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
     setName(BornAgain::FormFactorSphereUniformRadiusType);
     registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::FullWidth, &m_full_width).setUnit("nm").setNonnegative();
+    mP_shape.reset(new TruncatedEllipsoid(mean, mean, mean, 2.0*mean));
 }
 
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const

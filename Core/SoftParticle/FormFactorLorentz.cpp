@@ -15,6 +15,7 @@
 
 #include "FormFactorLorentz.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "RealLimits.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
@@ -59,4 +60,5 @@ void FormFactorLorentz::initialize()
     setName(BornAgain::FFLorentzType);
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    mP_shape.reset(new Box(m_width, m_width, m_height));
 }

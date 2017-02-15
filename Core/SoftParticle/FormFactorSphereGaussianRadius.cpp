@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "RealLimits.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, double sigma)
 : m_mean(mean)
@@ -28,6 +29,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, doub
     P_ff_sphere.reset(new FormFactorFullSphere(m_mean_r3));
     registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::SigmaRadius, &m_sigma).setUnit("nm").setNonnegative();
+    mP_shape.reset(new TruncatedEllipsoid(mean, mean, mean, 2.0*mean));
 }
 
 complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const

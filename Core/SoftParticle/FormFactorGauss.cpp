@@ -15,6 +15,7 @@
 
 #include "FormFactorGauss.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
@@ -29,7 +30,9 @@ FormFactorGauss::FormFactorGauss(double width, double height)
     setName(BornAgain::FFGaussType);
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    m_max_ql = std::sqrt(-4 * M_PI * std::log(std::numeric_limits<double>::min()) / 3);}
+    m_max_ql = std::sqrt(-4 * M_PI * std::log(std::numeric_limits<double>::min()) / 3);
+    mP_shape.reset(new Box(width, width, height));
+}
 
 complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
 {

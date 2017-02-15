@@ -26,7 +26,7 @@
 #include <QMouseEvent>
 
 IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
-    : SessionItemWidget(parent)
+    : NewSessionItemWidget(parent)
     , m_colorMap(new ColorMapCanvas(this))
     , m_resetViewAction(nullptr)
     , m_savePlotAction(nullptr)
@@ -47,10 +47,10 @@ IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
             this, SLOT(onMousePress(QMouseEvent*)), Qt::UniqueConnection);
 }
 
-void IntensityDataCanvas::setItem(SessionItem* item)
+void IntensityDataCanvas::setItem(SessionItem* intensityItem)
 {
-    IntensityDataItem* intensityItem = dynamic_cast<IntensityDataItem*>(item);
-    setIntensityData(intensityItem);
+    NewSessionItemWidget::setItem(intensityItem);
+    m_colorMap->setItem(intensityDataItem());
 }
 
 QSize IntensityDataCanvas::sizeHint() const
@@ -70,14 +70,14 @@ QList<QAction*> IntensityDataCanvas::actionList()
 
 void IntensityDataCanvas::onResetViewAction()
 {
-    m_currentItem->resetView();
+    intensityDataItem()->resetView();
 }
 
 void IntensityDataCanvas::onSavePlotAction()
 {
     QString dirname = AppSvc::projectManager()->userExportDir();
     SavePlotAssistant saveAssistant;
-    saveAssistant.savePlot(dirname, m_colorMap->customPlot(), m_currentItem);
+    saveAssistant.savePlot(dirname, m_colorMap->customPlot(), intensityDataItem());
 }
 
 void IntensityDataCanvas::onMousePress(QMouseEvent* event)
@@ -86,10 +86,11 @@ void IntensityDataCanvas::onMousePress(QMouseEvent* event)
         emit customContextMenuRequested(event->globalPos());
 }
 
-void IntensityDataCanvas::setIntensityData(IntensityDataItem* intensityItem)
+IntensityDataItem* IntensityDataCanvas::intensityDataItem()
 {
-    m_currentItem = intensityItem;
-    m_colorMap->setItem(intensityItem);
+    IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(currentItem());
+    Q_ASSERT(result);
+    return result;
 }
 
 void IntensityDataCanvas::initActions()

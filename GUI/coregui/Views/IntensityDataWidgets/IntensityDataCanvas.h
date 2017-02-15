@@ -27,13 +27,13 @@ class QAction;
 //! The IntensityDataCanvas class represents IntensityDataItem as color map,
 //! provides standard actions (reset view, save as) for external toolbars and context menus.
 
-class BA_CORE_API_ IntensityDataCanvas : public SessionItemWidget
+class BA_CORE_API_ IntensityDataCanvas : public NewSessionItemWidget
 {
     Q_OBJECT
 public:
     explicit IntensityDataCanvas(QWidget* parent = 0);
 
-    void setItem(SessionItem* item);
+    void setItem(SessionItem* intensityItem);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -46,11 +46,10 @@ public slots:
     void onMousePress(QMouseEvent *event);
 
 private:
-    void setIntensityData(IntensityDataItem* intensityItem);
+    IntensityDataItem* intensityDataItem();
     void initActions();
 
     ColorMapCanvas* m_colorMap;
-    IntensityDataItem* m_currentItem;
     QAction* m_resetViewAction;
     QAction* m_savePlotAction;
 };

@@ -59,7 +59,7 @@ protected:
 #endif
 
     //! IShape object, used to retrieve vertices (which may be approximate in the case
-    //! of round shapes)
+    //! of round shapes). For soft particles, this will be a hard mean shape.
     std::unique_ptr<IShape> mP_shape;
 };
 

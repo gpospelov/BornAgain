@@ -18,9 +18,10 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
+#include "RippleSawtooth.h"
 
-FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymetry)
-    : m_length(length), m_width(width), m_height(height), m_d(asymetry)
+FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
+    : m_length(length), m_width(width), m_height(height), m_d(asymmetry)
 {
     setName(BornAgain::FFRipple2Type);
     check_initialization();
@@ -28,6 +29,7 @@ FormFactorRipple2::FormFactorRipple2(double length, double width, double height,
     registerParameter(BornAgain::Width, &m_width      ).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
+    mP_shape.reset(new RippleSawtooth(length, width, height, asymmetry));
 }
 
 double FormFactorRipple2::getRadialExtension() const

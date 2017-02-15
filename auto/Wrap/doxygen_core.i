@@ -369,6 +369,16 @@ creation on  Bin1DKVector from alpha and phi bins
 ";
 
 
+// File: classBox.xml
+%feature("docstring") Box "";
+
+%feature("docstring")  Box::Box "Box::Box(double length, double width, double height)
+";
+
+%feature("docstring")  Box::~Box "Box::~Box()
+";
+
+
 // File: classBoxCompositionBuilder.xml
 %feature("docstring") BoxCompositionBuilder "
 
@@ -1381,6 +1391,16 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring") Exceptions::DomainErrorException "";
 
 %feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
+";
+
+
+// File: classDot.xml
+%feature("docstring") Dot "";
+
+%feature("docstring")  Dot::Dot "Dot::Dot()
+";
+
+%feature("docstring")  Dot::~Dot "Dot::~Dot()
 ";
 
 
@@ -2578,11 +2598,6 @@ Calls the  INodeVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorBox::bottomZ "double FormFactorBox::bottomZ(const IRotation &rotation) const overridefinal
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
 %feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const overridefinal
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
@@ -3531,13 +3546,13 @@ Parameters:
 -----------
 
 length: 
-of Box's base
+of  Box's base
 
 width: 
-of Box's base
+of  Box's base
 
 height: 
-of Box 
+of  Box
 ";
 
 %feature("docstring")  FormFactorLongBoxGauss::clone "FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const overridefinal
@@ -3586,13 +3601,13 @@ Parameters:
 -----------
 
 length: 
-of Box's base
+of  Box's base
 
 width: 
-of Box's base
+of  Box's base
 
 height: 
-of Box 
+of  Box
 ";
 
 %feature("docstring")  FormFactorLongBoxLorentz::clone "FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const overridefinal
@@ -4387,11 +4402,6 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FormFactorTrivial::getRadialExtension "double FormFactorTrivial::getRadialExtension() const overridefinal
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorTrivial::bottomZ "double FormFactorTrivial::bottomZ(const IRotation &) const overridefinal
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const overridefinal
@@ -8718,6 +8728,21 @@ C++ includes: IsGISAXSDetector.h
 %feature("docstring")  IsGISAXSDetector::accept "void IsGISAXSDetector::accept(INodeVisitor *visitor) const final
 
 Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classIShape.xml
+%feature("docstring") IShape "";
+
+%feature("docstring")  IShape::IShape "IShape::IShape()
+";
+
+%feature("docstring")  IShape::~IShape "virtual IShape::~IShape()
+";
+
+%feature("docstring")  IShape::vertices "std::vector< kvector_t > IShape::vertices() const
+
+Retrieves a list of the vertices constituting this concrete shape. 
 ";
 
 
@@ -13250,7 +13275,7 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D324.xml
 
 
-// File: namespace_0D439.xml
+// File: namespace_0D445.xml
 
 
 // File: namespace_0D60.xml
@@ -14987,6 +15012,24 @@ Returns concatenated rotation (first right, then left).
 // File: SampleTreeIterator_8h.xml
 
 
+// File: Box_8cpp.xml
+
+
+// File: Box_8h.xml
+
+
+// File: Dot_8cpp.xml
+
+
+// File: Dot_8h.xml
+
+
+// File: IShape_8cpp.xml
+
+
+// File: IShape_8h.xml
+
+
 // File: GISASSimulation_8cpp.xml
 
 
@@ -15375,6 +15418,9 @@ Calculates the z-coordinate of the highest vertex after rotation.
 
 
 // File: dir_051c0ff7ebc48614253af3001519ace0.xml
+
+
+// File: dir_36d1defb21dc876b1f67ee9031b0bd99.xml
 
 
 // File: dir_f59c6b3c978505a5ca3672a364c1918e.xml

@@ -15,6 +15,7 @@
 
 #include "FormFactorBox.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
 #include "Rotations.h"
@@ -29,11 +30,7 @@ FormFactorBox::FormFactorBox(double length, double width, double height)
     registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Width,  &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-}
-
-double FormFactorBox::bottomZ(const IRotation& rotation) const
-{
-    return BottomZ(vertices(), rotation.getTransform3D());
+    mP_shape.reset(new Box(length, width, height));
 }
 
 complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
@@ -42,20 +39,4 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
     return m_height*m_length*m_width *
         MathFunctions::sinc(m_length/2*q.x()) *  MathFunctions::sinc(m_width/2*q.y()) *
             MathFunctions::sinc(qzHdiv2) * exp_I(qzHdiv2);
-}
-
-std::vector<kvector_t> FormFactorBox::vertices() const
-{
-    std::vector<kvector_t> result(8);
-    double l2 = m_length/2.0;
-    double w2 = m_width/2.0;
-    result[0] = kvector_t(l2, w2, 0.0);
-    result[1] = kvector_t(l2, -w2, 0.0);
-    result[2] = kvector_t(-l2, w2, 0.0);
-    result[3] = kvector_t(-l2, -w2, 0.0);
-    result[4] = kvector_t(l2, w2, m_height);
-    result[5] = kvector_t(l2, -w2, m_height);
-    result[6] = kvector_t(-l2, w2, m_height);
-    result[7] = kvector_t(-l2, -w2, m_height);
-    return result;
 }

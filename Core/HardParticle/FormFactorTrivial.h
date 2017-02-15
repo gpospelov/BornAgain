@@ -32,8 +32,6 @@ public:
 
     double getRadialExtension() const override final { return 0; }
 
-    double bottomZ(const IRotation&) const override final { return 0.0; }
-
     complex_t evaluate_for_q(const cvector_t) const override final { return 1; }
 };
 

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorPyramid.h"
+#include "AnisoPyramid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -45,6 +46,7 @@ FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alp
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
+    mP_shape.reset(new AnisoPyramid(base_edge, base_edge, height, alpha));
 }
 
 void FormFactorPyramid::onChange()

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Shapes/AnisoPyramid.h
-//! @brief     Defines class AnisoPyramid.
+//! @file      Core/Shapes/BiPyramid.h
+//! @brief     Defines class BiPyramid.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,16 +13,16 @@
 //
 // ************************************************************************** //
 
-#ifndef ANISOPYRAMID_H
-#define ANISOPYRAMID_H
+#ifndef BIPYRAMID_H
+#define BIPYRAMID_H
 
 #include "IShape.h"
 
-class AnisoPyramid : public IShape
+class BiPyramid : public IShape
 {
 public:
-    AnisoPyramid(double length, double width, double height, double alpha);
-    ~AnisoPyramid();
+    BiPyramid(double length, double height, double height_ratio, double alpha);
+    ~BiPyramid();
 };
 
-#endif // ANISOPYRAMID_H
+#endif // BIPYRAMID_H

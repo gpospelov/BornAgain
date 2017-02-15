@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/Dot.h
+//! @file      Core/Shapes/Dot.cpp
 //! @brief     Implements class Dot.
 //!
 //! @homepage  http://www.bornagainproject.org

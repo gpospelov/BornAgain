@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/AnisoPyramid.h
+//! @file      Core/Shapes/AnisoPyramid.cpp
 //! @brief     Implements class AnisoPyramid.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCuboctahedron.h"
+#include "BiPyramid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -52,6 +53,7 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     registerParameter(BornAgain::HeightRatio, &m_height_ratio).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
+    mP_shape.reset(new BiPyramid(length, height, height_ratio, alpha));
 }
 
 void FormFactorCuboctahedron::onChange()

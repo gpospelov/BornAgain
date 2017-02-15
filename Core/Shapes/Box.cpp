@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/Box.h
+//! @file      Core/Shapes/Box.cpp
 //! @brief     Implements class Box.
 //!
 //! @homepage  http://www.bornagainproject.org

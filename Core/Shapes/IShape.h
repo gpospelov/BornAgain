@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Particle/IShape.h
+//! @file      Core/Shapes/IShape.h
 //! @brief     Defines interface IShape.
 //!
 //! @homepage  http://www.bornagainproject.org

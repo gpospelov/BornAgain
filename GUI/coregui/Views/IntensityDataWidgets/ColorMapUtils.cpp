@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapHelper.cpp
-//! @brief     Implements class ColorMapHelper
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapUtils.cpp
+//! @brief     Implements ColorMapUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,14 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "ColorMapHelper.h"
+#include "ColorMapUtils.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "item_constants.h"
 
+using gradient_map_t = QMap<QString, QCPColorGradient::GradientPreset>;
+
 namespace {
-ColorMapHelper::gradient_map_t createGradientMap() {
-    ColorMapHelper::gradient_map_t result;
+gradient_map_t createGradientMap() {
+    gradient_map_t result;
 
     result[Constants::GRADIENT_GRAYSCALE] = QCPColorGradient::gpGrayscale;
     result[Constants::GRADIENT_HOT] = QCPColorGradient::gpHot;
@@ -40,36 +42,34 @@ ColorMapHelper::gradient_map_t createGradientMap() {
 }
 }
 
-ColorMapHelper::gradient_map_t ColorMapHelper::m_gradient_map = createGradientMap();
-
-
-
-QCPColorGradient ColorMapHelper::getGradient(const QString &gradientName)
+QCPColorGradient ColorMapUtils::getGradient(const QString& gradientName)
 {
-    auto it = m_gradient_map.find(gradientName);
-    if(it == m_gradient_map.end()) {
-        throw GUIHelpers::Error("ColorMapHelper::getGradient() -> Error. No such gradient" +
-                                gradientName);
+    static gradient_map_t gradient_map = createGradientMap();
+
+    auto it = gradient_map.find(gradientName);
+    if (it == gradient_map.end()) {
+        throw GUIHelpers::Error("ColorMapHelper::getGradient() -> Error. No such gradient"
+                                + gradientName);
     }
     return QCPColorGradient(it.value());
 }
 
-QCPColorGradient ColorMapHelper::itemGradient(const IntensityDataItem *item)
+QCPColorGradient ColorMapUtils::itemGradient(const IntensityDataItem* item)
 {
     return getGradient(item->getGradient());
 }
 
-QCPRange ColorMapHelper::itemXrange(const IntensityDataItem *item)
+QCPRange ColorMapUtils::itemXrange(const IntensityDataItem* item)
 {
     return QCPRange(item->getXmin(), item->getXmax());
 }
 
-QCPRange ColorMapHelper::itemYrange(const IntensityDataItem *item)
+QCPRange ColorMapUtils::itemYrange(const IntensityDataItem* item)
 {
     return QCPRange(item->getYmin(), item->getYmax());
 }
 
-QCPRange ColorMapHelper::itemDataRange(const IntensityDataItem *item)
+QCPRange ColorMapUtils::itemDataRange(const IntensityDataItem* item)
 {
     QPair<double, double> range = item->getDataRange();
     return QCPRange(range.first, range.second);

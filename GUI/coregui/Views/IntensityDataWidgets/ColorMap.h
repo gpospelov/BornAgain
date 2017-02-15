@@ -36,18 +36,19 @@ class ColorMapEvent;
 //! Provides a minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. This is a replacement for ColorMapPlot.
 
-class BA_CORE_API_ ColorMap : public SessionItemWidget {
+class BA_CORE_API_ ColorMap : public SessionItemWidget
+{
     Q_OBJECT
 
 public:
-    explicit ColorMap(QWidget *parent = 0);
+    explicit ColorMap(QWidget* parent = 0);
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
-    QCustomPlot *customPlot() { return m_customPlot; }
-    const QCustomPlot *customPlot() const { return m_customPlot; }
-    QCPColorScale *colorScale() { return m_colorScale; }
+    QCustomPlot* customPlot() { return m_customPlot; }
+    const QCustomPlot* customPlot() const { return m_customPlot; }
+    QCPColorScale* colorScale() { return m_colorScale; }
 
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;
@@ -58,7 +59,7 @@ public:
     double pixelToYaxisCoord(double pixel) const;
 
     //! returns rectangle representing current axes zoom state in widget coordinates
-    QRectF getViewportRectangleInWidgetCoordinates();
+    QRectF viewportRectangleInWidgetCoordinates();
 
     //! Returns true if axes rectangle contains given in axes coordinates.
     bool axesRangeContains(double xpos, double ypos) const;
@@ -69,7 +70,7 @@ public:
     void setMouseTrackingEnabled(bool enable);
 
 signals:
-    void statusString(const QString &text);
+    void statusString(const QString& text);
 
 public slots:
     void setLogz(bool logz);
@@ -77,8 +78,8 @@ public slots:
 
 private slots:
     void onIntensityModified();
-    void onPropertyChanged(const QString &property_name);
-    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+    void onPropertyChanged(const QString& property_name);
+    void onSubItemPropertyChanged(const QString& property_group, const QString& property_name);
     void onDataRangeChanged(QCPRange newRange);
     void onXaxisRangeChanged(QCPRange newRange);
     void onYaxisRangeChanged(QCPRange newRange);
@@ -99,23 +100,23 @@ private:
 
     void setFixedColorMapMargins();
 
-    void setColorMapFromItem(IntensityDataItem *intensityItem);
-    void setAxesRangeFromItem(IntensityDataItem *item);
-    void setAxesZoomFromItem(IntensityDataItem *item);
-    void setLabelsFromItem(IntensityDataItem *item);
-    void setDataFromItem(IntensityDataItem *item);
-    void setColorScaleAppearanceFromItem(IntensityDataItem *item);
-    void setDataRangeFromItem(IntensityDataItem *item);
+    void setColorMapFromItem(IntensityDataItem* intensityItem);
+    void setAxesRangeFromItem(IntensityDataItem* item);
+    void setAxesZoomFromItem(IntensityDataItem* item);
+    void setLabelsFromItem(IntensityDataItem* item);
+    void setDataFromItem(IntensityDataItem* item);
+    void setColorScaleAppearanceFromItem(IntensityDataItem* item);
+    void setDataRangeFromItem(IntensityDataItem* item);
 
     void setColorScaleVisible(bool visibility_flag);
 
     IntensityDataItem* intensityItem();
 
-    QCustomPlot *m_customPlot;
-    QCPColorMap *m_colorMap;
-    QCPColorScale *m_colorScale;
-    UpdateTimer *m_updateTimer;
-    ColorMapEvent *m_colorMapEvent;
+    QCustomPlot* m_customPlot;
+    QCPColorMap* m_colorMap;
+    QCPColorScale* m_colorScale;
+    UpdateTimer* m_updateTimer;
+    ColorMapEvent* m_colorMapEvent;
 
     bool m_block_update;
 };

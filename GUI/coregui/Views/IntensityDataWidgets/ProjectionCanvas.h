@@ -30,7 +30,7 @@ class BA_CORE_API_ ProjectionCanvas : public SessionItemWidget
 public:
     ProjectionCanvas(QWidget* parent = 0);
 
-    void setItem(SessionItem* intensityItem);
+    void setItem(SessionItem* projectionContainerItem);
 
 private:
     QCustomPlot* m_customPlot;

@@ -18,6 +18,8 @@
 #include "IntensityDataCanvas.h"
 #include "ProjectionCanvas.h"
 #include "IntensityDataItem.h"
+#include "ProjectionItems.h"
+#include "SessionModel.h"
 #include "JobItem.h"
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -47,7 +49,9 @@ void JobProjectionsWidget::setItem(SessionItem* jobItem)
     SessionItemWidget::setItem(jobItem);
 
     m_intensityCanvas->setItem(intensityDataItem());
-    m_projectionCanvas->setItem(intensityDataItem());
+
+    auto projectionContainer = createProjectionContainer(intensityDataItem());
+    m_projectionCanvas->setItem(projectionContainer);
 }
 
 IntensityDataItem* JobProjectionsWidget::intensityDataItem()
@@ -57,3 +61,19 @@ IntensityDataItem* JobProjectionsWidget::intensityDataItem()
     Q_ASSERT(result);
     return result;
 }
+
+ProjectionContainerItem*
+JobProjectionsWidget::createProjectionContainer(IntensityDataItem* intensityItem)
+{
+    Q_ASSERT(intensityItem);
+
+    auto containerItem = intensityItem->getItem(IntensityDataItem::T_PROJECTIONS);
+    if (!containerItem)
+        containerItem = intensityItem->model()->insertNewItem(Constants::ProjectionContainerType,
+                                                              intensityItem->index(), -1,
+                                                              IntensityDataItem::T_PROJECTIONS);
+
+    return dynamic_cast<ProjectionContainerItem*>(containerItem);
+}
+
+

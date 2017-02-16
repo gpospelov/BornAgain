@@ -32,6 +32,7 @@ const QString IntensityDataItem::P_YAXIS = "y-axis";
 const QString IntensityDataItem::P_ZAXIS = "color-axis";
 const QString IntensityDataItem::P_FILE_NAME = "FileName";
 const QString IntensityDataItem::T_MASKS = "Mask tag";
+const QString IntensityDataItem::T_PROJECTIONS = "Projection tag";
 
 IntensityDataItem::IntensityDataItem() : SessionItem(Constants::IntensityDataType)
 {
@@ -70,6 +71,8 @@ IntensityDataItem::IntensityDataItem() : SessionItem(Constants::IntensityDataTyp
 
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
+
+    registerTag(T_PROJECTIONS, 0, -1, QStringList() << Constants::ProjectionContainerType);
 }
 
 void IntensityDataItem::setOutputData(OutputData<double>* data)

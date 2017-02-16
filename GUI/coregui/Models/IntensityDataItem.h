@@ -38,6 +38,7 @@ public:
     static const QString P_ZAXIS;
     static const QString P_FILE_NAME;
     static const QString T_MASKS;
+    static const QString T_PROJECTIONS;
 
     IntensityDataItem();
 

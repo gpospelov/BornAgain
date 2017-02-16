@@ -17,6 +17,7 @@
 #include "ProjectionCanvas.h"
 #include "qcustomplot.h"
 #include "plot_constants.h"
+#include "ProjectionItems.h"
 
 ProjectionCanvas::ProjectionCanvas(QWidget* parent)
     : SessionItemWidget(parent)
@@ -49,9 +50,10 @@ ProjectionCanvas::ProjectionCanvas(QWidget* parent)
     //    m_customPlot->yAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
 }
 
-void ProjectionCanvas::setItem(SessionItem* intensityItem)
+void ProjectionCanvas::setItem(SessionItem* projectionContainerItem)
 {
-    SessionItemWidget::setItem(intensityItem);
+    Q_ASSERT(projectionContainerItem);
+    SessionItemWidget::setItem(projectionContainerItem);
 
-
+    qDebug() << projectionContainerItem->modelType();
 }

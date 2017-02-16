@@ -23,6 +23,7 @@ class IntensityDataCanvas;
 class ProjectionCanvas;
 class QSplitter;
 class IntensityDataItem;
+class ProjectionContainerItem;
 
 namespace Manhattan { class MiniSplitter; }
 
@@ -40,6 +41,7 @@ public:
 
 private:
     IntensityDataItem* intensityDataItem();
+    ProjectionContainerItem* createProjectionContainer(IntensityDataItem* intensityItem);
 
     IntensityDataCanvas* m_intensityCanvas;
     ProjectionCanvas* m_projectionCanvas;

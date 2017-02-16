@@ -206,6 +206,11 @@ double FormFactorDWBAPol::bottomZ(const IRotation& rotation) const
     return mP_form_factor->bottomZ(rotation);
 }
 
+double FormFactorDWBAPol::topZ(const IRotation& rotation) const
+{
+    return mP_form_factor->topZ(rotation);
+}
+
 void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
                                         const ILayerRTCoefficients* p_out_coeffs)
 {

@@ -32,6 +32,13 @@ double FormFactorDecoratorPositionFactor::bottomZ(const IRotation& rotation) con
     return mp_form_factor->bottomZ(rotation) + rotated_translation.z();
 }
 
+double FormFactorDecoratorPositionFactor::topZ(const IRotation& rotation) const
+{
+    Transform3D transform = rotation.getTransform3D();
+    kvector_t rotated_translation = transform.transformed(m_position);
+    return mp_form_factor->topZ(rotation) + rotated_translation.z();
+}
+
 complex_t FormFactorDecoratorPositionFactor::evaluate(
     const WavevectorInfo& wavevectors) const
 {

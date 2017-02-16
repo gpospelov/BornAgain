@@ -25,6 +25,16 @@ C++ includes: AdjustMinimizerStrategy.h
 ";
 
 
+// File: classAnisoPyramid.xml
+%feature("docstring") AnisoPyramid "";
+
+%feature("docstring")  AnisoPyramid::AnisoPyramid "AnisoPyramid::AnisoPyramid(double length, double width, double height, double alpha)
+";
+
+%feature("docstring")  AnisoPyramid::~AnisoPyramid "AnisoPyramid::~AnisoPyramid()
+";
+
+
 // File: classBasic2DLatticeBuilder.xml
 %feature("docstring") Basic2DLatticeBuilder "
 
@@ -369,6 +379,16 @@ creation on  Bin1DKVector from alpha and phi bins
 ";
 
 
+// File: classBiPyramid.xml
+%feature("docstring") BiPyramid "";
+
+%feature("docstring")  BiPyramid::BiPyramid "BiPyramid::BiPyramid(double length, double height, double height_ratio, double alpha)
+";
+
+%feature("docstring")  BiPyramid::~BiPyramid "BiPyramid::~BiPyramid()
+";
+
+
 // File: classBox.xml
 %feature("docstring") Box "";
 
@@ -469,21 +489,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -1387,6 +1407,16 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classDodecahedron.xml
+%feature("docstring") Dodecahedron "";
+
+%feature("docstring")  Dodecahedron::Dodecahedron "Dodecahedron::Dodecahedron(double edge)
+";
+
+%feature("docstring")  Dodecahedron::~Dodecahedron "Dodecahedron::~Dodecahedron()
+";
+
+
 // File: classExceptions_1_1DomainErrorException.xml
 %feature("docstring") Exceptions::DomainErrorException "";
 
@@ -1401,6 +1431,16 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  Dot::~Dot "Dot::~Dot()
+";
+
+
+// File: classDoubleEllipse.xml
+%feature("docstring") DoubleEllipse "";
+
+%feature("docstring")  DoubleEllipse::DoubleEllipse "DoubleEllipse::DoubleEllipse(double r0_x, double r0_y, double z, double rz_x, double rz_y)
+";
+
+%feature("docstring")  DoubleEllipse::~DoubleEllipse "DoubleEllipse::~DoubleEllipse()
 ";
 
 
@@ -2805,6 +2845,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
+%feature("docstring")  FormFactorCoreShell::topZ "double FormFactorCoreShell::topZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorCoreShell::setAmbientMaterial "void FormFactorCoreShell::setAmbientMaterial(const IMaterial &material) overridefinal
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
@@ -2861,6 +2906,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorCrystal::bottomZ "double FormFactorCrystal::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorCrystal::topZ "double FormFactorCrystal::topZ(const IRotation &rotation) const overridefinal
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -3076,6 +3126,11 @@ Calls the  INodeVisitor's visit method.
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
+%feature("docstring")  FormFactorDecoratorPositionFactor::topZ "double FormFactorDecoratorPositionFactor::topZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorDecoratorPositionFactor::evaluate "complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
 Returns scattering amplitude for complex wavevectors ki, kf. 
@@ -3111,6 +3166,11 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorDecoratorRotation::bottomZ "double FormFactorDecoratorRotation::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorDecoratorRotation::topZ "double FormFactorDecoratorRotation::topZ(const IRotation &rotation) const overridefinal
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -3208,6 +3268,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
+%feature("docstring")  FormFactorDWBA::topZ "double FormFactorDWBA::topZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
 
 Sets reflection/transmission info. 
@@ -3264,6 +3329,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorDWBAPol::bottomZ "double FormFactorDWBAPol::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorDWBAPol::topZ "double FormFactorDWBAPol::topZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -4562,6 +4632,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
+%feature("docstring")  FormFactorWeighted::topZ "double FormFactorWeighted::topZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorWeighted::addFormFactor "void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
 ";
 
@@ -4857,7 +4932,7 @@ Returns Fourier transform of this distribution; is a decay function starting at 
 // File: classFTDistribution1DTriangle.xml
 %feature("docstring") FTDistribution1DTriangle "
 
-Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
+Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
 C++ includes: FTDistributions1D.h
 ";
@@ -5853,6 +5928,16 @@ Calculate scattering intensity for each  SimulationElement returns false if noth
 ";
 
 
+// File: classIcosahedron.xml
+%feature("docstring") Icosahedron "";
+
+%feature("docstring")  Icosahedron::Icosahedron "Icosahedron::Icosahedron(double edge)
+";
+
+%feature("docstring")  Icosahedron::~Icosahedron "Icosahedron::~Icosahedron()
+";
+
+
 // File: classIDetector2D.xml
 %feature("docstring") IDetector2D "
 
@@ -6263,6 +6348,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
+%feature("docstring")  IFormFactor::topZ "virtual double IFormFactor::topZ(const IRotation &rotation) const =0
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  IFormFactor::setSpecularInfo "virtual void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *, const ILayerRTCoefficients *)
 
 Sets reflection/transmission info. 
@@ -6306,6 +6396,11 @@ Returns scattering amplitude for matrix interactions.
 ";
 
 %feature("docstring")  IFormFactorBorn::bottomZ "double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorBorn::topZ "double IFormFactorBorn::topZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -6358,6 +6453,11 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  IFormFactorDecorator::bottomZ "double IFormFactorDecorator::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorDecorator::topZ "double IFormFactorDecorator::topZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
@@ -8732,7 +8832,14 @@ Calls the  INodeVisitor's visit method.
 
 
 // File: classIShape.xml
-%feature("docstring") IShape "";
+%feature("docstring") IShape "
+
+Pure virtual base class for different shapes.
+
+In contrast to the form factors, these shapes only provide an intereface for returning a set of vertices.
+
+C++ includes: IShape.h
+";
 
 %feature("docstring")  IShape::IShape "IShape::IShape()
 ";
@@ -11147,6 +11254,26 @@ Increments number of completed computation steps (ticks). Performs callback (met
 ";
 
 
+// File: classPyramid3.xml
+%feature("docstring") Pyramid3 "";
+
+%feature("docstring")  Pyramid3::Pyramid3 "Pyramid3::Pyramid3(double length, double height, double alpha)
+";
+
+%feature("docstring")  Pyramid3::~Pyramid3 "Pyramid3::~Pyramid3()
+";
+
+
+// File: classPyramid6.xml
+%feature("docstring") Pyramid6 "";
+
+%feature("docstring")  Pyramid6::Pyramid6 "Pyramid6::Pyramid6(double length, double height, double alpha)
+";
+
+%feature("docstring")  Pyramid6::~Pyramid6 "Pyramid6::~Pyramid6()
+";
+
+
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -11501,6 +11628,26 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  ResolutionFunction2DGaussian::getSigmaY "double ResolutionFunction2DGaussian::getSigmaY() const 
+";
+
+
+// File: classRippleCosine.xml
+%feature("docstring") RippleCosine "";
+
+%feature("docstring")  RippleCosine::RippleCosine "RippleCosine::RippleCosine(double length, double width, double height)
+";
+
+%feature("docstring")  RippleCosine::~RippleCosine "RippleCosine::~RippleCosine()
+";
+
+
+// File: classRippleSawtooth.xml
+%feature("docstring") RippleSawtooth "";
+
+%feature("docstring")  RippleSawtooth::RippleSawtooth "RippleSawtooth::RippleSawtooth(double length, double width, double height, double asymmetry)
+";
+
+%feature("docstring")  RippleSawtooth::~RippleSawtooth "RippleSawtooth::~RippleSawtooth()
 ";
 
 
@@ -13041,6 +13188,16 @@ C++ includes: TransformationsBuilder.h
 ";
 
 
+// File: classTriangle.xml
+%feature("docstring") Triangle "";
+
+%feature("docstring")  Triangle::Triangle "Triangle::Triangle(double length, double z)
+";
+
+%feature("docstring")  Triangle::~Triangle "Triangle::~Triangle()
+";
+
+
 // File: classTriangularRippleBuilder.xml
 %feature("docstring") TriangularRippleBuilder "
 
@@ -13053,6 +13210,26 @@ C++ includes: RipplesBuilder.h
 ";
 
 %feature("docstring")  TriangularRippleBuilder::buildSample "MultiLayer * TriangularRippleBuilder::buildSample() const 
+";
+
+
+// File: classTruncatedCube.xml
+%feature("docstring") TruncatedCube "";
+
+%feature("docstring")  TruncatedCube::TruncatedCube "TruncatedCube::TruncatedCube(double length, double removed_length)
+";
+
+%feature("docstring")  TruncatedCube::~TruncatedCube "TruncatedCube::~TruncatedCube()
+";
+
+
+// File: classTruncatedEllipsoid.xml
+%feature("docstring") TruncatedEllipsoid "";
+
+%feature("docstring")  TruncatedEllipsoid::TruncatedEllipsoid "TruncatedEllipsoid::TruncatedEllipsoid(double r_x, double r_y, double r_z, double height)
+";
+
+%feature("docstring")  TruncatedEllipsoid::~TruncatedEllipsoid "TruncatedEllipsoid::~TruncatedEllipsoid()
 ";
 
 
@@ -13275,7 +13452,7 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D324.xml
 
 
-// File: namespace_0D445.xml
+// File: namespace_0D469.xml
 
 
 // File: namespace_0D60.xml
@@ -15012,10 +15189,28 @@ Returns concatenated rotation (first right, then left).
 // File: SampleTreeIterator_8h.xml
 
 
+// File: AnisoPyramid_8cpp.xml
+
+
+// File: AnisoPyramid_8h.xml
+
+
+// File: BiPyramid_8cpp.xml
+
+
+// File: BiPyramid_8h.xml
+
+
 // File: Box_8cpp.xml
 
 
 // File: Box_8h.xml
+
+
+// File: Dodecahedron_8cpp.xml
+
+
+// File: Dodecahedron_8h.xml
 
 
 // File: Dot_8cpp.xml
@@ -15024,10 +15219,106 @@ Returns concatenated rotation (first right, then left).
 // File: Dot_8h.xml
 
 
+// File: DoubleEllipse_8cpp.xml
+
+
+// File: DoubleEllipse_8h.xml
+
+
+// File: Icosahedron_8cpp.xml
+
+
+// File: Icosahedron_8h.xml
+
+
 // File: IShape_8cpp.xml
+%feature("docstring")  RectangleVertices "std::vector<kvector_t> RectangleVertices(double length, double width, double z)
+
+Helper functions to construct lists of vertices
+
+Generate vertices of centered rectangle at height z 
+";
+
+%feature("docstring")  TriangleVertices "std::vector<kvector_t> TriangleVertices(double length, double z)
+
+Generate vertices of centered regular triangle with vertex on x-axis at height z. 
+";
+
+%feature("docstring")  HexagonVertices "std::vector<kvector_t> HexagonVertices(double length, double z)
+
+Generate vertices of centered regular hexagon with vertex on x-axis at height z. 
+";
+
+%feature("docstring")  EllipseVertices "std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
+
+Generate vertices of centered ellipse with given semi-axes at height z. 
+";
 
 
 // File: IShape_8h.xml
+%feature("docstring")  RectangleVertices "std::vector<kvector_t> RectangleVertices(double length, double width, double z)
+
+Helper functions to construct lists of vertices
+
+Generate vertices of centered rectangle at height z 
+";
+
+%feature("docstring")  TriangleVertices "std::vector<kvector_t> TriangleVertices(double length, double z)
+
+Generate vertices of centered regular triangle with vertex on x-axis at height z. 
+";
+
+%feature("docstring")  HexagonVertices "std::vector<kvector_t> HexagonVertices(double length, double z)
+
+Generate vertices of centered regular hexagon with vertex on x-axis at height z. 
+";
+
+%feature("docstring")  EllipseVertices "std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
+
+Generate vertices of centered ellipse with given semi-axes at height z. 
+";
+
+
+// File: Pyramid3_8cpp.xml
+
+
+// File: Pyramid3_8h.xml
+
+
+// File: Pyramid6_8cpp.xml
+
+
+// File: Pyramid6_8h.xml
+
+
+// File: RippleCosine_8cpp.xml
+
+
+// File: RippleCosine_8h.xml
+
+
+// File: RippleSawtooth_8cpp.xml
+
+
+// File: RippleSawtooth_8h.xml
+
+
+// File: Triangle_8cpp.xml
+
+
+// File: Triangle_8h.xml
+
+
+// File: TruncatedCube_8cpp.xml
+
+
+// File: TruncatedCube_8h.xml
+
+
+// File: TruncatedEllipsoid_8cpp.xml
+
+
+// File: TruncatedEllipsoid_8h.xml
 
 
 // File: GISASSimulation_8cpp.xml

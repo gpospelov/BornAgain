@@ -9760,7 +9760,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     """
 
 
-    Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
+    Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 
@@ -10741,6 +10741,18 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_bottomZ(self, rotation)
 
 
+    def topZ(self, rotation):
+        """
+        topZ(IFormFactor self, IRotation rotation) -> double
+
+        virtual double IFormFactor::topZ(const IRotation &rotation) const =0
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactor_topZ(self, rotation)
+
+
     def setSpecularInfo(self, arg0, arg1):
         """
         setSpecularInfo(IFormFactor self, ILayerRTCoefficients const * arg0, ILayerRTCoefficients const * arg1)
@@ -11060,6 +11072,18 @@ class IFormFactorBorn(IFormFactor):
         return _libBornAgainCore.IFormFactorBorn_bottomZ(self, rotation)
 
 
+    def topZ(self, rotation):
+        """
+        topZ(IFormFactorBorn self, IRotation rotation) -> double
+
+        double IFormFactorBorn::topZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorBorn_topZ(self, rotation)
+
+
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
@@ -11175,6 +11199,18 @@ class IFormFactorDecorator(IFormFactor):
 
         """
         return _libBornAgainCore.IFormFactorDecorator_bottomZ(self, rotation)
+
+
+    def topZ(self, rotation):
+        """
+        topZ(IFormFactorDecorator self, IRotation rotation) -> double
+
+        double IFormFactorDecorator::topZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_topZ(self, rotation)
 
 IFormFactorDecorator_swigregister = _libBornAgainCore.IFormFactorDecorator_swigregister
 IFormFactorDecorator_swigregister(IFormFactorDecorator)
@@ -12313,6 +12349,18 @@ class FormFactorCrystal(IFormFactor):
 
         """
         return _libBornAgainCore.FormFactorCrystal_bottomZ(self, rotation)
+
+
+    def topZ(self, rotation):
+        """
+        topZ(FormFactorCrystal self, IRotation rotation) -> double
+
+        double FormFactorCrystal::topZ(const IRotation &rotation) const overridefinal
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorCrystal_topZ(self, rotation)
 
 
     def evaluate(self, wavevectors):
@@ -15600,6 +15648,18 @@ class FormFactorWeighted(IFormFactor):
 
         """
         return _libBornAgainCore.FormFactorWeighted_bottomZ(self, rotation)
+
+
+    def topZ(self, rotation):
+        """
+        topZ(FormFactorWeighted self, IRotation rotation) -> double
+
+        double FormFactorWeighted::topZ(const IRotation &rotation) const overridefinal
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorWeighted_topZ(self, rotation)
 
 
     def addFormFactor(self, form_factor, weight=1.0):

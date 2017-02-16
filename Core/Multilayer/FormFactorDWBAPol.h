@@ -51,6 +51,8 @@ public:
 
     double bottomZ(const IRotation& rotation) const override;
 
+    double topZ(const IRotation& rotation) const override;
+
     void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
                          const ILayerRTCoefficients* p_out_coeffs) override;
 

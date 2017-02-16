@@ -34,6 +34,8 @@ public:
 
     double bottomZ(const IRotation& rotation) const override final;
 
+    double topZ(const IRotation& rotation) const override final;
+
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 #ifndef SWIG
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;

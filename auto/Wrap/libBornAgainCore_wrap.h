@@ -330,6 +330,7 @@ public:
     virtual double getVolume() const;
     virtual double getRadialExtension() const;
     virtual double bottomZ(IRotation const &rotation) const;
+    virtual double topZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
 
 /* Internal director utilities */
@@ -361,7 +362,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[16];
+    mutable swig::SwigVar_PyObject vtable[17];
 #endif
 
 };
@@ -387,6 +388,7 @@ public:
     virtual double getVolume() const;
     virtual double getRadialExtension() const;
     virtual double bottomZ(IRotation const &rotation) const;
+    virtual double topZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
     virtual complex_t evaluate_for_q(cvector_t const q) const;
 
@@ -419,7 +421,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };

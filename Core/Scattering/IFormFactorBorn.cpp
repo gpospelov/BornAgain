@@ -38,6 +38,11 @@ double IFormFactorBorn::bottomZ(const IRotation& rotation) const
     return BottomZ(mP_shape->vertices(), rotation.getTransform3D());
 }
 
+double IFormFactorBorn::topZ(const IRotation& rotation) const
+{
+    return TopZ(mP_shape->vertices(), rotation.getTransform3D());
+}
+
 Eigen::Matrix2cd IFormFactorBorn::evaluate_for_q_pol(const cvector_t q) const
 {
     return evaluate_for_q(q) * Eigen::Matrix2cd::Identity();

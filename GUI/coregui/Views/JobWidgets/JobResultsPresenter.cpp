@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "JobResultsPresenter.h"
-#include "IntensityProjectionsWidget.h"
+#include "JobProjectionsWidget.h"
 #include "FitComparisonWidget.h"
 #include "JobItem.h"
 #include "IntensityDataWidget.h"
@@ -26,8 +26,8 @@ JobResultsPresenter::JobResultsPresenter(QWidget* parent)
 {
     registerWidget(Constants::IntensityDataWidgetName, create_new<IntensityDataWidget>);
 
-    registerWidget(Constants::IntensityProjectionsWidgetName,
-                   create_new<IntensityProjectionsWidget>);
+    registerWidget(Constants::JobProjectionsWidgetName,
+                   create_new<JobProjectionsWidget>);
 
     registerWidget(Constants::FitComparisonWidgetName, create_new<FitComparisonWidget>);
 }
@@ -52,6 +52,6 @@ QStringList JobResultsPresenter::presentationList(SessionItem* item)
     Q_ASSERT(item->modelType() == Constants::JobItemType);
 
     return QStringList() << Constants::IntensityDataWidgetName
-                         << Constants::IntensityProjectionsWidgetName
+                         << Constants::JobProjectionsWidgetName
                          << Constants::FitComparisonWidgetName;
 }

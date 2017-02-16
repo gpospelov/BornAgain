@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/JobResultsPresenter.h
-//! @brief     Defines class JobResultsPresenter
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityProjectionsWidget.h
+//! @brief     Defines class IntensityProjectionsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,23 +14,23 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBRESULTSPRESENTER_H
-#define JOBRESULTSPRESENTER_H
+#ifndef INTENSITYPROJECTIONSWIDGET_H
+#define INTENSITYPROJECTIONSWIDGET_H
 
-#include "ItemComboWidget.h"
+#include "SessionItemWidget.h"
 
-//! Presents results of job (JobItem) using stack of different widgets and combo box in the
-//! right top corner of JobView, to switch between widgets.
+class SessionItem;
 
-class BA_CORE_API_ JobResultsPresenter : public ItemComboWidget
+//! A common widget to display color map (IntensityDataCanvas) and properties
+//! (IntensityDataPropertyWidget) of intensity data item.
+
+class BA_CORE_API_ IntensityProjectionsWidget : public SessionItemWidget
 {
     Q_OBJECT
 
 public:
-    explicit JobResultsPresenter(QWidget* parent = 0);
+    IntensityProjectionsWidget(QWidget* parent = 0);
 
-protected:
-    QStringList activePresentationList(SessionItem* item);
 };
 
-#endif // JOBRESULTSPRESENTER_H
+#endif // INTENSITYPROJECTIONSWIDGET_H

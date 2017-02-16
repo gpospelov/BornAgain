@@ -15,35 +15,36 @@
 // ************************************************************************** //
 
 #include "JobResultsPresenter.h"
+#include "IntensityProjectionsWidget.h"
 #include "FitComparisonWidget.h"
 #include "JobItem.h"
 #include "IntensityDataWidget.h"
 #include "mainwindow_constants.h"
-#include <QBoxLayout>
 
-JobResultsPresenter::JobResultsPresenter(QWidget *parent)
+JobResultsPresenter::JobResultsPresenter(QWidget* parent)
     : ItemComboWidget(parent)
 {
-    registerWidget(Constants::IntensityDataWidgetName,
-                   create_new<IntensityDataWidget>);
+    registerWidget(Constants::IntensityDataWidgetName, create_new<IntensityDataWidget>);
 
-    registerWidget(Constants::FitComparisonWidgetName,
-                   create_new<FitComparisonWidget>);
+    registerWidget(Constants::IntensityProjectionsWidgetName,
+                   create_new<IntensityProjectionsWidget>);
+
+    registerWidget(Constants::FitComparisonWidgetName, create_new<FitComparisonWidget>);
 }
 
 //! Returns list of presentation types, available for given item. JobItem with fitting abilities
 //! is valid for IntensityDataWidget and FitComparisonWidget.
 
-QStringList JobResultsPresenter::getValidPresentationList(SessionItem *item)
+QStringList JobResultsPresenter::activePresentationList(SessionItem* item)
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(item);
+    JobItem* jobItem = dynamic_cast<JobItem*>(item);
     Q_ASSERT(jobItem);
 
-    QStringList result = QStringList() << Constants::IntensityDataWidgetName;
+    QStringList result = QStringList() << Constants::IntensityDataWidgetName
+                                       << Constants::IntensityProjectionsWidgetName;
 
-    if(jobItem->isValidForFitting())
+    if (jobItem->isValidForFitting())
         result << Constants::FitComparisonWidgetName;
 
     return result;
 }
-

@@ -21,6 +21,7 @@
 #include <QList>
 
 class QAction;
+class QComboBox;
 
 //! The ItemComboToolBar class is a styled toolbar on top of ItemComboWidget. Contains
 //! ComboBox to switch ItemComboWidget, and dynamic list of actions, which are updated
@@ -31,25 +32,26 @@ class BA_CORE_API_ ItemComboToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit ItemComboToolBar(QWidget *parent = 0);
+    explicit ItemComboToolBar(QWidget* parent = 0);
 
-    void setPresentation(const QString &name);
+    void setPresentation(const QString& name);
 
-    void addPresentationType(const QString &name);
-    void setPresentationList(const QStringList &presentationList);
+    void setPresentationList(const QStringList& presentationList,
+                             const QStringList& activeList = QStringList());
 
     QString currentPresentation() const;
 
-    void setActionList(const QList<QAction *> &actionList);
+    void setActionList(const QList<QAction*>& actionList);
 
 signals:
-    void comboChanged(const QString &presentation);
+    void comboChanged(const QString& presentation);
 
 private:
     void setComboConnected(bool value);
+    void makeItemsEnabled(const QStringList& activePresentations);
 
-    class QComboBox *m_comboBox;
-    QAction *m_comboBoxAction;
+    QComboBox* m_comboBox;
+    QAction* m_comboBoxAction;
 };
 
 #endif // ITEMCOMBOTOOLBAR_H

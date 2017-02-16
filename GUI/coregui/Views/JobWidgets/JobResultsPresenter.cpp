@@ -38,13 +38,20 @@ JobResultsPresenter::JobResultsPresenter(QWidget* parent)
 QStringList JobResultsPresenter::activePresentationList(SessionItem* item)
 {
     JobItem* jobItem = dynamic_cast<JobItem*>(item);
-    Q_ASSERT(jobItem);
 
-    QStringList result = QStringList() << Constants::IntensityDataWidgetName
-                                       << Constants::IntensityProjectionsWidgetName;
+    QStringList result = presentationList(jobItem);
 
-    if (jobItem->isValidForFitting())
-        result << Constants::FitComparisonWidgetName;
+    if (!jobItem->isValidForFitting())
+        result.removeAll(Constants::FitComparisonWidgetName);
 
     return result;
+}
+
+QStringList JobResultsPresenter::presentationList(SessionItem* item)
+{
+    Q_ASSERT(item->modelType() == Constants::JobItemType);
+
+    return QStringList() << Constants::IntensityDataWidgetName
+                         << Constants::IntensityProjectionsWidgetName
+                         << Constants::FitComparisonWidgetName;
 }

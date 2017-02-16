@@ -51,7 +51,7 @@ public:
 
 protected:
     virtual QStringList activePresentationList(SessionItem* item);
-    virtual QStringList validPresentationList(SessionItem* item);
+    virtual QStringList presentationList(SessionItem* item);
 
 private slots:
     void onComboChanged(const QString& name);

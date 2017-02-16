@@ -17,8 +17,6 @@
 #include "SessionItemWidget.h"
 #include "SessionItem.h"
 
-#include <QDebug>
-
 SessionItemWidget::SessionItemWidget(QWidget* parent)
     : QWidget(parent)
     , m_currentItem(nullptr)
@@ -34,8 +32,6 @@ SessionItemWidget::~SessionItemWidget()
 
 void SessionItemWidget::setItem(SessionItem* item)
 {
-    qDebug() << "NewSessionItemWidget::setItem(SessionItem* item)" << item;
-
     if(m_currentItem == item)
         return;
 
@@ -55,20 +51,16 @@ QList<QAction*> SessionItemWidget::actionList()
 
 void SessionItemWidget::showEvent(QShowEvent*)
 {
-    qDebug() << "NewSessionItemWidget::showEvent 1.1 was shown?";
     subscribe();
 }
 
 void SessionItemWidget::hideEvent(QHideEvent*)
 {
-    qDebug() << "NewSessionItemWidget::hideEvent 1.1 was hidden?";
     unsubscribe();
 }
 
 void SessionItemWidget::subscribe()
 {
-    qDebug() << "NewSessionItemWidget::subscribe()" << m_currentItem;
-
     if (!m_currentItem || is_subscribed)
         return;
 
@@ -81,7 +73,6 @@ void SessionItemWidget::subscribe()
 
 void SessionItemWidget::unsubscribe()
 {
-    qDebug() << "NewSessionItemWidget::unsubscribe()" << m_currentItem;
     if (m_currentItem)
         m_currentItem->mapper()->unsubscribe(this);
 

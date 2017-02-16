@@ -46,8 +46,7 @@ void ItemComboWidget::setItem(SessionItem* item)
     if (!item)
         return;
 
-    QStringList validPresentations = activePresentationList(item);
-    m_toolBar->setPresentationList(validPresentations);
+    m_toolBar->setPresentationList(presentationList(item), activePresentationList(item));
 
     m_currentItem = item;
 
@@ -95,9 +94,9 @@ QStringList ItemComboWidget::activePresentationList(SessionItem* item)
     return QStringList();
 }
 
-//! Returns full list of presentations valid for a given item.
+//! Returns full list of presentations available for given item.
 
-QStringList ItemComboWidget::validPresentationList(SessionItem* item)
+QStringList ItemComboWidget::presentationList(SessionItem* item)
 {
     return activePresentationList(item);
 }

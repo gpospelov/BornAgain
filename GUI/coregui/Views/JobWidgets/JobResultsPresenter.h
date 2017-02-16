@@ -31,6 +31,7 @@ public:
 
 protected:
     QStringList activePresentationList(SessionItem* item);
+    virtual QStringList presentationList(SessionItem* item);
 };
 
 #endif // JOBRESULTSPRESENTER_H

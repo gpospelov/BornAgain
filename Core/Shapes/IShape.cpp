@@ -62,7 +62,7 @@ std::vector<kvector_t> HexagonVertices(double length, double z)
 
 std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
 {
-    static constexpr double delta_angle = M_2_PI/IShape::N_Circle;
+    static constexpr double delta_angle = 2.0*M_PI/IShape::N_Circle;
     std::vector<kvector_t> result(IShape::N_Circle);
     for (size_t i=0; i<IShape::N_Circle; ++i)
     {

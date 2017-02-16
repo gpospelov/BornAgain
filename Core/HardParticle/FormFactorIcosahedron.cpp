@@ -56,11 +56,11 @@ FormFactorIcosahedron::FormFactorIcosahedron(double edge)
     setName(BornAgain::FFIcosahedronType);
     registerParameter(BornAgain::Edge, &m_edge).setUnit("nm").setNonnegative();
     onChange();
-    mP_shape.reset(new Icosahedron(edge));
 }
 
 void FormFactorIcosahedron::onChange()
 {
+    mP_shape.reset(new Icosahedron(m_edge));
     double a = m_edge;
     setPolyhedron( topology, -0.7557613140761708*a, {
         {  0.5773502691896258*a,                   0*a, -0.7557613140761708*a},

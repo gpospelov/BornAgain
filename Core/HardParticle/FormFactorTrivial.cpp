@@ -15,10 +15,17 @@
 
 #include "FormFactorTrivial.h"
 #include "BornAgainNamespace.h"
+#include "Dot.h"
 #include "RealParameter.h"
 
 
 FormFactorTrivial::FormFactorTrivial()
 {
     setName(BornAgain::FormFactorTrivialType);
+    onChange();
+}
+
+void FormFactorTrivial::onChange()
+{
+    mP_shape.reset(new Dot());
 }

@@ -46,7 +46,6 @@ FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, do
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
-    mP_shape.reset(new Pyramid3(base_edge, height, alpha));
 }
 
 void FormFactorTetrahedron::onChange()
@@ -63,6 +62,7 @@ void FormFactorTetrahedron::onChange()
         ostr << ", alpha[rad]:" << m_alpha << ")";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new Pyramid3(m_base_edge, m_height, m_alpha));
 
     double a = m_base_edge;
     double as = a/2;

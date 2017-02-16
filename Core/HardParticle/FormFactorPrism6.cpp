@@ -26,11 +26,11 @@ FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     onChange();
-    mP_shape.reset(new Pyramid6(base_edge, height, M_PI_2));
 }
 
 void FormFactorPrism6::onChange()
 {
+    mP_shape.reset(new Pyramid6(m_base_edge, m_height, M_PI_2));
     double a = m_base_edge;
     double as = a*sqrt(3)/2;
     double ac = a/2;

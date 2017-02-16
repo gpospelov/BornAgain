@@ -26,7 +26,7 @@ FormFactorCylinder::FormFactorCylinder(double radius, double height)
     setName(BornAgain::FFCylinderType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    mP_shape.reset(new DoubleEllipse(radius, radius, height, radius, radius));
+    onChange();
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
@@ -41,4 +41,9 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
     complex_t result = radial_part * z_part;
 
     return result;
+}
+
+void FormFactorCylinder::onChange()
+{
+    mP_shape.reset(new DoubleEllipse(m_radius, m_radius, m_height, m_radius, m_radius));
 }

@@ -31,7 +31,7 @@ FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(
     registerParameter(BornAgain::RadiusX, &m_radius_x).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    mP_shape.reset(new DoubleEllipse(radius_x, radius_y, height, radius_x, radius_y));
+    onChange();
 }
 
 double FormFactorEllipsoidalCylinder::getRadialExtension() const
@@ -50,4 +50,9 @@ complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
     complex_t J1_gamma_div_gamma = MathFunctions::Bessel_J1c(gamma);
 
     return M_TWOPI *m_radius_x*m_radius_y*m_height * Fz*J1_gamma_div_gamma;
+}
+
+void FormFactorEllipsoidalCylinder::onChange()
+{
+    mP_shape.reset(new DoubleEllipse(m_radius_x, m_radius_y, m_height, m_radius_x, m_radius_y));
 }

@@ -30,7 +30,7 @@ FormFactorBox::FormFactorBox(double length, double width, double height)
     registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Width,  &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    mP_shape.reset(new Box(length, width, height));
+    onChange();
 }
 
 complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
@@ -39,4 +39,9 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
     return m_height*m_length*m_width *
         MathFunctions::sinc(m_length/2*q.x()) *  MathFunctions::sinc(m_width/2*q.y()) *
             MathFunctions::sinc(qzHdiv2) * exp_I(qzHdiv2);
+}
+
+void FormFactorBox::onChange()
+{
+    mP_shape.reset(new Box(m_length, m_width, m_height));
 }

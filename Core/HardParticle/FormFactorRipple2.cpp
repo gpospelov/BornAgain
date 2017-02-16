@@ -29,7 +29,7 @@ FormFactorRipple2::FormFactorRipple2(double length, double width, double height,
     registerParameter(BornAgain::Width, &m_width      ).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
-    mP_shape.reset(new RippleSawtooth(length, width, height, asymmetry));
+    onChange();
 }
 
 double FormFactorRipple2::getRadialExtension() const
@@ -66,6 +66,11 @@ complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const
                  / (4.0 * Hqzdqy * Hqzdqy - q.y() * q.y() * m_width * m_width);
     }
     return factor * result;
+}
+
+void FormFactorRipple2::onChange()
+{
+    mP_shape.reset(new RippleSawtooth(m_length, m_width, m_height, m_d));
 }
 
 bool FormFactorRipple2::check_initialization() const

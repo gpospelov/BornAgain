@@ -33,7 +33,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
     setName(BornAgain::FormFactorSphereUniformRadiusType);
     registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::FullWidth, &m_full_width).setUnit("nm").setNonnegative();
-    mP_shape.reset(new TruncatedEllipsoid(mean, mean, mean, 2.0*mean));
+    onChange();
 }
 
 complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
@@ -50,6 +50,11 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
                                   - qW*std::cos(qW/2.0)*std::sin(qR)
                                   - 2.0*qR*std::cos(qR)*std::sin(qW/2.0) );
     return nominator/(q2*q2*W);
+}
+
+void FormFactorSphereUniformRadius::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean));
 }
 
 bool FormFactorSphereUniformRadius::checkParameters() const

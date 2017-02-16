@@ -31,7 +31,7 @@ FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorRipple1::Integrand);
-    mP_shape.reset(new RippleCosine(length, width, height));
+    onChange();
 }
 
 bool FormFactorRipple1::check_initialization() const
@@ -81,4 +81,9 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
     m_az = complex_t(0,1) * q.z() * (m_height/2);
     complex_t integral = mP_integrator->integrate(0, M_PI);
     return factor * integral * exp(m_az) * (m_height/2);
+}
+
+void FormFactorRipple1::onChange()
+{
+    mP_shape.reset(new RippleCosine(m_length, m_width, m_height));
 }

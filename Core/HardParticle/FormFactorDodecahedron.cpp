@@ -46,11 +46,11 @@ FormFactorDodecahedron::FormFactorDodecahedron(double edge)
     setName(BornAgain::FFDodecahedronType);
     registerParameter(BornAgain::Edge, &m_edge).setUnit("nm").setNonnegative();
     onChange();
-    mP_shape.reset(new Dodecahedron(edge));
 }
 
 void FormFactorDodecahedron::onChange()
 {
+    mP_shape.reset(new Dodecahedron(m_edge));
     double a = m_edge;
     setPolyhedron( topology, -1.113516364411607*a, {
         {  0.8506508083520399*a,                   0*a,  -1.113516364411607*a},

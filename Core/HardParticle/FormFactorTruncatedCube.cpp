@@ -49,7 +49,6 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_l
     registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::RemovedLength, &m_removed_length).setUnit("nm").setNonnegative();
     onChange();
-    mP_shape.reset(new TruncatedCube(length, removed_length));
 }
 
 void FormFactorTruncatedCube::onChange()
@@ -62,6 +61,7 @@ void FormFactorTruncatedCube::onChange()
         ostr << "Check for removed_length <= 0.5*length failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new TruncatedCube(m_length, m_removed_length));
 
     double a = m_length/2;
     double b = m_removed_length;

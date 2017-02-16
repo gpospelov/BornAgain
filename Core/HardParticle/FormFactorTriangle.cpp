@@ -26,11 +26,11 @@ FormFactorTriangle::FormFactorTriangle(const double base_edge)
     setName("Triangle");
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     onChange();
-    mP_shape.reset(new Triangle(base_edge, 0.0));
 }
 
 void FormFactorTriangle::onChange()
 {
+    mP_shape.reset(new Triangle(m_base_edge, 0.0));
     double a = m_base_edge;
     double as = a/2;
     double ac = a/sqrt(3)/2;

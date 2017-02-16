@@ -31,7 +31,7 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
-    mP_shape.reset(new TruncatedEllipsoid(radius, radius, radius, height));
+    onChange();
 }
 
 bool FormFactorTruncatedSphere::check_initialization() const
@@ -69,4 +69,9 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const
     // else
     complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius);
     return M_TWOPI * integral * exp_I(q.z()*(m_height-m_radius));
+}
+
+void FormFactorTruncatedSphere::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, m_height));
 }

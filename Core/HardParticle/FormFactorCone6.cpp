@@ -47,7 +47,6 @@ FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
-    mP_shape.reset(new Pyramid6(base_edge, height, alpha));
 }
 
 void FormFactorCone6::onChange()
@@ -64,6 +63,7 @@ void FormFactorCone6::onChange()
         ostr << ", alpha[rad]:" << m_alpha << ")";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new Pyramid6(m_base_edge, m_height, m_alpha));
 
     double a = m_base_edge;
     double as = a/2;

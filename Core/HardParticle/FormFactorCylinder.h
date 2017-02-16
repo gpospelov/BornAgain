@@ -37,6 +37,9 @@ public:
 
     complex_t evaluate_for_q(const cvector_t q) const override final;
 
+protected:
+    void onChange() override final;
+
 private:
     double m_radius;
     double m_height;

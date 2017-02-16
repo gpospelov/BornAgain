@@ -49,7 +49,6 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
-    mP_shape.reset(new AnisoPyramid(length, width, height, alpha));
 }
 
 void FormFactorAnisoPyramid::onChange()
@@ -69,6 +68,7 @@ void FormFactorAnisoPyramid::onChange()
         ostr << "Check for '2*height <= (length,width)*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new AnisoPyramid(m_length, m_width, m_height, m_alpha));
 
     double D = m_length/2;
     double d = m_length/2 * (1-r);

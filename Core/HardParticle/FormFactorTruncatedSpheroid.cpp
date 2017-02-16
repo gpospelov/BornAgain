@@ -32,7 +32,7 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::HeightFlattening, &m_height_flattening).setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSpheroid::Integrand);
-    mP_shape.reset(new TruncatedEllipsoid(radius, radius, height_flattening*radius, height));
+    onChange();
 }
 
 bool FormFactorTruncatedSpheroid::check_initialization() const
@@ -74,4 +74,10 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
         return M_PI*R*H*H/fp*(1.-H/(3.*fp*R));
     complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
     return M_TWOPI * z_part *mP_integrator->integrate(fp*R-H,fp*R );
+}
+
+void FormFactorTruncatedSpheroid::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_height_flattening*m_radius,
+                                          m_height));
 }

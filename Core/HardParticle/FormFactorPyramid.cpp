@@ -46,7 +46,6 @@ FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alp
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
-    mP_shape.reset(new AnisoPyramid(base_edge, base_edge, height, alpha));
 }
 
 void FormFactorPyramid::onChange()
@@ -64,6 +63,7 @@ void FormFactorPyramid::onChange()
         ostr << "Check for 'height <= base_edge*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new AnisoPyramid(m_base_edge, m_base_edge, m_height, m_alpha));
 
     double a = m_base_edge/2;
     double b = a * (1-r);

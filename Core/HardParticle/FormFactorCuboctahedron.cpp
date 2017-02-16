@@ -53,7 +53,6 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     registerParameter(BornAgain::HeightRatio, &m_height_ratio).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
-    mP_shape.reset(new BiPyramid(length, height, height_ratio, alpha));
 }
 
 void FormFactorCuboctahedron::onChange()
@@ -73,6 +72,8 @@ void FormFactorCuboctahedron::onChange()
         ostr << "Check for '2.*height <= length*tan(alpha)*min(1.,1.0/height_ratio)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new BiPyramid(m_length, m_height, m_height_ratio, m_alpha));
+
     double a = m_length/2 * (1-r);
     double b = m_length/2;
     double c = m_length/2 * (1-r*x);

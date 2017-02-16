@@ -32,7 +32,7 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_
     registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorHemiEllipsoid::Integrand);
-    mP_shape.reset(new TruncatedEllipsoid(radius_x, radius_y, height, height));
+    onChange();
 }
 
 double FormFactorHemiEllipsoid::getRadialExtension() const
@@ -69,4 +69,9 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
      if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
          return M_TWOPI*R*W*H/3.;
      return M_TWOPI*mP_integrator->integrate(0.,H );
+}
+
+void FormFactorHemiEllipsoid::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_radius_x, m_radius_x, m_height, m_height));
 }

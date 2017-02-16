@@ -25,6 +25,7 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
     setName(BornAgain::FFFullSphereType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     mP_shape.reset(new TruncatedEllipsoid(radius, radius, radius, 2.0*radius));
+    onChange();
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
@@ -48,4 +49,9 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
     }
 
     return exp_I(q.z()*R) * ret;
+}
+
+void FormFactorFullSphere::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, 2.0*m_radius));
 }

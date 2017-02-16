@@ -15,6 +15,7 @@
 
 #include "FormFactorLongRipple1Gauss.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "Exceptions.h"
 #include "RealLimits.h"
 #include "MathFunctions.h"
@@ -30,6 +31,7 @@ FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double wid
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorLongRipple1Gauss::Integrand);
+    onChange();
 }
 
 bool FormFactorLongRipple1Gauss::check_initialization() const
@@ -81,4 +83,9 @@ complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
     // numerical integration otherwise
     complex_t integral = mP_integrator->integrate(0, m_height);
     return factor * integral;
+}
+
+void FormFactorLongRipple1Gauss::onChange()
+{
+    mP_shape.reset(new Box(m_length, m_width, m_height));
 }

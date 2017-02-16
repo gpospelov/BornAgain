@@ -15,6 +15,7 @@
 
 #include "FormFactorLongRipple2Gauss.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "Exceptions.h"
 #include "RealParameter.h"
 
@@ -31,6 +32,7 @@ FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(
     registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Length, &m_length    ).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
+    onChange();
 }
 
 bool FormFactorLongRipple2Gauss::check_initialization() const
@@ -100,4 +102,9 @@ complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const
                  / (4.0 * Hqzdqy * Hqzdqy - q.y() * q.y() * m_width * m_width);
     }
     return factor * result;
+}
+
+void FormFactorLongRipple2Gauss::onChange()
+{
+    mP_shape.reset(new Box(m_length, m_width, m_height));
 }

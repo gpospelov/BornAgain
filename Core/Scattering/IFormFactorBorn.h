@@ -17,6 +17,7 @@
 #define IFORMFACTORBORN_H
 
 #include "IFormFactor.h"
+#include "IShape.h"
 #include "Vectors3D.h"
 
 //! Pure virtual base class for Born form factors.
@@ -30,7 +31,7 @@
 class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
 public:
-    IFormFactorBorn() {}
+    IFormFactorBorn();
     ~IFormFactorBorn() override {}
 
     IFormFactorBorn* clone() const override=0;
@@ -45,6 +46,8 @@ public:
 
     double bottomZ(const IRotation& rotation) const override;
 
+    double topZ(const IRotation& rotation) const override;
+
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     //! This method is public only for convenience of plotting form factors in Python.
     virtual complex_t evaluate_for_q(const cvector_t q) const=0;
@@ -56,6 +59,10 @@ protected:
     //! multiplies with the unit matrix.
     virtual Eigen::Matrix2cd  evaluate_for_q_pol(const cvector_t q) const;
 #endif
+
+    //! IShape object, used to retrieve vertices (which may be approximate in the case
+    //! of round shapes). For soft particles, this will be a hard mean shape.
+    std::unique_ptr<IShape> mP_shape;
 };
 
 #ifdef POLYHEDRAL_DIAGNOSTIC

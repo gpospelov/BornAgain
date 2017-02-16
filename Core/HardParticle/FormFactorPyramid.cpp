@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorPyramid.h"
+#include "AnisoPyramid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -62,6 +63,7 @@ void FormFactorPyramid::onChange()
         ostr << "Check for 'height <= base_edge*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new AnisoPyramid(m_base_edge, m_base_edge, m_height, m_alpha));
 
     double a = m_base_edge/2;
     double b = a * (1-r);

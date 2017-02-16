@@ -18,6 +18,7 @@
 #include "Distributions.h"
 #include "ParameterSample.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
         double mean, double scale_param, size_t n_samples)
@@ -38,6 +39,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
         m_form_factors.push_back(new FormFactorFullSphere(radius));
         m_probabilities.push_back(sample.weight);
     }
+    onChange();
 }
 
 complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const
@@ -48,4 +50,9 @@ complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) con
     for (size_t i=0; i<m_form_factors.size(); ++i)
         result += m_form_factors[i]->evaluate_for_q(q) * m_probabilities[i];
     return result;
+}
+
+void FormFactorSphereLogNormalRadius::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean));
 }

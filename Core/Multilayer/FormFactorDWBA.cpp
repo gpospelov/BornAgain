@@ -73,6 +73,16 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
     return term_S + term_RS + term_SR + term_RSR;
 }
 
+double FormFactorDWBA::bottomZ(const IRotation& rotation) const
+{
+    return mP_form_factor->bottomZ(rotation);
+}
+
+double FormFactorDWBA::topZ(const IRotation& rotation) const
+{
+    return mP_form_factor->topZ(rotation);
+}
+
 void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
                                      const ILayerRTCoefficients* p_out_coeffs)
 {

@@ -15,6 +15,7 @@
 
 #include "FormFactorLongRipple1Lorentz.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
@@ -30,6 +31,7 @@ FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorLongRipple1Lorentz::Integrand);
+    onChange();
 }
 
 bool FormFactorLongRipple1Lorentz::check_initialization() const
@@ -81,4 +83,9 @@ complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const
     // numerical integration otherwise
     complex_t integral = mP_integrator->integrate(0, m_height);
     return factor*integral;
+}
+
+void FormFactorLongRipple1Lorentz::onChange()
+{
+    mP_shape.reset(new Box(m_length, m_width, m_height));
 }

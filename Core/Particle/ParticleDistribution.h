@@ -34,12 +34,6 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Sets the refractive index of the ambient material.
-    void setAmbientMaterial(const IMaterial& material) final;
-
-    //! Returns particle's material.
-    const IMaterial* getAmbientMaterial() const final;
-
     //! Returns list of new particles generated according to a distribution.
     std::vector<const IParticle*> generateParticles() const;
 

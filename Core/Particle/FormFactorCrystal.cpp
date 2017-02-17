@@ -35,6 +35,16 @@ FormFactorCrystal::~FormFactorCrystal()
     delete mp_meso_form_factor;
 }
 
+double FormFactorCrystal::bottomZ(const IRotation& rotation) const
+{
+    return mp_meso_form_factor->bottomZ(rotation);
+}
+
+double FormFactorCrystal::topZ(const IRotation& rotation) const
+{
+    return mp_meso_form_factor->topZ(rotation);
+}
+
 complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
 {
     // retrieve reciprocal lattice vectors within reasonable radius

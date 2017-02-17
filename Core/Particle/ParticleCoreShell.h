@@ -36,10 +36,6 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Sets the refractive index of the ambient material (which influences its scattering power)
-    void setAmbientMaterial(const IMaterial& material) final;
-    const IMaterial* getAmbientMaterial() const final;
-
     //! Create a form factor for this particle with an extra scattering factor
     IFormFactor* createTransformedFormFactor(
         const IRotation* p_rotation, kvector_t translation) const final;

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/LayerStrategyBuilder.cpp
-//! @brief     Implements class LayerStrategyBuilder.
+//! @file      Core/Multilayer/LayoutStrategyBuilder.cpp
+//! @brief     Implements class LayoutStrategyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "LayerStrategyBuilder.h"
+#include "LayoutStrategyBuilder.h"
 #include "Exceptions.h"
 #include "FormFactorCoherentSum.h"
 #include "FormFactorDWBA.h"
@@ -27,7 +27,7 @@
 #include "DecouplingApproximationStrategy.h"
 #include "SSCApproximationStrategy.h"
 
-LayerStrategyBuilder::LayerStrategyBuilder(
+LayoutStrategyBuilder::LayoutStrategyBuilder(
     const MultiLayer* p_multilayer, const ILayout* p_layout,
     const IFresnelMap* p_fresnel_map, bool polarized,
     const SimulationOptions& sim_params, size_t layer_index)
@@ -39,11 +39,11 @@ LayerStrategyBuilder::LayerStrategyBuilder(
     , m_layer_index(layer_index)
 {}
 
-LayerStrategyBuilder::~LayerStrategyBuilder()
+LayoutStrategyBuilder::~LayoutStrategyBuilder()
 {} // needs class definitions => don't move to .h
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
-IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
+IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
 {
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
 
@@ -77,30 +77,24 @@ IInterferenceFunctionStrategy* LayerStrategyBuilder::createStrategy() const
 }
 
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
-SafePointerVector<class FormFactorCoherentSum> LayerStrategyBuilder::collectFormFactorList() const
+SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFormFactorList() const
 {
     SafePointerVector<class FormFactorCoherentSum> result;
-    const IMaterial* p_layer_material = mp_multilayer->getLayer(m_layer_index)->getMaterial();
     double layout_abundance = mp_layout->getTotalAbundance();
-    if (layout_abundance<=0.0) // TODO: why this can happen? why not throw error?
-        layout_abundance = 1.0;
     for (const IParticle* particle: mp_layout->getParticles()) {
         FormFactorCoherentSum* p_ff_coh;
-        p_ff_coh = createFormFactorCoherentSum(particle, p_layer_material);
+        p_ff_coh = createFormFactorCoherentSum(particle);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
-        p_ff_coh->setSpecularInfo(mp_fresnel_map, m_layer_index);
         result.push_back(p_ff_coh);
     }
     return result;
 }
 
 //! Returns a new formfactor wrapper for a given particle in given ambient material.
-FormFactorCoherentSum* LayerStrategyBuilder::createFormFactorCoherentSum(
-    const IParticle* particle, const IMaterial* p_ambient_material) const
+FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
+    const IParticle* particle) const
 {
     const std::unique_ptr<IParticle> P_particle_clone{ particle->clone() };
-    P_particle_clone->setAmbientMaterial(*p_ambient_material);
-
     const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
     std::unique_ptr<IFormFactor> P_ff_framework;
     if (mp_multilayer->getNumberOfLayers()>1) {
@@ -111,5 +105,22 @@ FormFactorCoherentSum* LayerStrategyBuilder::createFormFactorCoherentSum(
     } else
         P_ff_framework.reset(P_ff_particle->clone());
 
-    return new FormFactorCoherentSum(P_ff_framework.release(), particle->getAbundance());
+    size_t layer_index = findLayerIndex(*P_ff_framework);
+    const IMaterial* p_layer_material = mp_multilayer->getLayer(layer_index)->getMaterial();
+    P_ff_framework->setAmbientMaterial(*p_layer_material);
+
+    auto part = FormFactorCoherentPart(P_ff_framework.release());
+    part.setSpecularInfo(mp_fresnel_map, layer_index);
+
+    std::unique_ptr<FormFactorCoherentSum> P_result(
+                new FormFactorCoherentSum(particle->getAbundance()));
+    P_result->addCoherentPart(part);
+    return P_result.release();
+}
+
+size_t LayoutStrategyBuilder::findLayerIndex(const IFormFactor& ff) const
+{
+    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
+    double zmin = ff.bottomZ(*P_rot) + mp_multilayer->getLayerTopZ(m_layer_index);
+    return mp_multilayer->zToLayerIndex(zmin);
 }

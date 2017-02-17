@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/LayerStrategyBuilder.h
-//! @brief     Defines class LayerStrategyBuilder.
+//! @file      Core/Multilayer/LayoutStrategyBuilder.h
+//! @brief     Defines class LayoutStrategyBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,14 +13,15 @@
 //
 // ************************************************************************** //
 
-#ifndef LAYERSTRATEGYBUILDER_H
-#define LAYERSTRATEGYBUILDER_H
+#ifndef LAYOUTSTRATEGYBUILDER_H
+#define LAYOUTSTRATEGYBUILDER_H
 
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
 #include <memory>
 
 class FormFactorCoherentSum;
+class IFormFactor;
 class IInterferenceFunctionStrategy;
 class ILayout;
 class IMaterial;
@@ -31,22 +32,22 @@ class MultiLayer;
 //! Methods to generate a simulation strategy for a ParticleLayoutComputation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ LayerStrategyBuilder
+class BA_CORE_API_ LayoutStrategyBuilder
 {
 public:
-    LayerStrategyBuilder(
+    LayoutStrategyBuilder(
         const MultiLayer* p_multilayer, const ILayout* p_layout,
         const IFresnelMap* p_fresnel_map, bool polarized,
         const SimulationOptions& sim_params, size_t layer_index);
 
-    ~LayerStrategyBuilder();
+    ~LayoutStrategyBuilder();
 
     IInterferenceFunctionStrategy* createStrategy() const;
 
 private:
     SafePointerVector<class FormFactorCoherentSum> collectFormFactorList() const;
-    FormFactorCoherentSum* createFormFactorCoherentSum(
-        const IParticle* particle, const IMaterial* p_ambient_material) const;
+    FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle) const;
+    size_t findLayerIndex(const IFormFactor& ff) const;
 
     const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;
@@ -57,4 +58,4 @@ private:
     size_t m_layer_index;
 };
 
-#endif // LAYERSTRATEGYBUILDER_H
+#endif // LAYOUTSTRATEGYBUILDER_H

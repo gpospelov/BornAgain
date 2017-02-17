@@ -17,6 +17,8 @@
 #include "BornAgainNamespace.h"
 #include "RealLimits.h"
 #include "RealParameter.h"
+#include "Triangle.h"
+
 
 FormFactorTriangle::FormFactorTriangle(const double base_edge)
     : m_base_edge( base_edge )
@@ -28,6 +30,7 @@ FormFactorTriangle::FormFactorTriangle(const double base_edge)
 
 void FormFactorTriangle::onChange()
 {
+    mP_shape.reset(new Triangle(m_base_edge, 0.0));
     double a = m_base_edge;
     double as = a/2;
     double ac = a/sqrt(3)/2;

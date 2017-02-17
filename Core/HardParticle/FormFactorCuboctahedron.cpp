@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCuboctahedron.h"
+#include "BiPyramid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -71,6 +72,8 @@ void FormFactorCuboctahedron::onChange()
         ostr << "Check for '2.*height <= length*tan(alpha)*min(1.,1.0/height_ratio)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new BiPyramid(m_length, m_height, m_height_ratio, m_alpha));
+
     double a = m_length/2 * (1-r);
     double b = m_length/2;
     double c = m_length/2 * (1-r*x);

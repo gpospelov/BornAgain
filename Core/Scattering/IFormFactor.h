@@ -22,6 +22,7 @@
 
 class IMaterial;
 class ILayerRTCoefficients;
+class IRotation;
 class WavevectorInfo;
 
 //! Pure virtual base class for all form factors.
@@ -43,7 +44,7 @@ public:
     IFormFactor* clone() const override=0;
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial&) {}
+    virtual void setAmbientMaterial(const IMaterial&) =0;
 
     //! Returns scattering amplitude for complex wavevectors ki, kf.
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
@@ -59,6 +60,12 @@ public:
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
     virtual double getRadialExtension() const=0;
+
+    //! Returns the z-coordinate of the lowest point in this shape after a given rotation
+    virtual double bottomZ(const IRotation& rotation) const=0;
+
+    //! Returns the z-coordinate of the lowest point in this shape after a given rotation
+    virtual double topZ(const IRotation& rotation) const=0;
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}

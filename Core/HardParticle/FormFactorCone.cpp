@@ -15,6 +15,7 @@
 
 #include "FormFactorCone.h"
 #include "BornAgainNamespace.h"
+#include "DoubleEllipse.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
@@ -45,6 +46,7 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
 
     mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);
+    onChange();
 }
 
 //! Integrand for complex formfactor.
@@ -70,4 +72,10 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
         complex_t integral = mP_integrator->integrate(0., m_height);
         return M_TWOPI*integral;
     }
+}
+
+void FormFactorCone::onChange()
+{
+    double radius2 = m_radius - m_height*m_cot_alpha;
+    mP_shape.reset(new DoubleEllipse(m_radius, m_radius, m_height, radius2, radius2));
 }

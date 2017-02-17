@@ -45,6 +45,9 @@ public:
 
     complex_t evaluate_for_q(const cvector_t q) const override final;
 
+protected:
+    void onChange() override final;
+
 private:
     bool check_initialization() const;
 

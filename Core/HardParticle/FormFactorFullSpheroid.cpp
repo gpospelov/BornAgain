@@ -18,6 +18,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 #include <limits>
 
 //! @param radius of the two equal axes
@@ -29,6 +30,7 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorFullSpheroid::Integrand);
+    onChange();
 }
 
 //! Integrand for complex formfactor.
@@ -55,4 +57,9 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
         return M_TWOPI*R*R*H/3.;
     complex_t qzH_half = H/2*q.z();
     return 4 * M_PI * mP_integrator->integrate(0.0, H/2.0) * exp_I(qzH_half);
+}
+
+void FormFactorFullSpheroid::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_height/2.0, m_height));
 }

@@ -43,7 +43,7 @@ class SimulationElement;
 //! (DecouplingApproximationStrategy1, SSCApproximationStrategy1, and their polarized
 //! counterparts).
 //!
-//! Instantiation of child classes takes place in LayerStrategyBuilder::createStrategy,
+//! Instantiation of child classes takes place in LayoutStrategyBuilder::createStrategy,
 //! which is called from ParticleLayoutComputation::eval.
 //!
 //! @ingroup algorithms_internal

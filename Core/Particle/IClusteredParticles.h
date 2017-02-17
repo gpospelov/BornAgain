@@ -35,9 +35,6 @@ public:
 
     virtual void accept(INodeVisitor* visitor) const =0;
 
-    virtual void setAmbientMaterial(const IMaterial& material) =0;
-    virtual const IMaterial* getAmbientMaterial() const =0;
-
     //! Creates a total form factor for the mesocrystal with a specific shape and content
     //! The bulk content of the mesocrystal is encapsulated by the IClusteredParticles object itself
     virtual IFormFactor* createTotalFormFactor(

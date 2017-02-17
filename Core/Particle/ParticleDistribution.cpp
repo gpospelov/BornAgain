@@ -50,16 +50,6 @@ ParticleDistribution* ParticleDistribution::cloneInvertB() const
                                               "cloneInvertB: should never be called");
 }
 
-void ParticleDistribution::setAmbientMaterial(const IMaterial& material)
-{
-    mP_particle->setAmbientMaterial(material);
-}
-
-const IMaterial* ParticleDistribution::getAmbientMaterial() const
-{
-    return mP_particle->getAmbientMaterial();
-}
-
 //! Returns particle clones with parameter values drawn from distribution.
 
 std::vector<const IParticle*> ParticleDistribution::generateParticles() const

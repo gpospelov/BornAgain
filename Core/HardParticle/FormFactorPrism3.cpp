@@ -15,6 +15,7 @@
 
 #include "FormFactorPrism3.h"
 #include "BornAgainNamespace.h"
+#include "Pyramid3.h"
 #include "RealParameter.h"
 #include <iostream>
 
@@ -29,6 +30,7 @@ FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
 
 void FormFactorPrism3::onChange()
 {
+    mP_shape.reset(new Pyramid3(m_base_edge, m_height, M_PI_2));
     double a = m_base_edge;
     double as = a/2;
     double ac = a/sqrt(3)/2;

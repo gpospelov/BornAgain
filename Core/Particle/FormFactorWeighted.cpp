@@ -44,6 +44,28 @@ double FormFactorWeighted::getRadialExtension() const
     return result;
 }
 
+double FormFactorWeighted::bottomZ(const IRotation& rotation) const
+{
+    if (m_form_factors.size()==0)
+        throw std::runtime_error("FormFactorWeighted::bottomZ() -> Error: "
+                                 "'this' contains no form factors.");
+    double zmin = m_form_factors[0]->bottomZ(rotation);
+    for (size_t index=1; index<m_form_factors.size(); ++index )
+        zmin = std::min(zmin, m_form_factors[index]->bottomZ(rotation));
+    return zmin;
+}
+
+double FormFactorWeighted::topZ(const IRotation& rotation) const
+{
+    if (m_form_factors.size()==0)
+        throw std::runtime_error("FormFactorWeighted::topZ() -> Error: "
+                                 "'this' contains no form factors.");
+    double zmax = m_form_factors[0]->topZ(rotation);
+    for (size_t index=1; index<m_form_factors.size(); ++index )
+        zmax = std::min(zmax, m_form_factors[index]->topZ(rotation));
+    return zmax;
+}
+
 void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor, double weight)
 {
     m_form_factors.push_back(form_factor.clone());

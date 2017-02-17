@@ -15,31 +15,43 @@
 // ************************************************************************** //
 
 #include "JobResultsPresenter.h"
+#include "JobProjectionsWidget.h"
 #include "FitComparisonWidget.h"
 #include "JobItem.h"
-#include "ObsoleteIntensityDataWidget.h"
+#include "IntensityDataWidget.h"
 #include "mainwindow_constants.h"
-#include <QBoxLayout>
 
-JobResultsPresenter::JobResultsPresenter(QWidget *parent)
+JobResultsPresenter::JobResultsPresenter(QWidget* parent)
     : ItemComboWidget(parent)
 {
-    registerWidget(Constants::IntensityDataWidgetName, create_new<ObsoleteIntensityDataWidget>);
+    registerWidget(Constants::IntensityDataWidgetName, create_new<IntensityDataWidget>);
+
+    registerWidget(Constants::JobProjectionsWidgetName,
+                   create_new<JobProjectionsWidget>);
+
     registerWidget(Constants::FitComparisonWidgetName, create_new<FitComparisonWidget>);
 }
 
 //! Returns list of presentation types, available for given item. JobItem with fitting abilities
 //! is valid for IntensityDataWidget and FitComparisonWidget.
 
-QStringList JobResultsPresenter::getValidPresentationList(SessionItem *item)
+QStringList JobResultsPresenter::activePresentationList(SessionItem* item)
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(item);
-    Q_ASSERT(jobItem);
+    JobItem* jobItem = dynamic_cast<JobItem*>(item);
 
-    QStringList result = QStringList() << Constants::IntensityDataWidgetName;
-    if(jobItem->isValidForFitting())
-        result << Constants::FitComparisonWidgetName;
+    QStringList result = presentationList(jobItem);
+
+    if (!jobItem->isValidForFitting())
+        result.removeAll(Constants::FitComparisonWidgetName);
 
     return result;
 }
 
+QStringList JobResultsPresenter::presentationList(SessionItem* item)
+{
+    Q_ASSERT(item->modelType() == Constants::JobItemType);
+
+    return QStringList() << Constants::IntensityDataWidgetName
+                         << Constants::JobProjectionsWidgetName
+                         << Constants::FitComparisonWidgetName;
+}

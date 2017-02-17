@@ -55,6 +55,7 @@
 #include "VectorItem.h"
 #include "LinkInstrumentItem.h"
 #include "RealLimitsItems.h"
+#include "ProjectionItems.h"
 
 namespace {
 template<typename T> SessionItem *createInstance() { return new T; }
@@ -209,6 +210,10 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::RealLimitsLowerLimitedType] = &createInstance<LowerLimitedItem>;
     result[Constants::RealLimitsUpperLimitedType] = &createInstance<UpperLimitedItem>;
     result[Constants::RealLimitsLimitedType] = &createInstance<LimitedItem>;
+
+    result[Constants::ProjectionContainerType] = &createInstance<ProjectionContainerItem>;
+    result[Constants::HorizontalProjectionType] = &createInstance<ProjectionXItem>;
+    result[Constants::VerticalProjectionType] = &createInstance<ProjectionYItem>;
 
     return result;
 }

@@ -24,7 +24,6 @@
 #include <memory>
 
 class SessionModel;
-class ColorMapPlot;
 class IntensityDataItem;
 template<class T> class OutputData;
 

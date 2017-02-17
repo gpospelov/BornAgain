@@ -86,6 +86,8 @@ void ComponentEditor::updateEditor(SessionItem *item,
 //! Clear editor from all properties, ready to accept new items
 void ComponentEditor::clearEditor()
 {
+    if(m_d->m_topItem)
+        disconnectModel(m_d->m_topItem->model());
     disconnect();
     disconnectManager();
     m_d->clear();

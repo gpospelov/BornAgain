@@ -25,6 +25,7 @@
 #include "InstrumentItem.h"
 #include "AxesItems.h"
 #include "DetectorItems.h"
+#include "IDetector2D.h"
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>

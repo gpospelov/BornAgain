@@ -18,7 +18,7 @@
 #define INTENSITYDATAITEM_H
 
 #include "SessionItem.h"
-#include "IDetector2D.h"
+#include "OutputData.h"
 
 class BasicAxisItem;
 class MaskContainerItem;
@@ -33,21 +33,22 @@ public:
     static const QString P_ZAXIS_MIN;
     static const QString P_ZAXIS_MAX;
     static const QString P_AXES_UNITS;
-    static const QString P_PROPERTY_PANEL_FLAG;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
     static const QString P_FILE_NAME;
     static const QString T_MASKS;
+    static const QString T_PROJECTIONS;
 
+    IntensityDataItem();
 
-    explicit IntensityDataItem();
-    virtual ~IntensityDataItem();
+    OutputData<double>* getOutputData() { return m_data.get(); }
+    const OutputData<double>* getOutputData() const { return m_data.get(); }
+    void setOutputData(OutputData<double>* data);
+    void setRawDataVector(const OutputData<double>* data);
 
-    OutputData<double> *getOutputData() { return m_data.get(); }
-    const OutputData<double> *getOutputData() const { return m_data.get(); }
-    void setOutputData(OutputData<double> *data);
-    void setRawDataVector(const OutputData<double> *data);
+    int getNbinsX() const;
+    int getNbinsY() const;
 
     //! returns lower and upper zoom ranges of x-axis
     double getLowerX() const;
@@ -79,22 +80,22 @@ public:
     bool isZAxisLocked() const;
     void setZAxisLocked(bool state);
 
-//    void setNameFromProposed(const QString &proposed_name);
-
     virtual QString getSelectedAxesUnits() const;
 
-    QString fileName(const QString &projectDir);
+    QString fileName(const QString& projectDir);
 
     void updateDataRange();
     void computeDataRange();
-    QPair<double, double> getDataRange() const;
+    QPair<double, double> dataRange() const;
 
-    BasicAxisItem *xAxisItem();
-    BasicAxisItem *yAxisItem();
+    const BasicAxisItem* xAxisItem() const;
+    BasicAxisItem* xAxisItem();
+    const BasicAxisItem* yAxisItem() const;
+    BasicAxisItem* yAxisItem();
 
     void resetView();
 
-    MaskContainerItem *maskContainerItem();
+    MaskContainerItem* maskContainerItem();
 
 public slots:
     void setLowerX(double xmin);
@@ -114,7 +115,7 @@ private:
     void updateAxesZoomLevel();
     void updateAxesLabels();
 
-    std::unique_ptr<OutputData<double> > m_data; //!< simulation results
+    std::unique_ptr<OutputData<double>> m_data; //!< simulation results
 };
 
 #endif // INTENSITYDATAITEM_H

@@ -19,7 +19,6 @@
 
 #include "SessionItemWidget.h"
 
-class JobModel;
 class IntensityDataItem;
 class ComponentEditor;
 class SessionItem;
@@ -30,25 +29,23 @@ class BA_CORE_API_ IntensityDataPropertyWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit IntensityDataPropertyWidget(QWidget *parent = 0);
-    ~IntensityDataPropertyWidget();
+    explicit IntensityDataPropertyWidget(QWidget* parent = 0);
 
-    QSize sizeHint() const { return QSize(230, 256); }
-    QSize minimumSizeHint() const { return QSize(230, 64); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
-    void setItem(SessionItem *item);
-
-    QList<QAction *> actionList();
+    QList<QAction*> actionList();
 
 public slots:
     void onTogglePanelAction();
 
-private:
-    void setPanelVisible(bool visible);
+protected:
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
 
-    QAction *m_togglePanelAction;
-    SessionItem *m_currentItem;
-    ComponentEditor *m_componentEditor;
+private:
+    QAction* m_togglePanelAction;
+    ComponentEditor* m_componentEditor;
 };
 
 #endif // INTENSITYDATAPROPERTYWIDGET_H

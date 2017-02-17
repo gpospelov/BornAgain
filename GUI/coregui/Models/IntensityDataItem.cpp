@@ -20,25 +20,22 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "MaskItems.h"
+#include "BornAgainNamespace.h"
 
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString IntensityDataItem::P_TITLE = "Title";
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
 const QString IntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
 const QString IntensityDataItem::P_GRADIENT = "Gradient";
-const QString IntensityDataItem::P_PROPERTY_PANEL_FLAG = "Property Panel Flag";
 const QString IntensityDataItem::P_XAXIS = "x-axis";
 const QString IntensityDataItem::P_YAXIS = "y-axis";
 const QString IntensityDataItem::P_ZAXIS = "color-axis";
 const QString IntensityDataItem::P_FILE_NAME = "FileName";
 const QString IntensityDataItem::T_MASKS = "Mask tag";
+const QString IntensityDataItem::T_PROJECTIONS = "Projection tag";
 
-
-IntensityDataItem::IntensityDataItem()
-    : SessionItem(Constants::IntensityDataType)
+IntensityDataItem::IntensityDataItem() : SessionItem(Constants::IntensityDataType)
 {
-//    setItemName(Constants::IntensityDataType);
-
     ComboProperty units = ComboProperty() << Constants::UnitsNbins;
     addProperty(P_AXES_UNITS, units.getVariant());
 
@@ -49,18 +46,15 @@ IntensityDataItem::IntensityDataItem()
 
     ComboProperty gradient;
 
-    gradient << Constants::GRADIENT_GRAYSCALE << Constants::GRADIENT_HOT
-             << Constants::GRADIENT_COLD << Constants::GRADIENT_NIGHT
-             << Constants::GRADIENT_CANDY << Constants::GRADIENT_GEOGRAPHY
-             << Constants::GRADIENT_ION << Constants::GRADIENT_THERMAL
-             << Constants::GRADIENT_POLAR << Constants::GRADIENT_SPECTRUM
-             << Constants::GRADIENT_JET << Constants::GRADIENT_HUES;
+    gradient << Constants::GRADIENT_GRAYSCALE << Constants::GRADIENT_HOT << Constants::GRADIENT_COLD
+             << Constants::GRADIENT_NIGHT << Constants::GRADIENT_CANDY
+             << Constants::GRADIENT_GEOGRAPHY << Constants::GRADIENT_ION
+             << Constants::GRADIENT_THERMAL << Constants::GRADIENT_POLAR
+             << Constants::GRADIENT_SPECTRUM << Constants::GRADIENT_JET << Constants::GRADIENT_HUES;
     gradient.setValue(Constants::GRADIENT_JET);
     addProperty(P_GRADIENT, gradient.getVariant());
 
-    addProperty(P_PROPERTY_PANEL_FLAG, false)->setVisible(false);
-
-    SessionItem *item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
+    SessionItem* item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
     item = addGroupProperty(P_YAXIS, Constants::BasicAxisType);
@@ -77,14 +71,11 @@ IntensityDataItem::IntensityDataItem()
 
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
+
+    registerTag(T_PROJECTIONS, 0, -1, QStringList() << Constants::ProjectionContainerType);
 }
 
-IntensityDataItem::~IntensityDataItem()
-{
-
-}
-
-void IntensityDataItem::setOutputData(OutputData<double> *data)
+void IntensityDataItem::setOutputData(OutputData<double>* data)
 {
     Q_ASSERT(data);
     m_data.reset(data);
@@ -98,14 +89,24 @@ void IntensityDataItem::setOutputData(OutputData<double> *data)
 
 //! Sets the raw data vector from external source
 
-void IntensityDataItem::setRawDataVector(const OutputData<double> *data)
+void IntensityDataItem::setRawDataVector(const OutputData<double>* data)
 {
-    if(!m_data->hasSameDimensions(*data)) {
+    if (!m_data->hasSameDimensions(*data)) {
         throw GUIHelpers::Error("IntensityDataItem::setRawDataVector() -> Error. "
                                 "Different dimensions of data.");
     }
     m_data->setRawDataVector(data->getRawDataVector());
     emitDataChanged();
+}
+
+int IntensityDataItem::getNbinsX() const
+{
+    return xAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();
+}
+
+int IntensityDataItem::getNbinsY() const
+{
+    return yAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();
 }
 
 double IntensityDataItem::getLowerX() const
@@ -120,14 +121,14 @@ double IntensityDataItem::getUpperX() const
 
 double IntensityDataItem::getXmin() const
 {
-    Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::X_AXIS_INDEX).getMin();
+    const double defaultXmin(0.0);
+    return m_data ? m_data->getAxis(BornAgain::X_AXIS_INDEX).getMin() : defaultXmin;
 }
 
 double IntensityDataItem::getXmax() const
 {
-    Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::X_AXIS_INDEX).getMax();
+    const double defaultXmax(1.0);
+    return m_data ? m_data->getAxis(BornAgain::X_AXIS_INDEX).getMax() : defaultXmax;
 }
 
 double IntensityDataItem::getLowerY() const
@@ -142,14 +143,14 @@ double IntensityDataItem::getUpperY() const
 
 double IntensityDataItem::getYmin() const
 {
-    Q_ASSERT(m_data);
-    return m_data->getAxis(BornAgain::Y_AXIS_INDEX).getMin();
+    const double defaultYmin(0.0);
+    return m_data ? m_data->getAxis(BornAgain::Y_AXIS_INDEX).getMin() : defaultYmin;
 }
 
 double IntensityDataItem::getYmax() const
 {
-    Q_ASSERT(m_data);
-        return m_data->getAxis(BornAgain::Y_AXIS_INDEX).getMax();
+    const double defaultYmax(1.0);
+    return m_data ? m_data->getAxis(BornAgain::Y_AXIS_INDEX).getMax() : defaultYmax;
 }
 
 double IntensityDataItem::getLowerZ() const
@@ -200,12 +201,11 @@ void IntensityDataItem::setZAxisLocked(bool state)
 
 QString IntensityDataItem::getSelectedAxesUnits() const
 {
-    ComboProperty combo= getItemValue(IntensityDataItem::P_AXES_UNITS)
-              .value<ComboProperty>();
+    ComboProperty combo = getItemValue(IntensityDataItem::P_AXES_UNITS).value<ComboProperty>();
     return combo.getValue();
 }
 
-QString IntensityDataItem::fileName(const QString &projectDir)
+QString IntensityDataItem::fileName(const QString& projectDir)
 {
     return projectDir + QStringLiteral("/")
            + getItemValue(IntensityDataItem::P_FILE_NAME).toString();
@@ -233,12 +233,11 @@ void IntensityDataItem::setUpperY(double ymax)
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 {
-    if(getLowerZ() != zmin) {
+    if (getLowerZ() != zmin)
         getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MIN, zmin);
-    }
-    if(getUpperZ() != zmax) {
+
+    if (getUpperZ() != zmax)
         getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MAX, zmax);
-    }
 }
 
 void IntensityDataItem::setLowerZ(double zmin)
@@ -285,13 +284,13 @@ void IntensityDataItem::setAxesRangeToData()
 void IntensityDataItem::updateAxesZoomLevel()
 {
     // set zoom range of x-axis to min, max values if it was not set already
-    if(getUpperX() < getLowerX()) {
+    if (getUpperX() < getLowerX()) {
         setLowerX(getXmin());
         setUpperX(getXmax());
     }
 
     // set zoom range of y-axis to min, max values if it was not set already
-    if(getUpperY() < getLowerY()) {
+    if (getUpperY() < getLowerY()) {
         setLowerY(getYmin());
         setUpperY(getYmax());
     }
@@ -306,10 +305,10 @@ void IntensityDataItem::updateAxesZoomLevel()
 
 void IntensityDataItem::updateAxesLabels()
 {
-    if(getXaxisTitle().isEmpty())
+    if (getXaxisTitle().isEmpty())
         setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX).getName()));
 
-    if(getYaxisTitle().isEmpty())
+    if (getYaxisTitle().isEmpty())
         setYaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::Y_AXIS_INDEX).getName()));
 }
 
@@ -317,10 +316,10 @@ void IntensityDataItem::updateAxesLabels()
 
 void IntensityDataItem::updateDataRange()
 {
-    if(isZAxisLocked())
+    if (isZAxisLocked())
         return;
 
-    if(getLowerZ() <= getUpperZ())
+    if (getLowerZ() <= getUpperZ())
         return;
 
     computeDataRange();
@@ -328,17 +327,16 @@ void IntensityDataItem::updateDataRange()
 
 void IntensityDataItem::computeDataRange()
 {
-    QPair<double, double> minmax = getDataRange();
+    QPair<double, double> minmax = dataRange();
     setLowerAndUpperZ(minmax.first, minmax.second);
 }
 
 //! Init zmin, zmax to match the intensity values range.
-QPair<double, double> IntensityDataItem::getDataRange() const
+QPair<double, double> IntensityDataItem::dataRange() const
 {
-    const OutputData<double> *data = getOutputData();
-    OutputData<double>::const_iterator it_max = std::max_element(data->begin(), data->end());
-    OutputData<double>::const_iterator it_min = std::min_element(data->begin(), data->end());
-    double min(*it_min), max(*it_max);
+    const OutputData<double>* data = getOutputData();
+    double min(*std::min_element(data->begin(), data->end()));
+    double max(*std::max_element(data->begin(), data->end()));
     if (isLogz()) {
         if (max > 10000) {
             min = 1.0;
@@ -354,14 +352,24 @@ QPair<double, double> IntensityDataItem::getDataRange() const
     return QPair<double, double>(min, max);
 }
 
-BasicAxisItem *IntensityDataItem::xAxisItem()
+const BasicAxisItem* IntensityDataItem::xAxisItem() const
 {
-    return dynamic_cast<BasicAxisItem *>(getItem(P_XAXIS));
+    return dynamic_cast<const BasicAxisItem*>(getItem(P_XAXIS));
 }
 
-BasicAxisItem *IntensityDataItem::yAxisItem()
+BasicAxisItem* IntensityDataItem::xAxisItem()
 {
-    return dynamic_cast<BasicAxisItem *>(getItem(P_YAXIS));
+    return const_cast<BasicAxisItem*>(static_cast<const IntensityDataItem*>(this)->xAxisItem());
+}
+
+const BasicAxisItem* IntensityDataItem::yAxisItem() const
+{
+    return dynamic_cast<const BasicAxisItem*>(getItem(P_YAXIS));
+}
+
+BasicAxisItem* IntensityDataItem::yAxisItem()
+{
+    return const_cast<BasicAxisItem*>(static_cast<const IntensityDataItem*>(this)->yAxisItem());
 }
 
 //! Set axes viewport to original data.
@@ -369,11 +377,11 @@ BasicAxisItem *IntensityDataItem::yAxisItem()
 void IntensityDataItem::resetView()
 {
     setAxesRangeToData();
-    if(!isZAxisLocked())
+    if (!isZAxisLocked())
         computeDataRange();
 }
 
-MaskContainerItem *IntensityDataItem::maskContainerItem()
+MaskContainerItem* IntensityDataItem::maskContainerItem()
 {
-    return dynamic_cast<MaskContainerItem *>(getItem(IntensityDataItem::T_MASKS));
+    return dynamic_cast<MaskContainerItem*>(getItem(IntensityDataItem::T_MASKS));
 }

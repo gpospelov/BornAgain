@@ -15,75 +15,66 @@
 // ************************************************************************** //
 
 #include "IntensityDataWidget.h"
-#include "AppSvc.h"
-#include "ColorMapCanvas.h"
 #include "IntensityDataItem.h"
-#include "SavePlotAssistant.h"
-#include "projectmanager.h"
+#include "IntensityDataPropertyWidget.h"
+#include "IntensityDataCanvas.h"
+#include "RealDataItem.h"
+#include "SessionItem.h"
+#include "JobItem.h"
 #include <QAction>
-#include <QVBoxLayout>
+#include <QBoxLayout>
+#include <QMenu>
+#include <QLabel>
 
 IntensityDataWidget::IntensityDataWidget(QWidget *parent)
     : SessionItemWidget(parent)
-    , m_colorMap(new ColorMapCanvas(this))
-    , m_resetViewAction(0)
-    , m_savePlotAction(0)
+    , m_intensityCanvas(new IntensityDataCanvas)
+    , m_propertyWidget(new IntensityDataPropertyWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
-    layout->addWidget(m_colorMap);
-    setLayout(layout);
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->setMargin(0);
+    hlayout->setSpacing(0);
 
-    m_colorMap->setStatusLabelEnabled(true);
+    hlayout->addWidget(m_intensityCanvas);
+    hlayout->addWidget(m_propertyWidget);
 
-    initActions();
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
+
+    mainLayout->addLayout(hlayout);
+    setLayout(mainLayout);
+
+    connect(m_intensityCanvas, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(onContextMenuRequest(const QPoint &)));
 }
 
-void IntensityDataWidget::setItem(SessionItem *item)
+void IntensityDataWidget::setItem(SessionItem* jobItem)
 {
-    IntensityDataItem *intensityItem = dynamic_cast<IntensityDataItem *>(item);
-    Q_ASSERT(intensityItem);
-    setIntensityData(intensityItem);
+    SessionItemWidget::setItem(jobItem);
+    m_intensityCanvas->setItem(intensityDataItem());
+    m_propertyWidget->setItem(intensityDataItem());
 }
 
-void IntensityDataWidget::setIntensityData(IntensityDataItem *intensityItem)
+QList<QAction*> IntensityDataWidget::actionList()
 {
-    m_currentItem = intensityItem;
-    m_colorMap->setItem(intensityItem);
+    return m_intensityCanvas->actionList() + m_propertyWidget->actionList();
 }
 
-QList<QAction *> IntensityDataWidget::actionList()
+void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
 {
-    return QList<QAction *>() << m_resetViewAction << m_savePlotAction;
+    QMenu menu;
+    for (auto action : actionList())
+        menu.addAction(action);
+    menu.exec(point);
 }
 
-void IntensityDataWidget::onResetViewAction()
+IntensityDataItem* IntensityDataWidget::intensityDataItem()
 {
-    m_currentItem->resetView();
+    IntensityDataItem* result
+        = dynamic_cast<IntensityDataItem*>(currentItem()->getItem(JobItem::T_OUTPUT));
+    Q_ASSERT(result);
+    return result;
 }
-
-void IntensityDataWidget::onSavePlotAction()
-{
-    QString dirname = AppSvc::projectManager()->userExportDir();
-    SavePlotAssistant saveAssistant;
-    saveAssistant.savePlot(dirname, m_colorMap->customPlot(), m_currentItem);
-}
-
-void IntensityDataWidget::initActions()
-{
-    m_resetViewAction = new QAction(this);
-    m_resetViewAction->setText("Reset");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
-    m_resetViewAction->setToolTip("Reset View");
-    connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
-
-    m_savePlotAction = new QAction(this);
-    m_savePlotAction->setText("Save");
-    m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
-    m_savePlotAction->setToolTip("Save Plot");
-    connect(m_savePlotAction, SIGNAL(triggered()), this, SLOT(onSavePlotAction()));
-}
-

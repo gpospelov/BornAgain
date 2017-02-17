@@ -20,38 +20,34 @@
 #include "SessionItemWidget.h"
 
 class SessionItem;
+class IntensityDataCanvas;
+class IntensityDataPropertyWidget;
 class IntensityDataItem;
-class ColorMapCanvas;
 class QAction;
+class TestWidget;
 
-//! The IntensityDataWidget class represents IntensityDataItem as color map,
-//! provides standard actions (reset view, save as) for external toolbars and context menus.
+//! A common widget to display color map (IntensityDataCanvas) and properties
+//! (IntensityDataPropertyWidget) of intensity data item.
 
 class BA_CORE_API_ IntensityDataWidget : public SessionItemWidget
 {
     Q_OBJECT
+
 public:
-    explicit IntensityDataWidget(QWidget *parent = 0);
+    IntensityDataWidget(QWidget* parent = 0);
 
-    void setItem(SessionItem *item);
-    void setIntensityData(IntensityDataItem *intensityItem);
+    void setItem(SessionItem* jobItem);
 
-    QSize sizeHint() const { return QSize(500, 400); }
-    QSize minimumSizeHint() const { return QSize(128, 128); }
+    QList<QAction*> actionList();
 
-    QList<QAction *> actionList();
-
-public slots:
-    void onResetViewAction();
-    void onSavePlotAction();
+private slots:
+    void onContextMenuRequest(const QPoint& point);
 
 private:
-    void initActions();
+    IntensityDataItem* intensityDataItem();
 
-    ColorMapCanvas *m_colorMap;
-    IntensityDataItem *m_currentItem;
-    QAction *m_resetViewAction;
-    QAction *m_savePlotAction;
+    IntensityDataCanvas* m_intensityCanvas;
+    IntensityDataPropertyWidget* m_propertyWidget;
 };
 
 #endif // INTENSITYDATAWIDGET_H

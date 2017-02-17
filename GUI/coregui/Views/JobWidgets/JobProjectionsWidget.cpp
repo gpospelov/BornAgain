@@ -23,17 +23,26 @@
 #include "JobItem.h"
 #include <QSplitter>
 #include <QVBoxLayout>
+#include <QTabWidget>
 
 JobProjectionsWidget::JobProjectionsWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_intensityCanvas(new IntensityDataCanvas)
-    , m_projectionCanvas(new ProjectionCanvas)
+    , m_xProjection(new ProjectionCanvas)
+    , m_yProjection(new ProjectionCanvas)
+    , m_tabWidget(new QTabWidget)
     , m_splitter(new QSplitter)
 {
 
     m_splitter->setOrientation(Qt::Vertical);
     m_splitter->addWidget(m_intensityCanvas);
-    m_splitter->addWidget(m_projectionCanvas);
+
+    m_tabWidget->setTabPosition(QTabWidget::North);
+    m_tabWidget->insertTab(HORIZONTAL, m_xProjection, "Horizontal");
+    m_tabWidget->insertTab(VERTICAL, m_yProjection, "Vertical");
+
+    //    m_splitter->addWidget(m_projectionCanvas);
+    m_splitter->addWidget(m_tabWidget);
     m_splitter->setStyleSheet("background-color:white;");
 
     QVBoxLayout *vlayout = new QVBoxLayout(this);
@@ -51,7 +60,8 @@ void JobProjectionsWidget::setItem(SessionItem* jobItem)
     m_intensityCanvas->setItem(intensityDataItem());
 
     auto projectionContainer = createProjectionContainer(intensityDataItem());
-    m_projectionCanvas->setItem(projectionContainer);
+    m_xProjection->setItem(projectionContainer);
+    m_yProjection->setItem(projectionContainer);
 }
 
 IntensityDataItem* JobProjectionsWidget::intensityDataItem()

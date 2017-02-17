@@ -26,26 +26,26 @@ class ColorMapCanvas;
 class QObject;
 class QEvent;
 
-//! The ColorMapCanvasEvent provide event filter for ColorMapCanvas. Its goal is to provide
-//! font size adjustment on resize events.
+//! Provides event filter for ColorMapCanvas. Its goal is to make font size adjustments
+//! on resize events.
 
 class BA_CORE_API_ ColorMapCanvasEvent : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit ColorMapCanvasEvent(ColorMapCanvas *canvas);
+    explicit ColorMapCanvasEvent(ColorMapCanvas* canvas);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject* obj, QEvent* event);
 
 private:
     void backupFonts();
     void restoreFonts();
     void scaleFonts(double factor);
-    void setTickLabelFont(const QFont &font);
+    void setTickLabelFont(const QFont& font);
 
-    ColorMapCanvas *m_canvas;
+    ColorMapCanvas* m_canvas;
     QMap<QString, QFont> m_fonts;
 };
 

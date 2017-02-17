@@ -19,26 +19,26 @@
 #include <QFont>
 #include <QPainter>
 
-namespace {
+namespace
+{
 const int default_label_height = 20;
 const int default_text_size = 11;
 }
 
-StatusLabel::StatusLabel(QWidget *parent)
-    : QFrame(parent)
-    , m_font("Monospace", default_text_size, QFont::Normal, false)
+StatusLabel::StatusLabel(QWidget* parent)
+    : QFrame(parent), m_font("Monospace", default_text_size, QFont::Normal, false)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setFixedHeight(default_label_height);
 }
 
-void StatusLabel::setText(const QString &text)
+void StatusLabel::setText(const QString& text)
 {
     m_text = text;
     update();
 }
 
-void StatusLabel::setFont(const QFont &font)
+void StatusLabel::setFont(const QFont& font)
 {
     m_font = font;
     update();
@@ -56,7 +56,7 @@ void StatusLabel::setAlignment(Qt::Alignment alignment)
     update();
 }
 
-void StatusLabel::paintEvent(QPaintEvent *event)
+void StatusLabel::paintEvent(QPaintEvent* event)
 {
     QWidget::paintEvent(event);
 

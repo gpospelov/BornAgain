@@ -24,6 +24,7 @@ class ProjectionCanvas;
 class QSplitter;
 class IntensityDataItem;
 class ProjectionContainerItem;
+class QTabWidget;
 
 namespace Manhattan { class MiniSplitter; }
 
@@ -35,6 +36,8 @@ class BA_CORE_API_ JobProjectionsWidget : public SessionItemWidget
     Q_OBJECT
 
 public:
+    enum ETabId {HORIZONTAL, VERTICAL};
+
     JobProjectionsWidget(QWidget* parent = 0);
 
     void setItem(SessionItem* jobItem);
@@ -44,7 +47,9 @@ private:
     ProjectionContainerItem* createProjectionContainer(IntensityDataItem* intensityItem);
 
     IntensityDataCanvas* m_intensityCanvas;
-    ProjectionCanvas* m_projectionCanvas;
+    ProjectionCanvas* m_xProjection;
+    ProjectionCanvas* m_yProjection;
+    QTabWidget* m_tabWidget;
     QSplitter* m_splitter;
 };
 

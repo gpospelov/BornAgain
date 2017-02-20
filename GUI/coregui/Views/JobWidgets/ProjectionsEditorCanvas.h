@@ -19,16 +19,21 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QModelIndex>
 
 class MaskGraphicsScene;
 class MaskGraphicsView;
 class SessionModel;
-class QModelIndex;
 class IntensityDataItem;
+class ColorMap;
 class ColorMapLabel;
+class SessionItem;
 
 //! Holds a graphics scene to draw projections on top of ColorMap. Being a part
 //! of ProjectionEditor, provides interaction logic between graphics scene and ProjectionsWidget.
+
+//! Particularly, it creates temporary ProjectionItem in projection container, when mouse
+//! is inside ColorMap viewport.
 
 class ProjectionsEditorCanvas : public QWidget
 {
@@ -40,10 +45,23 @@ public:
     void setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
                     IntensityDataItem* intensityItem);
 
+public slots:
+    void onEnteringColorMap();
+    void onLeavingColorMap();
+    void onPositionChanged(double x, double y);
+
 private:
+    void setColorMap(ColorMap* colorMap);
+    void setConnected(bool isConnected);
+
     MaskGraphicsScene* m_scene;
     MaskGraphicsView* m_view;
-    ColorMapLabel* m_statusLabel;
+    ColorMap* m_colorMap;
+    ColorMapLabel* m_statusLabel;    
+
+    SessionItem* m_xProjection;
+    SessionModel* m_model;
+    QModelIndex m_containerIndex;
 };
 
 #endif // PROJECTIONSEDITORCANVAS_H

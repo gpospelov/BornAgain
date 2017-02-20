@@ -20,8 +20,10 @@
 #include <QVBoxLayout>
 
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
-    : QWidget(parent), m_xProjection(new ProjectionsPlot), m_yProjection(new ProjectionsPlot),
-      m_tabWidget(new QTabWidget)
+    : QWidget(parent)
+    , m_xProjection(new ProjectionsPlot)
+//    , m_yProjection(new ProjectionsPlot)
+    , m_tabWidget(new QTabWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -29,7 +31,7 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
 
     m_tabWidget->setTabPosition(QTabWidget::North);
     m_tabWidget->insertTab(HORIZONTAL, m_xProjection, "Horizontal");
-    m_tabWidget->insertTab(VERTICAL, m_yProjection, "Vertical");
+//    m_tabWidget->insertTab(VERTICAL, m_yProjection, "Vertical");
 
     layout->addWidget(m_tabWidget);
     setLayout(layout);

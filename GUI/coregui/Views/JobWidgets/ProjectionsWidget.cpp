@@ -20,12 +20,10 @@
 #include <QVBoxLayout>
 
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_xProjection(new ProjectionsPlot)
-    , m_yProjection(new ProjectionsPlot)
-    , m_tabWidget(new QTabWidget)
+    : QWidget(parent), m_xProjection(new ProjectionsPlot), m_yProjection(new ProjectionsPlot),
+      m_tabWidget(new QTabWidget)
 {
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 

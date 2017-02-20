@@ -74,7 +74,8 @@ void MaskGraphicsScene::setMaskContext(SessionModel *model, const QModelIndex &m
 
         m_maskModel = model;
 
-        if(m_maskModel->itemForIndex(maskContainerIndex)->modelType() != Constants::MaskContainerType)
+        QString containerType = m_maskModel->itemForIndex(maskContainerIndex)->modelType();
+        if(containerType != Constants::MaskContainerType && containerType != Constants::ProjectionContainerType)
             throw GUIHelpers::Error("MaskGraphicsScene::setMaskContext() -> Error. Not a container");
 
         m_maskContainerIndex = maskContainerIndex;

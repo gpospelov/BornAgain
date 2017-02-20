@@ -15,38 +15,17 @@
 // ************************************************************************** //
 
 #include "JobProjectionsWidget.h"
-//#include "IntensityDataCanvas.h"
-//#include "ProjectionsPlot.h"
 #include "IntensityDataItem.h"
 #include "ProjectionItems.h"
 #include "SessionModel.h"
 #include "JobItem.h"
 #include "ProjectionsEditor.h"
-//#include <QSplitter>
 #include <QVBoxLayout>
-//#include <QTabWidget>
 
 JobProjectionsWidget::JobProjectionsWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_projectionsEditor(new ProjectionsEditor)
-//    , m_intensityCanvas(new IntensityDataCanvas)
-//    , m_xProjection(new ProjectionsPlot)
-//    , m_yProjection(new ProjectionsPlot)
-//    , m_tabWidget(new QTabWidget)
-//    , m_splitter(new QSplitter)
 {
-
-//    m_splitter->setOrientation(Qt::Vertical);
-//    m_splitter->addWidget(m_intensityCanvas);
-
-//    m_tabWidget->setTabPosition(QTabWidget::North);
-//    m_tabWidget->insertTab(HORIZONTAL, m_xProjection, "Horizontal");
-//    m_tabWidget->insertTab(VERTICAL, m_yProjection, "Vertical");
-
-//    //    m_splitter->addWidget(m_projectionCanvas);
-//    m_splitter->addWidget(m_tabWidget);
-//    m_splitter->setStyleSheet("background-color:white;");
-
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
@@ -59,13 +38,10 @@ void JobProjectionsWidget::setItem(SessionItem* jobItem)
 {
     SessionItemWidget::setItem(jobItem);
 
-//    m_intensityCanvas->setItem(intensityDataItem());
-
     auto projectionContainer = createProjectionContainer(intensityDataItem());
-//    m_xProjection->setItem(projectionContainer);
-//    m_yProjection->setItem(projectionContainer);
 
-    m_projectionsEditor->setContext(intensityDataItem()->model(), projectionContainer->index(), intensityDataItem());
+    m_projectionsEditor->setContext(intensityDataItem()->model(),
+                                    projectionContainer->index(), intensityDataItem());
 }
 
 IntensityDataItem* JobProjectionsWidget::intensityDataItem()

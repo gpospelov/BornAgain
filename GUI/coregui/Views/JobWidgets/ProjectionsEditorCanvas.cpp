@@ -15,9 +15,35 @@
 // ************************************************************************** //
 
 #include "ProjectionsEditorCanvas.h"
+#include "MaskGraphicsScene.h"
+#include "MaskGraphicsView.h"
+#include "SessionModel.h"
+#include "IntensityDataItem.h"
+#include "ColorMapLabel.h"
+#include <QVBoxLayout>
 
 ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     : QWidget(parent)
+    , m_scene(new MaskGraphicsScene(this))
+    , m_view(new MaskGraphicsView(m_scene))
+    , m_statusLabel(new ColorMapLabel(0, this))
 {
+    setObjectName(QStringLiteral("MaskEditorCanvas"));
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(m_view);
+    mainLayout->addWidget(m_statusLabel);
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
+    setLayout(mainLayout);
+}
+
+void ProjectionsEditorCanvas::setContext(SessionModel* model,
+                                         const QModelIndex& shapeContainerIndex,
+                                         IntensityDataItem* intensityItem)
+{
+    m_scene->setMaskContext(model, shapeContainerIndex, intensityItem);
+    m_view->updateSize(m_view->size());
+    m_statusLabel->addColorMap(m_scene->colorMap());
 }

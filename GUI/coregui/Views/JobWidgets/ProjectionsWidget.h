@@ -23,7 +23,7 @@
 class ProjectionsPlot;
 class QTabWidget;
 
-//! Holds tabs of vertical and horizontal projections, located at the bottom of ProjectionsWidget.
+//! Holds tabs of vertical and horizontal projections, located at the bottom of ProjectionsEditor.
 
 class BA_CORE_API_ ProjectionsWidget : public QWidget
 {

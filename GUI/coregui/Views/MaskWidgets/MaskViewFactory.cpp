@@ -39,6 +39,10 @@ IMaskView *MaskViewFactory::createMaskView(SessionItem *item,
         result = new MaskContainerView();
     }
 
+    else if(model_type == Constants::ProjectionContainerType) {
+        result = new MaskContainerView();
+    }
+
     else if(model_type == Constants::RectangleMaskType) {
         result = new RectangleView();
     }

@@ -19,15 +19,9 @@
 
 #include "SessionItemWidget.h"
 
-//class IntensityDataCanvas;
-//class ProjectionsPlot;
-//class QSplitter;
 class ProjectionsEditor;
 class IntensityDataItem;
 class ProjectionContainerItem;
-//class QTabWidget;
-
-//namespace Manhattan { class MiniSplitter; }
 
 //! A common widget to display color map (IntensityDataCanvas) and properties
 //! (IntensityDataPropertyWidget) of intensity data item.
@@ -48,11 +42,6 @@ private:
     ProjectionContainerItem* createProjectionContainer(IntensityDataItem* intensityItem);
 
     ProjectionsEditor* m_projectionsEditor;
-//    IntensityDataCanvas* m_intensityCanvas;
-//    ProjectionsPlot* m_xProjection;
-//    ProjectionsPlot* m_yProjection;
-//    QTabWidget* m_tabWidget;
-//    QSplitter* m_splitter;
 };
 
 #endif // JOBPROJECTIONSWIDGET_H

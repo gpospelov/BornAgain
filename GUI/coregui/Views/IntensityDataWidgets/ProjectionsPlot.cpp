@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "ProjectionCanvas.h"
+#include "ProjectionsPlot.h"
 #include "qcustomplot.h"
 #include "plot_constants.h"
 #include "ProjectionItems.h"
 
-ProjectionCanvas::ProjectionCanvas(QWidget* parent)
+ProjectionsPlot::ProjectionsPlot(QWidget* parent)
     : SessionItemWidget(parent)
     , m_customPlot(new QCustomPlot)
 {
@@ -50,7 +50,7 @@ ProjectionCanvas::ProjectionCanvas(QWidget* parent)
     //    m_customPlot->yAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
 }
 
-void ProjectionCanvas::setItem(SessionItem* projectionContainerItem)
+void ProjectionsPlot::setItem(SessionItem* projectionContainerItem)
 {
     Q_ASSERT(projectionContainerItem);
     SessionItemWidget::setItem(projectionContainerItem);

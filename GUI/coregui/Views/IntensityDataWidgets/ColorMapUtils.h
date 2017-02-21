@@ -35,6 +35,9 @@ BA_CORE_API_ QCPColorGradient itemGradient(const IntensityDataItem* item);
 BA_CORE_API_ QCPRange itemXrange(const IntensityDataItem* item);
 BA_CORE_API_ QCPRange itemYrange(const IntensityDataItem* item);
 BA_CORE_API_ QCPRange itemDataRange(const IntensityDataItem* item);
+
+BA_CORE_API_ void setLogz(QCPColorScale* scale, bool isLogz);
+BA_CORE_API_ void setLogz(QCPAxis* axis, bool isLogz);
 }
 
 #endif // COLORMAPUTILS_H

@@ -74,3 +74,29 @@ QCPRange ColorMapUtils::itemDataRange(const IntensityDataItem* item)
     QPair<double, double> range = item->dataRange();
     return QCPRange(range.first, range.second);
 }
+
+void ColorMapUtils::setLogz(QCPColorScale* scale, bool isLogz)
+{
+    if (isLogz) {
+        if (scale->dataScaleType() != QCPAxis::stLogarithmic) {
+            scale->setDataScaleType(QCPAxis::stLogarithmic);
+            setLogz(scale->axis(), isLogz);
+        }
+    } else {
+        if (scale->dataScaleType() != QCPAxis::stLinear) {
+            scale->setDataScaleType(QCPAxis::stLinear);
+            setLogz(scale->axis(), isLogz);
+        }
+    }
+}
+
+void ColorMapUtils::setLogz(QCPAxis* axis, bool isLogz)
+{
+    if (isLogz) {
+        axis->setNumberFormat("eb");
+        axis->setNumberPrecision(0);
+    } else {
+        axis->setNumberFormat("f");
+        axis->setNumberPrecision(0);
+    }
+}

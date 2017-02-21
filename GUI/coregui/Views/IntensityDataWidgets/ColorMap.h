@@ -81,7 +81,7 @@ public slots:
 private slots:
     void onIntensityModified();
     void onPropertyChanged(const QString& property_name);
-    void onSubItemPropertyChanged(const QString& property_group, const QString& property_name);
+    void onAxisPropertyChanged(const QString& axisName, const QString& propertyName);
     void onDataRangeChanged(QCPRange newRange);
     void onXaxisRangeChanged(QCPRange newRange);
     void onYaxisRangeChanged(QCPRange newRange);

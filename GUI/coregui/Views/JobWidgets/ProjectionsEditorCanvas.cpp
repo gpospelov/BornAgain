@@ -24,6 +24,7 @@
 #include "ColorMapEvent.h"
 #include "MaskItems.h"
 #include <QVBoxLayout>
+#include <QItemSelectionModel>
 #include <QDebug>
 
 ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
@@ -34,6 +35,7 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     , m_statusLabel(new ColorMapLabel(0, this))
     , m_xProjection(nullptr)
     , m_model(nullptr)
+    , m_selectionModel(nullptr)
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -50,8 +52,12 @@ void ProjectionsEditorCanvas::setContext(SessionModel* model,
                                          const QModelIndex& shapeContainerIndex,
                                          IntensityDataItem* intensityItem)
 {
+    delete m_selectionModel;
+    m_selectionModel = new QItemSelectionModel(model, this);
+
     m_model = model;
     m_scene->setMaskContext(model, shapeContainerIndex, intensityItem);
+    m_scene->setSelectionModel(m_selectionModel);
     m_view->updateSize(m_view->size());
 
     m_containerIndex = shapeContainerIndex;

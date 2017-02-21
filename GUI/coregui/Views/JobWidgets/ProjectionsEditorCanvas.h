@@ -28,6 +28,7 @@ class IntensityDataItem;
 class ColorMap;
 class ColorMapLabel;
 class SessionItem;
+class QItemSelectionModel;
 
 //! Holds a graphics scene to draw projections on top of ColorMap. Being a part
 //! of ProjectionEditor, provides interaction logic between graphics scene and ProjectionsWidget.
@@ -62,6 +63,7 @@ private:
     SessionItem* m_xProjection;
     SessionModel* m_model;
     QModelIndex m_containerIndex;
+    QItemSelectionModel* m_selectionModel;
 };
 
 #endif // PROJECTIONSEDITORCANVAS_H

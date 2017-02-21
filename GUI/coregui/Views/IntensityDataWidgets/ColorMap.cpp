@@ -272,7 +272,8 @@ void ColorMap::subscribeToItem()
 
     intensityItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString name) {
-            onSubItemPropertyChanged(item->itemName(), name);
+            if(item->parent()->modelType() == Constants::GroupItemType)
+                onSubItemPropertyChanged(item->itemName(), name);
         },
         this);
 

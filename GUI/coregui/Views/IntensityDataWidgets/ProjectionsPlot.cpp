@@ -18,36 +18,28 @@
 #include "qcustomplot.h"
 #include "plot_constants.h"
 #include "ProjectionItems.h"
+#include "SessionItem.h"
+#include "ModelMapper.h"
+#include "IntensityDataItem.h"
+#include "Histogram1D.h"
+#include "Histogram2D.h"
+#include <QDebug>
 
 ProjectionsPlot::ProjectionsPlot(QWidget* parent)
     : SessionItemWidget(parent)
     , m_customPlot(new QCustomPlot)
+    , m_block_plot_update(false)
 {
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
+}
 
-//    m_customPlot->addGraph();
-//    QPen pen;
-//    pen.setColor(QColor(0, 0, 255, 200));
-//    m_customPlot->graph()->setLineStyle(QCPGraph::lsLine);
-//    m_customPlot->graph()->setPen(pen);
-//    m_customPlot->graph()->setBrush(QBrush(QColor(255/4.0,160,50,150)));
+ProjectionsPlot::~ProjectionsPlot()
+{
 
-//    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
-//    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
-
-//    m_customPlot->yAxis->setScaleType(QCPAxis::stLogarithmic);
-//    m_customPlot->yAxis->setNumberFormat("eb");
-//    m_customPlot->yAxis->setNumberPrecision(0);
-
-//    m_customPlot->xAxis->setLabel("iteration");
-//    m_customPlot->yAxis->setLabel("chi2");
-
-//    m_customPlot->xAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
-    //    m_customPlot->yAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
 }
 
 void ProjectionsPlot::setItem(SessionItem* projectionContainerItem)
@@ -56,4 +48,68 @@ void ProjectionsPlot::setItem(SessionItem* projectionContainerItem)
     SessionItemWidget::setItem(projectionContainerItem);
 
     qDebug() << projectionContainerItem->modelType();
+}
+
+void ProjectionsPlot::subscribeToItem()
+{
+    currentItem()->mapper()->setOnChildPropertyChange(
+        [this](SessionItem* item, const QString name) {
+            onChildPropertyChanged(item, name);
+        },
+        this);
+
+    m_hist2d.reset(new Histogram2D(*intensityItem()->getOutputData()));
+
+}
+
+void ProjectionsPlot::unsubscribeFromItem()
+{
+
+}
+
+void ProjectionsPlot::onChildPropertyChanged(SessionItem* item, const QString& property)
+{
+    if(m_block_plot_update)
+        return;
+
+    m_block_plot_update = true;
+
+    Q_ASSERT(item);
+    double y = item->getItemValue(property).toDouble();
+
+
+    QCPGraph* graph = addGraphForItem(item);
+    Q_ASSERT(graph);
+    qDebug() << "ProjectionsPlot::onChildPropertyChanged" << item->modelType() << property << y << graph;
+
+    std::unique_ptr<Histogram1D> hist(m_hist2d->projectionX(y));
+
+    graph->setData(QVector<double>::fromStdVector(hist->getBinCenters()), QVector<double>::fromStdVector(hist->getBinValues()));
+    graph->rescaleAxes();
+    m_customPlot->replot();
+    m_block_plot_update = false;
+}
+
+IntensityDataItem* ProjectionsPlot::intensityItem()
+{
+    IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(currentItem()->parent());
+    Q_ASSERT(result);
+    return result;
+}
+
+QCPGraph* ProjectionsPlot::addGraphForItem(SessionItem* item)
+{
+    Q_ASSERT(item->modelType() == Constants::HorizontalLineMaskType);
+
+    QCPGraph *graph = m_item_to_graph[item];
+    if (!graph) {
+        graph = m_customPlot->addGraph();
+        QPen pen;
+        pen.setColor(QColor(0, 0, 255, 200));
+        graph->setLineStyle(QCPGraph::lsLine);
+        graph->setPen(pen);
+        graph->setBrush(QBrush(QColor(255/4.0,160,50,150)));
+        m_item_to_graph[item] = graph;
+    }
+    return graph;
 }

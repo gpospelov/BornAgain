@@ -17,15 +17,14 @@
 #ifndef PROJECTIONSWIDGET_H
 #define PROJECTIONSWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QMainWindow>
+#include "SessionItemWidget.h"
 
 class ProjectionsPlot;
 class QTabWidget;
 
 //! Holds tabs of vertical and horizontal projections, located at the bottom of ProjectionsEditor.
 
-class BA_CORE_API_ ProjectionsWidget : public QWidget
+class BA_CORE_API_ ProjectionsWidget : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -33,6 +32,7 @@ public:
     enum ETabId {HORIZONTAL, VERTICAL};
 
     ProjectionsWidget(QWidget* parent = 0);
+    void setItem(SessionItem* projectionContainerItem);
 
 private:
     ProjectionsPlot* m_xProjection;

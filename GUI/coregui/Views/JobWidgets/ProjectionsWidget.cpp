@@ -20,7 +20,7 @@
 #include <QVBoxLayout>
 
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
-    : QWidget(parent)
+    : SessionItemWidget(parent)
     , m_xProjection(new ProjectionsPlot)
 //    , m_yProjection(new ProjectionsPlot)
     , m_tabWidget(new QTabWidget)
@@ -35,4 +35,10 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
 
     layout->addWidget(m_tabWidget);
     setLayout(layout);
+}
+
+void ProjectionsWidget::setItem(SessionItem* projectionContainerItem)
+{
+    SessionItemWidget::setItem(projectionContainerItem);
+    m_xProjection->setItem(projectionContainerItem);
 }

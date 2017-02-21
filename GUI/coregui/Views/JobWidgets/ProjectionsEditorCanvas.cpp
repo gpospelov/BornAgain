@@ -22,6 +22,7 @@
 #include "ColorMap.h"
 #include "ColorMapLabel.h"
 #include "ColorMapEvent.h"
+#include "MaskItems.h"
 #include <QVBoxLayout>
 #include <QDebug>
 
@@ -64,19 +65,26 @@ void ProjectionsEditorCanvas::onEnteringColorMap()
     Q_ASSERT(m_xProjection == nullptr);
     Q_ASSERT(m_containerIndex.isValid());
 
-//    m_xProjection = m_model->insertNewItem(Constants::HorizontalProjectionType,
-//                                               m_containerIndex);
+    m_xProjection = m_model->insertNewItem(Constants::HorizontalLineMaskType,
+                                               m_containerIndex);
 
 }
 
 void ProjectionsEditorCanvas::onLeavingColorMap()
 {
     qDebug() << "ProjectionsEditorCanvas::onLeavingColorMap()";
+    Q_ASSERT(m_xProjection);
+
+    m_xProjection->parent()->takeRow(m_xProjection->parent()->rowOfChild(m_xProjection));
+    delete m_xProjection;
+    m_xProjection = nullptr;
 }
 
 void ProjectionsEditorCanvas::onPositionChanged(double x, double y)
 {
     qDebug() << "ProjectionsEditorCanvas::onPositionChanged()" << x << y;
+    if(m_xProjection)
+        m_xProjection->setItemValue(HorizontalLineItem::P_POSY, y);
 }
 
 void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)

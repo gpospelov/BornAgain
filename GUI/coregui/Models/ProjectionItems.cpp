@@ -21,7 +21,8 @@ ProjectionContainerItem::ProjectionContainerItem()
 {
     const QString T_CHILDREN = "children tag";
     registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::HorizontalProjectionType
-                                                 << Constants::VerticalProjectionType);
+                                                 << Constants::VerticalProjectionType
+                << Constants::HorizontalLineMaskType);
     setDefaultTag(T_CHILDREN);
 }
 

@@ -31,8 +31,6 @@ class BA_CORE_API_ JobProjectionsWidget : public SessionItemWidget
     Q_OBJECT
 
 public:
-    enum ETabId {HORIZONTAL, VERTICAL};
-
     JobProjectionsWidget(QWidget* parent = 0);
 
     void setItem(SessionItem* jobItem);

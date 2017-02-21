@@ -23,6 +23,7 @@
 
 class QCustomPlot;
 class IntensityDataItem;
+class ProjectionContainerItem;
 class Histogram2D;
 class QCPGraph;
 
@@ -36,17 +37,25 @@ public:
     ProjectionsPlot(QWidget* parent = 0);
     virtual ~ProjectionsPlot();
 
-    void setItem(SessionItem* projectionContainerItem);
+    void setItem(SessionItem* intensityItem);
 
 protected:
     void subscribeToItem();
     void unsubscribeFromItem();
 
-    void onChildPropertyChanged(SessionItem* item, const QString& property);
+    void onProjectionPropertyChanged(SessionItem* item, const QString& property);
 
 private:
     IntensityDataItem* intensityItem();
-    QCPGraph* addGraphForItem(SessionItem*item);
+    ProjectionContainerItem* projectionContainerItem();
+    QVector<SessionItem*> projectionItems();
+    QCPGraph* graphForItem(SessionItem* item);
+
+    void updateProjectionsData();
+    void updateProjections();
+    void clearProjections();
+
+    void setGraphFromItem(QCPGraph* graph, SessionItem* item);
 
     QCustomPlot* m_customPlot;
     std::unique_ptr<Histogram2D> m_hist2d;

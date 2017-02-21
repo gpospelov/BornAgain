@@ -32,7 +32,7 @@ public:
     enum ETabId {HORIZONTAL, VERTICAL};
 
     ProjectionsWidget(QWidget* parent = 0);
-    void setItem(SessionItem* projectionContainerItem);
+    void setItem(SessionItem* intensityItem);
 
 private:
     ProjectionsPlot* m_xProjection;

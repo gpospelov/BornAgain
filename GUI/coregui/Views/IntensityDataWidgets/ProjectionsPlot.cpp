@@ -23,6 +23,8 @@
 #include "IntensityDataItem.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
+#include "MaskItems.h"
+#include "ColorMapUtils.h"
 #include <QDebug>
 
 ProjectionsPlot::ProjectionsPlot(QWidget* parent)
@@ -30,7 +32,7 @@ ProjectionsPlot::ProjectionsPlot(QWidget* parent)
     , m_customPlot(new QCustomPlot)
     , m_block_plot_update(false)
 {
-    QVBoxLayout *vlayout = new QVBoxLayout(this);
+    QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
     vlayout->addWidget(m_customPlot);
@@ -42,62 +44,78 @@ ProjectionsPlot::~ProjectionsPlot()
 
 }
 
-void ProjectionsPlot::setItem(SessionItem* projectionContainerItem)
+void ProjectionsPlot::setItem(SessionItem* intensityItem)
 {
-    Q_ASSERT(projectionContainerItem);
-    SessionItemWidget::setItem(projectionContainerItem);
-
-    qDebug() << projectionContainerItem->modelType();
+    Q_ASSERT(intensityItem);
+    SessionItemWidget::setItem(intensityItem);
 }
 
 void ProjectionsPlot::subscribeToItem()
 {
-    currentItem()->mapper()->setOnChildPropertyChange(
-        [this](SessionItem* item, const QString name) {
-            onChildPropertyChanged(item, name);
-        },
-        this);
 
-    m_hist2d.reset(new Histogram2D(*intensityItem()->getOutputData()));
+    projectionContainerItem()->mapper()->setOnChildrenChange([this](SessionItem* item)
+    {
+        // Removal of any child will regenerate all projections, apperance of a new child will
+        // create missed projections
+        item ? updateProjections() : clearProjections();
+    }, this);
 
+    projectionContainerItem()->mapper()->setOnChildPropertyChange(
+        [this](SessionItem* item, const QString& name) {
+            onProjectionPropertyChanged(item, name);
+        }, this);
+
+    intensityItem()->mapper()->setOnValueChange([this]()
+    {
+        updateProjectionsData();
+    }, this);
+
+    updateProjectionsData();
 }
 
 void ProjectionsPlot::unsubscribeFromItem()
 {
-
+    if(currentItem())
+        projectionContainerItem()->mapper()->unsubscribe(this);
 }
 
-void ProjectionsPlot::onChildPropertyChanged(SessionItem* item, const QString& property)
+void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QString& property)
 {
+    Q_ASSERT(property == HorizontalLineItem::P_POSY);
+
     if(m_block_plot_update)
         return;
 
     m_block_plot_update = true;
 
-    Q_ASSERT(item);
-    double y = item->getItemValue(property).toDouble();
+    QCPGraph* graph = graphForItem(item);
+    setGraphFromItem(graph, item);
 
-
-    QCPGraph* graph = addGraphForItem(item);
-    Q_ASSERT(graph);
-    qDebug() << "ProjectionsPlot::onChildPropertyChanged" << item->modelType() << property << y << graph;
-
-    std::unique_ptr<Histogram1D> hist(m_hist2d->projectionX(y));
-
-    graph->setData(QVector<double>::fromStdVector(hist->getBinCenters()), QVector<double>::fromStdVector(hist->getBinValues()));
-    graph->rescaleAxes();
     m_customPlot->replot();
     m_block_plot_update = false;
 }
 
 IntensityDataItem* ProjectionsPlot::intensityItem()
 {
-    IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(currentItem()->parent());
+    IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(currentItem());
     Q_ASSERT(result);
     return result;
 }
 
-QCPGraph* ProjectionsPlot::addGraphForItem(SessionItem* item)
+ProjectionContainerItem* ProjectionsPlot::projectionContainerItem()
+{
+    ProjectionContainerItem* result = dynamic_cast<ProjectionContainerItem*>(
+                intensityItem()->getItem(IntensityDataItem::T_PROJECTIONS));
+    Q_ASSERT(result);
+    return result;
+}
+
+QVector<SessionItem*> ProjectionsPlot::projectionItems()
+{
+    return projectionContainerItem()->getChildrenOfType(Constants::HorizontalLineMaskType);
+}
+
+QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
 {
     Q_ASSERT(item->modelType() == Constants::HorizontalLineMaskType);
 
@@ -112,4 +130,62 @@ QCPGraph* ProjectionsPlot::addGraphForItem(SessionItem* item)
         m_item_to_graph[item] = graph;
     }
     return graph;
+}
+
+//! Creates cached 2D histogram for later projection calculations.
+
+void ProjectionsPlot::updateProjectionsData()
+{
+    m_hist2d.reset(new Histogram2D(*intensityItem()->getOutputData()));
+    m_customPlot->yAxis->setRange(ColorMapUtils::itemDataRange(intensityItem()));
+    m_customPlot->xAxis->setRange(ColorMapUtils::itemXrange(intensityItem()));
+    ColorMapUtils::setLogz(m_customPlot->yAxis, intensityItem()->isLogz());
+}
+
+//! Runs through all projection items and generates missed plots.
+
+void ProjectionsPlot::updateProjections()
+{
+    if(m_block_plot_update)
+        return;
+
+    m_block_plot_update = true;
+
+    for(auto projItem : projectionItems()) {
+        auto graph = graphForItem(projItem);
+        Q_ASSERT(graph);
+        setGraphFromItem(graph, projItem);
+    }
+
+    m_customPlot->replot();
+
+    m_block_plot_update = false;
+}
+
+//! Clears all graphs corresponding to projection items.
+
+void ProjectionsPlot::clearProjections()
+{
+    m_block_plot_update = true;
+
+    m_customPlot->clearPlottables();
+    m_item_to_graph.clear();
+
+    m_customPlot->replot();
+
+    m_block_plot_update = false;
+}
+
+//! Sets the data to graph from given projection iten.
+
+void ProjectionsPlot::setGraphFromItem(QCPGraph* graph, SessionItem* item)
+{
+    Q_ASSERT(item->modelType() == Constants::HorizontalLineMaskType);
+    Q_ASSERT(m_hist2d.get());
+
+    double value  = item->getItemValue(HorizontalLineItem::P_POSY).toDouble();
+    std::unique_ptr<Histogram1D> hist(m_hist2d->projectionX(value));
+
+    graph->setData(QVector<double>::fromStdVector(hist->getBinCenters()),
+                   QVector<double>::fromStdVector(hist->getBinValues()));
 }

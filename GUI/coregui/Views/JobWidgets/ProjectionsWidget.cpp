@@ -37,8 +37,8 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     setLayout(layout);
 }
 
-void ProjectionsWidget::setItem(SessionItem* projectionContainerItem)
+void ProjectionsWidget::setItem(SessionItem* intensityItem)
 {
-    SessionItemWidget::setItem(projectionContainerItem);
-    m_xProjection->setItem(projectionContainerItem);
+    SessionItemWidget::setItem(intensityItem);
+    m_xProjection->setItem(intensityItem);
 }

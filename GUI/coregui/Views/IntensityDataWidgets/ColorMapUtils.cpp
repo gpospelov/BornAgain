@@ -88,12 +88,11 @@ void ColorMapUtils::setLogz(QCPColorScale* scale, bool isLogz)
 
 void ColorMapUtils::setLogz(QCPAxis* axis, bool isLogz)
 {
-    if (isLogz && axis->scaleType() != QCPAxis::stLogarithmic) {
+    if (isLogz) {
         axis->setNumberFormat("eb");
         axis->setNumberPrecision(0);
         axis->setScaleType(QCPAxis::stLogarithmic);
-
-    } else if (!isLogz && axis->scaleType() != QCPAxis::stLinear) {
+    } else  {
         axis->setNumberFormat("f");
         axis->setNumberPrecision(0);
         axis->setScaleType(QCPAxis::stLinear);

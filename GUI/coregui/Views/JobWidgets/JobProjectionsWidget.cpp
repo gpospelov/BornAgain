@@ -44,6 +44,11 @@ void JobProjectionsWidget::setItem(SessionItem* jobItem)
                                     projectionContainer->index(), intensityDataItem());
 }
 
+QList<QAction*> JobProjectionsWidget::actionList()
+{
+    return m_projectionsEditor->topToolBarActions();
+}
+
 IntensityDataItem* JobProjectionsWidget::intensityDataItem()
 {
     IntensityDataItem* result

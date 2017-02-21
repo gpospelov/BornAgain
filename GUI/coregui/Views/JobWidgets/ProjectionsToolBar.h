@@ -21,6 +21,7 @@
 #include <QToolBar>
 
 class ProjectionsEditorActions;
+class QButtonGroup;
 
 //! Toolbar with projections buttons (horizontal projections, vertical projections, select, zoom)
 //! located at the right-hand side of ProjectionsEditor (part of JobProjectionsWidget).
@@ -33,7 +34,11 @@ public:
     ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent = 0);
 
 private:
+    void setup_selection_group();
+    void add_separator();
+
     ProjectionsEditorActions* m_editorActions;
+    QButtonGroup* m_activityButtonGroup;
 };
 
 

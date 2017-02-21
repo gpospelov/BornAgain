@@ -48,6 +48,9 @@ ProjectionsEditor::ProjectionsEditor(QWidget* parent)
     m_rightSplitter->addWidget(m_propertyPanel);
 
     setCentralWidget(m_rightSplitter);
+
+    m_propertyPanel->setHidden(true);
+    setup_connections();
 }
 
 void ProjectionsEditor::setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
@@ -58,4 +61,21 @@ void ProjectionsEditor::setContext(SessionModel* model, const QModelIndex& shape
     m_propertyPanel->setItem(intensityItem);
     m_projectionsCanvas->setContext(model, shapeContainerIndex, intensityItem);
     m_projectionsWidget->setItem(intensityItem);
+}
+
+QList<QAction*> ProjectionsEditor::topToolBarActions()
+{
+    return m_editorActions->topToolBarActions();
+}
+
+void ProjectionsEditor::setup_connections()
+{
+    // tool panel request is propagated from editorActions to this MaskEditor
+    connect(m_editorActions, SIGNAL(resetViewRequest()),
+            m_projectionsCanvas, SLOT(onResetViewRequest()));
+
+    // tool panel request is propagated from editorActions to this MaskEditor
+    connect(m_editorActions, &ProjectionsEditorActions::propertyPanelRequest,
+            [=](){m_propertyPanel->setHidden(!m_propertyPanel->isHidden());});
+
 }

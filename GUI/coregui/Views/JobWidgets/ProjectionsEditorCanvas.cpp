@@ -35,6 +35,7 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     , m_statusLabel(new ColorMapLabel(0, this))
     , m_xProjection(nullptr)
     , m_model(nullptr)
+    , m_intensityDataItem(nullptr)
     , m_selectionModel(nullptr)
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
@@ -61,6 +62,7 @@ void ProjectionsEditorCanvas::setContext(SessionModel* model,
     m_view->updateSize(m_view->size());
 
     m_containerIndex = shapeContainerIndex;
+    m_intensityDataItem = intensityItem;
 
     setColorMap(m_scene->colorMap());
 }
@@ -93,13 +95,19 @@ void ProjectionsEditorCanvas::onPositionChanged(double x, double y)
         m_xProjection->setItemValue(HorizontalLineItem::P_POSY, y);
 }
 
+void ProjectionsEditorCanvas::onResetViewRequest()
+{
+    m_view->onResetViewRequest();
+    m_intensityDataItem->resetView();
+}
+
 void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)
 {
     Q_ASSERT(colorMap);
     setConnected(false);
 
     m_colorMap = colorMap;
-    setConnected(true);
+    //setConnected(true);
 
     m_statusLabel->reset();
     m_statusLabel->addColorMap(colorMap);

@@ -50,6 +50,7 @@ public slots:
     void onEnteringColorMap();
     void onLeavingColorMap();
     void onPositionChanged(double x, double y);
+    void onResetViewRequest();
 
 private:
     void setColorMap(ColorMap* colorMap);
@@ -63,6 +64,8 @@ private:
     SessionItem* m_xProjection;
     SessionModel* m_model;
     QModelIndex m_containerIndex;
+    IntensityDataItem *m_intensityDataItem;
+
     QItemSelectionModel* m_selectionModel;
 };
 

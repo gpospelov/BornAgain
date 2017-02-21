@@ -35,6 +35,8 @@ public:
 
     void setItem(SessionItem* jobItem);
 
+    QList<QAction*> actionList();
+
 private:
     IntensityDataItem* intensityDataItem();
     ProjectionContainerItem* createProjectionContainer(IntensityDataItem* intensityItem);

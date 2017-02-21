@@ -44,7 +44,11 @@ public:
     void setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
                     IntensityDataItem* intensityItem);
 
+    QList<QAction *> topToolBarActions();
+
 private:
+    void setup_connections();
+
     ProjectionsEditorActions* m_editorActions;
     ProjectionsToolBar* m_toolBar; //! main tool bar with bottoms at the right
     ProjectionsEditorCanvas* m_projectionsCanvas; //! canvas with color map at the top

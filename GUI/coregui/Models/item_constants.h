@@ -175,9 +175,6 @@ const ModelType RealLimitsUpperLimitedType = "RealLimitsUpperLimited";
 const ModelType RealLimitsLimitedType = "RealLimitsLimited";
 
 const ModelType ProjectionContainerType = "ProjectionContainer";
-const ModelType VerticalProjectionType = "VerticalProjection";
-const ModelType HorizontalProjectionType = "HorizontalProjection";
-
 
 // --- Groups ------------------------------------------------------------------
 

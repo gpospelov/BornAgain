@@ -212,8 +212,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::RealLimitsLimitedType] = &createInstance<LimitedItem>;
 
     result[Constants::ProjectionContainerType] = &createInstance<ProjectionContainerItem>;
-    result[Constants::HorizontalProjectionType] = &createInstance<ProjectionXItem>;
-    result[Constants::VerticalProjectionType] = &createInstance<ProjectionYItem>;
 
     return result;
 }

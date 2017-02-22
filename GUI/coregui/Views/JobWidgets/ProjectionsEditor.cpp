@@ -23,6 +23,8 @@
 #include "minisplitter.h"
 #include "SessionModel.h"
 #include "IntensityDataItem.h"
+#include "MaskEditorFlags.h"
+#include "MaskGraphicsScene.h"
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -77,5 +79,9 @@ void ProjectionsEditor::setup_connections()
     // tool panel request is propagated from editorActions to this MaskEditor
     connect(m_editorActions, &ProjectionsEditorActions::propertyPanelRequest,
             [=](){m_propertyPanel->setHidden(!m_propertyPanel->isHidden());});
+
+    // selection/drawing activity is propagated from ToolBar to graphics scene
+    connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
+            m_projectionsCanvas->getScene(), SLOT(onActivityModeChanged(MaskEditorFlags::Activity)));
 
 }

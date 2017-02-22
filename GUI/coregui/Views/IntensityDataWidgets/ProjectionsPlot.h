@@ -34,7 +34,7 @@ class BA_CORE_API_ ProjectionsPlot : public SessionItemWidget
     Q_OBJECT
 
 public:
-    ProjectionsPlot(QWidget* parent = 0);
+    ProjectionsPlot(const QString& projectionType, QWidget* parent = 0);
     virtual ~ProjectionsPlot();
 
     void setItem(SessionItem* intensityItem);
@@ -57,6 +57,7 @@ private:
 
     void setGraphFromItem(QCPGraph* graph, SessionItem* item);
 
+    QString m_projectionType;
     QCustomPlot* m_customPlot;
     std::unique_ptr<Histogram2D> m_hist2d;
     QMap<SessionItem*, QCPGraph*> m_item_to_graph;

@@ -46,6 +46,8 @@ public:
     void setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
                     IntensityDataItem* intensityItem);
 
+    MaskGraphicsScene *getScene() { return m_scene; }
+
 public slots:
     void onEnteringColorMap();
     void onLeavingColorMap();
@@ -61,7 +63,7 @@ private:
     ColorMap* m_colorMap;
     ColorMapLabel* m_statusLabel;    
 
-    SessionItem* m_xProjection;
+    SessionItem* m_xProjection; //!< temporary projection item matching mouse move
     SessionModel* m_model;
     QModelIndex m_containerIndex;
     IntensityDataItem *m_intensityDataItem;

@@ -27,8 +27,9 @@
 #include "ColorMapUtils.h"
 #include <QDebug>
 
-ProjectionsPlot::ProjectionsPlot(QWidget* parent)
+ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
     : SessionItemWidget(parent)
+    , m_projectionType(projectionType)
     , m_customPlot(new QCustomPlot)
     , m_block_plot_update(false)
 {
@@ -53,22 +54,22 @@ void ProjectionsPlot::setItem(SessionItem* intensityItem)
 void ProjectionsPlot::subscribeToItem()
 {
 
-    projectionContainerItem()->mapper()->setOnChildrenChange([this](SessionItem* item)
-    {
-        // Removal of any child will regenerate all projections, apperance of a new child will
-        // create missed projections
-        item ? updateProjections() : clearProjections();
-    }, this);
+    projectionContainerItem()->mapper()->setOnChildrenChange(
+        [this](SessionItem* item) {
+            // Removal of any child will regenerate all projections, apperance of a new child will
+            // create missed projections
+            item ? updateProjections() : clearProjections();
+        }, this);
 
     projectionContainerItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString& name) {
             onProjectionPropertyChanged(item, name);
         }, this);
 
-    intensityItem()->mapper()->setOnValueChange([this]()
-    {
-        updateProjectionsData();
-    }, this);
+    intensityItem()->mapper()->setOnValueChange(
+        [this]() {
+            updateProjectionsData();
+        }, this);
 
     updateProjectionsData();
 }
@@ -81,17 +82,20 @@ void ProjectionsPlot::unsubscribeFromItem()
 
 void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QString& property)
 {
-    Q_ASSERT(property == HorizontalLineItem::P_POSY);
+    qDebug() << "ProjectionsPlot::onProjectionPropertyChanged" << item->modelType() << property;
 
     if(m_block_plot_update)
         return;
 
     m_block_plot_update = true;
 
-    QCPGraph* graph = graphForItem(item);
-    setGraphFromItem(graph, item);
+    if (property == HorizontalLineItem::P_POSY || property == VerticalLineItem::P_POSX) {
+        QCPGraph* graph = graphForItem(item);
+        setGraphFromItem(graph, item);
 
-    m_customPlot->replot();
+        m_customPlot->replot();
+    }
+
     m_block_plot_update = false;
 }
 
@@ -117,7 +121,7 @@ QVector<SessionItem*> ProjectionsPlot::projectionItems()
 
 QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
 {
-    Q_ASSERT(item->modelType() == Constants::HorizontalLineMaskType);
+    Q_ASSERT(item->modelType() == m_projectionType);
 
     QCPGraph *graph = m_item_to_graph[item];
     if (!graph) {
@@ -151,11 +155,8 @@ void ProjectionsPlot::updateProjections()
 
     m_block_plot_update = true;
 
-    for(auto projItem : projectionItems()) {
-        auto graph = graphForItem(projItem);
-        Q_ASSERT(graph);
-        setGraphFromItem(graph, projItem);
-    }
+    for(auto projItem : projectionItems())
+        setGraphFromItem(graphForItem(projItem), projItem);
 
     m_customPlot->replot();
 
@@ -180,11 +181,15 @@ void ProjectionsPlot::clearProjections()
 
 void ProjectionsPlot::setGraphFromItem(QCPGraph* graph, SessionItem* item)
 {
-    Q_ASSERT(item->modelType() == Constants::HorizontalLineMaskType);
-    Q_ASSERT(m_hist2d.get());
+    std::unique_ptr<Histogram1D> hist;
 
-    double value  = item->getItemValue(HorizontalLineItem::P_POSY).toDouble();
-    std::unique_ptr<Histogram1D> hist(m_hist2d->projectionX(value));
+    if(item->modelType() == Constants::HorizontalLineMaskType) {
+        double value  = item->getItemValue(HorizontalLineItem::P_POSY).toDouble();
+        hist.reset(m_hist2d->projectionX(value));
+    } else {
+        double value  = item->getItemValue(VerticalLineItem::P_POSX).toDouble();
+        hist.reset(m_hist2d->projectionY(value));
+    }
 
     graph->setData(QVector<double>::fromStdVector(hist->getBinCenters()),
                    QVector<double>::fromStdVector(hist->getBinValues()));

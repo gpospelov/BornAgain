@@ -16,12 +16,13 @@
 
 #include "ProjectionsWidget.h"
 #include "ProjectionsPlot.h"
+#include "item_constants.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
 
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     : SessionItemWidget(parent)
-    , m_xProjection(new ProjectionsPlot)
+    , m_xProjection(new ProjectionsPlot(Constants::HorizontalLineMaskType))
 //    , m_yProjection(new ProjectionsPlot)
     , m_tabWidget(new QTabWidget)
 {

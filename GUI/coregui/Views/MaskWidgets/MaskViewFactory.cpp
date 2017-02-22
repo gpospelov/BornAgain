@@ -75,10 +75,6 @@ IMaskView *MaskViewFactory::createMaskView(SessionItem *item,
         result = new RegionOfInterestView();
     }
 
-    else if(model_type == Constants::HorizontalProjectionType) {
-        return nullptr;
-    }
-
     else {
         throw GUIHelpers::Error("MaskViewFactory::createSampleView() -> Error! "
                                 "Can't create a view for " + model_type);

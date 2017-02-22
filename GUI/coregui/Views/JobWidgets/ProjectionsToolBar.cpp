@@ -23,26 +23,34 @@
 #include <QLabel>
 
 ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent)
-    : QToolBar(parent)
-    , m_editorActions(editorActions)
-    , m_activityButtonGroup(new QButtonGroup(this))
+    : QToolBar(parent), m_editorActions(editorActions),
+      m_activityButtonGroup(new QButtonGroup(this))
 {
     setIconSize(QSize(Constants::toolbar_icon_size, Constants::toolbar_icon_size));
     setProperty("_q_custom_style_disabled", QVariant(true));
 
     setup_selection_group();
+    setup_shapes_group();
+
+    connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)), this,
+            SLOT(onActivityGroupChange(int)));
+}
+
+void ProjectionsToolBar::onActivityGroupChange(int)
+{
+    emit activityModeChanged(currentActivity());
 }
 
 void ProjectionsToolBar::setup_selection_group()
 {
-    QToolButton *panButton = new QToolButton(this);
+    QToolButton* panButton = new QToolButton(this);
     panButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_hand.svg"));
     panButton->setToolTip("Pan/zoom mode (space)");
     panButton->setCheckable(true);
     panButton->setChecked(true);
     addWidget(panButton);
 
-    QToolButton *resetViewButton = new QToolButton(this);
+    QToolButton* resetViewButton = new QToolButton(this);
     resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
     resetViewButton->setToolTip("Reset pan/zoom to initial state");
     addWidget(resetViewButton);
@@ -51,7 +59,7 @@ void ProjectionsToolBar::setup_selection_group()
 
     add_separator();
 
-    QToolButton *selectionButton = new QToolButton(this);
+    QToolButton* selectionButton = new QToolButton(this);
     selectionButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_arrow.svg"));
     selectionButton->setToolTip("Select/modify mask");
     selectionButton->setCheckable(true);
@@ -59,7 +67,24 @@ void ProjectionsToolBar::setup_selection_group()
 
     m_activityButtonGroup->addButton(panButton, MaskEditorFlags::PAN_ZOOM_MODE);
     m_activityButtonGroup->addButton(selectionButton, MaskEditorFlags::SELECTION_MODE);
+}
 
+void ProjectionsToolBar::setup_shapes_group()
+{
+    QToolButton* horizontalLineButton = new QToolButton(this);
+    horizontalLineButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_horizontalline.svg"));
+    horizontalLineButton->setToolTip("Create horizontal line mask");
+    horizontalLineButton->setCheckable(true);
+    addWidget(horizontalLineButton);
+
+    QToolButton* verticalLineButton = new QToolButton(this);
+    verticalLineButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_verticalline.svg"));
+    verticalLineButton->setToolTip("Create vertical line mask");
+    verticalLineButton->setCheckable(true);
+    addWidget(verticalLineButton);
+
+    m_activityButtonGroup->addButton(verticalLineButton, MaskEditorFlags::VERTICAL_LINE_MODE);
+    m_activityButtonGroup->addButton(horizontalLineButton, MaskEditorFlags::HORIZONTAL_LINE_MODE);
 }
 
 void ProjectionsToolBar::add_separator()
@@ -67,4 +92,9 @@ void ProjectionsToolBar::add_separator()
     addWidget(new QLabel(" "));
     addSeparator();
     addWidget(new QLabel(" "));
+}
+
+MaskEditorFlags::Activity ProjectionsToolBar::currentActivity() const
+{
+    return MaskEditorFlags::EActivityType(m_activityButtonGroup->checkedId());
 }

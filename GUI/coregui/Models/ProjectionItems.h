@@ -27,20 +27,4 @@ public:
     ProjectionContainerItem();
 };
 
-//! Projection of a 2D histogram into 1D histogram along X.
-
-class BA_CORE_API_  ProjectionXItem : public SessionItem
-{
-public:
-    ProjectionXItem();
-};
-
-//! Projection of a 2D histogram into 1D histogram along Y.
-
-class BA_CORE_API_  ProjectionYItem : public SessionItem
-{
-public:
-    ProjectionYItem();
-};
-
 #endif

@@ -18,6 +18,7 @@
 #define PROJECTIONSTOOLBAR_H
 
 #include "WinDllMacros.h"
+#include "MaskEditorFlags.h"
 #include <QToolBar>
 
 class ProjectionsEditorActions;
@@ -33,9 +34,17 @@ class ProjectionsToolBar : public QToolBar
 public:
     ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent = 0);
 
+signals:
+    void activityModeChanged(MaskEditorFlags::Activity);
+
+private slots:
+    void onActivityGroupChange(int);
+
 private:
     void setup_selection_group();
+    void setup_shapes_group();
     void add_separator();
+    MaskEditorFlags::Activity currentActivity() const;
 
     ProjectionsEditorActions* m_editorActions;
     QButtonGroup* m_activityButtonGroup;

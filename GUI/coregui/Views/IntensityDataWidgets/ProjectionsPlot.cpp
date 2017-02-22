@@ -56,9 +56,13 @@ void ProjectionsPlot::subscribeToItem()
 
     projectionContainerItem()->mapper()->setOnChildrenChange(
         [this](SessionItem* item) {
-            // Removal of any child will regenerate all projections, apperance of a new child will
-            // create missed projections
-            item ? updateProjections() : clearProjections();
+            if(item)
+                updateProjections();
+        }, this);
+
+    projectionContainerItem()->mapper()->setOnAboutToRemoveChild(
+        [this](SessionItem* item) {
+            clearProjection(item);
         }, this);
 
     projectionContainerItem()->mapper()->setOnChildPropertyChange(
@@ -82,8 +86,6 @@ void ProjectionsPlot::unsubscribeFromItem()
 
 void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QString& property)
 {
-    qDebug() << "ProjectionsPlot::onProjectionPropertyChanged" << item->modelType() << property;
-
     if(m_block_plot_update)
         return;
 
@@ -168,6 +170,7 @@ void ProjectionsPlot::updateProjections()
     m_customPlot->replot();
 
     m_block_plot_update = false;
+    qDebug() << "ProjectionsPlot::updateProjections() 3.3";
 }
 
 //! Clears all graphs corresponding to projection items.
@@ -179,6 +182,19 @@ void ProjectionsPlot::clearProjections()
     m_customPlot->clearPlottables();
     m_item_to_graph.clear();
 
+    m_customPlot->replot();
+
+    m_block_plot_update = false;
+}
+
+void ProjectionsPlot::clearProjection(SessionItem* item)
+{
+    m_block_plot_update = true;
+
+    auto graph = graphForItem(item);
+    Q_ASSERT(graph);
+    m_customPlot->removePlottable(graph);
+    m_item_to_graph.remove(item);
     m_customPlot->replot();
 
     m_block_plot_update = false;

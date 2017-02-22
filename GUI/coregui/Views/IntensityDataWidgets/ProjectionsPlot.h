@@ -54,6 +54,7 @@ private:
     void updateProjectionsData();
     void updateProjections();
     void clearProjections();
+    void clearProjection(SessionItem* item);
 
     void setGraphFromItem(QCPGraph* graph, SessionItem* item);
 

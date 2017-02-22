@@ -64,7 +64,6 @@ public slots:
     void cancelCurrentDrawing();
     void resetScene();
     void updateScene();
-    void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
 
 private slots:
     void onSessionSelectionChanged(const QItemSelection & /* selected */,

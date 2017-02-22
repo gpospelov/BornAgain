@@ -79,7 +79,12 @@ MaskGraphicsScene *MaskEditorCanvas::getScene()
 void MaskEditorCanvas::onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType)
 {
     m_resultsPresenter->updatePresenter(presentationType);
-    m_scene->onPresentationTypeRequest(presentationType);
+
+    if(auto container = m_intensityDataItem->maskContainerItem()) {
+        bool isVisible = presentationType.testFlag(MaskEditorFlags::MASK_EDITOR);
+        for(auto mask : container->getItems())
+            mask->setItemValue(MaskItem::P_IS_VISIBLE, isVisible);
+    }
 }
 
 //! Saves plot into project directory.

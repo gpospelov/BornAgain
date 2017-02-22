@@ -157,8 +157,12 @@ void IMaskView::onItemPropertyChange(const QString& propertyName)
     m_block_on_property_change = true;
 
     bool schedule_update = false;
-    if (propertyName == MaskItem::P_MASK_VALUE)
+    if (propertyName == MaskItem::P_MASK_VALUE) {
         schedule_update = true;
+    } else if(propertyName == MaskItem::P_IS_VISIBLE) {
+        this->setVisible(getParameterizedItem()->getItemValue(MaskItem::P_IS_VISIBLE).toBool());
+        schedule_update = true;
+    }
 
     onPropertyChange(propertyName);
 

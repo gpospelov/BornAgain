@@ -189,14 +189,6 @@ void MaskGraphicsScene::updateScene()
     setZValues();
 }
 
-//! Makes invisible all masks in the case of the request for presentation mode.
-
-void MaskGraphicsScene::onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType)
-{
-    foreach(IMaskView *view, m_ItemToView.values())
-        view->setVisible(presentationType.testFlag(MaskEditorFlags::MASK_EDITOR));
-}
-
 //! Propagates selection from model to scene.
 
 void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection&, const QItemSelection&)

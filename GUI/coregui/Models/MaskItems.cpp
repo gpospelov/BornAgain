@@ -45,6 +45,7 @@ MaskItem::MaskItem(const QString &name)
     : SessionItem(name)
 {
     addProperty(P_MASK_VALUE, true);
+    addProperty(P_IS_VISIBLE, true);
 }
 
 std::unique_ptr<IShape2D> MaskItem::createShape(double scale) const

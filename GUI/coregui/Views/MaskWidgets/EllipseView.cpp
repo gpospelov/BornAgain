@@ -26,23 +26,20 @@ EllipseView::EllipseView()
 
 void EllipseView::onChangedX()
 {
-    m_block_on_property_change = true;
+    setBlockOnProperty(true);
     m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(this->x()));
-    m_block_on_property_change = false;
+    setBlockOnProperty(false);
 }
 
 void EllipseView::onChangedY()
 {
-    m_block_on_property_change = true;
+    setBlockOnProperty(true);
     m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(this->y()));
-    m_block_on_property_change = false;
+    setBlockOnProperty(false);
 }
 
 void EllipseView::onPropertyChange(const QString &propertyName)
 {
-    if(m_block_on_property_change) return;
-    m_block_on_property_change = true;
-
     if(propertyName == EllipseItem::P_XRADIUS || propertyName == EllipseItem::P_YRADIUS) {
         update_view();
     }
@@ -55,11 +52,6 @@ void EllipseView::onPropertyChange(const QString &propertyName)
     else if(propertyName == EllipseItem::P_ANGLE) {
         setTransform(QTransform().rotate(-1.0*par(EllipseItem::P_ANGLE)));
     }
-    else if(propertyName == MaskItem::P_MASK_VALUE) {
-        update();
-    }
-
-    m_block_on_property_change = false;
 }
 
 void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

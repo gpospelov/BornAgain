@@ -26,6 +26,7 @@
 IMaskView::IMaskView()
     : m_item(0)
     , m_adaptor(0)
+    , m_block_on_property_change(false)
 {
     connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
@@ -57,7 +58,7 @@ void IMaskView::setParameterizedItem(SessionItem *item)
         m_item->mapper()->setOnPropertyChange(
                     [this](const QString &name)
         {
-            onPropertyChange(name);
+            onItemPropertyChange(name);
         }, this);
     }
 }
@@ -138,18 +139,31 @@ void IMaskView::addView(IMaskView *childView, int row)
     childView->setParentItem(this);
 }
 
-void IMaskView::onChangedX()
+void IMaskView::setBlockOnProperty(bool value)
 {
+    m_block_on_property_change = value;
 }
 
-void IMaskView::onChangedY()
+bool IMaskView::blockOnProperty() const
 {
+    return m_block_on_property_change;
 }
 
-void IMaskView::onPropertyChange(const QString &propertyName)
+void IMaskView::onItemPropertyChange(const QString& propertyName)
 {
-    if(propertyName == MaskItem::P_MASK_VALUE)
+    if (m_block_on_property_change)
+        return;
+
+    m_block_on_property_change = true;
+
+    bool schedule_update = false;
+    if (propertyName == MaskItem::P_MASK_VALUE)
+        schedule_update = true;
+
+    onPropertyChange(propertyName);
+
+    if (schedule_update)
         update();
 
-    emit propertyChanged();
+    m_block_on_property_change = false;
 }

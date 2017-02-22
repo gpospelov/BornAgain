@@ -39,6 +39,7 @@ MaskContainerItem::MaskContainerItem()
 /* ------------------------------------------------------------------------- */
 
 const QString MaskItem::P_MASK_VALUE = "Mask value";
+const QString MaskItem::P_IS_VISIBLE = "Visibility";
 
 MaskItem::MaskItem(const QString &name)
     : SessionItem(name)

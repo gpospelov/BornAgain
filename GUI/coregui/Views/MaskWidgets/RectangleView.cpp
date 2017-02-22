@@ -25,29 +25,24 @@ RectangleView::RectangleView()
 
 void RectangleView::onChangedX()
 {
-    m_block_on_property_change = true;
+    setBlockOnProperty(true);
     m_item->setItemValue(RectangleItem::P_XLOW, fromSceneX(this->x()));
     m_item->setItemValue(RectangleItem::P_XUP, fromSceneX(this->x() + m_mask_rect.width()));
-    m_block_on_property_change = false;
+    setBlockOnProperty(false);
 }
 
 void RectangleView::onChangedY()
 {
-    m_block_on_property_change = true;
+    setBlockOnProperty(true);
     m_item->setItemValue(RectangleItem::P_YLOW, fromSceneY(this->y() + m_mask_rect.height()));
     m_item->setItemValue(RectangleItem::P_YUP, fromSceneY(this->y()));
-    m_block_on_property_change = false;
+    setBlockOnProperty(false);
 }
 
-void RectangleView::onPropertyChange(const QString &propertyName)
+void RectangleView::onPropertyChange(const QString& propertyName)
 {
-    if(m_block_on_property_change) return;
-
-    if(propertyName == MaskItem::P_MASK_VALUE) {
-        update();
-    } else {
+    if(propertyName != MaskItem::P_MASK_VALUE)
         update_view();
-    }
 }
 
 void RectangleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

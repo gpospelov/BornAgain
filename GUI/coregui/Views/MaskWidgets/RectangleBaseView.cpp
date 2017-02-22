@@ -29,8 +29,7 @@ const double bbox_margins = 5; // additional margins around rectangle to form bo
 }
 
 RectangleBaseView::RectangleBaseView()
-    : m_block_on_property_change(false)
-    , m_activeHandleElement(0)
+    : m_activeHandleElement(0)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable );

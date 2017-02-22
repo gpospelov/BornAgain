@@ -319,8 +319,8 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
 {
-    if(!isDrawingInProgress())
-        return;
+//    if(!isDrawingInProgress())
+//        return;
 
     if(m_currentMousePosition == QPointF())
         return;

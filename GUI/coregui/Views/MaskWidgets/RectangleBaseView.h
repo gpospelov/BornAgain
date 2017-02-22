@@ -55,13 +55,13 @@ protected:
     qreal height() const;
 
     void create_size_handle_elements();
-    bool m_block_on_property_change;
     QRectF m_mask_rect; //!< mask rectangle in scene coordinates
     QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *> m_resize_handles;
      //!< coordinates of corner opposite to the grip corner at the moment it first clicked
      //!< in scene coordinates
     QPointF m_resize_opposite_origin;
     SizeHandleElement *m_activeHandleElement;
+
 };
 
 #endif // RECTANGLEBASEVIEW_H

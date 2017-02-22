@@ -64,14 +64,21 @@ signals:
 public slots:
     //! update visual appearance of view (triggered by ISceneAdaptor)
     virtual void update_view() = 0;
-    virtual void onChangedX();
-    virtual void onChangedY();
-    virtual void onPropertyChange(const QString &propertyName);
+    virtual void onChangedX() {}
+    virtual void onChangedY() {}
+    virtual void onPropertyChange(const QString&) {}
 
 protected:
+    void setBlockOnProperty(bool value);
+    bool blockOnProperty() const;
+
     SessionItem *m_item;
     const ISceneAdaptor *m_adaptor;
     QRectF m_bounding_rect;
+    bool m_block_on_property_change;
+
+private:
+    void onItemPropertyChange(const QString &propertyName);
 };
 
 #endif // IMASKVIEW_H

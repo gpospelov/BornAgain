@@ -72,6 +72,11 @@ void ModelMapper::setOnItemDestroy(std::function<void (SessionItem *)> f, const 
     m_onItemDestroy.push_back(call_item_t(f, caller));
 }
 
+void ModelMapper::setOnAboutToRemoveChild(std::function<void (SessionItem*)> f, const void* caller)
+{
+    m_onAboutToRemoveChild.push_back(call_item_t(f, caller));
+}
+
 //! Cancells all subscribtion of given caller
 void ModelMapper::unsubscribe(const void *caller)
 {
@@ -83,6 +88,7 @@ void ModelMapper::unsubscribe(const void *caller)
     clean_container(m_onSiblingsChange, caller);
     clean_container(m_onAnyChildChange, caller);
     clean_container(m_onItemDestroy, caller);
+    clean_container(m_onAboutToRemoveChild, caller);
 }
 
 void ModelMapper::setModel(SessionModel *model)
@@ -189,7 +195,16 @@ void ModelMapper::callOnAnyChildChange(SessionItem *item)
             f.first(item);
         }
     }
-//    if(m_active) emit anyChildChange(item);
+    //    if(m_active) emit anyChildChange(item);
+}
+
+void ModelMapper::callOnAboutToRemoveChild(SessionItem* item)
+{
+    if (m_active && m_onAboutToRemoveChild.size() > 0) {
+        for (auto f : m_onAboutToRemoveChild) {
+            f.first(item);
+        }
+    }
 }
 
 //! Notifies subscribers if an item owning given mapper is about to be destroyed
@@ -215,6 +230,7 @@ void ModelMapper::clearMapper()
     m_onSiblingsChange.clear();
     m_onAnyChildChange.clear();
     m_onItemDestroy.clear();
+    m_onAboutToRemoveChild.clear();
 }
 
 void ModelMapper::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
@@ -309,6 +325,7 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex &parent, int first, int /*
         if (nestling == 0) {
 
             callOnChildrenChange(0);
+            callOnAboutToRemoveChild(oldChild);
 
             // inform siblings about the change
 //            if(SessionItem *parent = oldChild->parent()) {

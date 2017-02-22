@@ -51,6 +51,8 @@ public:
 
     void setOnItemDestroy(std::function<void(SessionItem*)> f, const void *caller=0);
 
+    void setOnAboutToRemoveChild(std::function<void(SessionItem*)> f, const void *caller=0);
+
     void unsubscribe(const void *caller);
 
     void callOnItemDestroy();
@@ -89,6 +91,7 @@ private:
     void callOnChildrenChange(SessionItem *item);
     void callOnSiblingsChange();
     void callOnAnyChildChange(SessionItem *item);
+    void callOnAboutToRemoveChild(SessionItem *item);
 
     void clearMapper();
 
@@ -109,6 +112,7 @@ private:
     std::vector<call_t> m_onSiblingsChange;
     std::vector<call_item_t> m_onAnyChildChange;
     std::vector<call_item_t> m_onItemDestroy;
+    std::vector<call_item_t> m_onAboutToRemoveChild;
     QModelIndex m_aboutToDelete;
 };
 

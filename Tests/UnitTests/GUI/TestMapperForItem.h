@@ -16,6 +16,7 @@ public:
         , m_onParentChangeCount(0)
         , m_onChildrenChangeCount(0)
         , m_onSiblingsChangeCount(0)
+        , m_onAboutToRemoveChild(0)
     { }
 
     void clear()
@@ -25,6 +26,7 @@ public:
         m_onParentChangeCount = 0;
         m_onChildrenChangeCount = 0;
         m_onSiblingsChangeCount = 0;
+        m_onAboutToRemoveChild = 0;
         m_reported_items.clear();
         m_reported_names.clear();
     }
@@ -65,6 +67,13 @@ public:
             onSiblingsChange();
         }, caller);
 
+
+        mapper->setOnAboutToRemoveChild(
+                    [this](SessionItem* item)
+        {
+            onAboutToRemoveChild(item);
+        }, caller);
+
     }
 
     void onPropertyChange(const QString &name)
@@ -100,11 +109,18 @@ public:
         mapper->unsubscribe(this);
     }
 
+    void onAboutToRemoveChild(SessionItem *item)
+    {
+        m_reported_items.append(item);
+        m_onAboutToRemoveChild++;
+    }
+
     int m_onPropertyChangeCount;
     int m_onChildPropertyChangeCount;
     int m_onParentChangeCount;
     int m_onChildrenChangeCount;
     int m_onSiblingsChangeCount;
+    int m_onAboutToRemoveChild;
     QList<SessionItem *> m_reported_items;
     QStringList m_reported_names;
 };
@@ -141,6 +157,7 @@ private slots:
     void test_onSiblingsChange();
     void test_Subscription();
     void test_TwoWidgetsSubscription();
+    void test_AboutToRemoveChild();
 };
 
 inline void TestMapperForItem::test_initialCondition()
@@ -336,5 +353,24 @@ inline void TestMapperForItem::test_TwoWidgetsSubscription()
     layer->setItemValue(LayerItem::P_THICKNESS, 2.0);
     QCOMPARE(w1.m_onPropertyChangeCount, 1);
     QCOMPARE(w2.m_onPropertyChangeCount, 2);
+
+}
+
+inline void TestMapperForItem::test_AboutToRemoveChild()
+{
+    Widget w;
+    SampleModel model;
+    SessionItem *container = model.insertNewItem(Constants::ProjectionContainerType);
+
+    SessionItem *line = model.insertNewItem(Constants::HorizontalLineMaskType, container->index());
+
+    setItem(container, &w);
+    QCOMPARE(w.m_onAboutToRemoveChild, 0);
+    QCOMPARE(w.m_reported_items.size(), 0);
+
+    line->parent()->takeRow(line->parent()->rowOfChild(line));
+    QCOMPARE(w.m_onAboutToRemoveChild, 1);
+    QCOMPARE(w.m_reported_items.size(), 1);
+    QCOMPARE(w.m_reported_items.back(), line);
 
 }

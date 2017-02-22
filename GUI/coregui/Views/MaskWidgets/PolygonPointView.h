@@ -37,9 +37,11 @@ public:
 
 signals:
     void closePolygonRequest(bool);
+    void propertyChanged();
 
 public slots:
     virtual void update_view();
+    virtual void onPropertyChange(const QString &);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);

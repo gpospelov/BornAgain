@@ -25,24 +25,23 @@
 MaskAllView::MaskAllView()
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
-
 }
 
 void MaskAllView::update_view()
 {
-//    prepareGeometryChange();
-    m_bounding_rect = m_adaptor->getViewportRectangle();
+    //    prepareGeometryChange();
+    m_bounding_rect = m_adaptor->viewportRectangle();
     update();
 }
 
-void MaskAllView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void MaskAllView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-//    painter->setRenderHints(QPainter::Antialiasing);
+    //    painter->setRenderHints(QPainter::Antialiasing);
     QColor color(250, 250, 240, 150);
     painter->setBrush(color);
     painter->drawRect(m_bounding_rect);
 
-    if(isSelected()) {
+    if (isSelected()) {
         QPen pen;
         pen.setStyle(Qt::DashLine);
         painter->setPen(pen);

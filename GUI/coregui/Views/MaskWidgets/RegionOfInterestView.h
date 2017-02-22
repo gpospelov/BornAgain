@@ -29,8 +29,7 @@ public:
     int type() const { return MaskEditorHelper::REGIONOFINTEREST; }
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
 #endif // REGIONOFINTERESTVIEW_H

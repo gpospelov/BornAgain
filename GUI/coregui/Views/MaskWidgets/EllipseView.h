@@ -31,14 +31,14 @@ public:
 
     EllipseView();
 
-public slots:
+protected slots:
     virtual void onChangedX();
     virtual void onChangedY();
-    virtual void onPropertyChange(const QString &propertyName);
+    virtual void onPropertyChange(const QString& propertyName);
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 
 private:
     void update_position();

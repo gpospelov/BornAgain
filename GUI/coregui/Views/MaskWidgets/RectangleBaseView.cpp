@@ -15,24 +15,15 @@
 // ************************************************************************** //
 
 #include "RectangleBaseView.h"
-#include "ISceneAdaptor.h"
-#include "MaskEditorHelper.h"
-#include "MaskItems.h"
-#include "SizeHandleElement.h"
-#include <QGraphicsSceneMouseEvent>
-#include <QMarginsF>
-#include <QPainter>
-#include <QRegion>
 
 namespace {
 const double bbox_margins = 5; // additional margins around rectangle to form bounding box
 }
 
-RectangleBaseView::RectangleBaseView()
-    : m_activeHandleElement(0)
+RectangleBaseView::RectangleBaseView() : m_activeHandleElement(0)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
-    setFlag(QGraphicsItem::ItemIsMovable );
+    setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
     create_size_handle_elements();
@@ -41,12 +32,12 @@ RectangleBaseView::RectangleBaseView()
 //! triggered by SizeHandleElement
 void RectangleBaseView::onSizeHandleElementRequest(bool going_to_resize)
 {
-    if(going_to_resize) {
+    if (going_to_resize) {
         setFlag(QGraphicsItem::ItemIsMovable, false);
-        m_activeHandleElement = qobject_cast<SizeHandleElement *>(sender());
+        m_activeHandleElement = qobject_cast<SizeHandleElement*>(sender());
         Q_ASSERT(m_activeHandleElement);
         SizeHandleElement::EHandleLocation oposite_corner
-                = m_activeHandleElement->getOppositeHandleLocation();
+            = m_activeHandleElement->getOppositeHandleLocation();
         m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
     } else {
         setFlag(QGraphicsItem::ItemIsMovable, true);
@@ -55,21 +46,22 @@ void RectangleBaseView::onSizeHandleElementRequest(bool going_to_resize)
 }
 
 //! Track if item selected/deselected and show/hide size handles
-QVariant RectangleBaseView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
+QVariant RectangleBaseView::itemChange(QGraphicsItem::GraphicsItemChange change,
+                                       const QVariant& value)
 {
-    if(change == QGraphicsItem::ItemSelectedChange) {
-        for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
-            it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
+    if (change == QGraphicsItem::ItemSelectedChange) {
+        for (auto it = m_resize_handles.begin();
+             it != m_resize_handles.end(); ++it) {
             it.value()->setVisible(!this->isSelected());
         }
     }
     return value;
 }
 
-void RectangleBaseView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void RectangleBaseView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     onSizeHandleElementRequest(false);
-    IMaskView::mouseReleaseEvent(event);
+    IShape2DView::mouseReleaseEvent(event);
 }
 
 void RectangleBaseView::update_view()
@@ -83,13 +75,14 @@ void RectangleBaseView::update_view()
 
 void RectangleBaseView::update_bounding_rect()
 {
-    if(m_item) {
+    if (m_item) {
         m_mask_rect = mask_rectangle();
-        m_bounding_rect = m_mask_rect.marginsAdded(QMarginsF(bbox_margins, bbox_margins,
-                                                      bbox_margins, bbox_margins));
+        m_bounding_rect = m_mask_rect.marginsAdded(
+            QMarginsF(bbox_margins, bbox_margins, bbox_margins, bbox_margins));
     }
-    for(QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *>::iterator
-            it = m_resize_handles.begin(); it!= m_resize_handles.end(); ++it) {
+    for (QMap<SizeHandleElement::EHandleLocation, SizeHandleElement*>::iterator it
+         = m_resize_handles.begin();
+         it != m_resize_handles.end(); ++it) {
         it.value()->updateHandleElementPosition(m_mask_rect);
     }
 }
@@ -110,13 +103,12 @@ void RectangleBaseView::create_size_handle_elements()
 {
     QList<SizeHandleElement::EHandleLocation> points;
     points << SizeHandleElement::TOPLEFT << SizeHandleElement::TOPMIDDLE
-           << SizeHandleElement::TOPRIGHT
-           << SizeHandleElement::MIDDLERIGHT << SizeHandleElement::BOTTOMRIGHT
-           << SizeHandleElement::BOTTOMMIDLE << SizeHandleElement::BOTTOMLEFT
-           << SizeHandleElement::MIDDLELEFT;
+           << SizeHandleElement::TOPRIGHT << SizeHandleElement::MIDDLERIGHT
+           << SizeHandleElement::BOTTOMRIGHT << SizeHandleElement::BOTTOMMIDLE
+           << SizeHandleElement::BOTTOMLEFT << SizeHandleElement::MIDDLELEFT;
 
-    foreach(SizeHandleElement::EHandleLocation point_type, points) {
-        SizeHandleElement *el = new SizeHandleElement(point_type, this);
+    foreach (SizeHandleElement::EHandleLocation point_type, points) {
+        SizeHandleElement* el = new SizeHandleElement(point_type, this);
         connect(el, SIGNAL(resize_request(bool)), this, SLOT(onSizeHandleElementRequest(bool)));
         el->setVisible(false);
         m_resize_handles[point_type] = el;

@@ -17,13 +17,13 @@
 #ifndef RECTANGLEBASEVIEW_H
 #define RECTANGLEBASEVIEW_H
 
-#include "IMaskView.h"
+#include "IShape2DView.h"
 #include "SizeHandleElement.h"
 #include <QMap>
 
 //! Base view for all rectangular-like masks.
 
-class BA_CORE_API_ RectangleBaseView : public IMaskView
+class BA_CORE_API_ RectangleBaseView : public IShape2DView
 {
     Q_OBJECT
 
@@ -36,11 +36,8 @@ private slots:
     void onSizeHandleElementRequest(bool going_to_resize);
 
 protected:
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-
-protected:
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
     void update_view();
 
     virtual void update_bounding_rect();
@@ -56,12 +53,11 @@ protected:
 
     void create_size_handle_elements();
     QRectF m_mask_rect; //!< mask rectangle in scene coordinates
-    QMap<SizeHandleElement::EHandleLocation, SizeHandleElement *> m_resize_handles;
-     //!< coordinates of corner opposite to the grip corner at the moment it first clicked
-     //!< in scene coordinates
+    QMap<SizeHandleElement::EHandleLocation, SizeHandleElement*> m_resize_handles;
+    //!< coordinates of corner opposite to the grip corner at the moment it first clicked
+    //!< in scene coordinates
     QPointF m_resize_opposite_origin;
-    SizeHandleElement *m_activeHandleElement;
-
+    SizeHandleElement* m_activeHandleElement;
 };
 
 #endif // RECTANGLEBASEVIEW_H

@@ -16,7 +16,7 @@
 
 #include "MaskGraphicsScene.h"
 #include "ColorMapSceneAdaptor.h"
-#include "IMaskView.h"
+#include "IShape2DView.h"
 #include "ISceneAdaptor.h"
 #include "IntensityDataItem.h"
 #include "MaskEditorFlags.h"
@@ -219,8 +219,8 @@ void MaskGraphicsScene::onSceneSelectionChanged()
     m_selectionModel->clearSelection();
 
     foreach(QGraphicsItem *graphicsItem, selectedItems()) {
-        if (IMaskView *view = dynamic_cast<IMaskView *>(graphicsItem)) {
-            QModelIndex itemIndex = m_maskModel->indexOfItem(view->getParameterizedItem());
+        if (IShape2DView *view = dynamic_cast<IShape2DView *>(graphicsItem)) {
+            QModelIndex itemIndex = m_maskModel->indexOfItem(view->parameterizedItem());
             Q_ASSERT(itemIndex.isValid());
             if (!m_selectionModel->isSelected(itemIndex))
                 m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
@@ -289,7 +289,7 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             clearSelection();
             if (m_currentItem) {
                 // drawing ended up with item drawn, let's make it selected
-                if (IMaskView *view = m_ItemToView[m_currentItem]) {
+                if (IShape2DView *view = m_ItemToView[m_currentItem]) {
                     view->setSelected(true);
                 }
             } else {
@@ -319,10 +319,10 @@ void MaskGraphicsScene::drawForeground(QPainter *painter, const QRectF &)
 
     if(PolygonView *polygon = currentPolygon()) {
         painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
-        painter->drawLine(QLineF(polygon->getLastAddedPoint(), m_currentMousePosition));
+        painter->drawLine(QLineF(polygon->lastAddedPoint(), m_currentMousePosition));
     } else {
         if(m_context.isLineMode()) {
-            const QRectF &plot_scene_rectangle = m_adaptor->getViewportRectangle();
+            const QRectF &plot_scene_rectangle = m_adaptor->viewportRectangle();
             if(!plot_scene_rectangle.contains(m_currentMousePosition)) return;
 
             painter->setPen(QPen(Qt::black, 1, Qt::DashLine));
@@ -347,7 +347,7 @@ void MaskGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     if(isDrawingInProgress())
         return;
 
-    if(dynamic_cast<IMaskView *>(itemAt(event->scenePos(), QTransform())))
+    if(dynamic_cast<IShape2DView *>(itemAt(event->scenePos(), QTransform())))
         emit itemContextMenuRequest(event->screenPos());
 }
 
@@ -366,10 +366,10 @@ void MaskGraphicsScene::updateProxyWidget()
 
 //! Recutsively runs through the model and creates corresponding views.
 
-void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *parentView)
+void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IShape2DView *parentView)
 {
     Q_ASSERT(m_maskModel);
-    IMaskView *childView(0);
+    IShape2DView *childView(0);
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
         if (SessionItem *item = m_maskModel->itemForIndex(itemIndex)) {
@@ -390,10 +390,10 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IMaskView *p
 
 //! Creates a view for given item.
 
-IMaskView *MaskGraphicsScene::addViewForItem(SessionItem *item)
+IShape2DView *MaskGraphicsScene::addViewForItem(SessionItem *item)
 {
     Q_ASSERT(item);
-    IMaskView *view = m_ItemToView[item];
+    IShape2DView *view = m_ItemToView[item];
     if (!view) {
         view = MaskViewFactory::createMaskView(item, m_adaptor.data());
         if (view) {
@@ -426,7 +426,7 @@ void MaskGraphicsScene::removeItemViewFromScene(SessionItem *item)
 {
     for (auto it = m_ItemToView.begin(); it != m_ItemToView.end(); ++it) {
         if (it.key() == item) {
-            IMaskView *view = it.value();
+            IShape2DView *view = it.value();
             view->setSelected(false);
             m_ItemToView.erase(it);
             delete view;
@@ -441,7 +441,7 @@ bool MaskGraphicsScene::isValidMouseClick(QGraphicsSceneMouseEvent *event)
 {
     if(!m_adaptor) return false;
     if(!(event->buttons() & Qt::LeftButton)) return false;
-    if(!m_adaptor->getViewportRectangle().contains(event->scenePos())) return false;
+    if(!m_adaptor->viewportRectangle().contains(event->scenePos())) return false;
     return true;
 }
 
@@ -534,7 +534,7 @@ void MaskGraphicsScene::setInPanAndZoomMode(bool value)
         m_selectionModel->clearSelection();
 
     Qt::MouseButtons acceptedButton = (value ? Qt::NoButton : Qt::LeftButton);
-    foreach(IMaskView *view, m_ItemToView.values())
+    foreach(IShape2DView *view, m_ItemToView.values())
         view->setAcceptedMouseButtons(acceptedButton);
 
     m_proxy->setInZoomMode(value);
@@ -684,7 +684,7 @@ void MaskGraphicsScene::setZValues()
     for(int i = 0; i < m_maskModel->rowCount(m_maskContainerIndex); i++) {
         QModelIndex itemIndex = m_maskModel->index(i, 0, m_maskContainerIndex);
         SessionItem *item =  m_maskModel->itemForIndex(itemIndex);
-        if(IMaskView *view = m_ItemToView[item])
+        if(IShape2DView *view = m_ItemToView[item])
             view->setZValue(m_maskModel->rowCount(m_maskContainerIndex) -  itemIndex.row() + 1);
     }
 }

@@ -17,12 +17,12 @@
 #ifndef POLYGONVIEW_H
 #define POLYGONVIEW_H
 
-#include "IMaskView.h"
+#include "IShape2DView.h"
 #include <QPolygonF>
 
 //! This is a View of polygon mask (represented by PolygonItem) on GraphicsScene.
 
-class BA_CORE_API_ PolygonView : public IMaskView
+class BA_CORE_API_ PolygonView : public IShape2DView
 {
     Q_OBJECT
 
@@ -31,21 +31,23 @@ public:
 
     PolygonView();
 
-    void addView(IMaskView *childView, int row);
+    void addView(IShape2DView* childView, int row);
     bool isClosedPolygon();
-    QPointF getLastAddedPoint() const;
+    QPointF lastAddedPoint() const;
 
 public slots:
     bool closePolygonIfNecessary();
     void onClosePolygonRequest(bool value);
 
+protected slots:
+    void update_view();
+
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 
 private:
-    void update_view();
     void update_polygon();
     void update_points();
     void setChildrenVisible(bool value);

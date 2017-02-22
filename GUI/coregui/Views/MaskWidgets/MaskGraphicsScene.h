@@ -26,7 +26,7 @@
 
 class SessionModel;
 class SessionItem;
-class IMaskView;
+class IShape2DView;
 class ISceneAdaptor;
 class MaskGraphicsProxy;
 class QItemSelectionModel;
@@ -79,8 +79,8 @@ protected:
 
 private:
     void updateProxyWidget();
-    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
-    IMaskView* addViewForItem(SessionItem *item);
+    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IShape2DView *parentView = 0);
+    IShape2DView* addViewForItem(SessionItem *item);
     void deleteViews(const QModelIndex & itemIndex);
     void removeItemViewFromScene(SessionItem *item);
 
@@ -111,7 +111,7 @@ private:
     SessionModel *m_maskModel;
     QItemSelectionModel *m_selectionModel;
     QSharedPointer<ISceneAdaptor> m_adaptor;
-    QMap<SessionItem *, IMaskView *> m_ItemToView;
+    QMap<SessionItem *, IShape2DView *> m_ItemToView;
     MaskGraphicsProxy *m_proxy;
     bool m_block_selection;
     QModelIndex m_maskContainerIndex;

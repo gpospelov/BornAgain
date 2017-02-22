@@ -90,8 +90,8 @@ void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QStri
     m_block_plot_update = true;
 
     if (property == HorizontalLineItem::P_POSY || property == VerticalLineItem::P_POSX) {
-        QCPGraph* graph = graphForItem(item);
-        setGraphFromItem(graph, item);
+        if(auto graph = graphForItem(item))
+            setGraphFromItem(graph, item);
 
         m_customPlot->replot();
     }
@@ -116,12 +116,13 @@ ProjectionContainerItem* ProjectionsPlot::projectionContainerItem()
 
 QVector<SessionItem*> ProjectionsPlot::projectionItems()
 {
-    return projectionContainerItem()->getChildrenOfType(Constants::HorizontalLineMaskType);
+    return projectionContainerItem()->getChildrenOfType(m_projectionType);
 }
 
 QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
 {
-    Q_ASSERT(item->modelType() == m_projectionType);
+    if(item->modelType() != m_projectionType)
+        return nullptr;
 
     QCPGraph *graph = m_item_to_graph[item];
     if (!graph) {
@@ -133,6 +134,7 @@ QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
         graph->setBrush(QBrush(QColor(255/4.0,160,50,150)));
         m_item_to_graph[item] = graph;
     }
+
     return graph;
 }
 
@@ -142,7 +144,12 @@ void ProjectionsPlot::updateProjectionsData()
 {
     m_hist2d.reset(new Histogram2D(*intensityItem()->getOutputData()));
     m_customPlot->yAxis->setRange(ColorMapUtils::itemDataRange(intensityItem()));
-    m_customPlot->xAxis->setRange(ColorMapUtils::itemXrange(intensityItem()));
+
+    if (m_projectionType == Constants::HorizontalLineMaskType) {
+        m_customPlot->xAxis->setRange(ColorMapUtils::itemXrange(intensityItem()));
+    } else {
+        m_customPlot->xAxis->setRange(ColorMapUtils::itemYrange(intensityItem()));
+    }
     ColorMapUtils::setLogz(m_customPlot->yAxis, intensityItem()->isLogz());
 }
 
@@ -183,7 +190,7 @@ void ProjectionsPlot::setGraphFromItem(QCPGraph* graph, SessionItem* item)
 {
     std::unique_ptr<Histogram1D> hist;
 
-    if(item->modelType() == Constants::HorizontalLineMaskType) {
+    if (item->modelType() == Constants::HorizontalLineMaskType) {
         double value  = item->getItemValue(HorizontalLineItem::P_POSY).toDouble();
         hist.reset(m_hist2d->projectionX(value));
     } else {

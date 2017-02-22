@@ -75,6 +75,7 @@ void ProjectionsEditorCanvas::onEnteringColorMap()
 
     m_xProjection = m_model->insertNewItem(Constants::HorizontalLineMaskType,
                                                m_containerIndex);
+    m_xProjection->setItemValue(MaskItem::P_IS_VISIBLE, false);
 
 }
 
@@ -107,7 +108,7 @@ void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)
     setConnected(false);
 
     m_colorMap = colorMap;
-    //setConnected(true);
+    setConnected(true);
 
     m_statusLabel->reset();
     m_statusLabel->addColorMap(colorMap);

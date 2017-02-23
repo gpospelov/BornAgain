@@ -38,10 +38,11 @@ void SessionItemWidget::setItem(SessionItem* item)
     unsubscribe(); // from previous item
 
     m_currentItem = item;
-   if (!m_currentItem)
-       return;
+    if (!m_currentItem)
+        return;
 
-   subscribe();
+    if(!isHidden())
+        subscribe();
 }
 
 QList<QAction*> SessionItemWidget::actionList()

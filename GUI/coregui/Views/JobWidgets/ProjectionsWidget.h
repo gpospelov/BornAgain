@@ -36,7 +36,7 @@ public:
 
 private:
     ProjectionsPlot* m_xProjection;
-//    ProjectionsPlot* m_yProjection;
+    ProjectionsPlot* m_yProjection;
     QTabWidget* m_tabWidget;
 };
 

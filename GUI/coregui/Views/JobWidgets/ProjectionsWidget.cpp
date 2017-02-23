@@ -23,7 +23,7 @@
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_xProjection(new ProjectionsPlot(Constants::HorizontalLineMaskType))
-//    , m_yProjection(new ProjectionsPlot)
+    , m_yProjection(new ProjectionsPlot(Constants::VerticalLineMaskType))
     , m_tabWidget(new QTabWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;
@@ -32,7 +32,7 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
 
     m_tabWidget->setTabPosition(QTabWidget::North);
     m_tabWidget->insertTab(HORIZONTAL, m_xProjection, "Horizontal");
-//    m_tabWidget->insertTab(VERTICAL, m_yProjection, "Vertical");
+    m_tabWidget->insertTab(VERTICAL, m_yProjection, "Vertical");
 
     layout->addWidget(m_tabWidget);
     setLayout(layout);
@@ -42,4 +42,5 @@ void ProjectionsWidget::setItem(SessionItem* intensityItem)
 {
     SessionItemWidget::setItem(intensityItem);
     m_xProjection->setItem(intensityItem);
+    m_yProjection->setItem(intensityItem);
 }

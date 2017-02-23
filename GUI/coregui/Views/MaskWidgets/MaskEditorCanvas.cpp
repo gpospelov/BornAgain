@@ -52,7 +52,8 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
 
     connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
             this, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
-
+    connect(m_view, SIGNAL(deleteSelectedRequest()),
+            this, SIGNAL(deleteSelectedRequest()));
 }
 
 void MaskEditorCanvas::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,

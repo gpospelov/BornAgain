@@ -40,6 +40,7 @@ public slots:
 
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
+    void deleteSelectedRequest();
 
 protected:
     void wheelEvent(QWheelEvent* event);

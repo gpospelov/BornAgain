@@ -144,6 +144,13 @@ void MaskEditor::setup_connections()
             SLOT(onChangeActivityRequest(MaskEditorFlags::Activity))
             );
 
+    // Delete request is propagated from canvas to actions
+    connect(m_editorCanvas,
+            SIGNAL(deleteSelectedRequest()),
+            m_editorActions,
+            SLOT(onDeleteMaskAction())
+            );
+
     // context menu request is propagated from graphics scene to MaskEditorActions
     connect(m_editorCanvas->getScene(),
             SIGNAL(itemContextMenuRequest(QPoint)),

@@ -53,6 +53,7 @@ void ProjectionsPlot::setItem(SessionItem* intensityItem)
 
 void ProjectionsPlot::subscribeToItem()
 {
+    qDebug() << "ProjectionsPlot::subscribeToItem()" << m_projectionType;
 
     projectionContainerItem()->mapper()->setOnChildrenChange(
         [this](SessionItem* item) {
@@ -76,10 +77,12 @@ void ProjectionsPlot::subscribeToItem()
         }, this);
 
     updateProjectionsData();
+    updateProjections();
 }
 
 void ProjectionsPlot::unsubscribeFromItem()
 {
+    qDebug() << "ProjectionsPlot::unsubscribeFromItem()" << m_projectionType;
     if(currentItem())
         projectionContainerItem()->mapper()->unsubscribe(this);
 }
@@ -92,6 +95,7 @@ void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QStri
     m_block_plot_update = true;
 
     if (property == HorizontalLineItem::P_POSY || property == VerticalLineItem::P_POSX) {
+        qDebug() << "AAA " << m_projectionType;
         if(auto graph = graphForItem(item))
             setGraphFromItem(graph, item);
 

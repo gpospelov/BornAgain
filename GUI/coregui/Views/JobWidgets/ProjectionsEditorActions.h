@@ -20,7 +20,10 @@
 #include "WinDllMacros.h"
 #include <QObject>
 #include <QList>
+#include <QModelIndex>
 
+class SessionModel;
+class QItemSelectionModel;
 class QAction;
 
 //! Provides various actions for ProjectionsEditor.
@@ -32,7 +35,13 @@ class BA_CORE_API_ ProjectionsEditorActions : public QObject
 public:
     ProjectionsEditorActions(QWidget* parent = 0);
 
-    QList<QAction *> topToolBarActions();
+    void setModel(SessionModel* maskModel, const QModelIndex& rootIndex);
+    void setSelectionModel(QItemSelectionModel* selectionModel);
+
+    QList<QAction*> topToolBarActions();
+
+public slots:
+    void onDeleteAction();
 
 signals:
     void resetViewRequest();
@@ -41,6 +50,10 @@ signals:
 private:
     QAction* m_resetViewAction;
     QAction* m_togglePanelAction;
+    QAction* m_deleteAction;
+    SessionModel *m_model;
+    QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
+    QItemSelectionModel *m_selectionModel;
 };
 
 #endif // PROJECTIONSEDITORACTIONS_H

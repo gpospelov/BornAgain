@@ -36,7 +36,6 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     , m_liveProjection(nullptr)
     , m_model(nullptr)
     , m_intensityDataItem(nullptr)
-    , m_selectionModel(nullptr)
     , m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE)
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
@@ -48,24 +47,32 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
+
+    connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
+            this, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
+    connect(m_view, SIGNAL(deleteSelectedRequest()),
+            this, SIGNAL(deleteSelectedRequest()));
 }
 
 void ProjectionsEditorCanvas::setContext(SessionModel* model,
                                          const QModelIndex& shapeContainerIndex,
                                          IntensityDataItem* intensityItem)
 {
-    delete m_selectionModel;
-    m_selectionModel = new QItemSelectionModel(model, this);
-
     m_model = model;
     m_scene->setMaskContext(model, shapeContainerIndex, intensityItem);
-    m_scene->setSelectionModel(m_selectionModel);
     m_view->updateSize(m_view->size());
 
     m_containerIndex = shapeContainerIndex;
     m_intensityDataItem = intensityItem;
 
     setColorMap(m_scene->colorMap());
+
+    getScene()->onActivityModeChanged(m_currentActivity);
+}
+
+void ProjectionsEditorCanvas::setSelectionModel(QItemSelectionModel* model)
+{
+    getScene()->setSelectionModel(model);
 }
 
 void ProjectionsEditorCanvas::onEnteringColorMap()
@@ -99,7 +106,7 @@ void ProjectionsEditorCanvas::onLeavingColorMap()
 
 void ProjectionsEditorCanvas::onPositionChanged(double x, double y)
 {
-    qDebug() << "ProjectionsEditorCanvas::onPositionChanged()" << x << y;
+//    qDebug() << "ProjectionsEditorCanvas::onPositionChanged()" << x << y;
     if(m_liveProjection) {
         if(m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
             m_liveProjection->setItemValue(HorizontalLineItem::P_POSY, y);

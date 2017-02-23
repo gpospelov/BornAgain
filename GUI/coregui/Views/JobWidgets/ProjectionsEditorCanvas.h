@@ -47,7 +47,13 @@ public:
     void setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
                     IntensityDataItem* intensityItem);
 
+    void setSelectionModel(QItemSelectionModel *model);
+
     MaskGraphicsScene *getScene() { return m_scene; }
+
+signals:
+    void changeActivityRequest(MaskEditorFlags::Activity);
+    void deleteSelectedRequest();
 
 public slots:
     void onEnteringColorMap();
@@ -69,8 +75,6 @@ private:
     SessionModel* m_model;
     QModelIndex m_containerIndex;
     IntensityDataItem *m_intensityDataItem;
-
-    QItemSelectionModel* m_selectionModel;
 
     MaskEditorFlags::Activity m_currentActivity;
 };

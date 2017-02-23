@@ -29,6 +29,7 @@ class ProjectionsActions;
 class ProjectionsEditorCanvas;
 class ProjectionsPropertyPanel;
 class ProjectionsWidget;
+class QItemSelectionModel;
 class QSplitter;
 namespace Manhattan { class MiniSplitter; }
 
@@ -54,6 +55,7 @@ private:
     ProjectionsEditorCanvas* m_projectionsCanvas; //! canvas with color map at the top
     ProjectionsWidget* m_projectionsWidget; //! bottom widget to draw projections plot
     ProjectionsPropertyPanel* m_propertyPanel; //! pannel at the right with properties
+    QItemSelectionModel* m_selectionModel;
     Manhattan::MiniSplitter* m_rightSplitter;
     QSplitter* m_bottomSplitter;
 };

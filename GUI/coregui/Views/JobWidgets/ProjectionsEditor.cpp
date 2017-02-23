@@ -25,6 +25,7 @@
 #include "IntensityDataItem.h"
 #include "MaskEditorFlags.h"
 #include "MaskGraphicsScene.h"
+#include <QItemSelectionModel>
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -36,6 +37,7 @@ ProjectionsEditor::ProjectionsEditor(QWidget* parent)
     , m_projectionsCanvas(new ProjectionsEditorCanvas)
     , m_projectionsWidget(new ProjectionsWidget)
     , m_propertyPanel(new ProjectionsPropertyPanel)
+    , m_selectionModel(nullptr)
     , m_rightSplitter(new Manhattan::MiniSplitter)
     , m_bottomSplitter(new QSplitter)
 {
@@ -60,9 +62,17 @@ void ProjectionsEditor::setContext(SessionModel* model, const QModelIndex& shape
 {
     Q_UNUSED(model);
     Q_UNUSED(shapeContainerIndex);
+
+    delete m_selectionModel;
+    m_selectionModel = new QItemSelectionModel(model, this);
+
     m_propertyPanel->setItem(intensityItem);
     m_projectionsCanvas->setContext(model, shapeContainerIndex, intensityItem);
+    m_projectionsCanvas->setSelectionModel(m_selectionModel);
     m_projectionsWidget->setItem(intensityItem);
+
+    m_editorActions->setModel(model, shapeContainerIndex);
+    m_editorActions->setSelectionModel(m_selectionModel);
 }
 
 QList<QAction*> ProjectionsEditor::topToolBarActions()
@@ -83,6 +93,14 @@ void ProjectionsEditor::setup_connections()
     // selection/drawing activity is propagated from ToolBar to graphics scene
     connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
             m_projectionsCanvas, SLOT(onActivityModeChanged(MaskEditorFlags::Activity)));
+
+    // Delete request is propagated from canvas to actions
+    connect(m_projectionsCanvas, SIGNAL(deleteSelectedRequest()),
+            m_editorActions, SLOT(onDeleteAction()));
+
+    // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
+    connect(m_projectionsCanvas, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
+            m_toolBar, SLOT(onChangeActivityRequest(MaskEditorFlags::Activity)));
 
     m_toolBar->onChangeActivityRequest(MaskEditorFlags::HORIZONTAL_LINE_MODE);
 }

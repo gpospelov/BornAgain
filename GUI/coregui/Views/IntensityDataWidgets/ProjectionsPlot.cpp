@@ -55,26 +55,38 @@ void ProjectionsPlot::subscribeToItem()
 {
     qDebug() << "ProjectionsPlot::subscribeToItem()" << m_projectionType;
 
+    // Update projection plot on new item appearance
     projectionContainerItem()->mapper()->setOnChildrenChange(
         [this](SessionItem* item) {
             if(item)
                 updateProjections();
         }, this);
 
+    // Remove projection plot
     projectionContainerItem()->mapper()->setOnAboutToRemoveChild(
         [this](SessionItem* item) {
             clearProjection(item);
         }, this);
 
+    // Update projection position
     projectionContainerItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString& name) {
             onProjectionPropertyChanged(item, name);
         }, this);
 
+    // Intensity data changed, regenerate everything
     intensityItem()->mapper()->setOnValueChange(
         [this]() {
             updateProjectionsData();
+            updateProjections();
         }, this);
+
+    // IntensityItem property (e.g. interpolation changed)
+    intensityItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) {
+            onIntensityItemPropertyChanged(name);
+    }, this);
+
 
     updateProjectionsData();
     updateProjections();
@@ -95,11 +107,10 @@ void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QStri
     m_block_plot_update = true;
 
     if (property == HorizontalLineItem::P_POSY || property == VerticalLineItem::P_POSX) {
-        qDebug() << "AAA " << m_projectionType;
         if(auto graph = graphForItem(item))
             setGraphFromItem(graph, item);
 
-        m_customPlot->replot();
+        replot();
     }
 
     m_block_plot_update = false;
@@ -135,9 +146,11 @@ QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
         graph = m_customPlot->addGraph();
         QPen pen;
         pen.setColor(QColor(0, 0, 255, 200));
-        graph->setLineStyle(QCPGraph::lsLine);
+        graph->setLineStyle(intensityItem()->isInterpolated() ? QCPGraph::lsLine
+                                                              : QCPGraph::lsStepCenter);
+
         graph->setPen(pen);
-        graph->setBrush(QBrush(QColor(255/4.0,160,50,150)));
+//        graph->setBrush(QBrush(QColor(255/4.0,160,50,150)));
         m_item_to_graph[item] = graph;
     }
 
@@ -171,7 +184,7 @@ void ProjectionsPlot::updateProjections()
     for(auto projItem : projectionItems())
         setGraphFromItem(graphForItem(projItem), projItem);
 
-    m_customPlot->replot();
+    replot();
 
     m_block_plot_update = false;
     qDebug() << "ProjectionsPlot::updateProjections() 3.3";
@@ -186,10 +199,12 @@ void ProjectionsPlot::clearProjections()
     m_customPlot->clearPlottables();
     m_item_to_graph.clear();
 
-    m_customPlot->replot();
+    replot();
 
     m_block_plot_update = false;
 }
+
+//! Removes plot corresponding to given projection item.
 
 void ProjectionsPlot::clearProjection(SessionItem* item)
 {
@@ -197,9 +212,20 @@ void ProjectionsPlot::clearProjection(SessionItem* item)
         m_block_plot_update = true;
         m_customPlot->removePlottable(graph);
         m_item_to_graph.remove(item);
-        m_customPlot->replot();
+        replot();
         m_block_plot_update = false;
     }
+}
+
+//! Updates projection appearance (line style, etc)
+
+void ProjectionsPlot::onIntensityItemPropertyChanged(const QString& propertyName)
+{
+    if (propertyName == IntensityDataItem::P_IS_INTERPOLATED) {
+        setInterpolate(intensityItem()->isInterpolated());
+        replot();
+    }
+
 }
 
 //! Sets the data to graph from given projection iten.
@@ -218,4 +244,15 @@ void ProjectionsPlot::setGraphFromItem(QCPGraph* graph, SessionItem* item)
 
     graph->setData(QVector<double>::fromStdVector(hist->getBinCenters()),
                    QVector<double>::fromStdVector(hist->getBinValues()));
+}
+
+void ProjectionsPlot::setInterpolate(bool isInterpolated)
+{
+    for(auto graph : m_item_to_graph)
+        graph->setLineStyle(isInterpolated ? QCPGraph::lsLine : QCPGraph::lsStepCenter);
+}
+
+void ProjectionsPlot::replot()
+{
+    m_customPlot->replot();
 }

@@ -55,8 +55,13 @@ private:
     void updateProjections();
     void clearProjections();
     void clearProjection(SessionItem* item);
+    void onIntensityItemPropertyChanged(const QString& propertyName);
 
     void setGraphFromItem(QCPGraph* graph, SessionItem* item);
+
+    void setInterpolate(bool isInterpolated);
+
+    void replot();
 
     QString m_projectionType;
     QCustomPlot* m_customPlot;

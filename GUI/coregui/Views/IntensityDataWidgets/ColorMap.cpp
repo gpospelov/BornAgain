@@ -162,10 +162,7 @@ void ColorMap::onAxisPropertyChanged(const QString& axisName, const QString& pro
     if (axisName == IntensityDataItem::P_XAXIS) {
         if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
             setAxesRangeConnected(false);
-            QCPRange range = m_customPlot->xAxis->range();
-            range.lower = intensityItem()->getLowerX();
-            range.upper = intensityItem()->getUpperX();
-            m_customPlot->xAxis->setRange(range);
+            m_customPlot->xAxis->setRange(ColorMapUtils::itemZoomX(intensityItem()));
             setAxesRangeConnected(true);
             replot();
         } else if (propertyName == BasicAxisItem::P_TITLE) {
@@ -178,10 +175,7 @@ void ColorMap::onAxisPropertyChanged(const QString& axisName, const QString& pro
     } else if (axisName == IntensityDataItem::P_YAXIS) {
         if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
             setAxesRangeConnected(false);
-            QCPRange range = m_customPlot->yAxis->range();
-            range.lower = intensityItem()->getLowerY();
-            range.upper = intensityItem()->getUpperY();
-            m_customPlot->yAxis->setRange(range);
+            m_customPlot->yAxis->setRange(ColorMapUtils::itemZoomY(intensityItem()));
             setAxesRangeConnected(true);
             replot();
         } else if (propertyName == BasicAxisItem::P_TITLE) {
@@ -431,11 +425,8 @@ void ColorMap::setColorScaleAppearanceFromItem(IntensityDataItem* item)
 void ColorMap::setDataRangeFromItem(IntensityDataItem* item)
 {
     setDataRangeConnected(false);
-
-    QCPRange newDataRange(item->getLowerZ(), item->getUpperZ());
-    m_colorMap->setDataRange(newDataRange);
+    m_colorMap->setDataRange(ColorMapUtils::itemDataZoom(item));
     setLogz(item->isLogz());
-
     setDataRangeConnected(true);
 }
 

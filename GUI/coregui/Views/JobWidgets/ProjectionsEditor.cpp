@@ -94,6 +94,10 @@ void ProjectionsEditor::setup_connections()
     connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
             m_projectionsCanvas, SLOT(onActivityModeChanged(MaskEditorFlags::Activity)));
 
+    // selection/drawing activity is propagated from ToolBar to Projections Widget
+    connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
+            m_projectionsWidget, SLOT(onActivityModeChanged(MaskEditorFlags::Activity)));
+
     // Delete request is propagated from canvas to actions
     connect(m_projectionsCanvas, SIGNAL(deleteSelectedRequest()),
             m_editorActions, SLOT(onDeleteAction()));

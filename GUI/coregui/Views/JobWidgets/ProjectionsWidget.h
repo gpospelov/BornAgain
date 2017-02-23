@@ -18,6 +18,7 @@
 #define PROJECTIONSWIDGET_H
 
 #include "SessionItemWidget.h"
+#include "MaskEditorFlags.h"
 
 class ProjectionsPlot;
 class QTabWidget;
@@ -33,6 +34,9 @@ public:
 
     ProjectionsWidget(QWidget* parent = 0);
     void setItem(SessionItem* intensityItem);
+
+public slots:
+    void onActivityModeChanged(MaskEditorFlags::Activity value);
 
 private:
     ProjectionsPlot* m_xProjection;

@@ -31,8 +31,8 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     layout->setSpacing(0);
 
     m_tabWidget->setTabPosition(QTabWidget::North);
-    m_tabWidget->insertTab(HORIZONTAL, m_xProjection, "Horizontal");
-    m_tabWidget->insertTab(VERTICAL, m_yProjection, "Vertical");
+    m_tabWidget->insertTab(HORIZONTAL, m_xProjection, QStringLiteral("Horizontal"));
+    m_tabWidget->insertTab(VERTICAL, m_yProjection, QStringLiteral("Vertical"));
 
     layout->addWidget(m_tabWidget);
     setLayout(layout);
@@ -43,4 +43,13 @@ void ProjectionsWidget::setItem(SessionItem* intensityItem)
     SessionItemWidget::setItem(intensityItem);
     m_xProjection->setItem(intensityItem);
     m_yProjection->setItem(intensityItem);
+}
+
+void ProjectionsWidget::onActivityModeChanged(MaskEditorFlags::Activity value)
+{
+    if(value == MaskEditorFlags::HORIZONTAL_LINE_MODE) {
+        m_tabWidget->setCurrentIndex(0);
+    } else if (value == MaskEditorFlags::VERTICAL_LINE_MODE) {
+        m_tabWidget->setCurrentIndex(1);
+    }
 }

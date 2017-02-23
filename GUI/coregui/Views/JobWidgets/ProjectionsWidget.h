@@ -37,6 +37,7 @@ public:
 
 public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
+    void onMarginsChanged(double left, double right);
 
 private:
     ProjectionsPlot* m_xProjection;

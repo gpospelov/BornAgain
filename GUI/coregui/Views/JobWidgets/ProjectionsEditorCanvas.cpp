@@ -151,7 +151,9 @@ void ProjectionsEditorCanvas::setConnected(bool isConnected)
         connect(m_colorMap->colorMapEvent(), SIGNAL(leavingColorMap()),
                 this, SLOT(onLeavingColorMap()), Qt::UniqueConnection);
         connect(m_colorMap->colorMapEvent(), SIGNAL(positionChanged(double, double)),
-                this, SLOT(onPositionChanged(double, double)), Qt::UniqueConnection);
+                this, SLOT(onPositionChanged(double, double)), Qt::UniqueConnection);        
+        connect(m_colorMap, SIGNAL(marginsChanged(double,double)),
+                this, SIGNAL(marginsChanged(double,double)), Qt::UniqueConnection);
     }
 
     else {
@@ -161,5 +163,7 @@ void ProjectionsEditorCanvas::setConnected(bool isConnected)
                 this, SLOT(onLeavingColorMap()));
         disconnect(m_colorMap->colorMapEvent(), SIGNAL(positionChanged(double, double)),
                 this, SLOT(onPositionChanged(double, double)));
+        disconnect(m_colorMap, SIGNAL(marginsChanged(double,double)),
+                this, SIGNAL(marginsChanged(double,double)));
     }
 }

@@ -53,3 +53,9 @@ void ProjectionsWidget::onActivityModeChanged(MaskEditorFlags::Activity value)
         m_tabWidget->setCurrentIndex(1);
     }
 }
+
+void ProjectionsWidget::onMarginsChanged(double left, double right)
+{
+    m_xProjection->onMarginsChanged(left, right);
+    m_yProjection->onMarginsChanged(left, right);
+}

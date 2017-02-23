@@ -106,5 +106,9 @@ void ProjectionsEditor::setup_connections()
     connect(m_projectionsCanvas, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
             m_toolBar, SLOT(onChangeActivityRequest(MaskEditorFlags::Activity)));
 
+    // ColorMap margins changed, canvas -> projection widget
+    connect(m_projectionsCanvas, SIGNAL(marginsChanged(double,double)),
+            m_projectionsWidget, SLOT(onMarginsChanged(double,double)));
+
     m_toolBar->onChangeActivityRequest(MaskEditorFlags::HORIZONTAL_LINE_MODE);
 }

@@ -233,7 +233,6 @@ void ColorMap::onYaxisRangeChanged(QCPRange newRange)
 void ColorMap::replot()
 {
     m_updateTimer->scheduleUpdate();
-    // m_customPlot->replot(); // will trigger immediate replot, seems that slower
 }
 
 //! Replots ColorMap.
@@ -283,6 +282,8 @@ void ColorMap::initColorMap()
         QFont(QFont().family(), Constants::plot_tick_label_size));
     m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
     m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+
+    connect(m_customPlot, SIGNAL(afterReplot()), this, SLOT(marginsChangedNotify()));
 }
 
 void ColorMap::setConnected(bool isConnected)
@@ -440,6 +441,21 @@ void ColorMap::setColorScaleVisible(bool visibility_flag)
         m_customPlot->plotLayout()->take(m_colorScale);
         m_customPlot->plotLayout()->simplify();
     }
+}
+
+//! Calculates left, right margins around color map to report to projection plot.
+
+void ColorMap::marginsChangedNotify()
+{
+    QMargins axesMargins = m_customPlot->axisRect()->margins();
+    QMargins colorBarMargins = m_colorScale->margins();
+    QMargins colorScaleMargins = m_colorScale->axis()->axisRect()->margins();
+
+    double left = axesMargins.left();
+    double right = axesMargins.right() + colorBarMargins.right() + m_colorScale->barWidth()
+            + colorScaleMargins.right();
+
+    emit marginsChanged(left, right);
 }
 
 IntensityDataItem* ColorMap::intensityItem()

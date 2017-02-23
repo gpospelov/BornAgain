@@ -39,6 +39,16 @@ ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
     vlayout->setSpacing(0);
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
+
+    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+
+    QFontMetrics fontMetric(font());
+    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
+    auto* axisRectangle = m_customPlot->axisRect();
+    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
+    axisRectangle->setMargins(QMargins(3.5 * em, fontAscent * 1.5, em * 5.8, 4.5 * fontAscent));
+
 }
 
 ProjectionsPlot::~ProjectionsPlot()
@@ -50,6 +60,13 @@ void ProjectionsPlot::setItem(SessionItem* intensityItem)
 {
     Q_ASSERT(intensityItem);
     SessionItemWidget::setItem(intensityItem);
+}
+
+void ProjectionsPlot::onMarginsChanged(double left, double right)
+{
+    QMargins orig = m_customPlot->axisRect()->margins();
+    m_customPlot->axisRect()->setMargins(QMargins(left, orig.top(), right, orig.bottom()));
+    replot();
 }
 
 void ProjectionsPlot::subscribeToItem()

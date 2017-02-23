@@ -73,6 +73,7 @@ public:
 
 signals:
     void statusString(const QString& text);
+    void marginsChanged(double left, double right);
 
 public slots:
     void setLogz(bool logz);
@@ -87,6 +88,7 @@ private slots:
     void onYaxisRangeChanged(QCPRange newRange);
     void replot();
     void onTimeToReplot();
+    void marginsChangedNotify();
 
 protected:
     virtual void subscribeToItem();

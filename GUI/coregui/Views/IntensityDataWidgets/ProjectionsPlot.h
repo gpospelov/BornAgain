@@ -39,6 +39,9 @@ public:
 
     void setItem(SessionItem* intensityItem);
 
+public slots:
+    void onMarginsChanged(double left, double right);
+
 protected:
     void subscribeToItem();
     void unsubscribeFromItem();

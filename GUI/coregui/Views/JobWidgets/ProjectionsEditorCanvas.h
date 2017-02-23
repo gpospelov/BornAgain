@@ -54,6 +54,7 @@ public:
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
     void deleteSelectedRequest();
+    void marginsChanged(double left, double right);
 
 public slots:
     void onEnteringColorMap();

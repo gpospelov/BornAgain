@@ -20,6 +20,7 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "MaskItems.h"
+#include "ProjectionItems.h"
 #include "BornAgainNamespace.h"
 
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
@@ -384,4 +385,9 @@ void IntensityDataItem::resetView()
 MaskContainerItem* IntensityDataItem::maskContainerItem()
 {
     return dynamic_cast<MaskContainerItem*>(getItem(IntensityDataItem::T_MASKS));
+}
+
+ProjectionContainerItem* IntensityDataItem::projectionContainerItem()
+{
+    return dynamic_cast<ProjectionContainerItem*>(getItem(IntensityDataItem::T_PROJECTIONS));
 }

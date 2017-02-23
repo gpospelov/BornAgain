@@ -27,6 +27,7 @@
 #include "SimulationOptionsItem.h"
 #include "IntensityDataItem.h"
 #include "JobItemFunctions.h"
+#include "MaskUnitsConverter.h"
 
 namespace {
     QVariant createStatusVariant() {
@@ -98,9 +99,16 @@ JobItem::JobItem()
         if (item->parent() == this && item->modelType() == Constants::IntensityDataType
             && name == IntensityDataItem::P_AXES_UNITS) {
             auto intensityItem = dynamic_cast<IntensityDataItem *>(item);
+
+            MaskUnitsConverter converter;
+            converter.convertToNbins(intensityItem);
+
             JobItemHelper::updateDataAxes(intensityItem, instrumentItem());
+
+            converter.convertFromNbins(intensityDataItem());
+
         }
-    });
+    });    
 
     mapper()->setOnPropertyChange(
         [this](const QString &name){

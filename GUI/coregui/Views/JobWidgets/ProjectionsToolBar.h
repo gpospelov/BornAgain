@@ -34,6 +34,9 @@ class ProjectionsToolBar : public QToolBar
 public:
     ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent = 0);
 
+public slots:
+    void onChangeActivityRequest(MaskEditorFlags::Activity value);
+
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
 
@@ -45,9 +48,11 @@ private:
     void setup_shapes_group();
     void add_separator();
     MaskEditorFlags::Activity currentActivity() const;
+    void setCurrentActivity(MaskEditorFlags::Activity value);
 
     ProjectionsEditorActions* m_editorActions;
     QButtonGroup* m_activityButtonGroup;
+    MaskEditorFlags::Activity m_previousActivity;
 };
 
 

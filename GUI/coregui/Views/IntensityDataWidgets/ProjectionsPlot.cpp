@@ -189,15 +189,13 @@ void ProjectionsPlot::clearProjections()
 
 void ProjectionsPlot::clearProjection(SessionItem* item)
 {
-    m_block_plot_update = true;
-
-    auto graph = graphForItem(item);
-    Q_ASSERT(graph);
-    m_customPlot->removePlottable(graph);
-    m_item_to_graph.remove(item);
-    m_customPlot->replot();
-
-    m_block_plot_update = false;
+    if (auto graph = graphForItem(item)) {
+        m_block_plot_update = true;
+        m_customPlot->removePlottable(graph);
+        m_item_to_graph.remove(item);
+        m_customPlot->replot();
+        m_block_plot_update = false;
+    }
 }
 
 //! Sets the data to graph from given projection iten.

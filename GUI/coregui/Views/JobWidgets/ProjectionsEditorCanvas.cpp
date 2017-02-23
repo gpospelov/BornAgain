@@ -33,10 +33,11 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     , m_view(new MaskGraphicsView(m_scene))
     , m_colorMap(nullptr)
     , m_statusLabel(new ColorMapLabel(0, this))
-    , m_xProjection(nullptr)
+    , m_liveProjection(nullptr)
     , m_model(nullptr)
     , m_intensityDataItem(nullptr)
     , m_selectionModel(nullptr)
+    , m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE)
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -70,36 +71,54 @@ void ProjectionsEditorCanvas::setContext(SessionModel* model,
 void ProjectionsEditorCanvas::onEnteringColorMap()
 {
     qDebug() << "ProjectionsEditorCanvas::onEnteringColorMap()";
-    Q_ASSERT(m_xProjection == nullptr);
+    Q_ASSERT(m_liveProjection == nullptr);
     Q_ASSERT(m_containerIndex.isValid());
 
-    m_xProjection = m_model->insertNewItem(Constants::HorizontalLineMaskType,
+    if(m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
+        m_liveProjection = m_model->insertNewItem(Constants::HorizontalLineMaskType,
                                                m_containerIndex);
-    m_xProjection->setItemValue(MaskItem::P_IS_VISIBLE, false);
+    else if(m_currentActivity == MaskEditorFlags::VERTICAL_LINE_MODE)
+        m_liveProjection = m_model->insertNewItem(Constants::VerticalLineMaskType,
+                                               m_containerIndex);
+
+    if(m_liveProjection)
+        m_liveProjection->setItemValue(MaskItem::P_IS_VISIBLE, false);
 
 }
 
 void ProjectionsEditorCanvas::onLeavingColorMap()
 {
     qDebug() << "ProjectionsEditorCanvas::onLeavingColorMap()";
-    Q_ASSERT(m_xProjection);
-
-    m_xProjection->parent()->takeRow(m_xProjection->parent()->rowOfChild(m_xProjection));
-    delete m_xProjection;
-    m_xProjection = nullptr;
+    if (m_liveProjection) {
+        m_liveProjection->parent()->takeRow(
+                    m_liveProjection->parent()->rowOfChild(m_liveProjection));
+        delete m_liveProjection;
+        m_liveProjection = nullptr;
+    }
 }
 
 void ProjectionsEditorCanvas::onPositionChanged(double x, double y)
 {
     qDebug() << "ProjectionsEditorCanvas::onPositionChanged()" << x << y;
-    if(m_xProjection)
-        m_xProjection->setItemValue(HorizontalLineItem::P_POSY, y);
+    if(m_liveProjection) {
+        if(m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
+            m_liveProjection->setItemValue(HorizontalLineItem::P_POSY, y);
+        else if(m_currentActivity == MaskEditorFlags::VERTICAL_LINE_MODE)
+            m_liveProjection->setItemValue(VerticalLineItem::P_POSX, x);
+    }
 }
 
 void ProjectionsEditorCanvas::onResetViewRequest()
 {
     m_view->onResetViewRequest();
     m_intensityDataItem->resetView();
+}
+
+void ProjectionsEditorCanvas::onActivityModeChanged(MaskEditorFlags::Activity value)
+{
+    m_currentActivity = value;
+    getScene()->onActivityModeChanged(value);
+    onLeavingColorMap();
 }
 
 void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)

@@ -102,7 +102,7 @@ void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Space:
         if(!event->isAutoRepeat()) {
-            emit changeActivityRequest(MaskEditorFlags::SELECTION_MODE);
+            emit changeActivityRequest(MaskEditorFlags::PREVIOUS_MODE);
         }
         break;
     default:

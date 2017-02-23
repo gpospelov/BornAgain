@@ -18,6 +18,7 @@
 #define PROJECTIONSEDITORCANVAS_H
 
 #include "WinDllMacros.h"
+#include "MaskEditorFlags.h"
 #include <QWidget>
 #include <QModelIndex>
 
@@ -53,6 +54,7 @@ public slots:
     void onLeavingColorMap();
     void onPositionChanged(double x, double y);
     void onResetViewRequest();
+    void onActivityModeChanged(MaskEditorFlags::Activity value);
 
 private:
     void setColorMap(ColorMap* colorMap);
@@ -63,12 +65,14 @@ private:
     ColorMap* m_colorMap;
     ColorMapLabel* m_statusLabel;    
 
-    SessionItem* m_xProjection; //!< temporary projection item matching mouse move
+    SessionItem* m_liveProjection; //!< temporary projection item matching mouse move
     SessionModel* m_model;
     QModelIndex m_containerIndex;
     IntensityDataItem *m_intensityDataItem;
 
     QItemSelectionModel* m_selectionModel;
+
+    MaskEditorFlags::Activity m_currentActivity;
 };
 
 #endif // PROJECTIONSEDITORCANVAS_H

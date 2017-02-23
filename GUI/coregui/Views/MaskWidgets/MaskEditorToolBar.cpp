@@ -51,11 +51,11 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *
 //! space bar. As soon as space bar is released, activity is returned to previous state.
 void MaskEditorToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value)
 {
-    if(value.testFlag(MaskEditorFlags::PAN_ZOOM_MODE)) {
-        m_previousActivity = currentActivity();
-        m_activityButtonGroup->button(MaskEditorFlags::PAN_ZOOM_MODE)->setChecked(true);
-    } else {
+    if (value == MaskEditorFlags::PREVIOUS_MODE) {
         setCurrentActivity(m_previousActivity);
+    } else {
+        m_previousActivity = currentActivity();
+        setCurrentActivity(value);
     }
     emit activityModeChanged(currentActivity());
 }

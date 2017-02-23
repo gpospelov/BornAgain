@@ -82,6 +82,7 @@ void ProjectionsEditor::setup_connections()
 
     // selection/drawing activity is propagated from ToolBar to graphics scene
     connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
-            m_projectionsCanvas->getScene(), SLOT(onActivityModeChanged(MaskEditorFlags::Activity)));
+            m_projectionsCanvas, SLOT(onActivityModeChanged(MaskEditorFlags::Activity)));
 
+    m_toolBar->onChangeActivityRequest(MaskEditorFlags::HORIZONTAL_LINE_MODE);
 }

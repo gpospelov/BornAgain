@@ -21,6 +21,7 @@
 #include <QButtonGroup>
 #include <QToolButton>
 #include <QLabel>
+#include <QDebug>
 
 ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent)
     : QToolBar(parent), m_editorActions(editorActions),
@@ -34,6 +35,19 @@ ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, 
 
     connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)), this,
             SLOT(onActivityGroupChange(int)));
+
+    m_previousActivity = currentActivity();
+}
+
+void ProjectionsToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value)
+{
+    if (value == MaskEditorFlags::PREVIOUS_MODE) {
+        setCurrentActivity(m_previousActivity);
+    } else {
+        m_previousActivity = currentActivity();
+        setCurrentActivity(value);
+    }
+    emit activityModeChanged(currentActivity());
 }
 
 void ProjectionsToolBar::onActivityGroupChange(int)
@@ -97,4 +111,9 @@ void ProjectionsToolBar::add_separator()
 MaskEditorFlags::Activity ProjectionsToolBar::currentActivity() const
 {
     return MaskEditorFlags::EActivityType(m_activityButtonGroup->checkedId());
+}
+
+void ProjectionsToolBar::setCurrentActivity(MaskEditorFlags::Activity value)
+{
+    m_activityButtonGroup->button(value)->setChecked(true);
 }

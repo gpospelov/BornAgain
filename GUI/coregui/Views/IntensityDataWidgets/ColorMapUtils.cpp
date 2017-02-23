@@ -64,15 +64,30 @@ QCPRange ColorMapUtils::itemXrange(const IntensityDataItem* item)
     return QCPRange(item->getXmin(), item->getXmax());
 }
 
+QCPRange ColorMapUtils::itemZoomX(const IntensityDataItem* item)
+{
+    return QCPRange(item->getLowerX(), item->getUpperX());
+}
+
 QCPRange ColorMapUtils::itemYrange(const IntensityDataItem* item)
 {
     return QCPRange(item->getYmin(), item->getYmax());
+}
+
+QCPRange ColorMapUtils::itemZoomY(const IntensityDataItem* item)
+{
+    return QCPRange(item->getLowerY(), item->getUpperY());
 }
 
 QCPRange ColorMapUtils::itemDataRange(const IntensityDataItem* item)
 {
     QPair<double, double> range = item->dataRange();
     return QCPRange(range.first, range.second);
+}
+
+QCPRange ColorMapUtils::itemDataZoom(const IntensityDataItem* item)
+{
+    return QCPRange(item->getLowerZ(), item->getUpperZ());
 }
 
 void ColorMapUtils::setLogz(QCPColorScale* scale, bool isLogz)

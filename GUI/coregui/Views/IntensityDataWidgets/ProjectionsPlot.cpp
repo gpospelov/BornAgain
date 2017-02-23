@@ -25,6 +25,7 @@
 #include "Histogram2D.h"
 #include "MaskItems.h"
 #include "ColorMapUtils.h"
+#include "AxesItems.h"
 #include <QDebug>
 
 ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
@@ -74,7 +75,7 @@ void ProjectionsPlot::subscribeToItem()
             onProjectionPropertyChanged(item, name);
         }, this);
 
-    // Intensity data changed, regenerate everything
+    // Values of intensity changed, regenerate everything.
     intensityItem()->mapper()->setOnValueChange(
         [this]() {
             updateProjectionsData();
@@ -85,8 +86,15 @@ void ProjectionsPlot::subscribeToItem()
     intensityItem()->mapper()->setOnPropertyChange(
         [this](const QString& name) {
             onIntensityItemPropertyChanged(name);
-    }, this);
+        }, this);
 
+    // Update to changed IntensityDataItem axes
+    intensityItem()->mapper()->setOnChildPropertyChange(
+        [this](SessionItem* item, const QString name) {
+            if(item->modelType() == Constants::BasicAxisType ||
+               item->modelType() == Constants::AmplitudeAxisType)
+                onAxisPropertyChanged(item->itemName(), name);
+        }, this);
 
     updateProjectionsData();
     updateProjections();
@@ -148,7 +156,6 @@ QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
         pen.setColor(QColor(0, 0, 255, 200));
         graph->setLineStyle(intensityItem()->isInterpolated() ? QCPGraph::lsLine
                                                               : QCPGraph::lsStepCenter);
-
         graph->setPen(pen);
 //        graph->setBrush(QBrush(QColor(255/4.0,160,50,150)));
         m_item_to_graph[item] = graph;
@@ -162,14 +169,9 @@ QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
 void ProjectionsPlot::updateProjectionsData()
 {
     m_hist2d.reset(new Histogram2D(*intensityItem()->getOutputData()));
-    m_customPlot->yAxis->setRange(ColorMapUtils::itemDataRange(intensityItem()));
-
-    if (m_projectionType == Constants::HorizontalLineMaskType) {
-        m_customPlot->xAxis->setRange(ColorMapUtils::itemXrange(intensityItem()));
-    } else {
-        m_customPlot->xAxis->setRange(ColorMapUtils::itemYrange(intensityItem()));
-    }
-    ColorMapUtils::setLogz(m_customPlot->yAxis, intensityItem()->isLogz());
+    updateAxesRange();
+    updateAxesTitle();
+    setLogz(intensityItem()->isLogz());
 }
 
 //! Runs through all projection items and generates missed plots.
@@ -187,7 +189,26 @@ void ProjectionsPlot::updateProjections()
     replot();
 
     m_block_plot_update = false;
-    qDebug() << "ProjectionsPlot::updateProjections() 3.3";
+}
+
+//! Updates canva's axes to match current zoom level of IntensityDataItem
+
+void ProjectionsPlot::updateAxesRange()
+{
+    if (isHorizontalType())
+        m_customPlot->xAxis->setRange(ColorMapUtils::itemZoomX(intensityItem()));
+    else
+        m_customPlot->xAxis->setRange(ColorMapUtils::itemZoomY(intensityItem()));
+
+    m_customPlot->yAxis->setRange(ColorMapUtils::itemDataZoom(intensityItem()));
+}
+
+void ProjectionsPlot::updateAxesTitle()
+{
+    if (isHorizontalType())
+        m_customPlot->xAxis->setLabel(intensityItem()->getXaxisTitle());
+    else
+        m_customPlot->xAxis->setLabel(intensityItem()->getYaxisTitle());
 }
 
 //! Clears all graphs corresponding to projection items.
@@ -225,7 +246,22 @@ void ProjectionsPlot::onIntensityItemPropertyChanged(const QString& propertyName
         setInterpolate(intensityItem()->isInterpolated());
         replot();
     }
+}
 
+//! Updates zoom of projections in accordance with IntensityDataItem.
+
+void ProjectionsPlot::onAxisPropertyChanged(const QString& axisName, const QString& propertyName)
+{
+    Q_UNUSED(axisName);
+
+    if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX)
+        updateAxesRange();
+    else if (propertyName == BasicAxisItem::P_TITLE)
+        updateAxesTitle();
+    else if (propertyName == AmplitudeAxisItem::P_IS_LOGSCALE)
+        setLogz(intensityItem()->isLogz());
+
+    replot();
 }
 
 //! Sets the data to graph from given projection iten.
@@ -252,7 +288,19 @@ void ProjectionsPlot::setInterpolate(bool isInterpolated)
         graph->setLineStyle(isInterpolated ? QCPGraph::lsLine : QCPGraph::lsStepCenter);
 }
 
+void ProjectionsPlot::setLogz(bool isLogz)
+{
+    ColorMapUtils::setLogz(m_customPlot->yAxis, isLogz);
+}
+
 void ProjectionsPlot::replot()
 {
     m_customPlot->replot();
+}
+
+//! Returns true, if widget is intended for horizontal projections.
+
+bool ProjectionsPlot::isHorizontalType()
+{
+    return m_projectionType == Constants::HorizontalLineMaskType;
 }

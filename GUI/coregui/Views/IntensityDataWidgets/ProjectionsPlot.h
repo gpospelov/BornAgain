@@ -18,10 +18,10 @@
 #define PROJECTIONSPLOT_H
 
 #include "SessionItemWidget.h"
+#include "qcustomplot.h"
 #include <memory>
 #include <QMap>
 
-class QCustomPlot;
 class IntensityDataItem;
 class ProjectionContainerItem;
 class Histogram2D;
@@ -53,15 +53,21 @@ private:
 
     void updateProjectionsData();
     void updateProjections();
+    void updateAxesRange();
+    void updateAxesTitle();
     void clearProjections();
     void clearProjection(SessionItem* item);
     void onIntensityItemPropertyChanged(const QString& propertyName);
+    void onAxisPropertyChanged(const QString& axisName, const QString& propertyName);
 
     void setGraphFromItem(QCPGraph* graph, SessionItem* item);
 
     void setInterpolate(bool isInterpolated);
+    void setLogz(bool isLogz);
 
     void replot();
+
+    bool isHorizontalType();
 
     QString m_projectionType;
     QCustomPlot* m_customPlot;

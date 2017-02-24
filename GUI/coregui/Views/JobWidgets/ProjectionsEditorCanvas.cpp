@@ -25,7 +25,6 @@
 #include "MaskItems.h"
 #include <QVBoxLayout>
 #include <QItemSelectionModel>
-#include <QDebug>
 
 ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     : QWidget(parent)
@@ -77,7 +76,6 @@ void ProjectionsEditorCanvas::setSelectionModel(QItemSelectionModel* model)
 
 void ProjectionsEditorCanvas::onEnteringColorMap()
 {
-    qDebug() << "ProjectionsEditorCanvas::onEnteringColorMap()";
     Q_ASSERT(m_liveProjection == nullptr);
     Q_ASSERT(m_containerIndex.isValid());
 
@@ -95,7 +93,6 @@ void ProjectionsEditorCanvas::onEnteringColorMap()
 
 void ProjectionsEditorCanvas::onLeavingColorMap()
 {
-    qDebug() << "ProjectionsEditorCanvas::onLeavingColorMap()";
     if (m_liveProjection) {
         m_liveProjection->parent()->takeRow(
                     m_liveProjection->parent()->rowOfChild(m_liveProjection));
@@ -106,7 +103,6 @@ void ProjectionsEditorCanvas::onLeavingColorMap()
 
 void ProjectionsEditorCanvas::onPositionChanged(double x, double y)
 {
-//    qDebug() << "ProjectionsEditorCanvas::onPositionChanged()" << x << y;
     if(m_liveProjection) {
         if(m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
             m_liveProjection->setItemValue(HorizontalLineItem::P_POSY, y);

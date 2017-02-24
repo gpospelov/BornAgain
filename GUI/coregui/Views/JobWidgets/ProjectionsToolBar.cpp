@@ -21,7 +21,6 @@
 #include <QButtonGroup>
 #include <QToolButton>
 #include <QLabel>
-#include <QDebug>
 
 ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent)
     : QToolBar(parent), m_editorActions(editorActions),

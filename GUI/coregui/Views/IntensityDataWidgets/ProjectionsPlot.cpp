@@ -26,7 +26,6 @@
 #include "MaskItems.h"
 #include "ColorMapUtils.h"
 #include "AxesItems.h"
-#include <QDebug>
 
 ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
     : SessionItemWidget(parent)
@@ -71,8 +70,6 @@ void ProjectionsPlot::onMarginsChanged(double left, double right)
 
 void ProjectionsPlot::subscribeToItem()
 {
-    qDebug() << "ProjectionsPlot::subscribeToItem()" << m_projectionType;
-
     // Update projection plot on new item appearance
     projectionContainerItem()->mapper()->setOnChildrenChange(
         [this](SessionItem* item) {
@@ -119,7 +116,6 @@ void ProjectionsPlot::subscribeToItem()
 
 void ProjectionsPlot::unsubscribeFromItem()
 {
-    qDebug() << "ProjectionsPlot::unsubscribeFromItem()" << m_projectionType;
     if(currentItem())
         projectionContainerItem()->mapper()->unsubscribe(this);
 }
@@ -174,7 +170,6 @@ QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
         graph->setLineStyle(intensityItem()->isInterpolated() ? QCPGraph::lsLine
                                                               : QCPGraph::lsStepCenter);
         graph->setPen(pen);
-//        graph->setBrush(QBrush(QColor(255/4.0,160,50,150)));
         m_item_to_graph[item] = graph;
     }
 

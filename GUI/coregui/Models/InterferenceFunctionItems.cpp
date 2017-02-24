@@ -29,7 +29,6 @@
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunction1DLattice.h"
 #include "GroupItem.h"
-#include <QDebug>
 
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
@@ -111,10 +110,9 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
             InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
             update_rotation_availability();
         }
-        if (item->modelType() == Constants::GroupItemType && property == GroupItem::T_ITEMS && isTag(P_PDF1) && isTag(P_PDF2)) {
-            qDebug() << item->modelType() << property;
+        if (item->modelType() == Constants::GroupItemType && property == GroupItem::T_ITEMS
+            && isTag(P_PDF1) && isTag(P_PDF2))
             update_distribution_displaynames();
-        }
     });
 
     update_distribution_displaynames();
@@ -166,7 +164,6 @@ void InterferenceFunction2DParaCrystalItem::update_distribution_displaynames()
     SessionItem *pdf2 = group2->currentItem();
 
     if(pdf1 && pdf2) {
-        qDebug() << pdf1->displayName() << pdf2->displayName();
         if(pdf1->modelType() == pdf2->modelType()) {
             pdf1->setDisplayName(pdf1->modelType()+QString::number(0));
             pdf2->setDisplayName(pdf2->modelType()+QString::number(1));

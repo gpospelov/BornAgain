@@ -136,7 +136,6 @@ void ColorMap::onIntensityModified()
 //! updates color map depending on  IntensityDataItem properties
 void ColorMap::onPropertyChanged(const QString& property_name)
 {
-    qDebug() << "ColorMap::onPropertyChanged" << property_name;
     if (m_block_update)
         return;
 
@@ -156,8 +155,6 @@ void ColorMap::onAxisPropertyChanged(const QString& axisName, const QString& pro
 {
     if (m_block_update)
         return;
-
-    qDebug() << "ColorMap::onSubItemPropertyChanged" << axisName << propertyName;
 
     if (axisName == IntensityDataItem::P_XAXIS) {
         if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
@@ -244,8 +241,6 @@ void ColorMap::onTimeToReplot()
 
 void ColorMap::subscribeToItem()
 {
-    qDebug() << "ColorMap::subscribeToItem() ";
-
     setColorMapFromItem(intensityItem());
 
     intensityItem()->mapper()->setOnPropertyChange(

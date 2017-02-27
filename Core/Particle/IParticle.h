@@ -45,6 +45,10 @@ public:
     virtual IFormFactor* createTransformedFormFactor(
         const IRotation* p_rotation, kvector_t translation) const =0;
 
+    //! Create list of form factors and corresponding layer indices
+    virtual std::vector<std::pair<IFormFactor*, size_t>> createSlicedFormFactors(
+            const MultiLayer& multilayer) const;
+
     //! Returns particle position.
     kvector_t getPosition() const { return m_position; }
 

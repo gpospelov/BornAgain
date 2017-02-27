@@ -23,6 +23,13 @@ IFormFactor* IParticle::createFormFactor() const
     return createTransformedFormFactor(nullptr, kvector_t());
 }
 
+std::vector<std::pair<IFormFactor*, size_t>> IParticle::createSlicedFormFactors(
+        const MultiLayer& multilayer) const
+{
+    (void)multilayer;
+    return { std::pair<IFormFactor*, size_t>(createFormFactor(), 0) };
+}
+
 void IParticle::setRotation(const IRotation& rotation)
 {
     mP_rotation.reset(rotation.clone());

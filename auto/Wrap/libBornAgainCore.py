@@ -18606,6 +18606,11 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_createTransformedFormFactor(self, p_rotation, translation)
 
 
+    def createSlicedFormFactors(self, multilayer):
+        """createSlicedFormFactors(IParticle self, MultiLayer multilayer) -> std::vector< std::pair< IFormFactor *,size_t >,std::allocator< std::pair< IFormFactor *,size_t > > >"""
+        return _libBornAgainCore.IParticle_createSlicedFormFactors(self, multilayer)
+
+
     def getPosition(self):
         """
         getPosition(IParticle self) -> kvector_t

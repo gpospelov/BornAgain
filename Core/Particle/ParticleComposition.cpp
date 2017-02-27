@@ -19,6 +19,7 @@
 #include "FormFactorWeighted.h"
 #include "IMaterial.h"
 #include "ParticleDistribution.h"
+#include "SlicedFormFactorList.h"
 
 ParticleComposition::ParticleComposition()
 {
@@ -114,6 +115,18 @@ IFormFactor* ParticleComposition::createTransformedFormFactor(
         p_result->addFormFactor(*P_particle_ff);
     }
     return p_result;
+}
+
+SlicedFormFactorList ParticleComposition::createSlicedFormFactors(
+        const MultiLayer& multilayer, double position_offset) const
+{
+    SlicedFormFactorList result;
+    for (size_t index = 0; index < m_particles.size(); ++index) {
+        const std::unique_ptr<IFormFactor> P_particle_ff(
+            m_particles[index]->createTransformedFormFactor(getRotation(), getPosition()) );
+        result.addFormFactor(*P_particle_ff, multilayer, position_offset);
+    }
+    return result;
 }
 
 const IParticle* ParticleComposition::getParticle(size_t index) const

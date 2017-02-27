@@ -31,21 +31,24 @@ public:
     ParticleComposition(const IParticle& particle, kvector_t position);
     ParticleComposition(const IParticle& particle, std::vector<kvector_t > positions);
 
-    virtual ~ParticleComposition();
-    virtual ParticleComposition* clone() const;
+    ~ParticleComposition();
+    ParticleComposition* clone() const override;
 
     //! Returns a clone with inverted magnetic fields
-    virtual ParticleComposition* cloneInvertB() const;
+    ParticleComposition* cloneInvertB() const override;
 
-    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void addParticle(const IParticle& particle);
     void addParticle(const IParticle& particle, kvector_t  position);
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
     //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
-                                                     kvector_t translation) const;
+    IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
+                                                     kvector_t translation) const override;
+
+    SlicedFormFactorList createSlicedFormFactors(
+            const MultiLayer& multilayer, double position_offset=0.0) const override;
 
     //! Returns number of different particles
     size_t getNbrParticles() const { return m_particles.size(); }
@@ -55,7 +58,7 @@ public:
 
     kvector_t getParticlePosition(size_t index) const;
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override;
 
 private:
     size_t check_index(size_t index) const;

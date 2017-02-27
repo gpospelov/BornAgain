@@ -24,9 +24,10 @@ IFormFactor* IParticle::createFormFactor() const
 }
 
 std::vector<std::pair<IFormFactor*, size_t>> IParticle::createSlicedFormFactors(
-        const MultiLayer& multilayer) const
+        const MultiLayer& multilayer, double position_offset) const
 {
     (void)multilayer;
+    (void)position_offset;
     return { std::pair<IFormFactor*, size_t>(createFormFactor(), 0) };
 }
 

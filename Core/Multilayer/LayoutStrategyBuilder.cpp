@@ -82,8 +82,7 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
     SafePointerVector<class FormFactorCoherentSum> result;
     double layout_abundance = mp_layout->getTotalAbundance();
     for (const IParticle* particle: mp_layout->getParticles()) {
-        FormFactorCoherentSum* p_ff_coh;
-        p_ff_coh = createFormFactorCoherentSum(particle);
+        auto p_ff_coh = createFormFactorCoherentSum(particle);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
         result.push_back(p_ff_coh);
     }
@@ -94,8 +93,7 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
 FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     const IParticle* particle) const
 {
-    const std::unique_ptr<IParticle> P_particle_clone{ particle->clone() };
-    const std::unique_ptr<IFormFactor> P_ff_particle{ P_particle_clone->createFormFactor() };
+    const std::unique_ptr<IFormFactor> P_ff_particle{ particle->createFormFactor() };
     std::unique_ptr<IFormFactor> P_ff_framework;
     if (mp_multilayer->getNumberOfLayers()>1) {
         if (m_polarized)

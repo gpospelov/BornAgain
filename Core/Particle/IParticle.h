@@ -47,7 +47,7 @@ public:
 
     //! Create list of form factors and corresponding layer indices
     virtual std::vector<std::pair<IFormFactor*, size_t>> createSlicedFormFactors(
-            const MultiLayer& multilayer) const;
+            const MultiLayer& multilayer, double position_offset=0.0) const;
 
     //! Returns particle position.
     kvector_t getPosition() const { return m_position; }

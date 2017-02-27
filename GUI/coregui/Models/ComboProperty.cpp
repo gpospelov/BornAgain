@@ -89,3 +89,19 @@ bool ComboProperty::operator<(const ComboProperty& other) const
 {
     return m_current_value < other.m_current_value && m_values.size() < other.m_values.size();
 }
+
+//! Sets values from the string containing delimeter ';'.
+
+void ComboProperty::setStringOfValues(const QString& values)
+{
+    m_values = values.split(QStringLiteral(";"));
+    if(!m_values.contains(m_current_value) && !m_current_value.isEmpty())
+        m_current_value = m_values.front();
+}
+
+//! Returns a single string containing values delimited with ';'.
+
+QString ComboProperty::stringOfValues() const
+{
+    return m_values.join(QStringLiteral(";"));
+}

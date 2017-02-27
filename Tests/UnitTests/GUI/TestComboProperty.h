@@ -8,6 +8,7 @@ private slots:
     void test_ComboEquality();
     void test_VariantEquality();
     void test_setValue();
+    void test_stringOfValues();
 };
 
 inline void TestComboProperty::test_ComboEquality()
@@ -60,3 +61,23 @@ inline void TestComboProperty::test_setValue()
     QCOMPARE(combo.getValue(), QString("a1"));
 }
 
+inline void TestComboProperty::test_stringOfValues()
+{
+    QStringList expectedValues = QStringList() << "a1" << "a2";
+    ComboProperty combo = ComboProperty() << expectedValues;
+
+    QCOMPARE(combo.stringOfValues(), QString("a1;a2"));
+
+    // setting string of values, current value should change
+    QString stringOfValues("b1;b2;b3");
+    combo.setStringOfValues(stringOfValues);
+    QCOMPARE(combo.stringOfValues(), stringOfValues);
+    QCOMPARE(combo.getValue(), QString("b1"));
+
+    // setting new string of values, containing current value. Current values should remain.
+    stringOfValues = QString("c1;b1;c3");
+    combo.setStringOfValues(stringOfValues);
+    QCOMPARE(combo.stringOfValues(), stringOfValues);
+    QCOMPARE(combo.getValue(), QString("b1"));
+
+}

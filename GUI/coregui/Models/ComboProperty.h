@@ -51,8 +51,6 @@ public:
 
     QVariant getVariant() const;
 
-    int getIndex() const;
-
     QString getCachedValue() const;
     void setCachedValue(const QString& name);
 
@@ -63,6 +61,9 @@ public:
     }
     bool operator<(const ComboProperty& other) const;
 
+    void setStringOfValues(const QString& values);
+
+    QString stringOfValues() const;
 private:
     QStringList m_values;
     QStringList m_values_tooltips;
@@ -106,11 +107,6 @@ inline QVariant ComboProperty::getVariant() const
     QVariant result;
     result.setValue(*this);
     return result;
-}
-
-inline int ComboProperty::getIndex() const
-{
-    return toIndex(m_current_value);
 }
 
 inline QString ComboProperty::getCachedValue() const

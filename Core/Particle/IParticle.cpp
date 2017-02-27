@@ -16,19 +16,22 @@
 #include "IParticle.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
+#include "MultiLayer.h"
 #include "RealParameter.h"
+#include "SlicedFormFactorList.h"
 
 IFormFactor* IParticle::createFormFactor() const
 {
     return createTransformedFormFactor(nullptr, kvector_t());
 }
 
-std::vector<std::pair<IFormFactor*, size_t>> IParticle::createSlicedFormFactors(
+SlicedFormFactorList IParticle::createSlicedFormFactors(
         const MultiLayer& multilayer, double position_offset) const
 {
-    (void)multilayer;
-    (void)position_offset;
-    return { std::pair<IFormFactor*, size_t>(createFormFactor(), 0) };
+    SlicedFormFactorList result;
+    std::unique_ptr<IFormFactor> P_ff(createFormFactor());
+    result.addFormFactor(*P_ff, multilayer, position_offset);
+    return result;
 }
 
 void IParticle::setRotation(const IRotation& rotation)

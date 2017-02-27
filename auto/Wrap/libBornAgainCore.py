@@ -18606,14 +18606,6 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_createTransformedFormFactor(self, p_rotation, translation)
 
 
-    def createSlicedFormFactors(self, multilayer, position_offset=0.0):
-        """
-        createSlicedFormFactors(IParticle self, MultiLayer multilayer, double position_offset=0.0) -> std::vector< std::pair< IFormFactor *,size_t >,std::allocator< std::pair< IFormFactor *,size_t > > >
-        createSlicedFormFactors(IParticle self, MultiLayer multilayer) -> std::vector< std::pair< IFormFactor *,size_t >,std::allocator< std::pair< IFormFactor *,size_t > > >
-        """
-        return _libBornAgainCore.IParticle_createSlicedFormFactors(self, multilayer, position_offset)
-
-
     def getPosition(self):
         """
         getPosition(IParticle self) -> kvector_t
@@ -22509,16 +22501,14 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_requiresMatrixRTCoefficients(self)
 
 
-    def zToLayerIndex(self, z_value):
-        """
-        zToLayerIndex(MultiLayer self, double z_value) -> size_t
+    def bottomZToLayerIndex(self, z_value):
+        """bottomZToLayerIndex(MultiLayer self, double z_value) -> size_t"""
+        return _libBornAgainCore.MultiLayer_bottomZToLayerIndex(self, z_value)
 
-        size_t MultiLayer::zToLayerIndex(double z_value) const
 
-        returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
-
-        """
-        return _libBornAgainCore.MultiLayer_zToLayerIndex(self, z_value)
+    def topZToLayerIndex(self, z_value):
+        """topZToLayerIndex(MultiLayer self, double z_value) -> size_t"""
+        return _libBornAgainCore.MultiLayer_topZToLayerIndex(self, z_value)
 
 
     def containsMagneticMaterial(self):

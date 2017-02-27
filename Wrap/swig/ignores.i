@@ -55,6 +55,8 @@
 %ignore DecoratedLayerComputation;
 %ignore RoughMultiLayerComputation;
 %ignore SpecularComputation;
+%ignore SlicedFormFactorList;
+%ignore IParticle::createSlicedFormFactors;
 
 %ignore Lattice2D::ReciprocalBases;
 %ignore Lattice2D::reciprocalBases();

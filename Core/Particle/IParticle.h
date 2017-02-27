@@ -21,6 +21,8 @@
 #include "Vectors3D.h"
 #include <memory>
 
+class SlicedFormFactorList;
+
 
 //! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
 //! Provides position/rotation and form factor. Abundance is inherited from IAbstractParticle.
@@ -46,8 +48,8 @@ public:
         const IRotation* p_rotation, kvector_t translation) const =0;
 
     //! Create list of form factors and corresponding layer indices
-    virtual std::vector<std::pair<IFormFactor*, size_t>> createSlicedFormFactors(
-            const MultiLayer& multilayer, double position_offset=0.0) const;
+    SlicedFormFactorList createSlicedFormFactors(const MultiLayer& multilayer,
+                                                 double position_offset=0.0) const;
 
     //! Returns particle position.
     kvector_t getPosition() const { return m_position; }

@@ -120,5 +120,5 @@ size_t LayoutStrategyBuilder::findLayerIndex(const IFormFactor& ff) const
 {
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
     double zmin = ff.bottomZ(*P_rot) + mp_multilayer->getLayerTopZ(m_layer_index);
-    return mp_multilayer->zToLayerIndex(zmin);
+    return mp_multilayer->bottomZToLayerIndex(zmin);
 }

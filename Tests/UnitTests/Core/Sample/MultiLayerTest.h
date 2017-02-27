@@ -565,14 +565,14 @@ TEST_F(MultiLayerTest, MultiLayerZtoIndex)
     mLayer.addLayer(layer3);
     mLayer.addLayer(layer4);
 
-    EXPECT_EQ(size_t(0), mLayer.zToLayerIndex(1.0));
-    EXPECT_EQ(size_t(0), mLayer.zToLayerIndex(0.0));
-    EXPECT_EQ(size_t(1), mLayer.zToLayerIndex(-1.0));
-    EXPECT_EQ(size_t(1), mLayer.zToLayerIndex(-9.0));
-    EXPECT_EQ(size_t(1), mLayer.zToLayerIndex(-10.0));
-    EXPECT_EQ(size_t(2), mLayer.zToLayerIndex(-11.0));
-    EXPECT_EQ(size_t(2), mLayer.zToLayerIndex(-30.0));
-    EXPECT_EQ(size_t(3), mLayer.zToLayerIndex(-31.0));
-    EXPECT_EQ(size_t(3), mLayer.zToLayerIndex(-60.0));
-    EXPECT_EQ(size_t(4), mLayer.zToLayerIndex(-61.0));
+    EXPECT_EQ(size_t(0), mLayer.bottomZToLayerIndex(1.0));
+    EXPECT_EQ(size_t(0), mLayer.bottomZToLayerIndex(0.0));
+    EXPECT_EQ(size_t(1), mLayer.bottomZToLayerIndex(-1.0));
+    EXPECT_EQ(size_t(1), mLayer.bottomZToLayerIndex(-9.0));
+    EXPECT_EQ(size_t(1), mLayer.bottomZToLayerIndex(-10.0));
+    EXPECT_EQ(size_t(2), mLayer.bottomZToLayerIndex(-11.0));
+    EXPECT_EQ(size_t(2), mLayer.bottomZToLayerIndex(-30.0));
+    EXPECT_EQ(size_t(3), mLayer.bottomZToLayerIndex(-31.0));
+    EXPECT_EQ(size_t(3), mLayer.bottomZToLayerIndex(-60.0));
+    EXPECT_EQ(size_t(4), mLayer.bottomZToLayerIndex(-61.0));
 }

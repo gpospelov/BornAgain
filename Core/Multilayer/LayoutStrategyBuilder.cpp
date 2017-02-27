@@ -14,17 +14,18 @@
 // ************************************************************************** //
 
 #include "LayoutStrategyBuilder.h"
+#include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
 #include "FormFactorCoherentSum.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
+#include "IFresnelMap.h"
 #include "ILayout.h"
 #include "IParticle.h"
 #include "InterferenceFunctionNone.h"
 #include "MultiLayer.h"
 #include "Layer.h"
-#include "IFresnelMap.h"
-#include "DecouplingApproximationStrategy.h"
+#include "SlicedFormFactorList.h"
 #include "SSCApproximationStrategy.h"
 
 LayoutStrategyBuilder::LayoutStrategyBuilder(
@@ -93,32 +94,29 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
 FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     const IParticle* particle) const
 {
-    const std::unique_ptr<IFormFactor> P_ff_particle{ particle->createFormFactor() };
-    std::unique_ptr<IFormFactor> P_ff_framework;
-    if (mp_multilayer->getNumberOfLayers()>1) {
-        if (m_polarized)
-            P_ff_framework.reset(new FormFactorDWBAPol(*P_ff_particle));
-        else
-            P_ff_framework.reset(new FormFactorDWBA(*P_ff_particle));
-    } else
-        P_ff_framework.reset(P_ff_particle->clone());
-
-    size_t layer_index = findLayerIndex(*P_ff_framework);
-    const IMaterial* p_layer_material = mp_multilayer->getLayer(layer_index)->getMaterial();
-    P_ff_framework->setAmbientMaterial(*p_layer_material);
-
-    auto part = FormFactorCoherentPart(P_ff_framework.release());
-    part.setSpecularInfo(mp_fresnel_map, layer_index);
-
     std::unique_ptr<FormFactorCoherentSum> P_result(
                 new FormFactorCoherentSum(particle->getAbundance()));
-    P_result->addCoherentPart(part);
-    return P_result.release();
-}
+    auto sliced_ffs = particle->createSlicedFormFactors(
+                          *mp_multilayer, mp_multilayer->getLayerTopZ(m_layer_index));
+    for (size_t i=0; i < sliced_ffs.size(); ++i) {
+        auto ff_pair = sliced_ffs[i];
+        std::unique_ptr<IFormFactor> P_ff_framework;
+        if (mp_multilayer->getNumberOfLayers()>1) {
+            if (m_polarized)
+                P_ff_framework.reset(new FormFactorDWBAPol(*ff_pair.first));
+            else
+                P_ff_framework.reset(new FormFactorDWBA(*ff_pair.first));
+        } else
+            P_ff_framework.reset(ff_pair.first->clone());
 
-size_t LayoutStrategyBuilder::findLayerIndex(const IFormFactor& ff) const
-{
-    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
-    double zmin = ff.bottomZ(*P_rot) + mp_multilayer->getLayerTopZ(m_layer_index);
-    return mp_multilayer->bottomZToLayerIndex(zmin);
+        size_t layer_index = ff_pair.second;
+        const IMaterial* p_layer_material = mp_multilayer->getLayer(layer_index)->getMaterial();
+        P_ff_framework->setAmbientMaterial(*p_layer_material);
+
+        auto part = FormFactorCoherentPart(P_ff_framework.release());
+        part.setSpecularInfo(mp_fresnel_map, layer_index);
+
+        P_result->addCoherentPart(part);
+    }
+    return P_result.release();
 }

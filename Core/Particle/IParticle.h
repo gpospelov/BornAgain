@@ -48,8 +48,8 @@ public:
         const IRotation* p_rotation, kvector_t translation) const =0;
 
     //! Create list of form factors and corresponding layer indices
-    SlicedFormFactorList createSlicedFormFactors(const MultiLayer& multilayer,
-                                                 double position_offset=0.0) const;
+    virtual SlicedFormFactorList createSlicedFormFactors(const MultiLayer& multilayer,
+                                                         double position_offset=0.0) const;
 
     //! Returns particle position.
     kvector_t getPosition() const { return m_position; }

@@ -90,8 +90,8 @@ void ParticleComposition::addParticle(const IParticle& particle, kvector_t posit
     addParticlePointer(np);
 }
 
-// Please note, that positions is not const reference here. This is intentionally to
-// python lists to std::vector
+// Please note, that positions is not const reference here. This is intentional, to
+// enable python lists to std::vector conversion
 void ParticleComposition::addParticles(const IParticle& particle,
         std::vector<kvector_t > positions)
 {

@@ -22,6 +22,7 @@
 
 class BasicAxisItem;
 class MaskContainerItem;
+class ProjectionContainerItem;
 
 class BA_CORE_API_ IntensityDataItem : public SessionItem
 {
@@ -96,6 +97,7 @@ public:
     void resetView();
 
     MaskContainerItem* maskContainerItem();
+    ProjectionContainerItem* projectionContainerItem();
 
 public slots:
     void setLowerX(double xmin);

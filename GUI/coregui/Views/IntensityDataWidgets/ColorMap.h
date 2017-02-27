@@ -50,6 +50,8 @@ public:
     const QCustomPlot* customPlot() const { return m_customPlot; }
     QCPColorScale* colorScale() { return m_colorScale; }
 
+    ColorMapEvent* colorMapEvent() { return m_colorMapEvent; }
+
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;
     double yAxisCoordToPixel(double axis_coordinate) const;
@@ -71,6 +73,7 @@ public:
 
 signals:
     void statusString(const QString& text);
+    void marginsChanged(double left, double right);
 
 public slots:
     void setLogz(bool logz);
@@ -79,12 +82,13 @@ public slots:
 private slots:
     void onIntensityModified();
     void onPropertyChanged(const QString& property_name);
-    void onSubItemPropertyChanged(const QString& property_group, const QString& property_name);
+    void onAxisPropertyChanged(const QString& axisName, const QString& propertyName);
     void onDataRangeChanged(QCPRange newRange);
     void onXaxisRangeChanged(QCPRange newRange);
     void onYaxisRangeChanged(QCPRange newRange);
     void replot();
     void onTimeToReplot();
+    void marginsChangedNotify();
 
 protected:
     virtual void subscribeToItem();

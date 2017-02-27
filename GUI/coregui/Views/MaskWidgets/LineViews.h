@@ -17,11 +17,11 @@
 #ifndef LINEVIEWS_H
 #define LINEVIEWS_H
 
-#include "IMaskView.h"
+#include "IShape2DView.h"
 
 //! This is a view of VerticalLineItem mask
 
-class BA_CORE_API_ VerticalLineView : public IMaskView
+class BA_CORE_API_ VerticalLineView : public IShape2DView
 {
     Q_OBJECT
 
@@ -30,21 +30,19 @@ public:
 
     VerticalLineView();
 
-public slots:
+protected slots:
     virtual void update_view();
     virtual void onChangedX();
-    virtual void onPropertyChange(const QString &propertyName);
+    virtual void onPropertyChange(const QString& propertyName);
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-private:
-    bool m_block_on_property_change;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 };
 
 //! This is a view of HorizontalLineItem mask
 
-class BA_CORE_API_ HorizontalLineView : public IMaskView
+class BA_CORE_API_ HorizontalLineView : public IShape2DView
 {
     Q_OBJECT
 
@@ -53,17 +51,14 @@ public:
 
     HorizontalLineView();
 
-public slots:
+protected slots:
     virtual void update_view();
     virtual void onChangedY();
-    virtual void onPropertyChange(const QString &propertyName);
+    virtual void onPropertyChange(const QString& propertyName);
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-private:
-    bool m_block_on_property_change;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 };
-
 
 #endif // LINEVIEWS_H

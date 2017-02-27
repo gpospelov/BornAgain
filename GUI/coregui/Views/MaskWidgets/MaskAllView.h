@@ -17,11 +17,11 @@
 #ifndef MASKALLVIEW_H
 #define MASKALLVIEW_H
 
-#include "IMaskView.h"
+#include "IShape2DView.h"
 
 //! This is a view of MaskAllItem which covers whole detector plane with mask value=true.
 
-class BA_CORE_API_ MaskAllView : public IMaskView
+class BA_CORE_API_ MaskAllView : public IShape2DView
 {
     Q_OBJECT
 
@@ -30,11 +30,11 @@ public:
 
     MaskAllView();
 
-public slots:
+protected slots:
     virtual void update_view();
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
 #endif // MASKALLVIEW_H

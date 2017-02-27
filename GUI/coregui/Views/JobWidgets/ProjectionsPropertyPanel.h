@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/ProjectionCanvas.h
-//! @brief     Defines class ProjectionCanvas
+//! @file      GUI/coregui/Views/JobWidgets/ProjectionsPropertyPanel.h
+//! @brief     Defines class ProjectionsPropertyPanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,26 +14,29 @@
 //
 // ************************************************************************** //
 
-#ifndef PROJECTIONCANVAS_H
-#define PROJECTIONCANVAS_H
+#ifndef PROJECTIONSPROPERTYPANEL_H
+#define PROJECTIONSPROPERTYPANEL_H
 
 #include "SessionItemWidget.h"
 
-class QCustomPlot;
+class ComponentEditor;
 
-//! A customplot based widget to display projections of IntensityDataItem on X,Y axes.
-
-class BA_CORE_API_ ProjectionCanvas : public SessionItemWidget
+class BA_CORE_API_ ProjectionsPropertyPanel : public SessionItemWidget
 {
     Q_OBJECT
 
 public:
-    ProjectionCanvas(QWidget* parent = 0);
+    ProjectionsPropertyPanel(QWidget* parent = 0);
 
-    void setItem(SessionItem* projectionContainerItem);
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
+protected:
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
 
 private:
-    QCustomPlot* m_customPlot;
+    ComponentEditor* m_componentEditor;
 };
 
-#endif // PROJECTIONCANVAS_H
+#endif // PROJECTIONSPROPERTYPANEL_H

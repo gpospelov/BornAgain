@@ -23,7 +23,6 @@
 #include "IntensityDataItem.h"
 #include "MaskEditor.h"
 #include "MaskItems.h"
-#include "MaskModel.h"
 #include "OutputData.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)

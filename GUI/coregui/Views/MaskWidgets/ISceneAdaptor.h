@@ -40,7 +40,7 @@ public:
     virtual qreal fromSceneY(qreal) const = 0;
 
     //! returns viewport rectangle in scene coordinates
-    virtual const QRectF& getViewportRectangle() const { return m_viewport_rectangle; }
+    virtual const QRectF& viewportRectangle() const { return m_viewport_rectangle; }
 
 signals:
     void update_request();

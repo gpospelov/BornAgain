@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QString>
 
-class IMaskView;
+class IShape2DView;
 class SessionItem;
 class ISceneAdaptor;
 
@@ -29,7 +29,7 @@ class ISceneAdaptor;
 class BA_CORE_API_ MaskViewFactory
 {
 public:
-    static IMaskView *createMaskView(SessionItem *item,
+    static IShape2DView *createMaskView(SessionItem *item,
                                      ISceneAdaptor *adaptor = 0);
 };
 

@@ -18,7 +18,6 @@
 #include "CustomEventFilters.h"
 #include "DetectorMaskDelegate.h"
 #include "MaskEditor.h"
-#include "MaskModel.h"
 #include "mainwindow_constants.h"
 #include <QKeyEvent>
 #include <QModelIndex>

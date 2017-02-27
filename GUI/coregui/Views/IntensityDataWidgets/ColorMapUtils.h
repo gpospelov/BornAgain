@@ -32,9 +32,26 @@ namespace ColorMapUtils
 BA_CORE_API_ QCPColorGradient getGradient(const QString& gradientName);
 BA_CORE_API_ QCPColorGradient itemGradient(const IntensityDataItem* item);
 
+//! Returns x-axis range.
 BA_CORE_API_ QCPRange itemXrange(const IntensityDataItem* item);
+
+//! Returns x-axis vizible range (zoom).
+BA_CORE_API_ QCPRange itemZoomX(const IntensityDataItem* item);
+
+//! Returns y-axis range.
 BA_CORE_API_ QCPRange itemYrange(const IntensityDataItem* item);
+
+//! Returns y-axis vizible range (zoom).
+BA_CORE_API_ QCPRange itemZoomY(const IntensityDataItem* item);
+
+//! Returns z-axis data range.
 BA_CORE_API_ QCPRange itemDataRange(const IntensityDataItem* item);
+
+//! Returns z-axis visible range (zoom).
+BA_CORE_API_ QCPRange itemDataZoom(const IntensityDataItem* item);
+
+BA_CORE_API_ void setLogz(QCPColorScale* scale, bool isLogz);
+BA_CORE_API_ void setLogz(QCPAxis* axis, bool isLogz);
 }
 
 #endif // COLORMAPUTILS_H

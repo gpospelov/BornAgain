@@ -36,6 +36,11 @@ public:
 
     void setMouseTrackingEnabled(bool enable);
 
+signals:
+    void enteringColorMap();
+    void leavingColorMap();
+    void positionChanged(double x, double y);
+
 public slots:
     void onCustomMouseMove(QMouseEvent* event);
 

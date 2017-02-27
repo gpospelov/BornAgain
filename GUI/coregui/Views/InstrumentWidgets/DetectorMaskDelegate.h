@@ -23,7 +23,6 @@
 
 template <class T> class OutputData;
 
-class MaskModel;
 class DetectorItem;
 class InstrumentModel;
 class IntensityDataItem;

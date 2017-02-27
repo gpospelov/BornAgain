@@ -103,6 +103,18 @@ void MaskEditorActions::onItemContextMenuRequest(const QPoint &point)
     setAllActionsEnabled(true);
 }
 
+void MaskEditorActions::onDeleteMaskAction()
+{
+    Q_ASSERT(m_maskModel);
+    Q_ASSERT(m_selectionModel);
+
+    QModelIndexList indexes = m_selectionModel->selectedIndexes();
+    while (indexes.size()) {
+        m_maskModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
+        indexes = m_selectionModel->selectedIndexes();
+    }
+}
+
 //! Performs switch of mask value for all selected items (true -> false, false -> true)
 void MaskEditorActions::onToggleMaskValueAction()
 {
@@ -124,18 +136,6 @@ void MaskEditorActions::onBringToFrontAction()
 void MaskEditorActions::onSendToBackAction()
 {
     changeMaskStackingOrder(MaskEditorFlags::SEND_TO_BACK);
-}
-
-void MaskEditorActions::onDeleteMaskAction()
-{
-    Q_ASSERT(m_maskModel);
-    Q_ASSERT(m_selectionModel);
-
-    QModelIndexList indexes = m_selectionModel->selectedIndexes();
-    while (indexes.size()) {
-        m_maskModel->removeRows(indexes.back().row(), 1, indexes.back().parent());
-        indexes = m_selectionModel->selectedIndexes();
-    }
 }
 
 //! Lower mask one level down or rise one level up in the masks stack

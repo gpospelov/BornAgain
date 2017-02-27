@@ -17,35 +17,36 @@
 #ifndef POLYGONPOINTVIEW_H
 #define POLYGONPOINTVIEW_H
 
-#include "IMaskView.h"
+#include "IShape2DView.h"
 
 //! This is a View of polygon point for PolygonMaskItem
 
-class BA_CORE_API_ PolygonPointView : public IMaskView
+class BA_CORE_API_ PolygonPointView : public IShape2DView
 {
     Q_OBJECT
 
 public:
-    enum { TYPE = MaskEditorHelper::POLYGONPOINT };
-    int type() const { return TYPE; }
+    int type() const { return MaskEditorHelper::POLYGONPOINT; }
 
     PolygonPointView();
 
     QRectF boundingRect() const;
 
-    void updateParameterizedItem(const QPointF &pos);
+    void updateParameterizedItem(const QPointF& pos);
 
 signals:
     void closePolygonRequest(bool);
+    void propertyChanged();
 
-public slots:
+protected slots:
     virtual void update_view();
+    virtual void onPropertyChange(const QString&);
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+    void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
 
 private:
     bool m_on_hover;

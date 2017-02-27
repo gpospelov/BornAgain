@@ -92,6 +92,12 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         cancelCurrentDrawing();
         break;
+    case Qt::Key_Delete:
+        emit deleteSelectedRequest();
+        break;
+    case Qt::Key_Backspace:
+        emit deleteSelectedRequest();
+        break;
     default:
         QWidget::keyPressEvent(event);
     }
@@ -102,7 +108,7 @@ void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Space:
         if(!event->isAutoRepeat()) {
-            emit changeActivityRequest(MaskEditorFlags::SELECTION_MODE);
+            emit changeActivityRequest(MaskEditorFlags::PREVIOUS_MODE);
         }
         break;
     default:

@@ -22,10 +22,7 @@
 #include <QStyle>
 #include <QToolButton>
 #include <QVariant>
-
-namespace {
-const int toolbar_icon_size = 32;
-}
+#include "mainwindow_constants.h"
 
 MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *parent)
     : QToolBar(parent)
@@ -33,7 +30,7 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *
     , m_activityButtonGroup(new QButtonGroup(this))
     , m_maskValueGroup(new QButtonGroup(this))
 {
-    setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
+    setIconSize(QSize(Constants::toolbar_icon_size, Constants::toolbar_icon_size));
     setProperty("_q_custom_style_disabled", QVariant(true));
 
     setup_selection_group();
@@ -54,11 +51,11 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *
 //! space bar. As soon as space bar is released, activity is returned to previous state.
 void MaskEditorToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value)
 {
-    if(value.testFlag(MaskEditorFlags::PAN_ZOOM_MODE)) {
-        m_previousActivity = currentActivity();
-        m_activityButtonGroup->button(MaskEditorFlags::PAN_ZOOM_MODE)->setChecked(true);
-    } else {
+    if (value == MaskEditorFlags::PREVIOUS_MODE) {
         setCurrentActivity(m_previousActivity);
+    } else {
+        m_previousActivity = currentActivity();
+        setCurrentActivity(value);
     }
     emit activityModeChanged(currentActivity());
 }

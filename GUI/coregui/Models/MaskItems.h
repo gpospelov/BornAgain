@@ -36,6 +36,7 @@ class BA_CORE_API_ MaskItem : public SessionItem
 {
 public:
     static const QString P_MASK_VALUE;
+    static const QString P_IS_VISIBLE;
     explicit MaskItem(const QString& name);
     virtual std::unique_ptr<IShape2D> createShape(double scale = 1.0) const;
 };

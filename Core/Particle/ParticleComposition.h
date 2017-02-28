@@ -17,6 +17,7 @@
 #define PARTICLECOMPOSITION_H
 
 #include "IParticle.h"
+#include <memory>
 
 class IMaterial;
 
@@ -67,7 +68,7 @@ private:
     //! For internal use in cloneInvertB():
     void addParticlePointer(IParticle* p_particle);
 
-    std::vector<IParticle*> m_particles;
+    std::vector<std::unique_ptr<IParticle>> m_particles;
     void initialize();
 };
 

@@ -34,10 +34,7 @@ ParticleComposition::ParticleComposition(const IParticle& particle,
 }
 
 ParticleComposition::~ParticleComposition()
-{
-    for (size_t index=0; index<m_particles.size(); ++index)
-        delete m_particles[index];
-}
+{}
 
 ParticleComposition* ParticleComposition::clone() const
 {
@@ -119,7 +116,7 @@ SlicedFormFactorList ParticleComposition::createSlicedFormFactors(
 
 const IParticle* ParticleComposition::getParticle(size_t index) const
 {
-    return m_particles[check_index(index)];
+    return m_particles[check_index(index)].get();
 }
 
 kvector_t ParticleComposition::getParticlePosition(size_t index) const
@@ -130,8 +127,8 @@ kvector_t ParticleComposition::getParticlePosition(size_t index) const
 std::vector<const INode*> ParticleComposition::getChildren() const
 {
     std::vector<const INode*> result = IParticle::getChildren();
-    for(auto particle : m_particles)
-        result.push_back(particle);
+    for(auto& P_particle : m_particles)
+        result.push_back(P_particle.get());
     return result;
 }
 
@@ -153,7 +150,7 @@ void ParticleComposition::addParticlePointer(IParticle* p_particle)
 {
     p_particle->registerAbundance(false);
     registerChild(p_particle);
-    m_particles.push_back(p_particle);
+    m_particles.emplace_back(p_particle);
 }
 
 void ParticleComposition::initialize()

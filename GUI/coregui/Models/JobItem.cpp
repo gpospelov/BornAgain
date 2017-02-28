@@ -20,7 +20,7 @@
 #include "GUIHelpers.h"
 #include "InstrumentItem.h"
 #include "IntensityDataItem.h"
-#include "JobItemHelper.h"
+#include "JobItemUtils.h"
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
 #include "RealDataItem.h"
@@ -103,7 +103,7 @@ JobItem::JobItem()
             MaskUnitsConverter converter;
             converter.convertToNbins(intensityItem);
 
-            JobItemHelper::updateDataAxes(intensityItem, instrumentItem());
+            JobItemUtils::updateDataAxes(intensityItem, instrumentItem());
 
             converter.convertFromNbins(intensityDataItem());
 
@@ -275,7 +275,7 @@ void JobItem::setResults(const GISASSimulation *simulation)
     IntensityDataItem *intensityItem = intensityDataItem();
     Q_ASSERT(intensityItem);
 
-    JobItemHelper::setResults(intensityItem, simulation);
+    JobItemUtils::setResults(intensityItem, simulation);
     updateIntensityDataFileName();
 }
 

@@ -32,29 +32,24 @@ class BA_CORE_API_ ImportDataToolBar : public StyledToolBar
 {
     Q_OBJECT
 public:
-    ImportDataToolBar(QWidget *parent = 0);
+    ImportDataToolBar(QWidget* parent = 0);
 
-    void setRealDataModel(RealDataModel *model);
-    void setInstrumentModel(InstrumentModel *model);
-    void setSelectionModel(QItemSelectionModel *selectionModel);
-
-    void setActionList(const QList<QAction *> &actionList);
+    void setRealDataModel(RealDataModel* model);
+    void setInstrumentModel(InstrumentModel* model);
+    void setSelectionModel(QItemSelectionModel* selectionModel);
+    void setActionList(const QList<QAction*>& actionList);
 
 private slots:
     void onImportDataAction();
-    void onCloneDataAction();
     void onRemoveDataAction();
 
 private:
-    void matchAxesToInstrument(RealDataItem *realDataItem);
+    QAction* m_importDataAction;
+    QAction* m_removeDataAction;
 
-    QAction *m_importDataAction;
-//    QAction *m_cloneDataAction;
-    QAction *m_removeDataAction;
-
-    RealDataModel *m_realDataModel;
-    InstrumentModel *m_instrumentModel;
-    QItemSelectionModel *m_selectionModel;
+    RealDataModel* m_realDataModel;
+    InstrumentModel* m_instrumentModel;
+    QItemSelectionModel* m_selectionModel;
 };
 
 #endif // IMPORTDATATOOLBAR_H

@@ -46,6 +46,7 @@ public:
     void setNumberOfMonteCarloPoints(int npoints);
 
 private:
+    QString runPolicy() const;
     QStringList getCPUUsageOptions();
 };
 

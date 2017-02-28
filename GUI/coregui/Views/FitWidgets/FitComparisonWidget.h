@@ -53,23 +53,17 @@ protected:
 
 private:
 
-    struct LabelBackup {
-        QString xlabel, ylabel;
-    };
-
     void processJobItemItem(JobItem *jobItem);
     void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
 
     IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
-    void backupLabels(IntensityDataItem *intensityItem);
     void restoreLabels(IntensityDataItem *intensityItem);
     void removeLabels(IntensityDataItem *intensityItem);
 
     ColorMapCanvas *m_realDataPlot;
     ColorMapCanvas *m_simulatedDataPlot;
     ColorMapCanvas *m_relativeDiffPlot;
-
 
     FitFlowWidget *m_fitFlowWidget;
     ColorMapLabel *m_statusLabel;
@@ -82,7 +76,6 @@ private:
     QAction *m_resetViewAction;
 
     SessionModel *m_tempIntensityDataModel;
-    QMap<IntensityDataItem *, LabelBackup> m_labelBackup;
 };
 
 #endif // FITCOMPARISONWIDGET_H

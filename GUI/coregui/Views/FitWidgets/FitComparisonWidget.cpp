@@ -166,7 +166,6 @@ void FitComparisonWidget::processJobItemItem(JobItem *jobItem)
     }, this);
 
     m_realDataItem = m_currentJobItem->realDataItem()->intensityDataItem();
-    backupLabels(m_realDataItem);
 }
 
 void FitComparisonWidget::onResetViewAction()
@@ -200,8 +199,6 @@ void FitComparisonWidget::setSimulatedDataItem(IntensityDataItem *simulatedDataI
                 [this](SessionItem *) {
         m_simulatedDataItem = 0;
     }, this);
-
-    backupLabels(simulatedDataItem);
 
 }
 
@@ -237,27 +234,15 @@ void FitComparisonWidget::calculateRelativeDifference()
 
 }
 
-//! Backup axes labels for given item. Labels will be returned back when FitComparisonWidget
-//! is hidden.
-
-void FitComparisonWidget::backupLabels(IntensityDataItem *intensityItem)
-{
-    LabelBackup data;
-    data.xlabel = intensityItem->xAxisItem()->getItemValue(BasicAxisItem::P_TITLE).toString();
-    data.ylabel = intensityItem->yAxisItem()->getItemValue(BasicAxisItem::P_TITLE).toString();
-    m_labelBackup[intensityItem] = data;
-}
-
 //! Restores item labels from the backup.
 
 void FitComparisonWidget::restoreLabels(IntensityDataItem *intensityItem)
 {
-    QMap<IntensityDataItem *, LabelBackup>::iterator it = m_labelBackup.find(intensityItem);
-    if(it != m_labelBackup.end()) {
-        LabelBackup lb = it.value();
-        intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, lb.xlabel);
-        intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, lb.ylabel);
-    }
+    if(!intensityItem)
+        return;
+
+    intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, true);
+    intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, true);
 }
 
 //! Removes axes label from item. This is because they occupy too much space on this dense widget.
@@ -267,6 +252,6 @@ void FitComparisonWidget::removeLabels(IntensityDataItem *intensityItem)
     if(!intensityItem)
         return;
 
-    intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
-    intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
+    intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, false);
+    intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, false);
 }

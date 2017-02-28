@@ -124,9 +124,6 @@ public:
     //! The top interface position of a layer is considered to belong to the layer beneath
     size_t topZToLayerIndex(double z_value) const;
 
-    //! return the height difference between the reference points on the respective layers
-    double zDifference(size_t layer_index, size_t ref_layer_index) const;
-
     bool containsMagneticMaterial() const;
 
     bool hasRoughness() const;

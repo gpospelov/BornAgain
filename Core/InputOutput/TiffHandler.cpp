@@ -120,7 +120,7 @@ void TiffHandler::read_data()
     assert(m_tiff);
 
     assert(0 == m_bitsPerSample%8);
-    uint bytesPerSample = m_bitsPerSample/8;
+    uint16 bytesPerSample = m_bitsPerSample/8;
     tmsize_t buf_size = TIFFScanlineSize(m_tiff);
     tmsize_t expected_size = bytesPerSample * m_width;
     if(buf_size != expected_size)

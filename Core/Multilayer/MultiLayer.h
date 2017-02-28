@@ -118,7 +118,11 @@ public:
 
     //! returns layer index corresponding to given global z coordinate
     //! The top interface position of a layer is considered to belong to the layer above
-    size_t zToLayerIndex(double z_value) const;
+    size_t bottomZToLayerIndex(double z_value) const;
+
+    //! returns layer index corresponding to given global z coordinate
+    //! The top interface position of a layer is considered to belong to the layer beneath
+    size_t topZToLayerIndex(double z_value) const;
 
     bool containsMagneticMaterial() const;
 

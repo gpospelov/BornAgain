@@ -25,18 +25,6 @@ ParticleComposition::ParticleComposition()
     initialize();
 }
 
-ParticleComposition::ParticleComposition(const IParticle& particle)
-{
-    initialize();
-    addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
-}
-
-ParticleComposition::ParticleComposition(const IParticle &particle, kvector_t position)
-{
-    initialize();
-    addParticle(particle, position);
-}
-
 ParticleComposition::ParticleComposition(const IParticle& particle,
         std::vector<kvector_t> positions)
 {
@@ -45,10 +33,7 @@ ParticleComposition::ParticleComposition(const IParticle& particle,
 }
 
 ParticleComposition::~ParticleComposition()
-{
-    for (size_t index=0; index<m_particles.size(); ++index)
-        delete m_particles[index];
-}
+{}
 
 ParticleComposition* ParticleComposition::clone() const
 {
@@ -90,10 +75,9 @@ void ParticleComposition::addParticle(const IParticle& particle, kvector_t posit
     addParticlePointer(np);
 }
 
-// Please note, that positions is not const reference here. This is intentionally to
-// python lists to std::vector
-void ParticleComposition::addParticles(const IParticle& particle,
-        std::vector<kvector_t > positions)
+// Please note, that positions is not const reference here. This is intentional, to
+// enable python lists to std::vector conversion
+void ParticleComposition::addParticles(const IParticle& particle, std::vector<kvector_t> positions)
 {
     for (size_t i=0; i<positions.size(); ++i)
         addParticle(particle, positions[i]);
@@ -118,7 +102,7 @@ IFormFactor* ParticleComposition::createTransformedFormFactor(
 
 const IParticle* ParticleComposition::getParticle(size_t index) const
 {
-    return m_particles[check_index(index)];
+    return m_particles[check_index(index)].get();
 }
 
 kvector_t ParticleComposition::getParticlePosition(size_t index) const
@@ -129,8 +113,26 @@ kvector_t ParticleComposition::getParticlePosition(size_t index) const
 std::vector<const INode*> ParticleComposition::getChildren() const
 {
     std::vector<const INode*> result = IParticle::getChildren();
-    for(auto particle : m_particles)
-        result.push_back(particle);
+    for (auto& P_particle : m_particles)
+        result.push_back(P_particle.get());
+    return result;
+}
+
+SafePointerVector<IParticle> ParticleComposition::decompose() const
+{
+    SafePointerVector<IParticle> result;
+    auto p_rotation = getRotation();
+    auto translation = getPosition();
+    for (auto& P_particle : m_particles)
+    {
+        auto sublist = P_particle->decompose();
+        for (auto p_subparticle : sublist) {
+            if (p_rotation)
+                p_subparticle->applyRotation(*p_rotation);
+            p_subparticle->applyTranslation(translation);
+            result.push_back(p_subparticle->clone());
+        }
+    }
     return result;
 }
 
@@ -152,7 +154,7 @@ void ParticleComposition::addParticlePointer(IParticle* p_particle)
 {
     p_particle->registerAbundance(false);
     registerChild(p_particle);
-    m_particles.push_back(p_particle);
+    m_particles.emplace_back(p_particle);
 }
 
 void ParticleComposition::initialize()

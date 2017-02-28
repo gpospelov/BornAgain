@@ -47,7 +47,6 @@ public:
 private:
     SafePointerVector<class FormFactorCoherentSum> collectFormFactorList() const;
     FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle) const;
-    size_t findLayerIndex(const IFormFactor& ff) const;
 
     const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;

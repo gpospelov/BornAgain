@@ -107,9 +107,9 @@ TransformToDomain::createParticleLayout(const SessionItem& item)
     auto P_layout = GUIHelpers::make_unique<ParticleLayout>();
     auto prop = item.getItemValue(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
     QString approximation = prop.getValue();
-    if (approximation == QString("Decoupling Approximation")) {
+    if (approximation == Constants::LAYOUT_DA) {
         P_layout->setApproximation(ILayout::DA);
-    } else if (approximation == QString("Size Space Coupling Approximation")) {
+    } else if (approximation == Constants::LAYOUT_SSCA) {
         P_layout->setApproximation(ILayout::SSCA);
     }
     auto total_density

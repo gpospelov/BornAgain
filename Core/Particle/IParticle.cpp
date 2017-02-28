@@ -34,6 +34,16 @@ SlicedFormFactorList IParticle::createSlicedFormFactors(
     return result;
 }
 
+void IParticle::applyTranslation(kvector_t displacement)
+{
+    m_position += displacement;
+}
+
+const IRotation* IParticle::getRotation() const
+{
+    return mP_rotation.get();
+}
+
 void IParticle::setRotation(const IRotation& rotation)
 {
     mP_rotation.reset(rotation.clone());
@@ -49,11 +59,6 @@ void IParticle::applyRotation(const IRotation& rotation)
     }
     m_position = rotation.getTransform3D().transformed(m_position);
     registerChild(mP_rotation.get());
-}
-
-void IParticle::applyTranslation(kvector_t displacement)
-{
-    m_position += displacement;
 }
 
 std::vector<const INode*> IParticle::getChildren() const
@@ -118,7 +123,7 @@ void IParticle::registerParticleProperties()
     registerPosition();
 }
 
-const IRotation* IParticle::getRotation() const
+std::vector<const IParticle*> IParticle::decompose() const
 {
-    return mP_rotation.get();
+    return { this };
 }

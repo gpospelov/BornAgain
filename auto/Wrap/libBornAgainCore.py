@@ -18631,6 +18631,18 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_setPosition(self, *args)
 
 
+    def applyTranslation(self, displacement):
+        """
+        applyTranslation(IParticle self, kvector_t displacement)
+
+        void IParticle::applyTranslation(kvector_t displacement)
+
+        Applies extra translation by adding it to the current one. 
+
+        """
+        return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
+
+
     def getRotation(self):
         """
         getRotation(IParticle self) -> IRotation
@@ -18665,18 +18677,6 @@ class IParticle(IAbstractParticle):
 
         """
         return _libBornAgainCore.IParticle_applyRotation(self, rotation)
-
-
-    def applyTranslation(self, displacement):
-        """
-        applyTranslation(IParticle self, kvector_t displacement)
-
-        void IParticle::applyTranslation(kvector_t displacement)
-
-        Applies extra translation by adding it to the current one. 
-
-        """
-        return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
 
 
     def getChildren(self):

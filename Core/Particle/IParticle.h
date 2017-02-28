@@ -60,6 +60,9 @@ public:
     //! Sets particle position.
     void setPosition(double x, double y, double z) { m_position = kvector_t(x, y, z); }
 
+    //! Applies extra translation by adding it to the current one
+    void applyTranslation(kvector_t displacement);
+
     //! Returns rotation object
     const IRotation* getRotation() const;
 
@@ -68,9 +71,6 @@ public:
 
     //! Applies transformation by composing it with the existing one
     void applyRotation(const IRotation& rotation);
-
-    //! Applies extra translation by adding it to the current one
-    void applyTranslation(kvector_t displacement);
 
     std::vector<const INode*> getChildren() const;
 
@@ -88,6 +88,9 @@ protected:
 
     //! Registers abundance and position
     void registerParticleProperties();
+
+    //! Decompose in constituent IParticle objects
+    virtual std::vector<const IParticle*> decompose() const;
 
     kvector_t m_position;
     std::unique_ptr<IRotation> mP_rotation;

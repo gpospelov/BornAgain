@@ -22516,6 +22516,11 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_topZToLayerIndex(self, z_value)
 
 
+    def zDifference(self, layer_index, ref_layer_index):
+        """zDifference(MultiLayer self, size_t layer_index, size_t ref_layer_index) -> double"""
+        return _libBornAgainCore.MultiLayer_zDifference(self, layer_index, ref_layer_index)
+
+
     def containsMagneticMaterial(self):
         """
         containsMagneticMaterial(MultiLayer self) -> bool

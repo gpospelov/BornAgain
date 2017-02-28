@@ -339,6 +339,11 @@ size_t MultiLayer::topZToLayerIndex(double z_value) const
     return nbin;
 }
 
+double MultiLayer::zDifference(size_t layer_index, size_t ref_layer_index) const
+{
+    return getLayerTopZ(layer_index) - getLayerTopZ(ref_layer_index);
+}
+
 double MultiLayer::getLayerTopZ(size_t i_layer) const
 {
     if (i_layer==0)

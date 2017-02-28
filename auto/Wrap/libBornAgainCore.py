@@ -23954,8 +23954,6 @@ class ParticleComposition(IParticle):
     def __init__(self, *args):
         """
         __init__(ParticleComposition self) -> ParticleComposition
-        __init__(ParticleComposition self, IParticle particle) -> ParticleComposition
-        __init__(ParticleComposition self, IParticle particle, kvector_t position) -> ParticleComposition
         __init__(ParticleComposition self, IParticle particle, vector_kvector_t positions) -> ParticleComposition
 
         ParticleComposition::ParticleComposition(const IParticle &particle, std::vector< kvector_t > positions)

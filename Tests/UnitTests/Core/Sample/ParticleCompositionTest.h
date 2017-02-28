@@ -22,42 +22,6 @@ TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
     EXPECT_EQ(0u, composition->getNbrParticles());
 }
 
-TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithOneParameter)
-{
-    kvector_t position0(0.0, 0.0, 0.0);
-    kvector_t position1(4.0, 5.0, 6.0);
-
-    Particle particle;
-    std::unique_ptr<ParticleComposition> composition(new ParticleComposition(particle));
-
-    EXPECT_EQ(BornAgain::ParticleCompositionType, composition->getName());
-    composition->addParticle(particle, position1);
-
-    EXPECT_EQ(particle.getName(), composition->getParticle(0)->getName());
-    EXPECT_EQ(particle.getRotation(), composition->getParticle(0)->getRotation());
-    EXPECT_EQ(particle.getName(), composition->getParticle(1)->getName());
-    EXPECT_EQ(particle.getRotation(), composition->getParticle(1)->getRotation());
-    EXPECT_EQ(position0, composition->getParticlePosition(0));
-    EXPECT_EQ(position1, composition->getParticlePosition(1));
-}
-
-TEST_F(ParticleCompositionTest, ParticleCompositionConstructorWithTwoParameter)
-{
-    Particle particle;
-    kvector_t position = kvector_t(1.0, 1.0, 1.0);
-    std::unique_ptr<ParticleComposition> composition(new ParticleComposition(particle, position));
-
-    EXPECT_EQ(BornAgain::ParticleCompositionType, composition->getName());
-    composition->addParticle(particle, position);
-    EXPECT_EQ(particle.getName(), composition->getParticle(0)->getName());
-    EXPECT_EQ(particle.getRotation(), composition->getParticle(0)->getRotation());
-    EXPECT_EQ(particle.getName(), composition->getParticle(1)->getName());
-    EXPECT_EQ(particle.getRotation(), composition->getParticle(1)->getRotation());
-    EXPECT_EQ(position, composition->getParticlePosition(0));
-    EXPECT_EQ(position, composition->getParticlePosition(1));
-
-}
-
 TEST_F(ParticleCompositionTest, ParticleCompositionClone)
 {
     ParticleComposition composition;

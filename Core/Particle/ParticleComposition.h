@@ -27,8 +27,6 @@ class BA_CORE_API_ ParticleComposition : public IParticle
 {
 public:
     ParticleComposition();
-    explicit ParticleComposition(const IParticle& particle);
-    ParticleComposition(const IParticle& particle, kvector_t position);
     ParticleComposition(const IParticle& particle, std::vector<kvector_t > positions);
 
     ~ParticleComposition();

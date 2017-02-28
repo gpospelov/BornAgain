@@ -26,18 +26,6 @@ ParticleComposition::ParticleComposition()
     initialize();
 }
 
-ParticleComposition::ParticleComposition(const IParticle& particle)
-{
-    initialize();
-    addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
-}
-
-ParticleComposition::ParticleComposition(const IParticle &particle, kvector_t position)
-{
-    initialize();
-    addParticle(particle, position);
-}
-
 ParticleComposition::ParticleComposition(const IParticle& particle,
         std::vector<kvector_t> positions)
 {

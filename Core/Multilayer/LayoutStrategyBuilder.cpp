@@ -96,8 +96,7 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
 {
     std::unique_ptr<FormFactorCoherentSum> P_result(
                 new FormFactorCoherentSum(particle->getAbundance()));
-    auto sliced_ffs = particle->createSlicedFormFactors(
-                          *mp_multilayer, mp_multilayer->getLayerTopZ(m_layer_index));
+    auto sliced_ffs = CreateSlicedFormFactors(*particle, *mp_multilayer, m_layer_index);
     for (size_t i=0; i < sliced_ffs.size(); ++i) {
         auto ff_pair = sliced_ffs[i];
         std::unique_ptr<IFormFactor> P_ff_framework;

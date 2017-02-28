@@ -44,9 +44,6 @@ public:
     IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
                                                      kvector_t translation) const override;
 
-    SlicedFormFactorList createSlicedFormFactors(
-            const MultiLayer& multilayer, double position_offset=0.0) const override;
-
     //! Returns number of different particles
     size_t getNbrParticles() const { return m_particles.size(); }
 
@@ -57,7 +54,7 @@ public:
 
     std::vector<const INode*> getChildren() const override;
 
-    std::vector<const IParticle*> decompose() const override;
+    SafePointerVector<IParticle> decompose() const override;
 
 private:
     size_t check_index(size_t index) const;

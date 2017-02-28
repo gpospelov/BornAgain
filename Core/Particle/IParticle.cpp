@@ -18,20 +18,10 @@
 #include "FormFactorDecoratorPositionFactor.h"
 #include "MultiLayer.h"
 #include "RealParameter.h"
-#include "SlicedFormFactorList.h"
 
 IFormFactor* IParticle::createFormFactor() const
 {
     return createTransformedFormFactor(nullptr, kvector_t());
-}
-
-SlicedFormFactorList IParticle::createSlicedFormFactors(
-        const MultiLayer& multilayer, double position_offset) const
-{
-    SlicedFormFactorList result;
-    std::unique_ptr<IFormFactor> P_ff(createFormFactor());
-    result.addFormFactor(*P_ff, multilayer, position_offset);
-    return result;
 }
 
 void IParticle::applyTranslation(kvector_t displacement)
@@ -91,10 +81,13 @@ void IParticle::registerPosition(bool make_registered)
     }
 }
 
-std::vector<const IParticle*> IParticle::decompose() const
+SafePointerVector<IParticle> IParticle::decompose() const
 {
-    return { this };
+    SafePointerVector<IParticle> result;
+    result.push_back(this->clone());
+    return result;
 }
+
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {

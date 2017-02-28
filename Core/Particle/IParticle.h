@@ -18,10 +18,9 @@
 
 #include "IAbstractParticle.h"
 #include "Rotations.h"
+#include "SafePointerVector.h"
 #include "Vectors3D.h"
 #include <memory>
-
-class SlicedFormFactorList;
 
 
 //! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
@@ -45,10 +44,6 @@ public:
     //! Create a form factor for this particle with an extra transformation
     virtual IFormFactor* createTransformedFormFactor(
         const IRotation* p_rotation, kvector_t translation) const =0;
-
-    //! Create list of form factors and corresponding layer indices
-    virtual SlicedFormFactorList createSlicedFormFactors(const MultiLayer& multilayer,
-                                                         double position_offset=0.0) const;
 
     //! Returns particle position.
     kvector_t getPosition() const { return m_position; }
@@ -79,7 +74,7 @@ public:
     void registerPosition(bool make_registered = true);
 
     //! Decompose in constituent IParticle objects
-    virtual std::vector<const IParticle*> decompose() const;
+    virtual SafePointerVector<IParticle> decompose() const;
 
 protected:
     //! Creates a composed IRotation object

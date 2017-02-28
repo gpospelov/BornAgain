@@ -19,7 +19,6 @@
 #include "FormFactorWeighted.h"
 #include "IMaterial.h"
 #include "ParticleDistribution.h"
-#include "SlicedFormFactorList.h"
 
 ParticleComposition::ParticleComposition()
 {
@@ -101,18 +100,6 @@ IFormFactor* ParticleComposition::createTransformedFormFactor(
     return p_result;
 }
 
-SlicedFormFactorList ParticleComposition::createSlicedFormFactors(
-        const MultiLayer& multilayer, double position_offset) const
-{
-    SlicedFormFactorList result;
-    for (size_t index = 0; index < m_particles.size(); ++index) {
-        const std::unique_ptr<IFormFactor> P_particle_ff(
-            m_particles[index]->createTransformedFormFactor(getRotation(), getPosition()) );
-        result.addFormFactor(*P_particle_ff, multilayer, position_offset);
-    }
-    return result;
-}
-
 const IParticle* ParticleComposition::getParticle(size_t index) const
 {
     return m_particles[check_index(index)].get();
@@ -131,13 +118,20 @@ std::vector<const INode*> ParticleComposition::getChildren() const
     return result;
 }
 
-std::vector<const IParticle*> ParticleComposition::decompose() const
+SafePointerVector<IParticle> ParticleComposition::decompose() const
 {
-    std::vector<const IParticle*> result;
+    SafePointerVector<IParticle> result;
+    auto p_rotation = getRotation();
+    auto translation = getPosition();
     for (auto& P_particle : m_particles)
     {
         auto sublist = P_particle->decompose();
-        result.insert(result.end(), sublist.begin(), sublist.end());
+        for (auto p_subparticle : sublist) {
+            if (p_rotation)
+                p_subparticle->applyRotation(*p_rotation);
+            p_subparticle->applyTranslation(translation);
+            result.push_back(p_subparticle->clone());
+        }
     }
     return result;
 }

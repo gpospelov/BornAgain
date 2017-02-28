@@ -35,7 +35,7 @@ public:
     ~SlicedFormFactorList() = default;
 
     void addFormFactor(const IFormFactor& formfactor, const MultiLayer& multilayer,
-                       double position_offset);
+                       size_t ref_layer_index);
 
     size_t size() const;
 
@@ -43,5 +43,13 @@ public:
 private:
     std::vector<std::pair<std::unique_ptr<IFormFactor>, size_t>> m_ff_list;
 };
+
+//! Global function that creates a SlicedFormFactorList from an IParticle in a multilayer
+//!
+//! @ingroup intern
+SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
+                                             const MultiLayer& multilayer,
+                                             size_t ref_layer_index);
+
 
 #endif // SLICEDFORMFACTORLIST_H

@@ -1,5 +1,12 @@
 #include <QtTest>
 #include "ComboProperty.h"
+#include "PropertyItem.h"
+#include "SessionXML.h"
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QPair>
+#include <QDebug>
+#include <memory>
 
 class TestComboProperty : public QObject {
     Q_OBJECT
@@ -9,6 +16,7 @@ private slots:
     void test_VariantEquality();
     void test_setValue();
     void test_stringOfValues();
+    void test_comboXML();
 };
 
 inline void TestComboProperty::test_ComboEquality()
@@ -79,5 +87,40 @@ inline void TestComboProperty::test_stringOfValues()
     combo.setStringOfValues(stringOfValues);
     QCOMPARE(combo.stringOfValues(), stringOfValues);
     QCOMPARE(combo.getValue(), QString("b1"));
+}
+
+inline void TestComboProperty::test_comboXML()
+{
+    // Wwiting combo to XML
+    ComboProperty combo = ComboProperty() << "a1" << "a2" << "a3";
+
+    QString buffer;
+    QXmlStreamWriter writer(&buffer);
+
+    SessionWriter::writeVariant(&writer, combo.getVariant(), 0);
+
+    QCOMPARE(buffer,
+             QString("<Parameter ParType=\"ComboProperty\" ParRole=\"0\" ParValue=\"a1\"/>"));
+
+    // reading from XML
+    std::unique_ptr<PropertyItem> item(new PropertyItem);
+    combo.setValue("a2");
+    item->setValue(combo.getVariant());
+
+    QXmlStreamReader reader(buffer);
+
+    while (!reader.atEnd()) {
+        reader.readNext();
+        if (reader.isStartElement()) {
+            if (reader.name() == SessionXML::ParameterTag) {
+                SessionReader::readProperty(&reader, item.get());
+            }
+        }
+    }
+
+    ComboProperty combo_property
+        = item->value().value<ComboProperty>();
+
+    QCOMPARE(combo_property.getValue(), QString("a1"));
 
 }

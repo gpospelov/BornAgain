@@ -67,7 +67,6 @@ class BA_CORE_API_ SessionWriter
 public:
     static void writeTo(QXmlStreamWriter *writer, SessionItem *parent);
     static void writeItemAndChildItems(QXmlStreamWriter *writer, const SessionItem *item);
-private:
     static void writeVariant(QXmlStreamWriter *writer, QVariant variant, int role);
 };
 
@@ -77,10 +76,10 @@ public:
     static void readItems(QXmlStreamReader *reader, SessionItem *item,
                           const QString &topTag = QString(),
                           WarningMessageService *messageService=0);
-private:
     static QString readProperty(QXmlStreamReader *reader, SessionItem *item,
                                 WarningMessageService *messageService=0);
 
+private:
     static void report_error(WarningMessageService *messageService, SessionItem *item,
                       const QString &error_type, const QString &message);
 };

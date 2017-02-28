@@ -91,6 +91,10 @@ void IParticle::registerPosition(bool make_registered)
     }
 }
 
+std::vector<const IParticle*> IParticle::decompose() const
+{
+    return { this };
+}
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {
@@ -123,7 +127,3 @@ void IParticle::registerParticleProperties()
     registerPosition();
 }
 
-std::vector<const IParticle*> IParticle::decompose() const
-{
-    return { this };
-}

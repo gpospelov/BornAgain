@@ -78,8 +78,7 @@ void ParticleComposition::addParticle(const IParticle& particle, kvector_t posit
 
 // Please note, that positions is not const reference here. This is intentional, to
 // enable python lists to std::vector conversion
-void ParticleComposition::addParticles(const IParticle& particle,
-        std::vector<kvector_t > positions)
+void ParticleComposition::addParticles(const IParticle& particle, std::vector<kvector_t> positions)
 {
     for (size_t i=0; i<positions.size(); ++i)
         addParticle(particle, positions[i]);
@@ -127,8 +126,19 @@ kvector_t ParticleComposition::getParticlePosition(size_t index) const
 std::vector<const INode*> ParticleComposition::getChildren() const
 {
     std::vector<const INode*> result = IParticle::getChildren();
-    for(auto& P_particle : m_particles)
+    for (auto& P_particle : m_particles)
         result.push_back(P_particle.get());
+    return result;
+}
+
+std::vector<const IParticle*> ParticleComposition::decompose() const
+{
+    std::vector<const IParticle*> result;
+    for (auto& P_particle : m_particles)
+    {
+        auto sublist = P_particle->decompose();
+        result.insert(result.end(), sublist.begin(), sublist.end());
+    }
     return result;
 }
 

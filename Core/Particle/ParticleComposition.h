@@ -33,7 +33,6 @@ public:
     ~ParticleComposition();
     ParticleComposition* clone() const override;
 
-    //! Returns a clone with inverted magnetic fields
     ParticleComposition* cloneInvertB() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
@@ -42,7 +41,6 @@ public:
     void addParticle(const IParticle& particle, kvector_t  position);
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
-    //! Create a form factor for this particle with an extra scattering factor
     IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
                                                      kvector_t translation) const override;
 
@@ -58,6 +56,8 @@ public:
     kvector_t getParticlePosition(size_t index) const;
 
     std::vector<const INode*> getChildren() const override;
+
+    std::vector<const IParticle*> decompose() const override;
 
 private:
     size_t check_index(size_t index) const;

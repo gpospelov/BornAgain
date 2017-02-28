@@ -35,7 +35,6 @@ public:
     virtual ~IParticle() {}
     virtual IParticle* clone() const =0;
 
-    //! Returns a clone with inverted magnetic fields
     virtual IParticle* cloneInvertB() const =0;
 
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
@@ -79,6 +78,9 @@ public:
     //! Registers the three components of its position
     void registerPosition(bool make_registered = true);
 
+    //! Decompose in constituent IParticle objects
+    virtual std::vector<const IParticle*> decompose() const;
+
 protected:
     //! Creates a composed IRotation object
     IRotation* createComposedRotation(const IRotation* p_rotation) const;
@@ -88,9 +90,6 @@ protected:
 
     //! Registers abundance and position
     void registerParticleProperties();
-
-    //! Decompose in constituent IParticle objects
-    virtual std::vector<const IParticle*> decompose() const;
 
     kvector_t m_position;
     std::unique_ptr<IRotation> mP_rotation;

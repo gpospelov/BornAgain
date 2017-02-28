@@ -18714,6 +18714,11 @@ class IParticle(IAbstractParticle):
         """
         return _libBornAgainCore.IParticle_registerPosition(self, make_registered)
 
+
+    def decompose(self):
+        """decompose(IParticle self) -> std::vector< IParticle const *,std::allocator< IParticle const * > >"""
+        return _libBornAgainCore.IParticle_decompose(self)
+
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)
 
@@ -24080,6 +24085,11 @@ class ParticleComposition(IParticle):
 
         """
         return _libBornAgainCore.ParticleComposition_getChildren(self)
+
+
+    def decompose(self):
+        """decompose(ParticleComposition self) -> std::vector< IParticle const *,std::allocator< IParticle const * > >"""
+        return _libBornAgainCore.ParticleComposition_decompose(self)
 
 ParticleComposition_swigregister = _libBornAgainCore.ParticleComposition_swigregister
 ParticleComposition_swigregister(ParticleComposition)

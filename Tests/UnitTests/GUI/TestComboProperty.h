@@ -67,6 +67,18 @@ inline void TestComboProperty::test_setValue()
     ComboProperty combo = ComboProperty() << expectedValues;
 
     QCOMPARE(combo.getValue(), QString("a1"));
+
+    QStringList newValues = QStringList() << "b1" << "b2" << "b3";
+    combo.setValues(newValues);
+    QCOMPARE(combo.getValue(), QString("b1"));
+    QCOMPARE(combo.getValues(), newValues);
+
+    // checking that old value is preserved
+    newValues = QStringList() << "c1" << "b1" << "c2";
+    combo.setValues(newValues);
+    QCOMPARE(combo.getValue(), QString("b1"));
+    QCOMPARE(combo.getValues(), newValues);
+
 }
 
 inline void TestComboProperty::test_stringOfValues()

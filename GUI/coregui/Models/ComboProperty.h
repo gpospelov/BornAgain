@@ -34,6 +34,7 @@ public:
     QString getValue() const;
 
     void setValue(const QString& name);
+    void setValues(const QStringList& values);
     bool isDefined();
 
     QStringList getValues() const;
@@ -51,9 +52,6 @@ public:
 
     QVariant getVariant() const;
 
-    QString getCachedValue() const;
-    void setCachedValue(const QString& name);
-
     bool operator==(const ComboProperty& other) const;
     bool operator!=(const ComboProperty& other) const
     {
@@ -68,7 +66,6 @@ private:
     QStringList m_values;
     QStringList m_values_tooltips;
     QString m_current_value;
-    QString m_cached_value; // for comboboxes with dynamically generated value lists
 };
 
 inline QString ComboProperty::getValue() const
@@ -107,11 +104,6 @@ inline QVariant ComboProperty::getVariant() const
     QVariant result;
     result.setValue(*this);
     return result;
-}
-
-inline QString ComboProperty::getCachedValue() const
-{
-    return m_cached_value;
 }
 
 Q_DECLARE_METATYPE(ComboProperty)

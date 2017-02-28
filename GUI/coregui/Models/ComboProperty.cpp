@@ -33,6 +33,19 @@ void ComboProperty::setValue(const QString& name)
     m_current_value = name;
 }
 
+//! Sets new list of values. Current value will be preserved, if exists in a new list.
+
+void ComboProperty::setValues(const QStringList& values)
+{
+    QString current = getValue();
+
+    m_values = values;
+
+    // if no currentValue in the new list of values, take first value from the list
+    if(!m_values.contains(current) && !current.isEmpty())
+        setValue(m_values.front());
+}
+
 //! returns list of tool tips for all values
 QStringList ComboProperty::getToolTips() const
 {
@@ -69,18 +82,11 @@ QString ComboProperty::toString(int index) const
     return name_list[index];
 }
 
-void ComboProperty::setCachedValue(const QString& name)
-{
-    m_cached_value = name;
-}
-
 bool ComboProperty::operator==(const ComboProperty& other) const
 {
     if (m_current_value != other.m_current_value)
         return false;
     if (!GUIHelpers::isTheSame(m_values, other.m_values))
-        return false;
-    if (m_cached_value != other.m_cached_value)
         return false;
     return true;
 }
@@ -94,9 +100,13 @@ bool ComboProperty::operator<(const ComboProperty& other) const
 
 void ComboProperty::setStringOfValues(const QString& values)
 {
+    QString currentValue = getValue();
+
     m_values = values.split(QStringLiteral(";"));
-    if(!m_values.contains(m_current_value) && !m_current_value.isEmpty())
-        m_current_value = m_values.front();
+
+    // if no currentValue in the new list of values, take first value from the list
+    if(!m_values.contains(currentValue) && !currentValue.isEmpty())
+        setValue(m_values.front());
 }
 
 //! Returns a single string containing values delimited with ';'.

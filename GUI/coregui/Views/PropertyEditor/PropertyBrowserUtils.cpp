@@ -355,7 +355,6 @@ QString ComboPropertyEdit::comboValueText()
 void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {
     m_combo_property.setValue(current_value);
-    m_combo_property.setCachedValue(current_value);
     emit comboPropertyChanged(m_combo_property);
 }
 

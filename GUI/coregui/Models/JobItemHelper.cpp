@@ -149,7 +149,6 @@ void JobItemHelper::loadIntensityData(JobItem *jobItem, const QString &projectDi
     if (info.exists()) {
         std::unique_ptr<OutputData<double>> rawData(
             IntensityDataIOFactory::readOutputData(filename.toStdString()));
-        setIntensityItemAxesUnits(intensityItem, jobItem->instrumentItem());
         intensityItem->setOutputData(rawData.release());
 
     } else {
@@ -204,29 +203,15 @@ void JobItemHelper::setIntensityItemAxesUnits(IntensityDataItem *intensityItem,
 void JobItemHelper::setIntensityItemAxesUnits(IntensityDataItem *intensityItem,
                                               const IDetector2D *detector)
 {
-    ComboProperty orig = intensityItem->getItemValue(IntensityDataItem::P_AXES_UNITS)
-                              .value<ComboProperty>();
-
-//    if(!combo.getValues().isEmpty())
-//        return;
-
-    QString cachedUnits = orig.getCachedValue();
-
-    intensityItem->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-
     ComboProperty combo;
-    foreach (auto units, detector->getValidAxesUnits()) {
+
+    foreach (auto units, detector->getValidAxesUnits())
         combo << getNameFromAxesUnits(units);
-    }
 
-    if (cachedUnits.isEmpty()) {
-        IDetector2D::EAxesUnits preferrable_units
+    IDetector2D::EAxesUnits preferrable_units
             = preferableGUIAxesUnits(detector->getDefaultAxesUnits());
-        combo.setValue(getNameFromAxesUnits(preferrable_units));
-    } else {
-        combo.setValue(cachedUnits);
-    }
 
+    combo.setValue(getNameFromAxesUnits(preferrable_units));
     intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
 }
 

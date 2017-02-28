@@ -306,16 +306,9 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
             = reader->attributes().value(SessionXML::ParameterExtAttribute).toString();
 
         ComboProperty combo_property;
-        if(parameterExt.isEmpty()) {
-            combo_property = item->value().value<ComboProperty>();
-            if (combo_property.getValues().contains(parameter_value)) {
-                combo_property.setValue(parameter_value);
-            }
-        } else {
-            combo_property.setStringOfValues(parameterExt);
-            combo_property.setValue(parameter_value);
-        }
-        combo_property.setCachedValue(parameter_value);
+        combo_property.setStringOfValues(parameterExt);
+        combo_property.setValue(parameter_value);
+
         variant = combo_property.getVariant();
     }
 

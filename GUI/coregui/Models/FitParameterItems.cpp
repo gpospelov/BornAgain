@@ -26,14 +26,20 @@
 namespace
 {
 
-QStringList getFitParTypeTooltips()
+ComboProperty fitParameterTypeCombo()
 {
-    QStringList result;
-    result.append(QStringLiteral("Fixed at given value"));
-    result.append(QStringLiteral("Limited in the range [min, max]"));
-    result.append(QStringLiteral("Limited at lower bound [min, inf]"));
-    result.append(QStringLiteral("Limited at upper bound [-inf, max]"));
-    result.append(QStringLiteral("No limits imposed to parameter value"));
+    QStringList tooltips = QStringList() << QStringLiteral("Fixed at given value")
+                                         << QStringLiteral("Limited in the range [min, max]")
+                                         << QStringLiteral("Limited at lower bound [min, inf]")
+                                         << QStringLiteral("Limited at upper bound [-inf, max]")
+                                         << QStringLiteral("No limits imposed to parameter value");
+
+    ComboProperty result;
+    result << Constants::FITPAR_FIXED << Constants::FITPAR_LIMITED
+           << Constants::FITPAR_LOWERLIMITED << Constants::FITPAR_UPPERLIMITED
+           << Constants::FITPAR_FREE;
+    result.setValue(Constants::FITPAR_LIMITED);
+    result.setToolTips(tooltips);
     return result;
 }
 
@@ -61,14 +67,7 @@ const QString FitParameterItem::T_LINK = "Link tag";
 
 FitParameterItem::FitParameterItem() : SessionItem(Constants::FitParameterType)
 {
-    ComboProperty partype;
-    partype << Constants::FITPAR_FIXED << Constants::FITPAR_LIMITED
-            << Constants::FITPAR_LOWERLIMITED << Constants::FITPAR_UPPERLIMITED
-            << Constants::FITPAR_FREE;
-    partype.setValue(Constants::FITPAR_LIMITED);
-    partype.setToolTips(getFitParTypeTooltips());
-
-    addProperty(P_TYPE, partype.getVariant());
+    addProperty(P_TYPE, fitParameterTypeCombo().getVariant());
     addProperty(P_START_VALUE, 0.0);
     addProperty(P_MIN, 0.0);
     addProperty(P_MAX, 0.0)->setEnabled(false);
@@ -96,8 +95,7 @@ void FitParameterItem::initMinMaxValues(const RealLimits& limits)
         dr = std::abs(value) * range_factor;
     }
 
-    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
-    if (partype.getValue() == Constants::FITPAR_LIMITED) {
+    if (isLimited()) {
         double min = value - dr;
         double max = value + dr;
 
@@ -171,6 +169,12 @@ AttLimits FitParameterItem::attLimits() const
     }
 }
 
+QString FitParameterItem::parameterType() const
+{
+    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
+    return partype.getValue();
+}
+
 //! Enables/disables min, max properties on FitParameterItem's type
 
 void FitParameterItem::onTypeChange()
@@ -215,32 +219,27 @@ void FitParameterItem::setLimitEnabled(const QString& name, bool enabled)
 
 bool FitParameterItem::isLimited() const
 {
-    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
-    return partype.getValue() == Constants::FITPAR_LIMITED;
+    return parameterType() == Constants::FITPAR_LIMITED;
 }
 
 bool FitParameterItem::isFree() const
 {
-    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
-    return partype.getValue() == Constants::FITPAR_FREE;
+    return parameterType() == Constants::FITPAR_FREE;
 }
 
 bool FitParameterItem::isLowerLimited() const
 {
-    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
-    return partype.getValue() == Constants::FITPAR_LOWERLIMITED;
+    return parameterType() == Constants::FITPAR_LOWERLIMITED;
 }
 
 bool FitParameterItem::isUpperLimited() const
 {
-    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
-    return partype.getValue() == Constants::FITPAR_UPPERLIMITED;
+    return parameterType() == Constants::FITPAR_UPPERLIMITED;
 }
 
 bool FitParameterItem::isFixed() const
 {
-    ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
-    return partype.getValue() == Constants::FITPAR_FIXED;
+    return parameterType() == Constants::FITPAR_FIXED;
 }
 
 // ----------------------------------------------------------------------------

@@ -21,10 +21,8 @@
 #include <QStringList>
 #include <QVariant>
 
-//! The ComboProperty defines SessionItem's property with a value
-//! from predefined list.
-//!
-//! This is a light version of GroupProperty without SubItem mechanism
+//! The ComboProperty defines SessionItem's property with a value from predefined list.
+
 class BA_CORE_API_ ComboProperty
 {
 public:

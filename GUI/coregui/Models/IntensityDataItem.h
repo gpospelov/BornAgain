@@ -81,7 +81,7 @@ public:
     bool isZAxisLocked() const;
     void setZAxisLocked(bool state);
 
-    virtual QString getSelectedAxesUnits() const;
+    QString selectedAxesUnits() const;
 
     QString fileName(const QString& projectDir);
 

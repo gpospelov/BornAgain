@@ -56,7 +56,7 @@ void JobItemUtils::setResults(IntensityDataItem* intensityItem, const GISASSimul
     if (intensityItem->getOutputData() == nullptr) {
         const IDetector2D* detector = simulation->getInstrument().getDetector();
         setIntensityItemAxesUnits(intensityItem, detector);
-        auto selected_units = axesUnitsFromName(intensityItem->getSelectedAxesUnits());
+        auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
         updateAxesTitle(intensityItem);
         std::unique_ptr<OutputData<double>> data(simulation->getDetectorIntensity(selected_units));
         intensityItem->setOutputData(data.release());
@@ -81,7 +81,7 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
         return;
 
     IDetector2D::EAxesUnits requested_units
-        = axesUnitsFromName(intensityItem->getSelectedAxesUnits());
+        = axesUnitsFromName(intensityItem->selectedAxesUnits());
 
     OutputData<double>* newData = createDetectorMap(instrumentItem, requested_units);
     newData->setRawDataVector(intensityItem->getOutputData()->getRawDataVector());
@@ -190,19 +190,19 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
 {
     // axes labels
-    if (intensityItem->getSelectedAxesUnits() == Constants::UnitsRadians) {
+    if (intensityItem->selectedAxesUnits() == Constants::UnitsRadians) {
         intensityItem->setXaxisTitle(QStringLiteral("phi_f [rad]"));
         intensityItem->setYaxisTitle(QStringLiteral("alpha_f [rad]"));
-    } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsDegrees) {
+    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsDegrees) {
         intensityItem->setXaxisTitle(QStringLiteral("phi_f [deg]"));
         intensityItem->setYaxisTitle(QStringLiteral("alpha_f [deg]"));
-    } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsQyQz) {
+    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsQyQz) {
         intensityItem->setXaxisTitle(QStringLiteral("Qy [1/nm]"));
         intensityItem->setYaxisTitle(QStringLiteral("Qz [1/nm]"));
-    } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsMm) {
+    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsMm) {
         intensityItem->setXaxisTitle(QStringLiteral("X [mm]"));
         intensityItem->setYaxisTitle(QStringLiteral("Y [mm]"));
-    } else if (intensityItem->getSelectedAxesUnits() == Constants::UnitsNbins) {
+    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsNbins) {
         intensityItem->setXaxisTitle(QStringLiteral("X [nbins]"));
         intensityItem->setYaxisTitle(QStringLiteral("Y [nbins]"));
     }

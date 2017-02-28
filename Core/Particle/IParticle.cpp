@@ -16,11 +16,22 @@
 #include "IParticle.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
+#include "MultiLayer.h"
 #include "RealParameter.h"
 
 IFormFactor* IParticle::createFormFactor() const
 {
     return createTransformedFormFactor(nullptr, kvector_t());
+}
+
+void IParticle::applyTranslation(kvector_t displacement)
+{
+    m_position += displacement;
+}
+
+const IRotation* IParticle::getRotation() const
+{
+    return mP_rotation.get();
 }
 
 void IParticle::setRotation(const IRotation& rotation)
@@ -38,11 +49,6 @@ void IParticle::applyRotation(const IRotation& rotation)
     }
     m_position = rotation.getTransform3D().transformed(m_position);
     registerChild(mP_rotation.get());
-}
-
-void IParticle::applyTranslation(kvector_t displacement)
-{
-    m_position += displacement;
 }
 
 std::vector<const INode*> IParticle::getChildren() const
@@ -73,6 +79,13 @@ void IParticle::registerPosition(bool make_registered)
         removeParameter(BornAgain::PositionY);
         removeParameter(BornAgain::PositionZ);
     }
+}
+
+SafePointerVector<IParticle> IParticle::decompose() const
+{
+    SafePointerVector<IParticle> result;
+    result.push_back(this->clone());
+    return result;
 }
 
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
@@ -107,7 +120,3 @@ void IParticle::registerParticleProperties()
     registerPosition();
 }
 
-const IRotation* IParticle::getRotation() const
-{
-    return mP_rotation.get();
-}

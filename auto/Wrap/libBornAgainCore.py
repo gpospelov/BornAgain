@@ -18631,6 +18631,18 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_setPosition(self, *args)
 
 
+    def applyTranslation(self, displacement):
+        """
+        applyTranslation(IParticle self, kvector_t displacement)
+
+        void IParticle::applyTranslation(kvector_t displacement)
+
+        Applies extra translation by adding it to the current one. 
+
+        """
+        return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
+
+
     def getRotation(self):
         """
         getRotation(IParticle self) -> IRotation
@@ -18667,18 +18679,6 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_applyRotation(self, rotation)
 
 
-    def applyTranslation(self, displacement):
-        """
-        applyTranslation(IParticle self, kvector_t displacement)
-
-        void IParticle::applyTranslation(kvector_t displacement)
-
-        Applies extra translation by adding it to the current one. 
-
-        """
-        return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
-
-
     def getChildren(self):
         """
         getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
@@ -18713,6 +18713,11 @@ class IParticle(IAbstractParticle):
 
         """
         return _libBornAgainCore.IParticle_registerPosition(self, make_registered)
+
+
+    def decompose(self):
+        """decompose(IParticle self) -> SafePointerVector< IParticle >"""
+        return _libBornAgainCore.IParticle_decompose(self)
 
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)
@@ -22501,16 +22506,14 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_requiresMatrixRTCoefficients(self)
 
 
-    def zToLayerIndex(self, z_value):
-        """
-        zToLayerIndex(MultiLayer self, double z_value) -> size_t
+    def bottomZToLayerIndex(self, z_value):
+        """bottomZToLayerIndex(MultiLayer self, double z_value) -> size_t"""
+        return _libBornAgainCore.MultiLayer_bottomZToLayerIndex(self, z_value)
 
-        size_t MultiLayer::zToLayerIndex(double z_value) const
 
-        returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
-
-        """
-        return _libBornAgainCore.MultiLayer_zToLayerIndex(self, z_value)
+    def topZToLayerIndex(self, z_value):
+        """topZToLayerIndex(MultiLayer self, double z_value) -> size_t"""
+        return _libBornAgainCore.MultiLayer_topZToLayerIndex(self, z_value)
 
 
     def containsMagneticMaterial(self):
@@ -23956,8 +23959,6 @@ class ParticleComposition(IParticle):
     def __init__(self, *args):
         """
         __init__(ParticleComposition self) -> ParticleComposition
-        __init__(ParticleComposition self, IParticle particle) -> ParticleComposition
-        __init__(ParticleComposition self, IParticle particle, kvector_t position) -> ParticleComposition
         __init__(ParticleComposition self, IParticle particle, vector_kvector_t positions) -> ParticleComposition
 
         ParticleComposition::ParticleComposition(const IParticle &particle, std::vector< kvector_t > positions)
@@ -24084,6 +24085,11 @@ class ParticleComposition(IParticle):
 
         """
         return _libBornAgainCore.ParticleComposition_getChildren(self)
+
+
+    def decompose(self):
+        """decompose(ParticleComposition self) -> SafePointerVector< IParticle >"""
+        return _libBornAgainCore.ParticleComposition_decompose(self)
 
 ParticleComposition_swigregister = _libBornAgainCore.ParticleComposition_swigregister
 ParticleComposition_swigregister(ParticleComposition)

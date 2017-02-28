@@ -17,12 +17,22 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 
+ComboProperty::ComboProperty()
+    : m_current_index(-1)
+{}
+
 ComboProperty::ComboProperty(const QStringList& values, const QString& current_value)
-    : m_values(values), m_current_value(current_value)
+    : m_values(values), m_current_index(-1)
 {
-    if (!m_values.contains(m_current_value))
+    if (!m_values.contains(current_value))
         throw GUIHelpers::Error("ComboProperty::ComboProperty() -> Error. Attempt to construct "
                                 "property with initial values not from the list.");
+    m_current_index = m_values.indexOf((current_value));
+}
+
+QString ComboProperty::getValue() const
+{
+    return m_current_index < 0 ? QString() : m_values.at(m_current_index);
 }
 
 void ComboProperty::setValue(const QString& name)
@@ -30,83 +40,81 @@ void ComboProperty::setValue(const QString& name)
     if (!m_values.contains(name))
         throw GUIHelpers::Error("ComboProperty::setValue() -> Error. Combo doesn't contain "
                                 "value " + name);
-    m_current_value = name;
+    m_current_index = m_values.indexOf(name);
+}
+
+QStringList ComboProperty::getValues() const
+{
+    return m_values;
 }
 
 //! Sets new list of values. Current value will be preserved, if exists in a new list.
 
 void ComboProperty::setValues(const QStringList& values)
 {
+    Q_ASSERT(values.size());
     QString current = getValue();
-
     m_values = values;
-
-    // if no currentValue in the new list of values, take first value from the list
-    if(!m_values.contains(current) && !current.isEmpty())
-        setValue(m_values.front());
+    m_current_index = m_values.contains(current) ? m_values.indexOf(current) : 0;
 }
 
 //! returns list of tool tips for all values
-QStringList ComboProperty::getToolTips() const
+QStringList ComboProperty::toolTips() const
 {
-    return m_values_tooltips;
+    return m_tooltips;
 }
 
 void ComboProperty::setToolTips(const QStringList& tooltips)
 {
-    m_values_tooltips = tooltips;
+    m_tooltips = tooltips;
 }
 
-int ComboProperty::index() const
+int ComboProperty::currentIndex() const
 {
-    return toIndex(m_current_value);
+    return m_current_index;
 }
 
-int ComboProperty::toIndex(const QString& value) const
+void ComboProperty::setCurrentIndex(int index)
 {
-    QStringList name_list = getValues();
-    for (int i = 0; i < name_list.size(); ++i) {
-        if (value == name_list[i]) {
-            return i;
-        }
-    }
-    return -1;
+    if(index <0 || index >= m_values.size())
+        throw GUIHelpers::Error("ComboProperty::setCurrentIndex(int index) -> Error. "
+                                "Invalid index");
+    m_current_index = index;
 }
 
-QString ComboProperty::toString(int index) const
+ComboProperty&ComboProperty::operator<<(const QString& str)
 {
-    QStringList name_list = getValues();
-    if (index < 0 || index >= name_list.size()) {
-        return QString();
-    }
-    return name_list[index];
+    m_values.append(str);
+    if (m_values.size())
+        m_current_index = 0;
+    return *this;
+}
+
+ComboProperty&ComboProperty::operator<<(const QStringList& str)
+{
+    m_values.append(str);
+    if (m_values.size())
+        m_current_index = 0;
+    return *this;
 }
 
 bool ComboProperty::operator==(const ComboProperty& other) const
 {
-    if (m_current_value != other.m_current_value)
+    if (m_current_index != other.m_current_index)
         return false;
-    if (!GUIHelpers::isTheSame(m_values, other.m_values))
+    if (m_values != other.m_values)
         return false;
     return true;
 }
 
-bool ComboProperty::operator<(const ComboProperty& other) const
+bool ComboProperty::operator!=(const ComboProperty& other) const
 {
-    return m_current_value < other.m_current_value && m_values.size() < other.m_values.size();
+    return !(*this == other);
 }
 
-//! Sets values from the string containing delimeter ';'.
-
-void ComboProperty::setStringOfValues(const QString& values)
+bool ComboProperty::operator<(const ComboProperty& other) const
 {
-    QString currentValue = getValue();
-
-    m_values = values.split(QStringLiteral(";"));
-
-    // if no currentValue in the new list of values, take first value from the list
-    if(!m_values.contains(currentValue) && !currentValue.isEmpty())
-        setValue(m_values.front());
+    return m_current_index < other.m_current_index && m_values.size() < other.m_values.size();
 }
 
 //! Returns a single string containing values delimited with ';'.
@@ -114,4 +122,20 @@ void ComboProperty::setStringOfValues(const QString& values)
 QString ComboProperty::stringOfValues() const
 {
     return m_values.join(QStringLiteral(";"));
+}
+
+//! Sets values from the string containing delimeter ';'.
+
+void ComboProperty::setStringOfValues(const QString& values)
+{
+    QString current = getValue();
+    m_values = values.split(QStringLiteral(";"));
+    m_current_index = m_values.contains(current) ? m_values.indexOf(current) : 0;
+}
+
+QVariant ComboProperty::getVariant() const
+{
+    QVariant result;
+    result.setValue(*this);
+    return result;
 }

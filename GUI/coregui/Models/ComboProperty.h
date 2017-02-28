@@ -28,83 +28,37 @@
 class BA_CORE_API_ ComboProperty
 {
 public:
-    ComboProperty() {}
+    ComboProperty();
     ComboProperty(const QStringList& values, const QString& current_value);
 
     QString getValue() const;
-
     void setValue(const QString& name);
-    void setValues(const QStringList& values);
-    bool isDefined();
 
     QStringList getValues() const;
+    void setValues(const QStringList& values);
 
-    QStringList getToolTips() const;
+    QStringList toolTips() const;
     void setToolTips(const QStringList& tooltips);
 
-    int index() const;
-    int toIndex(const QString& value) const;
-    QString toString(int index) const;
+    int currentIndex() const;
+    void setCurrentIndex(int index);
 
-    inline ComboProperty& operator<<(const QString& str);
+    ComboProperty& operator<<(const QString& str);
+    ComboProperty& operator<<(const QStringList& str);
+    bool operator==(const ComboProperty& other) const;
+    bool operator!=(const ComboProperty& other) const;
+    bool operator<(const ComboProperty& other) const;
 
-    inline ComboProperty& operator<<(const QStringList& str);
+    QString stringOfValues() const;
+    void setStringOfValues(const QString& values);
 
     QVariant getVariant() const;
 
-    bool operator==(const ComboProperty& other) const;
-    bool operator!=(const ComboProperty& other) const
-    {
-        return !(*this == other);
-    }
-    bool operator<(const ComboProperty& other) const;
-
-    void setStringOfValues(const QString& values);
-
-    QString stringOfValues() const;
 private:
     QStringList m_values;
-    QStringList m_values_tooltips;
-    QString m_current_value;
+    QStringList m_tooltips;
+    int m_current_index;
 };
-
-inline QString ComboProperty::getValue() const
-{
-    return m_current_value;
-}
-
-inline bool ComboProperty::isDefined()
-{
-    return m_current_value != QStringLiteral("Undefined");
-}
-
-inline QStringList ComboProperty::getValues() const
-{
-    return m_values;
-}
-
-inline ComboProperty& ComboProperty::operator<<(const QString& str)
-{
-    m_values.append(str);
-    if (m_values.size())
-        m_current_value = m_values.at(0);
-    return *this;
-}
-
-inline ComboProperty& ComboProperty::operator<<(const QStringList& str)
-{
-    m_values.append(str);
-    if (m_values.size())
-        m_current_value = m_values.at(0);
-    return *this;
-}
-
-inline QVariant ComboProperty::getVariant() const
-{
-    QVariant result;
-    result.setValue(*this);
-    return result;
-}
 
 Q_DECLARE_METATYPE(ComboProperty)
 

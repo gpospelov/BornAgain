@@ -324,7 +324,7 @@ void ComboPropertyEdit::setComboProperty(
         addItems(value_list);
 
         int index(0);
-        foreach(QString descr, m_combo_property.getToolTips())
+        foreach(QString descr, m_combo_property.toolTips())
             setItemData(index++, descr, Qt::ToolTipRole);
 
     }

@@ -112,6 +112,9 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         else if (type_name == Constants::ComboPropertyType) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    variant.value<ComboProperty>().getValue());
+            writer->writeAttribute(SessionXML::ParameterExtAttribute,
+                                   variant.value<ComboProperty>().stringOfValues());
+
         }
 
         else if (type_name == Constants::ScientificDoublePropertyType) {
@@ -299,10 +302,17 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
     else if (parameter_type == Constants::ComboPropertyType) {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
+        QString parameterExt
+            = reader->attributes().value(SessionXML::ParameterExtAttribute).toString();
 
-        ComboProperty combo_property
-            = item->value().value<ComboProperty>();
-        if (combo_property.getValues().contains(parameter_value)) {
+        ComboProperty combo_property;
+        if(parameterExt.isEmpty()) {
+            combo_property = item->value().value<ComboProperty>();
+            if (combo_property.getValues().contains(parameter_value)) {
+                combo_property.setValue(parameter_value);
+            }
+        } else {
+            combo_property.setStringOfValues(parameterExt);
             combo_property.setValue(parameter_value);
         }
         combo_property.setCachedValue(parameter_value);

@@ -50,6 +50,7 @@ const QString ParameterNameAttribute("ParName");
 const QString ParameterTypeAttribute("ParType");
 const QString ParameterValueAttribute("ParValue");
 const QString ParameterRoleAttribute("ParRole");
+const QString ParameterExtAttribute("ParExt");
 
 const QString IdentifierAttribute("Identifier");
 

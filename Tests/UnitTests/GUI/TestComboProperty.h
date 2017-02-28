@@ -100,12 +100,12 @@ inline void TestComboProperty::test_comboXML()
     SessionWriter::writeVariant(&writer, combo.getVariant(), 0);
 
     QCOMPARE(buffer,
-             QString("<Parameter ParType=\"ComboProperty\" ParRole=\"0\" ParValue=\"a1\"/>"));
+             QString("<Parameter ParType=\"ComboProperty\" ParRole=\"0\" ParValue=\"a1\" ParExt=\"a1;a2;a3\"/>"));
 
     // reading from XML
     std::unique_ptr<PropertyItem> item(new PropertyItem);
-    combo.setValue("a2");
-    item->setValue(combo.getVariant());
+//    combo.setValue("a2");
+//    item->setValue(combo.getVariant());
 
     QXmlStreamReader reader(buffer);
 
@@ -122,5 +122,6 @@ inline void TestComboProperty::test_comboXML()
         = item->value().value<ComboProperty>();
 
     QCOMPARE(combo_property.getValue(), QString("a1"));
+    QCOMPARE(combo_property.stringOfValues(), QString("a1;a2;a3"));
 
 }

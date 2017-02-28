@@ -34,7 +34,7 @@ public:
     SlicedFormFactorList& operator=(SlicedFormFactorList&& other) = default;
     ~SlicedFormFactorList() = default;
 
-    void addFormFactor(const IFormFactor& formfactor, const MultiLayer& multilayer,
+    void addParticle(const IParticle& particle, const MultiLayer& multilayer,
                        size_t ref_layer_index);
 
     size_t size() const;

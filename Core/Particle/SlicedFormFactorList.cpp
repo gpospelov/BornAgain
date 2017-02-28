@@ -20,17 +20,17 @@
 #include "Rotations.h"
 
 namespace {
-size_t LayerIndexBottom(const IFormFactor& ff, const MultiLayer& multilayer,
+size_t LayerIndexBottom(const IParticle& particle, const MultiLayer& multilayer,
                         size_t ref_layer_index);
-size_t LayerIndexTop(const IFormFactor& ff, const MultiLayer& multilayer,
+size_t LayerIndexTop(const IParticle& particle, const MultiLayer& multilayer,
                         size_t ref_layer_index);
 }
 
-void SlicedFormFactorList::addFormFactor(const IFormFactor& formfactor,
-                                         const MultiLayer& multilayer, size_t ref_layer_index)
+void SlicedFormFactorList::addParticle(const IParticle& particle,
+                                       const MultiLayer& multilayer, size_t ref_layer_index)
 {
-    size_t layer_index = LayerIndexBottom(formfactor, multilayer, ref_layer_index);
-    m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(formfactor.clone()), layer_index);
+    size_t layer_index = LayerIndexBottom(particle, multilayer, ref_layer_index);
+    m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(particle.createFormFactor()), layer_index);
 }
 
 size_t SlicedFormFactorList::size() const
@@ -52,28 +52,29 @@ SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
     SlicedFormFactorList result;
     auto particles = particle.decompose();
     for (auto p_particle : particles) {
-        const std::unique_ptr<IFormFactor> P_particle_ff(p_particle->createFormFactor());
-        result.addFormFactor(*P_particle_ff, multilayer, ref_layer_index);
+        result.addParticle(*p_particle, multilayer, ref_layer_index);
     }
     return result;
 }
 
 namespace {
-size_t LayerIndexBottom(const IFormFactor& ff, const MultiLayer& multilayer,
+size_t LayerIndexBottom(const IParticle& particle, const MultiLayer& multilayer,
                         size_t ref_layer_index)
 {
-    double position_offset = multilayer.getLayerTopZ(ref_layer_index);
+    std::unique_ptr<IFormFactor> P_ff(particle.createFormFactor());
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
-    double zmin = ff.bottomZ(*P_rot) + position_offset;
+    double position_offset = multilayer.getLayerTopZ(ref_layer_index);
+    double zmin = P_ff->bottomZ(*P_rot) + position_offset;
     return multilayer.bottomZToLayerIndex(zmin);
 }
 
-size_t LayerIndexTop(const IFormFactor& ff, const MultiLayer& multilayer,
+size_t LayerIndexTop(const IParticle& particle, const MultiLayer& multilayer,
                      size_t ref_layer_index)
 {
-    double position_offset = multilayer.getLayerTopZ(ref_layer_index);
+    std::unique_ptr<IFormFactor> P_ff(particle.createFormFactor());
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
-    double zmin = ff.topZ(*P_rot) + position_offset;
+    double position_offset = multilayer.getLayerTopZ(ref_layer_index);
+    double zmin = P_ff->topZ(*P_rot) + position_offset;
     return multilayer.topZToLayerIndex(zmin);
 }
 }

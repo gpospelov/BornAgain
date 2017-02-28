@@ -46,6 +46,16 @@ const QString tooltip_samplex_u0="u-coordinate of point where sample x-axis cros
                                "in local detector coordinates [mm]";
 const QString tooltip_samplex_v0="v-coordinate of point where sample x-axis crosses the detector, \n"
                                "in local detector coordinates [mm]";
+
+ComboProperty alignmentCombo()
+{
+    ComboProperty result;
+    result << Constants::ALIGNMENT_GENERIC << Constants::ALIGNMENT_TO_DIRECT_BEAM
+           << Constants::ALIGNMENT_TO_SAMPLE << Constants::ALIGNMENT_TO_REFLECTED_BEAM
+           << Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS;
+    result.setValue(Constants::ALIGNMENT_TO_DIRECT_BEAM);
+    return result;
+}
 }
 
 const QString RectangularDetectorItem::P_X_AXIS = "X axis";
@@ -84,12 +94,7 @@ RectangularDetectorItem::RectangularDetectorItem()
     setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
 
     // alignment selector
-    ComboProperty alignment;
-    alignment << Constants::ALIGNMENT_GENERIC << Constants::ALIGNMENT_TO_DIRECT_BEAM
-              << Constants::ALIGNMENT_TO_SAMPLE << Constants::ALIGNMENT_TO_REFLECTED_BEAM
-              << Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS;
-    alignment.setValue(Constants::ALIGNMENT_TO_DIRECT_BEAM);
-    addProperty(P_ALIGNMENT, alignment.getVariant());
+    addProperty(P_ALIGNMENT, alignmentCombo().getVariant());
 
     // alignment parameters
     item = addGroupProperty(P_NORMAL, Constants::VectorType);

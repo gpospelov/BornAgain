@@ -150,19 +150,18 @@ void GUIObjectBuilder::visit(const ParticleLayout* sample)
     }
 
     ComboProperty approx_prop;
-    approx_prop << "Decoupling Approximation"
-                << "Size Space Coupling Approximation";
+    approx_prop << Constants::LAYOUT_DA << Constants::LAYOUT_SSCA;
     ILayout::EInterferenceApproximation approx = sample->getApproximation();
     switch(approx)
     {
     case ILayout::DA:
-        approx_prop.setValue("Decoupling Approximation");
+        approx_prop.setValue(Constants::LAYOUT_DA);
         break;
     case ILayout::SSCA:
-        approx_prop.setValue("Size Space Coupling Approximation");
+        approx_prop.setValue(Constants::LAYOUT_SSCA);
         break;
     default:
-        approx_prop.setValue("Decoupling Approximation");
+        approx_prop.setValue(Constants::LAYOUT_DA);
         break;
     }
     item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.getVariant());

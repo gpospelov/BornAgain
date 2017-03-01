@@ -94,14 +94,12 @@ int SimulationOptionsItem::getNumberOfThreads() const
 
 bool SimulationOptionsItem::runImmediately() const
 {
-    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-    return combo.getValue() == Constants::JOB_RUN_IMMEDIATELY;
+    return runPolicy() == Constants::JOB_RUN_IMMEDIATELY;
 }
 
 bool SimulationOptionsItem::runInBackground() const
 {
-    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-    return combo.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
+    return runPolicy() == Constants::JOB_RUN_IN_BACKGROUND;
 }
 
 void SimulationOptionsItem::setRunPolicy(const QString &policy)
@@ -132,6 +130,12 @@ int SimulationOptionsItem::getNumberOfMonteCarloPoints() const
 void SimulationOptionsItem::setNumberOfMonteCarloPoints(int npoints)
 {
     setItemValue(P_MC_POINTS, npoints);
+}
+
+QString SimulationOptionsItem::runPolicy() const
+{
+    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
+    return combo.getValue();
 }
 
 //! returns list with number of threads to select

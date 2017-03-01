@@ -244,6 +244,9 @@ const ModelType FITPAR_FREE = "free";
 
 const ModelType DistributionSigmaFactor = "Sigma factor";
 
+const ModelType LAYOUT_DA = "Decoupling Approximation";
+const ModelType LAYOUT_SSCA = "Size Space Coupling Approximation";
+
 // --- Custom variants ----------------------------------------------------------
 
 const ModelType ScientificDoublePropertyType = "ScientificDoubleProperty";

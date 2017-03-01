@@ -21,7 +21,7 @@ const QString BasicAxisItem::P_NBINS = "Nbins";
 const QString BasicAxisItem::P_MIN = "Min";
 const QString BasicAxisItem::P_MAX = "Max";
 const QString BasicAxisItem::P_TITLE = "title";
-//const QString BasicAxisItem::P_TITLE_IS_VISIBLE = "Title Visibility";
+const QString BasicAxisItem::P_TITLE_IS_VISIBLE = "Title Visibility";
 
 static const int max_detector_pixels = 65536;
 
@@ -45,6 +45,7 @@ void BasicAxisItem::register_basic_properties()
     addProperty(P_MAX, -1.0)->setDecimals(3);
     getItem(P_MAX)->setLimits(RealLimits::limitless());
     addProperty(P_TITLE, QString());
+    addProperty(P_TITLE_IS_VISIBLE, true)->setVisible(false);
 }
 
 // ---------------------------------------------------------------------------------------------- //

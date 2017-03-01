@@ -20,7 +20,7 @@
 #include "InstrumentItem.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
-#include "JobItemHelper.h"
+#include "JobItemUtils.h"
 #include "JobQueueData.h"
 #include "MultiLayerItem.h"
 #include "ParameterTreeUtils.h"
@@ -129,7 +129,7 @@ void JobModel::loadNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemHelper::loadIntensityData(jobItem, projectDir);
+        JobItemUtils::loadIntensityData(jobItem, projectDir);
         if(RealDataItem *refItem = jobItem->realDataItem()) {
             ImportDataAssistant::loadIntensityData(refItem, projectDir);
             refItem->linkToInstrument(jobItem->instrumentItem());
@@ -143,9 +143,9 @@ void JobModel::saveNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemHelper::saveIntensityData(jobItem->intensityDataItem(), projectDir);
+        JobItemUtils::saveIntensityData(jobItem->intensityDataItem(), projectDir);
         if(RealDataItem *refItem = jobItem->realDataItem())
-            JobItemHelper::saveIntensityData(refItem->intensityDataItem(), projectDir);
+            JobItemUtils::saveIntensityData(refItem->intensityDataItem(), projectDir);
     }
 }
 

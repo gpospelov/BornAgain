@@ -110,8 +110,12 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         }
 
         else if (type_name == Constants::ComboPropertyType) {
+            int currentIndex = variant.value<ComboProperty>().currentIndex();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   variant.value<ComboProperty>().getValue());
+                                   QString::number(currentIndex));
+            writer->writeAttribute(SessionXML::ParameterExtAttribute,
+                                   variant.value<ComboProperty>().stringOfValues());
+
         }
 
         else if (type_name == Constants::ScientificDoublePropertyType) {
@@ -297,15 +301,15 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
     }
 
     else if (parameter_type == Constants::ComboPropertyType) {
-        QString parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
+        int parameter_value
+            = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
+        QString parameterExt
+            = reader->attributes().value(SessionXML::ParameterExtAttribute).toString();
 
-        ComboProperty combo_property
-            = item->value().value<ComboProperty>();
-        if (combo_property.getValues().contains(parameter_value)) {
-            combo_property.setValue(parameter_value);
-        }
-        combo_property.setCachedValue(parameter_value);
+        ComboProperty combo_property;
+        combo_property.setStringOfValues(parameterExt);
+        combo_property.setCurrentIndex(parameter_value);
+
         variant = combo_property.getVariant();
     }
 

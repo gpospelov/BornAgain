@@ -47,8 +47,8 @@ private:
     void create_output_data();
 
     TIFF* m_tiff;
-    size_t m_width;
-    size_t m_height;
+    size_t m_width, m_height;
+    uint16 m_bitsPerSample, m_samplesPerPixel, m_sampleFormat;
     std::unique_ptr<OutputData<double>> m_data;
 };
 

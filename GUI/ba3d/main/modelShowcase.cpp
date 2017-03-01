@@ -82,6 +82,7 @@ particle::Particle* ModelShowcase::newParticle(kind k, flp R) {
   case kind::AnisoPyramid:
     return new AnisoPyramid(R, D, D, 1.3f);
   }
+  return nullptr;
 }
 
 //------------------------------------------------------------------------------

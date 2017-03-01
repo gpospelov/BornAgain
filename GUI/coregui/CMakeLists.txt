@@ -13,8 +13,8 @@ endif()
 if(POLICY CMP0028)
     cmake_policy(SET CMP0028 NEW)
 endif()
-set(library_name BornAgainGUI)
 
+set(library_name BornAgainGUI)
 
 # --- source and include files ---
 set(include_dirs
@@ -36,65 +36,24 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/AccordionWidget
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/ImportDataWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/CommonWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox
 )
+
+if(BORNAGAIN_OPENGL)
+    list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/RealSpaceWidgets)
+endif()
+
 include_directories(${include_dirs})
 
-file(GLOB source_files
-    "mainwindow/*.cpp"
-    "utils/*.cpp"
-    "Models/*.cpp"
-    "Views/*.cpp"
-    "Views/SampleDesigner/*.cpp"
-    "Views/JobWidgets/*.cpp"
-    "Views/IntensityDataWidgets/*.cpp"
-    "Views/InfoWidgets/*.cpp"
-    "Views/MaterialEditor/*.cpp"
-    "Views/InstrumentWidgets/*.cpp"
-    "Views/SimulationWidgets/*.cpp"
-    "Views/FitWidgets/*.cpp"
-    "Views/PropertyEditor/*.cpp"
-    "Views/MaskWidgets/*.cpp"
-    "Views/AccordionWidget/*.cpp"
-    "Views/ImportDataWidgets/*.cpp"
-    "Views/CommonWidgets/*.cpp"
-)
+set(source_files)
+set(include_files)
 
-set(source_widgetbox
-    "Views/widgetbox/widgetboxcategorylistview.cpp"
-    "Views/widgetbox/widgetboxtreewidget.cpp"
-    "Views/widgetbox/widgetbox.cpp"
-    "Views/widgetbox/widgetbox_dnditem.cpp"
-)
-list(APPEND source_files ${source_widgetbox})
-
-file(GLOB include_files
-    "mainwindow/*.h"
-    "utils/*.h"
-    "Models/*.h"
-    "Views/*.h"
-    "Views/SampleDesigner/*.h"
-    "Views/JobWidgets/*.h"
-    "Views/IntensityDataWidgets/*.h"
-    "Views/InfoWidgets/*.h"
-    "Views/MaterialEditor/*.h"
-    "Views/InstrumentWidgets/*.h"
-    "Views/SimulationWidgets/*.h"
-    "Views/FitWidgets/*.h"
-    "Views/PropertyEditor/*.h"
-    "Views/MaskWidgets/*.h"
-    "Views/AccordionWidget/*.h"
-    "Views/ImportDataWidgets/*.h"
-    "Views/CommonWidgets/*.h"
-)
-
-set(include_widgetbox
-    "Views/widgetbox/widgetboxcategorylistview.h"
-    "Views/widgetbox/widgetboxtreewidget.h"
-    "Views/widgetbox/widgetbox.h"
-    "Views/widgetbox/widgetbox_dnditem.h"
-    "Views/widgetbox/widgetbox_global.h"
-)
-list(APPEND include_files ${include_widgetbox})
+foreach(dir ${include_dirs})
+    file(GLOB source ${dir}/*.cpp)
+    file(GLOB include ${dir}/*.h)
+    list(APPEND source_files ${source})
+    list(APPEND include_files ${include})
+endforeach()
 
 set(resource_files
     "coregui.qrc"
@@ -103,7 +62,6 @@ set(resource_files
     "Views/widgetbox/widgetbox.qrc"
     "Views/AccordionWidget/accordionwidgeticons.qrc"
 )
-
 
 # --- Qt configuration ---------
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

@@ -20,7 +20,13 @@
 #include "MaskEditor.h"
 #include "MaterialEditor.h"
 #include "MinimizerItem.h"
+#include "MinimizerSettingsWidget.h"
 #include "mainwindow.h"
+
+#ifdef BORNAGAIN_OPENGL
+#include "RealSpaceWidget.h"
+#endif
+
 #include <QCheckBox>
 #include <QLineEdit>
 
@@ -138,5 +144,12 @@ void TestView::test_AccordionWidget()
 
 void TestView::test_ba3d()
 {
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+#ifdef BORNAGAIN_OPENGL
+    layout->addWidget(new RealSpaceWidget);
+#endif
+    setLayout(layout);
 
 }

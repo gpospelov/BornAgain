@@ -105,6 +105,7 @@ include_directories(
     ${BornAgainFit_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
+    ${ba3d_INCLUDE_DIRS}
 )
 
 target_link_libraries(${library_name}
@@ -113,6 +114,7 @@ target_link_libraries(${library_name}
     ${Boost_LIBRARIES}
     ${BornAgainFit_LIBRARY}
     ${BornAgainCore_LIBRARY}
+    ${ba3d_LIBRARY}
 )
 
 target_link_libraries(${library_name}

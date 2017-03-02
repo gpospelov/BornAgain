@@ -42,8 +42,6 @@ RealSpacePanel::RealSpacePanel(QWidget* parent)
     layout->addWidget(m_componentEditor);
 
     setLayout(layout);
-
-
 }
 
 void RealSpacePanel::setModel(SampleModel* model)

@@ -20,6 +20,8 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+namespace ba3d { class Widget3D;}
+
 //! Contains 3D view.
 
 class BA_CORE_API_ RealSpaceView : public QWidget
@@ -28,6 +30,9 @@ class BA_CORE_API_ RealSpaceView : public QWidget
 
 public:
     RealSpaceView(QWidget* parent = 0);
+
+private:
+    ba3d::Widget3D* m_3dview;
 };
 
 #endif // REALSPACEVIEW_H

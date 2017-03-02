@@ -15,9 +15,17 @@
 // ************************************************************************** //
 
 #include "RealSpaceView.h"
+#include <ba3d/widget.h>
+#include <QVBoxLayout>
 
 RealSpaceView::RealSpaceView(QWidget* parent)
     : QWidget(parent)
+    , m_3dview(new ba3d::Widget3D)
 {
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
 
+    layout->addWidget(m_3dview);
+    setLayout(layout);
 }

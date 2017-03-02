@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceView.cpp
-//! @brief     Implements class RealSpaceView
+//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceModel.h
+//! @brief     Defines RealSpaceModel namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,24 +14,16 @@
 //
 // ************************************************************************** //
 
-#include "RealSpaceView.h"
-#include "RealSpaceModel.h"
-#include <ba3d/widget.h>
-#include <QVBoxLayout>
+#ifndef REALSPACEMODEL_H
+#define REALSPACEMODEL_H
 
-RealSpaceView::RealSpaceView(QWidget* parent)
-    : QWidget(parent)
-    , m_3dview(new ba3d::Widget3D)
+#include "WinDllMacros.h"
+#include <ba3d/model/model.h>
+
+class RealSpaceModel : public ba3d::Model
 {
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
+public:
 
-    layout->addWidget(m_3dview);
-    setLayout(layout);
-}
+};
 
-void RealSpaceView::setModel(RealSpaceModel* model)
-{
-    m_3dview->setModel(model);
-}
+#endif

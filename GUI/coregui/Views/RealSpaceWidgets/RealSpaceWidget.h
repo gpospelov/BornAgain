@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <memory>
 
 class RealSpaceToolBar;
 class RealSpaceView;
@@ -26,6 +27,7 @@ class RealSpaceScene;
 class RealSpaceActions;
 class RealSpacePanel;
 class SampleModel;
+class RealSpaceModel;
 
 //! Prototype of real space widget to present sample structure in 3D view.
 
@@ -35,8 +37,12 @@ class BA_CORE_API_ RealSpaceWidget : public QWidget
 
 public:
     RealSpaceWidget(QWidget* parent = 0);
+    ~RealSpaceWidget();
 
     void setModel(SampleModel* model);
+
+public slots:
+    void onSelectionChanged(const QModelIndex& selected);
 
 private:
     RealSpaceToolBar* m_toolBar;
@@ -44,6 +50,9 @@ private:
     RealSpaceScene* m_scene;
     RealSpaceActions* m_actions;
     RealSpacePanel* m_panel;
+
+    SampleModel* m_sampleModel;
+    std::unique_ptr<RealSpaceModel> m_realSpaceModel;
 };
 
 #endif // REALSPACEWIDGET_H

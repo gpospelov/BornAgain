@@ -87,7 +87,9 @@ void RealSpacePanel::onSelectionChanged(const QItemSelection& selected, const QI
         SessionItem* item = m_model->itemForIndex(index);
         Q_ASSERT(item);
         m_componentEditor->setItem(item, item->modelType());
+        emit selectionChanged(index);
     } else {
         m_componentEditor->setItem(0);
+        emit selectionChanged(QModelIndex());
     }
 }

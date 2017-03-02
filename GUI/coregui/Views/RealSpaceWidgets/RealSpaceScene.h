@@ -19,6 +19,9 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
+#include <QModelIndex>
+
+class SampleModel;
 
 //! Provides 3D object generation logic for RealSpaceWidget.
 
@@ -28,6 +31,17 @@ class BA_CORE_API_ RealSpaceScene : public QObject
 
 public:
     RealSpaceScene(QObject* parent = 0);
+
+    void setModel(SampleModel* model);
+
+public slots:
+    void onSelectionChanged(const QModelIndex& selected);
+
+private:
+    void updateScene();
+
+    SampleModel* m_model;
+    QModelIndex m_rootIndex;
 };
 
 #endif // REALSPACESCENE_H

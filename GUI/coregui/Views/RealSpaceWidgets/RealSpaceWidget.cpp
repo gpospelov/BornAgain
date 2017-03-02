@@ -20,8 +20,12 @@
 #include "RealSpaceView.h"
 #include "RealSpaceActions.h"
 #include "RealSpacePanel.h"
+#include "RealSpaceBuilder.h"
+#include "SampleModel.h"
+#include "RealSpaceModel.h"
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QDebug>
 
 RealSpaceWidget::RealSpaceWidget(QWidget* parent)
     : QWidget(parent)
@@ -30,6 +34,7 @@ RealSpaceWidget::RealSpaceWidget(QWidget* parent)
     , m_scene(new RealSpaceScene)
     , m_actions(new RealSpaceActions)
     , m_panel(new RealSpacePanel)
+    , m_sampleModel(nullptr)
 {
     QHBoxLayout* hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
@@ -46,9 +51,33 @@ RealSpaceWidget::RealSpaceWidget(QWidget* parent)
     mainLayout->addLayout(hlayout);
 
     setLayout(mainLayout);
+
+    connect(m_panel, SIGNAL(selectionChanged(QModelIndex)),
+            this, SLOT(onSelectionChanged(QModelIndex)));
+}
+
+RealSpaceWidget::~RealSpaceWidget()
+{
+
 }
 
 void RealSpaceWidget::setModel(SampleModel* model)
 {
     m_panel->setModel(model);
+}
+
+void RealSpaceWidget::onSelectionChanged(const QModelIndex& selected)
+{
+    qDebug() << "RealSpaceWidget::onSelectionChanged";
+    if(!selected.isValid())
+        return;
+
+    m_realSpaceModel.reset(new RealSpaceModel);
+
+    SessionItem* item = m_sampleModel->itemForIndex(selected);
+
+    Q_ASSERT(item);
+    RealSpaceBuilder::populate(m_realSpaceModel.get(), *item);
+
+    m_view->setModel(m_realSpaceModel.get());
 }

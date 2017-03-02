@@ -40,6 +40,9 @@ public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
+signals:
+    void selectionChanged(const QModelIndex& index);
+
 public slots:
     void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
 

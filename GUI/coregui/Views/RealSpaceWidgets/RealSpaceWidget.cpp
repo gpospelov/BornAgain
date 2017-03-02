@@ -15,14 +15,40 @@
 // ************************************************************************** //
 
 #include "RealSpaceWidget.h"
+#include "RealSpaceToolBar.h"
+#include "RealSpaceScene.h"
+#include "RealSpaceView.h"
+#include "RealSpaceActions.h"
+#include "RealSpacePanel.h"
 #include <QVBoxLayout>
 #include <QLabel>
 
 RealSpaceWidget::RealSpaceWidget(QWidget* parent)
     : QWidget(parent)
+    , m_toolBar(new RealSpaceToolBar)
+    , m_view(new RealSpaceView)
+    , m_scene(new RealSpaceScene)
+    , m_actions(new RealSpaceActions)
+    , m_panel(new RealSpacePanel)
 {
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(new QLabel("Hello World"));
+    QHBoxLayout* hlayout = new QHBoxLayout;
+    hlayout->setMargin(0);
+    hlayout->setSpacing(0);
+    hlayout->setContentsMargins(0, 0, 0, 0);
+    hlayout->addWidget(m_view);
+    hlayout->addWidget(m_panel);
 
-    setLayout(layout);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
+    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->addWidget(m_toolBar);
+    mainLayout->addLayout(hlayout);
+
+    setLayout(mainLayout);
+}
+
+void RealSpaceWidget::setModel(SampleModel* model)
+{
+    m_panel->setModel(model);
 }

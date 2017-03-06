@@ -25,7 +25,7 @@ class ZLimits
 {
 public:
     enum Type { FINITE, INFINITE, POS_INFINITE, NEG_INFINITE };
-    ZLimits(Type type, double ref=0.0);
+    ZLimits(Type type=INFINITE, double ref=0.0);
     ZLimits(double min, double max);
 
     Type type() const { return m_type; }

@@ -10681,6 +10681,11 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_clone(self)
 
 
+    def createSlicedFormFactor(self, limits, rot, translation):
+        """createSlicedFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
+        return _libBornAgainCore.IFormFactor_createSlicedFormFactor(self, limits, rot, translation)
+
+
     def setAmbientMaterial(self, arg0):
         """
         setAmbientMaterial(IFormFactor self, IMaterial arg0)
@@ -10771,6 +10776,14 @@ class IFormFactor(ISample):
 IFormFactor_swigregister = _libBornAgainCore.IFormFactor_swigregister
 IFormFactor_swigregister(IFormFactor)
 
+
+def ShapeIsContainedInLimits(formfactor, limits, rot, translation):
+    """ShapeIsContainedInLimits(IFormFactor formfactor, ZLimits limits, IRotation rot, kvector_t translation) -> bool"""
+    return _libBornAgainCore.ShapeIsContainedInLimits(formfactor, limits, rot, translation)
+
+def CreateTransformedFormFactor(formfactor, rot, translation):
+    """CreateTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor"""
+    return _libBornAgainCore.CreateTransformedFormFactor(formfactor, rot, translation)
 class vector_IFormFactorPtr_t(_object):
     """Proxy of C++ std::vector<(p.IFormFactor)> class."""
 
@@ -18592,6 +18605,11 @@ class IParticle(IAbstractParticle):
 
         """
         return _libBornAgainCore.IParticle_createFormFactor(self)
+
+
+    def createSlicedFormFactor(self, limits):
+        """createSlicedFormFactor(IParticle self, ZLimits limits) -> IFormFactor"""
+        return _libBornAgainCore.IParticle_createSlicedFormFactor(self, limits)
 
 
     def createTransformedFormFactor(self, p_rotation, translation):

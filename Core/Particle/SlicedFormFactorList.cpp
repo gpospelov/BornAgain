@@ -30,10 +30,18 @@ double ZDifference(const MultiLayer& multilayer, size_t layer_index, size_t ref_
 void SlicedFormFactorList::addParticle(IParticle& particle,
                                        const MultiLayer& multilayer, size_t ref_layer_index)
 {
-    size_t layer_index = LayerIndexBottom(particle, multilayer, ref_layer_index);
-    kvector_t translation(0.0, 0.0, -ZDifference(multilayer, layer_index, ref_layer_index));
+    size_t bottom_layer_index = LayerIndexBottom(particle, multilayer, ref_layer_index);
+//    size_t top_layer_index = LayerIndexTop(particle, multilayer, ref_layer_index);
+//    for (size_t i=top_layer_index; i<bottom_layer_index+1; ++i)
+//    {
+//        kvector_t translation(0.0, 0.0, -ZDifference(multilayer, i, ref_layer_index));
+//        particle.applyTranslation(translation);
+//        m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(particle.createFormFactor()), i);
+//    }
+    kvector_t translation(0.0, 0.0, -ZDifference(multilayer, bottom_layer_index, ref_layer_index));
     particle.applyTranslation(translation);
-    m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(particle.createFormFactor()), layer_index);
+    m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(particle.createFormFactor()),
+                           bottom_layer_index);
 }
 
 size_t SlicedFormFactorList::size() const

@@ -64,6 +64,19 @@ RealSpaceWidget::~RealSpaceWidget()
 void RealSpaceWidget::setModel(SampleModel* model)
 {
     m_panel->setModel(model);
+
+    if (model != m_sampleModel) {
+
+        if (m_sampleModel)
+            setConnected(m_sampleModel, false);
+
+        m_sampleModel = model;
+
+        if (m_sampleModel)
+            setConnected(m_sampleModel, true);
+    }
+    updateScene();
+
 }
 
 void RealSpaceWidget::onSelectionChanged(const QModelIndex& selected)
@@ -71,6 +84,8 @@ void RealSpaceWidget::onSelectionChanged(const QModelIndex& selected)
     qDebug() << "RealSpaceWidget::onSelectionChanged";
     if(!selected.isValid())
         return;
+
+    m_currentSelection = selected;
 
     m_realSpaceModel.reset(new RealSpaceModel);
 
@@ -80,4 +95,42 @@ void RealSpaceWidget::onSelectionChanged(const QModelIndex& selected)
     RealSpaceBuilder::populate(m_realSpaceModel.get(), *item);
 
     m_view->setModel(m_realSpaceModel.get());
+}
+
+void RealSpaceWidget::updateScene()
+{
+    onSelectionChanged(m_currentSelection);
+}
+
+void RealSpaceWidget::resetScene()
+{
+    m_realSpaceModel.reset();
+    m_view->setModel(nullptr);
+}
+
+void RealSpaceWidget::setConnected(SampleModel* model, bool makeConnected)
+{
+    if(!model)
+        return;
+
+    if(makeConnected) {
+        connect(model, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                this, SLOT(updateScene()));
+        connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                this, SLOT(updateScene()));
+        connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)),
+                this, SLOT(updateScene()));
+        connect(model, SIGNAL(modelReset()),
+                this, SLOT(resetScene()));
+    } else {
+        disconnect(model, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                   this, SLOT(updateScene()));
+        disconnect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                   this, SLOT(updateScene()));
+        disconnect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)),
+                   this, SLOT(updateScene()));
+        disconnect(model, SIGNAL(modelReset()),
+                   this, SLOT(resetScene()));
+    }
+
 }

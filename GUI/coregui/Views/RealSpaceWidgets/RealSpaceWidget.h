@@ -19,6 +19,7 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QModelIndex>
 #include <memory>
 
 class RealSpaceToolBar;
@@ -44,7 +45,13 @@ public:
 public slots:
     void onSelectionChanged(const QModelIndex& selected);
 
+private slots:
+    void updateScene();
+    void resetScene();
+
 private:
+    void setConnected(SampleModel* model, bool makeConnected);
+
     RealSpaceToolBar* m_toolBar;
     RealSpaceView* m_view;
     RealSpaceScene* m_scene;
@@ -52,6 +59,8 @@ private:
     RealSpacePanel* m_panel;
 
     SampleModel* m_sampleModel;
+    QModelIndex m_currentSelection;
+
     std::unique_ptr<RealSpaceModel> m_realSpaceModel;
 };
 

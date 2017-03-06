@@ -19,6 +19,7 @@
 #include "ISample.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
+#include "ZLimits.h"
 
 class ILayout;
 class Layer;
@@ -71,6 +72,9 @@ public:
 
     //! Returns thickness of layer
     double getLayerThickness(size_t i_layer) const;
+
+    //! Returns limits of z-coordinates inside the given layer
+    ZLimits getZLimits(size_t i_layer) const;
 
     //! Returns top interface of layer
     const LayerInterface* getLayerTopInterface(size_t i_layer) const;

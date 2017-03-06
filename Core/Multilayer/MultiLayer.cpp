@@ -356,6 +356,18 @@ double MultiLayer::getLayerThickness(size_t i_layer) const
     return m_layers[ check_layer_index(i_layer) ]->getThickness();
 }
 
+ZLimits MultiLayer::getZLimits(size_t i_layer) const
+{
+    size_t N = getNumberOfLayers();
+    if (N<2)
+        return ZLimits(ZLimits::INFINITE);
+    if (i_layer==0)
+        return ZLimits(ZLimits::POS_INFINITE, 0.0);
+    if (i_layer==N-1)
+        return ZLimits(ZLimits::NEG_INFINITE, 0.0);
+    return ZLimits(-getLayerThickness(i_layer), 0.0);
+}
+
 void MultiLayer::setCrossCorrLength(double crossCorrLength)
 {
     if (crossCorrLength<0.0)

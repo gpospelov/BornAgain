@@ -22352,11 +22352,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_getLayerThickness(self, i_layer)
 
 
-    def getZLimits(self, i_layer):
-        """getZLimits(MultiLayer self, size_t i_layer) -> ZLimits"""
-        return _libBornAgainCore.MultiLayer_getZLimits(self, i_layer)
-
-
     def getLayerTopInterface(self, i_layer):
         """
         getLayerTopInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
@@ -23877,6 +23872,11 @@ class Particle(IParticle):
 
         """
         return _libBornAgainCore.Particle_accept(self, visitor)
+
+
+    def createSlicedFormFactor(self, limits):
+        """createSlicedFormFactor(Particle self, ZLimits limits) -> IFormFactor"""
+        return _libBornAgainCore.Particle_createSlicedFormFactor(self, limits)
 
 
     def createTransformedFormFactor(self, p_rotation, translation):

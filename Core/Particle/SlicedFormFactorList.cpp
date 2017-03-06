@@ -25,6 +25,7 @@ size_t LayerIndexBottom(const IParticle& particle, const MultiLayer& multilayer,
 size_t LayerIndexTop(const IParticle& particle, const MultiLayer& multilayer,
                         size_t ref_layer_index);
 double ZDifference(const MultiLayer& multilayer, size_t layer_index, size_t ref_layer_index);
+ZLimits LayerZLimits(const MultiLayer& multilayer, size_t layer_index);
 }
 
 void SlicedFormFactorList::addParticle(IParticle& particle,
@@ -35,8 +36,11 @@ void SlicedFormFactorList::addParticle(IParticle& particle,
 //    for (size_t i=top_layer_index; i<bottom_layer_index+1; ++i)
 //    {
 //        kvector_t translation(0.0, 0.0, -ZDifference(multilayer, i, ref_layer_index));
+//        ref_layer_index = i;
 //        particle.applyTranslation(translation);
-//        m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(particle.createFormFactor()), i);
+//        ZLimits limits = LayerZLimits(multilayer, i);
+//        m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(
+//                                   particle.createSlicedFormFactor(limits)), i);
 //    }
     kvector_t translation(0.0, 0.0, -ZDifference(multilayer, bottom_layer_index, ref_layer_index));
     particle.applyTranslation(translation);
@@ -92,6 +96,18 @@ size_t LayerIndexTop(const IParticle& particle, const MultiLayer& multilayer,
 double ZDifference(const MultiLayer& multilayer, size_t layer_index, size_t ref_layer_index)
 {
     return multilayer.getLayerTopZ(layer_index) - multilayer.getLayerTopZ(ref_layer_index);
+}
+
+ZLimits LayerZLimits(const MultiLayer& multilayer, size_t layer_index)
+{
+    size_t N = multilayer.getNumberOfLayers();
+    if (N<2)
+        return ZLimits(ZLimits::INFINITE);
+    if (layer_index==0)
+        return ZLimits(ZLimits::POS_INFINITE, 0.0);
+    if (layer_index==N-1)
+        return ZLimits(ZLimits::NEG_INFINITE, 0.0);
+    return ZLimits(-multilayer.getLayerThickness(layer_index), 0.0);
 }
 }
 

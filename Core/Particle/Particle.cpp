@@ -77,6 +77,27 @@ Particle* Particle::cloneInvertB() const
     return p_result;
 }
 
+IFormFactor* Particle::createSlicedFormFactor(ZLimits limits) const
+{
+    if (!mP_form_factor)
+        return nullptr;
+    std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
+    if (mP_rotation)
+        P_rotation.reset(mP_rotation->clone());
+    std::unique_ptr<IFormFactor> P_temp_ff(
+                mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
+    FormFactorDecoratorMaterial* p_ff = new FormFactorDecoratorMaterial(*P_temp_ff);
+    if (mP_material) {
+        if (mP_rotation) {
+            const std::unique_ptr<const IMaterial> P_transformed_material(
+                mP_material->createTransformedMaterial(P_rotation->getTransform3D()));
+            p_ff->setMaterial(*P_transformed_material);
+        } else
+            p_ff->setMaterial(*mP_material);
+    }
+    return p_ff;
+}
+
 IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
                                                    kvector_t translation) const
 {

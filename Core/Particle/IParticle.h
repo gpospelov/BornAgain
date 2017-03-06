@@ -43,7 +43,7 @@ public:
     IFormFactor* createFormFactor() const;
 
     //! Create a sliced form factor for this particle
-    IFormFactor* createSlicedFormFactor(ZLimits limits) const;
+    virtual IFormFactor* createSlicedFormFactor(ZLimits limits) const;
 
     //! Create a form factor for this particle with an extra transformation
     virtual IFormFactor* createTransformedFormFactor(

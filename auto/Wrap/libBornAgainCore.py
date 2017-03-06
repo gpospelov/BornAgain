@@ -22159,6 +22159,11 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_accept(self, visitor)
 
 
+    def createSlicedFormFactor(self, limits):
+        """createSlicedFormFactor(MesoCrystal self, ZLimits limits) -> IFormFactor"""
+        return _libBornAgainCore.MesoCrystal_createSlicedFormFactor(self, limits)
+
+
     def createTransformedFormFactor(self, p_rotation, translation):
         """
         createTransformedFormFactor(MesoCrystal self, IRotation p_rotation, kvector_t translation) -> IFormFactor
@@ -24187,6 +24192,11 @@ class ParticleCoreShell(IParticle):
 
         """
         return _libBornAgainCore.ParticleCoreShell_accept(self, visitor)
+
+
+    def createSlicedFormFactor(self, limits):
+        """createSlicedFormFactor(ParticleCoreShell self, ZLimits limits) -> IFormFactor"""
+        return _libBornAgainCore.ParticleCoreShell_createSlicedFormFactor(self, limits)
 
 
     def createTransformedFormFactor(self, p_rotation, translation):

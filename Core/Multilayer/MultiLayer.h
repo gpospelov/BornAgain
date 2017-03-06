@@ -19,7 +19,6 @@
 #include "ISample.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
-#include "ZLimits.h"
 
 class ILayout;
 class Layer;

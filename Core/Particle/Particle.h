@@ -33,27 +33,27 @@ public:
     Particle(const IMaterial& p_material, const IFormFactor& form_factor,
              const IRotation& rotation);
 
-    Particle* clone() const override;
+    Particle* clone() const override final;
 
     //! Returns a clone with inverted magnetic fields
-    Particle* cloneInvertB() const override;
+    Particle* cloneInvertB() const override final;
 
-    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    IFormFactor* createSlicedFormFactor(ZLimits limits) const override;
+    IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
     IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const override;
+        const IRotation* p_rotation, kvector_t translation) const override final;
 
     void setMaterial(const IMaterial& material);
-    const IMaterial* getMaterial() const override { return mP_material.get(); }
+    const IMaterial* getMaterial() const override final { return mP_material.get(); }
 
     complex_t getRefractiveIndex() const;
 
     void setFormFactor(const IFormFactor& form_factor);
     const IFormFactor* getFormFactor() const { return mP_form_factor.get(); }
 
-    std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override final;
 
 protected:
     std::unique_ptr<IMaterial> mP_material;

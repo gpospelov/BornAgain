@@ -56,11 +56,25 @@ void MesoCrystal::accept(INodeVisitor* visitor) const
     visitor->visit(this);
 }
 
+IFormFactor*MesoCrystal::createSlicedFormFactor(ZLimits limits) const
+{
+    if (!mp_particle_structure || !mp_meso_form_factor)
+        return nullptr;
+    std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
+    if (mP_rotation)
+        P_rotation.reset(mP_rotation->clone());
+    std::unique_ptr<IFormFactor> P_temp_ff(
+                mp_meso_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
+    IFormFactor* p_result = mp_particle_structure->createTotalFormFactor(
+                                *P_temp_ff, P_rotation.get(), m_position);
+    return p_result;
+}
+
 IFormFactor* MesoCrystal::createTransformedFormFactor(
     const IRotation* p_rotation, kvector_t translation) const
 {
     if (!mp_particle_structure || !mp_meso_form_factor)
-        return 0;
+        return nullptr;
     std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
     kvector_t total_position = getComposedTranslation(p_rotation, translation);
     std::unique_ptr<IFormFactor> P_transformed_meso(createTransformationDecoratedFormFactor(

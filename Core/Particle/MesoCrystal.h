@@ -29,23 +29,24 @@ class BA_CORE_API_ MesoCrystal : public IParticle
 public:
     MesoCrystal(const IClusteredParticles& particle_structure, const IFormFactor& form_factor);
 
-    virtual ~MesoCrystal();
-    virtual MesoCrystal* clone() const;
+    ~MesoCrystal();
+    MesoCrystal* clone() const override final;
 
     //! Returns a clone with inverted magnetic fields
-    virtual MesoCrystal* cloneInvertB() const;
+    MesoCrystal* cloneInvertB() const override final;
 
-    virtual void accept(INodeVisitor* visitor) const;
+    void accept(INodeVisitor* visitor) const override final;
 
-    //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const;
+    IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
+
+    IFormFactor* createTransformedFormFactor(
+        const IRotation* p_rotation, kvector_t translation) const override final;
 
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (e.g. an infinite crystal)
     const IClusteredParticles* getClusteredParticles() const { return mp_particle_structure.get(); }
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override final;
 
 private:
     MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor);

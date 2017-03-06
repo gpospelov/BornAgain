@@ -17,30 +17,82 @@
 #include "RealSpaceBuilder.h"
 #include "RealSpaceModel.h"
 #include "SessionItem.h"
+#include "LayerItem.h"
+#include "MaterialProperty.h"
+#include "MultiLayerItem.h"
+#include "TransformTo3D.h"
+#include "ParticleLayoutItem.h"
 #include <ba3d/model/layer.h>
+#include <QDebug>
 
-static ba3d::flt const sz = 100; // half sz
+namespace
+{
+const double layer_min_thickness = 25;
+}
 
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
 {
-    if(item.modelType() != Constants::MultiLayerType)
-        return;
-
     model->defEye = ba3d::xyz(-10, -140, 20);
     model->defCtr = ba3d::xyz(0, 0, -30);
-    model->defUp  = ba3d::xyz::_z;
+    model->defUp = ba3d::xyz::_z;
 
-    auto layer = [&](int z1, int z2, QColor color) {
-      ba3d::flt s2 = sz /2;
-      auto l = new ba3d::Layer(ba3d::dxyz(ba3d::dr(-s2,+s2), ba3d::dr(-s2,+s2), ba3d::dr(z1, z2)));
-      color.setAlphaF(.3);
-      l->color = color;
+    if (item.modelType() == Constants::MultiLayerType)
+        populateMultiLayer(model, item);
 
-      model->addBlend(l);
-    };
+    else if (item.modelType() == Constants::LayerType)
+        populateLayer(model, item);
 
-    layer(  0, -10, Qt::blue);
-    layer(-10, -30, Qt::green);
-    layer(-30, -45, Qt::red);
-    layer(-45, -55, Qt::gray);
+    else if (item.modelType() == Constants::ParticleLayoutType)
+        populateLayout(model, item);
+
+    else if (item.modelType() == Constants::ParticleType)
+        populateParticle(model, item);
+}
+
+void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
+                                          const QVector3D&)
+{
+    double total_height;
+    for (auto layer : item.getItems(MultiLayerItem::T_LAYERS)) {
+        double thickness = layer->getItemValue(LayerItem::P_THICKNESS).toDouble();
+
+        if (thickness == 0)
+            thickness = layer_min_thickness;
+
+        populateLayer(model, *layer, QVector3D(0, 0, -total_height));
+
+        total_height += thickness;
+    }
+}
+
+void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
+                                     const QVector3D& origin)
+{
+    auto layer = TransformTo3D::createLayer(layerItem, origin);
+    model->addBlend(layer.release());
+
+    for (auto layout : layerItem.getItems(LayerItem::T_LAYOUTS))
+        populateLayout(model, *layout, origin);
+}
+
+void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
+                                      const QVector3D& origin)
+{
+    Q_ASSERT(layoutItem.modelType() == Constants::ParticleLayoutType);
+
+    for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
+        populateParticle(model, *particle, origin);
+}
+
+void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
+                                        const QVector3D& origin)
+{
+    Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
+
+    auto particle = TransformTo3D::createParticle(particleItem);
+
+    if (particle) {
+        particle->transform(ba3d::xyz::_0, ba3d::xyz(origin.x(), origin.y(), origin.z()));
+        model->add(particle.release());
+    }
 }

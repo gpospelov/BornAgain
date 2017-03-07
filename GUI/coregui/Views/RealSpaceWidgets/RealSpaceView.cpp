@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/TestView.h
-//! @brief     Defines class TestView
+//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceView.cpp
+//! @brief     Implements class RealSpaceView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,27 +14,24 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTVIEW_H
-#define TESTVIEW_H
+#include "RealSpaceView.h"
+#include "RealSpaceModel.h"
+#include <ba3d/widget.h>
+#include <QVBoxLayout>
 
-#include "WinDllMacros.h"
-#include <QWidget>
-
-class MainWindow;
-
-class BA_CORE_API_ TestView : public QWidget
+RealSpaceView::RealSpaceView(QWidget* parent)
+    : QWidget(parent)
+    , m_3dview(new ba3d::Widget3D)
 {
-    Q_OBJECT
-public:
-    TestView(MainWindow* mainWindow = 0);
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
 
-private:
-    void test_MaterialEditor();
-    void test_MinimizerSettings();
-    void test_AccordionWidget();
-    void test_ba3d();
+    layout->addWidget(m_3dview);
+    setLayout(layout);
+}
 
-    MainWindow* m_mainWindow;
-};
-
-#endif // TESTVIEW_H
+void RealSpaceView::setModel(RealSpaceModel* model)
+{
+    m_3dview->setModel(model);
+}

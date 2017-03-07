@@ -46,5 +46,6 @@
         <file>images/toolbar16light_save.svg</file>
         <file>images/toolbar16light_projections.svg</file>
         <file>images/toolbar16light_propertypanel.svg</file>
+        <file>images/main_testview.svg</file>
     </qresource>
 </RCC>

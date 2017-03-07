@@ -10681,6 +10681,18 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_clone(self)
 
 
+    def createSlicedFormFactor(self, limits, rot, translation):
+        """
+        createSlicedFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor
+
+        IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
+
+        Creates a sliced form factor with the given rotation and translation. 
+
+        """
+        return _libBornAgainCore.IFormFactor_createSlicedFormFactor(self, limits, rot, translation)
+
+
     def setAmbientMaterial(self, arg0):
         """
         setAmbientMaterial(IFormFactor self, IMaterial arg0)
@@ -10771,6 +10783,24 @@ class IFormFactor(ISample):
 IFormFactor_swigregister = _libBornAgainCore.IFormFactor_swigregister
 IFormFactor_swigregister(IFormFactor)
 
+
+def ShapeIsContainedInLimits(formfactor, limits, rot, translation):
+    """
+    ShapeIsContainedInLimits(IFormFactor formfactor, ZLimits limits, IRotation rot, kvector_t translation) -> bool
+
+    bool ShapeIsContainedInLimits(const IFormFactor &formfactor, ZLimits limits, const IRotation &rot, kvector_t translation)
+
+    """
+    return _libBornAgainCore.ShapeIsContainedInLimits(formfactor, limits, rot, translation)
+
+def CreateTransformedFormFactor(formfactor, rot, translation):
+    """
+    CreateTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
+
+    IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+
+    """
+    return _libBornAgainCore.CreateTransformedFormFactor(formfactor, rot, translation)
 class vector_IFormFactorPtr_t(_object):
     """Proxy of C++ std::vector<(p.IFormFactor)> class."""
 
@@ -18594,16 +18624,16 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_createFormFactor(self)
 
 
-    def createTransformedFormFactor(self, p_rotation, translation):
+    def createSlicedFormFactor(self, limits):
         """
-        createTransformedFormFactor(IParticle self, IRotation p_rotation, kvector_t translation) -> IFormFactor
+        createSlicedFormFactor(IParticle self, ZLimits limits) -> IFormFactor
 
-        virtual IFormFactor* IParticle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const =0
+        IFormFactor * IParticle::createSlicedFormFactor(ZLimits limits) const
 
-        Create a form factor for this particle with an extra transformation. 
+        Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.IParticle_createTransformedFormFactor(self, p_rotation, translation)
+        return _libBornAgainCore.IParticle_createSlicedFormFactor(self, limits)
 
 
     def getPosition(self):
@@ -18716,7 +18746,14 @@ class IParticle(IAbstractParticle):
 
 
     def decompose(self):
-        """decompose(IParticle self) -> SafePointerVector< IParticle >"""
+        """
+        decompose(IParticle self) -> SafePointerVector< IParticle >
+
+        SafePointerVector< IParticle > IParticle::decompose() const
+
+        Decompose in constituent  IParticle objects. 
+
+        """
         return _libBornAgainCore.IParticle_decompose(self)
 
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
@@ -22109,7 +22146,7 @@ class MesoCrystal(IParticle):
         """
         clone(MesoCrystal self) -> MesoCrystal
 
-        MesoCrystal * MesoCrystal::clone() const
+        MesoCrystal * MesoCrystal::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -22121,7 +22158,7 @@ class MesoCrystal(IParticle):
         """
         cloneInvertB(MesoCrystal self) -> MesoCrystal
 
-        MesoCrystal * MesoCrystal::cloneInvertB() const
+        MesoCrystal * MesoCrystal::cloneInvertB() const overridefinal
 
         Returns a clone with inverted magnetic fields. 
 
@@ -22133,7 +22170,7 @@ class MesoCrystal(IParticle):
         """
         accept(MesoCrystal self, INodeVisitor visitor)
 
-        void MesoCrystal::accept(INodeVisitor *visitor) const
+        void MesoCrystal::accept(INodeVisitor *visitor) const overridefinal
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22141,16 +22178,16 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_accept(self, visitor)
 
 
-    def createTransformedFormFactor(self, p_rotation, translation):
+    def createSlicedFormFactor(self, limits):
         """
-        createTransformedFormFactor(MesoCrystal self, IRotation p_rotation, kvector_t translation) -> IFormFactor
+        createSlicedFormFactor(MesoCrystal self, ZLimits limits) -> IFormFactor
 
-        IFormFactor * MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
+        IFormFactor * MesoCrystal::createSlicedFormFactor(ZLimits limits) const overridefinal
 
-        Create a form factor for this particle with an extra scattering factor. 
+        Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.MesoCrystal_createTransformedFormFactor(self, p_rotation, translation)
+        return _libBornAgainCore.MesoCrystal_createSlicedFormFactor(self, limits)
 
 
     def getClusteredParticles(self):
@@ -22169,7 +22206,7 @@ class MesoCrystal(IParticle):
         """
         getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > MesoCrystal::getChildren() const
+        std::vector< const INode * > MesoCrystal::getChildren() const overridefinal
 
         Returns a vector of children (const). 
 
@@ -22507,12 +22544,26 @@ class MultiLayer(ISample):
 
 
     def bottomZToLayerIndex(self, z_value):
-        """bottomZToLayerIndex(MultiLayer self, double z_value) -> size_t"""
+        """
+        bottomZToLayerIndex(MultiLayer self, double z_value) -> size_t
+
+        size_t MultiLayer::bottomZToLayerIndex(double z_value) const
+
+        returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
+
+        """
         return _libBornAgainCore.MultiLayer_bottomZToLayerIndex(self, z_value)
 
 
     def topZToLayerIndex(self, z_value):
-        """topZToLayerIndex(MultiLayer self, double z_value) -> size_t"""
+        """
+        topZToLayerIndex(MultiLayer self, double z_value) -> size_t
+
+        size_t MultiLayer::topZToLayerIndex(double z_value) const
+
+        returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer beneath 
+
+        """
         return _libBornAgainCore.MultiLayer_topZToLayerIndex(self, z_value)
 
 
@@ -23824,7 +23875,7 @@ class Particle(IParticle):
         """
         clone(Particle self) -> Particle
 
-        Particle * Particle::clone() const
+        Particle * Particle::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -23836,7 +23887,7 @@ class Particle(IParticle):
         """
         cloneInvertB(Particle self) -> Particle
 
-        Particle * Particle::cloneInvertB() const
+        Particle * Particle::cloneInvertB() const overridefinal
 
         Returns a clone with inverted magnetic fields. 
 
@@ -23848,7 +23899,7 @@ class Particle(IParticle):
         """
         accept(Particle self, INodeVisitor visitor)
 
-        virtual void Particle::accept(INodeVisitor *visitor) const
+        void Particle::accept(INodeVisitor *visitor) const overridefinal
 
         Calls the  INodeVisitor's visit method. 
 
@@ -23856,16 +23907,16 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_accept(self, visitor)
 
 
-    def createTransformedFormFactor(self, p_rotation, translation):
+    def createSlicedFormFactor(self, limits):
         """
-        createTransformedFormFactor(Particle self, IRotation p_rotation, kvector_t translation) -> IFormFactor
+        createSlicedFormFactor(Particle self, ZLimits limits) -> IFormFactor
 
-        IFormFactor * Particle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
+        IFormFactor * Particle::createSlicedFormFactor(ZLimits limits) const overridefinal
 
-        Create a form factor for this particle with an extra scattering factor. 
+        Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.Particle_createTransformedFormFactor(self, p_rotation, translation)
+        return _libBornAgainCore.Particle_createSlicedFormFactor(self, limits)
 
 
     def setMaterial(self, material):
@@ -23882,7 +23933,7 @@ class Particle(IParticle):
         """
         getMaterial(Particle self) -> IMaterial
 
-        const IMaterial* Particle::getMaterial() const
+        const IMaterial* Particle::getMaterial() const overridefinal
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -23924,7 +23975,7 @@ class Particle(IParticle):
         """
         getChildren(Particle self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > Particle::getChildren() const
+        std::vector< const INode * > Particle::getChildren() const overridefinal
 
         Returns a vector of children (const). 
 
@@ -23976,7 +24027,7 @@ class ParticleComposition(IParticle):
         """
         clone(ParticleComposition self) -> ParticleComposition
 
-        ParticleComposition * ParticleComposition::clone() const
+        ParticleComposition * ParticleComposition::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -23988,7 +24039,7 @@ class ParticleComposition(IParticle):
         """
         cloneInvertB(ParticleComposition self) -> ParticleComposition
 
-        ParticleComposition * ParticleComposition::cloneInvertB() const
+        ParticleComposition * ParticleComposition::cloneInvertB() const override
 
         Returns a clone with inverted magnetic fields. 
 
@@ -24000,7 +24051,7 @@ class ParticleComposition(IParticle):
         """
         accept(ParticleComposition self, INodeVisitor visitor)
 
-        virtual void ParticleComposition::accept(INodeVisitor *visitor) const
+        void ParticleComposition::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -24033,9 +24084,7 @@ class ParticleComposition(IParticle):
         """
         createTransformedFormFactor(ParticleComposition self, IRotation p_rotation, kvector_t translation) -> IFormFactor
 
-        IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
-
-        Create a form factor for this particle with an extra scattering factor. 
+        IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const 
 
         """
         return _libBornAgainCore.ParticleComposition_createTransformedFormFactor(self, p_rotation, translation)
@@ -24079,7 +24128,7 @@ class ParticleComposition(IParticle):
         """
         getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleComposition::getChildren() const
+        std::vector< const INode * > ParticleComposition::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -24088,7 +24137,14 @@ class ParticleComposition(IParticle):
 
 
     def decompose(self):
-        """decompose(ParticleComposition self) -> SafePointerVector< IParticle >"""
+        """
+        decompose(ParticleComposition self) -> SafePointerVector< IParticle >
+
+        SafePointerVector< IParticle > ParticleComposition::decompose() const override
+
+        Decompose in constituent  IParticle objects. 
+
+        """
         return _libBornAgainCore.ParticleComposition_decompose(self)
 
 ParticleComposition_swigregister = _libBornAgainCore.ParticleComposition_swigregister
@@ -24134,7 +24190,7 @@ class ParticleCoreShell(IParticle):
         """
         clone(ParticleCoreShell self) -> ParticleCoreShell
 
-        ParticleCoreShell * ParticleCoreShell::clone() const final
+        ParticleCoreShell * ParticleCoreShell::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -24146,7 +24202,7 @@ class ParticleCoreShell(IParticle):
         """
         cloneInvertB(ParticleCoreShell self) -> ParticleCoreShell
 
-        ParticleCoreShell * ParticleCoreShell::cloneInvertB() const final
+        ParticleCoreShell * ParticleCoreShell::cloneInvertB() const overridefinal
 
         Returns a clone with inverted magnetic fields. 
 
@@ -24158,7 +24214,7 @@ class ParticleCoreShell(IParticle):
         """
         accept(ParticleCoreShell self, INodeVisitor visitor)
 
-        void ParticleCoreShell::accept(INodeVisitor *visitor) const final
+        void ParticleCoreShell::accept(INodeVisitor *visitor) const overridefinal
 
         Calls the  INodeVisitor's visit method. 
 
@@ -24166,16 +24222,16 @@ class ParticleCoreShell(IParticle):
         return _libBornAgainCore.ParticleCoreShell_accept(self, visitor)
 
 
-    def createTransformedFormFactor(self, p_rotation, translation):
+    def createSlicedFormFactor(self, limits):
         """
-        createTransformedFormFactor(ParticleCoreShell self, IRotation p_rotation, kvector_t translation) -> IFormFactor
+        createSlicedFormFactor(ParticleCoreShell self, ZLimits limits) -> IFormFactor
 
-        IFormFactor * ParticleCoreShell::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const final
+        IFormFactor * ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const overridefinal
 
-        Create a form factor for this particle with an extra scattering factor. 
+        Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.ParticleCoreShell_createTransformedFormFactor(self, p_rotation, translation)
+        return _libBornAgainCore.ParticleCoreShell_createSlicedFormFactor(self, limits)
 
 
     def coreParticle(self):
@@ -24202,7 +24258,7 @@ class ParticleCoreShell(IParticle):
         """
         getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleCoreShell::getChildren() const
+        std::vector< const INode * > ParticleCoreShell::getChildren() const overridefinal
 
         Returns a vector of children (const). 
 

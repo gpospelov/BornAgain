@@ -334,8 +334,8 @@ size_t MultiLayer::topZToLayerIndex(double z_value) const
     if (n_layers < 2)
         return 0;
     if (z_value < m_layers_z[n_layers-2]) return m_layers_z.size()-1;
-    auto bottom_limit = std::lower_bound(m_layers_z.begin(), m_layers_z.end(), z_value);
-    size_t nbin = static_cast<size_t>(bottom_limit - m_layers_z.begin());
+    auto bottom_limit = std::lower_bound(m_layers_z.rbegin()+1, m_layers_z.rend(), z_value);
+    size_t nbin = static_cast<size_t>(m_layers_z.rend() - bottom_limit);
     return nbin;
 }
 

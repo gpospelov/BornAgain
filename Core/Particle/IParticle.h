@@ -20,6 +20,7 @@
 #include "Rotations.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
+#include "ZLimits.h"
 #include <memory>
 
 
@@ -41,9 +42,8 @@ public:
     //! Create a form factor for this particle
     IFormFactor* createFormFactor() const;
 
-    //! Create a form factor for this particle with an extra transformation
-    virtual IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const =0;
+    //! Create a sliced form factor for this particle
+    virtual IFormFactor* createSlicedFormFactor(ZLimits limits) const;
 
     //! Returns particle position.
     kvector_t getPosition() const { return m_position; }

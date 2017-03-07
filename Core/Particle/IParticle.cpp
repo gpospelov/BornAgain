@@ -21,7 +21,13 @@
 
 IFormFactor* IParticle::createFormFactor() const
 {
-    return createTransformedFormFactor(nullptr, kvector_t());
+    return createSlicedFormFactor(ZLimits {});
+}
+
+IFormFactor* IParticle::createSlicedFormFactor(ZLimits /*limits*/) const
+{
+    throw std::runtime_error("IParticle::createSlicedFormFactor error: "
+                             "not implemented!");
 }
 
 void IParticle::applyTranslation(kvector_t displacement)

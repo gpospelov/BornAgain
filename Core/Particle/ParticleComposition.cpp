@@ -88,13 +88,13 @@ IFormFactor* ParticleComposition::createTransformedFormFactor(
 {
     if (m_particles.size() == 0)
         return 0;
-    const std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
     FormFactorWeighted* p_result = new FormFactorWeighted();
-    for (size_t index = 0; index < m_particles.size(); ++index) {
-        const std::unique_ptr<IFormFactor> P_particle_ff(
-            m_particles[index]->createTransformedFormFactor(P_total_rotation.get(),
-                                                            total_position));
+    auto particles = decompose();
+    for (auto p_particle : particles) {
+        if (p_rotation)
+            p_particle->applyRotation(*p_rotation);
+        p_particle->applyTranslation(translation);
+        const std::unique_ptr<IFormFactor> P_particle_ff(p_particle->createFormFactor());
         p_result->addFormFactor(*P_particle_ff);
     }
     return p_result;

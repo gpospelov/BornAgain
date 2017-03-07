@@ -45,6 +45,10 @@ private slots:
     void updateScene();
     void resetScene();
 
+protected:
+    virtual void showEvent(QShowEvent*);
+    virtual void hideEvent(QHideEvent*);
+
 private:
     void setConnected(SampleModel* model, bool makeConnected);
 

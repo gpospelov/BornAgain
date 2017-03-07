@@ -21,29 +21,55 @@
 #include "MaterialProperty.h"
 #include "VectorItem.h"
 #include "LayerItem.h"
+#include "MultiLayerItem.h"
 #include "GUIHelpers.h"
+#include <QDebug>
 
 namespace {
     const double layer_alpha = 0.3;
-    const double layer_size = 50;
-    const double layer_min_thickness = 25;
+    const double layer_size = 50.0;
+    const double top_layer_thickness = 25.0;
+    const double bottom_layer_thickness = 25.0;
+    const double layer_min_thickness = 2.0;
+
+    bool isTopLayer(const SessionItem& layerItem) {
+        auto layers = layerItem.parent()->getItems(MultiLayerItem::T_LAYERS);
+        return layers.indexOf(const_cast<SessionItem*>(&layerItem)) == 0;
+    }
+
+    bool isBottomLayer(const SessionItem& layerItem) {
+        auto layers = layerItem.parent()->getItems(MultiLayerItem::T_LAYERS);
+        return layers.indexOf(const_cast<SessionItem*>(&layerItem)) == layers.size() -1;
+    }
+
+}
+
+double TransformTo3D::visualLayerThickness(const SessionItem& layerItem)
+{
+    Q_ASSERT(layerItem.modelType() == Constants::LayerType);
+
+    double thickness(0.0);
+    if(isTopLayer(layerItem))
+        thickness = top_layer_thickness;
+    else if(isBottomLayer(layerItem))
+        thickness = bottom_layer_thickness;
+    else
+        thickness = layerItem.getItemValue(LayerItem::P_THICKNESS).toDouble();
+
+    return thickness == 0.0 ? layer_min_thickness :  thickness;
 }
 
 std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layerItem, const QVector3D& origin)
 {
     Q_ASSERT(layerItem.modelType() == Constants::LayerType);
 
-    double thickness = layerItem.getItemValue(LayerItem::P_THICKNESS).toDouble();
-
-    if(thickness == 0)
-        thickness = layer_min_thickness;
+    double thickness = TransformTo3D::visualLayerThickness(layerItem);
 
     double s2 = layer_size;
-
-//    double ztop = thickness;
-//    double zbottom = 0.0;
     double ztop = origin.z() + thickness;
     double zbottom = origin.z();
+
+    qDebug() << "TransformTo3D::createLayer" << origin << "zbottom " << zbottom << "ztop:" << ztop;
 
     std::unique_ptr<ba3d::Layer> result = GUIHelpers::make_unique<ba3d::Layer>(
         ba3d::dxyz(ba3d::dr(-s2,+s2), ba3d::dr(-s2,+s2), ba3d::dr(ztop, zbottom)));

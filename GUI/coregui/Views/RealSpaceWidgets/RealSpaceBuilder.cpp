@@ -52,17 +52,17 @@ void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
 void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
                                           const QVector3D&)
 {
-    double total_height;
+    double total_height(0.0);
+    int index(0);
     for (auto layer : item.getItems(MultiLayerItem::T_LAYERS)) {
-        double thickness = layer->getItemValue(LayerItem::P_THICKNESS).toDouble();
 
-        if (thickness == 0)
-            thickness = layer_min_thickness;
+        if(index != 0)
+            total_height += TransformTo3D::visualLayerThickness(*layer);
 
         populateLayer(model, *layer, QVector3D(0, 0, -total_height));
-
-        total_height += thickness;
+        ++index;
     }
+
 }
 
 void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& layerItem,

@@ -32,6 +32,9 @@ public:
     double getBaseEdge() const { return m_base_edge; }
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:

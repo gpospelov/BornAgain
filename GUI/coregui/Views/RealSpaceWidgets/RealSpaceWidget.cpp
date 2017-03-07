@@ -16,7 +16,7 @@
 
 #include "RealSpaceWidget.h"
 #include "RealSpaceToolBar.h"
-#include "RealSpaceScene.h"
+#include "RealSpaceCanvas.h"
 #include "RealSpaceView.h"
 #include "RealSpaceActions.h"
 #include "RealSpacePanel.h"
@@ -31,7 +31,7 @@ RealSpaceWidget::RealSpaceWidget(QWidget* parent)
     : QWidget(parent)
     , m_toolBar(new RealSpaceToolBar)
     , m_view(new RealSpaceView)
-    , m_scene(new RealSpaceScene)
+    , m_scene(new RealSpaceCanvas)
     , m_actions(new RealSpaceActions)
     , m_panel(new RealSpacePanel)
     , m_sampleModel(nullptr)
@@ -106,6 +106,7 @@ void RealSpaceWidget::resetScene()
 {
     m_realSpaceModel.reset();
     m_view->setModel(nullptr);
+
 }
 
 void RealSpaceWidget::setConnected(SampleModel* model, bool makeConnected)

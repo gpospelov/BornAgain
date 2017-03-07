@@ -24,7 +24,7 @@
 
 class RealSpaceToolBar;
 class RealSpaceView;
-class RealSpaceScene;
+class RealSpaceCanvas;
 class RealSpaceActions;
 class RealSpacePanel;
 class SampleModel;
@@ -54,7 +54,7 @@ private:
 
     RealSpaceToolBar* m_toolBar;
     RealSpaceView* m_view;
-    RealSpaceScene* m_scene;
+    RealSpaceCanvas* m_scene;
     RealSpaceActions* m_actions;
     RealSpacePanel* m_panel;
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceScene.h
-//! @brief     Defines class RealSpaceScene
+//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.h
+//! @brief     Defines class RealSpaceCanvas
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REALSPACESCENE_H
-#define REALSPACESCENE_H
+#ifndef REALSPACECANVAS_H
+#define REALSPACECANVAS_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -23,14 +23,14 @@
 
 class SampleModel;
 
-//! Provides 3D object generation logic for RealSpaceWidget.
+//! Provides 3D object generation for RealSpaceWidget.
 
-class BA_CORE_API_ RealSpaceScene : public QObject
+class BA_CORE_API_ RealSpaceCanvas : public QObject
 {
     Q_OBJECT
 
 public:
-    RealSpaceScene(QObject* parent = 0);
+    RealSpaceCanvas(QObject* parent = 0);
 
     void setModel(SampleModel* model);
 

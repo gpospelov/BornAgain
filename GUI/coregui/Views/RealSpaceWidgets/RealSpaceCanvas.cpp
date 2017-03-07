@@ -14,23 +14,23 @@
 //
 // ************************************************************************** //
 
-#include "RealSpaceScene.h"
+#include "RealSpaceCanvas.h"
 #include "SampleModel.h"
 #include <QDebug>
 
-RealSpaceScene::RealSpaceScene(QObject* parent)
+RealSpaceCanvas::RealSpaceCanvas(QObject* parent)
     : QObject(parent)
 {
 
 }
 
-void RealSpaceScene::setModel(SampleModel* model)
+void RealSpaceCanvas::setModel(SampleModel* model)
 {
     m_model = model;
 
 }
 
-void RealSpaceScene::onSelectionChanged(const QModelIndex& selected)
+void RealSpaceCanvas::onSelectionChanged(const QModelIndex& selected)
 {
     if(selected.isValid())
         return;
@@ -38,7 +38,7 @@ void RealSpaceScene::onSelectionChanged(const QModelIndex& selected)
     m_rootIndex = selected;
 }
 
-void RealSpaceScene::updateScene()
+void RealSpaceCanvas::updateScene()
 {
 
 }

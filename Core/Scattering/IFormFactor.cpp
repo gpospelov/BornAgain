@@ -15,9 +15,23 @@
 
 #include "IFormFactor.h"
 #include "Exceptions.h"
+#include "FormFactorDecoratorPositionFactor.h"
+#include "FormFactorDecoratorRotation.h"
+#include "Rotations.h"
 #include "WavevectorInfo.h"
+#include <memory>
+#include <utility>
 
 IFormFactor::~IFormFactor() {}
+
+IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation& rot,
+                                                kvector_t translation) const
+{
+    if (ShapeIsContainedInLimits(*this, limits, rot, translation))
+        return CreateTransformedFormFactor(*this, rot, translation);
+    throw std::runtime_error("IFormFactor::createSlicedFormFactor error: "
+                             "not implemented!");
+}
 
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
@@ -30,4 +44,37 @@ double IFormFactor::getVolume() const
 {
     WavevectorInfo zero_wavevectors;
     return std::abs(evaluate(zero_wavevectors));
+}
+
+bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
+                              const IRotation& rot, kvector_t translation)
+{
+    double zbottom = formfactor.bottomZ(rot) + translation.z();
+    double ztop = formfactor.topZ(rot) + translation.z();
+    switch (limits.type()) {
+    case ZLimits::FINITE:
+        return zbottom>=limits.zmin() && ztop<=limits.zmax();
+    case ZLimits::INFINITE:
+        return true;
+    case ZLimits::NEG_INFINITE:
+        return ztop<=limits.zmax();
+    case ZLimits::POS_INFINITE:
+        return zbottom>=limits.zmin();
+    }
+    return false;
+}
+
+IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
+                                        kvector_t translation)
+{
+    std::unique_ptr<IFormFactor> P_fftemp, P_result;
+    if (!rot.isIdentity())
+        P_fftemp.reset(new FormFactorDecoratorRotation(formfactor, rot));
+    else
+        P_fftemp.reset(formfactor.clone());
+    if (translation!=kvector_t())
+        P_result.reset(new FormFactorDecoratorPositionFactor(*P_fftemp, translation));
+    else
+        std::swap(P_fftemp, P_result);
+    return P_result.release();
 }

@@ -6318,6 +6318,11 @@ C++ includes: IFormFactor.h
 Returns a clone of this  ISample object. 
 ";
 
+%feature("docstring")  IFormFactor::createSlicedFormFactor "IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
+
+Creates a sliced form factor with the given rotation and translation. 
+";
+
 %feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)=0
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
@@ -8573,9 +8578,9 @@ Calls the  INodeVisitor's visit method.
 Create a form factor for this particle. 
 ";
 
-%feature("docstring")  IParticle::createTransformedFormFactor "virtual IFormFactor* IParticle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const =0
+%feature("docstring")  IParticle::createSlicedFormFactor "IFormFactor * IParticle::createSlicedFormFactor(ZLimits limits) const
 
-Create a form factor for this particle with an extra transformation. 
+Create a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  IParticle::getPosition "kvector_t IParticle::getPosition() const
@@ -8593,6 +8598,11 @@ Sets particle position.
 Sets particle position. 
 ";
 
+%feature("docstring")  IParticle::applyTranslation "void IParticle::applyTranslation(kvector_t displacement)
+
+Applies extra translation by adding it to the current one. 
+";
+
 %feature("docstring")  IParticle::getRotation "const IRotation * IParticle::getRotation() const
 
 Returns rotation object. 
@@ -8608,11 +8618,6 @@ Sets transformation.
 Applies transformation by composing it with the existing one. 
 ";
 
-%feature("docstring")  IParticle::applyTranslation "void IParticle::applyTranslation(kvector_t displacement)
-
-Applies extra translation by adding it to the current one. 
-";
-
 %feature("docstring")  IParticle::getChildren "std::vector< const INode * > IParticle::getChildren() const
 
 Returns a vector of children (const). 
@@ -8624,6 +8629,11 @@ Returns a vector of children (const).
 %feature("docstring")  IParticle::registerPosition "void IParticle::registerPosition(bool make_registered=true)
 
 Registers the three components of its position. 
+";
+
+%feature("docstring")  IParticle::decompose "SafePointerVector< IParticle > IParticle::decompose() const
+
+Decompose in constituent  IParticle objects. 
 ";
 
 
@@ -9662,24 +9672,24 @@ C++ includes: MesoCrystal.h
 %feature("docstring")  MesoCrystal::~MesoCrystal "MesoCrystal::~MesoCrystal()
 ";
 
-%feature("docstring")  MesoCrystal::clone "MesoCrystal * MesoCrystal::clone() const
+%feature("docstring")  MesoCrystal::clone "MesoCrystal * MesoCrystal::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  MesoCrystal::cloneInvertB "MesoCrystal * MesoCrystal::cloneInvertB() const
+%feature("docstring")  MesoCrystal::cloneInvertB "MesoCrystal * MesoCrystal::cloneInvertB() const overridefinal
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  MesoCrystal::accept "void MesoCrystal::accept(INodeVisitor *visitor) const
+%feature("docstring")  MesoCrystal::accept "void MesoCrystal::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  MesoCrystal::createTransformedFormFactor "IFormFactor * MesoCrystal::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
+%feature("docstring")  MesoCrystal::createSlicedFormFactor "IFormFactor * MesoCrystal::createSlicedFormFactor(ZLimits limits) const overridefinal
 
-Create a form factor for this particle with an extra scattering factor. 
+Create a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  MesoCrystal::getClusteredParticles "const IClusteredParticles* MesoCrystal::getClusteredParticles() const
@@ -9687,7 +9697,7 @@ Create a form factor for this particle with an extra scattering factor.
 get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
 ";
 
-%feature("docstring")  MesoCrystal::getChildren "std::vector< const INode * > MesoCrystal::getChildren() const
+%feature("docstring")  MesoCrystal::getChildren "std::vector< const INode * > MesoCrystal::getChildren() const overridefinal
 
 Returns a vector of children (const). 
 ";
@@ -9849,9 +9859,14 @@ returns layer index
 returns true if contains magnetic materials and matrix calculations are required 
 ";
 
-%feature("docstring")  MultiLayer::zToLayerIndex "size_t MultiLayer::zToLayerIndex(double z_value) const
+%feature("docstring")  MultiLayer::bottomZToLayerIndex "size_t MultiLayer::bottomZToLayerIndex(double z_value) const
 
 returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
+";
+
+%feature("docstring")  MultiLayer::topZToLayerIndex "size_t MultiLayer::topZToLayerIndex(double z_value) const
+
+returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer beneath 
 ";
 
 %feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const 
@@ -10648,30 +10663,30 @@ C++ includes: Particle.h
 %feature("docstring")  Particle::Particle "Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation)
 ";
 
-%feature("docstring")  Particle::clone "Particle * Particle::clone() const
+%feature("docstring")  Particle::clone "Particle * Particle::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Particle::cloneInvertB "Particle * Particle::cloneInvertB() const
+%feature("docstring")  Particle::cloneInvertB "Particle * Particle::cloneInvertB() const overridefinal
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Particle::accept "virtual void Particle::accept(INodeVisitor *visitor) const
+%feature("docstring")  Particle::accept "void Particle::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  Particle::createTransformedFormFactor "IFormFactor * Particle::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
+%feature("docstring")  Particle::createSlicedFormFactor "IFormFactor * Particle::createSlicedFormFactor(ZLimits limits) const overridefinal
 
-Create a form factor for this particle with an extra scattering factor. 
+Create a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const IMaterial &material)
 ";
 
-%feature("docstring")  Particle::getMaterial "const IMaterial* Particle::getMaterial() const
+%feature("docstring")  Particle::getMaterial "const IMaterial* Particle::getMaterial() const overridefinal
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
@@ -10685,7 +10700,7 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  Particle::getFormFactor "const IFormFactor* Particle::getFormFactor() const 
 ";
 
-%feature("docstring")  Particle::getChildren "std::vector< const INode * > Particle::getChildren() const
+%feature("docstring")  Particle::getChildren "std::vector< const INode * > Particle::getChildren() const overridefinal
 
 Returns a vector of children (const). 
 ";
@@ -10702,29 +10717,23 @@ C++ includes: ParticleComposition.h
 %feature("docstring")  ParticleComposition::ParticleComposition "ParticleComposition::ParticleComposition()
 ";
 
-%feature("docstring")  ParticleComposition::ParticleComposition "ParticleComposition::ParticleComposition(const IParticle &particle)
-";
-
-%feature("docstring")  ParticleComposition::ParticleComposition "ParticleComposition::ParticleComposition(const IParticle &particle, kvector_t position)
-";
-
 %feature("docstring")  ParticleComposition::ParticleComposition "ParticleComposition::ParticleComposition(const IParticle &particle, std::vector< kvector_t > positions)
 ";
 
 %feature("docstring")  ParticleComposition::~ParticleComposition "ParticleComposition::~ParticleComposition()
 ";
 
-%feature("docstring")  ParticleComposition::clone "ParticleComposition * ParticleComposition::clone() const
+%feature("docstring")  ParticleComposition::clone "ParticleComposition * ParticleComposition::clone() const override
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleComposition::cloneInvertB "ParticleComposition * ParticleComposition::cloneInvertB() const
+%feature("docstring")  ParticleComposition::cloneInvertB "ParticleComposition * ParticleComposition::cloneInvertB() const override
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleComposition::accept "virtual void ParticleComposition::accept(INodeVisitor *visitor) const
+%feature("docstring")  ParticleComposition::accept "void ParticleComposition::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -10738,9 +10747,7 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  ParticleComposition::addParticles "void ParticleComposition::addParticles(const IParticle &particle, std::vector< kvector_t > positions)
 ";
 
-%feature("docstring")  ParticleComposition::createTransformedFormFactor "IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const
-
-Create a form factor for this particle with an extra scattering factor. 
+%feature("docstring")  ParticleComposition::createTransformedFormFactor "IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const 
 ";
 
 %feature("docstring")  ParticleComposition::getNbrParticles "size_t ParticleComposition::getNbrParticles() const
@@ -10756,9 +10763,14 @@ Returns particle with given index.
 %feature("docstring")  ParticleComposition::getParticlePosition "kvector_t ParticleComposition::getParticlePosition(size_t index) const 
 ";
 
-%feature("docstring")  ParticleComposition::getChildren "std::vector< const INode * > ParticleComposition::getChildren() const
+%feature("docstring")  ParticleComposition::getChildren "std::vector< const INode * > ParticleComposition::getChildren() const override
 
 Returns a vector of children (const). 
+";
+
+%feature("docstring")  ParticleComposition::decompose "SafePointerVector< IParticle > ParticleComposition::decompose() const override
+
+Decompose in constituent  IParticle objects. 
 ";
 
 
@@ -10791,24 +10803,24 @@ C++ includes: ParticleCoreShell.h
 %feature("docstring")  ParticleCoreShell::~ParticleCoreShell "ParticleCoreShell::~ParticleCoreShell()
 ";
 
-%feature("docstring")  ParticleCoreShell::clone "ParticleCoreShell * ParticleCoreShell::clone() const final
+%feature("docstring")  ParticleCoreShell::clone "ParticleCoreShell * ParticleCoreShell::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleCoreShell::cloneInvertB "ParticleCoreShell * ParticleCoreShell::cloneInvertB() const final
+%feature("docstring")  ParticleCoreShell::cloneInvertB "ParticleCoreShell * ParticleCoreShell::cloneInvertB() const overridefinal
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ParticleCoreShell::accept "void ParticleCoreShell::accept(INodeVisitor *visitor) const final
+%feature("docstring")  ParticleCoreShell::accept "void ParticleCoreShell::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ParticleCoreShell::createTransformedFormFactor "IFormFactor * ParticleCoreShell::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const final
+%feature("docstring")  ParticleCoreShell::createSlicedFormFactor "IFormFactor * ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const overridefinal
 
-Create a form factor for this particle with an extra scattering factor. 
+Create a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  ParticleCoreShell::coreParticle "const Particle * ParticleCoreShell::coreParticle() const 
@@ -10817,7 +10829,7 @@ Create a form factor for this particle with an extra scattering factor.
 %feature("docstring")  ParticleCoreShell::shellParticle "const Particle * ParticleCoreShell::shellParticle() const 
 ";
 
-%feature("docstring")  ParticleCoreShell::getChildren "std::vector< const INode * > ParticleCoreShell::getChildren() const
+%feature("docstring")  ParticleCoreShell::getChildren "std::vector< const INode * > ParticleCoreShell::getChildren() const overridefinal
 
 Returns a vector of children (const). 
 ";
@@ -12658,6 +12670,30 @@ C++ includes: Slice.h
 ";
 
 
+// File: classSlicedFormFactorList.xml
+%feature("docstring") SlicedFormFactorList "
+
+Class that contains and owns a list of form factors and the index of their containing layer. This class also handles the slicing of form factors if they cross layer interfaces.
+
+C++ includes: SlicedFormFactorList.h
+";
+
+%feature("docstring")  SlicedFormFactorList::SlicedFormFactorList "SlicedFormFactorList::SlicedFormFactorList()=default
+";
+
+%feature("docstring")  SlicedFormFactorList::SlicedFormFactorList "SlicedFormFactorList::SlicedFormFactorList(SlicedFormFactorList &&other)=default
+";
+
+%feature("docstring")  SlicedFormFactorList::~SlicedFormFactorList "SlicedFormFactorList::~SlicedFormFactorList()=default
+";
+
+%feature("docstring")  SlicedFormFactorList::addParticle "void SlicedFormFactorList::addParticle(IParticle &particle, const MultiLayer &multilayer, size_t ref_layer_index)
+";
+
+%feature("docstring")  SlicedFormFactorList::size "size_t SlicedFormFactorList::size() const 
+";
+
+
 // File: classSpecularComputation.xml
 %feature("docstring") SpecularComputation "
 
@@ -13428,6 +13464,30 @@ C++ includes: WavevectorInfo.h
 // File: classConvolve_1_1Workspace.xml
 
 
+// File: classZLimits.xml
+%feature("docstring") ZLimits "
+
+Class that contains upper and lower limits of the z-coordinate for the slicing of form factors.
+
+C++ includes: ZLimits.h
+";
+
+%feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits(Type type=INFINITE, double ref=0.0)
+";
+
+%feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits(double min, double max)
+";
+
+%feature("docstring")  ZLimits::type "Type ZLimits::type() const 
+";
+
+%feature("docstring")  ZLimits::zmin "double ZLimits::zmin() const 
+";
+
+%feature("docstring")  ZLimits::zmax "double ZLimits::zmax() const 
+";
+
+
 // File: namespace_0D144.xml
 
 
@@ -13452,7 +13512,10 @@ C++ includes: WavevectorInfo.h
 // File: namespace_0D324.xml
 
 
-// File: namespace_0D469.xml
+// File: namespace_0D363.xml
+
+
+// File: namespace_0D473.xml
 
 
 // File: namespace_0D60.xml
@@ -15126,13 +15189,43 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 // File: ParticleDistribution_8h.xml
 
 
+// File: SlicedFormFactorList_8cpp.xml
+%feature("docstring")  CreateSlicedFormFactors "SlicedFormFactorList CreateSlicedFormFactors(const IParticle &particle, const MultiLayer &multilayer, size_t ref_layer_index)
+
+Global function that creates a  SlicedFormFactorList from an  IParticle in a multilayer 
+";
+
+
+// File: SlicedFormFactorList_8h.xml
+%feature("docstring")  CreateSlicedFormFactors "SlicedFormFactorList CreateSlicedFormFactors(const IParticle &particle, const MultiLayer &multilayer, size_t ref_layer_index)
+
+Global function that creates a  SlicedFormFactorList from an  IParticle in a multilayer 
+";
+
+
 // File: TRange_8h.xml
 
 
+// File: ZLimits_8cpp.xml
+
+
+// File: ZLimits_8h.xml
+
+
 // File: IFormFactor_8cpp.xml
+%feature("docstring")  ShapeIsContainedInLimits "bool ShapeIsContainedInLimits(const IFormFactor &formfactor, ZLimits limits, const IRotation &rot, kvector_t translation)
+";
+
+%feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+";
 
 
 // File: IFormFactor_8h.xml
+%feature("docstring")  ShapeIsContainedInLimits "bool ShapeIsContainedInLimits(const IFormFactor &formfactor, ZLimits limits, const IRotation &rot, kvector_t translation)
+";
+
+%feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
+";
 
 
 // File: IFormFactorBorn_8cpp.xml

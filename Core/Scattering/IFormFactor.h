@@ -19,6 +19,8 @@
 #include "ISample.h"
 #include "Complex.h"
 #include "EigenCore.h"
+#include "Vectors3D.h"
+#include "ZLimits.h"
 
 class IMaterial;
 class ILayerRTCoefficients;
@@ -42,6 +44,10 @@ public:
     IFormFactor() {}
     ~IFormFactor() override;
     IFormFactor* clone() const override=0;
+
+    //! Creates a sliced form factor with the given rotation and translation
+    virtual IFormFactor* createSlicedFormFactor(ZLimits limits, const IRotation& rot,
+                                                kvector_t translation) const;
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) =0;
@@ -70,5 +76,11 @@ public:
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}
 };
+
+bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
+                              const IRotation& rot, kvector_t translation);
+
+IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
+                                         kvector_t translation);
 
 #endif // IFORMFACTOR_H

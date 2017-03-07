@@ -77,31 +77,20 @@ Particle* Particle::cloneInvertB() const
     return p_result;
 }
 
-IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
-                                                   kvector_t translation) const
+IFormFactor* Particle::createSlicedFormFactor(ZLimits limits) const
 {
     if (!mP_form_factor)
         return nullptr;
-    const std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
-    std::unique_ptr<IFormFactor> P_temp_ff1;
-    if (P_total_rotation)
-        P_temp_ff1.reset(new FormFactorDecoratorRotation(*mP_form_factor, *P_total_rotation));
-    else
-        P_temp_ff1.reset(mP_form_factor->clone());
-    std::unique_ptr<IFormFactor> P_temp_ff2;
-    if (total_position != kvector_t())
-        P_temp_ff2.reset(new FormFactorDecoratorPositionFactor(*P_temp_ff1, total_position));
-    else
-        P_temp_ff2.swap(P_temp_ff1);
-    FormFactorDecoratorMaterial* p_ff = new FormFactorDecoratorMaterial(*P_temp_ff2);
+    std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
+    if (mP_rotation)
+        P_rotation.reset(mP_rotation->clone());
+    std::unique_ptr<IFormFactor> P_temp_ff(
+                mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
+    FormFactorDecoratorMaterial* p_ff = new FormFactorDecoratorMaterial(*P_temp_ff);
     if (mP_material) {
-        if (mP_rotation) {
-            const std::unique_ptr<const IMaterial> P_transformed_material(
-                mP_material->createTransformedMaterial(P_total_rotation->getTransform3D()));
-            p_ff->setMaterial(*P_transformed_material);
-        } else
-            p_ff->setMaterial(*mP_material);
+        const std::unique_ptr<const IMaterial> P_transformed_material(
+                    mP_material->createTransformedMaterial(P_rotation->getTransform3D()));
+        p_ff->setMaterial(*P_transformed_material);
     }
     return p_ff;
 }

@@ -325,6 +325,7 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
+    virtual IFormFactor *createSlicedFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -362,7 +363,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };
@@ -383,6 +384,7 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
+    virtual IFormFactor *createSlicedFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -421,7 +423,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[19];
 #endif
 
 };

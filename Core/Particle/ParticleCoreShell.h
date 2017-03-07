@@ -29,22 +29,20 @@ class BA_CORE_API_ ParticleCoreShell : public IParticle
 public:
     ParticleCoreShell(const Particle& shell, const Particle& core,
                       kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0));
-    virtual ~ParticleCoreShell();
+    ~ParticleCoreShell();
 
-    ParticleCoreShell* clone() const final;
-    ParticleCoreShell* cloneInvertB() const final;
+    ParticleCoreShell* clone() const override final;
+    ParticleCoreShell* cloneInvertB() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    //! Create a form factor for this particle with an extra scattering factor
-    IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const final;
+    IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
     const Particle* coreParticle() const;
 
     const Particle* shellParticle() const;
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override final;
 
 protected:
     void addAndRegisterCore(const Particle& core, kvector_t relative_core_position);

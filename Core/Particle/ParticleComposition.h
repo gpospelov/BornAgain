@@ -42,7 +42,7 @@ public:
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
     IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
-                                                     kvector_t translation) const override;
+                                             kvector_t translation) const;
 
     //! Returns number of different particles
     size_t getNbrParticles() const { return m_particles.size(); }

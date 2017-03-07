@@ -33,26 +33,24 @@ public:
     Particle(const IMaterial& p_material, const IFormFactor& form_factor,
              const IRotation& rotation);
 
-    virtual Particle* clone() const;
+    Particle* clone() const override final;
 
     //! Returns a clone with inverted magnetic fields
-    virtual Particle* cloneInvertB() const;
+    Particle* cloneInvertB() const override final;
 
-    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const;
+    IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
     void setMaterial(const IMaterial& material);
-    const IMaterial* getMaterial() const { return mP_material.get(); }
+    const IMaterial* getMaterial() const override final { return mP_material.get(); }
 
     complex_t getRefractiveIndex() const;
 
     void setFormFactor(const IFormFactor& form_factor);
     const IFormFactor* getFormFactor() const { return mP_form_factor.get(); }
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override final;
 
 protected:
     std::unique_ptr<IMaterial> mP_material;

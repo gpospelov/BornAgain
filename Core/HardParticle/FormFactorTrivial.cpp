@@ -25,6 +25,12 @@ FormFactorTrivial::FormFactorTrivial()
     onChange();
 }
 
+IFormFactor* FormFactorTrivial::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
+{
+    throw std::runtime_error(getName() + "::sliceFormFactor error: "
+                             "this shape should never be sliced!");
+}
+
 void FormFactorTrivial::onChange()
 {
     mP_shape.reset(new Dot());

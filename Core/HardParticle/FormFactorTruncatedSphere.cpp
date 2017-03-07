@@ -20,6 +20,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 #include "TruncatedEllipsoid.h"
 #include <limits>
 
@@ -73,6 +74,57 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const
     // else
     complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius - m_dh);
     return M_TWOPI * integral * exp_I(q.z()*(m_height-m_radius));
+}
+
+IFormFactor* FormFactorTruncatedSphere::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                        kvector_t translation) const
+{
+    if (!IsZRotation(rot))
+        throw std::runtime_error("FormFactorTruncatedSphere::sliceFormFactor error: "
+                                 "rotation is not along z-axis.");
+    double height = m_height - m_dh;
+    double dz_bottom = limits.zmin() - translation.z();
+    double dz_top = translation.z() + height - limits.zmax();
+    switch (limits.type()) {
+    case ZLimits::FINITE:
+    {
+        if (dz_bottom < 0.0 || dz_bottom > height)
+            throw std::runtime_error("FormFactorTruncatedSphere::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_top < 0.0 || dz_top > height)
+            throw std::runtime_error("FormFactorTruncatedSphere::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_bottom + dz_top > height)
+            throw std::runtime_error("FormFactorTruncatedSphere::sliceFormFactor error: "
+                                     "limits zmax < zmin.");
+        FormFactorTruncatedSphere slicedff(m_radius, height - dz_bottom, dz_top + m_dh);
+        kvector_t position(translation.x(), translation.y(), limits.zmin());
+        return CreateTransformedFormFactor(slicedff, rot, position);
+    }
+    case ZLimits::INFINITE:
+    {
+        throw std::runtime_error("FormFactorTruncatedSphere::sliceFormFactor error: "
+                                 "shape didn't need to be sliced.");
+    }
+    case ZLimits::POS_INFINITE:
+    {
+        if (dz_bottom < 0.0 || dz_bottom > height)
+            throw std::runtime_error("FormFactorTruncatedSphere::sliceFormFactor error: "
+                                     "shape didn't need to be sliced.");
+        FormFactorTruncatedSphere slicedff(m_radius, height - dz_bottom, m_dh);
+        kvector_t position(translation.x(), translation.y(), limits.zmin());
+        return CreateTransformedFormFactor(slicedff, rot, position);
+    }
+    case ZLimits::NEG_INFINITE:
+    {
+        if (dz_top < 0.0 || dz_top > height)
+            throw std::runtime_error("FormFactorTruncatedSphere::sliceFormFactor error: "
+                                     "shape didn't need to be sliced.");
+        FormFactorTruncatedSphere slicedff(m_radius, height, dz_top + m_dh);
+        return CreateTransformedFormFactor(slicedff, rot, translation);
+    }
+    }
+    return nullptr;
 }
 
 void FormFactorTruncatedSphere::onChange()

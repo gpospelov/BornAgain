@@ -91,13 +91,9 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
         if (dz_bottom + dz_top > height)
             throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
                                      "limits zmax < zmin.");
-        FormFactorWeighted difference_ff;
-        FormFactorTruncatedSphere slicedff1(m_radius, height - dz_bottom);
-        FormFactorTruncatedSphere slicedff2(m_radius, dz_top);
-        difference_ff.addFormFactor(slicedff1);
-        difference_ff.addFormFactor(slicedff2, -1.0);
+        FormFactorTruncatedSphere slicedff(m_radius, height - dz_bottom, dz_top);
         kvector_t position(new_translation.x(), new_translation.y(), limits.zmin());
-        return CreateTransformedFormFactor(difference_ff, *P_identity, position);
+        return CreateTransformedFormFactor(slicedff, *P_identity, position);
     }
     case ZLimits::INFINITE:
     {
@@ -118,10 +114,8 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
         if (dz_top < 0.0 || dz_top > height)
             throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
                                      "shape didn't need to be sliced.");
-        FormFactorTruncatedSphere slicedff(m_radius, height - dz_top);
-        RotationX flipX(M_PI);
-        kvector_t position(new_translation.x(), new_translation.y(), limits.zmax());
-        return CreateTransformedFormFactor(slicedff, flipX, position);
+        FormFactorTruncatedSphere slicedff(m_radius, height, dz_top);
+        return CreateTransformedFormFactor(slicedff, *P_identity, new_translation);
     }
     }
     return nullptr;

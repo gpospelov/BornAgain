@@ -25,10 +25,10 @@
 class BA_CORE_API_ FormFactorTruncatedSphere : public IFormFactorBorn
 {
 public:
-    FormFactorTruncatedSphere(double radius, double height);
+    FormFactorTruncatedSphere(double radius, double height, double dh=0.0);
 
     FormFactorTruncatedSphere *clone() const override final {
-        return new FormFactorTruncatedSphere(m_radius, m_height); }
+        return new FormFactorTruncatedSphere(m_radius, m_height, m_dh); }
     void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
@@ -47,6 +47,7 @@ private:
 
     double m_radius;
     double m_height;
+    double m_dh;
     mutable cvector_t m_q;
 
 #ifndef SWIG

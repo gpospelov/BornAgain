@@ -18,7 +18,7 @@
 #include "Pyramid6.h"
 #include "RealParameter.h"
 
-FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
+FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
     : FormFactorPolygonalPrism( height )
     , m_base_edge(base_edge)
 {

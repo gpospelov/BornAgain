@@ -19,7 +19,7 @@
 #include "RealParameter.h"
 #include <iostream>
 
-FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
+FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
     : FormFactorPolygonalPrism( height ), m_base_edge( base_edge )
 {
     setName(BornAgain::FFPrism3Type);

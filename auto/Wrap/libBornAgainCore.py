@@ -10687,7 +10687,7 @@ class IFormFactor(ISample):
 
         IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
 
-        Creates a sliced form factor with the given rotation and translation. 
+        Creates a (possibly sliced) form factor with the given rotation and translation. 
 
         """
         return _libBornAgainCore.IFormFactor_createSlicedFormFactor(self, limits, rot, translation)
@@ -11418,7 +11418,7 @@ class PolyhedralEdge(_object):
         """
         contrib(PolyhedralEdge self, int m, cvector_t qpa, complex_t qrperp) -> complex_t
 
-        complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) const
+        complex_t PolyhedralEdge::contrib(int m, cvector_t qpa, complex_t qrperp) const
 
         Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M! 
 
@@ -11536,7 +11536,7 @@ class PolyhedralFace(_object):
         """
         ff_n(PolyhedralFace self, int m, cvector_t q) -> complex_t
 
-        complex_t PolyhedralFace::ff_n(int m, const cvector_t q) const
+        complex_t PolyhedralFace::ff_n(int m, cvector_t q) const
 
         Returns contribution qn*f_n [of order q^(n+1)] from this face to the polyhedral form factor. 
 
@@ -11546,9 +11546,9 @@ class PolyhedralFace(_object):
 
     def ff(self, q, sym_Ci):
         """
-        ff(PolyhedralFace self, cvector_t q, bool const sym_Ci) -> complex_t
+        ff(PolyhedralFace self, cvector_t q, bool sym_Ci) -> complex_t
 
-        complex_t PolyhedralFace::ff(const cvector_t q, const bool sym_Ci) const
+        complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
 
         Returns the contribution ff(q) of this face to the polyhedral form factor. 
 
@@ -11560,7 +11560,7 @@ class PolyhedralFace(_object):
         """
         ff_2D(PolyhedralFace self, cvector_t qpa) -> complex_t
 
-        complex_t PolyhedralFace::ff_2D(const cvector_t qpa) const
+        complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
 
         Returns the two-dimensional form factor of this face, for use in a prism. 
 
@@ -11615,7 +11615,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 
@@ -11627,7 +11627,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         evaluate_centered(FormFactorPolyhedron self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolyhedron::evaluate_centered(const cvector_t q) const
+        complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
 
         Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 
@@ -11702,7 +11702,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolygonalPrism self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 
@@ -11775,7 +11775,7 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolygonalSurface self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -11829,35 +11829,10 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
     for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorAnisoPyramid, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, length, width, height, alpha):
-        """
-        __init__(FormFactorAnisoPyramid self, double length, double width, double height, double alpha) -> FormFactorAnisoPyramid
-
-        FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
-
-        Parameters:
-        -----------
-
-        length: 
-        of one side of the rectangular base
-
-        width: 
-        of other side of the rectangular base
-
-        height: 
-        of frustum
-
-        alpha: 
-        dihedral angle in radians between base and facet 
-
-        """
-        this = _libBornAgainCore.new_FormFactorAnisoPyramid(length, width, height, alpha)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -12199,32 +12174,10 @@ class FormFactorCone6(FormFactorPolyhedron):
     for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorCone6, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, base_edge, height, alpha):
-        """
-        __init__(FormFactorCone6 self, double base_edge, double height, double alpha) -> FormFactorCone6
-
-        FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
-
-        Parameters:
-        -----------
-
-        base_edge: 
-        of hexagonal base
-
-        height: 
-        of frustum
-
-        alpha: 
-        dihedral angle in radians between base and facet 
-
-        """
-        this = _libBornAgainCore.new_FormFactorCone6(base_edge, height, alpha)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -12435,35 +12388,10 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
     for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorCuboctahedron, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, length, height, height_ratio, alpha):
-        """
-        __init__(FormFactorCuboctahedron self, double length, double height, double height_ratio, double alpha) -> FormFactorCuboctahedron
-
-        FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
-
-        Parameters:
-        -----------
-
-        length: 
-        of one side of the square base
-
-        height: 
-        of bottom frustum
-
-        height_ratio: 
-        ratio of heights of top to bottom frustum
-
-        alpha: 
-        dihedral angle in radians between base and facet 
-
-        """
-        this = _libBornAgainCore.new_FormFactorCuboctahedron(length, height, height_ratio, alpha)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -12732,28 +12660,10 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
     for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorDodecahedron, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, edge):
-        """
-        __init__(FormFactorDodecahedron self, double edge) -> FormFactorDodecahedron
-
-        FormFactorDodecahedron::FormFactorDodecahedron(double edge)
-
-        Constructs a regular dodecahedron.
-
-        Parameters:
-        -----------
-
-        edge: 
-        length 
-
-        """
-        this = _libBornAgainCore.new_FormFactorDodecahedron(edge)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -13002,7 +12912,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         bottomZ(FormFactorFullSphere self, IRotation rotation) -> double
 
-        double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
+        double FormFactorFullSphere::bottomZ(const IRotation &rotation) const overridefinal
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -13014,7 +12924,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         topZ(FormFactorFullSphere self, IRotation rotation) -> double
 
-        double IFormFactorBorn::topZ(const IRotation &rotation) const override
+        double FormFactorFullSphere::topZ(const IRotation &rotation) const overridefinal
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -13403,20 +13313,10 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
     for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorIcosahedron, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, edge):
-        """
-        __init__(FormFactorIcosahedron self, double edge) -> FormFactorIcosahedron
-
-        FormFactorIcosahedron::FormFactorIcosahedron(double edge)
-
-        """
-        this = _libBornAgainCore.new_FormFactorIcosahedron(edge)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -14378,20 +14278,10 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
     for _s in [FormFactorPolygonalPrism]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPrism3, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, base_edge, height):
-        """
-        __init__(FormFactorPrism3 self, double const base_edge, double const height) -> FormFactorPrism3
-
-        FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
-
-        """
-        this = _libBornAgainCore.new_FormFactorPrism3(base_edge, height)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -14449,20 +14339,10 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
     for _s in [FormFactorPolygonalPrism]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPrism6, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, base_edge, height):
-        """
-        __init__(FormFactorPrism6 self, double const base_edge, double const height) -> FormFactorPrism6
-
-        FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
-
-        """
-        this = _libBornAgainCore.new_FormFactorPrism6(base_edge, height)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -14520,32 +14400,10 @@ class FormFactorPyramid(FormFactorPolyhedron):
     for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorPyramid, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, base_edge, height, alpha):
-        """
-        __init__(FormFactorPyramid self, double base_edge, double height, double alpha) -> FormFactorPyramid
-
-        FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
-
-        Parameters:
-        -----------
-
-        base_edge: 
-        of one side of the square base
-
-        height: 
-        of the frustum
-
-        alpha: 
-        dihedral angle in radians between base and facet 
-
-        """
-        this = _libBornAgainCore.new_FormFactorPyramid(base_edge, height, alpha)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -15149,32 +15007,10 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
     for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTetrahedron, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, base_edge, height, alpha):
-        """
-        __init__(FormFactorTetrahedron self, double base_edge, double height, double alpha) -> FormFactorTetrahedron
-
-        FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
-
-        Parameters:
-        -----------
-
-        base_edge: 
-        of a side of the base
-
-        height: 
-        of the frustum
-
-        alpha: 
-        dihedral angle in radians between base and facet 
-
-        """
-        this = _libBornAgainCore.new_FormFactorTetrahedron(base_edge, height, alpha)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -15337,29 +15173,10 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
     for _s in [FormFactorPolyhedron]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTruncatedCube, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, length, removed_length):
-        """
-        __init__(FormFactorTruncatedCube self, double length, double removed_length) -> FormFactorTruncatedCube
-
-        FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
-
-        Parameters:
-        -----------
-
-        length: 
-        of the full cube
-
-        removed_length: 
-        as removed from each edge of the cube 
-
-        """
-        this = _libBornAgainCore.new_FormFactorTruncatedCube(length, removed_length)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
 
     def clone(self):
         """
@@ -15434,7 +15251,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         __init__(FormFactorTruncatedSphere self, double radius, double height, double dh=0.0) -> FormFactorTruncatedSphere
         __init__(FormFactorTruncatedSphere self, double radius, double height) -> FormFactorTruncatedSphere
 
-        FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
+        FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedSphere(radius, height, dh)
@@ -15540,7 +15357,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh=0.0) -> FormFactorTruncatedSpheroid
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening) -> FormFactorTruncatedSpheroid
 
-        FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
+        FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening, dh)
@@ -18978,7 +18795,12 @@ def createProduct(left, right):
     return _libBornAgainCore.createProduct(left, right)
 
 def IsZRotation(rot):
-    """IsZRotation(IRotation rot) -> bool"""
+    """
+    IsZRotation(IRotation rot) -> bool
+
+    bool IsZRotation(const IRotation &rot)
+
+    """
     return _libBornAgainCore.IsZRotation(rot)
 class RotationX(IRotation):
     """Proxy of C++ RotationX class."""

@@ -3425,6 +3425,16 @@ Calls the  INodeVisitor's visit method.
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
+%feature("docstring")  FormFactorFullSphere::bottomZ "double FormFactorFullSphere::bottomZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorFullSphere::topZ "double FormFactorFullSphere::topZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorFullSphere::evaluate_for_q "complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const overridefinal
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
@@ -3989,10 +3999,10 @@ A prism with a polygonal base, for form factor computation.
 C++ includes: FormFactorPolyhedron.h
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(const double height)
+%feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const overridefinal
+%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const overridefinal
 
 Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 ";
@@ -4022,7 +4032,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolygonalSurface::FormFactorPolygonalSurface "FormFactorPolygonalSurface::FormFactorPolygonalSurface()
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const overridefinal
+%feature("docstring")  FormFactorPolygonalSurface::evaluate_for_q "complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const overridefinal
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
@@ -4049,12 +4059,12 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
 ";
 
-%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const overridefinal
+%feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const overridefinal
 
 Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 ";
 
-%feature("docstring")  FormFactorPolyhedron::evaluate_centered "complex_t FormFactorPolyhedron::evaluate_centered(const cvector_t q) const
+%feature("docstring")  FormFactorPolyhedron::evaluate_centered "complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
 
 Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 ";
@@ -4083,7 +4093,7 @@ A prism based on an equilateral triangle.
 C++ includes: FormFactorPrism3.h
 ";
 
-%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
+%feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
 ";
 
 %feature("docstring")  FormFactorPrism3::clone "FormFactorPrism3* FormFactorPrism3::clone() const overridefinal
@@ -4108,7 +4118,7 @@ A prism based on a regular hexagonal.
 C++ includes: FormFactorPrism6.h
 ";
 
-%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
+%feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
 ";
 
 %feature("docstring")  FormFactorPrism6::clone "FormFactorPrism6* FormFactorPrism6::clone() const overridefinal
@@ -4525,7 +4535,7 @@ A truncated Sphere.
 C++ includes: FormFactorTruncatedSphere.h
 ";
 
-%feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
+%feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::clone "FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const overridefinal
@@ -4563,7 +4573,7 @@ A truncated spheroid. An ellipsoid with two equal axis, truncated by a plane per
 C++ includes: FormFactorTruncatedSpheroid.h
 ";
 
-%feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
+%feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::clone "FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const overridefinal
@@ -6320,7 +6330,7 @@ Returns a clone of this  ISample object.
 
 %feature("docstring")  IFormFactor::createSlicedFormFactor "IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
 
-Creates a sliced form factor with the given rotation and translation. 
+Creates a (possibly sliced) form factor with the given rotation and translation. 
 ";
 
 %feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)=0
@@ -11150,7 +11160,7 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  PolyhedralEdge::qR "complex_t PolyhedralEdge::qR(cvector_t q) const 
 ";
 
-%feature("docstring")  PolyhedralEdge::contrib "complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) const
+%feature("docstring")  PolyhedralEdge::contrib "complex_t PolyhedralEdge::contrib(int m, cvector_t qpa, complex_t qrperp) const
 
 Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M! 
 ";
@@ -11195,17 +11205,17 @@ true if face has a perpedicular two-fold symmetry axis
 Returns conj(q)*normal [ BasicVector3D::dot is antilinear in 'this' argument]. 
 ";
 
-%feature("docstring")  PolyhedralFace::ff_n "complex_t PolyhedralFace::ff_n(int m, const cvector_t q) const
+%feature("docstring")  PolyhedralFace::ff_n "complex_t PolyhedralFace::ff_n(int m, cvector_t q) const
 
 Returns contribution qn*f_n [of order q^(n+1)] from this face to the polyhedral form factor. 
 ";
 
-%feature("docstring")  PolyhedralFace::ff "complex_t PolyhedralFace::ff(const cvector_t q, const bool sym_Ci) const
+%feature("docstring")  PolyhedralFace::ff "complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
 
 Returns the contribution ff(q) of this face to the polyhedral form factor. 
 ";
 
-%feature("docstring")  PolyhedralFace::ff_2D "complex_t PolyhedralFace::ff_2D(const cvector_t qpa) const
+%feature("docstring")  PolyhedralFace::ff_2D "complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
 
 Returns the two-dimensional form factor of this face, for use in a prism. 
 ";
@@ -13208,6 +13218,15 @@ Determine if the transformation is trivial (identity)
 %feature("docstring")  Transform3D::print "void Transform3D::print(std::ostream &ostr) const 
 ";
 
+%feature("docstring")  Transform3D::isXRotation "bool Transform3D::isXRotation() const 
+";
+
+%feature("docstring")  Transform3D::isYRotation "bool Transform3D::isYRotation() const 
+";
+
+%feature("docstring")  Transform3D::isZRotation "bool Transform3D::isZRotation() const 
+";
+
 
 // File: classTransformBoxBuilder.xml
 %feature("docstring") TransformBoxBuilder "
@@ -13262,7 +13281,7 @@ C++ includes: RipplesBuilder.h
 // File: classTruncatedEllipsoid.xml
 %feature("docstring") TruncatedEllipsoid "";
 
-%feature("docstring")  TruncatedEllipsoid::TruncatedEllipsoid "TruncatedEllipsoid::TruncatedEllipsoid(double r_x, double r_y, double r_z, double height)
+%feature("docstring")  TruncatedEllipsoid::TruncatedEllipsoid "TruncatedEllipsoid::TruncatedEllipsoid(double r_x, double r_y, double r_z, double height, double dh)
 ";
 
 %feature("docstring")  TruncatedEllipsoid::~TruncatedEllipsoid "TruncatedEllipsoid::~TruncatedEllipsoid()
@@ -15268,11 +15287,17 @@ Global function that creates a  SlicedFormFactorList from an  IParticle in a mul
 Returns concatenated rotation (first right, then left). 
 ";
 
+%feature("docstring")  IsZRotation "bool IsZRotation(const IRotation &rot)
+";
+
 
 // File: Rotations_8h.xml
 %feature("docstring")  createProduct "BA_CORE_API_ IRotation* createProduct(const IRotation &left, const IRotation &right)
 
 Returns concatenated rotation (first right, then left). 
+";
+
+%feature("docstring")  IsZRotation "bool IsZRotation(const IRotation &rot)
 ";
 
 

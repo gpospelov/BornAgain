@@ -45,7 +45,7 @@ public:
     ~IFormFactor() override;
     IFormFactor* clone() const override=0;
 
-    //! Creates a sliced form factor with the given rotation and translation
+    //! Creates a (possibly sliced) form factor with the given rotation and translation
     IFormFactor* createSlicedFormFactor(ZLimits limits, const IRotation& rot,
                                         kvector_t translation) const;
 
@@ -77,6 +77,7 @@ public:
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}
 
 protected:
+    //! Actually slices the form factor or throws an exception
     virtual IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
                                          kvector_t translation) const;
 };

@@ -41,6 +41,56 @@ complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
             MathFunctions::sinc(qzHdiv2) * exp_I(qzHdiv2);
 }
 
+IFormFactor* FormFactorBox::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                           kvector_t translation) const
+{
+    if (rot.getName()!=BornAgain::ZRotationType)
+        throw std::runtime_error("FormFactorBox::sliceFormFactor error: "
+                                 "rotation is not along z-axis.");
+    double dz_bottom = limits.zmin() - translation.z();
+    double dz_top = translation.z() + m_height - limits.zmax();
+    switch (limits.type()) {
+    case ZLimits::FINITE:
+    {
+        if (dz_bottom < 0.0 || dz_bottom > m_height)
+            throw std::runtime_error("FormFactorBox::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_top < 0.0 || dz_top > m_height)
+            throw std::runtime_error("FormFactorBox::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_bottom + dz_top > m_height)
+            throw std::runtime_error("FormFactorBox::sliceFormFactor error: "
+                                     "limits zmax < zmin.");
+        FormFactorBox slicedff(m_length, m_width, m_height - dz_bottom - dz_top);
+        kvector_t position(translation.x(), translation.y(), limits.zmin());
+        return CreateTransformedFormFactor(slicedff, rot, position);
+    }
+    case ZLimits::INFINITE:
+    {
+        throw std::runtime_error("FormFactorBox::sliceFormFactor error: "
+                                 "shape didn't need to be sliced.");
+    }
+    case ZLimits::POS_INFINITE:
+    {
+        if (dz_bottom < 0.0 || dz_bottom > m_height)
+            throw std::runtime_error("FormFactorBox::sliceFormFactor error: "
+                                     "shape didn't need to be sliced.");
+        FormFactorBox slicedff(m_length, m_width, m_height - dz_bottom);
+        kvector_t position(translation.x(), translation.y(), limits.zmin());
+        return CreateTransformedFormFactor(slicedff, rot, position);
+    }
+    case ZLimits::NEG_INFINITE:
+    {
+        if (dz_top < 0.0 || dz_top > m_height)
+            throw std::runtime_error("FormFactorBox::sliceFormFactor error: "
+                                     "shape didn't need to be sliced.");
+        FormFactorBox slicedff(m_length, m_width, m_height - dz_top);
+        return CreateTransformedFormFactor(slicedff, rot, translation);
+    }
+    }
+    return nullptr;
+}
+
 void FormFactorBox::onChange()
 {
     mP_shape.reset(new Box(m_length, m_width, m_height));

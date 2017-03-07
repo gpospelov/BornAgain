@@ -34,7 +34,7 @@ FormFactorGauss::FormFactorGauss(double width, double height)
     onChange();
 }
 
-complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const
 {
     complex_t qzHdiv2 = m_height * q.z() / 2.0;
     double qzh = q.z().real() * m_height;

@@ -45,7 +45,7 @@ double FormFactorFullSphere::topZ(const IRotation& rotation) const
     return new_centre.z() + m_radius;
 }
 
-complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
 {
     double R = m_radius;
     complex_t q1 = sqrt( q.x()*q.x() + q.y()*q.y() + q.z()*q.z() ); // NO sesquilinear dot product!

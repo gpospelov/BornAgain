@@ -67,7 +67,7 @@ complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const
     return Rz * Rz * J1_qrRz_div_qrRz * std::exp(complex_t(0.0,1.0)*m_q.z()*Z);
 }
 
-complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const
 {
     double H = m_height;
     double R = m_radius;

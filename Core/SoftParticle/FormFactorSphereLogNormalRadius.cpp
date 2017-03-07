@@ -42,7 +42,7 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(
     onChange();
 }
 
-complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const
 {
     if (m_form_factors.size()<1)
         return 0.0;

@@ -30,7 +30,7 @@ FormFactorCylinder::FormFactorCylinder(double radius, double height)
     onChange();
 }
 
-complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const
 {
     double R = m_radius;
     double H = m_height;

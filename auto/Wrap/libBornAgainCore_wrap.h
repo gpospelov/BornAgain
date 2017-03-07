@@ -398,7 +398,7 @@ public:
     virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
       return IFormFactor::sliceFormFactor(limits,rot,translation);
     }
-    virtual complex_t evaluate_for_q(cvector_t const q) const;
+    virtual complex_t evaluate_for_q(cvector_t q) const;
 
 /* Internal director utilities */
 public:

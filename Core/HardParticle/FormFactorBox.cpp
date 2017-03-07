@@ -33,7 +33,7 @@ FormFactorBox::FormFactorBox(double length, double width, double height)
     onChange();
 }
 
-complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorBox::evaluate_for_q(cvector_t q) const
 {
     complex_t qzHdiv2 = m_height/2*q.z();
     return m_height*m_length*m_width *

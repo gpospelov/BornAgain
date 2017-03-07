@@ -58,7 +58,7 @@ complex_t FormFactorCone::Integrand(double Z) const
     return Rz*Rz*MathFunctions::Bessel_J1c(q_p*Rz) * exp_I(m_q.z()*Z);
 }
 
-complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorCone::evaluate_for_q(cvector_t q) const
 {
     m_q = q;
     if ( std::abs(m_q.mag()) < std::numeric_limits<double>::epsilon()) {

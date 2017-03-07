@@ -29,7 +29,7 @@ FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, doub
     onChange();
 }
 
-complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const
 {
     complex_t qxL2 = std::pow(m_length * q.x(), 2) / 2.0;
     complex_t qyWdiv2 = m_width * q.y() / 2.0;

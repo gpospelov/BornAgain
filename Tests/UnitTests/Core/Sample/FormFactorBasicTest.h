@@ -22,7 +22,7 @@ class FormFactorBasicTest : public ::testing::Test
 {
 protected:
     FormFactorBasicTest() {}
-    void test_eps_q( const IFormFactorBorn* p, const cvector_t qdir, double eps )
+    void test_eps_q( const IFormFactorBorn* p, cvector_t qdir, double eps )
     {
         cvector_t q = eps*qdir;
         complex_t ff = p->evaluate_for_q( q );

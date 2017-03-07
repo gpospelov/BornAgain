@@ -36,7 +36,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
     onChange();
 }
 
-complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const
 {
     double R = m_mean;
     double W = m_full_width;

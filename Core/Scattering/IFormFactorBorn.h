@@ -50,14 +50,14 @@ public:
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     //! This method is public only for convenience of plotting form factors in Python.
-    virtual complex_t evaluate_for_q(const cvector_t q) const=0;
+    virtual complex_t evaluate_for_q(cvector_t q) const=0;
 
 protected:
 #ifndef SWIG
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f in case
     //! of matrix interactions. Default implementation calls evaluate_for_q(q) and
     //! multiplies with the unit matrix.
-    virtual Eigen::Matrix2cd  evaluate_for_q_pol(const cvector_t q) const;
+    virtual Eigen::Matrix2cd  evaluate_for_q_pol(cvector_t q) const;
 #endif
 
     //! IShape object, used to retrieve vertices (which may be approximate in the case

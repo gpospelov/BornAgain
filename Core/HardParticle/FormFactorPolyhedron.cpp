@@ -607,7 +607,7 @@ complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q ) const
         diagnosis.maxOrder = 0;
         diagnosis.nExpandedFaces = 0;
 #endif
-        const cvector_t qxy( q.x(), q.y(), 0. );
+        cvector_t qxy( q.x(), q.y(), 0. );
         return m_height * exp_I(m_height/2*q.z()) * MathFunctions::sinc(m_height/2*q.z()) *
             m_base->ff_2D( qxy );
     } catch (std::logic_error& e) {

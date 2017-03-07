@@ -40,7 +40,7 @@ double FormFactorEllipsoidalCylinder::getRadialExtension() const
     return ( m_radius_x + m_radius_y ) / 2.0;
 }
 
-complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const
 {
     complex_t qxRa = q.x()*m_radius_x;
     complex_t qyRb = q.y()*m_radius_y;

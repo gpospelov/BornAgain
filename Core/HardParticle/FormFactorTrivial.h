@@ -32,7 +32,7 @@ public:
 
     double getRadialExtension() const override final { return 0; }
 
-    complex_t evaluate_for_q(const cvector_t) const override final { return 1; }
+    complex_t evaluate_for_q(cvector_t) const override final { return 1; }
 
 protected:
     void onChange() override final;

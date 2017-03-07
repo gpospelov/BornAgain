@@ -27,7 +27,7 @@ const double HomogeneousMagneticMaterial::m_magnetic_prefactor = -2.910429938367
 
 namespace {
 // Used in experimental calculation of scattering matrix:
-cvector_t OrthogonalToBaseVector(const cvector_t base, const kvector_t vector)
+cvector_t OrthogonalToBaseVector(cvector_t base, const kvector_t vector)
 {
     cvector_t projection = (base.dot(vector)/base.mag2())*base;
     return vector.complex() - projection;

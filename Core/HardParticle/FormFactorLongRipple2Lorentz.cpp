@@ -71,7 +71,7 @@ double FormFactorLongRipple2Lorentz::getRadialExtension() const
 }
 
 //! Complex formfactor.
-complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const
 {
     check_parameters();
 

@@ -18950,6 +18950,10 @@ def createProduct(left, right):
 
     """
     return _libBornAgainCore.createProduct(left, right)
+
+def IsZRotation(rot):
+    """IsZRotation(IRotation rot) -> bool"""
+    return _libBornAgainCore.IsZRotation(rot)
 class RotationX(IRotation):
     """Proxy of C++ RotationX class."""
 

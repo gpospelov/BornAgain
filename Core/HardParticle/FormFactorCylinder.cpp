@@ -44,9 +44,10 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
     return result;
 }
 
-IFormFactor* FormFactorCylinder::sliceFormFactor(ZLimits limits, const IRotation& rot, kvector_t translation) const
+IFormFactor* FormFactorCylinder::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                 kvector_t translation) const
 {
-    if (rot.getName()!=BornAgain::ZRotationType)
+    if (!IsZRotation(rot))
         throw std::runtime_error("FormFactorCylinder::sliceFormFactor error: "
                                  "rotation is not along z-axis.");
     double dz_bottom = limits.zmin() - translation.z();

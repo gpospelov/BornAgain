@@ -57,6 +57,12 @@ IRotation* createProduct(const IRotation& left, const IRotation& right)
     return p_result;
 }
 
+bool IsZRotation(const IRotation& rot)
+{
+    auto transform = rot.getTransform3D();
+    return transform.isZRotation();
+}
+
 // --- RotationX --------------------------------------------------------------
 
 RotationX::RotationX(double angle)
@@ -120,3 +126,4 @@ Transform3D RotationEuler::getTransform3D() const
 {
     return Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma);
 }
+

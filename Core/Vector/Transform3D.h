@@ -94,15 +94,15 @@ public:
 
     void print(std::ostream& ostr) const;
 
+    bool isXRotation() const;
+    bool isYRotation() const;
+    bool isZRotation() const;
 private:
 #ifndef SWIG
     Transform3D(const Eigen::Matrix3d &matrix);
     Eigen::Matrix3d m_matrix;
     Eigen::Matrix3d m_inverse_matrix;
 #endif
-    bool isXRotation() const;
-    bool isYRotation() const;
-    bool isZRotation() const;
 };
 
 //! Calculates the z-coordinate of the lowest vertex after rotation

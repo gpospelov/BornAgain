@@ -36,7 +36,6 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/AccordionWidget
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/ImportDataWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/CommonWidgets
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox
 )
 
 if(BORNAGAIN_OPENGL)
@@ -54,6 +53,23 @@ foreach(dir ${include_dirs})
     list(APPEND source_files ${source})
     list(APPEND include_files ${include})
 endforeach()
+
+set(source_widgetbox
+    "Views/widgetbox/widgetboxcategorylistview.cpp"
+    "Views/widgetbox/widgetboxtreewidget.cpp"
+    "Views/widgetbox/widgetbox.cpp"
+    "Views/widgetbox/widgetbox_dnditem.cpp"
+)
+list(APPEND source_files ${source_widgetbox})
+
+set(include_widgetbox
+    "Views/widgetbox/widgetboxcategorylistview.h"
+    "Views/widgetbox/widgetboxtreewidget.h"
+    "Views/widgetbox/widgetbox.h"
+    "Views/widgetbox/widgetbox_dnditem.h"
+    "Views/widgetbox/widgetbox_global.h"
+)
+list(APPEND include_files ${include_widgetbox})
 
 set(resource_files
     "coregui.qrc"

@@ -75,7 +75,7 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
     }
 }
 
-IFormFactor*FormFactorCone::sliceFormFactor(ZLimits limits, const IRotation& rot,
+IFormFactor* FormFactorCone::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                             kvector_t translation) const
 {
     if (rot.getName()!=BornAgain::ZRotationType)

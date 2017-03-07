@@ -38,6 +38,9 @@ public:
     complex_t evaluate_for_q(const cvector_t q) const override final;
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:

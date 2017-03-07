@@ -10776,6 +10776,11 @@ class IFormFactor(ISample):
         """
         return _libBornAgainCore.IFormFactor_setSpecularInfo(self, arg0, arg1)
 
+
+    def sliceFormFactor(self, limits, rot, translation):
+        """sliceFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
+        return _libBornAgainCore.IFormFactor_sliceFormFactor(self, limits, rot, translation)
+
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactor(self)
@@ -11129,6 +11134,11 @@ class IFormFactorBorn(IFormFactor):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
         return weakref_proxy(self)
+
+    def sliceFormFactor(self, limits, rot, translation):
+        """sliceFormFactor(IFormFactorBorn self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
+        return _libBornAgainCore.IFormFactorBorn_sliceFormFactor(self, limits, rot, translation)
+
 IFormFactorBorn_swigregister = _libBornAgainCore.IFormFactorBorn_swigregister
 IFormFactorBorn_swigregister(IFormFactorBorn)
 

@@ -29,8 +29,7 @@ IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation
 {
     if (ShapeIsContainedInLimits(*this, limits, rot, translation))
         return CreateTransformedFormFactor(*this, rot, translation);
-    throw std::runtime_error("IFormFactor::createSlicedFormFactor error: "
-                             "not implemented!");
+    return sliceFormFactor(limits, rot, translation);
 }
 
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
@@ -44,6 +43,11 @@ double IFormFactor::getVolume() const
 {
     WavevectorInfo zero_wavevectors;
     return std::abs(evaluate(zero_wavevectors));
+}
+
+IFormFactor*IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
+{
+    throw std::runtime_error(getName() + "::sliceFormFactor error: not implemented!");
 }
 
 bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,

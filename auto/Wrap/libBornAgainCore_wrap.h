@@ -325,7 +325,6 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
-    virtual IFormFactor *createSlicedFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -333,6 +332,10 @@ public:
     virtual double bottomZ(IRotation const &rotation) const;
     virtual double topZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
+    virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
+    virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
+      return IFormFactor::sliceFormFactor(limits,rot,translation);
+    }
 
 /* Internal director utilities */
 public:
@@ -384,7 +387,6 @@ public:
     virtual ISample *cloneInvertB() const;
     virtual IMaterial const *getMaterial() const;
     virtual IMaterial const *getAmbientMaterial() const;
-    virtual IFormFactor *createSlicedFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
@@ -392,6 +394,10 @@ public:
     virtual double bottomZ(IRotation const &rotation) const;
     virtual double topZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
+    virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
+    virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
+      return IFormFactor::sliceFormFactor(limits,rot,translation);
+    }
     virtual complex_t evaluate_for_q(cvector_t const q) const;
 
 /* Internal director utilities */

@@ -71,6 +71,8 @@ set(include_widgetbox
 )
 list(APPEND include_files ${include_widgetbox})
 
+set(include_dirs ${include_dirs} ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)
+
 set(resource_files
     "coregui.qrc"
     "Views/SampleDesigner/SampleDesigner.qrc"

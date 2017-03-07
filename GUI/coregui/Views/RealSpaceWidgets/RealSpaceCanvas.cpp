@@ -20,7 +20,6 @@
 #include "RealSpaceBuilder.h"
 #include "RealSpaceModel.h"
 #include <QVBoxLayout>
-#include <QDebug>
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent)
@@ -58,8 +57,6 @@ void RealSpaceCanvas::setModel(SampleModel* model)
 
 void RealSpaceCanvas::onSelectionChanged(const QModelIndex& selected)
 {
-    qDebug() << "RealSpaceCanvas::onSelectionChanged" << selected;
-
     if (!selected.isValid()) {
         resetScene();
 
@@ -71,8 +68,6 @@ void RealSpaceCanvas::onSelectionChanged(const QModelIndex& selected)
 
 void RealSpaceCanvas::updateScene()
 {
-    qDebug() << "RealSpaceCanvas::updateScene()" << m_currentSelection;
-
     if (!m_currentSelection.isValid())
         return;
 
@@ -88,7 +83,6 @@ void RealSpaceCanvas::updateScene()
 
 void RealSpaceCanvas::resetScene()
 {
-    qDebug() << "RealSpaceCanvas::resetScene()";
     m_realSpaceModel.reset();
     m_view->setModel(nullptr);
     m_currentSelection = QModelIndex();
@@ -96,14 +90,12 @@ void RealSpaceCanvas::resetScene()
 
 void RealSpaceCanvas::showEvent(QShowEvent*)
 {
-    qDebug() << "RealSpaceCanvas::showEvent";
     setConnected(m_model, true);
     updateScene();
 }
 
 void RealSpaceCanvas::hideEvent(QHideEvent*)
 {
-    qDebug() << "RealSpaceCanvas::hideEvent";
     setConnected(m_model, false);
 }
 

@@ -65,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
     initViews();
     initConnections();
 
-    m_applicationModels->createTestSample();
+//    m_applicationModels->createTestSample();
 //    m_applicationModels->createTestJob();
 //    m_applicationModels->createTestRealData();
 }

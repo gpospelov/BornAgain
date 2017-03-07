@@ -23,7 +23,6 @@
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
 namespace {
     const double layer_alpha = 0.3;
@@ -68,8 +67,6 @@ std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layer
     double s2 = layer_size;
     double ztop = origin.z() + thickness;
     double zbottom = origin.z();
-
-    qDebug() << "TransformTo3D::createLayer" << origin << "zbottom " << zbottom << "ztop:" << ztop;
 
     std::unique_ptr<ba3d::Layer> result = GUIHelpers::make_unique<ba3d::Layer>(
         ba3d::dxyz(ba3d::dr(-s2,+s2), ba3d::dr(-s2,+s2), ba3d::dr(ztop, zbottom)));

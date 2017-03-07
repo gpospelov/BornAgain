@@ -17,30 +17,24 @@
 #include "RealSpaceWidget.h"
 #include "RealSpaceToolBar.h"
 #include "RealSpaceCanvas.h"
-#include "RealSpaceView.h"
 #include "RealSpaceActions.h"
 #include "RealSpacePanel.h"
-#include "RealSpaceBuilder.h"
-#include "SampleModel.h"
-#include "RealSpaceModel.h"
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
 
 RealSpaceWidget::RealSpaceWidget(QWidget* parent)
     : QWidget(parent)
-    , m_toolBar(new RealSpaceToolBar)
-    , m_view(new RealSpaceView)
-    , m_scene(new RealSpaceCanvas)
     , m_actions(new RealSpaceActions)
+    , m_toolBar(new RealSpaceToolBar)
+    , m_canvas(new RealSpaceCanvas)
     , m_panel(new RealSpacePanel)
-    , m_sampleModel(nullptr)
 {
     QHBoxLayout* hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
     hlayout->setContentsMargins(0, 0, 0, 0);
-    hlayout->addWidget(m_view);
+    hlayout->addWidget(m_canvas);
     hlayout->addWidget(m_panel);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -53,85 +47,11 @@ RealSpaceWidget::RealSpaceWidget(QWidget* parent)
     setLayout(mainLayout);
 
     connect(m_panel, SIGNAL(selectionChanged(QModelIndex)),
-            this, SLOT(onSelectionChanged(QModelIndex)));
-}
-
-RealSpaceWidget::~RealSpaceWidget()
-{
-
+            m_canvas, SLOT(onSelectionChanged(QModelIndex)));
 }
 
 void RealSpaceWidget::setModel(SampleModel* model)
 {
     m_panel->setModel(model);
-
-    if (model != m_sampleModel) {
-
-        if (m_sampleModel)
-            setConnected(m_sampleModel, false);
-
-        m_sampleModel = model;
-
-        if (m_sampleModel)
-            setConnected(m_sampleModel, true);
-    }
-    updateScene();
-
-}
-
-void RealSpaceWidget::onSelectionChanged(const QModelIndex& selected)
-{
-    qDebug() << "RealSpaceWidget::onSelectionChanged";
-    if(!selected.isValid())
-        return;
-
-    m_currentSelection = selected;
-
-    m_realSpaceModel.reset(new RealSpaceModel);
-
-    SessionItem* item = m_sampleModel->itemForIndex(selected);
-
-    Q_ASSERT(item);
-    RealSpaceBuilder::populate(m_realSpaceModel.get(), *item);
-
-    m_view->setModel(m_realSpaceModel.get());
-}
-
-void RealSpaceWidget::updateScene()
-{
-    onSelectionChanged(m_currentSelection);
-}
-
-void RealSpaceWidget::resetScene()
-{
-    m_realSpaceModel.reset();
-    m_view->setModel(nullptr);
-
-}
-
-void RealSpaceWidget::setConnected(SampleModel* model, bool makeConnected)
-{
-    if(!model)
-        return;
-
-    if(makeConnected) {
-        connect(model, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                this, SLOT(updateScene()));
-        connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                this, SLOT(updateScene()));
-        connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)),
-                this, SLOT(updateScene()));
-        connect(model, SIGNAL(modelReset()),
-                this, SLOT(resetScene()));
-    } else {
-        disconnect(model, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                   this, SLOT(updateScene()));
-        disconnect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                   this, SLOT(updateScene()));
-        disconnect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)),
-                   this, SLOT(updateScene()));
-        disconnect(model, SIGNAL(modelReset()),
-                   this, SLOT(resetScene()));
-    }
-
+    m_canvas->setModel(model);
 }

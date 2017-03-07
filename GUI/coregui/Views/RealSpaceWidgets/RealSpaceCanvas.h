@@ -18,30 +18,40 @@
 #define REALSPACECANVAS_H
 
 #include "WinDllMacros.h"
-#include <QObject>
+#include <QWidget>
 #include <QModelIndex>
+#include <memory>
 
 class SampleModel;
+class RealSpaceView;
+class RealSpaceModel;
 
 //! Provides 3D object generation for RealSpaceWidget.
 
-class BA_CORE_API_ RealSpaceCanvas : public QObject
+class BA_CORE_API_ RealSpaceCanvas : public QWidget
 {
     Q_OBJECT
 
 public:
-    RealSpaceCanvas(QObject* parent = 0);
+    RealSpaceCanvas(QWidget* parent = 0);
+    ~RealSpaceCanvas();
 
     void setModel(SampleModel* model);
 
 public slots:
     void onSelectionChanged(const QModelIndex& selected);
 
-private:
+private slots:
     void updateScene();
+    void resetScene();
+
+private:
+    void setConnected(SampleModel* model, bool makeConnected);
 
     SampleModel* m_model;
-    QModelIndex m_rootIndex;
+    QModelIndex m_currentSelection;
+    RealSpaceView* m_view;
+    std::unique_ptr<RealSpaceModel> m_realSpaceModel;
 };
 
 #endif // REALSPACESCENE_H

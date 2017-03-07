@@ -22,7 +22,6 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/utils
     ${CMAKE_CURRENT_SOURCE_DIR}/Models
     ${CMAKE_CURRENT_SOURCE_DIR}/Views
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/SampleDesigner
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/JobWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/IntensityDataWidgets
@@ -41,8 +40,6 @@ set(include_dirs
 if(BORNAGAIN_OPENGL)
     list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/RealSpaceWidgets)
 endif()
-
-include_directories(${include_dirs})
 
 set(source_files)
 set(include_files)
@@ -71,7 +68,8 @@ set(include_widgetbox
 )
 list(APPEND include_files ${include_widgetbox})
 
-set(include_dirs ${include_dirs} ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)
+list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)
+include_directories(${include_dirs})
 
 set(resource_files
     "coregui.qrc"

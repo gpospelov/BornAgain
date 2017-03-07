@@ -54,5 +54,5 @@ complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) con
 
 void FormFactorSphereLogNormalRadius::onChange()
 {
-    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean));
+    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean, 0.0));
 }

@@ -27,7 +27,7 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
 {
     setName(BornAgain::FFFullSphereType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    mP_shape.reset(new TruncatedEllipsoid(radius, radius, radius, 2.0*radius));
+    mP_shape.reset(new TruncatedEllipsoid(radius, radius, radius, 2.0*radius, 0.0));
     onChange();
 }
 
@@ -123,5 +123,5 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
 
 void FormFactorFullSphere::onChange()
 {
-    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, 2.0*m_radius));
+    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, 2.0*m_radius, 0.0));
 }

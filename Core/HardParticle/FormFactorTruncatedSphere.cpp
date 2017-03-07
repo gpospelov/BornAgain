@@ -77,5 +77,5 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const
 
 void FormFactorTruncatedSphere::onChange()
 {
-    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, m_height));
+    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, m_height, m_dh));
 }

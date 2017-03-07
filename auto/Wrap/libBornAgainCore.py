@@ -15535,14 +15535,15 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTruncatedSpheroid, name)
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, height_flattening):
+    def __init__(self, radius, height, height_flattening, dh=0.0):
         """
+        __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh=0.0) -> FormFactorTruncatedSpheroid
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening) -> FormFactorTruncatedSpheroid
 
         FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
 
         """
-        this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening)
+        this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening, dh)
         try:
             self.this.append(this)
         except Exception:

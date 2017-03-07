@@ -21,7 +21,7 @@
 
 IFormFactor* IParticle::createFormFactor() const
 {
-    return createTransformedFormFactor(nullptr, kvector_t());
+    return createSlicedFormFactor(ZLimits {});
 }
 
 IFormFactor* IParticle::createSlicedFormFactor(ZLimits /*limits*/) const

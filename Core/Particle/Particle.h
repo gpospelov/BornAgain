@@ -42,9 +42,6 @@ public:
 
     IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
-    IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const override final;
-
     void setMaterial(const IMaterial& material);
     const IMaterial* getMaterial() const override final { return mP_material.get(); }
 

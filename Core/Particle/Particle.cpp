@@ -95,26 +95,6 @@ IFormFactor* Particle::createSlicedFormFactor(ZLimits limits) const
     return p_ff;
 }
 
-IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
-                                                   kvector_t translation) const
-{
-    if (!mP_form_factor)
-        return nullptr;
-    std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
-    if (!P_total_rotation)
-        P_total_rotation.reset(IRotation::createIdentity());
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
-    std::unique_ptr<IFormFactor> P_temp_ff(
-                CreateTransformedFormFactor(*mP_form_factor, *P_total_rotation, total_position));
-    FormFactorDecoratorMaterial* p_ff = new FormFactorDecoratorMaterial(*P_temp_ff);
-    if (mP_material) {
-        const std::unique_ptr<const IMaterial> P_transformed_material(
-                    mP_material->createTransformedMaterial(P_total_rotation->getTransform3D()));
-        p_ff->setMaterial(*P_transformed_material);
-    }
-    return p_ff;
-}
-
 void Particle::setMaterial(const IMaterial& material)
 {
     if(mP_material.get() != &material)

@@ -38,9 +38,6 @@ public:
 
     IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
-    IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const override final;
-
     const Particle* coreParticle() const;
 
     const Particle* shellParticle() const;

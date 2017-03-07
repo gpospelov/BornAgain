@@ -45,10 +45,6 @@ public:
     //! Create a sliced form factor for this particle
     virtual IFormFactor* createSlicedFormFactor(ZLimits limits) const;
 
-    //! Create a form factor for this particle with an extra transformation
-    virtual IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const =0;
-
     //! Returns particle position.
     kvector_t getPosition() const { return m_position; }
 

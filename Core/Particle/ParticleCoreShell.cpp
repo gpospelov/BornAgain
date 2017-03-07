@@ -90,30 +90,6 @@ IFormFactor* ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const
     return new FormFactorCoreShell(P_ff_core.release(), P_ff_shell.release());
 }
 
-IFormFactor* ParticleCoreShell::createTransformedFormFactor(
-    const IRotation* p_rotation, kvector_t translation) const
-{
-    if (!mp_core || !mp_shell)
-        return nullptr;
-    std::unique_ptr<IRotation> P_total_rotation { createComposedRotation(p_rotation) };
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
-
-    // core form factor
-    std::unique_ptr<IFormFactor> P_ff_core{ mp_core->createTransformedFormFactor(
-        P_total_rotation.get(), total_position) };
-    if (!P_ff_core)
-        return nullptr;
-    P_ff_core->setAmbientMaterial(*mp_shell->getMaterial());
-
-    // shell form factor
-    std::unique_ptr<IFormFactor> P_ff_shell{ mp_shell->createTransformedFormFactor(
-        P_total_rotation.get(), total_position) };
-    if (!P_ff_shell)
-        return nullptr;
-
-    return new FormFactorCoreShell(P_ff_core.release(), P_ff_shell.release());
-}
-
 std::vector<const INode*> ParticleCoreShell::getChildren() const
 {
     return std::vector<const INode*>() << IParticle::getChildren() << mp_core << mp_shell;

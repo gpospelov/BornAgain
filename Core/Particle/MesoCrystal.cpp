@@ -70,20 +70,6 @@ IFormFactor*MesoCrystal::createSlicedFormFactor(ZLimits limits) const
     return p_result;
 }
 
-IFormFactor* MesoCrystal::createTransformedFormFactor(
-    const IRotation* p_rotation, kvector_t translation) const
-{
-    if (!mp_particle_structure || !mp_meso_form_factor)
-        return nullptr;
-    std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
-    std::unique_ptr<IFormFactor> P_transformed_meso(createTransformationDecoratedFormFactor(
-        *mp_meso_form_factor, P_total_rotation.get(), total_position));
-    IFormFactor* p_result = mp_particle_structure->createTotalFormFactor(
-        *P_transformed_meso, P_total_rotation.get(), total_position);
-    return p_result;
-}
-
 std::vector<const INode*> MesoCrystal::getChildren() const
 {
     return std::vector<const INode*>() <<  IParticle::getChildren()

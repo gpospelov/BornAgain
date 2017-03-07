@@ -14,9 +14,12 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSphere.h"
+#include "FormFactorTruncatedSphere.h"
+#include "FormFactorWeighted.h"
 #include "BornAgainNamespace.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 #include "TruncatedEllipsoid.h"
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
@@ -26,6 +29,20 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     mP_shape.reset(new TruncatedEllipsoid(radius, radius, radius, 2.0*radius));
     onChange();
+}
+
+double FormFactorFullSphere::bottomZ(const IRotation& rotation) const
+{
+    kvector_t centre(0.0, 0.0, m_radius);
+    kvector_t new_centre = rotation.getTransform3D().transformed(centre);
+    return new_centre.z() - m_radius;
+}
+
+double FormFactorFullSphere::topZ(const IRotation& rotation) const
+{
+    kvector_t centre(0.0, 0.0, m_radius);
+    kvector_t new_centre = rotation.getTransform3D().transformed(centre);
+    return new_centre.z() + m_radius;
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
@@ -49,6 +66,65 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const
     }
 
     return exp_I(q.z()*R) * ret;
+}
+
+IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                   kvector_t translation) const
+{
+    kvector_t centre(0.0, 0.0, m_radius);
+    kvector_t new_centre = rot.getTransform3D().transformed(centre);
+    kvector_t new_basis = new_centre - kvector_t(0.0, 0.0, m_radius);
+    kvector_t new_translation = translation + new_basis;
+    std::unique_ptr<IRotation> P_identity(IRotation::createIdentity());
+    double height = 2.0*m_radius;
+    double dz_bottom = limits.zmin() - new_translation.z();
+    double dz_top = new_translation.z() + height - limits.zmax();
+    switch (limits.type()) {
+    case ZLimits::FINITE:
+    {
+        if (dz_bottom < 0.0 || dz_bottom > height)
+            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_top < 0.0 || dz_top > height)
+            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_bottom + dz_top > height)
+            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
+                                     "limits zmax < zmin.");
+        FormFactorWeighted difference_ff;
+        FormFactorTruncatedSphere slicedff1(m_radius, height - dz_bottom);
+        FormFactorTruncatedSphere slicedff2(m_radius, dz_top);
+        difference_ff.addFormFactor(slicedff1);
+        difference_ff.addFormFactor(slicedff2, -1.0);
+        kvector_t position(new_translation.x(), new_translation.y(), limits.zmin());
+        return CreateTransformedFormFactor(difference_ff, *P_identity, position);
+    }
+    case ZLimits::INFINITE:
+    {
+        throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
+                                 "shape didn't need to be sliced.");
+    }
+    case ZLimits::POS_INFINITE:
+    {
+        if (dz_bottom < 0.0 || dz_bottom > height)
+            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
+                                     "shape didn't need to be sliced.");
+        FormFactorTruncatedSphere slicedff(m_radius, height - dz_bottom);
+        kvector_t position(new_translation.x(), new_translation.y(), limits.zmin());
+        return CreateTransformedFormFactor(slicedff, *P_identity, position);
+    }
+    case ZLimits::NEG_INFINITE:
+    {
+        if (dz_top < 0.0 || dz_top > height)
+            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
+                                     "shape didn't need to be sliced.");
+        FormFactorTruncatedSphere slicedff(m_radius, height - dz_top);
+        RotationX flipX(M_PI);
+        kvector_t position(new_translation.x(), new_translation.y(), limits.zmax());
+        return CreateTransformedFormFactor(slicedff, flipX, position);
+    }
+    }
+    return nullptr;
 }
 
 void FormFactorFullSphere::onChange()

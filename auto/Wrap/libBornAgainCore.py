@@ -12998,6 +12998,30 @@ class FormFactorFullSphere(IFormFactorBorn):
         return _libBornAgainCore.FormFactorFullSphere_getRadialExtension(self)
 
 
+    def bottomZ(self, rotation):
+        """
+        bottomZ(FormFactorFullSphere self, IRotation rotation) -> double
+
+        double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorFullSphere_bottomZ(self, rotation)
+
+
+    def topZ(self, rotation):
+        """
+        topZ(FormFactorFullSphere self, IRotation rotation) -> double
+
+        double IFormFactorBorn::topZ(const IRotation &rotation) const override
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorFullSphere_topZ(self, rotation)
+
+
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t

@@ -72,62 +72,13 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
                                                    kvector_t translation) const
 {
     kvector_t centre(0.0, 0.0, m_radius);
-    kvector_t new_centre = rot.getTransform3D().transformed(centre);
-    kvector_t new_basis = new_centre - kvector_t(0.0, 0.0, m_radius);
-    kvector_t new_translation = translation + new_basis;
+    kvector_t new_translation = translation + rot.getTransform3D().transformed(centre)
+                                - kvector_t(0.0, 0.0, m_radius);
     std::unique_ptr<IRotation> P_identity(IRotation::createIdentity());
     double height = 2.0*m_radius;
-    double dz_bottom = limits.zmin() - new_translation.z();
-    double dz_top = new_translation.z() + height - limits.zmax();
-    switch (limits.type()) {
-    case ZLimits::FINITE:
-    {
-        if (dz_bottom < 0 && dz_top < 0)
-            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
-                                     "interface outside shape.");
-        if (dz_bottom > height)
-            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
-                                     "interface outside shape.");
-        if (dz_top > height)
-            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
-                                     "interface outside shape.");
-        if (dz_bottom + dz_top > height)
-            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
-                                     "limits zmax < zmin.");
-        kvector_t position(new_translation);
-        if (dz_bottom < 0)
-            dz_bottom = 0;
-        else
-            position.setZ(limits.zmin());
-        if (dz_top < 0)
-            dz_top = 0;
-        FormFactorTruncatedSphere slicedff(m_radius, height - dz_bottom, dz_top);
-        return CreateTransformedFormFactor(slicedff, *P_identity, position);
-    }
-    case ZLimits::INFINITE:
-    {
-        throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
-                                 "shape didn't need to be sliced.");
-    }
-    case ZLimits::POS_INFINITE:
-    {
-        if (dz_bottom < 0.0 || dz_bottom > height)
-            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
-                                     "shape didn't need to be sliced.");
-        FormFactorTruncatedSphere slicedff(m_radius, height - dz_bottom);
-        kvector_t position(new_translation.x(), new_translation.y(), limits.zmin());
-        return CreateTransformedFormFactor(slicedff, *P_identity, position);
-    }
-    case ZLimits::NEG_INFINITE:
-    {
-        if (dz_top < 0.0 || dz_top > height)
-            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
-                                     "shape didn't need to be sliced.");
-        FormFactorTruncatedSphere slicedff(m_radius, height, dz_top);
-        return CreateTransformedFormFactor(slicedff, *P_identity, new_translation);
-    }
-    }
-    return nullptr;
+    auto effects = computeSlicingEffects(limits, new_translation, height);
+    FormFactorTruncatedSphere slicedff(m_radius, height - effects.dz_bottom, effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, *P_identity, effects.position);
 }
 
 void FormFactorFullSphere::onChange()

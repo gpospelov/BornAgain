@@ -20,6 +20,8 @@
 #include "IShape.h"
 #include "Vectors3D.h"
 
+struct SlicingEffects;
+
 //! Pure virtual base class for Born form factors.
 //!
 //! In contrast to the generic IFormFactor, a Born form factor does not depend
@@ -63,6 +65,20 @@ protected:
     //! IShape object, used to retrieve vertices (which may be approximate in the case
     //! of round shapes). For soft particles, this will be a hard mean shape.
     std::unique_ptr<IShape> mP_shape;
+
+    //! Helper method for slicing
+    SlicingEffects computeSlicingEffects(ZLimits limits, const kvector_t& position,
+                                         double height) const;
+};
+
+//! Nested structure that holds slicing effects on position and removed parts.
+
+//! @ingroup formfactors_internal
+
+struct SlicingEffects {
+    kvector_t position;
+    double dz_bottom;
+    double dz_top;
 };
 
 #ifdef POLYHEDRAL_DIAGNOSTIC

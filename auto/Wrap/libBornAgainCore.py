@@ -11142,6 +11142,39 @@ class IFormFactorBorn(IFormFactor):
 IFormFactorBorn_swigregister = _libBornAgainCore.IFormFactorBorn_swigregister
 IFormFactorBorn_swigregister(IFormFactorBorn)
 
+class SlicingEffects(_object):
+    """Proxy of C++ SlicingEffects class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SlicingEffects, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SlicingEffects, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["position"] = _libBornAgainCore.SlicingEffects_position_set
+    __swig_getmethods__["position"] = _libBornAgainCore.SlicingEffects_position_get
+    if _newclass:
+        position = _swig_property(_libBornAgainCore.SlicingEffects_position_get, _libBornAgainCore.SlicingEffects_position_set)
+    __swig_setmethods__["dz_bottom"] = _libBornAgainCore.SlicingEffects_dz_bottom_set
+    __swig_getmethods__["dz_bottom"] = _libBornAgainCore.SlicingEffects_dz_bottom_get
+    if _newclass:
+        dz_bottom = _swig_property(_libBornAgainCore.SlicingEffects_dz_bottom_get, _libBornAgainCore.SlicingEffects_dz_bottom_set)
+    __swig_setmethods__["dz_top"] = _libBornAgainCore.SlicingEffects_dz_top_set
+    __swig_getmethods__["dz_top"] = _libBornAgainCore.SlicingEffects_dz_top_get
+    if _newclass:
+        dz_top = _swig_property(_libBornAgainCore.SlicingEffects_dz_top_get, _libBornAgainCore.SlicingEffects_dz_top_set)
+
+    def __init__(self):
+        """__init__(SlicingEffects self) -> SlicingEffects"""
+        this = _libBornAgainCore.new_SlicingEffects()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_SlicingEffects
+    __del__ = lambda self: None
+SlicingEffects_swigregister = _libBornAgainCore.SlicingEffects_swigregister
+SlicingEffects_swigregister(SlicingEffects)
+
 class IFormFactorDecorator(IFormFactor):
     """
 

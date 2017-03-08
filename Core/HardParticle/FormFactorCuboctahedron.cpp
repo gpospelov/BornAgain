@@ -17,9 +17,11 @@
 #include "BiPyramid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "FormFactorPyramid.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {
     {
@@ -53,6 +55,30 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     registerParameter(BornAgain::HeightRatio, &m_height_ratio).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
     onChange();
+}
+
+IFormFactor* FormFactorCuboctahedron::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                      kvector_t translation) const
+{
+    if (!IsZRotation(rot))
+        throw std::runtime_error("FormFactorCuboctahedron::sliceFormFactor error: "
+                                 "rotation is not along z-axis.");
+    auto effects = computeSlicingEffects(limits, translation, m_height*(1+m_height_ratio));
+    if (effects.dz_bottom>m_height) {
+        double dbase_edge = 2*(effects.dz_bottom-m_height)*MathFunctions::cot(m_alpha);
+        FormFactorPyramid slicedff(m_length - dbase_edge, m_height*(1+m_height_ratio)
+                                   - effects.dz_bottom - effects.dz_top, m_alpha);
+        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+    } else if (effects.dz_top>m_height_ratio*m_height) {
+        double dbase_edge = 2*(m_height-effects.dz_bottom)*MathFunctions::cot(m_alpha);
+        FormFactorPyramid slicedff(m_length - dbase_edge, m_height*(1+m_height_ratio)
+                                   - effects.dz_bottom - effects.dz_top, M_PI - m_alpha);
+        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+    } else {
+        FormFactorCuboctahedron slicedff(m_length, m_height - effects.dz_bottom,
+                                         m_height_ratio*m_height - effects.dz_top, m_alpha);
+        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+    }
 }
 
 void FormFactorCuboctahedron::onChange()

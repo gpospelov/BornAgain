@@ -86,18 +86,27 @@ IFormFactor* FormFactorCone::sliceFormFactor(ZLimits limits, const IRotation& ro
     switch (limits.type()) {
     case ZLimits::FINITE:
     {
-        if (dz_bottom < 0.0 || dz_bottom > m_height)
+        if (dz_bottom < 0 && dz_top < 0)
             throw std::runtime_error("FormFactorCone::sliceFormFactor error: "
                                      "interface outside shape.");
-        if (dz_top < 0.0 || dz_top > m_height)
+        if (dz_bottom > m_height)
+            throw std::runtime_error("FormFactorCone::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_top > m_height)
             throw std::runtime_error("FormFactorCone::sliceFormFactor error: "
                                      "interface outside shape.");
         if (dz_bottom + dz_top > m_height)
             throw std::runtime_error("FormFactorCone::sliceFormFactor error: "
                                      "limits zmax < zmin.");
+        kvector_t position(translation);
+        if (dz_bottom < 0)
+            dz_bottom = 0;
+        else
+            position.setZ(limits.zmin());
+        if (dz_top < 0)
+            dz_top = 0;
         double dradius = dz_bottom*m_cot_alpha;
         FormFactorCone slicedff(m_radius - dradius, m_height - dz_bottom - dz_top, m_alpha);
-        kvector_t position(translation.x(), translation.y(), limits.zmin());
         return CreateTransformedFormFactor(slicedff, rot, position);
     }
     case ZLimits::INFINITE:

@@ -93,18 +93,27 @@ IFormFactor* FormFactorTruncatedSpheroid::sliceFormFactor(ZLimits limits, const 
     switch (limits.type()) {
     case ZLimits::FINITE:
     {
-        if (dz_bottom < 0.0 || dz_bottom > height)
+        if (dz_bottom < 0 && dz_top < 0)
             throw std::runtime_error("FormFactorTruncatedSpheroid::sliceFormFactor error: "
                                      "interface outside shape.");
-        if (dz_top < 0.0 || dz_top > height)
+        if (dz_bottom > m_height)
             throw std::runtime_error("FormFactorTruncatedSpheroid::sliceFormFactor error: "
                                      "interface outside shape.");
-        if (dz_bottom + dz_top > height)
+        if (dz_top > m_height)
+            throw std::runtime_error("FormFactorTruncatedSpheroid::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_bottom + dz_top > m_height)
             throw std::runtime_error("FormFactorTruncatedSpheroid::sliceFormFactor error: "
                                      "limits zmax < zmin.");
+        kvector_t position(translation);
+        if (dz_bottom < 0)
+            dz_bottom = 0;
+        else
+            position.setZ(limits.zmin());
+        if (dz_top < 0)
+            dz_top = 0;
         FormFactorTruncatedSpheroid slicedff(m_radius, height - dz_bottom,
                                              m_height_flattening, dz_top + m_dh);
-        kvector_t position(translation.x(), translation.y(), limits.zmin());
         return CreateTransformedFormFactor(slicedff, rot, position);
     }
     case ZLimits::INFINITE:

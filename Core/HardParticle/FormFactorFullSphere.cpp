@@ -82,17 +82,26 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
     switch (limits.type()) {
     case ZLimits::FINITE:
     {
-        if (dz_bottom < 0.0 || dz_bottom > height)
+        if (dz_bottom < 0 && dz_top < 0)
             throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
                                      "interface outside shape.");
-        if (dz_top < 0.0 || dz_top > height)
+        if (dz_bottom > height)
+            throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
+                                     "interface outside shape.");
+        if (dz_top > height)
             throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
                                      "interface outside shape.");
         if (dz_bottom + dz_top > height)
             throw std::runtime_error("FormFactorFullSphere::sliceFormFactor error: "
                                      "limits zmax < zmin.");
+        kvector_t position(new_translation);
+        if (dz_bottom < 0)
+            dz_bottom = 0;
+        else
+            position.setZ(limits.zmin());
+        if (dz_top < 0)
+            dz_top = 0;
         FormFactorTruncatedSphere slicedff(m_radius, height - dz_bottom, dz_top);
-        kvector_t position(new_translation.x(), new_translation.y(), limits.zmin());
         return CreateTransformedFormFactor(slicedff, *P_identity, position);
     }
     case ZLimits::INFINITE:

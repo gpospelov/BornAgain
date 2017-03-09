@@ -78,7 +78,8 @@ IFormFactor* ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const
     if (!P_ff_shell)
         return nullptr;
 
-    // set core ambient material
+    // set core ambient material (needs to be rotated separately, AFTER applying
+    // ParticleCoreShell's rotation to the clone of the shell particle)
     const IMaterial* p_shell_material = P_shell->getMaterial();
     if (p_shell_material) {
         const std::unique_ptr<const IMaterial> P_transformed_material(

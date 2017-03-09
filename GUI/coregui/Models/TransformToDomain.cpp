@@ -144,26 +144,6 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
     return P_part_distr;
 }
 
-std::unique_ptr<Instrument> TransformToDomain::createInstrument(const SessionItem& item)
-{
-    Q_UNUSED(item);
-    return GUIHelpers::make_unique<Instrument>();
-}
-
-std::unique_ptr<Beam> TransformToDomain::createBeam(const SessionItem& item)
-{
-    auto P_beam = GUIHelpers::make_unique<Beam>();
-
-    auto beamItem = dynamic_cast<const BeamItem*>(&item);
-    P_beam->setIntensity(beamItem->getIntensity());
-    double lambda = beamItem->getWavelength();
-    double inclination_angle = Units::deg2rad(beamItem->getInclinationAngle());
-    double azimuthal_angle = Units::deg2rad(beamItem->getAzimuthalAngle());
-    P_beam->setCentralK(lambda, inclination_angle, azimuthal_angle);
-
-    return P_beam;
-}
-
 void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem& detectorItem,
                                                        Instrument* instrument)
 {
@@ -171,25 +151,8 @@ void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem& detect
     Q_ASSERT(subDetector);
 
     double scale(1.0);
-    if(auto sphericalDetector = dynamic_cast<SphericalDetectorItem*>(subDetector)) {
+    if(dynamic_cast<SphericalDetectorItem*>(subDetector))
         scale = Units::degree;
-        auto detector = sphericalDetector->createDetector();
-        instrument->setDetector(*detector);
-        auto resfunc = sphericalDetector->createResolutionFunction();
-        if(resfunc) instrument->setDetectorResolutionFunction(*resfunc);
-    }
-
-    else if(auto rectangularDetector = dynamic_cast<RectangularDetectorItem*>(subDetector)) {
-        auto detector = rectangularDetector->createDetector();
-        instrument->setDetector(*detector);
-        auto resfunc = rectangularDetector->createResolutionFunction();
-        if(resfunc) instrument->setDetectorResolutionFunction(*resfunc);
-
-    } else {
-        throw GUIHelpers::Error(
-            "TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "
-            + subDetector->modelType());
-    }
 
     if(auto maskContainerItem = detectorItem.getChildOfType(Constants::MaskContainerType)) {
         for(int i_row = maskContainerItem->childItems().size(); i_row>0; --i_row) {

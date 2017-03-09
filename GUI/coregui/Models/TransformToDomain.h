@@ -35,10 +35,8 @@ class SessionItem;
 
 namespace TransformToDomain
 {
-BA_CORE_API_ std::unique_ptr<Beam> createBeam(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<IMaterial> createDomainMaterial(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<IParticle> createIParticle(const SessionItem& item);
-BA_CORE_API_ std::unique_ptr<Instrument> createInstrument(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<Layer> createLayer(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<LayerRoughness> createLayerRoughness(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<MultiLayer> createMultiLayer(const SessionItem& item);

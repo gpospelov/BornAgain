@@ -114,7 +114,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
 
     // detector
     DetectorContainerItem* detectorItem = dynamic_cast<DetectorContainerItem*>(instrumentModel->insertNewItem(
-        Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem)));
+        Constants::DetectorContainerType, instrumentModel->indexOfItem(instrumentItem)));
     TransformFromDomain::setItemFromSample(detectorItem, simulation);
 
     // detector masks

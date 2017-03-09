@@ -75,12 +75,12 @@ inline void TestSessionModel::test_InstrumentModel_CreateCopy()
     InstrumentModel *model1 = new InstrumentModel();
     SessionItem *instrument1 = model1->insertNewItem(Constants::InstrumentType);
     instrument1->setItemName("instrument1");
-    model1->insertNewItem(Constants::DetectorType, model1->indexOfItem(instrument1));
+    model1->insertNewItem(Constants::DetectorContainerType, model1->indexOfItem(instrument1));
     model1->insertNewItem(Constants::BeamType, model1->indexOfItem(instrument1));
 
     SessionItem *instrument2 = model1->insertNewItem(Constants::InstrumentType);
     instrument2->setItemName("instrument2");
-    model1->insertNewItem(Constants::DetectorType, model1->indexOfItem(instrument2));
+    model1->insertNewItem(Constants::DetectorContainerType, model1->indexOfItem(instrument2));
     model1->insertNewItem(Constants::BeamType, model1->indexOfItem(instrument2));
 
     QString buffer1;
@@ -103,12 +103,12 @@ inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
     InstrumentModel *model1 = new InstrumentModel();
     SessionItem *instrument1 = model1->insertNewItem(Constants::InstrumentType);
     instrument1->setItemName("instrument1");
-    model1->insertNewItem(Constants::DetectorType, model1->indexOfItem(instrument1));
+    model1->insertNewItem(Constants::DetectorContainerType, model1->indexOfItem(instrument1));
     model1->insertNewItem(Constants::BeamType, model1->indexOfItem(instrument1));
 
     SessionItem *instrument2 = model1->insertNewItem(Constants::InstrumentType);
     instrument2->setItemName("instrument2");
-    model1->insertNewItem(Constants::DetectorType, model1->indexOfItem(instrument2));
+    model1->insertNewItem(Constants::DetectorContainerType, model1->indexOfItem(instrument2));
     model1->insertNewItem(Constants::BeamType, model1->indexOfItem(instrument2));
 
 //    QString buffer1;
@@ -146,7 +146,7 @@ inline void TestSessionModel::test_copyParameterizedItem()
     InstrumentModel *instrumentModel = new InstrumentModel();
     SessionItem *instrument1 = instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument1->setItemName("instrument1");
-    instrumentModel->insertNewItem(Constants::DetectorType, instrumentModel->indexOfItem(instrument1));
+    instrumentModel->insertNewItem(Constants::DetectorContainerType, instrumentModel->indexOfItem(instrument1));
     instrumentModel->insertNewItem(Constants::BeamType, instrumentModel->indexOfItem(instrument1));
 
     JobModel *jobModel = new JobModel();

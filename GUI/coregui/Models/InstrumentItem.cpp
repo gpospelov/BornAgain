@@ -29,7 +29,7 @@ InstrumentItem::InstrumentItem()
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
     const QString T_DATA = "Data tag";
-    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorType);
+    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorContainerType);
     setDefaultTag(T_DATA);
 }
 
@@ -44,7 +44,7 @@ BeamItem *InstrumentItem::beamItem() const
 DetectorContainerItem *InstrumentItem::detectorItem() const
 {
     for(SessionItem *item : childItems())
-        if(item->modelType() == Constants::DetectorType)
+        if(item->modelType() == Constants::DetectorContainerType)
             return dynamic_cast<DetectorContainerItem *>(item);
     return 0;
 }

@@ -111,7 +111,7 @@ void InstrumentView::onAddInstrument()
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
     m_instrumentModel->insertNewItem(
-        Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
+        Constants::DetectorContainerType, m_instrumentModel->indexOfItem(instrument));
     m_instrumentModel->insertNewItem(
         Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);

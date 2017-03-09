@@ -50,7 +50,7 @@ inline void TestMapperCases::test_instrumentAlignmentPropertyVisibility()
 {
     InstrumentModel model;
     SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
-    SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
+    SessionItem *detector = model.insertNewItem(Constants::DetectorContainerType, instrument->index());
     detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::RectangularDetectorType);
     SessionItem *rectangular = detector->getGroupItem(DetectorContainerItem::P_DETECTOR);
 
@@ -73,7 +73,7 @@ inline void TestMapperCases::test_removeMaskOnDetectorChange()
 {
     InstrumentModel model;
     SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
-    SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
+    SessionItem *detector = model.insertNewItem(Constants::DetectorContainerType, instrument->index());
     detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::RectangularDetectorType);
     model.insertNewItem(Constants::MaskContainerType, detector->index());
     QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 1);

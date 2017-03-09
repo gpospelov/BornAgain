@@ -88,7 +88,7 @@ bool ModelPath::isValidItem(SessionModel* model, SessionItem* item, const QModel
 bool ModelPath::isTranslatable(const SessionItem* item, const QString& par_name)
 {
     Q_UNUSED(item);
-    if (par_name.contains(Constants::DetectorType))
+    if (par_name.contains(Constants::DetectorContainerType))
         return false;
     if (par_name.contains(Constants::DistributionSigmaFactor))
         return false;

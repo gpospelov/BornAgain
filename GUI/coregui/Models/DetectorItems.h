@@ -34,4 +34,15 @@ public:
     MaskContainerItem *maskContainerItem() const;
 };
 
+class BA_CORE_API_ DetectorItem : public SessionItem
+{
+public:
+    static const QString T_MASKS;
+    explicit DetectorItem(const QString& modelType);
+
+    virtual std::unique_ptr<IDetector2D> createDetector() const = 0;
+    virtual std::unique_ptr<IResolutionFunction2D> createResolutionFunction() = 0;
+};
+
+
 #endif // DETECTORITEMS_H

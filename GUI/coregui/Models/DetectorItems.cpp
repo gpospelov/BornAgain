@@ -21,7 +21,7 @@ const QString DetectorContainerItem::P_DETECTOR = "DetectorType";
 const QString DetectorContainerItem::T_MASKS = "Mask tag";
 
 DetectorContainerItem::DetectorContainerItem()
-    : SessionItem(Constants::DetectorType)
+    : SessionItem(Constants::DetectorContainerType)
 {
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
@@ -51,3 +51,12 @@ MaskContainerItem *DetectorContainerItem::maskContainerItem() const
     return 0;
 }
 
+// --------------------------------------------------------------------------------------------- //
+
+const QString DetectorItem::T_MASKS = "Masks";
+
+DetectorItem::DetectorItem(const QString& modelType)
+    : SessionItem(modelType)
+{
+    registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
+}

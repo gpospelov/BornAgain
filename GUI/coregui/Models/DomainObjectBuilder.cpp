@@ -135,7 +135,7 @@ std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(
             if (P_beam) {
                 P_instrument->setBeam(*P_beam);
             }
-        } else if (children[i]->modelType() == Constants::DetectorType) {
+        } else if (children[i]->modelType() == Constants::DetectorContainerType) {
             TransformToDomain::initInstrumentFromDetectorItem(*children[i], P_instrument.get());
         }
     }

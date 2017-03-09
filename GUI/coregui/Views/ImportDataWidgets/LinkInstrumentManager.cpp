@@ -108,11 +108,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem *realData
         return true;
 
     // FIXME temporary hack to get rid from Instrument's own masks and ROI
-    DetectorContainerItem *detectorItem = instrumentItem->detectorContainerItem();
-    if(SessionItem *maskContainer = detectorItem->maskContainerItem()) {
-        SessionItem *item = detectorItem->takeRow(detectorItem->rowOfChild(maskContainer));
-        delete item;
-    }
+    instrumentItem->clearMasks();
 
     QString message;
     if(ImportDataAssistant::hasSameDimensions(instrumentItem, realDataItem, message))

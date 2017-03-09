@@ -32,6 +32,8 @@ public:
     DetectorContainerItem();
     virtual ~DetectorContainerItem(){}
 
+    void clearMasks();
+
     MaskContainerItem *maskContainerItem() const;
 };
 

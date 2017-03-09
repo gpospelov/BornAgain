@@ -18,6 +18,8 @@
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
+#include "SessionModel.h"
+#include "MaskItems.h"
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 
@@ -56,4 +58,20 @@ DetectorItem* InstrumentItem::detectorItem() const
                 detectorContainer->getGroupItem(DetectorContainerItem::P_DETECTOR));
     Q_ASSERT(detectorItem);
     return detectorItem;
+}
+
+void InstrumentItem::clearMasks()
+{
+    detectorContainerItem()->clearMasks();
+}
+
+void InstrumentItem::importMasks(MaskContainerItem* maskContainer)
+{
+    DetectorContainerItem *detectorContainer = detectorContainerItem();
+    detectorContainer->clearMasks();
+
+    if(maskContainer) {
+        SessionModel *model = detectorContainer->model();
+        model->copyParameterizedItem(maskContainer, detectorContainer, DetectorContainerItem::T_MASKS);
+    }
 }

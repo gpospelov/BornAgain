@@ -41,6 +41,12 @@ DetectorContainerItem::DetectorContainerItem()
     });
 }
 
+void DetectorContainerItem::clearMasks()
+{
+    if (auto maskContainer = maskContainerItem())
+        delete takeRow(rowOfChild(maskContainer));
+}
+
 MaskContainerItem *DetectorContainerItem::maskContainerItem() const
 {
     foreach(SessionItem *item, childItems()) {

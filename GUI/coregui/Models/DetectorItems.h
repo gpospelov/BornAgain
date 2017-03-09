@@ -22,6 +22,7 @@
 class MaskContainerItem;
 class IDetector2D;
 class IResolutionFunction2D;
+class DetectorItem;
 
 //! DetectorItem, holds masks and either rectangular or spherical detector as sub item
 class BA_CORE_API_ DetectorContainerItem : public SessionItem
@@ -34,7 +35,14 @@ public:
 
     void clearMasks();
 
+    DetectorItem *detectorItem() const;
+
     MaskContainerItem *maskContainerItem() const;
+
+    void createMaskContainer();
+
+    void importMasks(MaskContainerItem* maskContainer);
+
 };
 
 class BA_CORE_API_ DetectorItem : public SessionItem
@@ -47,6 +55,15 @@ public:
     virtual std::unique_ptr<IResolutionFunction2D> createResolutionFunction() = 0;
 
     virtual void setSize(int nx, int ny) = 0;
+
+    void clearMasks();
+
+    MaskContainerItem *maskContainerItem() const;
+
+    void createMaskContainer();
+
+    void importMasks(MaskContainerItem* maskContainer);
+
 };
 
 

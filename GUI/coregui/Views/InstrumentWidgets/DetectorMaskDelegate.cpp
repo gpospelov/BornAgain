@@ -47,7 +47,7 @@ void DetectorMaskDelegate::initMaskEditorContext(
     Q_ASSERT(m_detectorItem);
 
     createIntensityDataItem();
-    createMaskContainer();
+    m_detectorItem->createMaskContainer();
 
     Q_ASSERT(m_detectorItem->maskContainerItem());
 
@@ -89,17 +89,6 @@ void DetectorMaskDelegate::createIntensityDataItem()
     zAxisItem->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
 
     m_intensityItem->setOutputData(createOutputData(m_detectorItem));
-}
-
-//! Creates MaskContainer in DetectorItem
-void DetectorMaskDelegate::createMaskContainer()
-{
-    Q_ASSERT(m_detectorItem);
-    if (!m_detectorItem->maskContainerItem()) {
-        m_instrumentModel->insertNewItem(
-            Constants::MaskContainerType,
-            m_instrumentModel->indexOfItem(m_detectorItem));
-    }
 }
 
 //! Creates OutputData from DetectorItem's axes for later initialization of

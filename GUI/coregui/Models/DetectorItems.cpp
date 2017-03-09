@@ -16,6 +16,8 @@
 
 #include "DetectorItems.h"
 #include "MaskItems.h"
+#include "DetectorItems.h"
+#include "SessionModel.h"
 
 const QString DetectorContainerItem::P_DETECTOR = "DetectorType";
 const QString DetectorContainerItem::T_MASKS = "Mask tag";
@@ -47,6 +49,14 @@ void DetectorContainerItem::clearMasks()
         delete takeRow(rowOfChild(maskContainer));
 }
 
+DetectorItem* DetectorContainerItem::detectorItem() const
+{
+    DetectorItem* detectorItem = dynamic_cast<DetectorItem*>(
+                getGroupItem(P_DETECTOR));
+    Q_ASSERT(detectorItem);
+    return detectorItem;
+}
+
 MaskContainerItem *DetectorContainerItem::maskContainerItem() const
 {
     foreach(SessionItem *item, childItems()) {
@@ -57,6 +67,20 @@ MaskContainerItem *DetectorContainerItem::maskContainerItem() const
     return 0;
 }
 
+void DetectorContainerItem::createMaskContainer()
+{
+    if (!maskContainerItem())
+        model()->insertNewItem( Constants::MaskContainerType, this->index());
+}
+
+void DetectorContainerItem::importMasks(MaskContainerItem* maskContainer)
+{
+    clearMasks();
+
+    if(maskContainer)
+        model()->copyParameterizedItem(maskContainer, this, DetectorContainerItem::T_MASKS);
+}
+
 // --------------------------------------------------------------------------------------------- //
 
 const QString DetectorItem::T_MASKS = "Masks";
@@ -65,4 +89,30 @@ DetectorItem::DetectorItem(const QString& modelType)
     : SessionItem(modelType)
 {
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
+    setDefaultTag(T_MASKS);
+}
+
+void DetectorItem::clearMasks()
+{
+    if (auto maskContainer = maskContainerItem())
+        delete takeRow(rowOfChild(maskContainer));
+}
+
+MaskContainerItem* DetectorItem::maskContainerItem() const
+{
+    return dynamic_cast<MaskContainerItem *>(getItem(T_MASKS));
+}
+
+void DetectorItem::createMaskContainer()
+{
+    if (!maskContainerItem())
+        model()->insertNewItem(Constants::MaskContainerType, this->index());
+}
+
+void DetectorItem::importMasks(MaskContainerItem* maskContainer)
+{
+    clearMasks();
+
+    if(maskContainer)
+        model()->copyParameterizedItem(maskContainer, this, T_MASKS);
 }

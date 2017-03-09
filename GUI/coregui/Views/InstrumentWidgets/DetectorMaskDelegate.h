@@ -45,7 +45,6 @@ public:
 
 private:
     void createIntensityDataItem();
-    void createMaskContainer();
     OutputData<double> *createOutputData(DetectorContainerItem *detectorItem);
 
     SessionModel *m_tempIntensityDataModel;

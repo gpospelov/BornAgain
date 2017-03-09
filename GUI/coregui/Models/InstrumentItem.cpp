@@ -53,11 +53,7 @@ DetectorContainerItem *InstrumentItem::detectorContainerItem() const
 
 DetectorItem* InstrumentItem::detectorItem() const
 {
-    DetectorContainerItem* detectorContainer = detectorContainerItem();
-    DetectorItem* detectorItem = dynamic_cast<DetectorItem*>(
-                detectorContainer->getGroupItem(DetectorContainerItem::P_DETECTOR));
-    Q_ASSERT(detectorItem);
-    return detectorItem;
+    return detectorContainerItem()->detectorItem();
 }
 
 void InstrumentItem::clearMasks()
@@ -68,10 +64,5 @@ void InstrumentItem::clearMasks()
 void InstrumentItem::importMasks(MaskContainerItem* maskContainer)
 {
     DetectorContainerItem *detectorContainer = detectorContainerItem();
-    detectorContainer->clearMasks();
-
-    if(maskContainer) {
-        SessionModel *model = detectorContainer->model();
-        model->copyParameterizedItem(maskContainer, detectorContainer, DetectorContainerItem::T_MASKS);
-    }
+    detectorContainer->importMasks(maskContainer);
 }

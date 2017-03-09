@@ -17,10 +17,10 @@
 #include "DetectorItems.h"
 #include "MaskItems.h"
 
-const QString DetectorItem::P_DETECTOR = "DetectorType";
-const QString DetectorItem::T_MASKS = "Mask tag";
+const QString DetectorContainerItem::P_DETECTOR = "DetectorType";
+const QString DetectorContainerItem::T_MASKS = "Mask tag";
 
-DetectorItem::DetectorItem()
+DetectorContainerItem::DetectorContainerItem()
     : SessionItem(Constants::DetectorType)
 {
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
@@ -41,7 +41,7 @@ DetectorItem::DetectorItem()
     });
 }
 
-MaskContainerItem *DetectorItem::maskContainerItem() const
+MaskContainerItem *DetectorContainerItem::maskContainerItem() const
 {
     foreach(SessionItem *item, childItems()) {
         if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {

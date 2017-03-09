@@ -161,11 +161,11 @@ void ImportDataAssistant::realDataShape(const RealDataItem *realData, int &nx, i
 void ImportDataAssistant::detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny)
 {
     nx = ny = 0;
-    DetectorItem *detectorItem = instrumentItem ->detectorItem();
+    DetectorContainerItem *detectorItem = instrumentItem ->detectorItem();
     Q_ASSERT(detectorItem);
 
     // FIXME Refactor subDetector
-    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
+    auto subDetector = detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
     std::unique_ptr<IDetector2D> detector;
@@ -189,11 +189,11 @@ void ImportDataAssistant::setInstrumentShapeToData(InstrumentItem *instrumentIte
     int nxData(0), nyData(0);
     realDataShape(realDataItemItem, nxData, nyData);
 
-    DetectorItem *detectorItem = instrumentItem ->detectorItem();
+    DetectorContainerItem *detectorItem = instrumentItem ->detectorItem();
     Q_ASSERT(detectorItem);
 
     // FIXME Refactor subDetector
-    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
+    auto subDetector = detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
     if (subDetector->modelType() == Constants::SphericalDetectorType) {

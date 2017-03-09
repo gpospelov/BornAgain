@@ -51,8 +51,8 @@ inline void TestMapperCases::test_instrumentAlignmentPropertyVisibility()
     InstrumentModel model;
     SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
     SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
-    detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::RectangularDetectorType);
-    SessionItem *rectangular = detector->getGroupItem(DetectorItem::P_DETECTOR);
+    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::RectangularDetectorType);
+    SessionItem *rectangular = detector->getGroupItem(DetectorContainerItem::P_DETECTOR);
 
 
     ComboProperty alignment = rectangular->getItemValue(RectangularDetectorItem::P_ALIGNMENT)
@@ -74,12 +74,12 @@ inline void TestMapperCases::test_removeMaskOnDetectorChange()
     InstrumentModel model;
     SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
     SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
-    detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::RectangularDetectorType);
+    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::RectangularDetectorType);
     model.insertNewItem(Constants::MaskContainerType, detector->index());
-    QVERIFY(detector->getItems(DetectorItem::T_MASKS).size() == 1);
+    QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 1);
     // after change the mask container should be removed
-    detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::SphericalDetectorType);
-    QVERIFY(detector->getItems(DetectorItem::T_MASKS).size() == 0);
+    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::SphericalDetectorType);
+    QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 0);
 }
 
 inline void TestMapperCases::test_SimulationOptionsComputationToggle()

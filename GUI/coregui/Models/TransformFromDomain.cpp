@@ -219,14 +219,14 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
     }
 }
 
-void TransformFromDomain::setItemFromSample(DetectorItem* detectorItem,
+void TransformFromDomain::setItemFromSample(DetectorContainerItem* detectorItem,
                                             const GISASSimulation& simulation)
 {
     Q_ASSERT(detectorItem);
     const IDetector2D* iDetector = simulation.getInstrument().getDetector();
     if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
         auto item = dynamic_cast<SphericalDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
+                (detectorItem->setGroupProperty(DetectorContainerItem::P_DETECTOR,
                                              Constants::SphericalDetectorType));
         Q_ASSERT(item);
         setItemFromSample(item,* detector);
@@ -234,7 +234,7 @@ void TransformFromDomain::setItemFromSample(DetectorItem* detectorItem,
 
     else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
         auto item = dynamic_cast<RectangularDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
+                (detectorItem->setGroupProperty(DetectorContainerItem::P_DETECTOR,
                                              Constants::RectangularDetectorType));
         Q_ASSERT(item);
         setItemFromSample(item,* detector);
@@ -406,12 +406,12 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
 }
 
 
-void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GISASSimulation& simulation)
+void TransformFromDomain::setDetectorMasks(DetectorContainerItem* detectorItem, const GISASSimulation& simulation)
 {
     Q_ASSERT(detectorItem);
 
     double scale(1.0);
-    if(detectorItem->getGroupItem(DetectorItem::P_DETECTOR)->modelType()
+    if(detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR)->modelType()
             == Constants::SphericalDetectorType)
         scale = 1./Units::degree;
 

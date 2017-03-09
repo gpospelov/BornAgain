@@ -76,7 +76,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
     result[Constants::InterferenceFunction1DLatticeType] = &createInstance<InterferenceFunction1DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
-    result[Constants::DetectorType] = &createInstance<DetectorItem>;
+    result[Constants::DetectorType] = &createInstance<DetectorContainerItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
     result[Constants::PropertyType] = &createInstance<PropertyItem>;
@@ -111,7 +111,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerBasicRoughnessType] = &createInstance<LayerBasicRoughnessItem>;
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
-    result[Constants::DetectorType] = &createInstance<DetectorItem>;
+    result[Constants::DetectorType] = &createInstance<DetectorContainerItem>;
     result[Constants::SphericalDetectorType] = &createInstance<SphericalDetectorItem>;
     result[Constants::RectangularDetectorType] = &createInstance<RectangularDetectorItem>;
 

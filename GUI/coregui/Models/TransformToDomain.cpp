@@ -165,7 +165,7 @@ std::unique_ptr<Beam> TransformToDomain::createBeam(const SessionItem& item)
 void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem& detectorItem,
                                                        Instrument* instrument)
 {
-    auto subDetector = detectorItem.getGroupItem(DetectorItem::P_DETECTOR);
+    auto subDetector = detectorItem.getGroupItem(DetectorContainerItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
     double scale(1.0);

@@ -36,7 +36,7 @@ DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
 
 void DetectorMaskDelegate::initMaskEditorContext(
     MaskEditor *maskEditor, InstrumentModel *instrumentModel,
-    DetectorItem *detectorItem)
+    DetectorContainerItem *detectorItem)
 {
     m_instrumentModel = instrumentModel;
     m_detectorItem = detectorItem;
@@ -103,12 +103,12 @@ void DetectorMaskDelegate::createMaskContainer()
 //! Creates OutputData from DetectorItem's axes for later initialization of
 //! IntensityDataItem
 OutputData<double> *
-DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
+DetectorMaskDelegate::createOutputData(DetectorContainerItem *detectorItem)
 {
     Q_ASSERT(detectorItem);
     OutputData<double> *result = new OutputData<double>;
 
-    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
+    auto subDetector = detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
     if (subDetector->modelType() == Constants::SphericalDetectorType) {

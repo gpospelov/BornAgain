@@ -101,9 +101,9 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
             );
 
     connect(m_instrumentComponents,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+            SIGNAL(extendedDetectorEditorRequest(DetectorContainerItem *)),
             this,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
+            SIGNAL(extendedDetectorEditorRequest(DetectorContainerItem *))
             );
 }
 

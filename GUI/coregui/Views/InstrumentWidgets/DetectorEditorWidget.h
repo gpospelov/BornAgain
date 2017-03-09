@@ -22,7 +22,7 @@
 #include <memory>
 
 class GroupInfoBox;
-class DetectorItem;
+class DetectorContainerItem;
 class ComponentBoxEditor;
 class QGridLayout;
 class SphericalDetectorWidget;
@@ -35,10 +35,10 @@ public:
     DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent = 0);
     virtual ~DetectorEditorWidget();
 
-    void setDetectorItem(DetectorItem *detectorItem);
+    void setDetectorItem(DetectorContainerItem *detectorItem);
 
 signals:
-    void extendedDetectorEditorRequest(DetectorItem *);
+    void extendedDetectorEditorRequest(DetectorContainerItem *);
 
 public slots:
     void onPropertyChanged(const QString &propertyName);
@@ -51,7 +51,7 @@ private:
     ComponentBoxEditor *m_detectorTypeEditor;
     ColumnResizer *m_columnResizer;
     GroupInfoBox *m_groupBox;
-    DetectorItem *m_detectorItem;
+    DetectorContainerItem *m_detectorItem;
     QWidget *m_subDetectorWidget;
 };
 

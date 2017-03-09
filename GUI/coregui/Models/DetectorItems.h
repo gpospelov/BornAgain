@@ -23,13 +23,13 @@
 class MaskContainerItem;
 
 //! DetectorItem, holds masks and either rectangular or spherical detector as sub item
-class BA_CORE_API_ DetectorItem : public SessionItem
+class BA_CORE_API_ DetectorContainerItem : public SessionItem
 {
 public:
     static const QString P_DETECTOR;
     static const QString T_MASKS;
-    explicit DetectorItem();
-    virtual ~DetectorItem(){}
+    explicit DetectorContainerItem();
+    virtual ~DetectorContainerItem(){}
 
     MaskContainerItem *maskContainerItem() const;
 };

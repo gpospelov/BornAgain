@@ -41,10 +41,10 @@ BeamItem *InstrumentItem::beamItem() const
     return 0;
 }
 
-DetectorItem *InstrumentItem::detectorItem() const
+DetectorContainerItem *InstrumentItem::detectorItem() const
 {
     for(SessionItem *item : childItems())
         if(item->modelType() == Constants::DetectorType)
-            return dynamic_cast<DetectorItem *>(item);
+            return dynamic_cast<DetectorContainerItem *>(item);
     return 0;
 }

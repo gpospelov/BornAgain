@@ -20,7 +20,7 @@
 #include "SessionItem.h"
 
 class BeamItem;
-class DetectorItem;
+class DetectorContainerItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
@@ -29,7 +29,7 @@ public:
     InstrumentItem();
 
     BeamItem *beamItem() const;
-    DetectorItem *detectorItem() const;
+    DetectorContainerItem *detectorItem() const;
 };
 
 #endif // INSTRUMENTITEM_H

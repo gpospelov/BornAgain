@@ -7,6 +7,8 @@
 #include "InterferenceFunctionItems.h"
 #include "ParticleLayoutItem.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "ComboProperty.h"
 #include "DocumentModel.h"
 #include "SimulationOptionsItem.h"

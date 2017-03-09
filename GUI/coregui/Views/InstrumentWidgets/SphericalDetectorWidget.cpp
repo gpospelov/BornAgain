@@ -17,6 +17,7 @@
 #include "SphericalDetectorWidget.h"
 #include "ComponentBoxEditor.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
 #include "ExtendedDetectorDialog.h"
 #include "GroupInfoBox.h"
 #include "columnresizer.h"

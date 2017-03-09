@@ -18,6 +18,8 @@
 #include "AxesItems.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "GUIHelpers.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"

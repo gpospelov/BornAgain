@@ -19,6 +19,7 @@
 #include "ComponentBoxEditor.h"
 #include "ComponentEditor.h"
 #include "DetectorItems.h"
+#include "RectangularDetectorItem.h"
 #include "ExtendedDetectorDialog.h"
 #include "GroupInfoBox.h"
 #include "columnresizer.h"

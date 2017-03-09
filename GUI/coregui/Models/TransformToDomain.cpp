@@ -21,6 +21,8 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "Distributions.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"

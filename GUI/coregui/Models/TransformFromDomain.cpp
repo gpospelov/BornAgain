@@ -23,6 +23,8 @@
 #include "ComboProperty.h"
 #include "ConvolutionDetectorResolution.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "FTDecayFunctionItems.h"

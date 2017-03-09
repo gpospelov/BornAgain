@@ -17,14 +17,10 @@
 #ifndef RECTANGULARDETECTORITEM_H
 #define RECTANGULARDETECTORITEM_H
 
-#include "SessionItem.h"
+#include "DetectorItems.h"
 #include "Vectors3D.h"
 
-class IDetector2D;
-class IResolutionFunction2D;
-
-
-class BA_CORE_API_ RectangularDetectorItem : public SessionItem
+class BA_CORE_API_ RectangularDetectorItem : public DetectorItem
 {
 public:
     static const QString P_X_AXIS;
@@ -39,12 +35,12 @@ public:
     static const QString P_DBEAM_V0;
     static const QString P_DISTANCE;
 
-    explicit RectangularDetectorItem();
+    RectangularDetectorItem();
 
     std::unique_ptr<IDetector2D> createDetector() const;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
 
-    void setDetectorAlignment(const QString &alignment);
+    void setDetectorAlignment(const QString& alignment);
 
 private:
     void update_properties_appearance();

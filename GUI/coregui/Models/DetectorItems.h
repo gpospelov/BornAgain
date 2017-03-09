@@ -17,10 +17,11 @@
 #ifndef DETECTORITEMS_H
 #define DETECTORITEMS_H
 
-#include "RectangularDetectorItem.h"
-#include "SphericalDetectorItem.h"
+#include "SessionItem.h"
 
 class MaskContainerItem;
+class IDetector2D;
+class IResolutionFunction2D;
 
 //! DetectorItem, holds masks and either rectangular or spherical detector as sub item
 class BA_CORE_API_ DetectorContainerItem : public SessionItem
@@ -28,7 +29,7 @@ class BA_CORE_API_ DetectorContainerItem : public SessionItem
 public:
     static const QString P_DETECTOR;
     static const QString T_MASKS;
-    explicit DetectorContainerItem();
+    DetectorContainerItem();
     virtual ~DetectorContainerItem(){}
 
     MaskContainerItem *maskContainerItem() const;

@@ -108,7 +108,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem *realData
         return true;
 
     // FIXME temporary hack to get rid from Instrument's own masks and ROI
-    DetectorContainerItem *detectorItem = instrumentItem->detectorItem();
+    DetectorContainerItem *detectorItem = instrumentItem->detectorContainerItem();
     if(SessionItem *maskContainer = detectorItem->maskContainerItem()) {
         SessionItem *item = detectorItem->takeRow(detectorItem->rowOfChild(maskContainer));
         delete item;

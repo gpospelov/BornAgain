@@ -193,6 +193,12 @@ void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
     setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.getVariant());
 }
 
+void RectangularDetectorItem::setSize(int nx, int ny)
+{
+    getItem(RectangularDetectorItem::P_X_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
+    getItem(RectangularDetectorItem::P_Y_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
+}
+
 //! updates property tooltips and visibility flags, depending from type of alignment selected
 void RectangularDetectorItem::update_properties_appearance()
 {

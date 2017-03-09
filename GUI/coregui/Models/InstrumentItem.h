@@ -21,6 +21,7 @@
 
 class BeamItem;
 class DetectorContainerItem;
+class DetectorItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
@@ -29,7 +30,8 @@ public:
     InstrumentItem();
 
     BeamItem *beamItem() const;
-    DetectorContainerItem *detectorItem() const;
+    DetectorContainerItem *detectorContainerItem() const;
+    DetectorItem *detectorItem() const;
 };
 
 #endif // INSTRUMENTITEM_H

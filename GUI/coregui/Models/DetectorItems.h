@@ -43,6 +43,8 @@ public:
 
     virtual std::unique_ptr<IDetector2D> createDetector() const = 0;
     virtual std::unique_ptr<IResolutionFunction2D> createResolutionFunction() = 0;
+
+    virtual void setSize(int nx, int ny) = 0;
 };
 
 

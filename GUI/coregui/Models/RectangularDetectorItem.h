@@ -41,6 +41,7 @@ public:
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
 
     void setDetectorAlignment(const QString& alignment);
+    void setSize(int nx, int ny);
 
 private:
     void update_properties_appearance();

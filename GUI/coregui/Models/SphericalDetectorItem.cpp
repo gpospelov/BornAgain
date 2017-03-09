@@ -72,3 +72,9 @@ std::unique_ptr<IResolutionFunction2D> SphericalDetectorItem::createResolutionFu
 
     return result;
 }
+
+void SphericalDetectorItem::setSize(int nx, int ny)
+{
+    getItem(SphericalDetectorItem::P_PHI_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
+    getItem(SphericalDetectorItem::P_ALPHA_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
+}

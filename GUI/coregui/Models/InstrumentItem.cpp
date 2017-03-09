@@ -41,10 +41,19 @@ BeamItem *InstrumentItem::beamItem() const
     return 0;
 }
 
-DetectorContainerItem *InstrumentItem::detectorItem() const
+DetectorContainerItem *InstrumentItem::detectorContainerItem() const
 {
     for(SessionItem *item : childItems())
         if(item->modelType() == Constants::DetectorContainerType)
             return dynamic_cast<DetectorContainerItem *>(item);
     return 0;
+}
+
+DetectorItem* InstrumentItem::detectorItem() const
+{
+    DetectorContainerItem* detectorContainer = detectorContainerItem();
+    DetectorItem* detectorItem = dynamic_cast<DetectorItem*>(
+                detectorContainer->getGroupItem(DetectorContainerItem::P_DETECTOR));
+    Q_ASSERT(detectorItem);
+    return detectorItem;
 }

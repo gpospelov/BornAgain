@@ -97,7 +97,7 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
 {
     IntensityDataItem *intensityItem = jobItem->realDataItem()->intensityDataItem();
-    DetectorContainerItem *detector = jobItem->instrumentItem()->detectorItem();
+    DetectorContainerItem *detector = jobItem->instrumentItem()->detectorContainerItem();
 
     // removing original masks from the detector, if exists
     if(detector->maskContainerItem())

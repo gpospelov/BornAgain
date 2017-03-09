@@ -45,9 +45,9 @@ public:
     ~IFormFactor() override;
     IFormFactor* clone() const override=0;
 
-    //! Creates a sliced form factor with the given rotation and translation
-    virtual IFormFactor* createSlicedFormFactor(ZLimits limits, const IRotation& rot,
-                                                kvector_t translation) const;
+    //! Creates a (possibly sliced) form factor with the given rotation and translation
+    IFormFactor* createSlicedFormFactor(ZLimits limits, const IRotation& rot,
+                                        kvector_t translation) const;
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientMaterial(const IMaterial&) =0;
@@ -75,6 +75,11 @@ public:
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}
+
+protected:
+    //! Actually slices the form factor or throws an exception
+    virtual IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                         kvector_t translation) const;
 };
 
 bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,

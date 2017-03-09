@@ -18,6 +18,7 @@
 #include "Box.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
@@ -29,7 +30,7 @@ FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, 
     onChange();
 }
 
-complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const
 {
     complex_t qxL2 = 2.5*std::pow(m_length * q.x(), 2);
     complex_t qyWdiv2 = m_width * q.y() / 2.0;
@@ -37,6 +38,18 @@ complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const
 
     return m_height * m_length * m_width * std::exp(complex_t(0., 1.) * qzHdiv2) / (1.0 + qxL2)
             * MathFunctions::sinc(qyWdiv2) * MathFunctions::sinc(qzHdiv2);
+}
+
+IFormFactor* FormFactorLongBoxLorentz::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                       kvector_t translation) const
+{
+    if (!IsZRotation(rot))
+        throw std::runtime_error("FormFactorLongBoxLorentz::sliceFormFactor error: "
+                                 "rotation is not along z-axis.");
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    FormFactorLongBoxLorentz slicedff(m_length, m_width,
+                                      m_height - effects.dz_bottom - effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorLongBoxLorentz::onChange()

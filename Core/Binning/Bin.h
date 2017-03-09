@@ -55,7 +55,7 @@ class BA_CORE_API_ Bin1DCVector
 {
 public:
     Bin1DCVector() : m_q_lower(), m_q_upper() {}
-    Bin1DCVector(const cvector_t lower, const cvector_t upper)
+    Bin1DCVector(cvector_t lower, cvector_t upper)
         : m_q_lower(lower), m_q_upper(upper) {}
     Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin);
     cvector_t getMidPoint() const { return (m_q_lower + m_q_upper)/2.0; }

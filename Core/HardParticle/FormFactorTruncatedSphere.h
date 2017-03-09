@@ -25,10 +25,10 @@
 class BA_CORE_API_ FormFactorTruncatedSphere : public IFormFactorBorn
 {
 public:
-    FormFactorTruncatedSphere(double radius, double height);
+    FormFactorTruncatedSphere(double radius, double height, double dh=0.0);
 
     FormFactorTruncatedSphere *clone() const override final {
-        return new FormFactorTruncatedSphere(m_radius, m_height); }
+        return new FormFactorTruncatedSphere(m_radius, m_height, m_dh); }
     void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
@@ -36,9 +36,12 @@ public:
 
     double getRadialExtension() const override final { return m_radius; }
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:
@@ -47,6 +50,7 @@ private:
 
     double m_radius;
     double m_height;
+    double m_dh;
     mutable cvector_t m_q;
 
 #ifndef SWIG

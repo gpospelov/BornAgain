@@ -34,7 +34,7 @@ FormFactorGauss::FormFactorGauss(double width, double height)
     onChange();
 }
 
-complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const
 {
     complex_t qzHdiv2 = m_height * q.z() / 2.0;
     double qzh = q.z().real() * m_height;
@@ -49,9 +49,4 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const
 
     return exp_I(qzHdiv2) * m_height * m_width * m_width *
             std::exp(-(qxr*qxr + qyr*qyr + qzh*qzh) / 4.0 / M_PI);
-}
-
-void FormFactorGauss::onChange()
-{
-    mP_shape.reset(new Box(m_width, m_width, m_height));
 }

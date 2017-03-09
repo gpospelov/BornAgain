@@ -38,7 +38,7 @@ double FormFactorRipple2::getRadialExtension() const
 }
 
 //! Complex formfactor.
-complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
 {
     complex_t factor = m_length * MathFunctions::sinc(q.x() * m_length * 0.5) * m_width;
     complex_t result = 0;

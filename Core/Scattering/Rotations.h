@@ -46,6 +46,8 @@ public:
 
 BA_CORE_API_ IRotation* createProduct(const IRotation& left, const IRotation& right);
 
+bool IsZRotation(const IRotation& rot);
+
 class BA_CORE_API_ RotationX : public IRotation
 {
 public:

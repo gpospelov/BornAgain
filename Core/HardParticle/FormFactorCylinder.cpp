@@ -19,6 +19,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
     : m_radius(radius), m_height(height)
@@ -29,7 +30,7 @@ FormFactorCylinder::FormFactorCylinder(double radius, double height)
     onChange();
 }
 
-complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const
 {
     double R = m_radius;
     double H = m_height;
@@ -41,6 +42,17 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const
     complex_t result = radial_part * z_part;
 
     return result;
+}
+
+IFormFactor* FormFactorCylinder::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                 kvector_t translation) const
+{
+    if (!IsZRotation(rot))
+        throw std::runtime_error("FormFactorCylinder::sliceFormFactor error: "
+                                 "rotation is not along z-axis.");
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    FormFactorCylinder slicedff(m_radius, m_height - effects.dz_bottom - effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorCylinder::onChange()

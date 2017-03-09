@@ -20,6 +20,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 #include <limits>
 
 //! @param radius of circular base
@@ -57,7 +58,7 @@ complex_t FormFactorCone::Integrand(double Z) const
     return Rz*Rz*MathFunctions::Bessel_J1c(q_p*Rz) * exp_I(m_q.z()*Z);
 }
 
-complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorCone::evaluate_for_q(cvector_t q) const
 {
     m_q = q;
     if ( std::abs(m_q.mag()) < std::numeric_limits<double>::epsilon()) {
@@ -74,8 +75,22 @@ complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const
     }
 }
 
+IFormFactor* FormFactorCone::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                            kvector_t translation) const
+{
+    if (!IsZRotation(rot))
+        throw std::runtime_error("FormFactorCone::sliceFormFactor error: "
+                                 "rotation is not along z-axis.");
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    double dradius = effects.dz_bottom*m_cot_alpha;
+    FormFactorCone slicedff(m_radius - dradius, m_height - effects.dz_bottom - effects.dz_top,
+                            m_alpha);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+}
+
 void FormFactorCone::onChange()
 {
+    m_cot_alpha = MathFunctions::cot(m_alpha);
     double radius2 = m_radius - m_height*m_cot_alpha;
     mP_shape.reset(new DoubleEllipse(m_radius, m_radius, m_height, radius2, radius2));
 }

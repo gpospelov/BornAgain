@@ -183,12 +183,6 @@ void Transform3D::print(std::ostream& ostr) const
     ostr << "Transform3D: " << m_matrix;
 }
 
-Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
-: m_matrix(matrix)
-{
-    m_inverse_matrix = m_matrix.inverse();
-}
-
 bool Transform3D::isXRotation() const
 {
     if (m_matrix(0,0) != 1.0) return false;
@@ -217,6 +211,12 @@ bool Transform3D::isZRotation() const
     if (m_matrix(2,0) != 0.0) return false;
     if (m_matrix(2,1) != 0.0) return false;
     return true;
+}
+
+Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
+: m_matrix(matrix)
+{
+    m_inverse_matrix = m_matrix.inverse();
 }
 
 double BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation)

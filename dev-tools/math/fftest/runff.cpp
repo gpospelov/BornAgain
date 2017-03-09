@@ -91,9 +91,9 @@ std::string nice_q( cvector_t q )
 //! Bisect between two q's to find possible discontinuities
 
 void bisect(
-    const IFormFactorBorn* polyh, const int ishape, const double q0mag,
-    const cvector_t qi, const complex_t ri, const Diagnosis di,
-    const cvector_t qf, const complex_t rf, const Diagnosis df,
+    const IFormFactorBorn* polyh, int ishape, double q0mag,
+    cvector_t qi, complex_t ri, const Diagnosis di,
+    cvector_t qf, complex_t rf, const Diagnosis df,
     double& maxrelstep )
 {
     assert( di!=df );

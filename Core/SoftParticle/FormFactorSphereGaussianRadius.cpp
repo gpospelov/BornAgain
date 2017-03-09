@@ -32,7 +32,7 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, doub
     onChange();
 }
 
-complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const
 {
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double dw = std::exp(-q2*m_sigma*m_sigma/2.0);
@@ -41,7 +41,7 @@ complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) cons
 
 void FormFactorSphereGaussianRadius::onChange()
 {
-    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean));
+    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean, 0.0));
 }
 
 double FormFactorSphereGaussianRadius::calculateMeanR3() const

@@ -10687,7 +10687,7 @@ class IFormFactor(ISample):
 
         IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
 
-        Creates a sliced form factor with the given rotation and translation. 
+        Creates a (possibly sliced) form factor with the given rotation and translation. 
 
         """
         return _libBornAgainCore.IFormFactor_createSlicedFormFactor(self, limits, rot, translation)
@@ -10775,6 +10775,11 @@ class IFormFactor(ISample):
 
         """
         return _libBornAgainCore.IFormFactor_setSpecularInfo(self, arg0, arg1)
+
+
+    def sliceFormFactor(self, limits, rot, translation):
+        """sliceFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
+        return _libBornAgainCore.IFormFactor_sliceFormFactor(self, limits, rot, translation)
 
     def __disown__(self):
         self.this.disown()
@@ -11118,7 +11123,7 @@ class IFormFactorBorn(IFormFactor):
         """
         evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(const cvector_t q) const =0
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -11129,8 +11134,46 @@ class IFormFactorBorn(IFormFactor):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
         return weakref_proxy(self)
+
+    def sliceFormFactor(self, limits, rot, translation):
+        """sliceFormFactor(IFormFactorBorn self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
+        return _libBornAgainCore.IFormFactorBorn_sliceFormFactor(self, limits, rot, translation)
+
 IFormFactorBorn_swigregister = _libBornAgainCore.IFormFactorBorn_swigregister
 IFormFactorBorn_swigregister(IFormFactorBorn)
+
+class SlicingEffects(_object):
+    """Proxy of C++ SlicingEffects class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SlicingEffects, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SlicingEffects, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["position"] = _libBornAgainCore.SlicingEffects_position_set
+    __swig_getmethods__["position"] = _libBornAgainCore.SlicingEffects_position_get
+    if _newclass:
+        position = _swig_property(_libBornAgainCore.SlicingEffects_position_get, _libBornAgainCore.SlicingEffects_position_set)
+    __swig_setmethods__["dz_bottom"] = _libBornAgainCore.SlicingEffects_dz_bottom_set
+    __swig_getmethods__["dz_bottom"] = _libBornAgainCore.SlicingEffects_dz_bottom_get
+    if _newclass:
+        dz_bottom = _swig_property(_libBornAgainCore.SlicingEffects_dz_bottom_get, _libBornAgainCore.SlicingEffects_dz_bottom_set)
+    __swig_setmethods__["dz_top"] = _libBornAgainCore.SlicingEffects_dz_top_set
+    __swig_getmethods__["dz_top"] = _libBornAgainCore.SlicingEffects_dz_top_get
+    if _newclass:
+        dz_top = _swig_property(_libBornAgainCore.SlicingEffects_dz_top_get, _libBornAgainCore.SlicingEffects_dz_top_set)
+
+    def __init__(self):
+        """__init__(SlicingEffects self) -> SlicingEffects"""
+        this = _libBornAgainCore.new_SlicingEffects()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_SlicingEffects
+    __del__ = lambda self: None
+SlicingEffects_swigregister = _libBornAgainCore.SlicingEffects_swigregister
+SlicingEffects_swigregister(SlicingEffects)
 
 class IFormFactorDecorator(IFormFactor):
     """
@@ -11408,7 +11451,7 @@ class PolyhedralEdge(_object):
         """
         contrib(PolyhedralEdge self, int m, cvector_t qpa, complex_t qrperp) -> complex_t
 
-        complex_t PolyhedralEdge::contrib(int m, const cvector_t qpa, complex_t qrperp) const
+        complex_t PolyhedralEdge::contrib(int m, cvector_t qpa, complex_t qrperp) const
 
         Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M! 
 
@@ -11526,7 +11569,7 @@ class PolyhedralFace(_object):
         """
         ff_n(PolyhedralFace self, int m, cvector_t q) -> complex_t
 
-        complex_t PolyhedralFace::ff_n(int m, const cvector_t q) const
+        complex_t PolyhedralFace::ff_n(int m, cvector_t q) const
 
         Returns contribution qn*f_n [of order q^(n+1)] from this face to the polyhedral form factor. 
 
@@ -11536,9 +11579,9 @@ class PolyhedralFace(_object):
 
     def ff(self, q, sym_Ci):
         """
-        ff(PolyhedralFace self, cvector_t q, bool const sym_Ci) -> complex_t
+        ff(PolyhedralFace self, cvector_t q, bool sym_Ci) -> complex_t
 
-        complex_t PolyhedralFace::ff(const cvector_t q, const bool sym_Ci) const
+        complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
 
         Returns the contribution ff(q) of this face to the polyhedral form factor. 
 
@@ -11550,7 +11593,7 @@ class PolyhedralFace(_object):
         """
         ff_2D(PolyhedralFace self, cvector_t qpa) -> complex_t
 
-        complex_t PolyhedralFace::ff_2D(const cvector_t qpa) const
+        complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
 
         Returns the two-dimensional form factor of this face, for use in a prism. 
 
@@ -11605,7 +11648,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolyhedron::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 
@@ -11617,7 +11660,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         evaluate_centered(FormFactorPolyhedron self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolyhedron::evaluate_centered(const cvector_t q) const
+        complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
 
         Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 
@@ -11692,7 +11735,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolygonalPrism self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolygonalPrism::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 
@@ -11765,7 +11808,7 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolygonalSurface self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolygonalSurface::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -12032,7 +12075,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
 
-        complex_t FormFactorBox::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorBox::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -12159,7 +12202,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorCone self, cvector_t q) -> complex_t
 
-        complex_t FormFactorCone::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorCone::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -12616,7 +12659,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorCylinder self, cvector_t q) -> complex_t
 
-        complex_t FormFactorCylinder::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -12897,7 +12940,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorEllipsoidalCylinder self, cvector_t q) -> complex_t
 
-        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -12988,11 +13031,35 @@ class FormFactorFullSphere(IFormFactorBorn):
         return _libBornAgainCore.FormFactorFullSphere_getRadialExtension(self)
 
 
+    def bottomZ(self, rotation):
+        """
+        bottomZ(FormFactorFullSphere self, IRotation rotation) -> double
+
+        double FormFactorFullSphere::bottomZ(const IRotation &rotation) const overridefinal
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorFullSphere_bottomZ(self, rotation)
+
+
+    def topZ(self, rotation):
+        """
+        topZ(FormFactorFullSphere self, IRotation rotation) -> double
+
+        double FormFactorFullSphere::topZ(const IRotation &rotation) const overridefinal
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorFullSphere_topZ(self, rotation)
+
+
     def evaluate_for_q(self, q):
         """
         evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t
 
-        complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13106,7 +13173,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorFullSpheroid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13212,7 +13279,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorGauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorGauss::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13341,7 +13408,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorHemiEllipsoid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13539,7 +13606,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongBoxGauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13668,7 +13735,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongBoxLorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongBoxLorentz::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13797,7 +13864,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Gauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -13926,7 +13993,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Lorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -14068,7 +14135,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Gauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -14208,7 +14275,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Lorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -14314,7 +14381,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -14348,9 +14415,9 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
 
     def __init__(self, base_edge, height):
         """
-        __init__(FormFactorPrism3 self, double const base_edge, double const height) -> FormFactorPrism3
+        __init__(FormFactorPrism3 self, double base_edge, double height) -> FormFactorPrism3
 
-        FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
+        FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
 
         """
         this = _libBornAgainCore.new_FormFactorPrism3(base_edge, height)
@@ -14419,9 +14486,9 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
 
     def __init__(self, base_edge, height):
         """
-        __init__(FormFactorPrism6 self, double const base_edge, double const height) -> FormFactorPrism6
+        __init__(FormFactorPrism6 self, double base_edge, double height) -> FormFactorPrism6
 
-        FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
+        FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
 
         """
         this = _libBornAgainCore.new_FormFactorPrism6(base_edge, height)
@@ -14688,7 +14755,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorRipple1 self, cvector_t q) -> complex_t
 
-        complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -14830,7 +14897,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorRipple2 self, cvector_t q) -> complex_t
 
-        complex_t FormFactorRipple2::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -14915,7 +14982,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -15000,7 +15067,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -15085,7 +15152,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereUniformRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -15273,7 +15340,7 @@ class FormFactorTrivial(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTrivial self, cvector_t arg2) -> complex_t
 
-        complex_t FormFactorTrivial::evaluate_for_q(const cvector_t) const overridefinal
+        complex_t FormFactorTrivial::evaluate_for_q(cvector_t) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -15395,14 +15462,15 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTruncatedSphere, name)
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height):
+    def __init__(self, radius, height, dh=0.0):
         """
+        __init__(FormFactorTruncatedSphere self, double radius, double height, double dh=0.0) -> FormFactorTruncatedSphere
         __init__(FormFactorTruncatedSphere self, double radius, double height) -> FormFactorTruncatedSphere
 
-        FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
+        FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
 
         """
-        this = _libBornAgainCore.new_FormFactorTruncatedSphere(radius, height)
+        this = _libBornAgainCore.new_FormFactorTruncatedSphere(radius, height, dh)
         try:
             self.this.append(this)
         except Exception:
@@ -15468,7 +15536,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t
 
-        complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const overridefinal
 
         Complex formfactor. 
 
@@ -15500,14 +15568,15 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTruncatedSpheroid, name)
     __repr__ = _swig_repr
 
-    def __init__(self, radius, height, height_flattening):
+    def __init__(self, radius, height, height_flattening, dh=0.0):
         """
+        __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening, double dh=0.0) -> FormFactorTruncatedSpheroid
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening) -> FormFactorTruncatedSpheroid
 
-        FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
+        FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
 
         """
-        this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening)
+        this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening, dh)
         try:
             self.this.append(this)
         except Exception:
@@ -15583,7 +15652,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTruncatedSpheroid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const overridefinal
+        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -18940,6 +19009,15 @@ def createProduct(left, right):
 
     """
     return _libBornAgainCore.createProduct(left, right)
+
+def IsZRotation(rot):
+    """
+    IsZRotation(IRotation rot) -> bool
+
+    bool IsZRotation(const IRotation &rot)
+
+    """
+    return _libBornAgainCore.IsZRotation(rot)
 class RotationX(IRotation):
     """Proxy of C++ RotationX class."""
 

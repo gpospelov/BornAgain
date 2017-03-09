@@ -47,9 +47,6 @@ public:
 
 private:
     MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor);
-    //! Creates a form factor decorated with the IParticle's position/rotation
-    IFormFactor* createTransformationDecoratedFormFactor(
-        const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const;
     void initialize();
 
     std::unique_ptr<IClusteredParticles> mp_particle_structure; //!< Crystal  structure

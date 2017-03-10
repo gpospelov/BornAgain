@@ -234,14 +234,16 @@ void RectangularDetectorItem::update_properties_appearance()
 
 kvector_t RectangularDetectorItem::getNormalVector() const
 {
-    auto item = dynamic_cast<VectorItem*>(getItem(RectangularDetectorItem::P_NORMAL));
-    Q_ASSERT(item);
-    return item->getVector();
+//    auto item = dynamic_cast<VectorItem*>(getItem(RectangularDetectorItem::P_NORMAL));
+//    Q_ASSERT(item);
+//    return item->getVector();
+    return item<VectorItem>(RectangularDetectorItem::P_NORMAL).getVector();
 }
 
 kvector_t RectangularDetectorItem::getDirectionVector() const
 {
-    auto item = dynamic_cast<VectorItem*>(getItem(RectangularDetectorItem::P_DIRECTION));
-    Q_ASSERT(item);
-    return item->getVector();
+//    auto item = dynamic_cast<VectorItem*>(getItem(RectangularDetectorItem::P_DIRECTION));
+//    Q_ASSERT(item);
+//    return item->getVector();
+    return item<VectorItem>(RectangularDetectorItem::P_DIRECTION).getVector();
 }

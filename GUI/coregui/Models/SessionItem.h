@@ -83,6 +83,8 @@ public:
 
     // access tagged items
     SessionItem *getItem(const QString &tag = QString(), int row = 0) const;
+    template<typename T> T& item(const QString &tag) const;
+
     QVector<SessionItem *> getItems(const QString &tag = QString()) const;
     bool insertItem(int row, SessionItem *item, const QString &tag = QString());
     SessionItem *takeItem(int row, const QString &tag);
@@ -160,5 +162,13 @@ private:
 };
 
 Q_DECLARE_METATYPE(SessionItem*) // INVESTIGATE something requires sessionitem be declared as meta type
+
+template<typename T>
+T& SessionItem::item(const QString& tag) const
+{
+    T* t = dynamic_cast<T*>(getItem(tag));
+    Q_ASSERT(t);
+    return *t;
+}
 
 #endif // SESSIONITEM_H

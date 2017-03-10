@@ -24,11 +24,9 @@ class BA_CORE_API_ SphericalDetectorItem : public DetectorItem
 public:
     static const QString P_PHI_AXIS;
     static const QString P_ALPHA_AXIS;
-    static const QString P_RESOLUTION_FUNCTION;
     SphericalDetectorItem();
 
     std::unique_ptr<IDetector2D> createDetector() const;
-    std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
     void setSize(int nx, int ny);
 
 protected:

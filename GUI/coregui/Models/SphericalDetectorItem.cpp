@@ -22,9 +22,9 @@
 
 const QString SphericalDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";
-const QString SphericalDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 
-SphericalDetectorItem::SphericalDetectorItem() : DetectorItem(Constants::SphericalDetectorType)
+SphericalDetectorItem::SphericalDetectorItem()
+    : DetectorItem(Constants::SphericalDetectorType)
 {
     SessionItem* item = addGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
@@ -35,9 +35,6 @@ SphericalDetectorItem::SphericalDetectorItem() : DetectorItem(Constants::Spheric
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MIN, 0.0);
     item->setItemValue(BasicAxisItem::P_MAX, 2.0);
-
-    addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
-    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
 }
 
 std::unique_ptr<IDetector2D> SphericalDetectorItem::createDetector() const
@@ -61,18 +58,6 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDetector() const
     addMasksToDomain(result.get());
 
     return std::move(result);
-}
-
-std::unique_ptr<IResolutionFunction2D> SphericalDetectorItem::createResolutionFunction()
-{
-    // setting up resolution function
-    auto resfuncItem = dynamic_cast<ResolutionFunctionItem*>(getGroupItem(P_RESOLUTION_FUNCTION));
-    Q_ASSERT(resfuncItem);
-
-    std::unique_ptr<IResolutionFunction2D> result(
-        resfuncItem->createResolutionFunction(Units::degree));
-
-    return result;
 }
 
 void SphericalDetectorItem::setSize(int nx, int ny)

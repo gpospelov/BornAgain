@@ -60,7 +60,6 @@ ComboProperty alignmentCombo()
 
 const QString RectangularDetectorItem::P_X_AXIS = "X axis";
 const QString RectangularDetectorItem::P_Y_AXIS = "Y axis";
-const QString RectangularDetectorItem::P_RESOLUTION_FUNCTION = "Type";
 const QString RectangularDetectorItem::P_ALIGNMENT = "Alignment";
 const QString RectangularDetectorItem::P_NORMAL = "Normal vector";
 const QString RectangularDetectorItem::P_DIRECTION = "Direction vector";
@@ -87,10 +86,6 @@ RectangularDetectorItem::RectangularDetectorItem()
     item->setItemValue(BasicAxisItem::P_MAX, default_detector_height);
     item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Height"));
     item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Height of the detector in mm"));
-
-    // resolution function
-    addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
-    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
 
     // alignment selector
     addProperty(P_ALIGNMENT, alignmentCombo().getVariant());
@@ -172,14 +167,6 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
     addMasksToDomain(result.get());
 
     return std::move(result);
-}
-
-std::unique_ptr<IResolutionFunction2D> RectangularDetectorItem::createResolutionFunction()
-{
-    auto resfuncItem = dynamic_cast<ResolutionFunctionItem*>(getGroupItem(P_RESOLUTION_FUNCTION));
-    Q_ASSERT(resfuncItem);
-    std::unique_ptr<IResolutionFunction2D> result(resfuncItem->createResolutionFunction());
-    return result;
 }
 
 void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)

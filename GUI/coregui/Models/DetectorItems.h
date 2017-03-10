@@ -47,10 +47,12 @@ class BA_CORE_API_ DetectorItem : public SessionItem
 {
 public:
     static const QString T_MASKS;
+    static const QString P_RESOLUTION_FUNCTION;
     explicit DetectorItem(const QString& modelType);
 
     virtual std::unique_ptr<IDetector2D> createDetector() const = 0;
-    virtual std::unique_ptr<IResolutionFunction2D> createResolutionFunction() = 0;
+
+    std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
 
     virtual void setSize(int nx, int ny) = 0;
 

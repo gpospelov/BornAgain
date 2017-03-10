@@ -19,6 +19,7 @@
 #include "DetectorItems.h"
 #include "SessionModel.h"
 #include "IDetector2D.h"
+#include "ResolutionFunctionItems.h"
 
 const QString DetectorContainerItem::P_DETECTOR = "DetectorType";
 //const QString DetectorContainerItem::T_MASKS = "Mask tag";
@@ -61,12 +62,29 @@ void DetectorContainerItem::importMasks(MaskContainerItem* maskContainer)
 // --------------------------------------------------------------------------------------------- //
 
 const QString DetectorItem::T_MASKS = "Mask tag";
+const QString DetectorItem::P_RESOLUTION_FUNCTION = "Type";
 
 DetectorItem::DetectorItem(const QString& modelType)
     : SessionItem(modelType)
 {
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
+
+    addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
+    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
+}
+
+std::unique_ptr<IResolutionFunction2D> DetectorItem::createResolutionFunction()
+{
+    auto resfuncItem = dynamic_cast<ResolutionFunctionItem*>(
+                getGroupItem(DetectorItem::P_RESOLUTION_FUNCTION));
+    Q_ASSERT(resfuncItem);
+
+    std::unique_ptr<IResolutionFunction2D> result(
+        resfuncItem->createResolutionFunction(axesToDomainUnitsFactor()));
+
+    return result;
+
 }
 
 void DetectorItem::clearMasks()

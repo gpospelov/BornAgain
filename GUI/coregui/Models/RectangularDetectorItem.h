@@ -25,7 +25,6 @@ class BA_CORE_API_ RectangularDetectorItem : public DetectorItem
 public:
     static const QString P_X_AXIS;
     static const QString P_Y_AXIS;
-    static const QString P_RESOLUTION_FUNCTION;
     static const QString P_ALIGNMENT;
     static const QString P_NORMAL;
     static const QString P_DIRECTION;
@@ -38,7 +37,6 @@ public:
     RectangularDetectorItem();
 
     std::unique_ptr<IDetector2D> createDetector() const;
-    std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
 
     void setDetectorAlignment(const QString& alignment);
     void setSize(int nx, int ny);

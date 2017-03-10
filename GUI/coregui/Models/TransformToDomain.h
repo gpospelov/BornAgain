@@ -32,6 +32,7 @@
 
 class GISASSimulation;
 class SessionItem;
+class DetectorItem;
 
 namespace TransformToDomain
 {
@@ -44,7 +45,7 @@ BA_CORE_API_ std::unique_ptr<ParticleDistribution> createParticleDistribution(
     const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<ParticleLayout> createParticleLayout(const SessionItem& item);
 
-BA_CORE_API_ void initInstrumentFromDetectorItem(const SessionItem& detectorItem,
+BA_CORE_API_ void initInstrumentFromDetectorItem(const DetectorItem& detectorItem,
                                                  Instrument* instrument);
 BA_CORE_API_ void addDistributionParametersToSimulation(
     const SessionItem& beam_item, GISASSimulation* simulation);

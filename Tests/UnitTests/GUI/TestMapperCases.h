@@ -22,7 +22,7 @@ class TestMapperCases : public QObject {
 private slots:
     void test_ParticeleCompositionUpdate();
     void test_instrumentAlignmentPropertyVisibility();
-    void test_removeMaskOnDetectorChange();
+//    void test_removeMaskOnDetectorChange();
     void test_SimulationOptionsComputationToggle();
 };
 
@@ -71,18 +71,18 @@ inline void TestMapperCases::test_instrumentAlignmentPropertyVisibility()
 
 }
 
-inline void TestMapperCases::test_removeMaskOnDetectorChange()
-{
-    InstrumentModel model;
-    SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
-    SessionItem *detector = model.insertNewItem(Constants::DetectorContainerType, instrument->index());
-    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::RectangularDetectorType);
-    model.insertNewItem(Constants::MaskContainerType, detector->index());
-    QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 1);
-    // after change the mask container should be removed
-    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::SphericalDetectorType);
-    QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 0);
-}
+//inline void TestMapperCases::test_removeMaskOnDetectorChange()
+//{
+//    InstrumentModel model;
+//    SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
+//    SessionItem *detector = model.insertNewItem(Constants::DetectorContainerType, instrument->index());
+//    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::RectangularDetectorType);
+//    model.insertNewItem(Constants::MaskContainerType, detector->index());
+//    QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 1);
+//    // after change the mask container should be removed
+//    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::SphericalDetectorType);
+//    QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 0);
+//}
 
 inline void TestMapperCases::test_SimulationOptionsComputationToggle()
 {

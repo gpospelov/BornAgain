@@ -144,14 +144,11 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
     return P_part_distr;
 }
 
-void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem& detectorItem,
+void TransformToDomain::initInstrumentFromDetectorItem(const DetectorItem& detectorItem,
                                                        Instrument* instrument)
 {
-    auto subDetector = detectorItem.getGroupItem(DetectorContainerItem::P_DETECTOR);
-    Q_ASSERT(subDetector);
-
     double scale(1.0);
-    if(dynamic_cast<SphericalDetectorItem*>(subDetector))
+    if(detectorItem.modelType() == Constants::SphericalDetectorType)
         scale = Units::degree;
 
     if(auto maskContainerItem = detectorItem.getChildOfType(Constants::MaskContainerType)) {

@@ -29,9 +29,7 @@ class BA_CORE_API_ DetectorContainerItem : public SessionItem
 {
 public:
     static const QString P_DETECTOR;
-    static const QString T_MASKS;
     DetectorContainerItem();
-    virtual ~DetectorContainerItem(){}
 
     void clearMasks();
 

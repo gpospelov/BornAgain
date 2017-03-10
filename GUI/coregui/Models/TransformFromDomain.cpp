@@ -412,16 +412,17 @@ void TransformFromDomain::setDetectorMasks(DetectorContainerItem* detectorItem, 
 {
     Q_ASSERT(detectorItem);
 
+    DetectorItem* subDetector = detectorItem->detectorItem();
+
     double scale(1.0);
-    if(detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR)->modelType()
-            == Constants::SphericalDetectorType)
+    if(subDetector->modelType() == Constants::SphericalDetectorType)
         scale = 1./Units::degree;
 
     const IDetector2D* detector = simulation.getInstrument().getDetector();
     const DetectorMask* detectorMask = detector->getDetectorMask();
     if(detectorMask && detectorMask->numberOfMasks()) {
         MaskContainerItem* containerItem = new MaskContainerItem();
-        detectorItem->insertItem(-1, containerItem);
+        subDetector->insertItem(-1, containerItem);
         for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
@@ -488,10 +489,10 @@ void TransformFromDomain::setDetectorMasks(DetectorContainerItem* detectorItem, 
     }
 
     if(detector->regionOfInterest()) {
-        SessionItem* containerItem = detectorItem->getChildOfType(Constants::MaskContainerType);
+        SessionItem* containerItem = subDetector->getChildOfType(Constants::MaskContainerType);
         if(!containerItem) {
             containerItem = new MaskContainerItem();
-            detectorItem->insertItem(-1, containerItem);
+            subDetector->insertItem(-1, containerItem);
         }
 
         RegionOfInterestItem *roiItem = new RegionOfInterestItem();

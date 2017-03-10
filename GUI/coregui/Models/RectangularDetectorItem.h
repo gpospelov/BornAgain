@@ -42,8 +42,8 @@ public:
 private:
     std::unique_ptr<IDetector2D> createDomainDetector() const override;
     void update_properties_appearance();
-    kvector_t getNormalVector() const;
-    kvector_t getDirectionVector() const;
+    kvector_t normalVector() const;
+    kvector_t directionVector() const;
 
     bool m_is_constructed;
 };

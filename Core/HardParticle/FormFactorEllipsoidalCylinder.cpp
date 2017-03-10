@@ -19,7 +19,6 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
-#include "Rotations.h"
 
 //! @param radius_x half length of one horizontal main axes
 //! @param radius_y half length of the other horizontal main axes
@@ -56,9 +55,6 @@ complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const
 IFormFactor* FormFactorEllipsoidalCylinder::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                                             kvector_t translation) const
 {
-    if (!IsZRotation(rot))
-        throw std::runtime_error("FormFactorEllipsoidalCylinder::sliceFormFactor error: "
-                                 "rotation is not along z-axis.");
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorEllipsoidalCylinder slicedff(m_radius_x, m_radius_y,
                                            m_height - effects.dz_bottom - effects.dz_top);

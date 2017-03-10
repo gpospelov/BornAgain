@@ -21,7 +21,6 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
-#include "Rotations.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {
     {
@@ -60,9 +59,6 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
 IFormFactor* FormFactorCuboctahedron::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                                       kvector_t translation) const
 {
-    if (!IsZRotation(rot))
-        throw std::runtime_error("FormFactorCuboctahedron::sliceFormFactor error: "
-                                 "rotation is not along z-axis.");
     auto effects = computeSlicingEffects(limits, translation, m_height*(1+m_height_ratio));
     if (effects.dz_bottom>m_height) {
         double dbase_edge = 2*(effects.dz_bottom-m_height)*MathFunctions::cot(m_alpha);

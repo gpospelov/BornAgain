@@ -332,6 +332,10 @@ public:
     virtual double bottomZ(IRotation const &rotation) const;
     virtual double topZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
+    virtual bool canSliceAnalytically(IRotation const &rot) const;
+    virtual bool canSliceAnalyticallySwigPublic(IRotation const &rot) const {
+      return IFormFactor::canSliceAnalytically(rot);
+    }
     virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
     virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
       return IFormFactor::sliceFormFactor(limits,rot,translation);
@@ -366,7 +370,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[19];
 #endif
 
 };
@@ -394,6 +398,10 @@ public:
     virtual double bottomZ(IRotation const &rotation) const;
     virtual double topZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
+    virtual bool canSliceAnalytically(IRotation const &rot) const;
+    virtual bool canSliceAnalyticallySwigPublic(IRotation const &rot) const {
+      return IFormFactorBorn::canSliceAnalytically(rot);
+    }
     virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
     virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
       return IFormFactor::sliceFormFactor(limits,rot,translation);
@@ -429,7 +437,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[19];
+    mutable swig::SwigVar_PyObject vtable[20];
 #endif
 
 };

@@ -12704,6 +12704,15 @@ C++ includes: SlicedFormFactorList.h
 ";
 
 
+// File: structSlicingEffects.xml
+%feature("docstring") SlicingEffects "
+
+Nested structure that holds slicing effects on position and removed parts.
+
+C++ includes: IFormFactorBorn.h
+";
+
+
 // File: classSpecularComputation.xml
 %feature("docstring") SpecularComputation "
 

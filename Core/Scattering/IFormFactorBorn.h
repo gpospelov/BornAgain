@@ -55,6 +55,9 @@ public:
     virtual complex_t evaluate_for_q(cvector_t q) const=0;
 
 protected:
+    //! Default implementation only allows rotations along z-axis
+    bool canSliceAnalytically(const IRotation& rot) const override;
+
 #ifndef SWIG
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f in case
     //! of matrix interactions. Default implementation calls evaluate_for_q(q) and

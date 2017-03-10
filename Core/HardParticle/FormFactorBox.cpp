@@ -18,7 +18,6 @@
 #include "Box.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
-#include "Rotations.h"
 
 //! @param length of rectangular base
 //! @param width  of rectangular base
@@ -44,9 +43,6 @@ complex_t FormFactorBox::evaluate_for_q(cvector_t q) const
 IFormFactor* FormFactorBox::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                            kvector_t translation) const
 {
-    if (!IsZRotation(rot))
-        throw std::runtime_error("FormFactorBox::sliceFormFactor error: "
-                                 "rotation is not along z-axis.");
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorBox slicedff(m_length, m_width, m_height - effects.dz_bottom - effects.dz_top);
     return CreateTransformedFormFactor(slicedff, rot, effects.position);

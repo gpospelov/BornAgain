@@ -20,7 +20,6 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
-#include "Rotations.h"
 #include <limits>
 
 //! @param radius of circular base
@@ -78,9 +77,6 @@ complex_t FormFactorCone::evaluate_for_q(cvector_t q) const
 IFormFactor* FormFactorCone::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                             kvector_t translation) const
 {
-    if (!IsZRotation(rot))
-        throw std::runtime_error("FormFactorCone::sliceFormFactor error: "
-                                 "rotation is not along z-axis.");
     auto effects = computeSlicingEffects(limits, translation, m_height);
     double dradius = effects.dz_bottom*m_cot_alpha;
     FormFactorCone slicedff(m_radius - dradius, m_height - effects.dz_bottom - effects.dz_top,

@@ -10777,6 +10777,11 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_setSpecularInfo(self, arg0, arg1)
 
 
+    def canSliceAnalytically(self, rot):
+        """canSliceAnalytically(IFormFactor self, IRotation rot) -> bool"""
+        return _libBornAgainCore.IFormFactor_canSliceAnalytically(self, rot)
+
+
     def sliceFormFactor(self, limits, rot, translation):
         """sliceFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
         return _libBornAgainCore.IFormFactor_sliceFormFactor(self, limits, rot, translation)
@@ -11130,6 +11135,11 @@ class IFormFactorBorn(IFormFactor):
         """
         return _libBornAgainCore.IFormFactorBorn_evaluate_for_q(self, q)
 
+
+    def canSliceAnalytically(self, rot):
+        """canSliceAnalytically(IFormFactorBorn self, IRotation rot) -> bool"""
+        return _libBornAgainCore.IFormFactorBorn_canSliceAnalytically(self, rot)
+
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IFormFactorBorn(self)
@@ -11143,7 +11153,14 @@ IFormFactorBorn_swigregister = _libBornAgainCore.IFormFactorBorn_swigregister
 IFormFactorBorn_swigregister(IFormFactorBorn)
 
 class SlicingEffects(_object):
-    """Proxy of C++ SlicingEffects class."""
+    """
+
+
+    Nested structure that holds slicing effects on position and removed parts.
+
+    C++ includes: IFormFactorBorn.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, SlicingEffects, name, value)
@@ -11164,7 +11181,16 @@ class SlicingEffects(_object):
         dz_top = _swig_property(_libBornAgainCore.SlicingEffects_dz_top_get, _libBornAgainCore.SlicingEffects_dz_top_set)
 
     def __init__(self):
-        """__init__(SlicingEffects self) -> SlicingEffects"""
+        """
+        __init__(SlicingEffects self) -> SlicingEffects
+
+
+
+        Nested structure that holds slicing effects on position and removed parts.
+
+        C++ includes: IFormFactorBorn.h
+
+        """
         this = _libBornAgainCore.new_SlicingEffects()
         try:
             self.this.append(this)

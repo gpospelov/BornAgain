@@ -77,6 +77,9 @@ public:
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}
 
 protected:
+    //! Checks if slicing has a fast analytical solution
+    virtual bool canSliceAnalytically(const IRotation& rot) const;
+
     //! Actually slices the form factor or throws an exception
     virtual IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
                                          kvector_t translation) const;

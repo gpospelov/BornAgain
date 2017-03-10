@@ -120,7 +120,26 @@ RectangularDetectorItem::RectangularDetectorItem()
     });
 }
 
-std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
+void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
+{
+    ComboProperty combo_property
+        = getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
+
+    if (!combo_property.getValues().contains(alignment)) {
+        throw GUIHelpers::Error(
+            "RectangularDetectorItem::setDetectorAlignment -> Unexpected alignment");
+    }
+    combo_property.setValue(alignment);
+    setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.getVariant());
+}
+
+void RectangularDetectorItem::setSize(int nx, int ny)
+{
+    getItem(RectangularDetectorItem::P_X_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
+    getItem(RectangularDetectorItem::P_Y_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
+}
+
+std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() const
 {
     // basic axes parameters
     auto x_axis = dynamic_cast<BasicAxisItem*>(getItem(RectangularDetectorItem::P_X_AXIS));
@@ -164,28 +183,7 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
         result->setDirectBeamPosition(dbeam_u0, dbeam_v0);
     }
 
-    addMasksToDomain(result.get());
-
     return std::move(result);
-}
-
-void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
-{
-    ComboProperty combo_property
-        = getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
-
-    if (!combo_property.getValues().contains(alignment)) {
-        throw GUIHelpers::Error(
-            "RectangularDetectorItem::setDetectorAlignment -> Unexpected alignment");
-    }
-    combo_property.setValue(alignment);
-    setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.getVariant());
-}
-
-void RectangularDetectorItem::setSize(int nx, int ny)
-{
-    getItem(RectangularDetectorItem::P_X_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
-    getItem(RectangularDetectorItem::P_Y_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 
 //! updates property tooltips and visibility flags, depending from type of alignment selected

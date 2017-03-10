@@ -29,6 +29,7 @@ class Beam;
 class DetectionProperties;
 class IAxis;
 class IDetectorResolution;
+class IResolutionFunction2D;
 class IPixel;
 class IShape2D;
 class RegionOfInterest;
@@ -68,6 +69,7 @@ public:
 
     //! Sets the detector resolution
     void setDetectorResolution(const IDetectorResolution& p_detector_resolution);
+    void setResolutionFunction(const IResolutionFunction2D& resFunc);
 
     //! Removes detector resolution function.
     void removeDetectorResolution();

@@ -15,7 +15,6 @@
 
 #include "Instrument.h"
 #include "Beam.h"
-#include "ConvolutionDetectorResolution.h"
 #include "IDetector2D.h"
 #include "IResolutionFunction2D.h"
 #include "SimulationElement.h"
@@ -97,9 +96,7 @@ std::vector<SimulationElement> Instrument::createSimulationElements()
 
 void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function)
 {
-    std::unique_ptr<IDetectorResolution> detRes(
-                new ConvolutionDetectorResolution(p_resolution_function));
-    mP_detector->setDetectorResolution(*detRes);
+    mP_detector->setResolutionFunction(p_resolution_function);
 }
 
 void Instrument::removeDetectorResolution()

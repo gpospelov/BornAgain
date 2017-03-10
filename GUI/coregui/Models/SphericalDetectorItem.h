@@ -26,11 +26,11 @@ public:
     static const QString P_ALPHA_AXIS;
     SphericalDetectorItem();
 
-    std::unique_ptr<IDetector2D> createDetector() const;
     void setSize(int nx, int ny);
 
 protected:
-    double axesToDomainUnitsFactor() const;
+    std::unique_ptr<IDetector2D> createDomainDetector() const override;
+    double axesToDomainUnitsFactor() const override;
 };
 
 #endif // SPHERICALDETECTORITEM_H

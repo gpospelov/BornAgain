@@ -36,14 +36,12 @@ public:
 
     RectangularDetectorItem();
 
-    std::unique_ptr<IDetector2D> createDetector() const;
-
     void setDetectorAlignment(const QString& alignment);
     void setSize(int nx, int ny);
 
 private:
+    std::unique_ptr<IDetector2D> createDomainDetector() const override;
     void update_properties_appearance();
-
     kvector_t getNormalVector() const;
     kvector_t getDirectionVector() const;
 

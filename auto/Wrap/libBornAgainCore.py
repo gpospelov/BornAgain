@@ -17851,6 +17851,11 @@ class IDetector2D(ICloneable, INode):
         return _libBornAgainCore.IDetector2D_setDetectorResolution(self, p_detector_resolution)
 
 
+    def setResolutionFunction(self, resFunc):
+        """setResolutionFunction(IDetector2D self, IResolutionFunction2D resFunc)"""
+        return _libBornAgainCore.IDetector2D_setResolutionFunction(self, resFunc)
+
+
     def removeDetectorResolution(self):
         """
         removeDetectorResolution(IDetector2D self)

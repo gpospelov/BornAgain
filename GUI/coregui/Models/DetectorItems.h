@@ -50,9 +50,7 @@ public:
     static const QString P_RESOLUTION_FUNCTION;
     explicit DetectorItem(const QString& modelType);
 
-    virtual std::unique_ptr<IDetector2D> createDetector() const = 0;
-
-    std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
+    std::unique_ptr<IDetector2D> createDetector() const;
 
     virtual void setSize(int nx, int ny) = 0;
 
@@ -65,6 +63,9 @@ public:
     void importMasks(MaskContainerItem* maskContainer);
 
 protected:
+    virtual std::unique_ptr<IDetector2D> createDomainDetector() const = 0;
+    std::unique_ptr<IResolutionFunction2D> createResolutionFunction() const;
+
     //! Scales the values provided by axes (to perform deg->rad convertion on the way to domain).
     virtual double axesToDomainUnitsFactor() const { return 1.0; }
 

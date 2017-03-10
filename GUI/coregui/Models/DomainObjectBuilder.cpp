@@ -29,7 +29,6 @@
 #include "Instrument.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
-#include "IResolutionFunction2D.h"
 
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
@@ -139,10 +138,6 @@ std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const Instrumen
 
     auto detector = instrumentItem.detectorItem()->createDetector();
     instrument->setDetector(*detector);
-
-    auto resfunc = instrumentItem.detectorItem()->createResolutionFunction();
-    if(resfunc)
-        instrument->setDetectorResolutionFunction(*resfunc);
 
     return instrument;
 }

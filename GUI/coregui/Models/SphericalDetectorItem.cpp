@@ -16,7 +16,6 @@
 
 #include "SphericalDetectorItem.h"
 #include "AxesItems.h"
-#include "ResolutionFunctionItems.h"
 #include "SphericalDetector.h"
 #include "Units.h"
 
@@ -37,7 +36,7 @@ SphericalDetectorItem::SphericalDetectorItem()
     item->setItemValue(BasicAxisItem::P_MAX, 2.0);
 }
 
-std::unique_ptr<IDetector2D> SphericalDetectorItem::createDetector() const
+std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const
 {
     std::unique_ptr<SphericalDetector> result(new SphericalDetector());
 
@@ -54,8 +53,6 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDetector() const
     double y_max = Units::deg2rad(y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble());
 
     result->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
-
-    addMasksToDomain(result.get());
 
     return std::move(result);
 }

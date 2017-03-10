@@ -23,6 +23,7 @@
 #include "Units.h"
 #include "RegionOfInterest.h"
 #include "Exceptions.h"
+#include "ConvolutionDetectorResolution.h"
 
 IDetector2D::IDetector2D()
     : m_axes()
@@ -347,6 +348,12 @@ void IDetector2D::setDetectorResolution(const IDetectorResolution& p_detector_re
 {
     mP_detector_resolution.reset(p_detector_resolution.clone());
     registerChild(mP_detector_resolution.get());
+}
+
+void IDetector2D::setResolutionFunction(const IResolutionFunction2D& resFunc)
+{
+    ConvolutionDetectorResolution convFunc(resFunc);
+    setDetectorResolution(convFunc);
 }
 
 void IDetector2D::removeDetectorResolution()

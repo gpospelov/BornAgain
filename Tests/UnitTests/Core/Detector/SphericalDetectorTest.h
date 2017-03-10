@@ -40,7 +40,7 @@ TEST_F(SphericalDetectorTest, initialState)
     EXPECT_EQ(0u, detector.numberOfMaskedChannels());
 
     // resolution function
-    EXPECT_EQ(nullptr, detector.getDetectorResolutionFunction());
+    EXPECT_EQ(nullptr, detector.detectorResolution());
 
     // region of interest
     EXPECT_EQ(nullptr, detector.regionOfInterest());
@@ -346,7 +346,7 @@ TEST_F(SphericalDetectorTest, Clone)
     EXPECT_EQ(data->getAxis(1).getMax(), 3.0);
 
     EXPECT_EQ(std::string("ConvolutionDetectorResolution"),
-              clone->getDetectorResolutionFunction()->getName());
+              clone->detectorResolution()->getName());
 
     EXPECT_EQ(clone->numberOfMaskedChannels(), 8u);
 

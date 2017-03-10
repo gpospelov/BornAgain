@@ -271,7 +271,7 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc
@@ -379,7 +379,7 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
     }
 
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc

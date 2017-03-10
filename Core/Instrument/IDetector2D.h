@@ -75,7 +75,7 @@ public:
     //! Applies the detector resolution to the given intensity maps
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
-    const IDetectorResolution* getDetectorResolutionFunction() const;
+    const IDetectorResolution* detectorResolution() const;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,

@@ -354,7 +354,7 @@ void IDetector2D::removeDetectorResolution()
     mP_detector_resolution.reset();
 }
 
-const IDetectorResolution* IDetector2D::getDetectorResolutionFunction() const
+const IDetectorResolution* IDetector2D::detectorResolution() const
 {
     return mP_detector_resolution.get();
 }

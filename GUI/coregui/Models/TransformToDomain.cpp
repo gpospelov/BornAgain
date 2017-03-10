@@ -144,35 +144,6 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
     return P_part_distr;
 }
 
-void TransformToDomain::initInstrumentFromDetectorItem(const DetectorItem& detectorItem,
-                                                       Instrument* instrument)
-{
-    double scale(1.0);
-    if(detectorItem.modelType() == Constants::SphericalDetectorType)
-        scale = Units::degree;
-
-    if(auto maskContainerItem = detectorItem.getChildOfType(Constants::MaskContainerType)) {
-        for(int i_row = maskContainerItem->childItems().size(); i_row>0; --i_row) {
-            if(auto maskItem = dynamic_cast<MaskItem*>(
-                   maskContainerItem->childItems().at(i_row-1))) {
-
-                if(maskItem->modelType() == Constants::RegionOfInterestType) {
-                    double xlow = scale*maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
-                    double ylow = scale*maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
-                    double xup = scale*maskItem->getItemValue(RectangleItem::P_XUP).toDouble();
-                    double yup = scale*maskItem->getItemValue(RectangleItem::P_YUP).toDouble();
-                    instrument->getDetector()->setRegionOfInterest(xlow, ylow, xup, yup);
-
-                } else {
-                    std::unique_ptr<IShape2D > shape(maskItem->createShape(scale));
-                    bool mask_value = maskItem->getItemValue(MaskItem::P_MASK_VALUE).toBool();
-                    instrument->getDetector()->addMask(*shape, mask_value);
-                }
-            }
-        }
-    }
-}
-
 //! adds DistributionParameters to the Simulation
 void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
                                                               GISASSimulation* simulation)

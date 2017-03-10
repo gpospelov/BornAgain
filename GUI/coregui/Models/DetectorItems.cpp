@@ -18,6 +18,7 @@
 #include "MaskItems.h"
 #include "DetectorItems.h"
 #include "SessionModel.h"
+#include "IDetector2D.h"
 
 const QString DetectorContainerItem::P_DETECTOR = "DetectorType";
 //const QString DetectorContainerItem::T_MASKS = "Mask tag";
@@ -91,4 +92,32 @@ void DetectorItem::importMasks(MaskContainerItem* maskContainer)
 
     if(maskContainer)
         model()->copyParameterizedItem(maskContainer, this, T_MASKS);
+}
+
+void DetectorItem::addMasksToDomain(IDetector2D* detector) const
+{
+    auto maskContainer = maskContainerItem();
+
+    if (!maskContainer)
+        return;
+
+    const double scale = axesToDomainUnitsFactor();
+
+    for (int i_row = maskContainer->childItems().size(); i_row > 0; --i_row) {
+        if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->childItems().at(i_row - 1))) {
+
+            if (maskItem->modelType() == Constants::RegionOfInterestType) {
+                double xlow = scale * maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
+                double ylow = scale * maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
+                double xup = scale * maskItem->getItemValue(RectangleItem::P_XUP).toDouble();
+                double yup = scale * maskItem->getItemValue(RectangleItem::P_YUP).toDouble();
+                detector->setRegionOfInterest(xlow, ylow, xup, yup);
+
+            } else {
+                std::unique_ptr<IShape2D> shape(maskItem->createShape(scale));
+                bool mask_value = maskItem->getItemValue(MaskItem::P_MASK_VALUE).toBool();
+                detector->addMask(*shape, mask_value);
+            }
+        }
+    }
 }

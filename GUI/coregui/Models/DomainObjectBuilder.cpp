@@ -144,8 +144,5 @@ std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const Instrumen
     if(resfunc)
         instrument->setDetectorResolutionFunction(*resfunc);
 
-     TransformToDomain::initInstrumentFromDetectorItem(*instrumentItem.detectorItem(),
-                                                       instrument.get());
-
     return instrument;
 }

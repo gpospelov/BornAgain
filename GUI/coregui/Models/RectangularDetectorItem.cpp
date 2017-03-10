@@ -169,6 +169,8 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDetector() const
         result->setDirectBeamPosition(dbeam_u0, dbeam_v0);
     }
 
+    addMasksToDomain(result.get());
+
     return std::move(result);
 }
 

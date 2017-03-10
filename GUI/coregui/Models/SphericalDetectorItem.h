@@ -30,6 +30,9 @@ public:
     std::unique_ptr<IDetector2D> createDetector() const;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
     void setSize(int nx, int ny);
+
+protected:
+    double axesToDomainUnitsFactor() const;
 };
 
 #endif // SPHERICALDETECTORITEM_H

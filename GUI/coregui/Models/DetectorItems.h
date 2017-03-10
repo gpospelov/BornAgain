@@ -62,6 +62,11 @@ public:
 
     void importMasks(MaskContainerItem* maskContainer);
 
+protected:
+    //! Scales the values provided by axes (to perform deg->rad convertion on the way to domain).
+    virtual double axesToDomainUnitsFactor() const { return 1.0; }
+
+    void addMasksToDomain(IDetector2D* detector) const;
 };
 
 

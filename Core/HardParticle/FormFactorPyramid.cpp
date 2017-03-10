@@ -20,7 +20,6 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
-#include "Rotations.h"
 
 const PolyhedralTopology FormFactorPyramid::topology = {
     {
@@ -52,9 +51,6 @@ FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alp
 IFormFactor* FormFactorPyramid::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                                 kvector_t translation) const
 {
-    if (!IsZRotation(rot))
-        throw std::runtime_error("FormFactorPyramid::sliceFormFactor error: "
-                                 "rotation is not along z-axis.");
     auto effects = computeSlicingEffects(limits, translation, m_height);
     double dbase_edge = 2*effects.dz_bottom*MathFunctions::cot(m_alpha);
     FormFactorPyramid slicedff(m_base_edge - dbase_edge,

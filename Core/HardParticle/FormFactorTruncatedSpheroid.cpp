@@ -19,7 +19,6 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
-#include "Rotations.h"
 #include "TruncatedEllipsoid.h"
 #include <limits>
 
@@ -84,9 +83,6 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const
 IFormFactor* FormFactorTruncatedSpheroid::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                                           kvector_t translation) const
 {
-    if (!IsZRotation(rot))
-        throw std::runtime_error("FormFactorTruncatedSpheroid::sliceFormFactor error: "
-                                 "rotation is not along z-axis.");
     double height = m_height - m_dh;
     auto effects = computeSlicingEffects(limits, translation, height);
     FormFactorTruncatedSpheroid slicedff(m_radius, height - effects.dz_bottom,

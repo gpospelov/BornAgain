@@ -19,15 +19,15 @@
 #include "FormFactorDecoratorRotation.h"
 #include "IClusteredParticles.h"
 
-MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor)
-    : mp_particle_structure(p_particle_structure), mp_meso_form_factor(p_form_factor)
+MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
+                         const IFormFactor& form_factor)
+    : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
 {
     initialize();
 }
 
 MesoCrystal::~MesoCrystal()
-{
-}
+{}
 
 MesoCrystal* MesoCrystal::clone() const
 {
@@ -76,30 +76,10 @@ std::vector<const INode*> MesoCrystal::getChildren() const
                                        << mp_particle_structure << mp_meso_form_factor;
 }
 
-MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
-                         const IFormFactor& form_factor)
-    : mp_particle_structure(particle_structure.clone()), mp_meso_form_factor(form_factor.clone())
+MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor)
+    : mp_particle_structure(p_particle_structure), mp_meso_form_factor(p_form_factor)
 {
     initialize();
-}
-
-IFormFactor* MesoCrystal::createTransformationDecoratedFormFactor(
-    const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const
-{
-    IFormFactor* p_intermediate;
-    if (p_rotation) {
-        p_intermediate = new FormFactorDecoratorRotation(bare_ff, *p_rotation);
-    } else {
-        p_intermediate = bare_ff.clone();
-    }
-    IFormFactor* p_result;
-    if (translation != kvector_t()) {
-        p_result = new FormFactorDecoratorPositionFactor(*p_intermediate, translation);
-        delete p_intermediate;
-    } else {
-        p_result = p_intermediate;
-    }
-    return p_result;
 }
 
 void MesoCrystal::initialize()

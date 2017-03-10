@@ -18,7 +18,6 @@
 #include "Box.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
-#include "Rotations.h"
 
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
@@ -43,9 +42,6 @@ complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const
 IFormFactor* FormFactorLongBoxLorentz::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                                        kvector_t translation) const
 {
-    if (!IsZRotation(rot))
-        throw std::runtime_error("FormFactorLongBoxLorentz::sliceFormFactor error: "
-                                 "rotation is not along z-axis.");
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorLongBoxLorentz slicedff(m_length, m_width,
                                       m_height - effects.dz_bottom - effects.dz_top);

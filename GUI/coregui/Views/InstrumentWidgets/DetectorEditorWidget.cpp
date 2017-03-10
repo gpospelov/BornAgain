@@ -17,7 +17,8 @@
 #include "DetectorEditorWidget.h"
 #include "ComponentBoxEditor.h"
 #include "DetectorItems.h"
-#include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "ExtendedDetectorDialog.h"
 #include "GUIHelpers.h"
 #include "GroupInfoBox.h"
@@ -54,7 +55,7 @@ DetectorEditorWidget::~DetectorEditorWidget()
 {
 }
 
-void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
+void DetectorEditorWidget::setDetectorItem(DetectorContainerItem *detectorItem)
 {
     if(m_detectorItem == detectorItem) {
         return;
@@ -73,7 +74,7 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
         }, this);
 
         m_detectorTypeEditor->clearEditor();
-        m_detectorTypeEditor->addItem(m_detectorItem->getItem(DetectorItem::P_DETECTOR));
+        m_detectorTypeEditor->addItem(m_detectorItem->getItem(DetectorContainerItem::P_DETECTOR));
 
         init_SubDetector_Widget();
     }
@@ -97,7 +98,7 @@ void DetectorEditorWidget::setDetectorItem(DetectorItem *detectorItem)
 
 void DetectorEditorWidget::onPropertyChanged(const QString &propertyName)
 {
-    if(propertyName == DetectorItem::P_DETECTOR) {
+    if(propertyName == DetectorContainerItem::P_DETECTOR) {
         init_SubDetector_Widget();
     }
 }
@@ -114,7 +115,7 @@ void DetectorEditorWidget::init_SubDetector_Widget()
     m_subDetectorWidget = 0;
 
 
-    SessionItem *subItem = m_detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
+    SessionItem *subItem = m_detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR);
 //    if(SphericalDetectorItem *SphericalDetectorItem = dynamic_cast<)
 
 

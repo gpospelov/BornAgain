@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class DetectorItem;
+class DetectorContainerItem;
 class QGridLayout;
 class ColumnResizer;
 class ComponentBoxEditor;
@@ -32,10 +32,10 @@ class BA_CORE_API_ SphericalDetectorWidget : public QWidget
     Q_OBJECT
 public:
     SphericalDetectorWidget(ColumnResizer *columnResizer,
-                            DetectorItem *detectorItem, QWidget *parent = 0);
+                            DetectorContainerItem *detectorItem, QWidget *parent = 0);
     virtual ~SphericalDetectorWidget();
 
-    void setDetectorItem(DetectorItem *detectorItem);
+    void setDetectorItem(DetectorContainerItem *detectorItem);
 
 public slots:
     void onColumnResizerDestroyed(QObject *object);

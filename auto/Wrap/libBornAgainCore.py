@@ -17877,6 +17877,11 @@ class IDetector2D(ICloneable, INode):
         return _libBornAgainCore.IDetector2D_setDetectorResolution(self, p_detector_resolution)
 
 
+    def setResolutionFunction(self, resFunc):
+        """setResolutionFunction(IDetector2D self, IResolutionFunction2D resFunc)"""
+        return _libBornAgainCore.IDetector2D_setResolutionFunction(self, resFunc)
+
+
     def removeDetectorResolution(self):
         """
         removeDetectorResolution(IDetector2D self)
@@ -17901,14 +17906,9 @@ class IDetector2D(ICloneable, INode):
         return _libBornAgainCore.IDetector2D_applyDetectorResolution(self, p_intensity_map)
 
 
-    def getDetectorResolutionFunction(self):
-        """
-        getDetectorResolutionFunction(IDetector2D self) -> IDetectorResolution
-
-        const IDetectorResolution * IDetector2D::getDetectorResolutionFunction() const 
-
-        """
-        return _libBornAgainCore.IDetector2D_getDetectorResolutionFunction(self)
+    def detectorResolution(self):
+        """detectorResolution(IDetector2D self) -> IDetectorResolution"""
+        return _libBornAgainCore.IDetector2D_detectorResolution(self)
 
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):

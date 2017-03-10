@@ -23,6 +23,8 @@
 #include "ComboProperty.h"
 #include "ConvolutionDetectorResolution.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "FTDecayFunctionItems.h"
@@ -219,14 +221,14 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
     }
 }
 
-void TransformFromDomain::setItemFromSample(DetectorItem* detectorItem,
+void TransformFromDomain::setItemFromSample(DetectorContainerItem* detectorItem,
                                             const GISASSimulation& simulation)
 {
     Q_ASSERT(detectorItem);
     const IDetector2D* iDetector = simulation.getInstrument().getDetector();
     if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
         auto item = dynamic_cast<SphericalDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
+                (detectorItem->setGroupProperty(DetectorContainerItem::P_DETECTOR,
                                              Constants::SphericalDetectorType));
         Q_ASSERT(item);
         setItemFromSample(item,* detector);
@@ -234,7 +236,7 @@ void TransformFromDomain::setItemFromSample(DetectorItem* detectorItem,
 
     else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
         auto item = dynamic_cast<RectangularDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
+                (detectorItem->setGroupProperty(DetectorContainerItem::P_DETECTOR,
                                              Constants::RectangularDetectorType));
         Q_ASSERT(item);
         setItemFromSample(item,* detector);
@@ -269,7 +271,7 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc
@@ -377,7 +379,7 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
     }
 
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc
@@ -406,20 +408,21 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
 }
 
 
-void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GISASSimulation& simulation)
+void TransformFromDomain::setDetectorMasks(DetectorContainerItem* detectorItem, const GISASSimulation& simulation)
 {
     Q_ASSERT(detectorItem);
 
+    DetectorItem* subDetector = detectorItem->detectorItem();
+
     double scale(1.0);
-    if(detectorItem->getGroupItem(DetectorItem::P_DETECTOR)->modelType()
-            == Constants::SphericalDetectorType)
+    if(subDetector->modelType() == Constants::SphericalDetectorType)
         scale = 1./Units::degree;
 
     const IDetector2D* detector = simulation.getInstrument().getDetector();
     const DetectorMask* detectorMask = detector->getDetectorMask();
     if(detectorMask && detectorMask->numberOfMasks()) {
         MaskContainerItem* containerItem = new MaskContainerItem();
-        detectorItem->insertItem(-1, containerItem);
+        subDetector->insertItem(-1, containerItem);
         for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
@@ -486,10 +489,10 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GIS
     }
 
     if(detector->regionOfInterest()) {
-        SessionItem* containerItem = detectorItem->getChildOfType(Constants::MaskContainerType);
+        SessionItem* containerItem = subDetector->getChildOfType(Constants::MaskContainerType);
         if(!containerItem) {
             containerItem = new MaskContainerItem();
-            detectorItem->insertItem(-1, containerItem);
+            subDetector->insertItem(-1, containerItem);
         }
 
         RegionOfInterestItem *roiItem = new RegionOfInterestItem();

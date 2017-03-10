@@ -18,6 +18,8 @@
 #include "AxesItems.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "GUIHelpers.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
@@ -36,7 +38,7 @@ DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
 
 void DetectorMaskDelegate::initMaskEditorContext(
     MaskEditor *maskEditor, InstrumentModel *instrumentModel,
-    DetectorItem *detectorItem)
+    DetectorContainerItem *detectorItem)
 {
     m_instrumentModel = instrumentModel;
     m_detectorItem = detectorItem;
@@ -45,7 +47,7 @@ void DetectorMaskDelegate::initMaskEditorContext(
     Q_ASSERT(m_detectorItem);
 
     createIntensityDataItem();
-    createMaskContainer();
+    m_detectorItem->createMaskContainer();
 
     Q_ASSERT(m_detectorItem->maskContainerItem());
 
@@ -89,26 +91,15 @@ void DetectorMaskDelegate::createIntensityDataItem()
     m_intensityItem->setOutputData(createOutputData(m_detectorItem));
 }
 
-//! Creates MaskContainer in DetectorItem
-void DetectorMaskDelegate::createMaskContainer()
-{
-    Q_ASSERT(m_detectorItem);
-    if (!m_detectorItem->maskContainerItem()) {
-        m_instrumentModel->insertNewItem(
-            Constants::MaskContainerType,
-            m_instrumentModel->indexOfItem(m_detectorItem));
-    }
-}
-
 //! Creates OutputData from DetectorItem's axes for later initialization of
 //! IntensityDataItem
 OutputData<double> *
-DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
+DetectorMaskDelegate::createOutputData(DetectorContainerItem *detectorItem)
 {
     Q_ASSERT(detectorItem);
     OutputData<double> *result = new OutputData<double>;
 
-    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
+    auto subDetector = detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR);
     Q_ASSERT(subDetector);
 
     if (subDetector->modelType() == Constants::SphericalDetectorType) {

@@ -21,12 +21,13 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "Distributions.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "IResolutionFunction2D.h"
 #include "InterferenceFunction1DLattice.h"
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
@@ -140,75 +141,6 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
     auto& particle_distribution = static_cast<const ParticleDistributionItem&>(item);
     auto P_part_distr = particle_distribution.createParticleDistribution();
     return P_part_distr;
-}
-
-std::unique_ptr<Instrument> TransformToDomain::createInstrument(const SessionItem& item)
-{
-    Q_UNUSED(item);
-    return GUIHelpers::make_unique<Instrument>();
-}
-
-std::unique_ptr<Beam> TransformToDomain::createBeam(const SessionItem& item)
-{
-    auto P_beam = GUIHelpers::make_unique<Beam>();
-
-    auto beamItem = dynamic_cast<const BeamItem*>(&item);
-    P_beam->setIntensity(beamItem->getIntensity());
-    double lambda = beamItem->getWavelength();
-    double inclination_angle = Units::deg2rad(beamItem->getInclinationAngle());
-    double azimuthal_angle = Units::deg2rad(beamItem->getAzimuthalAngle());
-    P_beam->setCentralK(lambda, inclination_angle, azimuthal_angle);
-
-    return P_beam;
-}
-
-void TransformToDomain::initInstrumentFromDetectorItem(const SessionItem& detectorItem,
-                                                       Instrument* instrument)
-{
-    auto subDetector = detectorItem.getGroupItem(DetectorItem::P_DETECTOR);
-    Q_ASSERT(subDetector);
-
-    double scale(1.0);
-    if(auto sphericalDetector = dynamic_cast<SphericalDetectorItem*>(subDetector)) {
-        scale = Units::degree;
-        auto detector = sphericalDetector->createDetector();
-        instrument->setDetector(*detector);
-        auto resfunc = sphericalDetector->createResolutionFunction();
-        if(resfunc) instrument->setDetectorResolutionFunction(*resfunc);
-    }
-
-    else if(auto rectangularDetector = dynamic_cast<RectangularDetectorItem*>(subDetector)) {
-        auto detector = rectangularDetector->createDetector();
-        instrument->setDetector(*detector);
-        auto resfunc = rectangularDetector->createResolutionFunction();
-        if(resfunc) instrument->setDetectorResolutionFunction(*resfunc);
-
-    } else {
-        throw GUIHelpers::Error(
-            "TransformToDomain::initInstrumentWithDetectorItem() -> Error. Unknown model type "
-            + subDetector->modelType());
-    }
-
-    if(auto maskContainerItem = detectorItem.getChildOfType(Constants::MaskContainerType)) {
-        for(int i_row = maskContainerItem->childItems().size(); i_row>0; --i_row) {
-            if(auto maskItem = dynamic_cast<MaskItem*>(
-                   maskContainerItem->childItems().at(i_row-1))) {
-
-                if(maskItem->modelType() == Constants::RegionOfInterestType) {
-                    double xlow = scale*maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
-                    double ylow = scale*maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
-                    double xup = scale*maskItem->getItemValue(RectangleItem::P_XUP).toDouble();
-                    double yup = scale*maskItem->getItemValue(RectangleItem::P_YUP).toDouble();
-                    instrument->getDetector()->setRegionOfInterest(xlow, ylow, xup, yup);
-
-                } else {
-                    std::unique_ptr<IShape2D > shape(maskItem->createShape(scale));
-                    bool mask_value = maskItem->getItemValue(MaskItem::P_MASK_VALUE).toBool();
-                    instrument->getDetector()->addMask(*shape, mask_value);
-                }
-            }
-        }
-    }
 }
 
 //! adds DistributionParameters to the Simulation

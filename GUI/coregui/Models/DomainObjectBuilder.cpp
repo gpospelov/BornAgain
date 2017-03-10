@@ -25,6 +25,11 @@
 #include "ParticleLayoutItem.h"
 #include "InterferenceFunctionItems.h"
 #include "TransformToDomain.h"
+#include "InstrumentItem.h"
+#include "Instrument.h"
+#include "BeamItem.h"
+#include "DetectorItems.h"
+
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
     const SessionItem& multilayer_item) const
@@ -124,25 +129,15 @@ DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item) const
     return iffItem->createInterferenceFunction();
 }
 
-std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(
-    const SessionItem& instrument_item) const
+std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem) const
 {
-    auto P_instrument = TransformToDomain::createInstrument(instrument_item);
-    QVector<SessionItem *> children = instrument_item.childItems();
-    for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::BeamType) {
-            auto P_beam = buildBeam(*children[i]);
-            if (P_beam) {
-                P_instrument->setBeam(*P_beam);
-            }
-        } else if (children[i]->modelType() == Constants::DetectorType) {
-            TransformToDomain::initInstrumentFromDetectorItem(*children[i], P_instrument.get());
-        }
-    }
-    return P_instrument;
-}
+    auto instrument = GUIHelpers::make_unique<Instrument>();
 
-std::unique_ptr<Beam> DomainObjectBuilder::buildBeam(const SessionItem& item) const
-{
-    return TransformToDomain::createBeam(item);
+    auto beam = instrumentItem.beamItem()->createBeam();
+    instrument->setBeam(*beam);
+
+    auto detector = instrumentItem.detectorItem()->createDetector();
+    instrument->setDetector(*detector);
+
+    return instrument;
 }

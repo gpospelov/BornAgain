@@ -66,7 +66,7 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
 }
 
 void ExtendedDetectorDialog::setDetectorContext(InstrumentModel *instrumentModel,
-                                                DetectorItem *detectorItem)
+                                                DetectorContainerItem *detectorItem)
 {
     m_detectorMaskDelegate->initMaskEditorContext(m_maskEditor, instrumentModel,
                                                   detectorItem);

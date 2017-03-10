@@ -16,38 +16,126 @@
 
 #include "DetectorItems.h"
 #include "MaskItems.h"
+#include "DetectorItems.h"
+#include "SessionModel.h"
+#include "IDetector2D.h"
+#include "ResolutionFunctionItems.h"
 
-const QString DetectorItem::P_DETECTOR = "DetectorType";
-const QString DetectorItem::T_MASKS = "Mask tag";
+const QString DetectorContainerItem::P_DETECTOR = "DetectorType";
 
-DetectorItem::DetectorItem()
-    : SessionItem(Constants::DetectorType)
+DetectorContainerItem::DetectorContainerItem() : SessionItem(Constants::DetectorContainerType)
 {
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
+}
+
+void DetectorContainerItem::clearMasks() { detectorItem()->clearMasks(); }
+
+DetectorItem* DetectorContainerItem::detectorItem() const
+{
+    DetectorItem* detectorItem = dynamic_cast<DetectorItem*>(getGroupItem(P_DETECTOR));
+    Q_ASSERT(detectorItem);
+    return detectorItem;
+}
+
+MaskContainerItem* DetectorContainerItem::maskContainerItem() const
+{
+    return detectorItem()->maskContainerItem();
+}
+
+void DetectorContainerItem::createMaskContainer() { detectorItem()->createMaskContainer(); }
+
+void DetectorContainerItem::importMasks(MaskContainerItem* maskContainer)
+{
+    detectorItem()->importMasks(maskContainer);
+}
+
+// --------------------------------------------------------------------------------------------- //
+
+const QString DetectorItem::T_MASKS = "Mask tag";
+const QString DetectorItem::P_RESOLUTION_FUNCTION = "Type";
+
+DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
+{
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
-    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
-    mapper()->setOnPropertyChange(
-                [this] (const QString &name)
-    {
-        if(name == P_DETECTOR) {
-            if(SessionItem *maskContainer = maskContainerItem()) {
-                SessionItem *item = takeRow(rowOfChild(maskContainer));
-                Q_ASSERT(item == maskContainer);
-                delete item;
-            }
 
-        }
-    });
+    addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
+    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
 }
 
-MaskContainerItem *DetectorItem::maskContainerItem() const
+std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
 {
-    foreach(SessionItem *item, childItems()) {
-        if(MaskContainerItem *container = dynamic_cast<MaskContainerItem *>(item)) {
-            return container;
+    auto result = createDomainDetector();
+    addMasksToDomain(result.get());
+
+    if (auto resFunc = createResolutionFunction())
+        result->setResolutionFunction(*resFunc);
+
+    return result;
+}
+
+void DetectorItem::clearMasks()
+{
+    if (auto maskContainer = maskContainerItem())
+        delete takeRow(rowOfChild(maskContainer));
+}
+
+MaskContainerItem* DetectorItem::maskContainerItem() const
+{
+    return dynamic_cast<MaskContainerItem*>(getItem(T_MASKS));
+}
+
+void DetectorItem::createMaskContainer()
+{
+    if (!maskContainerItem())
+        model()->insertNewItem(Constants::MaskContainerType, this->index());
+}
+
+void DetectorItem::importMasks(MaskContainerItem* maskContainer)
+{
+    clearMasks();
+
+    if (maskContainer)
+        model()->copyParameterizedItem(maskContainer, this, T_MASKS);
+}
+
+std::unique_ptr<IResolutionFunction2D> DetectorItem::createResolutionFunction() const
+{
+    auto resfuncItem
+        = dynamic_cast<ResolutionFunctionItem*>(getGroupItem(DetectorItem::P_RESOLUTION_FUNCTION));
+    Q_ASSERT(resfuncItem);
+
+    std::unique_ptr<IResolutionFunction2D> result(
+        resfuncItem->createResolutionFunction(axesToDomainUnitsFactor()));
+
+    return result;
+}
+
+void DetectorItem::addMasksToDomain(IDetector2D* detector) const
+{
+    auto maskContainer = maskContainerItem();
+
+    if (!maskContainer)
+        return;
+
+    const double scale = axesToDomainUnitsFactor();
+
+    for (int i_row = maskContainer->childItems().size(); i_row > 0; --i_row) {
+        if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->childItems().at(i_row - 1))) {
+
+            if (maskItem->modelType() == Constants::RegionOfInterestType) {
+                double xlow = scale * maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
+                double ylow = scale * maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
+                double xup = scale * maskItem->getItemValue(RectangleItem::P_XUP).toDouble();
+                double yup = scale * maskItem->getItemValue(RectangleItem::P_YUP).toDouble();
+                detector->setRegionOfInterest(xlow, ylow, xup, yup);
+
+            } else {
+                std::unique_ptr<IShape2D> shape(maskItem->createShape(scale));
+                bool mask_value = maskItem->getItemValue(MaskItem::P_MASK_VALUE).toBool();
+                detector->addMask(*shape, mask_value);
+            }
         }
     }
-    return 0;
 }
-

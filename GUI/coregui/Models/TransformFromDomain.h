@@ -22,7 +22,7 @@
 
 class BeamDistributionItem;
 class BeamItem;
-class DetectorItem;
+class DetectorContainerItem;
 class FormFactorAnisoPyramid;
 class GISASSimulation;
 class InterferenceFunction1DLattice;
@@ -71,7 +71,7 @@ BA_CORE_API_ bool isValidRoughness(const LayerRoughness *roughness);
 BA_CORE_API_ void setItemFromSample(BeamItem *beamItem,
                                     const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(DetectorItem *detectorItem,
+BA_CORE_API_ void setItemFromSample(DetectorContainerItem *detectorItem,
                                     const GISASSimulation &simulation);
 
 BA_CORE_API_ void setItemFromSample(SphericalDetectorItem *detectorItem,
@@ -80,7 +80,7 @@ BA_CORE_API_ void setItemFromSample(SphericalDetectorItem *detectorItem,
 BA_CORE_API_ void setItemFromSample(RectangularDetectorItem *detectorItem,
                                     const RectangularDetector &detector);
 
-BA_CORE_API_ void setDetectorMasks(DetectorItem *detectorItem,
+BA_CORE_API_ void setDetectorMasks(DetectorContainerItem *detectorItem,
                                    const GISASSimulation &simulation);
 
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,

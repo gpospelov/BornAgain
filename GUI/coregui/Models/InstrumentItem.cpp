@@ -18,6 +18,8 @@
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
+#include "SessionModel.h"
+#include "MaskItems.h"
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 
@@ -29,7 +31,7 @@ InstrumentItem::InstrumentItem()
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
     const QString T_DATA = "Data tag";
-    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorType);
+    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorContainerType);
     setDefaultTag(T_DATA);
 }
 
@@ -41,10 +43,26 @@ BeamItem *InstrumentItem::beamItem() const
     return 0;
 }
 
-DetectorItem *InstrumentItem::detectorItem() const
+DetectorContainerItem *InstrumentItem::detectorContainerItem() const
 {
     for(SessionItem *item : childItems())
-        if(item->modelType() == Constants::DetectorType)
-            return dynamic_cast<DetectorItem *>(item);
+        if(item->modelType() == Constants::DetectorContainerType)
+            return dynamic_cast<DetectorContainerItem *>(item);
     return 0;
+}
+
+DetectorItem* InstrumentItem::detectorItem() const
+{
+    return detectorContainerItem()->detectorItem();
+}
+
+void InstrumentItem::clearMasks()
+{
+    detectorContainerItem()->clearMasks();
+}
+
+void InstrumentItem::importMasks(MaskContainerItem* maskContainer)
+{
+    DetectorContainerItem *detectorContainer = detectorContainerItem();
+    detectorContainer->importMasks(maskContainer);
 }

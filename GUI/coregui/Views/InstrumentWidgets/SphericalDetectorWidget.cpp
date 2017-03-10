@@ -17,6 +17,7 @@
 #include "SphericalDetectorWidget.h"
 #include "ComponentBoxEditor.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
 #include "ExtendedDetectorDialog.h"
 #include "GroupInfoBox.h"
 #include "columnresizer.h"
@@ -24,7 +25,7 @@
 #include <QVBoxLayout>
 
 SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer *columnResizer,
-                                                 DetectorItem *detectorItem, QWidget *parent)
+                                                 DetectorContainerItem *detectorItem, QWidget *parent)
     : QWidget(parent)
     , m_columnResizer(columnResizer)
     , m_phiAxisEditor(0)
@@ -66,7 +67,7 @@ SphericalDetectorWidget::~SphericalDetectorWidget()
 
 }
 
-void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
+void SphericalDetectorWidget::setDetectorItem(DetectorContainerItem *detectorItem)
 {
     m_phiAxisEditor->clearEditor();
     m_alphaAxisEditor->clearEditor();
@@ -76,7 +77,7 @@ void SphericalDetectorWidget::setDetectorItem(DetectorItem *detectorItem)
         return;
 
     SphericalDetectorItem *sphericalDetector = dynamic_cast<SphericalDetectorItem *>(
-                detectorItem->getGroupItem(DetectorItem::P_DETECTOR));
+                detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR));
     Q_ASSERT(sphericalDetector);
 
     SessionItem *phiAxisItem = sphericalDetector->getItem(SphericalDetectorItem::P_PHI_AXIS);

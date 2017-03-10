@@ -21,7 +21,7 @@
 #include <QWidget>
 
 class BeamItem;
-class DetectorItem;
+class DetectorContainerItem;
 class BeamEditorWidget;
 class DetectorEditorWidget;
 class ColumnResizer;
@@ -33,17 +33,17 @@ public:
     InstrumentComponentsWidget(QWidget *parent = 0);
 
     void setBeamItem(BeamItem *beamItem);
-    void setDetectorItem(DetectorItem *detectorItem);
+    void setDetectorItem(DetectorContainerItem *detectorItem);
 
 signals:
-    void extendedDetectorEditorRequest(DetectorItem *);
+    void extendedDetectorEditorRequest(DetectorContainerItem *);
 
 private:
     ColumnResizer *m_columnResizer;
     BeamEditorWidget *m_beamEditor;
     DetectorEditorWidget *m_detectorEditor;
     BeamItem *m_beamItem;
-    DetectorItem *m_detectorItem;
+    DetectorContainerItem *m_detectorItem;
 };
 
 #endif // INSTRUMENTCOMPONENTSWIDGET_H

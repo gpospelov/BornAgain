@@ -7,6 +7,8 @@
 #include "InterferenceFunctionItems.h"
 #include "ParticleLayoutItem.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "ComboProperty.h"
 #include "DocumentModel.h"
 #include "SimulationOptionsItem.h"
@@ -20,7 +22,7 @@ class TestMapperCases : public QObject {
 private slots:
     void test_ParticeleCompositionUpdate();
     void test_instrumentAlignmentPropertyVisibility();
-    void test_removeMaskOnDetectorChange();
+//    void test_removeMaskOnDetectorChange();
     void test_SimulationOptionsComputationToggle();
 };
 
@@ -50,9 +52,9 @@ inline void TestMapperCases::test_instrumentAlignmentPropertyVisibility()
 {
     InstrumentModel model;
     SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
-    SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
-    detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::RectangularDetectorType);
-    SessionItem *rectangular = detector->getGroupItem(DetectorItem::P_DETECTOR);
+    SessionItem *detector = model.insertNewItem(Constants::DetectorContainerType, instrument->index());
+    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::RectangularDetectorType);
+    SessionItem *rectangular = detector->getGroupItem(DetectorContainerItem::P_DETECTOR);
 
 
     ComboProperty alignment = rectangular->getItemValue(RectangularDetectorItem::P_ALIGNMENT)
@@ -69,18 +71,18 @@ inline void TestMapperCases::test_instrumentAlignmentPropertyVisibility()
 
 }
 
-inline void TestMapperCases::test_removeMaskOnDetectorChange()
-{
-    InstrumentModel model;
-    SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
-    SessionItem *detector = model.insertNewItem(Constants::DetectorType, instrument->index());
-    detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::RectangularDetectorType);
-    model.insertNewItem(Constants::MaskContainerType, detector->index());
-    QVERIFY(detector->getItems(DetectorItem::T_MASKS).size() == 1);
-    // after change the mask container should be removed
-    detector->setGroupProperty(DetectorItem::P_DETECTOR, Constants::SphericalDetectorType);
-    QVERIFY(detector->getItems(DetectorItem::T_MASKS).size() == 0);
-}
+//inline void TestMapperCases::test_removeMaskOnDetectorChange()
+//{
+//    InstrumentModel model;
+//    SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
+//    SessionItem *detector = model.insertNewItem(Constants::DetectorContainerType, instrument->index());
+//    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::RectangularDetectorType);
+//    model.insertNewItem(Constants::MaskContainerType, detector->index());
+//    QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 1);
+//    // after change the mask container should be removed
+//    detector->setGroupProperty(DetectorContainerItem::P_DETECTOR, Constants::SphericalDetectorType);
+//    QVERIFY(detector->getItems(DetectorContainerItem::T_MASKS).size() == 0);
+//}
 
 inline void TestMapperCases::test_SimulationOptionsComputationToggle()
 {

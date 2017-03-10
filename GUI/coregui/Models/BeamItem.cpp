@@ -20,6 +20,9 @@
 #include "ScientificDoubleProperty.h"
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
+#include "GUIHelpers.h"
+#include "Units.h"
+#include "Beam.h"
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);
@@ -34,6 +37,8 @@ BeamItem::BeamItem() : SessionItem(Constants::BeamType)
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
 }
+
+BeamItem::~BeamItem(){}
 
 double BeamItem::getIntensity() const
 {
@@ -101,4 +106,17 @@ void BeamItem::setAzimuthalAngle(double value, const QString &distribution_name)
         BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
+}
+
+std::unique_ptr<Beam> BeamItem::createBeam() const
+{
+    auto result = GUIHelpers::make_unique<Beam>();
+
+    result->setIntensity(getIntensity());
+    double lambda = getWavelength();
+    double inclination_angle = Units::deg2rad(getInclinationAngle());
+    double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
+    result->setCentralK(lambda, inclination_angle, azimuthal_angle);
+
+    return std::move(result);
 }

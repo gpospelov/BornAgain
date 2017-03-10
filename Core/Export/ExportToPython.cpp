@@ -700,7 +700,7 @@ std::string ExportToPython::defineDetectorResolutionFunction(
     std::ostringstream result;
     const IDetector2D* detector = simulation->getInstrument().getDetector();
 
-    if (const IDetectorResolution* p_resfunc = detector->getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector->detectorResolution()) {
         if ( auto* p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (auto* resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
                     p_convfunc->getResolutionFunction2D())) {

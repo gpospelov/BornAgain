@@ -97,16 +97,7 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
 {
     IntensityDataItem *intensityItem = jobItem->realDataItem()->intensityDataItem();
-    DetectorItem *detector = jobItem->instrumentItem()->detectorItem();
-
-    // removing original masks from the detector, if exists
-    if(detector->maskContainerItem())
-        detector->takeItem(0, DetectorItem::T_MASKS);
-
-    if(MaskContainerItem *container = intensityItem->maskContainerItem()) {
-        SessionModel *model = detector->model();
-        model->copyParameterizedItem(container, detector, DetectorItem::T_MASKS);
-    }
+    jobItem->instrumentItem()->importMasks(intensityItem->maskContainerItem());
 }
 
 //! Crops RealDataItem to the region of interest. TODO is there better place?

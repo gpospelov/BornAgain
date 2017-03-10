@@ -32,13 +32,12 @@
 
 class GISASSimulation;
 class SessionItem;
+class DetectorItem;
 
 namespace TransformToDomain
 {
-BA_CORE_API_ std::unique_ptr<Beam> createBeam(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<IMaterial> createDomainMaterial(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<IParticle> createIParticle(const SessionItem& item);
-BA_CORE_API_ std::unique_ptr<Instrument> createInstrument(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<Layer> createLayer(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<LayerRoughness> createLayerRoughness(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<MultiLayer> createMultiLayer(const SessionItem& item);
@@ -46,8 +45,6 @@ BA_CORE_API_ std::unique_ptr<ParticleDistribution> createParticleDistribution(
     const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<ParticleLayout> createParticleLayout(const SessionItem& item);
 
-BA_CORE_API_ void initInstrumentFromDetectorItem(const SessionItem& detectorItem,
-                                                 Instrument* instrument);
 BA_CORE_API_ void addDistributionParametersToSimulation(
     const SessionItem& beam_item, GISASSimulation* simulation);
 BA_CORE_API_ void setSimulationOptions(GISASSimulation* simulation, const SessionItem& item);

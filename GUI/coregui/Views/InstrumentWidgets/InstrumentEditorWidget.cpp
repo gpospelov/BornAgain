@@ -101,9 +101,9 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
             );
 
     connect(m_instrumentComponents,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+            SIGNAL(extendedDetectorEditorRequest(DetectorContainerItem *)),
             this,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
+            SIGNAL(extendedDetectorEditorRequest(DetectorContainerItem *))
             );
 }
 
@@ -140,7 +140,7 @@ void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
     InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);
 
     m_instrumentComponents->setBeamItem(instrumentItem->beamItem());
-    m_instrumentComponents->setDetectorItem(instrumentItem->detectorItem());
+    m_instrumentComponents->setDetectorItem(instrumentItem->detectorContainerItem());
 }
 
 void InstrumentEditorWidget::onChangedEditor(const QString &)

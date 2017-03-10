@@ -23,7 +23,7 @@
 
 template <class T> class OutputData;
 
-class DetectorItem;
+class DetectorContainerItem;
 class InstrumentModel;
 class IntensityDataItem;
 class MaskEditor;
@@ -41,16 +41,15 @@ public:
 
     void initMaskEditorContext(MaskEditor *maskEditor,
                                InstrumentModel *instrumentModel,
-                               DetectorItem *detectorItem);
+                               DetectorContainerItem *detectorItem);
 
 private:
     void createIntensityDataItem();
-    void createMaskContainer();
-    OutputData<double> *createOutputData(DetectorItem *detectorItem);
+    OutputData<double> *createOutputData(DetectorContainerItem *detectorItem);
 
     SessionModel *m_tempIntensityDataModel;
     InstrumentModel *m_instrumentModel;
-    DetectorItem *m_detectorItem;
+    DetectorContainerItem *m_detectorItem;
     IntensityDataItem *m_intensityItem;
 };
 

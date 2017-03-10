@@ -17,21 +17,60 @@
 #ifndef DETECTORITEMS_H
 #define DETECTORITEMS_H
 
-#include "RectangularDetectorItem.h"
-#include "SphericalDetectorItem.h"
+#include "SessionItem.h"
 
 class MaskContainerItem;
+class IDetector2D;
+class IResolutionFunction2D;
+class DetectorItem;
 
 //! DetectorItem, holds masks and either rectangular or spherical detector as sub item
-class BA_CORE_API_ DetectorItem : public SessionItem
+class BA_CORE_API_ DetectorContainerItem : public SessionItem
 {
 public:
     static const QString P_DETECTOR;
-    static const QString T_MASKS;
-    explicit DetectorItem();
-    virtual ~DetectorItem(){}
+    DetectorContainerItem();
+
+    void clearMasks();
+
+    DetectorItem *detectorItem() const;
 
     MaskContainerItem *maskContainerItem() const;
+
+    void createMaskContainer();
+
+    void importMasks(MaskContainerItem* maskContainer);
+
 };
+
+class BA_CORE_API_ DetectorItem : public SessionItem
+{
+public:
+    static const QString T_MASKS;
+    static const QString P_RESOLUTION_FUNCTION;
+    explicit DetectorItem(const QString& modelType);
+
+    std::unique_ptr<IDetector2D> createDetector() const;
+
+    virtual void setSize(int nx, int ny) = 0;
+
+    void clearMasks();
+
+    MaskContainerItem *maskContainerItem() const;
+
+    void createMaskContainer();
+
+    void importMasks(MaskContainerItem* maskContainer);
+
+protected:
+    virtual std::unique_ptr<IDetector2D> createDomainDetector() const = 0;
+    std::unique_ptr<IResolutionFunction2D> createResolutionFunction() const;
+
+    //! Scales the values provided by axes (to perform deg->rad convertion on the way to domain).
+    virtual double axesToDomainUnitsFactor() const { return 1.0; }
+
+    void addMasksToDomain(IDetector2D* detector) const;
+};
+
 
 #endif // DETECTORITEMS_H

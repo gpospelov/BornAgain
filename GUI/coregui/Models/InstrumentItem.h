@@ -20,7 +20,9 @@
 #include "SessionItem.h"
 
 class BeamItem;
+class DetectorContainerItem;
 class DetectorItem;
+class MaskContainerItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
@@ -29,7 +31,12 @@ public:
     InstrumentItem();
 
     BeamItem *beamItem() const;
+    DetectorContainerItem *detectorContainerItem() const;
     DetectorItem *detectorItem() const;
+
+    void clearMasks();
+
+    void importMasks(MaskContainerItem* maskContainer);
 };
 
 #endif // INSTRUMENTITEM_H

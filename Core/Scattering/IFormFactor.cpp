@@ -31,7 +31,8 @@ IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation
         return CreateTransformedFormFactor(*this, rot, translation);
     if (canSliceAnalytically(rot))
         return sliceFormFactor(limits, rot, translation);
-    throw std::runtime_error(getName() + "::createSlicedFormFactor error: not implemented!");
+    throw std::runtime_error(getName() + "::createSlicedFormFactor error: not supported for "
+                             "the given rotation!");
 }
 
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const

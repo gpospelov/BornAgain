@@ -20,21 +20,13 @@
 #include "ComponentBoxEditor.h"
 #include "ComponentInfoBox.h"
 #include "DistributionDialog.h"
-#include "GUIHelpers.h"
-#include "GroupInfoBox.h"
-#include "LayerItem.h"
-#include <QComboBox>
-#include <QGroupBox>
-#include <QLabel>
-#include <QLineEdit>
-#include <QVBoxLayout>
-#include <iostream>
+#include <QGridLayout>
 
 namespace
 {
-QString name_of_groupbox_wavenlength("Wavelength [nm]");
-QString name_of_groupbox_inclination("Inclination angle [deg]");
-QString name_of_groupbox_azimuthal("Azimuthal angle [deg]");
+const QString name_of_groupbox_wavenlength("Wavelength [nm]");
+const QString name_of_groupbox_inclination("Inclination angle [deg]");
+const QString name_of_groupbox_azimuthal("Azimuthal angle [deg]");
 }
 
 BeamEditorWidget::BeamEditorWidget(QWidget* parent)
@@ -54,7 +46,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     m_gridLayout->addWidget(m_inclinationAnglePresenter, 1, 1);
     m_gridLayout->addWidget(m_azimuthalAnglePresenter, 1, 2);
 
-    QGroupBox* groupBox = new QGroupBox("Beam Parameters");
+    QGroupBox* groupBox = new QGroupBox(QStringLiteral("Beam Parameters"));
     QVBoxLayout* groupLayout = new QVBoxLayout;
     groupBox->setLayout(groupLayout);
     groupLayout->addLayout(m_gridLayout);
@@ -99,7 +91,7 @@ void BeamEditorWidget::setBeamItem(BeamItem* beamItem)
         azimuthalAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 }
 
-void BeamEditorWidget::onDialogRequest(SessionItem* item, QString name)
+void BeamEditorWidget::onDialogRequest(SessionItem* item, const QString& name)
 {
     DistributionDialog* dialog = new DistributionDialog(this);
     dialog->setItem(item);

@@ -37,7 +37,7 @@ public:
     QGridLayout* gridLayout() { return m_gridLayout; }
 
 private slots:
-    void onDialogRequest(SessionItem* item, QString name);
+    void onDialogRequest(SessionItem* item, const QString& name);
 
 private:
     ComponentBoxEditor* m_intensityEditor;

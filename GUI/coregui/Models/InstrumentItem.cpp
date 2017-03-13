@@ -23,6 +23,7 @@
 #include "MaskItems.h"
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
+const QString InstrumentItem::P_BEAM = "Beam";
 const QString InstrumentItem::P_DETECTOR = "DetectorType";
 
 InstrumentItem::InstrumentItem()
@@ -32,8 +33,10 @@ InstrumentItem::InstrumentItem()
 
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
+    addGroupProperty(P_BEAM, Constants::BeamType);
+
     const QString T_DATA = "Data tag";
-    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorContainerType);
+    registerTag(T_DATA, 0, -1, QStringList() << Constants::DetectorContainerType);
     setDefaultTag(T_DATA);
 }
 

@@ -49,6 +49,7 @@
 #include "SphericalDetector.h"
 #include "TransformFromDomain.h"
 #include "TransformationItem.h"
+#include "InstrumentItem.h"
 #include "Units.h"
 #include "VectorItem.h"
 
@@ -106,11 +107,8 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     }
 
     // beam
-    BeamItem* beamItem = dynamic_cast<BeamItem*>(instrumentModel->insertNewItem(
-                Constants::BeamType,
-                instrumentModel->indexOfItem(instrumentItem)));
-
-    TransformFromDomain::setItemFromSample(beamItem, simulation);
+    auto& beamItem = instrumentItem->item<BeamItem>(InstrumentItem::P_BEAM);
+    TransformFromDomain::setItemFromSample(&beamItem, simulation);
 
     // detector
     DetectorContainerItem* detectorItem = dynamic_cast<DetectorContainerItem*>(instrumentModel->insertNewItem(

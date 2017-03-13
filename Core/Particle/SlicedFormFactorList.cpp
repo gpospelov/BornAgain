@@ -18,12 +18,12 @@
 #include "IParticle.h"
 #include "MultiLayer.h"
 #include "Rotations.h"
+#include <utility>
 
 namespace {
-size_t LayerIndexBottom(const IParticle& particle, const MultiLayer& multilayer,
-                        size_t ref_layer_index);
-size_t LayerIndexTop(const IParticle& particle, const MultiLayer& multilayer,
-                        size_t ref_layer_index);
+std::pair<size_t, size_t> LayerIndicesLimits(const IParticle& particle,
+                                             const MultiLayer& multilayer,
+                                             size_t ref_layer_index);
 double ZDifference(const MultiLayer& multilayer, size_t layer_index, size_t ref_layer_index);
 ZLimits LayerZLimits(const MultiLayer& multilayer, size_t layer_index);
 }
@@ -31,10 +31,8 @@ ZLimits LayerZLimits(const MultiLayer& multilayer, size_t layer_index);
 void SlicedFormFactorList::addParticle(IParticle& particle,
                                        const MultiLayer& multilayer, size_t ref_layer_index)
 {
-    size_t bottom_layer_index = LayerIndexBottom(particle, multilayer, ref_layer_index);
-    size_t top_layer_index = LayerIndexTop(particle, multilayer, ref_layer_index);
-    top_layer_index = std::min(bottom_layer_index, top_layer_index);  // Handle zero size shapes
-    for (size_t i=top_layer_index; i<bottom_layer_index+1; ++i)
+    auto layer_indices = LayerIndicesLimits(particle, multilayer, ref_layer_index);
+    for (size_t i=layer_indices.first; i<layer_indices.second+1; ++i)
     {
         kvector_t translation(0.0, 0.0, -ZDifference(multilayer, i, ref_layer_index));
         particle.applyTranslation(translation);
@@ -70,32 +68,24 @@ SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
 }
 
 namespace {
-size_t LayerIndexBottom(const IParticle& particle, const MultiLayer& multilayer,
-                        size_t ref_layer_index)
+std::pair<size_t, size_t> LayerIndicesLimits(const IParticle& particle,
+                                             const MultiLayer& multilayer,
+                                             size_t ref_layer_index)
 {
     std::unique_ptr<IFormFactor> P_ff(particle.createFormFactor());
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
     double position_offset = multilayer.getLayerTopZ(ref_layer_index);
-    double zbottom = P_ff->bottomZ(*P_rot);
     double ztop = P_ff->topZ(*P_rot);
-    double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
-                                         // approximations (like rotation over 180 degrees)
-    double zmin = zbottom + position_offset + eps;
-    return multilayer.bottomZToLayerIndex(zmin);
-}
-
-size_t LayerIndexTop(const IParticle& particle, const MultiLayer& multilayer,
-                     size_t ref_layer_index)
-{
-    std::unique_ptr<IFormFactor> P_ff(particle.createFormFactor());
-    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
-    double position_offset = multilayer.getLayerTopZ(ref_layer_index);
     double zbottom = P_ff->bottomZ(*P_rot);
-    double ztop = P_ff->topZ(*P_rot);
     double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
                                          // approximations (like rotation over 180 degrees)
     double zmax = ztop + position_offset - eps;
-    return multilayer.topZToLayerIndex(zmax);
+    double zmin = zbottom + position_offset + eps;
+    size_t top_index = multilayer.topZToLayerIndex(zmax);
+    size_t bottom_index = multilayer.bottomZToLayerIndex(zmin);
+    if (top_index>bottom_index)  // happens for zero size particles
+        top_index = bottom_index;
+    return { top_index, bottom_index };
 }
 
 double ZDifference(const MultiLayer& multilayer, size_t layer_index, size_t ref_layer_index)

@@ -44,7 +44,6 @@ public:
 
 private:
     void createIntensityDataItem();
-    OutputData<double>* createOutputData(DetectorItem* detectorItem);
 
     SessionModel* m_tempIntensityDataModel;
     InstrumentModel* m_instrumentModel;

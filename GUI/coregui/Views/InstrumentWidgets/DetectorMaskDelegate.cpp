@@ -18,14 +18,13 @@
 #include "AxesItems.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
-#include "GUIHelpers.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "MaskEditor.h"
 #include "MaskItems.h"
-#include "OutputData.h"
-#include "RectangularDetectorItem.h"
-#include "SphericalDetectorItem.h"
+#include "ModelPath.h"
+#include "JobItemUtils.h"
+#include "InstrumentItem.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
     : QObject(parent)
@@ -75,63 +74,11 @@ void DetectorMaskDelegate::createIntensityDataItem()
     zAxisItem.setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, false);
     zAxisItem.setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
 
-    m_intensityItem->setOutputData(createOutputData(m_detectorItem));
-}
+    // creating output data corresponding to the detector
+    auto instrument = dynamic_cast<const InstrumentItem*>(
+                ModelPath::ancestor(m_detectorItem, Constants::InstrumentType));
+    JobItemUtils::createDefaultDetectorMap(m_intensityItem, instrument);
 
-//! Creates OutputData from DetectorItem's axes for later initialization of
-//! IntensityDataItem
-OutputData<double>* DetectorMaskDelegate::createOutputData(DetectorItem* detectorItem)
-{
-    Q_ASSERT(detectorItem);
-    OutputData<double>* result = new OutputData<double>;
-
-    if (detectorItem->modelType() == Constants::SphericalDetectorType) {
-
-        auto x_axis = dynamic_cast<BasicAxisItem*>(
-            detectorItem->getItem(SphericalDetectorItem::P_PHI_AXIS));
-        Q_ASSERT(x_axis);
-        int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double x_min = x_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double x_max = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
-
-        auto y_axis = dynamic_cast<BasicAxisItem*>(
-            detectorItem->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
-        Q_ASSERT(y_axis);
-        int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double y_min = y_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double y_max = y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
-
-        result->addAxis("x", n_x, x_min, x_max);
-        result->addAxis("y", n_y, y_min, y_max);
-
-    }
-
-    else if (detectorItem->modelType() == Constants::RectangularDetectorType) {
-        auto x_axis = dynamic_cast<BasicAxisItem*>(
-            detectorItem->getItem(RectangularDetectorItem::P_X_AXIS));
-        Q_ASSERT(x_axis);
-        int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double x_min = x_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double x_max = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
-
-        auto y_axis = dynamic_cast<BasicAxisItem*>(
-            detectorItem->getItem(RectangularDetectorItem::P_Y_AXIS));
-        Q_ASSERT(y_axis);
-        int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double y_min = y_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double y_max = y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
-
-        result->addAxis("x", n_x, x_min, x_max);
-        result->addAxis("y", n_y, y_min, y_max);
-
-    }
-
-    else {
-        throw GUIHelpers::Error("DetectorMaskDelegate::createOutputData() -> Error. "
-                                " Unknown detector type");
-    }
-
-    result->setAllTo(1.0);
-
-    return result;
+    m_intensityItem->getOutputData()->setAllTo(1.0);
+    m_intensityItem->getItem(IntensityDataItem::P_AXES_UNITS)->setEnabled(false);
 }

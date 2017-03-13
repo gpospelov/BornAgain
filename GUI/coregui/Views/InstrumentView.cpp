@@ -93,9 +93,9 @@ void InstrumentView::onSelectionChanged(
     if( !widget) {
         widget = new InstrumentEditorWidget();
         connect(widget,
-                SIGNAL(extendedDetectorEditorRequest(DetectorContainerItem *)),
+                SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
                 this,
-                SLOT(onExtendedDetectorEditorRequest(DetectorContainerItem *))
+                SLOT(onExtendedDetectorEditorRequest(DetectorItem *))
                 );
 
         widget->setInstrumentItem(instrument);
@@ -150,10 +150,10 @@ void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /
     delete widget;
 }
 
-void InstrumentView::onExtendedDetectorEditorRequest(DetectorContainerItem *detectorItem)
+void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 {
     ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
-    dialog->setDetectorContext(m_instrumentModel, detectorItem->detectorItem());
+    dialog->setDetectorContext(m_instrumentModel, detectorItem);
     dialog->show();
 }
 

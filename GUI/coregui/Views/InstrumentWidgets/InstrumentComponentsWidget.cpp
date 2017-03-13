@@ -38,9 +38,9 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
     m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 2);
 
     connect(m_detectorEditor,
-            SIGNAL(extendedDetectorEditorRequest(DetectorContainerItem *)),
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
             this,
-            SIGNAL(extendedDetectorEditorRequest(DetectorContainerItem *))
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
             );
 
 }

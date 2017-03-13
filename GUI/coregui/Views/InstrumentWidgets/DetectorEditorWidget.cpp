@@ -105,7 +105,7 @@ void DetectorEditorWidget::onPropertyChanged(const QString &propertyName)
 
 void DetectorEditorWidget::onGroupBoxExtendedButton()
 {
-    emit extendedDetectorEditorRequest(m_detectorItem);
+    emit extendedDetectorEditorRequest(m_detectorItem->detectorItem());
 }
 
 void DetectorEditorWidget::init_SubDetector_Widget()

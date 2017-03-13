@@ -23,6 +23,7 @@
 
 class GroupInfoBox;
 class DetectorContainerItem;
+class DetectorItem;
 class ComponentBoxEditor;
 class QGridLayout;
 class SphericalDetectorWidget;
@@ -38,7 +39,7 @@ public:
     void setDetectorItem(DetectorContainerItem *detectorItem);
 
 signals:
-    void extendedDetectorEditorRequest(DetectorContainerItem *);
+    void extendedDetectorEditorRequest(DetectorItem *);
 
 public slots:
     void onPropertyChanged(const QString &propertyName);

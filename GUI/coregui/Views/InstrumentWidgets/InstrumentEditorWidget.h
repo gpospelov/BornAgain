@@ -25,6 +25,7 @@
 
 class SessionItem;
 class DetectorEditorWidget;
+class DetectorItem;
 class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
@@ -42,7 +43,7 @@ public:
     void setInstrumentItem(SessionItem *instrument);
 
 signals:
-    void extendedDetectorEditorRequest(DetectorContainerItem *);
+    void extendedDetectorEditorRequest(DetectorItem *);
 
 public slots:
     void onChangedEditor(const QString &);

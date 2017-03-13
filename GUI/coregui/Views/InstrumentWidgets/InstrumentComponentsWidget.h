@@ -22,6 +22,7 @@
 
 class BeamItem;
 class DetectorContainerItem;
+class DetectorItem;
 class BeamEditorWidget;
 class DetectorEditorWidget;
 class ColumnResizer;
@@ -36,7 +37,7 @@ public:
     void setDetectorItem(DetectorContainerItem *detectorItem);
 
 signals:
-    void extendedDetectorEditorRequest(DetectorContainerItem *);
+    void extendedDetectorEditorRequest(DetectorItem *);
 
 private:
     ColumnResizer *m_columnResizer;

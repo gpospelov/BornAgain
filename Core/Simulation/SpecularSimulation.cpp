@@ -105,7 +105,6 @@ void SpecularSimulation::runSimulation()
         collectRTCoefficientsMatrix(multilayer);
     } else {
         collectRTCoefficientsScalar(multilayer);
-        //        calculateEvanescentWaveIntensity();
     }
 }
 

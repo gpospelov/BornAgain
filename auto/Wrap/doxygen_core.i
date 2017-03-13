@@ -236,13 +236,9 @@ Returns result of rotation around the axis specified by another vector.
 ";
 
 %feature("docstring")  BasicVector3D::conj "BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
-
-Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< complex_t >::real() const
-
-Returns real parts. 
 ";
 
 %feature("docstring")  BasicVector3D::unit "BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const

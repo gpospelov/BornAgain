@@ -94,9 +94,6 @@ protected:
     //! calculates RT coefficients for multilayer with magnetic materials
     void collectRTCoefficientsMatrix(const MultiLayer* multilayer);
 
-    //! calculates the intensity of evanescent wave
-//    void calculateEvanescentWaveIntensity();
-
     //! check if simulation was run already and has valid coefficients
     void checkCoefficients(size_t i_layer) const;
 
@@ -106,7 +103,7 @@ protected:
     std::unique_ptr<ISample> mP_sample;
     std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
     std::unique_ptr<IAxis> mP_alpha_i_axis;
-    double m_lambda = 0.0;
+    double m_lambda = 0.0;  //!< wavelength in vacuum
 
 #ifndef SWIG
     OutputData<MultiLayerRTCoefficients_t> m_data;

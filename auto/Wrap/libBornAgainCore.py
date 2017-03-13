@@ -2694,8 +2694,6 @@ class kvector_t(_object):
 
         BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
 
-        Returns complex conjugate vector. 
-
         """
         return _libBornAgainCore.kvector_t_conj(self)
 
@@ -2823,8 +2821,6 @@ class kvector_t(_object):
         real(kvector_t self) -> kvector_t
 
         BasicVector3D< double > BasicVector3D< complex_t >::real() const
-
-        Returns real parts. 
 
         """
         return _libBornAgainCore.kvector_t_real(self)
@@ -3210,8 +3206,6 @@ class cvector_t(_object):
 
         BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
 
-        Returns complex conjugate vector. 
-
         """
         return _libBornAgainCore.cvector_t_conj(self)
 
@@ -3279,8 +3273,6 @@ class cvector_t(_object):
         real(cvector_t self) -> kvector_t
 
         BasicVector3D< double > BasicVector3D< complex_t >::real() const
-
-        Returns real parts. 
 
         """
         return _libBornAgainCore.cvector_t_real(self)

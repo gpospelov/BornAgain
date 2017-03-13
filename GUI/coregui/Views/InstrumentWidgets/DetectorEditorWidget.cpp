@@ -120,7 +120,7 @@ void DetectorEditorWidget::init_SubDetector_Widget()
 
 
     if(subItem->modelType() == Constants::SphericalDetectorType) {
-        m_subDetectorWidget = new SphericalDetectorWidget(m_columnResizer, m_detectorItem);
+        m_subDetectorWidget = new SphericalDetectorWidget(m_columnResizer, subItem);
     } else if(subItem->modelType() == Constants::RectangularDetectorType) {
         m_subDetectorWidget = new RectangularDetectorWidget(
             m_columnResizer, dynamic_cast<RectangularDetectorItem *>(subItem));

@@ -17,6 +17,7 @@
 #include "ExtendedDetectorDialog.h"
 #include "CustomEventFilters.h"
 #include "DetectorMaskDelegate.h"
+#include "DetectorItems.h"
 #include "MaskEditor.h"
 #include "mainwindow_constants.h"
 #include <QKeyEvent>
@@ -69,7 +70,7 @@ void ExtendedDetectorDialog::setDetectorContext(InstrumentModel *instrumentModel
                                                 DetectorContainerItem *detectorItem)
 {
     m_detectorMaskDelegate->initMaskEditorContext(m_maskEditor, instrumentModel,
-                                                  detectorItem);
+                                                  detectorItem->detectorItem());
 }
 
 void ExtendedDetectorDialog::reject()

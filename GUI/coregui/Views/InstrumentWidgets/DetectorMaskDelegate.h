@@ -23,11 +23,11 @@
 
 template <class T> class OutputData;
 
-class DetectorContainerItem;
 class InstrumentModel;
 class IntensityDataItem;
 class MaskEditor;
 class SessionModel;
+class DetectorItem;
 
 //! The DetectorMaskDelegate class provides syncronization between DetectorItem (defined
 //! in InstrumentModel) and temporary IntensityDataItem (defined in temporary SessionModel).
@@ -37,22 +37,20 @@ class BA_CORE_API_ DetectorMaskDelegate : public QObject
 {
     Q_OBJECT
 public:
-    DetectorMaskDelegate(QObject *parent);
+    DetectorMaskDelegate(QObject* parent);
 
-    void initMaskEditorContext(MaskEditor *maskEditor,
-                               InstrumentModel *instrumentModel,
-                               DetectorContainerItem *detectorItem);
+    void initMaskEditorContext(MaskEditor* maskEditor, InstrumentModel* instrumentModel,
+                               DetectorItem* detectorItem);
 
 private:
     void createIntensityDataItem();
-    OutputData<double> *createOutputData(DetectorContainerItem *detectorItem);
+    OutputData<double>* createOutputData(DetectorItem* detectorItem);
 
-    SessionModel *m_tempIntensityDataModel;
-    InstrumentModel *m_instrumentModel;
-    DetectorContainerItem *m_detectorItem;
-    IntensityDataItem *m_intensityItem;
+    SessionModel* m_tempIntensityDataModel;
+    InstrumentModel* m_instrumentModel;
+    DetectorItem* m_detectorItem;
+    IntensityDataItem* m_intensityItem;
 };
-
 
 #endif // DETECTORMASKDELEGATE_H
 

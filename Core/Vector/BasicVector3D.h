@@ -282,7 +282,7 @@ inline auto BasicVector3D<T>::dot(const BasicVector3D<U> &v) const
 //! Returns cross product of (complex) vectors.
 #ifndef SWIG
 template<class T> template<class U>
-inline auto BasicVector3D<T>::cross(const BasicVector3D<U> &v) const
+inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const
 -> BasicVector3D<decltype(this->x()*v.x())>
 {
     return BasicVector3D<decltype(this->x()*v.x())>(y()*v.z()-v.y()*z(),
@@ -300,11 +300,21 @@ template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 
+template<> BA_CORE_API_ double BasicVector3D<double>::cosTheta() const;
+
+template<> BA_CORE_API_ double BasicVector3D<double>::sin2Theta() const;
+
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
+
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::real() const;
 
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<std::complex<double>>::real() const;
 
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::unit() const;
+
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
     BasicVector3D<std::complex<double>>::unit() const;
+
+template<> BA_CORE_API_ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
 
 #endif // BASICVECTOR3D_H

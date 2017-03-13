@@ -57,7 +57,7 @@ public:
     Eigen::Matrix2cd getPolarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
 
     //! Return the potential term that is used in the one-dimensional Fresnel calculations
-    virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k) const;
+    virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k, double n_ref) const;
 #endif
 
     //! Create a new material that is transformed with respect to this one

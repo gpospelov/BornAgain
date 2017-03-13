@@ -2694,8 +2694,6 @@ class kvector_t(_object):
 
         BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
 
-        Returns complex conjugate vector. 
-
         """
         return _libBornAgainCore.kvector_t_conj(self)
 
@@ -2823,8 +2821,6 @@ class kvector_t(_object):
         real(kvector_t self) -> kvector_t
 
         BasicVector3D< double > BasicVector3D< complex_t >::real() const
-
-        Returns real parts. 
 
         """
         return _libBornAgainCore.kvector_t_real(self)
@@ -3210,8 +3206,6 @@ class cvector_t(_object):
 
         BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
 
-        Returns complex conjugate vector. 
-
         """
         return _libBornAgainCore.cvector_t_conj(self)
 
@@ -3279,8 +3273,6 @@ class cvector_t(_object):
         real(cvector_t self) -> kvector_t
 
         BasicVector3D< double > BasicVector3D< complex_t >::real() const
-
-        Returns real parts. 
 
         """
         return _libBornAgainCore.cvector_t_real(self)
@@ -17517,16 +17509,16 @@ class IMaterial(INamed):
         return _libBornAgainCore.IMaterial_getScalarSLD(self, wavevectors)
 
 
-    def getScalarFresnel(self, k):
+    def getScalarFresnel(self, k, n_ref):
         """
-        getScalarFresnel(IMaterial self, kvector_t k) -> complex_t
+        getScalarFresnel(IMaterial self, kvector_t k, double n_ref) -> complex_t
 
-        complex_t IMaterial::getScalarFresnel(const kvector_t k) const
+        complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
 
         Return the potential term that is used in the one-dimensional Fresnel calculations. 
 
         """
-        return _libBornAgainCore.IMaterial_getScalarFresnel(self, k)
+        return _libBornAgainCore.IMaterial_getScalarFresnel(self, k, n_ref)
 
 
     def createTransformedMaterial(self, transform):
@@ -17878,7 +17870,12 @@ class IDetector2D(ICloneable, INode):
 
 
     def setResolutionFunction(self, resFunc):
-        """setResolutionFunction(IDetector2D self, IResolutionFunction2D resFunc)"""
+        """
+        setResolutionFunction(IDetector2D self, IResolutionFunction2D resFunc)
+
+        void IDetector2D::setResolutionFunction(const IResolutionFunction2D &resFunc)
+
+        """
         return _libBornAgainCore.IDetector2D_setResolutionFunction(self, resFunc)
 
 
@@ -17907,7 +17904,12 @@ class IDetector2D(ICloneable, INode):
 
 
     def detectorResolution(self):
-        """detectorResolution(IDetector2D self) -> IDetectorResolution"""
+        """
+        detectorResolution(IDetector2D self) -> IDetectorResolution
+
+        const IDetectorResolution * IDetector2D::detectorResolution() const 
+
+        """
         return _libBornAgainCore.IDetector2D_detectorResolution(self)
 
 
@@ -25620,17 +25622,6 @@ class SpecularSimulation(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.SpecularSimulation_setBeamParameters(self, *args)
-
-
-    def setEvanescentWaveAxis(self, *args):
-        """
-        setEvanescentWaveAxis(SpecularSimulation self, IAxis z_axis)
-        setEvanescentWaveAxis(SpecularSimulation self, int nbins, double z_min, double z_max)
-
-        void SpecularSimulation::setEvanescentWaveAxis(int nbins, double z_min, double z_max)
-
-        """
-        return _libBornAgainCore.SpecularSimulation_setEvanescentWaveAxis(self, *args)
 
 
     def getAlphaAxis(self):

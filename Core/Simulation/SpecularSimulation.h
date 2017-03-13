@@ -62,10 +62,6 @@ public:
     void setBeamParameters(double lambda, const IAxis& alpha_axis);
     void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max);
 
-    //! set axis for evanescent wave axis
-    void setEvanescentWaveAxis(const IAxis& z_axis);
-    void setEvanescentWaveAxis(int nbins, double z_min, double z_max);
-
     //! returns alpha_i axis
     const IAxis* getAlphaAxis() const;
 
@@ -83,8 +79,6 @@ public:
     //! Put into a clean state for running a simulation
     void prepareSimulation();
 
-//    OutputData<double>* getEvanescentWaveIntensity() const;
-
 protected:
     SpecularSimulation(const SpecularSimulation& other);
 
@@ -100,9 +94,6 @@ protected:
     //! calculates RT coefficients for multilayer with magnetic materials
     void collectRTCoefficientsMatrix(const MultiLayer* multilayer);
 
-    //! calculates the intensity of evanescent wave
-//    void calculateEvanescentWaveIntensity();
-
     //! check if simulation was run already and has valid coefficients
     void checkCoefficients(size_t i_layer) const;
 
@@ -111,13 +102,11 @@ protected:
 
     std::unique_ptr<ISample> mP_sample;
     std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
-    IAxis* m_alpha_i_axis;
-    IAxis* m_z_axis;
-    double m_lambda;
+    std::unique_ptr<IAxis> mP_alpha_i_axis;
+    double m_lambda = 0.0;  //!< wavelength in vacuum
 
 #ifndef SWIG
     OutputData<MultiLayerRTCoefficients_t> m_data;
-    OutputData<double> m_ewave_intensity;
 #endif
 };
 

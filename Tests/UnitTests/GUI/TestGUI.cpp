@@ -20,6 +20,7 @@
 #include "TestTranslations.h"
 #include "TestGroupProperty.h"
 #include "TestParameterTreeUtils.h"
+#include "TestDetectorItems.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -46,6 +47,7 @@ int main(int argc, char** argv) {
     TestGroupProperty testGroupProperty;
     TestParticleDistributionItem testParticleDistributionItem;
     TestParameterTreeUtils testParameterTreeUtils;
+    TestDetectorItems testDetectorItems;
 
     bool status(false);
 
@@ -69,6 +71,7 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testGroupProperty, argc, argv);
     status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
     status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
+    status |= QTest::qExec(&testDetectorItems, argc, argv);
 
     return status;
 }

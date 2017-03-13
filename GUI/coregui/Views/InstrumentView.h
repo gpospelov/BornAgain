@@ -29,7 +29,6 @@ class QStackedWidget;
 class QItemSelection;
 class SessionItem;
 class QToolButton;
-class DetectorContainerItem;
 class DetectorItem;
 
 class BA_CORE_API_ InstrumentView : public QWidget

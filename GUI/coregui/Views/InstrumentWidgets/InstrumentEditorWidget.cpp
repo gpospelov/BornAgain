@@ -139,8 +139,7 @@ void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
     }
     InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);
 
-    m_instrumentComponents->setBeamItem(instrumentItem->beamItem());
-    m_instrumentComponents->setDetectorItem(instrumentItem->detectorContainerItem());
+    m_instrumentComponents->setInstrumentItem(instrumentItem);
 }
 
 void InstrumentEditorWidget::onChangedEditor(const QString &)

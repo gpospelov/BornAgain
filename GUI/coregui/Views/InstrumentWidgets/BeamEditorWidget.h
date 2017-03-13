@@ -30,22 +30,22 @@ class BA_CORE_API_ BeamEditorWidget : public QWidget
 {
     Q_OBJECT
 public:
-    BeamEditorWidget(QWidget *parent = 0);
+    BeamEditorWidget(QWidget* parent = 0);
 
-    void setBeamItem(BeamItem *beamItem);
+    void setBeamItem(BeamItem* beamItem);
 
-    QGridLayout *getGridLayout() { return m_gridLayout;}
+    QGridLayout* gridLayout() { return m_gridLayout; }
 
 private slots:
-    void onDialogRequest(SessionItem *item, QString name);
+    void onDialogRequest(SessionItem* item, QString name);
 
 private:
-    ComponentBoxEditor *m_intensityEditor;
-    ComponentInfoBox *m_wavelengthPresenter;
-    ComponentInfoBox *m_inclinationAnglePresenter;
-    ComponentInfoBox *m_azimuthalAnglePresenter;
-    QGridLayout *m_gridLayout;
-    BeamItem *m_beamItem;
+    ComponentBoxEditor* m_intensityEditor;
+    ComponentInfoBox* m_wavelengthPresenter;
+    ComponentInfoBox* m_inclinationAnglePresenter;
+    ComponentInfoBox* m_azimuthalAnglePresenter;
+    QGridLayout* m_gridLayout;
+    BeamItem* m_beamItem;
 };
 
 #endif // BEAMEDITORWIDGET_H

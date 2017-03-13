@@ -32,11 +32,14 @@ void SlicedFormFactorList::addParticle(IParticle& particle,
                                        const MultiLayer& multilayer, size_t ref_layer_index)
 {
     auto layer_indices = LayerIndicesLimits(particle, multilayer, ref_layer_index);
+    bool single_layer = (layer_indices.first==layer_indices.second);
     for (size_t i=layer_indices.first; i<layer_indices.second+1; ++i)
     {
         kvector_t translation(0.0, 0.0, -ZDifference(multilayer, i, ref_layer_index));
         particle.applyTranslation(translation);
-        ZLimits limits = LayerZLimits(multilayer, i);
+        // if particle is contained in this layer, set limits to infinite:
+        ZLimits limits = single_layer ? ZLimits()
+                                      : LayerZLimits(multilayer, i);
         m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(
                                    particle.createSlicedFormFactor(limits)), i);
         ref_layer_index = i;  // particle now has coordinates relative to layer i

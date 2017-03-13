@@ -30,7 +30,6 @@ class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
 class InstrumentComponentsWidget;
-class DetectorContainerItem;
 
 class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {

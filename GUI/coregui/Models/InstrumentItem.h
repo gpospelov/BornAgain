@@ -23,16 +23,19 @@ class BeamItem;
 class DetectorContainerItem;
 class DetectorItem;
 class MaskContainerItem;
+class GroupItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
 public:    
     static const QString P_IDENTIFIER;
+    static const QString P_DETECTOR;
     InstrumentItem();
 
     BeamItem *beamItem() const;
     DetectorContainerItem *detectorContainerItem() const;
     DetectorItem *detectorItem() const;
+    GroupItem* detectorGroup();
 
     void clearMasks();
 

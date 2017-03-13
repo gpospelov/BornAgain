@@ -19,9 +19,11 @@
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
 #include "SessionModel.h"
+#include "GroupItem.h"
 #include "MaskItems.h"
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
+const QString InstrumentItem::P_DETECTOR = "DetectorType";
 
 InstrumentItem::InstrumentItem()
     : SessionItem(Constants::InstrumentType)
@@ -54,6 +56,11 @@ DetectorContainerItem *InstrumentItem::detectorContainerItem() const
 DetectorItem* InstrumentItem::detectorItem() const
 {
     return detectorContainerItem()->detectorItem();
+}
+
+GroupItem* InstrumentItem::detectorGroup()
+{
+    return &detectorContainerItem()->item<GroupItem>(DetectorContainerItem::P_DETECTOR);
 }
 
 void InstrumentItem::clearMasks()

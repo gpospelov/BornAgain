@@ -43,5 +43,5 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
 void InstrumentComponentsWidget::setInstrumentItem(InstrumentItem* instrumentItem)
 {
     m_beamEditor->setBeamItem(instrumentItem->beamItem());
-    m_detectorEditor->setDetectorItem(instrumentItem->detectorContainerItem());
+    m_detectorEditor->setItem(instrumentItem);
 }

@@ -21,8 +21,6 @@
 #include <QModelIndex>
 #include <QObject>
 
-template <class T> class OutputData;
-
 class InstrumentModel;
 class IntensityDataItem;
 class MaskEditor;

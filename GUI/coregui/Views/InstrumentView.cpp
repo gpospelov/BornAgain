@@ -21,7 +21,8 @@
 #include "InstrumentSelectorWidget.h"
 #include "StyledToolBar.h"
 #include "mainwindow.h"
-#include <QAction> // need detected by TeamCity
+#include "DetectorItems.h"
+#include <QAction>
 #include <QBoxLayout>
 #include <QListView>
 #include <QStackedWidget>
@@ -152,7 +153,7 @@ void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /
 void InstrumentView::onExtendedDetectorEditorRequest(DetectorContainerItem *detectorItem)
 {
     ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
-    dialog->setDetectorContext(m_instrumentModel, detectorItem);
+    dialog->setDetectorContext(m_instrumentModel, detectorItem->detectorItem());
     dialog->show();
 }
 

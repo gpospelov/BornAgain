@@ -17509,16 +17509,16 @@ class IMaterial(INamed):
         return _libBornAgainCore.IMaterial_getScalarSLD(self, wavevectors)
 
 
-    def getScalarFresnel(self, k):
+    def getScalarFresnel(self, k, n_ref):
         """
-        getScalarFresnel(IMaterial self, kvector_t k) -> complex_t
+        getScalarFresnel(IMaterial self, kvector_t k, double n_ref) -> complex_t
 
-        complex_t IMaterial::getScalarFresnel(const kvector_t k) const
+        complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
 
         Return the potential term that is used in the one-dimensional Fresnel calculations. 
 
         """
-        return _libBornAgainCore.IMaterial_getScalarFresnel(self, k)
+        return _libBornAgainCore.IMaterial_getScalarFresnel(self, k, n_ref)
 
 
     def createTransformedMaterial(self, transform):

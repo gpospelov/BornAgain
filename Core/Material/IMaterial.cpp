@@ -27,10 +27,10 @@ complex_t IMaterial::getScalarSLD(const WavevectorInfo& wavevectors) const
     return prefactor * refractive_index * refractive_index;
 }
 
-complex_t IMaterial::getScalarFresnel(const kvector_t k) const
+complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
 {
     complex_t refractive_index = getRefractiveIndex();
-    return refractive_index*refractive_index - k.sin2Theta();
+    return refractive_index*refractive_index - n_ref*n_ref*k.sin2Theta();
 }
 
 Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo& wavevectors) const
@@ -38,9 +38,9 @@ Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo& wavevectors) c
     return getScalarSLD(wavevectors)*Eigen::Matrix2cd::Identity();
 }
 
-Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k) const
+Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k, double n_ref) const
 {
-    return getScalarFresnel(k)*Eigen::Matrix2cd::Identity();
+    return getScalarFresnel(k, n_ref)*Eigen::Matrix2cd::Identity();
 }
 
 bool IMaterial::operator==(const IMaterial& other) const

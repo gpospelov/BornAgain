@@ -5585,7 +5585,7 @@ Get the scattering matrix (~potential V) from the material. This matrix appears 
 Get the scattering matrix for a material defined by its magnetization (experimental) 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::getPolarizedFresnel "Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedFresnel(const kvector_t k) const
+%feature("docstring")  HomogeneousMagneticMaterial::getPolarizedFresnel "Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";
@@ -7224,7 +7224,7 @@ Indicates whether the interaction with the material is scalar. This means that d
 Returns true if *this agrees with other in all parameters. 
 ";
 
-%feature("docstring")  IMaterial::getScalarFresnel "complex_t IMaterial::getScalarFresnel(const kvector_t k) const
+%feature("docstring")  IMaterial::getScalarFresnel "complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";
@@ -7234,7 +7234,7 @@ Return the potential term that is used in the one-dimensional Fresnel calculatio
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  IMaterial::getPolarizedFresnel "Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k) const
+%feature("docstring")  IMaterial::getPolarizedFresnel "Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";

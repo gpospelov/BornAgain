@@ -17878,7 +17878,12 @@ class IDetector2D(ICloneable, INode):
 
 
     def setResolutionFunction(self, resFunc):
-        """setResolutionFunction(IDetector2D self, IResolutionFunction2D resFunc)"""
+        """
+        setResolutionFunction(IDetector2D self, IResolutionFunction2D resFunc)
+
+        void IDetector2D::setResolutionFunction(const IResolutionFunction2D &resFunc)
+
+        """
         return _libBornAgainCore.IDetector2D_setResolutionFunction(self, resFunc)
 
 
@@ -17907,7 +17912,12 @@ class IDetector2D(ICloneable, INode):
 
 
     def detectorResolution(self):
-        """detectorResolution(IDetector2D self) -> IDetectorResolution"""
+        """
+        detectorResolution(IDetector2D self) -> IDetectorResolution
+
+        const IDetectorResolution * IDetector2D::detectorResolution() const 
+
+        """
         return _libBornAgainCore.IDetector2D_detectorResolution(self)
 
 
@@ -25620,17 +25630,6 @@ class SpecularSimulation(ICloneable, IParameterized):
 
         """
         return _libBornAgainCore.SpecularSimulation_setBeamParameters(self, *args)
-
-
-    def setEvanescentWaveAxis(self, *args):
-        """
-        setEvanescentWaveAxis(SpecularSimulation self, IAxis z_axis)
-        setEvanescentWaveAxis(SpecularSimulation self, int nbins, double z_min, double z_max)
-
-        void SpecularSimulation::setEvanescentWaveAxis(int nbins, double z_min, double z_max)
-
-        """
-        return _libBornAgainCore.SpecularSimulation_setEvanescentWaveAxis(self, *args)
 
 
     def getAlphaAxis(self):

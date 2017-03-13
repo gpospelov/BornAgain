@@ -5997,6 +5997,9 @@ Sets detector parameters using axes.
 Sets the detector resolution. 
 ";
 
+%feature("docstring")  IDetector2D::setResolutionFunction "void IDetector2D::setResolutionFunction(const IResolutionFunction2D &resFunc)
+";
+
 %feature("docstring")  IDetector2D::removeDetectorResolution "void IDetector2D::removeDetectorResolution()
 
 Removes detector resolution function. 
@@ -6007,7 +6010,7 @@ Removes detector resolution function.
 Applies the detector resolution to the given intensity maps. 
 ";
 
-%feature("docstring")  IDetector2D::getDetectorResolutionFunction "const IDetectorResolution * IDetector2D::getDetectorResolutionFunction() const 
+%feature("docstring")  IDetector2D::detectorResolution "const IDetectorResolution * IDetector2D::detectorResolution() const 
 ";
 
 %feature("docstring")  IDetector2D::setAnalyzerProperties "void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
@@ -12802,14 +12805,6 @@ Sets beam parameters with alpha_i of the beam defined in the range.
 ";
 
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max)
-";
-
-%feature("docstring")  SpecularSimulation::setEvanescentWaveAxis "void SpecularSimulation::setEvanescentWaveAxis(const IAxis &z_axis)
-
-set axis for evanescent wave axis 
-";
-
-%feature("docstring")  SpecularSimulation::setEvanescentWaveAxis "void SpecularSimulation::setEvanescentWaveAxis(int nbins, double z_min, double z_max)
 ";
 
 %feature("docstring")  SpecularSimulation::getAlphaAxis "const IAxis * SpecularSimulation::getAlphaAxis() const

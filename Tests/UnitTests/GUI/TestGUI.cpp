@@ -21,6 +21,7 @@
 #include "TestGroupProperty.h"
 #include "TestParameterTreeUtils.h"
 #include "TestDetectorItems.h"
+#include "TestLinkInstrument.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -48,6 +49,7 @@ int main(int argc, char** argv) {
     TestParticleDistributionItem testParticleDistributionItem;
     TestParameterTreeUtils testParameterTreeUtils;
     TestDetectorItems testDetectorItems;
+    TestLinkInstrument testLinkInstrument;
 
     bool status(false);
 
@@ -72,6 +74,7 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
     status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
     status |= QTest::qExec(&testDetectorItems, argc, argv);
+    status |= QTest::qExec(&testLinkInstrument, argc, argv);
 
     return status;
 }

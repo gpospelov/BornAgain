@@ -62,9 +62,8 @@ void DetectorEditorWidget::onGroupBoxExtendedButton()
 void DetectorEditorWidget::subscribeToItem()
 {
 
-    currentItem()->mapper()->setOnChildPropertyChange(
-        [this](SessionItem* item, const QString& name) {
-            Q_UNUSED(item);
+    currentItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) {
             if (name == InstrumentItem::P_DETECTOR)
                 init_SubDetector_Widget();
         }, this);

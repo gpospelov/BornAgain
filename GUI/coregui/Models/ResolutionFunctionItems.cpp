@@ -15,44 +15,43 @@
 // ************************************************************************** //
 
 #include "ResolutionFunctionItems.h"
+#include "ResolutionFunction2DGaussian.h"
+#include "BornAgainNamespace.h"
+#include "GUIHelpers.h"
 
-ResolutionFunctionItem::ResolutionFunctionItem(const QString name)
+ResolutionFunctionItem::ResolutionFunctionItem(const QString& name)
     : SessionItem(name)
-{
-}
+{}
 
-/* ------------------------------------------------ */
+/* --------------------------------------------------------------------------------------------- */
 
 ResolutionFunctionNoneItem::ResolutionFunctionNoneItem()
     : ResolutionFunctionItem(Constants::ResolutionFunctionNoneType)
 {
 }
 
-IResolutionFunction2D *ResolutionFunctionNoneItem::createResolutionFunction(double scale) const
+std::unique_ptr<IResolutionFunction2D>
+ResolutionFunctionNoneItem::createResolutionFunction(double) const
 {
-    Q_UNUSED(scale);
-    return 0;
+    return std::unique_ptr<IResolutionFunction2D>();
 }
 
-/* ------------------------------------------------ */
+/* --------------------------------------------------------------------------------------------- */
 
-const QString ResolutionFunction2DGaussianItem::P_SIGMA_X = "Sigma X";
-const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = "Sigma Y";
+const QString ResolutionFunction2DGaussianItem::P_SIGMA_X = QString::fromStdString(BornAgain::SigmaX);
+const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = QString::fromStdString(BornAgain::SigmaY);
 
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType)
 {
-    addProperty(P_SIGMA_X, 0.02);
-    getItem(P_SIGMA_X)->setLimits(RealLimits::lowerLimited(0.0));
-    getItem(P_SIGMA_X)->setDecimals(3);
-    addProperty(P_SIGMA_Y, 0.02);
-    getItem(P_SIGMA_Y)->setLimits(RealLimits::lowerLimited(0.0));
-    getItem(P_SIGMA_Y)->setDecimals(3);
+    addProperty(P_SIGMA_X, 0.02)->setLimits(RealLimits::lowerLimited(0.0)).setDecimals(3);
+    addProperty(P_SIGMA_Y, 0.02)->setLimits(RealLimits::lowerLimited(0.0)).setDecimals(3);
 }
 
-IResolutionFunction2D *ResolutionFunction2DGaussianItem::createResolutionFunction(double scale) const
+std::unique_ptr<IResolutionFunction2D>
+ResolutionFunction2DGaussianItem::createResolutionFunction(double scale) const
 {
-    double sigma_x = getItemValue(P_SIGMA_X).toDouble();
-    double sigma_y = getItemValue(P_SIGMA_Y).toDouble();
-    return new ResolutionFunction2DGaussian(sigma_x*scale, sigma_y*scale);
+    return GUIHelpers::make_unique<ResolutionFunction2DGaussian>(
+                scale*getItemValue(P_SIGMA_X).toDouble(),
+                scale*getItemValue(P_SIGMA_Y).toDouble());
 }

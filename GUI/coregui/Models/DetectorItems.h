@@ -44,6 +44,8 @@ public:
     void importMasks(MaskContainerItem* maskContainer);
 
 protected:
+    void register_resolution_function();
+
     virtual std::unique_ptr<IDetector2D> createDomainDetector() const = 0;
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction() const;
 

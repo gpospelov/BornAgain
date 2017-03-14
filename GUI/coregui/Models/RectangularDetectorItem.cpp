@@ -112,6 +112,8 @@ RectangularDetectorItem::RectangularDetectorItem()
         ->setToolTip(
             QStringLiteral("Distance in [mm] from the sample origin to the detector plane"));
 
+    register_resolution_function();
+
     update_properties_appearance();
     m_is_constructed = true;
 

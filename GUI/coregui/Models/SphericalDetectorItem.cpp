@@ -34,6 +34,8 @@ SphericalDetectorItem::SphericalDetectorItem()
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MIN, 0.0);
     item->setItemValue(BasicAxisItem::P_MAX, 2.0);
+
+    register_resolution_function();
 }
 
 std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const

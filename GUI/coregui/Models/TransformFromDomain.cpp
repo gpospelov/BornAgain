@@ -57,6 +57,7 @@
 #include "VectorItem.h"
 #include "ParameterTreeUtils.h"
 #include "InstrumentItem.h"
+#include "ResolutionFunction2DGaussian.h"
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);

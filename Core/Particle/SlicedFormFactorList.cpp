@@ -43,10 +43,6 @@ void SlicedFormFactorList::addParticle(IParticle& particle,
                                    particle.createSlicedFormFactor(limits)), i);
         ref_layer_index = i;  // particle now has coordinates relative to layer i
     }
-//    kvector_t translation(0.0, 0.0, -ZDifference(multilayer, bottom_layer_index, ref_layer_index));
-//    particle.applyTranslation(translation);
-//    m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(particle.createFormFactor()),
-//                           bottom_layer_index);
 }
 
 size_t SlicedFormFactorList::size() const
@@ -80,7 +76,11 @@ size_t LayerIndexBottom(const IParticle& particle, const MultiLayer& multilayer,
     std::unique_ptr<IFormFactor> P_ff(particle.createFormFactor());
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
     double position_offset = multilayer.getLayerTopZ(ref_layer_index);
-    double zmin = P_ff->bottomZ(*P_rot) + position_offset;
+    double zbottom = P_ff->bottomZ(*P_rot);
+    double ztop = P_ff->topZ(*P_rot);
+    double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
+                                         // approximations (like rotation over 180 degrees)
+    double zmin = zbottom + position_offset + eps;
     return multilayer.bottomZToLayerIndex(zmin);
 }
 
@@ -90,7 +90,11 @@ size_t LayerIndexTop(const IParticle& particle, const MultiLayer& multilayer,
     std::unique_ptr<IFormFactor> P_ff(particle.createFormFactor());
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
     double position_offset = multilayer.getLayerTopZ(ref_layer_index);
-    double zmax = P_ff->topZ(*P_rot) + position_offset;
+    double zbottom = P_ff->bottomZ(*P_rot);
+    double ztop = P_ff->topZ(*P_rot);
+    double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
+                                         // approximations (like rotation over 180 degrees)
+    double zmax = ztop + position_offset - eps;
     return multilayer.topZToLayerIndex(zmax);
 }
 

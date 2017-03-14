@@ -46,7 +46,7 @@ public:
     complex_t getScalarSLD(const WavevectorInfo& wavevectors) const;
 
     //! Return the potential term that is used in the one-dimensional Fresnel calculations
-    complex_t getScalarFresnel(const kvector_t k) const;
+    complex_t getScalarFresnel(const kvector_t k, double n_ref) const;
 
 #ifndef SWIG
     //! Get the scattering matrix (~potential V) from the material.
@@ -54,7 +54,7 @@ public:
     virtual Eigen::Matrix2cd getPolarizedSLD(const WavevectorInfo& wavevectors) const;
 
     //! Return the potential term that is used in the one-dimensional Fresnel calculations
-    virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k) const;
+    virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k, double n_ref) const;
 #endif
 
     //! Create a new material that is transformed with respect to this one

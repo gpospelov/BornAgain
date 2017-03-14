@@ -40,9 +40,10 @@ void SpecularMagnetic::calculateEigenvalues(
     const MultiLayer& sample, const kvector_t k, std::vector<MatrixRTCoefficients>& coeff)
 {
     double mag_k = k.mag();
+    double n_ref = sample.getLayer(0)->getRefractiveIndex().real();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<coeff.size(); ++i) {
-        coeff[i].m_scatt_matrix = sample.getLayer(i)->getMaterial()->getPolarizedFresnel(k);
+        coeff[i].m_scatt_matrix = sample.getLayer(i)->getMaterial()->getPolarizedFresnel(k, n_ref);
         coeff[i].m_kt = mag_k*sample.getLayer(i)->getThickness();
         coeff[i].m_a = coeff[i].m_scatt_matrix.trace()/2.0;
         coeff[i].m_b_mag = sqrt(coeff[i].m_a*coeff[i].m_a -

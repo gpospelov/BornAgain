@@ -63,15 +63,17 @@ bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
 {
     double zbottom = formfactor.bottomZ(rot) + translation.z();
     double ztop = formfactor.topZ(rot) + translation.z();
+    double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
+                                         // approximations (like rotation over 180 degrees)
     switch (limits.type()) {
     case ZLimits::FINITE:
-        return zbottom>=limits.zmin() && ztop<=limits.zmax();
+        return zbottom>=limits.zmin()-eps && ztop<=limits.zmax()+eps;
     case ZLimits::INFINITE:
         return true;
     case ZLimits::NEG_INFINITE:
-        return ztop<=limits.zmax();
+        return ztop<=limits.zmax()+eps;
     case ZLimits::POS_INFINITE:
-        return zbottom>=limits.zmin();
+        return zbottom>=limits.zmin()-eps;
     }
     return false;
 }

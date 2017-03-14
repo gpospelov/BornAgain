@@ -236,13 +236,9 @@ Returns result of rotation around the axis specified by another vector.
 ";
 
 %feature("docstring")  BasicVector3D::conj "BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
-
-Returns complex conjugate vector. 
 ";
 
 %feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< complex_t >::real() const
-
-Returns real parts. 
 ";
 
 %feature("docstring")  BasicVector3D::unit "BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
@@ -5589,7 +5585,7 @@ Get the scattering matrix (~potential V) from the material. This matrix appears 
 Get the scattering matrix for a material defined by its magnetization (experimental) 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::getPolarizedFresnel "Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedFresnel(const kvector_t k) const
+%feature("docstring")  HomogeneousMagneticMaterial::getPolarizedFresnel "Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";
@@ -5997,6 +5993,9 @@ Sets detector parameters using axes.
 Sets the detector resolution. 
 ";
 
+%feature("docstring")  IDetector2D::setResolutionFunction "void IDetector2D::setResolutionFunction(const IResolutionFunction2D &resFunc)
+";
+
 %feature("docstring")  IDetector2D::removeDetectorResolution "void IDetector2D::removeDetectorResolution()
 
 Removes detector resolution function. 
@@ -6007,7 +6006,7 @@ Removes detector resolution function.
 Applies the detector resolution to the given intensity maps. 
 ";
 
-%feature("docstring")  IDetector2D::getDetectorResolutionFunction "const IDetectorResolution * IDetector2D::getDetectorResolutionFunction() const 
+%feature("docstring")  IDetector2D::detectorResolution "const IDetectorResolution * IDetector2D::detectorResolution() const 
 ";
 
 %feature("docstring")  IDetector2D::setAnalyzerProperties "void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
@@ -7225,7 +7224,7 @@ Indicates whether the interaction with the material is scalar. This means that d
 Returns true if *this agrees with other in all parameters. 
 ";
 
-%feature("docstring")  IMaterial::getScalarFresnel "complex_t IMaterial::getScalarFresnel(const kvector_t k) const
+%feature("docstring")  IMaterial::getScalarFresnel "complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";
@@ -7235,7 +7234,7 @@ Return the potential term that is used in the one-dimensional Fresnel calculatio
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  IMaterial::getPolarizedFresnel "Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k) const
+%feature("docstring")  IMaterial::getPolarizedFresnel "Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";
@@ -12802,14 +12801,6 @@ Sets beam parameters with alpha_i of the beam defined in the range.
 ";
 
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max)
-";
-
-%feature("docstring")  SpecularSimulation::setEvanescentWaveAxis "void SpecularSimulation::setEvanescentWaveAxis(const IAxis &z_axis)
-
-set axis for evanescent wave axis 
-";
-
-%feature("docstring")  SpecularSimulation::setEvanescentWaveAxis "void SpecularSimulation::setEvanescentWaveAxis(int nbins, double z_min, double z_max)
 ";
 
 %feature("docstring")  SpecularSimulation::getAlphaAxis "const IAxis * SpecularSimulation::getAlphaAxis() const

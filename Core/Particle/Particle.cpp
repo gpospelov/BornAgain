@@ -23,23 +23,23 @@ Particle::Particle()
     initialize();
 }
 
-Particle::Particle(const HomogeneousMaterial& p_material)
-    : mP_material(p_material.clone())
+Particle::Particle(HomogeneousMaterial material)
+    : m_material(material)
 {
     initialize();
 }
 
-Particle::Particle(const HomogeneousMaterial& p_material, const IFormFactor& form_factor)
-    : mP_material(p_material.clone())
+Particle::Particle(HomogeneousMaterial material, const IFormFactor& form_factor)
+    : m_material(material)
     , mP_form_factor(form_factor.clone())
 {
     initialize();
     registerChild(mP_form_factor.get());
 }
 
-Particle::Particle(const HomogeneousMaterial& p_material, const IFormFactor& form_factor,
+Particle::Particle(HomogeneousMaterial material, const IFormFactor& form_factor,
                    const IRotation& rotation)
-    : mP_material(p_material.clone())
+    : m_material(material)
     , mP_form_factor(form_factor.clone())
 {
     initialize();
@@ -49,12 +49,10 @@ Particle::Particle(const HomogeneousMaterial& p_material, const IFormFactor& for
 
 Particle* Particle::clone() const
 {
-    Particle* p_result = new Particle();
+    Particle* p_result = new Particle(m_material);
     p_result->setAbundance(m_abundance);
     if (mP_form_factor)
         p_result->setFormFactor(*mP_form_factor);
-    if (mP_material)
-        p_result->setMaterial(*mP_material);
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -64,12 +62,10 @@ Particle* Particle::clone() const
 
 Particle* Particle::cloneInvertB() const
 {
-    Particle* p_result = new Particle();
+    Particle* p_result = new Particle(m_material.inverted());
     p_result->setAbundance(m_abundance);
     if (mP_form_factor)
         p_result->setFormFactor(*mP_form_factor);
-    if (mP_material)
-        p_result->mP_material.reset(mP_material->cloneInverted());
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -87,23 +83,20 @@ IFormFactor* Particle::createSlicedFormFactor(ZLimits limits) const
     std::unique_ptr<IFormFactor> P_temp_ff(
                 mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
     FormFactorDecoratorMaterial* p_ff = new FormFactorDecoratorMaterial(*P_temp_ff);
-    if (mP_material) {
-        const std::unique_ptr<const HomogeneousMaterial> P_transformed_material(
-                    mP_material->createTransformedMaterial(P_rotation->getTransform3D()));
-        p_ff->setMaterial(*P_transformed_material);
-    }
+    HomogeneousMaterial transformed_material(
+                m_material.transformedMaterial(P_rotation->getTransform3D()));
+    p_ff->setMaterial(transformed_material);
     return p_ff;
 }
 
-void Particle::setMaterial(const HomogeneousMaterial& material)
+void Particle::setMaterial(HomogeneousMaterial material)
 {
-    if(mP_material.get() != &material)
-        mP_material.reset(material.clone());
+    m_material = std::move(material);
 }
 
 complex_t Particle::refractiveIndex() const
 {
-    return mP_material ? mP_material->refractiveIndex() : 0.0;
+    return m_material.refractiveIndex();
 }
 
 void Particle::setFormFactor(const IFormFactor& form_factor)

@@ -18,10 +18,10 @@
 
 #include "ISample.h"
 #include "Complex.h"
+#include "HomogeneousMaterial.h"
 #include "SafePointerVector.h"
 
 class ILayout;
-class HomogeneousMaterial;
 
 //! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
@@ -29,20 +29,19 @@ class HomogeneousMaterial;
 class BA_CORE_API_ Layer : public ISample
 {
 public:
-    Layer(const HomogeneousMaterial& material, double thickness = 0);
+    Layer(HomogeneousMaterial material, double thickness = 0);
 
-    ~Layer() final;
+    ~Layer();
 
-    Layer* clone() const final { return new Layer(*this); }
-    Layer* cloneInvertB() const final;
+    Layer* clone() const override final { return new Layer(*this); }
+    Layer* cloneInvertB() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     void setThickness(double thickness);
     double thickness() const { return m_thickness; }
 
-    void setMaterial(const HomogeneousMaterial& material);
-    const HomogeneousMaterial* material() const { return mp_material; }
+    const HomogeneousMaterial* material() const override final { return &m_material; }
 
     complex_t refractiveIndex() const;
     complex_t refractiveIndex2() const; //!< squared refractive index
@@ -54,14 +53,14 @@ public:
     //! Returns true if decoration is present
     bool hasComputation() const { return m_layouts.size()>0; }
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override final;
 
     void registerThickness(bool make_registered = true);
 
 private:
     Layer(const Layer& other);
 
-    HomogeneousMaterial* mp_material;   //!< pointer to the material
+    HomogeneousMaterial m_material;   //!< material
     double m_thickness;       //!< layer thickness in nanometers
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
 };

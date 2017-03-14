@@ -82,10 +82,9 @@ IFormFactor* ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const
     // ParticleCoreShell's rotation to the clone of the shell particle)
     const HomogeneousMaterial* p_shell_material = P_shell->material();
     if (p_shell_material) {
-        const std::unique_ptr<const HomogeneousMaterial> P_transformed_material(
-                    p_shell_material->createTransformedMaterial(
-                        P_shell->rotation()->getTransform3D()));
-        P_ff_core->setAmbientMaterial(*P_transformed_material);
+        HomogeneousMaterial transformed_material(
+                    p_shell_material->transformedMaterial(P_shell->rotation()->getTransform3D()));
+        P_ff_core->setAmbientMaterial(transformed_material);
     }
 
     return new FormFactorCoreShell(P_ff_core.release(), P_ff_shell.release());

@@ -33,7 +33,7 @@ ParticleCoreShellTest::~ParticleCoreShellTest()
 
 TEST_F(ParticleCoreShellTest, InitialState)
 {
-    EXPECT_EQ(nullptr, mp_coreshell->getAmbientMaterial());
+    EXPECT_EQ(nullptr, mp_coreshell->ambientMaterial());
     EXPECT_EQ(nullptr, mp_coreshell->createFormFactor());
     EXPECT_EQ(nullptr, mp_coreshell->rotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, mp_coreshell->getName());

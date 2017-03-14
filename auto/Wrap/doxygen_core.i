@@ -2846,7 +2846,7 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
-%feature("docstring")  FormFactorCoreShell::setAmbientMaterial "void FormFactorCoreShell::setAmbientMaterial(const HomogeneousMaterial &material) overridefinal
+%feature("docstring")  FormFactorCoreShell::setAmbientMaterial "void FormFactorCoreShell::setAmbientMaterial(HomogeneousMaterial material) overridefinal
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -2886,7 +2886,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorCrystal::setAmbientMaterial "void FormFactorCrystal::setAmbientMaterial(const HomogeneousMaterial &material) override
+%feature("docstring")  FormFactorCrystal::setAmbientMaterial "void FormFactorCrystal::setAmbientMaterial(HomogeneousMaterial material) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -3072,12 +3072,12 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::setMaterial "void FormFactorDecoratorMaterial::setMaterial(const HomogeneousMaterial &material)
+%feature("docstring")  FormFactorDecoratorMaterial::setMaterial "void FormFactorDecoratorMaterial::setMaterial(HomogeneousMaterial material)
 
 Sets the material of the scatterer. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::setAmbientMaterial "void FormFactorDecoratorMaterial::setAmbientMaterial(const HomogeneousMaterial &material) override
+%feature("docstring")  FormFactorDecoratorMaterial::setAmbientMaterial "void FormFactorDecoratorMaterial::setAmbientMaterial(HomogeneousMaterial material) override
 
 Sets the ambient material. 
 ";
@@ -3239,7 +3239,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDWBA::setAmbientMaterial "void FormFactorDWBA::setAmbientMaterial(const HomogeneousMaterial &material) override
+%feature("docstring")  FormFactorDWBA::setAmbientMaterial "void FormFactorDWBA::setAmbientMaterial(HomogeneousMaterial material) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -3299,7 +3299,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::setAmbientMaterial "void FormFactorDWBAPol::setAmbientMaterial(const HomogeneousMaterial &material) override
+%feature("docstring")  FormFactorDWBAPol::setAmbientMaterial "void FormFactorDWBAPol::setAmbientMaterial(HomogeneousMaterial material) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -4646,7 +4646,7 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 %feature("docstring")  FormFactorWeighted::addFormFactor "void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
 ";
 
-%feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(const HomogeneousMaterial &material) overridefinal
+%feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(HomogeneousMaterial material) overridefinal
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -5544,6 +5544,11 @@ An homogeneous material with a refractive index and (optionally) a magnetic fiel
 C++ includes: HomogeneousMaterial.h
 ";
 
+%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial()
+
+Constructs a default material (vacuum). 
+";
+
 %feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t refractive_index, const kvector_t magnetic_field=kvector_t())
 
 Constructs a material with  name and  refractive_index. 
@@ -5557,10 +5562,9 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 %feature("docstring")  HomogeneousMaterial::~HomogeneousMaterial "HomogeneousMaterial::~HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const 
-";
+%feature("docstring")  HomogeneousMaterial::inverted "HomogeneousMaterial HomogeneousMaterial::inverted() const
 
-%feature("docstring")  HomogeneousMaterial::cloneInverted "HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const 
+Constructs a material with inverted magnetic field. 
 ";
 
 %feature("docstring")  HomogeneousMaterial::refractiveIndex "complex_t HomogeneousMaterial::refractiveIndex() const 
@@ -5606,7 +5610,7 @@ Get the scattering matrix for a material defined by its magnetization (experimen
 %feature("docstring")  HomogeneousMaterial::polarizedFresnel "Eigen::Matrix2cd HomogeneousMaterial::polarizedFresnel(const kvector_t k, double n_ref) const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const HomogeneousMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const 
+%feature("docstring")  HomogeneousMaterial::transformedMaterial "HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D &transform) const 
 ";
 
 
@@ -6307,7 +6311,7 @@ Returns a clone of this  ISample object.
 Creates a (possibly sliced) form factor with the given rotation and translation. 
 ";
 
-%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const HomogeneousMaterial &)=0
+%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(HomogeneousMaterial)=0
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -6369,7 +6373,7 @@ C++ includes: IFormFactorBorn.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(const HomogeneousMaterial &) override
+%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(HomogeneousMaterial) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -6426,7 +6430,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(const HomogeneousMaterial &material) override
+%feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(HomogeneousMaterial material) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -8674,7 +8678,7 @@ Returns a clone with inverted magnetic fields.
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::getAmbientMaterial "virtual const HomogeneousMaterial* ISample::getAmbientMaterial() const
+%feature("docstring")  ISample::ambientMaterial "virtual const HomogeneousMaterial* ISample::ambientMaterial() const
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
@@ -9126,23 +9130,23 @@ A layer, with thickness (in nanometer) and material.
 C++ includes: Layer.h
 ";
 
-%feature("docstring")  Layer::Layer "Layer::Layer(const HomogeneousMaterial &material, double thickness=0)
+%feature("docstring")  Layer::Layer "Layer::Layer(HomogeneousMaterial material, double thickness=0)
 ";
 
-%feature("docstring")  Layer::~Layer "Layer::~Layer() final
+%feature("docstring")  Layer::~Layer "Layer::~Layer()
 ";
 
-%feature("docstring")  Layer::clone "Layer* Layer::clone() const final
+%feature("docstring")  Layer::clone "Layer* Layer::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const final
+%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const overridefinal
 
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  Layer::accept "void Layer::accept(INodeVisitor *visitor) const final
+%feature("docstring")  Layer::accept "void Layer::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -9155,12 +9159,7 @@ Sets layer thickness in nanometers.
 %feature("docstring")  Layer::thickness "double Layer::thickness() const 
 ";
 
-%feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const HomogeneousMaterial &material)
-
-Sets  material of the layer. 
-";
-
-%feature("docstring")  Layer::material "const HomogeneousMaterial* Layer::material() const
+%feature("docstring")  Layer::material "const HomogeneousMaterial* Layer::material() const overridefinal
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
@@ -9187,7 +9186,7 @@ squared refractive index
 Returns true if decoration is present. 
 ";
 
-%feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const
+%feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const overridefinal
 
 Returns a vector of children (const). 
 ";
@@ -10581,13 +10580,13 @@ C++ includes: Particle.h
 %feature("docstring")  Particle::Particle "Particle::Particle()
 ";
 
-%feature("docstring")  Particle::Particle "Particle::Particle(const HomogeneousMaterial &p_material)
+%feature("docstring")  Particle::Particle "Particle::Particle(HomogeneousMaterial material)
 ";
 
-%feature("docstring")  Particle::Particle "Particle::Particle(const HomogeneousMaterial &p_material, const IFormFactor &form_factor)
+%feature("docstring")  Particle::Particle "Particle::Particle(HomogeneousMaterial material, const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  Particle::Particle "Particle::Particle(const HomogeneousMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation)
+%feature("docstring")  Particle::Particle "Particle::Particle(HomogeneousMaterial material, const IFormFactor &form_factor, const IRotation &rotation)
 ";
 
 %feature("docstring")  Particle::clone "Particle * Particle::clone() const overridefinal
@@ -10610,7 +10609,7 @@ Calls the  INodeVisitor's visit method.
 Create a sliced form factor for this particle. 
 ";
 
-%feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const HomogeneousMaterial &material)
+%feature("docstring")  Particle::setMaterial "void Particle::setMaterial(HomogeneousMaterial material)
 ";
 
 %feature("docstring")  Particle::material "const HomogeneousMaterial* Particle::material() const overridefinal

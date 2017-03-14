@@ -31,6 +31,9 @@ class WavevectorInfo;
 class BA_CORE_API_ HomogeneousMaterial : public INamed
 {
 public:
+    //! Constructs a default material (vacuum).
+    HomogeneousMaterial();
+
     //! Constructs a material with _name_ and _refractive_index_.
     HomogeneousMaterial(const std::string &name, const complex_t refractive_index,
                         const kvector_t magnetic_field=kvector_t());
@@ -41,8 +44,8 @@ public:
                         double refractive_index_beta, const kvector_t magnetic_field=kvector_t());
     ~HomogeneousMaterial() {}
 
-    HomogeneousMaterial* clone() const;
-    HomogeneousMaterial* cloneInverted() const;
+    //! Constructs a material with inverted magnetic field
+    HomogeneousMaterial inverted() const;
 
     complex_t refractiveIndex() const;
     void setRefractiveIndex(const complex_t refractive_index);
@@ -72,7 +75,7 @@ public:
 
     virtual Eigen::Matrix2cd polarizedFresnel(const kvector_t k, double n_ref) const;
 #endif
-    const HomogeneousMaterial* createTransformedMaterial(const Transform3D& transform) const;
+    HomogeneousMaterial transformedMaterial(const Transform3D& transform) const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const HomogeneousMaterial& mat);
 private:

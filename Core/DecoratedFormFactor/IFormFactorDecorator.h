@@ -34,7 +34,7 @@ public:
     IFormFactorDecorator* clone() const override=0;
     void accept(INodeVisitor* visitor) const override=0;
 
-    void setAmbientMaterial(const HomogeneousMaterial &material) override {
+    void setAmbientMaterial(HomogeneousMaterial material) override {
         mp_form_factor->setAmbientMaterial(material); }
 
     double getVolume() const override {

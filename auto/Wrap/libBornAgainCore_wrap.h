@@ -140,7 +140,7 @@ public:
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *getAmbientMaterial() const;
+    virtual HomogeneousMaterial const *ambientMaterial() const;
 
 /* Internal director utilities */
 public:
@@ -324,8 +324,8 @@ public:
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *getAmbientMaterial() const;
-    virtual void setAmbientMaterial(HomogeneousMaterial const &arg0);
+    virtual HomogeneousMaterial const *ambientMaterial() const;
+    virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
     virtual double getRadialExtension() const;
@@ -390,8 +390,8 @@ public:
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *getAmbientMaterial() const;
-    virtual void setAmbientMaterial(HomogeneousMaterial const &arg0);
+    virtual HomogeneousMaterial const *ambientMaterial() const;
+    virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double getVolume() const;
     virtual double getRadialExtension() const;

@@ -35,6 +35,11 @@ cvector_t OrthogonalToBaseVector(cvector_t base, const kvector_t vector)
 }
 }
 
+HomogeneousMaterial::HomogeneousMaterial()
+    : INamed("vacuum")
+    , m_refractive_index(1)
+{}
+
 HomogeneousMaterial::HomogeneousMaterial(
         const std::string& name, const complex_t refractive_index, const kvector_t magnetic_field)
     : INamed(name)
@@ -50,16 +55,12 @@ HomogeneousMaterial::HomogeneousMaterial(
     , m_magnetic_field(magnetic_field)
 {}
 
-HomogeneousMaterial*HomogeneousMaterial::clone() const
-{
-    return new HomogeneousMaterial(getName(), refractiveIndex(), magneticField());
-}
-
-HomogeneousMaterial*HomogeneousMaterial::cloneInverted() const
+HomogeneousMaterial HomogeneousMaterial::inverted() const
 {
     std::string name = isScalarMaterial() ? getName()
                                           : getName()+"_inv";
-    return new HomogeneousMaterial(name, refractiveIndex(), -magneticField());
+    HomogeneousMaterial result(name, refractiveIndex(), -magneticField());
+    return result;
 }
 
 complex_t HomogeneousMaterial::refractiveIndex() const
@@ -143,11 +144,10 @@ Eigen::Matrix2cd HomogeneousMaterial::polarizedFresnel(const kvector_t k, double
     return result;
 }
 
-const HomogeneousMaterial* HomogeneousMaterial::createTransformedMaterial(
-        const Transform3D& transform) const
+HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D& transform) const
 {
     kvector_t transformed_field = transform.transformed(m_magnetic_field);
-    return new HomogeneousMaterial(getName(), refractiveIndex(), transformed_field);
+    return HomogeneousMaterial(getName(), refractiveIndex(), transformed_field);
 }
 
 void HomogeneousMaterial::print(std::ostream& ostr) const

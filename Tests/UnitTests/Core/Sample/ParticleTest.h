@@ -15,8 +15,9 @@ protected:
 TEST_F(ParticleTest, InitialState)
 {
     Particle particle;
-    EXPECT_EQ(nullptr, particle.material());
-    EXPECT_EQ(complex_t(0,0), particle.refractiveIndex());
+    HomogeneousMaterial vacuum;
+    EXPECT_EQ(vacuum, *particle.material());
+    EXPECT_EQ(complex_t(1,0), particle.refractiveIndex());
     EXPECT_EQ(nullptr, particle.formFactor());
     EXPECT_EQ(nullptr, particle.createFormFactor());
     EXPECT_EQ(nullptr, particle.rotation());
@@ -26,9 +27,10 @@ TEST_F(ParticleTest, InitialState)
 TEST_F(ParticleTest, Clone)
 {
     Particle particle;
+    HomogeneousMaterial vacuum;
     std::unique_ptr<Particle> clone(particle.clone());
-    EXPECT_EQ(nullptr, clone->material());
-    EXPECT_EQ(complex_t(0,0), clone->refractiveIndex());
+    EXPECT_EQ(vacuum, *clone->material());
+    EXPECT_EQ(complex_t(1,0), clone->refractiveIndex());
     EXPECT_EQ(nullptr, clone->formFactor());
     EXPECT_EQ(nullptr, clone->createFormFactor());
     EXPECT_EQ(nullptr, clone->rotation());
@@ -38,9 +40,10 @@ TEST_F(ParticleTest, Clone)
 TEST_F(ParticleTest, CloneInvertB)
 {
     Particle particle;
+    HomogeneousMaterial vacuum;
     std::unique_ptr<Particle> clone(particle.cloneInvertB());
-    EXPECT_EQ(nullptr, clone->material());
-    EXPECT_EQ(complex_t(0,0), clone->refractiveIndex());
+    EXPECT_EQ(vacuum, *clone->material());
+    EXPECT_EQ(complex_t(1,0), clone->refractiveIndex());
     EXPECT_EQ(nullptr, clone->formFactor());
     EXPECT_EQ(nullptr, clone->createFormFactor());
     EXPECT_EQ(nullptr, clone->rotation());
@@ -91,13 +94,10 @@ TEST_F(ParticleTest, setters)
     RotationY transform(45.*Units::degree);
 
     Particle particle;
-    EXPECT_EQ(nullptr, particle.material());
+    HomogeneousMaterial vacuum;
+    EXPECT_EQ(vacuum, *particle.material());
     EXPECT_EQ(nullptr, particle.formFactor());
     EXPECT_EQ(nullptr, particle.rotation());
-
-    particle.setMaterial(mat);
-    EXPECT_EQ("Air", particle.material()->getName());
-    EXPECT_EQ(complex_t(1.0), particle.refractiveIndex());
 
     particle.setFormFactor(sphere);
     EXPECT_EQ(BornAgain::FFFullSphereType, particle.formFactor()->getName());
@@ -108,7 +108,7 @@ TEST_F(ParticleTest, setters)
 
     std::unique_ptr<Particle> particle2(particle.clone());
     EXPECT_EQ(BornAgain::ParticleType, particle2->getName());
-    EXPECT_EQ("Air", particle2->material()->getName());
+    EXPECT_EQ(vacuum.getName(), particle2->material()->getName());
     EXPECT_EQ(complex_t(1.0), particle2->refractiveIndex());
     EXPECT_TRUE(nullptr != particle2->formFactor());
     EXPECT_EQ(2.1, particle2->formFactor()->getRadialExtension());

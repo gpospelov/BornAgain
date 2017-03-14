@@ -13,29 +13,26 @@ class LayerTest : public ::testing::Test
 TEST_F(LayerTest, LayerGetAndSet)
 {
     HomogeneousMaterial air("air",0,0);
-    HomogeneousMaterial something("something",0,0.5);
 
     Layer layer(air, 10*Units::nanometer);
     EXPECT_EQ(air.getName(), layer.material()->getName());
     EXPECT_EQ(nullptr, layer.layout(0));
     EXPECT_EQ(10, layer.thickness());
     EXPECT_FALSE(layer.hasComputation());
-    EXPECT_EQ(complex_t(1,0), layer.refractiveIndex());
+    EXPECT_EQ(complex_t(1, 0), layer.refractiveIndex());
     EXPECT_EQ(BornAgain::LayerType, layer.getName());
 
     layer.setThickness(20.0);
     EXPECT_EQ(20, layer.thickness());
-    layer.setMaterial(something);
-    EXPECT_EQ(something.getName(), layer.material()->getName());
     EXPECT_EQ(BornAgain::LayerType, layer.getName());
-    EXPECT_EQ(complex_t(1,0.5), layer.refractiveIndex());
+    EXPECT_EQ(complex_t(1, 0), layer.refractiveIndex());
 
     std::unique_ptr<Layer> clone(layer.clone());
-    EXPECT_EQ(something.getName(), clone->material()->getName());
+    EXPECT_EQ(air.getName(), clone->material()->getName());
     EXPECT_EQ(nullptr, clone->layout(0));
     EXPECT_EQ(20, clone->thickness());
     EXPECT_FALSE(clone->hasComputation());
-    EXPECT_EQ(complex_t(1,0.5), clone->refractiveIndex());
+    EXPECT_EQ(complex_t(1, 0), clone->refractiveIndex());
     EXPECT_EQ(BornAgain::LayerType, clone->getName());
 }
 

@@ -221,9 +221,9 @@ std::string ExportToPython::defineLayers() const
     for (auto it=themap->begin(); it != themap->end(); ++it) {
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer(" <<
-            m_label->getLabelMaterial(layer->getMaterial());
-        if (layer->getThickness() != 0)
-            result << ", " << layer->getThickness();
+            m_label->getLabelMaterial(layer->material());
+        if (layer->thickness() != 0)
+            result << ", " << layer->thickness();
         result << ")\n";
     }
     return result.str();
@@ -257,8 +257,8 @@ std::string ExportToPython::defineParticles() const
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
         result << indent() << particle_name << " = ba.Particle("
-               << m_label->getLabelMaterial(p_particle->getMaterial()) << ", "
-               << m_label->getLabelFormFactor(p_particle->getFormFactor()) << ")\n";
+               << m_label->getLabelMaterial(p_particle->material()) << ", "
+               << m_label->getLabelFormFactor(p_particle->formFactor()) << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
     }
@@ -297,7 +297,7 @@ std::string ExportToPython::defineParticleDistributions() const
 
     int index(1);
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
-        ParameterDistribution par_distr = it->first->getParameterDistribution();
+        ParameterDistribution par_distr = it->first->parameterDistribution();
 
         // building distribution functions
         std::stringstream s_distr;
@@ -326,7 +326,7 @@ std::string ExportToPython::defineParticleDistributions() const
         }
 
         result << indent() << it->second << " = ba.ParticleDistribution("
-               << m_label->getLabelParticle(it->first->getParticle())
+               << m_label->getLabelParticle(it->first->particle())
                << ", " << s_par_distr.str() << ")\n";
         index++;
     }
@@ -345,9 +345,9 @@ std::string ExportToPython::defineParticleCompositions() const
         const ParticleComposition* p_particle_composition = it->first;
         std::string particle_composition_name = it->second;
         result << indent() << particle_composition_name << " = ba.ParticleComposition()\n";
-        for (size_t i = 0; i < p_particle_composition->getNbrParticles(); ++i) {
+        for (size_t i = 0; i < p_particle_composition->nbrParticles(); ++i) {
             result << indent() << particle_composition_name << ".addParticle("
-                   << m_label->getLabelParticle(p_particle_composition->getParticle(i))
+                   << m_label->getLabelParticle(p_particle_composition->particle(i))
             << ")\n";
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
@@ -508,19 +508,19 @@ std::string ExportToPython::defineParticleLayouts() const
         const ILayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
             result << indent() << it->second << " = ba.ParticleLayout()\n";
-            size_t numberOfParticles = particleLayout->getNumberOfParticles();
+            size_t numberOfParticles = particleLayout->numberOfParticles();
             size_t particleIndex = 0;
 
             while (particleIndex != numberOfParticles) {
-                const IAbstractParticle* p_particle = particleLayout->getParticle(particleIndex);
-                double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
+                const IAbstractParticle* p_particle = particleLayout->particle(particleIndex);
+                double abundance = particleLayout->abundanceOfParticle(particleIndex);
                 result << indent() << it->second << ".addParticle("
                        << m_label->getLabelParticle(p_particle) << ", "
                        << printDouble(abundance) << ")\n";
                 particleIndex++;
             }
 
-            if( const IInterferenceFunction* p_iff = particleLayout->getInterferenceFunction() )
+            if( const IInterferenceFunction* p_iff = particleLayout->interferenceFunction() )
                 result << indent() << it->second << ".addInterferenceFunction("
                        << m_label->getLabelInterferenceFunction(p_iff) << ")\n";
 
@@ -532,7 +532,7 @@ std::string ExportToPython::defineParticleLayouts() const
                 break;
             }
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
-                   << it->first->getTotalParticleSurfaceDensity() << ")\n";
+                   << it->first->totalParticleSurfaceDensity() << ")\n";
         }
     }
     return result.str();
@@ -562,10 +562,10 @@ std::string ExportToPython::addLayoutsToLayers() const
     const auto layermap = m_label->getLayerMap();
     for (auto it=layermap->begin(); it!=layermap->end(); ++it) {
         const Layer* layer = it->first;
-        size_t numberOfLayouts = layer->getNumberOfLayouts();
+        size_t numberOfLayouts = layer->numberOfLayouts();
         for(size_t i = 0; i < numberOfLayouts; ++i)
             result << "\n" << indent() << it->second << ".addLayout("
-                   << m_label->getLabelLayout(layer->getLayout(i)) << ")\n";
+                   << m_label->getLabelLayout(layer->layout(i)) << ")\n";
     }
     return result.str();
 }
@@ -581,22 +581,22 @@ std::string ExportToPython::defineMultiLayers() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
 
-        size_t numberOfLayers = it->first->getNumberOfLayers();
+        size_t numberOfLayers = it->first->numberOfLayers();
 
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
-                   << m_label->getLabelLayer(it->first->getLayer(0)) << ")\n";
+                   << m_label->getLabelLayer(it->first->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
-                const LayerInterface* layerInterface = it->first->getLayerInterface(layerIndex - 1);
+                const LayerInterface* layerInterface = it->first->layerInterface(layerIndex - 1);
                 if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
                     == m_label->getLayerRoughnessMap()->end())
                     result << indent() << it->second << ".addLayer("
-                           << m_label->getLabelLayer(it->first->getLayer(layerIndex)) << ")\n";
+                           << m_label->getLabelLayer(it->first->layer(layerIndex)) << ")\n";
                 else
                     result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_label->getLabelLayer(it->first->getLayer(layerIndex)) << ", "
+                           << m_label->getLabelLayer(it->first->layer(layerIndex)) << ", "
                            << m_label->getLabelRoughness(layerInterface->getRoughness()) << ")\n";
                 layerIndex++;
             }
@@ -823,10 +823,10 @@ std::string ExportToPython::indent() const
 void ExportToPython::setRotationInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
-    if (p_particle->getRotation()) {
+    if (p_particle->rotation()) {
         double alpha, beta, gamma;
-        p_particle->getRotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
-        switch (p_particle->getRotation()->getTransform3D().getRotationType()) {
+        p_particle->rotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
+        switch (p_particle->rotation()->getTransform3D().getRotationType()) {
         case Transform3D::EULER:
             result << indent() << name << "_rotation = ba.RotationEuler("
                    << printDegrees(alpha) << ", " << printDegrees(beta)
@@ -854,7 +854,7 @@ void ExportToPython::setRotationInformation(
 void ExportToPython::setPositionInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
-    kvector_t pos = p_particle->getPosition();
+    kvector_t pos = p_particle->position();
     bool has_position_info = (pos != kvector_t());
 
     if (has_position_info) {

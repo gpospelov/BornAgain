@@ -4643,16 +4643,16 @@ class ISample(ICloneable, INode):
         return _libBornAgainCore.ISample_cloneInvertB(self)
 
 
-    def getMaterial(self):
+    def material(self):
         """
-        getMaterial(ISample self) -> IMaterial
+        material(ISample self) -> IMaterial
 
-        virtual const IMaterial* ISample::getMaterial() const
+        virtual const IMaterial* ISample::material() const
 
         Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainCore.ISample_getMaterial(self)
+        return _libBornAgainCore.ISample_material(self)
 
 
     def getAmbientMaterial(self):
@@ -7288,14 +7288,14 @@ class IMultiLayerBuilder(INode):
     if _newclass:
         m_subtest_item = _swig_property(_libBornAgainCore.IMultiLayerBuilder_m_subtest_item_get, _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_set)
 
-    def getFormFactor(self):
+    def formFactor(self):
         """
-        getFormFactor(IMultiLayerBuilder self) -> IFormFactor
+        formFactor(IMultiLayerBuilder self) -> IFormFactor
 
-        const IFormFactor * IMultiLayerBuilder::getFormFactor() const 
+        const IFormFactor * IMultiLayerBuilder::formFactor() const 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_getFormFactor(self)
+        return _libBornAgainCore.IMultiLayerBuilder_formFactor(self)
 
 
     def getFTDistribution2D(self):
@@ -18359,52 +18359,52 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_cloneInvertB(self)
 
 
-    def getNumberOfParticles(self):
+    def numberOfParticles(self):
         """
-        getNumberOfParticles(ILayout self) -> size_t
+        numberOfParticles(ILayout self) -> size_t
 
-        virtual size_t ILayout::getNumberOfParticles() const =0
+        virtual size_t ILayout::numberOfParticles() const =0
 
         Returns number of particles. 
 
         """
-        return _libBornAgainCore.ILayout_getNumberOfParticles(self)
+        return _libBornAgainCore.ILayout_numberOfParticles(self)
 
 
-    def getParticle(self, index):
+    def particle(self, index):
         """
-        getParticle(ILayout self, size_t index) -> IAbstractParticle
+        particle(ILayout self, size_t index) -> IAbstractParticle
 
-        virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
+        virtual const IAbstractParticle* ILayout::particle(size_t index) const =0
 
         Returns information about particle with index. 
 
         """
-        return _libBornAgainCore.ILayout_getParticle(self, index)
+        return _libBornAgainCore.ILayout_particle(self, index)
 
 
-    def getParticles(self):
+    def particles(self):
         """
-        getParticles(ILayout self) -> SafePointerVector< IParticle const >
+        particles(ILayout self) -> SafePointerVector< IParticle const >
 
-        virtual SafePointerVector<const IParticle> ILayout::getParticles() const =0
+        virtual SafePointerVector<const IParticle> ILayout::particles() const =0
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
         """
-        return _libBornAgainCore.ILayout_getParticles(self)
+        return _libBornAgainCore.ILayout_particles(self)
 
 
-    def getAbundanceOfParticle(self, index):
+    def abundanceOfParticle(self, index):
         """
-        getAbundanceOfParticle(ILayout self, size_t index) -> double
+        abundanceOfParticle(ILayout self, size_t index) -> double
 
-        virtual double ILayout::getAbundanceOfParticle(size_t index) const =0
+        virtual double ILayout::abundanceOfParticle(size_t index) const =0
 
         Get abundance fraction of particle with index. 
 
         """
-        return _libBornAgainCore.ILayout_getAbundanceOfParticle(self, index)
+        return _libBornAgainCore.ILayout_abundanceOfParticle(self, index)
 
 
     def getTotalAbundance(self):
@@ -18419,28 +18419,28 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_getTotalAbundance(self)
 
 
-    def getInterferenceFunction(self):
+    def interferenceFunction(self):
         """
-        getInterferenceFunction(ILayout self) -> IInterferenceFunction
+        interferenceFunction(ILayout self) -> IInterferenceFunction
 
-        virtual const IInterferenceFunction* ILayout::getInterferenceFunction() const =0
+        virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
 
         Returns interference function. 
 
         """
-        return _libBornAgainCore.ILayout_getInterferenceFunction(self)
+        return _libBornAgainCore.ILayout_interferenceFunction(self)
 
 
-    def getTotalParticleSurfaceDensity(self):
+    def totalParticleSurfaceDensity(self):
         """
-        getTotalParticleSurfaceDensity(ILayout self) -> double
+        totalParticleSurfaceDensity(ILayout self) -> double
 
-        virtual double ILayout::getTotalParticleSurfaceDensity() const =0
+        virtual double ILayout::totalParticleSurfaceDensity() const =0
 
         Returns surface density of all particles. 
 
         """
-        return _libBornAgainCore.ILayout_getTotalParticleSurfaceDensity(self)
+        return _libBornAgainCore.ILayout_totalParticleSurfaceDensity(self)
 
 
     def setTotalParticleSurfaceDensity(self, particle_density):
@@ -18544,14 +18544,14 @@ class IAbstractParticle(ISample):
         return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
 
 
-    def getAbundance(self):
+    def abundance(self):
         """
-        getAbundance(IAbstractParticle self) -> double
+        abundance(IAbstractParticle self) -> double
 
-        double IAbstractParticle::getAbundance() const 
+        double IAbstractParticle::abundance() const 
 
         """
-        return _libBornAgainCore.IAbstractParticle_getAbundance(self)
+        return _libBornAgainCore.IAbstractParticle_abundance(self)
 
 
     def setAbundance(self, abundance):
@@ -18733,16 +18733,16 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_createSlicedFormFactor(self, limits)
 
 
-    def getPosition(self):
+    def position(self):
         """
-        getPosition(IParticle self) -> kvector_t
+        position(IParticle self) -> kvector_t
 
-        kvector_t IParticle::getPosition() const
+        kvector_t IParticle::position() const
 
         Returns particle position. 
 
         """
-        return _libBornAgainCore.IParticle_getPosition(self)
+        return _libBornAgainCore.IParticle_position(self)
 
 
     def setPosition(self, *args):
@@ -18770,16 +18770,16 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
 
 
-    def getRotation(self):
+    def rotation(self):
         """
-        getRotation(IParticle self) -> IRotation
+        rotation(IParticle self) -> IRotation
 
-        const IRotation * IParticle::getRotation() const
+        const IRotation * IParticle::rotation() const
 
         Returns rotation object. 
 
         """
-        return _libBornAgainCore.IParticle_getRotation(self)
+        return _libBornAgainCore.IParticle_rotation(self)
 
 
     def setRotation(self, rotation):
@@ -21714,14 +21714,14 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_setThickness(self, thickness)
 
 
-    def getThickness(self):
+    def thickness(self):
         """
-        getThickness(Layer self) -> double
+        thickness(Layer self) -> double
 
-        double Layer::getThickness() const 
+        double Layer::thickness() const 
 
         """
-        return _libBornAgainCore.Layer_getThickness(self)
+        return _libBornAgainCore.Layer_thickness(self)
 
 
     def setMaterial(self, material):
@@ -21736,38 +21736,38 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_setMaterial(self, material)
 
 
-    def getMaterial(self):
+    def material(self):
         """
-        getMaterial(Layer self) -> IMaterial
+        material(Layer self) -> IMaterial
 
-        const IMaterial* Layer::getMaterial() const
+        const IMaterial* Layer::material() const
 
         Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainCore.Layer_getMaterial(self)
+        return _libBornAgainCore.Layer_material(self)
 
 
-    def getRefractiveIndex(self):
+    def refractiveIndex(self):
         """
-        getRefractiveIndex(Layer self) -> complex_t
+        refractiveIndex(Layer self) -> complex_t
 
-        complex_t Layer::getRefractiveIndex() const 
+        complex_t Layer::refractiveIndex() const 
 
         """
-        return _libBornAgainCore.Layer_getRefractiveIndex(self)
+        return _libBornAgainCore.Layer_refractiveIndex(self)
 
 
-    def getRefractiveIndex2(self):
+    def refractiveIndex2(self):
         """
-        getRefractiveIndex2(Layer self) -> complex_t
+        refractiveIndex2(Layer self) -> complex_t
 
-        complex_t Layer::getRefractiveIndex2() const
+        complex_t Layer::refractiveIndex2() const
 
         squared refractive index 
 
         """
-        return _libBornAgainCore.Layer_getRefractiveIndex2(self)
+        return _libBornAgainCore.Layer_refractiveIndex2(self)
 
 
     def addLayout(self, decoration):
@@ -21780,24 +21780,24 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_addLayout(self, decoration)
 
 
-    def getNumberOfLayouts(self):
+    def numberOfLayouts(self):
         """
-        getNumberOfLayouts(Layer self) -> size_t
+        numberOfLayouts(Layer self) -> size_t
 
-        size_t Layer::getNumberOfLayouts() const 
-
-        """
-        return _libBornAgainCore.Layer_getNumberOfLayouts(self)
-
-
-    def getLayout(self, i):
-        """
-        getLayout(Layer self, size_t i) -> ILayout
-
-        const ILayout * Layer::getLayout(size_t i) const 
+        size_t Layer::numberOfLayouts() const 
 
         """
-        return _libBornAgainCore.Layer_getLayout(self, i)
+        return _libBornAgainCore.Layer_numberOfLayouts(self)
+
+
+    def layout(self, i):
+        """
+        layout(Layer self, size_t i) -> ILayout
+
+        const ILayout * Layer::layout(size_t i) const 
+
+        """
+        return _libBornAgainCore.Layer_layout(self, i)
 
 
     def hasComputation(self):
@@ -22296,16 +22296,16 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_createSlicedFormFactor(self, limits)
 
 
-    def getClusteredParticles(self):
+    def clusteredParticles(self):
         """
-        getClusteredParticles(MesoCrystal self) -> IClusteredParticles
+        clusteredParticles(MesoCrystal self) -> IClusteredParticles
 
-        const IClusteredParticles* MesoCrystal::getClusteredParticles() const
+        const IClusteredParticles* MesoCrystal::clusteredParticles() const
 
         get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
 
         """
-        return _libBornAgainCore.MesoCrystal_getClusteredParticles(self)
+        return _libBornAgainCore.MesoCrystal_clusteredParticles(self)
 
 
     def getChildren(self):
@@ -22371,24 +22371,24 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_accept(self, visitor)
 
 
-    def getNumberOfLayers(self):
+    def numberOfLayers(self):
         """
-        getNumberOfLayers(MultiLayer self) -> size_t
+        numberOfLayers(MultiLayer self) -> size_t
 
-        size_t MultiLayer::getNumberOfLayers() const 
-
-        """
-        return _libBornAgainCore.MultiLayer_getNumberOfLayers(self)
-
-
-    def getNumberOfInterfaces(self):
-        """
-        getNumberOfInterfaces(MultiLayer self) -> size_t
-
-        size_t MultiLayer::getNumberOfInterfaces() const 
+        size_t MultiLayer::numberOfLayers() const 
 
         """
-        return _libBornAgainCore.MultiLayer_getNumberOfInterfaces(self)
+        return _libBornAgainCore.MultiLayer_numberOfLayers(self)
+
+
+    def numberOfInterfaces(self):
+        """
+        numberOfInterfaces(MultiLayer self) -> size_t
+
+        size_t MultiLayer::numberOfInterfaces() const 
+
+        """
+        return _libBornAgainCore.MultiLayer_numberOfInterfaces(self)
 
 
     def addLayer(self, p_child):
@@ -22417,92 +22417,92 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_addLayerWithTopRoughness(self, layer, roughness)
 
 
-    def getLayer(self, i_layer):
+    def layer(self, i_layer):
         """
-        getLayer(MultiLayer self, size_t i_layer) -> Layer
+        layer(MultiLayer self, size_t i_layer) -> Layer
 
-        const Layer* MultiLayer::getLayer(size_t i_layer) const
+        const Layer* MultiLayer::layer(size_t i_layer) const
 
         Returns layer with given index. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayer(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layer(self, i_layer)
 
 
-    def getLayerInterface(self, i_interface):
+    def layerInterface(self, i_interface):
         """
-        getLayerInterface(MultiLayer self, size_t i_interface) -> LayerInterface const *
+        layerInterface(MultiLayer self, size_t i_interface) -> LayerInterface const *
 
-        const LayerInterface* MultiLayer::getLayerInterface(size_t i_interface) const
+        const LayerInterface* MultiLayer::layerInterface(size_t i_interface) const
 
         Returns layer with given index. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerInterface(self, i_interface)
+        return _libBornAgainCore.MultiLayer_layerInterface(self, i_interface)
 
 
-    def getLayerTopZ(self, i_layer):
+    def layerTopZ(self, i_layer):
         """
-        getLayerTopZ(MultiLayer self, size_t i_layer) -> double
+        layerTopZ(MultiLayer self, size_t i_layer) -> double
 
-        double MultiLayer::getLayerTopZ(size_t i_layer) const
+        double MultiLayer::layerTopZ(size_t i_layer) const
 
         Returns z-coordinate of the layer's bottom. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerTopZ(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerTopZ(self, i_layer)
 
 
-    def getLayerBottomZ(self, i_layer):
+    def layerBottomZ(self, i_layer):
         """
-        getLayerBottomZ(MultiLayer self, size_t i_layer) -> double
+        layerBottomZ(MultiLayer self, size_t i_layer) -> double
 
-        double MultiLayer::getLayerBottomZ(size_t i_layer) const
+        double MultiLayer::layerBottomZ(size_t i_layer) const
 
         Returns z-coordinate of the layer's bottom. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerBottomZ(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerBottomZ(self, i_layer)
 
 
-    def getLayerThickness(self, i_layer):
+    def layerThickness(self, i_layer):
         """
-        getLayerThickness(MultiLayer self, size_t i_layer) -> double
+        layerThickness(MultiLayer self, size_t i_layer) -> double
 
-        double MultiLayer::getLayerThickness(size_t i_layer) const
+        double MultiLayer::layerThickness(size_t i_layer) const
 
         Returns thickness of layer. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerThickness(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerThickness(self, i_layer)
 
 
-    def getLayerTopInterface(self, i_layer):
+    def layerTopInterface(self, i_layer):
         """
-        getLayerTopInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
+        layerTopInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
 
-        const LayerInterface * MultiLayer::getLayerTopInterface(size_t i_layer) const
+        const LayerInterface * MultiLayer::layerTopInterface(size_t i_layer) const
 
         Returns top interface of layer.
 
         Returns pointer to the top interface of the layer. nInterfaces = nLayers-1, first layer in multilayer doesn't have interface. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerTopInterface(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerTopInterface(self, i_layer)
 
 
-    def getLayerBottomInterface(self, i_layer):
+    def layerBottomInterface(self, i_layer):
         """
-        getLayerBottomInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
+        layerBottomInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
 
-        const LayerInterface * MultiLayer::getLayerBottomInterface(size_t i_layer) const
+        const LayerInterface * MultiLayer::layerBottomInterface(size_t i_layer) const
 
         Returns bottom interface of layer.
 
         Returns pointer to the bottom interface of the layer. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerBottomInterface(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerBottomInterface(self, i_layer)
 
 
     def addLayout(self, layout):
@@ -22517,24 +22517,24 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_addLayout(self, layout)
 
 
-    def getNumberOfLayouts(self):
+    def numberOfLayouts(self):
         """
-        getNumberOfLayouts(MultiLayer self) -> size_t
+        numberOfLayouts(MultiLayer self) -> size_t
 
-        size_t MultiLayer::getNumberOfLayouts() const 
-
-        """
-        return _libBornAgainCore.MultiLayer_getNumberOfLayouts(self)
-
-
-    def getLayout(self, i):
-        """
-        getLayout(MultiLayer self, size_t i) -> ILayout
-
-        const ILayout * MultiLayer::getLayout(size_t i) const 
+        size_t MultiLayer::numberOfLayouts() const 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayout(self, i)
+        return _libBornAgainCore.MultiLayer_numberOfLayouts(self)
+
+
+    def layout(self, i):
+        """
+        layout(MultiLayer self, size_t i) -> ILayout
+
+        const ILayout * MultiLayer::layout(size_t i) const 
+
+        """
+        return _libBornAgainCore.MultiLayer_layout(self, i)
 
 
     def clear(self):
@@ -22585,23 +22585,23 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_setCrossCorrLength(self, crossCorrLength)
 
 
-    def getCrossCorrLength(self):
+    def crossCorrLength(self):
         """
-        getCrossCorrLength(MultiLayer self) -> double
+        crossCorrLength(MultiLayer self) -> double
 
-        double MultiLayer::getCrossCorrLength() const
+        double MultiLayer::crossCorrLength() const
 
         Returns cross correlation length of roughnesses between interfaces. 
 
         """
-        return _libBornAgainCore.MultiLayer_getCrossCorrLength(self)
+        return _libBornAgainCore.MultiLayer_crossCorrLength(self)
 
 
-    def getCrossCorrSpectralFun(self, kvec, j, k):
+    def crossCorrSpectralFun(self, kvec, j, k):
         """
-        getCrossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double
+        crossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double
 
-        double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
+        double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 
         ! correlation function of roughnesses between the interfaces
 
@@ -22610,7 +22610,7 @@ class MultiLayer(ISample):
         Fourier transform of the correlation function of roughnesses between the interfaces j,k - indexes of layers in multilayer whose bottom interfaces we are considering 
 
         """
-        return _libBornAgainCore.MultiLayer_getCrossCorrSpectralFun(self, kvec, j, k)
+        return _libBornAgainCore.MultiLayer_crossCorrSpectralFun(self, kvec, j, k)
 
 
     def setLayerThickness(self, i_layer, thickness):
@@ -22625,16 +22625,16 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_setLayerThickness(self, i_layer, thickness)
 
 
-    def getIndexOfLayer(self, layer):
+    def indexOfLayer(self, layer):
         """
-        getIndexOfLayer(MultiLayer self, Layer layer) -> int
+        indexOfLayer(MultiLayer self, Layer layer) -> int
 
-        int MultiLayer::getIndexOfLayer(const Layer *layer) const
+        int MultiLayer::indexOfLayer(const Layer *layer) const
 
         returns layer index 
 
         """
-        return _libBornAgainCore.MultiLayer_getIndexOfLayer(self, layer)
+        return _libBornAgainCore.MultiLayer_indexOfLayer(self, layer)
 
 
     def requiresMatrixRTCoefficients(self):
@@ -24035,26 +24035,26 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_setMaterial(self, material)
 
 
-    def getMaterial(self):
+    def material(self):
         """
-        getMaterial(Particle self) -> IMaterial
+        material(Particle self) -> IMaterial
 
-        const IMaterial* Particle::getMaterial() const overridefinal
+        const IMaterial* Particle::material() const overridefinal
 
         Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainCore.Particle_getMaterial(self)
+        return _libBornAgainCore.Particle_material(self)
 
 
-    def getRefractiveIndex(self):
+    def refractiveIndex(self):
         """
-        getRefractiveIndex(Particle self) -> complex_t
+        refractiveIndex(Particle self) -> complex_t
 
-        complex_t Particle::getRefractiveIndex() const 
+        complex_t Particle::refractiveIndex() const 
 
         """
-        return _libBornAgainCore.Particle_getRefractiveIndex(self)
+        return _libBornAgainCore.Particle_refractiveIndex(self)
 
 
     def setFormFactor(self, form_factor):
@@ -24067,14 +24067,14 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_setFormFactor(self, form_factor)
 
 
-    def getFormFactor(self):
+    def formFactor(self):
         """
-        getFormFactor(Particle self) -> IFormFactor
+        formFactor(Particle self) -> IFormFactor
 
-        const IFormFactor* Particle::getFormFactor() const 
+        const IFormFactor* Particle::formFactor() const 
 
         """
-        return _libBornAgainCore.Particle_getFormFactor(self)
+        return _libBornAgainCore.Particle_formFactor(self)
 
 
     def getChildren(self):
@@ -24196,38 +24196,38 @@ class ParticleComposition(IParticle):
         return _libBornAgainCore.ParticleComposition_createTransformedFormFactor(self, p_rotation, translation)
 
 
-    def getNbrParticles(self):
+    def nbrParticles(self):
         """
-        getNbrParticles(ParticleComposition self) -> size_t
+        nbrParticles(ParticleComposition self) -> size_t
 
-        size_t ParticleComposition::getNbrParticles() const
+        size_t ParticleComposition::nbrParticles() const
 
         Returns number of different particles. 
 
         """
-        return _libBornAgainCore.ParticleComposition_getNbrParticles(self)
+        return _libBornAgainCore.ParticleComposition_nbrParticles(self)
 
 
-    def getParticle(self, index):
+    def particle(self, index):
         """
-        getParticle(ParticleComposition self, size_t index) -> IParticle
+        particle(ParticleComposition self, size_t index) -> IParticle
 
-        const IParticle * ParticleComposition::getParticle(size_t index) const
+        const IParticle * ParticleComposition::particle(size_t index) const
 
         Returns particle with given index. 
 
         """
-        return _libBornAgainCore.ParticleComposition_getParticle(self, index)
+        return _libBornAgainCore.ParticleComposition_particle(self, index)
 
 
-    def getParticlePosition(self, index):
+    def particlePosition(self, index):
         """
-        getParticlePosition(ParticleComposition self, size_t index) -> kvector_t
+        particlePosition(ParticleComposition self, size_t index) -> kvector_t
 
-        kvector_t ParticleComposition::getParticlePosition(size_t index) const 
+        kvector_t ParticleComposition::particlePosition(size_t index) const 
 
         """
-        return _libBornAgainCore.ParticleComposition_getParticlePosition(self, index)
+        return _libBornAgainCore.ParticleComposition_particlePosition(self, index)
 
 
     def getChildren(self):
@@ -24457,28 +24457,28 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_generateParticles(self)
 
 
-    def getParameterDistribution(self):
+    def parameterDistribution(self):
         """
-        getParameterDistribution(ParticleDistribution self) -> ParameterDistribution
+        parameterDistribution(ParticleDistribution self) -> ParameterDistribution
 
-        ParameterDistribution ParticleDistribution::getParameterDistribution() const
+        ParameterDistribution ParticleDistribution::parameterDistribution() const
 
         Returns the distributed parameter data. 
 
         """
-        return _libBornAgainCore.ParticleDistribution_getParameterDistribution(self)
+        return _libBornAgainCore.ParticleDistribution_parameterDistribution(self)
 
 
-    def getParticle(self):
+    def particle(self):
         """
-        getParticle(ParticleDistribution self) -> IParticle
+        particle(ParticleDistribution self) -> IParticle
 
-        const IParticle* ParticleDistribution::getParticle() const
+        const IParticle* ParticleDistribution::particle() const
 
         Returns particle. 
 
         """
-        return _libBornAgainCore.ParticleDistribution_getParticle(self)
+        return _libBornAgainCore.ParticleDistribution_particle(self)
 
 
     def getChildren(self):
@@ -24600,64 +24600,64 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_addParticle(self, *args)
 
 
-    def getNumberOfParticles(self):
+    def numberOfParticles(self):
         """
-        getNumberOfParticles(ParticleLayout self) -> size_t
+        numberOfParticles(ParticleLayout self) -> size_t
 
-        size_t ParticleLayout::getNumberOfParticles() const final
+        size_t ParticleLayout::numberOfParticles() const final
 
         Returns number of particles. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getNumberOfParticles(self)
+        return _libBornAgainCore.ParticleLayout_numberOfParticles(self)
 
 
-    def getParticle(self, index):
+    def particle(self, index):
         """
-        getParticle(ParticleLayout self, size_t index) -> IAbstractParticle
+        particle(ParticleLayout self, size_t index) -> IAbstractParticle
 
-        const IAbstractParticle * ParticleLayout::getParticle(size_t index) const final
+        const IAbstractParticle * ParticleLayout::particle(size_t index) const final
 
         Returns particle info. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getParticle(self, index)
+        return _libBornAgainCore.ParticleLayout_particle(self, index)
 
 
-    def getParticles(self):
+    def particles(self):
         """
-        getParticles(ParticleLayout self) -> SafePointerVector< IParticle const >
+        particles(ParticleLayout self) -> SafePointerVector< IParticle const >
 
-        SafePointerVector< const IParticle > ParticleLayout::getParticles() const final
+        SafePointerVector< const IParticle > ParticleLayout::particles() const final
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
         """
-        return _libBornAgainCore.ParticleLayout_getParticles(self)
+        return _libBornAgainCore.ParticleLayout_particles(self)
 
 
-    def getAbundanceOfParticle(self, index):
+    def abundanceOfParticle(self, index):
         """
-        getAbundanceOfParticle(ParticleLayout self, size_t index) -> double
+        abundanceOfParticle(ParticleLayout self, size_t index) -> double
 
-        double ParticleLayout::getAbundanceOfParticle(size_t index) const
+        double ParticleLayout::abundanceOfParticle(size_t index) const
 
         Returns the abundance fraction of particle at given index. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getAbundanceOfParticle(self, index)
+        return _libBornAgainCore.ParticleLayout_abundanceOfParticle(self, index)
 
 
-    def getInterferenceFunction(self):
+    def interferenceFunction(self):
         """
-        getInterferenceFunction(ParticleLayout self) -> IInterferenceFunction
+        interferenceFunction(ParticleLayout self) -> IInterferenceFunction
 
-        const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const final
+        const IInterferenceFunction * ParticleLayout::interferenceFunction() const final
 
         Returns interference function. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getInterferenceFunction(self)
+        return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
 
 
     def addInterferenceFunction(self, interference_function):
@@ -24672,16 +24672,16 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_addInterferenceFunction(self, interference_function)
 
 
-    def getTotalParticleSurfaceDensity(self):
+    def totalParticleSurfaceDensity(self):
         """
-        getTotalParticleSurfaceDensity(ParticleLayout self) -> double
+        totalParticleSurfaceDensity(ParticleLayout self) -> double
 
-        double ParticleLayout::getTotalParticleSurfaceDensity() const final
+        double ParticleLayout::totalParticleSurfaceDensity() const final
 
         Returns surface density of all particles. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getTotalParticleSurfaceDensity(self)
+        return _libBornAgainCore.ParticleLayout_totalParticleSurfaceDensity(self)
 
 
     def setTotalParticleSurfaceDensity(self, particle_density):

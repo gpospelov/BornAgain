@@ -35,7 +35,7 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
-const IRotation* IParticle::getRotation() const
+const IRotation* IParticle::rotation() const
 {
     return mP_rotation.get();
 }
@@ -109,7 +109,7 @@ IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
     }
 }
 
-kvector_t IParticle::getComposedTranslation(
+kvector_t IParticle::composedTranslation(
     const IRotation* p_rotation, kvector_t translation) const
 {
     if (p_rotation) {

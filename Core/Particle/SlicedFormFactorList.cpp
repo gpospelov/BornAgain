@@ -77,7 +77,7 @@ std::pair<size_t, size_t> LayerIndicesLimits(const IParticle& particle,
 {
     std::unique_ptr<IFormFactor> P_ff(particle.createFormFactor());
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
-    double position_offset = multilayer.getLayerTopZ(ref_layer_index);
+    double position_offset = multilayer.layerTopZ(ref_layer_index);
     double ztop = P_ff->topZ(*P_rot);
     double zbottom = P_ff->bottomZ(*P_rot);
     double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
@@ -93,19 +93,19 @@ std::pair<size_t, size_t> LayerIndicesLimits(const IParticle& particle,
 
 double ZDifference(const MultiLayer& multilayer, size_t layer_index, size_t ref_layer_index)
 {
-    return multilayer.getLayerTopZ(layer_index) - multilayer.getLayerTopZ(ref_layer_index);
+    return multilayer.layerTopZ(layer_index) - multilayer.layerTopZ(ref_layer_index);
 }
 
 ZLimits LayerZLimits(const MultiLayer& multilayer, size_t layer_index)
 {
-    size_t N = multilayer.getNumberOfLayers();
+    size_t N = multilayer.numberOfLayers();
     if (N<2)
         return ZLimits(ZLimits::INFINITE);
     if (layer_index==0)
         return ZLimits(ZLimits::POS_INFINITE, 0.0);
     if (layer_index==N-1)
         return ZLimits(ZLimits::NEG_INFINITE, 0.0);
-    return ZLimits(-multilayer.getLayerThickness(layer_index), 0.0);
+    return ZLimits(-multilayer.layerThickness(layer_index), 0.0);
 }
 }
 

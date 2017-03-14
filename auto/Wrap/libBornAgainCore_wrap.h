@@ -139,7 +139,7 @@ public:
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
-    virtual IMaterial const *getMaterial() const;
+    virtual IMaterial const *material() const;
     virtual IMaterial const *getAmbientMaterial() const;
 
 /* Internal director utilities */
@@ -323,7 +323,7 @@ public:
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
-    virtual IMaterial const *getMaterial() const;
+    virtual IMaterial const *material() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
@@ -389,7 +389,7 @@ public:
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual ISample *cloneInvertB() const;
-    virtual IMaterial const *getMaterial() const;
+    virtual IMaterial const *material() const;
     virtual IMaterial const *getAmbientMaterial() const;
     virtual void setAmbientMaterial(IMaterial const &arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;

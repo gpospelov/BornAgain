@@ -136,7 +136,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 void TransformFromDomain::setItemFromSample(SessionItem* layerItem, const Layer* layer,
                                             const LayerInterface* top_interface)
 {
-    layerItem->setItemValue(LayerItem::P_THICKNESS, layer->getThickness());
+    layerItem->setItemValue(LayerItem::P_THICKNESS, layer->thickness());
     layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
 
     if (top_interface) {
@@ -164,9 +164,9 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     ParticleDistributionItem *distItem = dynamic_cast<ParticleDistributionItem*>(item);
     Q_ASSERT(distItem);
 
-    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
 
-    ParameterDistribution par_distr = sample->getParameterDistribution();
+    ParameterDistribution par_distr = sample->parameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
 
     distItem->setDomainCacheName(main_distr_par_name);

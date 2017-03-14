@@ -31,7 +31,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(
 {
     mP_strategy.reset(LayoutStrategyBuilder(mp_multilayer, p_layout, mp_fresnel_map,
                                             polarized, options, layer_index).createStrategy());
-    m_surface_density = p_layout->getTotalParticleSurfaceDensity();
+    m_surface_density = p_layout->totalParticleSurfaceDensity();
 }
 
 //! Computes scattering intensity for given range of simulation elements.
@@ -44,7 +44,7 @@ void ParticleLayoutComputation::eval(ProgressHandler* progress,
         if (!progress->alive())
             return;
         double alpha_f = it->getAlphaMean();
-        size_t n_layers = mp_multilayer->getNumberOfLayers();
+        size_t n_layers = mp_multilayer->numberOfLayers();
         if (n_layers > 1 && alpha_f < 0) {
             continue; // zero for transmission with multilayers (n>1)
         } else {

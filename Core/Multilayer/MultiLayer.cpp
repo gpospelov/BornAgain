@@ -43,7 +43,7 @@ void MultiLayer::init_parameters()
         setUnit("nm").setNonnegative();
 }
 
-const ILayout * MultiLayer::getLayout(size_t i) const
+const ILayout * MultiLayer::layout(size_t i) const
 {
     if (i >= m_layouts.size())
         return nullptr;
@@ -134,13 +134,13 @@ MultiLayer* MultiLayer::cloneInvertB() const
 
 //! Returns pointer to the top interface of the layer.
 //! nInterfaces = nLayers-1, first layer in multilayer doesn't have interface.
-const LayerInterface* MultiLayer::getLayerTopInterface(size_t i_layer) const
+const LayerInterface* MultiLayer::layerTopInterface(size_t i_layer) const
 {
     return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : 0;
 }
 
 //! Returns pointer to the bottom interface of the layer.
-const LayerInterface* MultiLayer::getLayerBottomInterface(size_t i_layer) const
+const LayerInterface* MultiLayer::layerBottomInterface(size_t i_layer) const
 {
     return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
 }
@@ -157,7 +157,7 @@ void MultiLayer::addLayout(const ILayout & layout)
 void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness)
 {
     Layer* p_new_layer = layer.clone();
-    if (getNumberOfLayers()) {
+    if (numberOfLayers()) {
         // not the top layer
         const Layer* p_last_layer = m_layers.back();
         LayerInterface* interface(0);
@@ -166,10 +166,10 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
         else
             interface = LayerInterface::createSmoothInterface(p_last_layer, p_new_layer);
         addAndRegisterInterface(interface);
-        m_layers_z.push_back(m_layers_z.back() - layer.getThickness() );
+        m_layers_z.push_back(m_layers_z.back() - layer.thickness() );
     } else {
         // the top layer
-        if (p_new_layer->getThickness() != 0.0)
+        if (p_new_layer->thickness() != 0.0)
             throw std::runtime_error(
                 "Invalid call to MultiLayer::addLayer(): the semi-infinite top layer "
                 "must have a pro forma thickness of 0");
@@ -189,14 +189,14 @@ void MultiLayer::addLayer(const Layer& layer)
 
 //! Fourier transform of the correlation function of roughnesses between the interfaces
 //! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
-double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
+double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 {
     if (m_crossCorrLength == 0)
         return 0.0;
-    double z_j = getLayerBottomZ(j);
-    double z_k = getLayerBottomZ(k);
-    const LayerRoughness* rough_j = getLayerBottomInterface(j)->getRoughness();
-    const LayerRoughness* rough_k = getLayerBottomInterface(k)->getRoughness();
+    double z_j = layerBottomZ(j);
+    double z_k = layerBottomZ(k);
+    const LayerRoughness* rough_j = layerBottomInterface(j)->getRoughness();
+    const LayerRoughness* rough_k = layerBottomInterface(k)->getRoughness();
     if (!rough_j || !rough_k)
         return 0.0;
     double sigma_j = rough_j->getSigma();
@@ -221,15 +221,15 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
     // recalculating z-coordinates of layers
     m_layers_z.clear();
     m_layers_z.push_back(0.0);
-    for (size_t il=1; il<getNumberOfLayers(); il++)
+    for (size_t il=1; il<numberOfLayers(); il++)
         m_layers_z.push_back(
             m_layers_z.back() -
-            m_layers[ check_layer_index(il) ]->getThickness() );
+            m_layers[ check_layer_index(il) ]->thickness() );
 }
 
-int MultiLayer::getIndexOfLayer(const Layer* layer) const
+int MultiLayer::indexOfLayer(const Layer* layer) const
 {
-    for (size_t i=0; i<getNumberOfLayers(); ++i)
+    for (size_t i=0; i<numberOfLayers(); ++i)
         if (layer == m_layers[i])
             return i;
     return -1;
@@ -255,7 +255,7 @@ size_t MultiLayer::totalNofLayouts() const
 {
     size_t ret = 0;
     for (const Layer* layer: m_layers)
-        ret += layer->getNumberOfLayouts();
+        ret += layer->numberOfLayouts();
     return ret;
 }
 
@@ -264,7 +264,7 @@ std::vector<const INode*> MultiLayer::getChildren() const
     std::vector<const INode*> result;
     for(auto layer : m_layers) {
         result.push_back(layer);
-        if(const LayerInterface *interface = getLayerBottomInterface(getIndexOfLayer(layer)))
+        if(const LayerInterface *interface = layerBottomInterface(indexOfLayer(layer)))
             result.push_back(interface);
     }
     return result;
@@ -285,8 +285,8 @@ void MultiLayer::addAndRegisterInterface(LayerInterface* child)
 
 void MultiLayer::handleLayerThicknessRegistration() const
 {
-    size_t n_layers = getNumberOfLayers();
-    for (size_t i=0; i<getNumberOfLayers(); ++i) {
+    size_t n_layers = numberOfLayers();
+    for (size_t i=0; i<numberOfLayers(); ++i) {
         if(i == 0 || i == n_layers-1) {
             m_layers[i]->registerThickness(false);
         } else {
@@ -312,7 +312,7 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
 bool MultiLayer::requiresMatrixRTCoefficients() const
 {
     for (auto layer: m_layers)
-        if (!(layer->getMaterial()->isScalarMaterial()))
+        if (!(layer->material()->isScalarMaterial()))
             return true;
     return false;
 }
@@ -339,21 +339,21 @@ size_t MultiLayer::topZToLayerIndex(double z_value) const
     return nbin;
 }
 
-double MultiLayer::getLayerTopZ(size_t i_layer) const
+double MultiLayer::layerTopZ(size_t i_layer) const
 {
     if (i_layer==0)
         return 0.0;
-    return getLayerBottomZ(i_layer-1);
+    return layerBottomZ(i_layer-1);
 }
 
-double MultiLayer::getLayerBottomZ(size_t i_layer) const
+double MultiLayer::layerBottomZ(size_t i_layer) const
 {
     return m_layers_z[ check_layer_index(i_layer) ];
 }
 
-double MultiLayer::getLayerThickness(size_t i_layer) const
+double MultiLayer::layerThickness(size_t i_layer) const
 {
-    return m_layers[ check_layer_index(i_layer) ]->getThickness();
+    return m_layers[ check_layer_index(i_layer) ]->thickness();
 }
 
 void MultiLayer::setCrossCorrLength(double crossCorrLength)

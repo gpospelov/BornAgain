@@ -101,7 +101,7 @@ void Particle::setMaterial(const IMaterial& material)
         mP_material.reset(material.clone());
 }
 
-complex_t Particle::getRefractiveIndex() const
+complex_t Particle::refractiveIndex() const
 {
     return mP_material ? mP_material->refractiveIndex() : 0.0;
 }

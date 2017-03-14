@@ -45,12 +45,12 @@ public:
                                              kvector_t translation) const;
 
     //! Returns number of different particles
-    size_t getNbrParticles() const { return m_particles.size(); }
+    size_t nbrParticles() const { return m_particles.size(); }
 
     //! Returns particle with given index
-    const IParticle* getParticle(size_t index) const;
+    const IParticle* particle(size_t index) const;
 
-    kvector_t getParticlePosition(size_t index) const;
+    kvector_t particlePosition(size_t index) const;
 
     std::vector<const INode*> getChildren() const override;
 

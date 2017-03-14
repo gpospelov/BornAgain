@@ -35,7 +35,7 @@ public:
     virtual ISample* cloneInvertB() const;
 
     //! Returns nullptr, unless overwritten to return a specific material.
-    virtual const IMaterial* getMaterial() const { return nullptr; }
+    virtual const IMaterial* material() const { return nullptr; }
 
     //! Returns nullptr, unless overwritten to return a specific material.
     virtual const IMaterial* getAmbientMaterial() const { return nullptr; }

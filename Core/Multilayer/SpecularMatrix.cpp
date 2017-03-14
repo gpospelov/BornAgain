@@ -43,18 +43,18 @@ size_t bisectRTcomputation(
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
                              std::vector<ScalarRTCoefficients>& coeff)
 {
-    size_t N = sample.getNumberOfLayers();
+    size_t N = sample.numberOfLayers();
     assert(N>0);
-    assert(N-1 == sample.getNumberOfInterfaces());
+    assert(N-1 == sample.numberOfInterfaces());
     coeff.clear();
     coeff.resize(N);
 
-    double n_ref = sample.getLayer(0)->getRefractiveIndex().real();
+    double n_ref = sample.layer(0)->refractiveIndex().real();
 
     // Calculate refraction angle, expressed as lambda or k_z, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<N; ++i) {
-        complex_t rad = sample.getLayer(i)->getMaterial()->scalarFresnel(k, n_ref);
+        complex_t rad = sample.layer(i)->material()->scalarFresnel(k, n_ref);
         // use small absorptive component for layers with i>0 if radicand becomes very small:
         if (i>0 && std::abs(rad)<1e-40) rad = imag_unit*1e-40;
         coeff[i].lambda = sqrt(rad);
@@ -124,8 +124,8 @@ bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff, const MultiL
     double kfactor = std::pow(M_PI_2, 1.5)*kmag;
     for (int i=layer_index; i>=0; --i) {
         complex_t roughness_factor = 1;
-        if (sample.getLayerInterface(i)->getRoughness()) {
-            double sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
+        if (sample.layerInterface(i)->getRoughness()) {
+            double sigma = sample.layerBottomInterface(i)->getRoughness()->getSigma();
             if(sigma > 0.0) {
                 // since there is a roughness, compute one diagonal matrix element p00;
                 // the other element is p11 = 1/p00.
@@ -139,7 +139,7 @@ bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff, const MultiL
 
         complex_t lambda_rough = coeff[i  ].lambda / roughness_factor;
         complex_t lambda_below = coeff[i+1].lambda * roughness_factor;
-        complex_t exp_fac = exp_I(kmag * sample.getLayer(i)->getThickness() * lambda);
+        complex_t exp_fac = exp_I(kmag * sample.layer(i)->thickness() * lambda);
         coeff[i].t_r(0) = (
                     (lambda_rough+lambda_below)*coeff[i+1].t_r(0) +
                     (lambda_rough-lambda_below)*coeff[i+1].t_r(1) )/2.0/lambda/exp_fac;

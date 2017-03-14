@@ -38,7 +38,7 @@ public:
     void set_subtest(const IParameterized* subtest_item) { m_subtest_item = subtest_item; }
     const IParameterized* m_subtest_item;
 
-    const IFormFactor* getFormFactor() const;
+    const IFormFactor* formFactor() const;
     const IFTDistribution2D* getFTDistribution2D() const;
 
     // this method is extended in the Python wrappers (needed to solve ownership issues with

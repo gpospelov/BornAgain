@@ -58,7 +58,7 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
             p_result = new DecouplingApproximationStrategy1(m_sim_params);
         break;
     case ILayout::SSCA:
-        double kappa = mp_layout ? mp_layout->getInterferenceFunction()->getKappa()
+        double kappa = mp_layout ? mp_layout->interferenceFunction()->getKappa()
                                  : 0.0;
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
@@ -73,7 +73,7 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
     if (!p_result)
         throw Exceptions::ClassInitializationException(
             "Could not create appropriate strategy");
-    p_result->init(ff_wrappers, mp_layout->getInterferenceFunction());
+    p_result->init(ff_wrappers, mp_layout->interferenceFunction());
     return p_result;
 }
 
@@ -82,7 +82,7 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
 {
     SafePointerVector<class FormFactorCoherentSum> result;
     double layout_abundance = mp_layout->getTotalAbundance();
-    for (const IParticle* particle: mp_layout->getParticles()) {
+    for (const IParticle* particle: mp_layout->particles()) {
         auto p_ff_coh = createFormFactorCoherentSum(particle);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
         result.push_back(p_ff_coh);
@@ -95,12 +95,12 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     const IParticle* particle) const
 {
     std::unique_ptr<FormFactorCoherentSum> P_result(
-                new FormFactorCoherentSum(particle->getAbundance()));
+                new FormFactorCoherentSum(particle->abundance()));
     auto sliced_ffs = CreateSlicedFormFactors(*particle, *mp_multilayer, m_layer_index);
     for (size_t i=0; i < sliced_ffs.size(); ++i) {
         auto ff_pair = sliced_ffs[i];
         std::unique_ptr<IFormFactor> P_ff_framework;
-        if (mp_multilayer->getNumberOfLayers()>1) {
+        if (mp_multilayer->numberOfLayers()>1) {
             if (m_polarized)
                 P_ff_framework.reset(new FormFactorDWBAPol(*ff_pair.first));
             else
@@ -109,7 +109,7 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
             P_ff_framework.reset(ff_pair.first->clone());
 
         size_t layer_index = ff_pair.second;
-        const IMaterial* p_layer_material = mp_multilayer->getLayer(layer_index)->getMaterial();
+        const IMaterial* p_layer_material = mp_multilayer->layer(layer_index)->material();
         P_ff_framework->setAmbientMaterial(*p_layer_material);
 
         auto part = FormFactorCoherentPart(P_ff_framework.release());

@@ -46,19 +46,19 @@ public:
     void addParticle(const IParticle& particle, double abundance,
                      const kvector_t position, const IRotation& rotation);
 
-    size_t getNumberOfParticles() const final { return m_particles.size(); }
+    size_t numberOfParticles() const final { return m_particles.size(); }
 
-    const IAbstractParticle* getParticle(size_t index) const final;
+    const IAbstractParticle* particle(size_t index) const final;
 
-    SafePointerVector<const IParticle> getParticles() const final;
+    SafePointerVector<const IParticle> particles() const final;
 
-    double getAbundanceOfParticle(size_t index) const;
+    double abundanceOfParticle(size_t index) const;
 
-    const IInterferenceFunction* getInterferenceFunction() const final;
+    const IInterferenceFunction* interferenceFunction() const final;
     void addInterferenceFunction(const IInterferenceFunction& interference_function);
     // TODO add -> set (there can be at most 1 interference function)
 
-    double getTotalParticleSurfaceDensity() const final;
+    double totalParticleSurfaceDensity() const final;
     void setTotalParticleSurfaceDensity(double particle_density) final {
         m_total_particle_density = particle_density; }
 

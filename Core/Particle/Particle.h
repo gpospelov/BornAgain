@@ -43,12 +43,12 @@ public:
     IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
     void setMaterial(const IMaterial& material);
-    const IMaterial* getMaterial() const override final { return mP_material.get(); }
+    const IMaterial* material() const override final { return mP_material.get(); }
 
-    complex_t getRefractiveIndex() const;
+    complex_t refractiveIndex() const;
 
     void setFormFactor(const IFormFactor& form_factor);
-    const IFormFactor* getFormFactor() const { return mP_form_factor.get(); }
+    const IFormFactor* formFactor() const { return mP_form_factor.get(); }
 
     std::vector<const INode*> getChildren() const override final;
 

@@ -36,8 +36,8 @@ Layer::Layer(const Layer& other)
     m_thickness = other.m_thickness;
     if (other.mp_material)
         mp_material = other.mp_material->clone();
-    for (size_t i=0; i<other.getNumberOfLayouts();++i)
-        addLayout(*other.getLayout(i));
+    for (size_t i=0; i<other.numberOfLayouts();++i)
+        addLayout(*other.layout(i));
     registerThickness();
 }
 
@@ -67,15 +67,15 @@ void Layer::setMaterial(const IMaterial& material)
     mp_material = material.clone();
 }
 
-complex_t Layer::getRefractiveIndex() const
+complex_t Layer::refractiveIndex() const
 {
     return mp_material ? mp_material->refractiveIndex() : 1.0;
 }
 
 //TODO: remove this in favor of the IMaterial methods (or rename)
-complex_t Layer::getRefractiveIndex2() const
+complex_t Layer::refractiveIndex2() const
 {
-    return getRefractiveIndex()*getRefractiveIndex();
+    return refractiveIndex()*refractiveIndex();
 }
 
 void Layer::addLayout(const ILayout& layout)
@@ -85,7 +85,7 @@ void Layer::addLayout(const ILayout& layout)
     registerChild(clone);
 }
 
-const ILayout* Layer::getLayout(size_t i) const
+const ILayout* Layer::layout(size_t i) const
 {
     if (i>=m_layouts.size())
         return nullptr;

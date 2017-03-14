@@ -5700,7 +5700,7 @@ Returns a clone with inverted magnetic fields.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  IAbstractParticle::getAbundance "double IAbstractParticle::getAbundance() const 
+%feature("docstring")  IAbstractParticle::abundance "double IAbstractParticle::abundance() const 
 ";
 
 %feature("docstring")  IAbstractParticle::setAbundance "void IAbstractParticle::setAbundance(double abundance)
@@ -7137,22 +7137,22 @@ Calls the  INodeVisitor's visit method.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ILayout::getNumberOfParticles "virtual size_t ILayout::getNumberOfParticles() const =0
+%feature("docstring")  ILayout::numberOfParticles "virtual size_t ILayout::numberOfParticles() const =0
 
 Returns number of particles. 
 ";
 
-%feature("docstring")  ILayout::getParticle "virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
+%feature("docstring")  ILayout::particle "virtual const IAbstractParticle* ILayout::particle(size_t index) const =0
 
 Returns information about particle with index. 
 ";
 
-%feature("docstring")  ILayout::getParticles "virtual SafePointerVector<const IParticle> ILayout::getParticles() const =0
+%feature("docstring")  ILayout::particles "virtual SafePointerVector<const IParticle> ILayout::particles() const =0
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
-%feature("docstring")  ILayout::getAbundanceOfParticle "virtual double ILayout::getAbundanceOfParticle(size_t index) const =0
+%feature("docstring")  ILayout::abundanceOfParticle "virtual double ILayout::abundanceOfParticle(size_t index) const =0
 
 Get abundance fraction of particle with index. 
 ";
@@ -7162,12 +7162,12 @@ Get abundance fraction of particle with index.
 Get total abundance of all particles. 
 ";
 
-%feature("docstring")  ILayout::getInterferenceFunction "virtual const IInterferenceFunction* ILayout::getInterferenceFunction() const =0
+%feature("docstring")  ILayout::interferenceFunction "virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
 
 Returns interference function. 
 ";
 
-%feature("docstring")  ILayout::getTotalParticleSurfaceDensity "virtual double ILayout::getTotalParticleSurfaceDensity() const =0
+%feature("docstring")  ILayout::totalParticleSurfaceDensity "virtual double ILayout::totalParticleSurfaceDensity() const =0
 
 Returns surface density of all particles. 
 ";
@@ -7270,7 +7270,7 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  IMultiLayerBuilder::set_subtest "void IMultiLayerBuilder::set_subtest(const IParameterized *subtest_item)
 ";
 
-%feature("docstring")  IMultiLayerBuilder::getFormFactor "const IFormFactor * IMultiLayerBuilder::getFormFactor() const 
+%feature("docstring")  IMultiLayerBuilder::formFactor "const IFormFactor * IMultiLayerBuilder::formFactor() const 
 ";
 
 %feature("docstring")  IMultiLayerBuilder::getFTDistribution2D "const IFTDistribution2D * IMultiLayerBuilder::getFTDistribution2D() const 
@@ -8592,7 +8592,7 @@ Create a form factor for this particle.
 Create a sliced form factor for this particle. 
 ";
 
-%feature("docstring")  IParticle::getPosition "kvector_t IParticle::getPosition() const
+%feature("docstring")  IParticle::position "kvector_t IParticle::position() const
 
 Returns particle position. 
 ";
@@ -8612,7 +8612,7 @@ Sets particle position.
 Applies extra translation by adding it to the current one. 
 ";
 
-%feature("docstring")  IParticle::getRotation "const IRotation * IParticle::getRotation() const
+%feature("docstring")  IParticle::rotation "const IRotation * IParticle::rotation() const
 
 Returns rotation object. 
 ";
@@ -8751,7 +8751,7 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ISample::getMaterial "virtual const IMaterial* ISample::getMaterial() const
+%feature("docstring")  ISample::material "virtual const IMaterial* ISample::material() const
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
@@ -9234,7 +9234,7 @@ Calls the  INodeVisitor's visit method.
 Sets layer thickness in nanometers. 
 ";
 
-%feature("docstring")  Layer::getThickness "double Layer::getThickness() const 
+%feature("docstring")  Layer::thickness "double Layer::thickness() const 
 ";
 
 %feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const IMaterial &material)
@@ -9242,15 +9242,15 @@ Sets layer thickness in nanometers.
 Sets  material of the layer. 
 ";
 
-%feature("docstring")  Layer::getMaterial "const IMaterial* Layer::getMaterial() const
+%feature("docstring")  Layer::material "const IMaterial* Layer::material() const
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  Layer::getRefractiveIndex "complex_t Layer::getRefractiveIndex() const 
+%feature("docstring")  Layer::refractiveIndex "complex_t Layer::refractiveIndex() const 
 ";
 
-%feature("docstring")  Layer::getRefractiveIndex2 "complex_t Layer::getRefractiveIndex2() const
+%feature("docstring")  Layer::refractiveIndex2 "complex_t Layer::refractiveIndex2() const
 
 squared refractive index 
 ";
@@ -9258,10 +9258,10 @@ squared refractive index
 %feature("docstring")  Layer::addLayout "void Layer::addLayout(const ILayout &decoration)
 ";
 
-%feature("docstring")  Layer::getNumberOfLayouts "size_t Layer::getNumberOfLayouts() const 
+%feature("docstring")  Layer::numberOfLayouts "size_t Layer::numberOfLayouts() const 
 ";
 
-%feature("docstring")  Layer::getLayout "const ILayout * Layer::getLayout(size_t i) const 
+%feature("docstring")  Layer::layout "const ILayout * Layer::layout(size_t i) const 
 ";
 
 %feature("docstring")  Layer::hasComputation "bool Layer::hasComputation() const
@@ -9701,7 +9701,7 @@ Calls the  INodeVisitor's visit method.
 Create a sliced form factor for this particle. 
 ";
 
-%feature("docstring")  MesoCrystal::getClusteredParticles "const IClusteredParticles* MesoCrystal::getClusteredParticles() const
+%feature("docstring")  MesoCrystal::clusteredParticles "const IClusteredParticles* MesoCrystal::clusteredParticles() const
 
 get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
 ";
@@ -9751,10 +9751,10 @@ C++ includes: MultiLayer.h
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  MultiLayer::getNumberOfLayers "size_t MultiLayer::getNumberOfLayers() const 
+%feature("docstring")  MultiLayer::numberOfLayers "size_t MultiLayer::numberOfLayers() const 
 ";
 
-%feature("docstring")  MultiLayer::getNumberOfInterfaces "size_t MultiLayer::getNumberOfInterfaces() const 
+%feature("docstring")  MultiLayer::numberOfInterfaces "size_t MultiLayer::numberOfInterfaces() const 
 ";
 
 %feature("docstring")  MultiLayer::addLayer "void MultiLayer::addLayer(const Layer &p_child)
@@ -9769,39 +9769,39 @@ Adds layer with default (zero) roughness.
 Adds layer with top roughness. 
 ";
 
-%feature("docstring")  MultiLayer::getLayer "const Layer* MultiLayer::getLayer(size_t i_layer) const
+%feature("docstring")  MultiLayer::layer "const Layer* MultiLayer::layer(size_t i_layer) const
 
 Returns layer with given index. 
 ";
 
-%feature("docstring")  MultiLayer::getLayerInterface "const LayerInterface* MultiLayer::getLayerInterface(size_t i_interface) const
+%feature("docstring")  MultiLayer::layerInterface "const LayerInterface* MultiLayer::layerInterface(size_t i_interface) const
 
 Returns layer with given index. 
 ";
 
-%feature("docstring")  MultiLayer::getLayerTopZ "double MultiLayer::getLayerTopZ(size_t i_layer) const
+%feature("docstring")  MultiLayer::layerTopZ "double MultiLayer::layerTopZ(size_t i_layer) const
 
 Returns z-coordinate of the layer's bottom. 
 ";
 
-%feature("docstring")  MultiLayer::getLayerBottomZ "double MultiLayer::getLayerBottomZ(size_t i_layer) const
+%feature("docstring")  MultiLayer::layerBottomZ "double MultiLayer::layerBottomZ(size_t i_layer) const
 
 Returns z-coordinate of the layer's bottom. 
 ";
 
-%feature("docstring")  MultiLayer::getLayerThickness "double MultiLayer::getLayerThickness(size_t i_layer) const
+%feature("docstring")  MultiLayer::layerThickness "double MultiLayer::layerThickness(size_t i_layer) const
 
 Returns thickness of layer. 
 ";
 
-%feature("docstring")  MultiLayer::getLayerTopInterface "const LayerInterface * MultiLayer::getLayerTopInterface(size_t i_layer) const
+%feature("docstring")  MultiLayer::layerTopInterface "const LayerInterface * MultiLayer::layerTopInterface(size_t i_layer) const
 
 Returns top interface of layer.
 
 Returns pointer to the top interface of the layer. nInterfaces = nLayers-1, first layer in multilayer doesn't have interface. 
 ";
 
-%feature("docstring")  MultiLayer::getLayerBottomInterface "const LayerInterface * MultiLayer::getLayerBottomInterface(size_t i_layer) const
+%feature("docstring")  MultiLayer::layerBottomInterface "const LayerInterface * MultiLayer::layerBottomInterface(size_t i_layer) const
 
 Returns bottom interface of layer.
 
@@ -9813,10 +9813,10 @@ Returns pointer to the bottom interface of the layer.
 Adds a layout of particles to the whole multilayer (particles can be in different layers) 
 ";
 
-%feature("docstring")  MultiLayer::getNumberOfLayouts "size_t MultiLayer::getNumberOfLayouts() const 
+%feature("docstring")  MultiLayer::numberOfLayouts "size_t MultiLayer::numberOfLayouts() const 
 ";
 
-%feature("docstring")  MultiLayer::getLayout "const ILayout * MultiLayer::getLayout(size_t i) const 
+%feature("docstring")  MultiLayer::layout "const ILayout * MultiLayer::layout(size_t i) const 
 ";
 
 %feature("docstring")  MultiLayer::clear "void MultiLayer::clear()
@@ -9839,12 +9839,12 @@ Returns a clone with inverted magnetic fields.
 Sets cross correlation length of roughnesses between interfaces. 
 ";
 
-%feature("docstring")  MultiLayer::getCrossCorrLength "double MultiLayer::getCrossCorrLength() const
+%feature("docstring")  MultiLayer::crossCorrLength "double MultiLayer::crossCorrLength() const
 
 Returns cross correlation length of roughnesses between interfaces. 
 ";
 
-%feature("docstring")  MultiLayer::getCrossCorrSpectralFun "double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
+%feature("docstring")  MultiLayer::crossCorrSpectralFun "double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 
 ! correlation function of roughnesses between the interfaces
 
@@ -9858,7 +9858,7 @@ Fourier transform of the correlation function of roughnesses between the interfa
 Sets thickness of layer. 
 ";
 
-%feature("docstring")  MultiLayer::getIndexOfLayer "int MultiLayer::getIndexOfLayer(const Layer *layer) const
+%feature("docstring")  MultiLayer::indexOfLayer "int MultiLayer::indexOfLayer(const Layer *layer) const
 
 returns layer index 
 ";
@@ -10695,18 +10695,18 @@ Create a sliced form factor for this particle.
 %feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const IMaterial &material)
 ";
 
-%feature("docstring")  Particle::getMaterial "const IMaterial* Particle::getMaterial() const overridefinal
+%feature("docstring")  Particle::material "const IMaterial* Particle::material() const overridefinal
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  Particle::getRefractiveIndex "complex_t Particle::getRefractiveIndex() const 
+%feature("docstring")  Particle::refractiveIndex "complex_t Particle::refractiveIndex() const 
 ";
 
 %feature("docstring")  Particle::setFormFactor "void Particle::setFormFactor(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  Particle::getFormFactor "const IFormFactor* Particle::getFormFactor() const 
+%feature("docstring")  Particle::formFactor "const IFormFactor* Particle::formFactor() const 
 ";
 
 %feature("docstring")  Particle::getChildren "std::vector< const INode * > Particle::getChildren() const overridefinal
@@ -10759,17 +10759,17 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  ParticleComposition::createTransformedFormFactor "IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const 
 ";
 
-%feature("docstring")  ParticleComposition::getNbrParticles "size_t ParticleComposition::getNbrParticles() const
+%feature("docstring")  ParticleComposition::nbrParticles "size_t ParticleComposition::nbrParticles() const
 
 Returns number of different particles. 
 ";
 
-%feature("docstring")  ParticleComposition::getParticle "const IParticle * ParticleComposition::getParticle(size_t index) const
+%feature("docstring")  ParticleComposition::particle "const IParticle * ParticleComposition::particle(size_t index) const
 
 Returns particle with given index. 
 ";
 
-%feature("docstring")  ParticleComposition::getParticlePosition "kvector_t ParticleComposition::getParticlePosition(size_t index) const 
+%feature("docstring")  ParticleComposition::particlePosition "kvector_t ParticleComposition::particlePosition(size_t index) const 
 ";
 
 %feature("docstring")  ParticleComposition::getChildren "std::vector< const INode * > ParticleComposition::getChildren() const override
@@ -10877,12 +10877,12 @@ Returns list of new particles generated according to a distribution.
 Returns particle clones with parameter values drawn from distribution. 
 ";
 
-%feature("docstring")  ParticleDistribution::getParameterDistribution "ParameterDistribution ParticleDistribution::getParameterDistribution() const
+%feature("docstring")  ParticleDistribution::parameterDistribution "ParameterDistribution ParticleDistribution::parameterDistribution() const
 
 Returns the distributed parameter data. 
 ";
 
-%feature("docstring")  ParticleDistribution::getParticle "const IParticle* ParticleDistribution::getParticle() const
+%feature("docstring")  ParticleDistribution::particle "const IParticle* ParticleDistribution::particle() const
 
 Returns particle. 
 ";
@@ -11002,27 +11002,27 @@ rotation:
  Particle rotation 
 ";
 
-%feature("docstring")  ParticleLayout::getNumberOfParticles "size_t ParticleLayout::getNumberOfParticles() const final
+%feature("docstring")  ParticleLayout::numberOfParticles "size_t ParticleLayout::numberOfParticles() const final
 
 Returns number of particles. 
 ";
 
-%feature("docstring")  ParticleLayout::getParticle "const IAbstractParticle * ParticleLayout::getParticle(size_t index) const final
+%feature("docstring")  ParticleLayout::particle "const IAbstractParticle * ParticleLayout::particle(size_t index) const final
 
 Returns particle info. 
 ";
 
-%feature("docstring")  ParticleLayout::getParticles "SafePointerVector< const IParticle > ParticleLayout::getParticles() const final
+%feature("docstring")  ParticleLayout::particles "SafePointerVector< const IParticle > ParticleLayout::particles() const final
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
-%feature("docstring")  ParticleLayout::getAbundanceOfParticle "double ParticleLayout::getAbundanceOfParticle(size_t index) const
+%feature("docstring")  ParticleLayout::abundanceOfParticle "double ParticleLayout::abundanceOfParticle(size_t index) const
 
 Returns the abundance fraction of particle at given index. 
 ";
 
-%feature("docstring")  ParticleLayout::getInterferenceFunction "const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const final
+%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const final
 
 Returns interference function. 
 ";
@@ -11032,7 +11032,7 @@ Returns interference function.
 Adds interference functions. 
 ";
 
-%feature("docstring")  ParticleLayout::getTotalParticleSurfaceDensity "double ParticleLayout::getTotalParticleSurfaceDensity() const final
+%feature("docstring")  ParticleLayout::totalParticleSurfaceDensity "double ParticleLayout::totalParticleSurfaceDensity() const final
 
 Returns surface density of all particles. 
 ";

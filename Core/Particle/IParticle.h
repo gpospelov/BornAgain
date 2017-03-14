@@ -46,7 +46,7 @@ public:
     virtual IFormFactor* createSlicedFormFactor(ZLimits limits) const;
 
     //! Returns particle position.
-    kvector_t getPosition() const { return m_position; }
+    kvector_t position() const { return m_position; }
 
     //! Sets particle position.
     void setPosition(kvector_t position) { m_position = position; }
@@ -58,7 +58,7 @@ public:
     void applyTranslation(kvector_t displacement);
 
     //! Returns rotation object
-    const IRotation* getRotation() const;
+    const IRotation* rotation() const;
 
     //! Sets transformation.
     void setRotation(const IRotation& rotation);
@@ -81,7 +81,7 @@ protected:
     IRotation* createComposedRotation(const IRotation* p_rotation) const;
 
     //! Gets a composed translation vector
-    kvector_t getComposedTranslation(const IRotation* p_rotation, kvector_t translation) const;
+    kvector_t composedTranslation(const IRotation* p_rotation, kvector_t translation) const;
 
     //! Registers abundance and position
     void registerParticleProperties();

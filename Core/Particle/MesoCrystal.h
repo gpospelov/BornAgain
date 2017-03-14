@@ -41,7 +41,7 @@ public:
 
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (e.g. an infinite crystal)
-    const IClusteredParticles* getClusteredParticles() const { return mp_particle_structure.get(); }
+    const IClusteredParticles* clusteredParticles() const { return mp_particle_structure.get(); }
 
     std::vector<const INode*> getChildren() const override final;
 

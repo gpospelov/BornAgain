@@ -47,26 +47,26 @@ public:
     virtual ILayout* cloneInvertB() const =0;
 
     //! Returns number of particles
-    virtual size_t getNumberOfParticles() const =0;
+    virtual size_t numberOfParticles() const =0;
 
     //! Returns information about particle with index
-    virtual const IAbstractParticle* getParticle(size_t index) const =0;
+    virtual const IAbstractParticle* particle(size_t index) const =0;
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual SafePointerVector<const IParticle> getParticles() const =0;
+    virtual SafePointerVector<const IParticle> particles() const =0;
 
     /// Get abundance fraction of particle with index
-    virtual double getAbundanceOfParticle(size_t index) const =0;
+    virtual double abundanceOfParticle(size_t index) const =0;
 
     /// Get total abundance of all particles
     double getTotalAbundance() const; // implemented below
 
     //! Returns interference function
-    virtual const IInterferenceFunction* getInterferenceFunction() const =0;
+    virtual const IInterferenceFunction* interferenceFunction() const =0;
 
     //! Returns surface density of all particles
-    virtual double getTotalParticleSurfaceDensity() const =0;
+    virtual double totalParticleSurfaceDensity() const =0;
 
     //! Sets surface density of all particles
     virtual void setTotalParticleSurfaceDensity(double particle_density) =0;
@@ -87,8 +87,8 @@ private:
 inline double ILayout::getTotalAbundance() const
 {
     double total_abundance = 0.0;
-    for (size_t i=0; i<getNumberOfParticles(); ++i)
-        total_abundance += getAbundanceOfParticle(i);
+    for (size_t i=0; i<numberOfParticles(); ++i)
+        total_abundance += abundanceOfParticle(i);
     return total_abundance;
 }
 

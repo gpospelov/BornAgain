@@ -163,7 +163,7 @@ void GUIObjectBuilder::visit(const ParticleLayout* sample)
     }
     item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.getVariant());
     item->setItemValue(ParticleLayoutItem::P_TOTAL_DENSITY,
-                       sample->getTotalParticleSurfaceDensity());
+                       sample->totalParticleSurfaceDensity());
     m_levelToParentItem[depth()] = item;
 }
 
@@ -174,14 +174,14 @@ void GUIObjectBuilder::visit(const Layer* sample)
 
     auto multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[parent]);
     Q_ASSERT(multilayer);
-    int layer_index = multilayer->getIndexOfLayer(sample);
+    int layer_index = multilayer->indexOfLayer(sample);
     Q_ASSERT(layer_index != -1);
-    const LayerInterface* interface = multilayer->getLayerTopInterface(layer_index);
+    const LayerInterface* interface = multilayer->layerTopInterface(layer_index);
 
     SessionItem* layerItem = m_sampleModel->insertNewItem(
         Constants::LayerType, m_sampleModel->indexOfItem(parent));
     layerItem->setItemValue(LayerItem::P_MATERIAL,
-        createMaterialFromDomain(sample->getMaterial()).getVariant());
+        createMaterialFromDomain(sample->material()).getVariant());
 
     TransformFromDomain::setItemFromSample(layerItem, sample, interface);
 
@@ -193,7 +193,7 @@ void GUIObjectBuilder::visit(const MultiLayer* sample)
     SessionItem* item =
             m_sampleModel->insertNewItem(Constants::MultiLayerType);
     item->setItemName(sample->getName().c_str());
-    item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->getCrossCorrLength());
+    item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->crossCorrLength());
     m_levelToParentItem[depth()] = item;
     m_itemToSample[item] = sample;
 }
@@ -235,9 +235,9 @@ void GUIObjectBuilder::visit(const Particle* sample)
 
     buildPositionInfo(particleItem, sample);
 
-    particleItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    particleItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
     particleItem->setItemValue(ParticleItem::P_MATERIAL,
-        createMaterialFromDomain(sample->getMaterial()).getVariant());
+        createMaterialFromDomain(sample->material()).getVariant());
     m_levelToParentItem[depth()] = particleItem;
 }
 
@@ -262,7 +262,7 @@ void GUIObjectBuilder::visit(const ParticleCoreShell* sample)
 
     SessionItem* coreshellItem = m_sampleModel->insertNewItem(
         Constants::ParticleCoreShellType, m_sampleModel->indexOfItem(parent));
-    coreshellItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    coreshellItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
 
     buildPositionInfo(coreshellItem, sample);
 
@@ -276,7 +276,7 @@ void GUIObjectBuilder::visit(const ParticleComposition* sample)
     Q_ASSERT(parent);
     SessionItem* particle_composition_item = m_sampleModel->insertNewItem(
         Constants::ParticleCompositionType, m_sampleModel->indexOfItem(parent));
-    particle_composition_item->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    particle_composition_item->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
 
     buildPositionInfo(particle_composition_item, sample);
 
@@ -616,7 +616,7 @@ void GUIObjectBuilder::visit(const RotationEuler* sample)
 
 void GUIObjectBuilder::buildPositionInfo(SessionItem* particleItem, const IParticle* sample)
 {
-    kvector_t position = sample->getPosition();
+    kvector_t position = sample->position();
     SessionItem* positionItem = particleItem->getItem(ParticleItem::P_POSITION);
     Q_ASSERT(positionItem);
     positionItem->setItemValue(VectorItem::P_X, position.x());

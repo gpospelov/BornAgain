@@ -67,7 +67,7 @@ private:
     //! contains the information, necessary to calculate the Fresnel coefficients
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
 
-    std::vector<IComputationTerm*> m_computation_terms;
+    std::vector<std::unique_ptr<IComputationTerm>> m_computation_terms;
     ComputationStatus m_status;
 };
 

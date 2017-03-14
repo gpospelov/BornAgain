@@ -45,25 +45,22 @@ MainComputation::MainComputation(
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
-            m_computation_terms.push_back(
+            m_computation_terms.emplace_back(
                         new ParticleLayoutComputation(mP_multi_layer.get(), mP_fresnel_map.get(),
                                                       layer->getLayout(j), i,
                                                       m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
-        m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
+        m_computation_terms.emplace_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
                                                                      mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
-        m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get(),
+        m_computation_terms.emplace_back(new SpecularComputation(mP_multi_layer.get(),
                                                               mP_fresnel_map.get()));
 }
 
 MainComputation::~MainComputation()
-{
-    for (IComputationTerm* comp: m_computation_terms)
-        delete comp;
-}
+{}
 
 void MainComputation::run()
 {
@@ -85,7 +82,7 @@ void MainComputation::run()
 void MainComputation::runProtected()
 {
     // add intensity of all IComputationTerms:
-    for (const IComputationTerm* comp: m_computation_terms) {
+    for (auto& comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
         comp->eval(m_progress, m_begin_it, m_end_it );

@@ -35,9 +35,7 @@ public:
         const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
         size_t layer_index, const SimulationOptions& options, bool polarized);
 
-    void eval(const SimulationOptions& options,
-              ProgressHandler* progress,
-              bool polarized,
+    void eval(ProgressHandler* progress,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 

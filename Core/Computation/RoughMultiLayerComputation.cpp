@@ -48,8 +48,7 @@ RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
 {}
 
-void RoughMultiLayerComputation::eval(
-    const SimulationOptions&, ProgressHandler* progress, bool,
+void RoughMultiLayerComputation::eval(ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {

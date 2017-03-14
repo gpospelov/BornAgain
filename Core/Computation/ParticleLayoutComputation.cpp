@@ -37,10 +37,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(
 }
 
 //! Computes scattering intensity for given range of simulation elements.
-void ParticleLayoutComputation::eval(
-    const SimulationOptions& options,
-    ProgressHandler* progress,
-    bool polarized,
+void ParticleLayoutComputation::eval(ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {

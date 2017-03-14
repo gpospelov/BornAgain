@@ -37,11 +37,9 @@ public:
 
     //! Calculate scattering intensity for each SimulationElement
     //! returns false if nothing needed to be calculated
-    virtual void eval(const SimulationOptions& options,
-              ProgressHandler* progress,
-              bool polarized,
-              const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const =0;
+    virtual void eval(ProgressHandler* progress,
+                      const std::vector<SimulationElement>::iterator& begin_it,
+                      const std::vector<SimulationElement>::iterator& end_it) const =0;
 
 protected:
     const MultiLayer* mp_multilayer;

@@ -84,12 +84,11 @@ void MainComputation::run()
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
-    bool polarized = mP_multi_layer->containsMagneticMaterial();
-    // add all IComputationTerms:
+    // add intensity of all IComputationTerms:
     for (const IComputationTerm* comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
-        comp->eval(m_sim_options, m_progress, polarized, m_begin_it, m_end_it );
+        comp->eval(m_progress, m_begin_it, m_end_it );
     }
 }
 

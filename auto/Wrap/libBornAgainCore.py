@@ -17487,38 +17487,38 @@ class IMaterial(INamed):
         return _libBornAgainCore.IMaterial_isMagneticMaterial(self)
 
 
-    def getRefractiveIndex(self):
+    def refractiveIndex(self):
         """
-        getRefractiveIndex(IMaterial self) -> complex_t
+        refractiveIndex(IMaterial self) -> complex_t
 
-        virtual complex_t IMaterial::getRefractiveIndex() const 
+        virtual complex_t IMaterial::refractiveIndex() const 
 
         """
-        return _libBornAgainCore.IMaterial_getRefractiveIndex(self)
+        return _libBornAgainCore.IMaterial_refractiveIndex(self)
 
 
-    def getScalarSLD(self, wavevectors):
+    def scalarSLD(self, wavevectors):
         """
-        getScalarSLD(IMaterial self, WavevectorInfo wavevectors) -> complex_t
+        scalarSLD(IMaterial self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t IMaterial::getScalarSLD(const WavevectorInfo &wavevectors) const
+        complex_t IMaterial::scalarSLD(const WavevectorInfo &wavevectors) const
 
         Returns true if *this agrees with other in all parameters. 
 
         """
-        return _libBornAgainCore.IMaterial_getScalarSLD(self, wavevectors)
+        return _libBornAgainCore.IMaterial_scalarSLD(self, wavevectors)
 
 
-    def getScalarFresnel(self, k, n_ref):
+    def scalarFresnel(self, k, n_ref):
         """
-        getScalarFresnel(IMaterial self, kvector_t k, double n_ref) -> complex_t
+        scalarFresnel(IMaterial self, kvector_t k, double n_ref) -> complex_t
 
-        complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
+        complex_t IMaterial::scalarFresnel(const kvector_t k, double n_ref) const
 
         Return the potential term that is used in the one-dimensional Fresnel calculations. 
 
         """
-        return _libBornAgainCore.IMaterial_getScalarFresnel(self, k, n_ref)
+        return _libBornAgainCore.IMaterial_scalarFresnel(self, k, n_ref)
 
 
     def createTransformedMaterial(self, transform):
@@ -17582,7 +17582,7 @@ class HomogeneousMaterial(IMaterial):
         """
         clone(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        HomogeneousMaterial * HomogeneousMaterial::clone() const 
+        HomogeneousMaterial * HomogeneousMaterial::clone() const override
 
         """
         return _libBornAgainCore.HomogeneousMaterial_clone(self)
@@ -17592,20 +17592,20 @@ class HomogeneousMaterial(IMaterial):
         """
         cloneInverted(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const 
+        HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const override
 
         """
         return _libBornAgainCore.HomogeneousMaterial_cloneInverted(self)
 
 
-    def getRefractiveIndex(self):
+    def refractiveIndex(self):
         """
-        getRefractiveIndex(HomogeneousMaterial self) -> complex_t
+        refractiveIndex(HomogeneousMaterial self) -> complex_t
 
-        virtual complex_t HomogeneousMaterial::getRefractiveIndex() const 
+        complex_t HomogeneousMaterial::refractiveIndex() const override
 
         """
-        return _libBornAgainCore.HomogeneousMaterial_getRefractiveIndex(self)
+        return _libBornAgainCore.HomogeneousMaterial_refractiveIndex(self)
 
 
     def setRefractiveIndex(self, refractive_index):
@@ -17622,7 +17622,7 @@ class HomogeneousMaterial(IMaterial):
         """
         createTransformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> IMaterial
 
-        const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const
+        const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const override
 
         Create a new material that is transformed with respect to this one. 
 
@@ -17688,16 +17688,16 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
         return _libBornAgainCore.HomogeneousMagneticMaterial_cloneInverted(self)
 
 
-    def getMagneticField(self):
+    def magneticField(self):
         """
-        getMagneticField(HomogeneousMagneticMaterial self) -> kvector_t
+        magneticField(HomogeneousMagneticMaterial self) -> kvector_t
 
-        kvector_t HomogeneousMagneticMaterial::getMagneticField() const
+        kvector_t HomogeneousMagneticMaterial::magneticField() const
 
         Get the magnetic field (in Tesla) 
 
         """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_getMagneticField(self)
+        return _libBornAgainCore.HomogeneousMagneticMaterial_magneticField(self)
 
 
     def setMagneticField(self, magnetic_field):
@@ -17718,7 +17718,7 @@ class HomogeneousMagneticMaterial(HomogeneousMaterial):
 
         bool HomogeneousMagneticMaterial::isScalarMaterial() const final
 
-        Indicates that the material is not scalar. This means that different polarization states will be diffracted differently 
+        Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
 
         """
         return _libBornAgainCore.HomogeneousMagneticMaterial_isScalarMaterial(self)

@@ -181,7 +181,7 @@ std::string ExportToPython::defineMaterials() const
             continue;
         visitedMaterials.insert(it->second);
         const IMaterial* p_material = it->first;
-        complex_t ri = p_material->getRefractiveIndex();
+        complex_t ri = p_material->refractiveIndex();
         double delta = 1.0 - std::real(ri);
         double beta = std::imag(ri);
         if (p_material->isScalarMaterial()) {
@@ -196,7 +196,7 @@ std::string ExportToPython::defineMaterials() const
                 throw Exceptions::RuntimeErrorException(
                     "ExportToPython::defineMaterials: "
                     "Non scalar material should be of type HomogeneousMagneticMaterial");
-            kvector_t magnetic_field = p_mag_material->getMagneticField();
+            kvector_t magnetic_field = p_mag_material->magneticField();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ", "
                    << ")\n";

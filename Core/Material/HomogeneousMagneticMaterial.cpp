@@ -54,27 +54,27 @@ HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(
 
 HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::clone() const
 {
-    return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(), getMagneticField());
+    return new HomogeneousMagneticMaterial(getName(), refractiveIndex(), magneticField());
 }
 
 HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::cloneInverted() const
 {
     return new HomogeneousMagneticMaterial(
-        getName()+"_inv", getRefractiveIndex(), -getMagneticField());
+        getName()+"_inv", refractiveIndex(), -magneticField());
 }
 
-kvector_t HomogeneousMagneticMaterial::getMagneticField() const
+kvector_t HomogeneousMagneticMaterial::magneticField() const
 {
     return m_magnetic_field;
 }
 
-Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLD(
+Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedSLD(
         const WavevectorInfo& wavevectors) const
 {
 //    return getPolarizedSLDExperimental(wavevectors);
     Eigen::Matrix2cd result;
     double factor = m_magnetic_prefactor/4.0/M_PI;
-    complex_t unit_factor = getScalarSLD(wavevectors);
+    complex_t unit_factor = scalarSLD(wavevectors);
     result = unit_factor*m_unit_matrix
             + factor*m_pauli_operator[0]*m_magnetic_field[0]
             + factor*m_pauli_operator[1]*m_magnetic_field[1]
@@ -85,12 +85,12 @@ Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLD(
 // Implementation only for experimental testing purposes
 // The magnetic field is here interpreted as the magnetization, which is seven orders
 // of magnitude bigger in general!
-Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLDExperimental(
+Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedSLDExperimental(
         const WavevectorInfo& wavevectors) const
 {
     const double mag_prefactor = 0.291e-9; // needs to be given more precisely?
     cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetic_field);
-    complex_t unit_factor = getScalarSLD(wavevectors);
+    complex_t unit_factor = scalarSLD(wavevectors);
     Eigen::Matrix2cd result;
     result = unit_factor*m_unit_matrix
             + mag_prefactor*m_pauli_operator[0]*mag_ortho[0]
@@ -99,12 +99,12 @@ Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLDExperimental(
     return result;
 }
 
-Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedFresnel(
+Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedFresnel(
         const kvector_t k, double n_ref) const
 {
     Eigen::Matrix2cd result;
     double factor = m_magnetic_prefactor/k.mag2();
-    complex_t unit_factor = getScalarFresnel(k, n_ref);
+    complex_t unit_factor = scalarFresnel(k, n_ref);
     result = unit_factor*m_unit_matrix
             + factor*m_pauli_operator[0]*m_magnetic_field[0]
             + factor*m_pauli_operator[1]*m_magnetic_field[1]
@@ -116,7 +116,7 @@ const IMaterial* HomogeneousMagneticMaterial::createTransformedMaterial(
         const Transform3D& transform) const
 {
     kvector_t mag_field_transformed = transform.transformed(m_magnetic_field);
-    return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(),
+    return new HomogeneousMagneticMaterial(getName(), refractiveIndex(),
             mag_field_transformed);
 }
 

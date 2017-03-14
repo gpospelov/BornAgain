@@ -15,7 +15,7 @@ HomogeneousMaterial::HomogeneousMaterial(const std::string& name, double refract
 
 HomogeneousMaterial*HomogeneousMaterial::clone() const
 {
-    return new HomogeneousMaterial(getName(), getRefractiveIndex());
+    return new HomogeneousMaterial(getName(), refractiveIndex());
 }
 
 HomogeneousMaterial*HomogeneousMaterial::cloneInverted() const
@@ -23,7 +23,7 @@ HomogeneousMaterial*HomogeneousMaterial::cloneInverted() const
     return clone();
 }
 
-complex_t HomogeneousMaterial::getRefractiveIndex() const
+complex_t HomogeneousMaterial::refractiveIndex() const
 {
     return m_refractive_index;
 }
@@ -35,7 +35,7 @@ void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 
 const IMaterial*HomogeneousMaterial::createTransformedMaterial(const Transform3D&) const
 {
-    return new HomogeneousMaterial(getName(), getRefractiveIndex());
+    return new HomogeneousMaterial(getName(), refractiveIndex());
 }
 
 void HomogeneousMaterial::print(std::ostream& ostr) const

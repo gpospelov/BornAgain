@@ -19,43 +19,43 @@
 #include "WavevectorInfo.h"
 
 //! Returns true if *this agrees with other in all parameters.
-complex_t IMaterial::getScalarSLD(const WavevectorInfo& wavevectors) const
+complex_t IMaterial::scalarSLD(const WavevectorInfo& wavevectors) const
 {
     double wavelength = wavevectors.getWavelength();
     double prefactor = M_PI/wavelength/wavelength;
-    complex_t refractive_index = getRefractiveIndex();
+    complex_t refractive_index = refractiveIndex();
     return prefactor * refractive_index * refractive_index;
 }
 
-complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
+complex_t IMaterial::scalarFresnel(const kvector_t k, double n_ref) const
 {
-    complex_t refractive_index = getRefractiveIndex();
+    complex_t refractive_index = refractiveIndex();
     return refractive_index*refractive_index - n_ref*n_ref*k.sin2Theta();
 }
 
-Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo& wavevectors) const
+Eigen::Matrix2cd IMaterial::polarizedSLD(const WavevectorInfo& wavevectors) const
 {
-    return getScalarSLD(wavevectors)*Eigen::Matrix2cd::Identity();
+    return scalarSLD(wavevectors)*Eigen::Matrix2cd::Identity();
 }
 
-Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k, double n_ref) const
+Eigen::Matrix2cd IMaterial::polarizedFresnel(const kvector_t k, double n_ref) const
 {
-    return getScalarFresnel(k, n_ref)*Eigen::Matrix2cd::Identity();
+    return scalarFresnel(k, n_ref)*Eigen::Matrix2cd::Identity();
 }
 
 bool IMaterial::operator==(const IMaterial& other) const
 {
     if( getName()!=other.getName() )
         return false;
-    if( getRefractiveIndex().real() != other.getRefractiveIndex().real() )
+    if( refractiveIndex().real() != other.refractiveIndex().real() )
         return false;
-    if( getRefractiveIndex().imag() != other.getRefractiveIndex().imag() )
+    if( refractiveIndex().imag() != other.refractiveIndex().imag() )
         return false;
     if( isScalarMaterial() != other.isScalarMaterial() )
         return false;
     auto p_this  = dynamic_cast<const HomogeneousMagneticMaterial*>(this);
     auto p_other = dynamic_cast<const HomogeneousMagneticMaterial*>(&other);
-    if (p_this && p_other && p_this->getMagneticField() != p_other->getMagneticField() )
+    if (p_this && p_other && p_this->magneticField() != p_other->magneticField() )
         return false;
     return true;
 }

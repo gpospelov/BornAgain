@@ -5560,7 +5560,7 @@ Constructs a material with  name, refractive_index parameters and  magnetic_fiel
 %feature("docstring")  HomogeneousMagneticMaterial::cloneInverted "HomogeneousMagneticMaterial * HomogeneousMagneticMaterial::cloneInverted() const final
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::getMagneticField "kvector_t HomogeneousMagneticMaterial::getMagneticField() const
+%feature("docstring")  HomogeneousMagneticMaterial::magneticField "kvector_t HomogeneousMagneticMaterial::magneticField() const
 
 Get the magnetic field (in Tesla) 
 ";
@@ -5572,20 +5572,20 @@ Set the magnetic field (in Tesla)
 
 %feature("docstring")  HomogeneousMagneticMaterial::isScalarMaterial "bool HomogeneousMagneticMaterial::isScalarMaterial() const final
 
-Indicates that the material is not scalar. This means that different polarization states will be diffracted differently 
+Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::getPolarizedSLD "Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLD(const WavevectorInfo &wavevectors) const
+%feature("docstring")  HomogeneousMagneticMaterial::polarizedSLD "Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedSLD(const WavevectorInfo &wavevectors) const
 
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::getPolarizedSLDExperimental "Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLDExperimental(const WavevectorInfo &wavevectors) const
+%feature("docstring")  HomogeneousMagneticMaterial::polarizedSLDExperimental "Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedSLDExperimental(const WavevectorInfo &wavevectors) const
 
 Get the scattering matrix for a material defined by its magnetization (experimental) 
 ";
 
-%feature("docstring")  HomogeneousMagneticMaterial::getPolarizedFresnel "Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedFresnel(const kvector_t k, double n_ref) const
+%feature("docstring")  HomogeneousMagneticMaterial::polarizedFresnel "Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";
@@ -5614,22 +5614,22 @@ Constructs a material with  name and  refractive_index.
 Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 ";
 
-%feature("docstring")  HomogeneousMaterial::~HomogeneousMaterial "virtual HomogeneousMaterial::~HomogeneousMaterial()
+%feature("docstring")  HomogeneousMaterial::~HomogeneousMaterial "HomogeneousMaterial::~HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const 
+%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const override
 ";
 
-%feature("docstring")  HomogeneousMaterial::cloneInverted "HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const 
+%feature("docstring")  HomogeneousMaterial::cloneInverted "HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const override
 ";
 
-%feature("docstring")  HomogeneousMaterial::getRefractiveIndex "virtual complex_t HomogeneousMaterial::getRefractiveIndex() const 
+%feature("docstring")  HomogeneousMaterial::refractiveIndex "complex_t HomogeneousMaterial::refractiveIndex() const override
 ";
 
 %feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 ";
 
-%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const
+%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const override
 
 Create a new material that is transformed with respect to this one. 
 ";
@@ -5928,7 +5928,7 @@ C++ includes: IComputationTerm.h
 %feature("docstring")  IComputationTerm::~IComputationTerm "IComputationTerm::~IComputationTerm()
 ";
 
-%feature("docstring")  IComputationTerm::eval "virtual void IComputationTerm::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const =0
+%feature("docstring")  IComputationTerm::eval "virtual void IComputationTerm::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const =0
 
 Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
 ";
@@ -7216,25 +7216,25 @@ Indicates whether the interaction with the material is scalar. This means that d
 %feature("docstring")  IMaterial::isMagneticMaterial "bool IMaterial::isMagneticMaterial() const 
 ";
 
-%feature("docstring")  IMaterial::getRefractiveIndex "virtual complex_t IMaterial::getRefractiveIndex() const 
+%feature("docstring")  IMaterial::refractiveIndex "virtual complex_t IMaterial::refractiveIndex() const 
 ";
 
-%feature("docstring")  IMaterial::getScalarSLD "complex_t IMaterial::getScalarSLD(const WavevectorInfo &wavevectors) const
+%feature("docstring")  IMaterial::scalarSLD "complex_t IMaterial::scalarSLD(const WavevectorInfo &wavevectors) const
 
 Returns true if *this agrees with other in all parameters. 
 ";
 
-%feature("docstring")  IMaterial::getScalarFresnel "complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
+%feature("docstring")  IMaterial::scalarFresnel "complex_t IMaterial::scalarFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";
 
-%feature("docstring")  IMaterial::getPolarizedSLD "Eigen::Matrix2cd IMaterial::getPolarizedSLD(const WavevectorInfo &wavevectors) const
+%feature("docstring")  IMaterial::polarizedSLD "Eigen::Matrix2cd IMaterial::polarizedSLD(const WavevectorInfo &wavevectors) const
 
 Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
 ";
 
-%feature("docstring")  IMaterial::getPolarizedFresnel "Eigen::Matrix2cd IMaterial::getPolarizedFresnel(const kvector_t k, double n_ref) const
+%feature("docstring")  IMaterial::polarizedFresnel "Eigen::Matrix2cd IMaterial::polarizedFresnel(const kvector_t k, double n_ref) const
 
 Return the potential term that is used in the one-dimensional Fresnel calculations. 
 ";
@@ -11056,10 +11056,10 @@ Computes the scattering contribution from one particle layout. Controlled by  Ma
 C++ includes: ParticleLayoutComputation.h
 ";
 
-%feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map, const ILayout *p_layout, size_t layer_index)
+%feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map, const ILayout *p_layout, size_t layer_index, const SimulationOptions &options, bool polarized)
 ";
 
-%feature("docstring")  ParticleLayoutComputation::eval "void ParticleLayoutComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
+%feature("docstring")  ParticleLayoutComputation::eval "void ParticleLayoutComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
 
 Computes scattering intensity for given range of simulation elements. 
 ";
@@ -11842,7 +11842,7 @@ C++ includes: RoughMultiLayerComputation.h
 %feature("docstring")  RoughMultiLayerComputation::~RoughMultiLayerComputation "RoughMultiLayerComputation::~RoughMultiLayerComputation()
 ";
 
-%feature("docstring")  RoughMultiLayerComputation::eval "void RoughMultiLayerComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
+%feature("docstring")  RoughMultiLayerComputation::eval "void RoughMultiLayerComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
 
 Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
 ";
@@ -12723,7 +12723,7 @@ C++ includes: SpecularComputation.h
 %feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
 ";
 
-%feature("docstring")  SpecularComputation::eval "void SpecularComputation::eval(const SimulationOptions &options, ProgressHandler *progress, bool polarized, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
+%feature("docstring")  SpecularComputation::eval "void SpecularComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
 
 Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
 ";

@@ -54,7 +54,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
     // Calculate refraction angle, expressed as lambda or k_z, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<N; ++i) {
-        complex_t rad = sample.getLayer(i)->getMaterial()->getScalarFresnel(k, n_ref);
+        complex_t rad = sample.getLayer(i)->getMaterial()->scalarFresnel(k, n_ref);
         // use small absorptive component for layers with i>0 if radicand becomes very small:
         if (i>0 && std::abs(rad)<1e-40) rad = imag_unit*1e-40;
         coeff[i].lambda = sqrt(rad);

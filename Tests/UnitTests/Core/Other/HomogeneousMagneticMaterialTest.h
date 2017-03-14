@@ -15,8 +15,8 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndex)
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
     HomogeneousMagneticMaterial material("MagMaterial", refIndex, magnetism);
     EXPECT_EQ("MagMaterial", material.getName());
-    EXPECT_EQ(refIndex, material.getRefractiveIndex());
-    EXPECT_EQ(magnetism, material.getMagneticField());
+    EXPECT_EQ(refIndex, material.refractiveIndex());
+    EXPECT_EQ(magnetism, material.magneticField());
 
 //    Eigen::Matrix2cd matrix = material.getPolarizedSLD(-2.91042993836710484e-3);
 //    EXPECT_EQ(complex_t(2,4.0), matrix(0,0));
@@ -26,7 +26,7 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndex)
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     material.setRefractiveIndex(refIndex2);
-    EXPECT_EQ(refIndex2, material.getRefractiveIndex());
+    EXPECT_EQ(refIndex2, material.refractiveIndex());
 
 //    Eigen::Matrix2cd matrix2 = material.getPolarizedSLD(-2.91042993836710484e-3);
 //    EXPECT_EQ(complex_t(0.0,12.0), matrix2(0,0));
@@ -36,7 +36,7 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndex)
 
     kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
     material.setMagneticField(magnetism2);
-    EXPECT_EQ(magnetism2, material.getMagneticField());
+    EXPECT_EQ(magnetism2, material.magneticField());
 }
 
 TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndexAndMagField)
@@ -44,8 +44,8 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndexA
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
     HomogeneousMagneticMaterial material("MagMaterial", 2.0, 2.0, magnetism);
     EXPECT_EQ("MagMaterial", material.getName());
-    EXPECT_EQ(complex_t(-1.0, 2.0), material.getRefractiveIndex());
-    EXPECT_EQ(magnetism, material.getMagneticField());
+    EXPECT_EQ(complex_t(-1.0, 2.0), material.refractiveIndex());
+    EXPECT_EQ(magnetism, material.magneticField());
 
 //    Eigen::Matrix2cd matrix = material.getPolarizedSLD(-2.91042993836710484e-3);
 //    EXPECT_EQ(complex_t(2,-4.0), matrix(0,0));
@@ -55,11 +55,11 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialWithRefIndexA
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     material.setRefractiveIndex(refIndex2);
-    EXPECT_EQ(refIndex2, material.getRefractiveIndex());
+    EXPECT_EQ(refIndex2, material.refractiveIndex());
 
     kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
     material.setMagneticField(magnetism2);
-    EXPECT_EQ(magnetism2, material.getMagneticField());
+    EXPECT_EQ(magnetism2, material.magneticField());
 }
 
 TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialTransform)
@@ -72,7 +72,7 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialTransform)
     const IMaterial * tMaterial = material.createTransformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("MagMaterial", tMaterial->getName());
-    EXPECT_EQ(refIndex, tMaterial->getRefractiveIndex());
+    EXPECT_EQ(refIndex, tMaterial->refractiveIndex());
 
 //    Eigen::Matrix2cd matrix = tMaterial->getPolarizedSLD(-2.91042993836710484e-3);
 //    EXPECT_EQ(complex_t(0.0, 0.0), matrix(0,0));
@@ -92,8 +92,8 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialClone)
     HomogeneousMagneticMaterial * clone = material.clone();
 
     EXPECT_EQ("MagMaterial", clone->getName());
-    EXPECT_EQ(refIndex, clone->getRefractiveIndex());
-    EXPECT_EQ(magnetism, clone->getMagneticField());
+    EXPECT_EQ(refIndex, clone->refractiveIndex());
+    EXPECT_EQ(magnetism, clone->magneticField());
 
 //    Eigen::Matrix2cd matrix = clone->getPolarizedSLD(-2.91042993836710484e-3);
 //    EXPECT_EQ(complex_t(2,4.0), matrix(0,0));
@@ -103,17 +103,17 @@ TEST_F(HomogeneousMagneticMaterialTest, HomogeneousMagneticMaterialClone)
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     clone->setRefractiveIndex(refIndex2);
-    EXPECT_EQ(refIndex2, clone->getRefractiveIndex());
+    EXPECT_EQ(refIndex2, clone->refractiveIndex());
 
     kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
     clone->setMagneticField(magnetism2);
-    EXPECT_EQ(magnetism2, clone->getMagneticField());
+    EXPECT_EQ(magnetism2, clone->magneticField());
 
     RotationZ transform(45.*Units::degree);
     const IMaterial * tMaterial = clone->createTransformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("MagMaterial", tMaterial->getName());
-    EXPECT_EQ(refIndex2, tMaterial->getRefractiveIndex());
+    EXPECT_EQ(refIndex2, tMaterial->refractiveIndex());
 
     delete tMaterial;
     delete clone;

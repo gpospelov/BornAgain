@@ -635,7 +635,7 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
     MaterialModel* model = MaterialSvc::getMaterialModel();
 
     if(material->isScalarMaterial()) {
-        complex_t rindex = material->getRefractiveIndex();
+        complex_t rindex = material->refractiveIndex();
         MaterialItem* materialItem  =
             model->addMaterial(materialName, 1-rindex.real(),rindex.imag());
         return MaterialProperty(materialItem->getIdentifier());

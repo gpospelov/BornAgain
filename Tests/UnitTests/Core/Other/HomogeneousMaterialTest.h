@@ -15,7 +15,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndex)
     complex_t refIndex = complex_t(1.0, 2.0);
     HomogeneousMaterial material("Material1", refIndex);
     EXPECT_EQ("Material1", material.getName());
-    EXPECT_EQ(refIndex, material.getRefractiveIndex());
+    EXPECT_EQ(refIndex, material.refractiveIndex());
 
 //    cvector_t k(1.0, 0.0, 0.0);
 //    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
@@ -27,7 +27,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndex)
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     material.setRefractiveIndex(refIndex2);
-    EXPECT_EQ(refIndex2, material.getRefractiveIndex());
+    EXPECT_EQ(refIndex2, material.refractiveIndex());
 
 //    Eigen::Matrix2cd matrix2 = material.getPolarizedSLD(wavevectors);
 //    EXPECT_EQ(complex_t(-5.0,12.0), matrix2(0,0));
@@ -40,7 +40,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndexParam)
 {
     HomogeneousMaterial material("Material1", 2.0, 2.0);
     EXPECT_EQ("Material1", material.getName());
-    EXPECT_EQ(complex_t(-1.0,2.0), material.getRefractiveIndex());
+    EXPECT_EQ(complex_t(-1.0,2.0), material.refractiveIndex());
 
 //    cvector_t k(1.0, 0.0, 0.0);
 //    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
@@ -60,7 +60,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialTransform)
     const IMaterial * tMaterial = material.createTransformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("Material1", tMaterial->getName());
-    EXPECT_EQ(refIndex, tMaterial->getRefractiveIndex());
+    EXPECT_EQ(refIndex, tMaterial->refractiveIndex());
 
 //    cvector_t k(1.0, 0.0, 0.0);
 //    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
@@ -81,7 +81,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
     HomogeneousMaterial * clone = material.clone();
 
     EXPECT_EQ("Material1", clone->getName());
-    EXPECT_EQ(refIndex, clone->getRefractiveIndex());
+    EXPECT_EQ(refIndex, clone->refractiveIndex());
 
 //    cvector_t k(1.0, 0.0, 0.0);
 //    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
@@ -93,7 +93,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     clone->setRefractiveIndex(refIndex2);
-    EXPECT_EQ(refIndex2, clone->getRefractiveIndex());
+    EXPECT_EQ(refIndex2, clone->refractiveIndex());
 
 //    Eigen::Matrix2cd matrix2 = clone->getPolarizedSLD(wavevectors);
 //    EXPECT_EQ(complex_t(-5.0,12.0), matrix2(0,0));
@@ -105,7 +105,7 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
     const IMaterial * tMaterial = clone->createTransformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("Material1", tMaterial->getName());
-    EXPECT_EQ(refIndex2, tMaterial->getRefractiveIndex());
+    EXPECT_EQ(refIndex2, tMaterial->refractiveIndex());
 
     delete tMaterial;
     delete clone;

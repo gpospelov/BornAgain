@@ -39,7 +39,7 @@ public:
     HomogeneousMagneticMaterial* cloneInverted() const final;
 
     //! Get the magnetic field (in Tesla)
-    kvector_t getMagneticField() const;
+    kvector_t magneticField() const;
 
     //! Set the magnetic field (in Tesla)
     void setMagneticField(const kvector_t magnetic_field) { m_magnetic_field = magnetic_field; }
@@ -47,12 +47,12 @@ public:
     bool isScalarMaterial() const final { return false; }
 
 #ifndef SWIG
-    virtual Eigen::Matrix2cd getPolarizedSLD(const WavevectorInfo& wavevectors) const;
+    virtual Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
 
     //! Get the scattering matrix for a material defined by its magnetization (experimental)
-    Eigen::Matrix2cd getPolarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
+    Eigen::Matrix2cd polarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
 
-    virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k, double n_ref) const;
+    virtual Eigen::Matrix2cd polarizedFresnel(const kvector_t k, double n_ref) const;
 #endif
 
     const IMaterial* createTransformedMaterial(const Transform3D& transform) const final;

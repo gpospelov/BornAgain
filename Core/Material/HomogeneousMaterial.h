@@ -37,7 +37,7 @@ public:
     HomogeneousMaterial* clone() const override;
     HomogeneousMaterial* cloneInverted() const override;
 
-    complex_t getRefractiveIndex() const override;
+    complex_t refractiveIndex() const override;
     void setRefractiveIndex(const complex_t refractive_index);
 
     const IMaterial* createTransformedMaterial(const Transform3D& transform) const override;

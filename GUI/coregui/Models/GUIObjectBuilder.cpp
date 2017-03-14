@@ -113,8 +113,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     TransformFromDomain::setItemFromSample(&beamItem, simulation);
 
     // detector
-    auto& detectorItem = instrumentItem->item<DetectorContainerItem>(InstrumentItem::P_DETECTOR);
-    TransformFromDomain::setItemFromSample(&detectorItem, simulation);
+    TransformFromDomain::setInstrumentDetectorFromSample(instrumentItem, simulation);
 
     // detector masks
     TransformFromDomain::setDetectorMasks(instrumentItem->detectorItem(), simulation);

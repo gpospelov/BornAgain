@@ -56,6 +56,7 @@
 #include "Units.h"
 #include "VectorItem.h"
 #include "ParameterTreeUtils.h"
+#include "InstrumentItem.h"
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
@@ -221,30 +222,29 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
     }
 }
 
-void TransformFromDomain::setItemFromSample(DetectorContainerItem* detectorItem,
+void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
                                             const GISASSimulation& simulation)
 {
-    Q_ASSERT(detectorItem);
     const IDetector2D* iDetector = simulation.getInstrument().getDetector();
+
     if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
-        auto item = dynamic_cast<SphericalDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorContainerItem::P_DETECTOR,
-                                             Constants::SphericalDetectorType));
-        Q_ASSERT(item);
-        setItemFromSample(item,* detector);
+        instrumentItem->setDetectorGroup(Constants::SphericalDetectorType);
+        auto item = dynamic_cast<SphericalDetectorItem*> (instrumentItem->detectorItem());
+        setItemFromSample(item, *detector);
     }
 
     else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
-        auto item = dynamic_cast<RectangularDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorContainerItem::P_DETECTOR,
-                                             Constants::RectangularDetectorType));
+        instrumentItem->setDetectorGroup(Constants::RectangularDetectorType);
+        auto item = dynamic_cast<RectangularDetectorItem*> (instrumentItem->detectorItem());
+        setItemFromSample(item, *detector);
+
         Q_ASSERT(item);
         setItemFromSample(item,* detector);
     }
 
     else {
         throw GUIHelpers::Error(
-            "TransformFromDomain::setItemFromSample(DetectorItem*) -> Unknown detector type.");
+            "TransformFromDomain::setInstrumentDetectorFromSample(DetectorItem*) -> Unknown detector type.");
     }
 }
 

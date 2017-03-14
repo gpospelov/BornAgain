@@ -38,6 +38,8 @@ public:
     DetectorItem *detectorItem() const;
     GroupItem* detectorGroup();
 
+    void setDetectorGroup(const QString& modelType);
+
     void clearMasks();
 
     void importMasks(MaskContainerItem* maskContainer);

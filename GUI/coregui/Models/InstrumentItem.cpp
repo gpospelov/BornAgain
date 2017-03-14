@@ -67,6 +67,11 @@ GroupItem* InstrumentItem::detectorGroup()
     return &detectorContainerItem()->item<GroupItem>(DetectorContainerItem::P_DETECTOR);
 }
 
+void InstrumentItem::setDetectorGroup(const QString& modelType)
+{
+    detectorContainerItem()->setGroupProperty(DetectorContainerItem::P_DETECTOR, modelType);
+}
+
 void InstrumentItem::clearMasks()
 {
     detectorContainerItem()->clearMasks();

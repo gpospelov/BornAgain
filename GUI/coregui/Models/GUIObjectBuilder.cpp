@@ -50,6 +50,7 @@
 #include "TransformFromDomain.h"
 #include "TransformationItem.h"
 #include "InstrumentItem.h"
+#include "DetectorItems.h"
 #include "Units.h"
 #include "VectorItem.h"
 
@@ -111,13 +112,11 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     TransformFromDomain::setItemFromSample(&beamItem, simulation);
 
     // detector
-    DetectorContainerItem* detectorItem = dynamic_cast<DetectorContainerItem*>(instrumentModel->insertNewItem(
-        Constants::DetectorContainerType, instrumentModel->indexOfItem(instrumentItem)));
-    TransformFromDomain::setItemFromSample(detectorItem, simulation);
+    auto& detectorItem = instrumentItem->item<DetectorContainerItem>(InstrumentItem::P_DETECTOR);
+    TransformFromDomain::setItemFromSample(&detectorItem, simulation);
 
     // detector masks
-    TransformFromDomain::setDetectorMasks(detectorItem, simulation);
-
+    TransformFromDomain::setDetectorMasks(&detectorItem, simulation);
 
     return instrumentItem;
 }

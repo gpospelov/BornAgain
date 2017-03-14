@@ -111,8 +111,6 @@ void InstrumentView::onAddInstrument()
 {
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
-    m_instrumentModel->insertNewItem(
-        Constants::DetectorContainerType, m_instrumentModel->indexOfItem(instrument));
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
     m_instrumentSelector->getSelectionModel()->clearSelection();
     m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);

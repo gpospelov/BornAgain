@@ -17,11 +17,11 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "ILayout.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-Layer::Layer(const IMaterial& material, double thickness)
+Layer::Layer(const HomogeneousMaterial& material, double thickness)
     : mp_material(nullptr), m_thickness(thickness)
 {
     setName(BornAgain::LayerType);
@@ -61,7 +61,7 @@ void Layer::setThickness(double thickness)
 }
 
 //! Sets _material_ of the layer.
-void Layer::setMaterial(const IMaterial& material)
+void Layer::setMaterial(const HomogeneousMaterial& material)
 {
     delete mp_material;
     mp_material = material.clone();
@@ -72,7 +72,7 @@ complex_t Layer::refractiveIndex() const
     return mp_material ? mp_material->refractiveIndex() : 1.0;
 }
 
-//TODO: remove this in favor of the IMaterial methods (or rename)
+//TODO: remove this in favor of the HomogeneousMaterial methods (or rename)
 complex_t Layer::refractiveIndex2() const
 {
     return refractiveIndex()*refractiveIndex();

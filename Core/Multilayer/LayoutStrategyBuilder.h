@@ -24,7 +24,7 @@ class FormFactorCoherentSum;
 class IFormFactor;
 class IInterferenceFunctionStrategy;
 class ILayout;
-class IMaterial;
+class HomogeneousMaterial;
 class IParticle;
 class IFresnelMap;
 class MultiLayer;

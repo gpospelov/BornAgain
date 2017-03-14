@@ -16,7 +16,7 @@
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCoreShell.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "Particle.h"
 
 ParticleCoreShell::ParticleCoreShell(
@@ -80,9 +80,9 @@ IFormFactor* ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const
 
     // set core ambient material (needs to be rotated separately, AFTER applying
     // ParticleCoreShell's rotation to the clone of the shell particle)
-    const IMaterial* p_shell_material = P_shell->material();
+    const HomogeneousMaterial* p_shell_material = P_shell->material();
     if (p_shell_material) {
-        const std::unique_ptr<const IMaterial> P_transformed_material(
+        const std::unique_ptr<const HomogeneousMaterial> P_transformed_material(
                     p_shell_material->createTransformedMaterial(
                         P_shell->rotation()->getTransform3D()));
         P_ff_core->setAmbientMaterial(*P_transformed_material);

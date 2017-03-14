@@ -34,7 +34,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    void setAmbientMaterial(const IMaterial& material) override {
+    void setAmbientMaterial(const HomogeneousMaterial& material) override {
         mp_basis_form_factor->setAmbientMaterial(material);
     }
 

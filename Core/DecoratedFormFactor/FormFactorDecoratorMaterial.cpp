@@ -15,7 +15,7 @@
 
 #include "FormFactorDecoratorMaterial.h"
 #include "BornAgainNamespace.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "MathConstants.h"
 #include "WavevectorInfo.h"
 
@@ -39,13 +39,13 @@ FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
     return P_result.release();
 }
 
-void FormFactorDecoratorMaterial::setMaterial(const IMaterial& material)
+void FormFactorDecoratorMaterial::setMaterial(const HomogeneousMaterial& material)
 {
     if (mP_material.get() != &material)
         mP_material.reset(material.clone());
 }
 
-void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial& material)
+void FormFactorDecoratorMaterial::setAmbientMaterial(const HomogeneousMaterial& material)
 {
     if (mP_ambient_material.get() != &material)
         mP_ambient_material.reset(material.clone());

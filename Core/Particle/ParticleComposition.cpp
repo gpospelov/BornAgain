@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "FormFactorWeighted.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "ParticleDistribution.h"
 
 ParticleComposition::ParticleComposition()

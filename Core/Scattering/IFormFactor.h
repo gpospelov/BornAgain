@@ -22,7 +22,7 @@
 #include "Vectors3D.h"
 #include "ZLimits.h"
 
-class IMaterial;
+class HomogeneousMaterial;
 class ILayerRTCoefficients;
 class IRotation;
 class WavevectorInfo;
@@ -50,7 +50,7 @@ public:
                                         kvector_t translation) const;
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial&) =0;
+    virtual void setAmbientMaterial(const HomogeneousMaterial&) =0;
 
     //! Returns scattering amplitude for complex wavevectors ki, kf.
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;

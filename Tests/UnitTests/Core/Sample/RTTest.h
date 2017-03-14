@@ -1,7 +1,7 @@
 //! Numeric tests of scalar RT computation.
 
 #include "BornAgainNamespace.h"
-#include "HomogeneousMagneticMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "Layer.h"
 #include "LayerInterface.h"

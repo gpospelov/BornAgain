@@ -1,74 +1,61 @@
 #include "HomogeneousMaterial.h"
 #include "Rotations.h"
 #include "Units.h"
-#include "WavevectorInfo.h"
 
-class HomogeneousMaterialTest : public ::testing :: Test
+class HomogeneousMaterialTest : public ::testing::Test
 {
 public:
     HomogeneousMaterialTest() {}
-    virtual ~HomogeneousMaterialTest(){}
+    virtual ~HomogeneousMaterialTest() {}
 };
 
 TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndex)
 {
     complex_t refIndex = complex_t(1.0, 2.0);
-    HomogeneousMaterial material("Material1", refIndex);
-    EXPECT_EQ("Material1", material.getName());
+    kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
+    HomogeneousMaterial material("MagMaterial", refIndex, magnetism);
+    EXPECT_EQ("MagMaterial", material.getName());
     EXPECT_EQ(refIndex, material.refractiveIndex());
-
-//    cvector_t k(1.0, 0.0, 0.0);
-//    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
-//    Eigen::Matrix2cd matrix = material.getPolarizedSLD(wavevectors);
-//    EXPECT_EQ(complex_t(-3.0,4.0), matrix(0,0));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix(0,1));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix(1,0));
-//    EXPECT_EQ(complex_t(-3.0,4.0), matrix(1,1));
+    EXPECT_EQ(magnetism, material.magneticField());
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     material.setRefractiveIndex(refIndex2);
     EXPECT_EQ(refIndex2, material.refractiveIndex());
 
-//    Eigen::Matrix2cd matrix2 = material.getPolarizedSLD(wavevectors);
-//    EXPECT_EQ(complex_t(-5.0,12.0), matrix2(0,0));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix2(0,1));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix2(1,0));
-//    EXPECT_EQ(complex_t(-5.0,12.0), matrix2(1,1));
+    kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
+    material.setMagneticField(magnetism2);
+    EXPECT_EQ(magnetism2, material.magneticField());
 }
 
-TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndexParam)
+TEST_F(HomogeneousMaterialTest, HomogeneousMaterialWithRefIndexAndMagField)
 {
-    HomogeneousMaterial material("Material1", 2.0, 2.0);
-    EXPECT_EQ("Material1", material.getName());
-    EXPECT_EQ(complex_t(-1.0,2.0), material.refractiveIndex());
+    kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
+    HomogeneousMaterial material("MagMaterial", 2.0, 2.0, magnetism);
+    EXPECT_EQ("MagMaterial", material.getName());
+    EXPECT_EQ(complex_t(-1.0, 2.0), material.refractiveIndex());
+    EXPECT_EQ(magnetism, material.magneticField());
 
-//    cvector_t k(1.0, 0.0, 0.0);
-//    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
-//    Eigen::Matrix2cd matrix = material.getPolarizedSLD(wavevectors);
-//    EXPECT_EQ(complex_t(-3.0,-4.0), matrix(0,0));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix(0,1));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix(1,0));
-//    EXPECT_EQ(complex_t(-3.0,-4.0), matrix(1,1));
+    complex_t refIndex2 = complex_t(2.0, 3.0);
+    material.setRefractiveIndex(refIndex2);
+    EXPECT_EQ(refIndex2, material.refractiveIndex());
+
+    kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
+    material.setMagneticField(magnetism2);
+    EXPECT_EQ(magnetism2, material.magneticField());
 }
 
 TEST_F(HomogeneousMaterialTest, HomogeneousMaterialTransform)
 {
-    complex_t refIndex = complex_t(1.0, 2.0);
-    HomogeneousMaterial material("Material1", refIndex);
+    complex_t refIndex = complex_t(0.0, 0.0);
+    kvector_t magnetism = kvector_t(0.0, 0.0, 0.0);
+    HomogeneousMaterial material("MagMaterial", refIndex, magnetism);
 
     RotationZ transform(45.*Units::degree);
-    const IMaterial * tMaterial = material.createTransformedMaterial(transform.getTransform3D());
+    const HomogeneousMaterial * tMaterial = material.createTransformedMaterial(
+                                                transform.getTransform3D());
 
-    EXPECT_EQ("Material1", tMaterial->getName());
+    EXPECT_EQ("MagMaterial", tMaterial->getName());
     EXPECT_EQ(refIndex, tMaterial->refractiveIndex());
-
-//    cvector_t k(1.0, 0.0, 0.0);
-//    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
-//    Eigen::Matrix2cd matrix = tMaterial->getPolarizedSLD(wavevectors);
-//    EXPECT_EQ(complex_t(-3.0,4.0), matrix(0,0));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix(0,1));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix(1,0));
-//    EXPECT_EQ(complex_t(-3.0,4.0), matrix(1,1));
 
     delete tMaterial;
 }
@@ -76,35 +63,28 @@ TEST_F(HomogeneousMaterialTest, HomogeneousMaterialTransform)
 TEST_F(HomogeneousMaterialTest, HomogeneousMaterialClone)
 {
     complex_t refIndex = complex_t(1.0, 2.0);
-    HomogeneousMaterial material("Material1", refIndex);
+    kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
+    HomogeneousMaterial material("MagMaterial", refIndex, magnetism);
 
     HomogeneousMaterial * clone = material.clone();
 
-    EXPECT_EQ("Material1", clone->getName());
+    EXPECT_EQ("MagMaterial", clone->getName());
     EXPECT_EQ(refIndex, clone->refractiveIndex());
-
-//    cvector_t k(1.0, 0.0, 0.0);
-//    WavevectorInfo wavevectors(k, k, 2.0*M_PI);
-//    Eigen::Matrix2cd matrix = clone->getPolarizedSLD(wavevectors);
-//    EXPECT_EQ(complex_t(-3.0,4.0), matrix(0,0));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix(0,1));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix(1,0));
-//    EXPECT_EQ(complex_t(-3.0,4.0), matrix(1,1));
+    EXPECT_EQ(magnetism, clone->magneticField());
 
     complex_t refIndex2 = complex_t(2.0, 3.0);
     clone->setRefractiveIndex(refIndex2);
     EXPECT_EQ(refIndex2, clone->refractiveIndex());
 
-//    Eigen::Matrix2cd matrix2 = clone->getPolarizedSLD(wavevectors);
-//    EXPECT_EQ(complex_t(-5.0,12.0), matrix2(0,0));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix2(0,1));
-//    EXPECT_EQ(complex_t(0.0,0.0), matrix2(1,0));
-//    EXPECT_EQ(complex_t(-5.0,12.0), matrix2(1,1));
+    kvector_t magnetism2 = kvector_t(5.0, 6.0, 7.0);
+    clone->setMagneticField(magnetism2);
+    EXPECT_EQ(magnetism2, clone->magneticField());
 
     RotationZ transform(45.*Units::degree);
-    const IMaterial * tMaterial = clone->createTransformedMaterial(transform.getTransform3D());
+    const HomogeneousMaterial * tMaterial = clone->createTransformedMaterial(
+                                                transform.getTransform3D());
 
-    EXPECT_EQ("Material1", tMaterial->getName());
+    EXPECT_EQ("MagMaterial", tMaterial->getName());
     EXPECT_EQ(refIndex2, tMaterial->refractiveIndex());
 
     delete tMaterial;

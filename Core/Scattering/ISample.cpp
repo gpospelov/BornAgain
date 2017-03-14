@@ -26,16 +26,16 @@ ISample* ISample::cloneInvertB() const
         "ISample::cloneInvertB() -> Error! Method is not implemented");
 }
 
-std::vector<const IMaterial*> ISample::containedMaterials() const
+std::vector<const HomogeneousMaterial*> ISample::containedMaterials() const
 {
-    std::vector<const IMaterial*> result;
-    if( const IMaterial* p_material = material() )
+    std::vector<const HomogeneousMaterial*> result;
+    if( const HomogeneousMaterial* p_material = material() )
         result.push_back( p_material );
-    if( const IMaterial* p_material = getAmbientMaterial() )
+    if( const HomogeneousMaterial* p_material = getAmbientMaterial() )
         result.push_back( p_material );
     for(auto child: getChildren() ) {
         if(const ISample* sample = dynamic_cast<const ISample *>(child)) {
-            for( const IMaterial* p_material: sample->containedMaterials() )
+            for( const HomogeneousMaterial* p_material: sample->containedMaterials() )
                 result.push_back( p_material );
         }
     }

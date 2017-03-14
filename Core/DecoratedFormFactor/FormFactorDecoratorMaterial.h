@@ -19,7 +19,7 @@
 #include "IFormFactorDecorator.h"
 #include <memory>
 
-class IMaterial;
+class HomogeneousMaterial;
 
 //! Decorates a scalar formfactor with the correct factor for the material's
 //! refractive index and that of its surrounding material.
@@ -37,10 +37,10 @@ public:
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     //! Sets the material of the scatterer
-    void setMaterial(const IMaterial& material);
+    void setMaterial(const HomogeneousMaterial& material);
 
     //! Sets the ambient material
-    void setAmbientMaterial(const IMaterial& material) override;
+    void setAmbientMaterial(const HomogeneousMaterial& material) override;
 
     complex_t getAmbientRefractiveIndex() const;
 
@@ -53,8 +53,8 @@ public:
 private:
     complex_t getRefractiveIndexFactor(const WavevectorInfo& wavevectors) const;
 
-    std::unique_ptr<IMaterial> mP_material;
-    std::unique_ptr<IMaterial> mP_ambient_material;
+    std::unique_ptr<HomogeneousMaterial> mP_material;
+    std::unique_ptr<HomogeneousMaterial> mP_ambient_material;
 };
 
 #endif // FORMFACTORDECORATORMATERIAL_H

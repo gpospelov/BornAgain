@@ -26,9 +26,9 @@ const QString MaterialItem::P_REFRACTIVE_INDEX = "Refractive index";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
 MaterialItem::MaterialItem()
-    : SessionItem(Constants::MaterialType)
+    : SessionItem(Constants::HomogeneousMaterialType)
 {
-    setItemName(Constants::MaterialType);
+    setItemName(Constants::HomogeneousMaterialType);
 
     ColorProperty color;
     addProperty(P_COLOR, color.getVariant());
@@ -48,7 +48,7 @@ QColor MaterialItem::getColor() const
     return property.getColor();
 }
 
-std::unique_ptr<IMaterial> MaterialItem::createMaterial() const
+std::unique_ptr<HomogeneousMaterial> MaterialItem::createMaterial() const
 {
     const RefractiveIndexItem *refractiveIndexItem
         = dynamic_cast<const RefractiveIndexItem *>(

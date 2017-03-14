@@ -47,7 +47,7 @@ double FormFactorCoreShell::topZ(const IRotation& rotation) const
     return mP_shell->topZ(rotation);
 }
 
-void FormFactorCoreShell::setAmbientMaterial(const IMaterial& material)
+void FormFactorCoreShell::setAmbientMaterial(const HomogeneousMaterial& material)
 {
     mP_shell->setAmbientMaterial(material);
 }

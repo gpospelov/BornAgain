@@ -17,7 +17,7 @@
 #define PARTICLE_H
 
 #include "IParticle.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
 
@@ -28,9 +28,9 @@ class BA_CORE_API_ Particle : public IParticle
 {
 public:
     Particle();
-    Particle(const IMaterial& p_material);
-    Particle(const IMaterial& p_material, const IFormFactor& form_factor);
-    Particle(const IMaterial& p_material, const IFormFactor& form_factor,
+    Particle(const HomogeneousMaterial& p_material);
+    Particle(const HomogeneousMaterial& p_material, const IFormFactor& form_factor);
+    Particle(const HomogeneousMaterial& p_material, const IFormFactor& form_factor,
              const IRotation& rotation);
 
     Particle* clone() const override final;
@@ -42,8 +42,8 @@ public:
 
     IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
-    void setMaterial(const IMaterial& material);
-    const IMaterial* material() const override final { return mP_material.get(); }
+    void setMaterial(const HomogeneousMaterial& material);
+    const HomogeneousMaterial* material() const override final { return mP_material.get(); }
 
     complex_t refractiveIndex() const;
 
@@ -53,7 +53,7 @@ public:
     std::vector<const INode*> getChildren() const override final;
 
 protected:
-    std::unique_ptr<IMaterial> mP_material;
+    std::unique_ptr<HomogeneousMaterial> mP_material;
     std::unique_ptr<IFormFactor> mP_form_factor;
 private:
     void initialize();

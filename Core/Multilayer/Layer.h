@@ -21,7 +21,7 @@
 #include "SafePointerVector.h"
 
 class ILayout;
-class IMaterial;
+class HomogeneousMaterial;
 
 //! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
@@ -29,7 +29,7 @@ class IMaterial;
 class BA_CORE_API_ Layer : public ISample
 {
 public:
-    Layer(const IMaterial& material, double thickness = 0);
+    Layer(const HomogeneousMaterial& material, double thickness = 0);
 
     ~Layer() final;
 
@@ -41,8 +41,8 @@ public:
     void setThickness(double thickness);
     double thickness() const { return m_thickness; }
 
-    void setMaterial(const IMaterial& material);
-    const IMaterial* material() const { return mp_material; }
+    void setMaterial(const HomogeneousMaterial& material);
+    const HomogeneousMaterial* material() const { return mp_material; }
 
     complex_t refractiveIndex() const;
     complex_t refractiveIndex2() const; //!< squared refractive index
@@ -61,7 +61,7 @@ public:
 private:
     Layer(const Layer& other);
 
-    IMaterial* mp_material;   //!< pointer to the material
+    HomogeneousMaterial* mp_material;   //!< pointer to the material
     double m_thickness;       //!< layer thickness in nanometers
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
 };

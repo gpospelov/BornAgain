@@ -2846,7 +2846,7 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
-%feature("docstring")  FormFactorCoreShell::setAmbientMaterial "void FormFactorCoreShell::setAmbientMaterial(const IMaterial &material) overridefinal
+%feature("docstring")  FormFactorCoreShell::setAmbientMaterial "void FormFactorCoreShell::setAmbientMaterial(const HomogeneousMaterial &material) overridefinal
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -2886,7 +2886,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorCrystal::setAmbientMaterial "void FormFactorCrystal::setAmbientMaterial(const IMaterial &material) override
+%feature("docstring")  FormFactorCrystal::setAmbientMaterial "void FormFactorCrystal::setAmbientMaterial(const HomogeneousMaterial &material) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -3072,12 +3072,12 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::setMaterial "void FormFactorDecoratorMaterial::setMaterial(const IMaterial &material)
+%feature("docstring")  FormFactorDecoratorMaterial::setMaterial "void FormFactorDecoratorMaterial::setMaterial(const HomogeneousMaterial &material)
 
 Sets the material of the scatterer. 
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::setAmbientMaterial "void FormFactorDecoratorMaterial::setAmbientMaterial(const IMaterial &material) override
+%feature("docstring")  FormFactorDecoratorMaterial::setAmbientMaterial "void FormFactorDecoratorMaterial::setAmbientMaterial(const HomogeneousMaterial &material) override
 
 Sets the ambient material. 
 ";
@@ -3239,7 +3239,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDWBA::setAmbientMaterial "void FormFactorDWBA::setAmbientMaterial(const IMaterial &material) override
+%feature("docstring")  FormFactorDWBA::setAmbientMaterial "void FormFactorDWBA::setAmbientMaterial(const HomogeneousMaterial &material) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -3299,7 +3299,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::setAmbientMaterial "void FormFactorDWBAPol::setAmbientMaterial(const IMaterial &material) override
+%feature("docstring")  FormFactorDWBAPol::setAmbientMaterial "void FormFactorDWBAPol::setAmbientMaterial(const HomogeneousMaterial &material) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -4646,7 +4646,7 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 %feature("docstring")  FormFactorWeighted::addFormFactor "void FormFactorWeighted::addFormFactor(const IFormFactor &form_factor, double weight=1.0)
 ";
 
-%feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(const IMaterial &material) overridefinal
+%feature("docstring")  FormFactorWeighted::setAmbientMaterial "void FormFactorWeighted::setAmbientMaterial(const HomogeneousMaterial &material) overridefinal
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -5536,80 +5536,20 @@ Add to values in histograms channels from numpy array,.
 ";
 
 
-// File: classHomogeneousMagneticMaterial.xml
-%feature("docstring") HomogeneousMagneticMaterial "
-
-A homogeneous material with magnetization.
-
-C++ includes: HomogeneousMagneticMaterial.h
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::HomogeneousMagneticMaterial "HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, const complex_t refractive_index, const kvector_t magnetic_field)
-
-Constructs a material with  name,  refractive_index and  magnetic_field
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::HomogeneousMagneticMaterial "HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field)
-
-Constructs a material with  name, refractive_index parameters and  magnetic_field
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::clone "HomogeneousMagneticMaterial * HomogeneousMagneticMaterial::clone() const final
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::cloneInverted "HomogeneousMagneticMaterial * HomogeneousMagneticMaterial::cloneInverted() const final
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::magneticField "kvector_t HomogeneousMagneticMaterial::magneticField() const
-
-Get the magnetic field (in Tesla) 
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::setMagneticField "void HomogeneousMagneticMaterial::setMagneticField(const kvector_t magnetic_field)
-
-Set the magnetic field (in Tesla) 
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::isScalarMaterial "bool HomogeneousMagneticMaterial::isScalarMaterial() const final
-
-Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::polarizedSLD "Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedSLD(const WavevectorInfo &wavevectors) const
-
-Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::polarizedSLDExperimental "Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedSLDExperimental(const WavevectorInfo &wavevectors) const
-
-Get the scattering matrix for a material defined by its magnetization (experimental) 
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::polarizedFresnel "Eigen::Matrix2cd HomogeneousMagneticMaterial::polarizedFresnel(const kvector_t k, double n_ref) const
-
-Return the potential term that is used in the one-dimensional Fresnel calculations. 
-";
-
-%feature("docstring")  HomogeneousMagneticMaterial::createTransformedMaterial "const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Transform3D &transform) const final
-
-Create a new material that is transformed with respect to this one. 
-";
-
-
 // File: classHomogeneousMaterial.xml
 %feature("docstring") HomogeneousMaterial "
 
-An homogeneous material with a refractive index.
+An homogeneous material with a refractive index and (optionally) a magnetic field.
 
 C++ includes: HomogeneousMaterial.h
 ";
 
-%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t refractive_index)
+%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t refractive_index, const kvector_t magnetic_field=kvector_t())
 
 Constructs a material with  name and  refractive_index. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta)
+%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field=kvector_t())
 
 Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 ";
@@ -5617,21 +5557,56 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 %feature("docstring")  HomogeneousMaterial::~HomogeneousMaterial "HomogeneousMaterial::~HomogeneousMaterial()
 ";
 
-%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const override
+%feature("docstring")  HomogeneousMaterial::clone "HomogeneousMaterial * HomogeneousMaterial::clone() const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::cloneInverted "HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const override
+%feature("docstring")  HomogeneousMaterial::cloneInverted "HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::refractiveIndex "complex_t HomogeneousMaterial::refractiveIndex() const override
+%feature("docstring")  HomogeneousMaterial::refractiveIndex "complex_t HomogeneousMaterial::refractiveIndex() const 
 ";
 
 %feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 ";
 
-%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const override
+%feature("docstring")  HomogeneousMaterial::isScalarMaterial "bool HomogeneousMaterial::isScalarMaterial() const
 
-Create a new material that is transformed with respect to this one. 
+Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
+";
+
+%feature("docstring")  HomogeneousMaterial::isMagneticMaterial "bool HomogeneousMaterial::isMagneticMaterial() const 
+";
+
+%feature("docstring")  HomogeneousMaterial::magneticField "kvector_t HomogeneousMaterial::magneticField() const
+
+Get the magnetic field (in Tesla) 
+";
+
+%feature("docstring")  HomogeneousMaterial::setMagneticField "void HomogeneousMaterial::setMagneticField(const kvector_t magnetic_field)
+
+Set the magnetic field (in Tesla) 
+";
+
+%feature("docstring")  HomogeneousMaterial::scalarSLD "complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo &wavevectors) const 
+";
+
+%feature("docstring")  HomogeneousMaterial::scalarFresnel "complex_t HomogeneousMaterial::scalarFresnel(const kvector_t k, double n_ref) const
+
+Return the potential term that is used in the one-dimensional Fresnel calculations. 
+";
+
+%feature("docstring")  HomogeneousMaterial::polarizedSLD "Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo &wavevectors) const 
+";
+
+%feature("docstring")  HomogeneousMaterial::polarizedSLDExperimental "Eigen::Matrix2cd HomogeneousMaterial::polarizedSLDExperimental(const WavevectorInfo &wavevectors) const
+
+Get the scattering matrix for a material defined by its magnetization (experimental) 
+";
+
+%feature("docstring")  HomogeneousMaterial::polarizedFresnel "Eigen::Matrix2cd HomogeneousMaterial::polarizedFresnel(const kvector_t k, double n_ref) const 
+";
+
+%feature("docstring")  HomogeneousMaterial::createTransformedMaterial "const HomogeneousMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const 
 ";
 
 
@@ -6332,7 +6307,7 @@ Returns a clone of this  ISample object.
 Creates a (possibly sliced) form factor with the given rotation and translation. 
 ";
 
-%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const IMaterial &)=0
+%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const HomogeneousMaterial &)=0
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -6394,7 +6369,7 @@ C++ includes: IFormFactorBorn.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(const IMaterial &) override
+%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(const HomogeneousMaterial &) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -6451,7 +6426,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material) override
+%feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(const HomogeneousMaterial &material) override
 
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
@@ -7185,63 +7160,6 @@ Gets the used approximation for particles and interference functions.
 %feature("docstring")  ILayout::setApproximation "void ILayout::setApproximation(EInterferenceApproximation approximation)
 
 Sets the used approximation for particles and interference functions. 
-";
-
-
-// File: classIMaterial.xml
-%feature("docstring") IMaterial "
-
-Interface to a named material.
-
-C++ includes: IMaterial.h
-";
-
-%feature("docstring")  IMaterial::IMaterial "IMaterial::IMaterial(const std::string &name)
-";
-
-%feature("docstring")  IMaterial::~IMaterial "virtual IMaterial::~IMaterial()
-";
-
-%feature("docstring")  IMaterial::clone "virtual IMaterial* IMaterial::clone() const =0
-";
-
-%feature("docstring")  IMaterial::cloneInverted "virtual IMaterial* IMaterial::cloneInverted() const =0
-";
-
-%feature("docstring")  IMaterial::isScalarMaterial "virtual bool IMaterial::isScalarMaterial() const
-
-Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-";
-
-%feature("docstring")  IMaterial::isMagneticMaterial "bool IMaterial::isMagneticMaterial() const 
-";
-
-%feature("docstring")  IMaterial::refractiveIndex "virtual complex_t IMaterial::refractiveIndex() const 
-";
-
-%feature("docstring")  IMaterial::scalarSLD "complex_t IMaterial::scalarSLD(const WavevectorInfo &wavevectors) const
-
-Returns true if *this agrees with other in all parameters. 
-";
-
-%feature("docstring")  IMaterial::scalarFresnel "complex_t IMaterial::scalarFresnel(const kvector_t k, double n_ref) const
-
-Return the potential term that is used in the one-dimensional Fresnel calculations. 
-";
-
-%feature("docstring")  IMaterial::polarizedSLD "Eigen::Matrix2cd IMaterial::polarizedSLD(const WavevectorInfo &wavevectors) const
-
-Get the scattering matrix (~potential V) from the material. This matrix appears in the full three-dimensional Schroedinger equation. 
-";
-
-%feature("docstring")  IMaterial::polarizedFresnel "Eigen::Matrix2cd IMaterial::polarizedFresnel(const kvector_t k, double n_ref) const
-
-Return the potential term that is used in the one-dimensional Fresnel calculations. 
-";
-
-%feature("docstring")  IMaterial::createTransformedMaterial "virtual const IMaterial* IMaterial::createTransformedMaterial(const Transform3D &transform) const =0
-
-Create a new material that is transformed with respect to this one. 
 ";
 
 
@@ -8751,17 +8669,17 @@ Returns a clone of this  ISample object.
 Returns a clone with inverted magnetic fields. 
 ";
 
-%feature("docstring")  ISample::material "virtual const IMaterial* ISample::material() const
+%feature("docstring")  ISample::material "virtual const HomogeneousMaterial* ISample::material() const
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::getAmbientMaterial "virtual const IMaterial* ISample::getAmbientMaterial() const
+%feature("docstring")  ISample::getAmbientMaterial "virtual const HomogeneousMaterial* ISample::getAmbientMaterial() const
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::containedMaterials "std::vector< const IMaterial * > ISample::containedMaterials() const
+%feature("docstring")  ISample::containedMaterials "std::vector< const HomogeneousMaterial * > ISample::containedMaterials() const
 
 Returns set of unique materials contained in this  ISample. 
 ";
@@ -9208,7 +9126,7 @@ A layer, with thickness (in nanometer) and material.
 C++ includes: Layer.h
 ";
 
-%feature("docstring")  Layer::Layer "Layer::Layer(const IMaterial &material, double thickness=0)
+%feature("docstring")  Layer::Layer "Layer::Layer(const HomogeneousMaterial &material, double thickness=0)
 ";
 
 %feature("docstring")  Layer::~Layer "Layer::~Layer() final
@@ -9237,12 +9155,12 @@ Sets layer thickness in nanometers.
 %feature("docstring")  Layer::thickness "double Layer::thickness() const 
 ";
 
-%feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const IMaterial &material)
+%feature("docstring")  Layer::setMaterial "void Layer::setMaterial(const HomogeneousMaterial &material)
 
 Sets  material of the layer. 
 ";
 
-%feature("docstring")  Layer::material "const IMaterial* Layer::material() const
+%feature("docstring")  Layer::material "const HomogeneousMaterial* Layer::material() const
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
@@ -10663,13 +10581,13 @@ C++ includes: Particle.h
 %feature("docstring")  Particle::Particle "Particle::Particle()
 ";
 
-%feature("docstring")  Particle::Particle "Particle::Particle(const IMaterial &p_material)
+%feature("docstring")  Particle::Particle "Particle::Particle(const HomogeneousMaterial &p_material)
 ";
 
-%feature("docstring")  Particle::Particle "Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor)
+%feature("docstring")  Particle::Particle "Particle::Particle(const HomogeneousMaterial &p_material, const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  Particle::Particle "Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation)
+%feature("docstring")  Particle::Particle "Particle::Particle(const HomogeneousMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation)
 ";
 
 %feature("docstring")  Particle::clone "Particle * Particle::clone() const overridefinal
@@ -10692,10 +10610,10 @@ Calls the  INodeVisitor's visit method.
 Create a sliced form factor for this particle. 
 ";
 
-%feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const IMaterial &material)
+%feature("docstring")  Particle::setMaterial "void Particle::setMaterial(const HomogeneousMaterial &material)
 ";
 
-%feature("docstring")  Particle::material "const IMaterial* Particle::material() const overridefinal
+%feature("docstring")  Particle::material "const HomogeneousMaterial* Particle::material() const overridefinal
 
 Returns nullptr, unless overwritten to return a specific material. 
 ";
@@ -12028,7 +11946,7 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::getLabelLayout "std::string SampleLabelHandler::getLabelLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelMaterial "std::string SampleLabelHandler::getLabelMaterial(const IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::getLabelMaterial "std::string SampleLabelHandler::getLabelMaterial(const HomogeneousMaterial *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::getLabelRotation "std::string SampleLabelHandler::getLabelRotation(const IRotation *sample)
@@ -12052,7 +11970,7 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::getLabelParticleDistribution "std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistribution *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const IMaterial *sample)
+%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const HomogeneousMaterial *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertFormFactor "void SampleLabelHandler::insertFormFactor(const IFormFactor *sample)
@@ -12672,7 +12590,7 @@ Represents a single slice, constructed from the division of a layer into (possib
 C++ includes: Slice.h
 ";
 
-%feature("docstring")  Slice::Slice "Slice::Slice(const IMaterial &material, double thickness, const LayerRoughness *top_roughness=nullptr)
+%feature("docstring")  Slice::Slice "Slice::Slice(const HomogeneousMaterial &material, double thickness, const LayerRoughness *top_roughness=nullptr)
 ";
 
 %feature("docstring")  Slice::~Slice "Slice::~Slice()
@@ -13519,22 +13437,22 @@ C++ includes: ZLimits.h
 // File: namespace_0D267.xml
 
 
-// File: namespace_0D279.xml
+// File: namespace_0D275.xml
 
 
-// File: namespace_0D309.xml
+// File: namespace_0D305.xml
 
 
-// File: namespace_0D311.xml
+// File: namespace_0D307.xml
 
 
-// File: namespace_0D324.xml
+// File: namespace_0D320.xml
 
 
-// File: namespace_0D363.xml
+// File: namespace_0D359.xml
 
 
-// File: namespace_0D473.xml
+// File: namespace_0D469.xml
 
 
 // File: namespace_0D60.xml
@@ -14906,22 +14824,21 @@ make Swappable
 // File: Rectangle_8h.xml
 
 
-// File: HomogeneousMagneticMaterial_8cpp.xml
-
-
-// File: HomogeneousMagneticMaterial_8h.xml
-
-
 // File: HomogeneousMaterial_8cpp.xml
+%feature("docstring")  Unit_Matrix "static const Eigen::Matrix2cd Unit_Matrix(Eigen::Matrix2cd::Identity())
+";
+
+%feature("docstring")  Pauli_X "static const Eigen::Matrix2cd Pauli_X((Eigen::Matrix2cd()<< 0, 1, 1, 0).finished())
+";
+
+%feature("docstring")  Pauli_Y "static const Eigen::Matrix2cd Pauli_Y((Eigen::Matrix2cd()<< 0,-I, I, 0).finished())
+";
+
+%feature("docstring")  Pauli_Z "static const Eigen::Matrix2cd Pauli_Z((Eigen::Matrix2cd()<< 1, 0, 0,-1).finished())
+";
 
 
 // File: HomogeneousMaterial_8h.xml
-
-
-// File: IMaterial_8cpp.xml
-
-
-// File: IMaterial_8h.xml
 
 
 // File: DecouplingApproximationStrategy_8cpp.xml

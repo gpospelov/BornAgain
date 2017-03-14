@@ -44,7 +44,7 @@ public:
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 
-    void setAmbientMaterial(const IMaterial& material) override final;
+    void setAmbientMaterial(const HomogeneousMaterial& material) override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 

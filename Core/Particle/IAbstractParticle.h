@@ -21,7 +21,7 @@
 #include "BornAgainNamespace.h"
 #include <memory>
 
-class IMaterial;
+class HomogeneousMaterial;
 
 //! Interface for a generic particle.
 //!

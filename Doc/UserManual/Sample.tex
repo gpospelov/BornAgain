@@ -72,9 +72,9 @@ A \ttIdx{Layer} is constructed through the following API:
 \begin{lstlisting}
 class Layer {
     Layer();
-    Layer(const IMaterial& material, double thickness=0);
+    Layer(const HomogeneousMaterial& material, double thickness=0);
     void setThickness(double thickness);
-    void setMaterial(const IMaterial& material);
+    void setMaterial(const HomogeneousMaterial& material);
     void addLayout(const ParticleLayout& decoration);
 };
 \end{lstlisting}
@@ -95,7 +95,7 @@ Scattering from different layouts adds incoherently.
 \section{Material}\label{SRefMat}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Material classes all inherit from the pure virtual interface class \ttIdx{IMaterial}.
+Material classes all inherit from the pure virtual interface class \ttIdx{HomogeneousMaterial}.
 Currently, BornAgain only supports homogeneous materials.
 They can be either nonmagnetic or magnetic.
 A nonmagnetic \ttIdx{HomogeneousMaterial} is created through the API

@@ -20,7 +20,7 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <iomanip>
@@ -237,7 +237,7 @@ int MultiLayer::indexOfLayer(const Layer* layer) const
 
 bool MultiLayer::containsMagneticMaterial() const
 {
-    for (const IMaterial* mat: containedMaterials())
+    for (const HomogeneousMaterial* mat: containedMaterials())
         if (mat->isMagneticMaterial())
             return true;
     return false;

@@ -19,7 +19,7 @@
 #include "Crystal.h"
 #include "Distributions.h"
 #include "GISASSimulation.h"
-#include "HomogeneousMagneticMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "IFormFactor.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
@@ -180,7 +180,7 @@ std::string ExportToPython::defineMaterials() const
         if (visitedMaterials.find(it->second) != visitedMaterials.end())
             continue;
         visitedMaterials.insert(it->second);
-        const IMaterial* p_material = it->first;
+        const HomogeneousMaterial* p_material = it->first;
         complex_t ri = p_material->refractiveIndex();
         double delta = 1.0 - std::real(ri);
         double beta = std::imag(ri);
@@ -190,18 +190,12 @@ std::string ExportToPython::defineMaterials() const
                    << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ")\n";
         } else {
-            const HomogeneousMagneticMaterial* p_mag_material
-                = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
-            if (p_mag_material == 0)
-                throw Exceptions::RuntimeErrorException(
-                    "ExportToPython::defineMaterials: "
-                    "Non scalar material should be of type HomogeneousMagneticMaterial");
-            kvector_t magnetic_field = p_mag_material->magneticField();
+            kvector_t magnetic_field = p_material->magneticField();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ", "
                    << ")\n";
             result << indent() << m_label->getLabelMaterial(p_material)
-                   << " = ba.HomogeneousMagneticMaterial(\"" << p_material->getName();
+                   << " = ba.HomogeneousMaterial(\"" << p_material->getName();
             result << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ", "
                    << "magnetic_field)\n";

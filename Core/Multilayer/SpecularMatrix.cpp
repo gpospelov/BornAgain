@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "SpecularMatrix.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"

@@ -51,7 +51,7 @@
 #include "Units.h"
 #include "VectorItem.h"
 
-std::unique_ptr<IMaterial> TransformToDomain::createDomainMaterial(const SessionItem& item)
+std::unique_ptr<HomogeneousMaterial> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
     MaterialProperty material_property;
     if (item.modelType() == Constants::ParticleType) {

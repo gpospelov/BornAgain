@@ -19,7 +19,7 @@
 #include "IParticle.h"
 
 class IClusteredParticles;
-class IMaterial;
+class HomogeneousMaterial;
 
 //! A particle with an internal structure of smaller particles.
 //! @ingroup samples

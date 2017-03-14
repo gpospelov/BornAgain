@@ -4645,9 +4645,9 @@ class ISample(ICloneable, INode):
 
     def material(self):
         """
-        material(ISample self) -> IMaterial
+        material(ISample self) -> HomogeneousMaterial
 
-        virtual const IMaterial* ISample::material() const
+        virtual const HomogeneousMaterial* ISample::material() const
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -4657,9 +4657,9 @@ class ISample(ICloneable, INode):
 
     def getAmbientMaterial(self):
         """
-        getAmbientMaterial(ISample self) -> IMaterial
+        getAmbientMaterial(ISample self) -> HomogeneousMaterial
 
-        virtual const IMaterial* ISample::getAmbientMaterial() const
+        virtual const HomogeneousMaterial* ISample::getAmbientMaterial() const
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -4669,9 +4669,9 @@ class ISample(ICloneable, INode):
 
     def containedMaterials(self):
         """
-        containedMaterials(ISample self) -> std::vector< IMaterial const *,std::allocator< IMaterial const * > >
+        containedMaterials(ISample self) -> std::vector< HomogeneousMaterial const *,std::allocator< HomogeneousMaterial const * > >
 
-        std::vector< const IMaterial * > ISample::containedMaterials() const
+        std::vector< const HomogeneousMaterial * > ISample::containedMaterials() const
 
         Returns set of unique materials contained in this  ISample. 
 
@@ -10687,9 +10687,9 @@ class IFormFactor(ISample):
 
     def setAmbientMaterial(self, arg0):
         """
-        setAmbientMaterial(IFormFactor self, IMaterial arg0)
+        setAmbientMaterial(IFormFactor self, HomogeneousMaterial arg0)
 
-        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)=0
+        virtual void IFormFactor::setAmbientMaterial(const HomogeneousMaterial &)=0
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -11070,9 +11070,9 @@ class IFormFactorBorn(IFormFactor):
 
     def setAmbientMaterial(self, arg0):
         """
-        setAmbientMaterial(IFormFactorBorn self, IMaterial arg0)
+        setAmbientMaterial(IFormFactorBorn self, HomogeneousMaterial arg0)
 
-        void IFormFactorBorn::setAmbientMaterial(const IMaterial &) override
+        void IFormFactorBorn::setAmbientMaterial(const HomogeneousMaterial &) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -11246,9 +11246,9 @@ class IFormFactorDecorator(IFormFactor):
 
     def setAmbientMaterial(self, material):
         """
-        setAmbientMaterial(IFormFactorDecorator self, IMaterial material)
+        setAmbientMaterial(IFormFactorDecorator self, HomogeneousMaterial material)
 
-        void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material) override
+        void IFormFactorDecorator::setAmbientMaterial(const HomogeneousMaterial &material) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -12396,9 +12396,9 @@ class FormFactorCrystal(IFormFactor):
 
     def setAmbientMaterial(self, material):
         """
-        setAmbientMaterial(FormFactorCrystal self, IMaterial material)
+        setAmbientMaterial(FormFactorCrystal self, HomogeneousMaterial material)
 
-        void FormFactorCrystal::setAmbientMaterial(const IMaterial &material) override
+        void FormFactorCrystal::setAmbientMaterial(const HomogeneousMaterial &material) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -15792,9 +15792,9 @@ class FormFactorWeighted(IFormFactor):
 
     def setAmbientMaterial(self, material):
         """
-        setAmbientMaterial(FormFactorWeighted self, IMaterial material)
+        setAmbientMaterial(FormFactorWeighted self, HomogeneousMaterial material)
 
-        void FormFactorWeighted::setAmbientMaterial(const IMaterial &material) overridefinal
+        void FormFactorWeighted::setAmbientMaterial(const HomogeneousMaterial &material) overridefinal
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -17420,152 +17420,34 @@ def Histogram2D_dynamicCast(pHistogram):
     """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
     return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
-class IMaterial(INamed):
+class HomogeneousMaterial(INamed):
     """
 
 
-    Interface to a named material.
-
-    C++ includes: IMaterial.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [INamed]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IMaterial, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INamed]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IMaterial, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IMaterial
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(IMaterial self) -> IMaterial
-
-        virtual IMaterial* IMaterial::clone() const =0
-
-        """
-        return _libBornAgainCore.IMaterial_clone(self)
-
-
-    def cloneInverted(self):
-        """
-        cloneInverted(IMaterial self) -> IMaterial
-
-        virtual IMaterial* IMaterial::cloneInverted() const =0
-
-        """
-        return _libBornAgainCore.IMaterial_cloneInverted(self)
-
-
-    def isScalarMaterial(self):
-        """
-        isScalarMaterial(IMaterial self) -> bool
-
-        virtual bool IMaterial::isScalarMaterial() const
-
-        Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-
-        """
-        return _libBornAgainCore.IMaterial_isScalarMaterial(self)
-
-
-    def isMagneticMaterial(self):
-        """
-        isMagneticMaterial(IMaterial self) -> bool
-
-        bool IMaterial::isMagneticMaterial() const 
-
-        """
-        return _libBornAgainCore.IMaterial_isMagneticMaterial(self)
-
-
-    def refractiveIndex(self):
-        """
-        refractiveIndex(IMaterial self) -> complex_t
-
-        virtual complex_t IMaterial::refractiveIndex() const 
-
-        """
-        return _libBornAgainCore.IMaterial_refractiveIndex(self)
-
-
-    def scalarSLD(self, wavevectors):
-        """
-        scalarSLD(IMaterial self, WavevectorInfo wavevectors) -> complex_t
-
-        complex_t IMaterial::scalarSLD(const WavevectorInfo &wavevectors) const
-
-        Returns true if *this agrees with other in all parameters. 
-
-        """
-        return _libBornAgainCore.IMaterial_scalarSLD(self, wavevectors)
-
-
-    def scalarFresnel(self, k, n_ref):
-        """
-        scalarFresnel(IMaterial self, kvector_t k, double n_ref) -> complex_t
-
-        complex_t IMaterial::scalarFresnel(const kvector_t k, double n_ref) const
-
-        Return the potential term that is used in the one-dimensional Fresnel calculations. 
-
-        """
-        return _libBornAgainCore.IMaterial_scalarFresnel(self, k, n_ref)
-
-
-    def createTransformedMaterial(self, transform):
-        """
-        createTransformedMaterial(IMaterial self, Transform3D const & transform) -> IMaterial
-
-        virtual const IMaterial* IMaterial::createTransformedMaterial(const Transform3D &transform) const =0
-
-        Create a new material that is transformed with respect to this one. 
-
-        """
-        return _libBornAgainCore.IMaterial_createTransformedMaterial(self, transform)
-
-
-    def __eq__(self, other):
-        """__eq__(IMaterial self, IMaterial other) -> bool"""
-        return _libBornAgainCore.IMaterial___eq__(self, other)
-
-IMaterial_swigregister = _libBornAgainCore.IMaterial_swigregister
-IMaterial_swigregister(IMaterial)
-
-class HomogeneousMaterial(IMaterial):
-    """
-
-
-    An homogeneous material with a refractive index.
+    An homogeneous material with a refractive index and (optionally) a magnetic field.
 
     C++ includes: HomogeneousMaterial.h
 
     """
 
     __swig_setmethods__ = {}
-    for _s in [IMaterial]:
+    for _s in [INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, HomogeneousMaterial, name, value)
     __swig_getmethods__ = {}
-    for _s in [IMaterial]:
+    for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, HomogeneousMaterial, name)
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         """
+        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetic_field) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
-        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta)
+        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field=kvector_t())
 
         Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 
@@ -17582,7 +17464,7 @@ class HomogeneousMaterial(IMaterial):
         """
         clone(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        HomogeneousMaterial * HomogeneousMaterial::clone() const override
+        HomogeneousMaterial * HomogeneousMaterial::clone() const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_clone(self)
@@ -17592,7 +17474,7 @@ class HomogeneousMaterial(IMaterial):
         """
         cloneInverted(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const override
+        HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_cloneInverted(self)
@@ -17602,7 +17484,7 @@ class HomogeneousMaterial(IMaterial):
         """
         refractiveIndex(HomogeneousMaterial self) -> complex_t
 
-        complex_t HomogeneousMaterial::refractiveIndex() const override
+        complex_t HomogeneousMaterial::refractiveIndex() const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_refractiveIndex(self)
@@ -17618,127 +17500,85 @@ class HomogeneousMaterial(IMaterial):
         return _libBornAgainCore.HomogeneousMaterial_setRefractiveIndex(self, refractive_index)
 
 
+    def isScalarMaterial(self):
+        """
+        isScalarMaterial(HomogeneousMaterial self) -> bool
+
+        bool HomogeneousMaterial::isScalarMaterial() const
+
+        Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
+
+        """
+        return _libBornAgainCore.HomogeneousMaterial_isScalarMaterial(self)
+
+
+    def isMagneticMaterial(self):
+        """
+        isMagneticMaterial(HomogeneousMaterial self) -> bool
+
+        bool HomogeneousMaterial::isMagneticMaterial() const 
+
+        """
+        return _libBornAgainCore.HomogeneousMaterial_isMagneticMaterial(self)
+
+
+    def magneticField(self):
+        """
+        magneticField(HomogeneousMaterial self) -> kvector_t
+
+        kvector_t HomogeneousMaterial::magneticField() const
+
+        Get the magnetic field (in Tesla) 
+
+        """
+        return _libBornAgainCore.HomogeneousMaterial_magneticField(self)
+
+
+    def setMagneticField(self, magnetic_field):
+        """
+        setMagneticField(HomogeneousMaterial self, kvector_t magnetic_field)
+
+        void HomogeneousMaterial::setMagneticField(const kvector_t magnetic_field)
+
+        Set the magnetic field (in Tesla) 
+
+        """
+        return _libBornAgainCore.HomogeneousMaterial_setMagneticField(self, magnetic_field)
+
+
+    def scalarSLD(self, wavevectors):
+        """
+        scalarSLD(HomogeneousMaterial self, WavevectorInfo wavevectors) -> complex_t
+
+        complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo &wavevectors) const 
+
+        """
+        return _libBornAgainCore.HomogeneousMaterial_scalarSLD(self, wavevectors)
+
+
+    def scalarFresnel(self, k, n_ref):
+        """
+        scalarFresnel(HomogeneousMaterial self, kvector_t k, double n_ref) -> complex_t
+
+        complex_t HomogeneousMaterial::scalarFresnel(const kvector_t k, double n_ref) const
+
+        Return the potential term that is used in the one-dimensional Fresnel calculations. 
+
+        """
+        return _libBornAgainCore.HomogeneousMaterial_scalarFresnel(self, k, n_ref)
+
+
     def createTransformedMaterial(self, transform):
         """
-        createTransformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> IMaterial
+        createTransformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> HomogeneousMaterial
 
-        const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const override
-
-        Create a new material that is transformed with respect to this one. 
+        const HomogeneousMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_createTransformedMaterial(self, transform)
 
 HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
 HomogeneousMaterial_swigregister(HomogeneousMaterial)
-
-class HomogeneousMagneticMaterial(HomogeneousMaterial):
-    """
-
-
-    A homogeneous material with magnetization.
-
-    C++ includes: HomogeneousMagneticMaterial.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [HomogeneousMaterial]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, HomogeneousMagneticMaterial, name, value)
-    __swig_getmethods__ = {}
-    for _s in [HomogeneousMaterial]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, HomogeneousMagneticMaterial, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(HomogeneousMagneticMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetic_field) -> HomogeneousMagneticMaterial
-        __init__(HomogeneousMagneticMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMagneticMaterial
-
-        HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field)
-
-        Constructs a material with  name, refractive_index parameters and  magnetic_field
-
-        """
-        this = _libBornAgainCore.new_HomogeneousMagneticMaterial(*args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def clone(self):
-        """
-        clone(HomogeneousMagneticMaterial self) -> HomogeneousMagneticMaterial
-
-        HomogeneousMagneticMaterial * HomogeneousMagneticMaterial::clone() const final
-
-        """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_clone(self)
-
-
-    def cloneInverted(self):
-        """
-        cloneInverted(HomogeneousMagneticMaterial self) -> HomogeneousMagneticMaterial
-
-        HomogeneousMagneticMaterial * HomogeneousMagneticMaterial::cloneInverted() const final
-
-        """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_cloneInverted(self)
-
-
-    def magneticField(self):
-        """
-        magneticField(HomogeneousMagneticMaterial self) -> kvector_t
-
-        kvector_t HomogeneousMagneticMaterial::magneticField() const
-
-        Get the magnetic field (in Tesla) 
-
-        """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_magneticField(self)
-
-
-    def setMagneticField(self, magnetic_field):
-        """
-        setMagneticField(HomogeneousMagneticMaterial self, kvector_t magnetic_field)
-
-        void HomogeneousMagneticMaterial::setMagneticField(const kvector_t magnetic_field)
-
-        Set the magnetic field (in Tesla) 
-
-        """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_setMagneticField(self, magnetic_field)
-
-
-    def isScalarMaterial(self):
-        """
-        isScalarMaterial(HomogeneousMagneticMaterial self) -> bool
-
-        bool HomogeneousMagneticMaterial::isScalarMaterial() const final
-
-        Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-
-        """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_isScalarMaterial(self)
-
-
-    def createTransformedMaterial(self, transform):
-        """
-        createTransformedMaterial(HomogeneousMagneticMaterial self, Transform3D const & transform) -> IMaterial
-
-        const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Transform3D &transform) const final
-
-        Create a new material that is transformed with respect to this one. 
-
-        """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_createTransformedMaterial(self, transform)
-
-    __swig_destroy__ = _libBornAgainCore.delete_HomogeneousMagneticMaterial
-    __del__ = lambda self: None
-HomogeneousMagneticMaterial_swigregister = _libBornAgainCore.HomogeneousMagneticMaterial_swigregister
-HomogeneousMagneticMaterial_swigregister(HomogeneousMagneticMaterial)
 
 class IDetector2D(ICloneable, INode):
     """
@@ -21652,10 +21492,10 @@ class Layer(ISample):
 
     def __init__(self, material, thickness=0):
         """
-        __init__(Layer self, IMaterial material, double thickness=0) -> Layer
-        __init__(Layer self, IMaterial material) -> Layer
+        __init__(Layer self, HomogeneousMaterial material, double thickness=0) -> Layer
+        __init__(Layer self, HomogeneousMaterial material) -> Layer
 
-        Layer::Layer(const IMaterial &material, double thickness=0)
+        Layer::Layer(const HomogeneousMaterial &material, double thickness=0)
 
         """
         this = _libBornAgainCore.new_Layer(material, thickness)
@@ -21726,9 +21566,9 @@ class Layer(ISample):
 
     def setMaterial(self, material):
         """
-        setMaterial(Layer self, IMaterial material)
+        setMaterial(Layer self, HomogeneousMaterial material)
 
-        void Layer::setMaterial(const IMaterial &material)
+        void Layer::setMaterial(const HomogeneousMaterial &material)
 
         Sets  material of the layer. 
 
@@ -21738,9 +21578,9 @@ class Layer(ISample):
 
     def material(self):
         """
-        material(Layer self) -> IMaterial
+        material(Layer self) -> HomogeneousMaterial
 
-        const IMaterial* Layer::material() const
+        const HomogeneousMaterial* Layer::material() const
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -23964,11 +23804,11 @@ class Particle(IParticle):
     def __init__(self, *args):
         """
         __init__(Particle self) -> Particle
-        __init__(Particle self, IMaterial p_material) -> Particle
-        __init__(Particle self, IMaterial p_material, IFormFactor form_factor) -> Particle
-        __init__(Particle self, IMaterial p_material, IFormFactor form_factor, IRotation rotation) -> Particle
+        __init__(Particle self, HomogeneousMaterial p_material) -> Particle
+        __init__(Particle self, HomogeneousMaterial p_material, IFormFactor form_factor) -> Particle
+        __init__(Particle self, HomogeneousMaterial p_material, IFormFactor form_factor, IRotation rotation) -> Particle
 
-        Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation)
+        Particle::Particle(const HomogeneousMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation)
 
         """
         this = _libBornAgainCore.new_Particle(*args)
@@ -24027,9 +23867,9 @@ class Particle(IParticle):
 
     def setMaterial(self, material):
         """
-        setMaterial(Particle self, IMaterial material)
+        setMaterial(Particle self, HomogeneousMaterial material)
 
-        void Particle::setMaterial(const IMaterial &material)
+        void Particle::setMaterial(const HomogeneousMaterial &material)
 
         """
         return _libBornAgainCore.Particle_setMaterial(self, material)
@@ -24037,9 +23877,9 @@ class Particle(IParticle):
 
     def material(self):
         """
-        material(Particle self) -> IMaterial
+        material(Particle self) -> HomogeneousMaterial
 
-        const IMaterial* Particle::material() const overridefinal
+        const HomogeneousMaterial* Particle::material() const overridefinal
 
         Returns nullptr, unless overwritten to return a specific material. 
 

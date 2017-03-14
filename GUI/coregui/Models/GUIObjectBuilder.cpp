@@ -26,7 +26,7 @@
 #include "FormFactors.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "InstrumentModel.h"
 #include "IMultiLayerBuilder.h"
 #include "Layer.h"
@@ -625,7 +625,7 @@ void GUIObjectBuilder::buildPositionInfo(SessionItem* particleItem, const IParti
 }
 
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
-        const IMaterial* material)
+        const HomogeneousMaterial* material)
 {
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
 

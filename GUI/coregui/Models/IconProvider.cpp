@@ -27,7 +27,7 @@ QIcon IconProvider::icon(const SessionItem *item)
         result.addPixmap(QPixmap(":/images/gisas_instrument.png"), QIcon::Selected);
     }
 
-    else if(item->modelType() == Constants::MaterialType) {
+    else if(item->modelType() == Constants::HomogeneousMaterialType) {
         if(const MaterialItem *materialItem = dynamic_cast<const MaterialItem *>(item)) {
             QPixmap pixmap(10,10);
             pixmap.fill(materialItem->getColor());

@@ -16,20 +16,20 @@
 #include "Particle.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 
 Particle::Particle()
 {
     initialize();
 }
 
-Particle::Particle(const IMaterial& p_material)
+Particle::Particle(const HomogeneousMaterial& p_material)
     : mP_material(p_material.clone())
 {
     initialize();
 }
 
-Particle::Particle(const IMaterial& p_material, const IFormFactor& form_factor)
+Particle::Particle(const HomogeneousMaterial& p_material, const IFormFactor& form_factor)
     : mP_material(p_material.clone())
     , mP_form_factor(form_factor.clone())
 {
@@ -37,7 +37,7 @@ Particle::Particle(const IMaterial& p_material, const IFormFactor& form_factor)
     registerChild(mP_form_factor.get());
 }
 
-Particle::Particle(const IMaterial& p_material, const IFormFactor& form_factor,
+Particle::Particle(const HomogeneousMaterial& p_material, const IFormFactor& form_factor,
                    const IRotation& rotation)
     : mP_material(p_material.clone())
     , mP_form_factor(form_factor.clone())
@@ -88,14 +88,14 @@ IFormFactor* Particle::createSlicedFormFactor(ZLimits limits) const
                 mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
     FormFactorDecoratorMaterial* p_ff = new FormFactorDecoratorMaterial(*P_temp_ff);
     if (mP_material) {
-        const std::unique_ptr<const IMaterial> P_transformed_material(
+        const std::unique_ptr<const HomogeneousMaterial> P_transformed_material(
                     mP_material->createTransformedMaterial(P_rotation->getTransform3D()));
         p_ff->setMaterial(*P_transformed_material);
     }
     return p_ff;
 }
 
-void Particle::setMaterial(const IMaterial& material)
+void Particle::setMaterial(const HomogeneousMaterial& material)
 {
     if(mP_material.get() != &material)
         mP_material.reset(material.clone());

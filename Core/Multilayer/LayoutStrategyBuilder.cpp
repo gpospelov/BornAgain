@@ -109,7 +109,7 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
             P_ff_framework.reset(ff_pair.first->clone());
 
         size_t layer_index = ff_pair.second;
-        const IMaterial* p_layer_material = mp_multilayer->layer(layer_index)->material();
+        const HomogeneousMaterial* p_layer_material = mp_multilayer->layer(layer_index)->material();
         P_ff_framework->setAmbientMaterial(*p_layer_material);
 
         auto part = FormFactorCoherentPart(P_ff_framework.release());

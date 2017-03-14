@@ -36,17 +36,20 @@ MaterialModel *MaterialModel::createCopy(SessionItem *parent)
 
 MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)
 {
-    MaterialItem *materialItem = dynamic_cast<MaterialItem *>(insertNewItem(Constants::MaterialType));
+    MaterialItem *materialItem = dynamic_cast<MaterialItem *>(
+                                     insertNewItem(Constants::HomogeneousMaterialType));
     materialItem->setItemName(name);
 
     RefractiveIndexItem *refractiveIndexItem =
-            dynamic_cast<RefractiveIndexItem *>(materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
+            dynamic_cast<RefractiveIndexItem *>(
+                materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
     Q_ASSERT(refractiveIndexItem);
 
     refractiveIndexItem->setDelta(delta);
     refractiveIndexItem->setBeta(beta);
 
-    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
+    materialItem->setItemValue(MaterialItem::P_COLOR,
+                               MaterialUtils::suggestMaterialColorProperty(name).getVariant());
 
     return materialItem;
 }

@@ -89,7 +89,9 @@ bool ModelPath::isValidItem(SessionModel* model, SessionItem* item, const QModel
 bool ModelPath::isTranslatable(const SessionItem* item, const QString& par_name)
 {
     Q_UNUSED(item);
-    if (par_name.contains(InstrumentItem::P_DETECTOR))
+    if (par_name.contains(Constants::SphericalDetectorType))
+        return false;
+    if (par_name.contains(Constants::RectangularDetectorType))
         return false;
     if (par_name.contains(Constants::DistributionSigmaFactor))
         return false;

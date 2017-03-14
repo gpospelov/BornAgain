@@ -22,7 +22,6 @@
 
 class BeamDistributionItem;
 class BeamItem;
-class DetectorContainerItem;
 class FormFactorAnisoPyramid;
 class GISASSimulation;
 class InterferenceFunction1DLattice;

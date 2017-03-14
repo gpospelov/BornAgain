@@ -21,37 +21,6 @@
 #include "IDetector2D.h"
 #include "ResolutionFunctionItems.h"
 
-const QString DetectorContainerItem::P_DETECTOR = "DetectorType";
-
-DetectorContainerItem::DetectorContainerItem() : SessionItem(Constants::DetectorContainerType)
-{
-    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
-    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
-}
-
-void DetectorContainerItem::clearMasks() { detectorItem()->clearMasks(); }
-
-DetectorItem* DetectorContainerItem::detectorItem() const
-{
-    DetectorItem* detectorItem = dynamic_cast<DetectorItem*>(getGroupItem(P_DETECTOR));
-    Q_ASSERT(detectorItem);
-    return detectorItem;
-}
-
-MaskContainerItem* DetectorContainerItem::maskContainerItem() const
-{
-    return detectorItem()->maskContainerItem();
-}
-
-void DetectorContainerItem::createMaskContainer() { detectorItem()->createMaskContainer(); }
-
-void DetectorContainerItem::importMasks(MaskContainerItem* maskContainer)
-{
-    detectorItem()->importMasks(maskContainer);
-}
-
-// --------------------------------------------------------------------------------------------- //
-
 const QString DetectorItem::T_MASKS = "Mask tag";
 const QString DetectorItem::P_RESOLUTION_FUNCTION = "Type";
 

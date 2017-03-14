@@ -24,7 +24,7 @@
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 const QString InstrumentItem::P_BEAM = "Beam";
-const QString InstrumentItem::P_DETECTOR = "Data tag";
+const QString InstrumentItem::P_DETECTOR = "Detector";
 
 InstrumentItem::InstrumentItem()
     : SessionItem(Constants::InstrumentType)
@@ -34,51 +34,41 @@ InstrumentItem::InstrumentItem()
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
     addGroupProperty(P_BEAM, Constants::BeamType);
-    addGroupProperty(P_DETECTOR, Constants::DetectorContainerType);
 
-//    const QString T_DATA = "Data tag";
-//    registerTag(T_DATA, 0, -1, QStringList() << Constants::DetectorContainerType);
+    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
+
     setDefaultTag(P_DETECTOR);
 }
 
 BeamItem *InstrumentItem::beamItem() const
 {
-    for(SessionItem *item : childItems())
-        if(item->modelType() == Constants::BeamType)
-            return dynamic_cast<BeamItem *>(item);
-    return 0;
-}
-
-DetectorContainerItem *InstrumentItem::detectorContainerItem() const
-{
-    for(SessionItem *item : childItems())
-        if(item->modelType() == Constants::DetectorContainerType)
-            return dynamic_cast<DetectorContainerItem *>(item);
-    return 0;
+    return &item<BeamItem>(InstrumentItem::P_BEAM);
 }
 
 DetectorItem* InstrumentItem::detectorItem() const
 {
-    return detectorContainerItem()->detectorItem();
+    DetectorItem* result = dynamic_cast<DetectorItem*>(getGroupItem(P_DETECTOR));
+    Q_ASSERT(result);
+    return result;
 }
 
 GroupItem* InstrumentItem::detectorGroup()
 {
-    return &detectorContainerItem()->item<GroupItem>(DetectorContainerItem::P_DETECTOR);
+    return &item<GroupItem>(P_DETECTOR);
 }
 
 void InstrumentItem::setDetectorGroup(const QString& modelType)
 {
-    detectorContainerItem()->setGroupProperty(DetectorContainerItem::P_DETECTOR, modelType);
+    setGroupProperty(P_DETECTOR, modelType);
 }
 
 void InstrumentItem::clearMasks()
 {
-    detectorContainerItem()->clearMasks();
+    detectorItem()->clearMasks();
 }
 
 void InstrumentItem::importMasks(MaskContainerItem* maskContainer)
 {
-    DetectorContainerItem *detectorContainer = detectorContainerItem();
-    detectorContainer->importMasks(maskContainer);
+    detectorItem()->importMasks(maskContainer);
 }

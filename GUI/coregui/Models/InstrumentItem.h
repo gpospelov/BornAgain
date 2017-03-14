@@ -20,7 +20,6 @@
 #include "SessionItem.h"
 
 class BeamItem;
-class DetectorContainerItem;
 class DetectorItem;
 class MaskContainerItem;
 class GroupItem;
@@ -34,7 +33,6 @@ public:
     InstrumentItem();
 
     BeamItem *beamItem() const;
-    DetectorContainerItem *detectorContainerItem() const;
     DetectorItem *detectorItem() const;
     GroupItem* detectorGroup();
 

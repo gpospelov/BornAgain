@@ -24,25 +24,6 @@ class IDetector2D;
 class IResolutionFunction2D;
 class DetectorItem;
 
-//! DetectorItem, holds masks and either rectangular or spherical detector as sub item
-class BA_CORE_API_ DetectorContainerItem : public SessionItem
-{
-public:
-    static const QString P_DETECTOR;
-    DetectorContainerItem();
-
-    void clearMasks();
-
-    DetectorItem *detectorItem() const;
-
-    MaskContainerItem *maskContainerItem() const;
-
-    void createMaskContainer();
-
-    void importMasks(MaskContainerItem* maskContainer);
-
-};
-
 class BA_CORE_API_ DetectorItem : public SessionItem
 {
 public:
@@ -71,6 +52,5 @@ protected:
 
     void addMasksToDomain(IDetector2D* detector) const;
 };
-
 
 #endif // DETECTORITEMS_H

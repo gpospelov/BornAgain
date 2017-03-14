@@ -98,8 +98,9 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     const GISASSimulation& simulation, const QString& instrumentName)
 {
     Q_ASSERT(instrumentModel);
-    SessionItem* instrumentItem =
-            instrumentModel->insertNewItem(Constants::InstrumentType);
+
+    InstrumentItem* instrumentItem = dynamic_cast<InstrumentItem*>
+            (instrumentModel->insertNewItem(Constants::InstrumentType));
 
     if(instrumentName.isEmpty()) {
         instrumentItem->setItemName(simulation.getInstrument().getName().c_str());
@@ -116,7 +117,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     TransformFromDomain::setItemFromSample(&detectorItem, simulation);
 
     // detector masks
-    TransformFromDomain::setDetectorMasks(&detectorItem, simulation);
+    TransformFromDomain::setDetectorMasks(instrumentItem->detectorItem(), simulation);
 
     return instrumentItem;
 }

@@ -42,8 +42,6 @@ public:
 private:
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;
-    const ILayout* mp_layout;
-    size_t m_layer_index;
 };
 
 #endif // PARTICLELAYOUTCOMPUTATION_H

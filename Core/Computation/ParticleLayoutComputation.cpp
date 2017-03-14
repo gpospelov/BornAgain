@@ -28,8 +28,6 @@ ParticleLayoutComputation::ParticleLayoutComputation(
         const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
         size_t layer_index, const SimulationOptions& options, bool polarized)
     : IComputationTerm(p_multilayer, p_fresnel_map)
-    , mp_layout(p_layout)
-    , m_layer_index(layer_index)
 {
     mP_strategy.reset(LayoutStrategyBuilder(mp_multilayer, p_layout, mp_fresnel_map,
                                             polarized, options, layer_index).createStrategy());

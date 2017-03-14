@@ -40,13 +40,15 @@ MainComputation::MainComputation(
     , m_end_it(end_it)
     , mP_fresnel_map(createFresnelMap(mP_multi_layer.get(), mP_inverted_multilayer.get()))
 {
+    bool polarized = mP_multi_layer->containsMagneticMaterial();
     size_t nLayers = mP_multi_layer->getNumberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->getLayer(i);
         for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
             m_computation_terms.push_back(
                         new ParticleLayoutComputation(mP_multi_layer.get(), mP_fresnel_map.get(),
-                                                      layer->getLayout(j), i));
+                                                      layer->getLayout(j), i,
+                                                      m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())

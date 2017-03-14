@@ -24,13 +24,17 @@
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
-ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
-                                                     const IFresnelMap* p_fresnel_map,
-                                                     const ILayout* p_layout, size_t layer_index)
+ParticleLayoutComputation::ParticleLayoutComputation(
+        const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
+        size_t layer_index, const SimulationOptions& options, bool polarized)
     : IComputationTerm(p_multilayer, p_fresnel_map)
     , mp_layout(p_layout)
     , m_layer_index(layer_index)
-{}
+{
+    mP_strategy.reset(LayoutStrategyBuilder(mp_multilayer, p_layout, mp_fresnel_map,
+                                            polarized, options, layer_index).createStrategy());
+    m_surface_density = p_layout->getTotalParticleSurfaceDensity();
+}
 
 //! Computes scattering intensity for given range of simulation elements.
 void ParticleLayoutComputation::eval(
@@ -40,11 +44,6 @@ void ParticleLayoutComputation::eval(
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
-    const std::unique_ptr<const IInterferenceFunctionStrategy> p_strategy {
-        LayoutStrategyBuilder(mp_multilayer, mp_layout, mp_fresnel_map,
-                             polarized, options, m_layer_index).createStrategy() };
-    double total_surface_density = mp_layout->getTotalParticleSurfaceDensity();
-
     DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
@@ -54,7 +53,7 @@ void ParticleLayoutComputation::eval(
         if (n_layers > 1 && alpha_f < 0) {
             continue; // zero for transmission with multilayers (n>1)
         } else {
-            it->addIntensity(p_strategy->evaluate(*it) * total_surface_density);
+            it->addIntensity(mP_strategy->evaluate(*it) * m_surface_density);
         }
         counter.stepProgress(progress);
     }

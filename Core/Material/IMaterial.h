@@ -38,7 +38,6 @@ public:
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted equally
     virtual bool isScalarMaterial() const { return true; }
-
     bool isMagneticMaterial() const { return !isScalarMaterial(); }
 
     virtual complex_t refractiveIndex() const { return 1.0; }

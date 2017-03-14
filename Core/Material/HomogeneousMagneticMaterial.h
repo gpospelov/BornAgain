@@ -61,18 +61,6 @@ protected:
     void print(std::ostream &ostr) const final;
 
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
-private:
-    //! Function to initialize some private members
-    void initializePrivateMembers();
-    //! This prefactor contains planck's constant, the neutron mass and
-    //! its magnetic moment (units nm^-2 T^-1)
-    static const double m_magnetic_prefactor;
-
-//! The unit matrix
-#ifndef SWIG
-    Eigen::Matrix2cd m_unit_matrix;
-    std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd> > m_pauli_operator;
-#endif
 };
 
 #endif // HOMOGENEOUSMAGNETICMATERIAL_H

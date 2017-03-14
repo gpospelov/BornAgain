@@ -60,6 +60,11 @@ bool IMaterial::operator==(const IMaterial& other) const
     return true;
 }
 
+void IMaterial::print(std::ostream& ostr) const
+{
+    ostr << "IMat:" << getName() << "<" << this << ">";
+}
+
 std::ostream& operator<<(std::ostream& ostr, const IMaterial& m)
 {
     m.print(ostr);

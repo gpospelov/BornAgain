@@ -26,29 +26,24 @@ class BA_CORE_API_ HomogeneousMaterial : public IMaterial
 {
 public:
     //! Constructs a material with _name_ and _refractive_index_.
-    HomogeneousMaterial(const std::string &name, const complex_t refractive_index)
-        : IMaterial(name), m_refractive_index(refractive_index) {}
+    HomogeneousMaterial(const std::string &name, const complex_t refractive_index);
 
     //! Constructs a material with _name_ and refractive_index parameters
     //! delta and beta (n = 1 - delta + i*beta).
     HomogeneousMaterial(const std::string &name, double refractive_index_delta,
                         double refractive_index_beta);
-    virtual ~HomogeneousMaterial() {}
+    ~HomogeneousMaterial() {}
 
-    virtual HomogeneousMaterial* clone() const;
-    virtual HomogeneousMaterial* cloneInverted() const;
+    HomogeneousMaterial* clone() const override;
+    HomogeneousMaterial* cloneInverted() const override;
 
-    virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
-    void setRefractiveIndex(const complex_t refractive_index) {
-        m_refractive_index = refractive_index; }
+    complex_t getRefractiveIndex() const override;
+    void setRefractiveIndex(const complex_t refractive_index);
 
-    //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial* createTransformedMaterial(const Transform3D& transform) const;
+    const IMaterial* createTransformedMaterial(const Transform3D& transform) const override;
 
 protected:
-    virtual void print(std::ostream &ostr) const {
-        ostr << "HomMat:" << getName() << "<" << this << ">{ "
-             << "R=" << m_refractive_index << "}"; }
+    void print(std::ostream &ostr) const override;
 
     complex_t m_refractive_index; //!< complex index of refraction
 };

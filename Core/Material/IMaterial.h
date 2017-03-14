@@ -64,8 +64,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& ostr, const IMaterial& m);
 protected:
-    virtual void print(std::ostream& ostr) const {
-        ostr << "IMat:" << getName() << "<" << this << ">"; }
+    virtual void print(std::ostream& ostr) const;
 };
 
 #endif // IMATERIAL_H

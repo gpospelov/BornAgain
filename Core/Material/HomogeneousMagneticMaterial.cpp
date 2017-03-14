@@ -63,6 +63,11 @@ HomogeneousMagneticMaterial* HomogeneousMagneticMaterial::cloneInverted() const
         getName()+"_inv", getRefractiveIndex(), -getMagneticField());
 }
 
+kvector_t HomogeneousMagneticMaterial::getMagneticField() const
+{
+    return m_magnetic_field;
+}
+
 Eigen::Matrix2cd HomogeneousMagneticMaterial::getPolarizedSLD(
         const WavevectorInfo& wavevectors) const
 {
@@ -113,6 +118,12 @@ const IMaterial* HomogeneousMagneticMaterial::createTransformedMaterial(
     kvector_t mag_field_transformed = transform.transformed(m_magnetic_field);
     return new HomogeneousMagneticMaterial(getName(), getRefractiveIndex(),
             mag_field_transformed);
+}
+
+void HomogeneousMagneticMaterial::print(std::ostream& ostr) const
+{
+    ostr << "HomMagMat:" << getName() << "<" << this << ">{ "
+         << "R=" << m_refractive_index << ", B=" << m_magnetic_field << "}";
 }
 
 void HomogeneousMagneticMaterial::initializePrivateMembers()

@@ -39,34 +39,26 @@ public:
     HomogeneousMagneticMaterial* cloneInverted() const final;
 
     //! Get the magnetic field (in Tesla)
-    kvector_t getMagneticField() const { return m_magnetic_field; }
+    kvector_t getMagneticField() const;
 
     //! Set the magnetic field (in Tesla)
     void setMagneticField(const kvector_t magnetic_field) { m_magnetic_field = magnetic_field; }
 
-    //! Indicates that the material is not scalar. This means that different
-    //! polarization states will be diffracted differently
     bool isScalarMaterial() const final { return false; }
 
 #ifndef SWIG
-    //! Get the scattering matrix (~potential V) from the material.
-    //! This matrix appears in the full three-dimensional Schroedinger equation.
     virtual Eigen::Matrix2cd getPolarizedSLD(const WavevectorInfo& wavevectors) const;
 
     //! Get the scattering matrix for a material defined by its magnetization (experimental)
     Eigen::Matrix2cd getPolarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
 
-    //! Return the potential term that is used in the one-dimensional Fresnel calculations
     virtual Eigen::Matrix2cd getPolarizedFresnel(const kvector_t k, double n_ref) const;
 #endif
 
-    //! Create a new material that is transformed with respect to this one
     const IMaterial* createTransformedMaterial(const Transform3D& transform) const final;
 
 protected:
-    void print(std::ostream &ostr) const final {
-        ostr << "HomMagMat:" << getName() << "<" << this << ">{ "
-             << "R=" << m_refractive_index << ", B=" << m_magnetic_field << "}";  }
+    void print(std::ostream &ostr) const final;
 
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
 private:

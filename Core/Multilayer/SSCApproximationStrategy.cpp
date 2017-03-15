@@ -69,9 +69,19 @@ complex_t SSCApproximationStrategy::calculatePositionOffsetPhase(
 //  class SSCApproximationStrategy1
 // ************************************************************************** //
 
+SSCApproximationStrategy1::SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
+    : IInterferenceFunctionStrategy(sim_params)
+    , m_helper(kappa)
+{}
+
+void SSCApproximationStrategy1::strategy_specific_post_init()
+{
+    m_helper.init(m_formfactor_wrappers);
+}
+
 //! Returns the total scattering intensity for given kf and
-//! for one layer (implied by the given particle form factors).
-//! For each IParticle in the layer layout, the precomputed form factor must be provided.
+//! for one particle layout (implied by the given particle form factors).
+//! For each IParticle in the layout, the precomputed form factor must be provided.
 double SSCApproximationStrategy1::evaluateForList(const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();
@@ -82,8 +92,8 @@ double SSCApproximationStrategy1::evaluateForList(const SimulationElement& sim_e
         diffuse_intensity += fraction * std::norm(ff);
     }
     complex_t mean_ff_norm  = getMeanFormfactorNorm(qp);
-    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
-    complex_t omega = getCharacteristicDistribution(qp);
+    complex_t p2kappa = m_helper.getCharacteristicSizeCoupling(qp, m_formfactor_wrappers);
+    complex_t omega = m_helper.getCharacteristicDistribution(qp, mP_iff.get());
     double interference_intensity = 2.0 * (mean_ff_norm * omega / (1.0 - p2kappa * omega)).real();
     return diffuse_intensity + interference_intensity;
 }
@@ -92,8 +102,9 @@ complex_t SSCApproximationStrategy1::getMeanFormfactorNorm(double qp) const
 {
     complex_t ff_orig=0., ff_conj=0.; // original and conjugated mean formfactor
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
+        double radial_extension = m_formfactor_wrappers[i]->radialExtension();
         complex_t prefac = m_formfactor_wrappers[i]->relativeAbundance()
-            * calculatePositionOffsetPhase(qp, m_kappa, i);
+            * m_helper.calculatePositionOffsetPhase(qp, radial_extension);
         ff_orig += prefac * m_precomputed_ff1[i];
         ff_conj += prefac * std::conj(m_precomputed_ff1[i]);
     }
@@ -103,6 +114,16 @@ complex_t SSCApproximationStrategy1::getMeanFormfactorNorm(double qp) const
 // ************************************************************************** //
 //  class SSCApproximationStrategy2
 // ************************************************************************** //
+
+SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
+    : IInterferenceFunctionStrategy(sim_params)
+    , m_helper(kappa)
+{}
+
+void SSCApproximationStrategy2::strategy_specific_post_init()
+{
+    m_helper.init(m_formfactor_wrappers);
+}
 
 //! Returns the total scattering intensity for given kf and
 //! for one layer (implied by the given particle form factors).
@@ -120,8 +141,8 @@ double SSCApproximationStrategy2::evaluateForList(const SimulationElement& sim_e
     }
     Eigen::Matrix2cd mff_orig, mff_conj; // original and conjugated mean formfactor
     getMeanFormfactors(qp, mff_orig, mff_conj);
-    complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0 * m_kappa);
-    complex_t omega = getCharacteristicDistribution(qp);
+    complex_t p2kappa = m_helper.getCharacteristicSizeCoupling(qp, m_formfactor_wrappers);
+    complex_t omega = m_helper.getCharacteristicDistribution(qp, mP_iff.get());
     Eigen::Matrix2cd interference_matrix
         = (2.0 * omega / (1.0 - p2kappa * omega))
         * sim_element.getAnalyzerOperator() * mff_orig
@@ -139,8 +160,9 @@ void SSCApproximationStrategy2::getMeanFormfactors(
     ff_orig=Eigen::Matrix2cd::Zero();
     ff_conj=Eigen::Matrix2cd::Zero();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
+        double radial_extension = m_formfactor_wrappers[i]->radialExtension();
         complex_t prefac = m_formfactor_wrappers[i]->relativeAbundance()
-            * calculatePositionOffsetPhase(qp, m_kappa, i);
+            * m_helper.calculatePositionOffsetPhase(qp, radial_extension);
         ff_orig += prefac * m_precomputed_ff2[i];
         ff_conj += prefac * m_precomputed_ff2[i].adjoint();
     }

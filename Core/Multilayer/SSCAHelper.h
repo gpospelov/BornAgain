@@ -29,14 +29,17 @@ class IInterferenceFunction;
 class SSCAHelper
 {
 public:
-    SSCAHelper(const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
+    SSCAHelper(double kappa);
 
-    complex_t getCharacteristicDistribution(double qp, const IInterferenceFunction* p_iff) const;
-    complex_t getCharacteristicSizeCoupling(double qp, double kappa,
+    void init(const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
+
+    complex_t getCharacteristicSizeCoupling(double qp,
             const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const;
+    complex_t getCharacteristicDistribution(double qp, const IInterferenceFunction* p_iff) const;
+    complex_t calculatePositionOffsetPhase(double qp, double radial_extension) const;
 
 private:
-    complex_t calculatePositionOffsetPhase(double qp, double kappa, double radial_extension) const;
+    double m_kappa;
     double m_mean_radius;
 };
 

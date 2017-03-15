@@ -19,11 +19,29 @@
 #include "InterferenceFunctionRadialParaCrystal.h"
 
 
-SSCAHelper::SSCAHelper(const SafePointerVector<FormFactorCoherentSum>& ff_wrappers)
-    : m_mean_radius {}
+SSCAHelper::SSCAHelper(double kappa)
+    : m_kappa(kappa)
+    , m_mean_radius {}
+{}
+
+void SSCAHelper::init(const SafePointerVector<FormFactorCoherentSum>& ff_wrappers)
 {
+    m_mean_radius = 0.0;
     for (const auto ffw: ff_wrappers)
         m_mean_radius += ffw->relativeAbundance() * ffw->radialExtension();
+}
+
+complex_t SSCAHelper::getCharacteristicSizeCoupling(double qp,
+        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const
+{
+    complex_t result {};
+    for (auto ffw : ff_wrappers)
+    {
+        double radial_extension = ffw->radialExtension();
+        result += ffw->relativeAbundance() *
+                  calculatePositionOffsetPhase(2.0*qp, radial_extension);
+    }
+    return result;
 }
 
 complex_t SSCAHelper::getCharacteristicDistribution(
@@ -36,21 +54,7 @@ complex_t SSCAHelper::getCharacteristicDistribution(
     return p_iff_radial->FTPDF(qp);
 }
 
-complex_t SSCAHelper::getCharacteristicSizeCoupling(double qp, double kappa,
-        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const
+complex_t SSCAHelper::calculatePositionOffsetPhase(double qp, double radial_extension) const
 {
-    complex_t result {};
-    for (auto ffw : ff_wrappers)
-    {
-        double radial_extension = ffw->radialExtension();
-        result += ffw->relativeAbundance() *
-                  calculatePositionOffsetPhase(qp, kappa, radial_extension);
-    }
-    return result;
-}
-
-complex_t SSCAHelper::calculatePositionOffsetPhase(double qp, double kappa,
-                                                   double radial_extension) const
-{
-    return exp_I(kappa * qp * (radial_extension - m_mean_radius));
+    return exp_I(m_kappa * qp * (radial_extension - m_mean_radius));
 }

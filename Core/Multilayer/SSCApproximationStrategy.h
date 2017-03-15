@@ -18,6 +18,7 @@
 #define SSCAPPROXIMATIONSTRATEGY_H
 
 #include "IInterferenceFunctionStrategy.h"
+#include "SSCAHelper.h"
 
 class SimulationElement;
 
@@ -40,7 +41,7 @@ protected:
     double m_kappa;
 
 private:
-    void strategy_specific_post_init() final;
+    void strategy_specific_post_init();
 };
 
 
@@ -48,17 +49,18 @@ private:
 //! in size-spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SSCApproximationStrategy1 final
-    : public IInterferenceFunctionStrategy1
-    , public SSCApproximationStrategy
+class SSCApproximationStrategy1 final : public IInterferenceFunctionStrategy1
 {
 public:
-    SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
-        : IInterferenceFunctionStrategy(sim_params), SSCApproximationStrategy(kappa) {}
+    SSCApproximationStrategy1(SimulationOptions sim_params, double kappa);
+
+protected:
+    void strategy_specific_post_init() override;
+    double evaluateForList(const SimulationElement& sim_element) const override;
 
 private:
-    double evaluateForList(const SimulationElement& sim_element) const final;
     complex_t getMeanFormfactorNorm(double qp) const;
+    SSCAHelper m_helper;
 };
 
 
@@ -66,17 +68,18 @@ private:
 //! in size-spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SSCApproximationStrategy2 final
-    : public IInterferenceFunctionStrategy2
-    , public SSCApproximationStrategy
+class SSCApproximationStrategy2 final : public IInterferenceFunctionStrategy2
 {
 public:
-    SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
-        : IInterferenceFunctionStrategy(sim_params), SSCApproximationStrategy(kappa) {}
+    SSCApproximationStrategy2(SimulationOptions sim_params, double kappa);
+
+protected:
+    void strategy_specific_post_init() override;
+    double evaluateForList(const SimulationElement& sim_element) const override;
 
 private:
-    double evaluateForList(const SimulationElement& sim_element) const final;
     void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj) const;
+    SSCAHelper m_helper;
 };
 
 #endif // SSCAPPROXIMATIONSTRATEGY_H

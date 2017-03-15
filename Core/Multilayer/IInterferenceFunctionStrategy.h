@@ -34,12 +34,10 @@ class SimulationElement;
 //! Base class of all interference function strategy classes.
 //! Provides an 'evaluate' function that computes the total scattering intensity
 //! from a decorated layer, taking into account a specific inter-particle interference function.
-//! This function uses the low-level function evaluateForList
-//! that is overriden in the derived classes.
-//! Inheritance is used to support scalar and polarized scattering
-//! and to implement different approximation schemes
-//! (DecouplingApproximationStrategy, SSCApproximationStrategy1, and their polarized
-//! counterparts).
+//! This function uses the low-level functions scalarCalculation and polarizedCalculation
+//! that are to be overriden in the derived classes.
+//! Inheritance is used to support different approximation schemes
+//! (DecouplingApproximationStrategy, SSCApproximationStrategy).
 //!
 //! Instantiation of child classes takes place in LayoutStrategyBuilder::createStrategy,
 //! which is called from ParticleLayoutComputation::eval.

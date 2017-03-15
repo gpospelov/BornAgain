@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/IInterferenceFunctionStrategy.h
-//! @brief     Defines classes IInterferenceFunctionStrategy,
-//!              IInterferenceFunctionStrategy1, IInterferenceFunctionStrategy2
+//! @brief     Defines class IInterferenceFunctionStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -35,10 +34,9 @@ class SimulationElement;
 //! Base class of all interference function strategy classes.
 //! Provides an 'evaluate' function that computes the total scattering intensity
 //! from a decorated layer, taking into account a specific inter-particle interference function.
-//! This function uses low-level functions precomputeParticleFormfactors, evaluateForList
-//! that are implemented differently in different inheriting classes.
+//! This function uses the low-level function evaluateForList
+//! that is overriden in the derived classes.
 //! Inheritance is used to support scalar and polarized scattering
-//! (through IInterferenceFunctionStrategy1, IInterferenceFunctionStrategy2)
 //! and to implement different approximation schemes
 //! (DecouplingApproximationStrategy1, SSCApproximationStrategy1, and their polarized
 //! counterparts).
@@ -51,6 +49,9 @@ class SimulationElement;
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
+    typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>
+        matrixFFVector_t;
+
     IInterferenceFunctionStrategy(const SimulationOptions& sim_params);
     virtual ~IInterferenceFunctionStrategy();
 
@@ -62,7 +63,10 @@ public:
 
 protected:
     virtual void strategy_specific_post_init() {}
-    virtual void precomputeParticleFormfactors(const SimulationElement& sim_element) const =0;
+    static std::vector<complex_t> precomputeScalar(const SimulationElement& sim_element,
+            const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
+    static matrixFFVector_t precomputePolarized(const SimulationElement& sim_element,
+            const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
 
     //! Evaluates the intensity for given list of evaluated form factors
     virtual double evaluateForList(const SimulationElement& sim_element) const =0;
@@ -78,35 +82,6 @@ private:
 #ifndef SWIG
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;
 #endif
-};
-
-//! Base class of all scalar interference function strategy classes.
-//! Provides the precomputation of particle form factors.
-
-class BA_CORE_API_ IInterferenceFunctionStrategy1 : public IInterferenceFunctionStrategy
-{
-public:
-    IInterferenceFunctionStrategy1(const SimulationOptions& sim_params);
-
-protected:
-    mutable std::vector<complex_t> m_precomputed_ff1; //!< cached form factor evaluations
-    void precomputeParticleFormfactors(const SimulationElement& sim_element) const final;
-};
-
-//! Base class of all polarized interference function strategy classes.
-//! Provides the precomputation of particle form factors.
-
-class BA_CORE_API_ IInterferenceFunctionStrategy2 : public IInterferenceFunctionStrategy
-{
-public:
-    IInterferenceFunctionStrategy2(const SimulationOptions& sim_params);
-
-    typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>
-        matrixFFVector_t;
-
-protected:
-    mutable matrixFFVector_t m_precomputed_ff2; //!< cached polarized form factors
-    void precomputeParticleFormfactors(const SimulationElement& sim_element) const final;
 };
 
 #endif // IINTERFERENCEFUNCTIONSTRATEGY_H

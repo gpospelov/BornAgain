@@ -25,7 +25,7 @@ class SimulationElement;
 //! in size-spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SSCApproximationStrategy1 final : public IInterferenceFunctionStrategy1
+class SSCApproximationStrategy1 final : public IInterferenceFunctionStrategy
 {
 public:
     SSCApproximationStrategy1(SimulationOptions sim_params, double kappa);
@@ -35,7 +35,7 @@ protected:
     double evaluateForList(const SimulationElement& sim_element) const override;
 
 private:
-    complex_t getMeanFormfactorNorm(double qp) const;
+    complex_t getMeanFormfactorNorm(double qp, const std::vector<complex_t>& precomputed_ff) const;
     SSCAHelper m_helper;
 };
 
@@ -44,7 +44,7 @@ private:
 //! in size-spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SSCApproximationStrategy2 final : public IInterferenceFunctionStrategy2
+class SSCApproximationStrategy2 final : public IInterferenceFunctionStrategy
 {
 public:
     SSCApproximationStrategy2(SimulationOptions sim_params, double kappa);
@@ -54,7 +54,8 @@ protected:
     double evaluateForList(const SimulationElement& sim_element) const override;
 
 private:
-    void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj) const;
+    void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
+                            const matrixFFVector_t& precomputed_ff) const;
     SSCAHelper m_helper;
 };
 

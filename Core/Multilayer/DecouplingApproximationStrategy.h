@@ -25,14 +25,13 @@ class SimulationElement;
 //! in decoupling approximation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecouplingApproximationStrategy1 final
-    : public IInterferenceFunctionStrategy1
+class DecouplingApproximationStrategy1 final : public IInterferenceFunctionStrategy
 {
 public:
     DecouplingApproximationStrategy1(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy1(sim_params) {}
+        : IInterferenceFunctionStrategy(sim_params) {}
 
-private:
+protected:
     double evaluateForList(const SimulationElement& sim_element) const override;
 };
 
@@ -40,14 +39,13 @@ private:
 //! in decoupling approximation.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ DecouplingApproximationStrategy2 final
-    : public IInterferenceFunctionStrategy2
+class DecouplingApproximationStrategy2 final : public IInterferenceFunctionStrategy
 {
 public:
     DecouplingApproximationStrategy2(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy2(sim_params) {}
+        : IInterferenceFunctionStrategy(sim_params) {}
 
-private:
+protected:
     double evaluateForList(const SimulationElement& sim_element) const override;
 };
 

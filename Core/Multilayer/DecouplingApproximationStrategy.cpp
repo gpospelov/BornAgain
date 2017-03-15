@@ -30,8 +30,9 @@ double DecouplingApproximationStrategy1::evaluateForList(
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
+    auto precomputed_ff = precomputeScalar(sim_element, m_formfactor_wrappers);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        complex_t ff = m_precomputed_ff1[i];
+        complex_t ff = precomputed_ff[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
@@ -55,8 +56,9 @@ double DecouplingApproximationStrategy2::evaluateForList(
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
+    auto precomputed_ff = precomputePolarized(sim_element, m_formfactor_wrappers);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        Eigen::Matrix2cd ff = m_precomputed_ff2[i];
+        Eigen::Matrix2cd ff = precomputed_ff[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::evaluateForList() -> "

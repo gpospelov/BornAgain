@@ -20,9 +20,8 @@
 
 SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa,
                                                      bool polarized)
-    : IInterferenceFunctionStrategy(sim_params)
+    : IInterferenceFunctionStrategy(sim_params, polarized)
     , m_helper(kappa)
-    , m_polarized(polarized)
 {}
 
 void SSCApproximationStrategy::strategy_specific_post_init()
@@ -32,15 +31,7 @@ void SSCApproximationStrategy::strategy_specific_post_init()
 
 //! Returns the total scattering intensity for given kf and
 //! for one particle layout (implied by the given particle form factors).
-//! For each IParticle in the layout, the precomputed form factor must be provided.
-double SSCApproximationStrategy::evaluateForList(const SimulationElement& sim_element) const
-{
-    if (!m_polarized)
-        return scalarCalculation(sim_element);
-    else
-        return polarizedCalculation(sim_element);
-}
-
+//! This is the scalar version
 double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();
@@ -58,6 +49,7 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
     return diffuse_intensity + interference_intensity;
 }
 
+//! This is the polarized version
 double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();

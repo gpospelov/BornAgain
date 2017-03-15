@@ -32,16 +32,14 @@ public:
 
 protected:
     void strategy_specific_post_init() override;
-    double evaluateForList(const SimulationElement& sim_element) const override;
+    double scalarCalculation(const SimulationElement& sim_element) const override;
+    double polarizedCalculation(const SimulationElement& sim_element) const override;
 
 private:
-    double scalarCalculation(const SimulationElement& sim_element) const;
-    double polarizedCalculation(const SimulationElement& sim_element) const;
     complex_t getMeanFormfactorNorm(double qp, const std::vector<complex_t>& precomputed_ff) const;
     void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
                             const matrixFFVector_t& precomputed_ff) const;
     SSCAHelper m_helper;
-    bool m_polarized;
 };
 
 #endif // SSCAPPROXIMATIONSTRATEGY_H

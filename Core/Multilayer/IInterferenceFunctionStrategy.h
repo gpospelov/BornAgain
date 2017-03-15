@@ -52,7 +52,7 @@ public:
     typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>
         matrixFFVector_t;
 
-    IInterferenceFunctionStrategy(const SimulationOptions& sim_params);
+    IInterferenceFunctionStrategy(const SimulationOptions& sim_params, bool polarized);
     virtual ~IInterferenceFunctionStrategy();
 
     void init(const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
@@ -68,16 +68,20 @@ protected:
     static matrixFFVector_t precomputePolarized(const SimulationElement& sim_element,
             const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
 
-    //! Evaluates the intensity for given list of evaluated form factors
-    virtual double evaluateForList(const SimulationElement& sim_element) const =0;
+    //! Evaluates the intensity in the scalar case
+    virtual double scalarCalculation(const SimulationElement& sim_element) const =0;
+    //! Evaluates the intensity in the polarized case
+    virtual double polarizedCalculation(const SimulationElement& sim_element) const =0;
 
     SafePointerVector<FormFactorCoherentSum> m_formfactor_wrappers;
     std::unique_ptr<IInterferenceFunction> mP_iff;
     SimulationOptions m_options;
 
 private:
+    double evaluateSinglePoint(const SimulationElement& sim_element) const;
     double MCIntegratedEvaluate(const SimulationElement& sim_element) const;
     double evaluate_for_fixed_angles(double* fractions, size_t dim, void* params) const;
+    bool m_polarized;
 
 #ifndef SWIG
     std::unique_ptr<IntegratorMCMiser<IInterferenceFunctionStrategy>> mP_integrator;

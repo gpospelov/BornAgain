@@ -23,22 +23,12 @@
 
 DecouplingApproximationStrategy::DecouplingApproximationStrategy(
         SimulationOptions sim_params, bool polarized)
-    : IInterferenceFunctionStrategy(sim_params)
-    , m_polarized(polarized)
+    : IInterferenceFunctionStrategy(sim_params, polarized)
 {}
 
 //! Returns the total incoherent and coherent scattering intensity for given kf and
 //! for one particle layout (implied by the given particle form factors).
-//! It calls the scalar or polarized variant as appropriate
-double DecouplingApproximationStrategy::evaluateForList(
-        const SimulationElement& sim_element) const
-{
-    if (!m_polarized)
-        return scalarCalculation(sim_element);
-    else
-        return polarizedCalculation(sim_element);
-}
-
+//! This is the scalar version
 double DecouplingApproximationStrategy::scalarCalculation(
         const SimulationElement& sim_element) const
 {
@@ -49,7 +39,7 @@ double DecouplingApproximationStrategy::scalarCalculation(
         complex_t ff = precomputed_ff[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
-                "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
+                "DecouplingApproximationStrategy::scalarCalculation() -> Error! Amplitude is NaN");
         double fraction = m_formfactor_wrappers[i]->relativeAbundance();
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
@@ -59,6 +49,7 @@ double DecouplingApproximationStrategy::scalarCalculation(
     return intensity + amplitude_norm * (itf_function - 1.0);
 }
 
+//! This is the polarized version
 double DecouplingApproximationStrategy::polarizedCalculation(
         const SimulationElement& sim_element) const
 {
@@ -70,7 +61,7 @@ double DecouplingApproximationStrategy::polarizedCalculation(
         Eigen::Matrix2cd ff = precomputed_ff[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
-                "DecouplingApproximationStrategy::evaluateForList() -> "
+                "DecouplingApproximationStrategy::polarizedCalculation() -> "
                 "Error! Form factor contains NaN or infinite");
         double fraction = m_formfactor_wrappers[i]->relativeAbundance();
         mean_amplitude += fraction * ff;

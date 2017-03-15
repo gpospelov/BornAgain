@@ -26,11 +26,13 @@
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
 
-IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params)
-    : mP_iff {nullptr}
-    , m_options {sim_params}
-    , mP_integrator {make_integrator_miser(
-        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2)}
+IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
+                                                             bool polarized)
+    : mP_iff(nullptr)
+    , m_options(sim_params)
+    , m_polarized(polarized)
+    , mP_integrator(make_integrator_miser(
+        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2) )
 {}
 
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
@@ -57,7 +59,7 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
 {
     if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))
         return MCIntegratedEvaluate(sim_element);
-    return evaluateForList(sim_element);
+    return evaluateSinglePoint(sim_element);
 }
 
 std::vector<complex_t> IInterferenceFunctionStrategy::precomputeScalar(
@@ -83,6 +85,15 @@ IInterferenceFunctionStrategy::precomputePolarized(
     return result;
 }
 
+double IInterferenceFunctionStrategy::evaluateSinglePoint(
+        const SimulationElement& sim_element) const
+{
+    if (!m_polarized)
+        return scalarCalculation(sim_element);
+    else
+        return polarizedCalculation(sim_element);
+}
+
 //! Performs a Monte Carlo integration over the bin for the evaluation of the intensity.
 double IInterferenceFunctionStrategy::MCIntegratedEvaluate(
     const SimulationElement& sim_element) const
@@ -102,5 +113,5 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
     SimulationElement* pars = static_cast<SimulationElement*>(params);
 
     SimulationElement sim_element(*pars, par0, par1);
-    return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element);
+    return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }

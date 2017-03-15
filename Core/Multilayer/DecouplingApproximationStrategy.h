@@ -30,12 +30,8 @@ public:
     DecouplingApproximationStrategy(SimulationOptions sim_params, bool polarized);
 
 protected:
-    double evaluateForList(const SimulationElement& sim_element) const override;
-
-private:
-    double scalarCalculation(const SimulationElement& sim_element) const;
-    double polarizedCalculation(const SimulationElement& sim_element) const;
-    bool m_polarized;
+    double scalarCalculation(const SimulationElement& sim_element) const override;
+    double polarizedCalculation(const SimulationElement& sim_element) const override;
 };
 
 #endif // DECOUPLINGAPPROXIMATIONSTRATEGY_H

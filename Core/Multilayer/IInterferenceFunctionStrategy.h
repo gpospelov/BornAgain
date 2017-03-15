@@ -32,12 +32,12 @@ class IInterferenceFunction;
 class IFresnelMap;
 class SimulationElement;
 
-//! Pure virtual base class of all interference function strategy classes.
+//! Base class of all interference function strategy classes.
 //! Provides an 'evaluate' function that computes the total scattering intensity
 //! from a decorated layer, taking into account a specific inter-particle interference function.
 //! This function uses low-level functions precomputeParticleFormfactors, evaluateForList
 //! that are implemented differently in different inheriting classes.
-//! Multiple inheritance is used to support scalar and polarized scattering
+//! Inheritance is used to support scalar and polarized scattering
 //! (through IInterferenceFunctionStrategy1, IInterferenceFunctionStrategy2)
 //! and to implement different approximation schemes
 //! (DecouplingApproximationStrategy1, SSCApproximationStrategy1, and their polarized
@@ -51,7 +51,6 @@ class SimulationElement;
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
-    IInterferenceFunctionStrategy();
     IInterferenceFunctionStrategy(const SimulationOptions& sim_params);
     virtual ~IInterferenceFunctionStrategy();
 
@@ -81,31 +80,32 @@ private:
 #endif
 };
 
-//! Pure virtual base class of all scalar interference function strategy classes.
+//! Base class of all scalar interference function strategy classes.
 //! Provides the precomputation of particle form factors.
 
-class BA_CORE_API_ IInterferenceFunctionStrategy1 : public virtual IInterferenceFunctionStrategy
+class BA_CORE_API_ IInterferenceFunctionStrategy1 : public IInterferenceFunctionStrategy
 {
+public:
+    IInterferenceFunctionStrategy1(const SimulationOptions& sim_params);
+
 protected:
     mutable std::vector<complex_t> m_precomputed_ff1; //!< cached form factor evaluations
-
-private:
     void precomputeParticleFormfactors(const SimulationElement& sim_element) const final;
 };
 
-//! Pure virtual base class of all polarized interference function strategy classes.
+//! Base class of all polarized interference function strategy classes.
 //! Provides the precomputation of particle form factors.
 
-class BA_CORE_API_ IInterferenceFunctionStrategy2 : public virtual IInterferenceFunctionStrategy
+class BA_CORE_API_ IInterferenceFunctionStrategy2 : public IInterferenceFunctionStrategy
 {
 public:
+    IInterferenceFunctionStrategy2(const SimulationOptions& sim_params);
+
     typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>
         matrixFFVector_t;
 
 protected:
     mutable matrixFFVector_t m_precomputed_ff2; //!< cached polarized form factors
-
-private:
     void precomputeParticleFormfactors(const SimulationElement& sim_element) const final;
 };
 

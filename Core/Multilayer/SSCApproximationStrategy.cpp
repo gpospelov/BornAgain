@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/SSCApproximationStrategy.cpp
-//! @brief     Implements classes SSCApproximationStrategy,
-//!              SSCApproximationStrategy1, SSCApproximationStrategy2.
+//! @brief     Implements classes SSCApproximationStrategy1, SSCApproximationStrategy2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,62 +14,16 @@
 // ************************************************************************** //
 
 #include "SSCApproximationStrategy.h"
-#include "Exceptions.h"
 #include "FormFactorCoherentSum.h"
-#include "IFormFactor.h"
-#include "InterferenceFunctionRadialParaCrystal.h"
-#include "RealParameter.h"
 #include "SimulationElement.h"
 
-// ************************************************************************** //
-//  class SSCApproximationStrategy
-// ************************************************************************** //
-
-SSCApproximationStrategy::SSCApproximationStrategy(double kappa)
-    : m_mean_radius(0.0), m_kappa(kappa)
-{}
-
-void SSCApproximationStrategy::strategy_specific_post_init()
-{
-    // Set m_mean_radius to the weighted arithmetic average of the particle radii.
-    m_mean_radius = 0.0;
-    for (const auto ffw: m_formfactor_wrappers)
-        m_mean_radius += ffw->relativeAbundance() * ffw->radialExtension();
-}
-
-complex_t SSCApproximationStrategy::getCharacteristicDistribution(double qp) const
-{
-    const InterferenceFunctionRadialParaCrystal *p_iff
-        = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(mP_iff.get());
-    if (p_iff == 0)
-        throw Exceptions::ClassInitializationException("Wrong interference function for SSCA");
-    return p_iff->FTPDF(qp);
-}
-
-complex_t SSCApproximationStrategy::getCharacteristicSizeCoupling(double qp, double kappa) const
-{
-    size_t n_frs = m_formfactor_wrappers.size();
-    complex_t result = complex_t(0.0, 0.0);
-    for (size_t i = 0; i < n_frs; ++i)
-        result += m_formfactor_wrappers[i]->relativeAbundance() *
-            calculatePositionOffsetPhase(qp, kappa, i);
-    return result;
-}
-
-complex_t SSCApproximationStrategy::calculatePositionOffsetPhase(
-    double qp, double kappa, size_t index) const
-{
-    return exp_I(kappa * qp *
-                 (m_formfactor_wrappers[index]->radialExtension()
-                  - m_mean_radius));
-}
 
 // ************************************************************************** //
 //  class SSCApproximationStrategy1
 // ************************************************************************** //
 
 SSCApproximationStrategy1::SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
-    : IInterferenceFunctionStrategy(sim_params)
+    : IInterferenceFunctionStrategy1(sim_params)
     , m_helper(kappa)
 {}
 
@@ -116,7 +69,7 @@ complex_t SSCApproximationStrategy1::getMeanFormfactorNorm(double qp) const
 // ************************************************************************** //
 
 SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
-    : IInterferenceFunctionStrategy(sim_params)
+    : IInterferenceFunctionStrategy2(sim_params)
     , m_helper(kappa)
 {}
 

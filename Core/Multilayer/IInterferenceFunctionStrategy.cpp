@@ -27,9 +27,6 @@
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
 
-IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
-{}
-
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params)
     : mP_iff {nullptr}
     , m_options {sim_params}
@@ -88,6 +85,11 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
 }
 
 
+IInterferenceFunctionStrategy1::IInterferenceFunctionStrategy1(
+        const SimulationOptions& sim_params)
+    : IInterferenceFunctionStrategy(sim_params)
+{}
+
 //! Precomputes scalar form factors.
 void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
     const SimulationElement& sim_element) const
@@ -97,6 +99,11 @@ void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
         m_precomputed_ff1.push_back(ffw->evaluate(sim_element));
     }
 }
+
+IInterferenceFunctionStrategy2::IInterferenceFunctionStrategy2(
+        const SimulationOptions& sim_params)
+    : IInterferenceFunctionStrategy(sim_params)
+{}
 
 //! Precomputes matrix form factors.
 void IInterferenceFunctionStrategy2::precomputeParticleFormfactors(

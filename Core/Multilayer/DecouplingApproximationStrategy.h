@@ -30,10 +30,10 @@ class BA_CORE_API_ DecouplingApproximationStrategy1 final
 {
 public:
     DecouplingApproximationStrategy1(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy(sim_params) {}
+        : IInterferenceFunctionStrategy1(sim_params) {}
 
 private:
-    double evaluateForList(const SimulationElement& sim_element) const final;
+    double evaluateForList(const SimulationElement& sim_element) const override;
 };
 
 //! Strategy class to compute the total polarized scattering from a decorated layer
@@ -45,10 +45,10 @@ class BA_CORE_API_ DecouplingApproximationStrategy2 final
 {
 public:
     DecouplingApproximationStrategy2(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy(sim_params) {}
+        : IInterferenceFunctionStrategy2(sim_params) {}
 
 private:
-    double evaluateForList(const SimulationElement& sim_element) const final;
+    double evaluateForList(const SimulationElement& sim_element) const override;
 };
 
 #endif // DECOUPLINGAPPROXIMATIONSTRATEGY_H

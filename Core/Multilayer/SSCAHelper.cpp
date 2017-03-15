@@ -38,8 +38,7 @@ complex_t SSCAHelper::getCharacteristicSizeCoupling(double qp,
     for (auto ffw : ff_wrappers)
     {
         double radial_extension = ffw->radialExtension();
-        result += ffw->relativeAbundance() *
-                  calculatePositionOffsetPhase(2.0*qp, radial_extension);
+        result += ffw->relativeAbundance()*calculatePositionOffsetPhase(2.0*qp, radial_extension);
     }
     return result;
 }

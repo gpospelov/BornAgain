@@ -36,9 +36,6 @@ protected:
     double polarizedCalculation(const SimulationElement& sim_element) const override;
 
 private:
-    complex_t getMeanFormfactorNorm(double qp, const std::vector<complex_t>& precomputed_ff) const;
-    void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
-                            const matrixFFVector_t& precomputed_ff) const;
     SSCAHelper m_helper;
 };
 

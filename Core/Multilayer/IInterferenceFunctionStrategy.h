@@ -38,7 +38,7 @@ class SimulationElement;
 //! that is overriden in the derived classes.
 //! Inheritance is used to support scalar and polarized scattering
 //! and to implement different approximation schemes
-//! (DecouplingApproximationStrategy1, SSCApproximationStrategy1, and their polarized
+//! (DecouplingApproximationStrategy, SSCApproximationStrategy1, and their polarized
 //! counterparts).
 //!
 //! Instantiation of child classes takes place in LayoutStrategyBuilder::createStrategy,

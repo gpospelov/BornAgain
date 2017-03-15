@@ -52,10 +52,7 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
     switch (mp_layout->getApproximation())
     {
     case ILayout::DA:
-        if (m_polarized)
-            p_result = new DecouplingApproximationStrategy2(m_sim_params);
-        else
-            p_result = new DecouplingApproximationStrategy1(m_sim_params);
+        p_result = new DecouplingApproximationStrategy(m_sim_params, m_polarized);
         break;
     case ILayout::SSCA:
         double kappa = mp_layout ? mp_layout->interferenceFunction()->getKappa()
@@ -64,10 +61,7 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
                 "with a strictly positive coupling coefficient kappa");
-        if (m_polarized)
-            p_result = new SSCApproximationStrategy2(m_sim_params, kappa);
-        else
-            p_result = new SSCApproximationStrategy1(m_sim_params, kappa);
+        p_result = new SSCApproximationStrategy(m_sim_params, kappa, m_polarized);
         break;
     }
     if (!p_result)

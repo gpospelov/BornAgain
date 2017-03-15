@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/SSCApproximationStrategy.cpp
-//! @brief     Implements classes SSCApproximationStrategy1, SSCApproximationStrategy2.
+//! @brief     Implements class SSCApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,16 +18,14 @@
 #include "SimulationElement.h"
 
 
-// ************************************************************************** //
-//  class SSCApproximationStrategy1
-// ************************************************************************** //
-
-SSCApproximationStrategy1::SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
+SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa,
+                                                     bool polarized)
     : IInterferenceFunctionStrategy(sim_params)
     , m_helper(kappa)
+    , m_polarized(polarized)
 {}
 
-void SSCApproximationStrategy1::strategy_specific_post_init()
+void SSCApproximationStrategy::strategy_specific_post_init()
 {
     m_helper.init(m_formfactor_wrappers);
 }
@@ -35,7 +33,15 @@ void SSCApproximationStrategy1::strategy_specific_post_init()
 //! Returns the total scattering intensity for given kf and
 //! for one particle layout (implied by the given particle form factors).
 //! For each IParticle in the layout, the precomputed form factor must be provided.
-double SSCApproximationStrategy1::evaluateForList(const SimulationElement& sim_element) const
+double SSCApproximationStrategy::evaluateForList(const SimulationElement& sim_element) const
+{
+    if (!m_polarized)
+        return scalarCalculation(sim_element);
+    else
+        return polarizedCalculation(sim_element);
+}
+
+double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();
     double diffuse_intensity = 0.0;
@@ -52,40 +58,7 @@ double SSCApproximationStrategy1::evaluateForList(const SimulationElement& sim_e
     return diffuse_intensity + interference_intensity;
 }
 
-complex_t SSCApproximationStrategy1::getMeanFormfactorNorm(
-        double qp, const std::vector<complex_t>& precomputed_ff) const
-{
-    complex_t ff_orig=0., ff_conj=0.; // original and conjugated mean formfactor
-    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        double radial_extension = m_formfactor_wrappers[i]->radialExtension();
-        complex_t prefac = m_formfactor_wrappers[i]->relativeAbundance()
-            * m_helper.calculatePositionOffsetPhase(qp, radial_extension);
-        ff_orig += prefac * precomputed_ff[i];
-        ff_conj += prefac * std::conj(precomputed_ff[i]);
-    }
-    return ff_orig * ff_conj;
-}
-
-// ************************************************************************** //
-//  class SSCApproximationStrategy2
-// ************************************************************************** //
-
-SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
-    : IInterferenceFunctionStrategy(sim_params)
-    , m_helper(kappa)
-{}
-
-void SSCApproximationStrategy2::strategy_specific_post_init()
-{
-    m_helper.init(m_formfactor_wrappers);
-}
-
-//! Returns the total scattering intensity for given kf and
-//! for one layer (implied by the given particle form factors).
-//! For each IParticle in the layer layout, the precomputed form factor must be provided.
-//! This is the polarized variant of evaluateForList. Each form factor must be
-//! precomputed for polarized beam and detector.
-double SSCApproximationStrategy2::evaluateForList(const SimulationElement& sim_element) const
+double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& sim_element) const
 {
     double qp = sim_element.getMeanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
@@ -109,10 +82,23 @@ double SSCApproximationStrategy2::evaluateForList(const SimulationElement& sim_e
     return diffuse_trace + interference_trace;
 }
 
-//! Computes ff_orig and ff_conj.
-void SSCApproximationStrategy2::getMeanFormfactors(
-    double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
-    const matrixFFVector_t& precomputed_ff) const
+complex_t SSCApproximationStrategy::getMeanFormfactorNorm(
+        double qp, const std::vector<complex_t>& precomputed_ff) const
+{
+    complex_t ff_orig=0., ff_conj=0.; // original and conjugated mean formfactor
+    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
+        double radial_extension = m_formfactor_wrappers[i]->radialExtension();
+        complex_t prefac = m_formfactor_wrappers[i]->relativeAbundance()
+            * m_helper.calculatePositionOffsetPhase(qp, radial_extension);
+        ff_orig += prefac * precomputed_ff[i];
+        ff_conj += prefac * std::conj(precomputed_ff[i]);
+    }
+    return ff_orig * ff_conj;
+}
+
+void SSCApproximationStrategy::getMeanFormfactors(
+        double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
+        const IInterferenceFunctionStrategy::matrixFFVector_t& precomputed_ff) const
 {
     ff_orig=Eigen::Matrix2cd::Zero();
     ff_conj=Eigen::Matrix2cd::Zero();

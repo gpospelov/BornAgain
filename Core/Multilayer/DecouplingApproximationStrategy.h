@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/DecouplingApproximationStrategy.h
-//! @brief     Defines classes DecouplingApproximationStrategy1 and
-//!              DecouplingApproximationStrategy2
+//! @brief     Defines class DecouplingApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,32 +20,22 @@
 
 class SimulationElement;
 
-//! Strategy class to compute the total scalar scattering from a decorated layer
-//! in decoupling approximation.
+//! Strategy class to compute the total scattering from a particle layout
+//! in the decoupling approximation.
 //! @ingroup algorithms_internal
 
-class DecouplingApproximationStrategy1 final : public IInterferenceFunctionStrategy
+class DecouplingApproximationStrategy final : public IInterferenceFunctionStrategy
 {
 public:
-    DecouplingApproximationStrategy1(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy(sim_params) {}
+    DecouplingApproximationStrategy(SimulationOptions sim_params, bool polarized);
 
 protected:
     double evaluateForList(const SimulationElement& sim_element) const override;
-};
 
-//! Strategy class to compute the total polarized scattering from a decorated layer
-//! in decoupling approximation.
-//! @ingroup algorithms_internal
-
-class DecouplingApproximationStrategy2 final : public IInterferenceFunctionStrategy
-{
-public:
-    DecouplingApproximationStrategy2(SimulationOptions sim_params)
-        : IInterferenceFunctionStrategy(sim_params) {}
-
-protected:
-    double evaluateForList(const SimulationElement& sim_element) const override;
+private:
+    double scalarCalculation(const SimulationElement& sim_element) const;
+    double polarizedCalculation(const SimulationElement& sim_element) const;
+    bool m_polarized;
 };
 
 #endif // DECOUPLINGAPPROXIMATIONSTRATEGY_H

@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/DecouplingApproximationStrategy.cpp
-//! @brief     Implements classes DecouplingApproximationStrategy1,
-//!              DecouplingApproximationStrategy2.
+//! @brief     Implements class DecouplingApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,11 +21,26 @@
 #include "RealParameter.h"
 #include "SimulationElement.h"
 
+DecouplingApproximationStrategy::DecouplingApproximationStrategy(
+        SimulationOptions sim_params, bool polarized)
+    : IInterferenceFunctionStrategy(sim_params)
+    , m_polarized(polarized)
+{}
+
 //! Returns the total incoherent and coherent scattering intensity for given kf and
-//! for one layer (implied by the given particle form factors).
-//! For each IParticle in the layer layout, the precomputed form factor must be provided.
-double DecouplingApproximationStrategy1::evaluateForList(
-    const SimulationElement& sim_element) const
+//! for one particle layout (implied by the given particle form factors).
+//! It calls the scalar or polarized variant as appropriate
+double DecouplingApproximationStrategy::evaluateForList(
+        const SimulationElement& sim_element) const
+{
+    if (!m_polarized)
+        return scalarCalculation(sim_element);
+    else
+        return polarizedCalculation(sim_element);
+}
+
+double DecouplingApproximationStrategy::scalarCalculation(
+        const SimulationElement& sim_element) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
@@ -45,13 +59,8 @@ double DecouplingApproximationStrategy1::evaluateForList(
     return intensity + amplitude_norm * (itf_function - 1.0);
 }
 
-//! Returns the total incoherent and coherent scattering intensity for given kf and
-//! for one layer (implied by the given particle form factors).
-//! For each IParticle in the layer layout, the precomputed form factor must be provided.
-//! This is the polarized variant of evaluateForList. Each form factor must be
-//! precomputed for polarized beam and detector.
-double DecouplingApproximationStrategy2::evaluateForList(
-    const SimulationElement& sim_element) const
+double DecouplingApproximationStrategy::polarizedCalculation(
+        const SimulationElement& sim_element) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();

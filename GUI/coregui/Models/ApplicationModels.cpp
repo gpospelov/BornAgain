@@ -118,8 +118,6 @@ void ApplicationModels::resetModels()
     m_instrumentModel->clear();
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName("Default GISAS");
-    m_instrumentModel->insertNewItem(Constants::DetectorContainerType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
 
 //    m_realDataModel->insertNewItem(Constants::RealDataType);
 //    m_realDataModel->insertNewItem(Constants::RealDataType);

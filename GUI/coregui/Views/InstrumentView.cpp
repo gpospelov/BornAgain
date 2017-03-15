@@ -21,7 +21,8 @@
 #include "InstrumentSelectorWidget.h"
 #include "StyledToolBar.h"
 #include "mainwindow.h"
-#include <QAction> // need detected by TeamCity
+#include "DetectorItems.h"
+#include <QAction>
 #include <QBoxLayout>
 #include <QListView>
 #include <QStackedWidget>
@@ -92,9 +93,9 @@ void InstrumentView::onSelectionChanged(
     if( !widget) {
         widget = new InstrumentEditorWidget();
         connect(widget,
-                SIGNAL(extendedDetectorEditorRequest(DetectorContainerItem *)),
+                SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
                 this,
-                SLOT(onExtendedDetectorEditorRequest(DetectorContainerItem *))
+                SLOT(onExtendedDetectorEditorRequest(DetectorItem *))
                 );
 
         widget->setInstrumentItem(instrument);
@@ -110,10 +111,6 @@ void InstrumentView::onAddInstrument()
 {
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
-    m_instrumentModel->insertNewItem(
-        Constants::DetectorContainerType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(
-        Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
     m_instrumentSelector->getSelectionModel()->clearSelection();
     m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
@@ -149,7 +146,7 @@ void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /
     delete widget;
 }
 
-void InstrumentView::onExtendedDetectorEditorRequest(DetectorContainerItem *detectorItem)
+void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 {
     ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
     dialog->setDetectorContext(m_instrumentModel, detectorItem);

@@ -171,12 +171,10 @@ void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem *instrument, 
     if(child == nullptr)
         return;
 
-    if(child->itemName() == BasicAxisItem::P_NBINS ||
-       child->parent()->itemName() == DetectorContainerItem::P_DETECTOR) {
+    if(child->itemName() == BasicAxisItem::P_NBINS)
         onInstrumentBinningChange(instrument);
-    } else {
+    else
         onInstrumentLayoutChange(instrument);
-    }
 }
 
 //! Updates map of instruments on insert/remove InstrumentItem event.

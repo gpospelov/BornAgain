@@ -20,10 +20,10 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class DetectorContainerItem;
 class QGridLayout;
 class ColumnResizer;
 class ComponentBoxEditor;
+class SessionItem;
 
 //! Widget for editing a spherical detector settings
 
@@ -31,21 +31,21 @@ class BA_CORE_API_ SphericalDetectorWidget : public QWidget
 {
     Q_OBJECT
 public:
-    SphericalDetectorWidget(ColumnResizer *columnResizer,
-                            DetectorContainerItem *detectorItem, QWidget *parent = 0);
+    SphericalDetectorWidget(ColumnResizer* columnResizer, SessionItem* detectorItem,
+                            QWidget* parent = 0);
     virtual ~SphericalDetectorWidget();
 
-    void setDetectorItem(DetectorContainerItem *detectorItem);
+    void setDetectorItem(SessionItem* detectorItem);
 
 public slots:
-    void onColumnResizerDestroyed(QObject *object);
+    void onColumnResizerDestroyed(QObject* object);
 
 private:
-    ColumnResizer *m_columnResizer;
-    ComponentBoxEditor *m_phiAxisEditor;
-    ComponentBoxEditor *m_alphaAxisEditor;
-    ComponentBoxEditor *m_resolutionFunctionEditor;
-    QGridLayout *m_gridLayout;
+    ColumnResizer* m_columnResizer;
+    ComponentBoxEditor* m_phiAxisEditor;
+    ComponentBoxEditor* m_alphaAxisEditor;
+    ComponentBoxEditor* m_resolutionFunctionEditor;
+    QGridLayout* m_gridLayout;
 };
 
 #endif // SPHERICALDETECTORWIDGET_H

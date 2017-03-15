@@ -57,6 +57,8 @@ public:
     QString instrumentIdentifier(int comboIndex);
     bool canLinkDataToInstrument(const RealDataItem *realDataItem, const QString &identifier);
 
+    QList<RealDataItem *> linkedItems(InstrumentItem *instrumentItem);
+
 signals:
     void instrumentMapUpdated();
 
@@ -72,7 +74,6 @@ private slots:
     void updateRealDataMap();
     void onInstrumentBinningChange(InstrumentItem *changedInstrument);
     void onInstrumentLayoutChange(InstrumentItem *changedInstrument);
-    QList<RealDataItem *> linkedItems(InstrumentItem *instrumentItem);
 
 private:
     void setInstrumentModel(InstrumentModel *model);

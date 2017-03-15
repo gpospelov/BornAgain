@@ -208,14 +208,18 @@ void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
     }
 }
 
-OutputData<double>* JobItemUtils::createDefaultDetectorMap(const InstrumentItem* instrumentItem)
+void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
+                                            const InstrumentItem* instrumentItem)
 {
     DomainObjectBuilder builder;
     auto instrument = builder.buildInstrument(*instrumentItem);
     instrument->initDetector();
     IDetector2D::EAxesUnits units = instrument->getDetector()->getDefaultAxesUnits();
-    return instrument->getDetector()->createDetectorMap(instrument->getBeam(),
-                                                        preferableGUIAxesUnits(units));
+    auto detector = instrument->getDetector();
+    setIntensityItemAxesUnits(intensityItem, detector);
+    updateAxesTitle(intensityItem);
+    intensityItem->setOutputData(detector->createDetectorMap(instrument->getBeam(),
+                                                             preferableGUIAxesUnits(units)));
 }
 
 //! creates detector map from instrument description with axes corresponding to given units

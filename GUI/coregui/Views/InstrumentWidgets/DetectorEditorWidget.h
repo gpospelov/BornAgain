@@ -17,42 +17,39 @@
 #ifndef DETECTOREDITORWIDGET_H
 #define DETECTOREDITORWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
-#include <memory>
+#include "SessionItemWidget.h"
 
 class GroupInfoBox;
-class DetectorContainerItem;
+class DetectorItem;
 class ComponentBoxEditor;
 class QGridLayout;
-class SphericalDetectorWidget;
 class ColumnResizer;
+class InstrumentItem;
 
-class BA_CORE_API_ DetectorEditorWidget : public QWidget
+class BA_CORE_API_ DetectorEditorWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent = 0);
-    virtual ~DetectorEditorWidget();
-
-    void setDetectorItem(DetectorContainerItem *detectorItem);
+    DetectorEditorWidget(ColumnResizer* columnResizer, QWidget* parent = 0);
 
 signals:
-    void extendedDetectorEditorRequest(DetectorContainerItem *);
-
-public slots:
-    void onPropertyChanged(const QString &propertyName);
+    void extendedDetectorEditorRequest(DetectorItem*);
 
 private slots:
     void onGroupBoxExtendedButton();
 
+protected:
+    virtual void subscribeToItem();
+
 private:
     void init_SubDetector_Widget();
-    ComponentBoxEditor *m_detectorTypeEditor;
-    ColumnResizer *m_columnResizer;
-    GroupInfoBox *m_groupBox;
-    DetectorContainerItem *m_detectorItem;
-    QWidget *m_subDetectorWidget;
+    InstrumentItem* instrumentItem();
+
+    ColumnResizer* m_columnResizer;
+    ComponentBoxEditor* m_detectorTypeEditor;
+    GroupInfoBox* m_groupBox;
+    DetectorItem* m_currentDetector;
+    QWidget* m_subDetectorWidget;
 };
 
 #endif // DETECTOREDITORWIDGET_H

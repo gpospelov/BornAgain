@@ -112,7 +112,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerBasicRoughnessType] = &createInstance<LayerBasicRoughnessItem>;
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
-    result[Constants::DetectorContainerType] = &createInstance<DetectorContainerItem>;
     result[Constants::SphericalDetectorType] = &createInstance<SphericalDetectorItem>;
     result[Constants::RectangularDetectorType] = &createInstance<RectangularDetectorItem>;
 
@@ -162,7 +161,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
     result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
-//    result[Constants::BeamDistributionType] = &createInstance<BeamDistributionItem>;
     result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
     result[Constants::BeamAzimuthalAngleType] = &createInstance<BeamAzimuthalAngleItem>;
     result[Constants::BeamInclinationAngleType] = &createInstance<BeamInclinationAngleItem>;

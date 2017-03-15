@@ -29,8 +29,7 @@ class QStackedWidget;
 class QItemSelection;
 class SessionItem;
 class QToolButton;
-class DetectorContainerItem;
-
+class DetectorItem;
 
 class BA_CORE_API_ InstrumentView : public QWidget
 {
@@ -46,7 +45,7 @@ public slots:
     void onAddInstrument();
     void onRemoveInstrument();
     void onRowsAboutToBeRemoved(QModelIndex,int,int);
-    void onExtendedDetectorEditorRequest(DetectorContainerItem *detectorItem);
+    void onExtendedDetectorEditorRequest(DetectorItem *detectorItem);
 
 private:
     void setupConnections();

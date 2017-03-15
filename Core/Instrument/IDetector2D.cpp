@@ -94,10 +94,22 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
         throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
                                     "Can't create detector map.");
 
-    setDataToDetectorMap(*detectorMap.get(), elements);
-    applyDetectorResolution(detectorMap.get());
+    if (mP_detector_resolution) {
+        if(units_type != DEFAULT) {
+            std::unique_ptr<OutputData<double>> defaultMap(createDetectorMap(beam, DEFAULT));
+            setDataToDetectorMap(*defaultMap.get(), elements);
+            applyDetectorResolution(defaultMap.get());
+            detectorMap->setRawDataVector(defaultMap->getRawDataVector());
+        } else {
+            setDataToDetectorMap(*detectorMap.get(), elements);
+            applyDetectorResolution(detectorMap.get());
+        }
+    } else {
+        setDataToDetectorMap(*detectorMap.get(), elements);
+    }
 
     return detectorMap.release();
+
 }
 
 OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const

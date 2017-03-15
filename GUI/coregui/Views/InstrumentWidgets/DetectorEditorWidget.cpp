@@ -24,106 +24,74 @@
 #include "GroupInfoBox.h"
 #include "RectangularDetectorWidget.h"
 #include "SphericalDetectorWidget.h"
+#include "InstrumentItem.h"
+#include "GroupItem.h"
 #include "columnresizer.h"
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QDebug>
 
-DetectorEditorWidget::DetectorEditorWidget(ColumnResizer *columnResizer, QWidget *parent)
-    : QWidget(parent)
+DetectorEditorWidget::DetectorEditorWidget(ColumnResizer* columnResizer, QWidget* parent)
+    : SessionItemWidget(parent)
     , m_columnResizer(columnResizer)
+    , m_detectorTypeEditor(new ComponentBoxEditor)
     , m_groupBox(new GroupInfoBox("Detector Parameters"))
-    , m_detectorItem(0)
-    , m_subDetectorWidget(0)
+    , m_currentDetector(nullptr)
+    , m_subDetectorWidget(nullptr)
 {
-    QVBoxLayout *groupLayout = new QVBoxLayout;
+    QVBoxLayout* groupLayout = new QVBoxLayout;
     m_groupBox->setButtonToolTip("Gives access to the detector mask editor");
     m_groupBox->setLayout(groupLayout);
     connect(m_groupBox, SIGNAL(clicked()), this, SLOT(onGroupBoxExtendedButton()));
 
-    m_detectorTypeEditor = new ComponentBoxEditor;
     groupLayout->addWidget(m_detectorTypeEditor);
 
     // main layout
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_groupBox);
     mainLayout->addStretch();
     setLayout(mainLayout);
 }
 
-DetectorEditorWidget::~DetectorEditorWidget()
-{
-}
-
-void DetectorEditorWidget::setDetectorItem(DetectorContainerItem *detectorItem)
-{
-    if(m_detectorItem == detectorItem) {
-        return;
-
-    } else {
-        if(m_detectorItem)
-            m_detectorItem->mapper()->unsubscribe(this);
-
-        m_detectorItem = detectorItem;
-        if(!m_detectorItem) return;
-
-        m_detectorItem->mapper()->setOnPropertyChange(
-                    [this](const QString &name)
-        {
-            onPropertyChanged(name);
-        }, this);
-
-        m_detectorTypeEditor->clearEditor();
-        m_detectorTypeEditor->addItem(m_detectorItem->getItem(DetectorContainerItem::P_DETECTOR));
-
-        init_SubDetector_Widget();
-    }
-
-//    m_detectorItem = detectorItem;
-//    if(!m_detectorItem) return;
-
-//    m_mapper.reset(new ModelMapper);
-//    m_mapper->setItem(m_detectorItem);
-//    m_mapper->setOnPropertyChange(
-//                [this](const QString &name)
-//    {
-//        onPropertyChanged(name);
-//    });
-
-//    m_detectorTypeEditor->clearEditor();
-//    m_detectorTypeEditor->addItem(m_detectorItem->getItem(DetectorItem::P_DETECTOR));
-
-//    init_SubDetector_Widget();
-}
-
-void DetectorEditorWidget::onPropertyChanged(const QString &propertyName)
-{
-    if(propertyName == DetectorContainerItem::P_DETECTOR) {
-        init_SubDetector_Widget();
-    }
-}
-
 void DetectorEditorWidget::onGroupBoxExtendedButton()
 {
-    emit extendedDetectorEditorRequest(m_detectorItem);
+    emit extendedDetectorEditorRequest(instrumentItem()->detectorItem());
+}
+
+void DetectorEditorWidget::subscribeToItem()
+{
+
+    currentItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) {
+            if (name == InstrumentItem::P_DETECTOR)
+                init_SubDetector_Widget();
+        }, this);
+
+    m_detectorTypeEditor->clearEditor();
+    m_detectorTypeEditor->addItem(instrumentItem()->detectorGroup());
+
+    init_SubDetector_Widget();
 }
 
 void DetectorEditorWidget::init_SubDetector_Widget()
 {
-    if(m_subDetectorWidget) m_groupBox->layout()->removeWidget(m_subDetectorWidget);
+    if (m_currentDetector == instrumentItem()->detectorItem())
+        return;
+
+    m_currentDetector = instrumentItem()->detectorItem();
+
+    if (m_subDetectorWidget)
+        m_groupBox->layout()->removeWidget(m_subDetectorWidget);
+
     delete m_subDetectorWidget;
     m_subDetectorWidget = 0;
 
-
-    SessionItem *subItem = m_detectorItem->getGroupItem(DetectorContainerItem::P_DETECTOR);
-//    if(SphericalDetectorItem *SphericalDetectorItem = dynamic_cast<)
-
-
-    if(subItem->modelType() == Constants::SphericalDetectorType) {
-        m_subDetectorWidget = new SphericalDetectorWidget(m_columnResizer, m_detectorItem);
-    } else if(subItem->modelType() == Constants::RectangularDetectorType) {
+    if (m_currentDetector->modelType() == Constants::SphericalDetectorType) {
+        m_subDetectorWidget = new SphericalDetectorWidget(m_columnResizer, m_currentDetector);
+    } else if (m_currentDetector->modelType() == Constants::RectangularDetectorType) {
         m_subDetectorWidget = new RectangularDetectorWidget(
-            m_columnResizer, dynamic_cast<RectangularDetectorItem *>(subItem));
+            m_columnResizer, dynamic_cast<RectangularDetectorItem*>(m_currentDetector));
     } else {
         throw GUIHelpers::Error("DetectorEditorWidget::init_SubDetector_Widget() -> Error!"
                                 "Unknown sybdetector type.");
@@ -132,5 +100,7 @@ void DetectorEditorWidget::init_SubDetector_Widget()
     m_groupBox->layout()->addWidget(m_subDetectorWidget);
 }
 
-
-
+InstrumentItem* DetectorEditorWidget::instrumentItem()
+{
+    return dynamic_cast<InstrumentItem*>(currentItem());
+}

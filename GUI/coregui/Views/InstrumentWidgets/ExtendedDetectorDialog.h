@@ -20,7 +20,7 @@
 #include <QDialog>
 
 class MaskEditor;
-class DetectorContainerItem;
+class DetectorItem;
 class DetectorMaskDelegate;
 class InstrumentModel;
 
@@ -31,11 +31,10 @@ class ExtendedDetectorDialog : public QDialog
     Q_OBJECT
 
 public:
-    ExtendedDetectorDialog(QWidget *parent = 0);
-    virtual ~ExtendedDetectorDialog(){}
+    ExtendedDetectorDialog(QWidget* parent = 0);
 
 public slots:
-    void setDetectorContext(InstrumentModel *instrumentModel, DetectorContainerItem *detectorItem);
+    void setDetectorContext(InstrumentModel* instrumentModel, DetectorItem* detectorItem);
 
 private:
     void reject();
@@ -44,8 +43,8 @@ private:
     void readSettings();
     void writeSettings();
 
-    MaskEditor *m_maskEditor;
-    DetectorMaskDelegate *m_detectorMaskDelegate;
+    MaskEditor* m_maskEditor;
+    DetectorMaskDelegate* m_maskDelegate;
 };
 
 #endif // EXTENDEDDETECTORDIALOG_H

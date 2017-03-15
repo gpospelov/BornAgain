@@ -39,7 +39,7 @@ public:
     void clearEditor();
 
 signals:
-    void onDialogRequest(SessionItem *item, QString names);
+    void onDialogRequest(SessionItem *item, const QString& names);
 
 private slots:
     void dialogRequest();

@@ -57,3 +57,34 @@ complex_t SSCAHelper::calculatePositionOffsetPhase(double qp, double radial_exte
 {
     return exp_I(m_kappa * qp * (radial_extension - m_mean_radius));
 }
+
+complex_t SSCAHelper::getMeanFormfactorNorm(
+        double qp, const std::vector<complex_t>& precomputed_ff,
+        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const
+{
+    complex_t ff_orig=0., ff_conj=0.; // original and conjugated mean formfactor
+    for (size_t i = 0; i < ff_wrappers.size(); ++i) {
+        double radial_extension = ff_wrappers[i]->radialExtension();
+        complex_t prefac = ff_wrappers[i]->relativeAbundance()
+                           * calculatePositionOffsetPhase(qp, radial_extension);
+        ff_orig += prefac * precomputed_ff[i];
+        ff_conj += prefac * std::conj(precomputed_ff[i]);
+    }
+    return ff_orig * ff_conj;
+}
+
+void SSCAHelper::getMeanFormfactors(
+        double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
+        const IInterferenceFunctionStrategy::matrixFFVector_t& precomputed_ff,
+        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const
+{
+    ff_orig=Eigen::Matrix2cd::Zero();
+    ff_conj=Eigen::Matrix2cd::Zero();
+    for (size_t i = 0; i < ff_wrappers.size(); ++i) {
+        double radial_extension = ff_wrappers[i]->radialExtension();
+        complex_t prefac = ff_wrappers[i]->relativeAbundance()
+                           * calculatePositionOffsetPhase(qp, radial_extension);
+        ff_orig += prefac * precomputed_ff[i];
+        ff_conj += prefac * precomputed_ff[i].adjoint();
+    }
+}

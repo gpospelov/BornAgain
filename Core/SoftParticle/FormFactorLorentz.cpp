@@ -55,6 +55,11 @@ complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
     return result;
 }
 
+void FormFactorLorentz::onChange()
+{
+    mP_shape.reset(new Box(m_width, m_width, m_height));
+}
+
 void FormFactorLorentz::initialize()
 {
     setName(BornAgain::FFLorentzType);

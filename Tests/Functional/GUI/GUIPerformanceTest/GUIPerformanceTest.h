@@ -35,7 +35,7 @@ public:
 
     void test_domain_to_gui();
     void test_gui_to_domain();
-//    void test_real_time();
+    void test_real_time();
 
 private:
     std::unique_ptr<ApplicationModels> m_models;

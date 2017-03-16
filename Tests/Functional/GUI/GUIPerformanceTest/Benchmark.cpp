@@ -16,7 +16,8 @@
 
 #include "Benchmark.h"
 #include <QElapsedTimer>
-#include <QDebug>
+#include <QDateTime>
+#include <iostream>
 
 //! Do useless calculations to warmUp
 
@@ -26,6 +27,8 @@ Benchmark::Benchmark()
 
 void Benchmark::test(const QString& name, std::function<void ()> f, int ntries)
 {
+    std::cout << "   " << name.toStdString() << " trying " << std::to_string(ntries) << " times\n";
+
     // warming up
     for(int i=0; i<ntries/10; ++i)
         f();
@@ -36,5 +39,18 @@ void Benchmark::test(const QString& name, std::function<void ()> f, int ntries)
     for(int i=0; i<ntries; ++i)
         f();
 
-    qDebug() << name << timer.elapsed();
+    m_measurements.push_back({name, static_cast<int>(timer.elapsed())});
+}
+
+QString Benchmark::report() const
+{
+    QStringList result;
+
+    result << QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
+    result << " | ";
+
+    for(auto meas : m_measurements)
+        result << meas.name << " " << QString::number(meas.wall_time) << " msec | ";
+
+    return result.join(QString());
 }

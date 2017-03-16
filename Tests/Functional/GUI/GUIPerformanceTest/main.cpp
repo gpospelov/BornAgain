@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include "GUIPerformanceTest.h"
+#include <QCoreApplication>
 
 bool run_tests() {
 
@@ -23,7 +24,12 @@ bool run_tests() {
     return test.runTest();
 }
 
-int main(int , char**)
+int main(int argc, char** argv)
 {
+    QCoreApplication a(argc, argv);
+
+//    run_tests();
     return run_tests() == true ? 0 : 1;
+
+//    return a.exec();
 }

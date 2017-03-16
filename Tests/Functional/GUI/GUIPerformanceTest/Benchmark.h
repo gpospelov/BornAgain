@@ -30,11 +30,12 @@ public:
 
     void test(const QString& name, std::function<void(void)> f, int ntries);
 
+    QString report() const;
+
 private:
     struct Measurement {
         QString name;     //!< measurement name
-        double wall_time; //!< in sec
-        double tick_time; //!< time measured with QLapsedTimer
+        int wall_time; //!< in msec
     };
 
     QVector<Measurement> m_measurements;

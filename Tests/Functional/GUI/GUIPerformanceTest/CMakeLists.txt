@@ -1,6 +1,7 @@
 set(test_name GUIPerformanceTest)
 
-add_executable(${test_name} main.cpp GUIPerformanceTest.cpp GUIPerformanceTest.h)
+add_executable(${test_name} main.cpp GUIPerformanceTest.cpp GUIPerformanceTest.h
+    Benchmark.h Benchmark.cpp)
 
 target_link_libraries(${test_name} BornAgainCore BornAgainGUI BornAgainTestMachinery)
 

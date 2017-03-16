@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUIPerformanceTest/GUIPerformanceTest.h
-//! @brief     Defines GUI performance functional test.
+//! @file      Tests/Functional/GUI/GUIPerformanceTest/Benchmark.h
+//! @brief     Defines Benchmark class.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,32 +14,30 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIPERFORMANCETEST_H
-#define GUIPERFORMANCETEST_H
+#ifndef BENCHMARK_H
+#define BENCHMARK_H
 
-#include "IFunctionalTest.h"
+#include <functional>
 #include <QString>
-#include <memory>
+#include <QVector>
 
-class ApplicationModels;
+//! Measures execution time of given function and stores result in database.
 
-//! Functional test to measure performance of GUI by mimicking activity typical for RealTimeView.
-
-class GUIPerformanceTest : public IFunctionalTest
+class Benchmark
 {
 public:
-    GUIPerformanceTest();
-    ~GUIPerformanceTest();
+    Benchmark();
 
-    bool runTest();
-
-    void test_domain_to_gui();
-    void test_gui_to_domain();
-//    void test_real_time();
+    void test(const QString& name, std::function<void(void)> f, int ntries);
 
 private:
-    std::unique_ptr<ApplicationModels> m_models;
-    QString m_sample_name;
+    struct Measurement {
+        QString name;     //!< measurement name
+        double wall_time; //!< in sec
+        double tick_time; //!< time measured with QLapsedTimer
+    };
+
+    QVector<Measurement> m_measurements;
 };
 
 #endif // GUIPERFORMANCETEST_H

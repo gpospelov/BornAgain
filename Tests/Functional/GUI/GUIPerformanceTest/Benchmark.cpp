@@ -17,6 +17,7 @@
 #include "Benchmark.h"
 #include <QElapsedTimer>
 #include <QDateTime>
+#include <QStringList>
 #include <iostream>
 
 //! Do useless calculations to warmUp

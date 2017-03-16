@@ -39,7 +39,7 @@ void Benchmark::test(const QString& name, std::function<void ()> f, int ntries)
     for(int i=0; i<ntries; ++i)
         f();
 
-    m_measurements.push_back({name, static_cast<int>(timer.elapsed())});
+    m_measurements.push_back({name, timer.elapsed()});
 }
 
 QString Benchmark::report() const

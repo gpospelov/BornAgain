@@ -35,7 +35,7 @@ public:
 private:
     struct Measurement {
         QString name;     //!< measurement name
-        int wall_time; //!< in msec
+        qint64 wall_time; //!< in msec
     };
 
     QVector<Measurement> m_measurements;

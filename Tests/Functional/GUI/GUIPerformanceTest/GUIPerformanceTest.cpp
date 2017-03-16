@@ -35,6 +35,7 @@
 #include "IntensityDataItem.h"
 #include "FitParameterHelper.h"
 #include <QCoreApplication>
+#include <QElapsedTimer>
 #include <random>
 #include <QDebug>
 
@@ -67,8 +68,8 @@ bool GUIPerformanceTest::runTest()
     Benchmark bench;
 
     bench.test("domain2gui", [this]() { test_domain_to_gui();}, 300*mult);
-    bench.test("gui2domain", [this]() { test_gui_to_domain();}, 300*mult);
-    bench.test("realTime", [this]() { test_real_time();}, 20*mult);
+    bench.test("gui2domain", [this]() { test_gui_to_domain();}, 100*mult);
+    bench.test("realTime", [this]() { test_real_time();}, 2*mult);
 
     std::cout << bench.report().toStdString() << std::endl;
     return true;
@@ -130,7 +131,7 @@ void GUIPerformanceTest::test_real_time()
         GUIObjectBuilder guiBuilder;
         guiBuilder.populateSampleModel(m_models->sampleModel(), *sample);
 
-        m_models->instrumentModel()->instrumentItem()->detectorItem()->setSize(25, 25);
+        m_models->instrumentModel()->instrumentItem()->detectorItem()->setSize(50, 50);
 
         jobItem = m_models->jobModel()->addJob(
                    m_models->sampleModel()->multiLayerItem(),
@@ -158,7 +159,12 @@ void GUIPerformanceTest::test_real_time()
 
     m_models->jobModel()->runJob(jobItem->index());
 
-    while(m_models->jobModel()->hasUnfinishedJobs())
-        QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
+
+    while(m_models->jobModel()->hasUnfinishedJobs()) {
+        QElapsedTimer   timer;
+        timer.start();
+        while(timer.elapsed() < 10)
+            QCoreApplication::processEvents( QEventLoop::AllEvents, 1 );
+    }
 }
 

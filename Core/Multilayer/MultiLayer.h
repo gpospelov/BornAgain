@@ -78,6 +78,12 @@ public:
     //! Returns bottom interface of layer
     const LayerInterface* layerBottomInterface(size_t i_layer) const;
 
+    //! Returns layer material
+    HomogeneousMaterial layerMaterial(size_t i_layer) const;
+
+    //! Changes a layer's material
+    void setLayerMaterial(size_t i_layer, HomogeneousMaterial material);
+
     //! Adds a layout of particles to the whole multilayer (particles can be in different layers)
     void addLayout(const ILayout& layout);
 

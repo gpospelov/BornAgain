@@ -26,6 +26,8 @@
 #include "SimulationElement.h"
 #include <iterator> // needed for back_inserter
 
+//#include <iostream>
+
 MainComputation::MainComputation(
     const MultiLayer& multi_layer,
     const SimulationOptions& options,
@@ -102,5 +104,14 @@ IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
 
 void MainComputation::adjustFresnelMap()
 {
-
+    std::map<size_t, std::vector<HomogeneousRegion>> region_map;
+    for (auto& comp: m_computation_terms) {
+        comp->mergeRegionMap(region_map);
+    }
+//    for (auto& entry : region_map)
+//    {
+//        std::cout << "Layer: " << entry.first << std::endl;
+//        for (auto& region : entry.second)
+//            std::cout << "  Region: vol: " << region.m_volume << std::endl;
+//    }
 }

@@ -21540,6 +21540,11 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_material(self)
 
 
+    def setMaterial(self, material):
+        """setMaterial(Layer self, HomogeneousMaterial material)"""
+        return _libBornAgainCore.Layer_setMaterial(self, material)
+
+
     def refractiveIndex(self):
         """
         refractiveIndex(Layer self) -> complex_t
@@ -22295,6 +22300,16 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_layerBottomInterface(self, i_layer)
+
+
+    def layerMaterial(self, i_layer):
+        """layerMaterial(MultiLayer self, size_t i_layer) -> HomogeneousMaterial"""
+        return _libBornAgainCore.MultiLayer_layerMaterial(self, i_layer)
+
+
+    def setLayerMaterial(self, i_layer, material):
+        """setLayerMaterial(MultiLayer self, size_t i_layer, HomogeneousMaterial material)"""
+        return _libBornAgainCore.MultiLayer_setLayerMaterial(self, i_layer, material)
 
 
     def addLayout(self, layout):

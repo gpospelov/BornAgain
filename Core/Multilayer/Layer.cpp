@@ -55,6 +55,11 @@ void Layer::setThickness(double thickness)
     m_thickness = thickness;
 }
 
+void Layer::setMaterial(HomogeneousMaterial material)
+{
+    m_material = std::move(material);
+}
+
 complex_t Layer::refractiveIndex() const
 {
     return m_material.refractiveIndex();

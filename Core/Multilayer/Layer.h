@@ -43,6 +43,8 @@ public:
 
     const HomogeneousMaterial* material() const override final { return &m_material; }
 
+    void setMaterial(HomogeneousMaterial material);
+
     complex_t refractiveIndex() const;
     complex_t refractiveIndex2() const; //!< squared refractive index
 

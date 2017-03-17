@@ -145,6 +145,17 @@ const LayerInterface* MultiLayer::layerBottomInterface(size_t i_layer) const
     return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
 }
 
+HomogeneousMaterial MultiLayer::layerMaterial(size_t i_layer) const
+{
+    return *layer(i_layer)->material();
+}
+
+void MultiLayer::setLayerMaterial(size_t i_layer, HomogeneousMaterial material)
+{
+    auto p_layer = m_layers[check_layer_index(i_layer)];
+    p_layer->setMaterial(material);
+}
+
 void MultiLayer::addLayout(const ILayout & layout)
 {
     ILayout *clone = layout.clone();

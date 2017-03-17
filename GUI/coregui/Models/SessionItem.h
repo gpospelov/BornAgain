@@ -96,7 +96,7 @@ public:
     SessionItem *addGroupProperty(const QString &groupName, const QString &groupType);
 
     SessionItem *setGroupProperty(const QString &name, const QString &value) const;
-    SessionItem *getGroupItem(const QString &name, const QString &type = QString()) const;
+    SessionItem *getGroupItem(const QString &groupName) const;
 
     // access data stored in roles
     virtual QVariant data(int role) const;

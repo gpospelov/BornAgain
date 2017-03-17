@@ -42,7 +42,9 @@ public:
 
     IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
+#ifndef SWIG
     SlicedParticle createSlicedParticle(ZLimits limits) const override final;
+#endif
 
     void setMaterial(HomogeneousMaterial material);
     const HomogeneousMaterial* material() const override final { return &m_material; }

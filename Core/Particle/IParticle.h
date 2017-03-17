@@ -46,8 +46,10 @@ public:
     //! Create a sliced form factor for this particle
     virtual IFormFactor* createSlicedFormFactor(ZLimits limits) const;
 
+#ifndef SWIG
     //! Create a sliced form factor for this particle
     virtual SlicedParticle createSlicedParticle(ZLimits limits) const;
+#endif
 
     //! Returns particle position.
     kvector_t position() const { return m_position; }

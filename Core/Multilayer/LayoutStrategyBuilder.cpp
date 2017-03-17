@@ -78,7 +78,7 @@ void LayoutStrategyBuilder::createStrategy()
 }
 
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
-SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFormFactorList() const
+SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFormFactorList()
 {
     SafePointerVector<class FormFactorCoherentSum> result;
     double layout_abundance = mp_layout->getTotalAbundance();
@@ -92,11 +92,12 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
 
 //! Returns a new formfactor wrapper for a given particle in given ambient material.
 FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
-    const IParticle* particle) const
+    const IParticle* particle)
 {
     std::unique_ptr<FormFactorCoherentSum> P_result(
                 new FormFactorCoherentSum(particle->abundance()));
     auto sliced_ffs = CreateSlicedFormFactors(*particle, *mp_multilayer, m_layer_index);
+    mergeRegionMap(sliced_ffs.regionMap());
     for (size_t i=0; i < sliced_ffs.size(); ++i) {
         auto ff_pair = sliced_ffs[i];
         std::unique_ptr<IFormFactor> P_ff_framework;
@@ -118,4 +119,16 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
         P_result->addCoherentPart(part);
     }
     return P_result.release();
+}
+
+void LayoutStrategyBuilder::mergeRegionMap(
+        const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
+{
+    for (auto& entry : region_map)
+    {
+        size_t layer_index = entry.first;
+        auto regions = entry.second;
+        m_region_map[layer_index].insert(m_region_map[layer_index].begin(),
+                                         regions.begin(), regions.end());
+    }
 }

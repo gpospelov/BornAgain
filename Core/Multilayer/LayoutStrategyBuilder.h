@@ -48,8 +48,9 @@ public:
 
 private:
     void createStrategy();
-    SafePointerVector<class FormFactorCoherentSum> collectFormFactorList() const;
-    FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle) const;
+    SafePointerVector<class FormFactorCoherentSum> collectFormFactorList();
+    FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle);
+    void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
 
     const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;

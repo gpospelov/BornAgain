@@ -42,6 +42,8 @@ public:
     size_t size() const;
 
     std::pair<const IFormFactor*, size_t> operator[](size_t index) const;
+
+    std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
 private:
     std::vector<std::pair<std::unique_ptr<IFormFactor>, size_t>> m_ff_list;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;

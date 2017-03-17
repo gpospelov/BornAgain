@@ -61,6 +61,11 @@ std::pair<const IFormFactor*, size_t> SlicedFormFactorList::operator[](size_t in
     return { m_ff_list[index].first.get(), m_ff_list[index].second };
 }
 
+std::map<size_t, std::vector<HomogeneousRegion>> SlicedFormFactorList::regionMap() const
+{
+    return m_region_map;
+}
+
 SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
                                              const MultiLayer& multilayer, size_t ref_layer_index)
 {

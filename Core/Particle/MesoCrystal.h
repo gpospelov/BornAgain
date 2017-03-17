@@ -39,6 +39,8 @@ public:
 
     IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
+    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
+
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (e.g. an infinite crystal)
     const IClusteredParticles* clusteredParticles() const { return mp_particle_structure.get(); }

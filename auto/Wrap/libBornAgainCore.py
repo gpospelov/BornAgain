@@ -7623,6 +7623,11 @@ class IClusteredParticles(ISample):
         """
         return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
 
+
+    def homogeneousRegions(self):
+        """homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >"""
+        return _libBornAgainCore.IClusteredParticles_homogeneousRegions(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_IClusteredParticles
     __del__ = lambda self: None
 IClusteredParticles_swigregister = _libBornAgainCore.IClusteredParticles_swigregister
@@ -7711,14 +7716,19 @@ class Crystal(IClusteredParticles):
         return _libBornAgainCore.Crystal_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
 
 
-    def getLatticeBasis(self):
-        """
-        getLatticeBasis(Crystal self) -> ParticleComposition
+    def homogeneousRegions(self):
+        """homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >"""
+        return _libBornAgainCore.Crystal_homogeneousRegions(self)
 
-        const ParticleComposition* Crystal::getLatticeBasis() const 
 
-        """
-        return _libBornAgainCore.Crystal_getLatticeBasis(self)
+    def transformedLattice(self, p_rotation):
+        """transformedLattice(Crystal self, IRotation p_rotation) -> Lattice"""
+        return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
+
+
+    def latticeBasis(self):
+        """latticeBasis(Crystal self) -> ParticleComposition"""
+        return _libBornAgainCore.Crystal_latticeBasis(self)
 
 
     def setDWFactor(self, dw_factor):
@@ -22127,6 +22137,18 @@ class MesoCrystal(IParticle):
 
         """
         return _libBornAgainCore.MesoCrystal_createSlicedFormFactor(self, limits)
+
+
+    def createSlicedParticle(self, limits):
+        """
+        createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
+
+        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
+
+        Create a sliced form factor for this particle. 
+
+        """
+        return _libBornAgainCore.MesoCrystal_createSlicedParticle(self, limits)
 
 
     def clusteredParticles(self):

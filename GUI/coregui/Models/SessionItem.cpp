@@ -500,10 +500,7 @@ SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type)
 
 SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
 {
-    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name)))
-        return item->setCurrentType(value);
-
-    return nullptr;
+    return item<GroupItem>(name).setCurrentType(value);
 }
 
 //! Returns corresponding variant under given role, invalid variant when role is not present.

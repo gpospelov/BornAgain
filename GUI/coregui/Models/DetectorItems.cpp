@@ -70,7 +70,6 @@ void DetectorItem::importMasks(MaskContainerItem* maskContainer)
 void DetectorItem::register_resolution_function()
 {
     addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
-    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
 }
 
 std::unique_ptr<IResolutionFunction2D> DetectorItem::createResolutionFunction() const

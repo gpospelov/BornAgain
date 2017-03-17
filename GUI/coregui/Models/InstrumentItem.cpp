@@ -36,7 +36,6 @@ InstrumentItem::InstrumentItem()
     addGroupProperty(P_BEAM, Constants::BeamType);
 
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
-    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
 
     setDefaultTag(P_DETECTOR);
 }

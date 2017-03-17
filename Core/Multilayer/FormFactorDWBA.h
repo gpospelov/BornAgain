@@ -41,9 +41,9 @@ public:
     //! Calculates and returns a form factor calculation in DWBA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
-    double getVolume() const override { return mP_form_factor->getVolume(); }
+    double volume() const override { return mP_form_factor->volume(); }
 
-    double getRadialExtension() const override { return mP_form_factor->getRadialExtension(); }
+    double radialExtension() const override { return mP_form_factor->radialExtension(); }
 
     double bottomZ(const IRotation& rotation) const override;
 

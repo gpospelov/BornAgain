@@ -30,7 +30,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getRadialExtension() const override final { return 0; }
+    double radialExtension() const override final { return 0; }
 
     complex_t evaluate_for_q(cvector_t) const override final { return 1; }
 

@@ -99,7 +99,7 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
     std::unique_ptr<IFormFactor> P_temp_ff(
                 mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
     std::unique_ptr<FormFactorDecoratorMaterial> P_ff(new FormFactorDecoratorMaterial(*P_temp_ff));
-    double volume = mP_form_factor->getVolume();
+    double volume = mP_form_factor->volume();
     HomogeneousMaterial transformed_material(
                 m_material.transformedMaterial(P_rotation->getTransform3D()));
     P_ff->setMaterial(transformed_material);

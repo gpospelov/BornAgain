@@ -36,7 +36,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override  final { visitor->visit(this); }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
 
     double bottomZ(const IRotation& rotation) const override final;
 

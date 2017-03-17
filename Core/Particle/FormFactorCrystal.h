@@ -38,9 +38,9 @@ public:
         mp_basis_form_factor->setAmbientMaterial(material);
     }
 
-    double getVolume() const override final { return mp_meso_form_factor->getVolume(); }
-    double getRadialExtension() const override final {
-        return mp_meso_form_factor->getRadialExtension(); }
+    double volume() const override final { return mp_meso_form_factor->volume(); }
+    double radialExtension() const override final {
+        return mp_meso_form_factor->radialExtension(); }
 
     double bottomZ(const IRotation& rotation) const override;
 

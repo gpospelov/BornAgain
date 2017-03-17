@@ -34,7 +34,7 @@ public:
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const override final { return m_radius; }
+    double radialExtension() const override final { return m_radius; }
 
     complex_t evaluate_for_q(cvector_t q) const override final;
 

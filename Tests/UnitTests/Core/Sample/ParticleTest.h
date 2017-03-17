@@ -69,7 +69,7 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_EQ("Air", p2->material()->getName());
     EXPECT_EQ(complex_t(1,0), p2->refractiveIndex());
     EXPECT_EQ(BornAgain::FFFullSphereType, p2->formFactor()->getName());
-    EXPECT_EQ(1, p2->formFactor()->getRadialExtension());
+    EXPECT_EQ(1, p2->formFactor()->radialExtension());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(p2->createFormFactor()));
     EXPECT_EQ(complex_t(1,0), dynamic_cast<FormFactorDecoratorMaterial *>(
                       p2->createFormFactor())->getAmbientRefractiveIndex());
@@ -80,7 +80,7 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_EQ("Air", p3->material()->getName());
     EXPECT_EQ(complex_t(1,0), p3->refractiveIndex());
     EXPECT_EQ(BornAgain::FFFullSphereType, p3->formFactor()->getName());
-    EXPECT_EQ(1, p3->formFactor()->getRadialExtension());
+    EXPECT_EQ(1, p3->formFactor()->radialExtension());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(p3->createFormFactor()));
     EXPECT_EQ(complex_t(1,0), dynamic_cast<FormFactorDecoratorMaterial *>(
                       p3->createFormFactor())->getAmbientRefractiveIndex());
@@ -101,7 +101,7 @@ TEST_F(ParticleTest, setters)
 
     particle.setFormFactor(sphere);
     EXPECT_EQ(BornAgain::FFFullSphereType, particle.formFactor()->getName());
-    EXPECT_EQ(2.1, particle.formFactor()->getRadialExtension());
+    EXPECT_EQ(2.1, particle.formFactor()->radialExtension());
 
     particle.setRotation(transform);
     EXPECT_TRUE(nullptr != particle.rotation());
@@ -111,7 +111,7 @@ TEST_F(ParticleTest, setters)
     EXPECT_EQ(vacuum.getName(), particle2->material()->getName());
     EXPECT_EQ(complex_t(1.0), particle2->refractiveIndex());
     EXPECT_TRUE(nullptr != particle2->formFactor());
-    EXPECT_EQ(2.1, particle2->formFactor()->getRadialExtension());
+    EXPECT_EQ(2.1, particle2->formFactor()->radialExtension());
     EXPECT_TRUE(nullptr != particle2->rotation());
 }
 

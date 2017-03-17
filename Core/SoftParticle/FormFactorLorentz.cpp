@@ -35,7 +35,7 @@ FormFactorLorentz::FormFactorLorentz(double length)
 }
 
 
-double FormFactorLorentz::getRadialExtension() const
+double FormFactorLorentz::radialExtension() const
 {
     return m_width / 2.0;
 }

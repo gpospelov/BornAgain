@@ -36,11 +36,11 @@ FormFactorWeighted* FormFactorWeighted::clone() const
     return result;
 }
 
-double FormFactorWeighted::getRadialExtension() const
+double FormFactorWeighted::radialExtension() const
 {
     double result { 0.0 };
     for (size_t index=0; index<m_form_factors.size(); ++index)
-        result += m_weights[index] * m_form_factors[index]->getRadialExtension();
+        result += m_weights[index] * m_form_factors[index]->radialExtension();
     return result;
 }
 

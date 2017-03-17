@@ -42,7 +42,7 @@ Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
         "IFormFactor::evaluatePol: is not implemented by default");
 }
 
-double IFormFactor::getVolume() const
+double IFormFactor::volume() const
 {
     WavevectorInfo zero_wavevectors;
     return std::abs(evaluate(zero_wavevectors));

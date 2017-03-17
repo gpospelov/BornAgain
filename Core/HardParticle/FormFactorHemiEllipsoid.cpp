@@ -35,7 +35,7 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_
     onChange();
 }
 
-double FormFactorHemiEllipsoid::getRadialExtension() const
+double FormFactorHemiEllipsoid::radialExtension() const
 {
     return ( m_radius_x + m_radius_y ) / 2.0;
 }

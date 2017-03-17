@@ -81,7 +81,7 @@ SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const
                 mp_meso_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
     std::unique_ptr<IFormFactor> P_total_ff( mp_particle_structure->createTotalFormFactor(
                                                  *P_temp_ff, P_rotation.get(), m_position) );
-    double meso_volume = mp_meso_form_factor->getVolume();
+    double meso_volume = mp_meso_form_factor->volume();
     auto regions = mp_particle_structure->homogeneousRegions();
     for (auto& region : regions)
         region.m_volume *= meso_volume;

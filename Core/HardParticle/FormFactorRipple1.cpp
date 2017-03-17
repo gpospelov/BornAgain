@@ -49,7 +49,7 @@ bool FormFactorRipple1::check_initialization() const
     return result;
 }
 
-double FormFactorRipple1::getRadialExtension() const
+double FormFactorRipple1::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

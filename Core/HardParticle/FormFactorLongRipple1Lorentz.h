@@ -35,7 +35,7 @@ public:
         return new FormFactorLongRipple1Lorentz(m_length, m_width, m_height); }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }

@@ -49,7 +49,7 @@ bool FormFactorLongRipple1Lorentz::check_initialization() const
     return result;
 }
 
-double FormFactorLongRipple1Lorentz::getRadialExtension() const
+double FormFactorLongRipple1Lorentz::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

@@ -596,7 +596,7 @@ void FormFactorPolygonalPrism::setPrism( bool symmetry_Ci, const std::vector<kve
 }
 
 //! Returns the volume of this prism.
-double FormFactorPolygonalPrism::getVolume() const { return m_height * m_base->area(); }
+double FormFactorPolygonalPrism::volume() const { return m_height * m_base->area(); }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset height/2.
 

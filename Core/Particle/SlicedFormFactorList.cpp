@@ -40,8 +40,7 @@ void SlicedFormFactorList::addParticle(IParticle& particle,
         // if particle is contained in this layer, set limits to infinite:
         ZLimits limits = single_layer ? ZLimits()
                                       : LayerZLimits(multilayer, i);
-        m_ff_list.emplace_back(std::unique_ptr<IFormFactor>(
-                                   particle.createSlicedFormFactor(limits)), i);
+        m_ff_list.emplace_back(particle.createSlicedParticle(limits).mP_slicedff, i);
         ref_layer_index = i;  // particle now has coordinates relative to layer i
     }
 }

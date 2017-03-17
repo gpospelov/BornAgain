@@ -66,40 +66,29 @@ void GroupProperty::setCurrentType(const QString& type)
     }
 }
 
-QString GroupProperty::getCurrentLabel() const
-{
-    auto labels = getLabels();
-    int ind = index();
-    return labels.at(ind);
-}
-
-QStringList GroupProperty::getTypes() const
-{
-    return m_groupInfo.itemTypes();
-}
-
-QStringList GroupProperty::getLabels() const
-{
-    return m_groupInfo.itemLabels();
-}
-
-int GroupProperty::index() const
+int GroupProperty::currentIndex() const
 {
     return toIndex(m_current_type);
 }
 
-int GroupProperty::toIndex(const QString& type) const
+void GroupProperty::setCurrentIndex(int index)
 {
-    return getTypes().indexOf(type);
+    setCurrentType(toString(index));
 }
 
-QString GroupProperty::toString(int index) const
+QString GroupProperty::currentLabel() const
 {
-    QStringList name_list = getTypes();
-    if (index < 0 || index >= name_list.size())
-        return QString();
+    return itemLabels().at(currentIndex());
+}
 
-    return name_list[index];
+QStringList GroupProperty::itemTypes() const
+{
+    return m_groupInfo.itemTypes();
+}
+
+QStringList GroupProperty::itemLabels() const
+{
+    return m_groupInfo.itemLabels();
 }
 
 void GroupProperty::setGroupInfo(GroupInfo groupInfo)
@@ -111,4 +100,14 @@ void GroupProperty::setGroupInfo(GroupInfo groupInfo)
 SessionItem* GroupProperty::createCorrespondingItem()
 {
     return ItemFactory::createItem(currentType());
+}
+
+int GroupProperty::toIndex(const QString& type) const
+{
+    return itemTypes().indexOf(type);
+}
+
+QString GroupProperty::toString(int index) const
+{
+    return itemTypes().at(index);
 }

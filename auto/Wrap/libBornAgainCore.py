@@ -18566,18 +18566,6 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_createSlicedFormFactor(self, limits)
 
 
-    def createSlicedParticle(self, limits):
-        """
-        createSlicedParticle(IParticle self, ZLimits limits) -> SlicedParticle
-
-        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.IParticle_createSlicedParticle(self, limits)
-
-
     def position(self):
         """
         position(IParticle self) -> kvector_t
@@ -23856,18 +23844,6 @@ class Particle(IParticle):
 
         """
         return _libBornAgainCore.Particle_createSlicedFormFactor(self, limits)
-
-
-    def createSlicedParticle(self, limits):
-        """
-        createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
-
-        SlicedParticle Particle::createSlicedParticle(ZLimits limits) const overridefinal
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.Particle_createSlicedParticle(self, limits)
 
 
     def setMaterial(self, material):

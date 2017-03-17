@@ -16249,6 +16249,16 @@ class SimulationOptions(_object):
         """
         return _libBornAgainCore.SimulationOptions_includeSpecular(self)
 
+
+    def setUseAvgMaterials(self, use_avg_materials):
+        """setUseAvgMaterials(SimulationOptions self, bool use_avg_materials)"""
+        return _libBornAgainCore.SimulationOptions_setUseAvgMaterials(self, use_avg_materials)
+
+
+    def useAvgMaterials(self):
+        """useAvgMaterials(SimulationOptions self) -> bool"""
+        return _libBornAgainCore.SimulationOptions_useAvgMaterials(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None
 SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister

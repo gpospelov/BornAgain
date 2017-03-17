@@ -56,6 +56,8 @@ private:
     void runProtected();
     static IFresnelMap* createFresnelMap(const MultiLayer* p_multilayer,
                                          const MultiLayer* p_inverted_multilayer);
+    // corrects used materials in the Fresnel map to the average materials
+    void adjustFresnelMap();
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;

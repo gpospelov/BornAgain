@@ -57,6 +57,8 @@ MainComputation::MainComputation(
     if (m_sim_options.includeSpecular())
         m_computation_terms.emplace_back(new SpecularComputation(mP_multi_layer.get(),
                                                               mP_fresnel_map.get()));
+    if (m_sim_options.useAvgMaterials())
+        adjustFresnelMap();
 }
 
 MainComputation::~MainComputation()
@@ -96,4 +98,9 @@ IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
             return new ScalarFresnelMap(p_multilayer);
         else
             return new MatrixFresnelMap(p_multilayer, p_inverted_multilayer);
+}
+
+void MainComputation::adjustFresnelMap()
+{
+
 }

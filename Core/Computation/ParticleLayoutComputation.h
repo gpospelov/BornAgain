@@ -17,8 +17,6 @@
 #define PARTICLELAYOUTCOMPUTATION_H
 
 #include "IComputationTerm.h"
-#include "SlicedParticle.h"
-#include <map>
 #include <memory>
 
 using std::size_t;
@@ -44,7 +42,6 @@ public:
 private:
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;
-    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
 #endif // PARTICLELAYOUTCOMPUTATION_H

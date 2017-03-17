@@ -68,25 +68,19 @@ void GroupProperty::setCurrentType(const QString& type)
 
 QString GroupProperty::getCurrentLabel() const
 {
-    return m_type_label_map.at(m_current_type);
+    auto labels = getLabels();
+    int ind = index();
+    return labels.at(ind);
 }
 
 QStringList GroupProperty::getTypes() const
 {
-    QStringList result;
-    for (const auto& key_value_pair : m_type_label_map)
-        result << key_value_pair.first;
-
-    return result;
+    return m_groupInfo.itemTypes();
 }
 
 QStringList GroupProperty::getLabels() const
 {
-    QStringList result;
-    for (const auto& key_value_pair : m_type_label_map)
-        result << key_value_pair.second;
-
-    return result;
+    return m_groupInfo.itemLabels();
 }
 
 int GroupProperty::index() const
@@ -96,12 +90,7 @@ int GroupProperty::index() const
 
 int GroupProperty::toIndex(const QString& type) const
 {
-    QStringList name_list = getTypes();
-    for (int i = 0; i < name_list.size(); ++i) {
-        if (type == name_list[i])
-            return i;
-    }
-    return -1;
+    return getTypes().indexOf(type);
 }
 
 QString GroupProperty::toString(int index) const
@@ -113,10 +102,10 @@ QString GroupProperty::toString(int index) const
     return name_list[index];
 }
 
-void GroupProperty::setGroupMap(std::map<QString, QString> group_map)
+void GroupProperty::setGroupInfo(const GroupInfo& groupInfo)
 {
-    m_type_label_map = std::move(group_map);
-    setCurrentType(m_type_label_map.begin()->first);
+    m_groupInfo = groupInfo;
+    setCurrentType(m_groupInfo.itemTypes().front());
 }
 
 SessionItem* GroupProperty::createCorrespondingItem()

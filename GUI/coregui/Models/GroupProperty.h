@@ -18,6 +18,7 @@
 #define GROUPPROPERTY_H
 
 #include "WinDllMacros.h"
+#include "GroupInfo.h"
 #include <QSharedPointer>
 #include <QStringList>
 
@@ -49,13 +50,13 @@ public:
 
 private:
     GroupProperty(QString group_name);
-    void setGroupMap(std::map<QString, QString> group_map);
+    void setGroupInfo(const GroupInfo& groupInfo);
     SessionItem* createCorrespondingItem();
 
     QString m_group_name;
     SessionItem* m_groupItem;
     QString m_current_type;
-    std::map<QString, QString> m_type_label_map;
+    GroupInfo m_groupInfo;
 };
 
 typedef QSharedPointer<GroupProperty> GroupProperty_t;

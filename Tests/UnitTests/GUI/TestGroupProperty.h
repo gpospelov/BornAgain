@@ -48,6 +48,11 @@ inline void TestGroupProperty::test_groupInfo()
 
 inline void TestGroupProperty::test_groupProperty()
 {
+    GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
+        "MyGroupProperty", Constants::DistributionGroup);
+
+    QCOMPARE(property->currentType(), Constants::DistributionCosineType);
+    QVERIFY(property->currentItem() == nullptr);
 
 }
 

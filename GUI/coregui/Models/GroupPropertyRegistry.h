@@ -18,27 +18,21 @@
 #define GROUPPROPERTYREGISTRY_H
 
 #include "GroupProperty.h"
+#include "GroupInfoCatalogue.h"
 #include "item_constants.h"
 
+//! Constructs GroupProperty objects according to the given group type.
 
-
-//! The GroupPropertyRegistry is responsible for constructing GroupProperty objects
-//! according to the given name of the group.
 class BA_CORE_API_ GroupPropertyRegistry
 {
 public:
-    using SelectableGroupMap_t = std::map<QString, std::map<QString, QString>>;
+    static bool isValidGroup(const QString& group_type);
 
-    static bool isValidGroup(const QString &group_type);
-
-    static GroupProperty_t createGroupProperty(const QString &group_name,
-            const Constants::ModelType &group_type);
+    static GroupProperty_t createGroupProperty(const QString& group_name,
+                                               const Constants::ModelType& group_type);
 
 private:
-    static SelectableGroupMap_t m_selectable_group_map;
-    //!< Contains correspondance of selectable group names to their content,
-    //!< which is a map between item types and item labels
+    static const GroupInfoCatalogue& catalogue();
 };
-
 
 #endif // GROUPPROPERTYREGISTRY_H

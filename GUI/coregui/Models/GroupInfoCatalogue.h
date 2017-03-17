@@ -26,8 +26,11 @@ class BA_CORE_API_ GroupInfoCatalogue
 public:
     GroupInfoCatalogue();
 
-private:
+    GroupInfo groupInfo(const QString& groupType) const;
+
     bool containsGroup(const QString& groupType) const;
+
+private:
     void addInfo(const GroupInfo& info);
     QVector<GroupInfo> m_groups;
 };

@@ -152,6 +152,16 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     addInfo(info);
 }
 
+GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const
+{
+    for (auto& info : m_groups)
+        if (info.groupType() == groupType)
+            return info;
+
+    throw GUIHelpers::Error("GroupInfoCatalogue::groupInfo() -> Error. No such group '"+
+                            groupType+"'");
+}
+
 bool GroupInfoCatalogue::containsGroup(const QString& groupType) const
 {
     for (auto& info : m_groups)

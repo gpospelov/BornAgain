@@ -27,7 +27,7 @@ public:
     GroupInfoCatalogue();
 
 private:
-    bool containsGroup(const QString& groupName) const;
+    bool containsGroup(const QString& groupType) const;
     void addInfo(const GroupInfo& info);
     QVector<GroupInfo> m_groups;
 };

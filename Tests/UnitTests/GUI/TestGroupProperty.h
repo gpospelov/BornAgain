@@ -10,6 +10,7 @@ class TestGroupProperty : public QObject {
 
 private slots:
     void test_groupInfo();
+    void test_groupProperty();
     void test_CreateGroup();
     void test_groupPropertyWithDisplayNames();
 };
@@ -23,10 +24,10 @@ inline void TestGroupProperty::test_groupInfo()
     info.setDefaultType("AAA");
 
     // sorted group (default behavior)
-    QCOMPARE(info.groupName(), QString("Group"));
+    QCOMPARE(info.groupType(), QString("Group"));
     QCOMPARE(info.defaultType(), QString("AAA"));
-    QCOMPARE(info.types(), QStringList() << "AAA" << "BBB" << "CCC");
-    QCOMPARE(info.labels(), QStringList() << "a_label" << "b_label" << "c_label");
+    QCOMPARE(info.itemTypes(), QStringList() << "AAA" << "BBB" << "CCC");
+    QCOMPARE(info.itemLabels(), QStringList() << "a_label" << "b_label" << "c_label");
 
     // unsorted group
     info = GroupInfo("Group2", false);
@@ -35,14 +36,19 @@ inline void TestGroupProperty::test_groupInfo()
     info.add("CCC2", "c_label2");
     info.setDefaultType("AAA2");
     QCOMPARE(info.defaultType(), QString("AAA2"));
-    QCOMPARE(info.types(), QStringList() << "BBB2" << "AAA2" << "CCC2");
-    QCOMPARE(info.labels(), QStringList() << "b_label2" << "a_label2" << "c_label2");
+    QCOMPARE(info.itemTypes(), QStringList() << "BBB2" << "AAA2" << "CCC2");
+    QCOMPARE(info.itemLabels(), QStringList() << "b_label2" << "a_label2" << "c_label2");
 
     // attempt to set non-existing default type
     QVERIFY_THROW(info.setDefaultType("XXX"), GUIHelpers::Error);
 
-    // attempt to add same group twice
+    // attempt to add same info twice
     QVERIFY_THROW(info.add("CCC2", "c_label2"), GUIHelpers::Error);
+}
+
+inline void TestGroupProperty::test_groupProperty()
+{
+
 }
 
 

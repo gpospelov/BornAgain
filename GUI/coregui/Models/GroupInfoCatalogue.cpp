@@ -152,10 +152,10 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     addInfo(info);
 }
 
-bool GroupInfoCatalogue::containsGroup(const QString& groupName) const
+bool GroupInfoCatalogue::containsGroup(const QString& groupType) const
 {
     for (auto& info : m_groups)
-        if (info.groupName() == groupName)
+        if (info.groupType() == groupType)
             return true;
 
     return false;
@@ -163,9 +163,9 @@ bool GroupInfoCatalogue::containsGroup(const QString& groupName) const
 
 void GroupInfoCatalogue::addInfo(const GroupInfo& info)
 {
-    if (containsGroup(info.groupName()))
+    if (containsGroup(info.groupType()))
         throw GUIHelpers::Error("GroupInfoCatalogue::addInfo -> Error. Already exists '"
-                                + info.groupName() + "'");
+                                + info.groupType() + "'");
 
     m_groups.push_back(info);
 }

@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <QString>
 #include <QVector>
+#include <QStringList>
 
 //! Defines info for GroupProperty, i.e. collection of model types, their labels and
 //! the name of default item's modelType.
@@ -31,9 +32,14 @@ public:
 
     void add(const QString& modelType, const QString& label);
 
+    QString defaultType() const;
     void setDefaultType(const QString& modelType);
 
     QString groupName() const;
+
+    QStringList types() const;
+
+    QStringList labels() const;
 
 private:
     struct TypeAndLabel {

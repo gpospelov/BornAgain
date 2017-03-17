@@ -38,6 +38,11 @@ void GroupInfo::add(const QString& modelType, const QString& label)
                   [](TypeAndLabel a, TypeAndLabel b) { return a.m_modelType < b.m_modelType; });
 }
 
+QString GroupInfo::defaultType() const
+{
+    return m_defaultType;
+}
+
 void GroupInfo::setDefaultType(const QString& modelType)
 {
     if (!containsType(modelType))
@@ -46,7 +51,29 @@ void GroupInfo::setDefaultType(const QString& modelType)
     m_defaultType = modelType;
 }
 
-QString GroupInfo::groupName() const { return m_groupName; }
+QString GroupInfo::groupName() const
+{
+    return m_groupName;
+}
+
+QStringList GroupInfo::types() const
+{
+    QStringList result;
+    for (auto& pair : m_info)
+        result.append(pair.m_modelType);
+
+    return result;
+}
+
+QStringList GroupInfo::labels() const
+{
+    QStringList result;
+    for (auto& pair : m_info)
+        result.append(pair.m_label);
+
+    return result;
+
+}
 
 bool GroupInfo::containsType(const QString& modelType) const
 {

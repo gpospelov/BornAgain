@@ -1,4 +1,5 @@
 #include <QtTest>
+#include "GroupInfo.h"
 #include "GroupItem.h"
 #include "GroupPropertyRegistry.h"
 #include "GUIHelpers.h"
@@ -8,9 +9,42 @@ class TestGroupProperty : public QObject {
     Q_OBJECT
 
 private slots:
+    void test_groupInfo();
     void test_CreateGroup();
     void test_groupPropertyWithDisplayNames();
 };
+
+inline void TestGroupProperty::test_groupInfo()
+{
+    GroupInfo info("Group");
+    info.add("BBB", "b_label");
+    info.add("AAA", "a_label");
+    info.add("CCC", "c_label");
+    info.setDefaultType("AAA");
+
+    // sorted group (default behavior)
+    QCOMPARE(info.groupName(), QString("Group"));
+    QCOMPARE(info.defaultType(), QString("AAA"));
+    QCOMPARE(info.types(), QStringList() << "AAA" << "BBB" << "CCC");
+    QCOMPARE(info.labels(), QStringList() << "a_label" << "b_label" << "c_label");
+
+    // unsorted group
+    info = GroupInfo("Group2", false);
+    info.add("BBB2", "b_label2");
+    info.add("AAA2", "a_label2");
+    info.add("CCC2", "c_label2");
+    info.setDefaultType("AAA2");
+    QCOMPARE(info.defaultType(), QString("AAA2"));
+    QCOMPARE(info.types(), QStringList() << "BBB2" << "AAA2" << "CCC2");
+    QCOMPARE(info.labels(), QStringList() << "b_label2" << "a_label2" << "c_label2");
+
+    // attempt to set non-existing default type
+    QVERIFY_THROW(info.setDefaultType("XXX"), GUIHelpers::Error);
+
+    // attempt to add same group twice
+    QVERIFY_THROW(info.add("CCC2", "c_label2"), GUIHelpers::Error);
+}
+
 
 inline void TestGroupProperty::test_CreateGroup()
 {

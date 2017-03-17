@@ -50,7 +50,7 @@ public:
 
 private:
     GroupProperty(QString group_name);
-    void setGroupInfo(const GroupInfo& groupInfo);
+    void setGroupInfo(GroupInfo groupInfo);
     SessionItem* createCorrespondingItem();
 
     QString m_group_name;

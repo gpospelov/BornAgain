@@ -102,10 +102,10 @@ QString GroupProperty::toString(int index) const
     return name_list[index];
 }
 
-void GroupProperty::setGroupInfo(const GroupInfo& groupInfo)
+void GroupProperty::setGroupInfo(GroupInfo groupInfo)
 {
-    m_groupInfo = groupInfo;
-    setCurrentType(m_groupInfo.itemTypes().front());
+    m_groupInfo = std::move(groupInfo);
+    setCurrentType(m_groupInfo.defaultType());
 }
 
 SessionItem* GroupProperty::createCorrespondingItem()

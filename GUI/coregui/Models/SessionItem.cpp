@@ -452,8 +452,7 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
 
     if(GroupPropertyRegistry::isValidGroup(groupType)) {
         // create group item
-        GroupProperty_t group_property
-            = GroupPropertyRegistry::createGroupProperty(groupName, groupType);
+        GroupProperty_t group_property = GroupPropertyRegistry::createGroupProperty(groupType);
         GroupItem *groupItem = dynamic_cast<GroupItem *>(
                     ItemFactory::createItem(Constants::GroupItemType));
         Q_ASSERT(groupItem);

@@ -22,10 +22,9 @@ bool GroupPropertyRegistry::isValidGroup(const QString& group_type)
     return catalogue().containsGroup(group_type);
 }
 
-GroupProperty_t GroupPropertyRegistry::createGroupProperty(const QString& group_name,
-                                                           const Constants::ModelType& group_type)
+GroupProperty_t GroupPropertyRegistry::createGroupProperty(const Constants::ModelType& group_type)
 {
-    GroupProperty_t result(new GroupProperty(group_name));
+    GroupProperty_t result(new GroupProperty);
     result->setGroupInfo(catalogue().groupInfo(group_type));
     return result;
 }

@@ -17,8 +17,8 @@
 #include "GroupProperty.h"
 #include "ItemFactory.h"
 
-GroupProperty::GroupProperty(QString group_name)
-    : m_group_name(std::move(group_name)), m_groupItem(0)
+GroupProperty::GroupProperty()
+    : m_groupItem(nullptr)
 {
 }
 

@@ -30,6 +30,8 @@ class SessionItem;
 class BA_CORE_API_ GroupProperty
 {
 public:
+    friend class GroupPropertyRegistry;
+
     void setGroupItem(SessionItem* groupItem);
 
     SessionItem* currentItem();
@@ -46,14 +48,11 @@ public:
     int toIndex(const QString& type) const;
     QString toString(int index) const;
 
-    friend class GroupPropertyRegistry;
-
 private:
-    GroupProperty(QString group_name);
+    GroupProperty();
     void setGroupInfo(GroupInfo groupInfo);
     SessionItem* createCorrespondingItem();
 
-    QString m_group_name;
     SessionItem* m_groupItem;
     QString m_current_type;
     GroupInfo m_groupInfo;

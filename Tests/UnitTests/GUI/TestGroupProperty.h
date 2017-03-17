@@ -49,7 +49,7 @@ inline void TestGroupProperty::test_groupInfo()
 inline void TestGroupProperty::test_groupProperty()
 {
     GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
-        "MyGroupProperty", Constants::DistributionGroup);
+        Constants::DistributionGroup);
 
     QCOMPARE(property->currentType(), Constants::DistributionGaussianType);
     QVERIFY(property->currentItem() == nullptr);
@@ -60,7 +60,7 @@ inline void TestGroupProperty::test_groupProperty()
 inline void TestGroupProperty::test_CreateGroup()
 {
     GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
-        "MyGroupProperty", Constants::DistributionGroup);
+        Constants::DistributionGroup);
 
     QCOMPARE(property->currentType(), Constants::DistributionGaussianType);
 
@@ -96,7 +96,7 @@ inline void TestGroupProperty::test_CreateGroup()
 inline void TestGroupProperty::test_groupPropertyWithDisplayNames()
 {
     GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
-        "MyGroupProperty", Constants::DistributionGroup);
+        Constants::DistributionGroup);
 
     GroupItem groupItem;
     groupItem.setGroup(property);

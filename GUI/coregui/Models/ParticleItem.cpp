@@ -80,10 +80,8 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     P_particle->setAbundance(abundance);
 
-    auto ffItem = static_cast<FormFactorItem*>(getGroupItem(ParticleItem::P_FORM_FACTOR));
-    Q_ASSERT(ffItem);
-    auto P_ff = ffItem->createFormFactor();
-    P_particle->setFormFactor(*P_ff);
+    auto& ffItem = groupItem<FormFactorItem>(ParticleItem::P_FORM_FACTOR);
+    P_particle->setFormFactor(*ffItem.createFormFactor());
 
     TransformToDomain::setTransformationInfo(P_particle.get(), *this);
 

@@ -74,11 +74,8 @@ void DetectorItem::register_resolution_function()
 
 std::unique_ptr<IResolutionFunction2D> DetectorItem::createResolutionFunction() const
 {
-    auto resfuncItem
-        = dynamic_cast<ResolutionFunctionItem*>(getGroupItem(DetectorItem::P_RESOLUTION_FUNCTION));
-    Q_ASSERT(resfuncItem);
-
-    return resfuncItem->createResolutionFunction(axesToDomainUnitsFactor());
+    auto& resfuncItem = groupItem<ResolutionFunctionItem>(DetectorItem::P_RESOLUTION_FUNCTION);
+    return resfuncItem.createResolutionFunction(axesToDomainUnitsFactor());
 }
 
 void DetectorItem::addMasksToDomain(IDetector2D* detector) const

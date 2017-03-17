@@ -72,18 +72,15 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     if (!P_particle)
         throw GUIHelpers::Error("DomainObjectBuilder::buildParticleDistribution()"
                                 " -> Error! No correct particle defined");
-    auto distr_item = dynamic_cast<DistributionItem*>(
-                getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
-    Q_ASSERT(distr_item);
+    auto& distr_item = groupItem<DistributionItem>(ParticleDistributionItem::P_DISTRIBUTION);
 
     RealLimits limits = RealLimits::limitless();
-    if(distr_item->isTag(DistributionItem::P_LIMITS)) {
-        auto limitsItem = dynamic_cast<RealLimitsItem*>(
-                    distr_item->getGroupItem(DistributionItem::P_LIMITS));
-        limits = limitsItem->createRealLimits();
+    if(distr_item.isTag(DistributionItem::P_LIMITS)) {
+        auto& limitsItem = distr_item.groupItem<RealLimitsItem>(DistributionItem::P_LIMITS);
+        limits = limitsItem.createRealLimits();
     }
 
-    auto P_distribution = distr_item->createDistribution();
+    auto P_distribution = distr_item.createDistribution();
 
     auto prop
         = getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
@@ -92,8 +89,8 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     std::string domain_par
         = ParameterTreeUtils::parameterNameToDomainName(par_name, childParticle()).toStdString();
 
-    int nbr_samples = distr_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
-    double sigma_factor = distr_item->getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
+    int nbr_samples = distr_item.getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+    double sigma_factor = distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
     ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor, limits);
     auto result = GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();

@@ -17461,6 +17461,11 @@ class HomogeneousMaterial(INamed):
         return _libBornAgainCore.HomogeneousMaterial_refractiveIndex(self)
 
 
+    def refractiveIndex2(self):
+        """refractiveIndex2(HomogeneousMaterial self) -> complex_t"""
+        return _libBornAgainCore.HomogeneousMaterial_refractiveIndex2(self)
+
+
     def setRefractiveIndex(self, refractive_index):
         """
         setRefractiveIndex(HomogeneousMaterial self, complex_t const refractive_index)

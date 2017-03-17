@@ -48,6 +48,7 @@ public:
     HomogeneousMaterial inverted() const;
 
     complex_t refractiveIndex() const;
+    complex_t refractiveIndex2() const;
     void setRefractiveIndex(const complex_t refractive_index);
 
     //! Indicates whether the interaction with the material is scalar.

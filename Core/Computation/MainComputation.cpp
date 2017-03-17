@@ -27,6 +27,11 @@
 #include <iterator> // needed for back_inserter
 
 //#include <iostream>
+namespace
+{
+HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
+                                             const std::vector<HomogeneousRegion>& regions);
+}
 
 MainComputation::MainComputation(
     const MultiLayer& multi_layer,
@@ -108,10 +113,49 @@ void MainComputation::adjustFresnelMap()
     for (auto& comp: m_computation_terms) {
         comp->mergeRegionMap(region_map);
     }
-//    for (auto& entry : region_map)
-//    {
+    // TODO: use this multilayer!!!
+    std::unique_ptr<MultiLayer> p_multilayer(mP_multi_layer->clone());
+    for (auto& entry : region_map)
+    {
+        auto i_layer = entry.first;
+        auto layer_mat = p_multilayer->layerMaterial(i_layer);
+        if (!checkRegions(entry.second))
+            throw std::runtime_error("MainComputation::adjustFresnelMap: "
+                                     "total volumetric fraction of particles exceeds 1!");
+        auto new_mat = CalculateAverageMaterial(layer_mat, entry.second);
+        p_multilayer->setLayerMaterial(i_layer, new_mat);
 //        std::cout << "Layer: " << entry.first << std::endl;
 //        for (auto& region : entry.second)
 //            std::cout << "  Region: vol: " << region.m_volume << std::endl;
-//    }
+    }
+}
+
+bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const
+{
+    double total_fraction = 0;
+    for (auto& region : regions)
+        total_fraction += region.m_volume;
+    return (total_fraction >= 0 && total_fraction <= 1);
+}
+
+namespace
+{
+HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
+                                             const std::vector<HomogeneousRegion>& regions)
+{
+    kvector_t magnetization_layer = layer_mat.magneticField();
+    complex_t refr_index2_layer = layer_mat.refractiveIndex2();
+    kvector_t magnetization_avg = magnetization_layer;
+    complex_t refr_index2_avg = refr_index2_layer;
+    for (auto& region : regions)
+    {
+        kvector_t magnetization_region = region.m_material.magneticField();
+        complex_t refr_index2_region = region.m_material.refractiveIndex2();
+        magnetization_avg += region.m_volume*(magnetization_region - magnetization_layer);
+        refr_index2_avg += region.m_volume*(refr_index2_region - refr_index2_layer);
+    }
+    complex_t refr_index_avg = std::sqrt(refr_index2_avg);
+    HomogeneousMaterial result(layer_mat.getName()+"_avg", refr_index_avg, magnetization_avg);
+    return result;
+}
 }

@@ -68,6 +68,11 @@ complex_t HomogeneousMaterial::refractiveIndex() const
     return m_refractive_index;
 }
 
+complex_t HomogeneousMaterial::refractiveIndex2() const
+{
+    return m_refractive_index*m_refractive_index;
+}
+
 void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 {
     m_refractive_index = refractive_index;

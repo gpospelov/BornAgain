@@ -25,6 +25,7 @@
 
 class IFresnelMap;
 class MultiLayer;
+class HomogeneousRegion;
 class IComputationTerm;
 class ProgressHandler;
 class SimulationElement;
@@ -58,6 +59,7 @@ private:
                                          const MultiLayer* p_inverted_multilayer);
     // corrects used materials in the Fresnel map to the average materials
     void adjustFresnelMap();
+    bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;

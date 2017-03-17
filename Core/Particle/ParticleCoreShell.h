@@ -38,6 +38,8 @@ public:
 
     IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
 
+    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
+
     const Particle* coreParticle() const;
 
     const Particle* shellParticle() const;

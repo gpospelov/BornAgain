@@ -91,9 +91,8 @@ IFormFactor* Particle::createSlicedFormFactor(ZLimits limits) const
 
 SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
 {
-    SlicedParticle result;
     if (!mP_form_factor)
-        return result;
+        return {};
     std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
     if (mP_rotation)
         P_rotation.reset(mP_rotation->clone());
@@ -104,6 +103,7 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
     HomogeneousMaterial transformed_material(
                 m_material.transformedMaterial(P_rotation->getTransform3D()));
     P_ff->setMaterial(transformed_material);
+    SlicedParticle result;
     result.m_regions.push_back( { volume, transformed_material } );
     result.mP_slicedff = std::move(P_ff);
     return result;

@@ -24185,6 +24185,18 @@ class ParticleCoreShell(IParticle):
         return _libBornAgainCore.ParticleCoreShell_createSlicedFormFactor(self, limits)
 
 
+    def createSlicedParticle(self, limits):
+        """
+        createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
+
+        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
+
+        Create a sliced form factor for this particle. 
+
+        """
+        return _libBornAgainCore.ParticleCoreShell_createSlicedParticle(self, limits)
+
+
     def coreParticle(self):
         """
         coreParticle(ParticleCoreShell self) -> Particle

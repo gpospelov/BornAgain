@@ -28,6 +28,7 @@
 #include "SlicedFormFactorList.h"
 #include "SSCApproximationStrategy.h"
 
+
 LayoutStrategyBuilder::LayoutStrategyBuilder(
     const MultiLayer* p_multilayer, const ILayout* p_layout,
     const IFresnelMap* p_fresnel_map, bool polarized,
@@ -49,6 +50,11 @@ LayoutStrategyBuilder::~LayoutStrategyBuilder()
 IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
 {
     return mP_strategy.release();
+}
+
+std::map<size_t, std::vector<HomogeneousRegion> > LayoutStrategyBuilder::regionMap() const
+{
+    return m_region_map;
 }
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
@@ -87,6 +93,8 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
         result.push_back(p_ff_coh);
     }
+    double scale_factor = mp_layout->totalParticleSurfaceDensity()/layout_abundance;
+    ScaleRegionMap(m_region_map, scale_factor);
     return result;
 }
 
@@ -94,10 +102,12 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
 FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     const IParticle* particle)
 {
-    std::unique_ptr<FormFactorCoherentSum> P_result(
-                new FormFactorCoherentSum(particle->abundance()));
+    double abundance = particle->abundance();
     auto sliced_ffs = CreateSlicedFormFactors(*particle, *mp_multilayer, m_layer_index);
-    mergeRegionMap(sliced_ffs.regionMap());
+    auto region_map = sliced_ffs.regionMap();
+    ScaleRegionMap(region_map, abundance);
+    mergeRegionMap(region_map);
+    std::unique_ptr<FormFactorCoherentSum> P_result(new FormFactorCoherentSum(abundance));
     for (size_t i=0; i < sliced_ffs.size(); ++i) {
         auto ff_pair = sliced_ffs[i];
         std::unique_ptr<IFormFactor> P_ff_framework;
@@ -130,5 +140,16 @@ void LayoutStrategyBuilder::mergeRegionMap(
         auto regions = entry.second;
         m_region_map[layer_index].insert(m_region_map[layer_index].begin(),
                                          regions.begin(), regions.end());
+    }
+}
+
+void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor)
+{
+    for (auto& entry : region_map)
+    {
+        for (auto& region : entry.second)
+        {
+            region.m_volume *= factor;
+        }
     }
 }

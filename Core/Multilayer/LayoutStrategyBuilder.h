@@ -46,6 +46,8 @@ public:
 
     IInterferenceFunctionStrategy* releaseStrategy();
 
+    std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
+
 private:
     void createStrategy();
     SafePointerVector<class FormFactorCoherentSum> collectFormFactorList();
@@ -62,5 +64,7 @@ private:
     std::unique_ptr<IInterferenceFunctionStrategy> mP_strategy;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
+
+void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor);
 
 #endif // LAYOUTSTRATEGYBUILDER_H

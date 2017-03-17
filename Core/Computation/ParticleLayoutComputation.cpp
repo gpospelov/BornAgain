@@ -32,6 +32,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(
     LayoutStrategyBuilder builder(mp_multilayer, p_layout, mp_fresnel_map,
                                   polarized, options, layer_index);
     mP_strategy.reset(builder.releaseStrategy());
+    m_region_map = builder.regionMap();
     m_surface_density = p_layout->totalParticleSurfaceDensity();
 }
 

@@ -26,6 +26,7 @@ std::pair<size_t, size_t> LayerIndicesLimits(const IParticle& particle,
                                              size_t ref_layer_index);
 double ZDifference(const MultiLayer& multilayer, size_t layer_index, size_t ref_layer_index);
 ZLimits LayerZLimits(const MultiLayer& multilayer, size_t layer_index);
+void ScaleRegions(std::vector<HomogeneousRegion>& regions, double factor);
 }
 
 void SlicedFormFactorList::addParticle(IParticle& particle,
@@ -42,6 +43,8 @@ void SlicedFormFactorList::addParticle(IParticle& particle,
                                       : LayerZLimits(multilayer, i);
         auto sliced_particle = particle.createSlicedParticle(limits);
         m_ff_list.emplace_back(std::move(sliced_particle.mP_slicedff), i);
+        if (multilayer.layerThickness(i)!=0.0)
+            ScaleRegions(sliced_particle.m_regions, 1/multilayer.layerThickness(i));
         m_region_map[i].insert(m_region_map[i].end(), sliced_particle.m_regions.begin(),
                                sliced_particle.m_regions.end());
         ref_layer_index = i;  // particle now has coordinates relative to layer i
@@ -113,6 +116,12 @@ ZLimits LayerZLimits(const MultiLayer& multilayer, size_t layer_index)
     if (layer_index==N-1)
         return ZLimits(ZLimits::NEG_INFINITE, 0.0);
     return ZLimits(-multilayer.layerThickness(layer_index), 0.0);
+}
+
+void ScaleRegions(std::vector<HomogeneousRegion>& regions, double factor)
+{
+    for (auto& region : regions)
+        region.m_volume *= factor;
 }
 }
 

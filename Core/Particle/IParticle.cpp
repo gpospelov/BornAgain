@@ -21,7 +21,7 @@
 
 IFormFactor* IParticle::createFormFactor() const
 {
-    return createSlicedFormFactor(ZLimits {});
+    return createSlicedParticle(ZLimits {}).mP_slicedff.release();
 }
 
 IFormFactor* IParticle::createSlicedFormFactor(ZLimits /*limits*/) const

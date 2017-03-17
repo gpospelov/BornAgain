@@ -17,6 +17,8 @@
 #define SLICEDFORMFACTORLIST_H
 
 #include "IFormFactor.h"
+#include "SlicedParticle.h"
+#include <map>
 #include <memory>
 
 class MultiLayer;
@@ -42,6 +44,7 @@ public:
     std::pair<const IFormFactor*, size_t> operator[](size_t index) const;
 private:
     std::vector<std::pair<std::unique_ptr<IFormFactor>, size_t>> m_ff_list;
+    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
 //! Global function that creates a SlicedFormFactorList from an IParticle in a multilayer

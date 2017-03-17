@@ -18,6 +18,8 @@
 
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
+#include "SlicedParticle.h"
+#include <map>
 #include <memory>
 
 class FormFactorCoherentSum;
@@ -42,9 +44,10 @@ public:
 
     ~LayoutStrategyBuilder();
 
-    IInterferenceFunctionStrategy* createStrategy() const;
+    IInterferenceFunctionStrategy* releaseStrategy();
 
 private:
+    void createStrategy();
     SafePointerVector<class FormFactorCoherentSum> collectFormFactorList() const;
     FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle) const;
 
@@ -55,6 +58,8 @@ private:
     bool m_polarized;  //!< polarized computation required?
     SimulationOptions m_sim_params;
     size_t m_layer_index;
+    std::unique_ptr<IInterferenceFunctionStrategy> mP_strategy;
+    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
 #endif // LAYOUTSTRATEGYBUILDER_H

@@ -40,7 +40,10 @@ void SlicedFormFactorList::addParticle(IParticle& particle,
         // if particle is contained in this layer, set limits to infinite:
         ZLimits limits = single_layer ? ZLimits()
                                       : LayerZLimits(multilayer, i);
-        m_ff_list.emplace_back(particle.createSlicedParticle(limits).mP_slicedff, i);
+        auto sliced_particle = particle.createSlicedParticle(limits);
+        m_ff_list.emplace_back(std::move(sliced_particle.mP_slicedff), i);
+        m_region_map[i].insert(m_region_map[i].end(), sliced_particle.m_regions.begin(),
+                               sliced_particle.m_regions.end());
         ref_layer_index = i;  // particle now has coordinates relative to layer i
     }
 }

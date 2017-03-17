@@ -40,7 +40,6 @@ struct HomogeneousRegion
 
 struct SlicedParticle
 {
-    size_t m_layer_index;
     std::unique_ptr<IFormFactor> mP_slicedff;
     std::vector<HomogeneousRegion> m_regions;
 };

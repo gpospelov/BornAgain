@@ -29,8 +29,9 @@ ParticleLayoutComputation::ParticleLayoutComputation(
         size_t layer_index, const SimulationOptions& options, bool polarized)
     : IComputationTerm(p_multilayer, p_fresnel_map)
 {
-    mP_strategy.reset(LayoutStrategyBuilder(mp_multilayer, p_layout, mp_fresnel_map,
-                                            polarized, options, layer_index).createStrategy());
+    LayoutStrategyBuilder builder(mp_multilayer, p_layout, mp_fresnel_map,
+                                  polarized, options, layer_index);
+    mP_strategy.reset(builder.releaseStrategy());
     m_surface_density = p_layout->totalParticleSurfaceDensity();
 }
 

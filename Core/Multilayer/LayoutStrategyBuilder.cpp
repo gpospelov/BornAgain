@@ -38,21 +38,28 @@ LayoutStrategyBuilder::LayoutStrategyBuilder(
     , m_polarized {polarized}
     , m_sim_params (sim_params)
     , m_layer_index(layer_index)
+{
+    createStrategy();
+}
+
+// needs class definitions => don't move to .h
+LayoutStrategyBuilder::~LayoutStrategyBuilder()
 {}
 
-LayoutStrategyBuilder::~LayoutStrategyBuilder()
-{} // needs class definitions => don't move to .h
+IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
+{
+    return mP_strategy.release();
+}
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
-IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
+void LayoutStrategyBuilder::createStrategy()
 {
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
 
-    IInterferenceFunctionStrategy* p_result = nullptr;
     switch (mp_layout->getApproximation())
     {
     case ILayout::DA:
-        p_result = new DecouplingApproximationStrategy(m_sim_params, m_polarized);
+        mP_strategy.reset( new DecouplingApproximationStrategy(m_sim_params, m_polarized) );
         break;
     case ILayout::SSCA:
         double kappa = mp_layout ? mp_layout->interferenceFunction()->getKappa()
@@ -61,14 +68,13 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
                 "with a strictly positive coupling coefficient kappa");
-        p_result = new SSCApproximationStrategy(m_sim_params, kappa, m_polarized);
+        mP_strategy.reset( new SSCApproximationStrategy(m_sim_params, kappa, m_polarized) );
         break;
     }
-    if (!p_result)
-        throw Exceptions::ClassInitializationException(
-            "Could not create appropriate strategy");
-    p_result->init(ff_wrappers, mp_layout->interferenceFunction());
-    return p_result;
+    if (!mP_strategy)
+        throw Exceptions::ClassInitializationException("Could not create appropriate strategy");
+    mP_strategy->init(ff_wrappers, mp_layout->interferenceFunction());
+    return;
 }
 
 //! Sets m_formfactor_wrappers, the list of weighted form factors.

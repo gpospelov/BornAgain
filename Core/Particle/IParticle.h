@@ -19,6 +19,7 @@
 #include "IAbstractParticle.h"
 #include "Rotations.h"
 #include "SafePointerVector.h"
+#include "SlicedParticle.h"
 #include "Vectors3D.h"
 #include "ZLimits.h"
 #include <memory>
@@ -44,6 +45,9 @@ public:
 
     //! Create a sliced form factor for this particle
     virtual IFormFactor* createSlicedFormFactor(ZLimits limits) const;
+
+    //! Create a sliced form factor for this particle
+    virtual SlicedParticle createSlicedParticle(ZLimits limits) const;
 
     //! Returns particle position.
     kvector_t position() const { return m_position; }

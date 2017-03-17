@@ -30,6 +30,12 @@ IFormFactor* IParticle::createSlicedFormFactor(ZLimits /*limits*/) const
                              "not implemented!");
 }
 
+SlicedParticle IParticle::createSlicedParticle(ZLimits) const
+{
+    throw std::runtime_error("IParticle::createSlicedParticle error: "
+                             "not implemented!");
+}
+
 void IParticle::applyTranslation(kvector_t displacement)
 {
     m_position += displacement;

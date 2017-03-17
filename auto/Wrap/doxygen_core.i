@@ -978,27 +978,15 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classDecouplingApproximationStrategy1.xml
-%feature("docstring") DecouplingApproximationStrategy1 "
+// File: classDecouplingApproximationStrategy.xml
+%feature("docstring") DecouplingApproximationStrategy "
 
-Strategy class to compute the total scalar scattering from a decorated layer in decoupling approximation.
-
-C++ includes: DecouplingApproximationStrategy.h
-";
-
-%feature("docstring")  DecouplingApproximationStrategy1::DecouplingApproximationStrategy1 "DecouplingApproximationStrategy1::DecouplingApproximationStrategy1(SimulationOptions sim_params)
-";
-
-
-// File: classDecouplingApproximationStrategy2.xml
-%feature("docstring") DecouplingApproximationStrategy2 "
-
-Strategy class to compute the total polarized scattering from a decorated layer in decoupling approximation.
+Strategy class to compute the total scattering from a particle layout in the decoupling approximation.
 
 C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy2::DecouplingApproximationStrategy2 "DecouplingApproximationStrategy2::DecouplingApproximationStrategy2(SimulationOptions sim_params)
+%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params, bool polarized)
 ";
 
 
@@ -5614,6 +5602,15 @@ Get the scattering matrix for a material defined by its magnetization (experimen
 ";
 
 
+// File: structHomogeneousRegion.xml
+%feature("docstring") HomogeneousRegion "
+
+Struct that contains information on a single homogeneous region of a particle inside a single layer. This information is needed for calculating the average of a material, used in the Fresnel calculations.
+
+C++ includes: SlicedParticle.h
+";
+
+
 // File: classHorizontalLine.xml
 %feature("docstring") HorizontalLine "
 
@@ -6985,17 +6982,14 @@ If defined by this interference function's parameters, returns the particle dens
 // File: classIInterferenceFunctionStrategy.xml
 %feature("docstring") IInterferenceFunctionStrategy "
 
-Pure virtual base class of all interference function strategy classes. Provides an 'evaluate' function that computes the total scattering intensity from a decorated layer, taking into account a specific inter-particle interference function. This function uses low-level functions precomputeParticleFormfactors, evaluateForList that are implemented differently in different inheriting classes. Multiple inheritance is used to support scalar and polarized scattering (through  IInterferenceFunctionStrategy1,  IInterferenceFunctionStrategy2) and to implement different approximation schemes ( DecouplingApproximationStrategy1,  SSCApproximationStrategy1, and their polarized counterparts).
+Base class of all interference function strategy classes. Provides an 'evaluate' function that computes the total scattering intensity from a decorated layer, taking into account a specific inter-particle interference function. This function uses the low-level functions scalarCalculation and polarizedCalculation that are to be overriden in the derived classes. Inheritance is used to support different approximation schemes ( DecouplingApproximationStrategy,  SSCApproximationStrategy).
 
 Instantiation of child classes takes place in  LayoutStrategyBuilder::createStrategy, which is called from  ParticleLayoutComputation::eval.
 
 C++ includes: IInterferenceFunctionStrategy.h
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
-";
-
-%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions &sim_params)
+%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions &sim_params, bool polarized)
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
@@ -7009,24 +7003,6 @@ Initializes the object with form factors and interference functions.
 %feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const SimulationElement &sim_element) const
 
 Calculates the intensity for scalar particles/interactions. 
-";
-
-
-// File: classIInterferenceFunctionStrategy1.xml
-%feature("docstring") IInterferenceFunctionStrategy1 "
-
-Pure virtual base class of all scalar interference function strategy classes. Provides the precomputation of particle form factors.
-
-C++ includes: IInterferenceFunctionStrategy.h
-";
-
-
-// File: classIInterferenceFunctionStrategy2.xml
-%feature("docstring") IInterferenceFunctionStrategy2 "
-
-Pure virtual base class of all polarized interference function strategy classes. Provides the precomputation of particle form factors.
-
-C++ includes: IInterferenceFunctionStrategy.h
 ";
 
 
@@ -8510,6 +8486,11 @@ Create a form factor for this particle.
 ";
 
 %feature("docstring")  IParticle::createSlicedFormFactor "IFormFactor * IParticle::createSlicedFormFactor(ZLimits limits) const
+
+Create a sliced form factor for this particle. 
+";
+
+%feature("docstring")  IParticle::createSlicedParticle "SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
 
 Create a sliced form factor for this particle. 
 ";
@@ -10609,6 +10590,11 @@ Calls the  INodeVisitor's visit method.
 Create a sliced form factor for this particle. 
 ";
 
+%feature("docstring")  Particle::createSlicedParticle "SlicedParticle Particle::createSlicedParticle(ZLimits limits) const overridefinal
+
+Create a sliced form factor for this particle. 
+";
+
 %feature("docstring")  Particle::setMaterial "void Particle::setMaterial(HomogeneousMaterial material)
 ";
 
@@ -12620,6 +12606,15 @@ C++ includes: SlicedFormFactorList.h
 ";
 
 
+// File: structSlicedParticle.xml
+%feature("docstring") SlicedParticle "
+
+Struct that contains information on a sliced particle. This information is needed for evaluating the sliced form factor and the average of a material, used in the Fresnel calculations.
+
+C++ includes: SlicedParticle.h
+";
+
+
 // File: structSlicingEffects.xml
 %feature("docstring") SlicingEffects "
 
@@ -12989,39 +12984,45 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
+// File: classSSCAHelper.xml
+%feature("docstring") SSCAHelper "
+
+Helper class for  SSCApproximationStrategy, offering some methods, shared between the scalar and polarized scattering calculations
+
+C++ includes: SSCAHelper.h
+";
+
+%feature("docstring")  SSCAHelper::SSCAHelper "SSCAHelper::SSCAHelper(double kappa)
+";
+
+%feature("docstring")  SSCAHelper::init "void SSCAHelper::init(const SafePointerVector< FormFactorCoherentSum > &ff_wrappers)
+";
+
+%feature("docstring")  SSCAHelper::getCharacteristicSizeCoupling "complex_t SSCAHelper::getCharacteristicSizeCoupling(double qp, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const 
+";
+
+%feature("docstring")  SSCAHelper::getCharacteristicDistribution "complex_t SSCAHelper::getCharacteristicDistribution(double qp, const IInterferenceFunction *p_iff) const 
+";
+
+%feature("docstring")  SSCAHelper::calculatePositionOffsetPhase "complex_t SSCAHelper::calculatePositionOffsetPhase(double qp, double radial_extension) const 
+";
+
+%feature("docstring")  SSCAHelper::getMeanFormfactorNorm "complex_t SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector< complex_t > &precomputed_ff, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const 
+";
+
+%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const IInterferenceFunctionStrategy::matrixFFVector_t &precomputed_ff, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const 
+";
+
+
 // File: classSSCApproximationStrategy.xml
 %feature("docstring") SSCApproximationStrategy "
 
-Virtual base class for  SSCApproximationStrategy1 and  SSCApproximationStrategy2, which compute the total scalar/polarized scattering from a decorated layer in size-spacing correlation approximation.
+Strategy class to compute the total scattering from a particle layout in the size-spacing correlation approximation.
 
 C++ includes: SSCApproximationStrategy.h
 ";
 
-%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(double kappa)
-";
-
-
-// File: classSSCApproximationStrategy1.xml
-%feature("docstring") SSCApproximationStrategy1 "
-
-Strategy class to compute the total scalar scattering from a decorated layer in size-spacing correlation approximation.
-
-C++ includes: SSCApproximationStrategy.h
-";
-
-%feature("docstring")  SSCApproximationStrategy1::SSCApproximationStrategy1 "SSCApproximationStrategy1::SSCApproximationStrategy1(SimulationOptions sim_params, double kappa)
-";
-
-
-// File: classSSCApproximationStrategy2.xml
-%feature("docstring") SSCApproximationStrategy2 "
-
-Strategy class to compute the total polarized scattering from a decorated layer in size-spacing correlation approximation.
-
-C++ includes: SSCApproximationStrategy.h
-";
-
-%feature("docstring")  SSCApproximationStrategy2::SSCApproximationStrategy2 "SSCApproximationStrategy2::SSCApproximationStrategy2(SimulationOptions sim_params, double kappa)
+%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa, bool polarized)
 ";
 
 
@@ -13445,13 +13446,13 @@ C++ includes: ZLimits.h
 // File: namespace_0D307.xml
 
 
-// File: namespace_0D320.xml
+// File: namespace_0D322.xml
 
 
-// File: namespace_0D359.xml
+// File: namespace_0D361.xml
 
 
-// File: namespace_0D469.xml
+// File: namespace_0D473.xml
 
 
 // File: namespace_0D60.xml
@@ -14974,6 +14975,12 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 // File: SpecularMatrix_8h.xml
 
 
+// File: SSCAHelper_8cpp.xml
+
+
+// File: SSCAHelper_8h.xml
+
+
 // File: SSCApproximationStrategy_8cpp.xml
 
 
@@ -15136,6 +15143,12 @@ Global function that creates a  SlicedFormFactorList from an  IParticle in a mul
 
 Global function that creates a  SlicedFormFactorList from an  IParticle in a multilayer 
 ";
+
+
+// File: SlicedParticle_8cpp.xml
+
+
+// File: SlicedParticle_8h.xml
 
 
 // File: TRange_8h.xml

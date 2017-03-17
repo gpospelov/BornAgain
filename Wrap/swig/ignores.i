@@ -46,6 +46,12 @@
 %ignore FitSuite::getOptions();
 
 
+// ignored because it has no copy contructor/assignment
+%ignore SlicedParticle;
+%ignore IParticle::createSlicedParticle(ZLimits limits);
+%ignore Particle::createSlicedParticle(ZLimits limits);
+
+
 // extra ignores for types and methods that shouldn't be visible in Python
 %ignore FormFactorDWBAPol;
 %ignore ISampleVisitor::visit(const FormFactorDWBAPol*);
@@ -56,6 +62,5 @@
 %ignore RoughMultiLayerComputation;
 %ignore SpecularComputation;
 %ignore SlicedFormFactorList;
-
 %ignore Lattice2D::ReciprocalBases;
 %ignore Lattice2D::reciprocalBases();

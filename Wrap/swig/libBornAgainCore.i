@@ -205,6 +205,7 @@
 #include "Simulation.h"
 #include "SimulationFactory.h"
 #include "SimulationOptions.h"
+#include "SlicedParticle.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "ThreadInfo.h"

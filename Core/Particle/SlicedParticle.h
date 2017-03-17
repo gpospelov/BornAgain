@@ -19,18 +19,30 @@
 #include "IFormFactor.h"
 #include <memory>
 
-//! Struct that contains information on a homogeneous (one single material) piece of a particle
-//! inside a single layer.
+//! Struct that contains information on a single homogeneous region of a particle inside
+//! a single layer.
 //! This information is needed for calculating the average of a material, used in the Fresnel
 //! calculations.
+//!
+//! @ingroup intern
+
+struct HomogeneousRegion
+{
+    double m_volume;
+    HomogeneousMaterial m_material;
+};
+
+//! Struct that contains information on a sliced particle.
+//! This information is needed for evaluating the sliced form factor and the average of a material,
+//! used in the Fresnel calculations.
 //!
 //! @ingroup intern
 
 struct SlicedParticle
 {
     size_t m_layer_index;
-    double m_volume;
-    HomogeneousMaterial m_material;
+    std::unique_ptr<IFormFactor> mP_slicedff;
+    std::vector<HomogeneousRegion> m_regions;
 };
 
 #endif // SLICEDPARTICLE_H

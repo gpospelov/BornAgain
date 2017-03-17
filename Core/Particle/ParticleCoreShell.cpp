@@ -54,42 +54,6 @@ ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
     return p_result;
 }
 
-IFormFactor* ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const
-{
-    if (!mp_core || !mp_shell)
-        return nullptr;
-    std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
-    if (mP_rotation)
-        P_rotation.reset(mP_rotation->clone());
-
-    // core form factor
-    std::unique_ptr<Particle> P_core(mp_core->clone());
-    P_core->applyRotation(*P_rotation);
-    P_core->applyTranslation(m_position);
-    std::unique_ptr<IFormFactor> P_ff_core(P_core->createSlicedFormFactor(limits) );
-    if (!P_ff_core)
-        return nullptr;
-
-    // shell form factor
-    std::unique_ptr<Particle> P_shell(mp_shell->clone());
-    P_shell->applyRotation(*P_rotation);
-    P_shell->applyTranslation(m_position);
-    std::unique_ptr<IFormFactor> P_ff_shell(P_shell->createSlicedFormFactor(limits) );
-    if (!P_ff_shell)
-        return nullptr;
-
-    // set core ambient material (needs to be rotated separately, AFTER applying
-    // ParticleCoreShell's rotation to the clone of the shell particle)
-    const HomogeneousMaterial* p_shell_material = P_shell->material();
-    if (p_shell_material) {
-        HomogeneousMaterial transformed_material(
-                    p_shell_material->transformedMaterial(P_shell->rotation()->getTransform3D()));
-        P_ff_core->setAmbientMaterial(transformed_material);
-    }
-
-    return new FormFactorCoreShell(P_ff_core.release(), P_ff_shell.release());
-}
-
 SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
 {
     if (!mp_core || !mp_shell)

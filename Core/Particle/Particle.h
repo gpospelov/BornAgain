@@ -40,8 +40,6 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
-
     SlicedParticle createSlicedParticle(ZLimits limits) const override final;
 
     void setMaterial(HomogeneousMaterial material);

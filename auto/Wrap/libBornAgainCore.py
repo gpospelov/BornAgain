@@ -18522,18 +18522,6 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_createFormFactor(self)
 
 
-    def createSlicedFormFactor(self, limits):
-        """
-        createSlicedFormFactor(IParticle self, ZLimits limits) -> IFormFactor
-
-        IFormFactor * IParticle::createSlicedFormFactor(ZLimits limits) const
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.IParticle_createSlicedFormFactor(self, limits)
-
-
     def createSlicedParticle(self, limits):
         """
         createSlicedParticle(IParticle self, ZLimits limits) -> SlicedParticle
@@ -22078,18 +22066,6 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_accept(self, visitor)
 
 
-    def createSlicedFormFactor(self, limits):
-        """
-        createSlicedFormFactor(MesoCrystal self, ZLimits limits) -> IFormFactor
-
-        IFormFactor * MesoCrystal::createSlicedFormFactor(ZLimits limits) const overridefinal
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.MesoCrystal_createSlicedFormFactor(self, limits)
-
-
     def createSlicedParticle(self, limits):
         """
         createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
@@ -23819,18 +23795,6 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_accept(self, visitor)
 
 
-    def createSlicedFormFactor(self, limits):
-        """
-        createSlicedFormFactor(Particle self, ZLimits limits) -> IFormFactor
-
-        IFormFactor * Particle::createSlicedFormFactor(ZLimits limits) const overridefinal
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.Particle_createSlicedFormFactor(self, limits)
-
-
     def createSlicedParticle(self, limits):
         """
         createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
@@ -24144,18 +24108,6 @@ class ParticleCoreShell(IParticle):
 
         """
         return _libBornAgainCore.ParticleCoreShell_accept(self, visitor)
-
-
-    def createSlicedFormFactor(self, limits):
-        """
-        createSlicedFormFactor(ParticleCoreShell self, ZLimits limits) -> IFormFactor
-
-        IFormFactor * ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const overridefinal
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_createSlicedFormFactor(self, limits)
 
 
     def createSlicedParticle(self, limits):

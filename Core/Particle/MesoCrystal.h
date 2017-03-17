@@ -37,8 +37,6 @@ public:
 
     void accept(INodeVisitor* visitor) const override final;
 
-    IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
-
     SlicedParticle createSlicedParticle(ZLimits limits) const override final;
 
     //! @brief get the internal structure, which is in principle unbounded in

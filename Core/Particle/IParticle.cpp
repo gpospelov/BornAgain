@@ -24,12 +24,6 @@ IFormFactor* IParticle::createFormFactor() const
     return createSlicedParticle(ZLimits {}).mP_slicedff.release();
 }
 
-IFormFactor* IParticle::createSlicedFormFactor(ZLimits /*limits*/) const
-{
-    throw std::runtime_error("IParticle::createSlicedFormFactor error: "
-                             "not implemented!");
-}
-
 SlicedParticle IParticle::createSlicedParticle(ZLimits) const
 {
     throw std::runtime_error("IParticle::createSlicedParticle error: "

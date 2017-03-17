@@ -44,9 +44,6 @@ public:
     IFormFactor* createFormFactor() const;
 
     //! Create a sliced form factor for this particle
-    virtual IFormFactor* createSlicedFormFactor(ZLimits limits) const;
-
-    //! Create a sliced form factor for this particle
     virtual SlicedParticle createSlicedParticle(ZLimits limits) const;
 
     //! Returns particle position.

@@ -24,7 +24,6 @@
 #include "ScalarFresnelMap.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
-#include <iterator> // needed for back_inserter
 
 namespace
 {

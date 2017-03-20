@@ -87,7 +87,7 @@ private:
 };
 
 // Comparison operators:
-bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right);
-bool operator!=(const HomogeneousMaterial& left, const HomogeneousMaterial& right);
+BA_CORE_API_ bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right);
+BA_CORE_API_ bool operator!=(const HomogeneousMaterial& left, const HomogeneousMaterial& right);
 
 #endif // HOMOGENEOUSMATERIAL_H

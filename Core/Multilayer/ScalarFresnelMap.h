@@ -44,10 +44,7 @@ public:
     const ILayerRTCoefficients* getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;
 
-    void setMultilayer(const MultiLayer& multilayer) final override;
-
 private:
-    std::unique_ptr<MultiLayer> mP_multilayer;
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;
     mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
                                Hash2Doubles> m_hash_table;

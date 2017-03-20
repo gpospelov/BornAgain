@@ -21,9 +21,9 @@
 #include "SpecularMagnetic.h"
 
 MatrixFresnelMap::MatrixFresnelMap(const MultiLayer& multilayer)
-    : mP_multilayer(multilayer.clone())
-    , mP_inverted_multilayer(multilayer.cloneInvertB())
-{}
+{
+    setMultilayer(multilayer);
+}
 
 MatrixFresnelMap::~MatrixFresnelMap()
 {}
@@ -64,6 +64,6 @@ const ILayerRTCoefficients* MatrixFresnelMap::getInCoefficients(
 
 void MatrixFresnelMap::setMultilayer(const MultiLayer& multilayer)
 {
-    mP_multilayer.reset(multilayer.clone());
+    IFresnelMap::setMultilayer(multilayer);
     mP_inverted_multilayer.reset(multilayer.cloneInvertB());
 }

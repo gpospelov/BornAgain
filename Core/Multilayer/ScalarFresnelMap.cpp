@@ -20,8 +20,9 @@
 #include "SpecularMatrix.h"
 
 ScalarFresnelMap::ScalarFresnelMap(const MultiLayer& multilayer)
-    : mP_multilayer(multilayer.clone())
-{}
+{
+    setMultilayer(multilayer);
+}
 
 ScalarFresnelMap::~ScalarFresnelMap()
 {}
@@ -36,11 +37,6 @@ const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
     return getCoefficients(sim_element.getKi(), layer_index);
-}
-
-void ScalarFresnelMap::setMultilayer(const MultiLayer& multilayer)
-{
-    mP_multilayer.reset(multilayer.clone());
 }
 
 const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(

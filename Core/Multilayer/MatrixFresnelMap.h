@@ -45,7 +45,6 @@ public:
     void setMultilayer(const MultiLayer& multilayer) final override;
 
 private:
-    std::unique_ptr<MultiLayer> mP_multilayer;
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;
     mutable std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>,
                                HashKVector> m_hash_table_out;

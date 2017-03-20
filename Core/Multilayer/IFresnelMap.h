@@ -18,6 +18,7 @@
 
 #include "INoncopyable.h"
 #include <cstddef>
+#include <memory>
 
 class ILayerRTCoefficients;
 class MultiLayer;
@@ -43,7 +44,10 @@ public:
             const SimulationElement& sim_element, size_t layer_index) const =0;
 
     //! Sets the multilayer to be used for the Fresnel calculations.
-    virtual void setMultilayer(const MultiLayer& multilayer) =0;
+    virtual void setMultilayer(const MultiLayer& multilayer);
+
+protected:
+    std::unique_ptr<MultiLayer> mP_multilayer;
 };
 
 #endif // IFRESNELMAP_H

@@ -32,9 +32,6 @@ public:
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
-
-public slots:
-    void updateSelection();
 };
 
 #endif // INSTRUMENTSELECTORWIDGET_H

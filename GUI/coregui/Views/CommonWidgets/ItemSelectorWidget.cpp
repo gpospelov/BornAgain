@@ -61,9 +61,35 @@ void ItemSelectorWidget::setItemDelegate(QAbstractItemDelegate* delegate)
     m_listView->setItemDelegate(delegate);
 }
 
-QItemSelectionModel* ItemSelectorWidget::selectionModel() { return m_listView->selectionModel(); }
+QItemSelectionModel* ItemSelectorWidget::selectionModel()
+{
+    return m_listView->selectionModel();
+}
 
-QListView* ItemSelectorWidget::listView() { return m_listView; }
+QListView* ItemSelectorWidget::listView()
+{
+    return m_listView;
+}
+
+void ItemSelectorWidget::select(const QModelIndex& index, QItemSelectionModel::SelectionFlags command)
+{
+    selectionModel()->select(index, command);
+}
+
+//! select last item if no selection exists
+
+void ItemSelectorWidget::updateSelection()
+{
+    if (!selectionModel()->hasSelection())
+        selectLast();
+}
+
+void ItemSelectorWidget::selectLast()
+{
+    QModelIndex itemIndex = m_model->index(
+        m_model->rowCount(QModelIndex()) - 1, 0, QModelIndex());
+    selectionModel()->select(itemIndex, QItemSelectionModel::ClearAndSelect);
+}
 
 void ItemSelectorWidget::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
 {
@@ -72,6 +98,8 @@ void ItemSelectorWidget::onSelectionChanged(const QItemSelection& selected, cons
 
     if (indexes.size())
         selectedItem = m_model->itemForIndex(indexes.back());
+
+    qDebug() << "ItemSelectorWidget::onSelectionChanged" << selectedItem;
 
     emit selectionChanged(selectedItem);
 }

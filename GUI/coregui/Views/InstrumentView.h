@@ -29,6 +29,7 @@ class QItemSelection;
 class SessionItem;
 class QToolButton;
 class DetectorItem;
+class ShowEvent;
 
 class BA_CORE_API_ InstrumentView : public QWidget
 {
@@ -38,13 +39,15 @@ public:
     InstrumentView(MainWindow *mainWindow);
 
 public slots:
-    void updateView();
     void onAddInstrument();
     void onRemoveInstrument();
     void onExtendedDetectorEditorRequest(DetectorItem *detectorItem);
 
 private slots:
     void onItemSelectionChanged(SessionItem* instrumentItem);
+
+protected:
+    void showEvent(QShowEvent*);
 
 private:
     void setupActions();

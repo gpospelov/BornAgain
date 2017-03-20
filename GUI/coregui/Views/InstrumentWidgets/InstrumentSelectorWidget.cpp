@@ -23,7 +23,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidget *parent)
+InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel* model, QWidget* parent)
     : ItemSelectorWidget(parent)
 {
     setMinimumSize(128, 400);
@@ -58,13 +58,3 @@ QSize InstrumentSelectorWidget::minimumSizeHint() const
     return QSize(128, 200);
 }
 
-
-//! select last item if no selection exists
-void InstrumentSelectorWidget::updateSelection()
-{
-    if (!selectionModel()->hasSelection()) {
-        QModelIndex itemIndex = m_model->index(
-            m_model->rowCount(QModelIndex()) - 1, 0, QModelIndex());
-        selectionModel()->select(itemIndex, QItemSelectionModel::Select);
-    }
-}

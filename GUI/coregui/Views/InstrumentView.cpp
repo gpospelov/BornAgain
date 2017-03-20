@@ -57,16 +57,8 @@ InstrumentView::InstrumentView(MainWindow *mainWindow)
     if(m_instrumentModel->rowCount(QModelIndex()) == 0)
         onAddInstrument();
 
-//    updateView();
-
     connect(m_instrumentSelector, SIGNAL(selectionChanged(SessionItem*)),
             this, SLOT(onItemSelectionChanged(SessionItem*)));
-}
-
-
-void InstrumentView::updateView()
-{
-    m_instrumentSelector->updateSelection();
 }
 
 
@@ -74,19 +66,17 @@ void InstrumentView::onAddInstrument()
 {
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
-    QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
-    m_instrumentSelector->selectionModel()->clearSelection();
-    m_instrumentSelector->selectionModel()->select(itemIndex, QItemSelectionModel::Select);
+    m_instrumentSelector->updateSelection();
 }
-
 
 void InstrumentView::onRemoveInstrument()
 {
     QModelIndex currentIndex = m_instrumentSelector->selectionModel()->currentIndex();
     if(currentIndex.isValid())
         m_instrumentModel->removeRows(currentIndex.row(), 1, QModelIndex());
-}
 
+    m_instrumentSelector->updateSelection();
+}
 
 void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 {
@@ -98,6 +88,11 @@ void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem)
 {
     m_instrumentEditor->setInstrumentItem(instrumentItem);
+}
+
+void InstrumentView::showEvent(QShowEvent*)
+{
+    m_instrumentSelector->updateSelection();
 }
 
 void InstrumentView::setupActions()

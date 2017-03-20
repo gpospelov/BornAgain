@@ -19,11 +19,11 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QItemSelectionModel>
 
 class SessionModel;
 class SessionItem;
 class QItemSelection;
-class QItemSelectionModel;
 class QModelIndex;
 class QAbstractItemDelegate;
 class QListView;
@@ -46,6 +46,11 @@ public:
 
     QItemSelectionModel* selectionModel();
     QListView* listView();
+
+public slots:
+    void select(const QModelIndex &index, QItemSelectionModel::SelectionFlags command);
+    void updateSelection();
+    void selectLast();
 
 signals:
     void selectionChanged(SessionItem* item);

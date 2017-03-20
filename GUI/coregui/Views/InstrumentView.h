@@ -47,6 +47,9 @@ public slots:
     void onRowsAboutToBeRemoved(QModelIndex,int,int);
     void onExtendedDetectorEditorRequest(DetectorItem *detectorItem);
 
+private slots:
+    void onItemSelectionChanged(SessionItem* instrumentItem);
+
 private:
     void setupConnections();
     void setupActions();

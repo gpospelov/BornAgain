@@ -112,14 +112,14 @@ void InstrumentView::onAddInstrument()
     SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName(getNewInstrumentName("Default GISAS"));
     QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
-    m_instrumentSelector->getSelectionModel()->clearSelection();
-    m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
+    m_instrumentSelector->selectionModel()->clearSelection();
+    m_instrumentSelector->selectionModel()->select(itemIndex, QItemSelectionModel::Select);
 }
 
 
 void InstrumentView::onRemoveInstrument()
 {
-    QModelIndex currentIndex = m_instrumentSelector->getSelectionModel()->currentIndex();
+    QModelIndex currentIndex = m_instrumentSelector->selectionModel()->currentIndex();
     if(currentIndex.isValid())
         m_instrumentModel->removeRows(currentIndex.row(), 1, QModelIndex());
 }
@@ -153,13 +153,30 @@ void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
     dialog->show();
 }
 
-void InstrumentView::setupConnections()
+void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem)
 {
-    connect(m_instrumentSelector,
-        SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
-        this,
-        SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
-        );
+    InstrumentEditorWidget *widget = m_instrumentToEditor[instrumentItem];
+
+    if( !widget) {
+        widget = new InstrumentEditorWidget();
+        connect(widget,
+                SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
+                this,
+                SLOT(onExtendedDetectorEditorRequest(DetectorItem *))
+                );
+
+        widget->setInstrumentItem(instrumentItem);
+        m_stackWidget->addWidget(widget);
+        m_instrumentToEditor[instrumentItem] = widget;
+    }
+    m_stackWidget->setCurrentWidget(widget);
+
+}
+
+void InstrumentView::setupConnections()
+{    
+    connect(m_instrumentSelector, SIGNAL(selectionChanged(SessionItem*)),
+            this, SLOT(onItemSelectionChanged(SessionItem*)));
 
     connect(m_instrumentModel,
             SIGNAL(modelAboutToBeReset()),
@@ -210,10 +227,9 @@ void InstrumentView::setupActions()
                       "Remove currently selected instrument", this);
     connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
 
-    Q_ASSERT(m_instrumentSelector->getListView());
-    m_instrumentSelector->getListView()->setContextMenuPolicy(Qt::ActionsContextMenu);
-    m_instrumentSelector->getListView()->addAction(m_addInstrumentAction);
-    m_instrumentSelector->getListView()->addAction(m_removeInstrumentAction);
+    m_instrumentSelector->listView()->setContextMenuPolicy(Qt::ActionsContextMenu);
+    m_instrumentSelector->listView()->addAction(m_addInstrumentAction);
+    m_instrumentSelector->listView()->addAction(m_removeInstrumentAction);
 }
 
 

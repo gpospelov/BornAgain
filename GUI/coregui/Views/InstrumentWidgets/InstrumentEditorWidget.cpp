@@ -109,7 +109,9 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
 
 void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
 {
-    Q_ASSERT(instrument);
+    if(!instrument)
+        return;
+
     if(instrument != m_currentItem) {
         if(m_currentItem) {
             // TODO restore logic
@@ -135,8 +137,10 @@ void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
 //                   this,
 //                   SLOT(onPropertyChanged(QString))
 //                   );
-        updateWidgets();
+            updateWidgets();
     }
+
+
     InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);
 
     m_instrumentComponents->setInstrumentItem(instrumentItem);

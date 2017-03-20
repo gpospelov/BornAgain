@@ -15,121 +15,80 @@
 // ************************************************************************** //
 
 #include "InstrumentEditorWidget.h"
-#include "BeamEditorWidget.h"
-#include "BeamItem.h"
-#include "DetectorEditorWidget.h"
-#include "DetectorItems.h"
 #include "InstrumentComponentsWidget.h"
 #include "InstrumentItem.h"
-#include "SessionItem.h"
+#include "AdjustingScrollArea.h"
 #include <QBoxLayout>
+#include <QLabel>
 #include <QComboBox>
-#include <QEvent>
 #include <QGroupBox>
 #include <QLineEdit>
-#include <QScrollArea>
-#include <QScrollBar>
 
-
-class AdjustingScrollArea : public QScrollArea {
-    bool eventFilter(QObject * obj, QEvent * ev) {
-        if (obj == widget() && ev->type() != QEvent::Resize) {
-            widget()->setMaximumWidth(viewport()->width());
-            setMaximumHeight(height() - viewport()->height() + widget()->height());
-        }
-
-        return QScrollArea::eventFilter(obj, ev);
-    }
-
-    QSize sizeHint() const {
-        QScrollBar *horizontal = horizontalScrollBar();
-        QSize result(viewport()->width(), widget()->height()+horizontal->height()*2);
-        return result;
-    }
-public:
-    AdjustingScrollArea(QWidget * parent = 0) : QScrollArea(parent)
-    {
-        setObjectName("MyScrollArea");
-    }
-    void setWidget(QWidget *w) {
-        QScrollArea::setWidget(w);
-        w->installEventFilter(this);
-    }
-};
-
-InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
+InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     : QWidget(parent)
-    , m_nameLineEdit(new QLineEdit())
-    , m_typeComboBox(new QComboBox())
-    , m_currentItem(0)
-    , m_block_signals(false)
+    , m_nameLineEdit(new QLineEdit)
+    , m_typeComboBox(new QComboBox)
     , m_instrumentComponents(new InstrumentComponentsWidget)
+    , m_currentItem(nullptr)
+    , m_block_signals(false)
 {
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // main group box with all instrument parameters
-    QGroupBox *instrumentGroup = new QGroupBox("Instrument Parameters");
-    QVBoxLayout *instrumentGroupLayout = new QVBoxLayout;
-    instrumentGroupLayout->setContentsMargins(0,0,0,0);
+    QGroupBox* instrumentGroup = new QGroupBox("Instrument Parameters");
+    QVBoxLayout* instrumentGroupLayout = new QVBoxLayout;
+    instrumentGroupLayout->setContentsMargins(0, 0, 0, 0);
     instrumentGroup->setLayout(instrumentGroupLayout);
-
     instrumentGroupLayout->addSpacing(10);
     instrumentGroupLayout->addLayout(create_NameAndTypeLayout());
 
-    // Scroling area with insturment components
-    m_instrumentComponents->setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
-
-    AdjustingScrollArea *area = new AdjustingScrollArea;
-    area->setContentsMargins( 0, 0, 0, 0 );
-    area->setWidgetResizable(true);
-    area->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    AdjustingScrollArea* area = new AdjustingScrollArea;
     area->setWidget(m_instrumentComponents);
-    area->setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:transparent;}");
     instrumentGroupLayout->addWidget(area, 1);
     instrumentGroupLayout->addStretch();
 
     // setting main layout
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(instrumentGroup);
     setLayout(mainLayout);
 
-    connect(m_nameLineEdit,
-            SIGNAL(textChanged(const QString &)),
-            this,
-            SLOT(onChangedEditor(const QString &))
-            );
+    connect(m_nameLineEdit, SIGNAL(textChanged(const QString&)), this,
+            SLOT(onChangedEditor(const QString&)));
 
-    connect(m_instrumentComponents,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
-            this,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
-            );
+    connect(m_instrumentComponents, SIGNAL(extendedDetectorEditorRequest(DetectorItem*)), this,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem*)));
 }
 
-void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
+QSize InstrumentEditorWidget::sizeHint() const
+{
+    return QSize(600, 600);
+}
+
+void InstrumentEditorWidget::setInstrumentItem(SessionItem* instrument)
 {
     m_currentItem = instrument;
     updateWidgets();
 
-    InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);
-    if(instrumentItem)
+    InstrumentItem* instrumentItem = dynamic_cast<InstrumentItem*>(instrument);
+    if (instrumentItem)
         m_instrumentComponents->setInstrumentItem(instrumentItem);
 }
 
-void InstrumentEditorWidget::onChangedEditor(const QString &)
+void InstrumentEditorWidget::onChangedEditor(const QString&)
 {
-    if(m_block_signals)
+    if (m_block_signals)
         return;
 
-    if(m_currentItem)
+    if (m_currentItem)
         m_currentItem->setItemName(m_nameLineEdit->text());
 }
 
 //! top block with instrument name and type
-QLayout *InstrumentEditorWidget::create_NameAndTypeLayout()
+QLayout* InstrumentEditorWidget::create_NameAndTypeLayout()
 {
-    QHBoxLayout *result = new QHBoxLayout;
+    QHBoxLayout* result = new QHBoxLayout;
+
     m_nameLineEdit->setMinimumWidth(200);
     m_typeComboBox->addItem("Default GISAS Instrument");
 
@@ -148,7 +107,8 @@ QLayout *InstrumentEditorWidget::create_NameAndTypeLayout()
 void InstrumentEditorWidget::updateWidgets()
 {
     m_block_signals = true;
-    if(m_currentItem) {
+
+    if (m_currentItem) {
         m_nameLineEdit->setText(m_currentItem->itemName());
         m_nameLineEdit->setEnabled(true);
         m_typeComboBox->setEnabled(true);
@@ -157,5 +117,6 @@ void InstrumentEditorWidget::updateWidgets()
         m_nameLineEdit->setEnabled(false);
         m_typeComboBox->setEnabled(false);
     }
+
     m_block_signals = false;
 }

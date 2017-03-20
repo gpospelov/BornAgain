@@ -38,6 +38,8 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
 
     connect(m_detectorEditor, SIGNAL(extendedDetectorEditorRequest(DetectorItem*)), this,
             SIGNAL(extendedDetectorEditorRequest(DetectorItem*)));
+
+    setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 }
 
 void InstrumentComponentsWidget::setInstrumentItem(InstrumentItem* instrumentItem)

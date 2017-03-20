@@ -23,6 +23,7 @@
 #include "mainwindow.h"
 #include "DetectorItems.h"
 #include <QAction>
+#include <QLabel>
 #include <QBoxLayout>
 #include <QListView>
 #include <QStackedWidget>

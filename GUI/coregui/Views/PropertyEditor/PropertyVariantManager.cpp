@@ -131,7 +131,7 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
         return m_theScientificDoubleValues[property].getText();
     }
     if (m_theFancyGroupValues.contains(property)) {
-        return m_theFancyGroupValues[property]->getCurrentLabel();
+        return m_theFancyGroupValues[property]->currentLabel();
     }
     if (m_theComboValues.contains(property)) {
         return m_theComboValues[property].getValue();

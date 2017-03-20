@@ -9,16 +9,13 @@
 
 namespace {
     const QStringList expectedParticleParameterNames = {
-        "Particle/AnisoPyramid/Length", "Particle/AnisoPyramid/Width",
-        "Particle/AnisoPyramid/Height", "Particle/AnisoPyramid/Alpha",
-        "Particle/Abundance", "Particle/Position Offset/X",
-        "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
+        "Particle/Cylinder/Radius", "Particle/Cylinder/Height", "Particle/Abundance",
+        "Particle/Position Offset/X", "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
 
     const QStringList expectedParticleParameterTranslations = {
-        "Particle/AnisoPyramid/Length", "Particle/AnisoPyramid/Width",
-        "Particle/AnisoPyramid/Height", "Particle/AnisoPyramid/Alpha",
-        "Particle/Abundance", "Particle/PositionX",
-        "Particle/PositionY", "Particle/PositionZ"};
+        "Particle/Cylinder/Radius", "Particle/Cylinder/Height", "Particle/Abundance",
+        "Particle/PositionX", "Particle/PositionY", "Particle/PositionZ"};
+
 }
 
 class TestParameterTreeUtils : public QObject {
@@ -65,14 +62,14 @@ inline void TestParameterTreeUtils::test_linkItemFromParameterName()
 
     auto ffItem = static_cast<FormFactorItem*>(particle->getGroupItem(ParticleItem::P_FORM_FACTOR));
     Q_ASSERT(ffItem);
-    QCOMPARE(ffItem->modelType(), Constants::AnisoPyramidType);
+    QCOMPARE(ffItem->modelType(), Constants::CylinderType);
 
     QCOMPARE(
-        ffItem->getItem(AnisoPyramidItem::P_LENGTH),
-        ParameterTreeUtils::parameterNameToLinkedItem("Particle/AnisoPyramid/Length", particle));
+        ffItem->getItem(CylinderItem::P_RADIUS),
+        ParameterTreeUtils::parameterNameToLinkedItem("Particle/Cylinder/Radius", particle));
     QCOMPARE(
-        ffItem->getItem(AnisoPyramidItem::P_WIDTH),
-        ParameterTreeUtils::parameterNameToLinkedItem("Particle/AnisoPyramid/Width", particle));
+        ffItem->getItem(CylinderItem::P_HEIGHT),
+        ParameterTreeUtils::parameterNameToLinkedItem("Particle/Cylinder/Height", particle));
     QCOMPARE(particle->getItem(ParticleItem::P_POSITION)->getItem(VectorItem::P_X),
              ParameterTreeUtils::parameterNameToLinkedItem("Particle/Position Offset/X", particle));
 }

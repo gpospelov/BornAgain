@@ -181,7 +181,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     item = newItem;
 
                 } else if (item->modelType() == Constants::GroupItemType) {
-                    SessionItem *newItem = item->parent()->getGroupItem(item->parent()
+                    SessionItem *newItem = item->parent()->setGroupProperty(item->parent()
                                                 ->tagFromItem(item), model_type);
                     if (!newItem) {
                         QString message = QString("Unrecoverable read error for model '%1', "

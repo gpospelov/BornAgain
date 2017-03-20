@@ -214,17 +214,10 @@ void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& it
     QVector<SessionItem*> children = item.childItems();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::TransformationType) {
-            RotationItem* rot_item = dynamic_cast<RotationItem*>(
-                children[i]->getGroupItem(TransformationItem::P_ROT));
-            if (!rot_item) {
-                throw GUIHelpers::Error("DomainObjectBuilder::setRotationInfo() "
-                                        "-> Error! ParticleItem's child is"
-                                        " not a rotation.");
-            }
-            std::unique_ptr<IRotation> P_rotation(rot_item->createRotation());
-            if (P_rotation.get()) {
+            auto& rot_item = children[i]->groupItem<RotationItem>(TransformationItem::P_ROT);
+            std::unique_ptr<IRotation> P_rotation(rot_item.createRotation());
+            if (P_rotation)
                 result->setRotation(*P_rotation);
-            }
             break;
         }
     }

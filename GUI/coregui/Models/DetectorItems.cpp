@@ -22,8 +22,12 @@
 #include "ResolutionFunctionItems.h"
 #include "ResolutionFunction2DGaussian.h"
 
-const QString DetectorItem::T_MASKS = "Mask tag";
-const QString DetectorItem::P_RESOLUTION_FUNCTION = "Type";
+namespace {
+    const QString res_func_group_label = "Type";
+}
+
+const QString DetectorItem::T_MASKS = "Masks";
+const QString DetectorItem::P_RESOLUTION_FUNCTION = "ResolutionFunctions";
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
@@ -69,17 +73,14 @@ void DetectorItem::importMasks(MaskContainerItem* maskContainer)
 
 void DetectorItem::register_resolution_function()
 {
-    addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
-    setGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionNoneType);
+    addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup)
+            ->setDisplayName(res_func_group_label);
 }
 
 std::unique_ptr<IResolutionFunction2D> DetectorItem::createResolutionFunction() const
 {
-    auto resfuncItem
-        = dynamic_cast<ResolutionFunctionItem*>(getGroupItem(DetectorItem::P_RESOLUTION_FUNCTION));
-    Q_ASSERT(resfuncItem);
-
-    return resfuncItem->createResolutionFunction(axesToDomainUnitsFactor());
+    auto& resfuncItem = groupItem<ResolutionFunctionItem>(DetectorItem::P_RESOLUTION_FUNCTION);
+    return resfuncItem.createResolutionFunction(axesToDomainUnitsFactor());
 }
 
 void DetectorItem::addMasksToDomain(IDetector2D* detector) const

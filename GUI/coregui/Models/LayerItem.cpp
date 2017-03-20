@@ -31,7 +31,6 @@ LayerItem::LayerItem()
     addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
     addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
-    setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
     registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
     setDefaultTag(T_LAYOUTS);
 }

@@ -452,8 +452,7 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
 
     if(GroupPropertyRegistry::isValidGroup(groupType)) {
         // create group item
-        GroupProperty_t group_property
-            = GroupPropertyRegistry::createGroupProperty(groupName, groupType);
+        GroupProperty_t group_property = GroupPropertyRegistry::createGroupProperty(groupType);
         GroupItem *groupItem = dynamic_cast<GroupItem *>(
                     ItemFactory::createItem(Constants::GroupItemType));
         Q_ASSERT(groupItem);
@@ -477,33 +476,18 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
     return result;
 }
 
-//! Access subitem of group item. If not existing, new item will be created by group property.
-//! Returns new item, but preserves current type of GroupItem (where it used FIXME?).
+//! Access subitem of group item.
 
-SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type) const
+SessionItem *SessionItem::getGroupItem(const QString &groupName) const
 {
-    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
-        GroupProperty_t group_property = item->groupProperty();
-        if (type.isEmpty()) {
-            return group_property->currentItem();
-        }
-        QString backup = group_property->currentType();
-        group_property->setCurrentType(type);
-        SessionItem *value = group_property->currentItem();
-        group_property->setCurrentType(backup);
-        return value;
-    }
-    return nullptr;
+    return item<GroupItem>(groupName).currentItem();
 }
 
 //! Set the current type of group item.
 
 SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
 {
-    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name)))
-        return item->setCurrentType(value);
-
-    return nullptr;
+    return item<GroupItem>(name).setCurrentType(value);
 }
 
 //! Returns corresponding variant under given role, invalid variant when role is not present.

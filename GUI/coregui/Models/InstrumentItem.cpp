@@ -36,7 +36,6 @@ InstrumentItem::InstrumentItem()
     addGroupProperty(P_BEAM, Constants::BeamType);
 
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
-    setGroupProperty(P_DETECTOR, Constants::SphericalDetectorType);
 
     setDefaultTag(P_DETECTOR);
 }
@@ -48,9 +47,7 @@ BeamItem *InstrumentItem::beamItem() const
 
 DetectorItem* InstrumentItem::detectorItem() const
 {
-    DetectorItem* result = dynamic_cast<DetectorItem*>(getGroupItem(P_DETECTOR));
-    Q_ASSERT(result);
-    return result;
+    return &groupItem<DetectorItem>(P_DETECTOR);
 }
 
 GroupItem* InstrumentItem::detectorGroup()
